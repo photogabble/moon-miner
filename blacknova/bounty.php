@@ -27,7 +27,7 @@ $playerinfo = $res->fields;
 switch($response) {
    case "display":
       bigtitle();
-      $res5 = $db->Execute("SELECT * FROM $dbtables[ships],$dbtables[bounty] WHERE bounty_on = ship_id");
+      $res5 = $db->Execute("SELECT * FROM $dbtables[ships],$dbtables[bounty] WHERE bounty_on = ship_id AND bounty_on = $bounty_on");
       $j = 0;
       if($res5)
       {
