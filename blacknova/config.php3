@@ -23,6 +23,7 @@ $sched_planets = 2;  //How often planet production occurs
 $sched_IGB = 2;      //How often IGB interests are added
 $sched_ranking = 30; //How often rankings will be generated
 $sched_news = 15;    //How often news are generated
+$sched_degrade = 6;  //How often sector fighters degrade when unsupported by a planet
 
 /* Scheduler config end */
 
