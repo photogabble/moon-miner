@@ -29,7 +29,7 @@ $allow_ibank = false;                  // Intergalactic Bank (IGB)
 // iBank Config - Intergalactic Banking
 // Trying to keep ibank constants unique by prefixing with $ibank_ 
 // Please EDIT the following variables to your liking.
-$ibank_owner = 0;			// Use 0 for no human player or ID of Owner of IGB some thrusted player or admin.
+$ibank_owner = 0;			// Use 0 for no human player or ID of Owner of IGB some trusted player or admin.
 $ibank_interest = 0.01;			// Interest rate for account funds
 $ibank_paymentfee = 0.005; 		// Paymentfee
 $ibank_loaninterest = 0.008;		// Loan interest i.e 8%
@@ -97,6 +97,7 @@ $start_credits=1000;
 $start_energy=100;
 $start_turns=200;
 $max_turns=600;
+$max_emerwarp=10;
 
 $fullscan_cost = 1;
 

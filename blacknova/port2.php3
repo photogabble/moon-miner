@@ -78,6 +78,8 @@ else
     {
       $shields_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[shields]));
     }
+    
+    
     $fighter_number = round(abs($fighter_number));
     $fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
     if($fighter_max < 0)
@@ -123,7 +125,7 @@ else
     $dev_genesis_cost = $dev_genesis_number * $dev_genesis_price;
     $dev_beacon_number = round(abs($dev_beacon_number));
     $dev_beacon_cost = $dev_beacon_number * $dev_beacon_price;
-    $dev_emerwarp_number = round(abs($dev_emerwarp_number));
+    $dev_emerwarp_number = min(round(abs($dev_emerwarp_number)), $max_emerwarp - $playerinfo[dev_emerwarp]);
     $dev_emerwarp_cost = $dev_emerwarp_number * $dev_emerwarp_price;
     $dev_warpedit_number = round(abs($dev_warpedit_number));
     $dev_warpedit_cost = $dev_warpedit_number * $dev_warpedit_price;

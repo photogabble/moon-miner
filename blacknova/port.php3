@@ -155,8 +155,8 @@ elseif($sectorinfo[port_type] == "special")
   echo "<FORM ACTION=port2.php3 METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\">";
-  echo "<TD><B>Device</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Quantity</B></TD>";
-  echo "<TD><B>Component Levels</B></TD><TD><B>Cost</B></TD><TD><B>Current Level</B></TD><TD><B>Upgrade?</B></TD>";
+  echo "<TD><B>Device</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD>";
+  echo "<TD><B>Component Levels</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Upgrade?</B></TD>";
   echo "</TR>";
   $hull_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[hull]));
   $engine_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[engines]));
@@ -169,38 +169,48 @@ elseif($sectorinfo[port_type] == "special")
   $torp_launchers_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, $playerinfo[torp_launchers]));
   $shields_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, $playerinfo[shields]));
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD>Genesis Devices</TD><TD>" . NUMBER($dev_genesis_price) . "</TD><TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Genesis Devices</TD><TD>" . NUMBER($dev_genesis_price) . "</TD><TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD><TD>Unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
   echo "<TD>Hull</TD><TD>" . NUMBER($hull_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[hull]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=hull_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Space Beacons</TD><TD>" . NUMBER($dev_beacon_price) . "</TD><TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Space Beacons</TD><TD>" . NUMBER($dev_beacon_price) . "</TD><TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD><TD>Unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
   echo "<TD>Engines</TD><TD>" . NUMBER($engine_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[engines]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=engine_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD>Emergency Warp Devices</TD><TD>" . NUMBER($dev_emerwarp_price) . "</TD><TD>" . NUMBER($playerinfo[dev_emerwarp]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Emergency Warp Devices</TD><TD>" . NUMBER($dev_emerwarp_price) . "</TD><TD>" . NUMBER($playerinfo[dev_emerwarp]) . "</TD><TD>";
+  $avail_emerwarp = $max_emerwarp - $playerinfo[dev_emerwarp];
+  if($avail_emerwarp > 0)
+  {
+    echo NUMBER($avail_emerwarp) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 VALUE=0>";
+  }
+  else
+  {
+    echo "0</TD><TD>Full</TD>";
+  }
+  echo "</TD>";
   echo "<TD>Power</TD><TD>" . NUMBER($power_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[power]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=power_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Warp Editors</TD><TD>" . NUMBER($dev_warpedit_price) . "</TD><TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Warp Editors</TD><TD>" . NUMBER($dev_warpedit_price) . "</TD><TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD>Unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
   echo "<TD>Computer</TD><TD>" . NUMBER($computer_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[computer]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=computer_upgrade value=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD></TD><TD></TD><TD></TD><TD></TD>";
+  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>";
   echo "<TD>Sensors</TD><TD>" . NUMBER($sensors_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[sensors]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=sensors_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Mine Deflector</TD><TD>" . NUMBER($dev_minedeflector_price) . "</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Mine Deflector</TD><TD>" . NUMBER($dev_minedeflector_price) . "</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD>Unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
   echo "<TD>Beam Weapons</TD><TD>" . NUMBER($beams_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[beams]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=beams_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
   echo "<TD>Escape Pod</TD><TD>" . NUMBER($dev_escapepod_price) . "</TD>";
   if($playerinfo[dev_escapepod] == "N") 
   {
-    echo "<TD>None</TD><TD><INPUT TYPE=CHECKBOX NAME=escapepod_purchase value=1></TD>";
+    echo "<TD>None</TD><TD></TD><TD><INPUT TYPE=CHECKBOX NAME=escapepod_purchase value=1></TD>";
   }
   else
   {
-    echo "<TD>Equipped</TD><TD>n/a</TD>";
+    echo "<TD>Equipped</TD><TD></TD><TD>n/a</TD>";
   }
   echo "<TD>Armour</TD><TD>" . NUMBER($armour_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[armour]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=armour_upgrade VALUE=1></TD>";
   echo "</TR>";
@@ -208,19 +218,19 @@ elseif($sectorinfo[port_type] == "special")
   echo "<TD>Fuel Scoop</TD><TD>" . NUMBER($dev_fuelscoop_price) . "</TD>";
   if($playerinfo[dev_fuelscoop] == "N") 
   {
-    echo "<TD>None</TD><TD><INPUT TYPE=CHECKBOX NAME=fuelscoop_purchase value=1></TD>";
+    echo "<TD>None</TD><TD></TD><TD><INPUT TYPE=CHECKBOX NAME=fuelscoop_purchase value=1></TD>";
   }
   else
   {
-    echo "<TD>Equipped</TD><TD>n/a</TD>";
+    echo "<TD>Equipped</TD><TD></TD><TD>n/a</TD>";
   }
   echo "<TD>Cloak</TD><TD>" . NUMBER($cloak_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[cloak]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=cloak_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD>Torpedo Launchers</TD><TD>" . NUMBER($torp_launchers_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[torp_launchers]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=torp_launchers_upgrade VALUE=1></TD>";
+  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>Torpedo Launchers</TD><TD>" . NUMBER($torp_launchers_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[torp_launchers]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=torp_launchers_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD>Shields</TD><TD>".NUMBER($shields_upgrade_cost)."</TD><TD>" . NUMBER($playerinfo[shields]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=shields_upgrade VALUE=1></TD>";
+  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD>Shields</TD><TD>".NUMBER($shields_upgrade_cost)."</TD><TD>" . NUMBER($playerinfo[shields]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=shields_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "</TABLE>";
   echo "<BR>";
