@@ -481,6 +481,7 @@ if($sectorinfo[planet] == 'Y')
           echo "<BR>Planet defeated.<BR><BR>";
           echo "You may <a href=planet.php3?command=capture>capture</a> the planet, <a href=planet.php3?command=destroy>destroy</a> it, or just leave it undefended.<BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+          gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE universe SET planet_fighters=0, base_torp=base_torp-$planettorpnum, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
         }
         else
@@ -488,6 +489,7 @@ if($sectorinfo[planet] == 'Y')
           echo "<BR>Planet not defeated.<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.");
+          gen_score($ownerinfo[ship_id]);
           $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum WHERE sector_id=$sectorinfo[sector_id]");
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
@@ -927,6 +929,7 @@ if($sectorinfo[planet] == 'Y')
           echo "<BR>Planet defeated.<BR><BR>";
           echo "You may <a href=planet.php3?command=capture>capture</a> the planet, <a href=planet.php3?command=destroy>destroy</a> it, or just leave it undefended.<BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+          gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE universe SET planet_fighters=0, base_torp=base_torp-$planettorpnum, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
         }
         else
@@ -934,6 +937,7 @@ if($sectorinfo[planet] == 'Y')
           echo "<BR>Planet not defeated.<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.");
+          gen_score($ownerinfo[ship_id]);
           $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum WHERE sector_id=$sectorinfo[sector_id]");
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
@@ -1111,6 +1115,7 @@ if($sectorinfo[planet] == 'Y')
       if($sectorinfo[planet_owner] != "")
       {
         playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was destroyed by $playerinfo[character_name].");
+        gen_score($ownerinfo[ship_id]);
       }
     }
     elseif($command == "capture" && $sectorinfo[planet_defeated] && $sectorinfo[planet_fighters] == 0)
@@ -1120,6 +1125,7 @@ if($sectorinfo[planet] == 'Y')
       if($sectorinfo[planet_owner] != "")
       {       
         playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was captured by $playerinfo[character_name].");
+        gen_score($ownerinfo[ship_id]);
       }
     }
     elseif($command == "capture" || $command == "destroy")

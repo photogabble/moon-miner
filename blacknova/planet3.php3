@@ -67,6 +67,7 @@
 		}
 	} 
 
+    gen_score($sector_info[planet_owner]);
 	echo "Click <a href=main.php3>here</a> to return to main menu.";
 	include("footer.php3");
 

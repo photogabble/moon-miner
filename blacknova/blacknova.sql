@@ -65,6 +65,7 @@ CREATE TABLE ships (
    preset2 bigint(20) DEFAULT '0' NOT NULL,
    preset3 bigint(20) DEFAULT '0' NOT NULL,
    rating smallint DEFAULT '0' NOT NULL,
+   score bigint(20) DEFAULT '0' NOT NULL,
    PRIMARY KEY (ship_id),
    KEY ship_id (ship_id),
    UNIQUE ship_id_2 (ship_id)

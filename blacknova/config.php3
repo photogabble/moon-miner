@@ -162,8 +162,58 @@ function updatecookie()
 function playerlog($sid,$log_entry)
 {
   /* write log_entry to the player's log - identified by player's ship_id - sid. */
+  $log_entry=date("l dS of F Y h:i:s A") . ":  " . $log_entry;
   $plog=fopen("player-log/".$sid,"a");
   fwrite($plog,"$log_entry <BR><BR>");
   fclose($plog);
 }
+
+function gen_score($sid)
+{
+  global $ore_price;
+  global $organics_price;
+  global $goods_price;
+  global $energy_price;
+  global $upgrade_cost;
+  global $upgrade_factor;
+  global $dev_genesis_price;
+  global $dev_beacon_price;
+  global $dev_emerwarp_price;
+  global $dev_warpedit_price;
+  global $dev_minedeflector_price;
+  global $dev_escapepod_price;
+  global $dev_fuelscoop_price;
+  global $fighter_price;
+  global $torpedo_price;
+  global $armour_price;
+  global $colonist_price;
+  global $base_ore;
+  global $base_goods;
+  global $base_organics;
+  global $base_credits;
+  
+  /* Generate a score for a player - store it in the database - and return it as text as well. */
+  $result1 = mysql_query("SELECT * FROM ships WHERE ship_id=$sid");
+  $playerinfo=mysql_fetch_array($result1);
+  $score=round($playerinfo[credits]+$upgrade_cost*(pow($playerinfo[hull],$upgrade_factor)+pow($playerinfo[engines],$upgrade_factor)+pow($playerinfo[power],$upgrade_factor)+pow($playerinfo[computers],$upgrade_factor)+pow($playerinfo[sensors],$upgrade_factor)+pow($playerinfo[beams],$upgrade_factor)+pow($playerinfo[torp_launchers],$upgrade_factor)+pow($playerinfo[armour],$upgrade_factor)+pow($playerinfo[cloak],$upgrade_factor)+pow($playerinfo[shields],$upgrade_factor))+$playerinfo[ship_fighters]*$fighter_price+$playerinfo[torps]*$torpedo_price+$playerinfo[armour_pts]*$armour_price/1000+$playerinfo[dev_minedeflectors]*dev_minedefelctor_price+$playerinfo[dev_warpedit]*$dev_warpedit_price+$playerinfo[dev_beacon]*$dev_beacon_price+$playerinfo[dev_genesis]*$dev_genesis_price+$playerinfo[dev_emerwarp]*$dev_emerwarp_price+$playerinfo[ship_ore]*$ore_price+$playerinfo[ship_organics]*$organics_price+$playerinfo[ship_goods]*$goods_price+$playerinfo[ship_energy]*$energy_price)/1000;
+  if($playerinfo[dev_escapepod] == "Y")
+  {
+    $score = $score + $dev_escapepod_price / 1000;
+  }
+  if($playerinfo[dev_fuelscoop] == "Y")
+  {
+    $score = $score + $dev_fuelscoop_price / 1000;
+  }
+  $result2 = mysql_query("SELECT * from universe WHERE planet_owner=$sid");
+  while($planet = mysql_fetch_array($result2))
+  {
+    $score=$score+round(($planet[planet_organics]*$organics_price+$planet[planet_ore]*$ore_price+$planet[planet_goods]*$goods_price+$planet[planet_energy]*$energy_price+$planet[planet_credits]+$planet[planet_colonists]*$colonist_price+$planet[planet_fighters]*$fighter_price+$planet[base_torp]*torpedo_price)/1000);
+    if ($planet[base]=="Y") {$score=$score+round(($base_ore*$ore_price+$base_goods*$goods_price+$base_goods*$goods_price+$base_credits)/1000);}
+  }
+  $update = mysql_query("UPDATE ships SET score=$score WHERE ship_id=$sid");
+  mysql_free_result($result1);
+  mysql_free_result($result2);
+  return $score;
+}
+
 ?>

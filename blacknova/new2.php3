@@ -40,7 +40,7 @@ if ($flag==0)
     }
   }
   $stamp=date("Y-m-d H:i:s");
-  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0)");
+  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,0)");
   if(!$result2) {
     echo mysql_errno(). ": ".mysql_error(). "<br>";
   } else {
