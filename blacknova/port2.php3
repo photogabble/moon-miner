@@ -350,14 +350,14 @@ else
     if($sectorinfo[port_type] == "energy")
     {
       $energy_price = $energy_price - $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
-      $trade_color   = $color_green;
+      $trade_color   = $color_red;
       $trade_result  = $trade_deficit;
     }
     else
     {
       $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
       $trade_energy = -$trade_energy;
-      $trade_color  = $color_red ;
+      $trade_color  = $color_green ;
       $trade_result  = $trade_benefit;
 
     }
