@@ -902,12 +902,12 @@ function furangeetrade()
   $zonerow = $zoneres->fields;
 
   // Debug info
-  // playerlog($playerinfo[ship_id], LOG_RAW, "PORT $sectorinfo[port_type] ALLOW_TRADE $zonerow[2] ORE $playerinfo[ship_ore] ORGAN $playerinfo[ship_organics] GOODS $playerinfo[ship_goods] CREDITS $playerinfo[credits] "); 
+  playerlog($playerinfo[ship_id], LOG_RAW, "PORT $sectorinfo[port_type] ALLOW_TRADE $zonerow[allow_trade] PORE $sectorinfo[port_ore] PORG $sectorinfo[port_organics] PGOO $sectorinfo[port_goods] ORE $playerinfo[ship_ore] ORG $playerinfo[ship_organics] GOO $playerinfo[ship_goods] CREDITS $playerinfo[credits] "); 
 
   // *********************************
   // ** MAKE SURE WE CAN TRADE HERE **
   // *********************************
-  if ($zonerow[2]=="N") return;
+  if ($zonerow[allow_trade]=="N") return;
 
   // *********************************
   // ** CHECK FOR A PORT WE CAN USE **
@@ -923,6 +923,9 @@ function furangeetrade()
   if($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
   if($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
   if($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
+  if($sectorinfo[port_ore] <= 0) return;
+  if($sectorinfo[port_organics] <= 0) return;
+  if($sectorinfo[port_goods] <= 0) return;
 
   // *********************************
   // ** CHECK FURANGEE CREDIT/CARGO **
