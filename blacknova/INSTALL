@@ -27,7 +27,11 @@ BlackNova Traders - Installation
    users to see how long it has been since the last update. 
    The genrank.php3 line creates ranking.php3 for users to see the top 100
    rankings in order to lessen load on the server.
-7. Hopefully - it works now. :)
+7. Create a directory in the blacknova directory called player-log.  It should
+   be given read-write-execute permissions so the user that your webserver 
+   runs as can modify the files in player-log and delete files from that
+   directory.
+8. Hopefully - it works now. :)
 
 If you need help with the game itself - visit http://blacknova.net and
 check out our forums.
@@ -39,5 +43,3 @@ game - check there, and submit bugs there.
 Regards,
 
 Ron <harwoodr@blacknova.net>
-
-
