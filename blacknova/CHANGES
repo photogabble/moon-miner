@@ -1,3 +1,11 @@
+nospoon (11 September 2001)
+---------------------------
+
+Fixed bug #460170 - duplicate links could be created in create_universe.php3
+          #460084 - schema created with null values in key fields
+Added ability to deploy mines and sector fighters (no support for sector fighters attacking yet).
+
+
 nospoon (07 September 2001)
 ---------------------------
 
