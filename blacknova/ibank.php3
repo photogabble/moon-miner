@@ -390,7 +390,7 @@ function ibank_display_ownaccount()
 
 function ibank_display_transfers()
 {
-  global $username,$playerinfo,$account,$payto,$amount,$confirmed,$ibank_paymentfee,$direction;
+  global $username,$playerinfo,$account,$payto,$amount,$confirmed,$ibank_paymentfee,$direction,$account;
   if(!isset($payto)) {
     $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id] ORDER BY planet_name ASC");
   } else {
@@ -437,7 +437,7 @@ function ibank_display_transfers()
     $totalamount = round($fee + $amount);
     
 
-    if(isset($confirmed) && ($totalamount<$playerinfo[credits]))
+    if(isset($confirmed) && ($totalamount<$account[ballance]))
     {
       // Payment is confirmed
       // Lets actually do it
