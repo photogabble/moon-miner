@@ -35,9 +35,9 @@ elseif($sure == 2)
   echo "5.. 4.. 3.. 2.. 1.. Boom!<BR>";
   echo "You ship and all aboard have been vaporized.<BR><BR>";
   echo "Please, <A HREF=logout.php3>logout</A>.<BR>";
-  unlink("player-log/" . $playerinfo[ship_id]);
-  mysql_query("UPDATE universe SET planet_owner='' where planet_owner=$playerinfo[ship_id]");
+  db_kill_player($playerinfo['ship_id']);
   mysql_query("DELETE FROM ships WHERE ship_id=$playerinfo[ship_id]");
+  unlink("player-log/" . $playerinfo[ship_id]);
   playerlog(0,"$playerinfo[character_name] (at $ip) self-destructed.");
 }
 else
