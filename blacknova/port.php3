@@ -64,48 +64,74 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
     $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
     $sb_energy = "Buying";
   }
-  echo "<FORM ACTION=port2.php3 METHOD=POST>";
-  
-  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Buying/Selling</B></TD><TD><B>Amount</B></TD><TD><B>Price</B></TD><TD><B>Buy/Sell</B></TD><TD><B>Cargo</B></TD></TR>";
+  // establish default amounts for each commodity
   if($sb_ore == "Buying")
   {
-    $amount = $playerinfo[ship_ore];
+    $amount_ore = $playerinfo[ship_ore];
   }
   else
   {
-    $amount = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
+    $amount_ore = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
   }
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD>$sb_ore</TD><TD>" . NUMBER($sectorinfo[port_ore]) . "</TD><TD>$ore_price</TD><TD><INPUT TYPE=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 VALUE=$amount></TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD></TR>";
   if($sb_organics == "Buying")
   {
-    $amount = $playerinfo[ship_organics];
+    $amount_organics = $playerinfo[ship_organics];
   }
   else
   {
-    $amount = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
+    $amount_organics = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
   }
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo[port_organics]) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount></TD><TD>" . NUMBER($playerinfo[ship_organics]) . "</TD></TR>";
   if($sb_goods == "Buying")
   {
-    $amount = $playerinfo[ship_goods];
+    $amount_goods = $playerinfo[ship_goods];
   }
   else
   {
-    $amount = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $amount_goods = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
   }
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo[port_goods]) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount></TD><TD>" . NUMBER($playerinfo[ship_goods]) . "</TD></TR>";
   if($sb_energy == "Buying")
   {
-    $amount = $playerinfo[ship_energy];
+    $amount_energy = $playerinfo[ship_energy];
   }
   else
   {
-    $amount = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
+    $amount_energy = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
   }
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo[port_energy]) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount></TD><TD>" . NUMBER($playerinfo[ship_energy]) . "</TD></TR>";
+
+  // limit amounts to port quantities
+  $amount_ore = min($amount_ore, $sectorinfo[port_ore]);
+  $amount_organics = min($amount_organics, $sectorinfo[port_organics]);
+  $amount_goods = min($amount_goods, $sectorinfo[port_goods]);
+  $amount_energy = min($amount_energy, $sectorinfo[port_energy]);
+
+  // limit amounts to what the player can afford
+  if($sb_ore == "Selling")
+  {
+    $amount_ore = min($amount_ore, round(($playerinfo[credits] + $amount_organics * $organics_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $ore_price));
+  }
+  if($sb_organics == "Selling")
+  {
+    $amount_organics = min($amount_organics, round(($playerinfo[credits] + $amount_ore * $ore_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $organics_price));
+  }  
+  if($sb_goods == "Selling")
+  {
+    $amount_goods = min($amount_goods, round(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_energy * $energy_price) / $goods_price));
+  }  
+  if($sb_energy == "Selling")
+  {
+    $amount_energy = min($amount_energy, round(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
+  }  
+  
+  echo "<FORM ACTION=port2.php3 METHOD=POST>";
+  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Buying/Selling</B></TD><TD><B>Amount</B></TD><TD><B>Price</B></TD><TD><B>Buy/Sell</B></TD><TD><B>Cargo</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD>$sb_ore</TD><TD>" . NUMBER($sectorinfo[port_ore]) . "</TD><TD>$ore_price</TD><TD><INPUT TYPE=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 VALUE=$amount_ore></TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo[port_organics]) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount_organics></TD><TD>" . NUMBER($playerinfo[ship_organics]) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo[port_goods]) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount_goods></TD><TD>" . NUMBER($playerinfo[ship_goods]) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo[port_energy]) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount_energy></TD><TD>" . NUMBER($playerinfo[ship_energy]) . "</TD></TR>";
   echo "</TABLE><BR>";
-  echo "<INPUT TYPE=SUBMIT VALUE=Trade></FORM>";
+  echo "<INPUT TYPE=SUBMIT VALUE=Trade>";
+  echo "</FORM>";
   
   $free_holds = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
   $free_power = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
