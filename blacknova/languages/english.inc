@@ -293,4 +293,45 @@ $l_nav_answ1		 = "It will take you";
 $l_nav_answ2		 = "turns to get to this sector.";
 $l_nav_proper		 = "Your computer technology is too primitive to compute a warp route to that distance.";
 
+
+// attack.php
+
+$l_att_title		 = "Attack Ship";
+$l_att_notarg		 = "Target not in this sector.";
+$l_att_noturn		 = "You need at least one turn to attack.";
+$l_att_noatt		 = "Attacking someone in this sector is not permitted.";
+$l_att_flee		 = "Target out maneuvered you!";
+$l_att_fleelog		 = "attempted to attack your ship, but your ship was faster.";
+$l_att_scnlog		 = "attempted to attack your ship, but could not lock weapons.";
+$l_att_ewdlog		 = "[name] in sector [sector] attempted to attack your ship, Your Emergency Warp Engaged.";
+$l_att_ewd		 = "Target engaged an emergency warp device when attacked!";
+$l_att_ewdfail		 = "Your emergency warp drive failed to engage when [name] in sector [sector] attacked you.";
+$l_att_att		 = "Attacking ";
+$l_att_beams		 = "Beams hit:";
+$l_att_torps		 = "Torpedos hit:";
+$l_att_fighters		 = "Fighters Attack:";
+$l_att_lost		 = "lost";
+$l_att_ylost		 = "You lost";
+$l_att_sdown		 = "'s shields are down!";
+$l_att_ydown		 = "Your shields are down!";
+$l_att_shits		 = "'s shields are hit for";
+$l_att_yhits		 " "Your shields are hit for";
+$l_att_dmg		 = "damage";
+$l_att_sarm		 = "'s armour breached!";
+$l_att_yarm		 = "Your armour has been breached!";
+$l_att_ashit		 = "'s armour is hit for";
+$l_att_ayhit		 = "Your armour is hit for";
+$l_att_lostf		 = "lost all fighters.";
+$l_att_ylostf		 = "You lost all fighters.";
+$l_att_sdest		 = "'s ship has been destroyed.";
+$l_att_espod		 = "An escape pod was launched!";
+$l_att_looser		 = "attacked you, and destroyed your ship!";
+$l_att_loosepod		 = "Luckily you had an escape pod!";
+$l_att_ysalv		 = "You salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits.<BR>Your rating changed by [rating_change] points.";
+$l_att_andused		 = "and used";
+$l_att_stilship		 = "You did not destory [name]'s ship.";
+$l_att_atyou		 = "attacked you";
+$l_att_and		 = "and";
+$l_att_yshiplost	 = "Your ship has been destroyed!";
+$l_att_salv		 = "[name] salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits";
 ?>
