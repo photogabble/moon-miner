@@ -11,7 +11,7 @@ include("header.php3");
 connectdb();
 bigtitle();
 
-$res = mysql_query("SELECT character_name,last_login FROM ships ORDER BY last_login DESC");
+$res = mysql_query("SELECT character_name,last_login FROM ships ORDER BY last_login DESC LIMIT $max_last");
 if($res)
 {
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
