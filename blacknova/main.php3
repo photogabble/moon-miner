@@ -243,7 +243,7 @@ echo "<TD>RealSpace <A HREF=preset.php3>Presets</A>:</TD>";
 echo "<TD>&nbsp;&nbsp;[<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>], <A HREF=rsmove.php3>Other</A></TD>";
 echo "</TR>";
 echo "<TR>";
-echo "<TD>Trade Routes:</TD>";
+echo "<TD>Trade routes:</TD>";
 echo "<TD>&nbsp;&nbsp;[<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>], <A HREF=traderoute.php3>Other</A></TD>";
 echo "</TR>";
 echo "</TABLE><BR>";
