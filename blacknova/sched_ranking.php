@@ -13,5 +13,6 @@
     $res->MoveNext();
   }
   echo "<BR>";
+  $multiplier = 0;
 
 ?>

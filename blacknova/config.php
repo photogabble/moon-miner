@@ -210,6 +210,7 @@ $bounty_ratio = 0.75; // ratio of players networth before attacking results in a
 $bounty_minturns = 500; // Minimum number of turns a target must have had before attacking them may not get you a bounty. 0=disable
 $display_password = false; // If true, will display password on signup screen.
 $space_plague_kills = 0.20; // Percentage of colonists killed by space plague
+$sched_type = 0; // 0 = Cron based, 1 = player triggered.
 
 include("global_funcs.php");
 ?>

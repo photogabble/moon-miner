@@ -278,6 +278,7 @@ $db->Execute("CREATE TABLE $dbtables[scheduler](" .
              "spawn bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "file varchar(30) NOT NULL," .
              "extra_info varchar(50) NOT NULL," .
+             "last_run BIGINT(20)," .
              "PRIMARY KEY (sched_id)" .
              ")");
 echo "created.<BR>";

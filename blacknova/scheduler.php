@@ -1,5 +1,4 @@
 <?
-
 /******************************************************************
 * Explanation of the scheduler                                    *
 *                                                                 *
@@ -47,7 +46,8 @@
 * End of scheduler explanation                                    *
 ******************************************************************/
 
-include("config.php");
+require_once("config.php");
+if ($sched_type == 1) ob_start();
 $title="System Update";
 
 include("header.php");
@@ -55,7 +55,7 @@ connectdb();
 
 bigtitle();
 
-include("sched_funcs.php");
+require_once("sched_funcs.php");
 
 srand((double)microtime() * 1000000);
 
@@ -103,4 +103,5 @@ else
   }
   
   include("footer.php");
+  if($sched_type == 1) ob_end_clean();
 }

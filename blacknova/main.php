@@ -23,6 +23,29 @@ connectdb();
 
 $title=$l_main_title;
 include("header.php");
+if($sched_type==1)
+{ 
+   $lastrun = time(); 
+   $res = $db->Execute("SELECT last_run FROM $dbtables[scheduler] LIMIT 1"); 
+   $result = $res->fields;
+   $sched_counter = floor((TIME()-$result[last_run])/ ($sched_ticks*60)); 
+   if ($sched_counter < 0) $sched_counter = 0; 
+   if ($sched_counter > 5) $sched_counter = 5; 
+   if ($sched_counter > 0) 
+   { 
+      $secs = $sched_counter * $sched_ticks * 60; 
+      $db->Execute("UPDATE $dbtables[scheduler] SET last_run=last_run+$secs"); 
+      $sched_temp=$swordfish; 
+      $swordfish=$adminpass; 
+      for (; $sched_counter > 0; $sched_counter--) 
+      { 
+
+         include("scheduler.php"); 
+      } 
+      $swordfish=$sched_temp; 
+      unset($sched_temp); 
+   } 
+} 
 
 
 
