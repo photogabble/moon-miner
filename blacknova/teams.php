@@ -1,7 +1,4 @@
 <?
-/* (c) 2001 Michael Scalet - vran@jlbbooks.it
-// Version 1.0 - 20010530
-*/
 	include("config.php3");
 	updatecookie();
 
