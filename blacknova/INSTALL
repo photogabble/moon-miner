@@ -6,9 +6,11 @@ INSTALLATION
 1. Untar the distribution (be sure to untar the subdirectories):
    tar xvf bnt-x.x.x.tar
 
-2. Type the following:
-   chmod u+x installscript
-   ./installscript
+2. Type the following for a menu based configuration:
+	chmod u+x installscript
+   	./installscript
+   Or, for a manual configuration simply edit the config_local.php3
+   file to your own settings and manually update your cron file.
 
 3. Create the database:
    mysqladmin -uuser -ppass create dbname
