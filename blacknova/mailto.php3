@@ -30,7 +30,7 @@ if(empty($content))
   }
   mysql_free_result($res);
   echo "</SELECT></TD></TR>";
-  echo "<TR><TD>From:</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name] - $playerinfo[email]\"></TD></TR>";
+  echo "<TR><TD>From:</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD></TR>";
   echo "<TR><TD>Subject:</TD><TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40></TD></TR>";
   echo "<TR><TD>Message:</TD><TD><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></TD></TR>";
   echo "<TR><TD></TD><TD><INPUT TYPE=SUBMIT VALUE=Send><INPUT TYPE=RESET VALUE=Clear></TD>";
