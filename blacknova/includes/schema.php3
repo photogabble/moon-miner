@@ -20,6 +20,7 @@ mysql_query("DROP TABLE IF EXISTS zones");
 mysql_query("DROP TABLE IF EXISTS messages");
 mysql_query("DROP TABLE IF EXISTS furangee");
 mysql_query("DROP TABLE IF EXISTS sector_defence");
+mysql_query("DROP TABLE IF EXISTS scheduler");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema
@@ -248,7 +249,7 @@ mysql_query("CREATE TABLE messages (" .
              ") TYPE=MyISAM");
 echo "created.<BR>";
 
-echo "Creating table: furangee...<BR>";
+echo "Creating table: furangee...";
 mysql_query("CREATE TABLE furangee(" .
             "furangee_id char(40) NOT NULL," .
             "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
@@ -259,7 +260,7 @@ mysql_query("CREATE TABLE furangee(" .
             ")");
 echo "created.<BR>";
 
-echo "Creating table: sector_defence...<BR>";
+echo "Creating table: sector_defence...";
 mysql_query("CREATE TABLE sector_defence(" .
             "defence_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
             "ship_id bigint(20) DEFAULT '0' NOT NULL," .
@@ -273,6 +274,19 @@ mysql_query("CREATE TABLE sector_defence(" .
             ")");
 echo "created.<BR>";
 
+echo "Creating table: scheduler...";
+mysql_query("CREATE TABLE scheduler(" .
+            "sched_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+            "loop enum('Y','N') DEFAULT 'N' NOT NULL," .
+            "ticks_left bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "ticks_full bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "spawn bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "file varchar(30) NOT NULL," .
+            "extra_info varchar(50) NOT NULL," .
+            "PRIMARY KEY (sched_id)" .
+            ")");
+echo "created.<BR>";
+echo mysql_error();
 //Finished
 echo "Database schema creation complete.<BR>";
 }

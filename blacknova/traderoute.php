@@ -137,7 +137,7 @@ else
     
     echo "<td><font size=2 color=white>";
     if($traderoutes[$i][source_type] == 'P')
-      echo "&nbsp;Port in <b>" . $traderoutes[$i][source_id] . "</b></font></td>";
+      echo "&nbsp;Port in <a href=rsmove.php3?engage=1&destination=" . $traderoutes[$i][source_id] . ">" . $traderoutes[$i][source_id] . "</a></font></td>";
     else
     {
       $result = mysql_query("SELECT name, sector_id FROM planets WHERE planet_id=" . $traderoutes[$i][source_id]);

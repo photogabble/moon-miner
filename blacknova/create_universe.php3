@@ -255,7 +255,13 @@ elseif($swordfish==$adminpass && $engage=="2")
   $stamp=date("Y-m-d H:i:s");
   mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang')");
   mysql_query("INSERT INTO zones VALUES('','WebMaster\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+  
+  echo "<p>Configuring game scheduler...<br>Ticks happen every $sched_ticks minutes<p>";
+
+  echo "Turns happen every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', $sched_turns, $sched_turns, 0, 'sched_turns.php', '')");
   echo mysql_error();
+
   echo "done.<BR>";
 }
 else

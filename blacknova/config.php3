@@ -2,6 +2,28 @@
 include("config_local.php3");
 include("global_funcs.php3");
 
+/* Main scheduler variables (game flow control)
+-----------------------------------------------*/
+
+/* 
+  Set this to how often (in minutes) you are running
+  the scheduler script.
+*/
+$sched_ticks = 5;
+
+/* All following vars are in minutes.
+   These are TRUE minutes, no matter to what interval
+   you're running the scheduler script! The scheduler
+   will auto-adjust, possibly running many of the same
+   events in a single call.
+*/
+$sched_turns = 2;    //New turns rate (also includes towing, furangee)
+$sched_ports = 2;    //How often port production occurs
+$sched_planets = 2;  //How often planet production occurs
+$sched_IGB = 2;      //How often IGB interests are added
+
+/* Scheduler config end */
+
 /* GUI colors (temporary until we have something nicer) */
 $color_header = "#500050";
 $color_line1 = "#300030";
@@ -142,9 +164,9 @@ $start_fighters = 10;
 $start_armour = 10;
 $start_credits = 1000;
 $start_energy = 100;
-$start_turns = 400;
+$start_turns = 1200;
 
-$max_turns = 600;
+$max_turns = 2500;
 $max_emerwarp = 10;
 
 $fullscan_cost = 1;

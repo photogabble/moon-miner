@@ -253,7 +253,7 @@ function IGB_transfer2()
     //TODO: Add transfer time check
     
     echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Ship Transfer<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>IGB Account :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>$account[balance] C</td></tr>";
+         "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>IGB Account :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) . " C</td></tr>";
     
     if($IGB_svalue == 0)
       echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>Maximum transfer allowed :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>Unlimited</td></tr>";
