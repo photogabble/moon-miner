@@ -62,19 +62,62 @@ else
       echo "It is very simple right now, but will be expanded in future versions. ";
       echo "The ultimate goal of the Furangee players is to create some interactivity for those games without a large user base. ";
       echo "I need not say that the Furangee will also make good cannon fodder for those games with a large user base. ";
-      echo "<P>&nbsp;&nbsp;&nbsp; The first step to creating some Furangee characters is to choose the <B>\"Drop and Re-Install ";
-      echo "Furangee Database\"</B> option from the main menu of this module.  This will prime the Furangee Database for use. ";
-      echo "Then you can choose the <B>\"Create A Furangee Character\"</B> option. ";
-      echo "<P>&nbsp;&nbsp;&nbsp; When creating a new Furangee character the name and shipname are automatically generated. ";
-      echo "You can change these default values before submitting the character for creation. ";
-      echo "There are also some other fields that could be modified.  The Active checkbox indicates weather or not the Furangee ";
-      echo "will be controlled by the furangee-update routine.  If this is not checked (or if the Furangee's ship is destroyed) ";
-      echo "then the furangee-update routine will not touch this character.  The Orders selection list indicates what the Furangee ";
-      echo "is ordered to do.  The current Orders available are: Sentinel - This Furangee will not move from his current sector; Roam - ";
-      echo "This Furangee will roam from sector to sector; Roam and Trade - This Furangee will roam from sector to sector and trade at ";
-      echo "any ports or planets it comes accross.  The Aggression selection list indicates what the Furangee will do when it meets ";
-      echo "other players.  The current Aggession settings available are: Peaceful - This Furangee will show no aggression; Attack Sometimes - ";
-      echo "This Furangee will attack players only when the odds are in it's favor; Attack Always - This Furangee is just downright mean. ";
+
+      echo "<H3>Furangee Creation</H3>";
+      echo "<P>&nbsp;&nbsp;&nbsp; In order to create a Furangee you must choose the <B>\"Create A Furangee Character\"</B> option from the menu. ";
+      echo "This will bring up the Furangee character creation screen.  There are only a few fields for you to edit. ";
+      echo "However, with these fields you will determine not only how your Furangee will be created, but how he will act in the game. ";
+      echo "We will now go over these fields and what they will do. ";
+
+      echo "<P>&nbsp;&nbsp;&nbsp; When creating a new Furangee character the <B>Furangee Name</B> and the <B>Shipname</B> are automatically generated. ";
+      echo "You can change these default values by editing these fields before submitting the character for creation. ";
+      echo "Take care not to duplicate a current player or ship name, for that will result in creation failure. ";
+      echo "<BR>&nbsp;&nbsp;&nbsp; The starting <B>Sector</B> number will also be randomly generated. ";
+      echo "You can change this to any sector.  However, you should take care to use a valid sector number. Otherwise the creation will fail.";
+      echo "<BR>&nbsp;&nbsp;&nbsp; The <B>Level</B> field will default to '3'.  This field refers to the starting tech level of all ship stats. ";
+      echo "So a default Furangee will have it's Hull, Beams, Power, Engine, etc... all set to 3 unless this value is changed. ";
+      echo "All appropriate ship stores will be set to the maximum allowed by the given tech level. ";
+      echo "So, starting levels of energy, fighters, armour, torps, etc... are all affected by this setting. ";
+      echo "<BR>&nbsp;&nbsp;&nbsp; The <B>Active</B> checkbox will default to checked. ";
+      echo "This box refers to if the Furangee AI system will see this Furangee and execute it's orders. ";
+      echo "If this box is not checked then the Furangee AI system will ignore this record and the next two fields are ignored. ";
+      echo "<BR>&nbsp;&nbsp;&nbsp; The <B>Orders</B> selection box will default to 'SENTINEL'. ";
+      echo "There are three other options available: ROAM, ROAM AND TRADE, and ROAM AND HUNT. ";
+      echo "These Orders and what they mean will be detailed below. ";
+      echo "<BR>&nbsp;&nbsp;&nbsp; The <B>Aggression</B> selection box will default to 'PEACEFUL'. ";
+      echo "There are two other options available: ATTACK SOMETIMES, and ATTACK ALWAYS. ";
+      echo "These Aggression settings and what they mean will be detailed below. ";
+      echo "<BR>&nbsp;&nbsp;&nbsp; Pressing the <B>Create</B> button will create the Furangee and return to the creation screen to create another. ";
+
+      echo "<H3>Furangee Orders</H3>";
+      echo "<P> Here are the Furangee Order options and what the Furangee AI system will do for each: ";
+      echo "<UL>SENTINEL<BR> ";
+      echo "This Furangee will stay in place.  His only interactions will be with those who are in his sector at the time he takes his turn. ";
+      echo "The aggression level will determine what those player interactions are.</UL> ";
+      echo "<UL>ROAM<BR> ";
+      echo "This Furangee will warp from sector to sector looking for players to interact with. ";
+      echo "The aggression level will determine what those player interactions are.</UL> ";
+      echo "<UL>ROAM AND TRADE<BR> ";
+      echo "This Furangee will warp from sector to sector looking for players to interact with and ports to trade with. ";
+      echo "The Furangee will trade at a port if possible before looking for player interactions. ";
+      echo "The aggression level will determine what those player interactions are.</UL> ";
+      echo "<UL>ROAM AND HUNT<BR> ";
+      echo "This Furangee has a taste for blood and likes the sport of a good hunt. ";
+      echo "Ocassionally (around 1/4th the time) this Furangee has the urge to go hunting.  He will randomly choose one of the top ten players to hunt. ";
+      echo "If that player is in a sector that allows attack, then the Furangee warps there and attacks. ";
+      echo "When he is not out hunting this Furangee acts just like one with ROAM orders.</UL> "; 
+
+      echo "<H3>Furangee Aggression</H3>";
+      echo "<P> Here are the Furangee Aggression levels and what the Furangee AI system will do for each: ";
+      echo "<UL>PEACEFUL<BR> ";
+      echo "This Furangee will not attack players.  He will continue to roam or trade as ordered but will not launch any attacks. ";
+      echo "If this Furangee is a hunter then he will still attack players on the hunt but never otherwise.</UL> ";
+      echo "<UL>ATTACK SOMETIMES<BR> ";
+      echo "This Furangee will compare it's current number of fighters to a players fighters before deciding to attack. ";
+      echo "If the Furangee's fighters are greater then the player's, then the Furangee will attack the player.</UL> ";
+      echo "<UL>ATTACK ALWAYS<BR> ";
+      echo "This Furangee is just mean.  He will attack anyone he comes across regardless of the odds.</UL> ";
+
     }
     // ***********************************************
     // ********* START OF FURANGEE EDIT SUB ***********
@@ -119,9 +162,11 @@ else
             if ($row[orders] == 0) $oorder0 = "SELECTED=0 VALUE";
             if ($row[orders] == 1) $oorder1 = "SELECTED=1 VALUE";
             if ($row[orders] == 2) $oorder2 = "SELECTED=2 VALUE";
+            if ($row[orders] == 3) $oorder3 = "SELECTED=3 VALUE";
             echo "<OPTION $oorder0=0>Sentinel</OPTION>";
             echo "<OPTION $oorder1=1>Roam</OPTION>";
             echo "<OPTION $oorder2=2>Roam and Trade</OPTION>";
+            echo "<OPTION $oorder3=3>Roam and Hunt</OPTION>";
             echo "</SELECT></TD></TR>";
           echo "<TR><TD>Aggression</TD><TD>";
             $oaggr0 = $oaggr1 = $oaggr2 = "VALUE";
@@ -348,6 +393,7 @@ else
           echo "<OPTION SELECTED=0 VALUE=0>Sentinel</OPTION>";
           echo "<OPTION VALUE=1>Roam</OPTION>";
           echo "<OPTION VALUE=2>Roam and Trade</OPTION>";
+          echo "<OPTION VALUE=3>Roam and Hunt</OPTION>";
           echo "</SELECT></TD>";
         echo "<TD>Sector <INPUT TYPE=TEXT SIZE=5 NAME=sector VALUE=$sector></TD>";
         echo "<TD>Aggression ";
