@@ -63,7 +63,7 @@ if($sector == "*")
     $num_links = $row2[count];
 
     // get number of ships in scanned sector
-    $result2 = $db->Execute("SELECT COUNT(*) AS count FROM $dbtables[ships] WHERE sector='$row[link_dest]' AND on_planet='N'");
+    $result2 = $db->Execute("SELECT COUNT(*) AS count FROM $dbtables[ships] WHERE sector='$row[link_dest]' AND on_planet='N' and ship_destroyed='N'");
     $row2 = $result2->fields;
     $num_ships = $row2[count];
 
