@@ -217,19 +217,21 @@ function updatecookie()
 
 function playerlog($sid, $log_type, $data = "")
 {
+  global $db, $dbtables;
   /* write log_entry to the player's log - identified by player's ship_id - sid. */
   if ($sid != "" && !empty($log_type))
   {
-    mysql_query("INSERT INTO logs VALUES('', $sid, $log_type, NOW(), '$data')");
+    $db->Execute("INSERT INTO $dbtables[logs] VALUES('', $sid, $log_type, NOW(), '$data')");
   }
 }
 
 function adminlog($log_type, $data = "")
 {
+  global $db, $dbtables;
   /* write log_entry to the admin log  */
   if (!empty($log_type))
   {
-    mysql_query("INSERT INTO logs VALUES('', 0, $log_type, NOW(), '$data')");
+    $db->Execute("INSERT INTO $dbtables[logs] VALUES('', 0, $log_type, NOW(), '$data')");
   }
 }
 
@@ -256,6 +258,7 @@ function gen_score($sid)
   global $base_goods;
   global $base_organics;
   global $base_credits;
+  global $db, $dbtables;
 
   $calc_hull = "ROUND(POW($upgrade_factor,hull))";
   $calc_engines = "ROUND(POW($upgrade_factor,engines))";
@@ -269,7 +272,7 @@ function gen_score($sid)
   $calc_cloak = "ROUND(POW($upgrade_factor,cloak))";
   $calc_levels = "($calc_hull+$calc_engines+$calc_power+$calc_computer+$calc_sensors+$calc_beams+$calc_torp_launchers+$calc_shields+$calc_armour+$calc_cloak)*$upgrade_cost";
 
-  $calc_torps = "ships.torps*$torpedo_price";
+  $calc_torps = "$dbtables[ships].torps*$torpedo_price";
   $calc_armour_pts = "armour_pts*$armour_price";
   $calc_ship_ore = "ship_ore*$ore_price";
   $calc_ship_organics = "ship_organics*$organics_price";
@@ -288,15 +291,15 @@ function gen_score($sid)
   $calc_dev_minedeflector = "dev_minedeflector*$dev_minedeflector_price";
   $calc_dev = "$calc_dev_warpedit+$calc_dev_genesis+$calc_dev_beacon+$calc_dev_emerwarp+$calc_dev_escapepod+$calc_dev_fuelscoop+$calc_dev_minedeflector";
 
-  $calc_planet_goods = "SUM(planets.organics)*$organics_price+SUM(planets.ore)*$ore_price+SUM(planets.goods)*$goods_price+SUM(planets.energy)*$energy_price";
-  $calc_planet_colonists = "SUM(planets.colonists)*$colonist_price";
-  $calc_planet_defence = "SUM(planets.fighters)*$fighter_price+IF(base='Y', $base_credits+SUM(planets.torps)*$torpedo_price, 0)";
-  $calc_planet_credits = "SUM(planets.credits)";
+  $calc_planet_goods = "SUM($dbtables[planets].organics)*$organics_price+SUM($dbtables[planets].ore)*$ore_price+SUM($dbtables[planets].goods)*$goods_price+SUM($dbtables[planets].energy)*$energy_price";
+  $calc_planet_colonists = "SUM($dbtables[planets].colonists)*$colonist_price";
+  $calc_planet_defence = "SUM($dbtables[planets].fighters)*$fighter_price+IF(base='Y', $base_credits+SUM($dbtables[planets].torps)*$torpedo_price, 0)";
+  $calc_planet_credits = "SUM($dbtables[planets].credits)";
 
-  $res = mysql_query("SELECT ROUND(SQRT($calc_levels+$calc_equip+$calc_dev+ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits)) AS score FROM ships LEFT JOIN planets ON planets.owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
-  $row = mysql_fetch_array($res);
+  $res = $db->Execute("SELECT ROUND(SQRT($calc_levels+$calc_equip+$calc_dev+ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits)) AS score FROM $dbtables[ships] LEFT JOIN $dbtables[planets] ON $dbtables[planets].owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+  $row = $res->fields;
   $score = $row[score];
-  mysql_query("UPDATE ships SET score=$score WHERE ship_id=$sid");
+  $db->Execute("UPDATE $dbtables[ships] SET score=$score WHERE ship_id=$sid");
 
   return $score;
 }
@@ -310,21 +313,23 @@ function db_kill_player($ship_id)
   global $default_prod_fighters;
   global $default_prod_torp;
   global $default_lang;
+  global $db, $dbtables;
 
   include($gameroot . "/languages/$default_lang");
 
-  mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
+  $db->Execute("UPDATE $dbtables[ships] SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
 
-  $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner='$ship_id' AND base='Y'");
+  $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner='$ship_id' AND base='Y'");
   $i=0;
 
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    $sectors[$i] = $row[sector_id];
+    $sectors[$i] = $res->fields[sector_id];
     $i++;
+    $res->MoveNext();
   }
 
-  mysql_query("UPDATE planets SET owner=0, base='N' WHERE owner=$ship_id");
+  $db->Execute("UPDATE $dbtables[planets] SET owner=0, base='N' WHERE owner=$ship_id");
 
   if(!empty($sectors))
   {
@@ -333,17 +338,17 @@ function db_kill_player($ship_id)
       calc_ownership($sector);
     }
   }
-  mysql_query("DELETE FROM sector_defence where ship_id=$ship_id");
+  $db->Execute("DELETE FROM $dbtables[sector_defence] where ship_id=$ship_id");
 
-  $res = mysql_query("SELECT zone_id FROM zones WHERE corp_zone='N' AND owner=$ship_id");
-  $zone = mysql_fetch_array($res);
+  $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='N' AND owner=$ship_id");
+  $zone = $res->fields;
 
-mysql_query("UPDATE universe SET zone_id=1 WHERE zone_id=$zone[zone_id]");
+$db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE zone_id=$zone[zone_id]");
 
 
 
-$query = mysql_query("select character_name from ships where ship_id='$ship_id'");
-$name = mysql_fetch_array($query);
+$query = $db->Execute("select character_name from $dbtables[ships] where ship_id='$ship_id'");
+$name = $query->fields;
 
 
 $headline = $name[character_name] . $l_killheadline;
@@ -351,7 +356,7 @@ $headline = $name[character_name] . $l_killheadline;
 
 $newstext=str_replace("[name]",$name[character_name],$l_news_killed);
 
-$news = mysql_query("INSERT INTO bn_news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$newstext','$ship_id',NOW(), 'killed')");
+$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$newstext','$ship_id',NOW(), 'killed')");
 
 }
 
@@ -429,158 +434,165 @@ function SCAN_ERROR($level_scan, $level_cloak)
 
 function explode_mines($sector, $num_mines)
 {
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='M' order by quantity ASC");
-    echo mysql_error();
+    global $db, $dbtables;
+
+    $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='M' order by quantity ASC");
+    echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
     if($result3 > 0)
     {
-       while(($row = mysql_fetch_array($result3)) && $num_mines > 0)
+       while(!$result3->EOF && $num_mines > 0)
        {
+          $row = $result3->fields;
           if($row[quantity] > $num_mines)
           {
-             $update = mysql_query("UPDATE sector_defence set quantity=quantity - $num_mines where defence_id = $row[defence_id]");
+             $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity - $num_mines where defence_id = $row[defence_id]");
              $num_mines = 0;
           }
           else
           {
-             $update = mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
+             $update = $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $row[defence_id]");
              $num_mines -= $row[quantity];
           }
-
+          $result3->MoveNext();
        }
-       mysql_free_result($result3);
     }
 
 }
 
 function destroy_fighters($sector, $num_fighters)
 {
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
-    echo mysql_error();
+    global $db, $dbtables;
+
+    $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
+    echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
     if($result3 > 0)
     {
-       while(($row = mysql_fetch_array($result3)) && $num_fighters > 0)
+       while(!$result3->EOF && $num_fighters > 0)
        {
+          $row=$result3->fields;
           if($row[quantity] > $num_fighters)
           {
-             $update = mysql_query("UPDATE sector_defence set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
+             $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
              $num_fighters = 0;
           }
           else
           {
-             $update = mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
+             $update = $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $row[defence_id]");
              $num_fighters -= $row[quantity];
           }
-
+          $result3->MoveNext();
        }
-       mysql_free_result($result3);
     }
 
 }
 
 function message_defence_owner($sector, $message)
 {
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' ");
-    echo mysql_error();
+    $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' ");
+    echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
     if($result3 > 0)
     {
-       while($row = mysql_fetch_array($result3))
+       while(!$result3->EOF)
        {
 
-          playerlog($row[ship_id],LOG_RAW, $message);
+          playerlog($result3->fields[ship_id],LOG_RAW, $message);
 
        }
-       mysql_free_result($result3);
     }
-
 }
 
 function distribute_toll($sector, $toll, $total_fighters)
 {
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' AND defence_type ='F' ");
-    echo mysql_error();
+    global $db, $dbtables;
+
+    $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' AND defence_type ='F' ");
+    echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
     if($result3 > 0)
     {
-       while($row = mysql_fetch_array($result3))
+       while(!$result3->EOF)
        {
+          $row = $result3->fields;
           $toll_amount = ROUND(($row['quantity'] / $total_fighters) * $toll);
-          mysql_query("UPDATE ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
+          $db->Execute("UPDATE $dbtables[ships] set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
           playerlog($row[ship_id], LOG_TOLL_RECV, "$toll_amount|$sector");
-
+          $result3->MoveNext();
        }
-       mysql_free_result($result3);
     }
 
 }
 
 function defence_vs_defence($ship_id)
 {
+   global $db, $dbtables;
 
-   $result1 = mysql_query("SELECT * from sector_defence where ship_id = $ship_id");
+   $result1 = $db->Execute("SELECT * from $dbtables[sector_defence] where ship_id = $ship_id");
    if($result1 > 0)
    {
-      while($row = mysql_fetch_array($result1))
+      while(!$result1->EOF)
       {
+         $row=$result1->fields;
          $deftype = $row[defence_type] == 'F' ? 'Fighters' : 'Mines';
          $qty = $row['quantity'];
-         $result2 = mysql_query("SELECT * from sector_defence where sector_id = $row[sector_id] and ship_id <> $ship_id ORDER BY quantity DESC");
+         $result2 = $db->Execute("SELECT * from $dbtables[sector_defence] where sector_id = $row[sector_id] and ship_id <> $ship_id ORDER BY quantity DESC");
          if($result2 > 0)
          {
-            while(($cur = mysql_fetch_array($result2)) && $qty > 0)
+            while(!$result2->EOF && $qty > 0)
             {
+               $cur = $result2->fields;
                $targetdeftype = $cur[defence_type] == 'F' ? $l_fighters : $l_mines;
                if($qty > $cur['quantity'])
                {
-                  mysql_query("DELETE FROM sector_defence WHERE defence_id = $cur[defence_id]");
+                  $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $cur[defence_id]");
                   $qty -= $cur['quantity'];
-                  mysql_query("UPDATE sector_defence SET quantity = $qty where defence_id = $row[defence_id]");
+                  $db->Execute("UPDATE $dbtables[sector_defence] SET quantity = $qty where defence_id = $row[defence_id]");
                   playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity]|$targetdeftype|$row[sector_id]");
                   playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity]|$deftype|$row[sector_id]");
-
                }
                else
                {
-                  mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
-                  mysql_query("UPDATE sector_defence SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
+                  $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $row[defence_id]");
+                  $db->Execute("UPDATE $dbtables[sector_defence] SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
                   playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$qty|$targetdeftype|$row[sector_id]");
                   playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$qty|$deftype|$row[sector_id]");
                   $qty = 0;
                }
+               $result2->MoveNext();
             }
-            mysql_free_result($result2);
          }
+         $result1->MoveNext();
       }
-      mysql_free_result($result1);
-      mysql_query("DELETE FROM sector_defence WHERE quantity <= 0");
+      $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE quantity <= 0");
    }
 }
 
 function kick_off_planet($ship_id,$whichteam)
 {
+   global $db, $dbtables;
 
-   $result1 = mysql_query("SELECT * from planets where owner = '$ship_id' ");
+   $result1 = $db->Execute("SELECT * from $dbtables[planets] where owner = '$ship_id' ");
 
    if($result1 > 0)
    {
-      while($row = mysql_fetch_array($result1))
+      while(!$result1->EOF)
       {
-
-         $result2 = mysql_query("SELECT * from ships where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
+         $row = $result1->fields;
+         $result2 = $db->Execute("SELECT * from $dbtables[ships] where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
          if($result2 > 0)
          {
-            while($cur = mysql_fetch_array($result2) )
+            while(!$result2->EOF )
             {
-               mysql_query("UPDATE ships SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
+               $cur = $result2->fields;
+               $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
                playerlog($cur[ship_id], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
+               $result2->MoveNext();
             }
-            mysql_free_result($result2);
          }
+         $result1->MoveNext();
       }
-      mysql_free_result($result1);
-
    }
 }
 
@@ -588,20 +600,20 @@ function kick_off_planet($ship_id,$whichteam)
 function calc_ownership($sector)
 {
   global $min_bases_to_own, $l_global_warzone, $l_global_nzone, $l_global_team, $l_global_player;
+  global $db, $dbtables;
 
-  $res = mysql_query("SELECT owner, corp FROM planets WHERE sector_id=$sector AND base='Y'");
-  $num_bases = mysql_num_rows($res);
+  $res = $db->Execute("SELECT owner, corp FROM $dbtables[planets] WHERE sector_id=$sector AND base='Y'");
+  $num_bases = $res->RecordCount();
 
   $i=0;
   if($num_bases > 0)
   {
 
-   while($row = mysql_fetch_array($res))
+   while(!$res->EOF)
     {
-      $bases[$i] = $row;
+      $bases[$i] = $res->fields;
       $i++;
     }
-    mysql_free_result($res);
   }
   else
     return "Sector ownership didn't change";
@@ -676,10 +688,10 @@ function calc_ownership($sector)
       $nbcorps++;
     else
     {
-      $res = mysql_query("SELECT team FROM ships WHERE ship_id=" . $owners[$loop][id]);
-      if($res && mysql_num_rows($res) != 0)
+      $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=" . $owners[$loop][id]);
+      if($res && $res->RecordCount() != 0)
       {
-        $curship = mysql_fetch_array($res);
+        $curship = $res->fields;
         $ships[$nbships]=$owners[$loop][id];
         $scorps[$nbships]=$curship[team];
         $nbships++;
@@ -692,7 +704,7 @@ function calc_ownership($sector)
   //More than one corp, war
   if($nbcorps > 1)
   {
-    mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
+    $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
     return $l_global_warzone;
   }
 
@@ -705,21 +717,21 @@ function calc_ownership($sector)
   }
   if($numunallied > 1)
   {
-    mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
+    $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
     return $l_global_warzone;
   }
 
   //Unallied ship, another corp present, war
   if($numunallied > 0 && $nbcorps > 0)
   {
-    mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
+    $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
     return $l_global_warzone;
   }
 
   //Unallied ship, another ship in a corp, war
   if($numunallied > 0)
   {
-    $query = "SELECT team FROM ships WHERE (";
+    $query = "SELECT team FROM $dbtables[ships] WHERE (";
     $i=0;
     foreach($ships as $ship)
     {
@@ -731,10 +743,10 @@ function calc_ownership($sector)
         $query = $query . ")";
     }
     $query = $query . " AND team!=0";
-    $res = mysql_query($query);
-    if(mysql_num_rows($res) != 0)
+    $res = $db->Execute($query);
+    if($res->RecordCount() != 0)
     {
-      mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
+      $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
       return $l_global_warzone;
     }
   }
@@ -757,20 +769,20 @@ function calc_ownership($sector)
 
   if($owners[$winner][num] < $min_bases_to_own)
   {
-    mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
+    $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
     return $l_global_nzone;
   }
 
 
   if($owners[$winner][type] == 'C')
   {
-    $res = mysql_query("SELECT zone_id FROM zones WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
-    $zone = mysql_fetch_array($res);
+    $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
+    $zone = $res->fields;
 
-    $res = mysql_query("SELECT team_name FROM teams WHERE id=" . $owners[$winner][id]);
-    $corp = mysql_fetch_array($res);
+    $res = $db->Execute("SELECT team_name FROM $dbtables[teams] WHERE id=" . $owners[$winner][id]);
+    $corp = $res->fields;
 
-    mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+    $db->Execute("UPDATE $dbtables[universe] SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
     return "$l_global_team $corp[team_name]!";
   }
   else
@@ -786,18 +798,18 @@ function calc_ownership($sector)
     //Two allies have the same number of bases
     if($onpar == 1)
     {
-      mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
+      $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
       return $l_global_nzone;
     }
     else
     {
-      $res = mysql_query("SELECT zone_id FROM zones WHERE corp_zone='N' && owner=" . $owners[$winner][id]);
-      $zone = mysql_fetch_array($res);
+      $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='N' && owner=" . $owners[$winner][id]);
+      $zone = $res->fields;
 
-      $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=" . $owners[$winner][id]);
-      $ship = mysql_fetch_array($res);
+      $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=" . $owners[$winner][id]);
+      $ship = $res->fields;
 
-      mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+      $db->Execute("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
       return "$l_global_player $ship[character_name]!";
     }
   }

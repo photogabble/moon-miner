@@ -14,13 +14,10 @@ if(checklogin())
   die();
 }
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
-
-
-$query = "SELECT * FROM planets WHERE owner=$playerinfo[ship_id]";
+$query = "SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id]";
 
 if(!empty($sort))
 {
@@ -45,8 +42,6 @@ if(!empty($sort))
 
 }
 
-$res = mysql_query($query);
-
 bigtitle();
 
 if ($playerinfo[team]>0)
@@ -57,17 +52,18 @@ echo "<BR>";
 echo "<BR>";
 }
 
+$res = $db->Execute($query);
 
 $i = 0;
 if($res)
 {
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    $planet[$i] = $row;
+    $planet[$i] = $res->fields;
     $i++;
+    $res->MoveNext();
   }
 }
-mysql_free_result($res);
 
 $num_planets = $i;
 if($num_planets < 1)
