@@ -1156,7 +1156,7 @@ function traderoute_engage()
       //sells commodities
       if($source[port_type] != 'ore')
       {
-        $ore_price1 = $ore_price + $ore_delta * $source[port_ore] / $ore_limit * $iventory_factor;
+        $ore_price1 = $ore_price + $ore_delta * $source[port_ore] / $ore_limit * $inventory_factor;
         $sourcecost += $playerinfo[ship_ore] * $ore_price1;
         $ore_buy = $playerinfo[ship_ore];
         if($playerinfo[ship_ore] != 0)
@@ -1199,7 +1199,7 @@ function traderoute_engage()
       //time to buy
       if($source[port_type] == 'ore')
       {
-        $ore_price1 = $ore_price - $ore_delta * $source[port_ore] / $ore_limit * $iventory_factor;
+        $ore_price1 = $ore_price - $ore_delta * $source[port_ore] / $ore_limit * $inventory_factor;
         $ore_buy = $free_holds;
         if($playerinfo[credits] + $sourcecost < $ore_buy * $ore_price1)
           $ore_buy = ($playerinfo[credits] + $sourcecost) / $ore_price1;
@@ -1415,7 +1415,7 @@ function traderoute_engage()
       //sells commodities
       if($dest[port_type] != 'ore')
       {
-        $ore_price1 = $ore_price + $ore_delta * $dest[port_ore] / $ore_limit * $iventory_factor;
+        $ore_price1 = $ore_price + $ore_delta * $dest[port_ore] / $ore_limit * $inventory_factor;
         $destcost += $playerinfo[ship_ore] * $ore_price1;
         $ore_buy = $playerinfo[ship_ore];
         if($playerinfo[ship_ore] != 0)
@@ -1460,7 +1460,7 @@ function traderoute_engage()
       //time to buy
       if($dest[port_type] == 'ore')
       {
-        $ore_price1 = $ore_price - $ore_delta * $dest[port_ore] / $ore_limit * $iventory_factor;
+        $ore_price1 = $ore_price - $ore_delta * $dest[port_ore] / $ore_limit * $inventory_factor;
         if($traderoute[source_type] == 'L')
           $ore_buy = 0;
         else
