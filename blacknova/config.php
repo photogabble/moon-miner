@@ -183,17 +183,17 @@ $max_traderoutes_player = 40;
 
 $min_bases_to_own = 3;
 
-$default_lang = 'english.inc';
+$default_lang = 'english';
 
-$avail_lang[0][file] = 'english.inc';
+$avail_lang[0][file] = 'english';
 $avail_lang[0][name] = 'English';
-$avail_lang[1][file] = 'german.inc';
+$avail_lang[1][file] = 'german';
 $avail_lang[1][name] = 'Deutsch';
-$avail_lang[2][file] = 'french.inc';
+$avail_lang[2][file] = 'french';
 $avail_lang[2][name] = 'Français';
-$avail_lang[3][file] = 'romanian.inc';
+$avail_lang[3][file] = 'romanian';
 $avail_lang[3][name] = 'Romanian';
-$avail_lang[4][file] = 'czech.inc';
+$avail_lang[4][file] = 'czech';
 $avail_lang[4][name] = 'Cesky';
 
 

@@ -1,5 +1,11 @@
 <?
 // Separate userpass into username & password to support the legacy of multiple cookies for login.
+if (preg_match("/global_funcs.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+}
+
+
 if ($userpass != '' and $userpass != '+') {
   $username = substr($userpass, 0, strpos($userpass, "+"));
   $password = substr($userpass, strpos($userpass, "+")+1);
@@ -10,6 +16,11 @@ if ($userpass != '' and $userpass != '+') {
 $found = 0;
 if(!empty($lang))
 {
+  if(!preg_match("/^[\w]+$/", $lang)) 
+  {
+     $lang = default_lang;
+
+  }
   foreach($avail_lang as $key => $value)
   {
     if($lang == $value[file])
@@ -26,7 +37,7 @@ if(!empty($lang))
 
 if (!isset($lang) || empty($lang))
   $lang = $default_lang;
-
+$lang = $lang . ".inc";
 //Log constants
 
 define(LOG_LOGIN, 1);

@@ -1,7 +1,5 @@
 <?
 include("config.php");
-if(empty($lang))
-  $lang=$default_lang;
 include("languages/$lang");
 
 connectdb();
@@ -24,7 +22,7 @@ $lang=$playerinfo[lang];
 if(empty($lang))
   $lang=$default_lang;
 SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include("languages/$lang");
+include("languages/$lang" . ".inc");
 
 /* first placement of cookie - don't use updatecookie. */
 $userpass = $email."+".$pass;

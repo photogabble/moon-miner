@@ -1,7 +1,6 @@
 <?
 
 include("config.php");
-include("languages/$lang");
 connectdb();
 if(checklogin())
 {
@@ -29,10 +28,13 @@ if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
   SetCookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
   setcookie("id",$id);
 }
-
+if(!preg_match("/^[\w]+$/", $newlang)) 
+{
+   $newlang = default_lang;
+}
 $lang=$newlang;
 SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include("languages/$lang");
+include("languages/$lang" . ".inc");
 
 include("header.php");
 bigtitle();

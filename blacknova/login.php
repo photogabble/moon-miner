@@ -8,6 +8,11 @@ if(empty($lang))
 $found = 0;
 if(!empty($newlang))
 {
+  if(!preg_match("/^[\w]+$/", $lang)) 
+  {
+     $lang = default_lang;
+
+  }
   foreach($avail_lang as $key => $value)
   {
     if($newlang == $value[file])
@@ -21,9 +26,9 @@ if(!empty($newlang))
 
   if($found == 0)
     $lang = $default_lang;
+
+  $lang = $lang . ".inc";
 }
-
-
 
 include("languages/$lang");
 

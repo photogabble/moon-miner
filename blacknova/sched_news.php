@@ -10,9 +10,9 @@ if (preg_match("/sched_news.php/i", $PHP_SELF)) {
     echo "You can not access this file directly!";
     die();
 }
-
-include("languages/$default_lang");
-
+global $default_lang;
+include("languages/$default_lang" .".inc");
+echo "<B>Posting News</B><BR><BR>";
 // generation of planet amount
 $sql = $db->Execute("select count(owner) as amount, owner from $dbtables[planets] where owner !='0' group by owner order by amount ASC");
 

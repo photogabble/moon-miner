@@ -5,7 +5,7 @@
       die();
   }
 
-  echo "<B>TURNS</B><BR><BR>";
+  echo "<B>PLANETARY APOCALYPSE</B><BR><BR>";
   echo "The four horsemen of the apocalypse set forth...<BR>";
   $doomsday = $db->Execute("SELECT * from $dbtables[planets] WHERE colonists > $doomsday_value");
   $chance = 7;
