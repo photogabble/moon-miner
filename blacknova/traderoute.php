@@ -1221,6 +1221,55 @@ function traderoute_engage()
   }
   else //source is planet
   {
+    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+
+    //pick stuff up
+    if($playerinfo[ship_id] == $source[owner])
+    {
+      if($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
+      {
+        if($source[goods] > $free_holds)
+          $goods_buy = $free_holds;
+        else
+          $goods_buy = $source[goods];
+        $free_holds -= $goods_buy;
+        $playerinfo[ship_goods] += $goods_buy;
+        echo "Loaded " . NUMBER($goods_buy) . " Goods<br>";
+      }
+      else
+        $goods_buy = 0;
+
+      if($source[ore] > 0 && $free_holds > 0 && $dest[port_type] != 'ore')
+      {
+        if($source[ore] > $free_holds)
+          $ore_buy = $free_holds;
+        else
+          $ore_buy = $source[ore];
+        $free_holds -= $ore_buy;
+        $playerinfo[ship_ore] += $ore_buy;
+        echo "Loaded " . NUMBER($ore_buy) . " Ore<br>";
+      }
+      else
+        $ore_buy = 0;
+
+      if($source[organics] > 0 && $free_holds > 0 && $dest[port_type] != 'organics')
+      {
+        if($source[organics] > $free_holds)
+          $organics_buy = $free_holds;
+        else
+          $organics_buy = $source[organics];
+        $free_holds -= $organics_buy;
+        $playerinfo[ship_organics] += $organics_buy;
+        echo "Loaded " . NUMBER($organics_buy) . " Organics<br>";
+      }
+      else
+        $organics_buy = 0;
+    }
+    else  //buy from planet
+    {
+    }
+
+    mysql_query("UPDATE planets SET ore=ore-$ore_buy, goods=goods-$goods_buy, organics=organics-$organics_buy WHERE planet_id=$source[planet_id]");
   }
 
   if($dist[scooped1] != 0)
@@ -1276,6 +1325,8 @@ function traderoute_engage()
           echo "Sold " . NUMBER($playerinfo[ship_energy]) . " Energy<br>";
         $playerinfo[ship_energy] = 0;
       }
+      else
+        $energy_buy = 0;
 
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
       
@@ -1283,76 +1334,96 @@ function traderoute_engage()
       if($dest[port_type] == 'ore')
       {
         $ore_price1 = $ore_price - $ore_delta * $dest[port_ore] / $ore_limit * $iventory_factor;
-        $ore_buy = $free_holds;
-        if($playerinfo[credits] + $destcost < $ore_buy * $ore_price1)
-          $ore_buy = ($playerinfo[credits] + $destcost) / $ore_price1;
-        if($dest[port_ore] < $ore_buy)
+        if($traderoute[source_type] == 'L')
+          $ore_buy = 0;
+        else
         {
-          $ore_buy = $dest[port_ore];
-          if($dest[port_ore] == 0)
-            echo "Bought " . NUMBER($ore_buy) . " Ore (Port is empty)<br>";
+          $ore_buy = $free_holds;
+          if($playerinfo[credits] + $destcost < $ore_buy * $ore_price1)
+          $ore_buy = ($playerinfo[credits] + $destcost) / $ore_price1;
+          if($dest[port_ore] < $ore_buy)
+          {
+            $ore_buy = $dest[port_ore];
+            if($dest[port_ore] == 0)
+              echo "Bought " . NUMBER($ore_buy) . " Ore (Port is empty)<br>";
+          }
+          if($ore_buy != 0)
+            echo "Bought " . NUMBER($ore_buy) . " Ore<br>";
+          $playerinfo[ship_ore] += $ore_buy; 
+          $destcost -= $ore_buy * $ore_price1;
         }
-        if($ore_buy != 0)
-          echo "Bought " . NUMBER($ore_buy) . " Ore<br>";
-        $playerinfo[ship_ore] += $ore_buy; 
-        $destcost -= $ore_buy * $ore_price1;
         mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
       if($dest[port_type] == 'goods')
       {
         $goods_price1 = $goods_price - $goods_delta * $dest[port_goods] / $goods_limit * $inventory_factor;
-        $goods_buy = $free_holds;
-        if($playerinfo[credits] + $destcost < $goods_buy * $goods_price1)
-          $goods_buy = ($playerinfo[credits] + $destcost) / $goods_price1;
-        if($dest[port_goods] < $goods_buy)
+        if($traderoute[source_type] == 'L')
+          $goods_buy = 0;
+        else
         {
-          $goods_buy = $dest[port_goods];
-          if($dest[port_goods] == 0)
-            echo "Bought " . NUMBER($goods_buy) . " Goods (Port is empty)<br>";
+          $goods_buy = $free_holds;
+          if($playerinfo[credits] + $destcost < $goods_buy * $goods_price1)
+            $goods_buy = ($playerinfo[credits] + $destcost) / $goods_price1;
+          if($dest[port_goods] < $goods_buy)
+          {
+            $goods_buy = $dest[port_goods];
+            if($dest[port_goods] == 0)
+              echo "Bought " . NUMBER($goods_buy) . " Goods (Port is empty)<br>";
+          }
+          if($goods_buy != 0)
+            echo "Bought " . NUMBER($goods_buy) . " Goods<br>";
+          $playerinfo[ship_goods] += $goods_buy; 
+          $destcost -= $goods_buy * $goods_price1;
         }
-        if($goods_buy != 0)
-          echo "Bought " . NUMBER($goods_buy) . " Goods<br>";
-        $playerinfo[ship_goods] += $goods_buy; 
-        $destcost -= $goods_buy * $goods_price1;
         mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
       if($dest[port_type] == 'organics')
       {
         $organics_price1 = $organics_price - $organics_delta * $dest[port_organics] / $organics_limit * $inventory_factor;
-        $organics_buy = $free_holds;
-        if($playerinfo[credits] + $destcost < $organics_buy * $organics_price1)
-          $organics_buy = ($playerinfo[credits] + $destcost) / $organics_price1;
-        if($dest[port_organics] < $organics_buy)
+        if($traderoute[source_type] == 'L')
+          $organics_buy = 0;
+        else
         {
-          $organics_buy = $dest[port_organics];
-          if($dest[port_organics] == 0)
-            echo "Bought " . NUMBER($organics_buy) . " Organics (Port is empty)<br>";
+          $organics_buy = $free_holds;
+          if($playerinfo[credits] + $destcost < $organics_buy * $organics_price1)
+            $organics_buy = ($playerinfo[credits] + $destcost) / $organics_price1;
+          if($dest[port_organics] < $organics_buy)
+          {
+            $organics_buy = $dest[port_organics];
+            if($dest[port_organics] == 0)
+              echo "Bought " . NUMBER($organics_buy) . " Organics (Port is empty)<br>";
+          }
+          if($organics_buy != 0)
+            echo "Bought " . NUMBER($organics_buy) . " Organics<br>";
+          $playerinfo[ship_organics] += $organics_buy; 
+          $destcost -= $organics_buy * $organics_price1;
         }
-        if($organics_buy != 0)
-          echo "Bought " . NUMBER($organics_buy) . " Organics<br>";
-        $playerinfo[ship_organics] += $organics_buy; 
-        $destcost -= $organics_buy * $organics_price1;
         mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
       if($dest[port_type] == 'energy')
       {
         $energy_price1 = $energy_price - $energy_delta * $dest[port_energy] / $energy_limit * $inventory_factor;
-        $energy_buy = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $dist[scooped1];
-        if($playerinfo[credits] + $destcost < $enerby_buy * $energy_price1)
-          $energy_buy = ($playerinfo[credits] + $destcost) / $energy_price1;
-        if($dest[port_energy] < $energy_buy)
+        if($traderoute[source_type] == 'L')
+          $energy_buy = 0;
+        else
         {
-          $energy_buy = $dest[port_energy];
-          if($dest[port_energy] == 0)
-            echo "Bought " . NUMBER($energy_buy) . " Energy (Port is empty)<br>";
+          $energy_buy = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $dist[scooped1];
+          if($playerinfo[credits] + $destcost < $enerby_buy * $energy_price1)
+            $energy_buy = ($playerinfo[credits] + $destcost) / $energy_price1;
+          if($dest[port_energy] < $energy_buy)
+          {
+            $energy_buy = $dest[port_energy];
+            if($dest[port_energy] == 0)
+              echo "Bought " . NUMBER($energy_buy) . " Energy (Port is empty)<br>";
+          }
+          if($energy_buy != 0)
+            echo "Bought " . NUMBER($energy_buy) . " Energy<br>";
+          $playerinfo[ship_energy] += $energy_buy; 
+          $destcost -= $energy_buy * $energy_price1;
         }
-        if($energy_buy != 0)
-          echo "Bought " . NUMBER($energy_buy) . " Energy<br>";
-        $playerinfo[ship_energy] += $energy_buy; 
-        $destcost -= $energy_buy * $energy_price1;
         mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$dest[sector_id]");
       }
       if($dist[scooped2] > 0)
