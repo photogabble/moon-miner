@@ -89,6 +89,7 @@ CREATE TABLE ships (
 CREATE TABLE universe (
    sector_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment,
    sector_name tinytext,
+   zone_id bigint(20) DEFAULT '0' NOT NULL,
    port_type enum('ore','organics','goods','energy','special','none') DEFAULT 'none' NOT NULL,
    port_organics bigint(20) DEFAULT '0' NOT NULL,
    port_ore bigint(20) DEFAULT '0' NOT NULL,
@@ -119,3 +120,19 @@ CREATE TABLE universe (
    UNIQUE sector_id_3 (sector_id)
 );
 
+# --------------------------------------------------------
+#
+# Table structure for table 'zones'
+#
+
+CREATE TABLE zones (
+   zone_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment,
+   zone_name tinytext,
+   allow_beacon enum('Y','N') DEFAULT 'Y' NOT NULL,
+   allow_attack enum('Y','N') DEFAULT 'Y' NOT NULL,
+   allow_warpedit enum('Y','N') DEFAULT 'Y' NOT NULL,
+   allow_planet enum('Y','N') DEFAULT 'Y' NOT NULL,
+   max_hull bigint(20) DEFAULT '0' NOT NULL,
+   PRIMARY KEY(zone_id),
+   KEY zone_id(zone_id)
+);

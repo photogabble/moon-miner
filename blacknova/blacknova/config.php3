@@ -19,6 +19,8 @@
 	$admin_mail = "webmaster@yourdomain.net";
 	$game_name = "BlackNova Traders v0.1.9 - with stronger and faster bugs!";
 
+	$fed_max_hull = 8;
+
 	/* port pricing variables */
 	$ore_price = 11;
 	$ore_delta = 5;
