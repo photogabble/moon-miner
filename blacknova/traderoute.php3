@@ -125,7 +125,7 @@ elseif($phase == 1)
   if (($start[fighters] > 0 || $start[mines] > 0) && $start[fm_owner] != $playerinfo[ship_id])
   {
         $result99 = mysql_query("SELECT * from ships where ship_id=$start[fm_owner]");
-        $fighters_owner = mysql_fetch_array($result2);
+        $fighters_owner = mysql_fetch_array($result99);
         if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
         {
             $hostile = 1;
@@ -134,7 +134,7 @@ elseif($phase == 1)
   if (($finish[fighters] > 0 || $finish[mines] > 0) && $finish[fm_owner] != $playerinfo[ship_id])
   {
         $result99 = mysql_query("SELECT * from ships where ship_id=$finish[fm_owner]");
-        $fighters_owner = mysql_fetch_array($result2);
+        $fighters_owner = mysql_fetch_array($result99);
         if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
         {
             $hostile = 1;
