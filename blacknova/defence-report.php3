@@ -1,9 +1,9 @@
 <?
-
 include("config.php3");
 updatecookie();
 
-$title="Sector Defence Report";
+include($gameroot . $default_lang);
+$title=$l_sdf_title;
 include("header.php3");
 
 connectdb();
@@ -43,7 +43,7 @@ if(!empty($sort))
 
 $res = mysql_query($query);
 
-bigtitle(); 
+bigtitle();
 
 
 
@@ -61,27 +61,27 @@ mysql_free_result($res);
 $num_sectors = $i;
 if($num_sectors < 1)
 {
-  echo "<BR>You have no sector defences deployed.";
+  echo "<BR>$l_sdf_none";
 }
 else
 {
-  echo "Click on column header to sort.<BR><BR>";
+  echo "$l_pr_clicktosort<BR><BR>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
   echo "<TR BGCOLOR=\"$color_header\">";
-  echo "<TD><B><A HREF=defence-report.php3?sort=sector>Sector</A></B></TD>";
-  echo "<TD><B><A HREF=defence-report.php3?sort=quantity>Quantity</A></B></TD>";
-  echo "<TD><B><A HREF=defence-report.php3?sort=type>Type</A></B></TD>";
-  echo "<TD><B><A HREF=defence-report.php3?sort=mode>Mode</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=sector>$l_sector</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=quantity>$l_qty</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=type>$l_sdf_type</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=mode>$l_sdf_mode</A></B></TD>";
   echo "</TR>";
   $color = $color_line1;
   for($i=0; $i<$num_sectors; $i++) {
-    
+
     echo "<TR BGCOLOR=\"$color\">";
     echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</A></TD>";
     echo "<TD>" . NUMBER($sector[$i]['quantity']) . "</TD>";
-    $defence_type = $sector[$i]['defence_type'] == 'F' ? 'Fighters' : 'Mines';
+    $defence_type = $sector[$i]['defence_type'] == 'F' ? $l_fighters : $l_mines;
     echo "<TD> $defence_type </TD>";
-    $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : 'N/A';
+    $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $l_n_a;
     echo "<TD> $mode </TD>";
     echo "</TR>";
 
@@ -102,4 +102,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

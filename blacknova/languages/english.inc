@@ -655,4 +655,38 @@ $l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not
 $l_team_notmember	 = "You are not a member of any alliance";
 $l_team_urejected	 = "<B>ATTENTION</B> - you have been ejected from";
 $l_team_noalliances	 = "There are no alliances in the Galaxy at this time.";
+
+// ranking.php
+
+$l_ranks_title		 = "Top $max_rank Players";
+$l_ranks_none		 = "No Results to show.";
+$l_ranks_pnum		 = "Total number of players";
+$l_ranks_dships		 = "Players with destroyed ships are not counted.";
+$l_ranks_rank		 = "Rank";
+$l_ranks_lastlog	 = "Last login";
+$l_ranks_good		 = "Good";
+$l_ranks_evil		 = "Evil";
+
+// beacon.php
+
+$l_beacon_title		 = "Deploy Space Beacon";
+$l_beacon_notpermitted	 = "Deploying space beacons in this sector is not permitted.";
+$l_beacon_reads		 = "Present beacon reads";
+$l_beacon_none		 = "There presently isn't a beacon in this sector.";
+$l_beacon_enter		 = "Enter text for beacon";
+$l_beacon_nowreads	 = "Beacon now reads";
+$l_beacon_donthave	 = "You do not have a space beacon.";
+
+// emerwarp.php
+
+$l_ewd_title		 = "Use Emergency Warp Device";
+$l_ewd_used		 = "Emergency warp device engaged - arrived in sector [sector].";
+$l_ewd_none		 = "You do not have an emergency warp device.";
+
+// defence-report.php
+
+$l_sdf_title		 = "Sector Defence Report";
+$l_sdf_none		 = "You have no sector defences deployed.";
+$l_sdf_type		 = "Type";
+$l_sdf_mode		 = "Mode";
 ?>

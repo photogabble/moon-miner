@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Deploy Space Beacon";
+include($gameroot . $default_lang);
+$title=$l_beacon_title;
 include("header.php3");
 
 connectdb();
@@ -25,7 +24,7 @@ if($playerinfo[dev_beacon] > 0)
   $zoneinfo = mysql_fetch_array($res);
   if($zoneinfo[allow_beacon] == 'N')
   {
-    echo "Deploying space beacons in this sector is not permitted.<BR><BR>";
+    echo "$l_beacon_notpermitted<BR><BR>";
   }
   else
   {
@@ -33,23 +32,23 @@ if($playerinfo[dev_beacon] > 0)
     {
       if($sectorinfo[beacon] != "")
       {
-        echo "Present beacon reads: \"$sectorinfo[beacon]\"<BR><BR>";
+        echo "$l_beacon_reads: \"$sectorinfo[beacon]\"<BR><BR>";
       }
       else
       {
-        echo "There presently isn't a beacon in this sector.<BR><BR>";
+        echo "$l_beacon_none<BR><BR>";
       }
       echo"<form action=beacon.php3 method=post>";
       echo"<table>";
-      echo"<tr><td>Enter text for beacon:</td><td><input type=text name=beacon_text size=40 maxlength=80></td></tr>";
+      echo"<tr><td>$l_beacon_enter:</td><td><input type=text name=beacon_text size=40 maxlength=80></td></tr>";
       echo"</table>";
-      echo"<input type=submit value=Submit><input type=reset value=Reset>";
+      echo"<input type=submit value=$l_submit><input type=reset value=$l_reset>";
       echo"</form>";
     }
     else
     {
       $beacon_text = trim(strip_tags($beacon_text));
-      echo "Beacon now reads: \"$beacon_text\".<BR><BR>";
+      echo "$l_beacon_nowreads: \"$beacon_text\".<BR><BR>";
       $update = mysql_query("UPDATE universe SET beacon='$beacon_text' WHERE sector_id=$sectorinfo[sector_id]");
       $update = mysql_query("UPDATE ships SET dev_beacon=dev_beacon-1 WHERE ship_id=$playerinfo[ship_id]");
     }
@@ -57,11 +56,11 @@ if($playerinfo[dev_beacon] > 0)
 }
 else
 {
-  echo "You do not have a space beacon.<BR><BR>";
+  echo "$l_beacon_donthave<BR><BR>";
 }
 
 TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

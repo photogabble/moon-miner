@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Top $max_rank Players";
+include($gameroot . $default_lang);
+$title=$l_ranks_title;
 include("header.php3");
 
 connectdb();
@@ -43,14 +42,14 @@ mysql_query("UNLOCK TABLES");
 
 if(!mysql_num_rows($res))
 {
-  echo "No Results to show.<BR>";
+  echo "$l_ranks_none<BR>";
 }
 else
 {
-  echo "<BR>Total number of players: " . NUMBER($num_players);
-  echo "<BR>Players with destroyed ships are not counted.<BR><BR>";
+  echo "<BR>$l_ranks_pnum: " . NUMBER($num_players);
+  echo "<BR>$l_ranks_dships<BR><BR>";
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Rank</B></TD><TD><B><A HREF=ranking.php3>Score</A></B></TD><TD><B>Player</B></TD><TD><B><A HREF=ranking.php3?sort=turns>Turns used</A></B></TD><TD><B><A HREF=ranking.php3?sort=login>Last login</A></B></TD><TD><B><A HREF=ranking.php3?sort=good>Good</A>/<A HREF=ranking.php3?sort=bad>Evil</A></B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_ranks_rank</B></TD><TD><B><A HREF=ranking.php3>$l_score</A></B></TD><TD><B>$l_player</B></TD><TD><B><A HREF=ranking.php3?sort=turns>$l_turns_used</A></B></TD><TD><B><A HREF=ranking.php3?sort=login>$l_ranks_lastlog</A></B></TD><TD><B><A HREF=ranking.php3?sort=good>$l_ranks_good</A>/<A HREF=ranking.php3?sort=bad>$l_ranks_evil</A></B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($res))
   {

@@ -1,9 +1,9 @@
 <?
-
 	include("config.php3");
 	updatecookie();
 
-	$title="Use Emergency Warp Device";
+	include($gameroot . $default_lang);
+	$title=$l_ewd_title;
 	include("header.php3");
 
 	connectdb();
@@ -18,13 +18,14 @@
 	{
 		$dest_sector=rand(0,$sector_max);
 		$result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$playerinfo[ship_id]");
-		echo "Emergency warp device engaged - arrived in sector $dest_sector.<BR><BR>";
+		$l_ewd_used=str_replace("[sector]",$dest_sector,$l_ewd_used);
+		echo "$l_ewd_used<BR><BR>";
 	} else {
-		echo "You do not have an emergency warp device.<BR><BR>";
+		echo "$l_ewd_none<BR><BR>";
 	}
 
     TEXT_GOTOMAIN();
 
 	include("footer.php3");
 
-?> 
+?>
