@@ -16,6 +16,7 @@ $l_energy		 = "Énergie";
 $l_colonists		 = "Colons";
 $l_credits 		 = "Crédits";
 $l_units		 = "unités de ";
+$l_special		 = "Spécial";
 
 $l_cargo		 = "Cargaison";
 $l_fighters		 = "Intercepteurs ";

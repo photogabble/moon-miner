@@ -39,6 +39,8 @@ $l_armourpts		 = "Armour points";
 // main.php
 
 $l_main_title 		 = "Main Menu";
+$l_main_warpto = "Warp to";
+$l_main_other = "Other";
 
 $l_traderoutes		 = "Trade Routes";
 $l_trade_control	 = "Trade Control";
@@ -253,6 +255,7 @@ $l_planet_ison		 = "is on the planet.";
 $l_planet_captured	 = "Planet captured";
 $l_planet_notdef	 = "Planet not defeated!";
 $l_planet_caplog	 = "Your planet '[planetname]' in sector [sector] was captured by [name].";
+$l_planet_noone = "nobody";
 
 $l_planet2_title	 = "Planetary Transfer";
 $l_planet2_noturn	 = "You need at least one turn to perform a planetary transfer.";
@@ -425,6 +428,7 @@ $l_lrs_click		 = "Click one of the links to move to that sector.";
 $l_lrs_cantscan		 = "Can't scan sector from current sector!";
 $l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
 $l_lrs_moveto		 = "to move to sector";
+$l_log_titlet = "View Log";
 
 // log.php
 
@@ -527,6 +531,8 @@ $l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] has attempted to capture [defende
 $l_log_title[LOG_ADMIN_PLANETDEL] = "Planet destroyed";
 $l_log_text[LOG_DEFENCE_DEGRADE] = "Sector Defences Fighters in sector [sector] degraded by [degrade] percent due to insufficient energy.";
 $l_log_test[LOG_DEFENCE_DEGRADE] = "Sector Defences degraded.";
+$l_log_text[LOG_PLANET_CAPTURED] = "You captured a planet belonging to [owner]. It had [cols] colonists and [credits] credits on it.";
+$l_log_title[LOG_PLANET_CAPTURED] = "Planet captured!";
 
 // modify-defences.php
 
@@ -832,6 +838,7 @@ $l_tdr_credits  	 = "Credits";
 $l_tdr_turnsused         = "Turns used";
 $l_tdr_turnsleft         = "Turns left";
 $l_tdr_engageagain       = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again.";
+$l_tdr_notowner = "You do not own this trade route";
 
 // IGB.php
 
@@ -1130,6 +1137,9 @@ $l_login_4gotpw1		= "The password you entered is incorrect.<BR><BR>  If you have
 $l_login_4gotpw2		= "to have it e-mailed to you.<BR><BR>  Otherwise,";
 $l_login_4gotpw3		= "to try again.  Attempt logged with IP address of";
 $l_login_noone			= "No Such Player! - Create a new player <A HREF=new.php>here</A>.";
+$l_login_lang = "Language";
+$l_login_settings = "Game Settings";
+$l_login_change = "Change";
 
 // new.php new2.php
 $l_new_title			= "Create New Player"; 
@@ -1211,32 +1221,6 @@ $l_news_c_text1000		= "The humongous empire of [name] now has one billion coloni
                    in huge amounts. With this amount of colonists, the econmic strength
                    of this empire is enormous, BNN hopes that [name] does not spend
                    his money on warfare";
-
-
-// LAST ADDED : MOD TO TRADEROUTES
-$l_tdr_notowner = "You do not own this trade route";
-
-// ADDITION TO login.php
-
-$l_login_lang = "Language";
-$l_login_settings = "Game Settings";
-$l_login_change = "Change";
-
-// ADDITION TO log.php
-
-$l_log_titlet = "View Log";
-
-// ADDITION TO main.php
-
-$l_main_warpto = "Warp to";
-$l_main_other = "Other";
-
-// ADDITION TO planet.php
-$l_planet_noone = "nobody";
-
-// ADDITION TO log.php
-$l_log_text[LOG_PLANET_CAPTURED] = "You captured a planet belonging to [owner]. It had [cols] colonists and [credits] credits on it.";
-$l_log_title[LOG_PLANET_CAPTURED] = "Planet captured!";
 
 // Options.php
 
