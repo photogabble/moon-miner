@@ -103,6 +103,12 @@
                  $fighterslost = NUMBER($sectorinfo[fighters] - $targetfighters);
                  playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] destroyed $fighterslost of your sector defence fighters in sector $sector.");
                  playerlog($playerinfo[ship_id],"You destroyed $fighterslost sector defence fighters in sector $sector.");
+                 $armour_lost=$playerinfo[armour_pts]-$playerarmour;
+                 $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
+                 $energy=$playerinfo[ship_energy];
+                 $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
+                 echo "You lost $armour_lost armour points, $fighters_lost fighters, and us
+ed $playertorpnum torpedoes.<BR><BR>";
                  if($playerarmour < 1)
                  {
                     echo "Your ship has been destroyed!<BR><BR>";
