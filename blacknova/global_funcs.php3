@@ -217,8 +217,9 @@ function db_kill_player($ship_id)
   global $default_prod_fighters;
   global $default_prod_torp;
 
-  mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=NULL WHERE ship_id=$ship_id");
-  mysql_query("UPDATE universe SET planet_owner=NULL WHERE planet_owner=$ship_id");
+  mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0 WHERE ship_id=$ship_id");
+  mysql_query("UPDATE universe SET planet_owner=0 WHERE planet_owner=$ship_id");
+  mysql_query("UPDATE universe SET fm_owner=0,fighters=0,mines=0 WHERE fm_owner=$ship_id");
 }
 
 function NUMBER($number, $decimals = 0)

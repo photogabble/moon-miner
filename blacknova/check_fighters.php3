@@ -19,7 +19,7 @@
                     include("sector_fighters.php3");                    
                     break;
                  case "retreat":
-                    echo "Move failed.<BR>";
+                    echo "You retreated back to sector $sector.<BR>";
                     // undo the move
                     mysql_query("UPDATE ships SET sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
                     $ok=0;
