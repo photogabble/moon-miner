@@ -1392,7 +1392,7 @@ function traderoute_engage($j)
       {
         $energy_price1 = $energy_price - $energy_delta * $source[port_energy] / $energy_limit * $inventory_factor;
         $energy_buy = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $dist[scooped1];
-        if($playerinfo[credits] + $sourcecost < $enerby_buy * $energy_price1)
+        if($playerinfo[credits] + $sourcecost < $energy_buy * $energy_price1)
           $energy_buy = ($playerinfo[credits] + $sourcecost) / $energy_price1;
         if($source[port_energy] < $energy_buy)
         {
@@ -1720,7 +1720,7 @@ function traderoute_engage($j)
         else
         {
           $energy_buy = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $dist[scooped1];
-          if($playerinfo[credits] + $destcost < $enerby_buy * $energy_price1)
+          if($playerinfo[credits] + $destcost < $energy_buy * $energy_price1)
             $energy_buy = ($playerinfo[credits] + $destcost) / $energy_price1;
           if($dest[port_energy] < $energy_buy)
           {
