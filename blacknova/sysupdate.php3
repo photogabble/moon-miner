@@ -122,7 +122,7 @@ prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp FROM 
     $reproduction = round(($row[planet_colonists] - $starvation) * $colonist_reproduction_rate);
     if(($row[planet_colonists] + $reproduction - $starvation) > $colonist_limit)
     {
-      $reproduction = 0;
+      $reproduction = $colonist_limit - $row[planet_colonists] ;
     }
     $total_percent = $row[prod_organics] + $row[prod_ore] + $row[prod_goods] + $row[prod_energy];
     if($row[planet_owner])
