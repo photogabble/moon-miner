@@ -29,13 +29,13 @@ function line($item, $value)
 
   
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-   line("Minimum Hullsize needed to hit mines",$mine_hullsize);
-   line("Hullsize When Emergency Warp Degrades",$ewd_maxhullsize);
+   line("Average tech level needed to hit mines",$mine_hullsize);
+   line("Averaged Tech level When Emergency Warp Degrades",$ewd_maxhullsize);
    
    $num = NUMBER($sector_max);
    line("Number of Sectors",$num);
    line("Maximum Links per sector",$link_max);
-   line("Maximum Hull Size for Federation Sectors",$fed_max_hull);
+   line("Maximum average tech level for Federation Sectors",$fed_max_hull);
    
    $bank_enabled = $allow_ibank ? "Yes" : "No";
    line("Intergalactic Bank Enabled",$bank_enabled);
