@@ -198,14 +198,18 @@ Warp to
 if(!$num_links)
 {
   echo "&nbsp;<a class=dis>No warp links</a>&nbsp;<br>";
+  $link_bnthelper_string="<!--links:N:-->";
 }
 else
 {
+  $link_bnthelper_string="<!--links:Y";
   for($i=0; $i<$num_links;$i++)
   {
      echo "&nbsp;<a class=mnu href=move.php3?sector=$links[$i]>=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=lrscan.php3?sector=$links[$i]>[scan]</a>&nbsp;<br>";
+     $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
   }
 }
+$link_bnthelper_string=$link_bnthelper_string . ":-->";
 echo "</div>";
 echo "</td></tr>";
 echo "<tr><td nowrap align=center>";
@@ -228,10 +232,12 @@ echo "&nbsp;<a class=dis href=lrscan.php3?sector=*>[Full scan]</a>&nbsp;<br>";
 if($sectorinfo[port_type] != "none")
 {
   echo "<a href=port.php3>", ucfirst($sectorinfo[port_type]), "</a>";
+  $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
 }
 else
 {
   echo "</b><font size=", $basefontsize+2,">None</font><b>";
+  $port_bnthelper_string="<!--port:none:0:0:0:0:-->";
 }
 ?>
 
@@ -273,25 +279,30 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
   if(empty($sectorinfo[planet_name]))
   {
     echo "Unnamed";
+    $planet_bnthelper_string="<!--planet:Y:Unnamed:";
   }
   else
   {
     echo "$sectorinfo[planet_name]";
+    $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
   }
 
   if($sectorinfo[planet_owner] == "")
   {
     echo "<br>(Unowned)";
+    $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
   }
   else
   {
     echo "<br>($planet_owner[character_name])";
+    $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":-->";
   }
   echo "</font></td>";
 }
 else
 {
   echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
+  $planet_bnthelper_string="<!--planet:N:::-->";
 }
 ?>
 
@@ -468,6 +479,13 @@ Realspace
 
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
+
+$player_bnthelper_string="<!--player info:" . $playerinfo[hull] . ":" .  $playerinfo[engines] . ":"  .  $playerinfo[power] . ":" .  $playerinfo[computer] . ":" . $playerinfo[sensors] . ":" .  $playerinfo[beams] . ":" . $playerinfo[torp_launchers] . ":" .  $playerinfo[torps] . ":" . $playerinfo[shields] . ":" .  $playerinfo[armour] . ":" . $playerinfo[armour_pts] . ":" .  $playerinfo[cloak] . ":" . $playerinfo[credits] . ":" .  $playerinfo[sector] . ":" . $playerinfo[ship_ore] . ":" .  $playerinfo[ship_organics] . ":" . $playerinfo[ship_goods] . ":" .  $playerinfo[ship_energy] . ":" . $playerinfo[ship_colonists] . ":" .  $playerinfo[ship_fighters] . ":" . $playerinfo[turns] . ":" .  $playerinfo[on_planet] . ":" . $playerinfo[dev_warpedit] . ":" .  $playerinfo[dev_genesis] . ":" . $playerinfo[dev_beacon] . ":" .  $playerinfo[dev_emerwarp] . ":" . $playerinfo[dev_escapepod] . ":" .  $playerinfo[dev_fuelscoop] . ":" . $playerinfo[dev_minedeflector] . ":-->";
+echo $player_bnthelper_string;
+echo $link_bnthelper_string;
+echo $port_bnthelper_string;
+echo $planet_bnthelper_string;
+
 
 include("footer.php3");
 

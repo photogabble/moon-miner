@@ -84,11 +84,11 @@ echo "<TD>";
 if(!$num_links)
 {
   echo "There are no links out of this sector.";
-  $link_bnthelper_string="<!--no links-->";
+  $link_bnthelper_string="<!--links:N:-->";
 }
 else
 {
-  $link_bnthelper_string="<!--links";
+  $link_bnthelper_string="<!--links:Y";
   echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
@@ -99,7 +99,7 @@ else
       echo ", ";
     }
   }
-  $link_bnthelper_string=$link_bnthelper_string . "-->";
+  $link_bnthelper_string=$link_bnthelper_string . ":-->";
   echo "</TR>";
   echo "<TR>";
   echo "<TD>Long-range scan:";
@@ -193,12 +193,12 @@ echo "<TD>&nbsp;&nbsp;";
 if($sectorinfo[port_type] != "none")
 {
   echo "<A HREF=port.php3>" . ucfirst($sectorinfo[port_type]) . "</A>";
-  $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . "-->"; 
+  $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->"; 
 }
 else
 {
   echo "None";
-  $port_bnthelper_string="<!--port:none:0:0:0:0-->";
+  $port_bnthelper_string="<!--port:none:0:0:0:0:-->";
 
 }
 echo "</TD>";
@@ -213,18 +213,18 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
   if(empty($sectorinfo[planet_name]))
   {
     echo "Unnamed";
-    $planet_bnthelper_string="<!--planet:Unnamed:";
+    $planet_bnthelper_string="<!--planet:Y:Unnamed:";
   }
   else
   {
     echo "$sectorinfo[planet_name]";
-    $planet_bnthelper_string="<!--planet:" . $sectorinfo[planet_name] . ":";
+    $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
   }
   echo "</A> (";
   if($sectorinfo[planet_owner] == "")
   {
     echo "Unowned";
-    $planet_bnthelper_string=$planet_bnthelper_string . "Unowned-->";
+    $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
   }
   else
   {
@@ -232,14 +232,14 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
     $planet_owner_name = mysql_fetch_array($res);
     mysql_free_result($res);
     echo "$planet_owner_name[character_name]";
-    $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner_name[character_name] . "-->";
+    $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner_name[character_name] . ":-->";
   }
   echo ")";
 }
 else
 {
   echo "None";
-  $planet_bnthelper_string="<!--no planet-->";
+  $planet_bnthelper_string="<!--planet:N:::-->";
 }
 echo "</TD>";
 echo "</TR>";

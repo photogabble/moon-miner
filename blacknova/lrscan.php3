@@ -32,9 +32,9 @@ if($sector == "*")
     include("footer.php3");   
     die();
   }
-  if($playerinfo[turns] < 1)
+  if($playerinfo[turns] < $fullscan_cost)
   {
-    echo "You need at least one turn to run a full long range scan.<BR><BR>";
+    echo "You need at least $fullscan_cost turn(s) to run a full long range scan.<BR><BR>";
     TEXT_GOTOMAIN();
     include("footer.php3");   
     die();
@@ -157,17 +157,21 @@ else
   if($num_links == 0)
   {
     echo "None";
+    $link_bnthelper_string="<!--links:N:-->";
   }
   else
   {
+    $link_bnthelper_string="<!--links:Y";
     for($i = 0; $i < $num_links; $i++)
     {
       echo "$links[$i]";
+      $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
       if($i + 1 != $num_links)
       {
         echo ", ";
       }
     }
+    $link_bnthelper_string=$link_bnthelper_string . ":-->";
   }
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Ships</B></TD></TR>";
@@ -218,10 +222,12 @@ else
   if($sectorinfo[port_type] == "none")
   {
     echo "None";
+    $port_bnthelper_string="<!--port:none:0:0:0:0:-->";
   }
   else
   {
     echo "$sectorinfo[port_type]";
+    $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
   }
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Planet</B></TD></TR>";
@@ -229,26 +235,31 @@ else
   if($sectorinfo[planet] == "N")
   {
     echo "None";
+    $planet_bnthelper_string="<!--planet:N:::-->";
   }
   else
   {
     if(empty($sectorinfo[planet_name]))
     {
       echo "Unnamed";
+      $planet_bnthelper_string="<!--planet:Y:Unnamed:";
     }
     else
     {
       echo "$sectorinfo[planet_name]";
+      $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
     }
     if($sectorinfo[planet_owner] == "")
     {
       echo " (unowned)";
+      $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
     }
     else
     {
       $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
       $planet_owner_name = mysql_fetch_array($result5);
       echo " ($planet_owner_name[character_name])";
+      $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner_name[character_name] . ":-->";
     } 
   } 
   echo "</TD></TR>";
@@ -258,7 +269,11 @@ else
 
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
-
+$rspace_bnthelper_string="<!--rspace:" . $sectorinfo[distance] . ":" . $sectorinfo[angle1] . ":" . $sectorinfo[angle2] . ":-->";
+echo $link_bnthelper_string;
+echo $port_bnthelper_string;
+echo $planet_bnthelper_string;
+echo $rspace_bnthelper_string;
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
