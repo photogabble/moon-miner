@@ -39,8 +39,8 @@ else
     echo "Select a function from the list below:<BR>";
     echo "<FORM ACTION=furangee_control.php METHOD=POST>";
     echo "<SELECT NAME=menu>";
-    echo "<OPTION VALUE=instruct SELECTED>Furangee Instructions</OPTION>";
-    echo "<OPTION VALUE=furangeeedit>Furangee Character Editor</OPTION>";
+    echo "<OPTION VALUE=instruct>Furangee Instructions</OPTION>";
+    echo "<OPTION VALUE=furangeeedit SELECTED>Furangee Character Editor</OPTION>";
     echo "<OPTION VALUE=createnew>Create A New Furangee Character</OPTION>";
     echo "<OPTION VALUE=dropfurangee>Drop and Re-Install Furangee Database</OPTION>";
     echo "</SELECT>";
@@ -80,10 +80,7 @@ else
     // ***********************************************
     elseif($module == "furangeeedit")
     {
-        echo "<span style=\"font-family : courier, monospace; font-size: 12pt;\">";
-      echo "Furangee editor";
-        echo "</span>";
-      echo "<BR>";
+      echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00 \">Furangee Editor</span><BR>";
       echo "<FORM ACTION=furangee_control.php METHOD=POST>";
       if(empty($user))
       {
@@ -181,6 +178,12 @@ else
           echo "<INPUT TYPE=HIDDEN NAME=user VALUE=$user>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
           echo "<INPUT TYPE=SUBMIT VALUE=Save>";
+          //******************************
+          //*** SHOW FURANGEE LOG DATA ***
+          //******************************
+          echo "<HR>";
+          echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00;\">Log Data For This Furangee</span><BR>";
+          include("player-log/" . $row[ship_id]);
         }
         elseif($operation == "save")
         {
