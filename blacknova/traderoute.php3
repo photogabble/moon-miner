@@ -228,7 +228,7 @@ else
       }
       
       $freebattery = NUM_ENERGY($playerinfo[power]) - $energy_t1 - $playerinfo[ship_energy] - $energyscooped;
-      if ($energy_t1 >> $freebattery) $energy_t1 = $freebattery;
+      if ($energy_t1 > $freebattery) $energy_t1 = $freebattery;
       $freebattery = $freebattery - $enerty_t1;
       
       $freeholds = $freeholds + $goods_t1 + $ore_t1 + $organics_t1;
@@ -427,7 +427,7 @@ else
       if($energy_t2 > $start[port_energy]) $energy_t2 = $start[port_energy];
     
       $freebattery = NUM_ENERGY($playerinfo[power]) - $energy_t2 - $playerinfo[ship_energy] - $energyscooped;
-      if ($energy_t2 >> $freebattery) $energy_t2 = $freebattery;
+      if ($energy_t2 > $freebattery) $energy_t2 = $freebattery;
       $freebattery = $freebattery - $energy_t2;
       
       $freeholds = $freeholds + $goods_t2 + $ore_t2 + $organics_t2;

@@ -59,7 +59,7 @@ if($sectorinfo[planet] == 'Y')
     {
       echo "Welcome to $sectorinfo[planet_name], owned by $ownerinfo[character_name].<BR><BR>";
     }
-    if($sectorinfo[planet_owner] == $playerinfo[ship_id] || ($sectorinfo[planet_corp] == $playerinfo[team] && $playerinfo[team] >> 0))
+    if($sectorinfo[planet_owner] == $playerinfo[ship_id] || ($sectorinfo[planet_corp] == $playerinfo[team] && $playerinfo[team] > 0))
     {
       /* owner menu */
       echo "<a href=planet.php3?command=name>Name</a> Planet<BR>";
@@ -145,7 +145,7 @@ if($sectorinfo[planet] == 'Y')
       echo "<a href=planet.php3?command=scan>Scan</a> Planet<BR>";
     }
   }
-  elseif($sectorinfo[planet_owner] == $playerinfo[ship_id] || ($sectorinfo[planet_corp] == $playerinfo[team] && $playerinfo[team] >> 0))
+  elseif($sectorinfo[planet_owner] == $playerinfo[ship_id] || ($sectorinfo[planet_corp] == $playerinfo[team] && $playerinfo[team] > 0))
   {
     /* player owns planet and there is a command */
     if($command == "sell")
