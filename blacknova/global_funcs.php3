@@ -203,6 +203,18 @@ function NUM_ARMOUR($level_armour)
   return round(pow($level_factor, $level_armour) * 100);
 }
 
+function NUM_BEAMS($level_beams)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_beams) * 100);
+}
+
+function NUM_SHIELDS($level_shields)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_shields) * 100);
+}
+
 function SCAN_SUCCESS($level_scan, $level_cloak)
 {
   return (5 + $level_scan - $level_cloak) * 5;

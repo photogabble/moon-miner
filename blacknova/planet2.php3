@@ -27,12 +27,12 @@ if($playerinfo[turns] < 1)
 $result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$playerinfo[sector]");
 $sectorinfo = mysql_fetch_array($result2);
 
-$free_holds = round(pow($level_factor,$playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-$free_power = round(pow($level_factor,$playerinfo[power]) * 500) - $playerinfo[ship_energy];
-$fighter_max = round(pow($level_factor,$playerinfo[computer])*100) - $playerinfo[ship_fighters];
-$torpedo_max = round(pow($level_factor,$playerinfo[torp_launchers])*100) - $playerinfo[torps];  
+$free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+$free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+$fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
+$torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];  
 
-#first setup the tp flags
+// first setup the tp flags
 if($tpore != -1)
 {
   $tpore = 1;

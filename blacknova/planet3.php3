@@ -36,8 +36,8 @@
 	{
 		$cargo_exchanged= $trade_ore + $trade_organics + $trade_goods;
 
-		$free_holds=round(pow($level_factor,$playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-		$free_power=round(pow($level_factor,$playerinfo[power]) * 500) - $playerinfo[ship_energy];
+		$free_holds=NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+		$free_power=NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
 		$total_cost=($trade_ore*$ore_price) + ($trade_organics*$organics_price) + ($trade_goods*$goods_price) + ($trade_energy*$energy_price);
 
 		if ($free_holds < $cargo_exchanged)

@@ -327,10 +327,10 @@ else
       
         if($playerarmour > 0)
         {
-          $free_ore=round($targetinfo[ship_ore]/2);
-          $free_organics=round($targetinfo[ship_organics]/2);
-          $free_goods=round($targetinfo[ship_goods]/2);
-          $free_holds=round(pow($level_factor,$playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+          $free_ore = round($targetinfo[ship_ore]/2);
+          $free_organics = round($targetinfo[ship_organics]/2);
+          $free_goods = round($targetinfo[ship_goods]/2);
+          $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
           if($free_holds > $free_goods)
           {
             $salv_goods=$free_goods;
@@ -411,10 +411,10 @@ else
         }         
         if($targetarmour > 0)
         {
-          $free_ore=round($playerinfo[ship_ore]/2);
-          $free_organics=round($playerinfo[ship_organics]/2);
-          $free_goods=round($playerinfo[ship_goods]/2);
-          $free_holds=round(pow($level_factor,$targetinfo[hull]) * 100) - $targetinfo[ship_ore] - $targetinfo[ship_organics] - $targetinfo[ship_goods] - $targetinfo[ship_colonists];
+          $free_ore = round($playerinfo[ship_ore]/2);
+          $free_organics = round($playerinfo[ship_organics]/2);
+          $free_goods = round($playerinfo[ship_goods]/2);
+          $free_holds = NUM_HOLDS($targetinfo[hull]) - $targetinfo[ship_ore] - $targetinfo[ship_organics] - $targetinfo[ship_goods] - $targetinfo[ship_colonists];
           if($free_holds > $free_goods)
           {
             $salv_goods=$free_goods;

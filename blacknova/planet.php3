@@ -180,8 +180,8 @@ if($sectorinfo[planet] == 'Y')
     elseif($command == "transfer")
     {
       /* transfer menu */
-      $free_holds = (round(pow($level_factor,$playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists]);
-      $free_power = (round(pow($level_factor,$playerinfo[power]) * 500) - $playerinfo[ship_energy]);
+      $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+      $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy]);
       echo "You have room for " . NUMBER($free_holds) . " units of additional cargo.  You have capacity for " . NUMBER($free_power) . " units of addtional power.<BR><BR>";
       echo "<FORM ACTION=planet2.php3 METHOD=POST>";
       echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
@@ -281,17 +281,17 @@ if($sectorinfo[planet] == 'Y')
         {
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
-        $planetbeams = round(pow($level_factor, $ownerinfo[beams])) * 100;
+        $planetbeams = NUM_BEAMS($ownerinfo[beams]);
         echo "Planet Beams - $planetbeams<BR><BR>";
-        $playerbeams = round(pow($level_factor, $playerinfo[beams])) * 100;
+        $playerbeams = NUM_BEAMS($playerinfo[beams]);
         echo "Player Beams - $playerbeams<BR><BR>";
-        $playershields = round(pow($level_factor, $playerinfo[shields])) * 100;
+        $playershields = NUM_SHIELDS($playerinfo[shields]);
         echo "Player Shields - $playershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
-        $planetshields = round(pow($level_factor, $ownerinfo[shields])) * 100;
+        $planetshields = NUM_SHIELDS($ownerinfo[shields]);
         echo "Planet Shields - $planetshields<BR><BR>";       
         $playertorpnum = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
         if($playertorpnum > $playerinfo[torps])
@@ -544,24 +544,24 @@ if($sectorinfo[planet] == 'Y')
       }
       else
       {
-        $ownerbeams = pow($level_factor, $ownerinfo[beams]) * 100;
+        $ownerbeams = NUM_BEAMS($ownerinfo[beams]);
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
-        $planetbeams = round(pow($level_factor, $ownerinfo[beams])) * 100;
+        $planetbeams = NUM_BEAMS($ownerinfo[beams]);
         echo "Planet Beams - $planetbeams<BR><BR>";
-        $playerbeams = round(pow($level_factor, $playerinfo[beams])) * 100;
+        $playerbeams = NUM_BEAMS($playerinfo[beams]);
         echo "Player Beams - $playerbeams<BR><BR>";
-        $playershields = round(pow($level_factor, $playerinfo[shields])) * 100;
+        $playershields = NUM_SHIELDS($playerinfo[shields]);
         echo "Player Shields - $playershields<BR><BR>";
-        $ownershields = round(pow($level_factor, $ownerinfo[shields])) * 100;
+        $ownershields = NUM_SHIELDS($ownerinfo[shields]);
         echo "Owner Shields - $ownershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
-        $planetshields = round(pow($level_factor, $ownerinfo[shields])) * 100;
+        $planetshields = NUM_SHIELDS($ownerinfo[shields]);
         echo "Planet Shields - $planetshields<BR><BR>";
         $playertorpnum = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
         if($playertorpnum > $playerinfo[torps])

@@ -103,7 +103,7 @@ else
     }
     $torpedo_cost = $torpedo_number * $torpedo_price;
     $armour_number = round(abs($armour_number));
-    $armour_max = round(pow($level_factor, $playerinfo[armour]) * 100) - $playerinfo[armour_pts];
+    $armour_max = NUM_ARMOUR($playerinfo[armour]) - $playerinfo[armour_pts];
     if($armour_max < 0)
     {
       $armour_max = 0;
