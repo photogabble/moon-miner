@@ -1,3 +1,8 @@
+nospoon (04 September 2001)
+---------------------------
+
+Fixed bug #458278 - File open error when scanning unowned planet
+
 nospoon (03 September 2001)
 ---------------------------
 
