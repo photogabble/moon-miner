@@ -512,4 +512,90 @@ function furangeemove()
   }
 }
 
+function furangeeregen()
+{
+  // *******************************
+  // *** SETUP GENERAL VARIABLES ***
+  // *******************************
+  global $playerinfo;
+
+  // *******************************
+  // *** LETS REGENERATE ENERGY ****
+  // *******************************
+  $maxenergy = NUM_ENERGY($playerinfo[power]);
+  if ($playerinfo[ship_energy] <= ($maxenergy - 50))  // *** STOP REGEN WHEN WITHIN 50 OF MAX ***
+  {                                                   // *** REGEN HALF OF REMAINING ENERGY ***
+    $playerinfo[ship_energy] = $playerinfo[ship_energy] + round(($maxenergy - $playerinfo[ship_energy])/2);
+    $gene = "regenerated Energy to $playerinfo[ship_energy] units,";
+  }
+
+  // *******************************
+  // *** LETS REGENERATE ARMOUR ****
+  // *******************************
+  $maxarmour = NUM_ARMOUR($playerinfo[armour]);
+  if ($playerinfo[armour_pts] <= ($maxarmour - 50))  // *** STOP REGEN WHEN WITHIN 50 OF MAX ***
+  {                                                  // *** REGEN HALF OF REMAINING ARMOUR ***
+    $playerinfo[armour_pts] = $playerinfo[armour_pts] + round(($maxarmour - $playerinfo[armour_pts])/2);
+    $gena = "regenerated Armour to $playerinfo[armour_pts] points,";
+  }
+
+  // *******************************
+  // *** LETS BUY FIGHTERS/TORPS ***
+  // *******************************
+
+  // *******************************
+  // *** FURANGEE PAY 6/FIGHTER ****
+  // *******************************
+  $available_fighters = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
+  if (($playerinfo[credits]>5) && ($available_fighters>0))
+  {
+    if (round($playerinfo[credits]/6)>$available_fighters)
+    {
+      $purchase = ($available_fighters*6);
+      $playerinfo[credits] = $playerinfo[credits] - $purchase;
+      $playerinfo[ship_fighters] = $playerinfo[ship_fighters] + $available_fighters;
+      $genf = "purchased $available_fighters fighters for $purchase credits,";
+    }
+    if (round($playerinfo[credits]/6)<=$available_fighters)
+    {
+      $purchase = (round($playerinfo[credits]/6));
+      $playerinfo[ship_fighters] = $playerinfo[ship_fighters] + $purchase;
+      $genf = "purchased $purchase fighters for $playerinfo[credits] credits,";
+      $playerinfo[credits] = 0;
+    }
+  } 
+
+  // *******************************
+  // *** FURANGEE PAY 3/TORPEDO ****
+  // *******************************
+  $available_torpedoes = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
+  if (($playerinfo[credits]>2) && ($available_torpedoes>0))
+  {
+    if (round($playerinfo[credits]/3)>$available_torpedoes)
+    {
+      $purchase = ($available_torpedoes*3);
+      $playerinfo[credits] = $playerinfo[credits] - $purchase;
+      $playerinfo[torps] = $playerinfo[torps] + $available_torpedoes;
+      $gent = "purchased $available_torpedoes torpedoes for $purchase credits,";
+    }
+    if (round($playerinfo[credits]/3)<=$available_torpedoes)
+    {
+      $purchase = (round($playerinfo[credits]/3));
+      $playerinfo[torps] = $playerinfo[torps] + $purchase;
+      $gent = "purchased $purchase torpedoes for $playerinfo[credits] credits,";
+      $playerinfo[credits] = 0;
+    }
+  } 
+
+  // *********************************
+  // *** UPDATE FURANGEE RECORD ******
+  // *********************************
+  mysql_query ("UPDATE ships SET ship_energy=$playerinfo[ship_energy], armour_pts=$playerinfo[armour_pts], ship_fighters=$playerinfo[ship_fighters], torps=$playerinfo[torps], credits=$playerinfo[credits] WHERE ship_id=$playerinfo[ship_id]");
+  if (!$gene=='' || !$gena=='' || !$genf=='' || !$gent=='')
+  {
+    playerlog($playerinfo[ship_id],"Furangee $gene $gena $genf $gent and has been updated."); 
+  }
+
+}
+
 ?>
