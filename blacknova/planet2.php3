@@ -90,7 +90,7 @@ else
      }
      else 
      {
-        $transfer_ore = $sectorinfo['planet_ore']; 
+        $transfer_ore = $planetinfo['ore']; 
      }
   }
   if($allorganics==-1)
@@ -101,7 +101,7 @@ else
      }
      else  
      {
-        $transfer_organics = $sectorinfo['planet_organics'];
+        $transfer_organics = $planetinfo['organics'];
      }
 
   }
@@ -114,7 +114,7 @@ else
      }
      else
      {
-        $transfer_goods = $sectorinfo['planet_goods'];
+        $transfer_goods = $planetinfo['goods'];
      }
 
   }
@@ -127,7 +127,7 @@ else
      }
      else 
      {
-        $transfer_energy = $sectorinfo['planet_energy'];
+        $transfer_energy = $planetinfo['energy'];
      }
 
   }
@@ -139,7 +139,7 @@ else
      }
      else 
      {
-        $transfer_organics = $sectorinfo['planet_colonists'];
+        $transfer_organics = $planetinfo['colonists'];
      }
 
   }
@@ -151,7 +151,7 @@ else
      }
      else 
      {
-        $transfer_credits = $sectorinfo['planet_credits'];
+        $transfer_credits = $planetinfo['credits'];
      }
 
   }
@@ -163,7 +163,7 @@ else
      }
      else 
      {
-        $transfer_torps = $sectorinfo['base_torps'];
+        $transfer_torps = $planetinfo['torps'];
      }
   }
   if($allfighters==-1)
@@ -174,7 +174,7 @@ else
      }
      else 
      {
-        $transfer_fighters = $sectorinfo['planet_fighters'];
+        $transfer_fighters = $planetinfo['fighters'];
      }
 
   }

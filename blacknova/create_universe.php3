@@ -180,7 +180,7 @@ elseif($swordfish==$adminpass && $engage=="2")
     $select = mysql_query("SELECT universe.sector_id FROM universe, zones WHERE universe.sector_id=$sectors[$i] AND zones.zone_id=universe.zone_id AND zones.allow_planet='N'") or die("DB error");
     if(mysql_num_rows($select) == 0)
     {
-        $insert = mysql_query("INSERT INTO planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2,0,null,$default_prod_ore,$default_prod_organics,$default_prod_goods,$default_prod_energy, $default_prod_fighters, $default_prod_torp,$sectors[$i])");
+        $insert = mysql_query("INSERT INTO planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2,0,0,$default_prod_ore,$default_prod_organics,$default_prod_goods,$default_prod_energy, $default_prod_fighters, $default_prod_torp,$sectors[$i])");
         echo "$sectors[$i] - ";
     }
     else

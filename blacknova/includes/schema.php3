@@ -46,7 +46,7 @@ mysql_query("CREATE TABLE planets(" .
             "fighters bigint(20) DEFAULT '0' NOT NULL," .
             "torps bigint(20) DEFAULT '0' NOT NULL," .
             "owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
-            "corp bigint(20) unsigned," .
+            "corp bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "base enum('Y','N') DEFAULT 'N' NOT NULL," .
             "sells enum('Y','N') DEFAULT 'N' NOT NULL," .
             "prod_organics float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
