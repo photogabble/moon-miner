@@ -82,12 +82,12 @@ else
   {
     $production = min($row[planet_colonists], $colonist_limit) * $colonist_production_rate;
 
-    $organics_production = ($production * $organics_prate * $row[prod_organics} / 100.0) - $production * $organics_consumption;
+    $organics_production = ($production * $organics_prate * $row[prod_organics] / 100.0) - $production * $organics_consumption;
     if(($row[planet_organics] + $organics_production) > $organics_limit)
     {
       $organics_production = 0;
     }
-    if($row[planet_organics] + $organics_production) < 0)
+    if($row[planet_organics] + $organics_production < 0)
     {
       $organics_production = -$row[planet_organics];
       $starvation = floor(-($organics_test / $organics_consumption / $colonist_production_rate * $starvation_death_rate));
@@ -137,7 +137,6 @@ else
     }
     $credits_production = $production * $credits_prate * (100.0 - $total_percent) / 100.0;
     mysql_query("UPDATE universe SET planet_organics=planet_organics+$organics_production, planet_ore=planet_ore+$ore_production, planet_goods=planet_goods+$goods_production, planet_energy=planet_energy+$energy_production, planet_colonists=planet_colonists+$reproduction-$starvation, base_torp=base_torp+$torp_production, planet_fighters=planet_fighters+$fighter_production, planet_credits=planet_credits*$interest_rate+$credits_production WHERE sector_id=$row[sector_id]");
-    echo "<BR>$query<BR>";
   }
   mysql_free_result($res);
   echo "Planets updated.<BR><BR>";
@@ -149,7 +148,7 @@ else
   $num_to_tow = 0;
   do
   {
-    $res = mysql_query("SELECT ship_id,character_name,hull,sector,universe.zone_id,max_hull FROM ships,universe,zones WHERE sector=sector_id AND universe.zone_id=zones.zone_id AND max_hull<>0 AND ships.hull>max_hull");
+    $res = mysql_query("SELECT ship_id,character_name,hull,sector,universe.zone_id,max_hull FROM ships,universe,zones WHERE sector=sector_id AND universe.zone_id=zones.zone_id AND max_hull<>0 AND ships.hull>max_hull AND ship_destroyed='N'");
     if($res)
     {
       $num_to_tow = mysql_num_rows($res);
