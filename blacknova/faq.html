@@ -33,7 +33,7 @@ A {
 }
 </STYLE>
 
-<META content="MSHTML 5.50.4616.200" name=GENERATOR></HEAD>
+<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
 <BODY background="images/bgoutspace1.gif">
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
@@ -63,7 +63,7 @@ A {
   <TR>
     <TD>
       <P>Welcome to the BlackNova Traders FAQ. This most recent 
-      update occurred on 01.01.2002 and is current for the version 0.3.1. Based on the original FAQ by Garrison.
+      update occurred on 01.10.2002 and is current for the version 0.3.1. Based on the original FAQ by Garrison.
  </P></TD></TR></TBODY></TABLE><BR>
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
@@ -258,8 +258,8 @@ A {
       Didn't think that was possible. My bad. :) 
       <P>Here's the deal on upgrading. When you hit a 15-16 hull level, upgrade 
       everything to within 4 of your hull. Actually, forget about sensors. 
-      Builders don't need sensors. They don't need armour either for that 
-      matter. Always have full EWDs and an escape pod. Everytime you upgrade 
+      Builders don't need sensors. They don't need amour either for that 
+      matter. Always have full EWDs and an escape pod. Every time you upgrade 
       your hull, upgrade the other techs. Quit upgrading engines when you can 
       realspace anywhere in 1 turn. Upgrade as soon as you can. 
       <P>So far as colonizing is concerned, realspace to a special port. Pick up 
@@ -272,7 +272,7 @@ A {
       stuff to supply your planets. You don't really need to trade much in this 
       strategy. 
       <P><B>PROS:</B> You make lots of cash in the long run. <BR><B>CONS:</B> 
-      Kinda slow to start. Conquerors can sometimes take your planets. 
+      Kind of slow to start. Conquerors can sometimes take your planets. 
       <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
@@ -285,7 +285,7 @@ A {
       <P>The Banker builds one planet to full 
       capacity. Upgrade as though you were a builder. Be sure that the planet is 
       completely well defended. Keep adding fighters. If you think that the 
-      planet has a rediculously high number of fighters, then it's probably the 
+      planet has a ridiculously high number of fighters, then it's probably the 
       right number. I'd recommend spending something like 5-10% of your turns 
       adding more fighters and torps to the planet. 
       <P>Ok, here's the way the Banker makes his living. Put all your money on 
@@ -295,7 +295,7 @@ A {
       the new money on the planet and wait another 600 turns before you play 
       again. The important thing is to let the money sit around and accrue 
       interest for as long as possible. 
-      <P>This strategy works fairly well if you combine it with a Builder, ie. 
+      <P>This strategy works fairly well if you combine it with a Builder, i.e.. 
       Build a bunch of planets, but Bank on one of them. Harder to defend your 
       empire this way. 
       <P><B>PROS:</B> You can make a metric buttload of cash if you're patient. 
@@ -426,10 +426,11 @@ A {
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
-      <P>This list will show you how many items you can store in your holds. It 
-      will also work for armor, shields, beams, torps, and fighters(computer 
-      tech level). I show up to tech level 24 That's the highest I've ever 
-      gotten to. The formula for figuring out how many holds or whatever you 
+      <P>This list will show you how many items you can store in your holds. 
+      This list also represents armor, shields, beams, torps, and fighter 
+      capacity. I show up to tech level 24 That's the highest I've ever gotten 
+      to. The formula for figuring out the capacity of your holds or other tech 
+      levels you 
       will have is 100*(1.5^(the tech level in question)). Round off that number 
       and you have your answer.<BR><BR>
       <TABLE width="100%">
@@ -479,7 +480,7 @@ A {
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
-      <P>This is a listing of how much it costs to upgrade to a certain level. 
+      <P>This is a listing of how much it costs to upgrade to a certain tech level. 
       For example, upgrading from 0 to 1 costs 1,000 credits.<BR><BR>
       <TABLE width="100%">
         <TBODY>
@@ -495,7 +496,7 @@ A {
             <OL start=5>
               <LI>32,000 
               <LI>64,000 
-              <LI>126,000 
+              <LI>128,000 
               <LI>256,000 
               <LI>512,000 </LI></OL></TD>
           <TD align=middle width="20%">
@@ -530,7 +531,7 @@ A {
     <TD width="90%">
       <P>Combat is tricky. I'm going to lay it out one step at a time. First 
       we'll do ship to ship combat, and then we'll do ship to planet combat. 
-      This is basically an english representation of the code. Now, those of you 
+      This is basically an English representation of the code. Now, those of you 
       who complain about not being able to read the PHP code can quiet down. 
       <P>One very important thing that I want to stress is this. In a fight, you 
       use 100% of your fighters. You only use 2% of your torps. This is because 
@@ -543,7 +544,7 @@ A {
       energy before shields do. In this example, you'd have to have 50k energy 
       on hand for beams and shields to both be at max power. 
       <P><B>Ship to Ship Combat</B> 
-      <P>Ship to ship combat happens in a very straighforward manner. Here we 
+      <P>Ship to ship combat happens in a very straightforward manner. Here we 
       go. I'll be using the following method to determine who is the attacker 
       and who is the defender. a_shields is attacker shields. d_shields is 
       defender shields. No here we go. 
@@ -563,7 +564,7 @@ A {
         random number is lower than the success number, the attack goes on. 
         Otherwise you get a message saying "Unable to get a lock on 
         target!".<BR><BR>Here's an example. If your sensors are 7 and his cloak 
-        is 3, then we claculate the success rate as (10-3+7)*5. This result is 
+        is 3, then we calculate the success rate as (10-3+7)*5. This result is 
         70. This means you have a straight 70% chance of success.<BR><BR>I know 
         this looks the same as the above engines check, but here you get the 
         success percent right away. There you have to subtract from 100. Looks 
@@ -613,8 +614,8 @@ A {
         <LI>If you have any torp damage left, it is applied to the defender's 
         armor. So, if you had 4,000 torp damage left, you'd take away 4,000 
         armor.<BR><BR>
-        <LI>Now, fighters attack. Your orginal fighters total is subtracted from 
-        his fighter total, and his orginal total is deleted from yours. This 
+        <LI>Now, fighters attack. Your original fighters total is subtracted from 
+        his fighter total, and his original total is deleted from yours. This 
         might not seem immediately intuitive, but it is. I'll give some 
         examples.<BR><BR>You have 40,000 and he has 36,000. You'll end up with 
         4,000 left over and he'll end up with 0.<BR>You have 20,000 and he has 
@@ -709,7 +710,7 @@ bad.<BR><BR>
       dumb. I am going to suggest a maximum colonizing limit of 15-25 million 
       colonists. That gives you a solid planet, but also gives you plenty of 
       time for the planets to grow. That's just a suggestion. Use your own 
-      judgement. 
+      judgment. 
       <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR></TBODY></TABLE><A name=qa></A>
 <TABLE cellSpacing=0 width="100%" border=0>
