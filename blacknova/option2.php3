@@ -2,7 +2,10 @@
 include("config.php3");
 
 connectdb();
-
+if(checklogin())
+{
+  die();
+}
 $title = "Save Options";
 
 if($intrf == "N")

@@ -50,6 +50,10 @@ mysql_query("CREATE TABLE ships(" .
             "armour tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "armour_pts bigint(20) DEFAULT '0' NOT NULL," .
             "cloak tinyint(3) unsigned DEFAULT '0' NOT NULL," .
+            "planet_beams tinyint(3) unsigned DEFAULT '0' NOT NULL," .
+            "planet_shields tinyint(3) unsigned DEFAULT '0' NOT NULL," .
+            "planet_torp_launchers tinyint(3) DEFAULT '0' NOT NULL," .
+            "planet_cloak tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "credits bigint(20) DEFAULT '0' NOT NULL," .
             "sector bigint(20) unsigned," .
             "ship_ore bigint(20) DEFAULT '0' NOT NULL," .
@@ -75,9 +79,16 @@ mysql_query("CREATE TABLE ships(" .
             "preset3 bigint(20) DEFAULT '0' NOT NULL," .
             "rating bigint(20) DEFAULT '0' NOT NULL," .
             "score bigint(20) DEFAULT '0' NOT NULL," .
+            "team bigint(20) DEFAULT '0' NOT NULL," .
+            "team_invite bigint(20) DEFAULT '0' NOT NULL," .
             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
             "ip_address tinytext NOT NULL," .
-            "PRIMARY KEY (ship_id)," .
+            "PRIMARY KEY (email)," .
+            "KEY email (email)," .
+            "KEY sector (sector)," .
+            "KEY ship_destroyed (ship_destroyed)," .
+            "KEY on_planet (on_planet)," .
+            "KEY team (team)," .
             "KEY ship_id (ship_id)" .
             ")");
 echo "created.<BR>";
@@ -122,6 +133,7 @@ mysql_query("CREATE TABLE universe(" .
             "planet_defeated enum('Y','N') DEFAULT 'N' NOT NULL," .
             "PRIMARY KEY (sector_id)," .
             "KEY sector_id (sector_id)," .
+            "KEY planet_owner (planet_owner)," .
             "UNIQUE sector_id_2 (sector_id)," .
             "UNIQUE sector_id_3 (sector_id)" .
             ")");
@@ -158,6 +170,7 @@ mysql_query("CREATE TABLE teams(" .
             "id bigint(20) DEFAULT '0' NOT NULL," .
             "creator bigint(20) DEFAULT '0'," .
             "team_name tinytext," .
+            "number_of_members tinyint(3) DEFAULT '0' NOT NULL," .
             "PRIMARY KEY(id)" .
             ")");
 echo "created.<BR>";

@@ -7,8 +7,10 @@ $title="Scan Ship";
 include("header.php3");
 
 connectdb();
-checklogin();
-
+if(checklogin())
+{
+  die();
+}
 $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
 

@@ -7,8 +7,10 @@ $title="Attack Ship";
 include("header.php3");
 
 connectdb();
-checklogin();
-
+if(checklogin())
+{
+  die();
+}
 //-------------------------------------------------------------------------------------------------
 mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ");
 

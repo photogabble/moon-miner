@@ -8,8 +8,12 @@ $title="Planet Menu";
 include("header.php3");
 
 connectdb();
-checklogin();
-
+if(checklogin())
+{
+  die();
+}
+//-------------------------------------------------------------------------------------------------
+mysql_query("LOCK TABLES ships WRITE, universe WRITE");
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
 
@@ -1314,7 +1318,8 @@ if($allow_ibank)
 {
   echo "<BR>Access the planet's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>";
 }
-
+mysql_query("UNLOCK TABLES");
+//-------------------------------------------------------------------------------------------------
 TEXT_GOTOMAIN();
 
 include("footer.php3");
