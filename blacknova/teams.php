@@ -91,7 +91,8 @@ switch ($teamwhat) {
 			$newcreatorname = mysql_fetch_array($res);
 			echo "You have left alliance <B>$team[team_name]</B> relinquishing the functions of co-ordinator to $newcreatorname[character_name].<BR><BR>";
 			mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
-			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,creator=$newcreator WHERE id=$whichteam");
+			mysql_query("UPDATE ships SET team=$newcreator WHERE team=$creator");
+			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,id=$newcreator WHERE id=$whichteam");
 			playerlog($playerinfo[ship_id],"You have left alliance <B>$team[team_name]</B> relinquishing the functions of co-ordinator to $newcreatorname[character_name].");
 			playerlog($newcreator,"$newcreatorname[character_name] has left alliance <B>$team[team_name]</B> giving you the function of co-ordinator");
 		}
