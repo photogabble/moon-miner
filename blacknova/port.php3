@@ -107,19 +107,19 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
   // limit amounts to what the player can afford
   if($sb_ore == "Selling")
   {
-    $amount_ore = min($amount_ore, round(($playerinfo[credits] + $amount_organics * $organics_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $ore_price));
+    $amount_ore = min($amount_ore, floor(($playerinfo[credits] + $amount_organics * $organics_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $ore_price));
   }
   if($sb_organics == "Selling")
   {
-    $amount_organics = min($amount_organics, round(($playerinfo[credits] + $amount_ore * $ore_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $organics_price));
+    $amount_organics = min($amount_organics, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $organics_price));
   }  
   if($sb_goods == "Selling")
   {
-    $amount_goods = min($amount_goods, round(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_energy * $energy_price) / $goods_price));
+    $amount_goods = min($amount_goods, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_energy * $energy_price) / $goods_price));
   }  
   if($sb_energy == "Selling")
   {
-    $amount_energy = min($amount_energy, round(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
+    $amount_energy = min($amount_energy, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
   }  
   
   echo "<FORM ACTION=port2.php3 METHOD=POST>";
