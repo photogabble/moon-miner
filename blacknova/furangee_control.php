@@ -42,6 +42,7 @@ else
     echo "<OPTION VALUE=instruct>Furangee Instructions</OPTION>";
     echo "<OPTION VALUE=furangeeedit SELECTED>Furangee Character Editor</OPTION>";
     echo "<OPTION VALUE=createnew>Create A New Furangee Character</OPTION>";
+    echo "<OPTION VALUE=clearlog>Clear All Furangee Log Files</OPTION>";
     echo "<OPTION VALUE=dropfurangee>Drop and Re-Install Furangee Database</OPTION>";
     echo "</SELECT>";
     echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
@@ -264,6 +265,44 @@ else
       echo "</FORM>";
     }
     // ***********************************************
+    // ***** START OF CLEAR FURANGEE LOG SUB *********
+    // ***********************************************
+    elseif($module == "clearlog")
+    {
+      echo "<H1>Clear All Furangee Logs</H1>";
+      echo "<H3>This will DELETE All Furangee log files</H3>";
+      echo "<FORM ACTION=furangee_control.php METHOD=POST>";
+      if(empty($operation))
+      {
+        echo "<BR>";
+        echo "<H2><FONT COLOR=Red>Are You Sure?</FONT></H2><BR>";
+        echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=clearfurlog>";
+        echo "<INPUT TYPE=SUBMIT VALUE=Clear>";
+      }
+      elseif($operation == "clearfurlog")
+      {
+        $res = mysql_query("SELECT email,ship_id FROM ships WHERE email LIKE '%@furangee'");
+        while($row = mysql_fetch_array($res))
+        {
+          $player_log_file = $gameroot;
+          $player_log_file = $player_log_file . "/player-log/" . $row[ship_id];
+          if(file_exists($player_log_file))
+          {
+            unlink($player_log_file);
+            playerlog($row[ship_id], "Log cleared.");
+            echo "Log $player_log_file cleared.<BR>";
+          }
+        }
+      }
+      else
+      {
+        echo "Invalid operation";
+      }
+      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=clearlog>";
+      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
+      echo "</FORM>";
+    }
+    // ***********************************************
     // ******** START OF CREATE FURANGEE SUB **********
     // ***********************************************
     elseif($module == "createnew")
@@ -355,7 +394,7 @@ else
             }
           }
           $stamp=date("Y-m-d H:i:s");
-          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,$sector,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y')");
+          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',3,3,3,3,3,3,3,100,3,3,100,1,$start_credits,$sector,0,0,0,$start_energy,0,100,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y')");
           if(!$result2) {
             echo mysql_errno(). ": ".mysql_error(). "<br>";
           } else {
