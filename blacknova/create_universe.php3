@@ -218,8 +218,12 @@ elseif($swordfish==$adminpass && $engage=="2")
   //shuffle($sectors);
   for($i=0; $i<=$sector_max; $i++)
   {
-    $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");
-    echo "$i=>$sectors[$i] - ";
+    $dups = mysql_query("SELECT * from links where link_start = $i and link_dest = $sectors[$i]");
+    if(mysql_num_rows($dups) == 0) 
+    {
+       $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");
+       echo "$i=>$sectors[$i] - ";
+    }
   }
   echo "done.<BR>";
   echo "Randomly Two-way Linking Sectors...<BR>";
@@ -232,8 +236,12 @@ elseif($swordfish==$adminpass && $engage=="2")
   //shuffle($sectors);
   for($i=0; $i<=$sector_max; $i++)
   {
-    $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");
-    $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($sectors[$i],$i)");
+    $dups = mysql_query("SELECT * from links where (link_start = $i and link_dest= $sectors[$i]) or (link_start = $sectors[$i] and link_dest = $i)");
+    if(mysql_num_rows($dups) == 0)
+    {
+       $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");
+       $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($sectors[$i],$i)");
+    }
     echo "$i<=>$sectors[$i] - ";
   }
   echo "done.<BR>";
