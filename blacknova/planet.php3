@@ -14,7 +14,7 @@ if(checklogin())
   die();
 }
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE, planets WRITE");
+
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
 
@@ -38,7 +38,6 @@ if(!empty($planetinfo))
       mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "You are not in the same sector as this planet, so you can't interact with it.<BR>";
     TEXT_GOTOMAIN();
-    mysql_query("UNLOCK TABLES");
     include("footer.php3");
     die();
   }
@@ -49,7 +48,6 @@ if(!empty($planetinfo))
     echo "You may <a href=planet.php3?planet_id=$planet_id&command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
     echo "<BR>";
     TEXT_GOTOMAIN();
-    mysql_query("UNLOCK TABLES");
     include("footer.php3");
     die();
   }
@@ -316,7 +314,6 @@ if(!empty($planetinfo))
       {
         echo "You need at least one turn to scan a planet.<BR><BR>";
 	    TEXT_GOTOMAIN();
-        mysql_query("UNLOCK TABLES");
         include("footer.php3");   
         die();
       }
@@ -337,7 +334,6 @@ if(!empty($planetinfo))
         echo "Sensors cannot get a fix on target!<BR><BR>";
         TEXT_GOTOMAIN();
         playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attempted to scan one of your planets in sector $playerinfo[sector], but failed.");
-        mysql_query("UNLOCK TABLES");
         include("footer.php3");
         die();
       }
@@ -522,7 +518,7 @@ if($allow_ibank)
 {
   echo "<BR>Access the planet's <A HREF=\"ibank.php3?planet_id=$planet_id\">IGB Banking Terminal</A>.<BR><BR>";
 }
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 TEXT_GOTOMAIN();
 

@@ -14,7 +14,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships READ, universe READ");
+
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -24,7 +24,7 @@ $res = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'
 $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 
 if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")

@@ -13,7 +13,6 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE, planets WRITE");
 
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
@@ -452,7 +451,7 @@ else
   }
 }
 
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();

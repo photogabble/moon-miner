@@ -15,7 +15,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe READ");
+
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -169,7 +169,7 @@ else
   echo "Invalid destination.<BR><BR>";
 }
 
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();
