@@ -79,6 +79,7 @@ if ($flag==1)
 else
 {
     echo "Move failed!<BR><BR>";
+    $query="UPDATE ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]";    
     TEXT_GOTOMAIN();
 }
 

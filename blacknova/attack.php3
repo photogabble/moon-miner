@@ -86,7 +86,7 @@ else
       $dest_sector=rand(1,$sector_max);
       mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
       playerlog($targetinfo[ship_id],"$playerinfo[character_name] in sector $playerinfo[sector] attempted to attack your ship, Your Emergency Warp Engaged.");
-      $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
+      $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1,cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
       echo "Target engaged an emergency warp device when attacked!<BR><BR>";
     }
     else

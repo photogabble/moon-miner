@@ -159,7 +159,7 @@ else
         echo "...towing $row[character_name] out of $row[sector] (max_hull=$row[max_hull] hull=$row[hull])...";
         $newsector = rand(0, $sector_max);
         echo " to sector $newsector.<BR>";
-        $query = mysql_query("UPDATE ships SET sector=$newsector where ship_id=$row[ship_id]");
+        $query = mysql_query("UPDATE ships SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
         playerlog($row[ship_id], "Your ship was towed from sector $row[sector] to sector $newsector because your hull size exceeded $row[max_hull].");
       }
       mysql_free_result($res);
