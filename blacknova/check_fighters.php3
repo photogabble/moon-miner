@@ -40,7 +40,7 @@
                        mysql_query("UPDATE ships SET credits=credits+$fighterstoll where ship_id=$sectorinfo[fm_owner]");
                        playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] paid you $tollstring for entry to sector $sector.");
                        playerlog($playerinfo[ship_id],"You paid $tollstring for entry to sector $sector.");
-                       $ok=0;
+                       $ok=1;
                     }
                     break;
                  default:

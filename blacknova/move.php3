@@ -56,18 +56,19 @@ if ($result3>0)
 if ($flag==1)
 {
     $ok=1;
-$stamp = date("Y-m-d H-i-s");
-	$query="UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-    $move_result = mysql_query ("$query");
-	if (!$move_result)
+    $calledfrom = "move.php3";
+    include("check_fighters.php3");
+    if($ok==1){
+       $stamp = date("Y-m-d H-i-s");
+       $query="UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
+       $move_result = mysql_query ("$query");
+  	if (!$move_result)
 	{
 		$error = mysql_error($move_result);
 		mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
 	}
-
+    }
     /* enter code for checking dangers in new sector */
-    $calledfrom = "move.php3";
-    include("check_fighters.php3");
     include("check_mines.php3");
     if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
     {
