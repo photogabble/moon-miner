@@ -1,11 +1,11 @@
 <?
-
-
 include("config.php3");
 
 updatecookie();
 
-$title="RealSpace Move";
+include($gameroot . $default_lang);
+
+$title=$l_rs_title;
 include("header.php3");
 
 connectdb();
@@ -34,9 +34,11 @@ if(isset($destination))
 if(!isset($destination))
 {
   echo "<FORM ACTION=rsmove.php3 METHOD=POST>";
-  echo "You are presently in sector $playerinfo[sector] - and there are sectors available from 0 to $sector_max.<BR><BR>";
-  echo "Which sector would you like to reach through RealSpace?:  <INPUT TYPE=TEXT NAME=destination SIZE=10 MAXLENGTH=10><BR><BR>";
-  echo "<INPUT TYPE=SUBMIT VALUE=Compute><BR><BR>";
+  $l_rs_insector=str_replace("[sector]",$playerinfo[sector],$l_rs_insector);
+  $l_rs_insector=str_replace("[sector_max]",$sector_max,$l_rs_insector);
+  echo "$l_rs_insector<BR><BR>";
+  echo "$l_rs_whichsector:  <INPUT TYPE=TEXT NAME=destination SIZE=10 MAXLENGTH=10><BR><BR>";
+  echo "<INPUT TYPE=SUBMIT VALUE=$l_rs_submit><BR><BR>";
   echo "</FORM>";
 }
 elseif($destination <= $sector_max && empty($engage))
@@ -85,14 +87,19 @@ elseif($destination <= $sector_max && empty($engage))
     $triptime = 0;
     $energyscooped = 0;
   }
-  echo "With your engines, it will take " . NUMBER($triptime) . " turns to complete the journey.  You would gather " . NUMBER($energyscooped) . " units of energy.<BR><BR>";
+ $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
+ $l_rs_energy=str_replace("[energy]",NUMBER($energyscooped),$l_rs_energy);
+  echo "$l_rs_movetime $l_rs_energy<BR><BR>";
   if($triptime > $playerinfo[turns])
   {
-    echo "You only have " . NUMBER($playerinfo[turns]) . ", and cannot embark on this journey.";
+    echo "$l_rs_noturns";
   }
   else
   {
-    echo "You have " . NUMBER($playerinfo[turns]) . " turns.  <A HREF=rsmove.php3?engage=1&destination=$destination>Engage</A> engines?<BR><BR>";
+    $l_rs_engage_link= "<A HREF=rsmove.php3?engage=1&destination=$destination>" . $l_rs_engage_link . "</A>";
+    $l_rs_engage=str_replace("[turns]",NUMBER($playerinfo[turns]),$l_rs_engage);
+    $l_rs_engage=str_replace("[engage]",$l_rs_engage_link,$l_rs_engage);
+    echo "$l_rs_engage<BR><BR>";
   }
 }
 elseif($destination <= $sector_max && $engage == 1)
@@ -147,8 +154,9 @@ elseif($destination <= $sector_max && $engage == 1)
   }
   if($triptime > $playerinfo[turns])
   {
-    echo "With your engines, it would take " . NUMBER($triptime) . " turns to complete the journey.<BR><BR>";
-    echo "You only have " . NUMBER($playerinfo[turns]) . ", and cannot embark on this journey.";
+   $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
+    echo "$l_rs_movetime<BR><BR>";
+    echo "$l_rs_noturns";
   }
   else
   {
@@ -156,18 +164,21 @@ elseif($destination <= $sector_max && $engage == 1)
     $sector = $destination;
     $calledfrom = "rsmove.php3";
     include("check_fighters.php3");
-    if($ok>0) 
+    if($ok>0)
     {
        $stamp = date("Y-m-d H-i-s");
        $update = mysql_query("UPDATE ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
-       echo "You are now in sector $destination. You used " . NUMBER($triptime) . " turns, and gained " . NUMBER($energyscooped) . " energy units.<BR><BR>";
+       $l_rs_ready=str_replace("[sector]",$destination,$l_rs_ready);
+       $l_rs_ready=str_replace("[triptime]",NUMBER($triptime),$l_rs_ready);
+       $l_rs_ready=str_replace("[energy]",NUMBER($energyscooped),$l_rs_ready);
+       echo "$l_rs_ready<BR><BR>";
        include("check_mines.php3");
     }
   }
 }
 else
 {
-  echo "Invalid destination.<BR><BR>";
+  echo "$l_rs_invalid.<BR><BR>";
 }
 
 

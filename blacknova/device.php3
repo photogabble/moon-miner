@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Devices";
+include($gameroot . $default_lang);
+$title=$l_device_title;
 include("header.php3");
 
 connectdb();
@@ -19,35 +18,35 @@ $playerinfo = mysql_fetch_array($res);
 
 bigtitle();
 
-echo "Your ship is equipped with the following devices (click on a device to use it):<BR><BR>";
+echo "$l_device_expl<BR><BR>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-echo "<TR BGCOLOR=\"$color_header\"><TD><B>Device</B></TD><TD><B>Quantity</B></TD><TD><B>Usage</B></TD></TR>";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_device</B></TD><TD><B>$l_qty</B></TD><TD><B>$l_usage</B></TD></TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
-echo "<TD><A HREF=beacon.php3>Beacons</A></TD><TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD><TD>Manual</TD>";
+echo "<TD><A HREF=beacon.php3>$l_beacons</A></TD><TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD><TD>$l_manual</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line2\">";
-echo "<TD><A HREF=warpedit.php3>Warp Editors</A></TD><TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD>Manual</TD>";
+echo "<TD><A HREF=warpedit.php3>$l_warpedit</A></TD><TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD>$l_manual</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
-echo "<TD><A HREF=genesis.php3>Genesis Torpedoes</A></TD><TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD><TD>Manual</TD>";
+echo "<TD><A HREF=genesis.php3>$l_genesis</A></TD><TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD><TD>$l_manual</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line2\">";
-echo "<TD>Mine Deflectors</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD>Automatic</TD>";
+echo "<TD>$l_deflect</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD>$l_automatic</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
-echo "<TD><A HREF=mines.php3?op=1>Mines</A></TD><TD>" . NUMBER($playerinfo[torps]) . "</TD><TD>Manual</TD>";
+echo "<TD><A HREF=mines.php3?op=1>$l_mines</A></TD><TD>" . NUMBER($playerinfo[torps]) . "</TD><TD>$l_manual</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line2\">";
-echo "<TD><A HREF=mines.php3?op=2>Fighters</A></TD><TD>" . NUMBER($playerinfo[ship_fighters]) . "</TD><TD>Manual</TD>";
+echo "<TD><A HREF=mines.php3?op=2>$l_fighters</A></TD><TD>" . NUMBER($playerinfo[ship_fighters]) . "</TD><TD>$l_manual</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
-echo "<TD><A HREF=emerwarp.php3>Emergency Warp</A></TD><TD>" . NUMBER($playerinfo[dev_emerwarp]) . "</TD><TD>Manual/Automatic</TD>";
+echo "<TD><A HREF=emerwarp.php3>$l_ewd</A></TD><TD>" . NUMBER($playerinfo[dev_emerwarp]) . "</TD><TD>$l_manual/$l_automatic</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line2\">";
-echo "<TD>Escape Pod</TD><TD>" . (($playerinfo[dev_escapepod] == 'Y') ? "Yes" : "No") . "</TD><TD>Automatic</TD>";
+echo "<TD>$l_escape_pod</TD><TD>" . (($playerinfo[dev_escapepod] == 'Y') ? $l_yes : $l_no) . "</TD><TD>$l_automatic</TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
-echo "<TD>Fuel Scoop</TD><TD>" . (($playerinfo[dev_fuelscoop] == 'Y') ? "Yes" : "No") . "</TD><TD>Automatic</TD>";
+echo "<TD>$l_fuel_scoop</TD><TD>" . (($playerinfo[dev_fuelscoop] == 'Y') ? $l_yes : $l_no) . "</TD><TD>$l_automatic</TD>";
 echo "</TR>";
 echo "</TABLE>";
 echo "<BR>";
@@ -56,4 +55,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

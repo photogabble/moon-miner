@@ -156,13 +156,13 @@ $max_traderoutes_player = 40;
 
 $min_bases_to_own = 3;
 
-$default_lang = 'english.inc';
+$default_lang = '/languages/english.inc';
 
-$avail_lang[0][file] = 'english.inc';
+$avail_lang[0][file] = '/languages/english.inc';
 $avail_lang[0][name] = 'English';
-$avail_lang[1][file] = 'german.inc'; //sorry, dunno the german word for german
-$avail_lang[1][name] = 'German';    //ditto
-$avail_lang[2][file] = 'francais.inc';
+$avail_lang[1][file] = '/languages/german.inc';
+$avail_lang[1][name] = 'Deutsch';
+$avail_lang[2][file] = '/languages/francais.inc';
 $avail_lang[2][name] = 'Français';
 
 ?>
