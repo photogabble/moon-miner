@@ -19,7 +19,7 @@ if(!mysql_num_rows($res))
 else
 {
   echo "<BR>Players with destroyed ships are not counted.<BR><BR>";
-  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>Rank</B></TD><TD><B>Score</B></TD><TD><B>Player</B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($res))

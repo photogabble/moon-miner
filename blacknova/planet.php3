@@ -88,20 +88,32 @@ if($sectorinfo[planet] == 'Y')
       }
       
       /* change production rates */
-      echo "<form action=planet.php3 method=post>";
-      echo "<input type=hidden name=command value=productions>";
-      echo "<BR><table><tr><td></td><td>Organics</td><td>Ore</td><td>Goods</td><td>Energy</td><td>Colonists</td><td>Credits</td><td>Fighters</td><td>Torpedoes</td></tr>";
-      echo "<tr><td>Current Quantities</td><td>$sectorinfo[planet_organics]</td><td>$sectorinfo[planet_ore]</td><td>$sectorinfo[planet_goods]</td><td>$sectorinfo[planet_energy]</td><td>$sectorinfo[planet_colonists]</td><td>$sectorinfo[planet_credits]</td><td>$sectorinfo[planet_fighters]</td><td>$sectorinfo[base_torp]</td></tr>";
-      echo "<tr><td>Production Percentages</td>";
-      echo "<td><input type=text name=porganics value=\"$sectorinfo[prod_organics]\" size=6 maxlength=6></td>";
-      echo "<td><input type=text name=pore value=\"$sectorinfo[prod_ore]\" size=6 maxlength=6></td>";
-      echo "<td><input type=text name=pgoods value=\"$sectorinfo[prod_goods]\" size=6 maxlength=6></td>";
-      echo "<td><input type=text name=penergy value=\"$sectorinfo[prod_energy]\" size=6 maxlength=6></td>";
-      echo "<td>-</td><td>*</td>";
-      echo "<td><input type=text name=pfighters value=\"$sectorinfo[prod_fighters]\" size=6 maxlength=6></td>";
-      echo "<td><input type=text name=ptorp value=\"$sectorinfo[prod_torp]\" size=6 maxlength=6></td>";
-      echo "</table>* Production of credits beyond banking interest is 100 - other percentages<BR>";
-      echo "<input type=submit value=Change></form><BR>";
+      echo "<FORM ACTION=planet.php3 METHOD=POST>";
+      echo "<INPUT TYPE=HIDDEN NAME=command VALUE=productions><BR>";
+      echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
+      echo "<TR BGCOLOR=\"$color_header\"><TD></TD><TD><B>Ore</B></TD><TD><B>Organics</B></TD><TD><B>Goods</B></TD><TD><B>Energy</B></TD><TD><B>Colonists</B></TD><TD><B>Credits</B></TD><TD><B>Fighters</B></TD><TD><B>Torpedoes</TD></TR>";
+      echo "<TR BGCOLOR=\"$color_line1\">";
+      echo "<TD><B>Current Quantities</B></TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_ore]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_organics]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_goods]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_energy]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_colonists]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_credits]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[planet_fighters]) . "</TD>";
+      echo "<TD>" . NUMBER($sectorinfo[base_torp]) . "</TD>";
+      echo "</TR>";
+      echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Production Percentages</B></TD>";
+      echo "<TD><INPUT TYPE=TEXT NAME=pore VALUE=\"$sectorinfo[prod_ore]\" SIZE=6 MAXLENGTH=6></TD>";
+      echo "<TD><INPUT TYPE=TEXT NAME=porganics VALUE=\"$sectorinfo[prod_organics]\" SIZE=6 MAXLENGTH=6></TD>";
+      echo "<TD><INPUT TYPE=TEXT NAME=pgoods VALUE=\"$sectorinfo[prod_goods]\" SIZE=6 MAXLENGTH=6></TD>";
+      echo "<TD><INPUT TYPE=TEXT NAME=penergy VALUE=\"$sectorinfo[prod_energy]\" SIZE=6 MAXLENGTH=6></TD>";
+      echo "<TD>n/a</TD><TD>*</TD>";
+      echo "<TD><INPUT TYPE=TEXT NAME=pfighters VALUE=\"$sectorinfo[prod_fighters]\" SIZE=6 MAXLENGTH=6></TD>";
+      echo "<TD><INPUT TYPE=TEXT NAME=ptorp VALUE=\"$sectorinfo[prod_torp]\" SIZE=6 MAXLENGTH=6></TD>";
+      echo "</TABLE>* Production of credits beyond banking interest is 100 - other percentages<BR>";
+      echo "<INPUT TYPE=SUBMIT VALUE=Update>";
+      echo "</FORM><BR>";
     }
     else
     {
@@ -169,20 +181,21 @@ if($sectorinfo[planet] == 'Y')
       /* transfer menu */
       $free_holds = (round(pow($level_factor,$playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists]);
       $free_power = (round(pow($level_factor,$playerinfo[power]) * 500) - $playerinfo[ship_energy]);
-      echo "You have room for $free_holds units of additional cargo.  You have capacity for $free_power units of addtional power.<BR><BR>";
-      echo "<form action=planet2.php3 method=post>";
-      echo "<table>";
-      echo"<tr><td>Commodity</td><td>Units on Planet</td><td>Units in Hold</td><td>Units to Transfer</td><td>to Planet</td></tr>";
-      echo"<tr><td>Ore</td><td>$sectorinfo[planet_ore]</td><td>$playerinfo[ship_ore]</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=checkbox name=tpore value=-1></td></tr>";
-      echo"<tr><td>Organics</td><td>$sectorinfo[planet_organics]</td><td>$playerinfo[ship_organics]</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=checkbox name=tporganics value=-1></td></tr>";
-      echo"<tr><td>Goods</td><td>$sectorinfo[planet_goods]</td><td>$playerinfo[ship_goods]</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=checkbox name=tpgoods value=-1></td></tr>";
-      echo"<tr><td>Energy</td><td>$sectorinfo[planet_energy]</td><td>$playerinfo[ship_energy]</td><td><input type=text name=transfer_energy size=10 maxlength=20></td><td><input type=checkbox name=tpenergy value=-1></td></tr>";
-      echo"<tr><td>Colonists</td><td>$sectorinfo[planet_colonists]</td><td>$playerinfo[ship_colonists]</td><td><input type=text name=transfer_colonists size=10 maxlength=20></td><td><input type=checkbox name=tpcolonists value=-1></td></tr>";
-      echo"<tr><td>Fighters</td><td>$sectorinfo[planet_fighters]</td><td>$playerinfo[ship_fighters]</td><td><input type=text name=transfer_fighters size=10 maxlength=20></td><td><input type=checkbox name=tpfighters value=-1></td></tr>";
-      echo"<tr><td>Torpedoes</td><td>$sectorinfo[base_torp]</td><td>$playerinfo[torps]</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=checkbox name=tptorps value=-1></td></tr>";
-      echo"<tr><td>Credits</td><td>$sectorinfo[planet_credits]</td><td>$playerinfo[credits]</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=checkbox name=tpcredits value=-1></td></tr>";
-      echo "</table>";
-      echo "<input type=\"submit\" value=\"Submit\"><input type=\"reset\" value=\"Reset\"></form>";
+      echo "You have room for " . NUMBER($free_holds) . " units of additional cargo.  You have capacity for " . NUMBER($free_power) . " units of addtional power.<BR><BR>";
+      echo "<FORM ACTION=planet2.php3 METHOD=POST>";
+      echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+      echo"<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Planet</B></TD><TD><B>Ship</B></TD><TD><B>Transfer</B></TD><TD><B>To Planet?</B></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD>" . NUMBER($sectorinfo[planet_ore]) . "</TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_ore SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpore VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line2\"><TD>Organics</TD><TD>" . NUMBER($sectorinfo[planet_organics]) . "</TD><TD>" . NUMBER($playerinfo[ship_organics]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_organics SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tporganics VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line1\"><TD>Goods</TD><TD>" . NUMBER($sectorinfo[planet_goods]) . "</TD><TD>" . NUMBER($playerinfo[ship_goods]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_goods SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpgoods VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line2\"><TD>Energy</TD><TD>" . NUMBER($sectorinfo[planet_energy]) . "</TD><TD>" . NUMBER($playerinfo[ship_energy]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_energy SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpenergy VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line1\"><TD>Colonists</TD><TD>" . NUMBER($sectorinfo[planet_colonists]) . "</TD><TD>" . NUMBER($playerinfo[ship_colonists]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_colonists SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpcolonists VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line2\"><TD>Fighters</TD><TD>" . NUMBER($sectorinfo[planet_fighters]) . "</TD><TD>" . NUMBER($playerinfo[ship_fighters]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_fighters SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpfighters VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line1\"><TD>Torpedoes</TD><TD>" . NUMBER($sectorinfo[base_torp]) . "</TD><TD>" . NUMBER($playerinfo[torps]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_torps SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tptorps VALUE=-1></TD></TR>";
+      echo"<TR BGCOLOR=\"$color_line2\"><TD>Credits</TD><TD>" . NUMBER($sectorinfo[planet_credits]) . "</TD><TD>" . NUMBER($playerinfo[credits]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_credits SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpcredits VALUE=-1></TD></TR>";
+      echo "</TABLE><BR>";
+      echo "<INPUT TYPE=SUBMIT VALUE=Transfer>&nbsp;<INPUT TYPE=RESET VALUE=Reset>";
+      echo "</FORM>";
     }
     elseif($command == "base")
     {
