@@ -839,7 +839,6 @@ $l_tdr_totalcost         = "Total cost";
 $l_tdr_credits  	 = "Credits";
 $l_tdr_turnsused         = "Turns used";
 $l_tdr_turnsleft         = "Turns left";
-$l_tdr_engageagain       = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again.";
 $l_tdr_notowner = "You do not own this trade route";
 
 // IGB.php
@@ -1307,4 +1306,6 @@ $l_log_text[LOG_SPACE_PLAGUE] = "Your planet [name] in sector [sector] has been 
 $l_log_title[LOG_SPACE_PLAGUE] = "Space Plague!";
 $l_log_text[LOG_PLASMA_STORM] = "Your planet [name] in sector [sector] has been hit by a Plasma Storm. All stored Energy has been lost.";
 $l_log_title[LOG_PLASMA_STORM] = "Plasma Storm!";
+
+$l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
 ?>

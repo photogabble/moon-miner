@@ -68,7 +68,8 @@ if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_ore] < 0 || $playerinfo[
 	}
 $update1 = $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_organics=$playerinfo[ship_organics], ship_goods=$playerinfo[ship_goods], ship_energy=$playerinfo[ship_energy], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
 }
-
+if(!isset($tr_repeat) || $tr_repeat <= 0)
+  $tr_repeat = 1;
 
 
 if($command == 'new')   //displays new trade route form
@@ -84,7 +85,12 @@ elseif($command == 'settings')  //global traderoute settings form
 elseif($command == 'setsettings') //enters settings in db
   traderoute_setsettings();
 elseif(isset($engage)) //performs trade route
-  traderoute_engage();
+for($i=$tr_repeat;$i>0;$i--)
+{
+  $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+  $playerinfo = $result->fields;
+  traderoute_engage($i);
+}
 
 
 //-----------------------------------------------------------------
@@ -908,7 +914,7 @@ function traderoute_setsettings()
   traderoute_die("");
 }
 
-function traderoute_engage()
+function traderoute_engage($j)
 {
   global $playerinfo;
   global $engage;
@@ -1891,8 +1897,10 @@ function traderoute_engage()
 
   if($traderoute[circuit] == 2) {
     $l_tdr_engageagain = str_replace("[tdr_engage]", $engage, $l_tdr_engageagain);
-    echo "$l_tdr_engageagain<p>";
+    if($j == 1)
+       echo "$l_tdr_engageagain<p>";
   }
-  traderoute_die("");
+  if($j == 1)
+     traderoute_die("");
 }
 ?>
