@@ -28,7 +28,7 @@ if(empty($content))
   echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
   while(!$res->EOF)
   {
-    echo "<OPTION>$res->fields[character_name]";
+    echo "<OPTION>"; echo $res->fields[character_name];
     $res->MoveNext();
   }
   echo "</SELECT></TD></TR>";

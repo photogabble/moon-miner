@@ -468,7 +468,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_organics=round($planetinfo[organics] * $sc_error / 100);
+          $sc_planet_organics=NUMBER(round($planetinfo[organics] * $sc_error / 100));
           echo "<td>$sc_planet_organics</td></tr>";
         }
         else
@@ -479,7 +479,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_ore=round($planetinfo[ore] * $sc_error / 100);
+          $sc_planet_ore=NUMBER(round($planetinfo[ore] * $sc_error / 100));
           echo "<td>$sc_planet_ore</td></tr>";
         }
         else
@@ -490,7 +490,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_goods=round($planetinfo[goods] * $sc_error / 100);
+          $sc_planet_goods=NUMBER(round($planetinfo[goods] * $sc_error / 100));
           echo "<td>$sc_planet_goods</td></tr>";
         }
         else
@@ -501,7 +501,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_energy=round($planetinfo[energy] * $sc_error / 100);
+          $sc_planet_energy=NUMBER(round($planetinfo[energy] * $sc_error / 100));
           echo "<td>$sc_planet_energy</td></tr>";
         }
         else
@@ -512,7 +512,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_colonists=round($planetinfo[colonists] * $sc_error / 100);
+          $sc_planet_colonists=NUMBER(round($planetinfo[colonists] * $sc_error / 100));
           echo "<td>$sc_planet_colonists</td></tr>";
         }
         else
@@ -523,7 +523,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_credits=round($planetinfo[credits] * $sc_error / 100);
+          $sc_planet_credits=NUMBER(round($planetinfo[credits] * $sc_error / 100));
           echo "<td>$sc_planet_credits</td></tr>";
         }
         else
@@ -545,7 +545,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_base_torp=round($planetinfo[torps] * $sc_error / 100);
+          $sc_base_torp=NUMBER(round($planetinfo[torps] * $sc_error / 100));
           echo "<td>$sc_base_torp</td></tr>";
         }
         else
@@ -556,7 +556,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_planet_fighters=round($planetinfo[fighters] * $sc_error / 100);
+          $sc_planet_fighters=NUMBER(round($planetinfo[fighters] * $sc_error / 100));
           echo "<td>$sc_planet_fighters</td></tr>";
         }
         else
@@ -567,7 +567,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_beams=round($ownerinfo[beams] * $sc_error / 100);
+          $sc_beams=NUMBER(round($ownerinfo[beams] * $sc_error / 100));
           echo "<td>$sc_beams</td></tr>";
         }
         else
@@ -578,7 +578,7 @@ if(!empty($planetinfo))
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          $sc_torp_launchers=round($ownerinfo[torp_launchers] * $sc_error / 100);
+          $sc_torp_launchers=NUMBER(round($ownerinfo[torp_launchers] * $sc_error / 100));
           echo "<td>$sc_torp_launchers</td></tr>";
         }
         else
@@ -589,7 +589,7 @@ if(!empty($planetinfo))
         $roll=rand(1, 100);
         if($roll < $success)
         {
-          $sc_shields=round($ownerinfo[shields] * $sc_error / 100);
+          $sc_shields=NUMBER(round($ownerinfo[shields] * $sc_error / 100));
           echo "<td>$sc_shields</td></tr>";
         }
         else
@@ -597,11 +597,36 @@ if(!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "</table><BR>";
-        $roll=rand(1, 100);
-        if($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
-        {
-          echo "$ownerinfo[character_name] $l_planet_ison<BR><BR>";
-        }
+//         $roll=rand(1, 100);
+//         if($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
+//         {
+//           echo "<B>$ownerinfo[character_name] $l_planet_ison</B><BR>";
+//         }
+        
+       $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE on_planet = 'Y' and planet_id = $planet_id"); 
+
+       while(!$res->EOF)       
+       { 
+         $row = $res->fields;       
+         $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
+         if($success < 5)
+         {
+           $success = 5;
+         }
+         if($success > 95)
+         {
+           $success = 95;
+         }
+         $roll = rand(1, 100);
+
+         if($roll < $success)
+         {
+           echo "<B>$row[character_name] $l_planet_ison</B><BR>";
+         }  
+         $res->MoveNext();
+       }
+        //
+        
       }
       $update = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     }
