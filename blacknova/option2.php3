@@ -25,9 +25,11 @@ mysql_query("LOCK TABLES ships WRITE");
 
 if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
-  setcookie("username", $username);
-  setcookie("password", $newpass1);
-  setcookie("id", $id);
+  $userpass = $username."+".$newpass1;
+  SetCookie("userpass",$userpass,time()+3600);
+//  setcookie("username", $username); OLD, WILL BE REMOVED SOON
+//  setcookie("password", $newpass1); OLD, WILL BE REMOVED SOON
+  setcookie("id",$id);
 }
 
 include("header.php3");

@@ -22,9 +22,10 @@ $playerinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
 /* first placement of cookie - don't use updatecookie. */
-setcookie("username", $email);
-setcookie("password", $pass);
-setcookie("res", $res);
+$userpass = $email."+".$pass;
+SetCookie("userpass",$userpass,time()+3600);
+//  setcookie("username", $email); OLD, WILL BE REMOVED SOON
+//  setcookie("password", $pass); OLD, WILL BE REMOVED SOON
 if($playerinfo[interface]=="N")
 {
   $mainfilename="main.php3";

@@ -1,7 +1,8 @@
 <?
 
-setcookie("username");
-setcookie("password");
+SetCookie("userpass");
+//  setcookie("username"); OLD, WILL BE REMOVED SOON
+//  setcookie("password"); OLD, WILL BE REMOVED SOON
 setcookie("id");
 setcookie("res");
 

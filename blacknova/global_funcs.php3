@@ -1,4 +1,9 @@
 <?
+// Separate userpass into username & password to support the legacy of multiple cookies for login.
+if ($userpass != '' and $userpass != '+') {
+  $username = substr($userpass, 0, strpos($userpass, "+"));
+  $password = substr($userpass, strpos($userpass, "+")+1);
+}
 
 function bigtitle()
 {
@@ -100,8 +105,14 @@ function updatecookie()
   global $id;
   global $res;
 
-  setcookie("username", $username);
-  setcookie("password", $password);
+  $userpass = $username."+".$password;
+  SetCookie("userpass",$userpass,time()+3600);
+  if ($userpass != '' and $userpass != '+') {
+    $username = substr($userpass, 0, strpos($userpass, "+"));
+    $password = substr($userpass, strpos($userpass, "+")+1);
+  }
+//  setcookie("username", $username); OLD, WILL BE REMOVED SOON
+//  setcookie("password", $password); OLD, WILL BE REMOVED SOON
   setcookie("id", $id);
   setcookie("res", $res);
 }
