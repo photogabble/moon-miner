@@ -1,6 +1,11 @@
 Version 0.3.1
 -------------
 
+SharpBlue (06 December 2001)
+-------------------------------
+Log viewer admin module added.
+
+
 SharpBlue (04 December 2001)
 -------------------------------
 New log services. The logs are now kept in the database instead

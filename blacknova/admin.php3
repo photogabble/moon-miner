@@ -44,6 +44,7 @@ else
     echo "<OPTION VALUE=linkedit>Link editor</OPTION>";
     echo "<OPTION VALUE=zoneedit>Zone editor</OPTION>";
     echo "<OPTION VALUE=ipedit>IP bans editor</OPTION>";
+    echo "<OPTION VALUE=logview>Log Viewer</OPTION>";
     echo "</SELECT>";
     echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
     echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Submit>";
@@ -735,6 +736,35 @@ else
       }
      
     }    
+    elseif($module == "logview")
+    {
+      if($command == 'adminlog')
+      {
+      }
+      else
+      {
+        echo "<form action=admin.php3 method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<INPUT TYPE=HIDDEN NAME=menu VALUE=logview>" .
+             "<INPUT TYPE=HIDDEN NAME=command VALUE=adminlog>" .
+             "<INPUT TYPE=SUBMIT VALUE=\"View admin log\">" .
+             "</form>" .
+             "<form action=log.php method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<SELECT name=player>";
+
+        $res = mysql_query("SELECT ship_id, character_name FROM ships ORDER BY character_name ASC");
+        while($row = mysql_fetch_array($res))
+          $players[] = $row;
+
+        foreach($players as $player)
+          echo "<OPTION value=$player[ship_id]>$player[character_name]</OPTION>";
+        
+        echo "</SELECT>&nbsp;&nbsp;" .
+             "<INPUT TYPE=SUBMIT VALUE=\"View player log\">" .
+             "</form><HR size=1 width=80%>";
+      }
+    }
     else
     {
       echo "Unknown function";

@@ -14,6 +14,17 @@ connectdb();
 $res = mysql_query("SELECT character_name, ship_id, dhtml FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
 
+if($swordfish == $adminpass) //check if called by admin script
+{
+  if(!empty($player))
+    $playerinfo[ship_id] = $player;
+  
+  $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$player");
+  $targetname = mysql_fetch_array($res);
+
+  $playerinfo[character_name] = $targetname[character_name];
+}
+
 eregi ("ozilla.(.)", $HTTP_USER_AGENT, $mozver);
 eregi ("MSIE.(.)", $HTTP_USER_AGENT, $iever);
 
@@ -32,7 +43,7 @@ else
     $mode = 'moz';
 }
 
-if($playerinfo[dhtml] == 'N')
+if($playerinfo[dhtml] == 'N') //If player doesn't want dhtml, let's do the same as if Nestcape 4
   $mode = 'compat';
 
 if($mode != 'compat')
@@ -93,7 +104,7 @@ if($mode != compat)
 
         var numScrollPages = 3         //Set the number of pages (layers) here. Add and remove the pages in the body too. The first layer is called dynPage0, the second is dynPage1, and so on.
         var transitionOut = 1;         //The out effect... 0= no effect, 1= fade
-        var transitionIn = 1;          //The in effect... 0= no effect, 1= fade, 2= slide
+        var transitionIn = 2;          //The in effect... 0= no effect, 1= fade, 2= slide
         var slideAcceleration = 0.2;   //If you use the slide animation, set this somewhere between 0 and 1.
         var transitionOnload = 1       //Use the in transition when the page first loads? If you want the transition fx only when the links are clicked, you can set it to 0.
 
@@ -164,7 +175,6 @@ if($mode != compat)
         function activateContinue(num){
         	busy = 1;
         	activePage = pages[num];
-        	activePage.moveTo(0,0);
         	if (transitionIn==0 || !bw.opacity){ activePage.showIt(); busy=0; }
         	else if (transitionIn==1) activePage.blend(\'visible\', \'busy=0\');
         	else if (transitionIn==2) activePage.slide(0, slideAcceleration, 40, \'busy=0\');
@@ -465,6 +475,11 @@ $nextlink = date("Ymd", $nextlink);
 if($startdate == date("Ymd"))
   $nonext = 1;
 
+if($swordfish == $adminpass) //fix for admin log view
+  $postlink = "&swordfish=" . urlencode($swordfish) . "&player=$player";
+else
+  $postlink = "";
+
 if($mode != 'compat')
 {
   echo "<td valign=bottom>" .
@@ -473,7 +488,7 @@ if($mode != 'compat')
        "<br>" .
        "<div style=\"position:relative; top:-23px;\">" .
        "<font size=2><b>" .
-       "<a href=log.php?startdate=$backlink>««</a>&nbsp;&nbsp;&nbsp;" .
+       "<a href=log.php?startdate=${backlink}$postlink>««</a>&nbsp;&nbsp;&nbsp;" .
        "<a href=\"#\" onclick=\"activate(2); return false;\" onfocus=\"if(this.blur)this.blur()\">$date3</a>" .
        " | " .
        "<a href=\"#\" onclick=\"activate(1); return false;\" onfocus=\"if(this.blur)this.blur()\">$date2</a>" .
@@ -481,28 +496,39 @@ if($mode != 'compat')
        "<a href=\"#\" onclick=\"activate(0); return false;\" onfocus=\"if(this.blur)this.blur()\">$date1</a>";
 
   if($nonext != 1)
-    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=$nextlink>»»</a>";
+    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=${nextlink}$postlink>»»</a>";
      
   echo "&nbsp;&nbsp;&nbsp;";
 }
 else
 {
   echo "<tr><td><td align=right>" .
-       "<a href=log.php?startdate=$backlink><font color=white size =3><b>««</b></font></a>&nbsp;&nbsp;&nbsp;" .
-       "<a href=log.php?startdate=$yesterday2><font color=white size=3><b>$date3</b></font></a>" .
+       "<a href=log.php?startdate=${backlink}$postlink><font color=white size =3><b>««</b></font></a>&nbsp;&nbsp;&nbsp;" .
+       "<a href=log.php?startdate=${yesterday2}$postlink><font color=white size=3><b>$date3</b></font></a>" .
        "&nbsp;|&nbsp;" .
-       "<a href=log.php?startdate=$yesterday><font color=white size=3><b>$date2</b></font></a>" .
+       "<a href=log.php?startdate=${yesterday}$postlink><font color=white size=3><b>$date2</b></font></a>" .
        " | " .
-       "<a href=log.php?startdate=$startdate><font color=white size=3><b>$date1</b></font></a>";
+       "<a href=log.php?startdate=${startdate}$postlink><font color=white size=3><b>$date1</b></font></a>";
 
   if($nonext != 1)
-    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=$nextlink><font color=white size=3><b>»»</b></font></a>";
+    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=${nextlink}$postlink><font color=white size=3><b>»»</b></font></a>";
      
   echo "&nbsp;&nbsp;&nbsp;";
 
 }
 
-echo "<tr><td><td><p><font size=2 face=arial>Click <A HREF=$interface><font color=#00ff00>here</font></A> to return to the main menu.";
+if($swordfish == $adminpass)
+  echo "<tr><td><td>" .
+       "<FORM action=admin.php3 method=POST>" .
+       "<input type=hidden name=swordfish value=\"$swordfish\">" .
+       "<input type=hidden name=menu value=logview>" .
+       "<input type=submit value=\"Return to Admin\"></td></tr>";
+else
+  echo "<tr><td><td><p><font size=2 face=arial>Click <A HREF=$interface><font color=#00ff00>here</font></A> to return to the main menu.</td></tr>";
+
+if($mode != 'compat')
+  echo "<tr><td><td align=center><br><font size=2 color=white>NOTE: If this page displays incorrectly, or if you simply don't like the dynamic html effects or find them annoying, you can disable them <a href=options.php3><font color=#00FF00>here</font></a>.</td></tr>";
+
 echo "</table>" .
      "</center>";
 
