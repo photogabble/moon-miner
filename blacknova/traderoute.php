@@ -1161,41 +1161,88 @@ function traderoute_engage()
       if($source[port_type] != 'ore')
       {
         $ore_price1 = $ore_price + $ore_delta * $source[port_ore] / $ore_limit * $inventory_factor;
-        $sourcecost += $playerinfo[ship_ore] * $ore_price1;
-        $ore_buy = $playerinfo[ship_ore];
-        if($playerinfo[ship_ore] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_ore]) . " Ore<br>";
-        $playerinfo[ship_ore] = 0;
+        if($source[port_ore] - $playerinfo[ship_ore] < 0)
+        {
+          $ore_buy = $source[port_ore];
+          $portfull = 1;
+        }
+        else
+          $ore_buy = $playerinfo[ship_ore];
+        $sourcecost += $ore_buy * $ore_price1;
+        if($ore_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($ore_buy) . " Ore (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($ore_buy) . " Ore<br>";
+        }
+        $playerinfo[ship_ore] -= $ore_buy;
       }
 
+      $portfull = 0;
       if($source[port_type] != 'goods')
       {
         $goods_price1 = $goods_price + $goods_delta * $source[port_goods] / $goods_limit * $inventory_factor;
-        $sourcecost += $playerinfo[ship_goods] * $goods_price1;
-        $goods_buy = $playerinfo[ship_goods];
-        if($playerinfo[ship_goods] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_goods]) . " Goods<br>";
-        $playerinfo[ship_goods] = 0;
+        if($source[port_goods] - $playerinfo[ship_goods] < 0)
+        {
+          $goods_buy = $source[port_goods];
+          $portfull = 1;
+        }
+        else
+          $goods_buy = $playerinfo[ship_goods];
+        $sourcecost += $goods_buy * $goods_price1;
+        if($goods_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($goods_buy) . " goods (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($goods_buy) . " goods<br>";
+        }
+        $playerinfo[ship_goods] -= $goods_buy;
       }
 
+      $portfull = 0;
       if($source[port_type] != 'organics')
       {
         $organics_price1 = $organics_price + $organics_delta * $source[port_organics] / $organics_limit * $inventory_factor;
-        $sourcecost += $playerinfo[ship_organics] * $organics_price1;
-        $organics_buy = $playerinfo[ship_organics];
-        if($playerinfo[ship_organics] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_organics]) . " Organics<br>";
-        $playerinfo[ship_organics] = 0;
+        if($source[port_organics] - $playerinfo[ship_organics] < 0)
+        {
+          $organics_buy = $source[port_organics];
+          $portfull = 1;
+        }
+        else
+          $organics_buy = $playerinfo[ship_organics];
+        $sourcecost += $organics_buy * $organics_price1;
+        if($organics_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($organics_buy) . " organics (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($organics_buy) . " organics<br>";
+        }
+        $playerinfo[ship_organics] -= $organics_buy;
       }
 
+      $portfull = 0;
       if($source[port_type] != 'energy' && $playerinfo[trade_energy] == 'Y')
       {
         $energy_price1 = $energy_price + $energy_delta * $source[port_energy] / $energy_limit * $inventory_factor;
-        $sourcecost += $playerinfo[ship_energy] * $energy_price1;
-        $energy_buy = $playerinfo[ship_energy];
-        if($playerinfo[ship_energy] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_energy]) . " Energy<br>";
-        $playerinfo[ship_energy] = 0;
+        if($source[port_energy] - $playerinfo[ship_energy] < 0)
+        {
+          $energy_buy = $source[port_energy];
+          $portfull = 1;
+        }
+        else
+          $energy_buy = $playerinfo[ship_energy];
+        $sourcecost += $energy_buy * $energy_price1;
+        if($energy_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($energy_buy) . " energy (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($energy_buy) . " energy<br>";
+        }
+        $playerinfo[ship_energy] -= $energy_buy;
       }
 
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
@@ -1417,44 +1464,92 @@ function traderoute_engage()
     if($traderoute[dest_type] == 'P')
     {
       //sells commodities
+      $portfull = 0;
       if($dest[port_type] != 'ore')
       {
         $ore_price1 = $ore_price + $ore_delta * $dest[port_ore] / $ore_limit * $inventory_factor;
-        $destcost += $playerinfo[ship_ore] * $ore_price1;
-        $ore_buy = $playerinfo[ship_ore];
-        if($playerinfo[ship_ore] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_ore]) . " Ore<br>";
-        $playerinfo[ship_ore] = 0;
+        if($dest[port_ore] - $playerinfo[ship_ore] < 0)
+        {
+          $ore_buy = $dest[port_ore];
+          $portfull = 1;
+        }
+        else
+          $ore_buy = $playerinfo[ship_ore];
+        $destcost += $ore_buy * $ore_price1;
+        if($ore_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($ore_buy) . " Ore (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($ore_buy) . " Ore<br>";
+        }
+        $playerinfo[ship_ore] -= $ore_buy;
       }
 
+      $portfull = 0;
       if($dest[port_type] != 'goods')
       {
         $goods_price1 = $goods_price + $goods_delta * $dest[port_goods] / $goods_limit * $inventory_factor;
-        $destcost += $playerinfo[ship_goods] * $goods_price1;
-        $goods_buy = $playerinfo[ship_goods];
-        if($playerinfo[ship_goods] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_goods]) . " Goods<br>";
-        $playerinfo[ship_goods] = 0;
+        if($dest[port_goods] - $playerinfo[ship_goods] < 0)
+        {
+          $goods_buy = $dest[port_goods];
+          $portfull = 1;
+        }
+        else
+          $goods_buy = $playerinfo[ship_goods];
+        $destcost += $goods_buy * $goods_price1;
+        if($goods_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($goods_buy) . " goods (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($goods_buy) . " goods<br>";
+        }
+        $playerinfo[ship_goods] -= $goods_buy;
       }
 
+      $portfull = 0;
       if($dest[port_type] != 'organics')
       {
         $organics_price1 = $organics_price + $organics_delta * $dest[port_organics] / $organics_limit * $inventory_factor;
-        $destcost += $playerinfo[ship_organics] * $organics_price1;
-        $organics_buy = $playerinfo[ship_organics];
-        if($playerinfo[ship_organics] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_organics]) . " Organics<br>";
-        $playerinfo[ship_organics] = 0;
+        if($dest[port_organics] - $playerinfo[ship_organics] < 0)
+        {
+          $organics_buy = $dest[port_organics];
+          $portfull = 1;
+        }
+        else
+          $organics_buy = $playerinfo[ship_organics];
+        $destcost += $organics_buy * $organics_price1;
+        if($organics_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($organics_buy) . " organics (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($organics_buy) . " organics<br>";
+        }
+        $playerinfo[ship_organics] -= $organics_buy;
       }
 
+      $portfull = 0;
       if($dest[port_type] != 'energy' && $playerinfo[trade_energy] == 'Y')
       {
         $energy_price1 = $energy_price + $energy_delta * $dest[port_energy] / $energy_limit * $inventory_factor;
-        $destcost += $playerinfo[ship_energy] * $energy_price1;
-        $energy_buy = $playerinfo[ship_energy];
-        if($playerinfo[ship_energy] != 0)
-          echo "Sold " . NUMBER($playerinfo[ship_energy]) . " Energy<br>";
-        $playerinfo[ship_energy] = 0;
+        if($dest[port_energy] - $playerinfo[ship_energy] < 0)
+        {
+          $energy_buy = $dest[port_energy];
+          $portfull = 1;
+        }
+        else
+          $energy_buy = $playerinfo[ship_energy];
+        $destcost += $energy_buy * $energy_price1;
+        if($energy_buy != 0)
+        {
+          if($portfull == 1)
+            echo "Sold " . NUMBER($energy_buy) . " energy (Port is full)<br>";
+          else
+            echo "Sold " . NUMBER($energy_buy) . " energy<br>";
+        }
+        $playerinfo[ship_energy] -= $energy_buy;
       }
       else
         $energy_buy = 0;
