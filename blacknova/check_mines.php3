@@ -92,7 +92,6 @@
                  }
                  else
                  {
-                    $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                     playerlog($playerinfo[ship_id],"Your ship was destroyed by mines in sector $sector.");
                     message_defence_owner($sector,"$playerinfo[character_name] was destroyed by your mines in sector $sector.");
                     echo "Your ship has been destroyed!<BR><BR>";
