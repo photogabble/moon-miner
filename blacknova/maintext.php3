@@ -225,7 +225,7 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
     $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
   }
   echo "</A> (";
-  if($sectorinfo[planet_owner] == "")
+  if($sectorinfo[planet_owner] == 0)
   {
     echo "Unowned";
     $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";

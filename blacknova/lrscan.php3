@@ -249,7 +249,7 @@ else
       echo "$sectorinfo[planet_name]";
       $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
     }
-    if($sectorinfo[planet_owner] == "")
+    if($sectorinfo[planet_owner] == 0)
     {
       echo " (unowned)";
       $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";

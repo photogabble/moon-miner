@@ -140,7 +140,7 @@ $start_fighters = 10;
 $start_armour = 10;
 $start_credits = 1000;
 $start_energy = 100;
-$start_turns = 200;
+$start_turns = 400;
 
 $max_turns = 600;
 $max_emerwarp = 10;
