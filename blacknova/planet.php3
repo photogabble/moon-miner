@@ -501,6 +501,11 @@ if(!empty($planetinfo))
     {
       echo "Planet captured.<BR>";
       $update = mysql_query("UPDATE planets SET corp=null, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
+      $ownership = calc_ownership($playerinfo[sector]);
+
+        if(!empty($ownership))
+
+          echo "$ownership<p>";
       if($planetinfo[owner] != 0)
       {       
         playerlog($ownerinfo[ship_id], "Your planet '$planetinfo[name]' in sector $playerinfo[sector] was captured by $playerinfo[character_name].");
