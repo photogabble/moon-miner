@@ -29,6 +29,14 @@ $res = mysql_query("SELECT * from universe WHERE sector_id=$playerinfo[sector]")
 $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
+if ($playerinfo[turns]<1)
+{
+	echo "$l_md_noturn<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php3");
+	die();
+}
+
 $result3 = mysql_query ("SELECT * FROM sector_defence WHERE defence_id=$defence_id ");
 //Put the defence information into the array "defenceinfo"
 

@@ -541,6 +541,7 @@ $l_md_cmode		 = "Mode des intercepteurs";
 $l_md_attack		 = "Attaque";
 $l_md_toll		 = "Taxe";
 $l_md_attdef		 = "Attaquer les défenses de secteur. Tous les intercepteurs présents vont converger vers vous.";
+$l_md_noturn	  	 = "You need at least one turn.";
 
 // news.php
 

@@ -546,6 +546,7 @@ $l_md_cmode		 = "Fighter Modus";
 $l_md_attack		 = "Angriff";
 $l_md_toll		 = "Zoll";
 $l_md_attdef		 = "Greife die Sektor Verteidigung an. Alle Fighter werden partizipieren.";
+$l_md_noturn	  	 = "You need at least one turn.";
 
 // news.php
 
