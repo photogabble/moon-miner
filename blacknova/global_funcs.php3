@@ -112,8 +112,17 @@ function playerlog($sid,$log_entry)
   /* write log_entry to the player's log - identified by player's ship_id - sid. */
   $log_entry = date("l dS of F Y h:i:s A") . ":  " . $log_entry;
   $plog = fopen("player-log/" . $sid, "a");
-  fwrite($plog, "$log_entry <BR><BR>");
+  fwrite($plog, "$log_entry <BR>");
   fclose($plog);
+}
+
+function adminlog($sid,$log_entry)
+{
+  /* write log_entry to the admin log  */
+  $log_entry = date("l dS of F Y h:i:s A") . ":  " . $log_entry;
+  $alog = fopen("admin.log","a");
+  fwrite($alog, "$log_entry <BR>\n");
+  fclose($alog);
 }
 
 function gen_score($sid)

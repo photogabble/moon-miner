@@ -18,7 +18,46 @@ mysql_query("LOCK TABLES ships WRITE, universe WRITE");
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
 $freeholds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-if ($freeholds < 0) $freeholds = 0;
+if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_ore] < 0 || $playerinfo[ship_organics] < 0 || $playerinfo[ship_goods] < 0 || $playerinfo[ship_energy] < 0 || $freeholds < 0)
+{
+	if ($playerinfo[ship_colonists] < 0) 
+	{
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_colonists] colonists.");
+		$playerinfo[ship_colonists] = 0;
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship set to $playerinfo[ship_colonists] colonists.");
+	}
+	if ($playerinfo[ship_ore] < 0) 
+	{
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_ore] ore.");
+		$playerinfo[ship_ore] = 0;
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_ore] ore.");
+	}
+	if ($playerinfo[ship_organics] < 0) 
+	{
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_organics] organics.");
+		$playerinfo[ship_organics] = 0;
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_organics] organics.");
+	}
+	if ($playerinfo[ship_goods] < 0) 
+	{
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_goods] goods");	
+		$playerinfo[ship_goods] = 0;
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_goods] goods");
+	}
+	if ($playerinfo[ship_energy] < 0)
+	{
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_energy] energy");
+		$playerinfo[ship_energy] = 0;
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_energy] energy");
+	}
+	if ($freeholds < 0)
+	{
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_freeholds] holds");
+		$freeholds = 0;
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_freeholds] holds");
+	}
+$update1 = mysql_query("UPDATE ships SET ship_ore=$playerinfo[ship_ore], ship_organics=$playerinfo[ship_organics], ship_goods=$playerinfo[ship_goods], ship_energy=$playerinfo[ship_energy], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]"); 
+}
 
 bigtitle();
 
