@@ -41,7 +41,7 @@ else
   }
   if($success > 95)
   {
-    $sucess = 95;
+    $success = 95;
   }
   $flee = (10 - $targetinfo[engines] + $playerinfo[engines]) * 5;
   $roll = rand(1, 100);
