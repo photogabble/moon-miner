@@ -196,4 +196,5 @@ $IGB_trate = 1440; //Time (in minutes) before two similar transfers are allowed 
 $corp_planet_transfers = 0; //If transferring credits to/from corp planets is allowed. 1=enable
 $min_value_capture = 50; //Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
 $defence_degrade_rate = 0.05;
+$energy_per_fighter = 0.10;
 ?>

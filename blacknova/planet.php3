@@ -138,7 +138,7 @@ if(!empty($planetinfo))
 	   }
 	   else
 	   {
-        $l_planet_mcorp_linkP = "<a href=corp.php?planet_id=$planet_id&action=planetcorp>" . $l_planet_mcorp_linkP . "</a>";
+        $l_planet_mcorp_linkP = "<a href=corp.php?planet_id=$planet_id&action=planetpersonal>" . $l_planet_mcorp_linkP . "</a>";
         $l_planet_mcorp=str_replace("[planet]",$l_planet_mcorp_linkP,$l_planet_mcorp);
 		echo "$l_planet_mcorp<BR>";
 	   }

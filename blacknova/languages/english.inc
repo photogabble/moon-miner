@@ -513,7 +513,7 @@ $l_log_text[LOG_ADMIN_ILLEGVALUE] = "[player] had [quantity] [type], with max ho
 $l_log_title[LOG_ADMIN_ILLEGVALUE] = "Illegal ship value";
 $l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] has attempted to capture [defender]'s planet in sector [sector]. Planet was destroyed instead.";
 $l_log_title[LOG_ADMIN_PLANETDEL] = "Planet destroyed";
-$l_log_text[LOG_DEFENCE_DEGRADE] = "Sector Defences Fighters in sector [sector] degraded by [degrade] percent since they had no supporting planet.";
+$l_log_text[LOG_DEFENCE_DEGRADE] = "Sector Defences Fighters in sector [sector] degraded by [degrade] percent due to insufficient energy.";
 $l_log_test[LOG_DEFENCE_DEGRADE] = "Sector Defences degraded.";
 
 // modify-defences.php
