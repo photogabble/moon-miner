@@ -775,6 +775,7 @@ if  ($sectorinfo[port_type]=="special" || $currentplanet[owner] == $playerinfo[s
 else
 {
   echo '<font color="Red"><b>You do not have access to the bank terminal here!</b></font><BR><BR>';
+  TEXT_GOTOMAIN();
 }
 
 include("footer.php3");
