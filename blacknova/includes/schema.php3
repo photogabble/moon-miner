@@ -18,6 +18,7 @@ mysql_query("DROP TABLE IF EXISTS teams");
 mysql_query("DROP TABLE IF EXISTS universe");
 mysql_query("DROP TABLE IF EXISTS zones");
 mysql_query("DROP TABLE IF EXISTS messages");
+mysql_query("DROP TABLE IF EXISTS furangee");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema
@@ -263,6 +264,17 @@ mysql_query("CREATE TABLE messages (" .
              "notified enum('Y','N') NOT NULL default 'N'," .
              "PRIMARY KEY  (ID) " .
              ") TYPE=MyISAM");
+echo "created.<BR>";
+
+echo "Creating table: furangee...<BR>";
+mysql_query("CREATE TABLE furangee(" .
+            "furangee_id char(40) NOT NULL," .
+            "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
+            "aggression smallint(5) DEFAULT '0' NOT NULL," .
+            "orders smallint(5) DEFAULT '0' NOT NULL," .
+            "PRIMARY KEY (furangee_id)," .
+            "KEY furangee_id (furangee_id)" .
+            ")");
 echo "created.<BR>";
 
 //Finished
