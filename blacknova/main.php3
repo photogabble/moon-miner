@@ -192,7 +192,12 @@ echo "Trade Route Presets:  <a href=traderoute.php3?phase=2&destination=$playeri
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Use Device</A> - <A HREF=report.php3>Report</A> - <A HREF=planet-report.php3>Planet Report</A> - <A HREF=log.php3>View Log</A> - <A HREF=rsmove.php3>Realspace Move</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> -"; 
-echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help!</A> - <A HREF=http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl TARGET=\"_blank\">Forums</A></TD><TD><A HREF=logout.php3>Logout</A></TD></TR>";
+echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help!</A>";
+if(!empty($link_forums))
+{
+  echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";
+}
+echo "</TD><TD><A HREF=logout.php3>Logout</A></TD></TR>";
 echo "</TABLE><BR>";
 echo "System Time:  ";
 print(date("l dS of F Y h:i:s A"));

@@ -38,7 +38,11 @@ echo "Problems? <A HREF=mailto:$admin_mail>E-mail us</A>";
 
 echo "</FORM>";
 
-echo "<A HREF=http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl TARGET=_blank>Forums</A> - <A HREF=ranking.php3>Rankings</A>";
+if(!empty($link_forums))
+{
+  echo "<A HREF=$link_forums TARGET=_blank>Forums</A> - ";
+}
+echo "<A HREF=ranking.php3>Rankings</A>";
 echo "<BR><BR>";
 
 echo "</CENTER>";

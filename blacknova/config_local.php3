@@ -16,4 +16,8 @@ $dbname = "blacknova";                 // Database name
 $adminpass = "password";               // Administrator password
 $admin_mail = "webmaster@domain.net";  // Administrator e-mail
 
+// External links
+
+$link_forums = "http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl";
+
 ?>
