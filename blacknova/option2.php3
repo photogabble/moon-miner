@@ -3,6 +3,8 @@ include("config.php3");
 
 connectdb();
 
+$title = "Save Options";
+
 if($intrf == "N")
 {
   $interface = "main.php3";
@@ -15,75 +17,72 @@ else
   setcookie("interface", "maintext.php3");
 }
 
-$title = "Change Options";
-include("header.php3");
-
-echo "<CENTER>";
-bigtitle();
-echo "</CENTER>";
-
-$result3 = mysql_query("UPDATE ships SET interface='$intrf' WHERE email='$username'");
-
-if($result3)
-{
-  echo "<CENTER><H2>Interface has been updated</H2></CENTER>";
-}
-else
-{
-  echo "<CENTER><H2>Error updating interface!</H2></CENTER>";
-}
-if($newpass1 == "" && $newpass2 == "")
-{
-  TEXT_GOTOMAIN();
-  die();
-}
+//-------------------------------------------------------------------------------------------------
+mysql_query("LOCK TABLES ships WRITE");
 
 if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
   setcookie("username", $username);
   setcookie("password", $newpass1);
   setcookie("id", $id);
+  include("header.php3");
+  bigtitle();
+  echo "Password changed.<BR><BR>";
 }
 else
 {
-  $title = "Password Problem";
   include("header.php3");
-  echo "<CENTER><H2>PASSWORD PROBLEM</H2><BR><BR>";
-  echo "$password - $oldpass - $newpass1 - $newpass2<BR><BR>";
-  if($password != $oldpass)
-  {
-    echo "Original password incorrect!<BR><BR>";
-  }
-  if($newpass1 != $newpass2)
-  {
-    echo "New password did not match re-entered password.<BR><BR>";
-  }
+  bigtitle();
   if($newpass1 == "" && $newpass2 == "")
   {
-    echo "Blank passwords are not allowed!<BR><BR>";
+    echo "Password was left unchanged.<BR><BR>";
   }
-  echo "Click <a href=options.php3>here</a> to go back.";
-  include("footer.php3");
+  elseif($password != $oldpass)
+  {
+    echo "Original password incorrect. Password was left unchanged.<BR><BR>";
+  }
+  elseif($newpass1 != $newpass2)
+  {
+    echo "New password fields do not match. Password was left unchanged.<BR><BR>";
+  }
+  else
+  {
+    $res = mysql_query("SELECT password FROM ships WHERE email='$username'");
+    $playerinfo = mysql_fetch_array($res);
+    mysql_free_result($res);
+    if($oldpass != $playerinfo[password])
+    {
+      echo "Original password incorrect.  Password was left unchanged.<BR><BR>";
+    }
+    else
+    {
+      $res = mysql_query("UPDATE ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
+      if($res)
+      {
+        echo "Password changed.<BR><BR>";
+      }
+      else
+      {
+        echo "Error changing password<BR><BR>";
+      }
+    }
+  }
 }
 
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($result);
-if($oldpass != $playerinfo[password])
+$res = mysql_query("UPDATE ships SET interface='$intrf' WHERE email='$username'");
+if($res)
 {
-  echo "Original password incorrect!<BR><BR>";
-  die();
-}
-$result2 = mysql_query("UPDATE ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
-
-if($result2)
-{
-  echo "Password has been changed.<BR><BR>";
-  TEXT_GOTOMAIN();
+  echo "User interface setting updated.<BR><BR>";
 }
 else
 {
-  echo "Error changing password!";
+  echo "Failed to update user interface setting.<BR><BR>";
 }
+
+mysql_query("UNLOCK TABLES");
+//-------------------------------------------------------------------------------------------------
+
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 
