@@ -200,7 +200,7 @@ Warp to
 if(!$num_links)
 {
   echo "&nbsp;<a class=dis>No warp links</a>&nbsp;<br>";
-  $link_bnthelper_string="<!--links:N:-->";
+  $link_bnthelper_string="<!--links:N";
 }
 else
 {

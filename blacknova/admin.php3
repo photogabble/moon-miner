@@ -151,7 +151,65 @@ else
     elseif($module == "zoneedit")
     {
       echo "<B>Zone editor</B>";
+      echo "<BR>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
+      if(empty($zone))
+      {
+        echo "<SELECT SIZE=20 NAME=zone>";
+        $res = mysql_query("SELECT zone_id,zone_name FROM zones ORDER BY zone_name");
+        while($row = mysql_fetch_array($res))
+        {
+          echo "<OPTION VALUE=$row[zone_id]>$row[zone_name]</OPTION>";
+        }
+        mysql_free_result($res);
+        echo "</SELECT>";
+        echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=editzone>";
+        echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
+       
+      }
+      else
+      {
+        if($operation == "editzone")
+        {
+          $res = mysql_query("SELECT * FROM zones WHERE zone_id=$zone");
+          $row = mysql_fetch_array($res);
+          echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
+          echo "<TR><TD>Zone ID</TD><TD>$row[zone_id]</TD></TR>";
+          echo "<TR><TD>Zone Name</TD><TD><INPUT TYPE=TEXT NAME=zone_name VALUE=\"$row[zone_name]\"></TD></TR>";
+          echo "<TR><TD>Allow Beacon</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_beacon VALUE=ON " . CHECKED($row[allow_beacon]) . "></TD>";
+          echo "<TR><TD>Allow Attack</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_attack VALUE=ON " . CHECKED($row[allow_attack]) . "></TD>";
+          echo "<TR><TD>Allow WarpEdit</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_warpedit VALUE=ON " . CHECKED($row[allow_warpedit]) . "></TD>";
+          echo "<TR><TD>Allow Planet</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_planet VALUE=ON " . CHECKED($row[allow_planet]) . "></TD>";
+          echo "</TABLE>";
+          echo "<TR><TD>Max Hull</TD><TD><INPUT TYPE=TEXT NAME=zone_hull VALUE=\"$row[max_hull]\"></TD></TR>";
+          mysql_free_result($res);
+          echo "<BR>";
+          echo "<INPUT TYPE=HIDDEN NAME=zone VALUE=$zone>";
+          echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=savezone>";
+          echo "<INPUT TYPE=SUBMIT VALUE=Save>";
+        }
+        elseif($operation == "savezone")
+        {
+          // update database
+          $_zone_beacon = empty($zone_beacon) ? "N" : "Y";
+          $_zone_attack = empty($zone_attack) ? "N" : "Y";
+          $_zone_warpedit = empty($zone_warpedit) ? "N" : "Y";
+          $_zone_planet = empty($zone_planet) ? "N" : "Y";
+          mysql_query("UPDATE zones SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
+          echo "Mudanças Salvas<BR><BR>";
+          echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Zone Editor \">";
+          $button_main = false;
+        }
+        else
+        {
+          echo "Invalid operation";
+        }
+      }
+      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=zoneedit>";
+      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
+      echo "</FORM>";
     }
+    
     else
     {
       echo "Unknown function";

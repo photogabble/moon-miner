@@ -158,12 +158,10 @@ switch ($teamwhat) {
 			echo "<BR><BR>";
 		} else {
 			mysql_query("LOCK TABLES ships WRITE, teams WRITE");
-			$res = mysql_query("INSERT INTO teams (creator,team_name,number_of_members) VALUES ('$playerinfo[ship_id]','$teamname','1')");
-			$res = mysql_query("SELECT id from teams ORDER BY id DESC LIMIT 1");
-			$newteamid = mysql_fetch_array($res);
-			mysql_query("UPDATE ships SET team='$newteamid[id]' WHERE ship_id='$playerinfo[ship_id]'");
+			$res = mysql_query("INSERT INTO teams (id,creator,team_name,number_of_members) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1')");
+			mysql_query("UPDATE ships SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
 			mysql_query("UNLOCK TABLES");
-			echo "Alliance <B>$teamname</B> has been created and you are its co-ordinator.<BR><BR>";
+			echo "Alliance <B>$teamname</B> has been created and you are its leader.<BR><BR>";
 			playerlog($playerinfo[ship_id],"You have created Alliance <B>$teamname</B>");
 		}
 		echo "<BR><BR>Click <a href=\"$PHP_SELF\">here</a> to go back to the Alliances Menu.<BR><BR>";

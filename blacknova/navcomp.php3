@@ -122,7 +122,7 @@
 		}
 		else
 		{
-			echo "No path found.<BR><BR>";
+			echo "Your computer technology is too primitive to compute a warp route to that distance.<BR><BR>";
 		}
 	}
 
