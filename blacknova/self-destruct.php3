@@ -36,9 +36,8 @@ elseif($sure == 2)
   echo "You ship and all aboard have been vaporized.<BR><BR>";
   echo "Please, <A HREF=logout.php3>logout</A>.<BR>";
   db_kill_player($playerinfo['ship_id']);
-  mysql_query("DELETE FROM ships WHERE ship_id=$playerinfo[ship_id]");
-  unlink("player-log/" . $playerinfo[ship_id]);
   playerlog(0,"$playerinfo[character_name] (at $ip) self-destructed.");
+  playerlog($playerinfo[ship_id], "You self-distructed from $ip");
 }
 else
 {

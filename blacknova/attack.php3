@@ -83,10 +83,30 @@ else
     }
     else
     {
-      $targetbeams = round(pow($level_factor,$targetinfo[beams]))*10;
-      $playerbeams = round(pow($level_factor,$playerinfo[beams]))*10;
-      $playershields = round(pow($level_factor,$playerinfo[shields]))*10;
-      $targetshields = round(pow($level_factor,$targetinfo[shields]))*10;
+      $targetbeams = NUM_BEAMS($targetinfo[beams]);
+      if($targetbeams>$targetinfo[ship_energy])
+      {
+        $targetbeams=$targetinfo[ship_energy];
+      }
+      $targetinfo[ship_energy]=$targetinfo[ship_energy]-$targetbeams;
+      $playerbeams = NUM_BEAMS($playerinfo[beams]);
+      if($playerbeams>$playerinfo[ship_energy])
+      {
+        $playerbeams=$playerinfo[ship_energy];
+      }
+      $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
+      $playershields = NUM_SHIELDS($playerinfo[shields]);
+      if($playershields>$playerinfo[ship_energy])
+      { 
+        $playershields=$playerinfo[ship_energy];
+      }
+      $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playershields;
+      $targetshields = NUM_SHIELDS($targetinfo[shields]);
+      if($targetshields>$targetinfo[ship_energy])
+      {
+        $targetshields=$targetinfo[ship_energy];
+      }
+      $targetinfo[ship_energy]=$targetinfo[ship_energy]-$targetshields;
       
       $playertorpnum = round(pow($level_factor,$playerinfo[torp_launchers]))*2;
       if($playertorpnum > $playerinfo[torps])
@@ -378,13 +398,14 @@ else
             $salv_organics=0;
           }
           $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $targetinfo[hull]))+round(pow($upgrade_factor, $targetinfo[engines]))+round(pow($upgrade_factor, $targetinfo[power]))+round(pow($upgrade_factor, $targetinfo[computer]))+round(pow($upgrade_factor, $targetinfo[sensors]))+round(pow($upgrade_factor, $targetinfo[beams]))+round(pow($upgrade_factor, $targetinfo[torp_launchers]))+round(pow($upgrade_factor, $targetinfo[shields]))+round(pow($upgrade_factor, $targetinfo[armour]))+round(pow($upgrade_factor, $targetinfo[cloak])));
-          $ship_salvage_rate=rand(0,10);
+          $ship_salvage_rate=rand(10,20);
           $ship_salvage=$ship_value*$ship_salvage_rate/100;
           echo "You salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.<BR>Your rating changed by " . NUMBER(abs($rating_change)) . " points.";
           $update3 = mysql_query ("UPDATE ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
           $armour_lost=$playerinfo[armour_pts]-$playerarmour;
           $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;  
-          $update3b = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, turns_used=turns_used+1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+          $energy=$playerinfo[ship_energy];
+          $update3b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, turns_used=turns_used+1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
           echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";  
         }
       }
@@ -394,11 +415,13 @@ else
         $rating_change=round($targetinfo[rating]*.1);
         $armour_lost=$targetinfo[armour_pts]-$targetarmour;
         $fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
+        $energy=$targetinfo[ship_energy];
         playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you.  You lost $armour_lost points of armour and $fighters_lost fighters.<BR><BR>");
-        $update4 = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
+        $update4 = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         $armour_lost=$playerinfo[armour_pts]-$playerarmour;
-        $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;  
-        $update4b = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+        $fighters_lost=$playerinfo[ship_fighters]-$playerfighters; 
+        $energy=$playerinfo[ship_energy]; 
+        $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";
       }
       if($playerarmour < 1)
@@ -463,13 +486,14 @@ else
             $salv_organics=0;
           }
           $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $playerinfo[hull]))+round(pow($upgrade_factor, $playerinfo[engines]))+round(pow($upgrade_factor, $playerinfo[power]))+round(pow($upgrade_factor, $playerinfo[computer]))+round(pow($upgrade_factor, $playerinfo[sensors]))+round(pow($upgrade_factor, $playerinfo[beams]))+round(pow($upgrade_factor, $playerinfo[torp_launchers]))+round(pow($upgrade_factor, $playerinfo[shields]))+round(pow($upgrade_factor, $playerinfo[armour]))+round(pow($upgrade_factor, $playerinfo[cloak])));
-          $ship_salvage_rate=rand(0,10);
+          $ship_salvage_rate=rand(10,20);
           $ship_salvage=$ship_value*$ship_salvage_rate/100;
           echo "$targetinfo[character_name] salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits<BR>";
           $update6 = mysql_query ("UPDATE ships SET credits=credits+$ship_salvage, ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods WHERE ship_id=$targetinfo[ship_id]");
           $armour_lost=$targetinfo[armour_pts]-$targetarmour;
           $fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
-          $update6b = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
+          $energy=$targetinfo[ship_energy];
+          $update6b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         } 
       }
     }

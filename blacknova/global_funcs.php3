@@ -58,13 +58,12 @@ function checklogin()
     }
     else
     {
-      /* if the player doesn't have an escapepod - they're dead, delete them. */  
+      /* if the player doesn't have an escapepod - they're dead, delete them. */
+      /* uhhh  don't delete them to prevent self-distruct inherit*/  
       echo "Player is DEAD!  Here's what happened:<BR><BR>";
       
       include("player-log/" . $playerinfo['ship_id']);
-      unlink("player-log/" . $playerinfo['ship_id']);
-      $result3 = mysql_query("DELETE FROM ships WHERE ship_id = " . $playerinfo['ship_id']);
-      echo "Dead player has now been deleted.  Click <A HREF=new.php3>here</A> to start with a new player.";
+      echo "Better luck next time.";
       $flag = 1;
     }
   }

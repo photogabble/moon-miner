@@ -300,7 +300,17 @@ if($sectorinfo[planet] == 'Y')
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
         $planetbeams = NUM_BEAMS($ownerinfo[beams]);
+        if($planetbeams>$sectorinfo[planet_energy])
+        {
+          $planetbeams=$sectorinfo[planet_energy];
+        }
+        $sectorinfo[planet_energy]=$sectorinfo[planet_energy]-$planetbeams;
         $playerbeams = NUM_BEAMS($playerinfo[beams]);
+        if($playerbeams>$playerinfo[ship_energy])
+        {
+          $playerbeams=$playerinfo[ship_energy];
+        }
+        $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
         echo "Player Beams - $playerbeams<BR><BR>";
         if($playerbeams<$planetbeams)
         {
@@ -311,12 +321,22 @@ if($sectorinfo[planet] == 'Y')
           echo "Planet has less beams than you.<BR><BR>";
         }
         $playershields = NUM_SHIELDS($playerinfo[shields]);
+        if($playershields>$playerinfo[ship_energy])
+        {
+          $playershields=$playerinfo[ship_energy];
+        }
+        $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playershields;
         echo "Player Shields - $playershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
         $planetshields = NUM_SHIELDS($ownerinfo[shields]);
+        if($planetshields>$sectorinfo[planet_energy])
+        {
+          $planetshields=$sectorinfo[planet_energy];
+        }
+        $sectorinfo[planet_energy]=$sectorinfo[planet_energy]-$planetshields;
         if($playershields<$planetshields)
         {
           echo "Planet has more shields than you.<BR><BR>";
@@ -586,7 +606,8 @@ if($sectorinfo[planet] == 'Y')
           }
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
           $armour_lost = $playerinfo[armour_pts] - $playerarmour;
-          mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum,armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+          $energy=$playerinfo[ship_energy];
+          mysql_query("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum,armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0)
         {
@@ -600,21 +621,37 @@ if($sectorinfo[planet] == 'Y')
         {
           echo "<BR>Planet not defeated.<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
+          $energy=$sectorinfo[planet_energy];
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
           gen_score($ownerinfo[ship_id]);
-          $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
+          $update7b = mysql_query("UPDATE universe SET planet_energy=$energy,planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
       }
       else
       {
         $ownerbeams = NUM_BEAMS($ownerinfo[beams]);
+        if($ownerbeams>$ownerinfo[ship_energy])
+        {
+          $ownerbeams=$ownerinfo[ship_energy];
+        }
+        $ownerinfo[ship_energy]=$ownerinfo[ship_energy]-$ownerbeams;
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
         $planetbeams = NUM_BEAMS($ownerinfo[beams]);
+        if($planetbeams>$sectorinfo[planet_energy])
+        {
+          $planetbeams=$sectorinfo[planet_energy];
+        }
+        $sectorinfo[planet_energy]=$sectorinfo[planet_energy]-$planetbeams;
         $playerbeams = NUM_BEAMS($playerinfo[beams]);
+        if($playerbeams>$playerinfo[ship_energy])
+        {
+          $playerbeams=$playerinfo[ship_energy];
+        }
+        $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
         echo "Player Beams - $playerbeams<BR><BR>";
         if($playerbeams<$planetbeams)
         {
@@ -625,13 +662,27 @@ if($sectorinfo[planet] == 'Y')
           echo "Planet has less beams than you.<BR><BR>";
         }
         $playershields = NUM_SHIELDS($playerinfo[shields]);
+        if($playershields>$playerinfo[ship_energy])
+        {
+          $playershields=$playerinfo[ship_energy];
+        }
+        $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playershields;
         echo "Player Shields - $playershields<BR><BR>";
-        $ownershields = NUM_SHIELDS($ownerinfo[shields]);
+        if($sectorinfo[base] == "Y")
+        {
+          $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
+        }
+        echo "Player Shields - $playershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
         $planetshields = NUM_SHIELDS($ownerinfo[shields]);
+        if($planetshields>$sectorinfo[planet_energy])
+        {
+          $planetshields=$sectorinfo[planet_energy];
+        }
+        $sectorinfo[planet_energy]=$sectorinfo[planet_energy]-$planetshields;
         if($playershields<$planetshields)
         {
           echo "Planet has more shields than you.<BR><BR>"; 
@@ -1056,7 +1107,8 @@ if($sectorinfo[planet] == 'Y')
           }
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
           $armour_lost = $playerinfo[armour_pts] - $playerarmour;
-          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$playerarmour, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+          $energy=$playerinfo[ship_energy];
+          $update6b = mysql_query("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$armour_lost,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($ownerarmour < 1)
         {
@@ -1086,7 +1138,8 @@ if($sectorinfo[planet] == 'Y')
           }
           $fighters_lost = $ownerinfo[ship_fighters] - $ownerfighters;
           $armour_lost = $ownerinfo[armour_pts] - $ownerarmour;
-          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+          $energy=$ownerinfo[ship_energy];
+          $update6b = mysql_query("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0 && $ownerarmour < 1)
         {
@@ -1100,9 +1153,10 @@ if($sectorinfo[planet] == 'Y')
         {
           echo "<BR>Planet not defeated.<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
+          $energy=$sectorinfo[planet_energy];
            playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods unitsof goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
           gen_score($ownerinfo[ship_id]);
-          $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
+          $update7b = mysql_query("UPDATE universe SET planet_energy=$energy,planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
       }

@@ -70,9 +70,7 @@ if($playerfound)
       {
         echo "Player is DEAD!  Here's what happened:<BR><BR>";
         include("player-log/" . $playerinfo[ship_id]);
-        unlink("player-log/" . $playerinfo[ship_id]);
-        mysql_query("DELETE FROM ships WHERE ship_id=$playerinfo[ship_id]");
-        echo "Dead player has now been deleted.  Click <A HREF=new.php3>here</A> to start with a new player.";
+        echo "Better luck next time.";
       }
     }
   }
