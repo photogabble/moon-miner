@@ -1,12 +1,14 @@
 <?
 
 include("config.php3");
+
 updatecookie();
 
 $title="Create Universe";
 include("header.php3");
 
 connectdb();
+
 bigtitle();
 
 $maxlen_password = 16;
@@ -91,7 +93,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   // logs should also be deleted
   // ...
   echo "Dropping all tables...<BR>";
-  mysql_query("DROP TABLE IF EXISTS links,ships,universe,zones,ibank_accounts,tblnews,refnewstypes");
+  mysql_query("DROP TABLE IF EXISTS links,ships,universe,zones,ibank_accounts,news,newstypes,newsactions");
   echo "Creating tables...<BR>";
   mysql_query("CREATE TABLE links(" .
                  "link_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
@@ -219,23 +221,37 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "team_name tinytext," .
                  "PRIMARY KEY(id)" .
                ")");
-  mysql_query("CREATE TABLE tblnews(" .
+  mysql_query("CREATE TABLE news(" .
                  "news_id bigint(20) unsigned NOT NULL auto_increment," .
+                 "newsdate timestamp(14)," .
                  "newstypes_id varchar(6) NOT NULL," .
+                 "action_id varchar(5) NOT NULL," .
                  "newsdata longtext NOT NULL," .
                  "PRIMARY KEY (news_id)," .
                  "KEY newstypes_id (newstypes_id)" .
                ")");
-  mysql_query("CREATE TABLE refnewstypes(" .
+  mysql_query("CREATE TABLE newstypes(" .
                  "newstypes_id varchar(6) NOT NULL," .
                  "description varchar(50) NOT NULL," .
                  "PRIMARY KEY (newstypes_id)," .
                  "KEY newstypes_id (newstypes_id)," .
                  "UNIQUE newstypes_id_2 (newstypes_id)" .
                ")");
+  mysql_query("CREATE TABLE newsactions(" .
+                 "actions_id varchar(6) NOT NULL," .
+                 "description varchar(50)," .
+                 "PRIMARY KEY (actions_id)," .
+                 "KEY actions_id (actions_id)" .
+                 ")");
 
-  mysql_query("INSERT INTO refnewstypes VALUES ( 'GEN', 'General News')");
-  mysql_query("INSERT INTO refnewstypes VALUES ( 'BAT', 'Battle Results')");
+  //Insert default values into the reference tables
+  mysql_query("INSERT INTO newstypes VALUES ( 'GEN', 'General News')");
+  mysql_query("INSERT INTO newstypes VALUES ( 'BAT', 'Battle Results')");
+  mysql_query("INSERT INTO newstypes VALUES ( 'SCAN', 'Unauthorized Scan')");
+  mysql_query("INSERT INTO newsactions VALUES( 'SSCAN', 'Ship to Ship Scan')");
+  mysql_query("INSERT INTO newsactions VALUES( 'PSCAN', 'Planet Scan')");
+  mysql_query("INSERT INTO newsactions VALUES( 'PDEF', 'Planet Defeated')");
+  mysql_query("INSERT INTO newsactions VALUES( 'SDEF', 'Ship Defeated')");
 
   echo "Creating sector 0 - Sol...<BR>";
   $initsore = $ore_limit * $initscommod / 100.0;
