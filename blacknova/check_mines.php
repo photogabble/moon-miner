@@ -30,7 +30,9 @@
        }
     }
     $num_defences = $i;
-    if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $playerinfo[hull] > $mine_hullsize)
+    $shipavg = $playerinfo[hull] + $playerinfo[engines] + $playerinfo[computer] + $playerinfo[beams] + $playerinfo[torp_launchers] + $playerinfo[shields] + $playerinfo[armour];
+    $shipavg /= 7;
+    if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_hullsize)
     {
         $fm_owner = $defences[0][ship_id];
 	$result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fm_owner");

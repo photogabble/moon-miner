@@ -81,9 +81,11 @@ else
   else
   {
     /* if scan succeeds, show results and inform target. */
-    if($targetinfo[hull] > $ewd_maxhullsize)
+    $shipavg = $targetinfo[hull] + $targetinfo[engines] + $targetinfo[computer] + $targetinfo[beams] + $targetinfo[torp_launchers] + $targetinfo[shields] + $targetinfo[armour];
+    $shipavg /= 7;
+    if($shipavg > $ewd_maxhullsize)
     {
-       $chance = ($targetinfo[hull] - $ewd_maxhullsize) * 10;
+       $chance = ($shipavg - $ewd_maxhullsize) * 10;
     }
     else
     {

@@ -779,6 +779,8 @@ case LOG_BOUNTY_FEDBOUNTY:
     list($name,$sector) = split ("\|", $entry[data]);
     $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
     $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
+    $percentage = $space_plague_kills * 100;
+    $retvalue[text] = str_replace("[percentage]", "$space_plague_kills", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
  case LOG_PLASMA_STORM:

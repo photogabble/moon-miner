@@ -28,7 +28,7 @@
      if($affliction == 1) // Space Plague
      {
         echo "The horsmen release the Space Plague!<BR>.";
-        $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists*.5) WHERE planet_id = $targetinfo[planet_id]");
+        $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
         playerlog($targetinfo[owner],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]"); 
      }
      else
