@@ -1,5 +1,11 @@
 Version 0.3.1
 -------------
+Nospoon (16 Decemeber 2001)
+---------------------------
+Added code to drain energy from owners and corporate planets to support
+fighters. Fixed bug that stopped players reverting corporate planets back
+to personal planets.
+
 Nospoon (15 Decemeber 2001)
 -------------------------------
 Sector fighters will degrade if there is no planet (owned or corproate)
