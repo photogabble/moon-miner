@@ -1,314 +1,628 @@
 Version 0.3.1
--------------
+
+--------------
+
+
 
 SharpBlue (09 December 2001)
+
 -------------------------------
+
 Modified rankings generation to select only ships that aren't
+
 destroyed. Speeds it up by over 50% on big games.
 
 
+
+
+
 SharpBlue (06 December 2001)
+
 -------------------------------
+
 Log viewer admin module added.
 
 
+
+
+
 SharpBlue (04 December 2001)
+
 -------------------------------
+
 New log services. The logs are now kept in the database instead
+
 of in a file. Each event has a define in the global_funcs file,
+
 with an attached text string in the language files. The log.php
+
 file parses the log data and outputs an intelligible string.
 
+
+
 Also played with DHTML for the log interface. Works fine in IE,
+
 NS6 and Mozilla. DHTML is simply disabled for browsers that
+
 don't support it, outputting a simple table instead. Added a field
+
 to the ships table so that users can explicitely disable DHTML if
+
 they don't like it.
 
 
+
+
+
 SharpBlue (03 December 2001)
+
 -------------------------------
+
 Fixed the broken screen resolution cookie code. Fonts for the
+
 main interface are now dynamically selected, depending on the
+
 screen resolution. Hopefully this will make the main interface
+
 better for those with a resolution above 800x600. X resolution
+
 is stored in a cookie called screenres.
 
 
+
+
+
 SharpBlue (02 December 2001)
+
 -------------------------------
+
 Modified ports so you can buy more than 999,999 mine deflectors
+
 in a single shot.
+
+
 
 Fixed the IGB so that it displays right in Netscape 4
 
 
+
+
+
 SharpBlue (01 December 2001)
+
 -------------------------------
+
 Anti-cheat measures:
+
  - Setting not to allow credit transfers to/from corporate planets
+
  - Setting to allow for a minimum player worth for capturing planets
+
  - IP ban module in the admin script
 
+
+
 Addition of a new scheduler to the game. This makes the use of
+
 the sysupdate.php3 file obsolete, as well as genrank.php3 and
+
 gen_news.php. Settings can now be set in real-time, and the
+
 actual system update interval does not affect any longer the game
+
 speed.
 
 
+
+
+
 SharpBlue (30 November 2001)
+
 -------------------------------
+
 Anti-cheat measures:
+
  - Timestamp on transfers to control the frequency of IGB 
+
    transfers 
 
+
+
 Invitation into an alliance log "blank name" bug fixed
+
 Trade routes now link the source port
+
 Fixed sector_id not sorting in planet_report.php3
+
 Various language fixes
 
 
+
+
+
 SharpBlue (29 November 2001)
+
 -------------------------------
+
 Completely new IGB system
+
 Anti-cheat measures :
+
  - Percent of worth limit on IGB transfers
+
  - Min turns allowed for IGB transfers
 
+
+
 Version 0.3.0 released (17 November 2001)
+
 -------------------------------
+
+
 
 SharpBlue (13 November 2001)
+
 -------------------------------
+
 Sector ownership code now completely merged in. Players or teams can now
+
 own sectors and define their laws. Added an option in config.php3 to set
+
 a minimum number of required bases in a sector before a player can claim
+
 ownership
 
+
+
 Planet to planet traderoutes are also now implemented, along with various
+
 bug fixes to the traderoute code.
 
+
+
 Nospoon (13 November 2001)
+
 -------------------------------
+
 When leaving alliances, sector defences of the player will fight against 
+
 sector defences of the old alliance in the same sector.
+
 When leaving an alliance, any players other than the owner on the planet will
+
 be ejected from the planet.
+
 Option to toggle corporate or personal planet is only shown when you are a
+
 member of an alliance.
 
+
+
 Nospoon (09 November 2001)
+
 -------------------------------
+
 Sector defences re-written. Players now get a warning about hostile sector
+
 defences before entering the sector. You can now use cloaking device to attempt
+
 to sneak past sector defences.
+
 Owners of sector defences can retrieve deployed sector defences.
+
 Multiple sector defences (multiple owners in the same alliance) allowed in each sector.
+
 Players can attack hostile sector defences once in a sector.
+
 Can now make unlimited warp links TO a sector, but not from.
 
+
+
 Richard Gowen (30 October 2001)
+
 -------------------------------
+
 Added computer controlled players as a race named Furangee.
+
    . furangee_control.php allows for admin control of computer players
+
    . furangee_funcs.php controls how the computer players function in the game
+
    . sysupdate.php3 updated to make the computer players take thier turns
 
+
+
 Fant0m (29 October 2001 13:26)
+
 ----------------------------
+
 Added :
+
    . Displays of alliance name for Planets, Ships, mines and fighters
+
    . Displays of alliance description in alliance menu
+
    . Added the feature for alliance's leaders to edit tem's name and description
 
+
+
 SharpBlue (26 October 2001)
+
 ----------------------------
+
 Score is now generated when a player logs out
 
+
+
 SharpBlue (24 October 2001)
+
 ----------------------------
+
 Completely new traderoutes system.
 
+
+
 Sharpblue, cYz, Richard Gowen, Dave Rowlands (October 23 2001 )
+
 ---------------------------------------------------------------
+
 Multiple planets per sector support added. 
+
 'ALL' check boxes added to planet transfer screen.
+
 Sector editor added to Admin module.
 
+
+
 nospoon (7 October 2001)
+
 ------------------------
+
 Schema change: Made dev_minedeflectors in ships a bigint(20)
 
+
+
 gyruss (5 October 2001)
+
 ---------------------------
+
 Login cookie now uses an implicit domain/path to support finicky browsers & cookie managers. Make sure you update config_local.php3 to specify your correct domain & path.
 
+
+
 nospoon (1 October 2001)
+
 ------------------------
+
 Emergency warp devices now degrade in reliability depending on hull size.
+
 Ships with a hull size below a certain level won't be attacked by sector defences (mines and fighters).
+
 Traderoutes won't engage between sectors containing hostile sector defences.
 
+
+
 gyruss (19 September 2001)
+
 ---------------------------
+
 Merged username & password cookies into one userpass cookie. Will soon clean up the other cookies. BNT should only have one cookie overall.
 
 
+
+
+
 nospoon (16 September 2001)
+
 ---------------------------
+
 Added code for reporting on sector defences. Also fixed the existing code for bases on planets. Now, the tech level of the planet defences are based on the ships tech level plus a value in the config file, if a base is present.
 
+
+
 nospoon (12 September 2001)
+
 ---------------------------
 
+
+
 Merged in the in game messaging system by Blindcoder.
+
 Fixed problem with planet_owner being set to null as default.
 
 
+
+
+
 nospoon (11 September 2001)
+
 ---------------------------
 
+
+
 Fixed bug #460170 - duplicate links could be created in create_universe.php3
+
           #460084 - schema created with null values in key fields
+
 Added ability to deploy mines and sector fighters (no support for sector fighters attacking yet).
 
 
+
+
+
 nospoon (07 September 2001)
+
 ---------------------------
+
+
 
 Fixed Bug in installscript which caused it to fail running the install program.
+
 Changed team scoring algorithm to the same method of the individual player score, so the team score is no longer the sum of the individual players scores, it is now the square root of the net worth of all team members.
 
+
+
 nospoon (06 September 2001)
+
 --------------------------
 
+
+
 Fixed Bug #443677 - Database connection failure in ibank.php3
+
           #428322 - Unable to transfer planetary $ from IGB
 
+
+
 nospoon (05 September 2001)
+
 ---------------------------
+
 Fixed bug #405750,458278 - Scores not updating or showing zero scores. File ranking.php3 being overwritten by output from genrank.php3 due to bug in install program
+
+
 
          #433079 - Request for password protection on genrank.php3 to stop malicous users frequently calling this resource intensive process
 
+
+
 nospoon (04 September 2001)
+
 ---------------------------
+
+
 
 Fixed bug #458278 - File open error when scanning unowned planet
 
+
+
 nospoon (03 September 2001)
+
 ---------------------------
 
+
+
 Fixed bug #445681 - couldn't deposit or withdraw all funds from IGB
+
           #448733 - incorrect parameter passed to gen_score in planet3.php3
+
           #433078 - longe rang scan incorrectly displaying turns left
 
+
+
 ratt (11 July 01) 
+
 ------------------
+
 The ridiculous traderoute bug reared it's ugly head again...
+
 Should _NOW_ be fixed (No really!)
 
+
+
 Fairly 'major' change is to Ship speed ... currently, with 
+
 an engine level of 15, travel to anywhere in a normal sized
+
 universe took 1 turn... making engine size fairly pointless.
 
+
+
 The new calculation method now makes real space trips take 
+
 a bit longer until engine sizes start getting up in the
+
 very high 20's and beyond.  
 
+
+
 This means that short real space distance trade ports and/or
+
 warp linked tradeports just because WAY more valuable, as
+
 it should be.  With the soon-to-be introduced mines, it
+
 will make mining valuable port combo's an important tactic.
 
+
+
 An alternate way to handle this would have been to increase
+
 the way distance is calculated (to the 4th power instead of
+
 the 2nd) ... still not sure which way would be better.
+
+
 
 Any comments on this?
 
+
+
 Changed "Trade Route" to "Realspace Trading" on the main 
+
 menu, so people don't get confused.
 
+
+
 ratt (09 July 01)
+
 ------------------
+
 Refixed the Traderoute bug.  Boy, was that a nasty one
+
 to track down.  It _SHOULD_ be working now - users should
+
 no longer be able to carrying 2x cargo capacity.
 
+
+
 Current plan is to finish off the combat code for the portions
+
 that are done right now.  Then to look into adding mines/fighter
+
 clouds, which will lead back to the combat code expansion and
+
 balancing.  I don't want to try to balance the combat code any
+
 more than it already is until the mines are in place, they will
+
 add quite a bit of effect to the entire combat system.  Look
+
 for a much more complex combat system soon, however, that will
+
 require users to actually balance out what type of position they 
+
 wish to take (Offensive/devensive/sneaky/subversive).
 
+
+
 First move on this will be a modification to EWD's - currently
+
 they make ship to ship combat non-existant.  Current thinking
+
 right now is to give them a chance of firing a certain % of the
+
 time during each phase of combat.  This will make hanging around
+
 less attractive than logging out on a planet.  With the new
+
 corporate planet options, it will be worth while to concentrate
+
 your corporations ships on a single planet and defend it.
 
+
+
 ratt (08 July 01)
+
 ------------------
+
 Fixed a bug in corporate planets that killed the
+
 original owner of a planet, even if the original
+
 owner wasn't on that planet.
+
+
 
 Comitted current planetary combat code to SF.
 
+
+
 This patch is rather large, and includes 3 new files:
 
+
+
 1.  CHANGES file - will help in tracking what's changed 
+
 from patch to patch by the developers.
 
+
+
 2.  corp.php   ... this is for corporate planets.  It's 
+
 very simple right now, but will be expanded in the future 
+
 to include more options.
 
+
+
 3.  combat.php3  - this is the revised combat code.  It is 
+
 NOT finished, but it works (and shares a lot of code) with 
+
 the old combat system.  However, the big chang is the ability 
+
 to have more than one ship on a planet, and those ships to 
+
 defend the planet in concert.
 
+
+
 I further plan to modularize the combat code within combat.php3 
+
 to actually handle ALL combat in the game.  Once properly 
+
 modularized, it will allow the ability to leave fighter clouds 
+
 in sectors and will include provisioning for mines.
 
+
+
 If you encounter any bugs in the new combat system, please let 
+
 me know ASAP.  Preferably how to duplicate the bug.  I think I 
+
 stamped out most of them.   I am aware that cosmetically, the 
+
 combat system can be improved, and that's on my list of things to do.
 
+
+
 As before, if you have not created the field planet_corp in 
+
 your BN database, you need to.  Rebanging the universe will 
+
 do this for you, but I realize for some people, that is not 
+
 an option.  Just duplicate the field planet_owner into 
+
 planet_corp and you should be ok.
 
+
+
 If you were currently using the new corporate code, all your 
+
 players should go to thier planets and toggle the corporate 
+
 switch at least once to fix a potential bug in the previous 
+
 code.  New captured planets should not exhibit any more problems.
 
+
+
 ratt (06 July 01)
+
 ------------------
+
 Fixed a bug in traderoute.php3 that allowed you to have
+
 double the amount of cargo that your holds could handle.
 
+
+
 Fixed a bug in the corporate planet scheme that allowed the
+
 original owner unfettered access to a planet after it was
+
 captured if it was set to corporate when it was captured.
 
+
+
 Fixed a bug in combat.php3 that would result in
+
 negative fighters being left after a planetary attack,
+
 even if you only lost 1 fighters and had a ton of
+
 fighters left.
+
