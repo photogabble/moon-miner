@@ -1,5 +1,4 @@
 <?
-include("extension.inc");
 include("config_local.$phpext");
 include("global_funcs.$phpext");
 
@@ -11,6 +10,7 @@ $color_line2 = "#400040";
 /* Localization (regional) settings */
 $local_number_dec_point = ".";
 $local_number_thousands_sep = ",";
+$language = "english";
 
 /* game variables */
 $ip = getenv("REMOTE_ADDR");
