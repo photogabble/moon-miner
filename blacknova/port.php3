@@ -73,7 +73,8 @@
 			} else {
 				echo "Welcome to this supply depot.<BR><BR>";
 			}
-			echo "You have $playerinfo[credits] credits to spend.<BR><BR>";
+      echo "You have $playerinfo[credits] credits to spend.<BR>";
+      echo "If you need more you may access this port's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>"; 
 			echo "Here you can purchase:<BR><BR>";
 			echo "<form action=port2.php3 method=post>";
 			echo "<table  width=\"95%\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
