@@ -89,7 +89,8 @@ switch($response) {
          echo "Your beams destroyed $playerbeams mines<BR>";
          $update4b = mysql_query ("UPDATE ships SET ship_energy=energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
          explode_mines($sector,$playerbeams);
-         message_defence_owner($sector,"$playerinfo['character_name'] destroyed $playerbeams mines in sector $sector.");
+         $char_name = $playerinfo['character_name'];
+         message_defence_owner($sector,"$char_name destroyed $playerbeams mines in sector $sector.");
          TEXT_GOTOMAIN();
          die();
       }
