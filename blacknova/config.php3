@@ -53,9 +53,8 @@ $allow_genesis_destroy = true;         // Genesis torps can destroy planets
 // Trying to keep ibank constants unique by prefixing with $ibank_
 // Please EDIT the following variables to your liking.
 
-$ibank_owner = 0;			// Use 0 for no human player or ID of Owner of IGB some trusted player or admin.
 $ibank_interest = 0.0003;			// Interest rate for account funds NOTE: this is calculated every system update!
-$ibank_paymentfee = 0.005; 		// Paymentfee
+$ibank_paymentfee = 0.05; 		// Paymentfee
 $ibank_loaninterest = 0.0006;		// Loan interest i.e 8%
 $ibank_loanfactor = 10;			// x Times what the user currently have in account
 $ibank_loanlimit = 250000000;		// This minus already existing loans is the maximum.
@@ -164,5 +163,10 @@ $avail_lang[1][file] = '/languages/german.inc';
 $avail_lang[1][name] = 'Deutsch';
 $avail_lang[2][file] = '/languages/french.inc';
 $avail_lang[2][name] = 'Français';
+
+// Anti-cheat settings
+$IGB_min_turns = $start_turns; //Turns a player has to play before ship transfers are allowed 0=disable
+$IGB_svalue = 0.15; //Max amount of sender's value allowed for ship transfers 0=disable
+$IGB_trate = 1440; //Time (in minutes) before two similar transfers are allowed for ship transfers.0=disable
 
 ?>

@@ -27,14 +27,22 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 
 <?
 
-if($command == 'login')
+if($command == 'login') //main menu
   IGB_login();
-elseif($command == 'withdraw')
+elseif($command == 'withdraw') //withdraw menu
   IGB_withdraw();
-elseif($command == 'deposit')
+elseif($command == 'withdraw2') //withdraw operation
+  IGB_withdraw2();
+elseif($command == 'deposit') //deposit menu
   IGB_deposit();
-elseif($command == 'transfer')
+elseif($command == 'deposit2') //deposit operation
+  IGB_deposit2();
+elseif($command == 'transfer') //main transfer menu
   IGB_transfer();
+elseif($command == 'transfer2') //specific transfer menu (ship or planet)
+  IGB_transfer2();
+elseif($command == 'transfer3') //transfer operation
+  IGB_transfer3();
 else
 {
   echo '
@@ -147,24 +155,16 @@ function IGB_transfer()
     $ships[]=$row;
   }
   
-  $res = mysql_query("SELECT name, planet_id, sector_id FROM planets WHERE owner=$playerinfo[ship_id]");
+  $res = mysql_query("SELECT name, planet_id, sector_id FROM planets WHERE owner=$playerinfo[ship_id] ORDER BY sector_id ASC");
   while($row = mysql_fetch_array($res))
   {
     $planets[]=$row;
   }
 
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Transferring Funds<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Transfer Type<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>Funds available :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) ." C<br></td>" .
-       "</tr><tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>Please select amount to transfer :</td><td align=right>" .
-       "<form action=IGB.php?command=withdraw2 method=POST>" .
-       "<input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=text size=15 maxlength=20 name=amount value=0>" .
-       "</td></tr>" .
-       "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Transfer Type<br>---------------------------------</td></tr>" .
-       "<tr valign=top>" .
+       "<form action=IGB.php?command=transfer2 method=POST>" .
        "<td><font size=2 face=\"courier new\" color=#00FF00>To another ship :<br><br>" .
        "<select style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" name=ship_id>";
   
@@ -174,16 +174,20 @@ function IGB_transfer()
   }
        
   echo "</select></td><td valign=center align=right>" .
-       "<input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit name=shipt value=\"Transfer\">" .
+       "<input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit name=shipt value=\" Ship Transfer \">" .
+       "</form>" .
        "</td></tr>" .
        "<tr valign=top>" .
        "<td><br><font size=2 face=\"courier new\" color=#00FF00>From a planet to another :<br><br>" .
+       "<form action=IGB.php?command=transfer2 method=POST>" .
        "Source&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" name=splanet_id>";
   
   if(isset($planets))
   {
     foreach($planets as $planet)
     {
+      if(empty($planet[name]))
+        $planet[name] = "Unnamed";
       echo "<option value=$planet[planet_id]>$planet[name] in $planet[sector_id]</option>";
     }
   }
@@ -198,6 +202,8 @@ function IGB_transfer()
   {
     foreach($planets as $planet)
     {
+      if(empty($planet[name]))
+        $planet[name] = "Unnamed";
       echo "<option value=$planet[planet_id]>$planet[name] in $planet[sector_id]</option>";
     }
   }
@@ -208,11 +214,349 @@ function IGB_transfer()
 
 
   echo "</select></td><td valign=center align=right>" .
-       "<br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit name=planett value=\"Transfer\">" .
+       "<br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit name=planett value=\"Planet Transfer\">" .
        "</td></tr>" .
        "</form><tr valign=bottom>" .
        "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
        "</tr>";
+}
+
+function IGB_transfer2()
+{
+  global $playerinfo;
+  global $account;
+  global $ship_id;
+  global $splanet_id;
+  global $dplanet_id;
+  global $IGB_min_turns;
+  global $IGB_svalue;
+  global $ibank_paymentfee;
+
+  if(isset($ship_id)) //ship transfer
+  {
+    $res = mysql_query("SELECT * FROM ships WHERE ship_id=$ship_id");
+    
+    if($playerinfo[ship_id] == $ship_id)
+      IGB_error("You can't send money to yourself!", "IGB.php?command=transfer");
+    
+    if(!$res || mysql_num_rows($res) == 0)
+      IGB_error("Unknown target ship!", "IGB.php?command=transfer");
+    
+    $target = mysql_fetch_array($res);
+
+    if($target[turns_used] < $IGB_min_turns)
+      IGB_error("Player $target[character_name] must have played at least $IGB_min_turns turns before he can receive money.", "IGB.php?command=transfer");
+
+    if($playerinfo[turns_used] < $IGB_min_turns)
+      IGB_error("You must have played at least $IGB_min_turns turns before you can send money.", "IGB.php?command=transfer");
+
+    //TODO: Add transfer time check
+    
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Ship Transfer<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>IGB Account :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>$account[balance] C</td></tr>";
+    
+    if($IGB_svalue == 0)
+      echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>Maximum transfer allowed :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>Unlimited</td></tr>";
+    else
+    {
+      $percent = $IGB_svalue * 100;
+      $score = gen_score($playerinfo[ship_id]);
+      $maxtrans = $score * $score * $IGB_svalue;
+
+      echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#00FF00>Maximum transfer allowed ($percent% of net worth) :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($maxtrans) . " C</td></tr>";
+    }
+
+    $percent = $ibank_paymentfee * 100;
+    
+    echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>Recipient :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>$target[character_name]&nbsp;&nbsp;</td></tr>" .
+         "<form action=IGB.php?command=transfer3 method=POST>" .
+         "<tr valign=top>" .
+         "<td><br><font size=2 face=\"courier new\" color=#00FF00>Please select amount to transfer :</td>" .
+         "<td align=right><br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=text size=15 maxlength=20 name=amount value=0><br>" .
+         "<br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit value=Transfer></td>" .
+         "<input type=hidden name=ship_id value=$ship_id>" .
+         "</form>" .
+         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+         "Current rate for transfers is " . NUMBER($percent,1) . "% of total amount. It will automatically be deduced from the amount you transfer." .
+         "<tr valign=bottom>" . 
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=transfer>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+         "</tr>";
+  }
+  else
+  {
+    if($splanet_id == $dplanet_id)
+      IGB_error("The same planet can't be both source and destination.", "IGB.php?command=transfer");
+    
+    $res = mysql_query("SELECT name, credits, owner, sector_id FROM planets WHERE planet_id=$splanet_id");
+    if(!$res || mysql_num_rows($res) == 0)
+      IGB_error("DB Error! Unkown Planet!", "IGB.php?command=transfer");
+    $source = mysql_fetch_array($res);
+
+    if(empty($source[name]))
+      $source[name]="Unnamed";
+
+    $res = mysql_query("SELECT name, credits, owner, sector_id FROM planets WHERE planet_id=$dplanet_id");
+    if(!$res || mysql_num_rows($res) == 0)
+      IGB_error("DB Error! Unkown Planet!", "IGB.php?command=transfer");
+    $dest = mysql_fetch_array($res);
+    
+    if(empty($dest[name]))
+      $dest[name]="Unnamed";
+
+    if($source[owner] != $playerinfo[ship_id] || $dest[owner] != $playerinfo[ship_id])
+      IGB_error("You can't transfer money from/to a planet you do not own.", "IGB.php?command=transfer");
+
+    $percent = $ibank_paymentfee * 100;
+
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Planet Transfer<br>---------------------------------</td></tr>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Src -> Planet $source[name] in $source[sector_id] :" .
+         "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($source[credits]) . " C" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Dst -> Planet $dest[name] in $dest[sector_id] :" .
+         "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($dest[credits]) . " C" .
+         "<form action=IGB.php?command=transfer3 method=POST>" .
+         "<tr valign=top>" .
+         "<td><br><font size=2 face=\"courier new\" color=#00FF00>Please select amount to transfer :</td>" .
+         "<td align=right><br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=text size=15 maxlength=20 name=amount value=0><br>" .
+         "<br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit value=Transfer></td>" .
+         "<input type=hidden name=splanet_id value=$splanet_id>" .
+         "<input type=hidden name=dplanet_id value=$dplanet_id>" .
+         "</form>" .
+         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+         "Current rate for transfers is " . NUMBER($percent,1) . "% of total amount. It will automatically be deduced from the amount you transfer." .
+         "<tr valign=bottom>" . 
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=transfer>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+         "</tr>";
+  }
+
+}
+
+function IGB_transfer3()
+{
+  global $playerinfo;
+  global $account;
+  global $ship_id;
+  global $splanet_id;
+  global $dplanet_id;
+  global $IGB_min_turns;
+  global $IGB_svalue;
+  global $ibank_paymentfee;
+  global $amount;
+
+  if(isset($ship_id)) //ship transfer
+  {
+    //Need to check again to prevent cheating by manual posts
+    
+    $res = mysql_query("SELECT * FROM ships WHERE ship_id=$ship_id");
+    
+    if($playerinfo[ship_id] == $ship_id)
+      IGB_error("You can't send money to yourself!", "IGB.php?command=transfer");
+    
+    if(!$res || mysql_num_rows($res) == 0)
+      IGB_error("Unknown target ship!", "IGB.php?command=transfer");
+    
+    $target = mysql_fetch_array($res);
+
+    if($target[turns_used] < $IGB_min_turns)
+      IGB_error("Player $target[character_name] must have played at least $IGB_min_turns turns before he can receive money.", "IGB.php?command=transfer");
+
+    if($playerinfo[turns_used] < $IGB_min_turns)
+      IGB_error("You must have played at least $IGB_min_turns turns before you can send money.", "IGB.php?command=transfer");
+
+    //TODO: Add transfer time check
+    
+    $amount = StripNonNum($amount);
+
+    if(($amount * 1) != $amount)
+      IGB_error("Invalid input for transfer.", "IGB.php?command=transfer");
+  
+    if($amount == 0)
+      IGB_error("Amount to transfer must not be zero.", "IGB.php?command=transfer");
+
+    if($amount > $account[balance])
+      IGB_error("You do not have enough credits to perform this operation.", "IGB.php?command=transfer");
+
+    if($IGB_svalue != 0)
+    {
+      $percent = $IGB_svalue * 100;
+      $score = gen_score($playerinfo[ship_id]);
+      $maxtrans = $score * $score * $IGB_svalue;
+
+      if($amount > $maxtrans)
+        IGB_error("The amount you entered was greater than your maximum transfer allowed.", "IGB.php?command=transfer");
+    }
+
+    $account[balance] -= $amount;
+    $amount2 = $amount * $ibank_paymentfee;
+    $transfer = $amount - $amount2;
+
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Transfer Successful<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " credits have been transferred to $target[character_name].</tr>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Transfer Amount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Transfer Fee :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount2) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Amount Transferred :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>IGB Account :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) . " C<br>" .
+         "<tr valign=bottom>" . 
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+         "</tr>";
+
+    mysql_query("UPDATE ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
+    mysql_query("UPDATE ibank_accounts SET balance=balance+$transfer WHERE ship_id=$target[ship_id]");
+  
+    //TODO: Log transfers.
+  }
+  else
+  {
+    if($splanet_id == $dplanet_id)
+      IGB_error("The same planet can't be both source and destination.", "IGB.php?command=transfer");
+    
+    $res = mysql_query("SELECT name, credits, owner, sector_id FROM planets WHERE planet_id=$splanet_id");
+    if(!$res || mysql_num_rows($res) == 0)
+      IGB_error("DB Error! Unkown Planet!", "IGB.php?command=transfer");
+    $source = mysql_fetch_array($res);
+
+    if(empty($source[name]))
+      $source[name]="Unnamed";
+
+    $res = mysql_query("SELECT name, credits, owner, sector_id FROM planets WHERE planet_id=$dplanet_id");
+    if(!$res || mysql_num_rows($res) == 0)
+      IGB_error("DB Error! Unkown Planet!", "IGB.php?command=transfer");
+    $dest = mysql_fetch_array($res);
+    
+    if(empty($dest[name]))
+      $dest[name]="Unnamed";
+
+    if($source[owner] != $playerinfo[ship_id] || $dest[owner] != $playerinfo[ship_id])
+      IGB_error("You can't transfer money from/to a planet you do not own.", "IGB.php?command=transfer");
+
+    if($amount > $source[credits])
+      IGB_error("There are not enough credits on source planet to complete that transaction.", "IGB.php?command=transfer");
+    
+    $percent = $ibank_paymentfee * 100;
+
+    $source[credits] -= $amount;
+    $amount2 = $amount * $ibank_paymentfee;
+    $transfer = $amount - $amount2;
+    $dest[credits] += $transfer;
+
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Transfer Successful<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " credits have been transferred from $source[name] to $dest[name].</tr>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Transfer Amount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Transfer Fee :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount2) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Amount Transferred :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Src -> Planet $source[name] in $source[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($source[credits]) . " C<br>" .
+         "<tr valign=top>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00>Dst -> Planet $dest[name] in $dest[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($dest[credits]) . " C<br>" .
+         "<tr valign=bottom>" . 
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+         "</tr>";
+
+    mysql_query("UPDATE planets SET credits=credits-$amount WHERE planet_id=$splanet_id");
+    mysql_query("UPDATE planets SET credits=credits+$transfer WHERE planet_id=$dplanet_id");
+  }
+}
+
+function IGB_deposit2()
+{
+  global $playerinfo;
+  global $amount;
+  global $account;
+
+  $amount = StripNonNum($amount);
+  if(($amount * 1) != $amount)
+    IGB_error("Invalid input for deposit.", "IGB.php?command=deposit");
+  
+  if($amount == 0)
+    IGB_error("Amount to deposit must not be zero.", "IGB.php?command=deposit");
+
+  if($amount > $playerinfo[credits])
+    IGB_error("You do not have enough credits to perform this operation.", "IGB.php?command=deposit");
+
+  $account[balance] += $amount;
+  $playerinfo[credits] -= $amount;
+
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Operation successful<br>---------------------------------</td></tr>" .
+       "<tr valign=top>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) ." Credits have been transfered to your IGB account.</td>" .
+       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>Accounts<br>---------------------------------</td></tr>" .
+       "<tr valign=top>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00>Ship Account :<br>IGB Account :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
+       "<tr valign=bottom>" . 
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+       "</tr>";
+
+  mysql_query("UPDATE ibank_accounts SET balance=balance+$amount WHERE ship_id=$playerinfo[ship_id]");
+  mysql_query("UPDATE ships SET credits=credits-$amount WHERE ship_id=$playerinfo[ship_id]");
+}
+
+function IGB_withdraw2()
+{
+  global $playerinfo;
+  global $amount;
+  global $account;
+
+  $amount = StripNonNum($amount);
+  if(($amount * 1) != $amount)
+    IGB_error("Invalid input for withdraw.", "IGB.php?command=withdraw");
+  
+  if($amount == 0)
+    IGB_error("Amount to withdraw must not be zero.", "IGB.php?command=withdraw");
+
+  if($amount > $account[balance])
+    IGB_error("You do not have enough credits to perform this operation.", "IGB.php?command=withdraw");
+
+  $account[balance] -= $amount;
+  $playerinfo[credits] += $amount;
+
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Operation successful<br>---------------------------------</td></tr>" .
+       "<tr valign=top>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) ." Credits have been transfered to your ship account.</td>" .
+       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>Accounts<br>---------------------------------</td></tr>" .
+       "<tr valign=top>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00>Ship Account :<br>IGB Account :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
+       "<tr valign=bottom>" . 
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+       "</tr>";
+
+  mysql_query("UPDATE ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
+  mysql_query("UPDATE ships SET credits=credits+$amount WHERE ship_id=$playerinfo[ship_id]");
+}
+
+function IGB_error($errmsg, $backlink, $title="IGB Error Report")
+{
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$title<br>---------------------------------</td></tr>" .
+       "<tr valign=top>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$errmsg</td>" .
+       "</tr>" .
+       "<tr valign=bottom>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=$backlink>Back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">Logout</a></td>" .
+       "</tr>" .
+       "</table>" .
+       "</td></tr>" .
+       "</table>" .
+       "<img src=images/div2.gif>" .
+       "</center>";
+
+  include("footer.php3");
+  die();
+}
+
+function StripNonNum($str)
+{ 
+  $str=(string)$str; 
+  $output = ereg_replace("[^0-9]","",$str); 
+  return $output;
 }
 
 ?>

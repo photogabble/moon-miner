@@ -315,7 +315,7 @@ $l_att_ylost		 = "You lost";
 $l_att_sdown		 = "'s shields are down!";
 $l_att_ydown		 = "Your shields are down!";
 $l_att_shits		 = "'s shields are hit for";
-$l_att_yhits		 " "Your shields are hit for";
+$l_att_yhits		 = "Your shields are hit for";
 $l_att_dmg		 = "damage";
 $l_att_sarm		 = "'s armour breached!";
 $l_att_yarm		 = "Your armour has been breached!";
