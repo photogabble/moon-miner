@@ -75,7 +75,7 @@
               case "sneak":
                  {
                     $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
-                    $success = SCAN_SUCCESS($playerinfo[sensors], $fighters_owner[cloak]);
+                    $success = SCAN_SUCCESS($fighters_owner[sensors], $playerinfo[cloak]);
                     if($success < 5)
                     {
                        $success = 5;
