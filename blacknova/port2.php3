@@ -16,18 +16,19 @@ if(checklogin())
 //-------------------------------------------------------------------------------------------------
 mysql_query("LOCK TABLES ships WRITE, universe WRITE");
 
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
+$result     = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
 
-$result2 = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-$sectorinfo=mysql_fetch_array($result2);
+$result2    = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
+$sectorinfo = mysql_fetch_array($result2);
 
 bigtitle();
 
-$trade_benefit = "Profit : ";
+$color_red     = "red";
 $color_green   = "#00FF00"; //light green
 $trade_deficit = "Cost : ";
-$color_red   = "red";
+$trade_benefit = "Profit : ";
+
 
 function BuildOneCol( $text = "&nbsp;", $align = "left" ) {
    echo"
@@ -51,10 +52,10 @@ if($playerinfo[turns] < 1)
 }
 else
 {
-  $trade_ore = round(abs($trade_ore));
+  $trade_ore      = round(abs($trade_ore));
   $trade_organics = round(abs($trade_organics));
-  $trade_goods = round(abs($trade_goods));
-  $trade_energy = round(abs($trade_energy));
+  $trade_goods    = round(abs($trade_goods));
+  $trade_energy   = round(abs($trade_energy));
 
   if($sectorinfo[port_type] == "special")
   {
@@ -101,8 +102,8 @@ else
     }
     
     
-    $fighter_number = round(abs($fighter_number));
-    $fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
+    $fighter_number  = round(abs($fighter_number));
+    $fighter_max     = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
     if($fighter_max < 0)
     {
       $fighter_max = 0;
@@ -111,9 +112,9 @@ else
     {
       $fighter_number = $fighter_max;
     }
-    $fighter_cost = $fighter_number * $fighter_price;
-    $torpedo_number = round(abs($torpedo_number));
-    $torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
+    $fighter_cost    = $fighter_number * $fighter_price;
+    $torpedo_number  = round(abs($torpedo_number));
+    $torpedo_max     = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
     if($torpedo_max < 0)
     {
       $torpedo_max = 0;
@@ -133,25 +134,28 @@ else
     {
       $armour_number = $armour_max;
     }
-    $armour_cost = $armour_number * $armour_price;
+    $armour_cost     = $armour_number * $armour_price;
     $colonist_number = round(abs($colonist_number));
-    $colonist_max = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
+    $colonist_max    = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
       $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+
     if($colonist_number > $colonist_max)
     {
       $colonist_number = $colonist_max;
     }
-    $colonist_cost = $colonist_number * $colonist_price;    
-    $dev_genesis_number = round(abs($dev_genesis_number));
-    $dev_genesis_cost = $dev_genesis_number * $dev_genesis_price;
-    $dev_beacon_number = round(abs($dev_beacon_number));
-    $dev_beacon_cost = $dev_beacon_number * $dev_beacon_price;
-    $dev_emerwarp_number = min(round(abs($dev_emerwarp_number)), $max_emerwarp - $playerinfo[dev_emerwarp]);
-    $dev_emerwarp_cost = $dev_emerwarp_number * $dev_emerwarp_price;
-    $dev_warpedit_number = round(abs($dev_warpedit_number));
-    $dev_warpedit_cost = $dev_warpedit_number * $dev_warpedit_price;
+    
+    $colonist_cost            = $colonist_number * $colonist_price;    
+    $dev_genesis_number       = round(abs($dev_genesis_number));
+    $dev_genesis_cost         = $dev_genesis_number * $dev_genesis_price;
+    $dev_beacon_number        = round(abs($dev_beacon_number));
+    $dev_beacon_cost          = $dev_beacon_number * $dev_beacon_price;
+    $dev_emerwarp_number      = min(round(abs($dev_emerwarp_number)), $max_emerwarp - $playerinfo[dev_emerwarp]);
+    $dev_emerwarp_cost        = $dev_emerwarp_number * $dev_emerwarp_price;
+    $dev_warpedit_number      = round(abs($dev_warpedit_number));
+    $dev_warpedit_cost        = $dev_warpedit_number * $dev_warpedit_price;
     $dev_minedeflector_number = round(abs($dev_minedeflector_number));
-    $dev_minedeflector_cost = $dev_minedeflector_number * $dev_minedeflector_price;
+    $dev_minedeflector_cost   = $dev_minedeflector_number * $dev_minedeflector_price;
+    
     if($escapepod_purchase)
     {
       $dev_escapepod_cost = $dev_escapepod_price;
@@ -298,77 +302,44 @@ else
   }
   elseif($sectorinfo[port_type] != "none")
   {
-    /* the code for an ore port will go here! */
+    /* 
+      Here is the TRADE fonction to strip out some "spaghetti code"
+      That fonction save about 60 lines of code, hope this will be 
+      easier to modify/add something in this part.
+                                                           --Fant0m
+    */
 
-    if($sectorinfo[port_type] == "ore")
-    {
-      $ore_price     = $ore_price - $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
-      $trade_color   = $trade_red ;
-      $trade_result  = $trade_deficit;
-    }
-    else
-    {
-      $ore_price     = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
-      $trade_color  = $color_green;
-      $trade_result  = $trade_benefit;
-      $trade_ore     = -$trade_ore;
-    }
+   function TRADE($price, $delta, $max, $limit, $factor, $port_type, $origin) 
+   {   
+      global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red;
+      
+      if($sectorinfo[port_type] ==  $port_type )
+      {
+        $price          = $price - $delta * $max / $limit * $factor;
+        $trade_color    = $color_red;
+        $trade_result   = $trade_deficit;
+      }
+      else
+      {
+        $price          = $price + $delta * $max / $limit * $factor;
+        $trade_color    = $color_green;
+        $trade_result   = $trade_benefit;
+        $origin         = -$origin;
+        return $origin;
+      }
+   }
 
+    $trade_ore       =  TRADE($ore_price, $ore_delta, $sectorinfo[port_ore], $ore_limit, $inventory_factor, "ore", $trade_ore);
+    $trade_organics  =  TRADE($organics_price, $organics_delta, $sectorinfo[port_gorganics], $organics_limit, $inventory_factor, "organics", $trade_organics );    
+    $trade_goods     =  TRADE($goods_price, $goods_delta, $sectorinfo[port_goods], $goods_limit, $inventory_factor, "goods", $trade_goods);
+    $trade_energy    =  TRADE($energy_price, $energy_delta, $sectorinfo[port_energy], $energy_limit, $inventory_factor, "energy", $trade_energy);
     
-    if($sectorinfo[port_type] == "organics")
-    {
-      $organics_price   = $organics_price - $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
-      $trade_color      = $color_red ;
-      $trade_result     = $trade_deficit;
-    }
-    else
-    {
-      $organics_price   = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
-      $trade_organics   = -$trade_organics;
-      $trade_color      = $color_green;
-      $trade_result     = $trade_benefit;
-
-    }
-
-
-    if($sectorinfo[port_type] == "goods")
-    {
-      $goods_price   = $goods_price - $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
-      $trade_color   = $color_red ;
-      $trade_result  = $trade_deficit;
-    }
-    else
-    {
-      $goods_price   = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
-      $trade_goods   = -$trade_goods;
-      $trade_color   = $color_green;
-      $trade_result  = $trade_benefit;
-
-    }
-
-    
-    if($sectorinfo[port_type] == "energy")
-    {
-      $energy_price = $energy_price - $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
-      $trade_color   = $color_red;
-      $trade_result  = $trade_deficit;
-    }
-    else
-    {
-      $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
-      $trade_energy = -$trade_energy;
-      $trade_color  = $color_green ;
-      $trade_result  = $trade_benefit;
-
-    }
   
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
   
-    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
-      $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
     $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-    $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + 
-      $trade_energy * $energy_price;
+    $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price;
   
     if($free_holds < $cargo_exchanged)
     {
@@ -423,7 +394,7 @@ else
       $trade_credits = NUMBER(abs($total_cost));
       if ($total_cost == 0 ) {
          $trade_color   = "white";
-         $trade_result  = "Cost : ";    
+         $trade_result  = "Cost : ";
       }
       echo "
       <TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
@@ -447,15 +418,18 @@ else
          </TR>
       </TABLE>
       ";
+
       /* Update ship cargo, credits and turns */
-      $trade_result = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+      $trade_result     = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+
       /* Make all trades positive to change port values*/
-      $trade_ore = round(abs($trade_ore));
-      $trade_organics = round(abs($trade_organics));
-      $trade_goods = round(abs($trade_goods));
-      $trade_energy = round(abs($trade_energy));
+      $trade_ore        = round(abs($trade_ore));
+      $trade_organics   = round(abs($trade_organics));
+      $trade_goods      = round(abs($trade_goods));
+      $trade_energy     = round(abs($trade_energy));
+      
       /* Decrease supply and demand on port */
-      $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
+      $trade_result2    = mysql_query("UPDATE universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
       echo "Trade completed.<BR><BR>";
     }
   }
