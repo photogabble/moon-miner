@@ -34,7 +34,7 @@ if ($playerinfo[turns]<1)
 $res = mysql_query("SELECT allow_attack,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
-if($zoneinfo[allow_attack] == 'N')
+if($zoneinfo[allow_defenses] == 'N')
 {
  echo "Deploying Mines and Fighters in this sector is not permitted.<BR><BR>";
 }
