@@ -103,7 +103,7 @@ else
   echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
-    echo "[<A HREF=lrscan.php3?sector=$links[$i]>$links[$i]</A>]";
+    echo "<A HREF=lrscan.php3?sector=$links[$i]>$links[$i]</A>";
     if($i + 1 != $num_links)
     {
       echo ", ";
