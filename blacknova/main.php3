@@ -489,7 +489,17 @@ else
                                     WHERE ship_id=$sectorinfo[fm_owner]");
                                     
   $planet_owner_arry = mysql_fetch_array($resultX);
-  $mines_owner       = $planet_owner_arry[character_name] . ", from  <font color=#33ff00>" . $planet_owner_arry[team_name]. "</font> has";
+  if ($planet_owner_arry[team_name]) 
+  {
+      $mines_owner  = $planet_owner_arry[character_name] . ", from  <font color=#33ff00>" . $planet_owner_arry[team_name]. "</font> has";   
+   }
+   else 
+   {
+        $mines_owner = $planet_owner_arry[character_name] . " has";
+   }
+
+   
+
 }
 
 if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
@@ -506,7 +516,21 @@ if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
       echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
       echo "</td>";
       echo "</tr><tr>";
-   }  
+   }
+   elseif ($sectorinfo[fm_owner] == $playerinfo[ship_id])
+   {
+      echo "<td align=center colspan=2 valign=top>";
+      echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
+      echo "</td>";
+      echo "</tr><tr>";      
+   }
+   else
+   {
+      echo "<td align=center colspan=2 valign=top>";
+      echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
+      echo "</td>";
+      echo "</tr><tr>";        
+   }
  
    if ($sectorinfo[mines] > 0 ) 
    {
