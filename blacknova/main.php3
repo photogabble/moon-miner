@@ -66,7 +66,7 @@ echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><
 echo "</TABLE><BR>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_line1\"><TD>Turns available: " . NUMBER($playerinfo[turns]) . "</TD><TD ALIGN=RIGHT>Turns used: " . NUMBER($playerinfo[turns_used]) . "</TD></TR>";
-echo "</TABLE><BR>";
+echo "</TABLE>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_line2\"><TD WIDTH=\"15%\">Ore: " . NUMBER($playerinfo[ship_ore]) . "</TD><TD WIDTH=\"15%\">Organics: " . NUMBER($playerinfo[ship_organics]) . "</TD><TD WIDTH=\"15%\">Goods: " . NUMBER($playerinfo[ship_goods]) . "</TD><TD WIDTH=\"15%\">Energy: " . NUMBER($playerinfo[ship_energy]) . "</TD><TD WIDTH=\"15%\">Colonists: " . NUMBER($playerinfo[ship_colonists]) . "</TD><TD ALIGN=RIGHT>Credits: " . NUMBER($playerinfo[credits]) . "</TD></TR>";
 echo "</TABLE><BR>";
@@ -174,7 +174,7 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
   {
     $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
     $planet_owner_name=mysql_fetch_array($result5);
-    echo "owned by <a href=mailto.php3?to=$sectorinfo[planet_owner]>$planet_owner_name[character_name]</a> (#$sectorinfo[planet_owner])<BR><BR>";
+    echo "owned by <a href=mailto.php3?to=$sectorinfo[planet_owner]>$planet_owner_name[character_name]</a><BR><BR>";
   }
 }
 
@@ -192,8 +192,8 @@ echo "Real Space Presets:  <a href=rsmove.php3?engage=1&destination=$playerinfo[
 echo "Trade Route Presets:  <a href=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</a><BR><BR>";
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Use Device</A> - <A HREF=report.php3>Report</A> - <A HREF=planet-report.php3>Planet Report</A> - <A HREF=log.php3>View Log</A> - <A HREF=rsmove.php3>Realspace Move</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> -"; 
-echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help!</A>";
+echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Devices</A> - <A HREF=report.php3>Report</A> - <A HREF=planet-report.php3>Planet Report</A> - <A HREF=log.php3>Log</A> - <A HREF=rsmove.php3>RealSpace Move</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> -"; 
+echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help</A>";
 if(!empty($link_forums))
 {
   echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";
