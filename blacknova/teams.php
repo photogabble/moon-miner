@@ -309,7 +309,7 @@ switch ($teamwhat) {
                 }
                 else
                 {
-                   echo "You have not been invited in to that team.<BR>"
+                   echo "You have not been invited in to that team.<BR>";
                 }
 		LINK_BACK();
 		break;
