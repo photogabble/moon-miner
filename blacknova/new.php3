@@ -1,6 +1,6 @@
 <?
 
-include("extension.inc");
+
 	$title="Create New Player"; 
 
 	include("header.php3");

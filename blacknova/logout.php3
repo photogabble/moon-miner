@@ -1,6 +1,6 @@
 <?
 
-include("extension.inc");
+
 include("config.php3");
 $title = "Logout"; 
 

@@ -1,5 +1,5 @@
 <?
-include("extension.inc");
+
 	include("config.php3");
 	updatecookie();
 

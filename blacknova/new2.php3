@@ -1,6 +1,6 @@
 <?
 $title="Create New Player Phase Two";
-include("extension.inc");
+
 include("header.php3");
 include("config.php3");
 

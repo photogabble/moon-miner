@@ -1,5 +1,5 @@
 <?
-include("extension.inc");
+
 	$title="Mail Password"; 
 	include("header.php3");
 

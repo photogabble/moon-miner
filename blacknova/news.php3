@@ -1,6 +1,6 @@
 <?
 
-include("extension.inc");
+
 include("config.php3");
 include("includes/newsservices.php3");
 updatecookie();

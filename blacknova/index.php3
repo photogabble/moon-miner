@@ -1,5 +1,5 @@
 <? 
-include("extension.inc");
+
 	$title="Login"; 
   $no_body=1;
 	include("header.php3");
