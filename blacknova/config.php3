@@ -151,7 +151,7 @@ $max_emerwarp = 10;
 $fullscan_cost = 1;
 $scan_error_factor=20;
 
-$max_planets_sector = 9;
+$max_planets_sector = 5;
 $max_traderoutes_player = 20;
 
 ?>
