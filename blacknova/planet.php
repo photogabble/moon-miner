@@ -223,7 +223,7 @@ if(!empty($planetinfo))
        $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
       echo "$l_planet_att<BR>";
       echo "$l_planet_scn<BR>";
-     echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
+      if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
     }
   }
   elseif($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
@@ -388,7 +388,7 @@ if(!empty($planetinfo))
        $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
       echo "$l_planet_att <b>$l_planet_att_sure</b><BR>";
       echo "$l_planet_scn<BR>";
-	echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
+	if($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
     }
     elseif($command == "attack")
     {
@@ -398,7 +398,7 @@ if(!empty($planetinfo))
     elseif($command == "bom")
     {
 //check to see if sure...
-    if($planetinfo[sells] == "Y")
+    if($planetinfo[sells] == "Y" && $sofa_on)
       {
                $l_planet_buy_link="<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
 		       $l_planet_buy=str_replace("[buy]",$l_planet_buy_link,$l_planet_buy);
@@ -417,7 +417,7 @@ if(!empty($planetinfo))
 	echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><b>$l_planet_att_sure</b><BR>";
 
     }
-    elseif($command == "bomb")
+    elseif($command == "bomb" && $sofa_on)
     {
     	planetbombing();
     }

@@ -212,6 +212,7 @@ $display_password = false; // If true, will display password on signup screen.
 $space_plague_kills = 0.20; // Percentage of colonists killed by space plague
 $sched_type = 0; // 0 = Cron based, 1 = player triggered.
 $max_credits_without_base = $base_credits; // Max amount of credits allowed on a planet without a base
+$sofa_on = false;
 
 include("global_funcs.php");
 ?>
