@@ -79,6 +79,107 @@ else
   $transfer_torps = $transfer_torps * 1;
   $transfer_fighters = $transfer_fighters * 1;
 
+
+
+  if($allore==-1)
+  {
+
+     if ($tpore == -1) 
+     { 
+        $transfer_ore = $playerinfo['ship_ore'];
+     }
+     else 
+     {
+        $transfer_ore = $sectorinfo['planet_ore']; 
+     }
+  }
+  if($allorganics==-1)
+  {
+     if ($tporganics==-1) 
+     {
+        $transfer_organics = $playerinfo['ship_organics'];
+     }
+     else  
+     {
+        $transfer_organics = $sectorinfo['planet_organics'];
+     }
+
+  }
+  
+  if($allgoods==-1)
+  {
+     if ($tpgoods==-1) 
+     {
+        $transfer_goods = $playerinfo['ship_goods'];
+     }
+     else
+     {
+        $transfer_goods = $sectorinfo['planet_goods'];
+     }
+
+  }
+  
+  if($allenergy==-1)
+  {
+     if ($tpenergy==-1) 
+     {
+        $transfer_energy = $playerinfo['ship_energy'];
+     }
+     else 
+     {
+        $transfer_energy = $sectorinfo['planet_energy'];
+     }
+
+  }
+  if($allcolonists==-1)
+  {
+     if ($tpcolonists==-1) 
+     {
+        $transfer_colonists = $playerinfo['ship_colonists'];
+     }
+     else 
+     {
+        $transfer_organics = $sectorinfo['planet_colonists'];
+     }
+
+  }
+  if($allcredits==-1)
+  {
+     if ($tpcredits==-1) 
+     {
+        $transfer_credits = $playerinfo['credits'];
+     }
+     else 
+     {
+        $transfer_credits = $sectorinfo['planet_credits'];
+     }
+
+  }
+  if($alltorps==-1)
+  {
+     if ($tptorps==-1)
+     {
+        $transfer_torps = $playerinfo['torps'];
+     }
+     else 
+     {
+        $transfer_torps = $sectorinfo['base_torps'];
+     }
+  }
+  if($allfighters==-1)
+  {
+     if ($tpfighters==-1) 
+     {
+        $transfer_fighters = $playerinfo['ship_fighters'];
+     }
+     else 
+     {
+        $transfer_fighters = $sectorinfo['planet_fighters'];
+     }
+
+  }
+
+
   // ok now get rid of all negative amounts so that all operations are expressed in terms of positive units
   if($transfer_ore < 0)
   {
