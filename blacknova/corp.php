@@ -14,14 +14,15 @@ if (checklogin())
 }
 
 //------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE");
+mysql_query("LOCK TABLES ships WRITE, planets WRITE");
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
 
-$result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$playerinfo[sector]");
-$sectorinfo=mysql_fetch_array($result2);
+$result2 = mysql_query("SELECT * FROM planets WHERE planet_id=$planet_id");
+if($result2)
+  $planetinfo=mysql_fetch_array($result2);
 
-if ($sectorinfo[planet_owner] == $playerinfo[ship_id] || ($sectorinfo[planet_corp] == $playerinfo[team] && $playerinfo[team] >> 0))
+if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] >> 0))
 
 {
 
@@ -30,13 +31,13 @@ bigtitle();
 	if ($action == "planetcorp")
 	{
 		echo ("Planet is now a Corporate Planet!<BR>");
-		$result = mysql_query("UPDATE universe SET planet_corp='$playerinfo[team]', planet_owner=$playerinfo[ship_id] WHERE sector_id=$sectorinfo[sector_id]");
+		$result = mysql_query("UPDATE planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
 		
 	}
 	if ($action == "planetpersonal")
 	{
 		echo ("Planet is now a Personal Planet!<BR>");
-		$result = mysql_query("UPDATE universe SET planet_corp='0', planet_owner=$playerinfo[ship_id] WHERE sector_id=$sectorinfo[sector_id] AND");
+		$result = mysql_query("UPDATE planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
 	}
 TEXT_GOTOMAIN();
 
