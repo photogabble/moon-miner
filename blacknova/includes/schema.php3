@@ -72,7 +72,7 @@ mysql_query("CREATE TABLE ships(" .
             "dev_emerwarp smallint(5) DEFAULT '0' NOT NULL," .
             "dev_escapepod enum('Y','N') DEFAULT 'N' NOT NULL," .
             "dev_fuelscoop enum('Y','N') DEFAULT 'N' NOT NULL," .
-            "dev_minedeflector smallint(5) DEFAULT '0' NOT NULL," .
+            "dev_minedeflector bigint(20) DEFAULT '0' NOT NULL," .
             "turns_used bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "last_login datetime," .
             "preset1 bigint(20) DEFAULT '0' NOT NULL," .

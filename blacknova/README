@@ -35,6 +35,9 @@ Credits:
 Installation:
     Please see the INSTALL file.
 
+Upgrades:
+    There have been numerous table changes, so upgrading is not supported.
+
 ChangeLog:
     Please see the CHANGES file.    
 
