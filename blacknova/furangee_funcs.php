@@ -245,7 +245,7 @@ function furangeetoship($ship_id)
     {                                                          //****** TARGET HAD ESCAPE POD ******
       $rating=round($targetinfo[rating]/2);
       mysql_query("UPDATE ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage='', on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', rating='$rating' where ship_id=$targetinfo[ship_id]");
-      playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>"); 
+      playerlog($targetinfo[ship_id],"A Furangee named $playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>"); 
     } else
     {
       playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!<BR><BR>"); 
