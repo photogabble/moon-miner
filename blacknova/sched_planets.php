@@ -11,10 +11,6 @@
     $production = min($row[colonists], $colonist_limit) * $colonist_production_rate;
 
     $organics_production = ($production * $organics_prate * $row[prod_organics] / 100.0) - $production * $organics_consumption;
-    if(($row[organics] + $organics_production) > $organics_limit)
-    {
-      $organics_production = 0;
-    }
     if($row[organics] + $organics_production < 0)
     {
       $organics_production = -$row[organics];
@@ -29,22 +25,10 @@
       $starvation = 0;
     }
     $ore_production = $production * $ore_prate * $row[prod_ore] / 100.0;
-    if(($row[ore] + $ore_production) > $ore_limit)
-    {
-      $ore_production = 0;
-    }
 
     $goods_production = $production * $goods_prate * $row[prod_goods] / 100.0;
-    if(($row[goods] + $goods_production) > $goods_limit)
-    {
-      $goods_production = 0;
-    }
 
     $energy_production = $production * $energy_prate * $row[prod_energy] / 100.0;
-    if(($row[energy] + $energy_production) > $energy_limit)
-    {
-      $energy_production = 0;
-    }
 
     $reproduction = round(($row[colonists] - $starvation) * $colonist_reproduction_rate);
     if(($row[colonists] + $reproduction - $starvation) > $colonist_limit)

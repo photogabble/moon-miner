@@ -122,7 +122,7 @@ $energy_price = 3;
 $energy_delta = 1;
 $energy_rate = 75000;
 $energy_prate = 0.5;
-$energy_limit = 100000000;
+$energy_limit = 1000000000;
 
 $inventory_factor = 1;
 $upgrade_cost = 1000;
