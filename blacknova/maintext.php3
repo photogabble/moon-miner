@@ -84,18 +84,22 @@ echo "<TD>";
 if(!$num_links)
 {
   echo "There are no links out of this sector.";
+  $link_bnthelper_string="<!--no links-->";
 }
 else
 {
+  $link_bnthelper_string="<!--links";
   echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
     echo "<A HREF=move.php3?sector=$links[$i]>$links[$i]</A>";
+    $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
     if($i + 1 != $num_links)
     {
       echo ", ";
     }
   }
+  $link_bnthelper_string=$link_bnthelper_string . "-->";
   echo "</TR>";
   echo "<TR>";
   echo "<TD>Long-range scan:";
@@ -189,10 +193,13 @@ echo "<TD>&nbsp;&nbsp;";
 if($sectorinfo[port_type] != "none")
 {
   echo "<A HREF=port.php3>" . ucfirst($sectorinfo[port_type]) . "</A>";
+  $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . "-->"; 
 }
 else
 {
   echo "None";
+  $port_bnthelper_string="<!--port:none:0:0:0:0-->";
+
 }
 echo "</TD>";
 echo "</TR>";
@@ -206,15 +213,18 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
   if(empty($sectorinfo[planet_name]))
   {
     echo "Unnamed";
+    $planet_bnthelper_string="<!--planet:Unnamed:";
   }
   else
   {
     echo "$sectorinfo[planet_name]";
+    $planet_bnthelper_string="<!--planet:" . $sectorinfo[planet_name] . ":";
   }
   echo "</A> (";
   if($sectorinfo[planet_owner] == "")
   {
     echo "Unowned";
+    $planet_bnthelper_string=$planet_bnthelper_string . "Unowned-->";
   }
   else
   {
@@ -222,12 +232,14 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
     $planet_owner_name = mysql_fetch_array($res);
     mysql_free_result($res);
     echo "$planet_owner_name[character_name]";
+    $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner_name[character_name] . "-->";
   }
   echo ")";
 }
 else
 {
   echo "None";
+  $planet_bnthelper_string="<!--no planet-->";
 }
 echo "</TD>";
 echo "</TR>";
@@ -285,6 +297,13 @@ $lastupdate = filemtime($gameroot . "/cron.txt");
 print(date("l dS of F Y h:i:s A",$lastupdate)) ; 
 echo "<BR>Updates happen every 6 minutes.";
 //gen_score($playerinfo[ship_id]);
+$player_bnthelper_string="<!--player info:" . $playerinfo[hull] . ":" .  $playerinfo[engines] . ":"  .  $playerinfo[power] . ":" .  $playerinfo[computer] . ":" . $playerinfo[sensors] . ":" .  $playerinfo[beams] . ":" . $playerinfo[torp_launchers] . ":" .  $playerinfo[torps] . ":" . $playerinfo[shields] . ":" .  $playerinfo[armour] . ":" . $playerinfo[armour_pts] . ":" .  $playerinfo[cloak] . ":" . $playerinfo[credits] . ":" .  $playerinfo[sector] . ":" . $playerinfo[ship_ore] . ":" .  $playerinfo[ship_organics] . ":" . $playerinfo[ship_goods] . ":" .  $playerinfo[ship_energy] . ":" . $playerinfo[ship_colonists] . ":" .  $playerinfo[ship_fighters] . ":" . $playerinfo[turns] . ":" .  $playerinfo[on_planet] . ":" . $playerinfo[dev_warpedit] . ":" .  $playerinfo[dev_genesis] . ":" . $playerinfo[dev_beacon] . ":" .  $playerinfo[dev_emerwarp] . ":" . $playerinfo[dev_escapepod] . ":" .  $playerinfo[dev_fuelscoop] . ":" . $playerinfo[dev_minedeflector] . ":-->";
+echo $player_bnthelper_string;
+echo $link_bnthelper_string;
+echo $port_bnthelper_string;
+echo $planet_bnthelper_string;
+
+
 include("footer.php3");
 
 ?> 
