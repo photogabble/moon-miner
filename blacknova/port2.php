@@ -200,6 +200,8 @@ else
     $dev_minedeflector_number = round(abs($dev_minedeflector_number));
     $dev_minedeflector_cost   = $dev_minedeflector_number * $dev_minedeflector_price;
 
+    $dev_escapepod_cost = 0;
+    $dev_fuelscoop_cost = 0;
     if($escapepod_purchase)
     {
       $dev_escapepod_cost = $dev_escapepod_price;
