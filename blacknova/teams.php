@@ -314,20 +314,27 @@ switch ($teamwhat) {
 		LINK_BACK();
 		break;
 	case 3: // JOIN
-                if($playerinfo[team_invite] == $whichteam)
+                if($playerinfo[team] <> 0)
                 {
-		   $db->Execute("UPDATE $dbtables[ships] SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
-		   $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members+1 WHERE id=$whichteam");
-		   echo "$l_team_welcome <B>$team[team_name]</B>.<BR><BR>";
-		   playerlog($playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
-		   playerlog($team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
-                }
+                   echo $l_team_leavefirst . "<BR>";
+                }                 
                 else
                 {
-                   echo "$l_team_noinviteto<BR>";
-                }
-		LINK_BACK();
-		break;
+                   if($playerinfo[team_invite] == $whichteam)
+                   {
+  		      $db->Execute("UPDATE $dbtables[ships] SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
+  		      $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members+1 WHERE id=$whichteam");
+		      echo "$l_team_welcome <B>$team[team_name]</B>.<BR><BR>";
+		      playerlog($playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
+		      playerlog($team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
+                   }
+                   else
+                   {
+                      echo "$l_team_noinviteto<BR>";
+                   }
+		}
+                LINK_BACK();
+                break;
 	case 4:
    	/*
    	   Can you comment in english please ??
@@ -415,16 +422,26 @@ switch ($teamwhat) {
 			echo "</FORM>";
 
 		} else {
-			$res = $db->Execute("SELECT character_name,team_invite FROM $dbtables[ships] WHERE ship_id=$who");
-			$newpl = $res->fields;
-			if ($newpl[team_invite]) {
-			$l_team_isorry = str_replace("[name]", $newpl[character_name], $l_team_isorry);
-				echo "$l_team_isorry<BR><BR>";
-			} else {
-				$db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
-				echo("$l_team_plinvted<BR>");
-				playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
-			}
+                        if($playerinfo[team] == $whichteam)
+                        {
+                   	   $res = $db->Execute("SELECT character_name,team_invite FROM $dbtables[ships] WHERE ship_id=$who");
+  			   $newpl = $res->fields;
+			   if ($newpl[team_invite]) 
+                           {
+			      $l_team_isorry = str_replace("[name]", $newpl[character_name], $l_team_isorry);
+			      echo "$l_team_isorry<BR><BR>";
+			   }
+                           else 
+                           {
+			      $db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
+			      echo("$l_team_plinvted<BR>");
+			      playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
+			   }
+                        }
+                        else
+                        {
+                           echo "$l_team_notyours<BR>";
+                        }
 		}
 		echo "<BR><BR><a href=\"$PHP_SELF\">$l_clickme</a> $l_team_menu<BR><BR>";
 		break;
