@@ -391,7 +391,7 @@ function ibank_display_transfers()
 {
   global $username,$playerinfo,$account,$payto,$amount,$confirmed,$ibank_paymentfee,$direction;
   if(!isset($payto)) {
-    $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id]");
+    $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id] ORDER BY planet_name ASC");
   } else {
     $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id] AND sector_id = $payto");
   }
@@ -427,7 +427,7 @@ function ibank_display_transfers()
   else 
   {
     // Normalize amount
-    if($amount <= 0)
+    if($amount < 0)
       $amount = 0;
     
     $row=mysql_fetch_array($lresult);
@@ -606,7 +606,7 @@ function ibank_display_payments()
 {
   global $playerinfo,$payto,$amount,$confirmed,$ibank_paymentfee;
   if(!isset($payto)) {
-    $lresult = mysql_query ("SELECT ship_id,ship_name,ship_destroyed,character_name FROM ships WHERE ship_destroyed !='Y' AND ship_id != $playerinfo[ship_id] ORDER BY character_name");
+    $lresult = mysql_query ("SELECT ship_id,ship_name,ship_destroyed,character_name FROM ships WHERE ship_destroyed !='Y' AND ship_id != $playerinfo[ship_id] ORDER BY character_name ASC");
   } else {
     $lresult = mysql_query ("SELECT ship_id,ship_name,ship_destroyed,character_name FROM ships WHERE ship_id = $payto");
   }
