@@ -41,7 +41,7 @@ elseif($zoneinfo[allow_trade] == 'L')
     $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
     $ownerinfo = mysql_fetch_array($res);
 
-    if($playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
+    if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
     {
       $title="Trade forbidden";
       bigtitle();
