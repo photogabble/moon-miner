@@ -16,6 +16,7 @@ function furangeetoship($ship_id)
   global $rating_combat_factor;
   global $upgrade_cost;
   global $upgrade_factor;
+  global $sector_max;
 
   // *********************************
   // ** VERIFY SECTOR ALLOWS ATTACK **
@@ -481,7 +482,7 @@ function furangeemove()
       if ($zonerow[1]=="Y")
       {
         $targetlink=$wormto;
-        playerlog($playerinfo[ship_id],"Furangee found a wormhole to $targetlink."); 
+        playerlog($playerinfo[ship_id],"Furangee used a wormhole to warp to a zone where attacks are allowed."); 
       }
       $wormto++;
       $wormto++;
@@ -503,7 +504,7 @@ function furangeemove()
       playerlog($playerinfo[ship_id],"Move failed with error: $error "); 
     } else
     {
-      playerlog($playerinfo[ship_id],"Furangee moved to $targetlink without incident."); 
+      // playerlog($playerinfo[ship_id],"Furangee moved to $targetlink without incident."); 
     }
   } else
   {                                            //*** WE HAVE NO TARGET LINK FOR SOME REASON ***
