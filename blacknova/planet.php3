@@ -181,7 +181,7 @@ if($sectorinfo[planet] == 'Y')
     {
       /* transfer menu */
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-      $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy]);
+      $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
       echo "You have room for " . NUMBER($free_holds) . " units of additional cargo.  You have capacity for " . NUMBER($free_power) . " units of addtional power.<BR><BR>";
       echo "<FORM ACTION=planet2.php3 METHOD=POST>";
       echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
