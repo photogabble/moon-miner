@@ -188,7 +188,8 @@ function showinfo($whichteam,$isowner)
       $who = $res->fields;
 			echo "<td> - $who[character_name]</td>";
 		   echo "</tr><tr bgcolor=$color_line2>";
-		}
+		  $res->MoveNext();
+    }
 	} else {
 		echo "<td>$l_team_noinvites <B>$team[team_name]</B>.</td>";
       echo "</tr><tr>";
