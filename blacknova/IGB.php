@@ -161,7 +161,7 @@ function IGB_transfer()
   global $playerinfo;
   global $account;
   global $l_igb_transfertype, $l_igb_toanothership, $l_igb_shiptransfer, $l_igb_fromplanet, $l_igb_source;
-  global $l_igb_unnamed, $l_igb_in, $l_igb_none, $l_igb_planettransfer, $l_igb_back, $l_igb_logout;
+  global $l_igb_unnamed, $l_igb_in, $l_igb_none, $l_igb_planettransfer, $l_igb_back, $l_igb_logout, $l_igb_destination;
 
   $res = mysql_query("SELECT character_name, ship_id FROM ships ORDER BY character_name ASC");
   while($row = mysql_fetch_array($res))
@@ -612,7 +612,7 @@ function IGB_withdraw2()
   mysql_query("UPDATE ships SET credits=credits+$amount WHERE ship_id=$playerinfo[ship_id]");
 }
 
-function IGB_error($errmsg, $backlink, $title)
+function IGB_error($errmsg, $backlink, $title="Error!")
 {
   global $l_igb_igberrreport, $l_igb_back, $l_igb_logout;
 
