@@ -176,7 +176,7 @@ elseif($swordfish==$adminpass && $engage=="2")
 //  shuffle($sectors);
   for($i=0; $i<$nump; $i++)
   {
-    $update = mysql_query("UPDATE universe SET planet='Y', planet_colonists=2, planet_owner=null WHERE sector_id=$sectors[$i]");
+    $update = mysql_query("UPDATE universe SET planet='Y',planet_colonists=2,planet_owner=null,prod_ore=$default_prod_ore,prod_organics=$default_prod_organics,prod_goods=$default_prod_goods,prod_energy=$default_prod_energy,prod_fighters=$default_prod_fighters,prod_torp=$default_prod_torp WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";

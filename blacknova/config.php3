@@ -44,7 +44,13 @@ $ibank_loaninterest * 100 . "%<P>If you have loans Make sure you have enough cre
 
 // end of iBank config
 
-
+// default planet production percentages
+$default_prod_ore      = 20.0;
+$default_prod_organics = 20.0;
+$default_prod_goods    = 20.0;
+$default_prod_energy   = 20.0;
+$default_prod_fighters = 10.0;
+$default_prod_torp     = 10.0;
 
 /* port pricing variables */
 $ore_price = 11;

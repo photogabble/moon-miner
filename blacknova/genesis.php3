@@ -46,7 +46,7 @@ else
   }
   else
   {
-    $query1= "UPDATE universe SET planet='Y', planet_owner=$playerinfo[ship_id] WHERE sector_id=$playerinfo[sector]";
+    $query1= "UPDATE universe SET planet='Y',planet_owner=$playerinfo[ship_id],prod_ore=$default_prod_ore,prod_organics=$default_prod_organics,prod_goods=$default_prod_goods,prod_energy=$default_prod_energy,prod_fighters=$default_prod_fighters,prod_torp=$default_prod_torp WHERE sector_id=$playerinfo[sector]";
     $update1 = mysql_query($query1);
     $query2= "UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]";
     $update2 = mysql_query($query2);

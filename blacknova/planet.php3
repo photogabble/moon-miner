@@ -541,8 +541,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$playerinfo[ship_id]"); 
-            mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 WHERE planet_owner=$playerinfo[ship_id]");
+            db_kill_player($playerinfo['ship_id']);
           }
         }
         else
@@ -992,8 +991,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$playerinfo[ship_id]"); 
-            mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 WHERE planet_owner=$playerinfo[ship_id]");
+            db_kill_player($playerinfo['ship_id']);
           }
         }
         else
@@ -1013,8 +1011,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$ownerinfo[ship_id]"); 
-            mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 WHERE planet_owner=$ownerinfo[ship_id]");
+            db_kill_player($ownerinfo['ship_id']);
             playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attacked the planet you were on and destroyed your ship!<BR><BR>");
           }
         }

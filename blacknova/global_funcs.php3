@@ -175,6 +175,19 @@ function gen_score($sid)
   return $score;
 }
 
+function db_kill_player($ship_id)
+{
+  global $default_prod_ore;
+  global $default_prod_organics;
+  global $default_prod_goods;
+  global $default_prod_energy;
+  global $default_prod_fighters;
+  global $default_prod_torp;
+
+  mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$ship_id");
+  mysql_query("UPDATE universe SET planet_owner=NULL WHERE planet_owner=$ship_id");
+}
+
 function NUMBER($number, $decimals = 0)
 {
   global $local_number_dec_point;
