@@ -4,6 +4,8 @@
 <TD><FONT COLOR=SILVER SIZE=-4><A HREF="http://www.sourceforge.net/projects/blacknova">BlackNova Traders</A></FONT></TD>
 <TD ALIGN=RIGHT><FONT COLOR=SILVER SIZE=-4>© 2000 Ron Harwood</FONT></TD>
 </TR>
+<TR><TD><FONT COLOR=SILVER SIZE=-4><A HREF="news.php">Local BlackNova News</A></TD>
+</TR>
 </TABLE>
 <? @mysql_close(); ?>
 </BODY>
