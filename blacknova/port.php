@@ -384,7 +384,8 @@ elseif($sectorinfo[port_type] == "special")
 
     echo "$l_ifyouneedmore<BR>";
   }
-  echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR><BR>";
+  echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR>";
+  echo "<A HREF =\"credittrans.php\">Do a bulk credit transfer from planets.</A><BR><BR>";
   echo "<BR>";
   echo "<FORM ACTION=port2.php METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
