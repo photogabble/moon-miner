@@ -3,7 +3,7 @@
 $l_planet		  = " planet";
 $l_planets		  = " planets";
 $l_col  		  = " colonist";
-$l_cols		      = " colonists";
+$l_cols		      = " Million colonists";
 $p_headline = "\'s Empire now has ";
 $p_text5		= "The rising empire of [name] now has five planets,
                    the BNN will watch the actions of [name] more closely
