@@ -1,12 +1,12 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
-include("includes/newsservices.$phpext");
+include("config.php3");
+include("includes/newsservices.php3");
 updatecookie();
 
 $title="BlackNova Universe News";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -31,13 +31,13 @@ echo "News for ", $startdate,"<BR>";
 
 //Show link to previous days news
 $previousday = getpreviousday($startdate);
-echo "<a href=news.$phpext?startdate=",$previousday,">previous day</a>";
+echo "<a href=news.php3?startdate=",$previousday,">previous day</a>";
 
 echo "  -  ";
 
 //Show link to next days news
 $nextday = getnextday($startdate);
-echo "<a href=news.$phpext?startdate=",$nextday,">next day</a><BR><BR>";
+echo "<a href=news.php3?startdate=",$nextday,">next day</a><BR><BR>";
 
 
 //Select news for date range

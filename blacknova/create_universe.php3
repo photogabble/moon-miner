@@ -1,9 +1,9 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
-include("includes/schema.$phpext");
+include("includes/schema.php3");
 
 updatecookie();
 
@@ -11,7 +11,7 @@ updatecookie();
 
 $title="Create Universe";
 
-include("header.$phpext");
+include("header.php3");
 
 
 
@@ -27,7 +27,7 @@ if($swordfish != $adminpass)
 
 {
 
-  echo "<form action=create_universe.$phpext method=post>";
+  echo "<form action=create_universe.php3 method=post>";
 
   echo "Password: <input type=password name=swordfish size=20 maxlength=20><BR><BR>";
 
@@ -41,9 +41,9 @@ elseif($swordfish == $adminpass && $engage == "")
 
 {
 
-  echo "Max sectors set to $sector_max in config.$phpext<BR><BR>";
+  echo "Max sectors set to $sector_max in config.php3<BR><BR>";
 
-  echo "<form action=create_universe.$phpext method=post>";
+  echo "<form action=create_universe.php3 method=post>";
 
   echo "<table>";
 
@@ -95,7 +95,7 @@ elseif($swordfish == $adminpass && $engage == "1")
 
     echo "The number of Federation sectors must be smaller than the size of the universe!";
 
-    include("footer.$phpext");
+    include("footer.php3");
 
     die();
 
@@ -141,7 +141,7 @@ elseif($swordfish == $adminpass && $engage == "1")
 
   echo "If this is correct, click confirm - otherwise go back.<BR>";
 
-  echo "<form action=create_universe.$phpext method=post>";
+  echo "<form action=create_universe.php3 method=post>";
 
   echo "<input type=hidden name=spp value=$spp>";
 
@@ -529,11 +529,11 @@ else
 
 
 
-echo "<BR><BR>Click <A HREF=login.$phpext>here</A> to return to the login screen.";
+echo "<BR><BR>Click <A HREF=login.php3>here</A> to return to the login screen.";
 
   
 
-include("footer.$phpext");
+include("footer.php3");
 
 
 

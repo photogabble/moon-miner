@@ -1,7 +1,7 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
@@ -9,7 +9,7 @@ updatecookie();
 
 $title="Trade Routes";
 
-include("header.$phpext");
+include("header.php3");
 
 
 
@@ -291,7 +291,7 @@ else
 
         $planet1 = mysql_fetch_array($result);
 
-        echo "&nbsp;Planet <b>$planet1[name]</b> in <a href=\"rsmove.$phpext?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
+        echo "&nbsp;Planet <b>$planet1[name]</b> in <a href=\"rsmove.php3?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
 
       }
 
@@ -339,7 +339,7 @@ else
 
     if($traderoutes[$i][dest_type] == 'P')
 
-    	echo "&nbsp;Port in <a href=\"rsmove.$phpext?engage=1&destination=" . $traderoutes[$i][dest_id] . "\">" . $traderoutes[$i][dest_id] . "</a></font></td>";
+    	echo "&nbsp;Port in <a href=\"rsmove.php3?engage=1&destination=" . $traderoutes[$i][dest_id] . "\">" . $traderoutes[$i][dest_id] . "</a></font></td>";
 
     else
 
@@ -353,7 +353,7 @@ else
 
         $planet2 = mysql_fetch_array($result);
 
-        echo "&nbsp;Planet <b>$planet2[name]</b> in <a href=\"rsmove.$phpext?engage=1&destination=$planet2[sector_id]\">$planet2[sector_id]</a></font></td>";
+        echo "&nbsp;Planet <b>$planet2[name]</b> in <a href=\"rsmove.php3?engage=1&destination=$planet2[sector_id]\">$planet2[sector_id]</a></font></td>";
 
       }
 
@@ -539,7 +539,7 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 
 
@@ -563,7 +563,7 @@ function traderoute_die($error_msg)
 
   TEXT_GOTOMAIN();
 
-  include("footer.$phpext");
+  include("footer.php3");
 
   die();
 
@@ -1263,7 +1263,7 @@ function traderoute_new($traderoute_id)
 
   TEXT_GOTOMAIN();
 
-  include("footer.$phpext");
+  include("footer.php3");
 
   die();
 

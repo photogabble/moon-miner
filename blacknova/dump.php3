@@ -1,10 +1,10 @@
 <?
 include("extension.inc");
-	include("config.$phpext");
+	include("config.php3");
 	updatecookie();
 
 	$title="Dumping colonists";
-	include("header.$phpext");
+	include("header.php3");
 
 	connectdb();
 
@@ -21,7 +21,7 @@ include("extension.inc");
 	{
 		echo "You need at least one turn to dump colonists.<BR><BR>";
 		TEXT_GOTOMAIN();
-		include("footer.$phpext");		
+		include("footer.php3");		
 		die();
 	}
 	if ($playerinfo[ship_colonists]==0)
@@ -34,6 +34,6 @@ include("extension.inc");
 		echo "You need to be at a supply depot to do this.<BR><BR>";
 	}
 	TEXT_GOTOMAIN();
-	include("footer.$phpext");
+	include("footer.php3");
 
 ?> 

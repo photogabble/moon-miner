@@ -1,10 +1,10 @@
 <?
 include("extension.inc");
-	include("config.$phpext");
+	include("config.php3");
 	updatecookie();
 
 	$title="Navigation Computer";
-	include("header.$phpext");
+	include("header.php3");
 	connectdb();
 	
 	if(checklogin())
@@ -18,7 +18,7 @@ include("extension.inc");
   {
     echo "Navigation computer is not available<BR><BR>";
     TEXT_GOTOMAIN();
-	  include("footer.$phpext");
+	  include("footer.php3");
     die();
   }
 
@@ -32,7 +32,7 @@ include("extension.inc");
 
 	if ($state == 0)
 	{
-		echo "<FORM ACTION=\"navcomp.$phpext\" METHOD=POST>";
+		echo "<FORM ACTION=\"navcomp.php3\" METHOD=POST>";
 		echo "Enter sector to find path to: <INPUT NAME=\"stop_sector\"><INPUT TYPE=SUBMIT><BR>\n";
 		echo "<INPUT NAME=\"state\" VALUE=1 TYPE=HIDDEN>";
 		echo "</FORM>\n";
@@ -128,6 +128,6 @@ include("extension.inc");
 	}
 
     TEXT_GOTOMAIN();
-	include("footer.$phpext");
+	include("footer.php3");
 
 ?>

@@ -1,12 +1,12 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title = "Change RealSpace Presets";
 
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -22,7 +22,7 @@ bigtitle();
 
 if(!isset($change))
 {
-  echo "<FORM ACTION=preset.$phpext METHOD=POST>";
+  echo "<FORM ACTION=preset.php3 METHOD=POST>";
   echo "Preset 1: <INPUT TYPE=TEXT NAME=preset1 SIZE=6 MAXLENGTH=6 VALUE=$playerinfo[preset1]><BR>";
   echo "Preset 2: <INPUT TYPE=TEXT NAME=preset2 SIZE=6 MAXLENGTH=6 VALUE=$playerinfo[preset2]><BR>";
   echo "Preset 3: <INPUT TYPE=TEXT NAME=preset3 SIZE=6 MAXLENGTH=6 VALUE=$playerinfo[preset3]><BR>";
@@ -56,6 +56,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

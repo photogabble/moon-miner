@@ -1,6 +1,6 @@
 <?
-include("config_local.$phpext");
-include("global_funcs.$phpext");
+include("config_local.php3");
+include("global_funcs.php3");
 
 /* GUI colors (temporary until we have something nicer) */
 $color_header = "#500050";

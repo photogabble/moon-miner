@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title = "Help";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -174,6 +174,6 @@ echo "be disallowed in some zones.";
 echo "<BR><BR>";
 
 TEXT_GOTOMAIN();
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Use Genesis Device";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -52,8 +52,8 @@ elseif($sectorinfo[planet] == "Y")
   {
     if($destroy==1 && $allow_genesis_destroy)
     {
-      echo "<BR>Are you sure???<BR><A HREF=genesis.$phpext?destroy=2>YES, Let them die!</A><BR>";
-      echo "<A HREF=device.$phpext>No! That would be Evil!</A><BR>";
+      echo "<BR>Are you sure???<BR><A HREF=genesis.php3?destroy=2>YES, Let them die!</A><BR>";
+      echo "<A HREF=device.php3>No! That would be Evil!</A><BR>";
     }
     elseif($destroy==2 && $allow_genesis_destroy)
     {
@@ -71,7 +71,7 @@ elseif($sectorinfo[planet] == "Y")
     }
     elseif($allow_genesis_destroy)
     {
-      echo "<BR>Do you want to destroy <A HREF=genesis.$phpext?destroy=1>";
+      echo "<BR>Do you want to destroy <A HREF=genesis.php3?destroy=1>";
       if($sectorinfo[planet_name]=="")
       {
         echo "Unnamed</A>?";
@@ -197,6 +197,6 @@ mysql_query("UNLOCK TABLES");
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

@@ -19,7 +19,7 @@ function TEXT_GOTOMAIN()
 
 function TEXT_GOTOLOGIN()
 {
-  echo "Click <A HREF=login.$phpext>here</A> to return to the login screen.";
+  echo "Click <A HREF=login.php3>here</A> to return to the login screen.";
 }
 
 function TEXT_JAVASCRIPT_BEGIN()
@@ -47,7 +47,7 @@ function checklogin()
   /* Check the cookie to see if username/password are empty - check password against database */
   if($username == "" or $password == "" or $password != $playerinfo['password'])
   {
-    echo "You need to log in, click <A HREF=login.$phpext>here</A>.";
+    echo "You need to log in, click <A HREF=login.php3>here</A>.";
     $flag = 1;
   }
 

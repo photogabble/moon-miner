@@ -1,7 +1,7 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
@@ -9,7 +9,7 @@ updatecookie();
 
 $title="Planet Report";
 
-include("header.$phpext");
+include("header.php3");
 
 
 
@@ -99,7 +99,7 @@ if ($playerinfo[team]>0)
 
 echo "<BR>";
 
-echo "<B><A HREF=alliance-planets.$phpext>Show alliance planets</A></B>";
+echo "<B><A HREF=alliance-planets.php3>Show alliance planets</A></B>";
 
 echo "<BR>";
 
@@ -153,25 +153,25 @@ else
 
   echo "<TR BGCOLOR=\"$color_header\">";
 
-  echo "<TD><B><A HREF=planet-report.$phpext>Sector</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3>Sector</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=name>Name</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=name>Name</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=ore>Ore</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=ore>Ore</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=organics>Organics</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=organics>Organics</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=goods>Goods</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=goods>Goods</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=energy>Energy</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=energy>Energy</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=colonists>Colonists</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=colonists>Colonists</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=credits>Credits</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=credits>Credits</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=fighters>Fighters</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=fighters>Fighters</A></B></TD>";
 
-  echo "<TD><B><A HREF=planet-report.$phpext?sort=torp>Torpedoes</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=torp>Torpedoes</A></B></TD>";
 
   echo "<TD><B>Base?</B></TD><TD><B>Selling?</B></TD>";
 
@@ -245,7 +245,7 @@ else
 
     echo "<TR BGCOLOR=\"$color\">";
 
-    echo "<TD><A HREF=rsmove.$phpext?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
+    echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
 
     echo "<TD>" . $planet[$i][name] . "</TD>";
 
@@ -333,7 +333,7 @@ TEXT_GOTOMAIN();
 
 
 
-include("footer.$phpext");
+include("footer.php3");
 
 
 

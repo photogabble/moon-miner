@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Deploy Space Beacon";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -39,7 +39,7 @@ if($playerinfo[dev_beacon] > 0)
       {
         echo "There presently isn't a beacon in this sector.<BR><BR>";
       }
-      echo"<form action=beacon.$phpext method=post>";
+      echo"<form action=beacon.php3 method=post>";
       echo"<table>";
       echo"<tr><td>Enter text for beacon:</td><td><input type=text name=beacon_text size=40 maxlength=80></td></tr>";
       echo"</table>";
@@ -62,6 +62,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

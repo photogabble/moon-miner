@@ -1,8 +1,8 @@
 <?
 $title="Create New Player Phase Two";
 include("extension.inc");
-include("header.$phpext");
-include("config.$phpext");
+include("header.php3");
+include("config.php3");
 
 bigtitle();
 
@@ -58,7 +58,7 @@ if ($result>0)
 
     
 
-    if ($row[0]==$username) { echo "E-mail address $username, is already in use.  If you have forgotten your password, click <a href=mail.$phpext?mail=$username>here</a> to have it e-mailed to you.<BR>"; $flag=1;}
+    if ($row[0]==$username) { echo "E-mail address $username, is already in use.  If you have forgotten your password, click <a href=mail.php3?mail=$username>here</a> to have it e-mailed to you.<BR>"; $flag=1;}
 
     if ($row[1]==$character) { echo "Character name $character, is already in use.<BR>"; $flag=1;}
 
@@ -128,7 +128,7 @@ if ($flag==0)
 
     echo "Password has been sent to $username.<BR><BR>";
 
-    echo "Click <A HREF=login.$phpext>here</A> to go to the login screen.";
+    echo "Click <A HREF=login.php3>here</A> to go to the login screen.";
 
     
 
@@ -138,13 +138,13 @@ if ($flag==0)
 
   
 
-  echo "Please go back or click <a href=new.$phpext>here</a> and try again.";
+  echo "Please go back or click <a href=new.php3>here</a> and try again.";
 
 }
 
 
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>
 

@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="View Log";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -34,11 +34,11 @@ if($command == "delete")
 else
 {
   include("player-log/" . $playerinfo[ship_id]);
-  echo "<BR><BR>Click <A HREF=log.$phpext?command=delete>here</A> to clear log.<BR><BR>";
+  echo "<BR><BR>Click <A HREF=log.php3?command=delete>here</A> to clear log.<BR><BR>";
 }
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

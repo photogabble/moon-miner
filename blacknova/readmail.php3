@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Read Message";
-include("header.$phpext");
+include("header.php3");
 
 bigtitle();
 
@@ -74,7 +74,7 @@ else
 <UL><B><? echo $msg[subject]; ?></B></UL><HR><? echo nl2br($msg[message]); ?>
 </TD>
 <TD>
-<A HREF="readmail.$phpext?action=delete&ID=<? echo $msg[ID]; ?>">Delete</A>
+<A HREF="readmail.php3?action=delete&ID=<? echo $msg[ID]; ?>">Delete</A>
 </TD>
 </TR>
 <?
@@ -86,7 +86,7 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 # Well it's not really very good or nice or whatsoever code, but it works -- blindcoder
 ?> 

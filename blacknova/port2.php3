@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Trading at Port";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -41,7 +41,7 @@ if($zoneinfo[allow_trade] == 'N')
 
   TEXT_GOTOMAIN();
 
-  include("footer.$phpext");
+  include("footer.php3");
 
   die();
 
@@ -73,7 +73,7 @@ elseif($zoneinfo[allow_trade] == 'L')
 
       TEXT_GOTOMAIN();
 
-      include("footer.$phpext");
+      include("footer.php3");
 
       die();
 
@@ -97,7 +97,7 @@ elseif($zoneinfo[allow_trade] == 'L')
 
       TEXT_GOTOMAIN();
 
-      include("footer.$phpext");
+      include("footer.php3");
 
       die();
 
@@ -258,7 +258,7 @@ else
       $dev_escapepod_cost + $dev_fuelscoop_cost + $shields_upgrade_cost;
     if($total_cost > $playerinfo[credits])
     {
-      echo "You do not have enough credits for this transaction.  The total cost is " . NUMBER($total_cost) . " credits and you only have " . NUMBER($playerinfo[credits]) . " credits.<BR><BR>Click <A HREF=port.$phpext>here</A> to return to the supply depot.<BR><BR>";
+      echo "You do not have enough credits for this transaction.  The total cost is " . NUMBER($total_cost) . " credits and you only have " . NUMBER($playerinfo[credits]) . " credits.<BR><BR>Click <A HREF=port.php3>here</A> to return to the supply depot.<BR><BR>";
     }
     else
     {
@@ -442,11 +442,11 @@ else
    
    if($free_holds < $cargo_exchanged)
    {
-   echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <A HREF=port.$phpext>here</A> to return to the port menu.<BR><BR>";
+   echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
    }
    elseif($trade_energy > $free_power)
    {
-   echo "You do not have enough free power storage for the energy you wish to purchase.  Click <A HREF=port.$phpext>here</A> to return to the port menu.<BR><BR>";
+   echo "You do not have enough free power storage for the energy you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
    }
    elseif($playerinfo[turns] < 1)
    {
@@ -552,6 +552,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>

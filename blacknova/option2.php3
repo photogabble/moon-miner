@@ -1,6 +1,6 @@
 <?
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 connectdb();
 if(checklogin())
@@ -11,14 +11,14 @@ $title = "Save Options";
 
 if($intrf == "N")
 {
-  $interface = "main.$phpext";
-  setcookie("interface", "main.$phpext");
+  $interface = "main.php3";
+  setcookie("interface", "main.php3");
 }
 else
 {
   $intrf = "O";
-  $interface = "maintext.$phpext";
-  setcookie("interface", "maintext.$phpext");
+  $interface = "maintext.php3";
+  setcookie("interface", "maintext.php3");
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
   setcookie("id",$id);
 }
 
-include("header.$phpext");
+include("header.php3");
 bigtitle();
 
 if($newpass1 == "" && $newpass2 == "")
@@ -84,6 +84,6 @@ mysql_query("UNLOCK TABLES");
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>

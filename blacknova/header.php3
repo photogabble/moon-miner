@@ -14,10 +14,10 @@ ob_start("ob_gzhandler");
 <?
 if($interface == "")
 {
-  $interface = "main.$phpext";
+  $interface = "main.php3";
 }
 
-if($interface == "main.$phpext")
+if($interface == "main.php3")
 {
 	echo "
 	a.mnu {text-decoration:none; font-size: $stylefontsize; font-family: verdana; color:white; font-weight:bold;}
@@ -40,7 +40,7 @@ if(empty($no_body))
 
 {
 
-  if($interface=="main.$phpext")
+  if($interface=="main.php3")
   {
   	echo "<BODY BACKGROUND=\"images/bgoutspace1.gif\" bgcolor=#000000 text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\">";
   }

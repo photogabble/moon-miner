@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Use Warp Editor";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -21,7 +21,7 @@ if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a warp editor.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");
+  include("footer.php3");
   die();
 }
 
@@ -29,7 +29,7 @@ if($playerinfo[dev_warpedit] < 1)
 {
   echo "You do not have any warp editors.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");
+  include("footer.php3");
   die();
 }
 
@@ -39,7 +39,7 @@ if($zoneinfo[allow_warpedit] == 'N')
 {
   echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");
+  include("footer.php3");
   die();
 }
 
@@ -64,7 +64,7 @@ if($zoneinfo[allow_warpedit] == 'N' && !$oneway)
 {
   echo "Using a Warp Editor to create a two-way link to sector $target_sector is not permitted.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");
+  include("footer.php3");
   die();
 }
 
@@ -81,7 +81,7 @@ if($numlink_start>=$link_max )
 
   echo "Cannot create warp link from current sector - that would exceed the maximum of $link_max per sector.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");
+  include("footer.php3");
   die();
 }
 
@@ -135,6 +135,6 @@ if($result3 > 0)
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

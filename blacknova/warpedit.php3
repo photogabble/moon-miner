@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Use Warp Editor";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -23,7 +23,7 @@ if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a warp editor.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");   
+  include("footer.php3");   
   die();
 }
 
@@ -31,7 +31,7 @@ if($playerinfo[dev_warpedit] < 1)
 {
   echo "You do not have any warp editors.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");   
+  include("footer.php3");   
   die();
 }
 
@@ -41,7 +41,7 @@ if($zoneinfo[allow_warpedit] == 'N')
 {
   echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.$phpext");
+  include("footer.php3");
   die();
 }
 
@@ -60,7 +60,7 @@ else
   echo "<BR><BR>";
 }
 
-echo "<form action=\"warpedit2.$phpext\" method=\"post\">";
+echo "<form action=\"warpedit2.php3\" method=\"post\">";
 echo "<table>";
 echo "<tr><td>What sector would you like to create a link to?</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
 echo "<tr><td>One-way?</td><td><input type=\"checkbox\" name=\"oneway\" value=\"oneway\"></td></tr>";
@@ -68,7 +68,7 @@ echo "</table>";
 echo "<input type=\"submit\" value=\"Submit\"><input type=\"reset\" value=\"Reset\">";
 echo "</form>";
 echo "<BR><BR>Alternately, you may destroy a link to sector.<BR><BR>";
-echo "<form action=\"warpedit3.$phpext\" method=\"post\">";
+echo "<form action=\"warpedit3.php3\" method=\"post\">";
 echo "<table>";
 echo "<tr><td>What sector would you like to remove a link to?</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
 echo "<tr><td>Both-ways?</td><td><input type=\"checkbox\" name=\"bothway\" value=\"bothway\"></td></tr>";
@@ -78,6 +78,6 @@ echo "</form>";
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

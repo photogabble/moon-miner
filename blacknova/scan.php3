@@ -1,11 +1,11 @@
 <?
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
 $title="Scan Ship";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 if(checklogin())
@@ -273,5 +273,5 @@ else
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 ?>

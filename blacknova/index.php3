@@ -2,8 +2,8 @@
 include("extension.inc");
 	$title="Login"; 
   $no_body=1;
-	include("header.$phpext");
-  include("config.$phpext");
+	include("header.php3");
+  include("config.php3");
 ?>
 
 <script language="JavaScript">
@@ -51,7 +51,7 @@ function MM_swapImage() { //v3.0
     <td><img src="images/spacer.gif" width="1" height="21" border="0" name="undefined_2"></td>
   </tr>
   <tr>
-    <td colspan=3 align=center><a href=<? echo "login.$phpext"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
+    <td colspan=3 align=center><a href=<? echo "login.php3"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
     <td><img src="images/spacer.gif" width="1" height="58" border="0" name="undefined_2"></td>
   </tr>
   <tr>
@@ -60,5 +60,5 @@ function MM_swapImage() { //v3.0
   </tr>
   </table>
 <?
-	include("footer.$phpext");
+	include("footer.php3");
 ?>

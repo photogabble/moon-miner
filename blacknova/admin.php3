@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Administration";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 bigtitle();
@@ -24,7 +24,7 @@ $module = $menu;
 
 if($swordfish != $adminpass)
 {
-  echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+  echo "<FORM ACTION=admin.php3 METHOD=POST>";
   echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
   echo "<INPUT TYPE=SUBMIT VALUE=Submit><INPUT TYPE=RESET VALUE=Reset>";
   echo "</FORM>";
@@ -35,7 +35,7 @@ else
   {
     echo "Welcome to the BlackNova Traders administration module<BR><BR>";
     echo "Select a function from the list below:<BR>";
-    echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+    echo "<FORM ACTION=admin.php3 METHOD=POST>";
     echo "<SELECT NAME=menu>";
     echo "<OPTION VALUE=useredit SELECTED>User editor</OPTION>";
     echo "<OPTION VALUE=univedit>Universe editor</OPTION>";
@@ -56,7 +56,7 @@ else
     {
       echo "<B>User editor</B>";
       echo "<BR>";
-      echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
       if(empty($user))
       {
         echo "<SELECT SIZE=20 NAME=user>";
@@ -160,7 +160,7 @@ else
         
         if (empty($action))
         {
-        echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+        echo "<FORM ACTION=admin.php3 METHOD=POST>";
         echo "Universe Size: <INPUT TYPE=TEXT NAME=radius VALUE=\"$universe_size\">";
         echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
         echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=univedit>";
@@ -170,7 +170,7 @@ else
     	}
         elseif ($action == "doexpand")
         {
-        echo "<BR><FONT SIZE='+2'>Be sure to update your config.$phpext file with the new universe_size value</FONT><BR>";
+        echo "<BR><FONT SIZE='+2'>Be sure to update your config.php3 file with the new universe_size value</FONT><BR>";
         srand((double)microtime()*1000000);
         $result = mysql_query ("SELECT sector_id FROM universe ORDER BY sector_id ASC");
         while ($row=mysql_fetch_array($result))
@@ -185,7 +185,7 @@ else
     elseif($module == "sectedit")
     {
       echo "<H2>Sector editor</H2>";
-      echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
       if(empty($sector))
       {
         echo "<H5>Note: Cannot Edit Sector 0</H5>";
@@ -283,7 +283,7 @@ else
     elseif($module == "planedit")
     {
       echo "<H2>Planet editor</H2>";
-      echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
       if(empty($planet))
       {
         echo "<SELECT SIZE=15 NAME=planet>";
@@ -392,7 +392,7 @@ else
     {
       echo "<B>Zone editor</B>";
       echo "<BR>";
-      echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
       if(empty($zone))
       {
         echo "<SELECT SIZE=20 NAME=zone>";
@@ -458,7 +458,7 @@ else
     if($button_main)
     {
       echo "<BR><BR>";
-      echo "<FORM ACTION=admin.$phpext METHOD=POST>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"Return to main menu\">";
       echo "</FORM>";
@@ -466,6 +466,6 @@ else
   }
 }
   
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

@@ -111,7 +111,7 @@ global $start_energy;
       {
         echo "You need at least one turn to attack a planet.<BR><BR>";
         TEXT_GOTOMAIN();
-        include("footer.$phpext");   
+        include("footer.php3");   
         die();
       }
       
@@ -470,7 +470,7 @@ echo "
 		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
         {
           echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>Planet defeated</b></FONT></CENTER><BR><BR>";
-          echo "<CENTER>You may <a href=planet.$phpext?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
+          echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");

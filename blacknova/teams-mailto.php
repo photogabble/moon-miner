@@ -1,10 +1,10 @@
 <?
 include("extension.inc");
-	include("config.$phpext");
+	include("config.php3");
 	updatecookie();
 
 	$title="Send a message to the Co-ordinator of an Alliance";
-	include("header.$phpext");
+	include("header.php3");
 
 	connectdb();
 
@@ -40,6 +40,6 @@ include("extension.inc");
 	}
 
     TEXT_GOTOMAIN();
-	include("footer.$phpext");
+	include("footer.php3");
 
 ?> 

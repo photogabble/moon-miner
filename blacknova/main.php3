@@ -1,7 +1,7 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Main Menu";
@@ -20,7 +20,7 @@ if($res >= 1024)
   $picsperrow = 7;
 }
 
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -56,8 +56,8 @@ if($playerinfo[on_planet] == "Y")
   $res2 = mysql_query("SELECT planet_id FROM planets WHERE planet_id=$playerinfo[planet_id]");
   if(mysql_num_rows($res2) != 0)
   {
-    echo "Click <A HREF=planet.$phpext?planet_id=$playerinfo[planet_id]>here</A> to go to the planet menu.<BR>";
-    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.$phpext?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
+    echo "Click <A HREF=planet.php3?planet_id=$playerinfo[planet_id]>here</A> to go to the planet menu.<BR>";
+    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
 
     //-------------------------------------------------------------------------------------------------
     die();
@@ -131,7 +131,7 @@ $planettypes[4]= "hugeplanet.gif";
 ?>
 
 <table border=2 cellspacing=2 cellpadding=2 bgcolor="#400040" width="75%" align=center>
-<tr><td align="center" colspan=3><font color=silver size=<? echo $basefontsize + 2; ?> face="arial">Player <b><font color=white><? echo $playerinfo[character_name];?></font></b>, aboard the <b><font color=white><a href="report.$phpext"><? echo $playerinfo[ship_name] ?></a></font></b>
+<tr><td align="center" colspan=3><font color=silver size=<? echo $basefontsize + 2; ?> face="arial">Player <b><font color=white><? echo $playerinfo[character_name];?></font></b>, aboard the <b><font color=white><a href="report.php3"><? echo $playerinfo[ship_name] ?></a></font></b>
 </td></tr>
 </table>
 <?
@@ -168,7 +168,7 @@ if(!empty($sectorinfo[beacon]))
 }
 ?>
 </td><td align=right>
-<a href="<? echo "zoneinfo.$phpext?zone=$zoneinfo[zone_id]"; ?>"><b><? echo "<font size=", $basefontsize + 2," face=\"arial\">$zoneinfo[zone_name]</font>"; ?></b></font></a>&nbsp;
+<a href="<? echo "zoneinfo.php3?zone=$zoneinfo[zone_id]"; ?>"><b><? echo "<font size=", $basefontsize + 2," face=\"arial\">$zoneinfo[zone_name]</font>"; ?></b></font></a>&nbsp;
 </td></tr>
 </table>
 
@@ -195,24 +195,24 @@ Commands
 <TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
 <TR><TD NOWRAP>
 <div class=mnu>
-&nbsp;<a class=mnu href="device.$phpext">Devices</a>&nbsp;<br>
-&nbsp;<a class=mnu href="planet-report.$phpext">Planets</a>&nbsp;<br>
-&nbsp;<a class=mnu href="log.$phpext">Log</a>&nbsp;<br>
-&nbsp;<a class=mnu href="defence-report.$phpext">Sector Defences</a>&nbsp;<br>
-&nbsp;<a class=mnu href="readmail.$phpext">Read Messages</A>&nbsp;<br> <? # Link to read the messages -- blindcoder ?>
-&nbsp;<a class=mnu href="mailto2.$phpext">Send Message</a>&nbsp;<br>
-&nbsp;<a class=mnu href="ranking.$phpext">Rankings</a>&nbsp;<br>
+&nbsp;<a class=mnu href="device.php3">Devices</a>&nbsp;<br>
+&nbsp;<a class=mnu href="planet-report.php3">Planets</a>&nbsp;<br>
+&nbsp;<a class=mnu href="log.php3">Log</a>&nbsp;<br>
+&nbsp;<a class=mnu href="defence-report.php3">Sector Defences</a>&nbsp;<br>
+&nbsp;<a class=mnu href="readmail.php3">Read Messages</A>&nbsp;<br> <? # Link to read the messages -- blindcoder ?>
+&nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
+&nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
 &nbsp;<a class=mnu href="teams.php">Alliances</a>&nbsp;<br>
-&nbsp;<a class=mnu href="self-destruct.$phpext">Self-Destruct</a>&nbsp;<br>
-&nbsp;<a class=mnu href="options.$phpext">Options</a>&nbsp;<br>
-&nbsp;<a class=mnu href="navcomp.$phpext">Nav Computer</a>&nbsp;<br>
+&nbsp;<a class=mnu href="self-destruct.php3">Self-Destruct</a>&nbsp;<br>
+&nbsp;<a class=mnu href="options.php3">Options</a>&nbsp;<br>
+&nbsp;<a class=mnu href="navcomp.php3">Nav Computer</a>&nbsp;<br>
 </div>
 </td></tr>
 <tr><td nowrap>
 <div class=mnu>
-<? //&nbsp;<a class=mnu href="help.$phpext">Help</a>&nbsp;<br> ?>
+<? //&nbsp;<a class=mnu href="help.php3">Help</a>&nbsp;<br> ?>
 &nbsp;<a class=mnu href="http://copland.udel.edu/~wallkk/bnfaq/">FAQ</a>&nbsp;<br>
-&nbsp;<a class=mnu href="feedback.$phpext">Feedback</a>&nbsp;<br>
+&nbsp;<a class=mnu href="feedback.php3">Feedback</a>&nbsp;<br>
 <?
 if(!empty($link_forums))
 {
@@ -222,7 +222,7 @@ if(!empty($link_forums))
 </div>
 </td></tr>
 <tr><td nowrap>
-&nbsp;<a class=mnu href="logout.$phpext">Logout</a>&nbsp;<br>
+&nbsp;<a class=mnu href="logout.php3">Logout</a>&nbsp;<br>
 </td></tr>
 </table>
 
@@ -258,7 +258,7 @@ else
   $link_bnthelper_string="<!--links:Y";
   for($i=0; $i<$num_links;$i++)
   {
-     echo "&nbsp;<a class=mnu href=move.$phpext?sector=$links[$i]>=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=lrscan.$phpext?sector=$links[$i]>[scan]</a>&nbsp;<br>";
+     echo "&nbsp;<a class=mnu href=move.php3?sector=$links[$i]>=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=lrscan.php3?sector=$links[$i]>[scan]</a>&nbsp;<br>";
      $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
   }
 }
@@ -267,7 +267,7 @@ echo "</div>";
 echo "</td></tr>";
 echo "<tr><td nowrap align=center>";
 echo "<div class=mnu>";
-echo "&nbsp;<a class=dis href=lrscan.$phpext?sector=*>[Full scan]</a>&nbsp;<br>";
+echo "&nbsp;<a class=dis href=lrscan.php3?sector=*>[Full scan]</a>&nbsp;<br>";
 ?>
 
 </div>
@@ -284,7 +284,7 @@ echo "&nbsp;<a class=dis href=lrscan.$phpext?sector=*>[Full scan]</a>&nbsp;<br>"
 <?
 if($sectorinfo[port_type] != "none")
 {
-  echo "<a href=port.$phpext>", ucfirst($sectorinfo[port_type]), "</a>";
+  echo "<a href=port.php3>", ucfirst($sectorinfo[port_type]), "</a>";
   $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
 }
 else
@@ -333,7 +333,7 @@ if($num_planets > 0)
       $planetlevel=0;
 
     echo "<td align=center valign=top>";
-    echo "<A HREF=planet.$phpext?planet_id=" . $planets[$i][planet_id] . ">";
+    echo "<A HREF=planet.php3?planet_id=" . $planets[$i][planet_id] . ">";
     echo "<img src=\"images/$planettypes[$planetlevel]\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
     if(empty($planets[$i][name]))
     {
@@ -439,11 +439,11 @@ if($playerinfo[sector] != 0)
             echo "<td align=center valign=top>";
 
             if ($row[team_name]) {
-               echo "<a href=ship.$phpext?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])&nbsp;(<font color=#33ff00>$row[team_name]</font>)</font>";
+               echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])&nbsp;(<font color=#33ff00>$row[team_name]</font>)</font>";
             }
             else
             {
-               echo "<a href=ship.$phpext?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font>";
+               echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font>";
             }
 
             echo "</td>";
@@ -690,10 +690,10 @@ Realspace
 <TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
 <TR><TD NOWRAP>
 <div class=mnu>
-&nbsp;<a class=mnu href=rsmove.$phpext?engage=1&destination=<? echo $playerinfo[preset1]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset1]; ?></a>&nbsp;<a class=dis href=preset.$phpext>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.$phpext?engage=1&destination=<? echo $playerinfo[preset2]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset2]; ?></a>&nbsp;<a class=dis href=preset.$phpext>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.$phpext?engage=1&destination=<? echo $playerinfo[preset3]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset3]; ?></a>&nbsp;<a class=dis href=preset.$phpext>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.$phpext>=&gt;&nbsp;Other</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset1]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset1]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset2]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset2]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset3]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset3]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
 </div>
 </a>
 </td></tr>
@@ -718,6 +718,6 @@ echo $port_bnthelper_string;
 echo $planet_bnthelper_string;
 echo $rspace_bnthelper_string;
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>

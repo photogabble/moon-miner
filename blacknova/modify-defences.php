@@ -1,12 +1,12 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
 $title="Sector Defences";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -74,7 +74,7 @@ switch($response) {
          $countres = mysql_query("SELECT SUM(quantity) as totalfighters FROM sector_defence where sector_id = $sector and defence_type = 'F'");
          $ttl = mysql_fetch_array($countres);
          $total_sector_fighters = $ttl['totalfighters'];
-         include("sector_fighters.$phpext");    
+         include("sector_fighters.php3");    
       }
       else
       {
@@ -205,6 +205,6 @@ switch($response) {
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>

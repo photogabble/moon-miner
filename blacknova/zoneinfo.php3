@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Zone Information";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -200,6 +200,6 @@ else
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>

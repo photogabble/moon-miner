@@ -1,7 +1,7 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
@@ -9,7 +9,7 @@ updatecookie();
 
 $title="Sector Defence Report";
 
-include("header.$phpext");
+include("header.php3");
 
 
 
@@ -137,13 +137,13 @@ else
 
   echo "<TR BGCOLOR=\"$color_header\">";
 
-  echo "<TD><B><A HREF=defence-report.$phpext?sort=sector>Sector</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=sector>Sector</A></B></TD>";
 
-  echo "<TD><B><A HREF=defence-report.$phpext?sort=quantity>Quantity</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=quantity>Quantity</A></B></TD>";
 
-  echo "<TD><B><A HREF=defence-report.$phpext?sort=type>Type</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=type>Type</A></B></TD>";
 
-  echo "<TD><B><A HREF=defence-report.$phpext?sort=mode>Mode</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=mode>Mode</A></B></TD>";
 
   echo "</TR>";
 
@@ -155,7 +155,7 @@ else
 
     echo "<TR BGCOLOR=\"$color\">";
 
-    echo "<TD><A HREF=rsmove.$phpext?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</A></TD>";
+    echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</A></TD>";
 
     echo "<TD>" . NUMBER($sector[$i]['quantity']) . "</TD>";
 
@@ -201,7 +201,7 @@ TEXT_GOTOMAIN();
 
 
 
-include("footer.$phpext");
+include("footer.php3");
 
 
 

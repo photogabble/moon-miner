@@ -1,14 +1,14 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
 
 $title="Ship Report";
 
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -86,6 +86,6 @@ echo "<BR><BR>";
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>

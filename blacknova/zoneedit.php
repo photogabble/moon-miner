@@ -1,7 +1,7 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
@@ -9,7 +9,7 @@ updatecookie();
 
 $title="Edit Zone";
 
-include("header.$phpext");
+include("header.php3");
 
 
 
@@ -199,13 +199,13 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
 
 
 
-echo "Click <a href=zoneinfo.$phpext?zone=$zone>here</a> to return to the zone information page.<p>";
+echo "Click <a href=zoneinfo.php3?zone=$zone>here</a> to return to the zone information page.<p>";
 
 TEXT_GOTOMAIN();
 
 
 
-include("footer.$phpext");
+include("footer.php3");
 
 
 
@@ -245,13 +245,13 @@ function zoneedit_change()
 
   echo "You changes have been saved.<p>";
 
-  echo "Click <a href=zoneinfo.$phpext?zone=$zone>here</a> to return to the zone information page.<p>";
+  echo "Click <a href=zoneinfo.php3?zone=$zone>here</a> to return to the zone information page.<p>";
 
   TEXT_GOTOMAIN();
 
 
 
-  include("footer.$phpext");
+  include("footer.php3");
 
   die();
 
@@ -271,7 +271,7 @@ function zoneedit_die($error_msg)
 
   TEXT_GOTOMAIN();
 
-  include("footer.$phpext");
+  include("footer.php3");
 
   die();
 

@@ -1,10 +1,10 @@
 <?
 include("extension.inc");
-	include("config.$phpext");
+	include("config.php3");
 	updatecookie();
 
 	$title="Use Emergency Warp Device";
-	include("header.$phpext");
+	include("header.php3");
 
 	connectdb();
 
@@ -25,6 +25,6 @@ include("extension.inc");
 
     TEXT_GOTOMAIN();
 
-	include("footer.$phpext");
+	include("footer.php3");
 
 ?> 

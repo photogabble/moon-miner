@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Main Menu";
-include("header.$phpext");
+include("header.php3");
 connectdb();
 
 if(checklogin())
@@ -36,8 +36,8 @@ if($playerinfo[on_planet] == "Y")
 {
   if($sectorinfo[planet] == "Y")
   {
-    echo "Click <A HREF=planet.$phpext>here</A> to go to the planet menu.<BR>"; 
-    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.$phpext?id=" . $playerinfo[ship_id] . "\">";
+    echo "Click <A HREF=planet.php3>here</A> to go to the planet menu.<BR>"; 
+    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?id=" . $playerinfo[ship_id] . "\">";
     mysql_query("UNLOCK TABLES");
     //-------------------------------------------------------------------------------------------------
     die();
@@ -72,8 +72,8 @@ if($sectorinfo[sector_name] != "")
 {
   echo " ($sectorinfo[sector_name])";
 }
-echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.$phpext?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: <A HREF=report.$phpext>$playerinfo[ship_name]</A></TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
+echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: <A HREF=report.php3>$playerinfo[ship_name]</A></TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
 echo "</TABLE><BR>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_line1\"><TD>Turns available: " . NUMBER($playerinfo[turns]) . "</TD><TD ALIGN=RIGHT>Turns used: " . NUMBER($playerinfo[turns_used]) . "</TD></TR>";
@@ -97,7 +97,7 @@ else
   echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
-    echo "<A HREF=move.$phpext?sector=$links[$i]>$links[$i]</A>";
+    echo "<A HREF=move.php3?sector=$links[$i]>$links[$i]</A>";
     $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
     if($i + 1 != $num_links)
     {
@@ -110,13 +110,13 @@ else
   echo "<TD>Long-range scan:";
   if($allow_fullscan)
   {
-    echo " [<A HREF=lrscan.$phpext?sector=*>full scan</A>]";
+    echo " [<A HREF=lrscan.php3?sector=*>full scan</A>]";
   }
   echo "</TD><TD>";
   echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
-    echo "<A HREF=lrscan.$phpext?sector=$links[$i]>$links[$i]</A>";
+    echo "<A HREF=lrscan.php3?sector=$links[$i]>$links[$i]</A>";
     if($i + 1 != $num_links)
     {
       echo ", ";
@@ -175,7 +175,7 @@ if($playerinfo[sector] != 0)
           echo ", ";
         }
         $num_detected++;
-        echo "$ships[$i] ($character_name[$i]) [<A HREF=scan.$phpext?ship_id=$ship_id[$i]>scan</A>/<A HREF=attack.$phpext?ship_id=$ship_id[$i]>attack</A>]";
+        echo "$ships[$i] ($character_name[$i]) [<A HREF=scan.php3?ship_id=$ship_id[$i]>scan</A>/<A HREF=attack.php3?ship_id=$ship_id[$i]>attack</A>]";
       }
     }
     if(!$num_detected)
@@ -197,7 +197,7 @@ echo "<TD>Trading port:</TD>";
 echo "<TD>&nbsp;&nbsp;";
 if($sectorinfo[port_type] != "none")
 {
-  echo "<A HREF=port.$phpext>" . ucfirst($sectorinfo[port_type]) . "</A>";
+  echo "<A HREF=port.php3>" . ucfirst($sectorinfo[port_type]) . "</A>";
   $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->"; 
 }
 else
@@ -214,7 +214,7 @@ echo "<TD>Planet:</TD>";
 echo "<TD>&nbsp;&nbsp;";
 if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
 {
-  echo "<A HREF=planet.$phpext>";
+  echo "<A HREF=planet.php3>";
   if(empty($sectorinfo[planet_name]))
   {
     echo "Unnamed";
@@ -255,7 +255,7 @@ mysql_query("UNLOCK TABLES");
 
 if($allow_navcomp)
 {
-  echo "<FORM ACTION=navcomp.$phpext METHOD=POST>";
+  echo "<FORM ACTION=navcomp.php3 METHOD=POST>";
   echo "Navigation Computer: ";
   $maxlen = strlen(number_format($sector_max, 0, "", ""));
   echo "<INPUT NAME=\"stop_sector\" SIZE=" . $maxlen * 2 . " MAXLENGTH=$maxlen><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>";
@@ -265,35 +265,35 @@ if($allow_navcomp)
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
 echo "<TR>";
-echo "<TD>RealSpace <A HREF=preset.$phpext>Presets</A>:</TD>";
-echo "<TD>&nbsp;&nbsp;<A HREF=rsmove.$phpext?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=rsmove.$phpext?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=rsmove.$phpext?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=rsmove.$phpext>Other</A></TD>";
+echo "<TD>RealSpace <A HREF=preset.php3>Presets</A>:</TD>";
+echo "<TD>&nbsp;&nbsp;<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=rsmove.php3>Other</A></TD>";
 echo "</TR>";
 echo "<TR>";
 echo "<TD>Trade routes:</TD>";
-echo "<TD>&nbsp;&nbsp;<A HREF=traderoute.$phpext?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=traderoute.$phpext?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=traderoute.$phpext?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=traderoute.$phpext>Other</A></TD>";
+echo "<TD>&nbsp;&nbsp;<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=traderoute.php3>Other</A></TD>";
 echo "</TR>";
 echo "</TABLE><BR>";
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_header\">";
 echo "<TD>";
-echo "<A HREF=device.$phpext>Devices</A> - ";
-echo "<A HREF=planet-report.$phpext>Planets</A> - ";
-echo "<A HREF=log.$phpext>Log</A> - ";
-echo "<A HREF=mailto2.$phpext>Send Message</A> - "; 
-echo "<A HREF=ranking.$phpext>Rankings</A> - ";
-echo "<A HREF=lastusers.$phpext>Last Users</A> - ";
-echo "<A HREF=options.$phpext>Options</A> - ";
-echo "<A HREF=feedback.$phpext>Feedback</A> - ";
-echo "<A HREF=self-destruct.$phpext>Self-Destruct</A> - ";
-echo "<A HREF=help.$phpext>Help</A>";
+echo "<A HREF=device.php3>Devices</A> - ";
+echo "<A HREF=planet-report.php3>Planets</A> - ";
+echo "<A HREF=log.php3>Log</A> - ";
+echo "<A HREF=mailto2.php3>Send Message</A> - "; 
+echo "<A HREF=ranking.php3>Rankings</A> - ";
+echo "<A HREF=lastusers.php3>Last Users</A> - ";
+echo "<A HREF=options.php3>Options</A> - ";
+echo "<A HREF=feedback.php3>Feedback</A> - ";
+echo "<A HREF=self-destruct.php3>Self-Destruct</A> - ";
+echo "<A HREF=help.php3>Help</A>";
 echo "<A HREF=http://copland.udel.edu/~wallkk/bnfaq/>FAQ</A>";
 if(!empty($link_forums))
 {
   echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";
 }
 echo "</TD>";
-echo "<TD><A HREF=logout.$phpext>Logout</A></TD>";
+echo "<TD><A HREF=logout.php3>Logout</A></TD>";
 echo "</TR>";
 echo "</TABLE><BR>";
 echo "System Time:  ";
@@ -310,6 +310,6 @@ echo $planet_bnthelper_string;
 echo $rspace_bnthelper_string;
 
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

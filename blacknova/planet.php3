@@ -1,13 +1,13 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
-include("combat.$phpext");
+include("config.php3");
+include("combat.php3");
 
 updatecookie();
 
 $title="Planet Menu";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 if(checklogin())
@@ -39,17 +39,17 @@ if(!empty($planetinfo))
       mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "You are not in the same sector as this planet, so you can't interact with it.<BR>";
     TEXT_GOTOMAIN();
-    include("footer.$phpext");
+    include("footer.php3");
     die();
   }
   if($planetinfo[owner] == 0 && $command != "capture")
   {
     echo "This planet is unowned.<BR><BR>";
     $update = mysql_query("UPDATE planets SET fighters=0, defeated='Y' WHERE planet_id=$planet_id]");
-    echo "You may <a href=planet.$phpext?planet_id=$planet_id&command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
+    echo "You may <a href=planet.php3?planet_id=$planet_id&command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
     echo "<BR>";
     TEXT_GOTOMAIN();
-    include("footer.$phpext");
+    include("footer.php3");
     die();
   }
   if($planetinfo[owner] != 0)
@@ -77,19 +77,19 @@ if(!empty($planetinfo))
     {
       /* owner menu */
       echo "Turns availables: $playerinfo[turns]<p>";
-      echo "<a href=planet.$phpext?planet_id=$planet_id&command=name>Name</a> Planet<BR>";
+      echo "<a href=planet.php3?planet_id=$planet_id&command=name>Name</a> Planet<BR>";
       if($playerinfo[on_planet] == 'Y' && $playerinfo[planet_id] == $planet_id)
       {
         echo "You are presently on the surface of the planet.<BR>";
-        echo "<a href=planet.$phpext?planet_id=$planet_id&command=leave>Leave</a> Planet<BR>";
-        echo "You can also <a href=logout.$phpext>log-out</a> in the safety of your planet.<BR>";
+        echo "<a href=planet.php3?planet_id=$planet_id&command=leave>Leave</a> Planet<BR>";
+        echo "You can also <a href=logout.php3>log-out</a> in the safety of your planet.<BR>";
       }
       else
       {
         echo "You are presently in orbit of the planet.<BR>";
-        echo "<a href=planet.$phpext?planet_id=$planet_id&command=land>Land</a> on Planet<BR>";
+        echo "<a href=planet.php3?planet_id=$planet_id&command=land>Land</a> on Planet<BR>";
       }
-      echo "<a href=planet.$phpext?planet_id=$planet_id&command=transfer>Transfer</a> commodities/resources/colonists to/from Planet<BR>";
+      echo "<a href=planet.php3?planet_id=$planet_id&command=transfer>Transfer</a> commodities/resources/colonists to/from Planet<BR>";
       if($planetinfo[sells] == "Y")
       {
         echo "Planet is presently selling commodities.  ";
@@ -98,10 +98,10 @@ if(!empty($planetinfo))
       {
         echo "Planet is not presently selling commodities.  ";
       }
-      echo "Toggle planet <a href=planet.$phpext?planet_id=$planet_id&command=sell>selling</a> commodities<BR>";
+      echo "Toggle planet <a href=planet.php3?planet_id=$planet_id&command=sell>selling</a> commodities<BR>";
       if($planetinfo[base] == "N")
       {
-        echo "With enough commodites and credits, you can <a href=planet.$phpext?planet_id=$planet_id&command=base>build a base</a> to help defend the planet.<BR>";
+        echo "With enough commodites and credits, you can <a href=planet.php3?planet_id=$planet_id&command=base>build a base</a> to help defend the planet.<BR>";
       }
       else
       { 
@@ -118,7 +118,7 @@ if(!empty($planetinfo))
 	}
  
       /* change production rates */
-      echo "<FORM ACTION=planet.$phpext?planet_id=$planet_id METHOD=POST>";
+      echo "<FORM ACTION=planet.php3?planet_id=$planet_id METHOD=POST>";
       echo "<INPUT TYPE=HIDDEN NAME=command VALUE=productions><BR>";
       echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
       echo "<TR BGCOLOR=\"$color_header\"><TD></TD><TD><B>Ore</B></TD><TD><B>Organics</B></TD><TD><B>Goods</B></TD><TD><B>Energy</B></TD><TD><B>Colonists</B></TD><TD><B>Credits</B></TD><TD><B>Fighters</B></TD><TD><B>Torpedoes</TD></TR>";
@@ -150,14 +150,14 @@ if(!empty($planetinfo))
       /* visitor menu */
       if($planetinfo[sells] == "Y")
       {
-        echo "<a href=planet.$phpext?planet_id=$planet_id&command=buy>Buy</a> commodities from Planet<BR>";
+        echo "<a href=planet.php3?planet_id=$planet_id&command=buy>Buy</a> commodities from Planet<BR>";
       }
       else
       {
         echo "Planet is not selling commodities.<BR>";
       }
-      echo "<a href=planet.$phpext?planet_id=$planet_id&command=attac>Attack</a> on Planet<BR>";
-      echo "<a href=planet.$phpext?planet_id=$planet_id&command=scan>Scan</a> Planet<BR>";
+      echo "<a href=planet.php3?planet_id=$planet_id&command=attac>Attack</a> on Planet<BR>";
+      echo "<a href=planet.php3?planet_id=$planet_id&command=scan>Scan</a> Planet<BR>";
     }
   }
   elseif($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
@@ -180,7 +180,7 @@ if(!empty($planetinfo))
     elseif($command == "name")
     {
       /* name menu */
-      echo "<form action=\"planet.$phpext?planet_id=$planet_id&command=cname\" method=\"post\">";       
+      echo "<form action=\"planet.php3?planet_id=$planet_id&command=cname\" method=\"post\">";       
       echo "Enter new planet name:  ";
       echo "<input type=\"text\" name=\"new_name\" size=\"20\" maxlength=\"20\" value=\"$planetinfo[name]\"><BR><BR>";
       echo "<input type=\"submit\" value=\"Submit\"><input type=\"reset\" value=\"Reset\"><BR><BR>";
@@ -212,7 +212,7 @@ if(!empty($planetinfo))
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
       $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
       echo "You have room for " . NUMBER($free_holds) . " units of additional cargo.  You have capacity for " . NUMBER($free_power) . " units of addtional power.<BR><BR>";
-      echo "<FORM ACTION=planet2.$phpext?planet_id=$planet_id METHOD=POST>";
+      echo "<FORM ACTION=planet2.php3?planet_id=$planet_id METHOD=POST>";
       echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
       echo"<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Planet</B></TD><TD><B>Ship</B></TD><TD><B>Transfer</B></TD><TD><B>To Planet?</B></TD><TD><B>All?</B></TD></TR>";
       echo"<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD>" . NUMBER($planetinfo[ore]) . "</TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_ore SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpore VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allore VALUE=-1></TD></TR>";
@@ -281,7 +281,7 @@ if(!empty($planetinfo))
         $organics_price = ($organics_price + $organics_delta / 4);
         $goods_price = ($goods_price + $goods_delta / 4);
         $energy_price = ($energy_price + $energy_delta / 4);
-        echo "<form action=planet3.$phpext?planet_id=$planet_id method=post>";
+        echo "<form action=planet3.php3?planet_id=$planet_id method=post>";
         echo "<table>";
         echo "<tr><td>Commodity</td><td>Available</td><td>Price</td><td>Buy</td><td>Cargo</td></tr>";
         echo "<tr><td>Ore</td><td>$planetinfo[ore]</td><td>$ore_price</td><td><input type=text name=trade_ore size=10 maxlength=20 value=0></td><td>$playerinfo[ship_ore]</td></tr>";
@@ -301,14 +301,14 @@ if(!empty($planetinfo))
 //check to see if sure...
     if($planetinfo[sells] == "Y")
       {
-        echo "<a href=planet.$phpext?planet_id=$planet_id&command=buy>Buy</a> commodities from Planet<BR>";
+        echo "<a href=planet.php3?planet_id=$planet_id&command=buy>Buy</a> commodities from Planet<BR>";
       }
       else
       {
         echo "Planet is not selling commodities.<BR>";
       }
-      echo "<a href=planet.$phpext?planet_id=$planet_id&command=attack>Attack</a> on Planet <B> Are You SURE...</B><BR>";
-      echo "<a href=planet.$phpext?planet_id=$planet_id&command=scan>Scan</a> Planet<BR>";
+      echo "<a href=planet.php3?planet_id=$planet_id&command=attack>Attack</a> on Planet <B> Are You SURE...</B><BR>";
+      echo "<a href=planet.php3?planet_id=$planet_id&command=scan>Scan</a> Planet<BR>";
     }
     elseif($command == "attack")
     {
@@ -321,7 +321,7 @@ if(!empty($planetinfo))
       {
         echo "You need at least one turn to scan a planet.<BR><BR>";
 	    TEXT_GOTOMAIN();
-        include("footer.$phpext");   
+        include("footer.php3");   
         die();
       }
       /* determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak */
@@ -341,7 +341,7 @@ if(!empty($planetinfo))
         echo "Sensors cannot get a fix on target!<BR><BR>";
         TEXT_GOTOMAIN();
         playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attempted to scan one of your planets in sector $playerinfo[sector], but failed.");
-        include("footer.$phpext");
+        include("footer.php3");
         die();
       }
       else
@@ -519,17 +519,17 @@ else
 }
 if($command != "")
 {
-  echo "<BR>Click <a href=planet.$phpext?planet_id=$planet_id>here</a> to return to planet menu.<BR><BR>";
+  echo "<BR>Click <a href=planet.php3?planet_id=$planet_id>here</a> to return to planet menu.<BR><BR>";
 }
 if($allow_ibank)
 {
-  echo "<BR>Access the planet's <A HREF=\"ibank.$phpext?planet_id=$planet_id\">IGB Banking Terminal</A>.<BR><BR>";
+  echo "<BR>Access the planet's <A HREF=\"ibank.php3?planet_id=$planet_id\">IGB Banking Terminal</A>.<BR><BR>";
 }
 
 //-------------------------------------------------------------------------------------------------
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 
 ?> 

@@ -37,7 +37,7 @@
               case "fight":
                  mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  bigtitle();
-                 include("sector_fighters.$phpext");    
+                 include("sector_fighters.php3");    
                    
                  break;
               case "retreat":
@@ -88,7 +88,7 @@
                         // sector defences detect incoming ship
                         bigtitle(); 
                         echo "The fighters detect you!<BR>";
-                        include("sector_fighters.$phpext");         
+                        include("sector_fighters.php3");         
                         break;
                     }
                     else

@@ -1,11 +1,11 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 updatecookie();
 
 $title="Send Message";
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 
@@ -23,7 +23,7 @@ bigtitle();
 if(empty($content))
 {
   $res = mysql_query("SELECT character_name FROM ships ORDER BY character_name ASC");
-  echo "<FORM ACTION=mailto2.$phpext METHOD=POST>";
+  echo "<FORM ACTION=mailto2.php3 METHOD=POST>";
   echo "<TABLE>";
   echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
   while($row = mysql_fetch_array($res))
@@ -56,6 +56,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?> 

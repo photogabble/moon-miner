@@ -1,10 +1,10 @@
 <?
 include("extension.inc");
-	include("config.$phpext");
+	include("config.php3");
 	updatecookie();
 
 	$title="Alliances";
-	include("header.$phpext");
+	include("header.php3");
 	connectdb();
 
 	if (checklogin()) {die();}
@@ -399,7 +399,7 @@ switch ($teamwhat) {
 				echo "</FORM>";
 				echo "<BR><BR>";
 				TEXT_GOTOMAIN();
-				include("footer.$phpext");
+				include("footer.php3");
 				die();
 			}
 		if (!$teamname) {
@@ -468,7 +468,7 @@ switch ($teamwhat) {
 				echo "</FORM>";
 				echo "<BR><BR>";
 				TEXT_GOTOMAIN();
-				include("footer.$phpext");
+				include("footer.php3");
 				die();
 			}
 	   }
@@ -550,6 +550,6 @@ switch ($teamwhat) {
 	echo "<BR><BR>";
 	TEXT_GOTOMAIN();
 
-	include("footer.$phpext");
+	include("footer.php3");
 ?>
 

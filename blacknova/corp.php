@@ -1,12 +1,12 @@
 <?
 
 include("extension.inc");
-include("config.$phpext");
+include("config.php3");
 
 updatecookie();
 
 $title=("Corporation Menu");
-include("header.$phpext");
+include("header.php3");
 
 connectdb();
 if (checklogin())
@@ -70,6 +70,6 @@ TEXT_GOTOMAIN();
 }
 
 
-include("footer.$phpext");
+include("footer.php3");
 
 ?>
