@@ -239,6 +239,10 @@ else
   while($playerinfo = mysql_fetch_array($res))
   {
     // *********************************
+    // ****** REGENERATE/BUY STATS *****
+    // *********************************
+    furangeeregen();
+    // *********************************
     // ****** RUN THROUGH ORDERS *******
     // *********************************
     $furcount++;
