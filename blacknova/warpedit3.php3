@@ -4,7 +4,8 @@
 include("config.php3");
 updatecookie();
 
-$title="Use Warp Editor";
+include($gameroot . $default_lang);
+$title=$l_warp_title;
 include("header.php3");
 
 connectdb();
@@ -19,7 +20,7 @@ $playerinfo=mysql_fetch_array($result);
 
 if($playerinfo[turns] < 1)
 {
-  echo "You need at least one turn to use a warp editor.<BR><BR>";
+  echo "$l_warp_turn<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -27,7 +28,7 @@ if($playerinfo[turns] < 1)
 
 if($playerinfo[dev_warpedit] < 1)
 {
-  echo "You do not have any warp editors.<BR><BR>";
+  echo "$l_warp_none<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -37,7 +38,7 @@ $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N')
 {
-  echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
+  echo "$l_warp_forbid<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -54,7 +55,8 @@ $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N' && $bothway)
 {
-  echo "Using a Warp Editor to remove a two-way link to sector $target_sector is not permitted.<BR><BR>";
+  $l_warp_forbidtwo = str_replace("[target_sector]", $target_sector, $l_warp_forbidtwo);
+  echo "$l_warp_forbidtwo<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -64,7 +66,7 @@ $result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$target_sector");
 $row = mysql_fetch_array($result2);
 if(!$row)
 {
-  echo "Sector does not exist.<BR><BR>";
+  echo "$l_warp_nosector<BR><BR>";
   TEXT_GOTOMAIN();
   die();
 }
@@ -81,7 +83,8 @@ if($result3 > 0)
   }
   if($flag != 1)
   {
-    echo "Target sector ($target_sector) does not have a link from this sector.<BR><BR>";
+    $l_warp_unlinked = str_replace("[target_sector]", $target_sector, $l_warp_unlinked);
+    echo "$l_warp_unlinked<BR><BR>";
   }
   else
   {
@@ -89,12 +92,12 @@ if($result3 > 0)
     $update1 = mysql_query("UPDATE ships SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     if(!$bothway)
     {
-      echo "Link removed to $target_sector.<BR><BR>";
+      echo "$l_warp_removed $target_sector.<BR><BR>";
     }
     else
     {
       $delete2 = mysql_query("DELETE FROM links WHERE link_start=$target_sector AND link_dest=$playerinfo[sector]");
-      echo "Link removed to and from $target_sector.<BR><BR>";  
+      echo "$l_warp_removedtwo $target_sector.<BR><BR>";
     }
   }
 }
@@ -103,4 +106,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

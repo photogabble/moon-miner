@@ -4,7 +4,10 @@
 include("config.php3");
 updatecookie();
 
-$title="Use Warp Editor";
+include($gameroot . $default_lang);
+
+
+$title=$l_warp_title;
 include("header.php3");
 
 connectdb();
@@ -21,17 +24,17 @@ bigtitle();
 
 if($playerinfo[turns] < 1)
 {
-  echo "You need at least one turn to use a warp editor.<BR><BR>";
+  echo "$l_warp_turn<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");   
+  include("footer.php3");
   die();
 }
 
 if($playerinfo[dev_warpedit] < 1)
 {
-  echo "You do not have any warp editors.<BR><BR>";
+  echo "$l_warp_none<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");   
+  include("footer.php3");
   die();
 }
 
@@ -39,7 +42,7 @@ $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N')
 {
-  echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
+  echo "$l_warp_forbid<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -48,11 +51,11 @@ if($zoneinfo[allow_warpedit] == 'N')
 $result2 = mysql_query("SELECT * FROM links WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
 if($result2 < 1)
 {
-  echo "There are no links out of this sector.<BR><BR>";
+  echo "$l_warp_nolink<BR><BR>";
 }
 else
 {
-  echo "Links lead from this sector to ";
+  echo "$l_warp_linkto ";
   while($row = mysql_fetch_array($result2))
   {
     echo "$row[link_dest] ";
@@ -62,22 +65,22 @@ else
 
 echo "<form action=\"warpedit2.php3\" method=\"post\">";
 echo "<table>";
-echo "<tr><td>What sector would you like to create a link to?</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
-echo "<tr><td>One-way?</td><td><input type=\"checkbox\" name=\"oneway\" value=\"oneway\"></td></tr>";
+echo "<tr><td>$l_warp_query</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
+echo "<tr><td>$l_warp_oneway?</td><td><input type=\"checkbox\" name=\"oneway\" value=\"oneway\"></td></tr>";
 echo "</table>";
-echo "<input type=\"submit\" value=\"Submit\"><input type=\"reset\" value=\"Reset\">";
+echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\">";
 echo "</form>";
-echo "<BR><BR>Alternately, you may destroy a link to sector.<BR><BR>";
+echo "<BR><BR>$l_warp_dest<BR><BR>";
 echo "<form action=\"warpedit3.php3\" method=\"post\">";
 echo "<table>";
-echo "<tr><td>What sector would you like to remove a link to?</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
-echo "<tr><td>Both-ways?</td><td><input type=\"checkbox\" name=\"bothway\" value=\"bothway\"></td></tr>";
+echo "<tr><td>$l_warp_destquery</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
+echo "<tr><td>$l_warp_bothway?</td><td><input type=\"checkbox\" name=\"bothway\" value=\"bothway\"></td></tr>";
 echo "</table>";
-echo "<input type=\"submit\" value=\"Submit\"><input type=\"reset\" value=\"Reset\">";
+echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\">";
 echo "</form>";
 
 TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

@@ -334,4 +334,29 @@ $l_att_atyou		 = "attacked you";
 $l_att_and		 = "and";
 $l_att_yshiplost	 = "Your ship has been destroyed!";
 $l_att_salv		 = "[name] salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits";
+
+// warpedit 1-3.php
+
+$l_warp_title		 = "Use Warp Editor";
+$l_warp_turn		 = "You need at least one turn to use a warp editor.";
+$l_warp_none		 = "You do not have any warp editors.";
+$l_warp_forbid		 = "Using a Warp Editor in this sector is not permitted.";
+$l_warp_nolink		 = "There are no links out of this sector.";
+$l_warp_linkto		 = "Links lead from this sector to";
+$l_warp_query		 = "What sector would you like to create a link to?";
+$l_warp_oneway		 = "One-way?";
+$l_warp_dest		 = "Alternately, you may destroy a link to sector.";
+$l_warp_destquery	 = "What sector would you like to remove a link to?";
+$l_warp_bothway		 = "Both-ways";
+$l_warp_nosector	 = "Sector does not exist.";
+$l_warp_twoerror	 = "Using a Warp Editor to create a two-way link to sector [target_sector] is not permitted.";
+$l_warp_sectex		 = "Cannot create warp link from current sector - that would exceed the maximum of $link_max per sector.";
+$l_warp_linked		 = "Target sector ([target_sector]) already has a link from this sector.";
+$l_warp_unlinked	 = "Target sector ([target_sector]) does not have a link from this sector.";
+$l_warp_coneway	         = "Link created one-way to";
+$l_warp_ctwoway		 = "Link created to and from";
+$l_warp_forbidtwo	 = "Using a Warp Editor to remove a two-way link to sector [target_sector] is not permitted.";
+$l_warp_removed		 = "Link removed to";
+$l_warp_removedtwo	 = "Link removed to and from";
 ?>
+

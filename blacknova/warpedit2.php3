@@ -4,7 +4,9 @@
 include("config.php3");
 updatecookie();
 
-$title="Use Warp Editor";
+include($gameroot . $default_lang);
+
+$title=$l_warp_title;
 include("header.php3");
 
 connectdb();
@@ -19,7 +21,7 @@ $playerinfo=mysql_fetch_array($result);
 
 if($playerinfo[turns] < 1)
 {
-  echo "You need at least one turn to use a warp editor.<BR><BR>";
+  echo "$l_warp_turn<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -27,7 +29,7 @@ if($playerinfo[turns] < 1)
 
 if($playerinfo[dev_warpedit] < 1)
 {
-  echo "You do not have any warp editors.<BR><BR>";
+  echo "$l_warp_none<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -37,7 +39,7 @@ $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N')
 {
-  echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
+  echo "$l_warp_forbid<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -53,7 +55,7 @@ $result2 = mysql_query ("SELECT * FROM universe WHERE sector_id=$target_sector")
 $row = mysql_fetch_array($result2);
 if(!$row)
 {
-  echo "Sector does not exist.<BR><BR>";
+  echo "$l_warp_nosector<BR><BR>";
   TEXT_GOTOMAIN();
   die();
 }
@@ -62,7 +64,8 @@ $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N' && !$oneway)
 {
-  echo "Using a Warp Editor to create a two-way link to sector $target_sector is not permitted.<BR><BR>";
+  $l_warp_twoerror = str_replace("[target_sector]", $target_sector, $l_warp_twoerror);
+  echo "$l_warp_twoerror<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -79,7 +82,7 @@ $numlink_start=$row[count];
 if($numlink_start>=$link_max )
 {
 
-  echo "Cannot create warp link from current sector - that would exceed the maximum of $link_max per sector.<BR><BR>";
+  echo "$l_warp_sectex<BR><BR>";
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();
@@ -100,7 +103,8 @@ if($result3 > 0)
   }
   if($flag == 1)
   {
-    echo "Target sector ($target_sector) already has a link from this sector.<BR><BR>";
+  $l_warp_linked = str_replace("[target_Sector]", $target_sector, $l_warp_linked);
+    echo "$l_warp_linked<BR><BR>";
   }
   else
   {
@@ -108,7 +112,7 @@ if($result3 > 0)
     $update1 = mysql_query ("UPDATE ships SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     if($oneway)
     {
-      echo "Link created one-way to $target_sector.<BR><BR>";
+      echo "$l_warp_coneway $target_sector.<BR><BR>";
     }
     else
     {
@@ -127,8 +131,8 @@ if($result3 > 0)
       {
         $insert2 = mysql_query ("INSERT INTO links SET link_start=$target_sector, link_dest=$playerinfo[sector]");
       }
-      
-      echo "Link created to and from $target_sector.<BR><BR>";  
+
+      echo "$l_warp_ctwoway $target_sector.<BR><BR>";
     }
   }
 }
@@ -137,4 +141,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>
