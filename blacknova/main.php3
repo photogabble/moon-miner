@@ -61,12 +61,12 @@ if($sectorinfo[sector_name] != "")
 {
   echo " ($sectorinfo[sector_name])";
 }
-echo "</TD><TD><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD><TD></TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD><TD>Score: $playerinfo[score]</TD></TR>";
+echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD><TD ALIGN=RIGHT>Score: $playerinfo[score]</TD></TR>";
 echo "</TABLE><BR>";
 
 echo "You have $playerinfo[turns] turns left (you have used $playerinfo[turns_used] turns so far).<BR><BR>";
-echo "Ore=".number_format($playerinfo[ship_ore])." - Organics=$playerinfo[ship_organics] - Goods=".number_format($playerinfo[ship_goods])." - Energy=".number_format($playerinfo[ship_energy])." - Credits=".number_format($playerinfo[credits])."<BR><BR>";
+echo "Ore=" . NUMBER($playerinfo[ship_ore]) . " - Organics=" . NUMBER($playerinfo[ship_organics]) . " - Goods=" . NUMBER($playerinfo[ship_goods]) . " - Energy=" . NUMBER($playerinfo[ship_energy]) . " - Credits=" . NUMBER($playerinfo[credits]) . "<BR><BR>";
 if ($num_links==0) { echo "There are no links out of this sector.<BR><BR>";} else
 {
   echo "Links lead to the following sectors (click to move): ";

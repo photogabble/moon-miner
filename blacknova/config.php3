@@ -9,6 +9,10 @@ $color_header = "SILVER";
 $color_line1 = "WHITE";
 $color_line2 = "LIGHTGREY";
 
+/* Localization (regional) settings */
+$local_number_dec_point = ".";
+$local_number_thousands_sep = ",";
+
 /* game variables */
 $ip = getenv("REMOTE_ADDR");
 $sector_max = 3000;
@@ -214,6 +218,13 @@ function gen_score($sid)
   mysql_free_result($result1);
   mysql_free_result($result2);
   return $score;
+}
+
+function NUMBER($number, $decimals = 0)
+{
+  global $local_number_dec_point;
+  global $local_number_thousands_sep;
+  return number_format($number, $decimals, $local_number_dec_point, $local_number_thousands_sep);
 }
 
 ?>
