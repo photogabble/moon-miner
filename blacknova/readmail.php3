@@ -37,14 +37,14 @@ $res = mysql_query("SELECT * FROM messages WHERE recp_id='".$playerinfo[ship_id]
 ?>
 <Table width="75%">
 <TR>
-<TD colspan="2" BGCOLOR="<? echo $color_header; ?>">$l_readm_center</TD>
+<TD colspan="2" BGCOLOR="<? echo $color_header; ?>"><? echo $l_readm_center ?></TD>
 </TR>
 <TR BGCOLOR="<? echo $color_line1; ?>">
 <TD>
 <? echo $l_readm_sender; ?>
 </TD>
 <TD>
-Message
+<? echo $l_sendm_mess ?>
 </TD>
 </TR>
 <?
@@ -67,14 +67,14 @@ else
 }
 ?>">
 <TD>
-<? echo $sender[character_name]; ?><HR>$l_readm_captn<BR><? echo $sender[ship_name]; ?>
+<? echo $sender[character_name]; ?><HR><? echo $l_readm_captn ?><BR><? echo $sender[ship_name]; ?>
 </TD>
 <TD>
 <UL><B><? echo $msg[subject]; ?></B></UL><HR><? echo nl2br($msg[message]); ?>
 </TD>
 <TD>
-<A HREF="readmail.php3?action=delete&ID=<? echo $msg[ID]; ?>">$l_readm_del</A><BR>
-<A HREF="mailto2.php3?name=<? echo $sender[character_name]; ?>&subject=<? echo $msg[subject] ?>">$l_readm_del</A><BR>
+<A HREF="readmail.php3?action=delete&ID=<? echo $msg[ID]; ?>"><? echo $l_readm_del ?></A><BR>
+<A HREF="mailto2.php3?name=<? echo $sender[character_name]; ?>&subject=<? echo $msg[subject] ?>"><? echo $l_readm_repl ?></A><BR>
 </TD>
 </TR>
 <?

@@ -1,74 +1,74 @@
 <?
+include("config.php3");
+updatecookie();
 
-	include("config.php3");
-	updatecookie();
+include($gameroot . $default_lang);
+$title=$l_team_title;
+include("header.php3");
+connectdb();
 
-	$title="Alliances";
-	include("header.php3");
-	connectdb();
-
-	if (checklogin()) {die();}
-   bigtitle();
-   $testing = false; // set to false to get rid of password when creating new alliance
+if (checklogin()) {die();}
+bigtitle();
+$testing = false; // set to false to get rid of password when creating new alliance
 
 /*
    Setting up some recordsets.
-   
-   I noticed before the rewriting of this page 
-   that in some case recordset may be fetched 
+
+   I noticed before the rewriting of this page
+   that in some case recordset may be fetched
    more thant once, which is NOT optimized.
 */
 
 /* Get user info */
-$result        = mysql_query(" SELECT ships.*, ships.ship_id, teams.team_name, teams.description, teams.creator, teams.id    
-                        FROM `ships`
+$result        = mysql_query(" SELECT ships.*, ships.ship_id, teams.team_name, teams.description, teams.creator, teams.id
+                        FROM ships
                         LEFT JOIN teams ON ships.team = teams.id
                         WHERE ships.email='$username'") or die(mysql_error());
 $playerinfo    = mysql_fetch_array($result);
 
 /*
-   We do not want to query the database 
+   We do not want to query the database
    if it is not necessary.
 */
 if ($playerinfo[team_invite] != "") {
    /* Get invite info */
-   $invite        = mysql_query(" SELECT  ships.ship_id, ships.team_invite, teams.team_name,teams.id    
-                        FROM `ships`
+   $invite        = mysql_query(" SELECT  ships.ship_id, ships.team_invite, teams.team_name,teams.id
+                        FROM ships
                         LEFT JOIN teams ON ships.team_invite = teams.id
                         WHERE ships.email='$username'") or die(mysql_error());
    $invite_info   = mysql_fetch_array($invite);
 }
 
-/* 
+/*
    Get Team Info
 */
-if ($whichteam) 
+if ($whichteam)
 {
    $result_team   = mysql_query("SELECT * FROM teams WHERE id=$whichteam") or die(mysql_error());
    $team          = mysql_fetch_array($result_team);
 } else {
    $result_team   = mysql_query("SELECT * FROM teams WHERE id=$playerinfo[team]") or die(mysql_error());
-   $team          = mysql_fetch_array($result_team);   
+   $team          = mysql_fetch_array($result_team);
 }
 
 
 function LINK_BACK()
 {
-   global $PHP_SELF;
-   echo "<BR><BR>Click <a href=\"$PHP_SELF\">here</a> to go back to the Alliances Menu.<BR><BR>";
+   global $PHP_SELF, $l_clickme, $l_team_menu;
+   echo "<BR><BR><a href=\"$PHP_SELF\">$l_clickme</a> $l_team_menu.<BR><BR>";
 }
 
 /*
-   Rewrited display of alliances list 
-*/ 
-function DISPLAY_ALL_ALLIANCES() 
+   Rewrited display of alliances list
+*/
+function DISPLAY_ALL_ALLIANCES()
 {
-   global $color, $color_header, $order, $type, $PHP_SELF;
-   
-   echo "<br><br>Alliances present in the Galaxy: <BR>";
+   global $color, $color_header, $order, $type, $PHP_SELF, $l_team_galax, $l_team_member, $l_team_coord, $l_score, $l_name;
+
+   echo "<br><br>$l_team_galax<BR>";
    echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
    echo "<TR BGCOLOR=\"$color_header\">";
-   
+
    if ($type == "d") {
       $type = "a";
       $by = "ASC";
@@ -76,10 +76,10 @@ function DISPLAY_ALL_ALLIANCES()
       $type = "d";
       $by = "DESC";
    }
-   echo "<TD><B><A HREF=$PHP_SELF?order=team_name&type=$type>Name</A></B></TD>";
-   echo "<TD><B><A HREF=$PHP_SELF?order=number_of_members&type=$type>Members</A></B></TD>";
-   echo "<TD><B><A HREF=$PHP_SELF?order=character_name&type=$type>Co-ordinator</A></B></TD>";
-   echo "<TD><B><A HREF=$PHP_SELF?order=total_score&type=$type>Score</A></B></TD>";
+   echo "<TD><B><A HREF=$PHP_SELF?order=team_name&type=$type>$l_name</A></B></TD>";
+   echo "<TD><B><A HREF=$PHP_SELF?order=number_of_members&type=$type>$l_team_members</A></B></TD>";
+   echo "<TD><B><A HREF=$PHP_SELF?order=character_name&type=$type>$l_team_coord</A></B></TD>";
+   echo "<TD><B><A HREF=$PHP_SELF?order=total_score&type=$type>$l_score</A></B></TD>";
    echo "</TR>";
    $sql_query = "SELECT ships.character_name,
                      COUNT(*) as number_of_members,
@@ -87,24 +87,24 @@ function DISPLAY_ALL_ALLIANCES()
                      teams.id,
                      teams.team_name,
                      teams.creator
-                  FROM ships 
+                  FROM ships
                   LEFT JOIN teams ON ships.team = teams.id
-                  WHERE ships.team = teams.id 
+                  WHERE ships.team = teams.id
                   GROUP BY teams.team_name";
    /*
       Setting if the order is Ascending or descending, if any.
-      Default is ordered by teams.team_name 
+      Default is ordered by teams.team_name
    */
    if ($order)
    {
-      $sql_query = $sql_query ." ORDER BY " . $order . " $by"; 
+      $sql_query = $sql_query ." ORDER BY " . $order . " $by";
    }
    $res = mysql_query($sql_query) or die(mysql_error());
    while($row = mysql_fetch_array($res)) {
    	echo "<TR BGCOLOR=\"$color\">";
    	echo "<TD><a href=$PHP_SELF?teamwhat=1&whichteam=".$row[id].">".$row[team_name]."</A></TD>";
    	echo "<TD>".$row[number_of_members]."</TD>";
-   	echo "<TD><a href=teams-mailto.php?recipient=".$row[creator].">".$row[character_name]."</A></TD>";
+   	echo "<TD><a href=mailto2.php3?name=".$row[character_name].">".$row[character_name]."</A></TD>";
    	echo "<TD>$row[total_score]</TD>";
    	echo "</TR>";
    }
@@ -112,70 +112,70 @@ function DISPLAY_ALL_ALLIANCES()
 }
 
 
-function DISPLAY_INVITE_INFO() 
+function DISPLAY_INVITE_INFO()
 {
-   global $playerinfo, $invite_info, $PHP_SELF;
+   global $playerinfo, $invite_info, $PHP_SELF, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
    if (!$playerinfo[team_invite]) {
-      echo "<br><br><font color=blue size=2><b>Nobody has invited you to join an alliance.</b></font><BR>";
-      echo "If you want to join an alliance, send a message to its co-ordinator asking to be invited.<BR>";
-      echo "Click <a href=\"$PHP_SELF?teamwhat=6\">here</a> to create a new alliance.<BR><BR>";
+      echo "<br><br><font color=blue size=2><b>$l_team_noinvite</b></font><BR>";
+      echo "$l_team_ifyouwant<BR>";
+      echo "<a href=\"$PHP_SELF?teamwhat=6\">$l_clickme</a> $l_team_tocreate<BR><BR>";
    } else {
-	   echo "<br><br><font color=blue size=2><b>You have been invited to join ";
+	   echo "<br><br><font color=blue size=2><b>$l_team_injoin ";
 	   echo "<a href=$PHP_SELF?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</A>.</b></font><BR>";
-	   echo "Click <A HREF=$PHP_SELF?teamwhat=3&whichteam=$playerinfo[team_invite]>here</A> to join <B>$invite_info[team_name]</B> or <A HREF=$PHP_SELF?teamwhat=8&whichteam=$playerinfo[team_invite]>here</A> to reject the invitation.<BR><BR>";
+	   echo "<A HREF=$PHP_SELF?teamwhat=3&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_tojoin <B>$invite_info[team_name]</B> $l_team_or <A HREF=$PHP_SELF?teamwhat=8&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_reject<BR><BR>";
    }
 }
 
 
 function showinfo($whichteam,$isowner)
 {
-	global $playerinfo, $invite_info, $team;	
+	global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_team_ed, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
 
 	/* Heading */
    echo"<div align=center>";
    echo "<h3><font color=white><B>$team[team_name]</B>";
  	echo "<br><font size=2>\"<i>$team[description]</i>\"</font></H3>";
-   if ($playerinfo[team] == $team[id]) 
+   if ($playerinfo[team] == $team[id])
    {
       echo "<font color=white>";
    	if ($playerinfo[ship_id] == $team[creator]) {
-   	   echo "Co-ordinator ";
+   	   echo "$l_team_coord ";
       }
    	else
    	{
-   		echo "Member ";
+   		echo "$l_team_member ";
    	}
-   	echo "Options<br><font size=2>";
-   	if ($playerinfo[ship_id] == $team[creator]) 
+   	echo "$l_options<br><font size=2>";
+   	if ($playerinfo[ship_id] == $team[creator])
    	{
-   	   echo "[<a href=$PHP_SELF?teamwhat=9&whichteam=$playerinfo[team]>Edit</a>] - ";
+   	   echo "[<a href=$PHP_SELF?teamwhat=9&whichteam=$playerinfo[team]>$l_team_ed</a>] - ";
    	}
-   	echo "[<a href=$PHP_SELF?teamwhat=7&whichteam=$playerinfo[team]>Invite</a>] - [<a href=$PHP_SELF?teamwhat=2&whichteam=$playerinfo[team]>Leave</a>]</font></font>";	
+   	echo "[<a href=$PHP_SELF?teamwhat=7&whichteam=$playerinfo[team]>$l_team_inv</a>] - [<a href=$PHP_SELF?teamwhat=2&whichteam=$playerinfo[team]>$l_team_leave</a>]</font></font>";
    }
    DISPLAY_INVITE_INFO();
    echo "</div>";
-   
+
    /* Main table */
 	echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=\"#400040\" width=\"75%\" align=center>";
 	echo "<tr>";
-	echo "<td><font color=white>Members</font></td>";
+	echo "<td><font color=white>$l_team_members</font></td>";
 	echo "</tr><tr bgcolor=$color_line2>";
 	$result  = mysql_query("SELECT * FROM ships WHERE team=$whichteam");
 	while ($member = mysql_fetch_array($result)) {
-		echo "<td> - $member[character_name] (Score $member[score])";
+		echo "<td> - $member[character_name] ($l_score $member[score])";
 		if ($isowner && ($member[ship_id] != $playerinfo[ship_id])) {
-			echo " - <font size=2>[<a href=\"$PHP_SELF?teamwhat=5&who=$member[ship_id]\">Eject</A>]</font></td>";
+			echo " - <font size=2>[<a href=\"$PHP_SELF?teamwhat=5&who=$member[ship_id]\">$l_team_eject</A>]</font></td>";
 		} else {
 			if ($member[ship_id] == $team[creator])
 			{
-				echo " - Co-ordinator</td>";
+				echo " - $l_team_coord</td>";
 			}
 		}
 		echo "</tr><tr bgcolor=$color_line2>";
 	}
    /* Displays for members name */
    $res = mysql_query("SELECT ship_id,character_name FROM ships WHERE team_invite=$whichteam");
-	echo "<td bgcolor=$color_line2><font color=white>Invitation pending for <B>$team[team_name]</B></font></td>";
+	echo "<td bgcolor=$color_line2><font color=white>$l_team_pending <B>$team[team_name]</B></font></td>";
    echo "</tr><tr>";
 	if (mysql_num_rows($res) > 0) {
 		echo "</tr><tr bgcolor=$color_line2>";
@@ -184,7 +184,7 @@ function showinfo($whichteam,$isowner)
 		   echo "</tr><tr bgcolor=$color_line2>";
 		}
 	} else {
-		echo "<td>Nobody has been invited to be part of <B>$team[team_name]</B>.</td>";
+		echo "<td>$l_team_noinvites <B>$team[team_name]</B>.</td>";
       echo "</tr><tr>";
 	}
 	echo "</tr></table>";
@@ -195,9 +195,9 @@ switch ($teamwhat) {
 		showinfo($whichteam, 0);
       LINK_BACK();
 		break;
-	case 2:	// LEAVE 
+	case 2:	// LEAVE
 		if (!$confirmleave) {
-			echo "Are you sure you want to leave <B>$team[team_name]</B> ? <a href=\"$PHP_SELF?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">YES</a> - <A HREF=\"$PHP_SELF\">NO</A><BR><BR>";
+			echo "$l_team_confirmleave <B>$team[team_name]</B> ? <a href=\"$PHP_SELF?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">$l_yes</a> - <A HREF=\"$PHP_SELF\">$l_no</A><BR><BR>";
 		} elseif ($confirmleave == 1) {
 			if ($team[number_of_members] == 1) {
 				mysql_query("DELETE FROM teams WHERE id=$whichteam");
@@ -211,7 +211,7 @@ switch ($teamwhat) {
           $sectors[$i] = $row[sector_id];
           $i++;
         }
-				
+
         mysql_query("UPDATE planets SET corp=0 WHERE owner=$playerinfo[ship_id]");
         if(!empty($sectors))
         {
@@ -222,22 +222,23 @@ switch ($teamwhat) {
         }
         defence_vs_defence($playerinfo[ship_id]);
         kick_off_planet($playerinfo[ship_id],$whichteam);
- 
-        echo "You were the only member, thus <B>$team[team_name]</B> is no more.<BR><BR>";
+
+		$l_team_onlymember = str_replace("[team_name]", "<b>$team[team_name]</b>", $l_team_onlymember);
+        echo "$l_team_onlymember<BR><BR>";
 				playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
 			} else {
 				if ($team[creator] == $playerinfo[ship_id]) {
-					echo "You are the co-ordinator of <B>$team[team_name]</B>. You must relinquish your role to another player.<BR><BR>";
+					echo "$l_team_youarecoord <B>$team[team_name]</B>. $l_team_relinq<BR><BR>";
 					echo "<FORM ACTION='$PHP_SELF' METHOD=POST>";
 					echo "<TABLE><INPUT TYPE=hidden name=teamwhat value=$teamwhat><INPUT TYPE=hidden name=confirmleave value=2><INPUT TYPE=hidden name=whichteam value=$whichteam>";
-					echo "<TR><TD>New co-ordinator:</TD><TD><SELECT NAME=newcreator>";
+					echo "<TR><TD>$l_team_newc</TD><TD><SELECT NAME=newcreator>";
 					$res = mysql_query("SELECT character_name,ship_id FROM ships WHERE team=$whichteam ORDER BY character_name ASC");
 					while($row = mysql_fetch_array($res)) {
 						if ($row[ship_id] != $team[creator])
 							echo "<OPTION VALUE=$row[ship_id]>$row[character_name]";
 					}
 					echo "</SELECT></TD></TR>";
-					echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=Relinquish></TD></TR>";
+					echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=$l_submit></TD></TR>";
 					echo "</TABLE>";
 					echo "</FORM>";
 				} else {
@@ -251,7 +252,7 @@ switch ($teamwhat) {
             $sectors[$i] = $row[sector_id];
             $i++;
           }
-				
+
           mysql_query("UPDATE planets SET corp=0 WHERE owner=$playerinfo[ship_id]");
           if(!empty($sectors))
           {
@@ -261,17 +262,17 @@ switch ($teamwhat) {
             }
           }
 
-					echo "You have left alliance <B>$team[team_name]</B>.<BR><BR>";
+					echo "$l_team_youveleft <B>$team[team_name]</B>.<BR><BR>";
           defence_vs_defence($playerinfo[ship_id]);
           kick_off_planet($playerinfo[ship_id],$whichteam);
   				playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
   				playerlog($team[creator], LOG_TEAM_NOT_LEAVE, "$playerinfo[character_name]");
 				}
-			} 
+			}
 		} elseif ($confirmleave == 2) { // owner of a team is leaving and set a new owner
 			$res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$newcreator");
 			$newcreatorname = mysql_fetch_array($res);
-			echo "You have left alliance <B>$team[team_name]</B> relinquishing the functions of co-ordinator to $newcreatorname[character_name].<BR><BR>";
+			echo "$l_team_youveleft <B>$team[team_name]</B> $l_team_relto $newcreatorname[character_name].<BR><BR>";
 			mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
 			mysql_query("UPDATE ships SET team=$newcreator WHERE team=$creator");
 			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,creator=$newcreator WHERE id=$whichteam");
@@ -283,7 +284,7 @@ switch ($teamwhat) {
         $sectors[$i] = $row[sector_id];
         $i++;
       }
-				
+
       mysql_query("UPDATE planets SET corp=0 WHERE owner=$playerinfo[ship_id]");
       if(!empty($sectors))
       {
@@ -304,46 +305,46 @@ switch ($teamwhat) {
                 {
 		   mysql_query("UPDATE ships SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
 		   mysql_query("UPDATE teams SET number_of_members=number_of_members+1 WHERE id=$whichteam");
-		   echo "Welcome to alliance <B>$team[team_name]</B>.<BR><BR>";
+		   echo "$l_team_welcome <B>$team[team_name]</B>.<BR><BR>";
 		   playerlog($playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
 		   playerlog($team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
                 }
                 else
                 {
-                   echo "You have not been invited in to that team.<BR>";
+                   echo "$l_team_noinviteto<BR>";
                 }
 		LINK_BACK();
 		break;
-	case 4: 
-   	/* 
+	case 4:
+   	/*
    	   Can you comment in english please ??
-   
+
       	// LEAVE + JOIN - anche per coordinatori - caso speciale ?
       	// mettere nel 2 e senza break -> 3
       	// CREATOR LEAVE - mettere come caso speciale si 3
-   		
+
    	*/
-		echo "Not implemented yet. LEAVE+JOIN<BR><BR>";
+		echo "Not implemented yet. LEAVE+JOIN WE ARE A LAZY BUNCH sorry! :)<BR><BR>";
 		LINK_BACK();
 		break;
 	case 5: // Eject member
 		$result = mysql_query("SELECT * FROM ships WHERE ship_id=$who");
 		$whotoexpel = mysql_fetch_array($result);
 		if (!$confirmed) {
-			echo "Are you sure you want to eject $whotoexpel[character_name]? <A HREF=\"$PHP_SELF?teamwhat=$teamwhat&confirmed=1&who=$who\">YES</A> - <a href=\"$PHP_SELF\">No</a><BR>";
+			echo "$l_team_ejectsure $whotoexpel[character_name]? <A HREF=\"$PHP_SELF?teamwhat=$teamwhat&confirmed=1&who=$who\">$l_yes</A> - <a href=\"$PHP_SELF\">$l_no</a><BR>";
 		} else {
-			/* 
+			/*
 			   check whether the player we are ejecting might have already left in the meantime
-			   should go here	if ($whotoexpel[team] == 
+			   should go here	if ($whotoexpel[team] ==
 			*/
 			mysql_query("UPDATE ships SET team='0' WHERE ship_id='$who'");
          /*
-            No more necessary due to COUNT(*) in previous SQL statement 
-         
+            No more necessary due to COUNT(*) in previous SQL statement
+
          	mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
          */
 			playerlog($who, LOG_TEAM_KICK, "$team[team_name]");
-			echo "$whotoexpel[character_name] has been eject from the alliance!<BR>";
+			echo "$whotoexpel[character_name] $l_team_ejected<BR>";
 		}
 		LINK_BACK();
 		break;
@@ -351,10 +352,10 @@ switch ($teamwhat) {
 		if ($testing)
 			if($swordfish != $adminpass) {
 				echo "<FORM ACTION=\"$PHP_SELF\" METHOD=POST>";
-				echo "Testing phase...<BR><BR>";
-				echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
+				echo "$l_team_testing<BR><BR>";
+				echo "$l_team_pw: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
 				echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
-				echo "<INPUT TYPE=SUBMIT VALUE=OK><INPUT TYPE=RESET VALUE=Reset>";
+				echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
 				echo "</FORM>";
 				echo "<BR><BR>";
 				TEXT_GOTOMAIN();
@@ -363,21 +364,21 @@ switch ($teamwhat) {
 			}
 		if (!$teamname) {
 			echo "<FORM ACTION=\"$PHP_SELF\" METHOD=POST>";
-			echo "Enter the name of the Alliance: ";
+			echo "$l_team_entername: ";
 			if ($testing)
 				echo "<INPUT TYPE=hidden NAME=swordfish value='$swordfish'>";
 			echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
 			echo "<INPUT TYPE=TEXT NAME=teamname SIZE=40 MAXLENGTH=40><BR>";
-			echo "Enter a description of the Alliance: ";
+			echo "$l_team_enterdesc: ";
 			echo "<INPUT TYPE=TEXT NAME=teamdesc SIZE=40 MAXLENGTH=254><BR>";
-			echo "<INPUT TYPE=SUBMIT VALUE=OK><INPUT TYPE=RESET VALUE=Reset>";
+			echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
 			echo "</FORM>";
 			echo "<BR><BR>";
 		} else {
 			$res = mysql_query("INSERT INTO teams (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
          mysql_query("INSERT INTO zones VALUES('','$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
          mysql_query("UPDATE ships SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
-			echo "Alliance <B>$teamname</B> has been created and you are its leader.<BR><BR>";
+			echo "$l_team_alliance <B>$teamname</B> $l_team_hcreated.<BR><BR>";
 			playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
 		}
 		LINK_BACK();
@@ -386,14 +387,14 @@ switch ($teamwhat) {
 		if (!$invited) {
 			echo "<FORM ACTION='$PHP_SELF' METHOD=POST>";
 			echo "<TABLE><INPUT TYPE=hidden name=teamwhat value=$teamwhat><INPUT TYPE=hidden name=invited value=1><INPUT TYPE=hidden name=whichteam value=$whichteam>";
-			echo "<TR><TD>Select the Player you want to invite:</TD><TD><SELECT NAME=who>";
+			echo "<TR><TD>$l_team_selectp:</TD><TD><SELECT NAME=who>";
       $res = mysql_query("SELECT character_name,ship_id FROM ships WHERE team<>$whichteam ORDER BY character_name ASC");
 			while($row = mysql_fetch_array($res)) {
 				if ($row[ship_id] != $team[creator])
 					echo "<OPTION VALUE=$row[ship_id]>$row[character_name]";
 			}
 			echo "</SELECT></TD></TR>";
-			echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=Invite></TD></TR>";
+			echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=$l_submit></TD></TR>";
 			echo "</TABLE>";
 			echo "</FORM>";
 
@@ -401,17 +402,18 @@ switch ($teamwhat) {
 			$res = mysql_query("SELECT character_name,team_invite FROM ships WHERE ship_id=$who");
 			$newpl = mysql_fetch_array($res);
 			if ($newpl[team_invite]) {
-				echo "Sorry, but $newpl[character_name] has already been invited to be part of an alliance - only one invitation can be active at any given time.<BR><BR>";
+			$l_team_isorry = str_replace("[name]", $newpl[character_name], $l_team_isorry);
+				echo "$l_team_isorry<BR><BR>";
 			} else {
 				mysql_query("UPDATE ships SET team_invite=$whichteam WHERE ship_id=$who");
-				echo("Player invited.<BR>You must wait for that player to aknowledge your invitation.<BR>");
+				echo("$l_team_plinvted<BR>");
 				playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
 			}
 		}
-		echo "<BR><BR>Click <a href=\"$PHP_SELF\">here</a> to go back to the Alliances Menu.<BR><BR>";
+		echo "<BR><BR><a href=\"$PHP_SELF\">$l_clickme</a> $l_team_menu<BR><BR>";
 		break;
 	case 8: // REFUSE invitation
-		echo "You have refused the invitation to join <B>$invite_info[team_name]</B>.<BR><BR>";
+		echo "$l_team_refuse <B>$invite_info[team_name]</B>.<BR><BR>";
 		mysql_query("UPDATE ships SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
 		playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name]|$invite_info[team_name]");
 		LINK_BACK();
@@ -420,10 +422,10 @@ switch ($teamwhat) {
 		if ($testing){
 			if($swordfish != $adminpass) {
 				echo "<FORM ACTION=\"$PHP_SELF\" METHOD=POST>";
-				echo "Testing phase...<BR><BR>";
-				echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
+				echo "$l_team_testing<BR><BR>";
+				echo "$l_team_pw: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
 				echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
-				echo "<INPUT TYPE=SUBMIT VALUE=OK><INPUT TYPE=RESET VALUE=Reset>";
+				echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
 				echo "</FORM>";
 				echo "<BR><BR>";
 				TEXT_GOTOMAIN();
@@ -434,20 +436,20 @@ switch ($teamwhat) {
 	   if ($playerinfo[team] == $whichteam) {
    		if (!$update) {
    			echo "<FORM ACTION=\"$PHP_SELF\" METHOD=POST>";
-   			echo "Edit the name of your Alliance: <BR>";
+   			echo "$l_team_edname: <BR>";
    			echo "<INPUT TYPE=hidden NAME=swordfish value='$swordfish'>";
    			echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
    			echo "<INPUT TYPE=hidden name=whichteam value=$whichteam>";
    			echo "<INPUT TYPE=hidden name=update value=true>";
    			echo "<INPUT TYPE=TEXT NAME=teamname SIZE=40 MAXLENGTH=40 VALUE=\"".$team[team_name]."\"><BR>";
-   			echo "Edit the description for your Alliance: <BR>";
+   			echo "$l_team_eddesc: <BR>";
    			echo "<INPUT TYPE=TEXT NAME=teamdesc SIZE=40 MAXLENGTH=254 VALUE=\"".$team[description]."\"><BR>";
-   			echo "<INPUT TYPE=SUBMIT VALUE=SUBMIT><INPUT TYPE=RESET VALUE=Reset>";
+   			echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
    			echo "</FORM>";
    			echo "<BR><BR>";
    		} else {
    			$res = mysql_query("UPDATE teams SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . mysql_error() . "</font>");
-   			echo "Alliance <B>$teamname</B> has been renamed.<BR><BR>";
+   			echo "$l_team_alliance <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
    			/*
    			   Adding a log entry to all members of the renamed alliance
    			*/
@@ -462,24 +464,24 @@ switch ($teamwhat) {
 	   }
 	   else
 	   {
-   		echo "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
+   		echo $l_team_error;
    		LINK_BACK();
-   		break;	      
+   		break;
 	   }
 	default:
 		if (!$playerinfo[team]) {
-			echo "You are not a member of any alliance";
+			echo "$l_team_notmember";
 			DISPLAY_INVITE_INFO();
 		} else {
 			if ($playerinfo[team] < 0) {
 				$playerinfo[team] = -$playerinfo[team];
 				$result = mysql_query("SELECT * FROM teams WHERE id=$playerinfo[team]");
 				$whichteam = mysql_fetch_array($result);
-				echo "<B>ATTENTION</B> - you have been ejected from <B>$whichteam[team_name]</B><BR><BR>";
+				echo "$l_team_urejected <B>$whichteam[team_name]</B><BR><BR>";
             /*
-               No more necessary due to COUNT(*) in previous SQL statement 
+               No more necessary due to COUNT(*) in previous SQL statement
                AND already done in case 5:
-               
+
                mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
    				mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whichteam");
 				   playerlog($playerinfo[ship_id], LOG_TEAM_KICK, "$whichteam[team_name]");
@@ -495,13 +497,13 @@ switch ($teamwhat) {
 			}
 			$isowner = $playerinfo[ship_id] == $whichteam[creator];
 			showinfo($playerinfo[team],$isowner);
-		} 
+		}
 		$res= mysql_query("SELECT COUNT(*) as TOTAL FROM teams");
 		$num_res = mysql_fetch_array($res);
 		if ($num_res[TOTAL] > 0) {
          DISPLAY_ALL_ALLIANCES();
 		} else {
-			echo "There are no alliances in the Galaxy at this time.<BR><BR>";
+			echo "$l_team_noalliances<BR><BR>";
 		}
 	break;
 } // switch ($teamwhat)

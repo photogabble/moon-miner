@@ -552,6 +552,7 @@ $l_dump_nono		 = "You need to be at a supply depot to do this.";
 // readmail.php
 
 $l_readm_title		 = "Read Message";
+
 $l_readm_delete		 = "MESSAGE DELETED";
 $l_readm_nomessage	 = "You have no Messages waiting for you...";
 $l_readm_center		 = "Message Receiving Center";
@@ -598,4 +599,54 @@ $l_ze_attacks		 = "Allow attacking other ships";
 $l_ze_genesis		 = "Allow creating new planets";
 $l_ze_return		 = "to return to the zone information page";
 $l_ze_saved		 = "Your changes have been saved.";
+
+// teams.php
+
+$l_team_title		 = "Alliances";
+$l_team_menu		 = "to go back to the Alliances Menu";
+$l_team_galax		 = "Alliances present in the Galaxy:";
+$l_team_members		 = "Members";
+$l_team_coord		 = "Co-ordinator";
+$l_team_member		 = "Member";
+$l_team_noinvite	 = "Nobody has invited you to join an alliance.";
+$l_team_ifyouwant	 = "If you want to join an alliance, send a message to its co-ordinator asking to be invited.";
+$l_team_tocreate	 = "to create a new alliance.";
+$l_team_injoin		 = "You have been invited to join";
+$l_team_tojoin		 = "to join";
+$l_team_or		 = "or";
+$l_team_reject		 = "to reject the invitation.";
+$l_team_ed		 = "Edit";
+$l_team_inv		 = "Invite";
+$l_team_leave		 = "Leave";
+$l_team_eject		 = "Eject";
+$l_team_pending		 = "Invitation pending for";
+$l_team_noinvites	 = "Nobody has been invited to be part of";
+$l_team_confirmleave	 = "Are you sure you want to leave";
+$l_team_onlymember	 = "You were the only member, thus [team_name] is no more.";
+$l_team_youarecoord	 = "You are the co-ordinator of";
+$l_team_relinq		 = "You must relinquish your role to another player.";
+$l_team_newc		 = "New co-ordinator:";
+$l_team_youveleft	 = "You have left alliance";
+$l_team_relto		 = "relinquishing the functions of co-ordinator to";
+$l_team_welcome		 = "Welcome to alliance";
+$l_team_noinviteto	 = "You have not been invited in to that team.";
+$l_team_ejectsure	 = "Are you sure you want to eject";
+$l_team_ejected 	 = "has been eject from the alliance!";
+$l_team_testing		 = "Testing phase...";
+$l_team_pw		 = "Password";
+$l_team_entername	 = "Enter the name of the Alliance";
+$l_team_enterdesc	 = "Enter a description of the Alliance";
+$l_team_hcreated	 = "has been created and you are its leader";
+$l_team_alliance	 = "Alliance";
+$l_team_selectp		 = "Select the Player you want to invite";
+$l_team_isorry		 = "Sorry, but [name] has already been invited to be part of an alliance - only one invitation can be active at any given time";
+$l_team_plinvted	 = "Player invited.<BR>You must wait for that player to aknowledge your invitation.";
+$l_team_refuse		 = "You have refused the invitation to join";
+$l_team_edname		 = "Edit the name of your Alliance";
+$l_team_eddesc		 = "Edit the description for your Alliance";
+$l_team_hasbeenr	 = "has been renamed.";
+$l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
+$l_team_notmember	 = "You are not a member of any alliance";
+$l_team_urejected	 = "<B>ATTENTION</B> - you have been ejected from";
+$l_team_noalliances	 = "There are no alliances in the Galaxy at this time.";
 ?>
