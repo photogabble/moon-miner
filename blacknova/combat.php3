@@ -391,7 +391,7 @@ attackerarmor: $attackerarmor<BR>\n
           if($playerinfo[dev_escapepod] == "Y")
           {
             echo "Luckily you have an escape pod!<BR><BR>";
-            mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+            mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
           }
           else
           {
@@ -423,7 +423,12 @@ echo "Armor Lost: $armor_lost out of $playerinfo[armour_pts] total ($attackerarm
 echo "Energy used: $energy from a total of $playerinfo[ship_energy]<BR>";
           mysql_query("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armour_pts=armour_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
-		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0)
+		
+		$result4 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
+		$shipsonplanet = mysql_num_rows($result4);
+echo "Ships on planet = -$shipsonplanet-";
+		
+		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
         {
           echo "<BR>Planet defeated.<BR><BR>";
           echo "You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
@@ -728,7 +733,7 @@ Attackertorpdamage: $attackertorpdamage<BR>";
           $rating=round($targetinfo[rating]/2);
           echo "An escape pod was launched!<BR><BR>";
           echo "<BR><BR>ship_id=$targetinfo[ship_id]<BR><BR>";
-          $test = mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$targetinfo[ship_id]"); 
+          $test = mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$targetinfo[ship_id]"); 
           playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>"); 
         }
         else

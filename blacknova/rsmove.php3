@@ -66,6 +66,7 @@ elseif($destination <= $sector_max && empty($engage))
   // Movement should be costly, if movement is less important to a particular game, then the
   // turns per day should be increased to compensate.
   $shipspeed = pow($playerinfo[engines], 1.25);
+  if ($shipspeed < 1) $shipspeed = 1.25;
   $triptime = round($distance / $shipspeed);
   if($triptime == 0 && $destination != $playerinfo[sector])
   {
