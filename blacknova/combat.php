@@ -97,6 +97,115 @@ function calcplanetshields()
     return $planetshields;
 }
 
+
+function planetbombing()
+{
+    global $playerinfo;
+    global $ownerinfo;
+    global $sectorinfo;
+    global $planetinfo;
+    global $planetbeams;
+    global $planetfighters;
+    global $attackerfighters;
+    global $planettorps;
+    global $torp_dmg_rate;
+    global $l_cmb_atleastoneturn;
+    global $db, $dbtables;
+    global $l_bombsaway;
+    global $l_bigfigs;
+    global $l_bigbeams;
+    global $l_bigtorps;
+    global $l_strafesuccess;
+//$debug = true;
+
+    if($playerinfo[turns] < 1)
+    {
+        echo "$l_cmb_atleastoneturn<BR><BR>";
+        TEXT_GOTOMAIN();
+        include("footer.php");
+        die();
+    }
+
+    $res = $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[planets] WRITE");
+
+    echo "$l_bombsaway<br><br>\n";
+
+    $attackerfighterslost = 0;
+    $planetfighterslost = 0;
+    $attackerfightercapacity = NUM_FIGHTERS($playerinfo[computer]);
+    $ownerfightercapacity = NUM_FIGHTERS($ownerinfo[computer]);
+    $beamsused = 0;
+    $planettorps = calcplanettorps();
+    $planetbeams = calcplanetbeams();
+    $planetfighters = calcplanetfighters();
+    $attackerfighters = $playerinfo[ship_fighters];
+        if ($debug) echo "FigsCapacity $attackerfightercapacity <BR>\n";
+        if ($debug) echo "Figsused $attackerfighters<BR>\n";
+
+    if($ownerfightercapacity/$attackerfightercapacity<1)
+    {
+     echo "$l_bigfigs<br><br>\n";
+    }
+
+
+    if($planetbeams <= $attackerfighters)
+    {
+        $attackerfighterslost=$planetbeams;
+        $beamsused=$planetbeams;
+    }
+    else
+    {
+        $attackerfighterslost=$attackerfighters;
+        $beamsused=$attackerfighters;
+    }
+
+    if($attackerfighters<=$attackerfighterslost)
+    {
+        echo "$l_bigbeams<br>\n";
+        if ($debug) echo "Fighters destroyed by beams $attackerfighterslost<BR>\n";
+    }
+    else
+    {
+        if ($debug) echo "pfigs $planetfighterslost mefigs $attackerfighters - $attackerfighterslost<BR>\n";
+
+        $attackerfighterslost+=$planettorps*$torp_dmg_rate;
+
+        if($attackerfighters<=$attackerfighterslost)
+            echo "$l_bigtorps<br>\n";
+        else
+        {
+            echo "$l_strafesuccess<br>\n";
+            if($ownerfightercapacity/$attackerfightercapacity>1)
+            {
+                $planetfighterslost=$attackerfighters-$attackerfighterslost;
+                if ($debug) echo "small guyfigs go boom $planetfighterslost<BR>\n";
+
+            }
+            else
+            {
+                $planetfighterslost=round(($attackerfighters-$attackerfighterslost)*$ownerfightercapacity/$attackerfightercapacity);
+                if ($debug) echo "bigguy figs go boom $planetfighterslost<BR>\n";
+                if ($debug) echo "which is ".$attackerfighters."-".$attackerfighterslost." times ".$ownerfightercapacity/$attackerfightercapacity." <br>\n";
+            }
+            if($planetfighterslost>$planetfighters)
+            {
+                $planetfighterslost = $planetfighters;
+            }
+        }
+    }
+
+    if ($debug) echo "total figs go boom $planetfighterslost<BR>\n";
+    echo "<br><br>\n";
+playerlog($ownerinfo[ship_id], LOG_PLANET_BOMBED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$beamsused|$planettorps|$planetfighterslost");
+
+    $res = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, ship_fighters=ship_fighters-$attackerfighters WHERE ship_id=$playerinfo[ship_id]");
+    $res = $db->Execute("UPDATE $dbtables[planets] SET energy=energy-$beamsused,fighters=fighters-$planetfighterslost, torps=torps-$planettorps WHERE planet_id=$planetinfo[planet_id]");
+    $res = $db->Execute("UNLOCK TABLES");
+}
+
+
+
+
 function planetcombat()
 {
     global $playerinfo;

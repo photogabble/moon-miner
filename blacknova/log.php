@@ -787,6 +787,17 @@ case LOG_BOUNTY_FEDBOUNTY:
     $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
+ case LOG_PLANET_BOMBED:
+    list($planet_name, $sector, $name, $beams, $torps, $figs)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[beams]", "<font color=white><b>$beams</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[torps]", "<font color=white><b>$torps</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[figs]", "<font color=white><b>$figs</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
   }
   return $retvalue;
 }

@@ -1331,4 +1331,15 @@ $l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here<
 $l_scan_bounty = "This ship has a total bounty on it of [amount] credits.";
 $l_scan_fedbounty = "This ship has a bounty on it from The Federation.";
 $l_by_nofedbounty = "Attacking this player will <B>NOT</B> result in The Federation placing a bounty on you.";
+
+//Fig Drops
+
+$l_sofa = "Sub-Orbital Fighter Attack";
+$l_bombsaway = "You send your fighters spiralling towards the planet as you streak by at maximum range.";
+$l_bigfigs = "Your huge ship has given them ample warning.  Your fighters will be less successful.";
+$l_bigbeams = "There is a bright flash of discharging beams.  Your fighters probably didn't make it to the atmosphere.";
+$l_bigtorps = "A large explosion blossoms in the upper air of the planet.  Your fighters probably didn't have time to attack.";
+$l_strafesuccess = "It looks like some of your fighters made it through, although you can't tell how many from here.";
+$l_log_text[LOG_PLANET_BOMBED] = "Your planet [planet_name] in sector [sector] was bombed by [name]. You used [beams] energy and [torps] torpedoes in your defense.  You lost [figs] fighters.";
+$l_log_title[LOG_PLANET_BOMBED] = "<font color=red>Planet bombed!</font>";
 ?>

@@ -223,6 +223,7 @@ if(!empty($planetinfo))
        $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
       echo "$l_planet_att<BR>";
       echo "$l_planet_scn<BR>";
+     echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
     }
   }
   elseif($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
@@ -387,11 +388,40 @@ if(!empty($planetinfo))
        $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
       echo "$l_planet_att <b>$l_planet_att_sure</b><BR>";
       echo "$l_planet_scn<BR>";
+	echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
     }
     elseif($command == "attack")
     {
     	planetcombat();
     }
+
+    elseif($command == "bom")
+    {
+//check to see if sure...
+    if($planetinfo[sells] == "Y")
+      {
+               $l_planet_buy_link="<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
+		       $l_planet_buy=str_replace("[buy]",$l_planet_buy_link,$l_planet_buy);
+        echo "$l_planet_buy<BR>";
+      }
+      else
+      {
+        echo "$l_planet_not_selling<BR>";
+      }
+       $l_planet_att_link="<a href=planet.php?planet_id=$planet_id&command=attac>" . $l_planet_att_link ."</a>";
+       $l_planet_att=str_replace("[attack]",$l_planet_att_link,$l_planet_att);
+       $l_planet_scn_link="<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
+       $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
+      echo "$l_planet_att<BR>";
+      echo "$l_planet_scn<BR>";
+	echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><b>$l_planet_att_sure</b><BR>";
+
+    }
+    elseif($command == "bomb")
+    {
+    	planetbombing();
+    }
+
     elseif($command == "scan")
     {
       /* scan menu */

@@ -92,6 +92,7 @@ define(LOG_BOUNTY_CANCELLED,49);            //sent to player when their bounty i
 define(LOG_SPACE_PLAGUE,50);            // sent when space plague attacks a planet
 define(LOG_PLASMA_STORM,51);           // sent when a plasma storm attacks a planet
 define(LOG_BOUNTY_FEDBOUNTY,52);       // Sent when the federation places a bounty on a player
+define(LOG_PLANET_BOMBED,53);     //Sent after bombing a planet
 // Database tables variables
 $dbtables['ibank_accounts'] = "${db_prefix}ibank_accounts";
 $dbtables['links'] = "${db_prefix}links";
