@@ -301,6 +301,17 @@ $db->Execute("CREATE TABLE $dbtables[logs](" .
              ")");
 echo "created.<BR>";
 
+echo "Creating table: bounty...";
+$db->Execute("CREATE TABLE $dbtables['bounty'] (" .
+             "bounty_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+             "bounty_on bigint(20) unsigned DEFAULT '0' NOT NULL," .
+             "placed_by bigint(20) unsigned DEFAULT '0' NOT NULL," .
+             "PRIMARY KEY (bounty_id)," .
+             "KEY bounty_on (bounty_on)," .
+             "KEY placed_by (placed_by)" .
+             ")");
+echo "created.<BR>";
+
 //Finished
 echo "Database schema creation complete.<BR>";
 }

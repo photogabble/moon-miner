@@ -1277,4 +1277,10 @@ $l_zname[4] = "War Zone";
 
 $l_warp_cantsame = "You can't create a link when the source is the same as the destination.";
 
+// Bounty
+$l_by_title = "Bounties";
+$l_by_noturn = "You need at least one turn to place or modify a bounty.";
+$l_by_amount = "Bounty Amount";
+$l_by_place = "Place Bounty";
+
 ?>

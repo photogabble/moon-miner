@@ -94,6 +94,7 @@ $dbtables['ip_bans'] = "${db_prefix}ip_bans";
 $dbtables['IGB_transfers'] = "${db_prefix}IGB_transfers";
 $dbtables['logs'] = "${db_prefix}logs";
 $dbtables['gen_id'] = "${db_prefix}gen_id";
+$dbtables['bounty'] = "${db_prefix}bounty";
 
 function bigtitle()
 {

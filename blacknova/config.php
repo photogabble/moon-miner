@@ -189,6 +189,8 @@ $avail_lang[2][file] = 'french.inc';
 $avail_lang[2][name] = 'Français';
 $avail_lang[3][file] = 'romanian.inc';
 $avail_lang[3][name] = 'Romanian';
+$avail_lang[4][file] = 'czech.inc';
+$avail_lang[4][name] = 'Cesky';
 
 
 // Anti-cheat settings

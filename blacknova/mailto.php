@@ -22,7 +22,7 @@ bigtitle();
 
 if(empty($content))
 {
-  $res = $db->Execute("SELECT character_name FROM $dbtables[ships] ORDER BY character_name ASC");
+  $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_destroyed = 'N' ORDER BY character_name ASC");
   echo "<FORM ACTION=mailto2.php METHOD=POST>";
   echo "<TABLE>";
   echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
