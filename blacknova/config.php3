@@ -126,7 +126,7 @@ function checklogin()
       
       include("player-log/".$playerinfo['ship_id']);
       unlink("player-log/".$playerinfo['ship_id']);
-      $result3 = mysql_query ("DELETE FROM ships WHERE ship_id = $playerinfo['ship_id']");
+      $result3 = mysql_query ("DELETE FROM ships WHERE ship_id = " . $playerinfo['ship_id']);
       echo "Dead player has now been deleted.  Click <a href=new.php3>here</a> to start with a new player.";
       $flag=1;
     }
