@@ -2,6 +2,15 @@
 
 include("config.php3");
 connectdb();
+
+//test to see if server is closed to logins
+if($server_closed)
+{
+  $title="Server Closed";
+  include("header.php3");
+  die($server_closed_message);
+}
+
 $playerfound = false;
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$email'");

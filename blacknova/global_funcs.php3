@@ -68,6 +68,16 @@ function checklogin()
       $flag = 1;
     }
   }
+  global $server_closed;
+  global $server_closed_message;
+  if($server_closed && $flag==0)
+  {
+    echo $server_closed_message;
+    $flag=1;
+  }
+
+
+
   return $flag;
 }
 
