@@ -486,7 +486,6 @@ echo "
             $planetscore = $planetinfo[organics] * $organics_price + $planetinfo[ore] * $ore_price + $planetinfo[goods] * $goods_price + $planetinfo[energy] * $energy_price + $planetinfo[fighters] * $fighter_price + $planetinfo[torps] * $torpedo_price + $planetinfo[colonists] * $colonist_price + $planetinfo[credits];
             $planetscore = $planetscore * $min_value_capture / 100;
 
-            echo "playerscore $playerscore, planetscore $planetscore";
             if($playerscore < $planetscore)
             {
               echo "<CENTER>The citizens of this planet have decided they'd rather die than serve a pathetic ruler like you. They use a laser drill to dig a hole to the planet's core. You barely have time to escape into orbit before the whole planet is reduced to a ball of molten lava.</CENTER><BR><BR>";

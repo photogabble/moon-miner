@@ -1,6 +1,12 @@
 Version 0.3.1
 -------------
 
+SharpBlue (09 December 2001)
+-------------------------------
+Modified rankings generation to select only ships that aren't
+destroyed. Speeds it up by over 50% on big games.
+
+
 SharpBlue (06 December 2001)
 -------------------------------
 Log viewer admin module added.
