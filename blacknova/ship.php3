@@ -1,10 +1,10 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Ship Commands";
+include($gameroot . $default_lang);
+
+$title=$l_ship_title;
 include("header.php3");
 
 connectdb();
@@ -23,15 +23,15 @@ bigtitle();
 
 if($othership[sector] != $playerinfo[sector])
 {
-  echo "The <font color=white>", $othership[ship_name],"</font> is no longer in sector ", $playerinfo[sector], "<BR>";
+  echo "$l_ship_the <font color=white>", $othership[ship_name],"</font> $l_ship_nolonger ", $playerinfo[sector], "<BR>";
 }
 else
 {
-	echo "You see the <font color=white>", $othership[ship_name], "</font>, owned by <font color=white>", $othership[character_name],"</font>.<br><br>";
-	echo "You can perform the following actions:<BR><BR>";
-	echo "<a href=scan.php3?ship_id=$ship_id>Scan</a><br>";
-	echo "<a href=attack.php3?ship_id=$ship_id>Attack</a><br>";
-	echo "<a href=mailto.php3?to=$ship_id>Send Message</a><br>";
+	echo "$l_ship_youc <font color=white>", $othership[ship_name], "</font>, $l_ship_owned <font color=white>", $othership[character_name],"</font>.<br><br>";
+	echo "$l_ship_perform<BR><BR>";
+	echo "<a href=scan.php3?ship_id=$ship_id>$l_planet_scn_link</a><br>";
+	echo "<a href=attack.php3?ship_id=$ship_id>$l_planet_att_link</a><br>";
+	echo "<a href=mailto.php3?to=$ship_id>$l_send_msg</a><br>";
 }
 
 echo "<BR>";
@@ -39,4 +39,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

@@ -371,4 +371,27 @@ $l_gns_nogenesis	 = "You do not have any genesis devices.";
 $l_gns_forbid		 = "Creating a planet in this sector is not permitted.";
 $l_gns_bforbid		 = "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
 $l_gns_pcreate		 = "Planet created.";
+
+// ship.php
+
+$l_ship_title		 = "Ship Commands";
+$l_ship_the		 = "The";
+$l_ship_nolonger	 = "is no longer in sector";
+$l_ship_youc		 = "You see the";
+$l_ship_owned		 = "owned by";
+$l_ship_perform		 = "You can perform the following actions:";
+
+// selfdestruct.php
+
+$l_die_title		 = "Self-Destruct";
+$l_die_rusure		 = "Are you sure you wish to destroy your ship? This will remove you from the game.";
+$l_die_goodbye		 = "Goodbye cruel galaxy!";
+$l_die_check		 = "Are you positive that you wish to remove yourself from the game?";
+$l_die_nonono		 = "NO! NO! NO!";
+$l_die_what		 = "What was I thinking?";
+$l_die_count		 = "5.. 4.. 3.. 2.. 1.. Boom!";
+$l_die_vapor		 = "You ship and all aboard have been vaporized.";
+$l_die_please		 = "Please, <A HREF=logout.php3>logout</A>";
+$l_die_log		 = "You self-destructed from";
+$l_die_exploit		 = "Don't play with what you don't understand.";
 ?>
