@@ -23,7 +23,7 @@ echo "<BR><BR>";
 echo "<A HREF=#mainmenu>Main Menu commands</A><BR>";
 echo "<A HREF=#techlevels>Tech levels</A><BR>";
 echo "<A HREF=#devices>Devices</A><BR>";
-
+echo "<A HREF=#zones>Zones</A><BR>";
 echo "<A NAME=mainmenu></A><H2>Main Menu commands:</H2>";
 echo "<B>Ship report:</B><BR>";
 echo "Display a detailed report on your ship's systems, cargo and weaponry. You can display this report by ";
@@ -164,7 +164,7 @@ echo "<BR><BR>";
 echo "<B>Fuel Scoop (maximum of 1):</B><BR>";
 echo "Accumulate energy units when using RealSpace movement.";
 echo "<BR><BR>";
-echo "<H3>Zones:</H3>";
+echo "<A NAME=zones></A><H2>Zones:</H2>";
 echo "The galaxy is divided into different areas with different rules being enforced in each zone. To display ";
 echo "the restrictions attached to your current sector, just click on the zone name (top right corner of the ";
 echo "main page). Your ship can be towed out of a zone to a random sector when your hull size exceeds the ";
