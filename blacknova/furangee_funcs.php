@@ -89,166 +89,166 @@ function furangeetoship($ship_id)
   // **** BEGIN COMBAT PROCEDURES ****
   // *********************************
   if($attackerbeams > 0 && $targetfighters > 0)
-  {                                                  //******** ATTACKER HAS BEAMS - TARGET HAS FIGHTERS - BEAMS VS FIGHTERS ********
+  {                         //******** ATTACKER HAS BEAMS - TARGET HAS FIGHTERS - BEAMS VS FIGHTERS ********
     if($attackerbeams > round($targetfighters / 2))
-    {                                                           //****** ATTACKER BEAMS GT HALF TARGET FIGHTERS ******
+    {                                  //****** ATTACKER BEAMS GT HALF TARGET FIGHTERS ******
       $lost = $targetfighters-(round($targetfighters/2));
-      $targetfighters = $targetfighters-$lost;                           //**** TARGET LOOSES HALF ALL FIGHTERS ****
-      $attackerbeams = $attackerbeams-$lost;                             //**** ATTACKER LOOSES BEAMS EQ TO HALF TARGET FIGHTERS ****
+      $targetfighters = $targetfighters-$lost;                 //**** T LOOSES HALF ALL FIGHTERS ****
+      $attackerbeams = $attackerbeams-$lost;                   //**** A LOOSES BEAMS EQ TO HALF T FIGHTERS ****
     } else
-    {                                                           //****** ATTACKER BEAMS LE HALF TARGET FIGHTERS ******
-      $targetfighters = $targetfighters-$attackerbeams;                  //**** TARGET LOOSES FIGHTERS EQ TO ATTACKER BEAMS ****
-      $attackerbeams = 0;                                                //**** ATTACKER LOOSES ALL BEAMS ****
+    {                                  //****** ATTACKER BEAMS LE HALF TARGET FIGHTERS ******
+      $targetfighters = $targetfighters-$attackerbeams;        //**** T LOOSES FIGHTERS EQ TO A BEAMS ****
+      $attackerbeams = 0;                                      //**** A LOOSES ALL BEAMS ****
     }   
   }
   if($attackerfighters > 0 && $targetbeams > 0)
-  {                                                  //******** TARGET HAS BEAMS - ATTACKER HAS FIGHTERS - BEAMS VS FIGHTERS ********
+  {                         //******** TARGET HAS BEAMS - ATTACKER HAS FIGHTERS - BEAMS VS FIGHTERS ********
     if($targetbeams > round($attackerfighters / 2))
-    {                                                           //****** TARGET BEAMS GT HALF ATTACKER FIGHTERS ******
+    {                                  //****** TARGET BEAMS GT HALF ATTACKER FIGHTERS ******
       $lost=$attackerfighters-(round($attackerfighters/2));
-      $attackerfighters=$attackerfighters-$lost;                         //**** ATTACKER LOOSES HALF ALL FIGHTERS ****
-      $targetbeams=$targetbeams-$lost;                                   //**** TARGET LOOSES BEAMS EQ TO HALF ATTACKER FIGHTERS ****
+      $attackerfighters=$attackerfighters-$lost;               //**** A LOOSES HALF ALL FIGHTERS ****
+      $targetbeams=$targetbeams-$lost;                         //**** T LOOSES BEAMS EQ TO HALF A FIGHTERS ****
     } else
-    {                                                           //****** TARGET BEAMS LE HALF ATTACKER FIGHTERS ******
-      $attackerfighters=$attackerfighters-$targetbeams;                  //**** ATTACKER LOOSES FIGHTERS EQ TO TARGET BEAMS **** 
-      $targetbeams=0;                                                    //**** TARGET LOOSES ALL BEAMS ****
+    {                                  //****** TARGET BEAMS LE HALF ATTACKER FIGHTERS ******
+      $attackerfighters=$attackerfighters-$targetbeams;        //**** A LOOSES FIGHTERS EQ TO T BEAMS **** 
+      $targetbeams=0;                                          //**** T LOOSES ALL BEAMS ****
     }
   }
   if($attackerbeams > 0)
-  {                                                  //******** ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS ********
+  {                         //******** ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS ********
     if($attackerbeams > $targetshields)
-    {                                                           //****** ATTACKER BEAMS GT TARGET SHIELDS ******
-      $attackerbeams=$attackerbeams-$targetshields;                      //**** ATTACKER LOOSES BEAMS EQ TO TARGET SHIELDS ****
-      $targetshields=0;                                                  //**** TARGET LOOSES ALL SHIELDS ****
+    {                                  //****** ATTACKER BEAMS GT TARGET SHIELDS ******
+      $attackerbeams=$attackerbeams-$targetshields;            //**** A LOOSES BEAMS EQ TO T SHIELDS ****
+      $targetshields=0;                                        //**** T LOOSES ALL SHIELDS ****
     } else
-    {                                                           //****** ATTACKER BEAMS LE TARGET SHIELDS ******
-      $targetshields=$targetshields-$attackerbeams;                      //**** TARGET LOOSES SHIELDS EQ TO ATTACKER BEAMS ****
-      $attackerbeams=0;                                                  //**** ATTACKER LOOSES ALL BEAMS ****
+    {                                  //****** ATTACKER BEAMS LE TARGET SHIELDS ******
+      $targetshields=$targetshields-$attackerbeams;            //**** T LOOSES SHIELDS EQ TO A BEAMS ****
+      $attackerbeams=0;                                        //**** A LOOSES ALL BEAMS ****
     }
   }
   if($targetbeams > 0)
-  {                                                  //******** TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS ********
+  {                         //******** TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS ********
     if($targetbeams > $attackershields)
-    {                                                           //****** TARGET BEAMS GT ATTACKER SHIELDS ******
-      $targetbeams=$targetbeams-$attackershields;                        //**** TARGET LOOSES BEAMS EQ TO ATTACKER SHIELDS ****
-      $attackershields=0;                                                //**** ATTACKER LOOSES ALL SHIELDS ****
+    {                                  //****** TARGET BEAMS GT ATTACKER SHIELDS ******
+      $targetbeams=$targetbeams-$attackershields;              //**** T LOOSES BEAMS EQ TO A SHIELDS ****
+      $attackershields=0;                                      //**** A LOOSES ALL SHIELDS ****
     } else
-    {                                                           //****** TARGET BEAMS LE ATTACKER SHIELDS ****** 
-      $attackershields=$attackershields-$targetbeams;                    //**** ATTACKER LOOSES SHIELDS EQ TO TARGET BEAMS ****
-      $targetbeams=0;                                                    //**** TARGET LOOSES ALL BEAMS ****
+    {                                  //****** TARGET BEAMS LE ATTACKER SHIELDS ****** 
+      $attackershields=$attackershields-$targetbeams;          //**** A LOOSES SHIELDS EQ TO T BEAMS ****
+      $targetbeams=0;                                          //**** T LOOSES ALL BEAMS ****
     }
   }
   if($attackerbeams > 0)
-  {                                                  //******** ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR ********
+  {                         //******** ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR ********
     if($attackerbeams > $targetarmor)
-    {                                                           //****** ATTACKER BEAMS GT TARGET ARMOR ******
-      $attackerbeams=$attackerbeams-$targetarmor;                        //**** ATTACKER LOOSES BEAMS EQ TO TARGET ARMOR ****
-      $targetarmor=0;                                                    //**** TARGET LOOSES ALL ARMOR (TARGET SHIP DESTROYED) ****
+    {                                  //****** ATTACKER BEAMS GT TARGET ARMOR ******
+      $attackerbeams=$attackerbeams-$targetarmor;              //**** A LOOSES BEAMS EQ TO T ARMOR ****
+      $targetarmor=0;                                          //**** T LOOSES ALL ARMOR (T DESTROYED) ****
     } else
-    {                                                           //****** ATTACKER BEAMS LE TARGET ARMOR ******
-      $targetarmor=$targetarmor-$attackerbeams;                          //**** TARGET LOOSES ARMORS EQ TO ATTACKER BEAMS ****
-      $attackerbeams=0;                                                  //**** ATTACKER LOOSES ALL BEAMS ****
+    {                                  //****** ATTACKER BEAMS LE TARGET ARMOR ******
+      $targetarmor=$targetarmor-$attackerbeams;                //**** T LOOSES ARMORS EQ TO A BEAMS ****
+      $attackerbeams=0;                                        //**** A LOOSES ALL BEAMS ****
     } 
   }
   if($targetbeams > 0)
-  {                                                 //******** TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR ******** 
+  {                        //******** TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR ******** 
     if($targetbeams > $attackerarmor)
-    {                                                          //****** TARGET BEAMS GT ATTACKER ARMOR ******
-      $targetbeams=$targetbeams-$attackerarmor;                         //**** TARGET LOOSES BEAMS EQ TO ATTACKER ARMOR ****
-      $attackerarmor=0;                                                 //**** ATTACKER LOOSES ALL ARMOR (ATTACKER SHIP DESTROYED) ****
+    {                                 //****** TARGET BEAMS GT ATTACKER ARMOR ******
+      $targetbeams=$targetbeams-$attackerarmor;                //**** T LOOSES BEAMS EQ TO A ARMOR ****
+      $attackerarmor=0;                                        //**** A LOOSES ALL ARMOR (A DESTROYED) ****
     } else
-    {                                                          //****** TARGET BEAMS LE ATTACKER ARMOR ******
-      $attackerarmor=$attackerarmor-$targetbeams;                       //**** ATTACKER LOOSES ARMOR EQ TO TARGET BEAMS ****
-      $targetbeams=0;                                                   //**** TARGET LOOSES ALL BEAMS ****
+    {                                 //****** TARGET BEAMS LE ATTACKER ARMOR ******
+      $attackerarmor=$attackerarmor-$targetbeams;              //**** A LOOSES ARMOR EQ TO T BEAMS ****
+      $targetbeams=0;                                          //**** T LOOSES ALL BEAMS ****
     } 
   }
   if($targetfighters > 0 && $attackertorpdamage > 0)
-  {                                                 //******** ATTACKER FIRES TORPS - TARGET HAS FIGHTERS - TORPS VS FIGHTERS ********
+  {                        //******** ATTACKER FIRES TORPS - TARGET HAS FIGHTERS - TORPS VS FIGHTERS ********
     if($attackertorpdamage > round($targetfighters / 2))
-    {                                                          //****** ATTACKER FIRED TORPS GT HALF TARGET FIGHTERS ******
+    {                                 //****** ATTACKER FIRED TORPS GT HALF TARGET FIGHTERS ******
       $lost=$targetfighters-(round($targetfighters/2));
-      $targetfighters=$targetfighters-$lost;                            //**** TARGET LOOSES HALF ALL FIGHTERS ****
-      $attackertorpdamage=$attackertorpdamage-$lost;                    //**** ATTACKER LOOSES FIRED TORPS EQ TO HALF TARGET FIGHTERS ****
+      $targetfighters=$targetfighters-$lost;                   //**** T LOOSES HALF ALL FIGHTERS ****
+      $attackertorpdamage=$attackertorpdamage-$lost;           //**** A LOOSES FIRED TORPS EQ TO HALF T FIGHTERS ****
     } else
-    {                                                          //****** ATTACKER FIRED TORPS LE HALF TARGET FIGHTERS ******
-      $targetfighters=$targetfighters-$attackertorpdamage;              //**** TARGET LOOSES FIGHTERS EQ TO ATTACKER TORPS FIRED ****
-      $attackertorpdamage=0;                                            //**** ATTACKER LOOSES ALL TORPS FIRED ****
+    {                                 //****** ATTACKER FIRED TORPS LE HALF TARGET FIGHTERS ******
+      $targetfighters=$targetfighters-$attackertorpdamage;     //**** T LOOSES FIGHTERS EQ TO A TORPS FIRED ****
+      $attackertorpdamage=0;                                   //**** A LOOSES ALL TORPS FIRED ****
     }
   }
   if($attackerfighters > 0 && $targettorpdmg > 0)
-  {                                                 //******** TARGET FIRES TORPS - ATTACKER HAS FIGHTERS - TORPS VS FIGHTERS ********
+  {                        //******** TARGET FIRES TORPS - ATTACKER HAS FIGHTERS - TORPS VS FIGHTERS ********
     if($targettorpdmg > round($attackerfighters / 2))
-    {                                                          //****** TARGET FIRED TORPS GT HALF ATTACKER FIGHTERS ******
+    {                                 //****** TARGET FIRED TORPS GT HALF ATTACKER FIGHTERS ******
       $lost=$attackerfighters-(round($attackerfighters/2));
-      $attackerfighters=$attackerfighters-$lost;                        //**** ATTACKER LOOSES HALF ALL FIGHTERS ****
-      $targettorpdmg=$targettorpdmg-$lost;                              //**** TARGET LOOSES FIRED TORPS EQ TO HALF ATTACKER FIGHTERS ****
+      $attackerfighters=$attackerfighters-$lost;               //**** A LOOSES HALF ALL FIGHTERS ****
+      $targettorpdmg=$targettorpdmg-$lost;                     //**** T LOOSES FIRED TORPS EQ TO HALF A FIGHTERS ****
     } else
-    {                                                          //****** TARGET FIRED TORPS LE HALF ATTACKER FIGHTERS ******
-      $attackerfighters=$attackerfighters-$targettorpdmg;               //**** ATTACKER LOOSES FIGHTERS EQ TO TARGET TORPS FIRED ****
-      $targettorpdmg=0;                                                 //**** TARGET LOOSES ALL TORPS FIRED ****
+    {                                 //****** TARGET FIRED TORPS LE HALF ATTACKER FIGHTERS ******
+      $attackerfighters=$attackerfighters-$targettorpdmg;      //**** A LOOSES FIGHTERS EQ TO T TORPS FIRED ****
+      $targettorpdmg=0;                                        //**** T LOOSES ALL TORPS FIRED ****
     }
   }
   if($attackertorpdamage > 0)
-  {                                                 //******** ATTACKER FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR ********
+  {                        //******** ATTACKER FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR ********
     if($attackertorpdamage > $targetarmor)
-    {                                                          //****** ATTACKER FIRED TORPS GT HALF TARGET ARMOR ******
-      $attackertorpdamage=$attackertorpdamage-$targetarmor;             //**** ATTACKER LOOSES FIRED TORPS EQ TO TARGET ARMOR ****
-      $targetarmor=0;                                                   //**** TARGET LOOSES ALL ARMOR (TARGET SHIP DESTROYED) ****
+    {                                 //****** ATTACKER FIRED TORPS GT HALF TARGET ARMOR ******
+      $attackertorpdamage=$attackertorpdamage-$targetarmor;    //**** A LOOSES FIRED TORPS EQ TO T ARMOR ****
+      $targetarmor=0;                                          //**** T LOOSES ALL ARMOR (T DESTROYED) ****
     } else
-    {                                                          //****** ATTACKER FIRED TORPS LE HALF TARGET ARMOR ******
-      $targetarmor=$targetarmor-$attackertorpdamage;                    //**** TARGET LOOSES ARMOR EQ TO ATTACKER TORPS FIRED ****
-      $attackertorpdamage=0;                                            //**** ATTACKER LOOSES ALL TORPS FIRED ****
+    {                                 //****** ATTACKER FIRED TORPS LE HALF TARGET ARMOR ******
+      $targetarmor=$targetarmor-$attackertorpdamage;           //**** T LOOSES ARMOR EQ TO A TORPS FIRED ****
+      $attackertorpdamage=0;                                   //**** A LOOSES ALL TORPS FIRED ****
     } 
   }
   if($targettorpdmg > 0)
-  {                                                 //******** TARGET FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR ********
+  {                        //******** TARGET FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR ********
     if($targettorpdmg > $attackerarmor)
-    {                                                          //****** TARGET FIRED TORPS GT HALF ATTACKER ARMOR ******
-      $targettorpdmg=$targettorpdmg-$attackerarmor;                     //**** TARGET LOOSES FIRED TORPS EQ TO ATTACKER ARMOR ****
-      $attackerarmor=0;                                                 //**** ATTACKER LOOSES ALL ARMOR (ATTACKER SHIP DESTROYED) ****
+    {                                 //****** TARGET FIRED TORPS GT HALF ATTACKER ARMOR ******
+      $targettorpdmg=$targettorpdmg-$attackerarmor;            //**** T LOOSES FIRED TORPS EQ TO A ARMOR ****
+      $attackerarmor=0;                                        //**** A LOOSES ALL ARMOR (A DESTROYED) ****
     } else
-    {                                                          //****** TARGET FIRED TORPS LE HALF ATTACKER ARMOR ******
-      $attackerarmor=$attackerarmor-$targettorpdmg;                     //**** ATTACKER LOOSES ARMOR EQ TO TARGET TORPS FIRED ****
-      $targettorpdmg=0;                                                 //**** TARGET LOOSES ALL TORPS FIRED ****
+    {                                 //****** TARGET FIRED TORPS LE HALF ATTACKER ARMOR ******
+      $attackerarmor=$attackerarmor-$targettorpdmg;            //**** A LOOSES ARMOR EQ TO T TORPS FIRED ****
+      $targettorpdmg=0;                                        //**** T LOOSES ALL TORPS FIRED ****
     } 
   }
   if($attackerfighters > 0 && $targetfighters > 0)
-  {                                                 //******** ATTACKER HAS FIGHTERS - TARGET HAS FIGHTERS - FIGHTERS VS FIGHTERS ********
+  {                        //******** ATTACKER HAS FIGHTERS - TARGET HAS FIGHTERS - FIGHTERS VS FIGHTERS ********
     if($attackerfighters > $targetfighters)
-    {                                                          //****** ATTACKER FIGHTERS GT TARGET FIGHTERS ******
-      $temptargfighters=0;                                              //**** TARGET WILL LOOSE ALL FIGHTERS ****
+    {                                 //****** ATTACKER FIGHTERS GT TARGET FIGHTERS ******
+      $temptargfighters=0;                                     //**** T WILL LOOSE ALL FIGHTERS ****
     } else
-    {                                                          //****** ATTACKER FIGHTERS LE TARGET FIGHTERS ******
-      $temptargfighters=$targetfighters-$attackerfighters;              //**** TARGET WILL LOOSE FIGHTERS EQ TO ATTACKER FIGHTERS ****
+    {                                 //****** ATTACKER FIGHTERS LE TARGET FIGHTERS ******
+      $temptargfighters=$targetfighters-$attackerfighters;     //**** T WILL LOOSE FIGHTERS EQ TO A FIGHTERS ****
     }
     if($targetfighters > $attackerfighters)
-    {                                                          //****** TARGET FIGHTERS GT ATTACKER FIGHTERS ******
-      $tempplayfighters=0;                                              //**** ATTACKER WILL LOOSE ALL FIGHTERS ****
+    {                                 //****** TARGET FIGHTERS GT ATTACKER FIGHTERS ******
+      $tempplayfighters=0;                                     //**** A WILL LOOSE ALL FIGHTERS ****
     } else
-    {                                                          //****** TARGET FIGHTERS LE ATTACKER FIGHTERS ******
-      $tempplayfighters=$attackerfighters-$targetfighters;              //**** ATTACKER WILL LOOSE FIGHTERS EQ TO TARGET FIGHTERS ****
+    {                                 //****** TARGET FIGHTERS LE ATTACKER FIGHTERS ******
+      $tempplayfighters=$attackerfighters-$targetfighters;     //**** A WILL LOOSE FIGHTERS EQ TO T FIGHTERS ****
     }     
     $attackerfighters=$tempplayfighters;
     $targetfighters=$temptargfighters;
   }
   if($attackerfighters > 0)
-  {                                                 //******** ATTACKER HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR ********
+  {                        //******** ATTACKER HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR ********
     if($attackerfighters > $targetarmor)
-    {                                                          //****** ATTACKER FIGHTERS GT TARGET ARMOR ******
-      $targetarmor=0;                                                   //**** TARGET LOOSES ALL ARMOR (TARGET SHIP DESTROYED) ****
+    {                                 //****** ATTACKER FIGHTERS GT TARGET ARMOR ******
+      $targetarmor=0;                                          //**** T LOOSES ALL ARMOR (T DESTROYED) ****
     } else
-    {                                                          //****** ATTACKER FIGHTERS LE TARGET ARMOR ******
-      $targetarmor=$targetarmor-$attackerfighters;                      //**** TARGET LOOSES ARMOR EQ TO ATTACKER FIGHTERS **** 
+    {                                 //****** ATTACKER FIGHTERS LE TARGET ARMOR ******
+      $targetarmor=$targetarmor-$attackerfighters;             //**** T LOOSES ARMOR EQ TO A FIGHTERS **** 
     }
   }
   if($targetfighters > 0)
-  {                                                 //******** TARGET HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR ********
+  {                        //******** TARGET HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR ********
     if($targetfighters > $attackerarmor)
-    {                                                          //****** TARGET FIGHTERS GT ATTACKER ARMOR ******
-      $attackerarmor=0;                                                 //**** ATTACKER LOOSES ALL ARMOR (ATTACKER SHIP DESTROYED) ****
+    {                                 //****** TARGET FIGHTERS GT ATTACKER ARMOR ******
+      $attackerarmor=0;                                        //**** A LOOSES ALL ARMOR (A DESTROYED) ****
     } else
-    {                                                          //****** TARGET FIGHTERS LE ATTACKER ARMOR ******
-      $attackerarmor=$attackerarmor-$targetfighters;                    //**** ATTACKER LOOSES ARMOR EQ TO TARGET FIGHTERS ****
+    {                                 //****** TARGET FIGHTERS LE ATTACKER ARMOR ******
+      $attackerarmor=$attackerarmor-$targetfighters;           //**** A LOOSES ARMOR EQ TO T FIGHTERS ****
     }
   }
 
@@ -419,7 +419,7 @@ function furangeetoship($ship_id)
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog($targetinfo[ship_id], LOG_ATTACK_WIN, "Furangee $playerinfo[character_name]|$armor_lost|$fighters_lost");
       playerlog($targetinfo[ship_id], LOG_RAW, "You destroyed the Furangee ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
-      $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
+      $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$targetinfo[ship_id]");
       $armor_lost = $targetinfo[armour_pts] - $targetarmor;
       $fighters_lost = $targetinfo[ship_fighters] - $targetfighters;
       $energy=$targetinfo[ship_energy];
@@ -1104,5 +1104,285 @@ function furangeehunter()
     playerlog($playerinfo[ship_id], LOG_RAW, "Furangee hunt failed, target $targetinfo[character_name] was in a no attack zone.");
   }
 }
+
+function furangeetoplanet($planet_id)
+{
+  // ***********************************
+  // *** Furangee Planet Attack Code ***
+  // ***********************************
+
+  // *********************************
+  // *** SETUP GENERAL VARIABLES  ****
+  // *********************************
+  global $playerinfo;
+  global $ownerinfo;
+  global $planetinfo;
+
+  global $attackerbeams;
+  global $attackerfighters;
+  global $attackershields;
+  global $attackertorps;
+  global $attackerarmor;
+  global $torp_dmg_rate;
+  global $level_factor;
+  global $attackertorpdamage;
+  global $start_energy;
+  global $min_value_capture;
+
+  global $rating_combat_factor;
+  global $upgrade_cost;
+  global $upgrade_factor;
+  global $sector_max;
+  global $furangeeisdead;
+  global $db, $dbtables;
+
+  // *** LOCKING TABLES ****
+  $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[planets] WRITE, $dbtables[news] WRITE, $dbtables[logs] WRITE");
+
+  // ********************************
+  // *** LOOKUP PLANET DETAILS   ****
+  // ********************************
+  $resultp = $db->Execute ("SELECT * FROM $dbtables[planets] WHERE planet_id='$planet_id'");
+  $planetinfo=$resultp->fields;
+
+  // ********************************
+  // *** LOOKUP OWNER DETAILS    ****
+  // ********************************
+  $resulto = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$planetinfo[owner]'");
+  $ownerinfo=$resulto->fields;
+
+  // **********************************
+  // *** SETUP PLANETARY VARIABLES ****
+  // **********************************
+  $targetdestroyed = 0;
+  $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;
+
+  // *** PLANET BEAMS ***
+  $targetbeams = NUM_BEAMS($ownerinfo[beams] + $base_factor);
+  if ($targetbeams > $planetinfo[energy]) $targetbeams = $planetinfo[energy];
+  $planetinfo[energy] -= $targetbeams;
+    
+  // *** PLANET SHIELDS ***
+  $targetshields = NUM_SHIELDS($ownerinfo[shields] + $base_factor);
+  if ($targetshields > $planetinfo[energy]) $targetshields = $planetinfo[energy];
+  $planetinfo[energy] -= $targetshields;
+    
+  // *** PLANET TORPS ***
+  $torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 10;
+  $torps = $planetinfo[torps];
+  $targettorps = $torp_launchers;
+  if ($torp_launchers > $torps) $targettorps = $torps;
+  $planetinfo[torps] -= $targettorps;
+  $targettorpdmg = $torp_dmg_rate * $targettorps;
+
+  // *** PLANET FIGHTERS ***
+  $targetfighters = $planetinfo[fighters];
+
+  // *********************************
+  // *** SETUP ATTACKER VARIABLES ****
+  // *********************************
+  $playerdestroyed = 0;
+
+  // *** ATTACKER BEAMS ***
+  $attackerbeams = NUM_BEAMS($playerinfo[beams]);
+  if ($attackerbeams > $playerinfo[ship_energy]) $attackerbeams = $playerinfo[ship_energy];
+  $playerinfo[ship_energy] -= $attackerbeams;
+
+  // *** ATTACKER SHIELDS ***
+  $attackershields = NUM_SHIELDS($playerinfo[shields]);
+  if ($attackershields > $playerinfo[ship_energy]) $attackershields = $playerinfo[ship_energy];
+  $playerinfo[ship_energy] -= $attackershields;
+
+  // *** ATTACKER TORPS ***
+  $attackertorps = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
+  if ($attackertorps > $playerinfo[torps]) $attackertorps = $playerinfo[torps]; 
+  $playerinfo[torps] -= $attackertorps;
+  $attackertorpdamage = $torp_dmg_rate * $attackertorps;
+
+  // *** ATTACKER FIGHTERS ***
+  $attackerfighters = $playerinfo[ship_fighters];
+
+  // *** ATTACKER ARMOUR ***
+  $attackerarmor = $playerinfo[armour_pts];
+
+  // *********************************
+  // **** BEGIN COMBAT PROCEDURES ****
+  // *********************************
+  if($attackerbeams > 0 && $targetfighters > 0)
+  {                         //******** ATTACKER HAS BEAMS - TARGET HAS FIGHTERS - BEAMS VS FIGHTERS ********
+    if($attackerbeams > $targetfighters)
+    {                                  //****** ATTACKER BEAMS GT TARGET FIGHTERS ******
+      $lost = $targetfighters;
+      $targetfighters = 0;                                     //**** T LOOSES ALL FIGHTERS ****
+      $attackerbeams = $attackerbeams-$lost;                   //**** A LOOSES BEAMS EQ TO T FIGHTERS ****
+    } else
+    {                                  //****** ATTACKER BEAMS LE TARGET FIGHTERS ******
+      $targetfighters = $targetfighters-$attackerbeams;        //**** T LOOSES FIGHTERS EQ TO A BEAMS ****
+      $attackerbeams = 0;                                      //**** A LOOSES ALL BEAMS ****
+    }   
+  }
+  if($attackerfighters > 0 && $targetbeams > 0)
+  {                         //******** TARGET HAS BEAMS - ATTACKER HAS FIGHTERS - BEAMS VS FIGHTERS ********
+    if($targetbeams > round($attackerfighters / 2))
+    {                                  //****** TARGET BEAMS GT HALF ATTACKER FIGHTERS ******
+      $lost=$attackerfighters-(round($attackerfighters/2));
+      $attackerfighters=$attackerfighters-$lost;               //**** A LOOSES HALF ALL FIGHTERS ****
+      $targetbeams=$targetbeams-$lost;                         //**** T LOOSES BEAMS EQ TO HALF A FIGHTERS ****
+    } else
+    {                                  //****** TARGET BEAMS LE HALF ATTACKER FIGHTERS ******
+      $attackerfighters=$attackerfighters-$targetbeams;        //**** A LOOSES FIGHTERS EQ TO T BEAMS **** 
+      $targetbeams=0;                                          //**** T LOOSES ALL BEAMS ****
+    }
+  }
+  if($attackerbeams > 0)
+  {                         //******** ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS ********
+    if($attackerbeams > $targetshields)
+    {                                  //****** ATTACKER BEAMS GT TARGET SHIELDS ******
+      $attackerbeams=$attackerbeams-$targetshields;            //**** A LOOSES BEAMS EQ TO T SHIELDS ****
+      $targetshields=0;                                        //**** T LOOSES ALL SHIELDS ****
+    } else
+    {                                  //****** ATTACKER BEAMS LE TARGET SHIELDS ******
+      $targetshields=$targetshields-$attackerbeams;            //**** T LOOSES SHIELDS EQ TO A BEAMS ****
+      $attackerbeams=0;                                        //**** A LOOSES ALL BEAMS ****
+    }
+  }
+  if($targetbeams > 0)
+  {                         //******** TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS ********
+    if($targetbeams > $attackershields)
+    {                                  //****** TARGET BEAMS GT ATTACKER SHIELDS ******
+      $targetbeams=$targetbeams-$attackershields;              //**** T LOOSES BEAMS EQ TO A SHIELDS ****
+      $attackershields=0;                                      //**** A LOOSES ALL SHIELDS ****
+    } else
+    {                                  //****** TARGET BEAMS LE ATTACKER SHIELDS ****** 
+      $attackershields=$attackershields-$targetbeams;          //**** A LOOSES SHIELDS EQ TO T BEAMS ****
+      $targetbeams=0;                                          //**** T LOOSES ALL BEAMS ****
+    }
+  }
+  if($targetbeams > 0)
+  {                        //******** TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR ******** 
+    if($targetbeams > $attackerarmor)
+    {                                 //****** TARGET BEAMS GT ATTACKER ARMOR ******
+      $targetbeams=$targetbeams-$attackerarmor;                //**** T LOOSES BEAMS EQ TO A ARMOR ****
+      $attackerarmor=0;                                        //**** A LOOSES ALL ARMOR (A DESTROYED) ****
+    } else
+    {                                 //****** TARGET BEAMS LE ATTACKER ARMOR ******
+      $attackerarmor=$attackerarmor-$targetbeams;              //**** A LOOSES ARMOR EQ TO T BEAMS ****
+      $targetbeams=0;                                          //**** T LOOSES ALL BEAMS ****
+    } 
+  }
+  if($targetfighters > 0 && $attackertorpdamage > 0)
+  {                        //******** ATTACKER FIRES TORPS - TARGET HAS FIGHTERS - TORPS VS FIGHTERS ********
+    if($attackertorpdamage > $targetfighters)
+    {                                 //****** ATTACKER FIRED TORPS GT TARGET FIGHTERS ******
+      $lost=$targetfighters;
+      $targetfighters=0;                                       //**** T LOOSES ALL FIGHTERS ****
+      $attackertorpdamage=$attackertorpdamage-$lost;           //**** A LOOSES FIRED TORPS EQ TO T FIGHTERS ****
+    } else
+    {                                 //****** ATTACKER FIRED TORPS LE HALF TARGET FIGHTERS ******
+      $targetfighters=$targetfighters-$attackertorpdamage;     //**** T LOOSES FIGHTERS EQ TO A TORPS FIRED ****
+      $attackertorpdamage=0;                                   //**** A LOOSES ALL TORPS FIRED ****
+    }
+  }
+  if($attackerfighters > 0 && $targettorpdmg > 0)
+  {                        //******** TARGET FIRES TORPS - ATTACKER HAS FIGHTERS - TORPS VS FIGHTERS ********
+    if($targettorpdmg > round($attackerfighters / 2))
+    {                                 //****** TARGET FIRED TORPS GT HALF ATTACKER FIGHTERS ******
+      $lost=$attackerfighters-(round($attackerfighters/2));
+      $attackerfighters=$attackerfighters-$lost;               //**** A LOOSES HALF ALL FIGHTERS ****
+      $targettorpdmg=$targettorpdmg-$lost;                     //**** T LOOSES FIRED TORPS EQ TO HALF A FIGHTERS ****
+    } else
+    {                                 //****** TARGET FIRED TORPS LE HALF ATTACKER FIGHTERS ******
+      $attackerfighters=$attackerfighters-$targettorpdmg;      //**** A LOOSES FIGHTERS EQ TO T TORPS FIRED ****
+      $targettorpdmg=0;                                        //**** T LOOSES ALL TORPS FIRED ****
+    }
+  }
+  if($targettorpdmg > 0)
+  {                        //******** TARGET FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR ********
+    if($targettorpdmg > $attackerarmor)
+    {                                 //****** TARGET FIRED TORPS GT HALF ATTACKER ARMOR ******
+      $targettorpdmg=$targettorpdmg-$attackerarmor;            //**** T LOOSES FIRED TORPS EQ TO A ARMOR ****
+      $attackerarmor=0;                                        //**** A LOOSES ALL ARMOR (A DESTROYED) ****
+    } else
+    {                                 //****** TARGET FIRED TORPS LE HALF ATTACKER ARMOR ******
+      $attackerarmor=$attackerarmor-$targettorpdmg;            //**** A LOOSES ARMOR EQ TO T TORPS FIRED ****
+      $targettorpdmg=0;                                        //**** T LOOSES ALL TORPS FIRED ****
+    } 
+  }
+  if($attackerfighters > 0 && $targetfighters > 0)
+  {                        //******** ATTACKER HAS FIGHTERS - TARGET HAS FIGHTERS - FIGHTERS VS FIGHTERS ********
+    if($attackerfighters > $targetfighters)
+    {                                 //****** ATTACKER FIGHTERS GT TARGET FIGHTERS ******
+      $temptargfighters=0;                                     //**** T WILL LOOSE ALL FIGHTERS ****
+    } else
+    {                                 //****** ATTACKER FIGHTERS LE TARGET FIGHTERS ******
+      $temptargfighters=$targetfighters-$attackerfighters;     //**** T WILL LOOSE FIGHTERS EQ TO A FIGHTERS ****
+    }
+    if($targetfighters > $attackerfighters)
+    {                                 //****** TARGET FIGHTERS GT ATTACKER FIGHTERS ******
+      $tempplayfighters=0;                                     //**** A WILL LOOSE ALL FIGHTERS ****
+    } else
+    {                                 //****** TARGET FIGHTERS LE ATTACKER FIGHTERS ******
+      $tempplayfighters=$attackerfighters-$targetfighters;     //**** A WILL LOOSE FIGHTERS EQ TO T FIGHTERS ****
+    }     
+    $attackerfighters=$tempplayfighters;
+    $targetfighters=$temptargfighters;
+  }
+  if($targetfighters > 0)
+  {                        //******** TARGET HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR ********
+    if($targetfighters > $attackerarmor)
+    {                                 //****** TARGET FIGHTERS GT ATTACKER ARMOR ******
+      $attackerarmor=0;                                        //**** A LOOSES ALL ARMOR (A DESTROYED) ****
+    } else
+    {                                 //****** TARGET FIGHTERS LE ATTACKER ARMOR ******
+      $attackerarmor=$attackerarmor-$targetfighters;           //**** A LOOSES ARMOR EQ TO T FIGHTERS ****
+    }
+  }
+
+  // *********************************
+  // **** FIX NEGATIVE VALUE VARS ****
+  // *********************************
+  if ($attackerfighters < 0) $attackerfighters = 0;
+  if ($attackertorps    < 0) $attackertorps = 0;
+  if ($attackershields  < 0) $attackershields = 0;
+  if ($attackerbeams    < 0) $attackerbeams = 0;
+  if ($attackerarmor    < 0) $attackerarmor = 0;
+  if ($targetfighters   < 0) $targetfighters = 0;
+  if ($targettorps      < 0) $targettorps = 0;
+  if ($targetshields    < 0) $targetshields = 0;
+  if ($targetbeams      < 0) $targetbeams = 0;
+
+  // ******************************************
+  // *** CHECK IF ATTACKER SHIP DESTROYED   ***
+  // ******************************************
+  if(!$attackerarmor>0)
+  {
+    playerlog($playerinfo[ship_id], LOG_RAW, "Ship destroyed by planetary defenses on planet $targetinfo[name]");
+    db_kill_player($playerinfo['ship_id']);
+    $furangeeisdead = 1;
+
+    $free_ore = round($playerinfo[ship_ore]/2);
+    $free_organics = round($playerinfo[ship_organics]/2);
+    $free_goods = round($playerinfo[ship_goods]/2);
+    $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $playerinfo[hull]))+round(pow($upgrade_factor, $playerinfo[engines]))+round(pow($upgrade_factor, $playerinfo[power]))+round(pow($upgrade_factor, $playerinfo[computer]))+round(pow($upgrade_factor, $playerinfo[sensors]))+round(pow($upgrade_factor, $playerinfo[beams]))+round(pow($upgrade_factor, $playerinfo[torp_launchers]))+round(pow($upgrade_factor, $playerinfo[shields]))+round(pow($upgrade_factor, $playerinfo[armor]))+round(pow($upgrade_factor, $playerinfo[cloak])));
+    $ship_salvage_rate=rand(10,20);
+    $ship_salvage=$ship_value*$ship_salvage_rate/100;
+    playerlog($planetinfo[owner], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Furangee $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+
+$fighters_lost = $planetinfo[fighters] - $planetfighters;
+
+    $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
+    $armor_lost = $targetinfo[armour_pts] - $targetarmor;
+    $fighters_lost = $targetinfo[ship_fighters] - $targetfighters;
+    $energy=$targetinfo[ship_energy];
+    $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$targettorpnum,armour_pts=armour_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$targetinfo[ship_id]");
+  
+  }
+
+
+// *** END OF FURANGEE PLANET ATTACK CODE ***
+
+
+}
+
 
 ?>
