@@ -11,7 +11,7 @@ CREATE TABLE nnews (
    headline varchar(100) NOT NULL,
    newstext text NOT NULL,
    user_id int(11),
-   date timestamp(14),
+   date timestamp(8),
    news_type varchar(10),
    PRIMARY KEY (news_id),
    KEY news_id (news_id),
@@ -35,32 +35,32 @@ $l_planets		  = " planets";
 $l_col  		  = " colonist";
 $l_cols		      = " colonists";
 $p_headline = "\'s Empire now has ";
-$p_text5		= "The rising empire of [name] now has five planets, <br>
+$p_text5		= "The rising empire of [name] now has five planets,
                    the BNN will watch the actions of [name] more closely
                    in the future!";
-$p_text10		= "The growing empire of [name] now controls ten planets, <br>
+$p_text10		= "The growing empire of [name] now controls ten planets,
                    Reports of BNN say that further expansion of [name]
                    might lead to war!";
-$p_text25		= "The huge empire of [name] colonized 25 planets already, <br>
+$p_text25		= "The huge empire of [name] colonized 25 planets already,
                    in an interview, [name] announced that he might consider slowing
                    down his expansion in the future!";
 $p_text50		= "The enormous vast empire of [name], represented by 50 planets
-                   in the whole galaxy is getting a threatening strength<br>. One
+                   in the whole galaxy is getting a threatening strength. One
                    of the BNN reporters found out that [name] is upgrading his
-                   ship planning a major war. <br>In an interview [name] announced
+                   ship planning a major war. In an interview [name] announced
                    that is done on defence purpose only!";
-$c_text25		= "The rising empire of [name] now has 25 million colonists, <br>
-                   the BNN will watch the actions of [name] more closely<br>
+$c_text25		= "The rising empire of [name] now has 25 million colonists,
+                   the BNN will watch the actions of [name] more closely
                    in the future, but its highly obvois that birthrates are going to explore!";
-$c_text100		= "The aspiring empire of [name] now has 100 million colonists, <br>
-                   After an explosion of birth rates [name] colonies seemed to be a good<br>
+$c_text100		= "The aspiring empire of [name] now has 100 million colonists,
+                   After an explosion of birth rates [name] colonies seemed to be a good
                    place for families to settle!";
-$c_text500		= "The large empire of [name] now has 500 million colonists, <br>
+$c_text500		= "The large empire of [name] now has 500 million colonists,
                    [name] said in an interview that colonization of the galaxy has
-                   just yet begun<br>";
-$c_text1000		= "The humongous empire of [name] now has one billion colonists, <br>
+                   just yet begun";
+$c_text1000		= "The humongous empire of [name] now has one billion colonists,
                    BNN reporters found out that [name] is in possesion of some
-                   weird cloning mechanism allowing him to breed new colonists<br>
+                   weird cloning mechanism allowing him to breed new colonists
                    in huge amounts. With this Amount of Colonists, the econmic strength
                    of this empire is enormous, BNN hopes that [name] does not spend
                    his money on warfare";
