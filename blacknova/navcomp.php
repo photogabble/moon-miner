@@ -25,13 +25,13 @@
     die();
   }
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
+	$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+	$playerinfo=$result->fields;
 	$current_sector = $playerinfo['sector'];
 	$computer_tech  = $playerinfo['computer'];
 
-	$result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$current_sector'");
-	$sectorinfo=mysql_fetch_array($result2);
+	$result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$current_sector'");
+	$sectorinfo=$result2->fields;
 
 	if ($state == 0)
 	{
@@ -69,11 +69,11 @@
 			{
 				$search_query = $search_query . "	,a". $i . ".link_dest \n";
 			}
-			$search_query = $search_query . "FROM\n	 links AS a1 \n";
+			$search_query = $search_query . "FROM\n	 $dbtables[links] AS a1 \n";
 
 			for ($i = 2; $i<=$search_depth;$i++)
 			{
-				$search_query = $search_query . "	,links AS a". $i . " \n";
+				$search_query = $search_query . "	,$dbtables[links] AS a". $i . " \n";
 			}
 			$search_query = $search_query . "WHERE \n	    a1.link_start = $current_sector \n";
 
@@ -101,8 +101,9 @@
 			}
 			$search_query = $search_query . " \nLIMIT 1";
 			#echo "$search_query\n\n";
-			$search_result = mysql_query ($search_query) or die ("Invalid Query");
-			$found = mysql_num_rows($search_result);
+			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+			$search_result = $db->Execute ($search_query) or die ("Invalid Query");
+			$found = $search_result->RecordCount();
 			if ($found > 0)
 			{
 				break;
@@ -113,12 +114,13 @@
 		if ($found > 0)
 		{
 			echo "<H3>$l_nav_pathfnd</H3>\n";
-			$links=mysql_fetch_array($search_result);
+      $links=$search_result->fields;
 			echo $links[0];
 			for ($i=1;$i<$search_depth+1;$i++)
 			{
 				echo " >> " . $links[$i];
 			}
+			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 			echo "<BR><BR>";
 			echo "$l_nav_answ1 $search_depth $l_nav_answ2<BR><BR>";
 		}

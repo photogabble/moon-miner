@@ -17,13 +17,11 @@ if(checklogin())
 //-------------------------------------------------------------------------------------------------
 
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
-$res = mysql_query("SELECT * from universe WHERE sector_id=$playerinfo[sector]");
-$sectorinfo = mysql_fetch_array($res);
-mysql_free_result($res);
-$result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id=$playerinfo[sector] ");
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
+$res = $db->Execute("SELECT * from $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+$sectorinfo = $res->fields;
+$result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id=$playerinfo[sector] ");
 //Put the defence information into the array "defenceinfo"
 $i = 0;
 $total_sector_fighters = 0;
@@ -35,9 +33,9 @@ $set_attack = 'CHECKED';
 $set_toll = '';
 if($result3 > 0)
 {
-   while($row = mysql_fetch_array($result3))
+   while(!$result3->EOF)
    {
-      $defences[$i] = $row;
+      $defences[$i] = $result3->fields;;
       if($defences[$i]['defence_type'] == 'F')
          $total_sector_fighters += $defences[$i]['quantity'];
       else
@@ -69,8 +67,8 @@ if($result3 > 0)
 
       }
       $i++;
+      $result3->MoveNext();
    }
-   mysql_free_result($result3);
 }
 $num_defences = $i;
 bigtitle();
@@ -81,9 +79,8 @@ if ($playerinfo[turns]<1)
 	include("footer.php");
 	die();
 }
-$res = mysql_query("SELECT allow_defenses,universe.zone_id,owner FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
-$zoneinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT allow_defenses,universe.zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
+$zoneinfo = $res->fields;
 if($zoneinfo[allow_defenses] == 'N')
 {
  echo "$l_mines_nopermit<BR><BR>";
@@ -95,9 +92,8 @@ else
       if(!$owns_all)
       {
          $defence_owner = $defences[0]['ship_id'];
-         $result2 = mysql_query("SELECT * from ships where ship_id=$defence_owner");
-         $fighters_owner = mysql_fetch_array($result2);
-         mysql_free_result($result2);
+         $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$defence_owner");
+         $fighters_owner = $result2->fields;
 
          if($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0)
          {
@@ -111,9 +107,8 @@ else
    if($zoneinfo[allow_defenses] == 'L')
    {
          $zone_owner = $zoneinfo['owner'];
-         $result2 = mysql_query("SELECT * from ships where ship_id=$zone_owner");
-         $zoneowner_info = mysql_fetch_array($result2);
-         mysql_free_result($result2);
+         $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$zone_owner");
+         $zoneowner_info = $result2->fields;
 
          if($zone_owner <> $playerinfo[ship_id])
          {
@@ -181,29 +176,29 @@ else
      {
         if($fighter_id != 0)
         {
-           $update = mysql_query("UPDATE sector_defence set quantity=quantity + $numfighters,fm_setting = '$mode' where defence_id = $fighter_id");
+           $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity + $numfighters,fm_setting = '$mode' where defence_id = $fighter_id");
         }
         else
         {
 
-           $update = mysql_query("INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
-           echo mysql_error();
+           $update = $db->Execute("INSERT INTO $dbtables[sector_defence] (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
+           echo $db->ErrorMsg();
         }
      }
      if($nummines > 0)
      {
         if($mine_id != 0)
         {
-           $update = mysql_query("UPDATE sector_defence set quantity=quantity + $nummines,fm_setting = '$mode' where defence_id = $mine_id");
+           $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity + $nummines,fm_setting = '$mode' where defence_id = $mine_id");
         }
         else
         {
-           $update = mysql_query("INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
+           $update = $db->Execute("INSERT INTO $dbtables[sector_defence] (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
 
         }
      }
 
-     $update = mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
+     $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
 
   }
 }

@@ -22,12 +22,10 @@ If(!isset($defence_id))
    die();
 }
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
-$res = mysql_query("SELECT * from universe WHERE sector_id=$playerinfo[sector]");
-$sectorinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
+$res = $db->Execute("SELECT * from $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+$sectorinfo = $res->fields;
 
 if ($playerinfo[turns]<1)
 {
@@ -37,7 +35,7 @@ if ($playerinfo[turns]<1)
 	die();
 }
 
-$result3 = mysql_query ("SELECT * FROM sector_defence WHERE defence_id=$defence_id ");
+$result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE defence_id=$defence_id ");
 //Put the defence information into the array "defenceinfo"
 
 if($result3 == 0)
@@ -46,7 +44,7 @@ if($result3 == 0)
    TEXT_GOTOMAIN();
    die();
 }
-$defenceinfo = mysql_fetch_array($result3);
+$defenceinfo = $result3->fields;
 if($defenceinfo['sector_id'] <> $playerinfo['sector'])
 {
    echo "$l_md_nothere<BR><BR>";
@@ -61,8 +59,8 @@ if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
 else
 {
    $defence_ship_id = $defenceinfo['ship_id'];
-   $resulta = mysql_query ("SELECT * FROM ships WHERE ship_id = $defence_ship_id ");
-   $ownerinfo = mysql_fetch_array($resulta);
+   $resulta = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id = $defence_ship_id ");
+   $ownerinfo = $resulta->fields;
    $defence_owner = $ownerinfo['character_name'];
 }
 $defence_type = $defenceinfo['defence_type'] == 'F' ? $l_fighters : $l_mines;
@@ -91,16 +89,16 @@ switch($response) {
       $sector = $playerinfo[sector] ;
       if($defenceinfo['defence_type'] == 'F')
       {
-         $countres = mysql_query("SELECT SUM(quantity) as totalfighters FROM sector_defence where sector_id = $sector and defence_type = 'F'");
-         $ttl = mysql_fetch_array($countres);
+         $countres = $db->Execute("SELECT SUM(quantity) as totalfighters FROM $dbtables[sector_defence] where sector_id = $sector and defence_type = 'F'");
+         $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
          include("sector_fighters.php");
       }
       else
       {
           // Attack mines goes here
-         $countres = mysql_query("SELECT SUM(quantity) as totalmines FROM sector_defence where sector_id = $sector and defence_type = 'M'");
-         $ttl = mysql_fetch_array($countres);
+         $countres = $db->Execute("SELECT SUM(quantity) as totalmines FROM $dbtables[sector_defence] where sector_id = $sector and defence_type = 'M'");
+         $ttl = $countres->fields;
          $total_sector_mines = $ttl['totalmines'];
          $playerbeams = NUM_BEAMS($playerinfo[beams]);
          if($playerbeams>$playerinfo[ship_energy])
@@ -112,7 +110,7 @@ switch($response) {
             $playerbeams=$total_sector_mines;
          }
          echo "$l_md_bmines $playerbeams $l_mines<BR>";
-         $update4b = mysql_query ("UPDATE ships SET ship_energy=energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
+         $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
          explode_mines($sector,$playerbeams);
          $char_name = $playerinfo['character_name'];
          $l_md_msgdownerb=str_replace("[sector]",$sector,$l_md_msgdownerb);
@@ -155,20 +153,20 @@ switch($response) {
       $ship_id = $playerinfo[ship_id];
       if($quantity > 0)
       {
-         mysql_query("UPDATE sector_defence SET quantity=quantity - $quantity WHERE defence_id = $defence_id");
+         $db->Execute("UPDATE $dbtables[sector_defence] SET quantity=quantity - $quantity WHERE defence_id = $defence_id");
          if($defenceinfo['defence_type'] == 'M')
          {
-            mysql_query("UPDATE ships set torps=torps + $quantity where ship_id = $ship_id");
+            $db->Execute("UPDATE $dbtables[ships] set torps=torps + $quantity where ship_id = $ship_id");
          }
          else
          {
-            mysql_query("UPDATE ships set ship_fighters=ship_fighters + $quantity where ship_id = $ship_id");
+            $db->Execute("UPDATE $dbtables[ships] set ship_fighters=ship_fighters + $quantity where ship_id = $ship_id");
          }
-         mysql_query("DELETE FROM sector_defence WHERE quantity <= 0");
+         $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE quantity <= 0");
       }
       $stamp = date("Y-m-d H-i-s");
 
-      mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
       bigtitle();
       echo "$l_md_retr $quantity $defence_type.<BR>";
       TEXT_GOTOMAIN();
@@ -183,9 +181,9 @@ switch($response) {
          include("footer.php");
          die();
       }
-      mysql_query("UPDATE sector_defence SET fm_setting = '$mode' where defence_id = $defence_id");
+      $db->Execute("UPDATE $dbtables[sector_defence] SET fm_setting = '$mode' where defence_id = $defence_id");
       $stamp = date("Y-m-d H-i-s");
-      mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
       if($mode == 'attack')
         $mode = $l_md_attack;
       else
@@ -226,9 +224,8 @@ switch($response) {
       else
       {
          $ship_id = $defenceinfo['ship_id'];
-         $result2 = mysql_query("SELECT * from ships where ship_id=$ship_id");
-         $fighters_owner = mysql_fetch_array($result2);
-         mysql_free_result($result2);
+         $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$ship_id");
+         $fighters_owner = $result2->fields;
 
          if($fighters_owner[team] != $playerinfo[team] || $playerinfo[team] == 0)
          {
