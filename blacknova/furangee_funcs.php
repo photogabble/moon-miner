@@ -17,6 +17,7 @@ function furangeetoship($ship_id)
   global $upgrade_cost;
   global $upgrade_factor;
   global $sector_max;
+  global $furangeeisdead;
   global $db, $dbtables;
 
   // *********************************
@@ -24,9 +25,9 @@ function furangeetoship($ship_id)
   // *********************************
   $sectres = $db->Execute ("SELECT sector_id,zone_id FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
   $sectrow = $sectres->fields;
-  $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[1]");
+  $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[zone_id]");
   $zonerow = $zoneres->fields;
-  if ($zonerow[1]=="N")                        //*** DEST LINK MUST ALLOW ATTACKING ***
+  if ($zonerow[allow_attack]=="N")                        //*** DEST LINK MUST ALLOW ATTACKING ***
   {
     playerlog($playerinfo[ship_id], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks."); 
     return;
@@ -368,6 +369,7 @@ function furangeetoship($ship_id)
   {
     playerlog($playerinfo[ship_id], LOG_RAW, "$targetinfo[character_name] destroyed your ship!"); 
     db_kill_player($playerinfo['ship_id']);
+    $furangeeisdead = 1;
     if($targetarmor>0)
     {
       // ****** TARGET STILL ALIVE TO SALVAGE ATTACKER ******
@@ -431,6 +433,214 @@ function furangeetoship($ship_id)
   $db->Execute("UNLOCK TABLES");
 }
 
+function furangeetosecdef()
+{
+  // **********************************
+  // *** FURANGEE TO SECTOR DEFENCE ***
+  // **********************************
+
+  // *********************************
+  // *** SETUP GENERAL VARIABLES  ****
+  // *********************************
+  global $playerinfo;
+  global $targetlink;
+  global $furangeeisdead;
+  global $db, $dbtables;
+
+  // *********************************
+  // *** CHECK FOR SECTOR DEFENCE ****
+  // *********************************
+  if ($targetlink>0)
+  {
+    $resultf = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
+    $i = 0;
+    $total_sector_fighters = 0;
+    if($resultf > 0)
+    {
+      while(!$resultf->EOF)
+      {
+        $defences[$i] = $resultf->fields;
+        $total_sector_fighters += $defences[$i]['quantity'];
+        $i++;
+        $resultf->MoveNext();
+      }
+    }
+    $resultm = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$targetlink' and defence_type ='M'");
+    $i = 0;
+    $total_sector_mines = 0;
+    if($resultm > 0)
+    {
+      while(!$resultm->EOF)
+      {
+        $defences[$i] = $resultm->fields;
+        $total_sector_mines += $defences[$i]['quantity'];
+        $i++;
+        $resultm->MoveNext();
+      }
+    }
+    if ($total_sector_fighters>0 || $total_sector_mines>0 || ($total_sector_fighters>0 && $total_sector_mines>0))
+    //*** DEST LINK HAS DEFENCES SO LETS ATTACK THEM***
+    {
+      playerlog($playerinfo[ship_id], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines."); 
+      // ************************************
+      // *** LETS GATHER COMBAT VARIABLES ***
+      // ************************************
+      $targetfighters = $total_sector_fighters;
+      $playerbeams = NUM_BEAMS($playerinfo[beams]);
+      if($playerbeams>$playerinfo[ship_energy]) {
+        $playerbeams=$playerinfo[ship_energy];
+      }
+      $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
+      $playershields = NUM_SHIELDS($playerinfo[shields]);
+      if($playershields>$playerinfo[ship_energy]) {
+        $playershields=$playerinfo[ship_energy];
+      }
+      $playertorpnum = round(pow($level_factor,$playerinfo[torp_launchers]))*2;
+      if($playertorpnum > $playerinfo[torps]) {
+        $playertorpnum = $playerinfo[torps];
+      }
+      $playertorpdmg = $torp_dmg_rate*$playertorpnum;
+      $playerarmour = $playerinfo[armour_pts];
+      $playerfighters = $playerinfo[ship_fighters];
+      $totalmines = $total_sector_mines;
+      if ($totalmines>1) {
+        $roll = rand(1,$totalmines);
+      } else {
+        $roll = 1;
+      }
+      $totalmines = $totalmines - $roll;
+      $playerminedeflect = $playerinfo[ship_fighters]; // *** Furangee keep as many deflectors as fighters ***
+
+      // *****************************
+      // *** LETS DO SOME COMBAT ! ***
+      // *****************************
+      // *** BEAMS VS FIGHTERS ***
+      if($targetfighters > 0 && $playerbeams > 0) {
+        if($playerbeams > round($targetfighters / 2))
+        {
+          $temp = round($targetfighters/2);
+          $targetfighters = $temp;
+          $playerbeams = $playerbeams-$temp;
+        } else {
+          $targetfighters = $targetfighters-$playerbeams;
+          $playerbeams = 0;
+        }   
+      }
+      // *** TORPS VS FIGHTERS ***
+      if($targetfighters > 0 && $playertorpdmg > 0) {
+        if($playertorpdmg > round($targetfighters / 2)) {
+          $temp=round($targetfighters/2);
+          $targetfighters=$temp;
+          $playertorpdmg=$playertorpdmg-$temp;
+        } else {
+          $targetfighters=$targetfighters-$playertorpdmg;
+          $playertorpdmg=0;
+        }
+      }
+      // *** FIGHTERS VS FIGHTERS ***
+      if($playerfighters > 0 && $targetfighters > 0) {
+       if($playerfighters > $targetfighters) {
+         echo $l_sf_destfightall;
+         $temptargfighters=0;
+        } else {
+          $temptargfighters=$targetfighters-$playerfighters;
+        }
+        if($targetfighters > $playerfighters) {
+          $tempplayfighters=0;
+        } else {
+          $tempplayfighters=$playerfighters-$targetfighters;
+        }     
+        $playerfighters=$tempplayfighters;
+        $targetfighters=$temptargfighters;
+      }
+      // *** OH NO THERE ARE STILL FIGHTERS **
+      // *** ARMOUR VS FIGHTERS ***
+      if($targetfighters > 0) {
+        if($targetfighters > $playerarmour) {
+          $playerarmour=0;
+        } else {
+          $playerarmour=$playerarmour-$targetfighters;
+        } 
+      }
+      // *** GET RID OF THE SECTOR FIGHTERS THAT DIED ***
+      $fighterslost = $total_sector_fighters - $targetfighters;
+      destroy_fighters($targetlink,$fighterslost);
+
+      // *** LETS LET DEFENCE OWNER KNOW WHAT HAPPENED *** 
+      $l_sf_sendlog = str_replace("[player]", "Furangee " . $playerinfo[character_name], $l_sf_sendlog);
+      $l_sf_sendlog = str_replace("[lost]", $fighterslost, $l_sf_sendlog);
+      $l_sf_sendlog = str_replace("[sector]", $targetlink, $l_sf_sendlog);
+      message_defence_owner($targetlink,$l_sf_sendlog);
+
+      // *** UPDATE FURANGEE AFTER COMBAT ***
+      $armour_lost=$playerinfo[armour_pts]-$playerarmour;
+      $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
+      $energy=$playerinfo[ship_energy];
+      $update1 = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
+
+      // *** CHECK TO SEE IF FURANGEE IS DEAD ***
+      if($playerarmour < 1) {
+        $l_sf_sendlog2 = str_replace("[player]", "Furangee " . $playerinfo[character_name], $l_sf_sendlog2);
+        $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
+        message_defence_owner($targetlink,$l_sf_sendlog2);
+        cancel_bounty($playerinfo[ship_id]);
+        db_kill_player($playerinfo['ship_id']);
+        $furangeeisdead = 1;
+        return;
+      }
+
+      // *** OK FURANGEE MUST STILL BE ALIVE ***
+
+      // *** NOW WE HIT THE MINES ***
+
+      // *** LETS LOG THE FACT THAT WE HIT THE MINES ***
+      $l_chm_hehitminesinsector = str_replace("[chm_playerinfo_character_name]", "Furangee " . $playerinfo[character_name], $l_chm_hehitminesinsector);
+      $l_chm_hehitminesinsector = str_replace("[chm_roll]", $roll, $l_chm_hehitminesinsector);
+      $l_chm_hehitminesinsector = str_replace("[chm_sector]", $targetlink, $l_chm_hehitminesinsector);
+      message_defence_owner($targetlink,"$l_chm_hehitminesinsector");
+
+      // *** DEFLECTORS VS MINES ***
+      if($playerminedeflect >= $roll) {
+        // Took no mine damage due to virtual mine deflectors
+      } else {
+        $mines_left = $roll - $playerminedeflect;
+
+        // *** SHIELDS VS MINES ***
+        if($playershields >= $mines_left) {
+          $update2 = $db->Execute("UPDATE $dbtables[ships] set ship_energy=ship_energy-$mines_left where ship_id=$playerinfo[ship_id]");
+        } else {
+          $mines_left = $mines_left - $playershields;
+
+          // *** ARMOUR VS MINES ***
+          if($playerarmour >= $mines_left)
+          {
+            $update2 = $db->Execute("UPDATE $dbtables[ships] set armour_pts=armour_pts-$mines_left,ship_energy=0 where ship_id=$playerinfo[ship_id]");
+          } else {
+            // *** OH NO WE DIED ***
+            // *** LETS LOG THE FACT THAT WE DIED *** 
+            $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", "Furangee " . $playerinfo[character_name], $l_chm_hewasdestroyedbyyourmines);
+            $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $targetlink, $l_chm_hewasdestroyedbyyourmines);
+            message_defence_owner($targetlink,"$l_chm_hewasdestroyedbyyourmines");
+            // *** LETS ACTUALLY KILL THE FURANGEE NOW ***
+            cancel_bounty($playerinfo[ship_id]);
+            db_kill_player($playerinfo['ship_id']);
+            $furangeeisdead = 1;
+            // *** LETS GET RID OF THE MINES NOW AND RETURN OUT OF THIS FUNCTION ***
+            explode_mines($targetlink,$roll);
+            return;
+          }
+        }
+      }
+      // *** LETS GET RID OF THE MINES NOW ***
+      explode_mines($targetlink,$roll);
+    } else {
+      //*** FOR SOME REASON THIS WAS CALLED WITHOUT ANY SECTOR DEFENCES TO ATTACK ***
+      return;
+    }
+  }
+}
+
+
 function furangeemove()
 {
   // *********************************
@@ -439,6 +649,7 @@ function furangeemove()
   global $playerinfo;
   global $sector_max;
   global $targetlink;
+  global $furangeeisdead;
   global $db, $dbtables;
 
   // *********************************
@@ -454,9 +665,9 @@ function furangeemove()
       // *** OBTAIN SECTOR INFORMATION ***
       $sectres = $db->Execute ("SELECT sector_id,zone_id FROM $dbtables[universe] WHERE sector_id='$row[link_dest]'");
       $sectrow = $sectres->fields;
-      $zoneres = $db->Execute("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[1]");
+      $zoneres = $db->Execute("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[zone_id]");
       $zonerow = $zoneres->fields;
-      if ($zonerow[1]=="Y")                        //*** DEST LINK MUST ALLOW ATTACKING ***
+      if ($zonerow[allow_attack]=="Y")                        //*** DEST LINK MUST ALLOW ATTACKING ***
       {
         $setlink=rand(0,2);                        //*** 33% CHANCE OF REPLACING DEST LINK WITH THIS ONE ***
         if ($setlink==0 || !$targetlink>0)          //*** UNLESS THERE IS NO DEST LINK, CHHOSE THIS ONE ***
@@ -483,9 +694,9 @@ function furangeemove()
       // *** OBTAIN SECTOR INFORMATION ***
       $sectres = $db->Execute ("SELECT sector_id,zone_id FROM $dbtables[universe] WHERE sector_id='$wormto'");
       $sectrow = $sectres->fields;
-      $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[1]");
+      $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[zone_id]");
       $zonerow = $zoneres->fields;
-      if ($zonerow[1]=="Y")
+      if ($zonerow[allow_attack]=="Y")
       {
         $targetlink=$wormto;
         playerlog($playerinfo[ship_id], LOG_RAW, "Used a wormhole to warp to a zone where attacks are allowed."); 
@@ -530,8 +741,14 @@ function furangeemove()
     if ($total_sector_fighters>0 || $total_sector_mines>0 || ($total_sector_fighters>0 && $total_sector_mines>0))
     //*** DEST LINK HAS DEFENCES ***
     {
-      playerlog($playerinfo[ship_id], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines."); 
-      return;
+      if ($playerinfo[aggression] == 2 || $playerinfo[aggression] == 1) {
+        // *** ATTACK SECTOR DEFENCES ***
+        furangeetosecdef();
+        return;
+      } else {
+        playerlog($playerinfo[ship_id], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines."); 
+        return;
+      }
     }
   }
 
@@ -555,6 +772,7 @@ function furangeemove()
   } else
   {                                            //*** WE HAVE NO TARGET LINK FOR SOME REASON ***
     playerlog($playerinfo[ship_id], LOG_RAW, "Move failed due to lack of target link.");
+    $targetlink = $playerinfo[sector];         //*** RESET TARGET LINK SO IT IS NOT ZERO ***
   }
 }
 
@@ -564,6 +782,7 @@ function furangeeregen()
   // *** SETUP GENERAL VARIABLES ***
   // *******************************
   global $playerinfo;
+  global $furangeeisdead;
   global $db, $dbtables;
 
   // *******************************
@@ -661,6 +880,7 @@ function furangeetrade()
   global $organics_price;
   global $organics_delta;
   global $organics_limit;
+  global $furangeeisdead;
   global $db, $dbtables;
 
   // *********************************
@@ -829,6 +1049,7 @@ function furangeehunter()
   // *** SETUP GENERAL VARIABLES  ****
   // *********************************
   global $playerinfo;
+  global $furangeeisdead;
   global $db, $dbtables;
 
   $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM $dbtables[ships] WHERE ship_destroyed='N' and planet_id=0 and email NOT LIKE '%@furangee'");
@@ -860,10 +1081,10 @@ function furangeehunter()
   // *********************************
   $sectres = $db->Execute ("SELECT sector_id,zone_id FROM $dbtables[universe] WHERE sector_id='$targetinfo[sector]'");
   $sectrow = $sectres->fields;
-  $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[1]");
+  $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[zone_id]");
   $zonerow = $zoneres->fields;
   // *** ONLY WORM HOLM TO TARGET IF WE CAN ATTACK IN TARGET SECTOR ***
-  if ($zonerow[1]=="Y")
+  if ($zonerow[allow_attack]=="Y")
   {
     $stamp = date("Y-m-d H-i-s");
     $query="UPDATE $dbtables[ships] SET last_login='$stamp', turns_used=turns_used+1, sector=$targetinfo[sector] where ship_id=$playerinfo[ship_id]";
