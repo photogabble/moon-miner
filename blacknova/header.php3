@@ -1,5 +1,5 @@
 <? header("Cache-Control: no-cache, must-revalidate");
-
+// Comment out the line below if you are running php 4.0.6 or earlier
 ob_start("ob_gzhandler");
 
 ?>

@@ -20,10 +20,6 @@ INSTALLATION
    On UNIX and Linux, you can achieve this by using cron to call lynx to access 
    the pages at specified times.
 
-   A third job simply updates the time stamp of a file called cron.txt to let the
-   game know when the last update was run. The touch command can do this on Unix / Linux.
-   This file needs to reside in the directory containing the game scripts.
-   
 
    A sample crontab follows:
 
@@ -53,6 +49,12 @@ INSTALLATION
    directory.
 
 7. Hopefully - it works now. :)
+
+
+If you are running php version 4.0.6 or earlier, you will need to comment out 
+a line in header.php3 - its one of the first few lines and starts with ob.
+There is a comment indicating the line.
+PHP 4.0.6 has a memory leak bug.
 
 
 BUG REPORTS AND SUPPORT
