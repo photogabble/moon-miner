@@ -23,7 +23,6 @@
            { 
               $roll = 1;
            }
-           $roll = rand(1,$sectorinfo[mines]);
            $totalmines = $totalmines - $roll;
            echo "You hit $roll mines!<BR>";
            playerlog($playerinfo[ship_id],"You hit $roll mines in sector $sector.");
