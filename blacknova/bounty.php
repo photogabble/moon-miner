@@ -15,252 +15,244 @@ if(checklogin())
 
 //-------------------------------------------------------------------------------------------------
 
-If(!isset($defence_id))
-{
-   echo "$l_md_invalid<BR>";
-   TEXT_GOTOMAIN();
-   die();
-}
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
-if ($playerinfo[turns]<1 && isset($response))
-{
+
+
+
+
+
+switch($response) {
+   case "display":
+      bigtitle();
+      $res5 = $db->Execute("SELECT * FROM $dbtables[ships],$dbtables[bounty] WHERE bounty_on = ship_id");
+      $j = 0;
+      if($res)
+      {
+         while(!$res5->EOF)
+         {
+            $bounty_details[$j] = $res5->fields;
+            $j++;
+            $res5->MoveNext();
+         } 
+      }
+
+      $num_details = $j;
+      if($num_bounties < 1)
+      {
+         echo "$l_by_nobounties<BR>";
+      }
+      else
+      {
+         echo "$l_by_bountyon " . $bounty_details[$j][character_name];
+         echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
+         echo "<TR BGCOLOR=\"$color_header\">";
+         echo "<TD><B>$l_amount</TD>";
+         echo "<TD><B>$l_by_placedby</TD>";
+         echo "<TD></TD>";
+         echo "</TR>";
+         $color = $color_line1;
+         for($j=0; $j<$num_details; $j++)
+         {
+            $someres = $db->execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id = " . $bounty_details[$j][placed_by]);
+            $details = $someres->fields;
+            echo "<TR BGCOLOR=\"$color\">";
+            echo "<TD>" . $bounty_details[$i]['amount'] . "</TD>";
+            if($bounty_details[$j][placed_by] == 0)
+            {
+               echo "<TD>$l_by_thefeds</TD>";
+            }
+            else
+            {
+               echo "<TD>" . $details['character_name'] . "</TD>";
+            }
+            if($bounty_details[$j][placed_by] == $playerinfo[ship_id])
+            {
+               echo "<TD><A HREF=bounty.php?bid=" . $bounty_details[$j][bounty_id] . "&response=cancel>$l_by_cancel</A></TD>";
+            }
+            else
+            {
+               echo "<TD> </TD>";
+            }
+          
+            echo "</TR>";
+
+            if($color == $color_line1)
+            {
+               $color = $color_line2;
+            }
+            else
+            {
+               $color = $color_line1;
+            }
+         }
+         echo "</TABLE>";
+      }
+      break;
+   case "cancel":
+      bigtitle();
+      if ($playerinfo[turns]<1 )
+      {
 	echo "$l_by_noturn<BR><BR>";
 	TEXT_GOTOMAIN();
 	include("footer.php");
 	die();
-}
-
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
-
-echo "<FORM ACTION=bounty.php METHOD=POST>";
-echo "<TABLE>";
-echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
-while(!$res->EOF)
-{
-  if(isset($bountyon) && $bountyon == $res->fields[ship_id])
-    $selected = "selected";
-  else
-    $selected = "";
-
-  echo "<OPTION VALUE=$res->fields[ship_id] $selected>$res->fields[character_name]</OPTION>";
-  $res->MoveNext();
-}
-echo "</SELECT></TD></TR>";
-echo "<TR><TD>$l_by_amount:</TD><TD><INPUT TYPE=TEXT NAME=amount SIZE=20 MAXLENGTH=20></TD></TR>";
-echo "<TR><TD></TD><TD><INPUT TYPE=SUBMIT VALUE=$l_by_place><INPUT TYPE=RESET VALUE=Clear></TD>";
-echo "</TABLE>";
-echo "<input type=hidden name=response value=place>";
-echo "</FORM>";
-
-
-$result3 = $db->Execute ("SELECT bounty_on, SUM(amount) FROM $dbtables[bounty] GROUP BY bounty_on");
-
-if($result3 == 0)
-{
-   echo "$l_by_nobounties<BR>";
-   TEXT_GOTOMAIN();
-   die();
-}
-$defenceinfo = $result3->fields;
-if($defenceinfo['sector_id'] <> $playerinfo['sector'])
-{
-   echo "$l_md_nothere<BR><BR>";
-   TEXT_GOTOMAIN();
-   include("footer.php");
-   die();
-}
-if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
-{
-   $defence_owner = $l_md_you;
-}
-else
-{
-   $defence_ship_id = $defenceinfo['ship_id'];
-   $resulta = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id = $defence_ship_id ");
-   $ownerinfo = $resulta->fields;
-   $defence_owner = $ownerinfo['character_name'];
-}
-$defence_type = $defenceinfo['defence_type'] == 'F' ? $l_fighters : $l_mines;
-$qty = $defenceinfo['quantity'];
-if($defenceinfo['fm_setting'] == 'attack')
-{
-   $set_attack = 'CHECKED';
-   $set_toll = '';
-}
-else
-{
-   $set_attack = '';
-   $set_toll = 'CHECKED';
-}
-
-switch($response) {
-   case "fight":
-      bigtitle();
-      if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
-      {
-         echo "$l_md_yours<BR><BR>";
-         TEXT_GOTOMAIN();
-         include("footer.php");
-         die();
       }
-      $sector = $playerinfo[sector] ;
-      if($defenceinfo['defence_type'] == 'F')
+      
+      $res = $db->Execute("SELECT * from $dbtables[bounty] WHERE bounty_id = $bid");
+      if(!res)
       {
-         $countres = $db->Execute("SELECT SUM(quantity) as totalfighters FROM $dbtables[sector_defence] where sector_id = $sector and defence_type = 'F'");
-         $ttl = $countres->fields;
-         $total_sector_fighters = $ttl['totalfighters'];
-         include("sector_fighters.php");
+      	echo "$l_by_nobounty<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php");
+	die();
       }
-      else
+      $bty = $res->fields;
+      if($bty[placed_by] <> $playerinfo[ship_id])
       {
-          // Attack mines goes here
-         $countres = $db->Execute("SELECT SUM(quantity) as totalmines FROM $dbtables[sector_defence] where sector_id = $sector and defence_type = 'M'");
-         $ttl = $countres->fields;
-         $total_sector_mines = $ttl['totalmines'];
-         $playerbeams = NUM_BEAMS($playerinfo[beams]);
-         if($playerbeams>$playerinfo[ship_energy])
-         {
-            $playerbeams=$playerinfo[ship_energy];
-         }
-         if($playerbeams>$total_sector_mines)
-         {
-            $playerbeams=$total_sector_mines;
-         }
-         echo "$l_md_bmines $playerbeams $l_mines<BR>";
-         $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
-         explode_mines($sector,$playerbeams);
-         $char_name = $playerinfo['character_name'];
-         $l_md_msgdownerb=str_replace("[sector]",$sector,$l_md_msgdownerb);
-         $l_md_msgdownerb=str_replace("[mines]",$playerbeams,$l_md_msgdownerb);
-         $l_md_msgdownerb=str_replace("[name]",$char_name,$l_md_msgdownerb);
-         message_defence_owner($sector,"$l_md_msgdownerb");
-         TEXT_GOTOMAIN();
-         die();
+      	echo "$l_by_notyours<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php");
+	die();
       }
-      break;
-   case "retrieve":
-      if($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
-      {
-         echo "$l_md_notyours<BR><BR>";
-         TEXT_GOTOMAIN();
-         include("footer.php");
-         die();
-      }
-      if($quantity < 0) $quantity = 0;
-      $quantity = stripnum($quantity);
-      if($quantity > $defenceinfo['quantity'])
-      {
-         $quantity = $defenceinfo['quantity'];
-      }
-      $torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
-      $fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
-      if($defenceinfo['defence_type'] == 'F')
-      {
-         if($quantity > $fighter_max)
-         {
-            $quantity = $fighter_max;
-         }
-      }
-      if($defenceinfo['defence_type'] == 'M')
-      {
-         if($quantity > $torpedo_max)
-         {
-            $quantity = $torpedo_max;
-         }
-      }
-      $ship_id = $playerinfo[ship_id];
-      if($quantity > 0)
-      {
-         $db->Execute("UPDATE $dbtables[sector_defence] SET quantity=quantity - $quantity WHERE defence_id = $defence_id");
-         if($defenceinfo['defence_type'] == 'M')
-         {
-            $db->Execute("UPDATE $dbtables[ships] set torps=torps + $quantity where ship_id = $ship_id");
-         }
-         else
-         {
-            $db->Execute("UPDATE $dbtables[ships] set ship_fighters=ship_fighters + $quantity where ship_id = $ship_id");
-         }
-         $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE quantity <= 0");
-      }
+      $del = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $bid");      
       $stamp = date("Y-m-d H-i-s");
-
-      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
-      bigtitle();
-      echo "$l_md_retr $quantity $defence_type.<BR>";
+      $refund = $bty['amount'];
+      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund where ship_id=$playerinfo[ship_id]");
+      echo "$l_by_canceled<BR>";
       TEXT_GOTOMAIN();
       die();
       break;
-   case "change":
+   case "place":
       bigtitle();
-      if($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
+      if ($playerinfo[turns]<1 )
       {
-         echo "$l_md_notyours<BR><BR>";
+	echo "$l_by_noturn<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php");
+	die();
+      }
+      $amount = stripnum($amount);
+      if($amount < 0)
+      {
+         echo "$l_by_zeroamount<BR><BR>";
          TEXT_GOTOMAIN();
          include("footer.php");
          die();
       }
-      $db->Execute("UPDATE $dbtables[sector_defence] SET fm_setting = '$mode' where defence_id = $defence_id");
+      if($bounty_on == $playerinfo['ship_id'])
+      {
+         echo "$l_by_yourself<BR><BR>";
+         TEXT_GOTOMAIN();
+         include("footer.php");
+         die();
+      }
+      if($amount > $playerinfo['credits'])
+      {
+         echo "$l_by_notenough<BR><BR>";
+         TEXT_GOTOMAIN();
+         include("footer.php");
+         die();
+      }
+      if($bounty_maxvalue != 0)
+      {
+         $percent = $bounty_maxvalue * 100;
+         $score = gen_score($playerinfo[ship_id]);
+         $maxtrans = $score * $score * $bounty_maxvalue;
+
+         if($amount > $maxtrans)
+         {   
+            echo "$l_by_toomuch<BR><BR>";
+            TEXT_GOTOMAIN();
+            include("footer.php");
+            die();
+         }
+
+      }
+      $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($bounty_on,$playerinfo[ship_id],$amount)");      
       $stamp = date("Y-m-d H-i-s");
-      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
-      if($mode == 'attack')
-        $mode = $l_md_attack;
-      else
-        $mode = $l_md_toll;
-      $l_md_mode=str_replace("[mode]",$mode,$l_md_mode);
-      echo "$l_md_mode<BR>";
+      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount where ship_id=$playerinfo[ship_id]");
+      echo "$l_by_placed<BR>";
       TEXT_GOTOMAIN();
       die();
       break;
    default:
       bigtitle();
-      $l_md_consist=str_replace("[qty]",$qty,$l_md_consist);
-      $l_md_consist=str_replace("[type]",$defence_type,$l_md_consist);
-      $l_md_consist=str_replace("[owner]",$defence_owner,$l_md_consist);
-      echo "$l_md_consist<BR>";
+      $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
 
-      if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
+      echo "<FORM ACTION=bounty.php METHOD=POST>";
+      echo "<TABLE>";
+      echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
+      while(!$res->EOF)
       {
-         echo "$l_md_youcan:<BR>";
-         echo "<FORM ACTION=modify-defences.php METHOD=POST>";
-         echo "$l_md_retrieve <INPUT TYPE=TEST NAME=quantity SIZE=10 MAXLENGTH=10 VALUE=0></INPUT> $defence_type<BR>";
-         echo "<input type=hidden name=response value=retrieve>";
-         echo "<input type=hidden name=defence_id value=$defence_id>";
-         echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><BR><BR>";
-         echo "</FORM>";
-         if($defenceinfo['defence_type'] == 'F')
+         if(isset($bountyon) && $bountyon == $res->fields[ship_id])
+            $selected = "selected";
+         else
+            $selected = "";
+
+         echo "<OPTION VALUE=$res->fields[ship_id] $selected>$res->fields[character_name]</OPTION>";
+         $res->MoveNext();
+      }
+      echo "</SELECT></TD></TR>";
+      echo "<TR><TD>$l_by_amount:</TD><TD><INPUT TYPE=TEXT NAME=amount SIZE=20 MAXLENGTH=20></TD></TR>";
+      echo "<TR><TD></TD><TD><INPUT TYPE=SUBMIT VALUE=$l_by_place><INPUT TYPE=RESET VALUE=Clear></TD>";
+      echo "</TABLE>";
+      echo "<input type=hidden name=response value=place>";
+      echo "</FORM>";
+
+
+      $result3 = $db->Execute ("SELECT bounty_on, SUM(amount) as total_bounty FROM $dbtables[bounty] GROUP BY bounty_on");
+
+      $i = 0;
+      if($res)
+      {
+         while(!$result3->EOF)
          {
-            echo "$l_md_change:<BR>";
-            echo "<FORM ACTION=modify-defences.php METHOD=POST>";
-            echo "$l_md_cmode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_md_attack</INPUT>";
-            echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_md_toll</INPUT><BR>";
-            echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><BR><BR>";
-            echo "<input type=hidden name=response value=change>";
-            echo "<input type=hidden name=defence_id value=$defence_id>";
-            echo "</FORM>";
-         }
+            $bounties[$i] = $result3->fields;
+            $i++;
+            $result3->MoveNext();
+         } 
+      }
+
+      $num_bounties = $i;
+      if($num_bounties < 1)
+      {
+         echo "$l_by_nobounties<BR>";
       }
       else
       {
-         $ship_id = $defenceinfo['ship_id'];
-         $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$ship_id");
-         $fighters_owner = $result2->fields;
-
-         if($fighters_owner[team] != $playerinfo[team] || $playerinfo[team] == 0)
+         echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
+         echo "<TR BGCOLOR=\"$color_header\">";
+         echo "<TD><B>$l_by_bountyon</B></TD>";
+         echo "<TD><B>$l_amount</TD>";
+         echo "</TR>";
+         $color = $color_line1;
+         for($i=0; $i<$num_bounties; $i++)
          {
-            echo "$l_youcan:<BR>";
-            echo "<FORM ACTION=modify-defences.php METHOD=POST>";
-            echo "$l_md_attdef<BR><INPUT TYPE=SUBMIT VALUE=$l_md_attack></INPUT><BR>";
-            echo "<input type=hidden name=response value=fight>";
-            echo "<input type=hidden name=defence_id value=$defence_id>";
-            echo "</FORM>";
-         }
-      }
-      TEXT_GOTOMAIN();
-      die();
-      break;
+            $someres = $db->execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id = " . $bounties[$i][bounty_on]);
+            $details = $someres->fields;
+            echo "<TR BGCOLOR=\"$color\">";
+            echo "<TD><A HREF=bounty.php?bountyon=" . $bounties[$i][bounty_on] . "&response=display>". $details[character_name] ."</A></TD>";
+            echo "<TD>" . $bounties[$i][total_bounty] . "</TD>";
+            echo "</TR>";
+
+            if($color == $color_line1)
+            {
+               $color = $color_line2;
+            }
+            else
+            {
+               $color = $color_line1;
+            }
+        }
+        echo "</TABLE>";
+    }
+
+    echo "<BR><BR>";
+
+    break;
 }
 
 

@@ -1283,5 +1283,17 @@ $l_by_noturn = "You need at least one turn to place or modify a bounty.";
 $l_by_amount = "Bounty Amount";
 $l_by_place = "Place Bounty";
 $l_by_nobounties = "There are currently no bounties.";
+$l_by_bountyon = "Bounty On";
+$l_by_placedby = "Placed by";
+$l_by_thefeds  = "The Federation";
+$l_by_cancel   = "Cancel";
+$l_by_yourself = "You can not place a bounty on your self.";
+$l_by_notenough = "You do not have enough credits to place a bounty of that amount.";
+$l_by_toomuch   = "You can not place that bounty. Maximum bounty allowed is $percent percent of your net worth";
+$l_by_zeroamount = "Bounties must be greater than 0 credits.";
+$l_by_placed     = "The bounty has been placed.";
+$l_by_nobounty = "That bounty no longer exists.";
+$l_by_notyours = "That bounty was not placed by you.";
+$l_by_canceled = "The bounty has been canceled.";
 
 ?>
