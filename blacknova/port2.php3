@@ -363,7 +363,7 @@ else
       echo "Total cost: " . NUMBER($total_cost) . " credits.<BR>";
       echo "Traded Ore: " . NUMBER($trade_ore) . "<BR>Traded Organics: " . NUMBER($trade_organics) . "<BR>Traded Goods: " . NUMBER($trade_goods) . "<BR>Traded Energy: " . NUMBER($trade_energy) . "<BR><BR>";
       /* Update ship cargo, credits and turns */
-      $trade_result = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+      $trade_result = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
       /* Make all trades positive to change port values*/
       $trade_ore = round(abs($trade_ore));
       $trade_organics = round(abs($trade_organics));

@@ -20,6 +20,7 @@ $game_name = "BlackNova Traders v0.1.12 - Where the bugs just keep on coming!";
 $fed_max_hull = 8;
 $maxlen_password = 16;
 $max_rank=100;
+$rating_combat_factor=.2;    //ammount of rating gained from combat
 
 /* specify which special features are allowed */
 $allow_fullscan = true;                // full long range scan

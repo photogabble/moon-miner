@@ -54,7 +54,12 @@ else
   while($row = mysql_fetch_array($res))
   {
     $i++;
-    echo "<TR BGCOLOR=\"$color\"><TD>" . NUMBER($i) . "</TD><TD>" . NUMBER($row[score]) . "</TD><TD>$row[character_name]</TD><TD>" . NUMBER($row[turns_used]) . "</TD><TD>$row[last_login]</TD><TD>" . NUMBER($row[rating]) . "</TD></TR>";
+    $rating=round(pow( abs($row[rating]) , .5));
+    if(abs($row[rating])!=$row[rating])
+    {
+      $rating=-1*$rating;
+    }
+    echo "<TR BGCOLOR=\"$color\"><TD>" . NUMBER($i) . "</TD><TD>" . NUMBER($row[score]) . "</TD><TD>$row[character_name]</TD><TD>" . NUMBER($row[turns_used]) . "</TD><TD>$row[last_login]</TD><TD>" . NUMBER($rating) . "</TD></TR>";
     if($color == $color_line1)
     {
       $color = $color_line2;
