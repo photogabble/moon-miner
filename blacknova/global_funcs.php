@@ -275,7 +275,7 @@ function db_kill_player($ship_id)
   global $default_prod_torp;
   global $default_lang;
 
-  include_once($gameroot . "/languages/$default_lang");
+  include($gameroot . "/languages/$default_lang");
 
   mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
 
