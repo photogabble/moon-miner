@@ -444,6 +444,12 @@ function furangeetosecdef()
   // *********************************
   global $playerinfo;
   global $targetlink;
+
+  global $l_sf_sendlog;
+  global $l_sf_sendlog2;
+  global $l_chm_hehitminesinsector;
+  global $l_chm_hewasdestroyedbyyourmines;
+
   global $furangeeisdead;
   global $db, $dbtables;
 
@@ -567,7 +573,7 @@ function furangeetosecdef()
       destroy_fighters($targetlink,$fighterslost);
 
       // *** LETS LET DEFENCE OWNER KNOW WHAT HAPPENED *** 
-      $l_sf_sendlog = str_replace("[player]", "Furangee " . $playerinfo[character_name], $l_sf_sendlog);
+      $l_sf_sendlog = str_replace("[player]", "Furangee $playerinfo[character_name]", $l_sf_sendlog);
       $l_sf_sendlog = str_replace("[lost]", $fighterslost, $l_sf_sendlog);
       $l_sf_sendlog = str_replace("[sector]", $targetlink, $l_sf_sendlog);
       message_defence_owner($targetlink,$l_sf_sendlog);
@@ -1049,17 +1055,18 @@ function furangeehunter()
   // *** SETUP GENERAL VARIABLES  ****
   // *********************************
   global $playerinfo;
+  global $targetlink;
   global $furangeeisdead;
   global $db, $dbtables;
 
-  $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM $dbtables[ships] WHERE ship_destroyed='N' and planet_id=0 and email NOT LIKE '%@furangee' and ship_id > 1");
+  $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM $dbtables[ships] WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' and ship_id > 1");
   $rowcount = $rescount->fields;
   $topnum = min(10,$rowcount[num_players]);
 
   // *** IF WE HAVE KILLED ALL THE PLAYERS IN THE GAME THEN THERE IS LITTLE POINT IN PROCEEDING ***
   if ($topnum<1) return;
 
-  $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed='N' and planet_id=0 and email NOT LIKE '%@furangee' and ship_id > 1 ORDER BY score DESC LIMIT $topnum");
+  $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' and ship_id > 1 ORDER BY score DESC LIMIT $topnum");
 
   // *** LETS CHOOSE A TARGET FROM THE TOP PLAYER LIST ***
   $i=1;
@@ -1072,6 +1079,13 @@ function furangeehunter()
     }
     $i++;
     $res->MoveNext();
+  }
+
+  // *** Make sure we have a target ***
+  if (!$targetinfo)
+  {
+    playerlog($playerinfo[ship_id], LOG_RAW, "Hunt Failed: No Target ");
+    return;
   }
 
   // *********************************
@@ -1123,10 +1137,12 @@ function furangeehunter()
         $resultm->MoveNext();
       }
     }
+
     if ($total_sector_fighters>0 || $total_sector_mines>0 || ($total_sector_fighters>0 && $total_sector_mines>0))
     //*** DEST LINK HAS DEFENCES ***
     {
       // *** ATTACK SECTOR DEFENCES ***
+      $targetlink = $targetinfo[sector];
       furangeetosecdef();
     }
     if ($furangeeisdead>0) {
@@ -1136,10 +1152,18 @@ function furangeehunter()
 
     // *** TIME TO ATTACK THE TARGET ***
     playerlog($playerinfo[ship_id], LOG_RAW, "Furangee launching an attack on $targetinfo[character_name]."); 
-    furangeetoship($targetinfo[ship_id]);
+
+    // *** SEE IF TARGET IS ON A PLANET ***
+    if ($targetinfo[planet_id]>0) {
+      // *** ON A PLANET ***
+      furangeetoplanet($targetinfo[planet_id]);
+    } else {
+      // *** NOT ON A PLANET ***
+      furangeetoship($targetinfo[ship_id]);
+    }
   } else
   {
-    playerlog($playerinfo[ship_id], LOG_RAW, "Furangee hunt failed, target $targetinfo[character_name] was in a no attack zone.");
+    playerlog($playerinfo[ship_id], LOG_RAW, "Furangee hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
   }
 }
 
@@ -1382,7 +1406,7 @@ function furangeetoplanet($planet_id)
   // ******************************************
   if(!$attackerarmor>0)
   {
-    playerlog($playerinfo[ship_id], LOG_RAW, "Ship destroyed by planetary defenses on planet $targetinfo[name]");
+    playerlog($playerinfo[ship_id], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
     db_kill_player($playerinfo['ship_id']);
     $furangeeisdead = 1;
 
@@ -1399,7 +1423,6 @@ function furangeetoplanet($planet_id)
 
     // *** UPDATE PLANET ***
     $db->Execute("UPDATE $dbtables[planets] SET energy=$planetinfo[energy],fighters=fighters-$fighters_lost, torps=torps-$targettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
-
   
   }
   // **********************************************
@@ -1410,17 +1433,19 @@ function furangeetoplanet($planet_id)
     $armor_lost = $playerinfo[armour_pts] - $attackerarmor;
     $fighters_lost = $playerinfo[ship_fighters] - $attackerfighters;
     $target_fighters_lost = $planetinfo[ship_fighters] - $targetfighters;
+    playerlog($playerinfo[ship_id], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
 
     // *** UPDATE ATTACKER ***
     $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$playerinfo[ship_energy], ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps, armour_pts=armour_pts-$armor_lost WHERE ship_id=$playerinfo[ship_id]");
+    $playerinfo[ship_fighters] = $attackerfighters;
+    $playerinfo[torps] = $attackertorps;
+    $playerinfo[armour_pts] = $attackerarmor;
 
-    // *** REFRESH PLAYERINFO ***
-    //$player_ship_id = $playerinfo[ship_id];
-    //$refresh = $db->Execute("SELECT * FROM $dbtables[ships] JOIN $dbtables[furangee] WHERE email=furangee_id and ship_id=$player_ship_id");
-    //$playerinfo = $refresh->fields;
 
     // *** UPDATE PLANET ***
-    $db->Execute ("UPDATE $dbtables[planets] SET energy=$planetinfo[energy], fighters=fighters-$target_fighters_lost, torps=torps-$targettorps WHERE planet_id=$planetinfo[planet_id]");
+    $db->Execute ("UPDATE $dbtables[planets] SET energy=$planetinfo[energy], fighters=$targetfighters, torps=torps-$targettorps WHERE planet_id=$planetinfo[planet_id]");
+    $planetinfo[fighters] = $targetfighters;
+    $planetinfo[torps] = $targettorps;
 
     // *** NOW WE MUST ATTACK ALL SHIPS ON THE PLANET ONE BY ONE ***
     $resultps = $db->Execute("SELECT ship_id,ship_name FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
@@ -1439,8 +1464,9 @@ function furangeetoplanet($planet_id)
     if ($shipsonplanet == 0 && $furangeeisdead < 1)
     {
       // *** MUST HAVE KILLED ALL SHIPS ON PLANET ***
+      playerlog($playerinfo[ship_id], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
       // *** LOG ATTACK TO PLANET OWNER ***
-      playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+      playerlog($planetinfo[owner], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
       // *** UPDATE PLANET ***
       $db->Execute("UPDATE $dbtables[planets] SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=$planetinfo[planet_id]"); 
@@ -1448,6 +1474,7 @@ function furangeetoplanet($planet_id)
 
     } else {
       // *** MUST HAVE DIED TRYING ***
+      playerlog($playerinfo[ship_id], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
       // *** LOG ATTACK TO PLANET OWNER ***
       playerlog($planetinfo[owner], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Furangee $playerinfo[character_name]|0|0|0|0|0");
 

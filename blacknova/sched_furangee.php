@@ -14,6 +14,7 @@
   // ******* INCLUDE FUNCTIONS *******
   // *********************************
   include_once("furangee_funcs.php");
+  include_once("languages/$lang");
   global $targetlink;
   global $furangeeisdead;
 
@@ -195,7 +196,7 @@
         // ****** LET SEE IF WE GO HUNTING THIS ROUND BEFORE WE DO ANYTHING ELSE ******
         $hunt=rand(0,3);                               // *** 25% CHANCE OF HUNTING ***
         // Uncomment below for Debugging
-        //$hunt=0;
+        $hunt=0;
         if ($hunt==0)
         {
         $furcount3h++;
@@ -213,8 +214,8 @@
             continue;
           }
           // ****** FIND A TARGET ******
-          // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-          $reso3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0 and ship_id > 1");
+          // ****** IN MY SECTOR, NOT MYSELF ******
+          $reso3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and ship_id > 1");
           if (!$reso3->EOF)
           {
             $rowo3=$reso3->fields;
@@ -225,7 +226,7 @@
             elseif ($playerinfo[aggression] == 1)        // ****** O = 3 & AGRESSION = 1 ATTACK SOMETIMES ******
             {
               // Furangee's only compare number of fighters when determining if they have an attack advantage
-              if ($playerinfo[ship_fighters] > $rowo3[ship_fighters])
+              if ($playerinfo[ship_fighters] > $rowo3[ship_fighters] && $rowo3[planet_id] == 0)
               {
                 $furcount3a++;
                 playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo3[character_name]");
@@ -240,7 +241,11 @@
             {
               $furcount3a++;
               playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo3[character_name]");
-              furangeetoship($rowo3[ship_id]);
+              if (!$rowo3[planet_id] == 0) {              // *** IS ON PLANET ***
+                furangeetoplanet($rowo3[planet_id]);
+              } else {
+                furangeetoship($rowo3[ship_id]);
+              }
               if ($furangeeisdead>0) {
                 $res->MoveNext();
                 continue;
