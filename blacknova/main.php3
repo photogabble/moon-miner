@@ -64,10 +64,18 @@ if($sectorinfo[sector_name] != "")
 echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
 echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
 echo "</TABLE><BR>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Turns available: " . NUMBER($playerinfo[turns]) . "</TD><TD ALIGN=RIGHT>Turns used: " . NUMBER($playerinfo[turns_used]) . "</TD></TR>";
+echo "</TABLE><BR>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TR BGCOLOR=\"$color_line2\"><TD WIDTH=\"15%\">Ore: " . NUMBER($playerinfo[ship_ore]) . "</TD><TD WIDTH=\"15%\">Organics: " . NUMBER($playerinfo[ship_organics]) . "</TD><TD WIDTH=\"15%\">Goods: " . NUMBER($playerinfo[ship_goods]) . "</TD><TD WIDTH=\"15%\">Energy: " . NUMBER($playerinfo[ship_energy]) . "</TD><TD WIDTH=\"15%\">Colonists: " . NUMBER($playerinfo[ship_colonists]) . "</TD><TD ALIGN=RIGHT>Credits: " . NUMBER($playerinfo[credits]) . "</TD></TR>";
+echo "</TABLE><BR>";
 
-echo "You have $playerinfo[turns] turns left (you have used $playerinfo[turns_used] turns so far).<BR><BR>";
-echo "Ore=" . NUMBER($playerinfo[ship_ore]) . " - Organics=" . NUMBER($playerinfo[ship_organics]) . " - Goods=" . NUMBER($playerinfo[ship_goods]) . " - Energy=" . NUMBER($playerinfo[ship_energy]) . " - Credits=" . NUMBER($playerinfo[credits]) . "<BR><BR>";
-if ($num_links==0) { echo "There are no links out of this sector.<BR><BR>";} else
+if($num_links == 0)
+{
+  echo "There are no links out of this sector.<BR><BR>";
+}
+else
 {
   echo "Links lead to the following sectors (click to move): ";
   for  ($i=0; $i<$num_links;$i++)
@@ -182,8 +190,10 @@ if($allow_navcomp)
 echo "Real Space Presets:  <a href=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</a> - <a href=preset.php3>Change Presets</a><BR><BR>";
 echo "Trade Route Presets:  <a href=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</a><BR><BR>";
 
-echo "<a href=device.php3>Use Device</a> - <a href=report.php3>Report</a> - <a href=log.php3>View Log</a> - <a href=rsmove.php3>Realspace Move</a> - <a href=traderoute.php3>Trade Route</a> - <a href=mailto2.php3>Send Message</a> - <a href=planet-report.php3>Planet Report</a> -"; 
-echo "<a href=logout.php3>Logout</a> - <a href=options.php3>Options</a> - <a href=ranking.php3>Rankings</a> - <a href=feedback.php3>Feedback</a> - <a href=help.php3>Help!</a> - <a href=http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl target=\"_blank\"> Forums</a><BR><BR>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Use Device</A> - <A HREF=report.php3>Report</A> - <A HREF=planet-report.php3>Planet Report</A> - <A HREF=log.php3>View Log</A> - <A HREF=rsmove.php3>Realspace Move</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> -"; 
+echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help!</A> - <A HREF=http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl TARGET=\"_blank\">Forums</A></TD><TD><A HREF=logout.php3>Logout</A></TD></TR>";
+echo "</TABLE><BR>";
 echo "System Time:  ";
 print(date("l dS of F Y h:i:s A"));
 echo "<BR>Last System Update:  ";
