@@ -2,6 +2,10 @@
                     echo "Sector defence fighters are attacking you!<BR>";
                     $targetfighters = $total_sector_fighters;
      	            $playerbeams = NUM_BEAMS($playerinfo[beams]);
+                    if($calledfrom == 'rsmove.php3')
+                    {
+                       $playerinfo[ship_enery] += $energyscooped;
+                    }
                     if($playerbeams>$playerinfo[ship_energy])
                     {
                        $playerbeams=$playerinfo[ship_energy];

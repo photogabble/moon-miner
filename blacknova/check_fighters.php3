@@ -35,11 +35,13 @@
         {
            switch($response) {
               case "fight":
+                 mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  bigtitle();
                  include("sector_fighters.php3");    
                    
                  break;
               case "retreat":
+                 mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  $stamp = date("Y-m-d H-i-s");
                  mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
                  bigtitle();
@@ -48,6 +50,7 @@
                  die();
                  break;
               case "pay":      
+                 mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                  if($playerinfo[credits] < $fighterstoll) 
                  {
@@ -69,6 +72,7 @@
                  break;
               case "sneak":
                  {
+                    mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                     $success = SCAN_SUCCESS($playerinfo[sensors], $fighters_owner[cloak]);
                     if($success < 5)
                     {
@@ -95,6 +99,8 @@
                  }
                  break;
               default:
+                 $interface_string = $calledfrom . '?sector='.$sector.'&destination='.$destination.'&engage='.$engage;
+                 mysql_query("UPDATE ships SET cleared_defences = '$interface_string' WHERE ship_id = $playerinfo[ship_id]");
                  $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                  bigtitle();
                  echo "<FORM ACTION=$calledfrom METHOD=POST>";

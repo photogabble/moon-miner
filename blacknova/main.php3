@@ -34,6 +34,13 @@ if(checklogin())
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
 mysql_free_result($res);
+if($playerinfo['cleared_defences'] > ' ')
+{
+   echo "You haven't completed your previous move.<BR>";
+   echo "<a href=$playerinfo[cleared_defences]>Click Here to continue</a>";
+   die();
+}
+
 
 $res = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo = mysql_fetch_array($res);
