@@ -93,7 +93,7 @@ if($sectorinfo[planet] == 'Y')
       echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
       echo "<TR BGCOLOR=\"$color_header\"><TD></TD><TD><B>Ore</B></TD><TD><B>Organics</B></TD><TD><B>Goods</B></TD><TD><B>Energy</B></TD><TD><B>Colonists</B></TD><TD><B>Credits</B></TD><TD><B>Fighters</B></TD><TD><B>Torpedoes</TD></TR>";
       echo "<TR BGCOLOR=\"$color_line1\">";
-      echo "<TD><B>Current Quantities</B></TD>";
+      echo "<TD>Current Quantities</TD>";
       echo "<TD>" . NUMBER($sectorinfo[planet_ore]) . "</TD>";
       echo "<TD>" . NUMBER($sectorinfo[planet_organics]) . "</TD>";
       echo "<TD>" . NUMBER($sectorinfo[planet_goods]) . "</TD>";
@@ -103,7 +103,7 @@ if($sectorinfo[planet] == 'Y')
       echo "<TD>" . NUMBER($sectorinfo[planet_fighters]) . "</TD>";
       echo "<TD>" . NUMBER($sectorinfo[base_torp]) . "</TD>";
       echo "</TR>";
-      echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Production Percentages</B></TD>";
+      echo "<TR BGCOLOR=\"$color_line2\"><TD>Production Percentages</TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=pore VALUE=\"$sectorinfo[prod_ore]\" SIZE=6 MAXLENGTH=6></TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=porganics VALUE=\"$sectorinfo[prod_organics]\" SIZE=6 MAXLENGTH=6></TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=pgoods VALUE=\"$sectorinfo[prod_goods]\" SIZE=6 MAXLENGTH=6></TD>";
@@ -111,7 +111,7 @@ if($sectorinfo[planet] == 'Y')
       echo "<TD>n/a</TD><TD>*</TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=pfighters VALUE=\"$sectorinfo[prod_fighters]\" SIZE=6 MAXLENGTH=6></TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=ptorp VALUE=\"$sectorinfo[prod_torp]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "</TABLE>* Production of credits beyond banking interest is 100 - other percentages<BR>";
+      echo "</TABLE>* Production of credits beyond banking interest is 100 - other percentages<BR><BR>";
       echo "<INPUT TYPE=SUBMIT VALUE=Update>";
       echo "</FORM><BR>";
     }
@@ -1193,10 +1193,14 @@ else
 }
 if($command != "")
 {
-  echo "<BR>Click <a href=planet.php3>here</a> to return to planet menu.<BR>";
+  echo "<BR>Click <a href=planet.php3>here</a> to return to planet menu.<BR><BR>";
 }
-echo "<BR>Access the planet's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR>";
-echo "<BR>Click <a href=main.php3>here</a> to return to Main Menu.";
+if($allow_ibank)
+{
+  echo "<BR>Access the planet's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>";
+}
+
+echo "Click <a href=main.php3>here</a> to return to Main Menu.";
 
 include("footer.php3");
 

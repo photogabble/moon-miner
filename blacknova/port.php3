@@ -147,7 +147,11 @@ elseif($sectorinfo[port_type] == "special")
   bigtitle();
 
   echo "You have " . NUMBER($playerinfo[credits]) . " credits to spend.<BR>";
-  echo "If you need more you may access this port's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>"; 
+  if($allow_ibank)
+  {
+    echo "If you need more you may access this port's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR>"; 
+  }
+  echo "<BR>";
   echo "<FORM ACTION=port2.php3 METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\">";
