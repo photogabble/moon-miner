@@ -77,14 +77,5 @@ if(!empty($link_forums))
 </CENTER>
 
 <?php
-if(empty($username))
-{
-  TEXT_GOTOLOGIN();
-}
-else
-{
-  TEXT_GOTOMAIN();
-}
-
 include("footer.php3");
 ?>
