@@ -1,5 +1,9 @@
 <?
-  include("languages/$lang");
+                    if (preg_match("/sector_fighters.php/i", $PHP_SELF)) {
+                        echo "You can not access this file directly!";
+                        die();
+                    }
+                    include("languages/$lang");
 
                     echo $l_sf_attacking;
                     $targetfighters = $total_sector_fighters;
