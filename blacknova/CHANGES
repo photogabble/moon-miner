@@ -2,6 +2,7 @@ nospoon (06 September 2001)
 --------------------------
 
 Fixed Bug #443677 - Database connection failure in ibank.php3
+          #428322 - Unable to transfer planetary $ from IGB
 
 nospoon (05 September 2001)
 ---------------------------

@@ -469,7 +469,7 @@ function ibank_display_transfers()
       {
 	  	  $testresult = mysql_query ("SELECT sector_id,planet_owner from universe WHERE sector_id='$payto'");
 		  $testrow=mysql_fetch_array($testresult);
-		  if($playerinfo[ship_id] != $testrow[planet_owner])
+		  if($playerinfo[ship_id] = $testrow[planet_owner])
 		  {
 	        @playerlog($ibank_owner,"IGB Interplanetary proceeds from $playerinfo[character_name] to $row[planet_name] of ".number_format($amount)." credits");
 	        $query = "UPDATE ibank_accounts SET ballance=ballance+$fee where id=$ibank_owner";
