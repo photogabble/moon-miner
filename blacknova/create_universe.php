@@ -450,7 +450,7 @@ switch ($step) {
       $initbenergy = $energy_limit * $initbcommod / 100.0;
       PrintFlush("Selecting $enp sectors for energy ports...<BR>");
       $sql_query=$db->Execute("select sector_id from $dbtables[universe] WHERE port_type='none' and rand() order by rand() desc limit $enp");
-      $update="UPDATE $dbtables[universe] SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
+      $update="UPDATE $dbtables[universe] SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
       $i=0;
       $j=0;
       if($sql_query)
@@ -461,7 +461,7 @@ switch ($step) {
                $update.="sector_id=9999999;";
                echo $update;
                $db->Execute($update);
-               $update="UPDATE $dbtables[universe] SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
+               $update="UPDATE $dbtables[universe] SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
                $i=0;
                $j++;
                PrintFlush(". ");
