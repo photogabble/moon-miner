@@ -1,6 +1,11 @@
-Tilttek (09 November 2001)
--------------------------------
-Add extention modification so you could change all the PHP files extention. 
+Nospoon (13 November 2001)
+--------------------------
+When leaving alliances, sector defences of the player will fight against 
+sector defences of the old alliance in the same sector.
+When leaving an alliance, any players other than the owner on the planet will
+be ejected from the planet.
+Option to toggle corporate or personal planet is only shown when you are a
+member of an alliance.
 
 Nospoon (09 November 2001)
 -------------------------------
