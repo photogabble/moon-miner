@@ -304,6 +304,7 @@ echo "created.<BR>";
 echo "Creating table: bounty...";
 $db->Execute("CREATE TABLE $dbtables['bounty'] (" .
              "bounty_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+             "amount bigint(20) unsigned DEFAULT '0' NOT NULL," . 
              "bounty_on bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "placed_by bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (bounty_id)," .

@@ -1282,5 +1282,6 @@ $l_by_title = "Bounties";
 $l_by_noturn = "You need at least one turn to place or modify a bounty.";
 $l_by_amount = "Bounty Amount";
 $l_by_place = "Place Bounty";
+$l_by_nobounties = "There are currently no bounties.";
 
 ?>

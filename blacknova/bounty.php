@@ -24,8 +24,6 @@ If(!isset($defence_id))
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
-$res = $db->Execute("SELECT * from $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
-$sectorinfo = $res->fields;
 
 if ($playerinfo[turns]<1 && isset($response))
 {
@@ -36,6 +34,7 @@ if ($playerinfo[turns]<1 && isset($response))
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
+
 echo "<FORM ACTION=bounty.php METHOD=POST>";
 echo "<TABLE>";
 echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
@@ -57,12 +56,11 @@ echo "<input type=hidden name=response value=place>";
 echo "</FORM>";
 
 
-$result3 = $db->Execute ("SELECT * FROM $dbtables[bounty] WHERE defence_id=$defence_id ");
-//Put the defence information into the array "defenceinfo"
+$result3 = $db->Execute ("SELECT bounty_on, SUM(amount) FROM $dbtables[bounty] GROUP BY bounty_on");
 
 if($result3 == 0)
 {
-   echo "$l_md_nolonger<BR>";
+   echo "$l_by_nobounties<BR>";
    TEXT_GOTOMAIN();
    die();
 }
