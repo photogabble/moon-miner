@@ -78,7 +78,7 @@ $stamp = date("Y-m-d H-i-s");
 	$result2 = mysql_query("SELECT * from ships where ship_id=$sectorinfo[fm_owner]");
         $mine_owner = mysql_fetch_array($result2);
         mysql_free_result($result2);
-        if ($mine_owner[team] != $playerinfo[team])
+        if ($mine_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
         {
 	   // Lets blow up some mines!
            bigtitle();
@@ -92,7 +92,6 @@ $stamp = date("Y-m-d H-i-s");
            if($playerinfo[dev_minedeflector] >= $roll)
            {
               echo "You lost $roll mine deflectors.<BR>";
-              $roll = 0;
               $result2 = mysql_query("UPDATE ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
               $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
 
@@ -115,7 +114,7 @@ $stamp = date("Y-m-d H-i-s");
                  if($playerinfo[armour_pts] >= $mines_left)
                  {
                     echo "Your armour is hit for $mines_left damage.<BR>";
-                    $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_lefti,shields=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
+                    $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left,shields=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
                     $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                     if($playerinfo[armour_pts] == $mines_left) echo "Your hull is breached!<BR>";
                  }
