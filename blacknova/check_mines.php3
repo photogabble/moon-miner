@@ -24,7 +24,7 @@
            {
               echo "You lost $roll mine deflectors.<BR>";
               $result2 = mysql_query("UPDATE ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
-              $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
+              $result2 = mysql_query("UPDATE universe set mines=mines-$roll where sector_id=$sector");
 
            }
            else
