@@ -267,7 +267,7 @@ else
 <?
 if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
 {
-  if($sectorinfo[planet_owner] != "")
+  if($sectorinfo[planet_owner] != 0)
   {
     $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
     $planet_owner = mysql_fetch_array($result5);
@@ -302,7 +302,7 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
     $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
   }
 
-  if($sectorinfo[planet_owner] == "")
+  if($sectorinfo[planet_owner] == 0)
   {
     echo "<br>(Unowned)";
     $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
