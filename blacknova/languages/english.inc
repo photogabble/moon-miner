@@ -1330,4 +1330,5 @@ $l_team_leavefirst = "You must leave a team first before joining another.";
 $l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
 $l_scan_bounty = "This ship has a total bounty on it of [amount] credits.";
 $l_scan_fedbounty = "This ship has a bounty on it from The Federation.";
+$l_by_nofedbounty = "Attacking this player will <B>NOT</B> result in The Federation placing a bounty on you.";
 ?>

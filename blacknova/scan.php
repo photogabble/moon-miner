@@ -96,6 +96,10 @@ else
       {
          echo $l_by_fedbounty . "<BR><BR>";
       }
+      else
+      {
+         echo $l_by_nofedbounty . "<BR><BR>";
+      }
       $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
       echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<BR><BR>";
       echo "<b>$l_ship_levels:</b><BR><BR>";
