@@ -40,7 +40,7 @@ if($sector == "*")
     die();
   }
 
-  echo "Used " . NUMBER($fullscan_cost) . " turn(s). " . NUMBER($playerinfo[turns] - 1) . " left.<BR><BR>";
+  echo "Used " . NUMBER($fullscan_cost) . " turn(s). " . NUMBER($playerinfo[turns] - $fullscan_cost) . " left.<BR><BR>";
 
   // deduct the appropriate number of turns
   mysql_query("UPDATE ships SET turns=turns-$fullscan_cost, turns_used=turns_used+$fullscan_cost where ship_id='$playerinfo[ship_id]'");
