@@ -15,7 +15,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe READ");
+mysql_query("LOCK TABLES ships WRITE, universe WRITE");
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -25,23 +25,23 @@ $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 bigtitle();
 
-if($sectorinfo[fm_owner] != '' && $sectorinfo[fm_owner] != $playerinfo[ship_id]) 
+if($sectorinfo[fm_owner] != 0 && $sectorinfo[fm_owner] != $playerinfo[ship_id]) 
 {
-  echo "Can not deploy here. Someone else has mines or fighters in this sector.";
+  echo "Can not deploy here. Someone else has mines or fighters in this sector.<BR>";
 }
 else
 {
 
-   if(!isset($nummines) || !isset($numfighters) || !isset$($mode))
+   if(!isset($nummines) or !isset($numfighters) or !isset($mode))
    {
      echo "<FORM ACTION=mines.php3 METHOD=POST>";
-     echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
+     echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " mines and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
      echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10> mines.<BR>";
      echo "Deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10> fighters.<BR>";
-     echo "Fighter mode <INPUT TYPE="RADIO" NAME="mode" VALUE="attack">Attack</INPUT>");
-     echo "<INPUT TYPE="RADIO" NAME="mode" CHECKED VALUE="toll">Toll</INPUT>");
-     echo "<INPUT TYPE=SUBMIT VALUE=Compute><BR><BR>";
-     echo "<input type="hidden" name="op" value="$op">;
+     echo "Fighter mode <INPUT TYPE=RADIO NAME=mode VALUE=attack>Attack</INPUT>";
+     echo "<INPUT TYPE=RADIO NAME=mode CHECKED VALUE=toll>Toll</INPUT><BR>";
+     echo "<INPUT TYPE=SUBMIT VALUE=Deploy><BR><BR>";
+     echo "<input type=hidden name=op value=$op>";
      echo "</FORM>";
    }
    else 
@@ -66,11 +66,13 @@ else
       { 
          echo "Deployed $numfighters fighters in $mode mode.<BR>";
       }
+      $numfighters = NUMBER($numfighters);
+      $nummines = NUMBER($nummines);
       
-      $update = mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=shipfighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
-      $update = mysql_query("UPDATE uninverse SET fm_owner = $player_info[ship_id], fm_setting ='$mode', mines=mines+$nummines, fighters=fighters+$numfighters WHERE sector_id=$playerinfo[sector]");
+      $update = mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
+      $update = mysql_query("UPDATE universe SET fm_owner = $playerinfo[ship_id], fm_setting ='$mode', mines=mines+$nummines, fighters=fighters+$numfighters WHERE sector_id=$playerinfo[sector]");
    }
-
+}
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
