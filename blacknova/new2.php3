@@ -7,6 +7,11 @@ include("config.php3");
 bigtitle();
 connectdb();
 
+if($account_creation_closed)
+{
+  die($account_creation_closed_message);
+}
+
 $result = mysql_query ("select email, character_name, ship_name from ships where email='$username' OR character_name='$character' OR ship_name='$shipname'");
 $flag=0;
 if ($username=='' || $character=='' || $shipname=='' ) { echo "E-mail, ship name, and character name may not be blank.<BR>"; $flag=1;}
