@@ -48,8 +48,9 @@ void intro()
 	cout << endl;
 	cout << "*******************************************" << endl;
 	cout << "**** Blacknova Installer Version 1.1   ****" << endl;
-	cout << "**** Installer By: Adam Voigt          ****" << endl;
-	cout << "**** Mods by: David Rowlands           ****" << endl;
+	cout << "**** Original Installer By: Adam Voigt ****" << endl;
+	cout << "**** Modifications by: Ron Hardwood    ****" << endl;
+	cout << "****                   David Rowlands  ****" << endl;
 	cout << "**** http://blacknova.sourceforge.net/ ****" << endl;
 	cout << "*******************************************" << endl;
 	cout << endl;
