@@ -75,8 +75,6 @@ if($res > 0)
 $num_links = $i;
 
 $res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
-echo "SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]";
-echo mysql_error();
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
