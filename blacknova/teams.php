@@ -412,7 +412,7 @@ switch ($teamwhat) {
 	case 8: // REFUSE invitation
 		echo "You have refused the invitation to join <B>$invite_info[team_name]</B>.<BR><BR>";
 		mysql_query("UPDATE ships SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
-		playerlog($team[creator],"$playerinfo[character_name] refused to join <B>$invite_info[team_name]</B>");
+		playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name] $invite_info[team_name]");
 		LINK_BACK();
 		break;
 	case 9: // Edit Team
@@ -451,9 +451,9 @@ switch ($teamwhat) {
    			   Adding a log entry to all members of the renamed alliance
    			*/
    		   $result_team_name = mysql_query("SELECT ship_id FROM ships WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . mysql_error() . "</font>");
-   			playerlog($playerinfo[ship_id],"You have renamed your alliance in <B>$teamname</B>");
+   			playerlog($playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
    			while($teamname_array = mysql_fetch_array($result_team_name)) {
-   			   playerlog($teamname_array[ship_id],"Your leader has renamed alliance in <B>$teamname</B>");
+   			   playerlog($teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
             }
      		}
    		LINK_BACK();
@@ -481,7 +481,7 @@ switch ($teamwhat) {
                
                mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
    				mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whichteam");
-				   playerlog($playerinfo[ship_id],"You have been ejected from <B>$whichteam[team_name]</B>");
+				   playerlog($playerinfo[ship_id], LOG_TEAM_KICK, "$whichteam[team_name]");
             */
 				LINK_BACK();
 				break;

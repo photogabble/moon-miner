@@ -66,7 +66,7 @@
                     echo "You paid $tollstring credits for the toll.<BR>";
                     mysql_query("UPDATE ships SET credits=credits-$fighterstoll where ship_id=$playerinfo[ship_id]");
                     distribute_toll($sector,$fighterstoll,$total_sector_fighters);
-                    playerlog($playerinfo[ship_id],"You paid $tollstring credits for entry to sector $sector.");
+                    playerlog($playerinfo[ship_id], LOG_TOLL_PAID, "$tollstring|$sector");
                     $ok=1;
                  }
                  break;

@@ -330,14 +330,8 @@ else
         $res = mysql_query("SELECT email,ship_id FROM ships WHERE email LIKE '%@furangee'");
         while($row = mysql_fetch_array($res))
         {
-          $player_log_file = $gameroot;
-          $player_log_file = $player_log_file . "/player-log/" . $row[ship_id];
-          if(file_exists($player_log_file))
-          {
-            unlink($player_log_file);
-            playerlog($row[ship_id], "Log cleared.");
-            echo "Log $player_log_file cleared.<BR>";
-          }
+          mysql_query("DELETE FROM logs WHERE ship_id=$row[ship_id]");
+          echo "Log for ship_id $row[ship_id] cleared.<BR>";
         }
       }
       else

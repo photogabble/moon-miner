@@ -52,14 +52,14 @@
             if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
             {
               $furcount0a++;
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].");
+              playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo0[character_name]");
               furangeetoship($rowo0[ship_id]);
             }
           }
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
             $furcount0a++;
-            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].");
+            playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo0[character_name]");
             furangeetoship($rowo0[ship_id]);
           }
         }
@@ -88,14 +88,14 @@
             if ($playerinfo[ship_fighters] > $rowo1[ship_fighters])
             {
               $furcount1a++;
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].");
+              playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo1[character_name]");
               furangeetoship($rowo1[ship_id]);
             }
           }
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
             $furcount1a++;
-            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].");
+            playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo1[character_name]");
             furangeetoship($rowo1[ship_id]);
           }
         }
@@ -126,14 +126,14 @@
             if ($playerinfo[ship_fighters] > $rowo2[ship_fighters])
             {
               $furcount2a++;
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].");
+              playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo2[character_name]");
               furangeetoship($rowo2[ship_id]);
             }
           }
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
             $furcount2a++;
-            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].");
+            playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo2[character_name]");
             furangeetoship($rowo2[ship_id]);
           }
         }
@@ -169,14 +169,14 @@
               if ($playerinfo[ship_fighters] > $rowo3[ship_fighters])
               {
                 $furcount3a++;
-                playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo3[character_name].");
+                playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo3[character_name]");
                 furangeetoship($rowo3[ship_id]);
               }
             }
             elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
             {
               $furcount3a++;
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo3[character_name].");
+              playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo3[character_name]");
               furangeetoship($rowo3[ship_id]);
             }
           }

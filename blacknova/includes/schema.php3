@@ -7,7 +7,6 @@ global $maxlen_password;
 // Delete all tables in the database
 echo "Dropping all tables...";
 mysql_query("DROP TABLE IF EXISTS ibank_accounts");
-mysql_query("DROP TABLE IF EXISTS IGB_transfers");
 mysql_query("DROP TABLE IF EXISTS links");
 mysql_query("DROP TABLE IF EXISTS planets");
 mysql_query("DROP TABLE IF EXISTS traderoutes");
@@ -23,6 +22,8 @@ mysql_query("DROP TABLE IF EXISTS furangee");
 mysql_query("DROP TABLE IF EXISTS sector_defence");
 mysql_query("DROP TABLE IF EXISTS scheduler");
 mysql_query("DROP TABLE IF EXISTS ip_bans");
+mysql_query("DROP TABLE IF EXISTS IGB_transfers");
+mysql_query("DROP TABLE IF EXISTS logs");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema
@@ -139,6 +140,7 @@ mysql_query("CREATE TABLE ships(" .
             "trade_energy enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
             "cleared_defences tinytext," .
             "lang varchar(30) DEFAULT 'english.inc' NOT NULL," .
+            "dhtml enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
             "PRIMARY KEY (email)," .
             "KEY email (email)," .
             "KEY sector (sector)," .
@@ -304,6 +306,17 @@ mysql_query("CREATE TABLE ip_bans(" .
             "ban_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
             "ban_mask varchar(16) NOT NULL," .
             "PRIMARY KEY (ban_id)" .
+            ")");
+echo "created.<BR>";
+
+echo "Creating table: logs...";
+mysql_query("CREATE TABLE logs(" .
+            "log_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+            "ship_id bigint(20) DEFAULT '0' NOT NULL," .
+            "type mediumint(5) DEFAULT '0' NOT NULL," .
+            "time TIMESTAMP(14)," .
+            "data varchar(255)," .
+            "PRIMARY KEY (log_id)" .
             ")");
 echo "created.<BR>";
 

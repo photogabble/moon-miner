@@ -381,17 +381,13 @@ if(!empty($planetinfo))
         /* if scan fails - inform both player and target. */
         echo "$l_planet_noscan<BR><BR>";
         TEXT_GOTOMAIN();
-        $l_planet_logscanA=str_replace("[name]",$playerinfo[character_name],$l_planet_logscanA);
-        $l_planet_logscanA=str_replace("[sector]",$playerinfo[sector],$l_planet_logscanA);
-        playerlog($ownerinfo[ship_id], $l_planet_logscanA);
+        playerlog($ownerinfo[ship_id], LOG_PLANET_SCAN_FAIL, "$playerinfo[character_name] $playerinfo[sector]");
         include("footer.php3");
         die();
       }
       else
       {
-      $l_planet_logscanB=str_replace("[name]",$playe2rinfo[character_name],$l_planet_logscanB);
-      $l_planet_logscanB=str_replace("[sector]",$playerinfo[sector],$l_planet_logscanB);
-      playerlog($ownerinfo[ship_id], $l_planet_logscanB);
+        playerlog($ownerinfo[ship_id], LOG_PLANET_SCAN, "$playerinfo[character_name] $playerinfo[sector]");
         /* scramble results by scan error factor. */
         $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
         $l_planet_scn_report=str_replace("[name]",$planetinfo[character_name],$l_planet_scn_report);
@@ -551,10 +547,7 @@ if(!empty($planetinfo))
           echo "$ownership<p>";
       if($planetinfo[owner] != 0)
       {
-        $l_planet_caplog=str_replace("[name]",$playerinfo[character_name],$l_planet_caplog);
-        $l_planet_caplog=str_replace("[planetname]",$planetinfo[name],$l_planet_caplog);
-        $l_planet_caplog=str_replace("[sector]",$playerinfo[sector],$l_planet_caplog);
-        playerlog($ownerinfo[ship_id], $l_planet_caplog);
+        playerlog($ownerinfo[ship_id], LOG_PLANET_CAPTURE, "$playerinfo[character_name] $planetinfo[name] $playerinfo[sector]");
         gen_score($ownerinfo[ship_id]);
       }
     }

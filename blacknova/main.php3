@@ -11,10 +11,10 @@ $basefontsize = 0;
 $stylefontsize = "8Pt";
 $picsperrow = 5;
 
-if($res == 640)
+if($screenres == 640)
   $picsperrow = 3;
 
-if($res >= 1024)
+if($screenres >= 1024)
 {
   $basefontsize = 1;
   $stylefontsize = "12Pt";
@@ -198,7 +198,7 @@ if(!empty($sectorinfo[beacon]))
 <div class=mnu>
 &nbsp;<a class=mnu href="device.php3"><? echo $l_devices ?></a>&nbsp;<br>
 &nbsp;<a class=mnu href="planet-report.php3"><? echo $l_planets ?></a>&nbsp;<br>
-&nbsp;<a class=mnu href="log.php3"><? echo $l_log ?></a>&nbsp;<br>
+&nbsp;<a class=mnu href="log.php"><? echo $l_log ?></a>&nbsp;<br>
 &nbsp;<a class=mnu href="defence-report.php3"><? echo $l_sector_def ?></a>&nbsp;<br>
 &nbsp;<a class=mnu href="readmail.php3"><? echo $l_read_msg ?></A>&nbsp;<br>
 &nbsp;<a class=mnu href="mailto2.php3"><? echo $l_send_msg ?></a>&nbsp;<br>
@@ -298,7 +298,7 @@ else
 </b></font></center>
 <br>
 
-<center><b><font size=2 face="arial" color=white><? echo $l_planet_in_sec . $sectorinfo[sector_id];?>:</font></b></center>
+<center><b><font size=<? echo $basefontsize+2; ?> face="arial" color=white><? echo $l_planet_in_sec . $sectorinfo[sector_id];?>:</font></b></center>
 <table border=0 width=100%>
 <tr>
 
@@ -382,7 +382,7 @@ else
 </tr>
 </table>
 
-<b><center><font size=2 face="arial" color=white><? echo $l_ships_in_sec . $sectorinfo[sector_id];?>:</font><br></center></b>
+<b><center><font size=<? echo $basefontsize+2; ?> face="arial" color=white><? echo $l_ships_in_sec . $sectorinfo[sector_id];?>:</font><br></center></b>
 <table border=0 width=100%>
 <tr>
 

@@ -23,7 +23,7 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 <img src=images/div1.gif>
 <table width=600 height=350 border=0>
 <tr><td align=center background=images/IGBscreen.gif>
-<table width=520 height=300 border=0>
+<table background="" width=520 height=300 border=0>
 
 <?
 
@@ -73,7 +73,7 @@ else
   <p>
   The Intergalactic Bank (tm)<br>
   All your base are belong to us<br>&nbsp;
-  </center>
+  </center></td>
   <td width=25% valign=bottom align=right><font size=2 color=#00FF00 face="courier new"><a href="IGB.php?command=login">Login</a></td>
   ';
 }

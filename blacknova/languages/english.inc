@@ -239,7 +239,7 @@ $l_planet_p_changed	 = "Production percentages changed.";
 $l_plant_scn_turn	 = "You need at least one turn to scan a planet.";
 $l_planet_noscan	 = "Sensors cannot get a fix on target!";
 $l_planet_logscanA	 = "[name] attempted to scan one of your planets in sector [sector], but failed.";
-$l_planet_logscanA	 = "One of your planets in sector [sector] was scanned by [name].";
+$l_planet_logscanB	 = "One of your planets in sector [sector] was scanned by [name].";
 $l_planet_scn_report	 = "Scan results on [name], owned by:  [owner]";
 $l_base	  		 = "Base";
 $l_planet_ison		 = "is on the planet.";
@@ -302,11 +302,7 @@ $l_att_notarg		 = "Target not in this sector.";
 $l_att_noturn		 = "You need at least one turn to attack.";
 $l_att_noatt		 = "Attacking someone in this sector is not permitted.";
 $l_att_flee		 = "Target out maneuvered you!";
-$l_att_fleelog		 = "attempted to attack your ship, but your ship was faster.";
-$l_att_scnlog		 = "attempted to attack your ship, but could not lock weapons.";
-$l_att_ewdlog		 = "[name] in sector [sector] attempted to attack your ship, Your Emergency Warp Engaged.";
 $l_att_ewd		 = "Target engaged an emergency warp device when attacked!";
-$l_att_ewdfail		 = "Your emergency warp drive failed to engage when [name] in sector [sector] attacked you.";
 $l_att_att		 = "Attacking ";
 $l_att_beams		 = "Beams hit:";
 $l_att_torps		 = "Torpedos hit:";
@@ -326,8 +322,6 @@ $l_att_lostf		 = "lost all fighters.";
 $l_att_ylostf		 = "You lost all fighters.";
 $l_att_sdest		 = "'s ship has been destroyed.";
 $l_att_espod		 = "An escape pod was launched!";
-$l_att_looser		 = "attacked you, and destroyed your ship!";
-$l_att_loosepod		 = "Luckily you had an escape pod!";
 $l_att_ysalv		 = "You salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits.<BR>Your rating changed by [rating_change] points.";
 $l_att_andused		 = "and used";
 $l_att_stilship		 = "You did not destory [name]'s ship.";
@@ -392,7 +386,6 @@ $l_die_what		 = "What was I thinking?";
 $l_die_count		 = "5.. 4.. 3.. 2.. 1.. Boom!";
 $l_die_vapor		 = "You ship and all aboard have been vaporized.";
 $l_die_please		 = "Please, <A HREF=logout.php3>logout</A>";
-$l_die_log		 = "You self-destructed from";
 $l_die_exploit		 = "Don't play with what you don't understand.";
 
 // move.php
@@ -405,12 +398,10 @@ $l_move_failed		 = "Move failed!";
 
 $l_scan_title		 = "Scan Ship";
 $l_scan_turn		 = "You need at least one turn to scan another ship.";
-$l_scan_logfail		 = "attempted to scan your ship, but failed.";
 $l_scan_ron		 = "Scan results on";
 $l_scan_capt		 = "Captained by:";
 $l_scan_arma		 = "Armament:";
 $l_scan_carry		 = "Carrying:";
-$l_scan_log		 = "You were scanned by";
 
 // lrscan.php
 
@@ -428,14 +419,38 @@ $l_lrs_cantscan		 = "Can't scan sector from current sector!";
 $l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
 $l_lrs_moveto		 = "to move to sector";
 
+$l_log_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
+$l_log_months_short = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+$l_log_pod = "Luckily, you had an escape pod!";
+$l_log_nopod = "<font color=yellow><b>You did not have an escape pod, you died.</b></font>";
+
+$l_log_text[LOG_LOGIN] = "You have logged in from [ip].";
+$l_log_title[LOG_LOGIN] = "Logged in";
+$l_log_text[LOG_LOGOUT] = "You have logged out from [ip].";
+$l_log_title[LOG_LOGOUT] = "Logged out";
+$l_log_text[LOG_ATTACK_OUTMAN] = "[player] was spotted on an attack vector, but your great pilot skills and good engines allowed you to outmaneuver the enemy.";
+$l_log_title[LOG_ATTACK_OUTMAN] = "Evasive action!";
+$l_log_text[LOG_ATTACK_OUTSCAN] = "You detected [player]'s weapons trying to fix on your ship, but your cloak generators managed to fool the enemy's primitive sensor circuits.";
+$l_log_title[LOG_ATTACK_OUTSCAN] = "Cloak successful!";
+$l_log_text[LOG_ATTACK_EWD] = "You are surprised by [player]'s treacherous attack. You can see the incoming warheads as you reach frantically for the emergency warp button. The world blurs around you and, for a milisecond, you think you are dead. When you finally open your eyes, you see that you were safely transported elsewhere. But where exactly, you do not know...";
+$l_log_title[LOG_ATTACK_EWD] = "Emergency warp!";
+$l_log_text[LOG_ATTACK_EWDFAIL] = "Your sensors detect [player]'s ship on an attack vector. \"Better be safe than sorry\", you think, hitting the emergency warp button. You hear a strange choking sound coming from the engines room and smell burned circuitry. \"Stupid piece of crap!\", you yell, kicking at the computer. The computer emits beeps of protestation as you prepare for the incoming battle...";
+$l_log_title[LOG_ATTACK_EWDFAIL] = "Emergency warp <font color=red>failed!</font>";
+$l_log_text[LOG_ATTACK_LOSE] = "You ship is being attacked by [player]. Try as you might, you cannot defend yourself against [player]'s superior weaponry. Your ship was destroyed. ";
+$l_log_title[LOG_ATTACK_LOSE] = "<font color=red>Combat lost!</font>";
+$l_log_text[LOG_ATTACKED_WIN] = "You ship was attacked by [player]. You battle for a while, then the fight breaks down. You lost [armor] armor points and [fighters] fighters in the skirmish.";
+$l_log_title[LOG_ATTACKED_WIN] = "Skirmish!";
+$l_log_text[LOG_TOLL_PAID] = "You had to pay [toll] credits to enter sector [sector]. You promise yourself that you'll find a way to get your money back.";
+$l_log_title[LOG_TOLL_PAID] = "Extortion";
+
 // modify-defences.php
 
 $l_md_title		 = "Sector Defences";
 $l_md_invalid		 = "Invalid Sector Defence";
 $l_md_nolonger		 = "The sector defence selected is no longer there.";
 $l_md_you		 = "you";
-$l_md_bmines		 = "Your beams destroyed"
-$l_md_msgdownerb	 = "[name] destroyed [mines] mines in sector [sector]."
+$l_md_bmines		 = "Your beams destroyed";
+$l_md_msgdownerb	 = "[name] destroyed [mines] mines in sector [sector].";
 $l_md_retr		 = "You retrieved";
 $l_md_mode		 = "The fighters selected have been set to [mode] mode.";
 $l_md_consist		 = "This sector defence consists of [qty] [type] owned by [owner].";

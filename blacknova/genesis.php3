@@ -104,83 +104,44 @@ else
     echo "$l_gns_forbid";
   }
   elseif($zoneinfo[allow_planet] == 'L')
-
   {
-
     if($zoneinfo[corp_zone] == 'N')
-
     {
-
       if($playerinfo[team] == 0)
-
       {
-
         echo $l_gns_bforbid;
-
       }
-
       else
-
       {
-
         $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
-
         $ownerinfo = mysql_fetch_array($res);
-
         if($ownerinfo[team] != $playerinfo[team])
-
         {
-
           echo $l_gns_bforbid;
-
         }
-
         else
-
         {
-
           $query1 = "INSERT INTO planets VALUES('', $playerinfo[sector], NULL, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo[ship_id], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N')";
-
           $update1 = mysql_query($query1);
-
           $query2 = "UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]";
-
           $update2 = mysql_query($query2);
-
           echo $l_gns_pcreate;
-
         }
-
       }
-
     }
-
     elseif($playerinfo[team] != $zoneinfo[owner])
-
     {
-
       echo $l_gns_bforbid;
-
     }
-
     else
-
     {
-
       $query1 = "INSERT INTO planets VALUES('', $playerinfo[sector], NULL, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo[ship_id], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N')";
-
       $update1 = mysql_query($query1);
-
       $query2 = "UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]";
-
       $update2 = mysql_query($query2);
-
       echo $l_gns_pcreate;
-
     }
-
   }
-
   else
   {
     $query1 = "INSERT INTO planets VALUES('', $playerinfo[sector], NULL, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo[ship_id], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N')";

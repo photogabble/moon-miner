@@ -102,7 +102,7 @@
                  $fighterslost = $total_sector_fighters - $targetfighters;
                  destroy_fighters($sector,$fighterslost);
                  message_defence_owner($sector,"$playerinfo[character_name] destroyed $fighterslost sector defence fighters in sector $sector.");
-                 playerlog($playerinfo[ship_id],"You destroyed $fighterslost sector defence fighters in sector $sector.");
+                 playerlog($playerinfo[ship_id], LOG_DEFS_DESTROYED_F, "$fighterslost $sector");
                  $armour_lost=$playerinfo[armour_pts]-$playerarmour;
                  $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
                  $energy=$playerinfo[ship_energy];
@@ -111,7 +111,7 @@
                  if($playerarmour < 1)
                  {
                     echo "Your ship has been destroyed!<BR><BR>";
-                    playerlog($playerinfo[ship_id],"Your ship was destroyed by sector defence fighters in sector $sector.");
+                    playerlog($playerinfo[ship_id], LOG_DEFS_KABOOM, "$sector");
                     message_defence_owner($sector,"Sector defence fighters destroyed $playerinfo[character_name] in sector $sector.");
                     if($playerinfo[dev_escapepod] == "Y")
                     {

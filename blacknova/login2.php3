@@ -14,6 +14,10 @@ if($server_closed)
 
 $playerfound = false;
 
+$screen_res = $HTTP_POST_VARS[res];
+if(empty($screen_res))
+  $screen_res = 800;
+
 $res = mysql_query("SELECT * FROM ships WHERE email='$email'");
 if($res)
 {
@@ -36,6 +40,7 @@ else
   $interface="maintext.php3";
 }
 setcookie("interface", $mainfilename);
+setcookie("screenres", $screen_res);
 
 $res = mysql_query("SELECT * FROM ip_bans WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
 if(mysql_num_rows($res) != 0)
@@ -70,7 +75,7 @@ if($playerfound)
     if($playerinfo[ship_destroyed] == "N")
     {      
       // player's ship has not been destroyed
-      playerlog($playerinfo[ship_id], "Logged in from " . $ip);
+      playerlog($playerinfo[ship_id], LOG_LOGIN, $ip);
       $stamp = date("Y-m-d H-i-s");
       $update = mysql_query("UPDATE ships SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
 	  TEXT_GOTOMAIN();
@@ -119,7 +124,7 @@ if($playerfound)
   {
     // password is incorrect
     echo "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, click <A HREF=mail.php3?mail=$email>here</A> to have it e-mailed to you.<BR><BR>  Otherwise, click <a href=login.php3>here</a> to try again.  Attempt logged with IP address of $ip...";
-    playerlog($playerinfo[ship_id], "Bad login attempt from " . $ip);
+    playerlog($playerinfo[ship_id], LOG_BADLOGIN, $ip);
   }
 }
 else

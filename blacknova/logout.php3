@@ -19,6 +19,7 @@ $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
 
 $current_score = gen_score($playerinfo[ship_id]);
+playerlog($playerinfo[ship_id], LOG_LOGOUT, $ip);
 
 bigtitle();
 echo "You current score is $current_score.<BR>";

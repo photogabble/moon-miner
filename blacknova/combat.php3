@@ -482,15 +482,15 @@ echo "
 
             if($playerscore < $planetscore)
             {
-              echo "<CENTER>The citizen of this planet have decided they'd rather die than serve a pathetic ruler like you. They use a laser drill to dig a hole to the planet's core. You barely have time to escape into orbit before the whole planet is reduced to a ball of molten lava.</CENTER><BR><BR>";
+              echo "<CENTER>The citizens of this planet have decided they'd rather die than serve a pathetic ruler like you. They use a laser drill to dig a hole to the planet's core. You barely have time to escape into orbit before the whole planet is reduced to a ball of molten lava.</CENTER><BR><BR>";
               mysql_query("DELETE FROM planets WHERE planet_id=$planetinfo[planet_id]");
-              playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name]. Your faithful citizens have chosen death instead of serving your enemy.");
+              playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED_D, "$planetinfo[name] $playerinfo[sector] $playerinfo[character_name]");
               gen_score($ownerinfo[ship_id]);
             }
             else
             {
               echo "<CENTER><font color=red>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</font></CENTER><BR><BR>";
-              playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+              playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name] $playerinfo[sector] $playerinfo[character_name]");
               gen_score($ownerinfo[ship_id]);
               $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
             }
@@ -498,7 +498,7 @@ echo "
           else
           {
             echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
-            playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+            playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name] $playerinfo[sector] $playerinfo[character_name]");
             gen_score($ownerinfo[ship_id]);
             $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
           }
@@ -512,7 +512,7 @@ echo "
           if ($debug) echo "Fighters lost: $fighters_lost out of $planetinfo[fighters] ($planetfighters alive)<BR>";
           $energy=$planetinfo[energy];
           if ($debug) echo "Energy left: $planetinfo[energy]<BR>";
-          playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods unitsof goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
+          playerlog($ownerinfo[ship_id], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name] $playerinfo[sector] $playerinfo[character_name] $free_ore $free_organics $free_goods $ship_salvage_rate $ship_salvage");
           gen_score($ownerinfo[ship_id]);
           $update7b = mysql_query("UPDATE planets SET energy=$energy,fighters=fighters-$fighters_lost, torps=torps-$planettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
           if ($debug) echo "<BR>Set: energy=$energy, fighters lost=$fighters_lost, torps=$planetinfo[torps], sectorid=$sectorinfo[sector_id]<BR>";
@@ -802,11 +802,11 @@ Attackertorpdamage: $attackertorpdamage<BR>";
           echo "An escape pod was launched!<BR><BR>";
           echo "<BR><BR>ship_id=$targetinfo[ship_id]<BR><BR>";
           $test = mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$targetinfo[ship_id]"); 
-          playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>"); 
+          playerlog($targetinfo[ship_id],LOG_ATTACK_LOSE, "$playerinfo[character_name] Y"); 
         }
         else
         {
-          playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!<BR><BR>"); 
+          playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "$playerinfo[character_name] N"); 
           db_kill_player($targetinfo['ship_id']);
         }   
       
@@ -873,7 +873,7 @@ Attackertorpdamage: $attackertorpdamage<BR>";
         $target_armor_lost=$targetinfo[armour_pts]-$targetarmor;
         $target_fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
         $target_energy=$targetinfo[ship_energy];
-        playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you.  You lost $armor_lost points of armor and $fighters_lost fighters.<BR><BR>");
+        playerlog($targetinfo[ship_id], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
         $update4 = mysql_query ("UPDATE ships SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armour_pts=armour_pts-$target_armor_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
       }
       echo "<BR>_+_+_+_+_+_+_<BR>";

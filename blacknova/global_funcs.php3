@@ -5,6 +5,43 @@ if ($userpass != '' and $userpass != '+') {
   $password = substr($userpass, strpos($userpass, "+")+1);
 }
 
+//Log constants
+
+define(LOG_LOGIN, 1);
+define(LOG_LOGOUT, 2);
+define(LOG_ATTACK_OUTMAN, 3);           //sent to target when better engines
+define(LOG_ATTACK_OUTSCAN, 4);          //sent to target when better cloak
+define(LOG_ATTACK_EWD, 5);              //sent to target when EWD engaged
+define(LOG_ATTACK_EWDFAIL, 6);          //sent to target when EWD failed
+define(LOG_ATTACK_LOSE, 7);             //sent to target when he lost
+define(LOG_ATTACKED_WIN, 8);            //sent to target when he won
+define(LOG_TOLL_PAID, 9);               //sent when paid a toll
+define(LOG_HIT_MINES, 10);              //sent when hit mines
+define(LOG_SHIP_DESTROYED_MINES, 11);   //sent when destroyed by mines
+define(LOG_PLANET_DEFEATED_D, 12);      //sent when one of your defeated planets is destroyed instead of captured
+define(LOG_PLANET_DEFEATED, 13);        //sent when a planet is defeated
+define(LOG_PLANET_NOT_DEFEATED, 14);    //sent when a planet survives
+define(LOG_RAW, 15);                    //this log is sent as-is
+define(LOG_TOLL_RECV, 16);              //sent when you receive toll money
+define(LOG_DEFS_DESTROYED, 17);         //sent for destroyed sector defenses
+define(LOG_PLANET_EJECT, 18);           //sent when ejected from a planet due to alliance switch
+define(LOG_BADLOGIN, 19);               //sent when bad login
+define(LOG_PLANET_SCAN, 20);            //sent when a planet has been scanned
+define(LOG_PLANET_SCAN_FAIL, 21);       //sent when a planet scan failed
+define(LOG_PLANET_CAPTURE, 22);         //sent when a planet is captured
+define(LOG_SHIP_SCAN, 23);              //sent when a ship is scanned
+define(LOG_SHIP_SCAN_FAIL, 24);         //sent when a ship scan fails
+define(LOG_FURANGEE_ATTACK, 25);        //furangees send this to themselves
+define(LOG_STARVATION, 26);             //sent when colonists are starving... Is this actually used in the game?
+define(LOG_TOW, 27);                    //sent when a player is towed
+define(LOG_DEFS_DESTROYED_F, 28);       //sent when a player destroys fighters
+define(LOG_DEFS_KABOOM, 29);            //sent when sector fighters destroy you
+define(LOG_HARAKIRI, 30);               //sent when self-destructed
+define(LOG_TEAM_REJECT, 31);            //sent when player refuses invitation
+define(LOG_TEAM_RENAME, 32);            //sent when renaming a team
+define(LOG_TEAM_M_RENAME, 33);          //sent to members on team rename
+define(LOG_TEAM_KICK, 34);              //sent to booted player
+
 function bigtitle()
 {
   global $title;
@@ -121,14 +158,13 @@ function updatecookie()
 }
 
 
-function playerlog($sid,$log_entry)
+function playerlog($sid, $log_type, $data = "")
 {
   /* write log_entry to the player's log - identified by player's ship_id - sid. */
-  if ($sid != "") {
-      $log_entry = date("l dS of F Y h:i:s A") . ":  " . $log_entry;
-      $plog = fopen("player-log/" . $sid, "a");
-      fwrite($plog, "$log_entry <BR>");
-      fclose($plog);
+  if ($sid != "" && !empty($log_type))
+  {
+    mysql_query("INSERT INTO logs VALUES('', $sid, $log_type, NOW(), '$data')");
+    echo mysql_error();
   }
 }
 
@@ -396,7 +432,7 @@ function message_defence_owner($sector, $message)
        while($row = mysql_fetch_array($result3))
        {
 
-          playerlog($row[ship_id],$message);
+          playerlog($row[ship_id],LOG_RAW, $message);
 
        }
        mysql_free_result($result3);
@@ -415,7 +451,7 @@ function distribute_toll($sector, $toll, $total_fighters)
        {
           $toll_amount = ROUND(($row['quantity'] / $total_fighters) * $toll);
           mysql_query("UPDATE ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
-          playerlog($row[ship_id],"You received $toll_amount credits as toll for entry to sector $sector.");
+          playerlog($row[ship_id], LOG_TOLL_RECV, "$toll_amount $sector");
 
        }
        mysql_free_result($result3);
@@ -444,16 +480,16 @@ function defence_vs_defence($ship_id)
                   mysql_query("DELETE FROM sector_defence WHERE defence_id = $cur[defence_id]");
                   $qty -= $cur['quantity'];
                   mysql_query("UPDATE sector_defence SET quantity = $qty where defence_id = $row[defence_id]");
-                  playerlog($cur[ship_id],"$cur[quantity] $targetdeftype were destroyed in sector $row[sector_id].");
-                  playerlog($row[ship_id],"$cur[quantity] $deftype were destroyed in sector $row[sector_id].");
+                  playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity] $targetdeftype $row[sector_id]");
+                  playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity] $deftype $row[sector_id]");
 
                }
                else
                {
                   mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
                   mysql_query("UPDATE sector_defence SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
-                  playerlog($cur[ship_id],"$qty $targetdeftype were destroyed in sector $row[sector_id].");
-                  playerlog($row[ship_id],"$qty $deftype were destroyed in sector $row[sector_id].");
+                  playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$qty $targetdeftype $row[sector_id]");
+                  playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$qty $deftype $row[sector_id]");
                   $qty = 0;
                }
             }
@@ -481,7 +517,7 @@ function kick_off_planet($ship_id,$whichteam)
             while($cur = mysql_fetch_array($result2) )
             {
                mysql_query("UPDATE ships SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
-               playerlog($cur[ship_id],"You were ejected from the planet in sector $cur[sector] because the owner $row[character_name] left the alliance.");
+               playerlog($cur[ship_id], LOG_PLANET_EJECT, "$cur[sector] $row[character_name]");
             }
             mysql_free_result($result2);
          }

@@ -20,7 +20,7 @@
       $starvation = floor(-($organics_test / $organics_consumption / $colonist_production_rate * $starvation_death_rate));
       if($row[owner] && $starvation > 0)
       {
-        playerlog($row[owner], "Your planet in sector $row[sector_id] had too little food and $starvation people died!");
+        playerlog($row[owner], LOG_STARVATION, "$row[sector_id] $starvation");
       }
     }
     else

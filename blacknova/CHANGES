@@ -1,7 +1,38 @@
 Version 0.3
 -----------
 
-SharpBlue (1st December 2001)
+SharpBlue (04 December 2001)
+-------------------------------
+New log services. The logs are now kept in the database instead
+of in a file. Each event has a define in the global_funcs file,
+with an attached text string in the language files. The log.php
+file parses the log data and outputs an intelligible string.
+
+Also played with DHTML for the log interface. Works fine in IE,
+NS6 and Mozilla. DHTML is simply disabled for browsers that
+don't support it, outputting a simple table instead. Added a field
+to the ships table so that users can explicitely disable DHTML if
+they don't like it.
+
+
+SharpBlue (03 December 2001)
+-------------------------------
+Fixed the broken screen resolution cookie code. Fonts for the
+main interface are now dynamically selected, depending on the
+screen resolution. Hopefully this will make the main interface
+better for those with a resolution above 800x600. X resolution
+is stored in a cookie called screenres.
+
+
+SharpBlue (02 December 2001)
+-------------------------------
+Modified ports so you can buy more than 999,999 mine deflectors
+in a single shot.
+
+Fixed the IGB so that it displays right in Netscape 4
+
+
+SharpBlue (01 December 2001)
 -------------------------------
 Anti-cheat measures:
  - Setting not to allow credit transfers to/from corporate planets
@@ -9,8 +40,8 @@ Anti-cheat measures:
  - IP ban module in the admin script
 
 Addition of a new scheduler to the game. This makes the use of
-the sysupdate.php3 file obsolete, as well as genrank.php3,
-gen_news.php3. Settings can now be set in real-time, and the
+the sysupdate.php3 file obsolete, as well as genrank.php3 and
+gen_news.php. Settings can now be set in real-time, and the
 actual system update interval does not affect any longer the game
 speed.
 
@@ -18,8 +49,8 @@ speed.
 SharpBlue (30 November 2001)
 -------------------------------
 Anti-cheat measures:
- - Timestamp on transfers to disallow multiple IGB transfers 
-   too fast
+ - Timestamp on transfers to control the frequency of IGB 
+   transfers 
 
 Invitation into an alliance log "blank name" bug fixed
 Trade routes now link the source port
