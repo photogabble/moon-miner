@@ -242,6 +242,13 @@ function db_kill_player($ship_id)
   }
   mysql_query("DELETE FROM sector_defence where ship_id=$ship_id");
 
+  $res = mysql_query("SELECT zone_id FROM zones WHERE corp_zone='N' AND owner=$ship_id);
+  $zone = mysql_fetch_array($res);
+
+  mysql_query("UPDATE universe SET zone_id=1 WHERE zone_id=$zone[zone_id]");
+ 
+
+
 $query = mysql_query("select character_name from ships where ship_id='$ship_id'");
 $name = mysql_fetch_array($query);
 
