@@ -184,7 +184,7 @@ else
           //******************************
           echo "<HR>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00;\">Log Data For This Furangee</span><BR>";
-          include("player-log/" . $row[ship_id]);
+          if(file_exists("player-log/" . $row[ship_id])) include("player-log/" . $row[ship_id]);
         }
         elseif($operation == "save")
         {
@@ -340,7 +340,8 @@ else
         // Display Confirmation Form
         echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
         echo "<TR><TD>Furangee Name</TD><TD><INPUT TYPE=TEXT SIZE=20 NAME=character VALUE=$character></TD>";
-        echo "<TD ALIGN=Right>Ship Name</TD><TD><INPUT TYPE=TEXT SIZE=20 NAME=shipname VALUE=$shipname></TD>";
+        echo "<TD>Level <INPUT TYPE=TEXT SIZE=5 NAME=furlevel VALUE=3></TD>";
+        echo "<TD>Ship Name <INPUT TYPE=TEXT SIZE=20 NAME=shipname VALUE=$shipname></TD>";
         echo "<TR><TD>Active?<INPUT TYPE=CHECKBOX NAME=active VALUE=ON CHECKED ></TD>";
         echo "<TD>Orders ";
           echo "<SELECT SIZE=1 NAME=orders>";
@@ -393,8 +394,13 @@ else
               $makepass .= sprintf("%s",$syllable_array[rand()%62]);
             }
           }
+          if ($furlevel=='') $furlevel=0;
+          $maxenergy = NUM_ENERGY($furlevel);
+          $maxarmour = NUM_ARMOUR($furlevel);
+          $maxfighters = NUM_FIGHTERS($furlevel);
+          $maxtorps = NUM_TORPEDOES($furlevel);
           $stamp=date("Y-m-d H:i:s");
-          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',3,3,3,3,3,3,3,100,3,3,100,1,$start_credits,$sector,0,0,0,$start_energy,0,100,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y')");
+          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$maxtorps,$furlevel,$furlevel,$maxarmour,$furlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y')");
           if(!$result2) {
             echo mysql_errno(). ": ".mysql_error(). "<br>";
           } else {
