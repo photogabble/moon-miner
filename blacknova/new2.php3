@@ -30,6 +30,12 @@ if ($result>0)
   }
 }
 
+if(!get_magic_quotes_gpc())
+{
+  $username = addslashes($username);
+  $character = addslashes($character);
+  $shipname = addslashes($shipname);
+}
 
 if ($flag==0)
 {
