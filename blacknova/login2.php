@@ -1,5 +1,8 @@
 <?
 include("config.php");
+if(empty($lang))
+  $lang=$default_lang;
+include($gameroot . "/languages/$lang");
 
 connectdb();
 

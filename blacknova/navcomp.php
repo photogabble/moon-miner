@@ -100,7 +100,7 @@
 				$search_query = $search_query . ", a" . $i . ".link_dest";
 			}
 			$search_query = $search_query . " \nLIMIT 1";
-			#echo "$search_query\n\n";
+			//echo "$search_query\n\n";
 			$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 			$search_result = $db->Execute ($search_query) or die ("Invalid Query");
 			$found = $search_result->RecordCount();

@@ -7,7 +7,7 @@ if ($userpass != '' and $userpass != '+') {
 }
 
 // Ensure lang is set
-if (!isset($lang))
+if (!isset($lang) || empty($lang))
   $lang = $default_lang;
 
 //Log constants
@@ -65,8 +65,6 @@ $dbtables['links'] = "${db_prefix}links";
 $dbtables['planets'] = "${db_prefix}planets";
 $dbtables['traderoutes'] = "${db_prefix}traderoutes";
 $dbtables['news'] = "${db_prefix}news";
-$dbtables['newstypes'] = "${db_prefix}newstypes";
-$dbtables['newsactions'] = "${db_prefix}newsactions";
 $dbtables['ships'] = "${db_prefix}ships";
 $dbtables['teams'] = "${db_prefix}teams";
 $dbtables['universe'] = "${db_prefix}universe";
@@ -78,6 +76,7 @@ $dbtables['scheduler'] = "${db_prefix}scheduler";
 $dbtables['ip_bans'] = "${db_prefix}ip_bans";
 $dbtables['IGB_transfers'] = "${db_prefix}IGB_transfers";
 $dbtables['logs'] = "${db_prefix}logs";
+$dbtables['gen_id'] = "${db_prefix}gen_id";
 
 function bigtitle()
 {
@@ -843,6 +842,21 @@ switch ($ptype) {
 }
 
 return $ret;
+}
+
+function GenNextID($id)
+{
+  global $db, $dbtables;
+
+  $db->Execute("LOCK TABLES $dbtables[gen_id] write");
+  $res = $db->Execute("SELECT count FROM $dbtables[gen_id] WHERE name='$id'");
+  if(!$res)
+    return(-1);
+  $count = $res->fields[count];
+  $res = $db->Execute("UPDATE $dbtables[gen_id] SET count=count+1 WHERE name='$id'");
+  $count++;
+  $db->Execute("UNLOCK TABLES");
+  return($count);
 }
 
 

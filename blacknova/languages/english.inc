@@ -1273,5 +1273,8 @@ $l_zname[2] = "Federation space";
 $l_zname[3] = "Free-trade space";
 $l_zname[4] = "War Zone";
 
+// ADDITION TO warpedit2.php
+
+$l_warp_cantsame = "You can't create a link when the source is the same as the destination.";
 
 ?>

@@ -30,8 +30,8 @@ elseif($swordfish == $adminpass && $engage == "")
   echo "<tr><td>Percent Goods</td><td><input type=text name=goods size=2 maxlength=2 value=20></td></tr>";
   echo "<tr><td>Percent Energy</td><td><input type=text name=energy size=2 maxlength=2 value=20></td></tr>";
   echo "<tr><td>Percent Empty</td><td>Equal to 100 - total of above.</td></tr>";
-  echo "<tr><td>Initial Commodities to Sell<br><td><input type=text name=initscommod size=5 maxlength=5 value=50.00> % of max</td></tr>";
-  echo "<tr><td>Initial Commodities to Buy<br><td><input type=text name=initbcommod size=5 maxlength=5 value=50.00> % of max</td></tr>";
+  echo "<tr><td>Initial Commodities to Sell<br><td><input type=text name=initscommod size=5 maxlength=5 value=100.00> % of max</td></tr>";
+  echo "<tr><td>Initial Commodities to Buy<br><td><input type=text name=initbcommod size=5 maxlength=5 value=100.00> % of max</td></tr>";
   echo "<tr><td><b><u>Sector/Link Setup</u></b></td><td></td></tr>";
   $fedsecs = intval($sector_max / 300); 
   $loops = intval($sector_max / 300);

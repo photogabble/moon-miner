@@ -104,6 +104,10 @@ if($result3 > 0)
   $l_warp_linked = str_replace("[target_Sector]", $target_sector, $l_warp_linked);
     echo "$l_warp_linked<BR><BR>";
   }
+  elseif($playerinfo[sector] == $target_sector)
+  {
+    echo $l_warp_cantsame;
+  }
   else
   {
     $insert1 = $db->Execute ("INSERT INTO $dbtables[links] SET link_start=$playerinfo[sector], link_dest=$target_sector");
