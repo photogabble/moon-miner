@@ -78,6 +78,7 @@ else
   {
     /* need to change warp destination to random sector in universe */
     $dest_sector=rand(1,$sector_max);
+    playerlog($targetinfo[ship_id],"$playerinfo[character_name] in sector $playerinfo[sector] attempted to attack your ship, Your Emergency Warp Engaged.");
     $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
     echo "Target engaged an emergency warp device when attacked!";
     echo "Click <a href=main.php3>here</a> to return to Main Menu.";
