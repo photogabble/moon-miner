@@ -2,7 +2,7 @@ BlackNova Traders - Readme
 
 A web-based massively multi-player strategy game of space trading and combat.
 
-Version 0.2 - numerous bug fixes and added features.
+Version 0.32 
 http://www.blacknova.net
 
 Copyright (C) 2000 Ron Harwood <harwoodr@blacknova.net>
@@ -17,7 +17,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the Artistic
 License for more details.
 
 Requirements: 
-    PHP3
+    PHP4
     MySQL (tested with 3.23.x)
     a web-browser (doh!)
 
@@ -43,6 +43,11 @@ ChangeLog:
 
 Documentation:
     None to speak of yet.
+
+Updates:
+    Join the blacknova announcement mailing list to be informed of updates, patches 
+    and new releases. Send an email to bnt-announce-request@thegeek.org with the single
+    word subscribe in the body of the email.
 
 Enjoy,
 

@@ -9,6 +9,8 @@ INSTALLATION
 2. Simply edit the config_local.php file to your own settings 
    and manually update your cron file.
 
+   You need ADOdb - see the config_local.php file for details on where to download.
+
    You need to set up a background task thats called every X minutes.
    You can set this to any interval you want, but 5 or 6 minutes are good
    standard values.
@@ -55,6 +57,16 @@ If you are running php version 4.0.6 or earlier, you will need to comment out
 a line in header.php - its one of the first few lines and starts with ob.
 There is a comment indicating the line.
 PHP 4.0.6 has a memory leak bug.
+
+Trouble Shooting:
+If, when you log in, you are presented with another screen telling you to log in,
+chances are that you have incorrectly set up the $gamedomain and $gamepath variables in
+config_local.php
+
+Join the blacknova announcement mailing list to be informed of updates, patches 
+and new releases. Send an email to bnt-announce-request@thegeek.org with the single
+word subscribe in the body of the email. This is an extremely low traffic mailing list, 
+used only for announcements directly related to Blacknova.
 
 
 BUG REPORTS AND SUPPORT

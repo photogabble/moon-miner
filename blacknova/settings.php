@@ -34,7 +34,8 @@ bigtitle();
   $rate = $defence_degrade_rate*100;
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Sector fighter degradation percentage rate</TD><TD>$rate</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Number of planets with bases need for sector ownership</TD><TD>$min_bases_to_own</TD></TR>";
-
+  $rate = ($interest_rate - 1) * 100;
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Planet interest rate</TD><TD>$rate</TD></TR>";
 
   echo "</TABLE>";
 

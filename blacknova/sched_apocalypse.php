@@ -15,7 +15,7 @@
   {
      $i=1;
      $targetnum=rand(1,$doomsday->RecordCount());
-     while (!$res->EOF)
+     while (!$doomsday->EOF)
      {
         if ($i==$targetnum)
         {
@@ -28,14 +28,14 @@
      if($affliction == 1) // Space Plague
      {
         echo "The horsmen release the Space Plague!<BR>.";
-        $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists*5) WHERE planet_id = $targetinfo[planet_id]");
-        playerlog($targetinfo[owner],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]]"); 
+        $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists*.5) WHERE planet_id = $targetinfo[planet_id]");
+        playerlog($targetinfo[owner],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]"); 
      }
      else
      {
         echo "The horsemen release a Plasma Storm!<BR>.";
         $db->Execute("UPDATE $dbtables[planets] SET energy = 0 WHERE planet_id = $targetinfo[planet_id]");
-        playerlog($targetinfo[owner],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]]");
+        playerlog($targetinfo[owner],LOG_PLASMA_STORM,"$targetinfo[name]|$targetinfo[sector_id]");
      } 
   }
   echo "<BR>";
