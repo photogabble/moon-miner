@@ -34,5 +34,8 @@
   echo "Ensuring minimum energy levels are 0...";
   QUERYOK($db->Execute("UPDATE $dbtables[universe] SET port_energy=0 WHERE port_energy<0"));
   echo "<BR>";
-
+  QUERYOK($db->Execute("UPDATE $dbtables[universe] SET port_energy=$energy_limit WHERE port_type='energy' AND port_energy > $energy_limit"));
+  QUERYOK($db->Execute("UPDATE $dbtables[universe] SET port_goods=$goods_limit WHERE port_type='goods' AND port_goods > $goods_limit"));
+  QUERYOK($db->Execute("UPDATE $dbtables[universe] SET port_organics=$organics_limit WHERE port_type='organics' AND port_organics < $organics_limit"));
+  QUERYOK($db->Execute("UPDATE $dbtables[universe] SET port_ore=$ore_limit WHERE port_type='ore' AND port_ore > $ore_limit"));
 ?>
