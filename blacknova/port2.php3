@@ -308,11 +308,10 @@ else
       easier to modify/add something in this part.
                                                            --Fant0m
     */
-$price_array = array();
+   $price_array = array();
    function TRADE($price, $delta, $max, $limit, $factor, $port_type, $origin) 
    {   
-      global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array;
-    //print $sectorinfo[port_type]."<br>"; 
+      global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array; 
       if($sectorinfo[port_type] ==  $port_type )
       {
         $price_array[$port_type] = $price - $delta * $max / $limit * $factor;
@@ -326,8 +325,10 @@ $price_array = array();
         $trade_result            = $trade_deficit;
         $origin                  = -$origin;
       }
+      /* debug info
       print "$origin*$price_array[$port_type]="; 
       print $origin*$price_array[$port_type]."<br>";
+      */
       return $origin;
    }
 
@@ -337,8 +338,6 @@ $price_array = array();
    $trade_energy    =  TRADE($energy_price,     $energy_delta,    $sectorinfo[port_energy],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
   
    $cargo_exchanged =  $trade_ore + $trade_organics + $trade_goods;
-  
-//print $price_array['ore'];
 
     $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
     $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
