@@ -155,7 +155,7 @@ elseif($destination <= $sector_max && $engage == 1)
     $sector = $destination;
     $calledfrom = "rsmove.php3";
     include("check_fighters.php3");
-    if($ok==1) 
+    if($ok>0) 
     {
        $stamp = date("Y-m-d H-i-s");
        $update = mysql_query("UPDATE ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
