@@ -22,11 +22,14 @@ bigtitle();
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum Hull Size for Federation Sectors</TD><TD>$fed_max_hull</TD></TR>";
   $rate = $ibank_interest * 100;
   echo "<TR BGCOLOR=\"$color_line2\"><TD>IGB Interest rate per update</TD><TD>$rate</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Tech Level upgrade for Bases</TD><TD>$basedefense</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Colonists Limit</TD><TD>$colonist_limit</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum number of accumulated turns</TD><TD>$max_turns</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Maximum number of planets per sector</TD><TD>$max_planets_sector</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum number of traderoutes per player</TD><TD>$max_traderoutes_player</TD></TR>";
+  $rate = $ibank_loaninterest * 100;
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>IGB Loan rate per update</TD><TD>$rate</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Tech Level upgrade for Bases</TD><TD>$basedefense</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Colonists Limit</TD><TD>$colonist_limit</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Maximum number of accumulated turns</TD><TD>$max_turns</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum number of planets per sector</TD><TD>$max_planets_sector</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Maximum number of traderoutes per player</TD><TD>$max_traderoutes_player</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Colonist Production Rate</TD><TD>$colonist_production_rate</TD></TR>";
   echo "</TABLE>";
 
 
