@@ -48,7 +48,7 @@ if($playerinfo[on_planet] == "Y")
   $res2 = mysql_query("SELECT planet_id FROM planets WHERE planet_id=$playerinfo[planet_id]");
   if(mysql_num_rows($res2) != 0)
   {
-    echo "Click <A HREF=planet.php3?planet_id=$playerinfo[planet_id]>here</A> to go to the planet menu.<BR>"; 
+    echo "Click <A HREF=planet.php3?planet_id=$playerinfo[planet_id]>here</A> to go to the planet menu.<BR>";
     echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
 
     //-------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ $num_planets = $i;
 
 $res = mysql_query("SELECT * FROM sector_defence,ships WHERE sector_defence.sector_id='$playerinfo[sector]'
                                                        AND ships.ship_id = sector_defence.ship_id ");
-                                                       
+
 
 $i = 0;
 if($res > 0)
@@ -194,7 +194,7 @@ Commands
 &nbsp;<a class=mnu href="readmail.php3">Read Messages</A>&nbsp;<br> <? # Link to read the messages -- blindcoder ?>
 &nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
 &nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
-&nbsp;<a class=mnu href="teams.php">Alliances</a>&nbsp;<br> 
+&nbsp;<a class=mnu href="teams.php">Alliances</a>&nbsp;<br>
 &nbsp;<a class=mnu href="self-destruct.php3">Self-Destruct</a>&nbsp;<br>
 &nbsp;<a class=mnu href="options.php3">Options</a>&nbsp;<br>
 &nbsp;<a class=mnu href="navcomp.php3">Nav Computer</a>&nbsp;<br>
@@ -307,12 +307,9 @@ if($num_planets > 0)
       $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
       $planet_owner = mysql_fetch_array($result5);
 
-      $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
-      $planet_owner = mysql_fetch_array($result5);
-
       $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
       $planetavg /= 7;
-  
+
       if($planetavg < 8)
         $planetlevel = 0;
       else if ($planetavg < 12)
@@ -348,7 +345,7 @@ if($num_planets > 0)
     }
     else
     {
-       echo "<br>($planet_owner[character_name])";         
+       echo "<br>($planet_owner[character_name])";
       $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":N:-->";
     }
     echo "</font></td>";
@@ -384,18 +381,18 @@ else
 
 if($playerinfo[sector] != 0)
 {
-  $result4 = mysql_query(" SELECT 
+  $result4 = mysql_query(" SELECT
                               ships.*,
                               teams.team_name,
-                              teams.id    
-                           FROM `ships`
-                              LEFT OUTER JOIN teams 
+                              teams.id
+                           FROM ships
+                              LEFT OUTER JOIN teams
                               ON ships.team = teams.id
-                           WHERE ships.ship_id<>$playerinfo[ship_id] 
+                           WHERE ships.ship_id<>$playerinfo[ship_id]
                            AND ships.sector=$playerinfo[sector]
                            AND ships.on_planet='N'");
    $totalcount=0;
-   
+
    if($result4 > 0)
    {
       $curcount=0;
@@ -419,7 +416,7 @@ if($playerinfo[sector] != 0)
          {
             $shipavg = $row[hull] + $row[engines] + $row[computer] + $row[beams] + $row[torp_launchers] + $row[shields] + $row[armour];
             $shipavg /= 7;
-            
+
             if($shipavg < 8)
                $shiplevel = 0;
             else if ($shipavg < 12)
@@ -430,9 +427,9 @@ if($playerinfo[sector] != 0)
                $shiplevel = 3;
             else
                $shiplevel = 4;
-             
+
             echo "<td align=center valign=top>";
-            
+
             if ($row[team_name]) {
                echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])&nbsp;(<font color=#33ff00>$row[team_name]</font>)</font>";
             }
@@ -440,11 +437,11 @@ if($playerinfo[sector] != 0)
             {
                echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font>";
             }
-            
+
             echo "</td>";
-            
+
             $totalcount++;
-            
+
             if($curcount == $picsperrow - 1)
             {
                echo "</tr><tr>";
@@ -466,7 +463,7 @@ if($playerinfo[sector] != 0)
       }
    echo "    </tr>
            </table>
-         </td>"; 
+         </td>";
 }
    if($result4 == 0 || $totalcount == 0 && $displayed != true)
    {
@@ -541,7 +538,7 @@ else
 
 <br>
 <?
- 
+
 ?>
 
 
@@ -596,7 +593,7 @@ Trade Routes
 <div class=mnu>
 
 <?
-  
+
   $query = mysql_query("SELECT * FROM traderoutes WHERE source_type='P' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
   $i=0;
   $num_traderoutes = 0;
@@ -630,14 +627,14 @@ Trade Routes
           $traderoutes[$i][name] == "Unnamed";
         echo $traderoutes[$i][name] . "&nbsp;";
       }
-      
+
       echo "=&gt;&nbsp;";
-      
+
       if($traderoutes[$i][dest_type] == 'P')
         echo $traderoutes[$i][dest_id];
       else
       {
-        $query = mysql_query("SELECT name FROM planets WHERE planet_id=" . $traderoutes[$i][dest_id]);      
+        $query = mysql_query("SELECT name FROM planets WHERE planet_id=" . $traderoutes[$i][dest_id]);
         if(empty($query) || mysql_num_rows($query) == 0)
           echo "Unknown";
         else
@@ -715,4 +712,4 @@ echo $rspace_bnthelper_string;
 
 include("footer.php3");
 
-?> 
+?>
