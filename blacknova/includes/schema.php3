@@ -205,6 +205,7 @@ mysql_query("CREATE TABLE teams(" .
             "id bigint(20) DEFAULT '0' NOT NULL," .
             "creator bigint(20) DEFAULT '0'," .
             "team_name tinytext," .
+            "description tinytext," .
             "number_of_members tinyint(3) DEFAULT '0' NOT NULL," .
             "PRIMARY KEY(id)" .
             ")");

@@ -127,7 +127,7 @@ switch ($teamwhat) {
 			// should go here	if ($whotoexpel[team] == 
 			mysql_query("UPDATE ships SET team='0' WHERE ship_id='$who'");
 			mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
-			playerlog($who,"You have been eject from the alliance you were part of.");
+			playerlog($who,"You have been ejected from the alliance you were part of.");
 			echo "$whotoexpel[character_name] has been eject from the alliance!<BR>";
 			mysql_query("UNLOCK TABLES");
 		}
@@ -153,13 +153,15 @@ switch ($teamwhat) {
 			if ($testing)
 				echo "<INPUT TYPE=hidden NAME=swordfish value='$swordfish'>";
 			echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
-			echo "<INPUT TYPE=TEXT NAME=teamname SIZE=40 MAXLENGTH=40>";
+			echo "<INPUT TYPE=TEXT NAME=teamname SIZE=40 MAXLENGTH=40><BR>";
+			echo "Enter a description of the Alliance: ";
+			echo "<INPUT TYPE=TEXT NAME=teamdesc SIZE=40 MAXLENGTH=254><BR>";
 			echo "<INPUT TYPE=SUBMIT VALUE=OK><INPUT TYPE=RESET VALUE=Reset>";
 			echo "</FORM>";
 			echo "<BR><BR>";
 		} else {
 			mysql_query("LOCK TABLES ships WRITE, teams WRITE, zones WRITE");
-			$res = mysql_query("INSERT INTO teams (id,creator,team_name,number_of_members) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1')");
+			$res = mysql_query("INSERT INTO teams (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
       mysql_query("INSERT INTO zones VALUES('','$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
       mysql_query("UPDATE ships SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
 			mysql_query("UNLOCK TABLES");
