@@ -16,14 +16,14 @@ echo "Dropping all tables...<br>";
 foreach ($dbtables as $table => $tablename)
 {
   echo "Dropping $table<br>";
-  $query = $db->Execute("DROP TABLE IF EXISTS $tablename");
+  $query = $db->Execute("DROP TABLE $tablename");
 }
 echo "All tables have been dropped...<p>";
 
 // Create database schema
 echo "Creating tables...<BR>";
 echo "Creating table: links...";
-$db->Execute("CREATE TABLE $dbtables[links](" .
+$db->Execute("CREATE TABLE $dbtables[links] (" .
              "link_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
              "link_start bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "link_dest bigint(20) unsigned DEFAULT '0' NOT NULL," .

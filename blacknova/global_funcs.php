@@ -312,8 +312,6 @@ function db_kill_player($ship_id)
   global $default_prod_energy;
   global $default_prod_fighters;
   global $default_prod_torp;
-  global $default_lang;
-  global $db, $dbtables;
   global $gameroot;
 
   include($gameroot . "/languages/$default_lang");
