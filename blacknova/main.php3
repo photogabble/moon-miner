@@ -66,7 +66,7 @@ echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><
 echo "</TABLE><BR>";
 
 echo "You have $playerinfo[turns] turns left (you have used $playerinfo[turns_used] turns so far).<BR><BR>";
-echo "Ore=$playerinfo[ship_ore] - Organics=$playerinfo[ship_organics] - Goods=$playerinfo[ship_goods] - Energy=$playerinfo[ship_energy] - Credits=$playerinfo[credits]<BR><BR>";
+echo "Ore=".number_format($playerinfo[ship_ore])." - Organics=$playerinfo[ship_organics] - Goods=".number_format($playerinfo[ship_goods])." - Energy=".number_format($playerinfo[ship_energy])." - Credits=".number_format($playerinfo[credits])."<BR><BR>";
 if ($num_links==0) { echo "There are no links out of this sector.<BR><BR>";} else
 {
   echo "Links lead to the following sectors (click to move): ";
