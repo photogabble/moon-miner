@@ -58,23 +58,25 @@ mysql_free_result($res);
 $num_planets = $i;
 if($num_planets < 1)
 {
-  echo "<BR>You have no planets<BR><BR>";
+  echo "<BR>You have no planets";
 }
 else
 {
-  echo "Click on column header to sort by that value.<BR>";
-  echo "<table>";
-  echo "<tr><td><a href=planet-report.php3>Sector</a></td>".
-    "<td><a href=planet-report.php3?sort=name>Planet Name</a></td>".
-    "<td><a href=planet-report.php3?sort=organics>Organics</td>".
-    "<td><a href=planet-report.php3?sort=ore>Ore</td>".
-    "<td><a href=planet-report.php3?sort=goods>Goods</td>".
-    "<td><a href=planet-report.php3?sort=energy>Energy</td>".
-    "<td><a href=planet-report.php3?sort=colonists>Colonists</td>".
-    "<td><a href=planet-report.php3?sort=credits>Credits</td>".
-    "<td><a href=planet-report.php3?sort=fighters>Fighters</td>".
-    "<td><a href=planet-report.php3?sort=torp>Torpedoes</td>".
-    "<td>Base</td><td>Selling</td><td>Defeated</td></tr>";
+  echo "Click on column header to sort.<BR><BR>";
+  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+  echo "<TR BGCOLOR=\"$color_header\">";
+  echo "<TD><B><A HREF=planet-report.php3>Sector</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=name>Name</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=ore>Ore</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=organics>Organics</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=goods>Goods</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=energy>Energy</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=colonists>Colonists</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=credits>Credits</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=fighters>Fighters</A></B></TD>";
+  echo "<TD><B><A HREF=planet-report.php3?sort=torp>Torpedoes</A></B></TD>";
+  echo "<TD><B>Base?</B></TD><TD><B>Selling?</B></TD><TD><B>Defeated?</B></TD>";
+  echo "</TR>";
   $total_organics = 0;
   $total_ore = 0;
   $total_goods = 0;
@@ -86,6 +88,7 @@ else
   $total_base = 0;
   $total_selling = 0;
   $total_defeated = 0;
+  $color = $color_line1;
   for($i=0; $i<$num_planets; $i++)
   {
     $total_organics += $planet[$i][planet_organics];
@@ -112,21 +115,50 @@ else
     {
       $planet[$i][planet_name] = "Unnamed";
     }
-    echo "<tr><td><a href=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". 
-      $planet[$i][sector_id] ."</a>" . "</td><td>". $planet[$i][planet_name] ."</td><td>". 
-      $planet[$i][planet_organics] ."</td><td>". $planet[$i][planet_ore] ."</td><td>". 
-      $planet[$i][planet_goods] ."</td><td>". $planet[$i][planet_energy] ."</td><td>". 
-      $planet[$i][planet_colonists] ."</td><td>". $planet[$i][planet_credits] ."</td><td>". 
-      $planet[$i][planet_fighters] ."</td><td>". $planet[$i][base_torp] ."</td><td>". 
-      $planet[$i][base] ."</td><td>". $planet[$i][base_sells] ."</td><td>". 
-      $planet[$i][planet_defeated] ."</td></tr>";
+    echo "<TR BGCOLOR=\"$color\">";
+    echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
+    echo "<TD>" . $planet[$i][planet_name] . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_ore]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_organics]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_goods]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_energy]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_colonists]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_credits]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][planet_fighters]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][base_torp]) . "</TD>";
+    echo "<TD>" . ($planet[$i][base] == 'Y' ? "Yes" : "No") . "</TD>";
+    echo "<TD>" . ($planet[$i][base_sells] == 'Y' ? "Yes" : "No") . "</TD>";
+    echo "<TD>" . ($planet[$i][planet_defeated] == 'Y' ? "Yes" : "No") . "</TD>";
+    echo "</TR>";
+
+    if($color == $color_line1)
+    {
+      $color = $color_line2;
+    }
+    else
+    {
+      $color = $color_line1;
+    }
   }
-  echo "<tr><td></td><td>Totals</td><td>". $total_organics ."</td><td>". $total_ore ."</td><td>". 
-    $total_goods ."</td><td>". $total_energy ."</td><td>". $total_colonists ."</td><td>". 
-    $total_credits ."</td><td>". $total_fighters ."</td><td>". $total_torp ."</td><td>". 
-    $total_base ."</td><td>". $total_selling ."</td><td>". $total_defeated ."</td></tr>";
-  echo "</table><BR><BR>";
+  echo "<TR BGCOLOR=\"$color\">";
+  echo "<TD></TD>";
+  echo "<TD>Totals</TD>";
+  echo "<TD>" . NUMBER($total_ore) . "</TD>";
+  echo "<TD>" . NUMBER($total_organics) . "</TD>";
+  echo "<TD>" . NUMBER($total_goods) . "</TD>";
+  echo "<TD>" . NUMBER($total_energy) . "</TD>";
+  echo "<TD>" . NUMBER($total_colonists) . "</TD>";
+  echo "<TD>" . NUMBER($total_credits) . "</TD>";
+  echo "<TD>" . NUMBER($total_fighters) . "</TD>";
+  echo "<TD>" . NUMBER($total_torp) . "</TD>";
+  echo "<TD>" . NUMBER($total_base) . "</TD>";
+  echo "<TD>" . NUMBER($total_selling) . "</TD>";
+  echo "<TD>" . NUMBER($total_defeated) . "</TD>";
+  echo "</TR>";
+  echo "</TABLE>";
 }
+
+echo "<BR><BR>";
 
 echo "Click <a href=main.php3>here</a> to return to main menu.";
 
