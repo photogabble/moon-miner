@@ -1229,6 +1229,7 @@ $l_log_titlet = "View Log";
 // ADDITION TO main.php
 
 $l_main_warpto = "Warp to";
+$l_main_other = "Other";
 
 // ADDITION TO planet.php
 $l_planet_noone = "nobody";

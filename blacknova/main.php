@@ -699,7 +699,7 @@ else
 &nbsp;<a class=mnu href=rsmove.php?engage=1&destination=<? echo $playerinfo[preset1]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset1]; ?></a>&nbsp;<a class=dis href=preset.php>[<? echo $l_set?>]</a>&nbsp;<br>
 &nbsp;<a class=mnu href=rsmove.php?engage=1&destination=<? echo $playerinfo[preset2]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset2]; ?></a>&nbsp;<a class=dis href=preset.php>[<? echo $l_set?>]</a>&nbsp;<br>
 &nbsp;<a class=mnu href=rsmove.php?engage=1&destination=<? echo $playerinfo[preset3]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset3]; ?></a>&nbsp;<a class=dis href=preset.php>[<? echo $l_set?>]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.php>=&gt;&nbsp;Other</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php>=&gt;&nbsp;<? echo $l_main_other;?></a>&nbsp;<br>
 </div>
 </a>
 </td></tr>
