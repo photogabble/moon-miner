@@ -1106,7 +1106,8 @@ function traderoute_engage()
         if($playerinfo[credits] < $colonist_price * $colonists_buy)
           $colonists_buy = $playerinfo[credits] / $colonist_price;
 
-        echo "Bought " . NUMBER($colonists_buy) . " Colonists<br>";
+        if($colonists_buy != 0)
+          echo "Bought " . NUMBER($colonists_buy) . " Colonists<br>";
       
         $sourcecost-=$colonists_buy * $colonist_price;
         $total_credits-=$colonists_buy * $colonist_price;
@@ -1122,7 +1123,8 @@ function traderoute_engage()
         if($total_credits < $fighters_buy * $fighter_price)
           $fighters_buy = $total_credits / $fighter_price;
 
-        echo "Bought " . NUMBER($fighters_buy) . " Fighters<br>";
+        if($fighters_buy != 0)
+          echo "Bought " . NUMBER($fighters_buy) . " Fighters<br>";
 
         $sourcecost-=$fighters_buy * $fighter_price;
         $total_credits-=$fighters_buy * $fighter_price;
@@ -1138,7 +1140,8 @@ function traderoute_engage()
         if($total_credits < $torps_buy * $torpedo_price)
           $torps_buy = $total_credits / $torpedo_price;
 
-        echo "Bought " . NUMBER($torps_buy) . " Torpedoes<br>";
+        if($torps_buy != 0)
+          echo "Bought " . NUMBER($torps_buy) . " Torpedoes<br>";
 
         $sourcecost-=$torps_buy * $torpedo_price;
       }
@@ -1146,7 +1149,7 @@ function traderoute_engage()
         $torps_buy = 0;
 
       if($torps_buy == 0 && $colonists_buy == 0 && $fighters_buy == 0)
-        echo "You're broke!<br>";
+        echo "Nothing to trade<br>";
       
       if($traderoute[circuit] == '1')
         mysql_query("UPDATE ships SET ship_colonists=ship_colonists+$colonists_buy, ship_fighters=ship_fighters+$fighters_buy,torps=torps+$torps_buy, ship_energy=ship_energy+$dist[scooped1] WHERE ship_id=$playerinfo[ship_id]");
