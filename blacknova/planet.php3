@@ -23,11 +23,11 @@ srand((double)microtime()*1000000);
 if($sectorinfo[planet] == 'Y')
 /* if there is a planet in the sector show appropriate menu */
 { 
-  if($sectorinfo[planet_owner] == "" && $command != "capture" && $command != "destroy")
+  if($sectorinfo[planet_owner] == "" && $command != "capture")
   {
     echo "This planet is unowned.<BR><BR>";
     $update = mysql_query("UPDATE universe SET planet_fighters=0, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
-    echo "You may <a href=planet.php3?command=capture>capture</a> the planet, <a href=planet.php3?command=destroy>destroy</a> it, or just leave it undefended.<BR><BR>";
+    echo "You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
     echo "<BR>";
     TEXT_GOTOMAIN();
     include("footer.php3");
@@ -553,7 +553,7 @@ if($sectorinfo[planet] == 'Y')
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0)
         {
           echo "<BR>Planet defeated.<BR><BR>";
-          echo "You may <a href=planet.php3?command=capture>capture</a> the planet, <a href=planet.php3?command=destroy>destroy</a> it, or just leave it undefended.<BR><BR>";
+          echo "You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE universe SET planet_fighters=0, base_torp=base_torp-$planettorpnum, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
@@ -1024,7 +1024,7 @@ if($sectorinfo[planet] == 'Y')
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0 && $ownerarmour < 1)
         {
           echo "<BR>Planet defeated.<BR><BR>";
-          echo "You may <a href=planet.php3?command=capture>capture</a> the planet, <a href=planet.php3?command=destroy>destroy</a> it, or just leave it undefended.<BR><BR>";
+          echo "You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE universe SET planet_fighters=0, base_torp=base_torp-$planettorpnum, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
@@ -1219,16 +1219,6 @@ if($sectorinfo[planet] == 'Y')
       }
       $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     }
-    elseif($command == "destroy" && $sectorinfo[planet_defeated] && $sectorinfo[planet_fighters] == 0)
-    {
-      echo "Planet destroyed.<BR>";
-      $update = mysql_query("UPDATE universe SET planet_name='', planet_organics=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_owner=null, base='N', base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$sectorinfo[sector_id]");
-      if($sectorinfo[planet_owner] != "")
-      {
-        playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was destroyed by $playerinfo[character_name].");
-        gen_score($ownerinfo[ship_id]);
-      }
-    }
     elseif($command == "capture" && $sectorinfo[planet_defeated] && $sectorinfo[planet_fighters] == 0)
     {
       echo "Planet captured.<BR>";
@@ -1239,7 +1229,7 @@ if($sectorinfo[planet] == 'Y')
         gen_score($ownerinfo[ship_id]);
       }
     }
-    elseif($command == "capture" || $command == "destroy")
+    elseif($command == "capture")
     {
       echo "Planet not defeated!<BR>";
     }

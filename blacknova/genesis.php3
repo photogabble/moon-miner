@@ -31,6 +31,40 @@ if($playerinfo[turns] < 1)
 elseif($sectorinfo[planet] == "Y")
 {
   echo "There is already a planet in this sector.";
+  if($playerinfo[ship_id]==$sectorinfo[planet_owner])
+  {
+    if($destroy==1 && $allow_genesis_destroy)
+    {
+      echo "<BR>Are you sure???<BR><A HREF=genesis.php3?destroy=2>YES, Let them die!</A><BR>";
+      echo "<A HREF=device.php3>No! That would be Evil!</A><BR>";
+    }
+    elseif($destroy==2 && $allow_genesis_destroy)
+    {
+      if($playerinfo[dev_genesis] > 0)
+      {
+        $deltarating=$sectorinfo[planet_colonists];
+        $update = mysql_query("UPDATE universe SET planet_name='', planet_organics=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_owner=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
+        $update2=mysql_query("UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1, rating=rating-$deltarating WHERE ship_id=$playerinfo[ship_id]");
+        echo "<BR>Errr, there was one with $deltarating colonists here....<BR>";
+      }
+      else
+      {
+        echo "You do not have any genesis devices.";
+      }
+    }
+    elseif($allow_genesis_destroy)
+    {
+      echo "<BR>Do you want to destroy <A HREF=genesis.php3?destroy=1>";
+      if($sectorinfo[planet_name]=="")
+      {
+        echo "Unnamed</A>?";
+      }
+      else
+      {
+        echo $sectorinfo[planet_name] . "</A>?";
+      }
+    }
+  }  
 }
 elseif($playerinfo[dev_genesis] < 1)
 {

@@ -24,6 +24,7 @@ $maxlen_password = 16;
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer
 $allow_ibank = false;                  // Intergalactic Bank (IGB)
+$allow_genesis_destroy = true;         // Genesis torps can destroy planets
 
 // iBank Config - Intergalactic Banking
 // Trying to keep ibank constants unique by prefixing with $ibank_
@@ -82,7 +83,7 @@ $upgrade_cost = 1000;
 $upgrade_factor = 2;
 $level_factor = 1.5;
 
-$dev_genesis_price = 1000;
+$dev_genesis_price = 1000000;
 $dev_beacon_price = 100;
 $dev_emerwarp_price = 1000000;
 $dev_warpedit_price = 100000;
