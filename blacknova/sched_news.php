@@ -149,4 +149,5 @@ while ($row = mysql_fetch_array($sql))
   } // while
 // end generation of colonist amount
 
+$multiplier = 0; //no use to run this more than once per tick
 ?>

@@ -37,6 +37,17 @@ else
 }
 setcookie("interface", $mainfilename);
 
+$res = mysql_query("SELECT * FROM ip_bans WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
+if(mysql_num_rows($res) != 0)
+{
+  SetCookie("userpass","",0,$gamepath,$gamedomain);
+  SetCookie("userpass","",0); // Delete from default path as well.
+  setcookie("username","",0); // Legacy support, delete the old login cookies.
+  setcookie("password","",0); // Legacy support, delete the old login cookies.
+  setcookie("id","",0);
+  setcookie("res","",0);
+  $banned = 1;
+}
 
 
 $title="Login Phase Two"; 
@@ -44,13 +55,20 @@ include("header.php3");
 
 bigtitle();
 
+if($banned == 1)
+{
+   echo "<center><p><font size=3 color=red><b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b><p></center>";
+   include("footer.php3");
+   die();
+}
+
 if($playerfound) 
 {
   if($playerinfo[password] == $pass)
   {
     // password is correct
     if($playerinfo[ship_destroyed] == "N")
-    {
+    {      
       // player's ship has not been destroyed
       playerlog($playerinfo[ship_id], "Logged in from " . $ip);
       $stamp = date("Y-m-d H-i-s");

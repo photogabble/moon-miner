@@ -271,7 +271,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_IGB, 0, 'sched_IGB.php', '')");
 
   echo "News will be generated every $sched_turns minutes.<br>";
-  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_news.php', '')");
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_news, 0, 'sched_news.php', '')");
 
   echo "Planets will generate production every $sched_planets minutes.<br>";
   mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_planets, 0, 'sched_planets.php', '')");

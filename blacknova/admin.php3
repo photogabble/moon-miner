@@ -43,6 +43,7 @@ else
     echo "<OPTION VALUE=planedit>Planet editor</OPTION>";
     echo "<OPTION VALUE=linkedit>Link editor</OPTION>";
     echo "<OPTION VALUE=zoneedit>Zone editor</OPTION>";
+    echo "<OPTION VALUE=ipedit>IP bans editor</OPTION>";
     echo "</SELECT>";
     echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
     echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Submit>";
@@ -449,7 +450,291 @@ else
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "</FORM>";
     }
-    
+    elseif($module == "ipedit")
+    {
+      echo "<B>IP Bans editor</B><p>";
+      if(empty($command))
+      {
+        echo "<FORM ACTION=admin.php3 METHOD=POST>";
+        echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
+        echo "<INPUT TYPE=HIDDEN NAME=command VALUE=showips>";
+        echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>";
+        echo "<INPUT TYPE=SUBMIT VALUE=\"Show player's ips\">";
+        echo "</form>";
+
+        $res = mysql_query("SELECT ban_mask FROM ip_bans");
+        while($row = mysql_fetch_array($res))
+        {
+          $bans[]=$row[ban_mask];
+        }
+
+        if(empty($bans))
+          echo "<b>No IP bans are currently active.</b>";
+        else
+        {
+          echo "<table border=1 cellspacing=1 cellpadding=2 width=100% align=center>" .
+               "<tr bgcolor=$color_line2><td align=center colspan=7><b><font color=white>" .
+               "Active IP Bans" .
+               "</font></b>" .
+               "</td></tr>" .
+               "<tr align=center bgcolor=$color_line2>" .
+               "<td><font size=2 color=white><b>Ban Mask</b></font></td>" .
+               "<td><font size=2 color=white><b>Affected Players</b></font></td>" .
+               "<td><font size=2 color=white><b>E-mail</b></font></td>" .
+               "<td><font size=2 color=white><b>Operations</b></font></td>" .
+               "</tr>";
+
+          $curcolor=$color_line1;
+        
+          foreach($bans as $ban)
+          {
+            echo "<tr bgcolor=$curcolor>";
+            if($curcolor == $color_line1)
+              $curcolor = $color_line2; 
+            else
+              $curcolor = $color_line1;
+
+            $printban = str_replace("%", "*", $ban);
+            echo "<td align=center><font size=2 color=white>$printban</td>" .
+                 "<td align=center><font size=2 color=white>";
+
+            $res = mysql_query("SELECT character_name, ship_id, email FROM ships WHERE ip_address LIKE '$ban'");
+            unset($players);
+            while($row = mysql_fetch_array($res))
+              $players[] = $row;
+            
+            if(empty($players))
+            {
+              echo "None";
+            }
+            else
+            {
+              foreach($players as $player)
+              {
+                echo "<b>$player[character_name]</b><br>";
+              }
+            }
+
+            echo "<td align=center><font size=2 color=white>";
+          
+            if(empty($players))
+            {
+              echo "N/A";
+            }
+            else
+            {
+              foreach($players as $player)
+              {
+                echo "$player[email]<br>";
+              }
+            }
+
+            echo "<td align=center nowrap valign=center><font size=2 color=white>" .
+                 "<form action=admin.php3 method=POST>" .
+                 "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+                 "<INPUT TYPE=HIDDEN NAME=command VALUE=unbanip>" .
+                 "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+                 "<INPUT TYPE=HIDDEN NAME=ban VALUE=$ban>" .
+                 "<INPUT TYPE=SUBMIT VALUE=Remove>" .
+                 "</form>";
+
+          }
+
+          echo "</table><p>";
+        }
+      }
+      elseif($command== 'showips')
+      {
+        $res = mysql_query("SELECT DISTINCT ip_address FROM ships");
+        while($row = mysql_fetch_array($res))
+        {
+          $ips[]=$row[ip_address];
+        }
+        echo "<table border=1 cellspacing=1 cellpadding=2 width=100% align=center>" .
+             "<tr bgcolor=$color_line2><td align=center colspan=7><b><font color=white>" .
+             "Players sorted by IP address" .
+             "</font></b>" .
+             "</td></tr>" .
+             "<tr align=center bgcolor=$color_line2>" .
+             "<td><font size=2 color=white><b>IP address</b></font></td>" .
+             "<td><font size=2 color=white><b>Players</b></font></td>" .
+             "<td><font size=2 color=white><b>E-mail</b></font></td>" .
+             "<td><font size=2 color=white><b>Operations</b></font></td>" .
+             "</tr>";
+
+        $curcolor=$color_line1;
+        
+        foreach($ips as $ip)
+        {
+          echo "<tr bgcolor=$curcolor>";
+          if($curcolor == $color_line1)
+            $curcolor = $color_line2; 
+          else
+            $curcolor = $color_line1;
+
+          echo "<td align=center><font size=2 color=white>$ip</td>" .
+               "<td align=center><font size=2 color=white>";
+
+          $res = mysql_query("SELECT character_name, ship_id, email FROM ships WHERE ip_address='$ip'");
+          unset($players);
+          while($row = mysql_fetch_array($res))
+            $players[] = $row;
+
+          foreach($players as $player)
+          {
+            echo "<b>$player[character_name]</b><br>";
+          }
+
+          echo "<td align=center><font size=2 color=white>";
+        
+          foreach($players as $player)
+          {
+            echo "$player[email]<br>";
+          }
+
+          echo "<td align=center nowrap valign=center><font size=2 color=white>" .
+               "<form action=admin.php3 method=POST>" .
+               "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+               "<INPUT TYPE=HIDDEN NAME=command VALUE=banip>" .
+               "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+               "<INPUT TYPE=HIDDEN NAME=ip VALUE=$ip>" .
+               "<INPUT TYPE=SUBMIT VALUE=Ban>" .
+               "</form>" .
+               "<form action=admin.php3 method=POST>" .
+               "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+               "<INPUT TYPE=HIDDEN NAME=command VALUE=unbanip>" .
+               "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+               "<INPUT TYPE=HIDDEN NAME=ip VALUE=$ip>" .
+               "<INPUT TYPE=SUBMIT VALUE=Unban>" .
+               "</form>";
+
+        }
+
+        echo "</table><p>" .
+             "<form action=admin.php3 method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+             "</form>";
+      }
+      elseif($command == 'banip')
+      {
+        $ip = $HTTP_POST_VARS[ip];
+        echo "<b>Banning ip : $ip<p>";
+        echo "<font size=2 color=white>Please select ban type :<p>";
+
+        $ipparts = explode(".", $ip);
+
+        echo "<table border=0>" .
+             "<tr><td align=right>" .
+             "<form action=admin.php3 method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+             "<INPUT TYPE=HIDDEN NAME=command VALUE=banip2>" .
+             "<INPUT TYPE=HIDDEN NAME=ip VALUE=$ip>" .
+             "<input type=radio name=class value=I checked>" .
+             "<td><font size=2 color=white>IP only : $ip</td>" .
+             "<tr><td>" .
+             "<input type=radio name=class value=A>" .
+             "<td><font size=2 color=white>Class A : $ipparts[0].$ipparts[1].$ipparts[2].*</td>" .
+             "<tr><td>" .
+             "<input type=radio name=class value=B>" .
+             "<td><font size=2 color=white>Class B : $ipparts[0].$ipparts[1].*</td>" .
+             "<tr><td><td><br><input type=submit value=Ban>" .
+             "</table>" .
+             "</form>";
+
+        echo "<form action=admin.php3 method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+             "</form>";
+      }
+      elseif($command == 'banip2')
+      {
+        $ip = $HTTP_POST_VARS[ip];
+        $ipparts = explode(".", $ip);
+        
+        if($class == 'A')
+          $banmask = "$ipparts[0].$ipparts[1].$ipparts[2].%";
+        elseif($class == 'B')
+          $banmask = "$ipparts[0].$ipparts[1].%";
+        else
+          $banmask = $ip;
+
+        $printban = str_replace("%", "*", $banmask);
+        echo "<font size=2 color=white><b>Successfully banned $printban</b>.<p>";
+        
+        mysql_query("INSERT INTO ip_bans VALUES('', '$banmask')");
+        $res = mysql_query("SELECT DISTINCT character_name FROM ships, ip_bans WHERE ip_address LIKE ban_mask");
+        echo "Affected players :<p>";
+        while ($row = mysql_fetch_array($res))
+        {
+          echo " - $row[character_name]<br>";
+        }
+               
+        echo "<form action=admin.php3 method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+             "</form>";
+      }
+      elseif($command == 'unbanip')
+      {
+        $ip = $HTTP_POST_VARS[ip];
+
+        if(!empty($ban))
+          $res = mysql_query("SELECT * FROM ip_bans WHERE ban_mask='$ban'");
+        else
+          $res = mysql_query("SELECT * FROM ip_bans WHERE '$ip' LIKE ban_mask");
+
+        $nbbans = mysql_num_rows($res);
+        while($row = mysql_fetch_array($res))
+        {
+          $row[print_mask] = str_replace("%", "*", $row[ban_mask]);
+          $bans[]=$row;
+        }
+
+        if(!empty($ban))
+          mysql_query("DELETE FROM ip_bans WHERE ban_mask='$ban'");
+        else
+          mysql_query("DELETE FROM ip_bans WHERE '$ip' LIKE ban_mask");
+
+        $query_string = "ip_address LIKE '" . $bans[0][ban_mask] ."'";
+        for( $i = 1; $i < $nbbans ; $i++)
+          $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
+
+        $res = mysql_query("SELECT DISTINCT character_name FROM ships WHERE $query_string");
+        $nbplayers = mysql_num_rows($res);
+        while($row = mysql_fetch_array($res))
+          $players[]=$row[character_name];
+
+        echo "<font size=2 color=white><b>Successfully removed $nbbans bans</b> :<p>";
+
+        foreach($bans as $ban)
+        {
+          echo " - $ban[print_mask]<br>";
+        }
+
+        echo "<p><b>Affected players :</b><p>";
+        if(empty($players))
+          echo " - None<br>";
+        else
+        {
+          foreach($players as $player)
+          {
+            echo " - $player<br>";
+          }
+        }
+        
+        echo "<form action=admin.php3 method=POST>" .
+             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
+             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
+             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+             "</form>";
+      }
+     
+    }    
     else
     {
       echo "Unknown function";
@@ -457,7 +742,7 @@ else
 
     if($button_main)
     {
-      echo "<BR><BR>";
+      echo "<p>";
       echo "<FORM ACTION=admin.php3 METHOD=POST>";
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"Return to main menu\">";

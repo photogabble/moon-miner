@@ -22,6 +22,7 @@ $sched_ports = 2;    //How often port production occurs
 $sched_planets = 2;  //How often planet production occurs
 $sched_IGB = 2;      //How often IGB interests are added
 $sched_ranking = 30; //How often rankings will be generated
+$sched_news = 15;    //How often news are generated
 
 /* Scheduler config end */
 

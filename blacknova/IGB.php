@@ -27,6 +27,9 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 
 <?
 
+if(!$allow_ibank)
+  IGB_error("This IGB terminal is malfunctionning. The Intergalatic Bank wishes to apologize for any inconvenience.", "main.php3");
+
 if($command == 'login') //main menu
   IGB_login();
 elseif($command == 'withdraw') //withdraw menu
