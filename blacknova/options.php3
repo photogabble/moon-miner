@@ -1,6 +1,7 @@
 <?
 
 include("config.php3");
+include($gameroot . $default_lang);
 updatecookie();
 
 $title="Options"; 

@@ -1,7 +1,7 @@
 <?
 
 include("config.php3");
-
+include($gameroot . $default_lang);
 connectdb();
 if(checklogin())
 {
