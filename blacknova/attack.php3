@@ -92,6 +92,10 @@ else
     }
     else
     {
+      if($targetinfo[dev_emerwarp] > 0)
+      {
+      playerlog($targetinfo[ship_id],"Your emergency warp drive failed to engage when $playerinfo[character_name] in sector $playerinfo[sector] attacked you. ");       
+      }
       $targetbeams = NUM_BEAMS($targetinfo[beams]);
       if($targetbeams>$targetinfo[ship_energy])
       {
