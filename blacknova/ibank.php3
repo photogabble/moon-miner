@@ -1,5 +1,4 @@
 <?
-
 //////////////////////////////////////////////////////////////////////////////////
 // IGB - Inter Galactic Bank - BlackNova Traders
 // Author:  Danny Froberg - danny@froberg.org
@@ -42,6 +41,8 @@ if(!$allow_ibank)
   include("footer.php3");  
   die();
 }
+// Added Locking
+mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE");
 
 //////////////////////////////////////////////////////////////////////////////////
 // -- Refresh data for display
@@ -762,6 +763,7 @@ else
 }
 
 include("footer.php3");  
+mysql_query("UNLOCK TABLES");
 
 // -- EOF
 //////////////////////////////////////////////////////////////////////////////////
