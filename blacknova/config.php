@@ -202,7 +202,7 @@ $IGB_min_turns = $start_turns; //Turns a player has to play before ship transfer
 $IGB_svalue = 0.15; //Max amount of sender's value allowed for ship transfers 0=disable
 $IGB_trate = 1440; //Time (in minutes) before two similar transfers are allowed for ship transfers.0=disable
 $corp_planet_transfers = 0; //If transferring credits to/from corp planets is allowed. 1=enable
-$min_value_capture = 50; //Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
+$min_value_capture = 0; //Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
 $defence_degrade_rate = 0.05;
 $energy_per_fighter = 0.10;
 $bounty_maxvalue = 0.15; //Max amount a player can place as bounty - good idea to make it the same as $IGB_svalue. 0=disable
