@@ -52,6 +52,7 @@ if($playerinfo[on_planet] == "Y")
     echo "Click <A HREF=planet.php3>here</A> to go to the planet menu.<BR>"; 
     echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?id=".$playerinfo[ship_id]."\">";
     mysql_query("UNLOCK TABLES");
+    //-------------------------------------------------------------------------------------------------
     die();
   }
   else
@@ -458,6 +459,10 @@ Realspace
 </table>
 
 <?
+
+mysql_query("UNLOCK TABLES");
+//-------------------------------------------------------------------------------------------------
+
 include("footer.php3");
 
 ?> 
