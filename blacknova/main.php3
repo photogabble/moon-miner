@@ -289,8 +289,18 @@ if($num_planets > 0)
   {
     if($planets[$i][owner] != 0)
     {
-      $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
-      $planet_owner = mysql_fetch_array($result5);
+      $result5 =  mysql_query("SELECT 
+                                    teams.*,  
+                                  	ships.*, 
+                                 	planets.*
+                                 FROM  `ships`, `planets` 
+                                 	LEFT OUTER JOIN teams 
+                                 		ON ships.team = teams.id
+                                 WHERE 
+                                 	planets.owner = ships.ship_id
+                                 GROUP BY planets.owner");
+                        
+      $planet_owner = mysql_fetch_array($result5);                        
 
       $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
       $planetavg /= 7;
@@ -330,8 +340,18 @@ if($num_planets > 0)
     }
     else
     {
-      echo "<br>($planet_owner[character_name])";
-      $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":-->";
+      if ( $planet_owner[team_name] )
+      {
+         echo "<br>($planet_owner[character_name])&nbsp;(<font color=#33ff00>$planet_owner[team_name]</font>)";
+         $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":" . $planet_owner[team_name] . ":-->";
+      }
+      else
+      {
+         echo "<br>($planet_owner[character_name])";         
+      $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":N:-->";
+
+      }
+      
     }
     echo "</font></td>";
 
@@ -366,7 +386,16 @@ else
 
 if($playerinfo[sector] != 0)
 {
-  $result4 = mysql_query("SELECT * FROM ships WHERE ship_id<>$playerinfo[ship_id] AND sector=$playerinfo[sector] AND on_planet='N' ORDER BY ship_name ASC");
+  $result4 = mysql_query(" SELECT 
+                              ships.*,
+                              teams.team_name,
+                              teams.id    
+                           FROM `ships`
+                              LEFT OUTER JOIN teams 
+                              ON ships.team = teams.id
+                           WHERE ships.ship_id<>$playerinfo[ship_id] 
+                           AND ships.sector=$playerinfo[sector]
+                           AND ships.on_planet='N'");
   $totalcount=0;
   
   if($result4 > 0)
@@ -402,7 +431,15 @@ if($playerinfo[sector] != 0)
           $shiplevel = 4;
 
         echo "<td align=center valign=top>";
-        echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font></td>";
+        
+         if ($row[team_name]) {
+            echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])&nbsp;(<font color=#33ff00>$row[team_name]</font>)</font></td>";
+         }
+         else 
+         {
+            echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font></td>";
+         }
+      
         echo "</td>";
         $totalcount++;
         if($curcount == $picsperrow - 1)
