@@ -2,6 +2,7 @@
 
 g++ install.cpp -o installer
 if [ -e installer ]
+then
 	rm -f config_local.php3
 else
 	exit 1
