@@ -1,6 +1,11 @@
 #!/bin/sh
 
 g++ install.cpp -o installer
+if [ -e installer ]
+	rm -f config_local.php3
+else
+	exit 1
+fi
 ./installer
 rm -f install.cpp
 rm -f installer
