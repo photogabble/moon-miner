@@ -25,14 +25,33 @@ $gamepath = "/blacknova/";
 // Hostname and port of the database server:
 // These are defaults, you normally won't have to change them
 $dbhost = "localhost";
-$dbport = "3306";
+
+// Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
+$dbport = "";
 
 // Username and password to connect to the database:
 $dbuname = "blacknova_user";
 $dbpass = "blacknova_pass";
 
-// Name of the database in MySQL:
+// Name of the SQL database:
 $dbname = "blavcknova_db";
+
+// Type of the SQL database. This can be anything supported by ADOdb. Here are a few:
+// "access" for MS Access databases. You need to create an ODBC DSN.
+// "ado" for ADO databases
+// "ibase" for Interbase 6 or earlier
+// "borland_ibase" for Borland Interbase 6.5 or up
+// "mssql" for Microsoft SQL
+// "mysql" for MySQL
+// "oci8" for Oracle8/9
+// "odbc" for a generic ODBC database
+// "postgres" for PostgreSQL ver < 7
+// "postgres7" for PostgreSQL ver 7 and up
+// "sybase" for a SyBase database
+$db_type = "mysql";
+
+// Set this to 1 to use db persistent connections, 0 otherwise
+$db_persistent = 1;
 
 // Administrator's password and email:
 // Be sure to change these. Don't leave them as is.
