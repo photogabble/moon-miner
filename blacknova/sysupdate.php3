@@ -220,6 +220,165 @@ else
 
   mysql_query("UNLOCK TABLES");
   //-------------------------------------------------------------------------------------------------
+
+  // *********************************
+  // ***** FURANGEE TURN UPDATES *****
+  // *********************************
+  echo "<BR><B>FURANGEE MOVES</B><BR><BR>";
+
+  // *********************************
+  // ******* INCLUDE FUNCTIONS *******
+  // *********************************
+  include("furangee_funcs.php");
+
+  // *********************************
+  // **** MAKE FURANGEE SELECTION ****
+  // *********************************
+  $res = mysql_query("SELECT * FROM ships JOIN furangee WHERE email=furangee_id and active='Y' and ship_destroyed='N' ORDER BY sector");
+  while($playerinfo = mysql_fetch_array($res))
+  {
+    // *********************************
+    // ****** RUN THROUGH ORDERS *******
+    // *********************************
+    if (rand(1,5) > 1)                                 // ****** 20% CHANCE OF NOT MOVING AT ALL ******
+    {
+      if ($playerinfo[orders] == 0)                    // ****** ORDERS = 0 SENTINEL ******
+      {
+        // ****** FIND A TARGET ******
+        // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
+        $reso0 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        if ($rowo0 = mysql_fetch_array($reso0)) 
+        { 
+          if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
+          {
+            // This Guy Does Nothing But Sit As A Target Himself
+          }
+          elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
+          {
+            // Furangee's only compare number of fighters when determining if they have an attack advantage 
+            if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
+            {
+              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].<BR>");
+              if ($rowo0[dev_emerwarp]>0)
+              {
+                playerlog($rowo0[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+                $dest_sector=rand(0,$sector_max);
+                $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo0[ship_id]");
+              } else
+              {
+                furangeetoship($rowo0[ship_id]);
+              }
+            }
+          }
+          elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
+          {
+            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].<BR>");
+            if ($rowo0[dev_emerwarp]>0)
+            {
+              playerlog($rowo0[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+              $dest_sector=rand(0,$sector_max);
+              $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo0[ship_id]");
+            } else
+            {
+              furangeetoship($rowo0[ship_id]);
+            }
+          }
+        }
+      }
+      elseif ($playerinfo[orders] == 1)                // ****** ORDERS = 1 ROAM ******
+      {
+        // ****** FIND A TARGET ******
+        // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
+        $reso1 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        if ($rowo1 = mysql_fetch_array($reso1)) 
+        { 
+          if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
+          {
+            // This Guy Does Nothing But Sit As A Target Himself
+          }
+          elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
+          {
+            // Furangee's only compare number of fighters when determining if they have an attack advantage 
+            if ($playerinfo[ship_fighters] > $rowo1[ship_fighters])
+            {  
+              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].<BR>");
+              if ($rowo1[dev_emerwarp]>0)
+              {
+                playerlog($rowo1[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+                $dest_sector=rand(0,$sector_max);
+                $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo1[ship_id]");
+              } else
+              {
+                furangeetoship($rowo1[ship_id]);
+              }
+            }
+          }
+          elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
+          {
+            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].<BR>");
+            if ($rowo1[dev_emerwarp]>0)
+            {
+              playerlog($rowo1[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+              $dest_sector=rand(0,$sector_max);
+              $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo1[ship_id]");
+            } else
+            {
+              furangeetoship($rowo1[ship_id]);
+            }
+          }
+        }
+      }
+      elseif ($playerinfo[orders] == 2)                // ****** ORDERS = 2 ROAM AND TRADE ******
+      {
+        // ****** FIND A TARGET ******
+        // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
+        $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        if ($rowo2 = mysql_fetch_array($reso2)) 
+        { 
+          if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
+          {
+            // This Guy Does Nothing But Sit As A Target Himself
+          }
+          elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
+          {
+            // Furangee's only compare number of fighters when determining if they have an attack advantage 
+            if ($playerinfo[ship_fighters] > $rowo2[ship_fighters])
+            {
+              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].<BR>");
+              if ($rowo2[dev_emerwarp]>0)
+              {
+                playerlog($rowo2[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+                $dest_sector=rand(0,$sector_max);
+                $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo2[ship_id]");
+              } else
+              {
+                furangeetoship($rowo2[ship_id]);
+              }
+            }
+          }
+          elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
+          {
+            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].<BR>");
+            if ($rowo2[dev_emerwarp]>0)
+            {
+              playerlog($rowo2[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+              $dest_sector=rand(0,$sector_max);
+              $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo2[ship_id]");
+            } else
+            {
+              furangeetoship($rowo2[ship_id]);
+            }
+          }
+        }
+      }
+    }
+  }
+  echo "FURANGEE TURNS COMPLETE.<BR><BR>";
+  echo "<BR>";
+  // *********************************
+  // ***** END OF FURANGEE TURNS *****
+  // *********************************
+  
 }
 
 include("footer.php3");
