@@ -1,12 +1,14 @@
 <?
 
-SetCookie("userpass");
-//  setcookie("username"); OLD, WILL BE REMOVED SOON
-//  setcookie("password"); OLD, WILL BE REMOVED SOON
-setcookie("id");
-setcookie("res");
-
 include("config.php3");
+
+SetCookie("userpass","",0,$gamepath,$gamedomain);
+SetCookie("userpass","",0); // Delete from default path as well.
+setcookie("username","",0); // Legacy support, delete the old login cookies.
+setcookie("password","",0); // Legacy support, delete the old login cookies.
+setcookie("id","",0);
+setcookie("res","",0);
+
 
 $title = "Logout"; 
 

@@ -1,3 +1,7 @@
+gyruss (5 October 2001)
+---------------------------
+Login cookie now uses an implicit domain/path to support finicky browsers & cookie managers. Make sure you update config_local.php3 to specify your correct domain & path.
+
 nospoon (1 October 2001)
 ------------------------
 Emergency warp devices now degrade in reliability depending on hull size.

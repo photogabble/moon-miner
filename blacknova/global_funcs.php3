@@ -100,19 +100,22 @@ function connectdb()
 function updatecookie()
 {
   // refresh the cookie with username/password/id/res - times out after 60 mins, and player must login again.
+  global $gamepath;
+  global $gamedomain;
+  global $userpass;
   global $username;
   global $password;
   global $id;
   global $res;
-
+  // The new combined cookie login.
   $userpass = $username."+".$password;
-  SetCookie("userpass",$userpass,time()+3600);
+  SetCookie("userpass",$userpass,time()+3600,$gamepath,$gamedomain);
   if ($userpass != '' and $userpass != '+') {
+      setcookie("username","",0); // Legacy support, delete the old login cookies.
+      setcookie("password","",0); // Legacy support, delete the old login cookies.
     $username = substr($userpass, 0, strpos($userpass, "+"));
     $password = substr($userpass, strpos($userpass, "+")+1);
   }
-//  setcookie("username", $username); OLD, WILL BE REMOVED SOON
-//  setcookie("password", $password); OLD, WILL BE REMOVED SOON
   setcookie("id", $id);
   setcookie("res", $res);
 }

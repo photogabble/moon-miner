@@ -4,6 +4,10 @@
 // will reside:
 $gameroot = "/usr/local/www/blacknova";
 
+// Domain & path of the game on your webserver (used to validate login cookie)
+$gamedomain = "blacknova.net";
+$gamepath = "/blacknova/";
+
 // Hostname and port of the database server:
 $dbhost = "localhost";
 $dbport = "3306";

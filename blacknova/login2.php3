@@ -23,9 +23,7 @@ mysql_free_result($res);
 
 /* first placement of cookie - don't use updatecookie. */
 $userpass = $email."+".$pass;
-SetCookie("userpass",$userpass,time()+3600);
-//  setcookie("username", $email); OLD, WILL BE REMOVED SOON
-//  setcookie("password", $pass); OLD, WILL BE REMOVED SOON
+SetCookie("userpass",$userpass,time()+3600,$gamepath,$gamedomain);
 if($playerinfo[interface]=="N")
 {
   $mainfilename="main.php3";
