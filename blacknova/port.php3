@@ -68,36 +68,56 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
   if($sb_ore == "Buying")
   {
     $amount_ore = $playerinfo[ship_ore];
-  }
-  else
-  {
-    $amount_ore = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
-  }
-  if($sb_organics == "Buying")
-  {
-    $amount_organics = $playerinfo[ship_organics];
-  }
-  else
-  {
-    $amount_organics = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
-  }
-  if($sb_goods == "Buying")
-  {
-    $amount_goods = $playerinfo[ship_goods];
-  }
-  else
-  {
-    $amount_goods = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-  }
-  if($sb_energy == "Buying")
-  {
-    $amount_energy = $playerinfo[ship_energy];
-  }
-  else
-  {
-    $amount_energy = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
+  } else {
+    $max_amount=$max_holds - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
+    $credits = $playerinfo[credits]+($amount_organics*$organics_price)+($amount_goods*$goods_price)+($amount_energy*$energy_price);
+    $amount_ore = floor($credits/$ore_price);			
+    if ( $amount_ore > $max_amount){
+       $amount_ore = $max_amount;
+    }elseif ($amount_ore < 0){
+    	$amount_ore = 0;
+    }			
   }
 
+  if ($sb_organics=="Buying") {
+    $amount_organics=$playerinfo[ship_organics];
+  } else {
+    $max_amount=$max_holds - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
+    $credits = $playerinfo[credits]+($amount_ore*$ore_price)+($amount_goods*$goods_price)+($amount_energy*$energy_price);
+    $amount_organics = floor($credits/$organics_price);			
+    if ( $amount_organics > $max_amount){
+       $amount_organics = $max_amount;
+    }elseif ($amount_organics < 0){
+    	$amount_organics = 0;
+    }			
+  }
+
+  
+  if ($sb_goods=="Buying") {
+    $amount_goods=$playerinfo[ship_goods];
+  } else {
+    $max_amount=$max_holds - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $credits = $playerinfo[credits]+($amount_ore*$ore_price)+($amount_organics*$organics_price)+($amount_energy*$energy_price);
+    $amount_goods = floor($credits/$organics_price);			
+    if ( $amount_goods > $max_amount){
+      $amount_goods = $max_amount;
+    }elseif ($amount_goods < 0){
+    	$amount_goods = 0;
+    }			
+  }
+  
+  if ($sb_energy=="Buying") {
+    $amount_energy=$playerinfo[ship_energy];
+  } else {
+    $max_amount=round(pow($level_factor,$playerinfo[power]) * 500)-$playerinfo[ship_energy];
+    $credits = $playerinfo[credits]+($amount_ore*$ore_price)+($amount_organics*$organics_price)+($amount_goods*$goods_price);
+    $amount_energy = floor($credits/$organics_price);
+    if ( $amount_energy > $max_amount){
+      $amount_energy = $max_amount;
+    }elseif ($amount_energy < 0){
+    	$amount_energy = 0;
+    }			
+  }
   // limit amounts to port quantities
   $amount_ore = min($amount_ore, $sectorinfo[port_ore]);
   $amount_organics = min($amount_organics, $sectorinfo[port_organics]);
