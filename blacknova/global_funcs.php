@@ -808,7 +808,7 @@ function calc_ownership($sector)
       $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=" . $owners[$winner][id]);
       $ship = $res->fields;
 
-      $db->Execute("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+      $db->Execute("UPDATE $dbtables[universe] SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
       return "$l_global_player $ship[character_name]!";
     }
   }
