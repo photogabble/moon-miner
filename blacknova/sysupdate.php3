@@ -322,6 +322,8 @@ else
         $furcount2++;
         // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
         furangeemove();
+        // ****** NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS ******
+        furangeetrade();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
