@@ -28,7 +28,7 @@
 	{
 		echo "$l_dump_nocol<BR><BR>";
 	} elseif ($sectorinfo[port_type]=="special") {
-		$update = $db->Execute("UPDATE ships SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+		$update = $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
 		echo "$l_dump_dumped<BR><BR>";
 	} else {
 		echo "$l_dump_nono<BR><BR>";

@@ -83,7 +83,7 @@ if ($flag==1)
 else
 {
     echo "$l_move_failed<BR><BR>";
-    $query="UPDATE ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]";
+    $query="UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]";
     TEXT_GOTOMAIN();
 }
 

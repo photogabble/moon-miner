@@ -429,7 +429,7 @@ switch ($teamwhat) {
 		break;
 	case 8: // REFUSE invitation
 		echo "$l_team_refuse <B>$invite_info[team_name]</B>.<BR><BR>";
-		$db->Execute("UPDATE ships SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
+		$db->Execute("UPDATE $dbtables[ships] SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
 		playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name]|$invite_info[team_name]");
 		LINK_BACK();
 		break;
