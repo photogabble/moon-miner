@@ -29,7 +29,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ, messages WRITE");
+mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ, messages WRITE, planets READ");
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -41,16 +41,15 @@ mysql_free_result($res);
 
 $res = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
 
-//bigtitle();
-
 srand((double)microtime() * 1000000);
 
 if($playerinfo[on_planet] == "Y")
 {
-  if($sectorinfo[planet] == "Y")
+  $res2 = mysql_query("SELECT planet_id FROM planets WHERE planet_id=$playerinfo[planet_id]");
+  if(mysql_num_rows($res2) != 0)
   {
-    echo "Click <A HREF=planet.php3>here</A> to go to the planet menu.<BR>"; 
-    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?id=".$playerinfo[ship_id]."\">";
+    echo "Click <A HREF=planet.php3?planet_id=$playerinfo[planet_id]>here</A> to go to the planet menu.<BR>"; 
+    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
     mysql_query("UNLOCK TABLES");
     //-------------------------------------------------------------------------------------------------
     die();
@@ -73,6 +72,21 @@ if($res > 0)
   mysql_free_result($res);
 }
 $num_links = $i;
+
+$res = mysql_query("SELECT * FROM planets WHERE sector_id='$playerinfo[sector]'");
+
+$i = 0;
+if($res > 0)
+{
+  while($row = mysql_fetch_array($res))
+  {
+    $planets[$i] = $row;
+    $i++;
+  }
+  mysql_free_result($res);
+}
+$num_planets = $i;
+
 
 $res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
 $zoneinfo = mysql_fetch_array($res);
@@ -263,60 +277,78 @@ else
 <center><b><font size=2 face="arial" color=white>Planets in sector <? echo $sectorinfo[sector_id];?>:</font></b></center>
 <table border=0 width=100%>
 <tr>
-<td align=center valign=top>
 
 <?
-if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
+
+if($num_planets > 0)
 {
-  if($sectorinfo[planet_owner] != 0)
+  $totalcount=0;
+  $curcount=0;
+  $i=0;
+  while($i < $num_planets)
   {
-    $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
-    $planet_owner = mysql_fetch_array($result5);
+    if($planets[$i][owner] != 0)
+    {
+      $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
+      $planet_owner = mysql_fetch_array($result5);
 
-    $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
-    $planetavg /= 7;
+      $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
+      $planetavg /= 7;
   
-    if($planetavg < 8)
-      $planetlevel = 0;
-    else if ($planetavg < 12)
-      $planetlevel = 1;
-    else if ($planetavg < 16)
-      $planetlevel = 2;
-    else if ($planetavg < 20)
-      $planetlevel = 3;
+      if($planetavg < 8)
+        $planetlevel = 0;
+      else if ($planetavg < 12)
+        $planetlevel = 1;
+      else if ($planetavg < 16)
+        $planetlevel = 2;
+      else if ($planetavg < 20)
+        $planetlevel = 3;
+      else
+        $planetlevel = 4;
+    }
     else
-      $planetlevel = 4;
-  }
-  else
-    $planetlevel=0;
+      $planetlevel=0;
 
-  echo "<A HREF=planet.php3>";
-  echo "<img src=\"images/$planettypes[$planetlevel]\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
-  if(empty($sectorinfo[planet_name]))
-  {
-    echo "Unnamed";
-    $planet_bnthelper_string="<!--planet:Y:Unnamed:";
-  }
-  else
-  {
-    echo "$sectorinfo[planet_name]";
-    $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
-  }
+    echo "<td align=center valign=top>";
+    echo "<A HREF=planet.php3?planet_id=" . $planets[$i][planet_id] . ">";
+    echo "<img src=\"images/$planettypes[$planetlevel]\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+    if(empty($planets[$i][name]))
+    {
+      echo "Unnamed";
+      $planet_bnthelper_string="<!--planet:Y:Unnamed:";
+    }
+    else
+    {
+      echo $planets[$i][name];
+      $planet_bnthelper_string="<!--planet:Y:" . $planets[$i][name] . ":";
+    }
 
-  if($sectorinfo[planet_owner] == 0)
-  {
-    echo "<br>(Unowned)";
-    $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
+    if($planets[$i][owner] == 0)
+    {
+      echo "<br>(Unowned)";
+      $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
+    }
+    else
+    {
+      echo "<br>($planet_owner[character_name])";
+      $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":-->";
+    }
+    echo "</font></td>";
+
+    $totalcount++;
+    if($curcount == $picsperrow - 1)
+    {
+      echo "</tr><tr>";
+      $curcount=0;
+    }
+    else
+      $curcount++;
+    $i++;
   }
-  else
-  {
-    echo "<br>($planet_owner[character_name])";
-    $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":-->";
-  }
-  echo "</font></td>";
 }
 else
 {
+  echo "<td align=center valign=top>";
   echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
   $planet_bnthelper_string="<!--planet:N:::-->";
 }

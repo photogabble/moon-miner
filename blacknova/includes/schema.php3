@@ -8,6 +8,7 @@ global $maxlen_password;
 echo "Dropping all tables...";
 mysql_query("DROP TABLE IF EXISTS ibank_accounts");
 mysql_query("DROP TABLE IF EXISTS links");
+mysql_query("DROP TABLE IF EXISTS planets");
 mysql_query("DROP TABLE IF EXISTS news");
 mysql_query("DROP TABLE IF EXISTS newstypes");
 mysql_query("DROP TABLE IF EXISTS newsactions");
@@ -29,6 +30,36 @@ mysql_query("CREATE TABLE links(" .
             "KEY link_start (link_start)," .
             "KEY link_dest (link_dest)" .
             ")");
+echo "created.<BR>";
+
+echo "Creating table: planets...";
+mysql_query("CREATE TABLE planets(" .
+            "planet_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+            "sector_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "name tinytext," .
+            "organics bigint(20) DEFAULT '0' NOT NULL," .
+            "ore bigint(20) DEFAULT '0' NOT NULL," .
+            "goods bigint(20) DEFAULT '0' NOT NULL," .
+            "energy bigint(20) DEFAULT '0' NOT NULL," .
+            "colonists bigint(20) DEFAULT '0' NOT NULL," .
+            "credits bigint(20) DEFAULT '0' NOT NULL," .
+            "fighters bigint(20) DEFAULT '0' NOT NULL," .
+            "torps bigint(20) DEFAULT '0' NOT NULL," .
+            "owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "corp bigint(20) unsigned," .
+            "base enum('Y','N') DEFAULT 'N' NOT NULL," .
+            "sells enum('Y','N') DEFAULT 'N' NOT NULL," .
+            "prod_organics float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+            "prod_ore float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+            "prod_goods float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+            "prod_energy float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+            "prod_fighters float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
+            "prod_torp float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
+            "defeated enum('Y','N') DEFAULT 'N' NOT NULL," .
+            "PRIMARY KEY (planet_id)," .
+            "KEY owner (owner)," .
+            "KEY corp (corp)" .
+            ")") or die ("blerg!");
 echo "created.<BR>";
 
 echo "Creating table: ships...";
@@ -84,7 +115,8 @@ mysql_query("CREATE TABLE ships(" .
             "team_invite bigint(20) DEFAULT '0' NOT NULL," .
             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
             "traderoutetype enum('R','W') DEFAULT 'W' NOT NULL," .
-		"ip_address tinytext NOT NULL," .
+		        "ip_address tinytext NOT NULL," .
+            "planet_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "PRIMARY KEY (email)," .
             "KEY email (email)," .
             "KEY sector (sector)," .
@@ -105,26 +137,6 @@ mysql_query("CREATE TABLE universe(" .
             "port_ore bigint(20) DEFAULT '0' NOT NULL," .
             "port_goods bigint(20) DEFAULT '0' NOT NULL," .
             "port_energy bigint(20) DEFAULT '0' NOT NULL," .
-            "planet enum('Y','N') DEFAULT 'N' NOT NULL," .
-            "planet_name tinytext," .
-            "planet_organics bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_ore bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_goods bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_energy bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_colonists bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_credits bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_fighters bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
-            "planet_corp bigint(20) unsigned," .
-            "base enum('Y','N') DEFAULT 'N' NOT NULL," .
-            "base_sells enum('Y','N') DEFAULT 'N' NOT NULL," .
-            "base_torp bigint(20) DEFAULT '0' NOT NULL," .
-            "prod_organics float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
-            "prod_ore float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
-            "prod_goods float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
-            "prod_energy float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
-            "prod_fighters float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
-            "prod_torp float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
             "KEY zone_id (zone_id)," .
             "KEY port_type (port_type)," .
             "beacon tinytext," .
@@ -135,10 +147,8 @@ mysql_query("CREATE TABLE universe(" .
             "mines bigint(20) DEFAULT '0' NOT NULL," .
             "fm_owner bigint(20) DEFAULT '0' NOT NULL," .
             "fm_setting enum('attack','toll') DEFAULT 'toll' NOT NULL," .
-            "planet_defeated enum('Y','N') DEFAULT 'N' NOT NULL," .
             "PRIMARY KEY (sector_id)," .
             "KEY sector_id (sector_id)," .
-            "KEY planet_owner (planet_owner)," .
             "UNIQUE sector_id_2 (sector_id)," .
             "UNIQUE sector_id_3 (sector_id)" .
             ")");

@@ -13,10 +13,14 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE");
+mysql_query("LOCK TABLES ships WRITE, universe WRITE, planets WRITE");
 
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
+
+$result2 = mysql_query("SELECT * FROM planets WHERE planet_id=$planet_id");
+if($result2)
+  $planetinfo=mysql_fetch_array($result2);
 
 bigtitle();
 
@@ -26,9 +30,6 @@ if($playerinfo[turns] < 1)
 }
 else
 {
-  $result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$playerinfo[sector]");
-  $sectorinfo = mysql_fetch_array($result2);
-
   $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
   $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
   $fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
@@ -133,9 +134,9 @@ else
     $transfer_ore = $playerinfo['ship_ore'];
     echo "You don't have enough ore. Setting ore transfer amount to $transfer_ore.<BR>\n";
   }
-  elseif(($tpore == 1) && ($transfer_ore > $sectorinfo['planet_ore']))
+  elseif(($tpore == 1) && ($transfer_ore > $planetinfo['ore']))
   {
-    $transfer_ore = $sectorinfo['planet_ore'];
+    $transfer_ore = $planetinfo['ore'];
     echo "The planet was only able to supply $transfer_ore units of ore.<BR>\n";
   }
 
@@ -144,9 +145,9 @@ else
     $transfer_organics = $playerinfo['ship_organics'];
     echo "You don't have enough organics. Setting organics transfer amount to $transfer_organics.<BR>\n";
   }
-  elseif(($tporganics == 1) && ($transfer_organics > $sectorinfo['planet_organics']))
+  elseif(($tporganics == 1) && ($transfer_organics > $planetinfo['organics']))
   {
-    $transfer_organics = $sectorinfo['planet_organics'];
+    $transfer_organics = $planetinfo['organics'];
     echo "The planet was only able to supply $transfer_organics units of organics.<BR>\n";
   }
 
@@ -155,9 +156,9 @@ else
     $transfer_goods = $playerinfo['ship_goods'];
     echo "You don't have enough goods. Setting goods transfer amount to $transfer_goods.<BR>\n";
   }
-  elseif(($tpgoods == 1) && ($transfer_goods > $sectorinfo['planet_goods']))
+  elseif(($tpgoods == 1) && ($transfer_goods > $planetinfo['goods']))
   {
-    $transfer_goods = $sectorinfo['planet_goods'];
+    $transfer_goods = $planetinfo['goods'];
     echo "The planet was only able to supply $transfer_goods units of goods.<BR>\n";
   }
 
@@ -166,9 +167,9 @@ else
     $transfer_energy = $playerinfo['ship_energy'];
     echo "You don't have enough energy. Setting energy transfer amount to $transfer_energy.<BR>\n";
   }
-  elseif(($tpenergy == 1) && ($transfer_energy > $sectorinfo['planet_energy']))
+  elseif(($tpenergy == 1) && ($transfer_energy > $planetinfo['energy']))
   {
-    $transfer_energy = $sectorinfo['planet_energy'];
+    $transfer_energy = $planetinfo['energy'];
     echo "The planet was only able to supply $transfer_energy units of energy.<BR>\n";
   }
 
@@ -177,9 +178,9 @@ else
     $transfer_colonists = $playerinfo['ship_colonists'];
     echo "You don't have enough colonists. Setting colonists transfer amount to $transfer_colonists.<BR>\n";
   }
-  elseif(($tpcolonists == 1) && ($transfer_colonists > $sectorinfo['planet_colonists']))
+  elseif(($tpcolonists == 1) && ($transfer_colonists > $planetinfo['colonists']))
   {
-    $transfer_colonists = $sectorinfo['planet_colonists'];
+    $transfer_colonists = $planetinfo['colonists'];
     echo "The planet was only able to supply $transfer_colonists units of colonists.<BR>\n";
   }
 
@@ -188,9 +189,9 @@ else
     $transfer_credits = $playerinfo['credits'];
     echo "You don't have enough credits. Setting credits transfer amount to $transfer_credits.<BR>\n";
   }
-  elseif(($tpcredits == 1) && ($transfer_credits > $sectorinfo['planet_credits']))
+  elseif(($tpcredits == 1) && ($transfer_credits > $planetinfo['credits']))
   {
-    $transfer_credits = $sectorinfo['planet_credits'];
+    $transfer_credits = $planetinfo['credits'];
     echo "The planet was only able to supply $transfer_credits units of credits.<BR>\n";
   }
 
@@ -199,9 +200,9 @@ else
     $transfer_torps = $playerinfo['torps'];
     echo "You don't have enough torps. Setting torps transfer amount to $transfer_torps.<BR>\n";
   }
-  elseif(($tptorps == 1) && ($transfer_torps > $sectorinfo['base_torp']))
+  elseif(($tptorps == 1) && ($transfer_torps > $planetinfo['torps']))
   {
-    $transfer_torps = $sectorinfo['base_torp'];
+    $transfer_torps = $planetinfo['torps'];
     echo "The planet was only able to supply $transfer_torps units of torps.<BR>\n";
   }
 
@@ -210,9 +211,9 @@ else
     $transfer_fighters = $playerinfo['ship_fighters'];
     echo "You don't have enough fighters. Setting fighters transfer amount to $transfer_fighters.<BR>\n";
   }
-  elseif(($tpfighters == 1) && ($transfer_fighters > $sectorinfo['planet_fighters']))
+  elseif(($tpfighters == 1) && ($transfer_fighters > $planetinfo['fighters']))
   {
-    $transfer_fighters = $sectorinfo['planet_fighters'];
+    $transfer_fighters = $planetinfo['fighters'];
     echo "The planet was only able to supply $transfer_fighters units of fighters.<BR>\n";
   }
 
@@ -231,20 +232,20 @@ else
   if($total_holds_needed > $free_holds)
   {
     echo "Not enough holds for requested transfer.<BR><BR>";
-    echo "Click <A HREF=planet.php3>here</A> to return to planet menu.<BR><BR>";
+    echo "Click <A HREF=planet.php3?planet_id=$planet_id>here</A> to return to planet menu.<BR><BR>";
   }
   else
   {
-    if($sectorinfo[planet] == "Y")
+    if(!empty($planetinfo) == "Y")
     {
-      if($sectorinfo[planet_owner] == $playerinfo[ship_id] || $sectorinfo[planet_corp] == $playerinfo[team])
+      if($planetinfo[owner] == $playerinfo[ship_id] || $planetinfo[corp] == $playerinfo[team])
       {
         if($transfer_ore < 0 && $playerinfo[ship_ore] < abs($transfer_ore))
         {
           echo "Not enough ore for requested transfer.<BR>";
           $transfer_ore = 0;
         }
-        elseif($transfer_ore > 0 && $sectorinfo[planet_ore] < abs($transfer_ore))
+        elseif($transfer_ore > 0 && $planetinfo[ore] < abs($transfer_ore))
         {
           echo "Not enough ore for requested transfer.<BR>";
           $transfer_ore = 0;
@@ -254,7 +255,7 @@ else
           echo "Not enough organics for requested transfer.<BR>";
           $transfer_organics = 0;
         }
-        elseif($transfer_organics > 0 && $sectorinfo[planet_organics] < abs($transfer_organics))
+        elseif($transfer_organics > 0 && $planetinfo[organics] < abs($transfer_organics))
         {
           echo "Not enough organics for requested transfer.<BR>";
           $transfer_organics = 0;
@@ -264,7 +265,7 @@ else
           echo "Not enough goods for requested transfer.<BR>";
           $transfer_goods = 0;
         }
-        elseif($transfer_goods > 0 && $sectorinfo[planet_goods] < abs($transfer_goods))
+        elseif($transfer_goods > 0 && $planetinfo[goods] < abs($transfer_goods))
         {
           echo "Not enough goods for requested transfer.<BR>";
           $transfer_goods = 0;
@@ -274,7 +275,7 @@ else
           echo "Not enough energy for requested transfer.<BR>";
           $transfer_energy = 0;
         }
-        elseif($transfer_energy > 0 && $sectorinfo[planet_energy] < abs($transfer_energy))
+        elseif($transfer_energy > 0 && $planetinfo[energy] < abs($transfer_energy))
         {
           echo "Not enough energy for requested transfer.<BR>";
           $transfer_energy = 0;
@@ -289,7 +290,7 @@ else
           echo "Not enough colonists for requested transfer.<BR>";
           $transfer_colonists = 0;
         }
-        elseif($transfer_colonists > 0 && $sectorinfo[planet_colonists] < abs($transfer_colonists))
+        elseif($transfer_colonists > 0 && $planetinfo[colonists] < abs($transfer_colonists))
         {
           echo "Not enough colonists for requested transfer.<BR>";
           $transfer_colonists = 0;
@@ -299,7 +300,7 @@ else
           echo "Not enough fighters for requested transfer.<BR>";
           $transfer_fighters = 0;
         }
-        elseif($transfer_fighters > 0 && $sectorinfo[planet_fighters] < abs($transfer_fighters))
+        elseif($transfer_fighters > 0 && $planetinfo[fighters] < abs($transfer_fighters))
         {
           echo "Not enough fighters for requested transfer.<BR>";
           $transfer_fighters = 0;
@@ -314,7 +315,7 @@ else
           echo "Not enough torpedoes for requested transfer.<BR>";
           $transfer_torps = 0;
         }
-        elseif($transfer_torps > 0 && $sectorinfo[base_torp] < abs($transfer_torps))
+        elseif($transfer_torps > 0 && $planetinfo[torps] < abs($transfer_torps))
         {
           echo "Not enough torpedoes for requested transfer.<BR>";
           $transfer_torps = 0;
@@ -329,14 +330,14 @@ else
           echo "Not enough credits for requested transfer.<BR>";
           $transfer_credits = 0;
         }
-        elseif($transfer_credits > 0 && $sectorinfo[planet_credits] < abs($transfer_credits))
+        elseif($transfer_credits > 0 && $planetinfo[credits] < abs($transfer_credits))
         {
           echo "Not enough credits for requested transfer.<BR>";
           $transfer_credits = 0;
         }
         $update1 = mysql_query("UPDATE ships SET ship_ore=ship_ore+$transfer_ore, ship_organics=ship_organics+$transfer_organics, ship_goods=ship_goods+$transfer_goods, ship_energy=ship_energy+$transfer_energy, ship_colonists=ship_colonists+$transfer_colonists, torps=torps+$transfer_torps, ship_fighters=ship_fighters+$transfer_fighters, credits=credits+$transfer_credits, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
-        $update2 = mysql_query("UPDATE universe SET planet_ore=planet_ore-$transfer_ore, planet_organics=planet_organics-$transfer_organics, planet_goods=planet_goods-$transfer_goods, planet_energy=planet_energy-$transfer_energy, planet_colonists=planet_colonists-$transfer_colonists, base_torp=base_torp-$transfer_torps, planet_fighters=planet_fighters-$transfer_fighters, planet_credits=planet_credits-$transfer_credits WHERE sector_id=$sectorinfo[sector_id]");
-        echo "Transfer complete.<BR>Click <a href=planet.php3>here</a> to return to planet menu.<BR><BR>";
+        $update2 = mysql_query("UPDATE planets SET ore=ore-$transfer_ore, organics=organics-$transfer_organics, goods=goods-$transfer_goods, energy=energy-$transfer_energy, colonists=colonists-$transfer_colonists, torps=torps-$transfer_torps, fighters=fighters-$transfer_fighters, credits=credits-$transfer_credits WHERE planet_id=$planet_id");
+        echo "Transfer complete.<BR>Click <a href=planet.php3?planet_id=$planet_id>here</a> to return to planet menu.<BR><BR>";
       }
       else
       {

@@ -17,6 +17,7 @@ $result = mysql_query ("select email, character_name, ship_name from ships where
 $flag=0;
 if ($username=='' || $character=='' || $shipname=='' ) { echo "E-mail, ship name, and character name may not be blank.<BR>"; $flag=1;}
 
+$username = $HTTP_POST_VARS['username'];
 if ($result>0)
 {
   while ($row = mysql_fetch_row ($result))
@@ -46,7 +47,7 @@ if ($flag==0)
     }
   }
   $stamp=date("Y-m-d H:i:s");
-  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,0,0,0,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,0,0,'N','W','$ip')");
+  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,0,0,0,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,0,0,'N','W','$ip',0)");
   if(!$result2) {
     echo mysql_errno(). ": ".mysql_error(). "<br>";
   } else {

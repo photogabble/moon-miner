@@ -129,27 +129,26 @@ elseif($phase == 1)
     $result40 = mysql_query("SELECT link_id FROM links WHERE link_start='$playerinfo[sector]' AND link_dest='$destination'");
     $result41 = mysql_query("SELECT link_id FROM links WHERE link_dest='$playerinfo[sector]' AND link_start='$destination'");
     if(mysql_num_rows($result40) == 0)
-	{
-	  echo "<BR>There is no warp link from sector $playerinfo[sector] to sector $destination.<BR>";
-	  $badwarp=1;
-	}
-	if(mysql_num_rows($result41) == 0)
-	{
-	  echo "<BR>There is no warp link from sector $destination to sector $playerinfo[sector].<BR>";
-	  $badwarp=1;
-	}
+   	{
+      echo "<BR>There is no warp link from sector $playerinfo[sector] to sector $destination.<BR>";
+	    $badwarp=1;
+	  }
+    if(mysql_num_rows($result41) == 0)
+    {
+      echo "<BR>There is no warp link from sector $destination to sector $playerinfo[sector].<BR>";
+      $badwarp=1;
+    }
 
-	if($badwarp == 1)
-	{
+  	if($badwarp == 1)
+  	{
       mysql_query("UNLOCK TABLES");
       echo "<p>";
       TEXT_GOTOMAIN();
       include("footer.php3");
-	  die();
-	}
-
-	$energyscooped = 0;
-	$triptime = 1;
+  	  die();
+  	}
+  	$energyscooped = 0;
+  	$triptime = 1;
   }
 
   if($destination == $playerinfo[sector])

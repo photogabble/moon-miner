@@ -12,16 +12,25 @@
 	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
 	$playerinfo=mysql_fetch_array($result);
 
-	$result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-	$sectorinfo=mysql_fetch_array($result2);
-        bigtitle();
+	$result2 = mysql_query ("SELECT * FROM planets WHERE planet_id=$planet_id");
+	if($result2)
+    $planetinfo=mysql_fetch_array($result2);
+
+  bigtitle();
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to trade at a planet.<BR><BR>";
-	    TEXT_GOTOMAIN();
+    TEXT_GOTOMAIN();
 		include("footer.php3");		
 		die();
 	}
+  if (empty($planetinfo))
+  {
+    echo "Invalid planet.<br>";
+    TEXT_GOTOMAIN();
+		include("footer.php3");		
+		die();
+  }
 
 	$trade_ore=round(abs($trade_ore));
 	$trade_organics=round(abs($trade_organics));
@@ -32,7 +41,7 @@
 	$goods_price=($goods_price + $goods_delta/4);
 	$energy_price=($energy_price + $energy_delta/4); 
 
-	if ($sectorinfo[planet]=='Y' && $sectorinfo[base_sells]=='Y')
+	if ($planetinfo[sells]=='Y')
 	{
 		$cargo_exchanged= $trade_ore + $trade_organics + $trade_goods;
 
@@ -49,25 +58,25 @@
 			echo "You do not have enough turns to complete the transaction.<BR><BR>";
 		} elseif ($playerinfo[credits]<$total_cost) {
 			echo "You do not have enough credits to complete the transaction. <BR><BR>";	
-		} elseif ($trade_organics > $sectorinfo[planet_organics]){
+		} elseif ($trade_organics > $planetinfo[organics]){
 			echo "Number of organics exceeds the supply.  ";
-		} elseif ($trade_ore > $sectorinfo[planet_ore]){
+		} elseif ($trade_ore > $planetinfo[ore]){
 			echo "Number of ore exceeds the supply.  ";
-		} elseif ($trade_goods > $sectorinfo[planet_goods]){
+		} elseif ($trade_goods > $planetinfo[goods]){
 			echo "Number of goods exceeds the supply.  ";
-		} elseif ($trade_energy > $sectorinfo[planet_energy]){
+		} elseif ($trade_energy > $planetinfo[energy]){
 			echo "Number of energy exceeds the supply.  ";
 		} else {
 			echo "Total cost: $total_cost<BR>Traded Ore: $trade_ore<BR>Traded Organics: $trade_organics<BR>Traded Goods: $trade_goods<BR>Traded Energy: $trade_energy<BR><BR>";
 			/* Update ship cargo, credits and turns */
 			$trade_result = mysql_query ("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 
-			$trade_result2 = mysql_query ("UPDATE universe SET planet_ore=planet_ore-$trade_ore, planet_organics=planet_organics-$trade_organics, planet_goods=planet_goods-$trade_goods, planet_energy=planet_energy-$trade_energy, planet_credits=planet_credits+$total_cost where  sector_id=$sectorinfo[sector_id]");
+			$trade_result2 = mysql_query ("UPDATE planets SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
 			echo "Trade completed.<BR><BR>";
 		}
 	} 
 
-    gen_score($sectorinfo[planet_owner]);
+    gen_score($planetinfo[owner]);
     TEXT_GOTOMAIN();
 	include("footer.php3");
 

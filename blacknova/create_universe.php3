@@ -100,12 +100,12 @@ elseif($swordfish==$adminpass && $engage=="2")
   $initborganics = $organics_limit * $initbcommod / 100.0;
   $initbgoods = $goods_limit * $initbcommod / 100.0;
   $initbenergy = $energy_limit * $initbcommod / 100.0;
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, planet_corp, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'N', NULL, '0', '0', '0', '0', '0', '0', '0', '0', NULL, 'N', 'N', '0', 'Sol: Hub of the Universe', '0', '0', '0', '0', '0', '0', 'toll', 'N')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0', '0', '0', '0', 'toll')");
   $update = mysql_query("UPDATE universe SET sector_id=0 WHERE sector_id=1");
 
   echo "Creating sector 1 - Alpha Centauri...<BR>";
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, planet_corp, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'N', NULL, '0', '0', '0', '0', '0', '0', '0', '0', NULL, 'N', 'N', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '0', 'toll','N')");
-echo mysql_error();
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '0', 'toll')");
+  echo mysql_error();
   $remaining = $sector_max-1;
   srand((double)microtime()*1000000);
   echo "Creating remaining $remaining sectors...";
@@ -177,16 +177,14 @@ echo mysql_error();
 //  shuffle($sectors);
   for($i=0; $i<$nump; $i++)
   {
-    $update = mysql_query("UPDATE universe SET planet='Y',planet_colonists=2,planet_owner=0,planet_corp=null,prod_ore=$default_prod_ore,prod_organics=$default_prod_organics,prod_goods=$default_prod_goods,prod_energy=$default_prod_energy,prod_fighters=$default_prod_fighters,prod_torp=$default_prod_torp WHERE sector_id=$sectors[$i]");
-    echo "$sectors[$i] - ";
-  }
-  echo "done<BR>";
-  // this is a temporary fix in order not to have planets in restricted sectors
-  echo "Removing planets from restricted sectors...<BR>";
-  $result = mysql_query("SELECT zone_id FROM zones WHERE allow_planet='N'");
-  while($row = mysql_fetch_array($result))
-  {
-    $update = mysql_query("UPDATE universe SET planet='N', planet_colonists=0, planet_owner=0, planet_corp=null WHERE zone_id=$row[zone_id]");
+    $select = mysql_query("SELECT universe.sector_id FROM universe, zones WHERE universe.sector_id=$sectors[$i] AND zones.zone_id=universe.zone_id AND zones.allow_planet='N'") or die("DB error");
+    if(mysql_num_rows($select) == 0)
+    {
+        $insert = mysql_query("INSERT INTO planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2,0,null,$default_prod_ore,$default_prod_organics,$default_prod_goods,$default_prod_energy, $default_prod_fighters, $default_prod_torp,$sectors[$i])");
+        echo "$sectors[$i] - ";
+    }
+    else
+      echo "<BR>Planet skipped in sector $sectors[$i]<BR>";
   }
   echo "done<BR>";
   $loopsize = round($sector_max/$loops);
@@ -253,7 +251,7 @@ echo mysql_error();
   $password = substr($admin_mail, 0, $maxlen_password);
   echo "Creating default $admin_mail login, password: $password<BR>";
   $stamp=date("Y-m-d H:i:s");
-  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,0,0,0,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,0,0,'N','W','1.1.1.1')");
+  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,0,0,0,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,0,0,'N','W','1.1.1.1',0)");
   
   echo "done.<BR>";
 }

@@ -5,12 +5,13 @@ function calcplanetbeams()
 	global $playerinfo;
 	global $ownerinfo;
 	global $sectorinfo;
-        global $basedefense;
+  global $basedefense;
+  global $planetinfo;
 	
-	$energy_available = $sectorinfo[planet_energy];
-        $base_factor = ($sectorinfo[base] == 'Y') ? $basedefense : 0;
+	$energy_available = $planetinfo[energy];
+  $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;
 	$planetbeams = NUM_BEAMS($ownerinfo[beams] + $base_factor);
-	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
+	$res = mysql_query("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
 	while($row = mysql_fetch_array($res))
 	{
 		$planetbeams = $planetbeams + NUM_BEAMS($row[beams]);
@@ -23,9 +24,9 @@ function calcplanetbeams()
 
 function calcplanetfighters()
 {
-	global $sectorinfo;
+	global $planetinfo;
 	
-	$planetfighters = $sectorinfo[planet_fighters];
+	$planetfighters = $planetinfo[fighters];
 	return $planetfighters;
 }
 		
@@ -36,12 +37,13 @@ function calcplanettorps()
 	global $ownerinfo;
 	global $sectorinfo;
 	global $level_factor;
-        global $basedefense;
-        $base_factor = ($sectorinfo[base] == 'Y') ? $basedefense : 0;
+  global $basedefense;
+  global $planetinfo;
+  $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;
 	
-	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
+	$res = mysql_query("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
 	$torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 2;
-	$torps = $sectorinfo[base_torp];
+	$torps = $planetinfo[torps];
 	while($row = mysql_fetch_array($res))
 	{
 		$torp_launchers = $torp_launchers + $row[torp_launchers];
@@ -49,8 +51,7 @@ function calcplanettorps()
 	
 	if ($torp_launchers > $torps) {$planettorps = $torps;}
 	else $planettorps = $torp_launchers;
-	$sectorinfo[base_torp] = $sectorinfo[base_torp] - $planettorps;
-	
+	$planetinfo[torps] -= $planettorps;
 		
 	return $planettorps;
 }
@@ -60,18 +61,20 @@ function calcplanetshields()
 	global $playerinfo;
 	global $ownerinfo;
 	global $sectorinfo;
-        global $basedefense;
-        $base_factor = ($sectorinfo[base] == 'Y') ? $basedefense : 0;	
-	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
+  global $basedefense;
+  global $planetinfo;
+
+  $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;	
+	$res = mysql_query("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
 	$planetshields = NUM_SHIELDS($ownerinfo[shields] + $base_factor);
-	$energy_available = $sectorinfo[planet_energy];
+	$energy_available = $planetinfo[energy];
 	while($row = mysql_fetch_array($res))
 	{
-		$planetshields = $planetshields + NUM_SHIELDS($row[shields]);
+		$planetshields += NUM_SHIELDS($row[shields]);
 	}
 	
 	if ($planetshields > $energy_available) {$planetshields = $energy_available;}
-	$sectorinfo[planet_energy] = $sectorinfo[planet_energy] - $planetshields;
+	$planetinfo[energy] -= $planetshields;
 	return $planetshields;
 }
 
@@ -80,6 +83,7 @@ function planetcombat()
 global $playerinfo;
 global $ownerinfo;
 global $sectorinfo;
+global $planetinfo;
 global $planetbeams;
 global $planetfighters;
 global $planetshields;
@@ -93,6 +97,8 @@ global $torp_dmg_rate;
 global $level_factor;
 global $attackertorpdamage;
 global $start_energy;
+$debug = true;
+
       
       if($playerinfo[turns] < 1)
       {
@@ -382,7 +388,7 @@ echo "
         
         echo "</TABLE></CENTER>\n";
         // Send each docked ship in sequence to attack agressor
- 		$result4 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
+ 		$result4 = mysql_query("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
 		$shipsonplanet = mysql_num_rows($result4);
 		
 		if ($shipsonplanet > 0)
@@ -441,39 +447,39 @@ echo "
           {
             $rating_change=-100;
           }
-echo "<CENTER><BR><B><FONT SIZE='+2'>Final Combat Stats</FONT></B><BR><BR>";
+          echo "<CENTER><BR><B><FONT SIZE='+2'>Final Combat Stats</FONT></B><BR><BR>";
           $fighters_lost = $playerinfo[ship_fighters] - $attackerfighters;
-echo "You lost $fighters_lost out of $playerinfo[ship_fighters] total fighters.<BR>";
+          echo "You lost $fighters_lost out of $playerinfo[ship_fighters] total fighters.<BR>";
           $armor_lost = $playerinfo[armour_pts] - $attackerarmor;
-echo "You lost $armor_lost out of $playerinfo[armour_pts] total armor points, you have $attackerarmor points remaining.<BR>";
+          echo "You lost $armor_lost out of $playerinfo[armour_pts] total armor points, you have $attackerarmor points remaining.<BR>";
           $energy=$playerinfo[ship_energy];
-echo "You used $energy energy, from a total of $playerinfo[ship_energy] energy.<BR></CENTER>";
+          echo "You used $energy energy, from a total of $playerinfo[ship_energy] energy.<BR></CENTER>";
           mysql_query("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armour_pts=armour_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
 		
-		$result4 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
+		$result4 = mysql_query("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
 		$shipsonplanet = mysql_num_rows($result4);
 		
 		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
         {
           echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>Planet defeated</b></FONT></CENTER><BR><BR>";
-          echo "<CENTER>You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
-          playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+          echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
+          playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
-          $update7a = mysql_query("UPDATE universe SET planet_fighters=0, base_torp=base_torp-$planettorps, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
+          $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
         }
         else
         {
           echo "<BR><BR><CENTER><FONT COLOR='#6098F8'><B>Planet not defeated</B></FONT></CENTER>BR><BR>";
-if ($debug) echo "<BR><BR>Planet statistics<BR><BR>";
-          $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
-if ($debug) echo "Fighters lost: $fighters_lost out of $sectorinfo[planet_fighters] ($planetfighters alive)<BR>";
-          $energy=$sectorinfo[planet_energy];
-if ($debug) echo "Energy left: $sectorinfo[planet_energy]<BR>";
-          playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods unitsof goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
+          if ($debug) echo "<BR><BR>Planet statistics<BR><BR>";
+          $fighters_lost = $planetinfo[fighters] - $planetfighters;
+          if ($debug) echo "Fighters lost: $fighters_lost out of $planetinfo[fighters] ($planetfighters alive)<BR>";
+          $energy=$planetinfo[energy];
+          if ($debug) echo "Energy left: $planetinfo[energy]<BR>";
+          playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods unitsof goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
           gen_score($ownerinfo[ship_id]);
-          $update7b = mysql_query("UPDATE universe SET planet_energy=$energy,planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorps, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
-if ($debug) echo "<BR>Set: energy=$energy, fighters lost=$fighters_lost, base_torp=$sectorinfo[base_torp], sectorid=$sectorinfo[sector_id]<BR>";
+          $update7b = mysql_query("UPDATE planets SET energy=$energy,fighters=fighters-$fighters_lost, torps=torps-$planettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
+          if ($debug) echo "<BR>Set: energy=$energy, fighters lost=$fighters_lost, torps=$planetinfo[torps], sectorid=$sectorinfo[sector_id]<BR>";
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
 }     

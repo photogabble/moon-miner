@@ -46,7 +46,7 @@ $newbie_cloak = "8";
 /* specify which special features are allowed */
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer
-$allow_ibank = false;                  // Intergalactic Bank (IGB)
+$allow_ibank = true;                  // Intergalactic Bank (IGB)
 $allow_genesis_destroy = true;         // Genesis torps can destroy planets
 
 // iBank Config - Intergalactic Banking
@@ -150,5 +150,7 @@ $max_emerwarp = 10;
 
 $fullscan_cost = 1;
 $scan_error_factor=20;
+
+$max_planets_sector = 9;
 
 ?>

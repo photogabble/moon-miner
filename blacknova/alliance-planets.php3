@@ -32,22 +32,22 @@ if ($playerinfo[team]==0)
 mysql_free_result($res);
 
 
-$query = "SELECT * FROM universe WHERE planet_corp=$playerinfo[team]";
+$query = "SELECT * FROM planets WHERE corp=$playerinfo[team]";
 if(!empty($sort))
 {
   $query .= " ORDER BY";
   if($sort == "name")
   {
-    $query .= " planet_$sort ASC";
+    $query .= " $sort ASC";
   }
   elseif($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" || 
     $sort == "colonists" || $sort == "credits" || $sort == "fighters")
   {
-    $query .= " planet_$sort DESC";
+    $query .= " $sort DESC";
   }
   elseif($sort == "torp")
   {
-    $query .= " base_torp DESC";
+    $query .= " torps DESC";
   }
   else
   {
@@ -112,39 +112,39 @@ else
   $color = $color_line1;
   for($i=0; $i<$num_planets; $i++)
   {
-    $total_organics += $planet[$i][planet_organics];
-    $total_ore += $planet[$i][planet_ore];
-    $total_goods += $planet[$i][planet_goods];
-    $total_energy += $planet[$i][planet_energy];
-    $total_colonists += $planet[$i][planet_colonists];
-    $total_credits += $planet[$i][planet_credits];
-    $total_fighters += $planet[$i][planet_fighters];
-    $total_torp += $planet[$i][base_torp];
+    $total_organics += $planet[$i][organics];
+    $total_ore += $planet[$i][ore];
+    $total_goods += $planet[$i][goods];
+    $total_energy += $planet[$i][energy];
+    $total_colonists += $planet[$i][colonists];
+    $total_credits += $planet[$i][credits];
+    $total_fighters += $planet[$i][fighters];
+    $total_torp += $planet[$i][torps];
     if($planet[$i][base] == "Y")
     {
       $total_base += 1;
     }
-    if($planet[$i][base_sells] == "Y")
+    if($planet[$i][sells] == "Y")
     {
       $total_selling += 1;
     }
-    if(empty($planet[$i][planet_name]))
+    if(empty($planet[$i][name]))
     {
-      $planet[$i][planet_name] = "Unnamed";
+      $planet[$i][name] = "Unnamed";
     }
     echo "<TR BGCOLOR=\"$color\">";
     echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
-    echo "<TD>" . $planet[$i][planet_name] . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_ore]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_organics]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_goods]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_energy]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_colonists]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_credits]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][planet_fighters]) . "</TD>";
-    echo "<TD>" . NUMBER($planet[$i][base_torp]) . "</TD>";
+    echo "<TD>" . $planet[$i][name] . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][ore]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][organics]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][goods]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][energy]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][colonists]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][credits]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][fighters]) . "</TD>";
+    echo "<TD>" . NUMBER($planet[$i][torps]) . "</TD>";
     echo "<TD>" . ($planet[$i][base] == 'Y' ? "Yes" : "No") . "</TD>";
-    echo "<TD>" . ($planet[$i][base_sells] == 'Y' ? "Yes" : "No") . "</TD>";
+    echo "<TD>" . ($planet[$i][sells] == 'Y' ? "Yes" : "No") . "</TD>";
     echo "</TR>";
 
     if($color == $color_line1)

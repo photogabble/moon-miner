@@ -43,7 +43,7 @@ if(!$allow_ibank)
   die();
 }
 // Added Locking
-mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE");
+mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE, planets WRITE");
 
 //////////////////////////////////////////////////////////////////////////////////
 // -- Refresh data for display
@@ -57,6 +57,21 @@ function ibank_refreshdata()
   $result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
   $sectorinfo=mysql_fetch_array($result2);
   
+  $result3 = mysql_query ("SELECT * FROM planets WHERE owner=$playerinfo[ship_id]");
+  $num_planets = mysql_num_rows($result3);
+  $i=0;
+  while($row = mysql_fetch_array($result3))
+  {
+    if(!empty($planet_id))
+    {
+      if($planet_id == $row[planet_id])
+        $currentplanet = $row;
+    }
+    $planets[$i] = $row;
+    $i++;
+  }
+  mysql_free_result($result3);
+
   $caccount = mysql_query ("SELECT * from ibank_accounts");
   $totalnumaccounts = mysql_num_rows($caccount);
   
@@ -126,6 +141,13 @@ function ibank_display_head($header = 'Empty', $backlink = 'ibank.php3')
 
 function ibank_display_footer($backlink = 'ibank.php3')
 {
+  if(!empty($planet_id))
+  {
+    if(strstr($backlink, "?"))
+      $backlink = $backlink . "&planet_id=$planet_id";
+    else
+      $backlink = $backlink . "?planet_id=$planet_id";
+  }
   echo '
     <TR>
     <td bgcolor="#FFDBB7"><a href='.$backlink.'>&nbsp;<b>Exit</b></a></td>
@@ -164,12 +186,10 @@ function ibank_display_main()
     */
     // Figure out the default exit.
     // So user dont go completely confused...
-    if    ($sectorinfo[port_type]=="special" && $sectorinfo[planet_owner] ==$playerinfo[ship_id]) 
-    { $exit = $interface; }
+    if  (!empty($currentplanet)) 
+    { $exit = "planet.php3?planet_id=$planet_id"; }
     elseif  ($sectorinfo[port_type]=="special") 
     { $exit = "port.php3"; }
-    elseif  ($sectorinfo[planet_owner] ==$playerinfo[ship_id]) 
-    { $exit = "planet.php3"; }
     else
     { $exit = $interface; }
     
@@ -213,7 +233,10 @@ function ibank_display_createaccount()
     // SInce we made changes lets update account data
     ibank_refreshdata();
     ibank_display_head("Create A New Account - Completed"); // Use Defaults
-    echo '<form action="ibank.php3" method="post">
+    echo '<form action="ibank.php3';
+    if(!empty($planet_id))
+      echo "planet_id=$planet_id";
+    echo '" method="post">
       <tr>
       <td colspan="4" align=center bgcolor="#FFFFCA">Account Created</td>
       </tr> 
@@ -350,7 +373,10 @@ function ibank_display_ownaccount()
     ibank_display_head("Manage Your Account"); // Use Defaults
     echo '
       <TR>
-      <TD colspan=2><form action="ibank.php3" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
+      <TD colspan=2><form action="ibank.php3';
+    if(isset($planet_id))
+      echo "?planet_id=$planet_id";
+    echo '" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
       <td>Deposit</td><td><input type="text" name="deposit" value="0" size="10" maxlength="20"></td><td><input type="submit" value="DO"></td>
       </tr><tr><td colspan=3>Take credits from Ship account and Deposit into IGB Account.</td></tr></table></td></tr></table><input type="hidden" name="op" value="1"></form></TD>
       <TD rowspan=4 valign="top">&nbsp;</td>
@@ -392,12 +418,15 @@ function ibank_display_transfers()
 {
   global $username,$playerinfo,$account,$payto,$amount,$confirmed,$ibank_paymentfee,$direction;
   if(!isset($payto)) {
-    $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id] ORDER BY planet_name ASC");
+    $lresult = mysql_query ("SELECT * FROM planets WHERE owner=$playerinfo[ship_id] ORDER BY name ASC");
   } else {
-    $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id] AND sector_id = $payto");
+    $lresult = mysql_query ("SELECT * FROM planets WHERE owner=$playerinfo[ship_id] AND sector_id = $payto");
   }
   
-  echo '<form action="ibank.php3" method="post">';
+  echo '<form action="ibank.php3';
+  if(isset($planet_id))
+    echo "?planet_id=$planet_id";
+  echo '" method="post">';
   ibank_display_head("Transfers");
   $num_planets = mysql_num_rows($lresult);
   
@@ -414,7 +443,12 @@ function ibank_display_transfers()
         for ($i=1; $i<=$num_planets ; $i++)
         {
           $row=mysql_fetch_array($lresult);
-          echo "<option value=\"$row[sector_id]\">$row[planet_name]</option>";
+          echo "<option value=\"$row[sector_id]\">";
+          if($row[name] == "")
+            echo "Unnamed";
+          else
+            echo "$row[name]";
+          echo "</option>";
         }
         echo '</select></TD></TR>
           <tr><td colspan=4 align=center><input type="submit" value="MAKE TRANSFER"></td></tr>
@@ -445,12 +479,21 @@ function ibank_display_transfers()
 	  
       if($direction == "to")
       {
-        @playerlog($ibank_owner,"IGB Interplanetary proceeds from $playerinfo[character_name] to $row[planet_name] of ".number_format($amount)." credits");
+        @playerlog($ibank_owner,"IGB Interplanetary proceeds from $playerinfo[character_name] to $row[name] of ".number_format($amount)." credits");
         $query = "UPDATE ibank_accounts SET ballance=ballance+$fee where id=$ibank_owner";
         mysql_query("$query");  
         $query = "UPDATE ibank_accounts SET ballance=ballance-$totalamount where id=$playerinfo[ship_id]";
         mysql_query("$query");
-        $query = "UPDATE universe SET planet_credits=planet_credits+$amount where sector_id='$payto'";
+/******************************************************************
+* All right, I stop here. This is the most bastardized,           *
+* spaghettified piece of code I've ever seen. If anyone has hours *
+* to lose, you can continue to update the code below so it        *
+* supports multiple planets per sector. I think it'd probably be  *
+* better to just rewrite the whole thing though.                  *
+*                                                                 *
+*   - SharpBlue                                                   *
+******************************************************************/
+        $query = "UPDATE planets SET credits=credits+$amount WHERE sector_id='$payto'";
         mysql_query("$query");    
         // Since we made changes lets update playerinfo;
         ibank_refreshdata();      

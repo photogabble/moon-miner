@@ -17,7 +17,7 @@ bigtitle();
 srand((double)microtime() * 1000000);
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe READ, links READ");
+mysql_query("LOCK TABLES ships WRITE, universe READ, links READ, planets READ");
 
 // get user info
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
@@ -51,7 +51,7 @@ if($sector == "*")
   // get sectors which can be reached from the player's current sector
   $result = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD><TD><B>Mines</B></TD><TD><B>Fighters</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planets</B></TD><TD><B>Mines</B></TD><TD><B>Fighters</B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($result))
   {
@@ -66,10 +66,12 @@ if($sector == "*")
     $num_ships = $row2[count];
 
     // get port type and discover the presence of a planet in scanned sector
-    $result2 = mysql_query("SELECT port_type,planet,mines,fighters FROM universe WHERE sector_id='$row[link_dest]'");
+    $result2 = mysql_query("SELECT port_type,mines,fighters FROM universe WHERE sector_id='$row[link_dest]'");
+    $result3 = mysql_query("SELECT planet_id FROM planets WHERE sector_id='$row[link_dest]'");
     $sectorinfo = mysql_fetch_array($result2);
+
     $port_type = $sectorinfo[port_type];
-    $has_planet = ($sectorinfo[planet] == "Y") ? "Yes" : "No";
+    $has_planet = mysql_num_rows($result3);
     $has_mines = NUMBER($sectorinfo[mines] ) ;
     $has_fighters = NUMBER($sectorinfo[fighters] ) ;
 
@@ -232,38 +234,52 @@ else
     $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Planet</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Planets</B></TD></TR>";
   echo "<TR><TD>";
-  if($sectorinfo[planet] == "N")
+  $query = mysql_query("SELECT name, owner FROM planets WHERE sector_id=$sectorinfo[sector_id]");
+  if(mysql_num_rows($query) > 0)
+  {
+    $planet = mysql_fetch_array($query);
+    if(empty($planet[name]))
+      echo "Unnamed";
+    else
+      echo "$planet[name]";
+
+    if($planet[owner] == 0)
+    {
+      echo " (unowned)";
+    }
+    else
+    {
+      $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$planet[owner]");
+      $planet_owner_name = mysql_fetch_array($result5);
+      echo " ($planet_owner_name[character_name])";
+    } 
+    while($planet = mysql_fetch_array($query))
+    {
+      echo "<BR>";
+      if(empty($planet[name]))
+        echo "Unnamed";
+      else
+        echo "$planet[name]";
+  
+      if($planet[owner] == 0)
+      {
+        echo " (unowned)";
+      }
+      else
+      {
+        $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$planet[owner]");
+        $planet_owner_name = mysql_fetch_array($result5);
+        echo " ($planet_owner_name[character_name])";
+      } 
+    }
+  }
+  else
   {
     echo "None";
     $planet_bnthelper_string="<!--planet:N:::-->";
   }
-  else
-  {
-    if(empty($sectorinfo[planet_name]))
-    {
-      echo "Unnamed";
-      $planet_bnthelper_string="<!--planet:Y:Unnamed:";
-    }
-    else
-    {
-      echo "$sectorinfo[planet_name]";
-      $planet_bnthelper_string="<!--planet:Y:" . $sectorinfo[planet_name] . ":";
-    }
-    if($sectorinfo[planet_owner] == 0)
-    {
-      echo " (unowned)";
-      $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
-    }
-    else
-    {
-      $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
-      $planet_owner_name = mysql_fetch_array($result5);
-      echo " ($planet_owner_name[character_name])";
-      $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner_name[character_name] . ":-->";
-    } 
-  } 
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD><B>Mines</B></TD></TR>";
   $has_mines =  NUMBER($sectorinfo[mines] ) ;

@@ -179,7 +179,7 @@ function gen_score($sid)
   $calc_cloak = "ROUND(POW($upgrade_factor,cloak))";
   $calc_levels = "($calc_hull+$calc_engines+$calc_power+$calc_computer+$calc_sensors+$calc_beams+$calc_torp_launchers+$calc_shields+$calc_armour+$calc_cloak)*$upgrade_cost";
 
-  $calc_torps = "torps*$torpedo_price";
+  $calc_torps = "ships.torps*$torpedo_price";
   $calc_armour_pts = "armour_pts*$armour_price";
   $calc_ship_ore = "ship_ore*$ore_price";
   $calc_ship_organics = "ship_organics*$organics_price";
@@ -198,12 +198,12 @@ function gen_score($sid)
   $calc_dev_minedeflector = "dev_minedeflector*$dev_minedeflector_price";
   $calc_dev = "$calc_dev_warpedit+$calc_dev_genesis+$calc_dev_beacon+$calc_dev_emerwarp+$calc_dev_escapepod+$calc_dev_fuelscoop+$calc_dev_minedeflector";
 
-  $calc_planet_goods = "SUM(planet_organics)*$organics_price+SUM(planet_ore)*$ore_price+SUM(planet_goods)*$goods_price+SUM(planet_energy)*$energy_price";
-  $calc_planet_colonists = "SUM(planet_colonists)*$colonist_price";
-  $calc_planet_defence = "SUM(planet_fighters)*$fighter_price+IF(base='Y', $base_credits+SUM(base_torp)*$torpedo_price, 0)";
-  $calc_planet_credits = "SUM(planet_credits)";
+  $calc_planet_goods = "SUM(planets.organics)*$organics_price+SUM(planets.ore)*$ore_price+SUM(planets.goods)*$goods_price+SUM(planets.energy)*$energy_price";
+  $calc_planet_colonists = "SUM(planets.colonists)*$colonist_price";
+  $calc_planet_defence = "SUM(planets.fighters)*$fighter_price+IF(base='Y', $base_credits+SUM(planets.torps)*$torpedo_price, 0)";
+  $calc_planet_credits = "SUM(planets.credits)";
 
-  $res = mysql_query("SELECT ROUND(SQRT($calc_levels+$calc_equip+$calc_dev+credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits)) AS score FROM ships LEFT JOIN universe ON planet_owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+  $res = mysql_query("SELECT ROUND(SQRT($calc_levels+$calc_equip+$calc_dev+ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits)) AS score FROM ships LEFT JOIN planets ON planets.owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
   $row = mysql_fetch_array($res);
   $score = $row[score];
   mysql_query("UPDATE ships SET score=$score WHERE ship_id=$sid");
@@ -221,7 +221,7 @@ function db_kill_player($ship_id)
   global $default_prod_torp;
 
   mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0 WHERE ship_id=$ship_id");
-  mysql_query("UPDATE universe SET planet_owner=0 WHERE planet_owner=$ship_id");
+  mysql_query("UPDATE planets SET owner=0 WHERE owner=$ship_id");
   mysql_query("UPDATE universe SET fm_owner=0,fighters=0,mines=0 WHERE fm_owner=$ship_id");
 }
 
