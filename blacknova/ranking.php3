@@ -12,7 +12,7 @@ bigtitle();
 //-------------------------------------------------------------------------------------------------
 mysql_query("LOCK TABLES ships READ");
 
-$res = mysql_query("SELECT COUNT(*) AS num_players FROM ships WHERE ship_destroyed='N'");
+$res = mysql_query("SELECT COUNT(*) AS num_players FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee'");
 $row = mysql_fetch_array($res);
 $num_players = $row['num_players'];
 mysql_free_result($res);
