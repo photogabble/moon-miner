@@ -14,7 +14,7 @@ $local_number_thousands_sep = ",";
 
 /* game variables */
 $ip = getenv("REMOTE_ADDR");
-$mine_hullsize = 6; //Minimum size hull has to be to hit mines
+$mine_hullsize = 8; //Minimum size hull has to be to hit mines and fighters
 $ewd_maxhullsize = 15; //Max hull size before EWD degrades
 $sector_max = 3000;
 $link_max=10;
@@ -124,7 +124,7 @@ $torp_dmg_rate = 10;
 $credits_prate = 3.0;
 
 $armour_price = 5;
-$basedefense = 1;  // Additional factor added by having a base on your planet
+$basedefense = 1;  // Additional factor added to tech levels by having a base on your planet. All your base are belong to us.
 
 $colonist_price = 5;
 $colonist_production_rate = .005;
