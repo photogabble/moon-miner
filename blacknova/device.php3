@@ -3,7 +3,7 @@
 include("config.php3");
 updatecookie();
 
-$title="Use Device";
+$title="Devices";
 include("header.php3");
 
 connectdb();
@@ -18,38 +18,31 @@ $playerinfo = mysql_fetch_array($res);
 
 bigtitle();
 
-echo "You have the following devices you can use:<BR><BR>";
-if($playerinfo[dev_warpedit] > 0)
-{
-  echo "$playerinfo[dev_warpedit] <A HREF=warpedit.php3>Warp Editor(s)</A><BR>";
-}
-if($playerinfo[dev_genesis] > 0)
-{
-  echo "$playerinfo[dev_genesis] <A HREF=genesis.php3>Genesis Device(s)</A><BR>";
-}
-if($playerinfo[dev_emerwarp] > 0)
-{
-  echo "$playerinfo[dev_emerwarp] <A HREF=emerwarp.php3>Emergency Warp Device(s)</A><BR>";
-}
-if($playerinfo[dev_beacon] > 0)
-{
-  echo "$playerinfo[dev_beacon] <A HREF=beacon.php3>Space Beacon(s)</A><BR>";
-}
-
-echo "<BR>You also have these devices that are used automatically:<BR><BR>";
-
-if($playerinfo[dev_escapepod] == "Y")
-{
-  echo "Escape Pods<BR>";
-}
-if($playerinfo[dev_fuelscoop] == "Y")
-{
-  echo "Fuelscoop<BR>";
-}
-if($playerinfo[dev_minedeflector] > 0)
-{
-  echo "$playerinfo[dev_minedeflector] Mine Deflector(s)<BR>";
-}
+echo "Your ship is equipped with the following devices (click on a device to use it):<BR><BR>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Device</B></TD><TD><B>Quantity</B></TD><TD><B>Usage</B></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\">";
+echo "<TD><A HREF=beacon.php3>Beacons</A></TD><TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD><TD>Manual</TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line2\">";
+echo "<TD><A HREF=warpedit.php3>Warp Editors</A></TD><TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD>Manual</TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line1\">";
+echo "<TD><A HREF=genesis.php3>Genesis Torpedoes</A></TD><TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD><TD>Manual</TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line2\">";
+echo "<TD>Mine Deflectors</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD>Automatic</TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line1\">";
+echo "<TD><A HREF=emerwarp.php3>Emergency Warp</A></TD><TD>" . NUMBER($playerinfo[dev_emerwarp]) . "</TD><TD>Manual/Automatic</TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line2\">";
+echo "<TD>Escape Pod</TD><TD>" . (($playerinfo[dev_escapepod] == 'Y') ? "Yes" : "No") . "</TD><TD>Automatic</TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line1\">";
+echo "<TD>Fuel Scoop</TD><TD>" . (($playerinfo[dev_fuelscoop] == 'Y') ? "Yes" : "No") . "</TD><TD>Automatic</TD>";
+echo "</TR>";
+echo "</TABLE>";
 
 echo "<BR>Click <A HREF=main.php3>here</A> to return to the main menu.";
 
