@@ -143,17 +143,24 @@ else
   do
   {
     $res = mysql_query("SELECT ship_id,character_name,hull,sector,universe.zone_id,max_hull FROM ships,universe,zones WHERE sector=sector_id AND universe.zone_id=zones.zone_id AND max_hull<>0 AND ships.hull>max_hull");
-    $num_to_tow = mysql_num_rows($res);
-    echo "<BR>$num_to_tow players to tow:<BR>";
-    while($row = mysql_fetch_array($res))
+    if($res)
     {
-      echo "...towing $row[character_name] out of $row[sector] (max_hull=$row[max_hull] hull=$row[hull])...";
-      $newsector = rand(0, $sector_max);
-      echo " to sector $newsector.<BR>";
-      $query = mysql_query("UPDATE ships SET sector=$newsector where ship_id=$row[ship_id]");
-      playerlog($row[ship_id], "Your ship was towed from sector $row[sector] to sector $newsector because your hull size exceeded $row[max_hull].");
+      $num_to_tow = mysql_num_rows($res);
+      echo "<BR>$num_to_tow players to tow:<BR>";
+      while($row = mysql_fetch_array($res))
+      {
+        echo "...towing $row[character_name] out of $row[sector] (max_hull=$row[max_hull] hull=$row[hull])...";
+        $newsector = rand(0, $sector_max);
+        echo " to sector $newsector.<BR>";
+        $query = mysql_query("UPDATE ships SET sector=$newsector where ship_id=$row[ship_id]");
+        playerlog($row[ship_id], "Your ship was towed from sector $row[sector] to sector $newsector because your hull size exceeded $row[max_hull].");
+      }
+      mysql_free_result($res);
     }
-    mysql_free_result($res);
+    else
+    {
+      echo "<BR>No players to tow.<BR>";
+    }
   } while($num_to_tow);
   echo "<BR>";
 
