@@ -96,7 +96,7 @@ if($res > 0)
 $num_planets = $i;
 
 $res = $db->Execute("SELECT * FROM $dbtables[sector_defence],$dbtables[ships] WHERE $dbtables[sector_defence].sector_id='$playerinfo[sector]'
-                                                    AND $dbtables[ships].ship_id = $dbtables[sector_defence]ship_id ");
+                                                    AND $dbtables[ships].ship_id = $dbtables[sector_defence].ship_id ");
 $i = 0;
 if($res > 0)
 {
