@@ -14,12 +14,12 @@ if(checklogin())
   die();
 }
 //-------------------------------------------------------------------------------------------------
- mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ, planets WRITE, bn_news WRITE, logs WRITE");
-$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-$playerinfo=mysql_fetch_array($result);
+ $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[zones] READ, $dbtables[planets] WRITE, $dbtables[news] WRITE, $dbtables[logs] WRITE");
+$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo=$result->fields;
 
-$result2 = mysql_query ("SELECT * FROM ships WHERE ship_id='$ship_id'");
-$targetinfo=mysql_fetch_array($result2);
+$result2 = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
+$targetinfo=$result2->fields;
 
 bigtitle();
 
@@ -50,8 +50,8 @@ else
   $roll = rand(1, 100);
   $roll2 = rand(1, 100);
 
-  $res = mysql_query("SELECT allow_attack,universe.zone_id FROM zones,universe WHERE sector_id='$targetinfo[sector]' AND zones.zone_id=universe.zone_id");
-  $zoneinfo = mysql_fetch_array($res);
+  $res = $db->Execute("SELECT allow_attack,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id='$targetinfo[sector]' AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
+  $zoneinfo = $res->fields;
   if($zoneinfo[allow_attack] == 'N')
   {
     echo "$l_att_noatt<BR><BR>";
@@ -59,14 +59,14 @@ else
   elseif($flee < $roll2)
   {
     echo "$l_att_flee<BR><BR>";
-    mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     playerlog($targetinfo[ship_id], LOG_ATTACK_OUTMAN, "$playerinfo[character_name]");
   }
   elseif($roll > $success)
   {
     /* if scan fails - inform both player and target. */
     echo "$l_planet_noscan<BR><BR>";
-    mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     playerlog($targetinfo[ship_id], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
   }
   else
@@ -86,11 +86,11 @@ else
       /* need to change warp destination to random sector in universe */
       $rating_change=round($targetinfo[rating]*.1);
       $dest_sector=rand(1,$sector_max);
-      mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
       $l_att_ewdlog=str_replace("[name]",$playerinfo[character_name],$l_att_ewdlog);
       $l_att_ewdlog=str_replace("[sector]",$playerinfo[sector],$l_att_ewdlog);
       playerlog($targetinfo[ship_id], LOG_ATTACK_EWD, "$playerinfo[character_name]");
-      $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1,cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
+      $result_warp = $db->Execute ("UPDATE $dbtables[ships] SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1,cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
       echo "$l_att_ewd<BR><BR>";
     }
     else
@@ -355,7 +355,7 @@ else
         {
           $rating=round($targetinfo[rating]/2);
           echo "$l_att_espod<BR><BR>";
-          mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
+          $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
           playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
         }
         else
@@ -425,11 +425,11 @@ else
           $l_att_ysalv=str_replace("[rating_change]",NUMBER(abs($rating_change)),$l_att_ysalv);
 
           echo $l_att_ysalv;
-          $update3 = mysql_query ("UPDATE ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
+          $update3 = $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
           $armour_lost=$playerinfo[armour_pts]-$playerarmour;
           $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
           $energy=$playerinfo[ship_energy];
-          $update3b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, turns_used=turns_used+1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+          $update3b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, turns_used=turns_used+1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
           echo "$l_att_ylost $armour_lost $l_armourpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<BR><BR>";
         }
       }
@@ -442,11 +442,11 @@ else
         $fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
         $energy=$targetinfo[ship_energy];
         playerlog($targetinfo[ship_id], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$armour_lost|$fighters_lost");
-        $update4 = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
+        $update4 = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         $armour_lost=$playerinfo[armour_pts]-$playerarmour;
         $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
         $energy=$playerinfo[ship_energy];
-        $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+        $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         echo "$l_att_ylost $armour_lost $l_armourpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<BR><BR>";
       }
       if($playerarmour < 1)
@@ -456,7 +456,7 @@ else
         {
           $rating=round($playerinfo[rating]/2);
           echo "$l_att_loosepod<BR><BR>";
-          mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$playerinfo[ship_id]");
+          $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$playerinfo[ship_id]");
         }
         else
         {
@@ -522,17 +522,17 @@ else
           $l_att_salv=str_replace("[name]",$targetinfo[character_name],$l_att_salv);
 
           echo "$l_att_salv<BR>";
-          $update6 = mysql_query ("UPDATE ships SET credits=credits+$ship_salvage, ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods WHERE ship_id=$targetinfo[ship_id]");
+          $update6 = $db->Execute ("UPDATE $dbtables[ships] SET credits=credits+$ship_salvage, ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods WHERE ship_id=$targetinfo[ship_id]");
           $armour_lost=$targetinfo[armour_pts]-$targetarmour;
           $fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
           $energy=$targetinfo[ship_energy];
-          $update6b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
+          $update6b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         }
       }
     }
   }
 }
-mysql_query("UNLOCK TABLES");
+$db->Execute("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();

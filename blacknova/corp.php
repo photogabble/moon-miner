@@ -16,14 +16,13 @@ if (checklogin())
 }
 
 //------------------------------------
-mysql_query("LOCK TABLES ships WRITE, planets WRITE, zones WRITE, teams READ, universe WRITE");
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo=mysql_fetch_array($result);
+$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo=$result->fields;
 
-$result2 = mysql_query("SELECT * FROM planets WHERE planet_id=$planet_id");
+$result2 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
 if($result2)
 
-  $planetinfo=mysql_fetch_array($result2);
+  $planetinfo=$result2->fields;
 
 if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] >> 0))
 
@@ -34,7 +33,7 @@ bigtitle();
 	if ($action == "planetcorp")
 	{
 		echo ("$l_corpm_tocorp<BR>");
-		$result = mysql_query("UPDATE planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
+		$result = $db->Execute("UPDATE $dbtables[planets] SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
 
       if(!empty($ownership))
@@ -46,7 +45,7 @@ bigtitle();
 	if ($action == "planetpersonal")
 	{
 		echo ("$l_corpm_topersonal<BR>");
-		$result = mysql_query("UPDATE planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
+		$result = $db->Execute("UPDATE $dbtables[planets] SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
 
       if(!empty($ownership))
