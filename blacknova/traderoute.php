@@ -1003,6 +1003,54 @@ function traderoute_engage()
   if($traderoute[source_type] == 'P' && $source[port_type] == 'special' && $playerinfo[trade_colonists] == 'N' && $playerinfo[trade_fighters] == 'N' && $playerinfo[trade_torps] == 'N')
     traderoute_die("Your global settings are set to buy nothing! You would only waste turns doing this route!");
 
+  $trade_allowed = 1;
+  if($traderoute[source_type] == 'P')
+  {
+    $res = mysql_query("SELECT * FROM zones,universe WHERE universe.sector_id=$traderoute[source_id] AND zones.zone_id=universe.zone_id");
+    $zoneinfo = mysql_fetch_array($res);
+    if($zoneinfo[allow_trade] == 'N')
+      traderoute_die("Trading from source port is not allowed.");
+    elseif($zoneinfo[allow_trade] == 'L')
+    {
+      if($zoneinfo[corp_zone] == 'N')
+      {
+        $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
+        $ownerinfo = mysql_fetch_array($res);
+
+        if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
+          traderoute_die("Trading at source port is not allowed for outsiders");
+      }
+      else
+      {
+        if($playerinfo[team] != $zoneinfo[owner])
+          traderoute_die("Trading at source port is not allowed for outsiders");
+      }
+    }
+  }
+  if($traderoute[dest_type] == 'P')
+  {
+    $res = mysql_query("SELECT * FROM zones,universe WHERE universe.sector_id=$traderoute[dest_id] AND zones.zone_id=universe.zone_id");
+    $zoneinfo = mysql_fetch_array($res);
+    if($zoneinfo[allow_trade] == 'N')
+      traderoute_die("Trading from destination port is not allowed.");
+    elseif($zoneinfo[allow_trade] == 'L')
+    {
+      if($zoneinfo[corp_zone] == 'N')
+      {
+        $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
+        $ownerinfo = mysql_fetch_array($res);
+
+        if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
+          traderoute_die("Trading at destination port is not allowed for outsiders");
+      }
+      else
+      {
+        if($playerinfo[team] != $zoneinfo[owner])
+          traderoute_die("Trading at destination port is not allowed for outsiders");
+      }
+    }
+  }
+
   //We're done with checks! All that's left is to make it happen
   
   echo '
