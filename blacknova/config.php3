@@ -79,7 +79,7 @@ $default_prod_torp     = 10.0;
 /* port pricing variables */
 $ore_price = 11;
 $ore_delta = 5;
-$ore_rate = 5000;
+$ore_rate = 75000;
 $ore_prate = 0.25;
 $ore_limit = 100000000;
 
@@ -91,13 +91,13 @@ $organics_limit = 100000000;
 
 $goods_price = 15;
 $goods_delta = 7;
-$goods_rate = 5000;
+$goods_rate = 75000;
 $goods_prate = 0.25;
 $goods_limit = 100000000;
 
 $energy_price = 3;
 $energy_delta = 1;
-$energy_rate = 5000;
+$energy_rate = 75000;
 $energy_prate = 0.1;
 $energy_limit = 100000000;
 
