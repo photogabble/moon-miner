@@ -1295,5 +1295,6 @@ $l_by_placed     = "The bounty has been placed.";
 $l_by_nobounty = "That bounty no longer exists.";
 $l_by_notyours = "That bounty was not placed by you.";
 $l_by_canceled = "The bounty has been canceled.";
+$l_by_action   = "Action";
 
 ?>
