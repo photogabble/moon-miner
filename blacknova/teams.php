@@ -132,7 +132,7 @@ function DISPLAY_INVITE_INFO()
 function showinfo($whichteam,$isowner)
 {
 	global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_team_ed, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
-  global $db, $dbtables;
+  global $db, $dbtables, $l_team_eject;
 
 	/* Heading */
    echo"<div align=center>";
