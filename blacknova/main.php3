@@ -486,7 +486,7 @@ else
 </td>
 </tr>
 </table>
-<b><center><font size=2 face="arial" color=white>Sector Defences</font><br></center></b>
+<b><center><font size=2 face="arial" color=white></font><br></center></b>
 
 <table border=0 width=100%>
 <tr>
@@ -499,17 +499,18 @@ if($num_defences > 0)
   while($i < $num_defences)
   {
 
-
+    $defence_id = $defences[$i]['defence_id'];
     echo "<td align=center valign=top>";
     if($defences[$i]['defence_type'] == 'F')
     {
-       echo "<img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
-       $def_type = 'Fighters';
+       echo "<a href=modify-defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+       $def_type = 'Fighters ';
+       $def_type .= $defences[$i]['fm_setting'];
     }
     elseif($defences[$i]['defence_type'] == 'M')
     {
-       echo "<img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
-       $def_type = 'Mines';
+       echo "<a href=modify-defences.php?defence_id=$defence_id><img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+       $def_type = 'Mines ';
     }
     $char_name = $defences[$i]['character_name'];
     $qty = $defences[$i]['quantity'];
@@ -531,7 +532,7 @@ if($num_defences > 0)
 else
 {
   echo "<td align=center valign=top>";
-  echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
+//  echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
   echo "</td></tr></table>";
 }
 ?>

@@ -50,7 +50,7 @@ function MM_swapImage() { //v3.0
     <td><img src="images/spacer.gif" width="1" height="21" border="0" name="undefined_2"></td>
   </tr>
   <tr>
-    <td colspan=3 align=center><a href=<? echo "http://$gamedomain" . $gamepath . "login.php3"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
+    <td colspan=3 align=center><a href=<? echo "login.php3"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
     <td><img src="images/spacer.gif" width="1" height="58" border="0" name="undefined_2"></td>
   </tr>
   <tr>
