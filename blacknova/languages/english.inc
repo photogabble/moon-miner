@@ -2608,4 +2608,3 @@ $l_log_title[LOG_BOUNTY_CANCELLED] = "Bounty Refunded.";
 
 
 ?>
-

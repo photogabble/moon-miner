@@ -896,17 +896,19 @@ function collect_bounty($attacker,$bounty_on)
    while(!$res->EOF)
    {
       if($res->fields[placed_by] == 0)
+      {
          $placed = $l_by_thefeds;
+      }
       else
       {
-         $res2 = db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id = $res->fields[placed_by]");
+         $res2 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id = $res->fields[placed_by]");
          $placed = $res2->fields[character_name];
       }
       $update = $db->Execute("UPDATE $dbtables[ships] SET credits = credits + $res->fields['amount'] WHERE ship_id = $attacker");
       $delete = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $res->fields['bounty_id']");
 
       playerlog($attacker, LOG_BOUNTY_CLAIM, "$res->fields[amount]|$res->fields[character_name]|$placed");
-      playerlog($res->fields[placed_by],LOG_BOUNTY_PAID,"$amount|$res->fields[character_name]")
+      playerlog($res->fields[placed_by],LOG_BOUNTY_PAID,"$amount|$res->fields[character_name]");
 
       $res->MoveNext();
    }
@@ -923,7 +925,7 @@ function cancel_bounty($bounty_on)
          $update = $db->Execute("UPDATE $dbtables[ships] SET credits = credits + $res->fields['amount'] WHERE ship_id = $res->fields[placed_by]");
          $delete = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $res->fields['bounty_id']");
       
-         playerlog($res->fields[placed_by],LOG_BOUNTY_CANCELLED,"$amount|$res->fields[character_name]")
+         playerlog($res->fields[placed_by],LOG_BOUNTY_CANCELLED,"$amount|$res->fields[character_name]");
       }
       $res->MoveNext();
    }
