@@ -273,7 +273,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "<TD>Sensors</TD><TD>" . NUMBER($sensors_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[sensors]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=sensors_upgrade VALUE=1 $onchange $onclick></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Mine Deflector</TD><TD>" . NUMBER($dev_minedeflector_price) . "</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD>Unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=5 VALUE=0 $onchange></TD>";
+  echo "<TD>Mine Deflector</TD><TD>" . NUMBER($dev_minedeflector_price) . "</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD>Unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=6 VALUE=0 $onchange></TD>";
   echo "<TD>Beam Weapons</TD><TD>" . NUMBER($beams_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[beams]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=beams_upgrade VALUE=1 $onchange $onclick></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
