@@ -87,6 +87,8 @@ $stamp = date("Y-m-d H-i-s");
            $roll = rand(1,$sectorinfo[mines]);
            $totalmines = $totalmines - $roll;
            echo "You hit $roll mines!<BR>";
+           playerlog($playerinfo[ship_id],"You hit $roll mines in sector $sector.");
+           playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] hit $roll of your mines in sector $sector.");
            if($playerinfo[dev_minedeflector] >= $roll)
            {
               echo "You lost $roll mine deflectors.<BR>";
@@ -120,6 +122,8 @@ $stamp = date("Y-m-d H-i-s");
                  else
                  {
                     $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
+                    playerlog($playerinfo[ship_id],"Your ship was destroyed by mines in sector $sector.");
+                    playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] was destroyed by your mines in sector $sector.");
                     echo "Your ship has been destroyed!<BR><BR>";
                     if($playerinfo[dev_escapepod] == "Y")
                     {
