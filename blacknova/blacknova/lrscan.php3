@@ -12,7 +12,6 @@ if(checklogin())
   die();
 }
 
-echo "<FONT FACE=\"Arial\">";
 bigtitle();
 
 // get user info
@@ -21,6 +20,13 @@ $playerinfo = mysql_fetch_array($result);
 
 if($sector == "*")
 {
+  if(!$allow_fullscan)
+  {
+    echo "Your scanners do not possess full long range scan capabilities.<BR><BR>";
+    echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+    include("footer.php3");   
+    die();
+  }
   if($playerinfo[turns] < 1)
   {
     echo "You need at least one turn to run a full long range scan.<BR><BR>";
@@ -231,8 +237,6 @@ else
 
 echo "<BR><BR>";
 echo "Click <a href=main.php3>here</a> to return to main menu.";
-
-echo "</FONT>";
 
 include("footer.php3");
 

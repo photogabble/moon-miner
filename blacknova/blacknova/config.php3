@@ -73,7 +73,8 @@
 	$start_turns=200;
 	$max_turns=600;
 
-	$fullscan_cost=1;
+	$allow_fullscan = true;
+	$fullscan_cost = 1;
 
 /* functions */
 function bigtitle()

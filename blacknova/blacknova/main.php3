@@ -53,8 +53,12 @@
                                 if ($i+1!=$num_links) { echo ", ";}
                         }
                         echo "<BR><BR>";
-                        echo "LR scan a sector: ";
-                        for  ($i=0; $i<$num_links;$i++)
+                        echo "Long-range scan: ";
+                        if($allow_fullscan)
+                        {
+                          echo "<A HREF=lrscan.php3?sector=*>full scan</A> - By sector: ";
+                        }
+                        for($i=0; $i<$num_links;$i++)
                         {
                                 echo "<a href=lrscan.php3?sector=$links[$i]>$links[$i]</a>";
                                 if ($i+1!=$num_links) { echo ", ";}
