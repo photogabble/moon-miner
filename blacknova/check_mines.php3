@@ -15,6 +15,14 @@
            bigtitle();
            $ok=0;
            $totalmines = $sectorinfo[mines];
+           if ($secorinfo[mines]>1) 
+           {
+              $roll = rand(1,$sectorinfo[mines]);
+           }
+           else 
+           { 
+              $roll = 1;
+           }
            $roll = rand(1,$sectorinfo[mines]);
            $totalmines = $totalmines - $roll;
            echo "You hit $roll mines!<BR>";
