@@ -299,11 +299,18 @@ switch ($teamwhat) {
 		LINK_BACK();
 		break;
 	case 3: // JOIN
-		mysql_query("UPDATE ships SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
-		mysql_query("UPDATE teams SET number_of_members=number_of_members+1 WHERE id=$whichteam");
-		echo "Welcome to alliance <B>$team[team_name]</B>.<BR><BR>";
-		playerlog($playerinfo[ship_id],"You have joined <B>$team[team_name]</B>.");
-		playerlog($team[creator],"$playerinfo[character_name] has joined <B>$team[team_name]</B>.");
+                if($playerinfo[team_invite] == $whichteam)
+                {
+		   mysql_query("UPDATE ships SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
+		   mysql_query("UPDATE teams SET number_of_members=number_of_members+1 WHERE id=$whichteam");
+		   echo "Welcome to alliance <B>$team[team_name]</B>.<BR><BR>";
+		   playerlog($playerinfo[ship_id],"You have joined <B>$team[team_name]</B>.");
+		   playerlog($team[creator],"$playerinfo[character_name] has joined <B>$team[team_name]</B>.");
+                }
+                else
+                {
+                   echo "You have not been invited in to that team.<BR>"
+                }
 		LINK_BACK();
 		break;
 	case 4: 
