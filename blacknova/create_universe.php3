@@ -206,6 +206,8 @@ elseif($swordfish==$adminpass && $engage=="2")
     echo "done loop $i<BR>";
     $start=$finish+1;
     $finish=$finish+$loopsize;
+    if ($finish>$sector_max) $finish=$sector_max;
+
   }
   echo "Randomly One-way Linking Sectors...<BR>";
   for($i=0; $i<=$sector_max; $i++)
