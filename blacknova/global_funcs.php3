@@ -49,6 +49,8 @@ define(LOG_TEAM_JOIN, 39);              //sent when joining a team
 define(LOG_TEAM_NEWMEMBER, 40);         //sent to leader on join
 define(LOG_TEAM_INVITE, 41);            //sent to invited player
 define(LOG_TEAM_NOT_LEAVE, 42);         //sent to leader on leave
+define(LOG_ADMIN_HARAKIRI, 43);         //sent to admin on self-destruct
+define(LOG_ADMIN_PLANETDEL, 44);        //sent to admin on planet destruction instead of capture
 
 function bigtitle()
 {
@@ -171,18 +173,15 @@ function playerlog($sid, $log_type, $data = "")
   if ($sid != "" && !empty($log_type))
   {
     mysql_query("INSERT INTO logs VALUES('', $sid, $log_type, NOW(), '$data')");
-    echo mysql_error();
   }
 }
 
-function adminlog($sid,$log_entry)
+function adminlog($log_type, $data = "")
 {
   /* write log_entry to the admin log  */
-  if ($sid != "") {
-      $log_entry = date("l dS of F Y h:i:s A") . ":  " . $log_entry;
-      $alog = fopen("admin.log","a");
-      fwrite($alog, "$log_entry <BR>\n");
-      fclose($alog);
+  if (!empty($log_type))
+  {
+    mysql_query("INSERT INTO logs VALUES('', 0, $log_type, NOW(), '$data')");
   }
 }
 

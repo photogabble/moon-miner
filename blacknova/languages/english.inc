@@ -507,6 +507,12 @@ $l_log_text[LOG_TEAM_INVITE] = "You have been invited to be part of [team].";
 $l_log_title[LOG_TEAM_INVITE] = "Invitation";
 $l_log_text[LOG_TEAM_NOT_LEAVE] = "[player] has left your alliance.";
 $l_log_title[LOG_TEAM_NOT_LEAVE] = "Alliance loses a member";
+$l_log_text[LOG_ADMIN_HARAKIRI] = "[player] has self-destructed from ip [ip].";
+$l_log_title[LOG_ADMIN_HARAKIRI] = "Self-destruct";
+$l_log_text[LOG_ADMIN_ILLEGVALUE] = "[player] had [quantity] [type], with max holds of [holds]";
+$l_log_title[LOG_ADMIN_ILLEGVALUE] = "Illegal ship value";
+$l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] has attempted to capture [defender]'s planet in sector [sector]. Planet was destroyed instead.";
+$l_log_title[LOG_ADMIN_PLANETDEL] = "Planet destroyed";
 
 // modify-defences.php
 

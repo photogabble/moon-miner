@@ -36,7 +36,7 @@ elseif($sure == 2)
   echo "$l_die_vapor<BR><BR>";
   echo "$l_die_please.<BR>";
   db_kill_player($playerinfo['ship_id']);
-  adminlog(0,"$playerinfo[character_name] (at $ip) self-destructed.");
+  adminlog(LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
   playerlog($playerinfo[ship_id], LOG_HARAKIRI, "$ip");
 }
 else

@@ -88,6 +88,12 @@ global $playerinfo;
 global $ownerinfo;
 global $sectorinfo;
 global $planetinfo;
+global $torpedo_price;
+global $colonist_price;
+global $ore_price;
+global $organics_price;
+global $goods_price;
+global $energy_price;
 
 global $planetbeams;
 global $planetfighters;
@@ -480,11 +486,13 @@ echo "
             $planetscore = $planetinfo[organics] * $organics_price + $planetinfo[ore] * $ore_price + $planetinfo[goods] * $goods_price + $planetinfo[energy] * $energy_price + $planetinfo[fighters] * $fighter_price + $planetinfo[torps] * $torpedo_price + $planetinfo[colonists] * $colonist_price + $planetinfo[credits];
             $planetscore = $planetscore * $min_value_capture / 100;
 
+            echo "playerscore $playerscore, planetscore $planetscore";
             if($playerscore < $planetscore)
             {
               echo "<CENTER>The citizens of this planet have decided they'd rather die than serve a pathetic ruler like you. They use a laser drill to dig a hole to the planet's core. You barely have time to escape into orbit before the whole planet is reduced to a ball of molten lava.</CENTER><BR><BR>";
               mysql_query("DELETE FROM planets WHERE planet_id=$planetinfo[planet_id]");
               playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+              adminlog(LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
               gen_score($ownerinfo[ship_id]);
             }
             else

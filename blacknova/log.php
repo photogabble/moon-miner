@@ -16,13 +16,16 @@ $playerinfo = mysql_fetch_array($res);
 
 if($swordfish == $adminpass) //check if called by admin script
 {
-  if(!empty($player))
-    $playerinfo[ship_id] = $player;
+  $playerinfo[ship_id] = $player;
   
-  $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$player");
-  $targetname = mysql_fetch_array($res);
-
-  $playerinfo[character_name] = $targetname[character_name];
+  if($player == 0)
+    $playerinfo[character_name] = 'Administrator';
+  else
+  {
+    $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$player");
+    $targetname = mysql_fetch_array($res);
+    $playerinfo[character_name] = $targetname[character_name];
+  }
 }
 
 eregi ("ozilla.(.)", $HTTP_USER_AGENT, $mozver);
@@ -696,6 +699,30 @@ function log_parse($entry)
     list($team, $name)= split ("\|", $entry[data]);
     $retvalue[text] = str_replace("[team]", "<font color=white><b>$team</b></font>", $l_log_text[$entry[type]]);
     $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
+    case LOG_ADMIN_HARAKIRI: //data args are : [player] [ip]
+    list($player, $ip)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[ip]", "<font color=white><b>$ip</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
+    case LOG_ADMIN_ILLEGVALUE: //data args are : [player] [quantity] [type] [holds]
+    list($player, $quantity, $type, $holds)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[quantity]", "<font color=white><b>$quantity</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[type]", "<font color=white><b>$type</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[holds]", "<font color=white><b>$holds</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
+    case LOG_ADMIN_PLANETDEL: //data args are : [attacker] [defender] [sector]
+    list($attacker, $defender, $sector)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[attacker]", "<font color=white><b>$attacker</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[defender]", "<font color=white><b>$defender</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
   }

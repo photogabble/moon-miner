@@ -37,39 +37,32 @@ if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_ore] < 0 || $playerinfo[
 {
 	if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_colonists] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_colonists] colonists, Max Holds: $maxholds.");
+		adminlog(LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
 		$playerinfo[ship_colonists] = 0;
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship set to $playerinfo[ship_colonists] colonists.");
 	}
 	if ($playerinfo[ship_ore] < 0 || $playerinfo[ship_ore] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_ore] ore, Max Holds: $maxholds.");
+		adminlog(LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
 		$playerinfo[ship_ore] = 0;
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_ore] ore.");
 	}
 	if ($playerinfo[ship_organics] < 0 || $playerinfo[ship_organics] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_organics] organics, Max Holds: $maxholds.");
+		adminlog(LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
 		$playerinfo[ship_organics] = 0;
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_organics] organics.");
 	}
 	if ($playerinfo[ship_goods] < 0 || $playerinfo[ship_goods] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_goods] goods, Max Holds: $maxholds.");	
+		adminlog(LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");	
 		$playerinfo[ship_goods] = 0;
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_goods] goods");
 	}
 	if ($playerinfo[ship_energy] < 0 || $playerinfo[ship_energy] > $maxenergy)
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_energy] energy, Max Energy: $maxenergy.");
+		adminlog(LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
 		$playerinfo[ship_energy] = 0;
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_energy] energy");
 	}
 	if ($freeholds < 0)
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_freeholds] holds");
 		$freeholds = 0;
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_freeholds] holds");
 	}
 $update1 = mysql_query("UPDATE ships SET ship_ore=$playerinfo[ship_ore], ship_organics=$playerinfo[ship_organics], ship_goods=$playerinfo[ship_goods], ship_energy=$playerinfo[ship_energy], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]"); 
 }

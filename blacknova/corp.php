@@ -54,19 +54,11 @@ bigtitle();
 
 	}
 TEXT_GOTOMAIN();
-
 }
-
 else
-
 {
-
-adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s attempted to use an exploit to gain ownership of planet in sector $sectorinfo[sector_id]");
-
 echo ("<BR>You intercept a garbled borg message on your scanner... you should probably start worrying...<BR>");
-
 TEXT_GOTOMAIN();
-
 }
 
 
