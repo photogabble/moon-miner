@@ -284,8 +284,9 @@ switch ($teamwhat) {
 				$res = mysql_query("SELECT score from ships WHERE team=".$team[$i][id]);
 				$score = 0;
 				while ($plscore = mysql_fetch_array($res)) {
-					$score += $plscore[score];
+					$score += pow($plscore[score],2);
 				}
+				$score = SQRT($score);
 				echo "<TR BGCOLOR=\"$color\">";
 				echo "<TD><a href=$PHP_SELF?teamwhat=1&whichteam=".$team[$i][id].">".$team[$i][team_name]."</A></TD>";
 				echo "<TD>".$team[$i][number_of_members]."</TD>";

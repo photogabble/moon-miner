@@ -1,7 +1,8 @@
 nospoon (07 September 2001)
 ---------------------------
 
-Fixed Bug in installscript which caused it to fail running the install program
+Fixed Bug in installscript which caused it to fail running the install program.
+Changed team scoring algorithm to the same method of the individual player score, so the team score is no longer the sum of the individual players scores, it is now the square root of the net worth of all team members.
 
 nospoon (06 September 2001)
 --------------------------
