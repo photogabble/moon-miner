@@ -100,11 +100,11 @@ elseif($swordfish==$adminpass && $engage=="2")
   $initborganics = $organics_limit * $initbcommod / 100.0;
   $initbgoods = $goods_limit * $initbcommod / 100.0;
   $initbenergy = $energy_limit * $initbcommod / 100.0;
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0', '0', '0', '0', 'toll')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
   $update = mysql_query("UPDATE universe SET sector_id=0 WHERE sector_id=1");
 
   echo "Creating sector 1 - Alpha Centauri...<BR>";
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '0', 'toll')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
   echo mysql_error();
   $remaining = $sector_max-1;
   srand((double)microtime()*1000000);
