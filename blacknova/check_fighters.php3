@@ -9,7 +9,7 @@
 	$result2 = mysql_query("SELECT * from ships where ship_id=$sectorinfo[fm_owner]");
         $fighters_owner = mysql_fetch_array($result2);
         mysql_free_result($result2);
-        if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
+        if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
         {
            if($sectorinfo[fm_setting] == "toll")
            {
