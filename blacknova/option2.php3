@@ -26,7 +26,7 @@ mysql_query("LOCK TABLES ships WRITE");
 if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
   $userpass = $username."+".$newpass1;
-  SetCookie("userpass",$userpass,time()+3600,$gamepath,$gamedomain);
+  SetCookie("userpass",$userpass,time()+7200,$gamepath,$gamedomain);
   setcookie("id",$id);
 }
 
