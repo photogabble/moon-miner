@@ -29,7 +29,7 @@
      {
         echo "The horsmen release the Space Plague!<BR>.";
         $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
-        $logpercent = $space_plague_kills * 100;
+        $logpercent = ROUND($space_plague_kills * 100);
         playerlog($targetinfo[owner],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]|$logpercent"); 
      }
      else

@@ -2,10 +2,14 @@ David Rowlands (14 April 2002)
 ------------------------------
 Score now includes IGB balances including loans
 The "You have not completed your last move" bug should now be fixed
-Added code from Ron to stop people putting HTML etc in messages
+Added code from Ron to stop people putting HTML etc in messages (bugs 542541 and 543386)
 Bounty system will no longer pay out on Federation bounties
 You now get towed from sectors if your average tech level is greater than max hull size
 Added code to limit credits on a planet without a base to a configurable amount. 
+Fixed starvation log message - was logging fractional people (bug 536132)
+Fixed incorrect message on bounties (bug 542401)
+
+
 
 David Rowlands (25 March 2002)
 ---------------

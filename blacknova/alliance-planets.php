@@ -88,7 +88,7 @@ else
   echo "$l_pr_clicktosort<BR><BR>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
   echo "<TR BGCOLOR=\"$color_header\">";
-  echo "<TD><B><A HREF=alliance-planets.php>$l_sector</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php?sort=sector>$l_sector</A></B></TD>";
   echo "<TD><B><A HREF=alliance-planets.php?sort=name>$l_name</A></B></TD>";
   echo "<TD><B><A HREF=alliance-planets.php?sort=ore>$l_ore</A></B></TD>";
   echo "<TD><B><A HREF=alliance-planets.php?sort=organics>$l_organics</A></B></TD>";
