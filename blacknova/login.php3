@@ -71,7 +71,8 @@ if(swidth != 640 && swidth != 800 && swidth != 1024)
 if(!empty($link_forums))
   echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">$l_forums</A> - ";
 ?>
-<A HREF="ranking.php3"><? echo $l_rankings;?></A>
+<A HREF="ranking.php3"><? echo $l_rankings;?></A><? echo " - "; ?>
+<A HREF="settings.php"><? echo "Game Settings";?></A>
 <BR><BR>
 </CENTER>
 
