@@ -476,7 +476,7 @@ function traderoute_new($traderoute_id)
     echo "$l_tdr_editinga ";
   echo "$l_tdr_traderoute</b></font><p>";
 
-  $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id]");
+  $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id] ORDER BY sector_id");
 
   $num_planets = $result->RecordCount();
   $i=0;

@@ -459,7 +459,6 @@ switch ($step) {
             $result = $sql_query->fields;
             if ($i>499) {
                $update.="sector_id=9999999;";
-               echo $update;
                $db->Execute($update);
                $update="UPDATE $dbtables[universe] SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
                $i=0;
