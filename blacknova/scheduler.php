@@ -36,7 +36,7 @@
 *    variable $sched_var_extrainfo.                               *
 *                                                                 *
 * If you are including files in your trigger file, it is important*
-* to use include() instead of include(), as your file might  *
+* to use include_once() instead of include(), as your file might  *
 * be called multiple times in a single execution. If you need to  *
 * define functions, you can put them in the sched_funcs.php file  *
 * that is included by the scheduler. Else put them in your own    *

@@ -1,4 +1,9 @@
 <?
+    if (preg_match("/check_mines.php/i", $PHP_SELF)) {
+        echo "You can not access this file directly!";
+        die();
+    }
+
     include("languages/$lang");
 
     $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$sector'");
