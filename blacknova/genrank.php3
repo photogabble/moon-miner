@@ -1,7 +1,6 @@
 <?
 
 include("config.php3");
-updatecookie();
 
 $title="Player Ranking";
 include("header.php3");
