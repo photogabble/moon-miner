@@ -14,8 +14,10 @@ function QUERYOK($res)
 
 function get_player_name($userid)
 {
-  $query = mysql_query("select character_name from ships where ship_id='$userid'");
-  $name = mysql_fetch_array($query);
+  global $db, $dbtables;
+
+  $query = $db->Execute("select character_name from $dbtables[ships] where ship_id='$userid'");
+  $name = $query->fields;
 
   return $name[character_name];
 }

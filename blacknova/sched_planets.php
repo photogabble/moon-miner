@@ -4,9 +4,10 @@
     die("Script has not been called properly");
 
   echo "<B>PLANETS</B><BR><BR>";
-  $res = mysql_query("SELECT * FROM planets");
-  while($row = mysql_fetch_array($res))
+  $res = $db->Execute("SELECT * FROM planets");
+  while(!$res->EOF)
   {
+    $row = $res->fields;
     $production = min($row[colonists], $colonist_limit) * $colonist_production_rate;
 
     $organics_production = ($production * $organics_prate * $row[prod_organics] / 100.0) - $production * $organics_consumption;
@@ -63,9 +64,9 @@
       $torp_production = 0;
     }
     $credits_production = $production * $credits_prate * (100.0 - $total_percent) / 100.0;
-    mysql_query("UPDATE planets SET organics=organics+$organics_production, ore=ore+$ore_production, goods=goods+$goods_production, energy=energy+$energy_production, colonists=colonists+$reproduction-$starvation, torps=torps+$torp_production, fighters=fighters+$fighter_production, credits=credits*$interest_rate+$credits_production WHERE planet_id=$row[planet_id]");
+    $db->Execute("UPDATE $dbtables[planets] SET organics=organics+$organics_production, ore=ore+$ore_production, goods=goods+$goods_production, energy=energy+$energy_production, colonists=colonists+$reproduction-$starvation, torps=torps+$torp_production, fighters=fighters+$fighter_production, credits=credits*$interest_rate+$credits_production WHERE planet_id=$row[planet_id]");
+    $res->MoveNext();
   }
-  mysql_free_result($res);
   echo "Planets updated.<BR><BR>";
   echo "<BR>";
 

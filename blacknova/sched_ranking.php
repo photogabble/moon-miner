@@ -4,10 +4,11 @@
     die("Script has not been called properly");
 
   echo "<B>RANKING</B><BR><BR>";
-  $res = mysql_query("SELECT ship_id FROM ships WHERE ship_destroyed='N'");
-  while($row = mysql_fetch_array($res))
+  $res = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE ship_destroyed='N'");
+  while(!$res->EOF)
   {
-    gen_score($row[ship_id]);
+    gen_score($res->fields[ship_id]);
+    $res->MoveNext();
   }
   echo "<BR>";
 

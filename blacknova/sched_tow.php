@@ -8,20 +8,21 @@
   $num_to_tow = 0;
   do
   {
-    $res = mysql_query("SELECT ship_id,character_name,hull,sector,universe.zone_id,max_hull FROM ships,universe,zones WHERE sector=sector_id AND universe.zone_id=zones.zone_id AND max_hull<>0 AND ships.hull>max_hull AND ship_destroyed='N'");
+    $res = $db->Execute("SELECT ship_id,character_name,hull,sector,$dbtables[universe].zone_id,max_hull FROM $dbtables[ships],$dbtables[universe],$dbtables[zones] WHERE sector=sector_id AND $dbtables[universe].zone_id=$dbtables[zones].zone_id AND max_hull<>0 AND $dbtables[ships].hull>max_hull AND ship_destroyed='N'");
     if($res)
     {
-      $num_to_tow = mysql_num_rows($res);
+      $num_to_tow = $res->RecordCount();
       echo "<BR>$num_to_tow players to tow:<BR>";
-      while($row = mysql_fetch_array($res))
+      while(!$res->EOF)
       {
+        $row = $res->fields;
         echo "...towing $row[character_name] out of $row[sector] (max_hull=$row[max_hull] hull=$row[hull])...";
         $newsector = rand(0, $sector_max);
         echo " to sector $newsector.<BR>";
-        $query = mysql_query("UPDATE ships SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
+        $query = $db->Execute("UPDATE $dbtables[ships] SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
         playerlog($row[ship_id], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
+        $res->MoveNext();
       }
-      mysql_free_result($res);
     }
     else
     {

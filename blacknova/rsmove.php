@@ -18,9 +18,8 @@ if(checklogin())
 //-------------------------------------------------------------------------------------------------
 
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
 bigtitle();
 
@@ -43,10 +42,10 @@ if(!isset($destination))
 }
 elseif($destination <= $sector_max && empty($engage))
 {
-  $result2 = mysql_query("SELECT angle1,angle2,distance FROM universe WHERE sector_id=$playerinfo[sector]");
-  $start = mysql_fetch_array($result2);
-  $result3 = mysql_query("SELECT angle1,angle2,distance FROM universe WHERE sector_id=$destination");
-  $finish = mysql_fetch_array($result3);
+  $result2 = $db->Execute("SELECT angle1,angle2,distance FROM $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+  $start = $result2->fields;
+  $result3 = $db->Execute("SELECT angle1,angle2,distance FROM $dbtables[universe] WHERE sector_id=$destination");
+  $finish = $result3->fields;
   $sa1 = $start[angle1] * $deg;
   $sa2 = $start[angle2] * $deg;
   $fa1 = $finish[angle1] * $deg;
@@ -104,10 +103,10 @@ elseif($destination <= $sector_max && empty($engage))
 }
 elseif($destination <= $sector_max && $engage == 1)
 {
-  $result2 = mysql_query("SELECT angle1,angle2,distance FROM universe WHERE sector_id=$playerinfo[sector]");
-  $start = mysql_fetch_array($result2);
-  $result3 = mysql_query("SELECT angle1,angle2,distance FROM universe WHERE sector_id=$destination");
-  $finish = mysql_fetch_array($result3);
+  $result2 = $db->Execute("SELECT angle1,angle2,distance FROM $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+  $start = $result2->fields;
+  $result3 = $db->Execute("SELECT angle1,angle2,distance FROM $dbtables[universe] WHERE sector_id=$destination");
+  $finish = $result3->fields;
   $sa1 = $start[angle1] * $deg;
   $sa2 = $start[angle2] * $deg;
   $fa1 = $finish[angle1] * $deg;
@@ -167,7 +166,7 @@ elseif($destination <= $sector_max && $engage == 1)
     if($ok>0)
     {
        $stamp = date("Y-m-d H-i-s");
-       $update = mysql_query("UPDATE ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
+       $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
        $l_rs_ready=str_replace("[sector]",$destination,$l_rs_ready);
        $l_rs_ready=str_replace("[triptime]",NUMBER($triptime),$l_rs_ready);
        $l_rs_ready=str_replace("[energy]",NUMBER($energyscooped),$l_rs_ready);

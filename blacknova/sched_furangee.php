@@ -18,9 +18,10 @@
   // **** MAKE FURANGEE SELECTION ****
   // *********************************
   $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
-  $res = mysql_query("SELECT * FROM ships JOIN furangee WHERE email=furangee_id and active='Y' and ship_destroyed='N' ORDER BY sector");
-  while($playerinfo = mysql_fetch_array($res))
+  $res = $db->Execute("SELECT * FROM $dbtables[ships] JOIN $dbtables[furangee] WHERE email=furangee_id and active='Y' and ship_destroyed='N' ORDER BY sector");
+  while(!$res->EOF)
   {
+    $playerinfo = $res->fields;
     // *********************************
     // ****** REGENERATE/BUY STATS *****
     // *********************************
@@ -39,9 +40,10 @@
         $furcount0++;
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso0 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
-        if ($rowo0 = mysql_fetch_array($reso0))
+        $reso0 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        if (!$reso0->EOF)
         {
+          $rowo0 = $reso0->fields;
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
           {
             // This Guy Does Nothing But Sit As A Target Himself
@@ -75,9 +77,10 @@
         furangeemove();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso1 = mysql_query("SELECT * FROM ships WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
-        if ($rowo1 = mysql_fetch_array($reso1))
+        $reso1 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
+        if (!$reso1->EOF)
         {
+          $rowo1= $reso1->fields;
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
           {
             // This Guy Does Nothing But Sit As A Target Himself
@@ -113,9 +116,10 @@
         furangeetrade();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
-        if ($rowo2 = mysql_fetch_array($reso2))
+        $reso2 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
+        if (!$reso2->EOF)
         {
+          $rowo2=$reso2->fields;
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
           {
             // This Guy Does Nothing But Sit As A Target Himself
@@ -156,9 +160,10 @@
           furangeemove();
           // ****** FIND A TARGET ******
           // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-          $reso3 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
-          if ($rowo3 = mysql_fetch_array($reso3))
+          $reso3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+          if (!$reso3->EOF)
           {
+            $rowo3=$reso3->fields;
             if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
             {
               // This Guy Does Nothing But Sit As A Target Himself
@@ -183,6 +188,7 @@
         }
       }
     }
+    $res->MoveNext();
   }
   $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2);
   echo "Counted $furcount Furangee players that are ACTIVE with working ships.<BR>";

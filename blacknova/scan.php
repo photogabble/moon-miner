@@ -13,11 +13,11 @@ if(checklogin())
 {
   die();
 }
-$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-$playerinfo=mysql_fetch_array($result);
+$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo=$result->fields;
 
-$result2 = mysql_query ("SELECT * FROM ships WHERE ship_id='$ship_id'");
-$targetinfo=mysql_fetch_array($result2);
+$result2 = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
+$targetinfo=$result2->fields;
 
 bigtitle();
 
@@ -266,7 +266,7 @@ else
       playerlog($targetinfo[ship_id], LOG_SHIP_SCAN, "$playerinfo[character_name]");
     }
 
-    mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
   }
 }
 

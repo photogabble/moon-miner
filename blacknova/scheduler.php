@@ -69,9 +69,10 @@ if($swordfish != $adminpass)
 else
 {
  
-  $sched_res = mysql_query("SELECT * FROM scheduler");
-  while ($event = mysql_fetch_array($sched_res))
+  $sched_res = $db->Execute("SELECT * FROM $dbtables[scheduler]");
+  while (!$sched_res->EOF)
   {
+    $event = $sched_res->fields;
     $multiplier = ($sched_ticks / $event[ticks_full]) + ($event[ticks_left] / $event[ticks_full]);
     $multiplier = (int) $multiplier;
     $ticks_left = ($sched_ticks + $event[ticks_left]) % $event[ticks_full];
@@ -82,12 +83,12 @@ else
         $multiplier = $event[spawn];
       
       if($event[spawn] - $multiplier == 0)
-        mysql_query("DELETE FROM scheduler WHERE sched_id=$event[sched_id]");
+        $db->Execute("DELETE FROM $dbtables[scheduler] WHERE sched_id=$event[sched_id]");
       else
-        mysql_query("UPDATE scheduler SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
+        $db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
     }
     else
-      mysql_query("UPDATE scheduler SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
+      $db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
   
     $sched_var_id = $event[sched_id];
     $sched_var_extrainfo = $event[extra_info];
@@ -98,6 +99,7 @@ else
       include("$event[file]");
       $sched_i++;
     }
+    $sched_res->MoveNext();
   }
   
   include("footer.php");
