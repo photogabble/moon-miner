@@ -7,4 +7,4 @@
 <title><? echo $title; ?></title>
 </head>
 
-<body bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#800080" alink="#ff0000">
+<BODY BACKGROUND="" BGCOLOR="#000000" TEXT="#c0c0c0" LINK="#ffffff" VLINK="#808080" ALINK="#ff0000">

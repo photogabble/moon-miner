@@ -3,9 +3,9 @@
 include("config_local.php3");
 
 /* GUI colors (temporary until we have something nicer) */
-$color_header = "SILVER";
-$color_line1 = "WHITE";
-$color_line2 = "LIGHTGREY";
+$color_header = "#500050";
+$color_line1 = "#300030";
+$color_line2 = "#400040";
 
 /* Localization (regional) settings */
 $local_number_dec_point = ".";
