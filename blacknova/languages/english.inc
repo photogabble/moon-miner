@@ -493,7 +493,6 @@ $l_log_text[LOG_FURANGEE_ATTACK] = "Attacking [player]...";
 $l_log_title[LOG_FURANGEE_ATTACK] = "Attack";
 $l_log_text[LOG_STARVATION] = "One of your planet in [sector] cannot sustain its population! More organics is needed. [starvation] colonists died of hunger.";
 $l_log_title[LOG_STARVATION] = "<font color=yellow>Starvation!</font>";
-$l_log_text[LOG_TOW] = "Your ship has been towed from sector [sector] to sector [newsector] because your hull size exceeded the limit value of [hull].";
 $l_log_title[LOG_TOW] = "Towed!";
 $l_log_text[LOG_DEFS_DESTROYED_F] = "You have destroyed [fighters] patrolling fighters in sector [sector].";
 $l_log_title[LOG_DEFS_DESTROYED_F] = "Fighters destroyed";
@@ -1342,4 +1341,8 @@ $l_bigtorps = "A large explosion blossoms in the upper air of the planet.  Your 
 $l_strafesuccess = "It looks like some of your fighters made it through, although you can't tell how many from here.";
 $l_log_text[LOG_PLANET_BOMBED] = "Your planet [planet_name] in sector [sector] was bombed by [name]. You used [beams] energy and [torps] torpedoes in your defense.  You lost [figs] fighters.";
 $l_log_title[LOG_PLANET_BOMBED] = "<font color=red>Planet bombed!</font>";
+
+
+//Changed messages
+$l_log_text[LOG_TOW] = "Your ship has been towed from sector [sector] to sector [newsector] because your average tech level exceeded the limit value of [hull].";
 ?>
