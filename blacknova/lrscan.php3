@@ -51,7 +51,7 @@ if($sector == "*")
   // get sectors which can be reached from the player's current sector
   $result = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD><TD><B>Mines</B></TD><TD>Fighters</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD><TD><B>Mines</B></TD><TD><B>Fighters</B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($result))
   {
@@ -264,6 +264,14 @@ else
       $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner_name[character_name] . ":-->";
     } 
   } 
+  echo "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD><B>Mines</B></TD></TR>";
+  $has_mines =  ($sectorinfo[mines] > 0) ? "Yes" : "No";
+  echo "<TR><TD>" . $has_mines;
+  echo "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Fighters</B></TD></TR>";
+  $has_fighters =  ($sectorinfo[fighters] > 0) ? "Yes" : "No";
+  echo "<TR><TD>" . $has_fighters;
   echo "</TD></TR>";
   echo "</TABLE><BR>";
   echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
