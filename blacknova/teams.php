@@ -491,6 +491,7 @@ switch ($teamwhat) {
    			while(!$result_team_name->EOF) {
           $teamname_array = $result_team_name->fields;
    			   playerlog($teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
+                           $result_team_name->MoveNext();
             }
      		}
    		LINK_BACK();
