@@ -287,6 +287,8 @@ elseif($swordfish==$adminpass && $engage=="2")
   echo "Sector Defences will degrade every $sched_degrade minutes.<br>";
   $db->Execute("INSERT INTO $dbtables[scheduler] VALUES('', 'Y', 0, $sched_degrade, 0, 'sched_degrade.php', '')");
 
+  echo "The planetary apocalypse will occur ever $sched_apocalypse minutes.<br>";
+  $db->Execute("INSERT INTO $dbtables[scheduler] VALUES('', 'Y', 0, $sched_apocalypse, 0, 'sched_apocalypse.php', '')");
 
   echo "done.<BR>";
 }
