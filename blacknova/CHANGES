@@ -2,6 +2,7 @@ nospoon (03 September 2001)
 ---------------------------
 
 Fixed bug #445681 - couldn't deposit or withdraw all funds from IGB
+          #448733 - incorrect parameter passed to gen_score in planet3.php3
 
 ratt (11 July 01) 
 ------------------

@@ -67,7 +67,7 @@
 		}
 	} 
 
-    gen_score($sector_info[planet_owner]);
+    gen_score($sectorinfo[planet_owner]);
     TEXT_GOTOMAIN();
 	include("footer.php3");
 
