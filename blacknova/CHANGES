@@ -7,20 +7,26 @@ Finished language selection code
 Finished internationalization of all files
 Got rid of the old .php3 extension, to .php
 
-SharpBlue (30 Decemeber 2001)
+Nospoon (2 January 2002)
+---------------------------
+Revised FAQ and newplayer guide, added it to CVS.
+Fixed exploit allowing players to retrieve other players defences
+
+
+SharpBlue (30 December 2001)
 ---------------------------
 Finished the french translation.
 Updated the new player code to give new players the number of turns
 elapsed from the beginning of the game, capped at $max_turns.
 
 
-Nospoon (16 Decemeber 2001)
+Nospoon (16 December 2001)
 ---------------------------
 Added code to drain energy from owners and corporate planets to support
 fighters. Fixed bug that stopped players reverting corporate planets back
 to personal planets.
 
-Nospoon (15 Decemeber 2001)
+Nospoon (15 December 2001)
 -------------------------------
 Sector fighters will degrade if there is no planet (owned or corproate)
 to support the fighters.
