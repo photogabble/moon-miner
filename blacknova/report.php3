@@ -1,465 +1,91 @@
 <?
 
-	include("config.php3");
-
-	updatecookie();
-
-
-
-	$title="Ship Report";
-
-	include("header.php3");
-
-
-
-
-        connectdb();
-
-        if (checklogin()) {die();}
-
-
-
-
-
-
-                $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-
-                $playerinfo=mysql_fetch_array($result);
-
-
-        bigtitle();
-
-
-                        echo "Report on $playerinfo[ship_name], Captained by:  $playerinfo[character_name]<BR><BR>";
-
-                        echo "<b>Ship Component levels:</b><BR><BR>";
-
-                        echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">
-
-                                        <tr>
-
-                                                <td >
-
-                                                Hull:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[hull]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Engines:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[engines]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Power:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[power]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Computer:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[computer]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Sensors:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[sensors]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Beams:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[beams]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Torpedo Launchers:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[torp_launchers]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Armour:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[armour]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Shields:
-
-                                                </td>
-
-                                                <td >
-
-                                                $playerinfo[shields]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td >
-
-                                                Cloak:
-
-                                                </td>
-
-                                                <td >
-
-                                                 $playerinfo[cloak]
-
-                                                </td>
-
-                                        </tr>
-
-                                </table><BR>";
-
-                echo "<b>Armament:</b><BR><BR>";
-
-                echo "<table>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Armour Points:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[armour_pts]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Fighters:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[ship_fighters]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Torpedoes:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[torps]
-
-                                                </td>
-
-                                        </tr>
-
-                                </table><BR>";
-
-                echo "<b>Carrying:</b><BR><BR>";
-
-                echo "<table>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Credits:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[credits]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Colonists:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[ship_colonists]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Energy:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[ship_energy]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Ore:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[ship_ore]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Organics:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[ship_organics]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Goods:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[ship_goods]
-
-                                                </td>
-
-                                        </tr>
-
-                                </table><BR>";
-
-                echo "<b>Devices:</b><BR><BR>";
-
-                echo "<table>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Warp Editors:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[dev_warpedit]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Genesis Torpedoes:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[dev_genesis]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Mine Deflectors:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[dev_minedeflector]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Emergency Warp Devices:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[dev_emerwarp]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Escape Pods:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[dev_escapepod]
-
-                                                </td>
-
-                                        </tr>
-
-                                        <tr>
-
-                                                <td>
-
-                                                Fuel Scoop:
-
-                                                </td>
-
-                                                <td>
-
-                                                $playerinfo[dev_fuelscoop]
-
-                                                </td>
-
-                                        </tr>
-
-                                </table><BR><BR>";
-
-                echo "Click <a href=main.php3>here</a> to return to Main Menu.";
-
-
-
-        include("footer.php3");
+include("config.php3");
+
+updatecookie();
+
+
+$title="Ship Report";
+
+include("header.php3");
+
+connectdb();
+
+if(checklogin())
+{
+  die();
+}
+
+$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
+
+$playerinfo=mysql_fetch_array($result);
+
+bigtitle();
+
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Player: $playerinfo[character_name]</B></TD><TD ALIGN=CENTER><B>Ship: $playerinfo[ship_name]</B></TD><TD ALIGN=RIGHT><B>Credits: $playerinfo[credits]</B></TD></TR>";
+echo "</TABLE>";
+echo "<BR>";
+
+echo "<TABLE BORDER=0 CELLSPACING=5 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TR><TD>";
+
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Ship Component Levels</B></TD><TD></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Hull</TD><TD>Level $playerinfo[hull]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Engines</TD><TD>Level $playerinfo[engines]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Power</TD><TD>Level $playerinfo[power]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Computer</TD><TD>Level $playerinfo[computer]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Sensors</TD><TD>Level $playerinfo[sensors]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Armour</TD><TD>Level $playerinfo[armour]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Shields</TD><TD>Level $playerinfo[shields]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Beams</TD><TD>Level $playerinfo[beams]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Torpedo launchers</TD><TD>Level $playerinfo[torp_launchers]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Cloak</TD><TD>Level $playerinfo[cloak]</TD></TR>";
+echo "</TABLE>";
+echo "</TD><TD VALIGN=TOP>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+$holds_used = $playerinfo[ship_ore] + $playerinfo[ship_organics] + $playerinfo[ship_goods] + $playerinfo[ship_colonists];
+$holds_max = round(pow($level_factor,$playerinfo[hull])*100);
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Holds</B></TD><TD ALIGN=RIGHT><B>$holds_used / $holds_max</B></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD ALIGN=RIGHT>$playerinfo[ship_ore]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Organics</TD><TD ALIGN=RIGHT>$playerinfo[ship_organics]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Goods</TD><TD ALIGN=RIGHT>$playerinfo[ship_goods]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Colonists</TD><TD ALIGN=RIGHT>$playerinfo[ship_colonists]</TD></TR>";
+echo "<TR><TD>&nbsp;</TD></TR>";
+$armour_pts_max = round(pow($level_factor,$playerinfo[armour])*100);
+$ship_fighters_max = round(pow($level_factor,$playerinfo[computer])*100);
+$torps_max = round(pow($level_factor,$playerinfo[torp_launchers])*100);
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Armour & Weapons</B></TD><TD></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Armour points</TD><TD ALIGN=RIGHT>$playerinfo[armour_pts] / $armour_pts_max</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Fighters</TD><TD ALIGN=RIGHT>$playerinfo[ship_fighters] / $ship_fighters_max</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Torpedoes</TD><TD ALIGN=RIGHT>$playerinfo[torps] / $torps_max</TD></TR>";
+echo "</TABLE>";
+echo "</TD><TD VALIGN=TOP>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+$energy_max = round(pow($level_factor,$playerinfo[power])*500);
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Energy</B></TD><TD ALIGN=RIGHT><B>$playerinfo[ship_energy] / $energy_max</B></TD></TR>";
+echo "<TR><TD>&nbsp;</TD></TR>";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Devices</B></TD><TD></B></TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Warp Editors</TD><TD ALIGN=RIGHT>$playerinfo[dev_warpedit]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Genesis Torpedoes</TD><TD ALIGN=RIGHT>$playerinfo[dev_genesis]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Mine Deflectors</TD><TD ALIGN=RIGHT>$playerinfo[dev_minedeflector]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Emergency Warp</TD><TD ALIGN=RIGHT>$playerinfo[dev_emerwarp]</TD></TR>";
+$escape_pod = ($playerinfo[dev_escapepod] == 'Y') ? "Yes" : "No";
+$fuel_scoop = ($playerinfo[dev_fuelscoop] == 'Y') ? "Yes" : "No";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>Escape Pod</TD><TD ALIGN=RIGHT>$escape_pod</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Fuel Scoop</TD><TD ALIGN=RIGHT>$fuel_scoop</TD></TR>";
+echo "</TABLE>";
+
+echo "</TD></TR>";
+echo "</TABLE>";
+
+echo "<BR><BR>";
+
+echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+
+
+
+include("footer.php3");
 
 ?>
