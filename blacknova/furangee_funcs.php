@@ -386,58 +386,60 @@ function furangeetoship($ship_id)
   mysql_query("UNLOCK TABLES");
 }
 
+function furangeemove()
+{
+  // *********************************
+  // *** SETUP GENERAL VARIABLES  ****
+  // *********************************
+  global $playerinfo;
 
-//Retrieve the user and ship information
-//$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-//Put the player information into the array: "playerinfo"
-//$playerinfo=mysql_fetch_array($result);
-//Retrieve all the sector information about the current sector
-//$result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-//Put the sector information into the array "sectorinfo"
-//$sectorinfo=mysql_fetch_array($result2);
-//Retrive all the warp links out of the current sector
-//$result3 = mysql_query ("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
-//$i=0;
-//$flag=0;
-//if ($result3>0)
-//{
-//    //loop through the available warp links to make sure it's a valid move
-//    while ($row = mysql_fetch_array($result3))
-//    {
-//        if ($row[link_dest]==$sector && $row[link_start]==$playerinfo[sector])
-//        {
-//            $flag=1;
-//        }
-//        $i++;
-//    }
-//}
-//Check if there was a valid warp link to move to
-//if ($flag==1)
-//{
-//    $ok=1;
-//    $calledfrom = "move.php3";
-//    include("check_fighters.php3");
-//    if($ok==1){
-//      $stamp = date("Y-m-d H-i-s");
-//      $query="UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-//       $move_result = mysql_query ("$query");
-//  	if (!$move_result)
-//	{
-//		$error = mysql_error($move_result);
-//	mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
-//	}
-//    }
-//    include("check_mines.php3");
-//    if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
-//    {
-//        TEXT_GOTOMAIN();
-//    }
-//}
-//else
-//{
-//    echo "Move failed!<BR><BR>";
-//    TEXT_GOTOMAIN();
-//}
+  // *********************************
+  // ***** OBTAIN A TARGET LINK ******
+  // *********************************
+  $linkres = mysql_query ("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
+  if ($linkres>0)
+  {
+    $firstlink=1;                                //*** ALWAYS CHOOSE THE FIRST LINK ***
+    while ($row = mysql_fetch_array($linkres))
+    {
+      $setlink=rand(0,2);                        //*** 33% CHANCE OF REPLACING DEST LINK WITH NEXT IN LOOP ***
+      if ($row[link_start]==$playerinfo[sector] && ($setlink==0 || $firstlink==1))
+      {
+        $firstlink=0;
+        // *** OBTAIN SECTOR INFORMATION ***
+        $sectres = mysql_query ("SELECT sector_id,zone_id FROM universe WHERE sector_id='$row[link_dest]'");
+        $sectrow = mysql_fetch_array($sectres);
+        $zoneres = mysql_query ("SELECT zone_id,allow_attack FROM zones WHERE zone_id=$sectrow[1]");
+        $zonerow = mysql_fetch_array($zoneres);
+        if ($zonerow[1]=="Y")
+        {                                        //*** ONLY REPLACE LINK IF NEW DEST ALLOWS ATTACKING *** 
+          $targetlink=$row[link_dest];
+        }
+      }
+    }
+  }
+
+  // *********************************
+  // **** DO MOVE TO TARGET LINK *****
+  // *********************************
+  if ($targetlink>0)
+  {
+    $stamp = date("Y-m-d H-i-s");
+    $query="UPDATE ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetlink where ship_id=$playerinfo[ship_id]";
+    $move_result = mysql_query ("$query");
+    if (!$move_result)
+    {
+      $error = mysql_error($move_result);
+      playerlog($playerinfo[ship_id],"Move failed with error: $error <BR>"); 
+    } else
+    {
+      playerlog($playerinfo[ship_id],"Furangee moved to $targetlink without incident. <BR>"); 
+    }
+  } else
+  {                                            //*** WE HAVE NO TARGET LINK FOR SOME REASON ***
+    playerlog($playerinfo[ship_id],"Move failed due to lack of target link. <BR>");
+  }
+}
 
 ?>
 
