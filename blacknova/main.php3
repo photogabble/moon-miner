@@ -237,6 +237,7 @@ echo "<A HREF=ranking.php3>Rankings</A> - ";
 echo "<A HREF=lastusers.php3>Last Users</A> - ";
 echo "<A HREF=options.php3>Options</A> - ";
 echo "<A HREF=feedback.php3>Feedback</A> - ";
+echo "<A HREF=self-destruct.php3>Self-Destruct</A> - ";
 echo "<A HREF=help.php3>Help</A>";
 if(!empty($link_forums))
 {

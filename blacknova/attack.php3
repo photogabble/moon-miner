@@ -379,8 +379,8 @@ else
         $salv_organics=0;
       }
       $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $targetinfo[hull]))+round(pow($upgrade_factor, $targetinfo[engines]))+round(pow($upgrade_factor, $targetinfo[power]))+round(pow($upgrade_factor, $targetinfo[computer]))+round(pow($upgrade_factor, $targetinfo[sensors]))+round(pow($upgrade_factor, $targetinfo[beams]))+round(pow($upgrade_factor, $targetinfo[torp_launchers]))+round(pow($upgrade_factor, $targetinfo[shields]))+round(pow($upgrade_factor, $targetinfo[armour]))+round(pow($upgrade_factor, $targetinfo[cloak])));
-      $ship_salvage_rate=rand(0,50);
-      $ship_salvage=$ship_value*$ship_salvage_rate;
+      $ship_salvage_rate=rand(0,10);
+      $ship_salvage=$ship_value*$ship_salvage_rate/100;
       echo "You salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits<BR>";
       $update3 = mysql_query ("UPDATE ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
       $armour_lost=$playerinfo[armour_pts]-$playerarmour;
@@ -463,8 +463,8 @@ else
         $salv_organics=0;
       }
       $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $playerinfo[hull]))+round(pow($upgrade_factor, $playerinfo[engines]))+round(pow($upgrade_factor, $playerinfo[power]))+round(pow($upgrade_factor, $playerinfo[computer]))+round(pow($upgrade_factor, $playerinfo[sensors]))+round(pow($upgrade_factor, $playerinfo[beams]))+round(pow($upgrade_factor, $playerinfo[torp_launchers]))+round(pow($upgrade_factor, $playerinfo[shields]))+round(pow($upgrade_factor, $playerinfo[armour]))+round(pow($upgrade_factor, $playerinfo[cloak])));
-      $ship_salvage_rate=rand(0,50);
-      $ship_salvage=$ship_value*$ship_salvage_rate;
+      $ship_salvage_rate=rand(0,10);
+      $ship_salvage=$ship_value*$ship_salvage_rate/100;
       echo "$targetinfo[character_name] salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits<BR>";
       $update6 = mysql_query ("UPDATE ships SET credits=credits+$ship_salvage, ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods WHERE ship_id=$targetinfo[ship_id]");
       $armour_lost=$targetinfo[armour_pts]-$targetarmour;
