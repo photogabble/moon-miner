@@ -82,7 +82,7 @@ if ($playerinfo[turns]<1)
 	include("footer.php3");
 	die();
 }
-$res = mysql_query("SELECT allow_attack,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
+$res = mysql_query("SELECT allow_defenses,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 if($zoneinfo[allow_defenses] == 'N')
