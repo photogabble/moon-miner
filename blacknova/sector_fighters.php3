@@ -84,7 +84,7 @@
                  }
                  if($targetfighters > 0)
                  {
-                    mysql_query("update universe set fighters=$temptargfighters where sector_id=$sector");
+                    mysql_query("update universe set fighters=$targetfighters where sector_id=$sector");
                     if($targetfighters > $playerarmour)
                     {
                        $playerarmour=0;
