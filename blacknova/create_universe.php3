@@ -285,6 +285,10 @@ elseif($swordfish==$adminpass && $engage=="2")
   echo "Rankings will be generated every $sched_ranking minutes.<br>";
   mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_ranking, 0, 'sched_ranking.php', '')");
 
+  echo "Sector Defences will degrade every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_degrade.php', '')");
+
+
   echo "done.<BR>";
 }
 else

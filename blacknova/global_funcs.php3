@@ -51,6 +51,7 @@ define(LOG_TEAM_INVITE, 41);            //sent to invited player
 define(LOG_TEAM_NOT_LEAVE, 42);         //sent to leader on leave
 define(LOG_ADMIN_HARAKIRI, 43);         //sent to admin on self-destruct
 define(LOG_ADMIN_PLANETDEL, 44);        //sent to admin on planet destruction instead of capture
+define(LOG_DEFENCE_DEGRADE, 45);        //sent sector fighters have no supporting planet
 
 function bigtitle()
 {

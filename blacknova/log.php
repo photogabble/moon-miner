@@ -725,6 +725,13 @@ function log_parse($entry)
     $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
+
+    case LOG_DEFENCE_DEGRADE: //data args are : [sector] [degrade]
+    list($sector, $degrade)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[degrade]", "<font color=white><b>$degrade</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
   }
   return $retvalue;
 }
