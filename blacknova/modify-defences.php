@@ -29,6 +29,7 @@ mysql_free_result($res);
 $res = mysql_query("SELECT * from universe WHERE sector_id=$playerinfo[sector]");
 $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
+
 $result3 = mysql_query ("SELECT * FROM sector_defence WHERE defence_id=$defence_id ");
 //Put the defence information into the array "defenceinfo"
 
@@ -45,7 +46,10 @@ if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
 }
 else
 {
-   $defence_owner = $playerinfo['character_name'];
+   $defence_ship_id = $defenceinfo['ship_id'];
+   $resulta = mysql_query ("SELECT * FROM ships WHERE ship_id = $defence_ship_id ");
+   $ownerinfo = mysql_fetch_array($resulta);
+   $defence_owner = $ownerinfo['character_name'];
 }
 $defence_type = $defenceinfo['defence_type'] == 'F' ? 'Fighters' : 'Mines';
 $qty = $defenceinfo['quantity'];

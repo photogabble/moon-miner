@@ -3,7 +3,7 @@
     //Put the sector information into the array "sectorinfo"
     $sectorinfo=mysql_fetch_array($result2);
     mysql_free_result($result2);
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='F'");
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='F' ORDER BY quantity DESC");
     //Put the defence information into the array "defenceinfo"
     $i = 0;
     $total_sector_fighters = 0;
