@@ -59,7 +59,7 @@ mysql_query("CREATE TABLE planets(" .
             "PRIMARY KEY (planet_id)," .
             "KEY owner (owner)," .
             "KEY corp (corp)" .
-            ")") or die ("blerg!");
+            ")") or die ("blerg!"); // now that is one of the coolest error messages I have seen in a while....
 echo "created.<BR>";
 
 echo "Creating table: ships...";
