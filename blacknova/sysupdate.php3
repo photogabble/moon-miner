@@ -287,6 +287,8 @@ else
       }
       elseif ($playerinfo[orders] == 1)                // ****** ORDERS = 1 ROAM ******
       {
+        // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
+        furangeemove();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso1 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
@@ -330,6 +332,8 @@ else
       }
       elseif ($playerinfo[orders] == 2)                // ****** ORDERS = 2 ROAM AND TRADE ******
       {
+        // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
+        furangeemove();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
