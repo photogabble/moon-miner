@@ -66,7 +66,7 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
   }
   echo "<FORM ACTION=port2.php3 METHOD=POST>";
   
-  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
+  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Buying/Selling</B></TD><TD><B>Amount</B></TD><TD><B>Price</B></TD><TD><B>Buy/Sell</B></TD><TD><B>Cargo</B></TD></TR>";
   if($sb_ore == "Buying")
   {
@@ -120,7 +120,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "You have " . NUMBER($playerinfo[credits]) . " credits to spend.<BR>";
   echo "If you need more you may access this port's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>"; 
   echo "<FORM ACTION=port2.php3 METHOD=POST>";
-  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=5>";
+  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\">";
   echo "<TD><B>Device</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Quantity</B></TD>";
   echo "<TD><B>Component Levels</B></TD><TD><B>Cost</B></TD><TD><B>Current Level</B></TD><TD><B>Upgrade?</B></TD>";
@@ -191,7 +191,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "</TR>";
   echo "</TABLE>";
   echo "<BR>";
-  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=5>";
+  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>Item</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD><TD><B>Item</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD></TR>";
   $fighter_max = round(pow($level_factor, $playerinfo[computer]) * 100);
   $fighter_free = $fighter_max - $playerinfo[ship_fighters];
