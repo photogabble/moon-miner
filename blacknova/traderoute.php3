@@ -64,7 +64,7 @@ elseif($phase == 1)
   {
     $energyscooped = 100;
   }
-  $free_power = round((pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy]);
+  $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
   if($free_power < $energyscooped)
   {
     $energyscooped = $free_power;
@@ -122,7 +122,7 @@ else
   {
     $energyscooped = 100;
   }
-  $free_power = round((pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy]);
+  $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
   if($free_power < $energyscooped)
   {
     $energyscooped = $free_power;
@@ -177,7 +177,7 @@ else
       {
         $organics_t1 = $finish[port_organics];
       }
-      $energy_t1 = $free_power = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy] - $energyscooped;
+      $energy_t1 = $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $energyscooped;
       $energy_pricet1 = $energy_price - $energy_delta * $finish[port_energy] / $energy_limit * $inventory_factor;
       if($energy_t1 > $finish[port_energy])
       {
@@ -199,7 +199,7 @@ else
     }
     if($finish[port_type] == "goods")
     {
-      $goods_t1 = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+      $goods_t1 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
       $goods_pricet1 = $goods_price - $goods_delta * $finish[port_goods] / $goods_limit * $inventory_factor;
       if($goods_t1 > $finish[port_goods])
       {
@@ -245,7 +245,7 @@ else
       {
         $goods_t1 = $finish[port_goods];
       }
-      $ore_t1 = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
+      $ore_t1 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
       $ore_pricet1 = $ore_price - $ore_delta * $finish[port_ore] / $ore_limit * $inventory_factor;
       if($ore_t1 > $finish[port_ore])
       {
@@ -291,7 +291,7 @@ else
       {
         $ore_t1 = $finish[port_ore];
       }
-      $organics_t1 = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
+      $organics_t1 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
       $organics_pricet1 = $organics_price - $organics_delta * $finish[port_organics] / $organics_limit * $inventory_factor;
       if($organics_t1 > $finish[port_organics])
       {
@@ -367,7 +367,7 @@ else
       {
         $organics_t2 = $start[port_organics];
       }
-      $energy_t2 = $free_power = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy] - $energyscooped;
+      $energy_t2 = $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $energyscooped;
       $energy_pricet2 = $energy_price - $energy_delta * $start[port_energy] / $energy_limit * $inventory_factor;
       if($energy_t2 > $start[port_energy])
       {
@@ -389,7 +389,7 @@ else
     }
     if($start[port_type] == "goods")
     {
-      $goods_t2 = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+      $goods_t2 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
       $goods_pricet2 = $goods_price - $goods_delta * $start[port_goods] / $goods_limit * $inventory_factor;
       if($goods_t2 > $start[port_goods])
       {
@@ -435,7 +435,7 @@ else
       {
         $goods_t2 = $start[port_goods];
       }
-      $ore_t2 = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
+      $ore_t2 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
       $ore_pricet2 = $ore_price - $ore_delta * $start[port_ore] / $ore_limit * $inventory_factor;
       if($ore_t2 > $start[port_ore])
       {
@@ -481,7 +481,7 @@ else
       {
         $ore_t2 = $start[port_ore];
       }
-      $organics_t2 = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
+      $organics_t2 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
       $organics_pricet2 = $organics_price - $organics_delta * $start[port_organics] / $organics_limit * $inventory_factor;
       if($organics_t2 > $start[port_organics])
       {

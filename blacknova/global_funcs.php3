@@ -135,4 +135,28 @@ function NUMBER($number, $decimals = 0)
   return number_format($number, $decimals, $local_number_dec_point, $local_number_thousands_sep);
 }
 
+function NUM_HOLDS($level_hull)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_hull) * 100);
+}
+
+function NUM_ENERGY($level_power)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_power) * 500);
+}
+
+function NUM_FIGHTERS($level_computer)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_computer) * 100);
+}
+
+function NUM_TORPEDOES($level_torp_launchers)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_torp_launchers) * 100);
+}
+
 ?>

@@ -79,7 +79,7 @@ else
       $shields_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[shields]));
     }
     $fighter_number = round(abs($fighter_number));
-    $fighter_max = round(pow($level_factor, $playerinfo[computer]) * 100) - $playerinfo[ship_fighters];
+    $fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
     if($fighter_max < 0)
     {
       $fighter_max = 0;
@@ -90,7 +90,7 @@ else
     }
     $fighter_cost = $fighter_number * $fighter_price;
     $torpedo_number = round(abs($torpedo_number));
-    $torpedo_max = round(pow($level_factor, $playerinfo[torp_launchers]) * 100) - $playerinfo[torps];
+    $torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
     if($torpedo_max < 0)
     {
       $torpedo_max = 0;
@@ -112,7 +112,8 @@ else
     }
     $armour_cost = $armour_number * $armour_price;
     $colonist_number = round(abs($colonist_number));
-    $colonist_max = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $colonist_max = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
+      $playerinfo[ship_goods] - $playerinfo[ship_colonists];
     if($colonist_number > $colonist_max)
     {
       $colonist_number = $colonist_max;
@@ -301,9 +302,9 @@ else
   
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
   
-    $free_holds = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - 
-      $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-    $free_power = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
+    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
+      $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
     $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + 
       $trade_energy * $energy_price;
   
