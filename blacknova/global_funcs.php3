@@ -165,4 +165,9 @@ function NUM_ARMOUR($level_armour)
   return round(pow($level_factor, $level_armour) * 100);
 }
 
+function SCAN_SUCCESS($level_scan, $level_cloak)
+{
+  return (5 + $level_scan - $level_cloak) * 5;
+}
+
 ?>
