@@ -11,7 +11,7 @@ include("config.php3");
 bigtitle();
 ?>
 
-<form action="login2.php3" method="post">";
+<form action="login2.php3" method="post">
 <BR><BR>
 If you get a "Can't connect to local MySQL" error, it's because my hosting service's DB is down - again - sorry!
 <BR><BR>
@@ -68,7 +68,7 @@ Problems? <A HREF="mailto:<?php echo "$admin_mail"?>">E-mail us</A>
 if(!empty($link_forums))
   echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">Forums</A> - ";
 ?>
-<A HREF="ranking.php3">Rankings</A>";
+<A HREF="ranking.php3">Rankings</A>
 <BR><BR>
 </CENTER>
 
