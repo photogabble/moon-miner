@@ -39,15 +39,25 @@ else
    }
    else
    {
-
+      if($sectorinfo[fm_setting] == 'attack')
+      {
+         $set_attack = 'CHECKED';
+         $set_toll = '';
+      }
+      else
+      {
+         $set_attack = '';
+         $set_toll = 'CHECKED';
+      }
+   
       if(!isset($nummines) or !isset($numfighters) or !isset($mode))
       {
         echo "<FORM ACTION=mines.php3 METHOD=POST>";
         echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " mines and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
         echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=0> mines.<BR>";
         echo "Deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=0> fighters.<BR>";
-        echo "Fighter mode <INPUT TYPE=RADIO NAME=mode VALUE=attack>Attack</INPUT>";
-        echo "<INPUT TYPE=RADIO NAME=mode CHECKED VALUE=toll>Toll</INPUT><BR>";
+        echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>Attack</INPUT>";
+        echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>Toll</INPUT><BR>";
         echo "<INPUT TYPE=SUBMIT VALUE=Deploy><BR><BR>";
         echo "<input type=hidden name=op value=$op>";
         echo "</FORM>";
