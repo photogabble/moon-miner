@@ -180,7 +180,7 @@ else
       echo "<FORM ACTION=admin.php3 METHOD=POST>";
       if(empty($sector))
       {
-        echo "<H5>Note: Cannot Edit Setor 0</H5>";
+        echo "<H5>Note: Cannot Edit Sector 0</H5>";
         echo "<SELECT SIZE=20 NAME=sector>";
         $res = mysql_query("SELECT sector_id FROM universe ORDER BY sector_id");
         while($row = mysql_fetch_array($res))
