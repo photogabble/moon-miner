@@ -326,7 +326,7 @@ function furangeetoship($ship_id)
   elseif($attackerarmor < 1)
   {                                                 //******** ATTACKER SHIP WAS DESTROYED ********
     playerlog($playerinfo[ship_id],"$targetinfo[character_name] destroyed your ship!<BR>"); 
-    db_kill_player($targetinfo['ship_id']);
+    db_kill_player($playerinfo['ship_id']);
     $rating_change=round($playerinfo[rating]*$rating_combat_factor);
     $free_ore = round($playerinfo[ship_ore]/2);
     $free_organics = round($playerinfo[ship_organics]/2);
@@ -385,4 +385,59 @@ function furangeetoship($ship_id)
   // *********************************
   mysql_query("UNLOCK TABLES");
 }
+
+
+//Retrieve the user and ship information
+//$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
+//Put the player information into the array: "playerinfo"
+//$playerinfo=mysql_fetch_array($result);
+//Retrieve all the sector information about the current sector
+//$result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
+//Put the sector information into the array "sectorinfo"
+//$sectorinfo=mysql_fetch_array($result2);
+//Retrive all the warp links out of the current sector
+//$result3 = mysql_query ("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
+//$i=0;
+//$flag=0;
+//if ($result3>0)
+//{
+//    //loop through the available warp links to make sure it's a valid move
+//    while ($row = mysql_fetch_array($result3))
+//    {
+//        if ($row[link_dest]==$sector && $row[link_start]==$playerinfo[sector])
+//        {
+//            $flag=1;
+//        }
+//        $i++;
+//    }
+//}
+//Check if there was a valid warp link to move to
+//if ($flag==1)
+//{
+//    $ok=1;
+//    $calledfrom = "move.php3";
+//    include("check_fighters.php3");
+//    if($ok==1){
+//      $stamp = date("Y-m-d H-i-s");
+//      $query="UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
+//       $move_result = mysql_query ("$query");
+//  	if (!$move_result)
+//	{
+//		$error = mysql_error($move_result);
+//	mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
+//	}
+//    }
+//    include("check_mines.php3");
+//    if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
+//    {
+//        TEXT_GOTOMAIN();
+//    }
+//}
+//else
+//{
+//    echo "Move failed!<BR><BR>";
+//    TEXT_GOTOMAIN();
+//}
+
 ?>
+
