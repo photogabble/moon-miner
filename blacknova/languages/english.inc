@@ -1326,4 +1326,6 @@ $l_port_bountypaid = "You have paid the bounty. Click <a href="port.php">here</a
 
 
 $l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
+$l_scan_bounty = "This ship has a total bounty on it of [amount] credits.";
+$l_scan_fedbounty = "This ship has a bounty on it from The Federation.";
 ?>

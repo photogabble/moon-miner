@@ -63,7 +63,36 @@ else
     {
       /* if scan succeeds, show results and inform target. */
       /* scramble results by scan error factor. */
-      if($targetscore / $playerscore < $bounty_ratio || $targetinfo[turns_used] < $bounty_minturns)
+
+      // Get total bounty on this player, if any
+      $btyamount = 0;
+      $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id]");
+
+      if($hasbounty)
+      {
+         $resx = $hasbounty=>fields;
+         if($resx[btytotal] > 0) 
+         {
+            $btyamount = $resx[btytoal];
+            $l_scan_bounty=str_replace("[amount]",$btyamount,$l_scan_bounty);
+            echo $l_scan_bounty . "<BR>";
+            $btyamount = 0;
+            // Check for Federation bounty
+            $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
+            if($hasfedbounty)
+            {
+               $resy = $hasfedbounty=>fields;
+               if($resy[btytotal] > 0) 
+               { 
+                  $btyamount = $resy[btytotal];
+                  echo $l_scan_fedbounty . "<BR>";
+               }
+            }
+         }
+      }
+      // Player will get a Federation Bounty on themselves if they attack a player who's score is less than bounty_ratio of
+      // themselves. If the target has a Federation Bounty, they can attack without attracting a bounty on themselves.
+      if($btyamount == 0 && ($targetscore / $playerscore < $bounty_ratio || $targetinfo[turns_used] < $bounty_minturns))
       {
          echo $l_by_fedbounty . "<BR><BR>";
       }

@@ -106,10 +106,21 @@ else
     {
       if($targetscore / $playerscore < $bounty_ratio || $targetinfo[turns_used] < $bounty_minturns)
       {
-         $bounty = ROUND($playerscore * 0.15);
-         $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");      
-         playerlog($playerinfo[ship_id],LOG_BOUNTY_FEDBOUNTY,"$bounty");
-         echo $l_by_fedbounty2 . "<BR><BR>";
+         // Check to see if there is Federation bounty on the player. If there is, people can attack regardless.
+         $btyamount = 0;
+         $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
+         if($hasbounty)
+         {
+            $resx = $hasbounty=>fields;
+            $btyamount = $resx[btytotal];
+         }
+         if($resx[btytotal] <= 0) 
+         {
+            $bounty = ROUND($playerscore * 0.15);
+            $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");      
+            playerlog($playerinfo[ship_id],LOG_BOUNTY_FEDBOUNTY,"$bounty");
+            echo $l_by_fedbounty2 . "<BR><BR>";
+         }
       }
       if($targetinfo[dev_emerwarp] > 0)
       {
