@@ -13,6 +13,8 @@ if(checklogin())
   die();
 }
 
+mysql_query("LOCK TABLES ships WRITE, universe WRITE");
+
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
 
@@ -26,6 +28,7 @@ if($playerinfo[turns] < 1)
   echo "You need at least one turn to trade at a port.<BR><BR>";
   echo "Click <A HREF=main.php3>here</A> to return to Main Menu.";
   include("footer.php3");
+  mysql_query("UNLOCK TABLES");
   die();
 }
 
@@ -369,7 +372,9 @@ elseif($sectorinfo[port_type] != "none")
     $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
     echo "Trade completed.<BR><BR>";
   }
-} 
+}
+
+mysql_query("UNLOCK TABLES");
 
 echo "Click <A HREF=main.php3>here</A> to return to main menu.";
 
