@@ -52,9 +52,9 @@ $allow_genesis_destroy = true;         // Genesis torps can destroy planets
 // Please EDIT the following variables to your liking.
 
 $ibank_owner = 0;			// Use 0 for no human player or ID of Owner of IGB some trusted player or admin.
-$ibank_interest = 0.0004;			// Interest rate for account funds NOTE: this is calculated every system update!
+$ibank_interest = 0.0003;			// Interest rate for account funds NOTE: this is calculated every system update!
 $ibank_paymentfee = 0.005; 		// Paymentfee
-$ibank_loaninterest = 0.0008;		// Loan interest i.e 8%
+$ibank_loaninterest = 0.0006;		// Loan interest i.e 8%
 $ibank_loanfactor = 10;			// x Times what the user currently have in account
 $ibank_loanlimit = 250000000;		// This minus already existing loans is the maximum.
 
