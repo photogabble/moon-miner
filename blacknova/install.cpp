@@ -9,8 +9,8 @@ fstream fileout("config_local.php3",ios::out);
 void intro();
 void general(char gameroot[100], char link_forums[100], char webpath[100]);
 void database(char dbhost[100], char dbport[10], char dbusername[100], char dbpassword[100], char dbname[100]);
-void admin(char admin_pass[100], char admin_email[100]);
-void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char dbport[10], char dbusername[100], char dbpassword[100], char dbname[100], char admin_pass[100], char admin_email[100]);
+void admin(char admin_pass[100], char admin_mail[100]);
+void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char dbport[10], char dbusername[100], char dbpassword[100], char dbname[100], char admin_pass[100], char admin_mail[100]);
 void cronfile(char cronpath[100], char admin_pass[100], char gameroot[100], char lynxpath[100], char touchpath[100], char webpath[100]);
 void close();
 
@@ -18,7 +18,7 @@ int main()
 {
 	char gameroot[100];
 	char webpath[100] = "http://localhost/blacknova/";
-	char link_forums[100] = "http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl";
+	char link_forums[100] = "http://thegeek.org/forum.php";
 	char cronpath[100] = "/etc/crontab";
 	char lynxpath[100] = "/usr/bin/lynx";
 	char touchpath[100] = "/bin/touch";
@@ -30,13 +30,13 @@ int main()
 	char dbname[100] = "blacknova";
 	
 	char admin_pass[100];
-	char admin_email[100];
+	char admin_mail[100];
 	
 	intro();
 	general(gameroot, link_forums, webpath);
 	database(dbhost, dbport, dbusername, dbpassword, dbname);
-	admin(admin_pass, admin_email);
-	writefile(gameroot, link_forums, dbhost, dbport, dbusername, dbpassword, dbname, admin_pass, admin_email);
+	admin(admin_pass, admin_mail);
+	writefile(gameroot, link_forums, dbhost, dbport, dbusername, dbpassword, dbname, admin_pass, admin_mail);
 	cronfile(cronpath, admin_pass, gameroot, lynxpath, touchpath, webpath);
 	close();
 	
@@ -135,11 +135,11 @@ void database(char dbhost[100], char dbport[10], char dbusername[100], char dbpa
 	cout << endl << endl;
 }
 
-void admin(char admin_pass[100], char admin_email[100])
+void admin(char admin_pass[100], char admin_mail[100])
 {
 	cout << "Enter the Administrator's email address." << endl << endl;
 	cout << "-> ";
-	cin.getline(admin_email,100);
+	cin.getline(admin_mail,100);
 	cout << endl << endl;
 	cout << "Enter the Administrator's password." << endl << endl;
 	cout << "-> ";
@@ -147,7 +147,7 @@ void admin(char admin_pass[100], char admin_email[100])
 	cout << endl << endl;
 }
 
-void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char dbport[10], char dbusername[100], char dbpassword[100], char dbname[100], char admin_pass[100], char admin_email[100])
+void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char dbport[10], char dbusername[100], char dbpassword[100], char dbname[100], char admin_pass[100], char admin_mail[100])
 {
 	fileout << "<?php" << endl;
 	fileout << "$gameroot = \"" << gameroot << "\";" << endl;
@@ -157,7 +157,7 @@ void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char
 	fileout << "$dbpass = \"" << dbpassword << "\";" << endl;
 	fileout << "$dbname = \"" << dbname << "\";" << endl;
 	fileout << "$adminpass = \"" << admin_pass << "\";" << endl;
-	fileout << "$admin_email = \"" << admin_email << "\";" << endl;
+	fileout << "$admin_mail = \"" << admin_mail << "\";" << endl;
 	fileout << "$link_forums = \"" << link_forums << "\";" << endl;
 	fileout << "?>";
 }
