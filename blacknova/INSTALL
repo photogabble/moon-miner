@@ -11,6 +11,8 @@ INSTALLATION
    	./installscript
    Or, for a manual configuration simply edit the config_local.php3
    file to your own settings and manually update your cron file.
+   On some systems, it may be better to let the install program write the cron
+   tab file to a temporary file and then update your crontab from that.
 
 3. Create the database:
    mysqladmin -uuser -ppass create dbname
@@ -41,4 +43,4 @@ SourceForge page:
 
 Regards,
 
-Ron Harwood <harwoodr@blacknova.net>
+The Blacknova development team.
