@@ -572,7 +572,14 @@ if($sectorinfo[planet] == 'Y')
           $ship_salvage_rate=0;
           $ship_salvage=0;
           $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armour];
-          $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
+          if($ownerinfo[rating]!=0)
+          {
+            $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
+          }
+          else
+          {
+            $rating_change=-100;
+          }
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
           $armour_lost = $playerinfo[armour_pts] - $playerarmour;
           mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum,armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
@@ -1035,7 +1042,14 @@ if($sectorinfo[planet] == 'Y')
           $ship_salvage_rate=0;
           $ship_salvage=0;
           $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armour];
-          $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
+          if($ownerinfo[rating]!=0)
+          {
+            $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
+          }
+          else
+          {
+            $rating_change=-100;
+          }
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
           $armour_lost = $playerinfo[armour_pts] - $playerarmour;
           $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$playerarmour, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
@@ -1058,7 +1072,14 @@ if($sectorinfo[planet] == 'Y')
         else
         {
           $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armour];
-          $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
+          if($ownerinfo[rating]!=0)
+          {
+            $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
+          }
+          else
+          {
+            $rating_change=-100;
+          }
           $fighters_lost = $ownerinfo[ship_fighters] - $ownerfighters;
           $armour_lost = $ownerinfo[armour_pts] - $ownerarmour;
           $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
