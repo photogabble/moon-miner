@@ -58,7 +58,15 @@ if ($flag==0)
     }
   }
   $stamp=date("Y-m-d H:i:s");
-  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','$ip',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y')");
+  $query = mysql_query("SELECT MAX(turns_used + turns) AS mturns FROM ships");
+  $res = mysql_fetch_array($query);
+
+  $mturns = $res[mturns];
+
+  if($mturns > $max_turns)
+    $mturns = $max_turns;
+
+  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$mturns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','$ip',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y')");
   if(!$result2) {
     echo mysql_errno(). ": ".mysql_error(). "<br>";
   } else {

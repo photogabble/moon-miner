@@ -1,5 +1,13 @@
 Version 0.3.1
 -------------
+
+SharpBlue (30 Decemeber 2001)
+---------------------------
+Finished the french translation.
+Updated the new player code to give new players the number of turns
+elapsed from the beginning of the game, capped at $max_turns.
+
+
 Nospoon (16 Decemeber 2001)
 ---------------------------
 Added code to drain energy from owners and corporate planets to support

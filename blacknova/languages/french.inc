@@ -1155,5 +1155,21 @@ $l_mail_sent			="Le mot de passe a été envoyé à";
 $l_mail_topic			="Mot de passe pour $game_name";
 $l_mail_message			="Salutations,\n\nQuelqu'un avec l'ip $ip a demandé que votre mot de passe pour Blacknova Traders soit envoyé à cette adresse.\n\nVotre mot de passe est: [pass]\n\nMerci\n\nL'équipe de Blacknova Traders.";
 
+// global_funcs.php
+
+$l_global_mmenu			="Cliquez <A HREF=main.php3>ici</A> pour retourner au menu principal.";
+$l_global_mlogin		="Cliquez <A HREF=login.php3>ici</A> pour retourner à l'écran de connection.";
+$l_global_needlogin		="Vous devez vous connecter, cliquez <A HREF=login.php3>ici</A>.";
+$l_global_died			="Vous êtes mort! <a href=log.php>Voici</a> ce qui vous est arrivé<BR><BR>Meilleure chance la prochaine fois!";
+$l_global_warzone		="La zone est maintenant une Zone de Guerre!";
+$l_global_nzone			="La zone est maintenant une Zone Neutre.";
+$l_global_team			="La zone appartient maintenant à l'alliance";
+$l_global_player		="La zone appartient maintenant au joueur";
+
+// texts for the news flashes
+
+$l_killheadline=" a été tué dans un accident,";
+$l_news_killed = "[name] a été tué dans un accident tragique! Il était à bord de son vaisseau quand il a été détruit et il n'avait pas de module de secours. Que son âme repose en paix.";
+
 
 ?>
