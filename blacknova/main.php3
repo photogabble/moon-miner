@@ -160,6 +160,7 @@ Commands
 &nbsp;<a class=mnu href="device.php3">Devices</a>&nbsp;<br>
 &nbsp;<a class=mnu href="planet-report.php3">Planets</a>&nbsp;<br>
 &nbsp;<a class=mnu href="log.php3">Log</a>&nbsp;<br>
+&nbsp;<a class=mnu href="defence-report.php3">Sector Defences</a>&nbsp;<br>
 &nbsp;<a class=mnu href="readmail.php3">Read Messages</A>&nbsp;<br> <? # Link to read the messages -- blindcoder ?>
 &nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
 &nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
