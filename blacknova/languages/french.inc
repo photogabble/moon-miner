@@ -423,6 +423,7 @@ $l_lrs_moveto		 = "pour vous déplacer vers le secteur";
 
 // log.php
 
+$l_log_titlet = "Journal";
 $l_log_months = array('Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre');
 $l_log_months_short = array('Jan','Fév','Mar','Avr','Mai','Jun','Jui','Au','Sep','Oct','Nov','Déc');
 $l_log_pod = "Heureusement, vous aviez un module de secours!";
@@ -1212,8 +1213,60 @@ $l_pre_save = "Sauvegarder";
 
 // texts for the news flashes
 
+$l_news_planets		  = " planètes";
+$l_news_cols		      = " millions de colons";
+$l_news_p_headline = "l'Empire de [player] a maintenant ";
+
 $l_killheadline=" a été tué dans un accident,";
 $l_news_killed = "[name] a été tué dans un accident tragique! Il était à bord de son vaisseau quand il a été détruit et il n'avait pas de module de secours. Que son âme repose en paix.";
 
+$l_news_p_text5		= "L'Empire émergent de [name] possède maintenant cing planètes.
+                   La BNN suveillera de plus près les actions de [name] dans le futur
+                   !";
+$l_news_p_text10		= "L'Empire grossisant de [name] contrôle maintenant dix planètes.
+                   Les reporters de BNN disent qu'une expansion continue de [name]
+                   pourrait mener à la guerre!";
+$l_news_p_text25		= "L'immense Empire de [name] a colonisé 25 planètes.
+                   Dans un interview, [name] a annoncé que l'expension pourrait diminuer
+                   quelque peut dans le futur!";
+$l_news_p_text50		= "L'énorme et vaste Empire de [name], représenté par 50 planètes dans
+                   toute la galaxie, est maintenant une force dont il faut tenir compte. Un
+                   reporter de BNN a découvert que [name] améliorait son vaisseau
+                   en prévision d'une guerre majeure. Dans une entrevue avec [name], 
+                   on apprend que toutes ces préparations sont à des fins défensives seulement...";
+$l_news_c_text25		= "L'Empire émergent de [name] a maintenant 25 millions de colons.
+                   La BNN va surveiller les actions futures de [name] avec attention, mais
+                   il semble évident que le taux de natalité va littéralement exploser!";
+$l_news_c_text100		= "L'Empire grossisant de [name] a maintenant 100 millions de colons.
+                   Après une explosion du taux de natalité, les colonies de [name] semblent
+                   être un bon endroit pour les nouvelles familles qui s'installent!";
+$l_news_c_text500		= "Le large Empire de [name] a maintenant 500 millions de colons.
+                   [name] a déclaré en entrevue que la colonization de la galaxie s'était
+                   à peine amorçée";
+$l_news_c_text1000		= "L'énorme Empire de [name] a maintenant un milliard de colons.
+                   Les reporters de BNN ont découvert que [name] est en possession d'un
+                   mécanisme étrange de clonage, lui permettant de reproduire ses colons
+                   à un rythme effarant. Avec ce nombre de colons, la force économique de
+                   l'Empire est immense. BNN espère que [name] ne dépensera pas cet influx
+                   d'argent à des fins militaires.";
+
+// sector_fighters.php
+$l_sf_attacking = "Les défenses de secteur vous attaquent!<BR>";
+$l_sf_destfight = "Vos rayons détruisent [lost] intercepteurs<BR>";
+$l_sf_destfightb = "Vos rayons détruisent [lost] intercepteurs<BR>";
+$l_sf_torphit = "Les torpilles touchent:";
+$l_sf_destfightt = "Vos torpilles ont détruit [lost] intercepteurs<BR>";
+$l_sf_fighthit = "Les intercepteurs attaquent:";
+$l_sf_destfightall = "Vous détruisez tous les intercepteurs.<BR>";
+$l_sf_destfightt2 = "Vous détruisez [lost] intercepteurs.<BR>";
+$l_sf_lostfight = "Vous perdez tous vos intercepteurs.<BR>";
+$l_sf_lostfight2 = "Vous perdez [lost] intercepteurs.<BR>";
+$l_sf_armorbreach = "Votre armure a été traversée!<BR>";
+$l_sf_armorbreach2 = "Votre armure est touchée pour [lost] points de dommage.<BR>";
+$l_sf_sendlog = "[player] a détruit [lost] intercepteurs en défense dans le secteur [sector].";
+$l_sf_lreport = "Vous avez perdu [armor] points d'armure, [fighters] intercepteurs et avez utilisé [torps] torpilles.<BR><BR>";
+$l_sf_shipdestroyed = "Votre vaisseau a été détruit!<BR><BR>";
+$l_sf_sendlog2 = "Les intercepteurs en défense dans le secteur [sector] ont détruit [player].";
+$l_sf_escape = "Heureusement vous aviez un module de secours!<BR><BR>";
 
 ?>

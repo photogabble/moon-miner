@@ -1176,8 +1176,42 @@ $l_global_player		="Zone now belongs to player";
 
 // texts for the news flashes
 
+$l_news_planets		  = " planets";
+$l_news_cols		      = " Million colonists";
+$l_news_p_headline = "[player]\'s Empire now has ";
+
 $l_killheadline=" was killed in an accident";
 $l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
+$l_news_p_text5		= "The rising empire of [name] now has five planets,
+                   the BNN will watch the actions of [name] more closely
+                   in the future!";
+$l_news_p_text10		= "The growing empire of [name] now controls ten planets,
+                   Reports of BNN say that further expansion of [name]
+                   might lead to war!";
+$l_news_p_text25		= "The huge empire of [name] colonized 25 planets already,
+                   in an interview, [name] announced that he might consider slowing
+                   down his expansion in the future!";
+$l_news_p_text50		= "The enormous vast empire of [name], represented by 50 planets
+                   in the whole galaxy is getting a threatening strength. One
+                   of the BNN reporters found out that [name] is upgrading his
+                   ship planning a major war. In an interview [name] announced
+                   that is done on defence purpose only!";
+$l_news_c_text25		= "The rising empire of [name] now has 25 million colonists,
+                   the BNN will watch the actions of [name] more closely
+                   in the future, but its highly obvious that birthrates are going to explode!";
+$l_news_c_text100		= "The aspiring empire of [name] now has 100 million colonists,
+                   After an explosion of birth rates, [name] colonies seemed to be a good
+                   place for families to settle!";
+$l_news_c_text500		= "The large empire of [name] now has 500 million colonists,
+                   [name] said in an interview that colonization of the galaxy has
+                   just yet begun";
+$l_news_c_text1000		= "The humongous empire of [name] now has one billion colonists,
+                   BNN reporters found out that [name] is in possesion of some
+                   weird cloning mechanism allowing him to breed new colonists
+                   in huge amounts. With this amount of colonists, the econmic strength
+                   of this empire is enormous, BNN hopes that [name] does not spend
+                   his money on warfare";
+
 
 // LAST ADDED : MOD TO TRADEROUTES
 $l_tdr_notowner = "You do not own this trade route";
@@ -1187,6 +1221,10 @@ $l_tdr_notowner = "You do not own this trade route";
 $l_login_lang = "Language";
 $l_login_settings = "Game Settings";
 $l_login_change = "Change";
+
+// ADDITION TO log.php
+
+$l_log_titlet = "View Log";
 
 // Options.php
 
@@ -1222,5 +1260,33 @@ $l_pre_title = "Change Realspace Presets";
 $l_pre_exceed = "Preset [preset] exceeds universe max of [sector_max]. No presets saved.<BR><BR>"; 
 $l_pre_set = "Preset 1 set to [preset1], preset 2 set to [preset2] and preset 3 set to [preset3].<BR><BR>";
 $l_pre_save = "Save";
+
+// Mailto.php
+
+$l_mt_title = "Send Message";
+$l_mt_from = "From:";
+$l_mt_subject = "Subject:";
+$l_mt_message = "Message:";
+$l_mt_sent = "Message sent";
+$l_mt_send = "Send";
+
+// sector_fighters.php
+$l_sf_attacking = "Sector defence fighters are attacking you!<BR>";
+$l_sf_destfight = "Your beams destroyed [lost] fighters<BR>";
+$l_sf_destfightb = "Your beams destroyed [lost] fighters<BR>";
+$l_sf_torphit = "Torpedoes hit:";
+$l_sf_destfightt = "Your torpedoes destroyed [lost] fighters<BR>";
+$l_sf_fighthit = "Fighters Attack:";
+$l_sf_destfightall = "You destroyed all the fighters.<BR>";
+$l_sf_destfightt2 = "You destroyed [lost] fighters.<BR>";
+$l_sf_lostfight = "You lost all fighters.<BR>";
+$l_sf_lostfight2 = "You lost [lost] fighters.<BR>";
+$l_sf_armorbreach = "Your armour is breached!<BR>";
+$l_sf_armorbreach2 = "Your armour is hit for [lost] damage.<BR>";
+$l_sf_sendlog = "[player] destroyed [lost] sector defence fighters in sector [sector].";
+$l_sf_lreport = "You lost [armor] armour points, [fighters] fighters, and used [torps] torpedoes.<BR><BR>";
+$l_sf_shipdestroyed = "Your ship has been destroyed!<BR><BR>";
+$l_sf_sendlog2 = "Sector defence fighters destroyed [player] in sector [sector].";
+$l_sf_escape = "Luckily you have an escape pod!<BR><BR>";
 
 ?>

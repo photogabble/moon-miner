@@ -5,7 +5,7 @@ updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 
-$title="Send Message";
+$title="$l_mt_title";
 include("header.php3");
 
 connectdb();
@@ -33,16 +33,16 @@ if(empty($content))
   }
   mysql_free_result($res);
   echo "</SELECT></TD></TR>";
-  echo "<TR><TD>From:</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD></TR>";
-  echo "<TR><TD>Subject:</TD><TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40></TD></TR>";
-  echo "<TR><TD>Message:</TD><TD><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></TD></TR>";
-  echo "<TR><TD></TD><TD><INPUT TYPE=SUBMIT VALUE=Send><INPUT TYPE=RESET VALUE=Clear></TD>";
+  echo "<TR><TD>$l_mt_from</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD></TR>";
+  echo "<TR><TD>$l_mt_subject</TD><TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40></TD></TR>";
+  echo "<TR><TD>$l_mt_message:</TD><TD><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></TD></TR>";
+  echo "<TR><TD></TD><TD><INPUT TYPE=SUBMIT VALUE=$l_mt_send><INPUT TYPE=RESET VALUE=Clear></TD>";
   echo "</TABLE>";
   echo "</FORM>";
 }
 else
 {
-  echo "Message Sent<BR><BR>";
+  echo "$l_mt_sent<BR><BR>";
 #  $res = mysql_query("SELECT email FROM ships WHERE character_name='$to'");
 #  $address = mysql_fetch_array($res);
 #  mysql_free_result($res);

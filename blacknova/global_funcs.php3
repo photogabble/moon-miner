@@ -4,7 +4,6 @@ if ($userpass != '' and $userpass != '+') {
   $username = substr($userpass, 0, strpos($userpass, "+"));
   $password = substr($userpass, strpos($userpass, "+")+1);
 
-include_once($gameroot . "/languages/$lang");
 }
 
 //Log constants

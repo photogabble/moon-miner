@@ -47,7 +47,7 @@ if($result3 == 0)
    die();
 }
 $defenceinfo = mysql_fetch_array($result3);
-if($defenceinfo['sector_id'] <> $playerinfo['sector_id'])
+if($defenceinfo['sector_id'] <> $playerinfo['sector'])
 {
    echo "$l_md_nothere<BR><BR>";
    TEXT_GOTOMAIN();

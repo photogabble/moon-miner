@@ -1,5 +1,7 @@
 <?
-                    echo "Sector defence fighters are attacking you!<BR>";
+  include_once($gameroot . "/languages/$lang");
+
+                    echo $l_sf_attacking;
                     $targetfighters = $total_sector_fighters;
      	            $playerbeams = NUM_BEAMS($playerinfo[beams]);
                     if($calledfrom == 'rsmove.php3')
@@ -31,56 +33,63 @@
                        {
                           $temp = round($targetfighters/2);
                           $lost = $targetfighters-$temp;
-                          echo "Your beams destroyed $lost fighters<BR>";
+                          $l_sf_destfight = str_replace("[lost]", $lost, $l_sf_destfight);
+                          echo $l_sf_destfight;
                           $targetfighters = $temp;
                           $playerbeams = $playerbeams-$lost;
                        }
                        else
                        {
                           $targetfighters = $targetfighters-$playerbeams;
-                          echo "Your beams destroyed $playerbeams fighters<BR>";
+                          $l_sf_destfightb = str_replace("[lost]", $playerbeams, $l_sf_destfightb);
+                          echo $l_sf_destfightb;
+                          
                           $playerbeams = 0;
                        }   
                    }
-                   echo "<BR>Torpedoes hit:<BR>";
+                   echo "<BR>$l_sf_torphit<BR>";
                    if($targetfighters > 0 && $playertorpdmg > 0)
                    {
                       if($playertorpdmg > round($targetfighters / 2))
                       {
                          $temp=round($targetfighters/2);
                          $lost=$targetfighters-$temp;
-                         echo "Your torpedoes destroyed $lost fighters<BR>";
+                         $l_sf_destfightt = str_replace("[lost]", $lost, $l_sf_destfightt);
+                         echo $l_sf_destfightt;
                          $targetfighters=$temp;
                          $playertorpdmg=$playertorpdmg-$lost;
                       }
                       else
                       {
                          $targetfighters=$targetfighters-$playertorpdmg;
-                         echo "Your torpedoes destroyed $playertorpdmg fighters<BR>";
+                         $l_sf_destfightt = str_replace("[lost]", $playertorpdmg, $l_sf_destfightt);
+                         echo $l_sf_destfightt;
                          $playertorpdmg=0;
                       }
                   }
-                  echo "<BR>Fighters Attack:<BR>";
+                  echo "<BR>$l_sf_fighthit<BR>";
                   if($playerfighters > 0 && $targetfighters > 0)
                   {
                      if($playerfighters > $targetfighters)
                      {
-                        echo "You destroyed all the fighters.<BR>";
+                        echo $l_sf_destfightall;
                         $temptargfighters=0;
                      }
                      else
                      {
-                        echo "You destroyed $playerfighters fighters.<BR>";
+                        $l_sf_destfightt2 = str_replace("[lost]", $playerfighters, $l_sf_destfightt2);
+                        echo $l_sf_destfightt2;
                         $temptargfighters=$targetfighters-$playerfighters;
                      }
                      if($targetfighters > $playerfighters)
                      {
-                        echo "You lost all fighters.<BR>";
+                        echo $l_sf_lostfight;
                         $tempplayfighters=0;
                      }
                      else
                      {
-                        echo "You lost $targetfighters fighters.<BR>";
+                        $l_sf_lostfight2 = str_replace("[lost]", $targetfighters, $l_sf_lostfight2);
+                        echo $l_sf_lostfight2;
                         $tempplayfighters=$playerfighters-$targetfighters;
                      }     
                      $playerfighters=$tempplayfighters;
@@ -91,32 +100,43 @@
                     if($targetfighters > $playerarmour)
                     {
                        $playerarmour=0;
-                       echo "Your armour is breached!<BR>";
+                       echo $l_sf_armorbreach;
                     }
                     else
                     {
                        $playerarmour=$playerarmour-$targetfighters;
-                       echo "Your armour is hit for $targetfighters damage.<BR>";
+                       $l_sf_armorbreach2 = str_replace("[lost]", $targetfighters, $l_sf_armorbreach2);
+                       echo $l_sf_armorbreach2;
                     } 
                  }
                  $fighterslost = $total_sector_fighters - $targetfighters;
                  destroy_fighters($sector,$fighterslost);
-                 message_defence_owner($sector,"$playerinfo[character_name] destroyed $fighterslost sector defence fighters in sector $sector.");
+
+                 $l_sf_sendlog = str_replace("[player]", $playerinfo[character_name], $l_sf_sendlog);
+                 $l_sf_sendlog = str_replace("[lost]", $fighterslost, $l_sf_sendlog);
+                 $l_sf_sendlog = str_replace("[sector]", $sector, $l_sf_sendlog);
+                 
+                 message_defence_owner($sector,$l_sf_sendlog);
                  playerlog($playerinfo[ship_id], LOG_DEFS_DESTROYED_F, "$fighterslost|$sector");
                  $armour_lost=$playerinfo[armour_pts]-$playerarmour;
                  $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
                  $energy=$playerinfo[ship_energy];
                  $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
-                 echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";
+                 $l_sf_lreport = str_replace("[armor]", $armour_lost, $l_sf_lreport);
+                 $l_sf_lreport = str_replace("[fighters]", $fighters_lost, $l_sf_lreport);
+                 $l_sf_lreport = str_replace("[torps]", $playertorpnum, $l_sf_lreport);
+                 echo $l_sf_lreport;
                  if($playerarmour < 1)
                  {
-                    echo "Your ship has been destroyed!<BR><BR>";
+                    echo $l_sf_shipdestroyed;
                     playerlog($playerinfo[ship_id], LOG_DEFS_KABOOM, "$sector|$playerinfo[dev_escapepod]");
-                    message_defence_owner($sector,"Sector defence fighters destroyed $playerinfo[character_name] in sector $sector.");
+                    $l_sf_sendlog2 = str_replace("[player]", $playerinfo[character_name], $l_sf_sendlog2);
+                    $l_sf_sendlog2 = str_replace("[sector]", $sector, $l_sf_sendlog2);
+                    message_defence_owner($sector,$l_sf_sendlog2);
                     if($playerinfo[dev_escapepod] == "Y")
                     {
                        $rating=round($playerinfo[rating]/2);
-                       echo "Luckily you have an escape pod!<BR><BR>";
+                       echo $l_sf_escape;
                        mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]"); 
                        $ok=0;
                        TEXT_GOTOMAIN();

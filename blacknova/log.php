@@ -5,7 +5,7 @@ updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 
-$title="View Log";
+$title="$l_log_titlet";
 $no_body=1;
 include("header.php3");
 
@@ -288,6 +288,7 @@ if($mode != compat)
 
 		
 echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
+
 echo '<center>';
 
 echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
