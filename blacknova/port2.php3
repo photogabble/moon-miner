@@ -265,41 +265,71 @@ else
   elseif($sectorinfo[port_type] != "none")
   {
     /* the code for an ore port will go here! */
+   $trade_benefit = "You won ";
+   $trade_green   = "green";
+   $trade_deficit = "You lost ";
+   $trade_red     = "red";
+
     if($sectorinfo[port_type] == "ore")
     {
-      $ore_price = $ore_price - $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
+      $ore_price     = $ore_price - $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
+      $trade_color   = $trade_red ;
+      $trade_result  = $trade_deficit;
     }
     else
     {
-      $ore_price = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
-      $trade_ore = -$trade_ore;
+      $ore_price     = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
+      $trade_color  = $trade_green;
+      $trade_result  = $trade_benefit;
+      $trade_ore     = -$trade_ore;
     }
+
+    
     if($sectorinfo[port_type] == "organics")
     {
-      $organics_price = $organics_price - $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
+      $organics_price   = $organics_price - $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
+      $trade_color      =  $trade_red ;
+      $trade_result     = $trade_deficit;
     }
     else
     {
-      $organics_price = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
-      $trade_organics = -$trade_organics;
+      $organics_price   = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
+      $trade_organics   = -$trade_organics;
+      $trade_color     = $trade_green ;
+      $trade_result     = $trade_benefit;
+
     }
+
+
     if($sectorinfo[port_type] == "goods")
     {
-      $goods_price = $goods_price - $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
+      $goods_price   = $goods_price - $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
+      $trade_color   =  $trade_red ;
+      $trade_result  = $trade_deficit;
     }
     else
     {
-      $goods_price = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
-      $trade_goods = -$trade_goods;
+      $goods_price   = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
+      $trade_goods   = -$trade_goods;
+      $trade_color  = $trade_green ;
+      $trade_result  = $trade_benefit;
+
     }
+
+    
     if($sectorinfo[port_type] == "energy")
     {
       $energy_price = $energy_price - $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
+      $trade_color   = $trade_red ;
+      $trade_result  = $trade_deficit;
     }
     else
     {
       $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
       $trade_energy = -$trade_energy;
+      $trade_color  = $trade_green ;
+      $trade_result  = $trade_benefit;
+
     }
   
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
@@ -360,8 +390,33 @@ else
     }
     else
     {
-      echo "Total cost: " . NUMBER(abs($total_cost)) . " credits.<BR>";
-      echo "Traded Ore: " . NUMBER($trade_ore) . "<BR>Traded Organics: " . NUMBER($trade_organics) . "<BR>Traded Goods: " . NUMBER($trade_goods) . "<BR>Traded Energy: " . NUMBER($trade_energy) . "<BR><BR>";
+      $trade_credits = NUMBER(abs($total_cost));
+      if ($total_cost == 0 ) {
+         $trade_color   = "white";
+         $trade_result  = "Null";    
+      }
+      echo "
+      <TABLE WIDTH=600 BORDER=1 bordercolor=#000000 CELLSPACING=0 CELLPADDING=0>
+         <TR>
+            <TD colspan=99 bgcolor=#FFFFFF><font size=3 color=black><b>Results for this trade</b></font></TD>
+         </TR>
+         <TR>
+            <TD colspan=99 bgcolor=#CCCCCC align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . $trade_credits . " credits</font></b></TD>
+         </TR>
+         <TR>
+            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Ore: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_ore) . "</font></b></TD>
+         </TR>
+         <TR>
+            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Organics: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_organics) . "</font></b></TD>
+         </TR>
+         <TR>
+            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Goods: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_goods) . "</font></b></TD>
+         </TR>
+         <TR>
+            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Energy: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_energy) . "</font></b></TD>
+         </TR>
+      </TABLE>
+      ";
       /* Update ship cargo, credits and turns */
       $trade_result = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
       /* Make all trades positive to change port values*/
