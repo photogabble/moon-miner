@@ -416,6 +416,46 @@ function distribute_toll($sector, $toll, $total_fighters)
 
 }
 
+function defence_vs_defence($ship_id)
+{
+
+   $result1 = mysql_query("SELECT * from sector_defence where ship_id = $ship_id");
+   if($result1 > 0)
+   {
+      while($row = mysql_fetch_array($result1))
+      {
+         $deftype = $row[defence_type] == 'F' ? 'Fighters' : 'Mines';
+         $qty = $row['quantity'];
+         $result2 = mysql_query("SELECT * from sector_defence where sector_id = $row[sector_id] and ship_id <> $ship_id ORDER BY quantity DESC");
+         if($result2 > 0)
+         {
+            while($cur = mysql_fetch_array($result2) && $qty > 0)
+            {
+               $targetdeftype = $cur[defence_type] == 'F' ? 'Fighters' : 'Mines';
+               if($qty > $cur['quantity'])
+               {
+                  mysql_query("DELETE FROM sector_defence WHERE defence_id = $cur[defence_id]");
+                  $qty -= $cur['quantity'];
+                  mysql_query("UPDATE sector_defence SET quantity = $qty where defence_id = $row[defence_id]");
+                  playerlog($cur[ship_id],"$cur[quantity] $targetdeftype were destroyed in sector $row[sector_id].");
+                  playerlog($row[ship_id],"$cur[quantity] $deftype were destroyed in sector $row[sector_id].");
+
+               }
+               else
+               {
+                  mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
+                  mysql_query("UPDATE sector_defence SET quantity=quantity - $qty");
+                  playerlog($cur[ship_id],"$qty $targetdeftype were destroyed in sector $row[sector_id].");
+                  playerlog($row[ship_id],"$qty $deftype were destroyed in sector $row[sector_id].");
+                  $qty = 0;
+               }
+            }
+            mysql_free_result($result2);
+         }
+      }      
+      mysql_free_result($result1);            
+   }
+}
 
 function calc_ownership($sector)
 
