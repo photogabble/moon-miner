@@ -12,7 +12,7 @@ if(checklogin())
   die();
 }
 //-------------------------------------------------------------------------------------------------
- mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ, planets WRITE");
+ mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ, planets WRITE, bn_news WRITE");
 $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
 
