@@ -402,7 +402,7 @@ if($playerinfo[sector] != 0)
    {
       $curcount=0;
       echo "<td align=center colspan=99 valign=top>
-      <table width=100% border=0>
+      <table width=100% border=1>
          <tr>";
       while($row = mysql_fetch_array($result4))
       {
@@ -416,9 +416,7 @@ if($playerinfo[sector] != 0)
            $success = 95;
          }
          $roll = rand(1, 100);
-         
 
-        
          if($roll < $success)
          {
             $shipavg = $row[hull] + $row[engines] + $row[computer] + $row[beams] + $row[torp_launchers] + $row[shields] + $row[armour];
@@ -471,6 +469,13 @@ if($playerinfo[sector] != 0)
            </table>
          </td>"; 
 }
+         if($result4 == 0 || $totalcount == 0)
+         {
+            echo "<tr><td align=center>";
+            echo "<br><font color=white size=2>None</font><br><br>";
+            echo "</td></tr>";
+         }
+
 }
 else
 {
