@@ -230,7 +230,26 @@ else
           //******************************
           echo "<HR>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00;\">Log Data For This Furangee</span><BR>";
-          if(file_exists("player-log/" . $row[ship_id])) include("player-log/" . $row[ship_id]);
+
+          $logres = mysql_query("SELECT * FROM logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");   
+          while($logrow = mysql_fetch_array($logres))
+          {
+            $logtype = "";
+            switch($logrow[2])
+            {
+              case LOG_FURANGEE_ATTACK:
+                $logtype = "Launching an attack on ";
+                break;
+              case LOG_ATTACK_LOSE:
+                $logtype = "We were attacked and lost against ";
+                break;
+              case LOG_ATTACK_WIN:
+                $logtype = "We were attacked and won against ";
+                break;
+            }
+            $logdatetime = substr($logrow[3], 4, 2) . "/" . substr($logrow[3], 6, 2) . "/" . substr($logrow[3], 0, 4) . " " . substr($logrow[3], 8, 2) . ":" . substr($logrow[3], 10, 2) . ":" . substr($logrow[3], 12, 2);
+            echo "$logdatetime $logtype$logrow[4] <BR>";
+          }
         }
         elseif($operation == "save")
         {
