@@ -151,5 +151,7 @@ $fullscan_cost = 1;
 $scan_error_factor=20;
 
 $max_planets_sector = 5;
-$max_traderoutes_player = 20;
+$max_traderoutes_player = 40;
+$min_bases_to_own = 3;
+
 ?>

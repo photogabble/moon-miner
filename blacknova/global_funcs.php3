@@ -221,7 +221,24 @@ function db_kill_player($ship_id)
   global $default_prod_torp;
 
   mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0 WHERE ship_id=$ship_id");
-  mysql_query("UPDATE planets SET owner=0 WHERE owner=$ship_id");
+
+  $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$ship_id AND base='Y'");
+  $i=0;
+  while($row = mysql_fetch_array($res))
+  {
+    $sectors[$i] = $row[sector_id];
+    $i++;
+  }
+
+  mysql_query("UPDATE planets SET owner=0, base='N' WHERE owner=$ship_id");
+
+  if(!empty($sectors))
+  {
+    foreach($sectors as $sector)
+    {
+      calc_ownership($sector);
+    }    
+  }
   mysql_query("DELETE FROM sector_defence where ship_id=$ship_id");
 }
 
@@ -388,6 +405,8 @@ function distribute_toll($sector, $toll, $total_fighters)
 
 function calc_ownership($sector)
 {
+  global $min_bases_to_own;
+  
   $res = mysql_query("SELECT owner, corp FROM planets WHERE sector_id=$sector AND base='Y'");  
   $num_bases = mysql_num_rows($res);
   
@@ -451,18 +470,21 @@ function calc_ownership($sector)
     
     if($curship == -1)
     {
-      $curship=$owner_num;
-      $owner_num++;
-      $owners[$curship][type] = 'S';
-      $owners[$curship][num] = 1;
-      $owners[$curship][id] = $curbase[owner];
+      if($curbase[owner] != 0)
+      {
+        $curship=$owner_num;
+        $owner_num++;
+        $owners[$curship][type] = 'S';
+        $owners[$curship][num] = 1;
+        $owners[$curship][id] = $curbase[owner];
+      }
     }
   }
 
   // We've got all the contenders with their bases.
   // Time to test for conflict
   
-  /* This is debug code
+  /* Debug code
   echo "Owners:<p>";
   foreach($owners as $owner)
   {
@@ -470,8 +492,8 @@ function calc_ownership($sector)
     echo "Bases : $owner[num]<br>";
     echo "Id : $owner[id]<br>";
   }
-     End of debug code  */
-  
+  */
+
   $loop=0;
   $nbcorps=0;
   $nbships=0;
@@ -521,6 +543,30 @@ function calc_ownership($sector)
     return "Zone is now a War Zone!";
   }
 
+  //Unallied ship, another ship in a corp, war
+  if($numunallied > 0)
+  {
+    $query = "SELECT team FROM ships WHERE (";
+    $i=0;
+    foreach($ships as $ship)
+    {
+      $query = $query . "ship_id=$ship";
+      $i++;
+      if($i!=$nbships)
+        $query = $query . " OR ";
+      else
+        $query = $query . ")";
+    }
+    $query = $query . " AND team!=0";
+    $res = mysql_query($query);
+    if(mysql_num_rows($res) != 0)
+    {
+      mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
+      return "Zone is now a War Zone!";
+    }
+  }
+
+
   //Ok, all bases are allied at this point. Let's make a winner.
   $winner = 0;
   $i = 1;
@@ -535,6 +581,13 @@ function calc_ownership($sector)
     }
     $i++;
   }
+  
+  if($owners[$winner][num] < $min_bases_to_own)
+  {
+    mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
+    return "Zone is a neutral zone.";
+  }
+
 
   if($owners[$winner][type] == 'C')
   {
