@@ -486,458 +486,231 @@ function kick_off_planet($ship_id,$whichteam)
 
 
 function calc_ownership($sector)
-
 {
-
   global $min_bases_to_own;
 
-
-
   $res = mysql_query("SELECT owner, corp FROM planets WHERE sector_id=$sector AND base='Y'");
-
   $num_bases = mysql_num_rows($res);
 
-
-
   $i=0;
-
   if($num_bases > 0)
-
   {
 
-    while($row = mysql_fetch_array($res))
-
+   while($row = mysql_fetch_array($res))
     {
-
       $bases[$i] = $row;
-
       $i++;
-
     }
-
     mysql_free_result($res);
-
   }
-
   else
-
     return "Sector ownership didn't change";
-
-
 
   $owner_num = 0;
 
-
-
   foreach($bases as $curbase)
-
   {
-
     $curcorp=-1;
-
     $curship=-1;
-
     $loop = 0;
-
     while ($loop < $owner_num)
-
     {
-
       if($curbase[corp] != 0)
-
       {
-
         if($owners[$loop][type] == 'C')
-
         {
-
           if($owners[$loop][id] == $curbase[corp])
-
           {
-
             $curcorp=$loop;
-
             $owners[$loop][num]++;
-
           }
-
         }
-
       }
-
-
 
       if($owners[$loop][type] == 'S')
-
       {
-
         if($owners[$loop][id] == $curbase[owner])
-
         {
-
           $curship=$loop;
-
           $owners[$loop][num]++;
-
         }
-
       }
-
-
 
       $loop++;
-
     }
-
-
 
     if($curcorp == -1)
-
     {
-
       if($curbase[corp] != 0)
-
       {
-
          $curcorp=$owner_num;
-
          $owner_num++;
-
          $owners[$curcorp][type] = 'C';
-
          $owners[$curcorp][num] = 1;
-
          $owners[$curcorp][id] = $curbase[corp];
-
       }
-
     }
-
-
 
     if($curship == -1)
-
     {
-
       if($curbase[owner] != 0)
-
       {
-
         $curship=$owner_num;
-
         $owner_num++;
-
         $owners[$curship][type] = 'S';
-
         $owners[$curship][num] = 1;
-
         $owners[$curship][id] = $curbase[owner];
-
       }
-
     }
-
   }
-
-
 
   // We've got all the contenders with their bases.
-
   // Time to test for conflict
 
-
-
   /* Debug code
-
   echo "Owners:<p>";
-
   foreach($owners as $owner)
-
   {
-
     echo "Type : $owner[type]<br>";
-
     echo "Bases : $owner[num]<br>";
-
     echo "Id : $owner[id]<br>";
-
   }
-
   */
 
-
-
   $loop=0;
-
   $nbcorps=0;
-
   $nbships=0;
-
   while($loop < $owner_num)
-
   {
-
     if($owners[$loop][type] == 'C')
-
       $nbcorps++;
-
     else
-
     {
-
       $res = mysql_query("SELECT team FROM ships WHERE ship_id=" . $owners[$loop][id]);
-
       if($res && mysql_num_rows($res) != 0)
-
       {
-
         $curship = mysql_fetch_array($res);
-
         $ships[$nbships]=$owners[$loop][id];
-
         $scorps[$nbships]=$curship[team];
-
         $nbships++;
-
       }
-
     }
-
-
 
     $loop++;
-
   }
-
-
 
   //More than one corp, war
-
   if($nbcorps > 1)
-
   {
-
     mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-
     return "Zone is now a War Zone!";
-
   }
-
-
 
   //More than one unallied ship, war
-
   $numunallied = 0;
-
   foreach($scorps as $corp)
-
   {
-
     if($corp == 0)
-
       $numunallied++;
-
   }
-
   if($numunallied > 1)
-
   {
-
     mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-
     return "Zone is now a War Zone!";
-
   }
-
-
 
   //Unallied ship, another corp present, war
-
   if($numunallied > 0 && $nbcorps > 0)
-
   {
-
     mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-
     return "Zone is now a War Zone!";
-
   }
-
-
 
   //Unallied ship, another ship in a corp, war
-
   if($numunallied > 0)
-
   {
-
     $query = "SELECT team FROM ships WHERE (";
-
     $i=0;
-
     foreach($ships as $ship)
-
     {
-
       $query = $query . "ship_id=$ship";
-
       $i++;
-
       if($i!=$nbships)
-
         $query = $query . " OR ";
-
       else
-
         $query = $query . ")";
-
     }
-
     $query = $query . " AND team!=0";
-
     $res = mysql_query($query);
-
     if(mysql_num_rows($res) != 0)
-
     {
-
       mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-
       return "Zone is now a War Zone!";
-
     }
-
   }
-
-
-
 
 
   //Ok, all bases are allied at this point. Let's make a winner.
-
   $winner = 0;
-
   $i = 1;
-
   while ($i < $owner_num)
-
   {
-
     if($owners[$i][num] > $owners[$winner][num])
-
       $winner = $i;
-
     elseif($owners[$i][num] == $owners[$winner][num])
-
     {
-
       if($owners[$i][type] == 'C')
-
         $winner = $i;
-
     }
-
     $i++;
-
   }
-
-
 
   if($owners[$winner][num] < $min_bases_to_own)
-
   {
-
     mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
-
     return "Zone is a neutral zone.";
-
   }
-
-
-
 
 
   if($owners[$winner][type] == 'C')
-
   {
-
     $res = mysql_query("SELECT zone_id FROM zones WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
-
     $zone = mysql_fetch_array($res);
 
-
-
     $res = mysql_query("SELECT team_name FROM teams WHERE id=" . $owners[$winner][id]);
-
     $corp = mysql_fetch_array($res);
 
-
-
     mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
-
     return "Zone now belongs to alliance $corp[team_name]!";
-
   }
-
   else
-
   {
-
     $onpar = 0;
-
     foreach($owners as $curowner)
-
     {
-
       if($curowner[type] == 'S' && $curowner[id] != $owners[$winner][id] && $curowner[num] == $owners[winners][num])
-
         $onpar = 1;
-
         break;
-
     }
-
-
 
     //Two allies have the same number of bases
-
     if($onpar == 1)
-
     {
-
       mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
-
       return "Zone is a neutral zone.";
-
     }
-
     else
-
     {
-
       $res = mysql_query("SELECT zone_id FROM zones WHERE corp_zone='N' && owner=" . $owners[$winner][id]);
-
       $zone = mysql_fetch_array($res);
 
-
-
       $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=" . $owners[$winner][id]);
-
       $ship = mysql_fetch_array($res);
 
-
-
       mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
-
       return "Zone now belongs to player $ship[character_name]!";
-
     }
-
   }
-
 }
-
-
-
 
 ?>

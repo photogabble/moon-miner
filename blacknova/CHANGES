@@ -1,5 +1,15 @@
+SharpBlue (13 November 2001)
+-------------------------------
+Sector ownership code now completely merged in. Players or teams can now
+own sectors and define their laws. Added an option in config.php3 to set
+a minimum number of required bases in a sector before a player can claim
+ownership
+
+Planet to planet traderoutes are also now implemented, along with various
+bug fixes to the traderoute code.
+
 Nospoon (13 November 2001)
---------------------------
+-------------------------------
 When leaving alliances, sector defences of the player will fight against 
 sector defences of the old alliance in the same sector.
 When leaving an alliance, any players other than the owner on the planet will

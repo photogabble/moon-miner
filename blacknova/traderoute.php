@@ -322,8 +322,6 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
   }
   else
   {
-    if($type2 == 'planet')
-      traderoute_die("You can't have both the source and destination be a planet.");
     if($dest[port_type] == 'special')
       traderoute_die("You can't sell commodities from a planet in a special port.");
   }
@@ -1015,7 +1013,6 @@ function traderoute_engage()
   if($traderoute[source_type] == 'P' && $source[port_type] == 'special' && $playerinfo[trade_colonists] == 'N' && $playerinfo[trade_fighters] == 'N' && $playerinfo[trade_torps] == 'N')
     traderoute_die("Your global settings are set to buy nothing! You would only waste turns doing this route!");
 
-  $trade_allowed = 1;
   if($traderoute[source_type] == 'P')
   {
     $res = mysql_query("SELECT * FROM zones,universe WHERE universe.sector_id=$traderoute[source_id] AND zones.zone_id=universe.zone_id");
@@ -1147,6 +1144,9 @@ function traderoute_engage()
       }
       else
         $torps_buy = 0;
+
+      if($torps_buy == 0 && $colonists_buy == 0 && $fighters_buy == 0)
+        echo "You're broke!<br>";
       
       if($traderoute[circuit] == '1')
         mysql_query("UPDATE ships SET ship_colonists=ship_colonists+$colonists_buy, ship_fighters=ship_fighters+$fighters_buy,torps=torps+$torps_buy, ship_energy=ship_energy+$dist[scooped1] WHERE ship_id=$playerinfo[ship_id]");
@@ -1289,53 +1289,114 @@ function traderoute_engage()
   {
     $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
 
-    //pick stuff up
-    if($playerinfo[ship_id] == $source[owner])
+    if($traderoute[dest_type] == 'P')
     {
-      if($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
+      //pick stuff up to sell at port
+      if($playerinfo[ship_id] == $source[owner])
       {
-        if($source[goods] > $free_holds)
-          $goods_buy = $free_holds;
+        if($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
+        {
+          if($source[goods] > $free_holds)
+            $goods_buy = $free_holds;
+          else
+            $goods_buy = $source[goods];
+          $free_holds -= $goods_buy;
+          $playerinfo[ship_goods] += $goods_buy;
+          echo "Loaded " . NUMBER($goods_buy) . " Goods<br>";
+        }
         else
-          $goods_buy = $source[goods];
-        $free_holds -= $goods_buy;
-        $playerinfo[ship_goods] += $goods_buy;
-        echo "Loaded " . NUMBER($goods_buy) . " Goods<br>";
-      }
-      else
-        $goods_buy = 0;
+          $goods_buy = 0;
 
-      if($source[ore] > 0 && $free_holds > 0 && $dest[port_type] != 'ore')
-      {
-        if($source[ore] > $free_holds)
-          $ore_buy = $free_holds;
+        if($source[ore] > 0 && $free_holds > 0 && $dest[port_type] != 'ore')
+        {
+          if($source[ore] > $free_holds)
+            $ore_buy = $free_holds;
+          else
+            $ore_buy = $source[ore];
+          $free_holds -= $ore_buy;
+          $playerinfo[ship_ore] += $ore_buy;
+          echo "Loaded " . NUMBER($ore_buy) . " Ore<br>";
+        }
         else
-          $ore_buy = $source[ore];
-        $free_holds -= $ore_buy;
-        $playerinfo[ship_ore] += $ore_buy;
-        echo "Loaded " . NUMBER($ore_buy) . " Ore<br>";
-      }
-      else
-        $ore_buy = 0;
+          $ore_buy = 0;
 
-      if($source[organics] > 0 && $free_holds > 0 && $dest[port_type] != 'organics')
-      {
-        if($source[organics] > $free_holds)
-          $organics_buy = $free_holds;
+        if($source[organics] > 0 && $free_holds > 0 && $dest[port_type] != 'organics')
+        {
+          if($source[organics] > $free_holds)
+            $organics_buy = $free_holds;
+          else
+            $organics_buy = $source[organics];
+          $free_holds -= $organics_buy;
+          $playerinfo[ship_organics] += $organics_buy;
+          echo "Loaded " . NUMBER($organics_buy) . " Organics<br>";
+        }
         else
-          $organics_buy = $source[organics];
-        $free_holds -= $organics_buy;
-        $playerinfo[ship_organics] += $organics_buy;
-        echo "Loaded " . NUMBER($organics_buy) . " Organics<br>";
+          $organics_buy = 0;
+
+        if($ore_buy == 0 && $goods_buy == 0 && $organics_buy == 0)
+          echo "Nothing to load<br>";
+
+        if($traderoute[circuit] == '1')
+          mysql_query("UPDATE ships SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics] WHERE ship_id=$playerinfo[ship_id]");
+
       }
-      else
-        $organics_buy = 0;
+      else  //buy from planet - not implemented yet
+      {
+      }
+
+      mysql_query("UPDATE planets SET ore=ore-$ore_buy, goods=goods-$goods_buy, organics=organics-$organics_buy WHERE planet_id=$source[planet_id]");
     }
-    else  //buy from planet
+    else //destination is a planet, so load cols and weapons
     {
-    }
+      if($source[colonists] > 0 && $free_holds > 0 && $playerinfo[trade_colonists] == 'Y')
+      {
+        if($source[colonists] > $free_holds)
+          $colonists_buy = $free_holds;
+        else
+          $colonists_buy = $source[colonists];
+        $free_holds -= $colonists_buy;
+        $playerinfo[ship_colonists] += $colonists_buy;
+        echo "Loaded " . NUMBER($colonists_buy) . " Colonists<br>";
+      }
+      else
+        $colonists_buy = 0;
+    
+      $free_torps = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
+      if($source[torps] > 0 && $free_torps > 0 && $playerinfo[trade_torps] == 'Y')
+      {
+        if($source[torps] > $free_torps)
+          $torps_buy = $free_torps;
+        else
+          $torps_buy = $source[torps];
+        $free_torps -= $torps_buy;
+        $playerinfo[torps] += $torps_buy;
+        echo "Loaded " . NUMBER($torps_buy) . " torps<br>";
+      }
+      else
+        $torps_buy = 0;
 
-    mysql_query("UPDATE planets SET ore=ore-$ore_buy, goods=goods-$goods_buy, organics=organics-$organics_buy WHERE planet_id=$source[planet_id]");
+      $free_fighters = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
+      if($source[fighters] > 0 && $free_fighters > 0 && $playerinfo[trade_fighters] == 'Y')
+      {
+        if($source[fighters] > $free_fighters)
+          $fighters_buy = $free_fighters;
+        else
+          $fighters_buy = $source[fighters];
+        $free_fighters -= $fighters_buy;
+        $playerinfo[ship_fighters] += $fighters_buy;
+        echo "Loaded " . NUMBER($fighters_buy) . " fighters<br>";
+      }
+      else
+        $fighters_buy = 0;
+
+      if($fighters_buy == 0 && $torps_buy == 0 && $colonists_buy == 0)
+        echo "Nothing to load<br>";
+
+      if($traderoute[circuit] == '1')
+        mysql_query("UPDATE ships SET torps=$playerinfo[torps], ship_fighters=$playerinfo[ship_fighters], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
+
+      mysql_query("UPDATE planets SET colonists=colonists-$colonists_buy, torps=torps-$torps_buy, fighters=fighters-$fighters_buy WHERE planet_id=$source[planet_id]");
+    }
   }
 
   if($dist[scooped1] != 0)
@@ -1490,6 +1551,10 @@ function traderoute_engage()
           $playerinfo[ship_energy] += $energy_buy; 
           $destcost -= $energy_buy * $energy_price1;
         }
+
+        if($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
+          echo "Nothing to trade<br>";
+
         mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
       if($dist[scooped2] > 0)
@@ -1502,6 +1567,13 @@ function traderoute_engage()
     }
     else //dest is planet
     {
+      if($traderoute[source_type] == 'L')
+      {
+        $colonists_buy=0;
+        $fighters_buy=0;
+        $torps_buy=0;
+      }
+      
       if($playerinfo[trade_colonists] == 'Y')
       {
         $colonists_buy += $playerinfo[ship_colonists];
@@ -1534,6 +1606,17 @@ function traderoute_engage()
 
       if($torps_buy != 0)
         echo "Dumped " . NUMBER($torps_buy) . " Torpedoes<br>";
+
+      if($torps_buy == 0 && $fighters_buy == 0 && $colonists_buy == 0 && $organics_buy == 0)
+        echo "Nothing to dump<br>";
+
+      if($traderoute[source_type] == 'L')
+      {
+        $col_dump = $playerinfo[ship_colonists];
+        $fight_dump = $playerinfo[ship_fighters];
+        $torps_dump = $playerinfo[torps];
+      }
+      
       mysql_query("UPDATE planets SET colonists=colonists+$colonists_buy, fighters=fighters+$fighters_buy, torps=torps+$torps_buy WHERE planet_id=$traderoute[dest_id]");
       mysql_query("UPDATE ships SET ship_colonists=ship_colonists-$col_dump, ship_fighters=ship_fighters-$fight_dump, torps=torps-$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
     }

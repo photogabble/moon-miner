@@ -204,42 +204,25 @@ switch ($teamwhat) {
 				mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
 				mysql_query("UPDATE ships SET team_invite=0 WHERE team_invite=$whichteam");
 
-
         $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
-
         $i=0;
-
         while($row = mysql_fetch_array($res))
-
         {
-
           $sectors[$i] = $row[sector_id];
-
           $i++;
-
         }
-
 				
-
         mysql_query("UPDATE planets SET corp=0 WHERE owner=$playerinfo[ship_id]");
-
         if(!empty($sectors))
-
         {
-
           foreach($sectors as $sector)
-
           {
-
             calc_ownership($sector);
-
           }
-
         }
         defence_vs_defence($playerinfo[ship_id]);
         kick_off_planet($playerinfo[ship_id],$whichteam);
  
-
         echo "You were the only member, thus <B>$team[team_name]</B> is no more.<BR><BR>";
 				playerlog($playerinfo[ship_id],"You have left the alliance <B>$team[team_name]</B>. It is no more.");
 			} else {
@@ -261,44 +244,26 @@ switch ($teamwhat) {
 					mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
 					mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whichteam");
 
-
           $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
-
           $i=0;
-
           while($row = mysql_fetch_array($res))
-
           {
-
             $sectors[$i] = $row[sector_id];
-
             $i++;
-
           }
-
 				
-
           mysql_query("UPDATE planets SET corp=0 WHERE owner=$playerinfo[ship_id]");
-
           if(!empty($sectors))
-
           {
-
             foreach($sectors as $sector)
-
             {
-
               calc_ownership($sector);
-
             }
-
           }
-
-
 
 					echo "You have left alliance <B>$team[team_name]</B>.<BR><BR>";
-        defence_vs_defence($playerinfo[ship_id]);
-        kick_off_planet($playerinfo[ship_id],$whichteam);
+          defence_vs_defence($playerinfo[ship_id]);
+          kick_off_planet($playerinfo[ship_id],$whichteam);
 
 				}
 			} 
@@ -310,40 +275,22 @@ switch ($teamwhat) {
 			mysql_query("UPDATE ships SET team=$newcreator WHERE team=$creator");
 			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,id=$newcreator WHERE id=$whichteam");
 
-
       $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
-
       $i=0;
-
       while($row = mysql_fetch_array($res))
-
       {
-
         $sectors[$i] = $row[sector_id];
-
         $i++;
-
       }
-
 				
-
       mysql_query("UPDATE planets SET corp=0 WHERE owner=$playerinfo[ship_id]");
-
       if(!empty($sectors))
-
       {
-
         foreach($sectors as $sector)
-
         {
-
           calc_ownership($sector);
-
         }
-
       }
-
-
 
 			playerlog($playerinfo[ship_id],"You have left alliance <B>$team[team_name]</B> relinquishing the functions of co-ordinator to $newcreatorname[character_name].");
 			playerlog($newcreator,"$newcreatorname[character_name] has left alliance <B>$team[team_name]</B> giving you the function of co-ordinator");

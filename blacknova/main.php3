@@ -611,7 +611,7 @@ Trade Routes
     $i++;
     $num_traderoutes++;
   }
-  $query = mysql_query("SELECT traderoute_id, dest_type, dest_id, source_type, name, sector_id FROM planets, traderoutes WHERE source_type='L' AND source_id=planets.planet_id AND planets.sector_id=$playerinfo[sector] AND traderoutes.owner=$playerinfo[ship_id]");
+  $query = mysql_query("SELECT * FROM planets, traderoutes WHERE source_type='L' AND source_id=planets.planet_id AND planets.sector_id=$playerinfo[sector] AND traderoutes.owner=$playerinfo[ship_id]");
   while($row = mysql_fetch_array($query))
   {
     $traderoutes[$i]=$row;
@@ -636,7 +636,10 @@ Trade Routes
         echo $traderoutes[$i][name] . "&nbsp;";
       }
 
-      echo "=&gt;&nbsp;";
+      if($traderoutes[$i][circuit] == '1')
+        echo "=&gt;&nbsp;";
+      else
+        echo "&lt;=&gt;&nbsp;";
 
       if($traderoutes[$i][dest_type] == 'P')
         echo $traderoutes[$i][dest_id];
