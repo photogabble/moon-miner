@@ -139,7 +139,7 @@ else
      }
      else
      {
-        $transfer_organics = $planetinfo['colonists'];
+        $transfer_colonists = $planetinfo['colonists'];
      }
 
   }
