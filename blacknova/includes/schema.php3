@@ -55,7 +55,7 @@ mysql_query("CREATE TABLE ships(" .
             "planet_torp_launchers tinyint(3) DEFAULT '0' NOT NULL," .
             "planet_cloak tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "credits bigint(20) DEFAULT '0' NOT NULL," .
-            "sector bigint(20) unsigned," .
+            "sector bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "ship_ore bigint(20) DEFAULT '0' NOT NULL," .
             "ship_organics bigint(20) DEFAULT '0' NOT NULL," .
             "ship_goods bigint(20) DEFAULT '0' NOT NULL," .
@@ -112,7 +112,7 @@ mysql_query("CREATE TABLE universe(" .
             "planet_colonists bigint(20) DEFAULT '0' NOT NULL," .
             "planet_credits bigint(20) DEFAULT '0' NOT NULL," .
             "planet_fighters bigint(20) DEFAULT '0' NOT NULL," .
-            "planet_owner bigint(20) unsigned," .
+            "planet_owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "planet_corp bigint(20) unsigned," .
             "base enum('Y','N') DEFAULT 'N' NOT NULL," .
             "base_sells enum('Y','N') DEFAULT 'N' NOT NULL," .
