@@ -1,48 +1,48 @@
 <? 
-	$title="Login"; 
-	include("header.php3");
-	include("config.php3");
-	echo "<CENTER>";
-	bigtitle();
-	echo "</CENTER>";
-?>
 
-<form action="login2.php3" method="post">
-<center>
-<BR><BR>If you get an error of "Can't connect to local MySQL" - it's because my hosting service's DB is down - again... sorry. :(<BR><BR>
-<table  width="" border="0" cellspacing="0" cellpadding="4">
-	<tr>
-		<td >
-			E-mail Address
-		</td>
-		<td >
-			<input type="text" name="email" size="20" maxlength="40" value="<? echo $username; ?>">
-		</td>
-	</tr>
+$title="Login"; 
 
-	<tr>
-		<td >
-			Password 
-		</td>
-		<td >
-			<input type="password" name="pass" size="20" maxlength="20" value="<? echo $password; ?>">
-		</td>
-	</tr>
+include("header.php3");
 
-</table>
-<br>
-<input type="submit" value="Submit"><input type="reset" value="Reset"><br><br>
+include("config.php3");
 
-If you are a new player - click <a href=new.php3>here</a>.<br>
-<BR>Problems?  <a href=mailto:<? echo "$admin_mail"; ?>>Email us.</a></center>
+echo "<CENTER>";
+bigtitle();
+echo "</CENTER>";
 
+echo "<CENTER>";
 
+echo "<FORM ACTION=\"login2.php3\" method=POST>";
+echo "<BR><BR>";
+echo "If you get a \"Can't connect to local MySQL\" error, it's because my hosting service's DB is down - again - sorry!.";
 
-</form><CENTER><a href=http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl target=_blank>Forums</a> - <a href=http://blacknova.net/ranking.php3>Rankings</a></CENTER><BR><BR>
+echo "<BR><BR>";
 
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=4>";
+echo "<TR>";
+echo "<TD>E-mail Address</TD>";
+echo "<TD><INPUT TYPE=TEXT NAME=\"email\" SIZE=20 MAXLENGTH=40 VALUE=\"$username\"></TD>";
+echo "</TR>";
+echo "<TR>";
+echo "<TD>Password</TD>";
+echo "<TD><INPUT TYPE=PASSWORD NAME=\"pass\" SIZE=20 MAXLENGTH=20 VALUE=\"$password\"></TD>";
+echo "</TR>";
+echo "</TABLE>";
 
-<? 
+echo "<BR>";
+echo "<INPUT TYPE=SUBMIT VALUE=\"Submit\"><INPUT TYPE=RESET VALUE=\"Reset\">";
+echo "<BR><BR>";
 
-	include("footer.php3");
+echo "If you are a new player, click <A HREF=new.php3>here</A>.<BR><BR>";
+echo "Problems? <A HREF=mailto:$admin_mail>E-mail us</A>";
+
+echo "</FORM>";
+
+echo "<A HREF=http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl TARGET=_blank>Forums</A> - <A HREF=ranking.php3>Rankings</A>";
+echo "<BR><BR>";
+
+echo "</CENTER>";
+
+include("footer.php3");
 
 ?>
