@@ -5,7 +5,8 @@ include("config.php3");
 
 updatecookie();
 
-$title=("Corporation Menu");
+include($gameroot . $default_lang);
+$title=$l_corpm_title;;
 include("header.php3");
 
 connectdb();
@@ -32,7 +33,7 @@ bigtitle();
 
 	if ($action == "planetcorp")
 	{
-		echo ("Planet is now a Corporate Planet!<BR>");
+		echo ("$l_corpm_tocorp<BR>");
 		$result = mysql_query("UPDATE planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
 
@@ -40,11 +41,11 @@ bigtitle();
 
         echo "<p>$ownership<p>";
 
-		
+
 	}
 	if ($action == "planetpersonal")
 	{
-		echo ("Planet is now a Personal Planet!<BR>");
+		echo ("$l_corpm_topersonal<BR>");
 		$result = mysql_query("UPDATE planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
 
@@ -57,7 +58,7 @@ TEXT_GOTOMAIN();
 }
 else
 {
-echo ("<BR>You intercept a garbled borg message on your scanner... you should probably start worrying...<BR>");
+echo ("<BR>$l_corpm_exploit<BR>");
 TEXT_GOTOMAIN();
 }
 

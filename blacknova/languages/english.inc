@@ -1104,4 +1104,46 @@ $l_chf_inputpay = "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=pay><B>Pay</B> 
 $l_chf_inputfight       = "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=fight><B>Fight</B> - you must defeat all the fighters to enter the sector.<BR></INPUT>";
 $l_chf_inputcloak       = "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=sneak><B>Cloak</B> - Use your cloaking device and try to avoid the fighters.<BR></INPUT>";
 $l_chf_go       = "Go";
+
+// mines.php
+
+$l_mines_title			="Deploy Sector Mines & Fighters";
+$l_mines_noturn		 	="You need at least one turn to deploy sector defences.";
+$l_mines_nopermit		="Deploying Mines and Fighters in this sector is not permitted.";
+$l_mines_nodeploy		="Can not deploy here. Another Ship or Alliance has mines or fighters in this sector.";
+$l_mines_info1			="You are presently in sector [sector]. There are [mines] mines and [fighters] fighters here.";
+$l_mines_info2			="You have [mines] mines and [fighters] fighters available to deploy";
+$l_mines_deploy			="Deploy";
+$l_mines_deployed		="Deployed";
+$l_mines_att			="Attack";
+$l_mines_toll			="Toll";
+$l_mines_notorps		="You do not have enough torpedos.";
+$l_mines_nofighters		="You do not have enough fighters";
+$l_mines_dmines			="Deployed [mines] mines.";
+$l_mines_dfighter		="Deployed [fighters] fighters in [mode] mode.";
+
+//alliance-planets.php
+
+$l_teamplanet_title		="Alliance Planet Report";
+$l_teamplanet_notally		="You aren't in an alliance.";
+$l_teamplanet_personal		="Show personal planets";
+$l_teamplanet_noplanet		="Your alliance has no planets";
+
+$l_feedback_title		="Send Feedback";
+$l_feedback_to			="TO:";
+$l_feedback_from		="FROM:";
+$l_feedback_topi		="SUBJECT:";
+$l_feedback_feedback		="Feedback";
+$l_feedback_message		="MESSAGE:";
+$l_feedback_messent		="Message Sent";
+$l_feedback_subj		="WTW Feedback";
+$l_feedback_info		="Please send feedback in english only"; // gameadmins put all your languages here
+
+// corp.php
+$l_corpm_title			="Corporation Menu";
+$l_corpm_tocorp			="Planet is now a Corporate Planet!";
+$l_corpm_topersonal		="Planet is now a Personal Planet!";
+$l_corpm_exploit		="You intercept a garbled borg message on your scanner... you should probably start worrying...";
+
+
 ?>

@@ -1,11 +1,10 @@
 <?
-
-
 include("config.php3");
 
 updatecookie();
 
-$title="Deploy Sector Mines & Fighters";
+include($gameroot . $default_lang);
+$title=$l_mines_title;
 include("header.php3");
 
 connectdb();
@@ -57,7 +56,7 @@ if($result3 > 0)
             {
                $set_attack = 'CHECKED';
                $set_toll = '';
-            } 
+            }
             else
             {
                $set_attack = '';
@@ -65,7 +64,7 @@ if($result3 > 0)
             }
 
          }
-         else   
+         else
             $mine_id = $defences[$i]['defence_id'];
 
       }
@@ -77,7 +76,7 @@ $num_defences = $i;
 bigtitle();
 if ($playerinfo[turns]<1)
 {
-	echo "You need at least one turn to deploy sector defences.<BR><BR>";
+	echo "$l_mines_noturn<BR><BR>";
 	TEXT_GOTOMAIN();
 	include("footer.php3");
 	die();
@@ -87,7 +86,7 @@ $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 if($zoneinfo[allow_defenses] == 'N')
 {
- echo "Deploying Mines and Fighters in this sector is not permitted.<BR><BR>";
+ echo "$l_mines_nopermit<BR><BR>";
 }
 else
 {
@@ -99,52 +98,57 @@ else
          $result2 = mysql_query("SELECT * from ships where ship_id=$defence_owner");
          $fighters_owner = mysql_fetch_array($result2);
          mysql_free_result($result2);
-     
-         if($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0) 
+
+         if($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0)
          {
-            echo "Can not deploy here. Another Ship or Alliance has mines or fighters in this sector.<BR>";
+            echo "$l_mines_nodeploy<BR>";
             TEXT_GOTOMAIN();
             die();
-            
+
          }
       }
    }
-   if($zoneinfo[allow_defenses] == 'L')    
+   if($zoneinfo[allow_defenses] == 'L')
    {
          $zone_owner = $zoneinfo['owner'];
          $result2 = mysql_query("SELECT * from ships where ship_id=$zone_owner");
          $zoneowner_info = mysql_fetch_array($result2);
          mysql_free_result($result2);
-     
+
          if($zone_owner <> $playerinfo[ship_id])
          {
-            if($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0) 
+            if($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
-               echo "Deploying Mines and Fighters in this sector is not permitted.<BR><BR>";
+               echo "$l_mines_nopermit<BR><BR>";
                TEXT_GOTOMAIN();
                die();
-            
+
             }
          }
    }
 
-   
+
    if(!isset($nummines) or !isset($numfighters) or !isset($mode))
    {
      $availmines = NUMBER($playerinfo[torps]);
      $availfighters = NUMBER($playerinfo[ship_fighters]);
      echo "<FORM ACTION=mines.php3 METHOD=POST>";
-     echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " mines and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
+     $l_mines_info1=str_replace("[sector]",$playerinfo[sector], $l_mines_info1);
+     $l_mines_info1=str_replace("[mines]",NUMBER($sectorinfo[mines]), $l_mines_info1);
+     $l_mines_info1=str_replace("[fighters]",NUMBER($sectorinfo[fighters]), $l_mines_info1);
+     echo "$l_mines_info1<BR><BR>";
+     $l_mines_info2=str_replace("[mines]",$availmines, $l_mines_info2);
+     $l_mines_info2=str_replace("[fighters]",$availfighters, $l_mines_info2);
      echo "You have $availmines mines and $availfighters fighters available to deploy.<BR>";
-     echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=0> mines.<BR>";
-     echo "Deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=0> fighters.<BR>";
-     echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>Attack</INPUT>";
-     echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>Toll</INPUT><BR>";
-     echo "<INPUT TYPE=SUBMIT VALUE=Deploy><BR><BR>";
+     echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=$availmines> $l_mines.<BR>";
+     echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=$availfighters> $l_fighters.<BR>";
+     echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_mines_att</INPUT>";
+     echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_mines_toll</INPUT><BR>";
+     echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset><BR><BR>";
      echo "<input type=hidden name=op value=$op>";
      echo "</FORM>";
   }
-  else 
+  else
   {
      if (empty($nummines)) $nummines = 0;
      if (empty($numfighters)) $numfighters = 0;
@@ -152,23 +156,26 @@ else
      if ($numfighters < 0) $numfighters =0;
      if ($nummines > $playerinfo[torps])
      {
-        echo "You do not have enough torpedos.<BR>";
+        echo "$l_mines_notorps<BR>";
         $nummines = 0;
      }
-     else 
-     { 
-        echo "Deployed $nummines mines.<BR>";
+     else
+     {
+      $l_mines_dmines=str_replace("[mines]",$nummines, $l_mines_dmines);
+        echo "$l_mines_dmines<BR>";
      }
      if ($numfighters > $playerinfo[ship_fighters])
      {
-        echo "You do not have enough fighters.<BR>";
+        echo "$l_mines_nofighters.<BR>";
         $numfighters = 0;
      }
-     else 
-     { 
-        echo "Deployed $numfighters fighters in $mode mode.<BR>";
+     else
+     {
+     $l_mines_dfighter=str_replace("[fighters]",$numfighters, $l_mines_dfighter);
+     $l_mines_dfighter=str_replace("[mode]",$mode, $l_mines_dfighter);
+        echo "$l_mines_dfighter<BR>";
      }
-      
+
      $stamp = date("Y-m-d H-i-s");
      if($numfighters > 0)
      {
@@ -178,7 +185,7 @@ else
         }
         else
         {
-           
+
            $update = mysql_query("INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
            echo mysql_error();
         }
@@ -192,12 +199,12 @@ else
         else
         {
            $update = mysql_query("INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
-           
+
         }
      }
-       
+
      $update = mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
- 
+
   }
 }
 

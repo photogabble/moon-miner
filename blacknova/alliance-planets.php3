@@ -1,9 +1,9 @@
 <?
-
 include("config.php3");
 updatecookie();
 
-$title="Alliance Planet Report";
+include($gameroot . $default_lang);
+$title=$l_teamplanet_title;
 include("header.php3");
 
 connectdb();
@@ -17,15 +17,15 @@ if(checklogin())
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
 
-if ($playerinfo[team]==0) 
+if ($playerinfo[team]==0)
 {
- echo "<BR>You aren't in an alliance.";
+ echo "<BR>$l_teamplanet_notally";
  echo "<BR><BR>";
  TEXT_GOTOMAIN();
 
  include("footer.php3");
 
- return; 
+ return;
 }
 
 
@@ -40,7 +40,7 @@ if(!empty($sort))
   {
     $query .= " $sort ASC";
   }
-  elseif($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" || 
+  elseif($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" ||
     $sort == "colonists" || $sort == "credits" || $sort == "fighters")
   {
     $query .= " $sort DESC";
@@ -57,11 +57,11 @@ if(!empty($sort))
 
 $res = mysql_query($query);
 
-bigtitle(); 
+bigtitle();
 
 
 echo "<BR>";
-echo "<B><A HREF=planet-report.php3>Show personal planets</A></B>";
+echo "<B><A HREF=planet-report.php3>$l_teamplanet_personal</A></B>";
 echo "<BR>";
 echo "<BR>";
 
@@ -80,24 +80,24 @@ mysql_free_result($res);
 $num_planets = $i;
 if($num_planets < 1)
 {
-  echo "<BR>Your alliance has no planets";
+  echo "<BR>$l_teamplanet_noplanet";
 }
 else
 {
-  echo "Click on column header to sort.<BR><BR>";
+  echo "$l_pr_clicktosort<BR><BR>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
   echo "<TR BGCOLOR=\"$color_header\">";
-  echo "<TD><B><A HREF=alliance-planets.php3>Sector</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=name>Name</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=ore>Ore</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=organics>Organics</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=goods>Goods</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=energy>Energy</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=colonists>Colonists</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=credits>Credits</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=fighters>Fighters</A></B></TD>";
-  echo "<TD><B><A HREF=alliance-planets.php3?sort=torp>Torpedoes</A></B></TD>";
-  echo "<TD><B>Base?</B></TD><TD><B>Selling?</B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3>$l_sector</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=name>$l_name</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=ore>$l_ore</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=organics>$l_organics</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=goods>$l_goods</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=energy>$l_energy</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=colonists>$l_colonists</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=credits>$l_credits</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=fighters>$l_fighters</A></B></TD>";
+  echo "<TD><B><A HREF=alliance-planets.php3?sort=torp>$l_torps</A></B></TD>";
+  echo "<TD><B>$l_base?</B></TD><TD><B>$l_selling?</B></TD>";
   echo "</TR>";
   $total_organics = 0;
   $total_ore = 0;
@@ -130,7 +130,7 @@ else
     }
     if(empty($planet[$i][name]))
     {
-      $planet[$i][name] = "Unnamed";
+      $planet[$i][name] = "$l_unnamed";
     }
     echo "<TR BGCOLOR=\"$color\">";
     echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
@@ -143,8 +143,8 @@ else
     echo "<TD>" . NUMBER($planet[$i][credits]) . "</TD>";
     echo "<TD>" . NUMBER($planet[$i][fighters]) . "</TD>";
     echo "<TD>" . NUMBER($planet[$i][torps]) . "</TD>";
-    echo "<TD>" . ($planet[$i][base] == 'Y' ? "Yes" : "No") . "</TD>";
-    echo "<TD>" . ($planet[$i][sells] == 'Y' ? "Yes" : "No") . "</TD>";
+    echo "<TD>" . ($planet[$i][base] == 'Y' ? "$l_yes" : "$l_no") . "</TD>";
+    echo "<TD>" . ($planet[$i][sells] == 'Y' ? "$l_yes" : "$l_no") . "</TD>";
     echo "</TR>";
 
     if($color == $color_line1)
@@ -158,7 +158,7 @@ else
   }
   echo "<TR BGCOLOR=\"$color\">";
   echo "<TD></TD>";
-  echo "<TD>Totals</TD>";
+  echo "<TD>$l_pr_totals</TD>";
   echo "<TD>" . NUMBER($total_ore) . "</TD>";
   echo "<TD>" . NUMBER($total_organics) . "</TD>";
   echo "<TD>" . NUMBER($total_goods) . "</TD>";
@@ -179,4 +179,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>
