@@ -1,3 +1,71 @@
+ratt (09 July 01)
+------------------
+Refixed the Traderoute bug.  Boy, was that a nasty one
+to track down.  It _SHOULD_ be working now - users should
+no longer be able to carrying 2x cargo capacity.
+
+Current plan is to finish off the combat code for the portions
+that are done right now.  Then to look into adding mines/fighter
+clouds, which will lead back to the combat code expansion and
+balancing.  I don't want to try to balance the combat code any
+more than it already is until the mines are in place, they will
+add quite a bit of effect to the entire combat system.  Look
+for a much more complex combat system soon, however, that will
+require users to actually balance out what type of position they 
+wish to take (Offensive/devensive/sneaky/subversive).
+
+First move on this will be a modification to EWD's - currently
+they make ship to ship combat non-existant.  Current thinking
+right now is to give them a chance of firing a certain % of the
+time during each phase of combat.  This will make hanging around
+less attractive than logging out on a planet.  With the new
+corporate planet options, it will be worth while to concentrate
+your corporations ships on a single planet and defend it.
+
+ratt (08 July 01)
+------------------
+Fixed a bug in corporate planets that killed the
+original owner of a planet, even if the original
+owner wasn't on that planet.
+
+Comitted current planetary combat code to SF.
+
+This patch is rather large, and includes 3 new files:
+
+1.  CHANGES file - will help in tracking what's changed 
+from patch to patch by the developers.
+
+2.  corp.php   ... this is for corporate planets.  It's 
+very simple right now, but will be expanded in the future 
+to include more options.
+
+3.  combat.php3  - this is the revised combat code.  It is 
+NOT finished, but it works (and shares a lot of code) with 
+the old combat system.  However, the big chang is the ability 
+to have more than one ship on a planet, and those ships to 
+defend the planet in concert.
+
+I further plan to modularize the combat code within combat.php3 
+to actually handle ALL combat in the game.  Once properly 
+modularized, it will allow the ability to leave fighter clouds 
+in sectors and will include provisioning for mines.
+
+If you encounter any bugs in the new combat system, please let 
+me know ASAP.  Preferably how to duplicate the bug.  I think I 
+stamped out most of them.   I am aware that cosmetically, the 
+combat system can be improved, and that's on my list of things to do.
+
+As before, if you have not created the field planet_corp in 
+your BN database, you need to.  Rebanging the universe will 
+do this for you, but I realize for some people, that is not 
+an option.  Just duplicate the field planet_owner into 
+planet_corp and you should be ok.
+
+If you were currently using the new corporate code, all your 
+players should go to thier planets and toggle the corporate 
+switch at least once to fix a potential bug in the previous 
+code.  New captured planets should not exhibit any more problems.
+
 ratt (06 July 01)
 ------------------
 Fixed a bug in traderoute.php3 that allowed you to have
@@ -7,8 +75,7 @@ Fixed a bug in the corporate planet scheme that allowed the
 original owner unfettered access to a planet after it was
 captured if it was set to corporate when it was captured.
 
-Fixed a bug in planetcombat.php3 that would result in
+Fixed a bug in combat.php3 that would result in
 negative fighters being left after a planetary attack,
 even if you only lost 1 fighters and had a ton of
 fighters left.
-
