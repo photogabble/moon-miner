@@ -429,7 +429,7 @@ function defence_vs_defence($ship_id)
          $result2 = mysql_query("SELECT * from sector_defence where sector_id = $row[sector_id] and ship_id <> $ship_id ORDER BY quantity DESC");
          if($result2 > 0)
          {
-            while($cur = mysql_fetch_array($result2) && $qty > 0)
+            while(($cur = mysql_fetch_array($result2)) && $qty > 0)
             {
                $targetdeftype = $cur[defence_type] == 'F' ? 'Fighters' : 'Mines';
                if($qty > $cur['quantity'])
@@ -444,7 +444,7 @@ function defence_vs_defence($ship_id)
                else
                {
                   mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
-                  mysql_query("UPDATE sector_defence SET quantity=quantity - $qty");
+                  mysql_query("UPDATE sector_defence SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
                   playerlog($cur[ship_id],"$qty $targetdeftype were destroyed in sector $row[sector_id].");
                   playerlog($row[ship_id],"$qty $deftype were destroyed in sector $row[sector_id].");
                   $qty = 0;
@@ -454,8 +454,36 @@ function defence_vs_defence($ship_id)
          }
       }      
       mysql_free_result($result1);            
+      mysql_query("DELETE FROM sector_defence WHERE quantity <= 0");
    }
 }
+
+function kick_off_planet($ship_id,$whichteam)
+{
+
+   $result1 = mysql_query("SELECT * from planets where owner = '$ship_id' ");
+
+   if($result1 > 0)
+   {
+      while($row = mysql_fetch_array($result1))
+      {
+
+         $result2 = mysql_query("SELECT * from ships where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
+         if($result2 > 0)
+         {
+            while($cur = mysql_fetch_array($result2) )
+            {
+               mysql_query("UPDATE ships SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
+               playerlog($cur[ship_id],"You were ejected from the planet in sector $cur[sector] because the owner $row[character_name] left the alliance.");
+            }
+            mysql_free_result($result2);
+         }
+      }      
+      mysql_free_result($result1);            
+
+   }
+}
+
 
 function calc_ownership($sector)
 

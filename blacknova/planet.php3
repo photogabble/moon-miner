@@ -107,16 +107,20 @@ if(!empty($planetinfo))
       { 
         echo "You have a base on this planet.<BR>";
       }
-     
-	if ($planetinfo[corp] == 0)
-	{
-		echo "You can also make this planet a <a href=corp.php?planet_id=$planet_id&action=planetcorp>Corporate Planet</a>.<BR>";
-	}
-	else
-	{
+      if ($playerinfo[ship_id] == $planetinfo[owner])
+      {
+        if ($playerinfo[team] <> 0)
+        {  
+	   if ($planetinfo[corp] == 0)
+           {
+	 	echo "You can also make this planet a <a href=corp.php?planet_id=$planet_id&action=planetcorp>Corporate Planet</a>.<BR>";
+	   }
+	   else
+	   {
 		echo "You can also make this planet a <a href=corp.php?planet_id=$planet_id&action=planetpersonal>Personal Planet</a>.<BR>";
-	}
- 
+	   }
+         }
+      }
       /* change production rates */
       echo "<FORM ACTION=planet.php3?planet_id=$planet_id METHOD=POST>";
       echo "<INPUT TYPE=HIDDEN NAME=command VALUE=productions><BR>";

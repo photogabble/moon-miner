@@ -236,8 +236,9 @@ switch ($teamwhat) {
           }
 
         }
-
-        
+        defence_vs_defence($playerinfo[ship_id]);
+        kick_off_planet($playerinfo[ship_id],$whichteam);
+ 
 
         echo "You were the only member, thus <B>$team[team_name]</B> is no more.<BR><BR>";
 				playerlog($playerinfo[ship_id],"You have left the alliance <B>$team[team_name]</B>. It is no more.");
@@ -296,6 +297,9 @@ switch ($teamwhat) {
 
 
 					echo "You have left alliance <B>$team[team_name]</B>.<BR><BR>";
+        defence_vs_defence($playerinfo[ship_id]);
+        kick_off_planet($playerinfo[ship_id],$whichteam);
+
 				}
 			} 
 		} elseif ($confirmleave == 2) { // owner of a team is leaving and set a new owner
