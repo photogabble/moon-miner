@@ -31,12 +31,19 @@
            {
               echo "You lost all your mine deflectors.<BR>";
               $mines_left = $roll - $playerinfo[dev_minedeflector];
-              if($playerinfo[shields] >= $mines_left)
+              $playershields = NUM_SHIELDS($playerinfo[shields]);
+              if($playershields > $playerinfo[ship_energy]) 
+              { 
+                 $playershields=$playerinfo[ship_energy]; 
+              } 
+
+
+              if($playershields >= $mines_left)
               {
                  echo "Your shields are hit for $mines_left damage.<BR>";
-                 $result2 = mysql_query("UPDATE ships set shields=shields-$mines_left,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
+                 $result2 = mysql_query("UPDATE ships set ship_energy=ship_energy-$mines_left, dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
                  $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
-                 if($playerinfo[shields] == $mines_left) echo "Your shields are down!<BR>";
+                 if($playershields == $mines_left) echo "Your shields are down!<BR>";
               }
               else
               {
@@ -45,7 +52,7 @@
                  if($playerinfo[armour_pts] >= $mines_left)
                  {
                     echo "Your armour is hit for $mines_left damage.<BR>";
-                    $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left,shields=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
+                    $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left,ship_energy=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
                     $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                     if($playerinfo[armour_pts] == $mines_left) echo "Your hull is breached!<BR>";
                  }
