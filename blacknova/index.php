@@ -1,13 +1,13 @@
 <? 
-  include("config.php3");
+  include("config.php");
 
 	$title="Login"; 
   $no_body=1;
-	include("header.php3");
+	include("header.php");
   if(empty($lang))
     $lang = $default_lang;
   include_once($gameroot . "/languages/$lang");
-//  include("config.php3");
+//  include("config.php");
 ?>
 
 <script language="JavaScript">
@@ -55,7 +55,7 @@ function MM_swapImage() { //v3.0
     <td><img src="images/spacer.gif" width="1" height="21" border="0" name="undefined_2"></td>
   </tr>
   <tr>
-    <td colspan=3 align=center><a href=<? echo "login.php3"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
+    <td colspan=3 align=center><a href=<? echo "login.php"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
     <td><img src="images/spacer.gif" width="1" height="58" border="0" name="undefined_2"></td>
   </tr>
   <tr>
@@ -67,5 +67,5 @@ function MM_swapImage() { //v3.0
   </tr>
   </table>
 <?
-	include("footer.php3");
+	include("footer.php");
 ?>
