@@ -52,7 +52,7 @@ if($result3 > 0)
 }
 $num_links=$i;
 
-$result4 = mysql_query("SELECT zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
+$result4 = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
 $zoneinfo = mysql_fetch_array($result4);
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
@@ -61,7 +61,7 @@ if($sectorinfo[sector_name] != "")
 {
   echo " ($sectorinfo[sector_name])";
 }
-echo "</TD><TD><B>$zoneinfo[zone_name]</B></TD></TR>";
+echo "</TD><TD><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
 echo "<TR BGCOLOR=\"LIGHTGREY\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD></TR>";
 echo "</TABLE><BR>";
 
