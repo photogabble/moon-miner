@@ -578,7 +578,7 @@ if($command != "")
 }
 if($allow_ibank)
 {
-  echo "<BR>$l_ifyouneedplan <A HREF=\"ibank.php3?planet_id=$planet_id\">$l_igb_term</A>.<BR><BR>";
+  echo "<BR>$l_ifyouneedplan <A HREF=\"IGB.php?planet_id=$planet_id\">$l_igb_term</A>.<BR><BR>";
 }
 
 //-------------------------------------------------------------------------------------------------

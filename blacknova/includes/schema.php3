@@ -191,13 +191,10 @@ echo "created.<BR>";
 
 echo "Creating table: ibank_accounts...";
 mysql_query("CREATE TABLE ibank_accounts(" .
-            "id bigint(20) DEFAULT '0' NOT NULL," .
-            "ballance bigint(20) DEFAULT '0'," .
+            "ship_id bigint(20) DEFAULT '0' NOT NULL," .
+            "balance bigint(20) DEFAULT '0'," .
             "loan bigint(20)  DEFAULT '0'," .
-            "ibank_shareholder int(11) DEFAULT '0' NOT NULL," .
-            "ibank_employee int(1) DEFAULT '0' NOT NULL," .
-            "ibank_owner int(1) DEFAULT '0' NOT NULL," .
-            "PRIMARY KEY(id)" .
+            "PRIMARY KEY(ship_id)" .
             ")");
 echo "created.<BR>";
 

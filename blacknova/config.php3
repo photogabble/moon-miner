@@ -46,7 +46,7 @@ $newbie_cloak = "8";
 /* specify which special features are allowed */
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer
-$allow_ibank = false;                  // Intergalactic Bank (IGB)
+$allow_ibank = true;                  // Intergalactic Bank (IGB)
 $allow_genesis_destroy = true;         // Genesis torps can destroy planets
 
 // iBank Config - Intergalactic Banking
@@ -156,7 +156,7 @@ $max_traderoutes_player = 40;
 
 $min_bases_to_own = 3;
 
-$default_lang = '/languages/french.inc';
+$default_lang = '/languages/english.inc';
 
 $avail_lang[0][file] = '/languages/english.inc';
 $avail_lang[0][name] = 'English';

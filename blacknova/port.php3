@@ -293,7 +293,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "$l_creds_to_spend<BR>";
   if($allow_ibank)
   {
-    $igblink = "<A HREF=ibank.php3>$l_igb_term</a>";
+    $igblink = "<A HREF=IGB.php>$l_igb_term</a>";
     $l_ifyouneedmore=str_replace("[igb]",$igblink,$l_ifyouneedmore);
 
     echo "$l_ifyouneedmore<BR>";

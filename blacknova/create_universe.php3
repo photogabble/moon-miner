@@ -243,13 +243,12 @@ elseif($swordfish==$adminpass && $engage=="2")
     {
        $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");
        $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($sectors[$i],$i)");
+       $update = mysql_query("INSERT INTO ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
     }
     echo "$i<=>$sectors[$i] - ";
   }
   echo "done.<BR>";
   
-  echo "Creating iBank default account...<BR>";
-  mysql_query("INSERT INTO ibank_accounts (id,ballance,loan,ibank_shareholder,ibank_employee,ibank_owner) VALUES ($ibank_owner,1000000000000000,0,100,1,1);");
   
   $password = substr($admin_mail, 0, $maxlen_password);
   echo "Creating default $admin_mail login, password: $password<BR>";

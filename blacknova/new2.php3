@@ -65,6 +65,7 @@ if ($flag==0)
     mail("$username", "Traders Password", "Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: $makepass\n\nThank you\n\nThe Traders web team.\n\nhttp://$SERVER_NAME","From: $admin_mail\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
     
     mysql_query("INSERT INTO zones VALUES('','$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+    mysql_query("INSERT INTO ibank_accounts VALUES($shipid[ship_id],0,0)");
     
     echo "Password has been sent to $username.<BR><BR>";
     echo "Click <A HREF=login.php3>here</A> to go to the login screen.";
