@@ -79,6 +79,16 @@ else
   echo "Failed to update user interface setting.<BR><BR>";
 }
 
+$res = mysql_query("UPDATE ships SET lang='$lang' WHERE email='$username'");
+foreach($avail_lang as $curlang)
+{
+  if($lang == $curlang[file])
+  {
+    echo "Language has been set to $curlang[name].<p>";
+    break;
+  }
+}
+
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 

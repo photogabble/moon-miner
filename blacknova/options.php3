@@ -49,6 +49,24 @@ $intrf = ($playerinfo['interface'] == 'N') ? "CHECKED" : "";
 echo "<TR BGCOLOR=\"$color_line1\">";
 echo "<TD>Use new layout?</TD><TD><INPUT TYPE=CHECKBOX NAME=intrf VALUE=N $intrf></INPUT></TD>";
 echo "</TR>";
+echo "<TR BGCOLOR=\"$color_header\">";
+echo "<TD COLSPAN=2><B>Language</B></TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line1\">";
+echo "<TD>Select one :</TD><TD><select NAME=lang>";
+
+foreach($avail_lang as $curlang)
+{
+  if($curlang['file'] == $playerinfo[lang])
+    $selected = "selected";
+  else
+    $selected = "";
+
+  echo "<option value=$curlang[file] $selected>$curlang[name]</option>";
+}
+
+echo "</select></td>";
+echo "</TR>";
 echo "</TABLE>";
 echo "<BR>";
 echo "<INPUT TYPE=SUBMIT value=Save>";
