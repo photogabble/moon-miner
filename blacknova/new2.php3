@@ -46,7 +46,8 @@ if ($flag==0)
   } else {
     mail("$username", "Traders Password", "Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: $makepass\n\nThank you\n\nThe Traders web team.\n\nhttp://$SERVER_NAME","From: $admin_mail\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
     
-    echo "Password has been sent to $username.  Click <a href=login.php3>here</a> to go to the login screen.";
+    echo "Password has been sent to $username.<BR><BR>";
+    echo "Click <A HREF=login.php3>here</A> to go to the login screen.";
     
   }
 } else {
