@@ -1,3 +1,10 @@
+nospoon (12 September 2001)
+---------------------------
+
+Merged in the in game messaging system by Blindcoder.
+Fixed problem with planet_owner being set to null as default.
+
+
 nospoon (11 September 2001)
 ---------------------------
 
