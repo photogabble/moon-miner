@@ -47,6 +47,13 @@ if($result3 == 0)
    die();
 }
 $defenceinfo = mysql_fetch_array($result3);
+if($defenceinfo['sector_id'] <> $playerinfo['sector_id'])
+{
+   echo "$l_md_nothere<BR><BR>";
+   TEXT_GOTOMAIN();
+   include("footer.php3");
+   die();
+}
 if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
 {
    $defence_owner = $l_md_you;
@@ -74,6 +81,13 @@ else
 switch($response) {
    case "fight":
       bigtitle();
+      if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
+      {
+         echo "$l_md_yours<BR><BR>";
+         TEXT_GOTOMAIN();
+         include("footer.php3");
+         die();
+      }
       $sector = $playerinfo[sector] ;
       if($defenceinfo['defence_type'] == 'F')
       {
@@ -110,6 +124,13 @@ switch($response) {
       }
       break;
    case "retrieve":
+      if($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
+      {
+         echo "$l_md_notyours<BR><BR>";
+         TEXT_GOTOMAIN();
+         include("footer.php3");
+         die();
+      }
       if($quantity < 0) $quantity = 0;
       if($quantity > $defenceinfo['quantity'])
       {
@@ -155,6 +176,13 @@ switch($response) {
       break;
    case "change":
       bigtitle();
+      if($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
+      {
+         echo "$l_md_notyours<BR><BR>";
+         TEXT_GOTOMAIN();
+         include("footer.php3");
+         die();
+      }
       mysql_query("UPDATE sector_defence SET fm_setting = '$mode' where defence_id = $defence_id");
       $stamp = date("Y-m-d H-i-s");
       mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");

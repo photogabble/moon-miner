@@ -547,6 +547,9 @@ $l_md_attack		 = "Attack";
 $l_md_toll		 = "Toll";
 $l_md_attdef		 = "Attack the Sector Defences. All sector fighters will retaliate.";
 $l_md_noturn	  	 = "You need at least one turn.";
+$l_md_nothere            = "You need to be in the same sector as the sector defences.";
+$l_md_notyours           = "Action not permitted. Those sector defences do not belong to you.";
+$l_md_yours              = "You can not attack your own sector defences.";
 
 // news.php
 
