@@ -160,6 +160,9 @@ else
   }
   else
   {
+    echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+    echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $destination: $finish[port_type]</B></TD></TR>";
+    echo "</TABLE><BR>";
     /* deduct turns, gain energy (w/ fuelscoop) for each leg, trade goods, gain credits */
     if($finish[port_type] == "energy")
     {
@@ -195,10 +198,9 @@ else
         $t1_value = $t1_value + $energy_pricet1 * $energy_t1;
         $energy_t1 = 0;
       }
-      echo "Sold at $destination:<BR><BR>";
-      echo NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
-      echo NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
-      echo NUMBER($goods_t1) . " goods at $goods_pricet1<BR><BR>";
+      echo "Sold " . NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
+      echo "Sold " . NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
+      echo "Sold " . NUMBER($goods_t1) . " goods at $goods_pricet1<BR><BR>";
       echo "Bought " . NUMBER($energy_t1) . " units of energy at $energy_pricet1.<BR><BR>";
       echo "Total profit:  " . NUMBER($t1_value) . " credits<BR><BR>";
       $energy_t1 = -$energy_t1;
@@ -237,10 +239,9 @@ else
         $t1_value = $t1_value + $goods_pricet1 * $goods_t1;
         $goods_t1 = 0;
       }
-      echo "Sold at $destination:<BR><BR>";
-      echo NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
-      echo NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
-      echo NUMBER($energy_t1) . " energy at $energy_pricet1<BR><BR>";
+      echo "Sold " . NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
+      echo "Sold " . NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
+      echo "Sold " . NUMBER($energy_t1) . " energy at $energy_pricet1<BR><BR>";
       echo "Bought " . NUMBER($goods_t1) . " units of goods at $goods_pricet1.<BR><BR>";
       echo "Total profit:  " . NUMBER($t1_value) . " credits<BR><BR>";
       $goods_t1 = -$goods_t1;
@@ -279,10 +280,9 @@ else
         $t1_value = $t1_value + $ore_pricet1 * $ore_t1;
         $ore_t1 = 0;
       }
-      echo "Sold at $destination:<BR><BR>";
-      echo NUMBER($energy_t1) . " energy at $energy_pricet1<BR>";
-      echo NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
-      echo NUMBER($goods_t1) . " goods at $goods_pricet1<BR><BR>";
+      echo "Sold " . NUMBER($energy_t1) . " energy at $energy_pricet1<BR>";
+      echo "Sold " . NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
+      echo "Sold " . NUMBER($goods_t1) . " goods at $goods_pricet1<BR><BR>";
       echo "Bought " . NUMBER($ore_t1) . " units of ore at $ore_pricet1.<BR><BR>";
       echo "Total profit:  " . NUMBER($t1_value) . " credits<BR><BR>";
       $ore_t1 = -$ore_t1;
@@ -321,10 +321,9 @@ else
         $t1_value = $t1_value + $organics_pricet1 * $organics_t1;
         $energy_t1 = 0;
       }
-      echo "Sold at $destination:<BR><BR>";
-      echo NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
-      echo NUMBER($energy_t1) . " energy at $energy_pricet1<BR>";
-      echo NUMBER($goods_t1) . " goods at $goods_pricet1<BR><BR>";
+      echo "Sold " . NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
+      echo "Sold " . NUMBER($energy_t1) . " energy at $energy_pricet1<BR>";
+      echo "Sold " . NUMBER($goods_t1) . " goods at $goods_pricet1<BR><BR>";
       echo "Bought " . NUMBER($organics_t1) . " units of organics at $organics_pricet1.<BR><BR>";
       echo "Total profit:  " . NUMBER($t1_value) . " credits<BR><BR>";
       $organics_t1 = -$organics_t1;
@@ -337,6 +336,9 @@ else
     $update2 = mysql_query("UPDATE universe SET port_ore=port_ore-$ore_t1, port_organics=port_organics-$organics_t1, port_goods=port_goods-$goods_t1, port_energy=port_energy-$energy_t1 WHERE sector_id=$destination");
     $result4 = mysql_query("SELECT * FROM ships WHERE ship_id=$playerinfo[ship_id]");
     $playerinfo = mysql_fetch_array($result4);
+    echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+    echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $playerinfo[sector]: $start[port_type]</B></TD></TR>";
+    echo "</TABLE><BR>";
     if($start[port_type] == "energy")
     {
       $goods_t2 = $playerinfo[ship_goods];
@@ -371,10 +373,9 @@ else
         $t2_value = $t2_value + $energy_pricet2 * $energy_t2;
         $energy_t2 = 0;
       }
-      echo "Sold at $playerinfo[sector]:<BR><BR>";
-      echo NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
-      echo NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
-      echo NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
+      echo "Sold " . NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
+      echo "Sold " . NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
+      echo "Sold " . NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
       echo "Bought " . NUMBER($energy_t2) . " units of energy at $energy_pricet2.<BR><BR>";
       echo "Total profit:  " . NUMBER($t2_value) . " credits<BR><BR>";
       $energy_t2 = -$energy_t2;
@@ -413,10 +414,9 @@ else
         $t2_value = $t2_value + $goods_pricet2 * $goods_t2;
         $goods_t2 = 0;
       }
-      echo "Sold at $playerinfo[sector]:<BR><BR>";
-      echo NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
-      echo NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
-      echo NUMBER($energy_t2) . " energy at $energy_pricet2<BR><BR>";
+      echo "Sold " . NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
+      echo "Sold " . NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
+      echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR><BR>";
       echo "Bought " . NUMBER($goods_t2) . " units of goods at $goods_pricet2.<BR><BR>";
       echo "Total profit:  " . NUMBER($t2_value) . " credits<BR><BR>";
       $goods_t2 = -$goods_t2;
@@ -455,10 +455,9 @@ else
         $t2_value = $t2_value + $ore_pricet2 * $ore_t2;
         $ore_t2 = 0;
       }
-      echo "Sold at $playerinfo[sector]:<BR><BR>";
-      echo NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
-      echo NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
-      echo NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
+      echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
+      echo "Sold " . NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
+      echo "Sold " . NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
       echo "Bought " . NUMBER($ore_t2) . " units of ore at $ore_pricet2.<BR><BR>";
       echo "Total profit:  " . NUMBER($t2_value) . " credits<BR><BR>";
       $ore_t2 = -$ore_t2;
@@ -497,14 +496,16 @@ else
         $t2_value = $t2_value + $organics_pricet2 * $organics_t2;
         $energy_t2 = 0;
       }
-      echo "Sold at $playerinfo[sector]:<BR><BR>";
-      echo NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
-      echo NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
-      echo NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
-      echo "Bought " . NUMBER($organics_t2) . " units of organics $organics_pricet2.<BR><BR>";
+      echo "Sold " . NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
+      echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
+      echo "Sold " . NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
+      echo "Bought " . NUMBER($organics_t2) . " units of organics at $organics_pricet2.<BR><BR>";
       echo "Total profit:  " . NUMBER($t2_value) . " credits<BR><BR>";
       $organics_t2 = -$organics_t2;
     }
+    echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+    echo "<TR BGCOLOR=\"$color_header\"><TD><B>Trading summary</B></TD></TR>";
+    echo "</TABLE><BR>";
     $update3 = mysql_query("UPDATE ships SET turns=turns-$triptime, turns_used=turns_used+$triptime, ship_ore=ship_ore-$ore_t2, ship_organics=ship_organics-$organics_t2, ship_goods=ship_goods-$goods_t2, ship_energy=ship_energy-$energy_t2+$energyscooped, credits=credits+$t2_value WHERE ship_id=$playerinfo[ship_id]");
     $ore_t2 = abs($ore_t2);
     $organics_t2 = abs($ore_t2);
