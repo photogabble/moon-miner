@@ -28,6 +28,7 @@ if($playerinfo[turns] < 1)
   include("footer.php3");   
   die();
 }
+
 if($sectorinfo[planet] == "Y")
 {
   echo "There is already a planet in this sector. -  $sector_info[planet]<BR><BR>";
@@ -35,7 +36,11 @@ if($sectorinfo[planet] == "Y")
 elseif($playerinfo[dev_genesis] < 1)
 {
   echo "You do not have any genesis devices.<BR><BR>";
+  echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+  include("footer.php3");   
+  die();  
 }
+
 else
 {
   $res = mysql_query("SELECT allow_planet FROM zones WHERE zone_id='$sectorinfo[zone_id]'");
