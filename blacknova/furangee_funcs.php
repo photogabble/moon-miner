@@ -38,6 +38,17 @@ function furangeetoship($ship_id)
   $targetinfo=mysql_fetch_array($resultt);
 
   // *********************************
+  // *** USE EMERGENCY WARP DEVICE ***
+  // *********************************
+  if ($targetinfo[dev_emerwarp]>0)
+  {
+    playerlog($targetinfo[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
+    $dest_sector=rand(0,$sector_max);
+    $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
+    return;
+  }
+
+  // *********************************
   // *** SETUP ATTACKER VARIABLES ****
   // *********************************
   $attackerbeams = NUM_BEAMS($playerinfo[beams]);
