@@ -1289,4 +1289,7 @@ $l_mines_fmode			="Fighter mode";
 // used by lrscan
 $l_link			 = "Links";
 
+
+// used by warpedit
+$l_warp_cantsame = "You can't create a link when the source is the same as the destination.";
 ?>

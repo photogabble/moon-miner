@@ -364,6 +364,7 @@ $l_warp_ctwoway		 = "Warptor wurde erstellt von und nach ";
 $l_warp_forbidtwo	 = "Zerst&ouml;ren eines Warptors von und nach Sektor [target_sector] ist nicht möglich.";
 $l_warp_removed		 = "Warptor zerst&ouml;rt zu Sektor ";
 $l_warp_removedtwo	 = "Warptor zerst&ouml;rt von und nach Sektor";
+$l_warp_cantsame 	 = "Du kannst kein Tor bauen wenn Quelle und Ziel gleich sind.";
 
 // genesis.php
 

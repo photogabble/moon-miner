@@ -20,6 +20,35 @@ if(checklogin())
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
+// fix negative quantities, i guess theres a better way to do but i'm in a hurry
+// i dont know how the quantities acutally get negative ...
+
+if ($playerinfo[ship_ore]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_ore=0 WHERE email='$username'");
+        $playerinfo[ship_ore] = 0;
+        }
+
+if ($playerinfo[ship_organics]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_organics=0 WHERE email='$username'");
+        $playerinfo[ship_organics] = 0;
+        }
+
+if ($playerinfo[ship_energy]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_energy=0 WHERE email='$username'");
+        $playerinfo[ship_energy] = 0;
+        }
+
+if ($playerinfo[ship_goods]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_goods=0 WHERE email='$username'");
+        $playerinfo[ship_goods] = 0;
+        }
+
+
+
 $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo = $res->fields;
 
