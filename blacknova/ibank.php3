@@ -390,7 +390,7 @@ function ibank_display_ownaccount()
 
 function ibank_display_transfers()
 {
-  global $username,$playerinfo,$account,$payto,$amount,$confirmed,$ibank_paymentfee,$direction,$account;
+  global $username,$playerinfo,$account,$payto,$amount,$confirmed,$ibank_paymentfee,$direction;
   if(!isset($payto)) {
     $lresult = mysql_query ("SELECT * from universe WHERE planet_owner=$playerinfo[ship_id] ORDER BY planet_name ASC");
   } else {
