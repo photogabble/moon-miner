@@ -382,6 +382,15 @@ else
     echo "<br><font color=white>There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!</font><br><br>";
     echo "</td>";
 }
+if($sectorinfo[fm_owner] == $playerinfo[ship_id] ) 
+{
+  if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
+  {
+     echo "<td align=center valign=top>";
+     echo "<br><font color=white>You have $sectorinfo[mines] mines and $sectorinfo[fighters] fighters in this sector.</font><br>";
+     echo "</td>";
+  }
+} 
 ?>
 
 </tr>
