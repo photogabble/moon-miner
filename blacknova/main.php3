@@ -160,6 +160,12 @@ Commands
 <div class=mnu>
 &nbsp;<a class=mnu href="help.php3">Help</a>&nbsp;<br>
 &nbsp;<a class=mnu href="feedback.php3">Feedback</a>&nbsp;<br>
+<?
+if(!empty($link_forums))
+{
+    echo "&nbsp;<a class=mnu href=$link_forums TARGET=\'_blank\'>Forums</a>&nbsp;<br>";
+}
+?>
 </div>
 </td></tr>
 <tr><td nowrap>
