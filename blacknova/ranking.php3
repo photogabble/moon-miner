@@ -11,7 +11,7 @@ include("header.php3");
 connectdb();
 bigtitle();
 
-$res = mysql_query("SELECT score,character_name,turns_used,last_login FROM ships WHERE ship_destroyed='N' ORDER BY score DESC LIMIT $max_rank");
+$res = mysql_query("SELECT score,character_name,turns_used,last_login FROM ships WHERE ship_destroyed='N' ORDER BY score DESC,character_name ASC LIMIT $max_rank");
 if(!mysql_num_rows($res))
 {
   echo "No Results to show.<BR>";
