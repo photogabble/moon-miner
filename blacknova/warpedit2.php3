@@ -13,6 +13,33 @@ if(checklogin())
   die();
 }
 
+if($playerinfo[turns] < 1)
+{
+  echo "You need at least one turn to use a warp editor.<BR><BR>";
+  TEXT_GOTOMAIN();
+  include("footer.php3");
+  die();
+}
+
+if($playerinfo[dev_warpedit] < 1)
+{
+  echo "You do not have any warp editors.<BR><BR>";
+  TEXT_GOTOMAIN();
+  include("footer.php3");
+  die();
+}
+
+$res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
+HERE sector_id=$playerinfo[sector] AND universe.zone_id=zones.zone_id");
+$zoneinfo = mysql_fetch_array($res);
+if($zoneinfo[allow_warpedit] == 'N')
+{
+  echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
+  TEXT_GOTOMAIN();
+  include("footer.php3");
+  die();
+}
+
 $target_sector=round($target_sector);
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
