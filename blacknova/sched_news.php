@@ -23,10 +23,10 @@ while (!$sql->EOF)
    						 if (!$sql2->EOF) {
    						 				$planetcount = 50;
    						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-                          $headline = $l_news_p_headline . $planetcount . $l_news_planets;
-   						 		        $l_news_p_text50=str_replace("[name]",$name,$l_news_p_text50);
-   						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text50','$row[owner]',NOW(), 'planet50')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+                          $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
+   						 		        $l_news_p_text502=str_replace("[name]",$name,$l_news_p_text50);
+   						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text502','$row[owner]',NOW(), 'planet50')");
    						 				              }
   						 }
   elseif ($row[amount] >= 25) {
@@ -35,10 +35,10 @@ while (!$sql->EOF)
   						 if (!$sql2->EOF) {
   						 				$planetcount = 25;
   						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-                          $headline = $l_news_p_headline . $planetcount . $l_news_planets;
-  						 		        $l_news_p_text25=str_replace("[name]",$name,$l_news_p_text25);
-  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text25','$row[owner]',NOW(), 'planet25')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+                          $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
+  						 		        $l_news_p_text252=str_replace("[name]",$name,$l_news_p_text25);
+  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text252','$row[owner]',NOW(), 'planet25')");
   						 				              }
   						 }
  elseif ($row[amount] >= 10) {
@@ -47,10 +47,10 @@ while (!$sql->EOF)
   						 if (!$sql2->EOF) {
   						 				$planetcount = 10;
   						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-                          $headline = $l_news_p_headline . $planetcount . $l_news_planets;
-  						 		        $l_news_p_text10=str_replace("[name]",$name,$l_news_p_text10);
-  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text10','$row[owner]',NOW(), 'planet10')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+                          $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
+  						 		        $l_news_p_text102=str_replace("[name]",$name,$l_news_p_text10);
+  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text102','$row[owner]',NOW(), 'planet10')");
   						 				              }
   						 }
  elseif ($row[amount] >= 5) {
@@ -59,10 +59,10 @@ while (!$sql->EOF)
   						 if (!$sql2->EOF) {
   						 				$planetcount = 5;
   						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-                          $headline = $l_news_p_headline . $planetcount . $l_news_planets;
-  						 		        $l_news_p_text5=str_replace("[name]",$name,$l_news_p_text5);
-  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text5','$row[owner]',NOW(), 'planet5')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+                          $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
+  						 		        $l_news_p_text52=str_replace("[name]",$name,$l_news_p_text5);
+  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text52','$row[owner]',NOW(), 'planet5')");
   						 	              }
 
   						 }
@@ -85,10 +85,10 @@ while (!$sql->EOF)
    						 if (!$sql2->EOF) {
    						 				$colcount = 1000;
    						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-   						 		        $headline = $l_news_p_headline . $colcount . $l_news_cols;
-   						 		        $l_news_c_text1000=str_replace("[name]",$name,$l_news_c_text1000);
-   						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text1000','$row[owner]',NOW(), 'col1000')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+   						 		        $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
+   						 		        $l_news_c_text10002=str_replace("[name]",$name,$l_news_c_text1000);
+   						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text10002','$row[owner]',NOW(), 'col1000')");
    						 				              }
   						 }
   elseif ($row[amount] >= 500000000) {
@@ -97,10 +97,10 @@ while (!$sql->EOF)
   						 if (!$sql2->EOF) {
   						 				$colcount = 500;
   						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-   						 		        $headline = $l_news_p_headline . $colcount . $l_news_cols;
-  						 		        $l_news_c_text500=str_replace("[name]",$name,$l_news_c_text500);
-  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text500','$row[owner]',NOW(), 'col500')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+   						 		        $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
+  						 		        $l_news_c_text5002=str_replace("[name]",$name,$l_news_c_text500);
+  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text5002','$row[owner]',NOW(), 'col500')");
   						 				              }
   						 }
  elseif ($row[amount] >= 100000000) {
@@ -109,10 +109,10 @@ while (!$sql->EOF)
   						 if (!$sql2->EOF) {
   						 				$colcount = 100;
   						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-   						 		        $headline = $l_news_p_headline . $colcount . $l_news_cols;
-  						 		        $l_news_c_text100=str_replace("[name]",$name,$l_news_c_text100);
-  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text100','$row[owner]',NOW(), 'col100')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+   						 		        $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
+  						 		        $l_news_c_text1002=str_replace("[name]",$name,$l_news_c_text100);
+  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text1002','$row[owner]',NOW(), 'col100')");
   						 				              }
   						 }
  elseif ($row[amount] >= 25000000) {
@@ -121,10 +121,10 @@ while (!$sql->EOF)
   						 if (!$sql2->EOF) {
   						 				$colcount = 25;
   						 		        $name = get_player_name($row[owner]);
-              		        $l_news_p_headline=str_replace("[player]",$name,$l_news_p_headline);
-   						 		        $headline = $l_news_p_headline . $colcount . $l_news_cols;
-  						 		        $l_news_c_text25=str_replace("[name]",$name,$l_news_c_text25);
-  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text25','$row[owner]',NOW(), 'col25')");
+              		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
+   						 		        $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
+  						 		        $l_news_c_text252=str_replace("[name]",$name,$l_news_c_text25);
+  						 				$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text252','$row[owner]',NOW(), 'col25')");
   						 	              }
 
   						 }
