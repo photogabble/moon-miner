@@ -20,7 +20,7 @@ $game_name = "BlackNova Traders v0.1.13 - Bugs!  Ahh!  They're all over me!";
 $fed_max_hull = 8;
 $maxlen_password = 16;
 $max_rank=100;
-$rating_combat_factor=.2;    //ammount of rating gained from combat
+$rating_combat_factor=.8;    //ammount of rating gained from combat
 $server_closed=false;        //true = block logins but not new account creation
 $server_closed_message="Server closed until further notice.";
 $account_creation_closed=false;    //true = block new account creation

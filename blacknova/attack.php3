@@ -72,8 +72,9 @@ else
     if($targetinfo[dev_emerwarp] > 0)
     {
       /* need to change warp destination to random sector in universe */
+      $rating_change=round($targetinfo[rating]*.1); 
       $dest_sector=rand(1,$sector_max);
-      mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+      mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
       playerlog($targetinfo[ship_id],"$playerinfo[character_name] in sector $playerinfo[sector] attempted to attack your ship, Your Emergency Warp Engaged.");
       $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
       echo "Target engaged an emergency warp device when attacked!<BR><BR>";
@@ -388,13 +389,14 @@ else
       else
       {
         echo "You did not destory $targetinfo[character_name]'s ship.<BR>";
+        $rating_change=round($targetinfo[rating]*.1);
         $armour_lost=$targetinfo[armour_pts]-$targetarmour;
         $fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
         playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you.  You lost $armour_lost points of armour and $fighters_lost fighters.<BR><BR>");
         $update4 = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         $armour_lost=$playerinfo[armour_pts]-$playerarmour;
         $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;  
-        $update4b = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1 WHERE ship_id=$playerinfo[ship_id]");
+        $update4b = mysql_query ("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";
       }
       if($playerarmour < 1)

@@ -533,6 +533,12 @@ if($sectorinfo[planet] == 'Y')
         }
         if($playerarmour < 1)
         {
+          $free_ore = round($playerinfo[ship_ore]/2);
+          $free_organics = round($playerinfo[ship_organics]/2);
+          $free_goods = round($playerinfo[ship_goods]/2);
+          $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $playerinfo[hull]))+round(pow($upgrade_factor, $playerinfo[engines]))+round(pow($upgrade_factor, $playerinfo[power]))+round(pow($upgrade_factor, $playerinfo[computer]))+round(pow($upgrade_factor, $playerinfo[sensors]))+round(pow($upgrade_factor, $playerinfo[beams]))+round(pow($upgrade_factor, $playerinfo[torp_launchers]))+round(pow($upgrade_factor, $playerinfo[shields]))+round(pow($upgrade_factor, $playerinfo[armour]))+round(pow($upgrade_factor, $playerinfo[cloak])));
+          $ship_salvage_rate=rand(0,10);
+          $ship_salvage=$ship_value*$ship_salvage_rate/100;
           echo "Your ship has been destroyed!<BR><BR>";
           if($playerinfo[dev_escapepod] == "Y")
           {
@@ -545,10 +551,17 @@ if($sectorinfo[planet] == 'Y')
           }
         }
         else
-        {          
+        { 
+          $free_ore=0;
+          $free_goods=0;
+          $free_organics=0;
+          $ship_salvage_rate=0;
+          $ship_salvage=0;
+          $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armour];
+          $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
           $armour_lost = $playerinfo[armour_pts] - $playerarmour;
-          mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum,armour_pts=armour_pts-$armour_lost WHERE ship_id=$playerinfo[ship_id]");
+          mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum,armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0)
         {
@@ -562,9 +575,9 @@ if($sectorinfo[planet] == 'Y')
         {
           echo "<BR>Planet not defeated.<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
-          playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.");
+          playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
           gen_score($ownerinfo[ship_id]);
-          $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum WHERE sector_id=$sectorinfo[sector_id]");
+          $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
       }
@@ -983,6 +996,12 @@ if($sectorinfo[planet] == 'Y')
         }
         if($playerarmour < 1)
         {
+          $free_ore = round($playerinfo[ship_ore]/2);
+          $free_organics = round($playerinfo[ship_organics]/2);
+          $free_goods = round($playerinfo[ship_goods]/2);
+          $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $playerinfo[hull]))+round(pow($upgrade_factor, $playerinfo[engines]))+round(pow($upgrade_factor,$playerinfo[power]))+round(pow($upgrade_factor, $playerinfo[computer]))+round(pow($upgrade_factor, $playerinfo[sensors]))+round(pow($upgrade_factor, $playerinfo[beams]))+round(pow($upgrade_factor, $playerinfo[torp_launchers]))+round(pow($upgrade_factor, $playerinfo[shields]))+round(pow($upgrade_factor, $playerinfo[armour]))+round(pow($upgrade_factor, $playerinfo[cloak])));
+          $ship_salvage_rate=rand(0,10);
+          $ship_salvage=$ship_value*$ship_salvage_rate/100;
           echo "Your ship has been destroyed!<BR><BR>";
           if($playerinfo[dev_escapepod] == "Y")
           {
@@ -995,10 +1014,17 @@ if($sectorinfo[planet] == 'Y')
           }
         }
         else
-        {          
+        {
+          $free_ore=0;
+          $free_goods=0;
+          $free_organics=0;
+          $ship_salvage_rate=0;
+          $ship_salvage=0;
+          $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armour];
+          $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
           $armour_lost = $playerinfo[armour_pts] - $playerarmour;
-          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$playerarmour WHERE ship_id=$playerinfo[ship_id]");
+          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$playerarmour, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($ownerarmour < 1)
         {
@@ -1017,9 +1043,11 @@ if($sectorinfo[planet] == 'Y')
         }
         else
         {
+          $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armour];
+          $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
           $fighters_lost = $ownerinfo[ship_fighters] - $ownerfighters;
           $armour_lost = $ownerinfo[armour_pts] - $ownerarmour;
-          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$armour_lost WHERE ship_id=$playerinfo[ship_id]");
+          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum, armour_pts=armour_pts-$armour_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0 && $ownerarmour < 1)
         {
@@ -1033,9 +1061,9 @@ if($sectorinfo[planet] == 'Y')
         {
           echo "<BR>Planet not defeated.<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
-          playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.");
+           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods unitsof goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
           gen_score($ownerinfo[ship_id]);
-          $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum WHERE sector_id=$sectorinfo[sector_id]");
+          $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
       }
