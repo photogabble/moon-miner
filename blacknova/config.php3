@@ -179,13 +179,13 @@ $max_traderoutes_player = 40;
 
 $min_bases_to_own = 3;
 
-$default_lang = '/languages/french.inc';
+$default_lang = 'english.inc';
 
-$avail_lang[0][file] = '/languages/english.inc';
+$avail_lang[0][file] = 'english.inc';
 $avail_lang[0][name] = 'English';
-$avail_lang[1][file] = '/languages/german.inc';
+$avail_lang[1][file] = 'german.inc';
 $avail_lang[1][name] = 'Deutsch';
-$avail_lang[2][file] = '/languages/french.inc';
+$avail_lang[2][file] = 'french.inc';
 $avail_lang[2][name] = 'Français';
 
 // Anti-cheat settings

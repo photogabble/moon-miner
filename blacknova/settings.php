@@ -1,7 +1,7 @@
 <?
 
 include("config.php3");
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 
 $title="Game Settings";
 include("header.php3");

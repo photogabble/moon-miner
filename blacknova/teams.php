@@ -2,7 +2,7 @@
 include("config.php3");
 updatecookie();
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 $title=$l_team_title;
 include("header.php3");
 connectdb();
@@ -337,7 +337,8 @@ switch ($teamwhat) {
 			   check whether the player we are ejecting might have already left in the meantime
 			   should go here	if ($whotoexpel[team] ==
 			*/
-			mysql_query("UPDATE ships SET team='0' WHERE ship_id='$who'");
+			mysql_query("UPDATE planets SET corp='0' WHERE owner='$who'");
+      mysql_query("UPDATE ships SET team='0' WHERE ship_id='$who'");
          /*
             No more necessary due to COUNT(*) in previous SQL statement
 

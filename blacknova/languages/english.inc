@@ -1182,4 +1182,9 @@ $l_news_killed = "[name] was killed in a tragic accident today. How heroic - cap
 // LAST ADDED : MOD TO TRADEROUTES
 $l_tdr_notowner = "You do not own this trade route";
 
+// ADDITION TO login.php3
+
+$l_login_lang = "Language";
+$l_login_settings = "Game Settings";
+$l_login_change = "Change";
 ?>

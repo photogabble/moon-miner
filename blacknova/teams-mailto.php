@@ -3,6 +3,8 @@
 	include("config.php3");
 	updatecookie();
 
+  include_once($gameroot . "/languages/$lang");
+
 	$title="Send a message to the Co-ordinator of an Alliance";
 	include("header.php3");
 

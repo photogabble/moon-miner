@@ -1,7 +1,7 @@
 <?
 
 include("config.php3");
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 updatecookie();
 
 $title="Options"; 
@@ -54,7 +54,7 @@ echo "<TR BGCOLOR=\"$color_header\">";
 echo "<TD COLSPAN=2><B>Language</B></TD>";
 echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
-echo "<TD>Select one :</TD><TD><select NAME=lang>";
+echo "<TD>Select one :</TD><TD><select NAME=newlang>";
 
 foreach($avail_lang as $curlang)
 {

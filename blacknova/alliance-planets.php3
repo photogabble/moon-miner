@@ -1,12 +1,12 @@
 <?
 include("config.php3");
 updatecookie();
-
-include($gameroot . $default_lang);
-$title=$l_teamplanet_title;
-include("header.php3");
+include_once($gameroot . "/languages/$lang");
 
 connectdb();
+
+$title=$l_teamplanet_title;
+include("header.php3");
 
 if(checklogin())
 {

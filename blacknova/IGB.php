@@ -3,7 +3,7 @@
 include("config.php3");
 updatecookie();
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 
 $title=$l_igb_title;
 $no_body = 1;

@@ -1,6 +1,6 @@
 <?
 	include("config.php3");
-	include($gameroot . $default_lang);
+  include_once($gameroot . "/languages/$lang");
 
 	$title=$l_mail_title;
 	include("header.php3");

@@ -1,4 +1,6 @@
 <?
+    include_once($gameroot . "/languages/$lang");
+
     $result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$sector'");
     //Put the sector information into the array "sectorinfo"
     $sectorinfo=mysql_fetch_array($result2);

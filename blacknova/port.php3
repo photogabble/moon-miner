@@ -3,7 +3,7 @@ include("config.php3");
 updatecookie();
 
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 $title = $l_title_port;
 include("header.php3");
 

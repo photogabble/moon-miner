@@ -4,7 +4,7 @@ include("combat.php3");
 
 updatecookie();
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 $title=$l_planet_title;
 include("header.php3");
 

@@ -4,6 +4,7 @@
 include("config.php3");
 updatecookie();
 
+include_once($gameroot . "/languages/$lang");
 $title = "Change RealSpace Presets";
 
 include("header.php3");

@@ -2,13 +2,13 @@
   
 include("config.php3");
 updatecookie();
+include_once($gameroot . "/languages/$lang");
 
-include($gameroot . $default_lang);
+connectdb();
 
 $title=$l_att_title;
 include("header.php3");
 
-connectdb();
 if(checklogin())
 {
   die();

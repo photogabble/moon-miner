@@ -4,6 +4,8 @@
 include("config.php3");
 updatecookie();
 
+include_once($gameroot . "/languages/$lang");
+
 $title="Furangee Control";
 include("header.php3");
 

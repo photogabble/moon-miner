@@ -541,7 +541,7 @@ $l_md_cmode		 = "Mode des intercepteurs";
 $l_md_attack		 = "Attaque";
 $l_md_toll		 = "Taxe";
 $l_md_attdef		 = "Attaquer les défenses de secteur. Tous les intercepteurs présents vont converger vers vous.";
-$l_md_noturn	  	 = "You need at least one turn.";
+$l_md_noturn	  	 = "Vous avez besoin d'au moins un tour.";
 
 // news.php
 
@@ -1123,6 +1123,9 @@ $l_login_4gotpw1		= "Le mot de passe que vous avez entré est incorrect.<BR><BR> 
 $l_login_4gotpw2		= "pour le recevoir par e-mail.<BR><BR>  Sinon,";
 $l_login_4gotpw3		= "pour essayer encore une fois.  La tentative a été enregistrée, de l'ip";
 $l_login_noone			= "Ce joueur n'existe pas! - Créer un nouveau joueur <A HREF=new.php3>ici</A>.";
+$l_login_lang = "Langue";
+$l_login_settings = "Paramètres";
+$l_login_change = "Changer";
 
 // new.php new2.php
 $l_new_title			= "Créer un nouveau joueur"; 

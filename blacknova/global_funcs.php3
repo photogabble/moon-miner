@@ -3,6 +3,8 @@
 if ($userpass != '' and $userpass != '+') {
   $username = substr($userpass, 0, strpos($userpass, "+"));
   $password = substr($userpass, strpos($userpass, "+")+1);
+
+include_once($gameroot . "/languages/$lang");
 }
 
 //Log constants
@@ -141,8 +143,17 @@ function connectdb()
   global $dbuname;
   global $dbpass;
   global $dbname;
+  global $default_lang;
+  global $lang;
+  global $gameroot;
+
   mysql_connect($dbhost . ":" .$dbport, $dbuname, $dbpass);
   @mysql_select_db("$dbname") or die ("Unable to select database.");
+
+  if(empty($lang))
+    $lang=$default_lang;
+
+  include_once($gameroot . "/languages/$lang");
 }
 
 function updatecookie()

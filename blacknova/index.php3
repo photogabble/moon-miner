@@ -1,10 +1,13 @@
 <? 
+  include("config.php3");
 
 	$title="Login"; 
   $no_body=1;
 	include("header.php3");
-include($gameroot . $default_lang);
-  include("config.php3");
+  if(empty($lang))
+    $lang = $default_lang;
+  include_once($gameroot . "/languages/$lang");
+//  include("config.php3");
 ?>
 
 <script language="JavaScript">

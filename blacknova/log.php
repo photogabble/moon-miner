@@ -3,7 +3,7 @@
 include("config.php3");
 updatecookie();
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 
 $title="View Log";
 $no_body=1;

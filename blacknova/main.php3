@@ -1,11 +1,9 @@
 <?
 include("config.php3");
+include_once($gameroot . "/languages/$lang");
 
 updatecookie();
 
-
-include($gameroot . $default_lang);
-$title=$l_main_title;
 
 $basefontsize = 0;
 $stylefontsize = "8Pt";
@@ -23,6 +21,7 @@ if($screenres >= 1024)
 
 connectdb();
 
+$title=$l_main_title;
 include("header.php3");
 
 

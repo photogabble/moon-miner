@@ -2,7 +2,7 @@
 include("config.php3");
 include("includes/newsservices.php3");
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 $title=$l_news_title;
 include("header.php3");
 

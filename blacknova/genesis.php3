@@ -2,7 +2,7 @@
 include("config.php3");
 updatecookie();
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 $title=$l_gns_title;
 include("header.php3");
 

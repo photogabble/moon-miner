@@ -2,7 +2,7 @@
 include("config.php3");
 updatecookie();
 
-include($gameroot . $default_lang);
+include_once($gameroot . "/languages/$lang");
 $title=$l_zi_title;
 include("header.php3");
 
@@ -23,13 +23,13 @@ if(!mysql_num_rows($res))
 else
 {
   $row = mysql_fetch_array($res);
-  if($row[zone_name] == 'Federation space')
+  if($row[zone_id] == '2')
     $ownername = $l_zi_feds;
-  elseif($row[zone_name] == 'Free-Trade space')
+  elseif($row[zone_id] == '3')
     $ownername = $l_zi_traders;
-  elseif($row[zone_name] == 'Unchartered space')
+  elseif($row[zone_id] == '1')
     $ownername = $l_zi_nobody;
-  elseif($row[zone_name] == 'War Zone')
+  elseif($row[zone_id] == '4')
     $ownername = $l_zi_war;
   else
   {

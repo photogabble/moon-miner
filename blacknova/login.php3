@@ -2,7 +2,16 @@
 
 include("config.php3");
 
-include($gameroot . $default_lang);
+if(empty($lang))
+  $lang=$default_lang;
+
+if(!empty($newlang))
+{
+  $lang=$newlang;
+  SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+}
+
+include($gameroot . "/languages/$lang");
 
 $title=$l_login_title;
 
@@ -72,8 +81,27 @@ if(!empty($link_forums))
   echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">$l_forums</A> - ";
 ?>
 <A HREF="ranking.php3"><? echo $l_rankings;?></A><? echo " - "; ?>
-<A HREF="settings.php"><? echo "Game Settings";?></A>
+<A HREF="settings.php"><? echo $l_login_settings;?></A>
 <BR><BR>
+<form action=login.php3 method=POST>
+<?
+
+echo "$l_login_lang&nbsp;&nbsp;<select name=newlang>";
+
+foreach($avail_lang as $curlang)
+{
+  if($curlang['file'] == $lang)
+    $selected = "selected";
+  else
+    $selected = "";
+
+  echo "<option value=$curlang[file] $selected>$curlang[name]</option>";
+}
+
+echo "</select>&nbsp;&nbsp;<input type=submit value=$l_login_change>";
+?>
+
+</form>
 </CENTER>
 
 <?php

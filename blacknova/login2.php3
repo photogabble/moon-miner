@@ -1,17 +1,9 @@
 <?
 include("config.php3");
-include($gameroot . $default_lang);
 
 connectdb();
 
 //test to see if server is closed to logins
-if($server_closed)
-{
-  $title=$l_login_sclosed;
-  include("header.php3");
-  die($l_login_closed_message);
-}
-
 $playerfound = false;
 
 $screen_res = $HTTP_POST_VARS[res];
@@ -25,6 +17,12 @@ if($res)
 }
 $playerinfo = mysql_fetch_array($res);
 mysql_free_result($res);
+
+$lang=$playerinfo[lang];
+if(empty($lang))
+  $lang=$default_lang;
+SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+include_once($gameroot . "/languages/$lang");
 
 /* first placement of cookie - don't use updatecookie. */
 $userpass = $email."+".$pass;
@@ -55,6 +53,12 @@ if(mysql_num_rows($res) != 0)
   $banned = 1;
 }
 
+if($server_closed)
+{
+  $title=$l_login_sclosed;
+  include("header.php3");
+  die($l_login_closed_message);
+}
 
 $title=$l_login_title2;
 include("header.php3");
