@@ -52,7 +52,7 @@ if($result3 > 0)
          if($defences[$i]['defence_type'] == 'F')
          {
             $fighter_id = $defences[$i]['defence_id'];
-            if($sectorinfo[fm_setting] == 'attack')
+            if($defences[$i]['fm_setting'] == 'attack')
             {
                $set_attack = 'CHECKED';
                $set_toll = '';
