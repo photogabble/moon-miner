@@ -151,12 +151,12 @@ else
       }
       $targetinfo[ship_energy]=$targetinfo[ship_energy]-$targetshields;
 
-      $playertorpnum = round(pow($level_factor,$playerinfo[torp_launchers]))*2;
+      $playertorpnum = round(pow($level_factor,$playerinfo[torp_launchers]))*10;
       if($playertorpnum > $playerinfo[torps])
       {
         $playertorpnum = $playerinfo[torps];
       }
-      $targettorpnum = round(pow($level_factor,$targetinfo[torp_launchers]))*2;
+      $targettorpnum = round(pow($level_factor,$targetinfo[torp_launchers]))*10;
       if($targettorpnum > $targetinfo[torps])
       {
         $targettorpnum = $targetinfo[torps];

@@ -47,14 +47,17 @@ function calcplanettorps()
     $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;
 
     $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
-    $torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 2;
+    $torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 10;
     $torps = $planetinfo[torps];
-    while(!$res->EOF)
+    if($res)
     {
-        $torp_launchers = $torp_launchers + $res->fields[torp_launchers];
-        $res->MoveNext();
+       while(!$res->EOF)
+       {
+           $ship_torps =  round(pow($level_factor, $res->fields[torp_launchers])) * 10;
+           $torp_launchers = $torp_launchers + $ship_torps;
+           $res->MoveNext();
+       }
     }
-
     if ($torp_launchers > $torps)
     {
         $planettorps = $torps;
