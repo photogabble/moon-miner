@@ -125,6 +125,13 @@ mysql_query("CREATE TABLE ships(" .
             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
 		        "ip_address tinytext NOT NULL," .
             "planet_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "preset1 bigint(20) DEFAULT '0' NOT NULL," .
+            "preset2 bigint(20) DEFAULT '0' NOT NULL," .
+            "preset3 bigint(20) DEFAULT '0' NOT NULL," .
+            "trade_colonists enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
+            "trade_fighters enum('Y', 'N') DEFAULT 'N' NOT NULL," .
+            "trade_torps enum('Y', 'N') DEFAULT 'N' NOT NULL," .
+            "trade_energy enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
             "PRIMARY KEY (email)," .
             "KEY email (email)," .
             "KEY sector (sector)," .

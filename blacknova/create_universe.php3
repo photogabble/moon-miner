@@ -253,7 +253,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   $password = substr($admin_mail, 0, $maxlen_password);
   echo "Creating default $admin_mail login, password: $password<BR>";
   $stamp=date("Y-m-d H:i:s");
-  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0)");
+  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0,0,0,0,'Y','N','N','Y')");
   echo mysql_error();
   echo "done.<BR>";
 }

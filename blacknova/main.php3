@@ -563,12 +563,6 @@ Trade Routes
     }
   }
 
-/*
-&nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset1] ?>>=&gt;&nbsp;<? echo $playerinfo[preset1] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset2] ?>>=&gt;&nbsp;<? echo $playerinfo[preset2] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset3] ?>>=&gt;&nbsp;<? echo $playerinfo[preset3] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=traderoute.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
-*/
 ?>
 
 </div>
@@ -600,7 +594,10 @@ Realspace
 <TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
 <TR><TD NOWRAP>
 <div class=mnu>
-&nbsp;<a class=mnu href=rsmove.php3>=&gt;&nbsp;other</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset1]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset1]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset2]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset2]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset3]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset3]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
 </div>
 </a>
 </td></tr>
@@ -610,6 +607,7 @@ Realspace
 </tr>
 
 </table>
+
 
 <?
 
