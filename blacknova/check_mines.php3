@@ -36,9 +36,9 @@
            bigtitle();
            $ok=0;
            $totalmines = $total_sector_mines;
-           if ($secorinfo[mines]>1) 
+           if ($totalmines>1) 
            {
-              $roll = rand(1,$sectorinfo[mines]);
+              $roll = rand(1,$totalmines);
            }
            else 
            { 
@@ -47,8 +47,7 @@
            $totalmines = $totalmines - $roll;
            echo "You hit $roll mines!<BR>";
            playerlog($playerinfo[ship_id],"You hit $roll mines in sector $sector.");
-           playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] hit $roll of your mines in sector $sector.");
-           explode_mines($sector,$roll);
+           message_defence_owner($sector,"$playerinfo[character_name] hit $roll mines in sector $sector.");
            if($playerinfo[dev_minedeflector] >= $roll)
            {
               echo "You lost $roll mine deflectors.<BR>";
@@ -95,7 +94,7 @@
                  {
                     $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                     playerlog($playerinfo[ship_id],"Your ship was destroyed by mines in sector $sector.");
-                    playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] was destroyed by your mines in sector $sector.");
+                    message_defence_owner($sector,"$playerinfo[character_name] was destroyed by your mines in sector $sector.");
                     echo "Your ship has been destroyed!<BR><BR>";
                     if($playerinfo[dev_escapepod] == "Y")
                     {
@@ -110,11 +109,12 @@
                  }
 
               }
+             
    
            }                   
 
-           // clean up any sectors that have used up all mines or fighters
-           mysql_query("update universe set fm_owner=0 where fm_owner <> 0 and mines=0 and fighters=0");
+           explode_mines($sector,$roll);
+
         }   
 
     }

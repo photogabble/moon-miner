@@ -349,5 +349,41 @@ function destroy_fighters($sector, $num_fighters)
 
 }
 
+function message_defence_owner($sector, $message)
+{
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' ");
+    echo mysql_error();
+    //Put the defence information into the array "defenceinfo"
+    if($result3 > 0)
+    {
+       while($row = mysql_fetch_array($result3))
+       {
+
+          playerlog($row[ship_id],$message);
+                 
+       }
+       mysql_free_result($result3);
+    }
+
+}
+
+function distribute_toll($sector, $toll, $total_fighters)
+{
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' AND defence_type ='F' "); 
+    echo mysql_error();
+    //Put the defence information into the array "defenceinfo"
+    if($result3 > 0)
+    {
+       while($row = mysql_fetch_array($result3))
+       {
+          $toll_amount = ROUND(($row['quantity'] / $total_fighters) * $toll);
+          mysql_query("UPDATE ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
+          playerlog($row[ship_id],"You received $toll_amount credits as toll for entry to sector $sector.");
+                 
+       }
+       mysql_free_result($result3);
+    }
+
+}
 
 ?>

@@ -48,7 +48,7 @@
                  die();
                  break;
               case "pay":      
-                 $fighterstoll = $sectorinfo[fighters] * $fighter_price * 0.6;
+                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                  if($playerinfo[credits] < $fighterstoll) 
                  {
                     echo "You do not have enough credits to pay the toll.<BR>";
@@ -62,8 +62,7 @@
                     $tollstring = NUMBER($fighterstoll);
                     echo "You paid $tollstring credits for the toll.<BR>";
                     mysql_query("UPDATE ships SET credits=credits-$fighterstoll where ship_id=$playerinfo[ship_id]");
-                    mysql_query("UPDATE ships SET credits=credits+$fighterstoll where ship_id=$sectorinfo[fm_owner]");
-                    playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] paid you $tollstring for entry to sector $sector.");
+                    distribute_toll($sector,$fighterstoll,$total_sector_fighters);
                     playerlog($playerinfo[ship_id],"You paid $tollstring credits for entry to sector $sector.");
                     $ok=1;
                  }
