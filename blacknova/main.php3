@@ -182,7 +182,8 @@ if($allow_navcomp)
 {
   echo "<FORM ACTION=navcomp.php3 METHOD=POST>";
   echo "Navigation Computer: ";
-  echo "<INPUT NAME=\"stop_sector\" SIZE=" . strlen(number_format($sectors_max, 0, "", "")) . "><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>";
+  $maxlen = strlen(number_format($sector_max, 0, "", ""));
+  echo "<INPUT NAME=\"stop_sector\" SIZE=" . $maxlen * 2 . " MAXLENGTH=$maxlen><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>";
   echo "<INPUT TYPE=SUBMIT VALUE=\"Find Route\">";
   echo "</FORM>";
 }
