@@ -6,10 +6,6 @@
 	include("header.php");
 
   connectdb();
-//  if(checklogin())
-//  {
-//    die();
-//  }
 
 	bigtitle();
 
