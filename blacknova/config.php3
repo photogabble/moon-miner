@@ -21,12 +21,12 @@ $fed_max_hull = 8;
 // Trying to keep ibank constants unique by prefixing with $ibank_ 
 // Please EDIT the following variables to your liking.
 $allow_ibank = false;
-$ibank_owner = 0; 				    // Use 0 for no human player or ID of Owner of IGB some thrusted player or admin.
-$ibank_interest = 0.01; 		  // Interest rate for account funds
+$ibank_owner = 0;			// Use 0 for no human player or ID of Owner of IGB some thrusted player or admin.
+$ibank_interest = 0.01;			// Interest rate for account funds
 $ibank_paymentfee = 0.005; 		// Paymentfee
-$ibank_loaninterest = 0.008; 	// Loan interest i.e 8%
-$ibank_loanfactor = 10; 		  // x Times what the user currently have in account
-$ibank_loanlimit = 250000000; // This minus already existing loans is the maximum. 
+$ibank_loaninterest = 0.008;		// Loan interest i.e 8%
+$ibank_loanfactor = 10;			// x Times what the user currently have in account
+$ibank_loanlimit = 250000000;		// This minus already existing loans is the maximum. 
 // Information displayed on the 'Manage Own Account' section
 $ibank_ownaccount_info = "Interest rate is " . $ibank_interest * 100 . "%<BR>Loan rate is " .
   $ibank_loaninterest * 100 . "%<P>If you have loans Make sure you have enough credits deposited each turn " .
@@ -106,16 +106,16 @@ function checklogin()
   $result1 = mysql_query ("SELECT * FROM ships WHERE email='$username'");
   $playerinfo=mysql_fetch_array($result1);
   /* Check the cookie to see if username/password are empty - check password against database */
-  if ($username=="" or  $password=="" or $password!=$playerinfo[password])
+  if ($username=="" or  $password=="" or $password!=$playerinfo['password'])
   {
     echo  "You need to log in, click <a href=login.php3>here</a>.";
     $flag=1;
   }
   /* Check for destroyed ship */
-  if ($playerinfo[ship_destroyed]=="Y")
+  if ($playerinfo['ship_destroyed']=="Y")
   {
     /* if the player has an escapepod, set the player up with a new ship */
-    if ($playerinfo[dev_escapepod]="Y")
+    if ($playerinfo['dev_escapepod']=="Y")
     {
       $result2 = mysql_query ("UPDATE ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage='', on_planet='N', dev_warpedit=0, dev_genesis=1, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N' where email='$username'");
       echo "Your ship was destroyed, but your escape pods saved you and your crew.  Click <a href=main.php3>here</a> to continue with a new ship.";
@@ -124,9 +124,9 @@ function checklogin()
       /* if the player doesn't have an escapepod - they're dead, delete them. */  
       echo "Player is DEAD!  Here's what happened:<BR><BR>";
       
-      include("player-log/".$playerinfo[ship_id]);
-      unlink("player-log/".$playerinfo[ship_id]);
-      $result3 = mysql_query ("DELETE FROM ships WHERE ship_id = $playerinfo[ship_id]");
+      include("player-log/".$playerinfo['ship_id']);
+      unlink("player-log/".$playerinfo['ship_id']);
+      $result3 = mysql_query ("DELETE FROM ships WHERE ship_id = $playerinfo['ship_id']");
       echo "Dead player has now been deleted.  Click <a href=new.php3>here</a> to start with a new player.";
       $flag=1;
     }
