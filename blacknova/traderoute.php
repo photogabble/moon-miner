@@ -867,6 +867,7 @@ function traderoute_engage()
   global $fighter_price;
   global $torpedo_price;
   global $colonist_price;
+  global $colonist_limit;
   global $inventory_factor;
   global $ore_price;
   global $ore_delta;
@@ -1581,6 +1582,11 @@ function traderoute_engage()
       {
         $colonists_buy += $playerinfo[ship_colonists];
         $col_dump = $playerinfo[ship_colonists];
+        if($dest[colonists] + $col_dump > $colonist_limit)
+        {  
+          $col_dump = $dest[colonists] + $col_dump - $colonists_limit;
+          $colonists_buy = $col_dump;
+        }
       }
       else
         $col_dump = 0;
