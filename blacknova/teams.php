@@ -121,7 +121,7 @@ function DISPLAY_INVITE_INFO()
    } else {
 	   echo "<br><br><font color=blue size=2><b>You have been invited to join ";
 	   echo "<a href=$PHP_SELF?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</A>.</b></font><BR>";
-	   echo "Click <A HREF=$PHP_SELF?teamwhat=2&whichteam=$playerinfo[team]>here</A> to leave <B>$playerinfo[team_name]</B> or <A HREF=$PHP_SELF?teamwhat=8&whichteam=$playerinfo[team_invite]>here</A> to reject the invitation.<BR><BR>";
+	   echo "Click <A HREF=$PHP_SELF?teamwhat=3&whichteam=$playerinfo[team_invite]>here</A> to join <B>$playerinfo[team_name]</B> or <A HREF=$PHP_SELF?teamwhat=8&whichteam=$playerinfo[team_invite]>here</A> to reject the invitation.<BR><BR>";
    }
 }
 

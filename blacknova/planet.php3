@@ -235,6 +235,9 @@ if(!empty($planetinfo))
         $update1 = mysql_query("UPDATE planets SET base='Y', ore=ore-$base_ore, organics=organics-$base_organics, goods=goods-$base_goods, credits=credits-$base_credits WHERE planet_id=$planet_id");
         $update1b = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used-1 where ship_ip=$playerinfo[ship_id]");
         echo "Base constructed.<BR><BR>";
+        $ownership = calc_ownership($playerinfo[sector]);
+        if(!empty($ownership))
+          echo "$ownership<p>";
       }
       else
       {

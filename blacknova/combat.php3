@@ -466,7 +466,8 @@ echo "
           echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
-          $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
+          $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
+          calc_ownership($planetinfo[sector_id]);
         }
         else
         {

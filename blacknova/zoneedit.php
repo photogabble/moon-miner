@@ -25,7 +25,7 @@ if($curzone[corp_zone] == 'N')
 }
 else
 {
-  $result = mysql_query("SELECT creator, id FROM teams WHERE id=$row[owner]");
+  $result = mysql_query("SELECT creator, id FROM teams WHERE creator=$curzone[owner]");
   $ownerinfo = mysql_fetch_array($result);
 }
 
@@ -110,7 +110,7 @@ function zoneedit_change()
 {
   global $zone;
   global $name;
-  global $beaons;
+  global $beacons;
   global $attacks;
   global $warpedits;
   global $planets;

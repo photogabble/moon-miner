@@ -13,7 +13,10 @@ if(checklogin())
 
 bigtitle();
 
-// Get User Info
+$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
+$playerinfo = mysql_fetch_array($res);
+mysql_free_result($res);
+
 $res = mysql_query("SELECT * FROM zones WHERE zone_id='$zone'");
 if(!mysql_num_rows($res))
   echo "This section of space does not exist!";
@@ -26,6 +29,8 @@ else
     $ownername = "The Free-Trade Coalition";
   elseif($row[zone_name] == 'Unchartered space')
     $ownername = "Nobody";
+  elseif($row[zone_name] == 'War Zone')
+    $ownername = "Contested space";
   else
   {
     if($row[corp_zone] == 'N')
@@ -83,7 +88,7 @@ else
   else
     $hull=$row[max_hull];
 
-  if(($row[corp_zone] == 'N' && $row[owner] == $ownerinfo[ship_id]) || ($row[corp_zone] == 'Y' && $row[owner] == $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
+  if(($row[corp_zone] == 'N' && $row[owner] == $playerinfo[ship_id]) || ($row[corp_zone] == 'Y' && $row[owner] == $playerinfo[team] && $playerinfo[ship_id] == $ownerinfo[creator]))
     echo "<center>You are in control of this zone. Click <a href=zoneedit.php?zone=$zone>here</a> to change its laws.</center><p>";
 
   echo "<table border=1 cellspacing=1 cellpadding=0 width=\"65%\" align=center>" .

@@ -7,16 +7,16 @@ $title="Main Menu";
 
 $basefontsize = 0;
 $stylefontsize = "8Pt";
-$picsperrow = 3;
+$picsperrow = 5;
 
 if($res == 640)
-  $picsperrow = 2;
+  $picsperrow = 3;
 
 if($res >= 1024)
 {
   $basefontsize = 1;
   $stylefontsize = "12Pt";
-  $picsperrow = 4;
+  $picsperrow = 7;
 }
 
 include("header.php3");
@@ -160,7 +160,7 @@ if(!empty($sectorinfo[beacon]))
 }
 ?>
 </td><td align=right>
-<a href="<? echo "zoneinfo.php3?zone=$zoneinfo[zone_id]"; ?>"><b><? echo $zoneinfo[zone_name]; ?></b></font></a>&nbsp;
+<a href="<? echo "zoneinfo.php3?zone=$zoneinfo[zone_id]"; ?>"><b><? echo "<font size=", $basefontsize + 2," face=\"arial\">$zoneinfo[zone_name]</font>"; ?></b></font></a>&nbsp;
 </td></tr>
 </table>
 
@@ -194,7 +194,6 @@ Commands
 &nbsp;<a class=mnu href="readmail.php3">Read Messages</A>&nbsp;<br> <? # Link to read the messages -- blindcoder ?>
 &nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
 &nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
-&nbsp;<a class=mnu href="lastusers.php3">Last Users</a>&nbsp;<br>
 &nbsp;<a class=mnu href="teams.php">Alliances</a>&nbsp;<br> 
 &nbsp;<a class=mnu href="self-destruct.php3">Self-Destruct</a>&nbsp;<br>
 &nbsp;<a class=mnu href="options.php3">Options</a>&nbsp;<br>
@@ -203,7 +202,7 @@ Commands
 </td></tr>
 <tr><td nowrap>
 <div class=mnu>
-&nbsp;<a class=mnu href="help.php3">Help</a>&nbsp;<br>
+<? //&nbsp;<a class=mnu href="help.php3">Help</a>&nbsp;<br> ?>
 &nbsp;<a class=mnu href="http://copland.udel.edu/~wallkk/bnfaq/">FAQ</a>&nbsp;<br>
 &nbsp;<a class=mnu href="feedback.php3">Feedback</a>&nbsp;<br>
 <?
@@ -308,8 +307,8 @@ if($num_planets > 0)
       $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
       $planet_owner = mysql_fetch_array($result5);
 
-
-
+      $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
+      $planet_owner = mysql_fetch_array($result5);
 
       $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
       $planetavg /= 7;
@@ -376,7 +375,6 @@ else
 </td>
 </tr>
 </table>
-<br>
 
 <b><center><font size=2 face="arial" color=white>Other ships in sector <? echo $sectorinfo[sector_id];?>:</font><br></center></b>
 <table border=0 width=100%>

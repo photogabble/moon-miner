@@ -22,6 +22,49 @@ $playerinfo = mysql_fetch_array($result);
 $result2    = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo = mysql_fetch_array($result2);
 
+$res = mysql_query("SELECT * FROM zones WHERE zone_id=$sectorinfo[zone_id]");
+$zoneinfo = mysql_fetch_array($res);
+
+if($zoneinfo[allow_trade] == 'N')
+{
+  $title="Trade forbidden";
+  bigtitle();
+  echo "Trading at this port is not allowed<p>";
+  TEXT_GOTOMAIN();
+  include("footer.php3");
+  die();
+}
+elseif($zoneinfo[allow_trade] == 'L')
+{
+  if($zoneinfo[corp_zone] == 'N')
+  {
+    $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
+    $ownerinfo = mysql_fetch_array($res);
+
+    if($playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
+    {
+      $title="Trade forbidden";
+      bigtitle();
+      echo "Trading at this port is not allowed for outsiders<p>";
+      TEXT_GOTOMAIN();
+      include("footer.php3");
+      die();
+    }
+  }
+  else
+  {
+    if($playerinfo[team] != $zoneinfo[owner])
+    {
+      $title="Trade forbidden";
+      bigtitle();
+      echo "Trading at this port is not allowed for outsiders<p>";
+      TEXT_GOTOMAIN();
+      include("footer.php3");
+      die();
+    }
+  }
+}
+
 bigtitle();
 
 $color_red     = "red";

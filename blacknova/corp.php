@@ -14,7 +14,7 @@ if (checklogin())
 }
 
 //------------------------------------
-mysql_query("LOCK TABLES ships WRITE, planets WRITE");
+mysql_query("LOCK TABLES ships WRITE, planets WRITE, zones WRITE, teams READ, universe WRITE");
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
 
@@ -32,12 +32,18 @@ bigtitle();
 	{
 		echo ("Planet is now a Corporate Planet!<BR>");
 		$result = mysql_query("UPDATE planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
+    $ownership = calc_ownership($playerinfo[sector]);
+      if(!empty($ownership))
+        echo "<p>$ownership<p>";
 		
 	}
 	if ($action == "planetpersonal")
 	{
 		echo ("Planet is now a Personal Planet!<BR>");
 		$result = mysql_query("UPDATE planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
+    $ownership = calc_ownership($playerinfo[sector]);
+      if(!empty($ownership))
+        echo "<p>$ownership<p>";
 	}
 TEXT_GOTOMAIN();
 
