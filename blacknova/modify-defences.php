@@ -130,6 +130,7 @@ switch($response) {
          die();
       }
       if($quantity < 0) $quantity = 0;
+      $quantity = stripnum($quantity);
       if($quantity > $defenceinfo['quantity'])
       {
          $quantity = $defenceinfo['quantity'];
