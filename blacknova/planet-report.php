@@ -41,6 +41,10 @@ if(!empty($sort))
   }
 
 }
+else
+{
+   $query .= " sector_id ASC";
+}
 
 bigtitle();
 
