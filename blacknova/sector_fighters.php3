@@ -95,7 +95,7 @@
                        echo "Your armour is hit for $targetfighters damage.<BR>";
                     } 
                  }
-                 $fighterslost = $total_sector_fighters - $targetfighters);
+                 $fighterslost = $total_sector_fighters - $targetfighters;
                  destroy_fighters($sector,$fighterslost);
                  playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] destroyed $fighterslost of your sector defence fighters in sector $sector.");
                  playerlog($playerinfo[ship_id],"You destroyed $fighterslost sector defence fighters in sector $sector.");
