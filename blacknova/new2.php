@@ -25,20 +25,20 @@ if(!get_magic_quotes_gpc())
   $shipname = addslashes($shipname);
 }
 
-$result = mysql_query ("select email, character_name, ship_name from ships where email='$username' OR character_name='$character' OR ship_name='$shipname'");
+$result = $db->Execute ("select email, character_name, ship_name from $dbtables[ships] where email='$username' OR character_name='$character' OR ship_name='$shipname'");
 $flag=0;
 if ($username=='' || $character=='' || $shipname=='' ) { echo "$l_new_blank<BR>"; $flag=1;}
 
 $username = $HTTP_POST_VARS['username'];
 if ($result>0)
 {
-  while ($row = mysql_fetch_row ($result))
+  while (!$result->EOF)
   {
-
+    $row = $result->fields;
     if ($row[0]==$username) { echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>"; $flag=1;}
     if ($row[1]==$character) { echo "$l_new_inusechar<BR>"; $flag=1;}
     if ($row[2]==$shipname) { echo "$l_new_inuseship<BR>"; $flag=1;}
-
+    $result->MoveNext();
   }
 }
 
@@ -58,26 +58,26 @@ if ($flag==0)
     }
   }
   $stamp=date("Y-m-d H:i:s");
-  $query = mysql_query("SELECT MAX(turns_used + turns) AS mturns FROM ships");
-  $res = mysql_fetch_array($query);
+  $query = $db->Execute("SELECT MAX(turns_used + turns) AS mturns FROM $dbtables[ships]");
+  $res = $query->fields;
 
   $mturns = $res[mturns];
 
   if($mturns > $max_turns)
     $mturns = $max_turns;
 
-  $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$mturns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','$ip',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y')");
+  $result2 = $db->Execute("INSERT INTO $dbtables[ships] VALUES('','$shipname','N','$character','$makepass','$username',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$mturns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','$ip',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y')");
   if(!$result2) {
-    echo mysql_errno(). ": ".mysql_error(). "<br>";
+    echo $db->ErrorMsg() . "<br>";
   } else {
-    $result2 = mysql_query("SELECT ship_id FROM ships WHERE email='$username'");
-    $shipid = mysql_fetch_array($result2);
+    $result2 = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
+    $shipid = $result2->fields;
 
  $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
     mail("$username", "$l_new_topic", "$l_new_message\n\nhttp://$gamedomain","From: $admin_mail\nReply-To: $admin_mail\nX-Mailer: PHP/" . phpversion());
 
-    mysql_query("INSERT INTO zones VALUES('','$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
-    mysql_query("INSERT INTO ibank_accounts VALUES($shipid[ship_id],0,0)");
+    $db->Execute("INSERT INTO $dbtables[zones] VALUES('','$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+    $db->Execute("INSERT INTO $dbtables[ibank_accounts] VALUES($shipid[ship_id],0,0)");
 
     echo "$l_new_pwsent<BR><BR>";
     echo "<A HREF=login.php>$l_clickme</A> $l_new_login";

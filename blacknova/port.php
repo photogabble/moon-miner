@@ -17,17 +17,15 @@ if(checklogin())
 //-------------------------------------------------------------------------------------------------
 
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
-$res = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-$sectorinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$sectorinfo = $res->fields;
 
-$res = mysql_query("SELECT * FROM zones WHERE zone_id=$sectorinfo[zone_id]");
+$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$sectorinfo[zone_id]");
 
-$zoneinfo = mysql_fetch_array($res);
+$zoneinfo = $res->fields;
 
 if($zoneinfo[zone_id] == 4)
 {
@@ -52,8 +50,8 @@ elseif($zoneinfo[allow_trade] == 'L')
 {
   if($zoneinfo[corp_zone] == 'N')
   {
-    $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
-    $ownerinfo = mysql_fetch_array($res);
+    $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
+    $ownerinfo = $res->fields;
 
     if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
     {

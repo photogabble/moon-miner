@@ -16,8 +16,8 @@ if(checklogin())
   die();
 }
 
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($result);
+$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $result->fields;
 
 bigtitle();
 
@@ -56,7 +56,7 @@ else
   }
   else
   {
-    $update = mysql_query("UPDATE ships SET preset1=$preset1,preset2=$preset2,preset3=$preset3 WHERE ship_id=$playerinfo[ship_id]");
+    $update = $db->Execute("UPDATE $dbtables[ships] SET preset1=$preset1,preset2=$preset2,preset3=$preset3 WHERE ship_id=$playerinfo[ship_id]");
     $l_pre_set = str_replace("[preset1]", "$preset1", $l_pre_set);
     $l_pre_set = str_replace("[preset2]", "$preset2", $l_pre_set);
     $l_pre_set = str_replace("[preset3]", "$preset3", $l_pre_set);

@@ -15,20 +15,19 @@ if(checklogin())
   die();
 }
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
 if ($action=="delete")
 {
- mysql_query("DELETE FROM messages WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
+ $db->Execute("DELETE FROM $dbtables[messages] WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
 ?>
 <FONT COLOR="#FF0000" Size="7"><B><Blink><Center><? echo $l_readm_delete; ?></Center></Blink></B></FONT><BR>
 <?
 }
 
-$res = mysql_query("SELECT * FROM messages WHERE recp_id='".$playerinfo[ship_id]."'");
- if (mysql_num_rows($res)==0)
+$res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."'");
+ if ($res->EOF)
  {
   echo "$l_readm_nomessage";
  }
@@ -49,10 +48,11 @@ $res = mysql_query("SELECT * FROM messages WHERE recp_id='".$playerinfo[ship_id]
 </TR>
 <?
   $line_counter = true;
-  while($msg = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-   $result = mysql_query("SELECT * FROM ships WHERE ship_id='".$msg[sender_id]."'");
-   $sender = mysql_fetch_array($result);
+   $msg = $res->fields;
+   $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id='".$msg[sender_id]."'");
+   $sender = $result->fields;
 ?>
 <TR BGCOLOR="<?
 if ($line_counter)
@@ -78,6 +78,7 @@ else
 </TD>
 </TR>
 <?
+    $res->MoveNext();
   }
 ?>
 </TABLE>

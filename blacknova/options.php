@@ -17,13 +17,9 @@ if(checklogin())
 bigtitle();
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships READ");
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
-
-mysql_query("UNLOCK TABLES");
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 //-------------------------------------------------------------------------------------------------
 
 echo "<FORM ACTION=option2.php METHOD=POST>";

@@ -11,13 +11,13 @@
 	if (checklogin()) {die();}
 
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
+	$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+	$playerinfo=$result->fields;
 
-	$result2 = mysql_query ("SELECT * FROM planets WHERE planet_id=$planet_id");
+	$result2 = $db->Execute ("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
 	if($result2)
 
-    $planetinfo=mysql_fetch_array($result2);
+    $planetinfo=$result2->fields;
 
 
   bigtitle();
@@ -80,9 +80,9 @@
 		} else {
 			echo "$l_totalcost: $total_cost<BR>$l_traded_ore: $trade_ore<BR>$l_traded_organics: $trade_organics<BR>$l_traded_goods: $trade_goods<BR>$l_traded_energy: $trade_energy<BR><BR>";
 			/* Update ship cargo, credits and turns */
-			$trade_result = mysql_query ("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+			$trade_result = $db->Execute ("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 
-			$trade_result2 = mysql_query ("UPDATE planets SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
+			$trade_result2 = $db->Execute ("UPDATE $dbtables[planets] SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
 			echo "$l_trade_complete<BR><BR>";
 		}
 	}

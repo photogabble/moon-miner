@@ -16,15 +16,15 @@ if(checklogin())
 }
 //-------------------------------------------------------------------------------------------------
 
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo=mysql_fetch_array($result);
+$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo=$result->fields;
 
-$result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$playerinfo[sector]");
-$sectorinfo=mysql_fetch_array($result2);
+$result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+$sectorinfo=$result2->fields;
 
-$result3 = mysql_query("SELECT * FROM planets WHERE planet_id=$planet_id");
+$result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
 if($result3)
-  $planetinfo=mysql_fetch_array($result3);
+  $planetinfo=$result3->fields;
 
 bigtitle();
 
@@ -36,7 +36,7 @@ if(!empty($planetinfo))
   if($playerinfo[sector] != $planetinfo[sector_id])
   {
     if($playerinfo[on_planet] == 'Y')
-      mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "$l_planet_none <p>";
     TEXT_GOTOMAIN();
     include("footer.php");
@@ -45,7 +45,7 @@ if(!empty($planetinfo))
   if($planetinfo[owner] == 0 && $command != "capture")
   {
     echo "$l_planet_unowned.<BR><BR>";
-    $update = mysql_query("UPDATE planets SET fighters=0, defeated='Y' WHERE planet_id=$planet_id]");
+    $update = $db->Execute("UPDATE $dbtables[planets] SET fighters=0, defeated='Y' WHERE planet_id=$planet_id]");
     $capture_link="<a href=planet.php?planet_id=$planet_id&command=capture>$l_planet_capture1</a>";
     $l_planet_capture2=str_replace("[capture]",$capture_link,$l_planet_capture2);
     echo "$l_planet_capture2.<BR><BR>";
@@ -56,12 +56,12 @@ if(!empty($planetinfo))
   }
   if($planetinfo[owner] != 0)
   {
-    $result3 = mysql_query("SELECT * FROM ships WHERE ship_id=$planetinfo[owner]");
-    $ownerinfo = mysql_fetch_array($result3);
+    $result3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$planetinfo[owner]");
+    $ownerinfo = $result3->fields;
   }
   if($planetinfo[defeated] && $planetinfo[fighters] > 0)
   {
-    $update = mysql_query("UPDATE planets SET defeated='N' WHERE planet_id=$planet_id");
+    $update = $db->Execute("UPDATE $dbtables[planets] SET defeated='N' WHERE planet_id=$planet_id");
     $planetinfo[defeated] = "N";
   }
   if(empty($command))
@@ -207,12 +207,12 @@ if(!empty($planetinfo))
       {
         /* set planet to not sell */
         echo "$l_planet_nownosell<BR>";
-        $result4 = mysql_query("UPDATE planets SET sells='N' WHERE planet_id=$planet_id");
+        $result4 = $db->Execute("UPDATE $dbtables[planets] SET sells='N' WHERE planet_id=$planet_id");
       }
       else
       {
         echo "$l_planet_nowsell<BR>";
-        $result4b = mysql_query ("UPDATE planets SET sells='Y' WHERE planet_id=$planet_id");
+        $result4b = $db->Execute ("UPDATE $dbtables[planets] SET sells='Y' WHERE planet_id=$planet_id");
       }
     }
     elseif($command == "name")
@@ -228,7 +228,7 @@ if(!empty($planetinfo))
     {
       /* name2 menu */
       $new_name = trim(strip_tags($new_name));
-      $result5 = mysql_query("UPDATE planets SET name='$new_name' WHERE planet_id=$planet_id");
+      $result5 = $db->Execute("UPDATE $dbtables[planets] SET name='$new_name' WHERE planet_id=$planet_id");
       $new_name = stripslashes($new_name);
       echo "$l_planet_cname $new_name.";
     }
@@ -236,13 +236,13 @@ if(!empty($planetinfo))
     {
       /* land menu */
       echo "$l_planet_landed<BR><BR>";
-      $update = mysql_query("UPDATE ships SET on_planet='Y', planet_id=$planet_id WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet='Y', planet_id=$planet_id WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif($command == "leave")
     {
       /* leave menu */
       echo "$l_planet_left<BR><BR>";
-      $update = mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif($command == "transfer")
     {
@@ -273,8 +273,8 @@ if(!empty($planetinfo))
       if($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics &&
         $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
       {
-        $update1 = mysql_query("UPDATE planets SET base='Y', ore=ore-$base_ore, organics=organics-$base_organics, goods=goods-$base_goods, credits=credits-$base_credits WHERE planet_id=$planet_id");
-        $update1b = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used-1 where ship_ip=$playerinfo[ship_id]");
+        $update1 = $db->Execute("UPDATE $dbtables[planets] SET base='Y', ore=ore-$base_ore, organics=organics-$base_organics, goods=goods-$base_goods, credits=credits-$base_credits WHERE planet_id=$planet_id");
+        $update1b = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used-1 where ship_ip=$playerinfo[ship_id]");
         echo "$l_planet_bbuild<BR><BR>";
         $ownership = calc_ownership($playerinfo[sector]);
 
@@ -301,7 +301,7 @@ if(!empty($planetinfo))
       }
       else
       {
-        mysql_query("UPDATE planets SET prod_ore=$pore,prod_organics=$porganics,prod_goods=$pgoods,prod_energy=$penergy,prod_fighters=$pfighters,prod_torp=$ptorp WHERE planet_id=$planet_id");
+        $db->Execute("UPDATE $dbtables[planets] SET prod_ore=$pore,prod_organics=$porganics,prod_goods=$pgoods,prod_energy=$penergy,prod_fighters=$pfighters,prod_torp=$ptorp WHERE planet_id=$planet_id");
         echo "$l_planet_p_changed<BR><BR>";
       }
     }
@@ -541,12 +541,12 @@ if(!empty($planetinfo))
           echo "$ownerinfo[character_name] $l_planet_ison<BR><BR>";
         }
       }
-      $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif($command == "capture" && $planetinfo[defeated] && $planetinfo[fighters] == 0)
     {
       echo "$l_planet_captured<BR>";
-      $update = mysql_query("UPDATE planets SET corp=null, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
+      $update = $db->Execute("UPDATE $dbtables[planets] SET corp=null, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
       $ownership = calc_ownership($playerinfo[sector]);
 
         if(!empty($ownership))
@@ -559,8 +559,8 @@ if(!empty($planetinfo))
       
       if($planetinfo[owner] != 0)
       {
-        $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$planetinfo[owner]");
-        $query = mysql_fetch_array($res);
+        $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$planetinfo[owner]");
+        $query = $res->fields;
         $planetowner=$query[character_name];
       }
       else

@@ -34,10 +34,10 @@ $nextday = getnextday($startdate);
 
 
 //Select news for date range
-$res = mysql_query("SELECT * from bn_news where date = '$startdate' order by news_id desc");
+$res = $db->Execute("SELECT * from $dbtables[news] where date = '$startdate' order by news_id desc");
 
 //Check to see if there was any news to be shown
-if(!mysql_num_rows($res))
+if($res->EOF)
 {
 
     //No news
@@ -48,7 +48,8 @@ if(!mysql_num_rows($res))
     die();
 }
 
-while ($row = mysql_fetch_array($res)) {
+while (!res->EOF) {
+  $row = $res->fields;
 ?>
 <tr>
       <td bgcolor="#000033" align="center"><?php echo $row[headline]?></td>
@@ -58,6 +59,7 @@ while ($row = mysql_fetch_array($res)) {
 </tr>
 
 <?php
+  $res->MoveNext();
 }
 ?>
 </table>

@@ -17,14 +17,14 @@ if(checklogin())
 //-------------------------------------------------------------------------------------------------
 
 
-$result     = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($result);
+$result     = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $result->fields;
 
-$result2    = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-$sectorinfo = mysql_fetch_array($result2);
+$result2    = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$sectorinfo = $result2->fields;
 
-$res = mysql_query("SELECT * FROM zones WHERE zone_id=$sectorinfo[zone_id]");
-$zoneinfo = mysql_fetch_array($res);
+$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$sectorinfo[zone_id]");
+$zoneinfo = $res->fields;
 
 if($zoneinfo[allow_trade] == 'N')
 {
@@ -39,8 +39,8 @@ elseif($zoneinfo[allow_trade] == 'L')
 {
   if($zoneinfo[corp_zone] == 'N')
   {
-    $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
-    $ownerinfo = mysql_fetch_array($res);
+    $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
+    $ownerinfo = $res->fields;
 
     if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
     {
@@ -230,7 +230,7 @@ else
          </TR>";
 
        //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<BR><BR>";
-      $query = "UPDATE ships SET credits=credits-$total_cost";
+      $query = "UPDATE $dbtables[ships] SET credits=credits-$total_cost";
       if($hull_upgrade)
       {
         $query = $query . ", hull=hull+1";
@@ -338,7 +338,7 @@ else
         BuildOneCol("$l_fuel_scoop $l_trade_installed");
       }
       $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
-      $purchase = mysql_query("$query");
+      $purchase = $db->Execute("$query");
       echo "
       </table>
       ";
@@ -488,7 +488,7 @@ else
       ";
 
       /* Update ship cargo, credits and turns */
-      $trade_result     = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+      $trade_result     = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 
       /* Make all trades positive to change port values*/
       $trade_ore        = round(abs($trade_ore));
@@ -498,7 +498,7 @@ else
 
 
       /* Decrease supply and demand on port */
-      $trade_result2    = mysql_query("UPDATE universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
+      $trade_result2    = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
       echo "$l_trade_complete.<BR><BR>";
     }
   }
