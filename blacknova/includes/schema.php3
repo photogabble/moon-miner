@@ -173,10 +173,14 @@ echo "Creating table: zones...";
 mysql_query("CREATE TABLE zones(" .
             "zone_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
             "zone_name tinytext," .
+            "owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "corp_zone enum('Y', 'N') DEFAULT 'N' NOT NULL," .
             "allow_beacon enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "allow_attack enum('Y','N') DEFAULT 'Y' NOT NULL," .
+            "allow_planetattack enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "allow_warpedit enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "allow_planet enum('Y','N') DEFAULT 'Y' NOT NULL," .
+            "allow_trade enum('Y','L','N') DEFAULT 'Y' NOT NULL," .
             "max_hull bigint(20) DEFAULT '0' NOT NULL," .
             "PRIMARY KEY(zone_id)," .
             "KEY zone_id(zone_id)" .

@@ -1215,6 +1215,9 @@ function traderoute_engage()
         if($playerinfo[ship_energy] > NUM_ENERGY($playerinfo[power]))
           $playerinfo[ship_energy] = NUM_ENERGY($playerinfo[power]);
       }
+      if($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
+        echo "Nothing to trade<br>";
+
       if($traderoute[circuit] == '1')
         mysql_query("UPDATE ships SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics], ship_energy=$playerinfo[ship_energy] WHERE ship_id=$playerinfo[ship_id]");
     }

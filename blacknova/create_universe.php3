@@ -117,9 +117,9 @@ elseif($swordfish==$adminpass && $engage=="2")
     $insert = mysql_query("INSERT INTO universe (sector_id,zone_id,angle1,angle2,distance) VALUES ('','1',$angle1,$angle2,$distance)");
   }
   echo "<BR>Selecting $fedsecs Federation sectors...<BR>";
-  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('1', 'Unchartered space', 'Y', 'Y', 'Y', 'Y', '0')");
-  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('2', 'Federation space', 'N', 'N', 'N', 'N', '$fed_max_hull')");
-  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('3', 'Free-Trade space', 'N', 'Y', 'N', 'N', '0')");
+  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, max_hull) VALUES ('1', 'Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
+  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, max_hull) VALUES ('2', 'Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', '$fed_max_hull')");
+  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, max_hull) VALUES ('3', 'Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', '0')");
   $update = mysql_query("UPDATE universe SET zone_id='2' WHERE sector_id<$fedsecs");
   echo "Selecting $spp sectors for additional special ports...<BR>";
   for($i=2; $i<=$sector_max; $i++)
@@ -254,6 +254,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   echo "Creating default $admin_mail login, password: $password<BR>";
   $stamp=date("Y-m-d H:i:s");
   mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0,0,0,0,'Y','N','N','Y')");
+  mysql_query("INSERT INTO zones VALUES('','WebMaster\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
   echo mysql_error();
   echo "done.<BR>";
 }
