@@ -282,9 +282,16 @@ if($sectorinfo[planet] == 'Y')
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
         $planetbeams = NUM_BEAMS($ownerinfo[beams]);
-        echo "Planet Beams - $planetbeams<BR><BR>";
         $playerbeams = NUM_BEAMS($playerinfo[beams]);
         echo "Player Beams - $playerbeams<BR><BR>";
+        if($playerbeams<$planetbeams)
+        {
+          echo "Planet has more beams than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less beams than you.<BR><BR>";
+        }
         $playershields = NUM_SHIELDS($playerinfo[shields]);
         echo "Player Shields - $playershields<BR><BR>";
         if($sectorinfo[base] == "Y")
@@ -292,7 +299,14 @@ if($sectorinfo[planet] == 'Y')
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
         $planetshields = NUM_SHIELDS($ownerinfo[shields]);
-        echo "Planet Shields - $planetshields<BR><BR>";       
+        if($playershields<$planetshields)
+        {
+          echo "Planet has more shields than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less shields than you.<BR><BR>";
+        }
         $playertorpnum = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
         if($playertorpnum > $playerinfo[torps])
         {
@@ -310,13 +324,27 @@ if($sectorinfo[planet] == 'Y')
         $playertorpdmg = $torp_dmg_rate * $playertorpnum;
         echo "Player torp damage - $playertorpdmg<BR><BR>";
         $planettorpdmg = $torp_dmg_rate * $planettorpnum;
-        echo "Planet torp damage - $planettorpdmg<BR><BR>";       
+        if($playertorpdmg<$planettorpdmg)
+        {
+          echo "Planet has more torps than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less torps than you.<BR><BR>";
+        }
         $playerarmour = $playerinfo[armour_pts];
         echo "Player Armour - $playerarmour<BR><BR>";       
         $playerfighters = $playerinfo[ship_fighters];
         echo "Player Fighters - $playerfighters<BR><BR>";       
         $planetfighters = $sectorinfo[planet_fighters];
-        echo "Planet Fighters - $planetfighters<BR><BR>";       
+        if($playerfighters<$planetfighters)
+        {
+          echo "Planet has more fighters than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less fighters than you.<BR><BR>";
+        }
         $planetdestroyed = 0;
         $playerdestroyed = 0;
         echo "Attacking $ownerinfo[character_name]'s planet in sector $playerinfo[sector]:<BR><BR>";
@@ -342,14 +370,14 @@ if($sectorinfo[planet] == 'Y')
           {
             $temp = round($playerfighters / 2);
             $lost = $playerfighters - $temp;
-            echo "You lost $lost fighters<BR>";
+            echo "You lost fighters<BR>";
             $playerfighters = $temp;
             $planetbeams = $planetbeams - $lost;
           }
           else
           {
             $playerfighters = $playerfighters - $planetbeams;
-            echo "You lost $planetbeams fighters<BR>";
+            echo "You lost fighters<BR>";
             $planetbeams = 0;
           }
         }
@@ -378,7 +406,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "Your shields are hit for $planetbeams damage.<BR>";
+            echo "Your shields are hit.<BR>";
             $playershields = $playershields - $planetbeams;
             $planetbeams = 0;
           }
@@ -393,7 +421,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $planetbeams;
-            echo "Your armour is hit for $planetbeams damage.<BR>";
+            echo "Your armour is hit.<BR>";
           } 
         } 
         echo "<BR>Torpedoes hit:<BR>";
@@ -418,14 +446,14 @@ if($sectorinfo[planet] == 'Y')
           {
             $temp = round($playerfighters / 2);
             $lost = $playerfighters - $temp;
-            echo "You lost $lost fighters<BR>";
+            echo "You lost fighters<BR>";
             $playerfighters = $temp;
             $planettorpdmg = $planettorpdmg - $lost;
           }
           else
           {
             $playerfighters = $playerfighters - $planettorpdmg;
-            echo "You lost $planettorpdmg fighters<BR>";
+            echo "You lost fighters<BR>";
             $planettorpdmg = 0;
           }
         }
@@ -439,7 +467,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $planettorpdmg;
-            echo "Your armour is hit for $planettorpdmg damage.<BR>";
+            echo "Your armour is hit.<BR>";
           } 
         }
         if($playertorpdmg > 0 && $planetfighters > 0)
@@ -452,7 +480,6 @@ if($sectorinfo[planet] == 'Y')
           echo "Planet loses $playertorpdmg fighters.<BR><BR>";
         }
         echo "<BR>Fighters Attack:<BR>";
-        echo "DEBUG:  planetfighters=$planetfighters playerfighters=$playerfighters<BR>";
         if($playerfighters > 0 && $planetfighters > 0)
         {
           if($playerfighters > $planetfighters)
@@ -472,7 +499,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "You lost $planetfighters fighters.<BR>";
+            echo "You lost fighters.<BR>";
             $tempplayfighters = $playerfighters - $planetfighters;
           }     
           $playerfighters = $tempplayfighters;
@@ -501,7 +528,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $planetfighters;
-            echo "Your armour is hit for $planetfighters damage.<BR>";
+            echo "Your armour is hit.<BR>";
           }
         }
         if($playerarmour < 1)
@@ -550,19 +577,32 @@ if($sectorinfo[planet] == 'Y')
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
         $planetbeams = NUM_BEAMS($ownerinfo[beams]);
-        echo "Planet Beams - $planetbeams<BR><BR>";
         $playerbeams = NUM_BEAMS($playerinfo[beams]);
         echo "Player Beams - $playerbeams<BR><BR>";
+        if($playerbeams<$planetbeams)
+        {
+          echo "Planet has more beams than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less beams than you.<BR><BR>";
+        }
         $playershields = NUM_SHIELDS($playerinfo[shields]);
         echo "Player Shields - $playershields<BR><BR>";
         $ownershields = NUM_SHIELDS($ownerinfo[shields]);
-        echo "Owner Shields - $ownershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
         $planetshields = NUM_SHIELDS($ownerinfo[shields]);
-        echo "Planet Shields - $planetshields<BR><BR>";
+        if($playershields<$planetshields)
+        {
+          echo "Planet has more shields than you.<BR><BR>"; 
+        }
+        else
+        {
+          echo "Planet has less shields than you.<BR><BR>";
+        }
         $playertorpnum = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
         if($playertorpnum > $playerinfo[torps])
         {
@@ -574,7 +614,6 @@ if($sectorinfo[planet] == 'Y')
           $ownertorpnum = $ownerinfo[torps];
         }
         $ownertorpdmg = $torp_dmg_rate * $ownertorpnum;
-        echo "Owner torp damage - $ownertorpdmg<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[torp_launchers] = $ownerinfo[torp_launchers] + $base_modifier;
@@ -585,19 +624,28 @@ if($sectorinfo[planet] == 'Y')
           $planettorpnum = $sectorinfo[base_torp];
         }
         $playertorpdmg = $torp_dmg_rate * $playertorpnum;
-        echo "Player torp damage - $playertorpdmg<BR><BR>";
         $planettorpdmg = $torp_dmg_rate * $planettorpnum;
-        echo "Planet torp damage - $planettorpdmg<BR><BR>";
+        if($playertorpdmg<$planettorpdmg)
+        {
+          echo "Planet has more torps than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less torps than you.<BR><BR>";
+        }
         $playerarmour = $playerinfo[armour_pts];
-        echo "Player Armour - $playerarmour<BR><BR>";
         $ownerarmour = $ownerinfo[armour_pts];  
-        echo "Owner Armour - $ownerarmour<BR><BR>";
         $playerfighters = $playerinfo[ship_fighters];
-        echo "Player Fighters - $playerfighters<BR><BR>";
         $ownerfighters = $ownerinfo[ship_fighters];
-        echo "Owner Fighters - $ownerfighters<BR><BR>";
         $planetfighters = $sectorinfo[planet_fighters];
-        echo "Planet Fighters - $planetfighters<BR><BR>";
+        if($playerfighters<$planetfighters)
+        {
+          echo "Planet has more fighters than you.<BR><BR>";
+        }
+        else
+        {
+          echo "Planet has less fighters than you.<BR><BR>";
+        }
         $planetdestroyed = 0;
         $playerdestroyed = 0;
         $ownerdestroyed = 0;
@@ -626,14 +674,14 @@ if($sectorinfo[planet] == 'Y')
           {
             $temp = round($playerfighters / 2);
             $lost = $playerfighters - $temp;
-            echo "You lost $lost fighters<BR>";
+            echo "You lost fighters<BR>";
             $playerfighters = $temp;
             $planetbeams = $planetbeams - $lost;
           }
           else
           {
             $playerfighters = $playerfighters - $planetbeams;
-            echo "You lost $planetbeams fighters<BR>";
+            echo "You lost fighters<BR>";
             $planetbeams = 0;
           }
         }
@@ -643,14 +691,14 @@ if($sectorinfo[planet] == 'Y')
           {
             $temp = round($playerfighters / 2);
             $lost = $playerfighters - $temp;
-            echo "You lost $lost fighters<BR>";
+            echo "You lost fighters<BR>";
             $playerfighters = $temp;
             $ownerbeams = $ownerbeams - $lost;
           }
           else
           {
             $playerfighters = $playerfighters - $ownerbeams;
-            echo "You lost $ownerbeams fighters<BR>";
+            echo "You lost fighters<BR>";
             $ownerbeams = 0;
           }
         }
@@ -679,7 +727,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "Your shields are hit for $planetbeams damage.<BR>";
+            echo "Your shields are hit.<BR>";
             $playershields = $playershields - $planetbeams;
             $planetbeams = 0;
           }
@@ -694,7 +742,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "Your shields are hit for $planetbeams damage.<BR>";
+            echo "Your shields are hit.<BR>";
             $playershields = $playershields - $ownerbeams;
             $ownerbeams = 0;
           }
@@ -709,7 +757,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $ownerarmour = $ownerarmour - $playerbeams;
-            echo "$ownerinfo[character_name]'s armour is hit for $planetbeams damage.<BR>";
+            echo "$ownerinfo[character_name]'s armour is hit for $playerbeams damage.<BR>";
           }
         }
         if($planetbeams > 0)
@@ -722,7 +770,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $planetbeams;
-            echo "Your armour is hit for $planetbeams damage.<BR>";
+            echo "Your armour is hit.<BR>";
           } 
         }
         if($ownerbeams > 0)
@@ -735,7 +783,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $ownerbeams;
-            echo "Your armour is hit for $ownerbeams damage.<BR>";
+            echo "Your armour is hit.<BR>";
           }
         } 
         echo "<BR>Torpedoes hit:<BR>";
@@ -777,7 +825,7 @@ if($sectorinfo[planet] == 'Y')
           {
             $temp = round($playerfighters / 2);
             $lost = $playerfighters - $temp;
-            echo "You lost $lost fighters<BR>";
+            echo "You lost fighters<BR>";
             echo "$temp - $playerfighters - $targettorpdmg";
             $playerfighters = $temp;
             $planettorpdmg = $planettorpdmg - $lost;
@@ -785,7 +833,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerfighters = $playerfighters - $planettorpdmg;
-            echo "You lost $planettorpdmg fighters<BR>";
+            echo "You lost fighters<BR>";
             $planettorpdmg = 0;
           }
         }
@@ -795,7 +843,7 @@ if($sectorinfo[planet] == 'Y')
           {
             $temp = round($playerfighters / 2);
             $lost = $playerfighters - $temp;
-            echo "You lost $lost fighters<BR>";
+            echo "You lost fighters<BR>";
             echo "$temp - $playerfighters - $ownertorpdmg";
             $playerfighters = $temp;
             $ownertorpdmg = $ownertorpdmg - $lost;
@@ -803,7 +851,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerfighters = $playerfighters - $ownertorpdmg;
-            echo "You lost $ownertorpdmg fighters<BR>";
+            echo "You lost fighters<BR>";
             $ownertorpdmg = 0;
           }
         }
@@ -817,7 +865,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $ownerarmour = $ownerarmour - $playertorpdmg;
-            echo "$ownerinfo[character_name]'s  armour is hit for $planettorpdmg damage.<BR>";
+            echo "$ownerinfo[character_name]'s  armour is hit for $playertorpdmg damage.<BR>";
           }
         }
         if($planettorpdmg > 0)
@@ -830,7 +878,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $planettorpdmg;
-            echo "Your armour is hit for $planettorpdmg damage.<BR>";
+            echo "Your armour is hit.<BR>";
           }
         }
         if($ownertorpdmg > 0)
@@ -843,7 +891,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour-$ownertorpdmg;
-            echo "Your armour is hit for $ownertorpdmg damage.<BR>";
+            echo "Your armour is hit.<BR>";
           }
         }
         echo "<BR>Fighters Attack:<BR>";
@@ -866,7 +914,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "You lost $planetfighters fighters.<BR>";
+            echo "You lost fighters.<BR>";
             $tempplayfighters = $playerfighters - $planetfighters;
           }
           if($ownerfighters > $playerfighters)
@@ -876,7 +924,7 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "You lost $ownerfighters fighters.<BR>";
+            echo "You lost fighters.<BR>";
             $tempplayfighters = $tempplayfighters - $ownerfighters;
           }
           $playerfighters = $tempplayfighters;
@@ -891,7 +939,8 @@ if($sectorinfo[planet] == 'Y')
           }
           else
           {
-            echo "$ownerinfo[character_name]'s planet lost $playerfighters shield points.<BR>";                                                         $planetshields=$planetshields-$playerfighters;
+            echo "$ownerinfo[character_name]'s planet lost $playerfighters shield points.<BR>";
+            $planetshields=$planetshields-$playerfighters;
           }
         }
         if($playerfighters > 0)
@@ -904,7 +953,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $ownerarmour = $ownerarmour - $playerfighters;
-            echo "$ownerinfo[character_name]'s armour is hit for $planetfighters damage.<BR>";
+            echo "$ownerinfo[character_name]'s armour is hit for $playerfighters damage.<BR>";
           }
         }
         if($planetfighters > 0)
@@ -917,7 +966,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $planetfighters;
-            echo "Your armour is hit for $planetfighters damage.<BR>";
+            echo "Your armour is hit.<BR>";
           }
         }
         if($ownerfighters > 0)
@@ -930,7 +979,7 @@ if($sectorinfo[planet] == 'Y')
           else
           {
             $playerarmour = $playerarmour - $ownerfighters;
-            echo "Your armour is hit for $ownerfighters damage.<BR>";
+            echo "Your armour is hit.<BR>";
           }
         }
         if($playerarmour < 1)
