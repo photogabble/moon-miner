@@ -77,9 +77,9 @@ if(empty($phase))
 }
 elseif($phase == 1)
 {
-  $result2 = mysql_query("SELECT port_type, angle1, angle2, distance FROM universe WHERE sector_id=$playerinfo[sector]");
+  $result2 = mysql_query("SELECT port_type, angle1, angle2, mines, fighters, fm_owner, distance FROM universe WHERE sector_id=$playerinfo[sector]");
   $start = mysql_fetch_array($result2);
-  $result3 = mysql_query("SELECT port_type, angle1, angle2, distance FROM universe WHERE sector_id=$destination");
+  $result3 = mysql_query("SELECT port_type, angle1, angle2, mines, fighters, fm_owner, distance FROM universe WHERE sector_id=$destination");
   $finish = mysql_fetch_array($result3);
   $sa1 = $start[angle1] * $deg;
   $sa2 = $start[angle2] * $deg;
@@ -121,16 +121,42 @@ elseif($phase == 1)
     $triptime = 0;
     $energyscooped = 0;
   }    
-  /* inform player of # of turns for return trip and docking at port - if player doesn't have enough turns, fail. */
-  $triptime = ($triptime + 1) * 2;
-  echo "It would take " . NUMBER($triptime) . " turns to go to sector $destination, trade all of your commodities, return to sector $playerinfo[sector] and again trade all of your commodities.  You would gain " . NUMBER($energyscooped) . " energy to trade for each leg of the trip.<BR><BR>";
-  if($triptime > $playerinfo[turns])
+  $hostile = 0;
+  if (($start[fighters] > 0 || $start[mines] > 0) && $start[fm_owner] != $playerinfo[ship_id])
   {
-    echo "You do not have enough turns left. You only have " . NUMBER($playerinfo[turns]) . ".<BR><BR>";
+        $result99 = mysql_query("SELECT * from ships where ship_id=$start[fm_owner]");
+        $fighters_owner = mysql_fetch_array($result2);
+        if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
+        {
+            $hostile = 1;
+        }
+  }
+  if (($finish[fighters] > 0 || $finish[mines] > 0) && $finish[fm_owner] != $playerinfo[ship_id])
+  {
+        $result99 = mysql_query("SELECT * from ships where ship_id=$finish[fm_owner]");
+        $fighters_owner = mysql_fetch_array($result2);
+        if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
+        {
+            $hostile = 1;
+        }
+  }
+  if($hostile > 0 && $playerinfo[hull] > $mine_hullsize) 
+  {
+     echo "You can not use trade routes between sectors with hostile defences. You must defeat the defences first.<BR>";
   }
   else
   {
-    echo "Click <A HREF=traderoute.php3?phase=2&destination=$destination>here</A> to engage.<BR><BR>";
+     /* inform player of # of turns for return trip and docking at port - if player doesn't have enough turns, fail. */
+     $triptime = ($triptime + 1) * 2;
+     echo "It would take " . NUMBER($triptime) . " turns to go to sector $destination, trade all of your commodities, return to sector $playerinfo[sector] and again trade all of your commodities.  You would gain " . NUMBER($energyscooped) . " energy to trade for each leg of the trip.<BR><BR>";
+     if($triptime > $playerinfo[turns])
+     {
+       echo "You do not have enough turns left. You only have " . NUMBER($playerinfo[turns]) . ".<BR><BR>";
+     }
+     else
+     {
+       echo "Click <A HREF=traderoute.php3?phase=2&destination=$destination>here</A> to engage.<BR><BR>";
+     }
   }
 }
 else

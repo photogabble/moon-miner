@@ -3,7 +3,7 @@
     //Put the sector information into the array "sectorinfo"
     $sectorinfo=mysql_fetch_array($result2);
     mysql_free_result($result2);
-    if ($sectorinfo[fighters] > 0 && $sectorinfo[fm_owner] != $playerinfo[ship_id])
+    if ($sectorinfo[fighters] > 0 && $sectorinfo[fm_owner] != $playerinfo[ship_id] && $playerinfo[hull] > $mine_hullsize)
     {
         // find out if the fighter owner and player are on the same team
 	$result2 = mysql_query("SELECT * from ships where ship_id=$sectorinfo[fm_owner]");
