@@ -37,8 +37,10 @@ if($command == change)
 
 if($curzone[allow_beacon] == 'Y')
   $ybeacon = "checked";
-else
+elseif($curzone[allow_beacon] == 'N')
   $nbeacon = "checked";
+else
+  $lbeacon = "checked";
 
 if($curzone[allow_attack] == 'Y')
   $yattack = "checked";
@@ -47,8 +49,10 @@ else
 
 if($curzone[allow_warpedit] == 'Y')
   $ywarpedit = "checked";
-else
+elseif($curzone[allow_warpedit] == 'N')
   $nwarpedit = "checked";
+else
+  $lwarpedit = "checked";
 
 if($curzone[allow_planet] == 'Y')
   $yplanet = "checked";
@@ -77,13 +81,13 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<td><input type=text name=name size=30 maxlength=30 value=\"$curzone[zone_name]\"></td>" .
      "</tr><tr>" .
      "<td align=right><font size=2><b>$l_ze_allow $l_beacons : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;$l_no</td>" .
+     "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=L $lbeacon>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
      "<td align=right><font size=2><b>$l_ze_attacks : &nbsp;</b></font></td>" .
      "<td><input type=radio name=attacks value=Y $yattack>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=attacks value=N $nattack>&nbsp;$l_no</td>" .
      "</tr><tr>" .
      "<td align=right><font size=2><b>$l_ze_allow $l_warpedit : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;$l_no</td>" .
+     "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=L $lwarpedit>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
      "<td align=right><font size=2><b>$l_allow $l_sector_def : &nbsp;</b></font></td>" .
      "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;$l_zi_limit</td>" .

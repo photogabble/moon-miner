@@ -3,18 +3,24 @@ include("config.php");
 updatecookie();
 
 include("languages/$lang");
+
 $title=$l_beacon_title;
 include("header.php");
 
 connectdb();
 
-if (checklogin()) {die();}
+if (checklogin())
+{
+  die();
+}
 
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo=$result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo=$result2->fields;
+
+$allowed_rsw = "N";
 
 bigtitle();
 
@@ -26,7 +32,37 @@ if($playerinfo[dev_beacon] > 0)
   {
     echo "$l_beacon_notpermitted<BR><BR>";
   }
+  elseif($zoneinfo[allow_beacon] == 'L')
+  {
+    $result3 = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
+    $zoneowner_info = $result3->fields;
+
+    $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
+    $zoneteam = $result5->fields;
+
+     
+    if($zoneowner_info[owner] != $playerinfo[ship_id])
+    {
+      if(($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
+      {
+        echo "$l_beacon_notpermitted<BR><BR>";
+      }
+      else
+      {
+        $allowed_rsw = "Y";
+      }
+    }
+    else
+    {
+      $allowed_rsw = "Y";
+    }
+  }
   else
+  {
+    $allowed_rsw = "Y";
+  }
+
+  if($allowed_rsw == "Y")
   {
     if($beacon_text == "")
     {
@@ -52,6 +88,7 @@ if($playerinfo[dev_beacon] > 0)
       $update = $db->Execute("UPDATE $dbtables[universe] SET beacon='$beacon_text' WHERE sector_id=$sectorinfo[sector_id]");
       $update = $db->Execute("UPDATE $dbtables[ships] SET dev_beacon=dev_beacon-1 WHERE ship_id=$playerinfo[ship_id]");
     }
+
   }
 }
 else

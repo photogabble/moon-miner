@@ -2,7 +2,9 @@
 include("config.php");
 updatecookie();
 
+
 include("languages/$lang");
+
 $title=$l_zi_title;
 include("header.php");
 
@@ -22,10 +24,15 @@ if($res->EOF)
 else
 {
 
+
   $row = $res->fields;
 
+
   if($row[zone_id] < 5)
+
     $row[zone_name] = $l_zname[$row[zone_id]];
+
+
 
   if($row[zone_id] == '2')
     $ownername = $l_zi_feds;
@@ -53,8 +60,10 @@ else
 
   if($row[allow_beacon] == 'Y')
     $beacon=$l_zi_allow;
-  else
+  elseif($row[allow_beacon] == 'N')
     $beacon=$l_zi_notallow;
+  else
+    $beacon=$l_zi_limit;
 
   if($row[allow_attack] == 'Y')
     $attack=$l_zi_allow;
@@ -70,22 +79,24 @@ else
 
   if($row[allow_warpedit] == 'Y')
     $warpedit=$l_zi_allow;
-  else
+  elseif($row[allow_warpedit] == 'N')
     $warpedit=$l_zi_notallow;
+  else
+    $warpedit=$l_zi_limit;
 
   if($row[allow_planet] == 'Y')
     $planet=$l_zi_allow;
-  elseif($row[allow_planet] == 'L')
-    $planet=$l_zi_limit;
-  else
+  elseif($row[allow_planet] == 'N')
     $planet=$l_zi_notallow;
+  else
+    $planet=$l_zi_limit;
 
   if($row[allow_trade] == 'Y')
     $trade=$l_zi_allow;
-  elseif($row[allow_trade] == 'L')
-    $trade=$l_zi_limit;
   elseif($row[allow_trade] == 'N')
     $trade=$l_zi_notallow;
+  else
+    $trade=$l_zi_limit;
 
   if($row[max_hull] == 0)
     $hull=$l_zi_ul;
@@ -112,6 +123,7 @@ else
        "</table>";
 }
 echo "<BR><BR>";
+
 
 TEXT_GOTOMAIN();
 include("footer.php");

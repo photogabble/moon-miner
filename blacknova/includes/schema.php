@@ -175,10 +175,10 @@ $db->execute("CREATE TABLE $dbtables[zones](" .
              "zone_name tinytext," .
              "owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "corp_zone enum('Y', 'N') DEFAULT 'N' NOT NULL," .
-             "allow_beacon enum('Y','N') DEFAULT 'Y' NOT NULL," .
+             "allow_beacon enum('Y','N','L') DEFAULT 'Y' NOT NULL," .
              "allow_attack enum('Y','N') DEFAULT 'Y' NOT NULL," .
              "allow_planetattack enum('Y','N') DEFAULT 'Y' NOT NULL," .
-             "allow_warpedit enum('Y','N') DEFAULT 'Y' NOT NULL," .
+             "allow_warpedit enum('Y','N','L') DEFAULT 'Y' NOT NULL," .
              "allow_planet enum('Y','L','N') DEFAULT 'Y' NOT NULL," .
              "allow_trade enum('Y','L','N') DEFAULT 'Y' NOT NULL," .
              "allow_defenses enum('Y','L','N') DEFAULT 'Y' NOT NULL," .
