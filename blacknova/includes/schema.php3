@@ -73,7 +73,7 @@ mysql_query("CREATE TABLE ships(" .
             "preset1 bigint(20) DEFAULT '0' NOT NULL," .
             "preset2 bigint(20) DEFAULT '0' NOT NULL," .
             "preset3 bigint(20) DEFAULT '0' NOT NULL," .
-            "rating smallint DEFAULT '0' NOT NULL," .
+            "rating bigint(20) DEFAULT '0' NOT NULL," .
             "score bigint(20) DEFAULT '0' NOT NULL," .
             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
             "ip_address tinytext NOT NULL," .
