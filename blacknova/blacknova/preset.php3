@@ -23,9 +23,10 @@
 		echo "</FORM>";
 
 	} else {
-		$preset1=round(abs($preset1));
-		$preset2=round(abs($preset2));
-		if ($preset1>$sector_max)
+		$preset1 = round(abs($preset1));
+		$preset2 = round(abs($preset2));
+		$preset3 = round(abs($preset3));
+		if($preset1 > $sector_max)
 		{
 			echo "Preset 1 of $preset1 exceeds universe max of $sector_max. No presets saved.<BR><BR>";	
 		} elseif ($preset2>$sector_max) {
