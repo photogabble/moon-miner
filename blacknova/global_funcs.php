@@ -6,6 +6,10 @@ if ($userpass != '' and $userpass != '+') {
 
 }
 
+// Ensure lang is set
+if (!isset($lang))
+  $lang = $default_lang;
+
 //Log constants
 
 define(LOG_LOGIN, 1);

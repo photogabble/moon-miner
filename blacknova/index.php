@@ -1,12 +1,12 @@
 <? 
   include("config.php");
 
-	$title="Login"; 
-  $no_body=1;
-	include("header.php");
   if(empty($lang))
     $lang = $default_lang;
   include_once($gameroot . "/languages/$lang");
+	$title="Login"; 
+  $no_body=1;
+	include("header.php");
 //  include("config.php");
 ?>
 
