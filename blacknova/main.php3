@@ -289,18 +289,11 @@ if($num_planets > 0)
   {
     if($planets[$i][owner] != 0)
     {
-      $result5 =  mysql_query("SELECT 
-                                    teams.*,  
-                                  	ships.*, 
-                                 	planets.*
-                                 FROM  `ships`, `planets` 
-                                 	LEFT OUTER JOIN teams 
-                                 		ON ships.team = teams.id
-                                 WHERE 
-                                 	planets.owner = ships.ship_id
-                                 GROUP BY planets.owner");
+      $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
+      $planet_owner = mysql_fetch_array($result5);
 
-      $planet_owner = mysql_fetch_array($result5);                        
+
+
 
       $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
       $planetavg /= 7;
