@@ -77,7 +77,8 @@ else
   
   // update planet production
   echo "<B>PLANETS</B><BR><BR>";
-  $res = mysql_query("SELECT sector_id, planet_colonists, planet_owner, planet_ore, planet_organics, planet_goods, planet_energy, planet_fighters, base_torp FROM universe WHERE planet='Y'");
+  $res = mysql_query("SELECT sector_id, planet_colonists, planet_owner, planet_ore, planet_organics, planet_goods, planet_energy, planet_fighters, base_torp,
+prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp FROM universe WHERE planet='Y'");
   while($row = mysql_fetch_array($res))
   {
     $production = min($row[planet_colonists], $colonist_limit) * $colonist_production_rate;
