@@ -24,10 +24,10 @@ $sectorinfo=mysql_fetch_array($result2);
 
 bigtitle();
 
-$trade_benefit = "You won ";
-$color_line1   = "#00FF00"; //light green
-$trade_deficit = "You lost ";
-$color_line2    = "red";
+$trade_benefit = "Profit : ";
+$color_green   = "#00FF00"; //light green
+$trade_deficit = "Cost : ";
+$color_red   = "red";
 
 function BuildOneCol( $text = "&nbsp;", $align = "left" ) {
    echo"
@@ -175,10 +175,10 @@ else
      $trade_credits = NUMBER(abs($total_cost));
       echo "<TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
          <TR>
-            <TD colspan=99 bgcolor=#300030><font size=3 color=silver><b>Results for this trade</b></font></TD>
+            <TD colspan=99 align=center bgcolor=#300030><font size=3 color=white><b>Results for this trade</b></font></TD>
          </TR>
          <TR>
-            <TD colspan=99 align=center><b><font color=\"". $color_line2 . "\">You spend " . $trade_credits . " credits</font></b></TD>
+            <TD colspan=99 align=center><b><font color=red>Cost : " . $trade_credits . " credits</font></b></TD>
          </TR>";
          
        //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<BR><BR>";
@@ -309,7 +309,7 @@ else
     else
     {
       $ore_price     = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
-      $trade_color  = $color_line1;
+      $trade_color  = $color_green;
       $trade_result  = $trade_benefit;
       $trade_ore     = -$trade_ore;
     }
@@ -318,14 +318,14 @@ else
     if($sectorinfo[port_type] == "organics")
     {
       $organics_price   = $organics_price - $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
-      $trade_color      = $color_line2 ;
+      $trade_color      = $color_red ;
       $trade_result     = $trade_deficit;
     }
     else
     {
       $organics_price   = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
       $trade_organics   = -$trade_organics;
-      $trade_color      = $color_line1;
+      $trade_color      = $color_green;
       $trade_result     = $trade_benefit;
 
     }
@@ -334,14 +334,14 @@ else
     if($sectorinfo[port_type] == "goods")
     {
       $goods_price   = $goods_price - $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
-      $trade_color   = $color_line2 ;
+      $trade_color   = $color_red ;
       $trade_result  = $trade_deficit;
     }
     else
     {
       $goods_price   = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
       $trade_goods   = -$trade_goods;
-      $trade_color   = $color_line2;
+      $trade_color   = $color_green;
       $trade_result  = $trade_benefit;
 
     }
@@ -350,14 +350,14 @@ else
     if($sectorinfo[port_type] == "energy")
     {
       $energy_price = $energy_price - $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
-      $trade_color   = $color_line2;
+      $trade_color   = $color_green;
       $trade_result  = $trade_deficit;
     }
     else
     {
       $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
       $trade_energy = -$trade_energy;
-      $trade_color  = $color_line1 ;
+      $trade_color  = $color_red ;
       $trade_result  = $trade_benefit;
 
     }
@@ -423,26 +423,26 @@ else
       $trade_credits = NUMBER(abs($total_cost));
       if ($total_cost == 0 ) {
          $trade_color   = "white";
-         $trade_result  = "Null";    
+         $trade_result  = "Cost : ";    
       }
       echo "
       <TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
          <TR>
-            <TD colspan=99><font size=3 color=silver><b>Results for this trade</b></font></TD>
+            <TD colspan=99 align=center><font size=3 color=white><b>Results for this trade</b></font></TD>
          </TR>
          <TR>
             <TD colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . $trade_credits . " credits</font></b></TD>
          </TR>
-         <TR>
+         <TR bgcolor=$color_line1>
             <TD><b><font size=2 color=white>Traded Ore: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_ore) . "</font></b></TD>
          </TR>
-         <TR>
+         <TR bgcolor=$color_line2>
             <TD><b><font size=2 color=white>Traded Organics: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_organics) . "</font></b></TD>
          </TR>
-         <TR>
+         <TR bgcolor=$color_line1>
             <TD><b><font size=2 color=white>Traded Goods: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_goods) . "</font></b></TD>
          </TR>
-         <TR>
+         <TR bgcolor=$color_line2>
             <TD><b><font size=2 color=white>Traded Energy: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_energy) . "</font></b></TD>
          </TR>
       </TABLE>
