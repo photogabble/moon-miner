@@ -82,54 +82,61 @@ else
   {
     $production = min($row[planet_colonists], $colonist_limit) * $colonist_production_rate;
 
-    $organics_production = $production * $organics_prate;
+    $organics_production = ($production * $organics_prate * $row[prod_organics} / 100.0) - $production * $organics_consumption;
     if(($row[planet_organics] + $organics_production) > $organics_limit)
     {
       $organics_production = 0;
     }
-    
-    $ore_production = $production * $ore_prate;
+    if($row[planet_organics] + $organics_production) < 0)
+    {
+      $organics_production = -$row[planet_organics];
+      $starvation = floor(-($organics_test / $organics_consumption / $colonist_production_rate * $starvation_death_rate));
+      if($row[planet_owner] && $starvation > 0)
+      {
+        playerlog($row[planet_owner], "Your planet in sector $row[sector_id] had too little food and $starvation people died!");
+      }
+    }
+    else
+    {
+      $starvation = 0;
+    }
+    $ore_production = $production * $ore_prate * $row[prod_ore] / 100.0;
     if(($row[planet_ore] + $ore_production) > $ore_limit)
     {
       $ore_production = 0;
     }
     
-    $goods_production = $production * $goods_prate;
+    $goods_production = $production * $goods_prate * $row[prod_goods] / 100.0;
     if(($row[planet_goods] + $goods_production) > $goods_limit)
     {
       $goods_production = 0;
     }
 
-    $energy_production = $production * $energy_prate;
+    $energy_production = $production * $energy_prate * $row[prod_energy] / 100.0;
     if(($row[planet_energy] + $energy_production) > $energy_limit)
     {
       $energy_production = 0;
     }
 
-    $reproduction = round($row[planet_colonists] * $colonist_reproduction_rate);
-    if(($row[planet_colonists] + $reproduction) > $colonist_limit)
+    $reproduction = round(($row[planet_colonists] - $starvation) * $colonist_reproduction_rate);
+    if(($row[planet_colonists] + $reproduction - $starvation) > $colonist_limit)
     {
       $reproduction = 0;
     }
-
+    $total_percent = $row[prod_organics] + $row[prod_ore] + $row[prod_goods] + $row[prod_energy];
     if($row[planet_owner])
     {
-      $fighter_production = $production * $fighter_prate;
-      $torp_production = $production * $torpedo_prate;
-      echo "$torp_production - $fighter_production";
+      $fighter_production = $production * $fighter_prate * $row[prod_fighters] / 100.0;
+      $torp_production = $production * $torpedo_prate * $row[prod_torp] / 100.0;
+      $total_percent += $row[prod_fighters] + $row[prod_torp];
     }
     else
     {
       $fighter_production = 0;
       $torp_production = 0;
     }
-    
-    $query = "UPDATE universe SET planet_organics=planet_organics+$organics_production, planet_ore=planet_ore+$ore_production, planet_goods=planet_goods+$goods_production, planet_energy=planet_energy+$energy_production, planet_colonists=planet_colonists+$reproduction, base_torp=base_torp+$torp_production, planet_fighters=planet_fighters+$fighter_production, planet_credits=planet_credits*$interest_rate WHERE sector_id=$row[sector_id]";
-    if($row[planet_colonists] > $colonist_limit)
-    {
-      $query = "UPDATE universe SET planet_organics=planet_organics+$organics_production, planet_ore=planet_ore+$ore_production, planet_goods=planet_goods+$goods_production, planet_energy=planet_energy+$energy_production, planet_colonists=$colonist_limit, base_torp=base_torp+$torp_production, planet_fighters=planet_fighters+$fighter_production WHERE sector_id=$row[sector_id]";
-    }
-    $update_planet = mysql_query("$query");
+    $credits_production = $production * $credits_prate * (100.0 - $total_percent) / 100.0;
+    mysql_query("UPDATE universe SET planet_organics=planet_organics+$organics_production, planet_ore=planet_ore+$ore_production, planet_goods=planet_goods+$goods_production, planet_energy=planet_energy+$energy_production, planet_colonists=planet_colonists+$reproduction-$starvation, base_torp=base_torp+$torp_production, planet_fighters=planet_fighters+$fighter_production, planet_credits=planet_credits*$interest_rate+$credits_production WHERE sector_id=$row[sector_id]");
     echo "<BR>$query<BR>";
   }
   mysql_free_result($res);
