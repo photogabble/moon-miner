@@ -19,23 +19,23 @@ mysql_free_result($res);
 
 if($sort=="turns")
 {
-  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' ORDER BY turns_used DESC,character_name ASC LIMIT $max_rank");
+  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY turns_used DESC,character_name ASC LIMIT $max_rank");
 }
 elseif($sort=="login")
 {
-  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' ORDER BY last_login DESC,character_name ASC LIMIT $max_rank");
+  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY last_login DESC,character_name ASC LIMIT $max_rank");
 }
 elseif($sort=="good")
 {
-  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' ORDER BY rating DESC,character_name ASC LIMIT $max_rank");
+  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY rating DESC,character_name ASC LIMIT $max_rank");
 }
 elseif($sort=="bad")
 {
-  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' ORDER BY rating ASC,character_name ASC LIMIT $max_rank");
+  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY rating ASC,character_name ASC LIMIT $max_rank");
 }
 else
 {
-  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' ORDER BY score DESC,character_name ASC LIMIT $max_rank");
+  $res = mysql_query("SELECT score,character_name,turns_used,last_login,rating FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY score DESC,character_name ASC LIMIT $max_rank");
 }
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
