@@ -1226,6 +1226,10 @@ $l_login_change = "Change";
 
 $l_log_titlet = "View Log";
 
+// ADDITION TO main.php
+
+$l_main_warpto = "Warp to";
+
 // Options.php
 
 $l_opt_title = "Options";

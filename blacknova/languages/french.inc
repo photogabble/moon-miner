@@ -38,6 +38,7 @@ $l_armourpts		 = "Points d'armure";
 // main.php
 
 $l_main_title 		 = "Menu Principal";
+$l_main_warpto = "Hyper-espace";
 
 $l_traderoutes		 = "Commerce";
 $l_trade_control	 = "Modifier";

@@ -239,7 +239,7 @@ if(!empty($link_forums))
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
-Warp to
+<? echo $l_main_warpto; ?>
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
   <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
@@ -289,7 +289,7 @@ echo "&nbsp;<a class=dis href=lrscan.php?sector=*>[$l_fullscan]</a>&nbsp;<br>";
 <?
 if($sectorinfo[port_type] != "none")
 {
-  echo "<a href=port.php>", ucfirst($sectorinfo[port_type]), "</a>";
+  echo "<a href=port.php>", ucfirst(t_port($sectorinfo[port_type])), "</a>";
   $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
 }
 else

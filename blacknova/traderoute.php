@@ -152,7 +152,7 @@ else
     {
       $result = mysql_query("SELECT * FROM universe WHERE sector_id=" . $traderoutes[$i][source_id]);
       $port1 = mysql_fetch_array($result);
-      echo "&nbsp;$port1[port_type]</font></td>";
+      echo "&nbsp;" . t_port($port1[port_type]) . "</font></td>";
     }
     else
     {
@@ -183,7 +183,7 @@ else
     {
       $result = mysql_query("SELECT * FROM universe WHERE sector_id=" . $traderoutes[$i][dest_id]);
       $port2 = mysql_fetch_array($result);
-      echo "&nbsp;$port2[port_type]</font></td>";
+      echo "&nbsp;" . t_port($port2[port_type]) . "</font></td>";
     }
     else
     {
