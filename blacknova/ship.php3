@@ -33,7 +33,8 @@ else
 	echo "<a href=mailto.php3?to=$ship_id>Send Message</a><br>";
 }
 
-echo "<BR>Click <A HREF=$interface>here</A> to return to the main menu.";
+echo "<BR>";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

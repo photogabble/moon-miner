@@ -22,7 +22,7 @@
 		echo "You do not have an emergency warp device.<BR><BR>";
 	}
 
-	echo "Click <a href=$interface>here</a> to return to the main menu.";
+    TEXT_GOTOMAIN();
 
 	include("footer.php3");
 

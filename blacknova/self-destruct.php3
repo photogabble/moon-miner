@@ -47,7 +47,7 @@ else
 
 if($sure != 2)
 {
-  echo "Click <A HREF=$interface>here</A> to return to main menu.";
+  TEXT_GOTOMAIN();
 }
 
 include("footer.php3");

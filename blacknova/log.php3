@@ -36,7 +36,8 @@ else
   echo "<BR><BR>Click <A HREF=log.php3?command=delete>here</A> to clear log.<BR><BR>";
 }
 
-echo "Click <A HREF=$interface>here</A> to return to main menu.";
+TEXT_GOTOMAIN();
+
 include("footer.php3");
 
 ?> 

@@ -21,7 +21,7 @@ bigtitle();
 if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a warp editor.<BR><BR>";
-  echo "Click <a href=$interface>here</a> to return to Main Menu.";
+  TEXT_GOTOMAIN();
   include("footer.php3");   
   die();
 }
@@ -29,7 +29,7 @@ if($playerinfo[turns] < 1)
 if($playerinfo[dev_warpedit] < 1)
 {
   echo "You do not have any warp editors.<BR><BR>";
-  echo "Click <a href=$interface>here</a> to return to Main Menu.";
+  TEXT_GOTOMAIN();
   include("footer.php3");   
   die();
 }
@@ -39,7 +39,7 @@ $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N')
 {
   echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
-  echo "Click <a href=$interface>here</a> to return to Main Menu.";
+  TEXT_GOTOMAIN();
   include("footer.php3");
   die();
 }
@@ -75,7 +75,7 @@ echo "</table>";
 echo "<input type=\"submit\" value=\"Submit\"><input type=\"reset\" value=\"Reset\">";
 echo "</form>";
 
-echo "Click <a href=$interface>here</a> to return to the main menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

@@ -47,7 +47,8 @@ else
   mail("$address[email]", "$subject", "Message from $playerinfo[character_name] in the $game_name Game.\n\n$content","From: $playerinfo[email]\nX-Mailer: PHP/" . phpversion());
 }
 
-echo "Click <a href=$interface>here</a> to return to main menu.";
+TEXT_GOTOMAIN();
+
 include("footer.php3");
 
 ?> 

@@ -8,6 +8,7 @@ function bigtitle()
 
 function TEXT_GOTOMAIN()
 {
+  global $interface;
   echo "Click <A HREF=$interface>here</A> to return to the main menu.";
 }
 

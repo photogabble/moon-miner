@@ -46,7 +46,7 @@ if($playerfound)
       playerlog($playerinfo[ship_id], "Logged in from " . $ip);
       $stamp = date("Y-m-d H-i-s");
       $update = mysql_query("UPDATE ships SET last_login='$stamp' WHERE ship_id=$playerinfo[ship_id]");
-      echo "Click <A HREF=$interface>here</A> to go to the main menu.<BR>"; 
+	  TEXT_GOTOMAIN();
       echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo[ship_id] . "\">";
     }
     else

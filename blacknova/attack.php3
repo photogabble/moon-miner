@@ -474,7 +474,7 @@ else
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
-echo "Click <a href=$interface>here</a> to return to Main Menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
   

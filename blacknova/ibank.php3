@@ -38,7 +38,7 @@ if (checklogin()) {die();}
 if(!$allow_ibank)
 {
   echo "The Inter Galactic Bank is currently closed.<BR><BR>";
-  echo "Click <a href=$interface>here</a> to return to main menu.";
+  TEXT_GOTOMAIN();
   include("footer.php3");  
   die();
 }

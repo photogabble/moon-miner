@@ -58,7 +58,7 @@ mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
 echo "<BR><BR>";
-echo "Click <A HREF=$interface>here</A> to return to the main menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

@@ -43,8 +43,9 @@ echo "<TR BGCOLOR=\"$color_line1\">";
 echo "<TD>Fuel Scoop</TD><TD>" . (($playerinfo[dev_fuelscoop] == 'Y') ? "Yes" : "No") . "</TD><TD>Automatic</TD>";
 echo "</TR>";
 echo "</TABLE>";
+echo "<BR>";
 
-echo "<BR>Click <A HREF=$interface>here</A> to return to the main menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

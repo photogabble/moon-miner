@@ -91,7 +91,7 @@
 	} else {
 		echo "Invalid destination.<BR><BR>";
 	}
-	echo "Click <a href=$interface>here</a> to return to main menu.";
+    TEXT_GOTOMAIN();
 	include("footer.php3");
 
 ?>

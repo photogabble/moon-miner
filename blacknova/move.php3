@@ -18,7 +18,7 @@
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to move.<BR><BR>";
-		echo "Click <a href=$interface>here</a> to return to Main Menu.";
+	    TEXT_GOTOMAIN();
 		include("footer.php3");		
 		die();
 	}
@@ -54,7 +54,8 @@
                                 echo "report bad stuff here!";
                         }
                 } else {
-                        echo "Move failed! Return to <a href=$interface>Main Menu</a>.";
+                        echo "Move failed!<BR><BR>";
+					    TEXT_GOTOMAIN();
                 }
 
 	echo "</body></html>";

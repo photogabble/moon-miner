@@ -39,7 +39,7 @@
 
 		echo "<BR><BR>Message has been sent.";
 	}	
-	echo "Click <a href=$interface>here</a> to return to main menu.";
+    TEXT_GOTOMAIN();
 
 	include("footer.php3");
 ?>

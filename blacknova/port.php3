@@ -302,7 +302,9 @@ else
   echo "There is no port here!";
 }
 
-echo "<BR><BR>Click <A HREF=$interface>here</A> to return to main menu without trading.";
+echo "<BR><BR>";
+
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

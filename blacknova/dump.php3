@@ -19,7 +19,7 @@
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to dump colonists.<BR><BR>";
-		echo "Click <a href=$interface>here</a> to return to Main Menu.";
+		TEXT_GOTOMAIN();
 		include("footer.php3");		
 		die();
 	}
@@ -32,7 +32,7 @@
 	} else {
 		echo "You need to be at a supply depot to do this.<BR><BR>";
 	}
-	echo "Click <a href=$interface>here</a> to return to main menu.";
+	TEXT_GOTOMAIN();
 	include("footer.php3");
 
 ?> 

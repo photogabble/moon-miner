@@ -22,7 +22,7 @@ bigtitle();
 if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a warp editor.<BR><BR>";
-  echo "Click <a href=$interface>here</a> to return to Main Menu.";
+  TEXT_GOTOMAIN();
   include("footer.php3");   
   die();
 }
@@ -32,7 +32,7 @@ $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N' && $bothway)
 {
   echo "Using a Warp Editor to remove a two-way link to sector $target_sector is not permitted.<BR><BR>";
-  echo "Click <a href=$interface>here</a> to return to Main Menu.";
+  TEXT_GOTOMAIN();
   include("footer.php3");
   die();
 }
@@ -41,7 +41,8 @@ $result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$target_sector");
 $row = mysql_fetch_array($result2);
 if(!$row)
 {
-  echo "Sector does not exist.  Click <a href=$interface>here</a> to return to the main menu.";
+  echo "Sector does not exist.<BR><BR>";
+  TEXT_GOTOMAIN();
   die();
 }
 
@@ -75,7 +76,7 @@ if($result3 > 0)
   }
 }
 
-echo "Click <a href=$interface>here</a> to return to the main menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

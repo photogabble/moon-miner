@@ -16,7 +16,9 @@ while($row = mysql_fetch_array($res))
   gen_score($row[ship_id]);
 }
 
-echo "<BR><BR>Click <a href=$interface>here</a> to return to main menu.";
+echo "<BR><BR>";
+TEXT_GOTOMAIN();
+
 include("footer.php3");
 
 ?>

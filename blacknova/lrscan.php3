@@ -23,14 +23,14 @@ if($sector == "*")
   if(!$allow_fullscan)
   {
     echo "Your scanners do not possess full long range scan capabilities.<BR><BR>";
-    echo "Click <a href=$interface>here</a> to return to Main Menu.";
+    TEXT_GOTOMAIN();
     include("footer.php3");   
     die();
   }
   if($playerinfo[turns] < 1)
   {
     echo "You need at least one turn to run a full long range scan.<BR><BR>";
-    echo "Click <a href=$interface>here</a> to return to Main Menu.";
+    TEXT_GOTOMAIN();
     include("footer.php3");   
     die();
   }
@@ -132,7 +132,8 @@ else
 
   if($flag == 0)
   {
-    echo "Can't scan sector from current sector! Click <a href=$interface>here</a> to go back.";
+    echo "Can't scan sector from current sector!<BR><BR>";
+    TEXT_GOTOMAIN();
     die();
   }
 
@@ -231,7 +232,7 @@ else
 }
 
 echo "<BR><BR>";
-echo "Click <a href=$interface>here</a> to return to main menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 

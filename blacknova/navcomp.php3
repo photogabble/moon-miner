@@ -16,7 +16,7 @@
   if(!$allow_navcomp)
   {
     echo "Navigation computer is not available<BR><BR>";
-	  echo "Click <A HREF=$interface>here</A> to return to main menu.";
+    TEXT_GOTOMAIN();
 	  include("footer.php3");
     die();
   }
@@ -126,7 +126,7 @@
 		}
 	}
 
-	echo "Click <a href=$interface>here</a> to return to main menu.";
+    TEXT_GOTOMAIN();
 	include("footer.php3");
 
 ?>

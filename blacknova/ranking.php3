@@ -38,7 +38,9 @@ else
   echo "</TABLE>";
 }
 
-echo "<BR>Click <A HREF=$interface>here</A> to return to main menu.";
+echo "<BR>";
+TEXT_GOTOMAIN();
+
 include("footer.php3");
 
 ?>

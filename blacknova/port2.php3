@@ -379,7 +379,7 @@ else
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
-echo "Click <A HREF=$interface>here</A> to return to main menu.";
+TEXT_GOTOMAIN();
 
 include("footer.php3");
 
