@@ -21,7 +21,7 @@ $p_text50		= "The enormous vast empire of [name], represented by 50 planets
                    that is done on defence purpose only!";
 $c_text25		= "The rising empire of [name] now has 25 million colonists,
                    the BNN will watch the actions of [name] more closely
-                   in the future, but its highly obvois that birthrates are going to explore!";
+                   in the future, but its highly obvious that birthrates are going to explore!";
 $c_text100		= "The aspiring empire of [name] now has 100 million colonists,
                    After an explosion of birth rates [name] colonies seemed to be a good
                    place for families to settle!";
