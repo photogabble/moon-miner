@@ -34,7 +34,7 @@ if(!preg_match("/^[\w]+$/", $newlang))
 }
 $lang=$newlang;
 SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include("languages/$lang");
+include("languages/$lang" . ".inc");
 
 include("header.php");
 bigtitle();
