@@ -151,6 +151,7 @@ elseif($destination <= $sector_max && $engage == 1)
   }
   else
   {
+    $ok=1;
     $sector = $destination;
     $calledfrom = "rsmove.php3";
     include("check_fighters.php3");
