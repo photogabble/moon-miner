@@ -94,10 +94,10 @@ switch ($step) {
       echo "<table>";
       echo "<tr><td><b><u>Base/Planet Setup</u></b></td><td></td></tr>";
       echo "<tr><td>Percent Special</td><td><input type=text name=special size=5 maxlength=5 value=1></td></tr>";
-      echo "<tr><td>Percent Ore</td><td><input type=text name=ore size=5 maxlength=5 value=20></td></tr>";
-      echo "<tr><td>Percent Organics</td><td><input type=text name=organics size=5 maxlength=5 value=20></td></tr>";
-      echo "<tr><td>Percent Goods</td><td><input type=text name=goods size=5 maxlength=5 value=20></td></tr>";
-      echo "<tr><td>Percent Energy</td><td><input type=text name=energy size=5 maxlength=5 value=20></td></tr>";
+      echo "<tr><td>Percent Ore</td><td><input type=text name=ore size=5 maxlength=5 value=15></td></tr>";
+      echo "<tr><td>Percent Organics</td><td><input type=text name=organics size=5 maxlength=5 value=10></td></tr>";
+      echo "<tr><td>Percent Goods</td><td><input type=text name=goods size=5 maxlength=5 value=15></td></tr>";
+      echo "<tr><td>Percent Energy</td><td><input type=text name=energy size=5 maxlength=5 value=10></td></tr>";
       echo "<tr><td>Percent Empty</td><td>Equal to 100 - total of above.</td></tr>";
       echo "<tr><td>Initial Commodities to Sell<br><td><input type=text name=initscommod size=6 maxlength=6 value=100.00> % of max</td></tr>";
       echo "<tr><td>Initial Commodities to Buy<br><td><input type=text name=initbcommod size=6 maxlength=6 value=100.00> % of max</td></tr>";
