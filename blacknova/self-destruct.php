@@ -21,7 +21,7 @@ $playerinfo = mysql_fetch_array($result);
 if(!isset($sure))
 {
   echo "<FONT COLOR=RED><B>$l_die_rusure</B></FONT><BR><BR>";
-  echo "<A HREF=$interface>NO! NO! NO!</A> What was I thinking?<BR><BR>";
+  echo "<A HREF=$interface>$l_die_nonono</A> $l_die_what<BR><BR>";
   echo "<A HREF=self-destruct.php?sure=1>$l_yes!</A> $l_die_goodbye<BR><BR>";
 }
 elseif($sure == 1)
