@@ -45,7 +45,7 @@ if($playerfound)
       // player's ship has not been destroyed
       playerlog($playerinfo[ship_id], "Logged in from " . $ip);
       $stamp = date("Y-m-d H-i-s");
-      $update = mysql_query("UPDATE ships SET last_login='$stamp' WHERE ship_id=$playerinfo[ship_id]");
+      $update = mysql_query("UPDATE ships SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
 	  TEXT_GOTOMAIN();
       echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo[ship_id] . "\">";
     }

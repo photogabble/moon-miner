@@ -144,6 +144,7 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "rating smallint DEFAULT '0' NOT NULL," .
                  "score bigint(20) DEFAULT '0' NOT NULL," .
                  "interface enum('N','O') DEFAULT 'N' NOT NULL," .
+                 "ip_address tinytext DEFAULT '0' NOT NULL," .
                  "PRIMARY KEY (ship_id)," .
                  "KEY ship_id (ship_id)," .
                  "UNIQUE ship_id_2 (ship_id)" .
