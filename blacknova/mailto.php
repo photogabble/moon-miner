@@ -15,23 +15,22 @@ if(checklogin())
   die();
 }
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
 bigtitle();
 
 if(empty($content))
 {
-  $res = mysql_query("SELECT character_name FROM ships ORDER BY character_name ASC");
+  $res = $db->Execute("SELECT character_name FROM $dbtables[ships] ORDER BY character_name ASC");
   echo "<FORM ACTION=mailto2.php METHOD=POST>";
   echo "<TABLE>";
   echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    echo "<OPTION>$row[character_name]";
+    echo "<OPTION>$res->fields[character_name]";
+    $res->MoveNext();
   }
-  mysql_free_result($res);
   echo "</SELECT></TD></TR>";
   echo "<TR><TD>$l_mt_from</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD></TR>";
   echo "<TR><TD>$l_mt_subject</TD><TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40></TD></TR>";
@@ -43,14 +42,10 @@ if(empty($content))
 else
 {
   echo "$l_mt_sent<BR><BR>";
-#  $res = mysql_query("SELECT email FROM ships WHERE character_name='$to'");
-#  $address = mysql_fetch_array($res);
-#  mysql_free_result($res);
-#  mail($address[email], $subject, "Message from ".$playerinfo[character_name]." in the ".$game_name." Game.\n\n".$content,"From: ".$playerinfo[email]."\nX-Mailer: PHP/" . phpversion());
 
-  $res = mysql_query("SELECT * FROM ships WHERE character_name='$to'");
-  $target_info = mysql_fetch_array($res);
-  mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
+  $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE character_name='$to'");
+  $target_info = $res->fields;
+  $db->Execute("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
   #using this three lines to get recipients ship_id and sending the message -- blindcoder
 
 }

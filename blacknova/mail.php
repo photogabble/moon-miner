@@ -5,16 +5,19 @@
 	$title=$l_mail_title;
 	include("header.php");
 
+  connectdb();
+  if(checklogin())
+  {
+    die();
+  }
 
 	bigtitle();
-	mysql_connect($dbhost, $dbuname, $dbpass);
-	@mysql_select_db("$dbname") or die ("Unable to select database");
 
-	$result = mysql_query ("select email, password from ships where email='$mail'");
+	$result = $db->Execute ("select email, password from $dbtables[ships] where email='$mail'");
 
-	if(mysql_num_rows($result)==1) {
-	$playerinfo=mysql_fetch_row($result);
-	$l_mail_message=str_replace("[pass]",$playerinfo[1],$l_mail_message);
+	if(!$result->EOF) {
+	$playerinfo=$result->fields;
+	$l_mail_message=str_replace("[pass]",$playerinfo[password],$l_mail_message);
 	mail("$mail", "$l_mail_topic", "$l_mail_message\n\nhttp://$SERVER_NAME","From: webmaster@$SERVER_NAME\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
 	echo "$l_mail_sent $mail.";
         } else {

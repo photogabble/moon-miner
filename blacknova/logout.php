@@ -16,8 +16,8 @@ include("header.php");
 
 connectdb();
 
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($result);
+$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $result->fields;
 
 $current_score = gen_score($playerinfo[ship_id]);
 playerlog($playerinfo[ship_id], LOG_LOGOUT, $ip);

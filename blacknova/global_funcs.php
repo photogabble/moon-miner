@@ -296,7 +296,7 @@ function gen_score($sid)
   $calc_planet_defence = "SUM($dbtables[planets].fighters)*$fighter_price+IF(base='Y', $base_credits+SUM($dbtables[planets].torps)*$torpedo_price, 0)";
   $calc_planet_credits = "SUM($dbtables[planets].credits)";
 
-  $res = $db->Execute("SELECT ROUND(SQRT($calc_levels+$calc_equip+$calc_dev+ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits)) AS score FROM $dbtables[ships] LEFT JOIN $dbtables[planets] ON $dbtables[planets].owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+  $res = $db->Execute("SELECT ROUND(SQRT($calc_levels+$calc_equip+$calc_dev+$dbtables[ships].credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits)) AS score FROM $dbtables[ships] LEFT JOIN $dbtables[planets] ON $dbtables[planets].owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
   $row = $res->fields;
   $score = $row[score];
   $db->Execute("UPDATE $dbtables[ships] SET score=$score WHERE ship_id=$sid");

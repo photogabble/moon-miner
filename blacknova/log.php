@@ -11,8 +11,8 @@ include("header.php");
 
 connectdb();
 
-$res = mysql_query("SELECT character_name, ship_id, dhtml FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
+$res = $db->Execute("SELECT character_name, ship_id, dhtml FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
 if($swordfish == $adminpass) //check if called by admin script
 {
@@ -22,8 +22,8 @@ if($swordfish == $adminpass) //check if called by admin script
     $playerinfo[character_name] = 'Administrator';
   else
   {
-    $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$player");
-    $targetname = mysql_fetch_array($res);
+    $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$player");
+    $targetname = $res->fields;
     $playerinfo[character_name] = $targetname[character_name];
   }
 }
@@ -313,9 +313,12 @@ else
 if(empty($startdate))
   $startdate = date("Ymd");
 
-$res = mysql_query("SELECT * FROM logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
-while($row = mysql_fetch_array($res))
-  $logs[] = $row;
+$res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
+while(!$res->EOF)
+{
+  $logs[] = $res->fields;
+  $res->MoveNext();
+}
 
 $entry = $l_log_months[substr($startdate, 4, 2) - 1] . " " . substr($startdate, 6, 2) . " " . substr($startdate, 0, 4);
 
@@ -375,9 +378,12 @@ if($mode != 'compat')
   $entry = $l_log_months[substr($yesterday, 4, 2) - 1] . " " . substr($yesterday, 6, 2) . " " . substr($yesterday, 0, 4);
 
   unset($logs);
-  $res = mysql_query("SELECT * FROM logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
-  while($row = mysql_fetch_array($res))
-    $logs[] = $row;
+  $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
+  while(!$res->EOF)
+  {
+    $logs[] = $res->fields;
+    $res->MoveNext();
+  }
 
   echo "<div id=\"dynPage1\" class=\"dynPage\">" .
        "<center>" .
@@ -417,9 +423,12 @@ if($mode != 'compat')
   $entry = $l_log_months[substr($yesterday2, 4, 2) - 1] . " " . substr($yesterday2, 6, 2) . " " . substr($yesterday2, 0, 4);
 
   unset($logs);
-  $res = mysql_query("SELECT * FROM logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
-  while($row = mysql_fetch_array($res))
-    $logs[] = $row;
+  $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
+  while(!$res->EOF)
+  {
+    $logs[] = $res->fields;
+    $res->MoveNext();
+  }
 
   echo "<div id=\"dynPage2\" class=\"dynPage\">" .
        "<center>" .

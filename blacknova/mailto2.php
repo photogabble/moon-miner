@@ -13,32 +13,33 @@ if(checklogin())
   die();
 }
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
 bigtitle();
 
 if(empty($content))
 {
-  $res = mysql_query("SELECT character_name FROM ships ORDER BY character_name ASC");
-  $res2 = mysql_query("SELECT team_name FROM teams ORDER BY team_name ASC");
+  $res = $db->Execute("SELECT character_name FROM $dbtables[ships] ORDER BY character_name ASC");
+  $res2 = $db->Execute("SELECT team_name FROM $dbtables[teams] ORDER BY team_name ASC");
   echo "<FORM ACTION=mailto2.php METHOD=POST>";
   echo "<TABLE>";
   echo "<TR><TD>$l_sendm_to:</TD><TD><SELECT NAME=to>";
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
+    $row = $res->fields;
   ?>
     <OPTION <? if ($row[character_name]==$name) echo "selected" ?>><? echo $row[character_name] ?></OPTION>
   <?
+    $res->MoveNext();
   }
-  while($row2 = mysql_fetch_array($res2))
+  while(!$res2->EOF)
   {
+    $row2 = $res2->fields;
     echo "<OPTION>$l_sendm_ally $row2[team_name]</OPTION>";
+    $res2->MoveNext();
   }
 
-  mysql_free_result($res);
-  mysql_free_result($res2);
   echo "</SELECT></TD></TR>";
   echo "<TR><TD>$l_sendm_from:</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD></TR>";
   if (isset($subject)) $subject = "RE: " . $subject;
@@ -53,24 +54,26 @@ else
   echo "$l_sendm_sent<BR><BR>";
 
 if (strpos($to, $l_sendm_ally)===false) {
-  $res = mysql_query("SELECT * FROM ships WHERE character_name='$to'");
-  $target_info = mysql_fetch_array($res);
-  mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
+  $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE character_name='$to'");
+  $target_info = $res->fields;
+  $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
      } else {
      $to = str_replace ($l_sendm_ally, "", $to);
      $to = trim($to);
      $to = addslashes($to);
-     $res = mysql_query("SELECT id FROM teams WHERE team_name='$to'");
-     $row = mysql_fetch_array($res);
+     $res = $db->Execute("SELECT id FROM $dbtables[teams] WHERE team_name='$to'");
+     $row = $res->fields;
 
-     $res2 = mysql_query("SELECT * FROM ships where team='$row[id]'");
+     $res2 = $db->Execute("SELECT * FROM $dbtables[ships] where team='$row[id]'");
 
-     while ($row2 = mysql_fetch_array($res2)) {
-           mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$row2[ship_id]."', '".$subject."', '".$content."')");
-
-       }
-
+     while (!$res2->EOF)
+     {
+        $row2 = $res2->fields;
+        $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$row2[ship_id]."', '".$subject."', '".$content."')");
+        $res2->MoveNext();
      }
+
+   }
 
 }
 
