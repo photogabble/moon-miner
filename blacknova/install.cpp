@@ -3,7 +3,7 @@
 // I will revise when I get some more time.
 
 #include <fstream.h>
-
+#include <string.h>
 fstream fileout("config_local.php3",ios::out);
 
 void intro();
