@@ -47,7 +47,7 @@
                     $fighterstoll = $sectorinfo[fighters] * $fighter_price * 0.6;
                     bigtitle();
                     echo "<FORM ACTION=$calledfrom METHOD=POST>";
-                    echo "There are $sectorinfo[fighters] in this sector.<br>";
+                    echo "There are $sectorinfo[fighters] fighters in this sector.<br>";
                     echo "They demand " . NUMBER($fighterstoll) . " credits to enter this sector.<BR>";    
                     echo "You can <INPUT TYPE=RADIO NAME=response VALUE=retreat>Retreat</INPUT>"; 
                     echo "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=pay>Pay</INPUT>";
