@@ -117,7 +117,8 @@ function zoneedit_change()
   global $trades;
   global $defenses;
 
-
+  if(!$magic_quotes_on)
+    $name = addslashes($name);
   mysql_query("UPDATE zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
   echo mysql_error();
   echo "You changes have been saved.<p>";
