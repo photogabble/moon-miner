@@ -220,7 +220,7 @@ function db_kill_player($ship_id)
   global $default_prod_fighters;
   global $default_prod_torp;
 
-  mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0 WHERE ship_id=$ship_id");
+  mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
 
 
   $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$ship_id AND base='Y'");
