@@ -118,6 +118,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   echo "<BR>Selecting $fedsecs Federation sectors...<BR>";
   $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('1', 'Unchartered space', 'Y', 'Y', 'Y', 'Y', '0')");
   $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('2', 'Federation space', 'N', 'N', 'N', 'N', '$fed_max_hull')");
+  $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('3', 'Free-Trade space', 'N', 'Y', 'N', 'N', '0')");
   $update = mysql_query("UPDATE universe SET zone_id='2' WHERE sector_id<$fedsecs");
   echo "Selecting $spp sectors for additional special ports...<BR>";
   for($i=2; $i<=$sector_max; $i++)
@@ -129,7 +130,7 @@ elseif($swordfish==$adminpass && $engage=="2")
 //  shuffle($sectors);
   for($i=2; $i<$spp; $i++)
   {
-    mysql_query("UPDATE universe SET port_type='special' WHERE sector_id=$sectors[$i]");
+    mysql_query("UPDATE universe SET zone_id='3',port_type='special' WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";
