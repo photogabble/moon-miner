@@ -264,7 +264,7 @@ else
       if($armour_upgrade) 
       {
         $query = $query . ", armour=armour+1";
-        BuildOneCol("Armour Weapons upgraded");
+        BuildOneCol("Armour upgraded");
       }
       if($cloak_upgrade) 
       {
