@@ -17,6 +17,22 @@ $game_name = "BlackNova Traders v0.1.10 - with stronger and faster bugs!";
 
 $fed_max_hull = 8;
 
+// iBank Config - Intergalactic Banking
+// Trying to keep ibank constants unique by prefixing with $ibank_ 
+// Please EDIT the following variables to your liking.
+$ibank_owner = 0; 				    // Use 0 for no human player or ID of Owner of IGB some thrusted player or admin.
+$ibank_interest = 0.01; 		  // Interest rate for account funds
+$ibank_paymentfee = 0.005; 		// Paymentfee
+$ibank_loaninterest = 0.008; 	// Loan interest i.e 8%
+$ibank_loanfactor = 10; 		  // x Times what the user currently have in account
+$ibank_loanlimit = 250000000; // This minus already existing loans is the maximum. 
+// Information displayed on the 'Manage Own Account' section
+$ibank_ownaccount_info = "Interest rate is " . $ibank_interest * 100 . "%<BR>Loan rate is " .
+  $ibank_loaninterest * 100 . "%<P>If you have loans Make sure you have enough credits deposited each turn " .
+  "to pay the interest and mortage, otherwise it will be deducted from your ships acccount at <FONT COLOR=RED>" .
+  "twice the current Loan rate (" . $ibank_loaninterest * 100 * 2 .")%</FONT>.";
+// end of iBank config
+
 /* port pricing variables */
 $ore_price = 11;
 $ore_delta = 5;
