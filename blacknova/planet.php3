@@ -127,7 +127,7 @@ if($sectorinfo[planet] == 'Y')
       {
         echo "Planet is not selling commodities.<BR>";
       }
-      echo "<a href=planet.php3?command=attack>Attack</a> on Planet<BR>";
+      echo "<a href=planet.php3?command=attac>Attack</a> on Planet<BR>";
       echo "<a href=planet.php3?command=scan>Scan</a> Planet<BR>";
     }
   }
@@ -260,6 +260,20 @@ if($sectorinfo[planet] == 'Y')
       {
         echo "Planet is not selling commodities.<BR>";
       }
+    }
+    elseif($command == "attac")
+    {
+//check to see if sure...
+    if($sectorinfo[base_sells] == "Y")
+      {
+        echo "<a href=planet.php3?command=buy>Buy</a> commodities from Planet<BR>";
+      }
+      else
+      {
+        echo "Planet is not selling commodities.<BR>";
+      }
+      echo "<a href=planet.php3?command=attack>Attack</a> on Planet <B> Are You SURE...</B><BR>";
+      echo "<a href=planet.php3?command=scan>Scan</a> Planet<BR>";
     }
     elseif($command == "attack")
     {
