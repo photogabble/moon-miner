@@ -159,7 +159,7 @@ else
         }
         else
         {
-           echo "INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')";
+           
            $update = mysql_query("INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
            echo mysql_error();
         }
@@ -173,7 +173,7 @@ else
         else
         {
            $update = mysql_query("INSERT INTO sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
-           echo mysql_error();
+           
         }
      }
        
