@@ -58,6 +58,9 @@ function MM_swapImage() { //v3.0
     <td colspan=3 align=center><a href=<? echo "mailto:$admin_mail"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img name="mail" src="images/mail.gif" width="146" height="58" border="0"></a></td>
     <td><img src="images/spacer.gif" width="1" height="58" border="0" name="undefined_2"></td>
   </tr>
+  <tr>
+  <td colspan=3 align=center><a href="faq.html"><? echo "$l_faq"; ?></a></td>
+  </tr>
   </table>
 <?
 	include("footer.php3");

@@ -212,7 +212,7 @@ if(!empty($sectorinfo[beacon]))
 <tr><td nowrap>
 <div class=mnu>
 <? //&nbsp;<a class=mnu href="help.php3">$l_help</a>&nbsp;<br> ?>
-&nbsp;<a class=mnu href="http://copland.udel.edu/~wallkk/bnfaq/"><? echo $l_faq ?></a>&nbsp;<br>
+&nbsp;<a class=mnu href="faq.html"><? echo $l_faq ?></a>&nbsp;<br>
 &nbsp;<a class=mnu href="feedback.php3"><? echo $l_feedback ?></a>&nbsp;<br>
 <?
 if(!empty($link_forums))
