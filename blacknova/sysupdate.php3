@@ -227,6 +227,7 @@ else
   // ******* INCLUDE FUNCTIONS *******
   // *********************************
   include("furangee_funcs.php");
+  global $targetlink;
 
   // *********************************
   // **** MAKE FURANGEE SELECTION ****
@@ -285,10 +286,11 @@ else
       {
         $furcount1++;
         // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
+        $targetlink = $playerinfo[sector];
         furangeemove();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso1 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        $reso1 = mysql_query("SELECT * FROM ships WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
         if ($rowo1 = mysql_fetch_array($reso1))
         {
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
@@ -320,12 +322,13 @@ else
       {
         $furcount2++;
         // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
+        $targetlink = $playerinfo[sector];
         furangeemove();
         // ****** NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS ******
         furangeetrade();
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
         if ($rowo2 = mysql_fetch_array($reso2))
         {
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
