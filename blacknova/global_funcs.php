@@ -611,6 +611,7 @@ function calc_ownership($sector)
     {
       $bases[$i] = $res->fields;
       $i++;
+      $res->MoveNext();
     }
   }
   else
