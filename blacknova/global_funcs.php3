@@ -64,9 +64,9 @@ function checklogin()
     else
     {
       /* if the player doesn't have an escapepod - they're dead, delete them. */
-      /* uhhh  don't delete them to prevent self-distruct inherit*/  
+      /* uhhh  don't delete them to prevent self-distruct inherit*/
       echo "Player is DEAD!  Here's what happened:<BR><BR>";
-      
+
       include("player-log/" . $playerinfo['ship_id']);
       echo "Better luck next time.";
       $flag = 1;
@@ -129,7 +129,7 @@ function playerlog($sid,$log_entry)
       $plog = fopen("player-log/" . $sid, "a");
       fwrite($plog, "$log_entry <BR>");
       fclose($plog);
-  } 
+  }
 }
 
 function adminlog($sid,$log_entry)
@@ -166,7 +166,7 @@ function gen_score($sid)
   global $base_goods;
   global $base_organics;
   global $base_credits;
-  
+
   $calc_hull = "ROUND(POW($upgrade_factor,hull))";
   $calc_engines = "ROUND(POW($upgrade_factor,engines))";
   $calc_power = "ROUND(POW($upgrade_factor,power))";
@@ -222,41 +222,37 @@ function db_kill_player($ship_id)
 
   mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
 
-
-  $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$ship_id AND base='Y'");
-
+  $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner='$ship_id' AND base='Y'");
   $i=0;
 
   while($row = mysql_fetch_array($res))
-
   {
-
     $sectors[$i] = $row[sector_id];
-
     $i++;
-
   }
-
-
 
   mysql_query("UPDATE planets SET owner=0, base='N' WHERE owner=$ship_id");
 
-
   if(!empty($sectors))
-
   {
-
     foreach($sectors as $sector)
-
     {
-
       calc_ownership($sector);
-
-    }    
-
+    }
   }
-
   mysql_query("DELETE FROM sector_defence where ship_id=$ship_id");
+
+$query = mysql_query("select character_name from ships where ship_id='$ship_id'");
+$name = mysql_fetch_array($query);
+
+$l_killheadline=" was killed in an accident";
+$headline = $name[character_name] . $l_killheadline;
+
+$l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
+$newstext=str_replace("[name]",$name[character_name],$l_news_killed);
+
+$news = mysql_query("INSERT INTO bn_news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$newstext','$ship_id',NOW(), 'killed')");
+
 }
 
 function NUMBER($number, $decimals = 0)
@@ -350,7 +346,7 @@ function explode_mines($sector, $num_mines)
              $update = mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
              $num_mines -= $row[quantity];
           }
-                 
+
        }
        mysql_free_result($result3);
     }
@@ -376,7 +372,7 @@ function destroy_fighters($sector, $num_fighters)
              $update = mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
              $num_fighters -= $row[quantity];
           }
-                 
+
        }
        mysql_free_result($result3);
     }
@@ -394,7 +390,7 @@ function message_defence_owner($sector, $message)
        {
 
           playerlog($row[ship_id],$message);
-                 
+
        }
        mysql_free_result($result3);
     }
@@ -403,7 +399,7 @@ function message_defence_owner($sector, $message)
 
 function distribute_toll($sector, $toll, $total_fighters)
 {
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' AND defence_type ='F' "); 
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' AND defence_type ='F' ");
     echo mysql_error();
     //Put the defence information into the array "defenceinfo"
     if($result3 > 0)
@@ -413,7 +409,7 @@ function distribute_toll($sector, $toll, $total_fighters)
           $toll_amount = ROUND(($row['quantity'] / $total_fighters) * $toll);
           mysql_query("UPDATE ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
           playerlog($row[ship_id],"You received $toll_amount credits as toll for entry to sector $sector.");
-                 
+
        }
        mysql_free_result($result3);
     }
@@ -427,13 +423,13 @@ function calc_ownership($sector)
 
   global $min_bases_to_own;
 
-  
 
-  $res = mysql_query("SELECT owner, corp FROM planets WHERE sector_id=$sector AND base='Y'");  
+
+  $res = mysql_query("SELECT owner, corp FROM planets WHERE sector_id=$sector AND base='Y'");
 
   $num_bases = mysql_num_rows($res);
 
-  
+
 
   $i=0;
 
@@ -463,7 +459,7 @@ function calc_ownership($sector)
 
   $owner_num = 0;
 
-  
+
 
   foreach($bases as $curbase)
 
@@ -501,7 +497,7 @@ function calc_ownership($sector)
 
       }
 
-      
+
 
       if($owners[$loop][type] == 'S')
 
@@ -519,13 +515,13 @@ function calc_ownership($sector)
 
       }
 
-      
+
 
       $loop++;
 
     }
 
-    
+
 
     if($curcorp == -1)
 
@@ -547,9 +543,9 @@ function calc_ownership($sector)
 
       }
 
-    }    
+    }
 
-    
+
 
     if($curship == -1)
 
@@ -581,7 +577,7 @@ function calc_ownership($sector)
 
   // Time to test for conflict
 
-  
+
 
   /* Debug code
 
@@ -639,7 +635,7 @@ function calc_ownership($sector)
 
     }
 
-    
+
 
     $loop++;
 
@@ -685,7 +681,7 @@ function calc_ownership($sector)
 
   }
 
-  
+
 
   //Unallied ship, another corp present, war
 
@@ -777,7 +773,7 @@ function calc_ownership($sector)
 
   }
 
-  
+
 
   if($owners[$winner][num] < $min_bases_to_own)
 
@@ -801,7 +797,7 @@ function calc_ownership($sector)
 
     $zone = mysql_fetch_array($res);
 
-    
+
 
     $res = mysql_query("SELECT team_name FROM teams WHERE id=" . $owners[$winner][id]);
 
@@ -833,7 +829,7 @@ function calc_ownership($sector)
 
     }
 
-    
+
 
     //Two allies have the same number of bases
 
@@ -855,7 +851,7 @@ function calc_ownership($sector)
 
       $zone = mysql_fetch_array($res);
 
-    
+
 
       $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=" . $owners[$winner][id]);
 
@@ -865,7 +861,7 @@ function calc_ownership($sector)
 
       mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
 
-      return "Zone now belongs to player $ship[character_name]!";      
+      return "Zone now belongs to player $ship[character_name]!";
 
     }
 

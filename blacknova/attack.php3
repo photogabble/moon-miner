@@ -12,7 +12,6 @@ if(checklogin())
   die();
 }
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ");
 
 $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
@@ -83,7 +82,7 @@ else
     if($targetinfo[dev_emerwarp] > 0 && $random_value > $chance)
     {
       /* need to change warp destination to random sector in universe */
-      $rating_change=round($targetinfo[rating]*.1); 
+      $rating_change=round($targetinfo[rating]*.1);
       $dest_sector=rand(1,$sector_max);
       mysql_query("UPDATE ships SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
       playerlog($targetinfo[ship_id],"$playerinfo[character_name] in sector $playerinfo[sector] attempted to attack your ship, Your Emergency Warp Engaged.");
@@ -94,7 +93,7 @@ else
     {
       if($targetinfo[dev_emerwarp] > 0)
       {
-      playerlog($targetinfo[ship_id],"Your emergency warp drive failed to engage when $playerinfo[character_name] in sector $playerinfo[sector] attacked you. ");       
+      playerlog($targetinfo[ship_id],"Your emergency warp drive failed to engage when $playerinfo[character_name] in sector $playerinfo[sector] attacked you. ");
       }
       $targetbeams = NUM_BEAMS($targetinfo[beams]);
       if($targetbeams>$targetinfo[ship_energy])
@@ -110,7 +109,7 @@ else
       $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
       $playershields = NUM_SHIELDS($playerinfo[shields]);
       if($playershields>$playerinfo[ship_energy])
-      { 
+      {
         $playershields=$playerinfo[ship_energy];
       }
       $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playershields;
@@ -120,7 +119,7 @@ else
         $targetshields=$targetinfo[ship_energy];
       }
       $targetinfo[ship_energy]=$targetinfo[ship_energy]-$targetshields;
-      
+
       $playertorpnum = round(pow($level_factor,$playerinfo[torp_launchers]))*2;
       if($playertorpnum > $playerinfo[torps])
       {
@@ -156,7 +155,7 @@ else
           $targetfighters = $targetfighters-$playerbeams;
           echo "$targetinfo[character_name] lost $playerbeams fighters<BR>";
           $playerbeams = 0;
-        }   
+        }
       }
       if($playerfighters > 0 && $targetbeams > 0)
       {
@@ -216,7 +215,7 @@ else
         {
           $targetarmour=$targetarmour-$playerbeams;
           echo "$targetinfo[character_name]'s armour is hit for $playerbeams damage.<BR>";
-        } 
+        }
       }
       if($targetbeams > 0)
       {
@@ -229,7 +228,7 @@ else
         {
           $playerarmour=$playerarmour-$targetbeams;
           echo "Your armour is hit for $targetbeams damage.<BR>";
-        } 
+        }
       }
       echo "<BR>Torpedoes hit:<BR>";
       if($targetfighters > 0 && $playertorpdmg > 0)
@@ -278,7 +277,7 @@ else
         {
           $targetarmour=$targetarmour-$playertorpdmg;
           echo "$targetinfo[character_name]'s armour is hit for $playertorpdmg damage.<BR>";
-        } 
+        }
       }
       if($targettorpdmg > 0)
       {
@@ -291,7 +290,7 @@ else
         {
           $playerarmour=$playerarmour-$targettorpdmg;
           echo "Your armour is hit for $targettorpdmg damage.<BR>";
-        } 
+        }
       }
       echo "<BR>Fighters Attack:<BR>";
       if($playerfighters > 0 && $targetfighters > 0)
@@ -315,7 +314,7 @@ else
         {
           echo "You lost $targetfighters fighters.<BR>";
           $tempplayfighters=$playerfighters-$targetfighters;
-        }     
+        }
         $playerfighters=$tempplayfighters;
         $targetfighters=$temptargfighters;
       }
@@ -352,15 +351,15 @@ else
         {
           $rating=round($targetinfo[rating]/2);
           echo "An escape pod was launched!<BR><BR>";
-          mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]"); 
-          playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>"); 
+          mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
+          playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>");
         }
         else
         {
-          playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!<BR><BR>"); 
+          playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!<BR><BR>");
           db_kill_player($targetinfo['ship_id']);
-        }   
-      
+        }
+
         if($playerarmour > 0)
         {
           $rating_change=round($targetinfo[rating]*$rating_combat_factor);
@@ -416,10 +415,10 @@ else
           echo "You salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.<BR>Your rating changed by " . NUMBER(abs($rating_change)) . " points.";
           $update3 = mysql_query ("UPDATE ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
           $armour_lost=$playerinfo[armour_pts]-$playerarmour;
-          $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;  
+          $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
           $energy=$playerinfo[ship_energy];
           $update3b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, turns_used=turns_used+1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
-          echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";  
+          echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";
         }
       }
       else
@@ -432,8 +431,8 @@ else
         playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you.  You lost $armour_lost points of armour and $fighters_lost fighters.<BR><BR>");
         $update4 = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         $armour_lost=$playerinfo[armour_pts]-$playerarmour;
-        $fighters_lost=$playerinfo[ship_fighters]-$playerfighters; 
-        $energy=$playerinfo[ship_energy]; 
+        $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
+        $energy=$playerinfo[ship_energy];
         $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum, turns=turns-1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";
       }
@@ -444,12 +443,12 @@ else
         {
           $rating=round($playerinfo[rating]/2);
           echo "Luckily you have an escape pod!<BR><BR>";
-          mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$playerinfo[ship_id]"); 
+          mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$playerinfo[ship_id]");
         }
         else
         {
           db_kill_player($playerinfo['ship_id']);
-        }         
+        }
         if($targetarmour > 0)
         {
           $free_ore = round($playerinfo[ship_ore]/2);
@@ -507,17 +506,16 @@ else
           $fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
           $energy=$targetinfo[ship_energy];
           $update6b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
-        } 
+        }
       }
     }
   }
 }
 
-mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();
 
 include("footer.php3");
-  
-?> 
+
+?>
