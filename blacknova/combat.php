@@ -527,7 +527,7 @@ echo "
             $planetscore = $planetinfo[organics] * $organics_price + $planetinfo[ore] * $ore_price + $planetinfo[goods] * $goods_price + $planetinfo[energy] * $energy_price + $planetinfo[fighters] * $fighter_price + $planetinfo[torps] * $torpedo_price + $planetinfo[colonists] * $colonist_price + $planetinfo[credits];
             $planetscore = $planetscore * $min_value_capture / 100;
 
-            echo "playerscore $playerscore, planetscore $planetscore";
+//            echo "playerscore $playerscore, planetscore $planetscore";
             if($playerscore < $planetscore)
             {
               echo "<CENTER>$l_cmb_citizenswanttodie</CENTER><BR><BR>";

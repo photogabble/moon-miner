@@ -250,6 +250,7 @@ $l_base	  		 = "Base";
 $l_planet_ison		 = "est sur la planète.";
 $l_planet_captured	 = "Planète capturée";
 $l_planet_notdef	 = "La planète n'a pas été vaincue!";
+$l_planet_noone = "personne";
 
 $l_planet2_title	 = "Transfer Planétaire";
 $l_planet2_noturn	 = "Vous avez besoin d'au moins un tour pour effectuer un transfer.";
@@ -524,6 +525,8 @@ $l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] a essayé de capturer la planète d
 $l_log_title[LOG_ADMIN_PLANETDEL] = "Planète détruite";
 $l_log_text[LOG_DEFENCE_DEGRADE] = "Les intercepteurs dans le secteur [sector] ce sont dégradés de [degrade] pourcents parce qu'ils n'ont pas assez d'énergie.";
 $l_log_test[LOG_DEFENCE_DEGRADE] = "Dégradation";
+$l_log_text[LOG_PLANET_CAPTURED] = "Vous avez capturé une planète appartenant à [owner]. Il y avait [cols] colons et [credits] crédits sur celle-ci.";
+$l_log_title[LOG_PLANET_CAPTURED] = "Planète capturée!";
 
 // modify-defences.php
 
@@ -1276,6 +1279,5 @@ $l_zname[1] = "Espace non-exploré";
 $l_zname[2] = "Espace de la Fédération";
 $l_zname[3] = "Espace de libre-commerce";
 $l_zname[4] = "Zonne de Guerre";
-
 
 ?>

@@ -735,6 +735,14 @@ function log_parse($entry)
     $retvalue[text] = str_replace("[degrade]", "<font color=white><b>$degrade</b></font>", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
+
+    case LOG_PLANET_CAPTURED: //data args are : [cols] [credits] [owner]
+    list($cols, $credits, $owner)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[cols]", "<font color=white><b>$cols</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[credits]", "<font color=white><b>$credits</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[owner]", "<font color=white><b>$owner</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
   }
   return $retvalue;
 }

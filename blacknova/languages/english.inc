@@ -1230,6 +1230,13 @@ $l_log_titlet = "View Log";
 
 $l_main_warpto = "Warp to";
 
+// ADDITION TO planet.php
+$l_planet_noone = "nobody";
+
+// ADDITION TO log.php
+$l_log_text[LOG_PLANET_CAPTURED] = "You captured a planet belonging to [owner]. It had [cols] colonists and [credits] credits on it.";
+$l_log_title[LOG_PLANET_CAPTURED] = "Planet captured!";
+
 // Options.php
 
 $l_opt_title = "Options";
@@ -1299,5 +1306,6 @@ $l_zname[1] = "Unchartered space";
 $l_zname[2] = "Federation space";
 $l_zname[3] = "Free-trade space";
 $l_zname[4] = "War Zone";
+
 
 ?>

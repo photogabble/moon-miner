@@ -556,6 +556,18 @@ if(!empty($planetinfo))
       {
         gen_score($ownerinfo[ship_id]);
       }
+      
+      if($planetinfo[owner] != 0)
+      {
+        $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$planetinfo[owner]");
+        $query = mysql_fetch_array($res);
+        $planetowner=$query[character_name];
+      }
+      else
+        $planetowner="$l_planet_noone";
+
+      playerlog($playerinfo[ship_id], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
+      
     }
     elseif($command == "capture")
     {
