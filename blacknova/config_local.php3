@@ -34,6 +34,5 @@ $adminpass = "secret";
 $admin_mail = "billg@microsoft.com";
 
 // Address the forum link, link's to:
-$link_forums = "http://thegeek.org/forum.php";
-
+$link_forums = "http://www.thegeek.org/modules.php?op=modload&name=Forum&file=index";
 ?>
