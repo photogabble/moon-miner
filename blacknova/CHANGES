@@ -1,6 +1,13 @@
 Version 0.20
 ------------
 
+Fant0m (29 October 2001 13:26)
+----------------------------
+Added :
+   . Displays of alliance name for Planets, Ships, mines and fighters
+   . Displays of alliance description in alliance menu
+   . Added the feature for alliance's leaders to edit tem's name and description
+
 SharpBlue (26 October 2001)
 ----------------------------
 Score is now generated when a player logs out
