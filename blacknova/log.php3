@@ -23,8 +23,6 @@ if($command == "delete")
   $player_log_file = getenv("DOCUMENT_ROOT") . $gameroot;
   $player_log_file = $player_log_file . "/player-log/" . $playerinfo[ship_id];
   
-  echo $player_log_file . "[hello]";
-
   if(file_exists($player_log_file))
   {
     unlink($player_log_file);
