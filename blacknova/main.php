@@ -511,7 +511,12 @@ if($num_defences > 0)
     {
        echo "<a href=modify-defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
        $def_type = $l_fighters;
-       $def_type .= $defences[$i]['fm_setting'];
+       $mode = $defences[$i]['fm_setting'];
+       if($mode == 'attack')
+         $mode = $l_md_attack;
+       else
+        $mode = $l_md_toll;
+       $def_type .= $mode;
     }
     elseif($defences[$i]['defence_type'] == 'M')
     {
