@@ -66,6 +66,7 @@ $stamp = date("Y-m-d H-i-s");
 	}
 
     /* enter code for checking dangers in new sector */
+    $calledfrom = "move.php3";
     include("check_fighters.php3");
     include("check_mines.php3");
     if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
