@@ -640,7 +640,7 @@ function ibank_display_payments()
     $fee = $ibank_paymentfee * $amount;
     $feepct = $ibank_paymentfee * 100;
     $totalamount = round($fee + $amount);
-    if(isset($confirmed) && ($totalamount<$playerinfo[credits]))
+    if(isset($confirmed) && ($totalamount<$account[ballance]))
     {
       // Payment is confirmed
       // Lets actually do it
