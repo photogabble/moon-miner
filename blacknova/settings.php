@@ -34,7 +34,6 @@ bigtitle();
   $rate = $defence_degrade_rate*100;
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Sector fighter degredation percentage rate</TD><TD>$rate</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Number of planets with bases need for sector ownership</TD><TD>$min_bases_to_own</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Maximum planets in a sector</TD><TD>$max_planets_sector</TD></TR>";
 
 
   echo "</TABLE>";
