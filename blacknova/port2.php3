@@ -223,10 +223,10 @@ else
      $trade_credits = NUMBER(abs($total_cost));
       echo "<TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
          <TR>
-            <TD colspan=99 align=center bgcolor=#300030><font size=3 color=white><b>Results for this trade</b></font></TD>
+            <TD colspan=99 align=center bgcolor=#300030><font size=3 color=white><b>$l_trade_result</b></font></TD>
          </TR>
          <TR>
-            <TD colspan=99 align=center><b><font color=red>Cost : " . $trade_credits . " credits</font></b></TD>
+            <TD colspan=99 align=center><b><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></b></TD>
          </TR>";
 
        //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<BR><BR>";
@@ -234,108 +234,108 @@ else
       if($hull_upgrade)
       {
         $query = $query . ", hull=hull+1";
-        BuildOneCol("Hull upgraded");
+        BuildOneCol("$l_hull $l_trade_upgraded");
       }
       if($engine_upgrade)
       {
         $query = $query . ", engines=engines+1";
-        BuildOneCol("Engines upgraded");
+        BuildOneCol("$l_engines $l_trade_upgraded");
       }
       if ($power_upgrade)
       {
         $query = $query . ", power=power+1";
-        BuildOneCol("Power upgraded");
+        BuildOneCol("$l_power $l_trade_upgraded");
       }
       if($computer_upgrade)
       {
         $query = $query . ", computer=computer+1";
-        BuildOneCol("Computer upgraded");
+        BuildOneCol("$l_computer $l_trade_upgraded");
       }
       if($sensors_upgrade)
       {
         $query = $query . ", sensors=sensors+1";
-        BuildOneCol("Sensors upgraded");
+        BuildOneCol("$l_sensors $l_trade_upgraded");
       }
       if($beams_upgrade)
       {
         $query = $query . ", beams=beams+1";
-        BuildOneCol("Beam Weapons upgraded");
+        BuildOneCol("$l_beams $l_trade_upgraded");
       }
       if($armour_upgrade)
       {
         $query = $query . ", armour=armour+1";
-        BuildOneCol("Armour upgraded");
+        BuildOneCol("$l_armour $l_trade_upgraded");
       }
       if($cloak_upgrade)
       {
         $query = $query . ", cloak=cloak+1";
-        BuildOneCol("Cloak upgraded");
+        BuildOneCol("$l_cloak $l_trade_upgraded");
       }
       if($torp_launchers_upgrade)
       {
         $query = $query . ", torp_launchers=torp_launchers+1";
-        BuildOneCol("Torpedo Launchers upgraded");
+        BuildOneCol("$l_torp_launch $l_trade_upgraded");
       }
       if($shields_upgrade)
       {
         $query = $query . ", shields=shields+1";
-        BuildOneCol("Shields upgraded");
+        BuildOneCol("$l_shields $l_trade_upgraded");
       }
       if($fighter_number)
       {
         $query = $query . ", ship_fighters=ship_fighters+$fighter_number";
-      BuildTwoCol("Fighters added:", $fighter_number, "left", "right" );
+      BuildTwoCol("$l_fighters $l_trade_added:", $fighter_number, "left", "right" );
 
       }
       if($torpedo_number)
       {
         $query = $query . ", torps=torps+$torpedo_number";
-      BuildTwoCol("Torpedoes added:", $torpedo_number, "left", "right" );
+      BuildTwoCol("$l_torps $l_trade_added:", $torpedo_number, "left", "right" );
       }
       if($armour_number)
       {
         $query = $query . ", armour_pts=armour_pts+$armour_number";
-      BuildTwoCol("Points of armour added:", $armour_number, "left", "right" );
+      BuildTwoCol("$l_armourpts $l_trade_added:", $armour_number, "left", "right" );
       }
       if($colonist_number)
       {
         $query = $query . ", ship_colonists=ship_colonists+$colonist_number";
-      BuildTwoCol("Colonists added:", $colonist_number, "left", "right" );
+      BuildTwoCol("$l_colonists $l_trade_added:", $colonist_number, "left", "right" );
       }
       if($dev_genesis_number)
       {
         $query = $query . ", dev_genesis=dev_genesis+$dev_genesis_number";
-      BuildTwoCol("Genesis Devices added:", $dev_genesis_number, "left", "right" );
+      BuildTwoCol("$l_genesis $l_trade_added:", $dev_genesis_number, "left", "right" );
       }
       if($dev_beacon_number)
       {
         $query = $query . ", dev_beacon=dev_beacon+$dev_beacon_number";
-      BuildTwoCol("Space Beacons added:", $dev_beacon_number , "left", "right" );
+      BuildTwoCol("$l_beacons $l_trade_added:", $dev_beacon_number , "left", "right" );
       }
       if($dev_emerwarp_number)
       {
         $query = $query . ", dev_emerwarp=dev_emerwarp+$dev_emerwarp_number";
-      BuildTwoCol("Emergency Warp Devices added:", $dev_emerwarp_number , "left", "right" );
+      BuildTwoCol("$l_ewd $l_trade_added:", $dev_emerwarp_number , "left", "right" );
       }
       if($dev_warpedit_number)
       {
         $query = $query . ", dev_warpedit=dev_warpedit+$dev_warpedit_number";
-      BuildTwoCol("Warp Editors added:", $dev_warpedit_number , "left", "right" );
+      BuildTwoCol("$l_warpedit $l_trade_added:", $dev_warpedit_number , "left", "right" );
       }
       if($dev_minedeflector_number)
       {
         $query = $query . ", dev_minedeflector=dev_minedeflector+$dev_minedeflector_number";
-      BuildTwoCol("Mine Deflectors added:", $dev_minedeflector_number , "left", "right" );
+      BuildTwoCol("$l_deflect $l_trade_added:", $dev_minedeflector_number , "left", "right" );
       }
       if($escapepod_purchase)
       {
         $query = $query . ", dev_escapepod='Y'";
-        BuildOneCol("Escape Pod installed");
+        BuildOneCol("$l_escape_pod $l_trade_installed");
       }
       if($fuelscoop_purchase)
       {
         $query = $query . ", dev_fuelscoop='Y'";
-        BuildOneCol("Fuel Scoop installed");
+        BuildOneCol("$l_fuel_scoop $l_trade_installed");
       }
       $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
       $purchase = mysql_query("$query");

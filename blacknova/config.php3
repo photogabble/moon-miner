@@ -179,7 +179,7 @@ $max_traderoutes_player = 40;
 
 $min_bases_to_own = 3;
 
-$default_lang = '/languages/english.inc';
+$default_lang = '/languages/french.inc';
 
 $avail_lang[0][file] = '/languages/english.inc';
 $avail_lang[0][name] = 'English';

@@ -43,8 +43,8 @@ echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_sensors</TD><TD>$l_level $playerinfo[s
 echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_armour</TD><TD>$l_level $playerinfo[armour]</TD></TR>";
 echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_shields</TD><TD>$l_level $playerinfo[shields]</TD></TR>";
 echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_beams</TD><TD>$l_level $playerinfo[beams]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_torp_launch</TD><TD>Level $playerinfo[torp_launchers]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_cloak</TD><TD>Level $playerinfo[cloak]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_torp_launch</TD><TD>$l_level $playerinfo[torp_launchers]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_cloak</TD><TD>$l_level $playerinfo[cloak]</TD></TR>";
 echo "</TABLE>";
 echo "</TD><TD VALIGN=TOP>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";

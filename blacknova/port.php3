@@ -431,7 +431,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "</TD></TR>";
   echo "</TABLE>";
   echo "</FORM>";
-  echo "$l_would_dump <A HREF=dump.php3>here</A>.";
+  echo "$l_would_dump <A HREF=dump.php3>$l_here</A>.";
 }
 else
 {

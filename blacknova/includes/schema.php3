@@ -24,6 +24,7 @@ mysql_query("DROP TABLE IF EXISTS scheduler");
 mysql_query("DROP TABLE IF EXISTS ip_bans");
 mysql_query("DROP TABLE IF EXISTS IGB_transfers");
 mysql_query("DROP TABLE IF EXISTS logs");
+mysql_query("DROP TABLE IF EXISTS bn_news");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema

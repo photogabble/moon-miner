@@ -82,7 +82,12 @@ if(!empty($planetinfo))
     {
       /* owner menu */
       echo "$l_turns_have: $playerinfo[turns]<p>";
-      echo "<a href=planet.php3?planet_id=$planet_id&command=name>Name</a> Planet<BR>";
+      
+     $l_planet_name_link = "<a href=planet.php3?planet_id=$planet_id&command=name>" . $l_planet_name_link . "</a>";
+     $l_planet_name =str_replace("[name]",$l_planet_name_link,$l_planet_name2);
+     
+     echo "$l_planet_name<BR>";
+     
      $l_planet_leave_link = "<a href=planet.php3?planet_id=$planet_id&command=leave>" . $l_planet_leave_link . "</a>";
      $l_planet_leave=str_replace("[leave]",$l_planet_leave_link,$l_planet_leave);
 
