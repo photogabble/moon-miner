@@ -44,7 +44,7 @@
         $furcount0++;
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso0 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+        $reso0 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0" and ship_id > 1);
         if (!$reso0->EOF)
         {
           $rowo0 = $reso0->fields;
@@ -92,8 +92,8 @@
           continue;
         }
         // ****** FIND A TARGET ******
-        // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso1 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
+        // ****** IN MY SECTOR, NOT MYSELF ******
+        $reso1 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
         if (!$reso1->EOF)
         {
           $rowo1= $reso1->fields;
@@ -104,7 +104,7 @@
           elseif ($playerinfo[aggression] == 1)        // ****** O = 1 & AGRESSION = 1 ATTACK SOMETIMES ******
           {
             // Furangee's only compare number of fighters when determining if they have an attack advantage
-            if ($playerinfo[ship_fighters] > $rowo1[ship_fighters])
+            if ($playerinfo[ship_fighters] > $rowo1[ship_fighters] && $rowo1[planet_id] == 0)
             {
               $furcount1a++;
               playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo1[character_name]");
@@ -119,7 +119,11 @@
           {
             $furcount1a++;
             playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo1[character_name]");
-            furangeetoship($rowo1[ship_id]);
+            if (!$rowo1[planet_id] == 0) {              // *** IS ON PLANET ***
+              furangeetoplanet($rowo1[planet_id]);
+            } else {
+              furangeetoship($rowo1[ship_id]);
+            }
             if ($furangeeisdead>0) {
               $res->MoveNext();
               continue;
@@ -143,8 +147,8 @@
         // ****** NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS ******
         furangeetrade();
         // ****** FIND A TARGET ******
-        // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-        $reso2 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$targetlink and email!='$playerinfo[email]' and planet_id=0");
+        // ****** IN MY SECTOR, NOT MYSELF ******
+        $reso2 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
         if (!$reso2->EOF)
         {
           $rowo2=$reso2->fields;
@@ -155,7 +159,7 @@
           elseif ($playerinfo[aggression] == 1)        // ****** O = 2 & AGRESSION = 1 ATTACK SOMETIMES ******
           {
             // Furangee's only compare number of fighters when determining if they have an attack advantage
-            if ($playerinfo[ship_fighters] > $rowo2[ship_fighters])
+            if ($playerinfo[ship_fighters] > $rowo2[ship_fighters] && $rowo2[planet_id] == 0)
             {
               $furcount2a++;
               playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo2[character_name]");
@@ -170,7 +174,11 @@
           {
             $furcount2a++;
             playerlog($playerinfo[ship_id], LOG_FURANGEE_ATTACK, "$rowo2[character_name]");
-            furangeetoship($rowo2[ship_id]);
+            if (!$rowo2[planet_id] == 0) {              // *** IS ON PLANET ***
+              furangeetoplanet($rowo2[planet_id]);
+            } else {
+              furangeetoship($rowo2[ship_id]);
+            }
             if ($furangeeisdead>0) {
               $res->MoveNext();
               continue;
@@ -201,7 +209,7 @@
           }
           // ****** FIND A TARGET ******
           // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
-          $reso3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
+          $reso3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0 and ship_id > 1");
           if (!$reso3->EOF)
           {
             $rowo3=$reso3->fields;
