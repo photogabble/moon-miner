@@ -519,7 +519,7 @@ function furangeemove()
     $total_sector_mines = 0;
     if($resultm > 0)
     {
-      while(!resultm->EOF)
+      while(!$resultm->EOF)
       {
         $defences[$i] = $resultm->fields;
         $total_sector_mines += $defences[$i]['quantity'];
