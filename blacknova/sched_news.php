@@ -6,10 +6,12 @@ are generated in the server's default language. The news text
 will have to be removed from the database for the next version
 ************************************************************/
 
-include("languages/$default_lang");
+if (preg_match("/sched_news.php/i", $PHP_SELF)) {
+    echo "You can not access this file directly!";
+    die();
+}
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+include("languages/$default_lang");
 
 // generation of planet amount
 $sql = $db->Execute("select count(owner) as amount, owner from $dbtables[planets] where owner !='0' group by owner order by amount ASC");

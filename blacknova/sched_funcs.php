@@ -1,5 +1,10 @@
 <?
 
+if (preg_match("/sched_funcs.php/i", $PHP_SELF)) {
+    echo "You can not access this file directly!";
+    die();
+}
+
 function QUERYOK($res)
 {
   if($res)

@@ -1,7 +1,9 @@
 <?
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+  if (preg_match("/sched_degrade.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+  }
 
   echo "<B>Degrading Sector Fighters with no friendly base</B><BR><BR>";
   $res = $db->Execute("SELECT * from $dbtables[sector_defence] where defence_type = 'F'");

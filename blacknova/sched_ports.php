@@ -1,7 +1,9 @@
 <?
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+  if (preg_match("/sched_ports.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+  }
 
   echo "<B>PORTS</B><BR><BR>";
   echo "Adding ore to all commodities ports...";

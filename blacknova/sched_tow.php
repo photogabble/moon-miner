@@ -1,7 +1,9 @@
 <?
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+  if (preg_match("/sched_tow.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+  }
 
   echo "<B>ZONES</B><BR><BR>";
   echo "Towing bigger players out of restricted zones...";

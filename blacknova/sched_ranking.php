@@ -1,7 +1,9 @@
 <?
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+  if (preg_match("/sched_ranking.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+  }
 
   echo "<B>RANKING</B><BR><BR>";
   $res = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE ship_destroyed='N'");

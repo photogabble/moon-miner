@@ -1,7 +1,9 @@
 <?
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+  if (preg_match("/sched_planets.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+  }
 
   echo "<B>PLANETS</B><BR><BR>";
   $res = $db->Execute("SELECT * FROM $dbtables[planets]");

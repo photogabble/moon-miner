@@ -1,7 +1,9 @@
 <?
 
-  if(!isset($swordfish) || $swordfish != $adminpass)
-    die("Script has not been called properly");
+  if (preg_match("/sched_furangee.php/i", $PHP_SELF)) {
+      echo "You can not access this file directly!";
+      die();
+  }
 
   echo "<B>IBANK</B><BR><BR>";
   $ibank_result = $db->Execute("SELECT * from $dbtables[ibank_accounts]");
