@@ -24,6 +24,12 @@ $playerinfo=$result->fields;
 $result2 = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
 $targetinfo=$result2->fields;
 
+$playerscore = gen_score($playerinfo[ship_id]);
+$targetscore = gen_score($targetinfo[ship_id]);
+
+$playerscore = $playerscore * $playerscore;
+$targetscore = $targetscore * $targetscore;
+
 bigtitle();
 
 srand((double)microtime()*1000000);
@@ -98,6 +104,13 @@ else
     }
     else
     {
+      if($targetscore / $playerscore < $bounty_ratio || $targetinfo[turns_used] < $bounty_minturns)
+      {
+         $bounty = ROUND($playerscore * 0.15);
+         $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");      
+         playerlog($playerinfo[ship_id],LOG_BOUNTY_FEDBOUNTY,"$bounty");
+         echo $l_by_fedbounty2 . "<BR><BR>";
+      }
       if($targetinfo[dev_emerwarp] > 0)
       {
         playerlog($targetinfo[ship_id], LOG_ATTACK_EWDFAIL, $playerinfo[character_name]);

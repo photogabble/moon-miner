@@ -206,6 +206,8 @@ $min_value_capture = 50; //Percantage of planet's value a ship must be worth to 
 $defence_degrade_rate = 0.05;
 $energy_per_fighter = 0.10;
 $bounty_maxvalue = 0.15; //Max amount a player can place as bounty - good idea to make it the same as $IGB_svalue. 0=disable
+$bounty_ratio = 0.75; // ratio of players networth before attacking results in a bounty. 0=disable
+$bounty_minturns = 500; // Minimum number of turns a target must have had before attacking them may not get you a bounty. 0=disable
 
 include("global_funcs.php");
 ?>

@@ -19,6 +19,12 @@ $playerinfo=$result->fields;
 $result2 = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
 $targetinfo=$result2->fields;
 
+$playerscore = gen_score($playerinfo[ship_id]);
+$targetscore = gen_score($targetinfo[ship_id]);
+
+$playerscore = $playerscore * $playerscore;
+$targetscore = $targetscore * $targetscore;
+
 bigtitle();
 
 srand((double)microtime()*1000000);
@@ -57,6 +63,10 @@ else
     {
       /* if scan succeeds, show results and inform target. */
       /* scramble results by scan error factor. */
+      if($targetscore / $playerscore < $bounty_ratio || $targetinfo[turns_used] < $bounty_minturns)
+      {
+         echo $l_by_fedbounty . "<BR><BR>";
+      }
       $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
       echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<BR><BR>";
       echo "<b>$l_ship_levels:</b><BR><BR>";

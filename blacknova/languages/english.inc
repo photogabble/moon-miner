@@ -1298,6 +1298,8 @@ $l_by_canceled = "The bounty has been canceled.";
 $l_by_action   = "Action";
 $l_by_placebounty = "Place or view bounties.";
 $l_by_moredetails = "Click on the name for more details.";
+$l_by_fedbounty = "Attacking this player would result in The Federation placing a bounty on you.";
+$l_by_fedbounty2 = "The Federation does not approve of attacking much smaller ships. It has placed a bounty on you.";
 $l_log_text[LOG_BOUNTY_CLAIMED] = "You claimed a bounty of [amount] credits for the destruction of the ship belonging to [bounty_on]. The bounty was placed by [placed_by].";
 $l_log_title[LOG_BOUNTY_CLAIMED] = "Bounty Claimed.";
 $l_log_text[LOG_BOUNTY_PAID] = "Your bounty on [bounty_on] has been paid for the amount of [amount] credits.";
@@ -1308,6 +1310,9 @@ $l_log_text[LOG_SPACE_PLAGUE] = "Your planet [name] in sector [sector] has been 
 $l_log_title[LOG_SPACE_PLAGUE] = "Space Plague!";
 $l_log_text[LOG_PLASMA_STORM] = "Your planet [name] in sector [sector] has been hit by a Plasma Storm. All stored Energy has been lost.";
 $l_log_title[LOG_PLASMA_STORM] = "Plasma Storm!";
+$l_log_text[LOG_BOUNTY_FEDBOUNTY] = "The Federation has placed a bounty on you for the amount of [amount] credits.";
+$l_log_title[LOG_BOUNTY_FEDBOUNTY] = "Federation Bounty!";
+
 
 $l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
 ?>

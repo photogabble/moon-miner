@@ -91,6 +91,7 @@ define(LOG_BOUNTY_PAID,48);            //sent to player when their bounty on som
 define(LOG_BOUNTY_CANCELLED,49);            //sent to player when their bounty is refunded
 define(LOG_SPACE_PLAGUE,50);            // sent when space plague attacks a planet
 define(LOG_PLASMA_STORM,51);           // sent when a plasma storm attacks a planet
+define(LOG_BOUNTY_FEDBOUNTY,52);       // Sent when the federation places a bounty on a player
 // Database tables variables
 $dbtables['ibank_accounts'] = "${db_prefix}ibank_accounts";
 $dbtables['links'] = "${db_prefix}links";
@@ -523,7 +524,6 @@ function destroy_fighters($sector, $num_fighters)
 
 function message_defence_owner($sector, $message)
 {
-    global $db;
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' ");
     echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
@@ -905,7 +905,7 @@ function stripnum($str)
 
 function collect_bounty($attacker,$bounty_on)
 {
-   global $db,$dbtables;
+   global $db,$dbtables,$l_by_thefeds;
    $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
    if($res)
    {
