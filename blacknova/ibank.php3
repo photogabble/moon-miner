@@ -235,7 +235,7 @@ function ibank_display_createaccount()
     ibank_display_head("Create A New Account - Completed"); // Use Defaults
     echo '<form action="ibank.php3';
     if(!empty($planet_id))
-      echo "planet_id=$planet_id";
+      echo "?planet_id=$planet_id";
     echo '" method="post">
       <tr>
       <td colspan="4" align=center bgcolor="#FFFFCA">Account Created</td>
