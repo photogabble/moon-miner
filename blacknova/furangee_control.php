@@ -132,17 +132,18 @@ else
       if(empty($user))
       {
         echo "<SELECT SIZE=20 NAME=user>";
-        $res = mysql_query("SELECT email,character_name,ship_destroyed,active,sector FROM ships JOIN furangee WHERE email=furangee_id ORDER BY sector");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT email,character_name,ship_destroyed,active,sector FROM $dbtables[ships] JOIN $dbtables[furangee] WHERE email=furangee_id ORDER BY sector");
+        while(!$res->EOF)
         {
+          $row=$res->fields;
           $charnamelist = sprintf("%-20s", $row[character_name]);
           $charnamelist = str_replace("  ", "&nbsp;&nbsp;",$charnamelist);
           $sectorlist = sprintf("Sector %'04d&nbsp;&nbsp;", $row[sector]);
           if ($row[active] == "Y") { $activelist = "Active &Oslash;&nbsp;&nbsp;"; } else { $activelist = "Active O&nbsp;&nbsp;"; }
           if ($row[ship_destroyed] == "Y") { $destroylist = "Destroyed &Oslash;&nbsp;&nbsp;"; } else { $destroylist = "Destroyed O&nbsp;&nbsp;"; }
           printf ("<OPTION VALUE=%s>%s %s %s %s</OPTION>", $row[email], $activelist, $destroylist, $sectorlist, $charnamelist);
+          $res->MoveNext();
         }
-        mysql_free_result($res);
         echo "</SELECT>";
         echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
       }
@@ -150,8 +151,8 @@ else
       {
         if(empty($operation))
         {
-          $res = mysql_query("SELECT * FROM ships JOIN furangee WHERE email=furangee_id AND email='$user'");
-          $row = mysql_fetch_array($res);
+          $res = $db->Execute("SELECT * FROM $dbtables[ships] JOIN $dbtables[furangee] WHERE email=furangee_id AND email='$user'");
+          $row = $res->fields;
           echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
           echo "<TR><TD>Furangee name</TD><TD><INPUT TYPE=TEXT NAME=character_name VALUE=\"$row[character_name]\"></TD></TR>";
           echo "<TR><TD>Active?</TD><TD><INPUT TYPE=CHECKBOX NAME=active VALUE=ON " . CHECKED($row[active]) . "></TD></TR>";
@@ -222,7 +223,6 @@ else
           echo "<TR><TD>Turns</TD><TD><INPUT TYPE=TEXT NAME=turns VALUE=\"$row[turns]\"></TD></TR>";
           echo "<TR><TD>Current sector</TD><TD><INPUT TYPE=TEXT NAME=sector VALUE=\"$row[sector]\"></TD></TR>";
           echo "</TABLE>";
-          mysql_free_result($res);
           echo "<BR>";
           echo "<INPUT TYPE=HIDDEN NAME=user VALUE=$user>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
@@ -233,9 +233,10 @@ else
           echo "<HR>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00;\">Log Data For This Furangee</span><BR>";
 
-          $logres = mysql_query("SELECT * FROM logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");   
-          while($logrow = mysql_fetch_array($logres))
+          $logres = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");   
+          while(!$logres->EOF)
           {
+            $logrow = $logres->fields;
             $logtype = "";
             switch($logrow[2])
             {
@@ -251,6 +252,7 @@ else
             }
             $logdatetime = substr($logrow[3], 4, 2) . "/" . substr($logrow[3], 6, 2) . "/" . substr($logrow[3], 0, 4) . " " . substr($logrow[3], 8, 2) . ":" . substr($logrow[3], 10, 2) . ":" . substr($logrow[3], 12, 2);
             echo "$logdatetime $logtype$logrow[4] <BR>";
+            $logres->MoveNext();
           }
         }
         elseif($operation == "save")
@@ -260,16 +262,16 @@ else
           $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
           $_active = empty($active) ? "N" : "Y";
-          $result = mysql_query("UPDATE ships SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armour='$armour',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armour_pts='$armour_pts' WHERE email='$user'");
+          $result = $db->("UPDATE ships SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armour='$armour',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armour_pts='$armour_pts' WHERE email='$user'");
           if(!$result) {
             echo "Changes to Furangee ship record have FAILED Due to the following Error:<BR><BR>";
-            echo mysql_errno(). ": ".mysql_error(). "<br>";
+            echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Furangee ship record have been saved.<BR><BR>";
-            $result2 = mysql_query("UPDATE furangee SET active='$_active',orders='$orders',aggression='$aggression' WHERE furangee_id='$user'");
+            $result2 = $db->Execute("UPDATE $dbtables[furangee] SET active='$_active',orders='$orders',aggression='$aggression' WHERE furangee_id='$user'");
             if(!$result2) {
               echo "Changes to Furangee activity record have FAILED Due to the following Error:<BR><BR>";
-              echo mysql_errno(). ": ".mysql_error(). "<br>";
+              echo $db->ErrorMsg() . "<br>";
             } else {
               echo "Changes to Furangee activity record have been saved.<BR><BR>";
             }
@@ -305,15 +307,15 @@ else
       {
         // Delete all furangee in the ships table
         echo "Deleting furangee records in the ships table...<BR>";
-        mysql_query("DELETE FROM ships WHERE email LIKE '%@furangee'");
+        $db->Execute("DELETE FROM $dbtables[ships] WHERE email LIKE '%@furangee'");
         echo "deleted.<BR>";
         // Drop furangee table
         echo "Dropping furangee table...<BR>";
-        mysql_query("DROP TABLE IF EXISTS furangee");
+        $db->Execute("DROP TABLE IF EXISTS $dbtables[furangee]");
         echo "dropped.<BR>";
         // Create furangee table
         echo "Re-Creating table: furangee...<BR>";
-        mysql_query("CREATE TABLE furangee(" .
+        $db->Execute("CREATE TABLE $dbtables[furangee](" .
             "furangee_id char(40) NOT NULL," .
             "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "aggression smallint(5) DEFAULT '0' NOT NULL," .
@@ -348,11 +350,13 @@ else
       }
       elseif($operation == "clearfurlog")
       {
-        $res = mysql_query("SELECT email,ship_id FROM ships WHERE email LIKE '%@furangee'");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT email,ship_id FROM $dbtables[ships] WHERE email LIKE '%@furangee'");
+        while(!$res->EOF)
         {
-          mysql_query("DELETE FROM logs WHERE ship_id=$row[ship_id]");
+          $row = $res->fields;
+          $db->Execute("DELETE FROM $dbtables[logs] WHERE ship_id=$row[ship_id]");
           echo "Log for ship_id $row[ship_id] cleared.<BR>";
+          $res->MoveNext();
         }
       }
       else
@@ -381,8 +385,10 @@ else
         $sy2roll = rand(0,19);
         $sy3roll = rand(0,19);
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
-        $resultnm = mysql_query ("select character_name from ships where character_name='$character'");
-        $namecheck = mysql_fetch_row ($resultnm);
+        $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+        $resultnm = $db->Execute ("select character_name from $dbtables[ships] where character_name='$character'");
+        $namecheck = $resultnm->fields;
+        $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
         $nametry = 1;
         // If Name Exists Try Again - Up To Nine Times
         while (($namecheck[0]) and ($nametry <= 9)) {
@@ -390,8 +396,10 @@ else
           $sy2roll = rand(0,19);
           $sy3roll = rand(0,19);
           $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
-          $resultnm = mysql_query ("select character_name from ships where character_name='$character'");
-          $namecheck = mysql_fetch_row ($resultnm);
+          $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+          $resultnm = $db->Execute ("select character_name from $dbtables[ships] where character_name='$character'");
+          $namecheck = $resultnm->fields;
+          $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
           $nametry++;
         }
         // Create Ship Name
@@ -433,16 +441,20 @@ else
         $shipname = str_replace(" ","_",$shipname);
         // Create emailname from character
         $emailname = str_replace(" ","_",$character) . "@furangee";
-        $result = mysql_query ("select email, character_name, ship_name from ships where email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
+        $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+        $result = $db->Execute ("select email, character_name, ship_name from $dbtables[ships] where email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
         if ($result>0)
         {
-          while ($row = mysql_fetch_row ($result))
+          while (!$result->EOF)
           {
+            $row= $result->fields;
             if ($row[0]==$emailname) { echo "ERROR: E-mail address $emailname, is already in use.  "; $errflag=1;}
             if ($row[1]==$character) { echo "ERROR: Character name $character, is already in use.<BR>"; $errflag=1;}
             if ($row[2]==$shipname) { echo "ERROR: Ship name $shipname, is already in use.<BR>"; $errflag=1;}
+            $result->MoveNext();
           }
         }
+        $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
         if ($errflag==0)
         {
           $makepass="";
@@ -465,17 +477,17 @@ else
 // *****************************************************************************
 // *** ADD FURANGEE RECORD TO ships TABLE ... MODIFY IF ships SCHEMA CHANGES ***
 // *****************************************************************************
-          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$maxtorps,$furlevel,$furlevel,$maxarmour,$furlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y','','$default_lang','Y')");
+          $result2 = $db->Execute("INSERT INTO $dbtables[ships] VALUES('','$shipname','N','$character','$makepass','$emailname',$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$maxtorps,$furlevel,$furlevel,$maxarmour,$furlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y','','$default_lang','Y')");
           if(!$result2) {
-            echo mysql_errno(). ": ".mysql_error(). "<br>";
+            echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Furangee has been created.<BR><BR>";
             echo "Password has been set.<BR><BR>";
             echo "Ship Records have been updated.<BR><BR>";
           }
-          $result3 = mysql_query("INSERT INTO furangee (furangee_id,active,aggression,orders) VALUES('$emailname','$_active','$aggression','$orders')");
+          $result3 = $db->Execute("INSERT INTO $dbtables[furangee] (furangee_id,active,aggression,orders) VALUES('$emailname','$_active','$aggression','$orders')");
           if(!$result3) {
-            echo mysql_errno(). ": ".mysql_error(). "<br>";
+            echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Furangee Records have been updated.<BR><BR>";
           }

@@ -11,8 +11,8 @@
 
 	if (checklogin()) {die();}
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
+	$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+	$playerinfo=$result->fields;
         bigtitle();
 	if (empty($content))
 	{

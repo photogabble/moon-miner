@@ -10,14 +10,14 @@
 
 	if (checklogin()) {die();}
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
+	$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+	$playerinfo=$result->fields;
 	srand((double)microtime()*1000000);
         bigtitle();
 	if ($playerinfo[dev_emerwarp]>0)
 	{
 		$dest_sector=rand(0,$sector_max);
-		$result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$playerinfo[ship_id]");
+		$result_warp = $db->Execute ("UPDATE $dbtables[ships] SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$playerinfo[ship_id]");
 		$l_ewd_used=str_replace("[sector]",$dest_sector,$l_ewd_used);
 		echo "$l_ewd_used<BR><BR>";
 	} else {

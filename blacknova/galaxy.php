@@ -10,11 +10,13 @@
 	connectdb();
 
 
-	$result = mysql_query ("SELECT sector_id, angle1, angle2,distance FROM universe ORDER BY sector_id ASC");
+	$result = $db->Execute ("SELECT sector_id, angle1, angle2,distance FROM $dbtables[universe] ORDER BY sector_id ASC");
         bigtitle();
-	while ($row=mysql_fetch_array($result))
+	while (!$result->EOF)
 	{
-		echo "$row[sector_id], $row[angle1], $row[angle2], $row[distance]<BR>";
+		$row = $result->fields;
+    echo "$row[sector_id], $row[angle1], $row[angle2], $row[distance]<BR>";
+    $result->MoveNext();
 	}
 	echo "Click <a href=main.php>here</a> to return to main menu.";
 	include("footer.php");

@@ -13,13 +13,10 @@ if(checklogin())
   die();
 }
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
-
-
-$query = "SELECT * FROM sector_defence WHERE ship_id=$playerinfo[ship_id]";
+$query = "SELECT * FROM $dbtables[sector_defence] WHERE ship_id=$playerinfo[ship_id]";
 if(!empty($sort))
 {
   $query .= " ORDER BY";
@@ -41,22 +38,20 @@ if(!empty($sort))
   }
 }
 
-$res = mysql_query($query);
+$res = $db->Execute($query);
 
 bigtitle();
-
-
 
 $i = 0;
 if($res)
 {
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    $sector[$i] = $row;
+    $sector[$i] = $res->fields;
     $i++;
+    $res->MoveNext();
   }
 }
-mysql_free_result($res);
 
 $num_sectors = $i;
 if($num_sectors < 1)

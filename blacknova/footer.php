@@ -7,6 +7,5 @@
 <TR><TD><FONT COLOR=SILVER SIZE=-4><A HREF="news.php">Local BlackNova News</A></TD>
 </TR>
 </TABLE>
-<? @mysql_close(); ?>
 </BODY>
 </HTML>
