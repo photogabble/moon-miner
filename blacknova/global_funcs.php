@@ -75,6 +75,9 @@ define(LOG_ADMIN_HARAKIRI, 43);         //sent to admin on self-destruct
 define(LOG_ADMIN_PLANETDEL, 44);        //sent to admin on planet destruction instead of capture
 define(LOG_DEFENCE_DEGRADE, 45);        //sent sector fighters have no supporting planet
 define(LOG_PLANET_CAPTURED, 46);            //sent to player when he captures a planet
+define(LOG_BOUNTY_CLAIM,47);            //sent to player when they claim a bounty
+define(LOG_BOUNTY_PAID,48);            //sent to player when their bounty on someone is paid
+define(LOG_BOUNTY_CANCELLED,49);            //sent to player when their bounty is refunded
 
 // Database tables variables
 $dbtables['ibank_accounts'] = "${db_prefix}ibank_accounts";
@@ -334,6 +337,7 @@ function db_kill_player($ship_id)
   include("languages/$default_lang");
 
   $db->Execute("UPDATE $dbtables[ships] SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
+  $db->Execute("DELETE from $dbtables[bounty] WHERE placed_by = $ship_id");
 
   $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner='$ship_id' AND base='Y'");
   $i=0;
@@ -345,7 +349,7 @@ function db_kill_player($ship_id)
     $res->MoveNext();
   }
 
-  $db->Execute("UPDATE $dbtables[planets] SET owner=0, base='N' WHERE owner=$ship_id");
+  $db->Execute("UPDATE $dbtables[planets] SET owner=0,fighters=0 base='N' WHERE owner=$ship_id");
 
   if(!empty($sectors))
   {
@@ -883,5 +887,46 @@ function stripnum($str)
   $str=(string)$str;
   $output = ereg_replace("[^0-9]","",$str);
   return $output;
+}
+
+function collect_bounty($attacker,$bounty_on)
+{
+   global $db,$dbtables;
+   $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
+   while(!$res->EOF)
+   {
+      if($res->fields[placed_by] == 0)
+         $placed = $l_by_thefeds;
+      else
+      {
+         $res2 = db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id = $res->fields[placed_by]");
+         $placed = $res2->fields[character_name];
+      }
+      $update = $db->Execute("UPDATE $dbtables[ships] SET credits = credits + $res->fields['amount'] WHERE ship_id = $attacker");
+      $delete = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $res->fields['bounty_id']");
+
+      playerlog($attacker, LOG_BOUNTY_CLAIM, "$res->fields[amount]|$res->fields[character_name]|$placed");
+      playerlog($res->fields[placed_by],LOG_BOUNTY_PAID,"$amount|$res->fields[character_name]")
+
+      $res->MoveNext();
+   }
+}
+
+function cancel_bounty($bounty_on)
+{
+   global $db,$dbtables;
+   $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
+   while(!$res->EOF)
+   {
+      if($res->fields[placed_by] <> 0)
+      {
+         $update = $db->Execute("UPDATE $dbtables[ships] SET credits = credits + $res->fields['amount'] WHERE ship_id = $res->fields[placed_by]");
+         $delete = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $res->fields['bounty_id']");
+      
+         playerlog($res->fields[placed_by],LOG_BOUNTY_CANCELLED,"$amount|$res->fields[character_name]")
+      }
+      $res->MoveNext();
+   }
+
 }
 ?>

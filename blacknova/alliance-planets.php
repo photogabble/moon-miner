@@ -3,7 +3,10 @@ include("config.php");
 updatecookie();
 include("languages/$lang");
 
+
 connectdb();
+
+
 
 $title=$l_teamplanet_title;
 include("header.php");
@@ -70,7 +73,8 @@ if($res)
   {
     $planet[$i] = $res->fields;
     $i++;
-    $res->NextCount();
+
+    $res->Movenext();
   }
 }
 

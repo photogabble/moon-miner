@@ -4,7 +4,10 @@ include("config.php");
 updatecookie();
 include("languages/$lang");
 
+
 connectdb();
+
+
 
 $title=$l_att_title;
 include("header.php");
@@ -357,11 +360,13 @@ else
           echo "$l_att_espod<BR><BR>";
           $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
           playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
+          collect_bounty($playerinfo[ship_id],$targetinfo[ship_id]);
         }
         else
         {
           playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
           db_kill_player($targetinfo['ship_id']);
+          collect_bounty($playerinfo[ship_id],$targetinfo[ship_id]);
         }
 
         if($playerarmour > 0)
@@ -457,10 +462,12 @@ else
           $rating=round($playerinfo[rating]/2);
           echo "$l_att_loosepod<BR><BR>";
           $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$playerinfo[ship_id]");
+          collect_bounty($targetinfo[ship_id],$playerinfo[ship_id]);
         }
         else
         {
           db_kill_player($playerinfo['ship_id']);
+          collect_bounty($targetinfo[ship_id],$playerinfo[ship_id]);
         }
         if($targetarmour > 0)
         {
