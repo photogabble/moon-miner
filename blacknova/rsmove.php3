@@ -14,6 +14,9 @@ if(checklogin())
   die();
 }
 
+//-------------------------------------------------------------------------------------------------
+mysql_query("LOCK TABLES ships WRITE, universe READ");
+
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
 mysql_free_result($res);
@@ -141,9 +144,9 @@ elseif($destination <= $sector_max && $engage == 1)
     $triptime = 0;
     $energyscooped = 0;
   }
-  echo "With your engines, it would take " . NUMBER($triptime) . " turns to complete the journey.<BR><BR>";
   if($triptime > $playerinfo[turns])
   {
+    echo "With your engines, it would take " . NUMBER($triptime) . " turns to complete the journey.<BR><BR>";
     echo "You only have " . NUMBER($playerinfo[turns]) . ", and cannot embark on this journey.";
   }
   else
@@ -156,6 +159,9 @@ else
 {
   echo "Invalid destination.<BR><BR>";
 }
+
+mysql_query("UNLOCK TABLES");
+//-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();
 
