@@ -191,7 +191,7 @@ switch ($teamwhat) {
 				$result = mysql_query("SELECT * FROM teams WHERE id=$whichteam");
 				$team = mysql_fetch_array($result);
 				mysql_query("UPDATE ships SET team_invite=$whichteam WHERE ship_id=$who");
-				echo("Player invited.<BR>You muts wait for that player to aknowledge your invitation.<BR>");
+				echo("Player invited.<BR>You must wait for that player to aknowledge your invitation.<BR>");
 				playerlog($who,"You have been invited to be part of <B>$team[team_name]</B>.");
 			}
 		}
