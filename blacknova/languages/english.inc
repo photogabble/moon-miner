@@ -15,6 +15,7 @@ $l_goods		 = "Goods";
 $l_energy		 = "Energy";
 $l_colonists		 = "Colonists";
 $l_credits 		 = "Credits";
+$l_units		 = "units of ";
 
 $l_cargo		 = "Cargo";
 $l_fighters		 = "Fighters ";
@@ -23,6 +24,7 @@ $l_torps		 = "Torpedoes";
 
 $l_none			 = "None";
 $l_unnamed		 = "Unnamed";
+$l_name			 = "Name";
 $l_unowned		 = "Unowned";
 $l_unknown		 = "Unknown";
 $l_clickme 		 = "Click here";
@@ -162,7 +164,7 @@ $l_item			 = "Item";
 $l_totalcost		 = "Total cost";
 $l_would_dump	         = "If you would like to dump all your colonists here, click ";
 $l_noport		 = "There is no port here!";
-$l_trade_turnneed	 = "You need at least one turn to trade at a port.";
+$l_trade_turnneed	 = "You need at least one turn to trade at a port or planet.";
 $l_returnto_port         = " Click <A HREF=port.php3>here</A> to return to the port menu.";
 $l_notenough_cargo	 = "You do not have enough free cargo holds for the commodities you wish to purchase.";
 $l_notenough_power	 = "You do not have enough free power storage for the energy you wish to purchase.";
@@ -245,7 +247,29 @@ $l_planet_captured	 = "Planet captured";
 $l_planet_notdef	 = "Planet not defeated!";
 $l_planet_caplog	 = "Your planet '[planetname]' in sector [sector] was captured by [name].";
 
-// rsmove.php3
+$l_planet2_title	 = "Planetary Transfer";
+$l_planet2_noturn	 = "You need at least one turn to perform a planetary transfer.";
+$l_planet2_noten 	 = "You don't have enough ";
+$l_planet2_fortr	 = "for the requested transfer.";
+$l_planet2_settr	 = "Setting transfer amount to ";
+$l_planet2_losup	 = "The planet was only able to supply ";
+$l_planet2_notowner	 = "You do not own this planet.";
+$l_planet2_compl	 = "Transfer complete.";
+$l_planet2_power	 = "power capacity";
+$l_planet2_comp 	 = "computer capacity";
+$l_planet2_laun 	 = "launcher capacity";
+
+$l_planet3_title	 = "Trading at Planet";
+
+// planet-report.php
+
+$l_pr_title		 = "Planet Report";
+$l_pr_teamlink		 = "Show alliance planets";
+$l_pr_noplanet		 = "You have no planets so far";
+$l_pr_clicktosort	 = "Click on column header to sort.";
+$l_pr_totals		 = "Totals";
+
+// rsmove.php
 $l_rs_title 		= "RealSpace Move";
 $l_rs_whichsector       = "Which sector would you like to reach through RealSpace?";
 $l_rs_insector		= "You are presently in sector [sector] - and there are sectors available from 0 to [sector_max].";
@@ -258,5 +282,15 @@ $l_rs_engage		= "You have [turns] turns. [engage] engines?";
 
 $l_rs_invalid		= "Invalid Destination";
 $l_rs_ready 		= "You are now in sector [sector]. You used [triptime] turns, and gained [energy] energy units.";
+
+// navcomp.php	
+
+$l_nav_title		 = "Navigation Computer";
+$l_nav_nocomp		 = "Navigation computer is not available";
+$l_nav_query		 = "Enter sector to find path to: ";
+$l_nav_pathfnd		 = "Path found";
+$l_nav_answ1		 = "It will take you";
+$l_nav_answ2		 = "turns to get to this sector.";
+$l_nav_proper		 = "Your computer technology is too primitive to compute a warp route to that distance.";
 
 ?>

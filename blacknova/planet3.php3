@@ -1,12 +1,13 @@
 <?
-
 	include("config.php3");
 	updatecookie();
 
-	$title="Trading at Planet";
+    include($gameroot . $default_lang);
+
+	$title=$l_planet3_title;
 	include("header.php3");
 	connectdb();
-	
+
 	if (checklogin()) {die();}
 
 
@@ -22,20 +23,20 @@
   bigtitle();
 	if ($playerinfo[turns]<1)
 	{
-		echo "You need at least one turn to trade at a planet.<BR><BR>";
+		echo "$l_trade_turnneed<BR><BR>";
     TEXT_GOTOMAIN();
-		include("footer.php3");		
+		include("footer.php3");
 		die();
 	}
   if (empty($planetinfo))
 
   {
 
-    echo "Invalid planet.<br>";
+    echo "$l_planet_none<br>";
 
     TEXT_GOTOMAIN();
 
-		include("footer.php3");		
+		include("footer.php3");
 
 		die();
 
@@ -49,7 +50,7 @@
 	$ore_price=($ore_price + $ore_delta/4);
 	$organics_price=($organics_price + $organics_delta/4);
 	$goods_price=($goods_price + $goods_delta/4);
-	$energy_price=($energy_price + $energy_delta/4); 
+	$energy_price=($energy_price + $energy_delta/4);
 
 	if ($planetinfo[sells]=='Y')
 	{
@@ -61,30 +62,30 @@
 
 		if ($free_holds < $cargo_exchanged)
 		{
-			echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <a href=planet.php3>here</a> to return to the planet menu.<BR><BR>";
+			echo "$l_notenough_cargo  <a href=planet.php3?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<BR><BR>";
 		} elseif ($trade_energy > $free_power) {
-			echo "You do not have enough free power storage for the energy you wish to purchase.  Click <a href=planet.php3>here</a> to return to the planet menu.<BR><BR>";
+			echo "$l_notenough_power <a href=planet.php3?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<BR><BR>";
 		} elseif ($playerinfo[turns]<1) {
-			echo "You do not have enough turns to complete the transaction.<BR><BR>";
+			echo "$l_notenough_turns<BR><BR>";
 		} elseif ($playerinfo[credits]<$total_cost) {
-			echo "You do not have enough credits to complete the transaction. <BR><BR>";	
+			echo "$l_notenough_credits<BR><BR>";
 		} elseif ($trade_organics > $planetinfo[organics]){
-			echo "Number of organics exceeds the supply.  ";
+			echo "$l_exceed_organics  ";
 		} elseif ($trade_ore > $planetinfo[ore]){
-			echo "Number of ore exceeds the supply.  ";
+			echo "$l_exceed_ore  ";
 		} elseif ($trade_goods > $planetinfo[goods]){
-			echo "Number of goods exceeds the supply.  ";
+			echo "$l_exceed_goods  ";
 		} elseif ($trade_energy > $planetinfo[energy]){
-			echo "Number of energy exceeds the supply.  ";
+			echo "$l_exceed_energy  ";
 		} else {
-			echo "Total cost: $total_cost<BR>Traded Ore: $trade_ore<BR>Traded Organics: $trade_organics<BR>Traded Goods: $trade_goods<BR>Traded Energy: $trade_energy<BR><BR>";
+			echo "$l_totalcost: $total_cost<BR>$l_traded_ore: $trade_ore<BR>$l_traded_organics: $trade_organics<BR>$l_traded_goods: $trade_goods<BR>$l_traded_energy: $trade_energy<BR><BR>";
 			/* Update ship cargo, credits and turns */
 			$trade_result = mysql_query ("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 
 			$trade_result2 = mysql_query ("UPDATE planets SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
-			echo "Trade completed.<BR><BR>";
+			echo "$l_trade_complete<BR><BR>";
 		}
-	} 
+	}
 
     gen_score($planetinfo[owner]);
     TEXT_GOTOMAIN();
