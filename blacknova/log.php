@@ -1,0 +1,453 @@
+<?
+
+include("config.php3");
+updatecookie();
+
+include($gameroot . $default_lang);
+
+$title="View Log";
+$no_body=1;
+include("header.php3");
+
+connectdb();
+
+//if(checklogin())
+//{
+//  die();
+//}
+
+$res = mysql_query("SELECT character_name, ship_id FROM ships WHERE email='$username'");
+$playerinfo = mysql_fetch_array($res);
+
+eregi ("ozilla.(.)", $HTTP_USER_AGENT, $mozver);
+eregi ("MSIE.(.)", $HTTP_USER_AGENT, $iever);
+
+if(!empty($iever[1]))
+{
+  if($iever[1] < 5) // Using IE 2.x, 3.x or 4.x
+    $mode = 'compat';
+  else              // Using IE 5 and up
+    $mode = 'full';
+}
+else
+{
+  if($mozver[1] < 5) // Using Netscape 3.x or 4.x
+    $mode = 'compat';
+  else               // Using N6 or Mozilla
+    $mode = 'moz';
+}
+
+if($playerinfo[dhtml] == 'N')
+  $mode = 'compat';
+
+if($mode != 'compat')
+{
+  echo '
+        <style type="text/css">
+        a:hover {text-decoration:underline; color:#cccccc;}
+        body {background-color:#ffffff; color:#999999; font-size:11px; font-family:verdana,arial,helvetica,sans-serif; line-height:15px;}
+       ';
+}
+
+if($mode == 'full')
+  echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:400px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
+elseif($mode == 'moz')
+  echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:400px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
+
+if($mode != compat)
+{
+  echo '
+        .dynPage {position:absolute; z-index:10; left:0px; top:0px; width:100%; visibility:hidden; line-height:14px; color:black}
+        </style>
+        <script language="JavaScript" type="text/javascript">
+        /**********************************************************************************   
+        PageSlideFade 
+        *   Copyright (C) 2001 <a href="/dhtmlcentral/michael_van_ouwerkerk.asp">Michael van Ouwerkerk</a>
+        *   This script was released at DHTMLCentral.com
+        *   Visit for more great scripts!
+        *   This may be used and changed freely as long as this msg is intact!
+        *   We will also appreciate any links you could give us.
+        *
+        *   Made by <a href="/dhtmlcentral/michael_van_ouwerkerk.asp">Michael van Ouwerkerk</a> 
+        *********************************************************************************/
+        function lib_bwcheck(){ //Browsercheck (needed)
+        	this.ver=navigator.appVersion
+        	this.agent=navigator.userAgent
+        	this.dom=document.getElementById?1:0
+        	this.opera5=(navigator.userAgent.indexOf("Opera")>-1 && document.getElementById)?1:0
+        	this.ie5=(this.ver.indexOf("MSIE 5")>-1 && this.dom && !this.opera5)?1:0; 
+        	this.ie6=(this.ver.indexOf("MSIE 6")>-1 && this.dom && !this.opera5)?1:0;
+        	this.ie4=(document.all && !this.dom && !this.opera5)?1:0;
+        	this.ie=this.ie4||this.ie5||this.ie6
+        	this.mac=this.agent.indexOf("Mac")>-1
+        	this.ns6=(this.dom && parseInt(this.ver) >= 5) ?1:0; 
+        	this.ns4=(document.layers && !this.dom)?1:0;
+        	this.bw=(this.ie6 || this.ie5 || this.ie4 || this.ns4 || this.ns6 || this.opera5)
+        	return this
+        }
+        var bw=new lib_bwcheck()
+
+        /*** variables to configure... ***/
+
+        var numScrollPages = 3         //Set the number of pages (layers) here. Add and remove the pages in the body too. The first layer is called dynPage0, the second is dynPage1, and so on.
+        var transitionOut = 1;         //The out effect... 0= no effect, 1= fade
+        var transitionIn = 1;          //The in effect... 0= no effect, 1= fade, 2= slide
+        var slideAcceleration = 0.2;   //If you use the slide animation, set this somewhere between 0 and 1.
+        var transitionOnload = 1       //Use the in transition when the page first loads? If you want the transition fx only when the links are clicked, you can set it to 0.
+
+        // NOTE: if you change the position of divScroller1 from absolute to relative, you can put the scroller in a table.
+        // HOWEVER it will no longer work in netscape 4. If you wish to support netscape 4, you have to use absolute positioning.
+
+        // Please note that there are no effects available in ns4 and ie4, or explorers on the Mac!
+
+        /*** There should be no need to change anything beyond this. ***/ 
+
+        // A unit of measure that will be added when setting the position of a layer.
+        var px = bw.ns4||window.opera?"":"px";
+
+        if(document.layers){ //NS4 resize fix...
+        	scrX= innerWidth; scrY= innerHeight;
+        	onresize= function(){if(scrX!= innerWidth || scrY!= innerHeight){history.go(0)} }
+        }
+
+        //object constructor...
+        function scrollerobj(obj,nest){
+        	nest = (!nest)?"":\'document.\'+nest+\'.\'
+        	this.elm = bw.ie4?document.all[obj]:bw.ns4?eval(nest+\'document.\'+obj):document.getElementById(obj)
+        	this.css = bw.ns4?this.elm:this.elm.style
+        	this.doc = bw.ns4?this.elm.document:document
+        	this.obj = obj+\'scrollerobj\'; eval(this.obj+\'=this\')
+        	this.x = (bw.ns4||bw.opera5)?this.css.left:this.elm.offsetLeft
+        	this.y = (bw.ns4||bw.opera5)?this.css.top:this.elm.offsetTop
+        	this.w = (bw.ie4||bw.ie5||bw.ie6||bw.ns6)?this.elm.offsetWidth:bw.ns4?this.elm.clip.width:bw.opera5?this.css.pixelWidth:0
+        	this.h = (bw.ie4||bw.ie5||bw.ie6||bw.ns6)?this.elm.offsetHeight:bw.ns4?this.elm.clip.height:bw.opera5?this.css.pixelHeight:0
+        }
+
+        //object methods...
+        scrollerobj.prototype.moveTo = function(x,y){
+        	if(x!=null){this.x=x; this.css.left=x+px}
+        	if(y!=null){this.y=y; this.css.top=y+px}
+        }
+        scrollerobj.prototype.moveBy = function(x,y){this.moveTo(this.x+x,this.y+y)}
+        scrollerobj.prototype.hideIt = function(){this.css.visibility=\'hidden\'}
+        scrollerobj.prototype.showIt = function(){this.css.visibility=\'visible\'}
+
+        /****************************************************************
+        scroll functions...
+        ****************************************************************/
+        var scrollTimer = null;
+        function scroll(step){
+        	clearTimeout(scrollTimer);
+        	if ( !busy && (step<0&&activePage.y+activePage.h>scroller1.h || step>0&&activePage.y<0) ){
+        		activePage.moveBy(0,step);
+        		scrollTimer = setTimeout(\'scroll(\'+step+\')\',40);
+        	}
+        }
+        function stopScroll(){
+        	clearTimeout(scrollTimer);
+        }
+
+        /****************************************************************
+        activating the correct layers...
+        ****************************************************************/
+        var activePage = null;
+        var busy = 0;
+        function activate(num){
+        	if (activePage!=pages[num] && !busy){
+        		busy = 1;
+        		if (transitionOut==0 || !bw.opacity){ activePage.hideIt(); activateContinue(num); }
+        		else if (transitionOut==1) activePage.blend(\'hidden\', \'activateContinue(\'+num+\')\');
+        	}
+        }
+        function activateContinue(num){
+        	busy = 1;
+        	activePage = pages[num];
+        	activePage.moveTo(0,0);
+        	if (transitionIn==0 || !bw.opacity){ activePage.showIt(); busy=0; }
+        	else if (transitionIn==1) activePage.blend(\'visible\', \'busy=0\');
+        	else if (transitionIn==2) activePage.slide(0, slideAcceleration, 40, \'busy=0\');
+        }
+
+
+        /****************************************************************
+        Slide methods...
+        ****************************************************************/
+        scrollerobj.prototype.slide = function(target, acceleration, time, fn){
+        	this.slideFn= fn?fn:null;
+        	this.moveTo(0,scroller1.h);
+        	if (bw.ie4&&!bw.mac) this.css.filter = \'alpha(opacity=100)\';
+        	if (bw.ns6) this.css.MozOpacity = 1;
+        	this.showIt();
+        	this.doSlide(target, acceleration, time);
+        }
+        scrollerobj.prototype.doSlide = function(target, acceleration, time){
+        	this.step = Math.round(this.y*acceleration);
+        	if (this.step<1) this.step = 1;
+        	if (this.step>this.y) this.step = this.y;
+        	this.moveBy(0, -this.step);
+        	if (this.y>0) this.slideTim = setTimeout(this.obj+\'.doSlide(\'+target+\',\'+acceleration+\',\'+time+\')\', time);
+        	else {	
+        		eval(this.slideFn);
+        		this.slideFn = null;
+        	}
+        }
+
+
+        /****************************************************************
+        Opacity methods...
+        ****************************************************************/
+        scrollerobj.prototype.blend= function(vis, fn){
+        	if (bw.ie5||bw.ie6 && !bw.mac) {
+        		if (vis==\'visible\') this.css.filter= \'blendTrans(duration=0.2)\';
+        		else this.css.filter= \'blendTrans(duration=0.2)\';
+        		this.elm.onfilterchange = function(){ eval(fn); };
+        		this.elm.filters.blendTrans.apply();
+        		this.css.visibility= vis;
+        		this.elm.filters.blendTrans.play();
+        	}
+        	else if (bw.ns6 || bw.ie&&!bw.mac){
+        		this.css.visibility= \'visible\';
+        		vis==\'visible\' ? this.fadeTo(100, 15, 40, fn) : this.fadeTo(0, 15, 40, fn);
+        	}
+        	else {
+        		this.css.visibility= vis;
+        		eval(fn);
+        	}
+        };
+
+        scrollerobj.prototype.op= 100;
+        scrollerobj.prototype.opacityTim= null;
+        scrollerobj.prototype.setOpacity= function(num){
+        	this.css.filter= \'alpha(opacity=\'+num+\')\';
+        	this.css.MozOpacity= num/100;
+        	this.op= num;
+        }
+        scrollerobj.prototype.fadeTo= function(target, step, time, fn){
+        	clearTimeout(this.opacityTim);
+        	this.opacityFn= fn?fn:null;
+        	this.op = target==100 ? 0 : 100;
+        	this.fade(target, step, time);
+        }
+        scrollerobj.prototype.fade= function(target, step, time){
+        	if (Math.abs(target-this.op)>step){
+        		target>this.op? this.setOpacity(this.op+step):this.setOpacity(this.op-step);
+        		this.opacityTim= setTimeout(this.obj+\'.fade(\'+target+\',\'+step+\',\'+time+\')\', time);
+        	}
+        	else {
+        		this.setOpacity(target);
+        		eval(this.opacityFn);
+        		this.opacityFn= null;
+        	}
+        }
+
+
+        /**************************************************************
+        Init function...
+        **************************************************************/
+        var pageslidefadeLoaded = 0;
+        function initPageSlideFade(){
+        	scroller1 = new scrollerobj(\'divScroller1\');
+	
+        	pages = new Array();
+        	for (var i=0; i<numScrollPages; i++){
+        		pages[i] = new scrollerobj(\'dynPage\'+i, \'divScroller1\');
+        		pages[i].moveTo(0,0);
+        	}
+        	bw.opacity = ( bw.ie && !bw.ie4 && navigator.userAgent.indexOf(\'Windows\')>-1 ) || bw.ns6
+        	if (bw.ie5||bw.ie6 && !bw.mac) pages[0].css.filter= \'blendTrans(duration=0.6)\'; // Preloads the windows filters.
+	
+        	if (transitionOnload) activateContinue(0);
+        	else{
+        		activePage = pages[0];
+        		activePage.showIt();
+        	}
+
+        	if (bw.ie) for(var i=0;i<document.links.length;i++) document.links[i].onfocus=document.links[i].blur;
+        	pageslidefadeLoaded = 1;
+        }
+        //if the browser is ok, the script is started onload..
+        if(bw.bw && !pageslidefadeLoaded) onload = initPageSlideFade;
+        </script>
+        ';
+}
+
+		
+echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
+echo '<center>';
+
+echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
+?>
+
+<tr><td><td width=100%><td></tr>
+<tr><td><td height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
+<font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<? echo $playerinfo[character_name]; ?>'s Log</b></font>
+</td><td><td>&nbsp;</tr>
+<tr><td valign=bottom>
+
+<?
+if($mode == 'moz')
+  echo '<td colspan=2 style="border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid;" bgcolor=#63639C>';
+else
+  echo '<td colspan=2 bgcolor=#63639C>';
+
+if(empty($startdate))
+  $startdate = date("Ymd");
+
+$res = mysql_query("SELECT * FROM logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
+while($row = mysql_fetch_array($res))
+  $logs[] = $row;
+
+$entry = $l_log_months[substr($startdate, 4, 2) - 1] . " " . substr($startdate, 6, 2) . " " . substr($startdate, 0, 4);
+
+echo "<div id=\"divScroller1\">" .
+     "<div id=\"dynPage0\" class=\"dynPage\">" .
+     "<center>" .
+     "<br>" .
+     "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
+     "<p>" .
+     "</center>" .
+     "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+
+foreach($logs as $log)
+{
+  $event = log_parse($log);
+  $time = $l_log_months[substr($log[time], 4, 2) - 1] . " " . substr($log[time], 6, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 8, 2) . ":" . substr($log[time], 10, 2);
+
+  echo "<table border=0 cellspacing=5 width=100%>" .
+       "<tr>" .
+       "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
+       "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
+       "<tr><td colspan=2>" .
+       "<font size=2 color=#DEDEEF>" .
+       "$event[text]" .
+       "</td></tr>" .
+       "</table>" .
+       "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+}
+
+echo "<center>" .
+     "<br>" .
+     "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
+     "<p>" .
+     "</center>";
+
+?>
+
+</div>
+
+
+
+<div id="dynPage1" class="dynPage">
+<font color=white>
+<center>
+<br>
+<font size=2 color=#DEDEEF><b>Log entry for 30th November 2001<b></font>
+<p>
+</center>
+<hr width=80% size=1 NOSHADE style="color: #040658">
+
+<center>
+<br>
+<font size=2 color=#DEDEEF><b>End of log entry for 30th November 2001<b></font>
+<p>
+</center>
+
+</div>
+
+
+
+<div id="dynPage2" class="dynPage">
+<font color=white>
+<font color=white>
+<center>
+<br>
+<font size=2 color=#DEDEEF><b>Log entry for 29th November 2001<b></font>
+<p>
+</center>
+<hr width=80% size=1 NOSHADE style="color: #040658">
+
+<center>
+<br>
+<font size=2 color=#DEDEEF><b>End of log entry for 29th November 2001<b></font>
+<p>
+</center>
+<br>
+<br>
+<br>
+</div>
+
+</div>
+<td valign=bottom>
+<tr><td><td align=right>
+<img src=images/bottom_panel.gif>
+<br>
+<div style="position:relative; top:-23px;">
+<font size=2><b>
+<a href="#" onclick="activate(2); return false;" onfocus="if(this.blur)this.blur()">29 Nov</a>
+|
+<a href="#" onclick="activate(1); return false;" onfocus="if(this.blur)this.blur()">30 Nov</a>
+|
+<a href="#" onclick="activate(0); return false;" onfocus="if(this.blur)this.blur()">1 Dec</a>
+&nbsp;&nbsp;
+</table>
+</center>
+
+<?
+TEXT_GOTOMAIN();
+
+include("footer.php3");
+
+function log_parse($entry)
+{
+  global $l_log_title;
+  global $l_log_text;
+  global $l_log_pod;
+  global $l_log_nopod;
+
+  switch($entry[type])
+  {
+    case LOG_LOGIN: //data args are : [ip]
+    case LOG_LOGOUT: 
+    $retvalue[text] = str_replace("[ip]", "$entry[data]", $l_log_text[$entry[type]]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+  
+    case LOG_ATTACK_OUTMAN: //data args are : [player]
+    case LOG_ATTACK_OUTSCAN: 
+    case LOG_ATTACK_EWD:
+    case LOG_ATTACK_EWDFAIL:
+    $retvalue[text] = str_replace("[player]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
+    case LOG_ATTACK_LOSE: //data args are : [player] [pod]
+    list($name, $pod)= split ("\|", $entry[data]);
+        
+    $retvalue[text] = str_replace("[player]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    if($pod == 'Y')
+      $retvalue[text] = $retvalue[text] . $l_log_pod;
+    else
+      $retvalue[text] = $retvalue[text] . $l_log_nopod;
+    break;
+
+    case LOG_ATTACKED_WIN: //data args are : [player] [armor] [fighters]
+    list($name, $armor, $fighters)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[player]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[armor]", "<font color=white><b>$armor</b></font>", $retvalue[text]);
+    $retvalue[text] = str_replace("[fighters]", "<font color=white><b>$fighters</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
+    case LOG_TOLL_PAID: //data args are : [toll] [sector]
+    list($toll, $sector)= split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[toll]", "<font color=white><b>$toll</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+
+  }
+  return $retvalue;
+}
+
+?> 
