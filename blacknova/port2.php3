@@ -317,14 +317,10 @@ else
       if($sectorinfo[port_type] ==  $port_type )
       {
         $price_array[$port_type] = $price - $delta * $max / $limit * $factor;
-        $trade_color             = $color_green;
-        $trade_result            = $trade_benefit;
       }
       else
       {
         $price_array[$port_type] = $price + $delta * $max / $limit * $factor;
-        $trade_color             = $color_red;
-        $trade_result            = $trade_deficit;
         $origin                  = -$origin;
       }
       /* debug info
@@ -334,103 +330,103 @@ else
       return $origin;
    }
 
-   if ($trade_ore != 0 ) 
-   {
-      $trade_ore       =  TRADE($ore_price,        $ore_delta,       $sectorinfo[port_ore],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
-      $ore_price       =  $price_array['ore']; 
-   }
-   if ($trade_organics != 0 ) 
-   {
-      $trade_organics  =  TRADE($organics_price,   $organics_delta,  $sectorinfo[port_organics],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );    
-      $organics_price  =  $price_array['organics']; 
-   }
-   if ($trade_goods != 0 ) 
-   {
-      $trade_goods     =  TRADE($goods_price,      $goods_delta,     $sectorinfo[port_goods],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
-      $goods_price     =  $price_array['goods']; 
-   }
-   if ($trade_energy != 0 ) 
-   {
-      $trade_energy    =  TRADE($energy_price,     $energy_delta,    $sectorinfo[port_energy],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
-      $energy_price    =  $price_array['energy']; 
-   }
+
+   $trade_ore       =  TRADE($ore_price,        $ore_delta,       $sectorinfo[port_ore],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
+   $trade_organics  =  TRADE($organics_price,   $organics_delta,  $sectorinfo[port_organics],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );    
+   $trade_goods     =  TRADE($goods_price,      $goods_delta,     $sectorinfo[port_goods],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
+   $trade_energy    =  TRADE($energy_price,     $energy_delta,    $sectorinfo[port_energy],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
+   
+   $ore_price       =  $price_array['ore']; 
+   $organics_price  =  $price_array['organics']; 
+   $goods_price     =  $price_array['goods']; 
+   $energy_price    =  $price_array['energy']; 
+
+   $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
   
-   $cargo_exchanged  =  $trade_ore + $trade_organics + $trade_goods;
-   $free_holds       =  NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-   $free_power       =  NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-   
-   $total_cost       = $trade_ore         * $ore_price 
-                     + $trade_organics    * $organics_price 
-                     + $trade_goods       * $goods_price 
-                     + $trade_energy      * $energy_price;
+   $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
+      $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+   $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+   $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + 
+      $trade_energy * $energy_price;   
       
-    /* debug info
-    echo "$trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + 
-            $trade_energy * $energy_price";
-    */
+   /* debug info
+   echo "$trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price = $total_cost";
+   */
    
-    if($free_holds < $cargo_exchanged)
-    {
-      echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
-    }
-    elseif($trade_energy > $free_power)
-    {
-      echo "You do not have enough free power storage for the energy you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
-    }
-    elseif($playerinfo[turns] < 1)
-    {
-      echo "You do not have enough turns to complete the transaction.<BR><BR>";
-    }
-    elseif($playerinfo[credits] < $total_cost)
-    {
-      echo "You do not have enough credits to complete the transaction. <BR><BR>";  
-    }
-    elseif($trade_ore < 0 && abs($playerinfo[ship_ore]) < abs($trade_ore))
-    {
-      echo "You do not have enough ore to complete the transaction. ";
-    }
-    elseif($trade_organics < 0 && abs($playerinfo[ship_organics]) < abs($trade_organics))
-    {
-      echo "You do not have enough organics to complete the transaction. ";
-    }
-    elseif($trade_goods < 0 && abs($playerinfo[ship_goods]) < abs($trade_goods))
-    {
-      echo "You do not have enough goods to complete the transaction. ";
-    }
-    elseif($trade_energy < 0 && abs($playerinfo[ship_energy]) < abs($trade_energy))
-    {
-      echo "You do not have enough energy to complete the transaction. ";
-    }
-    elseif(abs($trade_organics) > $sectorinfo[port_organics])
-    {
-      echo "Number of organics exceeds the supply/demand.  ";
-    }
-    elseif(abs($trade_ore) > $sectorinfo[port_ore])
-    {
-      echo "Number of ore exceeds the supply/demand.  ";
-    }
-    elseif(abs($trade_goods) > $sectorinfo[port_goods])
-    {
-      echo "Number of goods exceeds the supply/demand.  ";
-    }
-    elseif(abs($trade_energy) > $sectorinfo[port_energy])
-    {
-      echo "Number of energy exceeds the supply/demand.  ";
-    }
-    else
-    {
-      $trade_credits = NUMBER(abs($total_cost));
-      if ($total_cost == 0 ) {
+   if($free_holds < $cargo_exchanged)
+   {
+   echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
+   }
+   elseif($trade_energy > $free_power)
+   {
+   echo "You do not have enough free power storage for the energy you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
+   }
+   elseif($playerinfo[turns] < 1)
+   {
+   echo "You do not have enough turns to complete the transaction.<BR><BR>";
+   }
+   elseif($playerinfo[credits] < $total_cost)
+   {
+   echo "You do not have enough credits to complete the transaction. <BR><BR>";  
+   }
+   elseif($trade_ore < 0 && abs($playerinfo[ship_ore]) < abs($trade_ore))
+   {
+   echo "You do not have enough ore to complete the transaction. ";
+   }
+   elseif($trade_organics < 0 && abs($playerinfo[ship_organics]) < abs($trade_organics))
+   {
+   echo "You do not have enough organics to complete the transaction. ";
+   }
+   elseif($trade_goods < 0 && abs($playerinfo[ship_goods]) < abs($trade_goods))
+   {
+   echo "You do not have enough goods to complete the transaction. ";
+   }
+   elseif($trade_energy < 0 && abs($playerinfo[ship_energy]) < abs($trade_energy))
+   {
+   echo "You do not have enough energy to complete the transaction. ";
+   }
+   elseif(abs($trade_organics) > $sectorinfo[port_organics])
+   {
+   echo "Number of organics exceeds the supply/demand.  ";
+   }
+   elseif(abs($trade_ore) > $sectorinfo[port_ore])
+   {
+   echo "Number of ore exceeds the supply/demand.  ";
+   }
+   elseif(abs($trade_goods) > $sectorinfo[port_goods])
+   {
+   echo "Number of goods exceeds the supply/demand.  ";
+   }
+   elseif(abs($trade_energy) > $sectorinfo[port_energy])
+   {
+   echo "Number of energy exceeds the supply/demand.  ";
+   }
+   else
+   {
+
+      if ($total_cost == 0 ) 
+      {
          $trade_color   = "white";
          $trade_result  = "Cost : ";
       }
+      elseif ($total_cost < 0 )
+      {
+         $trade_color   = $color_green;
+         $trade_result  = $trade_benefit;
+      }
+      else
+      {
+         $trade_color   = $color_red;
+         $trade_result  = $trade_deficit;
+      }
+      
       echo "
       <TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
          <TR>
             <TD colspan=99 align=center><font size=3 color=white><b>Results for this trade</b></font></TD>
          </TR>
          <TR>
-            <TD colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . $trade_credits . " credits</font></b></TD>
+            <TD colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . NUMBER(abs($total_cost)) . " credits</font></b></TD>
          </TR>
          <TR bgcolor=$color_line1>
             <TD><b><font size=2 color=white>Traded Ore: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_ore) . "</font></b></TD>
@@ -455,6 +451,7 @@ else
       $trade_organics   = round(abs($trade_organics));
       $trade_goods      = round(abs($trade_goods));
       $trade_energy     = round(abs($trade_energy));
+
       
       /* Decrease supply and demand on port */
       $trade_result2    = mysql_query("UPDATE universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
