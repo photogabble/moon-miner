@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Long Range Scan";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 if(checklogin())
@@ -29,14 +30,14 @@ if($sector == "*")
   {
     echo "Your scanners do not possess full long range scan capabilities.<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php3");   
+    include("footer.$phpext");   
     die();
   }
   if($playerinfo[turns] < $fullscan_cost)
   {
     echo "You need at least $fullscan_cost turn(s) to run a full long range scan.<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php3");   
+    include("footer.$phpext");   
     die();
   }
 
@@ -89,7 +90,7 @@ if($sector == "*")
     }
    
     
-    echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php3?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php3?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>$port_type</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
+    echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.$phpext?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.$phpext?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>$port_type</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
     if($color == $color_line1)
     {
       $color = $color_line2;
@@ -317,7 +318,7 @@ else
   echo "</TD></TR>";
   echo "</TABLE><BR>";
 
-  echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
+  echo "Click <a href=move.$phpext?sector=$sector>here</a> to move to sector $sector.";
 }
 
 
@@ -330,6 +331,6 @@ echo $rspace_bnthelper_string;
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

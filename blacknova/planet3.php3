@@ -1,9 +1,10 @@
 <?
-	include("config.php3");
+include("extension.inc");
+	include("config.$phpext");
 	updatecookie();
 
 	$title="Trading at Planet";
-	include("header.php3");
+	include("header.$phpext");
 	connectdb();
 	
 	if (checklogin()) {die();}
@@ -14,23 +15,32 @@
 
 	$result2 = mysql_query ("SELECT * FROM planets WHERE planet_id=$planet_id");
 	if($result2)
+
     $planetinfo=mysql_fetch_array($result2);
+
 
   bigtitle();
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to trade at a planet.<BR><BR>";
     TEXT_GOTOMAIN();
-		include("footer.php3");		
+		include("footer.$phpext");		
 		die();
 	}
   if (empty($planetinfo))
+
   {
+
     echo "Invalid planet.<br>";
+
     TEXT_GOTOMAIN();
-		include("footer.php3");		
+
+		include("footer.$phpext");		
+
 		die();
+
   }
+
 
 	$trade_ore=round(abs($trade_ore));
 	$trade_organics=round(abs($trade_organics));
@@ -51,9 +61,9 @@
 
 		if ($free_holds < $cargo_exchanged)
 		{
-			echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <a href=planet.php3>here</a> to return to the planet menu.<BR><BR>";
+			echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <a href=planet.$phpext>here</a> to return to the planet menu.<BR><BR>";
 		} elseif ($trade_energy > $free_power) {
-			echo "You do not have enough free power storage for the energy you wish to purchase.  Click <a href=planet.php3>here</a> to return to the planet menu.<BR><BR>";
+			echo "You do not have enough free power storage for the energy you wish to purchase.  Click <a href=planet.$phpext>here</a> to return to the planet menu.<BR><BR>";
 		} elseif ($playerinfo[turns]<1) {
 			echo "You do not have enough turns to complete the transaction.<BR><BR>";
 		} elseif ($playerinfo[credits]<$total_cost) {
@@ -78,6 +88,6 @@
 
     gen_score($planetinfo[owner]);
     TEXT_GOTOMAIN();
-	include("footer.php3");
+	include("footer.$phpext");
 
 ?>

@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title = "Port Trading";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -25,56 +26,108 @@ $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
 $res = mysql_query("SELECT * FROM zones WHERE zone_id=$sectorinfo[zone_id]");
+
 $zoneinfo = mysql_fetch_array($res);
 
+
+
 if($zoneinfo[zone_id] == 4)
+
 {
+
   $title="War embargo";
+
   bigtitle();
+
   echo "War is raging in this sector. You can't reach the port through all the hostile forces.<p>";
+
   TEXT_GOTOMAIN();
-  include("footer.php3");
+
+  include("footer.$phpext");
+
   die();
+
 }
+
 elseif($zoneinfo[allow_trade] == 'N')
+
 {
+
   $title="Trade forbidden";
+
   bigtitle();
+
   echo "Trading at this port is not allowed<p>";
+
   TEXT_GOTOMAIN();
-  include("footer.php3");
+
+  include("footer.$phpext");
+
   die();
+
 }
+
 elseif($zoneinfo[allow_trade] == 'L')
+
 {
+
   if($zoneinfo[corp_zone] == 'N')
+
   {
+
     $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
+
     $ownerinfo = mysql_fetch_array($res);
 
+
+
     if($playerinfo[ship_id] != $zoneinfo[owner] && $$playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
+
     {
+
       $title="Trade forbidden";
+
       bigtitle();
+
       echo "Trading at this port is not allowed for outsiders<p>";
+
       TEXT_GOTOMAIN();
-      include("footer.php3");
+
+      include("footer.$phpext");
+
       die();
+
     }
+
   }
+
   else
+
   {
+
     if($playerinfo[team] != $zoneinfo[owner])
+
     {
+
       $title="Trade forbidden";
+
       bigtitle();
+
       echo "Trading at this port is not allowed for outsiders<p>";
+
       TEXT_GOTOMAIN();
-      include("footer.php3");
+
+      include("footer.$phpext");
+
       die();
+
     }
+
   }
+
 }
+
+
 
 
 //-------------------------------------------------------------------------------------------------
@@ -185,7 +238,7 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
     $amount_energy = min($amount_energy, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
   }  
   
-  echo "<FORM ACTION=port2.php3 METHOD=POST>";
+  echo "<FORM ACTION=port2.$phpext METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Buying/Selling</B></TD><TD><B>Amount</B></TD><TD><B>Price</B></TD><TD><B>Buy/Sell</B></TD><TD><B>Cargo</B></TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD>$sb_ore</TD><TD>" . NUMBER($sectorinfo[port_ore]) . "</TD><TD>$ore_price</TD><TD><INPUT TYPE=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 VALUE=$amount_ore></TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD></TR>";
@@ -285,10 +338,10 @@ elseif($sectorinfo[port_type] == "special")
   echo "You have " . NUMBER($playerinfo[credits]) . " credits to spend.<BR>";
   if($allow_ibank)
   {
-    echo "If you need more you may access this port's <A HREF=ibank.php3>IGB Banking Terminal</A>.<BR>"; 
+    echo "If you need more you may access this port's <A HREF=ibank.$phpext>IGB Banking Terminal</A>.<BR>"; 
   }
   echo "<BR>";
-  echo "<FORM ACTION=port2.php3 METHOD=POST>";
+  echo "<FORM ACTION=port2.$phpext METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\">";
   echo "<TD><B>Device</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD>";
@@ -420,7 +473,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "</TD></TR>";
   echo "</TABLE>";
   echo "</FORM>";
-  echo "If you would like to dump all your colonists here, click <A HREF=dump.php3>here</A>.";
+  echo "If you would like to dump all your colonists here, click <A HREF=dump.$phpext>here</A>.";
 }
 else
 {
@@ -431,6 +484,6 @@ echo "<BR><BR>";
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

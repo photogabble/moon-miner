@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Furangee Control";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 bigtitle();
@@ -488,6 +489,6 @@ else
   }
 }
   
-include("footer.php3");
+include("footer.$phpext");
 
 ?> 

@@ -1,6 +1,7 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 $title = "Logout"; 
 
 SetCookie("userpass","",0,$gamepath,$gamedomain);
@@ -10,7 +11,7 @@ setcookie("password","",0); // Legacy support, delete the old login cookies.
 setcookie("id","",0);
 setcookie("res","",0);
 
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -21,8 +22,8 @@ $current_score = gen_score($playerinfo[ship_id]);
 
 bigtitle();
 echo "You current score is $current_score.<BR>";
-echo "$username is now logged out.  Click <A HREF=index.php3>here</A> to return to game.";
+echo "$username is now logged out.  Click <A HREF=index.$phpext>here</A> to return to game.";
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

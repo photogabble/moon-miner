@@ -1,11 +1,12 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 
 updatecookie();
 
 $title=("Corporation Menu");
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 if (checklogin())
@@ -20,6 +21,7 @@ $playerinfo=mysql_fetch_array($result);
 
 $result2 = mysql_query("SELECT * FROM planets WHERE planet_id=$planet_id");
 if($result2)
+
   $planetinfo=mysql_fetch_array($result2);
 
 if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] >> 0))
@@ -33,8 +35,11 @@ bigtitle();
 		echo ("Planet is now a Corporate Planet!<BR>");
 		$result = mysql_query("UPDATE planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
+
       if(!empty($ownership))
+
         echo "<p>$ownership<p>";
+
 		
 	}
 	if ($action == "planetpersonal")
@@ -42,8 +47,11 @@ bigtitle();
 		echo ("Planet is now a Personal Planet!<BR>");
 		$result = mysql_query("UPDATE planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
+
       if(!empty($ownership))
+
         echo "<p>$ownership<p>";
+
 	}
 TEXT_GOTOMAIN();
 
@@ -62,6 +70,6 @@ TEXT_GOTOMAIN();
 }
 
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

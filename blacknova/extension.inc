@@ -1,3 +1,3 @@
 <?php
-$phpext = "php";
+$phpext = "php3";
 ?>

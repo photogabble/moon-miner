@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Use Genesis Device";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -51,8 +52,8 @@ elseif($sectorinfo[planet] == "Y")
   {
     if($destroy==1 && $allow_genesis_destroy)
     {
-      echo "<BR>Are you sure???<BR><A HREF=genesis.php3?destroy=2>YES, Let them die!</A><BR>";
-      echo "<A HREF=device.php3>No! That would be Evil!</A><BR>";
+      echo "<BR>Are you sure???<BR><A HREF=genesis.$phpext?destroy=2>YES, Let them die!</A><BR>";
+      echo "<A HREF=device.$phpext>No! That would be Evil!</A><BR>";
     }
     elseif($destroy==2 && $allow_genesis_destroy)
     {
@@ -70,7 +71,7 @@ elseif($sectorinfo[planet] == "Y")
     }
     elseif($allow_genesis_destroy)
     {
-      echo "<BR>Do you want to destroy <A HREF=genesis.php3?destroy=1>";
+      echo "<BR>Do you want to destroy <A HREF=genesis.$phpext?destroy=1>";
       if($sectorinfo[planet_name]=="")
       {
         echo "Unnamed</A>?";
@@ -103,44 +104,83 @@ else
     echo "Creating a planet in this sector is not permitted.";
   }
   elseif($zoneinfo[allow_planet] == 'L')
+
   {
+
     if($zoneinfo[corp_zone] == 'N')
+
     { 
+
       if($playerinfo[team] == 0)
+
       {
+
         echo "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+
       }
+
       else
+
       {
+
         $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
+
         $ownerinfo = mysql_fetch_array($res);
+
         if($ownerinfo[team] != $playerinfo[team])
+
         {
+
           echo "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+
         }
+
         else
+
         {
+
           $query1 = "INSERT INTO planets VALUES('', $playerinfo[sector], NULL, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo[ship_id], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N')";
+
           $update1 = mysql_query($query1);
+
           $query2 = "UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]";
+
           $update2 = mysql_query($query2);
+
           echo "Planet created.";
+
         }
+
       }
+
     }
+
     elseif($playerinfo[team] != $zoneinfo[owner])
+
     {
+
       echo "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+
     }
+
     else
+
     {
+
       $query1 = "INSERT INTO planets VALUES('', $playerinfo[sector], NULL, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo[ship_id], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N')";
+
       $update1 = mysql_query($query1);
+
       $query2 = "UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]";
+
       $update2 = mysql_query($query2);
+
       echo "Planet created.";
+
     }
+
   }
+
   else
   {
     $query1 = "INSERT INTO planets VALUES('', $playerinfo[sector], NULL, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo[ship_id], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N')";
@@ -157,6 +197,6 @@ mysql_query("UNLOCK TABLES");
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?> 

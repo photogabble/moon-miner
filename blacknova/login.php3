@@ -1,8 +1,9 @@
 <? 
+include("extension.inc");
 $title="Login"; 
 
-include("header.php3");
-include("config.php3");
+include("header.$phpext");
+include("config.$phpext");
 ?>
 
 <CENTER>
@@ -11,7 +12,7 @@ include("config.php3");
 bigtitle();
 ?>
 
-<form action="login2.php3" method="post">
+<form action="login2.$phpext" method="post">
 <BR><BR>
 
 <TABLE CELLPADDING="4">
@@ -57,7 +58,7 @@ if(swidth != 640 && swidth != 800 && swidth != 1024)
 <BR>
 <INPUT TYPE="SUBMIT" VALUE="Login">
 <BR><BR>
-If you are a new player, click <A HREF="new.php3">here</A>.
+If you are a new player, click <A HREF="new.$phpext">here</A>.
 <BR><BR>
 Problems? <A HREF="mailto:<?php echo "$admin_mail"?>">E-mail us</A>
 </FORM>
@@ -66,10 +67,10 @@ Problems? <A HREF="mailto:<?php echo "$admin_mail"?>">E-mail us</A>
 if(!empty($link_forums))
   echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">Forums</A> - ";
 ?>
-<A HREF="ranking.php3">Rankings</A>
+<A HREF="ranking.$phpext">Rankings</A>
 <BR><BR>
 </CENTER>
 
 <?php
-include("footer.php3");
+include("footer.$phpext");
 ?>

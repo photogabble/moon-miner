@@ -2,11 +2,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 // -- Main
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="IGB - The Inter Galactic Bank";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 if (checklogin()) {die();}
@@ -15,7 +16,7 @@ if(!$allow_ibank)
 {
   echo "The Inter Galactic Bank is currently closed.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.$phpext");
   die();
 }
 
@@ -56,7 +57,7 @@ function ibank_refreshdata()
 //////////////////////////////////////////////////////////////////////////////////
 // -- Template Functions for Layout
 
-function ibank_display_head($header = 'Empty', $backlink = 'ibank.php3')
+function ibank_display_head($header = 'Empty', $backlink = 'ibank.$phpext')
 {
   global $username,$playerinfo,$account,$ibank_interest,$ibank_loaninterest,$totalnumaccounts;
   $totalnumaccounts = $totalnumaccounts - 1; // Remove the default ibank account
@@ -113,7 +114,7 @@ function ibank_display_head($header = 'Empty', $backlink = 'ibank.php3')
       ';
 }
 
-function ibank_display_footer($backlink = 'ibank.php3')
+function ibank_display_footer($backlink = 'ibank.$phpext')
 {
 global $planet_id;
   if(!empty($planet_id))
@@ -143,28 +144,28 @@ function ibank_display_main()
     <td bgcolor="#DDFAFF"><font size=-2 face="Arial,Helvetica,sans-serif" color="Navy"><b>Choice</b></font></td>
     <TD bgcolor="#DDFAFF" colspan=3><font size=-2 face="Arial,Helvetica,sans-serif" color="Navy"><b>Description</b></font></TD>
     <TR>
-    <TD>&nbsp;<a href=ibank.php3?op=1&planet_id=' . $planet_id . '>Own Account</a></TD>
+    <TD>&nbsp;<a href=ibank.$phpext?op=1&planet_id=' . $planet_id . '>Own Account</a></TD>
     <TD colspan=3>Deposit / Withdrawal / Loans / Repayments</TD>
     </TR>
     <TR>
-    <TD>&nbsp;<a href=ibank.php3?op=2&planet_id=' . $planet_id . '>Transfers</a></TD>
+    <TD>&nbsp;<a href=ibank.$phpext?op=2&planet_id=' . $planet_id . '>Transfers</a></TD>
     <TD colspan=3>Planet to Ship to Planet Transfers</TD>
     <TR>
-    <TD>&nbsp;<a href=ibank.php3?op=3&planet_id=' . $planet_id . '>Payments</a></TD>
+    <TD>&nbsp;<a href=ibank.$phpext?op=3&planet_id=' . $planet_id . '>Payments</a></TD>
     <TD colspan=3>Write a check to another ships captain</TD>
     <TR>
     ';
     /* TO be done later
-    echo '  <TD>&nbsp;<a href=ibank.php3?op=4>Realestate</a></TD>
+    echo '  <TD>&nbsp;<a href=ibank.$phpext?op=4>Realestate</a></TD>
     <TD colspan=3>Buy / Sell / Planetary Quotes &amp; Valuations</TD>
     ';
     */
     // Figure out the default exit.
     // So user dont go completely confused...
     if  (!empty($currentplanet))
-    { $exit = "planet.php3"; }
+    { $exit = "planet.$phpext"; }
     elseif  ($sectorinfo[port_type]=="special")
-    { $exit = "port.php3"; }
+    { $exit = "port.$phpext"; }
     else
     { $exit = $interface; }
 
@@ -180,7 +181,7 @@ function ibank_display_createaccount()
   if(!isset($create))
   {
     ibank_display_head("Create A New Account"); // Use Defaults
-    echo '<form action="ibank.php3" method="post">
+    echo '<form action="ibank.$phpext" method="post">
       <tr>
       <td colspan="4" bgcolor="#FFFFCA">To create your bank account select the number of credits to deposit and press "Make Account"</td>
       </tr>
@@ -208,7 +209,7 @@ function ibank_display_createaccount()
     // SInce we made changes lets update account data
     ibank_refreshdata();
     ibank_display_head("Create A New Account - Completed"); // Use Defaults
-    echo '<form action="ibank.php3';
+    echo '<form action="ibank.$phpext';
     if(!empty($planet_id))
       echo "?planet_id=$planet_id";
     echo '" method="post">
@@ -253,7 +254,7 @@ function ibank_display_ownaccount()
     {
       ibank_display_head("Manage Your Account - Deposit");
       echo '<tr><td align="center" colspan=4><b><font color="Red">NOT ENOUGH CREDITS TO COMPLETE TRANSACTION</font></b></td></tr>';
-      ibank_display_footer("ibank.php3?op=1");
+      ibank_display_footer("ibank.$phpext?op=1");
     }
   }
   elseif(isset($withdraw))
@@ -278,7 +279,7 @@ function ibank_display_ownaccount()
     {
       ibank_display_head("Manage Your Account - Withdrawal");
       echo '<tr><td align="center" colspan=4><b><font color="Red">NOT ENOUGH CREDITS TO COMPLETE TRANSACTION</font></b></td></tr>';
-      ibank_display_footer("ibank.php3?op=1");
+      ibank_display_footer("ibank.$phpext?op=1");
     }
   }
   elseif(isset($loan))
@@ -311,7 +312,7 @@ function ibank_display_ownaccount()
       echo '<tr><td align="center" colspan=4><b>You may not take out a loan greater than '.$biggestloan.' credits.</b></td></tr>';
       echo '<tr><td align="center" colspan=4><b>You can <font color="Red">not</font> take out a new loan against ballance created by a previous loan.<br>Unless you repay part of the previous loan, then you can take out a new loan on the difference (Loans - Account Ballance = Available Ballance to loan against.)<br>Please note that Ship Treassury ballance does not apply only what you have in your IGB account.</b></td></tr>';
       echo '<tr><td align="center" colspan=4><b><font color="Red">LOAN APPLICATION NOT ACCEPTED</font></b></td></tr>';
-      ibank_display_footer("ibank.php3?op=1");
+      ibank_display_footer("ibank.$phpext?op=1");
     }
   }
   elseif(isset($payloan))
@@ -340,7 +341,7 @@ function ibank_display_ownaccount()
     {
       ibank_display_head("Manage Your Account - Loan");
       echo '<tr><td align="center" colspan=4><b><font color="Red">NOT ENOUGH CREDITS TO COMPLETE TRANSACTION</font></b></td></tr>';
-      ibank_display_footer("ibank.php3?op=1");
+      ibank_display_footer("ibank.$phpext?op=1");
     }
   }
   else
@@ -348,7 +349,7 @@ function ibank_display_ownaccount()
     ibank_display_head("Manage Your Account"); // Use Defaults
     echo '
       <TR>
-      <TD colspan=2><form action="ibank.php3" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
+      <TD colspan=2><form action="ibank.$phpext" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
       <td>Deposit</td><td><input type="text" name="deposit" value="0" size="10" maxlength="20"></td><td><input type="hidden" name="planet_id" value="' . $planet_id . '"><input type="submit" value="DO"></td>
       </tr><tr><td colspan=3>Take credits from Ship account and Deposit into IGB Account.</td></tr></table></td></tr></table><input type="hidden" name="op" value="1"></form></TD>
       <TD rowspan=4 valign="top">&nbsp;</td>
@@ -362,17 +363,17 @@ function ibank_display_ownaccount()
       </td>
       </tr>
       <tr>
-      <TD colspan=2><form action="ibank.php3" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
+      <TD colspan=2><form action="ibank.$phpext" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
       <td>Withdraw</td><td><input type="text" name="withdraw" value="0" size="10" maxlength="20"></td><td><input type="hidden" name="planet_id" value="' . $planet_id . '"><input type="submit" value="DO"></td>
       </tr><tr><td colspan=3>Take credits from IGB Account and deposit into Ship account.</td></tr></table></td></tr></table><input type="hidden" name="op" value="1"></form></TD>
       </tr>
       <tr>
-      <TD colspan=2><form action="ibank.php3" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
+      <TD colspan=2><form action="ibank.$phpext" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
       <td>Loan</td><td><input type="text" name="loan" value="0" size="10" maxlength="20"></td><td><input type="hidden" name="planet_id" value="' . $planet_id . '"><input type="submit" value="DO"></td>
       </tr><tr><td colspan=3>Take a loan and Deposit credits into IGB Account.</td></tr></table></td></tr></table><input type="hidden" name="op" value="1"></form></TD>
       </tr>
       <tr>
-      <TD colspan=2><form action="ibank.php3" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
+      <TD colspan=2><form action="ibank.$phpext" method="post"><table width="100%" border="0" cellspacing="0" cellpadding="1" align="center" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center" bgcolor="White"><tr>
       <td>Pay Loan</td><td><input type="text" name="payloan" value="0" size="10" maxlength="20"></td><td><input type="hidden" name="planet_id" value="' . $planet_id . '"><input type="submit" value="DO"></td>
       </tr><tr><td colspan=3>Take credits from IGB Account and Repay Loan.</td></tr></table></td></tr></table><input type="hidden" name="op" value="1"></form></TD>
       </tr>
@@ -394,7 +395,7 @@ function ibank_display_transfers()
     $lresult = mysql_query ("SELECT * FROM planets WHERE owner=$playerinfo[ship_id] AND sector_id = $payto");
   }
 
-  echo '<form action="ibank.php3';
+  echo '<form action="ibank.$phpext';
   if(isset($planet_id))
     echo "?planet_id=$planet_id";
   echo '" method="post">';
@@ -624,7 +625,7 @@ function ibank_display_payments()
     $lresult = mysql_query ("SELECT ship_id,ship_name,ship_destroyed,character_name FROM ships WHERE ship_id = $payto");
   }
 
-  echo '<form action="ibank.php3" method="post">';
+  echo '<form action="ibank.$phpext" method="post">';
   ibank_display_head("Payments");
   if(!isset($payto))
   {
@@ -776,7 +777,7 @@ else
   echo '<font color="Red"><b>You do not have access to the bank terminal here!</b></font><BR><BR>';
 }
 
-include("footer.php3");
+include("footer.$phpext");
 
 // -- EOF
 //////////////////////////////////////////////////////////////////////////////////

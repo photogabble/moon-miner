@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Use Warp Editor";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -20,7 +21,7 @@ if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a warp editor.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.$phpext");
   die();
 }
 
@@ -28,7 +29,7 @@ if($playerinfo[dev_warpedit] < 1)
 {
   echo "You do not have any warp editors.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.$phpext");
   die();
 }
 
@@ -38,7 +39,7 @@ if($zoneinfo[allow_warpedit] == 'N')
 {
   echo "Using a Warp Editor in this sector is not permitted.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.$phpext");
   die();
 }
 
@@ -55,7 +56,7 @@ if($zoneinfo[allow_warpedit] == 'N' && $bothway)
 {
   echo "Using a Warp Editor to remove a two-way link to sector $target_sector is not permitted.<BR><BR>";
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.$phpext");
   die();
 }
 
@@ -100,6 +101,6 @@ if($result3 > 0)
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?> 

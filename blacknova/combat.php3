@@ -6,6 +6,7 @@ function calcplanetbeams()
 	global $ownerinfo;
 	global $sectorinfo;
   global $basedefense;
+
   global $planetinfo;
 	
 	$energy_available = $planetinfo[energy];
@@ -38,6 +39,7 @@ function calcplanettorps()
 	global $sectorinfo;
 	global $level_factor;
   global $basedefense;
+
   global $planetinfo;
   $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;
 	
@@ -62,7 +64,9 @@ function calcplanetshields()
 	global $ownerinfo;
 	global $sectorinfo;
   global $basedefense;
+
   global $planetinfo;
+
 
   $base_factor = ($planetinfo[base] == 'Y') ? $basedefense : 0;	
 	$res = mysql_query("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
@@ -84,6 +88,7 @@ global $playerinfo;
 global $ownerinfo;
 global $sectorinfo;
 global $planetinfo;
+
 global $planetbeams;
 global $planetfighters;
 global $planetshields;
@@ -99,12 +104,14 @@ global $attackertorpdamage;
 global $start_energy;
 //$debug = true;
 
+
+
       
       if($playerinfo[turns] < 1)
       {
         echo "You need at least one turn to attack a planet.<BR><BR>";
         TEXT_GOTOMAIN();
-        include("footer.php3");   
+        include("footer.$phpext");   
         die();
       }
       
@@ -463,11 +470,12 @@ echo "
 		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
         {
           echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>Planet defeated</b></FONT></CENTER><BR><BR>";
-          echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
+          echo "<CENTER>You may <a href=planet.$phpext?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
           calc_ownership($planetinfo[sector_id]);
+
         }
         else
         {

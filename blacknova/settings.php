@@ -1,9 +1,9 @@
 <?
-include("config.php3");
-
+include("extension.inc");
+include("config.$phpext");
 
 $title="Game Settings";
-include("header.php3");
+include("header.$phpext");
 
 
 bigtitle();
@@ -43,6 +43,6 @@ else
   TEXT_GOTOMAIN();
 }
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

@@ -1,11 +1,12 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 
 updatecookie();
 
 $title="Deploy Sector Mines & Fighters";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -78,7 +79,7 @@ if ($playerinfo[turns]<1)
 {
 	echo "You need at least one turn to deploy sector defences.<BR><BR>";
 	TEXT_GOTOMAIN();
-	include("footer.php3");
+	include("footer.$phpext");
 	die();
 }
 $res = mysql_query("SELECT allow_attack,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
@@ -114,7 +115,7 @@ else
    {
      $availmines = NUMBER($playerinfo[torps]);
      $availfighters = NUMBER($playerinfo[ship_fighters]);
-     echo "<FORM ACTION=mines.php3 METHOD=POST>";
+     echo "<FORM ACTION=mines.$phpext METHOD=POST>";
      echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " mines and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
      echo "You have $availmines mines and $availfighters fighters available to deploy.<BR>";
      echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=0> mines.<BR>";
@@ -186,6 +187,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

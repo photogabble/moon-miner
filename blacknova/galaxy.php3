@@ -1,9 +1,10 @@
 <?
-	include("config.php3");
+include("extension.inc");
+	include("config.$phpext");
 	updatecookie();
 
 	$title="View Galactic Distances";
-	include("header.php3");
+	include("header.$phpext");
 
 	connectdb();
 
@@ -14,8 +15,8 @@
 	{
 		echo "$row[sector_id], $row[angle1], $row[angle2], $row[distance]<BR>";
 	}
-	echo "Click <a href=main.php3>here</a> to return to main menu.";
-	include("footer.php3");
+	echo "Click <a href=main.$phpext>here</a> to return to main menu.";
+	include("footer.$phpext");
 
 ?> 
 

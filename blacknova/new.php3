@@ -1,14 +1,15 @@
 <?
 
+include("extension.inc");
 	$title="Create New Player"; 
 
-	include("header.php3");
-	include("config.php3");
+	include("header.$phpext");
+	include("config.$phpext");
         bigtitle();
 
 ?>
 
-<form action="new2.php3" method="post">
+<form action="new2.$phpext" method="post">
 
 <center>
 
@@ -76,7 +77,7 @@
 
 
 
-	include("footer.php3");
+	include("footer.$phpext");
 
 
 

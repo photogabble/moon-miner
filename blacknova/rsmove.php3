@@ -1,11 +1,12 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 
 updatecookie();
 
 $title="RealSpace Move";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -32,7 +33,7 @@ if(isset($destination))
 
 if(!isset($destination))
 {
-  echo "<FORM ACTION=rsmove.php3 METHOD=POST>";
+  echo "<FORM ACTION=rsmove.$phpext METHOD=POST>";
   echo "You are presently in sector $playerinfo[sector] - and there are sectors available from 0 to $sector_max.<BR><BR>";
   echo "Which sector would you like to reach through RealSpace?:  <INPUT TYPE=TEXT NAME=destination SIZE=10 MAXLENGTH=10><BR><BR>";
   echo "<INPUT TYPE=SUBMIT VALUE=Compute><BR><BR>";
@@ -91,7 +92,7 @@ elseif($destination <= $sector_max && empty($engage))
   }
   else
   {
-    echo "You have " . NUMBER($playerinfo[turns]) . " turns.  <A HREF=rsmove.php3?engage=1&destination=$destination>Engage</A> engines?<BR><BR>";
+    echo "You have " . NUMBER($playerinfo[turns]) . " turns.  <A HREF=rsmove.$phpext?engage=1&destination=$destination>Engage</A> engines?<BR><BR>";
   }
 }
 elseif($destination <= $sector_max && $engage == 1)
@@ -153,14 +154,14 @@ elseif($destination <= $sector_max && $engage == 1)
   {
     $ok=1;
     $sector = $destination;
-    $calledfrom = "rsmove.php3";
-    include("check_fighters.php3");
+    $calledfrom = "rsmove.$phpext";
+    include("check_fighters.$phpext");
     if($ok>0) 
     {
        $stamp = date("Y-m-d H-i-s");
        $update = mysql_query("UPDATE ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
        echo "You are now in sector $destination. You used " . NUMBER($triptime) . " turns, and gained " . NUMBER($energyscooped) . " energy units.<BR><BR>";
-       include("check_mines.php3");
+       include("check_mines.$phpext");
     }
   }
 }
@@ -174,6 +175,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

@@ -1,10 +1,10 @@
 <?
-
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Attack Ship";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 if(checklogin())
@@ -518,6 +518,6 @@ mysql_query("UNLOCK TABLES");
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
   
 ?> 

@@ -1,9 +1,10 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 $title="System Update";
 
-include("header.php3");
+include("header.$phpext");
 connectdb();
 
 bigtitle();
@@ -22,7 +23,7 @@ function QUERYOK($res)
 
 if($swordfish != $adminpass) 
 {
-  echo "<FORM ACTION=sysupdate.php3 METHOD=POST>";
+  echo "<FORM ACTION=sysupdate.$phpext METHOD=POST>";
   echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
   echo "<INPUT TYPE=SUBMIT VALUE=Submit><INPUT TYPE=RESET VALUE=Reset>";
   echo "</FORM>";
@@ -412,6 +413,6 @@ else
   
 }
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?> 

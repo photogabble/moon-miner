@@ -1,13 +1,14 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 connectdb();
 
 //test to see if server is closed to logins
 if($server_closed)
 {
   $title="Server Closed";
-  include("header.php3");
+  include("header.$phpext");
   die($server_closed_message);
 }
 
@@ -26,20 +27,20 @@ $userpass = $email."+".$pass;
 SetCookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
 if($playerinfo[interface]=="N")
 {
-  $mainfilename="main.php3";
-  $interface="main.php3";
+  $mainfilename="main.$phpext";
+  $interface="main.$phpext";
 }
 else
 {
-  $mainfilename="maintext.php3";
-  $interface="maintext.php3";
+  $mainfilename="maintext.$phpext";
+  $interface="maintext.$phpext";
 }
 setcookie("interface", $mainfilename);
 
 
 
 $title="Login Phase Two"; 
-include("header.php3");
+include("header.$phpext");
 
 bigtitle();
 
@@ -99,15 +100,15 @@ if($playerfound)
   else
   {
     // password is incorrect
-    echo "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, click <A HREF=mail.php3?mail=$email>here</A> to have it e-mailed to you.<BR><BR>  Otherwise, click <a href=login.php3>here</a> to try again.  Attempt logged with IP address of $ip...";
+    echo "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, click <A HREF=mail.$phpext?mail=$email>here</A> to have it e-mailed to you.<BR><BR>  Otherwise, click <a href=login.$phpext>here</a> to try again.  Attempt logged with IP address of $ip...";
     playerlog($playerinfo[ship_id], "Bad login attempt from " . $ip);
   }
 }
 else
 {
-  echo "<B>No Such Player! - Create a new player <A HREF=new.php3>here</A>.</B><BR>";
+  echo "<B>No Such Player! - Create a new player <A HREF=new.$phpext>here</A>.</B><BR>";
 }
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

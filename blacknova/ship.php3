@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Ship Commands";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -28,14 +29,14 @@ else
 {
 	echo "You see the <font color=white>", $othership[ship_name], "</font>, owned by <font color=white>", $othership[character_name],"</font>.<br><br>";
 	echo "You can perform the following actions:<BR><BR>";
-	echo "<a href=scan.php3?ship_id=$ship_id>Scan</a><br>";
-	echo "<a href=attack.php3?ship_id=$ship_id>Attack</a><br>";
-	echo "<a href=mailto.php3?to=$ship_id>Send Message</a><br>";
+	echo "<a href=scan.$phpext?ship_id=$ship_id>Scan</a><br>";
+	echo "<a href=attack.$phpext?ship_id=$ship_id>Attack</a><br>";
+	echo "<a href=mailto.$phpext?to=$ship_id>Send Message</a><br>";
 }
 
 echo "<BR>";
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?> 

@@ -1,5 +1,7 @@
 <? header("Cache-Control: no-cache, must-revalidate");
+
 ob_start("ob_gzhandler");
+
 ?>
 <!doctype html public "-//w3c//dtd html 3.2//en">
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
@@ -12,10 +14,10 @@ ob_start("ob_gzhandler");
 <?
 if($interface == "")
 {
-  $interface = "main.php3";
+  $interface = "main.$phpext";
 }
 
-if($interface == "main.php3")
+if($interface == "main.$phpext")
 {
 	echo "
 	a.mnu {text-decoration:none; font-size: $stylefontsize; font-family: verdana; color:white; font-weight:bold;}
@@ -35,8 +37,10 @@ echo "body {font-family: Arial, Tahoma, Helvetica, sans-serif; font-size: x-smal
 <?
 
 if(empty($no_body))
+
 {
-  if($interface=="main.php3")
+
+  if($interface=="main.$phpext")
   {
   	echo "<BODY BACKGROUND=\"images/bgoutspace1.gif\" bgcolor=#000000 text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\">";
   }
@@ -44,6 +48,7 @@ if(empty($no_body))
   {
   	echo "<BODY BACKGROUND=\"\" BGCOLOR=\"#000000\" TEXT=\"#c0c0c0\" LINK=\"#00ff00\" VLINK=\"#808080\" ALINK=\"#ff0000\">";
   }
+
 }
 echo "\n";
 

@@ -1,10 +1,11 @@
 <?
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Move";
 
-include("header.php3");
+include("header.$phpext");
 
 //Connect to the database
 connectdb();
@@ -26,7 +27,7 @@ if ($playerinfo[turns]<1)
 {
 	echo "You need at least one turn to move.<BR><BR>";
 	TEXT_GOTOMAIN();
-	include("footer.php3");
+	include("footer.$phpext");
 	die();
 }
 
@@ -56,8 +57,8 @@ if ($result3>0)
 if ($flag==1)
 {
     $ok=1;
-    $calledfrom = "move.php3";
-    include("check_fighters.php3");
+    $calledfrom = "move.$phpext";
+    include("check_fighters.$phpext");
     if($ok>0){
        $stamp = date("Y-m-d H-i-s");
        $query="UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
@@ -69,7 +70,7 @@ if ($flag==1)
 	}
     }
     /* enter code for checking dangers in new sector */
-    include("check_mines.php3");
+    include("check_mines.$phpext");
     if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
     {
         TEXT_GOTOMAIN();

@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Top $max_rank Players";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 bigtitle();
@@ -49,7 +50,7 @@ else
   echo "<BR>Total number of players: " . NUMBER($num_players);
   echo "<BR>Players with destroyed ships are not counted.<BR><BR>";
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Rank</B></TD><TD><B><A HREF=ranking.php3>Score</A></B></TD><TD><B>Player</B></TD><TD><B><A HREF=ranking.php3?sort=turns>Turns used</A></B></TD><TD><B><A HREF=ranking.php3?sort=login>Last login</A></B></TD><TD><B><A HREF=ranking.php3?sort=good>Good</A>/<A HREF=ranking.php3?sort=bad>Evil</A></B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Rank</B></TD><TD><B><A HREF=ranking.$phpext>Score</A></B></TD><TD><B>Player</B></TD><TD><B><A HREF=ranking.$phpext?sort=turns>Turns used</A></B></TD><TD><B><A HREF=ranking.$phpext?sort=login>Last login</A></B></TD><TD><B><A HREF=ranking.$phpext?sort=good>Good</A>/<A HREF=ranking.$phpext?sort=bad>Evil</A></B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($res))
   {
@@ -84,6 +85,6 @@ else
   TEXT_GOTOMAIN();
 }
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>

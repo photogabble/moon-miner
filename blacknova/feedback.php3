@@ -1,9 +1,10 @@
 <?
-	include("config.php3");
+include("extension.inc");
+	include("config.$phpext");
 	updatecookie();
 
 	$title="Send Feedback";
-	include("header.php3");
+	include("header.$phpext");
 
 	connectdb();
 
@@ -14,7 +15,7 @@
         bigtitle();	
 	if (empty($content))
 	{
-		echo "<form action=feedback.php3 method=post>";
+		echo "<form action=feedback.$phpext method=post>";
 		echo "<table>";
 		echo "<tr><td>TO:</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=GameAdmin></td></tr>";
 		echo "<tr><td>FROM:</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=\"$playerinfo[character_name] - $playerinfo[email]\"></td></tr>";
@@ -29,6 +30,6 @@
 	}
 
     TEXT_GOTOMAIN();
-	include("footer.php3");
+	include("footer.$phpext");
 
 ?> 

@@ -1,6 +1,7 @@
 <?
-include("config_local.php3");
-include("global_funcs.php3");
+include("extension.inc");
+include("config_local.$phpext");
+include("global_funcs.$phpext");
 
 /* GUI colors (temporary until we have something nicer) */
 $color_header = "#500050";
@@ -152,6 +153,8 @@ $scan_error_factor=20;
 
 $max_planets_sector = 5;
 $max_traderoutes_player = 40;
+
 $min_bases_to_own = 3;
+
 
 ?>

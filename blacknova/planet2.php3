@@ -1,10 +1,11 @@
 <?
 
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Planetary Transfer";
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 if(checklogin())
@@ -332,7 +333,7 @@ else
   if($total_holds_needed > $free_holds)
   {
     echo "Not enough holds for requested transfer.<BR><BR>";
-    echo "Click <A HREF=planet.php3?planet_id=$planet_id>here</A> to return to planet menu.<BR><BR>";
+    echo "Click <A HREF=planet.$phpext?planet_id=$planet_id>here</A> to return to planet menu.<BR><BR>";
   }
   else
   {
@@ -437,7 +438,7 @@ else
         }
         $update1 = mysql_query("UPDATE ships SET ship_ore=ship_ore+$transfer_ore, ship_organics=ship_organics+$transfer_organics, ship_goods=ship_goods+$transfer_goods, ship_energy=ship_energy+$transfer_energy, ship_colonists=ship_colonists+$transfer_colonists, torps=torps+$transfer_torps, ship_fighters=ship_fighters+$transfer_fighters, credits=credits+$transfer_credits, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
         $update2 = mysql_query("UPDATE planets SET ore=ore-$transfer_ore, organics=organics-$transfer_organics, goods=goods-$transfer_goods, energy=energy-$transfer_energy, colonists=colonists-$transfer_colonists, torps=torps-$transfer_torps, fighters=fighters-$transfer_fighters, credits=credits-$transfer_credits WHERE planet_id=$planet_id");
-        echo "Transfer complete.<BR>Click <a href=planet.php3?planet_id=$planet_id>here</a> to return to planet menu.<BR><BR>";
+        echo "Transfer complete.<BR>Click <a href=planet.$phpext?planet_id=$planet_id>here</a> to return to planet menu.<BR><BR>";
       }
       else
       {
@@ -456,6 +457,6 @@ else
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?> 

@@ -1,10 +1,10 @@
 <?
-
-include("config.php3");
+include("extension.inc");
+include("config.$phpext");
 updatecookie();
 
 $title="Options"; 
-include("header.php3");
+include("header.$phpext");
 
 connectdb();
 
@@ -25,7 +25,7 @@ mysql_free_result($res);
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
-echo "<FORM ACTION=option2.php3 METHOD=POST>";
+echo "<FORM ACTION=option2.$phpext METHOD=POST>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
 echo "<TR BGCOLOR=\"$color_header\">";
 echo "<TD COLSPAN=2><B>Change password</B></TD>";
@@ -56,7 +56,7 @@ echo "</FORM>";
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.$phpext");
 
 ?>
 
