@@ -222,7 +222,7 @@ function db_kill_player($ship_id)
 
   mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0 WHERE ship_id=$ship_id");
   mysql_query("UPDATE planets SET owner=0 WHERE owner=$ship_id");
-  mysql_query("UPDATE universe SET fm_owner=0,fighters=0,mines=0 WHERE fm_owner=$ship_id");
+  mysql_query("DELETE FROM sector_defence where ship_id=$ship_id");
 }
 
 function NUMBER($number, $decimals = 0)
@@ -296,5 +296,58 @@ function SCAN_ERROR($level_scan, $level_cloak)
 
   return $sc_error;
 }
+
+function explode_mines($sector, $num_mines)
+{
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='M' order by quantity ASC");
+    echo mysql_error();
+    //Put the defence information into the array "defenceinfo"
+    if($result3 > 0)
+    {
+       while(($row = mysql_fetch_array($result3)) && $num_mines > 0)
+       {
+          if($row[quantity] > $num_mines)
+          {
+             $update = mysql_query("UPDATE sector_defence set quantity=quantity - $num_mines where defence_id = $row[defence_id]");
+             $num_mines = 0;
+          }
+          else
+          {
+             $update = mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
+             $num_mines -= $row[quantity];
+          }
+                 
+       }
+       mysql_free_result($result3);
+    }
+
+}
+
+function destroy_fighters($sector, $num_fighters)
+{
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
+    echo mysql_error();
+    //Put the defence information into the array "defenceinfo"
+    if($result3 > 0)
+    {
+       while(($row = mysql_fetch_array($result3)) && $num_fighters > 0)
+       {
+          if($row[quantity] > $num_fighters)
+          {
+             $update = mysql_query("UPDATE sector_defence set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
+             $num_fighters = 0;
+          }
+          else
+          {
+             $update = mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
+             $num_fighters -= $row[quantity];
+          }
+                 
+       }
+       mysql_free_result($result3);
+    }
+
+}
+
 
 ?>

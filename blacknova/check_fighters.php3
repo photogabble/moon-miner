@@ -3,10 +3,32 @@
     //Put the sector information into the array "sectorinfo"
     $sectorinfo=mysql_fetch_array($result2);
     mysql_free_result($result2);
-    if ($sectorinfo[fighters] > 0 && $sectorinfo[fm_owner] != $playerinfo[ship_id] && $playerinfo[hull] > $mine_hullsize)
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='F'");
+    //Put the defence information into the array "defenceinfo"
+    $i = 0;
+    $total_sector_fighters = 0;
+    $owner = true;
+    if($result3 > 0)
+    {
+       while($row = mysql_fetch_array($result3))
+       {
+          $defences[$i] = $row;
+           $total_sector_fighters += $defences[$i]['quantity'];
+          if($defences[$i][ship_id] != $playerinfo[ship_id])
+          {
+             $owner = false; 
+          }
+          $i++;
+       }
+       mysql_free_result($result3);
+    }
+    $num_defences = $i;
+    if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
     {
         // find out if the fighter owner and player are on the same team
-	$result2 = mysql_query("SELECT * from ships where ship_id=$sectorinfo[fm_owner]");
+        // All sector defences must be owned by members of the same team
+        $fm_owner = $defences[0]['ship_id'];
+	$result2 = mysql_query("SELECT * from ships where ship_id=$fm_owner");
         $fighters_owner = mysql_fetch_array($result2);
         mysql_free_result($result2);
         if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
@@ -74,10 +96,10 @@
                  }
                  break;
               default:
-                 $fighterstoll = $sectorinfo[fighters] * $fighter_price * 0.6;
+                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                  bigtitle();
                  echo "<FORM ACTION=$calledfrom METHOD=POST>";
-                 echo "There are $sectorinfo[fighters] fighters in your destination sector.<br>";
+                 echo "There are $total_sector_fighters fighters in your destination sector.<br>";
                  if($sectorinfo[fm_setting] == "toll")
                  {
                     echo "They demand " . NUMBER($fighterstoll) . " credits to enter this sector.<BR>";    
@@ -100,7 +122,7 @@
 
            
            // clean up any sectors that have used up all mines or fighters
-           mysql_query("update universe set fm_owner=0 where fm_owner <> 0 and mines=0 and fighters=0");
+           mysql_query("delete from sector_defence where quantity <= 0 ");
         }   
 
     }

@@ -214,9 +214,7 @@ else
 	    }
     }
   }
-  mysql_query("UPDATE universe set mines = 0 where mines < 0");
-  mysql_query("UPDATE universe set fighters = 0 where fighters < 0");
-  mysql_query("UPDATE universe set fm_owner = 0 where mines = 0 and fighters = 0");
+  mysql_query("DELETE from sector_defence where quantity <= 0");
 
   mysql_query("UNLOCK TABLES");
   //-------------------------------------------------------------------------------------------------

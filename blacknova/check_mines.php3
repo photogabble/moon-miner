@@ -3,18 +3,39 @@
     //Put the sector information into the array "sectorinfo"
     $sectorinfo=mysql_fetch_array($result2);
     mysql_free_result($result2);
-    if ($sectorinfo[mines] > 0 && $sectorinfo[fm_owner] != $playerinfo[ship_id] && $playerinfo[hull] > $mine_hullsize)
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$sector' and defence_type ='M'");
+    //Put the defence information into the array "defenceinfo"
+    $i = 0;
+    $total_sector_mines = 0;
+    $owner = true;
+    if($result3 > 0)
     {
-        // find out if the mine owner and player are on the same team
-	$result2 = mysql_query("SELECT * from ships where ship_id=$sectorinfo[fm_owner]");
+       while($row = mysql_fetch_array($result3))
+       {
+          $defences[$i] = $row;
+           $total_sector_mines += $defences[$i]['quantity'];
+          if($defences[$i][ship_id] != $playerinfo[ship_id])
+          {
+             $owner = false; 
+          }
+          $i++;
+       }
+       mysql_free_result($result3);
+    }
+    $num_defences = $i;
+    if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $playerinfo[hull] > $mine_hullsize)
+    {
+        $fm_owner = $defences[0][ship_id];
+	$result2 = mysql_query("SELECT * from ships where ship_id=$fm_owner");
         $mine_owner = mysql_fetch_array($result2);
         mysql_free_result($result2);
         if ($mine_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
+        // find out if the mine owner and player are on the same team
         {
 	   // Lets blow up some mines!
            bigtitle();
            $ok=0;
-           $totalmines = $sectorinfo[mines];
+           $totalmines = $total_sector_mines;
            if ($secorinfo[mines]>1) 
            {
               $roll = rand(1,$sectorinfo[mines]);
@@ -27,11 +48,12 @@
            echo "You hit $roll mines!<BR>";
            playerlog($playerinfo[ship_id],"You hit $roll mines in sector $sector.");
            playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] hit $roll of your mines in sector $sector.");
+           explode_mines($sector,$roll);
            if($playerinfo[dev_minedeflector] >= $roll)
            {
               echo "You lost $roll mine deflectors.<BR>";
               $result2 = mysql_query("UPDATE ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
-              $result2 = mysql_query("UPDATE universe set mines=mines-$roll where sector_id=$sector");
+
 
            }
            else
@@ -57,7 +79,6 @@
               {
                  echo "Your shields are hit for $mines_left damage.<BR>";
                  $result2 = mysql_query("UPDATE ships set ship_energy=ship_energy-$mines_left, dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
-                 $result2 = mysql_query("UPDATE universe set mines=$mines_left where sector_id=$sector");
                  if($playershields == $mines_left) echo "Your shields are down!<BR>";
               }
               else
@@ -68,7 +89,6 @@
                  {
                     echo "Your armour is hit for $mines_left damage.<BR>";
                     $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left,ship_energy=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
-                    $result2 = mysql_query("UPDATE universe set mines=$mines_left where sector_id=$sector");
                     if($playerinfo[armour_pts] == $mines_left) echo "Your hull is breached!<BR>";
                  }
                  else

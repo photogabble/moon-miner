@@ -19,6 +19,7 @@ mysql_query("DROP TABLE IF EXISTS universe");
 mysql_query("DROP TABLE IF EXISTS zones");
 mysql_query("DROP TABLE IF EXISTS messages");
 mysql_query("DROP TABLE IF EXISTS furangee");
+mysql_query("DROP TABLE IF EXISTS sector_defence");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema
@@ -117,7 +118,6 @@ mysql_query("CREATE TABLE ships(" .
             "dev_escapepod enum('Y','N') DEFAULT 'N' NOT NULL," .
             "dev_fuelscoop enum('Y','N') DEFAULT 'N' NOT NULL," .
             "dev_minedeflector bigint(20) DEFAULT '0' NOT NULL," .
-            "dev_realspacescan enum('Y','N') DEFAULT 'N' NOT NULL," .
             "turns_used bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "last_login datetime," .
             "rating bigint(20) DEFAULT '0' NOT NULL," .
@@ -161,9 +161,6 @@ mysql_query("CREATE TABLE universe(" .
             "angle2 float(10,2) DEFAULT '0.00' NOT NULL," .
             "distance bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "fighters bigint(20) DEFAULT '0' NOT NULL," .
-            "mines bigint(20) DEFAULT '0' NOT NULL," .
-            "fm_owner bigint(20) DEFAULT '0' NOT NULL," .
-            "fm_setting enum('attack','toll') DEFAULT 'toll' NOT NULL," .
             "PRIMARY KEY (sector_id)," .
             "KEY sector_id (sector_id)," .
             "UNIQUE sector_id_2 (sector_id)," .
@@ -275,6 +272,20 @@ mysql_query("CREATE TABLE furangee(" .
             "orders smallint(5) DEFAULT '0' NOT NULL," .
             "PRIMARY KEY (furangee_id)," .
             "KEY furangee_id (furangee_id)" .
+            ")");
+echo "created.<BR>";
+
+echo "Creating table: sector_defence...<BR>";
+mysql_query("CREATE TABLE sector_defence(" .
+            "defence_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+            "ship_id bigint(20) DEFAULT '0' NOT NULL," .
+            "sector_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "defence_type enum('M','F') DEFAULT 'M' NOT NULL," .
+            "quantity bigint(20) DEFAULT '0' NOT NULL," .
+            "fm_setting enum('attack','toll') DEFAULT 'toll' NOT NULL," .
+            "PRIMARY KEY (defence_id)," .
+            "KEY sector_id (sector_id)," .
+            "KEY ship_id (ship_id)" .
             ")");
 echo "created.<BR>";
 

@@ -1,6 +1,6 @@
 <?
                     echo "Sector defence fighters are attacking you!<BR>";
-                    $targetfighters = $sectorinfo[fighters];
+                    $targetfighters = $total_sector_fighters;
      	            $playerbeams = NUM_BEAMS($playerinfo[beams]);
                     if($playerbeams>$playerinfo[ship_energy])
                     {
@@ -84,7 +84,6 @@
                  }
                  if($targetfighters > 0)
                  {
-                    mysql_query("update universe set fighters=$targetfighters where sector_id=$sector");
                     if($targetfighters > $playerarmour)
                     {
                        $playerarmour=0;
@@ -96,11 +95,8 @@
                        echo "Your armour is hit for $targetfighters damage.<BR>";
                     } 
                  }
-                 else
-                 {
-                    mysql_query("update universe set fighters=0 where sector_id=$sector");
-                 }
-                 $fighterslost = NUMBER($sectorinfo[fighters] - $targetfighters);
+                 $fighterslost = $total_sector_fighters - $targetfighters);
+                 destroy_fighters($sector,$fighterslost);
                  playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] destroyed $fighterslost of your sector defence fighters in sector $sector.");
                  playerlog($playerinfo[ship_id],"You destroyed $fighterslost sector defence fighters in sector $sector.");
                  $armour_lost=$playerinfo[armour_pts]-$playerarmour;

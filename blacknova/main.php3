@@ -87,6 +87,22 @@ if($res > 0)
 }
 $num_planets = $i;
 
+$res = mysql_query("SELECT * FROM sector_defence,ships WHERE sector_defence.sector_id='$playerinfo[sector]'
+                                                       AND ships.ship_id = sector_defence.ship_id ");
+                                                       
+
+$i = 0;
+if($res > 0)
+{
+  while($row = mysql_fetch_array($res))
+  {
+    $defences[$i] = $row;
+    $i++;
+  }
+  mysql_free_result($res);
+}
+$num_defences = $i;
+
 
 $res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
 $zoneinfo = mysql_fetch_array($res);
@@ -466,82 +482,69 @@ else
     echo "<td align=center valign=top>";
     echo "<br><font color=white>There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!</font><br><br>";
     echo "</td>";
-}
 
-if($sectorinfo[fm_owner] == $playerinfo[ship_id] ) 
+}
+?>
+</td>
+</tr>
+</table>
+<b><center><font size=2 face="arial" color=white>Sector Defences</font><br></center></b>
+
+<table border=0 width=100%>
+<tr>
+<?
+if($num_defences > 0)
 {
- $mines_owner = 'You have'; 
-} 
+  $totalcount=0;
+  $curcount=0;
+  $i=0;
+  while($i < $num_defences)
+  {
+
+
+    echo "<td align=center valign=top>";
+    if($defences[$i]['defence_type'] == 'F')
+    {
+       echo "<img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+       $def_type = 'Fighters';
+    }
+    elseif($defences[$i]['defence_type'] == 'M')
+    {
+       echo "<img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+       $def_type = 'Mines';
+    }
+    $char_name = $defences[$i]['character_name'];
+    $qty = $defences[$i]['quantity'];
+    echo "$char_name ( $qty $def_type )";
+    echo "</font></td>";
+
+    $totalcount++;
+    if($curcount == $picsperrow - 1)
+    {
+      echo "</tr><tr>";
+      $curcount=0;
+    }
+    else
+      $curcount++;
+    $i++;
+  }
+  echo "</td></tr></table>";
+}
 else
 {
-  $resultX           = mysql_query("SELECT ships.*,teams.team_name,teams.id    
-                                    FROM `ships`
-                                    LEFT OUTER JOIN teams 
-                                       ON ships.team = teams.id
-                                    WHERE ship_id=$sectorinfo[fm_owner]");
-                                    
-  $planet_owner_arry = mysql_fetch_array($resultX);
-  if ($planet_owner_arry[team_name]) 
-  {
-      $mines_owner  = $planet_owner_arry[character_name] . ", from  <font color=#33ff00>" . $planet_owner_arry[team_name]. "</font> has";   
-   }
-   else 
-   {
-        $mines_owner = $planet_owner_arry[character_name] . " has";
-   }
+  echo "<td align=center valign=top>";
+  echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
+  echo "</td></tr></table>";
 }
+?>
 
-if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
-{
-   $minedesc = 'mines';
-   $fighterdesc = 'fighters';
-   if($sectorinfo[mines] == 1) $minedesc = 'mine';
-   if($sectorinfo[fighters] == 1) $fighterdesc = 'fighter';
-   echo "</tr><tr>";
-   
-   if ($planet_owner_arry[team_name] != "") 
-   {
-      echo "<td align=center colspan=2 valign=top>";
-      echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
-      echo "</td>";
-      echo "</tr><tr>";
-   }
-   elseif ($sectorinfo[fm_owner] == $playerinfo[ship_id])
-   {
-      echo "<td align=center colspan=2 valign=top>";
-      echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
-      echo "</td>";
-      echo "</tr><tr>";      
-   }
-   else
-   {
-      echo "<td align=center colspan=2 valign=top>";
-      echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
-      echo "</td>";
-      echo "</tr><tr>";        
-   }
- 
-   if ($sectorinfo[mines] > 0 ) 
-   {
-      echo "<td align=center valign=top>";
-      echo "<img src=\"images/mines.gif\"><br>";
-      echo "<font size=2 color=white>$sectorinfo[mines] $minedesc</font>";
-      echo "</td>";
-   }  
-   
-   if($sectorinfo[fighters] > 0)
-   {
-      echo "<td align=center valign=top>";
-      echo "<img src=\"images/fighters.gif\">";
-      echo "<br><font size=2 color=white>$sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting])</font><br>";      
-      echo "</td>";
-   }
-}
+
+<br>
+<?
  
 ?>
 
-</tr>
-</table>
+
 
 <td valign=top>
 
