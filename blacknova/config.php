@@ -25,6 +25,7 @@ $sched_ranking = 30; //How often rankings will be generated
 $sched_news = 15;    //How often news are generated
 $sched_degrade = 6;  //How often sector fighters degrade when unsupported by a planet
 $sched_apocalypse = 15;
+$doomsday_value = 90000000; // number of colonists a planet needs before being affected by the apocalypse
 
 /* Scheduler config end */
 

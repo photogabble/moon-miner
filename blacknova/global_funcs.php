@@ -78,7 +78,8 @@ define(LOG_PLANET_CAPTURED, 46);            //sent to player when he captures a 
 define(LOG_BOUNTY_CLAIMED,47);            //sent to player when they claim a bounty
 define(LOG_BOUNTY_PAID,48);            //sent to player when their bounty on someone is paid
 define(LOG_BOUNTY_CANCELLED,49);            //sent to player when their bounty is refunded
-
+define(LOG_SPACE_PLAGUE,50);            // sent when space plague attacks a planet
+define(LOG_PLASMA_STORM,51);           // sent when a plasma storm attacks a planet
 // Database tables variables
 $dbtables['ibank_accounts'] = "${db_prefix}ibank_accounts";
 $dbtables['links'] = "${db_prefix}links";

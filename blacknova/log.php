@@ -771,7 +771,18 @@ function log_parse($entry)
     $retvalue[text] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
-
+ case LOG_SPACE_PLAGUE:
+    list($name,$sector) = split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
+ case LOG_PLASMA_STORM:
+    list($name,$sector) = split ("\|", $entry[data]);
+    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
+    $retvalue[title] = $l_log_title[$entry[type]];
+    break;
   }
   return $retvalue;
 }
