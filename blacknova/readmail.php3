@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Read Message";
+include($gameroot . $default_lang);
+$title=$l_readm_title;
 include("header.php3");
 
 bigtitle();
@@ -24,31 +23,31 @@ if ($action=="delete")
 {
  mysql_query("DELETE FROM messages WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
 ?>
-<FONT COLOR="#FF0000" Size="7"><B><Blink><Center>MESSAGE DELETED</Center></Blink></B></FONT><BR>
+<FONT COLOR="#FF0000" Size="7"><B><Blink><Center><? echo $l_readm_delete; ?></Center></Blink></B></FONT><BR>
 <?
 }
 
 $res = mysql_query("SELECT * FROM messages WHERE recp_id='".$playerinfo[ship_id]."'");
  if (mysql_num_rows($res)==0)
  {
-  echo "You have no Messages waiting for you...";
+  echo "$l_readm_nomessage";
  }
  else
  {
 ?>
 <Table width="75%">
 <TR>
-<TD colspan="2" BGCOLOR="<? echo $color_header; ?>">Message Receiving Center</TD>
+<TD colspan="2" BGCOLOR="<? echo $color_header; ?>">$l_readm_center</TD>
 </TR>
 <TR BGCOLOR="<? echo $color_line1; ?>">
 <TD>
-Message Sender
+<? echo $l_readm_sender; ?>
 </TD>
 <TD>
 Message
 </TD>
 </TR>
-<?   
+<?
   $line_counter = true;
   while($msg = mysql_fetch_array($res))
   {
@@ -68,13 +67,14 @@ else
 }
 ?>">
 <TD>
-<? echo $sender[character_name]; ?><HR>Captain of the<BR><? echo $sender[ship_name]; ?>
+<? echo $sender[character_name]; ?><HR>$l_readm_captn<BR><? echo $sender[ship_name]; ?>
 </TD>
 <TD>
 <UL><B><? echo $msg[subject]; ?></B></UL><HR><? echo nl2br($msg[message]); ?>
 </TD>
 <TD>
-<A HREF="readmail.php3?action=delete&ID=<? echo $msg[ID]; ?>">Delete</A>
+<A HREF="readmail.php3?action=delete&ID=<? echo $msg[ID]; ?>">$l_readm_del</A><BR>
+<A HREF="mailto2.php3?name=<? echo $sender[character_name]; ?>&subject=<? echo $msg[subject] ?>">$l_readm_del</A><BR>
 </TD>
 </TR>
 <?
@@ -87,6 +87,4 @@ else
 TEXT_GOTOMAIN();
 
 include("footer.php3");
-
-# Well it's not really very good or nice or whatsoever code, but it works -- blindcoder
-?> 
+?>

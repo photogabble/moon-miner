@@ -483,4 +483,26 @@ $l_dump_turn		 = "You need at least one turn to dump colonists.";
 $l_dump_nocol		 = "You have no colonists on your ship to begin with.";
 $l_dump_dumped		 = "Colonists dumped at supply depot.";
 $l_dump_nono		 = "You need to be at a supply depot to do this.";
+
+// readmail.php
+
+$l_readm_title		 = "Read Message";
+$l_readm_delete		 = "MESSAGE DELETED";
+$l_readm_nomessage	 = "You have no Messages waiting for you...";
+$l_readm_center		 = "Message Receiving Center";
+$l_readm_sender		 = "Message Sender";
+$l_readm_captn		 = "Captain of the";
+$l_readm_del		 = "Delete";
+$l_readm_repl		 = "Reply";
+
+// mailto2.php
+
+$l_sendm_title		 = "Send Message";
+$l_sendm_to		 = "To";
+$l_sendm_from		 = "From";
+$l_sendm_ally		 = "Alliance:";
+$l_sendm_subj		 = "Subject";
+$l_sendm_mess		 = "Message";
+$l_sendm_send		 = "Send";
+$l_sendm_sent		 = "Message Sent";
 ?>
