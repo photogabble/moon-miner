@@ -22,7 +22,6 @@ CREATE TABLE links (
 #
 # Table structure for table 'ships'
 #
-
 CREATE TABLE ships (
    ship_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment,
    ship_name char(20),
@@ -126,4 +125,19 @@ CREATE TABLE zones (
    max_hull bigint(20) DEFAULT '0' NOT NULL,
    PRIMARY KEY(zone_id),
    KEY zone_id(zone_id)
+);
+
+# --------------------------------------------------------
+#
+# Table structure for table 'ibank_accounts'
+#
+
+CREATE TABLE ibank_accounts (
+   id bigint(20) DEFAULT '0' NOT NULL,
+   ballance bigint(20) DEFAULT '0',
+   loan bigint(20)  DEFAULT '0',
+   ibank_shareholder int(11) DEFAULT '0' NOT NULL,
+   ibank_employee int(1) DEFAULT '0' NOT NULL,
+   ibank_owner int(1) DEFAULT '0' NOT NULL,
+   PRIMARY KEY(id)
 );
