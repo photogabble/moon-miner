@@ -318,7 +318,7 @@ else
         $price_array[$port_type] = $price - $delta * $max / $limit * $factor;
         $trade_color       = $color_red;
         $trade_result      = $trade_deficit;
-        return $origin;
+
       }
       else
       {
@@ -326,8 +326,8 @@ else
         $trade_color       = $color_green;
         $trade_result      = $trade_benefit;
         $origin            = -$origin;
-        return $origin;
       }
+      return $origin;
    }
 
    $trade_ore       =  TRADE($ore_price, $ore_delta, $sectorinfo[port_ore], $ore_limit, $inventory_factor, "ore", $trade_ore);
@@ -340,7 +340,7 @@ else
   
     $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
     $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-    $total_cost = $trade_ore * $price_array[ore] + $trade_organics * $price_array[organics] + $trade_goods * $price_array[goods] + $trade_energy * $price_array[energy];
+    $total_cost = $trade_ore * $price_array['ore'] + $trade_organics * $price_array['organics'] + $trade_goods * $price_array['goods'] + $trade_energy * $price_array['energy'];
   
     if($free_holds < $cargo_exchanged)
     {
