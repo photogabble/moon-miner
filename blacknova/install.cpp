@@ -214,7 +214,7 @@ void cronfile(char cronpath[100], char admin_pass[100], char gameroot[100], char
 		fstream cronfile(cronpath,ios::app);
 
 		cronfile << "*/6 * * * * " << lynxpath << " --dump " << webpath << "sysupdate.php3?swordfish=" << admin_pass << " > /dev/null" << endl;
-		cronfile << "*/15 * * * * " << lynxpath << " --dump " << webpath << "genrank.php3" << " > " << gameroot << "/dev/null" << endl;
+		cronfile << "*/15 * * * * " << lynxpath << " --dump " << webpath << "genrank.php3?swordfish=" << admin_pass << " > " << "/dev/null" << endl;
 		cronfile << "*/6 * * * * " << touchpath << " " << gameroot << "/cron.txt" << endl;
 	}
 }
