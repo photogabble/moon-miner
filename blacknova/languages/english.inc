@@ -258,6 +258,7 @@ $l_planet2_compl	 = "Transfer complete.";
 $l_planet2_power	 = "power capacity";
 $l_planet2_comp 	 = "computer capacity";
 $l_planet2_laun 	 = "launcher capacity";
+$l_planet2_nocorptransfer = "You cannot transfer credits to or from corporate planets.";
 
 $l_planet3_title	 = "Trading at Planet";
 

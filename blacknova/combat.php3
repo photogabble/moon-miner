@@ -102,6 +102,7 @@ global $torp_dmg_rate;
 global $level_factor;
 global $attackertorpdamage;
 global $start_energy;
+global $min_value_capture;
 //$debug = true;
 
 
@@ -470,12 +471,38 @@ echo "
 		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
         {
           echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>Planet defeated</b></FONT></CENTER><BR><BR>";
-          echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
-          playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
-          gen_score($ownerinfo[ship_id]);
-          $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
-          calc_ownership($planetinfo[sector_id]);
+          
+          if($min_value_capture != 0)
+          {
+            $playerscore = gen_score($playerinfo[ship_id]);
+            $playerscore *= $playerscore;
 
+            $planetscore = $planetinfo[organics] * $organics_price + $planetinfo[ore] * $ore_price + $planetinfo[goods] * $goods_price + $planetinfo[energy] * $energy_price + $planetinfo[fighters] * $fighter_price + $planetinfo[torps] * $torpedo_price + $planetinfo[colonists] * $colonist_price + $planetinfo[credits];
+            $planetscore = $planetscore * $min_value_capture / 100;
+
+            if($playerscore < $planetscore)
+            {
+              echo "<CENTER>The citizen of this planet have decided they'd rather die than serve a pathetic ruler like you. They use a laser drill to dig a hole to the planet's core. You barely have time to escape into orbit before the whole planet is reduced to a ball of molten lava.</CENTER><BR><BR>";
+              mysql_query("DELETE FROM planets WHERE planet_id=$planetinfo[planet_id]");
+              playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name]. Your faithful citizens have chosen death instead of serving your enemy.");
+              gen_score($ownerinfo[ship_id]);
+            }
+            else
+            {
+              echo "<CENTER><font color=red>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</font></CENTER><BR><BR>";
+              playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+              gen_score($ownerinfo[ship_id]);
+              $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
+            }
+          }
+          else
+          {
+            echo "<CENTER>You may <a href=planet.php3?planet_id=$planetinfo[planet_id]&command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
+            playerlog($ownerinfo[ship_id], "Your planet $planetinfo[name] in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
+            gen_score($ownerinfo[ship_id]);
+            $update7a = mysql_query("UPDATE planets SET fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
+          }
+          calc_ownership($planetinfo[sector_id]);
         }
         else
         {

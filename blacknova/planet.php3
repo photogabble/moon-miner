@@ -37,7 +37,7 @@ if(!empty($planetinfo))
   {
     if($playerinfo[on_planet] == 'Y')
       mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
-    echo "$l_planet_none <BR>";
+    echo "$l_planet_none <p>";
     TEXT_GOTOMAIN();
     include("footer.php3");
     die();
@@ -133,13 +133,13 @@ if(!empty($planetinfo))
 	   if ($planetinfo[corp] == 0)
            {
            $l_planet_mcorp_linkC = "<a href=corp.php?planet_id=$planet_id&action=planetcorp>" . $l_planet_mcorp_linkC . "</a>";
-           $l_planet_mcorp=str_replace("[planetcorp]",$l_planet_mcorp_linkC,$l_planet_mcorp);
+           $l_planet_mcorp=str_replace("[planet]",$l_planet_mcorp_linkC,$l_planet_mcorp);
 	 	echo "$l_planet_mcorp<BR>";
 	   }
 	   else
 	   {
         $l_planet_mcorp_linkP = "<a href=corp.php?planet_id=$planet_id&action=planetcorp>" . $l_planet_mcorp_linkP . "</a>";
-        $l_planet_mcorp=str_replace("[planetcorp]",$l_planet_mcorp_linkP,$l_planet_mcorp);
+        $l_planet_mcorp=str_replace("[planet]",$l_planet_mcorp_linkP,$l_planet_mcorp);
 		echo "$l_planet_mcorp<BR>";
 	   }
          }
@@ -170,7 +170,7 @@ if(!empty($planetinfo))
       echo "<TD><INPUT TYPE=TEXT NAME=ptorp VALUE=\"$planetinfo[prod_torp]\" SIZE=6 MAXLENGTH=6></TD>";
       echo "</TABLE>$l_planet_interest<BR><BR>";
       echo "<INPUT TYPE=SUBMIT VALUE=$l_planet_update>";
-      echo "</FORM><BR>";
+      echo "</FORM>";
     }
     else
     {
@@ -570,7 +570,7 @@ if(!empty($planetinfo))
 }
 else
 {
-  echo "$l_planet_none";
+  echo "$l_planet_none<p>";
 }
 if($command != "")
 {
@@ -578,7 +578,7 @@ if($command != "")
 }
 if($allow_ibank)
 {
-  echo "<BR>$l_ifyouneedplan <A HREF=\"IGB.php?planet_id=$planet_id\">$l_igb_term</A>.<BR><BR>";
+  echo "$l_ifyouneedplan <A HREF=\"IGB.php?planet_id=$planet_id\">$l_igb_term</A>.<BR><BR>";
 }
 
 //-------------------------------------------------------------------------------------------------

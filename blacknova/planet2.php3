@@ -330,7 +330,12 @@ else
 
   $total_holds_needed = $transfer_ore + $transfer_organics + $transfer_goods + $transfer_colonists;
 
-  if($total_holds_needed > $free_holds)
+  if($playerinfo[ship_id] != $planetinfo[owner] && $transfer_credits != 0 && $corp_planet_transfers != 1)
+  {
+    echo "$l_planet2_nocorptransfer<p>";
+    echo "<A HREF=planet.php3?planet_id=$planet_id>$l_clickme</A> $l_toplanetmenu<BR><BR>";
+  }
+  elseif($total_holds_needed > $free_holds)
   {
     echo "$l_planet2_noten $l_holds $l_planet2_fortr<BR><BR>";
     echo "<A HREF=planet.php3?planet_id=$planet_id>$l_clickme</A> $l_toplanetmenu<BR><BR>";

@@ -404,7 +404,7 @@ switch ($teamwhat) {
 			} else {
 				mysql_query("UPDATE ships SET team_invite=$whichteam WHERE ship_id=$who");
 				echo("Player invited.<BR>You must wait for that player to aknowledge your invitation.<BR>");
-				playerlog($who,"You have been invited to be part of <B>$invite_info[team_name]</B>.");
+				playerlog($who,"You have been invited to be part of <B>$team[team_name]</B>.");
 			}
 		}
 		echo "<BR><BR>Click <a href=\"$PHP_SELF\">here</a> to go back to the Alliances Menu.<BR><BR>";
