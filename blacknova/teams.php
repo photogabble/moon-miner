@@ -203,7 +203,7 @@ switch ($teamwhat) {
 				mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
 				mysql_query("UPDATE ships SET team_invite=0 WHERE team_invite=$whichteam");
 
-        $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$ship_id AND base='Y' AND corp!=0");
+        $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
         $i=0;
         while($row = mysql_fetch_array($res))
         {
@@ -241,7 +241,7 @@ switch ($teamwhat) {
 					mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
 					mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whichteam");
 
-          $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$ship_id AND base='Y' AND corp!=0");
+          $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
           $i=0;
           while($row = mysql_fetch_array($res))
           {
@@ -269,7 +269,7 @@ switch ($teamwhat) {
 			mysql_query("UPDATE ships SET team=$newcreator WHERE team=$creator");
 			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,id=$newcreator WHERE id=$whichteam");
 
-      $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$ship_id AND base='Y' AND corp!=0");
+      $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
       $i=0;
       while($row = mysql_fetch_array($res))
       {
