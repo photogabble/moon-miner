@@ -126,6 +126,7 @@ echo "the restrictions attached to your current sector, just click on the zone n
 echo "main page). Your ship can be towed out of a zone to a random sector when your hull size exceeds the ";
 echo "maximum allowed level for that specific zone. Attacking other players and using some devices can also ";
 echo "be disallowed in some zones.";
+echo "<BR><BR>";
 
 echo "Click <A HREF=main.php3>here</A> to return to main menu.";
 include("footer.php3");
