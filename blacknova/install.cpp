@@ -46,11 +46,11 @@ int main()
 void intro()
 {
 	cout << endl;
-	cout << "***********************************************" << endl;
-	cout << "**** Blacknova Installer Version 1.0       ****" << endl;
-	cout << "**** Installer By: Adam Voigt              ****" << endl;
-	cout << "**** http://www.sourceforge.net/blacknova/ ****" << endl;
-	cout << "***********************************************" << endl;
+	cout << "*******************************************" << endl;
+	cout << "**** Blacknova Installer Version 1.0   ****" << endl;
+	cout << "**** Installer By: Adam Voigt          ****" << endl;
+	cout << "**** http://blacknova.sourceforge.net/ ****" << endl;
+	cout << "*******************************************" << endl;
 	cout << endl;
 }
 
