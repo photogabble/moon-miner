@@ -299,7 +299,7 @@ if($num_planets > 0)
                                  WHERE 
                                  	planets.owner = ships.ship_id
                                  GROUP BY planets.owner");
-                        
+
       $planet_owner = mysql_fetch_array($result5);                        
 
       $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
@@ -396,68 +396,78 @@ if($playerinfo[sector] != 0)
                            WHERE ships.ship_id<>$playerinfo[ship_id] 
                            AND ships.sector=$playerinfo[sector]
                            AND ships.on_planet='N'");
-  $totalcount=0;
-  
-  if($result4 > 0)
-  {
-    $curcount=0;
-    while($row = mysql_fetch_array($result4))
-    {
-      $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
-      if($success < 5)
+   $totalcount=0;
+   
+   if($result4 > 0)
+   {
+      $curcount=0;
+      echo "<td align=center colspan=99 valign=top>
+      <table width=100% border=0>
+         <tr>";
+      while($row = mysql_fetch_array($result4))
       {
-        $success = 5;
-      }
-      if($success > 95)
-      {
-        $success = 95;
-      }
-      $roll = rand(1, 100);
-
-      if($roll < $success)
-      {
-        $shipavg = $row[hull] + $row[engines] + $row[computer] + $row[beams] + $row[torp_launchers] + $row[shields] + $row[armour];
-        $shipavg /= 7;
-
-        if($shipavg < 8)
-          $shiplevel = 0;
-        else if ($shipavg < 12)
-          $shiplevel = 1;
-        else if ($shipavg < 16)
-          $shiplevel = 2;
-        else if ($shipavg < 20)
-          $shiplevel = 3;
-        else
-          $shiplevel = 4;
-
-        echo "<td align=center valign=top>";
-        
-         if ($row[team_name]) {
-            echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])&nbsp;(<font color=#33ff00>$row[team_name]</font>)</font></td>";
-         }
-         else 
+         $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
+         if($success < 5)
          {
-            echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font></td>";
+           $success = 5;
          }
-      
-        echo "</td>";
-        $totalcount++;
-        if($curcount == $picsperrow - 1)
+         if($success > 95)
+         {
+           $success = 95;
+         }
+         $roll = rand(1, 100);
+        if($result4 == 0 || $totalcount == 0)
         {
-          echo "</tr><tr>";
-          $curcount=0;
+          echo "<td align=center>";
+          echo "<br><font color=white>None</font><br><br>";
+          echo "</td>";
+          break;
         }
-        else
-          $curcount++;
+         if($roll < $success)
+         {
+            $shipavg = $row[hull] + $row[engines] + $row[computer] + $row[beams] + $row[torp_launchers] + $row[shields] + $row[armour];
+            $shipavg /= 7;
+            
+            if($shipavg < 8)
+               $shiplevel = 0;
+            else if ($shipavg < 12)
+               $shiplevel = 1;
+            else if ($shipavg < 16)
+               $shiplevel = 2;
+            else if ($shipavg < 20)
+               $shiplevel = 3;
+            else
+               $shiplevel = 4;
+             
+            echo "<td align=center valign=top>";
+            
+            if ($row[team_name]) {
+               echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])&nbsp;(<font color=#33ff00>$row[team_name]</font>)</font>";
+            }
+            else
+            {
+               echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font>";
+            }
+            
+            echo "</td>";
+            
+            $totalcount++;
+            
+            if($curcount == $picsperrow - 1)
+            {
+               echo "</tr><tr>";
+               $curcount=0;
+            }
+            else
+            {
+               $curcount++;
+            }
+         }
       }
-    }
-  }
-  if($result4 == 0 || $totalcount == 0)
-  {
-    echo "<td align=center valign=top>";
-    echo "<br><font color=white>None</font><br><br>";
-    echo "</td>";
-  }
+   echo "    </tr>
+           </table>
+         </td>"; 
+}
 }
 else
 {
@@ -465,26 +475,56 @@ else
     echo "<br><font color=white>There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!</font><br><br>";
     echo "</td>";
 }
+
 if($sectorinfo[fm_owner] == $playerinfo[ship_id] ) 
 {
  $mines_owner = 'You have'; 
-
 } 
 else
 {
-   $resultX = mysql_query("SELECT * FROM ships WHERE ship_id=$sectorinfo[fm_owner] ");
+  $resultX           = mysql_query("SELECT ships.*,teams.team_name,teams.id    
+                                    FROM `ships`
+                                    LEFT OUTER JOIN teams 
+                                       ON ships.team = teams.id
+                                    WHERE ship_id=$sectorinfo[fm_owner]");
+                                    
   $planet_owner_arry = mysql_fetch_array($resultX);
-  $mines_owner = $planet_owner_arry[character_name] . ' has';
+  $mines_owner       = $planet_owner_arry[character_name] . ", from  <font color=#33ff00>" . $planet_owner_arry[team_name]. "</font> has";
 }
+
 if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
 {
    $minedesc = 'mines';
    $fighterdesc = 'fighters';
    if($sectorinfo[mines] == 1) $minedesc = 'mine';
    if($sectorinfo[fighters] == 1) $fighterdesc = 'fighter';
-   echo "</tr><tr><td align=center valign=top>";
-   echo "<br><font color=white>$mines_owner $sectorinfo[mines] $minedesc and $sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting]) in this sector.</font><br>";
-   echo "</td>";
+   echo "</tr><tr>";
+   
+   if ($planet_owner_arry[team_name] != "") 
+   {
+      echo "<td align=center colspan=2 valign=top>";
+      echo "<font size=2>$mines_owner these defences in this sector</font><br><br>";
+      echo "</td>";
+      echo "</tr><tr>";
+   }  
+ 
+   if ($sectorinfo[mines] > 0 ) 
+   {
+      echo "<td align=center valign=top>";
+      echo "<img src=\"images/mines.gif\"><br>";
+      echo "<font size=2 color=white>$sectorinfo[mines] $minedesc</font>";
+      echo "</td>";
+   }  
+   
+   if($sectorinfo[fighters] > 0)
+   {
+      echo "<td align=center valign=top>";
+      echo "<img src=\"images/fighters.gif\">";
+      echo "<br><font size=2 color=white>$sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting])</font><br>";      
+      echo "</td>";
+   }
+
+//   echo "<br><font color=white>$mines_owner $sectorinfo[mines] $minedesc and $sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting]) in this sector.</font><br>";   
 }
  
 ?>
