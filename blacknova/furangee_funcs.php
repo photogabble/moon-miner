@@ -755,4 +755,59 @@ function furangeetrade()
 
 }
 
+function furangeehunter()
+{
+  // *********************************
+  // *** SETUP GENERAL VARIABLES  ****
+  // *********************************
+  global $playerinfo;
+
+  $rescount = mysql_query("SELECT COUNT(*) AS num_players FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee'");
+  $rowcount = mysql_fetch_array($rescount);
+  $topnum = min(10,$rowcount[num_players]);
+
+  // *** IF WE HAVE KILLED ALL THE PLAYERS IN THE GAME THEN THERE IS LITTLE POINT IN PROCEEDING ***
+  if ($topnum<1) return;
+
+  $res = mysql_query("SELECT * FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY score DESC LIMIT $topnum");
+
+  // *** LETS CHOOSE A TARGET FROM THE TOP PLAYER LIST ***
+  $i=1;
+  $targetnum=rand(1,$topnum);
+  while ($row = mysql_fetch_array($res))
+  {
+    if ($i==$targetnum)
+    { 
+    $targetinfo=$row;
+    }
+    $i++;
+  }
+  echo "Target is $targetinfo[character_name] <BR>";  
+
+  // *********************************
+  // *** WORM HOLE TO TARGET SECTOR **
+  // *********************************
+  $sectres = mysql_query ("SELECT sector_id,zone_id FROM universe WHERE sector_id='$targetinfo[sector]'");
+  $sectrow = mysql_fetch_array($sectres);
+  $zoneres = mysql_query ("SELECT zone_id,allow_attack FROM zones WHERE zone_id=$sectrow[1]");
+  $zonerow = mysql_fetch_array($zoneres);
+  // *** ONLY WORM HOLM TO TARGET IF WE CAN ATTACK IN TARGET SECTOR ***
+  if ($zonerow[1]=="Y")
+  {
+    $stamp = date("Y-m-d H-i-s");
+    $query="UPDATE ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetinfo[sector] where ship_id=$playerinfo[ship_id]";
+    $move_result = mysql_query ("$query");
+    playerlog($playerinfo[ship_id],"Furangee used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name]."); 
+    if (!$move_result)
+    {
+      $error = mysql_error($move_result);
+      playerlog($playerinfo[ship_id],"Move failed with error: $error "); 
+      return;
+    }
+    // *** TIME TO ATTACK THE TARGET ***
+    playerlog($playerinfo[ship_id],"Furangee launching an attack on $targetinfo[character_name]."); 
+    furangeetoship($targetinfo[ship_id]);
+  }
+}
+
 ?>
