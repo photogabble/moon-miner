@@ -983,20 +983,32 @@ function traderoute_engage()
     traderoute_die("This trade route requires $dist[triptime] turns to complete. You only have $playerinfo[turns] left.");
 
   $hostile = 0;
-  if (($sourceport[fighters] > 0 || $sourceport[mines] > 0) && $sourceport[fm_owner] != $playerinfo[ship_id])
+
+  $result99 = mysql_query("SELECT * FROM sector_defence WHERE sector_id = $source[sector_id] and ship_id <> $playerinfo[ship_id]");
+  if($fighters_owner = mysql_fetch_array($result99))
   {
-        $result99 = mysql_query("SELECT * FROM ships WHERE ship_id=$sourceport[fm_owner]");
-        $fighters_owner = mysql_fetch_array($result99);
-        if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
+     
+     $nsresult = mysql_query("SELECT * from ships where ship_id=$fighters_owner[ship_id]");
+     $nsfighters = mysql_fetch_array($nsresult);
+     mysql_free_result($nsresult);
+     mysql_free_result($result99);
+     if ($nsfighters[team] != $playerinfo[team] || $playerinfo[team]==0)
             $hostile = 1;
   }
-  if (($destport[fighters] > 0 || $destport[mines] > 0) && $destport[fm_owner] != $playerinfo[ship_id])
+  
+  $result99 = mysql_query("SELECT * FROM sector_defence WHERE sector_id = $dest[sector_id] and ship_id <> $playerinfo[ship_id]");
+  if($fighters_owner = mysql_fetch_array($result99))
   {
-        $result99 = mysql_query("SELECT * FROM ships WHERE ship_id=$destport[fm_owner]");
-        $fighters_owner = mysql_fetch_array($result99);
-        if ($fighter_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
+
+     $nsresult = mysql_query("SELECT * from ships where ship_id=$fighters_owner[ship_id]");
+     $nsfighters = mysql_fetch_array($nsresult);
+     mysql_free_result($nsresult);
+     mysql_free_result($result99);
+     if ($nsfighters[team] != $playerinfo[team] || $playerinfo[team]==0)
             $hostile = 1;
   }
+  
+
   if($hostile > 0 && $playerinfo[hull] > $mine_hullsize) 
      traderoute_die("You can not use trade routes between sectors with hostile defences. You must defeat the defences first.");
 

@@ -81,7 +81,7 @@ switch($response) {
           // Attack mines goes here
          $countres = mysql_query("SELECT SUM(quantity) as totalmines FROM sector_defence where sector_id = $sector and defence_type = 'M'");
          $ttl = mysql_fetch_array($countres);
-         $total_sector_mines = $ttl['mines'];
+         $total_sector_mines = $ttl['totalmines'];
          $playerbeams = NUM_BEAMS($playerinfo[beams]);
          if($playerbeams>$playerinfo[ship_energy])
          {
