@@ -74,7 +74,7 @@ else
   echo "<TD><B><A HREF=defence-report.php3?sort=mode>Mode</A></B></TD>";
   echo "</TR>";
   $color = $color_line1;
-  for($i=0; $i<$num_sectors; $i++) {
+  for($i=0; $i<$num_planets; $i++) 
     
     echo "<TR BGCOLOR=\"$color\">";
     echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</A></TD>";
@@ -93,7 +93,7 @@ else
     }
   }
   echo "</TABLE>";
-}
+
 echo "<BR><BR>";
 
 TEXT_GOTOMAIN();
