@@ -2,7 +2,8 @@
 include("config.php3");
 updatecookie();
 
-$title="Edit Zone";
+include($gameroot . $default_lang);
+$title=$l_ze_title;
 include("header.php3");
 
 connectdb();
@@ -14,7 +15,7 @@ bigtitle();
 
 $res = mysql_query("SELECT * FROM zones WHERE zone_id='$zone'");
 if(!mysql_num_rows($res))
-  zoneedit_die("This section of space does not exist!");
+  zoneedit_die($l_zi_nexist);
 $curzone = mysql_fetch_array($res);
 
 if($curzone[corp_zone] == 'N')
@@ -29,7 +30,7 @@ else
 }
 
 if(($curzone[corp_zone] == 'N' && $curzone[owner] != $ownerinfo[ship_id]) || ($curzone[corp_zone] == 'Y' && $curzone[owner] != $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
-  zoneedit_die("You are not owner of this zone so you can't edit it.");
+  zoneedit_die($l_ze_notowner);
 
 if($command == change)
   zoneedit_change();
@@ -72,33 +73,33 @@ else
 
 echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<table border=0><tr>" .
-     "<td align=right><font size=2><b>Zone name : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><b>$l_ze_name : &nbsp;</b></font></td>" .
      "<td><input type=text name=name size=30 maxlength=30 value=\"$curzone[zone_name]\"></td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>Allow beacons : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;No</td>" .
+     "<td align=right><font size=2><b>$l_ze_allow $l_beacons : &nbsp;</b></font></td>" .
+     "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;$l_no</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>Allow attacking other ships : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=attacks value=Y $yattack>&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=attacks value=N $nattack>&nbsp;No</td>" .
+     "<td align=right><font size=2><b>$l_ze_attacks : &nbsp;</b></font></td>" .
+     "<td><input type=radio name=attacks value=Y $yattack>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=attacks value=N $nattack>&nbsp;$l_no</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>Allow warp editors : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;No</td>" .
+     "<td align=right><font size=2><b>$l_ze_allow $l_warpedit : &nbsp;</b></font></td>" .
+     "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;$l_no</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>Allow sector defenses : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;Limited to you and allies</td>" .
+     "<td align=right><font size=2><b>$l_allow $l_sector_def : &nbsp;</b></font></td>" .
+     "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>Allow creating new planets : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=planets value=Y $yplanet>&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=N $nplanet>&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=L $lplanet>&nbsp;Limited to you and allies</td>" .
+     "<td align=right><font size=2><b>$l_ze_genesis : &nbsp;</b></font></td>" .
+     "<td><input type=radio name=planets value=Y $yplanet>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=N $nplanet>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=L $lplanet>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>Allow trading at port : &nbsp;</b></font></td>" .
-     "<td><input type=radio name=trades value=Y $ytrade>&nbsp;Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=N $ntrade>&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=L $ltrade>&nbsp;Limited to you and allies</td>" .
+     "<td align=right><font size=2><b>$l_allow $l_title_port : &nbsp;</b></font></td>" .
+     "<td><input type=radio name=trades value=Y $ytrade>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=N $ntrade>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=L $ltrade>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td colspan=2 align=center><br><input type=submit value=Save></td></tr>" .
+     "<td colspan=2 align=center><br><input type=submit value=$l_submit></td></tr>" .
      "</table>" .
      "</form>";
 
 
-echo "Click <a href=zoneinfo.php3?zone=$zone>here</a> to return to the zone information page.<p>";
+echo "<a href=zoneinfo.php3?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
 TEXT_GOTOMAIN();
 
 include("footer.php3");
@@ -120,8 +121,8 @@ function zoneedit_change()
     $name = addslashes($name);
   mysql_query("UPDATE zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
   echo mysql_error();
-  echo "You changes have been saved.<p>";
-  echo "Click <a href=zoneinfo.php3?zone=$zone>here</a> to return to the zone information page.<p>";
+  echo "$l_ze_saved<p>";
+  echo "<a href=zoneinfo.php3?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
   TEXT_GOTOMAIN();
 
   include("footer.php3");
@@ -132,7 +133,7 @@ function zoneedit_die($error_msg)
 {
   echo "<p>$error_msg<p>";
   mysql_query("UNLOCK TABLES");
-  
+
   TEXT_GOTOMAIN();
   include("footer.php3");
   die();

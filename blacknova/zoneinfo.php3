@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Zone Information";
+include($gameroot . $default_lang);
+$title=$l_zi_title;
 include("header.php3");
 
 connectdb();
@@ -20,18 +19,18 @@ mysql_free_result($res);
 
 $res = mysql_query("SELECT * FROM zones WHERE zone_id='$zone'");
 if(!mysql_num_rows($res))
-  echo "This section of space does not exist!";
+  echo $l_zi_nexist;
 else
 {
   $row = mysql_fetch_array($res);
   if($row[zone_name] == 'Federation space')
-    $ownername = "Federation";
+    $ownername = $l_zi_feds;
   elseif($row[zone_name] == 'Free-Trade space')
-    $ownername = "The Free-Trade Coalition";
+    $ownername = $l_zi_traders;
   elseif($row[zone_name] == 'Unchartered space')
-    $ownername = "Nobody";
+    $ownername = $l_zi_nobody;
   elseif($row[zone_name] == 'War Zone')
-    $ownername = "Contested space";
+    $ownername = $l_zi_war;
   else
   {
     if($row[corp_zone] == 'N')
@@ -49,61 +48,61 @@ else
   }
 
   if($row[allow_beacon] == 'Y')
-    $beacon="Allowed";
+    $beacon=$l_zi_allow;
   else
-    $beacon="Not allowed";
+    $beacon=$l_zi_notallow;
 
   if($row[allow_attack] == 'Y')
-    $attack="Allowed";
+    $attack=$l_zi_allow;
   else
-    $attack="Not allowed";
+    $attack=$l_zi_notallow;
 
   if($row[allow_defenses] == 'Y')
-    $defense = "Allowed";
+    $defense = $l_zi_allow;
   elseif($row[allow_defenses] == 'N')
-    $defense = "Not allowed";
+    $defense = $l_zi_notallow;
   else
-    $defense = "Limited to owner and allies";
+    $defense = $l_zi_limit;
 
   if($row[allow_warpedit] == 'Y')
-    $warpedit="Allowed";
+    $warpedit=$l_zi_allow;
   else
-    $warpedit="Not allowed";
+    $warpedit=$l_zi_notallow;
 
   if($row[allow_planet] == 'Y')
-    $planet="Allowed";
+    $planet=$l_zi_allow;
   elseif($row[allow_planet] == 'L')
-    $planet="Limited to owner and allies";
+    $planet=$l_zi_limit;
   else
-    $planet="Not allowed";
+    $planet=$l_zi_notallow;
 
   if($row[allow_trade] == 'Y')
-    $trade="Allowed";
+    $trade=$l_zi_allow;
   elseif($row[allow_trade] == 'L')
-    $trade="Limited to owner and allies";
+    $trade=$l_zi_limit;
   elseif($row[allow_trade] == 'N')
-    $trade="Not allowed";
+    $trade=$l_zi_notallow;
 
   if($row[max_hull] == 0)
-    $hull="Unlimited";
+    $hull=$l_zi_ul;
   else
     $hull=$row[max_hull];
 
   if(($row[corp_zone] == 'N' && $row[owner] == $playerinfo[ship_id]) || ($row[corp_zone] == 'Y' && $row[owner] == $playerinfo[team] && $playerinfo[ship_id] == $ownerinfo[creator]))
-    echo "<center>You are in control of this zone. Click <a href=zoneedit.php?zone=$zone>here</a> to change its laws.</center><p>";
+    echo "<center>$l_zi_control. <a href=zoneedit.php?zone=$zone>$l_clickme</a> $l_zi_tochange</center><p>";
 
   echo "<table border=1 cellspacing=1 cellpadding=0 width=\"65%\" align=center>" .
        "<tr bgcolor=$color_line2><td align=center colspan=2><b><font color=white>$row[zone_name]</font></b></td></tr>" .
        "<tr><td colspan=2>" .
        "<table border=0 cellspacing=0 cellpadding=2 width=\"100%\" align=center>" .
-       "<tr bgcolor=$color_line1><td width=\"50%\"><font color=white size=3>&nbsp;Zone owner</font></td><td width=\"50%\"><font color=white size=3>$ownername&nbsp;</font></td></tr>" .
-       "<tr bgcolor=$color_line2><td><font color=white size=3>&nbsp;Beacons</font></td><td><font color=white size=3>$beacon&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Attacking</font></td><td><font color=white size=3>$attack&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Sector defenses</font></td><td><font color=white size=3>$defense&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Warp Editors</font></td><td><font color=white size=3>$warpedit&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Planets</font></td><td><font color=white size=3>$planet&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Trading at port</font></td><td><font color=white size=3>$trade&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Maximum hull size allowed</font></td><td><font color=white size=3>$hull&nbsp;</font></td></tr>" .
+       "<tr bgcolor=$color_line1><td width=\"50%\"><font color=white size=3>&nbsp;$l_zi_owner</font></td><td width=\"50%\"><font color=white size=3>$ownername&nbsp;</font></td></tr>" .
+       "<tr bgcolor=$color_line2><td><font color=white size=3>&nbsp;$l_beacons</font></td><td><font color=white size=3>$beacon&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;$l_att_att</font></td><td><font color=white size=3>$attack&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;$l_md_title</font></td><td><font color=white size=3>$defense&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;$l_warpedit</font></td><td><font color=white size=3>$warpedit&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;$l_planets</font></td><td><font color=white size=3>$planet&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;$l_title_port</font></td><td><font color=white size=3>$trade&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;$l_zi_maxhull</font></td><td><font color=white size=3>$hull&nbsp;</font></td></tr>" .
        "</table>" .
        "</td></tr>" .
        "</table>";

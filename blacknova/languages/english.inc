@@ -419,6 +419,8 @@ $l_lrs_cantscan		 = "Can't scan sector from current sector!";
 $l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
 $l_lrs_moveto		 = "to move to sector";
 
+// log.php
+
 $l_log_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
 $l_log_months_short = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 $l_log_pod = "Luckily, you had an escape pod!";
@@ -505,4 +507,32 @@ $l_sendm_subj		 = "Subject";
 $l_sendm_mess		 = "Message";
 $l_sendm_send		 = "Send";
 $l_sendm_sent		 = "Message Sent";
+
+// zoneinfo.php
+
+$l_zi_title		 = "Zone Information";
+$l_zi_nexist		 = "This section of space does not exist!";
+$l_zi_feds		 = "Federation";
+$l_zi_traders		 = "The Free-Trade Coalition";
+$l_zi_nobody		 = "Nobody";
+$l_zi_war		 = "Contested space";
+$l_zi_allow		 = "Allowed";
+$l_zi_notallow		 = "Not allowed";
+$l_zi_limit		 = "Limited to owner and allies";
+$l_zi_ul		 = "Unlimited";
+$l_zi_control		 = "You are in control of this zone";
+$l_zi_tochange		 = "to change its laws.";
+$l_zi_owner		 = "Zone owner";
+$l_zi_maxhull		 = "Maximum hull size allowed";
+
+// zoneedit.php
+
+$l_ze_title		 = "Edit Zone";
+$l_ze_notowner		 = "You are not owner of this zone so you can't edit it.";
+$l_ze_name		 = "Zone name";
+$l_ze_allow		 = "Allow";
+$l_ze_attacks		 = "Allow attacking other ships";
+$l_ze_genesis		 = "Allow creating new planets";
+$l_ze_return		 = "to return to the zone information page";
+$l_ze_saved		 = "Your changes have been saved.";
 ?>
