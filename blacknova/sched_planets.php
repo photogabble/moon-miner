@@ -17,7 +17,7 @@
     {
       $organics_production = -$row[organics];
       $starvation = $row[colonists] * $starvation_death_rate;
-      if($row[owner] && $starvation > 0)
+      if($row[owner] && $starvation >= 1)
       {
         playerlog($row[owner], LOG_STARVATION, "$row[sector_id]|$starvation");
       }
