@@ -28,7 +28,7 @@ srand((double)microtime()*1000000);
 if($sectorinfo[planet] == 'Y')
 /* if there is a planet in the sector show appropriate menu */
 { 
-  if($sectorinfo[planet_owner] == "" && $command != "capture")
+  if($sectorinfo[planet_owner] == 0 && $command != "capture")
   {
     echo "This planet is unowned.<BR><BR>";
     $update = mysql_query("UPDATE universe SET planet_fighters=0, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
@@ -38,7 +38,7 @@ if($sectorinfo[planet] == 'Y')
     include("footer.php3");
     die();
   }
-  if($sectorinfo[planet_owner] != "")
+  if($sectorinfo[planet_owner] != 0)
   {
     $result3 = mysql_query("SELECT * FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
     $ownerinfo = mysql_fetch_array($result3);

@@ -75,6 +75,8 @@ if($res > 0)
 $num_links = $i;
 
 $res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
+echo "SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]";
+echo mysql_error();
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
@@ -105,8 +107,7 @@ $planettypes[4]= "hugeplanet.gif";
 <script language="javascript">{ alert('You have <? echo mysql_num_rows($result);
  ?> Messages waiting for you.'); }</script>
 <?
-  mysql_query("UPDATE messages SET notified='Y' WHERE recp_id='".$playerinfo[shi
-p_id]."'");
+  mysql_query("UPDATE messages SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
  }
 # New Message Check stop -- blindcoder
 ?>
