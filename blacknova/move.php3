@@ -90,7 +90,7 @@ $stamp = date("Y-m-d H-i-s");
               $roll = 0;
               $result2 = mysql_query("UPDATE ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
               mysql_free_result($result2);             
-              $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$playerinfo[sector]");
+              $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$sector");
               mysql_free_result($result2);             
 
            }
@@ -99,12 +99,10 @@ $stamp = date("Y-m-d H-i-s");
               $mines_left = $roll - $playerinfo[dev_minedeflector];
               if($playerinfo[shields] >= $mines_left)
               {
-                 $mines_left = 0;
                  echo "Your shields are hit for $mines_left damage.<BR>";
-                 $roll = 0;
                  $result2 = mysql_query("UPDATE ships set shields=shields-$mines_left where ship_id=$playerinfo[ship_id]");
                  mysql_free_result($result2);             
-                 $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$playerinfo[sector]");
+                 $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$sector");
                  mysql_free_result($result2);
                  if($playerinfo[shields] == $mines_left) echo "Your shields are down!<BR>";
               }
@@ -113,13 +111,9 @@ $stamp = date("Y-m-d H-i-s");
                  $mines_left = $mines_left - $playerinfo[shields];
                  if($playerinfo[armour_pts] >= $mines_left)
                  {
-                    $mines_left = 0;
                     echo "Your armour is hit for $mines_left damage.<BR>";
-                    $roll = 0;
                     $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left where ship_id=$playerinfo[ship_id]");
-                    mysql_free_result($result2);             
-                    $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$playerinfo[sector]");
-                    mysql_free_result($result2);
+                    $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$sector");
                     if($playerinfo[armour_pts] == $mines_left) echo "Your hull is breached!<BR>";
                  }
                  else
@@ -145,7 +139,7 @@ $stamp = date("Y-m-d H-i-s");
         }   
 
     }
-    if ($ok=1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
+    if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
     {
         TEXT_GOTOMAIN();
     }
