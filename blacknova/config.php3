@@ -20,6 +20,7 @@ $fed_max_hull = 8;
 // iBank Config - Intergalactic Banking
 // Trying to keep ibank constants unique by prefixing with $ibank_ 
 // Please EDIT the following variables to your liking.
+$allow_ibank = false;
 $ibank_owner = 0; 				    // Use 0 for no human player or ID of Owner of IGB some thrusted player or admin.
 $ibank_interest = 0.01; 		  // Interest rate for account funds
 $ibank_paymentfee = 0.005; 		// Paymentfee

@@ -35,6 +35,14 @@ include("header.php3");
 connectdb();
 if (checklogin()) {die();}
 
+if(!$allow_ibank)
+{
+  echo "The Inter Galactic Bank is currently closed.<BR><BR>";
+  echo "Click <a href=main.php3>here</a> to return to main menu.";
+  include("footer.php3");  
+  die();
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 // -- Refresh data for display
 
