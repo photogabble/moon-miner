@@ -5,6 +5,7 @@ function calcplanetbeams()
 	global $playerinfo;
 	global $ownerinfo;
 	global $sectorinfo;
+        global $basedefense;
 	
 	$energy_available = $sectorinfo[planet_energy];
 	$planetbeams = NUM_BEAMS($ownerinfo[beams] + $basedefense);
@@ -34,6 +35,7 @@ function calcplanettorps()
 	global $ownerinfo;
 	global $sectorinfo;
 	global $level_factor;
+        global $basedefense;
 	
 	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
 	$torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $basedefense)) * 2;
@@ -56,6 +58,7 @@ function calcplanetshields()
 	global $playerinfo;
 	global $ownerinfo;
 	global $sectorinfo;
+        global $basedefense;
 	
 	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
 	$planetshields = NUM_SHIELDS($ownerinfo[shields]) + $basedefense;

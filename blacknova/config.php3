@@ -122,6 +122,7 @@ $torp_dmg_rate = 10;
 $credits_prate = 3.0;
 
 $armour_price = 5;
+$basedefense = 1;  // Additional factor added by having a base on your planet
 
 $colonist_price = 5;
 $colonist_production_rate = .005;
