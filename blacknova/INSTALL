@@ -1,0 +1,42 @@
+BlackNova Traders - Installation
+
+1. Untar the distribution (be sure to untar the subdirectories):  
+   tar xvf bnt-x.x.x.tar
+2. Edit the file config.php3 in you favourite editor and change the values
+   for host, user, and password to fit your MySQL environment.  Also check
+   for other configuration variables specific to your installation (such
+   as adminpass and admin_mail for example).
+3. Create the database:  
+	mysqladmin -uuser -ppass create dbname
+	mysql -uuser -ppass dbname < blacknova.sql
+4. Open the file <www.your-host>/<install-dir>/create_universe.php3 in
+   your browser.  You'll need to enter your admin password to access this
+   page.  Change the settings to suit the universe you'd like to create -
+   and go for it. 
+5. Open the file <www.your-host>/<install-dir>/index.php3 in your browser
+   - you should now be able to log-in.
+6. CRON jobs - here's a copy of my crontab:
+
+*/6 * * * * /usr/bin/lynx --dump http://blacknova.net/sysupdate.php3?swordfish=changeme > /dev/null
+*/15 * * * * /usr/bin/lynx --source http://blacknova.net/genrank.php3 > /home2/blacknova/www/ranking.php3
+*/6 * * * * /bin/touch /home2/blacknova/cron.txt
+
+   Make sure "changeme" is changed to your admin password, change the 
+   path for cron.txt matches whatever is in main.php3 ... this allows
+   users to see how long it has been since the last update. 
+   The genrank.php3 line creates ranking.php3 for users to see the top 100
+   rankings in order to lessen load on the server.
+7. Hopefully - it works now. :)
+
+If you need help with the game itself - visit http://blacknova.net and
+check out our forums.
+
+If you need help with installation/setup/bugs - you can mail me, but don't
+expect a speedy reply - I'm opening a sourceforge.net account for this
+game - check there, and submit bugs there.
+
+Regards,
+
+Ron <harwoodr@blacknova.net>
+
+
