@@ -17,7 +17,7 @@ bigtitle();
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Number of Sectors</TD><TD>$sector_max</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Maximum Links per sector</TD><TD>$link_max</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum Hull Size for Federation Sectors</TD><TD>$fed_max_hull</TD></TR>";
-  $bank_enabled = $allow_banke ? "Yes" : "No";
+  $bank_enabled = $allow_ibank ? "Yes" : "No";
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Intergalactic Bank Enabled</TD><TD>$bank_enabled</TD></TR>";
   $rate = $ibank_interest * 100;
   echo "<TR BGCOLOR=\"$color_line1\"><TD>IGB Interest rate per update</TD><TD>$rate</TD></TR>";
