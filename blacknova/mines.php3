@@ -82,7 +82,7 @@ if ($playerinfo[turns]<1)
 	include("footer.php3");
 	die();
 }
-$res = mysql_query("SELECT allow_defenses,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
+$res = mysql_query("SELECT allow_defenses,universe.zone_id,owner FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 if($zoneinfo[allow_defenses] == 'N')
@@ -109,7 +109,22 @@ else
          }
       }
    }
-    
+   if($zoneinfo[allow_defenses] == 'L')    
+   {
+         $zone_owner = $zoneinfo['owner'];
+         $result2 = mysql_query("SELECT * from ships where ship_id=$zone_owner");
+         $zoneowner_info = mysql_fetch_array($result2);
+         mysql_free_result($result2);
+     
+         if($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0) 
+         {
+            echo "Deploying Mines and Fighters in this sector is not permitted.<BR><BR>";
+            TEXT_GOTOMAIN();
+            die();
+            
+         }
+   }
+
    
    if(!isset($nummines) or !isset($numfighters) or !isset($mode))
    {
