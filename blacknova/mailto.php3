@@ -1,46 +1,60 @@
 <?
-	include("config.php3");
-	updatecookie();
+include("config.php3");
+updatecookie();
 
-	$title="Send Message";
-	include("header.php3");
-	connectdb();
+$title="Send Message";
+include("header.php3");
 
-	if (checklogin()) {die();}
+connectdb();
 
-	$to=intval(abs($to));
+if(checklogin())
+{
+  die();
+}
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
+$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
+$playerinfo = mysql_fetch_array($res);
+mysql_free_result($res);
 
-	$result2 = mysql_query ("SELECT * FROM ships WHERE ship_id=$to");
-	$targetinfo=mysql_fetch_array($result2);
-        bigtitle();
-	if (empty($content))
-	{
-		echo "<form action=mailto.php3?to=$to method=post>";
-		echo "<table>";
-		echo "<tr><td>TO:</td><td>$targetinfo[character_name]</td></tr>";
-		echo "<tr><td>FROM:</td><td>$playerinfo[character_name] in Traders ($playerinfo[email])</td></tr>";
-		echo "<tr><td>SUBJECT:</td><td><input type=text name=subject size=40 maxlength=40></td></tr>";
-		echo "<tr><td>CONTENT:</td><td><textarea name=content rows=5 cols=40></textarea></td></tr>";
-		echo "<input type=hidden name=to value=$to>";	
-		echo "<tr><td></td><td><input type=submit value=Send><input type=reset value=Reset></td></tr>";
-		echo "</table>";
-		echo "</form>";
-	} else {
-		echo "<table>";
-		echo "<tr><td>TO:</td><td>$targetinfo[character_name]</td></tr>";
-		echo "<tr><td>FROM:</td><td>$playerinfo[character_name] in Traders ($playerinfo[email])</td></tr>";
-		echo "<tr><td>SUBJECT:</td><td>$subject</td></tr>";
-		echo "<tr><td></td><td>$content</td></tr>";
-		echo "</table>";
-		mail("$targetinfo[email]", "$subject", "Message from $playerinfo[character_name] in the $game_name Game.\n\n$content","From: $playerinfo[email]\nX-Mailer: PHP/" . phpversion());
+bigtitle();
 
-		echo "<BR><BR>Message has been sent.";
-	}	
-    TEXT_GOTOMAIN();
+if(empty($content))
+{
+  $res = mysql_query("SELECT character_name FROM ships ORDER BY character_name ASC");
+  echo "<FORM ACTION=mailto2.php3 METHOD=POST>";
+  echo "<TABLE>";
+  echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
+  while($row = mysql_fetch_array($res))
+  {
+    echo "<OPTION>$row[character_name]";
+  }
+  mysql_free_result($res);
+  echo "</SELECT></TD></TR>";
+  echo "<TR><TD>From:</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name] - $playerinfo[email]\"></TD></TR>";
+  echo "<TR><TD>Subject:</TD><TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40></TD></TR>";
+  echo "<TR><TD>Message:</TD><TD><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></TD></TR>";
+  echo "<TR><TD></TD><TD><INPUT TYPE=SUBMIT VALUE=Send><INPUT TYPE=RESET VALUE=Clear></TD>";
+  echo "</TABLE>";
+  echo "</FORM>";
+}
+else
+{
+  echo "Message Sent<BR><BR>";
+#  $res = mysql_query("SELECT email FROM ships WHERE character_name='$to'");
+#  $address = mysql_fetch_array($res);
+#  mysql_free_result($res);
+#  mail($address[email], $subject, "Message from ".$playerinfo[character_name]." in the ".$game_name." Game.\n\n".$content,"From: ".$playerinfo[email]."\nX-Mailer: PHP/" . phpversion());
 
-	include("footer.php3");
-?>
+  $res = mysql_query("SELECT * FROM ships WHERE character_name='$to'");
+  $target_info = mysql_fetch_array($res);
+  mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
+  #using this three lines to get recipients ship_id and sending the message -- blindcoder
+
+}
+
+TEXT_GOTOMAIN();
+
+include("footer.php3");
+
+?> 
 

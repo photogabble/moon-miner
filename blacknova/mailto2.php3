@@ -41,10 +41,16 @@ if(empty($content))
 else
 {
   echo "Message Sent<BR><BR>";
-  $res = mysql_query("SELECT email FROM ships WHERE character_name='$to'");
-  $address = mysql_fetch_array($res);
-  mysql_free_result($res);
-  mail("$address[email]", "$subject", "Message from $playerinfo[character_name] in the $game_name Game.\n\n$content","From: $playerinfo[email]\nX-Mailer: PHP/" . phpversion());
+#  $res = mysql_query("SELECT email FROM ships WHERE character_name='$to'");
+#  $address = mysql_fetch_array($res);
+#  mysql_free_result($res);
+#  mail($address[email], $subject, "Message from ".$playerinfo[character_name]." in the ".$game_name." Game.\n\n".$content,"From: ".$playerinfo[email]."\nX-Mailer: PHP/" . phpversion());
+
+  $res = mysql_query("SELECT * FROM ships WHERE character_name='$to'");
+  $target_info = mysql_fetch_array($res);
+  mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
+  #using this three lines to get recipients ship_id and sending the message -- blindcoder
+
 }
 
 TEXT_GOTOMAIN();

@@ -15,6 +15,7 @@ mysql_query("DROP TABLE IF EXISTS ships");
 mysql_query("DROP TABLE IF EXISTS teams");
 mysql_query("DROP TABLE IF EXISTS universe");
 mysql_query("DROP TABLE IF EXISTS zones");
+mysql_query("DROP TABLE IF EXISTS messages");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema
@@ -218,6 +219,18 @@ mysql_query("INSERT INTO newsactions VALUES( 'SSCAN', 'Ship to Ship Scan')");
 mysql_query("INSERT INTO newsactions VALUES( 'PSCAN', 'Planet Scan')");
 mysql_query("INSERT INTO newsactions VALUES( 'PDEF', 'Planet Defeated')");
 mysql_query("INSERT INTO newsactions VALUES( 'SDEF', 'Ship Defeated')");
+echo "created.<BR>";
+
+echo "Creating internal messaging tables...";
+mysql_query("CREATE TABLE messages (" .
+             "ID bigint(20) NOT NULL auto_increment," .
+             "sender_id bigint(20) NOT NULL default '0'," .
+             "recp_id bigint(20) NOT NULL default '0'," .
+             "subject varchar(250) NOT NULL default ''," .
+             "message longtext NOT NULL," .
+             "notified enum('Y','N') NOT NULL default 'N'," .
+             "PRIMARY KEY  (ID) " .
+             ") TYPE=MyISAM");
 echo "created.<BR>";
 
 //Finished

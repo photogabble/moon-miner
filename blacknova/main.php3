@@ -29,7 +29,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ");
+mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ, messages WRITE");
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -96,7 +96,20 @@ $planettypes[4]= "hugeplanet.gif";
 <tr><td align="center" colspan=3><font color=silver size=<? echo $basefontsize + 2; ?> face="arial">Player <b><font color=white><? echo $playerinfo[character_name];?></font></b>, aboard the <b><font color=white><a href="report.php3"><? echo $playerinfo[ship_name] ?></a></font></b>
 </td></tr>
 </table>
-
+<?
+# New Message Check start -- blindcoder
+ $result = mysql_query("SELECT * FROM messages WHERE recp_id='".$playerinfo[ship_id]."' AND notified='N'");
+ if (mysql_num_rows($result)>0)
+ {
+?>
+<script language="javascript">{ alert('You have <? echo mysql_num_rows($result);
+ ?> Messages waiting for you.'); }</script>
+<?
+  mysql_query("UPDATE messages SET notified='Y' WHERE recp_id='".$playerinfo[shi
+p_id]."'");
+ }
+# New Message Check stop -- blindcoder
+?>
 <table width=75% cellpadding=0 cellspacing=1 border=0 align=center>
 <tr><td>
 <font color=silver size=<? echo $basefontsize + 2; ?> face="arial">&nbsp;Turns available: </font><font color=white><b><? echo NUMBER($playerinfo[turns]) ?></b></font>
@@ -148,6 +161,7 @@ Commands
 &nbsp;<a class=mnu href="device.php3">Devices</a>&nbsp;<br>
 &nbsp;<a class=mnu href="planet-report.php3">Planets</a>&nbsp;<br>
 &nbsp;<a class=mnu href="log.php3">Log</a>&nbsp;<br>
+&nbsp;<a class=mnu href="readmail.php3">Read Messages</A>&nbsp;<br> <? # Link to read the messages -- blindcoder ?>
 &nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
 &nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
 &nbsp;<a class=mnu href="lastusers.php3">Last Users</a>&nbsp;<br>
