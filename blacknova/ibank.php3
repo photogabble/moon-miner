@@ -436,8 +436,6 @@ function ibank_display_transfers()
     $feepct = $ibank_paymentfee * 100;
     $totalamount = round($fee + $amount);
     
-    $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-    $playerinfo=mysql_fetch_array($result);
 
     if(isset($confirmed) && ($totalamount<$playerinfo[credits]))
     {
@@ -642,8 +640,6 @@ function ibank_display_payments()
     $fee = $ibank_paymentfee * $amount;
     $feepct = $ibank_paymentfee * 100;
     $totalamount = round($fee + $amount);
-    $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-    $playerinfo=mysql_fetch_array($result);
     if(isset($confirmed) && ($totalamount<$playerinfo[credits]))
     {
       // Payment is confirmed
