@@ -11,8 +11,8 @@ if($account_creation_closed)
 {
   die($account_creation_closed_message);
 }
-$character=ereg_replace("[^[:digit:][:space:][:alpha:]]"," ",$character);
-$shipname=ereg_replace("[^[:digit:][:space:][:alpha:]]"," ",$shipname);
+$character=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$character);
+$shipname=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$shipname);
 
 if(!get_magic_quotes_gpc())
 {
