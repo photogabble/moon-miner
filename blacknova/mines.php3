@@ -24,6 +24,13 @@ $res = mysql_query("SELECT * from universe WHERE sector_id=$playerinfo[sector]")
 $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 bigtitle();
+if ($playerinfo[turns]<1)
+{
+	echo "You need at least one turn to deploy sector defences.<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php3");
+	die();
+}
 $res = mysql_query("SELECT allow_attack,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND zones.zone_id=universe.zone_id");
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
