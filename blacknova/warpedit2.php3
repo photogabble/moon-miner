@@ -32,8 +32,7 @@ if($playerinfo[dev_warpedit] < 1)
   die();
 }
 
-$res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe W
-HERE sector_id=$playerinfo[sector] AND universe.zone_id=zones.zone_id");
+$res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND universe.zone_id=zones.zone_id");
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N')
 {

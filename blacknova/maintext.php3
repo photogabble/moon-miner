@@ -286,6 +286,7 @@ echo "<A HREF=options.php3>Options</A> - ";
 echo "<A HREF=feedback.php3>Feedback</A> - ";
 echo "<A HREF=self-destruct.php3>Self-Destruct</A> - ";
 echo "<A HREF=help.php3>Help</A>";
+echo "<A HREF=http://copland.udel.edu/~wallkk/bnfaq/>FAQ</A>";
 if(!empty($link_forums))
 {
   echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";

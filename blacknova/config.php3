@@ -26,6 +26,20 @@ $server_closed_message="Server closed until further notice.";
 $account_creation_closed=false;    //true = block new account creation
 $account_creation_closed_message="Game closed for tournament play";
 
+/* newbie niceness variables */
+$newbie_nice = "YES";
+$newbie_extra_nice = "YES";
+$newbie_hull = "8";
+$newbie_engines = "8";
+$newbie_power = "8";
+$newbie_computer = "8";
+$newbie_sensors = "8";
+$newbie_armour = "8";
+$newbie_shields = "8";
+$newbie_beams = "8";
+$newbie_torp_launchers = "8";
+$newbie_cloak = "8";
+
 /* specify which special features are allowed */
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer

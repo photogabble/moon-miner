@@ -160,6 +160,7 @@ Commands
 <tr><td nowrap>
 <div class=mnu>
 &nbsp;<a class=mnu href="help.php3">Help</a>&nbsp;<br>
+&nbsp;<a class=mnu href="http://copland.udel.edu/~wallkk/bnfaq/">FAQ</a>&nbsp;<br>
 &nbsp;<a class=mnu href="feedback.php3">Feedback</a>&nbsp;<br>
 <?
 if(!empty($link_forums))
