@@ -90,8 +90,8 @@ elseif(isset($engage)) //performs trade route
 //-----------------------------------------------------------------
 if($command != 'delete')
 {
-  echo '<p>$l_tdr_newtdr<p>';
-  echo '<p>$l_tdr_modtdrset<p>';
+  echo "<p>$l_tdr_newtdr<p>";
+  echo "<p>$l_tdr_modtdrset<p>";
 }
 else {
   $l_tdr_confdel = str_replace("[tdr_id]", $traderoute_id, $l_tdr_confdel);
@@ -286,12 +286,15 @@ function traderoute_die($error_msg)
 function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $dest)
 {
   global $playerinfo;
+  global $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_sportissrc, $l_tdr_notownplanet, $l_tdr_planetisdest;
+  global $l_tdr_samecom, $l_tdr_sportcom;
 
   //check warp links compatibility
   if($move == 'warp')
   {
     $query = mysql_query("SELECT link_id FROM links WHERE link_start=$src[sector_id] AND link_dest=$dest[sector_id]");
-    if(mysql_num_rows($query) == 0) {
+    if(mysql_num_rows($query) == 0)
+    {
       $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $src[sector_id], $l_tdr_nowlink1);
       $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
       traderoute_die($l_tdr_nowlink1);
@@ -299,7 +302,8 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
     if($circuit == '2')
     {
       $query = mysql_query("SELECT link_id FROM links WHERE link_start=$dest[sector_id] AND link_dest=$src[sector_id]");
-      if(mysql_num_rows($query) == 0)  {
+      if(mysql_num_rows($query) == 0)
+      {
         $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $src[sector_id], $l_tdr_nowlink2);
         $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
         traderoute_die($l_tdr_nowlink2);
@@ -437,6 +441,10 @@ function traderoute_new($traderoute_id)
   global $playerinfo;
   global $num_traderoutes;
   global $max_traderoutes_player;
+  global $l_tdr_editerr, $l_tdr_maxtdr, $l_tdr_createnew, $l_tdr_editinga, $l_tdr_traderoute, $l_tdr_unnamed;
+  global $l_tdr_cursector, $l_tdr_selspoint, $l_tdr_port, $l_tdr_planet, $l_tdr_none, $l_tdr_insector, $l_tdr_selendpoint;
+  global $l_tdr_selmovetype, $l_tdr_realspace, $l_tdr_warp, $l_tdr_selcircuit, $l_tdr_oneway, $l_tdr_bothways, $l_tdr_create;
+  global $l_tdr_modify, $l_tdr_returnmenu;
 
   if(!empty($traderoute_id))
   {
@@ -471,14 +479,14 @@ function traderoute_new($traderoute_id)
 
   echo "$l_tdr_cursector $playerinfo[sector]<br>";
 
-  echo '
+  echo "
     <form action=traderoute.php?command=create method=post>
     <table border=0><tr>
     <td align=right><font size=2><b>$l_tdr_selspoint <br>&nbsp;</b></font></td>
     <tr>
     <td align=right><font size=2>$l_tdr_port : </font></td>
-    <td><input type=radio name="ptype1" value="port"
-    ';
+    <td><input type=radio name=\"ptype1\" value=\"port\"
+    ";
 
   if(empty($editroute) || (!empty($editroute) && $editroute[source_type] == 'P'))
     echo " checked";
@@ -491,12 +499,12 @@ function traderoute_new($traderoute_id)
   if(!empty($editroute) && $editroute[source_type] == 'P')
     echo " value=\"$editroute[source_id]\"";
 
-    echo '
+    echo "
     ></td>
     </tr><tr>
     <td align=right><font size=2>$l_tdr_planet : </font></td>
-    <td><input type=radio name="ptype1" value="planet"
-    ';
+    <td><input type=radio name=\"ptype1\" value=\"planet\"
+    ";
 
   if(!empty($editroute) && $editroute[source_type] == 'L')
     echo " checked";
@@ -521,7 +529,7 @@ function traderoute_new($traderoute_id)
     }
   }
 
-  echo '
+  echo "
     </select>
     </tr><tr>
     <td>&nbsp;
@@ -529,8 +537,8 @@ function traderoute_new($traderoute_id)
     <td align=right><font size=2><b>$l_tdr_selendpoint : <br>&nbsp;</b></font></td>
     <tr>
     <td align=right><font size=2>$l_tdr_port : </font></td>
-    <td><input type=radio name="ptype2" value="port"
-    ';
+    <td><input type=radio name=\"ptype2\" value=\"port\"
+    ";
 
   if(empty($editroute) || (!empty($editroute) && $editroute[dest_type] == 'P'))
     echo " checked";
@@ -543,12 +551,12 @@ function traderoute_new($traderoute_id)
   if(!empty($editroute) && $editroute[dest_type] == 'P')
     echo " value=\"$editroute[dest_id]\"";
 
-    echo '
+    echo "
     ></td>
     </tr><tr>
     <td align=right><font size=2>$l_tdr_planet : </font></td>
-    <td><input type=radio name="ptype2" value="planet"
-    ';
+    <td><input type=radio name=\"ptype2\" value=\"planet\"
+    ";
 
   if(!empty($editroute) && $editroute[dest_type] == 'L')
     echo " checked";
@@ -573,63 +581,63 @@ function traderoute_new($traderoute_id)
     }
   }
 
-  echo '
+  echo "
     </select>
     </tr><tr>
     <td>&nbsp;
     </tr><tr>
     <td align=right><font size=2><b>$l_tdr_selmovetype : </b></font></td>
-    <td colspan=2 valign=top><font size=2><input type=radio name="move_type" value="realspace"
-    ';
+    <td colspan=2 valign=top><font size=2><input type=radio name=\"move_type\" value=\"realspace\"
+    ";
 
   if(empty($editroute) || (!empty($editroute) && $editroute[move_type] == 'R'))
     echo " checked";
 
-  echo '
-    >&nbsp;$l_tdr_realspace&nbsp;&nbsp<font size=2><input type=radio name="move_type" value="warp"
-    ';
+  echo "
+    >&nbsp;$l_tdr_realspace&nbsp;&nbsp<font size=2><input type=radio name=\"move_type\" value=\"warp\"
+    ";
 
   if(!empty($editroute) && $editroute[move_type] == 'W')
     echo " checked";
 
-  echo '
+  echo "
     >&nbsp;$l_tdr_warp</font></td>
     </tr><tr>
     <td align=right><font size=2><b>$l_tdr_selcircuit : </b></font></td>
-    <td colspan=2 valign=top><font size=2><input type=radio name="circuit_type" value="1"
-    ';
+    <td colspan=2 valign=top><font size=2><input type=radio name=\"circuit_type\" value=\"1\"
+    ";
 
   if(empty($editroute) || (!empty($editroute) && $editroute[circuit] == '1'))
     echo " checked";
 
-  echo '
-    >&nbsp;$l_tdr_oneway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name="circuit_type" value="2"
-    ';
+  echo "
+    >&nbsp;$l_tdr_oneway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=\"circuit_type\" value=\"2\"
+    ";
 
   if(!empty($editroute) && $editroute[circuit] == '2')
     echo " checked";
 
-  echo '
+  echo "
     >&nbsp;$l_tdr_bothways</font></td>
     </tr><tr>
     <td>&nbsp;
     </tr><tr>
     <td><td><td align=center>
-    ';
+    ";
 
   if(empty($editroute))
-    echo '<input type=submit value="$l_tdr_create">';
+    echo "<input type=submit value=\"$l_tdr_create\">";
   else
   {
     echo "<input type=hidden name=editing value=$editroute[traderoute_id]>";
-    echo '<input type=submit value="$l_tdr_modify">';
+    echo "<input type=submit value=\"$l_tdr_modify\">";
   }
 
-  echo '
+  echo "
     </table>
     $l_tdr_returnmenu<br>
     </form>
-    ';
+    ";
 
 
   TEXT_GOTOMAIN();
@@ -651,6 +659,9 @@ function traderoute_create()
   global $move_type;
   global $circuit_type;
   global $editing;
+  global $l_tdr_maxtdr, $l_tdr_errnotvalidport, $l_tdr_errnoport, $l_tdr_errnosrc, $l_tdr_errnotownnotsell;
+  global $l_tdr_errnotvaliddestport, $l_tdr_errnoport2, $l_tdr_errnodestplanet, $l_tdr_errnotownnotsell2;
+  global $l_tdr_newtdrcreated, $l_tdr_tdrmodified, $l_tdr_returnmenu;
 
   if($num_traderoutes >= $max_traderoutes_player && empty($editing))
     traderoute_die($l_tdr_maxtdr);
@@ -659,13 +670,15 @@ function traderoute_create()
   if($ptype1 == 'port')
   {
     $query = mysql_query("SELECT * FROM universe WHERE sector_id=$port_id1");
-    if(!$query || mysql_num_rows($query) == 0) {
+    if(!$query || mysql_num_rows($query) == 0)
+    {
       $l_tdr_errnotvalidport = str_replace("[tdr_port_id]", $port_id1, $l_tdr_errnotvalidport);
       traderoute_die($l_tdr_errnotvalidport);
     }
 
     $source=mysql_fetch_array($query);
-    if($source[port_type] == 'none') {
+    if($source[port_type] == 'none')
+    {
       $l_tdr_errnoport = str_replace("[tdr_port_id]", $port_id1, $l_tdr_errnoport);
       traderoute_die($l_tdr_errnoport);
     }
@@ -680,7 +693,8 @@ function traderoute_create()
     //hum, that thing was tricky
     if($source[owner] != $playerinfo[ship_id])
     {
-      if(($playerinfo[team] == 0 || $playerinfo[team] != $source[corp]) && $source[sells] == 'N') {
+      if(($playerinfo[team] == 0 || $playerinfo[team] != $source[corp]) && $source[sells] == 'N')
+      {
         $l_tdr_errnotownnotsell = str_replace("[tdr_source_name]", $source[name], $l_tdr_errnotownnotsell);
         $l_tdr_errnotownnotsell = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_errnotownnotsell);
         traderoute_die($l_tdr_errnotownnotsell);
@@ -692,7 +706,8 @@ function traderoute_create()
   if($ptype2 == 'port')
   {
     $query = mysql_query("SELECT * FROM universe WHERE sector_id=$port_id2");
-    if(!$query || mysql_num_rows($query) == 0) {
+    if(!$query || mysql_num_rows($query) == 0)
+    {
       $l_tdr_errnotvaliddestport = str_replace("[tdr_port_id]", $port_id2, $l_tdr_errnotvaliddestport);
       traderoute_die($l_tdr_errnotvaliddestport);
     }
@@ -710,7 +725,8 @@ function traderoute_create()
       traderoute_die($l_tdr_errnodestplanet);
     $destination=mysql_fetch_array($query);
 
-    if($destination[owner] != $playerinfo[ship_id] && $destination[sells] == 'N') {
+    if($destination[owner] != $playerinfo[ship_id] && $destination[sells] == 'N')
+    {
       $l_tdr_errnotownnotsell2 = str_replace("[tdr_dest_name]", $destination[name], $l_tdr_errnotownnotsell2);
       $l_tdr_errnotownnotsell2 = str_replace("[tdr_dest_sector_id]", $destination[sector_id], $l_tdr_errnotownnotsell2);
       traderoute_die($l_tdr_errnotownnotsell2);
@@ -769,6 +785,7 @@ function traderoute_delete()
   global $num_traderoutes;
   global $traderoute_id;
   global $traderoutes;
+  global $l_tdr_returnmenu, $l_tdr_tdrdoesntexist, $l_tdr_notowntdr, $l_tdr_tdrdeleted;
 
   $query = mysql_query("SELECT * FROM traderoutes WHERE traderoute_id=$traderoute_id");
   if(!$query || mysql_num_rows($query) == 0)
@@ -796,64 +813,67 @@ function traderoute_delete()
 function traderoute_settings()
 {
   global $playerinfo;
+  global $l_tdr_globalset, $l_tdr_tdrsportsrc, $l_tdr_colonists, $l_tdr_fighters, $l_tdr_torps, $l_tdr_trade;
+  global $l_tdr_tdrescooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu;
+
   echo "<p><font size=3 color=blue><b>$l_tdr_globalset</b></font><p>";
 
-  echo '
+  echo "
     <font color=white size=2><b>$l_tdr_tdrsportsrc :</b></font><p>
     <form action=traderoute.php?command=setsettings method=post>
     <table border=0><tr>
     <td><font size=2 color=white> - $l_tdr_colonists :</font></td>
     <td><input type=checkbox name=colonists
-    ';
+    ";
 
   if($playerinfo[trade_colonists] == 'Y')
     echo " checked";
 
-  echo '
+  echo "
     ></tr><tr>
     <td><font size=2 color=white> - $l_tdr_fighters :</font></td>
     <td><input type=checkbox name=fighters
-    ';
+    ";
 
   if($playerinfo[trade_fighters] == 'Y')
     echo " checked";
 
-  echo '
+  echo "
     ></tr><tr>
     <td><font size=2 color=white> - $l_tdr_torps :</font></td>
     <td><input type=checkbox name=torps
-    ';
+    ";
 
   if($playerinfo[trade_torps] == 'Y')
     echo " checked";
 
-  echo '
+  echo "
     ></tr>
     </table>
     <p>
     <font color=white size=2><b>$l_tdr_tdrescooped :</b></font><p>
     <table border=0><tr>
     <td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_trade</font></td>
-    <td><input type=radio name=energy value="Y"
-    ';
+    <td><input type=radio name=energy value=\"Y\"
+    ";
 
   if($playerinfo[trade_energy] == 'Y')
     echo " checked";
 
-  echo '
+  echo "
     ></td></tr><tr>
     <td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_keep</font></td>
-    <td><input type=radio name=energy value="N"
-    ';
+    <td><input type=radio name=energy value=\"N\"
+    ";
 
   if($playerinfo[trade_energy] == 'N')
     echo " checked";
 
-  echo '></td></tr><tr><td>&nbsp;</td></tr><tr><td>
-    <td><input type=submit value="$l_tdr_save"></td>
+  echo "></td></tr><tr><td>&nbsp;</td></tr><tr><td>
+    <td><input type=submit value=\"$l_tdr_save\"></td>
     </tr></table>
     </form>
-    ';
+    ";
 
   echo $l_tdr_returnmenu;
   traderoute_die("");
@@ -867,6 +887,7 @@ function traderoute_setsettings()
   global $fighters;
   global $torps;
   global $energy;
+  global $l_tdr_returnmenu, $l_tdr_globalsetsaved;
 
   empty($colonists) ? $colonists = 'N' : $colonists = 'Y';
   empty($fighters) ? $fighters = 'N' : $fighters = 'Y';
@@ -900,6 +921,15 @@ function traderoute_engage()
   global $energy_price;
   global $energy_delta;
   global $energy_limit;
+  global $l_tdr_turnsused, $l_tdr_turnsleft, $l_tdr_credits, $l_tdr_profit, $l_tdr_cost, $l_tdr_totalprofit, $l_tdr_totalcost;
+  global $l_tdr_planetisovercrowded, $l_tdr_engageagain, $l_tdr_onlyonewaytdr, $l_tdr_engagenonexist, $l_tdr_notowntdr;
+  global $l_tdr_invalidspoint, $l_tdr_inittdr, $l_tdr_invalidsrc, $l_tdr_inittdrsector, $l_tdr_organics, $l_tdr_energy, $l_tdr_loaded;
+  global $l_tdr_nothingtoload, $l_tdr_scooped, $l_tdr_dumped, $l_tdr_portisempty, $l_tdr_portisfull, $l_tdr_ore, $l_tdr_sold;
+  global $l_tdr_goods, $l_tdr_notyourplanet, $l_tdr_invalidssector, $l_tdr_invaliddport, $l_tdr_invaliddplanet;
+  global $l_tdr_invaliddsector, $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_moreturnsneeded, $l_tdr_tdrhostdef;
+  global $l_tdr_globalsetbuynothing, $l_tdr_nosrcporttrade, $l_tdr_tradesrcportoutsider, $l_tdr_tdrres, $l_tdr_torps;
+  global $l_tdr_nodestporttrade, $l_tdr_tradedestportoutsider, $l_tdr_portin, $l_tdr_planet, $l_tdr_bought, $l_tdr_colonists;
+  global $l_tdr_fighters, $l_tdr_nothingtotrade;
 
   //10 pages of sanity checks! yeah!
 
@@ -924,7 +954,8 @@ function traderoute_engage()
 
     $source = mysql_fetch_array($result);
 
-    if($traderoute[source_id] != $playerinfo[sector]) {
+    if($traderoute[source_id] != $playerinfo[sector])
+    {
       $l_tdr_inittdr = str_replace("[tdr_source_id]", $traderoute[source_id], $l_tdr_inittdr);
       traderoute_die($l_tdr_inittdr);
     }
@@ -937,12 +968,14 @@ function traderoute_engage()
 
     $source = mysql_fetch_array($result);
 
-    if($source[sector_id] != $playerinfo[sector]) {
+    if($source[sector_id] != $playerinfo[sector])
+    {
       $l_tdr_inittdrsector = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_inittdrsector);
       traderoute_die($l_tdr_inittdrsector);
     }
 
-    if($source[owner] != $playerinfo[ship_id]) {
+    if($source[owner] != $playerinfo[ship_id])
+    {
       $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $source[name], $l_tdr_notyourplanet);
       $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_notyourplanet);
       traderoute_die($l_tdr_notyourplanet);
@@ -987,7 +1020,8 @@ function traderoute_engage()
   if($traderoute[move_type] == 'W')
   {
     $query = mysql_query("SELECT link_id FROM links WHERE link_start=$source[sector_id] AND link_dest=$dest[sector_id]");
-    if(mysql_num_rows($query) == 0) {
+    if(mysql_num_rows($query) == 0)
+    {
       $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink1);
       $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
       traderoute_die($l_tdr_nowlink1);
@@ -995,7 +1029,8 @@ function traderoute_engage()
     if($traderoute[circuit] == '2')
     {
       $query = mysql_query("SELECT link_id FROM links WHERE link_start=$dest[sector_id] AND link_dest=$source[sector_id]");
-      if(mysql_num_rows($query) == 0) {
+      if(mysql_num_rows($query) == 0)
+      {
         $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink2);
         $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
         traderoute_die($l_tdr_nowlink2);
@@ -1010,7 +1045,8 @@ function traderoute_engage()
   else
     $dist = traderoute_distance('P', 'P', $sourceport, $destport, $traderoute[circuit]);
 
-  if($playerinfo[turns] < $dist[triptime]) {
+  if($playerinfo[turns] < $dist[triptime])
+  {
     $l_tdr_moreturnsneeded = str_replace("[tdr_dist_triptime]", $dist[triptime], $l_tdr_moreturnsneeded);
     $l_tdr_moreturnsneeded = str_replace("[tdr_playerinfo_turns]", $playerinfo[turns], $l_tdr_moreturnsneeded);
     traderoute_die($l_tdr_moreturnsneeded);
@@ -1021,7 +1057,6 @@ function traderoute_engage()
   $result99 = mysql_query("SELECT * FROM sector_defence WHERE sector_id = $source[sector_id] and ship_id <> $playerinfo[ship_id]");
   if($fighters_owner = mysql_fetch_array($result99))
   {
-
      $nsresult = mysql_query("SELECT * from ships where ship_id=$fighters_owner[ship_id]");
      $nsfighters = mysql_fetch_array($nsresult);
      mysql_free_result($nsresult);
@@ -1033,7 +1068,6 @@ function traderoute_engage()
   $result99 = mysql_query("SELECT * FROM sector_defence WHERE sector_id = $dest[sector_id] and ship_id <> $playerinfo[ship_id]");
   if($fighters_owner = mysql_fetch_array($result99))
   {
-
      $nsresult = mysql_query("SELECT * from ships where ship_id=$fighters_owner[ship_id]");
      $nsfighters = mysql_fetch_array($nsresult);
      mysql_free_result($nsresult);
@@ -1073,18 +1107,6 @@ function traderoute_engage()
     }
   }
   if($traderoute[dest_type] == 'P')
-    if($zoneinfo[allow_trade] == 'N')
-      traderoute_die($l_tdr_nodestporttrade);
-    elseif($zoneinfo[allow_trade] == 'L')
-    {
-      if($zoneinfo[corp_zone] == 'N')
-      {
-        $res = mysql_query("SELECT team FROM ships WHERE ship_id=$zoneinfo[owner]");
-        $ownerinfo = mysql_fetch_array($res);
-
-        if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
-          traderoute_die($l_tdr_tradedestportoutsider);
-      }
   {
     $res = mysql_query("SELECT * FROM zones,universe WHERE universe.sector_id=$traderoute[dest_id] AND zones.zone_id=universe.zone_id");
     $zoneinfo = mysql_fetch_array($res);
@@ -1110,12 +1132,12 @@ function traderoute_engage()
 
   //We're done with checks! All that's left is to make it happen
 
-  echo '
-    <table border=1 cellspacing=1 cellpadding=2 width="65%" align=center>
-    <tr bgcolor=#400040><td align="center" colspan=7><b><font color=white>$l_tdr_tdrres</font></b></td></tr>
+  echo "
+    <table border=1 cellspacing=1 cellpadding=2 width=\"65%\" align=center>
+    <tr bgcolor=#400040><td align=\"center\" colspan=7><b><font color=white>$l_tdr_tdrres</font></b></td></tr>
     <tr align=center bgcolor=#400040>
     <td width=50%><font size=2 color=white><b>
-    ';
+    ";
 
   if($traderoute[source_type] == 'P')
     echo "$l_tdr_portin $source[sector_id]";

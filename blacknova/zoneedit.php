@@ -116,6 +116,7 @@ function zoneedit_change()
   global $planets;
   global $trades;
   global $defenses;
+  global $l_clickme, $l_ze_saved, $l_ze_return;
 
   if(!get_magic_quotes_gpc())
     $name = addslashes($name);
