@@ -31,6 +31,9 @@ else
 {
   srand((double)microtime() * 1000000);
   
+  //-------------------------------------------------------------------------------------------------
+  mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE");
+
   // add turns
   echo "<B>TURNS</B><BR><BR>";
   echo "Adding turns...";
@@ -197,6 +200,9 @@ else
 	    }
     }
   }
+
+  mysql_query("UNLOCK TABLES");
+  //-------------------------------------------------------------------------------------------------
 }
 
 include("footer.php3");
