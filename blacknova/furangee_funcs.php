@@ -34,7 +34,7 @@ function furangeetoship($ship_id)
   // *********************************
   // *** LOOKUP TARGET DETAILS    ****
   // *********************************
-  mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ");
+  mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ, planets READ, bn_news WRITE");
   $resultt = mysql_query ("SELECT * FROM ships WHERE ship_id='$ship_id'");
   $targetinfo=mysql_fetch_array($resultt);
 
