@@ -74,12 +74,11 @@ else
          { 
             echo "Deployed $numfighters fighters in $mode mode.<BR>";
          }
-         $numfighters = NUMBER($numfighters);
-         $nummines = NUMBER($nummines);
       
          $stamp = date("Y-m-d H-i-s");
          $update = mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
          $update = mysql_query("UPDATE universe SET fm_owner = $playerinfo[ship_id], fm_setting ='$mode', mines=mines+$nummines, fighters=fighters+$numfighters WHERE sector_id=$playerinfo[sector]");
+
       }
    }
 }
