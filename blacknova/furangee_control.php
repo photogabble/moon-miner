@@ -159,7 +159,7 @@ else
           echo "<TR><TD>Destroyed?</TD><TD><INPUT TYPE=CHECKBOX NAME=ship_destroyed VALUE=ON " . CHECKED($row[ship_destroyed]) . "></TD></TR>";
           echo "<TR><TD>Orders</TD><TD>";
             echo "<SELECT SIZE=1 NAME=orders>";
-            $oorder0 = $oorder1 = $oorder2 = "VALUE";
+            $oorder0 = $oorder1 = $oorder2 = $oorder3 = "VALUE";
             if ($row[orders] == 0) $oorder0 = "SELECTED=0 VALUE";
             if ($row[orders] == 1) $oorder1 = "SELECTED=1 VALUE";
             if ($row[orders] == 2) $oorder2 = "SELECTED=2 VALUE";
