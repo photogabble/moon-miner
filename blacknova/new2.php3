@@ -74,7 +74,7 @@ if ($flag==0)
     $shipid = mysql_fetch_array($result2);
 
  $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
-    mail("$username", "$l_new_topic", "$l_new_message\n\nhttp://$SERVER_NAME","From: $admin_mail\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
+    mail("$username", "$l_new_topic", "$l_new_message\n\nhttp://$gamedomain","From: $admin_mail\nReply-To: $admin_mail\nX-Mailer: PHP/" . phpversion());
 
     mysql_query("INSERT INTO zones VALUES('','$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
     mysql_query("INSERT INTO ibank_accounts VALUES($shipid[ship_id],0,0)");
