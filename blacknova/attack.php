@@ -116,7 +116,7 @@ else
             $resx = $hasbounty->fields;
             $btyamount = $resx[btytotal];
          }
-         if($resx[btytotal] <= 0) 
+         if($btyamount <= 0) 
          {
             $bounty = ROUND($playerscore * $bounty_maxvalue);
             $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");      

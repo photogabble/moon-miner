@@ -92,7 +92,7 @@ else
       }
       // Player will get a Federation Bounty on themselves if they attack a player who's score is less than bounty_ratio of
       // themselves. If the target has a Federation Bounty, they can attack without attracting a bounty on themselves.
-      if($btyamount == 0 && ($targetscore / $playerscore < $bounty_ratio || $targetinfo[turns_used] < $bounty_minturns))
+      if($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo[turns_used] < $bounty_minturns))
       {
          echo $l_by_fedbounty . "<BR><BR>";
       }
