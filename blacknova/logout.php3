@@ -2,7 +2,7 @@
 
 
 include("config.php3");
-$title = "Logout"; 
+$title = "Logout";
 
 SetCookie("userpass","",0,$gamepath,$gamedomain);
 SetCookie("userpass","",0); // Delete from default path as well.
@@ -22,8 +22,9 @@ $current_score = gen_score($playerinfo[ship_id]);
 playerlog($playerinfo[ship_id], LOG_LOGOUT, $ip);
 
 bigtitle();
-echo "You current score is $current_score.<BR>";
-echo "$username is now logged out.  Click <A HREF=index.php3>here</A> to return to game.";
+echo "$l_logout_score $current_score.<BR>";
+$l_logout_text=str_replace("[name]",$username,$l_logout_text);
+echo $l_logout_text;
 
 include("footer.php3");
 

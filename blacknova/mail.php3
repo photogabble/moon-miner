@@ -1,21 +1,24 @@
 <?
+	include("config.php3");
+	include($gameroot . $default_lang);
 
-	$title="Mail Password"; 
+	$title=$l_mail_title;
 	include("header.php3");
 
-	include("config.php3");
+
 	bigtitle();
 	mysql_connect($dbhost, $dbuname, $dbpass);
 	@mysql_select_db("$dbname") or die ("Unable to select database");
-	
+
 	$result = mysql_query ("select email, password from ships where email='$mail'");
-	
+
 	if(mysql_num_rows($result)==1) {
 	$playerinfo=mysql_fetch_row($result);
-	mail("$mail", "$game_name Password", "Greetings,\n\nSomeone from the IP address $ip requested that your password for $game_name be sent to you.\n\nYour password is: $playerinfo[1]\n\nThank you\n\nThe $game_name web team.\n\nhttp://$SERVER_NAME","From: webmaster@$SERVER_NAME\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
-	echo "Password has been sent to $mail.";
+	$l_mail_message=str_replace("[pass]",$playerinfo[1],$l_mail_message);
+	mail("$mail", "$l_mail_topic", "$l_mail_message\n\nhttp://$SERVER_NAME","From: webmaster@$SERVER_NAME\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
+	echo "$l_mail_sent $mail.";
         } else {
-                echo "<b>No Such Player! - Create a new player <a href=new.php3>here</a>.</b><br>";
+                echo "<b>$l_mail_noplayer</b><br>";
         }
 
 	include("footer.php3");

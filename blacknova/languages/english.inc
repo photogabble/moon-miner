@@ -1158,7 +1158,6 @@ $l_login_sclosed		= "Server Closed";
 $l_login_closed_message		="Server closed until further notice.";
 $l_login_title2			="Login Phase Two"; 
 $l_login_banned			="<b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b>";
-$account_creation_closed_message="Game closed for tournament play";
 $l_login_died			="Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=main.php3>here</A> to continue with a new ship.";
 $l_login_newbie			="Due to the seriousness of this crime and the vicious attack against you, the Federation has graciously decided to provide a free of charge cloning from your remains.  Sadly, even in this day and age, new clones can not own property, aside from the basics to make a living.  You will be provided with a basic ship and a few credits to get you started.  Hopefully your next life will be better.";
 $l_login_newlife		="Click <A HREF=main.php3>here</A> to continue in a new life.";
@@ -1168,4 +1167,35 @@ $l_login_4gotpw2		= "to have it e-mailed to you.<BR><BR>  Otherwise,";
 $l_login_4gotpw3		= "to try again.  Attempt logged with IP address of";
 $l_login_noone			= "No Such Player! - Create a new player <A HREF=new.php3>here</A>.";
 
+// new.php new2.php
+$l_new_title			= "Create New Player"; 
+$l_new_title2			= "Create New Player Phase Two"; 
+$l_new_shipname			= "Ship Name";
+$l_new_pname			= "Player Character Name";
+$l_new_info			= "We promise not to give out (or sell) your e-mail address to anyone.  It is required though, to send you your server generated password..";
+$l_new_closed_message		="Game closed for tournament play";
+$l_new_blank			="E-mail, ship name, and character name may not be blank.";
+$l_new_inuse			="E-mail address is already in use.";
+$l_new_4gotpw1			="If you have forgotten your password,";
+$l_new_4gotpw2			="to have it e-mailed to you.";
+$l_new_inusechar		="Character name $character, is already in use.";
+$l_new_inuseship		="Ship name $shipname, is already in use.";
+$l_new_pwsent			="Password has been sent to $username.";
+$l_new_login			="to go to the login screen.";
+$l_new_err			="Please go back or <a href=new.php3>click here</a> and try again.";
+$l_new_topic			="Traders Password";
+$l_new_message			="Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe Traders web team.";
+
+// logout.php
+
+$l_logout_score			="You current score is";
+$l_logout_text			="[name] is now logged out.  Click <A HREF=index.php3>here</A> to return to game.";
+
+// mail.php
+
+$l_mail_title			="Mail Password"; 
+$l_mail_noplayer		="No Such Player! - Create a new player <a href=new.php3>here</a>.";
+$l_mail_sent			="Password has been sent to";
+$l_mail_topic			="$game_name Password";
+$l_mail_message			="Greetings,\n\nSomeone from the IP address $ip requested that your password for $game_name be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe $game_name web team.";
 ?>

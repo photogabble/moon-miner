@@ -1,8 +1,11 @@
 <?
-$title="Create New Player Phase Two";
+include("config.php3");
+include($gameroot . $default_lang);
+
+$title=$l_new_title2;
 
 include("header.php3");
-include("config.php3");
+
 
 bigtitle();
 
@@ -10,7 +13,7 @@ connectdb();
 
 if($account_creation_closed)
 {
-  die($account_creation_closed_message);
+  die($l_new_closed_message);
 }
 $character=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$character);
 $shipname=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$shipname);
@@ -24,24 +27,24 @@ if(!get_magic_quotes_gpc())
 
 $result = mysql_query ("select email, character_name, ship_name from ships where email='$username' OR character_name='$character' OR ship_name='$shipname'");
 $flag=0;
-if ($username=='' || $character=='' || $shipname=='' ) { echo "E-mail, ship name, and character name may not be blank.<BR>"; $flag=1;}
+if ($username=='' || $character=='' || $shipname=='' ) { echo "$l_new_blank<BR>"; $flag=1;}
 
 $username = $HTTP_POST_VARS['username'];
 if ($result>0)
 {
   while ($row = mysql_fetch_row ($result))
   {
-    
-    if ($row[0]==$username) { echo "E-mail address $username, is already in use.  If you have forgotten your password, click <a href=mail.php3?mail=$username>here</a> to have it e-mailed to you.<BR>"; $flag=1;}
-    if ($row[1]==$character) { echo "Character name $character, is already in use.<BR>"; $flag=1;}
-    if ($row[2]==$shipname) { echo "Ship name $shipname, is already in use.<BR>"; $flag=1;}
-    
+
+    if ($row[0]==$username) { echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php3?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>"; $flag=1;}
+    if ($row[1]==$character) { echo "$l_new_inusechar<BR>"; $flag=1;}
+    if ($row[2]==$shipname) { echo "$l_new_inuseship<BR>"; $flag=1;}
+
   }
 }
 
 if ($flag==0)
 {
-  
+
   /* insert code to add player to database */
   $makepass="";
   $syllables="er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
@@ -62,18 +65,19 @@ if ($flag==0)
     $result2 = mysql_query("SELECT ship_id FROM ships WHERE email='$username'");
     $shipid = mysql_fetch_array($result2);
 
-    mail("$username", "Traders Password", "Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: $makepass\n\nThank you\n\nThe Traders web team.\n\nhttp://$SERVER_NAME","From: $admin_mail\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
-    
+ $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
+    mail("$username", "$l_new_topic", "$l_new_message\n\nhttp://$SERVER_NAME","From: $admin_mail\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
+
     mysql_query("INSERT INTO zones VALUES('','$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
     mysql_query("INSERT INTO ibank_accounts VALUES($shipid[ship_id],0,0)");
-    
-    echo "Password has been sent to $username.<BR><BR>";
-    echo "Click <A HREF=login.php3>here</A> to go to the login screen.";
-    
+
+    echo "$l_new_pwsent<BR><BR>";
+    echo "<A HREF=login.php3>$l_clickme</A> $l_new_login";
+
   }
 } else {
-  
-  echo "Please go back or click <a href=new.php3>here</a> and try again.";
+
+  echo $l_new_err;
 }
 
 include("footer.php3");
