@@ -4,6 +4,10 @@
 
         $dbhost = "";
 
+	// $dbport port can be used to specify a non-standard port or UNIX
+	// socket to connect to the MySQL server
+	$dbport = "";
+
         $dbuname = "root";
 
         $dbpass = "";
@@ -126,10 +130,11 @@ function connectdb()
 {
 	/* connect to database - and if we can't stop right there */
 	global $dbhost;
+	global $dbport;
 	global $dbuname;
 	global $dbpass;
 	global $dbname;
-        mysql_connect($dbhost, $dbuname, $dbpass);
+        mysql_connect($dbhost .":" .$dbport, $dbuname, $dbpass);
         @mysql_select_db("$dbname") or die ("Unable to select database.");
 }
 
