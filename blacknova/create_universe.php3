@@ -9,6 +9,8 @@ include("header.php3");
 connectdb();
 bigtitle();
 
+$maxlen_password = 16;
+
 if($swordfish != $adminpass)
 {
   echo "<form action=create_universe.php3 method=post>";
@@ -104,7 +106,7 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "ship_name char(20)," .
                  "ship_destroyed enum('Y','N') DEFAULT 'N' NOT NULL," .
                  "character_name char(20) NOT NULL," .
-                 "password char(16) NOT NULL," .
+                 "password char($maxlen_password) NOT NULL," .
                  "email char(40) NOT NULL," .
                  "hull tinyint(3) unsigned DEFAULT '0' NOT NULL," .
                  "engines tinyint(3) unsigned DEFAULT '0' NOT NULL," .
@@ -384,9 +386,10 @@ elseif($swordfish==$adminpass && $engage=="2")
   echo "Creating iBank default account...<BR>";
   mysql_query("INSERT INTO ibank_accounts (id,ballance,loan,ibank_shareholder,ibank_employee,ibank_owner) VALUES ($ibank_owner,1000000000000000,0,100,1,1);");
   
-  echo "Creating default $admin_mail login, password: $admin_mail<BR>";
+  $password = substr($admin_mail, 0, $maxlen_password);
+  echo "Creating default $admin_mail login, password: $password<BR>";
   $stamp=date("Y-m-d H:i:s");
-  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$admin_mail','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,'N','1.1.1.1')");
+  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,'N','1.1.1.1')");
 
   
   echo "done.<BR>";
@@ -396,7 +399,7 @@ else
   echo "Huh?";
 }
 
-echo "Click <A HREF='/'>here</A> to return to the login screen.";
+echo "<BR><BR>Click <A HREF=login.php3>here</A> to return to the login screen.";
   
 include("footer.php3");
 
