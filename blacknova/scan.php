@@ -81,7 +81,7 @@ else
             $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
             if($hasfedbounty)
             {
-               $resy = $hasfedbounty=>fields;
+               $resy = $hasfedbounty->fields;
                if($resy[btytotal] > 0) 
                { 
                   $btyamount = $resy[btytotal];

@@ -47,7 +47,8 @@ bigtitle();
 		echo ("$l_corpm_topersonal<BR>");
 		$result = $db->Execute("UPDATE $dbtables[planets] SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
     $ownership = calc_ownership($playerinfo[sector]);
-
+                // Kick other players off the planet
+                $result = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
       if(!empty($ownership))
 
         echo "<p>$ownership<p>";
