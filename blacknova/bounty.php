@@ -3,7 +3,7 @@ include("config.php");
 updatecookie();
 
 include("languages/$lang");
-$title=$l_md_title;
+$title=$l_by_title;
 include("header.php");
 
 connectdb();
@@ -181,7 +181,6 @@ switch($response) {
    default:
       bigtitle();
       $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
-
       echo "<FORM ACTION=bounty.php METHOD=POST>";
       echo "<TABLE>";
       echo "<TR><TD>$l_by_bountyon</TD><TD><SELECT NAME=bounty_on>";
@@ -224,6 +223,7 @@ switch($response) {
       }
       else
       {
+         echo $l_by_moredetails . "<BR><BR>";
          echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
          echo "<TR BGCOLOR=\"$color_header\">";
          echo "<TD><B>$l_by_bountyon</B></TD>";
