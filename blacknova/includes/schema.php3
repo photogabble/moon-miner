@@ -9,6 +9,7 @@ echo "Dropping all tables...";
 mysql_query("DROP TABLE IF EXISTS ibank_accounts");
 mysql_query("DROP TABLE IF EXISTS links");
 mysql_query("DROP TABLE IF EXISTS planets");
+mysql_query("DROP TABLE IF EXISTS traderoutes");
 mysql_query("DROP TABLE IF EXISTS news");
 mysql_query("DROP TABLE IF EXISTS newstypes");
 mysql_query("DROP TABLE IF EXISTS newsactions");
@@ -62,6 +63,21 @@ mysql_query("CREATE TABLE planets(" .
             ")") or die ("blerg!"); // now that is one of the coolest error messages I have seen in a while....
 echo "created.<BR>";
 
+echo "Creating table: traderoutes...";
+mysql_query("CREATE TABLE traderoutes(" .
+            "traderoute_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+            "source_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "dest_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "source_type enum('P','L') DEFAULT 'P' NOT NULL," .
+            "dest_type enum('P','L') DEFAULT 'P' NOT NULL," .
+            "move_type enum('R','W') DEFAULT 'W' NOT NULL," .
+            "owner bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "circuit enum('1','2') DEFAULT '2' NOT NULL," .
+            "PRIMARY KEY (traderoute_id)," .
+            "KEY owner (owner)" .
+            ")") or die ("blerg!");
+echo "created.<BR>";
+
 echo "Creating table: ships...";
 mysql_query("CREATE TABLE ships(" .
             "ship_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
@@ -82,10 +98,6 @@ mysql_query("CREATE TABLE ships(" .
             "armour tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "armour_pts bigint(20) DEFAULT '0' NOT NULL," .
             "cloak tinyint(3) unsigned DEFAULT '0' NOT NULL," .
-            "planet_beams tinyint(3) unsigned DEFAULT '0' NOT NULL," .
-            "planet_shields tinyint(3) unsigned DEFAULT '0' NOT NULL," .
-            "planet_torp_launchers tinyint(3) DEFAULT '0' NOT NULL," .
-            "planet_cloak tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "credits bigint(20) DEFAULT '0' NOT NULL," .
             "sector bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "ship_ore bigint(20) DEFAULT '0' NOT NULL," .
@@ -106,15 +118,11 @@ mysql_query("CREATE TABLE ships(" .
             "dev_minedeflector bigint(20) DEFAULT '0' NOT NULL," .
             "turns_used bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "last_login datetime," .
-            "preset1 bigint(20) DEFAULT '0' NOT NULL," .
-            "preset2 bigint(20) DEFAULT '0' NOT NULL," .
-            "preset3 bigint(20) DEFAULT '0' NOT NULL," .
             "rating bigint(20) DEFAULT '0' NOT NULL," .
             "score bigint(20) DEFAULT '0' NOT NULL," .
             "team bigint(20) DEFAULT '0' NOT NULL," .
             "team_invite bigint(20) DEFAULT '0' NOT NULL," .
             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
-            "traderoutetype enum('R','W') DEFAULT 'W' NOT NULL," .
 		        "ip_address tinytext NOT NULL," .
             "planet_id bigint(20) unsigned DEFAULT '0' NOT NULL," .
             "PRIMARY KEY (email)," .

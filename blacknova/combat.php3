@@ -97,7 +97,7 @@ global $torp_dmg_rate;
 global $level_factor;
 global $attackertorpdamage;
 global $start_energy;
-$debug = true;
+//$debug = true;
 
       
       if($playerinfo[turns] < 1)

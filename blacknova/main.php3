@@ -29,7 +29,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ, messages WRITE, planets READ");
+mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ, messages WRITE, planets READ, traderoutes READ");
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -478,7 +478,7 @@ Cargo
 <img align=absmiddle height=12 width=12 alt="Organics" src="images/oragnics.gif">&nbsp;Organics&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_organics]); ?>&nbsp</div>
 <img align=absmiddle height=12 width=12 alt="Goods" src="images/goods.gif">&nbsp;Goods&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_goods]); ?>&nbsp</div>
 <img align=absmiddle height=12 width=12 alt="Energy" src="images/energy.gif">&nbsp;Energy&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_energy]); ?>&nbsp</div>
-<img align=absmiddle height=12 width=12 alt="Colonists" src="images/Colonists.gif">&nbsp;Colonists&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_colonists]); ?>&nbsp</div>
+<img align=absmiddle height=12 width=12 alt="Colonists" src="images/colonists.gif">&nbsp;Colonists&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_colonists]); ?>&nbsp</div>
 <img align=absmiddle height=12 width=12 alt="Credits" src="images/credits.gif">&nbsp;Credits&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[credits]); ?>&nbsp</div>
 </a>
 </td></tr>
@@ -492,11 +492,7 @@ Cargo
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
-<?
-if($playerinfo[traderoutetype] == 'R') echo "Realspace trading";
-else echo "Warp trading";
-?>
-
+Trade Routes
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
   <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
@@ -507,16 +503,80 @@ else echo "Warp trading";
 <TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
 <TR><TD NOWRAP>
 <div class=mnu>
+
+<?
+  
+  $query = mysql_query("SELECT * FROM traderoutes WHERE source_type='P' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
+  $i=0;
+  $num_traderoutes = 0;
+  while($row = mysql_fetch_array($query))
+  {
+    $traderoutes[$i]=$row;
+    $i++;
+    $num_traderoutes++;
+  }
+  $query = mysql_query("SELECT traderoute_id, dest_type, dest_id, source_type, name, sector_id FROM planets, traderoutes WHERE source_type='L' AND source_id=planets.planet_id AND planets.sector_id=$playerinfo[sector] AND traderoutes.owner=$playerinfo[ship_id]");
+  while($row = mysql_fetch_array($query))
+  {
+    $traderoutes[$i]=$row;
+    $i++;
+    $num_traderoutes++;
+  }
+
+  if($num_traderoutes == 0)
+    echo "<a class=dis><center>&nbsp;None&nbsp;</center></a>";
+  else
+  {
+    $i=0;
+    while($i<$num_traderoutes)
+    {
+      echo "&nbsp;<a class=mnu href=traderoute.php?engage=" . $traderoutes[$i][traderoute_id] . ">";
+      if($traderoutes[$i][source_type] == 'P')
+        echo "Port&nbsp;";
+      else
+      {
+        if($traderoutes[$i][name] == "")
+          $traderoutes[$i][name] == "Unnamed";
+        echo $traderoutes[$i][name] . "&nbsp;";
+      }
+      
+      echo "=&gt;&nbsp;";
+      
+      if($traderoutes[$i][dest_type] == 'P')
+        echo $traderoutes[$i][dest_id];
+      else
+      {
+        $query = mysql_query("SELECT name FROM planets WHERE planet_id=" . $traderoutes[$i][dest_id]);      
+        if(empty($query) || mysql_num_rows($query) == 0)
+          echo "Unknown";
+        else
+        {
+          $planet = mysql_fetch_array($query);
+          if($planet[name] == "")
+            echo "Unnamed";
+          else
+            echo $planet[name];
+        }
+      }
+      echo "</a>&nbsp;<br>";
+      $i++;
+    }
+  }
+
+/*
 &nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset1] ?>>=&gt;&nbsp;<? echo $playerinfo[preset1] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
 &nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset2] ?>>=&gt;&nbsp;<? echo $playerinfo[preset2] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
 &nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset3] ?>>=&gt;&nbsp;<? echo $playerinfo[preset3] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
 &nbsp;<a class=mnu href=traderoute.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
+*/
+?>
+
 </div>
 </a>
 </td></tr>
 <tr><td nowrap>
 <div class=mnu>
-&nbsp;<a class=mnu href=switchtrade.php3?type=<? if($playerinfo[traderoutetype] == 'W') echo "R"; else echo "W"; ?>><? if($playerinfo[traderoutetype] == 'W') echo "Switch to Real"; else echo "Switch to Warp"; ?></a>&nbsp;<br>
+&nbsp;<a class=mnu href=traderoute.php>Trade Control</a>&nbsp;<br>
 </div>
 </a>
 </table>
@@ -540,10 +600,7 @@ Realspace
 <TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
 <TR><TD NOWRAP>
 <div class=mnu>
-&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset1]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset1]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset2]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset2]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset3]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset3]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
-&nbsp;<a class=mnu href=rsmove.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3>=&gt;&nbsp;other</a>&nbsp;<br>
 </div>
 </a>
 </td></tr>

@@ -17,6 +17,18 @@ mysql_query("LOCK TABLES ships WRITE, universe WRITE, links READ");
 
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
+
+$result = mysql_query("SELECT * FROM traderoutes WHERE owner=$playerinfo[ship_id]");
+$num_traderoutes=mysql_num_rows($result);
+$i=0;
+while($row = mysql_fetch_array($result))
+{
+  $traderoutes[$i] = $row;
+  $i++;
+}
+mysql_free_result($result);
+
+
 $freeholds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
 $maxholds = NUM_HOLDS($playerinfo[hull]);
 $maxenergy = NUM_ENERGY($playerinfo[power]);
