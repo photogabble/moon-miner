@@ -90,7 +90,7 @@ else
   echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
-    echo "[<A HREF=move.php3?sector=$links[$i]>$links[$i]</A>]";
+    echo "<A HREF=move.php3?sector=$links[$i]>$links[$i]</A>";
     if($i + 1 != $num_links)
     {
       echo ", ";
@@ -249,11 +249,11 @@ if($allow_navcomp)
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
 echo "<TR>";
 echo "<TD>RealSpace <A HREF=preset.php3>Presets</A>:</TD>";
-echo "<TD>&nbsp;&nbsp;[<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>], <A HREF=rsmove.php3>Other</A></TD>";
+echo "<TD>&nbsp;&nbsp;<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=rsmove.php3>Other</A></TD>";
 echo "</TR>";
 echo "<TR>";
 echo "<TD>Trade routes:</TD>";
-echo "<TD>&nbsp;&nbsp;[<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>], <A HREF=traderoute.php3>Other</A></TD>";
+echo "<TD>&nbsp;&nbsp;<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=traderoute.php3>Other</A></TD>";
 echo "</TR>";
 echo "</TABLE><BR>";
 
@@ -284,7 +284,7 @@ echo "<BR>Last System Update:  ";
 $lastupdate = filemtime($gameroot . "/cron.txt");
 print(date("l dS of F Y h:i:s A",$lastupdate)) ; 
 echo "<BR>Updates happen every 6 minutes.";
-gen_score($playerinfo[ship_id]);
+//gen_score($playerinfo[ship_id]);
 include("footer.php3");
 
 ?> 
