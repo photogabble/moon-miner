@@ -1,53 +1,58 @@
 <?
-	include("config.php3");
-	updatecookie();
 
-	$title="Use Device";
-	include("header.php3");
+include("config.php3");
+updatecookie();
 
-	connectdb();
+$title="Use Device";
+include("header.php3");
 
-	if (checklogin()) {die();}
+connectdb();
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
-        bigtitle();
+if(checklogin())
+{
+  die();
+}
 
-	echo "You have the following devices you can use:<BR><BR>";
-	if ($playerinfo[dev_warpedit] > 0)
-	{
-		echo "$playerinfo[dev_warpedit] <a href=warpedit.php3>Warp Editor(s)</a><BR>";
-	}
-	if ($playerinfo[dev_genesis] > 0)
-	{
-		echo "$playerinfo[dev_genesis] <a href=genesis.php3>Genesis Device(s)</a><BR>";
-	}
-	if ($playerinfo[dev_emerwarp] > 0)
-	{
-		echo "$playerinfo[dev_emerwarp] <a href=emerwarp.php3>Emergency Warp Device(s)</a><BR>";
-	}
-		if ($playerinfo[dev_beacon] > 0)
-	{
-		echo "$playerinfo[dev_beacon] <a href=beacon.php3>Space Beacon(s)</a><BR>";
-	}
+$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
+$playerinfo = mysql_fetch_array($res);
 
-	echo "<BR>You also have these devices that are used automatically:<BR><BR>";
+bigtitle();
 
-	if ($playerinfo[dev_escapepod] -= "Y")
-	{
-		echo "Escape Pods<BR>";
-	}
-	if ($playerinfo[dev_fuelscoop] -= "Y")
-	{
-		echo "Fuelscoop<BR>";
-	}
-		if ($playerinfo[dev_mindeflector] > 0)
-	{
-		echo "$playerinfo[dev_minedeflector] Mine Deflector(s)<BR>";
-	}
-	
-	echo "<BR>Click <a href=main.php3>here</a> to return to the main menu.";
+echo "You have the following devices you can use:<BR><BR>";
+if($playerinfo[dev_warpedit] > 0)
+{
+  echo "$playerinfo[dev_warpedit] <A HREF=warpedit.php3>Warp Editor(s)</A><BR>";
+}
+if($playerinfo[dev_genesis] > 0)
+{
+  echo "$playerinfo[dev_genesis] <A HREF=genesis.php3>Genesis Device(s)</A><BR>";
+}
+if($playerinfo[dev_emerwarp] > 0)
+{
+  echo "$playerinfo[dev_emerwarp] <A HREF=emerwarp.php3>Emergency Warp Device(s)</A><BR>";
+}
+if($playerinfo[dev_beacon] > 0)
+{
+  echo "$playerinfo[dev_beacon] <A HREF=beacon.php3>Space Beacon(s)</A><BR>";
+}
 
-	include("footer.php3");
+echo "<BR>You also have these devices that are used automatically:<BR><BR>";
+
+if($playerinfo[dev_escapepod] == "Y")
+{
+  echo "Escape Pods<BR>";
+}
+if($playerinfo[dev_fuelscoop] == "Y")
+{
+  echo "Fuelscoop<BR>";
+}
+if($playerinfo[dev_minedeflector] > 0)
+{
+  echo "$playerinfo[dev_minedeflector] Mine Deflector(s)<BR>";
+}
+
+echo "<BR>Click <A HREF=main.php3>here</A> to return to the main menu.";
+
+include("footer.php3");
 
 ?> 
