@@ -37,7 +37,7 @@ $dbuname = "blacknova_user";
 $dbpass = "blacknova_pass";
 
 // Name of the SQL database:
-$dbname = "blavcknova_db";
+$dbname = "blacknova_db";
 
 // Type of the SQL database. This can be anything supported by ADOdb. Here are a few:
 // "access" for MS Access databases. You need to create an ODBC DSN.
