@@ -108,12 +108,12 @@ else
   $num_to_tow = 0;
   do
   {
-    $result = mysql_query("SELECT ship_id,character_name,tech_hull,sector,universe.zone_id,max_hull FROM ships,universe,zones WHERE sector=sector_id AND universe.zone_id=zones.zone_id AND max_hull<>0 AND ships.tech_hull>max_hull");
+    $result = mysql_query("SELECT ship_id,character_name,hull,sector,universe.zone_id,max_hull FROM ships,universe,zones WHERE sector=sector_id AND universe.zone_id=zones.zone_id AND max_hull<>0 AND ships.hull>max_hull");
     $num_to_tow = mysql_num_rows($result);
     echo "<BR>$num_to_tow players to tow:<BR>";
     while($row = mysql_fetch_array($result))
     {
-      echo "...towing $row[character_name] out of $row[sector] (max_hull=$row[max_hull] tech_hull=$row[tech_hull])...";
+      echo "...towing $row[character_name] out of $row[sector] (max_hull=$row[max_hull] hull=$row[hull])...";
       $newsector = rand(0, $sector_max);
       echo " to sector $newsector.<BR>";
       $query = mysql_query("UPDATE ships SET sector=$newsector where ship_id=$row[ship_id]");
