@@ -491,6 +491,46 @@ function furangeemove()
   } 
 
   // *********************************
+  // *** CHECK FOR SECTOR DEFENCE ****
+  // *********************************
+  if ($targetlink>0)
+  {
+    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
+    $i = 0;
+    $total_sector_fighters = 0;
+    if($result3 > 0)
+    {
+      while($row = mysql_fetch_array($result3))
+      {
+        $defences[$i] = $row;
+        $total_sector_fighters += $defences[$i]['quantity'];
+        $i++;
+      }
+    }
+    mysql_free_result($result3);
+    $result4 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$targetlink' and defence_type ='M'");
+    $i = 0;
+    $total_sector_mines = 0;
+    if($result4 > 0)
+    {
+      while($row = mysql_fetch_array($result4))
+      {
+        $defences[$i] = $row;
+        $total_sector_mines += $defences[$i]['quantity'];
+        $i++;
+      }
+      mysql_free_result($result4);
+    }
+    if ($total_sector_fighters>0 || $total_sector_mines>0 || ($total_sector_fighters>0 && $total_sector_mines>0))
+    //*** DEST LINK HAS DEFENCES ***
+    {
+      playerlog($playerinfo[ship_id],"Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines."); 
+      return;
+    }
+  }
+
+
+  // *********************************
   // **** DO MOVE TO TARGET LINK *****
   // *********************************
   if ($targetlink>0)
