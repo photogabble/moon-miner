@@ -37,7 +37,7 @@ elseif($sure == 2)
   echo "Please, <A HREF=logout.php3>logout</A>.<BR>";
   db_kill_player($playerinfo['ship_id']);
   playerlog(0,"$playerinfo[character_name] (at $ip) self-destructed.");
-  playerlog($playerinfo[ship_id], "You self-distructed from $ip");
+  playerlog($playerinfo[ship_id], "You self-destructed from $ip");
 }
 else
 {
