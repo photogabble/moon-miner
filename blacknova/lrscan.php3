@@ -51,7 +51,7 @@ if($sector == "*")
   // get sectors which can be reached from the player's current sector
   $result = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD><TD><B>Mines</B></TD><TD>Fighters</B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($result))
   {
@@ -66,12 +66,14 @@ if($sector == "*")
     $num_ships = $row2[count];
 
     // get port type and discover the presence of a planet in scanned sector
-    $result2 = mysql_query("SELECT port_type,planet FROM universe WHERE sector_id='$row[link_dest]'");
+    $result2 = mysql_query("SELECT port_type,planet,mines,fighters FROM universe WHERE sector_id='$row[link_dest]'");
     $sectorinfo = mysql_fetch_array($result2);
     $port_type = $sectorinfo[port_type];
     $has_planet = ($sectorinfo[planet] == "Y") ? "Yes" : "No";
+    $has_mines = ($sectorinfo[mines] > 0) ? "Yes" : "No";
+    $has_fighters = ($sectorinfo[fighters] > 0) ? "Yes" : "No";
 
-    echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php3?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php3?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD>$port_type</TD><TD>$has_planet</TD></TR>";
+    echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php3?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php3?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD>$port_type</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
     if($color == $color_line1)
     {
       $color = $color_line2;
