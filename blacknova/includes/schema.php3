@@ -22,6 +22,7 @@ mysql_query("DROP TABLE IF EXISTS messages");
 mysql_query("DROP TABLE IF EXISTS furangee");
 mysql_query("DROP TABLE IF EXISTS sector_defence");
 mysql_query("DROP TABLE IF EXISTS scheduler");
+mysql_query("DROP TABLE IF EXISTS ip_bans");
 echo "All tables have been dropped...<BR>";
 
 // Create database schema
@@ -297,7 +298,15 @@ mysql_query("CREATE TABLE scheduler(" .
             "PRIMARY KEY (sched_id)" .
             ")");
 echo "created.<BR>";
-echo mysql_error();
+
+echo "Creating table: ip_bans...";
+mysql_query("CREATE TABLE ip_bans(" .
+            "ban_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
+            "ban_mask varchar(16) NOT NULL," .
+            "PRIMARY KEY (ban_id)" .
+            ")");
+echo "created.<BR>";
+
 //Finished
 echo "Database schema creation complete.<BR>";
 }

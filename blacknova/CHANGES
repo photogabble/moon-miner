@@ -1,5 +1,40 @@
 Version 0.3
 -----------
+
+SharpBlue (1st December 2001)
+-------------------------------
+Anti-cheat measures:
+ - Setting not to allow credit transfers to/from corporate planets
+ - Setting to allow for a minimum player worth for capturing planets
+ - IP ban module in the admin script
+
+Addition of a new scheduler to the game. This makes the use of
+the sysupdate.php3 file obsolete, as well as genrank.php3,
+gen_news.php3. Settings can now be set in real-time, and the
+actual system update interval does not affect any longer the game
+speed.
+
+
+SharpBlue (30 November 2001)
+-------------------------------
+Anti-cheat measures:
+ - Timestamp on transfers to disallow multiple IGB transfers 
+   too fast
+
+Invitation into an alliance log "blank name" bug fixed
+Trade routes now link the source port
+Fixed sector_id not sorting in planet_report.php3
+Various language fixes
+
+
+SharpBlue (29 November 2001)
+-------------------------------
+Completely new IGB system
+Anti-cheat measures :
+ - Percent of worth limit on IGB transfers
+ - Min turns allowed for IGB transfers
+
+
 SharpBlue (13 November 2001)
 -------------------------------
 Sector ownership code now completely merged in. Players or teams can now
