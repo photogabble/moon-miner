@@ -31,10 +31,11 @@ $l_unknown		 = "Inconnu";
 $l_clickme 		 = "Cliquer ici";
 $l_player  		 = "Joueur";
 $l_ship			 = "Vaisseau";
+$l_ships		 = "Vaisseaux";
 $l_set			 = "Mod";
 $l_realspace		 = "Espace Réel";
 $l_armourpts		 = "Points d'armure";
-
+$l_links		 = "Links";
 
 // main.php
 
@@ -1281,5 +1282,11 @@ $l_zname[1] = "Espace non-exploré";
 $l_zname[2] = "Espace de la Fédération";
 $l_zname[3] = "Espace de libre-commerce";
 $l_zname[4] = "Zonne de Guerre";
+
+// Add for mines.php
+$l_mines_fmode			="Fighter mode";
+
+// used by lrscan
+$l_link			 = "Links";
 
 ?>

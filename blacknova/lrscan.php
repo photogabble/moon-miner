@@ -83,7 +83,7 @@ if($sector == "*")
 
 
     if ($port_type != "none") {
-      $icon_alt_text = ucfirst($port_type);
+      $icon_alt_text = ucfirst(t_port($port_type));
       $icon_port_type_name = $port_type . ".gif";
       $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">&nbsp;";
     } else {
@@ -91,7 +91,7 @@ if($sector == "*")
     }
 
 
-    echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>$port_type</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
+    echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>" . t_port($port_type) . "</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
     if($color == $color_line1)
     {
       $color = $color_line2;
@@ -253,11 +253,11 @@ else
   {
     if ($sectorinfo[port_type] != "none") {
       $port_type = $sectorinfo[port_type];
-      $icon_alt_text = ucfirst($port_type);
+      $icon_alt_text = ucfirst(t_port($port_type));
       $icon_port_type_name = $port_type . ".gif";
       $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">";
     }
-    echo "$image_string $sectorinfo[port_type]";
+    echo "$image_string " . t_port($sectorinfo[port_type]);
 
     $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
   }

@@ -31,17 +31,20 @@ $l_unknown		 = "Unbekannt";
 $l_clickme 		 = "klicke hier";
 $l_player  		 = "Spieler";
 $l_ship			 = "Schiff";
+$l_ships		 = "Schiffe";
 $l_set			 = "setze";
 $l_realspace		 = "Raumflug";
 $l_armourpts		 = "Panzerungs Punkte";
-
+$l_links		 = "Warp Tore";
 
 // main.php
 
 $l_main_title 		 = "Haupt Men&uuml;";
+$l_main_warpto 		 = "Springe nach";
+$l_main_other 		 = "Andere";
 
 $l_traderoutes		 = "Handelsroute";
-$l_trade_control	 = "Handelseinstellungen";
+$l_trade_control	 = "Bearbeiten";
 
 $l_youhave 		 = "Du hast ";
 $l_turns_used		 = "Züge benutzt: ";
@@ -74,10 +77,10 @@ $l_clicktocontinue	 = "Klicke hier um fortzufahren";
 $l_toplanetmenu   	 = "um zum Planeten Men&uuml; zu gehen.";
 $l_nonexistant_pl	 = "Auf einen nicht vorhandenen Planeten???";
 $l_abord		 = ", an Bord der ";
-$l_messages_wait	 = " Nachrichten warten auf Dich.";
+$l_messages_wait	 = " neue Nachricht/en.";
 
 $l_no_warplink		 = "Keine Warptore";
-$l_scan			 = "scanne";
+$l_scan			 = "Scan";
 $l_fullscan		 = "voller Scan";
 
 $l_port			 = "Hafen";
@@ -185,7 +188,7 @@ $l_traded_goods		 = "Gehandelte G&uuml;ter";
 $l_traded_organics	 = "Gehandelte Lebensmittel";
 $l_traded_energy	 = "Gehandelte Energie";
 $l_trade_complete	 = "Handel beendet";
-$l_trade_upgraded 	 = "Aufgerüstet";
+$l_trade_upgraded 	 = "aufgerüstet";
 $l_trade_added 	 	 = "hinzugefügt";
 $l_trade_installed 	 = "installiert";
 
@@ -253,6 +256,7 @@ $l_planet_ison		 = "ist auf diesem Planeten.";
 $l_planet_captured	 = "Planet erobert";
 $l_planet_notdef	 = "Planet nicht besiegt";
 $l_planet_caplog	 = "Dein Planet '[planetname]' in Sektor [sector] wurde von [name] erobert.";
+$l_planet_noone		 = "Niemand";
 
 $l_planet2_title	 = "Planetarer Transfer";
 $l_planet2_noturn	 = "Du benötigst einen Zug um den planetaren Transfer durchzufüren.";
@@ -415,8 +419,8 @@ $l_scan_carry		 = "Ladung:";
 $l_lrs_title		 = "Scan mit langer Reichweite";
 $l_lrs_nofull		 = "Dein Scanner besitzt nicht die F&auml;higkeit, um einen Scan mit langer Reichweite durchzuf&uuml;hren.";
 $l_lrs_noturns		 = "Du benötigst $fullscan_cost Z&uuml;ge, um einen Scan mit weiter Reichweite durchzuführen.";
-$l_lrs_used		 = "benutzt";
-$l_lrs_turns		 = "Z&uuml;ge";
+$l_lrs_used		 = "Du hast";
+$l_lrs_turns		 = "Z&uuml;ge benutzt";
 $l_lrs_left		 = "&uuml;brig";
 $l_lrs_reach		 = "Die folgenen Sektoren k&ouml;nnen von Sektor [sector] ereicht werden:";
 $l_lrs_links		 = "Warptore";
@@ -425,6 +429,7 @@ $l_lrs_click		 = "Klicke auf die Warptore, um zu dem Sektor zu gelangen.";
 $l_lrs_cantscan		 = "Du kannst den Sektor nicht scannen";
 $l_lrs_zero		 = "Sektor 0 ist zu &uuml;berf&uuml;llt um nach anderen Schiffen zu scannen!";
 $l_lrs_moveto		 = " um zu folgendem Sektor zu gelangen:";
+$l_log_titlet = "Log ansehen";
 
 // log.php
 
@@ -435,10 +440,10 @@ $l_log_nopod = "<font color=yellow><b>Du hattest keine Fluchtkapsel, und starbst
 $l_log_log = "[player]s Log"; 
 $l_log_start = "Logbuch Eintrag für"; 
 $l_log_end = "Ende des Logbuch Eintrags für"; 
-$l_log_click = "Klicke <A HREF=$interface><font color=#00ff00>hhier</font></A> um zum Hauptmenü zurück zu kehren."; 
-$l_log_note = "Hinweis: Wenn diese Seite nicht richtig angezeigt wird, oder wenn du einfach die dynamischen HTML effekte nicht magst oder sie dich nerven, kannst du sie <a href=options.php><font color=#00FF00>hier</font> abstellen"; 
+$l_log_click = "Klicke <A HREF=$interface><font color=#00ff00>hier</font></A> um zum Hauptmenü zurück zu kehren."; 
+$l_log_note = "Hinweis: Wenn diese Seite nicht richtig angezeigt wird, oder wenn du einfach die dynamischen HTML effekte nicht magst oder sie dich nerven, kannst du sie <a href=options.php><font color=#00FF00>hier abstellen</font>"; 
 
-$l_log_text[LOG_LOGIN] = "Du hast Dich eingeloggt, mit der [ip].";
+$l_log_text[LOG_LOGIN] = "Du hast Dich eingeloggt, mit der IP [ip].";
 $l_log_title[LOG_LOGIN] = "Eingelogt";
 $l_log_text[LOG_LOGOUT] = "Du hast Dich mit der [ip] ausgeloggt.";
 $l_log_title[LOG_LOGOUT] = "Ausgelogt";
@@ -527,6 +532,8 @@ $l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] hat versucht [defender]s Planeten
 $l_log_title[LOG_ADMIN_PLANETDEL] = "Planet zerstört";
 $l_log_text[LOG_DEFENCE_DEGRADE] = "Sektor Verteidigung (Fighter) in Sektor [sector] wurden um [degrade]% reduziert, wegen mangelnder Planetenenergie.";
 $l_log_test[LOG_DEFENCE_DEGRADE] = "Sektor Verteidigung reduziert.";
+$l_log_text[LOG_PLANET_CAPTURED] = "Du übernahmst einen Planeten der [owner] gehört. Er hatte [cols] Kolonisten und [credits] Credits.";
+$l_log_title[LOG_PLANET_CAPTURED] = "Planet übernommen!";
 
 // modify-defences.php
 
@@ -546,7 +553,10 @@ $l_md_cmode		 = "Fighter Modus";
 $l_md_attack		 = "Angriff";
 $l_md_toll		 = "Zoll";
 $l_md_attdef		 = "Greife die Sektor Verteidigung an. Alle Fighter werden partizipieren.";
-$l_md_noturn	  	 = "You need at least one turn.";
+$l_md_noturn	  	 = "Du brauchst mindestens einen Zug.";
+$l_md_nothere            = "Du musst im selben Sektor wie die Verteidigung sein!.";
+$l_md_notyours           = "Aktion nicht erlaubt. Diese Verteidigung gehört Dir nicht.";
+$l_md_yours              = "Du kannst deine eigenen Sektor Verteidigungen nicht angreifen.";
 
 // news.php
 
@@ -640,7 +650,7 @@ $l_team_ed		 = "Bearbeiten";
 $l_team_inv		 = "Einladen";
 $l_team_leave		 = "Verlassen";
 $l_team_eject		 = "Herauswerfen";
-$l_team_pending		 = "Bereits eingeladene Personen";
+$l_team_pending		 = "Personen die Eingeladen wurden in";
 $l_team_noinvites	 = "Niemand wurde eingeladen Mitglied folgender Allianz zu werden: ";
 $l_team_confirmleave	 = "Willst Du folgende Allianz wirklich verlassen: ";
 $l_team_onlymember	 = "Du warst das einzige Mitglied, demnach gibt es [team_name] nun nicht mehr.";
@@ -661,7 +671,7 @@ $l_team_hcreated	 = "wurde erstellt mit Dir als ihr Führer";
 $l_team_alliance	 = "Allianz";
 $l_team_selectp		 = "Wähle den Spieler, den du einladen möchtest";
 $l_team_isorry		 = "Sorry, aber [name] wurde bereits in eine andere Allianz eingeladen - man kann aber nur in jeweils eine Allianz eingeladen sein";
-$l_team_plinvted	 = "Spieler eingeladen.<BR>Du musst warten bis der Spieler die einladung bestätigt oder ablehnt.";
+$l_team_plinvted	 = "Spieler eingeladen.<BR>Du musst warten bis der Spieler die Einladung bestätigt oder ablehnt.";
 $l_team_refuse		 = "Du hast es abgelehnt folgender Allianz beizutreten: ";
 $l_team_edname		 = "Bearbeite den Namen der Allianz";
 $l_team_eddesc		 = "Bearbeite die Beschreibung deiner Allianz";
@@ -829,6 +839,7 @@ $l_tdr_credits  	 = "Credits";
 $l_tdr_turnsused         = "Züge benutzt";
 $l_tdr_turnsleft         = "Züge übrig";
 $l_tdr_engageagain       = "<A HREF=\"traderoute.php?engage=[tdr_engage]\">klicke hier</A> um diese Handelsroute noch einmal durchzuführen.";
+$l_tdr_notowner 	 = $l_tdr_notowntdr;
 
 // IGB.php
 
@@ -1082,6 +1093,7 @@ $l_mines_notorps		="Du hast nicht genug Torpedos.";
 $l_mines_nofighters		="Du hast nicht genug Fighter";
 $l_mines_dmines			="[mines] Minen eingesetzt.";
 $l_mines_dfighter		="[fighters] Fighters im [mode] Modus eingesetzt.";
+$l_mines_fmode			="Fighter Modus";
 
 //alliance-planets.php
 
@@ -1127,6 +1139,9 @@ $l_login_4gotpw1		= "Das eingegebene Passwort ist falsch.<BR><BR>  Wenn du dein 
 $l_login_4gotpw2		= "um es Dir zuschicken zu lassen.<BR><BR>  Ansonsten,";
 $l_login_4gotpw3		= "um es noch einmal zu versuchen.  Einlog Versuch aufgezeichnet mit der IP";
 $l_login_noone			= "Kein Spieler mit dem Namen vorhanden! - Erstelle neue Spieler <A HREF=new.php>hier</A>.";
+$l_login_lang = "Sprache";
+$l_login_settings = "Spiel Einstellungen";
+$l_login_change = "Ändern";
 
 // new.php new2.php
 $l_new_title			= "Erstelle neuen Spieler"; 
@@ -1173,17 +1188,12 @@ $l_global_player		="Zone gehört nun dem Spieler";
 
 // texts for the news flashes
 
-$l_killheadline=" starb bei einem tragischen unfall";
-$l_news_killed = "[name] starb heute bei einem tragischen Unfall. Wie heroisch - Kapitain [name] war das letzte Besatzungsmitglied an board des Schiffes, als er bemerkte, dass keine Rettungskapsel mehr für ihn übrig war. Möge er in Frieden ruhen!";
-
-// ADDED TO PAD UNFINISHED TRANSLATION
-
-// texts for the news flashes
-
 $l_news_planets		  = " Planeten";
 $l_news_cols		      = " Millionen Kolonisten";
 $l_news_p_headline = "[player]\'s Imperium umfasst nun ";
 
+$l_killheadline=" starb bei einem tragischen unfall";
+$l_news_killed = "[name] starb heute bei einem tragischen Unfall. Wie heroisch - Kapitain [name] war das letzte Besatzungsmitglied an board des Schiffes, als er bemerkte, dass keine Rettungskapsel mehr für ihn übrig war. Möge er in Frieden ruhen!";
 $l_news_p_text5		= "Das aufstrebende Imperium von [name] besitzt nun bereits fünf				   Planeten, die BNN werden die Aktionen von [name] in Zukunft genauer verfolgen!";
 $l_news_p_text10		= "Das wachsende Imperium von [name] kontrolliert nun schon zehn Planeten,                   Berichte der BNN zeigen das eine weitere Ausbreitung von [name] zu kriegen führen könnte!";
 $l_news_p_text25		= "Das riesige Imperium von [name] kolonisierte bereits 25 Planeten,                   in einem Interview verkündete [name], dass er es in bertracht ziehe seine Expansion von nun an zu verlangsamen!";
@@ -1192,32 +1202,6 @@ $l_news_c_text25		= "Das aufstrebende Imperium [name] besteht nun bereits aus üb
 $l_news_c_text100		= "Das wachsende Imperium von [name] hat nun 100 million Kolonisten,                   nach einer explosionsartigen Steigerung der Geburtenrate schienen [name]\'s Kolinien einfach ein guter Platz für Familien zu sein um zu siedeln!";
 $l_news_c_text500		= "Das riesige Imperium von [name] umfasst nun über 500 Millionen Menschen,                   [name] erzählte in einem Interview, dass die Kolonisierung der Galaxie gerade erst begonnen hätte";
 $l_news_c_text1000		= "Das exorbitante Imperium von [name] übersteigt nun die Zahl von einer				   Milliarde Kolonisten, BNN Reporter fanden heraus, dass [name] im besitz eines Merkwürdigen Mechanismusses ist, der es erlaubt neue Kolonisten in gigantischen Mengen zu Clonen. Mit dieser Anzahl an Kolonisten ist die wirtschaftliche Stärke des Imperiums Enorm, die BNN hoffen, dass [name] diese Geld nicht zu Kriegszwecken ausgibt!";
-
-
-// LAST ADDED : MOD TO TRADEROUTES
-$l_tdr_notowner = $l_tdr_notowntdr;
-
-// ADDITION TO login.php
-
-$l_login_lang = "Sprache";
-$l_login_settings = "Spiel Einstellungen";
-$l_login_change = "Ändern";
-
-// ADDITION TO log.php
-
-$l_log_titlet = "Log ansehen";
-
-// ADDITION TO main.php
-
-$l_main_warpto = "Springe nach";
-$l_main_other = "Andere";
-
-// ADDITION TO planet.php
-$l_planet_noone = "Niemand";
-
-// ADDITION TO log.php
-$l_log_text[LOG_PLANET_CAPTURED] = "Du übernahmst einen Planeten der [owner] gehört. Er hatte [cols] Kolonisten und [credits] Credits.";
-$l_log_title[LOG_PLANET_CAPTURED] = "Planet übernommen!";
 
 // Options.php
 
@@ -1264,7 +1248,7 @@ $l_mt_sent = "Nachricht gesendet";
 $l_mt_send = "Senden";
 
 // sector_fighters.php
-$l_sf_attacking = "Die Sektorverteidigung (Fighter) greift dich anSector defence fighters are attacking you!<BR>";
+$l_sf_attacking = "Die Sektorverteidigung (Fighter) greift dich an!<BR>";
 $l_sf_destfight = "Deine Laser zerstörten [lost] Fighter<BR>";
 $l_sf_destfightb = $l_sf_destfight;
 $l_sf_torphit = "Torpedo Treffer:";
@@ -1288,7 +1272,6 @@ $l_zname[1] = "Neutrale Zone";
 $l_zname[2] = "Föderations Raum";
 $l_zname[3] = "Feie Handels Zone";
 $l_zname[4] = "Kriegs Zone";
-
 
 
 ?>

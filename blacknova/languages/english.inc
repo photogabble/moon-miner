@@ -31,10 +31,11 @@ $l_unknown		 = "Unknown";
 $l_clickme 		 = "Click here";
 $l_player  		 = "Player";
 $l_ship			 = "Ship";
+$l_ships		 = "Ships";
 $l_set			 = "set";
 $l_realspace		 = "Realspace";
 $l_armourpts		 = "Armour points";
-
+$l_links		 = "Links";
 
 // main.php
 
@@ -1092,6 +1093,7 @@ $l_mines_notorps		="You do not have enough torpedos.";
 $l_mines_nofighters		="You do not have enough fighters";
 $l_mines_dmines			="Deployed [mines] mines.";
 $l_mines_dfighter		="Deployed [fighters] fighters in [mode] mode.";
+$l_mines_fmode			="Fighter mode";
 
 //alliance-planets.php
 
@@ -1192,35 +1194,14 @@ $l_news_p_headline = "[player]\'s Empire now has ";
 
 $l_killheadline=" was killed in an accident";
 $l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
-$l_news_p_text5		= "The rising empire of [name] now has five planets,
-                   the BNN will watch the actions of [name] more closely
-                   in the future!";
-$l_news_p_text10		= "The growing empire of [name] now controls ten planets,
-                   Reports of BNN say that further expansion of [name]
-                   might lead to war!";
-$l_news_p_text25		= "The huge empire of [name] colonized 25 planets already,
-                   in an interview, [name] announced that he might consider slowing
-                   down his expansion in the future!";
-$l_news_p_text50		= "The enormous vast empire of [name], represented by 50 planets
-                   in the whole galaxy is getting a threatening strength. One
-                   of the BNN reporters found out that [name] is upgrading his
-                   ship planning a major war. In an interview [name] announced
-                   that is done on defence purpose only!";
-$l_news_c_text25		= "The rising empire of [name] now has 25 million colonists,
-                   the BNN will watch the actions of [name] more closely
-                   in the future, but its highly obvious that birthrates are going to explode!";
-$l_news_c_text100		= "The aspiring empire of [name] now has 100 million colonists,
-                   After an explosion of birth rates, [name] colonies seemed to be a good
-                   place for families to settle!";
-$l_news_c_text500		= "The large empire of [name] now has 500 million colonists,
-                   [name] said in an interview that colonization of the galaxy has
-                   just yet begun";
-$l_news_c_text1000		= "The humongous empire of [name] now has one billion colonists,
-                   BNN reporters found out that [name] is in possesion of some
-                   weird cloning mechanism allowing him to breed new colonists
-                   in huge amounts. With this amount of colonists, the econmic strength
-                   of this empire is enormous, BNN hopes that [name] does not spend
-                   his money on warfare";
+$l_news_p_text5		= "The rising empire of [name] now has five planets, the BNN will watch the actions of [name] more closely in the future!";
+$l_news_p_text10		= "The growing empire of [name] now controls ten planets, Reports of BNN say that further expansion of [name] might lead to war!";
+$l_news_p_text25		= "The huge empire of [name] colonized 25 planets already, in an interview, [name] announced that he might consider slowing down his expansion in the future!";
+$l_news_p_text50		= "The enormous vast empire of [name], represented by 50 planets in the whole galaxy is getting a threatening strength. One of the BNN reporters found out that [name] is upgrading his ship planning a major war. In an interview [name] announced that is done on defence purpose only!";
+$l_news_c_text25		= "The rising empire of [name] now has 25 million colonists, the BNN will watch the actions of [name] more closely in the future, but its highly obvious that birthrates are going to explode!";
+$l_news_c_text100		= "The aspiring empire of [name] now has 100 million colonists, after an explosion of birth rates, [name] colonies seemed to be a good place for families to settle!";
+$l_news_c_text500		= "The large empire of [name] now has 500 million colonists, [name] said in an interview that colonization of the galaxy has just yet begun";
+$l_news_c_text1000		= "The humongous empire of [name] now has one billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
 
 // Options.php
 
