@@ -102,7 +102,7 @@ else
   $sectorinfo = mysql_fetch_array($result2);
 
   // get sectors which can be reached through scanned sector
-  $result3 = mysql_query("SELECT link_dest FROM links WHERE link_start='$sector'");
+  $result3 = mysql_query("SELECT link_dest FROM links WHERE link_start='$sector' ORDER BY link_dest ASC");
 
   $i=0;
 

@@ -44,7 +44,7 @@ if($zoneinfo[allow_warpedit] == 'N')
   die();
 }
 
-$result2 = mysql_query("SELECT * FROM links WHERE link_start=$playerinfo[sector]");
+$result2 = mysql_query("SELECT * FROM links WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
 if($result2 < 1)
 {
   echo "There are no links out of this sector.<BR><BR>";
