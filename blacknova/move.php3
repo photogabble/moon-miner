@@ -1,63 +1,81 @@
 <?
-        include("config.php3");
-        updatecookie();
+include("config.php3");
+updatecookie();
 
-        $title="Move";
+$title="Move";
 
-	echo "<!doctype html public \"-//w3c//dtd html 3.2//en\"><html><head><title>$title</title></head>";
+include("header.php3");
 
+//Connect to the database
+connectdb();
 
-        connectdb();
+//Check to see if the user is logged in
+if (checklogin())
+{
+    die();
+}
 
-        if (checklogin()) {die();}
+//Retrieve the user and ship information
+$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
+//Put the player information into the array: "playerinfo"
+$playerinfo=mysql_fetch_array($result);
 
+//Check to see if the player has less than one turn available
+//and if so return to the main menu
+if ($playerinfo[turns]<1)
+{
+	echo "You need at least one turn to move.<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php3");
+	die();
+}
 
-                $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-                $playerinfo=mysql_fetch_array($result);
+//Retrieve all the sector information about the current sector
+$result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
+//Put the sector information into the array "sectorinfo"
+$sectorinfo=mysql_fetch_array($result2);
 
-	if ($playerinfo[turns]<1)
+//Retrive all the warp links out of the current sector
+$result3 = mysql_query ("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
+$i=0;
+$flag=0;
+if ($result3>0)
+{
+    //loop through the available warp links to make sure it's a valid move
+    while ($row = mysql_fetch_array($result3))
+    {
+        if ($row[link_dest]==$sector && $row[link_start]==$playerinfo[sector])
+        {
+            $flag=1;
+        }
+        $i++;
+    }
+}
+
+//Check if there was a valid warp link to move to
+if ($flag==1)
+{
+    $ok=1;
+	$query="UPDATE ships SET turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
+    $move_result = mysql_query ("$query");
+	if (!$move_result)
 	{
-		echo "You need at least one turn to move.<BR><BR>";
-	    TEXT_GOTOMAIN();
-		include("footer.php3");		
-		die();
+		$error = mysql_error($move_result);
+		mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
 	}
 
-                $result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-                $sectorinfo=mysql_fetch_array($result2);
+    /* enter code for checking dangers in new sector */
+    if ($ok=1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
+    {
+        echo "report bad stuff here!";
+    }
+}
+else
+{
+    echo "Move failed!<BR><BR>";
+    TEXT_GOTOMAIN();
+}
 
-                $result3 = mysql_query ("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
-                $i=0;
-                $flag=0;
-                if ($result3>0)
-                {
-                        while ($row = mysql_fetch_array($result3))
-                        {
-                                if ($row[link_dest]==$sector && $row[link_start]==$playerinfo[sector]) {$flag=1;}
-                                $i++;
-
-                        }
-                }
-                if ($flag==1)
-                {
-                        $ok=1;
-			$query="UPDATE ships SET turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-                        $move_result = mysql_query ("$query");
-			if (!$move_result)
-			{
-				$error = mysql_error($move_result);
-				mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
-			}
-                        /* enter code for checking dangers in new sector */
-                        if ($ok=1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
-                        {
-                                echo "report bad stuff here!";
-                        }
-                } else {
-                        echo "Move failed!<BR><BR>";
-					    TEXT_GOTOMAIN();
-                }
-
-	echo "</body></html>";
+echo "</body></html>";
 
 ?>
