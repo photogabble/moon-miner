@@ -104,48 +104,60 @@ else
   if($sectorinfo[port_type] == "special")
   {
     /* the code for a special port will go here! */
+    $hull_upgrade_cost = 0;
     if($hull_upgrade)
     {
       $hull_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[hull]));
     }
+    $engine_upgrade_cost = 0;
     if($engine_upgrade)
     {
       $engine_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[engines]));
     }
+    $power_upgrade_cost = 0;
     if($power_upgrade)
     {
       $power_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[power]));
     }
+    $computer_upgrade_cost = 0;
     if($computer_upgrade)
     {
       $computer_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[computer]));
     }
+    $sensor_upgrade_cost = 0;
     if($sensors_upgrade)
     {
       $sensors_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[sensors]));
     }
+    $beams_upgrade_cost = 0;
     if($beams_upgrade)
     {
       $beams_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[beams]));
     }
+    $armour_upgrade_cost = 0;
     if($armour_upgrade)
     {
       $armour_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[armour]));
     }
+    $cloak_upgrade_cost = 0;
     if($cloak_upgrade)
     {
       $cloak_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[cloak]));
     }
+    $torp_launchers_upgrade_cost = 0;
     if($torp_launchers_upgrade)
     {
       $torp_launchers_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[torp_launchers]));
     }
+    $shields_upgrade_cost = 0;
     if($shields_upgrade)
     {
       $shields_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[shields]));
     }
 
 
+    if($fighter_number < 0)
+       $fighter_number = 0;
     $fighter_number  = round(abs($fighter_number));
     $fighter_max     = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
     if($fighter_max < 0)
@@ -157,6 +169,8 @@ else
       $fighter_number = $fighter_max;
     }
     $fighter_cost    = $fighter_number * $fighter_price;
+    if($torpedo_number < 0)
+       $torpedo_number = 0;
     $torpedo_number  = round(abs($torpedo_number));
     $torpedo_max     = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
     if($torpedo_max < 0)
@@ -168,6 +182,8 @@ else
       $torpedo_number = $torpedo_max;
     }
     $torpedo_cost = $torpedo_number * $torpedo_price;
+    if($armour_number < 0)
+       $armour_number = 0;
     $armour_number = round(abs($armour_number));
     $armour_max = NUM_ARMOUR($playerinfo[armour]) - $playerinfo[armour_pts];
     if($armour_max < 0)
@@ -179,6 +195,8 @@ else
       $armour_number = $armour_max;
     }
     $armour_cost     = $armour_number * $armour_price;
+    if($colonist_number < 0)
+       $colonist_number = 0;
     $colonist_number = round(abs($colonist_number));
     $colonist_max    = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] -
       $playerinfo[ship_goods] - $playerinfo[ship_colonists];
