@@ -62,7 +62,7 @@ if($sectorinfo[sector_name] != "")
   echo " ($sectorinfo[sector_name])";
 }
 echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD><TD ALIGN=RIGHT>Score: $playerinfo[score]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
 echo "</TABLE><BR>";
 
 echo "You have $playerinfo[turns] turns left (you have used $playerinfo[turns_used] turns so far).<BR><BR>";
@@ -169,11 +169,15 @@ if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
     echo "owned by <a href=mailto.php3?to=$sectorinfo[planet_owner]>$planet_owner_name[character_name]</a> (#$sectorinfo[planet_owner])<BR><BR>";
   }
 }
-echo "Navigation Computer: ";
-echo "<FORM ACTION=navcomp.php3 METHOD=post>\n";
-echo "<INPUT NAME=\"stop_sector\"><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>\n";
-echo "<INPUT TYPE=SUBMIT VALUE=\"Find Route\">\n";
-echo "</FORM><BR>\n";
+
+if($allow_navcomp)
+{
+  echo "<FORM ACTION=navcomp.php3 METHOD=POST>";
+  echo "Navigation Computer: ";
+  echo "<INPUT NAME=\"stop_sector\" SIZE=" . strlen(number_format($sectors_max, 0, "", "")) . "><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>";
+  echo "<INPUT TYPE=SUBMIT VALUE=\"Find Route\">";
+  echo "</FORM>";
+}
 
 echo "Real Space Presets:  <a href=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</a> - <a href=preset.php3>Change Presets</a><BR><BR>";
 echo "Trade Route Presets:  <a href=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</a><BR><BR>";

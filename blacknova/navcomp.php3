@@ -6,8 +6,20 @@
 	include("header.php3");
 	connectdb();
 	
-	if (checklogin()) {die();}
+	if(checklogin())
+  {
+    die();
+  }
 
+  bigtitle();
+
+  if(!$allow_navcomp)
+  {
+    echo "Navigation computer is not available<BR><BR>";
+	  echo "Click <A HREF=main.php3>here</A> to return to main menu.";
+	  include("footer.php3");
+    die();
+  }
 
 	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
 	$playerinfo=mysql_fetch_array($result);
@@ -16,7 +28,6 @@
 
 	$result2 = mysql_query ("SELECT * FROM universe WHERE sector_id='$current_sector'");
 	$sectorinfo=mysql_fetch_array($result2);
-        bigtitle();
 
 	if ($state == 0)
 	{
@@ -109,14 +120,14 @@
 			echo $links[0];
 			for ($i=1;$i<$search_depth+1;$i++)
 			{
-				echo "->" . $links[$i];
+				echo " >> " . $links[$i];
 			}
-			echo "<BR>\n";
-			echo "It will take you $search_depth turns to get to this sector.<BR>\n";
+			echo "<BR><BR>";
+			echo "It will take you $search_depth turns to get to this sector.<BR><BR>";
 		}
 		else
 		{
-			echo "No path found.<BR>\n";
+			echo "No path found.<BR><BR>";
 		}
 	}
 

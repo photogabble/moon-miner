@@ -25,7 +25,7 @@ else
   while($row = mysql_fetch_array($res))
   {
     $i++;
-    echo "<TR BGCOLOR=\"$color\"><TD>$i</TD><TD>$row[score]</TD><TD>$row[character_name]</TD></TR>";
+    echo "<TR BGCOLOR=\"$color\"><TD>" . NUMBER($i) . "</TD><TD>" . NUMBER($row[score]) . "</TD><TD>$row[character_name]</TD></TR>";
     if($color == $color_line1)
     {
       $color = $color_line2;
