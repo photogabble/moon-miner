@@ -44,8 +44,8 @@ else
       {
         echo "<FORM ACTION=mines.php3 METHOD=POST>";
         echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " mines and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
-        echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10> mines.<BR>";
-        echo "Deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10> fighters.<BR>";
+        echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=0> mines.<BR>";
+        echo "Deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=0> fighters.<BR>";
         echo "Fighter mode <INPUT TYPE=RADIO NAME=mode VALUE=attack>Attack</INPUT>";
         echo "<INPUT TYPE=RADIO NAME=mode CHECKED VALUE=toll>Toll</INPUT><BR>";
         echo "<INPUT TYPE=SUBMIT VALUE=Deploy><BR><BR>";
