@@ -1,3 +1,23 @@
+David Rowlands (25 March 2002)
+---------------
+Space plague not logging percentage lost correctly.
+Decreased the chance of the apocalypse events occuring.
+Added code to give people the option to run without cron.
+Improved the efficiency of some scheduler tasks.
+Fixed infinite loop bug when renaming teams.
+Fixed mail compliance problem (was only sending \n when it should be \r\n)
+
+Ron Harwood ( 12 March 2002) -- Oh my god! He touched some code! :-)
+--------------
+Added onscreen message on how to retrieve lost password
+
+David Rowlands ( 6 March 2002)
+--------------
+Fixed corporate planet exploit.
+
+
+Version 0.3.5 Released (5 March 2002)
+----------------------
 Richard Gowen (14 Febuary 2002)
 -------------------------------
 Furangee can attack sector defenses
