@@ -165,14 +165,14 @@
 		echo "The planet was only able to supply $transfer_credits units of credits.<BR>\n";
 	}
 
-	if ( ($tptorps == -1) && ($transfer_torps > $playerinfo['ship_torps']) )
+	if ( ($tptorps == -1) && ($transfer_torps > $playerinfo['torps']) )
 	{
-		$transfer_torps = $playerinfo['ship_torps'];
+		$transfer_torps = $playerinfo['torps'];
 		echo "You don't have enough torps.  Setting torps transfer amount to $transfer_torps.<BR>\n";
 	}
-	elseif ( ($tptorps == 1) && ($transfer_torps > $sectorinfo['planet_torps']) )
+	elseif ( ($tptorps == 1) && ($transfer_torps > $sectorinfo['base_torp']) )
 	{
-		$transfer_torps = $sectorinfo['planet_torps'];
+		$transfer_torps = $sectorinfo['base_torp'];
 		echo "The planet was only able to supply $transfer_torps units of torps.<BR>\n";
 	}
 
