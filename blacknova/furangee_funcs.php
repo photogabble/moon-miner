@@ -643,6 +643,14 @@ function furangeetrade()
   if($sectorinfo[port_type] == "energy") return;
 
   // *********************************
+  // ** CHECK FOR NEG CREDIT/CARGO ***
+  // *********************************
+  if($playerinfo[ship_ore]<0) $playerinfo[ship_ore]=$shipore=0;
+  if($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
+  if($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
+  if($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
+
+  // *********************************
   // ** CHECK FURANGEE CREDIT/CARGO **
   // *********************************
   if($playerinfo[ship_ore]>0) $shipore=$playerinfo[ship_ore];
@@ -688,7 +696,11 @@ function furangeetrade()
     // **** BUY/SELL CARGO ****
     // ************************
     $total_cost = round(($amount_ore * $ore_price) - ($amount_organics * $organics_price + $amount_goods * $goods_price));
-    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$amount_ore, ship_organics=ship_organics-$amount_organics, ship_goods=ship_goods-$amount_goods where ship_id=$playerinfo[ship_id]");
+    $newcredits = max(0,$playerinfo[credits]-$total_cost);
+    $newore = $playerinfo[ship_ore]+$amount_ore;
+    $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
+    $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
+    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
     $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore-$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
     playerlog($playerinfo[ship_id],"Furangee Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost"); 
   }
@@ -718,8 +730,12 @@ function furangeetrade()
     // **** BUY/SELL CARGO ****
     // ************************
     $total_cost = round(($amount_organics * $organics_price) - ($amount_ore * $ore_price + $amount_goods * $goods_price));
-    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore-$amount_ore, ship_organics=ship_organics+$amount_organics, ship_goods=ship_goods-$amount_goods where ship_id=$playerinfo[ship_id]");
-    $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics_$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    $newcredits = max(0,$playerinfo[credits]-$total_cost);
+    $newore = max(0,$playerinfo[ship_ore]-$amount_ore);
+    $neworganics = $playerinfo[ship_organics]+$amount_organics;
+    $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
+    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics-$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
     playerlog($playerinfo[ship_id],"Furangee Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost"); 
   }
   if($sectorinfo[port_type]=="goods")
@@ -748,7 +764,11 @@ function furangeetrade()
     // **** BUY/SELL CARGO ****
     // ************************
     $total_cost = round(($amount_goods * $goods_price) - ($amount_organics * $organics_price + $amount_ore * $ore_price));
-    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore-$amount_ore, ship_organics=ship_organics-$amount_organics, ship_goods=ship_goods+$amount_goods where ship_id=$playerinfo[ship_id]");
+    $newcredits = max(0,$playerinfo[credits]-$total_cost);
+    $newore = max(0,$playerinfo[ship_ore]-$amount_ore);
+    $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
+    $newgoods = $playerinfo[ship_goods]+$amount_goods;
+    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
     $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods-$amount_goods where sector_id=$sectorinfo[sector_id]");
     playerlog($playerinfo[ship_id],"Furangee Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost"); 
   }
