@@ -490,6 +490,7 @@ if($sectorinfo[planet] == 'Y')
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.");
           $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum WHERE sector_id=$sectorinfo[sector_id]");
         }
+        $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
       }
       else
       {
@@ -935,6 +936,7 @@ if($sectorinfo[planet] == 'Y')
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.");
           $update7b = mysql_query("UPDATE universe SET planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorpnum WHERE sector_id=$sectorinfo[sector_id]");
         }
+        $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
       }
     }
     elseif($command == "scan")
