@@ -117,7 +117,7 @@ function zoneedit_change()
   global $trades;
   global $defenses;
   global $l_clickme, $l_ze_saved, $l_ze_return;
-  global $db;
+  global $db,$dbtables;
 
   if(!get_magic_quotes_gpc())
     $name = addslashes($name);
