@@ -29,7 +29,15 @@
            }
            else
            {
-              echo "You lost all your mine deflectors.<BR>";
+              if($playerinfo[dev_minedeflector] > 0)
+              {
+                 echo "You lost all your mine deflectors.<BR>";
+              }
+              else
+              {
+                 echo "You had no mine deflectors.<BR>";
+              }
+  
               $mines_left = $roll - $playerinfo[dev_minedeflector];
               $playershields = NUM_SHIELDS($playerinfo[shields]);
               if($playershields > $playerinfo[ship_energy]) 
