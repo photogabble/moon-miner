@@ -104,7 +104,7 @@ if($res > 0)
 $num_defences = $i;
 
 
-$res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
+$res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id='$sectorinfo[zone_id]'");
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 

@@ -65,15 +65,20 @@ if($sector == "*")
     $row2 = mysql_fetch_array($result2);
     $num_ships = $row2[count];
 
-    // get port type and discover the presence of a planet in scanned sector
-    $result2 = mysql_query("SELECT port_type,mines,fighters FROM universe WHERE sector_id='$row[link_dest]'");
+   // get port type and discover the presence of a planet in scanned sector
+    $result2 = mysql_query("SELECT port_type FROM universe WHERE sector_id='$row[link_dest]'");
     $result3 = mysql_query("SELECT planet_id FROM planets WHERE sector_id='$row[link_dest]'");
-    $sectorinfo = mysql_fetch_array($result2);
+    $resultSDa = mysql_query("SELECT SUM(quantity) as mines from sector_defence WHERE sector_id='$row[link_dest]' and defence_type='M'");
+    $resultSDb = mysql_query("SELECT SUM(quantity) as fighters from sector_defence WHERE sector_id='$row[link_dest]' and defence_type='F'");
 
-    $port_type = $sectorinfo[port_type];   
+    $sectorinfo = mysql_fetch_array($result2);
+    $defM = mysql_fetch_array($resultSDa);
+    $defF = mysql_fetch_array($resultSDb);
+    $port_type = $sectorinfo[port_type];
     $has_planet = mysql_num_rows($result3);
-    $has_mines = NUMBER($sectorinfo[mines] ) ;
-    $has_fighters = NUMBER($sectorinfo[fighters] ) ;
+    $has_mines = NUMBER($defM[mines]);
+    $has_fighters = NUMBER($defF[fighters]);
+
 
     if ($port_type != "none") {
       $icon_alt_text = ucfirst($port_type);
@@ -296,16 +301,22 @@ else
     echo "None";
     $planet_bnthelper_string="<!--planet:N:::-->";
   }
+  $resultSDa = mysql_query("SELECT SUM(quantity) as mines from sector_defence WHERE sector_id='$sector' and defence_type='M'");
+  $resultSDb = mysql_query("SELECT SUM(quantity) as fighters from sector_defence WHERE sector_id='$sector' and defence_type='F'");
+  $defM = mysql_fetch_array($resultSDa);
+  $defF = mysql_fetch_array($resultSDb);
+
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD><B>Mines</B></TD></TR>";
-  $has_mines =  NUMBER($sectorinfo[mines] ) ;
+  $has_mines =  NUMBER($defM[mines] ) ;
   echo "<TR><TD>" . $has_mines;
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Fighters</B></TD></TR>";
-  $has_fighters =  NUMBER($sectorinfo[fighters] ) ;
+  $has_fighters =  NUMBER($defF[fighters] ) ;
   echo "<TR><TD>" . $has_fighters;
   echo "</TD></TR>";
   echo "</TABLE><BR>";
+
   echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
 }
 
