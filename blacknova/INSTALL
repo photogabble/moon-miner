@@ -3,26 +3,26 @@ BlackNova Traders
 
 INSTALLATION
 
-1. Untar the distribution (be sure to untar the subdirectories):  
+1. Untar the distribution (be sure to untar the subdirectories):
    tar xvf bnt-x.x.x.tar
 
 2. Type the following:
    chmod u+x installscript
    ./installscript
 
-3. Create the database:  
+3. Create the database:
    mysqladmin -uuser -ppass create dbname
 
 4. Open the file <www.your-host>/<install-dir>/create_universe.php3 in
    your browser.  You'll need to enter your admin password to access this
    page.  Change the settings to suit the universe you'd like to create -
-   and go for it. 
+   and go for it.
 
 5. Open the file <www.your-host>/<install-dir>/index.php3 in your browser
    - you should now be able to log-in.
 
 6. Create a directory in the blacknova directory called player-log.  It should
-   be given read-write-execute permissions so the user that your webserver 
+   be given read-write-execute permissions so the user that your webserver
    runs as can modify the files in player-log and delete files from that
    directory.
 
