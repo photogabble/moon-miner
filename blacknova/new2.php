@@ -15,6 +15,8 @@ if($account_creation_closed)
 {
   die($l_new_closed_message);
 }
+$character=htmlspecialchars($character);
+$shipname=htmlspecialchars($shipname);
 $character=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$character);
 $shipname=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$shipname);
 

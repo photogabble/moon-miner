@@ -396,9 +396,11 @@ switch ($teamwhat) {
 			echo "</FORM>";
 			echo "<BR><BR>";
 		} else {
-			$res = $db->Execute("INSERT INTO $dbtables[teams] (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
-         $db->Execute("INSERT INTO $dbtables[zones] VALUES('','$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
-         $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
+	                $teamname = htmlspecialchars($teamname);
+                        $teamdesc = htmlspecialchars($teamdesc);		
+                        $res = $db->Execute("INSERT INTO $dbtables[teams] (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
+                        $db->Execute("INSERT INTO $dbtables[zones] VALUES('','$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+                        $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
 			echo "$l_team_alliance <B>$teamname</B> $l_team_hcreated.<BR><BR>";
 			playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
 		}
@@ -481,7 +483,9 @@ switch ($teamwhat) {
    			echo "</FORM>";
    			echo "<BR><BR>";
    		} else {
-   			$res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
+   		        $teamname = htmlspecialchars($teamname);
+                        $teamdesc = htmlspecialchars($teamdesc);
+   	                $res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
    			echo "$l_team_alliance <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
    			/*
    			   Adding a log entry to all members of the renamed alliance

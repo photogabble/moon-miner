@@ -908,7 +908,7 @@ function stripnum($str)
 function collect_bounty($attacker,$bounty_on)
 {
    global $db,$dbtables,$l_by_thefeds;
-   $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
+   $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id and placed_by <> 0");
    if($res)
    {
       while(!$res->EOF)

@@ -56,6 +56,8 @@ else
 if (strpos($to, $l_sendm_ally)===false) {
   $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE character_name='$to'");
   $target_info = $res->fields;
+  $content = htmlspecialchars($content);
+  $subject = htmlspecialchars($subject);
   $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
      } else {
      $to = str_replace ($l_sendm_ally, "", $to);
