@@ -35,6 +35,7 @@ if($sectorinfo[planet] == 'Y')
     echo "You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
     echo "<BR>";
     TEXT_GOTOMAIN();
+    mysql_query("UNLOCK TABLES");
     include("footer.php3");
     die();
   }
@@ -300,6 +301,7 @@ if($sectorinfo[planet] == 'Y')
       {
         echo "You need at least one turn to scan a planet.<BR><BR>";
 	    TEXT_GOTOMAIN();
+        mysql_query("UNLOCK TABLES");
         include("footer.php3");   
         die();
       }
@@ -320,6 +322,7 @@ if($sectorinfo[planet] == 'Y')
         echo "Sensors cannot get a fix on target!<BR><BR>";
         TEXT_GOTOMAIN();
         playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attempted to scan your planet in sector $playerinfo[sector], but failed.");
+        mysql_query("UNLOCK TABLES");
         include("footer.php3");
         die();
       }
