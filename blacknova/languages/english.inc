@@ -1300,7 +1300,7 @@ $l_by_action   = "Action";
 $l_log_text[LOG_BOUNTY_CLAIMED] = "You claimed a bounty of [amount] for the destruction of the ship belonging to [bounty_on]. The bounty was placed by [placed_by].";
 $l_log_title[LOG_BOUNTY_CLAIMED] = "Bounty Claimed.";
 $l_log_text[LOG_BOUNTY_PAID] = "Your bounty on [bounty_on] has been paid for the amount of [amount].";
-$l_log_title[LOG_BOUNTY_CLAIMED] = "Bounty Paid.";
+$l_log_title[LOG_BOUNTY_PAID] = "Bounty Paid.";
 $l_log_text[LOG_BOUNTY_CANCELLED] = "Your bounty on [bounty_on] for the amount of [amount] credits has been refunded.";
 $l_log_title[LOG_BOUNTY_CANCELLED] = "Bounty Refunded.";
 

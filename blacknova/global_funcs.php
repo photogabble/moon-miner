@@ -911,7 +911,7 @@ function collect_bounty($attacker,$bounty_on)
          $update = $db->Execute("UPDATE $dbtables[ships] SET credits = credits + $bountydetails[amount] WHERE ship_id = $attacker");
          $delete = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $bountydetails[bounty_id]");
 
-         playerlog($attacker, LOG_BOUNTY_CLAIM, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
+         playerlog($attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
          playerlog($bountydetails[placed_by],LOG_BOUNTY_PAID,"$bountydetails[amount]|$bountydetails[character_name]");
 
          $res->MoveNext();
