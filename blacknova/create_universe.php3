@@ -89,7 +89,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   // logs should also be deleted
   // ...
   echo "Dropping all tables...<BR>";
-  mysql_query("DROP TABLE IF EXISTS links,ships,universe,zones,ibank_accounts");
+  mysql_query("DROP TABLE IF EXISTS links,ships,universe,zones,ibank_accounts,tblnews,refnewstypes");
   echo "Creating tables...<BR>";
   mysql_query("CREATE TABLE links(" .
                  "link_id bigint(20) unsigned DEFAULT '0' NOT NULL auto_increment," .
@@ -217,6 +217,23 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "team_name tinytext," .
                  "PRIMARY KEY(id)" .
                ")");
+  mysql_query("CREATE TABLE tblnews(" .
+                 "news_id bigint(20) unsigned NOT NULL auto_increment," .
+                 "newstypes_id varchar(6) NOT NULL," .
+                 "newsdata longtext NOT NULL," .
+                 "PRIMARY KEY (news_id)," .
+                 "KEY newstypes_id (newstypes_id)" .
+               ")");
+  mysql_query("CREATE TABLE refnewstypes(" .
+                 "newstypes_id varchar(6) NOT NULL," .
+                 "description varchar(50) NOT NULL," .
+                 "PRIMARY KEY (newstypes_id)," .
+                 "KEY newstypes_id (newstypes_id)," .
+                 "UNIQUE newstypes_id_2 (newstypes_id)" .
+               ")");
+
+  mysql_query("INSERT INTO refnewstypes VALUES ( 'GEN', 'General News')");
+  mysql_query("INSERT INTO refnewstypes VALUES ( 'BAT', 'Battle Results')");
 
   echo "Creating sector 0 - Sol...<BR>";
   $initsore = $ore_limit * $initscommod / 100.0;
@@ -227,10 +244,11 @@ elseif($swordfish==$adminpass && $engage=="2")
   $initborganics = $organics_limit * $initbcommod / 100.0;
   $initbgoods = $goods_limit * $initbcommod / 100.0;
   $initbenergy = $energy_limit * $initbcommod / 100.0;
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('0', 'Sol', '1', 'special', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Sol: Hub of the Universe', '0', '0', '0', ,'0', '0', '', ,'toll','N')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'N', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, 'N', 'N', '0', 'Sol: Hub of the Universe', '0', '0', '0', '0', '0', '0', 'toll', 'N')");
   $update = mysql_query("UPDATE universe SET sector_id=0 WHERE sector_id=1");
+
   echo "Creating sector 1 - Alpha Centauri...<BR>";
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('1', 'Alpha Centauri', '1', 'energy', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Aplha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '', ,'toll','N')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'N', NULL, '0', '0', '0', '0', '0', '0', '0', NULL, 'N', 'N', '0', 'Aplha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '0', 'toll','N')");
   $remaining = $sector_max-1;
   srand((double)microtime()*1000000);
   echo "Creating remaining $remaining sectors...";
@@ -365,12 +383,20 @@ elseif($swordfish==$adminpass && $engage=="2")
   
   echo "Creating iBank default account...<BR>";
   mysql_query("INSERT INTO ibank_accounts (id,ballance,loan,ibank_shareholder,ibank_employee,ibank_owner) VALUES ($ibank_owner,1000000000000000,0,100,1,1);");
+  
+  echo "Creating default $admin_mail login, password: $admin_mail<BR>";
+  $stamp=date("Y-m-d H:i:s");
+  mysql_query("INSERT INTO ships VALUES('','WebMaster','N','WebMaster','$admin_mail','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armour,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,$start_turns,'','N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,0,'N','1.1.1.1')");
+
+  
   echo "done.<BR>";
 }
 else
 {
   echo "Huh?";
 }
+
+echo "Click <A HREF='/'>here</A> to return to the login screen.";
   
 include("footer.php3");
 
