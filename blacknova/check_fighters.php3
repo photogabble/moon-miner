@@ -57,8 +57,7 @@
                     echo "<INPUT TYPE=SUBMIT VALUE=Go><BR><BR>";
                     echo "<input type=hidden name=sector value=$sector>";
                     echo "<input type=hidden name=engage value=1>";
-                    echo "<input type=hidden name=destination value=$destination>"
-;
+                    echo "<input type=hidden name=destination value=$destination>";
                     echo "</FORM>";
                     die();
                     break;
