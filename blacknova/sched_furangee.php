@@ -194,11 +194,16 @@
         $furcount3++;
         // ****** LET SEE IF WE GO HUNTING THIS ROUND BEFORE WE DO ANYTHING ELSE ******
         $hunt=rand(0,3);                               // *** 25% CHANCE OF HUNTING ***
+        // Uncomment below for Debugging
+        //$hunt=0;
         if ($hunt==0)
         {
         $furcount3h++;
         furangeehunter();
-        if ($furangeeisdead>0) continue;
+        if ($furangeeisdead>0) {
+          $res->MoveNext();
+          continue;
+        }
         } else
         {
           // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
@@ -248,7 +253,7 @@
     $res->MoveNext();
   }
   $res->_close();
-  $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2);
+  $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2 + $furcount3);
   echo "Counted $furcount Furangee players that are ACTIVE with working ships.<BR>";
   echo "$furnonmove Furangee players did not do anything this round. <BR>";
   echo "$furcount0 Furangee players had SENTINEL orders of which $furcount0a launched attacks. <BR>";
