@@ -42,7 +42,7 @@ if(!empty($planetinfo))
     include("footer.php");
     die();
   }
-  if($planetinfo[owner] == 0 && $planetinfo[defeated] == 'Y' && $command != "capture")
+  if($planetinfo[owner] == 0 && $command != "capture")
   {
     echo "$l_planet_unowned.<BR><BR>";
     $update = $db->Execute("UPDATE $dbtables[planets] SET fighters=0, defeated='Y' WHERE planet_id=$planet_id]");
