@@ -100,9 +100,13 @@
                  {
                     mysql_query("update universe set fighters=0 where sector_id=$sector");
                  }
+                 $fighterslost = NUMBER($sectorinfo[fighters] - $targetfighters);
+                 playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] destroyed $fighterslost of your sector defence fighters in sector $sector.");
                  if($playerarmour < 1)
                  {
                     echo "Your ship has been destroyed!<BR><BR>";
+                    playerlog($playerinfo[ship_id],"Your ship was destroyed by sector defence fighters in sector $sector.");
+                    playerlog($sectorinfo[fm_owner],"Your sector defence fighters destroyed $playerinfo[character_name] in sector $sector.");
                     if($playerinfo[dev_escapepod] == "Y")
                     {
                        $rating=round($playerinfo[rating]/2);
