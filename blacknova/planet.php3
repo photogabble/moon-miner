@@ -34,6 +34,8 @@ if(!empty($planetinfo))
 { 
   if($playerinfo[sector] != $planetinfo[sector_id])
   {
+    if($playerinfo[on_planet] == 'Y')
+      mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "You are not in the same sector as this planet, so you can't interact with it.<BR>";
     TEXT_GOTOMAIN();
     mysql_query("UNLOCK TABLES");
@@ -75,7 +77,7 @@ if(!empty($planetinfo))
     if($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
     {
       /* owner menu */
-      echo "Turns availables: " . $playerinfo[turns] . "<br>";
+      echo "Turns availables: $playerinfo[turns]<p>";
       echo "<a href=planet.php3?planet_id=$planet_id&command=name>Name</a> Planet<BR>";
       if($playerinfo[on_planet] == 'Y' && $playerinfo[planet_id] == $planet_id)
       {
