@@ -1,48 +1,133 @@
 <?
-	include("config.php3");
-	updatecookie();
 
-	$title="Help!";
-	include("header.php3");
+include("config.php3");
+updatecookie();
 
-	connectdb();
+$title = "Help";
+include("header.php3");
 
-	if (checklogin()) {die();}
+connectdb();
 
-	$result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
-	$playerinfo=mysql_fetch_array($result);
+if(checklogin())
+{
+  die();
+}
 
-        bigtitle();
+bigtitle();
 
-	echo "Greetings and welcome to $game_name.";
-	echo "<BR><BR>The basic premise of the games is to generate revenue and power - and crush those who oppose you.  Pretty Simple, huh?<BR><BR>";
-	echo "<H2>Main Menu Commands:</H2>";
-	echo "<B>Move:</B>  You may move from one sector to another through 'warp-links', by clicking on them from the main menu.  'Links lead to the following sectors (click to move):' would be the visual cue.<BR><BR>";
-	echo "<B>LR Scan:</B>  You may 'peek' into a sector with your scanners without actually moving there.  Simply click on the sector number after 'LR scan a sector:'.<BR><BR>";
-	echo "<B>Scan a ship:</B>  You may scan a ship (if there are other ships in the same sector as you) by clicking on the ship name following 'The are other ships in this sector (click to scan - if blank, there may be cloaked ships):'.  This may or may not work depending on your sensor level, vs. your target's cloak level.<BR><BR>";
-	echo "<B>Attack a ship:</B>  You may attack a ship (again, if there's one to attack) by clicking on 'attack' after the ship name.<BR><BR>";
-	echo "<B>Mail a Captain:</B>  You may send an e-mail to a ship's captain by clicking on the 'mail' link following the ship name.  You may also send a message to any player in the game by clicking 'Send Message' at the bottom of the page.";
-	echo "<B>Dock at port:</B>  If there is a port in your sector, you may dock in order to trade commodities, or purchase items for your ship by clicking on the port type in the description (eg. 'There is a goods port here.'.  If the type is 'special' you may purchase ship upgrades and supplies there.<BR><BR>";
-	echo "<B>Use Device:</B>  Takes you to the 'Use Device' menu.<BR><BR>";
-	echo "<B>Report:</B>  Gives a report on your ship, and its contents.<BR><BR>";
-	echo "<B>View Log:</B>  Let's you view (and optionally clear) a log of events that have happened to your ship.<BR><BR>";
-	echo "<B>Realspace Move:</B>  Based on the tech level of your engines you may move your ship through 'real space' rather than taking warp-links.  If you have a fuel scoop, you will collect energy units along the way.<BR><BR>";
-	echo "<B>Logout:</B>  Removes any game cookies from your system, ending your session.<BR><BR>";
-	echo "<B>Options:</B>  Allows you to change your password.<BR><BR>";
-	echo "<B>Rankings:</B>  Shows a list of all players, with scores based on aquisitions, in a rank structure.<BR><BR>";
-	echo "<B>Feedback:</B>  Send the webmaster a message.<BR><BR>";
-	echo "<H2>Use Device</H2>";
-	echo "<B>Genesis Device:</B>  Create a planet in current sector.<BR>";
-	echo "<B>Warp Editor:</B>  Allows you to create/destroy warp-links to another sector.<BR><BR>";
-	echo "<B>Space Beacon:</B>  Allows you to post a 'sign' for all other players to see in a sector.<BR><BR>";
-	echo "<B>Emergency Warp:</B>  If engaged manually, this device warps you to a random sector in the galaxy.  If you have one of these, and you are attacked - you will randomly warp to another sector in the galaxy.<BR><BR>";
-	echo "<B>Escape Pod:</B>  If you are attacked and your ship is destroyed, this device will allow you to start over, maintaining you credit balance, and planet ownership.<BR><BR>";
-	echo "<B>Fuelscoop:</B>  See Real Space Move.<BR><BR>";
-	echo "<B>Mine Deflector:</B>  When Mines are enabled in the game (RSN) each of these devices will take out 1 mine so that it does not damage your ship.  The device is destroyed in the process.<BR><BR>";
-	echo "<B>Sector 0 warning!</B>  if you remain in sector 0, there is a chance of damage due to collision - the bigger your hull, the bigger the chance... and collisions will damge your armour - potentially destorying your ship...<BR><BR>";	
+echo "Greetings and welcome to BlackNova Traders!";
+echo "<BR><BR>";
+echo "This is a game of inter-galactic exploration. Players explore the universe, trading for commodities and ";
+echo "increasing their wealth and power. Battles can be fought over space sectors and planets.";
+echo "<BR><BR>";
+echo "<H2>Main Menu Commands:</H2>";
+echo "<B>Ship report:</B><BR>";
+echo "Display a detailed report on your ship's systems, cargo and weaponry. You can display this report by ";
+echo "clicking on your ship's name at the top of the main page.";
+echo "<BR><BR>";
+echo "<B>Warp links:</B><BR>";
+echo "Move from one sector to another through warp links, by clicking on the sector numbers.";
+echo "<BR><BR>";
+echo "<B>Long-range scan:</B><BR>";
+echo "Scan a neighboring sector with your long range scanners without actually moving there. A full scan will ";
+echo "give you an outlook on all the neighboring sectors in one wide sweep of your sensors.";
+echo "<BR><BR>";
+echo "<B>Ships:</B><BR>";
+echo "Scan or attack a ship (if it shows up on your sensors) by clicking on the appropriate link on the right ";
+echo "of the ship's name. The attacked ship may evade your offensive maneuver depending on its tech levels.";
+echo "<BR><BR>";
+echo "<B>Trading ports:</B><BR>";
+echo "Access the port trading menu by clicking on a port's type when you enter a sector where one is present.";
+echo "<BR><BR>";
+echo "<B>Planets:</B><BR>";
+echo "Access the planet menu by clicking on a planet's name when you enter a sector where one is present.";
+echo "<BR><BR>";
+if($allow_navcomp)
+{
+  echo "<B>Navigation computer:</B><BR>";
+  echo "Use your computer to find a route to a specific sector. The navigation computer's power depends on ";
+  echo "your computer tech level.";
+  echo "<BR><BR>";
+}
+echo "<B>RealSpace:</B><BR>";
+echo "Use your ship's engines to get to a specific sector. Upgrade your engines' tech level to use RealSpace ";
+echo "moves effectively. By clicking on the 'Presets' link you can memorize up to 3 sector numbers for quick ";
+echo "movement or you can target any sector using the 'Other' link."; 
+echo "<BR><BR>";
+echo "<B>Trade routes:</B><BR>";
+echo "Use trade routes to quickly trade commodities between ports. Trade routes take advantage of RealSpace ";
+echo "movements to go back and forth between two ports and trade the maximum amount of commodities at each ";
+echo "end. Ensure the remote sector contains a trading port before using a trade route. The trade route ";
+echo "presets are shared with the RealSpace ones. As with RealSpace moves, any sector can be targeted using ";
+echo "the 'Other' link";
+echo "<BR><BR>";
+echo "<H3>Menu bar (bottom part of the main page):</H3>";
+echo "<B>Devices:</B><BR>";
+echo "Use the different devices that your ship carries (Genesis Torpedoes, beacons, Warp Editors, etc.). For ";
+echo "more details on each individual device, scroll down to the 'Devices' section.";
+echo "<BR><BR>";
+echo "<B>Planets:</B><BR>";
+echo "Display a list of all your planets, with current totals on commodities, weaponry and credits.";
+echo "<BR><BR>";
+echo "<B>Log:</B><BR>";
+echo "Display the log of events that have happened to your ship.";
+echo "<BR><BR>";
+echo "<B>Send Message:</B><BR>";
+echo "Send an e-mail to another player.";
+echo "<BR><BR>";
+echo "<B>Rankings:</B><BR>";
+echo "Display the list of the top players, ranked by their current scores.";
+echo "<BR><BR>";
+echo "<B>Last Users:</B><BR>";
+echo "Display the list of users who recently logged on to the game.";
+echo "<BR><BR>";
+echo "<B>Options:</B><BR>";
+echo "Change user-specific options (currently, only the password can be changed).";
+echo "<BR><BR>";
+echo "<B>Feedback:</B><BR>";
+echo "Send an e-mail to the game admin.";
+echo "<BR><BR>";
+echo "<B>Self-Destruct:</B><BR>";
+echo "Destroy your ship and remove yourself from the game.";
+echo "<BR><BR>";
+echo "<B>Help:</B><BR>";
+echo "Display the help page (what you're reading right now).";
+echo "<BR><BR>";
+echo "<B>Logout:</B><BR>";
+echo "Remove any game cookies from your system, ending your current session.";
+echo "<BR><BR>";
+echo "<H3>Devices:</H3>";
+echo "<B>Space Beacons:</B><BR>";
+echo "Post a warning or message which will be displayed to anyone entering this sector. Only 1 beacon can be ";
+echo "active in each sector, so a new beacon removes the existing one (if any).";
+echo "<BR><BR>";
+echo "<B>Warp Editors:</B><BR>";
+echo "Create or destroy warp links to another sector.";
+echo "<BR><BR>";
+echo "<B>Genesis Torpedoes:</B><BR>";
+echo "Create a planet in the current sector (if one does not yet exist).";
+echo "<BR><BR>";
+echo "<B>Mine Deflector:</B><BR>";
+echo "Protect the player against mines dropped in space. Each deflector takes out 1 mine.";
+echo "<BR><BR>";
+echo "<B>Emergency Warp Device:</B><BR>";
+echo "Transport your ship to a random sector, if manually engaged. Otherwise, an Emergency Warp Device can ";
+echo "protect your ship when attacked by transporting you out of the reach of the attacker.";
+echo "<BR><BR>";
+echo "<B>Escape Pod (maximum of 1):</B><BR>";
+echo "Keep yourself alive when your ship is destroyed, enabling you to keep your credits and planets.";
+echo "<BR><BR>";
+echo "<B>Fuel Scoop (maximum of 1):</B><BR>";
+echo "Accumulate energy units when using RealSpace movement.";
+echo "<BR><BR>";
+echo "<H3>Zones:</H3>";
+echo "The galaxy is divided into different areas with different rules being enforced in each zone. To display ";
+echo "the restrictions attached to your current sector, just click on the zone name (top right corner of the ";
+echo "main page). Your ship can be towed out of a zone to a random sector when your hull size exceeds the ";
+echo "maximum allowed level for that specific zone. Attacking other players and using some devices can also ";
+echo "be disallowed in some zones.";
 
-
-	echo "Click <a href=main.php3>here</a> to return to main menu.";
-	include("footer.php3");
+echo "Click <A HREF=main.php3>here</A> to return to main menu.";
+include("footer.php3");
 
 ?> 
