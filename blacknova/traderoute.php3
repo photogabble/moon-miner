@@ -481,8 +481,10 @@ else
       $energy_pricet2 = $energy_price + $energy_delta * $start[port_energy] / $energy_limit * $inventory_factor;
       if($energy_t2 > $start[port_energy])$energy_t2 = $start[port_energy];
       
-      $t2_value = $goods_pricet2 * $goods_t2 - $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 + $energy_pricet2 * $energy_t2;
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t2 - $ore_t2 + $organics_t2;
+      if ($ore_t2 >> $freeholds) $ore_t2 = $freeholds;
       
+      $t2_value = $goods_pricet2 * $goods_t2 - $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 + $energy_pricet2 * $energy_t2;
       if($t2_value < 0 && abs($t2_value) > $playerinfo[credits])
       {
         echo "You do not have enough credits to buy maximum ore at $playerinfo[sector].<BR><BR>";
@@ -490,8 +492,6 @@ else
         $ore_t2 = 0;
       }
      
-      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t2 - $ore_t2 + $organics_t2;
-      if ($ore_t2 >> $freeholds) $ore_t2 = $freeholds;
       
       echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
       echo "Sold " . NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
@@ -579,6 +579,7 @@ else
     echo ":  " . NUMBER(abs($combined)) . " credits<BR><BR>";
     $remaining = $playerinfo[turns]-$triptime;
     echo "Used " . NUMBER($triptime) . " turn(s). " . NUMBER($remaining) . " left.<BR><BR>";
+    echo "<a href='traderoute.php3?phase=2&destination=$destination'>Do this trade route again</a><BR><BR>";
   }
 }
 
