@@ -22,13 +22,13 @@ $nextday = getnextday($startdate);
     <tr>
       <td height="73" width="27%"><img src="images/bnnhead.gif" width="312" height="123"></td>
       <td height="73" width="73%" bgcolor="#000000" valign="bottom" align="right">
-        <p><font size="-1">$l_news_info</font></p>
-        <p> $l_news_for <?php echo $startdate?></p>
+        <p><font size="-1"><?php echo $l_news_info?></font></p>
+        <p><?php echo $l_news_for ?> <?php echo $startdate?></p>
       </td>
     </tr>
     <tr>
       <td height="22" width="27%" bgcolor="#00001A">&nbsp;</td>
-      <td height="22" width="73%" bgcolor="#00001A" align="right"><a href=news.php?startdate=<?php echo $previousday?>>$l_news_prev</a> - <a href=news.php?startdate=<?php echo $nextday?>>$l_news_next</a></td>
+      <td height="22" width="73%" bgcolor="#00001A" align="right"><a href=news.php?startdate=<?php echo $previousday ?>><?php echo $l_news_prev ?></a> - <a href=news.php?startdate=<?php echo $nextday ?>><?php echo $l_news_next ?></a></td>
     </tr>
 <?php
 

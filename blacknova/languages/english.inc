@@ -542,7 +542,7 @@ $l_news_info		 = "BNN is among the galaxy's leaders<br>
                             in news and information delivery.<br>
                             Staffed 24 hours, seven days a week by a <br>
                             dedicated staff in BNN's galaxy headquarters <br>
-                            in Alpha Centaury and in bureaus galaxywide!";
+                            in Alpha Centauri and in bureaus galaxywide!";
 $l_news_for		 = "News for";
 $l_news_prev		 = "previous day";
 $l_news_next		 = "next day";
