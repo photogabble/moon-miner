@@ -237,7 +237,7 @@ else
   {
     if($sectorinfo[planet] == "Y")
     {
-      if($sectorinfo[planet_owner] == $playerinfo[ship_id])
+      if($sectorinfo[planet_owner] == $playerinfo[ship_id] || $sectorinfo[planet_corp] == $playerinfo[team])
       {
         if($transfer_ore < 0 && $playerinfo[ship_ore] < abs($transfer_ore))
         {

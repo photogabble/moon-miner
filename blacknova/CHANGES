@@ -1,0 +1,14 @@
+ratt (06 July 01)
+------------------
+Fixed a bug in traderoute.php3 that allowed you to have
+double the amount of cargo that your holds could handle.
+
+Fixed a bug in the corporate planet scheme that allowed the
+original owner unfettered access to a planet after it was
+captured if it was set to corporate when it was captured.
+
+Fixed a bug in planetcombat.php3 that would result in
+negative fighters being left after a planetary attack,
+even if you only lost 1 fighters and had a ton of
+fighters left.
+

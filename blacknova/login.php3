@@ -13,8 +13,6 @@ bigtitle();
 
 <form action="login2.php3" method="post">
 <BR><BR>
-If you get a "Can't connect to local MySQL" error, it's because my hosting service's DB is down - again - sorry!
-<BR><BR>
 
 <TABLE CELLPADDING="4">
 <TR>

@@ -47,7 +47,7 @@ elseif($sectorinfo[planet] == "Y")
       if($playerinfo[dev_genesis] > 0)
       {
         $deltarating=$sectorinfo[planet_colonists];
-        $update = mysql_query("UPDATE universe SET planet_name='', planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
+        $update = mysql_query("UPDATE universe SET planet_name='', planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, planet_corp=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
         $update2=mysql_query("UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1, rating=rating-$deltarating WHERE ship_id=$playerinfo[ship_id]");
         echo "<BR>Errr, there was one with $deltarating colonists here....<BR>";
       }

@@ -17,6 +17,8 @@ mysql_query("LOCK TABLES ships WRITE, universe WRITE");
 
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
+$freeholds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+echo "Initial Freeholds: $freeholds<BR><BR>";
 
 bigtitle();
 
@@ -183,6 +185,9 @@ else
       {
         $energy_t1 = $finish[port_energy];
       }
+      
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t1 + $ore_t1 + $organics_t1;
+      
       $t1_value = $goods_pricet1 * $goods_t1 + $ore_pricet1 * $ore_t1 + $organics_pricet1 * $organics_t1 -
         $energy_pricet1 * $energy_t1;
       if($t1_value < 0 && abs($t1_value) > $playerinfo[credits])
@@ -201,28 +206,24 @@ else
     {
       $goods_t1 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
       $goods_pricet1 = $goods_price - $goods_delta * $finish[port_goods] / $goods_limit * $inventory_factor;
-      if($goods_t1 > $finish[port_goods])
-      {
-        $goods_t1 = $finish[port_goods];
-      }
+      if($goods_t1 > $finish[port_goods]) $goods_t1 = $finish[port_goods];
+      
       $ore_t1 = $playerinfo[ship_ore];
       $ore_pricet1 = $ore_price + $ore_delta * $finish[port_ore] / $ore_limit * $inventory_factor;
-      if($ore_t1 > $finish[port_ore])
-      {
-        $ore_t1 = $finish[port_ore];
-      }
+      if($ore_t1 > $finish[port_ore]) $ore_t1 = $finish[port_ore];
+      
       $organics_t1 = $playerinfo[ship_organics];
       $organics_pricet1 = $organics_price + $organics_delta * $finish[port_organics] / $organics_limit * $inventory_factor;
-      if($organics_t1 > $finish[port_organics])
-      {
-        $organics_t1 = $finish[port_organics];
-      }
+      if($organics_t1 > $finish[port_organics]) $organics_t1 = $finish[port_organics];
+      
       $energy_t1 = $playerinfo[ship_energy] + $energyscooped;
       $energy_pricet1 = $energy_price + $energy_delta * $finish[port_energy] / $energy_limit * $inventory_factor;
-      if($energy_t1 > $finish[port_energy])
-      {
-        $energy_t1 = $finish[port_energy];
-      }
+      if($energy_t1 > $finish[port_energy]) $energy_t1 = $finish[port_energy];
+      
+      $freeholds = NUM_HOLDS($playerinfo[hull]) - $goods_t1 + $ore_t1 + $organics_t1;
+      if ($goods_t1 >> $freeholds) $goods_t1 = $freeholds;
+      $freeholds = $freeholds - $goods_t1;
+      
       $t1_value = -$goods_pricet1 * $goods_t1 + $ore_pricet1 * $ore_t1 + $organics_pricet1 * $organics_t1 +
         $energy_pricet1 * $energy_t1;
       if($t1_value < 0 && abs($t1_value) > $playerinfo[credits])
@@ -231,11 +232,13 @@ else
         $t1_value = $t1_value + $goods_pricet1 * $goods_t1;
         $goods_t1 = 0;
       }
+      
       echo "Sold " . NUMBER($ore_t1) . " ore at $ore_pricet1<BR>";
       echo "Sold " . NUMBER($organics_t1) . " organics at $organics_pricet1<BR>";
       echo "Sold " . NUMBER($energy_t1) . " energy at $energy_pricet1<BR><BR>";
       echo "Bought " . NUMBER($goods_t1) . " units of goods at $goods_pricet1.<BR><BR>";
       $goods_t1 = -$goods_t1;
+      
     }
     if($finish[port_type] == "ore")
     {
@@ -263,6 +266,11 @@ else
       {
         $energy_t1 = $finish[port_energy];
       }
+      
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t1 - $ore_t1 + $organics_t1;
+      if ($ore_t1 >> $freeholds) $ore_t1 = $freeholds;
+      $freeholds = $freeholds - $ore_t1;
+      
       $t1_value = $goods_pricet1 * $goods_t1 - $ore_pricet1 * $ore_t1 + $organics_pricet1 * $organics_t1 +
         $energy_pricet1 * $energy_t1;
       if($t1_value < 0 && abs($t1_value) > $playerinfo[credits])
@@ -303,6 +311,11 @@ else
       {
         $energy_t1 = $finish[port_energy];
       }
+      
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t1 + $ore_t1 - $organics_t1;
+      if ($organics_t1 >> $freeholds) $organics_t1 = $freeholds;
+      $freeholds = $freeholds - $organics_t1;
+      
       $t1_value = $goods_pricet1 * $goods_t1 + $ore_pricet1 * $ore_t1 - $organics_pricet1 * $organics_t1 +
         $energy_pricet1 * $energy_t1;
       if($t1_value < 0 && abs($t1_value) > $playerinfo[credits])
@@ -328,6 +341,7 @@ else
     }
     echo ":  " . NUMBER(abs($t1_value)) . " credits<BR><BR>";
     $update1 = mysql_query("UPDATE ships SET ship_ore=ship_ore-$ore_t1, ship_organics=ship_organics-$organics_t1, ship_goods=ship_goods-$goods_t1, ship_energy=ship_energy-$energy_t1+$energyscooped, credits=credits+$t1_value WHERE ship_id=$playerinfo[ship_id]");
+	//$freeholds = NUM_HOLDS($playerinfo[hull]) - $ore_t1 - $organics_t1 - $goods_t1 - $playerinfo[ship_colonists];
     $ore_t1 = abs($ore_t1);
     $organics_t1 = abs($organics_t1);
     $goods_t1 = abs($goods_t1);
@@ -338,6 +352,11 @@ else
     echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
     echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $playerinfo[sector]: $start[port_type]</B></TD></TR>";
     echo "</TABLE><BR>";
+   
+    echo "Freeholds: $freeholds<BR>";
+    echo "Holds: " . NUM_HOLDS($playerinfo[hull]) . " <BR>";
+    echo "<BR>Ore: $ore_t1<BR>Organics: $organics_t1<BR>Goods: $goods_t1<BR>";
+   
     $ore_t2 = 0;
     $organics_t2 = 0;
     $goods_t2 = 0;
@@ -355,24 +374,30 @@ else
       {
         $goods_t2 = $start[port_goods];
       }
+     
       $ore_t2 = $playerinfo[ship_ore];
       $ore_pricet2 = $ore_price + $ore_delta * $start[port_ore] / $ore_limit * $inventory_factor;
       if($ore_t2 > $start[port_ore])
       {
         $ore_t2 = $start[port_ore];
       }
+      
       $organics_t2 = $playerinfo[ship_organics];
       $organics_pricet2 = $organics_price + $organics_delta * $start[port_organics] / $organics_limit * $inventory_factor;
       if($organics_t2 > $start[port_organics])
       {
         $organics_t2 = $start[port_organics];
       }
+      
       $energy_t2 = $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy] - $energyscooped;
       $energy_pricet2 = $energy_price - $energy_delta * $start[port_energy] / $energy_limit * $inventory_factor;
       if($energy_t2 > $start[port_energy])
       {
         $energy_t2 = $start[port_energy];
       }
+    
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t2 + $ore_t2 + $organics_t2;
+      
       $t2_value = $goods_pricet2 * $goods_t2 + $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 -
         $energy_pricet2 * $energy_t2;
       if($t2_value < 0 && abs($t2_value) > $playerinfo[credits])
@@ -395,24 +420,31 @@ else
       {
         $goods_t2 = $start[port_goods];
       }
+      
       $ore_t2 = $playerinfo[ship_ore];
       $ore_pricet2 = $ore_price + $ore_delta * $start[port_ore] / $ore_limit * $inventory_factor;
       if($ore_t2 > $start[port_ore])
       {
         $ore_t2 = $start[port_ore];
       }
+      
       $organics_t2 = $playerinfo[ship_organics];
       $organics_pricet2 = $organics_price + $organics_delta * $start[port_organics] / $organics_limit * $inventory_factor;
       if($organics_t2 > $start[port_organics])
       {
         $organics_t2 = $start[port_organics];
       }
+      
       $energy_t2 = $playerinfo[ship_energy] + $energyscooped;
       $energy_pricet2 = $energy_price + $energy_delta * $start[port_energy] / $energy_limit * $inventory_factor;
       if($energy_t2 > $start[port_energy])
       {
         $energy_t2 = $start[port_energy];
       }
+      
+      $freeholds = NUM_HOLDS($playerinfo[hull]) - $goods_t2 + $ore_t2 + $organics_t2;
+      if ($goods_t2 >> $freeholds) $goods_t2 = $freeholds;
+      
       $t2_value = -$goods_pricet2 * $goods_t2 + $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 +
         $energy_pricet2 * $energy_t2;
       if($t2_value < 0 && abs($t2_value) > $playerinfo[credits])
@@ -421,6 +453,7 @@ else
         $t2_value = $t2_value + $goods_pricet2 * $goods_t2;
         $goods_t2 = 0;
       }
+
       echo "Sold " . NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
       echo "Sold " . NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
       echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR><BR>";
@@ -431,36 +464,35 @@ else
     {
       $goods_t2 = $playerinfo[ship_goods];
       $goods_pricet2 = $goods_price + $goods_delta * $start[port_goods] / $goods_limit * $inventory_factor;
-      if($goods_t2 > $start[port_goods])
-      {
-        $goods_t2 = $start[port_goods];
-      }
+      if($goods_t2 > $start[port_goods]) $goods_t2 = $start[port_goods];
+      $freeholds = $freeholds + $goods_t2;
+      
       $ore_t2 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
       $ore_pricet2 = $ore_price - $ore_delta * $start[port_ore] / $ore_limit * $inventory_factor;
-      if($ore_t2 > $start[port_ore])
-      {
-        $ore_t2 = $start[port_ore];
-      }
+      if($ore_t2 > $start[port_ore])  $ore_t2 = $start[port_ore];
+      $freeholds = $freeholds - $ore_t2;
+      
       $organics_t2 = $playerinfo[ship_organics];
       $organics_pricet2 = $organics_price + $organics_delta * $start[port_organics] / $organics_limit * $inventory_factor;
-      if($organics_t2 > $start[port_organics])
-      {
-        $organics_t2 = $start[port_organics];
-      }
+      if($organics_t2 > $start[port_organics]) $organics_t2 = $start[port_organics];
+      $freeholds = $freeholds + $organics_t2;
+      
       $energy_t2 = $playerinfo[ship_energy] + $energyscooped;
       $energy_pricet2 = $energy_price + $energy_delta * $start[port_energy] / $energy_limit * $inventory_factor;
-      if($energy_t2 > $start[port_energy])
-      {
-        $energy_t2 = $start[port_energy];
-      }
-      $t2_value = $goods_pricet2 * $goods_t2 - $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 +
-        $energy_pricet2 * $energy_t2;
+      if($energy_t2 > $start[port_energy])$energy_t2 = $start[port_energy];
+      
+      $t2_value = $goods_pricet2 * $goods_t2 - $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 + $energy_pricet2 * $energy_t2;
+      
       if($t2_value < 0 && abs($t2_value) > $playerinfo[credits])
       {
         echo "You do not have enough credits to buy maximum ore at $playerinfo[sector].<BR><BR>";
         $t2_value = $t2_value + $ore_pricet2 * $ore_t2;
         $ore_t2 = 0;
       }
+     
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t2 - $ore_t2 + $organics_t2;
+      if ($ore_t2 >> $freeholds) $ore_t2 = $freeholds;
+      
       echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
       echo "Sold " . NUMBER($organics_t2) . " organics at $organics_pricet2<BR>";
       echo "Sold " . NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
@@ -475,24 +507,31 @@ else
       {
         $goods_t2 = $start[port_goods];
       }
+      
       $ore_t2 = $playerinfo[ship_ore];
       $ore_pricet2 = $ore_price + $ore_delta * $start[port_ore] / $ore_limit * $inventory_factor;
       if($ore_t2 > $start[port_ore])
       {
         $ore_t2 = $start[port_ore];
       }
+      
       $organics_t2 = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
       $organics_pricet2 = $organics_price - $organics_delta * $start[port_organics] / $organics_limit * $inventory_factor;
       if($organics_t2 > $start[port_organics])
       {
         $organics_t2 = $start[port_organics];
       }
+      
       $energy_t2 = $playerinfo[ship_energy] + $energyscooped;
       $energy_pricet2 = $energy_price + $energy_delta * $start[port_energy] / $energy_limit * $inventory_factor;
       if($energy_t2 > $start[port_energy])
       {
         $energy_t2 = $start[port_energy];
       }
+      
+      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t2 + $ore_t2 - $organics_t2;
+      if ($organics_t2 >> $freeholds) $organics_t2 = $freeholds;
+      
       $t2_value = $goods_pricet2 * $goods_t2 + $ore_pricet2 * $ore_t2 - $organics_pricet2 * $organics_t2 +
         $energy_pricet2 * $energy_t2;
       if($t2_value < 0 && abs($t2_value) > $playerinfo[credits])
@@ -501,6 +540,7 @@ else
         $t2_value = $t2_value + $organics_pricet2 * $organics_t2;
         $energy_t2 = 0;
       }
+      
       echo "Sold " . NUMBER($ore_t2) . " ore at $ore_pricet2<BR>";
       echo "Sold " . NUMBER($energy_t2) . " energy at $energy_pricet2<BR>";
       echo "Sold " . NUMBER($goods_t2) . " goods at $goods_pricet2<BR><BR>";
