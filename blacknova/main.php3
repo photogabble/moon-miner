@@ -398,14 +398,14 @@ else
 }
 if($sectorinfo[fm_owner] == $playerinfo[ship_id] ) 
 {
- $mines_owner = "You have"; 
+ $mines_owner = 'You have'; 
 
 } 
 else
 {
    $resultX = mysql_query("SELECT * FROM ships WHERE ship_id=$sectorinfo[fm_owner] ");
-  $planet_owner_arry = mysql_fetch_array($result5);
-  $mines_owner = $planet_owner_arry[character_name] . " has";
+  $planet_owner_arry = mysql_fetch_array($resultX);
+  $mines_owner = $planet_owner_arry[character_name] . ' has';
 }
 if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
 {
@@ -414,7 +414,7 @@ if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
    if($sectorinfo[mines] == 1) $minedesc = 'mine';
    if($sectorinfo[fighters] == 1) $fighterdesc = 'fighter';
    echo "</tr><tr><td align=center valign=top>";
-   echo "<br><font color=white>$mine_owner $sectorinfo[mines] $minedesc and $sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting]) in this sector.</font><br>";
+   echo "<br><font color=white>$mines_owner $sectorinfo[mines] $minedesc and $sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting]) in this sector.</font><br>";
    echo "</td>";
 }
  
