@@ -188,6 +188,9 @@ $avail_lang[1][file] = 'german.inc';
 $avail_lang[1][name] = 'Deutsch';
 $avail_lang[2][file] = 'french.inc';
 $avail_lang[2][name] = 'Français';
+$avail_lang[3][file] = 'romanian.inc';
+$avail_lang[3][name] = 'Romanian';
+
 
 // Anti-cheat settings
 $IGB_min_turns = $start_turns; //Turns a player has to play before ship transfers are allowed 0=disable
