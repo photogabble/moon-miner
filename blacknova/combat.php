@@ -519,7 +519,7 @@ echo "
           $db->Execute("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armour_pts=armour_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         }
 
-		$result4 = $db->Execute("SELECT * FROM ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+		$result4 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
 		$shipsonplanet = $result4->RecordCount();
 
 		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)

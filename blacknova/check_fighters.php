@@ -131,7 +131,7 @@
 
 
            // clean up any sectors that have used up all mines or fighters
-           $db->Execute("delete from sector_defence where quantity <= 0 ");
+           $db->Execute("delete from $dbtables[sector_defence] where quantity <= 0 ");
         }
 
     }
