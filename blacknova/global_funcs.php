@@ -339,7 +339,7 @@ function gen_score($sid)
      $row = $res->fields;
      $score += ($row[balance] - $row[loan]);
   }
-  $score = ROUND(SQRT($score);
+  $score = ROUND(SQRT($score));
   $db->Execute("UPDATE $dbtables[ships] SET score=$score WHERE ship_id=$sid");
 
   return $score;
