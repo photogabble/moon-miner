@@ -56,6 +56,8 @@ else
       {
          if (empty($nummines)) $nummines = 0;
          if (empty($numfighters)) $numfighters = 0;
+         if ($nummines < 0) $nummines = 0;
+         if ($numfighters < 0) $numfighters =0;
          if ($nummines > $playerinfo[torps])
          {
             echo "You do not have enough torpedos.<BR>";
