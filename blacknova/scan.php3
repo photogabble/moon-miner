@@ -117,7 +117,7 @@ else
       $roll=rand(1,100);
       if ($roll<$success)
       {
-        $sc_armor=round($targetinfo[armour] * $sc_error / 100);
+        $sc_armour=round($targetinfo[armour] * $sc_error / 100);
         echo "<td>$sc_armour</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
