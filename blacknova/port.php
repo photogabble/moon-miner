@@ -52,6 +52,31 @@ if ($playerinfo[ship_goods]<0)
 $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo = $res->fields;
 
+if ($sectorinfo[port_ore]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[universe] set port_ore=0 WHERE sector_id=$playerinfo[sector]");
+        $sectorinfo[port_ore] = 0;
+        }
+
+if ($sectorinfo[port_goods]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[universe] set port_goods=0 WHERE sector_id=$playerinfo[sector]");
+        $sectorinfo[port_goods] = 0;
+        }
+
+if ($sectorinfo[port_organics]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[universe] set port_organics=0 WHERE sector_id=$playerinfo[sector]");
+        $sectorinfo[port_organics] = 0;
+        }
+
+if ($sectorinfo[port_energy]<0)
+		{
+        $fixres = $db->Execute("UPDATE $dbtables[universe] set port_energy=0 WHERE sector_id=$playerinfo[sector]");
+        $sectorinfo[port_energy] = 0;
+        }
+
+
 $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$sectorinfo[zone_id]");
 
 $zoneinfo = $res->fields;
