@@ -3,6 +3,7 @@
 include("config.php3");
 updatecookie();
 
+$title = "Port Trading";
 include("header.php3");
 
 connectdb();
