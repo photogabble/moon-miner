@@ -224,7 +224,7 @@ else
   // *********************************
   // ***** FURANGEE TURN UPDATES *****
   // *********************************
-  echo "<BR><B>FURANGEE MOVES</B><BR><BR>";
+  echo "<BR><B>FURANGEE TURNS</B><BR><BR>";
 
   // *********************************
   // ******* INCLUDE FUNCTIONS *******
@@ -234,16 +234,22 @@ else
   // *********************************
   // **** MAKE FURANGEE SELECTION ****
   // *********************************
+  $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = 0; 
   $res = mysql_query("SELECT * FROM ships JOIN furangee WHERE email=furangee_id and active='Y' and ship_destroyed='N' ORDER BY sector");
   while($playerinfo = mysql_fetch_array($res))
   {
     // *********************************
     // ****** RUN THROUGH ORDERS *******
     // *********************************
+    $furcount++;
     if (rand(1,5) > 1)                                 // ****** 20% CHANCE OF NOT MOVING AT ALL ******
-    {
-      if ($playerinfo[orders] == 0)                    // ****** ORDERS = 0 SENTINEL ******
+    { 
+      // *********************************
+      // ****** ORDERS = 0 SENTINEL ******
+      // *********************************
+      if ($playerinfo[orders] == 0)
       {
+        $furcount0++;
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso0 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
@@ -258,35 +264,25 @@ else
             // Furangee's only compare number of fighters when determining if they have an attack advantage 
             if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
             {
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].<BR>");
-              if ($rowo0[dev_emerwarp]>0)
-              {
-                playerlog($rowo0[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
-                $dest_sector=rand(0,$sector_max);
-                $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo0[ship_id]");
-              } else
-              {
-                furangeetoship($rowo0[ship_id]);
-              }
+              $furcount0a++;
+              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].");
+              furangeetoship($rowo0[ship_id]);
             }
           }
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
-            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].<BR>");
-            if ($rowo0[dev_emerwarp]>0)
-            {
-              playerlog($rowo0[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
-              $dest_sector=rand(0,$sector_max);
-              $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo0[ship_id]");
-            } else
-            {
-              furangeetoship($rowo0[ship_id]);
-            }
+            $furcount0a++;
+            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo0[character_name].");
+            furangeetoship($rowo0[ship_id]);
           }
         }
       }
-      elseif ($playerinfo[orders] == 1)                // ****** ORDERS = 1 ROAM ******
+      // *********************************
+      // ******** ORDERS = 1 ROAM ********
+      // *********************************
+      elseif ($playerinfo[orders] == 1)
       {
+        $furcount1++;
         // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
         furangeemove();
         // ****** FIND A TARGET ******
@@ -303,35 +299,25 @@ else
             // Furangee's only compare number of fighters when determining if they have an attack advantage 
             if ($playerinfo[ship_fighters] > $rowo1[ship_fighters])
             {  
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].<BR>");
-              if ($rowo1[dev_emerwarp]>0)
-              {
-                playerlog($rowo1[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
-                $dest_sector=rand(0,$sector_max);
-                $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo1[ship_id]");
-              } else
-              {
-                furangeetoship($rowo1[ship_id]);
-              }
+              $furcount1a++;
+              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].");
+              furangeetoship($rowo1[ship_id]);
             }
           }
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
-            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].<BR>");
-            if ($rowo1[dev_emerwarp]>0)
-            {
-              playerlog($rowo1[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
-              $dest_sector=rand(0,$sector_max);
-              $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo1[ship_id]");
-            } else
-            {
-              furangeetoship($rowo1[ship_id]);
-            }
+            $furcount1a++;
+            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].");
+            furangeetoship($rowo1[ship_id]);
           }
         }
       }
-      elseif ($playerinfo[orders] == 2)                // ****** ORDERS = 2 ROAM AND TRADE ******
+      // *********************************
+      // *** ORDERS = 2 ROAM AND TRADE ***
+      // *********************************
+      elseif ($playerinfo[orders] == 2)
       {
+        $furcount2++;
         // ****** ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE ******
         furangeemove();
         // ****** FIND A TARGET ******
@@ -348,36 +334,28 @@ else
             // Furangee's only compare number of fighters when determining if they have an attack advantage 
             if ($playerinfo[ship_fighters] > $rowo2[ship_fighters])
             {
-              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].<BR>");
-              if ($rowo2[dev_emerwarp]>0)
-              {
-                playerlog($rowo2[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
-                $dest_sector=rand(0,$sector_max);
-                $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo2[ship_id]");
-              } else
-              {
-                furangeetoship($rowo2[ship_id]);
-              }
+              $furcount2a++;
+              playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].");
+              furangeetoship($rowo2[ship_id]);
             }
           }
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
-            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].<BR>");
-            if ($rowo2[dev_emerwarp]>0)
-            {
-              playerlog($rowo2[ship_id], "A Furangee named $playerinfo[character_name] attacked you.  Your emergency warp device engaged.<BR>");
-              $dest_sector=rand(0,$sector_max);
-              $result_warp = mysql_query ("UPDATE ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$rowo2[ship_id]");
-            } else
-            {
-              furangeetoship($rowo2[ship_id]);
-            }
+            $furcount2a++;
+            playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo2[character_name].");
+            furangeetoship($rowo2[ship_id]);
           }
         }
       }
     }
   }
-  echo "FURANGEE TURNS COMPLETE.<BR><BR>";
+  $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2);
+  echo "Counted $furcount Furangee players that are ACTIVE with working ships.<BR>";
+  echo "$furnonmove Furangee players did not do anything this round. <BR>"; 
+  echo "$furcount0 Furangee players had SENTINEL orders of which $furcount0a launched attacks. <BR>";
+  echo "$furcount1 Furangee players had ROAM orders of which $furcount1a launched attacks. <BR>";
+  echo "$furcount2 Furangee players had ROAM AND TRADE orders of which $furcount2a launched attacks. <BR>";
+  echo "FURANGEE TURNS COMPLETE. <BR>";
   echo "<BR>";
   // *********************************
   // ***** END OF FURANGEE TURNS *****
