@@ -81,6 +81,7 @@ $stamp = date("Y-m-d H-i-s");
         if ($mine_owner[team] != $playerinfo[team])
         {
 	   // Lets blow up some mines!
+           bigtitle();
            $ok=0;
            $totalmines = $sectorinfo[mines];
            $roll = rand(1,$sectorinfo[mines]);
