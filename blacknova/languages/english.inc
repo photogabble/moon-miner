@@ -204,7 +204,7 @@ $l_planet_selling	 = "Planet is presently selling commodities.";
 $l_planet_not_selling    = "Planet is not presently selling commodities.";
 $l_planet_transfer_link	 = "Transfer";
 $l_planet_transfer	 = "[transfer] commodities/resources/colonists to/from Planet";
-$l_planet_hasbase	 = "You have a bsae on this planet.";
+$l_planet_hasbase	 = "You have a base on this planet.";
 
 $l_planet_perc		 = "Production Percentages";
 $l_planet_interest	 = "* Production of credits beyond banking interest is 100 - other percentages";
