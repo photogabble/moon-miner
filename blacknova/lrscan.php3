@@ -56,7 +56,7 @@ if($sector == "*")
     $num_links = $row2[count];
 
     // get number of ships in scanned sector
-    $result2 = mysql_query("SELECT COUNT(*) AS count FROM ships WHERE sector='$row[link_dest]'");
+    $result2 = mysql_query("SELECT COUNT(*) AS count FROM ships WHERE sector='$row[link_dest]' AND on_planet='N'");
     $row2 = mysql_fetch_array($result2);
     $num_ships = $row2[count];
 
