@@ -1,19 +1,63 @@
 <? 
 	$title="Login"; 
+  $no_body=1;
 	include("header.php3");
-        include("config.php3");
+  include("config.php3");
 ?>
 
-<center><BR><img src=images/blacknova-traders.jpg><BR><BR><H1>Welcome to <? echo "$game_name"; ?></H1><BR>
-Click <a href=login.php3>here</a> to login.
-<BR><BR>
-Problems? <a href=mailto:<? echo "$admin_mail"; ?>>Mail us.</a><BR><BR>There are bugs - this is very beta right now.<BR><BR>
-<a href=lastusers.php3>Last Users</a> <a href=ranking.php3>Current Scores</a> <a href=settings.php>Game Settings</a> <BR>
-</center>
+<script language="JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
 
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
 
-<? 
+function MM_findObj(n, d) { //v4.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && document.getElementById) x=document.getElementById(n); return x;
+}
 
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+
+<BODY bgcolor=#666666 text="#c0c0c0" link="#000000" vlink="#990033" alink="#FF3333" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif')">
+<center>
+<img src=images/BNT-header.jpg width="517" height="189" border="0">
+
+<table border="0" cellpadding="0" cellspacing="0" width="600">
+  <tr>
+    <td colspan="3"><img name="div1" src="images/div1.gif" width="600" height="21" border="0"></td>
+    <td><img src="images/spacer.gif" width="1" height="21" border="0" name="undefined_2"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img name="bnthed" src="images/bnthed.gif" width="600" height="61" border="0"></td>
+    <td><img src="images/spacer.gif" width="1" height="61" border="0" name="undefined_2"></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img name="div2" src="images/div2.gif" width="600" height="21" border="0"></td>
+    <td><img src="images/spacer.gif" width="1" height="21" border="0" name="undefined_2"></td>
+  </tr>
+  <tr>
+    <td colspan=3 align=center><a href=<? echo "http://$gamedomain" . $gamepath . "login.php3"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0"></a></td>
+    <td><img src="images/spacer.gif" width="1" height="58" border="0" name="undefined_2"></td>
+  </tr>
+  <tr>
+    <td colspan=3 align=center><a href=<? echo "mailto:$admin_mail"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img name="mail" src="images/mail.gif" width="146" height="58" border="0"></a></td>
+    <td><img src="images/spacer.gif" width="1" height="58" border="0" name="undefined_2"></td>
+  </tr>
+  </table>
+<?
 	include("footer.php3");
-
 ?>
