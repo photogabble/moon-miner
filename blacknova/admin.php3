@@ -143,7 +143,36 @@ else
     elseif($module == "univedit")
     {
       echo "<B>Universe editor</B>";
-    }
+
+        $title="Expand/Contract the Universe";
+        echo "<BR>Expand or Contract the Universe <BR>";
+
+        //$result = mysql_query ("SELECT sector_id, angle1, angle2,distance FROM universe ORDER BY sector_id ASC");
+        
+        if (empty($action))
+        {
+        echo "<FORM ACTION=admin.php3 METHOD=POST>";
+        echo "Universe Size: <INPUT TYPE=TEXT NAME=radius VALUE=\"$universe_size\">";
+        echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
+        echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=univedit>";
+        echo "<INPUT TYPE=HIDDEN NAME=action VALUE=doexpand> ";
+        echo "<INPUT TYPE=SUBMIT VALUE=\"Play God\">";
+        echo "</FORM>";
+    	}
+        elseif ($action == "doexpand")
+        {
+        echo "<BR><FONT SIZE='+2'>Be sure to update your config.php3 file with the new universe_size value</FONT><BR>";
+        srand((double)microtime()*1000000);
+        $result = mysql_query ("SELECT sector_id FROM universe ORDER BY sector_id ASC");
+        while ($row=mysql_fetch_array($result))
+        {
+                $distance=rand(1,$radius);
+                mysql_query ("UPDATE universe SET distance=$distance WHERE sector_id=$row[sector_id]");
+                echo "Updated sector $row[sector_id] set to $distance<BR>";
+        }
+        
+	}
+    	}
     elseif($module == "linkedit")
     {
       echo "<B>Link editor</B>";

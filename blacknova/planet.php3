@@ -93,7 +93,7 @@ if($sectorinfo[planet] == 'Y')
         echo "You have a base on this planet.<BR>";
       }
      
-	if ($sectorinfo[planet_corp] == "")
+	if ($sectorinfo[planet_corp] == 0)
 	{
 		echo "You can also make this planet a <a href=corp.php?action=planetcorp>Corporate Planet</a>.<BR>";
 	}

@@ -115,42 +115,63 @@ global $start_energy;
 		// Now modify player beams, shields and torpedos on available materiel
 		
 		// Beams
-		echo "Ship energy before beams: $playerinfo[ship_energy]<BR>\n";
-		if ($attackerbeams   > $playerinfo[ship_energy]) $attackerbeams   = $playerinfo[ship_energy];
+		if ($debug) echo "Ship energy before beams: $playerinfo[ship_energy]<BR>\n";
+		if ($attackerbeams > $playerinfo[ship_energy]) $attackerbeams   = $playerinfo[ship_energy];
 		$playerinfo[ship_energy] = $playerinfo[ship_energy] - $attackerbeams;
-		echo "Ship energy after beams (before shields): $playerinfo[ship_energy]<BR>\n";
+		if ($debug) echo "Ship energy after beams (before shields): $playerinfo[ship_energy]<BR>\n";
 		
 		// Shields
 		if ($attackershields > $playerinfo[ship_energy]) $attackershields = $playerinfo[ship_energy];
 		$playerinfo[ship_energy] = $playerinfo[ship_energy] - $attackershields;
-		echo "Ship energy after shields: $playerinfo[ship_energy]<BR>\n";
+		if ($debug) echo "Ship energy after shields: $playerinfo[ship_energy]<BR>\n";
 		
 		// Torpedos
-		echo "Ship torpedos before torp launch: $attackertorps ($playerinfo[torps] / $playerinfo[torp_launchers])<BR>\n";
+		if ($debug) echo "Ship torpedos before torp launch: $attackertorps ($playerinfo[torps] / $playerinfo[torp_launchers])<BR>\n";
 		if ($attackertorps > $playerinfo[torps]) $attackertorps = $playerinfo[torps];
 		$playerinfo[torps] = $playerinfo[torps] - $attackertorps;
-		echo "Ship torpedos after torp launch: $attackertorps ($playerinfo[torps] / $playerinfo[torp_launchers])<BR>\n";
+		if ($debug) echo "Ship torpedos after torp launch: $attackertorps ($playerinfo[torps] / $playerinfo[torp_launchers])<BR>\n";
 
 		// Setup torp damage rate for both Planet and Ship
 		$planettorpdamage	= $torp_dmg_rate * $planettorps;
 		$attackertorpdamage	= $torp_dmg_rate * $attackertorps;
-		echo "Planet torp damage: $planettorpdamage<BR>\n";
-		echo "Attacker torp damage: $attackertorpdamage<BR>\n";
+		if ($debug) echo "Planet torp damage: $planettorpdamage<BR>\n";
+		if ($debug) echo "Attacker torp damage: $attackertorpdamage<BR>\n";
 
 
 echo "
-<BR>--------------<BR>
-planetbeams: $planetbeams<BR>\n
-planetfighters: $planetfighters<BR>\n
-planetshields: $planetshields<BR>\n
-planettorps: $planettorps<BR>\n
---<BR>
-attackerbeams: $attackerbeams<BR>\n
-attackerfighters: $attackerfighters<BR>\n
-attackershields: $attackershields<BR>\n
-attackertorps: $attackertorps<BR>\n
-attackertorpdamage: $attackertorpdamage<BR>\n
-attackerarmor: $attackerarmor<BR>\n
+<CENTER>
+<HR>
+<table width='75%' border='0'>
+  <tr ALIGN='CENTER'>
+  	<td width='9%' height='27'></td>
+    <td width='12%' height='27'><FONT COLOR='WHITE'>Beams</FONT></td>
+    <td width='17%' height='27'><FONT COLOR='WHITE'>Fighters</FONT></td>
+    <td width='18%' height='27'><FONT COLOR='WHITE'>Shields</FONT></td>
+    <td width='11%' height='27'><FONT COLOR='WHITE'>Torps</FONT></td>
+    <td width='22%' height='27'><FONT COLOR='WHITE'>Torp Damage</FONT></td>
+    <td width='11%' height='27'><FONT COLOR='WHITE'>Armor</FONT></td>
+  </tr>
+  <tr ALIGN='CENTER'>
+    <td width='9%'> <FONT COLOR='RED'>You</td>
+    <td width='12%'><FONT COLOR='RED'><B>$attackerbeams</B></FONT></td>
+    <td width='17%'><FONT COLOR='RED'><B>$attackerfighters</B></FONT></td>
+    <td width='18%'><FONT COLOR='RED'><B>$attackershields</B></FONT></td>
+    <td width='11%'><FONT COLOR='RED'><B>$attackertorps</B></FONT></td>
+    <td width='22%'><FONT COLOR='RED'><B>$attackertorpdamage</B></FONT></td>
+    <td width='11%'><FONT COLOR='RED'><B>$attackerarmor</B></FONT></td>
+  </tr>
+  <tr ALIGN='CENTER'>
+    <td width='9%'> <FONT COLOR='#6098F8'>Planet</FONT></td>
+    <td width='12%'><FONT COLOR='#6098F8'><B>$planetbeams</B></FONT></td>
+    <td width='17%'><FONT COLOR='#6098F8'><B>$planetfighters</B></FONT></td>
+    <td width='18%'><FONT COLOR='#6098F8'><B>$planetshields</B></FONT></td>
+    <td width='11%'><FONT COLOR='#6098F8'><B>$planettorps</B></FONT></td>
+    <td width='22%'><FONT COLOR='#6098F8'><B>$planettorpdamage</B></FONT></td>
+    <td width='11%'><FONT COLOR='#6098F8'><B>N/A</B></FONT></td>
+  </tr>
+</table>
+<HR>
+</CENTER>
 ";
 
 		
@@ -159,20 +180,22 @@ attackerarmor: $attackerarmor<BR>\n
 		$planetdestroyed   = 0;
 		$attackerdestroyed = 0;
 		
-        echo "<--Attacking planet in sector $playerinfo[sector]<BR><BR>";
-        echo "<--You fire your beams<BR>";
+		echo "<BR><CENTER><B><FONT SIZE='+2'>Combat Flow</FONT></B><BR><BR>\n";
+		echo "<table width='75%' border='0'><tr align='center'><td><FONT COLOR='RED'>You</FONT></td><td><FONT COLOR='#6098F8'>Defender</FONT></td>\n";
+        echo "<tr align='center'><td><FONT COLOR='RED'><B>Attacking planet in sector $playerinfo[sector]</b></FONT></td><td></td>";
+        echo "<tr align='center'><td><FONT COLOR='RED'><B>You fire your beams</b></FONT></td><td></td>\n";
         if($planetfighters > 0 && $attackerbeams > 0)
         {
           if($attackerbeams > $planetfighters)
           {
-            echo "-->Planetary defense lost $planetfighters fighters to your beams<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>Planetary defense lost $planetfighters fighters to your beams</B></FONT>";
             $planetfighters = 0;
             $attackerbeams = $attackerbeams - $planetfighters;
           }
           else
           {
             $planetfighters = $planetfighters - $attackerbeams;
-            echo "-->Planetary Defense lost $attackerbeams fighters, but there are more coming!<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>Planetary Defense lost $attackerbeams fighters, but there are more coming!</B></FONT>";
             $attackerbeams = 0;
           }
         }
@@ -190,12 +213,12 @@ attackerarmor: $attackerarmor<BR>\n
             $attackerfighters = $temp;
             // Subtract half the attacker fighters from available planetary beams
             $planetbeams = $planetbeams - $lost;
-            echo "<--Planetary beams destroy $temp of your fighters<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Planetary beams destroy $temp of your fighters</B></FONT><TD></TD>";
           }
           else
           {
             $attackerfighters = $attackerfighters - $planetbeams;
-            echo "<--Planetary beams destroy $planetbeams of your fighters<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Planetary beams destroy $planetbeams of your fighters</B></FONT><TD></TD>";
             $planetbeams = 0;
           }
         }
@@ -205,11 +228,11 @@ attackerarmor: $attackerarmor<BR>\n
           {
             $attackerbeams = $attackerbeams - $planetshields;
             $planetshields = 0;
-            echo "-->Your beams have destroyed the planetary shields<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Your beams have destroyed the planetary shields</FONT></B><td></td>";
           }
           else
           {
-            echo "-->You destroy $attackerbeams planetary shields before your beams are exhausted<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>You destroy $attackerbeams planetary shields before your beams are exhausted</FONT></B><td></td>";
             $planetshields = $planetshields - $attackerbeams;
             $attackerbeams = 0;
           }
@@ -220,12 +243,12 @@ attackerarmor: $attackerarmor<BR>\n
           {
             $planetbeams = $planetbeams - $attackershields;
             $attackershields = 0;
-            echo "<--Planetary beams have breached your shields<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>Planetary beams have breached your shields</FONT></B></td>";
           }
           else
           {
             $attackershields = $attackershields - $planetbeams;
-            echo "<--Planetary beams have destroyed $planetbeams of your shields<BR>";
+            echo "<tr align='center'><td></td><FONT COLOR='#6098F8'><B>Planetary beams have destroyed $planetbeams of your shields</FONT></B></td>";
             $planetbeams = 0;
           }
         }
@@ -234,27 +257,27 @@ attackerarmor: $attackerarmor<BR>\n
           if($planetbeams > $attackerarmor)
           {
             $attackerarmor = 0;
-            echo "<--Planetary beams have breached your armor<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>Planetary beams have breached your armor</B></FONT></td>";
           }
           else
           {
             $attackerarmor = $attackerarmor - $planetbeams;
-            echo "Planetary beams have destroyed $planetbeams points of armor<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>Planetary beams have destroyed $planetbeams points of armor</FONT></B></td>";
           } 
         } 
-        echo "<BR>Torpedo Exchange<BR>";
+        echo "<tr align='center'><td><FONT COLOR='YELLOW'><B>Torpedo Exchange Phase</b></FONT></td><td><b><FONT COLOr='YELLOW'>Torpedo Exchange Phase</b></FONT></td><BR>";
         if($planetfighters > 0 && $attackertorpdamage > 0)
         {
           if($attackertorpdamage > $planetfighters)
           {
-            echo "-->Your torpedos destroy $planetfighters planetary fighters, no fighters are left<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Your torpedos destroy $planetfighters planetary fighters, no fighters are left</FONT></B></td><td></td>";
             $planetfighters = 0;
             $attackertorpdamage = $attackertorpdamage - $planetfighters;
           }
           else
           {
             $planetfighters = $planetfighters - $attackertorpdamage;
-            echo "-->Your torpedos destroy $attackertorpdamage planetary fighters<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Your torpedos destroy $attackertorpdamage planetary fighters</FONT></B></td><td></td>";
             $attackertorpdamage = 0;
           }
         }
@@ -266,12 +289,12 @@ attackerarmor: $attackerarmor<BR>\n
             $lost = $attackerfighters - $temp;
             $attackerfighters = $temp;
             $planettorpdamage = $planettorpdamage - $lost;
-            echo "<--Planetary torpedos destroy $temp of your fighters<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='RED'><B>Planetary torpedos destroy $temp of your fighters</B></FONT></td>";
           }
           else
           {
             $attackerfighters = $attackerfighters - $planettorpdamage;
-            echo "<--Planetary torpedos destroy $planettorpdamage of your fighters<BR>";
+            echo "<tr align='center'><td></td><td><FONT COLOR='RED'><B>Planetary torpedos destroy $planettorpdamage of your fighters</B></FONT></td>";
             $planettorpdamage = 0;
           }
         }
@@ -280,12 +303,12 @@ attackerarmor: $attackerarmor<BR>\n
           if($planettorpdamage > $attackerarmor)
           {
             $attackerarmor = 0;
-            echo "-->Planetary torpedos have breached your armor<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Planetary torpedos have breached your armor</B></FONT></td><td></td>";
           }
           else
           {
             $attackerarmor = $attackerarmor - $planettorpdamage;
-            echo "-->Planetary torpedos have destroyed $planettorpdamage points of armor<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Planetary torpedos have destroyed $planettorpdamage points of armor</B></FONT></td><td></td>";
           } 
         }
         if($attackertorpdamage > 0 && $planetfighters > 0)
@@ -294,32 +317,32 @@ attackerarmor: $attackerarmor<BR>\n
           if ($planetfighters < 0) 
           {
           	$planetfighters = 0;
-          	echo "<--Your torpedos have destroyed all the planetary fighters<BR>";
+          	echo "<tr align='center'><td><FONT COLOR='RED'><B>Your torpedos have destroyed all the planetary fighters</B></FONT></td><td></td>";
           }
-          else { echo "<--Your torpeods destroy $attackertorpdamage planetary fighters<BR>"; }
+          else { echo "<tr align='center'><td><FONT COLOR='RED'><B>Your torpeods destroy $attackertorpdamage planetary fighters</B></FONT></td><td></td>"; }
         }
-        echo "<BR>Fighter combat<BR>";
+        echo "<tr align='center'><td><FONT COLOR='YELLOW'><B>Fighter Combat Phase</b></FONT></td><td><b><FONT COLOr='YELLOW'>Fighter Combat Phase</b></FONT></td><BR>";
         if($attackerfighters > 0 && $planetfighters > 0)
         {
           if($attackerfighters > $planetfighters)
           {
-            echo "<--Your fighters have destroyed all the planetary fighters.<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Your fighters have destroyed all the planetary fighters.</B></FONT></td><td></td>";
             $tempplanetfighters = 0;
           }
           else
           {
-            echo "<--Your fighters have destroyed $attackerfighters planetary fighters<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Your fighters have destroyed $attackerfighters planetary fighters</B></FONT></td><td></td>";
             $tempplanetfighters = $planetfighters - $attackerfighters;
           }
           if($planetfighters > $attackerfighters)
           {
-            echo "-->All your fighters were destroyed<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>All your fighters were destroyed</B></FONT></td><td></td>";
             $tempplayfighters = 0;
           }
           else
           {
             $tempplayfighters = $attackerfighters - $planetfighters;
-            echo "<--You lost $planetfighters fighters in fighter to fighter combat<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>You lost $planetfighters fighters in fighter to fighter combat</B></FONT></td><td></td>";
           }     
           $attackerfighters = $tempplayfighters;
           $planetfighters = $tempplanetfighters;
@@ -329,38 +352,37 @@ attackerarmor: $attackerarmor<BR>\n
           if($attackerfighters > $planetshields)
           {
             $attackerfighters = $attackerfighters - round($planetshields / 2);
-            echo "<--Your fighters have breached the planetary shields<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Your fighters have breached the planetary shields</B></FONT></td><td></td>";
             $planetshields = 0;
           }
           else
           {
-            echo "-->Your fighters destroyed $attackerfighters planetary shields, but they remain up<BR>";
+            echo "<tr align='center'><td></td><FONT COLOR='#6098F8'><B>Your fighters destroyed $attackerfighters planetary shields, but they remain up</B></FONT></td>";
             $planetshields = $planetshields - $attackerfighters;
-          }
-        }
+          }          
+        }            
         if($planetfighters > 0)
         {
           if($planetfighters > $attackerarmor)
           {
             $attackerarmor = 0;
-            echo "-->Planetary fighters swarm your ship, your armor has been breached<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Planetary fighters swarm your ship, your armor has been breached</B></FONT></td><td></td>";
           }
           else
           {
             $attackerarmor = $attackerarmor - $planetfighters;
-            echo "<--Planetary fighters swarm your ship, but your armor repels them<BR>";
+            echo "<tr align='center'><td><FONT COLOR='RED'><B>Planetary fighters swarm your ship, but your armor repels them</B></FONT></td><td></td>";
           }
         }
         
+        echo "</TABLE></CENTER>\n";
         // Send each docked ship in sequence to attack agressor
  		$result4 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
 		$shipsonplanet = mysql_num_rows($result4);
 		
-		echo "<BR>-/-/-/-/-/-<BR>$attackertorpdamage<BR>-/-/-/-/-/-/-<BR>";
-      
 		if ($shipsonplanet > 0)
 		{
-			echo "<BR>There are $shipsonplanet ships docked at Spacedock!<BR><BR>\n";
+			echo "<BR><BR><CENTER>There are $shipsonplanet ships docked at Spacedock!<BR>Engaging in Ship to Ship combat.</CENTER><BR><BR>\n";
 			while ($onplanet = mysql_fetch_array($result4))
       		{ 
       		//$playerinfo[ship_fighters] 	= $attackerfighters;
@@ -377,7 +399,7 @@ attackerarmor: $attackerarmor<BR>\n
         	shiptoship($onplanet[ship_id]);
         	}
         }
-    	else echo "<BR>There are NO ships docked at Spacedock!<BR><BR>\n";    
+    	else echo "<BR><BR><CENTER>There are NO ships docked at Spacedock!</CENTER><BR><BR>\n";    
         
         if($attackerarmor < 1)
         {
@@ -387,10 +409,10 @@ attackerarmor: $attackerarmor<BR>\n
           $ship_value=$upgrade_cost*(round(pow($upgrade_factor, $playerinfo[hull]))+round(pow($upgrade_factor, $playerinfo[engines]))+round(pow($upgrade_factor, $playerinfo[power]))+round(pow($upgrade_factor, $playerinfo[computer]))+round(pow($upgrade_factor, $playerinfo[sensors]))+round(pow($upgrade_factor, $playerinfo[beams]))+round(pow($upgrade_factor, $playerinfo[torp_launchers]))+round(pow($upgrade_factor, $playerinfo[shields]))+round(pow($upgrade_factor, $playerinfo[armor]))+round(pow($upgrade_factor, $playerinfo[cloak])));
           $ship_salvage_rate=rand(0,10);
           $ship_salvage=$ship_value*$ship_salvage_rate/100;
-          echo "--->Your ship has been destroyed!<BR><BR>";
+          echo "<BR><CENTER><FONT SIZE='+2' COLOR='RED'><B>Your ship has been destroyed!</FONT></B></CENTER><BR>";
           if($playerinfo[dev_escapepod] == "Y")
           {
-            echo "Luckily you have an escape pod!<BR><BR>";
+            echo "<CENTER><FONT COLOR='WHITE'>Luckily you have an escape pod!</FONT></CENTER><BR><BR>";
             mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
           }
           else
@@ -414,40 +436,39 @@ attackerarmor: $attackerarmor<BR>\n
           {
             $rating_change=-100;
           }
-echo "<BR>-0-0-0- <B>Final Stats</B> -0-0-0-<BR><BR>";
+echo "<CENTER><BR><B><FONT SIZE='+2'>Final Combat Stats</FONT></B><BR><BR>";
           $fighters_lost = $playerinfo[ship_fighters] - $attackerfighters;
-echo "Fighters Lost: $fighters_lost out of $playerinfo[ship_fighters] total ($attackerfighters alive)<BR>";
+echo "You lost $fighters_lost out of $playerinfo[ship_fighters] total fighters.<BR>";
           $armor_lost = $playerinfo[armour_pts] - $attackerarmor;
-echo "Armor Lost: $armor_lost out of $playerinfo[armour_pts] total ($attackerarmor points remain)<BR>";
+echo "You lost $armor_lost out of $playerinfo[armour_pts] total armor points, you have $attackerarmor points remaining.<BR>";
           $energy=$playerinfo[ship_energy];
-echo "Energy used: $energy from a total of $playerinfo[ship_energy]<BR>";
+echo "You used $energy energy, from a total of $playerinfo[ship_energy] energy.<BR></CENTER>";
           mysql_query("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armour_pts=armour_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
         } 
 		
 		$result4 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
 		$shipsonplanet = mysql_num_rows($result4);
-echo "Ships on planet = -$shipsonplanet-";
 		
 		if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
         {
-          echo "<BR>Planet defeated.<BR><BR>";
-          echo "You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.<BR><BR>";
+          echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>Planet defeated</b></FONT></CENTER><BR><BR>";
+          echo "<CENTER>You may <a href=planet.php3?command=capture>capture</a> the planet or just leave it undefended.</CENTER><BR><BR>";
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was defeated in battle by $playerinfo[character_name].");
           gen_score($ownerinfo[ship_id]);
           $update7a = mysql_query("UPDATE universe SET planet_fighters=0, base_torp=base_torp-$planettorps, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
         }
         else
         {
-          echo "<BR>Planet not defeated.<BR><BR>";
-echo "<BR><BR>Planet statistics<BR><BR>";
+          echo "<BR><BR><CENTER><FONT COLOR='#6098F8'><B>Planet not defeated</B></FONT></CENTER>BR><BR>";
+if ($debug) echo "<BR><BR>Planet statistics<BR><BR>";
           $fighters_lost = $sectorinfo[planet_fighters] - $planetfighters;
-echo "Fighters lost: $fighters_lost out of $sectorinfo[planet_fighters] ($planetfighters alive)<BR>";
+if ($debug) echo "Fighters lost: $fighters_lost out of $sectorinfo[planet_fighters] ($planetfighters alive)<BR>";
           $energy=$sectorinfo[planet_energy];
-echo "Energy left: $sectorinfo[planet_energy]<BR>";
+if ($debug) echo "Energy left: $sectorinfo[planet_energy]<BR>";
           playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was attacked by $playerinfo[character_name], but was not defeated.  You salvaged $free_ore units of ore, $free_organics units of organics, $free_goods unitsof goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
           gen_score($ownerinfo[ship_id]);
           $update7b = mysql_query("UPDATE universe SET planet_energy=$energy,planet_fighters=planet_fighters-$fighters_lost, base_torp=base_torp-$planettorps, planet_ore=planet_ore+$free_ore, planet_goods=planet_goods+$free_goods, planet_organics=planet_organics+$free_organics, planet_credits=planet_credits+$ship_salvage WHERE sector_id=$sectorinfo[sector_id]");
-echo "<BR>Set: energy=$energy, fighters lost=$fighters_lost, base_torp=$sectorinfo[base_torp], sectorid=$sectorinfo[sector_id]<BR>";
+if ($debug) echo "<BR>Set: energy=$energy, fighters lost=$fighters_lost, base_torp=$sectorinfo[base_torp], sectorid=$sectorinfo[sector_id]<BR>";
         }
         $update = mysql_query("UPDATE ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
 }     

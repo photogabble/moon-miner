@@ -18,35 +18,37 @@ mysql_query("LOCK TABLES ships WRITE, universe WRITE");
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
 $freeholds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+$maxholds = NUM_HOLDS($playerinfo[hull]);
+$maxenergy = NUM_ENERGY($playerinfo[power]);
 if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_ore] < 0 || $playerinfo[ship_organics] < 0 || $playerinfo[ship_goods] < 0 || $playerinfo[ship_energy] < 0 || $freeholds < 0)
 {
-	if ($playerinfo[ship_colonists] < 0) 
+	if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_colonists] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_colonists] colonists.");
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_colonists] colonists, Max Holds: $maxholds.");
 		$playerinfo[ship_colonists] = 0;
 		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship set to $playerinfo[ship_colonists] colonists.");
 	}
-	if ($playerinfo[ship_ore] < 0) 
+	if ($playerinfo[ship_ore] < 0 || $playerinfo[ship_ore] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_ore] ore.");
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_ore] ore, Max Holds: $maxholds.");
 		$playerinfo[ship_ore] = 0;
 		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_ore] ore.");
 	}
-	if ($playerinfo[ship_organics] < 0) 
+	if ($playerinfo[ship_organics] < 0 || $playerinfo[ship_organics] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_organics] organics.");
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_organics] organics, Max Holds: $maxholds.");
 		$playerinfo[ship_organics] = 0;
 		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_organics] organics.");
 	}
-	if ($playerinfo[ship_goods] < 0) 
+	if ($playerinfo[ship_goods] < 0 || $playerinfo[ship_goods] > $maxholds) 
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_goods] goods");	
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_goods] goods, Max Holds: $maxholds.");	
 		$playerinfo[ship_goods] = 0;
 		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_goods] goods");
 	}
-	if ($playerinfo[ship_energy] < 0)
+	if ($playerinfo[ship_energy] < 0 || $playerinfo[ship_energy] > $maxenergy)
 	{
-		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_energy] energy");
+		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s ship had $playerinfo[ship_energy] energy, Max Energy: $maxenergy.");
 		$playerinfo[ship_energy] = 0;
 		adminlog($playerinfo[ship_id], "$playerinfo[ship_name]'s set to $playerinfo[ship_energy] energy");
 	}
@@ -87,8 +89,7 @@ elseif($phase == 1)
   $y = $start[distance] * sin($sa1) * sin($sa2) - $finish[distance] * sin($fa1) * sin($fa2);
   $z = $start[distance] * cos($sa1) - $finish[distance] * cos($fa1);
   $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  //$shipspeed = pow($level_factor, $playerinfo[engines]);
-  $shipspeed = pow($playerinfo[engines], 1.25);
+  $shipspeed = pow($level_factor, $playerinfo[engines]);
   $triptime = round($distance / $shipspeed);
   if(!$triptime && $destination != $playerinfo[sector])
   {
@@ -146,8 +147,7 @@ else
   $y = $start[distance] * sin($sa1) * sin($sa2) - $finish[distance] * sin($fa1) * sin($fa2);
   $z = $start[distance] * cos($sa1) - $finish[distance] * cos($fa1);
   $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  //$shipspeed = pow($level_factor, $playerinfo[engines]);
-  $shipspeed = pow($playerinfo[engines], 1.25);
+  $shipspeed = pow($level_factor, $playerinfo[engines]);
   $triptime = round($distance / $shipspeed);
   if($triptime == 0 && $destination != $playerinfo[sector])
   {
@@ -231,7 +231,7 @@ else
       if ($energy_t1 >> $freebattery) $energy_t1 = $freebattery;
       $freebattery = $freebattery - $enerty_t1;
       
-      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t1 + $ore_t1 + $organics_t1;
+      $freeholds = $freeholds + $goods_t1 + $ore_t1 + $organics_t1;
       
       $t1_value = $goods_pricet1 * $goods_t1 + $ore_pricet1 * $ore_t1 + $organics_pricet1 * $organics_t1 -
         $energy_pricet1 * $energy_t1;
@@ -344,7 +344,7 @@ else
       {
         $organics_t1 = $finish[port_organics];
       }
-      $freeholds = $organics_t1;
+      $freeholds = $freeholds - $organics_t1;
       
       $energy_t1 = $playerinfo[ship_energy] + $energyscooped;
       $energy_pricet1 = $energy_price + $energy_delta * $finish[port_energy] / $energy_limit * $inventory_factor;
@@ -430,7 +430,7 @@ else
       if ($energy_t2 >> $freebattery) $energy_t2 = $freebattery;
       $freebattery = $freebattery - $energy_t2;
       
-      $freeholds = NUM_HOLDS($playerinfo[hull]) + $goods_t2 + $ore_t2 + $organics_t2;
+      $freeholds = $freeholds + $goods_t2 + $ore_t2 + $organics_t2;
       
       $t2_value = $goods_pricet2 * $goods_t2 + $ore_pricet2 * $ore_t2 + $organics_pricet2 * $organics_t2 -
         $energy_pricet2 * $energy_t2;

@@ -17,6 +17,8 @@ $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
+
+
 $query = "SELECT * FROM universe WHERE planet_owner=$playerinfo[ship_id]";
 if(!empty($sort))
 {
@@ -43,6 +45,15 @@ if(!empty($sort))
 $res = mysql_query($query);
 
 bigtitle(); 
+
+if ($playerinfo[team]>0) 
+{ 
+echo "<BR>";
+echo "<B><A HREF=alliance-planets.php3>Show alliance planets</A></B>";
+echo "<BR>";
+echo "<BR>";
+}
+
 
 $i = 0;
 if($res)
