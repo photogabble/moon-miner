@@ -61,13 +61,14 @@ function bigtitle()
 
 function TEXT_GOTOMAIN()
 {
-  global $interface;
-  echo "Click <A HREF=$interface>here</A> to return to the main menu.";
+  global $l_global_mmenu;
+  echo $l_global_mmenu;
 }
 
 function TEXT_GOTOLOGIN()
 {
-  echo "Click <A HREF=login.php3>here</A> to return to the login screen.";
+global $l_global_mlogin;
+  echo $l_global_mlogin;
 }
 
 function TEXT_JAVASCRIPT_BEGIN()
@@ -86,8 +87,8 @@ function checklogin()
 {
   $flag = 0;
 
-  global $username;
-  global $password;
+  global $username, $l_global_needlogin, $l_global_died;
+  global $password, $l_login_died, $l_die_please;
 
   $result1 = mysql_query("SELECT * FROM ships WHERE email='$username'");
   $playerinfo = mysql_fetch_array($result1);
@@ -95,7 +96,7 @@ function checklogin()
   /* Check the cookie to see if username/password are empty - check password against database */
   if($username == "" or $password == "" or $password != $playerinfo['password'])
   {
-    echo "You need to log in, click <A HREF=login.php3>here</A>.";
+    echo $l_global_needlogin;
     $flag = 1;
   }
 
@@ -106,24 +107,24 @@ function checklogin()
     if($playerinfo['dev_escapepod'] == "Y")
     {
       $result2 = mysql_query("UPDATE ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage='', on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N' where email='$username'");
-      echo "Your ship was destroyed, but your escape pods saved you and your crew.  Click <A HREF=$interface>here</A> to continue with a new ship.";
+      echo $l_login_died;
       $flag = 1;
     }
     else
     {
       /* if the player doesn't have an escapepod - they're dead, delete them. */
       /* uhhh  don't delete them to prevent self-distruct inherit*/
-      echo "Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>";
+      echo $l_global_died;
 
-      echo "Better luck next time. Please <a href=logout.php3>logout</a>.";
+      echo $l_die_please;
       $flag = 1;
     }
   }
   global $server_closed;
-  global $server_closed_message;
+  global $l_login_closed_message;
   if($server_closed && $flag==0)
   {
-    echo $server_closed_message;
+    echo $l_login_closed_message;
     $flag=1;
   }
 
@@ -262,6 +263,8 @@ function db_kill_player($ship_id)
   global $default_prod_energy;
   global $default_prod_fighters;
   global $default_prod_torp;
+  global $l_killheadline;
+  global $l_news_killed;
 
   mysql_query("UPDATE ships SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
 
@@ -289,16 +292,16 @@ function db_kill_player($ship_id)
   $zone = mysql_fetch_array($res);
 
 mysql_query("UPDATE universe SET zone_id=1 WHERE zone_id=$zone[zone_id]");
- 
+
 
 
 $query = mysql_query("select character_name from ships where ship_id='$ship_id'");
 $name = mysql_fetch_array($query);
 
-$l_killheadline=" was killed in an accident";
+
 $headline = $name[character_name] . $l_killheadline;
 
-$l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
+
 $newstext=str_replace("[name]",$name[character_name],$l_news_killed);
 
 $news = mysql_query("INSERT INTO bn_news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$newstext','$ship_id',NOW(), 'killed')");
@@ -502,8 +505,8 @@ function defence_vs_defence($ship_id)
             }
             mysql_free_result($result2);
          }
-      }      
-      mysql_free_result($result1);            
+      }
+      mysql_free_result($result1);
       mysql_query("DELETE FROM sector_defence WHERE quantity <= 0");
    }
 }
@@ -528,8 +531,8 @@ function kick_off_planet($ship_id,$whichteam)
             }
             mysql_free_result($result2);
          }
-      }      
-      mysql_free_result($result1);            
+      }
+      mysql_free_result($result1);
 
    }
 }
@@ -537,7 +540,7 @@ function kick_off_planet($ship_id,$whichteam)
 
 function calc_ownership($sector)
 {
-  global $min_bases_to_own;
+  global $min_bases_to_own, $l_global_warzone, $l_global_nzone, $l_global_team, $l_global_player;
 
   $res = mysql_query("SELECT owner, corp FROM planets WHERE sector_id=$sector AND base='Y'");
   $num_bases = mysql_num_rows($res);
@@ -617,16 +620,6 @@ function calc_ownership($sector)
   // We've got all the contenders with their bases.
   // Time to test for conflict
 
-  /* Debug code
-  echo "Owners:<p>";
-  foreach($owners as $owner)
-  {
-    echo "Type : $owner[type]<br>";
-    echo "Bases : $owner[num]<br>";
-    echo "Id : $owner[id]<br>";
-  }
-  */
-
   $loop=0;
   $nbcorps=0;
   $nbships=0;
@@ -653,7 +646,7 @@ function calc_ownership($sector)
   if($nbcorps > 1)
   {
     mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-    return "Zone is now a War Zone!";
+    return $l_global_warzone;
   }
 
   //More than one unallied ship, war
@@ -666,14 +659,14 @@ function calc_ownership($sector)
   if($numunallied > 1)
   {
     mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-    return "Zone is now a War Zone!";
+    return $l_global_warzone;
   }
 
   //Unallied ship, another corp present, war
   if($numunallied > 0 && $nbcorps > 0)
   {
     mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-    return "Zone is now a War Zone!";
+    return $l_global_warzone;
   }
 
   //Unallied ship, another ship in a corp, war
@@ -695,7 +688,7 @@ function calc_ownership($sector)
     if(mysql_num_rows($res) != 0)
     {
       mysql_query("UPDATE universe SET zone_id=4 WHERE sector_id=$sector");
-      return "Zone is now a War Zone!";
+      return $l_global_warzone;
     }
   }
 
@@ -718,7 +711,7 @@ function calc_ownership($sector)
   if($owners[$winner][num] < $min_bases_to_own)
   {
     mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
-    return "Zone is a neutral zone.";
+    return $l_global_nzone;
   }
 
 
@@ -731,7 +724,7 @@ function calc_ownership($sector)
     $corp = mysql_fetch_array($res);
 
     mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
-    return "Zone now belongs to alliance $corp[team_name]!";
+    return "$l_global_team $corp[team_name]!";
   }
   else
   {
@@ -747,7 +740,7 @@ function calc_ownership($sector)
     if($onpar == 1)
     {
       mysql_query("UPDATE universe SET zone_id=1 WHERE sector_id=$sector");
-      return "Zone is a neutral zone.";
+      return $l_global_nzone;
     }
     else
     {
@@ -758,9 +751,41 @@ function calc_ownership($sector)
       $ship = mysql_fetch_array($res);
 
       mysql_query("UPDATE universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
-      return "Zone now belongs to player $ship[character_name]!";
+      return "$l_global_player $ship[character_name]!";
     }
   }
 }
+
+
+function t_port($ptype) {
+
+global $l_ore, $l_none, $l_energy, $l_organics, $l_goods, $l_special;
+
+switch ($ptype) {
+    case "ore":
+        $ret=$l_ore;
+        break;
+    case "none":
+        $ret=$l_none;
+        break;
+    case "energy":
+        $ret=$l_energy;
+        break;
+    case "organics":
+        $ret=$l_organics;
+        break;
+    case "goods":
+        $ret=$l_goods;
+        break;
+    case "special":
+        $ret=$l_special;
+        break;
+
+
+}
+
+return $ret;
+}
+
 
 ?>
