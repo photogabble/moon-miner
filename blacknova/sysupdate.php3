@@ -21,7 +21,7 @@ function QUERYOK($res)
   }
 }
 
-if($swordfish != $adminpass) 
+if($swordfish != $adminpass)
 {
   echo "<FORM ACTION=sysupdate.php3 METHOD=POST>";
   echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
@@ -31,9 +31,8 @@ if($swordfish != $adminpass)
 else
 {
   srand((double)microtime() * 1000000);
-  
+
   //-------------------------------------------------------------------------------------------------
-  mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE, zones READ, planets WRITE");
 
   // add turns
   echo "<B>TURNS</B><BR><BR>";
@@ -45,7 +44,7 @@ else
   echo "Ensuring maximum turns are $max_turns...";
   QUERYOK(mysql_query("UPDATE ships SET turns=$max_turns WHERE turns>$max_turns"));
   echo "<BR>";
-  
+
   // add commodities to ports
   echo "<B>PORTS</B><BR><BR>";
   echo "Adding ore to all commodities ports...";
@@ -76,7 +75,7 @@ else
   echo "Ensuring minimum energy levels are 0...";
   QUERYOK(mysql_query("UPDATE universe SET port_energy=0 WHERE port_energy<0"));
   echo "<BR>";
-  
+
   // update planet production
   echo "<B>PLANETS</B><BR><BR>";
   $res = mysql_query("SELECT * FROM planets");
@@ -107,7 +106,7 @@ else
     {
       $ore_production = 0;
     }
-    
+
     $goods_production = $production * $goods_prate * $row[prod_goods] / 100.0;
     if(($row[goods] + $goods_production) > $goods_limit)
     {
@@ -143,7 +142,7 @@ else
   mysql_free_result($res);
   echo "Planets updated.<BR><BR>";
   echo "<BR>";
-  
+
   // update planet production
   echo "<B>ZONES</B><BR><BR>";
   echo "Towing bigger players out of restricted zones...";
@@ -193,13 +192,13 @@ else
 		    // Update users bank account
 		    mysql_query("UPDATE ibank_accounts SET ballance = ballance + $interest WHERE id = $account[id]");
 		    // Update the banks main account
-		    mysql_query("UPDATE ibank_accounts SET ballance = ballance - $interest WHERE id = $bank_owner");			
+		    mysql_query("UPDATE ibank_accounts SET ballance = ballance - $interest WHERE id = $bank_owner");
 		    // Check if the user has a loan
 		    if($account[loan] > 0)
 		    {
 			    // Decide what type of repayment should be done.
 			    if($account[ballance] < $mortage_payment)
-			    {	// The user don't have enough money on his IGB account then we start collecting from his ship account 
+			    {	// The user don't have enough money on his IGB account then we start collecting from his ship account
 				    // at twice the cost, for the extra trouble. This is in the Information at Manage own account.
 				    $extrafee = $mortage_payment * 2;
 				    mysql_query("UPDATE ibank_accounts SET loan = loan - $mortage_interest WHERE id = $account[id]");
@@ -217,7 +216,6 @@ else
   }
   mysql_query("DELETE from sector_defence where quantity <= 0");
 
-  mysql_query("UNLOCK TABLES");
   //-------------------------------------------------------------------------------------------------
 
   // *********************************
@@ -233,7 +231,7 @@ else
   // *********************************
   // **** MAKE FURANGEE SELECTION ****
   // *********************************
-  $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0; 
+  $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
   $res = mysql_query("SELECT * FROM ships JOIN furangee WHERE email=furangee_id and active='Y' and ship_destroyed='N' ORDER BY sector");
   while($playerinfo = mysql_fetch_array($res))
   {
@@ -246,7 +244,7 @@ else
     // *********************************
     $furcount++;
     if (rand(1,5) > 1)                                 // ****** 20% CHANCE OF NOT MOVING AT ALL ******
-    { 
+    {
       // *********************************
       // ****** ORDERS = 0 SENTINEL ******
       // *********************************
@@ -256,15 +254,15 @@ else
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso0 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
-        if ($rowo0 = mysql_fetch_array($reso0)) 
-        { 
+        if ($rowo0 = mysql_fetch_array($reso0))
+        {
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
           {
             // This Guy Does Nothing But Sit As A Target Himself
           }
           elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
           {
-            // Furangee's only compare number of fighters when determining if they have an attack advantage 
+            // Furangee's only compare number of fighters when determining if they have an attack advantage
             if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
             {
               $furcount0a++;
@@ -291,17 +289,17 @@ else
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso1 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
-        if ($rowo1 = mysql_fetch_array($reso1)) 
-        { 
+        if ($rowo1 = mysql_fetch_array($reso1))
+        {
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
           {
             // This Guy Does Nothing But Sit As A Target Himself
           }
           elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
           {
-            // Furangee's only compare number of fighters when determining if they have an attack advantage 
+            // Furangee's only compare number of fighters when determining if they have an attack advantage
             if ($playerinfo[ship_fighters] > $rowo1[ship_fighters])
-            {  
+            {
               $furcount1a++;
               playerlog($playerinfo[ship_id], "Furangee launching an attack on $rowo1[character_name].");
               furangeetoship($rowo1[ship_id]);
@@ -328,15 +326,15 @@ else
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
         $reso2 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
-        if ($rowo2 = mysql_fetch_array($reso2)) 
-        { 
+        if ($rowo2 = mysql_fetch_array($reso2))
+        {
           if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
           {
             // This Guy Does Nothing But Sit As A Target Himself
           }
           elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
           {
-            // Furangee's only compare number of fighters when determining if they have an attack advantage 
+            // Furangee's only compare number of fighters when determining if they have an attack advantage
             if ($playerinfo[ship_fighters] > $rowo2[ship_fighters])
             {
               $furcount2a++;
@@ -371,15 +369,15 @@ else
           // ****** FIND A TARGET ******
           // ****** IN MY SECTOR, NOT MYSELF, NOT ON A PLANET ******
           $reso3 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and planet_id=0");
-          if ($rowo3 = mysql_fetch_array($reso3)) 
-          { 
+          if ($rowo3 = mysql_fetch_array($reso3))
+          {
             if ($playerinfo[aggression] == 0)            // ****** O = 0 & AGRESSION = 0 PEACEFUL ******
             {
               // This Guy Does Nothing But Sit As A Target Himself
             }
             elseif ($playerinfo[aggression] == 1)        // ****** O = 0 & AGRESSION = 1 ATTACK SOMETIMES ******
             {
-              // Furangee's only compare number of fighters when determining if they have an attack advantage 
+              // Furangee's only compare number of fighters when determining if they have an attack advantage
               if ($playerinfo[ship_fighters] > $rowo3[ship_fighters])
               {
                 $furcount3a++;
@@ -400,7 +398,7 @@ else
   }
   $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2);
   echo "Counted $furcount Furangee players that are ACTIVE with working ships.<BR>";
-  echo "$furnonmove Furangee players did not do anything this round. <BR>"; 
+  echo "$furnonmove Furangee players did not do anything this round. <BR>";
   echo "$furcount0 Furangee players had SENTINEL orders of which $furcount0a launched attacks. <BR>";
   echo "$furcount1 Furangee players had ROAM orders of which $furcount1a launched attacks. <BR>";
   echo "$furcount2 Furangee players had ROAM AND TRADE orders of which $furcount2a launched attacks. <BR>";
@@ -410,9 +408,11 @@ else
   // *********************************
   // ***** END OF FURANGEE TURNS *****
   // *********************************
-  
+
 }
+
+include("gen_news.php");
 
 include("footer.php3");
 
-?> 
+?>

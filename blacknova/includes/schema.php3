@@ -211,35 +211,20 @@ mysql_query("CREATE TABLE teams(" .
             ")");
 echo "created.<BR>";
 
-echo "Creating table: news...";
-mysql_query("CREATE TABLE news(" .
-            "news_id bigint(20) unsigned NOT NULL auto_increment," .
-            "newsdate timestamp(14)," .
-            "newstypes_id varchar(6) NOT NULL," .
-            "action_id varchar(5) NOT NULL," .
-            "newsdata longtext NOT NULL," .
-            "PRIMARY KEY (news_id)," .
-            "KEY newstypes_id (newstypes_id)" .
-            ")");
-echo "created.<BR>";
+echo "Creating table: bn_news...";
 
-echo "Creating table: newstypes...";
-mysql_query("CREATE TABLE newstypes(" .
-            "newstypes_id varchar(6) NOT NULL," .
-            "description varchar(50) NOT NULL," .
-            "PRIMARY KEY (newstypes_id)," .
-            "KEY newstypes_id (newstypes_id)," .
-            "UNIQUE newstypes_id_2 (newstypes_id)" .
-            ")");
-echo "created.<BR>";
 
-echo "Creating table: newsactions...";
-mysql_query("CREATE TABLE newsactions(" .
-            "action_id varchar(6) NOT NULL," .
-            "description varchar(50)," .
-            "PRIMARY KEY (action_id)," .
-            "KEY action_id (action_id)" .
-            ")");
+mysql_query("CREATE TABLE bn_news (" .
+   "news_id int(11) DEFAULT '0' NOT NULL auto_increment," .
+   "headline varchar(100) NOT NULL," .
+   "newstext text NOT NULL," .
+   "user_id int(11)," .
+   "date timestamp(8)," .
+   "news_type varchar(10)," .
+   "PRIMARY KEY (news_id)," .
+   "KEY news_id (news_id)," .
+   "UNIQUE news_id_2 (news_id)" .
+   ")");
 echo "created.<BR>";
 
 echo "Creating default values for the reference tables...";

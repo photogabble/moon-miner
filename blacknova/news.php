@@ -37,7 +37,7 @@ $nextday = getnextday($startdate);
 
 
 //Select news for date range
-$res = mysql_query("SELECT * from nnews where date = '$startdate' order by news_id desc");
+$res = mysql_query("SELECT * from bn_news where date = '$startdate' order by news_id desc");
 
 //Check to see if there was any news to be shown
 if(!mysql_num_rows($res))
