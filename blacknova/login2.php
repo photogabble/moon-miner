@@ -22,7 +22,7 @@ $lang=$playerinfo[lang];
 if(empty($lang))
   $lang=$default_lang;
 SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include("languages/$lang" . ".inc");
+include("languages/$lang");
 
 /* first placement of cookie - don't use updatecookie. */
 $userpass = $email."+".$pass;
