@@ -34,9 +34,8 @@ if(checklogin())
 //-------------------------------------------------------------------------------------------------
 
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 if($playerinfo['cleared_defences'] > ' ')
 {
    echo "$l_incompletemove <BR>";
@@ -45,18 +44,15 @@ if($playerinfo['cleared_defences'] > ' ')
 }
 
 
-$res = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
-$sectorinfo = mysql_fetch_array($res);
-mysql_free_result($res);
-
-$res = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
+$res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$sectorinfo = $res->fields;
 
 srand((double)microtime() * 1000000);
 
 if($playerinfo[on_planet] == "Y")
 {
-  $res2 = mysql_query("SELECT planet_id FROM planets WHERE planet_id=$playerinfo[planet_id]");
-  if(mysql_num_rows($res2) != 0)
+  $res2 = $db->Execute("SELECT planet_id FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
+  if($res2->RecordCount() != 0)
   {
     echo "<A HREF=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <BR>";
     echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
@@ -66,57 +62,56 @@ if($playerinfo[on_planet] == "Y")
   }
   else
   {
-    mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+    $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "<BR>$l_nonexistant_pl<BR><BR>";
   }
 }
 
+$res = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
+
 $i = 0;
 if($res > 0)
 {
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    $links[$i] = $row[link_dest];
+    $links[$i] = $res->fields[link_dest];
     $i++;
+    $res->MoveNext();
   }
-  mysql_free_result($res);
 }
 $num_links = $i;
 
-$res = mysql_query("SELECT * FROM planets WHERE sector_id='$playerinfo[sector]'");
+$res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE sector_id='$playerinfo[sector]'");
 
 $i = 0;
 if($res > 0)
 {
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    $planets[$i] = $row;
+    $planets[$i] = $res->fields;
     $i++;
+    $res->MoveNext();
   }
-  mysql_free_result($res);
 }
 $num_planets = $i;
 
-$res = mysql_query("SELECT * FROM sector_defence,ships WHERE sector_defence.sector_id='$playerinfo[sector]'
-                                                       AND ships.ship_id = sector_defence.ship_id ");
-
-
+$res = $db->Execute("SELECT * FROM $dbtables[sector_defence],$dbtables[ships] WHERE $dbtables[sector_defence].sector_id='$playerinfo[sector]'
+                                                    AND $dbtables[ships].ship_id = $dbtables[sector_defence]ship_id ");
 $i = 0;
 if($res > 0)
 {
-  while($row = mysql_fetch_array($res))
+  while(!$res->EOF)
   {
-    $defences[$i] = $row;
+    $defences[$i] = $res->fields;
     $i++;
+    $res->MoveNext();
   }
-  mysql_free_result($res);
 }
 $num_defences = $i;
 
 
-$res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id='$sectorinfo[zone_id]'");
-$zoneinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
+$zoneinfo = $res->fields;
 
 $shiptypes[0]= "tinyship.gif";
 $shiptypes[1]= "smallship.gif";
@@ -137,14 +132,14 @@ $planettypes[4]= "hugeplanet.gif";
 </td></tr>
 </table>
 <?
- $result = mysql_query("SELECT * FROM messages WHERE recp_id='".$playerinfo[ship_id]."' AND notified='N'");
- if (mysql_num_rows($result)>0)
+ $result = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."' AND notified='N'");
+ if ($result->RecordCount() > 0)
  {
 ?>
-<script language="javascript">{ alert('<? echo $l_youhave . mysql_num_rows($result) . $l_messages_wait;
+<script language="javascript">{ alert('<? echo $l_youhave . $result->RecordCount() . $l_messages_wait;
  ?>'); }</script>
 <?
-  mysql_query("UPDATE messages SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
+  $db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
  }
 ?>
 <table width=75% cellpadding=0 cellspacing=1 border=0 align=center>
@@ -317,8 +312,8 @@ if($num_planets > 0)
   {
     if($planets[$i][owner] != 0)
     {
-      $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=" . $planets[$i][owner]);
-      $planet_owner = mysql_fetch_array($result5);
+      $result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=" . $planets[$i][owner]);
+      $planet_owner = $result5->fields;
 
       $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
       $planetavg /= 7;
@@ -394,16 +389,16 @@ else
 
 if($playerinfo[sector] != 0)
 {
-  $result4 = mysql_query(" SELECT
-                              ships.*,
-                              teams.team_name,
-                              teams.id
-                           FROM ships
-                              LEFT OUTER JOIN teams
-                              ON ships.team = teams.id
-                           WHERE ships.ship_id<>$playerinfo[ship_id]
-                           AND ships.sector=$playerinfo[sector]
-                           AND ships.on_planet='N'");
+  $result4 = $db->Execute(" SELECT
+                              $dbtables[ships].*,
+                              $dbtables[teams].team_name,
+                              $dbtables[teams].id
+                           FROM $dbtables[ships]
+                              LEFT OUTER JOIN $dbtables[teams]
+                              ON $dbtables[ships].team = $dbtables[teams].id
+                           WHERE $dbtables[ships].ship_id<>$playerinfo[ship_id]
+                           AND $dbtables[ships].sector=$playerinfo[sector]
+                           AND $dbtables[ships].on_planet='N'");
    $totalcount=0;
 
    if($result4 > 0)
@@ -412,8 +407,9 @@ if($playerinfo[sector] != 0)
       echo "<td align=center colspan=99 valign=top>
       <table width=100% border=0>
          <tr>";
-      while($row = mysql_fetch_array($result4))
+      while(!$result4->EOF)
       {
+         $row=$result4->fields;
          $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
          if($success < 5)
          {
@@ -473,6 +469,7 @@ if($playerinfo[sector] != 0)
             $displayed=true;
             break;
          }
+         $result4->MoveNext();
       }
    echo "    </tr>
            </table>
@@ -605,21 +602,23 @@ else
 
 <?
 
-  $query = mysql_query("SELECT * FROM traderoutes WHERE source_type='P' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
+  $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type='P' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
   $i=0;
   $num_traderoutes = 0;
-  while($row = mysql_fetch_array($query))
+  while(!$query->EOF)
   {
-    $traderoutes[$i]=$row;
+    $traderoutes[$i]=$query->fields;
     $i++;
     $num_traderoutes++;
+    $query->MoveNext();
   }
-  $query = mysql_query("SELECT * FROM planets, traderoutes WHERE source_type='L' AND source_id=planets.planet_id AND planets.sector_id=$playerinfo[sector] AND traderoutes.owner=$playerinfo[ship_id]");
-  while($row = mysql_fetch_array($query))
+  $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='L' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
+  while(!$query->EOF)
   {
-    $traderoutes[$i]=$row;
+    $traderoutes[$i]=$query->fields;
     $i++;
     $num_traderoutes++;
+    $query->MoveNext();
   }
 
   if($num_traderoutes == 0)
@@ -648,12 +647,12 @@ else
         echo $traderoutes[$i][dest_id];
       else
       {
-        $query = mysql_query("SELECT name FROM planets WHERE planet_id=" . $traderoutes[$i][dest_id]);
-        if(empty($query) || mysql_num_rows($query) == 0)
+        $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
+        if(!$query || $query->RecordCount() == 0)
           echo $l_unknown;
         else
         {
-          $planet = mysql_fetch_array($query);
+          $planet = $query->fields;
           if($planet[name] == "")
             echo $l_unnamed;
           else
