@@ -148,7 +148,7 @@ if(!empty($planetinfo))
       echo "<FORM ACTION=planet.php3?planet_id=$planet_id METHOD=POST>";
       echo "<INPUT TYPE=HIDDEN NAME=command VALUE=productions><BR>";
       echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-      echo "<TR BGCOLOR=\"$color_header\"><TD></TD><TD><B>$l_ore</B></TD><TD><B>$l_organics</B></TD><TD><B>$l_goods</B></TD><TD><B>$l_energy</B></TD><TD><B>$l_colonists</B></TD><TD><B>$l_credits</B></TD><TD><B>$l_fighters</B></TD><TD><B>$l_torpedoes</TD></TR>";
+      echo "<TR BGCOLOR=\"$color_header\"><TD></TD><TD><B>$l_ore</B></TD><TD><B>$l_organics</B></TD><TD><B>$l_goods</B></TD><TD><B>$l_energy</B></TD><TD><B>$l_colonists</B></TD><TD><B>$l_credits</B></TD><TD><B>$l_fighters</B></TD><TD><B>$l_torps</TD></TR>";
       echo "<TR BGCOLOR=\"$color_line1\">";
       echo "<TD>$l_current_qty</TD>";
       echo "<TD>" . NUMBER($planetinfo[ore]) . "</TD>";
