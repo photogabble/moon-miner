@@ -1,15 +1,15 @@
 <?
-
-
 include("config.php3");
+include($gameroot . $default_lang);
+
 connectdb();
 
 //test to see if server is closed to logins
 if($server_closed)
 {
-  $title="Server Closed";
+  $title=$l_login_sclosed;
   include("header.php3");
-  die($server_closed_message);
+  die($l_login_closed_message);
 }
 
 $playerfound = false;
@@ -29,16 +29,17 @@ mysql_free_result($res);
 /* first placement of cookie - don't use updatecookie. */
 $userpass = $email."+".$pass;
 SetCookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
-if($playerinfo[interface]=="N")
-{
+// took out the old interface, its not used anymore i guess
+//if($playerinfo[interface]=="N")
+//{
   $mainfilename="main.php3";
   $interface="main.php3";
-}
-else
-{
-  $mainfilename="maintext.php3";
-  $interface="maintext.php3";
-}
+//}
+//else
+//{
+//  $mainfilename="maintext.php3";
+//  $interface="maintext.php3";
+//}
 setcookie("interface", $mainfilename);
 setcookie("screenres", $screen_res);
 
@@ -55,25 +56,25 @@ if(mysql_num_rows($res) != 0)
 }
 
 
-$title="Login Phase Two"; 
+$title=$l_login_title2
 include("header.php3");
 
 bigtitle();
 
 if($banned == 1)
 {
-   echo "<center><p><font size=3 color=red><b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b><p></center>";
+   echo "<center><p><font size=3 color=red>$l_login_banned<p></center>";
    include("footer.php3");
    die();
 }
 
-if($playerfound) 
+if($playerfound)
 {
   if($playerinfo[password] == $pass)
   {
     // password is correct
     if($playerinfo[ship_destroyed] == "N")
-    {      
+    {
       // player's ship has not been destroyed
       playerlog($playerinfo[ship_id], LOG_LOGIN, $ip);
       $stamp = date("Y-m-d H-i-s");
@@ -84,37 +85,37 @@ if($playerfound)
     else
     {
       // player's ship has been destroyed
-      if($playerinfo[dev_escapepod] == "Y") 
+      if($playerinfo[dev_escapepod] == "Y")
       {
         mysql_query("UPDATE ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage='',on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N' where email='$username'");
-        echo "Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=$interface>here</A> to continue with a new ship.";
+        echo $l_login_died;
       }
 		else
 		{
     	echo "You have died in a horrible incident, <a href=log.php>here</a> is the blackbox information that was retrieved from your ships wreckage.<BR><BR>";
-    
+
         // Check if $newbie_nice is set, if so, verify ship limits
 			if ($newbie_nice == "YES")
 			{
 				$newbie_info = mysql_query("SELECT hull,engines,power,computer,sensors,armour,shields,beams,torp_launchers,cloak FROM ships WHERE ship_id='$playerinfo[ship_id]' AND hull<='$newbie_hull' AND engines<='$newbie_engines' AND power<='$newbie_power' AND computer<='$newbie_computer' AND sensors<='$newbie_sensors' AND armour<='$newbie_armour' AND shields<='$newbie_shields' AND beams<='$newbie_beams' AND torp_launchers<='$newbie_torp_launchers' AND cloak<='$newbie_cloak'");
 				$num_rows = mysql_num_rows($newbie_info);
-				
+
 				if ($num_rows)
 				{
-					echo "<BR><BR>Due to the seriousness of this crime and the vicious attack against you, the Federation has graciously decided to provide a free of charge cloning from your remains.  Sadly, even in this day and age, new clones can not own property, aside from the basics to make a living.  You will be provided with a basic ship and a few credits to get you started.  Hopefully your next life will be better.<BR><BR>";
+					echo "<BR><BR>$l_login_newbie<BR><BR>";
 					mysql_query("UPDATE ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,credits=1000,ship_damage='',on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N' where email='$username'");
-					
-					echo "Click <A HREF=$interface>here</A> to continue in a new life.";
+
+					echo $l_login_newlife;
 				}
                 else
 				{
-				echo "<BR><BR>You had no escape pod, and due to your modest success in this life, the Federation declines to clone you.  Your remains should eventually fall into a gravity well, hopefully to be used to create life elsewhere... several billion years from now.<BR><BR> Better luck next game...";
-				}		
-			
+				echo "<BR><BR>$l_login_looser";
+				}
+
 			} // End if $newbie_nice
 			else
 			{
-				echo "<BR><BR>You had no escape pod, and due to your modest success in this life, the Federation declines to clone you.  Your remains should eventually fall into a gravity well, hopefully to be used to create life else where... several billion years from now.<BR><BR> Better luck next game...";
+				echo "<BR><BR>$l_login_looser";
 			}
 		}
     }
@@ -122,13 +123,13 @@ if($playerfound)
   else
   {
     // password is incorrect
-    echo "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, click <A HREF=mail.php3?mail=$email>here</A> to have it e-mailed to you.<BR><BR>  Otherwise, click <a href=login.php3>here</a> to try again.  Attempt logged with IP address of $ip...";
+    echo "$l_login_4gotpw1 <A HREF=mail.php3?mail=$email>$l_clickme</A> $l_login_4gotpw2 <a href=login.php3>$l_clickme</a> $l_login_4gotpw3 $ip...";
     playerlog($playerinfo[ship_id], LOG_BADLOGIN, $ip);
   }
 }
 else
 {
-  echo "<B>No Such Player! - Create a new player <A HREF=new.php3>here</A>.</B><BR>";
+  echo "<B>$l_login_noone</B><BR>";
 }
 
 include("footer.php3");

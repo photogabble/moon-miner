@@ -5,7 +5,7 @@ include("global_funcs.php3");
 /* Main scheduler variables (game flow control)
 -----------------------------------------------*/
 
-/* 
+/*
   Set this to how often (in minutes) you are running
   the scheduler script.
 */
@@ -50,9 +50,8 @@ $maxlen_password = 16;
 $max_rank=100;
 $rating_combat_factor=.8;    //ammount of rating gained from combat
 $server_closed=false;        //true = block logins but not new account creation
-$server_closed_message="Server closed until further notice.";
 $account_creation_closed=false;    //true = block new account creation
-$account_creation_closed_message="Game closed for tournament play";
+
 
 /* newbie niceness variables */
 $newbie_nice = "YES";

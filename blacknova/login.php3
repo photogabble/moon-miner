@@ -1,9 +1,13 @@
-<? 
+<?
 
-$title="Login"; 
+include("config.php3");
+
+include($gameroot . $default_lang);
+
+$title=$l_login_title;
 
 include("header.php3");
-include("config.php3");
+
 ?>
 
 <CENTER>
@@ -17,11 +21,11 @@ bigtitle();
 
 <TABLE CELLPADDING="4">
 <TR>
-	<TD align="right">E-mail Address:</TD>
+	<TD align="right"><? echo $l_login_email; ?></TD>
 	<TD align="left"><INPUT TYPE="TEXT" NAME="email" SIZE="20" MAXLENGTH="40" VALUE="<?php echo "$username" ?>"></TD>
 </TR>
 <TR>
-	<TD align="right">Password:</TD>
+	<TD align="right"><? echo $l_login_pw;?></TD>
 	<TD align="left"><INPUT TYPE="PASSWORD" NAME="pass" SIZE="20" MAXLENGTH="20" VALUE="<?php echo "$password" ?>"></TD>
 </TR>
 
@@ -36,7 +40,7 @@ if(self.screen)
 if(swidth != 640 && swidth != 800 && swidth != 1024)
 {
   document.write("<TR><TD COLSPAN=2>");
-  document.write("Unable to determine your screen resolution. Please choose the best fit:<BR>");
+  document.write("<? echo $l_login_chooseres;?><BR>");
   document.write("<CENTER><INPUT TYPE=\"RADIO\" NAME=\"res\" VALUE=\"640\">640x480</INPUT>");
   document.write("<INPUT TYPE=\"RADIO\" NAME=\"res\" CHECKED VALUE=\"800\">800x600</INPUT>");
   document.write("<INPUT TYPE=\"RADIO\" NAME=\"res\" VALUE=\"1024\">1024x768</INPUT></CENTER>");
@@ -47,7 +51,7 @@ if(swidth != 640 && swidth != 800 && swidth != 1024)
 <NOSCRIPT>
 <TR>
 	<TD COLSPAN="2">
-	Unable to determine your screen resolution. Please choose the best fit:<BR>
+	<? echo $l_login_chooseres;?><BR>
 	<INPUT TYPE="RADIO" NAME="res" VALUE="640">640x480</INPUT>
 	<INPUT TYPE="RADIO" NAME="res" CHECKED VALUE="800">800x600</INPUT>
 	<INPUT TYPE="RADIO" NAME="res" VALUE="1024">1024x768</INPUT></CENTER>
@@ -56,18 +60,18 @@ if(swidth != 640 && swidth != 800 && swidth != 1024)
 </NOSCRIPT>
 </TABLE>
 <BR>
-<INPUT TYPE="SUBMIT" VALUE="Login">
+<INPUT TYPE="SUBMIT" VALUE="<? echo $l_login_title;?>">
 <BR><BR>
-If you are a new player, click <A HREF="new.php3">here</A>.
+<? echo $l_login_newp;?>
 <BR><BR>
-Problems? <A HREF="mailto:<?php echo "$admin_mail"?>">E-mail us</A>
+<? echo $l_login_prbs;?> <A HREF="mailto:<?php echo "$admin_mail"?>"><? echo $l_login_emailus;?></A>
 </FORM>
 
 <?php
 if(!empty($link_forums))
-  echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">Forums</A> - ";
+  echo "<A HREF=\"$link_forums\" TARGET=\"_blank\"><? echo $l_forums;?></A> - ";
 ?>
-<A HREF="ranking.php3">Rankings</A>
+<A HREF="ranking.php3"><? echo $l_rankings;?></A>
 <BR><BR>
 </CENTER>
 

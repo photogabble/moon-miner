@@ -1146,4 +1146,26 @@ $l_corpm_topersonal		="Planet is now a Personal Planet!";
 $l_corpm_exploit		="You intercept a garbled borg message on your scanner... you should probably start worrying...";
 
 
+// login.php login2.php
+$l_login_title			="Login"; 
+$l_login_email			="E-mail Address:";
+$l_login_pw			="Password:";
+$l_login_chooseres		="Unable to determine your screen resolution. Please choose the best fit:";
+$l_login_newp			= "If you are a new player, click <A HREF=\"new.php3\">here</A>.";
+$l_login_prbs			= "Problems?";
+$l_login_emailus		= "E-mail us";
+$l_login_sclosed		= "Server Closed";
+$l_login_closed_message		="Server closed until further notice.";
+$l_login_title2			="Login Phase Two"; 
+$l_login_banned			="<b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b>";
+$account_creation_closed_message="Game closed for tournament play";
+$l_login_died			="Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=main.php3>here</A> to continue with a new ship.";
+$l_login_newbie			="Due to the seriousness of this crime and the vicious attack against you, the Federation has graciously decided to provide a free of charge cloning from your remains.  Sadly, even in this day and age, new clones can not own property, aside from the basics to make a living.  You will be provided with a basic ship and a few credits to get you started.  Hopefully your next life will be better.";
+$l_login_newlife		="Click <A HREF=main.php3>here</A> to continue in a new life.";
+$l_login_looser			="You had no escape pod, and due to your modest success in this life, the Federation declines to clone you.  Your remains should eventually fall into a gravity well, hopefully to be used to create life elsewhere... several billion years from now.<BR><BR> Better luck next game...";
+$l_login_4gotpw1		= "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, ";
+$l_login_4gotpw2		= "to have it e-mailed to you.<BR><BR>  Otherwise,";
+$l_login_4gotpw3		= "to try again.  Attempt logged with IP address of";
+$l_login_noone			= "No Such Player! - Create a new player <A HREF=new.php3>here</A>.";
+
 ?>
