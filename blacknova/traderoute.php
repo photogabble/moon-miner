@@ -1582,18 +1582,27 @@ function traderoute_engage()
       {
         $colonists_buy += $playerinfo[ship_colonists];
         $col_dump = $playerinfo[ship_colonists];
-        if($dest[colonists] + $col_dump > $colonist_limit)
+        if($dest[colonists] + $colonists_buy >= $colonist_limit)
         {  
-          $col_dump = $dest[colonists] + $col_dump - $colonists_limit;
-          $colonists_buy = $col_dump;
+          $exceeding = $dest[colonists] + $colonists_buy - $colonist_limit;
+          $col_dump = $exceeding;
+          $setcol = 1;
+          $colonists_buy-=$exceeding;
+          if($colonists_buy < 0)
+            $colonists_buy = 0;
         }
       }
       else
         $col_dump = 0;
 
       if($colonists_buy != 0)
-        echo "Dumped " . NUMBER($colonists_buy) . " Colonists<br>";
-    
+      {
+        if($setcol ==1)
+          echo "Dumped " . NUMBER($colonists_buy) . " Colonists (Planet is overcrowded)<br>";
+        else
+          echo "Dumped " . NUMBER($colonists_buy) . " Colonists<br>";
+      }
+                  
       if($playerinfo[trade_fighters] == 'Y')
       {
         $fighters_buy += $playerinfo[ship_fighters];
@@ -1621,13 +1630,38 @@ function traderoute_engage()
 
       if($traderoute[source_type] == 'L')
       {
-        $col_dump = $playerinfo[ship_colonists];
-        $fight_dump = $playerinfo[ship_fighters];
-        $torps_dump = $playerinfo[torps];
+        if($playerinfo[trade_colonists] == 'Y')
+        {
+          if($setcol != 1)
+            $col_dump = 0;
+        }
+        else
+          $col_dump = $playerinfo[ship_colonists];
+
+        if($playerinfo[trade_fighters] == 'Y')
+          $fight_dump = 0;
+        else
+          $fight_dump = $playerinfo[ship_fighters];
+
+        if($playerinfo[trade_torps] == 'Y')
+          $torps_dump = 0;
+        else
+          $torps_dump = $playerinfo[torps];
       }
       
       mysql_query("UPDATE planets SET colonists=colonists+$colonists_buy, fighters=fighters+$fighters_buy, torps=torps+$torps_buy WHERE planet_id=$traderoute[dest_id]");
-      mysql_query("UPDATE ships SET ship_colonists=ship_colonists-$col_dump, ship_fighters=ship_fighters-$fight_dump, torps=torps-$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
+      
+      if($traderoute[source_type] == 'L')
+      {
+        mysql_query("UPDATE ships SET ship_colonists=$col_dump, ship_fighters=$fight_dump, torps=$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
+      }
+      else
+      {
+        if($setcol == 1)
+          mysql_query("UPDATE ships SET ship_colonists=$col_dump, ship_fighters=ship_fighters-$fight_dump, torps=torps-$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
+        else
+          mysql_query("UPDATE ships SET ship_colonists=ship_colonists-$col_dump, ship_fighters=ship_fighters-$fight_dump, torps=torps-$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
+      }
     }
     if($dist[scooped2] != 0)
     {
