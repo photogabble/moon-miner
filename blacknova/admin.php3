@@ -38,6 +38,7 @@ else
     echo "<SELECT NAME=menu>";
     echo "<OPTION VALUE=useredit SELECTED>User editor</OPTION>";
     echo "<OPTION VALUE=univedit>Universe editor</OPTION>";
+    echo "<OPTION VALUE=sectedit>Sector editor</OPTION>";
     echo "<OPTION VALUE=linkedit>Link editor</OPTION>";
     echo "<OPTION VALUE=zoneedit>Zone editor</OPTION>";
     echo "</SELECT>";
@@ -173,6 +174,165 @@ else
         
 	}
     	}
+    elseif($module == "sectedit")
+    {
+      echo "<H2>Sector editor</H2>";
+      echo "<FORM ACTION=admin.php3 METHOD=POST>";
+      if(empty($sector))
+      {
+        echo "<H5>Note: Cannot Edit Setor 0</H5>";
+        echo "<SELECT SIZE=20 NAME=sector>";
+        $res = mysql_query("SELECT sector_id FROM universe ORDER BY sector_id");
+        while($row = mysql_fetch_array($res))
+        {
+          echo "<OPTION VALUE=$row[sector_id]> $row[sector_id] </OPTION>";
+        }
+        mysql_free_result($res);
+        echo "</SELECT>";
+        echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
+      }
+      else
+      {
+        if(empty($operation))
+        {
+          $res = mysql_query("SELECT * FROM universe WHERE sector_id=$sector");
+          $row = mysql_fetch_array($res);
+
+          echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
+          echo "<TR><TD><tt>          Sector ID  </tt></TD><TD><FONT COLOR=#66FF00>$sector</FONT></TD>";
+          echo "<TD ALIGN=Right><tt>  Sector Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=sector_name VALUE=\"$row[sector_name]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Zone ID    </tt></TD><TD>";
+                                      echo "<SELECT SIZE=1 NAME=zone_id>";
+                                      $ressubb = mysql_query("SELECT zone_id,zone_name FROM zones ORDER BY zone_name");
+                                      while($rowsubb = mysql_fetch_array($ressubb))
+                                      {
+                                      if ($rowsubb[zone_id] == $row[zone_id])
+                                        { 
+                                        echo "<OPTION SELECTED=$rowsubb[zone_id] VALUE=$rowsubb[zone_id]>$rowsubb[zone_name]</OPTION>";
+                                        } else { 
+                                        echo "<OPTION VALUE=$rowsubb[zone_id]>$rowsubb[zone_name]</OPTION>";
+                                        }
+                                      }
+                                      mysql_free_result($ressubb);
+                                      echo "</SELECT></TD></TR>";
+          echo "<TR><TD><tt>          Beacon     </tt></TD><TD COLSPAN=5><INPUT TYPE=TEXT SIZE=70 NAME=beacon VALUE=\"$row[beacon]\"></TD></TR>";
+          echo "<TR><TD><tt>          Distance   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=distance VALUE=\"$row[distance]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Angle1     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=angle1 VALUE=\"$row[angle1]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Angle2     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=angle2 VALUE=\"$row[angle2]\"></TD></TR>";
+          echo "<TR><TD COLSPAN=6>    <HR>       </TD></TR>";
+          echo "<TR><TD COLSPAN=2><tt>Planet     </tt><INPUT TYPE=CHECKBOX NAME=planet VALUE=ON " . CHECKED($row[planet]) . "></TD>";
+          echo "<TD ALIGN=Right><tt>  Planet Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=planet_name VALUE=\"$row[planet_name]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Base       </tt><INPUT TYPE=CHECKBOX NAME=base VALUE=ON " . CHECKED($row[base]) . "></TD>";
+          echo "<TD ALIGN=Right><tt>  Set To Sell</tt><INPUT TYPE=CHECKBOX NAME=base_sells VALUE=ON " . CHECKED($row[base_sells]) . "></TD></TR>";
+          echo "</TABLE>";
+
+          echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
+          echo "<TR><TD><tt>          Planet Owner</tt></TD><TD>";
+                                      echo "<SELECT SIZE=1 NAME=planet_owner>";
+                                      $ressuba = mysql_query("SELECT ship_id,character_name FROM ships ORDER BY character_name");
+                                      echo "<OPTION VALUE=0>No One</OPTION>";
+                                      while($rowsuba = mysql_fetch_array($ressuba))
+                                      {
+                                      if ($rowsuba[ship_id] == $row[planet_owner])
+                                        { 
+                                        echo "<OPTION SELECTED=$rowsuba[ship_id] VALUE=$rowsuba[ship_id]>$rowsuba[character_name]</OPTION>";
+                                        } else {  
+                                        echo "<OPTION VALUE=$rowsuba[ship_id]>$rowsuba[character_name]</OPTION>";
+                                        }
+                                      }
+                                      mysql_free_result($ressuba);
+                                      echo "</SELECT></TD>";
+          echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_organics VALUE=\"$row[planet_organics]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_ore VALUE=\"$row[planet_ore]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_goods VALUE=\"$row[planet_goods]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_energy VALUE=\"$row[planet_energy]\"></TD></TR>";
+          echo "<TR><TD><tt>          Planet Corp</tt></TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=planet_corp VALUE=\"$row[planet_corp]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Colonists  </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_colonists VALUE=\"$row[planet_colonists]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Credits    </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_credits VALUE=\"$row[planet_credits]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Fighters   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=planet_fighters VALUE=\"$row[planet_fighters]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Torpedoes  </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=base_torp VALUE=\"$row[base_torp]\"></TD></TR>";
+          echo "<TR><TD COLSPAN=2><tt>Planet Production</tt></TD>";
+          echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_organics VALUE=\"$row[prod_organics]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_ore VALUE=\"$row[prod_ore]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_goods VALUE=\"$row[prod_goods]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_energy VALUE=\"$row[prod_energy]\"></TD></TR>";
+          echo "<TR><TD COLSPAN=6><tt>Planet Production</tt></TD>";
+          echo "<TD ALIGN=Right><tt>  Fighters   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_fighters VALUE=\"$row[prod_fighters]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Torpedoes  </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_torp VALUE=\"$row[prod_torp]\"></TD></TR>";
+          echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
+          echo "<TR><TD><tt>          Port Type  </tt></TD><TD>";
+                                      echo "<SELECT SIZE=1 NAME=port_type>";
+                                      $oportnon = $oportorg = $oportore = $oportgoo = $oportene = "VALUE"; 
+                                      if ($row[port_type] == "none") $oportnon = "SELECTED=none VALUE";
+                                      if ($row[port_type] == "organics") $oportorg = "SELECTED=organics VALUE";
+                                      if ($row[port_type] == "ore") $oportore = "SELECTED=ore VALUE";
+                                      if ($row[port_type] == "goods") $oportgoo = "SELECTED=goods VALUE";
+                                      if ($row[port_type] == "energy") $oportene = "SELECTED=energy VALUE";
+                                      echo "<OPTION $oportnon=none>none</OPTION>";
+                                      echo "<OPTION $oportorg=organics>organics</OPTION>";
+                                      echo "<OPTION $oportore=ore>ore</OPTION>";
+                                      echo "<OPTION $oportgoo=goods>goods</OPTION>";
+                                      echo "<OPTION $oportene=energy>energy</OPTION>";
+                                      echo "</SELECT></TD>";
+          echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_organics VALUE=\"$row[port_organics]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_ore VALUE=\"$row[port_ore]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_goods VALUE=\"$row[port_goods]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_energy VALUE=\"$row[port_energy]\"></TD></TR>";
+          echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
+          echo "<TR><TD COLSPAN=4><tt>Sector Deployment Owner </tt>";
+                                      echo "<SELECT SIZE=1 NAME=fm_owner>";
+                                      $ressubc = mysql_query("SELECT ship_id,character_name FROM ships ORDER BY character_name");
+                                      echo "<OPTION VALUE=0>No One</OPTION>";
+                                      while($rowsubc = mysql_fetch_array($ressubc))
+                                      {
+                                      if ($rowsubc[ship_id] == $row[fm_owner])
+                                        { 
+                                        echo "<OPTION SELECTED=$rowsubc[ship_id] VALUE=$rowsubc[ship_id]>$rowsubc[character_name]</OPTION>";
+                                        } else {  
+                                        echo "<OPTION VALUE=$rowsubc[ship_id]>$rowsubc[character_name]</OPTION>";
+                                        }
+                                      }
+                                      mysql_free_result($ressubc);
+                                      echo "</SELECT></TD>";
+          echo "<TD ALIGN=Right><tt>  Fighters   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=fighters VALUE=\"$row[fighters]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Mines      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=mines VALUE=\"$row[mines]\"></TD>";
+          echo "<TD ALIGN=Right><tt>  Deploy Type</tt></TD><TD>";
+                                      echo "<SELECT SIZE=1 NAME=fm_setting>";
+                                      $ofmsettol = $ofmsetatt = "VALUE"; 
+                                      if ($row[fm_setting] == "toll") $ofmsettol = "SELECTED=toll VALUE";
+                                      if ($row[fm_setting] == "attack") $ofmsetatt = "SELECTED=attack VALUE";
+                                      echo "<OPTION $ofmsettol=toll>Toll</OPTION>";
+                                      echo "<OPTION $ofmsetatt=attack>Attack</OPTION>";
+                                      echo "</SELECT></TD></TR>";
+          echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
+          echo "</TABLE>";
+
+          mysql_free_result($res);
+          echo "<BR>";
+          echo "<INPUT TYPE=HIDDEN NAME=sector VALUE=$sector>";
+          echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
+          echo "<INPUT TYPE=SUBMIT SIZE=1 VALUE=Save>";
+        }
+        elseif($operation == "save")
+        {
+          // update database
+          $_planet = empty($planet) ? "N" : "Y";
+          $_base = empty($base) ? "N" : "Y";
+          $_base_sells = empty($base_sells) ? "N" : "Y";
+          mysql_query("UPDATE universe SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',planet='$_planet',planet_name='$planet_name',base='$_base',base_sells='$_base_sells',planet_owner='$planet_owner',planet_organics='$planet_organics',planet_ore='$planet_ore',planet_goods='$planet_goods',planet_energy='$planet_energy',planet_corp='$planet_corp',planet_colonists='$planet_colonists',planet_credits='$planet_credits',planet_fighters='$planet_fighters',base_torp='$base_torp',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2',fighters='$fighters',mines='$mines',fm_owner='$fm_owner',fm_setting='$fm_setting' WHERE sector_id=$sector");
+          echo "Changes saved<BR><BR>";
+          echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Sector editor\">";
+          $button_main = false;
+        }
+        else
+        {
+          echo "Invalid operation";
+        }
+      }
+      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=sectedit>";
+      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
+      echo "</FORM>";
+    }
     elseif($module == "linkedit")
     {
       echo "<B>Link editor</B>";
