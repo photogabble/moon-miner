@@ -21,9 +21,16 @@ function furangeetoship($ship_id)
   global $db, $dbtables;
 
   // *********************************
+  // *** LOOKUP TARGET DETAILS    ****
+  // *********************************
+  $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[zones] READ, $dbtables[planets] READ, $dbtables[news] WRITE, $dbtables[logs] WRITE");
+  $resultt = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
+  $targetinfo=$resultt->fields;
+
+  // *********************************
   // ** VERIFY SECTOR ALLOWS ATTACK **
   // *********************************
-  $sectres = $db->Execute ("SELECT sector_id,zone_id FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+  $sectres = $db->Execute ("SELECT sector_id,zone_id FROM $dbtables[universe] WHERE sector_id='$targetinfo[sector]'");
   $sectrow = $sectres->fields;
   $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM $dbtables[zones] WHERE zone_id=$sectrow[zone_id]");
   $zonerow = $zoneres->fields;
@@ -32,13 +39,6 @@ function furangeetoship($ship_id)
     playerlog($playerinfo[ship_id], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks."); 
     return;
   }
-
-  // *********************************
-  // *** LOOKUP TARGET DETAILS    ****
-  // *********************************
-  $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[zones] READ, $dbtables[planets] READ, $dbtables[news] WRITE, $dbtables[logs] WRITE");
-  $resultt = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
-  $targetinfo=$resultt->fields;
 
   // *********************************
   // *** USE EMERGENCY WARP DEVICE ***
@@ -279,7 +279,7 @@ function furangeetoship($ship_id)
     // ****** TARGET HAD ESCAPE POD ******
     {
       $rating=round($targetinfo[rating]/2);
-      $db->Execute("UPDATE $dbtables[ships] SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage='', on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', rating='$rating' where ship_id=$targetinfo[ship_id]");
+      $db->Execute("UPDATE $dbtables[ships] SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage='', on_planet='N', planet_id=0, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', rating='$rating' where ship_id=$targetinfo[ship_id]");
       playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "Furangee $playerinfo[character_name]|Y"); 
     } else
     // ****** TARGET HAD NO POD ******
@@ -1073,8 +1073,6 @@ function furangeehunter()
     $i++;
     $res->MoveNext();
   }
-  // Debug
-  // echo "Target is $targetinfo[character_name] <BR>";  
 
   // *********************************
   // *** WORM HOLE TO TARGET SECTOR **
