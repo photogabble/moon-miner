@@ -46,9 +46,7 @@ if($sector == "*")
   // get sectors which can be reached from the player's current sector
   $result = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<FONT COLOR=\"WHITE\">";
   echo "<TR BGCOLOR=\"SILVER\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD></TR>";
-  echo "</FONT>";
   $color = "WHITE";
   while($row = mysql_fetch_array($result))
   {
@@ -138,23 +136,24 @@ else
     die();
   }
 
-  echo "Long Range Scan of Sector #$sector";
+  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+  echo "<TR BGCOLOR=\"SILVER\"><TD><B>Sector $sector";
   if($sectorinfo[sector_name] != "")
   {
-    echo " ($sectorinfo[sector_name]).<BR><BR>";
+    echo " ($sectorinfo[sector_name])";
   }
-  else
-  {
-    echo ".<BR><BR>";
-  }
+  echo "</B></TR>";
+  echo "</TABLE><BR>";
 
+  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Links</B></TD></TR>";
+  echo "<TR><TD>";
   if($num_links == 0)
   {
-    echo "There are no links out of this sector.<BR><BR>";
+    echo "None";
   }
   else
   {
-    echo "Links lead to the following sectors: ";
     for($i = 0; $i < $num_links; $i++)
     {
       echo "$links[$i]";
@@ -163,75 +162,71 @@ else
         echo ", ";
       }
     }
-    echo "<BR><BR>";
   }
+  echo "</TD></TR>";
+  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Ships</B></TD></TR>";
+  echo "<TR><TD>";
   if($sector != 0)
   {
     // get ships located in the scanned sector
-    $result4 = mysql_query("SELECT ship_id,ship_name FROM ships WHERE sector='$sector'");
-    $i=0;
-    if($result4 > 0)
+    $result4 = mysql_query("SELECT ship_id,ship_name,character_name FROM ships WHERE sector='$sector'");
+    if(mysql_num_rows($result4) < 1)
     {
-      while($row = mysql_fetch_array($result4))
-      {
-        $ships[$i] = $row[ship_name];
-        $ship_id[$i] = $row[ship_id];
-        $i++;
-      }
-    }
-    $num_ships = $i;
-    if($num_ships < 1)
-    {
-      echo "There are no ships in this sector.<BR><BR>";
+      echo "None";
     }
     else
     {
-      echo "The following other ships are here: ";
-      for($i = 0; $i < $num_ships; $i++)
+      while($row = mysql_fetch_array($result4))
       {
-        if($ships[$i] != $playerinfo[ship_name])
-        {
-          echo "$ships[$i]";
-          if($i + 1 != $num_ships)
-          {
-            echo " ";
-          }
-        }
+        echo "$row[ship_name] ($row[character_name])<BR>";
       }
-      echo "<BR><BR>";
     }
   }
   else
   {
-    echo "Sector 0 is too congested to scan for ships!<BR><BR>";
+    echo "Sector 0 is too crowded to scan for ships!";
   }
-
-  if($sectorinfo[port_type] != "none")
+  echo "</TD></TR>";
+  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Port</B></TD></TR>";
+  echo "<TR><TD>";
+  if($sectorinfo[port_type] == "none")
   {
-    echo "There is a $sectorinfo[port_type] port here.<BR><BR>";
+    echo "None";
   }
-  if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
+  else
   {
-    echo "There is a planet here ";
+    echo "$sectorinfo[port_type]";
+  }
+  echo "</TD></TR>";
+  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Planet</B></TD></TR>";
+  echo "<TR><TD>";
+  if($sectorinfo[planet] == "N")
+  {
+    echo "None";
+  }
+  else
+  {
     if(empty($sectorinfo[planet_name]))
     {
-      echo "with no name ";
+      echo "Unnamed";
     }
     else
     {
-      echo "named $sectorinfo[planet_name] ";
+      echo "$sectorinfo[planet_name]";
     }
     if($sectorinfo[planet_owner] == "")
     {
-      echo "and it is unowned.<BR><BR>";
+      echo " (unowned)";
     }
     else
     {
       $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
       $planet_owner_name = mysql_fetch_array($result5);
-      echo "owned by <a href=mailto.php3?to=$sectorinfo[planet_owner]>$planet_owner_name[character_name]</a> (#$sectorinfo[planet_owner])<BR><BR>";
+      echo " ($planet_owner_name[character_name])";
     } 
   } 
+  echo "</TD></TR>";
+  echo "</TABLE><BR>";
   echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
 }
 
