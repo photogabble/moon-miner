@@ -4,6 +4,7 @@
 // Author:  Danny Froberg - danny@froberg.org
 //      dfroberg@users.sourceforge.net
 // Initial: 12-2-2000
+// 20010903 - David Rowlands Fixed Bug #445681 
 // Based upon the following post in the BlackNova Forum;
 /*
 sisko [guest] from BlackNova Traders  
@@ -238,7 +239,7 @@ function ibank_display_ownaccount()
     if($deposit < 0)
       $deposit = 0;
     $deposit = round($deposit);
-    if($deposit < $playerinfo[credits])
+    if($deposit <= $playerinfo[credits])
     {
       // Lets make the account and deposit the credits into it.
       mysql_query("UPDATE ibank_accounts SET ballance = ballance + $deposit WHERE id=$playerinfo[ship_id]");
@@ -263,7 +264,7 @@ function ibank_display_ownaccount()
     if($withdraw < 0)
       $withdraw = 0;
     $withdraw = round($withdraw);
-    if($withdraw < $account[ballance])
+    if($withdraw <= $account[ballance])
     {   
       // Lets make the account and deposit the credits into it.
       mysql_query("UPDATE ibank_accounts SET ballance = ballance - $withdraw WHERE id=$playerinfo[ship_id]");
@@ -435,7 +436,10 @@ function ibank_display_transfers()
     $feepct = $ibank_paymentfee * 100;
     $totalamount = round($fee + $amount);
     
-    if(isset($confirmed))
+    $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
+    $playerinfo=mysql_fetch_array($result);
+
+    if(isset($confirmed) && ($totalamount<$playerinfo[credits]))
     {
       // Payment is confirmed
       // Lets actually do it
@@ -638,7 +642,9 @@ function ibank_display_payments()
     $fee = $ibank_paymentfee * $amount;
     $feepct = $ibank_paymentfee * 100;
     $totalamount = round($fee + $amount);
-    if(isset($confirmed))
+    $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
+    $playerinfo=mysql_fetch_array($result);
+    if(isset($confirmed) && ($totalamount<$playerinfo[credits]))
     {
       // Payment is confirmed
       // Lets actually do it

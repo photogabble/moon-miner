@@ -1,3 +1,8 @@
+nospoon (03 September 2001)
+---------------------------
+
+Fixed bug #445681 - couldn't deposit or withdraw all funds from IGB
+
 ratt (11 July 01) 
 ------------------
 The ridiculous traderoute bug reared it's ugly head again...
