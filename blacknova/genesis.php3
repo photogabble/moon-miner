@@ -28,6 +28,10 @@ if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a genesis device.";
 }
+elseif($playerinfo[on_planet]=='Y')
+{
+echo "You can't use this device while on the planet surface.";
+} 
 elseif($sectorinfo[planet] == "Y")
 {
   echo "There is already a planet in this sector.";

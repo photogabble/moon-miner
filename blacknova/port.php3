@@ -363,7 +363,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=Buy></TD>";
   echo "<TD ALIGN=RIGHT>";
   TEXT_JAVASCRIPT_BEGIN();
-  echo "document.write('Total cost: <INPUT TYPE=TEXT NAME=total_cost SIZE=1 VALUE=0>');";
+  echo "document.write('Total cost: <INPUT TYPE=TEXT NAME=total_cost SIZE=10 VALUE=0>');";
   TEXT_JAVASCRIPT_END();
   echo "</TD></TR>";
   echo "</TABLE>";

@@ -78,6 +78,9 @@ mysql_query("CREATE TABLE ships(" .
             "preset2 bigint(20) DEFAULT '0' NOT NULL," .
             "preset3 bigint(20) DEFAULT '0' NOT NULL," .
             "rating bigint(20) DEFAULT '0' NOT NULL," .
+            "KEY ship_destroyed (ship_destroyed)," .
+            "KEY ship_name (ship_name)," .
+            "KEY email (email)," .
             "score bigint(20) DEFAULT '0' NOT NULL," .
             "team bigint(20) DEFAULT '0' NOT NULL," .
             "team_invite bigint(20) DEFAULT '0' NOT NULL," .
@@ -122,6 +125,8 @@ mysql_query("CREATE TABLE universe(" .
             "prod_energy float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
             "prod_fighters float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
             "prod_torp float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
+            "KEY zone_id (zone_id)," .
+            "KEY port_type (port_type)," .
             "beacon tinytext," .
             "angle1 float(10,2) DEFAULT '0.00' NOT NULL," .
             "angle2 float(10,2) DEFAULT '0.00' NOT NULL," .
