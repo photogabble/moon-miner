@@ -116,7 +116,7 @@ else
       $planet[$i][planet_name] = "Unnamed";
     }
     echo "<TR BGCOLOR=\"$color\">";
-    echo "<TD>[<A HREF=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A>]</TD>";
+    echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
     echo "<TD>" . $planet[$i][planet_name] . "</TD>";
     echo "<TD>" . NUMBER($planet[$i][planet_ore]) . "</TD>";
     echo "<TD>" . NUMBER($planet[$i][planet_organics]) . "</TD>";
