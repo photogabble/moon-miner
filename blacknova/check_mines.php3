@@ -71,7 +71,8 @@
    
            }                   
 
-
+           // clean up any sectors that have used up all mines or fighters
+           mysql_query("update universe set fm_owner=0 where fm_owner <> 0 and mines=0 and fighters=0");
         }   
 
     }
