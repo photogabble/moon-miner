@@ -154,9 +154,9 @@
 		echo "The planet was only able to supply $transfer_colonists units of colonists.<BR>\n";
 	}
 
-	if ( ($tpcredits == -1) && ($transfer_credits > $playerinfo['ship_credits']) )
+	if ( ($tpcredits == -1) && ($transfer_credits > $playerinfo['credits']) )
 	{
-		$transfer_credits = $playerinfo['ship_credits'];
+		$transfer_credits = $playerinfo['credits'];
 		echo "You don't have enough credits.  Setting credits transfer amount to $transfer_credits.<BR>\n";
 	}
 	elseif ( ($tpcredits == 1) && ($transfer_credits > $sectorinfo['planet_credits']) )
