@@ -5,21 +5,22 @@ updatecookie();
 
 $title="Main Menu";
 
-$basefontsize=0;
-$stylefontsize="8Pt";
+$basefontsize = 0;
+$stylefontsize = "8Pt";
 $picsperrow = 6;
 
 if($res == 640)
-	$picsperrow = 4;
+  $picsperrow = 4;
 
 if($res >= 1024)
 {
-	$basefontsize = 1;
-	$stylefontsize="12Pt";
-	$picsperrow = 7;
+  $basefontsize = 1;
+  $stylefontsize = "12Pt";
+  $picsperrow = 7;
 }
 
 include("header.php3");
+
 connectdb();
 
 if(checklogin())
@@ -112,7 +113,7 @@ $planettypes[4]= "hugeplanet.gif";
 <?
 if(!empty($sectorinfo[beacon]))
 {
-	echo "<font color=white size=", $basefontsize + 2," face=\"arial\"><b>", $sectorinfo[beacon], "</b></font>";
+  echo "<font color=white size=", $basefontsize + 2," face=\"arial\"><b>", $sectorinfo[beacon], "</b></font>";
 }
 ?>
 </td><td align=right>
@@ -128,15 +129,15 @@ if(!empty($sectorinfo[beacon]))
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Commands
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
 
@@ -149,7 +150,7 @@ Commands
 &nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
 &nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
 &nbsp;<a class=mnu href="lastusers.php3">Last Users</a>&nbsp;<br>
-&nbsp;<a class=mnu href="self-destruct.php3">Self Destruct</a>&nbsp;<br>
+&nbsp;<a class=mnu href="self-destruct.php3">Self-Destruct</a>&nbsp;<br>
 &nbsp;<a class=mnu href="options.php3">Options</a>&nbsp;<br>
 &nbsp;<a class=mnu href="navcomp.php3">Nav Computer</a>&nbsp;<br>
 </div>
@@ -169,15 +170,15 @@ Commands
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Warp to
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
 
@@ -370,15 +371,15 @@ else
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Cargo
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
 
@@ -399,15 +400,15 @@ Cargo
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Trade Routes
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
 
@@ -427,15 +428,15 @@ Trade Routes
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Realspace
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
-	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
 
