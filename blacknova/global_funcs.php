@@ -523,6 +523,7 @@ function destroy_fighters($sector, $num_fighters)
 
 function message_defence_owner($sector, $message)
 {
+    global $db;
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' ");
     echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
