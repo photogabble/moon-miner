@@ -20,7 +20,7 @@ $sectorinfo=mysql_fetch_array($result2);
 
 $result3 = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
 
-bigtitle();
+//bigtitle();
 
 srand((double)microtime() * 1000000);
 
@@ -28,13 +28,13 @@ if($playerinfo[on_planet] == "Y")
 {
   if($sectorinfo[planet] == "Y")
   {
-    echo "Click <a href=planet.php3>here</a> to go to the planet menu.<BR>"; 
+    echo "Click <A HREF=planet.php3>here</A> to go to the planet menu.<BR>"; 
     echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?id=".$playerinfo[ship_id]."\">";
     die();
   }
   else
   {
-    $update = mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+    mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "<BR>On a non-existent planet???<BR><BR>";
   }
 }
@@ -177,33 +177,55 @@ else
 {
   echo "There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!<BR><BR>";
 }
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+echo "<TR>";
+echo "<TD>Trading port:</TD>";
+echo "<TD>&nbsp;&nbsp;";
 if($sectorinfo[port_type] != "none")
 {
-  echo "There is a <A HREF=port.php3>$sectorinfo[port_type] port</A> here.<BR><BR>";
+  echo "<A HREF=port.php3>" . ucfirst($sectorinfo[port_type]) . "</A>";
 }
+else
+{
+  echo "None";
+}
+echo "</TD>";
+echo "</TR>";
+echo "<TR><TD>&nbsp;</TD><TD></TD></TR>";
+echo "<TR>";
+echo "<TD>Planet:</TD>";
+echo "<TD>&nbsp;&nbsp;";
 if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
 {
-  echo "There is a <a href=planet.php3>planet</a> here ";
+  echo "<A HREF=planet.php3>";
   if(empty($sectorinfo[planet_name]))
   {
-    echo "with no name ";
+    echo "Unnamed";
   }
   else
   {
-    echo "named $sectorinfo[planet_name] ";
+    echo "$sectorinfo[planet_name]";
   }
-  
+  echo "</A> (";
   if($sectorinfo[planet_owner] == "")
   {
-    echo "and it is unowned.<BR><BR>";
+    echo "Unowned";
   }
   else
   {
     $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
-    $planet_owner_name=mysql_fetch_array($result5);
-    echo "owned by <a href=mailto.php3?to=$sectorinfo[planet_owner]>$planet_owner_name[character_name]</a><BR><BR>";
+    $planet_owner_name = mysql_fetch_array($result5);
+    echo "$planet_owner_name[character_name]";
   }
+  echo ")";
 }
+else
+{
+  echo "None";
+}
+echo "</TD>";
+echo "</TR>";
+echo "</TABLE><BR>";
 
 if($allow_navcomp)
 {
