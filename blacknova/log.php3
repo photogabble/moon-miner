@@ -28,7 +28,7 @@ if($command == "delete")
     unlink($player_log_file);
   }
   echo "Log Cleared.<BR><BR>"; 
-  playerlog($playerinfo[ship_id], "Log cleared at " . (date("l dS of F Y h:i:s A")) . " from " . $ip);
+  playerlog($playerinfo[ship_id], "Log cleared from " . $ip);
 }
 else
 {

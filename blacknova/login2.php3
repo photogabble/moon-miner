@@ -24,7 +24,7 @@
 	if ($result>0 && $playerinfo[password]==$pass && $playerinfo[ship_destroyed]=="N")
 	{
 		/* player exists, password is correct, and player is not dead */
-		playerlog($playerinfo[ship_id],"Logged in at ".(date("l dS of F Y h:i:s A"))." from ".$ip);
+		playerlog($playerinfo[ship_id],"Logged in from ".$ip);
 		$stamp=date("Y-m-d H-i-s");
 		$update = mysql_query("UPDATE ships SET last_login='$stamp' WHERE ship_id=$playerinfo[ship_id]");
 		echo "Click <a href=main.php3>here</a> to go to the main menu.<BR>"; 
@@ -48,7 +48,7 @@
 	{
 		/* player exists, password is INcorrect */		
 		echo "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, click <a href=mail.php3?mail=$email>here</a> to have it e-mailed to you.<BR><BR>  Otherwise, click <a href=login.php3>here</a> to try again.  Attempt logged with IP address of $ip...";
-		playerlog($playerinfo[ship_id],"Bad Log-in attempt at ".(date("l dS of F Y h:i:s A"))." from ".$ip);
+		playerlog($playerinfo[ship_id],"Bad login attempt from ".$ip);
 		
 	}  
 
