@@ -1274,5 +1274,61 @@ $l_zname[2] = "Föderations Raum";
 $l_zname[3] = "Feie Handels Zone";
 $l_zname[4] = "Kriegs Zone";
 
+// ADDITION TO warpedit2.php
 
+$l_warp_cantsame = "You can't create a link when the source is the same as the destination.";
+
+// Bounty
+$l_by_title = "Bounties";
+$l_by_noturn = "You need at least one turn to place or modify a bounty.";
+$l_by_amount = "Bounty Amount";
+$l_by_place = "Place Bounty";
+$l_by_nobounties = "There are currently no bounties.";
+$l_by_bountyon = "Bounty On";
+$l_by_placedby = "Placed by";
+$l_by_thefeds  = "The Federation";
+$l_by_cancel   = "Cancel";
+$l_by_yourself = "You can not place a bounty on your self.";
+$l_by_notenough = "You do not have enough credits to place a bounty of that amount.";
+$l_by_toomuch   = "You can not place that bounty. Maximum bounty allowed on another player is $percent percent of your net worth";
+$l_by_zeroamount = "Bounties must be greater than 0 credits.";
+$l_by_placed     = "The bounty has been placed.";
+$l_by_nobounty = "That bounty no longer exists.";
+$l_by_notyours = "That bounty was not placed by you.";
+$l_by_canceled = "The bounty has been canceled.";
+$l_by_action   = "Action";
+$l_by_placebounty = "Place or view bounties.";
+$l_by_moredetails = "Click on the name for more details.";
+$l_by_fedbounty = "Attacking this player would result in The Federation placing a bounty on you.";
+$l_by_fedbounty2 = "The Federation does not approve of attacking much smaller ships. It has placed a bounty on you.";
+$l_by_notexists = "The player you are putting the bounty on does not exist.";
+$l_by_destroyed = "You can not place a bounty on a player with a destroyed ship.";
+$l_log_text[LOG_BOUNTY_CLAIMED] = "You claimed a bounty of [amount] credits for the destruction of the ship belonging to [bounty_on]. The bounty was placed by [placed_by].";
+$l_log_title[LOG_BOUNTY_CLAIMED] = "Bounty Claimed.";
+$l_log_text[LOG_BOUNTY_PAID] = "Your bounty on [bounty_on] has been paid for the amount of [amount] credits.";
+$l_log_title[LOG_BOUNTY_PAID] = "Bounty Paid.";
+$l_log_text[LOG_BOUNTY_CANCELLED] = "Your bounty on [bounty_on] for the amount of [amount] credits has been refunded.";
+$l_log_title[LOG_BOUNTY_CANCELLED] = "Bounty Refunded.";
+$l_log_text[LOG_SPACE_PLAGUE] = "Your planet [name] in sector [sector] has been hit by Space Plague. Fifty percent of the colonists were killed.";
+$l_log_title[LOG_SPACE_PLAGUE] = "Space Plague!";
+$l_log_text[LOG_PLASMA_STORM] = "Your planet [name] in sector [sector] has been hit by a Plasma Storm. All stored Energy has been lost.";
+$l_log_title[LOG_PLASMA_STORM] = "Plasma Storm!";
+$l_log_text[LOG_BOUNTY_FEDBOUNTY] = "The Federation has placed a bounty on you for the amount of [amount] credits.";
+$l_log_title[LOG_BOUNTY_FEDBOUNTY] = "Federation Bounty!";
+$l_new_pwis = "Your password is";
+$l_planet2_sector = "You are not in the same sector as that planet.";
+$l_planet_destroyplanet = "Destroy Planet";
+$l_planet_warning = "Doing this will totally destroy this planet";
+$l_planet_confirm = "Do you really want to destroy this planet?";
+$l_port_bounty = "You can not access a special port while you have a bounty on you placed by The Federation.<BR>";
+$l_port_bounty = "Click <a href=\"port.php?pay=1\">here</a> to pay the bounty of [amount] credits.";
+$l_port_btynotenough = "You do not have enough credtis to pay the bounty of [amount] credits.<BR>";
+$l_port_bountypaid = "You have paid the bounty. Click <a href=\"port.php\">here</a> to continue.<BR>";
+$l_team_notyours = "You must be in the Alliance in order to invite someone.";
+$l_team_leavefirst = "You must leave a team first before joining another.";
+
+
+$l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
+$l_scan_bounty = "This ship has a total bounty on it of [amount] credits.";
+$l_scan_fedbounty = "This ship has a bounty on it from The Federation.";
 ?>
