@@ -83,7 +83,7 @@
               else
               {
                  echo "You lost all your shields!<BR>";
-                 $mines_left = $mines_left - $playerinfo[shields];
+                 $mines_left = $mines_left - $playershields;
                  if($playerinfo[armour_pts] >= $mines_left)
                  {
                     echo "Your armour is hit for $mines_left damage.<BR>";
