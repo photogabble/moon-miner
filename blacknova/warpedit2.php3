@@ -67,6 +67,26 @@ if($zoneinfo[allow_warpedit] == 'N' && !$oneway)
   die();
 }
 
+$res = mysql_query("SELECT COUNT(*) as count FROM links WHERE link_start=$playerinfo[sector]");
+$row = mysql_fetch_array($res);
+$numlink_start=$row[count];
+
+$res = mysql_query("SELECT COUNT(*) as count FROM links WHERE link_dest=$target_sector");
+$row = mysql_fetch_array($res);
+$numlink_dest=$row[count];
+
+if($numlink_start>=$link_max || $numlink_dest>=$link_max)
+{
+
+  echo "Cannot create warp link from current sector - that would exceed the maximum of $link_max per sector.<BR><BR>";
+  TEXT_GOTOMAIN();
+  include("footer.php3");
+  die();
+}
+
+
+
+
 $result3 = mysql_query("SELECT * FROM links WHERE link_start=$playerinfo[sector]");
 if($result3 > 0)
 {

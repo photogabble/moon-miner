@@ -15,6 +15,7 @@ $local_number_thousands_sep = ",";
 /* game variables */
 $ip = getenv("REMOTE_ADDR");
 $sector_max = 3000;
+$link_max=10;
 $universe_size = 200;
 $game_name = "BlackNova Traders v0.1.14 - The bugs... the horror...";
 $fed_max_hull = 8;
