@@ -7,6 +7,7 @@ global $maxlen_password;
 // Delete all tables in the database
 echo "Dropping all tables...";
 mysql_query("DROP TABLE IF EXISTS ibank_accounts");
+mysql_query("DROP TABLE IF EXISTS IGB_transfers");
 mysql_query("DROP TABLE IF EXISTS links");
 mysql_query("DROP TABLE IF EXISTS planets");
 mysql_query("DROP TABLE IF EXISTS traderoutes");
@@ -196,6 +197,16 @@ mysql_query("CREATE TABLE ibank_accounts(" .
             "balance bigint(20) DEFAULT '0'," .
             "loan bigint(20)  DEFAULT '0'," .
             "PRIMARY KEY(ship_id)" .
+            ")");
+echo "created.<BR>";
+
+echo "Creating table: IGB_transfers...";
+mysql_query("CREATE TABLE IGB_transfers(" .
+            "transfer_id bigint(20) DEFAULT '0' NOT NULL auto_increment," .
+            "source_id bigint(20) DEFAULT '0' NOT NULL," .
+            "dest_id bigint(20) DEFAULT '0' NOT NULL," .
+            "time TIMESTAMP(14)," .
+            "PRIMARY KEY(transfer_id)" .
             ")");
 echo "created.<BR>";
 

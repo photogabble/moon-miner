@@ -231,6 +231,7 @@ function IGB_transfer2()
   global $IGB_min_turns;
   global $IGB_svalue;
   global $ibank_paymentfee;
+  global $IGB_trate;
 
   if(isset($ship_id)) //ship transfer
   {
@@ -250,8 +251,19 @@ function IGB_transfer2()
     if($playerinfo[turns_used] < $IGB_min_turns)
       IGB_error("You must have played at least $IGB_min_turns turns before you can send money.", "IGB.php?command=transfer");
 
-    //TODO: Add transfer time check
-    
+    if($IGB_trate > 0)
+    {
+      $curtime = time();
+      $curtime -= $IGB_trate * 60;
+      $res = mysql_query("SELECT UNIX_TIMESTAMP(time) as time FROM IGB_transfers WHERE UNIX_TIMESTAMP(time) > $curtime AND source_id=$playerinfo[ship_id] AND dest_id=$target[ship_id]");
+      if(mysql_num_rows($res) != 0)
+      {
+        $time = mysql_fetch_array($res);
+        $difftime = ($time[time] - $curtime) / 60;
+        IGB_error("You have already made a transfer to $target[character_name] in the last " . NUMBER($IGB_trate) . " minutes. You must wait " . NUMBER($difftime) . " minutes before you can transfer credits to that player again.", "IGB.php?command=transfer");
+      }
+    }
+
     echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>Ship Transfer<br>---------------------------------</td></tr>" .
          "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>IGB Account :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) . " C</td></tr>";
     
@@ -343,6 +355,7 @@ function IGB_transfer3()
   global $IGB_svalue;
   global $ibank_paymentfee;
   global $amount;
+  global $IGB_trate;
 
   if(isset($ship_id)) //ship transfer
   {
@@ -364,7 +377,18 @@ function IGB_transfer3()
     if($playerinfo[turns_used] < $IGB_min_turns)
       IGB_error("You must have played at least $IGB_min_turns turns before you can send money.", "IGB.php?command=transfer");
 
-    //TODO: Add transfer time check
+    if($IGB_trate > 0)
+    {
+      $curtime = time();
+      $curtime -= $IGB_trate * 60;
+      $res = mysql_query("SELECT UNIX_TIMESTAMP(time) as time FROM IGB_transfers WHERE UNIX_TIMESTAMP(time) > $curtime AND source_id=$playerinfo[ship_id] AND dest_id=$target[ship_id]");
+      if(mysql_num_rows($res) != 0)
+      {
+        $time = mysql_fetch_array($res);
+        $difftime = ($time[time] - $curtime) / 60;
+        IGB_error("You have already made a transfer to $target[character_name] in the last " . NUMBER($IGB_trate) . " minutes. You must wait " . NUMBER($difftime) . " minutes before you can transfer credits to that player again.", "IGB.php?command=transfer");
+      }
+    }
     
     $amount = StripNonNum($amount);
 
@@ -408,6 +432,8 @@ function IGB_transfer3()
     mysql_query("UPDATE ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
     mysql_query("UPDATE ibank_accounts SET balance=balance+$transfer WHERE ship_id=$target[ship_id]");
   
+    mysql_query("INSERT INTO IGB_transfers VALUES('', $playerinfo[ship_id], $target[ship_id], NOW())");
+    echo mysql_error();
     //TODO: Log transfers.
   }
   else
