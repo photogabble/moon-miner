@@ -1,6 +1,13 @@
 Version 0.20
 ------------
 
+Richard Gowen (30 October 2001)
+-------------------------------
+Added computer controlled players as a race named Furangee.
+   . furangee_control.php allows for admin control of computer players
+   . furangee_funcs.php controls how the computer players function in the game
+   . sysupdate.php3 updated to make the computer players take thier turns
+
 Fant0m (29 October 2001 13:26)
 ----------------------------
 Added :
