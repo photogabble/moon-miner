@@ -4,6 +4,11 @@ include("config_local.php3");
 
 /* all my variables */
 
+/* GUI colors (temporary until we have something nicer) */
+$color_header = "SILVER";
+$color_line1 = "WHITE";
+$color_line2 = "LIGHTGREY";
+
 /* game variables */
 $ip = getenv("REMOTE_ADDR");
 $sector_max = 3000;

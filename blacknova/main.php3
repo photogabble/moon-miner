@@ -56,13 +56,13 @@ $result4 = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$secto
 $zoneinfo = mysql_fetch_array($result4);
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"SILVER\"><TD><B>Sector $playerinfo[sector]";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $playerinfo[sector]";
 if($sectorinfo[sector_name] != "")
 {
   echo " ($sectorinfo[sector_name])";
 }
 echo "</TD><TD><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
-echo "<TR BGCOLOR=\"LIGHTGREY\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD></TR>";
 echo "</TABLE><BR>";
 
 echo "You have $playerinfo[turns] turns left (you have used $playerinfo[turns_used] turns so far).<BR><BR>";

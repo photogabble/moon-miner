@@ -24,8 +24,8 @@ else
 {
   $row = mysql_fetch_array($res);
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"SILVER\"><TD><B>$row[zone_name]</B><TD><TD></TD></TR>";
-  echo "<TR BGCOLOR=\"WHITE\"><TD>Beacons</TD><TD>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>$row[zone_name]</B><TD><TD></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Beacons</TD><TD>";
   if($row[allow_beacon] == 'Y')
   {
     echo "Allowed";
@@ -35,7 +35,7 @@ else
     echo "Not allowed";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD>Attacking</TD><TD>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Attacking</TD><TD>";
   if($row[allow_attack] == 'Y')
   {
     echo "Allowed";
@@ -45,7 +45,7 @@ else
     echo "Not allowed";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"WHITE\"><TD>Warp edits</TD><TD>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Warp edits</TD><TD>";
   if($row[allow_warpedit] == 'Y')
   {
     echo "Allowed";
@@ -55,7 +55,7 @@ else
     echo "Not allowed";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD>Planets</TD><TD>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Planets</TD><TD>";
   if($row[allow_planet] == 'Y')
   {
     echo "Allowed";
@@ -65,7 +65,7 @@ else
     echo "Not allowed";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"WHITE\"><TD>Maximum hull level allowed</TD><TD>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum hull level allowed</TD><TD>";
   if(!$row[max_hull])
   {
     echo "Unlimited";

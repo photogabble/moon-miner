@@ -53,19 +53,19 @@ $res = mysql_query("SELECT character_name,ship_name,ROUND(SQRT($calc_levels+$cal
 $num_players = mysql_num_rows($res);
 echo "Total players: $num_players<BR>Players with destroyed ships are not counted.<BR><BR>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"SILVER\"><TD><B>Rank</B></TD><TD><B>Player</B><TD><B>Ship</B></TD><TD><B>Score</B></TD></TR>";
-$color = "WHITE";
+echo "<TR BGCOLOR=\"$color_header\"><TD><B>Rank</B></TD><TD><B>Player</B><TD><B>Ship</B></TD><TD><B>Score</B></TD></TR>";
+$color = $color_line1;
 $i = 1;
 while($row = mysql_fetch_array($res))
 {
   echo "<TR BGCOLOR=\"$color\"><TD>$i</TD><TD>$row[character_name]</TD><TD>$row[ship_name]</TD><TD>$row[score]</TD></TR>";
-  if($color == "WHITE")
+  if($color == $color_line1)
   {
-    $color = "LIGHTGREY";
+    $color = $color_line2;
   }
   else
   {
-    $color = "WHITE";
+    $color = $color_line1;
   }
   $i++;
 }

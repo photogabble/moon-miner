@@ -46,8 +46,8 @@ if($sector == "*")
   // get sectors which can be reached from the player's current sector
   $result = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"SILVER\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD></TR>";
-  $color = "WHITE";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD><B>Port</B></TD><TD><B>Planet</B></TD></TR>";
+  $color = $color_line1;
   while($row = mysql_fetch_array($result))
   {
     // get number of sectors which can be reached from scanned sector
@@ -67,13 +67,13 @@ if($sector == "*")
     $has_planet = ($sectorinfo[planet] == "Y") ? "Yes" : "No";
 
     echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php3?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php3?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD>$port_type</TD><TD>$has_planet</TD></TR>";
-    if($color == "WHITE")
+    if($color == $color_line1)
     {
-      $color = "LIGHTGREY";
+      $color = $color_line2;
     }
     else
     {
-      $color = "WHITE";
+      $color = $color_line1;
     }
   }
   echo "</TABLE>";
@@ -137,7 +137,7 @@ else
   }
 
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"SILVER\"><TD><B>Sector $sector";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $sector";
   if($sectorinfo[sector_name] != "")
   {
     echo " ($sectorinfo[sector_name])";
@@ -146,7 +146,7 @@ else
   echo "</TABLE><BR>";
 
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Links</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Links</B></TD></TR>";
   echo "<TR><TD>";
   if($num_links == 0)
   {
@@ -164,7 +164,7 @@ else
     }
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Ships</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Ships</B></TD></TR>";
   echo "<TR><TD>";
   if($sector != 0)
   {
@@ -187,7 +187,7 @@ else
     echo "Sector 0 is too crowded to scan for ships!";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Port</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Port</B></TD></TR>";
   echo "<TR><TD>";
   if($sectorinfo[port_type] == "none")
   {
@@ -198,7 +198,7 @@ else
     echo "$sectorinfo[port_type]";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"LIGHTGREY\"><TD><B>Planet</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Planet</B></TD></TR>";
   echo "<TR><TD>";
   if($sectorinfo[planet] == "N")
   {
