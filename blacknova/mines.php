@@ -79,7 +79,7 @@ if ($playerinfo[turns]<1)
 	include("footer.php");
 	die();
 }
-$res = $db->Execute("SELECT allow_defenses,universe.zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
+$res = $db->Execute("SELECT allow_defenses,$dbtables[universe].zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
 $zoneinfo = $res->fields;
 if($zoneinfo[allow_defenses] == 'N')
 {
