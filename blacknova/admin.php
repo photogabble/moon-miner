@@ -62,12 +62,13 @@ else
       if(empty($user))
       {
         echo "<SELECT SIZE=20 NAME=user>";
-        $res = mysql_query("SELECT ship_id,character_name FROM ships ORDER BY character_name");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
+        while(!$res->EOF)
         {
+          $row=$res->fields;
           echo "<OPTION VALUE=$row[ship_id]>$row[character_name]</OPTION>";
+          $res->MoveNext();
         }
-        mysql_free_result($res);
         echo "</SELECT>";
         echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
       }
@@ -75,8 +76,8 @@ else
       {
         if(empty($operation))
         {
-          $res = mysql_query("SELECT * FROM ships WHERE ship_id=$user");
-          $row = mysql_fetch_array($res);
+          $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$user");
+          $row = $res->fields;
           echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
           echo "<TR><TD>Player name</TD><TD><INPUT TYPE=TEXT NAME=character_name VALUE=\"$row[character_name]\"></TD></TR>";
           echo "<TR><TD>Password</TD><TD><INPUT TYPE=TEXT NAME=password2 VALUE=\"$row[password]\"></TD></TR>";
@@ -125,7 +126,6 @@ else
           echo "<TR><TD>Turns</TD><TD><INPUT TYPE=TEXT NAME=turns VALUE=\"$row[turns]\"></TD></TR>";
           echo "<TR><TD>Current sector</TD><TD><INPUT TYPE=TEXT NAME=sector VALUE=\"$row[sector]\"></TD></TR>";
           echo "</TABLE>";
-          mysql_free_result($res);
           echo "<BR>";
           echo "<INPUT TYPE=HIDDEN NAME=user VALUE=$user>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
@@ -137,7 +137,7 @@ else
           $_ship_destroyed = empty($ship_destroyed) ? "N" : "Y";
           $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
-          mysql_query("UPDATE ships SET character_name='$character_name',password='$password2',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armour='$armour',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armour_pts='$armour_pts' WHERE ship_id=$user");
+          $db->Execute("UPDATE $dbtables[ships] SET character_name='$character_name',password='$password2',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armour='$armour',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armour_pts='$armour_pts' WHERE ship_id=$user");
           echo "Changes saved<BR><BR>";
           echo "<INPUT TYPE=SUBMIT VALUE=\"Return to User editor\">";
           $button_main = false;
@@ -158,7 +158,6 @@ else
         $title="Expand/Contract the Universe";
         echo "<BR>Expand or Contract the Universe <BR>";
 
-        //$result = mysql_query ("SELECT sector_id, angle1, angle2,distance FROM universe ORDER BY sector_id ASC");
         
         if (empty($action))
         {
@@ -174,12 +173,14 @@ else
         {
         echo "<BR><FONT SIZE='+2'>Be sure to update your config.php file with the new universe_size value</FONT><BR>";
         srand((double)microtime()*1000000);
-        $result = mysql_query ("SELECT sector_id FROM universe ORDER BY sector_id ASC");
-        while ($row=mysql_fetch_array($result))
+        $result = $db->Execute("SELECT sector_id FROM $dbtables[universe] ORDER BY sector_id ASC");
+        while (!$result->EOF)
         {
+                $row=$result->fields;
                 $distance=rand(1,$radius);
-                mysql_query ("UPDATE universe SET distance=$distance WHERE sector_id=$row[sector_id]");
+                $db->Execute("UPDATE $dbtables[universe] SET distance=$distance WHERE sector_id=$row[sector_id]");
                 echo "Updated sector $row[sector_id] set to $distance<BR>";
+                $result->MoveNext();
         }
         
 	}
@@ -192,12 +193,13 @@ else
       {
         echo "<H5>Note: Cannot Edit Sector 0</H5>";
         echo "<SELECT SIZE=20 NAME=sector>";
-        $res = mysql_query("SELECT sector_id FROM universe ORDER BY sector_id");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT sector_id FROM $dbtables[universe] ORDER BY sector_id");
+        while(!$res->EOF)
         {
+          $row=$res->fields;
           echo "<OPTION VALUE=$row[sector_id]> $row[sector_id] </OPTION>";
+          $res->MoveNext();
         }
-        mysql_free_result($res);
         echo "</SELECT>";
         echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
       }
@@ -205,25 +207,26 @@ else
       {
         if(empty($operation))
         {
-          $res = mysql_query("SELECT * FROM universe WHERE sector_id=$sector");
-          $row = mysql_fetch_array($res);
+          $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$sector");
+          $row = $res->fields;
 
           echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
           echo "<TR><TD><tt>          Sector ID  </tt></TD><TD><FONT COLOR=#66FF00>$sector</FONT></TD>";
           echo "<TD ALIGN=Right><tt>  Sector Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=sector_name VALUE=\"$row[sector_name]\"></TD>";
           echo "<TD ALIGN=Right><tt>  Zone ID    </tt></TD><TD>";
                                       echo "<SELECT SIZE=1 NAME=zone_id>";
-                                      $ressubb = mysql_query("SELECT zone_id,zone_name FROM zones ORDER BY zone_name");
-                                      while($rowsubb = mysql_fetch_array($ressubb))
+                                      $ressubb = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
+                                      while(!$ressubb->EOF)
                                       {
-                                      if ($rowsubb[zone_id] == $row[zone_id])
+                                        $rowsubb=$ressubb->fields;
+                                        if ($rowsubb[zone_id] == $row[zone_id])
                                         { 
                                         echo "<OPTION SELECTED=$rowsubb[zone_id] VALUE=$rowsubb[zone_id]>$rowsubb[zone_name]</OPTION>";
                                         } else { 
                                         echo "<OPTION VALUE=$rowsubb[zone_id]>$rowsubb[zone_name]</OPTION>";
                                         }
+                                        $ressubb->MoveNext();
                                       }
-                                      mysql_free_result($ressubb);
                                       echo "</SELECT></TD></TR>";
           echo "<TR><TD><tt>          Beacon     </tt></TD><TD COLSPAN=5><INPUT TYPE=TEXT SIZE=70 NAME=beacon VALUE=\"$row[beacon]\"></TD></TR>";
           echo "<TR><TD><tt>          Distance   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=distance VALUE=\"$row[distance]\"></TD>";
@@ -254,7 +257,6 @@ else
           echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
           echo "</TABLE>";
 
-          mysql_free_result($res);
           echo "<BR>";
           echo "<INPUT TYPE=HIDDEN NAME=sector VALUE=$sector>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
@@ -263,10 +265,10 @@ else
         elseif($operation == "save")
         {
           // update database
-          $secupdate = mysql_query("UPDATE universe SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
+          $secupdate = $db->Execute("UPDATE $dbtables[universe] SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
           if(!$secupdate) {
             echo "Changes to Sector record have FAILED Due to the following Error:<BR><BR>";
-            echo mysql_errno(). ": ".mysql_error(). "<br>";
+            echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Sector record have been saved.<BR><BR>";
           }
@@ -289,16 +291,17 @@ else
       if(empty($planet))
       {
         echo "<SELECT SIZE=15 NAME=planet>";
-        $res = mysql_query("SELECT planet_id, name, sector_id FROM planets ORDER BY sector_id");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT planet_id, name, sector_id FROM $dbtables[planets] ORDER BY sector_id");
+        while(!$res->EOF)
         {
+          $row=$res->fields;
           if($row[name] == "")
 
             $row[name] = "Unnamed";
 
           echo "<OPTION VALUE=$row[planet_id]> $row[name] in sector $row[sector_id] </OPTION>";
+          $res->MoveNext();
         }
-        mysql_free_result($res);
         echo "</SELECT>";
         echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
       }
@@ -306,8 +309,8 @@ else
       {
         if(empty($operation))
         {
-          $res = mysql_query("SELECT * FROM planets WHERE planet_id=$planet");
-          $row = mysql_fetch_array($res);
+          $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet");
+          $row = $res->fields;
 
           echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
           echo "<TR><TD><tt>          Planet ID  </tt></TD><TD><FONT COLOR=#66FF00>$planet</FONT></TD>";
@@ -322,18 +325,19 @@ else
           echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
           echo "<TR><TD><tt>          Planet Owner</tt></TD><TD>";
                                       echo "<SELECT SIZE=1 NAME=owner>";
-                                      $ressuba = mysql_query("SELECT ship_id,character_name FROM ships ORDER BY character_name");
+                                      $ressuba = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
                                       echo "<OPTION VALUE=0>No One</OPTION>";
-                                      while($rowsuba = mysql_fetch_array($ressuba))
+                                      while(!$ressuba->EOF)
                                       {
+                                      $rowsuba=$ressuba->fields;
                                       if ($rowsuba[ship_id] == $row[owner])
                                         { 
                                         echo "<OPTION SELECTED=$rowsuba[ship_id] VALUE=$rowsuba[ship_id]>$rowsuba[character_name]</OPTION>";
                                         } else {  
                                         echo "<OPTION VALUE=$rowsuba[ship_id]>$rowsuba[character_name]</OPTION>";
                                         }
+                                        $ressuba->MoveNext();
                                       }
-                                      mysql_free_result($ressuba);
                                       echo "</SELECT></TD>";
           echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=organics VALUE=\"$row[organics]\"></TD>";
           echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=ore VALUE=\"$row[ore]\"></TD>";
@@ -355,7 +359,6 @@ else
           echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
           echo "</TABLE>";
 
-          mysql_free_result($res);
           echo "<BR>";
           echo "<INPUT TYPE=HIDDEN NAME=planet VALUE=$planet>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
@@ -367,10 +370,10 @@ else
           $_defeated = empty($defeated) ? "N" : "Y";
           $_base = empty($base) ? "N" : "Y";
           $sells = empty($sells) ? "N" : "Y";
-          $planupdate = mysql_query("UPDATE planets SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
+          $planupdate = $db->Execute("UPDATE $dbtables[planets] SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
           if(!$planupdate) {
             echo "Changes to Planet record have FAILED Due to the following Error:<BR><BR>";
-            echo mysql_errno(). ": ".mysql_error(). "<br>";
+            echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Planet record have been saved.<BR><BR>";
           }
@@ -398,12 +401,13 @@ else
       if(empty($zone))
       {
         echo "<SELECT SIZE=20 NAME=zone>";
-        $res = mysql_query("SELECT zone_id,zone_name FROM zones ORDER BY zone_name");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
+        while(!$res->EOF)
         {
+          $row=$res->fields;
           echo "<OPTION VALUE=$row[zone_id]>$row[zone_name]</OPTION>";
+          $res->MoveNext();
         }
-        mysql_free_result($res);
         echo "</SELECT>";
         echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=editzone>";
         echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
@@ -413,8 +417,8 @@ else
       {
         if($operation == "editzone")
         {
-          $res = mysql_query("SELECT * FROM zones WHERE zone_id=$zone");
-          $row = mysql_fetch_array($res);
+          $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$zone");
+          $row = $res->fields;
           echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
           echo "<TR><TD>Zone ID</TD><TD>$row[zone_id]</TD></TR>";
           echo "<TR><TD>Zone Name</TD><TD><INPUT TYPE=TEXT NAME=zone_name VALUE=\"$row[zone_name]\"></TD></TR>";
@@ -424,7 +428,6 @@ else
           echo "<TR><TD>Allow Planet</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_planet VALUE=ON " . CHECKED($row[allow_planet]) . "></TD>";
           echo "</TABLE>";
           echo "<TR><TD>Max Hull</TD><TD><INPUT TYPE=TEXT NAME=zone_hull VALUE=\"$row[max_hull]\"></TD></TR>";
-          mysql_free_result($res);
           echo "<BR>";
           echo "<INPUT TYPE=HIDDEN NAME=zone VALUE=$zone>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=savezone>";
@@ -437,7 +440,7 @@ else
           $_zone_attack = empty($zone_attack) ? "N" : "Y";
           $_zone_warpedit = empty($zone_warpedit) ? "N" : "Y";
           $_zone_planet = empty($zone_planet) ? "N" : "Y";
-          mysql_query("UPDATE zones SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
+          $db->Execute("UPDATE $dbtables[zones] SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
           echo "Changes saved<BR><BR>";
           echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Zone Editor \">";
           $button_main = false;
@@ -463,10 +466,11 @@ else
         echo "<INPUT TYPE=SUBMIT VALUE=\"Show player's ips\">";
         echo "</form>";
 
-        $res = mysql_query("SELECT ban_mask FROM ip_bans");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT ban_mask FROM $dbtables[ip_bans]");
+        while(!$res->EOF)
         {
-          $bans[]=$row[ban_mask];
+          $bans[]=$res->fields[ban_mask];
+          $res->MoveNext();
         }
 
         if(empty($bans))
@@ -499,10 +503,13 @@ else
             echo "<td align=center><font size=2 color=white>$printban</td>" .
                  "<td align=center><font size=2 color=white>";
 
-            $res = mysql_query("SELECT character_name, ship_id, email FROM ships WHERE ip_address LIKE '$ban'");
+            $res = $db->Execute("SELECT character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address LIKE '$ban'");
             unset($players);
-            while($row = mysql_fetch_array($res))
-              $players[] = $row;
+            while(!$res->EOF)
+            {
+              $players[] = $res->fields;
+              $res->MoveNext();
+            }
             
             if(empty($players))
             {
@@ -546,10 +553,11 @@ else
       }
       elseif($command== 'showips')
       {
-        $res = mysql_query("SELECT DISTINCT ip_address FROM ships");
-        while($row = mysql_fetch_array($res))
+        $res = $db->Execute("SELECT DISTINCT ip_address FROM $dbtables[ships]");
+        while(!$res->EOF)
         {
-          $ips[]=$row[ip_address];
+          $ips[]=$res->fields[ip_address];
+          $res->MoveNext();
         }
         echo "<table border=1 cellspacing=1 cellpadding=2 width=100% align=center>" .
              "<tr bgcolor=$color_line2><td align=center colspan=7><b><font color=white>" .
@@ -576,10 +584,13 @@ else
           echo "<td align=center><font size=2 color=white>$ip</td>" .
                "<td align=center><font size=2 color=white>";
 
-          $res = mysql_query("SELECT character_name, ship_id, email FROM ships WHERE ip_address='$ip'");
+          $res = $db->Execute("SELECT character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address='$ip'");
           unset($players);
-          while($row = mysql_fetch_array($res))
-            $players[] = $row;
+          while(!$res->EOF)
+          {
+            $players[] = $res->fields;
+            $res->MoveNext();
+          }
 
           foreach($players as $player)
           {
@@ -666,12 +677,13 @@ else
         $printban = str_replace("%", "*", $banmask);
         echo "<font size=2 color=white><b>Successfully banned $printban</b>.<p>";
         
-        mysql_query("INSERT INTO ip_bans VALUES('', '$banmask')");
-        $res = mysql_query("SELECT DISTINCT character_name FROM ships, ip_bans WHERE ip_address LIKE ban_mask");
+        $db->Execute("INSERT INTO $dbtables[ip_bans] VALUES('', '$banmask')");
+        $res = $db->Execute("SELECT DISTINCT character_name FROM $dbtables[ships], $dbtables[ip_bans] WHERE ip_address LIKE ban_mask");
         echo "Affected players :<p>";
-        while ($row = mysql_fetch_array($res))
+        while (!$res->EOF)
         {
-          echo " - $row[character_name]<br>";
+          echo " - " . $res->fields[character_name] . "<br>";
+          $res->MoveNext();
         }
                
         echo "<form action=admin.php method=POST>" .
@@ -685,30 +697,34 @@ else
         $ip = $HTTP_POST_VARS[ip];
 
         if(!empty($ban))
-          $res = mysql_query("SELECT * FROM ip_bans WHERE ban_mask='$ban'");
+          $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
         else
-          $res = mysql_query("SELECT * FROM ip_bans WHERE '$ip' LIKE ban_mask");
+          $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
 
-        $nbbans = mysql_num_rows($res);
-        while($row = mysql_fetch_array($res))
+        $nbbans = $res->RecordCount();
+        while(!$res->EOF)
         {
-          $row[print_mask] = str_replace("%", "*", $row[ban_mask]);
-          $bans[]=$row;
+          $res->fields[print_mask] = str_replace("%", "*", $res->fields[ban_mask]);
+          $bans[]=$res->fields;
+          $res->MoveNext();
         }
 
         if(!empty($ban))
-          mysql_query("DELETE FROM ip_bans WHERE ban_mask='$ban'");
+          $db->Execute("DELETE FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
         else
-          mysql_query("DELETE FROM ip_bans WHERE '$ip' LIKE ban_mask");
+          $db->Execute("DELETE FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
 
         $query_string = "ip_address LIKE '" . $bans[0][ban_mask] ."'";
         for( $i = 1; $i < $nbbans ; $i++)
           $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
 
-        $res = mysql_query("SELECT DISTINCT character_name FROM ships WHERE $query_string");
-        $nbplayers = mysql_num_rows($res);
-        while($row = mysql_fetch_array($res))
-          $players[]=$row[character_name];
+        $res = $db->Execute("SELECT DISTINCT character_name FROM $dbtables[ships] WHERE $query_string");
+        $nbplayers = $res->RecordCount();
+        while(!$res->EOF)
+        {
+          $players[]=$res->fields[character_name];
+          $res->MoveNext();
+        }
 
         echo "<font size=2 color=white><b>Successfully removed $nbbans bans</b> :<p>";
 
@@ -747,9 +763,12 @@ else
            "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
            "<SELECT name=player>";
 
-      $res = mysql_query("SELECT ship_id, character_name FROM ships ORDER BY character_name ASC");
-      while($row = mysql_fetch_array($res))
-        $players[] = $row;
+      $res = $db->execute("SELECT ship_id, character_name FROM $dbtables[ships] ORDER BY character_name ASC");
+      while(!$res->EOF)
+      {
+        $players[] = $res->fields;
+        $res->MoveNext();
+      }
 
       foreach($players as $player)
         echo "<OPTION value=$player[ship_id]>$player[character_name]</OPTION>";
