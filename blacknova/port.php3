@@ -159,7 +159,6 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo[port_organics]) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount_organics></TD><TD>" . NUMBER($playerinfo[ship_organics]) . "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo[port_goods]) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount_goods></TD><TD>" . NUMBER($playerinfo[ship_goods]) . "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo[port_energy]) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount_energy></TD><TD>" . NUMBER($playerinfo[ship_energy]) . "</TD></TR>";
->>>>>>> 1.12
   echo "</TABLE><BR>";
   echo "<INPUT TYPE=SUBMIT VALUE=Trade>";
   echo "</FORM>";
