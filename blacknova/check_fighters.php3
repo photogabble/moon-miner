@@ -14,7 +14,8 @@
            switch($response) {
               case "fight":
                  bigtitle();
-                 include("sector_fighters.php3");                    
+                 include("sector_fighters.php3");    
+                   
                  break;
               case "retreat":
                  $stamp = date("Y-m-d H-i-s");
@@ -47,7 +48,29 @@
                  break;
               case "sneak":
                  {
-                    // reverse scan thingy goes here.
+                    $success = SCAN_SUCCESS($playerinfo[sensors], $fighters_owner[cloak]);
+                    if($success < 5)
+                    {
+                       $success = 5;
+                    }
+                    if($success > 95)
+                    {
+                       $success = 95;
+                    }
+                    $roll = rand(1, 100);
+                    if($roll < $success)
+                    {
+                        // sector defences detect incoming ship
+                        bigtitle(); 
+                        echo "The fighters detect you!<BR>";
+                        include("sector_fighters.php3");         
+                        break;
+                    }
+                    else
+                    {
+                       // sector defences don't detect incoming ship
+                       $ok=1;                       
+                    }
                  }
                  break;
               default:

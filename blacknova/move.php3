@@ -58,7 +58,7 @@ if ($flag==1)
     $ok=1;
     $calledfrom = "move.php3";
     include("check_fighters.php3");
-    if($ok==1){
+    if($ok>0){
        $stamp = date("Y-m-d H-i-s");
        $query="UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
        $move_result = mysql_query ("$query");

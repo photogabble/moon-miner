@@ -107,8 +107,7 @@
                  $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
                  $energy=$playerinfo[ship_energy];
                  $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
-                 echo "You lost $armour_lost armour points, $fighters_lost fighters, and us
-ed $playertorpnum torpedoes.<BR><BR>";
+                 echo "You lost $armour_lost armour points, $fighters_lost fighters, and used $playertorpnum torpedoes.<BR><BR>";
                  if($playerarmour < 1)
                  {
                     echo "Your ship has been destroyed!<BR><BR>";
@@ -119,9 +118,10 @@ ed $playertorpnum torpedoes.<BR><BR>";
                        $rating=round($playerinfo[rating]/2);
                        echo "Luckily you have an escape pod!<BR><BR>";
                        mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating' WHERE ship_id=$playerinfo[ship_id]"); 
+                       $ok=0;
                        TEXT_GOTOMAIN();
                        die();
-                       $ok=0;
+
                     }
                     else
                     { 
@@ -134,5 +134,5 @@ ed $playertorpnum torpedoes.<BR><BR>";
                  if($targetfighters > 0)
                     $ok=0;
                  else
-                    $ok=1;
+                    $ok=2;
 ?>
