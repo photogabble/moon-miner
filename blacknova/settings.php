@@ -32,7 +32,7 @@ bigtitle();
   echo "<TR BGCOLOR=\"$color_line2\"><TD>Colonist Production Rate</TD><TD>$colonist_production_rate</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Unit of Energy used per sector fighter</TD><TD>$energy_per_fighter</TD></TR>";
   $rate = $defence_degrade_rate*100;
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Sector fighter degredation percentage rate</TD><TD>$rate</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>Sector fighter degradation percentage rate</TD><TD>$rate</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>Number of planets with bases need for sector ownership</TD><TD>$min_bases_to_own</TD></TR>";
 
 
