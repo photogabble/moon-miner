@@ -24,6 +24,27 @@ $sectorinfo=mysql_fetch_array($result2);
 
 bigtitle();
 
+$trade_benefit = "You won ";
+$color_line1   = "#00FF00"; //light green
+$trade_deficit = "You lost ";
+$color_line2    = "red";
+
+function BuildOneCol( $text = "&nbsp;", $align = "left" ) {
+   echo"
+   <TR>
+      <TD colspan=99 align=".$align.">".$text.".</TD>
+   </TR>
+   ";
+}
+
+function BuildTwoCol( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left" ) {
+   echo"
+   <TR>
+      <TD align=".$align_col1.">".$text_col1."</TD>
+      <TD align=".$align_col2.">".$text_col2."</TD>
+   </TR>";
+}
+
 if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to trade at a port.<BR><BR>";
@@ -150,125 +171,134 @@ else
     }
     else
     {
-      echo "Total cost is " . NUMBER(abs($total_cost)) . " credits.<BR><BR>";
+      
+     $trade_credits = NUMBER(abs($total_cost));
+      echo "<TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
+         <TR>
+            <TD colspan=99 bgcolor=#300030><font size=3 color=silver><b>Results for this trade</b></font></TD>
+         </TR>
+         <TR>
+            <TD colspan=99 align=center><b><font color=\"". $color_line2 . "\">You spend " . $trade_credits . " credits</font></b></TD>
+         </TR>";
+         
+       //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<BR><BR>";
       $query = "UPDATE ships SET credits=credits-$total_cost";
       if($hull_upgrade)
       {
         $query = $query . ", hull=hull+1";
-        echo "Hull upgraded.<BR>";
+        BuildOneCol("Hull upgraded");
       }
       if($engine_upgrade) 
       {
         $query = $query . ", engines=engines+1";
-        echo "Engines upgraded<BR>";
+        BuildOneCol("Engines upgraded");
       }
       if ($power_upgrade) 
       {
         $query = $query . ", power=power+1";
-        echo "Power upgraded<BR>";
+        BuildOneCol("Power upgraded");
       }
       if($computer_upgrade) 
       {
         $query = $query . ", computer=computer+1";
-        echo "Computer upgraded.<BR>";
+        BuildOneCol("Computer upgraded");
       }
       if($sensors_upgrade) 
       {
         $query = $query . ", sensors=sensors+1";
-        echo "Sensors upgraded.<BR>";
+        BuildOneCol("Sensors upgraded");
       }
       if($beams_upgrade) 
       {
         $query = $query . ", beams=beams+1";
-        echo "Beam Weapons upgraded.<BR>";
+        BuildOneCol("Beam Weapons upgraded");
       }
       if($armour_upgrade) 
       {
         $query = $query . ", armour=armour+1";
-        echo "Armour upgraded.<BR>";
+        BuildOneCol("Armour Weapons upgraded");
       }
       if($cloak_upgrade) 
       {
         $query = $query . ", cloak=cloak+1";
-        echo "Cloak upgraded.<BR>";
+        BuildOneCol("Cloak upgraded");
       }
       if($torp_launchers_upgrade) 
       {
         $query = $query . ", torp_launchers=torp_launchers+1";
-        echo "Torpedo Launchers upgraded.<BR>";
+        BuildOneCol("Torpedo Launchers upgraded");
       }
       if($shields_upgrade) 
       {
         $query = $query . ", shields=shields+1";
-        echo "Shields upgraded.<BR>";
+        BuildOneCol("Shields upgraded");
       }
       if($fighter_number) 
       {
         $query = $query . ", ship_fighters=ship_fighters+$fighter_number";
-        echo "$fighter_number fighters added.<BR>";
+      BuildTwoCol("Fighters added:", $fighter_number, "left", "right" );
+
       }
       if($torpedo_number) 
       {
         $query = $query . ", torps=torps+$torpedo_number";
-        echo "$torpedo_number torpedoes added.<BR>";
+      BuildTwoCol("Torpedoes added:", $torpedo_number, "left", "right" );
       }
       if($armour_number) 
       {
         $query = $query . ", armour_pts=armour_pts+$armour_number";
-        echo "$armour_number points of armour added.<BR>";
+      BuildTwoCol("Points of armour added:", $armour_number, "left", "right" );
       }
       if($colonist_number) 
       {
         $query = $query . ", ship_colonists=ship_colonists+$colonist_number";
-        echo "$colonist_number colonists loaded.<BR>";
+      BuildTwoCol("Colonists added:", $colonist_number, "left", "right" );
       }
       if($dev_genesis_number) 
       {
         $query = $query . ", dev_genesis=dev_genesis+$dev_genesis_number";
-        echo "$dev_genesis_number Genesis Devices added.<BR>";
+      BuildTwoCol("Genesis Devices added:", $dev_genesis_number, "left", "right" );
       }
       if($dev_beacon_number) 
       {
         $query = $query . ", dev_beacon=dev_beacon+$dev_beacon_number";
-        echo "$dev_beacon_number Space Beacons added.<BR>";
+      BuildTwoCol("Space Beacons added:", $dev_beacon_number , "left", "right" );
       }
       if($dev_emerwarp_number) 
       {
         $query = $query . ", dev_emerwarp=dev_emerwarp+$dev_emerwarp_number";
-        echo "$dev_emerwarp_number Emergency Warp Devices added.<BR>";
+      BuildTwoCol("Emergency Warp Devices added:", $dev_emerwarp_number , "left", "right" );
       }
       if($dev_warpedit_number) 
       {
         $query = $query . ", dev_warpedit=dev_warpedit+$dev_warpedit_number";
-        echo "$dev_warpedit_number Warp Editors added.<BR>";
+      BuildTwoCol("Warp Editors added:", $dev_warpedit_number , "left", "right" );        
       }
       if($dev_minedeflector_number) 
       {
         $query = $query . ", dev_minedeflector=dev_minedeflector+$dev_minedeflector_number";
-        echo "$dev_minedeflector_number Mine Deflectors added.<BR>";
+      BuildTwoCol("Mine Deflectors added:", $dev_minedeflector_number , "left", "right" );        
       }
       if($escapepod_purchase) 
       {
         $query = $query . ", dev_escapepod='Y'";
-        echo "Escape Pod installed.<BR>";
+        BuildOneCol("Escape Pod installed");
       }
       if($fuelscoop_purchase) 
       {
         $query = $query . ", dev_fuelscoop='Y'";
-        echo "Fuel Scoop installed.<BR>";
+        BuildOneCol("Fuel Scoop installed");
       }
       $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
       $purchase = mysql_query("$query");
-      echo "<BR>";
+      echo "
+      </table>
+      ";
     }
   }
   elseif($sectorinfo[port_type] != "none")
   {
     /* the code for an ore port will go here! */
-   $trade_benefit = "You won ";
-   $color_line1   = "green";
-   $trade_deficit = "You lost ";
-   $color_line2    = "red";
 
     if($sectorinfo[port_type] == "ore")
     {
@@ -396,24 +426,24 @@ else
          $trade_result  = "Null";    
       }
       echo "
-      <TABLE WIDTH=600 BORDER=1 bordercolor=#000000 CELLSPACING=0 CELLPADDING=0>
+      <TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
          <TR>
-            <TD colspan=99 bgcolor=#FFFFFF><font size=3 color=black><b>Results for this trade</b></font></TD>
+            <TD colspan=99><font size=3 color=silver><b>Results for this trade</b></font></TD>
          </TR>
          <TR>
-            <TD colspan=99 bgcolor=#CCCCCC align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . $trade_credits . " credits</font></b></TD>
+            <TD colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . $trade_credits . " credits</font></b></TD>
          </TR>
          <TR>
-            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Ore: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_ore) . "</font></b></TD>
+            <TD><b><font size=2 color=white>Traded Ore: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_ore) . "</font></b></TD>
          </TR>
          <TR>
-            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Organics: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_organics) . "</font></b></TD>
+            <TD><b><font size=2 color=white>Traded Organics: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_organics) . "</font></b></TD>
          </TR>
          <TR>
-            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Goods: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_goods) . "</font></b></TD>
+            <TD><b><font size=2 color=white>Traded Goods: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_goods) . "</font></b></TD>
          </TR>
          <TR>
-            <TD bgcolor=#C0C0C0><b><font size=2 color=black>Traded Energy: </font><b></TD><TD align=right bgcolor=#C0C0C0><b><font size=2 color=black>" . NUMBER($trade_energy) . "</font></b></TD>
+            <TD><b><font size=2 color=white>Traded Energy: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_energy) . "</font></b></TD>
          </TR>
       </TABLE>
       ";
