@@ -5,7 +5,7 @@ The "You have not completed your last move" bug should now be fixed
 Added code from Ron to stop people putting HTML etc in messages
 Bounty system will no longer pay out on Federation bounties
 You now get towed from sectors if your average tech level is greater than max hull size
-
+Added code to limit credits on a planet without a base to a configurable amount. 
 
 David Rowlands (25 March 2002)
 ---------------

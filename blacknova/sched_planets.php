@@ -53,6 +53,7 @@
     $db->Execute("UPDATE $dbtables[planets] SET organics=organics+$organics_production, ore=ore+$ore_production, goods=goods+$goods_production, energy=energy+$energy_production, colonists=colonists+$reproduction-$starvation, torps=torps+$torp_production, fighters=fighters+$fighter_production, credits=credits*$interest_rate+$credits_production WHERE planet_id=$row[planet_id]");
     $res->MoveNext();
   }
+  $db->Execute("UPDATE $dbtables[planets] SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
   echo "Planets updated.<BR><BR>";
   echo "<BR>";
 

@@ -303,6 +303,12 @@ else
     echo "$l_planet2_losup $transfer_credits $l_credits.<BR>\n";
   }
 
+  if(($tpcredits == -1) && $planetinfo[base] == 'N' && ($transfer_credits + $planetinfo['credits'] > $max_credits_without_base))
+  {
+     $transfer_credits = MAX($max_credits_without_base - $planetinfo['credits'],0);
+     echo "$l_planet2_baseexceeded $l_planet2_settr $transfer_credits $l_credits.<BR>\n";
+  }
+
   if(($tptorps == -1) && ($transfer_torps > $playerinfo['torps']))
   {
     $transfer_torps = $playerinfo['torps'];
