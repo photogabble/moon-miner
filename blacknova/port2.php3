@@ -266,9 +266,9 @@ else
   {
     /* the code for an ore port will go here! */
    $trade_benefit = "You won ";
-   $trade_green   = "green";
+   $color_line1   = "green";
    $trade_deficit = "You lost ";
-   $trade_red     = "red";
+   $color_line2    = "red";
 
     if($sectorinfo[port_type] == "ore")
     {
@@ -279,7 +279,7 @@ else
     else
     {
       $ore_price     = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
-      $trade_color  = $trade_green;
+      $trade_color  = $color_line1;
       $trade_result  = $trade_benefit;
       $trade_ore     = -$trade_ore;
     }
@@ -288,14 +288,14 @@ else
     if($sectorinfo[port_type] == "organics")
     {
       $organics_price   = $organics_price - $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
-      $trade_color      =  $trade_red ;
+      $trade_color      = $color_line2 ;
       $trade_result     = $trade_deficit;
     }
     else
     {
       $organics_price   = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
       $trade_organics   = -$trade_organics;
-      $trade_color     = $trade_green ;
+      $trade_color      = $color_line1;
       $trade_result     = $trade_benefit;
 
     }
@@ -304,14 +304,14 @@ else
     if($sectorinfo[port_type] == "goods")
     {
       $goods_price   = $goods_price - $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
-      $trade_color   =  $trade_red ;
+      $trade_color   = $color_line2 ;
       $trade_result  = $trade_deficit;
     }
     else
     {
       $goods_price   = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
       $trade_goods   = -$trade_goods;
-      $trade_color  = $trade_green ;
+      $trade_color   = $color_line2;
       $trade_result  = $trade_benefit;
 
     }
@@ -320,14 +320,14 @@ else
     if($sectorinfo[port_type] == "energy")
     {
       $energy_price = $energy_price - $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
-      $trade_color   = $trade_red ;
+      $trade_color   = $color_line2;
       $trade_result  = $trade_deficit;
     }
     else
     {
       $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
       $trade_energy = -$trade_energy;
-      $trade_color  = $trade_green ;
+      $trade_color  = $color_line1 ;
       $trade_result  = $trade_benefit;
 
     }
