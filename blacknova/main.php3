@@ -18,9 +18,11 @@ $playerinfo=mysql_fetch_array($result);
 $result2 = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo=mysql_fetch_array($result2);
 
-$result3 = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
+$result3 = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
 
 bigtitle();
+
+srand((double)microtime()*1000000);
 
 if($playerinfo[on_planet] == "Y")
 {
@@ -41,16 +43,16 @@ if(!empty($sectorinfo[beacon]))
   echo "$sectorinfo[beacon]<BR><BR>";
 }
 
-$i=0;
+$i = 0;
 if($result3 > 0)
 {
   while($row = mysql_fetch_array($result3))
   {
-    $links[$i]=$row[link_dest];
+    $links[$i] = $row[link_dest];
     $i++;
   }
 }
-$num_links=$i;
+$num_links = $i;
 
 $result4 = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinfo[zone_id]");
 $zoneinfo = mysql_fetch_array($result4);
@@ -62,7 +64,7 @@ if($sectorinfo[sector_name] != "")
   echo " ($sectorinfo[sector_name])";
 }
 echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: $playerinfo[ship_name]</TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: <A HREF=report.php3>$playerinfo[ship_name]</A></TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
 echo "</TABLE><BR>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_line1\"><TD>Turns available: " . NUMBER($playerinfo[turns]) . "</TD><TD ALIGN=RIGHT>Turns used: " . NUMBER($playerinfo[turns_used]) . "</TD></TR>";
@@ -71,59 +73,78 @@ echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_line2\"><TD WIDTH=\"15%\">Ore: " . NUMBER($playerinfo[ship_ore]) . "</TD><TD WIDTH=\"15%\">Organics: " . NUMBER($playerinfo[ship_organics]) . "</TD><TD WIDTH=\"15%\">Goods: " . NUMBER($playerinfo[ship_goods]) . "</TD><TD WIDTH=\"15%\">Energy: " . NUMBER($playerinfo[ship_energy]) . "</TD><TD WIDTH=\"15%\">Colonists: " . NUMBER($playerinfo[ship_colonists]) . "</TD><TD ALIGN=RIGHT>Credits: " . NUMBER($playerinfo[credits]) . "</TD></TR>";
 echo "</TABLE><BR>";
 
-if($num_links == 0)
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+echo "<TR>";
+echo "<TD>Warp links:</TD>";
+echo "<TD>";
+if(!$num_links)
 {
-  echo "There are no links out of this sector.<BR><BR>";
+  echo "There are no links out of this sector.";
 }
 else
 {
-  echo "Links lead to the following sectors (click to move): ";
-  for  ($i=0; $i<$num_links;$i++)
-  {
-    echo "<a href=move.php3?sector=$links[$i]>$links[$i]</a>";
-    if ($i+1!=$num_links) { echo ", ";}
-  }
-  echo "<BR><BR>";
-  echo "Long-range scan: ";
-  if($allow_fullscan)
-  {
-    echo "<A HREF=lrscan.php3?sector=*>full scan</A> - By sector: ";
-  }
+  echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
-    echo "<a href=lrscan.php3?sector=$links[$i]>$links[$i]</a>";
+    echo "[<A HREF=move.php3?sector=$links[$i]>$links[$i]</A>]";
     if($i + 1 != $num_links)
     {
       echo ", ";
     }
   }
-  echo "<BR><BR>";                }
+  echo "</TR>";
+  echo "<TR>";
+  echo "<TD>Long-range scan:";
+  if($allow_fullscan)
+  {
+    echo " [<A HREF=lrscan.php3?sector=*>full scan</A>]";
+  }
+  echo "</TD><TD>";
+  echo "&nbsp;&nbsp;";
+  for($i=0; $i<$num_links;$i++)
+  {
+    echo "[<A HREF=lrscan.php3?sector=$links[$i]>$links[$i]</A>]";
+    if($i + 1 != $num_links)
+    {
+      echo ", ";
+    }
+  }
+  echo "</TD></TR>";
+  echo "</TABLE>";
+  echo "<BR>";
+}
 /* Get a list of the ships in this sector */
 if($playerinfo[sector] != 0)
 {
-  $result4 = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='N'");
+  $result4 = mysql_query("SELECT ship_id,ship_name,character_name,cloak FROM ships WHERE ship_id<>$playerinfo[ship_id] AND sector=$playerinfo[sector] AND on_planet='N' ORDER BY ship_name ASC");
   $i = 0;
   if($result4 > 0)
   {
-    while ($row = mysql_fetch_array($result4))
+    while($row = mysql_fetch_array($result4))
     {
-      $ships[$i]=$row[ship_name];
-      $ship_id[$i]=$row[ship_id];
+      $ship_id[$i] = $row[ship_id];
+      $ships[$i] = $row[ship_name];
+      $character_name[$i] = $row[character_name];
+      $ship_cloak[$i] = $row[cloak];
       $i++;
     }
   }
   $num_ships=$i;
-  if($num_ships<2)
+  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+  echo "<TR>";
+  echo "<TD>Ships detected:</TD>";
+  echo "<TD>&nbsp;&nbsp;";
+  if($num_ships<1)
   {
-    echo "There are no other ships in this sector.<BR><BR>";
+    echo "None";
   }
   else
   {
-    echo "The are other ships in this sector (click to scan - if blank, there may be cloaked ships): ";
+    $num_detected = 0;
     for($i=0; $i<$num_ships; $i++)
     {
-      /* display other ships in sector - unless they are successfully cloaked, or they are this player. */
-      $success=(10 - $targetinfo[cloak] + $playerinfo[sensors])*5;
+      // display other ships in sector - unless they are successfully cloaked
+      $success = SCAN_SUCCESS($playerinfo[sensors], $ship_cloak[$i]);
       if($success < 5)
       {
         $success = 5;
@@ -133,18 +154,24 @@ if($playerinfo[sector] != 0)
         $success = 95;
       }
       $roll = rand(1, 100);
-      
-      if($ships[$i] != $playerinfo[ship_name] && $roll < $success)
+      if($roll < $success)
       {
-        echo "<a href=scan.php3?ship_id=$ship_id[$i]>$ships[$i]</a> (<a href=attack.php3?ship_id=$ship_id[$i]>attack</a>/<a href=mailto.php3?to=$ship_id[$i]>mail</a>)";
-        if($i + 1 != $num_ships)
+        if($num_detected)
         {
-          echo "  ";
+          echo ", ";
         }
+        $num_detected++;
+        echo "$ships[$i] ($character_name[$i]) [<A HREF=scan.php3?ship_id=$ship_id[$i]>scan</A>/<A HREF=attack.php3?ship_id=$ship_id[$i]>attack</A>]";
       }
     }
-    echo "<BR><BR>";
+    if(!$num_detected)
+    {
+      echo "None";
+    }
   }
+  echo "</TD>";
+  echo "</TR>";
+  echo "</TABLE><BR>";
 }
 else
 {
@@ -152,7 +179,7 @@ else
 }
 if($sectorinfo[port_type] != "none")
 {
-  echo "There is a <a href=port.php3>$sectorinfo[port_type] port</a> here.<BR><BR>";
+  echo "There is a <A HREF=port.php3>$sectorinfo[port_type] port</A> here.<BR><BR>";
 }
 if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
 {
@@ -188,12 +215,20 @@ if($allow_navcomp)
   echo "</FORM>";
 }
 
-echo "Real Space Presets:  <a href=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</a> - <a href=preset.php3>Change Presets</a><BR><BR>";
-echo "Trade Route Presets:  <a href=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</a><BR><BR>";
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+echo "<TR>";
+echo "<TD>RealSpace <A HREF=preset.php3>Presets</A>:</TD>";
+echo "<TD>&nbsp;&nbsp;[<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>]</TD>";
+echo "</TR>";
+echo "<TR>";
+echo "<TD>Trade Routes:</TD>";
+echo "<TD>&nbsp;&nbsp;[<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>]</TD>";
+echo "</TR>";
+echo "</TABLE><BR>";
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Devices</A> - <A HREF=report.php3>Report</A> - <A HREF=planet-report.php3>Planet Report</A> - <A HREF=log.php3>Log</A> - <A HREF=rsmove.php3>RealSpace Move</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> -"; 
-echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help</A>";
+echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Devices</A> - <A HREF=planet-report.php3>Planets</A> - <A HREF=log.php3>Log</A> - <A HREF=rsmove.php3>RealSpace</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> - "; 
+echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=lastusers.php3>Last Users</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help</A>";
 if(!empty($link_forums))
 {
   echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";
