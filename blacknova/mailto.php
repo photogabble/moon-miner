@@ -42,6 +42,8 @@ if(empty($content))
 else
 {
   echo "$l_mt_sent<BR><BR>";
+  $content = htmlspecialchars($content);
+  $subject = htmlspecialchars($subject);
 
   $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE character_name='$to'");
   $target_info = $res->fields;
