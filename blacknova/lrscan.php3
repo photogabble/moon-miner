@@ -266,11 +266,11 @@ else
   } 
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD><B>Mines</B></TD></TR>";
-  $has_mines =  ($sectorinfo[mines] > 0) ? "Yes" : "No";
+  $has_mines =  NUMBER($sectorinfo[mines] ) ;
   echo "<TR><TD>" . $has_mines;
   echo "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Fighters</B></TD></TR>";
-  $has_fighters =  ($sectorinfo[fighters] > 0) ? "Yes" : "No";
+  $has_fighters =  NUMBER($sectorinfo[fighters] ) ;
   echo "<TR><TD>" . $has_fighters;
   echo "</TD></TR>";
   echo "</TABLE><BR>";
