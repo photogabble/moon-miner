@@ -1,23 +1,23 @@
 <?
 
 // File paths
-$gameroot = "c:/users/bbousquet/blacknova";       // Location of the cron.txt file (no trailing '/')
+$gameroot = "/home2/blacknova";       // Location of the cron.txt file (no trailing '/')
 
 // Database configuration variables
 
-$dbhost = "192.168.0.1";                  // Database host
+$dbhost = "hostname";                  // Database host
 $dbport = "";                          // Database port (non-standard port or UNIX socket)
-$dbuname = "fuzzy";                 // Database username
-$dbpass = "dbman";                  // Database password
+$dbuname = "username";                 // Database username
+$dbpass = "password";                  // Database password
 $dbname = "blacknova";                 // Database name
 
 // Game server configuration variables
 
-$adminpass = "dbman";               // Administrator password
+$adminpass = "password";               // Administrator password
 $admin_mail = "webmaster@domain.net";  // Administrator e-mail
 
 // External links
 
-$link_forums = "";
+$link_forums = "http://blacknova.community.everyone.net/commun_v3/scripts/directory.pl";
 
 ?>
