@@ -4,12 +4,18 @@
 // will reside:
 $gameroot = "/usr/local/www/blacknova";
 
+// The ADOdb db module is now required to run BNT. You
+// can find it at http://php.weblogs.com/ADODB. Enter the
+// path where it is installed here.
+$ADOdbpath = $gameroot . "/ADOdb";
+
 // Domain & path of the game on your webserver (used to validate login cookie)
 // This is the domain name part of the URL people enter to access your game.
 // So if your game is at www.blah.com you would have:
 // $gamedomain = "www.blah.com";
 // Do not enter slashes for $gamedomain or anything that would come after a slash
 $gamedomain = "blacknova.net";
+
 // This is the trailing part of the URL, that is not part of the domain.
 // If you enter www.blah.com/blacknova to access the game, you would leave the line as it is.
 // If you do not need to specify blacknova, just enter a single slash eg:
