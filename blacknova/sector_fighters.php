@@ -121,7 +121,7 @@
                  $armour_lost=$playerinfo[armour_pts]-$playerarmour;
                  $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
                  $energy=$playerinfo[ship_energy];
-                 $update4b = mysql_query ("UPDATE ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
+                 $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armour_pts=armour_pts-$armour_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
                  $l_sf_lreport = str_replace("[armor]", $armour_lost, $l_sf_lreport);
                  $l_sf_lreport = str_replace("[fighters]", $fighters_lost, $l_sf_lreport);
                  $l_sf_lreport = str_replace("[torps]", $playertorpnum, $l_sf_lreport);
@@ -137,7 +137,7 @@
                     {
                        $rating=round($playerinfo[rating]/2);
                        echo $l_sf_escape;
-                       mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]"); 
+                       $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]"); 
                        $ok=0;
                        TEXT_GOTOMAIN();
                        die();

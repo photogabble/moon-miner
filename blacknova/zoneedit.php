@@ -13,20 +13,20 @@ if(checklogin())
 
 bigtitle();
 
-$res = mysql_query("SELECT * FROM zones WHERE zone_id='$zone'");
-if(!mysql_num_rows($res))
+$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
+if($res->EOF)
   zoneedit_die($l_zi_nexist);
-$curzone = mysql_fetch_array($res);
+$curzone = $res->fields;
 
 if($curzone[corp_zone] == 'N')
 {
-  $result = mysql_query("SELECT ship_id FROM ships WHERE email='$username'");
-  $ownerinfo = mysql_fetch_array($result);
+  $result = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
+  $ownerinfo = $result->fields;
 }
 else
 {
-  $result = mysql_query("SELECT creator, id FROM teams WHERE creator=$curzone[owner]");
-  $ownerinfo = mysql_fetch_array($result);
+  $result = $db->Execute("SELECT creator, id FROM $dbtables[teams] WHERE creator=$curzone[owner]");
+  $ownerinfo = $result->fields;
 }
 
 if(($curzone[corp_zone] == 'N' && $curzone[owner] != $ownerinfo[ship_id]) || ($curzone[corp_zone] == 'Y' && $curzone[owner] != $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
@@ -120,8 +120,7 @@ function zoneedit_change()
 
   if(!get_magic_quotes_gpc())
     $name = addslashes($name);
-  mysql_query("UPDATE zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
-  echo mysql_error();
+  $db->Execute("UPDATE $dbtables[zones] SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
   echo "$l_ze_saved<p>";
   echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
   TEXT_GOTOMAIN();
@@ -133,7 +132,6 @@ function zoneedit_change()
 function zoneedit_die($error_msg)
 {
   echo "<p>$error_msg<p>";
-  mysql_query("UNLOCK TABLES");
 
   TEXT_GOTOMAIN();
   include("footer.php");

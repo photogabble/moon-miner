@@ -13,17 +13,16 @@ if(checklogin())
 
 bigtitle();
 
-$res = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-mysql_free_result($res);
+$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
 
-$res = mysql_query("SELECT * FROM zones WHERE zone_id='$zone'");
-if(!mysql_num_rows($res))
+$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
+if($res->EOF)
   echo $l_zi_nexist;
 else
 {
 
-  $row = mysql_fetch_array($res);
+  $row = $res->fields;
 
   if($row[zone_id] < 5)
     $row[zone_name] = $l_zname[$row[zone_id]];
@@ -40,14 +39,14 @@ else
   {
     if($row[corp_zone] == 'N')
     {
-      $result = mysql_query("SELECT ship_id, character_name FROM ships WHERE ship_id=$row[owner]");
-      $ownerinfo = mysql_fetch_array($result);
+      $result = $db->Execute("SELECT ship_id, character_name FROM $dbtables[ships] WHERE ship_id=$row[owner]");
+      $ownerinfo = $result->fields;
       $ownername = $ownerinfo[character_name];
     }
     else
     {
-      $result = mysql_query("SELECT team_name, creator, id FROM teams WHERE id=$row[owner]");
-      $ownerinfo = mysql_fetch_array($result);
+      $result = $db->Execute("SELECT team_name, creator, id FROM $dbtables[teams] WHERE id=$row[owner]");
+      $ownerinfo = $result->fields;
       $ownername = $ownerinfo[team_name];
     }
   }

@@ -17,8 +17,8 @@ if(checklogin())
   die();
 }
 
-$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
-$playerinfo=mysql_fetch_array($result);
+$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo=$result->fields;
 
 bigtitle();
 
@@ -38,8 +38,8 @@ if($playerinfo[dev_warpedit] < 1)
   die();
 }
 
-$res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND universe.zone_id=zones.zone_id");
-$zoneinfo = mysql_fetch_array($res);
+$res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[universe].zone_id=$dbtables[zones].zone_id");
+$zoneinfo = $res->fields;
 if($zoneinfo[allow_warpedit] == 'N')
 {
   echo "$l_warp_forbid<BR><BR>";
@@ -48,7 +48,7 @@ if($zoneinfo[allow_warpedit] == 'N')
   die();
 }
 
-$result2 = mysql_query("SELECT * FROM links WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
+$result2 = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
 if($result2 < 1)
 {
   echo "$l_warp_nolink<BR><BR>";
@@ -56,9 +56,10 @@ if($result2 < 1)
 else
 {
   echo "$l_warp_linkto ";
-  while($row = mysql_fetch_array($result2))
+  while(!$result2->EOF)
   {
-    echo "$row[link_dest] ";
+    echo $result2->fields[link_dest] . " ";
+    $result2->MoveNext();
   }
   echo "<BR><BR>";
 }

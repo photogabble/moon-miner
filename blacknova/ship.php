@@ -14,10 +14,10 @@ if(checklogin())
   die();
 }
 
-$res = mysql_query("SELECT sector FROM ships WHERE email='$username'");
-$playerinfo = mysql_fetch_array($res);
-$res2 = mysql_query("SELECT ship_name, character_name, sector FROM ships WHERE ship_id=$ship_id");
-$othership = mysql_fetch_array($res2);
+$res = $db->Execute("SELECT sector FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo = $res->fields;
+$res2 = $db->Execute("SELECT ship_name, character_name, sector FROM $dbtables[ships] WHERE ship_id=$ship_id");
+$othership = $res2->fields;
 
 bigtitle();
 
