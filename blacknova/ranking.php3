@@ -54,7 +54,7 @@ else
   while($row = mysql_fetch_array($res))
   {
     $i++;
-    $rating=round(pow( abs($row[rating]) , .5));
+    $rating=round(sqrt( abs($row[rating]) ));
     if(abs($row[rating])!=$row[rating])
     {
       $rating=-1*$rating;
