@@ -236,11 +236,9 @@ else
         echo "Deleting furangee records in the ships table...<BR>";
         mysql_query("DELETE FROM ships WHERE email LIKE '%@furangee'");
         echo "deleted.<BR>";
-        // Drop old name in case someone used it before name change 
-        mysql_query("DROP TABLE IF EXISTS ferengi");
         // Drop furangee table
         echo "Dropping furangee table...<BR>";
-        mysql_query("DROP TABLE IF EXISTS fuangee");
+        mysql_query("DROP TABLE IF EXISTS furangee");
         echo "dropped.<BR>";
         // Create furangee table
         echo "Re-Creating table: furangee...<BR>";
