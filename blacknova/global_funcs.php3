@@ -231,7 +231,7 @@ function db_kill_player($ship_id)
     $i++;
   }
 
-  mysql_query("UPDATE planets SET owner=0, base='N' WHERE owner=$ship_id");
+  mysql_query("UPDATE planets SET owner=0, base='N',defeated='Y' WHERE owner=$ship_id");
 
   if(!empty($sectors))
   {
