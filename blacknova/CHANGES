@@ -1,3 +1,8 @@
+nospoon (07 September 2001)
+---------------------------
+
+Fixed Bug in installscript which caused it to fail running the install program
+
 nospoon (06 September 2001)
 --------------------------
 
