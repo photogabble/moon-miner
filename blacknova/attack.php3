@@ -100,8 +100,8 @@ else
   {
     $targettorpnum = $targetinfo[torps];
   }
-  $playertorpdmg=round(pow($level_factor,$playerinfo[torp_launchers]))*10*$playertorpnum;
-  $targettorpdmg=round(pow($level_factor,$targetinfo[torp_launchers]))*10*$targettorpnum;
+  $playertorpdmg=$torp_dmg_rate*$playertorpnum;
+  $targettorpdmg=$torp_dmg_rate*$targettorpnum;
   $playerarmour=$playerinfo[armour_pts];
   $targetarmour=$targetinfo[armour_pts];
   $playerfighters=$playerinfo[ship_fighters];
@@ -223,7 +223,7 @@ else
     if($targettorpdmg > round($playerfighters / 2))
     {
       $temp=round($playerfighters/2);
-      $lost=$payerfighters-$temp;
+      $lost=$playerfighters-$temp;
       echo "You lost $lost fighters<BR>";
       echo "$temp - $playerfighters - $targettorpdmg";
       $playerfighters=$temp;
@@ -320,14 +320,14 @@ else
     if($targetinfo[dev_escapepod] == "Y")
     {
       echo "An escape pod was launched!<BR><BR>";
-      $update1 = mysql_query ("UPDATE ships SET hull=0, engines=0, power=0, sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0,  sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=1000, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=1, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0 WHERE ship_id=$targetinfo[ship_id]"); 
+      mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=1000,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0 WHERE ship_id=$targetinfo[ship_id]"); 
       playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!  Luckily you had an escape pod!<BR><BR>"); 
     }
     else
     {
-      $update1b = mysql_query ("UPDATE ships SET ship_destroyed='Y', sector=null WHERE ship_id=$targetinfo[ship_id]");
+      mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$targetinfo[ship_id]");
       playerlog($targetinfo[ship_id],"$playerinfo[character_name] attacked you, and destroyed your ship!<BR><BR>"); 
-      $update1c = mysql_query ("UPDATE universe SET planet_owner=NULL where planet_owner=$target_info[ship_id]");
+      mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 where planet_owner=$target_info[ship_id]");
     }   
     
     if($playerarmour > 0)
@@ -407,12 +407,12 @@ else
     if($playerinfo[dev_escapepod] == "Y")
     {
       echo "Luckily you have an escape pod!<BR><BR>";
-      $update5 = mysql_query ("UPDATE ships SET hull=0, engines=0, power=0, sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0,  sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=1000, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=1, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0 WHERE ship_id=$playerinfo[ship_id]"); 
+      mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=1000,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0 WHERE ship_id=$targetinfo[ship_id]"); 
     }
     else
     {
-      $update5b = mysql_query ("UPDATE ships SET ship_destroyed='Y', sector=null WHERE ship_id=$playerinfo[ship_id]"); 
-      $update5c = mysql_query ("UPDATE universe SET planet_owner=NULL WHERE planet_owner=$playerinfo[ship_id]");
+      mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$playerinfo[ship_id]"); 
+      mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 where planet_owner=$target_info[ship_id]");
     }         
     if($targetarmour > 0)
     {

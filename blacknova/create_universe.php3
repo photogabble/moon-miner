@@ -21,14 +21,16 @@ elseif($swordfish == $adminpass && $engage == "")
   echo "Max sectors set to $sector_max in config.php3<BR><BR>";
   echo "<form action=create_universe.php3 method=post>";
   echo "<table>";
-  echo "<tr><td><b><u>Base Ratios</u></b></td><td></td></tr>";
+  echo "<tr><td><b><u>Base/Planet Setup</u></b></td><td></td></tr>";
   echo "<tr><td>Percent Special</td><td><input type=text name=special size=2 maxlength=2 value=1></td></tr>";
   echo "<tr><td>Percent Ore</td><td><input type=text name=ore size=2 maxlength=2 value=20></td></tr>";
   echo "<tr><td>Percent Organics</td><td><input type=text name=organics size=2 maxlength=2 value=20></td></tr>";
   echo "<tr><td>Percent Goods</td><td><input type=text name=goods size=2 maxlength=2 value=20></td></tr>";
   echo "<tr><td>Percent Energy</td><td><input type=text name=energy size=2 maxlength=2 value=20></td></tr>";
   echo "<tr><td>Percent Empty</td><td>Equal to 100 - total of above.</td></tr>";
-  echo "<tr><td><b><u>Sector/Link Set-up</u></b></td><td></td></tr>";
+  echo "<tr><td>Initial Commodities to Sell<br><td><input type=text name=initscommod size=5 maxlength=5 value=50.00> % of max</td></tr>";
+  echo "<tr><td>Initial Commodities to Buy<br><td><input type=text name=initbcommod size=5 maxlength=5 value=50.00> % of max</td></tr>";
+  echo "<tr><td><b><u>Sector/Link Setup</u></b></td><td></td></tr>";
   $fedsecs = intval($sector_max / 300); 
   $loops = intval($sector_max / 300);
   echo "<TR><TD>Number of Federation sectors</TD><TD><INPUT TYPE=TEXT NAME=fedsecs SIZE=4 MAXLENGTH=4 VALUE=$fedsecs></TD></TR>";
@@ -57,6 +59,8 @@ elseif($swordfish == $adminpass && $engage == "1")
   echo "$gop goods ports<BR>";
   $enp = round($sector_max*$energy/100);
   echo "$enp energy ports<BR>";
+  echo "$initscommod% initial commodities to sell<BR>";
+  echo "$initbcommod% initial commodities to buy<BR>";
   $empty = $sector_max-$spp-$oep-$ogp-$gop-$enp;
   echo "$empty empty sectors<BR>";
   echo "$fedsecs Federation sectors<BR>";
@@ -70,6 +74,8 @@ elseif($swordfish == $adminpass && $engage == "1")
   echo "<input type=hidden name=ogp value=$ogp>";
   echo "<input type=hidden name=gop value=$gop>";
   echo "<input type=hidden name=enp value=$enp>";
+  echo "<input type=hidden name=initscommod value=$initscommod>";
+  echo "<input type=hidden name=initbcommod value=$initbcommod>";
   echo "<input type=hidden name=nump value=$nump>";
   echo "<INPUT TYPE=HIDDEN NAME=fedsecs VALUE=$fedsecs>";
   echo "<input type=hidden name=loops value=$loops>";
@@ -163,6 +169,12 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "base enum('Y','N') DEFAULT 'N' NOT NULL," .
                  "base_sells enum('Y','N') DEFAULT 'N' NOT NULL," .
                  "base_torp bigint(20) DEFAULT '0' NOT NULL," .
+                 "prod_organics float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+                 "prod_ore float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+                 "prod_goods float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+                 "prod_energy float(5,2) unsigned DEFAULT '20.0' NOT NULL," .
+                 "prod_fighters float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
+                 "prod_torp float(5,2) unsigned DEFAULT '10.0' NOT NULL," .
                  "beacon tinytext," .
                  "angle1 float(10,2) DEFAULT '0.00' NOT NULL," .
                  "angle2 float(10,2) DEFAULT '0.00' NOT NULL," .
@@ -196,6 +208,14 @@ elseif($swordfish==$adminpass && $engage=="2")
                ")");
 
   echo "Creating sector 0 - Sol...<BR>";
+  $initsore = $ore_limit * $initscommod / 100.0;
+  $initsorganics = $organics_limit * $initscommod / 100.0;
+  $initsgoods = $goods_limit * $initscommod / 100.0;
+  $initsenergy = $energy_limit * $initscommod / 100.0;
+  $initbore = $ore_limit * $initbcommod / 100.0;
+  $initborganics = $organics_limit * $initbcommod / 100.0;
+  $initbgoods = $goods_limit * $initbcommod / 100.0;
+  $initbenergy = $energy_limit * $initbcommod / 100.0;
   $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, mines, planet_defeated) VALUES ('0', 'Sol', '1', 'special', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Welcome to Sol. Hub of the Universe, not.', '0', '0', '0', '', 'N')");
   $update = mysql_query("UPDATE universe SET sector_id=0 WHERE sector_id=1");
   echo "Creating sector 1 - Alpha Centauri...<BR>";
@@ -220,7 +240,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   shuffle($sectors);
   for($i=2; $i<$spp; $i++)
   {
-    $update = mysql_query("UPDATE universe SET port_type='special' WHERE sector_id=$sectors[$i]");
+    mysql_query("UPDATE universe SET port_type='special' WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";
@@ -228,7 +248,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   $last = $spp;
   for($i=$last; $i<$last+$oep; $i++)
   {
-    $update = mysql_query("UPDATE universe SET port_type='ore' WHERE sector_id=$sectors[$i]");
+    mysql_query("UPDATE universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";
@@ -236,7 +256,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   $last = $last + $oep;
   for($i=$last; $i<$last+$ogp; $i++)
   {
-    $update = mysql_query("UPDATE universe SET port_type='organics' WHERE sector_id=$sectors[$i]");
+    mysql_query("UPDATE universe SET port_type='organics',port_ore=$initbore,port_organics=$initsorganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";
@@ -244,7 +264,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   $last = $last + $gop;
   for($i=$last; $i<$last+$gop; $i++)
   {
-    $update = mysql_query("UPDATE universe SET port_type='goods' WHERE sector_id=$sectors[$i]");
+    mysql_query("UPDATE universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";
@@ -252,7 +272,7 @@ elseif($swordfish==$adminpass && $engage=="2")
   $last = $last + $gop;
   for($i=$last; $i<$last+$enp; $i++)
   {
-    $update = mysql_query("UPDATE universe SET port_type='energy' WHERE sector_id=$sectors[$i]");
+    mysql_query("UPDATE universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initsenergy WHERE sector_id=$sectors[$i]");
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";

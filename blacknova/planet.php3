@@ -86,6 +86,22 @@ if($sectorinfo[planet] == 'Y')
       { 
         echo "You have a base on this planet.<BR>";
       }
+      
+      /* change production rates */
+      echo "<form action=planet.php3 method=post>";
+      echo "<input type=hidden name=command value=productions>";
+      echo "<BR><table><tr><td></td><td>Organics</td><td>Ore</td><td>Goods</td><td>Energy</td><td>Colonists</td><td>Credits</td><td>Fighters</td><td>Torpedoes</td></tr>";
+      echo "<tr><td>Current Quantities</td><td>$sectorinfo[planet_organics]</td><td>$sectorinfo[planet_ore]</td><td>$sectorinfo[planet_goods]</td><td>$sectorinfo[planet_energy]</td><td>$sectorinfo[planet_colonists]</td><td>$sectorinfo[planet_credits]</td><td>$sectorinfo[planet_fighters]</td><td>$sectorinfo[base_torp]</td></tr>";
+      echo "<tr><td>Production Percentages</td>";
+      echo "<td><input type=text name=porganics value=\"$sectorinfo[prod_organics]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=pore value=\"$sectorinfo[prod_ore]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=pgoods value=\"$sectorinfo[prod_goods]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=penergy value=\"$sectorinfo[prod_energy]\" size=6 maxlength=6></td>";
+      echo "<td>-</td><td>*</td>";
+      echo "<td><input type=text name=pfighters value=\"$sectorinfo[prod_fighters]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=ptorp value=\"$sectorinfo[prod_torp]\" size=6 maxlength=6></td>";
+      echo "</table>* Production of credits beyond banking interest is 100 - other percentages<BR>";
+      echo "<input type=submit value=Change></form><BR>";
     }
     else
     {
@@ -183,6 +199,23 @@ if($sectorinfo[planet] == 'Y')
         echo "To build a base there must be at least $base_credits credits, $base_ore units of ore, $base_organics units of organics, and $base_goods units of goods on the planet .<BR><BR>";
       }
     }
+    elseif($command == "productions")
+    {
+      /* change production percentages */
+      if($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
+      {
+        echo "You may not change production percentages to a negative number.<BR><BR>";
+      }
+      elseif(($porganics + $pore + $pgoods + $penergy + $pfighters + $ptorp) > 100.0)
+      {
+        echo "You may not change production percentages to higher than a total of 100%.<BR><BR>";
+      }
+      else
+      {
+        mysql_query("UPDATE universe SET prod_ore=$pore,prod_organics=$porganics,prod_goods=$pgoods,prod_energy=$penergy,prod_fighters=$pfighters,prod_torp=$ptorp WHERE sector_id=$sectorinfo[sector_id]");
+        echo "Production percentages changed.<BR><BR>";
+      }
+    }
     else
     {
       echo "Command not available.<BR>";            
@@ -234,19 +267,19 @@ if($sectorinfo[planet] == 'Y')
         {
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
-        $planetbeams = (pow($level_factor, $ownerinfo[beams])) * 100;
+        $planetbeams = round(pow($level_factor, $ownerinfo[beams])) * 100;
         echo "Planet Beams - $planetbeams<BR><BR>";
-        $playerbeams = (pow($level_factor, $playerinfo[beams])) * 100;
+        $playerbeams = round(pow($level_factor, $playerinfo[beams])) * 100;
         echo "Player Beams - $playerbeams<BR><BR>";
-        $playershields = (pow($level_factor, $playerinfo[shields])) * 100;
+        $playershields = round(pow($level_factor, $playerinfo[shields])) * 100;
         echo "Player Shields - $playershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
-        $planetshields = (pow($level_factor, $ownerinfo[shields])) * 100;
+        $planetshields = round(pow($level_factor, $ownerinfo[shields])) * 100;
         echo "Planet Shields - $planetshields<BR><BR>";       
-        $playertorpnum = (pow($level_factor, $playerinfo[torp_launchers])) * 2;
+        $playertorpnum = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
         if($playertorpnum > $playerinfo[torps])
         {
           $playertorpnum = $playerinfo[torps];
@@ -255,14 +288,14 @@ if($sectorinfo[planet] == 'Y')
         {
           $ownerinfo[torp_launchers] = $ownerinfo[torp_launchers] + $base_modifier;
         }
-        $planettorpnum = (pow($level_factor, $ownerinfo[torp_launchers])) * 2;
+        $planettorpnum = round(pow($level_factor, $ownerinfo[torp_launchers])) * 2;
         if($planettorpnum > $sectorinfo[base_torp])
         {
           $planettorpnum = $sectorinfo[base_torp];
         }
-        $playertorpdmg = (pow($level_factor, $playerinfo[torp_launchers])) * 10 * $playertorpnum;
+        $playertorpdmg = $torp_dmg_rate * $playertorpnum;
         echo "Player torp damage - $playertorpdmg<BR><BR>";
-        $planettorpdmg = (pow($level_factor, $ownerinfo[torp_launchers])) * 10 * $planettorpnum;
+        $planettorpdmg = $torp_dmg_rate * $planettorpnum;
         echo "Planet torp damage - $planettorpdmg<BR><BR>";       
         $playerarmour = $playerinfo[armour_pts];
         echo "Player Armour - $playerarmour<BR><BR>";       
@@ -303,7 +336,7 @@ if($sectorinfo[planet] == 'Y')
           {
             $playerfighters = $playerfighters - $planetbeams;
             echo "You lost $planetbeams fighters<BR>";
-            $targetbeams = 0;
+            $planetbeams = 0;
           }
         }
         if($playerbeams > 0)
@@ -463,18 +496,19 @@ if($sectorinfo[planet] == 'Y')
           if($playerinfo[dev_escapepod] == "Y")
           {
             echo "Luckily you have an escape pod!<BR><BR>";
-            $update5 = mysql_query("UPDATE ships SET hull=0, engines=0, power=0, sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0,  sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=1000, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=1, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0 WHERE ship_id=$playerinfo[ship_id]"); 
+            mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=1000,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0 WHERE ship_id=$playerinfo[ship_id]"); 
           }
           else
           {
-            $update5b = mysql_query("UPDATE ships SET ship_destroyed='Y', sector=null WHERE ship_id=$playerinfo[ship_id]"); 
-            $update5c = mysql_query("UPDATE universe SET planet_owner=NULL WHERE planet_owner=$playerinfo[ship_id]");
+            mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$playerinfo[ship_id]"); 
+            mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 WHERE planet_owner=$playerinfo[ship_id]");
           }
         }
         else
         {          
           $fighters_lost = $playerinfo[ship_fighters] - $playerfighters;
-          $update6b = mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
+          $armour_lost = $playerinfo[armour_pts] - $playerarmour;
+          mysql_query("UPDATE ships SET ship_fighters=ship_fighters-$fighters_lost, torps=torps-$playertorpnum,armour_pts=armour_pts-$armour_lost WHERE ship_id=$playerinfo[ship_id]");
         } 
         if($planetshields < 1 && $planetfighters < 1 && $playerarmour > 0)
         {
@@ -501,44 +535,44 @@ if($sectorinfo[planet] == 'Y')
         {
           $ownerinfo[beams] = $ownerinfo[beams] + $base_modifier;
         }
-        $planetbeams = pow($level_factor, $ownerinfo[beams]) * 100;
+        $planetbeams = round(pow($level_factor, $ownerinfo[beams])) * 100;
         echo "Planet Beams - $planetbeams<BR><BR>";
-        $playerbeams = pow($level_factor, $playerinfo[beams]) * 100;
+        $playerbeams = round(pow($level_factor, $playerinfo[beams])) * 100;
         echo "Player Beams - $playerbeams<BR><BR>";
-        $playershields = pow($level_factor, $playerinfo[shields]) * 100;
+        $playershields = round(pow($level_factor, $playerinfo[shields])) * 100;
         echo "Player Shields - $playershields<BR><BR>";
-        $ownershields = pow($level_factor, $ownerinfo[shields]) * 100;
+        $ownershields = round(pow($level_factor, $ownerinfo[shields])) * 100;
         echo "Owner Shields - $ownershields<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[shields] = $ownerinfo[shields] + $base_modifier;
         }
-        $planetshields = pow($level_factor, $ownerinfo[shields]) * 100;
+        $planetshields = round(pow($level_factor, $ownerinfo[shields])) * 100;
         echo "Planet Shields - $planetshields<BR><BR>";
-        $playertorpnum = pow($level_factor, $playerinfo[torp_launchers]) * 2;
+        $playertorpnum = round(pow($level_factor, $playerinfo[torp_launchers])) * 2;
         if($playertorpnum > $playerinfo[torps])
         {
           $playertorpnum = $playerinfo[torps];
         }
-        $ownertorpnum = pow($level_factor, $ownerinfo[torp_launchers]) * 2;
+        $ownertorpnum = round(pow($level_factor, $ownerinfo[torp_launchers])) * 2;
         if($ownertorpnum > $ownerinfo[torps])
         {
           $ownertorpnum = $ownerinfo[torps];
         }
-        $ownertorpdmg = pow($level_factor, $ownerinfo[torp_launchers]) * 10 * $ownertorpnum;
+        $ownertorpdmg = $torp_dmg_rate * $ownertorpnum;
         echo "Owner torp damage - $ownertorpdmg<BR><BR>";
         if($sectorinfo[base] == "Y")
         {
           $ownerinfo[torp_launchers] = $ownerinfo[torp_launchers] + $base_modifier;
         }
-        $planettorpnum = pow($level_factor,$ownerinfo[torp_launchers]) * 2;
+        $planettorpnum = round(pow($level_factor,$ownerinfo[torp_launchers])) * 2;
         if($planettorpnum > $sectorinfo[base_torp])
         {
           $planettorpnum = $sectorinfo[base_torp];
         }
-        $playertorpdmg = pow($level_factor, $playerinfo[torp_launchers]) * 10 * $playertorpnum;
+        $playertorpdmg = $torp_dmg_rate * $playertorpnum;
         echo "Player torp damage - $playertorpdmg<BR><BR>";
-        $planettorpdmg = pow($level_factor, $ownerinfo[torp_launchers]) * 10 * $planettorpnum;
+        $planettorpdmg = $torp_dmg_rate * $planettorpnum;
         echo "Planet torp damage - $planettorpdmg<BR><BR>";
         $playerarmour = $playerinfo[armour_pts];
         echo "Player Armour - $playerarmour<BR><BR>";
@@ -586,7 +620,7 @@ if($sectorinfo[planet] == 'Y')
           {
             $playerfighters = $playerfighters - $planetbeams;
             echo "You lost $planetbeams fighters<BR>";
-            $targetbeams = 0;
+            $planetbeams = 0;
           }
         }
         if($playerfighters > 0 && $ownerbeams > 0)
@@ -891,11 +925,11 @@ if($sectorinfo[planet] == 'Y')
           if($playerinfo[dev_escapepod] == "Y")
           {
             echo "Luckily you have an escape pod!<BR><BR>";
-            $update5 = mysql_query("UPDATE ships SET hull=0, engines=0, power=0, sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0,  sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=1000, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=1, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0 WHERE ship_id=$playerinfo[ship_id]"); 
+            mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=1000,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0 WHERE ship_id=$playerinfo[ship_id]"); 
           }
           else
           {
-            $update5b = mysql_query ("UPDATE ships SET ship_destroyed='Y', sector=null WHERE ship_id=$playerinfo[ship_id]"); 
+            mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$playerinfo[ship_id]"); 
           }
         }
         else
@@ -910,12 +944,14 @@ if($sectorinfo[planet] == 'Y')
           if($ownerinfo[dev_escapepod] == "Y")
           {
             echo "An escape pod was launched!<BR><BR>";
-            $update5 = mysql_query("UPDATE ships SET hull=0, engines=0, power=0, sensors=0, beams=0, torp_launchers=0, torps=0, armour=0, armour_pts=100, cloak=0, shields=0,  sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=1000, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=1, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, on_planet='N' WHERE ship_id=$ownerinfo[ship_id]"); 
+            mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=1000,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0 WHERE ship_id=$ownerinfo[ship_id]"); 
+            playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attacked the planet you were on and destroyed your ship!  Luckily you had an escape pod!<BR><BR>");
           }
           else
           {
-            $update5b = mysql_query("UPDATE ships SET ship_destroyed='Y', sector=null WHERE ship_id=$ownerinfo[ship_id]"); 
-            $update5c = mysql_query("UPDATE universe SET planet_owner=NULL WHERE planet_owner=$targetinfo[ship_id]");
+            mysql_query("UPDATE ships SET ship_destroyed='Y',sector=NULL WHERE ship_id=$ownerinfo[ship_id]"); 
+            mysql_query("UPDATE universe SET planet_owner=NULL,prod_ore=20.0,prod_organics=20.0,prod_goods=20.0,prod_energy=20.0,prod_fighters=10.0,prod_torp=10.0 WHERE planet_owner=$ownerinfo[ship_id]");
+            playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attacked the planet you were on and destroyed your ship!<BR><BR>");
           }
         }
         else
