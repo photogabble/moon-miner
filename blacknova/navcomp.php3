@@ -38,29 +38,24 @@
 	}
 	elseif ($state == 1)
 	{
-		if ($computer_tech < 10)
+		if ($computer_tech < 5)
 		{
-			#echo "&lt;10<BR>";
 			$max_search_depth = 2;
+		}
+		elseif ($computer_tech < 10)
+		{
+			$max_search_depth = 3;
+		}
+		elseif ($computer_tech < 15)
+		{
+			$max_search_depth = 4;
 		}
 		elseif ($computer_tech < 20)
 		{
-			#echo "10-20<BR>";
-			$max_search_depth = 3;
-		}
-		elseif ($computer_tech < 30)
-		{
-			#echo "20-30<BR>";
-			$max_search_depth = 4;
-		}
-		elseif ($computer_tech < 40)
-		{
-			#echo "30-40<BR>";
 			$max_search_depth = 5;
 		}
 		else
 		{
-			#echo "&gt;40<BR>";
 			$max_search_depth = 6;
 		}
 		#echo "Max Search Depth: $max_search_depth<BR>\n";
