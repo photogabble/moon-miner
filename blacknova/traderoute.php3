@@ -13,7 +13,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE");
+mysql_query("LOCK TABLES ships WRITE, universe WRITE, links READ");
 
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
@@ -70,7 +70,12 @@ if(empty($phase))
   /* player selects sectors to rs move between and trade at */
   echo "<FORM ACTION=traderoute.php3 METHOD=POST>";
   echo "You are presently in sector $playerinfo[sector] - and there are sectors available from 0 to $sector_max.<BR><BR>";    
-  echo "What sector would you like to attempt to get to through realspace and trade maximum commodities at:  <input type=text name=destination size=10 maxlength=10><BR><BR>";
+  echo "What sector would you like to attempt to get to through ";
+  if($playerinfo[traderoutetype] == 'R')
+    echo "realspace";
+  else
+    echo "warp link";
+  echo " and trade maximum commodities at:  <input type=text name=destination size=10 maxlength=10><BR><BR>";
   echo "<INPUT TYPE=HIDDEN NAME=phase VALUE=1>";
   echo "<INPUT TYPE=SUBMIT VALUE=Evaluate><BR><BR>";
   echo "</FORM>";
@@ -81,41 +86,72 @@ elseif($phase == 1)
   $start = mysql_fetch_array($result2);
   $result3 = mysql_query("SELECT port_type, angle1, angle2, mines, fighters, fm_owner, distance FROM universe WHERE sector_id=$destination");
   $finish = mysql_fetch_array($result3);
-  $sa1 = $start[angle1] * $deg;
-  $sa2 = $start[angle2] * $deg;
-  $fa1 = $finish[angle1] * $deg;
-  $fa2 = $finish[angle2] * $deg;
-  $x = $start[distance] * sin($sa1) * cos($sa2) - $finish[distance] * sin($fa1) * cos($fa2);
-  $y = $start[distance] * sin($sa1) * sin($sa2) - $finish[distance] * sin($fa1) * sin($fa2);
-  $z = $start[distance] * cos($sa1) - $finish[distance] * cos($fa1);
-  $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  $shipspeed = pow($level_factor, $playerinfo[engines]);
-  $triptime = round($distance / $shipspeed);
-  if(!$triptime && $destination != $playerinfo[sector])
+  if($playerinfo[traderoutetype] == 'R')
   {
-    $triptime = 1;
-  }
-  if($playerinfo[dev_fuelscoop] == "Y")
-  {
-    $energyscooped = $distance * 100;
+    $sa1 = $start[angle1] * $deg;
+    $sa2 = $start[angle2] * $deg;
+    $fa1 = $finish[angle1] * $deg;
+    $fa2 = $finish[angle2] * $deg;
+    $x = $start[distance] * sin($sa1) * cos($sa2) - $finish[distance] * sin($fa1) * cos($fa2);
+    $y = $start[distance] * sin($sa1) * sin($sa2) - $finish[distance] * sin($fa1) * sin($fa2);
+    $z = $start[distance] * cos($sa1) - $finish[distance] * cos($fa1);
+    $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
+    $shipspeed = pow($level_factor, $playerinfo[engines]);
+    $triptime = round($distance / $shipspeed);
+    if(!$triptime && $destination != $playerinfo[sector])
+    {
+      $triptime = 1;
+    }
+    if($playerinfo[dev_fuelscoop] == "Y")
+    {
+      $energyscooped = $distance * 100;
+    }
+    else
+    {
+      $energyscooped = 0;
+    }
+    if($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
+    {
+      $energyscooped = 100;
+    }
+    $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+    if($free_power < $energyscooped)
+    {
+      $energyscooped = $free_power;
+    }
+    if($energyscooped < 1)
+    {
+      $energyscooped = 0;
+    }
   }
   else
   {
-    $energyscooped = 0;
+    $result40 = mysql_query("SELECT link_id FROM links WHERE link_start='$playerinfo[sector]' AND link_dest='$destination'");
+    $result41 = mysql_query("SELECT link_id FROM links WHERE link_dest='$playerinfo[sector]' AND link_start='$destination'");
+    if(mysql_num_rows($result40) == 0)
+	{
+	  echo "<BR>There is no warp link from sector $playerinfo[sector] to sector $destination.<BR>";
+	  $badwarp=1;
+	}
+	if(mysql_num_rows($result41) == 0)
+	{
+	  echo "<BR>There is no warp link from sector $destination to sector $playerinfo[sector].<BR>";
+	  $badwarp=1;
+	}
+
+	if($badwarp == 1)
+	{
+      mysql_query("UNLOCK TABLES");
+      echo "<p>";
+      TEXT_GOTOMAIN();
+      include("footer.php3");
+	  die();
+	}
+
+	$energyscooped = 0;
+	$triptime = 1;
   }
-  if($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
-  {
-    $energyscooped = 100;
-  }
-  $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-  if($free_power < $energyscooped)
-  {
-    $energyscooped = $free_power;
-  }
-  if($energyscooped < 1)
-  {
-    $energyscooped = 0;
-  }
+
   if($destination == $playerinfo[sector])
   {
     $triptime = 0;
@@ -165,46 +201,77 @@ else
   $start = mysql_fetch_array($result2);
   $result3 = mysql_query("SELECT * FROM universe WHERE sector_id=$destination");
   $finish = mysql_fetch_array($result3);
-  $sa1 = $start[angle1] * $deg;
-  $sa2 = $start[angle2] * $deg;
-  $fa1 = $finish[angle1] * $deg;
-  $fa2 = $finish[angle2] * $deg;
-  $x = $start[distance] * sin($sa1) * cos($sa2) - $finish[distance] * sin($fa1) * cos($fa2);
-  $y = $start[distance] * sin($sa1) * sin($sa2) - $finish[distance] * sin($fa1) * sin($fa2);
-  $z = $start[distance] * cos($sa1) - $finish[distance] * cos($fa1);
-  $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  $shipspeed = pow($level_factor, $playerinfo[engines]);
-  $triptime = round($distance / $shipspeed);
-  if($triptime == 0 && $destination != $playerinfo[sector])
+  if($playerinfo[traderoutetype] == 'R')
   {
-    $triptime = 1;
-  }
-  if($playerinfo[dev_fuelscoop] == "Y")
-  {
-    $energyscooped = $distance * 100;
+    $sa1 = $start[angle1] * $deg;
+    $sa2 = $start[angle2] * $deg;
+    $fa1 = $finish[angle1] * $deg;
+    $fa2 = $finish[angle2] * $deg;
+    $x = $start[distance] * sin($sa1) * cos($sa2) - $finish[distance] * sin($fa1) * cos($fa2);
+    $y = $start[distance] * sin($sa1) * sin($sa2) - $finish[distance] * sin($fa1) * sin($fa2);
+    $z = $start[distance] * cos($sa1) - $finish[distance] * cos($fa1);
+    $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
+    $shipspeed = pow($level_factor, $playerinfo[engines]);
+    $triptime = round($distance / $shipspeed);
+    if($triptime == 0 && $destination != $playerinfo[sector])
+    {
+      $triptime = 1;
+    }
+    if($playerinfo[dev_fuelscoop] == "Y")
+    {
+      $energyscooped = $distance * 100;
+    }
+    else
+    {
+      $energyscooped = 0;
+    }
+    if($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
+    {
+      $energyscooped = 100;
+    }
+    $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+    if($free_power < $energyscooped)
+    {
+      $energyscooped = $free_power;
+    }
+    if($energyscooped < 1)
+    {
+      $energyscooped = 0;
+    }
+    if($destination == $playerinfo[sector])
+    {
+      $triptime = 0;
+      $energyscooped = 0;
+    }    
   }
   else
   {
-    $energyscooped = 0;
+    $result40 = mysql_query("SELECT link_id FROM links WHERE link_start='$playerinfo[sector]' AND link_dest='$destination'");
+    $result41 = mysql_query("SELECT link_id FROM links WHERE link_dest='$playerinfo[sector]' AND link_start='$destination'");
+    if(mysql_num_rows($result40) == 0)
+	{
+	  echo "<BR>There is no warp link from sector $playerinfo[sector] to sector $destination.<BR>";
+	  $badwarp=1;
+	}
+	if(mysql_num_rows($result41) == 0)
+	{
+	  echo "<BR>There is no warp link from sector $destination to sector $playerinfo[sector].<BR>";
+	  $badwarp=1;
+	}
+
+	if($badwarp == 1)
+	{
+      mysql_query("UNLOCK TABLES");
+      echo "<p>";
+      TEXT_GOTOMAIN();
+      include("footer.php3");
+	  die();
+	}
+
+	$energyscooped = 0;
+	$triptime = 1;
   }
-  if($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
-  {
-    $energyscooped = 100;
-  }
-  $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-  if($free_power < $energyscooped)
-  {
-    $energyscooped = $free_power;
-  }
-  if($energyscooped < 1)
-  {
-    $energyscooped = 0;
-  }
-  if($destination == $playerinfo[sector])
-  {
-    $triptime = 0;
-    $energyscooped = 0;
-  }    
+
   $hostile = 0;
   if (($start[fighters] > 0 || $start[mines] > 0) && $start[fm_owner] != $playerinfo[ship_id])
   {

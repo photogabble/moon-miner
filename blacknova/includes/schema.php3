@@ -83,7 +83,8 @@ mysql_query("CREATE TABLE ships(" .
             "team bigint(20) DEFAULT '0' NOT NULL," .
             "team_invite bigint(20) DEFAULT '0' NOT NULL," .
             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
-            "ip_address tinytext NOT NULL," .
+            "traderoutetype enum('R','W') DEFAULT 'W' NOT NULL," .
+		"ip_address tinytext NOT NULL," .
             "PRIMARY KEY (email)," .
             "KEY email (email)," .
             "KEY sector (sector)," .

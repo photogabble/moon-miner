@@ -142,14 +142,14 @@ if(!empty($sectorinfo[beacon]))
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Commands
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
@@ -193,14 +193,14 @@ if(!empty($link_forums))
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Warp to
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
@@ -427,14 +427,14 @@ if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Cargo
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
@@ -456,14 +456,18 @@ Cargo
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
-Realspace Trading
+<?
+if($playerinfo[traderoutetype] == 'R') echo "Realspace trading";
+else echo "Warp trading";
+?>
+
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
@@ -478,20 +482,25 @@ Realspace Trading
 </div>
 </a>
 </td></tr>
+<tr><td nowrap>
+<div class=mnu>
+&nbsp;<a class=mnu href=switchtrade.php3?type=<? if($playerinfo[traderoutetype] == 'W') echo "R"; else echo "W"; ?>><? if($playerinfo[traderoutetype] == 'W') echo "Switch to Real"; else echo "Switch to Warp"; ?></a>&nbsp;<br>
+</div>
+</a>
 </table>
 
 <br>
 
 <table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
 <td><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/lcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
 Realspace
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
-  <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+  <tr><td><img src="images/rcorner.gif" width="8" height="11" border="0"></td></tr>
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 </tr></table>
