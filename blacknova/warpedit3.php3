@@ -48,13 +48,6 @@ $playerinfo = mysql_fetch_array($result);
 
 bigtitle();
 
-if($playerinfo[turns] < 1)
-{
-  echo "You need at least one turn to use a warp editor.<BR><BR>";
-  TEXT_GOTOMAIN();
-  include("footer.php3");   
-  die();
-}
 
 $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe WHERE sector_id=$target_sector AND universe.zone_id=zones.zone_id");
 $zoneinfo = mysql_fetch_array($res);
