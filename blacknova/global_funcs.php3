@@ -131,16 +131,16 @@ function gen_score($sid)
   global $base_organics;
   global $base_credits;
   
-  $calc_hull = "ROUND(POW($upgrade_factor,hull-2))";
-  $calc_engines = "ROUND(POW($upgrade_factor,engines-2))";
-  $calc_power = "ROUND(POW($upgrade_factor,power-2))";
-  $calc_computer = "ROUND(POW($upgrade_factor,computer-2))";
-  $calc_sensors = "ROUND(POW($upgrade_factor,sensors-2))";
-  $calc_beams = "ROUND(POW($upgrade_factor,beams-2))";
-  $calc_torp_launchers = "ROUND(POW($upgrade_factor,torp_launchers-2))";
-  $calc_shields = "ROUND(POW($upgrade_factor,shields-2))";
-  $calc_armour = "ROUND(POW($upgrade_factor,armour-2))";
-  $calc_cloak = "ROUND(POW($upgrade_factor,cloak-2))";
+  $calc_hull = "ROUND(POW($upgrade_factor,hull))";
+  $calc_engines = "ROUND(POW($upgrade_factor,engines))";
+  $calc_power = "ROUND(POW($upgrade_factor,power))";
+  $calc_computer = "ROUND(POW($upgrade_factor,computer))";
+  $calc_sensors = "ROUND(POW($upgrade_factor,sensors))";
+  $calc_beams = "ROUND(POW($upgrade_factor,beams))";
+  $calc_torp_launchers = "ROUND(POW($upgrade_factor,torp_launchers))";
+  $calc_shields = "ROUND(POW($upgrade_factor,shields))";
+  $calc_armour = "ROUND(POW($upgrade_factor,armour))";
+  $calc_cloak = "ROUND(POW($upgrade_factor,cloak))";
   $calc_levels = "($calc_hull+$calc_engines+$calc_power+$calc_computer+$calc_sensors+$calc_beams+$calc_torp_launchers+$calc_shields+$calc_armour+$calc_cloak)*$upgrade_cost";
 
   $calc_torps = "torps*$torpedo_price";
