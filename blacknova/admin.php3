@@ -76,7 +76,7 @@ else
           $row = mysql_fetch_array($res);
           echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
           echo "<TR><TD>Player name</TD><TD><INPUT TYPE=TEXT NAME=character_name VALUE=\"$row[character_name]\"></TD></TR>";
-          echo "<TR><TD>Password</TD><TD><INPUT TYPE=PASSWORD NAME=password VALUE=\"$row[password]\"></TD></TR>";
+          echo "<TR><TD>Password</TD><TD><INPUT TYPE=TEXT NAME=password2 VALUE=\"$row[password]\"></TD></TR>";
           echo "<TR><TD>E-mail</TD><TD><INPUT TYPE=TEXT NAME=email VALUE=\"$row[email]\"></TD></TR>";
           echo "<TR><TD>ID</TD><TD>$user</TD></TR>";
           echo "<TR><TD>Ship</TD><TD><INPUT TYPE=TEXT NAME=ship_name VALUE=\"$row[ship_name]\"></TD></TR>";
@@ -101,6 +101,12 @@ else
           echo "<TD>Goods</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_goods VALUE=\"$row[ship_goods]\"></TD></TR>";
           echo "<TR><TD>Energy</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_energy VALUE=\"$row[ship_energy]\"></TD>";
           echo "<TD>Colonists</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_colonists VALUE=\"$row[ship_colonists]\"></TD></TR>";
+          echo "</TABLE></TD></TR>";
+          echo "<TR><TD>Combat</TD>";
+          echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
+          echo "<TR><TD>Fighters</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_fighters VALUE=\"$row[ship_fighters]\"></TD>";
+          echo "<TD>Torpedoes</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=torps VALUE=\"$row[torps]\"></TD></TR>";
+          echo "<TR><TD>Armour Pts</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=armour_pts VALUE=\"$row[armour_pts]\"></TD></TR>";
           echo "</TABLE></TD></TR>";
           echo "<TR><TD>Devices</TD>";
           echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
@@ -128,7 +134,7 @@ else
           $_ship_destroyed = empty($ship_destroyed) ? "N" : "Y";
           $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
-          mysql_query("UPDATE ships SET character_name='$character_name',password='$password',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armour='$armour',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists' WHERE ship_id=$user");
+          mysql_query("UPDATE ships SET character_name='$character_name',password='$password2',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armour='$armour',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armour_pts='$armour_pts' WHERE ship_id=$user");
           echo "Changes saved<BR><BR>";
           echo "<INPUT TYPE=SUBMIT VALUE=\"Return to User editor\">";
           $button_main = false;
@@ -243,32 +249,6 @@ else
           echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_goods VALUE=\"$row[port_goods]\"></TD>";
           echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_energy VALUE=\"$row[port_energy]\"></TD></TR>";
           echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
-          echo "<TR><TD COLSPAN=4><tt>Sector Deployment Owner </tt>";
-                                      echo "<SELECT SIZE=1 NAME=fm_owner>";
-                                      $ressubc = mysql_query("SELECT ship_id,character_name FROM ships ORDER BY character_name");
-                                      echo "<OPTION VALUE=0>No One</OPTION>";
-                                      while($rowsubc = mysql_fetch_array($ressubc))
-                                      {
-                                      if ($rowsubc[ship_id] == $row[fm_owner])
-                                        { 
-                                        echo "<OPTION SELECTED=$rowsubc[ship_id] VALUE=$rowsubc[ship_id]>$rowsubc[character_name]</OPTION>";
-                                        } else {  
-                                        echo "<OPTION VALUE=$rowsubc[ship_id]>$rowsubc[character_name]</OPTION>";
-                                        }
-                                      }
-                                      mysql_free_result($ressubc);
-                                      echo "</SELECT></TD>";
-          echo "<TD ALIGN=Right><tt>  Fighters   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=fighters VALUE=\"$row[fighters]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Mines      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=mines VALUE=\"$row[mines]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Deploy Type</tt></TD><TD>";
-                                      echo "<SELECT SIZE=1 NAME=fm_setting>";
-                                      $ofmsettol = $ofmsetatt = "VALUE"; 
-                                      if ($row[fm_setting] == "toll") $ofmsettol = "SELECTED=toll VALUE";
-                                      if ($row[fm_setting] == "attack") $ofmsetatt = "SELECTED=attack VALUE";
-                                      echo "<OPTION $ofmsettol=toll>Toll</OPTION>";
-                                      echo "<OPTION $ofmsetatt=attack>Attack</OPTION>";
-                                      echo "</SELECT></TD></TR>";
-          echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
           echo "</TABLE>";
 
           mysql_free_result($res);
@@ -280,7 +260,7 @@ else
         elseif($operation == "save")
         {
           // update database
-          $secupdate = mysql_query("UPDATE universe SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2',fighters='$fighters',mines='$mines',fm_owner='$fm_owner',fm_setting='$fm_setting' WHERE sector_id=$sector");
+          $secupdate = mysql_query("UPDATE universe SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
           if(!$secupdate) {
             echo "Changes to Sector record have FAILED Due to the following Error:<BR><BR>";
             echo mysql_errno(). ": ".mysql_error(). "<br>";
@@ -453,7 +433,7 @@ else
           $_zone_warpedit = empty($zone_warpedit) ? "N" : "Y";
           $_zone_planet = empty($zone_planet) ? "N" : "Y";
           mysql_query("UPDATE zones SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
-          echo "Mudanças Salvas<BR><BR>";
+          echo "Changes saved<BR><BR>";
           echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Zone Editor \">";
           $button_main = false;
         }
