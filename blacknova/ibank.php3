@@ -74,8 +74,7 @@ function ibank_display_head($header = 'Empty', $backlink = 'ibank.php3')
   // int mktime (int hour, int minute, int second, int month, int day, int year [, int is_dst])
   $nextupdate = strftime ("%T",mktime (date("H",$mtime),date("i",$mtime)+6,date("s",$mtime),date("m",$mtime),date("d",$mtime),date("Y",$mtime)));
   
-  echo '<table width="550" cellspacing="0" cellpadding="1" bgcolor="Black"><tr><td>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="White">
+  echo '<table width="550" cellspacing="0" cellpadding="1" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="White">
     <TR BGCOLOR=\"$color_header\">
     <td colspan="4" align="center" bgcolor="#FFDBB7"><font face="Arial,Helvetica,sans-serif" color="Navy"><b>I N T E R&nbsp;&nbsp;G A L A C T I C&nbsp;&nbsp;B A N K I N G&nbsp;&nbsp;T E R M I N A L<br><font size="-1">-&nbsp;C r e d i t s&nbsp;&nbsp;R&nbsp;&nbsp;U s&nbsp;-<br>We are currently serving '.$totalnumaccounts.' customers in this galaxy.</font></b></font></td>
     </tr>
@@ -116,8 +115,7 @@ function ibank_display_head($header = 'Empty', $backlink = 'ibank.php3')
     echo '
       </table></td></tr>
       </table>
-      <table width="550" cellspacing="0" cellpadding="1" bgcolor="Black"><tr><td>
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="White">
+      <table width="550" cellspacing="0" cellpadding="1" bgcolor="Black"><tr><td><table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="White">
       <TR>
       <td colspan="4" align="center" bgcolor="#DDDDDD"><font face="Arial,Helvetica,sans-serif" size="-1" color="Maroon"><b>'.$header.'</b></font></b></font></td>
       </tr>
