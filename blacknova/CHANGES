@@ -1,5 +1,10 @@
-nospoon (05 September 2001)
+nospoon (06 September 2001)
+--------------------------
 
+Fixed Bug #443677 - Database connection failure in ibank.php3
+
+nospoon (05 September 2001)
+---------------------------
 Fixed bug #405750,458278 - Scores not updating or showing zero scores. File ranking.php3 being overwritten by output from genrank.php3 due to bug in install program
 
          #433079 - Request for password protection on genrank.php3 to stop malicous users frequently calling this resource intensive process

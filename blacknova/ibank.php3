@@ -768,8 +768,8 @@ else
   echo '<font color="Red"><b>You do not have access to the bank terminal here!</b></font><BR><BR>';
 }
 
-include("footer.php3");  
 mysql_query("UNLOCK TABLES");
+include("footer.php3");  
 
 // -- EOF
 //////////////////////////////////////////////////////////////////////////////////
