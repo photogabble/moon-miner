@@ -823,8 +823,9 @@ $l_tdr_totalprofit       = "Profits totaux";
 $l_tdr_totalcost         = "Coûts totaux";
 $l_tdr_credits  	 = "Crédits";
 $l_tdr_turnsused         = "Tours utilisés";
-$l_tdr_turnsleft         = "Turns restant";
+$l_tdr_turnsleft         = "Tours restant";
 $l_tdr_engageagain       = "Cliquez <A HREF=\"traderoute.php?engage=[tdr_engage]\">ici</A> pour refaire cette route.";
+$l_tdr_notowner = "Cette route ne vous appartient pas.";
 
 // IGB.php
 

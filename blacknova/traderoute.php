@@ -452,6 +452,8 @@ function traderoute_new($traderoute_id)
     if(!result || mysql_num_rows($result) == 0)
       traderoute_die($l_tdr_editerr);
     $editroute = mysql_fetch_array($result);
+    if($editroute[owner] != $playerinfo[ship_id])
+      traderoute_die($l_tdr_notowner);
   }
 
   if($num_traderoutes >= $max_traderoutes_player && empty($editroute))
@@ -662,7 +664,7 @@ function traderoute_create()
   global $l_tdr_maxtdr, $l_tdr_errnotvalidport, $l_tdr_errnoport, $l_tdr_errnosrc, $l_tdr_errnotownnotsell;
   global $l_tdr_errnotvaliddestport, $l_tdr_errnoport2, $l_tdr_errnodestplanet, $l_tdr_errnotownnotsell2;
   global $l_tdr_newtdrcreated, $l_tdr_tdrmodified, $l_tdr_returnmenu;
-
+  
   if($num_traderoutes >= $max_traderoutes_player && empty($editing))
     traderoute_die($l_tdr_maxtdr);
 

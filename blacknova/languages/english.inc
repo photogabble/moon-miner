@@ -1175,4 +1175,7 @@ $l_global_player		="Zone now belongs to player";
 $l_killheadline=" was killed in an accident";
 $l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
 
+// LAST ADDED : MOD TO TRADEROUTES
+$l_tdr_notowner = "You do not own this trade route";
+
 ?>
