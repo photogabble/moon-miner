@@ -6,6 +6,7 @@
 include("config.php3");
 updatecookie();
 
+global $currentplanet,$planet_id,$playerinfo;
 $title="IGB - The Inter Galactic Bank";
 include("header.php3");
 
@@ -193,9 +194,9 @@ function ibank_display_createaccount()
       <TR>
       <TD colspan=4 align=center><input type="submit" name="create" value="Make Account"></TD>
       </TR>
-      <input type="hidden" name="op" value="5">
-      </form>
-      ';
+      <input type="hidden" name="op" value="5">';
+      echo "<input type=\"hidden\" name=\"planet_id\" value=$planet_id>";
+      echo "</form>";
       ibank_display_footer(); // Use Defaults
   }
   else
