@@ -78,7 +78,10 @@ if ($flag==0)
 
     $db->Execute("INSERT INTO $dbtables[zones] VALUES('','$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
     $db->Execute("INSERT INTO $dbtables[ibank_accounts] VALUES($shipid[ship_id],0,0)");
-
+    if($display_password)
+    {
+       echo $l_new_pwis . " " . $makepass . "<BR><BR>";
+    }
     echo "$l_new_pwsent<BR><BR>";
     echo "<A HREF=login.php>$l_clickme</A> $l_new_login";
 

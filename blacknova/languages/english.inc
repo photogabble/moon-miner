@@ -1312,6 +1312,7 @@ $l_log_text[LOG_PLASMA_STORM] = "Your planet [name] in sector [sector] has been 
 $l_log_title[LOG_PLASMA_STORM] = "Plasma Storm!";
 $l_log_text[LOG_BOUNTY_FEDBOUNTY] = "The Federation has placed a bounty on you for the amount of [amount] credits.";
 $l_log_title[LOG_BOUNTY_FEDBOUNTY] = "Federation Bounty!";
+$l_new_pwis = "Your password is";
 
 
 $l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
