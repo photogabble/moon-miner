@@ -1,3 +1,6 @@
+nospoon (16 September 2001)
+---------------------------
+Added code for reporting on sector defences. Also fixed the existing code for bases on planets. Now, the tech level of the planet defences are based on the ships tech level plus a value in the config file, if a base is present.
 nospoon (12 September 2001)
 ---------------------------
 

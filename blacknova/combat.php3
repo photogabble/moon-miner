@@ -8,7 +8,8 @@ function calcplanetbeams()
         global $basedefense;
 	
 	$energy_available = $sectorinfo[planet_energy];
-	$planetbeams = NUM_BEAMS($ownerinfo[beams] + $basedefense);
+        $base_factor = ($sectorinfo[base] == 'Y') ? $basedefense : 0;
+	$planetbeams = NUM_BEAMS($ownerinfo[beams] + $base_factor);
 	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
 	while($row = mysql_fetch_array($res))
 	{
@@ -36,9 +37,10 @@ function calcplanettorps()
 	global $sectorinfo;
 	global $level_factor;
         global $basedefense;
+        $base_factor = ($sectorinfo[base] == 'Y') ? $basedefense : 0;
 	
 	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
-	$torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $basedefense)) * 2;
+	$torp_launchers = round(pow($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 2;
 	$torps = $sectorinfo[base_torp];
 	while($row = mysql_fetch_array($res))
 	{
@@ -59,9 +61,9 @@ function calcplanetshields()
 	global $ownerinfo;
 	global $sectorinfo;
         global $basedefense;
-	
+        $base_factor = ($sectorinfo[base] == 'Y') ? $basedefense : 0;	
 	$res = mysql_query("SELECT * FROM ships WHERE sector=$playerinfo[sector] AND on_planet='Y'");
-	$planetshields = NUM_SHIELDS($ownerinfo[shields]) + $basedefense;
+	$planetshields = NUM_SHIELDS($ownerinfo[shields] + $base_factor);
 	$energy_available = $sectorinfo[planet_energy];
 	while($row = mysql_fetch_array($res))
 	{
