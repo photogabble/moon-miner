@@ -14,7 +14,7 @@
 	if(!$result->EOF) {
 	$playerinfo=$result->fields;
 	$l_mail_message=str_replace("[pass]",$playerinfo[password],$l_mail_message);
-	mail("$mail", "$l_mail_topic", "$l_mail_message\n\nhttp://$SERVER_NAME","From: webmaster@$SERVER_NAME\nReply-To: webmaster@$SERVER_NAME\nX-Mailer: PHP/" . phpversion());
+	mail("$mail", "$l_mail_topic", "$l_mail_message\r\n\r\nhttp://$SERVER_NAME","From: webmaster@$SERVER_NAME\r\nReply-To: webmaster@$SERVER_NAME\r\nX-Mailer: PHP/" . phpversion());
 	echo "$l_mail_sent $mail.";
         } else {
                 echo "<b>$l_mail_noplayer</b><br>";
