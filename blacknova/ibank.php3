@@ -438,6 +438,8 @@ function ibank_display_transfers()
     {
       // Payment is confirmed
       // Lets actually do it
+	  
+	  
       if($direction == "to")
       {
         @playerlog($ibank_owner,"IGB Interplanetary proceeds from $playerinfo[character_name] to $row[planet_name] of ".number_format($amount)." credits");
@@ -445,7 +447,7 @@ function ibank_display_transfers()
         mysql_query("$query");  
         $query = "UPDATE ibank_accounts SET ballance=ballance-$totalamount where id=$playerinfo[ship_id]";
         mysql_query("$query");
-        $query = "UPDATE universe SET planet_credits=planet_credits+$amount where sector_id=$payto";
+        $query = "UPDATE universe SET planet_credits=planet_credits+$amount where sector_id='$payto'";
         mysql_query("$query");    
         // Since we made changes lets update playerinfo;
         ibank_refreshdata();      
@@ -460,23 +462,36 @@ function ibank_display_transfers()
       }
       elseif($direction == "from")
       {
-        @playerlog($ibank_owner,"IGB Interplanetary proceeds from $playerinfo[character_name] to $row[planet_name] of ".number_format($amount)." credits");
-        $query = "UPDATE ibank_accounts SET ballance=ballance+$fee where id=$ibank_owner";
-        mysql_query("$query");  
-        $query = "UPDATE ibank_accounts SET ballance=ballance+$amount where id=$playerinfo[ship_id]";
-        mysql_query("$query");
-        $query = "UPDATE universe SET planet_credits=planet_credits-$totalamount where sector_id=$payto";
-        mysql_query("$query");    
-        // Since we made changes lets update playerinfo;
-        ibank_refreshdata();
-        echo '
-          <tr>
-          <td colspan=3>'.$planetinfo[planet_name].' has transfered </td><td align="right">'.number_format(round($amount)).' credits.</td>
-          </tr>
-          <tr>
-          <td colspan="4" align="center"><b>Thank you for using IGB.</b></td>
-          </tr>
-          ';  
+	  	  $testresult = mysql_query ("SELECT sector_id,planet_owner from universe WHERE sector_id='$payto'");
+		  $testrow=mysql_fetch_array($testresult);
+		  if($playerinfo[ship_id] != $testrow[planet_owner])
+		  {
+	        @playerlog($ibank_owner,"IGB Interplanetary proceeds from $playerinfo[character_name] to $row[planet_name] of ".number_format($amount)." credits");
+	        $query = "UPDATE ibank_accounts SET ballance=ballance+$fee where id=$ibank_owner";
+	        mysql_query("$query");  
+	        $query = "UPDATE ibank_accounts SET ballance=ballance+$amount where id=$playerinfo[ship_id]";
+	        mysql_query("$query");
+	        $query = "UPDATE universe SET planet_credits=planet_credits-$totalamount where sector_id=$payto";
+	        mysql_query("$query");    
+	        // Since we made changes lets update playerinfo;
+	        ibank_refreshdata();
+	        echo '
+	          <tr>
+	          <td colspan=3>'.$planetinfo[planet_name].' has transfered </td><td align="right">'.number_format(round($amount)).' credits.</td>
+	          </tr>
+	          <tr>
+	          <td colspan="4" align="center"><b>Thank you for using IGB.</b></td>
+	          </tr>
+	          ';  
+			}
+	      else
+	      {
+	        echo '
+	          <tr>
+	          <td colspan="4" align="center"><font color="Red"><b>You Can not Transfer From Planets You do not own.</b></font></td>
+	          </tr>
+	          ';
+	      }		
       }
       else
       {
@@ -520,7 +535,7 @@ function ibank_display_transfers()
           <td align="right">'.number_format($totalamount).' credits.</td>
           </tr>
           <tr>';
-          if($totalamount > $playerinfo[credits])
+          if($totalamount > $account[credits])
           {
             echo '    <td colspan="4" align="center"><b><font color="Red">*** INSUFFICIENT FUNDS TO COMPLETE TRANSFER ***</font></b></td>';
           }
