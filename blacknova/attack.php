@@ -17,7 +17,7 @@ if(checklogin())
   die();
 }
 //-------------------------------------------------------------------------------------------------
- $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[zones] READ, $dbtables[planets] WRITE, $dbtables[news] WRITE, $dbtables[logs] WRITE");
+ $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[bounty] WRITE $dbtables[zones] READ, $dbtables[planets] WRITE, $dbtables[news] WRITE, $dbtables[logs] WRITE");
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo=$result->fields;
 

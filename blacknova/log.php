@@ -759,7 +759,7 @@ function log_parse($entry)
     $retvalue[text] = str_replace("[placed_by]", "<font color=white><b>$placed_by</b></font>", $retvalue[text]);
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
- case LOG_BOUNTY_CLAIMED:
+ case LOG_BOUNTY_PAID:
     list($amount,$bounty_on) = split ("\|", $entry[data]);
     $retvalue[text] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
     $retvalue[text] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue[text]);
