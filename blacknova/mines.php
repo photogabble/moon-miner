@@ -145,10 +145,10 @@ else
   }
   else
   {
+     $nummines = stripnum($nummines);
+     $numfighters = stripnum($numfighters);
      if (empty($nummines)) $nummines = 0;
      if (empty($numfighters)) $numfighters = 0;
-     $nummines = stripnum($nummines);      
-     $numfighters = stripnum($numfighters);
      if ($nummines < 0) $nummines = 0;
      if ($numfighters < 0) $numfighters =0;
      if ($nummines > $playerinfo[torps])
