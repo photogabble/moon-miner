@@ -34,6 +34,10 @@ INSTALLATION
    edit the file config.php and select how many minutes you want between
    different events, eg turns or port regeneration.
 
+   ****NOTE**** this version now can do internal scheduling. It should be considered experimental.
+   To enable internal scheduling, set $sched_type = 1 in config.php
+   If you have access to cron, use the default cron scheduling as described above instead.
+
 3. Create the database:
    mysqladmin -uuser -ppass create dbname
 
