@@ -28,7 +28,7 @@
 		echo "<br>$l_feedback_info<br>";
 	} else {
 		echo "$l_feedback_messent<BR><BR>";
-		mail("$admin_mail", $l_feedback_subj, "IP address - $ip\nGame Name - $playerinfo[character_name]\n\n$content","From: $playerinfo[email]\nX-Mailer: PHP/" . phpversion());
+		mail("$admin_mail", $l_feedback_subj, "IP address - $ip\nGame Name - $playerinfo[character_name] - $gamedomain \n\n$content","From: $playerinfo[email]\nX-Mailer: PHP/" . phpversion());
 	}
 
     TEXT_GOTOMAIN();
