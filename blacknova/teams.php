@@ -83,7 +83,7 @@ function DISPLAY_ALL_ALLIANCES()
    echo "</TR>";
    $sql_query = "SELECT $dbtables[ships].character_name,
                      COUNT(*) as number_of_members,
-                     SUM($dbtables[ships].score) as total_score,
+                     ROUND(SQRT(SUM(POW($dbtables[ships].score,2)))) as total_score,
                      $dbtables[teams].id,
                      $dbtables[teams].team_name,
                      $dbtables[teams].creator
