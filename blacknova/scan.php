@@ -70,7 +70,7 @@ else
 
       if($hasbounty)
       {
-         $resx = $hasbounty=>fields;
+         $resx = $hasbounty->fields;
          if($resx[btytotal] > 0) 
          {
             $btyamount = $resx[btytoal];
