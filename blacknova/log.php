@@ -11,12 +11,7 @@ include("header.php3");
 
 connectdb();
 
-//if(checklogin())
-//{
-//  die();
-//}
-
-$res = mysql_query("SELECT character_name, ship_id FROM ships WHERE email='$username'");
+$res = mysql_query("SELECT character_name, ship_id, dhtml FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
 
 eregi ("ozilla.(.)", $HTTP_USER_AGENT, $mozver);
@@ -50,11 +45,11 @@ if($mode != 'compat')
 }
 
 if($screenres == 640)
-  $yres = 280;
+  $yres = 270;
 elseif($screenres == 800)
-  $yres = 400;
+  $yres = 390;
 elseif($screenres >= 1024)
-  $yres = 568;
+  $yres = 558;
 
 if($mode == 'full')
   echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:${yres}px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
@@ -214,7 +209,7 @@ if($mode != compat)
         	}
         	else if (bw.ns6 || bw.ie&&!bw.mac){
         		this.css.visibility= \'visible\';
-        		vis==\'visible\' ? this.fadeTo(100, 15, 40, fn) : this.fadeTo(0, 15, 40, fn);
+        		vis==\'visible\' ? this.fadeTo(100, 15, 10, fn) : this.fadeTo(0, 15, 10, fn);
         	}
         	else {
         		this.css.visibility= vis;
@@ -294,8 +289,10 @@ echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
 <?
 if($mode == 'moz')
   echo '<td colspan=2 style="border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid;" bgcolor=#63639C>';
-else
+elseif($mode == 'full')
   echo '<td colspan=2 bgcolor=#63639C>';
+else
+  echo "<td colspan=2><table border=1 width=100%><tr><td  bgcolor=#63639C>";
 
 if(empty($startdate))
   $startdate = date("Ymd");
@@ -307,102 +304,207 @@ while($row = mysql_fetch_array($res))
 $entry = $l_log_months[substr($startdate, 4, 2) - 1] . " " . substr($startdate, 6, 2) . " " . substr($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
-     "<div id=\"dynPage0\" class=\"dynPage\">" .
+     "\n<div id=\"dynPage0\" class=\"dynPage\">" .
      "<center>" .
      "<br>" .
      "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
      "<p>" .
-     "</center>" .
-     "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+     "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
+     "</center>";
 
-foreach($logs as $log)
+if(!empty($logs))
 {
-  $event = log_parse($log);
-  $time = $l_log_months[substr($log[time], 4, 2) - 1] . " " . substr($log[time], 6, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 8, 2) . ":" . substr($log[time], 10, 2);
+  foreach($logs as $log)
+  {
+    $event = log_parse($log);
+    $time = $l_log_months[substr($log[time], 4, 2) - 1] . " " . substr($log[time], 6, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 8, 2) . ":" . substr($log[time], 10, 2);
 
-  echo "<table border=0 cellspacing=5 width=100%>" .
-       "<tr>" .
-       "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
-       "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
-       "<tr><td colspan=2>" .
-       "<font size=2 color=#DEDEEF>" .
-       "$event[text]" .
-       "</td></tr>" .
-       "</table>" .
-       "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+    echo "<table border=0 cellspacing=5 width=100%>" .
+         "<tr>" .
+         "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
+         "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
+         "<tr><td colspan=2>" .
+         "<font size=2 color=#DEDEEF>" .
+         "$event[text]" .
+         "</td></tr>" .
+         "</table>" .
+         "<center><hr width=80% size=1 NOSHADE style=\"color: #040658\"></center>";
+  }
 }
 
 echo "<center>" .
      "<br>" .
      "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
      "<p>" .
+     "</center>" .
+     "</div>\n";
+
+$month = substr($startdate, 4, 2);
+$day = substr($startdate, 6, 2) - 1;
+$year = substr($startdate, 0, 4);
+
+$yesterday = mktime (0,0,0,$month,$day,$year);
+$yesterday = date("Ymd", $yesterday);
+
+$day = substr($startdate, 6, 2) - 2;
+
+$yesterday2 = mktime (0,0,0,$month,$day,$year);
+$yesterday2 = date("Ymd", $yesterday2);
+
+if($mode == 'compat')
+  echo "</td></tr></table>";
+
+if($mode != 'compat')
+{
+  $entry = $l_log_months[substr($yesterday, 4, 2) - 1] . " " . substr($yesterday, 6, 2) . " " . substr($yesterday, 0, 4);
+
+  unset($logs);
+  $res = mysql_query("SELECT * FROM logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
+  while($row = mysql_fetch_array($res))
+    $logs[] = $row;
+
+  echo "<div id=\"dynPage1\" class=\"dynPage\">" .
+       "<center>" .
+       "<br>" .
+       "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
+       "<p>" .
+       "</center>" .
+       "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+
+  if(!empty($logs))
+  {
+    foreach($logs as $log)
+    {
+      $event = log_parse($log);
+      $time = $l_log_months[substr($log[time], 4, 2) - 1] . " " . substr($log[time], 6, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 8, 2) . ":" . substr($log[time], 10, 2);
+
+      echo "<table border=0 cellspacing=5 width=100%>" .
+           "<tr>" .
+           "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
+           "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
+           "<tr><td colspan=2>" .
+           "<font size=2 color=#DEDEEF>" .
+           "$event[text]" .
+           "</td></tr>" .
+           "</table>" .
+           "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+    }
+  }
+
+  echo "<center>" .
+       "<br>" .
+       "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
+       "<p>" .
+       "</center>" .
+       "</div>\n";
+
+  $entry = $l_log_months[substr($yesterday2, 4, 2) - 1] . " " . substr($yesterday2, 6, 2) . " " . substr($yesterday2, 0, 4);
+
+  unset($logs);
+  $res = mysql_query("SELECT * FROM logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
+  while($row = mysql_fetch_array($res))
+    $logs[] = $row;
+
+  echo "<div id=\"dynPage2\" class=\"dynPage\">" .
+       "<center>" .
+       "<br>" .
+       "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
+       "<p>" .
+       "</center>" .
+       "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+
+  if(!empty($logs))
+  {
+    foreach($logs as $log)
+    {
+      $event = log_parse($log);
+      $time = $l_log_months[substr($log[time], 4, 2) - 1] . " " . substr($log[time], 6, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 8, 2) . ":" . substr($log[time], 10, 2);
+
+      echo "<table border=0 cellspacing=5 width=100%>" .
+           "<tr>" .
+           "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
+           "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
+           "<tr><td colspan=2>" .
+           "<font size=2 color=#DEDEEF>" .
+           "$event[text]" .
+           "</td></tr>" .
+           "</table>" .
+           "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+    }
+  }
+
+  echo "<center>" .
+       "<br>" .
+       "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
+       "<p>" .
+       "</center>" .
+       "</div>";
+
+}
+
+echo "</div>";
+
+$date1 = $l_log_months_short[substr($startdate, 4, 2) - 1] . " " . substr($startdate, 6, 2);
+$date2 = $l_log_months_short[substr($yesterday, 4, 2) - 1] . " " . substr($yesterday, 6, 2);
+$date3 = $l_log_months_short[substr($yesterday2, 4, 2) - 1] . " " . substr($yesterday2, 6, 2);
+
+$month = substr($startdate, 4, 2);
+$day = substr($startdate, 6, 2) - 3;
+$year = substr($startdate, 0, 4);
+
+$backlink = mktime (0,0,0,$month,$day,$year);
+$backlink = date("Ymd", $backlink);
+
+$day = substr($startdate, 6, 2) + 3;
+
+$nextlink = mktime (0,0,0,$month,$day,$year);
+if($nextlink > time())
+  $nextlink = time();
+$nextlink = date("Ymd", $nextlink);
+
+if($startdate == date("Ymd"))
+  $nonext = 1;
+
+if($mode != 'compat')
+{
+  echo "<td valign=bottom>" .
+       "<tr><td><td align=right>" .
+       "<img src=images/bottom_panel.gif>" .
+       "<br>" .
+       "<div style=\"position:relative; top:-23px;\">" .
+       "<font size=2><b>" .
+       "<a href=log.php?startdate=$backlink>««</a>&nbsp;&nbsp;&nbsp;" .
+       "<a href=\"#\" onclick=\"activate(2); return false;\" onfocus=\"if(this.blur)this.blur()\">$date3</a>" .
+       " | " .
+       "<a href=\"#\" onclick=\"activate(1); return false;\" onfocus=\"if(this.blur)this.blur()\">$date2</a>" .
+       " | " .
+       "<a href=\"#\" onclick=\"activate(0); return false;\" onfocus=\"if(this.blur)this.blur()\">$date1</a>";
+
+  if($nonext != 1)
+    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=$nextlink>»»</a>";
+     
+  echo "&nbsp;&nbsp;&nbsp;";
+}
+else
+{
+  echo "<tr><td><td align=right>" .
+       "<a href=log.php?startdate=$backlink><font color=white size =3><b>««</b></font></a>&nbsp;&nbsp;&nbsp;" .
+       "<a href=log.php?startdate=$yesterday2><font color=white size=3><b>$date3</b></font></a>" .
+       "&nbsp;|&nbsp;" .
+       "<a href=log.php?startdate=$yesterday><font color=white size=3><b>$date2</b></font></a>" .
+       " | " .
+       "<a href=log.php?startdate=$startdate><font color=white size=3><b>$date1</b></font></a>";
+
+  if($nonext != 1)
+    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=$nextlink><font color=white size=3><b>»»</b></font></a>";
+     
+  echo "&nbsp;&nbsp;&nbsp;";
+
+}
+
+echo "<tr><td><td><p><font size=2 face=arial>Click <A HREF=$interface><font color=#00ff00>here</font></A> to return to the main menu.";
+echo "</table>" .
      "</center>";
-
-?>
-
-</div>
-
-
-
-<div id="dynPage1" class="dynPage">
-<font color=white>
-<center>
-<br>
-<font size=2 color=#DEDEEF><b>Log entry for 30th November 2001<b></font>
-<p>
-</center>
-<hr width=80% size=1 NOSHADE style="color: #040658">
-
-<center>
-<br>
-<font size=2 color=#DEDEEF><b>End of log entry for 30th November 2001<b></font>
-<p>
-</center>
-
-</div>
-
-
-
-<div id="dynPage2" class="dynPage">
-<font color=white>
-<font color=white>
-<center>
-<br>
-<font size=2 color=#DEDEEF><b>Log entry for 29th November 2001<b></font>
-<p>
-</center>
-<hr width=80% size=1 NOSHADE style="color: #040658">
-
-<center>
-<br>
-<font size=2 color=#DEDEEF><b>End of log entry for 29th November 2001<b></font>
-<p>
-</center>
-<br>
-<br>
-<br>
-</div>
-
-</div>
-<td valign=bottom>
-<tr><td><td align=right>
-<img src=images/bottom_panel.gif>
-<br>
-<div style="position:relative; top:-23px;">
-<font size=2><b>
-<a href="#" onclick="activate(2); return false;" onfocus="if(this.blur)this.blur()">29 Nov</a>
-|
-<a href="#" onclick="activate(1); return false;" onfocus="if(this.blur)this.blur()">30 Nov</a>
-|
-<a href="#" onclick="activate(0); return false;" onfocus="if(this.blur)this.blur()">1 Dec</a>
-&nbsp;&nbsp;
-</table>
-</center>
-
-<?
-TEXT_GOTOMAIN();
-
-include("footer.php3");
 
 function log_parse($entry)
 {

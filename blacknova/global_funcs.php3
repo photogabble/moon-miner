@@ -110,10 +110,9 @@ function checklogin()
     {
       /* if the player doesn't have an escapepod - they're dead, delete them. */
       /* uhhh  don't delete them to prevent self-distruct inherit*/
-      echo "Player is DEAD!  Here's what happened:<BR><BR>";
+      echo "Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>";
 
-      include("player-log/" . $playerinfo['ship_id']);
-      echo "Better luck next time.";
+      echo "Better luck next time. Please <a href=logout.php3>logout</a>.";
       $flag = 1;
     }
   }

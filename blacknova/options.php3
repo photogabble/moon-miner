@@ -67,6 +67,12 @@ foreach($avail_lang as $curlang)
 
 echo "</select></td>";
 echo "</TR>";
+echo "<TR BGCOLOR=\"$color_header\">";
+echo "<TD COLSPAN=2><B>DHTML</B></TD>";
+echo "</TR>";
+echo "<TR BGCOLOR=\"$color_line2\">";
+$dhtml = ($playerinfo['dhtml'] == 'Y') ? "CHECKED" : "";
+echo "<TD>Enabled</TD><TD><INPUT TYPE=CHECKBOX NAME=dhtml VALUE=Y $dhtml></INPUT></TD>";
 echo "</TABLE>";
 echo "<BR>";
 echo "<INPUT TYPE=SUBMIT value=Save>";

@@ -89,6 +89,19 @@ foreach($avail_lang as $curlang)
   }
 }
 
+if($dhtml != 'Y')
+  $dhtml = 'N';
+
+$res = mysql_query("UPDATE ships SET dhtml='$dhtml' WHERE email='$username'");
+if($res)
+{
+  echo "Dynamic html setting updated.<BR><BR>";
+}
+else
+{
+  echo "Failed to update dynamic html setting.<BR><BR>";
+}
+
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
