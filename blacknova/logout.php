@@ -2,7 +2,7 @@
 
 
 include("config.php");
-include_once($gameroot . "/languages/$lang");
+include("languages/$lang");
 $title = "Logout";
 
 SetCookie("userpass","",0,$gamepath,$gamedomain);

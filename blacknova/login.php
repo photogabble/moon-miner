@@ -11,7 +11,7 @@ if(!empty($newlang))
   SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
 }
 
-include($gameroot . "/languages/$lang");
+include("languages/$lang");
 
 $title=$l_login_title;
 

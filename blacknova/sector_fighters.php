@@ -1,5 +1,5 @@
 <?
-  include_once($gameroot . "/languages/$lang");
+  include("languages/$lang");
 
                     echo $l_sf_attacking;
                     $targetfighters = $total_sector_fighters;

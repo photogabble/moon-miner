@@ -6,7 +6,7 @@ are generated in the server's default language. The news text
 will have to be removed from the database for the next version
 ************************************************************/
 
-include($gameroot . "/languages/$default_lang");
+include("languages/$default_lang");
 
   if(!isset($swordfish) || $swordfish != $adminpass)
     die("Script has not been called properly");

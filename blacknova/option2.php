@@ -1,7 +1,7 @@
 <?
 
 include("config.php");
-include_once($gameroot . "/languages/$lang");
+include("languages/$lang");
 connectdb();
 if(checklogin())
 {
@@ -32,7 +32,7 @@ if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 
 $lang=$newlang;
 SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include_once($gameroot . "/languages/$lang");
+include("languages/$lang");
 
 include("header.php");
 bigtitle();

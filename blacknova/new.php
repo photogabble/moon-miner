@@ -1,6 +1,6 @@
 <?
 include("config.php");
-include($gameroot . "/languages/$lang");
+include("languages/$lang");
 
 $title=$l_new_title;
 include("header.php");

@@ -1,5 +1,5 @@
 <?
-    include_once($gameroot . "/languages/$lang");
+    include("languages/$lang");
 
     $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$sector'");
     //Put the sector information into the array "sectorinfo"

@@ -3,7 +3,7 @@
 	include("config.php");
 	updatecookie();
 
-  include_once($gameroot . "/languages/$lang");
+  include("languages/$lang");
 	$title="View Galactic Distances";
 	include("header.php");
 

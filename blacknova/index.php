@@ -3,7 +3,7 @@
 
   if(empty($lang))
     $lang = $default_lang;
-  include_once($gameroot . "/languages/$lang");
+  include("languages/$lang");
 	$title="Login"; 
   $no_body=1;
 	include("header.php");

@@ -3,7 +3,7 @@ include("config.php");
 
 updatecookie();
 
-include_once($gameroot . "/languages/$lang");
+include("languages/$lang");
 
 $title=$l_rs_title;
 include("header.php");

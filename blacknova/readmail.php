@@ -2,7 +2,7 @@
 include("config.php");
 updatecookie();
 
-include_once($gameroot . "/languages/$lang");
+include("languages/$lang");
 $title=$l_readm_title;
 include("header.php");
 

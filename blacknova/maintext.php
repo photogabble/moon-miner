@@ -299,7 +299,7 @@ echo "</TABLE><BR>";
 echo "System Time:  ";
 print(date("l dS of F Y h:i:s A"));
 echo "<BR>Last System Update:  ";
-$lastupdate = filemtime($gameroot . "/cron.txt");
+$lastupdate = filemtime("cron.txt");
 print(date("l dS of F Y h:i:s A",$lastupdate)) ; 
 echo "<BR>Updates happen every 6 minutes.";
 //gen_score($playerinfo[ship_id]);

@@ -1,6 +1,6 @@
 <?
 	include("config.php");
-  include_once($gameroot . "/languages/$lang");
+  include("languages/$lang");
 
 	$title=$l_mail_title;
 	include("header.php");

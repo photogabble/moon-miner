@@ -8,7 +8,7 @@ $gameroot = "/usr/local/www/blacknova";
 // can find it at http://php.weblogs.com/ADODB. Enter the
 // path where it is installed here. I suggest simply putting
 // every ADOdb file in a subdir of BNT.
-$ADOdbpath = $gameroot . "/ADOdb";
+$ADOdbpath = "ADOdb";
 
 // Domain & path of the game on your webserver (used to validate login cookie)
 // This is the domain name part of the URL people enter to access your game.

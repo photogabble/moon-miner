@@ -313,7 +313,7 @@ function db_kill_player($ship_id)
   global $default_prod_torp;
   global $gameroot;
 
-  include($gameroot . "/languages/$default_lang");
+  include("languages/$default_lang");
 
   $db->Execute("UPDATE $dbtables[ships] SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
 

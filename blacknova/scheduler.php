@@ -36,11 +36,11 @@
 *    variable $sched_var_extrainfo.                               *
 *                                                                 *
 * If you are including files in your trigger file, it is important*
-* to use include_once() instead of include(), as your file might  *
+* to use include() instead of include(), as your file might  *
 * be called multiple times in a single execution. If you need to  *
 * define functions, you can put them in the sched_funcs.php file  *
 * that is included by the scheduler. Else put them in your own    *
-* include file, with an include_once statement. THEY CANNOT BE    *
+* include file, with an include statement. THEY CANNOT BE    *
 * DEFINED IN YOUR MAIN FILE BODY. This would cause PHP to issue a *
 * multiple function declaration error.                            *
 *                                                                 *
@@ -55,7 +55,7 @@ connectdb();
 
 bigtitle();
 
-include_once("sched_funcs.php");
+include("sched_funcs.php");
 
 srand((double)microtime() * 1000000);
 

@@ -1,7 +1,7 @@
 <?
 
 include("config.php");
-include_once($gameroot . "/languages/$lang");
+include("languages/$lang");
 updatecookie();
 
 $title="$l_opt_title"; 
