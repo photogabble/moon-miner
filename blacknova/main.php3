@@ -22,7 +22,7 @@ $result3 = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector
 
 bigtitle();
 
-srand((double)microtime()*1000000);
+srand((double)microtime() * 1000000);
 
 if($playerinfo[on_planet] == "Y")
 {
@@ -218,22 +218,33 @@ if($allow_navcomp)
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
 echo "<TR>";
 echo "<TD>RealSpace <A HREF=preset.php3>Presets</A>:</TD>";
-echo "<TD>&nbsp;&nbsp;[<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>]</TD>";
+echo "<TD>&nbsp;&nbsp;[<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>], <A HREF=rsmove.php3>Other</A></TD>";
 echo "</TR>";
 echo "<TR>";
 echo "<TD>Trade Routes:</TD>";
-echo "<TD>&nbsp;&nbsp;[<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>]</TD>";
+echo "<TD>&nbsp;&nbsp;[<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>], [<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>], <A HREF=traderoute.php3>Other</A></TD>";
 echo "</TR>";
 echo "</TABLE><BR>";
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_header\"><TD><A HREF=device.php3>Devices</A> - <A HREF=planet-report.php3>Planets</A> - <A HREF=log.php3>Log</A> - <A HREF=rsmove.php3>RealSpace</A> - <A HREF=traderoute.php3>Trade Route</A> - <A HREF=mailto2.php3>Send Message</A> - "; 
-echo "<A HREF=ranking.php3>Rankings</A> - <A HREF=lastusers.php3>Last Users</A> - <A HREF=options.php3>Options</A> - <A HREF=feedback.php3>Feedback</A> - <A HREF=help.php3>Help</A>";
+echo "<TR BGCOLOR=\"$color_header\">";
+echo "<TD>";
+echo "<A HREF=device.php3>Devices</A> - ";
+echo "<A HREF=planet-report.php3>Planets</A> - ";
+echo "<A HREF=log.php3>Log</A> - ";
+echo "<A HREF=mailto2.php3>Send Message</A> - "; 
+echo "<A HREF=ranking.php3>Rankings</A> - ";
+echo "<A HREF=lastusers.php3>Last Users</A> - ";
+echo "<A HREF=options.php3>Options</A> - ";
+echo "<A HREF=feedback.php3>Feedback</A> - ";
+echo "<A HREF=help.php3>Help</A>";
 if(!empty($link_forums))
 {
   echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";
 }
-echo "</TD><TD><A HREF=logout.php3>Logout</A></TD></TR>";
+echo "</TD>";
+echo "<TD><A HREF=logout.php3>Logout</A></TD>";
+echo "</TR>";
 echo "</TABLE><BR>";
 echo "System Time:  ";
 print(date("l dS of F Y h:i:s A"));
