@@ -606,7 +606,7 @@ ibank_display_footer();
 //    ALso makes personal loans, Bribes etc possible.
 function ibank_display_payments()
 {
-  global $playerinfo,$payto,$amount,$confirmed,$ibank_paymentfee;
+  global $playerinfo,$payto,$amount,$confirmed,$ibank_paymentfee,$account;
   if(!isset($payto)) {
     $lresult = mysql_query ("SELECT ship_id,ship_name,ship_destroyed,character_name FROM ships WHERE ship_destroyed !='Y' AND ship_id != $playerinfo[ship_id] ORDER BY character_name ASC");
   } else {
