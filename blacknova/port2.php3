@@ -330,10 +330,10 @@ else
       }
    }
 
-print      $trade_ore       =  TRADE($ore_price, $ore_delta, $sectorinfo[port_ore], $ore_limit, $inventory_factor, "ore", $trade_ore);
-print      $trade_organics  =  TRADE($organics_price, $organics_delta, $sectorinfo[port_gorganics], $organics_limit, $inventory_factor, "organics", $trade_organics );    
-print      $trade_goods     =  TRADE($goods_price, $goods_delta, $sectorinfo[port_goods], $goods_limit, $inventory_factor, "goods", $trade_goods);
-print      $trade_energy    =  TRADE($energy_price, $energy_delta, $sectorinfo[port_energy], $energy_limit, $inventory_factor, "energy", $trade_energy);
+   $trade_ore       =  TRADE($ore_price, $ore_delta, $sectorinfo[port_ore], $ore_limit, $inventory_factor, "ore", $trade_ore);
+   $trade_organics  =  TRADE($organics_price, $organics_delta, $sectorinfo[port_gorganics], $organics_limit, $inventory_factor, "organics", $trade_organics );    
+   $trade_goods     =  TRADE($goods_price, $goods_delta, $sectorinfo[port_goods], $goods_limit, $inventory_factor, "goods", $trade_goods);
+   $trade_energy    =  TRADE($energy_price, $energy_delta, $sectorinfo[port_energy], $energy_limit, $inventory_factor, "energy", $trade_energy);
     
   
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
