@@ -437,10 +437,12 @@ function furangeemove()
   // *********************************
   global $playerinfo;
   global $sector_max;
+  global $targetlink;
 
   // *********************************
   // ***** OBTAIN A TARGET LINK ******
   // *********************************
+  if ($targetlink==$playerinfo[sector]) $targetlink=0;
   $linkres = mysql_query ("SELECT * FROM links WHERE link_start='$playerinfo[sector]'");
   if ($linkres>0)
   {
@@ -495,31 +497,29 @@ function furangeemove()
   // *********************************
   if ($targetlink>0)
   {
-    $result3 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
+    $resultf = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
     $i = 0;
     $total_sector_fighters = 0;
-    if($result3 > 0)
+    if($resultf > 0)
     {
-      while($row = mysql_fetch_array($result3))
+      while($row = mysql_fetch_array($resultf))
       {
         $defences[$i] = $row;
         $total_sector_fighters += $defences[$i]['quantity'];
         $i++;
       }
     }
-    mysql_free_result($result3);
-    $result4 = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$targetlink' and defence_type ='M'");
+    $resultm = mysql_query ("SELECT * FROM sector_defence WHERE sector_id='$targetlink' and defence_type ='M'");
     $i = 0;
     $total_sector_mines = 0;
-    if($result4 > 0)
+    if($resultm > 0)
     {
-      while($row = mysql_fetch_array($result4))
+      while($row = mysql_fetch_array($resultm))
       {
         $defences[$i] = $row;
         $total_sector_mines += $defences[$i]['quantity'];
         $i++;
       }
-      mysql_free_result($result4);
     }
     if ($total_sector_fighters>0 || $total_sector_mines>0 || ($total_sector_fighters>0 && $total_sector_mines>0))
     //*** DEST LINK HAS DEFENCES ***
@@ -842,7 +842,8 @@ function furangeehunter()
     }
     $i++;
   }
-  echo "Target is $targetinfo[character_name] <BR>";  
+  // Debug
+  // echo "Target is $targetinfo[character_name] <BR>";  
 
   // *********************************
   // *** WORM HOLE TO TARGET SECTOR **
@@ -867,6 +868,9 @@ function furangeehunter()
     // *** TIME TO ATTACK THE TARGET ***
     playerlog($playerinfo[ship_id],"Furangee launching an attack on $targetinfo[character_name]."); 
     furangeetoship($targetinfo[ship_id]);
+  } else
+  {
+    plyerlog($playerinfo[ship_id],"Furangee hunt failed, target $targetinfo[character_name] was in a no attack zone.");
   }
 }
 
