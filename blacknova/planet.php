@@ -78,6 +78,33 @@ if(!empty($planetinfo))
      $l_planet_named=str_replace("[planetname]",$planetinfo[name],$l_planet_named);
       echo "$l_planet_named<BR><BR>";
     }
+    if($playerinfo['ship_id'] == $planetinfo['owner']) 
+    { 
+       if($destroy==1 && $allow_genesis_destroy) 
+       { 
+          echo "<font color=red>$l_planet_confirm</font><br><A HREF=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>"; 
+          echo "<A HREF=planet.php?planet_id=$planet_id>no!</A><BR><br>"; 
+       } 
+       elseif($destroy==2 && $allow_genesis_destroy) 
+       { 
+          if($playerinfo[dev_genesis] > 0) 
+          { 
+             $update = $db->Execute("delete from $dbtables[planets] where planet_id=$planet_id"); 
+             $update2=$db->Execute("UPDATE $dbtables[ships] SET turns_used=turns_used+1, turns=turns-1,dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]"); 
+             $update3=$db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE planet_id=$planet_id"); 
+             echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">"; 
+          } 
+          else 
+          { 
+             echo "$l_gns_nogenesis<br>"; 
+          } 
+       } 
+       elseif($allow_genesis_destroy) 
+       { 
+          echo "<A onclick=\"javascript: alert ('alert:$l_planet_warning');\" HREF=planet.php?planet_id=$planet_id&destroy=1>$l_planet_destroyplanet</a><br>"; 
+       } 
+    } 
+
     if($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
     {
       /* owner menu */

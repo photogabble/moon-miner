@@ -127,6 +127,23 @@ switch($response) {
       break;
    case "place":
       bigtitle();
+      $bounty_on = stripnum($bounty_on);
+      $ex = $db->Execute("SELECT * from $dbtables[ships] WHERE ship_id = $bounty_on");
+      if(!$ex)
+      {
+	echo "$l_by_notexists<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php");
+	die();
+      }
+      $bty = $ex->fields;
+      if ($bty[ship_destroyed] == "Y")
+      {
+	echo "$l_by_destroyed<BR><BR>";
+	TEXT_GOTOMAIN();
+	include("footer.php");
+	die();
+      }
       if ($playerinfo[turns]<1 )
       {
 	echo "$l_by_noturn<BR><BR>";
@@ -161,8 +178,14 @@ switch($response) {
          $percent = $bounty_maxvalue * 100;
          $score = gen_score($playerinfo[ship_id]);
          $maxtrans = $score * $score * $bounty_maxvalue;
-
-         if($amount > $maxtrans)
+         $previous_bounty = 0;
+         $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM $dbtables[ships] WHERE bounty_on = $bounty_on AND placed_by = $playerinfo[ship_id]");
+         if($pb)
+         {
+            $prev = $pb->fields;
+            $previous_bounty = $prev[totalbounty];
+         }
+         if($amount + previous_bounty > $maxtrans)
          {   
             echo "$l_by_toomuch<BR><BR>";
             TEXT_GOTOMAIN();

@@ -2,8 +2,6 @@
 	include("config.php");
 	updatecookie();
 
-  include("languages/$lang");
-
 	$title=$l_planet3_title;
 	include("header.php");
 	connectdb();
@@ -28,6 +26,14 @@
 		include("footer.php");
 		die();
 	}
+
+if($planetinfo[sector_id] <> $playerinfo[sector])
+{
+   echo "$l_planet2_sector<BR><BR>";
+   TEXT_GOTOMAIN();
+   include("footer.php");
+   die();
+}
   if (empty($planetinfo))
 
   {
