@@ -1027,6 +1027,8 @@ if($sectorinfo[planet] == 'Y')
       else
       {
         playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was scanned by $playerinfo[character_name].");
+        /* scramble results by scan error factor. */
+        $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
         echo "Scan results on $sectorinfo[planet_name], owned by:  $ownerinfo[character_name]<BR><BR>";
         echo "<table>";
         echo "<tr><td>Commodities:</td><td></td>";
@@ -1034,7 +1036,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_organics]</td></tr>";
+          $sc_planet_organics=round($sectorinfo[planet_organics] * $sc_error / 100);
+          echo "<td>$sc_planet_organics</td></tr>";
         }
         else
         {
@@ -1044,7 +1047,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_ore]</td></tr>";
+          $sc_planet_ore=round($sectorinfo[planet_ore] * $sc_error / 100);
+          echo "<td>$sc_planet_ore</td></tr>";
         }
         else
         {
@@ -1054,7 +1058,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_goods]</td></tr>";
+          $sc_planet_goods=round($sectorinfo[planet_goods] * $sc_error / 100);
+          echo "<td>$sc_planet_goods</td></tr>";
         }
         else
         {
@@ -1064,7 +1069,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_energy]</td></tr>";
+          $sc_planet_energy=round($sectorinfo[planet_energy] * $sc_error / 100);
+          echo "<td>$sc_planet_energy</td></tr>";
         }
         else
         {
@@ -1074,7 +1080,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_colonists]</td></tr>";
+          $sc_planet_colonists=round($sectorinfo[planet_colonists] * $sc_error / 100);
+          echo "<td>$sc_planet_colonists</td></tr>";
         }
         else
         {
@@ -1084,7 +1091,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_credits]</td></tr>";
+          $sc_planet_credits=round($sectorinfo[planet_credits] * $sc_error / 100);
+          echo "<td>$sc_planet_credits</td></tr>";
         }
         else
         {
@@ -1105,7 +1113,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[base_torp]</td></tr>";
+          $sc_base_torp=round($sectorinfo[base_torp] * $sc_error / 100);
+          echo "<td>$sc_base_torp</td></tr>";
         }
         else
         {
@@ -1115,7 +1124,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$sectorinfo[planet_fighters]</td></tr>";
+          $sc_planet_fighters=round($sectorinfo[planet_fighters] * $sc_error / 100);
+          echo "<td>$sc_planet_fighters</td></tr>";
         }
         else
         {
@@ -1125,7 +1135,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$ownerinfo[beams]</td></tr>";
+          $sc_beams=round($ownerinfo[beams] * $sc_error / 100);
+          echo "<td>$sc_beams</td></tr>";
         }
         else
         {
@@ -1135,7 +1146,8 @@ if($sectorinfo[planet] == 'Y')
         $roll = rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$ownerinfo[torp_launchers]</td></tr>";
+          $sc_torp_launchers=round($ownerinfo[torp_launchers] * $sc_error / 100);
+          echo "<td>$sc_torp_launchers</td></tr>";
         }
         else
         {
@@ -1145,7 +1157,8 @@ if($sectorinfo[planet] == 'Y')
         $roll=rand(1, 100);
         if($roll < $success)
         {
-          echo "<td>$ownerinfo[shields]</td></tr>";
+          $sc_shields=round($ownerinfo[shields] * $sc_error / 100);
+          echo "<td>$sc_shields</td></tr>";
         }
         else
         {

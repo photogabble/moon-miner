@@ -100,5 +100,6 @@ $max_turns = 600;
 $max_emerwarp = 10;
 
 $fullscan_cost = 1;
+$scan_error_factor=20;
 
 ?>
