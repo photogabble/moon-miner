@@ -694,7 +694,7 @@ function ibank_display_payments()
         </tr>
         <tr>
         ';
-        if($totalamount > $playerinfo[credits])
+        if($totalamount > $account[ballance])
         {
           echo '    <td colspan="4" align="center"><b><font color="Red">*** INSUFFICIENT FUNDS TO COMPLETE PAYMENT ***</font></b></td>';
         }
