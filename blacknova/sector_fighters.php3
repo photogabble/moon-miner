@@ -102,6 +102,7 @@
                  }
                  $fighterslost = NUMBER($sectorinfo[fighters] - $targetfighters);
                  playerlog($sectorinfo[fm_owner],"$playerinfo[character_name] destroyed $fighterslost of your sector defence fighters in sector $sector.");
+                 playerlog($playerinfo[ship_id],"You destroyed $fighterslost sector defence fighters in sector $sector.");
                  if($playerarmour < 1)
                  {
                     echo "Your ship has been destroyed!<BR><BR>";
