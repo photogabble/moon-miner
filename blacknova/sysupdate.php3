@@ -32,7 +32,7 @@ else
   srand((double)microtime() * 1000000);
   
   //-------------------------------------------------------------------------------------------------
-  mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE");
+  mysql_query("LOCK TABLES ships WRITE, universe WRITE, ibank_accounts WRITE, zones READ");
 
   // add turns
   echo "<B>TURNS</B><BR><BR>";
