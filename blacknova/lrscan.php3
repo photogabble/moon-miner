@@ -14,6 +14,11 @@ if(checklogin())
 
 bigtitle();
 
+srand((double)microtime() * 1000000);
+
+//-------------------------------------------------------------------------------------------------
+mysql_query("LOCK TABLES ships WRITE, universe READ, links READ");
+
 // get user info
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
@@ -170,16 +175,36 @@ else
   if($sector != 0)
   {
     // get ships located in the scanned sector
-    $result4 = mysql_query("SELECT ship_id,ship_name,character_name FROM ships WHERE sector='$sector' AND on_planet='N'");
+    $result4 = mysql_query("SELECT ship_id,ship_name,character_name,cloak FROM ships WHERE sector='$sector' AND on_planet='N'");
     if(mysql_num_rows($result4) < 1)
     {
       echo "None";
     }
     else
     {
+      $num_detected = 0;
       while($row = mysql_fetch_array($result4))
       {
-        echo "$row[ship_name] ($row[character_name])<BR>";
+        // display other ships in sector - unless they are successfully cloaked
+        $success = SCAN_SUCCESS($playerinfo['sensors'], $row['cloak']);
+        if($success < 5)
+        {
+          $success = 5;
+        }
+        if($success > 95)
+        {
+          $success = 95;
+        }
+        $roll = rand(1, 100);
+        if($roll < $success)
+        {
+          $num_detected++;
+          echo $row['ship_name'] . "(" . $row['character_name'] . ")<BR>";
+        }
+      }
+      if(!$num_detected)
+      {
+        echo "None";
       }
     }
   }
@@ -230,6 +255,9 @@ else
   echo "</TABLE><BR>";
   echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
 }
+
+mysql_query("UNLOCK TABLES");
+//-------------------------------------------------------------------------------------------------
 
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
