@@ -486,8 +486,9 @@ else
 </td>
 </tr>
 </table>
-<b><center><font size=2 face="arial" color=white></font><br></center></b>
-
+<?
+if($num_defences>0) echo "<b><center><font size=2 face=\"arial\" color=white>Sector Defences</font><br></center></b>";
+?>
 <table border=0 width=100%>
 <tr>
 <?

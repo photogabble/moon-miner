@@ -49,7 +49,6 @@ else
 }
 $defence_type = $defenceinfo['defence_type'] == 'F' ? 'Fighters' : 'Mines';
 $qty = $defenceinfo['quantity'];
-echo "There are  $qty $defence_type owned by $defence_owner in this sector.<BR>";
 if($defenceinfo['fm_setting'] == 'attack')
 {
    $set_attack = 'CHECKED';
@@ -65,10 +64,35 @@ switch($response) {
    case "fight":
       bigtitle();
       $sector = $playerinfo[sector] ;
-      $countres = mysql_query("SELECT SUM(quantity) as totalfighters FROM sector_defence where sector_id = $sector and defence_type = 'F'");
-      $ttl = mysql_fetch_array($countres);
-      $total_sector_fighters = $ttl['totalfighters'];
-      include("sector_fighters.php3");    
+      if($defenceinfo['defence_type'] == 'F')
+      {
+         $countres = mysql_query("SELECT SUM(quantity) as totalfighters FROM sector_defence where sector_id = $sector and defence_type = 'F'");
+         $ttl = mysql_fetch_array($countres);
+         $total_sector_fighters = $ttl['totalfighters'];
+         include("sector_fighters.php3");    
+      }
+      else
+      {
+          // Attack mines goes here
+         $countres = mysql_query("SELECT SUM(quantity) as totalmines FROM sector_defence where sector_id = $sector and defence_type = 'M'");
+         $ttl = mysql_fetch_array($countres);
+         $total_sector_mines = $ttl['mines'];
+         $playerbeams = NUM_BEAMS($playerinfo[beams]);
+         if($playerbeams>$playerinfo[ship_energy])
+         {
+            $playerbeams=$playerinfo[ship_energy];
+         }
+         if($playerbeams>$total_sector_mines)
+         {
+            $playerbeams=$total_sector_mines;
+         }
+         echo "Your beams destroyed $playerbeams mines<BR>";
+         $update4b = mysql_query ("UPDATE ships SET ship_energy=energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
+         explode_mines($sector,$playerbeams);
+         message_defence_owner($sector,"$playerinfo['character_name'] destroyed $playerbeams mines in sector $sector.");
+         TEXT_GOTOMAIN();
+         die();
+      }
       break;
    case "retrieve":
       if($quantity < 0) $quantity = 0;
