@@ -1,6 +1,0 @@
-#!/bin/sh
-
-g++ install.cpp -o installer
-./installer
-rm -f install.cpp
-rm -f installer
