@@ -2,7 +2,8 @@
 include("config.php3");
 include("includes/newsservices.php3");
 
-$title="BlackNova Universe News";
+include($gameroot . $default_lang);
+$title=$l_news_title;
 include("header.php3");
 
 connectdb();
@@ -21,17 +22,13 @@ $nextday = getnextday($startdate);
     <tr>
       <td height="73" width="27%"><img src="images/bnnhead.gif" width="312" height="123"></td>
       <td height="73" width="73%" bgcolor="#000000" valign="bottom" align="right">
-        <p><font size="-1">BNN is among the galaxy's leaders<br>
-          in news and information delivery.<br>
-          Staffed 24 hours, seven days a week by a <br>
-          dedicated staff in BNN's galaxy headquarters <br>
-          in Alpha Centaury and in bureaus galaxywide!</font></p>
-        <p> News of <?php echo $startdate?></p>
+        <p><font size="-1">$l_news_info</font></p>
+        <p> $l_news_for <?php echo $startdate?></p>
       </td>
     </tr>
     <tr>
       <td height="22" width="27%" bgcolor="#00001A">&nbsp;</td>
-      <td height="22" width="73%" bgcolor="#00001A" align="right"><a href=news.php?startdate=<?php echo $previousday?>>previous day</a> - <a href=news.php?startdate=<?php echo $nextday?>>next day</a></td>
+      <td height="22" width="73%" bgcolor="#00001A" align="right"><a href=news.php?startdate=<?php echo $previousday?>>$l_news_prev</a> - <a href=news.php?startdate=<?php echo $nextday?>>$l_news_next</a></td>
     </tr>
 <?php
 
@@ -44,7 +41,7 @@ if(!mysql_num_rows($res))
 {
 
     //No news
-    echo "<tr><td bgcolor=\"#00001A\" align=\"center\">News Flash</td><td bgcolor=\"#00001A\" align=\"right\">Sorry, no news today.</td></tr></table><p align=left>";
+    echo "<tr><td bgcolor=\"#00001A\" align=\"center\">$l_news_flash</td><td bgcolor=\"#00001A\" align=\"right\">$l_news_none</td></tr></table><p align=left>";
 
     //Display link to the main page
     TEXT_GOTOMAIN();

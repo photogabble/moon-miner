@@ -427,4 +427,45 @@ $l_lrs_click		 = "Click one of the links to move to that sector.";
 $l_lrs_cantscan		 = "Can't scan sector from current sector!";
 $l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
 $l_lrs_moveto		 = "to move to sector";
+
+// modify-defences.php
+
+$l_md_title		 = "Sector Defences";
+$l_md_invalid		 = "Invalid Sector Defence";
+$l_md_nolonger		 = "The sector defence selected is no longer there.";
+$l_md_you		 = "you";
+$l_md_bmines		 = "Your beams destroyed"
+$l_md_msgdownerb	 = "[name] destroyed [mines] mines in sector [sector]."
+$l_md_retr		 = "You retrieved";
+$l_md_mode		 = "The fighters selected have been set to [mode] mode.";
+$l_md_consist		 = "This sector defence consists of [qty] [type] owned by [owner].";
+$l_md_youcan		 = "You can";
+$l_md_retrieve		 = "Retrieve";
+$l_md_change		 = "Change Fighter settings";
+$l_md_cmode		 = "Fighter mode";
+$l_md_attack		 = "Attack";
+$l_md_toll		 = "Toll";
+$l_md_attdef		 = "Attack the Sector Defences. All sector fighters will retaliate.";
+
+// news.php
+
+$l_news_title		 = "BlackNova Universe News";
+$l_news_info		 = "BNN is among the galaxy's leaders<br>
+                            in news and information delivery.<br>
+                            Staffed 24 hours, seven days a week by a <br>
+                            dedicated staff in BNN's galaxy headquarters <br>
+                            in Alpha Centaury and in bureaus galaxywide!";
+$l_news_for		 = "News for";
+$l_news_prev		 = "previous day";
+$l_news_next		 = "next day";
+$l_news_none		 = "Sorry, no news today.";
+$l_news_flash		 = "News Flash";
+
+// dump.php
+
+$l_dump_title		 = "Dumping colonists";
+$l_dump_turn		 = "You need at least one turn to dump colonists.";
+$l_dump_nocol		 = "You have no colonists on your ship to begin with.";
+$l_dump_dumped		 = "Colonists dumped at supply depot.";
+$l_dump_nono		 = "You need to be at a supply depot to do this.";
 ?>

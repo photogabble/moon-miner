@@ -1,9 +1,9 @@
 <?
-
 	include("config.php3");
 	updatecookie();
 
-	$title="Dumping colonists";
+	include($gameroot . $default_lang);
+	$title=$l_dump_title;
 	include("header.php3");
 
 	connectdb();
@@ -15,25 +15,25 @@
 
 	$result2 = mysql_query("SELECT * FROM universe WHERE sector_id=$playerinfo[sector]");
 	$sectorinfo=mysql_fetch_array($result2);
-        bigtitle();	
+        bigtitle();
 
 	if ($playerinfo[turns]<1)
 	{
-		echo "You need at least one turn to dump colonists.<BR><BR>";
+		echo "$l_dump_turn<BR><BR>";
 		TEXT_GOTOMAIN();
-		include("footer.php3");		
+		include("footer.php3");
 		die();
 	}
 	if ($playerinfo[ship_colonists]==0)
 	{
-		echo "You have no colonists on your ship to begin with.<BR><BR>";
+		echo "$l_dump_nocol<BR><BR>";
 	} elseif ($sectorinfo[port_type]=="special") {
 		$update = mysql_query("UPDATE ships SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
-		echo "Colonists dumped at supply depot.<BR><BR>";
+		echo "$l_dump_dumped<BR><BR>";
 	} else {
-		echo "You need to be at a supply depot to do this.<BR><BR>";
+		echo "$l_dump_nono<BR><BR>";
 	}
 	TEXT_GOTOMAIN();
 	include("footer.php3");
 
-?> 
+?>
