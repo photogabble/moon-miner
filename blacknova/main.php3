@@ -386,8 +386,12 @@ if($sectorinfo[fm_owner] == $playerinfo[ship_id] )
 {
   if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
   {
-     echo "<td align=center valign=top>";
-     echo "<br><font color=white>You have $sectorinfo[mines] mines and $sectorinfo[fighters] fighters in this sector.</font><br>";
+     $minedesc = 'mines';
+     $fighterdesc = 'fighters';
+     if($sectorinfo[mines] == 1) $minedesc = 'mine';
+     if($sectorinfo[fighters] == 1) $fighterdesc = 'fighter';
+     echo "</tr><tr><td align=center valign=top>";
+     echo "<br><font color=white>You have $sectorinfo[mines] $minedesc and $sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting]) in this sector.</font><br>";
      echo "</td>";
   }
 } 
