@@ -57,11 +57,11 @@ if(!empty($planetinfo))
     $result3 = mysql_query("SELECT * FROM ships WHERE ship_id=$planetinfo[owner]");
     $ownerinfo = mysql_fetch_array($result3);
   }
- // if($planetinfo[defeated] && $planetinfo[fighters] > 0) 
- // { 
- //   $update = mysql_query("UPDATE planets SET defeated='N' WHERE planet_id=$planet_id");
- //   $planetinfo[defeated] = "N";
- // }
+  if($planetinfo[defeated] && $planetinfo[fighters] > 0) 
+  { 
+    $update = mysql_query("UPDATE planets SET defeated='N' WHERE planet_id=$planet_id");
+    $planetinfo[defeated] = "N";
+  }
   if(empty($command))
   {
     /* ...if there is no planet command already */
