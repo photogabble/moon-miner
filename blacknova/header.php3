@@ -34,7 +34,7 @@ echo "body {font-family: Arial, Tahoma, Helvetica, sans-serif; font-size: x-smal
 
 if($interface=="main.php3")
 {
-	echo "<BODY BACKGROUND=\"images/bgoutspace1.gif\" bgcolor=#000000 text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#808080\" alink=\"#ff0000\">";
+	echo "<BODY BACKGROUND=\"images/bgoutspace1.gif\" bgcolor=#000000 text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\">";
 }
 else
 {

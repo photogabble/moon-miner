@@ -52,6 +52,11 @@ else
   else
     $attack="Not allowed";
 
+  if($row[allow_defenses] == 'Y')
+    $defense = "Allowed";
+  else
+    $defense = "Not allowed";
+
   if($row[allow_warpedit] == 'Y')
     $warpedit="Allowed";
   else
@@ -65,7 +70,7 @@ else
   if($row[allow_trade] == 'Y')
     $trade="Allowed";
   elseif($row[allow_trade] == 'L')
-    $trade="Limited to owner and team";
+    $trade="Limited to owner and allies";
   elseif($row[allow_trade] == 'N')
     $trade="Not allowed";
 
@@ -82,59 +87,14 @@ else
        "<tr bgcolor=$color_line1><td><font color=white size=3>&nbsp;Zone owner</font></td><td align=center><font color=white size=3>$ownername&nbsp;</font></td></tr>" .
        "<tr bgcolor=$color_line2><td><font color=white size=3>&nbsp;Beacons</font></td><td align=center><font color=white size=3>$beacon&nbsp;</font></td></tr>" .
        "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Attacking</font></td><td align=center><font color=white size=3>$attack&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Warp Editors</font></td><td align=center><font color=white size=3>$warpedit&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Planets</font></td><td align=center><font color=white size=3>$planet&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Trading at port</font></td><td align=center><font color=white size=3>$trade&nbsp;</font></td></tr>" .
-       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Maximum hull size allowed</font></td><td align=center><font color=white size=3>$hull&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Sector defenses</font></td><td align=center><font color=white size=3>$defense&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Warp Editors</font></td><td align=center><font color=white size=3>$warpedit&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Planets</font></td><td align=center><font color=white size=3>$planet&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;Trading at port</font></td><td align=center><font color=white size=3>$trade&nbsp;</font></td></tr>" .
+       "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;Maximum hull size allowed</font></td><td align=center><font color=white size=3>$hull&nbsp;</font></td></tr>" .
        "</table>" .
        "</td></tr>" .
        "</table>";
-
-/*  
-  echo "<TABLE BORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"0\" WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>$row[zone_name]</B><TD><TD></TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Beacons</TD><TD>";
-  
-  if($row[allow_beacon] == 'Y')
-    echo "Allowed";
-  else
-    echo "Not allowed";
-  
-  echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Attacking</TD><TD>";
-  
-  if($row[allow_attack] == 'Y')
-    echo "Allowed";
-  else
-    echo "Not allowed";
-  
-  echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Warp Edits</TD><TD>";
-  
-  if($row[allow_warpedit] == 'Y')
-  	echo "Allowed";
-  else
-    echo "Not allowed";
-  
-  echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Planets</TD><TD>";
-  
-  if($row[allow_planet] == 'Y')
-    echo "Allowed";
-  else
-    echo "Not allowed";
-  
-  echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Maximum Hull Level Allowed</TD><TD>";
-  
-  if(!$row[max_hull])
-    echo "Unlimited";
-  else
-    echo "$row[max_hull]";
-  
-  echo "</TD></TR>";
-  echo "</TABLE>";
-*/
 }
 
 echo "<BR><BR>";

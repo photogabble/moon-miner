@@ -181,6 +181,7 @@ mysql_query("CREATE TABLE zones(" .
             "allow_warpedit enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "allow_planet enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "allow_trade enum('Y','L','N') DEFAULT 'Y' NOT NULL," .
+            "allow_defenses enum('Y','L','N') DEFAULT 'Y' NOT NULL," .
             "max_hull bigint(20) DEFAULT '0' NOT NULL," .
             "PRIMARY KEY(zone_id)," .
             "KEY zone_id(zone_id)" .

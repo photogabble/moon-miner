@@ -158,9 +158,10 @@ switch ($teamwhat) {
 			echo "</FORM>";
 			echo "<BR><BR>";
 		} else {
-			mysql_query("LOCK TABLES ships WRITE, teams WRITE");
+			mysql_query("LOCK TABLES ships WRITE, teams WRITE, zones WRITE");
 			$res = mysql_query("INSERT INTO teams (id,creator,team_name,number_of_members) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1')");
-			mysql_query("UPDATE ships SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
+      mysql_query("INSERT INTO zones VALUES('','$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+      mysql_query("UPDATE ships SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
 			mysql_query("UNLOCK TABLES");
 			echo "Alliance <B>$teamname</B> has been created and you are its leader.<BR><BR>";
 			playerlog($playerinfo[ship_id],"You have created Alliance <B>$teamname</B>");
