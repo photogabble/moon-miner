@@ -598,4 +598,161 @@ function furangeeregen()
 
 }
 
+function furangeetrade()
+{
+  // *********************************
+  // *** SETUP GENERAL VARIABLES  ****
+  // *********************************
+  global $playerinfo;
+  global $inventory_factor;
+  global $ore_price;
+  global $ore_delta;
+  global $ore_limit;
+  global $goods_price;
+  global $goods_delta;
+  global $goods_limit;
+  global $organics_price;
+  global $organics_delta;
+  global $organics_limit;
+
+  // *********************************
+  // *** OBTAIN SECTOR INFORMATION ***
+  // *********************************
+  $sectres = mysql_query ("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'");
+  $sectorinfo = mysql_fetch_array($sectres);
+
+  // *********************************
+  // **** OBTAIN ZONE INFORMATION ****
+  // *********************************
+  $zoneres = mysql_query ("SELECT zone_id,allow_attack,allow_trade FROM zones WHERE zone_id='$sectorinfo[zone_id]'");
+  $zonerow = mysql_fetch_array($zoneres);
+
+  // Debug info
+  // playerlog($playerinfo[ship_id],"PORT $sectorinfo[port_type] ALLOW_TRADE $zonerow[2] ORE $playerinfo[ship_ore] ORGAN $playerinfo[ship_organics] GOODS $playerinfo[ship_goods] CREDITS $playerinfo[credits] "); 
+
+  // *********************************
+  // ** MAKE SURE WE CAN TRADE HERE **
+  // *********************************
+  if ($zonerow[2]=="N") return;
+
+  // *********************************
+  // ** CHECK FOR A PORT WE CAN USE **
+  // *********************************
+  if($sectorinfo[port_type] == "none") return;
+  // *** FURANGEE DO NOT TRADE AT ENERGY PORTS SINCE THEY REGEN ENERGY ***
+  if($sectorinfo[port_type] == "energy") return;
+
+  // *********************************
+  // ** CHECK FURANGEE CREDIT/CARGO **
+  // *********************************
+  if($playerinfo[ship_ore]>0) $shipore=$playerinfo[ship_ore];
+  if($playerinfo[ship_organics]>0) $shiporganics=$playerinfo[ship_organics];
+  if($playerinfo[ship_goods]>0) $shipgoods=$playerinfo[ship_goods];
+  if($playerinfo[credits]>0) $shipcredits=$playerinfo[credits];
+  // *** MAKE SURE WE HAVE CARGO OR CREDITS ***
+  if(!$playerinfo[credits]>0 && !$playerinfo[ship_ore]>0 && !$playerinfo[ship_goods]>0 && !$playerinfo[ship_organics]>0) return;
+
+  // *********************************
+  // ** MAKE SURE CARGOS COMPATABLE **
+  // *********************************
+  if($sectorinfo[port_type]=="ore" && $shipore>0) return;
+  if($sectorinfo[port_type]=="organics" && $shiporganics>0) return;
+  if($sectorinfo[port_type]=="goods" && $shipgoods>0) return;
+
+  // *********************************
+  // ***** LETS TRADE SOME CARGO *****
+  // *********************************
+  if($sectorinfo[port_type]=="ore")
+  // *********************
+  // ***** PORT ORE ******
+  // *********************
+  {
+    // ************************
+    // **** SET THE PRICES ****
+    // ************************
+    $ore_price = $ore_price - $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
+    $organics_price = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
+    $goods_price = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
+    // ************************
+    // ** SET CARGO BUY/SELL **
+    // ************************
+    $amount_organics = $playerinfo[ship_organics];
+    $amount_goods = $playerinfo[ship_goods];
+    // *** SINCE WE SELL ALL OTHER HOLDS WE SET AMOUNT TO BE OUR TOTAL HOLD LIMIT *** 
+    $amount_ore = NUM_HOLDS($playerinfo[hull]);
+    // *** WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEED WHAT THE PORT HAS TO SELL ***
+    $amount_ore = min($amount_ore, $sectorinfo[port_ore]);
+    // *** WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEES WHAT WE CAN AFFORD TO BUY ***
+    $amount_ore = min($amount_ore, floor(($playerinfo[credits] + $amount_organics * $organics_price + $amount_goods * $goods_price) / $ore_price));
+    // ************************
+    // **** BUY/SELL CARGO ****
+    // ************************
+    $total_cost = round(($amount_ore * $ore_price) - ($amount_organics * $organics_price + $amount_goods * $goods_price));
+    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$amount_ore, ship_organics=ship_organics-$amount_organics, ship_goods=ship_goods-$amount_goods where ship_id=$playerinfo[ship_id]");
+    $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore-$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    playerlog($playerinfo[ship_id],"Furangee Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost"); 
+  }
+  if($sectorinfo[port_type]=="organics")
+  // *********************
+  // *** PORT ORGANICS ***
+  // *********************
+  {
+    // ************************
+    // **** SET THE PRICES ****
+    // ************************
+    $organics_price = $organics_price - $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
+    $ore_price = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
+    $goods_price = $goods_price + $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
+    // ************************
+    // ** SET CARGO BUY/SELL **
+    // ************************
+    $amount_ore = $playerinfo[ship_ore];
+    $amount_goods = $playerinfo[ship_goods];
+    // *** SINCE WE SELL ALL OTHER HOLDS WE SET AMOUNT TO BE OUR TOTAL HOLD LIMIT *** 
+    $amount_organics = NUM_HOLDS($playerinfo[hull]);
+    // *** WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEED WHAT THE PORT HAS TO SELL ***
+    $amount_organics = min($amount_organics, $sectorinfo[port_organics]);
+    // *** WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEES WHAT WE CAN AFFORD TO BUY ***
+    $amount_organics = min($amount_organics, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_goods * $goods_price) / $organics_price));
+    // ************************
+    // **** BUY/SELL CARGO ****
+    // ************************
+    $total_cost = round(($amount_organics * $organics_price) - ($amount_ore * $ore_price + $amount_goods * $goods_price));
+    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore-$amount_ore, ship_organics=ship_organics+$amount_organics, ship_goods=ship_goods-$amount_goods where ship_id=$playerinfo[ship_id]");
+    $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics_$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    playerlog($playerinfo[ship_id],"Furangee Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost"); 
+  }
+  if($sectorinfo[port_type]=="goods")
+  // *********************
+  // **** PORT GOODS *****
+  // *********************
+  {
+    // ************************
+    // **** SET THE PRICES ****
+    // ************************
+    $goods_price = $goods_price - $goods_delta * $sectorinfo[port_goods] / $goods_limit * $inventory_factor;
+    $ore_price = $ore_price + $ore_delta * $sectorinfo[port_ore] / $ore_limit * $inventory_factor;
+    $organics_price = $organics_price + $organics_delta * $sectorinfo[port_organics] / $organics_limit * $inventory_factor;
+    // ************************
+    // ** SET CARGO BUY/SELL **
+    // ************************
+    $amount_ore = $playerinfo[ship_ore];
+    $amount_organics = $playerinfo[ship_organics];
+    // *** SINCE WE SELL ALL OTHER HOLDS WE SET AMOUNT TO BE OUR TOTAL HOLD LIMIT *** 
+    $amount_goods = NUM_HOLDS($playerinfo[hull]);
+    // *** WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEED WHAT THE PORT HAS TO SELL ***
+    $amount_goods = min($amount_goods, $sectorinfo[port_goods]);
+    // *** WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEES WHAT WE CAN AFFORD TO BUY ***
+    $amount_goods = min($amount_goods, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price) / $goods_price));
+    // ************************
+    // **** BUY/SELL CARGO ****
+    // ************************
+    $total_cost = round(($amount_goods * $goods_price) - ($amount_organics * $organics_price + $amount_ore * $ore_price));
+    $trade_result = mysql_query("UPDATE ships SET rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore-$amount_ore, ship_organics=ship_organics-$amount_organics, ship_goods=ship_goods+$amount_goods where ship_id=$playerinfo[ship_id]");
+    $trade_result2 = mysql_query("UPDATE universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods-$amount_goods where sector_id=$sectorinfo[sector_id]");
+    playerlog($playerinfo[ship_id],"Furangee Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost"); 
+  }
+
+}
+
 ?>
