@@ -17,10 +17,10 @@ connectdb();
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($result);
 
-gen_score($playerinfo[ship_id]);
+$current_score = gen_score($playerinfo[ship_id]);
 
 bigtitle();
-
+echo "You current score is $score.<BR>";
 echo "$username is now logged out.  Click <A HREF=index.php3>here</A> to return to game.";
 
 include("footer.php3");
