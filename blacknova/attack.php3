@@ -10,7 +10,7 @@ connectdb();
 checklogin();
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE");
+mysql_query("LOCK TABLES ships WRITE, universe WRITE, zones READ");
 
 $result = mysql_query ("SELECT * FROM ships WHERE email='$username'");
 $playerinfo=mysql_fetch_array($result);
