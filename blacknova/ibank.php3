@@ -38,7 +38,7 @@ if (checklogin()) {die();}
 if(!$allow_ibank)
 {
   echo "The Inter Galactic Bank is currently closed.<BR><BR>";
-  echo "Click <a href=main.php3>here</a> to return to main menu.";
+  echo "Click <a href=$interface>here</a> to return to main menu.";
   include("footer.php3");  
   die();
 }
@@ -163,13 +163,13 @@ function ibank_display_main()
     // Figure out the default exit.
     // So user dont go completely confused...
     if    ($sectorinfo[port_type]=="special" && $sectorinfo[planet_owner] ==$playerinfo[ship_id]) 
-    { $exit = "main.php3"; }
+    { $exit = $interface; }
     elseif  ($sectorinfo[port_type]=="special") 
     { $exit = "port.php3"; }
     elseif  ($sectorinfo[planet_owner] ==$playerinfo[ship_id]) 
     { $exit = "planet.php3"; }
     else
-    { $exit = "main.php3"; }
+    { $exit = $interface; }
     
     ibank_display_footer($exit); // Use Defaults
 }

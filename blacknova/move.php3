@@ -18,7 +18,7 @@
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to move.<BR><BR>";
-		echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+		echo "Click <a href=$interface>here</a> to return to Main Menu.";
 		include("footer.php3");		
 		die();
 	}
@@ -49,12 +49,12 @@
 				mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
 			}
                         /* enter code for checking dangers in new sector */
-                        if ($ok=1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php3\">";} else
+                        if ($ok=1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
                         {
                                 echo "report bad stuff here!";
                         }
                 } else {
-                        echo "Move failed! Return to <a href=main.php3>Main Menu</a>.";
+                        echo "Move failed! Return to <a href=$interface>Main Menu</a>.";
                 }
 
 	echo "</body></html>";

@@ -15,7 +15,7 @@
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to perform a planetary transfer.<BR><BR>";
-		echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+		echo "Click <a href=$interface>here</a> to return to Main Menu.";
 		include("footer.php3");		
 		die();
 	}
@@ -199,7 +199,7 @@
 
 	$total_holds_needed=$transfer_ore+$transfer_organics+$transfer_goods+$transfer_colonists;
 
-	if ($total_holds_needed>$free_holds) { die ("Not enough holds for requested transfer.<BR><BR>Click <a href=planet.php3>here</a> to return to planet menu.<BR><BR>Click <a href=main.php3>here</a> to return to main menu.");}
+	if ($total_holds_needed>$free_holds) { die ("Not enough holds for requested transfer.<BR><BR>Click <a href=planet.php3>here</a> to return to planet menu.<BR><BR>Click <a href=$interface>here</a> to return to main menu.");}
 	if ($sectorinfo[planet]=="Y")
 	{
 		if ( $sectorinfo[planet_owner]==$playerinfo[ship_id])
@@ -284,7 +284,7 @@
 	
 	} else { echo "There is no planet here.<BR><BR>";}
 
-	echo "Click <a href=main.php3>here</a> to return to main menu.";
+	echo "Click <a href=$interface>here</a> to return to main menu.";
 	include("footer.php3");
 
 ?> 

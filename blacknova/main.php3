@@ -4,6 +4,21 @@ include("config.php3");
 updatecookie();
 
 $title="Main Menu";
+
+$basefontsize=0;
+$stylefontsize="8Pt";
+$picsperrow = 6;
+
+if($res == 640)
+	$picsperrow = 4;
+
+if($res >= 1024)
+{
+	$basefontsize = 1;
+	$stylefontsize="12Pt";
+	$picsperrow = 7;
+}
+
 include("header.php3");
 connectdb();
 
@@ -23,6 +38,8 @@ $res = mysql_query("SELECT * FROM universe WHERE sector_id='$playerinfo[sector]'
 $sectorinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
+$res = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
+
 //bigtitle();
 
 srand((double)microtime() * 1000000);
@@ -32,18 +49,16 @@ if($playerinfo[on_planet] == "Y")
   if($sectorinfo[planet] == "Y")
   {
     echo "Click <A HREF=planet.php3>here</A> to go to the planet menu.<BR>"; 
-    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?id=" . $playerinfo[ship_id] . "\">";
+    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?id=".$playerinfo[ship_id]."\">";
     mysql_query("UNLOCK TABLES");
-    //-------------------------------------------------------------------------------------------------
     die();
   }
+  else
+  {
+    mysql_query("UPDATE ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+    echo "<BR>On a non-existent planet???<BR><BR>";
+  }
 }
-if(!empty($sectorinfo[beacon]))
-{
-  echo "$sectorinfo[beacon]<BR><BR>";
-}
-
-$res = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
 
 $i = 0;
 if($res > 0)
@@ -61,95 +76,238 @@ $res = mysql_query("SELECT zone_id,zone_name FROM zones WHERE zone_id=$sectorinf
 $zoneinfo = mysql_fetch_array($res);
 mysql_free_result($res);
 
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $playerinfo[sector]";
-if($sectorinfo[sector_name] != "")
-{
-  echo " ($sectorinfo[sector_name])";
-}
-echo "</TD><TD></TD><TD ALIGN=RIGHT><B><A HREF=\"zoneinfo.php3?zone=$zoneinfo[zone_id]\">$zoneinfo[zone_name]</A></B></TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>Player: $playerinfo[character_name]</TD><TD>Ship: <A HREF=report.php3>$playerinfo[ship_name]</A></TD><TD ALIGN=RIGHT>Score: " . NUMBER($playerinfo[score]) . "</TD></TR>";
-echo "</TABLE><BR>";
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>Turns available: " . NUMBER($playerinfo[turns]) . "</TD><TD ALIGN=RIGHT>Turns used: " . NUMBER($playerinfo[turns_used]) . "</TD></TR>";
-echo "</TABLE>";
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_line2\"><TD WIDTH=\"15%\">Ore: " . NUMBER($playerinfo[ship_ore]) . "</TD><TD WIDTH=\"15%\">Organics: " . NUMBER($playerinfo[ship_organics]) . "</TD><TD WIDTH=\"15%\">Goods: " . NUMBER($playerinfo[ship_goods]) . "</TD><TD WIDTH=\"15%\">Energy: " . NUMBER($playerinfo[ship_energy]) . "</TD><TD WIDTH=\"15%\">Colonists: " . NUMBER($playerinfo[ship_colonists]) . "</TD><TD ALIGN=RIGHT>Credits: " . NUMBER($playerinfo[credits]) . "</TD></TR>";
-echo "</TABLE><BR>";
+$shiptypes[0]= "tinyship.gif";
+$shiptypes[1]= "smallship.gif";
+$shiptypes[2]= "mediumship.gif";
+$shiptypes[3]= "largeship.gif";
+$shiptypes[4]= "hugeship.gif";
 
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-echo "<TR>";
-echo "<TD>Warp links:</TD>";
-echo "<TD>";
+$planettypes[0]= "tinyplanet.gif";
+$planettypes[1]= "smallplanet.gif";
+$planettypes[2]= "mediumplanet.gif";
+$planettypes[3]= "largeplanet.gif";
+$planettypes[4]= "hugeplanet.gif";
+
+?>
+
+<table border=2 cellspacing=2 cellpadding=2 bgcolor="#400040" width="75%" align=center>
+<tr><td align="center" colspan=3><font color=silver size=<? echo $basefontsize + 2; ?> face="arial">Player <b><font color=white><? echo $playerinfo[character_name];?></font></b>, aboard the <b><font color=white><a href="report.php3"><? echo $playerinfo[ship_name] ?></a></font></b>
+</td></tr>
+</table>
+
+<table width=75% cellpadding=0 cellspacing=1 border=0 align=center>
+<tr><td>
+<font color=silver size=<? echo $basefontsize + 2; ?> face="arial">&nbsp;Turns available: </font><font color=white><b><? echo NUMBER($playerinfo[turns]) ?></b></font>
+</td>
+<td align=center>
+<font color=silver size=<? echo $basefontsize + 2; ?> face="arial">Turns used: </font><font color=white><b><? echo NUMBER($playerinfo[turns_used]); ?></b></font>
+</td>
+<td align=right>
+<font color=silver size=<? echo $basefontsize + 2; ?> face="arial">Score: </font><font color=white><b><? echo NUMBER($playerinfo[score])?>&nbsp;</b></font>
+</td>
+<tr><td>
+<font color=silver size=<? echo $basefontsize + 2; ?> face="arial">&nbsp;Sector: </font><font color=white><b><? echo $playerinfo[sector]; ?></b></font>
+</td><td align=center>
+
+<?
+if(!empty($sectorinfo[beacon]))
+{
+	echo "<font color=white size=", $basefontsize + 2," face=\"arial\"><b>", $sectorinfo[beacon], "</b></font>";
+}
+?>
+</td><td align=right>
+<a href="<? echo "zoneinfo.php3?zone=$zoneinfo[zone_id]"; ?>"><b><? echo $zoneinfo[zone_name]; ?></b></font></a>&nbsp;
+</td></tr>
+</table>
+
+<table width=100% border=0 align=center cellpadding=0 cellspacing=0">
+
+<tr>
+
+<td valign=top>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
+<td><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+<td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
+Commands
+</b></font></td>
+<td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+</tr></table>
+
+<TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
+<TR><TD NOWRAP>
+<div class=mnu>
+&nbsp;<a class=mnu href="device.php3">Devices</a>&nbsp;<br>
+&nbsp;<a class=mnu href="planet-report.php3">Planets</a>&nbsp;<br>
+&nbsp;<a class=mnu href="log.php3">Log</a>&nbsp;<br>
+&nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
+&nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
+&nbsp;<a class=mnu href="lastusers.php3">Last Users</a>&nbsp;<br>
+&nbsp;<a class=mnu href="self-destruct.php3">Self Destruct</a>&nbsp;<br>
+&nbsp;<a class=mnu href="options.php3">Options</a>&nbsp;<br>
+&nbsp;<a class=mnu href="navcomp.php3">Nav Computer</a>&nbsp;<br>
+</div>
+</td></tr>
+<tr><td nowrap>
+<div class=mnu>
+&nbsp;<a class=mnu href="help.php3">Help</a>&nbsp;<br>
+&nbsp;<a class=mnu href="feedback.php3">Feedback</a>&nbsp;<br>
+</div>
+</td></tr>
+<tr><td nowrap>
+&nbsp;<a class=mnu href="logout.php3">Logout</a>&nbsp;<br>
+</td></tr>
+</table>
+
+<br>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
+<td><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+<td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
+Warp to
+</b></font></td>
+<td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+</tr></table>
+
+<TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
+<TR><TD NOWRAP>
+<div class=mnu>
+
+<?
+
 if(!$num_links)
 {
-  echo "There are no links out of this sector.";
+  echo "&nbsp;<a class=dis>No warp links</a>&nbsp;<br>";
 }
 else
 {
-  echo "&nbsp;&nbsp;";
   for($i=0; $i<$num_links;$i++)
   {
-    echo "<A HREF=move.php3?sector=$links[$i]>$links[$i]</A>";
-    if($i + 1 != $num_links)
-    {
-      echo ", ";
-    }
-  }
-  echo "</TR>";
-  echo "<TR>";
-  echo "<TD>Long-range scan:";
-  if($allow_fullscan)
-  {
-    echo " [<A HREF=lrscan.php3?sector=*>full scan</A>]";
-  }
-  echo "</TD><TD>";
-  echo "&nbsp;&nbsp;";
-  for($i=0; $i<$num_links;$i++)
-  {
-    echo "<A HREF=lrscan.php3?sector=$links[$i]>$links[$i]</A>";
-    if($i + 1 != $num_links)
-    {
-      echo ", ";
-    }
+     echo "&nbsp;<a class=mnu href=move.php3?sector=$links[$i]>=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=lrscan.php3?sector=$links[$i]>[scan]</a>&nbsp;<br>";
   }
 }
-echo "</TD></TR>";
-echo "</TABLE>";
-echo "<BR>";
-/* Get a list of the ships in this sector */
-if($playerinfo[sector] != 0)
+echo "</div>";
+echo "</td></tr>";
+echo "<tr><td nowrap align=center>";
+echo "<div class=mnu>";
+echo "&nbsp;<a class=dis href=lrscan.php3?sector=*>[Full scan]</a>&nbsp;<br>";
+?>
+
+</div>
+</td></tr>
+</table>
+
+</td>
+
+<td valign=top>
+&nbsp;<br>
+
+<center><font size=<? echo $basefontsize+2; ?> face="arial" color=white><b>Trading port:&nbsp;
+
+<?
+if($sectorinfo[port_type] != "none")
 {
-  $res = mysql_query("SELECT ship_id,ship_name,character_name,cloak FROM ships WHERE ship_id<>$playerinfo[ship_id] AND sector=$playerinfo[sector] AND on_planet='N' ORDER BY ship_name ASC");
-  $i = 0;
-  if($res > 0)
+  echo "<a href=port.php3>", ucfirst($sectorinfo[port_type]), "</a>";
+}
+else
+{
+  echo "</b><font size=", $basefontsize+2,">None</font><b>";
+}
+?>
+
+</b></font></center>
+<br>
+
+<center><b><font size=2 face="arial" color=white>Planets in sector <? echo $sectorinfo[sector_id];?>:</font></b></center>
+<table border=0 width=100%>
+<tr>
+<td align=center valign=top>
+
+<?
+if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
+{
+  if($sectorinfo[planet_owner] != "")
   {
-    while($row = mysql_fetch_array($res))
-    {
-      $ship_id[$i] = $row[ship_id];
-      $ships[$i] = $row[ship_name];
-      $character_name[$i] = $row[character_name];
-      $ship_cloak[$i] = $row[cloak];
-      $i++;
-    }
-    mysql_free_result($res);
+    $result5 = mysql_query("SELECT * FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
+    $planet_owner = mysql_fetch_array($result5);
+
+    $planetavg = $planet_owner[hull] + $planet_owner[engines] + $planet_owner[computer] + $planet_owner[beams] + $planet_owner[torp_launchers] + $planet_owner[shields] + $planet_owner[armour];
+    $planetavg /= 7;
+  
+    if($planetavg < 8)
+      $planetlevel = 0;
+    else if ($planetavg < 12)
+      $planetlevel = 1;
+    else if ($planetavg < 16)
+      $planetlevel = 2;
+    else if ($planetavg < 20)
+      $planetlevel = 3;
+    else
+      $planetlevel = 4;
   }
-  $num_ships=$i;
-  echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-  echo "<TR>";
-  echo "<TD>Ships detected:</TD>";
-  echo "<TD>&nbsp;&nbsp;";
-  if($num_ships<1)
+  else
+    $planetlevel=0;
+
+  echo "<A HREF=planet.php3>";
+  echo "<img src=\"images/$planettypes[$planetlevel]\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+  if(empty($sectorinfo[planet_name]))
   {
-    echo "None";
+    echo "Unnamed";
   }
   else
   {
-    $num_detected = 0;
-    for($i=0; $i<$num_ships; $i++)
+    echo "$sectorinfo[planet_name]";
+  }
+
+  if($sectorinfo[planet_owner] == "")
+  {
+    echo "<br>(Unowned)";
+  }
+  else
+  {
+    echo "<br>($planet_owner[character_name])";
+  }
+  echo "</font></td>";
+}
+else
+{
+  echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
+}
+?>
+
+</td>
+</tr>
+</table>
+
+<b><center><font size=2 face="arial" color=white>Other ships in sector <? echo $sectorinfo[sector_id];?>:</font><br></center></b>
+<table border=0 width=100%>
+<tr>
+
+<?
+
+if($playerinfo[sector] != 0)
+{
+  $result4 = mysql_query("SELECT * FROM ships WHERE ship_id<>$playerinfo[ship_id] AND sector=$playerinfo[sector] AND on_planet='N' ORDER BY ship_name ASC");
+  $totalcount=0;
+  
+  if($result4 > 0)
+  {
+    $curcount=0;
+    while($row = mysql_fetch_array($result4))
     {
-      // display other ships in sector - unless they are successfully cloaked
-      $success = SCAN_SUCCESS($playerinfo[sensors], $ship_cloak[$i]);
+      $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
       if($success < 5)
       {
         $success = 5;
@@ -159,132 +317,146 @@ if($playerinfo[sector] != 0)
         $success = 95;
       }
       $roll = rand(1, 100);
+
       if($roll < $success)
       {
-        if($num_detected)
+        $shipavg = $row[hull] + $row[engines] + $row[computer] + $row[beams] + $row[torp_launchers] + $row[shields] + $row[armour];
+        $shipavg /= 7;
+
+        if($shipavg < 8)
+          $shiplevel = 0;
+        else if ($shipavg < 12)
+          $shiplevel = 1;
+        else if ($shipavg < 16)
+          $shiplevel = 2;
+        else if ($shipavg < 20)
+          $shiplevel = 3;
+        else
+          $shiplevel = 4;
+
+        echo "<td align=center valign=top>";
+        echo "<a href=ship.php3?ship_id=$row[ship_id]><img src=\"images/", $shiptypes[$shiplevel],"\" border=0></a><BR><font size=", $basefontsize +1, " color=#ffffff face=\"arial\">$row[ship_name]<br>($row[character_name])</font></td>";
+        echo "</td>";
+        $totalcount++;
+        if($curcount == $picsperrow - 1)
         {
-          echo ", ";
+          echo "</tr><tr>";
+          $curcount=0;
         }
-        $num_detected++;
-        echo "$ships[$i] ($character_name[$i]) [<A HREF=scan.php3?ship_id=$ship_id[$i]>scan</A>/<A HREF=attack.php3?ship_id=$ship_id[$i]>attack</A>]";
+        else
+          $curcount++;
       }
     }
-    if(!$num_detected)
-    {
-      echo "None";
-    }
   }
-  echo "</TD>";
-  echo "</TR>";
-  echo "</TABLE><BR>";
+  if($result4 == 0 || $totalcount == 0)
+  {
+    echo "<td align=center valign=top>";
+    echo "<br><font color=white>None</font><br><br>";
+    echo "</td>";
+  }
 }
 else
 {
-  echo "There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!<BR><BR>";
+    echo "<td align=center valign=top>";
+    echo "<br><font color=white>There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!</font><br><br>";
+    echo "</td>";
 }
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-echo "<TR>";
-echo "<TD>Trading port:</TD>";
-echo "<TD>&nbsp;&nbsp;";
-if($sectorinfo[port_type] != "none")
-{
-  echo "<A HREF=port.php3>" . ucfirst($sectorinfo[port_type]) . "</A>";
-}
-else
-{
-  echo "None";
-}
-echo "</TD>";
-echo "</TR>";
-echo "<TR><TD>&nbsp;</TD><TD></TD></TR>";
-echo "<TR>";
-echo "<TD>Planet:</TD>";
-echo "<TD>&nbsp;&nbsp;";
-if($sectorinfo[planet] == "Y" && $sectorinfo[sector_id] != 0)
-{
-  echo "<A HREF=planet.php3>";
-  if(empty($sectorinfo[planet_name]))
-  {
-    echo "Unnamed";
-  }
-  else
-  {
-    echo "$sectorinfo[planet_name]";
-  }
-  echo "</A> (";
-  if($sectorinfo[planet_owner] == "")
-  {
-    echo "Unowned";
-  }
-  else
-  {
-    $res = mysql_query("SELECT character_name FROM ships WHERE ship_id=$sectorinfo[planet_owner]");
-    $planet_owner_name = mysql_fetch_array($res);
-    mysql_free_result($res);
-    echo "$planet_owner_name[character_name]";
-  }
-  echo ")";
-}
-else
-{
-  echo "None";
-}
-echo "</TD>";
-echo "</TR>";
-echo "</TABLE><BR>";
+?>
 
-mysql_query("UNLOCK TABLES");
-//-------------------------------------------------------------------------------------------------
+</tr>
+</table>
 
-if($allow_navcomp)
-{
-  echo "<FORM ACTION=navcomp.php3 METHOD=POST>";
-  echo "Navigation Computer: ";
-  $maxlen = strlen(number_format($sector_max, 0, "", ""));
-  echo "<INPUT NAME=\"stop_sector\" SIZE=" . $maxlen * 2 . " MAXLENGTH=$maxlen><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>";
-  echo "<INPUT TYPE=SUBMIT VALUE=\"Find Route\">";
-  echo "</FORM>";
-}
+<td valign=top>
 
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-echo "<TR>";
-echo "<TD>RealSpace <A HREF=preset.php3>Presets</A>:</TD>";
-echo "<TD>&nbsp;&nbsp;<A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=rsmove.php3>Other</A></TD>";
-echo "</TR>";
-echo "<TR>";
-echo "<TD>Trade routes:</TD>";
-echo "<TD>&nbsp;&nbsp;<A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</A>, <A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</A>, <A HREF=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</A>, <A HREF=traderoute.php3>Other</A></TD>";
-echo "</TR>";
-echo "</TABLE><BR>";
+<table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
+<td><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+<td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
+Cargo
+</b></font></td>
+<td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+</tr></table>
 
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-echo "<TR BGCOLOR=\"$color_header\">";
-echo "<TD>";
-echo "<A HREF=device.php3>Devices</A> - ";
-echo "<A HREF=planet-report.php3>Planets</A> - ";
-echo "<A HREF=log.php3>Log</A> - ";
-echo "<A HREF=mailto2.php3>Send Message</A> - "; 
-echo "<A HREF=ranking.php3>Rankings</A> - ";
-echo "<A HREF=lastusers.php3>Last Users</A> - ";
-echo "<A HREF=options.php3>Options</A> - ";
-echo "<A HREF=feedback.php3>Feedback</A> - ";
-echo "<A HREF=self-destruct.php3>Self-Destruct</A> - ";
-echo "<A HREF=help.php3>Help</A>";
-if(!empty($link_forums))
-{
-  echo " - <A HREF=$link_forums TARGET=\"_blank\">Forums</A>";
-}
-echo "</TD>";
-echo "<TD><A HREF=logout.php3>Logout</A></TD>";
-echo "</TR>";
-echo "</TABLE><BR>";
-echo "System Time:  ";
-print(date("l dS of F Y h:i:s A"));
-echo "<BR>Last System Update:  ";
-$lastupdate = filemtime($gameroot . "/cron.txt");
-print(date("l dS of F Y h:i:s A",$lastupdate)) ; 
-echo "<BR>Updates happen every 6 minutes.";
-//gen_score($playerinfo[ship_id]);
+<TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
+<TR><TD NOWRAP>
+<a class=dis>
+&nbsp;Ore&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_ore]); ?>&nbsp</div>
+&nbsp;Organics&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_organics]); ?>&nbsp</div>
+&nbsp;Goods&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_goods]); ?>&nbsp</div>
+&nbsp;Energy&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_energy]); ?>&nbsp</div>
+&nbsp;Colonists&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[ship_colonists]); ?>&nbsp</div>
+&nbsp;Credits&nbsp;<br><div class=mnu align=right>&nbsp;<? echo NUMBER($playerinfo[credits]); ?>&nbsp</div>
+</a>
+</td></tr>
+</table>
+
+<br>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
+<td><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+<td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
+Trade Routes
+</b></font></td>
+<td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+</tr></table>
+
+<TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
+<TR><TD NOWRAP>
+<div class=mnu>
+&nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset1] ?>>=&gt;&nbsp;<? echo $playerinfo[preset1] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset2] ?>>=&gt;&nbsp;<? echo $playerinfo[preset2] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=traderoute.php3?phase=2&destination=<? echo $playerinfo[preset3] ?>>=&gt;&nbsp;<? echo $playerinfo[preset3] ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=traderoute.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
+</div>
+</a>
+</td></tr>
+</table>
+
+<br>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center"><tr valign="top">
+<td><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/lcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+<td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
+Realspace
+</b></font></td>
+<td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
+	<tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>
+	<tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
+</table></td>
+</tr></table>
+
+<TABLE BORDER=2 CELLPADDING=2 BGCOLOR="#500050" align="center">
+<TR><TD NOWRAP>
+<div class=mnu>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset1]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset1]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset2]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset2]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3?engage=1&destination=<? echo $playerinfo[preset3]; ?>>=&gt;&nbsp;<? echo $playerinfo[preset3]; ?></a>&nbsp;<a class=dis href=preset.php3>[set]</a>&nbsp;<br>
+&nbsp;<a class=mnu href=rsmove.php3>=&gt;&nbsp;Other</a>&nbsp;<br>
+</div>
+</a>
+</td></tr>
+</table>
+
+</td>
+</tr>
+
+</table>
+
+<?
 include("footer.php3");
 
 ?> 

@@ -83,7 +83,7 @@ echo "</TABLE>";
 
 echo "<BR><BR>";
 
-echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+echo "Click <a href=$interface>here</a> to return to Main Menu.";
 
 
 

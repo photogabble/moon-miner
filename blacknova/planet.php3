@@ -28,7 +28,7 @@ if($sectorinfo[planet] == 'Y')
     echo "This planet is unowned.<BR><BR>";
     $update = mysql_query("UPDATE universe SET planet_fighters=0, planet_defeated='Y' WHERE sector_id=$sectorinfo[sector_id]");
     echo "You may <a href=planet.php3?command=capture>capture</a> the planet, <a href=planet.php3?command=destroy>destroy</a> it, or just leave it undefended.<BR><BR>";
-    echo "<BR>Click <a href=main.php3>here</a> to return to Main Menu.";
+    echo "<BR>Click <a href=$interface>here</a> to return to Main Menu.";
     include("footer.php3");
     die();
   }
@@ -266,7 +266,7 @@ if($sectorinfo[planet] == 'Y')
       if($playerinfo[turns] < 1)
       {
         echo "You need at least one turn to attack a planet.<BR><BR>";
-        echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+        echo "Click <a href=$interface>here</a> to return to Main Menu.";
         include("footer.php3");   
         die();
       }
@@ -998,7 +998,7 @@ if($sectorinfo[planet] == 'Y')
       if($playerinfo[turns] < 1)
       {
         echo "You need at least one turn to scan a planet.<BR><BR>";
-        echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+        echo "Click <a href=$interface>here</a> to return to Main Menu.";
         include("footer.php3");   
         die();
       }
@@ -1016,7 +1016,7 @@ if($sectorinfo[planet] == 'Y')
       if($roll > $success)
       {
         /* if scan fails - inform both player and target. */
-        echo "Sensors cannot get a fix on target!<BR><BR>Click <a href=main.php3>here</a> to return to Main Menu.";
+        echo "Sensors cannot get a fix on target!<BR><BR>Click <a href=$interface>here</a> to return to Main Menu.";
         playerlog($ownerinfo[ship_id], "$playerinfo[character_name] attempted to scan your planet in sector $playerinfo[sector], but failed.");
         include("footer.php3");
         die();
@@ -1200,7 +1200,7 @@ if($allow_ibank)
   echo "<BR>Access the planet's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>";
 }
 
-echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+echo "Click <a href=$interface>here</a> to return to Main Menu.";
 
 include("footer.php3");
 

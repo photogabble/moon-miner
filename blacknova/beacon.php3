@@ -59,7 +59,7 @@ else
   echo "You do not have a space beacon.<BR><BR>";
 }
 
-echo "Click <a href=main.php3>here</a> to return to the main menu.";
+echo "Click <a href=$interface>here</a> to return to the main menu.";
 
 include("footer.php3");
 

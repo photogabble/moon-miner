@@ -1,20 +1,20 @@
 <?
-	setcookie("username");
-	setcookie("password");
 
-	setcookie("id");
-	include("config.php3");
+setcookie("username");
+setcookie("password");
+setcookie("id");
+setcookie("res");
 
-	$title="Logout"; 
+include("config.php3");
 
-	include("header.php3");
+$title = "Logout"; 
 
-        bigtitle();
+include("header.php3");
 
-	echo "$username is now logged out.  Click <a href=index.php3>here</a> to return to game.";
+bigtitle();
 
+echo "$username is now logged out.  Click <A HREF=index.php3>here</A> to return to game.";
 
-
-	include("footer.php3");
+include("footer.php3");
 
 ?>

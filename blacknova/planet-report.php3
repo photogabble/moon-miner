@@ -160,7 +160,7 @@ else
 
 echo "<BR><BR>";
 
-echo "Click <a href=main.php3>here</a> to return to main menu.";
+echo "Click <a href=$interface>here</a> to return to main menu.";
 
 include("footer.php3");
 

@@ -143,6 +143,7 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "preset3 bigint(20) DEFAULT '0' NOT NULL," .
                  "rating smallint DEFAULT '0' NOT NULL," .
                  "score bigint(20) DEFAULT '0' NOT NULL," .
+                 "interface enum('N','O') DEFAULT 'N' NOT NULL," .
                  "PRIMARY KEY (ship_id)," .
                  "KEY ship_id (ship_id)," .
                  "UNIQUE ship_id_2 (ship_id)" .
@@ -235,9 +236,13 @@ elseif($swordfish==$adminpass && $engage=="2")
   $replace = mysql_query("REPLACE INTO zones (zone_id, zone_name, allow_beacon, allow_attack, allow_warpedit, allow_planet, max_hull) VALUES ('2', 'Federation space', 'N', 'N', 'N', 'N', '$fed_max_hull')");
   $update = mysql_query("UPDATE universe SET zone_id='2' WHERE sector_id<$fedsecs");
   echo "Selecting $spp sectors for additional special ports...<BR>";
-  $sectors=range(2,$sector_max);
-  
-  shuffle($sectors);
+  for($i=2; $i<=$sector_max; $i++)
+  {
+    $num = rand(2, $sector_max - 1);
+    $sectors[$i] = $num;
+  }
+//  $sectors=range(2,$sector_max);
+//  shuffle($sectors);
   for($i=2; $i<$spp; $i++)
   {
     mysql_query("UPDATE universe SET port_type='special' WHERE sector_id=$sectors[$i]");
@@ -277,8 +282,13 @@ elseif($swordfish==$adminpass && $engage=="2")
   }
   echo "done<BR>";
   echo "Selecting $nump sectors for unowned planets...<BR>";
-  $sectors=range(0,$sector_max);
-  shuffle($sectors);
+  for($i=0; $i<=$sector_max; $i++)
+  {
+    $num = rand(0, $sector_max - 1);
+    $sectors[$i] = $num;
+  }
+//  $sectors=range(0,$sector_max);
+//  shuffle($sectors);
   for($i=0; $i<$nump; $i++)
   {
     $update = mysql_query("UPDATE universe SET planet='Y', planet_colonists=2, planet_owner=null WHERE sector_id=$sectors[$i]");
@@ -314,8 +324,13 @@ elseif($swordfish==$adminpass && $engage=="2")
     $finish=$finish+$loopsize;
   }
   echo "Randomly One-way Linking Sectors...<BR>";
-  $sectors=range(0,$sector_max);
-  shuffle($sectors);
+  for($i=0; $i<=$sector_max; $i++)
+  {
+    $num = rand(0, $sector_max - 1);
+    $sectors[$i] = $num;
+  }
+  //$sectors=range(0,$sector_max);
+  //shuffle($sectors);
   for($i=0; $i<=$sector_max; $i++)
   {
     $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");
@@ -323,8 +338,13 @@ elseif($swordfish==$adminpass && $engage=="2")
   }
   echo "done.<BR>";
   echo "Randomly Two-way Linking Sectors...<BR>";
-  $sectors=range(0,$sector_max);
-  shuffle($sectors);
+  for($i=0; $i<=$sector_max; $i++)
+  {
+    $num = rand(0, $sector_max - 1);
+    $sectors[$i] = $num;
+  }
+  //$sectors=range(0,$sector_max);
+  //shuffle($sectors);
   for($i=0; $i<=$sector_max; $i++)
   {
     $update = mysql_query("INSERT INTO links (link_start,link_dest) VALUES ($i,$sectors[$i])");

@@ -28,7 +28,7 @@
 		mail("$admin_mail", "WTW Feedback", "IP address - $ip\nGame Name - $playerinfo[character_name]\n\n$content","From: $playerinfo[email]\nX-Mailer: PHP/" . phpversion());
 	}
 
-	echo "Click <a href=main.php3>here</a> to return to main menu.";
+	echo "Click <a href=$interface>here</a> to return to main menu.";
 	include("footer.php3");
 
 ?> 

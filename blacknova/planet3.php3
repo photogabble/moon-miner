@@ -18,7 +18,7 @@
 	if ($playerinfo[turns]<1)
 	{
 		echo "You need at least one turn to trade at a planet.<BR><BR>";
-		echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+		echo "Click <a href=$interface>here</a> to return to Main Menu.";
 		include("footer.php3");		
 		die();
 	}
@@ -68,7 +68,7 @@
 	} 
 
     gen_score($sector_info[planet_owner]);
-	echo "Click <a href=main.php3>here</a> to return to main menu.";
+	echo "Click <a href=$interface>here</a> to return to main menu.";
 	include("footer.php3");
 
 ?>

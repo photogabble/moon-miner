@@ -23,7 +23,7 @@ $result2 = mysql_query ("SELECT * FROM universe WHERE sector_id=$target_sector")
 $row = mysql_fetch_array($result2);
 if(!$row)
 {
-  echo "Sector does not exist.  Click <a href=main.php3>here</a> to return to the main menu.";
+  echo "Sector does not exist.  Click <a href=$interface>here</a> to return to the main menu.";
   die();
 }
 
@@ -32,7 +32,7 @@ $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N' && !$oneway)
 {
   echo "Using a Warp Editor to create a two-way link to sector $target_sector is not permitted.<BR><BR>";
-  echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+  echo "Click <a href=$interface>here</a> to return to Main Menu.";
   include("footer.php3");
   die();
 }
@@ -82,7 +82,7 @@ if($result3 > 0)
   }
 }
 
-echo "Click <a href=main.php3>here</a> to return to the main menu.";
+echo "Click <a href=$interface>here</a> to return to the main menu.";
 
 include("footer.php3");
 

@@ -172,7 +172,7 @@ echo "maximum allowed level for that specific zone. Attacking other players and 
 echo "be disallowed in some zones.";
 echo "<BR><BR>";
 
-echo "Click <A HREF=main.php3>here</A> to return to main menu.";
+echo "Click <A HREF=$interface>here</A> to return to main menu.";
 include("footer.php3");
 
 ?> 

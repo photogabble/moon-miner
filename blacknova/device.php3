@@ -44,7 +44,7 @@ echo "<TD>Fuel Scoop</TD><TD>" . (($playerinfo[dev_fuelscoop] == 'Y') ? "Yes" : 
 echo "</TR>";
 echo "</TABLE>";
 
-echo "<BR>Click <A HREF=main.php3>here</A> to return to the main menu.";
+echo "<BR>Click <A HREF=$interface>here</A> to return to the main menu.";
 
 include("footer.php3");
 

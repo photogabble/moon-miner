@@ -21,13 +21,13 @@ $playerinfo = mysql_fetch_array($result);
 if(!isset($sure))
 {
   echo "<FONT COLOR=RED><B>Are you sure you wish to destroy your ship? This will remove you from the game.</B></FONT><BR><BR>";
-  echo "<A HREF=main.php3>NO! NO! NO!</A> What was I thinking?<BR><BR>";
+  echo "<A HREF=$interface>NO! NO! NO!</A> What was I thinking?<BR><BR>";
   echo "<A HREF=self-destruct.php3?sure=1>YES!</A> Goodbye cruel galaxy!<BR><BR>";
 }
 elseif($sure == 1)
 {
   echo "<FONT COLOR=RED><B>Are you positive that you wish to remove yourself from the game?</B></FONT><BR><BR>";
-  echo "<A HREF=main.php3>NO! NO! NO!</A> What was I thinking?<BR><BR>";
+  echo "<A HREF=$interface>NO! NO! NO!</A> What was I thinking?<BR><BR>";
   echo "<A HREF=self-destruct.php3?sure=2>YES!</A> Goodbye cruel galaxy!<BR><BR>";
 }
 elseif($sure == 2)
@@ -47,7 +47,7 @@ else
 
 if($sure != 2)
 {
-  echo "Click <A HREF=main.php3>here</A> to return to main menu.";
+  echo "Click <A HREF=$interface>here</A> to return to main menu.";
 }
 
 include("footer.php3");

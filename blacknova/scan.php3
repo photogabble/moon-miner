@@ -150,7 +150,7 @@ else
 
 
 echo "<BR><BR>";
-echo "Click <A HREF=main.php3>here</A> to return to Main Menu.";
+echo "Click <A HREF=$interface>here</A> to return to Main Menu.";
 
 include("footer.php3");
 

@@ -545,7 +545,7 @@ else
 mysql_query("UNLOCK TABLES");
 //-------------------------------------------------------------------------------------------------
 
-echo "Click <A HREF=main.php3>here</A> to return to main menu.";
+echo "Click <A HREF=$interface>here</A> to return to main menu.";
 include("footer.php3");
 
 ?> 

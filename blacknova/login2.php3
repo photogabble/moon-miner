@@ -1,17 +1,7 @@
 <?
 
-/* first placement of cookie - don't use updatecookie. */
-setcookie("username", $email);
-setcookie("password", $pass);
-
-$title="Login Phase Two"; 
-include("header.php3");
-
 include("config.php3");
 connectdb();
-
-bigtitle();
-
 $playerfound = false;
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$email'");
@@ -19,16 +9,34 @@ if($res)
 {
   $playerfound = mysql_num_rows($res);
 }
+$playerinfo = mysql_fetch_array($res);
+mysql_free_result($res);
+
+/* first placement of cookie - don't use updatecookie. */
+setcookie("username", $email);
+setcookie("password", $pass);
+setcookie("res", $res);
+if($playerinfo[interface]=="N")
+{
+  $mainfilename="main.php3";
+  $interface="main.php3";
+}
 else
 {
-  $playerfound = false;
+  $mainfilename="maintext.php3";
+  $interface="maintext.php3";
 }
+setcookie("interface", $mainfilename);
+
+
+
+$title="Login Phase Two"; 
+include("header.php3");
+
+bigtitle();
 
 if($playerfound) 
 {
-  $playerinfo = mysql_fetch_array($res);
-  mysql_free_result($res);
-
   if($playerinfo[password] == $pass)
   {
     // password is correct
@@ -38,8 +46,8 @@ if($playerfound)
       playerlog($playerinfo[ship_id], "Logged in from " . $ip);
       $stamp = date("Y-m-d H-i-s");
       $update = mysql_query("UPDATE ships SET last_login='$stamp' WHERE ship_id=$playerinfo[ship_id]");
-      echo "Click <A HREF=main.php3>here</A> to go to the main menu.<BR>"; 
-      echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php3?id=" . $playerinfo[ship_id] . "\">";
+      echo "Click <A HREF=$interface>here</A> to go to the main menu.<BR>"; 
+      echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo[ship_id] . "\">";
     }
     else
     {
@@ -47,7 +55,7 @@ if($playerfound)
       if($playerinfo[dev_escapepod] == "Y") 
       {
         mysql_query("UPDATE ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage='',on_planet='N',dev_warpedit=0,dev_genesis=1,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N' where email='$username'");
-        echo "Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=main.php3>here</A> to continue with a new ship.";
+        echo "Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=$interface>here</A> to continue with a new ship.";
       }
       else
       {
