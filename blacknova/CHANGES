@@ -1,5 +1,14 @@
-Version 0.20
+Version 0.30
 ------------
+Nospoon (09 November 2001)
+-------------------------------
+Sector defences re-written. Players now get a warning about hostile sector
+defences before entering the sector. You can now use cloaking device to attempt
+to sneak past sector defences.
+Owners of sector defences can retrieve deployed sector defences.
+Multiple sector defences (multiple owners in the same alliance) allowed in each sector.
+Players can attack hostile sector defences once in a sector.
+Can now make unlimited warp links TO a sector, but not from.
 
 Richard Gowen (30 October 2001)
 -------------------------------
