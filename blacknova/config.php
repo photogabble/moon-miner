@@ -1,5 +1,6 @@
 <?
 include("config_local.php");
+include("$ADOdbpath" . "/adodb.inc.php");
 include("global_funcs.php");
 
 /* Main scheduler variables (game flow control)
@@ -196,4 +197,12 @@ $corp_planet_transfers = 0; //If transferring credits to/from corp planets is al
 $min_value_capture = 50; //Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
 $defence_degrade_rate = 0.05;
 $energy_per_fighter = 0.10;
+
+/* Table prefix for the database. If you want to run more than
+one game of BNT on the same database, or if the current table
+names conflict with tables you already have in your db, you will
+need to change this */
+
+$db_prefix = "bnt_";
+
 ?>

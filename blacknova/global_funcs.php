@@ -59,6 +59,26 @@ define(LOG_ADMIN_PLANETDEL, 44);        //sent to admin on planet destruction in
 define(LOG_DEFENCE_DEGRADE, 45);        //sent sector fighters have no supporting planet
 define(LOG_PLANET_CAPTURED, 46);            //sent to player when he captures a planet
 
+// Database tables variables
+$dbtables['ibank_accounts'] = "${db_prefix}ibank_accounts";
+$dbtables['links'] = "${db_prefix}links";
+$dbtables['planets'] = "${db_prefix}planets";
+$dbtables['traderoutes'] = "${db_prefix}traderoutes";
+$dbtables['news'] = "${db_prefix}news";
+$dbtables['newstypes'] = "${db_prefix}newstypes";
+$dbtables['newsactions'] = "${db_prefix}newsactions";
+$dbtables['ships'] = "${db_prefix}ships";
+$dbtables['teams'] = "${db_prefix}teams";
+$dbtables['universe'] = "${db_prefix}universe";
+$dbtables['zones'] = "${db_prefix}zones";
+$dbtables['messages'] = "${db_prefix}messages";
+$dbtables['furangee'] = "${db_prefix}furangee";
+$dbtables['sector_defence'] = "${db_prefix}sector_defence";
+$dbtables['scheduler'] = "${db_prefix}scheduler";
+$dbtables['ip_bans'] = "${db_prefix}ip_bans";
+$dbtables['IGB_transfers'] = "${db_prefix}IGB_transfers";
+$dbtables['logs'] = "${db_prefix}logs";
+
 function bigtitle()
 {
   global $title;
@@ -150,14 +170,24 @@ function connectdb()
   global $default_lang;
   global $lang;
   global $gameroot;
+  global $db_type;
+  global $db_persistent;
+  global $db;
+  global $ADODB_FETCH_MODE;
 
-  mysql_connect($dbhost . ":" .$dbport, $dbuname, $dbpass);
-  @mysql_select_db("$dbname") or die ("Unable to select database.");
+  $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-  if(empty($lang))
-    $lang=$default_lang;
+  if(!empty($dbport))
+    $dbhost.= ":$dbport";
 
-  include_once($gameroot . "/languages/$lang");
+  $db = ADONewConnection("$db_type");
+  if($db_persistent == 1)
+    $result = $db->PConnect("$dbhost", "$dbuname", "$dbpass", "$dbname");
+  else
+    $result = $db->Connect("$dbhost", "$dbuname", "$dbpass", "$dbname");
+
+  if(!$result)
+    die ("Unable to connect to the database");
 }
 
 function updatecookie()

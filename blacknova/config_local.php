@@ -6,7 +6,8 @@ $gameroot = "/usr/local/www/blacknova";
 
 // The ADOdb db module is now required to run BNT. You
 // can find it at http://php.weblogs.com/ADODB. Enter the
-// path where it is installed here.
+// path where it is installed here. I suggest simply putting
+// every ADOdb file in a subdir of BNT.
 $ADOdbpath = $gameroot . "/ADOdb";
 
 // Domain & path of the game on your webserver (used to validate login cookie)
@@ -52,6 +53,12 @@ $db_type = "mysql";
 
 // Set this to 1 to use db persistent connections, 0 otherwise
 $db_persistent = 1;
+
+/* Table prefix for the database. If you want to run more than
+one game of BNT on the same database, or if the current table
+names conflict with tables you already have in your db, you will
+need to change this */
+$db_prefix = "bnt_";
 
 // Administrator's password and email:
 // Be sure to change these. Don't leave them as is.
