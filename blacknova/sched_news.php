@@ -1,4 +1,8 @@
 <?
+
+  if(!isset($swordfish) || $swordfish != $adminpass)
+    die("Script has not been called properly");
+
 // all text - makes it easier to move to language files soon
 $l_planet		  = " planet";
 $l_planets		  = " planets";
@@ -34,19 +38,6 @@ $c_text1000		= "The humongous empire of [name] now has one billion colonists,
                    in huge amounts. With this Amount of Colonists, the econmic strength
                    of this empire is enormous, BNN hopes that [name] does not spend
                    his money on warfare";
-
-
-function get_player_name($userid) {
-
-$query = mysql_query("select character_name from ships where ship_id='$userid'");
-$name = mysql_fetch_array($query);
-
-
-
-return $name[character_name];
-
-}
-
 
 // generation of planet amount
 $sql = mysql_query("select count(owner) as amount, owner from planets where owner !='0' group by owner order by amount ASC");
@@ -157,6 +148,5 @@ while ($row = mysql_fetch_array($sql))
 
   } // while
 // end generation of colonist amount
-
 
 ?>

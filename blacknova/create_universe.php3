@@ -258,9 +258,32 @@ elseif($swordfish==$adminpass && $engage=="2")
   
   echo "<p>Configuring game scheduler...<br>Ticks happen every $sched_ticks minutes<p>";
 
-  echo "Turns happen every $sched_turns minutes.<br>";
-  mysql_query("INSERT INTO scheduler VALUES('', 'Y', $sched_turns, $sched_turns, 0, 'sched_turns.php', '')");
-  echo mysql_error();
+  echo "Turns will happen every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_turns.php', '')");
+
+  echo "Defenses will be checked every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_defenses.php', '')");
+
+  echo "Furangees will play every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_furangee.php', '')");
+
+  echo "Interests on IGB accounts will be accumulated every $sched_IGB minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_IGB, 0, 'sched_IGB.php', '')");
+
+  echo "News will be generated every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_news.php', '')");
+
+  echo "Planets will generate production every $sched_planets minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_planets, 0, 'sched_planets.php', '')");
+
+  echo "Ports will regenerate every $sched_ports minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_ports, 0, 'sched_ports.php', '')");
+
+  echo "Ships will be towed from fed sectors every $sched_turns minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_turns, 0, 'sched_tow.php', '')");
+
+  echo "Rankings will be generated every $sched_ranking minutes.<br>";
+  mysql_query("INSERT INTO scheduler VALUES('', 'Y', 0, $sched_ranking, 0, 'sched_ranking.php', '')");
 
   echo "done.<BR>";
 }

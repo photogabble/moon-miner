@@ -10,20 +10,13 @@ INSTALLATION
    and manually update your cron file.
 
    You need to set up a background task thats called every X minutes.
-   For the system updates, this is every 6 minutes. For a faster paced 
-   game, you can make it every 3 minutes. 
-   This task needs to call the web page sysupdate.php3 passing the admin
+   You can set this to any interval you want, but 5 or 6 minutes are good
+   standard values.
+   This task needs to call the web page scheduler.php passing the admin
    password to it, eg by accessing:
 
-   http://localhost/blacknova/sysupdate.php3?swordfish=password
+   http://localhost/blacknova/scheduler.php?swordfish=password
    
-   To generate scores / rankings, the scrupt genrank.php3 needs to be called
-   with the admin password passed to it, eg:
-
-   http://localhost/blacknova/genrank.php3?swordfish=password
-
-   Normally the script is called every 15 minutes.
-
    On UNIX and Linux, you can achieve this by using cron to call lynx to access 
    the pages at specified times.
 
@@ -34,13 +27,15 @@ INSTALLATION
 
    A sample crontab follows:
 
-*/6 * * * * /usr/bin/lynx --dump http://localhost/blacknova/sysupdate.php3?swordfish=password > /dev/null
+*/6 * * * * /usr/bin/lynx --dump http://localhost/blacknova/scheduler.php?swordfish=password > /dev/null
 */6 * * * * /bin/touch /var/www/html/blacknova/cron.txt
-*/15 * * * * /usr/bin/lynx --dump http://localhost/blacknova/genrank.php3?swordfish=password > /dev/null
 
-  You may need to alter the URL to point to your exact domain name 
-  and path. You will also need to change the password to your admin password
+   You may need to alter the URL to point to your exact domain name 
+   and path. You will also need to change the password to your admin password
 
+   To specify how fast-paced you want the game to be, you will need to
+   edit the file config.php3 and select how many minutes you want between
+   different events, eg turns or port regeneration.
 
 3. Create the database:
    mysqladmin -uuser -ppass create dbname

@@ -9,7 +9,7 @@ include("global_funcs.php3");
   Set this to how often (in minutes) you are running
   the scheduler script.
 */
-$sched_ticks = 5;
+$sched_ticks = 6;
 
 /* All following vars are in minutes.
    These are TRUE minutes, no matter to what interval
@@ -21,6 +21,7 @@ $sched_turns = 2;    //New turns rate (also includes towing, furangee)
 $sched_ports = 2;    //How often port production occurs
 $sched_planets = 2;  //How often planet production occurs
 $sched_IGB = 2;      //How often IGB interests are added
+$sched_ranking = 30; //How often rankings will be generated
 
 /* Scheduler config end */
 
