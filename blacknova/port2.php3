@@ -309,9 +309,11 @@ else
                                                            --Fant0m
     */
    $price_array = array();
+   
    function TRADE($price, $delta, $max, $limit, $factor, $port_type, $origin) 
    {   
-      global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array; 
+      global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array;
+       
       if($sectorinfo[port_type] ==  $port_type )
       {
         $price_array[$port_type] = $price - $delta * $max / $limit * $factor;
@@ -332,24 +334,41 @@ else
       return $origin;
    }
 
-   $trade_ore       =  TRADE($ore_price,        $ore_delta,       $sectorinfo[port_ore],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
-   $trade_organics  =  TRADE($organics_price,   $organics_delta,  $sectorinfo[port_organics],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );    
-   $trade_goods     =  TRADE($goods_price,      $goods_delta,     $sectorinfo[port_goods],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
-   $trade_energy    =  TRADE($energy_price,     $energy_delta,    $sectorinfo[port_energy],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
+   if ($trade_ore != 0 ) 
+   {
+      $trade_ore       =  TRADE($ore_price,        $ore_delta,       $sectorinfo[port_ore],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
+      $ore_price       =  $price_array['ore']; 
+   }
+   if ($trade_organics != 0 ) 
+   {
+      $trade_organics  =  TRADE($organics_price,   $organics_delta,  $sectorinfo[port_organics],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );    
+      $organics_price  =  $price_array['organics']; 
+   }
+   if ($trade_goods != 0 ) 
+   {
+      $trade_goods     =  TRADE($goods_price,      $goods_delta,     $sectorinfo[port_goods],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
+      $goods_price     =  $price_array['goods']; 
+   }
+   if ($trade_energy != 0 ) 
+   {
+      $trade_energy    =  TRADE($energy_price,     $energy_delta,    $sectorinfo[port_energy],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
+      $energy_price    =  $price_array['energy']; 
+   }
   
-   $cargo_exchanged =  $trade_ore + $trade_organics + $trade_goods;
-
-    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-    $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-    
-    $total_cost = $trade_ore        * $price_array['ore'] 
-                  + 
-                  $trade_organics   * $price_array['organics'] 
-                  + 
-                  $trade_goods      * $price_array['goods'] 
-                  + 
-                  $trade_energy     * $price_array['energy'];
-  
+   $cargo_exchanged  =  $trade_ore + $trade_organics + $trade_goods;
+   $free_holds       =  NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+   $free_power       =  NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+   
+   $total_cost       = $trade_ore         * $ore_price 
+                     + $trade_organics    * $organics_price 
+                     + $trade_goods       * $goods_price 
+                     + $trade_energy      * $energy_price;
+      
+    /* debug info
+    echo "$trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + 
+            $trade_energy * $energy_price";
+    */
+   
     if($free_holds < $cargo_exchanged)
     {
       echo "You do not have enough free cargo holds for the commodities you wish to purchase.  Click <A HREF=port.php3>here</A> to return to the port menu.<BR><BR>";
