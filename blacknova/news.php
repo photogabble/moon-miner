@@ -48,7 +48,7 @@ if($res->EOF)
     die();
 }
 
-while (!res->EOF) {
+while (!$res->EOF) {
   $row = $res->fields;
 ?>
 <tr>
