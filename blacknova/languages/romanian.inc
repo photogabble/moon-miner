@@ -1203,5 +1203,115 @@ $l_mail_sent			="Parola a fost trimisa la";
 $l_mail_topic			="Parola $game_name";
 $l_mail_message			="Bun gasit,\n\nDe la adresa IP $ip s-a solicitat ca parola jocului $game_name sa fie transmisa la acest e-mail.\n\nParola dvs. este: [pass]\n\nAceasta parola o puteti schimba imediat dupa ce ati intrat in joc folosind sectiunea -Optiuni-\n\nMultumim pentru vizita,\n\nBlackNova Admin\n\n\nVa asteptam sa va intoarceti la\nhttp://www.AdAcademy.ro/BlackNova/.";
 
+// global_funcs.php
+
+$l_global_mmenu			="Click <A HREF=main.php>here</A> to return to the main menu.";
+$l_global_mlogin		="Click <A HREF=login.php>here</A> to return to the login screen.";
+$l_global_needlogin		="You need to log in, click <A HREF=login.php>here</A>.";
+$l_global_died			="Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>Better Luck Next Time!";
+$l_global_warzone		="Zone is now a War Zone!";
+$l_global_nzone			="Zone is a neutral zone.";
+$l_global_team			="Zone now belongs to alliance";
+$l_global_player		="Zone now belongs to player";
+
+// texts for the news flashes
+
+$l_news_planets		  = " planets";
+$l_news_cols		      = " Million colonists";
+$l_news_p_headline = "[player]\'s Empire now has ";
+
+$l_killheadline=" was killed in an accident";
+$l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
+$l_news_p_text5		= "The rising empire of [name] now has five planets, the BNN will watch the actions of [name] more closely in the future!";
+$l_news_p_text10		= "The growing empire of [name] now controls ten planets, Reports of BNN say that further expansion of [name] might lead to war!";
+$l_news_p_text25		= "The huge empire of [name] colonized 25 planets already, in an interview, [name] announced that he might consider slowing down his expansion in the future!";
+$l_news_p_text50		= "The enormous vast empire of [name], represented by 50 planets in the whole galaxy is getting a threatening strength. One of the BNN reporters found out that [name] is upgrading his ship planning a major war. In an interview [name] announced that is done on defence purpose only!";
+$l_news_c_text25		= "The rising empire of [name] now has 25 million colonists, the BNN will watch the actions of [name] more closely in the future, but its highly obvious that birthrates are going to explode!";
+$l_news_c_text100		= "The aspiring empire of [name] now has 100 million colonists, after an explosion of birth rates, [name] colonies seemed to be a good place for families to settle!";
+$l_news_c_text500		= "The large empire of [name] now has 500 million colonists, [name] said in an interview that colonization of the galaxy has just yet begun";
+$l_news_c_text1000		= "The humongous empire of [name] now has one billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+
+// Options.php
+
+$l_opt_title = "Options";
+$l_opt_chpass = "Change password";
+$l_opt_curpass = "Current password:";
+$l_opt_newpass = "New password:";
+$l_opt_newpagain = "New password (again):";
+$l_opt_userint = "User interface";
+$l_opt_usenew = "Use new layout?";
+$l_opt_lang = "Language";
+$l_opt_select = "Select One:";
+$l_opt_enabled = "Enabled";
+$l_opt_save = "Save";
+
+// Option2.php
+
+$l_opt2_title = "Save Options";
+$l_opt2_passunchanged = "Password was left unchanged.<BR><BR>";
+$l_opt2_srcpassfalse = "Original password incorrect. Password was left unchanged.<BR><BR>";
+$l_opt2_newpassnomatch = "New password fields do not match. Password was left unchanged.<BR><BR>";
+$l_opt2_passchanged = "Password changed.<BR><BR>";
+$l_opt2_passchangeerr = "Error changing password<BR><BR>";
+$l_opt2_userintup = "User interface setting updated.<BR><BR>";
+$l_opt2_userintfail = "Failed to update user interface setting.<BR><BR>";
+$l_opt2_chlang = "Language has been set to [lang].<p>";
+$l_opt2_dhtmlup = "Dynamic html setting updated.<BR><BR>";
+$l_opt2_dhtmlfail = "Failed to update dynamic html setting.<BR><BR>";
+
+// Presets.php
+
+$l_pre_title = "Change Realspace Presets";
+$l_pre_exceed = "Preset [preset] exceeds universe max of [sector_max]. No presets saved.<BR><BR>"; 
+$l_pre_set = "Preset 1 set to [preset1], preset 2 set to [preset2] and preset 3 set to [preset3].<BR><BR>";
+$l_pre_save = "Save";
+
+// Mailto.php
+
+$l_mt_title = "Send Message";
+$l_mt_from = "From:";
+$l_mt_subject = "Subject:";
+$l_mt_message = "Message:";
+$l_mt_sent = "Message sent";
+$l_mt_send = "Send";
+
+// sector_fighters.php
+$l_sf_attacking = "Sector defence fighters are attacking you!<BR>";
+$l_sf_destfight = "Your beams destroyed [lost] fighters<BR>";
+$l_sf_destfightb = "Your beams destroyed [lost] fighters<BR>";
+$l_sf_torphit = "Torpedoes hit:";
+$l_sf_destfightt = "Your torpedoes destroyed [lost] fighters<BR>";
+$l_sf_fighthit = "Fighters Attack:";
+$l_sf_destfightall = "You destroyed all the fighters.<BR>";
+$l_sf_destfightt2 = "You destroyed [lost] fighters.<BR>";
+$l_sf_lostfight = "You lost all fighters.<BR>";
+$l_sf_lostfight2 = "You lost [lost] fighters.<BR>";
+$l_sf_armorbreach = "Your armour is breached!<BR>";
+$l_sf_armorbreach2 = "Your armour is hit for [lost] damage.<BR>";
+$l_sf_sendlog = "[player] destroyed [lost] sector defence fighters in sector [sector].";
+$l_sf_lreport = "You lost [armor] armour points, [fighters] fighters, and used [torps] torpedoes.<BR><BR>";
+$l_sf_shipdestroyed = "Your ship has been destroyed!<BR><BR>";
+$l_sf_sendlog2 = "Sector defence fighters destroyed [player] in sector [sector].";
+$l_sf_escape = "Luckily you have an escape pod!<BR><BR>";
+
+// Zone names
+
+$l_zname[1] = "Unchartered space";
+$l_zname[2] = "Federation space";
+$l_zname[3] = "Free-trade space";
+$l_zname[4] = "War Zone";
+
+// ADDITION TO warpedit2.php
+
+$l_warp_cantsame = "You can't create a link when the source is the same as the destination.";
+
+//Addition to modify defences
+
+$l_md_noturn	  	 = "You need at least one turn.";
+$l_md_nothere            = "You need to be in the same sector as the sector defences.";
+$l_md_notyours           = "Action not permitted. Those sector defences do not belong to you.";
+$l_md_yours              = "You can not attack your own sector defences.";
+
+
 
 ?>
