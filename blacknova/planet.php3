@@ -370,7 +370,7 @@ if(!empty($planetinfo))
       if($success < 5)
       {
         $success = 5;
-      }
+      } 
       if($success > 95)
       {
         $success = 95;
