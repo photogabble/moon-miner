@@ -238,10 +238,10 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "UNIQUE newstypes_id_2 (newstypes_id)" .
                ")");
   mysql_query("CREATE TABLE newsactions(" .
-                 "actions_id varchar(6) NOT NULL," .
+                 "action_id varchar(6) NOT NULL," .
                  "description varchar(50)," .
-                 "PRIMARY KEY (actions_id)," .
-                 "KEY actions_id (actions_id)" .
+                 "PRIMARY KEY (action_id)," .
+                 "KEY action_id (action_id)" .
                  ")");
 
   //Insert default values into the reference tables
