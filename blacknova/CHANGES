@@ -1,15 +1,19 @@
-Sharpblue, cYz, Richard Gowen, Dave Rowlands (October 23 2001 )
----------------------------------------------------------------
-Multiple planets per sector support added. 
-Completely new traderoutes system.
-'ALL' check boxes added to planet transfer screen.
-Sector editor added to Admin module.
-
-
-
 Version 0.20
 ------------
 
+SharpBlue (26 October 2001)
+----------------------------
+Score is now generated when a player logs out
+
+SharpBlue (24 October 2001)
+----------------------------
+Completely new traderoutes system.
+
+Sharpblue, cYz, Richard Gowen, Dave Rowlands (October 23 2001 )
+---------------------------------------------------------------
+Multiple planets per sector support added. 
+'ALL' check boxes added to planet transfer screen.
+Sector editor added to Admin module.
 
 nospoon (7 October 2001)
 ------------------------
