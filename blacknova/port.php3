@@ -68,56 +68,39 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
   if($sb_ore == "Buying")
   {
     $amount_ore = $playerinfo[ship_ore];
-  } else {
-    $max_amount=$max_holds - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
-    $credits = $playerinfo[credits]+($amount_organics*$organics_price)+($amount_goods*$goods_price)+($amount_energy*$energy_price);
-    $amount_ore = floor($credits/$ore_price);			
-    if ( $amount_ore > $max_amount){
-       $amount_ore = $max_amount;
-    }elseif ($amount_ore < 0){
-    	$amount_ore = 0;
-    }			
+  }
+  else
+  {
+    $amount_ore = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
   }
 
-  if ($sb_organics=="Buying") {
-    $amount_organics=$playerinfo[ship_organics];
-  } else {
-    $max_amount=$max_holds - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
-    $credits = $playerinfo[credits]+($amount_ore*$ore_price)+($amount_goods*$goods_price)+($amount_energy*$energy_price);
-    $amount_organics = floor($credits/$organics_price);			
-    if ( $amount_organics > $max_amount){
-       $amount_organics = $max_amount;
-    }elseif ($amount_organics < 0){
-    	$amount_organics = 0;
-    }			
+  if($sb_organics == "Buying")
+  {
+    $amount_organics = $playerinfo[ship_organics];
+  }
+  else
+  {
+    $amount_organics = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
   }
 
-  
-  if ($sb_goods=="Buying") {
-    $amount_goods=$playerinfo[ship_goods];
-  } else {
-    $max_amount=$max_holds - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-    $credits = $playerinfo[credits]+($amount_ore*$ore_price)+($amount_organics*$organics_price)+($amount_energy*$energy_price);
-    $amount_goods = floor($credits/$organics_price);			
-    if ( $amount_goods > $max_amount){
-      $amount_goods = $max_amount;
-    }elseif ($amount_goods < 0){
-    	$amount_goods = 0;
-    }			
+  if($sb_goods == "Buying")
+  {
+    $amount_goods = $playerinfo[ship_goods];
+  }
+  else
+  {
+    $amount_goods = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
   }
   
-  if ($sb_energy=="Buying") {
-    $amount_energy=$playerinfo[ship_energy];
-  } else {
-    $max_amount=round(pow($level_factor,$playerinfo[power]) * 500)-$playerinfo[ship_energy];
-    $credits = $playerinfo[credits]+($amount_ore*$ore_price)+($amount_organics*$organics_price)+($amount_goods*$goods_price);
-    $amount_energy = floor($credits/$organics_price);
-    if ( $amount_energy > $max_amount){
-      $amount_energy = $max_amount;
-    }elseif ($amount_energy < 0){
-    	$amount_energy = 0;
-    }			
+  if($sb_energy == "Buying")
+  {
+    $amount_energy = $playerinfo[ship_energy];
   }
+  else
+  {
+    $amount_energy = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+  }
+
   // limit amounts to port quantities
   $amount_ore = min($amount_ore, $sectorinfo[port_ore]);
   $amount_organics = min($amount_organics, $sectorinfo[port_organics]);
@@ -153,8 +136,8 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
   echo "<INPUT TYPE=SUBMIT VALUE=Trade>";
   echo "</FORM>";
   
-  $free_holds = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-  $free_power = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
+  $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+  $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
   
   echo "You have " . NUMBER($free_holds) . " empty cargo holds, can carry " . NUMBER($free_power) . " more energy units, and have " . NUMBER($playerinfo[credits]) . " credits.";
 }
@@ -239,13 +222,14 @@ elseif($sectorinfo[port_type] == "special")
   echo "<BR>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>Item</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD><TD><B>Item</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD></TR>";
-  $fighter_max = round(pow($level_factor, $playerinfo[computer]) * 100);
+  $fighter_max = NUM_FIGHTERS($playerinfo[computer]);
   $fighter_free = $fighter_max - $playerinfo[ship_fighters];
-  $torpedo_max = round(pow($level_factor, $playerinfo[torp_launchers]) * 100);
+  $torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]);
   $torpedo_free = $torpedo_max - $playerinfo[torps];
-  $armour_max = round(pow($level_factor, $playerinfo[armour]) * 100);
+  $armour_max = NUM_ARMOUR($playerinfo[armour]);
   $armour_free = $armour_max - $playerinfo[armour_pts];
-  $colonist_max = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+  $colonist_max = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - 
+    $playerinfo[ship_goods] - $playerinfo[ship_colonists];
   echo "<TR BGCOLOR=\"$color_line1\">";
   echo "<TD>Fighters</TD><TD>" . NUMBER($fighter_price) . "</TD><TD>" . NUMBER($playerinfo[ship_fighters]) . " / " . NUMBER($fighter_max) . "</TD><TD>" . NUMBER($fighter_free) . "</TD>";
   echo "<TD>";
