@@ -28,7 +28,6 @@ switch($response) {
    case "display":
       bigtitle();
       $res5 = $db->Execute("SELECT * FROM $dbtables[ships],$dbtables[bounty] WHERE bounty_on = ship_id");
-      echo
       $j = 0;
       if($res5)
       {
@@ -48,7 +47,7 @@ switch($response) {
       else
       {
          echo "$l_by_bountyon " . $bounty_details[0][character_name];
-         echo '<table border=1 cellspacing=1 cellpadding=2 width="100%" align=center>';
+         echo '<table border=1 cellspacing=1 cellpadding=2 width="50%" align=center>';
          echo "<TR BGCOLOR=\"$color_header\">";
          echo "<TD><B>$l_amount</TD>";
          echo "<TD><B>$l_by_placedby</TD>";
