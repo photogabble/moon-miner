@@ -5,7 +5,8 @@ BlackNova Traders - Installation
 2. Edit the file config.php3 in you favourite editor and change the values
    for host, user, and password to fit your MySQL environment.  Also check
    for other configuration variables specific to your installation (such
-   as adminpass and admin_mail for example).
+   as adminpass and admin_mail for example). If you use a non-standard
+   port or UNIX socket for MySQL, also look at the $dbport variable.
 3. Create the database:  
 	mysqladmin -uuser -ppass create dbname
 	mysql -uuser -ppass dbname < blacknova.sql
