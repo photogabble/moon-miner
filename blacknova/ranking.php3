@@ -39,7 +39,15 @@ else
 }
 
 echo "<BR>";
-TEXT_GOTOMAIN();
+
+if(empty($username))
+{
+  TEXT_GOTOLOGIN();
+}
+else
+{
+  TEXT_GOTOMAIN();
+}
 
 include("footer.php3");
 
