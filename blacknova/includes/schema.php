@@ -297,7 +297,8 @@ $db->Execute("CREATE TABLE $dbtables[logs](" .
              "type mediumint(5) DEFAULT '0' NOT NULL," .
              "time TIMESTAMP(14)," .
              "data varchar(255)," .
-             "PRIMARY KEY (log_id)" .
+             "PRIMARY KEY (log_id)," .
+             "KEY idate (ship_id,time)" .
              ")");
 echo "created.<BR>";
 

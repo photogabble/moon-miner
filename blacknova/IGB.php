@@ -265,7 +265,7 @@ function IGB_transfer2()
     if($playerinfo[ship_id] == $ship_id)
       IGB_error($l_igb_sendyourself, "IGB.php?command=transfer");
 
-    if(!$res || $res->EOF == 0)
+    if(!$res || $res->EOF)
       IGB_error($l_igb_unknowntargetship, "IGB.php?command=transfer");
 
     $target = $res->fields;
