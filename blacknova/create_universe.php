@@ -457,7 +457,6 @@ switch ($step) {
       {
          while (!$sql_query->EOF) {
             $result = $sql_query->fields;
-            echo $i .",";
             if ($i>499) {
                $update.="sector_id=9999999;";
                echo $update;

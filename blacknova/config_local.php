@@ -70,4 +70,3 @@ $admin_mail = "billg@microsoft.com";
 // Address the forum link, link's to:
 $link_forums = "http://forums.blacknova.net";
 ?>
-
