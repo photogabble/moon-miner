@@ -249,7 +249,8 @@ elseif($sectorinfo[port_type] == "special")
         {
            echo $l_port_bounty;
            $l_port_bounty2 = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_bounty2);
-           echo $l_port_bounty2;
+           echo $l_port_bounty2 . "<BR>";
+           echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR><BR>";
            TEXT_GOTOMAIN();
            die(); 
         }
