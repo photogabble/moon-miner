@@ -870,7 +870,7 @@ function furangeehunter()
     furangeetoship($targetinfo[ship_id]);
   } else
   {
-    plyerlog($playerinfo[ship_id],"Furangee hunt failed, target $targetinfo[character_name] was in a no attack zone.");
+    playerlog($playerinfo[ship_id],"Furangee hunt failed, target $targetinfo[character_name] was in a no attack zone.");
   }
 }
 
