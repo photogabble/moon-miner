@@ -7,16 +7,16 @@ $title="Main Menu";
 
 $basefontsize = 0;
 $stylefontsize = "8Pt";
-$picsperrow = 6;
+$picsperrow = 3;
 
 if($res == 640)
-  $picsperrow = 4;
+  $picsperrow = 2;
 
 if($res >= 1024)
 {
   $basefontsize = 1;
   $stylefontsize = "12Pt";
-  $picsperrow = 7;
+  $picsperrow = 4;
 }
 
 include("header.php3");
@@ -340,18 +340,8 @@ if($num_planets > 0)
     }
     else
     {
-      if ( $planet_owner[team_name] )
-      {
-         echo "<br>($planet_owner[character_name])&nbsp;(<font color=#33ff00>$planet_owner[team_name]</font>)";
-         $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":" . $planet_owner[team_name] . ":-->";
-      }
-      else
-      {
-         echo "<br>($planet_owner[character_name])";         
+       echo "<br>($planet_owner[character_name])";         
       $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":N:-->";
-
-      }
-      
     }
     echo "</font></td>";
 
@@ -377,6 +367,7 @@ else
 </td>
 </tr>
 </table>
+<br>
 
 <b><center><font size=2 face="arial" color=white>Other ships in sector <? echo $sectorinfo[sector_id];?>:</font><br></center></b>
 <table border=0 width=100%>
