@@ -239,6 +239,39 @@ elseif($sectorinfo[port_type] == "special")
 {
   $title=$l_special_port;
   bigtitle();
+  $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM $dbtables[bounty] WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id]");
+  if($res2)
+  {
+     $bty = $res2->fields;
+     if($bty[total_bounty] > 0)
+     {
+        if($pay <> 1)
+        {
+           echo $l_port_bounty;
+           $l_port_bounty2 = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_bounty2);
+           echo $l_port_bounty2;
+           TEXT_GOTOMAIN();
+           die(); 
+        }
+        else
+        {
+           if($playerinfo[credits] < $bty[total_bounty])
+           {
+              $l_port_btynotenough = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_btynotenough);
+              echo $l_port_btynotenough;
+              TEXT_GOTOMAIN();
+              die();
+           }
+           else
+           {
+              $db->Execute("UPDATE $dbtables[ships] SET credits=credits-$bty[total_bounty] WHERE ship_id = $playerinfo[ship_id]");
+              $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+              echo $l_port_bountypaid;
+              die();
+           }
+        }
+     }
+  }
 
   $hull_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[hull]));
   $engine_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[engines]));

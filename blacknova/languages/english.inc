@@ -1319,6 +1319,10 @@ $l_planet2_sector = "You are not in the same sector as that planet.";
 $l_planet_destroyplanet = "Destroy Planet";
 $l_planet_warning = "Doing this will totally destroy this planet";
 $l_planet_confirm = "Do you really want to destroy this planet?";
+$l_port_bounty = "You can not access a special port while you have a bounty on you placed by The Federation.<BR>";
+$l_port_bounty = "Click <a href="port.php?pay=1">here</a> to pay the bounty of [amount] credits.";
+$l_port_btynotenough = "You do not have enough credtis to pay the bounty of [amount] credits.<BR>";
+$l_port_bountypaid = "You have paid the bounty. Click <a href="port.php">here</a> to continue.<BR>";
 
 
 $l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
