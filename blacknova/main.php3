@@ -416,13 +416,9 @@ if($playerinfo[sector] != 0)
            $success = 95;
          }
          $roll = rand(1, 100);
-        if($result4 == 0 || $totalcount == 0)
-        {
-          echo "<td align=center>";
-          echo "<br><font color=white>None</font><br><br>";
-          echo "</td>";
-          break;
-        }
+         
+
+        
          if($roll < $success)
          {
             $shipavg = $row[hull] + $row[engines] + $row[computer] + $row[beams] + $row[torp_launchers] + $row[shields] + $row[armour];
@@ -463,6 +459,13 @@ if($playerinfo[sector] != 0)
                $curcount++;
             }
          }
+         if($result4 == 0 || $totalcount == 0)
+         {
+            echo "<td align=center>";
+            echo "<br><font color=white>None</font><br><br>";
+            echo "</td>";
+            break;
+         }
       }
    echo "    </tr>
            </table>
@@ -497,9 +500,6 @@ else
    {
         $mines_owner = $planet_owner_arry[character_name] . " has";
    }
-
-   
-
 }
 
 if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
@@ -547,8 +547,6 @@ if($sectorinfo[mines] > 0 || $sectorinfo[fighters] > 0)
       echo "<br><font size=2 color=white>$sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting])</font><br>";      
       echo "</td>";
    }
-
-//   echo "<br><font color=white>$mines_owner $sectorinfo[mines] $minedesc and $sectorinfo[fighters] $fighterdesc ($sectorinfo[fm_setting]) in this sector.</font><br>";   
 }
  
 ?>
