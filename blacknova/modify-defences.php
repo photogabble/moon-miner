@@ -150,6 +150,10 @@ switch($response) {
       mysql_query("UPDATE sector_defence SET fm_setting = '$mode' where defence_id = $defence_id");
       $stamp = date("Y-m-d H-i-s");
       mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+      if($mode == 'attack')
+        $mode = $l_md_attack;
+      else
+        $mode = $l_md_toll;
       $l_md_mode=str_replace("[mode]",$mode,$l_md_mode);
       echo "$l_md_mode<BR>";
       TEXT_GOTOMAIN();

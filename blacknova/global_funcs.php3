@@ -481,7 +481,7 @@ function defence_vs_defence($ship_id)
          {
             while(($cur = mysql_fetch_array($result2)) && $qty > 0)
             {
-               $targetdeftype = $cur[defence_type] == 'F' ? 'Fighters' : 'Mines';
+               $targetdeftype = $cur[defence_type] == 'F' ? $l_fighters : $l_mines;
                if($qty > $cur['quantity'])
                {
                   mysql_query("DELETE FROM sector_defence WHERE defence_id = $cur[defence_id]");

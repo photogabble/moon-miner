@@ -291,11 +291,13 @@ echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000000 text="#c0c0c0" l
 echo '<center>';
 
 echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
+
+$logline = str_replace("[player]", "$playerinfo[character_name]", $l_log_log);
 ?>
 
 <tr><td><td width=100%><td></tr>
 <tr><td><td height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
-<font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<? echo $playerinfo[character_name]; ?>'s Log</b></font>
+<font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<? echo $logline; ?></b></font>
 </td><td><td>&nbsp;</tr>
 <tr><td valign=bottom>
 
@@ -320,7 +322,7 @@ echo "<div id=\"divScroller1\">" .
      "\n<div id=\"dynPage0\" class=\"dynPage\">" .
      "<center>" .
      "<br>" .
-     "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
+     "<font size=2 color=#DEDEEF><b>$l_log_start $entry<b></font>" .
      "<p>" .
      "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
      "</center>";
@@ -347,7 +349,7 @@ if(!empty($logs))
 
 echo "<center>" .
      "<br>" .
-     "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
+     "<font size=2 color=#DEDEEF><b>$l_log_end $entry<b></font>" .
      "<p>" .
      "</center>" .
      "</div>\n";
@@ -379,7 +381,7 @@ if($mode != 'compat')
   echo "<div id=\"dynPage1\" class=\"dynPage\">" .
        "<center>" .
        "<br>" .
-       "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
+       "<font size=2 color=#DEDEEF><b>$l_log_start $entry<b></font>" .
        "<p>" .
        "</center>" .
        "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
@@ -406,7 +408,7 @@ if($mode != 'compat')
 
   echo "<center>" .
        "<br>" .
-       "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
+       "<font size=2 color=#DEDEEF><b>$l_log_end $entry<b></font>" .
        "<p>" .
        "</center>" .
        "</div>\n";
@@ -421,7 +423,7 @@ if($mode != 'compat')
   echo "<div id=\"dynPage2\" class=\"dynPage\">" .
        "<center>" .
        "<br>" .
-       "<font size=2 color=#DEDEEF><b>Log entry for $entry<b></font>" .
+       "<font size=2 color=#DEDEEF><b>$l_log_start $entry<b></font>" .
        "<p>" .
        "</center>" .
        "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
@@ -448,7 +450,7 @@ if($mode != 'compat')
 
   echo "<center>" .
        "<br>" .
-       "<font size=2 color=#DEDEEF><b>End of log entry for $entry<b></font>" .
+       "<font size=2 color=#DEDEEF><b>$l_log_end $entry<b></font>" .
        "<p>" .
        "</center>" .
        "</div>";
@@ -527,10 +529,10 @@ if($swordfish == $adminpass)
        "<input type=hidden name=menu value=logview>" .
        "<input type=submit value=\"Return to Admin\"></td></tr>";
 else
-  echo "<tr><td><td><p><font size=2 face=arial>Click <A HREF=$interface><font color=#00ff00>here</font></A> to return to the main menu.</td></tr>";
+  echo "<tr><td><td><p><font size=2 face=arial>$l_log_click</td></tr>";
 
 if($mode != 'compat')
-  echo "<tr><td><td align=center><br><font size=2 color=white>NOTE: If this page displays incorrectly, or if you simply don't like the dynamic html effects or find them annoying, you can disable them <a href=options.php3><font color=#00FF00>here</font></a>.</td></tr>";
+  echo "<tr><td><td align=center><br><font size=2 color=white>$l_log_note</a>.</td></tr>";
 
 echo "</table>" .
      "</center>";

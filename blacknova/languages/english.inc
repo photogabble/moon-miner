@@ -431,6 +431,11 @@ $l_log_months = array('January','February','March','April','May','June','July','
 $l_log_months_short = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 $l_log_pod = "Luckily, you had an escape pod!";
 $l_log_nopod = "<font color=yellow><b>You did not have an escape pod, you died.</b></font>";
+$l_log_log = "[player]'s Log";
+$l_log_start = "Log entry for";
+$l_log_end = "End of log entry for";
+$l_log_click = "Click <A HREF=$interface><font color=#00ff00>here</font></A> to return to the main menu.";
+$l_log_note = "NOTE: If this page displays incorrectly, or if you simply don't like the dynamic html effects or find them annoying, you can disable them <a href=options.php3><font color=#00FF00>here</font>";
 
 $l_log_text[LOG_LOGIN] = "You have logged in, from [ip].";
 $l_log_title[LOG_LOGIN] = "Logged in";

@@ -306,7 +306,7 @@ $l_att_noturn		 = "Vous avez besoin d'au moins un tour pour pouvoir attaquer.";
 $l_att_noatt		 = "Il n'est pas permis d'attaquer quelqu'un dans ce secteur.";
 $l_att_flee		 = "Le vaisseau ennemi vous échape!";
 $l_att_ewd		 = "Le vaisseau est entré d'urgence dans l'hyper-espace quand vous l'avez attaqué!";
-$l_att_att		 = "Attaque sur ";
+$l_att_att		 = "Attaque ";
 $l_att_beams		 = "Rayons touchent:";
 $l_att_torps		 = "Torpilles touchent:";
 $l_att_fighters		 = "Intercepteurs attaquent:";
@@ -360,338 +360,342 @@ $l_warp_removedtwo	 = "Le lien à été détruit, de et vers";
 // genesis.php
 
 $l_gns_title		 = "Torpille Genesis";
-$l_gns_turn		 = "You need at least one turn to use a genesis device.";
-$l_gns_onplanet		 = "You can't use this device while on the planet surface.";
-$l_gns_full		 = "This solar system is already full.";
-$l_gns_planetex		 = "There is already a planet in this sector.";
-$l_gns_nogenesis	 = "You do not have any genesis devices.";
-$l_gns_forbid		 = "Creating a planet in this sector is not permitted.";
-$l_gns_bforbid		 = "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
-$l_gns_pcreate		 = "Planet created.";
+$l_gns_turn		 = "Vous avez besoin d'au moins un tour pour utiliser une torpille genesis.";
+$l_gns_onplanet		 = "Vous ne pouvez utiliser une torpille genesis à la surface d'une planète.";
+$l_gns_full		 = "Ce système solaire est déjà plein.";
+$l_gns_nogenesis	 = "Vous ne possédez aucune torpille genesis.";
+$l_gns_forbid		 = "La création d'une planète dans ce secteur n'est pas permise.";
+$l_gns_bforbid		 = "Les bases dans se secteur interferent avec la torpille genesis. La création d'une planète est impossible.";
+$l_gns_pcreate		 = "Une nouvelle planète est créée.";
 
 // ship.php
 
-$l_ship_title		 = "Ship Commands";
-$l_ship_the		 = "The";
-$l_ship_nolonger	 = "is no longer in sector";
-$l_ship_youc		 = "You see the";
-$l_ship_owned		 = "owned by";
-$l_ship_perform		 = "You can perform the following actions:";
+$l_ship_title		 = "Vaisseau";
+$l_ship_the		 = "Le";
+$l_ship_nolonger	 = "n'est plus dans ce secteur.";
+$l_ship_youc		 = "Vous voyez le";
+$l_ship_owned		 = "appartenant à";
+$l_ship_perform		 = "Vous pouvez performer les actions suivantes:";
 
 // selfdestruct.php
 
-$l_die_title		 = "Self-Destruct";
-$l_die_rusure		 = "Are you sure you wish to destroy your ship? This will remove you from the game.";
-$l_die_goodbye		 = "Goodbye cruel galaxy!";
-$l_die_check		 = "Are you positive that you wish to remove yourself from the game?";
-$l_die_nonono		 = "NO! NO! NO!";
-$l_die_what		 = "What was I thinking?";
+$l_die_title		 = "Auto-destruction";
+$l_die_rusure		 = "Êtes-vous certain que vous voulez détruire votre vaisseau? Cette action vous retirera du jeu.";
+$l_die_goodbye		 = "Adieu, cruelle galaxie!";
+$l_die_check		 = "Êtes-vous vraiment certain que vous voulez vous retirer du jeu?";
+$l_die_nonono		 = "NON! NON! NON!";
+$l_die_what		 = "À quoi je pensais?";
 $l_die_count		 = "5.. 4.. 3.. 2.. 1.. Boom!";
-$l_die_vapor		 = "You ship and all aboard have been vaporized.";
-$l_die_please		 = "Please, <A HREF=logout.php3>logout</A>";
-$l_die_exploit		 = "Don't play with what you don't understand.";
+$l_die_vapor		 = "Votre vaisseau et tous ceux à bord ont été vaporisés.";
+$l_die_please		 = "S'il vous plaît, <A HREF=logout.php3>Quittez</A>";
+$l_die_exploit		 = "Ne jouez pas avec ce que vous ne comprenez pas.";
 
 // move.php
 
-$l_move_title 		 = "Move";
-$l_move_turn		 = "You need at least one turn to move.";
-$l_move_failed		 = "Move failed!";
+$l_move_title 		 = "Déplacement";
+$l_move_turn		 = "Vous avez besoin d'au moins un tour pour vous déplacer.";
+$l_move_failed		 = "Le déplacement a échoué!";
 
 // scan.php
 
-$l_scan_title		 = "Scan Ship";
-$l_scan_turn		 = "You need at least one turn to scan another ship.";
-$l_scan_ron		 = "Scan results on";
-$l_scan_capt		 = "Captained by:";
-$l_scan_arma		 = "Armament:";
-$l_scan_carry		 = "Carrying:";
+$l_scan_title		 = "Sonder un vaisseau";
+$l_scan_turn		 = "Vous avez besoin d'au moins un tour pour sonder un autre vaisseau.";
+$l_scan_ron		 = "Résultats de la sonde sur";
+$l_scan_capt		 = "Capitaine:";
+$l_scan_arma		 = "Armement:";
+$l_scan_carry		 = "Cargaison:";
 
 // lrscan.php
 
-$l_lrs_title		 = "Long Range Scan";
-$l_lrs_nofull		 = "Your scanners do not possess full long range scan capabilities.";
-$l_lrs_noturns		 = "You need at least $fullscan_cost turn(s) to run a full long range scan.";
-$l_lrs_used		 = "Used";
-$l_lrs_turns		 = "turn(s)";
-$l_lrs_left		 = "left";
-$l_lrs_reach		 = "The following locations can be reached from sector [sector]:";
-$l_lrs_links		 = "Links";
-$l_lrs_ships		 = "Ships";
-$l_lrs_click		 = "Click one of the links to move to that sector.";
-$l_lrs_cantscan		 = "Can't scan sector from current sector!";
-$l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
-$l_lrs_moveto		 = "to move to sector";
+$l_lrs_title		 = "Sonde longue distance";
+$l_lrs_nofull		 = "Vos sondeurs ne possèdent aucune fonction longue distance.";
+$l_lrs_noturns		 = "Vous avez besoin d'au moins $fullscan_cost tour(s) pour performer un sondage complet.";
+$l_lrs_used		 = "Vous avez utilisé";
+$l_lrs_turns		 = "tour(s)";
+$l_lrs_left		 = "restant";
+$l_lrs_reach		 = "Les locations suivantes peuvent être atteinte à partir du secteur [sector]:";
+$l_lrs_links		 = "Liens";
+$l_lrs_ships		 = "Vaisseaux";
+$l_lrs_click		 = "Cliquez sur un des liens pour vous déplacer vers ce secteur.";
+$l_lrs_cantscan		 = "Vous ne pouvez sonder ce secteur à partir du secteur courant!";
+$l_lrs_zero		 = "Le secteur 0 montre beaucoup trop d'activité pour isoler les vaisseaux!";
+$l_lrs_moveto		 = "pour vous déplacer vers le secteur";
 
 // log.php
 
-$l_log_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
-$l_log_months_short = array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-$l_log_pod = "Luckily, you had an escape pod!";
-$l_log_nopod = "<font color=yellow><b>You did not have an escape pod, you died.</b></font>";
+$l_log_months = array('Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre');
+$l_log_months_short = array('Jan','Fév','Mar','Avr','Mai','Jun','Jui','Au','Sep','Oct','Nov','Déc');
+$l_log_pod = "Heureusement, vous aviez un module de secours!";
+$l_log_nopod = "<font color=yellow><b>Vous n'aviez pas de module de secours, vous êtes mort.</b></font>";
+$l_log_log = "Journal de [player]";
+$l_log_start = "Entrées pour";
+$l_log_end = "Fin des entrées pour";
+$l_log_click = "Cliquez <A HREF=$interface><font color=#00ff00>ici</font></A> pour retourner au menu principal.";
+$l_log_note = "NOTE: Si cette page ne s'affiche pas correctement, ou si vous n'aimez pas les effets de HTML dynamique ou vous les trouvez agaçants, vous pouvez les désactiver <a href=options.php3><font color=#00FF00>ici</font>";
 
-$l_log_text[LOG_LOGIN] = "You have logged in, from [ip].";
-$l_log_title[LOG_LOGIN] = "Logged in";
-$l_log_text[LOG_LOGOUT] = "You have logged out, from [ip].";
-$l_log_title[LOG_LOGOUT] = "Logged out";
-$l_log_text[LOG_ATTACK_OUTMAN] = "[player] was spotted on an attack vector, but your great pilot skills and good engines allowed you to outmaneuver the enemy.";
-$l_log_title[LOG_ATTACK_OUTMAN] = "Evasive action!";
-$l_log_text[LOG_ATTACK_OUTSCAN] = "You detected [player]'s weapons trying to fix on your ship, but your cloak generators managed to fool the enemy's primitive sensor circuits.";
-$l_log_title[LOG_ATTACK_OUTSCAN] = "Cloak successful!";
-$l_log_text[LOG_ATTACK_EWD] = "You are surprised by [player]'s treacherous attack. You can see the incoming warheads as you reach frantically for the emergency warp button. The world blurs around you and, for a milisecond, you think you are dead. When you finally open your eyes, you see that you were safely transported elsewhere. But where exactly, you do not know...";
-$l_log_title[LOG_ATTACK_EWD] = "Emergency warp!";
-$l_log_text[LOG_ATTACK_EWDFAIL] = "Your sensors detect [player]'s ship on an attack vector. \"Better be safe than sorry\", you think, hitting the emergency warp button. You hear a strange choking sound coming from the engines room and smell burned circuitry. \"Stupid piece of crap!\", you yell, kicking at the computer. The computer emits beeps of protestation as you prepare for the incoming battle...";
-$l_log_title[LOG_ATTACK_EWDFAIL] = "Emergency warp <font color=red>failed!</font>";
-$l_log_text[LOG_ATTACK_LOSE] = "You ship is being attacked by [player]. Try as you might, you cannot defend yourself against [player]'s superior weaponry. Your ship was destroyed. ";
-$l_log_title[LOG_ATTACK_LOSE] = "<font color=red>Combat lost!</font>";
-$l_log_text[LOG_ATTACKED_WIN] = "You ship was attacked by [player]. You battle for a while, then the fight breaks down. You lost [armor] armor points and [fighters] fighters in the skirmish.";
-$l_log_title[LOG_ATTACKED_WIN] = "<font color=yellow>Skirmish!</font>";
-$l_log_text[LOG_TOLL_PAID] = "You had to pay [toll] credits to enter sector [sector]. You promise yourself that you'll find a way to get your money back.";
+$l_log_text[LOG_LOGIN] = "Vous vous êtes connecté, à partir de [ip].";
+$l_log_title[LOG_LOGIN] = "Connection";
+$l_log_text[LOG_LOGOUT] = "Vous vous êtes déconnecté, à partir de [ip].";
+$l_log_title[LOG_LOGOUT] = "Déconnection";
+$l_log_text[LOG_ATTACK_OUTMAN] = "[player] a été ciblé sur un vecteur d'attaque, mais votre grand talent de pilote et vos moteurs supérieurs vous ont permis d'éviter l'ennemi.";
+$l_log_title[LOG_ATTACK_OUTMAN] = "Esquive!";
+$l_log_text[LOG_ATTACK_OUTSCAN] = "Vous avez détecté les armes de [player] qui essayaient de se verrouiller sur votre vaisseau, mais vos générateurs de camouflage vous ont permis de tromper l'armement primitif de votre ennemi.";
+$l_log_title[LOG_ATTACK_OUTSCAN] = "Camouflage!";
+$l_log_text[LOG_ATTACK_EWD] = "Vous êtes surpris par l'attaque en traitre de [player]. Vous pouvez apercevoir les missiles qui se dirigent vers vous pendant que vous courez vers le bouton d'hyper-espace d'urgence. L'univers se brouille autour de vous et, pour une milli-seconde, vous croyez que vous êtes mort. Quand vous ouvrez finallement les yeux, vous vous apercevez que vous avez été transporté dans un endroit plus sûr. Mais où est cet endroit, vous ne le savez pas...";
+$l_log_title[LOG_ATTACK_EWD] = "Hyper-espace d'urgence!";
+$l_log_text[LOG_ATTACK_EWDFAIL] = "Vos détecteurs se fixent sur le vaisseau de [player], qui est sur un vecteur d'attaque. \"Mieux vaut prévenir que guérir\", vous pensez, appuyant sur le bouton d'hyper-espace d'urgence. Vous entendez un son étrange d'étouffement venant de la salle des moteurs et vous sentez des circuits brûlés. \"Stupide boîte de conserve!\", vous criez, en donnant un coup de pied à l'ordinateur. Il émet des bips de protestation pendant que vous vous préparez pour le combat...";
+$l_log_title[LOG_ATTACK_EWDFAIL] = "Hyper-espace d'urgence <font color=red>en panne!</font>";
+$l_log_text[LOG_ATTACK_LOSE] = "Votre vaisseau est attaqué par [player]. Vous faites de votre mieux, mais vous ne pouvez vous défendre contre l'armement supérieur de [player]. Votre vaisseau a été détruit. ";
+$l_log_title[LOG_ATTACK_LOSE] = "<font color=red>Combat perdu!</font>";
+$l_log_text[LOG_ATTACKED_WIN] = "Votre vaisseau a été attaqué par [player]. Vous vous battez un moment, puis le combat cesse. Vous perdez [armor] points d'armure et [fighters] intercepteurs dans l'escarmouche.";
+$l_log_title[LOG_ATTACKED_WIN] = "<font color=yellow>Escarmouche!</font>";
+$l_log_text[LOG_TOLL_PAID] = "Vous avez dû payer [toll] crédits pour entrer dans le secteur [sector]. Vous vous promettez bien de trouvez un moyen de récupérer votre argent.";
 $l_log_title[LOG_TOLL_PAID] = "Extortion";
-$l_log_text[LOG_HIT_MINES] = "You hit [mines] mines when travelling in sector [sector].";
-$l_log_title[LOG_HIT_MINES] = "<font color=yellow>Mines alert!</font>";
-$l_log_text[LOG_SHIP_DESTROYED_MINES] = "Your ship was destroyed by a minefield in sector [sector]. ";
-$l_log_title[LOG_SHIP_DESTROYED_MINES] = "<font color=red>Mines alert!</font>";
-$l_log_text[LOG_PLANET_DEFEATED_D] = "Your planet [planet_name] in sector [sector] was captured in battle by [name]. Fortunately, the strong loyalty of your citizens played in your favor. They have bravely chosen to destroy the planet rather than have it fall into enemy hands. You organize superb funerals in the memory of your faithful people.";
-$l_log_title[LOG_PLANET_DEFEATED_D] = "<font color=yellow>Planet destroyed</font>";
-$l_log_text[LOG_PLANET_DEFEATED] = "Your planet [planet_name] in sector [sector] was captured in battle by the wretched [name]. The people of the planet welcome their new ruler. You hear a testimony on BNN : \"We're glad to be rid of that old fart! We don't want no stinking loser who can't protect us!\". You swear to make them pay for their arrogance.";
-$l_log_title[LOG_PLANET_DEFEATED] = "<font color=red>Planet captured!</font>";
-$l_log_text[LOG_PLANET_NOT_DEFEATED] = "Your planet [planet_name] in sector [sector] was attacked by [name]. The citizens organized a valliant defense however, and managed to destroy the opponent. They salvage some resources from the space debris : [goods] goods, [ore] ore, [organics] organics and [salvage]% of the ship's worth of [credits] credits.";
-$l_log_title[LOG_PLANET_NOT_DEFEATED] = "Victory!";
+$l_log_text[LOG_HIT_MINES] = "Vous frappez [mines] mines dans le secteur [sector].";
+$l_log_title[LOG_HIT_MINES] = "<font color=yellow>Alerte, mines!</font>";
+$l_log_text[LOG_SHIP_DESTROYED_MINES] = "Votre vaisseau a été détruit par un champ de mines dans le secteur [sector]. ";
+$l_log_title[LOG_SHIP_DESTROYED_MINES] = "<font color=red>Alerte, mines!</font>";
+$l_log_text[LOG_PLANET_DEFEATED_D] = "Votre planète [planet_name] dans le secteur [sector] a été capturée dans une féroce bataille par [name]. Heureusement, la forte loyauté de vos citoyens a joué en votre faveur. Ils ont bravement choisi de détruire la planète plutôt que de la laisser entre des mains ennemies. Vous organizez de superbes funérailles  en mémoire de vos gens fidèles.";
+$l_log_title[LOG_PLANET_DEFEATED_D] = "<font color=yellow>Planète détruite</font>";
+$l_log_text[LOG_PLANET_DEFEATED] = "Votre planète [planet_name] dans le secteur [sector] dans une féroce bataille par [name]. Les gens de la planète souhaitent la bienvenue à leur nouveau seigneur. Vous entendez un témoignage sur BNN : \"Nous sommes bien content d'être débarassé de ce vieux crouton! Nous ne voulons pas d'un perdant qui ne peut même pas assurer notre protection!\". Vous vous jurez de les faire payer pour leur arrogance.";
+$l_log_title[LOG_PLANET_DEFEATED] = "<font color=red>Planète capturée!</font>";
+$l_log_text[LOG_PLANET_NOT_DEFEATED] = "Votre planète [planet_name] dans le secteur [sector] a été attaquée par [name]. Les citoyens ont organisé une vaillante résistance, cependant, et ont réussi à détruire l'ennemi. Ils ont récupéré quelques ressources des débris : [goods] produits, [ore] métaux, [organics] végétaux et [salvage]% de la valeur du vaisseau pour [credits] crédits.";
+$l_log_title[LOG_PLANET_NOT_DEFEATED] = "Victoire!";
 $l_log_title[LOG_RAW] = "Notice";
-$l_log_text[LOG_TOLL_RECV] = "Your fighters in sector [sector] have collected a 'tax' of [toll] credits.";
-$l_log_title[LOG_TOLL_RECV] = "Toll income";
-$l_log_text[LOG_DEFS_DESTROYED] = "[quantity] [type] were destroyed in sector [sector].";
-$l_log_title[LOG_DEFS_DESTROYED] = "Sector defenses destroyed";
-$l_log_text[LOG_PLANET_EJECT] = "You have been ejected from the planet in sector [sector] because [name] left the alliance.";
-$l_log_title[LOG_PLANET_EJECT] = "Ejected!";
-$l_log_text[LOG_BADLOGIN] = "There has been a bad login attempt from [ip].";
-$l_log_title[LOG_BADLOGIN] = "Bad login";
-$l_log_text[LOG_PLANET_SCAN] = "[name] has scanned your planet [planet_name] in sector [sector].";
-$l_log_title[LOG_PLANET_SCAN] = "Planet scan";
-$l_log_text[LOG_PLANET_SCAN_FAIL] = "[name] has attempted to scan your planet [planet_name] in sector [sector], but failed.";
-$l_log_title[LOG_PLANET_SCAN_FAIL] = "Planet scan failed";
-$l_log_text[LOG_SHIP_SCAN] = "[player] has scanned your ship.";
-$l_log_title[LOG_SHIP_SCAN] = "Ship scan";
-$l_log_text[LOG_SHIP_SCAN_FAIL] = "[player] has attempted to scan your ship, but failed.";
-$l_log_title[LOG_SHIP_SCAN_FAIL] = "Ship scan failed";
-$l_log_text[LOG_FURANGEE_ATTACK] = "Attacking [player]...";
-$l_log_title[LOG_FURANGEE_ATTACK] = "Attack";
-$l_log_text[LOG_STARVATION] = "One of your planet in [sector] cannot sustain its population! More organics is needed. [starvation] colonists died of hunger.";
-$l_log_title[LOG_STARVATION] = "<font color=yellow>Starvation!</font>";
-$l_log_text[LOG_TOW] = "Your ship has been towed from sector [sector] to sector [newsector] because your hull size exceeded the limit value of [hull].";
-$l_log_title[LOG_TOW] = "Towed!";
-$l_log_text[LOG_DEFS_DESTROYED_F] = "You have destroyed [fighters] patrolling fighters in sector [sector].";
-$l_log_title[LOG_DEFS_DESTROYED_F] = "Fighters destroyed";
-$l_log_text[LOG_DEFS_KABOOM] = "You were destroyed by a fighters force in sector [sector]. ";
-$l_log_title[LOG_DEFS_KABOOM] = "<font color=red>Ship destroyed!</font>";
-$l_log_text[LOG_HARAKIRI] = "You were tired of captaining this space barge, so you decided the universe would be better without it. Authorized by [ip].";
-$l_log_title[LOG_HARAKIRI] = "<font color=red>Self-destructed!</font>";
-$l_log_text[LOG_TEAM_REJECT] = "[player] has rejected an invitation to join your alliance, [teamname].";
-$l_log_title[LOG_TEAM_REJECT] = "Invitation rejected";
-$l_log_text[LOG_TEAM_RENAME] = "You have renamed your alliance to [team].";
-$l_log_title[LOG_TEAM_RENAME] = "Alliance renamed";
-$l_log_text[LOG_TEAM_M_RENAME] = "Your alliance coordinator renamed the alliance to [team].";
-$l_log_title[LOG_TEAM_M_RENAME] = "Alliance renamed";
-$l_log_text[LOG_TEAM_KICK] = "You have been ejected from the alliance [team].";
-$l_log_title[LOG_TEAM_KICK] = "Ejected from alliance!";
-$l_log_text[LOG_TEAM_CREATE] = "You have created a new alliance, [team].";
-$l_log_title[LOG_TEAM_CREATE] = "Created new alliance";
-$l_log_text[LOG_TEAM_LEAVE] = "You have left alliance [team].";
-$l_log_title[LOG_TEAM_LEAVE] = "Left alliance";
-$l_log_text[LOG_TEAM_NEWLEAD] = "You have left the alliance [team]. You relinquished the alliance leadership to [name].";
-$l_log_title[LOG_TEAM_NEWLEAD] = "Left alliance";
-$l_log_text[LOG_TEAM_LEAD] = "Your alliance coordinator has decided to leave [team]. You have been appointed to take its place.";
+$l_log_text[LOG_TOLL_RECV] = "Vos intercepteurs dans le secteur [sector] ont collecté une 'taxe' de [toll] crédits.";
+$l_log_title[LOG_TOLL_RECV] = "Droits de passage";
+$l_log_text[LOG_DEFS_DESTROYED] = "[quantity] [type] ont été détruits dans le secteur [sector].";
+$l_log_title[LOG_DEFS_DESTROYED] = "Défenses détruites";
+$l_log_text[LOG_PLANET_EJECT] = "Vous avez été éjecté de la planète dans le secteur [sector] parce que [name] à quitté votre alliance.";
+$l_log_title[LOG_PLANET_EJECT] = "Éjecté!";
+$l_log_text[LOG_BADLOGIN] = "Tentative de connection échouée à partir de [ip].";
+$l_log_title[LOG_BADLOGIN] = "Mauvais mot de passe";
+$l_log_text[LOG_PLANET_SCAN] = "[name] a sondé votre plànete [planet_name] dans le secteur [sector].";
+$l_log_title[LOG_PLANET_SCAN] = "Planète sondée";
+$l_log_text[LOG_PLANET_SCAN_FAIL] = "[name] a essayé de sonder votre planète [planet_name] dans le secteur [sector], mais a échoué.";
+$l_log_title[LOG_PLANET_SCAN_FAIL] = "Tentative de sonde";
+$l_log_text[LOG_SHIP_SCAN] = "[player] a sondé votre vaisseau.";
+$l_log_title[LOG_SHIP_SCAN] = "Vaisseau sondé";
+$l_log_text[LOG_SHIP_SCAN_FAIL] = "[player] a essayé de sonder votre vaisseau, mais a échoué.";
+$l_log_title[LOG_SHIP_SCAN_FAIL] = "Tentative de sonde";
+$l_log_text[LOG_FURANGEE_ATTACK] = "Attaque sur [player]...";
+$l_log_title[LOG_FURANGEE_ATTACK] = "Attaque";
+$l_log_text[LOG_STARVATION] = "Une de vos planètes dans le secteur [sector] ne peut soutenir sa population! Plus de végétaux sont nécéssaires. [starvation] colons sont morts de faim.";
+$l_log_title[LOG_STARVATION] = "<font color=yellow>Famine!</font>";
+$l_log_text[LOG_TOW] = "Votre vaisseau a été remorqué du secteur [sector] vers le secteur [newsector] parce que sa coque dépassait la limite persise de [hull].";
+$l_log_title[LOG_TOW] = "Remorqué!";
+$l_log_text[LOG_DEFS_DESTROYED_F] = "Vous avez détruit [fighters] intercepteurs dans le secteur [sector].";
+$l_log_title[LOG_DEFS_DESTROYED_F] = "Intercepteurs détruits";
+$l_log_text[LOG_DEFS_KABOOM] = "Votre vaisseau a été détruit par une force d'intercepteurs dans le secteur [sector]. ";
+$l_log_title[LOG_DEFS_KABOOM] = "<font color=red>Vaisseau détruit!</font>";
+$l_log_text[LOG_HARAKIRI] = "Vous êtes fatigué de commander cette poubelle volante. Vous décidez que l'univers sera un meilleur endroit sans vous. Votre vaisseau et tout son équipage sont vaporisés quand vous activez la commande d'auto-destruction. Authorisé à partir de [ip].";
+$l_log_title[LOG_HARAKIRI] = "<font color=red>Auto-destruction!</font>";
+$l_log_text[LOG_TEAM_REJECT] = "[player] a rejeté l'invitation pour faire partie de votre alliance [teamname].";
+$l_log_title[LOG_TEAM_REJECT] = "Invitation rejetée";
+$l_log_text[LOG_TEAM_RENAME] = "Vous avez renommé votre alliance [team].";
+$l_log_title[LOG_TEAM_RENAME] = "Alliance renommée";
+$l_log_text[LOG_TEAM_M_RENAME] = "Le co-ordinateur de votre alliance a rebaptisé l'alliance [team].";
+$l_log_title[LOG_TEAM_M_RENAME] = "Alliance renommée";
+$l_log_text[LOG_TEAM_KICK] = "Vous avez été éjecté de l'alliance [team].";
+$l_log_title[LOG_TEAM_KICK] = "Éjecté!";
+$l_log_text[LOG_TEAM_CREATE] = "Vous avez crée une nouvelle alliance, [team].";
+$l_log_title[LOG_TEAM_CREATE] = "Nouvelle alliance créée";
+$l_log_text[LOG_TEAM_LEAVE] = "Vous avez quitté l'alliance [team].";
+$l_log_title[LOG_TEAM_LEAVE] = "Départ";
+$l_log_text[LOG_TEAM_NEWLEAD] = "Vous avez quitté l'alliance [team]. Vous avez passé la direction de l'alliance à [name].";
+$l_log_title[LOG_TEAM_NEWLEAD] = "Départ";
+$l_log_text[LOG_TEAM_LEAD] = "Le co-ordinateur de votre alliance [team] a décidé de quitter l'alliance. Vous avez été désigné pour prendre sa place.";
 $l_log_title[LOG_TEAM_LEAD] = "Promotion!";
-$l_log_text[LOG_TEAM_JOIN] = "You have joined the alliance [team].";
-$l_log_title[LOG_TEAM_JOIN] = "Joined alliance";
-$l_log_text[LOG_TEAM_NEWMEMBER] = "[name] has accepted to join [team]. This brings you one step further to galactic domination.";
-$l_log_title[LOG_TEAM_NEWMEMBER] = "New alliance member";
-$l_log_text[LOG_TEAM_INVITE] = "You have been invited to be part of [team].";
+$l_log_text[LOG_TEAM_JOIN] = "Vous êtes maintenant member de l'alliance [team].";
+$l_log_title[LOG_TEAM_JOIN] = "Nouveau membre";
+$l_log_text[LOG_TEAM_NEWMEMBER] = "[name] a accepté de se joindre à [team]. Ceci vous approche un peu plus de la domination totale!";
+$l_log_title[LOG_TEAM_NEWMEMBER] = "Nouveau membre";
+$l_log_text[LOG_TEAM_INVITE] = "Vous avez été invité pour faire partie de l'alliance [team].";
 $l_log_title[LOG_TEAM_INVITE] = "Invitation";
-$l_log_text[LOG_TEAM_NOT_LEAVE] = "[player] has left your alliance.";
-$l_log_title[LOG_TEAM_NOT_LEAVE] = "Alliance loses a member";
-$l_log_text[LOG_ADMIN_HARAKIRI] = "[player] has self-destructed from ip [ip].";
-$l_log_title[LOG_ADMIN_HARAKIRI] = "Self-destruct";
-$l_log_text[LOG_ADMIN_ILLEGVALUE] = "[player] had [quantity] [type], with max holds of [holds]";
-$l_log_title[LOG_ADMIN_ILLEGVALUE] = "Illegal ship value";
-$l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] has attempted to capture [defender]'s planet in sector [sector]. Planet was destroyed instead.";
-$l_log_title[LOG_ADMIN_PLANETDEL] = "Planet destroyed";
-$l_log_text[LOG_DEFENCE_DEGRADE] = "Sector Defences Fighters in sector [sector] degraded by [degrade] percent due to insufficient energy.";
-$l_log_test[LOG_DEFENCE_DEGRADE] = "Sector Defences degraded.";
+$l_log_text[LOG_TEAM_NOT_LEAVE] = "[player] a quitté votre alliance.";
+$l_log_title[LOG_TEAM_NOT_LEAVE] = "Alliance diminuée";
+$l_log_text[LOG_ADMIN_HARAKIRI] = "[player] s'est auto-détruit à partir de [ip].";
+$l_log_title[LOG_ADMIN_HARAKIRI] = "Auto-destruction";
+$l_log_text[LOG_ADMIN_ILLEGVALUE] = "[player] avait [quantity] [type], alors que son maximum possible était [holds]";
+$l_log_title[LOG_ADMIN_ILLEGVALUE] = "Valeur illégale";
+$l_log_text[LOG_ADMIN_PLANETDEL] = "[attacker] a essayé de capturer la planète de [defender] dans le secteur [sector]. La planète a été détruite.";
+$l_log_title[LOG_ADMIN_PLANETDEL] = "Planète détruite";
+$l_log_text[LOG_DEFENCE_DEGRADE] = "Les intercepteurs dans le secteur [sector] ce sont dégradés de [degrade] pourcents parce qu'ils n'ont pas assez d'énergie.";
+$l_log_test[LOG_DEFENCE_DEGRADE] = "Dégradation";
 
 // modify-defences.php
 
-$l_md_title		 = "Sector Defences";
-$l_md_invalid		 = "Invalid Sector Defence";
-$l_md_nolonger		 = "The sector defence selected is no longer there.";
-$l_md_you		 = "you";
-$l_md_bmines		 = "Your beams destroyed";
-$l_md_msgdownerb	 = "[name] destroyed [mines] mines in sector [sector].";
-$l_md_retr		 = "You retrieved";
-$l_md_mode		 = "The fighters selected have been set to [mode] mode.";
-$l_md_consist		 = "This sector defence consists of [qty] [type] owned by [owner].";
-$l_md_youcan		 = "You can";
-$l_md_retrieve		 = "Retrieve";
-$l_md_change		 = "Change Fighter settings";
-$l_md_cmode		 = "Fighter mode";
-$l_md_attack		 = "Attack";
-$l_md_toll		 = "Toll";
-$l_md_attdef		 = "Attack the Sector Defences. All sector fighters will retaliate.";
+$l_md_title		 = "Défenses de secteur";
+$l_md_invalid		 = "Défense invalide";
+$l_md_nolonger		 = "La défense que vous avez choisi n'est plus dans ce secteur.";
+$l_md_you		 = "Vous";
+$l_md_bmines		 = "Vos rayons détruisent";
+$l_md_msgdownerb	 = "[name] a détruit [mines] mines dans le secteur [sector].";
+$l_md_retr		 = "Vous récupérez";
+$l_md_mode		 = "Les intercepteurs ont été placés en mode [mode].";
+$l_md_consist		 = "Cette défense consiste de [qty] [type], appartenant à [owner].";
+$l_md_youcan		 = "Vous pouvez";
+$l_md_retrieve		 = "Récupérer";
+$l_md_change		 = "Changer le mode des intercepteurs";
+$l_md_cmode		 = "Mode des intercepteurs";
+$l_md_attack		 = "Attaque";
+$l_md_toll		 = "Taxe";
+$l_md_attdef		 = "Attaquer les défenses de secteur. Tous les intercepteurs présents vont converger vers vous.";
 
 // news.php
 
-$l_news_title		 = "BlackNova Universe News";
-$l_news_info		 = "BNN is among the galaxy's leaders<br>
-                            in news and information delivery.<br>
-                            Staffed 24 hours, seven days a week by a <br>
-                            dedicated staff in BNN's galaxy headquarters <br>
-                            in Alpha Centauri and in bureaus galaxywide!";
-$l_news_for		 = "News for";
-$l_news_prev		 = "previous day";
-$l_news_next		 = "next day";
-$l_news_none		 = "Sorry, no news today.";
-$l_news_flash		 = "News Flash";
+$l_news_title		 = "Nouvelles de l'Univers Blacknova";
+$l_news_info		 = "BNN est la meilleur source<br>
+                   de nouvelles et informations dans l'univers.<br>
+                   Une équipe qui travaille 24 heures, sept jours par <br>
+                   semaines vous apporte toutes les manchettes! Nos <br>
+                   bureaux sont disséminés à travers toute la galaxie!";
+$l_news_for		 = "Manchettes pour";
+$l_news_prev		 = "jour précédent";
+$l_news_next		 = "jour suivant";
+$l_news_none		 = "Désolé, aucune nouvelles ajourd'hui.";
+$l_news_flash		 = "Manchette!";
 
 // dump.php
 
-$l_dump_title		 = "Dumping colonists";
-$l_dump_turn		 = "You need at least one turn to dump colonists.";
-$l_dump_nocol		 = "You have no colonists on your ship to begin with.";
-$l_dump_dumped		 = "Colonists dumped at supply depot.";
-$l_dump_nono		 = "You need to be at a supply depot to do this.";
+$l_dump_title		 = "Débarquement de colons";
+$l_dump_turn		 = "Vous avez besoin d'au moins un tour pour débarquer des colons.";
+$l_dump_nocol		 = "Vous n'avez aucun colon à bord.";
+$l_dump_dumped		 = "Les colons ont été débarqués à la station.";
+$l_dump_nono		 = "Vous avez besoin d'une station pour pouvoir débarquer des colons.";
 
 // readmail.php
 
-$l_readm_title		 = "Read Message";
+$l_readm_title		 = "Lire les messages";
 
-$l_readm_delete		 = "MESSAGE DELETED";
-$l_readm_nomessage	 = "You have no Messages waiting for you...";
-$l_readm_center		 = "Message Receiving Center";
-$l_readm_sender		 = "Message Sender";
-$l_readm_captn		 = "Captain of the";
-$l_readm_del		 = "Delete";
-$l_readm_repl		 = "Reply";
+$l_readm_delete		 = "MESSAGE EFFACÉ";
+$l_readm_nomessage	 = "Vous n'avez aucun message en attente";
+$l_readm_center		 = "Centre de messagerie";
+$l_readm_sender		 = "Source";
+$l_readm_captn		 = "Capitaine du ";
+$l_readm_del		 = "Effacer";
+$l_readm_repl		 = "Répondre";
 
 // mailto2.php
 
-$l_sendm_title		 = "Send Message";
-$l_sendm_to		 = "To";
-$l_sendm_from		 = "From";
+$l_sendm_title		 = "Envoyer un message";
+$l_sendm_to		 = "À";
+$l_sendm_from		 = "De";
 $l_sendm_ally		 = "Alliance:";
-$l_sendm_subj		 = "Subject";
+$l_sendm_subj		 = "Sujet";
 $l_sendm_mess		 = "Message";
-$l_sendm_send		 = "Send";
-$l_sendm_sent		 = "Message Sent";
+$l_sendm_send		 = "Envoyer";
+$l_sendm_sent		 = "Message envoyé";
 
 // zoneinfo.php
 
-$l_zi_title		 = "Zone Information";
-$l_zi_nexist		 = "This section of space does not exist!";
-$l_zi_feds		 = "Federation";
-$l_zi_traders		 = "The Free-Trade Coalition";
-$l_zi_nobody		 = "Nobody";
-$l_zi_war		 = "Contested space";
-$l_zi_allow		 = "Allowed";
-$l_zi_notallow		 = "Not allowed";
-$l_zi_limit		 = "Limited to owner and allies";
-$l_zi_ul		 = "Unlimited";
-$l_zi_control		 = "You are in control of this zone";
-$l_zi_tochange		 = "to change its laws.";
-$l_zi_owner		 = "Zone owner";
-$l_zi_maxhull		 = "Maximum hull size allowed";
+$l_zi_title		 = "Informations sur la zone";
+$l_zi_nexist		 = "Cette section d'espace n'existe pas!";
+$l_zi_feds		 = "Fédération";
+$l_zi_traders		 = "La coalition du commerce libre";
+$l_zi_nobody		 = "Personne";
+$l_zi_war		 = "Espace contesté";
+$l_zi_allow		 = "Permis";
+$l_zi_notallow		 = "Non permis";
+$l_zi_limit		 = "Limité aux allié";
+$l_zi_ul		 = "Illimité";
+$l_zi_control		 = "Vous êtes en contôle de cette zone";
+$l_zi_tochange		 = "pour changer ses lois.";
+$l_zi_owner		 = "Responsable de la zone";
+$l_zi_maxhull		 = "Coque maximum permise";
 
 // zoneedit.php
 
-$l_ze_title		 = "Edit Zone";
-$l_ze_notowner		 = "You are not owner of this zone so you can't edit it.";
-$l_ze_name		 = "Zone name";
-$l_ze_allow		 = "Allow";
-$l_ze_attacks		 = "Allow attacking other ships";
-$l_ze_genesis		 = "Allow creating new planets";
-$l_ze_return		 = "to return to the zone information page";
-$l_ze_saved		 = "Your changes have been saved.";
+$l_ze_title		 = "Éditer une zone";
+$l_ze_notowner		 = "Cette zone ne vous appartient pas alors vous ne pouvez la modifier.";
+$l_ze_name		 = "Nom de la zone";
+$l_ze_allow		 = "Permettre";
+$l_ze_attacks		 = "Permettre l'attaque de vaisseaux";
+$l_ze_genesis		 = "Permettre la création de planètes";
+$l_ze_return		 = "pour retourner à la page d'information sur la zone.";
+$l_ze_saved		 = "Vos modifications ont été sauvegardées.";
 
 // teams.php
 
 $l_team_title		 = "Alliances";
-$l_team_menu		 = "to go back to the Alliances Menu";
-$l_team_galax		 = "Alliances present in the Galaxy:";
-$l_team_members		 = "Members";
-$l_team_coord		 = "Co-ordinator";
-$l_team_member		 = "Member";
-$l_team_noinvite	 = "Nobody has invited you to join an alliance.";
-$l_team_ifyouwant	 = "If you want to join an alliance, send a message to its co-ordinator asking to be invited.";
-$l_team_tocreate	 = "to create a new alliance.";
-$l_team_injoin		 = "You have been invited to join";
-$l_team_tojoin		 = "to join";
-$l_team_or		 = "or";
-$l_team_reject		 = "to reject the invitation.";
-$l_team_ed		 = "Edit";
-$l_team_inv		 = "Invite";
-$l_team_leave		 = "Leave";
-$l_team_eject		 = "Eject";
-$l_team_pending		 = "Invitation pending for";
-$l_team_noinvites	 = "Nobody has been invited to be part of";
-$l_team_confirmleave	 = "Are you sure you want to leave";
-$l_team_onlymember	 = "You were the only member, thus [team_name] is no more.";
-$l_team_youarecoord	 = "You are the co-ordinator of";
-$l_team_relinq		 = "You must relinquish your role to another player.";
-$l_team_newc		 = "New co-ordinator:";
-$l_team_youveleft	 = "You have left alliance";
-$l_team_relto		 = "relinquishing the functions of co-ordinator to";
-$l_team_welcome		 = "Welcome to alliance";
-$l_team_noinviteto	 = "You have not been invited in to that team.";
-$l_team_ejectsure	 = "Are you sure you want to eject";
-$l_team_ejected 	 = "has been eject from the alliance!";
-$l_team_testing		 = "Testing phase...";
-$l_team_pw		 = "Password";
-$l_team_entername	 = "Enter the name of the Alliance";
-$l_team_enterdesc	 = "Enter a description of the Alliance";
-$l_team_hcreated	 = "has been created and you are its leader";
+$l_team_menu		 = "pour retourner au menu des Alliances";
+$l_team_galax		 = "Alliances dans la galaxie:";
+$l_team_members		 = "Membres";
+$l_team_coord		 = "Co-ordonateur";
+$l_team_member		 = "Membre";
+$l_team_noinvite	 = "Vous n'avez pas été invité à faire partie d'une alliance.";
+$l_team_ifyouwant	 = "Si vous désirez joindre une alliance, envoyez un message à son co-ordinateur pour être invité.";
+$l_team_tocreate	 = "pour créer une nouvelle alliance.";
+$l_team_injoin		 = "Vous avez été invité à rejoindre";
+$l_team_tojoin		 = "pour accepter";
+$l_team_or		 = "ou";
+$l_team_reject		 = "pour rejeter l'invitation.";
+$l_team_ed		 = "Modifier";
+$l_team_inv		 = "Inviter";
+$l_team_leave		 = "Quitter";
+$l_team_eject		 = "Éjecter";
+$l_team_pending		 = "Invitations pour";
+$l_team_noinvites	 = "Personne n'a été invité à faire partie de";
+$l_team_confirmleave	 = "Êtes vous certain que vous voulez quitter";
+$l_team_onlymember	 = "Vous étiez le seul membre, alors [team_name] n'existe plus.";
+$l_team_youarecoord	 = "Vous êtes le co-ordonateur de";
+$l_team_relinq		 = "Vous devez donner votre poste à un autre joueur.";
+$l_team_newc		 = "Nouveau co-ordonateur:";
+$l_team_youveleft	 = "Vous avez quitté l'alliance";
+$l_team_relto		 = "laissant le rôle de co-ordonateur à";
+$l_team_welcome		 = "Bienvenue dans l'alliance";
+$l_team_noinviteto	 = "Vous n'avez pas été invité à faire partie de cette équipe.";
+$l_team_ejectsure	 = "Êtes-vous certain de vouloir éjecter";
+$l_team_ejected 	 = "a été éjecté de l'alliance!";
+$l_team_testing		 = "Phase de test...";
+$l_team_pw		 = "Mot de passe";
+$l_team_entername	 = "Entrez le nom de l'alliance";
+$l_team_enterdesc	 = "Entrez une description de l'alliance";
+$l_team_hcreated	 = "à été créée et vous êtes son co-ordonateur";
 $l_team_alliance	 = "Alliance";
-$l_team_selectp		 = "Select the Player you want to invite";
-$l_team_isorry		 = "Sorry, but [name] has already been invited to be part of an alliance - only one invitation can be active at any given time";
-$l_team_plinvted	 = "Player invited.<BR>You must wait for that player to aknowledge your invitation.";
-$l_team_refuse		 = "You have refused the invitation to join";
-$l_team_edname		 = "Edit the name of your Alliance";
-$l_team_eddesc		 = "Edit the description for your Alliance";
-$l_team_hasbeenr	 = "has been renamed.";
-$l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
-$l_team_notmember	 = "You are not a member of any alliance";
-$l_team_urejected	 = "<B>ATTENTION</B> - you have been ejected from";
-$l_team_noalliances	 = "There are no alliances in the Galaxy at this time.";
+$l_team_selectp		 = "Sélectionnez le joueur que vous désirez inviter";
+$l_team_isorry		 = "Désolé, mais [name] à déjà reçu une invitation pour faire partie d'une alliance - seulement une invitation à la fois est permise";
+$l_team_plinvted	 = "Le joueur a été invité.<BR>Vous devez attendre la réponse de ce joueur.";
+$l_team_refuse		 = "Vous avez refusé l'invitation à vous joindre à";
+$l_team_edname		 = "Modifier le nom de l'alliance";
+$l_team_eddesc		 = "Modifier la description de l'alliance";
+$l_team_hasbeenr	 = "a été renommée.";
+$l_team_error		 = "<b><font color=red>Une erreur s'est produite</font></b><br>Vous n'êtes pas le co-ordonateur de cette Alliance.";
+$l_team_notmember	 = "Vous n'êtes membre d'aucune alliance";
+$l_team_urejected	 = "<B>ATTENTION</B> - vous avez été éjecté de";
+$l_team_noalliances	 = "Il n'y a présentement aucune alliance dans la galaxie.";
 
 // ranking.php
 
-$l_ranks_title		 = "Top $max_rank Players";
-$l_ranks_none		 = "No Results to show.";
-$l_ranks_pnum		 = "Total number of players";
-$l_ranks_dships		 = "Players with destroyed ships are not counted.";
-$l_ranks_rank		 = "Rank";
-$l_ranks_lastlog	 = "Last login";
-$l_ranks_good		 = "Good";
-$l_ranks_evil		 = "Evil";
+$l_ranks_title		 = "$max_rank meilleurs joueurs";
+$l_ranks_none		 = "Aucun résultat à afficher.";
+$l_ranks_pnum		 = "Nombre total de joueurs ";
+$l_ranks_dships		 = "Les joueurs avec un vaisseau détruit ne sont pas comptés.";
+$l_ranks_rank		 = "Rang";
+$l_ranks_lastlog	 = "Dernière connection";
+$l_ranks_good		 = "Bon";
+$l_ranks_evil		 = "Mauvais";
 
 // beacon.php
 
-$l_beacon_title		 = "Deploy Space Beacon";
-$l_beacon_notpermitted	 = "Deploying space beacons in this sector is not permitted.";
-$l_beacon_reads		 = "Present beacon reads";
-$l_beacon_none		 = "There presently isn't a beacon in this sector.";
-$l_beacon_enter		 = "Enter text for beacon";
-$l_beacon_nowreads	 = "Beacon now reads";
-$l_beacon_donthave	 = "You do not have a space beacon.";
+$l_beacon_title		 = "Déployer une bouée spatiale";
+$l_beacon_notpermitted	 = "Les bouées spatiales ne sont pas permises dans ce secteur.";
+$l_beacon_reads		 = "La bouée présente affiche :";
+$l_beacon_none		 = "Il n'y a présentement aucune bouée dans ce secteur.";
+$l_beacon_enter		 = "Entrez le texte de la bouée";
+$l_beacon_nowreads	 = "La bouée affiche maintenant";
+$l_beacon_donthave	 = "Vous n'avez aucun bouée.";
 
 // emerwarp.php
 
-$l_ewd_title		 = "Use Emergency Warp Device";
-$l_ewd_used		 = "Emergency warp device engaged - arrived in sector [sector].";
-$l_ewd_none		 = "You do not have an emergency warp device.";
+$l_ewd_title		 = "Hyper-espace d'urgence";
+$l_ewd_used		 = "Hyper-espace d'urgence engagé - vous arrivez dans le secteur [sector].";
+$l_ewd_none		 = "Vous n'avez pas d'hyper-espace d'urgence.";
 
 // defence-report.php
 
-$l_sdf_title		 = "Sector Defence Report";
-$l_sdf_none		 = "You have no sector defences deployed.";
+$l_sdf_title		 = "Rapport des défenses";
+$l_sdf_none		 = "Vous n'avez aucune défense déployée.";
 $l_sdf_type		 = "Type";
 $l_sdf_mode		 = "Mode";
 
@@ -700,14 +704,10 @@ $l_sdf_mode		 = "Mode";
 // the old ones so we could export to own file if performance problems
 // should occur
 
-$l_tdr_title    	 = "Trade Routes";
-$l_tdr_newtdr   	 = "Click <a href=\"traderoute.php?command=new\">here</a> to 
-create a new trade route";
-$l_tdr_modtdrset         = "To modify your global trade settings, click <a 
-href=\"traderoute.php?command=settings\">here</a>";
-$l_tdr_confdel  	 = "Click <a 
-href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">here</a> 
-to confirm deletion of the following trade route :";
+$l_tdr_title    	 = "Routes Commerciales";
+$l_tdr_newtdr   	 = "Cliquez <a href=\"traderoute.php?command=new\">ici</a> pour créer une nouvelle route";
+$l_tdr_modtdrset         = "Pour modifier les paramètres commerciaux globaux, cliquez <a href=\"traderoute.php?command=settings\">ici</a>";
+$l_tdr_confdel  	 = "Clquez <a href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">ici</a> pour confirmer la destruction de la route suivante :";
 $l_tdr_noactive 	 = "You do not have any active trade routes to display.";
 $l_tdr_curtdr   	 = "Current Trade Routes";
 $l_tdr_deltdr   	 = "Delete Trade Route";
@@ -1147,6 +1147,59 @@ $l_corpm_title			="Corporation Menu";
 $l_corpm_tocorp			="Planet is now a Corporate Planet!";
 $l_corpm_topersonal		="Planet is now a Personal Planet!";
 $l_corpm_exploit		="You intercept a garbled borg message on your scanner... you should probably start worrying...";
+
+// login.php login2.php
+$l_login_title			="Login"; 
+$l_login_email			="E-mail Address:";
+$l_login_pw			="Password:";
+$l_login_chooseres		="Unable to determine your screen resolution. Please choose the best fit:";
+$l_login_newp			= "If you are a new player, click <A HREF=\"new.php3\">here</A>.";
+$l_login_prbs			= "Problems?";
+$l_login_emailus		= "E-mail us";
+$l_login_sclosed		= "Server Closed";
+$l_login_closed_message		="Server closed until further notice.";
+$l_login_title2			="Login Phase Two"; 
+$l_login_banned			="<b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b>";
+$l_login_died			="Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=main.php3>here</A> to continue with a new ship.";
+$l_login_newbie			="Due to the seriousness of this crime and the vicious attack against you, the Federation has graciously decided to provide a free of charge cloning from your remains.  Sadly, even in this day and age, new clones can not own property, aside from the basics to make a living.  You will be provided with a basic ship and a few credits to get you started.  Hopefully your next life will be better.";
+$l_login_newlife		="Click <A HREF=main.php3>here</A> to continue in a new life.";
+$l_login_looser			="You had no escape pod, and due to your modest success in this life, the Federation declines to clone you.  Your remains should eventually fall into a gravity well, hopefully to be used to create life elsewhere... several billion years from now.<BR><BR> Better luck next game...";
+$l_login_4gotpw1		= "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, ";
+$l_login_4gotpw2		= "to have it e-mailed to you.<BR><BR>  Otherwise,";
+$l_login_4gotpw3		= "to try again.  Attempt logged with IP address of";
+$l_login_noone			= "No Such Player! - Create a new player <A HREF=new.php3>here</A>.";
+
+// new.php new2.php
+$l_new_title			= "Create New Player"; 
+$l_new_title2			= "Create New Player Phase Two"; 
+$l_new_shipname			= "Ship Name";
+$l_new_pname			= "Player Character Name";
+$l_new_info			= "We promise not to give out (or sell) your e-mail address to anyone.  It is required though, to send you your server generated password..";
+$l_new_closed_message		="Game closed for tournament play";
+$l_new_blank			="E-mail, ship name, and character name may not be blank.";
+$l_new_inuse			="E-mail address is already in use.";
+$l_new_4gotpw1			="If you have forgotten your password,";
+$l_new_4gotpw2			="to have it e-mailed to you.";
+$l_new_inusechar		="Character name $character, is already in use.";
+$l_new_inuseship		="Ship name $shipname, is already in use.";
+$l_new_pwsent			="Password has been sent to $username.";
+$l_new_login			="to go to the login screen.";
+$l_new_err			="Please go back or <a href=new.php3>click here</a> and try again.";
+$l_new_topic			="Traders Password";
+$l_new_message			="Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe Traders web team.";
+
+// logout.php
+
+$l_logout_score			="You current score is";
+$l_logout_text			="[name] is now logged out.  Click <A HREF=index.php3>here</A> to return to game.";
+
+// mail.php
+
+$l_mail_title			="Mail Password"; 
+$l_mail_noplayer		="No Such Player! - Create a new player <a href=new.php3>here</a>.";
+$l_mail_sent			="Password has been sent to";
+$l_mail_topic			="$game_name Password";
+$l_mail_message			="Greetings,\n\nSomeone from the IP address $ip requested that your password for $game_name be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe $game_name web team.";
 
 
 ?>

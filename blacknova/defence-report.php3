@@ -82,6 +82,10 @@ else
     $defence_type = $sector[$i]['defence_type'] == 'F' ? $l_fighters : $l_mines;
     echo "<TD> $defence_type </TD>";
     $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $l_n_a;
+    if($mode == 'attack')
+      $mode = $l_md_attack;
+    else
+      $mode = $l_md_toll;
     echo "<TD> $mode </TD>";
     echo "</TR>";
 

@@ -56,7 +56,7 @@ if(mysql_num_rows($res) != 0)
 }
 
 
-$title=$l_login_title2
+$title=$l_login_title2;
 include("header.php3");
 
 bigtitle();
