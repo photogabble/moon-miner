@@ -151,6 +151,7 @@ Commands
 &nbsp;<a class=mnu href="mailto2.php3">Send Message</a>&nbsp;<br>
 &nbsp;<a class=mnu href="ranking.php3">Rankings</a>&nbsp;<br>
 &nbsp;<a class=mnu href="lastusers.php3">Last Users</a>&nbsp;<br>
+&nbsp;<a class=mnu href="teams.php">Alliances</a>&nbsp;<br> 
 &nbsp;<a class=mnu href="self-destruct.php3">Self-Destruct</a>&nbsp;<br>
 &nbsp;<a class=mnu href="options.php3">Options</a>&nbsp;<br>
 &nbsp;<a class=mnu href="navcomp.php3">Nav Computer</a>&nbsp;<br>
