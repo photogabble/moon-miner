@@ -23,14 +23,21 @@ bigtitle();
 if(empty($content))
 {
   $res = mysql_query("SELECT character_name FROM ships ORDER BY character_name ASC");
+  $res2 = mysql_query("SELECT team_name FROM teams ORDER BY team_name ASC");
   echo "<FORM ACTION=mailto2.php3 METHOD=POST>";
   echo "<TABLE>";
   echo "<TR><TD>To:</TD><TD><SELECT NAME=to>";
   while($row = mysql_fetch_array($res))
   {
-    echo "<OPTION>$row[character_name]";
+    echo "<OPTION>$row[character_name]</OPTION>";
   }
+  while($row2 = mysql_fetch_array($res2))
+  {
+    echo "<OPTION>Alliance: $row2[team_name]</OPTION>";
+  }
+
   mysql_free_result($res);
+  mysql_free_result($res2);
   echo "</SELECT></TD></TR>";
   echo "<TR><TD>From:</TD><TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD></TR>";
   echo "<TR><TD>Subject:</TD><TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40></TD></TR>";
@@ -42,15 +49,26 @@ if(empty($content))
 else
 {
   echo "Message Sent<BR><BR>";
-#  $res = mysql_query("SELECT email FROM ships WHERE character_name='$to'");
-#  $address = mysql_fetch_array($res);
-#  mysql_free_result($res);
-#  mail($address[email], $subject, "Message from ".$playerinfo[character_name]." in the ".$game_name." Game.\n\n".$content,"From: ".$playerinfo[email]."\nX-Mailer: PHP/" . phpversion());
 
+if (strpos($to, "Alliance:")===false) {
   $res = mysql_query("SELECT * FROM ships WHERE character_name='$to'");
   $target_info = mysql_fetch_array($res);
   mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
-  #using this three lines to get recipients ship_id and sending the message -- blindcoder
+     } else {
+     $to = str_replace ("Alliance:", "", $to);
+     $to = trim($to);
+     $to = addslashes($to);
+     $res = mysql_query("SELECT id FROM teams WHERE team_name='$to'");
+     $row = mysql_fetch_array($res);
+
+     $res2 = mysql_query("SELECT * FROM ships where team='$row[id]'");
+
+     while ($row2 = mysql_fetch_array($res2)) {
+           mysql_query("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$row2[ship_id]."', '".$subject."', '".$content."')");
+
+       }
+
+     }
 
 }
 
@@ -58,4 +76,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>
