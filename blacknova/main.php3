@@ -113,10 +113,10 @@ else
       echo ", ";
     }
   }
-  echo "</TD></TR>";
-  echo "</TABLE>";
-  echo "<BR>";
 }
+echo "</TD></TR>";
+echo "</TABLE>";
+echo "<BR>";
 /* Get a list of the ships in this sector */
 if($playerinfo[sector] != 0)
 {
