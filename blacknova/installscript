@@ -1,7 +1,6 @@
 #!/bin/sh
 
 g++ install.cpp -o installer
-rm -f config.inc.php3
 ./installer
 rm -f install.cpp
 rm -f installer
