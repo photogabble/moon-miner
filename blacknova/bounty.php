@@ -52,7 +52,7 @@ switch($response) {
          echo "<TR BGCOLOR=\"$color_header\">";
          echo "<TD><B>$l_amount</TD>";
          echo "<TD><B>$l_by_placedby</TD>";
-         echo "<TD></TD>";
+         echo "<TD><B>$l_by_action</TD>";
          echo "</TR>";
          $color = $color_line1;
          for($j=0; $j<$num_details; $j++)
