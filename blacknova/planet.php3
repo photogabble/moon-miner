@@ -390,7 +390,7 @@ if(!empty($planetinfo))
         playerlog($ownerinfo[ship_id], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
         /* scramble results by scan error factor. */
         $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
-        if(empty($planetinfo[name])
+        if(empty($planetinfo[name]))
            $planetinfo[name] = $l_unowned;
         $l_planet_scn_report=str_replace("[name]",$planetinfo[name],$l_planet_scn_report);
         $l_planet_scn_report=str_replace("[owner]",$ownerinfo[character_name],$l_planet_scn_report);
