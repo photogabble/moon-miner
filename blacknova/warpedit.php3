@@ -26,6 +26,14 @@ if($playerinfo[turns] < 1)
   die();
 }
 
+if($playerinfo[dev_warpedit] < 1)
+{
+  echo "You do not have any warp editors.<BR><BR>";
+  echo "Click <a href=main.php3>here</a> to return to Main Menu.";
+  include("footer.php3");   
+  die();
+}
+
 $res = mysql_query("SELECT allow_warpedit,universe.zone_id FROM zones,universe WHERE sector_id=$playerinfo[sector] AND universe.zone_id=zones.zone_id");
 $zoneinfo = mysql_fetch_array($res);
 if($zoneinfo[allow_warpedit] == 'N')
