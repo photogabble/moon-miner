@@ -150,7 +150,7 @@ if ($playerinfo[sector]!=0)
             echo "System Time:  ";
             print (date("l dS of F Y h:i:s A")) ;
             echo "<BR>Last System Update:  ";
-            $lastupdate=filemtime("/home2/blacknova/cron.txt");
+            $lastupdate = filemtime($gameroot . "/cron.txt");
             print (date("l dS of F Y h:i:s A",$lastupdate)) ; 
             echo "<BR>Updates happen every 6 minutes.";
             include("footer.php3");

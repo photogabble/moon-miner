@@ -1,5 +1,8 @@
 <?
 
+// File paths
+$gameroot = "/home2/blacknova";       // Location of the cron.txt file (no trailing '/')
+
 // Database configuration variables
 
 $dbhost = "hostname";                  // Database host

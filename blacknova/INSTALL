@@ -3,9 +3,9 @@ BlackNova Traders - Installation
 1. Untar the distribution (be sure to untar the subdirectories):  
    tar xvf bnt-x.x.x.tar
 2. Edit the file config_local.php3 in you favourite editor and change the values
-   for host, user, and password to fit your MySQL environment.  Also check
-   for other configuration variables specific to your installation (such
-   as adminpass and admin_mail for example). If you use a non-standard
+   for gameroot, host, user, and password to fit your host/MySQL environment.
+   Also check for other configuration variables specific to your installation
+   (such as adminpass and admin_mail for example). If you use a non-standard
    port or UNIX socket for MySQL, also look at the $dbport variable.
 3. Create the database:  
 	mysqladmin -uuser -ppass create dbname
