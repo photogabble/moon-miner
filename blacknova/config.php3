@@ -1,5 +1,4 @@
 <?
-
 include("config_local.php3");
 include("global_funcs.php3");
 
@@ -153,5 +152,4 @@ $scan_error_factor=20;
 
 $max_planets_sector = 5;
 $max_traderoutes_player = 20;
-
 ?>
