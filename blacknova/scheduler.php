@@ -57,6 +57,8 @@ bigtitle();
 
 include_once("sched_funcs.php");
 
+srand((double)microtime() * 1000000);
+
 if($swordfish != $adminpass)
 {
   echo "<FORM ACTION=scheduler.php METHOD=POST>";

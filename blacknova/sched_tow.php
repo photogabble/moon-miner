@@ -19,7 +19,7 @@
         $newsector = rand(0, $sector_max);
         echo " to sector $newsector.<BR>";
         $query = mysql_query("UPDATE ships SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
-        playerlog($row[ship_id], LOG_TOW, "$row[sector] $newsector $row[max_hull]");
+        playerlog($row[ship_id], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
       }
       mysql_free_result($res);
     }

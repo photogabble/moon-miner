@@ -46,7 +46,7 @@
            }
            $totalmines = $totalmines - $roll;
            echo "You hit $roll mines!<BR>";
-           playerlog($playerinfo[ship_id], LOG_HIT_MINES, "$roll $sector");
+           playerlog($playerinfo[ship_id], LOG_HIT_MINES, "$roll|$sector");
            message_defence_owner($sector,"$playerinfo[character_name] hit $roll mines in sector $sector.");
            if($playerinfo[dev_minedeflector] >= $roll)
            {
@@ -92,7 +92,8 @@
                  }
                  else
                  {
-                    playerlog($playerinfo[ship_id], LOG_SHIP_DESTOYED_MINES, "$sector");
+                    $pod = $playerinfo[dev_escapepod];
+                    playerlog($playerinfo[ship_id], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
                     message_defence_owner($sector,"$playerinfo[character_name] was destroyed by your mines in sector $sector.");
                     echo "Your ship has been destroyed!<BR><BR>";
                     if($playerinfo[dev_escapepod] == "Y")

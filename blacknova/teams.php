@@ -224,7 +224,7 @@ switch ($teamwhat) {
         kick_off_planet($playerinfo[ship_id],$whichteam);
  
         echo "You were the only member, thus <B>$team[team_name]</B> is no more.<BR><BR>";
-				playerlog($playerinfo[ship_id],"You have left the alliance <B>$team[team_name]</B>. It is no more.");
+				playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
 			} else {
 				if ($team[creator] == $playerinfo[ship_id]) {
 					echo "You are the co-ordinator of <B>$team[team_name]</B>. You must relinquish your role to another player.<BR><BR>";
@@ -264,7 +264,8 @@ switch ($teamwhat) {
 					echo "You have left alliance <B>$team[team_name]</B>.<BR><BR>";
           defence_vs_defence($playerinfo[ship_id]);
           kick_off_planet($playerinfo[ship_id],$whichteam);
-
+  				playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
+  				playerlog($team[creator], LOG_TEAM_NOT_LEAVE, "$playerinfo[character_name]");
 				}
 			} 
 		} elseif ($confirmleave == 2) { // owner of a team is leaving and set a new owner
@@ -273,7 +274,7 @@ switch ($teamwhat) {
 			echo "You have left alliance <B>$team[team_name]</B> relinquishing the functions of co-ordinator to $newcreatorname[character_name].<BR><BR>";
 			mysql_query("UPDATE ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
 			mysql_query("UPDATE ships SET team=$newcreator WHERE team=$creator");
-			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,id=$newcreator WHERE id=$whichteam");
+			mysql_query("UPDATE teams SET number_of_members=number_of_members-1,creator=$newcreator WHERE id=$whichteam");
 
       $res = mysql_query("SELECT DISTINCT sector_id FROM planets WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
       $i=0;
@@ -292,8 +293,8 @@ switch ($teamwhat) {
         }
       }
 
-			playerlog($playerinfo[ship_id],"You have left alliance <B>$team[team_name]</B> relinquishing the functions of co-ordinator to $newcreatorname[character_name].");
-			playerlog($newcreator,"$newcreatorname[character_name] has left alliance <B>$team[team_name]</B> giving you the function of co-ordinator");
+			playerlog($playerinfo[ship_id], LOG_TEAM_NEWLEAD, "$team[team_name]|$newcreatorname[character_name]");
+			playerlog($newcreator, LOG_TEAM_LEAD,"$team[team_name]");
 		}
 
 		LINK_BACK();
@@ -304,8 +305,8 @@ switch ($teamwhat) {
 		   mysql_query("UPDATE ships SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
 		   mysql_query("UPDATE teams SET number_of_members=number_of_members+1 WHERE id=$whichteam");
 		   echo "Welcome to alliance <B>$team[team_name]</B>.<BR><BR>";
-		   playerlog($playerinfo[ship_id],"You have joined <B>$team[team_name]</B>.");
-		   playerlog($team[creator],"$playerinfo[character_name] has joined <B>$team[team_name]</B>.");
+		   playerlog($playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
+		   playerlog($team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
                 }
                 else
                 {
@@ -341,7 +342,7 @@ switch ($teamwhat) {
          
          	mysql_query("UPDATE teams SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
          */
-			playerlog($who,"You have been ejected from the alliance you were part of.");
+			playerlog($who, LOG_TEAM_KICK, "$team[team_name]");
 			echo "$whotoexpel[character_name] has been eject from the alliance!<BR>";
 		}
 		LINK_BACK();
@@ -377,7 +378,7 @@ switch ($teamwhat) {
          mysql_query("INSERT INTO zones VALUES('','$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
          mysql_query("UPDATE ships SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
 			echo "Alliance <B>$teamname</B> has been created and you are its leader.<BR><BR>";
-			playerlog($playerinfo[ship_id],"You have created Alliance <B>$teamname</B>");
+			playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
 		}
 		LINK_BACK();
 		break;
@@ -386,7 +387,7 @@ switch ($teamwhat) {
 			echo "<FORM ACTION='$PHP_SELF' METHOD=POST>";
 			echo "<TABLE><INPUT TYPE=hidden name=teamwhat value=$teamwhat><INPUT TYPE=hidden name=invited value=1><INPUT TYPE=hidden name=whichteam value=$whichteam>";
 			echo "<TR><TD>Select the Player you want to invite:</TD><TD><SELECT NAME=who>";
-			$res = mysql_query("SELECT character_name,ship_id FROM ships WHERE team<>$whichteam ORDER BY character_name ASC");
+      $res = mysql_query("SELECT character_name,ship_id FROM ships WHERE team<>$whichteam ORDER BY character_name ASC");
 			while($row = mysql_fetch_array($res)) {
 				if ($row[ship_id] != $team[creator])
 					echo "<OPTION VALUE=$row[ship_id]>$row[character_name]";
@@ -404,7 +405,7 @@ switch ($teamwhat) {
 			} else {
 				mysql_query("UPDATE ships SET team_invite=$whichteam WHERE ship_id=$who");
 				echo("Player invited.<BR>You must wait for that player to aknowledge your invitation.<BR>");
-				playerlog($who,"You have been invited to be part of <B>$team[team_name]</B>.");
+				playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
 			}
 		}
 		echo "<BR><BR>Click <a href=\"$PHP_SELF\">here</a> to go back to the Alliances Menu.<BR><BR>";
@@ -412,7 +413,7 @@ switch ($teamwhat) {
 	case 8: // REFUSE invitation
 		echo "You have refused the invitation to join <B>$invite_info[team_name]</B>.<BR><BR>";
 		mysql_query("UPDATE ships SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
-		playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name] $invite_info[team_name]");
+		playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name]|$invite_info[team_name]");
 		LINK_BACK();
 		break;
 	case 9: // Edit Team

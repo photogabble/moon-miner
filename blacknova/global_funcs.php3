@@ -41,6 +41,14 @@ define(LOG_TEAM_REJECT, 31);            //sent when player refuses invitation
 define(LOG_TEAM_RENAME, 32);            //sent when renaming a team
 define(LOG_TEAM_M_RENAME, 33);          //sent to members on team rename
 define(LOG_TEAM_KICK, 34);              //sent to booted player
+define(LOG_TEAM_CREATE, 35);            //sent when created a team
+define(LOG_TEAM_LEAVE, 36);             //sent when leaving a team
+define(LOG_TEAM_NEWLEAD, 37);           //sent when leaving a team, appointing a new leader
+define(LOG_TEAM_LEAD, 38);              //sent to the new team leader
+define(LOG_TEAM_JOIN, 39);              //sent when joining a team
+define(LOG_TEAM_NEWMEMBER, 40);         //sent to leader on join
+define(LOG_TEAM_INVITE, 41);            //sent to invited player
+define(LOG_TEAM_NOT_LEAVE, 42);         //sent to leader on leave
 
 function bigtitle()
 {
@@ -451,7 +459,7 @@ function distribute_toll($sector, $toll, $total_fighters)
        {
           $toll_amount = ROUND(($row['quantity'] / $total_fighters) * $toll);
           mysql_query("UPDATE ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
-          playerlog($row[ship_id], LOG_TOLL_RECV, "$toll_amount $sector");
+          playerlog($row[ship_id], LOG_TOLL_RECV, "$toll_amount|$sector");
 
        }
        mysql_free_result($result3);
@@ -480,16 +488,16 @@ function defence_vs_defence($ship_id)
                   mysql_query("DELETE FROM sector_defence WHERE defence_id = $cur[defence_id]");
                   $qty -= $cur['quantity'];
                   mysql_query("UPDATE sector_defence SET quantity = $qty where defence_id = $row[defence_id]");
-                  playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity] $targetdeftype $row[sector_id]");
-                  playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity] $deftype $row[sector_id]");
+                  playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity]|$targetdeftype|$row[sector_id]");
+                  playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity]|$deftype|$row[sector_id]");
 
                }
                else
                {
                   mysql_query("DELETE FROM sector_defence WHERE defence_id = $row[defence_id]");
                   mysql_query("UPDATE sector_defence SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
-                  playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$qty $targetdeftype $row[sector_id]");
-                  playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$qty $deftype $row[sector_id]");
+                  playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$qty|$targetdeftype|$row[sector_id]");
+                  playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$qty|$deftype|$row[sector_id]");
                   $qty = 0;
                }
             }
@@ -517,7 +525,7 @@ function kick_off_planet($ship_id,$whichteam)
             while($cur = mysql_fetch_array($result2) )
             {
                mysql_query("UPDATE ships SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
-               playerlog($cur[ship_id], LOG_PLANET_EJECT, "$cur[sector] $row[character_name]");
+               playerlog($cur[ship_id], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
             }
             mysql_free_result($result2);
          }
