@@ -45,7 +45,7 @@ mysql_query("CREATE TABLE ships(" .
             "sensors tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "beams tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "torp_launchers tinyint(3) DEFAULT '0' NOT NULL," .
-            "torps bigint(20) unsigned DEFAULT '0' NOT NULL," .
+            "torps bigint(20) DEFAULT '0' NOT NULL," .
             "shields tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "armour tinyint(3) unsigned DEFAULT '0' NOT NULL," .
             "armour_pts bigint(20) DEFAULT '0' NOT NULL," .
