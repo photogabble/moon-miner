@@ -166,8 +166,13 @@ if(!empty($sectorinfo[beacon]))
 {
   echo "<font color=white size=", $basefontsize + 2," face=\"arial\"><b>", $sectorinfo[beacon], "</b></font>";
 }
+
+if($zoneinfo[zone_id] < 5)
+  $zoneinfo[zone_name] = $l_zname[$zoneinfo[zone_id]];
+
 ?>
 </td><td align=right>
+
 <a href="<? echo "zoneinfo.php?zone=$zoneinfo[zone_id]"; ?>"><b><? echo "<font size=", $basefontsize + 2," face=\"arial\">$zoneinfo[zone_name]</font>"; ?></b></font></a>&nbsp;
 </td></tr>
 </table>

@@ -1289,4 +1289,11 @@ $l_sf_shipdestroyed = "Your ship has been destroyed!<BR><BR>";
 $l_sf_sendlog2 = "Sector defence fighters destroyed [player] in sector [sector].";
 $l_sf_escape = "Luckily you have an escape pod!<BR><BR>";
 
+// Zone names
+
+$l_zname[1] = "Unchartered space";
+$l_zname[2] = "Federation space";
+$l_zname[3] = "Free-trade space";
+$l_zname[4] = "War Zone";
+
 ?>

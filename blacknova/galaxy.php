@@ -1,11 +1,11 @@
 <?
 
-	include("config.php3");
+	include("config.php");
 	updatecookie();
 
   include_once($gameroot . "/languages/$lang");
 	$title="View Galactic Distances";
-	include("header.php3");
+	include("header.php");
 
 	connectdb();
 
@@ -16,8 +16,8 @@
 	{
 		echo "$row[sector_id], $row[angle1], $row[angle2], $row[distance]<BR>";
 	}
-	echo "Click <a href=main.php3>here</a> to return to main menu.";
-	include("footer.php3");
+	echo "Click <a href=main.php>here</a> to return to main menu.";
+	include("footer.php");
 
 ?> 
 

@@ -1269,4 +1269,12 @@ $l_sf_shipdestroyed = "Votre vaisseau a été détruit!<BR><BR>";
 $l_sf_sendlog2 = "Les intercepteurs en défense dans le secteur [sector] ont détruit [player].";
 $l_sf_escape = "Heureusement vous aviez un module de secours!<BR><BR>";
 
+// Zone names
+
+$l_zname[1] = "Espace non-exploré";
+$l_zname[2] = "Espace de la Fédération";
+$l_zname[3] = "Espace de libre-commerce";
+$l_zname[4] = "Zonne de Guerre";
+
+
 ?>

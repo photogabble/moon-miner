@@ -22,7 +22,12 @@ if(!mysql_num_rows($res))
   echo $l_zi_nexist;
 else
 {
+
   $row = mysql_fetch_array($res);
+
+  if($row[zone_id] < 5)
+    $row[zone_name] = $l_zname[$row[zone_id]];
+
   if($row[zone_id] == '2')
     $ownername = $l_zi_feds;
   elseif($row[zone_id] == '3')
