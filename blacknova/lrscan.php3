@@ -170,7 +170,7 @@ else
   if($sector != 0)
   {
     // get ships located in the scanned sector
-    $result4 = mysql_query("SELECT ship_id,ship_name,character_name FROM ships WHERE sector='$sector'");
+    $result4 = mysql_query("SELECT ship_id,ship_name,character_name FROM ships WHERE sector='$sector' AND on_planet='N'");
     if(mysql_num_rows($result4) < 1)
     {
       echo "None";
