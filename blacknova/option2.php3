@@ -53,8 +53,6 @@ else
   }
   else
   {
-    $query = "UPDATE ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]";
-    echo $query;
     $res = mysql_query("UPDATE ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
     if($res)
     {
