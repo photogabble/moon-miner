@@ -159,4 +159,10 @@ function NUM_TORPEDOES($level_torp_launchers)
   return round(pow($level_factor, $level_torp_launchers) * 100);
 }
 
+function NUM_ARMOUR($level_armour)
+{
+  global $level_factor;
+  return round(pow($level_factor, $level_armour) * 100);
+}
+
 ?>
