@@ -123,7 +123,7 @@ elseif($sectorinfo[port_type] == "special")
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=5>";
   echo "<TR BGCOLOR=\"$color_header\">";
   echo "<TD><B>Device</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Quantity</B></TD>";
-  echo "<TD><B>Tech Levels</B></TD><TD><B>Cost</B></TD><TD><B>Current Level</B></TD><TD><B>Upgrade?</B></TD>";
+  echo "<TD><B>Component Levels</B></TD><TD><B>Cost</B></TD><TD><B>Current Level</B></TD><TD><B>Upgrade?</B></TD>";
   echo "</TR>";
   $hull_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[hull]));
   $engine_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[engines]));
