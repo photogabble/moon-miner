@@ -3,6 +3,7 @@
 	$title="Login"; 
   $no_body=1;
 	include("header.php3");
+include($gameroot . $default_lang);
   include("config.php3");
 ?>
 
