@@ -28,7 +28,6 @@ INSTALLATION
    A sample crontab follows:
 
 */6 * * * * /usr/bin/lynx --dump http://localhost/blacknova/scheduler.php?swordfish=password > /dev/null
-*/6 * * * * /bin/touch /var/www/html/blacknova/cron.txt
 
    You may need to alter the URL to point to your exact domain name 
    and path. You will also need to change the password to your admin password

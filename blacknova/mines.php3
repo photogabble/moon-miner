@@ -116,12 +116,15 @@ else
          $zoneowner_info = mysql_fetch_array($result2);
          mysql_free_result($result2);
      
-         if($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0) 
+         if($zone_owner <> $playerinfo[ship_id])
          {
-            echo "Deploying Mines and Fighters in this sector is not permitted.<BR><BR>";
-            TEXT_GOTOMAIN();
-            die();
+            if($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0) 
+            {
+               echo "Deploying Mines and Fighters in this sector is not permitted.<BR><BR>";
+               TEXT_GOTOMAIN();
+               die();
             
+            }
          }
    }
 
