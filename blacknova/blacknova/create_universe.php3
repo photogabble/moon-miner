@@ -150,6 +150,14 @@ elseif($swordfish==$adminpass && $engage=="2")
     echo "$sectors[$i] - ";
   }
   echo "done<BR>";
+  // this is a temporary fix in order not to have planets in restricted sectors
+  echo "Removing planets from restricted sectors...<BR>";
+  $result = mysql_query("SELECT zone_id FROM zones WHERE allow_planet='N'");
+  while($row = mysql_fetch_array($result))
+  {
+    $update = mysql_query("UPDATE universe SET planet='N', planet_colonists=0, planet_owner=null WHERE zone_id=$row[zone_id]");
+  }
+  echo "done<BR>";
   $loopsize = round($sector_max/$loops);
   $start = 0;
   $finish = $loopsize - 1;
