@@ -52,7 +52,20 @@ elseif($destination <= $sector_max && empty($engage))
   $y = ($start[distance] * sin($sa1) * sin($sa2)) - ($finish[distance] * sin($fa1) * sin($fa2));
   $z = ($start[distance] * cos($sa1)) - ($finish[distance] * cos($fa1));
   $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  $shipspeed = pow($level_factor, $playerinfo[engines]);
+  //Original shipspeed calculation makes realspace moves trivial after engine level 14 or so
+  //making warp links irrelevent.  This makes it more feasible for warp link travel, and will
+  //cause users to jealously guard short real-space trade routes for ports.  This is in 
+  //preparation for mining the star lanes :)  - ratt
+  //
+  //$shipspeed = pow($level_factor, $playerinfo[engines]);
+  //
+  //New calculation makes it a more geometric type scaling of shipspeed, 1.25 seemed to
+  //be the most balanced ... anything more and it again became trivial, anything less
+  //and the distances became too great.
+  //
+  // Movement should be costly, if movement is less important to a particular game, then the
+  // turns per day should be increased to compensate.
+  $shipspeed = pow($playerinfo[engines], 1.25);
   $triptime = round($distance / $shipspeed);
   if($triptime == 0 && $destination != $playerinfo[sector])
   {
@@ -108,7 +121,8 @@ elseif($destination <= $sector_max && $engage == 1)
   $y = ($start[distance] * sin($sa1) * sin($sa2)) - ($finish[distance] * sin($fa1) * sin($fa2));
   $z = ($start[distance] * cos($sa1)) - ($finish[distance] * cos($fa1));
   $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  $shipspeed = pow($level_factor, $playerinfo[engines]);
+  //$shipspeed = pow($level_factor, $playerinfo[engines]);
+  $shipspeed = pow($playerinfo[engines], 1.25);
   $triptime = round($distance / $shipspeed);
   if($triptime == 0 && $destination != $playerinfo[sector])
   {

@@ -424,7 +424,7 @@ Cargo
   <tr><td bgcolor="#400040" height="100%"><img src="images/spacer.gif" width="8" height="100%" border="0"></td></tr>
 </table></td>
 <td nowrap bgcolor="#400040"><font face="verdana" size="1" color="#ffffff"><b>
-Trade Routes
+Realspace Trading
 </b></font></td>
 <td align="right"><table border="0" cellpadding="0" cellspacing="0" height="100%">
   <tr><td><img src="images/rcorner.gif" width="8" height="7" border="0"></td></tr>

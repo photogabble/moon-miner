@@ -1,3 +1,30 @@
+ratt (11 July 01)
+------------------
+The ridiculous traderoute bug reared it's ugly head again...
+Should _NOW_ be fixed (No really!)
+
+Fairly 'major' change is to Ship speed ... currently, with 
+an engine level of 15, travel to anywhere in a normal sized
+universe took 1 turn... making engine size fairly pointless.
+
+The new calculation method now makes real space trips take 
+a bit longer until engine sizes start getting up in the
+very high 20's and beyond.  
+
+This means that short real space distance trade ports and/or
+warp linked tradeports just because WAY more valuable, as
+it should be.  With the soon-to-be introduced mines, it
+will make mining valuable port combo's an important tactic.
+
+An alternate way to handle this would have been to increase
+the way distance is calculated (to the 4th power instead of
+the 2nd) ... still not sure which way would be better.
+
+Any comments on this?
+
+Changed "Trade Route" to "Realspace Trading" on the main 
+menu, so people don't get confused.
+
 ratt (09 July 01)
 ------------------
 Refixed the Traderoute bug.  Boy, was that a nasty one
