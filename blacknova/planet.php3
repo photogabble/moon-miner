@@ -75,6 +75,7 @@ if(!empty($planetinfo))
     if($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
     {
       /* owner menu */
+      echo "Turns availables : " . $playerinfo[turns] . "<br>";
       echo "<a href=planet.php3?planet_id=$planet_id&command=name>Name</a> Planet<BR>";
       if($playerinfo[on_planet] == 'Y' && $playerinfo[planet_id] == $planet_id)
       {
