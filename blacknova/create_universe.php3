@@ -183,7 +183,7 @@ elseif($swordfish==$adminpass && $engage=="2")
                  "fighters bigint(20) DEFAULT '0' NOT NULL," .
                  "mines bigint(20) DEFAULT '0' NOT NULL," .
                  "fm_owner bigint(20) DEFAULT '0' NOT NULL," .
-                 "fm_setting enum('attack','toll') DEFAULT 'T' NOT NULL," .
+                 "fm_setting enum('attack','toll') DEFAULT 'toll' NOT NULL," .
                  "planet_defeated enum('Y','N') DEFAULT 'N' NOT NULL," .
                  "PRIMARY KEY (sector_id)," .
                  "KEY sector_id (sector_id)," .
@@ -226,10 +226,10 @@ elseif($swordfish==$adminpass && $engage=="2")
   $initborganics = $organics_limit * $initbcommod / 100.0;
   $initbgoods = $goods_limit * $initbcommod / 100.0;
   $initbenergy = $energy_limit * $initbcommod / 100.0;
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('0', 'Sol', '1', 'special', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Sol: Hub of the Universe', '0', '0', '0', ,'0', '0', '', 'N')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('0', 'Sol', '1', 'special', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Sol: Hub of the Universe', '0', '0', '0', ,'0', '0', '', ,'toll','N')");
   $update = mysql_query("UPDATE universe SET sector_id=0 WHERE sector_id=1");
   echo "Creating sector 1 - Alpha Centauri...<BR>";
-  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('1', 'Alpha Centauri', '1', 'energy', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Aplha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '', 'N')");
+  $insert = mysql_query("INSERT INTO universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, planet, planet_name, planet_organics, planet_ore, planet_goods, planet_energy, planet_colonists, planet_credits, planet_fighters, planet_owner, base, base_sells, base_torp, beacon, angle1, angle2, distance, fighters, mines, fm_owner, fm_setting, planet_defeated) VALUES ('1', 'Alpha Centauri', '1', 'energy', '', '', '', '', 'N', '', '', '', '', '', '', '', '', '', 'N', 'N', '', 'Aplha Centauri: Gateway to the Galaxy', '0', '0', '1', '0', '0', '', ,'toll','N')");
   $remaining = $sector_max-1;
   srand((double)microtime()*1000000);
   echo "Creating remaining $remaining sectors...";
