@@ -3,7 +3,8 @@
 include("config.php3");
 updatecookie();
 
-$title="Move";
+include($gameroot . $default_lang);
+$title=$l_move_title;
 
 include("header.php3");
 
@@ -25,7 +26,7 @@ $playerinfo=mysql_fetch_array($result);
 //and if so return to the main menu
 if ($playerinfo[turns]<1)
 {
-	echo "You need at least one turn to move.<BR><BR>";
+	echo "$l_move_turn<BR><BR>";
 	TEXT_GOTOMAIN();
 	include("footer.php3");
 	die();
@@ -65,7 +66,8 @@ if ($flag==1)
        $move_result = mysql_query ("$query");
   	if (!$move_result)
 	{
-		$error = mysql_error($move_result);
+	// is this really STILL needed?
+	    $error = mysql_error($move_result);
 		mail ("harwoodr@cgocable.net","Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nMySQL error: $error");
 	}
     }
@@ -78,8 +80,8 @@ if ($flag==1)
 }
 else
 {
-    echo "Move failed!<BR><BR>";
-    $query="UPDATE ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]";    
+    echo "$l_move_failed<BR><BR>";
+    $query="UPDATE ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]";
     TEXT_GOTOMAIN();
 }
 

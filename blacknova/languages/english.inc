@@ -394,4 +394,37 @@ $l_die_vapor		 = "You ship and all aboard have been vaporized.";
 $l_die_please		 = "Please, <A HREF=logout.php3>logout</A>";
 $l_die_log		 = "You self-destructed from";
 $l_die_exploit		 = "Don't play with what you don't understand.";
+
+// move.php
+
+$l_move_title 		 = "Move";
+$l_move_turn		 = "You need at least one turn to move.";
+$l_move_failed		 = "Move failed!";
+
+// scan.php
+
+$l_scan_title		 = "Scan Ship";
+$l_scan_turn		 = "You need at least one turn to scan another ship.";
+$l_scan_logfail		 = "attempted to scan your ship, but failed.";
+$l_scan_ron		 = "Scan results on";
+$l_scan_capt		 = "Captained by:";
+$l_scan_arma		 = "Armament:";
+$l_scan_carry		 = "Carrying:";
+$l_scan_log		 = "You were scanned by";
+
+// lrscan.php
+
+$l_lrs_title		 = "Long Range Scan";
+$l_lrs_nofull		 = "Your scanners do not possess full long range scan capabilities.";
+$l_lrs_noturns		 = "You need at least $fullscan_cost turn(s) to run a full long range scan.";
+$l_lrs_used		 = "Used";
+$l_lrs_turns		 = "turn(s)";
+$l_lrs_left		 = "left";
+$l_lrs_reach		 = "The following locations can be reached from sector [sector]:";
+$l_lrs_links		 = "Links";
+$l_lrs_ships		 = "Ships";
+$l_lrs_click		 = "Click one of the links to move to that sector.";
+$l_lrs_cantscan		 = "Can't scan sector from current sector!";
+$l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
+$l_lrs_moveto		 = "to move to sector";
 ?>

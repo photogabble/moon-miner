@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Long Range Scan";
+include($gameroot . $default_lang);
+$title=$l_lrs_title;
 include("header.php3");
 
 connectdb();
@@ -28,31 +27,32 @@ if($sector == "*")
 {
   if(!$allow_fullscan)
   {
-    echo "Your scanners do not possess full long range scan capabilities.<BR><BR>";
+    echo "$l_lrs_nofull<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php3");   
+    include("footer.php3");
     die();
   }
   if($playerinfo[turns] < $fullscan_cost)
   {
-    echo "You need at least $fullscan_cost turn(s) to run a full long range scan.<BR><BR>";
+    echo "$l_lrs_noturns<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php3");   
+    include("footer.php3");
     die();
   }
 
-  echo "Used " . NUMBER($fullscan_cost) . " turn(s). " . NUMBER($playerinfo[turns] - $fullscan_cost) . " left.<BR><BR>";
+  echo "$l_lrs_used " . NUMBER($fullscan_cost) . " $l_lrs_turn. " . NUMBER($playerinfo[turns] - $fullscan_cost) . " $l_lrs_left.<BR><BR>";
 
   // deduct the appropriate number of turns
   mysql_query("UPDATE ships SET turns=turns-$fullscan_cost, turns_used=turns_used+$fullscan_cost where ship_id='$playerinfo[ship_id]'");
 
   // user requested a full long range scan
-  echo "The following locations can be reached from sector $playerinfo[sector]:<BR><BR>";
+  $l_lrs_reach=str_replace("[sector]",$playerinfo[sector],$l_lrs_reach);
+  echo "$l_lrs_reach<BR><BR>";
 
   // get sectors which can be reached from the player's current sector
   $result = mysql_query("SELECT * FROM links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector</B><TD></TD></TD><TD><B>Links</B></TD><TD><B>Ships</B></TD><TD colspan=2><B>Port</B></TD><TD><B>Planets</B></TD><TD><B>Mines</B></TD><TD><B>Fighters</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_sector</B><TD></TD></TD><TD><B>$l_lrs_links</B></TD><TD><B>$l_lrs_ships</B></TD><TD colspan=2><B>$l_port</B></TD><TD><B>$l_planets</B></TD><TD><B>$l_ines</B></TD><TD><B>$l_fighters</B></TD></TR>";
   $color = $color_line1;
   while($row = mysql_fetch_array($result))
   {
@@ -86,10 +86,10 @@ if($sector == "*")
       $icon_port_type_name = $port_type . ".gif";
       $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">&nbsp;";
     } else {
-      $image_string = "&nbsp;";      
+      $image_string = "&nbsp;";
     }
-   
-    
+
+
     echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php3?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php3?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>$port_type</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
     if($color == $color_line1)
     {
@@ -104,11 +104,11 @@ if($sector == "*")
 
   if($num_links == 0)
   {
-    echo "None.";
+    echo "$l_none.";
   }
   else
   {
-    echo "<BR>Click one of the links to move to that sector.";
+    echo "<BR>$l_lrs_click";
   }
 
 }
@@ -156,13 +156,13 @@ else
 
   if($flag == 0)
   {
-    echo "Can't scan sector from current sector!<BR><BR>";
+    echo "$l_lrs_cantscan<BR><BR>";
     TEXT_GOTOMAIN();
     die();
   }
 
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Sector $sector";
+  echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_sector $sector";
   if($sectorinfo[sector_name] != "")
   {
     echo " ($sectorinfo[sector_name])";
@@ -171,11 +171,11 @@ else
   echo "</TABLE><BR>";
 
   echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Links</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_links</B></TD></TR>";
   echo "<TR><TD>";
   if($num_links == 0)
   {
-    echo "None";
+    echo "$l_none";
     $link_bnthelper_string="<!--links:N:-->";
   }
   else
@@ -193,7 +193,7 @@ else
     $link_bnthelper_string=$link_bnthelper_string . ":-->";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Ships</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_ships</B></TD></TR>";
   echo "<TR><TD>";
   if($sector != 0)
   {
@@ -201,7 +201,7 @@ else
     $result4 = mysql_query("SELECT ship_id,ship_name,character_name,cloak FROM ships WHERE sector='$sector' AND on_planet='N'");
     if(mysql_num_rows($result4) < 1)
     {
-      echo "None";
+      echo "$l_none";
     }
     else
     {
@@ -227,20 +227,20 @@ else
       }
       if(!$num_detected)
       {
-        echo "None";
+        echo "$l_none";
       }
     }
   }
   else
   {
-    echo "Sector 0 is too crowded to scan for ships!";
+    echo "$l_lrs_zero";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Port</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_port</B></TD></TR>";
   echo "<TR><TD>";
   if($sectorinfo[port_type] == "none")
   {
-    echo "None";
+    echo "$l_none";
     $port_bnthelper_string="<!--port:none:0:0:0:0:-->";
   }
   else
@@ -252,54 +252,54 @@ else
       $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">";
     }
     echo "$image_string $sectorinfo[port_type]";
-    
+
     $port_bnthelper_string="<!--port:" . $sectorinfo[port_type] . ":" . $sectorinfo[port_ore] . ":" . $sectorinfo[port_organics] . ":" . $sectorinfo[port_goods] . ":" . $sectorinfo[port_energy] . ":-->";
   }
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Planets</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_planets</B></TD></TR>";
   echo "<TR><TD>";
   $query = mysql_query("SELECT name, owner FROM planets WHERE sector_id=$sectorinfo[sector_id]");
   if(mysql_num_rows($query) > 0)
   {
     $planet = mysql_fetch_array($query);
     if(empty($planet[name]))
-      echo "Unnamed";
+      echo "$l_unnamed";
     else
       echo "$planet[name]";
 
     if($planet[owner] == 0)
     {
-      echo " (unowned)";
+      echo " ($l_unowned)";
     }
     else
     {
       $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$planet[owner]");
       $planet_owner_name = mysql_fetch_array($result5);
       echo " ($planet_owner_name[character_name])";
-    } 
+    }
     while($planet = mysql_fetch_array($query))
     {
       echo "<BR>";
       if(empty($planet[name]))
-        echo "Unnamed";
+        echo "$l_unnamed";
       else
         echo "$planet[name]";
-  
+
       if($planet[owner] == 0)
       {
-        echo " (unowned)";
+        echo " ($l_unowned)";
       }
       else
       {
         $result5 = mysql_query("SELECT character_name FROM ships WHERE ship_id=$planet[owner]");
         $planet_owner_name = mysql_fetch_array($result5);
         echo " ($planet_owner_name[character_name])";
-      } 
+      }
     }
   }
   else
   {
-    echo "None";
+    echo "$l_none";
     $planet_bnthelper_string="<!--planet:N:::-->";
   }
   $resultSDa = mysql_query("SELECT SUM(quantity) as mines from sector_defence WHERE sector_id='$sector' and defence_type='M'");
@@ -308,17 +308,17 @@ else
   $defF = mysql_fetch_array($resultSDb);
 
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD><B>Mines</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD><B>$l_mines</B></TD></TR>";
   $has_mines =  NUMBER($defM[mines] ) ;
   echo "<TR><TD>" . $has_mines;
   echo "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>Fighters</B></TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_fighters</B></TD></TR>";
   $has_fighters =  NUMBER($defF[fighters] ) ;
   echo "<TR><TD>" . $has_fighters;
   echo "</TD></TR>";
   echo "</TABLE><BR>";
 
-  echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
+  echo "<a href=move.php3?sector=$sector>$l_clickme</a> $l_lrs_moveto $sector.";
 }
 
 
