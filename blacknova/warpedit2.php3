@@ -13,6 +13,9 @@ if(checklogin())
   die();
 }
 
+$result = mysql_query("SELECT * FROM ships WHERE email='$username'");
+$playerinfo=mysql_fetch_array($result);
+
 if($playerinfo[turns] < 1)
 {
   echo "You need at least one turn to use a warp editor.<BR><BR>";
