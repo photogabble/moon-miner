@@ -4,7 +4,7 @@
     die("Script has not been called properly");
 
   echo "<B>PLANETS</B><BR><BR>";
-  $res = $db->Execute("SELECT * FROM planets");
+  $res = $db->Execute("SELECT * FROM $dbtables[planets]");
   while(!$res->EOF)
   {
     $row = $res->fields;
@@ -71,3 +71,4 @@
   echo "<BR>";
 
 ?>
+
