@@ -253,7 +253,8 @@
 		} elseif (abs($trade_energy) > $sectorinfo[port_energy]){
 			echo "Number of energy exceeds the supply/demand.  ";
 		} else {
-			echo "Total cost: $total_cost<BR>Traded Ore: $trade_ore<BR>Traded Organics: $trade_organics<BR>Traded Goods: $trade_goods<BR>Traded Energy: $trade_energy<BR><BR>";
+			echo "Total cost: " . number_format($total_cost, 0, "", "") . " credits.<BR>";
+			echo "Traded Ore: $trade_ore<BR>Traded Organics: $trade_organics<BR>Traded Goods: $trade_goods<BR>Traded Energy: $trade_energy<BR><BR>";
 			/* Update ship cargo, credits and turns */
 			$trade_result = mysql_query ("UPDATE ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 			/* Make all trades positive to change port values*/
