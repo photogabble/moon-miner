@@ -112,7 +112,7 @@ if(!empty($planetinfo))
 	}
 	else
 	{
-		echo "You can also make this planet a <a href=corp.php?action=planetpersonal>Personal Planet</a>.<BR>";
+		echo "You can also make this planet a <a href=corp.php?planet_id=$planet_id&action=planetpersonal>Personal Planet</a>.<BR>";
 	}
  
       /* change production rates */
