@@ -7,6 +7,23 @@ if ($userpass != '' and $userpass != '+') {
 }
 
 // Ensure lang is set
+$found = 0;
+if(!empty($lang))
+{
+  foreach($avail_lang as $key => $value)
+  {
+    if($lang == $value[file])
+    {
+      SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+      $found = 1;
+      break;
+    }
+  }
+
+  if($found == 0)
+    $lang = $default_lang;
+}
+
 if (!isset($lang) || empty($lang))
   $lang = $default_lang;
 

@@ -5,11 +5,25 @@ include("config.php");
 if(empty($lang))
   $lang=$default_lang;
 
+$found = 0;
 if(!empty($newlang))
 {
-  $lang=$newlang;
-  SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+  foreach($avail_lang as $key => $value)
+  {
+    if($newlang == $value[file])
+    {
+      $lang=$newlang;
+      SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+      $found = 1;
+      break;
+    }
+  }
+
+  if($found == 0)
+    $lang = $default_lang;
 }
+
+
 
 include("languages/$lang");
 

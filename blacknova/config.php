@@ -1,7 +1,6 @@
 <?
 include("config_local.php");
 include("$ADOdbpath" . "/adodb.inc.php");
-include("global_funcs.php");
 
 /* Main scheduler variables (game flow control)
 -----------------------------------------------*/
@@ -201,5 +200,5 @@ $min_value_capture = 50; //Percantage of planet's value a ship must be worth to 
 $defence_degrade_rate = 0.05;
 $energy_per_fighter = 0.10;
 
-
+include("global_funcs.php");
 ?>
