@@ -78,9 +78,6 @@ mysql_query("CREATE TABLE ships(" .
             "preset2 bigint(20) DEFAULT '0' NOT NULL," .
             "preset3 bigint(20) DEFAULT '0' NOT NULL," .
             "rating bigint(20) DEFAULT '0' NOT NULL," .
-            "KEY ship_destroyed (ship_destroyed)," .
-            "KEY ship_name (ship_name)," .
-            "KEY email (email)," .
             "score bigint(20) DEFAULT '0' NOT NULL," .
             "team bigint(20) DEFAULT '0' NOT NULL," .
             "team_invite bigint(20) DEFAULT '0' NOT NULL," .
