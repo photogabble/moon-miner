@@ -13,7 +13,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe WRITE, links READ, traderoutes WRITE, planets WRITE");
+
 
 bigtitle();
 
@@ -264,7 +264,7 @@ else
 ?>
 
 <?
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();
@@ -277,7 +277,7 @@ include("footer.php3");
 function traderoute_die($error_msg)
 {
   echo "<p>$error_msg<p>";
-  mysql_query("UNLOCK TABLES");
+
   
   TEXT_GOTOMAIN();
   include("footer.php3");
@@ -627,7 +627,7 @@ function traderoute_new($traderoute_id)
     Click <a href=traderoute.php>here</a> to return to the trade routes menu.<br>
     </form>
     ';
-  mysql_query("UNLOCK TABLES");
+
   
   TEXT_GOTOMAIN();
   include("footer.php3");

@@ -99,12 +99,12 @@
                  bigtitle();
                  echo "<FORM ACTION=$calledfrom METHOD=POST>";
                  echo "There are $total_sector_fighters fighters in your destination sector.<br>";
-                 if($sectorinfo[fm_setting] == "toll")
+                 if($defences[0]['fm_setting'] == "toll")
                  {
                     echo "They demand " . NUMBER($fighterstoll) . " credits to enter this sector.<BR>";    
                  }
                  echo "You can <BR><INPUT TYPE=RADIO NAME=response VALUE=retreat><B>Retreat</B> - Will cost an extra turn.<BR></INPUT>"; 
-                 if($sectorinfo[fm_setting] == "toll")
+                 if($defences[0]['fm_setting'] == "toll")
                  {
                     echo "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=pay><B>Pay</B> the toll and enter without harm from the fighters.<BR></INPUT>";
                  } 
