@@ -131,5 +131,8 @@ ed $playertorpnum torpedoes.<BR><BR>";
                        die();
                     }         
                  }
-                 $ok=1;
+                 if($targetfighters > 0)
+                    $ok=0;
+                 else
+                    $ok=1;
 ?>

@@ -17,7 +17,7 @@ bigtitle();
 srand((double)microtime() * 1000000);
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships WRITE, universe READ, links READ, planets READ");
+
 
 // get user info
 $result = mysql_query("SELECT * FROM ships WHERE email='$username'");
@@ -293,7 +293,7 @@ else
   echo "Click <a href=move.php3?sector=$sector>here</a> to move to sector $sector.";
 }
 
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 $rspace_bnthelper_string="<!--rspace:" . $sectorinfo[distance] . ":" . $sectorinfo[angle1] . ":" . $sectorinfo[angle2] . ":-->";
 echo $link_bnthelper_string;

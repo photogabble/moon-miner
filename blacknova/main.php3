@@ -29,7 +29,7 @@ if(checklogin())
 }
 
 //-------------------------------------------------------------------------------------------------
-mysql_query("LOCK TABLES ships READ, universe READ, links READ, zones READ, messages WRITE, planets READ, traderoutes READ");
+
 
 $res = mysql_query("SELECT * FROM ships WHERE email='$username'");
 $playerinfo = mysql_fetch_array($res);
@@ -50,7 +50,7 @@ if($playerinfo[on_planet] == "Y")
   {
     echo "Click <A HREF=planet.php3?planet_id=$playerinfo[planet_id]>here</A> to go to the planet menu.<BR>"; 
     echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php3?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
-    mysql_query("UNLOCK TABLES");
+
     //-------------------------------------------------------------------------------------------------
     die();
   }
@@ -611,7 +611,7 @@ Realspace
 
 <?
 
-mysql_query("UNLOCK TABLES");
+
 //-------------------------------------------------------------------------------------------------
 
 $player_bnthelper_string="<!--player info:" . $playerinfo[hull] . ":" .  $playerinfo[engines] . ":"  .  $playerinfo[power] . ":" .  $playerinfo[computer] . ":" . $playerinfo[sensors] . ":" .  $playerinfo[beams] . ":" . $playerinfo[torp_launchers] . ":" .  $playerinfo[torps] . ":" . $playerinfo[shields] . ":" .  $playerinfo[armour] . ":" . $playerinfo[armour_pts] . ":" .  $playerinfo[cloak] . ":" . $playerinfo[credits] . ":" .  $playerinfo[sector] . ":" . $playerinfo[ship_ore] . ":" .  $playerinfo[ship_organics] . ":" . $playerinfo[ship_goods] . ":" .  $playerinfo[ship_energy] . ":" . $playerinfo[ship_colonists] . ":" .  $playerinfo[ship_fighters] . ":" . $playerinfo[turns] . ":" .  $playerinfo[on_planet] . ":" . $playerinfo[dev_warpedit] . ":" .  $playerinfo[dev_genesis] . ":" . $playerinfo[dev_beacon] . ":" .  $playerinfo[dev_emerwarp] . ":" . $playerinfo[dev_escapepod] . ":" .  $playerinfo[dev_fuelscoop] . ":" . $playerinfo[dev_minedeflector] . ":-->";
