@@ -357,7 +357,7 @@ function db_kill_player($ship_id)
   $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner='$ship_id' AND base='Y'");
   $i=0;
 
-  while(!$res->EOF)
+  while(!$res->EOF && $res)
   {
     $sectors[$i] = $res->fields[sector_id];
     $i++;
