@@ -70,8 +70,8 @@ if($sector == "*")
     $sectorinfo = mysql_fetch_array($result2);
     $port_type = $sectorinfo[port_type];
     $has_planet = ($sectorinfo[planet] == "Y") ? "Yes" : "No";
-    $has_mines = ($sectorinfo[mines] > 0) ? "Yes" : "No";
-    $has_fighters = ($sectorinfo[fighters] > 0) ? "Yes" : "No";
+    $has_mines = NUMBER($sectorinfo[mines] ) ;
+    $has_fighters = NUMBER($sectorinfo[fighters] ) ;
 
     echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php3?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php3?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD>$port_type</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD></TR>";
     if($color == $color_line1)
