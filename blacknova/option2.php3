@@ -7,7 +7,7 @@ if(checklogin())
 {
   die();
 }
-$title = "Save Options";
+$title = "$l_opt2_title";
 
 if($intrf == "N")
 {
@@ -40,15 +40,15 @@ bigtitle();
 
 if($newpass1 == "" && $newpass2 == "")
 {
-  echo "Password was left unchanged.<BR><BR>";
+  echo $l_opt2_passunchanged;
 }
 elseif($password != $oldpass)
 {
-  echo "Original password incorrect. Password was left unchanged.<BR><BR>";
+  echo $l_opt2_srcpassfalse;
 }
 elseif($newpass1 != $newpass2)
 {
-  echo "New password fields do not match. Password was left unchanged.<BR><BR>";
+  echo $l_opt2_newpassnomatch;
 }
 else
 {
@@ -57,18 +57,18 @@ else
   mysql_free_result($res);
   if($oldpass != $playerinfo[password])
   {
-    echo "Original password incorrect.  Password was left unchanged.<BR><BR>";
+    echo $l_opt2_srcpassfalse;
   }
   else
   {
     $res = mysql_query("UPDATE ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
     if($res)
     {
-      echo "Password changed.<BR><BR>";
+      echo $l_opt2_passchanged;
     }
     else
     {
-      echo "Error changing password<BR><BR>";
+      echo $l_opt2_passchangeerr;
     }
   }
 }
@@ -76,11 +76,11 @@ else
 $res = mysql_query("UPDATE ships SET interface='$intrf' WHERE email='$username'");
 if($res)
 {
-  echo "User interface setting updated.<BR><BR>";
+  echo $l_opt2_userintup;
 }
 else
 {
-  echo "Failed to update user interface setting.<BR><BR>";
+  echo $l_opt2_userintfail;
 }
 
 $res = mysql_query("UPDATE ships SET lang='$lang' WHERE email='$username'");
@@ -88,7 +88,9 @@ foreach($avail_lang as $curlang)
 {
   if($lang == $curlang[file])
   {
-    echo "Language has been set to $curlang[name].<p>";
+    $l_opt2_chlang = str_replace("[lang]", "$curlang[name]", $l_opt2_chlang);
+    
+    echo $l_opt2_chlang;
     break;
   }
 }
@@ -99,11 +101,11 @@ if($dhtml != 'Y')
 $res = mysql_query("UPDATE ships SET dhtml='$dhtml' WHERE email='$username'");
 if($res)
 {
-  echo "Dynamic html setting updated.<BR><BR>";
+  echo $l_opt2_dhtmlup;
 }
 else
 {
-  echo "Failed to update dynamic html setting.<BR><BR>";
+  echo $l_opt2_dhtmlfail;
 }
 
 mysql_query("UNLOCK TABLES");

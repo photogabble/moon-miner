@@ -1187,4 +1187,40 @@ $l_tdr_notowner = "You do not own this trade route";
 $l_login_lang = "Language";
 $l_login_settings = "Game Settings";
 $l_login_change = "Change";
+
+// Options.php
+
+$l_opt_title = "Options";
+$l_opt_chpass = "Change password";
+$l_opt_curpass = "Current password:";
+$l_opt_newpass = "New password:";
+$l_opt_newpagain = "New password (again):";
+$l_opt_userint = "User interface";
+$l_opt_usenew = "Use new layout?";
+$l_opt_lang = "Language";
+$l_opt_select = "Select One:";
+$l_opt_enabled = "Enabled";
+$l_opt_save = "Save";
+
+// Option2.php
+
+$l_opt2_title = "Save Options";
+$l_opt2_passunchanged = "Password was left unchanged.<BR><BR>";
+$l_opt2_srcpassfalse = "Original password incorrect. Password was left unchanged.<BR><BR>";
+$l_opt2_newpassnomatch = "New password fields do not match. Password was left unchanged.<BR><BR>";
+$l_opt2_passchanged = "Password changed.<BR><BR>";
+$l_opt2_passchangeerr = "Error changing password<BR><BR>";
+$l_opt2_userintup = "User interface setting updated.<BR><BR>";
+$l_opt2_userintfail = "Failed to update user interface setting.<BR><BR>";
+$l_opt2_chlang = "Language has been set to [lang].<p>";
+$l_opt2_dhtmlup = "Dynamic html setting updated.<BR><BR>";
+$l_opt2_dhtmlfail = "Failed to update dynamic html setting.<BR><BR>";
+
+// Presets.php
+
+$l_pre_title = "Change Realspace Presets";
+$l_pre_exceed = "Preset [preset] exceeds universe max of [sector_max]. No presets saved.<BR><BR>"; 
+$l_pre_set = "Preset 1 set to [preset1], preset 2 set to [preset2] and preset 3 set to [preset3].<BR><BR>";
+$l_pre_save = "Save";
+
 ?>

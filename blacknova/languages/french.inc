@@ -542,6 +542,10 @@ $l_md_attack		 = "Attaque";
 $l_md_toll		 = "Taxe";
 $l_md_attdef		 = "Attaquer les défenses de secteur. Tous les intercepteurs présents vont converger vers vous.";
 $l_md_noturn	  	 = "Vous avez besoin d'au moins un tour.";
+$l_md_nothere            = "Vous devez être dans le même secteur que les défenses.";
+$l_md_notyours           = "Cette action n'est pas permise. Ces défenses ne vous appartiennent pas.";
+$l_md_yours              = "Vous ne pouvez attaquer vos propre défenses.";
+
 
 // news.php
 
@@ -1169,6 +1173,42 @@ $l_global_warzone		="La zone est maintenant une Zone de Guerre!";
 $l_global_nzone			="La zone est maintenant une Zone Neutre.";
 $l_global_team			="La zone appartient maintenant à l'alliance";
 $l_global_player		="La zone appartient maintenant au joueur";
+
+// Options.php
+
+$l_opt_title = "Options";
+$l_opt_chpass = "Changer le mot de passe";
+$l_opt_curpass = "Mot de passe actuel:";
+$l_opt_newpass = "Nouveau mot de passe:";
+$l_opt_newpagain = "Nouveau mot de passe (encore):";
+$l_opt_userint = "Interface utilisateur";
+$l_opt_usenew = "Nouvel interface?";
+$l_opt_lang = "Langue";
+$l_opt_select = "Choisissez une:";
+$l_opt_enabled = "Activé";
+$l_opt_save = "Sauvegarder";
+
+// Option2.php
+
+$l_opt2_title = "Sauvegarde des options";
+$l_opt2_passunchanged = "Le mot de passe n'a pas été changé.<BR><BR>";
+$l_opt2_srcpassfalse = "Le mot de passe original n'était pas valide. Le mot de passe n'a pas été modifié.<BR><BR>";
+$l_opt2_newpassnomatch = "Les mots de passe entrés comme nouveau mots de passe ne concordent pas. Le mot de passe n'a pas été modifié.<BR><BR>";
+$l_opt2_passchanged = "Mot de passe modifié.<BR><BR>";
+$l_opt2_passchangeerr = "Erreur durant le changement de mot de passe.<BR><BR>";
+$l_opt2_userintup = "L'interface utilisateur a été mis a jour.<BR><BR>";
+$l_opt2_userintfail = "Erreur durant la mise à jour de l'interface utilisateur.<BR><BR>";
+$l_opt2_chlang = "La langue a été changée pour [lang].<p>";
+$l_opt2_dhtmlup = "Les paramètres de HTML dynamique ont été changés.<BR><BR>";
+$l_opt2_dhtmlfail = "Erreur durant la mise à jour des paramètres DHTML.<BR><BR>";
+
+
+// Presets.php
+
+$l_pre_title = "Changer les raccourcis d'espace réel";
+$l_pre_exceed = "Le raccourci [preset] dépasse le nombre maximum de secteurs [sector_max]. Aucun raccourci sauvegardé.<BR><BR>"; 
+$l_pre_set = "Le raccourci 1 est [preset1], le 2 est [preset2] et le 3 est [preset3].<BR><BR>";
+$l_pre_save = "Sauvegarder";
 
 // texts for the news flashes
 
