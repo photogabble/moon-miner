@@ -3,13 +3,25 @@
 function bigtitle()
 {
   global $title;
-  echo "<H1>$title</H1>";
+  echo "<H1>$title</H1>\n";
 }
 
 function TEXT_GOTOMAIN()
 {
   global $interface;
   echo "Click <A HREF=$interface>here</A> to return to the main menu.";
+}
+
+function TEXT_JAVASCRIPT_BEGIN()
+{
+  echo "\n<SCRIPT LANGUAGE=\"JavaScript\">\n";
+  echo "<!--\n";
+}
+
+function TEXT_JAVASCRIPT_END()
+{
+  echo "\n// -->\n";
+  echo "</SCRIPT>\n";
 }
 
 function checklogin()
