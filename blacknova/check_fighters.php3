@@ -16,7 +16,7 @@
            $total_sector_fighters += $defences[$i]['quantity'];
           if($defences[$i][ship_id] != $playerinfo[ship_id])
           {
-             $owner = false; 
+             $owner = false;
           }
           $i++;
        }
@@ -37,25 +37,25 @@
               case "fight":
                  mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  bigtitle();
-                 include("sector_fighters.php3");    
-                   
+                 include("sector_fighters.php3");
+
                  break;
               case "retreat":
                  mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  $stamp = date("Y-m-d H-i-s");
                  mysql_query("UPDATE ships SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
                  bigtitle();
-                 echo "You retreat back to your previous location<BR>";
+                 echo "$l_chf_youretreatback<BR>";
                  TEXT_GOTOMAIN();
                  die();
                  break;
-              case "pay":      
+              case "pay":
                  mysql_query("UPDATE ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                  $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
-                 if($playerinfo[credits] < $fighterstoll) 
+                 if($playerinfo[credits] < $fighterstoll)
                  {
-                    echo "You do not have enough credits to pay the toll.<BR>";
-                    echo "Move failed.<BR>";
+                    echo "$l_chf_notenoughcreditstoll<BR>";
+                    echo "$l_chf_movefailed<BR>";
                     // undo the move
                     mysql_query("UPDATE ships SET sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
                     $ok=0;
@@ -63,7 +63,8 @@
                  else
                  {
                     $tollstring = NUMBER($fighterstoll);
-                    echo "You paid $tollstring credits for the toll.<BR>";
+                    $l_chf_youpaidsometoll = str_replace("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
+                    echo "$l_chf_youpaidsometoll<BR>";
                     mysql_query("UPDATE ships SET credits=credits-$fighterstoll where ship_id=$playerinfo[ship_id]");
                     distribute_toll($sector,$fighterstoll,$total_sector_fighters);
                     playerlog($playerinfo[ship_id], LOG_TOLL_PAID, "$tollstring|$sector");
@@ -86,15 +87,15 @@
                     if($roll < $success)
                     {
                         // sector defences detect incoming ship
-                        bigtitle(); 
-                        echo "The fighters detect you!<BR>";
-                        include("sector_fighters.php3");         
+                        bigtitle();
+                        echo "$l_chf_thefightersdetectyou<BR>";
+                        include("sector_fighters.php3");
                         break;
                     }
                     else
                     {
                        // sector defences don't detect incoming ship
-                       $ok=1;                       
+                       $ok=1;
                     }
                  }
                  break;
@@ -104,19 +105,21 @@
                  $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                  bigtitle();
                  echo "<FORM ACTION=$calledfrom METHOD=POST>";
-                 echo "There are $total_sector_fighters fighters in your destination sector.<br>";
+                 $l_chf_therearetotalfightersindest = str_replace("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
+                 echo "$l_chf_therearetotalfightersindest<br>";
                  if($defences[0]['fm_setting'] == "toll")
                  {
-                    echo "They demand " . NUMBER($fighterstoll) . " credits to enter this sector.<BR>";    
+                    $l_chf_creditsdemanded = str_replace("[chf_number_fighterstoll]", NUMBER($fighterstoll), $l_chf_creditsdemanded);
+                    echo "$l_chf_creditsdemanded<BR>";
                  }
-                 echo "You can <BR><INPUT TYPE=RADIO NAME=response VALUE=retreat><B>Retreat</B> - Will cost an extra turn.<BR></INPUT>"; 
+                 echo "$l_chf_youcanretreat";
                  if($defences[0]['fm_setting'] == "toll")
                  {
-                    echo "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=pay><B>Pay</B> the toll and enter without harm from the fighters.<BR></INPUT>";
-                 } 
-                 echo "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=fight><B>Fight</B> - you must defeat all the fighters to enter the sector.<BR></INPUT>";
-                 echo "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=sneak><B>Cloak</B> - Use your cloaking device and try to avoid the fighters.<BR></INPUT><BR>";
-                 echo "<INPUT TYPE=SUBMIT VALUE=Go><BR><BR>";
+                    echo "$l_chf_inputpay";
+                 }
+                 echo "$l_chf_inputfight";
+                 echo "$l_chf_inputcloak<BR>";
+                 echo "<INPUT TYPE=SUBMIT VALUE=$l_chf_go><BR><BR>";
                  echo "<input type=hidden name=sector value=$sector>";
                  echo "<input type=hidden name=engage value=1>";
                  echo "<input type=hidden name=destination value=$destination>";
@@ -125,10 +128,10 @@
                  break;
             }
 
-           
+
            // clean up any sectors that have used up all mines or fighters
            mysql_query("delete from sector_defence where quantity <= 0 ");
-        }   
+        }
 
     }
 

@@ -16,7 +16,7 @@
            $total_sector_mines += $defences[$i]['quantity'];
           if($defences[$i][ship_id] != $playerinfo[ship_id])
           {
-             $owner = false; 
+             $owner = false;
           }
           $i++;
        }
@@ -36,70 +36,77 @@
            bigtitle();
            $ok=0;
            $totalmines = $total_sector_mines;
-           if ($totalmines>1) 
+           if ($totalmines>1)
            {
               $roll = rand(1,$totalmines);
            }
-           else 
-           { 
+           else
+           {
               $roll = 1;
            }
            $totalmines = $totalmines - $roll;
-           echo "You hit $roll mines!<BR>";
+           $l_chm_youhitsomemines = str_replace("[chm_roll]", $roll, $l_chm_youhitsomemines);
+           echo "$l_chm_youhitsomemines<BR>";
            playerlog($playerinfo[ship_id], LOG_HIT_MINES, "$roll|$sector");
-           message_defence_owner($sector,"$playerinfo[character_name] hit $roll mines in sector $sector.");
+           $l_chm_hehitminesinsector = str_replace("[chm_playerinfo_character_name]", $playerinfo[character_name], $l_chm_hehitminesinsector);
+           $l_chm_hehitminesinsector = str_replace("[chm_roll]", $roll, $l_chm_hehitminesinsector);
+           $l_chm_hehitminesinsector = str_replace("[chm_sector]", $sector, $l_chm_hehitminesinsector);
+           message_defence_owner($sector,"$l_chm_hehitminesinsector");
            if($playerinfo[dev_minedeflector] >= $roll)
            {
-              echo "You lost $roll mine deflectors.<BR>";
+              $l_chm_youlostminedeflectors = str_replace("[chm_roll]", $roll, $l_chm_youlostminedeflectors);
+              echo "$l_chm_youlostminedeflectors<BR>";
               $result2 = mysql_query("UPDATE ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
-
-
            }
            else
            {
               if($playerinfo[dev_minedeflector] > 0)
               {
-                 echo "You lost all your mine deflectors.<BR>";
+                 echo "$l_chm_youlostallminedeflectors<BR>";
               }
               else
               {
-                 echo "You had no mine deflectors.<BR>";
+                 echo "$l_chm_youhadnominedeflectors<BR>";
               }
-  
+
               $mines_left = $roll - $playerinfo[dev_minedeflector];
               $playershields = NUM_SHIELDS($playerinfo[shields]);
-              if($playershields > $playerinfo[ship_energy]) 
-              { 
-                 $playershields=$playerinfo[ship_energy]; 
-              } 
+              if($playershields > $playerinfo[ship_energy])
+              {
+                 $playershields=$playerinfo[ship_energy];
+              }
 
 
               if($playershields >= $mines_left)
               {
-                 echo "Your shields are hit for $mines_left damage.<BR>";
+                 $l_chm_yourshieldshitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourshieldshitforminesdmg);
+                 echo "$l_chm_yourshieldshitforminesdmg<BR>";
                  $result2 = mysql_query("UPDATE ships set ship_energy=ship_energy-$mines_left, dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
-                 if($playershields == $mines_left) echo "Your shields are down!<BR>";
+                 if($playershields == $mines_left) echo "$l_chm_yourshieldsaredown<BR>";
               }
               else
               {
-                 echo "You lost all your shields!<BR>";
+                 echo "$l_chm_youlostallyourshields<BR>";
                  $mines_left = $mines_left - $playershields;
                  if($playerinfo[armour_pts] >= $mines_left)
                  {
-                    echo "Your armour is hit for $mines_left damage.<BR>";
+                    $l_chm_yourarmorhitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourarmorhitforminesdmg);
+                    echo "$l_chm_yourarmorhitforminesdmg<BR>";
                     $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left,ship_energy=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
-                    if($playerinfo[armour_pts] == $mines_left) echo "Your hull is breached!<BR>";
+                    if($playerinfo[armour_pts] == $mines_left) echo "$l_chm_yourhullisbreached<BR>";
                  }
                  else
                  {
                     $pod = $playerinfo[dev_escapepod];
                     playerlog($playerinfo[ship_id], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
-                    message_defence_owner($sector,"$playerinfo[character_name] was destroyed by your mines in sector $sector.");
-                    echo "Your ship has been destroyed!<BR><BR>";
+                    $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", $playerinfo[character_name], $l_chm_hewasdestroyedbyyourmines);
+                    $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $sector, $l_chm_hewasdestroyedbyyourmines);
+                    message_defence_owner($sector,"$l_chm_hewasdestroyedbyyourmines");
+                    echo "$l_chm_yourshiphasbeendestroyed<BR><BR>";
                     if($playerinfo[dev_escapepod] == "Y")
                     {
                        $rating=round($playerinfo[rating]/2);
-                       echo "Luckily you have an escape pod!<BR><BR>";
+                       echo "$l_chm_luckescapepod<BR><BR>";
                        mysql_query("UPDATE ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armour=0,armour_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
                     }
                     else
@@ -109,13 +116,13 @@
                  }
 
               }
-             
-   
-           }                   
+
+
+           }
 
            explode_mines($sector,$roll);
 
-        }   
+        }
 
     }
 
