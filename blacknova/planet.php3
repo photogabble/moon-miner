@@ -476,7 +476,7 @@ if($sectorinfo[planet] == 'Y')
     {
       echo "Planet captured.<BR>";
       $update = mysql_query("UPDATE universe SET planet_corp=null, planet_owner=$playerinfo[ship_id], base='N', planet_defeated='N' WHERE sector_id=$sectorinfo[sector_id]");
-      if($sectorinfo[planet_owner] != "")
+      if($sectorinfo[planet_owner] != 0)
       {       
         playerlog($ownerinfo[ship_id], "Your planet in sector $playerinfo[sector] was captured by $playerinfo[character_name].");
         gen_score($ownerinfo[ship_id]);
