@@ -22,7 +22,7 @@ while (!$sql->EOF)
    if ($row[amount] >= 50) {
    						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='planet50'");
 
-   						 if (!$sql2->EOF) {
+   						 if ($sql2->EOF) {
    						 				$planetcount = 50;
    						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -34,7 +34,7 @@ while (!$sql->EOF)
   elseif ($row[amount] >= 25) {
   						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='planet25'");
 
-  						 if (!$sql2->EOF) {
+  						 if ($sql2->EOF) {
   						 				$planetcount = 25;
   						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -46,7 +46,7 @@ while (!$sql->EOF)
  elseif ($row[amount] >= 10) {
   						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='planet10'");
 
-  						 if (!$sql2->EOF) {
+  						 if ($sql2->EOF) {
   						 				$planetcount = 10;
   						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -58,7 +58,7 @@ while (!$sql->EOF)
  elseif ($row[amount] >= 5) {
   						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='planet5'");
 
-  						 if (!$sql2->EOF) {
+  						 if ($sql2->EOF) {
   						 				$planetcount = 5;
   						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -84,7 +84,7 @@ while (!$sql->EOF)
    if ($row[amount] >= 1000000000) {
    						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='col1000'");
 
-   						 if (!$sql2->EOF) {
+   						 if ($sql2->EOF) {
    						 				$colcount = 1000;
    						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -96,7 +96,7 @@ while (!$sql->EOF)
   elseif ($row[amount] >= 500000000) {
   						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='col500'");
 
-  						 if (!$sql2->EOF) {
+  						 if ($sql2->EOF) {
   						 				$colcount = 500;
   						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -108,7 +108,7 @@ while (!$sql->EOF)
  elseif ($row[amount] >= 100000000) {
   						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='col100'");
 
-  						 if (!$sql2->EOF) {
+  						 if ($sql2->EOF) {
   						 				$colcount = 100;
   						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
@@ -120,7 +120,7 @@ while (!$sql->EOF)
  elseif ($row[amount] >= 25000000) {
   						 $sql2 = $db->Execute("select * from $dbtables[news] where user_id='$row[owner]' and news_type='col25'");
 
-  						 if (!$sql2->EOF) {
+  						 if ($sql2->EOF) {
   						 				$colcount = 25;
   						 		        $name = get_player_name($row[owner]);
               		        $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
