@@ -306,10 +306,12 @@ else
       if(empty($planet))
       {
         echo "<SELECT SIZE=15 NAME=planet>";
-        $res = mysql_query("SELECT planet_id FROM planets ORDER BY planet_id");
+        $res = mysql_query("SELECT planet_id, name, sector_id FROM planets ORDER BY sector_id");
         while($row = mysql_fetch_array($res))
         {
-          echo "<OPTION VALUE=$row[planet_id]> $row[planet_id] </OPTION>";
+          if($row[name] == "")
+            $row[name] = "Unnamed";
+          echo "<OPTION VALUE=$row[planet_id]> $row[name] in sector $row[sector_id] </OPTION>";
         }
         mysql_free_result($res);
         echo "</SELECT>";
