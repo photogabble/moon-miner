@@ -24,6 +24,7 @@ $sched_IGB = 2;      //How often IGB interests are added
 $sched_ranking = 30; //How often rankings will be generated
 $sched_news = 15;    //How often news are generated
 $sched_degrade = 6;  //How often sector fighters degrade when unsupported by a planet
+$sched_apocalypse = 15;
 
 /* Scheduler config end */
 
@@ -141,7 +142,7 @@ $fighter_price = 50;
 $fighter_prate = .01;
 
 $torpedo_price = 25;
-$torpedo_prate = .01;
+$torpedo_prate = .025;
 $torp_dmg_rate = 10;
 
 $credits_prate = 3.0;
@@ -153,6 +154,8 @@ $colonist_price = 5;
 $colonist_production_rate = .005;
 $colonist_reproduction_rate = 0.0005;
 $colonist_limit = 100000000;
+$organics_consumption = 0.05;
+$starvation_death_rate = 0.01;
 
 $interest_rate = 1.0005;
 

@@ -16,7 +16,7 @@
     if($row[organics] + $organics_production < 0)
     {
       $organics_production = -$row[organics];
-      $starvation = floor(-($organics_test / $organics_consumption / $colonist_production_rate * $starvation_death_rate));
+      $starvation = $row[colonists] * $starvation_death_rate;
       if($row[owner] && $starvation > 0)
       {
         playerlog($row[owner], LOG_STARVATION, "$row[sector_id]|$starvation");
