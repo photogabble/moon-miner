@@ -1,10 +1,10 @@
 <?
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 $title=$l_ze_title;
-include("header.php3");
+include("header.php");
 
 connectdb();
 
@@ -99,10 +99,10 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "</form>";
 
 
-echo "<a href=zoneinfo.php3?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
+echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.php");
 
 //-----------------------------------------------------------------
 
@@ -123,10 +123,10 @@ function zoneedit_change()
   mysql_query("UPDATE zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
   echo mysql_error();
   echo "$l_ze_saved<p>";
-  echo "<a href=zoneinfo.php3?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
+  echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
   TEXT_GOTOMAIN();
 
-  include("footer.php3");
+  include("footer.php");
   die();
 }
 
@@ -136,7 +136,7 @@ function zoneedit_die($error_msg)
   mysql_query("UNLOCK TABLES");
 
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.php");
   die();
 }
 

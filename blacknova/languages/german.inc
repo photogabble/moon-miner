@@ -166,7 +166,7 @@ $l_totalcost		 = "Gesamtkosten";
 $l_would_dump	         = "Wenn Du alle Deine Kolonisten abladen willst, klicke ";
 $l_noport		 = "Hier ist kein Handelshafen";
 $l_trade_turnneed	 = "Um in einem Hafen oder auf einem Planeten handeln zu können, benötigst Du einen Zug.";
-$l_returnto_port         = " Klicke <A HREF=port.php3>hier</A> um zum Handels Menue zurückzukommen.";
+$l_returnto_port         = " Klicke <A HREF=port.php>hier</A> um zum Handels Menue zurückzukommen.";
 $l_notenough_cargo	 = "Du hast nicht genügend Platz für die Waren die du kaufen willst.";
 $l_notenough_power	 = "Du hast nicht genügend Energie-Kapazität, um den Handel durchzuf&uuml;hren.";
 $l_notenough_credits	 = "Du hast nicht genügend Credits um den Transfer abzuschliessen";
@@ -206,7 +206,7 @@ $l_planet_name_link 	 = "Benenne";
 $l_planet_name2 	 = "[name] den Planeten";
 $l_planet_land_link      = "Lande";
 $l_planet_land           = "[land] auf dem Planeten";
-$l_planet_logout	 = "Du kannst Dich im Schutze des Planeten <a href=logout.php3>ausloggen</a>.";
+$l_planet_logout	 = "Du kannst Dich im Schutze des Planeten <a href=logout.php>ausloggen</a>.";
 $l_planet_selling	 = "Der Planet verkauft nun seine Waren.";
 $l_planet_not_selling    = "Der Planet verkauft nun seine Waren nicht mehr.";
 $l_planet_transfer_link	 = "Transferiere";
@@ -392,7 +392,7 @@ $l_die_nonono		 = "Nein! Nein! Nein!";
 $l_die_what		 = "Was habe ich mir nur dabei gedacht?";
 $l_die_count		 = "5.. 4.. 3.. 2.. 1.. Boom!";
 $l_die_vapor		 = "Dein Schiff und alle Passagiere wurden pulverisiert.";
-$l_die_please		 = "Logge Dich bitte <A HREF=logout.php3>aus</A>";
+$l_die_please		 = "Logge Dich bitte <A HREF=logout.php>aus</A>";
 $l_die_exploit		 = "Spiele nicht mit etwas, was Du nicht verstehst !";
 
 // move.php
@@ -436,7 +436,7 @@ $l_log_log = "[player]s Log";
 $l_log_start = "Logbuch Eintrag für"; 
 $l_log_end = "Ende des Logbuch Eintrags für"; 
 $l_log_click = "Klicke <A HREF=$interface><font color=#00ff00>hhier</font></A> um zum Hauptmenü zurück zu kehren."; 
-$l_log_note = "Hinweis: Wenn diese Seite nicht richtig angezeigt wird, oder wenn du einfach die dynamischen HTML effekte nicht magst oder sie dich nerven, kannst du sie <a href=options.php3><font color=#00FF00>hier</font> abstellen"; 
+$l_log_note = "Hinweis: Wenn diese Seite nicht richtig angezeigt wird, oder wenn du einfach die dynamischen HTML effekte nicht magst oder sie dich nerven, kannst du sie <a href=options.php><font color=#00FF00>hier</font> abstellen"; 
 
 $l_log_text[LOG_LOGIN] = "Du hast Dich eingeloggt, mit der [ip].";
 $l_log_title[LOG_LOGIN] = "Eingelogt";
@@ -904,7 +904,7 @@ $l_igb_creditstoyourship        = "Credits wurden zu deinem Schiffskonto transfe
 $l_igb_igberrreport     = "IGB Fehler-Bericht";
 $l_igb_source   = "Quelle";
 
-// combat.php3
+// combat.php
 
 $l_cmb_atleastoneturn   = "Du brauchst mindesten ein Zug um einen Planeten angreifen zu können.";
 $l_cmb_shipenergybb     = "Schiffsenergie vor dem benutzen STrahlenwaffen";
@@ -966,8 +966,8 @@ $l_cmb_youlostarmorpoints       = "Du hast [cmb_armor_lost] von deinen insgesamt
 $l_cmb_energyused       = "Du hast [cmb_energy] Energie, von deiner [cmb_playerinfo_ship_energy] Energier verbraucht.";
 $l_cmb_planetdefeated   = "Planet wurde geschlagen";
 $l_cmb_citizenswanttodie        = "Die Einwohner des Planeten haben entschieden eher zu sterben anstatt Dich als einen Anführer wie Dich  zu akzeptieren. Sie benutzten ein Lserbphrer um einn Loch zum kern des Planeten zu bohren.Du hattest grade noch Zeit genug um Dich von dem Planeten in den Orbit zu retten bevor der Planet auf eine Ball geschmolzener Lava reduziert wurde.";
-$l_cmb_youmaycapture    = "Du kannst <a href=planet.php3?planet_id=[cmb_planetinfo_planet_id]&command=capture>capture</a> den Planeten oder sie unverteidigt zurücklassen.";
-$l_cmb_youmaycapture2   = "Du kannst <a href=planet.php3?planet_id=[cmb_planetinfo_planet_id]&command=capture>capture</a> den Planeten oder sie unverteidigt zurücklassen.";
+$l_cmb_youmaycapture    = "Du kannst <a href=planet.php?planet_id=[cmb_planetinfo_planet_id]&command=capture>capture</a> den Planeten oder sie unverteidigt zurücklassen.";
+$l_cmb_youmaycapture2   = "Du kannst <a href=planet.php?planet_id=[cmb_planetinfo_planet_id]&command=capture>capture</a> den Planeten oder sie unverteidigt zurücklassen.";
 $l_cmb_planetnotdefeated        = "Planet urde nicht geschlagen";
 $l_cmb_planetstatistics = "Planeten statistic";
 $l_cmb_fighterloststat  = "Fighters verloren: [cmb_fighters_lost] von [cmb_planetinfo_fighters] ([cmb_planetfighters] sind am Leben)";
@@ -1035,7 +1035,7 @@ $l_cmb_yousalvaged      = "Du hast  [cmb_salv_ore] Einheiten Erz, [cmb_salv_orga
 $l_cmb_youdidntdestroyhim       = "Du zerstörtest [cmb_targetinfo_ship_name] nich";
 $l_cmb_shiptoshipcombatstats    = "Schiffskampfstatus";
 
-// check_mines.php3
+// check_mines.php
 
 $l_chm_youhitsomemines  = "Du hast [chm_roll] Minen getroffen!";
 $l_chm_hehitminesinsector       = "[chm_playerinfo_character_name] traf [chm_roll] Minen in Sektor [chm_sector].";
@@ -1051,7 +1051,7 @@ $l_chm_hewasdestroyedbyyourmines        = "[chm_playerinfo_character_name] wurde
 $l_chm_yourshiphasbeendestroyed = "Dein Schiff wurde zerstört";
 $l_chm_luckescapepod    = "Zum Glück hattest du eine Rettungskapsel!";
 
-// check_fighters.php3
+// check_fighters.php
 
 $l_chf_youretreatback   = "Du hast Dich in den ursprünglichen Sektor zurückgezogen";
 $l_chf_notenoughcreditstoll     = "Du hast nicht genug Geld um den Zoll zu bezahlen.";
@@ -1112,21 +1112,21 @@ $l_login_title			="Einloggen";
 $l_login_email			="E-mail Addresse:";
 $l_login_pw			="Passwort:";
 $l_login_chooseres		="Konnte deine Bildschirm auflösung nicht erkennen. Bitte wähle eine passende aus:";
-$l_login_newp			= "Wenn du ein neuer Mitspieler bist, klicke <A HREF=\"new.php3\">hier</A>.";
+$l_login_newp			= "Wenn du ein neuer Mitspieler bist, klicke <A HREF=\"new.php\">hier</A>.";
 $l_login_prbs			= "Probleme?";
 $l_login_emailus		= "E-maile uns";
 $l_login_sclosed		= "Server geschlossen";
 $l_login_closed_message		="Server ist derzeitig nicht geöffnet.";
 $l_login_title2			="Login Phase Zwei"; 
 $l_login_banned			="<b>Du wurdest vom Administrator gebannt. Du bist in diesem Spiel nicht länger willkommen. Nächstes mal versuche nicht zu schummeln!</b>";
-$l_login_died			="Dein Schiff wurde zerstört, aber deine Fluchtkapsel rettete Dich und deine Crew.  Klicke <A HREF=main.php3>hier</A> um mit einem neuen Schiff fortzufahren";
+$l_login_died			="Dein Schiff wurde zerstört, aber deine Fluchtkapsel rettete Dich und deine Crew.  Klicke <A HREF=main.php>hier</A> um mit einem neuen Schiff fortzufahren";
 $l_login_newbie			="Wegen des bösartigen Verbrechens und der ruchlosen Attacke gegen dich entschied die Föderation dich kostenlos aus deinen Überresten clonen zu lassen.  Traurigerweise, selbst in diesen Zeiten, Clone können ihren Besitz nicht übernehmen und so erhälst du nur ein einfaches Schiff und ein paar wenige Credits als Neuanfang. Hoffentlich hast du dieses Mal mehr Glück.";
-$l_login_newlife		="Klicke <A HREF=main.php3>hier</A> um ein neues Leben zu beginnen.";
+$l_login_newlife		="Klicke <A HREF=main.php>hier</A> um ein neues Leben zu beginnen.";
 $l_login_looser			="Du hattest keine Fluchtkapsel, und da du schon einigen Erfolg im Leben hattest weigert sich die Föderation dich clonen zu lassen.  Deine Überreste fallen schon bald in ein schwarzes Loch, und lassen vielleicht irgendwo anders Leben entstehen... viele Milliarden Lichtjahre von hier.<BR><BR> Viel Glück beim nächsten Mal...";
 $l_login_4gotpw1		= "Das eingegebene Passwort ist falsch.<BR><BR>  Wenn du dein Passwort vergessen hast, ";
 $l_login_4gotpw2		= "um es Dir zuschicken zu lassen.<BR><BR>  Ansonsten,";
 $l_login_4gotpw3		= "um es noch einmal zu versuchen.  Einlog Versuch aufgezeichnet mit der IP";
-$l_login_noone			= "Kein Spieler mit dem Namen vorhanden! - Erstelle neue Spieler <A HREF=new.php3>hier</A>.";
+$l_login_noone			= "Kein Spieler mit dem Namen vorhanden! - Erstelle neue Spieler <A HREF=new.php>hier</A>.";
 
 // new.php new2.php
 $l_new_title			= "Erstelle neuen Spieler"; 
@@ -1143,28 +1143,28 @@ $l_new_inusechar		="Der Name $character wird bereits von einem anderen Spieler b
 $l_new_inuseship		="Schiffs Name $shipname, wird bereits benutzt.";
 $l_new_pwsent			="Passwort wurde an $username geschickt.";
 $l_new_login			="um zum Login zurück zu gelangen.";
-$l_new_err			="Bitte gehe zurück oder <a href=new.php3>klicke hier</a> und versuche es noch einmal.";
+$l_new_err			="Bitte gehe zurück oder <a href=new.php>klicke hier</a> und versuche es noch einmal.";
 $l_new_topic			="BlackNova Passwort";
 $l_new_message			="Langes Leben und Frieden,\n\nJemand mit der IP Adresse $ip hat ein Passwort von BlackNova angefordert.\n\nDeinDein Passwort ist: [pass]\n\nDanke schön\n\nDas BlackNova Team.";
 
 // logout.php
 
 $l_logout_score			="Deine aktuelel Punktzahl";
-$l_logout_text			="[name] wurde ausgelogt.  Klicke <A HREF=index.php3>hier</A> um zum Menü zurück zukehren.";
+$l_logout_text			="[name] wurde ausgelogt.  Klicke <A HREF=index.php>hier</A> um zum Menü zurück zukehren.";
 
 // mail.php
 
 $l_mail_title			="Sende Passwort"; 
-$l_mail_noplayer		="Spieler nicht vorhanden! - Erstelle neuen Spieler <a href=new.php3>hier</a>.";
+$l_mail_noplayer		="Spieler nicht vorhanden! - Erstelle neuen Spieler <a href=new.php>hier</a>.";
 $l_mail_sent			="Passwort erfolgreich geschickt an:";
 $l_mail_topic			="$game_name Passwort";
 $l_mail_message			="Frieden und langes Leben,\n\nJemand mir der IP Adresse $ip hat ein neues Passwort für $game_name angefordert.\n\nDein Passwort lautet: [pass]\n\nDanke schön\n\nDas $game_name Web Team.";
 
 // global_funcs.php
 
-$l_global_mmenu			="Click <A HREF=main.php3>here</A> to return to the main menu.";
-$l_global_mlogin		="Click <A HREF=login.php3>here</A> to return to the login screen.";
-$l_global_needlogin		="You need to log in, click <A HREF=login.php3>here</A>.";
+$l_global_mmenu			="Click <A HREF=main.php>here</A> to return to the main menu.";
+$l_global_mlogin		="Click <A HREF=login.php>here</A> to return to the login screen.";
+$l_global_needlogin		="You need to log in, click <A HREF=login.php>here</A>.";
 $l_global_died			="Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>Better Luck Next Time!";
 $l_global_warzone		="Zone is now a War Zone!";
 $l_global_nzone			="Zone is a neutral zone.";

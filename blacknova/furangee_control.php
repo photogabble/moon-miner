@@ -1,13 +1,13 @@
 <?
 
 
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 
 $title="Furangee Control";
-include("header.php3");
+include("header.php");
 
 connectdb();
 bigtitle();
@@ -507,6 +507,6 @@ else
   }
 }
   
-include("footer.php3");
+include("footer.php");
 
 ?> 

@@ -1,13 +1,13 @@
 <?
 
 
-include("config.php3");
+include("config.php");
 
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 $title=$l_corpm_title;;
-include("header.php3");
+include("header.php");
 
 connectdb();
 if (checklogin())
@@ -63,6 +63,6 @@ TEXT_GOTOMAIN();
 }
 
 
-include("footer.php3");
+include("footer.php");
 
 ?>

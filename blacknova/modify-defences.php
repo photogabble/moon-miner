@@ -1,10 +1,10 @@
 <?
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 $title=$l_md_title;
-include("header.php3");
+include("header.php");
 
 connectdb();
 
@@ -33,7 +33,7 @@ if ($playerinfo[turns]<1)
 {
 	echo "$l_md_noturn<BR><BR>";
 	TEXT_GOTOMAIN();
-	include("footer.php3");
+	include("footer.php");
 	die();
 }
 
@@ -51,7 +51,7 @@ if($defenceinfo['sector_id'] <> $playerinfo['sector'])
 {
    echo "$l_md_nothere<BR><BR>";
    TEXT_GOTOMAIN();
-   include("footer.php3");
+   include("footer.php");
    die();
 }
 if($defenceinfo['ship_id'] == $playerinfo['ship_id'])
@@ -85,7 +85,7 @@ switch($response) {
       {
          echo "$l_md_yours<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php3");
+         include("footer.php");
          die();
       }
       $sector = $playerinfo[sector] ;
@@ -94,7 +94,7 @@ switch($response) {
          $countres = mysql_query("SELECT SUM(quantity) as totalfighters FROM sector_defence where sector_id = $sector and defence_type = 'F'");
          $ttl = mysql_fetch_array($countres);
          $total_sector_fighters = $ttl['totalfighters'];
-         include("sector_fighters.php3");
+         include("sector_fighters.php");
       }
       else
       {
@@ -128,7 +128,7 @@ switch($response) {
       {
          echo "$l_md_notyours<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php3");
+         include("footer.php");
          die();
       }
       if($quantity < 0) $quantity = 0;
@@ -180,7 +180,7 @@ switch($response) {
       {
          echo "$l_md_notyours<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php3");
+         include("footer.php");
          die();
       }
       mysql_query("UPDATE sector_defence SET fm_setting = '$mode' where defence_id = $defence_id");
@@ -250,6 +250,6 @@ switch($response) {
 
 TEXT_GOTOMAIN();
 
-include("footer.php3");
+include("footer.php");
 
 ?>

@@ -1,13 +1,13 @@
 <?
 
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 
 $title="$l_log_titlet";
 $no_body=1;
-include("header.php3");
+include("header.php");
 
 connectdb();
 
@@ -525,7 +525,7 @@ else
 
 if($swordfish == $adminpass)
   echo "<tr><td><td>" .
-       "<FORM action=admin.php3 method=POST>" .
+       "<FORM action=admin.php method=POST>" .
        "<input type=hidden name=swordfish value=\"$swordfish\">" .
        "<input type=hidden name=menu value=logview>" .
        "<input type=submit value=\"Return to Admin\"></td></tr>";

@@ -1,10 +1,10 @@
 <?
-include("config.php3");
-include("includes/newsservices.php3");
+include("config.php");
+include("includes/newsservices.php");
 
 include_once($gameroot . "/languages/$lang");
 $title=$l_news_title;
-include("header.php3");
+include("header.php");
 
 connectdb();
 

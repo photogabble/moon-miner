@@ -1,11 +1,11 @@
 <?
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 
 $title=$l_tdr_title;
-include("header.php3");
+include("header.php");
 
 connectdb();
 
@@ -134,14 +134,14 @@ else
 
     echo "<td><font size=2 color=white>";
     if($traderoutes[$i][source_type] == 'P')
-      echo "&nbsp;$l_tdr_portin <a href=rsmove.php3?engage=1&destination=" . $traderoutes[$i][source_id] . ">" . $traderoutes[$i][source_id] . "</a></font></td>";
+      echo "&nbsp;$l_tdr_portin <a href=rsmove.php?engage=1&destination=" . $traderoutes[$i][source_id] . ">" . $traderoutes[$i][source_id] . "</a></font></td>";
     else
     {
       $result = mysql_query("SELECT name, sector_id FROM planets WHERE planet_id=" . $traderoutes[$i][source_id]);
       if($result)
       {
         $planet1 = mysql_fetch_array($result);
-        echo "&nbsp;$l_tdr_planet <b>$planet1[name]</b> in <a href=\"rsmove.php3?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
+        echo "&nbsp;$l_tdr_planet <b>$planet1[name]</b> in <a href=\"rsmove.php?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
       }
       else
         echo "&nbsp;$l_tdr_nonexistance</font></td>";
@@ -165,14 +165,14 @@ else
     echo "<td><font size=2 color=white>";
 
     if($traderoutes[$i][dest_type] == 'P')
-    	echo "&nbsp;$l_tdr_portin <a href=\"rsmove.php3?engage=1&destination=" . $traderoutes[$i][dest_id] . "\">" . $traderoutes[$i][dest_id] . "</a></font></td>";
+    	echo "&nbsp;$l_tdr_portin <a href=\"rsmove.php?engage=1&destination=" . $traderoutes[$i][dest_id] . "\">" . $traderoutes[$i][dest_id] . "</a></font></td>";
     else
     {
       $result = mysql_query("SELECT name, sector_id FROM planets WHERE planet_id=" . $traderoutes[$i][dest_id]);
       if($result)
       {
         $planet2 = mysql_fetch_array($result);
-        echo "&nbsp;$l_tdr_planet <b>$planet2[name]</b> in <a href=\"rsmove.php3?engage=1&destination=$planet2[sector_id]\">$planet2[sector_id]</a></font></td>";
+        echo "&nbsp;$l_tdr_planet <b>$planet2[name]</b> in <a href=\"rsmove.php?engage=1&destination=$planet2[sector_id]\">$planet2[sector_id]</a></font></td>";
       }
       else
         echo "&nbsp;$l_tdr_nonexistance</font></td>";
@@ -267,7 +267,7 @@ else
 //-------------------------------------------------------------------------------------------------
 
 TEXT_GOTOMAIN();
-include("footer.php3");
+include("footer.php");
 
 ?>
 
@@ -279,7 +279,7 @@ function traderoute_die($error_msg)
 
 
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.php");
   die();
 }
 
@@ -643,7 +643,7 @@ function traderoute_new($traderoute_id)
 
 
   TEXT_GOTOMAIN();
-  include("footer.php3");
+  include("footer.php");
   die();
 }
 

@@ -1,6 +1,12 @@
 Version 0.3.1
 -------------
 
+SharpBlue (4 January 2002)
+---------------------------
+Finished language selection code
+Finished internationalization of all files
+Got rid of the old .php3 extension, to .php
+
 SharpBlue (30 Decemeber 2001)
 ---------------------------
 Finished the french translation.

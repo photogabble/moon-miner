@@ -47,10 +47,10 @@
 * End of scheduler explanation                                    *
 ******************************************************************/
 
-include("config.php3");
+include("config.php");
 $title="System Update";
 
-include("header.php3");
+include("header.php");
 connectdb();
 
 bigtitle();
@@ -100,5 +100,5 @@ else
     }
   }
   
-  include("footer.php3");
+  include("footer.php");
 }

@@ -1,10 +1,10 @@
 <?
 
-include("config.php3");
+include("config.php");
 include_once($gameroot . "/languages/$lang");
 
 $title="Game Settings";
-include("header.php3");
+include("header.php");
 
 
 bigtitle();
@@ -51,6 +51,6 @@ else
   TEXT_GOTOMAIN();
 }
 
-include("footer.php3");
+include("footer.php");
 
 ?>

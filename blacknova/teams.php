@@ -1,10 +1,10 @@
 <?
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 $title=$l_team_title;
-include("header.php3");
+include("header.php");
 connectdb();
 
 if (checklogin()) {die();}
@@ -104,7 +104,7 @@ function DISPLAY_ALL_ALLIANCES()
    	echo "<TR BGCOLOR=\"$color\">";
    	echo "<TD><a href=$PHP_SELF?teamwhat=1&whichteam=".$row[id].">".$row[team_name]."</A></TD>";
    	echo "<TD>".$row[number_of_members]."</TD>";
-   	echo "<TD><a href=mailto2.php3?name=".$row[character_name].">".$row[character_name]."</A></TD>";
+   	echo "<TD><a href=mailto2.php?name=".$row[character_name].">".$row[character_name]."</A></TD>";
    	echo "<TD>$row[total_score]</TD>";
    	echo "</TR>";
    }
@@ -360,7 +360,7 @@ switch ($teamwhat) {
 				echo "</FORM>";
 				echo "<BR><BR>";
 				TEXT_GOTOMAIN();
-				include("footer.php3");
+				include("footer.php");
 				die();
 			}
 		if (!$teamname) {
@@ -430,7 +430,7 @@ switch ($teamwhat) {
 				echo "</FORM>";
 				echo "<BR><BR>";
 				TEXT_GOTOMAIN();
-				include("footer.php3");
+				include("footer.php");
 				die();
 			}
 	   }
@@ -512,6 +512,6 @@ switch ($teamwhat) {
 	echo "<BR><BR>";
 	TEXT_GOTOMAIN();
 
-	include("footer.php3");
+	include("footer.php");
 ?>
 

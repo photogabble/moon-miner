@@ -6,7 +6,7 @@ INSTALLATION
 1. Untar the distribution (be sure to untar the subdirectories):
    tar xvf bnt-x.x.x.tar
 
-2. Simply edit the config_local.php3 file to your own settings 
+2. Simply edit the config_local.php file to your own settings 
    and manually update your cron file.
 
    You need to set up a background task thats called every X minutes.
@@ -29,18 +29,18 @@ INSTALLATION
    and path. You will also need to change the password to your admin password
 
    To specify how fast-paced you want the game to be, you will need to
-   edit the file config.php3 and select how many minutes you want between
+   edit the file config.php and select how many minutes you want between
    different events, eg turns or port regeneration.
 
 3. Create the database:
    mysqladmin -uuser -ppass create dbname
 
-4. Open the file <www.your-host>/<install-dir>/create_universe.php3 in
+4. Open the file <www.your-host>/<install-dir>/create_universe.php in
    your browser.  You'll need to enter your admin password to access this
    page.  Change the settings to suit the universe you'd like to create -
    and go for it.
 
-5. Open the file <www.your-host>/<install-dir>/index.php3 in your browser
+5. Open the file <www.your-host>/<install-dir>/index.php in your browser
    - you should now be able to log-in.
 
 6. Create a directory in the blacknova directory called player-log.  It should
@@ -52,7 +52,7 @@ INSTALLATION
 
 
 If you are running php version 4.0.6 or earlier, you will need to comment out 
-a line in header.php3 - its one of the first few lines and starts with ob.
+a line in header.php - its one of the first few lines and starts with ob.
 There is a comment indicating the line.
 PHP 4.0.6 has a memory leak bug.
 

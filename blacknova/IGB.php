@@ -1,13 +1,13 @@
 <?
 
-include("config.php3");
+include("config.php");
 updatecookie();
 
 include_once($gameroot . "/languages/$lang");
 
 $title=$l_igb_title;
 $no_body = 1;
-include("header.php3");
+include("header.php");
 
 connectdb();
 if (checklogin()) {die();}
@@ -30,7 +30,7 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 <?
 
 if(!$allow_ibank)
-  IGB_error($l_igb_malfunction, "main.php3");
+  IGB_error($l_igb_malfunction, "main.php");
 
 if($command == 'login') //main menu
   IGB_login();
@@ -51,7 +51,7 @@ elseif($command == 'transfer3') //transfer operation
 else
 {
   echo "
-  <tr><td width=25% valign=bottom><a href=\"main.php3\"><font size=2 face=\"courier new\" color=#00FF00>$l_igb_quit</a></td><td width=50%>
+  <tr><td width=25% valign=bottom><a href=\"main.php\"><font size=2 face=\"courier new\" color=#00FF00>$l_igb_quit</a></td><td width=50%>
   <font size=2 face=\"courier new\" color=#00FF00>
   <pre>
   IIIIIIIIII          GGGGGGGGGGGGG    BBBBBBBBBBBBBBBBB
@@ -89,7 +89,7 @@ else
 </center>
 
 <?
-include("footer.php3");
+include("footer.php");
 
 function IGB_login()
 {
@@ -106,7 +106,7 @@ function IGB_login()
        "</tr>" .
        "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_operations<br>---------------------------------<br><br><a href=\"IGB.php?command=withdraw\">$l_igb_withdraw</a><br><a href=\"IGB.php?command=deposit\">$l_igb_deposit</a><br><a href=\"IGB.php?command=transfer\">$l_igb_transfer</a><br>&nbsp;</td></tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -128,7 +128,7 @@ function IGB_withdraw()
        "<br><br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit value=$l_igb_withdraw>" .
        "</form></td></tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
 }
@@ -151,7 +151,7 @@ function IGB_deposit()
        "<br><br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit value=$l_igb_deposit>" .
        "</form></td></tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
 }
@@ -231,7 +231,7 @@ function IGB_transfer()
        "<br><input style=\"background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt\" type=submit name=planett value=\"$l_igb_planettransfer\">" .
        "</td></tr>" .
        "</form><tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -324,7 +324,7 @@ function IGB_transfer2()
          "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
          "$l_igb_transferrate" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
   }
   else
@@ -372,7 +372,7 @@ function IGB_transfer2()
          "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
          "$l_igb_transferrate2" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
   }
 
@@ -475,7 +475,7 @@ function IGB_transfer3()
          "<tr valign=top>" .
          "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_igbaccount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) . " C<br>" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
 
     mysql_query("UPDATE ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
@@ -532,7 +532,7 @@ function IGB_transfer3()
          "<tr valign=top>" .
          "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_destplanet $dest[name] $l_igb_in $dest[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($dest[credits]) . " C<br>" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
 
     mysql_query("UPDATE planets SET credits=credits-$amount WHERE planet_id=$splanet_id");
@@ -569,7 +569,7 @@ function IGB_deposit2()
        "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_shipaccount :<br>$l_igb_igbaccount :</td>" .
        "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   mysql_query("UPDATE ibank_accounts SET balance=balance+$amount WHERE ship_id=$playerinfo[ship_id]");
@@ -605,7 +605,7 @@ function IGB_withdraw2()
        "<td><font size=2 face=\"courier new\" color=#00FF00>Ship Account :<br>$l_igb_igbaccount :</td>" .
        "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=IGB.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   mysql_query("UPDATE ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
@@ -622,7 +622,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
        "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$errmsg</td>" .
        "</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=$backlink>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php3\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=$backlink>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>" .
        "</table>" .
        "</td></tr>" .
@@ -630,7 +630,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
        "<img src=images/div2.gif>" .
        "</center>";
 
-  include("footer.php3");
+  include("footer.php");
   die();
 }
 
