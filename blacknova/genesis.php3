@@ -1,10 +1,9 @@
 <?
-
-
 include("config.php3");
 updatecookie();
 
-$title="Use Genesis Device";
+include($gameroot . $default_lang);
+$title=$l_gns_title;
 include("header.php3");
 
 connectdb();
@@ -29,15 +28,15 @@ bigtitle();
 
 if($playerinfo[turns] < 1)
 {
-  echo "You need at least one turn to use a genesis device.";
+  echo "$l_gns_turn";
 }
 elseif($playerinfo[on_planet]=='Y')
 {
-  echo "You can't use this device while on the planet surface.";
-} 
+  echo $l_gns_onplanet;
+}
 elseif($num_planets == $max_planets_sector)
 {
-  echo "This solar system is already full.";
+  echo $l_gns_full;
 }
 
 /* -------------------------------------------------------------- *
@@ -52,6 +51,7 @@ elseif($sectorinfo[planet] == "Y")
   {
     if($destroy==1 && $allow_genesis_destroy)
     {
+    // not multilingualed cause its not working right now anyway
       echo "<BR>Are you sure???<BR><A HREF=genesis.php3?destroy=2>YES, Let them die!</A><BR>";
       echo "<A HREF=device.php3>No! That would be Evil!</A><BR>";
     }
@@ -66,7 +66,7 @@ elseif($sectorinfo[planet] == "Y")
       }
       else
       {
-        echo "You do not have any genesis devices.";
+        echo "$l_gns_nogenesis";
       }
     }
     elseif($allow_genesis_destroy)
@@ -81,7 +81,7 @@ elseif($sectorinfo[planet] == "Y")
         echo $sectorinfo[planet_name] . "</A>?";
       }
     }
-  }  
+  }
 }
 * --------------------------------------------------------------- *
 * If anyone who's coded this thing is willing to update it to     *
@@ -93,7 +93,7 @@ elseif($sectorinfo[planet] == "Y")
 
 elseif($playerinfo[dev_genesis] < 1)
 {
-  echo "You do not have any genesis devices.";
+  echo "$l_gns_nogenesis";
 }
 else
 {
@@ -101,7 +101,7 @@ else
   $zoneinfo = mysql_fetch_array($res);
   if($zoneinfo[allow_planet] == 'N')
   {
-    echo "Creating a planet in this sector is not permitted.";
+    echo "$l_gns_forbid";
   }
   elseif($zoneinfo[allow_planet] == 'L')
 
@@ -109,13 +109,13 @@ else
 
     if($zoneinfo[corp_zone] == 'N')
 
-    { 
+    {
 
       if($playerinfo[team] == 0)
 
       {
 
-        echo "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+        echo $l_gns_bforbid;
 
       }
 
@@ -131,7 +131,7 @@ else
 
         {
 
-          echo "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+          echo $l_gns_bforbid;
 
         }
 
@@ -147,7 +147,7 @@ else
 
           $update2 = mysql_query($query2);
 
-          echo "Planet created.";
+          echo $l_gns_pcreate;
 
         }
 
@@ -159,7 +159,7 @@ else
 
     {
 
-      echo "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+      echo $l_gns_bforbid;
 
     }
 
@@ -175,7 +175,7 @@ else
 
       $update2 = mysql_query($query2);
 
-      echo "Planet created.";
+      echo $l_gns_pcreate;
 
     }
 
@@ -187,7 +187,7 @@ else
     $update1 = mysql_query($query1);
     $query2 = "UPDATE ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]";
     $update2 = mysql_query($query2);
-    echo "Planet created.";
+    echo $l_gns_pcreate;
   }
 }
 
@@ -199,4 +199,4 @@ TEXT_GOTOMAIN();
 
 include("footer.php3");
 
-?> 
+?>

@@ -358,5 +358,16 @@ $l_warp_ctwoway		 = "Link created to and from";
 $l_warp_forbidtwo	 = "Using a Warp Editor to remove a two-way link to sector [target_sector] is not permitted.";
 $l_warp_removed		 = "Link removed to";
 $l_warp_removedtwo	 = "Link removed to and from";
-?>
 
+// genesis.php
+
+$l_gns_title		 = "Use Genesis Device";
+$l_gns_turn		 = "You need at least one turn to use a genesis device.";
+$l_gns_onplanet		 = "You can't use this device while on the planet surface.";
+$l_gns_full		 = "This solar system is already full.";
+$l_gns_planetex		 = "There is already a planet in this sector.";
+$l_gns_nogenesis	 = "You do not have any genesis devices.";
+$l_gns_forbid		 = "Creating a planet in this sector is not permitted.";
+$l_gns_bforbid		 = "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+$l_gns_pcreate		 = "Planet created.";
+?>
