@@ -56,7 +56,7 @@ bigtitle();
 	<TD align="right"><? echo $l_login_pw;?></TD>
 	<TD align="left"><INPUT TYPE="PASSWORD" NAME="pass" SIZE="20" MAXLENGTH="20" VALUE="<?php echo "$password" ?>"></TD>
 </TR>
-
+<TR><TD colspan=2><center>Forgot your password?  Enter it blank and press login.</center></TD></TR>
 <SCRIPT LANGUAGE="JavaScript">
 // <!--
 var swidth = 0;
