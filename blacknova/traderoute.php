@@ -144,7 +144,7 @@ else
       if($result)
       {
         $planet1 = mysql_fetch_array($result);
-        echo "&nbsp;Planet <b>$planet1[name]</b> in <b>$planet1[sector_id]</b></font></td>";
+        echo "&nbsp;Planet <b>$planet1[name]</b> in <a href=\"rsmove.php3?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
       }
       else
         echo "&nbsp;Non-existant planet!</font></td>";
@@ -166,15 +166,16 @@ else
     }
 
     echo "<td><font size=2 color=white>";
+
     if($traderoutes[$i][dest_type] == 'P')
-      echo "&nbsp;Port in <b>" . $traderoutes[$i][dest_id] . "</b></font></td>";
+    	echo "&nbsp;Port in <a href=\"rsmove.php3?engage=1&destination=" . $traderoutes[$i][dest_id] . "\">" . $traderoutes[$i][dest_id] . "</a></font></td>";
     else
     {
       $result = mysql_query("SELECT name, sector_id FROM planets WHERE planet_id=" . $traderoutes[$i][dest_id]);
       if($result)
       {
         $planet2 = mysql_fetch_array($result);
-        echo "&nbsp;Planet <b>$planet2[name]</b> in <b>$planet2[sector_id]</b></font></td>";
+        echo "&nbsp;Planet <b>$planet2[name]</b> in <a href=\"rsmove.php3?engage=1&destination=$planet2[sector_id]\">$planet2[sector_id]</a></font></td>";
       }
       else
         echo "&nbsp;Non-existant planet!</font></td>";
@@ -464,6 +465,8 @@ function traderoute_new($traderoute_id)
     $i++;
   }
   mysql_free_result($result);
+
+  echo "You are currently in sector $playerinfo[sector]<br>";
 
   echo '
     <form action=traderoute.php?command=create method=post>
