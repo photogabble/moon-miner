@@ -63,7 +63,7 @@ if($num_planets < 1)
 else
 {
   echo "Click on column header to sort.<BR><BR>";
-  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
+  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
   echo "<TR BGCOLOR=\"$color_header\">";
   echo "<TD><B><A HREF=planet-report.php3>Sector</A></B></TD>";
   echo "<TD><B><A HREF=planet-report.php3?sort=name>Name</A></B></TD>";
@@ -75,7 +75,7 @@ else
   echo "<TD><B><A HREF=planet-report.php3?sort=credits>Credits</A></B></TD>";
   echo "<TD><B><A HREF=planet-report.php3?sort=fighters>Fighters</A></B></TD>";
   echo "<TD><B><A HREF=planet-report.php3?sort=torp>Torpedoes</A></B></TD>";
-  echo "<TD><B>Base?</B></TD><TD><B>Selling?</B></TD><TD><B>Defeated?</B></TD>";
+  echo "<TD><B>Base?</B></TD><TD><B>Selling?</B></TD>";
   echo "</TR>";
   $total_organics = 0;
   $total_ore = 0;
@@ -87,7 +87,6 @@ else
   $total_torp = 0;
   $total_base = 0;
   $total_selling = 0;
-  $total_defeated = 0;
   $color = $color_line1;
   for($i=0; $i<$num_planets; $i++)
   {
@@ -107,10 +106,6 @@ else
     {
       $total_selling += 1;
     }
-    if($planet[$i][planet_defeated] == "Y")
-    {
-      $total_defeated += 1;
-    }
     if(empty($planet[$i][planet_name]))
     {
       $planet[$i][planet_name] = "Unnamed";
@@ -128,7 +123,6 @@ else
     echo "<TD>" . NUMBER($planet[$i][base_torp]) . "</TD>";
     echo "<TD>" . ($planet[$i][base] == 'Y' ? "Yes" : "No") . "</TD>";
     echo "<TD>" . ($planet[$i][base_sells] == 'Y' ? "Yes" : "No") . "</TD>";
-    echo "<TD>" . ($planet[$i][planet_defeated] == 'Y' ? "Yes" : "No") . "</TD>";
     echo "</TR>";
 
     if($color == $color_line1)
@@ -153,7 +147,6 @@ else
   echo "<TD>" . NUMBER($total_torp) . "</TD>";
   echo "<TD>" . NUMBER($total_base) . "</TD>";
   echo "<TD>" . NUMBER($total_selling) . "</TD>";
-  echo "<TD>" . NUMBER($total_defeated) . "</TD>";
   echo "</TR>";
   echo "</TABLE>";
 }
