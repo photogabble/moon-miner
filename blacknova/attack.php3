@@ -71,7 +71,16 @@ else
   else
   {
     /* if scan succeeds, show results and inform target. */
-    if($targetinfo[dev_emerwarp] > 0)
+    if($targetinfo[hull] > $ewd_maxhullsize)
+    {
+       $chance = ($targetinfo[hull] - $ewd_maxhullsize) * 10;
+    }
+    else
+    {
+       $chance = 0;
+    }
+    $random_value = rand(1,100);
+    if($targetinfo[dev_emerwarp] > 0 && $random_value > $chance)
     {
       /* need to change warp destination to random sector in universe */
       $rating_change=round($targetinfo[rating]*.1); 

@@ -15,6 +15,7 @@ $local_number_thousands_sep = ",";
 /* game variables */
 $ip = getenv("REMOTE_ADDR");
 $mine_hullsize = 6; //Minimum size hull has to be to hit mines
+$ewd_maxhullsize = 15; //Max hull size before EWD degrades
 $sector_max = 3000;
 $link_max=10;
 $universe_size = 200;
