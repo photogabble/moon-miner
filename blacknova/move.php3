@@ -82,16 +82,16 @@ $stamp = date("Y-m-d H-i-s");
         {
 	   // Lets blow up some mines!
            $ok=0;
+           $totalmines = $sectorinfo[mines];
            $roll = rand(1,$sectorinfo[mines]);
+           $totalmines = $totalmines - $roll;
            echo "You hit $roll mines!<BR>";
            if($playerinfo[dev_minedeflector] >= $roll)
            {
               echo "You lost $roll mine deflectors.<BR>";
               $roll = 0;
               $result2 = mysql_query("UPDATE ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
-              mysql_free_result($result2);             
-              $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$sector");
-              mysql_free_result($result2);             
+              $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
 
            }
            else
@@ -101,9 +101,7 @@ $stamp = date("Y-m-d H-i-s");
               {
                  echo "Your shields are hit for $mines_left damage.<BR>";
                  $result2 = mysql_query("UPDATE ships set shields=shields-$mines_left where ship_id=$playerinfo[ship_id]");
-                 mysql_free_result($result2);             
-                 $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$sector");
-                 mysql_free_result($result2);
+                 $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                  if($playerinfo[shields] == $mines_left) echo "Your shields are down!<BR>";
               }
               else
@@ -113,11 +111,12 @@ $stamp = date("Y-m-d H-i-s");
                  {
                     echo "Your armour is hit for $mines_left damage.<BR>";
                     $result2 = mysql_query("UPDATE ships set armour_pts=armour_pts-$mines_left where ship_id=$playerinfo[ship_id]");
-                    $result2 = mysql_query("UPDATE universe set mines=0 where sector_id=$sector");
+                    $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                     if($playerinfo[armour_pts] == $mines_left) echo "Your hull is breached!<BR>";
                  }
                  else
                  {
+                    $result2 = mysql_query("UPDATE universe set mines=$totalmines where sector_id=$sector");
                     echo "Your ship has been destroyed!<BR><BR>";
                     if($playerinfo[dev_escapepod] == "Y")
                     {
