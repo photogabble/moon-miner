@@ -441,7 +441,10 @@ else
           $maxfighters = NUM_FIGHTERS($furlevel);
           $maxtorps = NUM_TORPEDOES($furlevel);
           $stamp=date("Y-m-d H:i:s");
-          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$maxtorps,$furlevel,$furlevel,$maxarmour,$furlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y','')");
+// *****************************************************************************
+// *** ADD FURANGEE RECORD TO ships TABLE ... MODIFY IF ships SCHEMA CHANGES ***
+// *****************************************************************************
+          $result2 = mysql_query("INSERT INTO ships VALUES('','$shipname','N','$character','$makepass','$emailname',$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$furlevel,$maxtorps,$furlevel,$furlevel,$maxarmour,$furlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,$start_turns,'','N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y','','$default_lang','Y')");
           if(!$result2) {
             echo mysql_errno(). ": ".mysql_error(). "<br>";
           } else {
