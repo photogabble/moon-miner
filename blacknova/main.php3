@@ -217,7 +217,7 @@ if(!empty($sectorinfo[beacon]))
 <?
 if(!empty($link_forums))
 {
-    echo "&nbsp;<a class=mnu href=$link_forums TARGET=\'_blank\'><? echo $l_forums ?></a>&nbsp;<br>";
+    echo "&nbsp;<a class=mnu href=$link_forums TARGET=\'_blank\'>$l_forums</a>&nbsp;<br>";
 }
 ?>
 </div>

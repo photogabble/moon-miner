@@ -135,7 +135,7 @@ mysql_query("CREATE TABLE ships(" .
             "trade_torps enum('Y', 'N') DEFAULT 'N' NOT NULL," .
             "trade_energy enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
             "cleared_defences tinytext," .
-            "lang varchar(20) DEFAULT 'english.inc' NOT NULL," .
+            "lang varchar(30) DEFAULT 'english.inc' NOT NULL," .
             "PRIMARY KEY (email)," .
             "KEY email (email)," .
             "KEY sector (sector)," .

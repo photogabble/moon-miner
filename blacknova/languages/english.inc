@@ -63,7 +63,7 @@ $l_send_msg		 = "Send Messages";
 $l_rankings		 = "Rankings";
 $l_teams		 = "Alliances";
 $l_ohno			 = "Self-Destruct";
-$l_options		 = "Option";
+$l_options		 = "Options";
 $l_navcomp		 = "Nav Computer";
 
 $l_incompletemove 	 = "You haven't completed your previous move.";
