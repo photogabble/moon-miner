@@ -1153,7 +1153,7 @@ function traderoute_engage()
           echo "Bought " . NUMBER($ore_buy) . " Ore<br>";
         $playerinfo[ship_ore] += $ore_buy; 
         $sourcecost -= $ore_buy * $ore_price1;
-        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$source[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
 
       if($source[port_type] == 'goods')
@@ -1172,7 +1172,7 @@ function traderoute_engage()
           echo "Bought " . NUMBER($goods_buy) . " Goods<br>";
         $playerinfo[ship_goods] += $goods_buy; 
         $sourcecost -= $goods_buy * $goods_price1;
-        mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$source[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
 
       if($source[port_type] == 'organics')
@@ -1191,7 +1191,7 @@ function traderoute_engage()
           echo "Bought " . NUMBER($organics_buy) . " Organics<br>";
         $playerinfo[ship_organics] += $organics_buy; 
         $sourcecost -= $organics_buy * $organics_price1;
-        mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
 
       if($source[port_type] == 'energy')
@@ -1210,7 +1210,7 @@ function traderoute_engage()
           echo "Bought " . NUMBER($energy_buy) . " Energy<br>";
         $playerinfo[ship_energy] += $energy_buy; 
         $sourcecost -= $energy_buy * $energy_price1;
-        mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$source[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
       if($dist[scooped1] > 0)
       {
@@ -1358,7 +1358,7 @@ function traderoute_engage()
           $playerinfo[ship_ore] += $ore_buy; 
           $destcost -= $ore_buy * $ore_price1;
         }
-        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$dest[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
       if($dest[port_type] == 'goods')
@@ -1382,7 +1382,7 @@ function traderoute_engage()
           $playerinfo[ship_goods] += $goods_buy; 
           $destcost -= $goods_buy * $goods_price1;
         }
-        mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$dest[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
       if($dest[port_type] == 'organics')
@@ -1406,7 +1406,7 @@ function traderoute_engage()
           $playerinfo[ship_organics] += $organics_buy; 
           $destcost -= $organics_buy * $organics_price1;
         }
-        mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy+$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
       if($dest[port_type] == 'energy')
@@ -1430,7 +1430,7 @@ function traderoute_engage()
           $playerinfo[ship_energy] += $energy_buy; 
           $destcost -= $energy_buy * $energy_price1;
         }
-        mysql_query("UPDATE universe SET port_ore=port_ore+$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods+$goods_buy, port_organics=port_organics+$organics_buy WHERE sector_id=$dest[sector_id]");
+        mysql_query("UPDATE universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
       if($dist[scooped2] > 0)
       {

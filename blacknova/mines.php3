@@ -99,7 +99,7 @@ else
          $fighters_owner = mysql_fetch_array($result2);
          mysql_free_result($result2);
      
-         if($fighters_owner[team] != $playerinfo[team]) 
+         if($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0) 
          {
             echo "Can not deploy here. Another Ship or Alliance has mines or fighters in this sector.<BR>";
             TEXT_GOTOMAIN();
