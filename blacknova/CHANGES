@@ -1,3 +1,15 @@
+Sharpblue, Alex, Richard Gowen, Dave Rowlands (October 23 2001)
+---------------------------------------------------------------
+Multiple planets per sector support added. 
+Traderoutes using warplinks added.
+'ALL' check boxes added to planet transfer screen.
+
+
+
+Version 0.20
+------------
+
+
 nospoon (7 October 2001)
 ------------------------
 Schema change: Made dev_minedeflectors in ships a bigint(20)

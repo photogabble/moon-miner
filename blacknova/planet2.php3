@@ -337,7 +337,7 @@ else
   }
   else
   {
-    if(!empty($planetinfo) == "Y")
+    if(!empty($planetinfo) )
     {
       if($planetinfo[owner] == $playerinfo[ship_id] || $planetinfo[corp] == $playerinfo[team])
       {
