@@ -238,7 +238,7 @@ else
           {
             $logrow = $logres->fields;
             $logtype = "";
-            switch($logrow[2])
+            switch($logrow[type])
             {
               case LOG_FURANGEE_ATTACK:
                 $logtype = "Launching an attack on ";
@@ -250,8 +250,8 @@ else
                 $logtype = "We were attacked and won against ";
                 break;
             }
-            $logdatetime = substr($logrow[3], 4, 2) . "/" . substr($logrow[3], 6, 2) . "/" . substr($logrow[3], 0, 4) . " " . substr($logrow[3], 8, 2) . ":" . substr($logrow[3], 10, 2) . ":" . substr($logrow[3], 12, 2);
-            echo "$logdatetime $logtype$logrow[4] <BR>";
+            $logdatetime = substr($logrow[time], 4, 2) . "/" . substr($logrow[time], 6, 2) . "/" . substr($logrow[time], 0, 4) . " " . substr($logrow[time], 8, 2) . ":" . substr($logrow[time], 10, 2) . ":" . substr($logrow[time], 12, 2);
+            echo "$logdatetime $logtype$logrow[data] <BR>";
             $logres->MoveNext();
           }
         }
