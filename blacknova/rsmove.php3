@@ -154,6 +154,8 @@ elseif($destination <= $sector_max && $engage == 1)
     $stamp = date("Y-m-d H-i-s");
     $update = mysql_query("UPDATE ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
     echo "You are now in sector $destination. You used " . NUMBER($triptime) . " turns, and gained " . NUMBER($energyscooped) . " energy units.<BR><BR>";
+    $sector = $destination;
+    include("check_mines.php3");
   }
 }
 else
