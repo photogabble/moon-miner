@@ -47,8 +47,9 @@ void intro()
 {
 	cout << endl;
 	cout << "*******************************************" << endl;
-	cout << "**** Blacknova Installer Version 1.0   ****" << endl;
+	cout << "**** Blacknova Installer Version 1.1   ****" << endl;
 	cout << "**** Installer By: Adam Voigt          ****" << endl;
+	cout << "**** Mods by: David Rowlands           ****" << endl;
 	cout << "**** http://blacknova.sourceforge.net/ ****" << endl;
 	cout << "*******************************************" << endl;
 	cout << endl;
@@ -213,7 +214,7 @@ void cronfile(char cronpath[100], char admin_pass[100], char gameroot[100], char
 		fstream cronfile(cronpath,ios::app);
 
 		cronfile << "*/6 * * * * " << lynxpath << " --dump " << webpath << "sysupdate.php3?swordfish=" << admin_pass << " > /dev/null" << endl;
-		cronfile << "*/15 * * * * " << lynxpath << " --source " << webpath << "genrank.php3" << " > " << gameroot << "/dev/null" << endl;
+		cronfile << "*/15 * * * * " << lynxpath << " --dump " << webpath << "genrank.php3" << " > " << gameroot << "/dev/null" << endl;
 		cronfile << "*/6 * * * * " << touchpath << " " << gameroot << "/cron.txt" << endl;
 	}
 }
