@@ -762,14 +762,14 @@ function furangeehunter()
   // *********************************
   global $playerinfo;
 
-  $rescount = mysql_query("SELECT COUNT(*) AS num_players FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee'");
+  $rescount = mysql_query("SELECT COUNT(*) AS num_players FROM ships WHERE ship_destroyed='N' and planet_id=0 and email NOT LIKE '%@furangee'");
   $rowcount = mysql_fetch_array($rescount);
   $topnum = min(10,$rowcount[num_players]);
 
   // *** IF WE HAVE KILLED ALL THE PLAYERS IN THE GAME THEN THERE IS LITTLE POINT IN PROCEEDING ***
   if ($topnum<1) return;
 
-  $res = mysql_query("SELECT * FROM ships WHERE ship_destroyed='N' and email NOT LIKE '%@furangee' ORDER BY score DESC LIMIT $topnum");
+  $res = mysql_query("SELECT * FROM ships WHERE ship_destroyed='N' and planet_id=0 and email NOT LIKE '%@furangee' ORDER BY score DESC LIMIT $topnum");
 
   // *** LETS CHOOSE A TARGET FROM THE TOP PLAYER LIST ***
   $i=1;
