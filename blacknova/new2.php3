@@ -13,6 +13,14 @@ if($account_creation_closed)
 }
 $character=ereg_replace("[^[:digit:][:space:][:alpha:]]"," ",$character);
 $shipname=ereg_replace("[^[:digit:][:space:][:alpha:]]"," ",$shipname);
+
+if(!get_magic_quotes_gpc())
+{
+  $username = addslashes($username);
+  $character = addslashes($character);
+  $shipname = addslashes($shipname);
+}
+
 $result = mysql_query ("select email, character_name, ship_name from ships where email='$username' OR character_name='$character' OR ship_name='$shipname'");
 $flag=0;
 if ($username=='' || $character=='' || $shipname=='' ) { echo "E-mail, ship name, and character name may not be blank.<BR>"; $flag=1;}
@@ -28,13 +36,6 @@ if ($result>0)
     if ($row[2]==$shipname) { echo "Ship name $shipname, is already in use.<BR>"; $flag=1;}
     
   }
-}
-
-if(!get_magic_quotes_gpc())
-{
-  $username = addslashes($username);
-  $character = addslashes($character);
-  $shipname = addslashes($shipname);
 }
 
 if ($flag==0)
