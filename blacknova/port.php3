@@ -64,69 +64,39 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
     $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
     $sb_energy = "Buying";
   }
-  echo "<FORM ACTION=port2.php3 METHOD=POST>";
-  
-  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-  echo "<TR BGCOLOR=\"$color_header\"><TD><B>Commodity</B></TD><TD><B>Buying/Selling</B></TD><TD><B>Amount</B></TD><TD><B>Price</B></TD><TD><B>Buy/Sell</B></TD><TD><B>Cargo</B></TD></TR>";
-  
-  $max_holds = round(pow($level_factor,$playerinfo[hull]) * 100);
-  if ($sb_ore=="Buying") {
-	$amount_ore=$playerinfo[ship_ore];
-  } else {
-    $max_amount = $max_holds - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
-    $credits = $playerinfo[credits]+($playerinfo[ship_organics]*$organics_price)+($playerinfo[ship_goods]*$goods_price)+($playerinfo[ship_energy]*$energy_price);
-    $amount_ore = floor($credits/$ore_price);			
-    if ( $amount_ore > $max_amount){
-      $amount_ore = $max_amount;
-    }elseif ($amount_ore < 0){
-    	$amount_ore = 0;
-    }
+  // establish default amounts for each commodity
+  if($sb_ore == "Buying")
+  {
+    $amount_ore = $playerinfo[ship_ore];
   }
-
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Ore</TD><TD>$sb_ore</TD><TD>" . NUMBER($sectorinfo[port_ore]) . "</TD><TD>$ore_price</TD><TD><INPUT TYPE=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 VALUE=$amount></TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD></TR>";
-  
-  if ($sb_organics=="Buying") {
-    $amount_organics=$playerinfo[ship_organics];
-  } else {
-    $max_amount=$max_holds - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
-    $credits = $playerinfo[credits]+($playerinfo[ship_ore]*$organics_price)+($playerinfo[ship_goods]*$goods_price)+($playerinfo[ship_energy]*$energy_price);
-    $amount_organics = floor($credits/$organics_price);			
-    if ( $amount_organics > $max_amount){
-       $amount_organics = $max_amount;
-    }elseif ($amount_organics < 0){
-    	$amount_organics = 0;
-    }			
+  else
+  {
+    $amount_ore = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
   }
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo[port_organics]) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount_organics></TD><TD>" . NUMBER($playerinfo[ship_organics]) . "</TD></TR>";
-  
-  if ($sb_goods=="Buying") {
-    $amount_goods=$playerinfo[ship_goods];
-  } else {
-    $max_amount=$max_holds - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-    $credits = $playerinfo[credits]+($playerinfo[ship_ore]*$organics_price)+($playerinfo[ship_organics]*$organics_price)+($playerinfo[ship_energy]*$energy_price);
-    $amount_goods = floor($credits/$organics_price);			
-    if ( $amount_goods > $max_amount){
-      $amount_goods = $max_amount;
-    }elseif ($amount_goods < 0){
-    	$amount_goods = 0;
-    }			
+  if($sb_organics == "Buying")
+  {
+    $amount_organics = $playerinfo[ship_organics];
   }
-
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>Goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo[port_goods]) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount_goods></TD><TD>" . NUMBER($playerinfo[ship_goods]) . "</TD></TR>";
-  
-  if ($sb_energy=="Buying") {
-    $amount_energy=$playerinfo[ship_energy];
-  } else {
-    $max_amount=round(pow($level_factor,$playerinfo[power]) * 500)-$playerinfo[ship_energy];
-    $credits = $playerinfo[credits]+($playerinfo[ship_ore]*$organics_price)+($playerinfo[ship_organics]*$organics_price)+($playerinfo[ship_goods]*$goods_price);
-    $amount_energy = floor($credits/$organics_price);
-    if ( $amount_energy > $max_amount){
-      $amount_energy = $max_amount;
-    }elseif ($amount_energy < 0){
-    	$amount_energy = 0;
-    }			
+  else
+  {
+    $amount_organics = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
   }
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>Energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo[port_energy]) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount_energy></TD><TD>" . NUMBER($playerinfo[ship_energy]) . "</TD></TR>";
+  if($sb_goods == "Buying")
+  {
+    $amount_goods = $playerinfo[ship_goods];
+  }
+  else
+  {
+    $amount_goods = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+  }
+  if($sb_energy == "Buying")
+  {
+    $amount_energy = $playerinfo[ship_energy];
+  }
+  else
+  {
+    $amount_energy = round(pow($level_factor, $playerinfo[power]) * 500) - $playerinfo[ship_energy];
+  }
 
   // limit amounts to port quantities
   $amount_ore = min($amount_ore, $sectorinfo[port_ore]);
@@ -173,7 +143,7 @@ elseif($sectorinfo[port_type] == "special")
   $title="Special Port";
   bigtitle();
 
-  echo "You have " . NUMBER(($playerinfo[credits]>0)?$playerinfo[credits]:0) . " credits to spend.<BR>";
+  echo "You have " . NUMBER($playerinfo[credits]) . " credits to spend.<BR>";
   echo "If you need more you may access this port's <A HREF=\"ibank.php3\">IGB Banking Terminal</A>.<BR><BR>"; 
   echo "<FORM ACTION=port2.php3 METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
@@ -181,39 +151,39 @@ elseif($sectorinfo[port_type] == "special")
   echo "<TD><B>Device</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Quantity</B></TD>";
   echo "<TD><B>Component Levels</B></TD><TD><B>Cost</B></TD><TD><B>Current Level</B></TD><TD><B>Upgrade?</B></TD>";
   echo "</TR>";
-  $hull_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, ($playerinfo[hull]>0)?$playerinfo[hull]:0));
-  $engine_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor,($playerinfo[engines]>0)?$playerinfo[engines]:0));
-  $power_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, ($playerinfo[power]>0)?$playerinfo[power]:0));
-  $computer_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, ($playerinfo[computer]>0)?$playerinfo[computer]:0));
-  $sensors_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, ($playerinfo[sensors]>0)?$playerinfo[sensors]:0));
-  $beams_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, ($playerinfo[beams]>0)?$playerinfo[beams]:0));
-  $armour_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, ($playerinfo[armour]>0)?$playerinfo[armour]:0));
-  $cloak_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, ($playerinfo[cloak]>0)?$playerinfo[cloak]:0));
-  $torp_launchers_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, ($playerinfo[torp_launchers]>0)?$playerinfo[torp_launchers]:0));
-  $shields_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, ($playerinfo[shields]>0)?$playerinfo[shields]:0));
+  $hull_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[hull]));
+  $engine_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[engines]));
+  $power_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[power]));
+  $computer_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[computer]));
+  $sensors_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[sensors]));
+  $beams_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[beams]));
+  $armour_upgrade_cost = $upgrade_cost * round(pow($upgrade_factor, $playerinfo[armour]));
+  $cloak_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, $playerinfo[cloak]));
+  $torp_launchers_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, $playerinfo[torp_launchers]));
+  $shields_upgrade_cost=$upgrade_cost*round(pow($upgrade_factor, $playerinfo[shields]));
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD>Genesis Devices</TD><TD>" . NUMBER($dev_genesis_price) . "</TD><TD>" . NUMBER(($playerinfo[dev_genesis]>0)?$playerinfo[dev_genesis]:0) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
-  echo "<TD>Hull</TD><TD>" . NUMBER($hull_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[hull]>0)?$playerinfo[hull]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=hull_upgrade VALUE=1></TD>";
+  echo "<TD>Genesis Devices</TD><TD>" . NUMBER($dev_genesis_price) . "</TD><TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Hull</TD><TD>" . NUMBER($hull_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[hull]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=hull_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Space Beacons</TD><TD>" . NUMBER($dev_beacon_price) . "</TD><TD>" . NUMBER(($playerinfo[dev_beacon]>0)?$playerinfo[dev_beacon]:0) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
-  echo "<TD>Engines</TD><TD>" . NUMBER($engine_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[engines]>0)?$playerinfo[engines]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=engine_upgrade VALUE=1></TD>";
+  echo "<TD>Space Beacons</TD><TD>" . NUMBER($dev_beacon_price) . "</TD><TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Engines</TD><TD>" . NUMBER($engine_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[engines]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=engine_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD>Emergency Warp Devices</TD><TD>" . NUMBER($dev_emerwarp_price) . "</TD><TD>" . NUMBER(($playerinfo[dev_emerwarp]>0)?$playerinfo[dev_emerwarp]:0) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
-  echo "<TD>Power</TD><TD>" . NUMBER($power_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[power]>0)?$playerinfo[power]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=power_upgrade VALUE=1></TD>";
+  echo "<TD>Emergency Warp Devices</TD><TD>" . NUMBER($dev_emerwarp_price) . "</TD><TD>" . NUMBER($playerinfo[dev_emerwarp]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Power</TD><TD>" . NUMBER($power_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[power]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=power_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Warp Editors</TD><TD>" . NUMBER($dev_warpedit_price) . "</TD><TD>" . NUMBER(($playerinfo[dev_warpedit]>0)?$playerinfo[dev_warpedit]:0) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
-  echo "<TD>Computer</TD><TD>" . NUMBER($computer_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[computer]>0)?$playerinfo[computer]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=computer_upgrade value=1></TD>";
+  echo "<TD>Warp Editors</TD><TD>" . NUMBER($dev_warpedit_price) . "</TD><TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Computer</TD><TD>" . NUMBER($computer_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[computer]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=computer_upgrade value=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
   echo "<TD></TD><TD></TD><TD></TD><TD></TD>";
-  echo "<TD>Sensors</TD><TD>" . NUMBER($sensors_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[sensors]>0)?$playerinfo[sensors]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=sensors_upgrade VALUE=1></TD>";
+  echo "<TD>Sensors</TD><TD>" . NUMBER($sensors_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[sensors]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=sensors_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD>Mine Deflector</TD><TD>" . NUMBER($dev_minedeflector_price) . "</TD><TD>" . NUMBER(($playerinfo[dev_minedeflector]>0)?$playerinfo[dev_minedeflector]:0) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
-  echo "<TD>Beam Weapons</TD><TD>" . NUMBER($beams_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[beams]>0)?$playerinfo[beams]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=beams_upgrade VALUE=1></TD>";
+  echo "<TD>Mine Deflector</TD><TD>" . NUMBER($dev_minedeflector_price) . "</TD><TD>" . NUMBER($playerinfo[dev_minedeflector]) . "</TD><TD><INPUT TYPE=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=4 VALUE=0></TD>";
+  echo "<TD>Beam Weapons</TD><TD>" . NUMBER($beams_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[beams]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=beams_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
   echo "<TD>Escape Pod</TD><TD>" . NUMBER($dev_escapepod_price) . "</TD>";
@@ -225,7 +195,7 @@ elseif($sectorinfo[port_type] == "special")
   {
     echo "<TD>Equipped</TD><TD>n/a</TD>";
   }
-  echo "<TD>Armour</TD><TD>" . NUMBER($armour_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[armour]>0)?$playerinfo[armour]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=armour_upgrade VALUE=1></TD>";
+  echo "<TD>Armour</TD><TD>" . NUMBER($armour_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[armour]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=armour_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
   echo "<TD>Fuel Scoop</TD><TD>" . NUMBER($dev_fuelscoop_price) . "</TD>";
@@ -237,26 +207,25 @@ elseif($sectorinfo[port_type] == "special")
   {
     echo "<TD>Equipped</TD><TD>n/a</TD>";
   }
-  echo "<TD>Cloak</TD><TD>" . NUMBER($cloak_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[cloak]>0)?$playerinfo[cloak]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=cloak_upgrade VALUE=1></TD>";
+  echo "<TD>Cloak</TD><TD>" . NUMBER($cloak_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[cloak]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=cloak_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line1\">";
-  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD>Torpedo Launchers</TD><TD>" . NUMBER($torp_launchers_upgrade_cost) . "</TD><TD>" . NUMBER(($playerinfo[torp_launchers]>0)?$playerinfo[torp_launchers]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=torp_launchers_upgrade VALUE=1></TD>";
+  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD>Torpedo Launchers</TD><TD>" . NUMBER($torp_launchers_upgrade_cost) . "</TD><TD>" . NUMBER($playerinfo[torp_launchers]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=torp_launchers_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "<TR BGCOLOR=\"$color_line2\">";
-  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD>Shields</TD><TD>".NUMBER($shields_upgrade_cost)."</TD><TD>" . NUMBER(($playerinfo[shields]>0)?$playerinfo[shields]:0) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=shields_upgrade VALUE=1></TD>";
+  echo "<TD></TD><TD></TD><TD></TD><TD></TD><TD>Shields</TD><TD>".NUMBER($shields_upgrade_cost)."</TD><TD>" . NUMBER($playerinfo[shields]) . "</TD><TD><INPUT TYPE=CHECKBOX NAME=shields_upgrade VALUE=1></TD>";
   echo "</TR>";
   echo "</TABLE>";
   echo "<BR>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>Item</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD><TD><B>Item</B></TD><TD><B>Cost</B></TD><TD><B>Current</B></TD><TD><B>Max</B></TD><TD><B>Quantity</B></TD></TR>";
-  $fighter_max = round(pow($level_factor, ($playerinfo[computer]>0)?$playerinfo[computer]:0) * 100);
+  $fighter_max = round(pow($level_factor, $playerinfo[computer]) * 100);
   $fighter_free = $fighter_max - $playerinfo[ship_fighters];
-  $torpedo_max = round(pow($level_factor, ($playerinfo[torp_launchers]>0)?$playerinfo[torp_launchers]:0) * 100);
-  $torpedo_free = ($torpedo_max - $playerinfo[torps])>0?($torpedo_max - $playerinfo[torps]):0;
-  $armour_max = round(pow($level_factor, ($playerinfo[armour]>0)?$playerinfo[armour]:0) * 100);
-  $armour_free = ($armour_max - $playerinfo[armour_pts])>0?($armour_max - $playerinfo[armour_pts]):0;
-  $used_holds = $playerinfo[ship_ore] + $playerinfo[ship_organics] + $playerinfo[ship_goods] + $playerinfo[ship_colonists];
-  $colonist_max = round(pow($level_factor, ($playerinfo[hull]>0)?$playerinfo[hull]:0) * 100) - $used_holds;
+  $torpedo_max = round(pow($level_factor, $playerinfo[torp_launchers]) * 100);
+  $torpedo_free = $torpedo_max - $playerinfo[torps];
+  $armour_max = round(pow($level_factor, $playerinfo[armour]) * 100);
+  $armour_free = $armour_max - $playerinfo[armour_pts];
+  $colonist_max = round(pow($level_factor, $playerinfo[hull]) * 100) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
   echo "<TR BGCOLOR=\"$color_line1\">";
   echo "<TD>Fighters</TD><TD>" . NUMBER($fighter_price) . "</TD><TD>" . NUMBER($playerinfo[ship_fighters]) . " / " . NUMBER($fighter_max) . "</TD><TD>" . NUMBER($fighter_free) . "</TD>";
   echo "<TD>";
