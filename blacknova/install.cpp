@@ -149,6 +149,7 @@ void admin(char admin_pass[100], char admin_email[100])
 
 void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char dbport[10], char dbusername[100], char dbpassword[100], char dbname[100], char admin_pass[100], char admin_email[100])
 {
+	fileout << "<?php" << endl;
 	fileout << "$gameroot = \"" << gameroot << "\";" << endl;
 	fileout << "$dbhost = \"" << dbhost << "\";" << endl;
 	fileout << "$dbport = \"" << dbport << "\";" << endl;
@@ -157,7 +158,8 @@ void writefile(char gameroot[100], char link_forums[100], char dbhost[100], char
 	fileout << "$dbname = \"" << dbname << "\";" << endl;
 	fileout << "$adminpass = \"" << admin_pass << "\";" << endl;
 	fileout << "$admin_email = \"" << admin_email << "\";" << endl;
-	fileout << "$link_forums = \"" << link_forums << "\";";
+	fileout << "$link_forums = \"" << link_forums << "\";" << endl;
+	fileout << "?>";
 }
 
 void close()
