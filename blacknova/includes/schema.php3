@@ -113,6 +113,7 @@ mysql_query("CREATE TABLE universe(" .
             "planet_credits bigint(20) DEFAULT '0' NOT NULL," .
             "planet_fighters bigint(20) DEFAULT '0' NOT NULL," .
             "planet_owner bigint(20) unsigned," .
+            "planet_corp bigint(20) unsigned," .
             "base enum('Y','N') DEFAULT 'N' NOT NULL," .
             "base_sells enum('Y','N') DEFAULT 'N' NOT NULL," .
             "base_torp bigint(20) DEFAULT '0' NOT NULL," .
