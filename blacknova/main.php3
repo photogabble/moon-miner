@@ -142,6 +142,12 @@ if ($playerinfo[sector]!=0)
                 echo "owned by <a href=mailto.php3?to=$sectorinfo[planet_owner]>$planet_owner_name[character_name]</a> (#$sectorinfo[planet_owner])<BR><BR>";
               }
             }
+	    echo "Navigation Computer: ";
+	    echo "<FORM ACTION=navcomp.php3 METHOD=post>\n";
+	    echo "<INPUT NAME=\"stop_sector\"><INPUT TYPE=\"HIDDEN\" NAME=\"state\" VALUE=1>\n";
+	    echo "<INPUT TYPE=SUBMIT VALUE=\"Find Route\">\n";
+	    echo "</FORM><BR>\n";
+
             echo "Real Space Presets:  <a href=rsmove.php3?engage=1&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=rsmove.php3?engage=1&destination=$playerinfo[preset3]>$playerinfo[preset3]</a> - <a href=preset.php3>Change Presets</a><BR><BR>";
             echo "Trade Route Presets:  <a href=traderoute.php3?phase=2&destination=$playerinfo[preset1]>$playerinfo[preset1]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset2]>$playerinfo[preset2]</a> & <a href=traderoute.php3?phase=2&destination=$playerinfo[preset3]>$playerinfo[preset3]</a><BR><BR>";
             
