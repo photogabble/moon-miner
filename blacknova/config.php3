@@ -16,7 +16,7 @@ $local_number_thousands_sep = ",";
 $ip = getenv("REMOTE_ADDR");
 $sector_max = 3000;
 $universe_size = 200;
-$game_name = "BlackNova Traders v0.1.10 - with less filling and greater tasting bugs!";
+$game_name = "BlackNova Traders v0.1.11 - with even less filling and even greater tasting bugs!";
 
 $fed_max_hull = 8;
 
