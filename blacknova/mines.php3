@@ -59,8 +59,11 @@ else
    
       if(!isset($nummines) or !isset($numfighters) or !isset($mode))
       {
+        availmines = NUMBER($playerinfo[torps];
+        availfighters = NUMBER($playerinfo[ship_fighters]);
         echo "<FORM ACTION=mines.php3 METHOD=POST>";
         echo "You are presently in sector $playerinfo[sector]. There are " . NUMBER($sectorinfo[mines]) . " mines and " . NUMBER($sectorinfo[fighters]) . " fighters here.<BR><BR>";
+        echo "You have $availmines mines and $availfighters available to deploy.<BR>";
         echo "Deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=0> mines.<BR>";
         echo "Deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=0> fighters.<BR>";
         echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>Attack</INPUT>";
