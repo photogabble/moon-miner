@@ -19,21 +19,21 @@ mysql_free_result($res);
 
 
 
-$query = "SELECT * FROM universe WHERE fm_owner=$playerinfo[ship_id]";
+$query = "SELECT * FROM sector_defence WHERE ship_id=$playerinfo[ship_id]";
 if(!empty($sort))
 {
   $query .= " ORDER BY";
-  if($sort == "fighters")
+  if($sort == "quantity")
   {
-    $query .= " fighters ASC";
-  }
-  elseif($sort == "mines")
-  {
-    $query .= " mines ASC";
+    $query .= " quantity ASC";
   }
   elseif($sort == "mode")
   {
     $query .= " fm_setting ASC";
+  }
+  elseif($sort == "type")
+  {
+    $query .= " defence_type ASC";
   }
   else
   {
@@ -68,9 +68,9 @@ else
   echo "Click on column header to sort.<BR><BR>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
   echo "<TR BGCOLOR=\"$color_header\">";
-  echo "<TD><B><A HREF=defence-report.php3>Sector</A></B></TD>";
-  echo "<TD><B><A HREF=defence-report.php3?sort=mines>Mines</A></B></TD>";
-  echo "<TD><B><A HREF=defence-report.php3?sort=fighters>Fighters</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=sector>Sector</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=quantity>Quantity</A></B></TD>";
+  echo "<TD><B><A HREF=defence-report.php3?sort=type>Type</A></B></TD>";
   echo "<TD><B><A HREF=defence-report.php3?sort=mode>Mode</A></B></TD>";
   echo "</TR>";
   $color = $color_line1;
@@ -78,9 +78,11 @@ else
     
     echo "<TR BGCOLOR=\"$color\">";
     echo "<TD><A HREF=rsmove.php3?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</A></TD>";
-    echo "<TD>" . NUMBER($sector[$i][mines]) . "</TD>";
-    echo "<TD>" . NUMBER($sector[$i][fighters]) . "</TD>";
-    echo "<TD>" . $sector[$i][fm_setting] . "</TD>";
+    echo "<TD>" . NUMBER($sector[$i]['quantity']) . "</TD>";
+    $defence_type = $sector[$i]['defence_type'] == 'F' ? 'Fighters' : 'Mines';
+    echo "<TD> $defence_type </TD>";
+    $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : 'N/A';
+    echo "<TD> $mode </TD>";
     echo "</TR>";
 
     if($color == $color_line1)
