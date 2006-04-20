@@ -12,7 +12,7 @@ prefix=' ';
 <?
 $newspath = $gamepath."news.php";
 $startdate = date("Y/m/d");
-$res = $db->Execute("SELECT * from $dbtables[news] where date = '$startdate' order by news_id");
+$res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
 
 echo "arURL = new Array(";
 if($res->EOF)
@@ -34,7 +34,7 @@ echo "\"$newspath\");\n";
 echo "arTXT = new Array(";
 // Here is the php function to populate the javascript array.
 
-$res = $db->Execute("SELECT * from $dbtables[news] where date = '$startdate' order by news_id");
+$res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
 if($res->EOF)
 {
 echo "\"$l_news_none\");";

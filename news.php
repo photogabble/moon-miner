@@ -34,7 +34,7 @@ $nextday = getnextday($startdate);
 
 
 //Select news for date range
-$res = $db->Execute("SELECT * from $dbtables[news] where date = '$startdate' order by news_id desc");
+$res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id desc");
 
 //Check to see if there was any news to be shown
 if($res->EOF)

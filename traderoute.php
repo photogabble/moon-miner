@@ -2173,8 +2173,9 @@ function traderoute_results_display_summary($tdr_display_creds)
 function traderoute_results_show_repeat()
 {
     global $engage;
-    echo "<FORM ACTION='traderoute.php?engage=".$engage."' METHOD='post'>" .
-            "<BR>Enter times to repeat <INPUT TYPE='TEXT' NAME='tr_repeat' VALUE='1' SIZE='5'> <INPUT TYPE='SUBMIT' VALUE='SUBMIT'>";
+    echo "<FORM ACTION='traderoute.php?engage=".$engage."' METHOD='post'>\n" .
+            "<BR>Enter times to repeat <INPUT TYPE='TEXT' NAME='tr_repeat' VALUE='1' SIZE='5'> <INPUT TYPE='SUBMIT' VALUE='SUBMIT'>\n";
+    echo "</FORM>\n";
     echo "<p>";
 }
 ?>

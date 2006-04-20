@@ -370,7 +370,7 @@ else
           // update database
           $_defeated = empty($defeated) ? "N" : "Y";
           $_base = empty($base) ? "N" : "Y";
-          $sells = empty($sells) ? "N" : "Y";
+          $_sells = empty($sells) ? "N" : "Y";
           $planupdate = $db->Execute("UPDATE $dbtables[planets] SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
           if(!$planupdate) {
             echo "Changes to Planet record have FAILED Due to the following Error:<BR><BR>";
