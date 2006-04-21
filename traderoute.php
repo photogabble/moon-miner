@@ -1048,9 +1048,9 @@ function traderoute_setsettings()
 function traderoute_engage($j)
 {
   global $playerinfo, $color_line1, $color_line2, $color_header;
-  global $engage, $servertimezone;
-    global $color_line2;
-    global $color_line1;
+  global $engage, $dist, $servertimezone;
+  global $color_line2;
+  global $color_line1;
   global $traderoutes;
   global $fighter_price;
   global $torpedo_price;
