@@ -36,22 +36,22 @@ else
   $preset1 = round(abs($preset1));
   $preset2 = round(abs($preset2));
   $preset3 = round(abs($preset3));
-  if($preset1 > $sector_max)
+  if($preset1 >= $sector_max)
   {
     $l_pre_exceed = str_replace("[preset]", "1", $l_pre_exceed);
-    $l_pre_exceed = str_replace("[sector_max]", $sector_max, $l_pre_exceed);
+    $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
     echo $l_pre_exceed;
   }
-  elseif($preset2 > $sector_max)
+  elseif($preset2 >= $sector_max)
   {
     $l_pre_exceed = str_replace("[preset]", "2", $l_pre_exceed);
-    $l_pre_exceed = str_replace("[sector_max]", $sector_max, $l_pre_exceed);
+    $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
     echo $l_pre_exceed;
   }
-  elseif($preset3 > $sector_max)
+  elseif($preset3 >= $sector_max)
   {
     $l_pre_exceed = str_replace("[preset]", "3", $l_pre_exceed);
-    $l_pre_exceed = str_replace("[sector_max]", $sector_max, $l_pre_exceed);
+    $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
     echo $l_pre_exceed;
   }
   else
