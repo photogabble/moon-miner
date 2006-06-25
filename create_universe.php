@@ -813,6 +813,9 @@ Table_Row("Creating loop $i of $loops Random Two-way Links (from sector ".($star
 
 Table_Footer("Completed successfully.");
 
+$db->Execute("DELETE FROM {$dbtables['links']} WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
+Table_Row("Removing links to and from the end of the Universe","Failed","Deleted");
+
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=7>";
       echo "<input type=hidden name=spp value=$spp>";
