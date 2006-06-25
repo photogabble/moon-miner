@@ -426,7 +426,7 @@ function db_kill_player($ship_id)
     $res->MoveNext();
   }
 
-  $db->Execute("UPDATE $dbtables[planets] SET owner=0,fighters=0, base='N' WHERE owner=$ship_id");
+  $db->Execute("UPDATE $dbtables[planets] SET owner=0, corp=0, fighters=0, base='N' WHERE owner=$ship_id");
 
   if(!empty($sectors))
   {
