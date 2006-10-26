@@ -12,7 +12,7 @@ include("languages/$lang");
 # Create Universe Script                                                     #
 #                                                                            #
 # ChangeLog                                                                  #
-#  Sep 2, 04 - TheMightyDude - Completely Rewritten from scratch             #                                                                #
+#  Sep 2, 04 - TheMightyDude - Completely Rewritten from scratch             #
 #              It should now be more Load balanced for PHP and MySQL         #
 #  Nov 2, 01 - Wandrer - Rewritten mostly from scratch                       #
 ##############################################################################
