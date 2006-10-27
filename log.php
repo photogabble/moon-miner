@@ -1,5 +1,5 @@
 <?php
-//$Id: log.php 1277 2006-03-17 04:44:44Z iamsure $
+//$Id: log.php 47 2006-01-19 02:55:27Z phpfixer $
 
 include("config.php");
 updatecookie();
@@ -59,7 +59,7 @@ $logline = str_replace("[player]", "$playerinfo[character_name]", $l_log_log);
 <tr><td><td width=100%><td></tr>
 <tr><td><td height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
 <font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<? echo $logline; ?></b></font>
-</td><td><td>&nbsp;</tr>
+</td><td><td></tr>
 <tr><td valign=bottom>
 
 <?
@@ -82,7 +82,7 @@ while(!$res->EOF)
   $res->MoveNext();
 }
 
-$entry = $l_log_months[substr($startdate, 6, 2) - 1] . " " . substr($startdate, 8, 2) . " " . substr($startdate, 0, 4);
+$entry = $l_log_months[substr($startdate, 5, 2) - 1] . " " . substr($startdate, 8, 2) . " " . substr($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
      "\n<div id=\"dynPage0\" class=\"dynPage\">" .
@@ -98,7 +98,7 @@ if(!empty($logs))
   foreach($logs as $log)
   {
     $event = log_parse($log);
-    $time = $l_log_months[substr($log[time], 6, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
+    $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
 
     echo "<table border=0 cellspacing=5 width=100%>" .
          "<tr>" .
@@ -120,7 +120,7 @@ echo "<center>" .
      "</center>" .
      "</div>\n";
 
-$month = substr($startdate, 6, 2);
+$month = substr($startdate, 5, 2);
 $day = substr($startdate, 8, 2) - 1;
 $year = substr($startdate, 0, 4);
 
@@ -137,7 +137,7 @@ if($mode == 'compat')
 
 if($mode != 'compat')
 {
-  $entry = $l_log_months[substr($yesterday, 6, 2) - 1] . " " . substr($yesterday, 8, 2) . " " . substr($yesterday, 0, 4);
+  $entry = $l_log_months[substr($yesterday, 5, 2) - 1] . " " . substr($yesterday, 8, 2) . " " . substr($yesterday, 0, 4);
 
   unset($logs);
   $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
@@ -160,7 +160,7 @@ if($mode != 'compat')
     foreach($logs as $log)
     {
       $event = log_parse($log);
-      $time = $l_log_months[substr($log[time], 6, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
+      $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
 
       echo "<table border=0 cellspacing=5 width=100%>" .
            "<tr>" .
@@ -182,7 +182,7 @@ if($mode != 'compat')
        "</center>" .
        "</div>\n";
 
-  $entry = $l_log_months[substr($yesterday2, 6, 2) - 1] . " " . substr($yesterday2, 8, 2) . " " . substr($yesterday2, 0, 4);
+  $entry = $l_log_months[substr($yesterday2, 5, 2) - 1] . " " . substr($yesterday2, 8, 2) . " " . substr($yesterday2, 0, 4);
 
   unset($logs);
   $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
@@ -205,7 +205,7 @@ if($mode != 'compat')
     foreach($logs as $log)
     {
       $event = log_parse($log);
-      $time = $l_log_months[substr($log[time], 6, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
+      $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
 
       echo "<table border=0 cellspacing=5 width=100%>" .
            "<tr>" .
@@ -231,11 +231,11 @@ if($mode != 'compat')
 
 echo "</div>";
 
-$date1 = $l_log_months_short[substr($startdate, 6, 2) - 1] . " " . substr($startdate, 8, 2);
-$date2 = $l_log_months_short[substr($yesterday, 6, 2) - 1] . " " . substr($yesterday, 8, 2);
-$date3 = $l_log_months_short[substr($yesterday2, 6, 2) - 1] . " " . substr($yesterday2, 8, 2);
+$date1 = $l_log_months_short[substr($startdate, 5, 2) - 1] . " " . substr($startdate, 8, 2);
+$date2 = $l_log_months_short[substr($yesterday, 5, 2) - 1] . " " . substr($yesterday, 8, 2);
+$date3 = $l_log_months_short[substr($yesterday2, 5, 2) - 1] . " " . substr($yesterday2, 8, 2);
 
-$month = substr($startdate, 6, 2);
+$month = substr($startdate, 5, 2);
 $day = substr($startdate, 8, 2) - 3;
 $year = substr($startdate, 0, 4);
 

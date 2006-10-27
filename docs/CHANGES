@@ -1,4 +1,8 @@
 $Id: CHANGES 64 2006-02-05 02:19:26Z themightydude $
+TheMightyDude (27 Oct 2006)
+--------------------------------------
+[1585781] Players log showing wrong date when viewing. (Fixed)
+
 TheMightyDude (22 May 2006)
 --------------------------------------
 [1493132] Extra Sector using preset.php (fixed)
