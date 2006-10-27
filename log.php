@@ -1,5 +1,4 @@
 <?php
-//$Id: log.php 47 2006-01-19 02:55:27Z phpfixer $
 
 include("config.php");
 updatecookie();
