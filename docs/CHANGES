@@ -1,3 +1,8 @@
+TheMightyDude (14 Dec 2006)
+--------------------------------------
+[1564468] Added part of Patch.
+Fixed error "error in the SQL statement (not null column corp set to null)"
+
 TheMightyDude (27 Oct 2006)
 --------------------------------------
 [1585781] Players log showing wrong date when viewing. (Fixed)

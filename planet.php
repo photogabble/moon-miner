@@ -641,7 +641,7 @@ if(!empty($planetinfo))
     elseif($command == "capture" &&  $planetinfo[owner] == 0)
     {
       echo "$l_planet_captured<BR>";
-      $update = $db->Execute("UPDATE $dbtables[planets] SET corp=null, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
+      $update = $db->Execute("UPDATE $dbtables[planets] SET corp=0, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
       $ownership = calc_ownership($playerinfo[sector]);
 
         if(!empty($ownership))
