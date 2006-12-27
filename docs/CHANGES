@@ -1,3 +1,8 @@
+TheMightyDude (27 Dec 2006)
+--------------------------------------
+Fixed the score bug, was genscore(...) function was using armour when it should of been armor.
+Fixed score bug which was down to genscore using an if statment resulting in some score going to 0.
+
 TheMightyDude (14 Dec 2006)
 --------------------------------------
 [1564468] Added part of Patch.
