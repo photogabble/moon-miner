@@ -1,3 +1,8 @@
+TheMightyDude (29 Dec 2006)
+--------------------------------------
+Fixed bug in combat.php where the planets energy wouldn't go down with the use of their beams.
+Fixed bug in combat.php where planetfighters was set to 0 before the calculation.
+
 TheMightyDude (27 Dec 2006)
 --------------------------------------
 Fixed the score bug, was genscore(...) function was using armour when it should of been armor.

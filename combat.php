@@ -21,7 +21,10 @@ function calcplanetbeams()
     }
 
     if ($planetbeams > $energy_available)
+    {
         $planetbeams = $energy_available;
+    }
+    $planetinfo['energy'] -= $planetbeams;
 
     return $planetbeams;
 }
@@ -252,9 +255,6 @@ function planetcombat()
     global $db, $dbtables;
     //$debug = true;
 
-
-
-
     if($playerinfo[turns] < 1)
     {
         echo "$l_cmb_atleastoneturn<BR><BR>";
@@ -367,8 +367,8 @@ function planetcombat()
         {
             $l_cmb_defenselost = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_defenselost);
             echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>$l_cmb_defenselost</B></FONT>";
-            $planetfighters = 0;
             $attackerbeams = $attackerbeams - $planetfighters;
+            $planetfighters = 0;
         }
         else
         {
