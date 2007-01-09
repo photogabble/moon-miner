@@ -456,8 +456,8 @@ function planetcombat()
         {
             $l_cmb_nofightersleft = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_nofightersleft);
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_nofightersleft</FONT></B></td><td></td>";
-            $planetfighters = 0;
             $attackertorpdamage = $attackertorpdamage - $planetfighters;
+            $planetfighters = 0;
         }
         else
         {
