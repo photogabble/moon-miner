@@ -1,3 +1,8 @@
+TheMightyDude (17 Aug 2007)
+--------------------------------------
+Fixed Collect Credits from Planets.
+This was down to using old $HTTP_POST_VARS insted of the new $_POST
+
 TheMightyDude (09 Jan 2007)
 --------------------------------------
 Fixed bug in combat.php where planetfighters was set to 0 before the calculation.

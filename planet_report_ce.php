@@ -23,9 +23,9 @@ bigtitle();
 echo "<BR>";
 echo "Click <A HREF=planet_report.php>here</A> to return to report menu<br>";
 
-if(isset($HTTP_POST_VARS["TPCreds"])) 
+if(isset($_POST["TPCreds"])) 
 {
-  collect_credits($HTTP_POST_VARS["TPCreds"]);
+  collect_credits($_POST["TPCreds"]);
 }
 elseif(isset($buildp) AND isset($builds))
 {
@@ -33,7 +33,7 @@ elseif(isset($buildp) AND isset($builds))
 }
 else
 {
-  change_planet_production($HTTP_POST_VARS);
+  change_planet_production($_POST);
 }
 
 echo "<BR><BR>";
