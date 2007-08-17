@@ -1,5 +1,9 @@
 TheMightyDude (17 Aug 2007)
 --------------------------------------
+Fixed movment into non valid extra sectors.
+
+TheMightyDude (17 Aug 2007)
+--------------------------------------
 Fixed admin new2 for the $HTTP_POST_VARS issues.
 
 TheMightyDude (17 Aug 2007)

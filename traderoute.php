@@ -762,6 +762,7 @@ function traderoute_create()
   global $playerinfo, $color_line1, $color_line2, $color_header;
   global $num_traderoutes, $servertimezone;
   global $max_traderoutes_player;
+  global $sector_max;
   global $ptype1;
   global $ptype2;
   global $port_id1;
@@ -776,6 +777,7 @@ function traderoute_create()
   global $l_tdr_maxtdr, $l_tdr_errnotvalidport, $l_tdr_errnoport, $l_tdr_errnosrc, $l_tdr_errnotownnotsell;
   global $l_tdr_errnotvaliddestport, $l_tdr_errnoport2, $l_tdr_errnodestplanet, $l_tdr_errnotownnotsell2;
   global $l_tdr_newtdrcreated, $l_tdr_tdrmodified, $l_tdr_returnmenu;
+  global $l_tdr_invaliddplanet, $l_tdr_invaliddport, $l_tdr_invalidsrc, $l_tdr_invalidspoint;
   global $db, $dbtables;
 
     if($num_traderoutes >= $max_traderoutes_player && empty($editing))
@@ -785,6 +787,11 @@ function traderoute_create()
   //dbase sanity check for source
   if($ptype1 == 'port')
   {
+
+    // Check for valid Source Port
+    if($port_id1 >= $sector_max)
+      traderoute_die($l_tdr_invalidspoint);
+
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$port_id1");
     if(!$query || $db->EOF)
     {
@@ -807,6 +814,10 @@ function traderoute_create()
     {
       traderoute_die($l_tdr_errnosrc);
     }
+
+    // Check for valid Source Planet
+    if($source['sector_id'] >= $sector_max)
+      traderoute_die($l_tdr_invalidsrc);
 
     //hum, that thing was tricky
     if($source['owner'] != $playerinfo['ship_id'])
@@ -833,6 +844,10 @@ if($num_res1 == 0)
   //dbase sanity check for dest
   if($ptype2 == 'port')
   {
+    // Check for valid Dest Port
+    if($port_id2 >= $sector_max)
+      traderoute_die($l_tdr_invaliddport);
+
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$port_id2");
     if(!$query || $query->EOF)
     {
@@ -856,6 +871,10 @@ if($num_res1 == 0)
         {
             traderoute_die($l_tdr_errnodestplanet);
         }
+
+    // Check for valid Dest Planet
+    if($destination['sector_id'] >= $sector_max)
+      traderoute_die($l_tdr_invaliddplanet);
 
     if($destination['owner'] != $playerinfo['ship_id'] && $destination['sells'] == 'N')
     {
