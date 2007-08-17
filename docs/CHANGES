@@ -1,5 +1,9 @@
 TheMightyDude (17 Aug 2007)
 --------------------------------------
+Fixed admin new2 for the $HTTP_POST_VARS issues.
+
+TheMightyDude (17 Aug 2007)
+--------------------------------------
 Fixed Collect Credits from Planets.
 This was down to using old $HTTP_POST_VARS insted of the new $_POST
 

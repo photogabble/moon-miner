@@ -632,7 +632,7 @@ else
       }
       elseif($command == 'banip')
       {
-        $ip = $HTTP_POST_VARS[ip];
+        $ip = $_POST[ip];
         echo "<b>Banning ip : $ip<p>";
         echo "<font size=2 color=white>Please select ban type :<p>";
 
@@ -665,7 +665,7 @@ else
       }
       elseif($command == 'banip2')
       {
-        $ip = $HTTP_POST_VARS[ip];
+        $ip = $_POST[ip];
         $ipparts = explode(".", $ip);
 
         if($class == 'A')
@@ -695,7 +695,7 @@ else
       }
       elseif($command == 'unbanip')
       {
-        $ip = $HTTP_POST_VARS[ip];
+        $ip = $_POST[ip];
 
         if(!empty($ban))
           $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
