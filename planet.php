@@ -299,29 +299,37 @@ if(!empty($planetinfo))
     }
     elseif($command == "base")
     {
-      /* build a base */
-      if($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
-      {
-      // ** Create The Base
-        $update1 = $db->Execute("UPDATE $dbtables[planets] SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
-      // ** Update User Turns
-        $update1b = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
-      // ** Refresh Plant Info
-        $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
-        $planetinfo=$result3->fields;
-      // ** Notify User Of Base Results
-        echo "$l_planet_bbuild<BR><BR>";
-      // ** Calc Ownership and Notify User Of Results
-        $ownership = calc_ownership($playerinfo[sector]);
-        if(!empty($ownership))
+        /* build a base */
+        if($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
         {
-        echo "$ownership<p>";
+            // Check if the player has enough turns to create the base.
+            if($playerinfo['turns'] <= 0)
+            {
+                echo "$l_igb_notenturns";
+            }
+            else
+            {
+                // ** Create The Base
+                $update1 = $db->Execute("UPDATE $dbtables[planets] SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
+                // ** Update User Turns
+                $update1b = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
+                // ** Refresh Plant Info
+                $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
+                $planetinfo=$result3->fields;
+                // ** Notify User Of Base Results
+                echo "$l_planet_bbuild<BR><BR>";
+                // ** Calc Ownership and Notify User Of Results
+                $ownership = calc_ownership($playerinfo[sector]);
+                if(!empty($ownership))
+                {
+                    echo "$ownership<p>";
+                }
+            }
         }
-      }
-      else
-      {
-        echo "$l_planet_baseinfo<BR><BR>";
-      }
+        else
+        {
+            echo "$l_planet_baseinfo<BR><BR>";
+        }
     }
     elseif($command == "productions")
     {

@@ -1,3 +1,7 @@
+TheMightyDude (26 Oct 2007)
+--------------------------------------
+[834641] building base doesn't check turns. (fixed)
+
 TheMightyDude (17 Aug 2007)
 --------------------------------------
 Fixed movment into non valid extra sectors.
