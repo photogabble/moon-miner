@@ -258,6 +258,7 @@ if(!empty($planetinfo))
     {
       /* name2 menu */
       $new_name = trim(strip_tags($new_name));
+      $new_name = addslashes($new_name);
       $result5 = $db->Execute("UPDATE $dbtables[planets] SET name='$new_name' WHERE planet_id=$planet_id");
       $new_name = stripslashes($new_name);
       echo "$l_planet_cname $new_name.";

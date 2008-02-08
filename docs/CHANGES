@@ -1,3 +1,7 @@
+TheMightyDude (08 Feb 2008)
+--------------------------------------
+Fixed an exploit where you can modify fields of your own planet to have very high amounts of credits, colonists ore etc. 
+
 TheMightyDude (26 Oct 2007)
 --------------------------------------
 [834641] building base doesn't check turns. (fixed)
