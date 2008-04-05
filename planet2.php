@@ -214,7 +214,7 @@ else
 
   if($transfer_colonists < 0)
   {
-    $transfer_colonists = -1 * $transfer_colonistst;
+    $transfer_colonists = -1 * $transfer_colonists;
     $tpcolonists = -1 * $tpcolonists;
   }
 

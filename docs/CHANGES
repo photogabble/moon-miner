@@ -1,3 +1,11 @@
+TheMightyDude (05 Apr 2008)
+--------------------------------------
+Fixed bug in planet2.php where you add a -value for colonists and it set it to 0 instead of flipping it.
+Was:
+    $transfer_colonists = -1 * $transfer_colonistst;
+Should of been:
+    $transfer_colonists = -1 * $transfer_colonists;
+
 TheMightyDude (08 Feb 2008)
 --------------------------------------
 Fixed an exploit where you can modify fields of your own planet to have very high amounts of credits, colonists ore etc. 
