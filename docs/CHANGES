@@ -1,3 +1,7 @@
+TheMightyDude (24 Apr 2008)
+--------------------------------------
+Fixed the players log when displaying Apocalypse [SPACE_PLAGUE] so it now displays the percentage.
+
 TheMightyDude (05 Apr 2008)
 --------------------------------------
 Fixed bug in planet2.php where you add a -value for colonists and it set it to 0 instead of flipping it.
