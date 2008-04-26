@@ -8,8 +8,9 @@ include("header.php");
 
 connectdb();
 
-//Check to see if the date was passed in the query string
-if ($startdate == '')
+// Check and validate the date.
+$startdate = $_GET['startdate'];
+if (!ereg ("([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})", $startdate, $regs) || $startdate == '')
 {
     //The date wasn't supplied so use today's date
     $startdate = date("Y/m/d");
