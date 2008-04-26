@@ -9,7 +9,7 @@ include("header.php");
 connectdb();
 
 // Check and validate the date.
-$startdate = $_GET['startdate'];
+$startdate = substr($_GET['startdate'], 0, 10);
 if (!ereg ("([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})", $startdate, $regs) || $startdate == '')
 {
     //The date wasn't supplied so use today's date
