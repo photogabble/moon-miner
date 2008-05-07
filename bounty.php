@@ -92,6 +92,8 @@ switch($response) {
       }
       break;
    case "cancel":
+      $bid = (int)$_GET['bid'];
+
       bigtitle();
       if ($playerinfo[turns]<1 )
       {
@@ -102,7 +104,7 @@ switch($response) {
       }
       
       $res = $db->Execute("SELECT * from $dbtables[bounty] WHERE bounty_id = $bid");
-      if(!res)
+      if(!res || $res->RowCount() ==0)
       {
       	echo "$l_by_nobounty<BR><BR>";
 	TEXT_GOTOMAIN();

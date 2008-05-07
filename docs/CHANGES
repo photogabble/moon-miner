@@ -1,3 +1,7 @@
+TheMightyDude (07 May 2008)
+--------------------------------------
+Fixed an exploit in bounty.php where anyone can inject SQL into th bounty system to gain credits on ship.
+
 TheMightyDude (26 Apr 2008)
 --------------------------------------
 Fixed an exploit in news.php where anyone can inject SQL into startdate to display all players passwords etc.
