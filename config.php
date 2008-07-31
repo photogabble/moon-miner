@@ -189,6 +189,9 @@ $scan_error_factor=20;
 $max_planets_sector = 5;
 $max_traderoutes_player = 40;
 
+// Must stay at 55 due to PHP/MySQL cap limit.
+$max_upgrades_devices = 55;
+
 $min_bases_to_own = 3;
 
 $default_lang = 'english';

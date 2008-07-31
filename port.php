@@ -469,10 +469,12 @@ echo "+ changeDelta(form.shields_upgrade.value,$playerinfo[shields])\n";
 function dropdown($element_name,$current_value)
 {
 global $onchange;
+global $max_upgrades_devices;
+
 $i = $current_value;
 $dropdownvar = "<select size='1' name='$element_name'";
 $dropdownvar = "$dropdownvar $onchange>\n";
-while ($i < 60)
+while ($i <= (int)$max_upgrades_devices)
  {
  if ($current_value == $i)
   {

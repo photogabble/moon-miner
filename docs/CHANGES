@@ -1,3 +1,7 @@
+TheMightyDude (31 July 2008)
+--------------------------------------
+Added config var $max_upgrades_devices which set that devive upgrade max limit, by default its 55 due to the PHP/MySQL cap Limit. 
+
 TheMightyDude (07 May 2008)
 --------------------------------------
 Fixed an exploit in bounty.php where anyone can inject SQL into th bounty system to gain credits on ship.
