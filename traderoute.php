@@ -1195,6 +1195,25 @@ function traderoute_engage($j)
 
     $dest = $result->fields;
 
+    if($traderoute['dest_type'] == 'L')
+    {
+      if($dest[owner] != $playerinfo[ship_id])
+      {
+        $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest[name], $l_tdr_notyourplanet);
+        $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest[sector_id], $l_tdr_notyourplanet);
+        traderoute_die($l_tdr_notyourplanet);
+      }
+    }
+    elseif($traderoute[dest_type] == 'C')   // check to make sure player and planet are in the same corp.
+    {
+      if($dest[corp] != $playerinfo[team])
+      {
+        $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest[name], $l_tdr_notyourplanet);
+        $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest[sector_id], $l_tdr_notyourplanet);
+        traderoute_die($l_tdr_notyourplanet);
+      }
+    }
+
     $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$dest[sector_id]");
     if(!$result || $result->EOF)
       traderoute_die($l_tdr_invaliddsector);

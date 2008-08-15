@@ -1,3 +1,8 @@
+TheMightyDude (15 August 2008)
+--------------------------------------
+Fixed an exploit in the traderoute code which allowed a player to transfer credits, commodities etc to any planet.
+This was used to pass credits down to a new player after self-destructing self.
+
 TheMightyDude (31 July 2008)
 --------------------------------------
 Added config var $max_upgrades_devices which set that devive upgrade max limit, by default its 55 due to the PHP/MySQL cap Limit. 
