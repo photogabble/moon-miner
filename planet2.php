@@ -1,4 +1,12 @@
-<?
+<?php
+
+/*
+##############################################################################
+# Planet Transfer (planet2.php)                                              #
+# Fixed The Phantom Planet Transfer Bug                TMD, Date: 11-09-2008 #
+##############################################################################
+*/
+
 include("config.php");
 updatecookie();
 
@@ -15,15 +23,105 @@ if(checklogin())
 
 //-------------------------------------------------------------------------------------------------
 
+// Needs to be validated and type cast into their correct types.
+// [GET]
+// (int)    planet_id
+// 
+// [POST]
+// (int)    transfer_ore
+//          tpore
+//          allore
+// (int)    transfer_organics
+//          tporganics
+//          allorganics
+// (int)    transfer_goods
+//          tpgoods
+//          allgoods
+// (int)    transfer_energy
+//          tpenergy
+//          allenergy
+// (int)    transfer_colonists
+//          tpcolonists
+//          allcolonists
+// (int)    transfer_fighters
+//          tpfighters
+//          allfighters
+// (int)    transfer_torps
+//          tptorps
+//          alltorps
+// (int)    transfer_credits
+//          tpcredits
+//          allcredits
+
+
+// Empty out Planet and Ship vars
+$planetinfo         = NULL;
+$playerinfo         = NULL;
+
+// Validate and set the type of $_POST vars
+$transfer_ore       = (int) $_POST['transfer_ore'];
+$tpore              = $_POST['tpore'];
+$allore             = $_POST['allore'];
+
+$transfer_organics  = (int) $_POST['transfer_organics'];
+$tporganics         = $_POST['tporganics'];
+$allorganics        = $_POST['allorganics'];
+
+$transfer_goods     = (int) $_POST['transfer_goods'];
+$tpgoods            = $_POST['tpgoods'];
+$allgoods           = $_POST['allgoods'];
+
+$transfer_energy    = (int) $_POST['transfer_energy'];
+$tpenergy           = $_POST['tpenergy'];
+$allenergy          = $_POST['allenergy'];
+
+$transfer_colonists = (int) $_POST['transfer_colonists'];
+$tpcolonists        = $_POST['tpcolonists'];
+$allcolonists       = $_POST['allcolonists'];
+
+$transfer_fighters  = (int) $_POST['transfer_fighters'];
+$tpfighters         = $_POST['tpfighters'];
+$allfighters        = $_POST['allfighters'];
+
+$transfer_torps     = (int) $_POST['transfer_torps'];
+$tptorps            = $_POST['tptorps'];
+$alltorps           = $_POST['alltorps'];
+
+$transfer_credits   = (int) $_POST['transfer_credits'];
+$tpcredits          = $_POST['tpcredits'];
+$allcredits         = $_POST['allcredits'];
+
+// Validate and set the type of $_GET vars;
+$planet_id          = (int) $_GET['planet_id'];
+
+// Display Page Title.
+bigtitle();
+
+// Check if planet_id is valid.
+if($planet_id <=0)
+{
+  echo "Invalid Planet<BR><BR>";
+  TEXT_GOTOMAIN();
+  die();
+}
+
+// Get the Player Info
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
-if($result2)
-  $planetinfo=$result2->fields;
+// Get the Planet Info
+$result2 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id AND planet_id >0");
+$planetinfo = $result2->fields;
 
-bigtitle();
+// Check to see if it returned valid planet info.
+if($planetinfo == false)
+{
+  echo "Invalid Planet<BR><BR>";
+  TEXT_GOTOMAIN();
+  die();
+}
 
+// Check to see Ship and Planet are in the same sector
 if($planetinfo[sector_id] <> $playerinfo[sector])
 {
    echo "$l_planet2_sector<BR><BR>";
@@ -31,6 +129,7 @@ if($planetinfo[sector_id] <> $playerinfo[sector])
    die();
 }
 
+// Check if the player has enough turns
 if($playerinfo[turns] < 1)
 {
   echo "$l_planet2_noturn<BR><BR>";
@@ -77,16 +176,14 @@ else
   }
 
   // now multiply all the transfer amounts by 1 to eliminate any trailing spaces
-  $transfer_ore = $transfer_ore * 1;
-  $transfer_organics = $transfer_organics * 1;
-  $transfer_goods = $transfer_goods * 1;
-  $transfer_energy = $transfer_energy * 1;
+  $transfer_ore       = $transfer_ore * 1;
+  $transfer_organics  = $transfer_organics * 1;
+  $transfer_goods     = $transfer_goods * 1;
+  $transfer_energy    = $transfer_energy * 1;
   $transfer_colonists = $transfer_colonists * 1;
-  $transfer_credits = $transfer_credits * 1;
-  $transfer_torps = $transfer_torps * 1;
-  $transfer_fighters = $transfer_fighters * 1;
-
-
+  $transfer_credits   = $transfer_credits * 1;
+  $transfer_torps     = $transfer_torps * 1;
+  $transfer_fighters  = $transfer_fighters * 1;
 
   if($allore==-1)
   {
@@ -454,6 +551,7 @@ else
           echo "$l_planet2_noten $l_credits $l_planet2_fortr<BR>";
           $transfer_credits = 0;
         }
+
         $update1 = $db->Execute("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$transfer_ore, ship_organics=ship_organics+$transfer_organics, ship_goods=ship_goods+$transfer_goods, ship_energy=ship_energy+$transfer_energy, ship_colonists=ship_colonists+$transfer_colonists, torps=torps+$transfer_torps, ship_fighters=ship_fighters+$transfer_fighters, credits=credits+$transfer_credits, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
         $update2 = $db->Execute("UPDATE $dbtables[planets] SET ore=ore-$transfer_ore, organics=organics-$transfer_organics, goods=goods-$transfer_goods, energy=energy-$transfer_energy, colonists=colonists-$transfer_colonists, torps=torps-$transfer_torps, fighters=fighters-$transfer_fighters, credits=credits-$transfer_credits WHERE planet_id=$planet_id");
         echo "$l_planet2_compl<BR><a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<BR><BR>";

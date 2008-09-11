@@ -1,5 +1,9 @@
 TheMightyDude (15 August 2008)
 --------------------------------------
+[2106218] The Phantom Planet Transfer Bug (fixed).
+
+TheMightyDude (15 August 2008)
+--------------------------------------
 Fixed an exploit in the traderoute code which allowed a player to transfer credits, commodities etc to any planet.
 This was used to pass credits down to a new player after self-destructing self.
 
