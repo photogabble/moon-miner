@@ -1,5 +1,7 @@
 <?php
 //$Id: teams.php 1274 2006-03-17 04:35:42Z iamsure $
+
+
 include("config.php");
 updatecookie();
 
@@ -11,6 +13,12 @@ connectdb();
 if (checklogin()) {die();}
 bigtitle();
 $testing = false; // set to false to get rid of password when creating new alliance
+
+$whichteam    = stripnum($_REQUEST['whichteam']);
+$teamwhat     = stripnum($_REQUEST['teamwhat']);
+$confirmleave = stripnum($_REQUEST['confirmleave']);
+$invited      = stripnum($_REQUEST['invited']);
+
 
 /*
    Setting up some recordsets.
@@ -129,16 +137,26 @@ function DISPLAY_ALL_ALLIANCES()
 
 function DISPLAY_INVITE_INFO()
 {
-   global $playerinfo, $invite_info, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
-   if (!$playerinfo[team_invite]) {
-      echo "<br><br><font color=blue size=2><b>$l_team_noinvite</b></font><BR>";
-      echo "$l_team_ifyouwant<BR>";
-      echo "<a href=\"teams.php?teamwhat=6\">$l_clickme</a> $l_team_tocreate<BR><BR>";
-   } else {
-       echo "<br><br><font color=blue size=2><b>$l_team_injoin ";
-       echo "<a href=teams.php?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</A>.</b></font><BR>";
-       echo "<A HREF=teams.php?teamwhat=3&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_tojoin <B>$invite_info[team_name]</B> $l_team_or <A HREF=teams.php?teamwhat=8&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_reject<BR><BR>";
-   }
+    global $playerinfo, $invite_info, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
+   
+    if ($playerinfo[team] != 0)
+    {
+        // We are in a team so done show invite or creation info.
+        echo "<br /><br />\n";
+		return;
+    }
+    if (!$playerinfo[team_invite])
+    {
+        echo "<br><br><font color=blue size=2><b>$l_team_noinvite</b></font><BR>";
+        echo "$l_team_ifyouwant<BR>";
+        echo "<a href=\"teams.php?teamwhat=6\">$l_clickme</a> $l_team_tocreate<BR><BR>";
+    }
+    else
+    {
+        echo "<br><br><font color=blue size=2><b>$l_team_injoin ";
+        echo "<a href=teams.php?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</A>.</b></font><BR>";
+        echo "<A HREF=teams.php?teamwhat=3&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_tojoin <B>$invite_info[team_name]</B> $l_team_or <A HREF=teams.php?teamwhat=8&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_reject<BR><BR>";
+    }
 }
 
 
@@ -216,6 +234,14 @@ switch ($teamwhat) {
       LINK_BACK();
         break;
     case 2: // LEAVE
+
+        if ($team[id] !== $playerinfo[team])
+        {
+           echo "<BR>You are not in this alliance!<BR>";
+           LINK_BACK();
+           break;
+        }
+
         if (!$confirmleave) {
             echo "$l_team_confirmleave <B>$team[team_name]</B> ? <a href=\"teams.php?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">$l_yes</a> - <A HREF=\"teams.php\">$l_no</A><BR><BR>";
         } elseif ($confirmleave == 1) {
@@ -362,30 +388,43 @@ switch ($teamwhat) {
         break;
 
     case 5: // Eject member
-    if ($playerinfo[team] == $team[id])
-    {
-      $who = stripnum($who);
+
+/*
+ * Check if Co-ordinator of team.
+ * If not display "An error occured, You are not the leader of this Alliance." message.
+ * Then show link back and break;
+ */
+        if ($team[creator] !== $playerinfo[ship_id])
+        {
+           echo "$l_team_error";
+           LINK_BACK();
+           break;
+        }
+
+        $who = stripnum($who);
         $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$who");
         $whotoexpel = $result->fields;
-        if (!$confirmed) {
+        if (!$confirmed)
+        {
             echo "$l_team_ejectsure $whotoexpel[character_name]? <A HREF=\"teams.php?teamwhat=$teamwhat&confirmed=1&who=$who\">$l_yes</A> - <a href=\"teams.php\">$l_no</a><BR>";
-        } else {
+        }
+        else
+        {
             /*
-               check whether the player we are ejecting might have already left in the meantime
-               should go here   if ($whotoexpel[team] ==
-              */
+             * check whether the player we are ejecting might have already left in the meantime
+             * should go here   if ($whotoexpel[team] ==
+             */
             $db->Execute("UPDATE $dbtables[planets] SET corp='0' WHERE owner='$who'");
-        $db->Execute("UPDATE $dbtables[ships] SET team='0' WHERE ship_id='$who'");
-           /*
-              No more necessary due to COUNT(*) in previous SQL statement
-
-            $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
-           */
+            $db->Execute("UPDATE $dbtables[ships] SET team='0' WHERE ship_id='$who'");
+            /*
+             * No more necessary due to COUNT(*) in previous SQL statement
+             * $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
+             */
             playerlog($who, LOG_TEAM_KICK, "$team[team_name]");
             echo "$whotoexpel[character_name] $l_team_ejected<BR>";
-          }
+        }
         LINK_BACK();
-    }
+
         break;
 
     case 6: // Create Team
@@ -415,57 +454,72 @@ switch ($teamwhat) {
             echo "</FORM>";
             echo "<BR><BR>";
         } else {
-                    $teamname = htmlspecialchars($teamname);
-                        $teamdesc = htmlspecialchars($teamdesc);
-                        $res = $db->Execute("INSERT INTO $dbtables[teams] (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
-                        $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
-                        $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
+            $teamname = trim(htmlspecialchars($teamname));
+            $teamdesc = trim(htmlspecialchars($teamdesc));
+
+            if(!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
+            {
+                echo "Team creation failed<br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
+                LINK_BACK();
+                break;
+            }
+
+            $res = $db->Execute("INSERT INTO $dbtables[teams] (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
+            $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+            $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
             echo "$l_team_alliance <B>$teamname</B> $l_team_hcreated.<BR><BR>";
             playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
         }
         LINK_BACK();
         break;
     case 7: // INVITE player
-        if (!$invited) {
+
+        if ($team[id] !== $playerinfo[team])
+        {
+           echo "<BR>You are not in this alliance!<BR>";
+           LINK_BACK();
+           break;
+        }
+
+        if (!$invited)
+        {
             echo "<FORM ACTION='teams.php' METHOD=POST>";
             echo "<TABLE><INPUT TYPE=hidden name=teamwhat value=$teamwhat><INPUT TYPE=hidden name=invited value=1><INPUT TYPE=hidden name=whichteam value=$whichteam>";
             echo "<TR><TD>$l_team_selectp:</TD><TD><SELECT NAME=who>";
-      $res = $db->Execute("SELECT character_name,ship_id FROM $dbtables[ships] WHERE team<>$whichteam ORDER BY character_name ASC");
-            while(!$res->EOF) {
-        $row = $res->fields;
+            $res = $db->Execute("SELECT character_name,ship_id FROM $dbtables[ships] WHERE team<>$whichteam ORDER BY character_name ASC");
+            while(!$res->EOF)
+            {
+                $row = $res->fields;
                 if ($row[ship_id] != $team[creator])
+                {
                     echo "<OPTION VALUE=$row[ship_id]>$row[character_name]";
-        $res->MoveNext();
+                }
+                $res->MoveNext();
             }
             echo "</SELECT></TD></TR>";
             echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=$l_submit></TD></TR>";
             echo "</TABLE>";
             echo "</FORM>";
-
-        } else {
-                        if($playerinfo[team] == $whichteam)
-                        {
-                       $res = $db->Execute("SELECT character_name,team_invite FROM $dbtables[ships] WHERE ship_id=$who");
-               $newpl = $res->fields;
-               if ($newpl[team_invite])
-                           {
-                  $l_team_isorry = str_replace("[name]", $newpl[character_name], $l_team_isorry);
-                  echo "$l_team_isorry<BR><BR>";
-               }
-                           else
-                           {
-                  $db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
-                  echo("$l_team_plinvted<BR>");
-                  playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
-               }
-                        }
-                        else
-                        {
-                           echo "$l_team_notyours<BR>";
-                        }
+        }
+        else
+        {
+            $res = $db->Execute("SELECT character_name,team_invite FROM $dbtables[ships] WHERE ship_id=$who");
+            $newpl = $res->fields;
+            if ($newpl[team_invite])
+            {
+                $l_team_isorry = str_replace("[name]", $newpl[character_name], $l_team_isorry);
+                echo "$l_team_isorry<BR><BR>";
+            }
+            else
+            {
+                $db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
+                echo("$l_team_plinvted<BR>");
+                playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
+            }
         }
         echo "<BR><BR><a href=\"teams.php\">$l_clickme</a> $l_team_menu<BR><BR>";
         break;
+
     case 8: // REFUSE invitation
         echo "$l_team_refuse <B>$invite_info[team_name]</B>.<BR><BR>";
         $db->Execute("UPDATE $dbtables[ships] SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
@@ -473,8 +527,10 @@ switch ($teamwhat) {
         LINK_BACK();
         break;
     case 9: // Edit Team
-        if ($testing){
-            if($swordfish != $adminpass) {
+        if ($testing)
+        {
+            if($swordfish != $adminpass)
+            {
                 echo "<FORM ACTION=\"teams.php\" METHOD=POST>";
                 echo "$l_team_testing<BR><BR>";
                 echo "$l_team_pw: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
@@ -486,9 +542,22 @@ switch ($teamwhat) {
                 include("footer.php");
                 die();
             }
-       }
-       if ($playerinfo[team] == $whichteam) {
-        if (!$update) {
+        }
+
+/*
+ * Check if Co-ordinator of team.
+ * If not display "An error occured, You are not the leader of this Alliance." message.
+ * Then show link back and break;
+ */
+        if ($team[creator] !== $playerinfo[ship_id])
+        {
+           echo "$l_team_error";
+           LINK_BACK();
+           break;
+        }
+
+        if (!$update)
+        {
             echo "<FORM ACTION=\"teams.php\" METHOD=POST>";
             echo "$l_team_edname: <BR>";
             echo "<INPUT TYPE=hidden NAME=swordfish value='$swordfish'>";
@@ -501,31 +570,36 @@ switch ($teamwhat) {
             echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
             echo "</FORM>";
             echo "<BR><BR>";
-        } else {
-                $teamname = htmlspecialchars($teamname);
-                        $teamdesc = htmlspecialchars($teamdesc);
-                    $res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
+        }
+        else
+        {
+    	    $teamname = trim(htmlspecialchars($teamname));
+    	    $teamdesc = trim(htmlspecialchars($teamdesc));
+
+    	    if(!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
+    	    {
+    	    	echo "<span style='color:#FF0000;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
+    	    	LINK_BACK();
+    	    	break;
+    	    }
+
+            $res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
             echo "$l_team_alliance <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
-            /*
-               Adding a log entry to all members of the renamed alliance
-            */
-           $result_team_name = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
+/*
+ * Adding a log entry to all members of the renamed alliance
+ */
+            $result_team_name = $db->Execute("SELECT ship_id, team FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
             playerlog($playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
-            while(!$result_team_name->EOF) {
-          $teamname_array = $result_team_name->fields;
-               playerlog($teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
-                           $result_team_name->MoveNext();
+            while(!$result_team_name->EOF)
+            {
+                $teamname_array = $result_team_name->fields;
+                playerlog($teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
+                $result_team_name->MoveNext();
             }
-            }
+        }
         LINK_BACK();
         break;
-       }
-       else
-       {
-        echo $l_team_error;
-        LINK_BACK();
-        break;
-       }
+
     default:
         if (!$playerinfo[team]) {
             echo "$l_team_notmember";
@@ -569,6 +643,39 @@ switch ($teamwhat) {
     echo "<BR><BR>";
     TEXT_GOTOMAIN();
 
+function validate_team($name = NULL, $desc = NULL, $creator = NULL)
+{
+    global $db,$dbtables, $db_type;
+
+    $name = trim($name); 
+    $desc = trim($desc);
+    $creator = (int)$creator;
+
+    if( (is_null($name) || empty($name)) || (is_null($desc) || empty($desc)) || (is_null($creator) || empty($creator)) )
+    {
+        return false;
+    }
+
+    if(!ereg("(^[a-zA-Z0-9]+([a-zA-Z\_0-9\.-\ ]*))$" , $name))
+    {
+        return false;
+    }
+
+    if(!ereg("(^[a-zA-Z0-9]+([a-zA-Z\_0-9\.-\ ]*))$" , $desc))
+    {
+        return false;
+    }
+
+    # Just a test to see if an alliance with a name of $name exists.
+    # This is just a temp fix until we find a better one.
+    $res= $db->Execute("SELECT COUNT(*) as found FROM $dbtables[teams] WHERE team_name = '{$name}' AND creator != $creator;");
+    $num_res = $res->fields;
+    if ($num_res[found] > 0)
+    {
+        return false;
+    }
+    return true;
+}
     include("footer.php");
 ?>
 
