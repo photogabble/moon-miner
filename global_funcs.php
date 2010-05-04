@@ -910,31 +910,46 @@ function calc_ownership($sector)
   }
 }
 
-function player_insignia_name($a_username) {
-
-// Somewhat inefficient, but I think this is the best way to do this.
-
-global $db, $dbtables, $username, $player_insignia;
-global $l_insignia;
-
-$res = $db->Execute("SELECT score FROM $dbtables[ships] WHERE email='$a_username'");
-$playerinfo = $res->fields;
-$score_array = array('1000', '3000', '6000', '9000', '12000', '15000', '20000', '40000', '60000', '80000', '100000', '120000', '160000', '200000', '250000', '300000', '350000', '400000', '450000', '500000');
-
-for ( $i=0; $i<count($score_array); $i++)
+function player_insignia_name($a_username)
 {
-    if ( $playerinfo[score] < $score_array[$i])
-     {
-       $player_insignia = $l_insignia[$i];
-       break;
-     }
-}
+    // Somewhat inefficient, but I think this is the best way to do this.
 
-if(!isset($player_insignia))
-  $player_insignia = end($l_insignia);
+    global $db, $dbtables, $username;
+    global $l_insignia;
 
-return $player_insignia;
+    // Ok, first things first, always make sure our variable that is to be returned is unset or NULL.
+    unset($player_insignia);
 
+    // Looup players score.
+    $res = $db->Execute("SELECT score FROM $dbtables[ships] WHERE email='$a_username'");
+    $playerinfo = $res->fields;
+
+    for($i=0; $i<20; $i++)
+    {
+        $value = pow(2, $i*2);
+        if(!$value)
+        {
+            // pow returned false so we need to return an error.
+            $player_insignia = "<span style='color:#FF0000;'>ERR</span> [<span style='color:#0099FF; font-size:12px; cursor:help;' title='Error looking up Insignia, Please Report.'>?</span>]";
+            break;
+        }
+
+        $value *= (500 * 2);
+        if($playerinfo[score] <= $value)
+        {
+            // Ok we have found our Insignia, now set and break out of the for loop.
+            $player_insignia = $l_insignia[$i];
+            break;
+        }
+    }
+
+    if(!isset($player_insignia))
+    {
+        // Hmm, player has out ranked out highest rank, so just return that.
+        $player_insignia = end($l_insignia);
+    }
+
+    return $player_insignia;
 }
 
 function t_port($ptype) {
