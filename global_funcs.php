@@ -237,40 +237,70 @@ function checklogin()
   return $flag;
 }
 
-function connectdb($do_die=true)
+#########################################
+## Function: connectdb                 ##
+##  Version: 0.0.1:0004                ##
+##   Author: TheMightyDude             ##
+##  Created: 14 Oct 2010               ##
+##  Updated: 27 Jan 2011               ##
+#########################################
+function connectdb($do_die = true) // Returns true, false or a halt.
 {
-  /* connect to database - and if we can't stop right there */
-  global $dbhost;
-  global $dbport;
-  global $dbuname;
-  global $dbpass;
-  global $dbname;
-  global $default_lang;
-  global $lang;
-  global $gameroot;
-  global $db_type;
-  global $db_persistent;
-  global $db;
-  global $ADODB_FETCH_MODE;
+    global $dbhost, $dbport, $dbuname, $dbpass, $dbname;
+    global $db_type, $db_persistent;
+    global $db;
 
-  $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+    // Not too sure if we still need these variables.
+    global $default_lang, $lang, $gameroot;
 
-  if(!empty($dbport))
-    $dbhost.= ":$dbport";
-
-  $db = ADONewConnection("$db_type");
-  if($db_persistent == 1)
-    $result = $db->PConnect("$dbhost", "$dbuname", "$dbpass", "$dbname");
-  else
-    $result = $db->Connect("$dbhost", "$dbuname", "$dbpass", "$dbname");
-
-  if(!$result)
-  {
-    if($do_die)
+    // Check to see if we are already connected to the database.
+    // If so just return true.
+    if($db instanceof ADOConnection)
     {
-      die ("Unable to connect to the database");
+        return (boolean) true;
     }
-  }
+
+    // Ok, seems that we are not connected to the database at this current time.
+    // So we now need to setup all the database connection now.
+    if(!empty($dbport))
+    {
+        $dbhost.= ":$dbport";
+    }
+
+    $db = NewADOConnection($db_type);
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+
+    if($db_persistent == 1)
+    {
+        $result = @$db->PConnect("$dbhost", "$dbuname", "$dbpass", "$dbname");
+    }
+    else
+    {
+        $result = @$db->Connect("$dbhost", "$dbuname", "$dbpass", "$dbname");
+    }
+
+    // Check to see if we have connected ok.
+    // This should work...
+    if( ($db instanceof ADOConnection) && (is_resource($db->_connectionID) || is_object($db->_connectionID)) )
+    {
+        // Yes we connected ok, so return true.
+        return (boolean) true;
+    }
+    else
+    {
+        // Bad news, we failed to connect to the database.
+        if($do_die)
+        {
+            // We need to display the error message onto the screen.
+            echo "Unable to connect to the Database.<br />\n";
+            echo "Database Error: ". $db->ErrorNo() .": ". $db->ErrorMsg() ."<br />\n";
+
+            // We need to basically die here to stop the game.
+            die ("SYSTEM HALT<br />\n");
+        }
+        // We need to return false.
+        return (boolean) false;
+    }
 }
 
 function updatecookie()
