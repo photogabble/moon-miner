@@ -121,36 +121,6 @@ else
 		}
 		else
 		{
-
-/*
-			$debug_message  = NULL;
-			$debug_message .= "Attack Bug Debug information (Working on Attack/Bounty Code [TMD])\n";
-			$debug_message .= "targetscore: {$targetscore}\n";
-			$debug_message .= "playerscore: {$playerscore}\n";
-			$debug_message .= "bounty_ratio: {$bounty_ratio}\n";
-
-			$IsBountyDue[0] = (($targetscore / $playerscore) < $bounty_ratio);
-			$bIsBountyDue = $IsBountyDue[0]?"YES":"NO";
-			$debug_message .= "IsBountyDue: {$bIsBountyDue}\n";
-
-			$debug_message .= "targetinfo['turns_used']: {$targetinfo['turns_used']}\n";
-			$debug_message .= "bounty_minturns: {$bounty_minturns}\n";
-
-			$IsBountyDue[1] = ($targetinfo['turns_used'] < $bounty_minturns);
-			$bIsBountyDue = $IsBountyDue[1]?"YES":"NO";
-			$debug_message .= "IsBountyDue: {$bIsBountyDue}\n";
-
-			$IsXenobe = preg_match("/(\@xenobe)$/",$targetinfo['email']);
-			$bIsXenobe = ($IsXenobe===1)?"YES":"NO";
-			$debug_message .= "IsXenobe: {$bIsXenobe}\n";
-
-			$IsBountyDue = (($IsBountyDue[0] == true || $IsBountyDue[1] == true) && $IsXenobe === 0);
-			$bIsBountyDue = $IsBountyDue?"YES":"NO";
-			$debug_message .= "Ok, with all the above information, Should the Attacker be given a Bounty? ({$bIsBountyDue})\n";
-
-			SYS::debugMessage(__FILE__, __FUNCTION__, __LINE__,"<pre>{$debug_message}</pre>");
-*/
-
 			if(($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/",$targetinfo['email']) === 0 )) // bounty-free Xenobe attacking allowed.
 			{
 				//changed xen check to a regexp cause a player could put @xen or whatever in his email address
