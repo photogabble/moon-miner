@@ -1,5 +1,4 @@
 <?php
-//$Id: attack.php 1277 2006-03-17 04:44:44Z iamsure $
 
 ##############################################
 ## Note to self, remove all the debug admin ##
