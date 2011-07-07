@@ -1,4 +1,4 @@
-<?
+<?php
 
   if (preg_match("/sched_tow.php/i", $PHP_SELF)) {
       echo "You can not access this file directly!";

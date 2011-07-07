@@ -1,4 +1,4 @@
-<?
+<?php
 include("config.php");
 updatecookie();
 
@@ -44,8 +44,8 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="75%" align="left"><font color="white" size="2"><b><? echo $l_readm_center ?></b></font></td>
-                      <td width="21%" align="center" nowrap><font color="white" size="2"><?echo "$cur_D" ?>&nbsp;<?echo "$cur_T" ?></font></td>
+                      <td width="75%" align="left"><font color="white" size="2"><b><?php echo $l_readm_center ?></b></font></td>
+                      <td width="21%" align="center" nowrap><font color="white" size="2"><?php echo "$cur_D" ?>&nbsp;<?php echo "$cur_T" ?></font></td>
                       <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A HREF="main.php"><img alt="Click here to return to the main menu" src="images/c95x.gif" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
@@ -53,7 +53,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
               </td>
             </tr>
 
-<?
+<?php
  if ($res->EOF)
  {
 //  echo "$l_readm_nomessage";
@@ -63,13 +63,13 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="white" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="100%" align="center" bgcolor="white"><font color="red"><? echo $l_readm_nomessage ?></font></td>
+                      <td width="100%" align="center" bgcolor="white"><font color="red"><?php echo $l_readm_nomessage ?></font></td>
                     </tr>
                   </table>
                 </div>
               </td>
             </tr>
-<?
+<?php
  }
  else
  {
@@ -88,10 +88,10 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%"><font color="white" size="2"><b><? echo $l_readm_sender; ?></b></td>
-                      <td width="55%"><font color="yellow" size="2"><? echo $sender[character_name]; ?></font></td>
-                      <td width="21%" align="center"><font color="white" size="2"><? echo "$msg[sent]" ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A class="but" HREF="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><img src="images/c95x.gif" width="16" height="14" border="0"></a></td>
+                      <td width="20%"><font color="white" size="2"><b><?php echo $l_readm_sender; ?></b></td>
+                      <td width="55%"><font color="yellow" size="2"><?php echo $sender[character_name]; ?></font></td>
+                      <td width="21%" align="center"><font color="white" size="2"><?php echo "$msg[sent]" ?></font></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A class="but" HREF="readmail.php?action=delete&ID=<?php echo $msg[ID]; ?>"><img src="images/c95x.gif" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -102,8 +102,8 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%"><font color="white" size="2"><b><? echo $l_readm_captn ?></b></font></td>
-                      <td width="80%"><font color="yellow" size="2"><? echo $sender[ship_name] ?></font></td>
+                      <td width="20%"><font color="white" size="2"><b><?php echo $l_readm_captn ?></b></font></td>
+                      <td width="80%"><font color="yellow" size="2"><?php echo $sender[ship_name] ?></font></td>
                     </tr>
                   </table>
                 </div>
@@ -115,7 +115,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
                       <td width="20%"><font color="white" size="2"><b>Subject</b></font></td>
-                      <td width="80%"><b><font color="yellow" size="2"><? echo $msg[subject]; ?></font></b></td>
+                      <td width="80%"><b><font color="yellow" size="2"><?php echo $msg[subject]; ?></font></b></td>
                     </tr>
                   </table>
                 </div>
@@ -126,7 +126,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="white" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="100%"><font color="black" size="2"><? echo nl2br($msg[message]); ?></font></td>
+                      <td width="100%"><font color="black" size="2"><?php echo nl2br($msg[message]); ?></font></td>
                     </tr>
                   </table>
                 </div>
@@ -137,15 +137,15 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver" cellpadding="0">
                     <tr>
-                      <td width="100%" align="center" valign="middle"><A class="but" HREF="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><? echo $l_readm_del ?></A> |
-        <A class="but" HREF="mailto2.php?name=<? echo $sender[character_name]; ?>&subject=<? echo $msg[subject] ?>"><? echo $l_readm_repl ?></A>
+                      <td width="100%" align="center" valign="middle"><A class="but" HREF="readmail.php?action=delete&ID=<?php echo $msg[ID]; ?>"><?php echo $l_readm_del ?></A> |
+        <A class="but" HREF="mailto2.php?name=<?php echo $sender[character_name]; ?>&subject=<?php echo $msg[subject] ?>"><?php echo $l_readm_repl ?></A>
                       </td>
                     </tr>
                   </table>
                 </div>
               </td>
             </tr>
-<?
+<?php
     $res->MoveNext();
   }
 }
@@ -174,7 +174,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
   </table>
 </div>
 <br>
-<?
+<?php
  //}
 
 TEXT_GOTOMAIN();

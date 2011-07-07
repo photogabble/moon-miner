@@ -1,4 +1,4 @@
-<?
+<?php
 
 /***********************************************************
 This file includes the default language for now, so that news

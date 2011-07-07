@@ -1,4 +1,4 @@
-<?
+<?php
 global $db,$dbtables;
 connectdb();
 $res = $db->Execute("SELECT COUNT(*) as loggedin from $dbtables[ships] WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP($dbtables[ships].last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'");
@@ -6,7 +6,7 @@ $row = $res->fields;
 $online = $row[loggedin];
 ?><br>
  <center>
-<?
+<?php
 // Update counter
 
 $res = $db->Execute("SELECT last_run FROM $dbtables[scheduler] LIMIT 1");
@@ -14,7 +14,7 @@ $result = $res->fields;
 $mySEC = ($sched_ticks * 60) - (TIME()-$result[last_run]);
 ?>
   <script language="javascript" type="text/javascript">
-   var myi = <?=$mySEC?>;
+   var myi = <?php=$mySEC?>;
    setTimeout("rmyx();",1000);
 
    function rmyx()
@@ -22,13 +22,13 @@ $mySEC = ($sched_ticks * 60) - (TIME()-$result[last_run]);
      myi = myi - 1;
      if (myi <= 0)
       {
-      myi = <? echo ($sched_ticks * 60); echo "\n";?>
+      myi = <?php echo ($sched_ticks * 60); echo "\n";?>
       }
      document.getElementById("myx").innerHTML = myi;
      setTimeout("rmyx();",1000);
     }
   </script>
-<?
+<?php
 echo "  <b><span id=myx>$mySEC</span></b> $l_footer_until_update <br>\n";
 // End update counter
 

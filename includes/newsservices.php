@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Assumes $day is a valid formatted time
 */

@@ -1,4 +1,4 @@
-<?
+<?php
 
 include("config.php");
 
@@ -49,31 +49,31 @@ bigtitle();
 
 <TABLE CELLPADDING="4">
 <TR>
-	<TD align="right"><? echo $l_login_email; ?></TD>
+	<TD align="right"><?php echo $l_login_email; ?></TD>
 	<TD align="left"><INPUT TYPE="TEXT" NAME="email" SIZE="20" MAXLENGTH="40" VALUE="<?php echo "$username" ?>"></TD>
 </TR>
 <TR>
-	<TD align="right"><? echo $l_login_pw;?></TD>
+	<TD align="right"><?php echo $l_login_pw;?></TD>
 	<TD align="left"><INPUT TYPE="PASSWORD" NAME="pass" SIZE="20" MAXLENGTH="20" VALUE="<?php echo "$password" ?>"></TD>
 </TR>
 <TR><TD colspan=2><center>Forgot your password?  Enter it blank and press login.</center></TD></TR></TABLE>
 <BR>
-<INPUT TYPE="SUBMIT" VALUE="<? echo $l_login_title;?>">
+<INPUT TYPE="SUBMIT" VALUE="<?php echo $l_login_title;?>">
 <BR><BR>
-<? echo $l_login_newp;?>
+<?php echo $l_login_newp;?>
 <BR><BR>
-<? echo $l_login_prbs;?> <A HREF="mailto:<?php echo "$admin_mail"?>"><? echo $l_login_emailus;?></A>
+<?php echo $l_login_prbs;?> <A HREF="mailto:<?php echo "$admin_mail"?>"><?php echo $l_login_emailus;?></A>
 </FORM>
 
 <?php
 if(!empty($link_forums))
   echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">$l_forums</A> - ";
 ?>
-<A HREF="ranking.php"><? echo $l_rankings;?></A><? echo " - "; ?>
-<A HREF="settings.php"><? echo $l_login_settings;?></A>
+<A HREF="ranking.php"><?php echo $l_rankings;?></A><? echo " - "; ?>
+<A HREF="settings.php"><?php echo $l_login_settings;?></A>
 <BR><BR>
 <form action=login.php method=POST>
-<?
+<?php
 
 echo "$l_login_lang&nbsp;&nbsp;<select name=newlang>";
 

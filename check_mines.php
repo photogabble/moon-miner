@@ -1,4 +1,4 @@
-<?
+<?php
 if (preg_match("/check_mines.php/i", $PHP_SELF)) {
    die("You can not access this file directly!");
 }

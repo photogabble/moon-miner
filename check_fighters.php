@@ -1,4 +1,4 @@
-<?
+<?php
 
 
     if (preg_match("/check_fighters.php/i", $PHP_SELF)) {

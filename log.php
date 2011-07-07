@@ -57,11 +57,11 @@ $logline = str_replace("[player]", "$playerinfo[character_name]", $l_log_log);
 
 <tr><td><td width=100%><td></tr>
 <tr><td><td height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
-<font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<? echo $logline; ?></b></font>
+<font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<?php echo $logline; ?></b></font>
 </td><td><td></tr>
 <tr><td valign=bottom>
 
-<?
+<?php
 if($mode == 'moz')
   echo '<td colspan=2 style="border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid;" bgcolor=#63639C>';
 elseif($mode == 'full')

@@ -36,7 +36,7 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 <tr><td align=center background=images/IGBscreen.gif>
 <table background="" width=520 height=300 border=0>
 
-<?
+<?php
 
 if(!$allow_ibank)
   IGB_error($l_igb_malfunction, "main.php");
@@ -111,7 +111,7 @@ else
 <img src=images/div2.gif>
 </center>
 
-<?
+<?php
 include("footer.php");
 
 function IGB_login()

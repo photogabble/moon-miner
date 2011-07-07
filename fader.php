@@ -9,7 +9,7 @@
 
 prefix=' ';
 
-<?
+<?php
 $newspath = $gamepath."news.php";
 $startdate = date("Y/m/d");
 $res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");

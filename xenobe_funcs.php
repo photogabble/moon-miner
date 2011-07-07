@@ -1,4 +1,4 @@
-<?
+<?php
 
 function xenobetoship($ship_id)
 {

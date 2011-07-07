@@ -1,4 +1,4 @@
-<?
+<?php
 include("config.php");
 updatecookie();
 
@@ -29,8 +29,8 @@ if(empty($content))
   {
     $row = $res->fields;
   ?>
-    <OPTION <? if ($row[character_name]==$name) echo "selected" ?>><? echo $row[character_name] ?></OPTION>
-  <?
+    <OPTION <?php if ($row[character_name]==$name) echo "selected" ?>><?php echo $row[character_name] ?></OPTION>
+  <?php
     $res->MoveNext();
   }
   while(!$res2->EOF)
