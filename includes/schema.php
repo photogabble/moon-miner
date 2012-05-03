@@ -130,7 +130,7 @@ $db->Execute("CREATE TABLE $dbtables[links] (" .
              "PRIMARY KEY (link_id)," .
              "KEY link_start (link_start)," .
              "KEY link_dest (link_dest)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating links Table","Failed","Passed");
@@ -161,7 +161,7 @@ $db->Execute("CREATE TABLE $dbtables[planets](" .
              "PRIMARY KEY (planet_id)," .
              "KEY owner (owner)," .
              "KEY corp (corp)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating planets Table","Failed","Passed");
@@ -177,7 +177,7 @@ $db->Execute("CREATE TABLE $dbtables[traderoutes](" .
              "circuit enum('1','2') DEFAULT '2' NOT NULL," .
              "PRIMARY KEY (traderoute_id)," .
              "KEY owner (owner)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating traderoutes Table","Failed","Passed");
@@ -246,7 +246,7 @@ $db->Execute("CREATE TABLE $dbtables[ships](" .
              "KEY on_planet (on_planet)," .
              "KEY team (team)," .
              "KEY ship_id (ship_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating ships Table","Failed","Passed");
@@ -268,7 +268,7 @@ $db->Execute("CREATE TABLE $dbtables[universe](" .
              "distance bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "fighters bigint(20) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (sector_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating universe Table","Failed","Passed");
@@ -288,7 +288,7 @@ $db->execute("CREATE TABLE $dbtables[zones](" .
              "max_hull int DEFAULT '0' NOT NULL," .
              "PRIMARY KEY(zone_id)," .
              "KEY zone_id(zone_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating zones Table","Failed","Passed");
@@ -299,7 +299,7 @@ $db->Execute("CREATE TABLE $dbtables[ibank_accounts](" .
              "loan bigint(20)  DEFAULT '0'," .
              "loantime datetime," .
 			 "PRIMARY KEY(ship_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating ibank_accounts Table","Failed","Passed");
@@ -310,7 +310,7 @@ $db->Execute("CREATE TABLE $dbtables[IGB_transfers](" .
              "dest_id int DEFAULT '0' NOT NULL," .
              "time datetime," .
              "PRIMARY KEY(transfer_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating IGB_transfers Table","Failed","Passed");
@@ -322,7 +322,7 @@ $db->Execute("CREATE TABLE $dbtables[teams](" .
              "description tinytext," .
              "number_of_members tinyint(3) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY(id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating teams Table","Failed","Passed");
@@ -337,7 +337,7 @@ $db->Execute("CREATE TABLE $dbtables[news] (" .
              "PRIMARY KEY (news_id)," .
              "KEY news_id (news_id)," .
              "UNIQUE news_id_2 (news_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating news Table","Failed","Passed");
@@ -359,7 +359,7 @@ $db->Execute("CREATE TABLE $dbtables[messages] (" .
              "message longtext NOT NULL," .
              "notified enum('Y','N') NOT NULL default 'N'," .
              "PRIMARY KEY  (ID) " .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating messages Table","Failed","Passed");
@@ -371,7 +371,7 @@ $db->Execute("CREATE TABLE $dbtables[xenobe](" .
              "orders smallint(5) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (xenobe_id)," .
              "KEY xenobe_id (xenobe_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating xenobe Table","Failed","Passed");
@@ -386,7 +386,7 @@ $db->Execute("CREATE TABLE $dbtables[sector_defence](" .
              "PRIMARY KEY (defence_id)," .
              "KEY sector_id (sector_id)," .
              "KEY ship_id (ship_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating sector_defence Table","Failed","Passed");
@@ -401,7 +401,7 @@ $db->Execute("CREATE TABLE $dbtables[scheduler](" .
              "extra_info varchar(50)," .
              "last_run BIGINT(20)," .
              "PRIMARY KEY (sched_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 echo $db->ErrorMsg();
 
@@ -411,7 +411,7 @@ $db->Execute("CREATE TABLE $dbtables[ip_bans](" .
              "ban_id int unsigned NOT NULL auto_increment," .
              "ban_mask varchar(16) NOT NULL," .
              "PRIMARY KEY (ban_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating ip_bans Table","Failed","Passed");
@@ -424,7 +424,7 @@ $db->Execute("CREATE TABLE $dbtables[logs](" .
              "data varchar(255)," .
              "PRIMARY KEY (log_id)," .
              "KEY idate (ship_id,time)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating logs Table","Failed","Passed");
@@ -437,7 +437,7 @@ $db->Execute("CREATE TABLE $dbtables[bounty] (" .
              "PRIMARY KEY (bounty_id)," .
              "KEY bounty_on (bounty_on)," .
              "KEY placed_by (placed_by)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating bounty Table","Failed","Passed");
@@ -450,7 +450,7 @@ $db->Execute("CREATE TABLE $dbtables[movement_log](" .
              "PRIMARY KEY (event_id)," .
              "KEY ship_id(ship_id)," .
              "KEY sector_id (sector_id)" .
-             ")type=innodb");
+             ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
 Table_Row("Creating movement_log Table","Failed","Passed");
