@@ -37,7 +37,7 @@
     <td><img src="images/spacer.gif" width="1" height="58" border="0" alt=""></td>
   </tr>
   <tr>
-  <td colspan=3 align=center><a href="faq.html"><?php echo "$l_faq"; ?></a></td>
+  <td colspan=3 align=center><a href="docs/faq.html"><?php echo "$l_faq"; ?></a></td>
   </tr>
   </table></center>
 <?php
