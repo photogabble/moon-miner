@@ -1,3 +1,11 @@
+TheKabal (3 May 2012)
+--------------------------------------
+Merged patch for teams.php from rjordan (SF Patch # 906580): revision 1450
+Changed all (confusing/inconsistent) references to Alliance(s) to Team(s) instead.
+Removed personal credits notices.
+Moved all documents (newplayer/faq) into docs directory.
+(Temporarily) removed innodb references, as they used an SQL syntax that is no longer supported (threw an error).
+
 TheMightyDude (22 May 2011)
 --------------------------------------
 [1467445] Escape Pods not working (fixed)
@@ -157,7 +165,7 @@ renamed BUGLIST to KNOWN_BUGS
 commented out second declaration of PrintFlush function in create_universe.php (redundant, will remove if it doesnt break anything)
 added propset $Id: CHANGES 64 2006-02-05 02:19:26Z themightydude $ on some files, Ill eventually get em all :)
 
-L. Patrick Smallwood (15 January 2006)
+The Kabal (15 January 2006)
 ----------------------------------
 Assorted fixes to Create_universe and other files to improve support on mysql5 and 5.1 - Mostly moving '' calls to NULL, for strict issue
 Link in new member signup email incorrect, uses $game_domain which includes the same cookie setting - Fixed. (Thanks Crazybri)
@@ -169,7 +177,7 @@ Fixed html compliance on index, login2
 Updated headers to versions used in Advanced (to get more testing)
 Added Spanish translation, made it available by default
 
-L. Patrick Smallwood (14 August 2005)
+The Kabal (14 August 2005)
 ----------------------------------
 Realized that it had been 3 years (!) since our last release, decided to spit something up so people don't think we're dead.
 Moved all non-code into /docs
@@ -208,7 +216,7 @@ David Rowlands (17 June 2002)
 Score was not calculating due to pow() substitution.
 It was possible to view anyones log file.
 
-L. Patrick Smallwood (16 June 2002)
+The Kabal (16 June 2002)
 ---------------------------------
 Make footer update ticker compatible with Mozilla. Thanks to Merlyn!
 Sourceforge bug #542401: Team co-ordinator now displays properly, not the 1st member of the team.
@@ -245,7 +253,7 @@ Added enum type 'D' to the traderoutes table, more foundation work.
 Added enum trade_defs ('A','T') to the ships tabls, more foundation works.
 Removed new enum from ships table due to it breaking creating players.  Will have to modify new2.php in order to get that enum type added.
 
-L. Patrick Smallwood (10 June 2002)
+The Kabal (10 June 2002)
 ---------------------------------
 mypw wrap-around - thanks dave! *please check extensively - especially the IGB*
 Quick addition to ranking.php - Adds efficiency rate for each player.
@@ -260,13 +268,13 @@ Added code to remove cheatting by setting more than 100% to planet production us
 Added some more checking to make sure production values are not set to a negative value
 Added player name to the team planet report [feature requesta #542620]
 
-L. Patrick Smallwood (8 June 2002)
+The Kabal (8 June 2002)
 ---------------------------------
 Sourceforge bug #566411: Simple fix to main.php
 Sourceforge bug #500446 and more: news forward/back links fixed, footer text no longer hard-coded.
 Put game version on settings.php, as it was a FAQ. (http://forums.blacknova.net/viewtopic.php?topic=789&forum=2&1)
 
-L. Patrick Smallwood (7 June 2002)
+The Kabal (7 June 2002)
 ---------------------------------
 Sourceforge bug #552750 - Combat Stats, show accurate energy used.
 Sourceforge bug #552750 - Fix l_commodities in scanning planet.
@@ -285,28 +293,28 @@ Added change to database to allow for corp traderoutes (enum dest/source type)
 Added field to messages table to allow for timestamping of messages
 Added support for time stamping to mailto2.php and readmial.php
 
-L. Patrick Smallwood (21 May 2002)
+The Kabal (21 May 2002)
 ---------------------------------
 Cleanup of the fader styles, names, etc.
 Added the first revision of the news fader for main.
 
-L. Patrick Smallwood (19 May 2002)
+The Kabal (19 May 2002)
 ---------------------------------
 Made the known space map a config.php option.
 
-L. Patrick Smallwood (9 May 2002)
+The Kabal (9 May 2002)
 ---------------------------------
 Additional cleanup of port's bound checking, faster, better, and more compact.
 Huge cleanup, touching lots of files, be careful of breakage: Removes *all* windows newlines from code.
 Huge revamp of port.php and port2.php, adding dropdowns, multiple-level upgrades, click-to-max, and onchange additions.
 License change to GPL
 
-L. Patrick Smallwood (1 May 2002)
+The Kabal (1 May 2002)
 ---------------------------------
 Really fixed the create universe script, and also made it html compliant in all output, along with schema, header, and
 footer.
 
-L. Patrick Smallwood (1 May 2002)
+The Kabal (1 May 2002)
 ---------------------------------
 HUGE cleanup and redesign of create universe.
 Fixed "no more than 500 goods ports ever" bug, thanks to heath@foomafia.com.
@@ -316,7 +324,7 @@ Ron Harwood & David Rowlands (1 May 2002)
 Added known galaxy map
 Put in bug fixes and patches submitted by Dominioon
 
-L. Patrick Smallwood (29 April 2002)
+The Kabal (29 April 2002)
 ---------------------------------
 Added schema file with details on changes required to add lssd.
 These changes may not be correct, and should be examined closely. I beleive them to be functional however.
