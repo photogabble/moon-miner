@@ -5,9 +5,6 @@ if (preg_match("/global_funcs.php/i", $PHP_SELF)) {
       die();
 }
 
-error_reporting(0);
-ini_set('display_errors', 0);
-
 //----- Start register_globals fix ----
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 
