@@ -1,6 +1,4 @@
 <?php
-//$Id: admin.php 1277 2006-03-17 04:44:44Z iamsure $
-
 include("config.php");
 include("languages/$lang");
 updatecookie();

@@ -1,7 +1,4 @@
 <?php
-//$Id: teams.php 1274 2006-03-17 04:35:42Z iamsure $
-
-
 include("config.php");
 updatecookie();
 

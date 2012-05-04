@@ -1,7 +1,4 @@
 <?php
-//$Id: xenobe_control.php 1273 2006-03-17 04:34:25Z iamsure $
-
-
 include("config.php");
 updatecookie();
 

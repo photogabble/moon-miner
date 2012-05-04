@@ -1,12 +1,8 @@
 <?php
-//$Id: header.php 1277 2006-03-17 04:44:44Z iamsure $
     header("Content-type: text/html; charset=utf-8");
     header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
     header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
     header("Keep-Alive: timeout=15, max=100");
-
-// <!doctype html public "-//w3c//dtd html 3.2//en">
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>

@@ -1,5 +1,4 @@
 <?php
-//$Id: global_funcs.php 1277 2006-03-17 04:44:44Z iamsure $
 // Separate userpass into username & password to support the legacy of multiple cookies for login.
 if (preg_match("/global_funcs.php/i", $PHP_SELF)) {
       echo "You can not access this file directly!";

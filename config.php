@@ -1,5 +1,4 @@
 <?php
-//$Id: config.php 1277 2006-03-17 04:44:44Z iamsure $
 error_reporting(0);
 ini_set('display_errors', 'Off');
 

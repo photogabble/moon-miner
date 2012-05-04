@@ -1,5 +1,4 @@
 <?php
-//$Id: create_universe.php 1277 2006-03-17 04:44:44Z iamsure $
 // This is required by Setup Info, So DO NOT REMOVE
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 

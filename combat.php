@@ -1,6 +1,4 @@
 <?php
-//$Id: combat.php 1277 2006-03-17 04:44:44Z iamsure $
-
 function calcplanetbeams()
 {
     global $playerinfo;

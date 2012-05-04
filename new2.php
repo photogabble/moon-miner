@@ -1,5 +1,4 @@
 <?php
-//$Id: new2.php 1276 2006-03-17 04:39:40Z iamsure $
 include("config.php");
 //ADDDED these variables for future reference- we'll move em to config values
 //*eventually* - the goal will be to move "start up" config values to some other location
