@@ -94,7 +94,7 @@ define(LOG_PLANET_NOT_DEFEATED, 14);    //sent when a planet survives
 define(LOG_RAW, 15);                    //this log is sent as-is
 define(LOG_TOLL_RECV, 16);              //sent when you receive toll money
 define(LOG_DEFS_DESTROYED, 17);         //sent for destroyed sector defenses
-define(LOG_PLANET_EJECT, 18);           //sent when ejected from a planet due to alliance switch
+define(LOG_PLANET_EJECT, 18);           //sent when ejected from a planet due to team switch
 define(LOG_BADLOGIN, 19);               //sent when bad login
 define(LOG_PLANET_SCAN, 20);            //sent when a planet has been scanned
 define(LOG_PLANET_SCAN_FAIL, 21);       //sent when a planet scan failed

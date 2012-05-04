@@ -63,7 +63,7 @@ function planet_report_menu()
   {
     echo "<BR>" .
          "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " . 
-         "Commondity Report (like Planet Status) for planets marked Corporate by you and/or your fellow alliance member<BR>" .
+         "Commondity Report (like Planet Status) for planets marked Corporate by you and/or your fellow team member<BR>" .
          "<BR>";
   }
 }

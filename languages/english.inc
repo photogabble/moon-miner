@@ -69,7 +69,7 @@ $l_defense		 = "Defenses";
 $l_read_msg		 = "Read Messages";
 $l_send_msg		 = "Send Messages";
 $l_rankings		 = "Rankings";
-$l_teams		 = "Alliances";
+$l_teams		 = "Teams";
 $l_ohno			 = "Self-Destruct";
 $l_options		 = "Options";
 $l_navcomp		 = "Nav Computer";
@@ -279,7 +279,7 @@ $l_planet3_title	 = "Trading at Planet";
 // planet-report.php
 
 $l_pr_title		 = "Planet Report";
-$l_pr_teamlink		 = "Show alliance planets";
+$l_pr_teamlink		 = "Show team planets";
 $l_pr_noplanet		 = "You have no planets so far";
 $l_pr_clicktosort	 = "Click on column header to sort.";
 $l_pr_totals		 = "Totals";
@@ -479,7 +479,7 @@ $l_log_text[LOG_TOLL_RECV] = "Your fighters in sector [sector] have collected a 
 $l_log_title[LOG_TOLL_RECV] = "Toll income";
 $l_log_text[LOG_DEFS_DESTROYED] = "[quantity] [type] were destroyed in sector [sector].";
 $l_log_title[LOG_DEFS_DESTROYED] = "Sector defenses destroyed";
-$l_log_text[LOG_PLANET_EJECT] = "You have been ejected from the planet in sector [sector] because [name] left the alliance.";
+$l_log_text[LOG_PLANET_EJECT] = "You have been ejected from the planet in sector [sector] because [name] left the team.";
 $l_log_title[LOG_PLANET_EJECT] = "Ejected!";
 $l_log_text[LOG_BADLOGIN] = "There has been a bad login attempt from [ip].";
 $l_log_title[LOG_BADLOGIN] = "Bad login";
@@ -502,30 +502,30 @@ $l_log_text[LOG_DEFS_KABOOM] = "You were destroyed by a fighters force in sector
 $l_log_title[LOG_DEFS_KABOOM] = "<font color=red>Ship destroyed!</font>";
 $l_log_text[LOG_HARAKIRI] = "You were tired of captaining this space barge, so you decided the universe would be better without it. Authorized by [ip].";
 $l_log_title[LOG_HARAKIRI] = "<font color=red>Self-destructed!</font>";
-$l_log_text[LOG_TEAM_REJECT] = "[player] has rejected an invitation to join your alliance, [teamname].";
+$l_log_text[LOG_TEAM_REJECT] = "[player] has rejected an invitation to join your team, [teamname].";
 $l_log_title[LOG_TEAM_REJECT] = "Invitation rejected";
-$l_log_text[LOG_TEAM_RENAME] = "You have renamed your alliance to [team].";
-$l_log_title[LOG_TEAM_RENAME] = "Alliance renamed";
-$l_log_text[LOG_TEAM_M_RENAME] = "Your alliance coordinator renamed the alliance to [team].";
-$l_log_title[LOG_TEAM_M_RENAME] = "Alliance renamed";
-$l_log_text[LOG_TEAM_KICK] = "You have been ejected from the alliance [team].";
-$l_log_title[LOG_TEAM_KICK] = "Ejected from alliance!";
-$l_log_text[LOG_TEAM_CREATE] = "You have created a new alliance, [team].";
-$l_log_title[LOG_TEAM_CREATE] = "Created new alliance";
-$l_log_text[LOG_TEAM_LEAVE] = "You have left alliance [team].";
-$l_log_title[LOG_TEAM_LEAVE] = "Left alliance";
-$l_log_text[LOG_TEAM_NEWLEAD] = "You have left the alliance [team]. You relinquished the alliance leadership to [name].";
-$l_log_title[LOG_TEAM_NEWLEAD] = "Left alliance";
-$l_log_text[LOG_TEAM_LEAD] = "Your alliance coordinator has decided to leave [team]. You have been appointed to take its place.";
+$l_log_text[LOG_TEAM_RENAME] = "You have renamed your team to [team].";
+$l_log_title[LOG_TEAM_RENAME] = "Team renamed";
+$l_log_text[LOG_TEAM_M_RENAME] = "Your team coordinator renamed the team to [team].";
+$l_log_title[LOG_TEAM_M_RENAME] = "Team renamed";
+$l_log_text[LOG_TEAM_KICK] = "You have been ejected from the team [team].";
+$l_log_title[LOG_TEAM_KICK] = "Ejected from team!";
+$l_log_text[LOG_TEAM_CREATE] = "You have created a new team, [team].";
+$l_log_title[LOG_TEAM_CREATE] = "Created new team";
+$l_log_text[LOG_TEAM_LEAVE] = "You have left team [team].";
+$l_log_title[LOG_TEAM_LEAVE] = "Left team";
+$l_log_text[LOG_TEAM_NEWLEAD] = "You have left the team [team]. You relinquished the team leadership to [name].";
+$l_log_title[LOG_TEAM_NEWLEAD] = "Left team";
+$l_log_text[LOG_TEAM_LEAD] = "Your team coordinator has decided to leave [team]. You have been appointed to take its place.";
 $l_log_title[LOG_TEAM_LEAD] = "Promotion!";
-$l_log_text[LOG_TEAM_JOIN] = "You have joined the alliance [team].";
-$l_log_title[LOG_TEAM_JOIN] = "Joined alliance";
+$l_log_text[LOG_TEAM_JOIN] = "You have joined the team [team].";
+$l_log_title[LOG_TEAM_JOIN] = "Joined team";
 $l_log_text[LOG_TEAM_NEWMEMBER] = "[name] has accepted to join [team]. This brings you one step further to galactic domination.";
-$l_log_title[LOG_TEAM_NEWMEMBER] = "New alliance member";
+$l_log_title[LOG_TEAM_NEWMEMBER] = "New team member";
 $l_log_text[LOG_TEAM_INVITE] = "You have been invited to be part of [team].";
 $l_log_title[LOG_TEAM_INVITE] = "Invitation";
-$l_log_text[LOG_TEAM_NOT_LEAVE] = "[player] has left your alliance.";
-$l_log_title[LOG_TEAM_NOT_LEAVE] = "Alliance loses a member";
+$l_log_text[LOG_TEAM_NOT_LEAVE] = "[player] has left your team.";
+$l_log_title[LOG_TEAM_NOT_LEAVE] = "Team loses a member";
 $l_log_text[LOG_ADMIN_HARAKIRI] = "[player] has self-destructed from ip [ip].";
 $l_log_title[LOG_ADMIN_HARAKIRI] = "Self-destruct";
 $l_log_text[LOG_ADMIN_ILLEGVALUE] = "[player] had [quantity] [type], with max holds of [holds]";
@@ -599,7 +599,7 @@ $l_readm_repl		 = "Reply";
 $l_sendm_title		 = "Send Message";
 $l_sendm_to		 = "To";
 $l_sendm_from		 = "From";
-$l_sendm_ally		 = "Alliance:";
+$l_sendm_ally		 = "Team:";
 $l_sendm_subj		 = "Subject";
 $l_sendm_mess		 = "Message";
 $l_sendm_send		 = "Send";
@@ -635,15 +635,15 @@ $l_ze_saved		 = "Your changes have been saved.";
 
 // teams.php
 
-$l_team_title		 = "Alliances";
-$l_team_menu		 = "to go back to the Alliances Menu";
-$l_team_galax		 = "Alliances present in the Galaxy:";
+$l_team_title		 = "Teams";
+$l_team_menu		 = "to go back to the Teams Menu";
+$l_team_galax		 = "Teams present in the Galaxy:";
 $l_team_members		 = "Members";
 $l_team_coord		 = "Co-ordinator";
 $l_team_member		 = "Member";
-$l_team_noinvite	 = "Nobody has invited you to join an alliance.";
-$l_team_ifyouwant	 = "If you want to join an alliance, send a message to its co-ordinator asking to be invited.";
-$l_team_tocreate	 = "to create a new alliance.";
+$l_team_noinvite	 = "Nobody has invited you to join a team.";
+$l_team_ifyouwant	 = "If you want to join a team, send a message to its co-ordinator asking to be invited.";
+$l_team_tocreate	 = "to create a new team.";
 $l_team_injoin		 = "You have been invited to join";
 $l_team_tojoin		 = "to join";
 $l_team_or		 = "or";
@@ -659,29 +659,29 @@ $l_team_onlymember	 = "You were the only member, thus [team_name] is no more.";
 $l_team_youarecoord	 = "You are the co-ordinator of";
 $l_team_relinq		 = "You must relinquish your role to another player.";
 $l_team_newc		 = "New co-ordinator:";
-$l_team_youveleft	 = "You have left alliance";
+$l_team_youveleft	 = "You have left team";
 $l_team_relto		 = "relinquishing the functions of co-ordinator to";
-$l_team_welcome		 = "Welcome to alliance";
+$l_team_welcome		 = "Welcome to team";
 $l_team_noinviteto	 = "You have not been invited in to that team.";
 $l_team_ejectsure	 = "Are you sure you want to eject";
-$l_team_ejected 	 = "has been eject from the alliance!";
+$l_team_ejected 	 = "has been eject from the team!";
 $l_team_testing		 = "Testing phase...";
 $l_team_pw		 = "Password";
-$l_team_entername	 = "Enter the name of the Alliance";
-$l_team_enterdesc	 = "Enter a description of the Alliance";
+$l_team_entername	 = "Enter the name of the Team";
+$l_team_enterdesc	 = "Enter a description of the Team";
 $l_team_hcreated	 = "has been created and you are its leader";
-$l_team_alliance	 = "Alliance";
+$l_team_team		 = "Team";
 $l_team_selectp		 = "Select the Player you want to invite";
-$l_team_isorry		 = "Sorry, but [name] has already been invited to be part of an alliance - only one invitation can be active at any given time";
+$l_team_isorry		 = "Sorry, but [name] has already been invited to be part of an team - only one invitation can be active at any given time";
 $l_team_plinvted	 = "Player invited.<BR>You must wait for that player to aknowledge your invitation.";
 $l_team_refuse		 = "You have refused the invitation to join";
-$l_team_edname		 = "Edit the name of your Alliance";
-$l_team_eddesc		 = "Edit the description for your Alliance";
+$l_team_edname		 = "Edit the name of your Team";
+$l_team_eddesc		 = "Edit the description for your Team";
 $l_team_hasbeenr	 = "has been renamed.";
-$l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
-$l_team_notmember	 = "You are not a member of any alliance";
+$l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Team.";
+$l_team_notmember	 = "You are not a member of any Team";
 $l_team_urejected	 = "<B>ATTENTION</B> - you have been ejected from";
-$l_team_noalliances	 = "There are no alliances in the Galaxy at this time.";
+$l_team_noteams		 = "There are no teams in the Galaxy at this time.";
 
 // ranking.php
 
@@ -1123,7 +1123,7 @@ $l_chf_go       = "Go";
 $l_mines_title			="Deploy Sector Mines & Fighters";
 $l_mines_noturn		 	="You need at least one turn to deploy sector defences.";
 $l_mines_nopermit		="Deploying Mines and Fighters in this sector is not permitted.";
-$l_mines_nodeploy		="Can not deploy here. Another Ship or Alliance has mines or fighters in this sector.";
+$l_mines_nodeploy		="Can not deploy here. Another Ship or Team has mines or fighters in this sector.";
 $l_mines_info1			="You are presently in sector [sector]. There are [mines] mines and [fighters] fighters here.";
 $l_mines_info2			="You have [mines] mines and [fighters] fighters available to deploy";
 $l_mines_deploy			="Deploy";
@@ -1136,12 +1136,12 @@ $l_mines_dmines			="Deployed [mines] mines.";
 $l_mines_dfighter		="Deployed [fighters] fighters in [mode] mode.";
 $l_mines_fmode			="Fighter mode";
 
-//alliance-planets.php
+//team-planets.php
 
-$l_teamplanet_title		="Alliance Planet Report";
-$l_teamplanet_notally		="You aren't in an alliance.";
+$l_teamplanet_title		="Team Planet Report";
+$l_teamplanet_notally		="You aren't in a team.";
 $l_teamplanet_personal		="Show personal planets";
-$l_teamplanet_noplanet		="Your alliance has no planets";
+$l_teamplanet_noplanet		="Your team has no planets";
 
 $l_feedback_title		="Send Feedback";
 $l_feedback_to			="TO:";
@@ -1224,7 +1224,7 @@ $l_global_needlogin		="You need to log in, click <A HREF=login.php>here</A>.";
 $l_global_died			="Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>Better Luck Next Time!";
 $l_global_warzone		="Zone is now a War Zone!";
 $l_global_nzone			="Zone is a neutral zone.";
-$l_global_team			="Zone now belongs to alliance";
+$l_global_team			="Zone now belongs to team";
 $l_global_player		="Zone now belongs to player";
 
 // texts for the news flashes
@@ -1365,7 +1365,7 @@ $l_port_bounty2 = "Click <a href=\"port.php?pay=1\">here</a> to pay the bounty o
 $l_port_btynotenough = "You do not have enough credtis to pay the bounty of [amount] credits.<BR>";
 $l_port_bountypaid = "You have paid the bounty. Click <a href=\"port.php\">here</a> to continue.<BR>";
 $l_port_loannotrade = "The IGB has issued a lockdown on your ship account due to a late loan payment. You cannot trade at a special port until you pay back your loan.";
-$l_team_notyours = "You must be in the Alliance in order to invite someone.";
+$l_team_notyours = "You must be in the team in order to invite someone.";
 $l_team_leavefirst = "You must leave a team first before joining another.";
 
 

@@ -211,7 +211,7 @@ It was possible to view anyones log file.
 L. Patrick Smallwood (16 June 2002)
 ---------------------------------
 Make footer update ticker compatible with Mozilla. Thanks to Merlyn!
-Sourceforge bug #542401: Team co-ordinator now displays properly, not the 1st member of the alliance.
+Sourceforge bug #542401: Team co-ordinator now displays properly, not the 1st member of the team.
 Sourceforge bug #553666: Add average tech level to report, as well as players ship icon.
 Sourceforge bug #503776: Add return to supply depot link to port2.php
 Add seconds until update ticker to footer. Thanks to indiana_x!
@@ -258,7 +258,7 @@ Added corp setting to planetary report system [feature request #542620]
 Added corp setting to planetary production report
 Added code to remove cheatting by setting more than 100% to planet production using the planetary production report
 Added some more checking to make sure production values are not set to a negative value
-Added player name to the alliance planet report [feature requesta #542620]
+Added player name to the team planet report [feature requesta #542620]
 
 L. Patrick Smallwood (8 June 2002)
 ---------------------------------
@@ -274,7 +274,7 @@ Sourceforge bug #552193 - Fix for mailto.php - actually get a select from the dr
 Sourceforge bug #558626 - Fix for login.php - actually get a select from the dropdown. Yay.
 Sourceforge bug #565233 - Fix turn usage in planet, and attack
 Sourceforge bug #542401 - Fix logging for illegal values in traderoutes.
-Sourceforge bug #497388 - Add alliance planets as option for traderoutes.
+Sourceforge bug #497388 - Add team planets as option for traderoutes.
 
 Torr (7 June 2002)
 ---------------------------------
@@ -493,7 +493,7 @@ Anti-cheat measures:
  - Timestamp on transfers to control the frequency of IGB
    transfers
 
-Invitation into an alliance log "blank name" bug fixed
+Invitation into an team log "blank name" bug fixed
 Trade routes now link the source port
 Fixed sector_id not sorting in planet_report.php3
 Various language fixes
@@ -521,12 +521,12 @@ bug fixes to the traderoute code.
 
 Nospoon (13 November 2001)
 -------------------------------
-When leaving alliances, sector defences of the player will fight against
-sector defences of the old alliance in the same sector.
-When leaving an alliance, any players other than the owner on the planet will
+When leaving teams, sector defences of the player will fight against
+sector defences of the old team in the same sector.
+When leaving an team, any players other than the owner on the planet will
 be ejected from the planet.
 Option to toggle corporate or personal planet is only shown when you are a
-member of an alliance.
+member of an team.
 
 Nospoon (09 November 2001)
 -------------------------------
@@ -534,7 +534,7 @@ Sector defences re-written. Players now get a warning about hostile sector
 defences before entering the sector. You can now use cloaking device to attempt
 to sneak past sector defences.
 Owners of sector defences can retrieve deployed sector defences.
-Multiple sector defences (multiple owners in the same alliance) allowed in each sector.
+Multiple sector defences (multiple owners in the same team) allowed in each sector.
 Players can attack hostile sector defences once in a sector.
 Can now make unlimited warp links TO a sector, but not from.
 
@@ -548,9 +548,9 @@ Added computer controlled players as a race named Furangee.
 Fant0m (29 October 2001 13:26)
 ----------------------------
 Added :
-   . Displays of alliance name for Planets, Ships, mines and fighters
-   . Displays of alliance description in alliance menu
-   . Added the feature for alliance's leaders to edit tem's name and description
+   . Displays of team name for Planets, Ships, mines and fighters
+   . Displays of team description in team menu
+   . Added the feature for team's leaders to edit tem's name and description
 
 SharpBlue (26 October 2001)
 ----------------------------

@@ -735,7 +735,7 @@ $l_team_pw		 = "Password";
 $l_team_entername	 = "Enter the name of the Alliance";
 $l_team_enterdesc	 = "Enter a description of the Alliance";
 $l_team_hcreated	 = "has been created and you are its leader";
-$l_team_alliance	 = "Alliance";
+$l_team_team		 = "Alliance";
 $l_team_selectp		 = "Select the Player you want to invite";
 $l_team_isorry		 = "Sorry, but [name] has already been invited to be part of an alliance - only one invitation can be active at any given time";
 $l_team_plinvted	 = "Player invited.<BR>You must wait for that player to aknowledge your invitation.";
@@ -746,7 +746,7 @@ $l_team_hasbeenr	 = "has been renamed.";
 $l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
 $l_team_notmember	 = "You are not a member of any alliance";
 $l_team_urejected	 = "<B>ATTENTION</B> - you have been ejected from";
-$l_team_noalliances	 = "There are no alliances in the Galaxy at this time.";
+$l_team_noteams	 = "There are no alliances in the Galaxy at this time.";
 
 // ranking.php
 
@@ -1201,7 +1201,7 @@ $l_mines_dmines			="Deployed [mines] mines.";
 $l_mines_dfighter		="Deployed [fighters] fighters in [mode] mode.";
 $l_mines_fmode			="Fighter mode";
 
-//alliance-planets.php
+//team-planets.php
 
 $l_teamplanet_title		="Alliance Planet Report";
 $l_teamplanet_notally		="You aren't in an alliance.";
@@ -1962,7 +1962,7 @@ $l_team_pw		 = "Contraseña";
 $l_team_entername	 = "Introduce el nombre de la Alianza"; 
 $l_team_enterdesc	 = "Introduce una descripción de la Alianza"; 
 $l_team_hcreated	 = "ha sido creada y tú eres su líder"; 
-$l_team_alliance	 = "Alianza"; 
+$l_team_team		 = "Alianza"; 
 $l_team_selectp		 = "Elije el Jugador al que deseas invitar"; 
 $l_team_isorry		 = "Lo lamento, pero [name] ya ha sido invitado a formar parte de una alianza - solo una invitación puede estar activa en cualquier momento"; 
 $l_team_plinvted	 = "Jugador invitado.<br>Debes esperar a que el jugador lea tu invitación."; 
@@ -1973,7 +1973,7 @@ $l_team_hasbeenr	 = "ha sido renombrada.";
 $l_team_error		 = "<b><font color=red>Ha ocurrido un error</font></b><br>No eres el líder de esta Alianza."; 
 $l_team_notmember	 = "No eres miembro de ninguna alianza."; 
 $l_team_urejected	 = "<b>ATENCIÓN</b> - has sido expulsado de"; 
-$l_team_noalliances	 = "No hay alianzas en la Galaxia en este momento."; 
+$l_team_noteams	 	= "No hay alianzas en la Galaxia en este momento."; 
 
 // ranking.php
 
@@ -2427,7 +2427,7 @@ $l_mines_dmines			= "Instaladas [mines] minas.";
 $l_mines_dfighter		= "Instalados [fighters] cazas en modo [mode]."; 
 $l_mines_fmode			= "Modo de los cazas"; 
 
-//alliance-planets.php
+//team-planets.php
 
 $l_teamplanet_title		= "Informe de Alianza Planetaria"; 
 $l_teamplanet_notally		= "No estás en una alianza"; 

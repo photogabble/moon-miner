@@ -12,7 +12,7 @@ connectdb();
 
 if (checklogin()) {die();}
 bigtitle();
-$testing = false; // set to false to get rid of password when creating new alliance
+$testing = false; // set to false to get rid of password when creating new team
 
 $whichteam    = stripnum($_REQUEST['whichteam']);
 $teamwhat     = stripnum($_REQUEST['teamwhat']);
@@ -68,9 +68,9 @@ function LINK_BACK()
 }
 
 /*
-   Rewrited display of alliances list
+   Rewritten display of team list
 */
-function DISPLAY_ALL_ALLIANCES()
+function DISPLAY_ALL_TEAMS()
 {
    global $color, $color_header, $order, $type, $l_team_galax, $l_team_member, $l_team_coord, $l_score, $l_name;
    global $db, $dbtables;
@@ -229,7 +229,7 @@ function showinfo($whichteam,$isowner)
 }
 
 switch ($teamwhat) {
-    case 1: // INFO on sigle alliance
+    case 1: // INFO on sigle team
         showinfo($whichteam, 0);
       LINK_BACK();
         break;
@@ -237,7 +237,7 @@ switch ($teamwhat) {
 
         if ($team[id] !== $playerinfo[team])
         {
-           echo "<BR>You are not in this alliance!<BR>";
+           echo "<BR>You are not in this team!<BR>";
            LINK_BACK();
            break;
         }
@@ -245,6 +245,11 @@ switch ($teamwhat) {
         if (!$confirmleave) {
             echo "$l_team_confirmleave <B>$team[team_name]</B> ? <a href=\"teams.php?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">$l_yes</a> - <A HREF=\"teams.php\">$l_no</A><BR><BR>";
         } elseif ($confirmleave == 1) {
+	    if ($playerinfo[team] !== $whichteam)  {
+		echo "<BR>You are not in this team!<BR>";
+		LINK_BACK();
+		break;
+		}
             if ($team[number_of_members] == 1) {
                 $db->Execute("DELETE FROM $dbtables[teams] WHERE id=$whichteam");
                 $db->Execute("UPDATE $dbtables[ships] SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
@@ -321,6 +326,12 @@ switch ($teamwhat) {
                 }
             }
         } elseif ($confirmleave == 2) { // owner of a team is leaving and set a new owner
+		if ($playerinfo[team] !== $whichteam)
+		{
+		echo "<BR>You are not in this team!<BR>";
+		LINK_BACK();
+		break;
+		}
             $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$newcreator");
             $newcreatorname = $res->fields;
             echo "$l_team_youveleft <B>$team[team_name]</B> $l_team_relto $newcreatorname[character_name].<BR><BR>";
@@ -391,7 +402,7 @@ switch ($teamwhat) {
 
 /*
  * Check if Co-ordinator of team.
- * If not display "An error occured, You are not the leader of this Alliance." message.
+ * If not display "An error occured, You are not the leader of this Team." message.
  * Then show link back and break;
  */
         if ($team[creator] !== $playerinfo[ship_id])
@@ -467,7 +478,7 @@ switch ($teamwhat) {
             $res = $db->Execute("INSERT INTO $dbtables[teams] (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
             $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
             $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
-            echo "$l_team_alliance <B>$teamname</B> $l_team_hcreated.<BR><BR>";
+            echo "$l_team_team <B>$teamname</B> $l_team_hcreated.<BR><BR>";
             playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
         }
         LINK_BACK();
@@ -476,7 +487,7 @@ switch ($teamwhat) {
 
         if ($team[id] !== $playerinfo[team])
         {
-           echo "<BR>You are not in this alliance!<BR>";
+           echo "<BR>You are not in this team!<BR>";
            LINK_BACK();
            break;
         }
@@ -546,7 +557,7 @@ switch ($teamwhat) {
 
 /*
  * Check if Co-ordinator of team.
- * If not display "An error occured, You are not the leader of this Alliance." message.
+ * If not display "An error occured, You are not the leader of this Team." message.
  * Then show link back and break;
  */
         if ($team[creator] !== $playerinfo[ship_id])
@@ -584,9 +595,9 @@ switch ($teamwhat) {
     	    }
 
             $res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
-            echo "$l_team_alliance <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
+            echo "$l_team_team <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
 /*
- * Adding a log entry to all members of the renamed alliance
+ * Adding a log entry to all members of the renamed team
  */
             $result_team_name = $db->Execute("SELECT ship_id, team FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
             playerlog($playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
@@ -633,9 +644,9 @@ switch ($teamwhat) {
         $res= $db->Execute("SELECT COUNT(*) as TOTAL FROM $dbtables[teams]");
         $num_res = $res->fields;
         if ($num_res[TOTAL] > 0) {
-         DISPLAY_ALL_ALLIANCES();
+         DISPLAY_ALL_TEAMS();
         } else {
-            echo "$l_team_noalliances<BR><BR>";
+            echo "$l_team_noteams<BR><BR>";
         }
     break;
 } // switch ($teamwhat)
@@ -666,7 +677,7 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
         return false;
     }
 
-    # Just a test to see if an alliance with a name of $name exists.
+    # Just a test to see if a team with a name of $name exists.
     # This is just a temp fix until we find a better one.
     $res= $db->Execute("SELECT COUNT(*) as found FROM $dbtables[teams] WHERE team_name = '{$name}' AND creator != $creator;");
     $num_res = $res->fields;

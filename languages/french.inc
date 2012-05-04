@@ -665,7 +665,7 @@ $l_team_pw		 = "Mot de passe";
 $l_team_entername	 = "Entrez le nom de l'alliance";
 $l_team_enterdesc	 = "Entrez une description de l'alliance";
 $l_team_hcreated	 = "à été créée et vous êtes son co-ordonateur";
-$l_team_alliance	 = "Alliance";
+$l_team_team		 = "Alliance";
 $l_team_selectp		 = "Sélectionnez le joueur que vous désirez inviter";
 $l_team_isorry		 = "Désolé, mais [name] à déjà reçu une invitation pour faire partie d'une alliance - seulement une invitation à la fois est permise";
 $l_team_plinvted	 = "Le joueur a été invité.<BR>Vous devez attendre la réponse de ce joueur.";
@@ -676,7 +676,7 @@ $l_team_hasbeenr	 = "a été renommée.";
 $l_team_error		 = "<b><font color=red>Une erreur s'est produite</font></b><br>Vous n'êtes pas le co-ordonateur de cette Alliance.";
 $l_team_notmember	 = "Vous n'êtes membre d'aucune alliance";
 $l_team_urejected	 = "<B>ATTENTION</B> - vous avez été éjecté de";
-$l_team_noalliances	 = "Il n'y a présentement aucune alliance dans la galaxie.";
+$l_team_noteams		 = "Il n'y a présentement aucune alliance dans la galaxie.";
 
 // ranking.php
 
@@ -1092,7 +1092,7 @@ $l_mines_nofighters		="Vous n'avez pas suffisament d'intercepteurs";
 $l_mines_dmines			="Vous avez déployé [mines] mines.";
 $l_mines_dfighter		="Vous avez déployé [fighters] intercepteurs en mode [mode].";
 
-//alliance-planets.php
+//team-planets.php
 
 $l_teamplanet_title		="Rapport des planètes de l'alliance";
 $l_teamplanet_notally		="Vous n'êtes dans aucune alliance.";
