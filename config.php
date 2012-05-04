@@ -1,6 +1,8 @@
 <?php
-error_reporting(0);
-ini_set('display_errors', 'Off');
+// ini_set('error_reporting', E_ALL); During development
+ini_set('error_reporting', 0);
+// ini_set('display_errors', '1'); During development
+ini_set('display_errors', '0');
 
 include("db_config.php");
 include("$ADOdbpath" . "/adodb.inc.php");
