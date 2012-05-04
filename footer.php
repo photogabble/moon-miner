@@ -51,7 +51,7 @@ echo $l_footer_players_on_2;
   <table width="100%" border=0 cellspacing=0 cellpadding=0>
    <tr>
     <td><font color=silver size=-4><a href="http://www.sourceforge.net/projects/blacknova">BlackNova Traders</a></font></td>
-    <td align=right><font color=silver size=-4>Copyright 2000-2005 Ron Harwood and L. Patrick Smallwood</font></td>
+    <td align=right><font color=silver size=-4>Copyright 2000-2005 Ron Harwood and the Blacknova Traders development team</font></td>
    </tr>
    <tr>
     <td><font color=silver size=-4><a href="news.php">Local BlackNova News</a></font></td>

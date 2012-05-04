@@ -4,7 +4,7 @@
 # Copyright (c) 1999 internet.com Corp. All Rights Reserved.
 # Under the GPL.
 #
-# Heavily modified for use in BNT by L. Patrick Smallwood.
+# Heavily modified for use in BNT.
 */
 
 prefix=' ';
