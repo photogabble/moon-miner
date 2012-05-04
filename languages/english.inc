@@ -1197,7 +1197,7 @@ $l_new_4gotpw1			="If you have forgotten your password,";
 $l_new_4gotpw2			="to have it e-mailed to you.";
 $l_new_inusechar		="Character name $character, is already in use.";
 $l_new_inuseship		="Ship name $shipname, is already in use.";
-$l_new_pwsent			="Password has been sent to ${HTTP_POST_VARS['username']}.";
+$l_new_pwsent			="Password has been sent to ${_POST['username']}.";
 $l_new_login			="to go to the login screen.";
 $l_new_err			="Please go back or <a href=new.php>click here</a> and try again.";
 $l_new_topic			="Traders Password";
