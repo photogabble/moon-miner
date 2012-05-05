@@ -74,7 +74,7 @@ switch($response) {
             }
             else
             {
-               echo "<TD> </TD>";
+               echo "<TD>n/a</TD>";
             }
           
             echo "</TR>";
@@ -102,7 +102,7 @@ switch($response) {
 	include("footer.php");
 	die();
       }
-      
+
       $res = $db->Execute("SELECT * from $dbtables[bounty] WHERE bounty_id = $bid");
       if(!res || $res->RowCount() ==0)
       {
