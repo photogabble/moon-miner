@@ -1121,4 +1121,31 @@ function isLoanPending($ship_id)
     return false;
 
 }
+
+function get_avg_tech($ship_info = NULL, $type = "ship")
+{
+        // Defined in config.php
+        global $calc_ship_tech, $calc_planet_tech;
+
+        if($type == "ship")
+        {
+                $calc_tech = $calc_ship_tech;
+        }
+        else
+        {
+                $calc_tech = $calc_planet_tech;
+        }
+
+        $count = count($calc_tech);
+
+        $shipavg  = 0;
+        for($i=0; $i<$count; $i++)
+        {
+                $shipavg += $ship_info[$calc_tech[$i]];
+        }
+        $shipavg /= $count;
+
+        return $shipavg;
+}
+
 ?>
