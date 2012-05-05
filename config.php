@@ -1,7 +1,7 @@
 <?php
-// ini_set('error_reporting', E_ALL); During development
+// ini_set('error_reporting', E_ALL); // During development
 ini_set('error_reporting', 0);
-// ini_set('display_errors', '1'); During development
+// ini_set('display_errors', '1'); // During development
 ini_set('display_errors', '0');
 
 include("db_config.php");
@@ -228,6 +228,11 @@ $xen_unemployment = 100000;   // Amount of credits each xenobe receive on each x
 $xen_aggression = 100;                // Percent of xenobe that are aggressive or hostile - rjordan
 $xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage - rjordan
 $xenstartsize = 15;                   // Max starting size of Xenobes at universe creation
+
+/* TMD:: Used to define what devices are used to calculate the average tech level. */
+$calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 
 include("global_funcs.php");
 ?>
