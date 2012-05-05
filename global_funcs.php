@@ -335,12 +335,22 @@ function playerlog($sid, $log_type, $data = "")
 
 function adminlog($log_type, $data = "")
 {
-  global $db, $dbtables;
-  /* write log_entry to the admin log  */
-  if (!empty($log_type))
-  {
-    $db->Execute("INSERT INTO $dbtables[logs] VALUES(NULL, 0, $log_type, NOW(), '$data')");
-  }
+        global $db, $dbtables;
+        /* write log_entry to the admin log  */
+        $ret = (boolean) false;
+        $data = addslashes($data);
+        if (!empty($log_type))
+        {
+                $ret = $db->Execute("INSERT INTO $dbtables[logs] VALUES(NULL, 0, $log_type, NOW(), '$data')");
+        }
+        if (!$ret)
+        {
+                return (boolean) false;
+        }
+        else
+        {
+                return (boolean) true;
+        }
 }
 
 function gen_score($sid)
