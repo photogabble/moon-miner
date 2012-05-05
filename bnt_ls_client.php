@@ -13,5 +13,4 @@ $url .= "&key1=" . urlencode($bnt_ls_key);
 $url .= "&end1=true";
 
 @file($url);
-
 ?>
