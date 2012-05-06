@@ -21,17 +21,39 @@
   {
     echo "$l_nav_nocomp<BR><BR>";
     TEXT_GOTOMAIN();
-	  include("footer.php");
+    include("footer.php");
     die();
   }
 
-	$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-	$playerinfo=$result->fields;
-	$current_sector = $playerinfo['sector'];
-	$computer_tech  = $playerinfo['computer'];
+  unset($stop_sector);
 
-	$result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$current_sector'");
-	$sectorinfo=$result2->fields;
+  $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+  $playerinfo=$result->fields;
+  $current_sector = $playerinfo['sector'];
+  $computer_tech  = $playerinfo['computer'];
+
+  $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$current_sector'");
+  $sectorinfo=$result2->fields;
+
+  // Gets the stop_sector POST Variable.
+  // Validats the Post Variable as an Number.
+  // Typecast variable into an Integer.
+
+  if(isset($_POST['stop_sector']))
+  {
+    $stop_sector = $_POST['stop_sector'];
+  }
+
+  if(!is_numeric($stop_sector) && isset($stop_sector))
+  {
+    adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
+    echo "<div style='color:#FFFFFF; font-size: 12px;'><span style='color:#FFFFFF;'>Detected Invalid NavComputer Information (<span style='color:#FF0000;'>Possible Hack!</span>)</span></div>\n<br />\n";
+
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
+  }
+  $stop_sector = (int)$stop_sector;
 
 	if ($state == 0)
 	{
