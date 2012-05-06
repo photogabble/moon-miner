@@ -84,7 +84,7 @@ if(NS4)
 }
 else 
 {
-	document.getElementById('IEfad1').style.pixelHeight = document.getElementById('IEfad1').offsetHeight;
+	document.getElementById('news_ticker').style.pixelHeight = document.getElementById('news_ticker').offsetHeight;
 }
 
 function FDRredo()
@@ -146,7 +146,7 @@ function FDRfade(){
 		}
 	    else 
 	    {
-	        document.getElementById('IEfad1').innerHTML = TopnewsStr;
+	        document.getElementById('news_ticker').innerHTML = TopnewsStr;
 	    }
 	}
 }
