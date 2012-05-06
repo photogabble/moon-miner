@@ -4,10 +4,14 @@
     header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
     header("Keep-Alive: timeout=15, max=100");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
+<meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
+<meta name="Rating" content="General">
 <title><?php echo $title; ?></title>
  <style type="text/css">
  <!--
@@ -72,18 +76,15 @@ function MM_swapImage() { //v3.0
 echo "</head>";
 
 if(empty($no_body))
-
 {
-
   if($interface=="main.php")
   {
-    echo "<body background=\"images/bgoutspace1.gif\" bgcolor=\"#000000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\">";
+    echo "<body background=\"images/bgoutspace1.gif\" bgcolor=\"#000000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\" id=\"bntbody\">";
   }
   else
   {
-    echo "<body background=\"\" bgcolor=\"#000000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#808080\" alink=\"#ff0000\">";
+    echo "<body background=\"\" bgcolor=\"#000000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#808080\" alink=\"#ff0000\" id=\"bntbody\">";
   }
-
 }
 echo "\n";
 
