@@ -64,7 +64,7 @@ if(!isset($destination))
   echo "<INPUT TYPE=SUBMIT VALUE=$l_rs_submit><BR><BR>";
   echo "</FORM>";
 }
-elseif (($destination <= $sector_max-1 && empty($engage)) || ($destination <= $sector_max-1 && $triptime > 100 && $engage == 1))
+elseif (($destination < $sector_max && empty($engage)) || ($destination < $sector_max && $triptime > 100 && $engage == 1))
 {
   if($playerinfo[dev_fuelscoop] == "Y")
   {
@@ -103,7 +103,7 @@ elseif (($destination <= $sector_max-1 && empty($engage)) || ($destination <= $s
     echo "$l_rs_engage<BR><BR>";
   }
 }
-elseif($destination <= $sector_max-1 && $engage > 0)
+elseif($destination < $sector_max && $engage > 0)
 {
   if($playerinfo[dev_fuelscoop] == "Y")
   {
