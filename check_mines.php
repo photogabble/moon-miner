@@ -40,7 +40,7 @@ if($result3 > 0)
 
 // Compute the ship average...if its too low then the ship will not hit mines...     
 
-$shipavg = ($targetship['hull'] + $targetship['engines'] + $targetship['power'] + $targetship['computer'] + $targetship['sensors'] + $targetship['armor'] + $targetship['shields'] + $targetship['beams'] + $targetship['torp_launchers'] + $targetship['cloak']) / 10;
+$shipavg = get_avg_tech($targetship, "ship");
 
 // The mines will attack if 4 conditions are met
 //    1) There is at least 1 group of mines in the sector
