@@ -42,6 +42,10 @@ elseif($num_planets >= $max_planets_sector)
 {
   echo $l_gns_full;
 }
+elseif($sectorinfo['sector_id'] >= $sector_max )
+{
+  echo "Invalid sector<br />\n";
+}
 
 /* -------------------------------------------------------------- *
  * I'm (SharpBlue) lazy. With many planets by sector that code    *
