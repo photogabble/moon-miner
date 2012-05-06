@@ -432,7 +432,7 @@ function gen_score($sid)
   return $score;
 }
 
-function db_kill_player($ship_id)
+function db_kill_player($ship_id, $remove_planets = false)
 {
   global $default_prod_ore;
   global $default_prod_organics;
@@ -453,39 +453,42 @@ function db_kill_player($ship_id)
 
   while(!$res->EOF && $res)
   {
-    $sectors[$i] = $res->fields[sector_id];
-    $i++;
-    $res->MoveNext();
+	$sectors[$i] = $res->fields[sector_id];
+	$i++;
+	$res->MoveNext();
   }
 
-  $db->Execute("UPDATE $dbtables[planets] SET owner=0, corp=0, fighters=0, base='N' WHERE owner=$ship_id");
+  if ($remove_planets == true && $ship_id > 0)
+  {
+	$db->Execute("DELETE from $dbtables[planets] WHERE owner = $ship_id");
+  }
+  else
+  {
+	$db->Execute("UPDATE $dbtables[planets] SET owner=0, corp=0, fighters=0, base='N' WHERE owner=$ship_id");
+  }
 
   if(!empty($sectors))
   {
-    foreach($sectors as $sector)
-    {
-      calc_ownership($sector);
-    }
+	foreach($sectors as $sector)
+	{
+	  calc_ownership($sector);
+	}
   }
   $db->Execute("DELETE FROM $dbtables[sector_defence] where ship_id=$ship_id");
 
   $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='N' AND owner=$ship_id");
   $zone = $res->fields;
 
-$db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE zone_id=$zone[zone_id]");
+  $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE zone_id=$zone[zone_id]");
 
+  $query = $db->Execute("select character_name from $dbtables[ships] where ship_id='$ship_id'");
+  $name = $query->fields;
 
+  $headline = $name['character_name'] . $l_killheadline;
 
-$query = $db->Execute("select character_name from $dbtables[ships] where ship_id='$ship_id'");
-$name = $query->fields;
+  $newstext=str_replace("[name]",$name['character_name'],$l_news_killed);
 
-
-$headline = $name[character_name] . $l_killheadline;
-
-
-$newstext=str_replace("[name]",$name[character_name],$l_news_killed);
-
-$news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$newstext','$ship_id',NOW(), 'killed')");
+  $news = $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, user_id, date, news_type) VALUES ('$headline','$newstext','$ship_id',NOW(), 'killed')");
 
 }
 
