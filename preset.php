@@ -23,12 +23,12 @@ bigtitle();
 
 if(!isset($change))
 {
-  echo "<FORM ACTION=preset.php METHOD=POST>";
-  echo "Preset 1: <INPUT TYPE=TEXT NAME=preset1 SIZE=6 MAXLENGTH=6 VALUE=$playerinfo[preset1]><BR>";
-  echo "Preset 2: <INPUT TYPE=TEXT NAME=preset2 SIZE=6 MAXLENGTH=6 VALUE=$playerinfo[preset2]><BR>";
-  echo "Preset 3: <INPUT TYPE=TEXT NAME=preset3 SIZE=6 MAXLENGTH=6 VALUE=$playerinfo[preset3]><BR>";
-  echo "<INPUT TYPE=HIDDEN NAME=change VALUE=1>";
-  echo "<BR><INPUT TYPE=SUBMIT VALUE=$l_pre_save><BR><BR>";
+  echo "<form action='preset.php' method='post'>";
+  echo "<div style='padding:2px;'>Preset 1: <input type='text' name='preset1' size='6' maxlength='6' value='{$playerinfo['preset1']}'></div>";
+  echo "<div style='padding:2px;'>Preset 2: <input type='text' name='preset2' size='6' maxlength='6' value='{$playerinfo['preset2']}'></div>";
+  echo "<div style='padding:2px;'>Preset 3: <input type='text' name='preset3' size='6' maxlength='6' value='{$playerinfo['preset3']}'></div>";
+  echo "<input type='hidden' name='change' value='1'>";
+  echo "<div style='padding:2px;'><input type='submit' value={$l_pre_save}></div>";
   echo "</FORM>";
 }
 else
