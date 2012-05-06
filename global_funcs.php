@@ -1148,4 +1148,26 @@ function get_avg_tech($ship_info = NULL, $type = "ship")
         return $shipavg;
 }
 
+function bnt_autoload($classname)
+{
+	$class_location = "classes/" . $classname . ".php";
+	if (is_readable($class_location))
+	{
+		include($class_location);
+	}
+}
+
+function isSameTeam($attackerTeam = NULL, $attackieTeam = NULL)
+{
+        if( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
+        {
+                return (boolean) false;
+        }
+        else
+        {
+                return (boolean) true;
+        }
+}
+
+spl_autoload_register('bnt_autoload');
 ?>
