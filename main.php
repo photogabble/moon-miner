@@ -171,7 +171,7 @@ echo "    <td style='text-align:right; color:#CCCCCC; font-size:12px; font-weigh
 echo "  </tr>\n";
 echo "</table>\n";
 
-echo "<br />\n";
+echo "<br>\n";
 
 echo "<table style='width:90%; margin:auto;' border='0' cellpadding='0' cellspacing='0'>\n";
 echo "  <tr>\n";
@@ -181,9 +181,9 @@ echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
 // Caption
         echo "<table width='140' border='0' cellpadding='0' cellspacing='0' align='center'>\n";
         echo "  <tr valign='top'>\n";
-        echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+        echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
         echo "    <td style='white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#ffffff'><b>$l_commands</b></font></td>\n";
-        echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+        echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
         echo "  </tr>\n";
         echo "</table>\n";
 
@@ -244,14 +244,14 @@ echo "    </td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 
-echo "<br />\n";
+echo "<br>\n";
 
 // Caption
 echo "<table width='140' border='0' cellpadding='0' cellspacing='0' align='center'>\n";
 echo "  <tr valign='top'>\n";
-echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "    <td style='white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#ffffff'><b>$l_traderoutes</b></font></td>\n";
-echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 
@@ -401,7 +401,7 @@ echo "    </td>\n";
 echo "  </tr>\n";
 
 echo "</table>\n";
-echo "<br />\n";
+echo "<br>\n";
 
 echo "</td>\n";
 
@@ -411,8 +411,8 @@ if($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
 	echo "<div style='color:#FFFFFF; text-align:center; font-size:14px;'>\n";
 	echo "{$l_tradingport}:&nbsp;<span style='color:#00FF00;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
-	echo "<br />\n";
-	echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' /></a>\n";
+	echo "<br>\n";
+	echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' alt='Space Station Port'></a>\n";
 	echo "</div>\n";
 }
 else
@@ -420,7 +420,7 @@ else
 	echo "<div style='color:#FFFFFF; text-align:center;'>{$l_tradingport}&nbsp;{$l_none}</div>\n";
 }
 
-echo "<br />\n";
+echo "<br>\n";
 
 // Put all the Planets into a div container and center it.
 echo "<div align='center' style='text-align:center; border:transparent 1px solid;'>\n"; 
@@ -593,10 +593,10 @@ if($playerinfo[sector] != 0)
 				echo "<td style='text-align:center; vertical-align:top; padding:1px;'>\n";
 				echo "<div style='width:160px; height:120px; background: URL(images/bg_alpha.png) repeat; padding:1px;'>\n";
 				echo "<a href=ship.php?ship_id={$ship_detected[$iPlayer]['ship_id']}>\n";
-				echo "  <img class='mnu' width='80' height='60' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" border='0' />\n";
+				echo "  <img class='mnu' width='80' height='60' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" border='0'>\n";
 				echo "</a>\n";
-				echo "<div style='color:#FFFFFF; font-family:Arial; font-size:12px; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br />\n";
-				echo "(<span style='color:#FFFF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br />\n";
+				echo "<div style='color:#FFFFFF; font-family:Arial; font-size:12px; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
+				echo "(<span style='color:#FFFF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
 				if ($ship_detected[$iPlayer][team_name])
 				{
 					echo "(<span style='color:#00FF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
@@ -620,13 +620,14 @@ else
 {
 		echo "<div style='color:#FFFFFF;'>{$l_sector_0}</div>\n";
 }
+echo "</div>";
 
 if($num_defences>0)
 {
 	echo "<b>\n";
 	echo "  <center>\n";
 	echo "    <font face='arial' color='#FFFFFF'>$l_sector_def</font>\n";
-	echo "    <br />\n";
+	echo "    <br>\n";
 	echo "  </center>\n";
 	echo "</b>\n";
 }
@@ -690,9 +691,9 @@ else
 <?php
 echo "<table width='140' border='0' cellpadding='0' cellspacing='0' align='center'>\n";
 echo "  <tr valign='top'>\n";
-echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "    <td style='white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#ffffff'><b>$l_cargo</b></font></td>\n";
-echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 ?>
@@ -785,9 +786,9 @@ echo "  </tr>\n";
 <?php
 echo "<table width='140' border='0' cellpadding='0' cellspacing='0' align='center'>\n";
 echo "  <tr valign='top'>\n";
-echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "    <td style='white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#ffffff'><b>$l_main_warpto</b></font></td>\n";
-echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt='' /></td>\n";
+echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 ?>
