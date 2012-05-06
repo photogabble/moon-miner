@@ -28,8 +28,8 @@ $shiptypes[2]= "mediumship.gif";
 $shiptypes[3]= "largeship.gif";
 $shiptypes[4]= "hugeship.gif";
 
-$shipavg = $playerinfo['hull'] + $playerinfo['engines'] + $playerinfo['power'] + $playerinfo['computer'] + $playerinfo['sensors'] + $playerinfo['armor'] + $playerinfo['shields'] + $playerinfo['beams'] + $playerinfo['torp_launchers'] + $playerinfo['cloak'];
-$shipavg /= 10;
+$shipavg = get_avg_tech($playerinfo, "ship");
+
 if($shipavg < 8)
    $shiplevel = 0;
 elseif($shipavg < 12)
@@ -43,27 +43,29 @@ else
 
 bigtitle();
 
-echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
+
+echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH='100%'>";
 echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_player: $playerinfo[character_name]</B></TD><TD ALIGN=CENTER><B>$l_ship: $playerinfo[ship_name]</B></TD><TD ALIGN=RIGHT><B>$l_credits: " . NUMBER($playerinfo[credits]) . "</B></TD></TR>";
 echo "</TABLE>";
 echo "<BR>";
 
-echo "<TABLE BORDER=0 CELLSPACING=5 CELLPADDING=0 WIDTH=\"100%\">";
+echo "<TABLE BORDER=0 CELLSPACING=5 CELLPADDING=0  WIDTH='100%'>";
 echo "<TR><TD>";
 
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_ship_levels</B></TD><TD></TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_hull</TD><TD>$l_level $playerinfo[hull]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_engines</TD><TD>$l_level $playerinfo[engines]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_power</TD><TD>$l_level $playerinfo[power]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_computer</TD><TD>$l_level $playerinfo[computer]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_sensors</TD><TD>$l_level $playerinfo[sensors]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_armor</TD><TD>$l_level $playerinfo[armor]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_shields</TD><TD>$l_level $playerinfo[shields]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_beams</TD><TD>$l_level $playerinfo[beams]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_torp_launch</TD><TD>$l_level $playerinfo[torp_launchers]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_cloak</TD><TD>$l_level $playerinfo[cloak]</TD></TR>";
-echo "<TR BGCOLOR=\"$color_line1\"><TD><i>$l_shipavg</i></TD><TD>$l_level " . NUMBER($shipavg, 2) . "</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\" style='font-style:italic;'><TD> $l_hull</TD><TD style='text-align:right;'>$l_level $playerinfo[hull]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\" style='font-style:italic;'><TD> $l_engines</TD><TD style='text-align:right;'>$l_level $playerinfo[engines]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_power</TD><TD style='text-align:right;'>$l_level $playerinfo[power]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\" style='font-style:italic;'><TD> $l_computer</TD><TD style='text-align:right;'>$l_level $playerinfo[computer]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_sensors</TD><TD style='text-align:right;'>$l_level $playerinfo[sensors]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\" style='font-style:italic;'><TD> $l_armor</TD><TD style='text-align:right;'>$l_level $playerinfo[armor]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\" style='font-style:italic;'><TD> $l_shields</TD><TD style='text-align:right;'>$l_level $playerinfo[shields]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\" style='font-style:italic;'><TD> $l_beams</TD><TD style='text-align:right;'>$l_level $playerinfo[beams]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\" style='font-style:italic;'><TD>$l_torp_launch</TD><TD style='text-align:right;'>$l_level $playerinfo[torp_launchers]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_cloak</TD><TD style='text-align:right;'>$l_level $playerinfo[cloak]</TD></TR>";
+echo "<TR BGCOLOR=\"$color_line1\"><TD><i>$l_shipavg</i></TD><TD style='text-align:right;'>$l_level " . NUMBER($shipavg, 2) . "</TD></TR>";
 
 echo "</TABLE>";
 echo "</TD><TD VALIGN=TOP>";
@@ -105,6 +107,8 @@ echo "</TABLE>";
 
 echo "</TD></TR>";
 echo "</TABLE>";
+
+echo "</div>\n";
 
 echo "<p align=center>";
 echo "<img src=\"images/$shiptypes[$shiplevel]\" border=0></p>";
