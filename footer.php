@@ -14,7 +14,7 @@ $result = $res->fields;
 $mySEC = ($sched_ticks * 60) - (TIME()-$result[last_run]);
 ?>
   <script language="javascript" type="text/javascript">
-   var myi = <?php=$mySEC?>;
+   var myi = '<?php echo $mySEC; ?>';
    setTimeout("rmyx();",1000);
 
    function rmyx()
