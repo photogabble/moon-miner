@@ -30,9 +30,10 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 
 <center>
 <img src=images/div1.gif>
-<table width=600 height=350 border=0>
-<tr><td align=center background=images/IGBscreen.gif>
-<table background="" width=520 height=300 border=0>
+<div style="width:600px; max-width:600px;">
+<table style="width:600px; height:350px;" border=0>
+<tr><td style="background-image:URL(images/IGBscreen.gif); background-repeat:no-repeat;" align=center>
+<table background="" width="550px" height=300 border=0>
 
 <?php
 
@@ -70,9 +71,11 @@ elseif($command == 'consolidate3') //consolidate operation
 else
 {
   echo "
-  <tr><td width=25% valign=bottom><a href=\"main.php\"><font size=2 face=\"courier new\" color=#00FF00>$l_igb_quit</a></td><td width=50%>
-  <font size=2 face=\"courier new\" color=#00FF00>
-  <pre>
+  <tr>
+    <td width=25% valign=bottom align=left><a href=\"main.php\"><font size=2 face=\"courier new\" color=#00FF00>$l_igb_quit</a></td>
+    <td width=50%>
+  <font style=\"font-size:10px; font-family:'Courier New'; color:#00FF00;\">
+  <pre style='text-align:left;'>
   IIIIIIIIII          GGGGGGGGGGGGG    BBBBBBBBBBBBBBBBB
   I::::::::I       GGG::::::::::::G    B::::::::::::::::B
   I::::::::I     GG:::::::::::::::G    B::::::BBBBBB:::::B
@@ -96,7 +99,8 @@ else
   echo "(tm)<br>";
   echo $l_igb_humor;
   echo "<br>&nbsp;
-  </center></td>
+  </center>
+  </td>
   <td width=25% valign=bottom align=right><font size=2 color=#00FF00 face=\"courier new\"><a href=\"igb.php?command=login\">$l_igb_login</a></td>
   ";
 }
@@ -106,6 +110,7 @@ else
 </table>
 </td></tr>
 </table>
+</div>
 <img src=images/div2.gif>
 </center>
 
@@ -122,12 +127,12 @@ function IGB_login()
 
   echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_welcometoigb<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_accountholder :<br><br>$l_igb_shipaccount :<br>$l_igb_igbaccount&nbsp;&nbsp;:</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>$playerinfo[character_name]&nbsp;&nbsp;<br><br>".NUMBER($playerinfo[credits]) . " $l_igb_credit_symbol<br>" . NUMBER($account[balance]) . " $l_igb_credit_symbol<br></td>" .
+       "<td width=150 align=right><font size=2 face=\"courier new\" color=#00FF00>$l_igb_accountholder :<br><br>$l_igb_shipaccount :<br>$l_igb_igbaccount&nbsp;&nbsp;:</td>" .
+       "<td style='max-width:550px; padding-right:4px;' align=right><font size=2 face=\"courier new\" color=#00FF00>$playerinfo[character_name]&nbsp;&nbsp;<br><br>".NUMBER($playerinfo[credits]) . " $l_igb_credit_symbol<br>" . NUMBER($account[balance]) . " $l_igb_credit_symbol<br></td>" .
        "</tr>" .
        "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_operations<br>---------------------------------<br><br><a href=\"igb.php?command=withdraw\">$l_igb_withdraw</a><br><a href=\"igb.php?command=deposit\">$l_igb_deposit</a><br><a href=\"igb.php?command=transfer\">$l_igb_transfer</a><br><a href=\"igb.php?command=loans\">$l_igb_loans</a><br>&nbsp;</td></tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td align='left'><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -161,16 +166,34 @@ function IGB_deposit()
   global $l_igb_depositfunds, $l_igb_fundsavailable, $l_igb_seldepositamount;
   global $l_igb_deposit, $l_igb_back, $l_igb_logout;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_depositfunds<br>---------------------------------</td></tr>" .
+  $max_credits_allowed = 18446744073709000000;
+  $credit_space = ($max_credits_allowed - $account[balance]);
+
+  if($credit_space > $playerinfo['credits'])
+  {
+    $credit_space = ($playerinfo['credits']);
+  }
+
+  if($credit_space <0)
+  $credit_space = 0;
+  
+
+  echo "<tr><td height=53 colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_depositfunds<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_fundsavailable :</td>" .
+       "<td height=30><font size=2 face=\"courier new\" color=#00FF00>$l_igb_fundsavailable :</td>" .
        "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) ." C<br></td>" .
        "</tr><tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_seldepositamount :</td><td align=right>" .
+       "<td height=90><font size=2 face=\"courier new\" color=#00FF00>$l_igb_seldepositamount :</td><td align=right>" .
        "<form action=igb.php?command=deposit2 method=POST>" .
        "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
        "<br><br><input class=term type=submit value=$l_igb_deposit>" .
-       "</form></td></tr>" .
+       "</form>" .
+       "</td></tr>" .
+       "<tr>" .
+       "  <td height=30  colspan=2 align=left>" .
+       "    <span style='font-family:Courier New, Courier, monospace; font-size:12px; color:#00FF00;'>You can deposit only ". NUMBER($credit_space)." credits.</span><br />" .
+       "  </td>" .
+       "</tr>" .
        "<tr valign=bottom>" .
        "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
@@ -181,11 +204,13 @@ function IGB_transfer()
 {
   global $playerinfo;
   global $account;
+  global $IGB_min_turns;
   global $l_igb_transfertype, $l_igb_toanothership, $l_igb_shiptransfer, $l_igb_fromplanet, $l_igb_source, $l_igb_consolidate;
   global $l_igb_unnamed, $l_igb_in, $l_igb_none, $l_igb_planettransfer, $l_igb_back, $l_igb_logout, $l_igb_destination, $l_igb_conspl;
   global $db, $dbtables;
 
-  $res = $db->Execute("SELECT character_name, ship_id FROM $dbtables[ships] WHERE email not like '%@xenobe' ORDER BY character_name ASC");
+  $res = $db->Execute("SELECT character_name, ship_id FROM $dbtables[ships] WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > $IGB_min_turns ORDER BY character_name ASC");
+#  $res = $db->Execute("SELECT character_name, ship_id FROM $dbtables[ships] WHERE email not like '%@xenobe' ORDER BY character_name ASC");
   while(!$res->EOF)
   {
     $ships[]=$res->fields;
@@ -204,7 +229,7 @@ function IGB_transfer()
        "<tr valign=top>" .
        "<form action=igb.php?command=transfer2 method=POST>" .
        "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_toanothership :<br><br>" .
-       "<select class=term name=ship_id>";
+       "<select class=term name=ship_id style='width:200px;'>";
 
   foreach($ships as $ship)
   {
@@ -309,7 +334,8 @@ function IGB_transfer2()
 
   if(isset($ship_id)) //ship transfer
   {
-    $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$ship_id");
+    $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$ship_id AND ship_destroyed ='N' AND turns_used > $IGB_min_turns;");
+#    $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$ship_id");
 
     if($playerinfo[ship_id] == $ship_id)
       IGB_error($l_igb_sendyourself, "igb.php?command=transfer");
@@ -465,7 +491,7 @@ function IGB_transfer3()
   {
     //Need to check again to prevent cheating by manual posts
 
-    $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$ship_id");
+    $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$ship_id AND ship_destroyed ='N' AND turns_used > $IGB_min_turns;");
 
     if($playerinfo[ship_id] == $ship_id)
       IGB_error($l_igb_errsendyourself, "igb.php?command=transfer");
@@ -544,7 +570,8 @@ function IGB_transfer3()
     $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
     $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance+$transfer WHERE ship_id=$target[ship_id]");
 
-    $db->Execute("INSERT INTO $dbtables[IGB_transfers] VALUES(NULL, $playerinfo[ship_id], $target[ship_id], NOW())");
+    $db->Execute("INSERT INTO $dbtables[IGB_transfers] VALUES(NULL, $playerinfo[ship_id], $target[ship_id], NOW(), $transfer)");
+#    $db->Execute("INSERT INTO $dbtables[IGB_transfers] VALUES(NULL, $playerinfo[ship_id], $target[ship_id], NOW())");
     echo $db->ErrorMsg();
   }
   else
@@ -611,6 +638,8 @@ function IGB_deposit2()
   global $l_igb_operationsuccessful, $l_igb_creditstoyou, $l_igb_igbaccount, $l_igb_shipaccount, $l_igb_back;
   global $db, $dbtables;
 
+  $max_credits_allowed = 18446744073709000000;
+
   $amount = StripNonNum($amount);
   if(($amount * 1) != $amount)
     IGB_error($l_igb_invaliddepositinput, "igb.php?command=deposit");
@@ -620,6 +649,16 @@ function IGB_deposit2()
 
   if($amount > $playerinfo[credits])
     IGB_error($l_igb_notenoughcredits, "igb.php?command=deposit");
+
+// temp credits
+  $tmpcredits = $max_credits_allowed - $account['balance'];
+  if($tmpcredits <0)
+  {
+    $tmpcredits = 0;
+  }
+  if($amount > $tmpcredits)
+    IGB_error("<center>Error You cannot deposit that much into your bank,<br /> (Max Credits Reached)</center>", "igb.php?command=deposit");
+//-----------------
 
   $account[balance] += $amount;
   $playerinfo[credits] -= $amount;
