@@ -1,168 +1,66 @@
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
-<!--
-/* Original script by Peter Belesis and Andy King. v1.01
-# Copyright (c) 1999 internet.com Corp. All Rights Reserved.
-# Under the GPL.
-#
-# Heavily modified for use in BNT.
-*/
+<script type="text/javascript" src="backends/javascript/newsticker.js"></script>
+<script type="text/javascript">
 
-prefix=' ';
+// Ticker Constructor
+news                      = new newsTicker();
+
+// Initialize the Ticker, You need to supply the HTML id as the argument, returns true or false.
+var result                = news.initTicker('news_ticker');
+
+// I have put in some safaty precautions, but just in case always check the return value from initTicker().
+if (result == true)
+{
+    // Set the width of the Ticker (in pixles)
+    news.Width(500);
+
+    // Gets the Width of the Ticker (in pixles)
+    var width = news.Width();
+
+    // Sets the Interval/Update Time in seconds.
+    news.Interval(5);
+
+    // Gets the Interval/Update Time in Seconds.
+    var interval = news.Interval();
+
+    // I have decided on adding single news articles at a time due to it makes it more easier to add when using PHP or XSL.
+    // We can supply the information by either of the following ways:
+    // 1: Supply the information from a Database and inserting it with PHP.
+    // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
 
 <?php
-$newspath = $gamepath."news.php";
-$startdate = date("Y/m/d");
-$res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
+    $newspath = $gamepath."news.php";
+    $startdate = date("Y/m/d");
+    $res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
 
-echo "arURL = new Array(";
-if($res->EOF)
-{
-
-echo "\"$newspath\");";
-}
-else
-{
-  while (!$res->EOF)
-  {
-  $row = $res->fields;
-  echo "\"$newspath\",";
-  $res->MoveNext();
-  }
-echo "\"$newspath\");\n";
-}
-
-echo "arTXT = new Array(";
-// Here is the php function to populate the javascript array.
-
-$res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
-if($res->EOF)
-{
-echo "\"$l_news_none\");";
-}
-else
-{
-  while (!$res->EOF) 
-  {
-  $row = $res->fields;
-  echo "\"$row[headline]\",";
-  $res->MoveNext();
-  }
-echo "\"end of news\");";
-}
-?>
-
-document.write('<LAYER ID=fad1><\/LAYER>');
-NS4 = (document.layers);
-IE4 = (document.all);
-
-FDRblendInt = 5; // seconds between flips
-FDRmaxLoops = 20; // max number of loops (full set of headlines each loop)
-FDRendWithFirst = true;
-
-FDRfinite = (FDRmaxLoops > 0);
-blendTimer = null;
-
-arTopNews = [];
-for (i=0;i<arTXT.length;i++)
-{
- arTopNews[arTopNews.length] = arTXT[i];
- arTopNews[arTopNews.length] = arURL[i];
-}
-TopPrefix = prefix;
-
-if(NS4)
-{
-	fad1 = document.fad1;
-	fad1.visibility="hide";
-
-	pos1 = document.images['pht'];
-	pos1E = document.images['ph1E'];
-	fad1.left = pos1.x;
-	fad1.top = pos1.y;
-	fad1.clip.width = 354;
-	fad1.clip.height = pos1E.y - fad1.top;
-}
-else 
-{
-	document.getElementById('news_ticker').style.pixelHeight = document.getElementById('news_ticker').offsetHeight;
-}
-
-function FDRredo()
-{
-	if (innerWidth==origWidth && innerHeight==origHeight) return;
-	location.reload();
-}
-
-function FDRcountLoads() 
-{
-	if (NS4)
-	{
-		origWidth = innerWidth;
-		origHeight = innerHeight;
-		window.onresize = FDRredo;
-	}
-
-    TopnewsCount = 0;
-    TopLoopCount = 0;
-
-    FDRdo();
-	blendTimer = setInterval("FDRdo()",FDRblendInt*1000)
-}
-
-function FDRdo() 
-{
-    if (FDRfinite && TopLoopCount>=FDRmaxLoops) 
+    if($res->EOF)
     {
-		FDRend();
-		return;
+        echo "    url = 'news.php';\n";
+        echo "    text = '{$l_news_none}';\n";
+        echo "    type = null;    // Not used as yet.\n";
+        echo "    delay = 5;                       // in seconds.\n";
+        echo "    news.addArticle(url, text, type, delay);\n";
     }
-	FDRfade();
+    else
+    {
+        while (!$res->EOF)
+        {
+            $row = $res->fields;
+            $headline = addslashes($row['headline']);
+            echo "    url = 'news.php';\n";
+            echo "    text = '{$headline}';\n";
+            echo "    type = '{$row['news_type']}';    // Not used as yet.\n";
+            echo "    delay = 5;                       // in seconds.\n";
+            echo "    news.addArticle(url, text, type, delay);\n";
+            echo "\n";
+            $res->MoveNext();
+        }
+        echo "    news.addArticle(null, 'End of News', null, 5);\n";
+    }
+?>
+    // Starts the Ticker.
+    news.startTicker();
 
-	if (TopnewsCount >= arTopNews.length) 
-	{
-		TopnewsCount = 0;
-		if (FDRfinite) TopLoopCount++;
-	}
+    // If for some reason you need to stop the Ticker use the following line.
+    // news.stopTicker();
 }
-
-function FDRfade(){
-	if(TopLoopCount < FDRmaxLoops) {
-		TopnewsStr = "";
-		for (var i=0;i<1;i++)
-		{
-			if(TopnewsCount < arTopNews.length) 
-			{
-			    TopnewsStr += "<P><A CLASS=headlines TARGET=_new "
-							+ "HREF='" + TopPrefix + arTopNews[TopnewsCount+1] + "'>"
-				            + arTopNews[TopnewsCount] + "</" + "A></" + "P>"
-				TopnewsCount += 2;
-			}
-		}
-		if (NS4) 
-		{
-			fad1.document.write(TopnewsStr);
-			fad1.document.close();
-			fad1.visibility="show";
-		}
-	    else 
-	    {
-	        document.getElementById('news_ticker').innerHTML = TopnewsStr;
-	    }
-	}
-}
-
-function FDRend(){
-	clearInterval(blendTimer);
-	if (FDRendWithFirst) 
-	{
-	    TopnewsCount = 0;
-	    TopLoopCount = 0;
-	    FDRfade();
-	}
-}
-
-window.onload = FDRcountLoads;
-//-->
-</SCRIPT>
-
-
+</script>
