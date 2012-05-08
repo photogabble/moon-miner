@@ -36,63 +36,64 @@ $title=$l_login_title;
 
 include("header.php");
 
-?>
+echo "<center>\n";
 
-<CENTER>
-
-<?php
 bigtitle();
-?>
 
-<form action="login2.php" method="post">
-<BR><BR>
+echo "<form action='login2.php' method='post'>\n";
+echo "  <br>\n";
+echo "  <br>\n";
+echo "  <table cellpadding='4' border='0'>\n";
+echo "    <tr>\n";
+echo "      <td align='right'>{$l_login_email}</td>\n";
+echo "      <td align='left'><input type='text' name='email' size='20' maxlength='40' value='{$username}' style='width:200px;'></td>\n";
+echo "    </tr>\n";
+echo "    <tr>\n";
+echo "      <td align='right'>{$l_login_pw}</td>\n";
+echo "      <td align='left'><input type='password' name='pass' size='20' maxlength='20' value='{$password}' style='width:200px;'></td>\n";
+echo "    </tr>\n";
+echo "    <tr>\n";
+echo "      <td colspan='2'><center>Forgot your password?  Enter it blank and press login.</center></td>\n";
+echo "    </tr>\n";
+echo "  </table>\n";
 
-<TABLE CELLPADDING="4">
-<TR>
-	<TD align="right"><?php echo $l_login_email; ?></TD>
-	<TD align="left"><INPUT TYPE="TEXT" NAME="email" SIZE="20" MAXLENGTH="40" VALUE="<?php echo "$username" ?>"></TD>
-</TR>
-<TR>
-	<TD align="right"><?php echo $l_login_pw;?></TD>
-	<TD align="left"><INPUT TYPE="PASSWORD" NAME="pass" SIZE="20" MAXLENGTH="20" VALUE="<?php echo "$password" ?>"></TD>
-</TR>
-<TR><TD colspan=2><center>Forgot your password?  Enter it blank and press login.</center></TD></TR></TABLE>
-<BR>
-<INPUT TYPE="SUBMIT" VALUE="<?php echo $l_login_title;?>">
-<BR><BR>
-<?php echo $l_login_newp;?>
-<BR><BR>
-<?php echo $l_login_prbs;?> <A HREF="mailto:<?php echo "$admin_mail"?>"><?php echo $l_login_emailus;?></A>
-</FORM>
+echo "  <br>\n";
+echo "  <input type='submit' value='{$l_login_title}'>\n";
+echo "  <br>\n";
+echo "  <br>\n";
+echo "  {$l_login_newp}\n";
+echo "  <br>\n";
+echo "  <br>\n";
+echo "  {$l_login_prbs}<a href='mailto:{$admin_mail}'>{$l_login_emailus}</a>\n";
 
-<?php
+echo "</form>\n";
+
+
 if(!empty($link_forums))
-  echo "<A HREF=\"$link_forums\" TARGET=\"_blank\">$l_forums</A> - ";
-?>
-<A HREF="ranking.php"><?php echo $l_rankings;?></A><? echo " - "; ?>
-<A HREF="settings.php"><?php echo $l_login_settings;?></A>
-<BR><BR>
-<form action=login.php method=POST>
-<?php
+{
+	echo "<a href='$link_forums' target='_blank'>$l_forums</a> - ";
+}
+echo "<a href='ranking.php'>{$l_rankings}</a> - <a href='settings.php'>{$l_login_settings}</a>\n";
+echo "<br>\n";
+echo "<br>\n";
+echo "<form action='login.php' method='post'>\n";
 
-echo "$l_login_lang&nbsp;&nbsp;<select name=newlang>";
+echo "  $l_login_lang&nbsp;&nbsp;<select name='newlang'>\n";
 
 foreach($avail_lang as $curlang)
 {
   if($curlang['file'].".inc" == $lang)
-    $selected = "selected";
+    $selected = "selected='selected'";
   else
     $selected = "";
 
-  echo "<option value=$curlang[file] $selected>$curlang[name]</option>";
+  echo "  <option value='{$curlang['file']}' {$selected} style='width:100px;'>{$curlang['name']}</option>\n";
 }
 
-echo "</select>&nbsp;&nbsp;<input type=submit value=$l_login_change>";
-?>
+echo "  </select>\n&nbsp;&nbsp;<input type='submit' value='{$l_login_change}'>";
 
-</form>
-</CENTER>
+echo "</form>\n";
+echo "</center>\n";
 
-<?php
 include("footer.php");
 ?>
