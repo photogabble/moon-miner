@@ -7,13 +7,15 @@ include("languages/$lang");
 
 $title="$l_log_titlet";
 $no_body=1;
-include("header.php");
 
 connectdb();
 if(checklogin())
 {
   die();
 }
+
+include("header.php");
+
 $res = $db->Execute("SELECT character_name, ship_id, dhtml FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
@@ -56,7 +58,7 @@ $logline = str_replace("[player]", "$playerinfo[character_name]", $l_log_log);
 ?>
 
 <tr><td><td width=100%><td></tr>
-<tr><td><td height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
+<tr><td><td align='left' height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
 <font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<?php echo $logline; ?></b></font>
 </td><td><td></tr>
 <tr><td valign=bottom>
@@ -90,7 +92,7 @@ echo "<div id=\"divScroller1\">" .
      "<font size=2 color=#DEDEEF><b>$l_log_start $entry<b></font>" .
      "<p>" .
      "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
-     "</center>";
+     "</center>\n";
 
 if(!empty($logs))
 {
@@ -99,16 +101,16 @@ if(!empty($logs))
     $event = log_parse($log);
     $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
 
-    echo "<table border=0 cellspacing=5 width=100%>" .
-         "<tr>" .
-         "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
-         "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
-         "<tr><td colspan=2>" .
-         "<font size=2 color=#DEDEEF>" .
-         "$event[text]" .
-         "</td></tr>" .
-         "</table>" .
-         "<center><hr width=80% size=1 NOSHADE style=\"color: #040658\"></center>";
+    echo "<table border=0 cellspacing=5 width=100%>\n" .
+         "  <tr>\n" .
+         "    <td style='text-align:left; font-size:12px; color:#040658; font-weight:bold;'>{$event['title']}</td>\n" .
+         "    <td style='text-align:right; font-size:12px; color:#040658; font-weight:bold;'>{$time}</td>\n" .
+		 "  </tr>\n" .
+         "  <tr>\n".
+		 "    <td colspan=2 style='text-align:left; font-size:12px; color:#DEDEEF;'>{$event['text']}</td>\n".
+		 "  </tr>\n" .
+         "</table>\n" .
+         "<center><hr width='80%' size='1' NOSHADE style='color: #040658;'></center>\n";
   }
 }
 
@@ -161,16 +163,13 @@ if($mode != 'compat')
       $event = log_parse($log);
       $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
 
-      echo "<table border=0 cellspacing=5 width=100%>" .
-           "<tr>" .
-           "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
-           "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
-           "<tr><td colspan=2>" .
-           "<font size=2 color=#DEDEEF>" .
-           "$event[text]" .
-           "</td></tr>" .
-           "</table>" .
-           "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
+      echo "<table border=0 cellspacing=5 width=100%>\n" .
+           "  <tr>\n" .
+           "    <td align='left'><font size='2' color='#040658'><b>{$event['title']}</b></td>\n" .
+           "    <td align='right'><font size='2' color='#040658'><b>{$time}</b></td>\n" .
+           "  <tr><td colspan='2' align='left'><font size='2' color='#DEDEEF'>{$event['text']}</td></tr>\n" .
+           "</table>\n" .
+           "<hr width='80%' size='1' NOSHADE style='color: #040658;'>\n";
     }
   }
 
@@ -206,15 +205,16 @@ if($mode != 'compat')
       $event = log_parse($log);
       $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
 
-      echo "<table border=0 cellspacing=5 width=100%>" .
-           "<tr>" .
-           "<td><font size=2 color=#040658><b>$event[title]</b></td>" .
-           "<td align=right><font size=2 color=#040658><b>$time</b></td>" .
-           "<tr><td colspan=2>" .
+      echo "<table border=0 cellspacing=5 width=100%>\n" .
+           "<tr>\n" .
+           "<td style='text-align:left;'><font size=2 color=#040658><b>$event[title]</b></td>\n" .
+           "<td align=right><font size=2 color=#040658><b>$time</b></td>\n" .
+		   "</tr>\n".
+           "<tr>\n<td colspan=2 align=left>\n" .
            "<font size=2 color=#DEDEEF>" .
            "$event[text]" .
-           "</td></tr>" .
-           "</table>" .
+           "</td>\n</tr>\n" .
+           "</table>\n" .
            "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
     }
   }
@@ -300,13 +300,15 @@ if($swordfish == $adminpass)
        "<input type=hidden name=menu value=logview>" .
        "<input type=submit value=\"Return to Admin\"></td></tr>";
 else
-  echo "<tr><td><td><p><font size=2 face=arial>$l_log_click</td></tr>";
+  echo "<tr><td><td style='text-align:left;'><p><font size=2 face=arial>$l_log_click</td></tr>";
 
 if($mode != 'compat')
   echo "<tr><td><td align=center><br><font size=2 color=white>$l_log_note</a>.</td></tr>";
 
 echo "</table>" .
      "</center>";
+
+include("footer.php");
 
 function log_parse($entry)
 {
@@ -561,9 +563,43 @@ case LOG_BOUNTY_FEDBOUNTY:
     $retvalue[title] = $l_log_title[$entry[type]];
     break;
 
+ case 57:
+    // Multi Browser Logs.
+    list($ship_ip, $ship_id, $info)= split ("\|", $entry[data]);
+    $retvalue[text] = "Account: <span style='color:#FFFF00;'>{$ship_id}</span> with IP: '<span style='color:#FFFF00;'>{$ship_ip}</span>' <span style='color:#FFFFFF;'>{$info}</span>";
+    $retvalue[title] = "Possible Multi Browser Attempt.";
+    break;
+
+ case 901:
+    // Multi Hash Logs debug info
+    list($ship_id, $last_hash, $this_hash, $status)= split ("\|", $entry[data]);
+    $last_hash = strtoupper($last_hash);
+    $this_hash = strtoupper($this_hash);
+    $retvalue[text] = "Account: <span style='color:#FFFF00;'>{$ship_id}</span> last used Hash: '<span style='color:#FFFF00;'>{$last_hash}</span>' and now is using Hash: '<span style='color:#FFFF00;'>{$this_hash}</span>', Status: <span style='color:#FFFF00;'>{$status}</span>";
+    $retvalue[title] = "Multi Hash Logs [Debug].";
+    break;
+
+ case 950:
+    // Attack logs debug info
+    list($step, $attacker_armor, $target_armor, $attacker_fighters, $target_fighters, $attacker_id, $target_id)= split ("\|", $entry[data]);
+    $retvalue[text]  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br />\n";
+    $retvalue[text] .= "Target Ship: {$target_id}, Armor: {$target_armor}, Fighters: {$target_fighters}\n";
+    $retvalue[title] = "Attack Logs Stage: {$step} [Debug].";
+    break;
+
+ case 1019:
+    // Invalid login try (wrong password etc)
+    list($ship_ip, $ship_email, $used_password, $used_hash)= split ("\|", $entry[data]);
+    $retvalue[text] = "Someone using IP: <span style='color:#FFFF00;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#FFFF00;'>{$ship_email}</span>' with Password: '<span style='color:#FFFF00;'>{$used_password}</span>' and had the following Hash: '<span style='color:#FFFF00;'>{$used_hash}</span>'";
+    $retvalue[title] = "Invalid Login Attempt.";
+    break;
+
+ default:
+    $retvalue[text] = $entry[data];
+    $retvalue[title] = $entry[type];
+    break;
   }
   return $retvalue;
 }
 
 ?>
-
