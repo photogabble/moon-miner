@@ -229,10 +229,13 @@ $xen_aggression = 100;                // Percent of xenobe that are aggressive o
 $xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage - rjordan
 $xenstartsize = 15;                   // Max starting size of Xenobes at universe creation
 
-/* TMD:: Used to define what devices are used to calculate the average tech level. */
+// Used to define what devices are used to calculate the average tech level.
 $calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 $calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+
+// Switch between old style footer and new style. Old is text, and only the time until next update. New is a table, and also includes server time.
+$footer_style = 'old';
 
 include("global_funcs.php");
 ?>
