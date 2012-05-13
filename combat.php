@@ -666,6 +666,21 @@ function planetcombat()
     {
         echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>$l_cmb_planetdefeated</b></FONT></CENTER><BR><BR>";
 
+	// Patch to stop players dumping credits for other players.
+        $self_tech = get_avg_tech($playerinfo);
+        $target_tech = round(get_avg_tech($ownerinfo));
+
+        $roll = rand(0, (integer) $target_tech);
+	if ($roll > $self_tech)
+        {
+            // Reset Planet Assets.
+            $sql  = "UPDATE $dbtables[planets] ";
+            $sql .= "SET organics = '0', ore = '0', goods = '0', energy = '0', colonists = '2', credits = '0', fighters = '0', torps = '0', corp = '0', base = 'N', sells = 'N', prod_organics = '20', prod_ore = '20', prod_goods = '20', prod_energy = '20', prod_fighters = '10', prod_torp = '10' ";
+            $sql .= "WHERE `dev_planets`.`planet_id` =$planetinfo[planet_id] LIMIT 1;";
+            $db->Execute($sql);
+            echo "<div style='text-align:center; font-size:18px; color:#FF0000;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
+        }
+
         if($min_value_capture != 0)
         {
             $playerscore = gen_score($playerinfo[ship_id]);
