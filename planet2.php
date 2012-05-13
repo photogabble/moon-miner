@@ -53,10 +53,55 @@ if(checklogin())
 //          tpcredits
 //          allcredits
 
+// Array list of valid vars and their types that are alowed for this page.
+// I know this is rather crude but it works.
+$valid_vars = NULL;
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_ore", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tpore", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allore", "type"=>"integer");
 
-// Empty out Planet and Ship vars
-$planetinfo         = NULL;
-$playerinfo         = NULL;
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_organics", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tporganics", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allorganics", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_goods", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tpgoods", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allgoods", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_energy", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tpenergy", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allenergy", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_colonists", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tpcolonists", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allcolonists", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_fighters", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tpfighters", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allfighters", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_torps", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tptorps", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"alltorps", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_credits", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"tpcredits", "type"=>"integer");
+$valid_vars[] = array("pref"=>"_POST", "var"=>"allcredits", "type"=>"integer");
+
+$valid_vars[] = array("pref"=>"_GET", "var"=>"planet_id", "type"=>"integer");
+
+foreach ($valid_vars as $k=>$v)
+{
+// is found ?
+    if(!isset(${$v['pref']}[$v['var']]))
+    {
+// if not found set var to 0.
+        ${$v['pref']}[$v['var']] = 0;
+    }
+// set var type to set type.
+    settype(${$v['pref']}[$v['var']], $v['type']);
+}
+// done
 
 // Validate and set the type of $_POST vars
 $transfer_ore       = (int) $_POST['transfer_ore'];
@@ -96,6 +141,10 @@ $planet_id          = (int) $_GET['planet_id'];
 
 // Display Page Title.
 bigtitle();
+
+// Empty out Planet and Ship vars
+$planetinfo         = NULL;
+$playerinfo         = NULL;
 
 // Check if planet_id is valid.
 if($planet_id <=0)
@@ -576,3 +625,4 @@ TEXT_GOTOMAIN();
 include("footer.php");
 
 ?>
+
