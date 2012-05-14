@@ -57,18 +57,29 @@ function go_build_base($planet_id, $sector_id)
   $sectorinfo=$result2->fields;
 
   $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
-  if($result3)
+  $planetinfo=$result3->fields;
+
+  // Error out and return if the Player isn't the owner of the Planet
+  // verify player owns the planet which is to have the base created on.
+  if($planetinfo[owner] != $playerinfo[ship_id])
   {
-    $planetinfo=$result3->fields;
+    echo "<div style='color:#FF0000; font-size:16px;'>Base Construction Failed!</div>\n";
+    echo "<div style='color:#FF0000; font-size:16px;'>Invalid Planet or Sector Information Supplied.</div>\n";
+    return (boolean) false;
   }
 
+  if(!is_numeric($planet_id) || !is_numeric($sector_id))
+  {
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $hack_id = 0x1337;
+    adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
+    echo "<div style='color:#FF0000; font-size:16px;'>Base Construction Failed!</div>\n";
+    return (boolean) false;
+  }  // build a base
+
   Real_Space_Move($sector_id);
-
-
   echo "<BR>Click <A HREF=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<BR><BR>";
 
-
-  // build a base
   if($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
   {
     // ** Create The Base
@@ -92,15 +103,36 @@ function go_build_base($planet_id, $sector_id)
 
 function collect_credits($planetarray)
 {
-  global $db, $dbtables, $username;
+  global $db, $dbtables, $username, $sector_max;
 
   $CS = "GO"; // Current State
+
+  // Look up Player info that wants to collect the credits.
+  $result1 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username' LIMIT 1");
+  $playerinfo = $result1->fields;
+
+  // Set var as an Array.
+  $s_p_pair = array();
 
   // create an array of sector -> planet pairs
   for($i = 0; $i < count($planetarray); $i++)
   {
-    $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planetarray[$i]");
-    $s_p_pair[$i]= array($res->fields["sector_id"], $planetarray[$i]);
+    $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planetarray[$i];");
+
+    // Only add to array if the Player owns the Planet.
+    if($res->fields['owner'] == $playerinfo['ship_id'] && $res->fields['sector_id'] < $sector_max)
+    {
+      $s_p_pair[$i]= array($res->fields['sector_id'], $planetarray[$i]);
+    }
+    else
+    {
+      $hack_id = 20100401;
+      $ip = $_SERVER['REMOTE_ADDR'];
+      $planet_id = $res->fields['planet_id'];
+      $sector_id = $res->fields['sector_id'];
+      adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
+      break;
+    }
   }
 
   // Sort the array so that it is in order of sectors, lowest number first, not closest
@@ -110,8 +142,7 @@ function collect_credits($planetarray)
   // run through the list of sector planet pairs realspace moving to each sector and then performing the transfer. 
   // Based on the way realspace works we don't need a sub loop -- might add a subloop to clean things up later.
 
-
-  for($i=0; $i < count($planetarray) && $CS == "GO"; $i++)
+  for($i=0; $i < count($s_p_pair) && $CS == "GO"; $i++)
   {
     echo "<BR>";
     $CS = Real_space_move($s_p_pair[$i][0]);
@@ -181,6 +212,10 @@ function change_planet_production($prodpercentarray)
   $result = $db->Execute("SELECT ship_id,team FROM $dbtables[ships] WHERE email='$username'");
   $ship_id = $result->fields[ship_id]; $team_id = $result->fields[team]; 
 
+  $planet_hack = false;
+  $hack_id     = 0x0000;
+  $hack_count  = array(0, 0, 0);
+
   echo "Click <A HREF=planet_report.php?PRepType=2>here</A> to return to the Change Planet Production Report<br><br>";
 
   while(list($commod_type, $valarray) = each($prodpercentarray))
@@ -194,8 +229,12 @@ function change_planet_production($prodpercentarray)
           $res = $db->Execute("SELECT COUNT(*) AS owned_planet FROM $dbtables[planets] WHERE planet_id=$planet_id AND owner = $ship_id");
           if($res->fields['owned_planet']==0)
           {
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $stamp = date("Y-m-d H:i:s");
             $planet_hack=True;
-##          adminlog(LOG_ADMIN_PLANETCHEAT_1,$_SERVER["REMOTE_ADDR"]."|$planet_id");
+            $hack_id = 0x18582;
+            $hack_count[0]++;
+            adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
           }
 
           $db->Execute("UPDATE $dbtables[planets] SET $commod_type=$prodpercent WHERE planet_id=$planet_id AND owner = $ship_id");
@@ -210,6 +249,7 @@ function change_planet_production($prodpercentarray)
         {
           /* Compare entered team_id and one in the db */
           /* If different then use one from db */
+
           $res = $db->Execute("SELECT $dbtables[ships].team as owner FROM $dbtables[ships], $dbtables[planets] WHERE ( $dbtables[ships].ship_id = $dbtables[planets].owner ) AND ( $dbtables[planets].planet_id ='$prodpercent')");
           if($res) $team_id=$res->fields["owner"]; else $team_id = 0;
 
@@ -217,14 +257,22 @@ function change_planet_production($prodpercentarray)
           if($prodpercentarray[team_id] <> $team_id)
           {
             /* Oh dear they are different so send admin a log */
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $stamp = date("Y-m-d H:i:s");
             $planet_hack=True;
-##          adminlog(LOG_ADMIN_PLANETCHEAT_2,$_SERVER["REMOTE_ADDR"]."|$prodpercent");
+            $hack_id = 0x18531;
+            $hack_count[1]++;
+            adminlog(LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray[team_id]} not {$team_id}");
           }
         }
         else
         {
+          $ip = $_SERVER['REMOTE_ADDR'];
+          $stamp = date("Y-m-d H:i:s");
           $planet_hack=True;
-##        adminlog(LOG_ADMIN_PLANETCHEAT_3,$_SERVER["REMOTE_ADDR"]."|$planet_id");
+          $hack_id = 0x18598;
+          $hack_count[2]++;
+          adminlog(LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
         }
       }
     }
@@ -232,7 +280,9 @@ function change_planet_production($prodpercentarray)
 
   if($planet_hack)
   {
-    echo "<font color=\"red\"><B>Your Cheat has been logged to the admin.</B></font><br>\n";
+    $serial_data = serialize($prodpercentarray);
+    adminlog(LOG_ADMIN_PLANETCHEAT+1000, "{$ship_id}|{$serial_data}");
+    printf("<font color=\"red\"><B>Your Cheat has been logged to the admin (%08x) [%02X:%02X:%02X].</B></font><br>\n", (int)$hack_id, (int)$hack_count[0], (int)$hack_count[1], (int)$hack_count[2]);
   }
 
   echo "<BR>";
@@ -328,8 +378,8 @@ function Take_Credits($sector_id, $planet_id)
       }
       else
       {
-        echo "<BR><BR>You do not own planet $planetinfo[name]<BR><BR>";
-        $retval = "GO";
+        echo "<BR><BR>You do not own planet {$planetinfo['name']} !!<BR><BR>";
+        $retval = "BREAK-INVALID";
       }
     }
     else
