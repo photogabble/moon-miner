@@ -8,10 +8,9 @@
   $interface="index.php";
   $no_body=1;
 	include("header.php");
-//  include("config.php");
 ?>
 
-<body bgcolor="#666666" text="#c0c0c0" link="#000000" vlink="#990033" alink="#FF3333" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif')">
+<body bgcolor="#666666" text="#c0c0c0" link="#000000" vlink="#990033" alink="#FF3333" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
 <center>
 <img src="images/BNT-header.jpg" width="517" height="189" border="0" alt="BlackNova Traders">
 
