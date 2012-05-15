@@ -229,6 +229,12 @@ $xen_aggression = 100;                // Percent of xenobe that are aggressive o
 $xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage - rjordan
 $xenstartsize = 15;                   // Max starting size of Xenobes at universe creation
 
+# Update how many turns per tick
+$turns_per_tick             = 6;                //
+
+# Port Regen Rate.
+$port_regenrate                         = 10;
+
 // Used to define what devices are used to calculate the average tech level.
 $calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 $calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
