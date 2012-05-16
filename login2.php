@@ -72,6 +72,7 @@ if($playerfound)
             playerlog($playerinfo[ship_id], LOG_LOGIN, $ip);
             $stamp = date("Y-m-d H-i-s");
             $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
+            $_SESSION['logged_in'] = TRUE;
             TEXT_GOTOMAIN();
             echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo[ship_id] . "\">";
         }
