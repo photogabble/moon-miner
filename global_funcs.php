@@ -5,6 +5,11 @@ if (preg_match("/global_funcs.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
+// Benchmarking - start before anything else.
+include_once ("./includes/timer.php");
+$BenchmarkTimer = new c_Timer;
+$BenchmarkTimer->start(); // Start benchmarking immediately
+
 //----- Start register_globals fix ----
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 

@@ -4,6 +4,19 @@ connectdb();
 $res = $db->Execute("SELECT COUNT(*) as loggedin from $dbtables[ships] WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP($dbtables[ships].last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'");
 $row = $res->fields;
 $online = $row[loggedin];
+
+global $BenchmarkTimer;
+if (is_object($BenchmarkTimer))
+{
+    $stoptime = $BenchmarkTimer->stop();
+    $elapsed = $BenchmarkTimer->elapsed();
+    $elapsed = substr($elapsed,0,5);
+}
+else
+{
+    $elapsed = 999;
+}
+
 ?><br>
  <center>
 <?php
@@ -51,10 +64,16 @@ echo $l_footer_players_on_2;
   <table width="100%" border=0 cellspacing=0 cellpadding=0>
    <tr>
     <td><font color=silver size=-4><a href="http://www.sourceforge.net/projects/blacknova">BlackNova Traders</a></font></td>
-    <td align=right><font color=silver size=-4>Copyright 2000-2005 Ron Harwood and the Blacknova Traders development team</font></td>
+    <td align=right><font color=silver size=-4>&copy;2000-2012 Ron Harwood &amp; the Blacknova Development team</font></td>
    </tr>
    <tr>
     <td><font color=silver size=-4><a href="news.php">Local BlackNova News</a></font></td>
+<?php
+if ($footer_show_time == TRUE)
+{
+	echo "<td align=right><font color=silver size=-4>Time to generate page: " . $elapsed . " seconds</td>";
+}
+?>
    </tr>
   </table>
 </body>

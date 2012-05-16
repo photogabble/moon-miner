@@ -242,6 +242,7 @@ $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "b
 
 // Switch between old style footer and new style. Old is text, and only the time until next update. New is a table, and also includes server time.
 $footer_style = 'old';
+$footer_show_time = TRUE;
 
 include("global_funcs.php");
 ?>
