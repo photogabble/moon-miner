@@ -72,4 +72,7 @@ $adminname = "Admin Name";
 
 // Address the forum link, link's to:
 $link_forums = "http://forums.blacknova.net";
+
+// Define a random crypto key for ADOdb to use for encrypted sessions.
+$ADODB_CRYPT_KEY = "ptjsiaanxyhdhjz";
 ?>
