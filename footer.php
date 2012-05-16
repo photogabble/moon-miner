@@ -16,7 +16,6 @@ else
 {
     $elapsed = 999;
 }
-
 ?><br>
  <center>
 <?php
