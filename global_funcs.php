@@ -10,6 +10,32 @@ include_once ("./includes/timer.php");
 $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
+global $ADODB_CRYPT_KEY;
+global $db_type, $dbhost, $dbuname, $dbpass, $dbname;
+
+$ADODB_SESSION_TBL     = "bnt_sessions";
+$ADODB_SESSION_DRIVER=$db_type;
+$ADODB_SESSION_CONNECT=$dbhost;
+$ADODB_SESSION_USER =$dbuname;
+$ADODB_SESSION_PWD =$dbpass;
+$ADODB_SESSION_DB =$dbname;
+
+// Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
+// supported in the future, and cryptsessions, so the session data itself is encrypted.
+include_once ("$ADOdbpath" . "/adodb-perf.inc.php");
+include_once ("$ADOdbpath" . "/session/adodb-session.php");
+
+// We explicitly use encrypted sessions, but this adds compression as well.
+ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
+
+// The data field name "data" violates SQL reserved words - switch it to SESSDATA
+ADODB_Session::dataFieldName('SESSDATA');
+
+global $db,$dbtables;
+connectdb();
+
+session_start();
+
 //----- Start register_globals fix ----
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 
@@ -151,6 +177,8 @@ $dbtables['IGB_transfers'] = "${db_prefix}IGB_transfers";
 $dbtables['logs'] = "${db_prefix}logs";
 $dbtables['bounty'] = "${db_prefix}bounty";
 $dbtables['movement_log'] = "${db_prefix}movement_log";
+$dbtables['sessions'] = "${db_prefix}sessions";
+
 
 function mypw($one,$two)
 {
