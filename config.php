@@ -4,6 +4,8 @@ ini_set('error_reporting', 0);
 // ini_set('display_errors', '1'); // During development
 ini_set('display_errors', '0');
 
+ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+
 include("db_config.php");
 include("$ADOdbpath" . "/adodb.inc.php");
 
