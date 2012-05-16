@@ -440,6 +440,18 @@ $db->Execute("CREATE TABLE $dbtables[bounty] (" .
              ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
+Table_Row("Creating session Table","Failed","Passed");
+
+$db->Execute("CREATE TABLE $dbtables[sessions] (" .
+             "SESSKEY varchar(32) DEFAULT '' NOT NULL," .
+             "EXPIRY int(11) default '0' NOT NULL," .
+             "EXPIREREF varchar(64)," .
+             "SESSDATA longblob default '' NOT NULL," .
+             "PRIMARY KEY (EXPIRY)," .
+             "KEY SESSKEY(SESSKEY)" .
+             ")");
+$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+
 Table_Row("Creating bounty Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE $dbtables[movement_log](" .
@@ -455,6 +467,8 @@ $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysq
 
 Table_Row("Creating movement_log Table","Failed","Passed");
 Table_Footer("Hover over the failed row to see the error.");
+
+
 
 //Finished
 echo "<b>Database schema creation completed successfully.</b><BR>";
