@@ -1,12 +1,4 @@
 <?php
-
-##############################################
-## Note to self, remove all the debug admin ##
-## logs to reduce the amount records in the ##
-## logs table and to also reduce the total  ##
-## size of the database.                    ##
-##############################################
-
 include("config.php");
 updatecookie();
 include("languages/$lang");
@@ -41,7 +33,7 @@ $targetscore = gen_score($targetinfo['ship_id']);
 //echo $targetscore;
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
-/* check to ensure target is in the same sector as player */
+// check to ensure target is in the same sector as player
 if($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == "Y")
 {
 	echo "$l_att_notarg<BR><BR>";
@@ -54,9 +46,17 @@ else if( isSameTeam($playerinfo['team'], $targetinfo['team']) )
 {
 	echo "<div style='color:#FFFF00;'>Sorry, You cannot attack a fellow Teamemate!</div>\n";
 }
+elseif(isset($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
+{
+	echo "<div style='color:#FFFF00;'>Sorry, You are already in combat!</div>\n";
+	adminlog(13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
+}
 else
 {
-	/* determine percent chance of success in detecting target ship - based on player's sensors and opponent's cloak */
+	// Set In Combat Flag
+	$_SESSION['in_combat'] = (boolean) true;
+
+	// determine percent chance of success in detecting target ship - based on player's sensors and opponent's cloak
 	$success = (10 - $targetinfo['cloak'] + $playerinfo['sensors']) * 5;
 	if($success < 5)
 	{
@@ -85,14 +85,14 @@ else
 	}
 	elseif($roll > $success)
 	{
-		/* if scan fails - inform both player and target. */
+		// if scan fails - inform both player and target.
 		echo "$l_planet_noscan<BR><BR>";
 		$db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
 		playerlog($targetinfo['ship_id'], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
 	}
 	else
 	{
-		/* if scan succeeds, show results and inform target. */
+		// if scan succeeds, show results and inform target.
 		$shipavg = get_avg_tech($targetship, "ship");
 
 		if($shipavg > $ewd_maxhullsize)
@@ -107,7 +107,7 @@ else
 
 		if($targetinfo['dev_emerwarp'] > 0 && $random_value > $chance)
 		{
-			/* need to change warp destination to random sector in universe */
+			// need to change warp destination to random sector in universe
 			$rating_change=round($targetinfo['rating']*.1);
 			$dest_sector=rand(1, $sector_max-1);
 			$db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
@@ -411,7 +411,7 @@ else
 					$targettorpdmg=0;
 				}
 			}
-
+			
 			if($playertorpdmg > 0)
 			{
 				$bcs_stats_info = true;
@@ -426,7 +426,7 @@ else
 					echo "$targetinfo[character_name]" . $l_att_ashit . " $playertorpdmg $l_att_dmg.<BR>";
 				}
 			}
-
+			
 			if($targettorpdmg > 0)
 			{
 				$bcs_stats_info = true;
@@ -441,7 +441,7 @@ else
 					echo "$l_att_ayhit $targettorpdmg $l_att_dmg.<BR>";
 				}
 			}
-
+			
 			if ($bcs_stats_info == false)
 			{
 				echo "No information available.<br />\n";
@@ -484,7 +484,7 @@ else
 				$playerfighters=$tempplayfighters;
 				$targetfighters=$temptargfighters;
 			}
-
+			
 			if($playerfighters > 0)
 			{
 				$bcs_stats_info = true;
@@ -499,7 +499,7 @@ else
 					echo "$targetinfo[character_name]" . $l_att_ashit ." $playerfighters $l_att_dmg.<BR>";
 				}
 			}
-
+			
 			if($targetfighters > 0)
 			{
 				$bcs_stats_info = true;
@@ -514,7 +514,7 @@ else
 					echo "$l_att_ayhit $targetfighters $l_att_dmg.<BR>";
 				}
 			}
-
+			
 			if ($bcs_stats_info == false)
 			{
 				echo "No information available.<br />\n";
@@ -537,12 +537,16 @@ else
 					$db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$targetinfo[ship_id]");
 					playerlog($targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
 					collect_bounty($playerinfo['ship_id'],$targetinfo['ship_id']);
+
+					adminlog(950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
+
 				}
 				else
 				{
 					playerlog($targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
 					db_kill_player($targetinfo['ship_id']);
 					collect_bounty($playerinfo['ship_id'],$targetinfo['ship_id']);
+					adminlog(950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
 				}
 			
 				if($playerarmor > 0)
@@ -550,16 +554,23 @@ else
 					$rating_change=round($targetinfo['rating']*$rating_combat_factor);
 					//Updating to always get a positive rating increase for xenobe and the credits they are carrying - rjordan
 					$salv_credits = 0;
-
-					if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 )
+			
+					// Double Death Attack Bug Fix - Returns 0 for real players, 1 for Xenobe players
+					if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 ) // He is a Xenobe
 					{
 						$db->Execute("UPDATE $dbtables[xenobe] SET active= N WHERE xenobe_id=$targetinfo[email]");
+
+						adminlog(950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
+			
 						if ($rating_change > 0)
 						{
 							$rating_change = 0 - $rating_change;
 							playerlog($targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
 							collect_bounty($playerinfo['ship_id'],$targetinfo['ship_id']);
 							db_kill_player($targetinfo['ship_id']);
+
+							adminlog(950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
+
 						}
 						$salv_credits = $targetinfo['credits'];
 					}
@@ -639,14 +650,14 @@ else
 				$armor_lost=$targetinfo['armor_pts']-$targetarmor;
 				$fighters_lost=$targetinfo['ship_fighters']-$targetfighters;
 				$energy=$targetinfo['ship_energy'];
-
+			
 				playerlog($targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$armor_lost|$fighters_lost");
 				$update4 = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armor_pts=armor_pts-$armor_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
 			
 				$armor_lost=$playerinfo['armor_pts']-$playerarmor;
 				$fighters_lost=$playerinfo['ship_fighters']-$playerfighters;
 				$energy=$playerinfo['ship_energy'];
-
+			
 				$update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armor_pts=armor_pts-$armor_lost, torps=torps-$playertorpnum, turns=turns-1, turns_used=turns_used+1, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
 				echo "$l_att_ylost $armor_lost $l_armorpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<BR><BR>";
 			}
@@ -748,7 +759,6 @@ else
 	}
 }
 $db->Execute("UNLOCK TABLES");
-//-------------------------------------------------------------------------------------------------
 
 $_SESSION['in_combat'] = (boolean) false;
 
