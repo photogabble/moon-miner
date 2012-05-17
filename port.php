@@ -2,7 +2,6 @@
 include("config.php");
 updatecookie();
 
-
 include("languages/$lang");
 $title = $l_title_port;
 include("header.php");
@@ -20,8 +19,8 @@ if(checklogin())
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
-// fix negative quantities, i guess theres a better way to do but i'm in a hurry
-// i dont know how the quantities acutally get negative ...
+// Fix negative quantities, I guess theres a better way to do but i'm in a hurry
+// I dont know how the quantities acutally get negative ...
 
 if ($playerinfo[ship_ore]<0)
 		{
@@ -46,7 +45,6 @@ if ($playerinfo[ship_goods]<0)
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_goods=0 WHERE email='$username'");
         $playerinfo[ship_goods] = 0;
         }
-
 
 
 $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
@@ -178,7 +176,7 @@ if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
     $energy_price = $energy_price + $energy_delta * $sectorinfo[port_energy] / $energy_limit * $inventory_factor;
     $sb_energy = $l_buying;
   }
-  // establish default amounts for each commodity
+  // Establish default amounts for each commodity
   if($sb_ore == $l_buying)
   {
     $amount_ore = $playerinfo[ship_ore];
@@ -264,6 +262,10 @@ elseif($sectorinfo[port_type] == "special")
 {
   $title=$l_special_port;
   bigtitle();
+
+  // Kami Multi Browser Window Upgrade Fix
+  $_SESSION['port_shopping'] = true;
+
   if(isLoanPending($playerinfo[ship_id]))
   {
     echo "$l_port_loannotrade<p>";
@@ -273,22 +275,24 @@ elseif($sectorinfo[port_type] == "special")
     die();
   }
 
-  $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM $dbtables[bounty] WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id]");
+  if($bounty_all_special == true)
+  {
+    $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM $dbtables[bounty] WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id];");
+  }
+  else
+  {
+    $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM $dbtables[bounty] WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id] AND {$sectorinfo[zone_id]}=2;");
+  }
   if($res2)
   {
      $bty = $res2->fields;
      if($bty[total_bounty] > 0)
      {
-        if($pay <> 1)
-        {
-           echo $l_port_bounty;
-           $l_port_bounty2 = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_bounty2);
-           echo $l_port_bounty2 . "<BR>";
-           echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR><BR>";
-           TEXT_GOTOMAIN();
-           die(); 
-        }
-        else
+        $bank_sql = "SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id = $playerinfo[ship_id]";
+        $bank_res = $db->Execute($bank_sql);
+        $bank_row = $bank_res->fields;
+
+        if(isset($pay) && $pay == 1)
         {
            if($playerinfo[credits] < $bty[total_bounty])
            {
@@ -305,9 +309,95 @@ elseif($sectorinfo[port_type] == "special")
               die();
            }
         }
+        elseif(isset($pay) && $pay == 2)
+        {
+          $bank_sql = "SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id = $playerinfo[ship_id]";
+          $bank_res = $db->Execute($bank_sql);
+          $bank_row = $bank_res->fields;
+
+          $bounty_payment = $bank_row[balance];
+          if($bounty_payment >1000)
+          {
+            $bounty_payment -= 1000;
+
+            if($bank_row[balance] >= $bty[total_bounty])
+            {
+              echo "Full Payment Mode<br />\n";
+              echo "You have paid your entire bounty<br />\n";
+              echo "<br />\n";
+
+              $bounty_payment = $bty[total_bounty];
+
+              $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
+              $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+
+              echo $l_port_bountypaid;
+              die();
+            }
+            else
+            {
+              echo "Partial Payment Mode<br />\n";
+              echo "You don't have enough Credits within your Intergalactic Bank Account to pay your entire bounty.<br />\n";
+              echo "However you can pay your bounty off in instalments.<br />\n";
+              echo "And your first instalment will be ".NUMBER($bounty_payment)." credits.<br />\n";
+              echo "<br />\n";
+
+              $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
+              $db->Execute("UPDATE $dbtables[bounty] SET amount = amount - $bounty_payment  WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+              echo "You have paid part of the bounty.<br />\n";
+              echo "<br />\n";
+
+              TEXT_GOTOMAIN();
+              die();
+
+            }
+          }
+          else
+          {
+            echo "Sorry you don't have enough funds in the bank.<br />\n";
+            echo "Try doing some trading then transfer your funds over to the <a href='igb.php'>Intergalactic Bank</a><br />\n";
+            echo "<br />\n";
+
+            TEXT_GOTOMAIN();
+            die();
+          }
+
+          $bounty_left    = $bty[total_bounty] - $bounty_payment;
+
+          TEXT_GOTOMAIN();
+          die();
+
+        }
+        else
+        {
+          echo $l_port_bounty;
+          echo "<br />\n";
+
+          echo "Option Plan 1: Payment from Ship<br />\n";
+          $l_port_bounty2 = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_bounty2);
+          echo $l_port_bounty2 . "<BR>";
+          echo "<br />\n";
+
+          echo "Option Plan 2: Payment from Intergalactic Bank [Full/Partial Payments]<br />\n";
+          $l_port_bounty3 = "Click <a href='port.php?pay=2'>here</a> to pay the bounty of [amount] Credits from your Intergalactic Bank Account.";
+          $l_port_bounty3 = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_bounty3);
+          echo "$l_port_bounty3<br />\n";
+          echo "<br />\n";
+
+          echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR><BR>";
+          TEXT_GOTOMAIN();
+          die();
+        }
      }
   }
+
+  $genesis_free = $max_genesis - $playerinfo[dev_genesis];
+  $beacon_free = $max_beacons - $playerinfo[dev_beacon];
+
   $emerwarp_free = $max_emerwarp - $playerinfo[dev_emerwarp];
+
+  $warpedit_free = $max_warpedit - $playerinfo[dev_warpedit];
+
   $fighter_max = NUM_FIGHTERS($playerinfo[computer]);
   $fighter_free = $fighter_max - $playerinfo[ship_fighters];
   $torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]);
@@ -315,6 +405,8 @@ elseif($sectorinfo[port_type] == "special")
   $armor_max = NUM_ARMOUR($playerinfo[armor]);
   $armor_free = $armor_max - $playerinfo[armor_pts];
   $colonist_max = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods];
+
+  if ($colonist_max <0) $colonist_max = 0;
   $colonist_free = $colonist_max - $playerinfo[ship_colonists];
 
   TEXT_JAVASCRIPT_BEGIN();
@@ -369,36 +461,76 @@ echo "  }\n";
 echo " i--;\n";
 echo "}\n";
 echo "// Here we set all 'Max' items to 0 if they are over max - player amt.\n";
+
+echo "if (($genesis_free < form.dev_genesis_number.value) && (form.dev_genesis_number.value != 'Full'))\n";
+echo " {\n";
+echo " form.dev_genesis_number.value=0\n";
+echo " }\n";
+
+echo "if (($beacon_free < form.dev_beacon_number.value) && (form.dev_beacon_number.value != 'Full'))\n";
+echo " {\n";
+echo " form.dev_beacon_number.value=0\n";
+echo " }\n";
+
 echo "if (($emerwarp_free < form.dev_emerwarp_number.value) && (form.dev_emerwarp_number.value != 'Full'))\n";
 echo " {\n";
 echo " form.dev_emerwarp_number.value=0\n";
 echo " }\n";
+
+echo "if (($warpedit_free < form.dev_warpedit_number.value) && (form.dev_warpedit_number.value != 'Full'))\n";
+echo " {\n";
+echo " form.dev_warpedit_number.value=0\n";
+echo " }\n";
+
 echo "if (($fighter_free < form.fighter_number.value) && (form.fighter_number.value != 'Full'))\n";
 echo " {\n";
 echo " form.fighter_number.value=0\n";
 echo " }\n";
+
 echo "if (($torpedo_free < form.torpedo_number.value) && (form.torpedo_number.value != 'Full'))\n";
 echo "  {\n";
 echo "  form.torpedo_number.value=0\n";
 echo "  }\n";
+
 echo "if (($armor_free < form.armor_number.value) && (form.armor_number.value != 'Full'))\n";
 echo "  {\n";
 echo "  form.armor_number.value=0\n";
 echo "  }\n";
+
 echo "if (($colonist_free < form.colonist_number.value) && (form.colonist_number.value != 'Full' ))\n";
 echo "  {\n";
 echo "  form.colonist_number.value=0\n";
 echo "  }\n";
+
 echo "// Done with the bounds checking\n";
 echo "// Pluses must be first, or if empty will produce a javascript error\n";
-echo "form.total_cost.value = form.dev_genesis_number.value * $dev_genesis_price \n";
-echo "+ form.dev_beacon_number.value * $dev_beacon_price\n";
+echo "form.total_cost.value = 0\n";
+
+// NaN Fix :: Needed to be put in an if statment to check for Full.
+if($genesis_free > 0)
+{
+    echo "+ form.dev_genesis_number.value * $dev_genesis_price \n";
+}
+
+// NaN Fix :: Needed to be put in an if statment to check for Full.
+if($beacon_free > 0)
+{
+	echo "+ form.dev_beacon_number.value * $dev_beacon_price\n";
+}
+
 if($emerwarp_free > 0)
 {
   echo "+ form.dev_emerwarp_number.value * $dev_emerwarp_price\n";
 }
-echo "+ form.dev_warpedit_number.value * $dev_warpedit_price\n";
+
+// NaN Fix :: Needed to be put in an if statment to check for Full.
+if($warpedit_free > 0)
+{
+    echo "+ form.dev_warpedit_number.value * $dev_warpedit_price\n";
+}
+
 echo "+ form.elements['dev_minedeflector_number'].value * $dev_minedeflector_price\n";
+
 if($playerinfo[dev_escapepod] == 'N')
 {
   echo "+ (form.escapepod_purchase.checked ?  $dev_escapepod_price : 0)\n";
@@ -517,11 +649,29 @@ return $dropdownvar;
   echo "    <TD><B>$l_upgrade</B></TD>\n";
   echo "   </TR>\n";
   echo "   <TR BGCOLOR=\"$color_line1\">\n";
+#  echo "    <TD>$l_genesis</TD>\n";
+#  echo "    <TD>" . NUMBER($dev_genesis_price) . "</TD>\n";
+#  echo "    <TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD>\n";
+#  echo "    <TD>$l_unlimited</TD>\n";
+#  echo "    <TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur></TD>\n";
+
   echo "    <TD>$l_genesis</TD>\n";
   echo "    <TD>" . NUMBER($dev_genesis_price) . "</TD>\n";
   echo "    <TD>" . NUMBER($playerinfo[dev_genesis]) . "</TD>\n";
-  echo "    <TD>$l_unlimited</TD>\n";
-  echo "    <TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur></TD>\n";
+  echo "    <TD>";
+  if($playerinfo[dev_genesis] != $max_genesis)
+  {
+    echo"<a href='#' onClick=\"MakeMax('dev_genesis_number', $genesis_free);countTotal();return false;\">";
+    echo NUMBER($genesis_free) . "</a></TD>\n";
+    echo"    <TD><INPUT TYPE=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur>";
+  }
+  else
+  {
+    echo "0</TD>\n";
+    echo "    <TD><input type=text readonly class='portcosts1' NAME=dev_genesis_number MAXLENGTH=10 VALUE=$l_full $onblur tabindex='-1'>";
+  }
+  echo "</TD>\n";
+
   echo "    <TD>$l_hull</TD>\n";
   echo "    <TD><input type=text readonly class='portcosts1' name=hull_costper VALUE='0' tabindex='-1' $onblur></TD>\n";
   echo "    <TD>" . NUMBER($playerinfo[hull]) . "</TD>\n";
@@ -530,11 +680,30 @@ return $dropdownvar;
   echo "    </TD>\n";
   echo "   </TR>\n";
   echo "   <TR BGCOLOR=\"$color_line2\">\n";
+#  echo "    <TD>$l_beacons</TD>\n";
+#  echo "    <TD>" . NUMBER($dev_beacon_price) . "</TD>\n";
+#  echo "    <TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD>\n";
+#  echo "    <TD>$l_unlimited</TD>\n";
+#  echo "    <TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur></TD>\n";
+
   echo "    <TD>$l_beacons</TD>\n";
   echo "    <TD>" . NUMBER($dev_beacon_price) . "</TD>\n";
   echo "    <TD>" . NUMBER($playerinfo[dev_beacon]) . "</TD>\n";
-  echo "    <TD>$l_unlimited</TD>\n";
-  echo "    <TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur></TD>\n";
+  echo "    <TD>";
+  if($playerinfo[dev_beacon] != $max_beacons)
+  {
+    echo"<a href='#' onClick=\"MakeMax('dev_beacon_number', $beacon_free);countTotal();return false;\">";
+    echo NUMBER($beacon_free) . "</a></TD>\n";
+    echo"    <TD><INPUT TYPE=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur>";
+  }
+  else
+  {
+    echo "0</TD>\n";
+    echo "    <TD><input type=text readonly class='portcosts2' NAME=dev_beacon_number MAXLENGTH=10 VALUE=$l_full $onblur tabindex='-1'>";
+  }
+  echo "</TD>\n";
+
+
   echo "    <TD>$l_engines</TD>\n";
   echo "    <TD><input type=text readonly class='portcosts2' size=10 name=engine_costper VALUE='0' tabindex='-1' $onblur></TD>\n";
   echo "    <TD>" . NUMBER($playerinfo[engines]) . "</TD>\n";
@@ -567,9 +736,27 @@ return $dropdownvar;
   echo "    </TD>\n";
   echo "  </TR>\n";
   echo "  <TR BGCOLOR=\"$color_line2\">\n";
+#  echo "    <TD>$l_warpedit</TD>\n";
+#  echo "    <TD>" . NUMBER($dev_warpedit_price) . "</TD>\n";
+#  echo "    <TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD>$l_unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur></TD>";
+
   echo "    <TD>$l_warpedit</TD>\n";
   echo "    <TD>" . NUMBER($dev_warpedit_price) . "</TD>\n";
-  echo "    <TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD><TD>$l_unlimited</TD><TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur></TD>";
+  echo "    <TD>" . NUMBER($playerinfo[dev_warpedit]) . "</TD>\n";
+  echo "    <TD>";
+  if($playerinfo[dev_warpedit] != $max_warpedit)
+  {
+    echo"<a href='#' onClick=\"MakeMax('dev_warpedit_number', $warpedit_free);countTotal();return false;\">";
+    echo NUMBER($warpedit_free) . "</a></TD>\n";
+    echo"    <TD><INPUT TYPE=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 VALUE=0 $onblur>";
+  }
+  else
+  {
+    echo "0</TD>\n";
+    echo "    <TD><input type=text readonly class='portcosts2' NAME=dev_warpedit_number MAXLENGTH=10 VALUE=$l_full $onblur tabindex='-1'>";
+  }
+  echo "</TD>\n";
+
   echo "    <TD>$l_computer</TD>\n";
   echo "    <TD><input type=text readonly class='portcosts2' name=computer_costper VALUE='0' tabindex='-1' $onblur></TD>\n";
   echo "    <TD>" . NUMBER($playerinfo[computer]) . "</TD>\n";

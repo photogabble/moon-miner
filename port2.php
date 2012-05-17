@@ -14,9 +14,6 @@ if(checklogin())
   die();
 }
 
-//-------------------------------------------------------------------------------------------------
-
-
 $result     = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
 
@@ -127,6 +124,21 @@ else
 
   if($sectorinfo[port_type] == "special")
   {
+    // Kami Multi Browser Window Upgrade Fix
+    if($_SESSION['port_shopping'] != true)
+    {
+        adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
+        echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
+        echo "<div style='color:#FF0000; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
+        echo "<br />\n";
+        echo "<div style='color:#FFFFFF; font-size:12px;'>Auto redirecting in 2 seconds.</div>\n";
+        echo "<br />\n";
+
+        TEXT_GOTOMAIN();
+        include("footer.php");
+        die();
+	}
+    unset($_SESSION['port_shopping']);
 
     if(isLoanPending($playerinfo[ship_id]))
     {
@@ -231,8 +243,9 @@ else
     if($colonist_number < 0)
        $colonist_number = 0;
     $colonist_number = round(abs($colonist_number));
-    $colonist_max    = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] -
-      $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $colonist_max    = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+
+if ($colonist_max <0) $colonist_max = 0;
 
     if($colonist_number > $colonist_max)
     {
@@ -240,14 +253,19 @@ else
     }
 
     $colonist_cost            = $colonist_number * $colonist_price;
-    $dev_genesis_number       = round(abs($dev_genesis_number));
+
+    $dev_genesis_number       = min(round(abs($dev_genesis_number)), $max_genesis - $playerinfo[dev_genesis]);
     $dev_genesis_cost         = $dev_genesis_number * $dev_genesis_price;
-    $dev_beacon_number        = round(abs($dev_beacon_number));
+
+    $dev_beacon_number        = min(round(abs($dev_beacon_number)), $max_beacons - $playerinfo[dev_beacon]);
     $dev_beacon_cost          = $dev_beacon_number * $dev_beacon_price;
+
     $dev_emerwarp_number      = min(round(abs($dev_emerwarp_number)), $max_emerwarp - $playerinfo[dev_emerwarp]);
     $dev_emerwarp_cost        = $dev_emerwarp_number * $dev_emerwarp_price;
-    $dev_warpedit_number      = round(abs($dev_warpedit_number));
+
+    $dev_warpedit_number      = min(round(abs($dev_warpedit_number)), $max_warpedit - $playerinfo[dev_warpedit]);
     $dev_warpedit_cost        = $dev_warpedit_number * $dev_warpedit_price;
+
     $dev_minedeflector_number = round(abs($dev_minedeflector_number));
     $dev_minedeflector_cost   = $dev_minedeflector_number * $dev_minedeflector_price;
 
@@ -412,10 +430,34 @@ else
       }
       $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
       $purchase = $db->Execute("$query");
+
+#      if ($colonist_max <0)
+#      {
+#        BuildTwoCol("<span style='color:#FF0000;'>Detected Overflow</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
+#        $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
+#      }
+
       $hull_upgrade=0;
-      echo "
-      </table>
-      ";
+      echo "</table>";
+	  
+echo "<div style='font-size:16px; color:#FFFFFF;'><br />[<span style='color:#00FF00;'>Border Patrol</span>]<br />\n";
+echo "Halt, while we scan your cargo...<br />\n";
+
+if ((NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists]) <0)
+{
+#	BuildTwoCol("<span style='color:#FF0000;'>Detected Illegal Cargo</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
+
+	echo "<span style='color:#FF0000; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
+	$db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
+	adminlog(5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
+}
+else
+{
+	echo "<span style='color:#00FF00;'>Detected no illegal cargo, you may continue.</span>\n";
+}
+
+echo "</div>\n"; 
+
     }
   }
   elseif($sectorinfo[port_type] != "none")
