@@ -1,37 +1,126 @@
 <?php
+include("config.php");
+updatecookie();
 
-	include("config.php");
-	updatecookie();
+include("languages/$lang");
+$title=$l_feedback_title;
+include("header.php");
 
-  include("languages/$lang");
-	$title=$l_feedback_title;
-	include("header.php");
+connectdb();
 
-	connectdb();
+if (checklogin()) {die();}
 
-	if (checklogin()) {die();}
+if(!isset($_SESSION['content']))
+{
+	$_SESSION['content'] = $_POST['content'];
+	$_SESSION['sendemail'] = false;
+}
 
-	$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-	$playerinfo=$result->fields;
-        bigtitle();
-	if (empty($content))
+$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$playerinfo=$result->fields;
+bigtitle();
+if (is_null($_SESSION['content']))
+{
+	echo "<form action=feedback.php method=post>";
+	echo "<table>";
+	echo "<tr><td>$l_feedback_to</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=GameAdmin></td></tr>";
+	echo "<tr><td>$l_feedback_from</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=\"$playerinfo[character_name] - $playerinfo[email]\"></td></tr>";
+	echo "<tr><td>$l_feedback_topi</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=$l_feedback_feedback></td></tr>";
+	echo "<tr><td>$l_feedback_message</td><td><textarea name=content rows=5 cols=40></textarea></td></tr>";
+	echo "<tr><td></td><td><input type=submit value=$l_submit><input type=reset value=$l_reset></td>";
+	echo "</table>";
+	echo "</form>";
+	echo "<br>$l_feedback_info<br>";
+}
+else
+{
+	require_once("includes/mailer_class.php");
+	$mailer = new Mailer();
+
+	if($_SESSION['sendemail'] == false)
 	{
-		echo "<form action=feedback.php method=post>";
-		echo "<table>";
-		echo "<tr><td>$l_feedback_to</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=GameAdmin></td></tr>";
-		echo "<tr><td>$l_feedback_from</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=\"$playerinfo[character_name] - $playerinfo[email]\"></td></tr>";
-		echo "<tr><td>$l_feedback_topi</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=$l_feedback_feedback></td></tr>";
-		echo "<tr><td>$l_feedback_message</td><td><textarea name=content rows=5 cols=40></textarea></td></tr>";
-		echo "<tr><td></td><td><input type=submit value=$l_submit><input type=reset value=$l_reset></td>";
-		echo "</table>";
-		echo "</form>";
-		echo "<br>$l_feedback_info<br>";
-	} else {
-		echo "$l_feedback_messent<BR><BR>";
-		mail("$admin_mail", $l_feedback_subj, "IP address - $ip\r\nGame Name - $playerinfo[character_name] - $gamedomain \r\n\r\n$content","From: $playerinfo[email]\r\nX-Mailer: PHP/" . phpversion());
+		$_SESSION['sendemail'] = true;
+	
+		$image = "images/unknown.png";
+	
+		echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+		echo "<table style='width:400px; border:#FFFFFF 1px solid; color:#FFFF00;'>\n";
+		echo "  <tr>\n";
+		echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; text-align:center; font-size:14px; color:#000000;' colspan='2'>Sending Feedback</td>\n";
+		echo "  </tr>\n";
+		echo "  <tr>\n";
+		echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
+		echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>Sending Feedback.<br />This may take a few seconds to send, so Please Wait.</td>\n";
+		echo "  </tr>\n";
+		echo "  <tr>\n";
+		echo "    <td colspan='2' style='background-color:#C0C0C0; border:#FFFFFF 1px solid; font-size:10px; color:#000000;'>{$mailer->getInfo()}</td>\n";
+		echo "  </tr>\n";
+		echo "</table>\n";
+		echo "</div>\n";
+	
+		echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL={$_SERVER['PHP_SELF']}\">\n";
 	}
+	else
+	{
+		$mailer->setDebugMode(false);
 
-    TEXT_GOTOMAIN();
-	include("footer.php");
+		$mailer->setMailHost($ExtMailCfg['host']);
+		$ret = $mailer->Authenticate($ExtMailCfg);
 
+		$mailer->setDomain($email_server );
+		$mailer->setSender( $playerinfo[character_name], $playerinfo[email] );
+		$mailer->setRecipient( $adminname, $admin_mail );
+		$mailer->setSubject( $l_feedback_subj );
+		$mailer->setMessage( "IP address - $ip\r\nGame Name - $playerinfo[character_name] - $gamedomain \r\n\r\n{$_SESSION['content']}\r\n" );
+		$ret = $mailer->sendMail();
+		if($ret == true)
+		{
+			$image = "images/tick.png";
+			$result = "<span style='color:#0000FF;'>Send Feedback Passed.</span>";
+			$errorResult = NULL;
+		}
+		else
+		{
+			$err = $mailer->getError();
+			if($err['no'] == 2)
+			{
+				$image = "images/greylist.png";
+				$result = "<span style='color:#FF0000;'>Send Feedback Failed.<br />Detected Greylisting...<br />Please notify an admin on the forums.</span>";
+			}
+			else
+			{
+				$image = "images/cross.png";
+				$result = "<span style='color:#FF0000;'>Send Feedback Failed.<br />{$err['msg']}</span>";
+			}
+		}
+				
+		echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+		echo "<table style='width:400px; border:#FFFFFF 1px solid;'>\n";
+		echo "  <tr>\n";
+		echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; text-align:center; font-size:14px; color:#000000;' colspan='2'>Send Feedback</td>\n";
+		echo "  </tr>\n";
+		echo "  <tr>\n";
+		echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
+		echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>{$result}</td>\n";
+		echo "  </tr>\n";
+		echo "  <tr>\n";
+		echo "    <td colspan='2' style='background-color:#C0C0C0; border:#FFFFFF 1px solid; font-size:10px; color:#000000;'>{$mailer->getInfo()}</td>\n";
+		echo "  </tr>\n";
+		echo "</table>\n";
+		echo "</div>\n";
+		unset($_SESSION['content'], $_SESSION['sendemail']);
+	}
+}
+
+echo "<br />\n";
+if(empty($username))
+{
+	TEXT_GOTOLOGIN();
+}
+else
+{
+	TEXT_GOTOMAIN();
+}
+
+include("footer.php");
 ?>

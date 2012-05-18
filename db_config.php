@@ -75,4 +75,7 @@ $link_forums = "http://forums.blacknova.net";
 
 // Define a random crypto key for ADOdb to use for encrypted sessions.
 $ADODB_CRYPT_KEY = "ptjsiaanxyhdhjz";
+
+// What mail server (an FQDN DNS name) should emails be sent from?
+$email_server = 'mail.example.com';
 ?>
