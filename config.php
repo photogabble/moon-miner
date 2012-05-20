@@ -9,48 +9,44 @@ ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed 
 include("db_config.php");
 include("$ADOdbpath" . "/adodb.inc.php");
 
-/* Main scheduler variables (game flow control)
------------------------------------------------*/
+//  Set this to how often (in minutes) you are running the scheduler script.
 
-/*
-  Set this to how often (in minutes) you are running
-  the scheduler script.
-*/
-$sched_ticks = 6;
+$sched_ticks = 1;
 
-/* All following vars are in minutes.
-   These are TRUE minutes, no matter to what interval
-   you're running the scheduler script! The scheduler
-   will auto-adjust, possibly running many of the same
-   events in a single call.
-*/
-$sched_turns = 2;    //New turns rate (also includes towing, xenobe)
-$sched_ports = 2;    //How often port production occurs
-$sched_planets = 2;  //How often planet production occurs
-$sched_igb = 2;      //How often IGB interests are added
-$sched_ranking = 30; //How often rankings will be generated
-$sched_news = 15;    //How often news are generated
-$sched_degrade = 6;  //How often sector fighters degrade when unsupported by a planet
+// All following vars are in minutes.
+// These are TRUE minutes, no matter to what interval
+// you're running the scheduler script! The scheduler
+// will auto-adjust, possibly running many of the same
+// events in a single call.
+
+$turns_per_tick = 6; // Update how many turns per tick
+$sched_turns = 2;    // New turns rate (also includes towing, xenobe)
+$sched_ports = 1;    // How often port production occurs
+$sched_planets = 2;  // How often planet production occurs
+$sched_igb = 2;      // How often IGB interests are added
+$sched_ranking = 30; // How often rankings will be generated
+$sched_news = 15;    // How often news are generated
+$sched_degrade = 6;  // How often sector fighters degrade when unsupported by a planet
 $sched_apocalypse = 15;
 $doomsday_value = 90000000; // number of colonists a planet needs before being affected by the apocalypse
 
-/* Scheduler config end */
+// Scheduler config end 
 
-/* GUI colors (temporary until we have something nicer) */
+// GUI colors (temporary until we have something nicer) 
 $color_header = "#500050";
 $color_line1 = "#300030";
 $color_line2 = "#400040";
 
-/* Localization (regional) settings */
+// Localization (regional) settings 
 $local_number_dec_point = ".";
 $local_number_thousands_sep = ",";
 $language = "english";
 
-/* game variables */
+// Game variables 
 $ip = $_SERVER['REMOTE_ADDR'];
-$mine_hullsize = 8; //Minimum size hull has to be to hit mines
-$ewd_maxhullsize = 15; //Max hull size before EWD degrades
-$sector_max = 5000;
+$mine_hullsize = 8; // Minimum size hull has to be to hit mines
+$ewd_maxhullsize = 15; // Max hull size before EWD degrades
+$sector_max = 1000;
 $link_max=10;
 $universe_size = 200;
 
@@ -60,12 +56,11 @@ $release_version = "0.55";     // Please do not change this. Doing so will cause
 $fed_max_hull = 8;
 $maxlen_password = 16;
 $max_rank=100;
-$rating_combat_factor=.8;    //ammount of rating gained from combat
-$server_closed=false;        //true = block logins but not new account creation
-$account_creation_closed=false;    //true = block new account creation
+$rating_combat_factor=.8;    // Amount of rating gained from combat
+$server_closed=false;        // True = block logins but not new account creation
+$account_creation_closed=false;    // True = block new account creation
 
-
-/* newbie niceness variables */
+// Newbie niceness variables 
 $newbie_nice = "YES";
 $newbie_extra_nice = "YES";
 $newbie_hull = "8";
@@ -79,7 +74,7 @@ $newbie_beams = "8";
 $newbie_torp_launchers = "8";
 $newbie_cloak = "8";
 
-/* specify which special features are allowed */
+// Specify which special features are allowed 
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer
 $allow_ibank = true;                  // Intergalactic Bank (IGB)
@@ -101,9 +96,9 @@ $ibank_loaninterest * 100 . "%<P>If you have loans Make sure you have enough cre
   "to pay the interest and mortage, otherwise it will be deducted from your ships acccount at <FONT COLOR=RED>" .
   "twice the current Loan rate (" . $ibank_loaninterest * 100 * 2 .")%</FONT>.";
 
-// end of iBank config
+// End of iBank config
 
-// default planet production percentages
+// Default planet production percentages
 $default_prod_ore      = 20.0;
 $default_prod_organics = 20.0;
 $default_prod_goods    = 20.0;
@@ -111,7 +106,7 @@ $default_prod_energy   = 20.0;
 $default_prod_fighters = 10.0;
 $default_prod_torp     = 10.0;
 
-/* port pricing variables */
+// Port pricing variables 
 $ore_price = 11;
 $ore_delta = 5;
 $ore_rate = 75000;
@@ -206,17 +201,17 @@ $avail_lang[1]['name'] = 'Francais';
 $avail_lang[2]['file'] = 'spanish';
 $avail_lang[2]['name'] = 'Spanish';
 
-$IGB_min_turns = $start_turns; //Turns a player has to play before ship transfers are allowed 0=disable
-$IGB_svalue = 0.15; //Max amount of sender's value allowed for ship transfers 0=disable
-$IGB_trate = 1440; //Time (in minutes) before two similar transfers are allowed for ship transfers.0=disable
-$IGB_lrate = 1440; //Time (in minutes) players have to repay a loan
-$IGB_tconsolidate = 10; //Cost in turns for consolidate : 1/$IGB_consolidate
-$corp_planet_transfers = 0; //If transferring credits to/from corp planets is allowed. 1=enable
-$min_value_capture = 0; //Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
+$IGB_min_turns = $start_turns; // Turns a player has to play before ship transfers are allowed 0=disable
+$IGB_svalue = 0.15; // Max amount of sender's value allowed for ship transfers 0=disable
+$IGB_trate = 1440; // Time (in minutes) before two similar transfers are allowed for ship transfers.0=disable
+$IGB_lrate = 1440; // Time (in minutes) players have to repay a loan
+$IGB_tconsolidate = 10; // Cost in turns for consolidate : 1/$IGB_consolidate
+$corp_planet_transfers = 0; // If transferring credits to/from corp planets is allowed. 1=enable
+$min_value_capture = 0; // Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
 $defence_degrade_rate = 0.05;
 $energy_per_fighter = 0.10;
-$bounty_maxvalue = 0.15; //Max amount a player can place as bounty - good idea to make it the same as $IGB_svalue. 0=disable
-$bounty_ratio = 0.75; // ratio of players networth before attacking results in a bounty. 0=disable
+$bounty_maxvalue = 0.15; // Max amount a player can place as bounty - good idea to make it the same as $IGB_svalue. 0=disable
+$bounty_ratio = 0.75; // Ratio of players networth before attacking results in a bounty. 0=disable
 $bounty_minturns = 500; // Minimum number of turns a target must have had before attacking them may not get you a bounty. 0=disable
 $display_password = false; // If true, will display password on signup screen.
 $space_plague_kills = 0.20; // Percentage of colonists killed by space plague
@@ -224,15 +219,12 @@ $max_credits_without_base = $base_credits; // Max amount of credits allowed on a
 $sofa_on = false;
 $ksm_allowed = true;
 
-$xenobe_max = 0;           // Sets the number of xenobe in the universe - rjordan
+$xenobe_max = 10;           // Sets the number of xenobe in the universe - rjordan
 $xen_start_credits = 1000000;         // What Xenobe start with - rjordan
 $xen_unemployment = 100000;   // Amount of credits each xenobe receive on each xenobe tick - rjordan
 $xen_aggression = 100;                // Percent of xenobe that are aggressive or hostile - rjordan
 $xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage - rjordan
 $xenstartsize = 15;                   // Max starting size of Xenobes at universe creation
-
-# Update how many turns per tick
-$turns_per_tick             = 6;                //
 
 # Port Regen Rate.
 $port_regenrate                         = 10;
