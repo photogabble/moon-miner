@@ -469,7 +469,7 @@ if($num_planets > 0)
 
 		echo "<td align='center' valign='top' style='width:79px; height:90px; padding:4px;'>";
 		echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
-		echo "<img class='mnu' width='79' height='90' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+		echo "<img class='mnu' width='79' height='90' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" border=0 alt=\"planet\"></a><BR><font size=", $basefontsize + 1, " color=\"#ffffff\" face=\"arial\">";
 
 		if(empty($planets[$i][name]))
 		{
@@ -646,7 +646,7 @@ if($num_defences > 0)
     echo "<td align=center valign=top>";
     if($defences[$i]['defence_type'] == 'F')
     {
-       echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+       echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=\"#ffffff\" face=\"arial\">";
        $def_type = $l_fighters;
        $mode = $defences[$i]['fm_setting'];
        if($mode == 'attack')
@@ -657,7 +657,7 @@ if($num_defences > 0)
     }
     elseif($defences[$i]['defence_type'] == 'M')
     {
-       echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=#ffffff face=\"arial\">";
+       echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=\"#ffffff\" face=\"arial\">";
        $def_type = $l_mines;
     }
     $char_name = $defences[$i]['character_name'];
