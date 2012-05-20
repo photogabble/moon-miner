@@ -80,6 +80,7 @@
 		}
 	}
 
+/*
 	$title="Game Reset Information";
 	bigtitle();
 	echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
@@ -91,7 +92,7 @@
 	echo "</table>\n";
 	echo "<br />\n";
 	echo "<br />\n";
-
+*/
 	$title="Game Administrators";
 	bigtitle();
 	$found_blues = 0;
