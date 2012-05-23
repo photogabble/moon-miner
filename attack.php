@@ -3,18 +3,16 @@ include("config.php");
 updatecookie();
 include("languages/$lang");
 
-
 connectdb();
 
 if(checklogin())
 {
-	die();//shouldnt we redirect to login page or show the login notice here?
+	die(); // Shouldnt we redirect to login page or show the login notice here?
 }
 
 $title=$l_att_title;
 include("header.php");
 
-//-------------------------------------------------------------------------------------------------
 $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[bounty] WRITE $dbtables[zones] READ, $dbtables[planets] WRITE, $dbtables[news] WRITE, $dbtables[logs] WRITE");
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo=$result->fields;
@@ -28,12 +26,12 @@ bigtitle();
 
 srand((double)microtime()*1000000);
 $playerscore = gen_score($playerinfo['ship_id']);
-//echo $playerscore;
+// echo $playerscore;
 $targetscore = gen_score($targetinfo['ship_id']);
-//echo $targetscore;
+// echo $targetscore;
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
-// check to ensure target is in the same sector as player
+// Check to ensure target is in the same sector as player
 if($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == "Y")
 {
 	echo "$l_att_notarg<BR><BR>";
@@ -56,7 +54,7 @@ else
 	// Set In Combat Flag
 	$_SESSION['in_combat'] = (boolean) true;
 
-	// determine percent chance of success in detecting target ship - based on player's sensors and opponent's cloak
+	// Determine percent chance of success in detecting target ship - based on player's sensors and opponent's cloak
 	$success = (10 - $targetinfo['cloak'] + $playerinfo['sensors']) * 5;
 	if($success < 5)
 	{
@@ -85,14 +83,14 @@ else
 	}
 	elseif($roll > $success)
 	{
-		// if scan fails - inform both player and target.
+		// If scan fails - inform both player and target.
 		echo "$l_planet_noscan<BR><BR>";
 		$db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
 		playerlog($targetinfo['ship_id'], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
 	}
 	else
 	{
-		// if scan succeeds, show results and inform target.
+		// If scan succeeds, show results and inform target.
 		$shipavg = get_avg_tech($targetship, "ship");
 
 		if($shipavg > $ewd_maxhullsize)
@@ -107,7 +105,7 @@ else
 
 		if($targetinfo['dev_emerwarp'] > 0 && $random_value > $chance)
 		{
-			// need to change warp destination to random sector in universe
+			// Need to change warp destination to random sector in universe
 			$rating_change=round($targetinfo['rating']*.1);
 			$dest_sector=rand(1, $sector_max-1);
 			$db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1,rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
@@ -120,11 +118,11 @@ else
 		}
 		else
 		{
-			if(($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/",$targetinfo['email']) === 0 )) // bounty-free Xenobe attacking allowed.
+			if(($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/",$targetinfo['email']) === 0 )) // Bounty-free Xenobe attacking allowed.
 			{
-				//changed xen check to a regexp cause a player could put @xen or whatever in his email address
+				// Changed xenobe check to a regexp cause a player could put @xen or whatever in his email address
 				// so (\@xenobe) is an exact match and the $ symbol means "this is the *end* of the string
-				//so our custom @xenobe names will match, nothing else will
+				// Our custom @xenobe names will match, nothing else will
 				// Check to see if there is Federation bounty on the player. If there is, people can attack regardless.
 				$btyamount = 0;
 				$hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
@@ -150,8 +148,8 @@ else
 			}
 			$targetenergy = $targetinfo['ship_energy'];
 			$playerenergy = $playerinfo['ship_energy'];
-			//I added these two so we can have a value for debugging and reporting totals
-			//if we use the variables in calcs below, change the display of stats too
+			// I added these two so we can have a value for debugging and reporting totals
+			// If we use the variables in calcs below, change the display of stats too
 
 			$targetbeams = NUM_BEAMS($targetinfo['beams']);
 			if($targetbeams>$targetinfo['ship_energy'])
@@ -159,7 +157,7 @@ else
 				$targetbeams=$targetinfo['ship_energy'];
 			}
 			$targetinfo['ship_energy']=$targetinfo['ship_energy']-$targetbeams;
-			//why dont we set targetinfo[ship_energy] to a variable instead?
+			// Why dont we set targetinfo[ship_energy] to a variable instead?
 
 			$playerbeams = NUM_BEAMS($playerinfo['beams']);
 			if($playerbeams>$playerinfo['ship_energy'])
@@ -204,7 +202,7 @@ else
 
 			echo "$l_att_att $targetinfo[character_name] $l_abord $targetinfo[ship_name]:<BR><BR>";
 
-			$bcs_info = NULL;
+			$bcs_info = null;
 			$bcs_info[] = array("Beams(lvl)",		"{$playerbeams}({$playerinfo['beams']})",				"{$targetbeams}({$targetinfo['beams']})" );
 			$bcs_info[] = array("Shields(lvl)",		"{$playershields}({$playerinfo['shields']})",			"{$targetshields}({$targetinfo['shields']})" );
 			$bcs_info[] = array("Energy(Start)",	"{$playerinfo['ship_energy']}({$playerenergy})",		"{$targetinfo['ship_energy']}({$targetenergy})" );
@@ -263,7 +261,7 @@ else
 				{
 					$temp = round($targetfighters/2);
 					$lost = $targetfighters-$temp;
-					//maybe we should report on how many beams fired , etc for comparision/bugtracking
+					// Maybe we should report on how many beams fired , etc for comparision/bugtracking
 					echo "$targetinfo[character_name] $l_att_lost $lost $l_fighters<BR>";
 					$targetfighters = $temp;
 					$playerbeams = $playerbeams-$lost;
@@ -552,7 +550,7 @@ else
 				if($playerarmor > 0)
 				{
 					$rating_change=round($targetinfo['rating']*$rating_combat_factor);
-					//Updating to always get a positive rating increase for xenobe and the credits they are carrying - rjordan
+					// Updating to always get a positive rating increase for xenobe and the credits they are carrying - rjordan
 					$salv_credits = 0;
 			
 					// Double Death Attack Bug Fix - Returns 0 for real players, 1 for Xenobe players
@@ -623,7 +621,7 @@ else
 					}
 					$ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $targetinfo['hull']))+round(mypw($upgrade_factor, $targetinfo['engines']))+round(mypw($upgrade_factor, $targetinfo['power']))+round(mypw($upgrade_factor, $targetinfo['computer']))+round(mypw($upgrade_factor, $targetinfo['sensors']))+round(mypw($upgrade_factor, $targetinfo['beams']))+round(mypw($upgrade_factor, $targetinfo['torp_launchers']))+round(mypw($upgrade_factor, $targetinfo['shields']))+round(mypw($upgrade_factor, $targetinfo['armor']))+round(mypw($upgrade_factor, $targetinfo['cloak'])));
 					$ship_salvage_rate=rand(10,20);
-					$ship_salvage=$ship_value*$ship_salvage_rate/100+$salv_credits;  //added credits for xenobe - 0 if normal player - GunSlinger
+					$ship_salvage=$ship_value*$ship_salvage_rate/100+$salv_credits;  // Added credits for xenobe - 0 if normal player
 			
 					$l_att_ysalv=str_replace("[salv_ore]",$salv_ore,$l_att_ysalv);
 					$l_att_ysalv=str_replace("[salv_organics]",$salv_organics,$l_att_ysalv);
@@ -731,7 +729,7 @@ else
 					}
 					$ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
 					$ship_salvage_rate=rand(10,20);
-					$ship_salvage=$ship_value*$ship_salvage_rate/100+$salv_credits;  //added credits for xenobe - 0 if normal player - GunSlinger
+					$ship_salvage=$ship_value*$ship_salvage_rate/100+$salv_credits;  // Added credits for xenobe - 0 if normal player - GunSlinger
 			
 					$l_att_salv=str_replace("[salv_ore]",$salv_ore,$l_att_salv);
 					$l_att_salv=str_replace("[salv_organics]",$salv_organics,$l_att_salv);
