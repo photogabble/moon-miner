@@ -116,8 +116,8 @@ else
 
             // Remove Insignia for admin players.
             $player_insignia = null;
-            $online_image	= null;
-            $offline_image	= null;
+            $online_image    = null;
+            $offline_image    = null;
 
             switch($admin_list[$row['character_name']]['role'])
             {
@@ -125,27 +125,27 @@ else
                 {
                     // Set Character name Admin Blue
                     $char_name      = "<span style='color:#00FF00; font-size:14px;'>{$row[character_name]}</span>";
-                    $alt			= "Blacknova Testing Team";
-                    $online_image	= "images/online_tester.png";
-                    $offline_image	= "images/offline_tester.png";
+                    $alt            = "Blacknova Testing Team";
+                    $online_image    = "images/online_tester.png";
+                    $offline_image    = "images/offline_tester.png";
                     break;
                 }
                 case "developer":
                 {
                     // Set Character name Admin Blue
                     $char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
-                    $alt			= "Blacknova Development Team";
-                    $online_image	= "images/online_developer.png";
-                    $offline_image	= "images/offline_developer.png";
+                    $alt            = "Blacknova Development Team";
+                    $online_image    = "images/online_developer.png";
+                    $offline_image    = "images/offline_developer.png";
                     break;
                 }
                 case "admin":
                 {
                     // Set Character name Admin Blue
                     $char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
-                    $alt			= "Blacknova Administration Team";
-                    $online_image	= "images/online_admin.png";
-                    $offline_image	= "images/offline_admin.png";
+                    $alt            = "Blacknova Administration Team";
+                    $online_image    = "images/online_admin.png";
+                    $offline_image    = "images/offline_admin.png";
                     break;
                 }
             }
@@ -366,19 +366,19 @@ echo "<script type='text/javascript'>\n";
 echo "//<![CDATA[\n";
 echo "function displayME(dataString)\n";
 echo "{\n";
-echo "	document.getElementById('popupbox').innerHTML = dataString;\n";
-echo "	document.getElementById('popupbox').style.display = 'block';\n";
+echo "    document.getElementById('popupbox').innerHTML = dataString;\n";
+echo "    document.getElementById('popupbox').style.display = 'block';\n";
 echo "}\n";
 echo "\n";
 echo "function hideME()\n";
 echo "{\n";
-echo "	document.getElementById('popupbox').style.display = 'none';\n";
+echo "    document.getElementById('popupbox').style.display = 'none';\n";
 echo "}\n";
 echo "\n";
 echo "function movePopup(x,y)\n";
 echo "{\n";
-echo "	document.getElementById('popupbox').style.left = (x+20)+'px';\n";
-echo "	document.getElementById('popupbox').style.top = (y-5)+'px';\n";
+echo "    document.getElementById('popupbox').style.left = (x+20)+'px';\n";
+echo "    document.getElementById('popupbox').style.top = (y-5)+'px';\n";
 echo "}\n";
 echo "//]]>\n";
 echo "</script>\n";

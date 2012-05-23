@@ -125,7 +125,7 @@
         echo "<br />\n";
     }
     else
-#	if ( isset($plugin_config) && is_array($plugin_config) )
+#    if ( isset($plugin_config) && is_array($plugin_config) )
     {
         $plugin_id = 0;
         foreach ($plugin_config as $plugin_name => $plugin_switches)
@@ -136,15 +136,15 @@
                 {
                     $plugin_id ++;
                     $pluginInfo = call_user_func( array($$plugin_name, 'getPluginInfo') );
-#					$pluginInfo = $$plugin_name->getPluginInfo();
+#                    $pluginInfo = $$plugin_name->getPluginInfo();
                     $pluginCount = count($pluginInfo['modules']);
 
-                    $plugin['id']			= "0x". str_pad($plugin_id, 4, "0", STR_PAD_LEFT);
-                    $plugin['type']			= $plugin_config[$plugin_name]['plugin_type'];
+                    $plugin['id']            = "0x". str_pad($plugin_id, 4, "0", STR_PAD_LEFT);
+                    $plugin['type']            = $plugin_config[$plugin_name]['plugin_type'];
 
-                    $plugin['name']			= $pluginInfo['name'];
-                    $plugin['version']		= $pluginInfo['version'];
-                    $plugin['author']		= $pluginInfo['author'];
+                    $plugin['name']            = $pluginInfo['name'];
+                    $plugin['version']        = $pluginInfo['version'];
+                    $plugin['author']        = $pluginInfo['author'];
 
                     if (isset($pluginInfo['isDisabled']) && $pluginInfo['isDisabled'] == true)
                     {
@@ -153,7 +153,7 @@
 
                     echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
                     $line_color = "#500050";
-        #			title("Plugin Type: {$plugin['title']}");
+        #            title("Plugin Type: {$plugin['title']}");
                     line("ID:","<span style='color:#FFFF00; font-size:14px;'>{$plugin['id']}</span>", "right");
                     line("Name:","<span style='color:#FFFF00; font-size:14px;'>{$plugin['name']}</span>", "right");
                     line("Version:","<span style='color:#FFFF00; font-size:14px;'>v{$plugin['version']}</span>", "right");
@@ -267,10 +267,10 @@
     $line_color = $color_line1;
 
     echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
-    line("Ticks happen every",								"{$sched_ticks} minutes", "right");
-    line("{$turns_per_tick} Turns will happen every",		"{$sched_turns} minutes", "right");
-    line("Defenses will be checked every",					"{$sched_turns} minutes", "right");
-    line("Xenobes will play every",							"{$sched_turns} minutes", "right");
+    line("Ticks happen every",                                "{$sched_ticks} minutes", "right");
+    line("{$turns_per_tick} Turns will happen every",        "{$sched_turns} minutes", "right");
+    line("Defenses will be checked every",                    "{$sched_turns} minutes", "right");
+    line("Xenobes will play every",                            "{$sched_turns} minutes", "right");
 
     if($allow_ibank)
     {

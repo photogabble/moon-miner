@@ -445,7 +445,7 @@ echo "Halt, while we scan your cargo...<br />\n";
 
 if ((NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists]) <0)
 {
-#	BuildTwoCol("<span style='color:#FF0000;'>Detected Illegal Cargo</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
+    #BuildTwoCol("<span style='color:#FF0000;'>Detected Illegal Cargo</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
 
     echo "<span style='color:#FF0000; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
     $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");

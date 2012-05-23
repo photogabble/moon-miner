@@ -21,16 +21,16 @@
 
     bigtitle();
 
-    $tile['special']	= "space261_md_blk.gif";
-    $tile['ore']		= "space262_md_blk.gif";
-    $tile['organics']	= "space263_md_blk.gif";
-    $tile['energy']		= "space264_md_blk.gif";
-    $tile['goods']		= "space265_md_blk.gif";
-    $tile['none']		= "space.gif";
-    $tile['unknown']	= "uspace.gif";
+    $tile['special']    = "space261_md_blk.gif";
+    $tile['ore']        = "space262_md_blk.gif";
+    $tile['organics']    = "space263_md_blk.gif";
+    $tile['energy']        = "space264_md_blk.gif";
+    $tile['goods']        = "space265_md_blk.gif";
+    $tile['none']        = "space.gif";
+    $tile['unknown']    = "uspace.gif";
 
-    $cur_sector			= 0;
-    $cur_index			= 0;
+    $cur_sector            = 0;
+    $cur_index            = 0;
 
     echo "cursector = $cur_sector max= $sector_max";
 

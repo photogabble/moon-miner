@@ -135,10 +135,10 @@ if ($result->RecordCount() > 0)
     $db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
 }
 
-$ply_turns		= NUMBER($playerinfo['turns']);
-$ply_turnsused	= NUMBER($playerinfo['turns_used']);
-$ply_score		= NUMBER($playerinfo['score']);
-$ply_credits	= NUMBER($playerinfo['credits']);
+$ply_turns        = NUMBER($playerinfo['turns']);
+$ply_turnsused    = NUMBER($playerinfo['turns_used']);
+$ply_score        = NUMBER($playerinfo['score']);
+$ply_credits    = NUMBER($playerinfo['credits']);
 
 echo "<table style='width:90%; margin:auto; text-align:center;' border='0'>\n";
 echo "  <tr>\n";
@@ -528,7 +528,7 @@ if($playerinfo[sector] != 0)
     $sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
     $sql .= "FROM $dbtables[ships] LEFT OUTER JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id ";
     $sql .= "WHERE $dbtables[ships].ship_id<>$playerinfo[ship_id] AND $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
-#	$sql .= "WHERE $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
+#    $sql .= "WHERE $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
     $sql .= "ORDER BY RAND();";
     $result4 = $db->Execute($sql);
 

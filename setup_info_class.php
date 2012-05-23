@@ -242,10 +242,8 @@ class SETUPINFO_CLASS
         $this->mysql_version = null;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-/*
- * This my not be needed, but I will leave it here just in case we need it :)
- */
-//		$this->database_client_version = mysql_get_client_info();
+ // This my not be needed, but I will leave it here just in case we need it :)
+//        $this->database_client_version = mysql_get_client_info();
 
         if($this->switches['Enable_Database']['enabled'])
         {
@@ -610,7 +608,7 @@ class SETUPINFO_CLASS
         }
 
 #        $ar = split("[/ ]",$_SERVER['SERVER_SOFTWARE']);
-#		New version.
+#        New version.
         $ar = preg_split("/[\s\/]+/",$_SERVER['SERVER_SOFTWARE']);
 
         for ($i=0;$i<(count($ar));$i++)
@@ -638,10 +636,8 @@ class SETUPINFO_CLASS
 
         $software_info[]['MySQL Server Version'] = (($this->switches['Enable_Database']['enabled']) ?$this->database_server_version : "Database tests disabled");
 
-/*
- * This my not be needed, but I will leave it here just in case we need it :)
- */
-//		$software_info[]['MySQL Client Version'] = $this->database_client_version;
+ // This my not be needed, but I will leave it here just in case we need it :)
+//        $software_info[]['MySQL Client Version'] = $this->database_client_version;
 
         return $software_info;
     }

@@ -211,7 +211,7 @@
             echo "error: ". $db->ErrorMsg() . "<br />\n";
         }
         $detected = (boolean) true;
-#		adminlog(960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
+        #adminlog(960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
     }
 
 // Checking IGB Loan Credits

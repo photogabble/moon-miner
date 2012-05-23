@@ -203,14 +203,14 @@ else
             echo "$l_att_att $targetinfo[character_name] $l_abord $targetinfo[ship_name]:<BR><BR>";
 
             $bcs_info = null;
-            $bcs_info[] = array("Beams(lvl)",		"{$playerbeams}({$playerinfo['beams']})",				"{$targetbeams}({$targetinfo['beams']})" );
-            $bcs_info[] = array("Shields(lvl)",		"{$playershields}({$playerinfo['shields']})",			"{$targetshields}({$targetinfo['shields']})" );
-            $bcs_info[] = array("Energy(Start)",	"{$playerinfo['ship_energy']}({$playerenergy})",		"{$targetinfo['ship_energy']}({$targetenergy})" );
-            $bcs_info[] = array("Torps(lvl)",		"{$playertorpnum}({$playerinfo['torp_launchers']})",	"{$targettorpnum}({$targetinfo['torp_launchers']})" );
-            $bcs_info[] = array("TorpDmg",			"{$playertorpdmg}",										"{$targettorpdmg}" );
-            $bcs_info[] = array("Fighters",			"{$playerfighters}",									"{$targetfighters}" );
-            $bcs_info[] = array("Armor(lvl)",		"{$playerarmor}({$playerinfo['armor']})",				"{$targetarmor}({$targetinfo['beams']})" );
-            $bcs_info[] = array("Escape Pod",		"{$playerinfo['dev_escapepod']}",						"{$targetinfo['dev_escapepod']}" );
+            $bcs_info[] = array("Beams(lvl)",        "{$playerbeams}({$playerinfo['beams']})",                "{$targetbeams}({$targetinfo['beams']})" );
+            $bcs_info[] = array("Shields(lvl)",        "{$playershields}({$playerinfo['shields']})",            "{$targetshields}({$targetinfo['shields']})" );
+            $bcs_info[] = array("Energy(Start)",    "{$playerinfo['ship_energy']}({$playerenergy})",        "{$targetinfo['ship_energy']}({$targetenergy})" );
+            $bcs_info[] = array("Torps(lvl)",        "{$playertorpnum}({$playerinfo['torp_launchers']})",    "{$targettorpnum}({$targetinfo['torp_launchers']})" );
+            $bcs_info[] = array("TorpDmg",            "{$playertorpdmg}",                                        "{$targettorpdmg}" );
+            $bcs_info[] = array("Fighters",            "{$playerfighters}",                                    "{$targetfighters}" );
+            $bcs_info[] = array("Armor(lvl)",        "{$playerarmor}({$playerinfo['armor']})",                "{$targetarmor}({$targetinfo['beams']})" );
+            $bcs_info[] = array("Escape Pod",        "{$playerinfo['dev_escapepod']}",                        "{$targetinfo['dev_escapepod']}" );
 
             echo "<div style='width:800px; margin:auto; text-align:center; color:#FFFFFF;'>\n";
 

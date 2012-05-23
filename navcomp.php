@@ -86,29 +86,29 @@
         }
         for ($search_depth = 1; $search_depth <= $max_search_depth; $search_depth++)
         {
-            $search_query = "SELECT	distinct\n	a1.link_start\n	,a1.link_dest \n";
+            $search_query = "SELECT    distinct\n    a1.link_start\n    ,a1.link_dest \n";
             for ($i = 2; $i<=$search_depth;$i++)
             {
-                $search_query = $search_query . "	,a". $i . ".link_dest \n";
+                $search_query = $search_query . "    ,a". $i . ".link_dest \n";
             }
-            $search_query = $search_query . "FROM\n	 $dbtables[links] AS a1 \n";
+            $search_query = $search_query . "FROM\n     $dbtables[links] AS a1 \n";
 
             for ($i = 2; $i<=$search_depth;$i++)
             {
-                $search_query = $search_query . "	,$dbtables[links] AS a". $i . " \n";
+                $search_query = $search_query . "    ,$dbtables[links] AS a". $i . " \n";
             }
-            $search_query = $search_query . "WHERE \n	    a1.link_start = $current_sector \n";
+            $search_query = $search_query . "WHERE \n        a1.link_start = $current_sector \n";
 
             for ($i = 2; $i<=$search_depth; $i++)
             {
                 $k = $i-1;
-                $search_query = $search_query . "	AND a" . $k . ".link_dest = a" . $i . ".link_start \n";
+                $search_query = $search_query . "    AND a" . $k . ".link_dest = a" . $i . ".link_start \n";
             }
-            $search_query = $search_query . "	AND a" . $search_depth . ".link_dest = $stop_sector \n";
-            $search_query = $search_query . "	AND a1.link_dest != a1.link_start \n";
+            $search_query = $search_query . "    AND a" . $search_depth . ".link_dest = $stop_sector \n";
+            $search_query = $search_query . "    AND a1.link_dest != a1.link_start \n";
             for ($i=2; $i<=$search_depth;$i++)
             {
-                $search_query = $search_query . "	AND a" . $i . ".link_dest not in (a1.link_dest, a1.link_start ";
+                $search_query = $search_query . "    AND a" . $i . ".link_dest not in (a1.link_dest, a1.link_start ";
 
                 for ($j=2; $j<$i;$j++)
                 {

@@ -16,8 +16,8 @@ if(checklogin())
 }
 
 // Validate and set the type of $_GET vars;
-$planet_id		  = (int) $_GET['planet_id'];
-$command			= $_GET['command'];
+$planet_id=(int) $_GET['planet_id'];
+$command=$_GET['command'];
 
 bigtitle();
 
@@ -26,7 +26,7 @@ $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'")
 $playerinfo=$result->fields;
 
 // Empty out Planet and Ship vars
-$planetinfo		 = NULL;
+$planetinfo         = NULL;
 
 // Check if planet_id is valid.
 if($planet_id <=0)
@@ -389,12 +389,12 @@ if(!empty($planetinfo))
     {
 
       // Change production percentages
-      $pore	   = (int) $_POST['pore'];
+      $pore       = (int) $_POST['pore'];
       $porganics  = (int) $_POST['porganics'];
-      $pgoods	 = (int) $_POST['pgoods'];
-      $penergy	= (int) $_POST['penergy'];
+      $pgoods     = (int) $_POST['pgoods'];
+      $penergy    = (int) $_POST['penergy'];
       $pfighters  = (int) $_POST['pfighters'];
-      $ptorp	  = (int) $_POST['ptorp'];
+      $ptorp      = (int) $_POST['ptorp'];
 
       if($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
       {
@@ -741,11 +741,11 @@ if(!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "</table><BR>";
-//		 $roll=rand(1, 100);
-//		 if($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
-//		 {
-//		   echo "<B>$ownerinfo[character_name] $l_planet_ison</B><BR>";
-//		 }
+//         $roll=rand(1, 100);
+//         if($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
+//         {
+//           echo "<B>$ownerinfo[character_name] $l_planet_ison</B><BR>";
+//         }
 
        $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE on_planet = 'Y' and planet_id = $planet_id");
 
