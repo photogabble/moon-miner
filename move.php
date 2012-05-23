@@ -1,5 +1,4 @@
 <?php
-
 include("config.php");
 updatecookie();
 
@@ -74,7 +73,7 @@ if ($flag==1)
 	    mail ($admin_mail,"Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nSQL error: $error");
 	}
     }
-    /* enter code for checking dangers in new sector */
+    // Enter code for checking dangers in new sector
     include("check_mines.php");
     if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
     {

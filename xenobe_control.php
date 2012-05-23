@@ -225,9 +225,7 @@ else
           echo "<INPUT TYPE=HIDDEN NAME=user VALUE=$user>";
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
           echo "<INPUT TYPE=SUBMIT VALUE=Save>";
-          //******************************
-          //*** SHOW Xenobe LOG DATA ***
-          //******************************
+          // SHOW Xenobe LOG DATA
           echo "<HR>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00;\">Log Data For This Xenobe</span><BR>";
 

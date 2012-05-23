@@ -226,7 +226,7 @@ $db->Execute($sql);
 
 if($ai_enabled == true)
 {
-    /* AI Players */
+    // AI Players
 
     $AIOrders    = NULL;
     $AIOrders[0] = "Home Patrol";

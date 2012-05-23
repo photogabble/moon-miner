@@ -1,12 +1,4 @@
 <?php
-
-/*
-##############################################################################
-# Planet Transfer (planet2.php)                                              #
-# Fixed The Phantom Planet Transfer Bug                TMD, Date: 11-09-2008 #
-##############################################################################
-*/
-
 include("config.php");
 updatecookie();
 
