@@ -1,5 +1,4 @@
 <?php
-
 include("config.php");
 
 updatecookie();
@@ -29,7 +28,7 @@ bigtitle();
 
 srand((double)microtime()*1000000);
 
-/* check to ensure target is in the same sector as player */
+// Check to ensure target is in the same sector as player
 if($targetinfo[sector] != $playerinfo[sector])
 {
   echo $l_planet_noscan;
@@ -42,7 +41,7 @@ else
   }
   else
   {
-    /* determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak */
+    // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
     $success= SCAN_SUCCESS($playerinfo[sensors], $targetinfo[cloak]);
     if($success < 5)
     {
@@ -55,14 +54,13 @@ else
     $roll = rand(1, 100);
     if($roll > $success)
     {
-      /* if scan fails - inform both player and target. */
+      // If scan fails - inform both player and target.
       echo $l_planet_noscan;
       playerlog($targetinfo[ship_id], LOG_SHIP_SCAN_FAIL, "$playerinfo[character_name]");
     }
     else
     {
-      /* if scan succeeds, show results and inform target. */
-      /* scramble results by scan error factor. */
+      // If scan succeeds, show results and inform target. Scramble results by scan error factor.
 
       // Get total bounty on this player, if any
       $btyamount = 0;
