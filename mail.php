@@ -70,7 +70,7 @@ if(!$result->EOF)
 			$image = "images/tick.png";
 			$result = "<div style='font-size:12px; font-weight:bold;'>Email sent to:&nbsp;&nbsp;{$playerinfo['email']}<br /><br />You should receive your email within 5 to 10 mins.</div><br /><div style='font-size:10px; font-weight:bold;'>PLEASE NOTE: This email may apear in your spam, trash or junk folder so check.</div>";
 			$colors = array("#005500", "#00FF00");
-			$errorResult = NULL;
+			$errorResult = null;
 		}
 		else
 		{

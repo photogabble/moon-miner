@@ -72,7 +72,7 @@ else
 	echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=efficiency'>Eff. Rating.</a></td>\n";
 	echo "  </tr>\n";
 	$color = $color_line1;
-	$need2add = NULL;
+	$need2add = null;
 	while(!$res->EOF)
 	{
         	$row = $res->fields;
@@ -103,7 +103,7 @@ else
 	        {
 			$temp_turns = 1;
         	}
-        	$status = NULL;
+        	$status = null;
 
         	$player_insignia  = player_insignia_name($row[email]);
         	$player_insignia .= "&nbsp;";
@@ -115,9 +115,9 @@ else
             		$admin_caption = $admin_list[$row['character_name']]['level'];
 
 			// Remove Insignia for admin players.
-			$player_insignia = NULL;
-			$online_image	= NULL;
-			$offline_image	= NULL;
+			$player_insignia = null;
+			$online_image	= null;
+			$offline_image	= null;
 
 			switch($admin_list[$row['character_name']]['role'])
 			{
@@ -228,13 +228,13 @@ if($ai_enabled == true)
 {
     // AI Players
 
-    $AIOrders    = NULL;
+    $AIOrders    = null;
     $AIOrders[0] = "Home Patrol";
     $AIOrders[1] = "Explorer";
     $AIOrders[2] = "Trader";
     $AIOrders[3] = "Hunter";
 
-    $AIMode    = NULL;
+    $AIMode    = null;
     $AIMode[0] = "Peaceful";
     $AIMode[1] = "Attack";
     $AIMode[2] = "Attack+";
@@ -294,7 +294,7 @@ if($ai_enabled == true)
                 {
                     $temp_turns = 1;
                 }
-                $status = NULL;
+                $status = null;
 
                 $player_insignia  = player_insignia_name($row[email]);
                 $player_insignia .= "&nbsp;";

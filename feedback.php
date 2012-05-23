@@ -77,7 +77,7 @@ else
 		{
 			$image = "images/tick.png";
 			$result = "<span style='color:#0000FF;'>Send Feedback Passed.</span>";
-			$errorResult = NULL;
+			$errorResult = null;
 		}
 		else
 		{

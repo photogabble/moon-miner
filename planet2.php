@@ -47,7 +47,7 @@ if(checklogin())
 
 // Array list of valid vars and their types that are alowed for this page.
 // I know this is rather crude but it works.
-$valid_vars = NULL;
+$valid_vars = null;
 $valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_ore", "type"=>"integer");
 $valid_vars[] = array("pref"=>"_POST", "var"=>"tpore", "type"=>"integer");
 $valid_vars[] = array("pref"=>"_POST", "var"=>"allore", "type"=>"integer");
@@ -135,8 +135,8 @@ $planet_id          = (int) $_GET['planet_id'];
 bigtitle();
 
 // Empty out Planet and Ship vars
-$planetinfo         = NULL;
-$playerinfo         = NULL;
+$planetinfo         = null;
+$playerinfo         = null;
 
 // Check if planet_id is valid.
 if($planet_id <=0)

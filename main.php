@@ -158,7 +158,7 @@ echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#CCCCCC; font-size:12px;'>&nbsp;{$l_sector} <span style='color:#FFFFFF; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
 if(empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
 {
-	$sectorinfo['beacon'] = NULL; 
+	$sectorinfo['beacon'] = null; 
 }
 echo "    <td style='text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold;'>&nbsp;{$sectorinfo['beacon']}&nbsp;</td>\n";
 
@@ -528,7 +528,7 @@ echo "<div style='text-align:center; font-size:12px; color:#FFFFFF; font-weight:
 if($playerinfo[sector] != 0)
 {
 
-	$sql  = NULL;
+	$sql  = null;
 	$sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
 	$sql .= "FROM $dbtables[ships] LEFT OUTER JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id ";
 	$sql .= "WHERE $dbtables[ships].ship_id<>$playerinfo[ship_id] AND $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
@@ -539,7 +539,7 @@ if($playerinfo[sector] != 0)
 	if($result4 != false )
 	{
 		$ships_detected = 0;
-		$ship_detected = NULL;
+		$ship_detected = null;
 		while(!$result4->EOF)
 		{
 			$row=$result4->fields;
