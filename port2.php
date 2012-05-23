@@ -462,12 +462,8 @@ echo "</div>\n";
   }
   elseif($sectorinfo[port_type] != "none")
   {
-    /*
-      Here is the TRADE fonction to strip out some "spaghetti code".
-      The function saves about 60 lines of code, I hope it will be
-      easier to modify/add something in this part.
-                                                           --Fant0m
-    */
+      // Here is the TRADE fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
+      // easier to modify/add something in this part.
    $price_array = array();
 
    function TRADE($price, $delta, $max, $limit, $factor, $port_type, $origin)
@@ -483,10 +479,9 @@ echo "</div>\n";
         $price_array[$port_type] = $price + $delta * $max / $limit * $factor;
         $origin                  = -$origin;
       }
-      /* debug info
+      // Debug info
       print "$origin*$price_array[$port_type]=";
       print $origin*$price_array[$port_type]."<br>";
-      */
       return $origin;
    }
 
@@ -509,9 +504,8 @@ echo "</div>\n";
    $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price +
       $trade_energy * $energy_price;
 
-   /* debug info
+   // debug info
    echo "$trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price = $total_cost";
-   */
 
    if($free_holds < $cargo_exchanged)
    {
@@ -603,26 +597,23 @@ echo "</div>\n";
       </TABLE>
       ";
 
-      /* Update ship cargo, credits and turns */
+      // Update ship cargo, credits and turns
       $trade_result     = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 
-      /* Make all trades positive to change port values*/
+      // Make all trades positive to change port values
       $trade_ore        = round(abs($trade_ore));
       $trade_organics   = round(abs($trade_organics));
       $trade_goods      = round(abs($trade_goods));
       $trade_energy     = round(abs($trade_energy));
 
 
-      /* Decrease supply and demand on port */
+      // Decrease supply and demand on port
       $trade_result2    = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
        
       echo "$l_trade_complete.<BR><BR>";
     }
   }
 }
-
-
-//-------------------------------------------------------------------------------------------------
 
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
