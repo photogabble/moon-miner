@@ -226,7 +226,7 @@ function change_planet_production($prodpercentarray)
           {
             $ip = $_SERVER['REMOTE_ADDR'];
             $stamp = date("Y-m-d H:i:s");
-            $planet_hack=True;
+            $planet_hack=true;
             $hack_id = 0x18582;
             $hack_count[0]++;
             adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
@@ -254,7 +254,7 @@ function change_planet_production($prodpercentarray)
             /* Oh dear they are different so send admin a log */
             $ip = $_SERVER['REMOTE_ADDR'];
             $stamp = date("Y-m-d H:i:s");
-            $planet_hack=True;
+            $planet_hack=true;
             $hack_id = 0x18531;
             $hack_count[1]++;
             adminlog(LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray[team_id]} not {$team_id}");
@@ -264,7 +264,7 @@ function change_planet_production($prodpercentarray)
         {
           $ip = $_SERVER['REMOTE_ADDR'];
           $stamp = date("Y-m-d H:i:s");
-          $planet_hack=True;
+          $planet_hack=true;
           $hack_id = 0x18598;
           $hack_count[2]++;
           adminlog(LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");

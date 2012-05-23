@@ -14,7 +14,7 @@ include("$ADOdbpath" . "/adodb.inc.php");
 $sched_ticks = 1;
 
 // All following vars are in minutes.
-// These are TRUE minutes, no matter to what interval
+// These are true minutes, no matter to what interval
 // you're running the scheduler script! The scheduler
 // will auto-adjust, possibly running many of the same
 // events in a single call.
@@ -236,7 +236,7 @@ $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "b
 
 // Switch between old style footer and new style. Old is text, and only the time until next update. New is a table, and also includes server time.
 $footer_style = 'old';
-$footer_show_time = TRUE;
+$footer_show_time = true;
 
 include("global_funcs.php");
 ?>

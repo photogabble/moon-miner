@@ -68,7 +68,7 @@ echo $l_footer_players_on_2;
    <tr>
     <td><font color=silver size=-4><a href="news.php">Local BlackNova News</a></font></td>
 <?php
-if ($footer_show_time == TRUE)
+if ($footer_show_time == true)
 {
 	echo "<td align=right><font color=silver size=-4>Time to generate page: " . $elapsed . " seconds</td>";
 }

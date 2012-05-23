@@ -37,31 +37,31 @@ class SETUPINFO_CLASS
         # Display Enviroment Variables #
         ################################
         $this->switches['Enable_Database'] = array("caption" => "Enable Database Testing", 
-            "info" => "This will enable Database Connection and Testing.", "enabled" => False);
+            "info" => "This will enable Database Connection and Testing.", "enabled" => false);
 
         ################################
         # Display Enviroment Variables #
         ################################
         $this->switches['Show_Env_Var'] = array("caption" => "Display Environment Variables", 
-            "info" => "This test will display all variables stored in $"."_SERVER.", "enabled" => False);
+            "info" => "This test will display all variables stored in $"."_SERVER.", "enabled" => false);
 
         #######################
         # Enable Cookie Tests #
         #######################
         $this->switches['Test_Cookie'] = array("caption" => "Test the cookie creation",
-            "info" => "This test uses Sessions to test the creation of cookie!", "enabled" => True);
+            "info" => "This test uses Sessions to test the creation of cookie!", "enabled" => true);
 
         ######################
         # Display Patch Info #
         ######################
         $this->switches['Display_Patches'] = array("caption" => "Display Installed Patches",
-            "info" => "This enables the look up of installed patches!", "enabled" => False);
+            "info" => "This enables the look up of installed patches!", "enabled" => false);
 
         ##################
         # Display Errors #
         ##################
         $this->switches['Display_Errors'] = array("caption" => "Display Errors",
-            "info" => "This test will display all errors, warnings and parse errors that it finds.", "enabled" => True);
+            "info" => "This test will display all errors, warnings and parse errors that it finds.", "enabled" => true);
 
         $this->error_switching();
 
@@ -82,7 +82,7 @@ class SETUPINFO_CLASS
 	function initDB()
 	{
 		global $connectedtodb,$db;
-		if($this->switches['Enable_Database']['enabled']==True)
+		if($this->switches['Enable_Database']['enabled']==true)
 		{
 	        if(!$connectedtodb)
 	        {
@@ -108,11 +108,11 @@ class SETUPINFO_CLASS
 	##############################
 	#  This gets the Game Path.  #
 	##############################
-	function get_gamepath($compare = False)
+	function get_gamepath($compare = false)
 	{
         $game_path['result']  = NULL;
         $game_path['info']    = NULL;
-        $game_path['status']  = False;
+        $game_path['status']  = false;
 
         $result=dirname($_SERVER["PHP_SELF"]);
         if(isset($result) && strlen($result) > 0)
@@ -137,21 +137,21 @@ class SETUPINFO_CLASS
                 $result ="/";
             }
             $game_path['result'] = str_replace("\\", "/", stripcslashes($result));
-            $game_path['status'] = True;
+            $game_path['status'] = true;
         }
         else
         {
             $game_path['info']   =(($compare) ? "Unable to detect gamepath to compare!" : "Unable to detect gamepath!");
-            $game_path['status'] = False;
+            $game_path['status'] = false;
         }
         return $game_path;
     }
 
-    function get_gameroot($compare = False)
+    function get_gameroot($compare = false)
     {
         $game_root['result']  = NULL;
         $game_root['info']    = NULL;
-        $game_root['status']  = False;
+        $game_root['status']  = false;
 
         $result = NULL;
 
@@ -166,30 +166,30 @@ class SETUPINFO_CLASS
             if(!isset($result) || strlen($result)<=0)
             {
                 $game_root['info']   = (($compare) ?"Unable to detect the gameroot to compare!":"Unable to detect the gameroot!");
-                $game_root['status'] =  False;
+                $game_root['status'] =  false;
             }
             else
             {
                 $game_root['result'] = str_replace("\\", "/", (dirname($result)));
-                $game_root['status'] =  True;
+                $game_root['status'] =  true;
             }
 
         }
         else
         {
             $game_root['result'] = str_replace("\\", "/", (dirname($result)));
-            $game_root['status'] = True;
+            $game_root['status'] = true;
         }
         return $game_root;
     }
 
-    function get_gamedomain($compare = False)
+    function get_gamedomain($compare = false)
     {
         $game_domain['result']  = NULL;
         $game_domain['info']    = NULL;
-        $game_domain['status']  = False;
+        $game_domain['status']  = false;
 
-        $RemovePORT = True;
+        $RemovePORT = true;
         $result = $_SERVER['HTTP_HOST'];
 
         if(isset($result) && strlen($result) >0)
@@ -217,12 +217,12 @@ class SETUPINFO_CLASS
                 $result=".$result";
             }
             $game_domain['result'] = $result;
-            $game_domain['status'] = True;
+            $game_domain['status'] = true;
         }
         else
         {
             $game_domain['info']   = (($compare) ?"Unable to detect the gamedomain to compare!":"Unable to detect the gamedomain!");
-            $game_domain['status'] = False;
+            $game_domain['status'] = false;
         }
         return $game_domain;
     }
@@ -257,19 +257,19 @@ class SETUPINFO_CLASS
 	        {
 	            $server_version = $db->ServerInfo();
 	            $this->database_server_version = "{$server_version['version']}";
-	            $return = True;
+	            $return = true;
 	        }
 	        else
 	        {
 	            $this->db_status['error'] = "Please check you have the correct db info set in config_local.php.";
-	            $return = False;
+	            $return = false;
 	        }
 		}
 		else
 		{
 			$this->db_status['status'] = "Not Connected";
             $this->db_status['error'] = "Database Tests have been disabled.";
-            $return = False;
+            $return = false;
 		}
 		return $return;
     }
@@ -279,7 +279,7 @@ class SETUPINFO_CLASS
         global $db, $dbtables;
         $db_info = null;
 
-		if($this->switches['Enable_Database']['enabled']==True)
+		if($this->switches['Enable_Database']['enabled']==true)
 		{
         	if($db)
         	{
@@ -323,29 +323,29 @@ class SETUPINFO_CLASS
     ###################################
     #  This validates the ADOdb Path  #
     ###################################
-    function validate_ADOdb_path($do_status=True)
+    function validate_ADOdb_path($do_status=true)
     {
         global $ADOdbpath,$ADODB_vers;
 
         $this->ADOdb_status = null;
 
-        if (file_exists(realpath("$ADOdbpath/adodb.inc.php"))==True)
+        if (file_exists(realpath("$ADOdbpath/adodb.inc.php"))==true)
         {
-            if ($do_status==True) 
+            if ($do_status==true) 
             {
                 $this->ADOdb_status['status'] = "ADOdb is correctly setup";
                 $this->ADOdb_status['version'] = $ADODB_vers;
             }
-            $return = True;
+            $return = true;
         }
         else
         {
-            if ($do_status==True) 
+            if ($do_status==true) 
             {
                 $this->ADOdb_status['status'] = "Invalid ADOdb Folder";
                 $this->ADOdb_status['help'] = "Please check your $"."ADOdbpath setting in config_local.php";
             }
-            $return = False;
+            $return = false;
         }
         return $return;
     }
@@ -384,13 +384,13 @@ class SETUPINFO_CLASS
                 $env_info[$id]['value']=trim($value);
                 $id++;
             }
-            $return = True;
+            $return = true;
         }
         else
         {
             $env_info['status'][] = "This feature has been switched off.";
             $env_info['status'][] = "Try enabling the Switch to use this function.";
-            $return = False;
+            $return = false;
         }
         return $return;
     }
@@ -426,8 +426,8 @@ class SETUPINFO_CLASS
 
         $current_info[] = "%SEPERATOR%";
 
-        $game_root = $this->get_gameroot(True);
-        if($game_root['status'] != False)
+        $game_root = $this->get_gameroot(true);
+        if($game_root['status'] != false)
 		{
 	        $current_info[] = array("caption" => '$gameroot', "value" => $gameroot, "status" => (trim($gameroot) == trim($game_root['result']) ? "Correct" : "Incorrect") );
 		}
@@ -436,8 +436,8 @@ class SETUPINFO_CLASS
 	        $current_info[] = array("caption" => '$gameroot', "value" => $game_root['info'], "status" => "Unknown" );
 		}
 
-        $game_path = $this->get_gamepath(True);
-        if($game_path['status'] != False)
+        $game_path = $this->get_gamepath(true);
+        if($game_path['status'] != false)
 		{
             $current_info[] = array("caption" => '$gamepath', "value" => $gamepath, "status" => (trim($gamepath) == trim($game_path['result']) ? "Correct" : "Incorrect") );
         }
@@ -447,8 +447,8 @@ class SETUPINFO_CLASS
 		}
 
 
-        $game_domain = $this->get_gamedomain(True);
-        if($game_domain['status'] != False)
+        $game_domain = $this->get_gamedomain(true);
+        if($game_domain['status'] != false)
 		{
             $current_info[] = array("caption" => '$gamedomain', "value" => $gamedomain, "status" => (trim($gamedomain) == trim($game_domain['result']) ? "Correct" : "Incorrect") );
         }
@@ -640,7 +640,7 @@ class SETUPINFO_CLASS
 
     function findinfile($filename,$pattern)
     {
-        $result=False;
+        $result=false;
         if(isset($filename) && function_exists('file'))
         {
             $lines = file($filename);
@@ -667,9 +667,9 @@ class SETUPINFO_CLASS
 	#########################################
 	#     TRUE or FALSE Function.     #
 	#########################################
-	function SI_TRUEFALSE($truefalse,$Stat,$True,$False)
+	function SI_TRUEFALSE($truefalse,$Stat,$true,$false)
 	{
-		return(($truefalse == $Stat) ? $True : $False);
+		return(($truefalse == $Stat) ? $true : $false);
 	}
 
 	#########################################
@@ -690,7 +690,7 @@ class SETUPINFO_CLASS
             #######################################
             $result=$this->findinfile("global_funcs.php","reg_global_fix");
             $PATCH_INFO['global_funcs']['name']="Register Globals Fix";
-            $PATCH_INFO['global_funcs']['patched']=$this->SI_TRUEFALSE($result,True,$result['version'],"Not Found");
+            $PATCH_INFO['global_funcs']['patched']=$this->SI_TRUEFALSE($result,true,$result['version'],"Not Found");
             $PATCH_INFO['global_funcs']['info']="This is required if register_globals is disabled.";
             $PATCH_INFO['global_funcs']['author']=$result['author'];
             $PATCH_INFO['global_funcs']['date']=$result['date'];
@@ -700,7 +700,7 @@ class SETUPINFO_CLASS
             #######################################
             $result=$this->findinfile("planet_report_ce.php","planet_hack_fix");
             $PATCH_INFO['planet-report-CE']['name']="Planet Hack Fix";
-            $PATCH_INFO['planet-report-CE']['patched']=$this->SI_TRUEFALSE($result,True,$result['version'],"Not Found");
+            $PATCH_INFO['planet-report-CE']['patched']=$this->SI_TRUEFALSE($result,true,$result['version'],"Not Found");
             $PATCH_INFO['planet-report-CE']['info']="This is required to stop 3rd party scripts from hacking planets.";
             $PATCH_INFO['planet-report-CE']['author']=$result['author'];
             $PATCH_INFO['planet-report-CE']['date']=$result['date'];
@@ -710,7 +710,7 @@ class SETUPINFO_CLASS
             #######################################
             $result=$this->findinfile("create_universe.php","create_universe_port_fix");
             $PATCH_INFO['create_universe']['name']="Create Universe Port Fix";
-            $PATCH_INFO['create_universe']['patched']=$this->SI_TRUEFALSE($result,True,$result['version'],"Not Found");
+            $PATCH_INFO['create_universe']['patched']=$this->SI_TRUEFALSE($result,true,$result['version'],"Not Found");
             $PATCH_INFO['create_universe']['info']="This maybe required to fix some servers having problems creating all the ports.";
             $PATCH_INFO['create_universe']['author']=$result['author'];
             $PATCH_INFO['create_universe']['date']=$result['date'];
@@ -754,22 +754,22 @@ class SETUPINFO_CLASS
 					unset($_SESSION["count"]); 
 				}
 			}
-			$this->cookie_test['enabled'] = True;
+			$this->cookie_test['enabled'] = true;
 
 	        if (isset($_COOKIE['TestCookie'])) 
 	        {
-	            $this->cookie_test['result'] = True;
+	            $this->cookie_test['result'] = true;
 	        }
 	        else
 	        {
-	            $this->cookie_test['result'] = False;
+	            $this->cookie_test['result'] = false;
 	            $this->cookie_test['status'] = "Please check your $"."gamepath and $"."gamedomain settings in config_local.php";
 	        }
 		}
 		else
 		{
-	            $this->cookie_test['result'] = False;
-				$this->cookie_test['enabled'] = False;
+	            $this->cookie_test['result'] = false;
+				$this->cookie_test['enabled'] = false;
 	            $this->cookie_test['status'] = "Cookie Tests Disabled.";
 
 		}
@@ -844,14 +844,14 @@ class SETUPINFO_CLASS
 	##############################
 	#     Display Table Row.     #
 	##############################
-	Function do_Table_Row($col1="Col1",$col2="Col2",$status=False)
+	Function do_Table_Row($col1="Col1",$col2="Col2",$status=false)
 	{
 		global $Cols, $Wrap;
 
 		$Col_Str=''; $WrapStr=" nowrap";
 
-		If ($Wrap==True) $WrapStr = '';
-		if($status==False)
+		If ($Wrap==true) $WrapStr = '';
+		if($status==false)
 		{
 			if ($Cols==3) $Col_Str="colspan=\"".($Cols-1)."\"";
 			$this->DisplayFlush("    <tr>\n");
