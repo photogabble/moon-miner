@@ -46,13 +46,7 @@ elseif($sectorinfo['sector_id'] >= $sector_max )
 {
   echo "Invalid sector<br />\n";
 }
-
-/* -------------------------------------------------------------- *
- * I'm (SharpBlue) lazy. With many planets by sector that code    *
- * becomes pretty hard to manage, and besides... Isn't it a       *
- * little too powerful?                                           *
- * -------------------------------------------------------------- *
-elseif($sectorinfo[planet] == "Y")
+elseif($sectorinfo[planet] == "Y") // With many planets by sector that code is hard to manage, and too powerful (?)
 {
   echo "There is already a planet in this sector.";
   if($playerinfo[ship_id]==$sectorinfo[planet_owner])
