@@ -105,10 +105,10 @@ if(!empty($logs))
          "  <tr>\n" .
          "    <td style='text-align:left; font-size:12px; color:#040658; font-weight:bold;'>{$event['title']}</td>\n" .
          "    <td style='text-align:right; font-size:12px; color:#040658; font-weight:bold;'>{$time}</td>\n" .
-		 "  </tr>\n" .
+         "  </tr>\n" .
          "  <tr>\n".
-		 "    <td colspan=2 style='text-align:left; font-size:12px; color:#DEDEEF;'>{$event['text']}</td>\n".
-		 "  </tr>\n" .
+         "    <td colspan=2 style='text-align:left; font-size:12px; color:#DEDEEF;'>{$event['text']}</td>\n".
+         "  </tr>\n" .
          "</table>\n" .
          "<center><hr width='80%' size='1' NOSHADE style='color: #040658;'></center>\n";
   }
@@ -209,7 +209,7 @@ if($mode != 'compat')
            "<tr>\n" .
            "<td style='text-align:left;'><font size=2 color=#040658><b>$event[title]</b></td>\n" .
            "<td align=right><font size=2 color=#040658><b>$time</b></td>\n" .
-		   "</tr>\n".
+           "</tr>\n".
            "<tr>\n<td colspan=2 align=left>\n" .
            "<font size=2 color=#DEDEEF>" .
            "$event[text]" .
@@ -599,6 +599,7 @@ case LOG_BOUNTY_FEDBOUNTY:
     $retvalue[title] = $entry[type];
     break;
   }
+
   return $retvalue;
 }
 

@@ -55,157 +55,157 @@ if(!$res || $res->RecordCount() <= 0)
 }
 else
 {
-	$players = NUMBER($num_players);
-	echo "<div style='font-size:12px;'>$l_ranks_pnum: {$players}</div>";
-	echo "<div style='font-size:12px;'>$l_ranks_dships</div>";
-	echo "<br />\n";
-	echo "<table style='width:100%; border:none; font-size:14px;' cellspacing='0' cellpadding='2'>\n";
-	echo "  <tr style='background-color:{$color_header};'>\n";
-	echo "    <td style='font-weight:bold;'>{$l_ranks_rank}</td>\n";
-	echo "    <td style='font-weight:bold;'><a href='ranking.php'>$l_score</a></td>\n";
-	echo "    <td style='font-weight:bold;'>{$l_player}</td>\n";
-	echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=turns'>{$l_turns_used}</a></td>\n";
-	echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=login'>{$l_ranks_lastlog}</a></td>\n";
-	echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=good'>{$l_ranks_good}</a>/<a href='ranking.php?sort=bad'>{$l_ranks_evil}</a></td>\n";
-	echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=alliance'>{$l_team_alliance}</a></td>\n";
-	echo "    <td style='font-weight:bold; width:100px;'>Status</td>\n";
-	echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=efficiency'>Eff. Rating.</a></td>\n";
-	echo "  </tr>\n";
-	$color = $color_line1;
-	$need2add = null;
-	while(!$res->EOF)
-	{
-        	$row = $res->fields;
+    $players = NUMBER($num_players);
+    echo "<div style='font-size:12px;'>$l_ranks_pnum: {$players}</div>";
+    echo "<div style='font-size:12px;'>$l_ranks_dships</div>";
+    echo "<br />\n";
+    echo "<table style='width:100%; border:none; font-size:14px;' cellspacing='0' cellpadding='2'>\n";
+    echo "  <tr style='background-color:{$color_header};'>\n";
+    echo "    <td style='font-weight:bold;'>{$l_ranks_rank}</td>\n";
+    echo "    <td style='font-weight:bold;'><a href='ranking.php'>$l_score</a></td>\n";
+    echo "    <td style='font-weight:bold;'>{$l_player}</td>\n";
+    echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=turns'>{$l_turns_used}</a></td>\n";
+    echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=login'>{$l_ranks_lastlog}</a></td>\n";
+    echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=good'>{$l_ranks_good}</a>/<a href='ranking.php?sort=bad'>{$l_ranks_evil}</a></td>\n";
+    echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=alliance'>{$l_team_alliance}</a></td>\n";
+    echo "    <td style='font-weight:bold; width:100px;'>Status</td>\n";
+    echo "    <td style='font-weight:bold;'><a href='ranking.php?sort=efficiency'>Eff. Rating.</a></td>\n";
+    echo "  </tr>\n";
+    $color = $color_line1;
+    $need2add = null;
+    while(!$res->EOF)
+    {
+            $row = $res->fields;
 
-		$is_dead = $row['ship_destroyed'];
-		if($is_dead == "Y")
-		{
-			$text_color = "#FF0000";
-		}
-		else
-		{
-			$text_color = "#FFFFFF";
-		}
-		
-        	$i++;
-        	$rating=round(sqrt( abs($row[rating]) ));
-        	if(abs($row[rating])!=$row[rating])
-        	{
-            		$rating=-1*$rating;
-        	}
-
-        	$curtime = time();
-	        $time = $row['online'];
-        	$difftime = ($curtime - $time) / 60;
-	        $temp_turns = $row['turns_used'];
-
-        	if ($temp_turns <= 0)
-	        {
-			$temp_turns = 1;
-        	}
-        	$status = null;
-
-        	$player_insignia  = player_insignia_name($row[email]);
-        	$player_insignia .= "&nbsp;";
-
-        	$char_name="<b>{$row[character_name]}</b>";
-
-        	if(isAdmin($row))
-        	{
-            		$admin_caption = $admin_list[$row['character_name']]['level'];
-
-			// Remove Insignia for admin players.
-			$player_insignia = null;
-			$online_image	= null;
-			$offline_image	= null;
-
-			switch($admin_list[$row['character_name']]['role'])
-			{
-				case "tester":
-				{
-					// Set Character name Admin Blue
-					$char_name      = "<span style='color:#00FF00; font-size:14px;'>{$row[character_name]}</span>";
-					$alt			= "Blacknova Testing Team";
-					$online_image	= "images/online_tester.png";
-					$offline_image	= "images/offline_tester.png";
-					break;
-				}
-				case "developer":
-				{
-					// Set Character name Admin Blue
-					$char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
-					$alt			= "Blacknova Development Team";
-					$online_image	= "images/online_developer.png";
-					$offline_image	= "images/offline_developer.png";
-					break;
-				}
-				case "admin":
-				{
-					// Set Character name Admin Blue
-					$char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
-					$alt			= "Blacknova Administration Team";
-					$online_image	= "images/online_admin.png";
-					$offline_image	= "images/offline_admin.png";
-					break;
-				}
-			}
-			
-            		if($difftime <= 5)
-            		{
-                		$status = "<span class='rank_dev_text' style='color:#0099FF; font-size:14px;'>{$admin_caption}</span>";
-				$status = "<div style='padding:0px; padding-top:2px;'><img name='tt' src='{$online_image}' style='width:64px; height:16px; padding:0px;' alt='{$alt}' />&nbsp;<span style='color:#FFCC00; font-size:12px; height:16px;'>{$admin_list[$row['character_name']]['status']}</span></div>";
-            		}
-            		else
-            		{
-                		$status = "<span class='rank_dev_text' style='color:#003F50; font-size:14px;'>{$admin_caption}</span>";
-				$status= "<div style='padding:0px; padding-top:2px;'><img name='tt' src='{$offline_image}' style='width:64px; height:16px; padding:0px;' alt='{$alt}' />&nbsp;<span style='color:#FFCC00; font-size:12px; height:16px;'>{$admin_list[$row['character_name']]['status']}</span></div>";
-            		}
-        	}
-        	else
-        	{
-            		if(isLocked($row))
-            		{
-		                $status = "<span class='rank_dev_text' style='color:#FFFF00; font-size:14px;' title='Standard Lock'>Locked</span>";
-			}
-            		else
-            		{
-                		if($difftime <= 3)
-                		{
-                    			$status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>Online</span>";
-                		}
-                		elseif($difftime <= 15)
-		                {
-                			$status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>* Idle *</span>";
-                		}
-                		else
-                		{
-					$status = "<span class='rank_dev_text' style='color:#005F00; font-size:14px;'>Offline</span>";
-                		}
-            		}
+        $is_dead = $row['ship_destroyed'];
+        if($is_dead == "Y")
+        {
+            $text_color = "#FF0000";
         }
-        if (strlen(trim($row['team_name'])) <=0) $row['team_name'] = "&nbsp;"; 
+        else
+        {
+            $text_color = "#FFFFFF";
+        }
+
+            $i++;
+            $rating=round(sqrt( abs($row[rating]) ));
+            if(abs($row[rating])!=$row[rating])
+            {
+                    $rating=-1*$rating;
+            }
+
+            $curtime = time();
+            $time = $row['online'];
+            $difftime = ($curtime - $time) / 60;
+            $temp_turns = $row['turns_used'];
+
+            if ($temp_turns <= 0)
+            {
+            $temp_turns = 1;
+            }
+            $status = null;
+
+            $player_insignia  = player_insignia_name($row[email]);
+            $player_insignia .= "&nbsp;";
+
+            $char_name="<b>{$row[character_name]}</b>";
+
+            if(isAdmin($row))
+            {
+                    $admin_caption = $admin_list[$row['character_name']]['level'];
+
+            // Remove Insignia for admin players.
+            $player_insignia = null;
+            $online_image	= null;
+            $offline_image	= null;
+
+            switch($admin_list[$row['character_name']]['role'])
+            {
+                case "tester":
+                {
+                    // Set Character name Admin Blue
+                    $char_name      = "<span style='color:#00FF00; font-size:14px;'>{$row[character_name]}</span>";
+                    $alt			= "Blacknova Testing Team";
+                    $online_image	= "images/online_tester.png";
+                    $offline_image	= "images/offline_tester.png";
+                    break;
+                }
+                case "developer":
+                {
+                    // Set Character name Admin Blue
+                    $char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
+                    $alt			= "Blacknova Development Team";
+                    $online_image	= "images/online_developer.png";
+                    $offline_image	= "images/offline_developer.png";
+                    break;
+                }
+                case "admin":
+                {
+                    // Set Character name Admin Blue
+                    $char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
+                    $alt			= "Blacknova Administration Team";
+                    $online_image	= "images/online_admin.png";
+                    $offline_image	= "images/offline_admin.png";
+                    break;
+                }
+            }
+
+                    if($difftime <= 5)
+                    {
+                        $status = "<span class='rank_dev_text' style='color:#0099FF; font-size:14px;'>{$admin_caption}</span>";
+                $status = "<div style='padding:0px; padding-top:2px;'><img name='tt' src='{$online_image}' style='width:64px; height:16px; padding:0px;' alt='{$alt}' />&nbsp;<span style='color:#FFCC00; font-size:12px; height:16px;'>{$admin_list[$row['character_name']]['status']}</span></div>";
+                    }
+                    else
+                    {
+                        $status = "<span class='rank_dev_text' style='color:#003F50; font-size:14px;'>{$admin_caption}</span>";
+                $status= "<div style='padding:0px; padding-top:2px;'><img name='tt' src='{$offline_image}' style='width:64px; height:16px; padding:0px;' alt='{$alt}' />&nbsp;<span style='color:#FFCC00; font-size:12px; height:16px;'>{$admin_list[$row['character_name']]['status']}</span></div>";
+                    }
+            }
+            else
+            {
+                    if(isLocked($row))
+                    {
+                        $status = "<span class='rank_dev_text' style='color:#FFFF00; font-size:14px;' title='Standard Lock'>Locked</span>";
+            }
+                    else
+                    {
+                        if($difftime <= 3)
+                        {
+                                $status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>Online</span>";
+                        }
+                        elseif($difftime <= 15)
+                        {
+                            $status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>* Idle *</span>";
+                        }
+                        else
+                        {
+                    $status = "<span class='rank_dev_text' style='color:#005F00; font-size:14px;'>Offline</span>";
+                        }
+                    }
+        }
+        if (strlen(trim($row['team_name'])) <=0) $row['team_name'] = "&nbsp;";
 
         echo "  <tr style='background-color:{$color}; color:{$text_color};'>\n";
-	echo "    <td>" . NUMBER($i) . "</td>\n";
-	echo "    <td>" . NUMBER($row[score]) . "</td>\n";
-	echo "    <td>";
+    echo "    <td>" . NUMBER($i) . "</td>\n";
+    echo "    <td>" . NUMBER($row[score]) . "</td>\n";
+    echo "    <td>";
         if ($is_dead == "Y")
-	{
-		echo "<img src='images/skullancross.png' width='16' height='16' alt='' title='Player is currently dead' /> {$char_name} <img src='images/skullancross.png' width='16' height='16' alt='' title='Player is currently dead' />";
-	}
-	else
-	{
-		echo "{$player_insignia}{$char_name}";
-	}
+    {
+        echo "<img src='images/skullancross.png' width='16' height='16' alt='' title='Player is currently dead' /> {$char_name} <img src='images/skullancross.png' width='16' height='16' alt='' title='Player is currently dead' />";
+    }
+    else
+    {
+        echo "{$player_insignia}{$char_name}";
+    }
 
         echo "</td>\n";
-	echo "    <td>" . NUMBER($row[turns_used]) . "</td>\n";
-	echo "    <td>$row[last_login]</td>\n";
-	echo "    <td>&nbsp;&nbsp;" . NUMBER($rating) . "</td>\n";
-	echo "    <td>{$row['team_name']}</td>\n";
-	echo "    <td style='text-align:left;'>$status</td>\n";
-	echo "    <td>$row[efficiency]</td>\n";
-	echo "  </tr>\n";
+    echo "    <td>" . NUMBER($row[turns_used]) . "</td>\n";
+    echo "    <td>$row[last_login]</td>\n";
+    echo "    <td>&nbsp;&nbsp;" . NUMBER($rating) . "</td>\n";
+    echo "    <td>{$row['team_name']}</td>\n";
+    echo "    <td style='text-align:left;'>$status</td>\n";
+    echo "    <td>$row[efficiency]</td>\n";
+    echo "  </tr>\n";
 
         if($color == $color_line1)
         {
@@ -221,7 +221,7 @@ else
 }
 
 echo "</div>\n";
-	
+
 $db->Execute($sql);
 
 if($ai_enabled == true)
@@ -303,7 +303,7 @@ if($ai_enabled == true)
 
                 $orders = $statrow['orders'];
                 $mode = $statrow['mode'];
-        
+
                 switch($mode)
                 {
                     case 0:

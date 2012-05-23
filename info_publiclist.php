@@ -1,4 +1,4 @@
-<?php 
+<?php
 include("config.php");
 //include("languages/$lang");
 connectDB();
@@ -9,48 +9,48 @@ $info["GAMENAME"] = $game_name;
 $info["GAMEID"] = md5($game_name . $bnt_ls_key);
 
 
-	$xsql = "SELECT UNIX_TIMESTAMP(time) as x FROM $dbtables[movement_log] WHERE event_id = 1";
-	$res = $db->Execute($xsql);
-	$row = $res->fields;
+    $xsql = "SELECT UNIX_TIMESTAMP(time) as x FROM $dbtables[movement_log] WHERE event_id = 1";
+    $res = $db->Execute($xsql);
+    $row = $res->fields;
 $info["START-DATE"] = $row[x];
 $info["G-DURATION"] = -1;
 
-	$xsql = "SELECT count(*) as x FROM $dbtables[ships]";
-	$res = $db->Execute($xsql);
-	$row = $res->fields;
+    $xsql = "SELECT count(*) as x FROM $dbtables[ships]";
+    $res = $db->Execute($xsql);
+    $row = $res->fields;
 $info["P-ALL"] = $row[x];
 
-	$xsql = "SELECT count(*) as x FROM $dbtables[ships] WHERE ship_destroyed = 'N' ";
-	$res = $db->Execute($xsql);
-	$row = $res->fields;
+    $xsql = "SELECT count(*) as x FROM $dbtables[ships] WHERE ship_destroyed = 'N' ";
+    $res = $db->Execute($xsql);
+    $row = $res->fields;
 $info["P-ACTIVE"] = $row[x];
 
-	$xsql = "SELECT count(*) as x FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND email NOT LIKE '%@xenobe'";
-	$res = $db->Execute($xsql);
-	$row = $res->fields;
+    $xsql = "SELECT count(*) as x FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND email NOT LIKE '%@xenobe'";
+    $res = $db->Execute($xsql);
+    $row = $res->fields;
 $info["P-HUMAN"] = $row[x];
 
-	$xsql = "SELECT COUNT(*) as x FROM $dbtables[ships] WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'";
-	$res = $db->Execute($xsql);
-	$row = $res->fields;
+    $xsql = "SELECT COUNT(*) as x FROM $dbtables[ships] WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'";
+    $res = $db->Execute($xsql);
+    $row = $res->fields;
 $info["P-ONLINE"] = $row[x];
 
-	$res = $db->Execute("SELECT AVG(hull) AS a1 , AVG(engines) AS a2 , AVG(power) AS a3 , AVG(computer) AS a4 , AVG(sensors) AS a5 , AVG(beams) AS a6 , AVG(torp_launchers) AS a7 , AVG(shields) AS a8 , AVG(armour) AS a9 , AVG(cloak) AS a10 FROM $dbtables[ships] WHERE ship_destroyed='N' and email LIKE '%@xenobe'");
-	$row = $res->fields;
-	$dyn_xenobe_lvl = $row[a1] + $row[a2] + $row[a3] + $row[a4] + $row[a5] + $row[a6] + $row[a7] + $row[a8] + $row[a9] + $row[a10];
-	$dyn_xenobe_lvl = $dyn_xenobe_lvl / 10;
+    $res = $db->Execute("SELECT AVG(hull) AS a1 , AVG(engines) AS a2 , AVG(power) AS a3 , AVG(computer) AS a4 , AVG(sensors) AS a5 , AVG(beams) AS a6 , AVG(torp_launchers) AS a7 , AVG(shields) AS a8 , AVG(armour) AS a9 , AVG(cloak) AS a10 FROM $dbtables[ships] WHERE ship_destroyed='N' and email LIKE '%@xenobe'");
+    $row = $res->fields;
+    $dyn_xenobe_lvl = $row[a1] + $row[a2] + $row[a3] + $row[a4] + $row[a5] + $row[a6] + $row[a7] + $row[a8] + $row[a9] + $row[a10];
+    $dyn_xenobe_lvl = $dyn_xenobe_lvl / 10;
 $info["P-AI-LVL"] = $dyn_xenobe_lvl;
 
-	$xsql = "SELECT character_name, score  FROM $dbtables[ships] WHERE ship_destroyed = 'N' ORDER BY score DESC LIMIT 3 ";
-	$res = $db->Execute($xsql);
-	while(!$res->EOF)
-		{
-			$row = $res->fields;
-			$tmp = $res->CurrentRow() + 1;
+    $xsql = "SELECT character_name, score  FROM $dbtables[ships] WHERE ship_destroyed = 'N' ORDER BY score DESC LIMIT 3 ";
+    $res = $db->Execute($xsql);
+    while(!$res->EOF)
+        {
+            $row = $res->fields;
+            $tmp = $res->CurrentRow() + 1;
 $info["P-TOP{$tmp}-NAME"] = $row[character_name];
 $info["P-TOP{$tmp}-SCORE"] = $row[score];
-			$res->MoveNext();
-		}
+            $res->MoveNext();
+        }
 
 $info["G-TURNS-START"] = $start_turns;
 $info["G-TURNS-MAX"] = $max_turns;
@@ -140,7 +140,7 @@ $info["LINK_FORUMS"] = $link_forums;
 
 
 foreach ($info as $key => $value) {
-	echo $key . ":" . $value . "<BR>";
+    echo $key . ":" . $value . "<BR>";
 }
 
 ?>

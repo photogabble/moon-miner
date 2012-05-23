@@ -69,7 +69,7 @@ else
       if($hasbounty)
       {
          $resx = $hasbounty->fields;
-         if($resx[btytotal] > 0) 
+         if($resx[btytotal] > 0)
          {
             $btyamount = NUMBER($resx[btytotal]);
             $l_scan_bounty=str_replace("[amount]",$btyamount,$l_scan_bounty);
@@ -80,8 +80,8 @@ else
             if($hasfedbounty)
             {
                $resy = $hasfedbounty->fields;
-               if($resy[btytotal] > 0) 
-               { 
+               if($resy[btytotal] > 0)
+               {
                   $btyamount = $resy[btytotal];
                   echo $l_scan_fedbounty . "<BR>";
                }

@@ -68,6 +68,6 @@ TEXT_GOTOMAIN();
 
 include("footer.php");
 
-?> 
+?>
 
 

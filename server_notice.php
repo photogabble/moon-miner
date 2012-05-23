@@ -1,7 +1,7 @@
 <?php
 if (preg_match("/server_notice.php/i", $_SERVER['PHP_SELF']))
 {
-	die("You can not access this file directly!");
+    die("You can not access this file directly!");
 }
 ?>
 <div style="width:900px; margin:auto; border:1px solid #FFFFFF; background-color:#000011; background:URL(images/bg2_alpha.png) repeat; padding:8px;">

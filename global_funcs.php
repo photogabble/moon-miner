@@ -476,26 +476,26 @@ function db_kill_player($ship_id, $remove_planets = false)
 
   while(!$res->EOF && $res)
   {
-	$sectors[$i] = $res->fields[sector_id];
-	$i++;
-	$res->MoveNext();
+    $sectors[$i] = $res->fields[sector_id];
+    $i++;
+    $res->MoveNext();
   }
 
   if ($remove_planets == true && $ship_id > 0)
   {
-	$db->Execute("DELETE from $dbtables[planets] WHERE owner = $ship_id");
+    $db->Execute("DELETE from $dbtables[planets] WHERE owner = $ship_id");
   }
   else
   {
-	$db->Execute("UPDATE $dbtables[planets] SET owner=0, corp=0, fighters=0, base='N' WHERE owner=$ship_id");
+    $db->Execute("UPDATE $dbtables[planets] SET owner=0, corp=0, fighters=0, base='N' WHERE owner=$ship_id");
   }
 
   if(!empty($sectors))
   {
-	foreach($sectors as $sector)
-	{
-	  calc_ownership($sector);
-	}
+    foreach($sectors as $sector)
+    {
+      calc_ownership($sector);
+    }
   }
   $db->Execute("DELETE FROM $dbtables[sector_defence] where ship_id=$ship_id");
 
@@ -519,48 +519,56 @@ function NUMBER($number, $decimals = 0)
 {
   global $local_number_dec_point;
   global $local_number_thousands_sep;
+
   return number_format($number, $decimals, $local_number_dec_point, $local_number_thousands_sep);
 }
 
 function NUM_HOLDS($level_hull)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_hull) * 100);
 }
 
 function NUM_ENERGY($level_power)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_power) * 500);
 }
 
 function NUM_FIGHTERS($level_computer)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_computer) * 100);
 }
 
 function NUM_TORPEDOES($level_torp_launchers)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_torp_launchers) * 100);
 }
 
 function NUM_ARMOUR($level_armor)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_armor) * 100);
 }
 
 function NUM_BEAMS($level_beams)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_beams) * 100);
 }
 
 function NUM_SHIELDS($level_shields)
 {
   global $level_factor;
+
   return round(mypw($level_factor, $level_shields) * 100);
 }
 
@@ -773,6 +781,7 @@ function calc_ownership($sector)
     }
   }
   else
+
     return "Sector ownership didn't change";
 
   $owner_num = 0;
@@ -862,6 +871,7 @@ function calc_ownership($sector)
   if($nbcorps > 1)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+
     return $l_global_warzone;
   }
 
@@ -875,6 +885,7 @@ function calc_ownership($sector)
   if($numunallied > 1)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+
     return $l_global_warzone;
   }
 
@@ -882,6 +893,7 @@ function calc_ownership($sector)
   if($numunallied > 0 && $nbcorps > 0)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+
     return $l_global_warzone;
   }
 
@@ -904,6 +916,7 @@ function calc_ownership($sector)
     if($res->RecordCount() != 0)
     {
       $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+
       return $l_global_warzone;
     }
   }
@@ -927,6 +940,7 @@ function calc_ownership($sector)
   if($owners[$winner][num] < $min_bases_to_own)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
+
     return $l_global_nzone;
   }
 
@@ -940,6 +954,7 @@ function calc_ownership($sector)
     $corp = $res->fields;
 
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+
     return "$l_global_team $corp[team_name]!";
   }
   else
@@ -956,6 +971,7 @@ function calc_ownership($sector)
     if($onpar == 1)
     {
       $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
+
       return $l_global_nzone;
     }
     else
@@ -967,6 +983,7 @@ function calc_ownership($sector)
       $ship = $res->fields;
 
       $db->Execute("UPDATE $dbtables[universe] SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+
       return "$l_global_player $ship[character_name]!";
     }
   }
@@ -1047,6 +1064,7 @@ return $ret;
 function stripnum($str)
 {
     $output = preg_replace('/[^0-9]/','',$str);
+
     return $output;
 }
 
@@ -1109,6 +1127,7 @@ function get_player($ship_id)
    {
       $row = $res->fields;
       $character_name = $row[character_name];
+
       return $character_name;
    }
    else
@@ -1134,16 +1153,20 @@ function isLoanPending($ship_id)
     $account=$res->fields;
 
     if($account[loan] == 0)
+
       return false;
 
     $curtime=time();
     $difftime = ($curtime - $account[time]) / 60;
     if($difftime > $IGB_lrate)
+
       return true;
     else
+
       return false;
   }
   else
+
     return false;
 
 }
@@ -1176,11 +1199,11 @@ function get_avg_tech($ship_info = null, $type = "ship")
 
 function bnt_autoload($classname)
 {
-	$class_location = "classes/" . $classname . ".php";
-	if (is_readable($class_location))
-	{
-		include($class_location);
-	}
+    $class_location = "classes/" . $classname . ".php";
+    if (is_readable($class_location))
+    {
+        include($class_location);
+    }
 }
 
 function isSameTeam($attackerTeam = null, $attackieTeam = null)

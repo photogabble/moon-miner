@@ -95,7 +95,7 @@ if($sector == "*")
     echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>" . t_port($port_type) . "</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD>";
     if($playerinfo['dev_lssd'] == 'Y')
      {
-       
+
         $resx = $db->Execute("SELECT * from $dbtables[movement_log] WHERE ship_id <> $playerinfo[ship_id] AND sector_id = $row[link_dest] ORDER BY time DESC LIMIT 1");
         if(!$resx)
         {

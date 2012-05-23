@@ -1,11 +1,11 @@
 <?php
-/* 
+/*
 V4.80 8 Mar 2006  (c) 2000-2006 John Lim (jlim@natsoft.com.my). All rights reserved.
-  Released under both BSD license and Lesser GPL library license. 
-  Whenever there is any discrepancy between the two licenses, 
-  the BSD license will take precedence. 
+  Released under both BSD license and Lesser GPL library license.
+  Whenever there is any discrepancy between the two licenses,
+  the BSD license will take precedence.
   Set tabs to 4 for best viewing.
-	
+
   Latest version is available at http://adodb.sourceforge.net
 */
 
@@ -21,41 +21,41 @@ $sql = 'select  ID, firstname as "First Name", lastname as "Last Name" from adox
 //$sql = 'select distinct firstname, lastname from adoxyz  order  by  firstname';
 
 if ($driver == 'postgres') {
-	$db = NewADOConnection('postgres');
-	$db->PConnect('localhost','tester','test','test');
+    $db = NewADOConnection('postgres');
+    $db->PConnect('localhost','tester','test','test');
 }
 
 if ($driver == 'access') {
-	$db = NewADOConnection('access');
-	$db->PConnect("nwind", "", "", "");
+    $db = NewADOConnection('access');
+    $db->PConnect("nwind", "", "", "");
 }
 
 if ($driver == 'ibase') {
-	$db = NewADOConnection('ibase');
-	$db->PConnect("localhost:e:\\firebird\\examples\\employee.gdb", "sysdba", "masterkey", "");
-	$sql = 'select distinct firstname, lastname  from adoxyz  order  by  firstname';
+    $db = NewADOConnection('ibase');
+    $db->PConnect("localhost:e:\\firebird\\examples\\employee.gdb", "sysdba", "masterkey", "");
+    $sql = 'select distinct firstname, lastname  from adoxyz  order  by  firstname';
 
 }
 if ($driver == 'mssql') {
-	$db = NewADOConnection('mssql');
-	$db->Connect('JAGUAR\vsdotnet','adodb','natsoft','northwind');
+    $db = NewADOConnection('mssql');
+    $db->Connect('JAGUAR\vsdotnet','adodb','natsoft','northwind');
 }
 if ($driver == 'oci8') {
-	$db = NewADOConnection('oci8');
-	$db->Connect('','scott','natsoft');
-	
-$sql = "select * from (select  ID, firstname as \"First Name\", lastname as \"Last Name\" from adoxyz 
-	 order  by  1)";
+    $db = NewADOConnection('oci8');
+    $db->Connect('','scott','natsoft');
+
+$sql = "select * from (select  ID, firstname as \"First Name\", lastname as \"Last Name\" from adoxyz
+     order  by  1)";
 }
 
 if ($driver == 'access') {
-	$db = NewADOConnection('access');
-	$db->Connect('nwind');
+    $db = NewADOConnection('access');
+    $db->Connect('nwind');
 }
 
 if (empty($driver) or $driver == 'mysql') {
-	$db = NewADOConnection('mysql');
-	$db->Connect('localhost','root','','test');
+    $db = NewADOConnection('mysql');
+    $db->Connect('localhost','root','','test');
 }
 
 //$db->pageExecuteCountRows = false;

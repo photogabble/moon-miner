@@ -40,7 +40,7 @@ if($playerinfo[dev_beacon] > 0)
     $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
     $zoneteam = $result5->fields;
 
-     
+
     if($zoneowner_info[owner] != $playerinfo[ship_id])
     {
       if(($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))

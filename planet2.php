@@ -16,7 +16,7 @@ if(checklogin())
 // Needs to be validated and type cast into their correct types.
 // [GET]
 // (int)    planet_id
-// 
+//
 // [POST]
 // (int)    transfer_ore
 //          tpore

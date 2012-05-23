@@ -1,7 +1,7 @@
 <?php
 // Translated by Pim Koeman (pim#wittenborg-university.com)
 $ADODB_LANG_ARRAY = array (
-			'LANG'                      => 'nl',
+            'LANG'                      => 'nl',
             DB_ERROR                    => 'onbekende fout',
             DB_ERROR_ALREADY_EXISTS     => 'bestaat al',
             DB_ERROR_CANNOT_CREATE      => 'kan niet aanmaken',

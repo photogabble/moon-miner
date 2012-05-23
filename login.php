@@ -8,7 +8,7 @@ if(empty($lang))
 $found = 0;
 if(!empty($newlang))
 {
-  if(!preg_match("/^[\w]+$/", $lang)) 
+  if(!preg_match("/^[\w]+$/", $lang))
   {
      $lang = $default_lang;
 
@@ -71,7 +71,7 @@ echo "</form>\n";
 
 if(!empty($link_forums))
 {
-	echo "<a href='$link_forums' target='_blank'>$l_forums</a> - ";
+    echo "<a href='$link_forums' target='_blank'>$l_forums</a> - ";
 }
 echo "<a href='ranking.php'>{$l_rankings}</a> - <a href='settings.php'>{$l_login_settings}</a>\n";
 echo "<br>\n";

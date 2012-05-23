@@ -9,21 +9,21 @@ $picsperrow = 5;
 
 if($screenres == 640)
 {
-	$picsperrow = 3;
+    $picsperrow = 3;
 }
 
 if($screenres >= 1024)
 {
-	$basefontsize = 1;
-	$stylefontsize = "12Pt";
-	$picsperrow = 7;
+    $basefontsize = 1;
+    $stylefontsize = "12Pt";
+    $picsperrow = 7;
 }
 
 connectdb();
 
 if(checklogin())
 {
-	die();
+    die();
 }
 
 $title=$l_main_title;
@@ -33,9 +33,9 @@ $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 if($playerinfo['cleared_defences'] > ' ')
 {
-	echo "$l_incompletemove <BR>";
-	echo "<a href=$playerinfo[cleared_defences]>$l_clicktocontinue</a>";
-	die();
+    echo "$l_incompletemove <BR>";
+    echo "<a href=$playerinfo[cleared_defences]>$l_clicktocontinue</a>";
+    die();
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
@@ -45,18 +45,18 @@ srand((double)microtime() * 1000000);
 
 if($playerinfo['on_planet'] == "Y")
 {
-	$res2 = $db->Execute("SELECT planet_id, owner FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
-	if($res2->RecordCount() != 0)
-	{
-		echo "<A HREF=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <BR>";
-		echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
-		die();
-	}
-	else
-	{
-		$db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
-		echo "<BR>$l_nonexistant_pl<BR><BR>";
-	}
+    $res2 = $db->Execute("SELECT planet_id, owner FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
+    if($res2->RecordCount() != 0)
+    {
+        echo "<A HREF=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <BR>";
+        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
+        die();
+    }
+    else
+    {
+        $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+        echo "<BR>$l_nonexistant_pl<BR><BR>";
+    }
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
@@ -64,12 +64,12 @@ $res = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinf
 $i = 0;
 if($res != false)
 {
-	while(!$res->EOF)
-	{
-		$links[$i] = $res->fields[link_dest];
-		$i++;
-		$res->MoveNext();
-	}
+    while(!$res->EOF)
+    {
+        $links[$i] = $res->fields[link_dest];
+        $i++;
+        $res->MoveNext();
+    }
 }
 $num_links = $i;
 
@@ -78,12 +78,12 @@ $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE sector_id='$playerin
 $i = 0;
 if($res != false)
 {
-	while(!$res->EOF)
-	{
-		$planets[$i] = $res->fields;
-		$i++;
-		$res->MoveNext();
-	}
+    while(!$res->EOF)
+    {
+        $planets[$i] = $res->fields;
+        $i++;
+        $res->MoveNext();
+    }
 }
 $num_planets = $i;
 
@@ -92,12 +92,12 @@ $res = $db->Execute("SELECT * FROM $dbtables[sector_defence],$dbtables[ships] WH
 $i = 0;
 if($res != false)
 {
-	while(!$res->EOF)
-	{
-		$defences[$i] = $res->fields;
-		$i++;
-		$res->MoveNext();
-	}
+    while(!$res->EOF)
+    {
+        $defences[$i] = $res->fields;
+        $i++;
+        $res->MoveNext();
+    }
 }
 $num_defences = $i;
 
@@ -125,14 +125,14 @@ echo "</div>\n";
 $result = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id=? AND notified=?;", array($playerinfo['ship_id'], "N") );
 if ($result->RecordCount() > 0)
 {
-	$alert_message = "{$l_youhave}{$result->RecordCount()}{$l_messages_wait}";
-	echo "<script language='javascript' type='text/javascript'>\n";
-	echo "  // Due to be put into its own javascript file.\n";
-	echo "  // Yeah I know it may not be worth it for just 3 lines but it keeps the code clean.\n";
-	echo "  alert('{$alert_message}');\n";
-	echo "</script>\n";
+    $alert_message = "{$l_youhave}{$result->RecordCount()}{$l_messages_wait}";
+    echo "<script language='javascript' type='text/javascript'>\n";
+    echo "  // Due to be put into its own javascript file.\n";
+    echo "  // Yeah I know it may not be worth it for just 3 lines but it keeps the code clean.\n";
+    echo "  alert('{$alert_message}');\n";
+    echo "</script>\n";
 
-	$db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
+    $db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
 }
 
 $ply_turns		= NUMBER($playerinfo['turns']);
@@ -154,13 +154,13 @@ echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#CCCCCC; font-size:12px;'>&nbsp;{$l_sector} <span style='color:#FFFFFF; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
 if(empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
 {
-	$sectorinfo['beacon'] = null; 
+    $sectorinfo['beacon'] = null;
 }
 echo "    <td style='text-align:center; color:#FFFFFF; font-size:12px; font-weight:bold;'>&nbsp;{$sectorinfo['beacon']}&nbsp;</td>\n";
 
 if($zoneinfo['zone_id'] < 5)
 {
-	$zoneinfo['zone_name'] = $l_zname[$zoneinfo['zone_id']];
+    $zoneinfo['zone_name'] = $l_zname[$zoneinfo['zone_id']];
 }
 echo "    <td style='text-align:right; color:#CCCCCC; font-size:12px; font-weight:bold;'><a href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
 echo "  </tr>\n";
@@ -202,7 +202,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 
 if ($ksm_allowed == true)
 {
-	echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='galaxy.php'>{$l_map}</a></div>\n";
+    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='galaxy.php'>{$l_map}</a></div>\n";
 }
 echo "    </td>\n";
 echo "  </tr>\n";
@@ -222,7 +222,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 
 if(!empty($link_forums))
 {
-	echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='{$link_forums}'>{$l_forums}</a></div>\n";
+    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='{$link_forums}'>{$l_forums}</a></div>\n";
 }
 
 echo "    </td>\n";
@@ -258,40 +258,40 @@ $num_traderoutes = 0;
 $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type=? AND source_id=? AND owner=? ORDER BY dest_id ASC;", array("P", $playerinfo['sector'], $playerinfo['ship_id']) );
 while(!$query->EOF)
 {
-	$traderoutes[$i]=$query->fields;
-	$i++;
-	$num_traderoutes++;
-	$query->MoveNext();
+    $traderoutes[$i]=$query->fields;
+    $i++;
+    $num_traderoutes++;
+    $query->MoveNext();
 }
 
 // Sector Defense Trade route query - this is still under developement
 $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type='D' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
 while(!$query->EOF)
 {
-	$traderoutes[$i]=$query->fields;
-	$i++;
-	$num_traderoutes++;
-	$query->MoveNext();
+    $traderoutes[$i]=$query->fields;
+    $i++;
+    $num_traderoutes++;
+    $query->MoveNext();
 }
 
 // Personal planet traderoute type query
 $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='L' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
 while(!$query->EOF)
 {
-	$traderoutes[$i]=$query->fields;
-	$i++;
-	$num_traderoutes++;
-	$query->MoveNext();
+    $traderoutes[$i]=$query->fields;
+    $i++;
+    $num_traderoutes++;
+    $query->MoveNext();
 }
 
 // Team planet traderoute type query
 $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='C' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
 while(!$query->EOF)
 {
-	$traderoutes[$i]=$query->fields;
-	$i++;
-	$num_traderoutes++;
-	$query->MoveNext();
+    $traderoutes[$i]=$query->fields;
+    $i++;
+    $num_traderoutes++;
+    $query->MoveNext();
 }
 
 echo "<table style='width:150px; margin:auto; text-align:center;' border='0' cellspacing='0' cellpadding='0'>\n";
@@ -299,85 +299,85 @@ echo "  <tr>\n";
 echo "    <td  style='white-space:nowrap; border:#FFFFFF 1px solid; background-color:#500050;'>\n";
 if($num_traderoutes == 0)
 {
-	echo "  <div style='text-align:center;'><a class='dis'>&nbsp;$l_none &nbsp;</a></div>";
+    echo "  <div style='text-align:center;'><a class='dis'>&nbsp;$l_none &nbsp;</a></div>";
 }
 else
 {
-	$i=0;
-	while($i<$num_traderoutes)
-	{
-		echo "<div style='text-align:center;'>&nbsp;<a class=mnu href=traderoute.php?engage={$traderoutes[$i]['traderoute_id']}>";
-		if($traderoutes[$i][source_type] == 'P')
-		{
-			echo "$l_port&nbsp;";
-		}
-		elseif($traderoutes[$i][source_type] == 'D')
-		{
-			echo "Def's ";
-		}
-		else
-		{
-			$query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=?;", array($traderoutes[$i]['source_id']) );
-			if(!$query || $query->RecordCount() == 0)
-			{
-				echo $l_unknown;
-			}
-			else
-			{
-				$planet = $query->fields;
-				if($planet[name] == "")
-				{
-					echo "$l_unnamed ";
-				}
-				else
-				{
-					echo "$planet[name] ";
-				}
-			}
-		}
+    $i=0;
+    while($i<$num_traderoutes)
+    {
+        echo "<div style='text-align:center;'>&nbsp;<a class=mnu href=traderoute.php?engage={$traderoutes[$i]['traderoute_id']}>";
+        if($traderoutes[$i][source_type] == 'P')
+        {
+            echo "$l_port&nbsp;";
+        }
+        elseif($traderoutes[$i][source_type] == 'D')
+        {
+            echo "Def's ";
+        }
+        else
+        {
+            $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=?;", array($traderoutes[$i]['source_id']) );
+            if(!$query || $query->RecordCount() == 0)
+            {
+                echo $l_unknown;
+            }
+            else
+            {
+                $planet = $query->fields;
+                if($planet[name] == "")
+                {
+                    echo "$l_unnamed ";
+                }
+                else
+                {
+                    echo "$planet[name] ";
+                }
+            }
+        }
 
-		if($traderoutes[$i][circuit] == '1')
-		{
-			echo "=&gt;&nbsp;";
-		}
-		else
-		{
-			echo "&lt;=&gt;&nbsp;";
-		}
+        if($traderoutes[$i][circuit] == '1')
+        {
+            echo "=&gt;&nbsp;";
+        }
+        else
+        {
+            echo "&lt;=&gt;&nbsp;";
+        }
 
-		if($traderoutes[$i][dest_type] == 'P')
-		{
-			echo $traderoutes[$i][dest_id];
-		}
-		elseif($traderoutes[$i][dest_type] == 'D')
-		{
-			echo "Def's in " .  $traderoutes[$i][dest_id] . "";
-		}
-		else
-		{
-			$query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
+        if($traderoutes[$i][dest_type] == 'P')
+        {
+            echo $traderoutes[$i][dest_id];
+        }
+        elseif($traderoutes[$i][dest_type] == 'D')
+        {
+            echo "Def's in " .  $traderoutes[$i][dest_id] . "";
+        }
+        else
+        {
+            $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
 
-			if(!$query || $query->RecordCount() == 0)
-			{
-				echo $l_unknown;
-			}
-			else
-			{
-				$planet = $query->fields;
-				if($planet[name] == "")
-				{
-					echo $l_unnamed;
-				}
-				else
-				{
-					echo $planet[name];
-				}
-			}
-		}
-		echo "</a>&nbsp;<br>";
-		$i++;
+            if(!$query || $query->RecordCount() == 0)
+            {
+                echo $l_unknown;
+            }
+            else
+            {
+                $planet = $query->fields;
+                if($planet[name] == "")
+                {
+                    echo $l_unnamed;
+                }
+                else
+                {
+                    echo $planet[name];
+                }
+            }
+        }
+        echo "</a>&nbsp;<br>";
+        $i++;
 echo "</div>\n";
-	}
+    }
 }
 
 
@@ -404,110 +404,110 @@ echo "<td style='vertical-align:top;'>\n";
 
 if($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
-	echo "<div style='color:#FFFFFF; text-align:center; font-size:14px;'>\n";
-	echo "{$l_tradingport}:&nbsp;<span style='color:#00FF00;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
-	echo "<br>\n";
-	echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' alt='Space Station Port'></a>\n";
-	echo "</div>\n";
+    echo "<div style='color:#FFFFFF; text-align:center; font-size:14px;'>\n";
+    echo "{$l_tradingport}:&nbsp;<span style='color:#00FF00;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
+    echo "<br>\n";
+    echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' alt='Space Station Port'></a>\n";
+    echo "</div>\n";
 }
 else
 {
-	echo "<div style='color:#FFFFFF; text-align:center;'>{$l_tradingport}&nbsp;{$l_none}</div>\n";
+    echo "<div style='color:#FFFFFF; text-align:center;'>{$l_tradingport}&nbsp;{$l_none}</div>\n";
 }
 
 echo "<br>\n";
 
 // Put all the Planets into a div container and center it.
-echo "<div align='center' style='text-align:center; border:transparent 1px solid;'>\n"; 
+echo "<div align='center' style='text-align:center; border:transparent 1px solid;'>\n";
 echo "<div style='text-align:center; font-size:12px; color:#FFFFFF; font-weight:bold;'>{$l_planet_in_sec} {$sectorinfo['sector_id']}</div>\n";
 echo "<table style='height:150px; text-align:center; margin:auto;' border='0'>\n";
 echo "  <tr>\n";
 
 if($num_planets > 0)
 {
-	$totalcount=0;
-	$curcount=0;
-	$i=0;
+    $totalcount=0;
+    $curcount=0;
+    $i=0;
 
-	while($i < $num_planets)
-	{
-		if($planets[$i][owner] != 0)
-		{
-			$result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=?;", array($planets[$i]['owner']) );
-			$planet_owner = $result5->fields;
-			$planetavg = get_avg_tech($planet_owner, "planet");
-			
-			if($planetavg < 8)
-			{
-				$planetlevel = 0;
-			}
-			else if ($planetavg < 12)
-			{
-				$planetlevel = 1;
-			}
-			else if ($planetavg < 16)
-			{
-				$planetlevel = 2;
-			}
-			else if ($planetavg < 20)
-			{
-				$planetlevel = 3;
-			}
-			else
-			{
-				$planetlevel = 4;
-			}
-		}
-		else
-		{
-			$planetlevel=0;
-		}
+    while($i < $num_planets)
+    {
+        if($planets[$i][owner] != 0)
+        {
+            $result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=?;", array($planets[$i]['owner']) );
+            $planet_owner = $result5->fields;
+            $planetavg = get_avg_tech($planet_owner, "planet");
 
-		echo "<td align='center' valign='top' style='width:79px; height:90px; padding:4px;'>";
-		echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
-		echo "<img class='mnu' width='79' height='90' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" border=0 alt=\"planet\"></a><BR><font size=", $basefontsize + 1, " color=\"#ffffff\" face=\"arial\">";
+            if($planetavg < 8)
+            {
+                $planetlevel = 0;
+            }
+            else if ($planetavg < 12)
+            {
+                $planetlevel = 1;
+            }
+            else if ($planetavg < 16)
+            {
+                $planetlevel = 2;
+            }
+            else if ($planetavg < 20)
+            {
+                $planetlevel = 3;
+            }
+            else
+            {
+                $planetlevel = 4;
+            }
+        }
+        else
+        {
+            $planetlevel=0;
+        }
 
-		if(empty($planets[$i][name]))
-		{
-			echo $l_unnamed;
-			$planet_bnthelper_string="<!--planet:Y:Unnamed:";
-		}
-		else
-		{
-			echo $planets[$i][name];
-			$planet_bnthelper_string="<!--planet:Y:" . $planets[$i][name] . ":";
-		}
+        echo "<td align='center' valign='top' style='width:79px; height:90px; padding:4px;'>";
+        echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
+        echo "<img class='mnu' width='79' height='90' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" border=0 alt=\"planet\"></a><BR><font size=", $basefontsize + 1, " color=\"#ffffff\" face=\"arial\">";
 
-		if($planets[$i][owner] == 0)
-		{
-			echo "<br>($l_unowned)";
-			$planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
-		}
-		else
-		{
-			echo "<br>($planet_owner[character_name])";
-			$planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":N:-->";
-		}
-		echo "</font></td>";
+        if(empty($planets[$i][name]))
+        {
+            echo $l_unnamed;
+            $planet_bnthelper_string="<!--planet:Y:Unnamed:";
+        }
+        else
+        {
+            echo $planets[$i][name];
+            $planet_bnthelper_string="<!--planet:Y:" . $planets[$i][name] . ":";
+        }
 
-		$totalcount++;
-		if($curcount == $picsperrow - 1)
-		{
-			echo "</tr><tr>";
-			$curcount=0;
-		}
-		else
-		{
-			$curcount++;
-		}
-		$i++;
-	}
+        if($planets[$i][owner] == 0)
+        {
+            echo "<br>($l_unowned)";
+            $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
+        }
+        else
+        {
+            echo "<br>($planet_owner[character_name])";
+            $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":N:-->";
+        }
+        echo "</font></td>";
+
+        $totalcount++;
+        if($curcount == $picsperrow - 1)
+        {
+            echo "</tr><tr>";
+            $curcount=0;
+        }
+        else
+        {
+            $curcount++;
+        }
+        $i++;
+    }
 }
 else
 {
-	echo "<td align=center valign=top>";
-	echo "<br><font color=white size=", $basefontsize +2, ">$l_none</font><br><br>";
-	$planet_bnthelper_string="<!--planet:N:::-->";
+    echo "<td align=center valign=top>";
+    echo "<br><font color=white size=", $basefontsize +2, ">$l_none</font><br><br>";
+    $planet_bnthelper_string="<!--planet:N:::-->";
 }
 
 echo "</td>\n";
@@ -518,113 +518,113 @@ echo "</div>\n";
 
 
 // Put all the Planets into a div container and center it.
-echo "<div style='text-align:center; border:transparent 1px solid;'>\n"; 
+echo "<div style='text-align:center; border:transparent 1px solid;'>\n";
 echo "<div style='text-align:center; font-size:12px; color:#FFFFFF; font-weight:bold;'>{$l_ships_in_sec} {$sectorinfo['sector_id']}</div>\n";
 
 if($playerinfo[sector] != 0)
 {
 
-	$sql  = null;
-	$sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
-	$sql .= "FROM $dbtables[ships] LEFT OUTER JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id ";
-	$sql .= "WHERE $dbtables[ships].ship_id<>$playerinfo[ship_id] AND $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
+    $sql  = null;
+    $sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
+    $sql .= "FROM $dbtables[ships] LEFT OUTER JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id ";
+    $sql .= "WHERE $dbtables[ships].ship_id<>$playerinfo[ship_id] AND $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
 #	$sql .= "WHERE $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
-	$sql .= "ORDER BY RAND();";
-	$result4 = $db->Execute($sql);
+    $sql .= "ORDER BY RAND();";
+    $result4 = $db->Execute($sql);
 
-	if($result4 != false )
-	{
-		$ships_detected = 0;
-		$ship_detected = null;
-		while(!$result4->EOF)
-		{
-			$row=$result4->fields;
-			$success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
-			if($success < 5)
-			{
-				$success = 5;
-			}
-			if($success > 95)
-			{
-				$success = 95;
-			}
-			$roll = rand(1, 100);
-			
-			if($roll < $success)
-			{
-				$shipavg = get_avg_tech($row, "ship");
-			
-				if($shipavg < 8)
-					$shiplevel = 0;
-				else if ($shipavg < 12)
-					$shiplevel = 1;
-				else if ($shipavg < 16)
-					$shiplevel = 2;
-				else if ($shipavg < 20)
-					$shiplevel = 3;
-				else
-					$shiplevel = 4;
-					
-				$row['shiplevel'] = $shiplevel;
-				$ship_detected[] = $row;
-					
-				$ships_detected ++;
-			}
-			$result4->MoveNext();
-		}
-		if($ships_detected <= 0)
-		{
-			echo "<div style='color:#FFFFFF;'>{$l_none}</div>\n";
-		}
-		else
-		{
-			echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030;'>Ship(s) Detected</div>\n";
-			echo "<div style='width:498px; margin:auto; overflow:auto; height:145px; scrollbar-base-color: #303030; scrollbar-arrow-color: #FFFFFF; padding:0px;'>\n";
-			echo "<table cellpadding='0' cellspacing='1'>\n";
-			echo "  <tr>\n";
-		
-			for ($iPlayer=0; $iPlayer < count($ship_detected); $iPlayer++)
-			{ 
-				echo "<td style='text-align:center; vertical-align:top; padding:1px;'>\n";
-				echo "<div style='width:160px; height:120px; background: URL(images/bg_alpha.png) repeat; padding:1px;'>\n";
-				echo "<a href=ship.php?ship_id={$ship_detected[$iPlayer]['ship_id']}>\n";
-				echo "  <img class='mnu' width='80' height='60' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" border='0'>\n";
-				echo "</a>\n";
-				echo "<div style='color:#FFFFFF; font-family:Arial; font-size:12px; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
-				echo "(<span style='color:#FFFF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
-				if ($ship_detected[$iPlayer][team_name])
-				{
-					echo "(<span style='color:#00FF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
-				}
-				echo "</div>\n";
+    if($result4 != false )
+    {
+        $ships_detected = 0;
+        $ship_detected = null;
+        while(!$result4->EOF)
+        {
+            $row=$result4->fields;
+            $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
+            if($success < 5)
+            {
+                $success = 5;
+            }
+            if($success > 95)
+            {
+                $success = 95;
+            }
+            $roll = rand(1, 100);
 
-				echo "</div>\n";
-				echo "</td>\n";
-			}
-			echo "  </tr>\n";
-			echo "</table>\n";
-			echo "</div>\n"; 
-		}
-	}
-	else
-	{
-		echo "<div style='color:#FFFFFF;'>{$l_none}</div>\n";
-	}
+            if($roll < $success)
+            {
+                $shipavg = get_avg_tech($row, "ship");
+
+                if($shipavg < 8)
+                    $shiplevel = 0;
+                else if ($shipavg < 12)
+                    $shiplevel = 1;
+                else if ($shipavg < 16)
+                    $shiplevel = 2;
+                else if ($shipavg < 20)
+                    $shiplevel = 3;
+                else
+                    $shiplevel = 4;
+
+                $row['shiplevel'] = $shiplevel;
+                $ship_detected[] = $row;
+
+                $ships_detected ++;
+            }
+            $result4->MoveNext();
+        }
+        if($ships_detected <= 0)
+        {
+            echo "<div style='color:#FFFFFF;'>{$l_none}</div>\n";
+        }
+        else
+        {
+            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030;'>Ship(s) Detected</div>\n";
+            echo "<div style='width:498px; margin:auto; overflow:auto; height:145px; scrollbar-base-color: #303030; scrollbar-arrow-color: #FFFFFF; padding:0px;'>\n";
+            echo "<table cellpadding='0' cellspacing='1'>\n";
+            echo "  <tr>\n";
+
+            for ($iPlayer=0; $iPlayer < count($ship_detected); $iPlayer++)
+            {
+                echo "<td style='text-align:center; vertical-align:top; padding:1px;'>\n";
+                echo "<div style='width:160px; height:120px; background: URL(images/bg_alpha.png) repeat; padding:1px;'>\n";
+                echo "<a href=ship.php?ship_id={$ship_detected[$iPlayer]['ship_id']}>\n";
+                echo "  <img class='mnu' width='80' height='60' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" border='0'>\n";
+                echo "</a>\n";
+                echo "<div style='color:#FFFFFF; font-family:Arial; font-size:12px; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
+                echo "(<span style='color:#FFFF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
+                if ($ship_detected[$iPlayer][team_name])
+                {
+                    echo "(<span style='color:#00FF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
+                }
+                echo "</div>\n";
+
+                echo "</div>\n";
+                echo "</td>\n";
+            }
+            echo "  </tr>\n";
+            echo "</table>\n";
+            echo "</div>\n";
+        }
+    }
+    else
+    {
+        echo "<div style='color:#FFFFFF;'>{$l_none}</div>\n";
+    }
 }
 else
 {
-		echo "<div style='color:#FFFFFF;'>{$l_sector_0}</div>\n";
+        echo "<div style='color:#FFFFFF;'>{$l_sector_0}</div>\n";
 }
 echo "</div>";
 
 if($num_defences>0)
 {
-	echo "<b>\n";
-	echo "  <center>\n";
-	echo "    <font face='arial' color='#FFFFFF'>$l_sector_def</font>\n";
-	echo "    <br>\n";
-	echo "  </center>\n";
-	echo "</b>\n";
+    echo "<b>\n";
+    echo "  <center>\n";
+    echo "    <font face='arial' color='#FFFFFF'>$l_sector_def</font>\n";
+    echo "    <br>\n";
+    echo "  </center>\n";
+    echo "</b>\n";
 }
 ?>
 <table border='0' width="100%">
@@ -695,37 +695,37 @@ echo "</table>\n";
 
 
 
-<table width='150' BORDER=0 CELLPADDING=0 CELLSPACING=0 align="center"> 
+<table width='150' BORDER=0 CELLPADDING=0 CELLSPACING=0 align="center">
   <tr>
     <td style='white-space:nowrap; border:#FFFFFF 1px solid; background-color:#500050;'>
-      <table width='100%' border='0' cellpadding='1' cellspacing='0' bgcolor="#500050" align="center"> 
+      <table width='100%' border='0' cellpadding='1' cellspacing='0' bgcolor="#500050" align="center">
         <tr>
           <td style='vertical-align:middle;'  nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_ore ?>" src="images/ore.gif">&nbsp;<?php echo $l_ore ?>&nbsp;</td>
-        </tr> 
+        </tr>
         <tr>
           <td style='vertical-align:middle;' nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_ore]); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_organics ?>" src="images/organics.gif">&nbsp;<?php echo $l_organics ?>&nbsp;</td>
-        </tr> 
+        </tr>
         <tr>
           <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_organics]); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_goods ?>" src="images/goods.gif">&nbsp;<?php echo $l_goods ?>&nbsp;</td>
-        </tr> 
+        </tr>
         <tr>
           <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_goods]); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_energy ?>" src="images/energy.gif">&nbsp;<?php echo $l_energy ?>&nbsp;</td>
-        </tr> 
+        </tr>
         <tr>
           <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_energy]); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_colonists ?>" src="images/colonists.gif">&nbsp;<?php echo $l_colonists ?>&nbsp;</td>
-        </tr> 
+        </tr>
         <tr>
           <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_colonists]); ?>&nbsp;</span></td>
         </tr>

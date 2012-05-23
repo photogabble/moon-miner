@@ -3,7 +3,7 @@
 /* Romanian - by "bogdan stefan" <sbogdan#rsb.ro> */
 
 $ADODB_LANG_ARRAY = array (
-			'LANG'                      => 'ro',
+            'LANG'                      => 'ro',
             DB_ERROR                    => 'eroare necunoscuta',
             DB_ERROR_ALREADY_EXISTS     => 'deja exista',
             DB_ERROR_CANNOT_CREATE      => 'nu se poate creea',

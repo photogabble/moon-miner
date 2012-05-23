@@ -7,7 +7,7 @@
 
                     echo $l_sf_attacking;
                     $targetfighters = $total_sector_fighters;
-     	            $playerbeams = NUM_BEAMS($playerinfo[beams]);
+                     $playerbeams = NUM_BEAMS($playerinfo[beams]);
                     if($calledfrom == 'rsmove.php')
                     {
                        $playerinfo[ship_enery] += $energyscooped;
@@ -19,13 +19,13 @@
                     $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
                     $playershields = NUM_SHIELDS($playerinfo[shields]);
                     if($playershields>$playerinfo[ship_energy])
-                    {  
+                    {
                        $playershields=$playerinfo[ship_energy];
                     }
 //                    $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playershields;
                     $playertorpnum = round(mypw($level_factor,$playerinfo[torp_launchers]))*2;
                     if($playertorpnum > $playerinfo[torps])
-                    { 
+                    {
                        $playertorpnum = $playerinfo[torps];
                     }
                     $playertorpdmg = $torp_dmg_rate*$playertorpnum;
@@ -47,9 +47,9 @@
                           $targetfighters = $targetfighters-$playerbeams;
                           $l_sf_destfightb = str_replace("[lost]", $playerbeams, $l_sf_destfightb);
                           echo $l_sf_destfightb;
-                          
+
                           $playerbeams = 0;
-                       }   
+                       }
                    }
                    echo "<BR>$l_sf_torphit<BR>";
                    if($targetfighters > 0 && $playertorpdmg > 0)
@@ -95,7 +95,7 @@
                         $l_sf_lostfight2 = str_replace("[lost]", $targetfighters, $l_sf_lostfight2);
                         echo $l_sf_lostfight2;
                         $tempplayfighters=$playerfighters-$targetfighters;
-                     }     
+                     }
                      $playerfighters=$tempplayfighters;
                      $targetfighters=$temptargfighters;
                  }
@@ -111,7 +111,7 @@
                        $playerarmor=$playerarmor-$targetfighters;
                        $l_sf_armorbreach2 = str_replace("[lost]", $targetfighters, $l_sf_armorbreach2);
                        echo $l_sf_armorbreach2;
-                    } 
+                    }
                  }
                  $fighterslost = $total_sector_fighters - $targetfighters;
                  destroy_fighters($sector,$fighterslost);
@@ -119,7 +119,7 @@
                  $l_sf_sendlog = str_replace("[player]", $playerinfo[character_name], $l_sf_sendlog);
                  $l_sf_sendlog = str_replace("[lost]", $fighterslost, $l_sf_sendlog);
                  $l_sf_sendlog = str_replace("[sector]", $sector, $l_sf_sendlog);
-                 
+
                  message_defence_owner($sector,$l_sf_sendlog);
                  playerlog($playerinfo[ship_id], LOG_DEFS_DESTROYED_F, "$fighterslost|$sector");
                  $armor_lost=$playerinfo[armor_pts]-$playerarmor;
@@ -149,13 +149,13 @@
 
                     }
                     else
-                    { 
+                    {
                        cancel_bounty($playerinfo[ship_id]);
                        db_kill_player($playerinfo['ship_id']);
                        $ok=0;
                        TEXT_GOTOMAIN();
                        die();
-                    }         
+                    }
                  }
                  if($targetfighters > 0)
                     $ok=0;

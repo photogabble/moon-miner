@@ -20,25 +20,25 @@ $playerinfo = $res->fields;
 // I dont know how the quantities acutally get negative ...
 
 if ($playerinfo[ship_ore]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_ore=0 WHERE email='$username'");
         $playerinfo[ship_ore] = 0;
         }
 
 if ($playerinfo[ship_organics]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_organics=0 WHERE email='$username'");
         $playerinfo[ship_organics] = 0;
         }
 
 if ($playerinfo[ship_energy]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_energy=0 WHERE email='$username'");
         $playerinfo[ship_energy] = 0;
         }
 
 if ($playerinfo[ship_goods]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_goods=0 WHERE email='$username'");
         $playerinfo[ship_goods] = 0;
         }
@@ -48,25 +48,25 @@ $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playeri
 $sectorinfo = $res->fields;
 
 if ($sectorinfo[port_ore]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[universe] set port_ore=0 WHERE sector_id=$playerinfo[sector]");
         $sectorinfo[port_ore] = 0;
         }
 
 if ($sectorinfo[port_goods]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[universe] set port_goods=0 WHERE sector_id=$playerinfo[sector]");
         $sectorinfo[port_goods] = 0;
         }
 
 if ($sectorinfo[port_organics]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[universe] set port_organics=0 WHERE sector_id=$playerinfo[sector]");
         $sectorinfo[port_organics] = 0;
         }
 
 if ($sectorinfo[port_energy]<0)
-		{
+        {
         $fixres = $db->Execute("UPDATE $dbtables[universe] set port_energy=0 WHERE sector_id=$playerinfo[sector]");
         $sectorinfo[port_energy] = 0;
         }
@@ -422,13 +422,13 @@ echo "function changeDelta(desiredvalue,currentvalue)\n";
 echo "{\n";
 echo "  Delta=0; DeltaCost=0;\n";
 echo "  Delta = desiredvalue - currentvalue;\n";
-echo "\n";    
+echo "\n";
 echo "    while(Delta>0) \n";
 echo "    {\n";
 echo "     DeltaCost=DeltaCost + Math.pow(2,desiredvalue-Delta); \n";
 echo "     Delta=Delta-1;\n";
 echo "    }\n";
-echo "\n";    
+echo "\n";
 echo "  DeltaCost=DeltaCost * $upgrade_cost\n";
 echo "  return DeltaCost;\n";
 echo "}\n";
@@ -510,7 +510,7 @@ if($genesis_free > 0)
 // NaN Fix :: Needed to be put in an if statment to check for Full.
 if($beacon_free > 0)
 {
-	echo "+ form.dev_beacon_number.value * $dev_beacon_price\n";
+    echo "+ form.dev_beacon_number.value * $dev_beacon_price\n";
 }
 
 if($emerwarp_free > 0)

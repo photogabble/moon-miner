@@ -27,10 +27,10 @@ $sectorinfo = $res->fields;
 
 if ($playerinfo[turns]<1)
 {
-	echo "$l_md_noturn<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+    echo "$l_md_noturn<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
 }
 
 $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE defence_id=$defence_id ");

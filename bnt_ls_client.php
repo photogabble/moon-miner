@@ -1,7 +1,7 @@
 <?php
 if (preg_match("/bnt_ls_client.php/i", $PHP_SELF)) {
-	echo "You can not access this file directly!";
-	die();
+    echo "You can not access this file directly!";
+    die();
 }
 
 include_once("config.php");

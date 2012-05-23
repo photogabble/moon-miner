@@ -25,6 +25,7 @@ class c_Timer
         $start_total = floatval($start_u) + $start_s;
         $stop_total  = floatval($stop_u) + $stop_s;
         $this->t_elapsed = $stop_total - $start_total;
+
         return $this->t_elapsed;
     }
 }

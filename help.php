@@ -61,7 +61,7 @@ if($allow_navcomp)
 echo "<B>RealSpace:</B><BR>";
 echo "Use your ship's engines to get to a specific sector. Upgrade your engines' tech level to use RealSpace ";
 echo "moves effectively. By clicking on the 'Presets' link you can memorize up to 3 sector numbers for quick ";
-echo "movement or you can target any sector using the 'Other' link."; 
+echo "movement or you can target any sector using the 'Other' link.";
 echo "<BR><BR>";
 echo "<B>Trade routes:</B><BR>";
 echo "Use trade routes to quickly trade commodities between ports. Trade routes take advantage of RealSpace ";
@@ -176,4 +176,4 @@ echo "<BR><BR>";
 TEXT_GOTOMAIN();
 include("footer.php");
 
-?> 
+?>

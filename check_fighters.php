@@ -37,7 +37,7 @@
         // find out if the fighter owner and player are on the same team
         // All sector defences must be owned by members of the same team
         $fm_owner = $defences[0]['ship_id'];
-	$result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fm_owner");
+    $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fm_owner");
         $fighters_owner = $result2->fields;
         if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
         {

@@ -54,9 +54,9 @@ else
 {
     // Nope none found.
     echo "  <tr>\n";
-	echo "    <td bgcolor=\"#00001A\" align=\"center\">$l_news_flash</td>\n";
-	echo "    <td bgcolor=\"#00001A\" align=\"right\">$l_news_none</td>\n";
-	echo "  </tr>\n";
+    echo "    <td bgcolor=\"#00001A\" align=\"center\">$l_news_flash</td>\n";
+    echo "    <td bgcolor=\"#00001A\" align=\"right\">$l_news_none</td>\n";
+    echo "  </tr>\n";
 }
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";

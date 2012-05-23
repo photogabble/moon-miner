@@ -4,7 +4,7 @@ include("config.php");
 include("languages/$lang");
 updatecookie();
 
-$title="$l_opt_title"; 
+$title="$l_opt_title";
 include("header.php");
 
 connectdb();

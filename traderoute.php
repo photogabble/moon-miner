@@ -93,23 +93,23 @@ elseif($command == 'setsettings') // Enters settings in db
   traderoute_setsettings();
 elseif(isset($engage)) // Performs trade route
 {
-	// Put in temp until we have a fix.
-	if (strpos($_SERVER['HTTP_USER_AGENT'], "Firefox")===false)
-	{}
-	else
-	{
-		if ($tr_repeat >20)
-		{
-			echo "<div style='border:#FF0000 1px solid; text-align:center; font-size:16px; color:#FFFFFF; font-weight:bold; background-color:#550000; padding:4px;'>\n";
-			echo "  <div>Detected Firefox Browser. Our broken HTML code causes issues with Traderoutes in Firefox.</div>\n";
-			echo "  <div>Limiting multiplier to 20, sorry if this causes any issues.</div>\n";
-			echo "  <div style='height:16px;'></div>\n";
-			echo "  <div>If you want to do larger repeats, please use a different Browser (i.e. not Firefox)</div>\n";
-			echo "</div>\n";
-			echo "<div style='height:16px;'></div>\n";
-			$tr_repeat = 20;
-		}
-	}
+    // Put in temp until we have a fix.
+    if (strpos($_SERVER['HTTP_USER_AGENT'], "Firefox")===false)
+    {}
+    else
+    {
+        if ($tr_repeat >20)
+        {
+            echo "<div style='border:#FF0000 1px solid; text-align:center; font-size:16px; color:#FFFFFF; font-weight:bold; background-color:#550000; padding:4px;'>\n";
+            echo "  <div>Detected Firefox Browser. Our broken HTML code causes issues with Traderoutes in Firefox.</div>\n";
+            echo "  <div>Limiting multiplier to 20, sorry if this causes any issues.</div>\n";
+            echo "  <div style='height:16px;'></div>\n";
+            echo "  <div>If you want to do larger repeats, please use a different Browser (i.e. not Firefox)</div>\n";
+            echo "</div>\n";
+            echo "<div style='height:16px;'></div>\n";
+            $tr_repeat = 20;
+        }
+    }
 
     $i = $tr_repeat;
     while($i > 0)
@@ -404,6 +404,7 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
       $retvalue[triptime] = '1';
     else
       $retvalue[triptime] = '2';
+
     return $retvalue;
   }
 
@@ -2167,13 +2168,13 @@ $tdr_display_creds =   NUMBER($playerinfo['credits']);
 
 function traderoute_results_table_top()
 {
-	global $color_line2,$l_tdr_tdrres;
-	echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
-	echo "  <tr bgcolor='".$color_line2."'>\n";
-	echo "    <td align='center' colspan='7'><b><font color='white'>".$l_tdr_tdrres."</font></b></td>\n";
-	echo "  </tr>\n";
-	echo "  <tr align='center' bgcolor='".$color_line2."'>\n";
-	echo "    <td width='50%'><font size='2' color='white'><b>";
+    global $color_line2,$l_tdr_tdrres;
+    echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
+    echo "  <tr bgcolor='".$color_line2."'>\n";
+    echo "    <td align='center' colspan='7'><b><font color='white'>".$l_tdr_tdrres."</font></b></td>\n";
+    echo "  </tr>\n";
+    echo "  <tr align='center' bgcolor='".$color_line2."'>\n";
+    echo "    <td width='50%'><font size='2' color='white'><b>";
 
 }
 function traderoute_results_source()
@@ -2185,9 +2186,9 @@ function traderoute_results_destination()
 {
     global $color_line1;
     echo "</b></font></td>\n";
-	echo "  </tr>\n";
-	echo "  <tr bgcolor='".$color_line1."'>\n";
-	echo "    <td align='center'><font size='2' color='white'>";
+    echo "  </tr>\n";
+    echo "  <tr bgcolor='".$color_line1."'>\n";
+    echo "    <td align='center'><font size='2' color='white'>";
 }
 function traderoute_results_close_cell()
 {
@@ -2198,21 +2199,21 @@ function traderoute_results_show_cost()
 {
     global $color_line2;
     echo "</font></td>\n";
-	echo "  </tr>\n";
-	echo "  <tr bgcolor='".$color_line2."'>\n";
-	echo "    <td align='center'><font size='2' color='white'>";
+    echo "  </tr>\n";
+    echo "  <tr bgcolor='".$color_line2."'>\n";
+    echo "    <td align='center'><font size='2' color='white'>";
 }
 function traderoute_results_close_cost()
 {
     echo "</font></td>\n";
-	echo "    <td align='center'><font size='2' color='white'>";
+    echo "    <td align='center'><font size='2' color='white'>";
 }
 function traderoute_results_close_table()
 {
     echo "</font></td>\n";
-	echo "  </tr>\n";
-	echo "</table>\n";
-	echo "<p><center><font size=3 color=white><b>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+    echo "<p><center><font size=3 color=white><b>\n";
 }
 
 function traderoute_results_display_totals($total_profit)
@@ -2240,7 +2241,7 @@ function traderoute_results_show_repeat()
 {
     global $engage;
     echo "<FORM ACTION='traderoute.php?engage=".$engage."' METHOD='post'>\n";
-	echo "<BR>Enter times to repeat <INPUT TYPE='TEXT' NAME='tr_repeat' VALUE='1' SIZE='5'> <INPUT TYPE='SUBMIT' VALUE='SUBMIT'>\n";
+    echo "<BR>Enter times to repeat <INPUT TYPE='TEXT' NAME='tr_repeat' VALUE='1' SIZE='5'> <INPUT TYPE='SUBMIT' VALUE='SUBMIT'>\n";
     echo "</FORM>\n";
     echo "<p>";
 }

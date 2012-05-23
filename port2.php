@@ -101,13 +101,13 @@ global $upgrade_cost;
   $Delta=0; $DeltaCost=0;
   $Delta = $desiredvalue - $currentvalue;
 
-    while($Delta>0) 
+    while($Delta>0)
     {
-     $DeltaCost=$DeltaCost + mypw(2,$desiredvalue-$Delta); 
+     $DeltaCost=$DeltaCost + mypw(2,$desiredvalue-$Delta);
      $Delta=$Delta-1;
     }
     $DeltaCost=$DeltaCost * $upgrade_cost;
-    
+
   return $DeltaCost;
 }
 
@@ -137,7 +137,7 @@ else
         TEXT_GOTOMAIN();
         include("footer.php");
         die();
-	}
+    }
     unset($_SESSION['port_shopping']);
 
     if(isLoanPending($playerinfo[ship_id]))
@@ -439,7 +439,7 @@ if ($colonist_max <0) $colonist_max = 0;
 
       $hull_upgrade=0;
       echo "</table>";
-	  
+
 echo "<div style='font-size:16px; color:#FFFFFF;'><br />[<span style='color:#00FF00;'>Border Patrol</span>]<br />\n";
 echo "Halt, while we scan your cargo...<br />\n";
 
@@ -447,16 +447,16 @@ if ((NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_org
 {
 #	BuildTwoCol("<span style='color:#FF0000;'>Detected Illegal Cargo</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
 
-	echo "<span style='color:#FF0000; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
-	$db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
-	adminlog(5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
+    echo "<span style='color:#FF0000; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
+    $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
+    adminlog(5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
 }
 else
 {
-	echo "<span style='color:#00FF00;'>Detected no illegal cargo, you may continue.</span>\n";
+    echo "<span style='color:#00FF00;'>Detected no illegal cargo, you may continue.</span>\n";
 }
 
-echo "</div>\n"; 
+echo "</div>\n";
 
     }
   }
@@ -482,6 +482,7 @@ echo "</div>\n";
       // Debug info
       print "$origin*$price_array[$port_type]=";
       print $origin*$price_array[$port_type]."<br>";
+
       return $origin;
    }
 
@@ -609,7 +610,7 @@ echo "</div>\n";
 
       // Decrease supply and demand on port
       $trade_result2    = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
-       
+
       echo "$l_trade_complete.<BR><BR>";
     }
   }

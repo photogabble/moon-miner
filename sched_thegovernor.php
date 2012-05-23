@@ -104,8 +104,8 @@
       $detected = (boolean) true;
       adminlog(960, "7|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
     }
-	
-	if($playerinfo['credits'] > 100000000000000000000)
+
+    if($playerinfo['credits'] > 100000000000000000000)
     {
       echo "'-> <span style='color:#FF0000;'>Detected Credits Overflow on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#00FF00;'>*** FIXED ***</span><br />\n";
       $db->Execute("UPDATE $dbtables[ships] SET credits = ? WHERE ship_id = ? LIMIT 1;", array(100000000000000000000, $playerinfo['ship_id']));
@@ -203,16 +203,16 @@
     }
 
     if ($bankinfo['balance'] > 100000000000000000000)
-	{
-		echo "'-> <span style='color:#FF0000;'>Detected Balance Credits Overflow on IGB Account: {$bankinfo['ship_id']}.</span> <span style='color:#00FF00;'>*** FIXED ***</span><br />\n";
-		$db->Execute("UPDATE $dbtables[ibank_accounts] SET balance = ? WHERE ship_id = ? LIMIT 1;", array(100000000000000000000, $bankinfo['ship_id']));
-		if ($db->ErrorNo() >0)
-		{
-			echo "error: ". $db->ErrorMsg() . "<br />\n";
-		}
-		$detected = (boolean) true;
+    {
+        echo "'-> <span style='color:#FF0000;'>Detected Balance Credits Overflow on IGB Account: {$bankinfo['ship_id']}.</span> <span style='color:#00FF00;'>*** FIXED ***</span><br />\n";
+        $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance = ? WHERE ship_id = ? LIMIT 1;", array(100000000000000000000, $bankinfo['ship_id']));
+        if ($db->ErrorNo() >0)
+        {
+            echo "error: ". $db->ErrorMsg() . "<br />\n";
+        }
+        $detected = (boolean) true;
 #		adminlog(960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
-	}
+    }
 
 // Checking IGB Loan Credits
     if($bankinfo['loan'] < 0)

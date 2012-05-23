@@ -71,10 +71,10 @@ $num_defences = $i;
 bigtitle();
 if ($playerinfo[turns]<1)
 {
-	echo "$l_mines_noturn<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+    echo "$l_mines_noturn<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
 }
 $res = $db->Execute("SELECT allow_defenses,$dbtables[universe].zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
 $zoneinfo = $res->fields;

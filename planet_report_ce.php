@@ -23,7 +23,7 @@ bigtitle();
 echo "<BR>";
 echo "Click <A HREF=planet_report.php>here</A> to return to report menu<br>";
 
-if(isset($_POST["TPCreds"])) 
+if(isset($_POST["TPCreds"]))
 {
   collect_credits($_POST["TPCreds"]);
 }
@@ -65,6 +65,7 @@ function go_build_base($planet_id, $sector_id)
   {
     echo "<div style='color:#FF0000; font-size:16px;'>Base Construction Failed!</div>\n";
     echo "<div style='color:#FF0000; font-size:16px;'>Invalid Planet or Sector Information Supplied.</div>\n";
+
     return (boolean) false;
   }
 
@@ -74,6 +75,7 @@ function go_build_base($planet_id, $sector_id)
     $hack_id = 0x1337;
     adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
     echo "<div style='color:#FF0000; font-size:16px;'>Base Construction Failed!</div>\n";
+
     return (boolean) false;
   }  // build a base
 
@@ -139,7 +141,7 @@ function collect_credits($planetarray)
   sort($s_p_pair);
   reset($s_p_pair);
 
-  // run through the list of sector planet pairs realspace moving to each sector and then performing the transfer. 
+  // run through the list of sector planet pairs realspace moving to each sector and then performing the transfer.
   // Based on the way realspace works we don't need a sub loop -- might add a subloop to clean things up later.
 
   for($i=0; $i < count($s_p_pair) && $CS == "GO"; $i++)
@@ -176,7 +178,7 @@ function change_planet_production($prodpercentarray)
 //  NOTES on what this function does and how
 //  Declares some global variables so they are accessable
 //    $db, $dbtables and default production values from the config.php file
-//  
+//
 //  We need to track what the player_id is and what corp they belong to if they belong to a corp,
 //    these two values are not passed in as arrays
 //    ship_id = the owner of the planet          ($ship_id = $prodpercentarray[ship_id])
@@ -205,7 +207,7 @@ function change_planet_production($prodpercentarray)
   global $username;
 
   $result = $db->Execute("SELECT ship_id,team FROM $dbtables[ships] WHERE email='$username'");
-  $ship_id = $result->fields[ship_id]; $team_id = $result->fields[team]; 
+  $ship_id = $result->fields[ship_id]; $team_id = $result->fields[team];
 
   $planet_hack = false;
   $hack_id     = 0x0000;
@@ -218,7 +220,7 @@ function change_planet_production($prodpercentarray)
     if($commod_type != "team_id" && $commod_type != "ship_id")
     {
       while(list($planet_id, $prodpercent) = each($valarray))
-      {  
+      {
         if($commod_type == "prod_ore" || $commod_type == "prod_organics" || $commod_type == "prod_goods" || $commod_type == "prod_energy" || $commod_type == "prod_fighters" || $commod_type == "prod_torp")
         {
           $res = $db->Execute("SELECT COUNT(*) AS owned_planet FROM $dbtables[planets] WHERE planet_id=$planet_id AND owner = $ship_id");
@@ -301,7 +303,7 @@ function change_planet_production($prodpercentarray)
       {
         $planet[name] = $l_unnamed;
       }
-  
+
       if($planet[prod_ore] < 0)
         $planet[prod_ore] = 110;
       if($planet[prod_organics] < 0)
@@ -388,6 +390,7 @@ function Take_Credits($sector_id, $planet_id)
     echo "<BR><BR>You must be in the same sector as the planet to transfer to/from the planet<BR><BR>";
     $retval = "BREAK-SECTORS";
   }
+
   return($retval);
 }
 
@@ -430,7 +433,7 @@ function Real_Space_Move($destination)
   {
     $energyscooped = 0;
   }
- 
+
   if($playerinfo[dev_fuelscoop] == "Y" && $energyscooped == 0 && $triptime == 1)
   {
     $energyscooped = 100;
@@ -504,9 +507,9 @@ function Real_Space_Move($destination)
 
   if(($hostile > 0) && ($playerinfo[hull] > $mine_hullsize))
   {
-	$retval = "HOSTILE";
-	// need to add a language value for this
-	echo "CANNOT MOVE TO SECTOR $destination THROUGH HOSTILE DEFENSES<br>";
+    $retval = "HOSTILE";
+    // need to add a language value for this
+    echo "CANNOT MOVE TO SECTOR $destination THROUGH HOSTILE DEFENSES<br>";
 
 
   } else
@@ -514,13 +517,14 @@ function Real_Space_Move($destination)
        $stamp = date("Y-m-d H-i-s");
        $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
        $l_rs_ready=str_replace("[sector]",$destination,$l_rs_ready);
-   
+
        $l_rs_ready= str_replace("[triptime]",NUMBER($triptime),$l_rs_ready);
        $l_rs_ready=str_replace("[energy]",NUMBER($energyscooped),$l_rs_ready);
        echo "$l_rs_ready<BR>";
-       $retval = "GO";	
+       $retval = "GO";
   }
  }
+
   return($retval);
 }
 

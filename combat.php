@@ -32,6 +32,7 @@ function calcplanetfighters()
     global $planetinfo;
 
     $planetfighters = $planetinfo[fighters];
+
     return $planetfighters;
 }
 
@@ -96,6 +97,7 @@ function calcplanetshields()
         $planetshields = $energy_available;
     }
     $planetinfo[energy] -= $planetshields;
+
     return $planetshields;
 }
 
@@ -666,12 +668,12 @@ function planetcombat()
     {
         echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>$l_cmb_planetdefeated</b></FONT></CENTER><BR><BR>";
 
-	// Patch to stop players dumping credits for other players.
+    // Patch to stop players dumping credits for other players.
         $self_tech = get_avg_tech($playerinfo);
         $target_tech = round(get_avg_tech($ownerinfo));
 
         $roll = rand(0, (integer) $target_tech);
-	if ($roll > $self_tech)
+    if ($roll > $self_tech)
         {
             // Reset Planet Assets.
             $sql  = "UPDATE $dbtables[planets] ";

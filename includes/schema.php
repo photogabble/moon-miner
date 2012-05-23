@@ -15,94 +15,94 @@ global $db;
 
 if (!function_exists('PrintFlush'))
 {
-	function PrintFlush($Text="")
-	{
-		print "$Text";
-		flush();
-	}
+    function PrintFlush($Text="")
+    {
+        print "$Text";
+        flush();
+    }
 }
 
 if (!function_exists('Table_Header'))
 {
-	function Table_Header($title="")
-	{
-		PrintFlush( "<div align=\"center\">\n");
-		PrintFlush( "  <center>\n");
-		PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000000\">\n");
-		PrintFlush( "    <tr>\n");
-		PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"2\">$title</font></th>\n");
-		PrintFlush( "    </tr>\n");
-	}
+    function Table_Header($title="")
+    {
+        PrintFlush( "<div align=\"center\">\n");
+        PrintFlush( "  <center>\n");
+        PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000000\">\n");
+        PrintFlush( "    <tr>\n");
+        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"2\">$title</font></th>\n");
+        PrintFlush( "    </tr>\n");
+    }
 }
 
 if (!function_exists('Table_Row'))
 {
-	function Table_Row($data,$failed="Failed",$passed="Passed")
-	{
-		$err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
-		PrintFlush( "    <tr title=\"$err\">\n");
-		PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$data</font></td>\n");
-		if(mysql_errno()!=0)
-			{PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
-		else
-			{PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"Blue\">$passed</font></td>\n");}
-		echo "    </tr>\n";
-	}
+    function Table_Row($data,$failed="Failed",$passed="Passed")
+    {
+        $err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+        PrintFlush( "    <tr title=\"$err\">\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$data</font></td>\n");
+        if(mysql_errno()!=0)
+            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
+        else
+            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"Blue\">$passed</font></td>\n");}
+        echo "    </tr>\n";
+    }
 }
 
 
 if (!function_exists('Table_2Col'))
 {
-	function Table_2Col($name,$value)
-	{
-		PrintFlush("    <tr>\n");
-		PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$name</font></td>\n");
-		PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$value</font></td>\n");
-		PrintFlush( "    </tr>\n");
-	}
+    function Table_2Col($name,$value)
+    {
+        PrintFlush("    <tr>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$name</font></td>\n");
+        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$value</font></td>\n");
+        PrintFlush( "    </tr>\n");
+    }
 }
 
 if (!function_exists('Table_1Col'))
 {
-	function Table_1Col($data)
-	{
-		PrintFlush( "    <tr>\n");
-		PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"1\">$data</font></td>\n");
-		PrintFlush( "    </tr>\n");
-	}
+    function Table_1Col($data)
+    {
+        PrintFlush( "    <tr>\n");
+        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"1\">$data</font></td>\n");
+        PrintFlush( "    </tr>\n");
+    }
 }
 
 if (!function_exists('Table_Spacer'))
 {
-	function Table_Spacer()
-	{
-		PrintFlush( "    <tr>\n");
-		PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" height=\"1\"></td>\n");
-		PrintFlush( "    </tr>\n");
-	}
+    function Table_Spacer()
+    {
+        PrintFlush( "    <tr>\n");
+        PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" height=\"1\"></td>\n");
+        PrintFlush( "    </tr>\n");
+    }
 }
 
 if (!function_exists('Table_Footer'))
 {
-	function Table_Footer($footer='')
-	{
-		if(!empty($footer))
-		{
-			PrintFlush( "    <tr>\n");
-			PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"1\">$footer</font></td>\n");
-			PrintFlush( "    </tr>\n");
-		}
-		PrintFlush( "  </table>\n");
-		PrintFlush( "  </center>\n");
-		PrintFlush( "</div><p>\n");
-	}
+    function Table_Footer($footer='')
+    {
+        if(!empty($footer))
+        {
+            PrintFlush( "    <tr>\n");
+            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"1\">$footer</font></td>\n");
+            PrintFlush( "    </tr>\n");
+        }
+        PrintFlush( "  </table>\n");
+        PrintFlush( "  </center>\n");
+        PrintFlush( "</div><p>\n");
+    }
 }
 
 ## ---- ##
 
 function DBTRUEFALSE($truefalse,$Stat,$True,$False)
 {
-	return(($truefalse == $Stat) ? $True : $False);
+    return(($truefalse == $Stat) ? $True : $False);
 }
 
 // Delete all tables in the database
@@ -110,9 +110,9 @@ Table_Header("Dropping Tables");
 
 foreach ($dbtables as $table => $tablename)
 {
-	$query = $db->Execute("DROP TABLE $tablename");
-	$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
-	Table_Row("Dropping $tablename","Failed","Passed");
+    $query = $db->Execute("DROP TABLE $tablename");
+    $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+    Table_Row("Dropping $tablename","Failed","Passed");
 
 }
 
@@ -298,7 +298,7 @@ $db->Execute("CREATE TABLE $dbtables[ibank_accounts](" .
              "balance bigint(20) DEFAULT '0'," .
              "loan bigint(20)  DEFAULT '0'," .
              "loantime datetime," .
-			 "PRIMARY KEY(ship_id)" .
+             "PRIMARY KEY(ship_id)" .
              ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
 
@@ -431,7 +431,7 @@ Table_Row("Creating logs Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE $dbtables[bounty] (" .
              "bounty_id int unsigned NOT NULL auto_increment," .
-             "amount bigint(20) unsigned DEFAULT '0' NOT NULL," . 
+             "amount bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "bounty_on int unsigned DEFAULT '0' NOT NULL," .
              "placed_by int unsigned DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (bounty_id)," .

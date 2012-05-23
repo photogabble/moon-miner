@@ -26,7 +26,7 @@ if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
   SetCookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
   setcookie("id",$id);
 }
-if(!preg_match("/^[\w]+$/", $newlang)) 
+if(!preg_match("/^[\w]+$/", $newlang))
 {
    $newlang = $default_lang;
 }
@@ -87,7 +87,7 @@ foreach($avail_lang as $curlang)
   if($lang == $curlang[file])
   {
     $l_opt2_chlang = str_replace("[lang]", "$curlang[name]", $l_opt2_chlang);
-    
+
     echo $l_opt2_chlang;
     break;
   }

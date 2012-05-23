@@ -1,11 +1,11 @@
 <?php
-if (preg_match("/setup_info_class.php/i", $_SERVER['PHP_SELF'])) 
+if (preg_match("/setup_info_class.php/i", $_SERVER['PHP_SELF']))
 {
     echo "You can not access this file directly!";
     die();
 }
 
-class SETUPINFO_CLASS 
+class SETUPINFO_CLASS
 {
     var $appinfo;
     var $ADOdb_status;
@@ -17,7 +17,7 @@ class SETUPINFO_CLASS
     // Constructor
     function SETUPINFO_CLASS($in_Value = 0)
     {
-		global $connectedtodb,$db;
+        global $connectedtodb,$db;
 
         // Register destructor
         register_shutdown_function(array(&$this, '_SETUPINFO_CLASS'));
@@ -36,13 +36,13 @@ class SETUPINFO_CLASS
         ################################
         # Display Enviroment Variables #
         ################################
-        $this->switches['Enable_Database'] = array("caption" => "Enable Database Testing", 
+        $this->switches['Enable_Database'] = array("caption" => "Enable Database Testing",
             "info" => "This will enable Database Connection and Testing.", "enabled" => false);
 
         ################################
         # Display Enviroment Variables #
         ################################
-        $this->switches['Show_Env_Var'] = array("caption" => "Display Environment Variables", 
+        $this->switches['Show_Env_Var'] = array("caption" => "Display Environment Variables",
             "info" => "This test will display all variables stored in $"."_SERVER.", "enabled" => false);
 
         #######################
@@ -68,7 +68,7 @@ class SETUPINFO_CLASS
     }
 
     // Destructor
-    function _SETUPINFO_CLASS() 
+    function _SETUPINFO_CLASS()
     {
         global $db;
 
@@ -79,17 +79,17 @@ class SETUPINFO_CLASS
         }
     }
 
-	function initDB()
-	{
-		global $connectedtodb,$db;
-		if($this->switches['Enable_Database']['enabled']==true)
-		{
-	        if(!$connectedtodb)
-	        {
-	            connectdb(false);
-	        }
-		}
-	}
+    function initDB()
+    {
+        global $connectedtodb,$db;
+        if($this->switches['Enable_Database']['enabled']==true)
+        {
+            if(!$connectedtodb)
+            {
+                connectdb(false);
+            }
+        }
+    }
 
     function error_switching()
     {
@@ -105,11 +105,11 @@ class SETUPINFO_CLASS
         }
     }
 
-	##############################
-	#  This gets the Game Path.  #
-	##############################
-	function get_gamepath($compare = false)
-	{
+    ##############################
+    #  This gets the Game Path.  #
+    ##############################
+    function get_gamepath($compare = false)
+    {
         $game_path['result']  = NULL;
         $game_path['info']    = NULL;
         $game_path['status']  = false;
@@ -144,6 +144,7 @@ class SETUPINFO_CLASS
             $game_path['info']   =(($compare) ? "Unable to detect gamepath to compare!" : "Unable to detect gamepath!");
             $game_path['status'] = false;
         }
+
         return $game_path;
     }
 
@@ -180,6 +181,7 @@ class SETUPINFO_CLASS
             $game_root['result'] = str_replace("\\", "/", (dirname($result)));
             $game_root['status'] = true;
         }
+
         return $game_root;
     }
 
@@ -195,7 +197,7 @@ class SETUPINFO_CLASS
         if(isset($result) && strlen($result) >0)
         {
             $pos = strpos($result,"http://");
-            if (is_integer($pos)) 
+            if (is_integer($pos))
             {
                 $result = substr($result,$pos+7);
             }
@@ -224,6 +226,7 @@ class SETUPINFO_CLASS
             $game_domain['info']   = (($compare) ?"Unable to detect the gamedomain to compare!":"Unable to detect the gamedomain!");
             $game_domain['status'] = false;
         }
+
         return $game_domain;
     }
 
@@ -236,7 +239,7 @@ class SETUPINFO_CLASS
         global $dbhost, $dbport, $dbuname, $dbpass, $dbname, $db, $ADODB_FETCH_MODE;
         global $default_lang;
 
-        $this->mysql_version = null; 
+        $this->mysql_version = null;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 /*
@@ -244,34 +247,35 @@ class SETUPINFO_CLASS
  */
 //		$this->database_client_version = mysql_get_client_info();
 
-		if($this->switches['Enable_Database']['enabled'])
-		{
-	        $this->db_status['status'] = (( ($db instanceof ADOConnection) && is_resource($db->_connectionID))? "Connected OK":"Not Connected");
+        if($this->switches['Enable_Database']['enabled'])
+        {
+            $this->db_status['status'] = (( ($db instanceof ADOConnection) && is_resource($db->_connectionID))? "Connected OK":"Not Connected");
 
 #echo "<pre>[ServerInfo]\n". print_r($db->ServerInfo(), true) ."</pre>\n";
 #echo "<pre>[IsConnected]\n". print_r($db->IsConnected(), true) ."</pre>\n";
 
 #echo "<pre>[dump]\n". print_r($db, true) ."</pre>\n";
 
-	        if( ($db instanceof ADOConnection) && $db->IsConnected() )
-	        {
-	            $server_version = $db->ServerInfo();
-	            $this->database_server_version = "{$server_version['version']}";
-	            $return = true;
-	        }
-	        else
-	        {
-	            $this->db_status['error'] = "Please check you have the correct db info set in config_local.php.";
-	            $return = false;
-	        }
-		}
-		else
-		{
-			$this->db_status['status'] = "Not Connected";
+            if( ($db instanceof ADOConnection) && $db->IsConnected() )
+            {
+                $server_version = $db->ServerInfo();
+                $this->database_server_version = "{$server_version['version']}";
+                $return = true;
+            }
+            else
+            {
+                $this->db_status['error'] = "Please check you have the correct db info set in config_local.php.";
+                $return = false;
+            }
+        }
+        else
+        {
+            $this->db_status['status'] = "Not Connected";
             $this->db_status['error'] = "Database Tests have been disabled.";
             $return = false;
-		}
-		return $return;
+        }
+
+        return $return;
     }
 
     function validate_database()
@@ -279,15 +283,15 @@ class SETUPINFO_CLASS
         global $db, $dbtables;
         $db_info = null;
 
-		if($this->switches['Enable_Database']['enabled']==true)
-		{
-        	if($db)
-        	{
-        	    $db_info['status'] = "Setup Info has found ".count($dbtables)." tables in the Tables List.";
-	
-	            foreach($dbtables as $k => $v)
-	            {
-	                $test = @$db->Execute("SELECT COUNT(*) as record_count FROM $v");
+        if($this->switches['Enable_Database']['enabled']==true)
+        {
+            if($db)
+            {
+                $db_info['status'] = "Setup Info has found ".count($dbtables)." tables in the Tables List.";
+
+                foreach($dbtables as $k => $v)
+                {
+                    $test = @$db->Execute("SELECT COUNT(*) as record_count FROM $v");
                     if(is_bool($test) && $test == false)
                     {
                         $count = 0;
@@ -296,26 +300,26 @@ class SETUPINFO_CLASS
                     {
                         $count = $test->fields['record_count'];
                     }
-	                $db_info[$k]['name']="$v";
-	                $db_info[$k]['status']="Failed";
-	                $db_info[$k]['info']=$db->ErrorMsg();
-	                if($db->ErrorNo()==0)
-	                {
-	                    $db_info[$k]['name']="$v";
-	                    $db_info[$k]['status']="Passed";
-	                    $db_info[$k]['info']="Found $count records in the $k table.";
-	                }
-	            }
-	        }
-	        else
-	        {
-	            $db_info['status'] = "Not connected to DB -- Skipping validation!";
-	        }
-		}
-		else
-		{
-	            $db_info['status'] = "Database Test have been Disabled -- Skipping validation!";
-		}
+                    $db_info[$k]['name']="$v";
+                    $db_info[$k]['status']="Failed";
+                    $db_info[$k]['info']=$db->ErrorMsg();
+                    if($db->ErrorNo()==0)
+                    {
+                        $db_info[$k]['name']="$v";
+                        $db_info[$k]['status']="Passed";
+                        $db_info[$k]['info']="Found $count records in the $k table.";
+                    }
+                }
+            }
+            else
+            {
+                $db_info['status'] = "Not connected to DB -- Skipping validation!";
+            }
+        }
+        else
+        {
+                $db_info['status'] = "Database Test have been Disabled -- Skipping validation!";
+        }
 
         return $db_info;
     }
@@ -331,7 +335,7 @@ class SETUPINFO_CLASS
 
         if (file_exists(realpath("$ADOdbpath/adodb.inc.php"))==true)
         {
-            if ($do_status==true) 
+            if ($do_status==true)
             {
                 $this->ADOdb_status['status'] = "ADOdb is correctly setup";
                 $this->ADOdb_status['version'] = $ADODB_vers;
@@ -340,13 +344,14 @@ class SETUPINFO_CLASS
         }
         else
         {
-            if ($do_status==true) 
+            if ($do_status==true)
             {
                 $this->ADOdb_status['status'] = "Invalid ADOdb Folder";
                 $this->ADOdb_status['help'] = "Please check your $"."ADOdbpath setting in config_local.php";
             }
             $return = false;
         }
+
         return $return;
     }
 
@@ -354,7 +359,7 @@ class SETUPINFO_CLASS
     {
         global $db;
 
-        if (!mysql_ping($db)) 
+        if (!mysql_ping($db))
         {
             $MYSQL_STATUS= "Down";
         }
@@ -362,6 +367,7 @@ class SETUPINFO_CLASS
         {
             $MYSQL_STATUS= "Running";
         }
+
         return $MYSQL_STATUS;
     }
 
@@ -376,7 +382,7 @@ class SETUPINFO_CLASS
             $id=0;
             ksort($_SERVER);
             reset($_SERVER);
-            foreach($_SERVER as $name => $value) 
+            foreach($_SERVER as $name => $value)
             {
                 $array_var = explode(";", "$value");
                 $value =implode("; ",$array_var);
@@ -392,6 +398,7 @@ class SETUPINFO_CLASS
             $env_info['status'][] = "Try enabling the Switch to use this function.";
             $return = false;
         }
+
         return $return;
     }
 
@@ -428,34 +435,34 @@ class SETUPINFO_CLASS
 
         $game_root = $this->get_gameroot(true);
         if($game_root['status'] != false)
-		{
-	        $current_info[] = array("caption" => '$gameroot', "value" => $gameroot, "status" => (trim($gameroot) == trim($game_root['result']) ? "Correct" : "Incorrect") );
-		}
-		else
-		{
-	        $current_info[] = array("caption" => '$gameroot', "value" => $game_root['info'], "status" => "Unknown" );
-		}
+        {
+            $current_info[] = array("caption" => '$gameroot', "value" => $gameroot, "status" => (trim($gameroot) == trim($game_root['result']) ? "Correct" : "Incorrect") );
+        }
+        else
+        {
+            $current_info[] = array("caption" => '$gameroot', "value" => $game_root['info'], "status" => "Unknown" );
+        }
 
         $game_path = $this->get_gamepath(true);
         if($game_path['status'] != false)
-		{
+        {
             $current_info[] = array("caption" => '$gamepath', "value" => $gamepath, "status" => (trim($gamepath) == trim($game_path['result']) ? "Correct" : "Incorrect") );
         }
-		else
-		{
-	        $current_info[] = array("caption" => '$gamepath', "value" => $game_path['info'], "status" => "Unknown" );
-		}
+        else
+        {
+            $current_info[] = array("caption" => '$gamepath', "value" => $game_path['info'], "status" => "Unknown" );
+        }
 
 
         $game_domain = $this->get_gamedomain(true);
         if($game_domain['status'] != false)
-		{
+        {
             $current_info[] = array("caption" => '$gamedomain', "value" => $gamedomain, "status" => (trim($gamedomain) == trim($game_domain['result']) ? "Correct" : "Incorrect") );
         }
-		else
-		{
-	        $current_info[] = array("caption" => '$gamedomain', "value" => $game_domain['info'], "status" => "Unknown" );
-		}
+        else
+        {
+            $current_info[] = array("caption" => '$gamedomain', "value" => $game_domain['info'], "status" => "Unknown" );
+        }
         $current_info[] = "%SEPERATOR%";
 
         $current_info[] = array("caption" => '$ADOdbpath', "value" => $ADOdbpath,"status" => ($this->validate_ADOdb_path()) ? "Correct":"Incorrect" );
@@ -493,6 +500,7 @@ class SETUPINFO_CLASS
             list($switch_name, $switch_array) = each($this->switches);
             $switch_info[$switch_name] = array("caption" => "{$switch_array['caption']}", "info" => "{$switch_array['info']}", "value" => "{$switch_array['enabled']}");
         }
+
         return $switch_info;
     }
 
@@ -510,10 +518,10 @@ class SETUPINFO_CLASS
         # Get Operating System #
         ########################
         $var = $_SERVER['SERVER_SOFTWARE'];
-        $Spos = strpos($var, "(")+1; 
+        $Spos = strpos($var, "(")+1;
         $Epos = strpos($var, ")",(int)$Spos);
 
-        if (is_integer(strpos($var, "Apache"))) 
+        if (is_integer(strpos($var, "Apache")))
         {
             $PlatOS = "Apache";
         }
@@ -525,7 +533,7 @@ class SETUPINFO_CLASS
         ######################
         # Get Remote Address #
         ######################
-        if(!empty($_SERVER['REMOTE_ADDR'])) 
+        if(!empty($_SERVER['REMOTE_ADDR']))
         {
             $RemoteAddr = "{$_SERVER['REMOTE_ADDR']}";
         }
@@ -533,14 +541,14 @@ class SETUPINFO_CLASS
         ######################
         # Get Server Address #
         ######################
-        if(!empty($_SERVER['SERVER_ADDR'])&&!empty($_SERVER['SERVER_PORT'])) 
+        if(!empty($_SERVER['SERVER_ADDR'])&&!empty($_SERVER['SERVER_PORT']))
         {
             $ServerAddr = "{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}";
         }
-		
-		$_SERVER['SERVER_ADDR'] = ((empty($_SERVER['SERVER_ADDR'])) ? $_SERVER['LOCAL_ADDR'] : $_SERVER['SERVER_ADDR']);
 
-		$ServerAddr = ((!empty($_SERVER['SERVER_ADDR'])) ? $_SERVER['SERVER_ADDR'] : $_SERVER['HTTP_HOST']).":{$_SERVER['SERVER_PORT']}";
+        $_SERVER['SERVER_ADDR'] = ((empty($_SERVER['SERVER_ADDR'])) ? $_SERVER['LOCAL_ADDR'] : $_SERVER['SERVER_ADDR']);
+
+        $ServerAddr = ((!empty($_SERVER['SERVER_ADDR'])) ? $_SERVER['SERVER_ADDR'] : $_SERVER['HTTP_HOST']).":{$_SERVER['SERVER_PORT']}";
 
         $software_info[]['Operating System'] = PHP_OS;
         $software_info[]['Platform System'] = $PlatOS;
@@ -552,17 +560,17 @@ class SETUPINFO_CLASS
 
     function get_software_versions()
     {
-        if (function_exists('zend_version')) 
+        if (function_exists('zend_version'))
         {
             $software_info[]['zend_version'] = zend_version();
         }
 
-        if (function_exists('apache_get_version')) 
+        if (function_exists('apache_get_version'))
         {
             $software_info[]['apache_version'] = apache_get_version();
         }
 
-		if (defined('PHP_VERSION'))
+        if (defined('PHP_VERSION'))
         {
             $software_info[]['php_version'] = PHP_VERSION;
         }
@@ -628,7 +636,7 @@ class SETUPINFO_CLASS
             $software_info[]['iis_version'] = "$IIS_VERSION";
         }
 
-		$software_info[]['MySQL Server Version'] = (($this->switches['Enable_Database']['enabled']) ?$this->database_server_version : "Database tests disabled");
+        $software_info[]['MySQL Server Version'] = (($this->switches['Enable_Database']['enabled']) ?$this->database_server_version : "Database tests disabled");
 
 /*
  * This my not be needed, but I will leave it here just in case we need it :)
@@ -644,12 +652,12 @@ class SETUPINFO_CLASS
         if(isset($filename) && function_exists('file'))
         {
             $lines = file($filename);
-	
+
             foreach ($lines as $line_num => $line)
             {
                 if(preg_match("/\b$pattern\b/i", $line))
                 {
-					$line = substr($line,strpos($line,$pattern));
+                    $line = substr($line,strpos($line,$pattern));
                     list($fixname,$fixversion,$fixdate,$fixauthor) = preg_split("/[,]+/", $line, 4);
 
                     $result['version'] = "V$fixversion";
@@ -661,20 +669,21 @@ class SETUPINFO_CLASS
                 }
             }
         }
+
         return $result;
     }
 
-	#########################################
-	#     TRUE or FALSE Function.     #
-	#########################################
-	function SI_TRUEFALSE($truefalse,$Stat,$true,$false)
-	{
-		return(($truefalse == $Stat) ? $true : $false);
-	}
+    #########################################
+    #     TRUE or FALSE Function.     #
+    #########################################
+    function SI_TRUEFALSE($truefalse,$Stat,$true,$false)
+    {
+        return(($truefalse == $Stat) ? $true : $false);
+    }
 
-	#########################################
-	#       Display BNT Patch Status.       #
-	#########################################
+    #########################################
+    #       Display BNT Patch Status.       #
+    #########################################
     function get_patch_info(&$patch_info)
     {
         if($this->switches['Display_Patches']['enabled'])
@@ -731,161 +740,162 @@ class SETUPINFO_CLASS
     ################################
     function testcookies()
     {
-		global $gamepath, $gamedomain,$DoneRefresh,$_COOKIE,$_SESSION;
-		$COOKIE_Info =NULL;
+        global $gamepath, $gamedomain,$DoneRefresh,$_COOKIE,$_SESSION;
+        $COOKIE_Info =NULL;
 
-		if($this->switches['Test_Cookie']['enabled'])
-		{
-			if (function_exists('session_start'))
-			{
-				@session_start();
-				if (!isset($_SESSION["count"]) || is_null($_SESSION["count"])) 
-				{
-					$_SESSION['count'] = 0;
-					SetCookie ("TestCookie", "",0);
-					SetCookie ("TestCookie", "Shuzbutt",time()+3600,$gamepath, $gamedomain);
-					$header_location = ( @preg_match('/Microsoft|WebSTAR|Xitami/', $_SERVER["SERVER_SOFTWARE"]) ) ? 'Refresh: 0; URL=' : 'Location: ';
-					header($header_location . $this->append_sid($_SERVER["PHP_SELF"], false));
-					exit;
-				}
-				else
-				{
-					$_SESSION['count']=NULL;
-					unset($_SESSION["count"]); 
-				}
-			}
-			$this->cookie_test['enabled'] = true;
+        if($this->switches['Test_Cookie']['enabled'])
+        {
+            if (function_exists('session_start'))
+            {
+                @session_start();
+                if (!isset($_SESSION["count"]) || is_null($_SESSION["count"]))
+                {
+                    $_SESSION['count'] = 0;
+                    SetCookie ("TestCookie", "",0);
+                    SetCookie ("TestCookie", "Shuzbutt",time()+3600,$gamepath, $gamedomain);
+                    $header_location = ( @preg_match('/Microsoft|WebSTAR|Xitami/', $_SERVER["SERVER_SOFTWARE"]) ) ? 'Refresh: 0; URL=' : 'Location: ';
+                    header($header_location . $this->append_sid($_SERVER["PHP_SELF"], false));
+                    exit;
+                }
+                else
+                {
+                    $_SESSION['count']=NULL;
+                    unset($_SESSION["count"]);
+                }
+            }
+            $this->cookie_test['enabled'] = true;
 
-	        if (isset($_COOKIE['TestCookie'])) 
-	        {
-	            $this->cookie_test['result'] = true;
-	        }
-	        else
-	        {
-	            $this->cookie_test['result'] = false;
-	            $this->cookie_test['status'] = "Please check your $"."gamepath and $"."gamedomain settings in config_local.php";
-	        }
-		}
-		else
-		{
-	            $this->cookie_test['result'] = false;
-				$this->cookie_test['enabled'] = false;
-	            $this->cookie_test['status'] = "Cookie Tests Disabled.";
+            if (isset($_COOKIE['TestCookie']))
+            {
+                $this->cookie_test['result'] = true;
+            }
+            else
+            {
+                $this->cookie_test['result'] = false;
+                $this->cookie_test['status'] = "Please check your $"."gamepath and $"."gamedomain settings in config_local.php";
+            }
+        }
+        else
+        {
+                $this->cookie_test['result'] = false;
+                $this->cookie_test['enabled'] = false;
+                $this->cookie_test['status'] = "Cookie Tests Disabled.";
 
-		}
+        }
     }
 
-	##############################
-	#  Used for refreshing Page. #
-	##############################
+    ##############################
+    #  Used for refreshing Page. #
+    ##############################
     function append_sid($url, $non_html_amp = false)
     {
         global $SID;
 
-        if ( !empty($SID) && !eregi('sid=', $url)) 
+        if ( !empty($SID) && !eregi('sid=', $url))
         {
             $url .= ( ( strpos($url, '?') != false ) ?  ( ( $non_html_amp ) ? '&' : '&amp;' ) : '?' ) . $SID;
         }
+
         return($url);
     }
 
-	##############################
-	##   Displaying Functions   ##
- 	##############################
+    ##############################
+    ##   Displaying Functions   ##
+     ##############################
 
-	##############################
-	#   Display Text Function.   #
-	##############################
-	Function DisplayFlush($Text) 
-	{
-		print "$Text"; flush();
-	}
+    ##############################
+    #   Display Text Function.   #
+    ##############################
+    Function DisplayFlush($Text)
+    {
+        print "$Text"; flush();
+    }
 
-	##############################
-	#    HTML Table Functions.   #
-	##############################
-	Function do_Table_Title($title="Title",$Cols=2)
-	{
-		$this->DisplayFlush("<div align=\"center\">\n");
-		$this->DisplayFlush("  <center>\n");
-		$this->DisplayFlush("  <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"700\" bgcolor=\"#000000\">\n");
-		$this->DisplayFlush("    <tr>\n");
-		$this->DisplayFlush("      <td width=\"100%\" colspan=\"$Cols\" align=\"center\" bgcolor=\"#9999CC\">\n");
-		$this->DisplayFlush("        <p align=\"center\"><b><font face=\"Verdana\" color=\"#000000\">$title</font></b></td>\n");
-		$this->DisplayFlush("    </tr>\n");
-	}
+    ##############################
+    #    HTML Table Functions.   #
+    ##############################
+    Function do_Table_Title($title="Title",$Cols=2)
+    {
+        $this->DisplayFlush("<div align=\"center\">\n");
+        $this->DisplayFlush("  <center>\n");
+        $this->DisplayFlush("  <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"700\" bgcolor=\"#000000\">\n");
+        $this->DisplayFlush("    <tr>\n");
+        $this->DisplayFlush("      <td width=\"100%\" colspan=\"$Cols\" align=\"center\" bgcolor=\"#9999CC\">\n");
+        $this->DisplayFlush("        <p align=\"center\"><b><font face=\"Verdana\" color=\"#000000\">$title</font></b></td>\n");
+        $this->DisplayFlush("    </tr>\n");
+    }
 
-	##############################
-	#     Display Blank Row.     #
-	##############################
-	Function do_Table_Blank_Row()
-	{
-		global $Cols;
+    ##############################
+    #     Display Blank Row.     #
+    ##############################
+    Function do_Table_Blank_Row()
+    {
+        global $Cols;
 
-		$Col_Str="colspan=\"".($Cols)."\"";
-		$this->DisplayFlush("    <tr>\n");
-		$this->DisplayFlush("      <td style=\"background-color:#9999CC; width:75%; height:1px; padding:0px;\" $Col_Str></td>\n");
-		$this->DisplayFlush("    </tr>\n");
-	}
+        $Col_Str="colspan=\"".($Cols)."\"";
+        $this->DisplayFlush("    <tr>\n");
+        $this->DisplayFlush("      <td style=\"background-color:#9999CC; width:75%; height:1px; padding:0px;\" $Col_Str></td>\n");
+        $this->DisplayFlush("    </tr>\n");
+    }
 
-	##############################
-	#     Display Single Row.    #
-	##############################
-	Function do_Table_Single_Row($col1="Col1")
-	{
-		global $Cols;
+    ##############################
+    #     Display Single Row.    #
+    ##############################
+    Function do_Table_Single_Row($col1="Col1")
+    {
+        global $Cols;
 
-		$Col_Str="colspan=\"".($Cols)."\"";
-		$this->DisplayFlush("    <tr>\n");
-		$this->DisplayFlush("      <td bgcolor=\"#C0C0C0\" width=\"100%\" align=\"left\" $Col_Str bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
-		$this->DisplayFlush("    </tr>\n");
-	}
+        $Col_Str="colspan=\"".($Cols)."\"";
+        $this->DisplayFlush("    <tr>\n");
+        $this->DisplayFlush("      <td bgcolor=\"#C0C0C0\" width=\"100%\" align=\"left\" $Col_Str bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
+        $this->DisplayFlush("    </tr>\n");
+    }
 
-	##############################
-	#     Display Table Row.     #
-	##############################
-	Function do_Table_Row($col1="Col1",$col2="Col2",$status=false)
-	{
-		global $Cols, $Wrap;
+    ##############################
+    #     Display Table Row.     #
+    ##############################
+    Function do_Table_Row($col1="Col1",$col2="Col2",$status=false)
+    {
+        global $Cols, $Wrap;
 
-		$Col_Str=''; $WrapStr=" nowrap";
+        $Col_Str=''; $WrapStr=" nowrap";
 
-		If ($Wrap==true) $WrapStr = '';
-		if($status==false)
-		{
-			if ($Cols==3) $Col_Str="colspan=\"".($Cols-1)."\"";
-			$this->DisplayFlush("    <tr>\n");
-			$this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
-			$this->DisplayFlush("      <td width=\"75%\" $Col_Str bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col2</font></td>\n");
-			$this->DisplayFlush("    </tr>\n");
-		}
-		else
-		{
-			$this->DisplayFlush("    <tr>\n");
-			$this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
-			$this->DisplayFlush("      <td width=\"65%\" bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col2</font></td>\n");
-			$this->DisplayFlush("      <td width=\"10%\" bgcolor=\"#CCCCFF\" align=\"center\"$WrapStr valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\"><b>$status</b></font></td>\n");
-			$this->DisplayFlush("    </tr>\n");
-		}
-	}
+        If ($Wrap==true) $WrapStr = '';
+        if($status==false)
+        {
+            if ($Cols==3) $Col_Str="colspan=\"".($Cols-1)."\"";
+            $this->DisplayFlush("    <tr>\n");
+            $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
+            $this->DisplayFlush("      <td width=\"75%\" $Col_Str bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col2</font></td>\n");
+            $this->DisplayFlush("    </tr>\n");
+        }
+        else
+        {
+            $this->DisplayFlush("    <tr>\n");
+            $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
+            $this->DisplayFlush("      <td width=\"65%\" bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col2</font></td>\n");
+            $this->DisplayFlush("      <td width=\"10%\" bgcolor=\"#CCCCFF\" align=\"center\"$WrapStr valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\"><b>$status</b></font></td>\n");
+            $this->DisplayFlush("    </tr>\n");
+        }
+    }
 
-	##############################
-	#    Display Table Footer.   #
-	##############################
-	Function do_Table_Footer($endline="<br>")
-	{
-		global $Cols;
+    ##############################
+    #    Display Table Footer.   #
+    ##############################
+    Function do_Table_Footer($endline="<br>")
+    {
+        global $Cols;
 
-		$Col_Str="colspan=\"".($Cols)."\"";
-		$this->DisplayFlush("    </tr>\n");
-		$this->DisplayFlush("    <tr>\n");
-		$this->DisplayFlush("      <td style=\"background-color:#9999CC; width:75%; height:4px; padding:0px;\" $Col_Str></td>\n");
-		$this->DisplayFlush("    </tr>\n");
-		$this->DisplayFlush("  </table>\n");
-		$this->DisplayFlush("  </center>\n");
-		$this->DisplayFlush("</div>\n");
-		$this->DisplayFlush("$endline\n");
-	}
+        $Col_Str="colspan=\"".($Cols)."\"";
+        $this->DisplayFlush("    </tr>\n");
+        $this->DisplayFlush("    <tr>\n");
+        $this->DisplayFlush("      <td style=\"background-color:#9999CC; width:75%; height:4px; padding:0px;\" $Col_Str></td>\n");
+        $this->DisplayFlush("    </tr>\n");
+        $this->DisplayFlush("  </table>\n");
+        $this->DisplayFlush("  </center>\n");
+        $this->DisplayFlush("</div>\n");
+        $this->DisplayFlush("$endline\n");
+    }
 
 }
 

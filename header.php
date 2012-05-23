@@ -23,17 +23,17 @@ if(!isset($interface) || $interface == "")
 }
 
 if(isset($interface) && $interface == "main.php")
-{ 
+{
 
   echo "  a.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   a.mnu:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
 
   img.mnu {padding:4px; border:transparent 2px dashed;}
   img.mnu:hover {padding:4px; border:#FF0000 2px dashed;}
-  
+
   a.new_link {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#00FF00; font-weight:bold;}
   a.new_link:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
-  
+
   div.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   span.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   a.dis {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:silver; font-weight:bold;}
@@ -133,6 +133,7 @@ if (isset($interface) && $interface == "index.php")
       {
           x=document.getElementById(n);
       }
+
       return x;
   }
 

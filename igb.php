@@ -176,7 +176,7 @@ function IGB_deposit()
 
   if($credit_space <0)
   $credit_space = 0;
-  
+
 
   echo "<tr><td height=53 colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_depositfunds<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
@@ -1101,6 +1101,7 @@ function StripNonNum($str)
 {
   $str=(string)$str;
   $output = ereg_replace("[^0-9]","",$str);
+
   return $output;
 }
 

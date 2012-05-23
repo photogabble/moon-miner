@@ -65,26 +65,26 @@ srand((double)microtime() * 1000000);
 
 if($swordfish != $adminpass)
 {
-	echo "<form action='scheduler.php' method='post'>";
-	echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><BR><BR>";
-	echo "<input type='submit' value='Submit'><input type='reset' value='Reset'>";
-	echo "</form>";
+    echo "<form action='scheduler.php' method='post'>";
+    echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><BR><BR>";
+    echo "<input type='submit' value='Submit'><input type='reset' value='Reset'>";
+    echo "</form>";
 }
 else
 {
-	$starttime = time();
-	$lastRun = 0;
-	$schedCount = 0;
-	$lastrunList = NULL;
-	$sched_res = $db->Execute("SELECT * FROM $dbtables[scheduler]");
-	if($sched_res)
-	{
-		while (!$sched_res->EOF)
-		{
-			$event = $sched_res->fields;
-			$multiplier = ($sched_ticks / $event['ticks_full']) + ($event['ticks_left'] / $event['ticks_full']);
-			$multiplier = (int) $multiplier;
-			$ticks_left = ($sched_ticks + $event['ticks_left']) % $event['ticks_full'];
+    $starttime = time();
+    $lastRun = 0;
+    $schedCount = 0;
+    $lastrunList = NULL;
+    $sched_res = $db->Execute("SELECT * FROM $dbtables[scheduler]");
+    if($sched_res)
+    {
+        while (!$sched_res->EOF)
+        {
+            $event = $sched_res->fields;
+            $multiplier = ($sched_ticks / $event['ticks_full']) + ($event['ticks_left'] / $event['ticks_full']);
+            $multiplier = (int) $multiplier;
+            $ticks_left = ($sched_ticks + $event['ticks_left']) % $event['ticks_full'];
 
 $lastRun += $event['last_run'];
 $schedCount += 1;
@@ -92,53 +92,53 @@ $schedCount += 1;
 # Store the last time the individual schedule was last run.
 $lastrunList[$event['sched_file']] = $event['last_run'];
 
-			if($event['repeate'] == 'N')
-			{
-				if($multiplier > $event['spawn'])
-				{
-					$multiplier = $event['spawn'];
-				}
+            if($event['repeate'] == 'N')
+            {
+                if($multiplier > $event['spawn'])
+                {
+                    $multiplier = $event['spawn'];
+                }
 
-				if($event[spawn] - $multiplier == 0)
-				{
-					$db->Execute("DELETE FROM $dbtables[scheduler] WHERE sched_id=$event[sched_id]");
-				}
-				else
-				{
-					$db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
-				}
-			}
-			else
-			{
-				$db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
-  			}
+                if($event[spawn] - $multiplier == 0)
+                {
+                    $db->Execute("DELETE FROM $dbtables[scheduler] WHERE sched_id=$event[sched_id]");
+                }
+                else
+                {
+                    $db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
+                }
+            }
+            else
+            {
+                $db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
+              }
 
-			$sched_var_id = $event['sched_id'];
-			$sched_var_extrainfo = $event['extra_info'];
+            $sched_var_id = $event['sched_id'];
+            $sched_var_extrainfo = $event['extra_info'];
 
-			$sched_i = 0;
-			while($sched_i < $multiplier)
-			{
-				include("$event[sched_file]");
-				$sched_i++;
-			}
-			$sched_res->MoveNext();
-		}
-		$lastRun /= $schedCount;
-	}
+            $sched_i = 0;
+            while($sched_i < $multiplier)
+            {
+                include("$event[sched_file]");
+                $sched_i++;
+            }
+            $sched_res->MoveNext();
+        }
+        $lastRun /= $schedCount;
+    }
 
-	# Calculate the difference in time when the last good update happened.
-	$schedDiff = ($lastRun - ( time() - ($sched_ticks * 60) ));
-	if ( abs($schedDiff) > ($sched_ticks * 60) )
-	{
-		# Hmmm, seems that we have missed at least 1 update, so log it to the admin.
-		adminlog(2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
-	}
+    # Calculate the difference in time when the last good update happened.
+    $schedDiff = ($lastRun - ( time() - ($sched_ticks * 60) ));
+    if ( abs($schedDiff) > ($sched_ticks * 60) )
+    {
+        # Hmmm, seems that we have missed at least 1 update, so log it to the admin.
+        adminlog(2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
+    }
 
-	$runtime = time() - $starttime;
-	echo "<p>The scheduler took $runtime seconds to execute.<p>";
+    $runtime = time() - $starttime;
+    echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
-	include("footer.php");
-	$db->Execute("UPDATE $dbtables[scheduler] SET last_run=". TIME());
+    include("footer.php");
+    $db->Execute("UPDATE $dbtables[scheduler] SET last_run=". TIME());
 }
 ?>

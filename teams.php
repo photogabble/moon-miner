@@ -278,7 +278,7 @@ switch ($teamwhat)
             {
                 // check whether the player we are ejecting might have already left in the meantime
                 // should go here if ($whotoexpel[team] ==
-                
+
                 $db->Execute("UPDATE $dbtables[planets] SET corp='0' WHERE owner='$who'");
                 $db->Execute("UPDATE $dbtables[ships] SET team='0' WHERE ship_id='$who'");
 
@@ -601,7 +601,7 @@ function DISPLAY_ALL_TEAMS()
                 $dbtables[teams].creator
                 FROM $dbtables[ships]
                 LEFT JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id
-                WHERE $dbtables[ships].team = $dbtables[teams].id AND admin='N' 
+                WHERE $dbtables[ships].team = $dbtables[teams].id AND admin='N'
                 GROUP BY $dbtables[teams].team_name";
 
     // Setting if the order is Ascending or descending, if any.
@@ -747,7 +747,7 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
 {
     global $db,$dbtables, $db_type;
 
-    $name = trim($name); 
+    $name = trim($name);
     $desc = trim($desc);
     $creator = (int)$creator;
 
@@ -774,6 +774,7 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
     {
         return false;
     }
+
     return true;
 }
 

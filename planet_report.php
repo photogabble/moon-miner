@@ -64,7 +64,7 @@ echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
   if ($playerinfo[team]>0)
   {
     echo "<BR>" .
-         "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " . 
+         "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " .
          "Commondity Report (like Planet Status) for planets marked Corporate by you and/or your fellow team member<BR>" .
          "<BR>";
   }
@@ -95,7 +95,7 @@ echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
   if ($playerinfo[team]>0)
   {
     echo "<BR>" .
-         "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " . 
+         "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " .
          "<BR>";
   }
 
@@ -296,7 +296,7 @@ echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
   if ($playerinfo[team]>0)
   {
     echo "<BR>" .
-         "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " . 
+         "<B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> " .
          "<BR>";
   }
 
@@ -375,7 +375,7 @@ echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
     $total_colonists = 0;
     $total_credits = 0;
     $total_corp = 0;
-    
+
     $temp_var = 0;
 
     $color = $color_line1;
@@ -443,16 +443,20 @@ echo "</div>\n";
 function corp_planet_checkboxes($planet, $i)
 {
  if($planet[$i][corp] <= 0)
+
     return("<INPUT TYPE='CHECKBOX' NAME='corp[{$i}]' VALUE='{$planet[$i]['planet_id']}' />");
   elseif($planet[$i][corp] > 0)
+
     return("<INPUT TYPE='CHECKBOX' NAME='corp[{$i}]' VALUE='{$planet[$i]['planet_id']}' CHECKED />");
 }
 
 function selling_checkboxes($planet, $i)
 {
   if($planet[$i][sells] != 'Y')
+
     return("<INPUT TYPE='CHECKBOX' NAME='sells[{$i}]' VALUE='{$planet[$i]['planet_id']}' />");
   elseif($planet[$i][sells] == 'Y')
+
     return("<INPUT TYPE='CHECKBOX' NAME='sells[{$i}]' VALUE='{$planet[$i]['planet_id']}' CHECKED />");
 }
 
@@ -462,10 +466,13 @@ function base_build_check($planet, $i)
   global $base_ore, $base_organics, $base_goods, $base_credits;
 
    if($planet[$i][base] == 'Y')
+
     return("$l_yes");
   elseif($planet[$i][ore] >= $base_ore && $planet[$i][organics] >= $base_organics && $planet[$i][goods] >= $base_goods && $planet[$i][credits] >= $base_credits)
+
     return("<A HREF=planet_report_ce.php?buildp=" . $planet[$i]["planet_id"] . "&builds=" . $planet[$i]["sector_id"] . ">Build</A>");
   else
+
     return("$l_no");
 }
 

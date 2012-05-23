@@ -11,9 +11,9 @@ $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$se
 
 $sectorinfo=$result2->fields;
 
-//Put the defence information into the array "defenceinfo"  
+//Put the defence information into the array "defenceinfo"
 
-$result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] 
+$result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence]
 WHERE sector_id='$sector' and defence_type ='M'");
 
 // Correct the targetship bug to reflect the player info
@@ -38,13 +38,13 @@ if($result3 > 0)
    }
 }
 
-// Compute the ship average...if its too low then the ship will not hit mines...     
+// Compute the ship average...if its too low then the ship will not hit mines...
 
 $shipavg = get_avg_tech($targetship, "ship");
 
 // The mines will attack if 4 conditions are met
 //    1) There is at least 1 group of mines in the sector
-//    2) There is at least 1 mine in the sector 
+//    2) There is at least 1 mine in the sector
 //    3) You are not the owner or on the team of the owner - team 0 dosent count
 //    4) You ship is at least $mine_hullsize (setable in config.php) big
 
@@ -59,7 +59,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
    {
       // Well...you hit mines, shame...
       bigtitle();
-      
+
       $ok=0;
 
 
@@ -103,7 +103,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
             {
                echo "$l_chm_youhadnominedeflectors<BR>";
             }
-         
+
             // Shields up sir!
             $mines_left = $roll - $playerinfo[dev_minedeflector];
             $playershields = NUM_SHIELDS($playerinfo[shields]);
@@ -141,7 +141,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                   playerlog($playerinfo[ship_id], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
                   $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", $playerinfo[character_name], $l_chm_hewasdestroyedbyyourmines);
                   $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $sector, $l_chm_hewasdestroyedbyyourmines);
-                  
+
                   message_defence_owner($sector,"$l_chm_hewasdestroyedbyyourmines");
 
                   echo "$l_chm_yourshiphasbeendestroyed<BR><BR>";

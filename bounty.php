@@ -28,7 +28,7 @@ switch($response) {
             $bounty_details[$j] = $res5->fields;
             $j++;
             $res5->MoveNext();
-         } 
+         }
       }
 
       $num_details = $j;
@@ -68,7 +68,7 @@ switch($response) {
             {
                echo "<TD>n/a</TD>";
             }
-          
+
             echo "</TR>";
 
             if($color == $color_line1)
@@ -89,29 +89,29 @@ switch($response) {
       bigtitle();
       if ($playerinfo[turns]<1 )
       {
-	echo "$l_by_noturn<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+    echo "$l_by_noturn<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
       }
 
       $res = $db->Execute("SELECT * from $dbtables[bounty] WHERE bounty_id = $bid");
       if(!res || $res->RowCount() ==0)
       {
-      	echo "$l_by_nobounty<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+          echo "$l_by_nobounty<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
       }
       $bty = $res->fields;
       if($bty[placed_by] <> $playerinfo[ship_id])
       {
-      	echo "$l_by_notyours<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+          echo "$l_by_notyours<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
       }
-      $del = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $bid");      
+      $del = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $bid");
       $stamp = date("Y-m-d H-i-s");
       $refund = $bty['amount'];
       $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund where ship_id=$playerinfo[ship_id]");
@@ -125,25 +125,25 @@ switch($response) {
       $ex = $db->Execute("SELECT * from $dbtables[ships] WHERE ship_id = $bounty_on");
       if(!$ex)
       {
-	echo "$l_by_notexists<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+    echo "$l_by_notexists<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
       }
       $bty = $ex->fields;
       if ($bty[ship_destroyed] == "Y")
       {
-	echo "$l_by_destroyed<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+    echo "$l_by_destroyed<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
       }
       if ($playerinfo[turns]<1 )
       {
-	echo "$l_by_noturn<BR><BR>";
-	TEXT_GOTOMAIN();
-	include("footer.php");
-	die();
+    echo "$l_by_noturn<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
       }
       $amount = stripnum($amount);
       if($amount < 0)
@@ -180,7 +180,7 @@ switch($response) {
             $previous_bounty = $prev[totalbounty];
          }
          if($amount + previous_bounty > $maxtrans)
-         {   
+         {
             echo "$l_by_toomuch<BR><BR>";
             TEXT_GOTOMAIN();
             include("footer.php");
@@ -188,7 +188,7 @@ switch($response) {
          }
 
       }
-      $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($bounty_on, $playerinfo[ship_id] ,$amount)");      
+      $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($bounty_on, $playerinfo[ship_id] ,$amount)");
       $stamp = date("Y-m-d H-i-s");
       $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount where ship_id=$playerinfo[ship_id]");
       echo "$l_by_placed<BR>";
@@ -230,7 +230,7 @@ switch($response) {
             $bounties[$i] = $result3->fields;
             $i++;
             $result3->MoveNext();
-         } 
+         }
       }
 
       $num_bounties = $i;

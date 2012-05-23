@@ -70,7 +70,7 @@ echo $l_footer_players_on_2;
 <?php
 if ($footer_show_time == true)
 {
-	echo "<td align=right><font color=silver size=-4>Time to generate page: " . $elapsed . " seconds</td>";
+    echo "<td align=right><font color=silver size=-4>Time to generate page: " . $elapsed . " seconds</td>";
 }
 ?>
    </tr>

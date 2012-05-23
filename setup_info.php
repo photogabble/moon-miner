@@ -20,27 +20,27 @@
     ##########################
 
     $setup_info->testcookies();
-	$setup_info->initDB();
+    $setup_info->initDB();
 
     $title = $setup_info->appinfo['title'];
     include("header.php");
 
     ##########################
 
-	$setup_info->DisplayFlush("<div align=\"center\">\n");
-	$setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
-	$setup_info->DisplayFlush("  <tr>\n");
-	$setup_info->DisplayFlush("    <td><font size=\"6\" color=\"#FFFFFF\">{$setup_info->appinfo['title']}</font></td>\n");
-	$setup_info->DisplayFlush("  </tr>\n");
-	$setup_info->DisplayFlush("  <tr>\n");
-	$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#FFFFFF\"><B>{$setup_info->appinfo['description']}</B></font></td>\n");
-	$setup_info->DisplayFlush("  </tr>\n");
-	$setup_info->DisplayFlush("  <tr>\n");
-	$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#FFFFFF\"><B>Written by {$setup_info->appinfo['author']}</B></font></td>\n");
-	$setup_info->DisplayFlush("  </tr>\n");
-	$setup_info->DisplayFlush("</table>\n");
-	$setup_info->DisplayFlush("</div><br>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<div align=\"center\">\n");
+    $setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
+    $setup_info->DisplayFlush("  <tr>\n");
+    $setup_info->DisplayFlush("    <td><font size=\"6\" color=\"#FFFFFF\">{$setup_info->appinfo['title']}</font></td>\n");
+    $setup_info->DisplayFlush("  </tr>\n");
+    $setup_info->DisplayFlush("  <tr>\n");
+    $setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#FFFFFF\"><B>{$setup_info->appinfo['description']}</B></font></td>\n");
+    $setup_info->DisplayFlush("  </tr>\n");
+    $setup_info->DisplayFlush("  <tr>\n");
+    $setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#FFFFFF\"><B>Written by {$setup_info->appinfo['author']}</B></font></td>\n");
+    $setup_info->DisplayFlush("  </tr>\n");
+    $setup_info->DisplayFlush("</table>\n");
+    $setup_info->DisplayFlush("</div><br>\n");
+    $setup_info->DisplayFlush("<br>\n");
 
     ##########################
     # End of own HTML Tables #
@@ -54,9 +54,9 @@
     $setup_info->DisplayFlush("<font size=\"2\" color=#FFFFFF>To Enable the Display All installed patches, set <font color=\"#00FF00\">\$setup_info->switches['Display_Patches']['enabled'] = true;</font></font><br>\n");
     $setup_info->DisplayFlush("<font size=\"2\" color=#FFFFFF>To Enable the Display All Errors, set <font color=\"#00FF00\">\$setup_info->switches['Display_Errors']['enabled'] = true;</font></font><br>\n");
     $setup_info->DisplayFlush("<font size=\"2\" color=yellow>Then refresh the page and then save it as htm or html and then Email it to me.</font><br>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='height:1px; width:100%; margin:0px; background-color:#808080;'></div>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
 
     ##########################
 
@@ -68,12 +68,12 @@
         list($switch_name, $switch_array) = each($switch_info);
         $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#0000FF'>Enabled</font>" : "<font color='#FF0000'>Disabled</font>"));
     }
-	$setup_info->do_Table_Footer("<br>");
+    $setup_info->do_Table_Footer("<br>");
 
     ##########################
 
 #    $setup_info->DisplayFlush("<p><hr align='center' width='80%' size='1'></p>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<font size=\"2\">// This is just to find out what Server Operating System your running bnt on.</font><br>\n");
@@ -85,7 +85,7 @@
 
     $software_info = $setup_info->get_server_software();
 
-	for($n=0; $n < count($software_info); $n++)
+    for($n=0; $n < count($software_info); $n++)
     {
         list($software_name, $software_array) = each($software_info);
         list($software_key, $software_value) = each($software_array);
@@ -101,21 +101,21 @@
         $setup_info->do_Table_Row("DB CONNECTION","<font color='#FF0000'><B>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</B></font>");
     }
 
-	if($setup_info->cookie_test['enabled'])
-	{
-	    if($setup_info->cookie_test['result'])
-	    {
-	        $setup_info->do_Table_Row("Cookie Test","<font color='#0000FF'><B>Passed</B></font>");
-	    }
-	    else
-	    {
-	        $setup_info->do_Table_Row("Cookie Test","<font color='#FF0000'><B>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</B></font>");
-	    }
-	}
-	else
-	{
-	        $setup_info->do_Table_Row("Cookie Test","<font color='#FF0000'><B>{$setup_info->cookie_test['status']}</B></font>");
-	}
+    if($setup_info->cookie_test['enabled'])
+    {
+        if($setup_info->cookie_test['result'])
+        {
+            $setup_info->do_Table_Row("Cookie Test","<font color='#0000FF'><B>Passed</B></font>");
+        }
+        else
+        {
+            $setup_info->do_Table_Row("Cookie Test","<font color='#FF0000'><B>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</B></font>");
+        }
+    }
+    else
+    {
+            $setup_info->do_Table_Row("Cookie Test","<font color='#FF0000'><B>{$setup_info->cookie_test['status']}</B></font>");
+    }
     $setup_info->do_Table_Footer("");
     $setup_info->DisplayFlush("<br>\n");
 
@@ -123,7 +123,7 @@
     $setup_info->do_Table_Title("Software Versions",$Cols);
 
     $software_versions = $setup_info->get_software_versions();
-	for($n=0; $n < count($software_versions); $n++)
+    for($n=0; $n < count($software_versions); $n++)
     {
         list($software_name, $software_array) = each($software_versions);
         list($software_key, $software_value) = each($software_array);
@@ -133,11 +133,11 @@
     $setup_info->do_Table_Single_Row("* = Module (if any installed).");
     $setup_info->do_Table_Footer("<br>");
 
-	#########################################
-	#         Config_Local Settings.        #
-	#########################################
+    #########################################
+    #         Config_Local Settings.        #
+    #########################################
 #    $setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<p><font size=\"2\">// This is what you need to put in your db_config.php file.</font><br>\n");
@@ -186,19 +186,19 @@
     #      Display BNT DataBase Status.     #
     #########################################
 #    $setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<p><font size=\"2\">// This displays status on the BNT Database.</font></p>\n");
-	$Cols = 3;
-	$setup_info->do_Table_Title("Blacknova Traders Database Status",$Cols);
+    $Cols = 3;
+    $setup_info->do_Table_Title("Blacknova Traders Database Status",$Cols);
 
     $DB_STATUS = $setup_info->validate_database();
-	$setup_info->do_Table_Row("TableCount",$DB_STATUS['status']);
+    $setup_info->do_Table_Row("TableCount",$DB_STATUS['status']);
     $setup_info->do_Table_Blank_Row();
     foreach($DB_STATUS as $n => $s)
     {
-        if($n!="status") 
+        if($n!="status")
         {
             $setup_info->do_Table_Row($DB_STATUS[$n]['name'],$DB_STATUS[$n]['info'],$DB_STATUS[$n]['status']);
         }
@@ -212,7 +212,7 @@
     $setup_info->get_patch_info($patch_info);
 
 #    $setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<p><font size=\"2\">// This displays Installed Patch information on the BNT Server.</font></p>\n");
@@ -235,14 +235,14 @@
     #  This gets the Environment Variables  #
     #########################################
 #    $setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<p><font size=\"2\">// This is used to help the admin of the server set up BNT, Or its used by me if you are having problems setting up BNT.</font></p>\n");
 
     $Cols = 2;
     $Wrap = true;
-	$setup_info->do_Table_Title("Environment Variables",$Cols);
+    $setup_info->do_Table_Title("Environment Variables",$Cols);
     if($setup_info->get_env_variables($env_info))
     {
         for ($n=0; $n <count($env_info); $n++)
@@ -269,13 +269,13 @@
     #     Current db_config Information.    #
     #########################################
 #    $setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<p><font size=\"2\">// This is what you already have set in db_config.php.</font><br>\n");
     $setup_info->DisplayFlush("<font size=\"2\">// This will also tell you if what you have set in db_config.php is the same as what Setup Info has Auto Detected.</font></p>\n");
 
-	$Cols = 3;
+    $Cols = 3;
     $setup_info->do_Table_Title("Current DB Config Information",$Cols);
     $cur_cfg_loc = $setup_info->get_current_db_config_info();
 
@@ -306,7 +306,7 @@
     #     Current Scheduler Information.    #
     #########################################
 #    $setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<p><font size=\"2\">// This displays the Scheduler information.</font></p>\n");
@@ -315,7 +315,7 @@
     $setup_info->do_Table_Title("Scheduler Information",$Cols);
 
     $scheduler_info = $setup_info->get_scheduler_info();
- 
+
     for ($n=0; $n <count($scheduler_info); $n++)
     {
         $setup_info->do_Table_Row($scheduler_info[$n]['name'],$scheduler_info[$n]['caption'], $scheduler_info[$n]['value']);
@@ -328,7 +328,7 @@
     $setup_info->appinfo;
 
 #    $setup_info->DisplayFlush("<hr size=\"1\">\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
     $setup_info->DisplayFlush("<div style='width:100%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 
     $setup_info->DisplayFlush("<div align=\"center\">\n");
@@ -345,7 +345,7 @@
     if (function_exists('md5_file'))
     {
         $hash = strtoupper(md5_file(basename($_SERVER['PHP_SELF'])));
-		$setup_info->DisplayFlush(" Hash: [<font color=\"yellow\">$hash</font>] - [<font color=\"yellow\">". $setup_info->appinfo['hash']."</font>]");
+        $setup_info->DisplayFlush(" Hash: [<font color=\"yellow\">$hash</font>] - [<font color=\"yellow\">". $setup_info->appinfo['hash']."</font>]");
     }
     else
     {
@@ -361,16 +361,16 @@
     $setup_info->DisplayFlush("</div>\n");
 #    $setup_info->DisplayFlush("<hr size=\"1\"><br>\n");
     $setup_info->DisplayFlush("<div style='width:100%; margin:auto; height:1px; background-color:#808080;'></div>\n");
-	$setup_info->DisplayFlush("<br>\n");
+    $setup_info->DisplayFlush("<br>\n");
 
-	if(empty($username))
-	{
-		TEXT_GOTOLOGIN();
-	}
-	else
-	{
-		TEXT_GOTOMAIN();
-	}
+    if(empty($username))
+    {
+        TEXT_GOTOLOGIN();
+    }
+    else
+    {
+        TEXT_GOTOMAIN();
+    }
 
     include("footer.php");
 

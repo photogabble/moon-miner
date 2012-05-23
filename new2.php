@@ -50,7 +50,7 @@ if ($result>0)
         $row = $result->fields;
         if (strtolower($row[email])==strtolower($username))
         {
-            echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>"; 
+            echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>";
             $flag=1;
         }
         if (strtolower($row[character_name])==strtolower($character))
@@ -94,7 +94,7 @@ if ($flag==0)
         $mturns = $max_turns;
     }
 
-    $result2 = $db->Execute("INSERT INTO $dbtables[ships] (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,interface,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dhtml,dev_lssd) 
+    $result2 = $db->Execute("INSERT INTO $dbtables[ships] (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,interface,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dhtml,dev_lssd)
                              VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','N','$ip','Y','N','N','Y',NULL,'$default_lang', 'Y','$start_lssd')");
     if(!$result2)
     {

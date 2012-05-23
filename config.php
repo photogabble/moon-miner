@@ -30,19 +30,19 @@ $sched_degrade = 6;  // How often sector fighters degrade when unsupported by a 
 $sched_apocalypse = 15;
 $doomsday_value = 90000000; // number of colonists a planet needs before being affected by the apocalypse
 
-// Scheduler config end 
+// Scheduler config end
 
-// GUI colors (temporary until we have something nicer) 
+// GUI colors (temporary until we have something nicer)
 $color_header = "#500050";
 $color_line1 = "#300030";
 $color_line2 = "#400040";
 
-// Localization (regional) settings 
+// Localization (regional) settings
 $local_number_dec_point = ".";
 $local_number_thousands_sep = ",";
 $language = "english";
 
-// Game variables 
+// Game variables
 $ip = $_SERVER['REMOTE_ADDR'];
 $mine_hullsize = 8; // Minimum size hull has to be to hit mines
 $ewd_maxhullsize = 15; // Max hull size before EWD degrades
@@ -60,7 +60,7 @@ $rating_combat_factor=.8;    // Amount of rating gained from combat
 $server_closed=false;        // True = block logins but not new account creation
 $account_creation_closed=false;    // True = block new account creation
 
-// Newbie niceness variables 
+// Newbie niceness variables
 $newbie_nice = "YES";
 $newbie_extra_nice = "YES";
 $newbie_hull = "8";
@@ -74,7 +74,7 @@ $newbie_beams = "8";
 $newbie_torp_launchers = "8";
 $newbie_cloak = "8";
 
-// Specify which special features are allowed 
+// Specify which special features are allowed
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer
 $allow_ibank = true;                  // Intergalactic Bank (IGB)
@@ -106,7 +106,7 @@ $default_prod_energy   = 20.0;
 $default_prod_fighters = 10.0;
 $default_prod_torp     = 10.0;
 
-// Port pricing variables 
+// Port pricing variables
 $ore_price = 11;
 $ore_delta = 5;
 $ore_rate = 75000;
