@@ -989,7 +989,7 @@ function player_insignia_name($a_username)
     global $db, $dbtables, $username;
     global $l_insignia;
 
-    // Ok, first things first, always make sure our variable that is to be returned is unset or NULL.
+    // Ok, first things first, always make sure our variable that is to be returned is unset or null.
     unset($player_insignia);
 
     // Looup players score.
@@ -1158,7 +1158,7 @@ function isLoanPending($ship_id)
 
 }
 
-function get_avg_tech($ship_info = NULL, $type = "ship")
+function get_avg_tech($ship_info = null, $type = "ship")
 {
         // Defined in config.php
         global $calc_ship_tech, $calc_planet_tech;
@@ -1193,7 +1193,7 @@ function bnt_autoload($classname)
 	}
 }
 
-function isSameTeam($attackerTeam = NULL, $attackieTeam = NULL)
+function isSameTeam($attackerTeam = null, $attackieTeam = null)
 {
         if( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
         {
