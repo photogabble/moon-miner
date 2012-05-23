@@ -62,7 +62,7 @@ echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color:
 
 <?php
 
-/* Java functions for index.php used for button images */
+// Java functions for index.php used for button images
 if (isset($interface) && $interface == "index.php")
 {
 
@@ -158,7 +158,6 @@ if (isset($interface) && $interface == "index.php")
 </script>
 <?php
 }
-/* End of Java functions */
 ?>
 
 </head>
