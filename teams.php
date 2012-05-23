@@ -457,7 +457,7 @@ switch ($teamwhat)
             $res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
             echo "$l_team_team <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
 
-            /* Adding a log entry to all members of the renamed team */
+            // Adding a log entry to all members of the renamed team
             $result_team_name = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
             playerlog($playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
             while(!$result_team_name->EOF)
