@@ -658,7 +658,6 @@ function IGB_deposit2()
   }
   if($amount > $tmpcredits)
     IGB_error("<center>Error You cannot deposit that much into your bank,<br /> (Max Credits Reached)</center>", "igb.php?command=deposit");
-//-----------------
 
   $account[balance] += $amount;
   $playerinfo[credits] -= $amount;

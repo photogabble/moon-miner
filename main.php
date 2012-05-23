@@ -29,8 +29,6 @@ if(checklogin())
 $title=$l_main_title;
 include("header.php");
 
-//-------------------------------------------------------------------------------------------------
-
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 if($playerinfo['cleared_defences'] > ' ')
@@ -52,8 +50,6 @@ if($playerinfo['on_planet'] == "Y")
 	{
 		echo "<A HREF=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <BR>";
 		echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
-		
-		//-------------------------------------------------------------------------------------------------
 		die();
 	}
 	else

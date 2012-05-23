@@ -8,19 +8,14 @@ $title="$l_opt_title";
 include("header.php");
 
 connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 bigtitle();
-
-//-------------------------------------------------------------------------------------------------
-
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
-//-------------------------------------------------------------------------------------------------
 
 echo "<FORM ACTION=option2.php METHOD=POST>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
@@ -76,8 +71,6 @@ echo "<INPUT TYPE=SUBMIT value=$l_opt_save>";
 echo "</FORM>";
 
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>
 

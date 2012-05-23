@@ -108,8 +108,6 @@ TEXT_GOTOMAIN();
 
 include("footer.php");
 
-//-----------------------------------------------------------------
-
 function zoneedit_change()
 {
   global $zone;

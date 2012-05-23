@@ -10,12 +10,12 @@ connectdb();
 
 if(checklogin())
 {
-  die();
+    die();
 }
-//adding db lock to prevent more than 5 planets in a sector - rjordan
+
+// Adding db lock to prevent more than 5 planets in a sector
 $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[planets] WRITE, $dbtables[universe] READ, $dbtables[zones] READ");
 
-//-------------------------------------------------------------------------------------------------
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
 
@@ -154,12 +154,10 @@ else
   }
 }
 
-//-------------------------------------------------------------------------------------------------
 $db->Execute("UNLOCK TABLES");
 
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
 include("footer.php");
-
 ?>

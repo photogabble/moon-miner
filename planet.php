@@ -245,7 +245,7 @@ if(!empty($planetinfo))
 	  // Fix for corp member leaving a non corp planet
 	  if(($planetinfo[planet_id] == $playerinfo[planet_id] && $playerinfo[on_planet] == "Y") && $planetinfo[corp] == 0)
 	  {
-		 $l_planet_leave_link = "TMD BugFix: <a href=planet.php?planet_id=$planet_id&command=leave>Leave Friendly Planet</a>";
+		 $l_planet_leave_link = "<a href=planet.php?planet_id=$planet_id&command=leave>Leave Friendly Planet</a>";
 		 echo "<p>$l_planet_leave_link</p>\n";
 	  }
 

@@ -1,6 +1,5 @@
 <?php
-//$Id: teams.php 1274 2006-03-17 04:35:42Z iamsure $
-// Added a quick fix for creating a new team with the same name | 09-July-2008 | TMD
+// Added a quick fix for creating a new team with the same name
 // This file needs to be completely recoded from scratch :(
 
 include("config.php");

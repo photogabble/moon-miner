@@ -12,11 +12,8 @@ connectdb();
 
 if(checklogin())
 {
-  die();
+    die();
 }
-
-//-------------------------------------------------------------------------------------------------
-
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
@@ -162,11 +159,6 @@ else
   $db->Execute("UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
 }
 
-
-//-------------------------------------------------------------------------------------------------
-
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>

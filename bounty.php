@@ -13,16 +13,8 @@ if(checklogin())
   die();
 }
 
-//-------------------------------------------------------------------------------------------------
-
-
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
-
-
-
-
-
 
 switch($response) {
    case "display":
@@ -281,11 +273,6 @@ switch($response) {
     break;
 }
 
-
-//-------------------------------------------------------------------------------------------------
-
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>

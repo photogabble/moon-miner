@@ -82,16 +82,16 @@ function go_build_base($planet_id, $sector_id)
 
   if($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
   {
-    // ** Create The Base
+    // Create The Base
     $update1 = $db->Execute("UPDATE $dbtables[planets] SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
-    // ** Update User Turns
+    // Update User Turns
     $update1b = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
-    // ** Refresh Plant Info
+    // Refresh Plant Info
     $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
     $planetinfo=$result3->fields;
-    // ** Notify User Of Base Results
+    // Notify User Of Base Results
     echo "$l_planet_bbuild<BR><BR>";
-    // ** Calc Ownership and Notify User Of Results
+    // Calc Ownership and Notify User Of Results
     $ownership = calc_ownership($playerinfo[sector]);
     if(!empty($ownership))
     {
@@ -173,37 +173,32 @@ function collect_credits($planetarray)
 
 function change_planet_production($prodpercentarray)
 {
-// **************************************************
-// **  NOTES on what this function does and how
-// **  Declares some global variables so they are accessable
-// **    $db, $dbtables and default production values from the config.php file
-// **  
-// **  We need to track what the player_id is and what corp they belong to if they belong to a corp,
-// **    these two values are not passed in as arrays
-// **    ship_id = the owner of the planet          ($ship_id = $prodpercentarray[ship_id])
-// **    team_id = the corperation creators ship_id ($team_id = $prodpercentarray[team_id])
-// **
-// **  First we generate a list of values based on the commodity
-// **    (ore, organics, goods, energy, fighters, torps, corp, team, sells)
-// **
-// **  Second we generate a second list of values based on the planet_id
-// **  Because team and ship_id are not arrays we do not pass them through the second list command.
-// **  When we write the ore production percent we also clear the selling and corp values out of the db
-// **  When we pass through the corp array we set the value to $team we grabbed out of the array.
-// **  in the sells and corp the prodpercent = the planet_id.
-// **
-// **  We run through the database checking to see if any planet production is greater than 100, or possibly negative
-// **    if so we set the planet to the default values and report it to the player.
-// **
-// **  There has got to be a better way, but at this time I am not sure how to do it.
-// **  Off the top of my head if we could sort the data passed in, in order of planets we could check before we do the writes
-// **    This would save us from having to run through the database a second time checking our work.
-// **  
+//  NOTES on what this function does and how
+//  Declares some global variables so they are accessable
+//    $db, $dbtables and default production values from the config.php file
+//  
+//  We need to track what the player_id is and what corp they belong to if they belong to a corp,
+//    these two values are not passed in as arrays
+//    ship_id = the owner of the planet          ($ship_id = $prodpercentarray[ship_id])
+//    team_id = the corperation creators ship_id ($team_id = $prodpercentarray[team_id])
+//
+//  First we generate a list of values based on the commodity
+//    (ore, organics, goods, energy, fighters, torps, corp, team, sells)
+//
+//  Second we generate a second list of values based on the planet_id
+//  Because team and ship_id are not arrays we do not pass them through the second list command.
+//  When we write the ore production percent we also clear the selling and corp values out of the db
+//  When we pass through the corp array we set the value to $team we grabbed out of the array.
+//  in the sells and corp the prodpercent = the planet_id.
+//
+//  We run through the database checking to see if any planet production is greater than 100, or possibly negative
+//    if so we set the planet to the default values and report it to the player.
+//
+//  There has got to be a better way, but at this time I am not sure how to do it.
+//  Off the top of my head if we could sort the data passed in, in order of planets we could check before we do the writes
+//  This would save us from having to run through the database a second time checking our work.
 
-// **
-// **  This should patch the game from being hack with planet Hack.
-// **  Patched by TMD [TheMightyDude]
-// **
+//  This should patch the game from being hack with planet Hack.
 
   global $db, $dbtables;
   global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
@@ -480,9 +475,7 @@ function Real_Space_Move($destination)
   {
 
 // modified from traderoute.php
-// ********************************
-// ***** Sector Defense Check *****
-// ********************************
+// Sector Defense Check
   $hostile = 0;
 
   $result99 = $db->Execute("SELECT * FROM $dbtables[sector_defence] WHERE sector_id = $destination AND ship_id <> $playerinfo[ship_id]");

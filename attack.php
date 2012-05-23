@@ -550,7 +550,7 @@ else
 				if($playerarmor > 0)
 				{
 					$rating_change=round($targetinfo['rating']*$rating_combat_factor);
-					// Updating to always get a positive rating increase for xenobe and the credits they are carrying - rjordan
+					// Updating to always get a positive rating increase for xenobe and the credits they are carrying
 					$salv_credits = 0;
 			
 					// Double Death Attack Bug Fix - Returns 0 for real players, 1 for Xenobe players
@@ -729,7 +729,7 @@ else
 					}
 					$ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
 					$ship_salvage_rate=rand(10,20);
-					$ship_salvage=$ship_value*$ship_salvage_rate/100+$salv_credits;  // Added credits for xenobe - 0 if normal player - GunSlinger
+					$ship_salvage=$ship_value*$ship_salvage_rate/100+$salv_credits;  // Added credits for xenobe - 0 if normal player
 			
 					$l_att_salv=str_replace("[salv_ore]",$salv_ore,$l_att_salv);
 					$l_att_salv=str_replace("[salv_organics]",$salv_organics,$l_att_salv);

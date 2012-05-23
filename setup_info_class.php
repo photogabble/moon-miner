@@ -665,7 +665,7 @@ class SETUPINFO_CLASS
     }
 
 	#########################################
-	#     TMD'S TRUE or FALSE Function.     #
+	#     TRUE or FALSE Function.     #
 	#########################################
 	function SI_TRUEFALSE($truefalse,$Stat,$True,$False)
 	{

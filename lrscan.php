@@ -16,10 +16,7 @@ bigtitle();
 
 srand((double)microtime() * 1000000);
 
-//-------------------------------------------------------------------------------------------------
-
-
-// get user info
+// Get user info
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
 
@@ -350,8 +347,6 @@ else
   echo "<a href=move.php?sector=$sector>$l_clickme</a> $l_lrs_moveto $sector.";
 }
 
-
-//-------------------------------------------------------------------------------------------------
 $rspace_bnthelper_string="<!--rspace:" . $sectorinfo[distance] . ":" . $sectorinfo[angle1] . ":" . $sectorinfo[angle2] . ":-->";
 echo $link_bnthelper_string;
 echo $port_bnthelper_string;
@@ -361,5 +356,4 @@ echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
 include("footer.php");
-
 ?>

@@ -4,7 +4,7 @@ include("config.php");
 connectdb();
 if(checklogin())
 {
-  die();
+    die();
 }
 $title = "$l_opt2_title";
 
@@ -19,8 +19,6 @@ else
   $interface = "maintext.php";
   setcookie("interface", "maintext.php");
 }
-
-//-------------------------------------------------------------------------------------------------
 
 if($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
@@ -108,10 +106,6 @@ else
   echo $l_opt2_dhtmlfail;
 }
 
-//-------------------------------------------------------------------------------------------------
-
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>

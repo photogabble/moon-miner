@@ -36,9 +36,7 @@ connectdb();
 
 session_start();
 
-//----- Start register_globals fix ----
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
-
 if(!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
 
 $reg_globals_on = (bool) ini_get('register_globals');
@@ -68,7 +66,6 @@ if (1==1)
       }
   }
 }
-//------ End register_globals fix
 
 if ($userpass != '' and $userpass != '+') {
   $username = substr($userpass, 0, strpos($userpass, "+"));
@@ -102,7 +99,7 @@ if(!empty($lang))
 if (!isset($lang) || empty($lang))
   $lang = $default_lang;
 $lang = $lang . ".inc";
-//Log constants
+// Log constants
 
 define('LOG_LOGIN', 1);
 define('LOG_LOGOUT', 2);
@@ -266,13 +263,6 @@ function checklogin()
   return $flag;
 }
 
-#########################################
-## Function: connectdb                 ##
-##  Version: 0.0.1:0004                ##
-##   Author: TheMightyDude             ##
-##  Created: 14 Oct 2010               ##
-##  Updated: 27 Jan 2011               ##
-#########################################
 function connectdb($do_die = true) // Returns true, false or a halt.
 {
     global $dbhost, $dbport, $dbuname, $dbpass, $dbname;

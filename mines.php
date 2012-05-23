@@ -14,9 +14,6 @@ if(checklogin())
   die();
 }
 
-//-------------------------------------------------------------------------------------------------
-
-
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 $res = $db->Execute("SELECT * from $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
@@ -205,10 +202,6 @@ else
   }
 }
 
-//-------------------------------------------------------------------------------------------------
-
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>

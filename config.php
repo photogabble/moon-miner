@@ -219,11 +219,11 @@ $max_credits_without_base = $base_credits; // Max amount of credits allowed on a
 $sofa_on = false;
 $ksm_allowed = true;
 
-$xenobe_max = 10;           // Sets the number of xenobe in the universe - rjordan
-$xen_start_credits = 1000000;         // What Xenobe start with - rjordan
-$xen_unemployment = 100000;   // Amount of credits each xenobe receive on each xenobe tick - rjordan
-$xen_aggression = 100;                // Percent of xenobe that are aggressive or hostile - rjordan
-$xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage - rjordan
+$xenobe_max = 10;           // Sets the number of xenobe in the universe
+$xen_start_credits = 1000000;         // What Xenobe start with
+$xen_unemployment = 100000;   // Amount of credits each xenobe receive on each xenobe tick
+$xen_aggression = 100;                // Percent of xenobe that are aggressive or hostile
+$xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage
 $xenstartsize = 15;                   // Max starting size of Xenobes at universe creation
 
 # Port Regen Rate.

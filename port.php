@@ -13,9 +13,6 @@ if(checklogin())
   die();
 }
 
-//-------------------------------------------------------------------------------------------------
-
-
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
@@ -128,8 +125,6 @@ elseif($zoneinfo[allow_trade] == 'L')
     }
   }
 }
-
-//-------------------------------------------------------------------------------------------------
 
 if($sectorinfo[port_type] != "none" && $sectorinfo[port_type] != "special")
 {
@@ -965,5 +960,4 @@ TEXT_GOTOMAIN();
 echo "\n";
 
 include("footer.php");
-
 ?>
