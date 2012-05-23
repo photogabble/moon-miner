@@ -14,9 +14,6 @@ if(checklogin())
   die();
 }
 
-//-------------------------------------------------------------------------------------------------
-
-
 bigtitle();
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
@@ -82,19 +79,19 @@ if(!isset($tr_repeat) || $tr_repeat <= 0)
   $tr_repeat = 1;
 
 
-if($command == 'new')   //displays new trade route form
+if($command == 'new')   // Displays new trade route form
   traderoute_new('');
-elseif($command == 'create')    //enters new route in db
+elseif($command == 'create')    // Enters new route in db
   traderoute_create();
-elseif($command == 'edit')    //displays new trade route form, edit
+elseif($command == 'edit')    // Displays new trade route form, edit
   traderoute_new($traderoute_id);
-elseif($command == 'delete')  //displays delete info
+elseif($command == 'delete')  // Displays delete info
   traderoute_delete();
-elseif($command == 'settings')  //global traderoute settings form
+elseif($command == 'settings')  // Global traderoute settings form
   traderoute_settings();
-elseif($command == 'setsettings') //enters settings in db
+elseif($command == 'setsettings') // Enters settings in db
   traderoute_setsettings();
-elseif(isset($engage)) //performs trade route
+elseif(isset($engage)) // Performs trade route
 {
 	// Put in temp until we have a fix.
 	if (strpos($_SERVER['HTTP_USER_AGENT'], "Firefox")===false)
@@ -120,16 +117,14 @@ elseif(isset($engage)) //performs trade route
 
         $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
         $playerinfo = $result->fields;
-        //echo $i;
+        // echo $i;
         traderoute_engage($i);
-        //echo $i;
+        // echo $i;
         $i--;
     }
 
 }
 
-
-//-----------------------------------------------------------------
 if($command != 'delete')
 {
   echo "<p>$l_tdr_newtdr<p>";
@@ -304,8 +299,6 @@ else
   echo "</table><p>";
 }
 
-//-------------------------------------------------------------------------------------------------
-
 echo "<div style='text-align:left;'>\n";
 TEXT_GOTOMAIN();
 echo "</div>\n";
@@ -334,7 +327,7 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
   global $l_tdr_samecom, $l_tdr_sportcom, $color_line1, $color_line2, $color_header, $servertimezone;
   global $db, $dbtables;
 
-  //check warp links compatibility
+  // Check warp links compatibility
   if($move == 'warp')
   {
     $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$src[sector_id] AND link_dest=$dest[sector_id]");
@@ -356,7 +349,7 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
     }
   }
 
-  //check ports compatibility
+  // Check ports compatibility
   if($type1 == 'port')
   {
     if($src[port_type] == 'special')
@@ -514,8 +507,7 @@ function traderoute_new($traderoute_id)
     echo "$l_tdr_editinga ";
   echo "$l_tdr_traderoute</b></font><p>";
 
-//---------------------------------------------------
-//---- Get Planet info Corp and Personal (BEGIN) ----
+  // Get Planet info Corp and Personal
 
   $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id] ORDER BY sector_id");
 
@@ -541,8 +533,7 @@ function traderoute_new($traderoute_id)
     $i++;
     $result->MoveNext();
   }
-//---- Get Planet info Corp and Personal (END) ------
-//---------------------------------------------------
+
   // Display Current Sector
   echo "$l_tdr_cursector $playerinfo[sector]<br>";
 
@@ -572,7 +563,7 @@ function traderoute_new($traderoute_id)
     </tr><tr>
     ";
 
-//-------------------- Personal Planet
+    // Personal Planet
   echo "
     <td align=right><font size=2>Personal $l_tdr_planet : </font></td>
     <td><input type=radio name=\"ptype1\" value=\"planet\"
@@ -599,7 +590,7 @@ function traderoute_new($traderoute_id)
       $i++;
     }
   }
-//----------------------- Corp Planet
+    // Corp Planet
     echo "
     </tr><tr>
     <td align=right><font size=2>Corporate $l_tdr_planet : </font></td>
@@ -631,8 +622,7 @@ function traderoute_new($traderoute_id)
   echo "
     </select>
     </tr>";
-//----------------------- End Start point selection
-//----------------------- Begin Ending point selection
+    // Begin Ending point selection
   echo "
     <tr><td>&nbsp;
     </tr><tr>
@@ -656,7 +646,7 @@ function traderoute_new($traderoute_id)
     echo "
     ></td>
     </tr>";
-//-------------------- Personal Planet
+    // Personal Planet
     echo "
     <tr>
     <td align=right><font size=2>Personal $l_tdr_planet : </font></td>
@@ -685,7 +675,7 @@ function traderoute_new($traderoute_id)
       $i++;
     }
   }
-//----------------------- Corp Planet
+    // Corp Planet
   echo "
     </tr><tr>
     <td align=right><font size=2>Corporate $l_tdr_planet : </font></td>
@@ -717,7 +707,6 @@ function traderoute_new($traderoute_id)
   echo "
     </select>
     </tr>";
-//----------------------- End finishing point selection
 
   echo "
     </select>
@@ -810,10 +799,10 @@ function traderoute_create()
   global $db, $dbtables;
 
     if($num_traderoutes >= $max_traderoutes_player && empty($editing))
-    {//dont let them exceed max traderoutes
+    { // Dont let them exceed max traderoutes
         traderoute_die($l_tdr_maxtdr);
     }
-  //dbase sanity check for source
+  // Database sanity check for source
   if($ptype1 == 'port')
   {
 
@@ -864,7 +853,7 @@ traderoute_die($l_tdr_invalidsrc);
     }
   }
 // OK we have $source, *probably* now lets see if we have ever been there
-// Attempting to fix the map the universe via traderoute bug -- rjordan01
+// Attempting to fix the map the universe via traderoute bug
 
 $pl1query = $db->Execute("SELECT * FROM $dbtables[movement_log] WHERE sector_id=$source[sector_id] AND ship_id = $playerinfo[ship_id]");
 $num_res1 = $pl1query->numRows();
@@ -872,9 +861,9 @@ if($num_res1 == 0)
 {
     traderoute_die("You cannot create a traderoute from a sector you have not visited!");
 }
-//note: shouldnt we, more realistically, require a ship to be *IN* the source sector to create the traderoute?
+// Note: shouldnt we, more realistically, require a ship to be *IN* the source sector to create the traderoute?
 
-  //dbase sanity check for dest
+  // Database sanity check for dest
   if($ptype2 == 'port')
   {
 
@@ -930,7 +919,7 @@ if($num_res2 == 0)
     traderoute_die("You cannot create a traderoute into a sector you have not visited!");
 }
 
-// Check destination- we cannot trade INTO a special port
+// Check destination - we cannot trade INTO a special port
 if($destination['port_type'] == 'special')
 {
 
@@ -1014,7 +1003,7 @@ function traderoute_delete()
   {
     $num_traderoutes = 1;
     $traderoutes[0] = $delroute;
-    // here it continues to the main file area to print the route
+    // Here it continues to the main file area to print the route
   }
   else
   {
@@ -1139,8 +1128,6 @@ function traderoute_engage($j)
   global $l_tdr_fighters, $l_tdr_nothingtotrade;
   global $db, $dbtables;
 
-  //10 pages of sanity checks! yeah!
-
   foreach($traderoutes as $testroute)
   {
     if($testroute['traderoute_id'] == $engage)
@@ -1153,8 +1140,6 @@ function traderoute_engage($j)
 
   if($traderoute['owner'] != $playerinfo['ship_id'])
     traderoute_die($l_tdr_notowntdr);
-
-
 
 // Source Check
   if($traderoute['source_type'] == 'P')
@@ -1174,7 +1159,7 @@ function traderoute_engage($j)
       traderoute_die($l_tdr_inittdr);
     }
   }
-  elseif($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // get data from planet table
+  elseif($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
   {
 #    $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$traderoute[source_id]");
     $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]));");
@@ -1203,7 +1188,7 @@ function traderoute_engage($j)
 
       }
     }
-    elseif($traderoute[source_type] == 'C')   // check to make sure player and planet are in the same corp.
+    elseif($traderoute[source_type] == 'C')   // Check to make sure player and planet are in the same corp.
     {
       if($source[corp] != $playerinfo[team])
       {
@@ -1215,7 +1200,7 @@ function traderoute_engage($j)
       }
     }
 
-    //store starting port info, we'll need it later
+    // Store starting port info, we'll need it later
     $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$source[sector_id]");
     if(!$result || $result->EOF)
       traderoute_die($l_tdr_invalidssector);
@@ -1232,7 +1217,7 @@ function traderoute_engage($j)
 
     $dest = $result->fields;
   }
-  elseif(($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))  // get data from planet table
+  elseif(($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))  // Get data from planet table
   {
 
 // Check for valid Owned Source Planet
@@ -1255,7 +1240,7 @@ function traderoute_engage($j)
         traderoute_die($l_tdr_notyourplanet);
       }
     }
-    elseif($traderoute[dest_type] == 'C')   // check to make sure player and planet are in the same corp.
+    elseif($traderoute[dest_type] == 'C')   // Check to make sure player and planet are in the same corp.
     {
       if($dest[corp] != $playerinfo[team])
       {
@@ -1397,15 +1382,8 @@ function traderoute_engage($j)
     }
   }
 
-//--------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------
-//---------  We're done with checks! All that's left is to make it happen --------
-//--------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------
-
-
 traderoute_results_table_top();
-// ------------ Determine if Source is Planet or Port
+// Determine if Source is Planet or Port
     if($traderoute['source_type'] == 'P')
     {
         echo "$l_tdr_portin $source[sector_id]";
@@ -1416,7 +1394,7 @@ traderoute_results_table_top();
     }
   traderoute_results_source();
 
-// ------------ Determine if Destination is Planet or Port
+// Determine if Destination is Planet or Port
     if($traderoute['dest_type'] == 'P')
     {
         echo "$l_tdr_portin $dest[sector_id]";
@@ -1429,10 +1407,10 @@ traderoute_results_table_top();
 
   $sourcecost=0;
 
-//-------- Source is Port ------------
+// Source is Port
   if($traderoute[source_type] == 'P')
   {
-    //-------- Special Port Section (begin) ------
+    // Special Port Section (begin)
     if($source[port_type] == 'special')
     {
       $total_credits = $playerinfo[credits];
@@ -1493,12 +1471,11 @@ traderoute_results_table_top();
       if($traderoute[circuit] == '1')
         $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=ship_colonists+$colonists_buy, ship_fighters=ship_fighters+$fighters_buy,torps=torps+$torps_buy, ship_energy=ship_energy+$dist[scooped1] WHERE ship_id=$playerinfo[ship_id]");
     }
-//-------- Special Port Section (end) ------
-//-------- Normal Port Section (begin) ------
+    // Normal Port Section
     else
     {
-      //sells commodities
-      // added below initializations, for traderoute bug - rjordan01
+      // Sells commodities
+      // Added below initializations, for traderoute bug
 
             $ore_buy = 0;
             $goods_buy = 0;
@@ -1609,7 +1586,7 @@ traderoute_results_table_top();
 
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
 
-      //time to buy
+      // Time to buy
       if($source[port_type] == 'ore')
       {
         $ore_price1 = $ore_price - $ore_delta * $source[port_ore] / $ore_limit * $inventory_factor;
@@ -1703,15 +1680,14 @@ traderoute_results_table_top();
         $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics], ship_energy=$playerinfo[ship_energy] WHERE ship_id=$playerinfo[ship_id]");
     }
   }
-//------------- Source is port (end) ---------
-//------------- Source is planet (begin) -----
+    // Source is planet
   elseif(($traderoute[source_type] == 'L') || ($traderoute[source_type] == 'C'))
   {
     $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
 
     if($traderoute[dest_type] == 'P')
     {
-      //pick stuff up to sell at port
+      // Pick stuff up to sell at port
       if(($playerinfo[ship_id] == $source[owner]) || ($playerinfo[team] == $source[corp]))
       {
         if($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
@@ -1760,13 +1736,13 @@ traderoute_results_table_top();
           $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics] WHERE ship_id=$playerinfo[ship_id]");
 
       }
-      else  //buy from planet - not implemented yet
+      else  // Buy from planet - not implemented yet
       {
       }
 
       $db->Execute("UPDATE $dbtables[planets] SET ore=ore-$ore_buy, goods=goods-$goods_buy, organics=organics-$organics_buy WHERE planet_id=$source[planet_id]");
     }
-// ---------- destination is a planet, so load cols and weapons
+    // Destination is a planet, so load cols and weapons
     elseif(($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))
     {
       if($source[colonists] > 0 && $free_holds > 0 && $playerinfo[trade_colonists] == 'Y')
@@ -1831,13 +1807,13 @@ traderoute_results_table_top();
     $destcost = 0;
     if($traderoute[dest_type] == 'P')
     {
-            //added the below for traderoute bug - rjordan01
+            // Added the below for traderoute bug
             $ore_buy = 0;
             $goods_buy = 0;
             $organics_buy = 0;
             $energy_buy = 0;
 
-      //sells commodities
+      // Sells commodities
       $portfull = 0;
       if($dest[port_type] != 'ore')
       {
@@ -1930,7 +1906,7 @@ traderoute_results_table_top();
 
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
 
-      //time to buy
+      // Time to buy
       if($dest[port_type] == 'ore')
       {
         $ore_price1 = $ore_price - $ore_delta * $dest[port_ore] / $ore_limit * $inventory_factor;
@@ -2038,7 +2014,7 @@ traderoute_results_table_top();
       }
       $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics], ship_energy=$playerinfo[ship_energy] WHERE ship_id=$playerinfo[ship_id]");
     }
-    else //dest is planet
+    else // Dest is planet
     {
       if($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
       {
@@ -2175,8 +2151,7 @@ traderoute_results_close_table();
 
 $tdr_display_creds =   NUMBER($playerinfo['credits']);
   traderoute_results_display_summary($tdr_display_creds);
-//echo $j." -- ";
-// ===============
+// echo $j." -- ";
   if($traderoute['circuit'] == 2)
   {
     $l_tdr_engageagain = str_replace("[tdr_engage]", $engage, $l_tdr_engageagain);
@@ -2186,7 +2161,6 @@ $tdr_display_creds =   NUMBER($playerinfo['credits']);
         traderoute_results_show_repeat();
     }
   }
-// ===============
   if($j == 1)
      traderoute_die("");
 }
