@@ -748,7 +748,7 @@ function IGB_loans()
       $hours = $difftime / 60;
       $hours = (int) $hours;
       $mins = $difftime % 60;
-      echo "<td align=right><font size=2 face=\"courier new\" color=#00FF00>${hours}h ${mins}m</td></tr>";
+      echo "<td align=right><font size=2 face=\"courier new\" color=#00FF00>{$hours}h {$mins}m</td></tr>";
     }
 
     $factor = $ibank_loanfactor *=100;

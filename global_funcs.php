@@ -156,25 +156,25 @@ define('LOG_BOUNTY_FEDBOUNTY', 52);       // Sent when the federation places a b
 define('LOG_PLANET_BOMBED', 53);     //Sent after bombing a planet
 define('LOG_ADMIN_ILLEGVALUE', 54);        //sent to admin on planet destruction instead of capture
 // Database tables variables
-$dbtables['ibank_accounts'] = "${db_prefix}ibank_accounts";
-$dbtables['links'] = "${db_prefix}links";
-$dbtables['planets'] = "${db_prefix}planets";
-$dbtables['traderoutes'] = "${db_prefix}traderoutes";
-$dbtables['news'] = "${db_prefix}news";
-$dbtables['ships'] = "${db_prefix}ships";
-$dbtables['teams'] = "${db_prefix}teams";
-$dbtables['universe'] = "${db_prefix}universe";
-$dbtables['zones'] = "${db_prefix}zones";
-$dbtables['messages'] = "${db_prefix}messages";
-$dbtables['xenobe'] = "${db_prefix}xenobe";
-$dbtables['sector_defence'] = "${db_prefix}sector_defence";
-$dbtables['scheduler'] = "${db_prefix}scheduler";
-$dbtables['ip_bans'] = "${db_prefix}ip_bans";
-$dbtables['IGB_transfers'] = "${db_prefix}IGB_transfers";
-$dbtables['logs'] = "${db_prefix}logs";
-$dbtables['bounty'] = "${db_prefix}bounty";
-$dbtables['movement_log'] = "${db_prefix}movement_log";
-$dbtables['sessions'] = "${db_prefix}sessions";
+$dbtables['ibank_accounts'] = "{$db_prefix}ibank_accounts";
+$dbtables['links'] = "{$db_prefix}links";
+$dbtables['planets'] = "{$db_prefix}planets";
+$dbtables['traderoutes'] = "{$db_prefix}traderoutes";
+$dbtables['news'] = "{$db_prefix}news";
+$dbtables['ships'] = "{$db_prefix}ships";
+$dbtables['teams'] = "{$db_prefix}teams";
+$dbtables['universe'] = "{$db_prefix}universe";
+$dbtables['zones'] = "{$db_prefix}zones";
+$dbtables['messages'] = "{$db_prefix}messages";
+$dbtables['xenobe'] = "{$db_prefix}xenobe";
+$dbtables['sector_defence'] = "{$db_prefix}sector_defence";
+$dbtables['scheduler'] = "{$db_prefix}scheduler";
+$dbtables['ip_bans'] = "{$db_prefix}ip_bans";
+$dbtables['IGB_transfers'] = "{$db_prefix}IGB_transfers";
+$dbtables['logs'] = "{$db_prefix}logs";
+$dbtables['bounty'] = "{$db_prefix}bounty";
+$dbtables['movement_log'] = "{$db_prefix}movement_log";
+$dbtables['sessions'] = "{$db_prefix}sessions";
 
 
 function mypw($one,$two)

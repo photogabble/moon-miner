@@ -44,9 +44,9 @@ elseif($screenres >= 1024)
   $yres = 558;
 
 if($mode == 'full')
-  echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:${yres}px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
+  echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
 elseif($mode == 'moz')
-  echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:${yres}px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
+  echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
 
 echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
 
@@ -264,7 +264,7 @@ if($mode != 'compat')
        "<br>" .
        "<div style=\"position:relative; top:-23px;\">" .
        "<font size=2><b>" .
-       "<a href=log.php?startdate=${backlink}$postlink><<</a>&nbsp;&nbsp;&nbsp;" .
+       "<a href=log.php?startdate={$backlink}$postlink><<</a>&nbsp;&nbsp;&nbsp;" .
        "<a href=\"#\" onclick=\"activate(2); return false;\" onfocus=\"if(this.blur)this.blur()\">$date3</a>" .
        " | " .
        "<a href=\"#\" onclick=\"activate(1); return false;\" onfocus=\"if(this.blur)this.blur()\">$date2</a>" .
@@ -272,22 +272,22 @@ if($mode != 'compat')
        "<a href=\"#\" onclick=\"activate(0); return false;\" onfocus=\"if(this.blur)this.blur()\">$date1</a>";
 
   if($nonext != 1)
-    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=${nextlink}$postlink>>>></a>";
+    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate={$nextlink}$postlink>>>></a>";
 
   echo "&nbsp;&nbsp;&nbsp;";
 }
 else
 {
   echo "<tr><td><td align=right>" .
-       "<a href=log.php?startdate=${backlink}$postlink><font color=white size =3><b><<</b></font></a>&nbsp;&nbsp;&nbsp;" .
-       "<a href=log.php?startdate=${yesterday2}$postlink><font color=white size=3><b>$date3</b></font></a>" .
+       "<a href=log.php?startdate={$backlink}$postlink><font color=white size =3><b><<</b></font></a>&nbsp;&nbsp;&nbsp;" .
+       "<a href=log.php?startdate={$yesterday2}$postlink><font color=white size=3><b>$date3</b></font></a>" .
        "&nbsp;|&nbsp;" .
-       "<a href=log.php?startdate=${yesterday}$postlink><font color=white size=3><b>$date2</b></font></a>" .
+       "<a href=log.php?startdate={$yesterday}$postlink><font color=white size=3><b>$date2</b></font></a>" .
        " | " .
-       "<a href=log.php?startdate=${startdate}$postlink><font color=white size=3><b>$date1</b></font></a>";
+       "<a href=log.php?startdate={$startdate}$postlink><font color=white size=3><b>$date1</b></font></a>";
 
   if($nonext != 1)
-    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate=${nextlink}$postlink><font color=white size=3><b>>></b></font></a>";
+    echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate={$nextlink}$postlink><font color=white size=3><b>>></b></font></a>";
 
   echo "&nbsp;&nbsp;&nbsp;";
 
