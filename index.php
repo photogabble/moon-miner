@@ -25,7 +25,7 @@ if(empty($lang))
 }
 
 include("languages/$lang");
-$title="Login";
+$title=$l_login_title;
 $interface="index.php";
 $no_body=1;
 include("header.php");
