@@ -17,15 +17,18 @@
 //
 // File: index.php
 
-  include("config.php");
+include("config.php");
 
-  if(empty($lang))
+if(empty($lang))
+{
     $lang = $default_lang;
-  include("languages/$lang");
-    $title="Login";
-  $interface="index.php";
-  $no_body=1;
-    include("header.php");
+}
+
+include("languages/$lang");
+$title="Login";
+$interface="index.php";
+$no_body=1;
+include("header.php");
 ?>
 
 <body bgcolor="#666666" text="#c0c0c0" link="#000000" vlink="#990033" alink="#FF3333" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">

@@ -84,11 +84,13 @@ echo $l_footer_players_on_2;
     <td align=right><font color=silver size=-4>&copy;2000-2012 Ron Harwood &amp; the Blacknova Development team</font></td>
    </tr>
    <tr>
-    <td><font color=silver size=-4><a href="news.php">Local BlackNova News</a></font></td>
+    <td><font color=silver size=-4><a href="news.php">
 <?php
+echo $l_local_news . "</a></font></td>";
+
 if ($footer_show_time == true)
 {
-    echo "<td align=right><font color=silver size=-4>Time to generate page: " . $elapsed . " seconds</td>";
+    echo "<td align=right><font color=silver size=-4>" . $l_time_gen_page . ": " . $elapsed . " " . $l_seconds . "</td>";
 }
 ?>
    </tr>

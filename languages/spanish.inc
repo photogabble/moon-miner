@@ -2735,6 +2735,8 @@ $l_cmb_needfighters = "Necesitas al menos 1 caza.";
 $l_log_text[LOG_PLANET_YOUR_CAPTURED] = "Tu planeta [planet_name] en el sector [sector] fue derrotado y capturado por los malditos [name].";
 $l_log_title[LOG_PLANET_YOUR_CAPTURED] = "<font color=red>Planeta capturado!</font>";
 
-
+$l_time_gen_page = "Tiempo para generar la página";
+$l_seconds = "segundo";
+$l_local_news = "Noticias Locales";
 ?>
 

@@ -1382,4 +1382,8 @@ $l_insignia[16] = "Commodore";
 $l_insignia[17] = "Rear Admiral";
 $l_insignia[18] = "Vice Admiral";
 $l_insignia[19] = "Admiral";           
+
+$l_time_gen_page = "Temps pour générer la page";
+$l_seconds = "secondes";
+$l_local_news = "Nouvelles locales";
 ?>
