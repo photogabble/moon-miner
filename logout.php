@@ -19,7 +19,7 @@
 
 include("config.php");
 include("languages/$lang");
-$title = "Logout";
+$title=$l_logout;
 
 SetCookie("userpass","",0,$gamepath,$gamedomain);
 SetCookie("userpass","",0); // Delete from default path as well.
