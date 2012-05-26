@@ -2738,5 +2738,12 @@ $l_log_title[LOG_PLANET_YOUR_CAPTURED] = "<font color=red>Planeta capturado!</fo
 $l_time_gen_page = "Tiempo para generar la página";
 $l_seconds = "segundo";
 $l_local_news = "Noticias Locales";
+
+// Page titles
+$l_admin_title = "Administración";
+$l_change_uni_title = "Cambiar tamaño de universo";
+$l_cu_title = "Crear universo";
+$l_sys_update = "Actualización del sistema";
+$l_ai_control = "control Xenobe";
 ?>
 

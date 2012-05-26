@@ -1386,4 +1386,11 @@ $l_insignia[19] = "Admiral";
 $l_time_gen_page = "Temps pour générer la page";
 $l_seconds = "secondes";
 $l_local_news = "Nouvelles locales";
+
+// Page titles
+$l_admin_title = "Administration";
+$l_change_uni_title = "taille univers changement";
+$l_cu_title = "Créer l'univers";
+$l_sys_update = "Mise à jour système";
+$l_ai_control = "contrôle Xenobe";
 ?>

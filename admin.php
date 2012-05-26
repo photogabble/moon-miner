@@ -21,7 +21,7 @@ include("config.php");
 include("languages/$lang");
 updatecookie();
 
-$title="Administration";
+$title=$l_admin_title;
 include("header.php");
 
 connectdb();
@@ -172,7 +172,7 @@ else
     {
       echo "<B>Universe editor</B>";
 
-        $title="Expand/Contract the Universe";
+        $title=$l_change_uni_title;
         echo "<BR>Expand or Contract the Universe <BR>";
 
 

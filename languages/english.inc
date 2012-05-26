@@ -1,8 +1,5 @@
 <?php
-
-
 //general
-
 $l_yes 			 = "Yes";
 $l_no			 = "No";
 $l_here			 = "here";
@@ -1426,4 +1423,11 @@ $l_insignia[19] = "Admiral";
 $l_time_gen_page = "Time to generate page";
 $l_seconds = "seconds";
 $l_local_news = "Local News";
+
+// Page titles
+$l_admin_title = "Administration";
+$l_change_uni_title = "Change universe size";
+$l_cu_title = "Create universe";
+$l_sys_update = "System update";
+$l_ai_control = "Xenobe control";
 ?>

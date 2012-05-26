@@ -22,7 +22,7 @@ updatecookie();
 
 include("languages/$lang");
 
-$title="Xenobe Control";
+$title=$l_ai_control;
 include("header.php");
 
 connectdb();

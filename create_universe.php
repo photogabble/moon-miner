@@ -161,7 +161,7 @@ include("includes/schema.php");
 ### Update cookie.
 updatecookie();
 
-$title="Create Universe";
+$title=$l_cu_title;
 include("header.php");
 
 ### Connect to the database.
