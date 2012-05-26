@@ -26,11 +26,9 @@ include("header.php");
 
 bigtitle();
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
@@ -38,11 +36,11 @@ $playerinfo = $res->fields;
 
 if ($action=="delete")
 {
- $db->Execute("DELETE FROM $dbtables[messages] WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
+    $db->Execute("DELETE FROM $dbtables[messages] WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
 }
 else if ($action=="delete_all")
 {
-  $db->Execute("DELETE FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."'");
+    $db->Execute("DELETE FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."'");
 }
 
 $cur_D = date("Y-m-d");
