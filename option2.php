@@ -23,7 +23,7 @@ if(checklogin())
 {
     die();
 }
-$title = "$l_opt2_title";
+$title=$l_opt2_title;
 
 if($intrf == "N")
 {
