@@ -24,9 +24,6 @@ ini_set('display_errors', '0');
 
 ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 
-include("db_config.php");
-include("$ADOdbpath" . "/adodb.inc.php");
-
 //  Set this to how often (in minutes) you are running the scheduler script.
 
 $sched_ticks = 1;
@@ -256,5 +253,5 @@ $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "b
 $footer_style = 'old';
 $footer_show_time = true;
 
-include("global_funcs.php");
+require("global_includes.php"); // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
