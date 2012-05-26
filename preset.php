@@ -21,7 +21,7 @@ include("config.php");
 updatecookie();
 
 include("languages/$lang");
-$title = "$l_pre_title";
+$title=$l_pre_title;
 
 include("header.php");
 

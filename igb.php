@@ -1097,7 +1097,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
 {
   global $l_igb_igberrreport, $l_igb_back, $l_igb_logout;
 
-  $title = $l_igb_igberrreport;
+  $title=$l_igb_igberrreport;
   echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$title<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
        "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$errmsg</td>" .

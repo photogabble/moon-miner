@@ -20,7 +20,7 @@
 include("config.php");
 updatecookie();
 
-$title = "Help";
+$title=$l_help;
 include("header.php");
 
 connectdb();
