@@ -25,10 +25,9 @@ include("languages/$lang");
 $title="$l_log_titlet";
 $no_body=1;
 
-connectdb();
 if(checklogin())
 {
-  die();
+    die();
 }
 
 include("header.php");
@@ -37,9 +36,9 @@ $res = $db->Execute("SELECT character_name, ship_id, dhtml FROM $dbtables[ships]
 $playerinfo = $res->fields;
 
 
-if($swordfish == $adminpass) //check if called by admin script
+if($swordfish == $adminpass) // Check if called by admin script
 {
-  $playerinfo[ship_id] = $player;
+    $playerinfo[ship_id] = $player;
 
   if($player == 0)
     $playerinfo[character_name] = 'Administrator';

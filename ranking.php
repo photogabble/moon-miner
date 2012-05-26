@@ -24,7 +24,6 @@ include("languages/$lang");
 $title=$l_ranks_title;
 include("header.php");
 
-connectdb();
 bigtitle();
 
 $res = $db->Execute("SELECT COUNT(*) AS num_players FROM $dbtables[ships] WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0");
