@@ -19,14 +19,14 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
 $title=$l_feedback_title;
 include("header.php");
 
-connectdb();
-
-if (checklogin()) {die();}
+if (checklogin())
+{
+    die();
+}
 
 if(!isset($_SESSION['content']))
 {
