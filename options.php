@@ -20,11 +20,9 @@
 include("config.php");
 include("languages/$lang");
 updatecookie();
-
 $title="$l_opt_title";
 include("header.php");
 
-connectdb();
 if(checklogin())
 {
     die();
@@ -66,12 +64,15 @@ echo "<TD>$l_opt_select</TD><TD><select NAME=newlang>";
 
 foreach($avail_lang as $curlang)
 {
-  if($curlang['file'] == $playerinfo[lang])
-    $selected = "selected";
-  else
-    $selected = "";
-
-  echo "<option value=$curlang[file] $selected>$curlang[name]</option>";
+    if($curlang['file'] == $playerinfo[lang])
+    {
+        $selected = "selected";
+    }
+    else
+    {
+        $selected = "";
+    }
+    echo "<option value=$curlang[file] $selected>$curlang[name]</option>";
 }
 
 echo "</select></td>";
