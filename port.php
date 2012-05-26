@@ -21,7 +21,7 @@ include("config.php");
 updatecookie();
 
 include("languages/$lang");
-$title = $l_title_port;
+$title=$l_title_port;
 include("header.php");
 
 connectdb();
