@@ -26,7 +26,6 @@ updatecookie();
 include("languages/$lang");
 $title=$l_team_title;
 include("header.php");
-connectdb();
 
 if (checklogin())
 {
@@ -796,6 +795,5 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
     return true;
 }
 
-    include("footer.php");
+include("footer.php");
 ?>
-
