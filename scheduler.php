@@ -65,6 +65,7 @@
 ******************************************************************/
 
 require_once("config.php");
+global $l_sys_update;
 $title=$l_sys_update;
 
 //global $default_lang;
