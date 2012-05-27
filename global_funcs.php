@@ -997,12 +997,12 @@ function isLoanPending($ship_id)
   {
     $account=$res->fields;
 
-    if($account[loan] == 0)
+    if($account['loan'] == 0)
 
       return false;
 
     $curtime=time();
-    $difftime = ($curtime - $account[time]) / 60;
+    $difftime = ($curtime - $account['time']) / 60;
     if($difftime > $IGB_lrate)
 
       return true;
