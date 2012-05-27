@@ -34,11 +34,16 @@ if(checklogin())
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
-if ($action=="delete")
+if (!isset($_GET['action']))
+{
+    $_GET['action'] = '';
+}
+
+if ($_GET['action']=="delete")
 {
     $db->Execute("DELETE FROM $dbtables[messages] WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
 }
-else if ($action=="delete_all")
+else if ($_GET['action']=="delete_all")
 {
     $db->Execute("DELETE FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."'");
 }
@@ -46,7 +51,7 @@ else if ($action=="delete_all")
 $cur_D = date("Y-m-d");
 $cur_T = date("H:i:s");
 
-$res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."' ORDER BY sent DESC");
+$res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playerinfo['ship_id']."' ORDER BY sent DESC");
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
