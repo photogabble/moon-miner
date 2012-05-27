@@ -1150,9 +1150,9 @@ $l_new_blank			="E-mail, nom du vaisseau et nom du joueur ne peuvent être vides.
 $l_new_inuse			="L'adresse e-mail est déjà en utilisation.";
 $l_new_4gotpw1			="Si vous avez oublié votre mot de passe,";
 $l_new_4gotpw2			="pour qu'il soit envoyé à votre adresse e-mail.";
-$l_new_inusechar		="Le nom de joueur $character est déjà en utilisation.";
-$l_new_inuseship		="Le nom de vaisseau $shipname est déjà en utilisation.";
-$l_new_pwsent			="Le mot de passe a été envoyé à $username.";
+$l_new_inusechar		="Le nom de joueur [character] est déjà en utilisation.";
+$l_new_inuseship		="Le nom de vaisseau [shipname] est déjà en utilisation.";
+$l_new_pwsent			="Le mot de passe a été envoyé à [username].";
 $l_new_login			="pour aller à l'écran de connection.";
 $l_new_err			="S'il vous plaît cliquez <a href=new.php>ici</a> pour réessayer.";
 $l_new_topic			="Mot de passe pour Blacknova Traders";
