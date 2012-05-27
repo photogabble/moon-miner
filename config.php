@@ -17,9 +17,9 @@
 //
 // File: config.php
 
-// ini_set('error_reporting', E_ALL); // During development
+//ini_set('error_reporting', E_ALL); // During development
 ini_set('error_reporting', 0);
-// ini_set('display_errors', '1'); // During development
+//ini_set('display_errors', '1'); // During development
 ini_set('display_errors', '0');
 
 ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
@@ -253,5 +253,12 @@ $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "b
 $footer_style = 'old';
 $footer_show_time = true;
 
+$register_globals_safe = false; // We hope to fix this soon
+
+date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
+
+$sched_planet_valid_credits = true; // Limit captured planets Max Credits to max_credits_without_base
+
+$db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete. Almost definitely you will want false.
 require("global_includes.php"); // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
