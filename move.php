@@ -31,12 +31,12 @@ if (checklogin())
 
 //Retrieve the user and ship information
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-//Put the player information into the array: "playerinfo"
+// Put the player information into the array: "playerinfo"
 $playerinfo=$result->fields;
 
-//Check to see if the player has less than one turn available
-//and if so return to the main menu
-if ($playerinfo[turns]<1)
+// Check to see if the player has less than one turn available
+// and if so return to the main menu
+if ($playerinfo['turns']<1)
 {
     echo "$l_move_turn<BR><BR>";
     TEXT_GOTOMAIN();
@@ -44,31 +44,34 @@ if ($playerinfo[turns]<1)
     die();
 }
 
-//Retrieve all the sector information about the current sector
+// Retrieve all the sector information about the current sector
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
-//Put the sector information into the array "sectorinfo"
+// Put the sector information into the array "sectorinfo"
 $sectorinfo=$result2->fields;
 
-//Retrive all the warp links out of the current sector
+if (!isset($_GET['sector']))
+{
+    $_GET['sector'] = '';
+}
+
+// Retrive all the warp links out of the current sector
 $result3 = $db->Execute ("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]'");
 $i=0;
 $flag=0;
-if ($result3>0)
+
+// Loop through the available warp links to make sure it's a valid move
+while (!$result3->EOF)
 {
-    //loop through the available warp links to make sure it's a valid move
-    while (!$result3->EOF)
+    $row = $result3->fields;
+    if ($row['link_dest']==$_GET['sector'] && $row['link_start']==$playerinfo['sector'])
     {
-        $row = $result3->fields;
-        if ($row[link_dest]==$sector && $row[link_start]==$playerinfo[sector])
-        {
-            $flag=1;
-        }
-        $i++;
-        $result3->MoveNext();
+        $flag=1;
     }
+    $i++;
+    $result3->MoveNext();
 }
 
-//Check if there was a valid warp link to move to
+// Check if there was a valid warp link to move to
 if ($flag==1)
 {
     $ok=1;
@@ -77,7 +80,7 @@ if ($flag==1)
     if($ok>0){
        $stamp = date("Y-m-d H-i-s");
        $query="UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-       log_move($playerinfo[ship_id],$sector);
+       log_move($playerinfo['ship_id'],$sector);
        $move_result = $db->Execute ("$query");
       if (!$move_result)
     {
