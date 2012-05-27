@@ -80,7 +80,7 @@ elseif($zoneinfo[allow_trade] == 'L')
 bigtitle();
 
 $color_red     = "red";
-$color_green   = "#00FF00"; //light green
+$color_green   = "#0f0"; //light green
 $trade_deficit = "$l_cost : ";
 $trade_benefit = "$l_profit : ";
 
@@ -447,19 +447,19 @@ if ($colonist_max <0) $colonist_max = 0;
 
 #      if ($colonist_max <0)
 #      {
-#        BuildTwoCol("<span style='color:#f00;'>Detected Overflow</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
+#        BuildTwoCol("<span style='color:#f00;'>Detected Overflow</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
 #        $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
 #      }
 
       $hull_upgrade=0;
       echo "</table>";
 
-echo "<div style='font-size:16px; color:#fff;'><br />[<span style='color:#00FF00;'>Border Patrol</span>]<br />\n";
+echo "<div style='font-size:16px; color:#fff;'><br />[<span style='color:#0f0;'>Border Patrol</span>]<br />\n";
 echo "Halt, while we scan your cargo...<br />\n";
 
 if ((NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists]) <0)
 {
-    #BuildTwoCol("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#00FF00;'>Fixed</span>", "left", "right");
+    #BuildTwoCol("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
 
     echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
     $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
@@ -467,7 +467,7 @@ if ((NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_org
 }
 else
 {
-    echo "<span style='color:#00FF00;'>Detected no illegal cargo, you may continue.</span>\n";
+    echo "<span style='color:#0f0;'>Detected no illegal cargo, you may continue.</span>\n";
 }
 
 echo "</div>\n";

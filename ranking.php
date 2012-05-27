@@ -141,7 +141,7 @@ else
                 case "tester":
                 {
                     // Set Character name Admin Blue
-                    $char_name      = "<span style='color:#00FF00; font-size:14px;'>{$row[character_name]}</span>";
+                    $char_name      = "<span style='color:#0f0; font-size:14px;'>{$row[character_name]}</span>";
                     $alt            = "Blacknova Testing Team";
                     $online_image    = "images/online_tester.png";
                     $offline_image    = "images/offline_tester.png";
@@ -188,11 +188,11 @@ else
                     {
                         if($difftime <= 3)
                         {
-                                $status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>Online</span>";
+                                $status = "<span class='rank_dev_text' style='color:#0f0; font-size:14px;'>Online</span>";
                         }
                         elseif($difftime <= 15)
                         {
-                            $status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>* Idle *</span>";
+                            $status = "<span class='rank_dev_text' style='color:#0f0; font-size:14px;'>* Idle *</span>";
                         }
                         else
                         {
@@ -324,7 +324,7 @@ if($ai_enabled == true)
                 switch($mode)
                 {
                     case 0:
-                        $status = "<span class='rank_dev_text' style='color:#00FF00; font-size:14px;'>{$AIOrders[$statrow['orders']]}</span>";
+                        $status = "<span class='rank_dev_text' style='color:#0f0; font-size:14px;'>{$AIOrders[$statrow['orders']]}</span>";
                         break;
 
                     case 1:
@@ -359,7 +359,7 @@ if($ai_enabled == true)
     echo "    <td style='width:50%;'>Ja'coni AI Code v0.0.1 (0012) based off Xenobe Code.</td>\n";
     echo "    <td style='width:16px; background-color:#f00;'></td><td>Hostile (Will Attack on Site)</td>\n";
     echo "    <td style='width:16px; background-color:#ff0;'></td><td>Neutral (But may Attack)</td>\n";
-    echo "    <td style='width:16px; background-color:#00FF00;'></td><td>Friendly (Only Attacks if Attacked)</td>\n";
+    echo "    <td style='width:16px; background-color:#0f0;'></td><td>Friendly (Only Attacks if Attacked)</td>\n";
     echo "  </tr>\n";
     echo "</table>\n";
     echo "<hr />\n";

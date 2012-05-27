@@ -230,15 +230,15 @@ else
 
             echo "<div style='width:800px; margin:auto; text-align:center; color:#fff;'>\n";
 
-            echo "  <div style='text-align:center; font-size:24px; font-weight:bold; padding:4px; background-color:{$color_header}; border:#FFCC00 1px solid;'>Blacknova Combat System. (<span style='color:#00FF00;'>BETA</span>)</div>\n";
+            echo "  <div style='text-align:center; font-size:24px; font-weight:bold; padding:4px; background-color:{$color_header}; border:#FFCC00 1px solid;'>Blacknova Combat System. (<span style='color:#0f0;'>BETA</span>)</div>\n";
             echo "  <div style='height:1px;'></div>\n";
 
             echo "<table style='width:100%; border:none; background-color:#FFCC00;' cellpadding='0' cellspacing='1'>\n";
 
             echo "  <tr style='background-color:{$color_header}; font-size:16px;'>\n";
             echo "    <td style='text-align:center; font-weight:bold;background-color:{$color_header};'>Stats</td>\n";
-            echo "    <td style='width:33%; text-align:center; font-weight:bold;background-color:{$color_header};'>You [<span style='color:#00FF00; font-size:12px; font-weight:normal;'>{$playerinfo['character_name']}</span>]</td>\n";
-            echo "    <td style='width:33%; text-align:center; font-weight:bold;background-color:{$color_header};'>Target [<span style='color:#00FF00; font-size:12px; font-weight:normal;'>{$targetinfo['character_name']}</span>]</td>\n";
+            echo "    <td style='width:33%; text-align:center; font-weight:bold;background-color:{$color_header};'>You [<span style='color:#0f0; font-size:12px; font-weight:normal;'>{$playerinfo['character_name']}</span>]</td>\n";
+            echo "    <td style='width:33%; text-align:center; font-weight:bold;background-color:{$color_header};'>Target [<span style='color:#0f0; font-size:12px; font-weight:normal;'>{$targetinfo['character_name']}</span>]</td>\n";
             echo "  </tr>\n";
 
             $color = $color_line1;

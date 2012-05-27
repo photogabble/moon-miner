@@ -143,7 +143,7 @@ else
     // ***********************************************
     elseif($module == "xenobeedit")
     {
-      echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00 \">Xenobe Editor</span><BR>";
+      echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0 \">Xenobe Editor</span><BR>";
       echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
       if(empty($user))
       {
@@ -245,7 +245,7 @@ else
           echo "<INPUT TYPE=SUBMIT VALUE=Save>";
           // SHOW Xenobe LOG DATA
           echo "<HR>";
-          echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #00FF00;\">Log Data For This Xenobe</span><BR>";
+          echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><BR>";
 
           $logres = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
           while(!$logres->EOF)

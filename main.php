@@ -421,7 +421,7 @@ echo "<td style='vertical-align:top;'>\n";
 if($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
-    echo "{$l_tradingport}:&nbsp;<span style='color:#00FF00;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
+    echo "{$l_tradingport}:&nbsp;<span style='color:#0f0;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
     echo "<br>\n";
     echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' alt='Space Station Port'></a>\n";
     echo "</div>\n";
@@ -610,7 +610,7 @@ if($playerinfo[sector] != 0)
                 echo "(<span style='color:#ff0; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
                 if ($ship_detected[$iPlayer][team_name])
                 {
-                    echo "(<span style='color:#00FF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
+                    echo "(<span style='color:#0f0; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
                 }
                 echo "</div>\n";
 

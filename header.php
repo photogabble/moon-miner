@@ -49,7 +49,7 @@ if(isset($interface) && $interface == "main.php")
   img.mnu {padding:4px; border:transparent 2px dashed;}
   img.mnu:hover {padding:4px; border:#f00 2px dashed;}
 
-  a.new_link {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#00FF00; font-weight:bold;}
+  a.new_link {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#0f0; font-weight:bold;}
   a.new_link:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
 
   div.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
@@ -68,9 +68,9 @@ if(isset($interface) && $interface == "main.php")
   echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
 
 }
-#echo "a:link {color: #00FF00;}\n";
-#echo "a:visited {color: #00FF00;}\n";
-#echo "a:hover {color: #0066FF;}\n";
+#echo "a:link {color: #0f0;}\n";
+#echo "a:visited {color: #0f0;}\n";
+#echo "a:hover {color: #06f;}\n";
 #echo "a:active {color: #f00;}\n";
 
 echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";

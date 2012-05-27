@@ -40,8 +40,8 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 
 <STYLE TYPE="text/css">
 <!--
-    input.term {background-color: #000; color: #00FF00; font-family:Courier New; font-size:10pt; border-color:#00FF00;}
-    select.term {background-color: #000; color: #00FF00; font-family:Courier New; font-size:10pt; border-color:#00FF00;}
+    input.term {background-color: #000; color: #0f0; font-family:Courier New; font-size:10pt; border-color:#0f0;}
+    select.term {background-color: #000; color: #0f0; font-family:Courier New; font-size:10pt; border-color:#0f0;}
 
 -->
 </STYLE>
@@ -90,9 +90,9 @@ else
 {
   echo "
   <tr>
-    <td width=25% valign=bottom align=left><a href=\"main.php\"><font size=2 face=\"courier new\" color=#00FF00>$l_igb_quit</a></td>
+    <td width=25% valign=bottom align=left><a href=\"main.php\"><font size=2 face=\"courier new\" color=#0f0>$l_igb_quit</a></td>
     <td width=50%>
-  <font style=\"font-size:10px; font-family:'Courier New'; color:#00FF00;\">
+  <font style=\"font-size:10px; font-family:'Courier New'; color:#0f0;\">
   <pre style='text-align:left;'>
   IIIIIIIIII          GGGGGGGGGGGGG    BBBBBBBBBBBBBBBBB
   I::::::::I       GGG::::::::::::G    B::::::::::::::::B
@@ -119,7 +119,7 @@ else
   echo "<br>&nbsp;
   </center>
   </td>
-  <td width=25% valign=bottom align=right><font size=2 color=#00FF00 face=\"courier new\"><a href=\"igb.php?command=login\">$l_igb_login</a></td>
+  <td width=25% valign=bottom align=right><font size=2 color=#0f0 face=\"courier new\"><a href=\"igb.php?command=login\">$l_igb_login</a></td>
   ";
 }
 
@@ -143,14 +143,14 @@ function IGB_login()
   global $l_igb_igbaccount, $l_igb_shipaccount, $l_igb_withdraw, $l_igb_transfer;
   global $l_igb_deposit, $l_igb_credit_symbol, $l_igb_operations, $l_igb_loans;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_welcometoigb<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_welcometoigb<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td width=150 align=right><font size=2 face=\"courier new\" color=#00FF00>$l_igb_accountholder :<br><br>$l_igb_shipaccount :<br>$l_igb_igbaccount&nbsp;&nbsp;:</td>" .
-       "<td style='max-width:550px; padding-right:4px;' align=right><font size=2 face=\"courier new\" color=#00FF00>$playerinfo[character_name]&nbsp;&nbsp;<br><br>".NUMBER($playerinfo[credits]) . " $l_igb_credit_symbol<br>" . NUMBER($account[balance]) . " $l_igb_credit_symbol<br></td>" .
+       "<td width=150 align=right><font size=2 face=\"courier new\" color=#0f0>$l_igb_accountholder :<br><br>$l_igb_shipaccount :<br>$l_igb_igbaccount&nbsp;&nbsp;:</td>" .
+       "<td style='max-width:550px; padding-right:4px;' align=right><font size=2 face=\"courier new\" color=#0f0>$playerinfo[character_name]&nbsp;&nbsp;<br><br>".NUMBER($playerinfo[credits]) . " $l_igb_credit_symbol<br>" . NUMBER($account[balance]) . " $l_igb_credit_symbol<br></td>" .
        "</tr>" .
-       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_operations<br>---------------------------------<br><br><a href=\"igb.php?command=withdraw\">$l_igb_withdraw</a><br><a href=\"igb.php?command=deposit\">$l_igb_deposit</a><br><a href=\"igb.php?command=transfer\">$l_igb_transfer</a><br><a href=\"igb.php?command=loans\">$l_igb_loans</a><br>&nbsp;</td></tr>" .
+       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>$l_igb_operations<br>---------------------------------<br><br><a href=\"igb.php?command=withdraw\">$l_igb_withdraw</a><br><a href=\"igb.php?command=deposit\">$l_igb_deposit</a><br><a href=\"igb.php?command=transfer\">$l_igb_transfer</a><br><a href=\"igb.php?command=loans\">$l_igb_loans</a><br>&nbsp;</td></tr>" .
        "<tr valign=bottom>" .
-       "<td align='left'><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td align='left'><font size=2 face=\"courier new\" color=#0f0><a href=igb.php>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -161,18 +161,18 @@ function IGB_withdraw()
   global $l_igb_withdrawfunds, $l_igb_fundsavailable, $l_igb_selwithdrawamount;
   global $l_igb_withdraw, $l_igb_back, $l_igb_logout;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_withdrawfunds<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_withdrawfunds<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_fundsavailable :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) ." C<br></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_fundsavailable :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($account[balance]) ." C<br></td>" .
        "</tr><tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_selwithdrawamount :</td><td align=right>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_selwithdrawamount :</td><td align=right>" .
        "<form action=igb.php?command=withdraw2 method=POST>" .
        "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
        "<br><br><input class=term type=submit value=$l_igb_withdraw>" .
        "</form></td></tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
 }
@@ -196,12 +196,12 @@ function IGB_deposit()
   $credit_space = 0;
 
 
-  echo "<tr><td height=53 colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_depositfunds<br>---------------------------------</td></tr>" .
+  echo "<tr><td height=53 colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_depositfunds<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td height=30><font size=2 face=\"courier new\" color=#00FF00>$l_igb_fundsavailable :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) ." C<br></td>" .
+       "<td height=30><font size=2 face=\"courier new\" color=#0f0>$l_igb_fundsavailable :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($playerinfo[credits]) ." C<br></td>" .
        "</tr><tr valign=top>" .
-       "<td height=90><font size=2 face=\"courier new\" color=#00FF00>$l_igb_seldepositamount :</td><td align=right>" .
+       "<td height=90><font size=2 face=\"courier new\" color=#0f0>$l_igb_seldepositamount :</td><td align=right>" .
        "<form action=igb.php?command=deposit2 method=POST>" .
        "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
        "<br><br><input class=term type=submit value=$l_igb_deposit>" .
@@ -209,11 +209,11 @@ function IGB_deposit()
        "</td></tr>" .
        "<tr>" .
        "  <td height=30  colspan=2 align=left>" .
-       "    <span style='font-family:Courier New, Courier, monospace; font-size:12px; color:#00FF00;'>You can deposit only ". NUMBER($credit_space)." credits.</span><br />" .
+       "    <span style='font-family:Courier New, Courier, monospace; font-size:12px; color:#0f0;'>You can deposit only ". NUMBER($credit_space)." credits.</span><br />" .
        "  </td>" .
        "</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
 }
@@ -243,10 +243,10 @@ function IGB_transfer()
   }
 
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transfertype<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_transfertype<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
        "<form action=igb.php?command=transfer2 method=POST>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_toanothership :<br><br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_toanothership :<br><br>" .
        "<select class=term name=ship_id style='width:200px;'>";
 
   foreach($ships as $ship)
@@ -259,7 +259,7 @@ function IGB_transfer()
        "</form>" .
        "</td></tr>" .
        "<tr valign=top>" .
-       "<td><br><font size=2 face=\"courier new\" color=#00FF00>$l_igb_fromplanet :<br><br>" .
+       "<td><br><font size=2 face=\"courier new\" color=#0f0>$l_igb_fromplanet :<br><br>" .
        "<form action=igb.php?command=transfer2 method=POST>" .
        "$l_igb_source&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class=term name=splanet_id>";
 
@@ -301,7 +301,7 @@ function IGB_transfer()
 
 // ---- begin Consol Credits form    // ---- added by Torr
   echo "<tr valign=top>" .
-       "<td><br><font size=2 face=\"courier new\" color=#00FF00>$l_igb_conspl :<br><br>" .
+       "<td><br><font size=2 face=\"courier new\" color=#0f0>$l_igb_conspl :<br><br>" .
        "<form action=igb.php?command=consolidate method=POST>" .
        "$l_igb_destination <select class=term name=dplanet_id>";
 
@@ -326,7 +326,7 @@ function IGB_transfer()
 // ---- End Consol Credits form ---
 
   echo "</form><tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -392,11 +392,11 @@ function IGB_transfer2()
       }
     }
 
-    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_shiptransfer<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_igbaccount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) . " C</td></tr>";
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_shiptransfer<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td><font size=2 face=\"courier new\" color=#0f0>$l_igb_igbaccount :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($account[balance]) . " C</td></tr>";
 
     if($IGB_svalue == 0)
-      echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_maxtransfer :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>$l_igb_unlimited</td></tr>";
+      echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#0f0>$l_igb_maxtransfer :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>$l_igb_unlimited</td></tr>";
     else
     {
       $percent = $IGB_svalue * 100;
@@ -404,24 +404,24 @@ function IGB_transfer2()
       $maxtrans = $score * $score * $IGB_svalue;
 
       $l_igb_maxtransferpercent = str_replace("[igb_percent]", $percent, $l_igb_maxtransferpercent);
-      echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#00FF00>$l_igb_maxtransferpercent :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($maxtrans) . " C</td></tr>";
+      echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#0f0>$l_igb_maxtransferpercent :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($maxtrans) . " C</td></tr>";
     }
 
     $percent = $ibank_paymentfee * 100;
 
     $l_igb_transferrate = str_replace("[igb_num_percent]", NUMBER($percent,1), $l_igb_transferrate);
-    echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_recipient :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>$target[character_name]&nbsp;&nbsp;</td></tr>" .
+    echo "<tr valign=top><td><font size=2 face=\"courier new\" color=#0f0>$l_igb_recipient :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>$target[character_name]&nbsp;&nbsp;</td></tr>" .
          "<form action=igb.php?command=transfer3 method=POST>" .
          "<tr valign=top>" .
-         "<td><br><font size=2 face=\"courier new\" color=#00FF00>$l_igb_seltransferamount :</td>" .
+         "<td><br><font size=2 face=\"courier new\" color=#0f0>$l_igb_seltransferamount :</td>" .
          "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
          "<br><input class=term type=submit value=$l_igb_transfer></td>" .
          "<input type=hidden name=ship_id value=$ship_id>" .
          "</form>" .
-         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" .
          "$l_igb_transferrate" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
   }
   else
@@ -456,25 +456,25 @@ function IGB_transfer2()
     $percent = $ibank_paymentfee * 100;
 
     $l_igb_transferrate2 = str_replace("[igb_num_percent]", NUMBER($percent,1), $l_igb_transferrate2);
-    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_planettransfer<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_planettransfer<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_srcplanet $source[name] $l_igb_in $source[sector_id] :" .
-         "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($source[credits]) . " C" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_srcplanet $source[name] $l_igb_in $source[sector_id] :" .
+         "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($source[credits]) . " C" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_destplanet $dest[name] $l_igb_in $dest[sector_id] :" .
-         "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($dest[credits]) . " C" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_destplanet $dest[name] $l_igb_in $dest[sector_id] :" .
+         "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($dest[credits]) . " C" .
          "<form action=igb.php?command=transfer3 method=POST>" .
          "<tr valign=top>" .
-         "<td><br><font size=2 face=\"courier new\" color=#00FF00>$l_igb_seltransferamount :</td>" .
+         "<td><br><font size=2 face=\"courier new\" color=#0f0>$l_igb_seltransferamount :</td>" .
          "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
          "<br><input class=term type=submit value=$l_igb_transfer></td>" .
          "<input type=hidden name=splanet_id value=$splanet_id>" .
          "<input type=hidden name=dplanet_id value=$dplanet_id>" .
          "</form>" .
-         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" .
          "$l_igb_transferrate2" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
   }
 
@@ -571,18 +571,18 @@ function IGB_transfer3()
     $amount2 = $amount * $ibank_paymentfee;
     $transfer = $amount - $amount2;
 
-    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " $l_igb_creditsto $target[character_name].</tr>" .
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($transfer) . " $l_igb_creditsto $target[character_name].</tr>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transferamount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_transferamount :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transferfee :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount2) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_transferfee :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount2) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_amounttransferred :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_amounttransferred :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($transfer) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_igbaccount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[balance]) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_igbaccount :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($account[balance]) . " C<br>" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
 
     $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
@@ -626,20 +626,20 @@ function IGB_transfer3()
     $transfer = $amount - $amount2;
     $dest[credits] += $transfer;
 
-    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " $l_igb_ctransferredfrom $source[name] $l_igb_to $dest[name].</tr>" .
+    echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($transfer) . " $l_igb_ctransferredfrom $source[name] $l_igb_to $dest[name].</tr>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transferamount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_transferamount :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transferfee :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount2) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_transferfee :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount2) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_amounttransferred :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_amounttransferred :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($transfer) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_srcplanet $source[name] $l_igb_in $source[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($source[credits]) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_srcplanet $source[name] $l_igb_in $source[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($source[credits]) . " C<br>" .
          "<tr valign=top>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_destplanet $dest[name] $l_igb_in $dest[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($dest[credits]) . " C<br>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_destplanet $dest[name] $l_igb_in $dest[sector_id] :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($dest[credits]) . " C<br>" .
          "<tr valign=bottom>" .
-         "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+         "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
          "</tr>";
 
     $db->Execute("UPDATE $dbtables[planets] SET credits=credits-$amount WHERE planet_id=$splanet_id");
@@ -680,15 +680,15 @@ function IGB_deposit2()
   $account[balance] += $amount;
   $playerinfo[credits] -= $amount;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) ." $l_igb_creditstoyou</td>" .
-       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_accounts<br>---------------------------------</td></tr>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount) ." $l_igb_creditstoyou</td>" .
+       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>$l_igb_accounts<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_shipaccount :<br>$l_igb_igbaccount :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_shipaccount :<br>$l_igb_igbaccount :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance+$amount WHERE ship_id=$playerinfo[ship_id]");
@@ -717,15 +717,15 @@ function IGB_withdraw2()
   $account[balance] -= $amount;
   $playerinfo[credits] += $amount;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_operationsuccessful<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) ." $l_igb_creditstoyourship</td>" .
-       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_accounts<br>---------------------------------</td></tr>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount) ." $l_igb_creditstoyourship</td>" .
+       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>$l_igb_accounts<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>Ship Account :<br>$l_igb_igbaccount :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>Ship Account :<br>$l_igb_igbaccount :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($playerinfo[credits]) . " C<br>" . NUMBER($account[balance]) . " C</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
@@ -741,9 +741,9 @@ function IGB_loans()
   global $l_igb_back, $l_igb_logout, $IGB_lrate, $l_igb_loantimeleft, $l_igb_loanlate, $l_igb_repayamount;
   global $db, $dbtables;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loanstatus<br>---------------------------------</td></tr>" .
-       "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_shipaccount :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C</td></tr>" .
-       "<tr valign=top><td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_currentloan :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[loan]) . " C</td></tr>";
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_loanstatus<br>---------------------------------</td></tr>" .
+       "<tr valign=top><td><font size=2 face=\"courier new\" color=#0f0>$l_igb_shipaccount :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($playerinfo[credits]) . " C</td></tr>" .
+       "<tr valign=top><td><font size=2 face=\"courier new\" color=#0f0>$l_igb_currentloan :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($account[loan]) . " C</td></tr>";
 
   if($account[loan] != 0)
   {
@@ -756,17 +756,17 @@ function IGB_loans()
 
     $difftime = ($curtime - $time[time]) / 60;
 
-    echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loantimeleft :</td>";
+    echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#0f0>$l_igb_loantimeleft :</td>";
 
     if($difftime > $IGB_lrate)
-      echo "<td align=right><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loanlate</td></tr>";
+      echo "<td align=right><font size=2 face=\"courier new\" color=#0f0>$l_igb_loanlate</td></tr>";
     else
     {
       $difftime=$IGB_lrate - $difftime;
       $hours = $difftime / 60;
       $hours = (int) $hours;
       $mins = $difftime % 60;
-      echo "<td align=right><font size=2 face=\"courier new\" color=#00FF00>{$hours}h {$mins}m</td></tr>";
+      echo "<td align=right><font size=2 face=\"courier new\" color=#0f0>{$hours}h {$mins}m</td></tr>";
     }
 
     $factor = $ibank_loanfactor *=100;
@@ -777,11 +777,11 @@ function IGB_loans()
 
     echo "<form action=igb.php?command=repay method=POST>" .
          "<tr valign=top>" .
-         "<td><br><font size=2 face=\"courier new\" color=#00FF00>$l_igb_repayamount :</td>" .
+         "<td><br><font size=2 face=\"courier new\" color=#0f0>$l_igb_repayamount :</td>" .
          "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
          "<br><input class=term type=submit value=$l_igb_repay></td>" .
          "</form>" .
-         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" .
          "$l_igb_loanrates";
   }
   else
@@ -791,7 +791,7 @@ function IGB_loans()
     $maxloan = $score * $score * $ibank_loanlimit;
 
     $l_igb_maxloanpercent = str_replace("[igb_percent]", $percent, $l_igb_maxloanpercent);
-    echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#00FF00>$l_igb_maxloanpercent :</td><td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($maxloan) . " C</td></tr>";
+    echo "<tr valign=top><td nowrap><font size=2 face=\"courier new\" color=#0f0>$l_igb_maxloanpercent :</td><td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($maxloan) . " C</td></tr>";
 
     $factor = $ibank_loanfactor *=100;
     $interest = $ibank_loaninterest *=100;
@@ -801,16 +801,16 @@ function IGB_loans()
 
     echo "<form action=igb.php?command=borrow method=POST>" .
          "<tr valign=top>" .
-         "<td><br><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loanamount :</td>" .
+         "<td><br><font size=2 face=\"courier new\" color=#0f0>$l_igb_loanamount :</td>" .
          "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
          "<br><input class=term type=submit value=$l_igb_borrow></td>" .
          "</form>" .
-         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+         "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" .
          "$l_igb_loanrates";
   }
 
   echo "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -847,18 +847,18 @@ function IGB_borrow()
   $l_igb_loanreminder = str_replace("[hours]", $hours, $l_igb_loanreminder);
   $l_igb_loanreminder = str_replace("[mins]", $mins, $l_igb_loanreminder);
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_takenaloan<br>---------------------------------</td></tr>" .
-       "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loancongrats<br><br></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_takenaloan<br>---------------------------------</td></tr>" .
+       "<tr valign=top><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>$l_igb_loancongrats<br><br></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loantransferred :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) . " C<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_loantransferred :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount) . " C<br>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loanfee :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount2) . " C<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_loanfee :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount2) . " C<br>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_amountowned :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount3) . " C<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_amountowned :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount3) . " C<br>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>---------------------------------<br><br>$l_igb_loanreminder</td>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>---------------------------------<br><br>$l_igb_loanreminder</td>" .
        "<tr valign=top>" .
-       "<td nowrap><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td nowrap><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   $db->Execute("UPDATE $dbtables[ibank_accounts] SET loan=$amount3, loantime=NOW() WHERE ship_id=$playerinfo[ship_id]");
@@ -891,21 +891,21 @@ function IGB_repay()
   $playerinfo[credits]-=$amount;
   $account[loan]-=$amount;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_payloan<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_payloan<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$l_igb_loanthanks</td>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>$l_igb_loanthanks</td>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>---------------------------------</td>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>---------------------------------</td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_shipaccount :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($playerinfo[credits]) . " C<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_shipaccount :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($playerinfo[credits]) . " C<br>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_payloan :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount) . " C<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_payloan :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount) . " C<br>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_currentloan :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($account[loan]) . " C<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_currentloan :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($account[loan]) . " C<br>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>---------------------------------</td>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>---------------------------------</td>" .
        "<tr valign=top>" .
-       "<td nowrap><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td nowrap align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td nowrap><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   $db->Execute("UPDATE $dbtables[ibank_accounts] SET loan=loan-$amount,loantime='$account[loantime]' WHERE ship_id=$playerinfo[ship_id]");
@@ -929,23 +929,23 @@ function IGB_consolidate()
 
   $destplanetcreds  = $dest[credits];
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_planetconsolidate<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_planetconsolidate<br>---------------------------------</td></tr>" .
        "<form action=igb.php?command=consolidate2 method=POST>" .
        "<tr valign=top>" .
-       "<td colspan=2><font size=2 face=\"courier new\" color=#00FF00>$l_igb_consolrates :</td>" .
+       "<td colspan=2><font size=2 face=\"courier new\" color=#0f0>$l_igb_consolrates :</td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_minimum :<br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_minimum :<br>" .
        "<br>$l_igb_maximum :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" .
        "<input class=term type=text size=15 maxlength=20 name=minimum value=0><br><br>" .
        "<input class=term type=text size=15 maxlength=20 name=maximum value=0><br><br>" .
        "<input class=term type=submit value=\"$l_igb_compute\"></td>" .
        "<input type=hidden name=dplanet_id value=$dplanet_id>" .
        "</form>" .
-       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>" .
+       "<tr><td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>" .
        "$l_igb_transferrate3" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -992,25 +992,25 @@ function IGB_consolidate2()
   $tcost = ceil($amount[count] / $IGB_tconsolidate);
   $transfer = $amount[total] - $fee;
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_planetconsolidate<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_planetconsolidate<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_currentpl $dest[name] $l_igb_in $dest[sector_id] :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($dest[credits]) . " C</td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_currentpl $dest[name] $l_igb_in $dest[sector_id] :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($dest[credits]) . " C</td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transferamount :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount[total]) . " C</td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_transferamount :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount[total]) . " C</td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transferfee :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($fee) . " C </td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_transferfee :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($fee) . " C </td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_plaffected :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($amount[count]) . "</td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_plaffected :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount[count]) . "</td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_turncost :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($tcost) . "</td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_turncost :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($tcost) . "</td>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_amounttransferred :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($transfer) . " C</td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_amounttransferred :</td>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($transfer) . " C</td>" .
        "<tr valign=top><td colspan=2 align=right>" .
        "<form action=igb.php?command=consolidate3 method=POST>" .
        "<input type=hidden name=minimum value=$minimum><br>" .
@@ -1019,7 +1019,7 @@ function IGB_consolidate2()
        "<input class=term type=submit value=\"$l_igb_consolidate\"></td>" .
        "</form>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=transfer>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 }
 
@@ -1068,14 +1068,14 @@ function IGB_consolidate3()
   if($tcost > $playerinfo[turns])
     IGB_error($l_igb_notenturns, "igb.php?command=transfer");
 
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00>$l_igb_currentpl $dest[name] $l_igb_in $dest[sector_id] :<br><br>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_currentpl $dest[name] $l_igb_in $dest[sector_id] :<br><br>" .
        "$l_igb_turncost :</td>" .
-       "<td align=right><font size=2 face=\"courier new\" color=#00FF00>" . NUMBER($cplanet) . " C<br><br>" .
+       "<td align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($cplanet) . " C<br><br>" .
        NUMBER($tcost) . "</td>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";
 
   $query = "UPDATE $dbtables[planets] SET credits=0 WHERE owner=$playerinfo[ship_id] AND credits != 0";
@@ -1098,12 +1098,12 @@ function IGB_error($errmsg, $backlink, $title="Error!")
   global $l_igb_igberrreport, $l_igb_back, $l_igb_logout;
 
   $title=$l_igb_igberrreport;
-  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#00FF00>$title<br>---------------------------------</td></tr>" .
+  echo "<tr><td colspan=2 align=center valign=top><font size=2 face=\"courier new\" color=#0f0>$title<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#00FF00>$errmsg</td>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>$errmsg</td>" .
        "</tr>" .
        "<tr valign=bottom>" .
-       "<td><font size=2 face=\"courier new\" color=#00FF00><a href=$backlink>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#00FF00>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
+       "<td><font size=2 face=\"courier new\" color=#0f0><a href=$backlink>$l_igb_back</a></td><td align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>" .
        "</table>" .
        "</td></tr>" .
