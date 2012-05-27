@@ -52,12 +52,7 @@ if($swordfish == $adminpass) // Check if called by admin script
 
 $mode = 'compat';
 
-if($screenres == 640)
-  $yres = 270;
-elseif($screenres == 800)
-  $yres = 390;
-elseif($screenres >= 1024)
-  $yres = 558;
+$yres = 558;
 
 if($mode == 'full')
   echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
