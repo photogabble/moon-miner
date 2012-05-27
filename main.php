@@ -29,21 +29,9 @@ if(checklogin())
 $title=$l_main_title;
 include("header.php");
 
-$basefontsize = 0;
-$stylefontsize = "8Pt";
-$picsperrow = 5;
-
-if($screenres == 640)
-{
-    $picsperrow = 3;
-}
-
-if($screenres >= 1024)
-{
-    $basefontsize = 1;
-    $stylefontsize = "12Pt";
-    $picsperrow = 7;
-}
+$basefontsize = 1;
+$stylefontsize = "12Pt";
+$picsperrow = 7;
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
@@ -82,7 +70,7 @@ if($res != false)
 {
     while(!$res->EOF)
     {
-        $links[$i] = $res->fields[link_dest];
+        $links[$i] = $res->fields['link_dest'];
         $i++;
         $res->MoveNext();
     }
@@ -537,7 +525,7 @@ echo "</div>\n";
 echo "<div style='text-align:center; border:transparent 1px solid;'>\n";
 echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bold;'>{$l_ships_in_sec} {$sectorinfo['sector_id']}</div>\n";
 
-if($playerinfo[sector] != 0)
+if($playerinfo['sector'] != 0)
 {
 
     $sql  = null;
@@ -719,31 +707,31 @@ echo "</table>\n";
           <td style='vertical-align:middle;'  nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_ore ?>" src="images/ore.gif">&nbsp;<?php echo $l_ore ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='vertical-align:middle;' nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_ore]); ?>&nbsp;</span></td>
+          <td style='vertical-align:middle;' nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_ore']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_organics ?>" src="images/organics.gif">&nbsp;<?php echo $l_organics ?>&nbsp;</td>
         </tr>
         <tr>
-          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_organics]); ?>&nbsp;</span></td>
+          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_organics']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_goods ?>" src="images/goods.gif">&nbsp;<?php echo $l_goods ?>&nbsp;</td>
         </tr>
         <tr>
-          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_goods]); ?>&nbsp;</span></td>
+          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_goods']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_energy ?>" src="images/energy.gif">&nbsp;<?php echo $l_energy ?>&nbsp;</td>
         </tr>
         <tr>
-          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_energy]); ?>&nbsp;</span></td>
+          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_energy']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td nowrap align='left'>&nbsp;<img height=12 width=12 alt="<?php echo $l_colonists ?>" src="images/colonists.gif">&nbsp;<?php echo $l_colonists ?>&nbsp;</td>
         </tr>
         <tr>
-          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo[ship_colonists]); ?>&nbsp;</span></td>
+          <td nowrap align='right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_colonists']); ?>&nbsp;</span></td>
         </tr>
       </table>
     </td>
@@ -767,15 +755,15 @@ echo "</table>\n";
 
 <table style="width:100%;">
 <tr>
-  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo[preset1]; ?>">=&gt;&nbsp;<?php echo $playerinfo[preset1]; ?></a></td>
+  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset1']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset1']; ?></a></td>
   <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
 </tr>
 <tr>
-  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo[preset2]; ?>">=&gt;&nbsp;<?php echo $playerinfo[preset2]; ?></a></td>
+  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset2']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset2']; ?></a></td>
   <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
 </tr>
 <tr>
-  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo[preset3]; ?>">=&gt;&nbsp;<?php echo $playerinfo[preset3]; ?></a></td>
+  <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset3']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset3']; ?></a></td>
   <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
 </tr>
 </table>
@@ -858,11 +846,10 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[$l_fullscan]</a>&nbsp;<br
 
 <?php
 
-$player_bnthelper_string="<!--player info:" . $playerinfo[hull] . ":" .  $playerinfo[engines] . ":"  .  $playerinfo[power] . ":" .  $playerinfo[computer] . ":" . $playerinfo[sensors] . ":" .  $playerinfo[beams] . ":" . $playerinfo[torp_launchers] . ":" .  $playerinfo[torps] . ":" . $playerinfo[shields] . ":" .  $playerinfo[armor] . ":" . $playerinfo[armor_pts] . ":" .  $playerinfo[cloak] . ":" . $playerinfo[credits] . ":" .  $playerinfo[sector] . ":" . $playerinfo[ship_ore] . ":" .  $playerinfo[ship_organics] . ":" . $playerinfo[ship_goods] . ":" .  $playerinfo[ship_energy] . ":" . $playerinfo[ship_colonists] . ":" .  $playerinfo[ship_fighters] . ":" . $playerinfo[turns] . ":" .  $playerinfo[on_planet] . ":" . $playerinfo[dev_warpedit] . ":" .  $playerinfo[dev_genesis] . ":" . $playerinfo[dev_beacon] . ":" .  $playerinfo[dev_emerwarp] . ":" . $playerinfo[dev_escapepod] . ":" .  $playerinfo[dev_fuelscoop] . ":" . $playerinfo[dev_minedeflector] . ":-->";
-$rspace_bnthelper_string="<!--rspace:" . $sectorinfo[distance] . ":" . $sectorinfo[angle1] . ":" . $sectorinfo[angle2] . ":-->";
+$player_bnthelper_string="<!--player info:" . $playerinfo['hull'] . ":" .  $playerinfo['engines'] . ":"  .  $playerinfo['power'] . ":" .  $playerinfo['computer'] . ":" . $playerinfo['sensors'] . ":" .  $playerinfo['beams'] . ":" . $playerinfo['torp_launchers'] . ":" .  $playerinfo['torps'] . ":" . $playerinfo['shields'] . ":" .  $playerinfo['armor'] . ":" . $playerinfo['armor_pts'] . ":" .  $playerinfo['cloak'] . ":" . $playerinfo['credits'] . ":" .  $playerinfo['sector'] . ":" . $playerinfo['ship_ore'] . ":" .  $playerinfo['ship_organics'] . ":" . $playerinfo['ship_goods'] . ":" .  $playerinfo['ship_energy'] . ":" . $playerinfo['ship_colonists'] . ":" .  $playerinfo['ship_fighters'] . ":" . $playerinfo['turns'] . ":" .  $playerinfo['on_planet'] . ":" . $playerinfo['dev_warpedit'] . ":" .  $playerinfo['dev_genesis'] . ":" . $playerinfo['dev_beacon'] . ":" .  $playerinfo['dev_emerwarp'] . ":" . $playerinfo['dev_escapepod'] . ":" .  $playerinfo['dev_fuelscoop'] . ":" . $playerinfo['dev_minedeflector'] . ":-->";
+$rspace_bnthelper_string="<!--rspace:" . $sectorinfo['distance'] . ":" . $sectorinfo['angle1'] . ":" . $sectorinfo['angle2'] . ":-->";
 echo $player_bnthelper_string;
 echo $link_bnthelper_string;
-echo $port_bnthelper_string;
 echo $planet_bnthelper_string;
 echo $rspace_bnthelper_string;
 
