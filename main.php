@@ -158,16 +158,16 @@ $ply_credits    = NUMBER($playerinfo['credits']);
 
 echo "<table style='width:90%; margin:auto; text-align:center;' border='0'>\n";
 echo "  <tr>\n";
-echo "    <td style='width:33%; text-align:left; color:#CCCCCC; font-size:12px;'>&nbsp;{$l_turns_have} <span style='color:#fff; font-weight:bold;'>{$ply_turns}</span></td>\n";
-echo "    <td style='width:33%; text-align:center; color:#CCCCCC; font-size:12px;'>{$l_turns_used} <span style='color:#fff; font-weight:bold;'>{$ply_turnsused}</span></td>\n";
-echo "    <td style='width:33%; text-align:right; color:#CCCCCC; font-size:12px;'>{$l_score} <span style='color:#fff; font-weight:bold;'>{$ply_score}&nbsp;</span></td>\n";
+echo "    <td style='width:33%; text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l_turns_have} <span style='color:#fff; font-weight:bold;'>{$ply_turns}</span></td>\n";
+echo "    <td style='width:33%; text-align:center; color:#ccc; font-size:12px;'>{$l_turns_used} <span style='color:#fff; font-weight:bold;'>{$ply_turnsused}</span></td>\n";
+echo "    <td style='width:33%; text-align:right; color:#ccc; font-size:12px;'>{$l_score} <span style='color:#fff; font-weight:bold;'>{$ply_score}&nbsp;</span></td>\n";
 echo "  </tr>\n";
 echo "  <tr>\n";
-echo "    <td colspan='3' style='width:33%; text-align:right; color:#CCCCCC; font-size:12px;'>&nbsp;{$l_credits}: <span style='color:#fff; font-weight:bold;'>{$ply_credits}</span></td>\n";
+echo "    <td colspan='3' style='width:33%; text-align:right; color:#ccc; font-size:12px;'>&nbsp;{$l_credits}: <span style='color:#fff; font-weight:bold;'>{$ply_credits}</span></td>\n";
 echo "  </tr>\n";
 
 echo "  <tr>\n";
-echo "    <td style='text-align:left; color:#CCCCCC; font-size:12px;'>&nbsp;{$l_sector} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
+echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l_sector} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
 if(empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
 {
     $sectorinfo['beacon'] = null;
@@ -178,7 +178,7 @@ if($zoneinfo['zone_id'] < 5)
 {
     $zoneinfo['zone_name'] = $l_zname[$zoneinfo['zone_id']];
 }
-echo "    <td style='text-align:right; color:#CCCCCC; font-size:12px; font-weight:bold;'><a href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
+echo "    <td style='text-align:right; color:#ccc; font-size:12px; font-weight:bold;'><a href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 

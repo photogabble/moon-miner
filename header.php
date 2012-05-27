@@ -73,7 +73,7 @@ if(isset($interface) && $interface == "main.php")
 #echo "a:hover {color: #0066FF;}\n";
 #echo "a:active {color: #f00;}\n";
 
-echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #CCCCCC;}\n";
+echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";
 ?>
  -->
  </style>

@@ -79,7 +79,7 @@ if (!function_exists('Table_Row'))
     {
         $err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
         PrintFlush( "    <tr title=\"$err\">\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$data</font></td>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$data</font></td>\n");
         if(mysql_errno()!=0)
             {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
@@ -94,7 +94,7 @@ if (!function_exists('Table_2Col'))
     function Table_2Col($name,$value)
     {
         PrintFlush("    <tr>\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$name</font></td>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$name</font></td>\n");
         PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$value</font></td>\n");
         PrintFlush( "    </tr>\n");
     }
