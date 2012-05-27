@@ -166,7 +166,7 @@ else
 
                if (isset($pluginInfo['isDisabled']) && $pluginInfo['isDisabled'] == true)
                {
-                   $plugin['name'] .= " (<span style='color:#FF0000;'>Diasbled</span>)";
+                   $plugin['name'] .= " (<span style='color:#f00;'>Diasbled</span>)";
                }
 
                echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
@@ -189,7 +189,7 @@ else
                            $module_disabled = NULL;
                            if (isset($module['isDisabled']) && $module['isDisabled'] == true)
                            {
-                               $module_disabled = " (<span style='color:#FF0000;'>Diasbled</span>)";
+                               $module_disabled = " (<span style='color:#f00;'>Diasbled</span>)";
                            }
 
                            $module_stage = NULL;

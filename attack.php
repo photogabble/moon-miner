@@ -153,7 +153,7 @@ else
                     $bounty = ROUND($playerscore * $bounty_maxvalue);
                     $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");
                     playerlog($playerinfo['ship_id'],LOG_BOUNTY_FEDBOUNTY,"$bounty");
-                    echo "<div style='color:#FF0000;'>{$l_by_fedbounty2}</div>\n";
+                    echo "<div style='color:#f00;'>{$l_by_fedbounty2}</div>\n";
                     echo "<br />\n";
                 }
             }

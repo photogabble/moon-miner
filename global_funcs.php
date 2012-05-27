@@ -854,7 +854,7 @@ function player_insignia_name($a_username)
         if(!$value)
         {
             // pow returned false so we need to return an error.
-            $player_insignia = "<span style='color:#FF0000;'>ERR</span> [<span style='color:#0099FF; font-size:12px; cursor:help;' title='Error looking up Insignia, Please Report.'>?</span>]";
+            $player_insignia = "<span style='color:#f00;'>ERR</span> [<span style='color:#0099FF; font-size:12px; cursor:help;' title='Error looking up Insignia, Please Report.'>?</span>]";
             break;
         }
 

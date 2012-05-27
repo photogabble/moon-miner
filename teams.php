@@ -342,7 +342,7 @@ switch ($teamwhat)
 
             if(!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
             {
-                echo "<span style='color:#FF0000;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
+                echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 LINK_BACK();
                 break;
             }
@@ -465,7 +465,7 @@ switch ($teamwhat)
 
             if(!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
             {
-                echo "<span style='color:#FF0000;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
+                echo "<span style='color:#f00;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 LINK_BACK();
                 break;
             }

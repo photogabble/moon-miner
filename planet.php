@@ -533,7 +533,7 @@ if(!empty($planetinfo))
         {
             if($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
             {
-                echo "<div style='color:#FF0000;'>Look we have told you, You cannot attack a Friendly Owned Private Planet!</div>\n";
+                echo "<div style='color:#f00;'>Look we have told you, You cannot attack a Friendly Owned Private Planet!</div>\n";
             }
             else
             {

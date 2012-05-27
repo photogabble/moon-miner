@@ -97,7 +97,7 @@ else
         $is_dead = $row['ship_destroyed'];
         if($is_dead == "Y")
         {
-            $text_color = "#FF0000";
+            $text_color = "#f00";
         }
         else
         {
@@ -332,7 +332,7 @@ if($ai_enabled == true)
                         break;
 
                     case 2:
-                        $status = "<span class='rank_dev_text' style='color:#FF0000; font-size:14px;'>{$AIOrders[$statrow['orders']]}</span>";
+                        $status = "<span class='rank_dev_text' style='color:#f00; font-size:14px;'>{$AIOrders[$statrow['orders']]}</span>";
                         break;
                 }
 
@@ -357,7 +357,7 @@ if($ai_enabled == true)
     echo "<table style='width: 100%; padding:2px; font-size:12px; white-space:nowrap;'>\n";
     echo "  <tr>\n";
     echo "    <td style='width:50%;'>Ja'coni AI Code v0.0.1 (0012) based off Xenobe Code.</td>\n";
-    echo "    <td style='width:16px; background-color:#FF0000;'></td><td>Hostile (Will Attack on Site)</td>\n";
+    echo "    <td style='width:16px; background-color:#f00;'></td><td>Hostile (Will Attack on Site)</td>\n";
     echo "    <td style='width:16px; background-color:#ff0;'></td><td>Neutral (But may Attack)</td>\n";
     echo "    <td style='width:16px; background-color:#00FF00;'></td><td>Friendly (Only Attacks if Attacked)</td>\n";
     echo "  </tr>\n";

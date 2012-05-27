@@ -47,7 +47,7 @@ if(isset($interface) && $interface == "main.php")
   a.mnu:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
 
   img.mnu {padding:4px; border:transparent 2px dashed;}
-  img.mnu:hover {padding:4px; border:#FF0000 2px dashed;}
+  img.mnu:hover {padding:4px; border:#f00 2px dashed;}
 
   a.new_link {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#00FF00; font-weight:bold;}
   a.new_link:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
@@ -65,13 +65,13 @@ if(isset($interface) && $interface == "main.php")
   .faderlines {background-color:$color_line2;}\n";
 
 // Added for dev small text forthe rankings page
-  echo "  .rank_dev_text {text-decoration:none; color:#FF0000; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
+  echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
 
 }
 #echo "a:link {color: #00FF00;}\n";
 #echo "a:visited {color: #00FF00;}\n";
 #echo "a:hover {color: #0066FF;}\n";
-#echo "a:active {color: #FF0000;}\n";
+#echo "a:active {color: #f00;}\n";
 
 echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #CCCCCC;}\n";
 ?>
@@ -187,16 +187,16 @@ if(empty($no_body))
 {
     if(isset($interface) && $interface=="main.php")
     {
-        echo "<body style=\"background-image: url('images/bgoutspace1.gif'); background-color:#000; color:#C0C0C0;\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\">";
+        echo "<body style=\"background-image: url('images/bgoutspace1.gif'); background-color:#000; color:#C0C0C0;\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#f00\">";
     }
     else
     {
-        echo "<body background=\"\" bgcolor=\"#000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#808080\" alink=\"#ff0000\">";
+        echo "<body background=\"\" bgcolor=\"#000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#808080\" alink=\"#f00\">";
     }
 }
 else
 {
-    echo "<body bgcolor=\"#666666\" text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#ff0000\">";
+    echo "<body bgcolor=\"#666666\" text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#f00\">";
 }
 
 echo "\n";

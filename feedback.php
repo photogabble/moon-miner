@@ -103,12 +103,12 @@ else
             if($err['no'] == 2)
             {
                 $image = "images/greylist.png";
-                $result = "<span style='color:#FF0000;'>Send Feedback Failed.<br />Detected Greylisting...<br />Please notify an admin on the forums.</span>";
+                $result = "<span style='color:#f00;'>Send Feedback Failed.<br />Detected Greylisting...<br />Please notify an admin on the forums.</span>";
             }
             else
             {
                 $image = "images/cross.png";
-                $result = "<span style='color:#FF0000;'>Send Feedback Failed.<br />{$err['msg']}</span>";
+                $result = "<span style='color:#f00;'>Send Feedback Failed.<br />{$err['msg']}</span>";
             }
         }
 

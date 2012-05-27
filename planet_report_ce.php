@@ -76,8 +76,8 @@ function go_build_base($planet_id, $sector_id)
   // verify player owns the planet which is to have the base created on.
   if($planetinfo[owner] != $playerinfo[ship_id])
   {
-    echo "<div style='color:#FF0000; font-size:16px;'>Base Construction Failed!</div>\n";
-    echo "<div style='color:#FF0000; font-size:16px;'>Invalid Planet or Sector Information Supplied.</div>\n";
+    echo "<div style='color:#f00; font-size:16px;'>Base Construction Failed!</div>\n";
+    echo "<div style='color:#f00; font-size:16px;'>Invalid Planet or Sector Information Supplied.</div>\n";
 
     return (boolean) false;
   }
@@ -87,7 +87,7 @@ function go_build_base($planet_id, $sector_id)
     $ip = $_SERVER['REMOTE_ADDR'];
     $hack_id = 0x1337;
     adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
-    echo "<div style='color:#FF0000; font-size:16px;'>Base Construction Failed!</div>\n";
+    echo "<div style='color:#f00; font-size:16px;'>Base Construction Failed!</div>\n";
 
     return (boolean) false;
   }  // build a base

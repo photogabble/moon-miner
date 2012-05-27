@@ -86,7 +86,7 @@ if(!$result->EOF)
             $err = $mailer->getError();
             $image = "images/cross.png";
             $result = "{$err['msg']}<br />[Err: {$err['no']}]<br /><span style='font-size:9px;'>". implode("<br />\n", $err['debug']) ."</span><br />Please notify an admin on the forums.";
-            $colors = array("#550000", "#FF0000");
+            $colors = array("#550000", "#f00");
         }
 
         echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
@@ -106,7 +106,7 @@ if(!$result->EOF)
         unset($_SESSION['sendemail']);
 
         echo "<br />\n";
-        echo "<div style='font-size:14px; font-weight:bold; color:#FF0000;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br />DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
+        echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br />DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 
         echo "<br />\n";
 
@@ -129,7 +129,7 @@ else
 
     $image = "images/cross.png";
     $result = "Send Email Request Failed.<br />{$err['msg']}";
-    $colors = array("#550000", "#FF0000");
+    $colors = array("#550000", "#f00");
 
     echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
     echo "<table style='width:500px; border:#fff 1px solid;'>\n";
@@ -147,7 +147,7 @@ else
     echo "</div>\n";
     unset($_SESSION['sendemail']);
     echo "<br />\n";
-    echo "<div style='font-size:14px; font-weight:bold; color:#FF0000;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br />DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
+    echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br />DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 
     echo "<br />\n";
     if($_SESSION['logged_in'] == true)

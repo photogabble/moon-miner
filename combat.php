@@ -698,7 +698,7 @@ function planetcombat()
             $sql .= "SET organics = '0', ore = '0', goods = '0', energy = '0', colonists = '2', credits = '0', fighters = '0', torps = '0', corp = '0', base = 'N', sells = 'N', prod_organics = '20', prod_ore = '20', prod_goods = '20', prod_energy = '20', prod_fighters = '10', prod_torp = '10' ";
             $sql .= "WHERE `dev_planets`.`planet_id` =$planetinfo[planet_id] LIMIT 1;";
             $db->Execute($sql);
-            echo "<div style='text-align:center; font-size:18px; color:#FF0000;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
+            echo "<div style='text-align:center; font-size:18px; color:#f00;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
         }
 
         if($min_value_capture != 0)

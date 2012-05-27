@@ -74,7 +74,7 @@ $setup_info->do_Table_Title("Setup Info Switch Configuration",$Cols);
 for($n=0; $n < count($switch_info); $n++)
 {
     list($switch_name, $switch_array) = each($switch_info);
-    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#0000FF'>Enabled</font>" : "<font color='#FF0000'>Disabled</font>"));
+    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#0000FF'>Enabled</font>" : "<font color='#f00'>Disabled</font>"));
 }
 $setup_info->do_Table_Footer("<br>");
 
@@ -104,7 +104,7 @@ if($setup_info->testdb_connection())
 }
 else
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#FF0000'><B>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</B></font>");
+    $setup_info->do_Table_Row("DB CONNECTION","<font color='#f00'><B>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</B></font>");
 }
 
 if($setup_info->cookie_test['enabled'])
@@ -115,12 +115,12 @@ if($setup_info->cookie_test['enabled'])
     }
     else
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#FF0000'><B>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</B></font>");
+        $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><B>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</B></font>");
     }
 }
 else
 {
-    $setup_info->do_Table_Row("Cookie Test","<font color='#FF0000'><B>{$setup_info->cookie_test['status']}</B></font>");
+    $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><B>{$setup_info->cookie_test['status']}</B></font>");
 }
 
 $setup_info->do_Table_Footer("");
@@ -161,7 +161,7 @@ $setup_info->do_Table_Title("DB Config Settings",$Cols);
 
 $setup_info->do_Table_Blank_Row();
 $game_root = $setup_info->get_gameroot();
-$setup_info->do_Table_Row("gameroot","<B>".(!$game_root['status'] ? "<font color='#FF0000'>{$game_root['info']}</font>" : $game_root['result'] )."</B>");
+$setup_info->do_Table_Row("gameroot","<B>".(!$game_root['status'] ? "<font color='#f00'>{$game_root['info']}</font>" : $game_root['result'] )."</B>");
 if(!$game_root['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -169,7 +169,7 @@ if(!$game_root['status'])
 
 $setup_info->do_Table_Blank_Row();
 $game_path = $setup_info->get_gamepath();
-$setup_info->do_Table_Row("gamepath","<B>".(!$game_path['status'] ? "<font color='#FF0000'>{$game_path['info']}</font>" : $game_path['result'] )."</B>");
+$setup_info->do_Table_Row("gamepath","<B>".(!$game_path['status'] ? "<font color='#f00'>{$game_path['info']}</font>" : $game_path['result'] )."</B>");
 if(!$game_path['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -177,7 +177,7 @@ if(!$game_path['status'])
 
 $setup_info->do_Table_Blank_Row();
 $game_domain = $setup_info->get_gamedomain();
-$setup_info->do_Table_Row("gamedomain","<B>".(!$game_domain['status'] ? "<font color='#FF0000'>{$game_domain['info']}</font>" : $game_domain['result'] )."</B>");
+$setup_info->do_Table_Row("gamedomain","<B>".(!$game_domain['status'] ? "<font color='#f00'>{$game_domain['info']}</font>" : $game_domain['result'] )."</B>");
 if(!$game_domain['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
