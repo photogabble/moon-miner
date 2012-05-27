@@ -23,7 +23,7 @@ are generated in the server's default language. The news text
 will have to be removed from the database for the next version
 ************************************************************/
 
-if (preg_match("/sched_news.php/i", $PHP_SELF)) {
+if (preg_match("/sched_news.php/i", $_SERVER['PHP_SELF'])) {
     echo "You can not access this file directly!";
     die();
 }

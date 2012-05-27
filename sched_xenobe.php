@@ -17,35 +17,30 @@
 //
 // File: sched_xenobe.php
 
-  if (preg_match("/sched_xenobe.php/i", $PHP_SELF)) {
-      echo "You can not access this file directly!";
-      die();
-  }
+if (preg_match("/sched_xenobe.php/i", $_SERVER['PHP_SELF']))
+{
+    echo "You can not access this file directly!";
+    die();
+}
 
-  // *********************************
-  // ***** Xenobe TURN UPDATES *****
-  // *********************************
-  echo "<BR><B>Xenobe TURNS</B><BR><BR>";
+// Xenobe TURN UPDATES
+echo "<BR><B>Xenobe TURNS</B><BR><BR>";
 
-  // *********************************
-  // ******* INCLUDE FUNCTIONS *******
-  // *********************************
-  include_once("xenobe_funcs.php");
-  include_once("languages/$lang");
-  global $targetlink;
-  global $xenobeisdead;
+// INCLUDE FUNCTIONS
+include_once("xenobe_funcs.php");
+include_once("languages/$lang");
+global $targetlink;
+global $xenobeisdead;
 
-  // *********************************
-  // **** MAKE Xenobe SELECTION ****
-  // *********************************
-  $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
+// MAKE Xenobe SELECTION
+$furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
 
 // Lock the tables.
-  $db->Execute("LOCK TABLES $dbtables[xenobe] WRITE, $dbtables[ships] WRITE;");
+$db->Execute("LOCK TABLES $dbtables[xenobe] WRITE, $dbtables[ships] WRITE;");
 
-  $res = $db->Execute("SELECT * FROM {$dbtables['ships']} JOIN {$dbtables['xenobe']} WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id;");
-  while(!$res->EOF)
-  {
+$res = $db->Execute("SELECT * FROM {$dbtables['ships']} JOIN {$dbtables['xenobe']} WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id;");
+while(!$res->EOF)
+{
     $xenobeisdead = 0;
     $playerinfo = $res->fields;
     // *********************************

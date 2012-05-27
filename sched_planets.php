@@ -17,7 +17,7 @@
 //
 // File: sched_planets.php
 
-if (preg_match("/sched_planets.php/i", $PHP_SELF))
+if (preg_match("/sched_planets.php/i", $_SERVER['PHP_SELF']))
 {
     echo "You can not access this file directly!";
     die();
@@ -82,6 +82,7 @@ while(!$res->EOF)
 }
 
 $ret = $db->Execute("COMMIT;");
+global $sched_planet_valid_credits;
 if ($sched_planet_valid_credits == true)
 {
     $ret = $db->Execute("UPDATE $dbtables[planets] SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
