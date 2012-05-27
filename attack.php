@@ -58,11 +58,11 @@ elseif($playerinfo['turns'] < 1)
 }
 else if( isSameTeam($playerinfo['team'], $targetinfo['team']) )
 {
-    echo "<div style='color:#FFFF00;'>Sorry, You cannot attack a fellow Teamemate!</div>\n";
+    echo "<div style='color:#ff0;'>Sorry, You cannot attack a fellow Teamemate!</div>\n";
 }
 elseif(isset($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
 {
-    echo "<div style='color:#FFFF00;'>Sorry, You are already in combat!</div>\n";
+    echo "<div style='color:#ff0;'>Sorry, You are already in combat!</div>\n";
     adminlog(13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
 }
 else
@@ -547,7 +547,7 @@ else
                 if($targetinfo['dev_escapepod'] == "Y")
                 {
                     $rating=round($targetinfo['rating']/2);
-                    echo "$l_att_espod (<span style='color:#FFFF00;'>You destroyed their ship but they got away in their Escape Pod</span>)<br />";
+                    echo "$l_att_espod (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br />";
                     $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$targetinfo[ship_id]");
                     playerlog($targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
                     collect_bounty($playerinfo['ship_id'],$targetinfo['ship_id']);

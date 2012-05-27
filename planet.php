@@ -269,7 +269,7 @@ if(!empty($planetinfo))
       {
         if($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
         {
-          echo "<div style='color:#FFFF00;'>Sorry, no Options available for Friendly Owned Private Planets.</div>\n";
+          echo "<div style='color:#ff0;'>Sorry, no Options available for Friendly Owned Private Planets.</div>\n";
         }
         else
         {
@@ -498,7 +498,7 @@ if(!empty($planetinfo))
         {
             if($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
             {
-                echo "<div style='color:#FFFF00;'>Sorry, You cannot attack a Friendly Owned Private Planet.</div>\n";
+                echo "<div style='color:#ff0;'>Sorry, You cannot attack a Friendly Owned Private Planet.</div>\n";
             }
             else
             {

@@ -55,10 +55,10 @@ $setup_info->DisplayFlush("</div><br>\n");
 $setup_info->DisplayFlush("<br>\n");
 
 //End of own HTML Tables
-$setup_info->DisplayFlush("<font size=\"2\" color=#FFFF00><i>Well since a lot of people are having problems setting up Blacknova Traders on a Linux based server.</i></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#FFFF00><i>Here is the settings that you may require to set.</i></font><br><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ff0><i>Well since a lot of people are having problems setting up Blacknova Traders on a Linux based server.</i></font><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ff0><i>Here is the settings that you may require to set.</i></font><br><br>\n");
 
-$setup_info->DisplayFlush("<font size=\"2\" color=#fff>ADMINS: <font color=#FFFF00>If you get any errors or incorrect info returned then set <font color=\"#00FF00\">\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font></font></font><br><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#fff>ADMINS: <font color=#ff0>If you get any errors or incorrect info returned then set <font color=\"#00FF00\">\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font></font></font><br><br>\n");
 $setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Cookie Test, set <font color=\"#00FF00\">\$setup_info->switches['Test_Cookie']['enabled'] = true;</font></font><br>\n");
 $setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Database Test, set <font color=\"#00FF00\">\$setup_info->switches['Enable_Database']['enabled'] = true;</font></font><br>\n");
 $setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Display All installed patches, set <font color=\"#00FF00\">\$setup_info->switches['Display_Patches']['enabled'] = true;</font></font><br>\n");
@@ -150,10 +150,10 @@ $setup_info->DisplayFlush("<p><font size=\"2\">// This is what you need to put i
 $setup_info->DisplayFlush("<font size=\"2\">// If you are having problems using this script then email me <a class=\"email\" href=\"mailto:{$setup_info->appinfo['email']}\">{$setup_info->appinfo['author']}</a>.</font><br>\n");
 $setup_info->DisplayFlush("<font size=\"2\">// Also if you think the info displayed is Incorrect then Email me <a class=\"email\" href=\"mailto:{$setup_info->appinfo['email']}\">{$setup_info->appinfo['author']}</a> with the following information:</font></p>\n");
 $setup_info->DisplayFlush("<ul>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#FFFF00>A htm or html saved page from within you browser of Setup Info with <font size=\"2\" color=#00FF00>\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font> This is settable within setup_info.php.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#FFFF00>What Operating System you are using.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#FFFF00>What Version of Apache, PHP and mySQL that you are using.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#FFFF00>And if using Windows OS are you using IIS.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>A htm or html saved page from within you browser of Setup Info with <font size=\"2\" color=#00FF00>\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font> This is settable within setup_info.php.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>What Operating System you are using.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>What Version of Apache, PHP and mySQL that you are using.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>And if using Windows OS are you using IIS.</font></li>\n");
 $setup_info->DisplayFlush("</ul>\n");
 $setup_info->DisplayFlush("<p><font size=\"2\">// With this information it will help me to help you much faster and also get my Script to display more reliable information.</font></p>\n");
 

@@ -832,10 +832,10 @@ class SETUPINFO_CLASS
     {
         $this->DisplayFlush("<div align=\"center\">\n");
         $this->DisplayFlush("  <center>\n");
-        $this->DisplayFlush("  <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"700\" bgcolor=\"#000000\">\n");
+        $this->DisplayFlush("  <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"700\" bgcolor=\"#000\">\n");
         $this->DisplayFlush("    <tr>\n");
         $this->DisplayFlush("      <td width=\"100%\" colspan=\"$Cols\" align=\"center\" bgcolor=\"#9999CC\">\n");
-        $this->DisplayFlush("        <p align=\"center\"><b><font face=\"Verdana\" color=\"#000000\">$title</font></b></td>\n");
+        $this->DisplayFlush("        <p align=\"center\"><b><font face=\"Verdana\" color=\"#000\">$title</font></b></td>\n");
         $this->DisplayFlush("    </tr>\n");
     }
 
@@ -861,7 +861,7 @@ class SETUPINFO_CLASS
 
         $Col_Str="colspan=\"".($Cols)."\"";
         $this->DisplayFlush("    <tr>\n");
-        $this->DisplayFlush("      <td bgcolor=\"#C0C0C0\" width=\"100%\" align=\"left\" $Col_Str bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
+        $this->DisplayFlush("      <td bgcolor=\"#C0C0C0\" width=\"100%\" align=\"left\" $Col_Str bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$col1</font></td>\n");
         $this->DisplayFlush("    </tr>\n");
     }
 
@@ -879,16 +879,16 @@ class SETUPINFO_CLASS
         {
             if ($Cols==3) $Col_Str="colspan=\"".($Cols-1)."\"";
             $this->DisplayFlush("    <tr>\n");
-            $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
-            $this->DisplayFlush("      <td width=\"75%\" $Col_Str bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col2</font></td>\n");
+            $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$col1</font></td>\n");
+            $this->DisplayFlush("      <td width=\"75%\" $Col_Str bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$col2</font></td>\n");
             $this->DisplayFlush("    </tr>\n");
         }
         else
         {
             $this->DisplayFlush("    <tr>\n");
-            $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col1</font></td>\n");
-            $this->DisplayFlush("      <td width=\"65%\" bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$col2</font></td>\n");
-            $this->DisplayFlush("      <td width=\"10%\" bgcolor=\"#CCCCFF\" align=\"center\"$WrapStr valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000000\"><b>$status</b></font></td>\n");
+            $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#CCCCFF\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$col1</font></td>\n");
+            $this->DisplayFlush("      <td width=\"65%\" bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$col2</font></td>\n");
+            $this->DisplayFlush("      <td width=\"10%\" bgcolor=\"#CCCCFF\" align=\"center\"$WrapStr valign=\"top\"><font face=\"Verdana\" size=\"1\" color=\"#000\"><b>$status</b></font></td>\n");
             $this->DisplayFlush("    </tr>\n");
         }
     }

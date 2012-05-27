@@ -40,8 +40,8 @@ echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" 
 
 <STYLE TYPE="text/css">
 <!--
-    input.term {background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt; border-color:#00FF00;}
-    select.term {background-color: #000000; color: #00FF00; font-family:Courier New; font-size:10pt; border-color:#00FF00;}
+    input.term {background-color: #000; color: #00FF00; font-family:Courier New; font-size:10pt; border-color:#00FF00;}
+    select.term {background-color: #000; color: #00FF00; font-family:Courier New; font-size:10pt; border-color:#00FF00;}
 
 -->
 </STYLE>

@@ -179,9 +179,9 @@ if ($isAdmin === true)
               <td width="100%" align="center" bgcolor="black" height="4"></td>
             </tr>
             <tr>
-              <td width="100%" align="center" bgcolor="#000000" height="4">
+              <td width="100%" align="center" bgcolor="#000" height="4">
                 <div align="center">
-                  <table border="1" cellspacing="1" width="100%" bgcolor="#808080" bordercolorlight="#000000" bordercolordark="#C0C0C0" height="8">
+                  <table border="1" cellspacing="1" width="100%" bgcolor="#808080" bordercolorlight="#000" bordercolordark="#C0C0C0" height="8">
                     <tr>
                       <td width="50%"><p align="left"><font color="#fff" size="2">Mail Reader </font></td>
                       <td width="50%"><p align="right"><font color="#fff" size="2"><A class="but" HREF="readmail.php?action=delete_all">Delete All</a></font></td>

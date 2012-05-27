@@ -102,8 +102,8 @@ function line_spacer()
 $title="Game Reset Information";
 bigtitle();
 echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
-line("Last Reset:","<span style='color:#FFFF00; font-size:14px;'>~ {$last_reset}</span>", "right");
-line("Next Reset:","<span style='color:#FFFF00; font-size:14px;'>~ {$next_reset}</span>", "right");
+line("Last Reset:","<span style='color:#ff0; font-size:14px;'>~ {$last_reset}</span>", "right");
+line("Next Reset:","<span style='color:#ff0; font-size:14px;'>~ {$next_reset}</span>", "right");
 line("Game Duration:", "<span style='color:#00FF00; font-size:14px;'>$duration</span>", "right");
 line("Game Status:", "<span style='color:#00FF00; font-size:14px;'>". ucfirst($status['status']) ."</span>", "right");
 line("Game Type:", "<span style='color:#00FF00; font-size:14px;'>". ucfirst($status['type']) ."</span>", "right");
@@ -119,7 +119,7 @@ foreach ($admin_list as $key => $admin)
     if ($admin['role'] === "developer" || $admin['role'] === "admin")
     {
         echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
-        line("Admin Name:",  "<span style='color:#FFFF00; font-size:14px;'>{$admin['name']}</span>", "right");
+        line("Admin Name:",  "<span style='color:#ff0; font-size:14px;'>{$admin['name']}</span>", "right");
         line("Character:",  "<span style='color:#0099FF; font-size:14px;'>{$admin['character']}</span>", "right");
         line("Admin Level:", "<span style='color:#0099FF; font-size:14px;'>{$admin['level']}</span>", "right");
         line("Online:", "<span style='color:#99FF00; font-size:14px;'>Not Enabled</span>", "right");
@@ -172,16 +172,16 @@ else
                echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
                $line_color = "#500050";
 #              title("Plugin Type: {$plugin['title']}");
-               line("ID:","<span style='color:#FFFF00; font-size:14px;'>{$plugin['id']}</span>", "right");
-               line("Name:","<span style='color:#FFFF00; font-size:14px;'>{$plugin['name']}</span>", "right");
-               line("Version:","<span style='color:#FFFF00; font-size:14px;'>v{$plugin['version']}</span>", "right");
+               line("ID:","<span style='color:#ff0; font-size:14px;'>{$plugin['id']}</span>", "right");
+               line("Name:","<span style='color:#ff0; font-size:14px;'>{$plugin['name']}</span>", "right");
+               line("Version:","<span style='color:#ff0; font-size:14px;'>v{$plugin['version']}</span>", "right");
                line("Author:", "<span style='color:#00FF00; font-size:14px;'>{$plugin['author']}</span>", "right");
                line("Type:","<span style='color:#fff; font-size:14px;'>{$plugin['type']}</span>", "right");
 
                if ($pluginCount >0)
                {
                    line_spacer();$line_color = "#C0C0C0";
-                   line_a("<span style='color:#000000; font-size:10px; height:10px; padding:0px;'>Loaded {$pluginCount} Modules</span>", "center");
+                   line_a("<span style='color:#000; font-size:10px; height:10px; padding:0px;'>Loaded {$pluginCount} Modules</span>", "center");
                    foreach ($pluginInfo['modules'] as $module_name => $module)
                    {
                        if(class_exists($module_name))
@@ -195,10 +195,10 @@ else
                            $module_stage = NULL;
                            if (isset($module['stage']))
                            {
-                               $module_stage = " [<span style='color:#FFFF00;'>{$module['stage']}</span>]";
+                               $module_stage = " [<span style='color:#ff0;'>{$module['stage']}</span>]";
                            }
 
-                           line2("<span style='font-size:12px;'>{$module['AppName']}{$module_disabled}{$module_stage}</span>","<span style='color:#FFFF00; font-size:12px;'>v{$module['Version']} <span style='color:#fff;'>[<span style='color:#00FF00;'>{$module['Author']}</span>]</span></span>", "right");
+                           line2("<span style='font-size:12px;'>{$module['AppName']}{$module_disabled}{$module_stage}</span>","<span style='color:#ff0; font-size:12px;'>v{$module['Version']} <span style='color:#fff;'>[<span style='color:#00FF00;'>{$module['Author']}</span>]</span></span>", "right");
                        }
                    }
                    echo "<tr><td colspan=\"2\" style='height:1px; padding:0px; background-color:#FFCC00;'></td></tr>\n";
@@ -297,8 +297,8 @@ if($allow_ibank)
 
 line("News will be generated every","{$sched_news} minutes", "right");
 line("Planets will generate production every","{$sched_planets} minutes", "right");
-line(" -> Using new Planet Update Code",($use_new_sched_planet?"<span style='color:#00FF00;'>Yes</span>":"<span style='color:#FFFF00;'>No</span>"), "right");
-line(" -> Limit captured planets Max Credits to {$max_credits_without_base}",($sched_planet_valid_credits?"<span style='color:#00FF00;'>Yes</span>":"<span style='color:#FFFF00;'>No</span>"), "right");
+line(" -> Using new Planet Update Code",($use_new_sched_planet?"<span style='color:#00FF00;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
+line(" -> Limit captured planets Max Credits to {$max_credits_without_base}",($sched_planet_valid_credits?"<span style='color:#00FF00;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
 line("Ports will regenerate x {$port_regenrate} every","{$sched_ports} minutes", "right");
 line("Ships will be towed from fed sectors every","{$sched_turns} minutes", "right");
 line("Rankings will be generated every","{$sched_ranking} minutes", "right");

@@ -51,7 +51,7 @@ if($server_closed)
 {
     $title=$l_login_sclosed;
     include("header.php");
-    echo "<div style='text-align:center; color:#FFFF00; font-size:20px;'><br />$l_login_closed_message</div><br />\n";
+    echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br />$l_login_closed_message</div><br />\n";
 
     TEXT_GOTOLOGIN();
 

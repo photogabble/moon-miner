@@ -64,7 +64,7 @@ if($mode == 'full')
 elseif($mode == 'moz')
   echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
 
-echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
+echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
 
 echo '<center>';
 
@@ -582,7 +582,7 @@ case LOG_BOUNTY_FEDBOUNTY:
  case 57:
     // Multi Browser Logs.
     list($ship_ip, $ship_id, $info)= split ("\|", $entry[data]);
-    $retvalue[text] = "Account: <span style='color:#FFFF00;'>{$ship_id}</span> with IP: '<span style='color:#FFFF00;'>{$ship_ip}</span>' <span style='color:#fff;'>{$info}</span>";
+    $retvalue[text] = "Account: <span style='color:#ff0;'>{$ship_id}</span> with IP: '<span style='color:#ff0;'>{$ship_ip}</span>' <span style='color:#fff;'>{$info}</span>";
     $retvalue[title] = "Possible Multi Browser Attempt.";
     break;
 
@@ -591,7 +591,7 @@ case LOG_BOUNTY_FEDBOUNTY:
     list($ship_id, $last_hash, $this_hash, $status)= split ("\|", $entry[data]);
     $last_hash = strtoupper($last_hash);
     $this_hash = strtoupper($this_hash);
-    $retvalue[text] = "Account: <span style='color:#FFFF00;'>{$ship_id}</span> last used Hash: '<span style='color:#FFFF00;'>{$last_hash}</span>' and now is using Hash: '<span style='color:#FFFF00;'>{$this_hash}</span>', Status: <span style='color:#FFFF00;'>{$status}</span>";
+    $retvalue[text] = "Account: <span style='color:#ff0;'>{$ship_id}</span> last used Hash: '<span style='color:#ff0;'>{$last_hash}</span>' and now is using Hash: '<span style='color:#ff0;'>{$this_hash}</span>', Status: <span style='color:#ff0;'>{$status}</span>";
     $retvalue[title] = "Multi Hash Logs [Debug].";
     break;
 
@@ -606,7 +606,7 @@ case LOG_BOUNTY_FEDBOUNTY:
  case 1019:
     // Invalid login try (wrong password etc)
     list($ship_ip, $ship_email, $used_password, $used_hash)= split ("\|", $entry[data]);
-    $retvalue[text] = "Someone using IP: <span style='color:#FFFF00;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#FFFF00;'>{$ship_email}</span>' with Password: '<span style='color:#FFFF00;'>{$used_password}</span>' and had the following Hash: '<span style='color:#FFFF00;'>{$used_hash}</span>'";
+    $retvalue[text] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>' and had the following Hash: '<span style='color:#ff0;'>{$used_hash}</span>'";
     $retvalue[title] = "Invalid Login Attempt.";
     break;
 

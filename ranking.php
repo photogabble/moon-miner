@@ -182,7 +182,7 @@ else
             {
                     if(isLocked($row))
                     {
-                        $status = "<span class='rank_dev_text' style='color:#FFFF00; font-size:14px;' title='Standard Lock'>Locked</span>";
+                        $status = "<span class='rank_dev_text' style='color:#ff0; font-size:14px;' title='Standard Lock'>Locked</span>";
             }
                     else
                     {
@@ -328,7 +328,7 @@ if($ai_enabled == true)
                         break;
 
                     case 1:
-                        $status = "<span class='rank_dev_text' style='color:#FFFF00; font-size:14px;'>{$AIOrders[$statrow['orders']]}</span>";
+                        $status = "<span class='rank_dev_text' style='color:#ff0; font-size:14px;'>{$AIOrders[$statrow['orders']]}</span>";
                         break;
 
                     case 2:
@@ -358,7 +358,7 @@ if($ai_enabled == true)
     echo "  <tr>\n";
     echo "    <td style='width:50%;'>Ja'coni AI Code v0.0.1 (0012) based off Xenobe Code.</td>\n";
     echo "    <td style='width:16px; background-color:#FF0000;'></td><td>Hostile (Will Attack on Site)</td>\n";
-    echo "    <td style='width:16px; background-color:#FFFF00;'></td><td>Neutral (But may Attack)</td>\n";
+    echo "    <td style='width:16px; background-color:#ff0;'></td><td>Neutral (But may Attack)</td>\n";
     echo "    <td style='width:16px; background-color:#00FF00;'></td><td>Friendly (Only Attacks if Attacked)</td>\n";
     echo "  </tr>\n";
     echo "</table>\n";

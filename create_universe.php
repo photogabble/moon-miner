@@ -66,9 +66,9 @@ if (!function_exists('Table_Header'))
     {
         PrintFlush( "<div align=\"center\">\n");
         PrintFlush( "  <center>\n");
-        PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000000\">\n");
+        PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000\">\n");
         PrintFlush( "    <tr>\n");
-        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"2\">$title</font></th>\n");
+        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"2\">$title</font></th>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -79,7 +79,7 @@ if (!function_exists('Table_Row'))
     {
         $err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
         PrintFlush( "    <tr title=\"$err\">\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$data</font></td>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$data</font></td>\n");
         if(mysql_errno()!=0)
             {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
@@ -94,8 +94,8 @@ if (!function_exists('Table_2Col'))
     function Table_2Col($name,$value)
     {
         PrintFlush("    <tr>\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$name</font></td>\n");
-        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000000\">$value</font></td>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#CCCCFF\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$name</font></td>\n");
+        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$value</font></td>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -105,7 +105,7 @@ if (!function_exists('Table_1Col'))
     function Table_1Col($data)
     {
         PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"1\">$data</font></td>\n");
+        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$data</font></td>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -127,7 +127,7 @@ if (!function_exists('Table_Footer'))
         if(!empty($footer))
         {
             PrintFlush( "    <tr>\n");
-            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000000\" size=\"1\">$footer</font></td>\n");
+            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$footer</font></td>\n");
             PrintFlush( "    </tr>\n");
         }
         PrintFlush( "  </table>\n");
@@ -741,7 +741,7 @@ Table_Spacer();
                 $insert.="($link1,$link2)";
                 if($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
-#           PrintFlush("<font color='#FFFF00'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
+#           PrintFlush("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 
             if ($start<$sector_max && $finish<=$sector_max) $db->Execute($insert);
 
@@ -784,7 +784,7 @@ Table_Spacer();
                 $insert.="($link1,$link2), ($link2,$link1)";
                 if($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
-//          PrintFlush("<font color='#FFFF00'>Creating loop $i of $loopsize Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
+//          PrintFlush("<font color='#ff0'>Creating loop $i of $loopsize Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 //          $db->Execute($insert);
             if ($start<$sector_max && $finish<=$sector_max) $db->Execute($insert);
 

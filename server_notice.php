@@ -51,6 +51,6 @@ Only Planets that are owned by players are updated, planets that are flagged as 
 <br>
 Thanks.<br>
 <br>
-<div style="height:1px; background-color:#000000; padding:0px;"></div><div style="font-size:10px; font-weight:bold;">Blacknova Development</div>
+<div style="height:1px; background-color:#000; padding:0px;"></div><div style="font-size:10px; font-weight:bold;">Blacknova Development</div>
 </div>
 </div>

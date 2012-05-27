@@ -231,10 +231,10 @@ echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='faq.html'>{$l_faq}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='feedback.php'>{$l_feedback}</a></div>\n";
-#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='main.php' title='Not implemented'><span style='font-size:8px; color:#FFFF00; font-style:normal;'>NEW</span> Support</a></div>\n";
-#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='maint_info.php' title='This will display the Scheduled Maintenance information for this game or Core Code.'><span style='font-size:8px; color:#FFFF00; font-style:normal;'>NEW</span> Maint Info</a></div>\n";
-#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='rules.php' title='These are our Rules that you have agreed to.'><span style='font-size:8px; color:#FFFF00; font-style:normal;'>NEW</span> Our Rules</a></div>\n";
-#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mail.php?mail={$username}' title='Request your login information to be emailed to you.'><span style='font-size:8px; color:#FFFF00; font-style:normal;'>TMP</span> REQ Password</a></div>\n";
+#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='main.php' title='Not implemented'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Support</a></div>\n";
+#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='maint_info.php' title='This will display the Scheduled Maintenance information for this game or Core Code.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Maint Info</a></div>\n";
+#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='rules.php' title='These are our Rules that you have agreed to.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Our Rules</a></div>\n";
+#echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mail.php?mail={$username}' title='Request your login information to be emailed to you.'><span style='font-size:8px; color:#ff0; font-style:normal;'>TMP</span> REQ Password</a></div>\n";
 
 if(!empty($link_forums))
 {
@@ -607,7 +607,7 @@ if($playerinfo[sector] != 0)
                 echo "  <img class='mnu' width='80' height='60' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" border='0'>\n";
                 echo "</a>\n";
                 echo "<div style='color:#fff; font-family:Arial; font-size:12px; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
-                echo "(<span style='color:#FFFF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
+                echo "(<span style='color:#ff0; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
                 if ($ship_detected[$iPlayer][team_name])
                 {
                     echo "(<span style='color:#00FF00; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
@@ -868,7 +868,7 @@ echo $rspace_bnthelper_string;
 
 echo "\n";
 
-echo "<table align='center' style='border:#fff solid 1px; text-align:center; background-color:#000000; color:#000000;' cellpadding='2' cellspacing='1' title='news ticker v'>\n";
+echo "<table align='center' style='border:#fff solid 1px; text-align:center; background-color:#000; color:#000;' cellpadding='2' cellspacing='1' title='news ticker v'>\n";
 echo "  <tr>\n";
 echo "    <td id='news_ticker' align='center' class='faderlines' style='text-align:center; color:#fff; font-size:12px; width:600px;'>Loading News, Please wait...</td>\n";
 echo "  </tr>\n";

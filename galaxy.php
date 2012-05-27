@@ -48,7 +48,7 @@ $cur_index    = 0;
 
 echo "cursector = $cur_sector max= $sector_max";
 
-echo "<table style='background-color:#000000; border:#555555 1px solid;' border = '0' cellpadding = '0' cellspacing='1' >\n";
+echo "<table style='background-color:#000; border:#555555 1px solid;' border = '0' cellpadding = '0' cellspacing='1' >\n";
 echo "<tr><td style='background-color:#111111; text-align:center; border:#555555 1px solid; color:#fff; font-size:26px; padding:4px;' colspan='52'>Blacknova Traders Galaxy Map</td></tr>\n";
 while($cur_sector < $sector_max)
 {
@@ -82,7 +82,7 @@ while($cur_sector < $sector_max)
         $alt = "$cur_sector - unknown";
     }
 
-    print "<td style='background-color:#000000; border:#555555 1px solid;'><A HREF=rsmove.php?engage=1&destination=$cur_sector><img width='25' height='25' src='images/{$tile[$port]}' alt='$alt' border='0'></A></td>";
+    print "<td style='background-color:#000; border:#555555 1px solid;'><A HREF=rsmove.php?engage=1&destination=$cur_sector><img width='25' height='25' src='images/{$tile[$port]}' alt='$alt' border='0'></A></td>";
     flush();
 
     if ($break==0)

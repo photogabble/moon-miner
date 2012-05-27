@@ -39,7 +39,7 @@ $num_traderoutes=$result->RecordCount();
 if(isset($traderoutes))
 {
     adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
-    traderoute_die("<div style='color:#fff; font-size: 12px;'>[<span style='color:#FFFF00;'>The Governor</span>] <span style='color:#FF0000;'>Detected Traderoute Hack!</span></div>\n");
+    traderoute_die("<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#FF0000;'>Detected Traderoute Hack!</span></div>\n");
 
 }
 
