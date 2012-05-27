@@ -73,6 +73,10 @@ if(empty($content))
     {
         $subject = "RE: " . $subject;
     }
+    else
+    {
+        $subject = '';
+    }
 
     echo "    <TR>\n";
     echo "      <TD>$l_sendm_subj:</TD>\n";
