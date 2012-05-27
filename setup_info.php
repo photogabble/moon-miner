@@ -74,7 +74,7 @@ $setup_info->do_Table_Title("Setup Info Switch Configuration",$Cols);
 for($n=0; $n < count($switch_info); $n++)
 {
     list($switch_name, $switch_array) = each($switch_info);
-    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#0000FF'>Enabled</font>" : "<font color='#f00'>Disabled</font>"));
+    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#00f'>Enabled</font>" : "<font color='#f00'>Disabled</font>"));
 }
 $setup_info->do_Table_Footer("<br>");
 
@@ -100,7 +100,7 @@ for($n=0; $n < count($software_info); $n++)
 
 if($setup_info->testdb_connection())
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#0000FF'><B>".$setup_info->db_status['status']."</B></font>");
+    $setup_info->do_Table_Row("DB CONNECTION","<font color='#00f'><B>".$setup_info->db_status['status']."</B></font>");
 }
 else
 {
@@ -111,7 +111,7 @@ if($setup_info->cookie_test['enabled'])
 {
     if($setup_info->cookie_test['result'])
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#0000FF'><B>Passed</B></font>");
+        $setup_info->do_Table_Row("Cookie Test","<font color='#00f'><B>Passed</B></font>");
     }
     else
     {

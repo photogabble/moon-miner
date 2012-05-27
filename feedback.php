@@ -94,7 +94,7 @@ else
         if($ret == true)
         {
             $image = "images/tick.png";
-            $result = "<span style='color:#0000FF;'>Send Feedback Passed.</span>";
+            $result = "<span style='color:#00f;'>Send Feedback Passed.</span>";
             $errorResult = null;
         }
         else

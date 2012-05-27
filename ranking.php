@@ -150,7 +150,7 @@ else
                 case "developer":
                 {
                     // Set Character name Admin Blue
-                    $char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
+                    $char_name      = "<span style='color:#09f; font-size:14px;'>{$row[character_name]}</span>";
                     $alt            = "Blacknova Development Team";
                     $online_image    = "images/online_developer.png";
                     $offline_image    = "images/offline_developer.png";
@@ -159,7 +159,7 @@ else
                 case "admin":
                 {
                     // Set Character name Admin Blue
-                    $char_name      = "<span style='color:#0099FF; font-size:14px;'>{$row[character_name]}</span>";
+                    $char_name      = "<span style='color:#09f; font-size:14px;'>{$row[character_name]}</span>";
                     $alt            = "Blacknova Administration Team";
                     $online_image    = "images/online_admin.png";
                     $offline_image    = "images/offline_admin.png";
@@ -169,7 +169,7 @@ else
 
                     if($difftime <= 5)
                     {
-                        $status = "<span class='rank_dev_text' style='color:#0099FF; font-size:14px;'>{$admin_caption}</span>";
+                        $status = "<span class='rank_dev_text' style='color:#09f; font-size:14px;'>{$admin_caption}</span>";
                 $status = "<div style='padding:0px; padding-top:2px;'><img name='tt' src='{$online_image}' style='width:64px; height:16px; padding:0px;' alt='{$alt}' />&nbsp;<span style='color:#FFCC00; font-size:12px; height:16px;'>{$admin_list[$row['character_name']]['status']}</span></div>";
                     }
                     else

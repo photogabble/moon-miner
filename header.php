@@ -44,21 +44,21 @@ if(isset($interface) && $interface == "main.php")
 {
 
   echo "  a.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
-  a.mnu:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
+  a.mnu:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
 
   img.mnu {padding:4px; border:transparent 2px dashed;}
   img.mnu:hover {padding:4px; border:#f00 2px dashed;}
 
   a.new_link {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#0f0; font-weight:bold;}
-  a.new_link:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
+  a.new_link:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
 
   div.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   span.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   a.dis {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:silver; font-weight:bold;}
-  a.dis:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
+  a.dis:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
   table.dis {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:silver; font-weight:bold;}
-  table.dis:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#3366ff; font-weight:bold;}
-  .headlines:hover {text-decoration:none; color:#3366ff;}
+  table.dis:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
+  .headlines:hover {text-decoration:none; color:#36f;}
   .headlines {text-decoration:none; font-size:8Pt; font-family: Verdana, Arial, sans-serif; font-weight:bold; color:white;}
   .portcosts1 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line1; color:#c0c0c0;}
   .portcosts2 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line2; color:#c0c0c0;}
@@ -187,16 +187,16 @@ if(empty($no_body))
 {
     if(isset($interface) && $interface=="main.php")
     {
-        echo "<body style=\"background-image: url('images/bgoutspace1.gif'); background-color:#000; color:#C0C0C0;\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#f00\">";
+        echo "<body style=\"background-image: url('images/bgoutspace1.gif'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
     }
     else
     {
-        echo "<body background=\"\" bgcolor=\"#000\" text=\"#c0c0c0\" link=\"#00ff00\" vlink=\"#808080\" alink=\"#f00\">";
+        echo "<body background=\"\" bgcolor=\"#000\" text=\"#c0c0c0\" link=\"#0f0\" vlink=\"#808080\" alink=\"#f00\">";
     }
 }
 else
 {
-    echo "<body bgcolor=\"#666666\" text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#f00\">";
+    echo "<body bgcolor=\"#666\" text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
 }
 
 echo "\n";

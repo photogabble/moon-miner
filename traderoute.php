@@ -2235,7 +2235,7 @@ function traderoute_results_display_totals($total_profit)
     global $l_tdr_totalprofit,$l_tdr_totalcost;
     if($total_profit > 0)
     {
-        echo "$l_tdr_totalprofit : <font color='#00ff00'><b>" . NUMBER(abs($total_profit)) . "</font></b><br>\n";
+        echo "$l_tdr_totalprofit : <font color='#0f0'><b>" . NUMBER(abs($total_profit)) . "</font></b><br>\n";
     }
     else
     {
@@ -2246,9 +2246,9 @@ function traderoute_results_display_summary($tdr_display_creds)
 {
   global  $l_tdr_turnsused , $dist, $l_tdr_turnsleft, $playerinfo,$l_tdr_credits;
   echo "\n<font size='3' color='white'><b>$l_tdr_turnsused : <font color='red'>$dist[triptime]</font></b><br>";
-  echo "\n<font size='3' color='white'><b>$l_tdr_turnsleft : <font color='#00ff00'>$playerinfo[turns]</font></b><br><p>";
+  echo "\n<font size='3' color='white'><b>$l_tdr_turnsleft : <font color='#0f0'>$playerinfo[turns]</font></b><br><p>";
 
-  echo "\n<font size='3' color='white'><b>$l_tdr_credits : <font color='#00ff00'> $tdr_display_creds\n</font></b><br><font size='2'>\n";
+  echo "\n<font size='3' color='white'><b>$l_tdr_credits : <font color='#0f0'> $tdr_display_creds\n</font></b><br><font size='2'>\n";
 
 }
 function traderoute_results_show_repeat()

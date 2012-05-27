@@ -35,7 +35,7 @@ $playerinfo = $result->fields;
 $result = $db->Execute("SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id=$playerinfo[ship_id]");
 $account = $result->fields;
 
-echo "<BODY bgcolor=#666666 text=\"#F0F0F0\" link=\"#00ff00\" vlink=\"#00ff00\" alink=\"#f00\">";
+echo "<BODY bgcolor=#666 text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
 ?>
 
 <STYLE TYPE="text/css">

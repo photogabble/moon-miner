@@ -834,7 +834,7 @@ class SETUPINFO_CLASS
         $this->DisplayFlush("  <center>\n");
         $this->DisplayFlush("  <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"700\" bgcolor=\"#000\">\n");
         $this->DisplayFlush("    <tr>\n");
-        $this->DisplayFlush("      <td width=\"100%\" colspan=\"$Cols\" align=\"center\" bgcolor=\"#9999CC\">\n");
+        $this->DisplayFlush("      <td width=\"100%\" colspan=\"$Cols\" align=\"center\" bgcolor=\"#99c\">\n");
         $this->DisplayFlush("        <p align=\"center\"><b><font face=\"Verdana\" color=\"#000\">$title</font></b></td>\n");
         $this->DisplayFlush("    </tr>\n");
     }
@@ -848,7 +848,7 @@ class SETUPINFO_CLASS
 
         $Col_Str="colspan=\"".($Cols)."\"";
         $this->DisplayFlush("    <tr>\n");
-        $this->DisplayFlush("      <td style=\"background-color:#9999CC; width:75%; height:1px; padding:0px;\" $Col_Str></td>\n");
+        $this->DisplayFlush("      <td style=\"background-color:#99c; width:75%; height:1px; padding:0px;\" $Col_Str></td>\n");
         $this->DisplayFlush("    </tr>\n");
     }
 
@@ -903,7 +903,7 @@ class SETUPINFO_CLASS
         $Col_Str="colspan=\"".($Cols)."\"";
         $this->DisplayFlush("    </tr>\n");
         $this->DisplayFlush("    <tr>\n");
-        $this->DisplayFlush("      <td style=\"background-color:#9999CC; width:75%; height:4px; padding:0px;\" $Col_Str></td>\n");
+        $this->DisplayFlush("      <td style=\"background-color:#99c; width:75%; height:4px; padding:0px;\" $Col_Str></td>\n");
         $this->DisplayFlush("    </tr>\n");
         $this->DisplayFlush("  </table>\n");
         $this->DisplayFlush("  </center>\n");

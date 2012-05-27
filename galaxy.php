@@ -49,13 +49,13 @@ $cur_index    = 0;
 echo "cursector = $cur_sector max= $sector_max";
 
 echo "<table style='background-color:#000; border:#555555 1px solid;' border = '0' cellpadding = '0' cellspacing='1' >\n";
-echo "<tr><td style='background-color:#111111; text-align:center; border:#555555 1px solid; color:#fff; font-size:26px; padding:4px;' colspan='52'>Blacknova Traders Galaxy Map</td></tr>\n";
+echo "<tr><td style='background-color:#111; text-align:center; border:#555555 1px solid; color:#fff; font-size:26px; padding:4px;' colspan='52'>Blacknova Traders Galaxy Map</td></tr>\n";
 while($cur_sector < $sector_max)
 {
     $break = ($cur_sector +1 ) % 50;
     if ($break == 1)
     {
-        print "<tr><td style='background-color:#111111; border:#555555 1px solid; text-align:right; padding:2px;'>$cur_sector</td> ";
+        print "<tr><td style='background-color:#111; border:#555555 1px solid; text-align:right; padding:2px;'>$cur_sector</td> ";
         flush();
     }
 
@@ -87,13 +87,13 @@ while($cur_sector < $sector_max)
 
     if ($break==0)
     {
-        print "<td style='background-color:#111111; border:#555555 1px solid; text-align:right; padding:2px;'>$cur_sector</td></tr>\n";
+        print "<td style='background-color:#111; border:#555555 1px solid; text-align:right; padding:2px;'>$cur_sector</td></tr>\n";
         flush();
     }
     $cur_sector = $cur_sector + 1;
 }
 
-echo "<tr><td style='background-color:#111111; text-align:left; border:#555555 1px solid; color:#fff; font-size:12px; padding:4px;' colspan='52'>Galaxy Map</td></tr>\n";
+echo "<tr><td style='background-color:#111; text-align:left; border:#555555 1px solid; color:#fff; font-size:12px; padding:4px;' colspan='52'>Galaxy Map</td></tr>\n";
 echo "</table>\n";
 
 echo "<BR><BR>";

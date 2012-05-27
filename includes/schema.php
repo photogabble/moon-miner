@@ -47,7 +47,7 @@ if (!function_exists('Table_Header'))
         PrintFlush( "  <center>\n");
         PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000\">\n");
         PrintFlush( "    <tr>\n");
-        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"2\">$title</font></th>\n");
+        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#99c\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"2\">$title</font></th>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -94,7 +94,7 @@ if (!function_exists('Table_Spacer'))
     function Table_Spacer()
     {
         PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" height=\"1\"></td>\n");
+        PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" height=\"1\"></td>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -106,7 +106,7 @@ if (!function_exists('Table_Footer'))
         if(!empty($footer))
         {
             PrintFlush( "    <tr>\n");
-            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999CC\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$footer</font></td>\n");
+            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$footer</font></td>\n");
             PrintFlush( "    </tr>\n");
         }
         PrintFlush( "  </table>\n");

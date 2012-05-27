@@ -228,7 +228,7 @@ else
           $row = $res->fields;
 
           echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
-          echo "<TR><TD><tt>          Sector ID  </tt></TD><TD><FONT COLOR=#66FF00>$sector</FONT></TD>";
+          echo "<TR><TD><tt>          Sector ID  </tt></TD><TD><FONT COLOR=#6f0>$sector</FONT></TD>";
           echo "<TD ALIGN=Right><tt>  Sector Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=sector_name VALUE=\"$row[sector_name]\"></TD>";
           echo "<TD ALIGN=Right><tt>  Zone ID    </tt></TD><TD>";
                                       echo "<SELECT SIZE=1 NAME=zone_id>";
@@ -330,7 +330,7 @@ else
           $row = $res->fields;
 
           echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
-          echo "<TR><TD><tt>          Planet ID  </tt></TD><TD><FONT COLOR=#66FF00>$planet</FONT></TD>";
+          echo "<TR><TD><tt>          Planet ID  </tt></TD><TD><FONT COLOR=#6f0>$planet</FONT></TD>";
           echo "<TD ALIGN=Right><tt>  Sector ID  </tt><INPUT TYPE=TEXT SIZE=5 NAME=sector_id VALUE=\"$row[sector_id]\"></TD>";
           echo "<TD ALIGN=Right><tt>  Defeated   </tt><INPUT TYPE=CHECKBOX NAME=defeated VALUE=ON " . CHECKED($row[defeated]) . "></TD></TR>";
           echo "<TR><TD><tt>          Planet Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=name VALUE=\"$row[name]\"></TD>";

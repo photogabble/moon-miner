@@ -120,8 +120,8 @@ foreach ($admin_list as $key => $admin)
     {
         echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
         line("Admin Name:",  "<span style='color:#ff0; font-size:14px;'>{$admin['name']}</span>", "right");
-        line("Character:",  "<span style='color:#0099FF; font-size:14px;'>{$admin['character']}</span>", "right");
-        line("Admin Level:", "<span style='color:#0099FF; font-size:14px;'>{$admin['level']}</span>", "right");
+        line("Character:",  "<span style='color:#09f; font-size:14px;'>{$admin['character']}</span>", "right");
+        line("Admin Level:", "<span style='color:#09f; font-size:14px;'>{$admin['level']}</span>", "right");
         line("Online:", "<span style='color:#99FF00; font-size:14px;'>Not Enabled</span>", "right");
         echo "</table>\n";
         echo "<br />\n";

@@ -59,8 +59,8 @@ if ($res->RecordCount() >0)
     {
         $row = $res->fields;
         echo "  <tr>\n";
-        echo "    <td bgcolor=\"#000033\" align=\"center\" style=\"vertical-align:text-top;\">{$row['headline']}</td>\n";
-        echo "    <td bgcolor=\"#000033\" style=\"vertical-align:text-top;\"><p align=\"justify\">{$row['newstext']}</p><br></td>\n";
+        echo "    <td bgcolor=\"#003\" align=\"center\" style=\"vertical-align:text-top;\">{$row['headline']}</td>\n";
+        echo "    <td bgcolor=\"#003\" style=\"vertical-align:text-top;\"><p align=\"justify\">{$row['newstext']}</p><br></td>\n";
         echo "  </tr>\n";
         $res->MoveNext();
     }
