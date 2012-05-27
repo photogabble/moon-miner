@@ -260,5 +260,15 @@ date_default_timezone_set('America/New_York'); // Set to your server's local tim
 $sched_planet_valid_credits = true; // Limit captured planets Max Credits to max_credits_without_base
 
 $db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete. Almost definitely you will want false.
+
+// Must stay at 55 due to PHP/MySQL cap limit.
+$max_upgrades_devices       = 55;
+$max_emerwarp               = 10;
+
+$max_genesis                = 10;
+$max_beacons                = 10;
+$max_warpedit               = 10;
+$bounty_all_special         = true;             // Stop access on all Special Ports when you have a federation bounty on you.
+
 require("global_includes.php"); // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
