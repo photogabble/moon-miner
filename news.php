@@ -23,9 +23,15 @@ include("languages/$lang");
 $title=$l_news_title;
 include("header.php");
 
+if ((!isset($_GET['startdate'])) || ($_GET['startdate'] == ''))
+{
+    // The date wasn't supplied so use today's date
+    $_GET['startdate'] = date("Y-m-d");
+}
+
 // Check and validate the date.
 $startdate = substr($_GET['startdate'], 0, 10);
-if (!ereg ("([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})", $startdate, $regs) || $startdate == '')
+if (!preg_match("/([0-9]{4})\/.([0-9]{1,2})\/.([0-9]{1,2})*/", $startdate, $regs) || $startdate == '')
 {
     //The date wasn't supplied so use today's date
     $startdate = date("Y/m/d");
