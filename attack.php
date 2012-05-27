@@ -21,11 +21,9 @@ include("config.php");
 updatecookie();
 include("languages/$lang");
 
-connectdb();
-
 if(checklogin())
 {
-    die(); // Shouldnt we redirect to login page or show the login notice here?
+    die();
 }
 
 $title=$l_att_title;

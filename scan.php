@@ -18,18 +18,15 @@
 // File: scan.php
 
 include("config.php");
-
 updatecookie();
-
 include("languages/$lang");
 $title=$l_scan_title;
 include("header.php");
-
-connectdb();
 if(checklogin())
 {
-  die();
+    die();
 }
+
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo=$result->fields;
 
@@ -329,9 +326,7 @@ else
   }
 }
 
-
 echo "<BR><BR>";
 TEXT_GOTOMAIN();
-
 include("footer.php");
 ?>

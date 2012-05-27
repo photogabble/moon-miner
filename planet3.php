@@ -19,12 +19,9 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_planet3_title;
 include("header.php");
-connectdb();
 
 if (checklogin())
 {

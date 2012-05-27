@@ -19,12 +19,9 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
 $title=$l_gns_title;
 include("header.php");
-
-connectdb();
 
 if(checklogin())
 {
@@ -103,13 +100,10 @@ elseif($sectorinfo[planet] == "Y") // With many planets by sector that code is h
     }
   }
 }
-* --------------------------------------------------------------- *
-* If anyone who's coded this thing is willing to update it to     *
-* support multiple planets, go ahead. I suggest removing this     *
-* code completely from here and putting it in the planet menu     *
-* instead. Easier to manage, makes more sense too.                *
-* End of comments section.                                        *
-* -------------------------------------------------------------- */
+// If anyone who's coded this thing is willing to update it to
+// support multiple planets, go ahead. I suggest removing this
+// code completely from here and putting it in the planet menu
+// instead. Easier to manage, makes more sense too.
 
 elseif($playerinfo[dev_genesis] < 1)
 {
@@ -173,9 +167,8 @@ else
 }
 
 $db->Execute("UNLOCK TABLES");
-
 echo "<BR><BR>";
-TEXT_GOTOMAIN();
 
+TEXT_GOTOMAIN();
 include("footer.php");
 ?>

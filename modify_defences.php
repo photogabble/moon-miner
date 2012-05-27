@@ -19,23 +19,20 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
 $title=$l_md_title;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
-If(!isset($defence_id))
+if(!isset($defence_id))
 {
-   echo "$l_md_invalid<BR>";
-   TEXT_GOTOMAIN();
-   die();
+    echo "$l_md_invalid<BR>";
+    TEXT_GOTOMAIN();
+    die();
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");

@@ -18,15 +18,10 @@
 // File: rsmove.php
 
 include("config.php");
-
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_rs_title;
 include("header.php");
-
-connectdb();
 
 if(checklogin())
 {

@@ -19,16 +19,13 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_planet2_title;
 include("header.php");
 
-connectdb();
 if(checklogin())
 {
-  die();
+    die();
 }
 
 // Needs to be validated and type cast into their correct types.

@@ -179,7 +179,7 @@ function updatecookie()
   global $res;
   // The new combined cookie login.
   $userpass = $username."+".$password;
-  SetCookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
+  setcookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
   if ($userpass != '' and $userpass != '+') {
       setcookie("username","",0); // Legacy support, delete the old login cookies.
       setcookie("password","",0); // Legacy support, delete the old login cookies.

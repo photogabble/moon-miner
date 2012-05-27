@@ -19,16 +19,13 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
 $title=$l_title_port;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");

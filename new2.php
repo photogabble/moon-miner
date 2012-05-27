@@ -34,11 +34,10 @@ include("languages/$lang");
 $title=$l_new_title2;
 include("header.php");
 bigtitle();
-connectdb();
 
 if($account_creation_closed)
 {
-  die($l_new_closed_message);
+    die($l_new_closed_message);
 }
 $character=htmlspecialchars($character);
 $shipname=htmlspecialchars($shipname);

@@ -19,15 +19,15 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_igb_title;
-$no_body = 1;
+$no_body=1;
 include("header.php");
 
-connectdb();
-if (checklogin()) {die();}
+if (checklogin())
+{
+    die();
+}
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
@@ -1122,5 +1122,4 @@ function StripNonNum($str)
 
   return $output;
 }
-
 ?>

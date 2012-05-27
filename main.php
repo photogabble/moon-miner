@@ -19,8 +19,16 @@
 
 include("config.php");
 include("languages/$lang");
-
 updatecookie();
+
+if(checklogin())
+{
+    die();
+}
+
+$title=$l_main_title;
+include("header.php");
+
 $basefontsize = 0;
 $stylefontsize = "8Pt";
 $picsperrow = 5;
@@ -36,16 +44,6 @@ if($screenres >= 1024)
     $stylefontsize = "12Pt";
     $picsperrow = 7;
 }
-
-connectdb();
-
-if(checklogin())
-{
-    die();
-}
-
-$title=$l_main_title;
-include("header.php");
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
@@ -878,5 +876,4 @@ echo "</table>\n";
 
 include("fader.php");
 include("footer.php");
-
 ?>

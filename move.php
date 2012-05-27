@@ -19,16 +19,11 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
 $title=$l_move_title;
-
 include("header.php");
 
-//Connect to the database
-connectdb();
-
-//Check to see if the user is logged in
+// Check to see if the user is logged in
 if (checklogin())
 {
     die();
@@ -107,5 +102,4 @@ else
 }
 
 echo "</body></html>";
-
 ?>

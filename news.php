@@ -19,12 +19,9 @@
 
 include("config.php");
 include("includes/newsservices.php");
-
 include("languages/$lang");
 $title=$l_news_title;
 include("header.php");
-
-connectdb();
 
 // Check and validate the date.
 $startdate = substr($_GET['startdate'], 0, 10);

@@ -19,15 +19,14 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
 $title=$l_ze_title;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
-  die();
+{
+    die();
+}
 
 bigtitle();
 
@@ -152,11 +151,10 @@ function zoneedit_change()
 
 function zoneedit_die($error_msg)
 {
-  echo "<p>$error_msg<p>";
-
-  TEXT_GOTOMAIN();
-  include("footer.php");
-  die();
+    echo "<p>$error_msg<p>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
 }
 
 ?>

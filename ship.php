@@ -19,13 +19,9 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_ship_title;
 include("header.php");
-
-connectdb();
 
 if(checklogin())
 {
@@ -59,7 +55,5 @@ else
 
 echo "<BR>";
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>

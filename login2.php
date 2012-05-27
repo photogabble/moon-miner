@@ -20,8 +20,6 @@
 include("config.php");
 include("languages/$lang");
 
-connectdb();
-
 // Test to see if server is closed to logins
 $playerfound = false;
 
@@ -40,14 +38,14 @@ if(empty($lang))
 {
     $lang=$default_lang;
 }
-SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
 include("languages/$lang" . ".inc");
 
 setcookie("interface", $mainfilename);
 
 // first placement of cookie - don't use updatecookie.
 $userpass = $email."+".$pass;
-SetCookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
+setcookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
 
 if($server_closed)
 {
@@ -68,8 +66,8 @@ $banned = 0;
 $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
 if($res->RecordCount() != 0)
 {
-    SetCookie("userpass","",0,$gamepath,$gamedomain);
-    SetCookie("userpass","",0); // Delete from default path as well.
+    setcookie("userpass","",0,$gamepath,$gamedomain);
+    setcookie("userpass","",0); // Delete from default path as well.
     setcookie("username","",0); // Legacy support, delete the old login cookies.
     setcookie("password","",0); // Legacy support, delete the old login cookies.
     setcookie("id","",0);

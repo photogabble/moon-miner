@@ -19,17 +19,13 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_title_port;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 $result     = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
@@ -638,10 +634,9 @@ echo "<BR><BR>";
 TEXT_GOTOMAIN();
 
 if($sectorinfo[port_type] == "special")
- {
- echo "<BR><BR>Click <A HREF=port.php>here</A> to return to the supply depot.";
- }
+{
+    echo "<BR><BR>Click <A HREF=port.php>here</A> to return to the supply depot.";
+}
 
 include("footer.php");
-
 ?>

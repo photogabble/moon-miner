@@ -19,11 +19,8 @@
 
 include("config.php");
 include("languages/$lang");
-
 $title=$l_mail_title;
 include("header.php");
-
-connectdb();
 bigtitle();
 
 if(!isset($_SESSION['sendemail']))
@@ -46,9 +43,7 @@ if(!$result->EOF)
     if($_SESSION['sendemail'] == false)
     {
         $_SESSION['sendemail'] = true;
-
         $image = "images/unknown.png";
-
         echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
         echo "<table style='width:500px; border:#FFFFFF 1px solid; color:#000000;'>\n";
         echo "  <tr>\n";
@@ -70,10 +65,8 @@ if(!$result->EOF)
     else
     {
         $mailer->setDebugMode(false);
-
         $mailer->setMailHost($ExtMailCfg['host']);
         $ret = $mailer->Authenticate($ExtMailCfg);
-
         $mailer->setDomain($email_server);
         $mailer->setSender( "Blacknova Mail", $admin_mail );
         $mailer->setRecipient( $playerinfo['character_name'], $playerinfo['email'] );

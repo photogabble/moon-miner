@@ -19,7 +19,7 @@
 
 include("config.php");
 //include("languages/$lang");
-connectDB();
+connectdb();
 
 $info = array();
 

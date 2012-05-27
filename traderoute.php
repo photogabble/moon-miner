@@ -19,17 +19,13 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title=$l_tdr_title;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 bigtitle();

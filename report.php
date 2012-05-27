@@ -18,21 +18,14 @@
 // File: report.php
 
 include("config.php");
-
 updatecookie();
-
-
 include("languages/$lang");
 $title=$l_report_title;
-
-connectdb();
 include("header.php");
-
-
 
 if(checklogin())
 {
-  die();
+    die();
 }
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
@@ -61,15 +54,12 @@ else
 bigtitle();
 
 echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
-
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH='100%'>";
 echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_player: $playerinfo[character_name]</B></TD><TD ALIGN=CENTER><B>$l_ship: $playerinfo[ship_name]</B></TD><TD ALIGN=RIGHT><B>$l_credits: " . NUMBER($playerinfo[credits]) . "</B></TD></TR>";
 echo "</TABLE>";
 echo "<BR>";
-
 echo "<TABLE BORDER=0 CELLSPACING=5 CELLPADDING=0  WIDTH='100%'>";
 echo "<TR><TD>";
-
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
 echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_ship_levels</B></TD><TD></TD></TR>";
 echo "<TR BGCOLOR=\"$color_line1\" style='font-style:italic;'><TD> $l_hull</TD><TD style='text-align:right;'>$l_level $playerinfo[hull]</TD></TR>";
@@ -83,7 +73,6 @@ echo "<TR BGCOLOR=\"$color_line2\" style='font-style:italic;'><TD> $l_beams</TD>
 echo "<TR BGCOLOR=\"$color_line1\" style='font-style:italic;'><TD>$l_torp_launch</TD><TD style='text-align:right;'>$l_level $playerinfo[torp_launchers]</TD></TR>";
 echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_cloak</TD><TD style='text-align:right;'>$l_level $playerinfo[cloak]</TD></TR>";
 echo "<TR BGCOLOR=\"$color_line1\"><TD><i>$l_shipavg</i></TD><TD style='text-align:right;'>$l_level " . NUMBER($shipavg, 2) . "</TD></TR>";
-
 echo "</TABLE>";
 echo "</TD><TD VALIGN=TOP>";
 echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
@@ -121,18 +110,13 @@ echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_escape_pod</TD><TD ALIGN=RIGHT>$escape
 echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_fuel_scoop</TD><TD ALIGN=RIGHT>$fuel_scoop</TD></TR>";
 echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_lssd</TD><TD ALIGN=RIGHT>$lssd</TD></TR>";
 echo "</TABLE>";
-
 echo "</TD></TR>";
 echo "</TABLE>";
-
 echo "</div>\n";
-
 echo "<p align=center>";
 echo "<img src=\"images/$shiptypes[$shiplevel]\" border=0></p>";
 
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>
 

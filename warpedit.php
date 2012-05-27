@@ -19,24 +19,17 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
-
-
 $title=$l_warp_title;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo=$result->fields;
-
 $result4 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo=$result4->fields;
 
@@ -44,65 +37,63 @@ bigtitle();
 
 if($playerinfo[turns] < 1)
 {
-  echo "$l_warp_turn<BR><BR>";
-  TEXT_GOTOMAIN();
-  include("footer.php");
-  die();
+    echo "$l_warp_turn<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
 }
 
 if($playerinfo[dev_warpedit] < 1)
 {
-  echo "$l_warp_none<BR><BR>";
-  TEXT_GOTOMAIN();
-  include("footer.php");
-  die();
+    echo "$l_warp_none<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
 }
 
 $res = $db->Execute("SELECT allow_warpedit FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
 $zoneinfo = $res->fields;
 if($zoneinfo[allow_warpedit] == 'N')
 {
-  echo "$l_warp_forbid<BR><BR>";
-  TEXT_GOTOMAIN();
-  include("footer.php");
-  die();
+    echo "$l_warp_forbid<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
 }
 
 if($zoneinfo[allow_warpedit] == 'L')
 {
-  $result3 = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
-  $zoneowner_info = $result3->fields;
+    $result3 = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
+    $zoneowner_info = $result3->fields;
+    $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
+    $zoneteam = $result5->fields;
 
-  $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
-  $zoneteam = $result5->fields;
-
-  if($zoneowner_info[owner] != $playerinfo[ship_id])
-  {
-    if(($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
+    if($zoneowner_info[owner] != $playerinfo[ship_id])
     {
-      echo "$l_warp_forbid<BR><BR>";
-      TEXT_GOTOMAIN();
-      include("footer.php");
-      die();
+        if(($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
+        {
+            echo "$l_warp_forbid<BR><BR>";
+            TEXT_GOTOMAIN();
+            include("footer.php");
+            die();
+        }
     }
-  }
 }
 
 $result2 = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
 if($result2 < 1)
 {
-  echo "$l_warp_nolink<BR><BR>";
+    echo "$l_warp_nolink<BR><BR>";
 }
 else
 {
-  echo "$l_warp_linkto ";
-  while(!$result2->EOF)
-  {
-    echo $result2->fields[link_dest] . " ";
-
-    $result2->MoveNext();
-  }
-  echo "<BR><BR>";
+    echo "$l_warp_linkto ";
+    while(!$result2->EOF)
+    {
+        echo $result2->fields[link_dest] . " ";
+        $result2->MoveNext();
+    }
+    echo "<BR><BR>";
 }
 
 echo "<form action=\"warpedit2.php\" method=\"post\">";
@@ -122,7 +113,5 @@ echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$
 echo "</form>";
 
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>

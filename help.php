@@ -19,15 +19,12 @@
 
 include("config.php");
 updatecookie();
-
 $title=$l_help;
 include("header.php");
 
-connectdb();
-
 if(checklogin())
 {
-  die();
+    die();
 }
 
 bigtitle();
@@ -53,8 +50,8 @@ echo "<B>Long-range scan:</B><BR>";
 echo "Scan a neighboring sector with your long range scanners without actually moving there.";
 if($allow_fullscan)
 {
-  echo " A full scan will give you an outlook on all the neighboring sectors in one wide sweep of your ";
-  echo "sensors.";
+    echo " A full scan will give you an outlook on all the neighboring sectors in one wide sweep of your ";
+    echo "sensors.";
 }
 echo "<BR><BR>";
 echo "<B>Ships:</B><BR>";
@@ -69,10 +66,10 @@ echo "Access the planet menu by clicking on a planet's name when you enter a sec
 echo "<BR><BR>";
 if($allow_navcomp)
 {
-  echo "<B>Navigation computer:</B><BR>";
-  echo "Use your computer to find a route to a specific sector. The navigation computer's power depends on ";
-  echo "your computer tech level.";
-  echo "<BR><BR>";
+    echo "<B>Navigation computer:</B><BR>";
+    echo "Use your computer to find a route to a specific sector. The navigation computer's power depends on ";
+    echo "your computer tech level.";
+    echo "<BR><BR>";
 }
 echo "<B>RealSpace:</B><BR>";
 echo "Use your ship's engines to get to a specific sector. Upgrade your engines' tech level to use RealSpace ";
@@ -191,5 +188,4 @@ echo "<BR><BR>";
 
 TEXT_GOTOMAIN();
 include("footer.php");
-
 ?>
