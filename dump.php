@@ -35,7 +35,7 @@ $result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$play
 $sectorinfo=$result2->fields;
 bigtitle();
 
-if ($playerinfo[turns]<1)
+if ($playerinfo['turns']<1)
 {
     echo "$l_dump_turn<BR><BR>";
     TEXT_GOTOMAIN();
@@ -43,7 +43,7 @@ if ($playerinfo[turns]<1)
     die();
 }
 
-if ($playerinfo[ship_colonists]==0)
+if ($playerinfo['ship_colonists']==0)
 {
     echo "$l_dump_nocol<BR><BR>";
 }
