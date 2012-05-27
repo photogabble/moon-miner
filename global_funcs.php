@@ -859,7 +859,7 @@ function player_insignia_name($a_username)
         }
 
         $value *= (500 * 2);
-        if($playerinfo[score] <= $value)
+        if($playerinfo['score'] <= $value)
         {
             // Ok we have found our Insignia, now set and break out of the for loop.
             $player_insignia = $l_insignia[$i];
