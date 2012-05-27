@@ -19,7 +19,7 @@
 
 $res = $db->Execute("SELECT COUNT(*) as loggedin from $dbtables[ships] WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP($dbtables[ships].last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'");
 $row = $res->fields;
-$online = $row[loggedin];
+$online = $row['loggedin'];
 
 global $BenchmarkTimer;
 if (is_object($BenchmarkTimer))
@@ -39,7 +39,7 @@ else
 
 $res = $db->Execute("SELECT last_run FROM $dbtables[scheduler] LIMIT 1");
 $result = $res->fields;
-$mySEC = ($sched_ticks * 60) - (TIME()-$result[last_run]);
+$mySEC = ($sched_ticks * 60) - (TIME()-$result['last_run']);
 ?>
   <script language="javascript" type="text/javascript">
    var myi = '<?php echo $mySEC; ?>';
