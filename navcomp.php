@@ -60,7 +60,7 @@ if(isset($_POST['stop_sector']))
 if(!is_numeric($stop_sector) && isset($stop_sector))
 {
     adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
-    echo "<div style='color:#FFFFFF; font-size: 12px;'><span style='color:#FFFFFF;'>Detected Invalid NavComputer Information (<span style='color:#FF0000;'>Possible Hack!</span>)</span></div>\n<br />\n";
+    echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#FF0000;'>Possible Hack!</span>)</span></div>\n<br />\n";
 
     TEXT_GOTOMAIN();
     include("footer.php");

@@ -101,7 +101,7 @@ else
         }
         else
         {
-            $text_color = "#FFFFFF";
+            $text_color = "#fff";
         }
 
             $i++;
@@ -378,7 +378,7 @@ else
 }
 echo "</div>\n";
 
-echo "<div id='popupbox' style='z-index:99; position:fixed; display:none; color:#FFFFFF; border:#FFFFFF 1px solid; background-color:#000011; background:URL(images/bg2_alpha.png) repeat; padding:4px;'>This should be hidden.</div>\n";
+echo "<div id='popupbox' style='z-index:99; position:fixed; display:none; color:#fff; border:#fff 1px solid; background-color:#000011; background:URL(images/bg2_alpha.png) repeat; padding:4px;'>This should be hidden.</div>\n";
 echo "<script type='text/javascript'>\n";
 echo "//<![CDATA[\n";
 echo "function displayME(dataString)\n";

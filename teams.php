@@ -592,7 +592,7 @@ function DISPLAY_ALL_TEAMS()
     global $db, $dbtables;
 
     echo "<br><br>$l_team_galax<BR>";
-    echo "<table style='width:100%; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+    echo "<table style='width:100%; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
     echo "<TR BGCOLOR=\"$color_header\">";
 
     if ($type == "d")

@@ -22,7 +22,7 @@ if (preg_match("/server_notice.php/i", $_SERVER['PHP_SELF']))
     die("You can not access this file directly!");
 }
 ?>
-<div style="width:900px; margin:auto; border:1px solid #FFFFFF; background-color:#000011; background:URL(images/bg2_alpha.png) repeat; padding:8px;">
+<div style="width:900px; margin:auto; border:1px solid #fff; background-color:#000011; background:URL(images/bg2_alpha.png) repeat; padding:8px;">
 
 <div style="text-align:center; font-size:36px; text-decoration:underline; color:#FF0000;">Code Update Notice</div>
 <div style="height:32px; font-size:24px; text-align:center;">Please Read Now...</div>

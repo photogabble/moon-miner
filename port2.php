@@ -145,7 +145,7 @@ else
         echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
         echo "<div style='color:#FF0000; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
         echo "<br />\n";
-        echo "<div style='color:#FFFFFF; font-size:12px;'>Auto redirecting in 2 seconds.</div>\n";
+        echo "<div style='color:#fff; font-size:12px;'>Auto redirecting in 2 seconds.</div>\n";
         echo "<br />\n";
 
         TEXT_GOTOMAIN();
@@ -454,7 +454,7 @@ if ($colonist_max <0) $colonist_max = 0;
       $hull_upgrade=0;
       echo "</table>";
 
-echo "<div style='font-size:16px; color:#FFFFFF;'><br />[<span style='color:#00FF00;'>Border Patrol</span>]<br />\n";
+echo "<div style='font-size:16px; color:#fff;'><br />[<span style='color:#00FF00;'>Border Patrol</span>]<br />\n";
 echo "Halt, while we scan your cargo...<br />\n";
 
 if ((NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists]) <0)

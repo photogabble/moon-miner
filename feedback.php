@@ -62,16 +62,16 @@ else
         $image = "images/unknown.png";
 
         echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
-        echo "<table style='width:400px; border:#FFFFFF 1px solid; color:#FFFF00;'>\n";
+        echo "<table style='width:400px; border:#fff 1px solid; color:#FFFF00;'>\n";
         echo "  <tr>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; text-align:center; font-size:14px; color:#000000;' colspan='2'>Sending Feedback</td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000000;' colspan='2'>Sending Feedback</td>\n";
         echo "  </tr>\n";
         echo "  <tr>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>Sending Feedback.<br />This may take a few seconds to send, so Please Wait.</td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>Sending Feedback.<br />This may take a few seconds to send, so Please Wait.</td>\n";
         echo "  </tr>\n";
         echo "  <tr>\n";
-        echo "    <td colspan='2' style='background-color:#C0C0C0; border:#FFFFFF 1px solid; font-size:10px; color:#000000;'>{$mailer->getInfo()}</td>\n";
+        echo "    <td colspan='2' style='background-color:#C0C0C0; border:#fff 1px solid; font-size:10px; color:#000000;'>{$mailer->getInfo()}</td>\n";
         echo "  </tr>\n";
         echo "</table>\n";
         echo "</div>\n";
@@ -113,16 +113,16 @@ else
         }
 
         echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
-        echo "<table style='width:400px; border:#FFFFFF 1px solid;'>\n";
+        echo "<table style='width:400px; border:#fff 1px solid;'>\n";
         echo "  <tr>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; text-align:center; font-size:14px; color:#000000;' colspan='2'>Send Feedback</td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000000;' colspan='2'>Send Feedback</td>\n";
         echo "  </tr>\n";
         echo "  <tr>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#FFFFFF 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>{$result}</td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>{$result}</td>\n";
         echo "  </tr>\n";
         echo "  <tr>\n";
-        echo "    <td colspan='2' style='background-color:#C0C0C0; border:#FFFFFF 1px solid; font-size:10px; color:#000000;'>{$mailer->getInfo()}</td>\n";
+        echo "    <td colspan='2' style='background-color:#C0C0C0; border:#fff 1px solid; font-size:10px; color:#000000;'>{$mailer->getInfo()}</td>\n";
         echo "  </tr>\n";
         echo "</table>\n";
         echo "</div>\n";

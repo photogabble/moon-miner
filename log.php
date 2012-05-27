@@ -582,7 +582,7 @@ case LOG_BOUNTY_FEDBOUNTY:
  case 57:
     // Multi Browser Logs.
     list($ship_ip, $ship_id, $info)= split ("\|", $entry[data]);
-    $retvalue[text] = "Account: <span style='color:#FFFF00;'>{$ship_id}</span> with IP: '<span style='color:#FFFF00;'>{$ship_ip}</span>' <span style='color:#FFFFFF;'>{$info}</span>";
+    $retvalue[text] = "Account: <span style='color:#FFFF00;'>{$ship_id}</span> with IP: '<span style='color:#FFFF00;'>{$ship_ip}</span>' <span style='color:#fff;'>{$info}</span>";
     $retvalue[title] = "Possible Multi Browser Attempt.";
     break;
 

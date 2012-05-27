@@ -101,7 +101,7 @@ function line_spacer()
 /*
 $title="Game Reset Information";
 bigtitle();
-echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line("Last Reset:","<span style='color:#FFFF00; font-size:14px;'>~ {$last_reset}</span>", "right");
 line("Next Reset:","<span style='color:#FFFF00; font-size:14px;'>~ {$next_reset}</span>", "right");
 line("Game Duration:", "<span style='color:#00FF00; font-size:14px;'>$duration</span>", "right");
@@ -118,7 +118,7 @@ foreach ($admin_list as $key => $admin)
 {
     if ($admin['role'] === "developer" || $admin['role'] === "admin")
     {
-        echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+        echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
         line("Admin Name:",  "<span style='color:#FFFF00; font-size:14px;'>{$admin['name']}</span>", "right");
         line("Character:",  "<span style='color:#0099FF; font-size:14px;'>{$admin['character']}</span>", "right");
         line("Admin Level:", "<span style='color:#0099FF; font-size:14px;'>{$admin['level']}</span>", "right");
@@ -131,7 +131,7 @@ foreach ($admin_list as $key => $admin)
 
 if ($found_blues === 0)
 {
-    echo "<div style='width:798px; font-size:14px; color:#FFFFFF; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#FFFFFF 1px solid;'>&nbsp;No Admins or Developers Found.</div>\n";
+    echo "<div style='width:798px; font-size:14px; color:#fff; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#fff 1px solid;'>&nbsp;No Admins or Developers Found.</div>\n";
 }
 echo "<br />\n";
 
@@ -140,7 +140,7 @@ bigtitle();
 
 if(count($plugin_config) <=0)
 {
-    echo "<div style='width:798px; font-size:14px; color:#FFFFFF; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#FFFFFF 1px solid;'>&nbsp;No Plugins enabled.</div>\n";
+    echo "<div style='width:798px; font-size:14px; color:#fff; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#fff 1px solid;'>&nbsp;No Plugins enabled.</div>\n";
     echo "<br />\n";
 }
 else
@@ -169,14 +169,14 @@ else
                    $plugin['name'] .= " (<span style='color:#FF0000;'>Diasbled</span>)";
                }
 
-               echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+               echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
                $line_color = "#500050";
 #              title("Plugin Type: {$plugin['title']}");
                line("ID:","<span style='color:#FFFF00; font-size:14px;'>{$plugin['id']}</span>", "right");
                line("Name:","<span style='color:#FFFF00; font-size:14px;'>{$plugin['name']}</span>", "right");
                line("Version:","<span style='color:#FFFF00; font-size:14px;'>v{$plugin['version']}</span>", "right");
                line("Author:", "<span style='color:#00FF00; font-size:14px;'>{$plugin['author']}</span>", "right");
-               line("Type:","<span style='color:#FFFFFF; font-size:14px;'>{$plugin['type']}</span>", "right");
+               line("Type:","<span style='color:#fff; font-size:14px;'>{$plugin['type']}</span>", "right");
 
                if ($pluginCount >0)
                {
@@ -198,7 +198,7 @@ else
                                $module_stage = " [<span style='color:#FFFF00;'>{$module['stage']}</span>]";
                            }
 
-                           line2("<span style='font-size:12px;'>{$module['AppName']}{$module_disabled}{$module_stage}</span>","<span style='color:#FFFF00; font-size:12px;'>v{$module['Version']} <span style='color:#FFFFFF;'>[<span style='color:#00FF00;'>{$module['Author']}</span>]</span></span>", "right");
+                           line2("<span style='font-size:12px;'>{$module['AppName']}{$module_disabled}{$module_stage}</span>","<span style='color:#FFFF00; font-size:12px;'>v{$module['Version']} <span style='color:#fff;'>[<span style='color:#00FF00;'>{$module['Author']}</span>]</span></span>", "right");
                        }
                    }
                    echo "<tr><td colspan=\"2\" style='height:1px; padding:0px; background-color:#FFCC00;'></td></tr>\n";
@@ -212,7 +212,7 @@ else
 
 $title="Game Settings";
 bigtitle();
-echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line("Game version:",$release_version, "right");
 line("Game name:",$game_name, "right");
 line("Average tech level needed to hit mines",$mine_hullsize, "right");
@@ -284,7 +284,7 @@ bigtitle();
 
 $line_color = $color_line1;
 
-echo "<table style='width:800px; font-size:14px; color:#FFFFFF; border:#FFFFFF 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line("Ticks happen every","{$sched_ticks} minutes", "right");
 line("{$turns_per_tick} Turns will happen every","{$sched_turns} minutes", "right");
 line("Defenses will be checked every","{$sched_turns} minutes", "right");

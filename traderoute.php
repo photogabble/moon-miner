@@ -39,7 +39,7 @@ $num_traderoutes=$result->RecordCount();
 if(isset($traderoutes))
 {
     adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
-    traderoute_die("<div style='color:#FFFFFF; font-size: 12px;'>[<span style='color:#FFFF00;'>The Governor</span>] <span style='color:#FF0000;'>Detected Traderoute Hack!</span></div>\n");
+    traderoute_die("<div style='color:#fff; font-size: 12px;'>[<span style='color:#FFFF00;'>The Governor</span>] <span style='color:#FF0000;'>Detected Traderoute Hack!</span></div>\n");
 
 }
 
@@ -114,7 +114,7 @@ elseif(isset($engage)) // Performs trade route
     {
         if ($tr_repeat >20)
         {
-            echo "<div style='border:#FF0000 1px solid; text-align:center; font-size:16px; color:#FFFFFF; font-weight:bold; background-color:#550000; padding:4px;'>\n";
+            echo "<div style='border:#FF0000 1px solid; text-align:center; font-size:16px; color:#fff; font-weight:bold; background-color:#550000; padding:4px;'>\n";
             echo "  <div>Detected Firefox Browser. Our broken HTML code causes issues with Traderoutes in Firefox.</div>\n";
             echo "  <div>Limiting multiplier to 20, sorry if this causes any issues.</div>\n";
             echo "  <div style='height:16px;'></div>\n";
