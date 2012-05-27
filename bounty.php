@@ -196,6 +196,7 @@ switch($response) {
          }
          if($amount + previous_bounty > $maxtrans)
          {
+            $l_by_toomuch=str_replace("[percent]",$percent,$l_by_toomuch);
             echo "$l_by_toomuch<BR><BR>";
             TEXT_GOTOMAIN();
             include("footer.php");
