@@ -76,7 +76,7 @@ $l_incompletemove 	 = "Vous n'avez pas complété votre dernier déplacement.";
 $l_clicktocontinue	 = "Cliquez ici pour continuer";
 $l_toplanetmenu   	 = "Pour aller au menu de planète.";
 $l_nonexistant_pl	 = "Sur une planète qui n'existe pas???";
-$l_abord		 = ", à bord du ";
+$l_aboard		 = ", à bord du ";
 $l_messages_wait	 = " Messages qui vous attendent.";
 
 $l_no_warplink		 = "Aucun liens";

@@ -75,7 +75,7 @@ $l_incompletemove 	 = "You haven't completed your previous move.";
 $l_clicktocontinue	 = "Click Here to continue";
 $l_toplanetmenu   	 = "to go to the planet menu.";
 $l_nonexistant_pl	 = "On a non-existent planet???";
-$l_abord		 = ", aboard the ";
+$l_aboard		 = ", aboard the ";
 $l_messages_wait	 = " Messages waiting for you.";
 
 $l_no_warplink		 = "No warp links";

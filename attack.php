@@ -216,7 +216,7 @@ else
             $targetdestroyed = 0;
             $playerdestroyed = 0;
 
-            echo "$l_att_att $targetinfo[character_name] $l_abord $targetinfo[ship_name]:<BR><BR>";
+            echo "$l_att_att $targetinfo[character_name] $l_aboard $targetinfo[ship_name]:<BR><BR>";
 
             $bcs_info = null;
             $bcs_info[] = array("Beams(lvl)",        "{$playerbeams}({$playerinfo['beams']})",                "{$targetbeams}({$targetinfo['beams']})" );
