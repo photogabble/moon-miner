@@ -68,7 +68,7 @@ else
         echo "  </tr>\n";
         echo "  <tr>\n";
         echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>Sending Feedback.<br />This may take a few seconds to send, so Please Wait.</td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:300px; text-align:left; font-size:14px; padding:6px;'>Sending Feedback.<br>This may take a few seconds to send, so Please Wait.</td>\n";
         echo "  </tr>\n";
         echo "  <tr>\n";
         echo "    <td colspan='2' style='background-color:#C0C0C0; border:#fff 1px solid; font-size:10px; color:#000;'>{$mailer->getInfo()}</td>\n";
@@ -103,12 +103,12 @@ else
             if($err['no'] == 2)
             {
                 $image = "images/greylist.png";
-                $result = "<span style='color:#f00;'>Send Feedback Failed.<br />Detected Greylisting...<br />Please notify an admin on the forums.</span>";
+                $result = "<span style='color:#f00;'>Send Feedback Failed.<br>Detected Greylisting...<br>Please notify an admin on the forums.</span>";
             }
             else
             {
                 $image = "images/cross.png";
-                $result = "<span style='color:#f00;'>Send Feedback Failed.<br />{$err['msg']}</span>";
+                $result = "<span style='color:#f00;'>Send Feedback Failed.<br>{$err['msg']}</span>";
             }
         }
 
@@ -130,7 +130,7 @@ else
     }
 }
 
-echo "<br />\n";
+echo "<br>\n";
 if(empty($username))
 {
     TEXT_GOTOLOGIN();
