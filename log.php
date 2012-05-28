@@ -597,7 +597,7 @@ case LOG_BOUNTY_FEDBOUNTY:
  case 950:
     // Attack logs debug info
     list($step, $attacker_armor, $target_armor, $attacker_fighters, $target_fighters, $attacker_id, $target_id)= split ("\|", $entry[data]);
-    $retvalue['text']  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br />\n";
+    $retvalue['text']  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br>\n";
     $retvalue['text'] .= "Target Ship: {$target_id}, Armor: {$target_armor}, Fighters: {$target_fighters}\n";
     $retvalue['title'] = "Attack Logs Stage: {$step} [Debug].";
     break;

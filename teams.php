@@ -395,8 +395,8 @@ switch ($teamwhat)
 
                 if(is_null($who))
                 {
-                    echo "No player was selected.<br />\n";
-                            echo "<br /><br /><a href=\"teams.php\">$l_clickme</a> $l_team_menu<br /><br />";
+                    echo "No player was selected.<br>\n";
+                            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu<br><br>";
                             break;
                 }
                 $res = $db->Execute("SELECT character_name,team_invite FROM $dbtables[ships] WHERE ship_id=$who");
