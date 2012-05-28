@@ -805,7 +805,7 @@ class SETUPINFO_CLASS
     {
         global $SID;
 
-        if ( !empty($SID) && !eregi('sid=', $url))
+        if ( !empty($SID) && !strpos($url, 'sid='))
         {
             $url .= ( ( strpos($url, '?') != false ) ?  ( ( $non_html_amp ) ? '&' : '&amp;' ) : '?' ) . $SID;
         }
