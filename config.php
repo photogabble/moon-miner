@@ -272,5 +272,6 @@ $bounty_all_special         = true;             // Stop access on all Special Po
 
 $plugin_config = array();
 $admin_list = array();
+$bnt_ls = false;
 require("global_includes.php"); // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
