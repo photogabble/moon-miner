@@ -20,6 +20,7 @@
 include("config.php");
 updatecookie();
 include("languages/$lang");
+global $l_map_title;
 $title=$l_map_title;
 include("header.php");
 
