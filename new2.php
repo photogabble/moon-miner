@@ -41,8 +41,8 @@ if($account_creation_closed)
 }
 $character=htmlspecialchars($character);
 $shipname=htmlspecialchars($shipname);
-$character=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$character);
-$shipname=ereg_replace("[^[:digit:][:space:][:alpha:][\']]"," ",$shipname);
+$character=preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
+$shipname=preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
 
 // $username = $_POST['username']; // This needs to STAY before the db query
 
@@ -60,28 +60,25 @@ if ($username=='' || $character=='' || $shipname=='' )
     echo "$l_new_blank<BR>"; $flag=1;
 }
 
-if ($result>0)
+while (!$result->EOF)
 {
-    while (!$result->EOF)
+    $row = $result->fields;
+    if (strtolower($row['email'])==strtolower($username))
     {
-        $row = $result->fields;
-        if (strtolower($row['email'])==strtolower($username))
-        {
-            echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>";
-            $flag=1;
-        }
-        if (strtolower($row['character_name'])==strtolower($character))
-        {
-            $l_new_inusechar=str_replace("[character]",$character,$l_new_inusechar);
-            echo "$l_new_inusechar<BR>"; $flag=1;
-        }
-        if (strtolower($row['ship_name'])==strtolower($shipname))
-        {
-            $l_new_inuseship=str_replace("[shipname]",$shipname,$l_new_inuseship);
-            echo "$l_new_inuseship<BR>"; $flag=1;
-        }
-        $result->MoveNext();
+        echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>";
+        $flag=1;
     }
+    if (strtolower($row['character_name'])==strtolower($character))
+    {
+        $l_new_inusechar=str_replace("[character]",$character,$l_new_inusechar);
+        echo "$l_new_inusechar<BR>"; $flag=1;
+    }
+    if (strtolower($row['ship_name'])==strtolower($shipname))
+    {
+        $l_new_inuseship=str_replace("[shipname]",$shipname,$l_new_inuseship);
+        echo "$l_new_inuseship<BR>"; $flag=1;
+    }
+    $result->MoveNext();
 }
 
 if ($flag==0)
@@ -106,7 +103,7 @@ if ($flag==0)
     $query = $db->Execute("SELECT MAX(turns_used + turns) AS mturns FROM $dbtables[ships]");
     $res = $query->fields;
 
-    $mturns = $res[mturns];
+    $mturns = $res['mturns'];
 
     if($mturns > $max_turns)
     {
