@@ -19,9 +19,7 @@
 
 include("config.php");
 updatecookie();
-
 include("languages/$lang");
-
 $title="$l_log_titlet";
 $no_body=1;
 
@@ -35,6 +33,12 @@ include("header.php");
 $res = $db->Execute("SELECT character_name, ship_id, dhtml FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
+if (!isset($_GET['swordfish']))
+{
+    $_GET['swordfish'] = '';
+}
+
+$swordfish = $_GET['swordfish'];
 
 if($swordfish == $adminpass) // Check if called by admin script
 {
@@ -262,7 +266,7 @@ $nextlink = date("Y-m-d", $nextlink);
 if($startdate == date("Y-m-d"))
   $nonext = 1;
 
-if($swordfish == $adminpass) //fix for admin log view
+if($swordfish == $adminpass) // Fix for admin log view
   $postlink = "&swordfish=" . urlencode($swordfish) . "&player=$player";
 else
   $postlink = "";
