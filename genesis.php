@@ -41,15 +41,15 @@ $result3 = $db->Execute("SELECT planet_id FROM $dbtables[planets] WHERE sector_i
 $num_planets = $result3->RecordCount();
 
 // Generate Planetname
-$planetname = substr($playerinfo[character_name],0,1) . substr($playerinfo[ship_name],0,1) . "-" . $playerinfo[sector] . "-" . ($num_planets + 1);
+$planetname = substr($playerinfo['character_name'],0,1) . substr($playerinfo['ship_name'],0,1) . "-" . $playerinfo['sector'] . "-" . ($num_planets + 1);
 
 bigtitle();
 
-if($playerinfo[turns] < 1)
+if($playerinfo['turns'] < 1)
 {
   echo "$l_gns_turn";
 }
-elseif($playerinfo[on_planet]=='Y')
+elseif($playerinfo['on_planet']=='Y')
 {
   echo $l_gns_onplanet;
 }
@@ -59,12 +59,12 @@ elseif($num_planets >= $max_planets_sector)
 }
 elseif($sectorinfo['sector_id'] >= $sector_max )
 {
-  echo "Invalid sector<br />\n";
+  echo "Invalid sector<br>\n";
 }
-elseif($sectorinfo[planet] == "Y") // With many planets by sector that code is hard to manage, and too powerful (?)
+elseif($sectorinfo['planet'] == "Y") // With many planets by sector that code is hard to manage, and too powerful (?)
 {
   echo "There is already a planet in this sector.";
-  if($playerinfo[ship_id]==$sectorinfo[planet_owner])
+  if($playerinfo['ship_id']==$sectorinfo['planet_owner'])
   {
     if($destroy==1 && $allow_genesis_destroy)
     {
@@ -74,7 +74,7 @@ elseif($sectorinfo[planet] == "Y") // With many planets by sector that code is h
     }
     elseif($destroy==2 && $allow_genesis_destroy)
     {
-      if($playerinfo[dev_genesis] > 0)
+      if($playerinfo['dev_genesis'] > 0)
       {
         $deltarating=$sectorinfo[planet_colonists];
         $update = $db->Execute("UPDATE $dbtables[universe] SET planet_name=NULL, planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, planet_corp=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
@@ -89,13 +89,13 @@ elseif($sectorinfo[planet] == "Y") // With many planets by sector that code is h
     elseif($allow_genesis_destroy)
     {
       echo "<BR>Do you want to destroy <A HREF=genesis.php?destroy=1>";
-      if($sectorinfo[planet_name]=="")
+      if($sectorinfo['planet_name']=="")
       {
         echo "Unnamed</A>?";
       }
       else
       {
-        echo $sectorinfo[planet_name] . "</A>?";
+        echo $sectorinfo['planet_name'] . "</A>?";
       }
     }
   }
@@ -105,7 +105,7 @@ elseif($sectorinfo[planet] == "Y") // With many planets by sector that code is h
 // code completely from here and putting it in the planet menu
 // instead. Easier to manage, makes more sense too.
 
-elseif($playerinfo[dev_genesis] < 1)
+elseif($playerinfo['dev_genesis'] < 1)
 {
   echo "$l_gns_nogenesis";
 }
@@ -113,15 +113,15 @@ else
 {
   $res = $db->Execute("SELECT allow_planet, corp_zone, owner FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
   $zoneinfo = $res->fields;
-  if($zoneinfo[allow_planet] == 'N')
+  if($zoneinfo['allow_planet'] == 'N')
   {
     echo "$l_gns_forbid";
   }
-  elseif($zoneinfo[allow_planet] == 'L')
+  elseif($zoneinfo['allow_planet'] == 'L')
   {
-    if($zoneinfo[corp_zone] == 'N')
+    if($zoneinfo['corp_zone'] == 'N')
     {
-      if($playerinfo[team] == 0 && $zoneinfo[owner] <> $playerinfo[ship_id])
+      if($playerinfo['team'] == 0 && $zoneinfo['owner'] <> $playerinfo['ship_id'])
       {
         echo $l_gns_bforbid;
       }
@@ -129,7 +129,7 @@ else
       {
         $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
         $ownerinfo = $res->fields;
-        if($ownerinfo[team] != $playerinfo[team])
+        if($ownerinfo['team'] != $playerinfo['team'])
         {
           echo $l_gns_bforbid;
         }
@@ -143,7 +143,7 @@ else
         }
       }
     }
-    elseif($playerinfo[team] != $zoneinfo[owner])
+    elseif($playerinfo['team'] != $zoneinfo['owner'])
     {
       echo $l_gns_bforbid;
     }

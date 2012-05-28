@@ -35,7 +35,7 @@ $sectorinfo=$result4->fields;
 
 bigtitle();
 
-if($playerinfo[turns] < 1)
+if($playerinfo['turns'] < 1)
 {
     echo "$l_warp_turn<BR><BR>";
     TEXT_GOTOMAIN();
@@ -43,7 +43,7 @@ if($playerinfo[turns] < 1)
     die();
 }
 
-if($playerinfo[dev_warpedit] < 1)
+if($playerinfo['dev_warpedit'] < 1)
 {
     echo "$l_warp_none<BR><BR>";
     TEXT_GOTOMAIN();
