@@ -773,12 +773,12 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
         return false;
     }
 
-    if(!ereg("(^[a-zA-Z0-9]+([a-zA-Z\_0-9\.-\ ]*))$" , $name))
+    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $name);
     {
         return false;
     }
 
-    if(!ereg("(^[a-zA-Z0-9]+([a-zA-Z\_0-9\.-\ ]*))$" , $desc))
+    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $desc);
     {
         return false;
     }
