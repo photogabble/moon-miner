@@ -23,24 +23,7 @@
 include("config.php");
 include("languages/$lang");
 
-/*
-##############################################################################
-# Create Universe Script                                                     #
-#                                                                            #
-# ChangeLog                                                                  #
-#  Sep 2, 04 - TheMightyDude - Completely Rewritten from scratch             #
-#              It should now be more Load balanced for PHP and MySQL         #
-#  Nov 2, 01 - Wandrer - Rewritten mostly from scratch                       #
-##############################################################################
-*/
-
-/*
-##############################################################################
-# Define Functions for this script                                           #
-##############################################################################
-*/
-
-## HTML Table Functions ##
+// HTML Table Functions
 
 if (!function_exists('PrintFlush'))
 {
@@ -50,7 +33,6 @@ if (!function_exists('PrintFlush'))
         flush();
     }
 }
-
 
 if (!function_exists('TRUEFALSE'))
 {
@@ -87,7 +69,6 @@ if (!function_exists('Table_Row'))
         echo "    </tr>\n";
     }
 }
-
 
 if (!function_exists('Table_2Col'))
 {
@@ -136,43 +117,36 @@ if (!function_exists('Table_Footer'))
     }
 }
 
-## ---- ##
-
-### Description: Create Benchmark Class
-
-/*
-//function PrintFlush($Text="")
-//{
-//    print "$Text";
-//    flush();
-//}
- */
-### End defining functions.
-
-### Set timelimit and randomize timer.
+// Set timelimit and randomize timer.
 
 set_time_limit(0);
 srand((double)microtime()*1000000);
 
-### Include config files and db scheme.
+// Include config files and db scheme.
 
 include("includes/schema.php");
 
-### Update cookie.
 updatecookie();
 
 $title=$l_cu_title;
 include("header.php");
 
-### Connect to the database.
-
 connectdb();
-
-### Print Title on Page.
 
 bigtitle();
 
-### Manually set step var if info isn't correct.
+// Manually set step var if info isn't correct.
+
+if (!isset($_POST['swordfish']))
+{
+    $_POST['swordfish'] = '';
+}
+
+if (!isset($engage))
+{
+    $engage = '';
+}
+
 
 if($adminpass!= $_POST['swordfish'])
 {
@@ -189,7 +163,7 @@ if($engage == "1" && $adminpass == $_POST['swordfish'] )
     $step="2";
 }
 
-### Main switch statement.
+// Main switch statement.
 
 switch ($step) {
    case "1":
@@ -795,10 +769,10 @@ Table_Row("Creating loop $i of $loops Random Two-way Links (from sector ".($star
             if ($finish>$sector_max) $finish=($sector_max);
         }
 
-Table_Footer("Completed successfully.");
-
 $db->Execute("DELETE FROM {$dbtables['links']} WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
 Table_Row("Removing links to and from the end of the Universe","Failed","Deleted");
+
+Table_Footer("Completed successfully.");
 
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=7>";
@@ -833,7 +807,7 @@ Table_Row("Removing links to and from the end of the Universe","Failed","Deleted
     Table_Row("Xenobes will play every $sched_turns minutes.","Failed","Inserted");
 
       $db->Execute("INSERT INTO $dbtables[scheduler] VALUES(NULL, 'Y', 0, $sched_igb, 0, 'sched_igb.php', NULL,unix_timestamp(now()))");
-    Table_Row("Interests on IGB accounts will be accumulated every $sched_IGB minutes.","Failed","Inserted");
+    Table_Row("Interests on IGB accounts will be accumulated every $sched_igb minutes.","Failed","Inserted");
 
       $db->Execute("INSERT INTO $dbtables[scheduler] VALUES(NULL, 'Y', 0, $sched_news, 0, 'sched_news.php', NULL,unix_timestamp(now()))");
     Table_Row("News will be generated every $sched_news minutes.","Failed","Inserted");
