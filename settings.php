@@ -108,8 +108,8 @@ line("Game Duration:", "<span style='color:#0f0; font-size:14px;'>$duration</spa
 line("Game Status:", "<span style='color:#0f0; font-size:14px;'>". ucfirst($status['status']) ."</span>", "right");
 line("Game Type:", "<span style='color:#0f0; font-size:14px;'>". ucfirst($status['type']) ."</span>", "right");
 echo "</table>\n";
-echo "<br />\n";
-echo "<br />\n";
+echo "<br>\n";
+echo "<br>\n";
 */
 $title="Game Administrators";
 bigtitle();
@@ -124,7 +124,7 @@ foreach ($admin_list as $key => $admin)
         line("Admin Level:", "<span style='color:#09f; font-size:14px;'>{$admin['level']}</span>", "right");
         line("Online:", "<span style='color:#99FF00; font-size:14px;'>Not Enabled</span>", "right");
         echo "</table>\n";
-        echo "<br />\n";
+        echo "<br>\n";
         $found_blues +=1;
     }
 }
@@ -133,7 +133,7 @@ if ($found_blues === 0)
 {
     echo "<div style='width:798px; font-size:14px; color:#fff; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#fff 1px solid;'>&nbsp;No Admins or Developers Found.</div>\n";
 }
-echo "<br />\n";
+echo "<br>\n";
 
 $title="Loaded Plugins";
 bigtitle();
@@ -141,7 +141,7 @@ bigtitle();
 if(count($plugin_config) <=0)
 {
     echo "<div style='width:798px; font-size:14px; color:#fff; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#fff 1px solid;'>&nbsp;No Plugins enabled.</div>\n";
-    echo "<br />\n";
+    echo "<br>\n";
 }
 else
 {
@@ -205,7 +205,7 @@ else
                }
            }
            echo "</table>\n";
-           echo "<br />\n";
+           echo "<br>\n";
        }
    }
 }
@@ -276,8 +276,8 @@ line("Colonists needed to produce 1 Energy each turn",$num, "right");
 $num = NUMBER($rate/$credits_prate);
 line("Colonists needed to produce 1 Credits each turn",$num, "right");
 echo "</table>\n";
-echo "<br />\n";
-echo "<br />\n";
+echo "<br>\n";
+echo "<br>\n";
 
 $title="Game Scheduler Settings";
 bigtitle();
@@ -307,8 +307,8 @@ line("Sector Defences will degrade every","{$sched_degrade} minutes", "right");
 line("The planetary apocalypse will occur every&nbsp;","{$sched_apocalypse} minutes", "right");
 
 echo "</table>";
-echo "<br />\n";
-echo "<br />\n";
+echo "<br>\n";
+echo "<br>\n";
 
 if(empty($username))
 {
