@@ -270,5 +270,7 @@ $max_beacons                = 10;
 $max_warpedit               = 10;
 $bounty_all_special         = true;             // Stop access on all Special Ports when you have a federation bounty on you.
 
+$plugin_config = array();
+$admin_list = array();
 require("global_includes.php"); // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
