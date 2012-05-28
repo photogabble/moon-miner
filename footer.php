@@ -77,22 +77,29 @@ echo $l_footer_players_on_2;
 }
 ?>
 </center><br>
-  <table width="100%" border=0 cellspacing=0 cellpadding=0>
-   <tr>
-    <td><font color=silver size=-4><a href="http://www.sourceforge.net/projects/blacknova">BlackNova Traders</a></font></td>
-    <td align=right><font color=silver size=-4>&copy;2000-2012 Ron Harwood &amp; the Blacknova Development team</font></td>
-   </tr>
-   <tr>
-    <td><font color=silver size=-4><a href="news.php">
 <?php
-echo $l_local_news . "</a></font></td>";
 
+if ($footer_show_time == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
+{
+    $sf_logo_type = '14';
+}
+else
+{
+    $sf_logo_type = '11';
+}
+
+if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']))
+{
+    $sf_logo_type++; // Make the SF logo darker for all pages except login 
+}
+
+echo "<div style='position:absolute;' align=left><a href='http://www.sourceforge.net/projects/blacknova'><img src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' border='0' alt='BlackNova Traders at SourceForge.net'></a></div>";
+echo "<div style='font-size:smaller' align=right><a href='news.php'>" . $l_local_news . "</a></div>";
+echo "<div style='font-size:smaller' align=right>&copy;2000-2012 Ron Harwood &amp; the Blacknova Development team</div>";
 if ($footer_show_time == true)
 {
-    echo "<td align=right><font color=silver size=-4>" . $l_time_gen_page . ": " . $elapsed . " " . $l_seconds . "</td>";
+    echo "<div style='font-size:smaller' align=right>" . $l_time_gen_page . ": " . $elapsed . " " . $l_seconds . "</div>";
 }
 ?>
-   </tr>
-  </table>
 </body>
 </html>
