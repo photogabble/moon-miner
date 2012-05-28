@@ -85,13 +85,13 @@ if (1==1)
 
 if (!isset($userpass))
 {
-	$userpass = '';
+    $userpass = '';
 }
 
-if ($userpass != '' and $userpass != '+') {
-  $username = substr($userpass, 0, strpos($userpass, "+"));
-  $password = substr($userpass, strpos($userpass, "+")+1);
-
+if ($userpass != '' and $userpass != '+')
+{
+    $username = substr($userpass, 0, strpos($userpass, "+"));
+    $password = substr($userpass, strpos($userpass, "+")+1);
 }
 
 // Ensure lang is set
