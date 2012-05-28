@@ -196,7 +196,7 @@ if(empty($no_body))
 }
 else
 {
-    echo "<body bgcolor=\"#666\" text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
+//    echo "<body bgcolor=\"#666\" text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
 }
 
 echo "\n";
