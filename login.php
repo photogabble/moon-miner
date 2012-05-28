@@ -91,7 +91,7 @@ echo "  <br>\n";
 echo "  {$l_login_newp}\n";
 echo "  <br>\n";
 echo "  <br>\n";
-echo "  {$l_login_prbs}<a href='mailto:{$admin_mail}'>{$l_login_emailus}</a>\n";
+echo "  {$l_login_prbs} <a href='mailto:{$admin_mail}'>{$l_login_emailus}</a>\n";
 
 echo "</form>\n";
 

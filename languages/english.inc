@@ -1162,7 +1162,7 @@ $l_login_title			="Login";
 $l_login_email			="E-mail Address:";
 $l_login_pw			="Password:";
 $l_login_chooseres		="Unable to determine your screen resolution. Please choose the best fit:";
-$l_login_newp			= "If you are a new player, click <A HREF=\"new.php\">here</A>.";
+$l_login_newp			= "If you are a new player, <a href=\"new.php\">create a new account</a>.";
 $l_login_prbs			= "Problems?";
 $l_login_emailus		= "E-mail us";
 $l_login_sclosed		= "Server Closed";
