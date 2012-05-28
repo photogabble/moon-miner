@@ -38,6 +38,12 @@ if(!$allow_navcomp)
     die();
 }
 
+if (!isset($_GET['state']))
+{
+    $_GET['state'] = '';
+}
+$state = $_GET['state'];
+
 unset($stop_sector);
 
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
@@ -55,19 +61,21 @@ $sectorinfo=$result2->fields;
 if(isset($_POST['stop_sector']))
 {
     $stop_sector = $_POST['stop_sector'];
-}
+    if (!is_numeric($stop_sector))
+    {
+        adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
+        echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
-if(!is_numeric($stop_sector) && isset($stop_sector))
+        TEXT_GOTOMAIN();
+        include("footer.php");
+        die();
+    }
+    $stop_sector = (int)$stop_sector;
+}
+else
 {
-    adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
-    echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
-
-    TEXT_GOTOMAIN();
-    include("footer.php");
-    die();
+    $stop_sector = '';
 }
-
-$stop_sector = (int)$stop_sector;
 
 if ($state == 0)
 {
