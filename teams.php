@@ -35,6 +35,32 @@ if (checklogin())
 bigtitle();
 $testing = false; // set to false to get rid of password when creating new team
 
+if (!isset($_REQUEST['whichteam']))
+{
+    $_REQUEST['whichteam'] = '';
+}
+
+if (!isset($_REQUEST['teamwhat']))
+{
+    $_REQUEST['teamwhat'] = '';
+}
+
+if (!isset($_REQUEST['confirmleave']))
+{
+    $_REQUEST['confirmleave'] = '';
+}
+
+if (!isset($_REQUEST['invited']))
+{
+    $_REQUEST['invited'] = '';
+}
+
+if (!isset($_POST['teamname']))
+{
+    $_POST['teamname'] = '';
+}
+$teamname = $_POST['teamname'];
+
 $whichteam = stripnum($_REQUEST['whichteam']);
 $teamwhat  = stripnum($_REQUEST['teamwhat']);
 $confirmleave = stripnum($_REQUEST['confirmleave']);
@@ -64,7 +90,7 @@ if(isset($_REQUEST['whichteam']))
 }
 
 // We do not want to query the database, if it is not necessary.
-if ($playerinfo[team_invite] != "")
+if ($playerinfo['team_invite'] != "")
 {
     // Get invite info
     $invite = $db->Execute(" SELECT $dbtables[ships].ship_id, $dbtables[ships].team_invite, $dbtables[teams].team_name,$dbtables[teams].id
@@ -340,7 +366,7 @@ switch ($teamwhat)
             $teamname = trim(htmlspecialchars($teamname));
             $teamdesc = trim(htmlspecialchars($teamdesc));
 
-            if(!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
+            if(!validate_team($teamname, $teamdesc, $playerinfo['ship_id']))
             {
                 echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 LINK_BACK();
@@ -489,16 +515,16 @@ switch ($teamwhat)
 
     default:
     {
-        if (!$playerinfo[team])
+        if (!$playerinfo['team'])
         {
             echo "$l_team_notmember";
             DISPLAY_INVITE_INFO();
         }
         else
         {
-            if ($playerinfo[team] < 0)
+            if ($playerinfo['team'] < 0)
             {
-                $playerinfo[team] = -$playerinfo[team];
+                $playerinfo['team'] = -$playerinfo['team'];
                 $result = $db->Execute("SELECT * FROM $dbtables[teams] WHERE id=$playerinfo[team]");
                 $whichteam = $result->fields;
                 echo "$l_team_urejected <B>$whichteam[team_name]</B><BR><BR>";
@@ -514,18 +540,18 @@ switch ($teamwhat)
             }
             $result = $db->Execute("SELECT * FROM $dbtables[teams] WHERE id=$playerinfo[team]");
             $whichteam = $result->fields;;
-            if ($playerinfo[team_invite])
+            if ($playerinfo['team_invite'])
             {
                 $result = $db->Execute("SELECT * FROM $dbtables[teams] WHERE id=$playerinfo[team_invite]");
                 $whichinvitingteam = $result->fields;
             }
             $isowner = isTeamOwner($whichteam, $playerinfo);
-            showinfo($playerinfo[team], $isowner);
+            showinfo($playerinfo['team'], $isowner);
         }
         $res= $db->Execute("SELECT COUNT(*) as TOTAL FROM $dbtables[teams] WHERE admin='N';");
         $num_res = $res->fields;
 
-        if ($num_res[TOTAL] > 0)
+        if ($num_res['TOTAL'] > 0)
         {
             DISPLAY_ALL_TEAMS();
         }
@@ -668,7 +694,7 @@ function DISPLAY_ALL_TEAMS()
 function DISPLAY_INVITE_INFO()
 {
     global $playerinfo, $invite_info, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
-    if (!$playerinfo[team_invite])
+    if (!$playerinfo['team_invite'])
     {
         echo "<br><br><font color=blue size=2><b>$l_team_noinvite</b></font><BR>";
         echo "$l_team_ifyouwant<BR>";
@@ -773,12 +799,12 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
         return false;
     }
 
-    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $name);
+    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $name));
     {
         return false;
     }
 
-    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $desc);
+    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $desc));
     {
         return false;
     }
