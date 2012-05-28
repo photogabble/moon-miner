@@ -50,7 +50,7 @@ else
 {
   if(empty($module))
   {
-    echo "Welcome to the BlackNova Traders administration module<BR><BR>";
+    echo "Welcome to the Blacknova Traders administration module<BR><BR>";
     echo "Select a function from the list below:<BR>";
     echo "<FORM ACTION=admin.php METHOD=POST>";
     echo "<SELECT NAME=menu>";

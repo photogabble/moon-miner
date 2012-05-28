@@ -523,7 +523,7 @@ $l_md_notyours           = "Action not permitted. Those sector defences do not b
 $l_md_yours              = "You can not attack your own sector defences.";
 
 // news.php
-$l_news_title           = "BlackNova Universe News";
+$l_news_title           = "Blacknova Universe News";
 $l_news_info           = "BNN is among the galaxy's leaders<br>
                             in news and information delivery.<br>
                             Staffed 24 hours, seven days a week by a <br>

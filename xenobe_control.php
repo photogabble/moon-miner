@@ -54,7 +54,7 @@ else
   // ******************************
   if(empty($module))
   {
-    echo "Welcome to the BlackNova Traders Xenobe Control module<BR><BR>";
+    echo "Welcome to the Blacknova Traders Xenobe Control module<BR><BR>";
     echo "Select a function from the list below:<BR>";
     echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
     echo "<SELECT NAME=menu>";

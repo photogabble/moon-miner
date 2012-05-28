@@ -29,7 +29,7 @@ if(checklogin())
 
 bigtitle();
 
-echo "Greetings and welcome to BlackNova Traders!";
+echo "Greetings and welcome to Blacknova Traders!";
 echo "<BR><BR>";
 echo "This is a game of inter-galactic exploration. Players explore the universe, trading for commodities and ";
 echo "increasing their wealth and power. Battles can be fought over space sectors and planets.";

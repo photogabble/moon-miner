@@ -2,256 +2,256 @@
 
 //general
 
-$l_yes 			 = "Si";
-$l_no			 = "No";
-$l_here			 = "aqui";
-$l_submit		 = "Enviar";
-$l_reset		 = "Borrar";
-$l_all			 = "Todo";
+$l_yes                 = "Si";
+$l_no                = "No";
+$l_here                = "aqui";
+$l_submit           = "Enviar";
+$l_reset           = "Borrar";
+$l_all                = "Todo";
 
-$l_ore			 = "Oro";
-$l_commodities		 = "Articulos";
-$l_organics		 = "Minerales";
-$l_goods		 = "Bienes";
-$l_energy		 = "Energia";
-$l_colonists		 = "Colonos";
-$l_credits 		 = "Creditos";
-$l_units		 = "unidades de ";
-$l_special		 = "Especial";
+$l_ore                = "Oro";
+$l_commodities           = "Articulos";
+$l_organics           = "Minerales";
+$l_goods           = "Bienes";
+$l_energy           = "Energia";
+$l_colonists           = "Colonos";
+$l_credits            = "Creditos";
+$l_units           = "unidades de ";
+$l_special           = "Especial";
 
-$l_cargo		 = "Cargo";
-$l_fighters		 = "Cazas ";
-$l_mines		 = "Minas ";
-$l_torps		 = "Torpedos";
+$l_cargo           = "Cargo";
+$l_fighters           = "Cazas ";
+$l_mines           = "Minas ";
+$l_torps           = "Torpedos";
 
-$l_none			 = "Ninguno";
-$l_unnamed		 = "Sin nombre";
-$l_name			 = "Nombre";
-$l_unowned		 = "Sin propietario";
-$l_unknown		 = "Desconocido";
-$l_clickme 		 = "Pulsa aquí";
-$l_player  		 = "Jugador";
-$l_ship			 = "Nave";
-$l_ships		 = "Naves";
-$l_set			 = "set";
-$l_realspace		 = "Espacio Real";
-$l_armourpts		 = "Puntos de armadura";
-$l_links		 = "Enlaces";
+$l_none                = "Ninguno";
+$l_unnamed           = "Sin nombre";
+$l_name                = "Nombre";
+$l_unowned           = "Sin propietario";
+$l_unknown           = "Desconocido";
+$l_clickme            = "Pulsa aquí";
+$l_player             = "Jugador";
+$l_ship                = "Nave";
+$l_ships           = "Naves";
+$l_set                = "set";
+$l_realspace           = "Espacio Real";
+$l_armourpts           = "Puntos de armadura";
+$l_links           = "Enlaces";
 
 // main.php
 
-$l_main_title 		 = "Menú principal";
+$l_main_title            = "Menú principal";
 $l_main_warpto = "Warp to";
 $l_main_other = "Otro";
 
-$l_traderoutes		 = "Rutas comerciales";
-$l_trade_control	 = "Control de comercio";
+$l_traderoutes           = "Rutas comerciales";
+$l_trade_control      = "Control de comercio";
 
-$l_youhave 		 = "Tienes ";
-$l_turns_used		 = "Turnos usados: ";
-$l_turns_have		 = "Turnos disponibles: ";
-$l_score		 = "Puntuacion: ";
-$l_sector		 = "Sector";
-$l_help			 = "Ayuda";
-$l_faq		         = "Preguntas Frecuentes (FAQ)";
-$l_feedback		 = "Comentarios";
-$l_forums		 = "Foros";
-$l_logout		 = "Salir";
+$l_youhave            = "Tienes ";
+$l_turns_used           = "Turnos usados: ";
+$l_turns_have           = "Turnos disponibles: ";
+$l_score           = "Puntuacion: ";
+$l_sector           = "Sector";
+$l_help                = "Ayuda";
+$l_faq                   = "Preguntas Frecuentes (FAQ)";
+$l_feedback           = "Comentarios";
+$l_forums           = "Foros";
+$l_logout           = "Salir";
 
-$l_commands		 = "Comandos";
-$l_command_no		 = "Comando no disponible.";
-$l_devices		 = "Dispositivos";
-$l_planets		 = "Planetas";
-$l_log			 = "Log";
-$l_sector_def		 = "Defensas del Sector";
-$l_defense		 = "Defensas";
-$l_read_msg		 = "Leer Mensajes";
-$l_send_msg		 = "Enviar Mensajes";
-$l_rankings		 = "Rankings";
-$l_teams		 = "Alianzas";
-$l_ohno			 = "Auto-Destruccion";
-$l_options		 = "Opciones";
-$l_navcomp		 = "Ordenador de Navegacion";
+$l_commands           = "Comandos";
+$l_command_no           = "Comando no disponible.";
+$l_devices           = "Dispositivos";
+$l_planets           = "Planetas";
+$l_log                = "Log";
+$l_sector_def           = "Defensas del Sector";
+$l_defense           = "Defensas";
+$l_read_msg           = "Leer Mensajes";
+$l_send_msg           = "Enviar Mensajes";
+$l_rankings           = "Rankings";
+$l_teams           = "Alianzas";
+$l_ohno                = "Auto-Destruccion";
+$l_options           = "Opciones";
+$l_navcomp           = "Ordenador de Navegacion";
 
-$l_incompletemove 	 = "No has completado tu movimiento anterior.";
-$l_clicktocontinue	 = "Pulsa Aqui para continuar";
-$l_toplanetmenu   	 = "para ir al menu del planeta.";
-$l_nonexistant_pl	 = "En un planeta inexistente???";
-$l_aboard		 = ", a bordo de ";
-$l_messages_wait	 = " Mensajes esperandote.";
+$l_incompletemove       = "No has completado tu movimiento anterior.";
+$l_clicktocontinue      = "Pulsa Aqui para continuar";
+$l_toplanetmenu         = "para ir al menu del planeta.";
+$l_nonexistant_pl      = "En un planeta inexistente???";
+$l_aboard           = ", a bordo de ";
+$l_messages_wait      = " Mensajes esperandote.";
 
-$l_no_warplink		 = "Sin enlaces warp";
-$l_scan			 = "escanear";
-$l_fullscan		 = "Escaneo Completo";
+$l_no_warplink           = "Sin enlaces warp";
+$l_scan                = "escanear";
+$l_fullscan           = "Escaneo Completo";
 
-$l_port			 = "Puerto";
-$l_tradingport		 = "Puerto comercial";
-$l_planet_in_sec	 = "Planetas en el sector ";
-$l_ships_in_sec		 = "Otras naves en el sector ";
-$l_sector_0		 = "Hay tanto trafico en el Sistema Solar (Sector 0) que no puedes ni siquiera puedes aislar otras naves!";
+$l_port                = "Puerto";
+$l_tradingport           = "Puerto comercial";
+$l_planet_in_sec      = "Planetas en el sector ";
+$l_ships_in_sec           = "Otras naves en el sector ";
+$l_sector_0           = "Hay tanto trafico en el Sistema Solar (Sector 0) que no puedes ni siquiera puedes aislar otras naves!";
 
 // report.php
 
-$l_report_title		 = "Informe de la Nave";
+$l_report_title           = "Informe de la Nave";
 
-$l_level		 = "Nivel";
+$l_level           = "Nivel";
 
-$l_ship_levels		 = "Ship Component Levels";
-$l_hull			 = "Casco";
-$l_engines		 = "Motores";
-$l_power		 = "Energía";
-$l_computer		 = "Ordenador";
-$l_sensors		 = "Sensores";
-$l_armour		 = "Armadura";
-$l_shields		 = "Escudos";
-$l_beams		 = "Armas de Rayos";
-$l_torp_launch	         = "Lanzadores de Torpedos";
-$l_cloak		 = "Camuflaje";
-$l_holds		 = "Bahias de carga";
-$l_deflect		 = "Deflectores de Minas";
-$l_ewd			 = "Dispositivo de Emergencia Warp";
-$l_shipavg		 = "Nivel Tecnológico medio";
+$l_ship_levels           = "Ship Component Levels";
+$l_hull                = "Casco";
+$l_engines           = "Motores";
+$l_power           = "Energía";
+$l_computer           = "Ordenador";
+$l_sensors           = "Sensores";
+$l_armour           = "Armadura";
+$l_shields           = "Escudos";
+$l_beams           = "Armas de Rayos";
+$l_torp_launch              = "Lanzadores de Torpedos";
+$l_cloak           = "Camuflaje";
+$l_holds           = "Bahias de carga";
+$l_deflect           = "Deflectores de Minas";
+$l_ewd                = "Dispositivo de Emergencia Warp";
+$l_shipavg           = "Nivel Tecnológico medio";
 
-$l_arm_weap		 = "Armadura & Armas";
-$l_beacons		 = "Faros Espaciales";
-$l_warpedit		 = "Editores Warp";
-$l_genesis		 = "Torpedos Genesis";
-$l_escape_pod		 = "Modulo de Escape";
-$l_fuel_scoop		 = "Generador de Fuel";
+$l_arm_weap           = "Armadura & Armas";
+$l_beacons           = "Faros Espaciales";
+$l_warpedit           = "Editores Warp";
+$l_genesis           = "Torpedos Genesis";
+$l_escape_pod           = "Modulo de Escape";
+$l_fuel_scoop           = "Generador de Fuel";
 
 // device.php
 
-$l_device_title		 = "Dispositivos";
+$l_device_title           = "Dispositivos";
 
-$l_device_expl		 = "Tu nave está equipada con los siguientes dispositivos (pulsa en un dispositivo para usarlo):";
-$l_device		 = "Dispositivo";
-$l_qty			 = "Cantidad";
-$l_usage		 = "Utilización";
-$l_manual		 = "Manual";	
-$l_automatic		 = "Automatico";
+$l_device_expl           = "Tu nave está equipada con los siguientes dispositivos (pulsa en un dispositivo para usarlo):";
+$l_device           = "Dispositivo";
+$l_qty                = "Cantidad";
+$l_usage           = "Utilización";
+$l_manual           = "Manual";     
+$l_automatic           = "Automatico";
 
 // port.php port2.php
 // port.php port2.php
-$l_trade		 = "Comerciar"; 
-$l_title_port		 = "Comerciar con Puerto"; 
-$l_title_trade		 = "Comerciar Mercancías"; 
-$l_sector_war		 = "Embargo de Guerra"; 
-$l_war_info		 = "La guerra está azotando este sector. No puedes llegar al puerto a través de todas las fuerzas hostiles."; 
-$l_no_trade		 = "Comercio prohibido"; 
-$l_no_trade_out		 = "El comercio en este puerte no está permitido a los extranjeros"; 
-$l_no_trade_info	 = "El comercio en este puerto no está permitido"; 
-$l_buying		 = "Comprando"; 
-$l_selling		 = "Vendiendo"; 
-$l_commodity		 = "Mercancía"; 
-$l_amount		 = "Cantidad"; 
-$l_price		 = "Precio"; 
-$l_buy			 = "Comprar"; 
-$l_sell			 = "Vender"; 
-$l_trade_st_info	 = "Tienes [free_holds] contenedores de carga vacíos. Puedes llevar [free_power] unidades de energía más. Tienes [credits] créditos."; 
-$l_special_port		 = "Puerto Especial"; 
-$l_no_credits		 = "Te faltan créditos"; 
-$l_creds_to_spend	 = "Tienes [credits] créditos para gastar."; 
-$l_cost			 = "Coste"; 
-$l_avail		 = "Disponible"; 
-$l_profit		 = "Beneficio"; 
-$l_current		 = "Actual"; 
-$l_current_qty		 = "Cantidades Actuales"; 
-$l_max			 = "Max"; 
-$l_ifyouneedmore	 = "Si necesitas más créditos puedes acceder al [igb] de este puerto "; 
-$l_ifyouneedplan	 = "Acceder al "; 
-$l_igb_term		 = "Terminal Bancario IGB"; 
-$l_upgrade		 = "¿Actualizar?"; 
-$l_unlimited		 = "ilimitado"; 
-$l_full			 = "Lleno"; 
-$l_equipped		 = "Equipado"; 
-$l_n_a			 = "n/a"; 
-$l_item			 = "Unidad"; 
-$l_totalcost		 = "Coste Total"; 
-$l_would_dump	         = "Si quieres puedes soltar a todos tus colonos aquí, pulsa "; 
-$l_noport		 = "¡Aquí no hay ningún puerto!"; 
-$l_trade_turnneed	 = "Necesitas al menos un turno para comerciar con un puerto o planeta."; 
+$l_trade           = "Comerciar"; 
+$l_title_port           = "Comerciar con Puerto"; 
+$l_title_trade           = "Comerciar Mercancías"; 
+$l_sector_war           = "Embargo de Guerra"; 
+$l_war_info           = "La guerra está azotando este sector. No puedes llegar al puerto a través de todas las fuerzas hostiles."; 
+$l_no_trade           = "Comercio prohibido"; 
+$l_no_trade_out           = "El comercio en este puerte no está permitido a los extranjeros"; 
+$l_no_trade_info      = "El comercio en este puerto no está permitido"; 
+$l_buying           = "Comprando"; 
+$l_selling           = "Vendiendo"; 
+$l_commodity           = "Mercancía"; 
+$l_amount           = "Cantidad"; 
+$l_price           = "Precio"; 
+$l_buy                = "Comprar"; 
+$l_sell                = "Vender"; 
+$l_trade_st_info      = "Tienes [free_holds] contenedores de carga vacíos. Puedes llevar [free_power] unidades de energía más. Tienes [credits] créditos."; 
+$l_special_port           = "Puerto Especial"; 
+$l_no_credits           = "Te faltan créditos"; 
+$l_creds_to_spend      = "Tienes [credits] créditos para gastar."; 
+$l_cost                = "Coste"; 
+$l_avail           = "Disponible"; 
+$l_profit           = "Beneficio"; 
+$l_current           = "Actual"; 
+$l_current_qty           = "Cantidades Actuales"; 
+$l_max                = "Max"; 
+$l_ifyouneedmore      = "Si necesitas más créditos puedes acceder al [igb] de este puerto "; 
+$l_ifyouneedplan      = "Acceder al "; 
+$l_igb_term           = "Terminal Bancario IGB"; 
+$l_upgrade           = "¿Actualizar?"; 
+$l_unlimited           = "ilimitado"; 
+$l_full                = "Lleno"; 
+$l_equipped           = "Equipado"; 
+$l_n_a                = "n/a"; 
+$l_item                = "Unidad"; 
+$l_totalcost           = "Coste Total"; 
+$l_would_dump              = "Si quieres puedes soltar a todos tus colonos aquí, pulsa "; 
+$l_noport           = "¡Aquí no hay ningún puerto!"; 
+$l_trade_turnneed      = "Necesitas al menos un turno para comerciar con un puerto o planeta."; 
 $l_returnto_port         = "Pulsa <A HREF=port.php>aquí</A> para volver al menú del puerto."; 
-$l_notenough_cargo	 = "No tienes suficientes contenedores vacíos para las mercancías que quieres comprar."; 
-$l_notenough_power	 = "No tienes suficiente espacio libre de energía para la energía que quieres conseguir."; 
-$l_notenough_credits	 = "No tienes suficientes créditos para completar la transacción."; 
-$l_notenough_turns	 = "No tienes suficientes turnos para completar la transacción."; 
-$l_notenough_ore	 = "No tienes suficientes minerales para completar la transacción."; 
-$l_notenough_goods	 = "No tienes suficientes bienes para completar la transacción."; 
-$l_notenough_energy	 = "No tienes suficiente energía para completar la transacción."; 
-$l_notenough_organics	 = "No tienes suficientes orgánicos para completar la transacción."; 
-$l_exceed_organics	 = "El número de orgánicos supera la oferta/demanda.  "; 
+$l_notenough_cargo      = "No tienes suficientes contenedores vacíos para las mercancías que quieres comprar."; 
+$l_notenough_power      = "No tienes suficiente espacio libre de energía para la energía que quieres conseguir."; 
+$l_notenough_credits      = "No tienes suficientes créditos para completar la transacción."; 
+$l_notenough_turns      = "No tienes suficientes turnos para completar la transacción."; 
+$l_notenough_ore      = "No tienes suficientes minerales para completar la transacción."; 
+$l_notenough_goods      = "No tienes suficientes bienes para completar la transacción."; 
+$l_notenough_energy      = "No tienes suficiente energía para completar la transacción."; 
+$l_notenough_organics      = "No tienes suficientes orgánicos para completar la transacción."; 
+$l_exceed_organics      = "El número de orgánicos supera la oferta/demanda.  "; 
 $l_exceed_ore            = "El número de minerales supera la oferta/demanda.  "; 
 $l_exceed_energy         = "El número de energía supera la oferta/demanda.  "; 
 $l_exceed_goods          = "El número de bienes supera la oferta/demanda.  "; 
-$l_trade_result		 = "Resultado de esta transacción"; 
-$l_traded_ore		 = "Minerales comerciados"; 
-$l_traded_goods		 = "Bienes comerciados"; 
-$l_traded_organics	 = "Orgánicos comerciados"; 
-$l_traded_energy	 = "Energía comerciados"; 
-$l_trade_complete	 = "Transacción completada"; 
+$l_trade_result           = "Resultado de esta transacción"; 
+$l_traded_ore           = "Minerales comerciados"; 
+$l_traded_goods           = "Bienes comerciados"; 
+$l_traded_organics      = "Orgánicos comerciados"; 
+$l_traded_energy      = "Energía comerciados"; 
+$l_trade_complete      = "Transacción completada"; 
 $l_trade_upgraded = "Actualizado al nivel "; 
 $l_trade_added = "añadido"; 
 $l_trade_installed = "instalado"; 
 
 
 /*
-$l_trade		 = "Comercio";
-$l_title_port		 = "Puerto Comercial";
-$l_title_trade		 = "Comercio de Artículos";
-$l_sector_war		 = "Embargo por guerra";
-$l_war_info		 = "La guerra asola este sector. No puedes alcanzar el puerto debido a las fuerzas hostiles.";
-$l_no_trade		 = "Comercio Prohibido";
-$l_no_trade_out		 = "Trading at this port is not allowed for outsiders";
-$l_no_trade_info	 = "Trading at this port is not allowed";
-$l_buying		 = "Buying";
-$l_selling		 = "Selling";
-$l_commodity		 = "Commodity";
-$l_amount		 = "Amount";
-$l_price		 = "Price";
-$l_buy			 = "Buy";
-$l_sell			 = "Sell";
-$l_trade_st_info	 = "You have [free_holds] empty cargo holds, can carry [free_power] more energy units, and have [credits] credits.";
-$l_special_port		 = "Special Port";
-$l_no_credits		 = "Not enough credits";
-$l_creds_to_spend	 = "You have [credits] credits to spend.";
-$l_cost			 = "Cost";
-$l_avail		 = "Available";
-$l_profit		 = "Profit";
-$l_current		 = "Current";
-$l_current_qty		 = "Current Quantities";
-$l_max			 = "Max";
-$l_ifyouneedmore	 = "If you need more you may access this port's [igb] ";
-$l_ifyouneedplan	 = "Access the planet's";
-$l_igb_term		 = "IGB Banking Terminal";
-$l_upgrade		 = "Upgrade?";
-$l_unlimited		 = "Unlimited";
-$l_full			 = "Full";
-$l_equipped		 = "Equipped";
-$l_n_a			 = "n/a";
-$l_item			 = "Item";
-$l_totalcost		 = "Total cost";
-$l_would_dump	         = "If you would like to dump all your colonists here, click ";
-$l_noport		 = "There is no port here!";
-$l_trade_turnneed	 = "You need at least one turn to trade at a port or planet.";
+$l_trade           = "Comercio";
+$l_title_port           = "Puerto Comercial";
+$l_title_trade           = "Comercio de Artículos";
+$l_sector_war           = "Embargo por guerra";
+$l_war_info           = "La guerra asola este sector. No puedes alcanzar el puerto debido a las fuerzas hostiles.";
+$l_no_trade           = "Comercio Prohibido";
+$l_no_trade_out           = "Trading at this port is not allowed for outsiders";
+$l_no_trade_info      = "Trading at this port is not allowed";
+$l_buying           = "Buying";
+$l_selling           = "Selling";
+$l_commodity           = "Commodity";
+$l_amount           = "Amount";
+$l_price           = "Price";
+$l_buy                = "Buy";
+$l_sell                = "Sell";
+$l_trade_st_info      = "You have [free_holds] empty cargo holds, can carry [free_power] more energy units, and have [credits] credits.";
+$l_special_port           = "Special Port";
+$l_no_credits           = "Not enough credits";
+$l_creds_to_spend      = "You have [credits] credits to spend.";
+$l_cost                = "Cost";
+$l_avail           = "Available";
+$l_profit           = "Profit";
+$l_current           = "Current";
+$l_current_qty           = "Current Quantities";
+$l_max                = "Max";
+$l_ifyouneedmore      = "If you need more you may access this port's [igb] ";
+$l_ifyouneedplan      = "Access the planet's";
+$l_igb_term           = "IGB Banking Terminal";
+$l_upgrade           = "Upgrade?";
+$l_unlimited           = "Unlimited";
+$l_full                = "Full";
+$l_equipped           = "Equipped";
+$l_n_a                = "n/a";
+$l_item                = "Item";
+$l_totalcost           = "Total cost";
+$l_would_dump              = "If you would like to dump all your colonists here, click ";
+$l_noport           = "There is no port here!";
+$l_trade_turnneed      = "You need at least one turn to trade at a port or planet.";
 $l_returnto_port         = " Click <A HREF=port.php>here</A> to return to the port menu.";
-$l_notenough_cargo	 = "You do not have enough free cargo holds for the commodities you wish to purchase.";
-$l_notenough_power	 = "You do not have enough free power storage for the energy you wish to purchase.";
-$l_notenough_credits	 = "You do not have enough credits to complete the transaction.";
-$l_notenough_turns	 = "You do not have enough turns to complete the transaction.";
-$l_notenough_ore	 = "You do not have enough ore to complete the transaction.";
-$l_notenough_goods	 = "You do not have enough goods to complete the transaction.";
-$l_notenough_energy	 = "You do not have enough energy to complete the transaction.";
-$l_notenough_organics	 = "You do not have enough organics to complete the transaction.";
-$l_exceed_organics	 = "Number of organics exceeds the supply/demand.  ";
+$l_notenough_cargo      = "You do not have enough free cargo holds for the commodities you wish to purchase.";
+$l_notenough_power      = "You do not have enough free power storage for the energy you wish to purchase.";
+$l_notenough_credits      = "You do not have enough credits to complete the transaction.";
+$l_notenough_turns      = "You do not have enough turns to complete the transaction.";
+$l_notenough_ore      = "You do not have enough ore to complete the transaction.";
+$l_notenough_goods      = "You do not have enough goods to complete the transaction.";
+$l_notenough_energy      = "You do not have enough energy to complete the transaction.";
+$l_notenough_organics      = "You do not have enough organics to complete the transaction.";
+$l_exceed_organics      = "Number of organics exceeds the supply/demand.  ";
 $l_exceed_ore            = "Number of ore exceeds the supply/demand.  ";
 $l_exceed_energy         = "Number of energy exceeds the supply/demand.  ";
 $l_exceed_goods          = "Number of goods exceeds the supply/demand.  ";
-$l_trade_result		 = "Results for this trade";
-$l_traded_ore		 = "Traded Ore";
-$l_traded_goods		 = "Traded Goods";
-$l_traded_organics	 = "Traded Organics";
-$l_traded_energy	 = "Traded Energy";
-$l_trade_complete	 = "Trade completed";
+$l_trade_result           = "Results for this trade";
+$l_traded_ore           = "Traded Ore";
+$l_traded_goods           = "Traded Goods";
+$l_traded_organics      = "Traded Organics";
+$l_traded_energy      = "Traded Energy";
+$l_trade_complete      = "Trade completed";
 $l_trade_upgraded = "Upgraded to level ";
 $l_trade_added = "added";
 $l_trade_installed = "installed";
@@ -261,242 +261,242 @@ $l_trade_installed = "installed";
 
 /*
 // planet.php planet2.php planet3.php
-$l_planet_title		 = "Planet Menu";
-$l_planet_none		 = "You are not in the same sector as this planet, so you can't interact with it.";
-$l_planet_capture1	 = "capture"; // thats the link's text
-$l_planet_capture2	 = "You may [capture] the planet or just leave it undefended.";
-$l_planet_unowned	 = "This planet is unowned";
+$l_planet_title           = "Planet Menu";
+$l_planet_none           = "You are not in the same sector as this planet, so you can't interact with it.";
+$l_planet_capture1      = "capture"; // thats the link's text
+$l_planet_capture2      = "You may [capture] the planet or just leave it undefended.";
+$l_planet_unowned      = "This planet is unowned";
 $l_planet_unnamed        = "Welcome to [name]'s un-named planet.";
-$l_planet_named		 = "Welcome to [planetname], owned by [name].";
-$l_planet_onsurface	 = "You are presently on the surface of the planet.";
-$l_planet_orbit 	 = "You are presently in orbit of the planet.";
+$l_planet_named           = "Welcome to [planetname], owned by [name].";
+$l_planet_onsurface      = "You are presently on the surface of the planet.";
+$l_planet_orbit       = "You are presently in orbit of the planet.";
 $l_planet_leave_link     = "Leave";
 $l_planet_leave          = "[leave] Planet";
 $l_planet_name_link = "Name";
 $l_planet_name2 = "[name] planet";
 $l_planet_land_link      = "Land";
 $l_planet_land           = "[land] on Planet";
-$l_planet_logout	 = "You can also <a href=logout.php>log-out</a> in the safety of your planet.";
-$l_planet_selling	 = "Planet is presently selling commodities.";
+$l_planet_logout      = "You can also <a href=logout.php>log-out</a> in the safety of your planet.";
+$l_planet_selling      = "Planet is presently selling commodities.";
 $l_planet_not_selling    = "Planet is not presently selling commodities.";
-$l_planet_transfer_link	 = "Transfer";
-$l_planet_transfer	 = "[transfer] commodities/resources/colonists to/from Planet";
-$l_planet_hasbase	 = "You have a base on this planet.";
+$l_planet_transfer_link      = "Transfer";
+$l_planet_transfer      = "[transfer] commodities/resources/colonists to/from Planet";
+$l_planet_hasbase      = "You have a base on this planet.";
 
-$l_planet_perc		 = "Production Percentages";
-$l_planet_interest	 = "* Production of credits beyond banking interest is 100 - other percentages";
-$l_planet_update	 = "Update";
-$l_planet_tsell_link	 = "Selling";
-$l_planet_tsell		 = "Toggle planet [selling] commodities";
-$l_planet_bbase_link	 = "build a base";
-$l_planet_bbase		 = "With enough commodites and credits, you can [build] to help defend the planet.";
-$l_planet_bbuild	 = "Base constructed";
-$l_planet_mcorp_linkC	 = "Corporate Planet";
-$l_planet_mcorp_linkP	 = "Personal Planet";
-$l_planet_mcorp		 = "You can also make this planet a [planet].";
-$l_planet_buy_link	 = "Buy";
-$l_planet_buy		 = "[buy] commodities from Planet";
-$l_planet_att_link	 = "Attack";
-$l_planet_att		 = "[attack] on Planet";
-$l_planet_att_sure	 = "Are you SURE...";
-$l_planet_scn_link	 = "Scan";
-$l_planet_scn		 = "[scan] Planet";
+$l_planet_perc           = "Production Percentages";
+$l_planet_interest      = "* Production of credits beyond banking interest is 100 - other percentages";
+$l_planet_update      = "Update";
+$l_planet_tsell_link      = "Selling";
+$l_planet_tsell           = "Toggle planet [selling] commodities";
+$l_planet_bbase_link      = "build a base";
+$l_planet_bbase           = "With enough commodites and credits, you can [build] to help defend the planet.";
+$l_planet_bbuild      = "Base constructed";
+$l_planet_mcorp_linkC      = "Corporate Planet";
+$l_planet_mcorp_linkP      = "Personal Planet";
+$l_planet_mcorp           = "You can also make this planet a [planet].";
+$l_planet_buy_link      = "Buy";
+$l_planet_buy           = "[buy] commodities from Planet";
+$l_planet_att_link      = "Attack";
+$l_planet_att           = "[attack] on Planet";
+$l_planet_att_sure      = "Are you SURE...";
+$l_planet_scn_link      = "Scan";
+$l_planet_scn           = "[scan] Planet";
 $l_planet_nowsell        = "Planet now set to sell.";
 $l_planet_nownosell      = "Planet now set not to sell.";
-$l_planet_iname		 = "Enter new planet name";
-$l_planet_cname		 = "Planet name changed to ";
-$l_planet_landed	 = "You have landed on the planet's surface.";
-$l_planet_left		 = "You are no longer on the planet's surface.";
-$l_planet_cinfo		 = "You have room for [cargo] units of additional cargo.  You have capacity for [energy] units of addtional power.";
-$l_planet_toplanet	 = "To Planet?";
-$l_planet_baseinfo	 = "To build a base there must be at least $base_credits credits, $base_ore units of ore, $base_organics units of organics, and $base_goods units of goods on the planet .";
+$l_planet_iname           = "Enter new planet name";
+$l_planet_cname           = "Planet name changed to ";
+$l_planet_landed      = "You have landed on the planet's surface.";
+$l_planet_left           = "You are no longer on the planet's surface.";
+$l_planet_cinfo           = "You have room for [cargo] units of additional cargo.  You have capacity for [energy] units of addtional power.";
+$l_planet_toplanet      = "To Planet?";
+$l_planet_baseinfo      = "To build a base there must be at least $base_credits credits, $base_ore units of ore, $base_organics units of organics, and $base_goods units of goods on the planet .";
 $l_planet_p_under        = "You may not change production percentages to a negative number.";
-$l_planet_p_over	 = "You may not change production percentages to higher than a total of 100%.";
-$l_planet_p_changed	 = "Production percentages changed.";
-$l_plant_scn_turn	 = "You need at least one turn to scan a planet.";
-$l_planet_noscan	 = "Sensors cannot get a fix on target!";
-$l_planet_logscanA	 = "[name] attempted to scan one of your planets in sector [sector], but failed.";
-$l_planet_logscanB	 = "One of your planets in sector [sector] was scanned by [name].";
-$l_planet_scn_report	 = "Scan results on [name], owned by:  [owner]";
-$l_base	  		 = "Base";
-$l_planet_ison		 = "is on the planet.";
-$l_planet_captured	 = "Planet captured";
-$l_planet_notdef	 = "Planet not defeated!";
-$l_planet_caplog	 = "Your planet '[planetname]' in sector [sector] was captured by [name].";
+$l_planet_p_over      = "You may not change production percentages to higher than a total of 100%.";
+$l_planet_p_changed      = "Production percentages changed.";
+$l_plant_scn_turn      = "You need at least one turn to scan a planet.";
+$l_planet_noscan      = "Sensors cannot get a fix on target!";
+$l_planet_logscanA      = "[name] attempted to scan one of your planets in sector [sector], but failed.";
+$l_planet_logscanB      = "One of your planets in sector [sector] was scanned by [name].";
+$l_planet_scn_report      = "Scan results on [name], owned by:  [owner]";
+$l_base                  = "Base";
+$l_planet_ison           = "is on the planet.";
+$l_planet_captured      = "Planet captured";
+$l_planet_notdef      = "Planet not defeated!";
+$l_planet_caplog      = "Your planet '[planetname]' in sector [sector] was captured by [name].";
 $l_planet_noone = "nobody";
 
-$l_planet2_title	 = "Planetary Transfer";
-$l_planet2_noturn	 = "You need at least one turn to perform a planetary transfer.";
-$l_planet2_noten 	 = "You don't have enough ";
-$l_planet2_fortr	 = "for the requested transfer.";
-$l_planet2_settr	 = "Setting transfer amount to ";
-$l_planet2_losup	 = "The planet was only able to supply ";
-$l_planet2_notowner	 = "You do not own this planet.";
-$l_planet2_compl	 = "Transfer complete.";
-$l_planet2_power	 = "power capacity";
-$l_planet2_comp 	 = "computer capacity";
-$l_planet2_laun 	 = "launcher capacity";
+$l_planet2_title      = "Planetary Transfer";
+$l_planet2_noturn      = "You need at least one turn to perform a planetary transfer.";
+$l_planet2_noten       = "You don't have enough ";
+$l_planet2_fortr      = "for the requested transfer.";
+$l_planet2_settr      = "Setting transfer amount to ";
+$l_planet2_losup      = "The planet was only able to supply ";
+$l_planet2_notowner      = "You do not own this planet.";
+$l_planet2_compl      = "Transfer complete.";
+$l_planet2_power      = "power capacity";
+$l_planet2_comp       = "computer capacity";
+$l_planet2_laun       = "launcher capacity";
 $l_planet2_nocorptransfer = "You cannot transfer credits to or from corporate planets.";
 $l_planet2_baseexceeded = "Planets without a base can not hold that amount of credits.";
 
-$l_planet3_title	 = "Trading at Planet";
+$l_planet3_title      = "Trading at Planet";
 
 // planet-report.php
 
-$l_pr_title		 = "Planet Report";
-$l_pr_teamlink		 = "Show alliance planets";
-$l_pr_noplanet		 = "You have no planets so far";
-$l_pr_clicktosort	 = "Click on column header to sort.";
-$l_pr_totals		 = "Totals";
+$l_pr_title           = "Planet Report";
+$l_pr_teamlink           = "Show alliance planets";
+$l_pr_noplanet           = "You have no planets so far";
+$l_pr_clicktosort      = "Click on column header to sort.";
+$l_pr_totals           = "Totals";
 
 // rsmove.php
-$l_rs_title 		= "RealSpace Move";
+$l_rs_title           = "RealSpace Move";
 $l_rs_whichsector       = "Which sector would you like to reach through RealSpace?";
-$l_rs_insector		= "You are presently in sector [sector] - and there are sectors available from 0 to [sector_max].";
-$l_rs_submit		= "Compute";
-$l_rs_movetime		= "With your engines, it will take [triptime] turns to complete the journey.";
-$l_rs_energy		= "You would gather [energy] units of energy";
-$l_rs_noturns		= "You do not have enough turns left, and cannot embark on this journey.";
-$l_rs_engage_link	= "Engage";
-$l_rs_engage		= "You have [turns] turns. [engage] engines?";
+$l_rs_insector          = "You are presently in sector [sector] - and there are sectors available from 0 to [sector_max].";
+$l_rs_submit          = "Compute";
+$l_rs_movetime          = "With your engines, it will take [triptime] turns to complete the journey.";
+$l_rs_energy          = "You would gather [energy] units of energy";
+$l_rs_noturns          = "You do not have enough turns left, and cannot embark on this journey.";
+$l_rs_engage_link     = "Engage";
+$l_rs_engage          = "You have [turns] turns. [engage] engines?";
 
-$l_rs_invalid		= "Invalid Destination";
-$l_rs_ready 		= "You are now in sector [sector]. You used [triptime] turns, and gained [energy] energy units.";
+$l_rs_invalid          = "Invalid Destination";
+$l_rs_ready           = "You are now in sector [sector]. You used [triptime] turns, and gained [energy] energy units.";
 
-// navcomp.php	
+// navcomp.php     
 
-$l_nav_title		 = "Navigation Computer";
-$l_nav_nocomp		 = "Navigation computer is not available";
-$l_nav_query		 = "Enter sector to find path to: ";
-$l_nav_pathfnd		 = "Path found";
-$l_nav_answ1		 = "It will take you";
-$l_nav_answ2		 = "turns to get to this sector.";
-$l_nav_proper		 = "Your computer technology is too primitive to compute a warp route to that distance.";
+$l_nav_title           = "Navigation Computer";
+$l_nav_nocomp           = "Navigation computer is not available";
+$l_nav_query           = "Enter sector to find path to: ";
+$l_nav_pathfnd           = "Path found";
+$l_nav_answ1           = "It will take you";
+$l_nav_answ2           = "turns to get to this sector.";
+$l_nav_proper           = "Your computer technology is too primitive to compute a warp route to that distance.";
 
 
 // attack.php
 
-$l_att_title		 = "Attack Ship";
-$l_att_notarg		 = "Target not in this sector.";
-$l_att_noturn		 = "You need at least one turn to attack.";
-$l_att_noatt		 = "Attacking someone in this sector is not permitted.";
-$l_att_flee		 = "Target out maneuvered you!";
-$l_att_ewd		 = "Target engaged an emergency warp device when attacked!";
-$l_att_att		 = "Attacking ";
-$l_att_beams		 = "Beams hit:";
-$l_att_torps		 = "Torpedos hit:";
-$l_att_fighters		 = "Fighters Attack:";
-$l_att_lost		 = "lost";
-$l_att_ylost		 = "You lost";
-$l_att_sdown		 = "'s shields are down!";
-$l_att_ydown		 = "Your shields are down!";
-$l_att_shits		 = "'s shields are hit for";
-$l_att_yhits		 = "Your shields are hit for";
-$l_att_dmg		 = "damage";
-$l_att_sarm		 = "'s armour breached!";
-$l_att_yarm		 = "Your armour has been breached!";
-$l_att_ashit		 = "'s armour is hit for";
-$l_att_ayhit		 = "Your armour is hit for";
-$l_att_lostf		 = "lost all fighters.";
-$l_att_ylostf		 = "You lost all fighters.";
-$l_att_sdest		 = "'s ship has been destroyed.";
-$l_att_espod		 = "An escape pod was launched!";
-$l_att_ysalv		 = "You salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits.<BR>Your rating changed by [rating_change] points.";
-$l_att_andused		 = "and used";
-$l_att_stilship		 = "You did not destory [name]'s ship.";
-$l_att_atyou		 = "attacked you";
-$l_att_and		 = "and";
-$l_att_yshiplost	 = "Your ship has been destroyed!";
-$l_att_salv		 = "[name] salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits";
+$l_att_title           = "Attack Ship";
+$l_att_notarg           = "Target not in this sector.";
+$l_att_noturn           = "You need at least one turn to attack.";
+$l_att_noatt           = "Attacking someone in this sector is not permitted.";
+$l_att_flee           = "Target out maneuvered you!";
+$l_att_ewd           = "Target engaged an emergency warp device when attacked!";
+$l_att_att           = "Attacking ";
+$l_att_beams           = "Beams hit:";
+$l_att_torps           = "Torpedos hit:";
+$l_att_fighters           = "Fighters Attack:";
+$l_att_lost           = "lost";
+$l_att_ylost           = "You lost";
+$l_att_sdown           = "'s shields are down!";
+$l_att_ydown           = "Your shields are down!";
+$l_att_shits           = "'s shields are hit for";
+$l_att_yhits           = "Your shields are hit for";
+$l_att_dmg           = "damage";
+$l_att_sarm           = "'s armour breached!";
+$l_att_yarm           = "Your armour has been breached!";
+$l_att_ashit           = "'s armour is hit for";
+$l_att_ayhit           = "Your armour is hit for";
+$l_att_lostf           = "lost all fighters.";
+$l_att_ylostf           = "You lost all fighters.";
+$l_att_sdest           = "'s ship has been destroyed.";
+$l_att_espod           = "An escape pod was launched!";
+$l_att_ysalv           = "You salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits.<BR>Your rating changed by [rating_change] points.";
+$l_att_andused           = "and used";
+$l_att_stilship           = "You did not destory [name]'s ship.";
+$l_att_atyou           = "attacked you";
+$l_att_and           = "and";
+$l_att_yshiplost      = "Your ship has been destroyed!";
+$l_att_salv           = "[name] salvaged [salv_ore] units of ore, [salv_organics] units of organics, [salv_goods] units of goods, and salvaged [ship_salvage_rate]% of the ship for [ship_salvage] credits";
 
 // warpedit 1-3.php
 
-$l_warp_title		 = "Use Warp Editor";
-$l_warp_turn		 = "You need at least one turn to use a warp editor.";
-$l_warp_none		 = "You do not have any warp editors.";
-$l_warp_forbid		 = "Using a Warp Editor in this sector is not permitted.";
-$l_warp_nolink		 = "There are no links out of this sector.";
-$l_warp_linkto		 = "Links lead from this sector to";
-$l_warp_query		 = "What sector would you like to create a link to?";
-$l_warp_oneway		 = "One-way?";
-$l_warp_dest		 = "Alternately, you may destroy a link to sector.";
-$l_warp_destquery	 = "What sector would you like to remove a link to?";
-$l_warp_bothway		 = "Both-ways";
-$l_warp_nosector	 = "Sector does not exist.";
-$l_warp_twoerror	 = "Using a Warp Editor to create a two-way link to sector [target_sector] is not permitted.";
-$l_warp_sectex		 = "Cannot create warp link from current sector - that would exceed the maximum of $link_max per sector.";
-$l_warp_linked		 = "Target sector ([target_sector]) already has a link from this sector.";
-$l_warp_unlinked	 = "Target sector ([target_sector]) does not have a link from this sector.";
-$l_warp_coneway	         = "Link created one-way to";
-$l_warp_ctwoway		 = "Link created to and from";
-$l_warp_forbidtwo	 = "Using a Warp Editor to remove a two-way link to sector [target_sector] is not permitted.";
-$l_warp_removed		 = "Link removed to";
-$l_warp_removedtwo	 = "Link removed to and from";
+$l_warp_title           = "Use Warp Editor";
+$l_warp_turn           = "You need at least one turn to use a warp editor.";
+$l_warp_none           = "You do not have any warp editors.";
+$l_warp_forbid           = "Using a Warp Editor in this sector is not permitted.";
+$l_warp_nolink           = "There are no links out of this sector.";
+$l_warp_linkto           = "Links lead from this sector to";
+$l_warp_query           = "What sector would you like to create a link to?";
+$l_warp_oneway           = "One-way?";
+$l_warp_dest           = "Alternately, you may destroy a link to sector.";
+$l_warp_destquery      = "What sector would you like to remove a link to?";
+$l_warp_bothway           = "Both-ways";
+$l_warp_nosector      = "Sector does not exist.";
+$l_warp_twoerror      = "Using a Warp Editor to create a two-way link to sector [target_sector] is not permitted.";
+$l_warp_sectex           = "Cannot create warp link from current sector - that would exceed the maximum of $link_max per sector.";
+$l_warp_linked           = "Target sector ([target_sector]) already has a link from this sector.";
+$l_warp_unlinked      = "Target sector ([target_sector]) does not have a link from this sector.";
+$l_warp_coneway              = "Link created one-way to";
+$l_warp_ctwoway           = "Link created to and from";
+$l_warp_forbidtwo      = "Using a Warp Editor to remove a two-way link to sector [target_sector] is not permitted.";
+$l_warp_removed           = "Link removed to";
+$l_warp_removedtwo      = "Link removed to and from";
 
 // genesis.php
 
-$l_gns_title		 = "Use Genesis Device";
-$l_gns_turn		 = "You need at least one turn to use a genesis device.";
-$l_gns_onplanet		 = "You can't use this device while on the planet surface.";
-$l_gns_full		 = "This solar system is already full.";
-$l_gns_planetex		 = "There is already a planet in this sector.";
-$l_gns_nogenesis	 = "You do not have any genesis devices.";
-$l_gns_forbid		 = "Creating a planet in this sector is not permitted.";
-$l_gns_bforbid		 = "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
-$l_gns_pcreate		 = "Planet created.";
+$l_gns_title           = "Use Genesis Device";
+$l_gns_turn           = "You need at least one turn to use a genesis device.";
+$l_gns_onplanet           = "You can't use this device while on the planet surface.";
+$l_gns_full           = "This solar system is already full.";
+$l_gns_planetex           = "There is already a planet in this sector.";
+$l_gns_nogenesis      = "You do not have any genesis devices.";
+$l_gns_forbid           = "Creating a planet in this sector is not permitted.";
+$l_gns_bforbid           = "The bases in this sector are interfering with your genesis device. Planet creation not possible.";
+$l_gns_pcreate           = "Planet created.";
 
 // ship.php
 
-$l_ship_title		 = "Ship Commands";
-$l_ship_the		 = "The";
-$l_ship_nolonger	 = "is no longer in sector";
-$l_ship_youc		 = "You see the";
-$l_ship_owned		 = "owned by";
-$l_ship_perform		 = "You can perform the following actions:";
+$l_ship_title           = "Ship Commands";
+$l_ship_the           = "The";
+$l_ship_nolonger      = "is no longer in sector";
+$l_ship_youc           = "You see the";
+$l_ship_owned           = "owned by";
+$l_ship_perform           = "You can perform the following actions:";
 
 // selfdestruct.php
 
-$l_die_title		 = "Self-Destruct";
-$l_die_rusure		 = "Are you sure you wish to destroy your ship? This will remove you from the game.";
-$l_die_goodbye		 = "Goodbye cruel galaxy!";
-$l_die_check		 = "Are you positive that you wish to remove yourself from the game?";
-$l_die_nonono		 = "NO! NO! NO!";
-$l_die_what		 = "What was I thinking?";
-$l_die_count		 = "5.. 4.. 3.. 2.. 1.. Boom!";
-$l_die_vapor		 = "You ship and all aboard have been vaporized.";
-$l_die_please		 = "Please, <A HREF=logout.php>logout</A>";
-$l_die_exploit		 = "Don't play with what you don't understand.";
+$l_die_title           = "Self-Destruct";
+$l_die_rusure           = "Are you sure you wish to destroy your ship? This will remove you from the game.";
+$l_die_goodbye           = "Goodbye cruel galaxy!";
+$l_die_check           = "Are you positive that you wish to remove yourself from the game?";
+$l_die_nonono           = "NO! NO! NO!";
+$l_die_what           = "What was I thinking?";
+$l_die_count           = "5.. 4.. 3.. 2.. 1.. Boom!";
+$l_die_vapor           = "You ship and all aboard have been vaporized.";
+$l_die_please           = "Please, <A HREF=logout.php>logout</A>";
+$l_die_exploit           = "Don't play with what you don't understand.";
 
 // move.php
 
-$l_move_title 		 = "Move";
-$l_move_turn		 = "You need at least one turn to move.";
-$l_move_failed		 = "Move failed!";
+$l_move_title            = "Move";
+$l_move_turn           = "You need at least one turn to move.";
+$l_move_failed           = "Move failed!";
 
 // scan.php
 
-$l_scan_title		 = "Scan Ship";
-$l_scan_turn		 = "You need at least one turn to scan another ship.";
-$l_scan_ron		 = "Scan results on";
-$l_scan_capt		 = "Captained by:";
-$l_scan_arma		 = "Armament:";
-$l_scan_carry		 = "Carrying:";
+$l_scan_title           = "Scan Ship";
+$l_scan_turn           = "You need at least one turn to scan another ship.";
+$l_scan_ron           = "Scan results on";
+$l_scan_capt           = "Captained by:";
+$l_scan_arma           = "Armament:";
+$l_scan_carry           = "Carrying:";
 
 // lrscan.php
 
-$l_lrs_title		 = "Long Range Scan";
-$l_lrs_nofull		 = "Your scanners do not possess full long range scan capabilities.";
-$l_lrs_noturns		 = "You need at least $fullscan_cost turn(s) to run a full long range scan.";
-$l_lrs_used		 = "Used";
-$l_lrs_turns		 = "turn(s)";
-$l_lrs_left		 = "left";
-$l_lrs_reach		 = "The following locations can be reached from sector [sector]:";
-$l_lrs_links		 = "Links";
-$l_lrs_ships		 = "Ships";
-$l_lrs_click		 = "Click one of the links to move to that sector.";
-$l_lrs_cantscan		 = "Can't scan sector from current sector!";
-$l_lrs_zero		 = "Sector 0 is too crowded to scan for ships!";
-$l_lrs_moveto		 = "to move to sector";
+$l_lrs_title           = "Long Range Scan";
+$l_lrs_nofull           = "Your scanners do not possess full long range scan capabilities.";
+$l_lrs_noturns           = "You need at least $fullscan_cost turn(s) to run a full long range scan.";
+$l_lrs_used           = "Used";
+$l_lrs_turns           = "turn(s)";
+$l_lrs_left           = "left";
+$l_lrs_reach           = "The following locations can be reached from sector [sector]:";
+$l_lrs_links           = "Links";
+$l_lrs_ships           = "Ships";
+$l_lrs_click           = "Click one of the links to move to that sector.";
+$l_lrs_cantscan           = "Can't scan sector from current sector!";
+$l_lrs_zero           = "Sector 0 is too crowded to scan for ships!";
+$l_lrs_moveto           = "to move to sector";
 $l_log_titlet = "View Log";
 
 // log.php
@@ -604,250 +604,250 @@ $l_log_title[LOG_PLANET_CAPTURED] = "Planet captured!";
 
 // modify-defences.php
 
-$l_md_title		 = "Sector Defences";
-$l_md_invalid		 = "Invalid Sector Defence";
-$l_md_nolonger		 = "The sector defence selected is no longer there.";
-$l_md_you		 = "you";
-$l_md_bmines		 = "Your beams destroyed";
-$l_md_msgdownerb	 = "[name] destroyed [mines] mines in sector [sector].";
-$l_md_retr		 = "You retrieved";
-$l_md_mode		 = "The fighters selected have been set to [mode] mode.";
-$l_md_consist		 = "This sector defence consists of [qty] [type] owned by [owner].";
-$l_md_youcan		 = "You can";
-$l_md_retrieve		 = "Retrieve";
-$l_md_change		 = "Change Fighter settings";
-$l_md_cmode		 = "Fighter mode";
-$l_md_attack		 = "Attack";
-$l_md_toll		 = "Toll";
-$l_md_attdef		 = "Attack the Sector Defences. All sector fighters will retaliate.";
-$l_md_noturn	  	 = "You need at least one turn.";
+$l_md_title           = "Sector Defences";
+$l_md_invalid           = "Invalid Sector Defence";
+$l_md_nolonger           = "The sector defence selected is no longer there.";
+$l_md_you           = "you";
+$l_md_bmines           = "Your beams destroyed";
+$l_md_msgdownerb      = "[name] destroyed [mines] mines in sector [sector].";
+$l_md_retr           = "You retrieved";
+$l_md_mode           = "The fighters selected have been set to [mode] mode.";
+$l_md_consist           = "This sector defence consists of [qty] [type] owned by [owner].";
+$l_md_youcan           = "You can";
+$l_md_retrieve           = "Retrieve";
+$l_md_change           = "Change Fighter settings";
+$l_md_cmode           = "Fighter mode";
+$l_md_attack           = "Attack";
+$l_md_toll           = "Toll";
+$l_md_attdef           = "Attack the Sector Defences. All sector fighters will retaliate.";
+$l_md_noturn             = "You need at least one turn.";
 $l_md_nothere            = "You need to be in the same sector as the sector defences.";
 $l_md_notyours           = "Action not permitted. Those sector defences do not belong to you.";
 $l_md_yours              = "You can not attack your own sector defences.";
 
 // news.php
 
-$l_news_title		 = "BlackNova Universe News";
-$l_news_info		 = "BNN is among the galaxy's leaders<br>
+$l_news_title           = "Blacknova Universe News";
+$l_news_info           = "BNN is among the galaxy's leaders<br>
                             in news and information delivery.<br>
                             Staffed 24 hours, seven days a week by a <br>
                             dedicated staff in BNN's galaxy headquarters <br>
                             in Alpha Centauri and in bureaus galaxywide!";
-$l_news_for		 = "News for";
-$l_news_prev		 = "previous day";
-$l_news_next		 = "next day";
-$l_news_none		 = "Sorry, no news today.";
-$l_news_flash		 = "News Flash";
+$l_news_for           = "News for";
+$l_news_prev           = "previous day";
+$l_news_next           = "next day";
+$l_news_none           = "Sorry, no news today.";
+$l_news_flash           = "News Flash";
 
 // dump.php
 
-$l_dump_title		 = "Dumping colonists";
-$l_dump_turn		 = "You need at least one turn to dump colonists.";
-$l_dump_nocol		 = "You have no colonists on your ship to begin with.";
-$l_dump_dumped		 = "Colonists dumped at supply depot.";
-$l_dump_nono		 = "You need to be at a supply depot to do this.";
+$l_dump_title           = "Dumping colonists";
+$l_dump_turn           = "You need at least one turn to dump colonists.";
+$l_dump_nocol           = "You have no colonists on your ship to begin with.";
+$l_dump_dumped           = "Colonists dumped at supply depot.";
+$l_dump_nono           = "You need to be at a supply depot to do this.";
 
 // readmail.php
 
-$l_readm_title		 = "Read Message";
+$l_readm_title           = "Read Message";
 
-$l_readm_delete		 = "MESSAGE DELETED";
-$l_readm_nomessage	 = "You have no Messages waiting for you...";
-$l_readm_center		 = "Message Receiving Center";
-$l_readm_sender		 = "Message Sender";
-$l_readm_captn		 = "Captain of the";
-$l_readm_del		 = "Delete";
-$l_readm_repl		 = "Reply";
+$l_readm_delete           = "MESSAGE DELETED";
+$l_readm_nomessage      = "You have no Messages waiting for you...";
+$l_readm_center           = "Message Receiving Center";
+$l_readm_sender           = "Message Sender";
+$l_readm_captn           = "Captain of the";
+$l_readm_del           = "Delete";
+$l_readm_repl           = "Reply";
 
 // mailto2.php
 
-$l_sendm_title		 = "Send Message";
-$l_sendm_to		 = "To";
-$l_sendm_from		 = "From";
-$l_sendm_ally		 = "Alliance:";
-$l_sendm_subj		 = "Subject";
-$l_sendm_mess		 = "Message";
-$l_sendm_send		 = "Send";
-$l_sendm_sent		 = "Message Sent";
+$l_sendm_title           = "Send Message";
+$l_sendm_to           = "To";
+$l_sendm_from           = "From";
+$l_sendm_ally           = "Alliance:";
+$l_sendm_subj           = "Subject";
+$l_sendm_mess           = "Message";
+$l_sendm_send           = "Send";
+$l_sendm_sent           = "Message Sent";
 
 // zoneinfo.php
 
-$l_zi_title		 = "Zone Information";
-$l_zi_nexist		 = "This section of space does not exist!";
-$l_zi_feds		 = "Federation";
-$l_zi_traders		 = "The Free-Trade Coalition";
-$l_zi_nobody		 = "Nobody";
-$l_zi_war		 = "Contested space";
-$l_zi_allow		 = "Allowed";
-$l_zi_notallow		 = "Not allowed";
-$l_zi_limit		 = "Limited to owner and allies";
-$l_zi_ul		 = "Unlimited";
-$l_zi_control		 = "You are in control of this zone";
-$l_zi_tochange		 = "to change its laws.";
-$l_zi_owner		 = "Zone owner";
-$l_zi_maxhull		 = "Maximum average tech level allowed";
+$l_zi_title           = "Zone Information";
+$l_zi_nexist           = "This section of space does not exist!";
+$l_zi_feds           = "Federation";
+$l_zi_traders           = "The Free-Trade Coalition";
+$l_zi_nobody           = "Nobody";
+$l_zi_war           = "Contested space";
+$l_zi_allow           = "Allowed";
+$l_zi_notallow           = "Not allowed";
+$l_zi_limit           = "Limited to owner and allies";
+$l_zi_ul           = "Unlimited";
+$l_zi_control           = "You are in control of this zone";
+$l_zi_tochange           = "to change its laws.";
+$l_zi_owner           = "Zone owner";
+$l_zi_maxhull           = "Maximum average tech level allowed";
 
 // zoneedit.php
 
-$l_ze_title		 = "Edit Zone";
-$l_ze_notowner		 = "You are not owner of this zone so you can't edit it.";
-$l_ze_name		 = "Zone name";
-$l_ze_allow		 = "Allow";
-$l_ze_attacks		 = "Allow attacking other ships";
-$l_ze_genesis		 = "Allow creating new planets";
-$l_ze_return		 = "to return to the zone information page";
-$l_ze_saved		 = "Your changes have been saved.";
+$l_ze_title           = "Edit Zone";
+$l_ze_notowner           = "You are not owner of this zone so you can't edit it.";
+$l_ze_name           = "Zone name";
+$l_ze_allow           = "Allow";
+$l_ze_attacks           = "Allow attacking other ships";
+$l_ze_genesis           = "Allow creating new planets";
+$l_ze_return           = "to return to the zone information page";
+$l_ze_saved           = "Your changes have been saved.";
 
 // teams.php
 
-$l_team_title		 = "Alliances";
-$l_team_menu		 = "to go back to the Alliances Menu";
-$l_team_galax		 = "Alliances present in the Galaxy:";
-$l_team_members		 = "Members";
-$l_team_coord		 = "Co-ordinator";
-$l_team_member		 = "Member";
-$l_team_noinvite	 = "Nobody has invited you to join an alliance.";
-$l_team_ifyouwant	 = "If you want to join an alliance, send a message to its co-ordinator asking to be invited.";
-$l_team_tocreate	 = "to create a new alliance.";
-$l_team_injoin		 = "You have been invited to join";
-$l_team_tojoin		 = "to join";
-$l_team_or		 = "or";
-$l_team_reject		 = "to reject the invitation.";
-$l_team_ed		 = "Edit";
-$l_team_inv		 = "Invite";
-$l_team_leave		 = "Leave";
-$l_team_eject		 = "Eject";
-$l_team_pending		 = "Invitation pending for";
-$l_team_noinvites	 = "Nobody has been invited to be part of";
-$l_team_confirmleave	 = "Are you sure you want to leave";
-$l_team_onlymember	 = "You were the only member, thus [team_name] is no more.";
-$l_team_youarecoord	 = "You are the co-ordinator of";
-$l_team_relinq		 = "You must relinquish your role to another player.";
-$l_team_newc		 = "New co-ordinator:";
-$l_team_youveleft	 = "You have left alliance";
-$l_team_relto		 = "relinquishing the functions of co-ordinator to";
-$l_team_welcome		 = "Welcome to alliance";
-$l_team_noinviteto	 = "You have not been invited in to that team.";
-$l_team_ejectsure	 = "Are you sure you want to eject";
-$l_team_ejected 	 = "has been eject from the alliance!";
-$l_team_testing		 = "Testing phase...";
-$l_team_pw		 = "Password";
-$l_team_entername	 = "Enter the name of the Alliance";
-$l_team_enterdesc	 = "Enter a description of the Alliance";
-$l_team_hcreated	 = "has been created and you are its leader";
-$l_team_team		 = "Alliance";
-$l_team_selectp		 = "Select the Player you want to invite";
-$l_team_isorry		 = "Sorry, but [name] has already been invited to be part of an alliance - only one invitation can be active at any given time";
-$l_team_plinvted	 = "Player invited.<BR>You must wait for that player to aknowledge your invitation.";
-$l_team_refuse		 = "You have refused the invitation to join";
-$l_team_edname		 = "Edit the name of your Alliance";
-$l_team_eddesc		 = "Edit the description for your Alliance";
-$l_team_hasbeenr	 = "has been renamed.";
-$l_team_error		 = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
-$l_team_notmember	 = "You are not a member of any alliance";
-$l_team_urejected	 = "<B>ATTENTION</B> - you have been ejected from";
-$l_team_noteams	 = "There are no alliances in the Galaxy at this time.";
+$l_team_title           = "Alliances";
+$l_team_menu           = "to go back to the Alliances Menu";
+$l_team_galax           = "Alliances present in the Galaxy:";
+$l_team_members           = "Members";
+$l_team_coord           = "Co-ordinator";
+$l_team_member           = "Member";
+$l_team_noinvite      = "Nobody has invited you to join an alliance.";
+$l_team_ifyouwant      = "If you want to join an alliance, send a message to its co-ordinator asking to be invited.";
+$l_team_tocreate      = "to create a new alliance.";
+$l_team_injoin           = "You have been invited to join";
+$l_team_tojoin           = "to join";
+$l_team_or           = "or";
+$l_team_reject           = "to reject the invitation.";
+$l_team_ed           = "Edit";
+$l_team_inv           = "Invite";
+$l_team_leave           = "Leave";
+$l_team_eject           = "Eject";
+$l_team_pending           = "Invitation pending for";
+$l_team_noinvites      = "Nobody has been invited to be part of";
+$l_team_confirmleave      = "Are you sure you want to leave";
+$l_team_onlymember      = "You were the only member, thus [team_name] is no more.";
+$l_team_youarecoord      = "You are the co-ordinator of";
+$l_team_relinq           = "You must relinquish your role to another player.";
+$l_team_newc           = "New co-ordinator:";
+$l_team_youveleft      = "You have left alliance";
+$l_team_relto           = "relinquishing the functions of co-ordinator to";
+$l_team_welcome           = "Welcome to alliance";
+$l_team_noinviteto      = "You have not been invited in to that team.";
+$l_team_ejectsure      = "Are you sure you want to eject";
+$l_team_ejected       = "has been eject from the alliance!";
+$l_team_testing           = "Testing phase...";
+$l_team_pw           = "Password";
+$l_team_entername      = "Enter the name of the Alliance";
+$l_team_enterdesc      = "Enter a description of the Alliance";
+$l_team_hcreated      = "has been created and you are its leader";
+$l_team_team           = "Alliance";
+$l_team_selectp           = "Select the Player you want to invite";
+$l_team_isorry           = "Sorry, but [name] has already been invited to be part of an alliance - only one invitation can be active at any given time";
+$l_team_plinvted      = "Player invited.<BR>You must wait for that player to aknowledge your invitation.";
+$l_team_refuse           = "You have refused the invitation to join";
+$l_team_edname           = "Edit the name of your Alliance";
+$l_team_eddesc           = "Edit the description for your Alliance";
+$l_team_hasbeenr      = "has been renamed.";
+$l_team_error           = "<b><font color=red>An error occured</font></b><br>You are not the leader of this Alliance.";
+$l_team_notmember      = "You are not a member of any alliance";
+$l_team_urejected      = "<B>ATTENTION</B> - you have been ejected from";
+$l_team_noteams      = "There are no alliances in the Galaxy at this time.";
 
 // ranking.php
 
-$l_ranks_title		 = "Top $max_rank Players";
-$l_ranks_none		 = "No Results to show.";
-$l_ranks_pnum		 = "Total number of players";
-$l_ranks_dships		 = "Players with destroyed ships are not counted.";
-$l_ranks_rank		 = "Rank";
-$l_ranks_lastlog	 = "Last login";
-$l_ranks_good		 = "Good";
-$l_ranks_evil		 = "Evil";
+$l_ranks_title           = "Top $max_rank Players";
+$l_ranks_none           = "No Results to show.";
+$l_ranks_pnum           = "Total number of players";
+$l_ranks_dships           = "Players with destroyed ships are not counted.";
+$l_ranks_rank           = "Rank";
+$l_ranks_lastlog      = "Last login";
+$l_ranks_good           = "Good";
+$l_ranks_evil           = "Evil";
 
 // beacon.php
 
-$l_beacon_title		 = "Deploy Space Beacon";
-$l_beacon_notpermitted	 = "Deploying space beacons in this sector is not permitted.";
-$l_beacon_reads		 = "Present beacon reads";
-$l_beacon_none		 = "There presently isn't a beacon in this sector.";
-$l_beacon_enter		 = "Enter text for beacon";
-$l_beacon_nowreads	 = "Beacon now reads";
-$l_beacon_donthave	 = "You do not have a space beacon.";
+$l_beacon_title           = "Deploy Space Beacon";
+$l_beacon_notpermitted      = "Deploying space beacons in this sector is not permitted.";
+$l_beacon_reads           = "Present beacon reads";
+$l_beacon_none           = "There presently isn't a beacon in this sector.";
+$l_beacon_enter           = "Enter text for beacon";
+$l_beacon_nowreads      = "Beacon now reads";
+$l_beacon_donthave      = "You do not have a space beacon.";
 
 // emerwarp.php
 
-$l_ewd_title		 = "Use Emergency Warp Device";
-$l_ewd_used		 = "Emergency warp device engaged - arrived in sector [sector].";
-$l_ewd_none		 = "You do not have an emergency warp device.";
+$l_ewd_title           = "Use Emergency Warp Device";
+$l_ewd_used           = "Emergency warp device engaged - arrived in sector [sector].";
+$l_ewd_none           = "You do not have an emergency warp device.";
 
 // defence-report.php
 
-$l_sdf_title		 = "Sector Defence Report";
-$l_sdf_none		 = "You have no sector defences deployed.";
-$l_sdf_type		 = "Type";
-$l_sdf_mode		 = "Mode";
+$l_sdf_title           = "Sector Defence Report";
+$l_sdf_none           = "You have no sector defences deployed.";
+$l_sdf_type           = "Type";
+$l_sdf_mode           = "Mode";
 
 // traderoute.php
 // cause its rather big i put everything in own vars than to re-use
 // the old ones so we could export to own file if performance problems
 // should occur
 
-$l_tdr_within		 = " in ";
-$l_tdr_title    	 = "Trade Routes";
-$l_tdr_newtdr   	 = "Click <a href=\"traderoute.php?command=new\">here</a> to create a new trade route";
+$l_tdr_within           = " in ";
+$l_tdr_title          = "Trade Routes";
+$l_tdr_newtdr         = "Click <a href=\"traderoute.php?command=new\">here</a> to create a new trade route";
 $l_tdr_modtdrset         = "To modify your global trade settings, click <a href=\"traderoute.php?command=settings\">here</a>";
-$l_tdr_confdel  	 = "Click <a href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">here</a> to confirm deletion of the following trade route :";
-$l_tdr_noactive 	 = "You do not have any active trade routes to display.";
-$l_tdr_curtdr   	 = "Current Trade Routes";
-$l_tdr_deltdr   	 = "Delete Trade Route";
-$l_tdr_src      	 = "Source";
-$l_tdr_srctype  	 = "Src Type";
-$l_tdr_dest     	 = "Destination";
-$l_tdr_desttype 	 = "Dest Type";
-$l_tdr_move     	 = "Move";
-$l_tdr_circuit  	 = "Circuit";
-$l_tdr_change   	 = "Change";
-$l_tdr_portin   	 = "Port in";
-$l_tdr_planet   	 = "Planet";
+$l_tdr_confdel        = "Click <a href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">here</a> to confirm deletion of the following trade route :";
+$l_tdr_noactive       = "You do not have any active trade routes to display.";
+$l_tdr_curtdr         = "Current Trade Routes";
+$l_tdr_deltdr         = "Delete Trade Route";
+$l_tdr_src            = "Source";
+$l_tdr_srctype        = "Src Type";
+$l_tdr_dest           = "Destination";
+$l_tdr_desttype       = "Dest Type";
+$l_tdr_move           = "Move";
+$l_tdr_circuit        = "Circuit";
+$l_tdr_change         = "Change";
+$l_tdr_portin         = "Port in";
+$l_tdr_planet         = "Planet";
 $l_tdr_nonexistance      = "Non-existant planet!";
-$l_tdr_na       	 = "N/A";
-$l_tdr_cargo    	 = "Cargo";
-$l_tdr_none     	 = "None";
+$l_tdr_na             = "N/A";
+$l_tdr_cargo          = "Cargo";
+$l_tdr_none           = "None";
 $l_tdr_colonists         = "Colonists";
-$l_tdr_fighters 	 = "Fighters";
-$l_tdr_torps    	 = "Torpedoes";
-$l_tdr_escooped 	 = "[tdr_dist_triptime] turns<br>[tdr_dist_scooped] energy scooped";
-$l_tdr_warp     	 = "Warp";
-$l_tdr_turns    	 = "turns";
-$l_tdr_way      	 = "way";
-$l_tdr_ways     	 = "ways";
-$l_tdr_edit     	 = "Edit";
-$l_tdr_del      	 = "Delete";
-$l_tdr_nowlink1 	 = "There is no warp link from sector [tdr_src_sector_id] to sector [tdr_dest_sector_id]";
-$l_tdr_nowlink2 	 = "There is no warp link from sector [tdr_dest_sector_id] to sector [tdr_src_sector_id]";
+$l_tdr_fighters       = "Fighters";
+$l_tdr_torps          = "Torpedoes";
+$l_tdr_escooped       = "[tdr_dist_triptime] turns<br>[tdr_dist_scooped] energy scooped";
+$l_tdr_warp           = "Warp";
+$l_tdr_turns          = "turns";
+$l_tdr_way            = "way";
+$l_tdr_ways           = "ways";
+$l_tdr_edit           = "Edit";
+$l_tdr_del            = "Delete";
+$l_tdr_nowlink1       = "There is no warp link from sector [tdr_src_sector_id] to sector [tdr_dest_sector_id]";
+$l_tdr_nowlink2       = "There is no warp link from sector [tdr_dest_sector_id] to sector [tdr_src_sector_id]";
 $l_tdr_sportissrc        = "If a special port is source, a planet must be the destination for colonization.";
 $l_tdr_notownplanet      = "You can't colonize a planet that you or your team don't own.";
 $l_tdr_planetisdest      = "A planet can be a destination only when source is a special port.";
-$l_tdr_samecom 		 = "You can't make a traderoute for ports selling the same commodities.";
-$l_tdr_sportcom 	 = "You can't sell commodities from a planet in a special port.";
-$l_tdr_editerr  	 = "Edit error : trade route not found in DB";
-$l_tdr_maxtdr   	 = "Sorry you have reached the maximum number of trade routes allowed.";
+$l_tdr_samecom            = "You can't make a traderoute for ports selling the same commodities.";
+$l_tdr_sportcom       = "You can't sell commodities from a planet in a special port.";
+$l_tdr_editerr        = "Edit error : trade route not found in DB";
+$l_tdr_maxtdr         = "Sorry you have reached the maximum number of trade routes allowed.";
 $l_tdr_createnew         = "Creating a new";
-$l_tdr_editinga 	 = "Editing a";
+$l_tdr_editinga       = "Editing a";
 $l_tdr_traderoute        = "trade route";
-$l_tdr_unnamed  	 = "Unnamed";
+$l_tdr_unnamed        = "Unnamed";
 $l_tdr_cursector         = "You are currently in sector";
 $l_tdr_selspoint         = "Please select starting point :";
-$l_tdr_port     	 = "Port";
-$l_tdr_insector 	 = "in sector";
+$l_tdr_port           = "Port";
+$l_tdr_insector       = "in sector";
 $l_tdr_selendpoint       = "Please select ending point";
 $l_tdr_selmovetype       = "Please select move type";
 $l_tdr_realspace         = "Real Space";
 $l_tdr_selcircuit        = "Please select circuit";
-$l_tdr_oneway   	 = "One way";
+$l_tdr_oneway         = "One way";
 $l_tdr_errnotvalidport   = "Error : the source port [tdr_port_id] does not seem to be valid.";
-$l_tdr_bothways 	 = "Both ways";
-$l_tdr_create   	 = "Create";
-$l_tdr_modify   	 = "Modify";
+$l_tdr_bothways       = "Both ways";
+$l_tdr_create         = "Create";
+$l_tdr_modify         = "Modify";
 $l_tdr_returnmenu        = "Click <a href=traderoute.php>here</a> to return to the trade routes menu.";
 $l_tdr_errnotvalidport   = "Error : the source port [tdr_port_id] is not a valid port.";
 $l_tdr_errnoport         = "Error : there is no port at sector [tdr_port_id].";
-$l_tdr_errnosrc    	 = "Error : specified source planet doesn't exist.";
+$l_tdr_errnosrc          = "Error : specified source planet doesn't exist.";
 $l_tdr_errnotownnotsell  = "Error : you do not own planet [tdr_source_name] in sector [tdr_source_sector_id] and planet is not selling.";
 $l_tdr_errnotvaliddestport= "Error : the destination port [tdr_port_id] is not a valid port.";
 $l_tdr_errnoport2        = "Error : there is no port at sector [tdr_port_id].";
@@ -861,13 +861,13 @@ $l_tdr_tdrdeleted        = "Trade route deleted.";
 $l_tdr_globalset         = "Global trade route settings";
 $l_tdr_tdrsportsrc       = "For trade routes having a special port as a source, trade";
 $l_tdr_tdrescooped       = "For real space trade routes, what to do with the energy scooped?";
-$l_tdr_trade    	 = "Trade";
-$l_tdr_keep    	 	 = "Keep";
-$l_tdr_save    	 	 = "Save";
+$l_tdr_trade          = "Trade";
+$l_tdr_keep                = "Keep";
+$l_tdr_save                = "Save";
 $l_tdr_globalsetsaved    = "Global trade route settings saved.";
 $l_tdr_engagenonexist    = "Tried to engage a non-existing trade route!";
 $l_tdr_invalidspoint     = "Starting port does not seem to be valid!";
-$l_tdr_inittdr  	 = "You are not in sector [tdr_source_id]! You must be in starting sector before you initiate a trade route!";
+$l_tdr_inittdr        = "You are not in sector [tdr_source_id]! You must be in starting sector before you initiate a trade route!";
 $l_tdr_invalidsrc        = "Source planet doesn't seem to be a valid planet!";
 $l_tdr_inittdrsector     = "You are not in sector [tdr_source_sector_id]! You must be in starting sector before you initiate a trade route!";
 $l_tdr_notyourplanet     = "You do not own planet [tdr_source_name] in sector [tdr_source_sector_id]!";
@@ -882,28 +882,28 @@ $l_tdr_nosrcporttrade    = "Trading from source port is not allowed.";
 $l_tdr_tradesrcportoutsider= "Trading at source port is not allowed for outsiders";
 $l_tdr_nodestporttrade   = "Trading from destination port is not allowed.";
 $l_tdr_tradedestportoutsider= "Trading at destination port is not allowed for outsiders";
-$l_tdr_tdrres  		 = "Trade Route Results";
-$l_tdr_bought  		 = "Bought";
+$l_tdr_tdrres             = "Trade Route Results";
+$l_tdr_bought             = "Bought";
 $l_tdr_nothingtotrade    = "Nothing to trade";
-$l_tdr_sold   	  	 = "Sold";
-$l_tdr_ore    		 = "Ore";
+$l_tdr_sold                = "Sold";
+$l_tdr_ore               = "Ore";
 $l_tdr_portisfull        = "Port is full";
-$l_tdr_goods    	 = "goods";
-$l_tdr_organics 	 = "organics";
-$l_tdr_energy   	 = "energy";
+$l_tdr_goods          = "goods";
+$l_tdr_organics       = "organics";
+$l_tdr_energy         = "energy";
 $l_tdr_portisempty       = "Port is empty";
-$l_tdr_loaded   	 = "Loaded";
+$l_tdr_loaded         = "Loaded";
 $l_tdr_nothingtoload     = "Nothing to load";
-$l_tdr_scooped  	 = "Scooped";
-$l_tdr_dumped   	 = "Dumped";
+$l_tdr_scooped        = "Scooped";
+$l_tdr_dumped         = "Dumped";
 $l_tdr_planetisovercrowded= "Planet is overcrowded";
 $l_tdr_nothingtodump     = "Nothing to dump";
 $l_tdr_onlyonewaytdr     = "Did nothing, traderoute was one way only";
-$l_tdr_profit 		 = "Profit";
-$l_tdr_cost   		 = "Cost";
+$l_tdr_profit            = "Profit";
+$l_tdr_cost              = "Cost";
 $l_tdr_totalprofit       = "Total profit";
 $l_tdr_totalcost         = "Total cost";
-$l_tdr_credits  	 = "Credits";
+$l_tdr_credits        = "Credits";
 $l_tdr_turnsused         = "Turns used";
 $l_tdr_turnsleft         = "Turns left";
 $l_tdr_notowner = "You do not own this trade route";
@@ -1185,129 +1185,129 @@ $l_chf_go       = "Go";
 
 // mines.php
 
-$l_mines_title			="Deploy Sector Mines & Fighters";
-$l_mines_noturn		 	="You need at least one turn to deploy sector defences.";
-$l_mines_nopermit		="Deploying Mines and Fighters in this sector is not permitted.";
-$l_mines_nodeploy		="Can not deploy here. Another Ship or Alliance has mines or fighters in this sector.";
-$l_mines_info1			="You are presently in sector [sector]. There are [mines] mines and [fighters] fighters here.";
-$l_mines_info2			="You have [mines] mines and [fighters] fighters available to deploy";
-$l_mines_deploy			="Deploy";
-$l_mines_deployed		="Deployed";
-$l_mines_att			="Attack";
-$l_mines_toll			="Toll";
-$l_mines_notorps		="You do not have enough torpedos.";
-$l_mines_nofighters		="You do not have enough fighters";
-$l_mines_dmines			="Deployed [mines] mines.";
-$l_mines_dfighter		="Deployed [fighters] fighters in [mode] mode.";
-$l_mines_fmode			="Fighter mode";
+$l_mines_title               ="Deploy Sector Mines & Fighters";
+$l_mines_noturn                ="You need at least one turn to deploy sector defences.";
+$l_mines_nopermit          ="Deploying Mines and Fighters in this sector is not permitted.";
+$l_mines_nodeploy          ="Can not deploy here. Another Ship or Alliance has mines or fighters in this sector.";
+$l_mines_info1               ="You are presently in sector [sector]. There are [mines] mines and [fighters] fighters here.";
+$l_mines_info2               ="You have [mines] mines and [fighters] fighters available to deploy";
+$l_mines_deploy               ="Deploy";
+$l_mines_deployed          ="Deployed";
+$l_mines_att               ="Attack";
+$l_mines_toll               ="Toll";
+$l_mines_notorps          ="You do not have enough torpedos.";
+$l_mines_nofighters          ="You do not have enough fighters";
+$l_mines_dmines               ="Deployed [mines] mines.";
+$l_mines_dfighter          ="Deployed [fighters] fighters in [mode] mode.";
+$l_mines_fmode               ="Fighter mode";
 
 //team-planets.php
 
-$l_teamplanet_title		="Alliance Planet Report";
-$l_teamplanet_notally		="You aren't in an alliance.";
-$l_teamplanet_personal		="Show personal planets";
-$l_teamplanet_noplanet		="Your alliance has no planets";
+$l_teamplanet_title          ="Alliance Planet Report";
+$l_teamplanet_notally          ="You aren't in an alliance.";
+$l_teamplanet_personal          ="Show personal planets";
+$l_teamplanet_noplanet          ="Your alliance has no planets";
 
-$l_feedback_title		="Send Feedback";
-$l_feedback_to			="TO:";
-$l_feedback_from		="FROM:";
-$l_feedback_topi		="SUBJECT:";
-$l_feedback_feedback		="Feedback";
-$l_feedback_message		="MESSAGE:";
-$l_feedback_messent		="Message Sent";
-$l_feedback_subj		="WTW Feedback";
-$l_feedback_info		="Please send feedback in english only"; // gameadmins put all your languages here
+$l_feedback_title          ="Send Feedback";
+$l_feedback_to               ="TO:";
+$l_feedback_from          ="FROM:";
+$l_feedback_topi          ="SUBJECT:";
+$l_feedback_feedback          ="Feedback";
+$l_feedback_message          ="MESSAGE:";
+$l_feedback_messent          ="Message Sent";
+$l_feedback_subj          ="WTW Feedback";
+$l_feedback_info          ="Please send feedback in english only"; // gameadmins put all your languages here
 
 // corp.php
-$l_corpm_title			="Corporation Menu";
-$l_corpm_tocorp			="Planet is now a Corporate Planet!";
-$l_corpm_topersonal		="Planet is now a Personal Planet!";
-$l_corpm_exploit		="You intercept a garbled borg message on your scanner... you should probably start worrying...";
+$l_corpm_title               ="Corporation Menu";
+$l_corpm_tocorp               ="Planet is now a Corporate Planet!";
+$l_corpm_topersonal          ="Planet is now a Personal Planet!";
+$l_corpm_exploit          ="You intercept a garbled borg message on your scanner... you should probably start worrying...";
 
 
 // login.php login2.php
-$l_login_title			="Login"; 
-$l_login_email			="E-mail Address:";
-$l_login_pw			="Password:";
-$l_login_chooseres		="Unable to determine your screen resolution. Please choose the best fit:";
-$l_login_newp			= "If you are a new player, click <A HREF=\"new.php\">here</A>.";
-$l_login_prbs			= "Problems?";
-$l_login_emailus		= "E-mail us";
-$l_login_sclosed		= "Server Closed";
-$l_login_closed_message		="Server closed until further notice.";
-$l_login_title2			="Login Phase Two"; 
-$l_login_banned			="<b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b>";
-$l_login_died			="Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=main.php>here</A> to continue with a new ship.";
-$l_login_newbie			="Due to the seriousness of this crime and the vicious attack against you, the Federation has graciously decided to provide a free of charge cloning from your remains.  Sadly, even in this day and age, new clones can not own property, aside from the basics to make a living.  You will be provided with a basic ship and a few credits to get you started.  Hopefully your next life will be better.";
-$l_login_newlife		="Click <A HREF=main.php>here</A> to continue in a new life.";
-$l_login_looser			="You had no escape pod, and due to your modest success in this life, the Federation declines to clone you.  Your remains should eventually fall into a gravity well, hopefully to be used to create life elsewhere... several billion years from now.<BR><BR> Better luck next game...";
-$l_login_4gotpw1		= "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, ";
-$l_login_4gotpw2		= "to have it e-mailed to you.<BR><BR>  Otherwise,";
-$l_login_4gotpw3		= "to try again.  Attempt logged with IP address of";
-$l_login_noone			= "No Such Player! - Create a new player <A HREF=new.php>here</A>.";
+$l_login_title               ="Login"; 
+$l_login_email               ="E-mail Address:";
+$l_login_pw               ="Password:";
+$l_login_chooseres          ="Unable to determine your screen resolution. Please choose the best fit:";
+$l_login_newp               = "If you are a new player, click <A HREF=\"new.php\">here</A>.";
+$l_login_prbs               = "Problems?";
+$l_login_emailus          = "E-mail us";
+$l_login_sclosed          = "Server Closed";
+$l_login_closed_message          ="Server closed until further notice.";
+$l_login_title2               ="Login Phase Two"; 
+$l_login_banned               ="<b>You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.</b>";
+$l_login_died               ="Your ship was destroyed, but your escape pod saved you and your crew.  Click <A HREF=main.php>here</A> to continue with a new ship.";
+$l_login_newbie               ="Due to the seriousness of this crime and the vicious attack against you, the Federation has graciously decided to provide a free of charge cloning from your remains.  Sadly, even in this day and age, new clones can not own property, aside from the basics to make a living.  You will be provided with a basic ship and a few credits to get you started.  Hopefully your next life will be better.";
+$l_login_newlife          ="Click <A HREF=main.php>here</A> to continue in a new life.";
+$l_login_looser               ="You had no escape pod, and due to your modest success in this life, the Federation declines to clone you.  Your remains should eventually fall into a gravity well, hopefully to be used to create life elsewhere... several billion years from now.<BR><BR> Better luck next game...";
+$l_login_4gotpw1          = "The password you entered is incorrect.<BR><BR>  If you have forgotten your password, ";
+$l_login_4gotpw2          = "to have it e-mailed to you.<BR><BR>  Otherwise,";
+$l_login_4gotpw3          = "to try again.  Attempt logged with IP address of";
+$l_login_noone               = "No Such Player! - Create a new player <A HREF=new.php>here</A>.";
 $l_login_lang = "Language";
 $l_login_settings = "Game Settings";
 $l_login_change = "Change";
 
 // new.php new2.php
-$l_new_title			= "Create New Player"; 
-$l_new_title2			= "Create New Player Phase Two"; 
-$l_new_shipname			= "Ship Name";
-$l_new_pname			= "Player Character Name";
-$l_new_info			= "We promise not to give out (or sell) your e-mail address to anyone.  It is required though, to send you your server generated password..";
-$l_new_closed_message		="Game closed for tournament play";
-$l_new_blank			="E-mail, ship name, and character name may not be blank.";
-$l_new_inuse			="E-mail address is already in use.";
-$l_new_4gotpw1			="If you have forgotten your password,";
-$l_new_4gotpw2			="to have it e-mailed to you.";
-$l_new_inusechar		="Character name [character], is already in use.";
-$l_new_inuseship		="Ship name [shipname], is already in use.";
-$l_new_pwsent			="Password has been sent to [username].";
-$l_new_login			="to go to the login screen.";
-$l_new_err			="Please go back or <a href=new.php>click here</a> and try again.";
-$l_new_topic			="Traders Password";
-$l_new_message			="Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe Traders web team.";
+$l_new_title               = "Create New Player"; 
+$l_new_title2               = "Create New Player Phase Two"; 
+$l_new_shipname               = "Ship Name";
+$l_new_pname               = "Player Character Name";
+$l_new_info               = "We promise not to give out (or sell) your e-mail address to anyone.  It is required though, to send you your server generated password..";
+$l_new_closed_message          ="Game closed for tournament play";
+$l_new_blank               ="E-mail, ship name, and character name may not be blank.";
+$l_new_inuse               ="E-mail address is already in use.";
+$l_new_4gotpw1               ="If you have forgotten your password,";
+$l_new_4gotpw2               ="to have it e-mailed to you.";
+$l_new_inusechar          ="Character name [character], is already in use.";
+$l_new_inuseship          ="Ship name [shipname], is already in use.";
+$l_new_pwsent               ="Password has been sent to [username].";
+$l_new_login               ="to go to the login screen.";
+$l_new_err               ="Please go back or <a href=new.php>click here</a> and try again.";
+$l_new_topic               ="Traders Password";
+$l_new_message               ="Greetings,\n\nSomeone from the IP address $ip requested that your password for Traders be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe Traders web team.";
 
 // logout.php
 
-$l_logout_score			="You current score is";
-$l_logout_text			="[name] is now logged out.  Click <A HREF=index.php>here</A> to return to game.";
+$l_logout_score               ="You current score is";
+$l_logout_text               ="[name] is now logged out.  Click <A HREF=index.php>here</A> to return to game.";
 
 // mail.php
 
-$l_mail_title			="Mail Password"; 
-$l_mail_noplayer		="No Such Player! - Create a new player <a href=new.php>here</a>.";
-$l_mail_sent			="Password has been sent to";
-$l_mail_topic			="$game_name Password";
-$l_mail_message			="Greetings,\n\nSomeone from the IP address $ip requested that your password for $game_name be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe $game_name web team.";
+$l_mail_title               ="Mail Password"; 
+$l_mail_noplayer          ="No Such Player! - Create a new player <a href=new.php>here</a>.";
+$l_mail_sent               ="Password has been sent to";
+$l_mail_topic               ="$game_name Password";
+$l_mail_message               ="Greetings,\n\nSomeone from the IP address $ip requested that your password for $game_name be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe $game_name web team.";
 
 // global_funcs.php
 
-$l_global_mmenu			="Click <A HREF=main.php>here</A> to return to the main menu.";
-$l_global_mlogin		="Click <A HREF=login.php>here</A> to return to the login screen.";
-$l_global_needlogin		="You need to log in, click <A HREF=login.php>here</A>.";
-$l_global_died			="Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>Better Luck Next Time!";
-$l_global_warzone		="Zone is now a War Zone!";
-$l_global_nzone			="Zone is a neutral zone.";
-$l_global_team			="Zone now belongs to alliance";
-$l_global_player		="Zone now belongs to player";
+$l_global_mmenu               ="Click <A HREF=main.php>here</A> to return to the main menu.";
+$l_global_mlogin          ="Click <A HREF=login.php>here</A> to return to the login screen.";
+$l_global_needlogin          ="You need to log in, click <A HREF=login.php>here</A>.";
+$l_global_died               ="Player is DEAD! <a href=log.php>Here</a>'s what happened<BR><BR>Better Luck Next Time!";
+$l_global_warzone          ="Zone is now a War Zone!";
+$l_global_nzone               ="Zone is a neutral zone.";
+$l_global_team               ="Zone now belongs to alliance";
+$l_global_player          ="Zone now belongs to player";
 
 // texts for the news flashes
 
-$l_news_planets		  = " planets";
-$l_news_cols		      = " Million colonists";
+$l_news_planets            = " planets";
+$l_news_cols                = " Million colonists";
 $l_news_p_headline = "[player]\'s Empire now has ";
 
 $l_killheadline=" was killed in an accident";
 $l_news_killed = "[name] was killed in a tragic accident today. How heroic - captain [name] was the last member on board of his ship, when he noticed there was no escape pod left for him. May he rest in peace!";
-$l_news_p_text5		= "The rising empire of [name] now has five planets, the BNN will watch the actions of [name] more closely in the future!";
-$l_news_p_text10		= "The growing empire of [name] now controls ten planets, Reports of BNN say that further expansion of [name] might lead to war!";
-$l_news_p_text25		= "The huge empire of [name] colonized 25 planets already, in an interview, [name] announced that he might consider slowing down his expansion in the future!";
-$l_news_p_text50		= "The enormous vast empire of [name], represented by 50 planets in the whole galaxy is getting a threatening strength. One of the BNN reporters found out that [name] is upgrading his ship planning a major war. In an interview [name] announced that is done on defence purpose only!";
-$l_news_c_text25		= "The rising empire of [name] now has 25 million colonists, the BNN will watch the actions of [name] more closely in the future, but its highly obvious that birthrates are going to explode!";
-$l_news_c_text100		= "The aspiring empire of [name] now has 100 million colonists, after an explosion of birth rates, [name] colonies seemed to be a good place for families to settle!";
-$l_news_c_text500		= "The large empire of [name] now has 500 million colonists, [name] said in an interview that colonization of the galaxy has just yet begun";
-$l_news_c_text1000		= "The humongous empire of [name] now has one billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+$l_news_p_text5          = "The rising empire of [name] now has five planets, the BNN will watch the actions of [name] more closely in the future!";
+$l_news_p_text10          = "The growing empire of [name] now controls ten planets, Reports of BNN say that further expansion of [name] might lead to war!";
+$l_news_p_text25          = "The huge empire of [name] colonized 25 planets already, in an interview, [name] announced that he might consider slowing down his expansion in the future!";
+$l_news_p_text50          = "The enormous vast empire of [name], represented by 50 planets in the whole galaxy is getting a threatening strength. One of the BNN reporters found out that [name] is upgrading his ship planning a major war. In an interview [name] announced that is done on defence purpose only!";
+$l_news_c_text25          = "The rising empire of [name] now has 25 million colonists, the BNN will watch the actions of [name] more closely in the future, but its highly obvious that birthrates are going to explode!";
+$l_news_c_text100          = "The aspiring empire of [name] now has 100 million colonists, after an explosion of birth rates, [name] colonies seemed to be a good place for families to settle!";
+$l_news_c_text500          = "The large empire of [name] now has 500 million colonists, [name] said in an interview that colonization of the galaxy has just yet begun";
+$l_news_c_text1000          = "The humongous empire of [name] now has one billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
 
 // Options.php
 
@@ -1492,244 +1492,244 @@ $l_insignia[19] = "Admiral";
 
 // planet.php planet2.php planet3.php
 
-$l_planet_title		 = "Menú del Planeta"; 
-$l_planet_none		 = "No estás en el mismo sector que este planeta, así que no puedes interactuar con él."; 
-$l_planet_capture1	 = "capturar";  // thats the link's text
-$l_planet_capture2	 = "Puedes [capture] el planeta o solo dejarlo indefenso."; 
-$l_planet_unowned	 = "Este planeta no tiene propietário"; 
+$l_planet_title           = "Menú del Planeta"; 
+$l_planet_none           = "No estás en el mismo sector que este planeta, así que no puedes interactuar con él."; 
+$l_planet_capture1      = "capturar";  // thats the link's text
+$l_planet_capture2      = "Puedes [capture] el planeta o solo dejarlo indefenso."; 
+$l_planet_unowned      = "Este planeta no tiene propietário"; 
 $l_planet_unnamed        = "Bienvenido al planeta sin nombre de [name]"; 
-$l_planet_named		 = "Bienvenido a [planetname], propiedad de [name]."; 
-$l_planet_onsurface	 = "Actualmente estás en la superficie del planeta."; 
-$l_planet_orbit 	 = "Actualmente estás orbitando el planeta."; 
+$l_planet_named           = "Bienvenido a [planetname], propiedad de [name]."; 
+$l_planet_onsurface      = "Actualmente estás en la superficie del planeta."; 
+$l_planet_orbit       = "Actualmente estás orbitando el planeta."; 
 $l_planet_leave_link     = "Despegar"; 
 $l_planet_leave          = "[leave] del Planeta"; 
 $l_planet_name_link = "Nombre"; 
 $l_planet_name2 = "[name] del Planeta"; 
 $l_planet_land_link      = "Aterrizar"; 
 $l_planet_land           = "[land] en el Planeta"; 
-$l_planet_logout	 = "También puedes <a href=logout.php>desconectar</a> en la seguridad de tu planeta."; 
-$l_planet_selling	 = "El planeta está vendiendo actualmente mercancías."; 
+$l_planet_logout      = "También puedes <a href=logout.php>desconectar</a> en la seguridad de tu planeta."; 
+$l_planet_selling      = "El planeta está vendiendo actualmente mercancías."; 
 $l_planet_not_selling    = "El planeta no está vendiendo actualmente mercancías."; 
-$l_planet_transfer_link	 = "Transferir"; 
-$l_planet_transfer	 = "[transfer] mercancías/recursos/colonos de/hacia el Planeta"; 
-$l_planet_hasbase	 = "Tienes una base en este planeta."; 
+$l_planet_transfer_link      = "Transferir"; 
+$l_planet_transfer      = "[transfer] mercancías/recursos/colonos de/hacia el Planeta"; 
+$l_planet_hasbase      = "Tienes una base en este planeta."; 
 
-$l_planet_perc		 = "Porcentajes de Producción"; 
-$l_planet_interest	 = "* La producción de créditos más allá de los intereses del banco son 100 - otros porcentajes"; 
-$l_planet_update	 = "Actualizar"; 
-$l_planet_tsell_link	 = "Vendiendo"; 
-$l_planet_tsell		 = "Cambiar a planeta [selling] mercancías"; 
-$l_planet_bbase_link	 = "construir una base"; 
-$l_planet_bbase		 = "Con mercancías y créditos suficientes puedes [build] para ayudar a defender el planeta."; 
-$l_planet_bbuild	 = "Base construída"; 
-$l_planet_mcorp_linkC	 = "Planeta Corporativo"; 
-$l_planet_mcorp_linkP	 = "Planeta Personal"; 
-$l_planet_mcorp		 = "También puedes convertir este planeta en un [planet]"; 
-$l_planet_buy_link	 = "Comprar"; 
-$l_planet_buy		 = "[buy] mercancías del Planeta"; 
-$l_planet_att_link	 = "Atacar"; 
-$l_planet_att		 = "[attack] al Planeta"; 
-$l_planet_att_sure	 = "¿Estás SEGURO...?"; 
-$l_planet_scn_link	 = "Escanear"; 
-$l_planet_scn		 = "[scan] Planeta"; 
+$l_planet_perc           = "Porcentajes de Producción"; 
+$l_planet_interest      = "* La producción de créditos más allá de los intereses del banco son 100 - otros porcentajes"; 
+$l_planet_update      = "Actualizar"; 
+$l_planet_tsell_link      = "Vendiendo"; 
+$l_planet_tsell           = "Cambiar a planeta [selling] mercancías"; 
+$l_planet_bbase_link      = "construir una base"; 
+$l_planet_bbase           = "Con mercancías y créditos suficientes puedes [build] para ayudar a defender el planeta."; 
+$l_planet_bbuild      = "Base construída"; 
+$l_planet_mcorp_linkC      = "Planeta Corporativo"; 
+$l_planet_mcorp_linkP      = "Planeta Personal"; 
+$l_planet_mcorp           = "También puedes convertir este planeta en un [planet]"; 
+$l_planet_buy_link      = "Comprar"; 
+$l_planet_buy           = "[buy] mercancías del Planeta"; 
+$l_planet_att_link      = "Atacar"; 
+$l_planet_att           = "[attack] al Planeta"; 
+$l_planet_att_sure      = "¿Estás SEGURO...?"; 
+$l_planet_scn_link      = "Escanear"; 
+$l_planet_scn           = "[scan] Planeta"; 
 $l_planet_nowsell        = "Ahora el planeta puede vender."; 
 $l_planet_nownosell      = "Ahora el planeta no puede vender."; 
-$l_planet_iname		 = "Introduce un nuevo nombre para el planeta"; 
-$l_planet_cname		 = "El nombre del planeta ha cambiado a "; 
-$l_planet_landed	 = "Has aterrizado en la superficie del planeta."; 
-$l_planet_left		 = "Ya no estás en la superficie del planeta."; 
-$l_planet_cinfo		 = "Tienes espacio para [cargo] unidades de carga adicional. Tienes capacidad para [energy] unidades adicionales de energía."; 
-$l_planet_toplanet	 = "¿Al Planeta?"; 
-$l_planet_baseinfo	 = "Para construir una base debe haber al menos $base_credits créditos, $base_ore unidades de oro, $base_organics unidades de minerales, y $base_goods undidades de bienes en el planeta."; 
+$l_planet_iname           = "Introduce un nuevo nombre para el planeta"; 
+$l_planet_cname           = "El nombre del planeta ha cambiado a "; 
+$l_planet_landed      = "Has aterrizado en la superficie del planeta."; 
+$l_planet_left           = "Ya no estás en la superficie del planeta."; 
+$l_planet_cinfo           = "Tienes espacio para [cargo] unidades de carga adicional. Tienes capacidad para [energy] unidades adicionales de energía."; 
+$l_planet_toplanet      = "¿Al Planeta?"; 
+$l_planet_baseinfo      = "Para construir una base debe haber al menos $base_credits créditos, $base_ore unidades de oro, $base_organics unidades de minerales, y $base_goods undidades de bienes en el planeta."; 
 $l_planet_p_under        = "No puedes cambiar los porcentajes de producción a un número negativo."; 
-$l_planet_p_over	 = "No puedes cambiar los porcentajes de producción a un total mayor que el 100%."; 
-$l_planet_p_changed	 = "Porcentajes de producción cambiados."; 
-$l_plant_scn_turn	 = "Necesitas al menos un turno para escanear un planeta."; 
-$l_planet_noscan	 = "¡Los sensores no pueden fijar el objetivo!"; 
-$l_planet_logscanA	 = "[name] ha intentado escanear uno de tus planetas en el sector [sector], pero ha fallado."; 
-$l_planet_logscanB	 = "Uno de tus planetas en el sector [sector] ha sido escaneado por [name]."; 
-$l_planet_scn_report	 = "Resultados del escaneo a [name], propiedad de [owner]"; 
-$l_base	  		 = "Base"; 
-$l_planet_ison		 = "está en el planeta"; 
-$l_planet_captured	 = "Planeta capturado"; 
-$l_planet_notdef	 = "¡El planeta no ha sido vencido!"; 
-$l_planet_caplog	 = "Tu planeta '[planetname]' en el sector [sector] ha sido capturado por [name]."; 
+$l_planet_p_over      = "No puedes cambiar los porcentajes de producción a un total mayor que el 100%."; 
+$l_planet_p_changed      = "Porcentajes de producción cambiados."; 
+$l_plant_scn_turn      = "Necesitas al menos un turno para escanear un planeta."; 
+$l_planet_noscan      = "¡Los sensores no pueden fijar el objetivo!"; 
+$l_planet_logscanA      = "[name] ha intentado escanear uno de tus planetas en el sector [sector], pero ha fallado."; 
+$l_planet_logscanB      = "Uno de tus planetas en el sector [sector] ha sido escaneado por [name]."; 
+$l_planet_scn_report      = "Resultados del escaneo a [name], propiedad de [owner]"; 
+$l_base                  = "Base"; 
+$l_planet_ison           = "está en el planeta"; 
+$l_planet_captured      = "Planeta capturado"; 
+$l_planet_notdef      = "¡El planeta no ha sido vencido!"; 
+$l_planet_caplog      = "Tu planeta '[planetname]' en el sector [sector] ha sido capturado por [name]."; 
 $l_planet_noone = "nadie"; 
 
-$l_planet2_title	 = "Transferencia Planetaria"; 
-$l_planet2_noturn	 = "Necesitas al menos un turno para realizar una transferencia planetaria."; 
-$l_planet2_noten 	 = "No tienes suficiente "; 
-$l_planet2_fortr	 = "para la transferencia solicitada."; 
-$l_planet2_settr	 = "Estableciendo la cantidad de la transferencia a "; 
-$l_planet2_losup	 = "El planeta solo ha sido capaz de ofrecer "; 
-$l_planet2_notowner	 = "No eres el propietario de este planeta."; 
-$l_planet2_compl	 = "Transferencia completada."; 
-$l_planet2_power	 = "capacidad de energía"; 
-$l_planet2_comp 	 = "capacidad de computadora"; 
-$l_planet2_laun 	 = "capacidad de lanzadora"; 
+$l_planet2_title      = "Transferencia Planetaria"; 
+$l_planet2_noturn      = "Necesitas al menos un turno para realizar una transferencia planetaria."; 
+$l_planet2_noten       = "No tienes suficiente "; 
+$l_planet2_fortr      = "para la transferencia solicitada."; 
+$l_planet2_settr      = "Estableciendo la cantidad de la transferencia a "; 
+$l_planet2_losup      = "El planeta solo ha sido capaz de ofrecer "; 
+$l_planet2_notowner      = "No eres el propietario de este planeta."; 
+$l_planet2_compl      = "Transferencia completada."; 
+$l_planet2_power      = "capacidad de energía"; 
+$l_planet2_comp       = "capacidad de computadora"; 
+$l_planet2_laun       = "capacidad de lanzadora"; 
 $l_planet2_nocorptransfer = "No puedes transferir créditos desde o hacia planetas corporativos."; 
 $l_planet2_baseexceeded = "Los planetas sin una base no puede contener esa cantidad de créditos."; 
 
-$l_planet3_title	 = "Comerciando en el Planeta"; 
+$l_planet3_title      = "Comerciando en el Planeta"; 
 
 // planet-report.php
 
-$l_pr_title		 = "Informe del Planeta"; 
-$l_pr_teamlink		 = "Mostrar planetas de la Alianza"; 
-$l_pr_noplanet		 = "No tienes tantos planetas"; 
-$l_pr_clicktosort	 = "Pulsa en un título de columna para ordenarlo"; 
-$l_pr_totals		 = "Totales"; 
+$l_pr_title           = "Informe del Planeta"; 
+$l_pr_teamlink           = "Mostrar planetas de la Alianza"; 
+$l_pr_noplanet           = "No tienes tantos planetas"; 
+$l_pr_clicktosort      = "Pulsa en un título de columna para ordenarlo"; 
+$l_pr_totals           = "Totales"; 
 
 // rsmove.php
-$l_rs_title 		= "Movimiento EspacioReal"; 
+$l_rs_title           = "Movimiento EspacioReal"; 
 $l_rs_whichsector       = "¿Qué sector quieres alcanzar a través de EspacioReal?"; 
-$l_rs_insector		= "Actualmente estás en el sector [sector] - y hay sectores disponibles de 0 a [sector_max]."; 
-$l_rs_submit		= "Computar"; 
-$l_rs_movetime		= "Con tus motores te llevará [triptime] turnos completar el viaje."; 
-$l_rs_energy		= "Conseguirás [energy] unidades de energía"; 
-$l_rs_noturns		= "No tienes suficientes turnos, y no puedes embarcarte en este viaje."; 
-$l_rs_engage_link	= "Iniciar"; 
-$l_rs_engage		= "Tienes [turns] turnos. ¿[engage] motores?"; 
+$l_rs_insector          = "Actualmente estás en el sector [sector] - y hay sectores disponibles de 0 a [sector_max]."; 
+$l_rs_submit          = "Computar"; 
+$l_rs_movetime          = "Con tus motores te llevará [triptime] turnos completar el viaje."; 
+$l_rs_energy          = "Conseguirás [energy] unidades de energía"; 
+$l_rs_noturns          = "No tienes suficientes turnos, y no puedes embarcarte en este viaje."; 
+$l_rs_engage_link     = "Iniciar"; 
+$l_rs_engage          = "Tienes [turns] turnos. ¿[engage] motores?"; 
 
-$l_rs_invalid		= "Destino no válido"; 
-$l_rs_ready 		= "Estas en el sector [sector]. Has usado [triptime] turnos, y has conseguido [energy] unidades de energía."; 
+$l_rs_invalid          = "Destino no válido"; 
+$l_rs_ready           = "Estas en el sector [sector]. Has usado [triptime] turnos, y has conseguido [energy] unidades de energía."; 
 
-// navcomp.php	
+// navcomp.php     
 
-$l_nav_title		 = "Computadora de Navegación"; 
-$l_nav_nocomp		 = "La computadora de navegación no está disponible"; 
-$l_nav_query		 = "Introduce el sector hacia el que deseas encontrar una ruta: "; 
-$l_nav_pathfnd		 = "Ruta encontrada"; 
-$l_nav_answ1		 = "Te costará"; 
-$l_nav_answ2		 = "turnos llegar a ese sector."; 
-$l_nav_proper		 = "La tecnología de tu computadora es demasiado primitiva para calcular la ruta de salto a esa distancia."; 
+$l_nav_title           = "Computadora de Navegación"; 
+$l_nav_nocomp           = "La computadora de navegación no está disponible"; 
+$l_nav_query           = "Introduce el sector hacia el que deseas encontrar una ruta: "; 
+$l_nav_pathfnd           = "Ruta encontrada"; 
+$l_nav_answ1           = "Te costará"; 
+$l_nav_answ2           = "turnos llegar a ese sector."; 
+$l_nav_proper           = "La tecnología de tu computadora es demasiado primitiva para calcular la ruta de salto a esa distancia."; 
 
 
 // attack.php
 
-$l_att_title		 = "Atacar Nave"; 
-$l_att_notarg		 = "El objetivo no está en este sector."; 
-$l_att_noturn		 = "Necesitas al menos un turno para atacar."; 
-$l_att_noatt		 = "No está permitido atacar a alguien en este sector."; 
-$l_att_flee		 = "¡El objetivo te ha esquivado!"; 
-$l_att_ewd		 = "¡El objetivo a iniciado un dispositivo de salto de emergencia cuando ha sido atacado!"; 
-$l_att_att		 = "Ataques"; 
-$l_att_beams		 = "Daño de los lásers:"; 
-$l_att_torps		 = "Daño de los torpedos:"; 
-$l_att_fighters		 = "Ataque de los cazas"; 
-$l_att_lost		 = "perdido"; 
-$l_att_ylost		 = "Has perdido"; 
-$l_att_sdown		 = " ha perdido sus escudos !"; 
-$l_att_ydown		 = "¡Has perdido tus escudos!"; 
-$l_att_shits		 = " ha recibido un ataque en sus escudos por"; 
-$l_att_yhits		 = "Tus escudos han sido atacados por"; 
-$l_att_dmg		 = "daño"; 
-$l_att_sarm		 = " tiene una brecha en su armadura!"; 
-$l_att_yarm		 = "¡Tienes una brecha en tu armadura!"; 
-$l_att_ashit		 = " ha recibido un ataque en su armadura por"; 
-$l_att_ayhit		 = "Has recibido un ataque en tu armadura por"; 
-$l_att_lostf		 = "perdió todos sus cazas."; 
-$l_att_ylostf		 = "Has perdido todos tus cazas."; 
-$l_att_sdest		 = " contempla como su nave es destruida."; 
-$l_att_espod		 = "¡Ha sido lanzada una cápsula de salvamento!"; 
-$l_att_ysalv		 = "Has capturado [salv_ore] unidades de minerales, [salv_organics] unidades de orgánicos, [salv_goods] unidades de bienes, y has capturado el [ship_salvage_rate]% de la nave por [ship_salvage] créditos.<br>Tu puntuación ha cambiado en [rating_change] puntos."; 
+$l_att_title           = "Atacar Nave"; 
+$l_att_notarg           = "El objetivo no está en este sector."; 
+$l_att_noturn           = "Necesitas al menos un turno para atacar."; 
+$l_att_noatt           = "No está permitido atacar a alguien en este sector."; 
+$l_att_flee           = "¡El objetivo te ha esquivado!"; 
+$l_att_ewd           = "¡El objetivo a iniciado un dispositivo de salto de emergencia cuando ha sido atacado!"; 
+$l_att_att           = "Ataques"; 
+$l_att_beams           = "Daño de los lásers:"; 
+$l_att_torps           = "Daño de los torpedos:"; 
+$l_att_fighters           = "Ataque de los cazas"; 
+$l_att_lost           = "perdido"; 
+$l_att_ylost           = "Has perdido"; 
+$l_att_sdown           = " ha perdido sus escudos !"; 
+$l_att_ydown           = "¡Has perdido tus escudos!"; 
+$l_att_shits           = " ha recibido un ataque en sus escudos por"; 
+$l_att_yhits           = "Tus escudos han sido atacados por"; 
+$l_att_dmg           = "daño"; 
+$l_att_sarm           = " tiene una brecha en su armadura!"; 
+$l_att_yarm           = "¡Tienes una brecha en tu armadura!"; 
+$l_att_ashit           = " ha recibido un ataque en su armadura por"; 
+$l_att_ayhit           = "Has recibido un ataque en tu armadura por"; 
+$l_att_lostf           = "perdió todos sus cazas."; 
+$l_att_ylostf           = "Has perdido todos tus cazas."; 
+$l_att_sdest           = " contempla como su nave es destruida."; 
+$l_att_espod           = "¡Ha sido lanzada una cápsula de salvamento!"; 
+$l_att_ysalv           = "Has capturado [salv_ore] unidades de minerales, [salv_organics] unidades de orgánicos, [salv_goods] unidades de bienes, y has capturado el [ship_salvage_rate]% de la nave por [ship_salvage] créditos.<br>Tu puntuación ha cambiado en [rating_change] puntos."; 
 
-$l_att_andused		 = "y has usado"; 
-$l_att_stilship		 = "No has destruido la nave de [name]."; 
-$l_att_atyou		 = "te ha atacado"; 
-$l_att_and		 = "y"; 
-$l_att_yshiplost	 = "¡Tu nave ha sido destruida!"; 
-$l_att_salv		 = "[name] ha capturado [salv_ore] unidades de minerales, [salv_organics] unidades de orgánicos, [salv_goods] unidades de bienes, y ha capturado el [ship_salvage_rate]% de la nave por [ship_salvage] créditos."; 
+$l_att_andused           = "y has usado"; 
+$l_att_stilship           = "No has destruido la nave de [name]."; 
+$l_att_atyou           = "te ha atacado"; 
+$l_att_and           = "y"; 
+$l_att_yshiplost      = "¡Tu nave ha sido destruida!"; 
+$l_att_salv           = "[name] ha capturado [salv_ore] unidades de minerales, [salv_organics] unidades de orgánicos, [salv_goods] unidades de bienes, y ha capturado el [ship_salvage_rate]% de la nave por [ship_salvage] créditos."; 
 
 // warpedit 1-3.php
 
 
-$l_warp_title		 = "Usar Editor de Saltos"; 
-$l_warp_turn		 = "Necesitas al menos un turno para usar el editor de saltos."; 
-$l_warp_none		 = "No tienes ningún editor de saltos."; 
-$l_warp_forbid		 = "No está permitido usar un Editor de Saltos en este sector."; 
-$l_warp_nolink		 = "No hay enlaces hacia fuera de este sector."; 
-$l_warp_linkto		 = "Los enlaces llevan de este sector hacia"; 
-$l_warp_query		 = "¿Hacia qué sector te gustaría crear un enlace?"; 
-$l_warp_oneway		 = "¿De una dirección?"; 
-$l_warp_dest		 = "Alternativamente, puedes destruir un enlace hacia un sector."; 
-$l_warp_destquery	 = "¿Hacia qué sector quieres quitar el enlace?"; 
-$l_warp_bothway		 = "Ambas direcciones"; 
-$l_warp_nosector	 = "El sector no existe."; 
-$l_warp_twoerror	 = "No está permitido usar un Editor de Saltos para crear un enlace de ambas direcciones en el sector [target_sector]."; 
-$l_warp_sectex		 = "No se puede crear un enlace de salto desde el sector actual - habrás excedido el máximo de $link_max por sector."; 
-$l_warp_linked		 = "El sector de destino ([target_sector]) ya tiene un enlace desde este sector."; 
-$l_warp_unlinked	 = "El enlace de destino ([target_sector]) no tiene un enlace desde este sector."; 
-$l_warp_coneway	         = "Se ha creado un enlace de una dirección hacia"; 
-$l_warp_ctwoway		 = "Se ha creado un enlace desde y hacia"; 
-$l_warp_forbidtwo	 = "No está permitido usar un Editor de Saltos para quitar un enlace de dos direcciones hacia el sector [target_sector]."; 
-$l_warp_removed		 = "Enlace quitado hacia"; 
-$l_warp_removedtwo	 = "Enlace quitado desde y hacia"; 
+$l_warp_title           = "Usar Editor de Saltos"; 
+$l_warp_turn           = "Necesitas al menos un turno para usar el editor de saltos."; 
+$l_warp_none           = "No tienes ningún editor de saltos."; 
+$l_warp_forbid           = "No está permitido usar un Editor de Saltos en este sector."; 
+$l_warp_nolink           = "No hay enlaces hacia fuera de este sector."; 
+$l_warp_linkto           = "Los enlaces llevan de este sector hacia"; 
+$l_warp_query           = "¿Hacia qué sector te gustaría crear un enlace?"; 
+$l_warp_oneway           = "¿De una dirección?"; 
+$l_warp_dest           = "Alternativamente, puedes destruir un enlace hacia un sector."; 
+$l_warp_destquery      = "¿Hacia qué sector quieres quitar el enlace?"; 
+$l_warp_bothway           = "Ambas direcciones"; 
+$l_warp_nosector      = "El sector no existe."; 
+$l_warp_twoerror      = "No está permitido usar un Editor de Saltos para crear un enlace de ambas direcciones en el sector [target_sector]."; 
+$l_warp_sectex           = "No se puede crear un enlace de salto desde el sector actual - habrás excedido el máximo de $link_max por sector."; 
+$l_warp_linked           = "El sector de destino ([target_sector]) ya tiene un enlace desde este sector."; 
+$l_warp_unlinked      = "El enlace de destino ([target_sector]) no tiene un enlace desde este sector."; 
+$l_warp_coneway              = "Se ha creado un enlace de una dirección hacia"; 
+$l_warp_ctwoway           = "Se ha creado un enlace desde y hacia"; 
+$l_warp_forbidtwo      = "No está permitido usar un Editor de Saltos para quitar un enlace de dos direcciones hacia el sector [target_sector]."; 
+$l_warp_removed           = "Enlace quitado hacia"; 
+$l_warp_removedtwo      = "Enlace quitado desde y hacia"; 
 
 // genesis.php
 
-$l_gns_title		 = "Usar Dispositivo Génesis"; 
-$l_gns_turn		 = "Necesitas al menos un turno para usar un dispositivo génesis."; 
-$l_gns_onplanet		 = "No puedes usar este dispostivo mientras estás en la superficie del planeta."; 
-$l_gns_full		 = "Este sistema solar ya está lleno."; 
-$l_gns_planetex		 = "Ya hay un planeta en este sector."; 
-$l_gns_nogenesis	 = "No tienes ningún dispositivo génesis."; 
-$l_gns_forbid		 = "No está permitido crear un planeta en este sector."; 
-$l_gns_bforbid		 = "Las bases que hay en este sector estan interfiriendo con tu dispositivo génesis. La creación del planeta no es posible."; 
-$l_gns_pcreate		 = "Planeta creado."; 
+$l_gns_title           = "Usar Dispositivo Génesis"; 
+$l_gns_turn           = "Necesitas al menos un turno para usar un dispositivo génesis."; 
+$l_gns_onplanet           = "No puedes usar este dispostivo mientras estás en la superficie del planeta."; 
+$l_gns_full           = "Este sistema solar ya está lleno."; 
+$l_gns_planetex           = "Ya hay un planeta en este sector."; 
+$l_gns_nogenesis      = "No tienes ningún dispositivo génesis."; 
+$l_gns_forbid           = "No está permitido crear un planeta en este sector."; 
+$l_gns_bforbid           = "Las bases que hay en este sector estan interfiriendo con tu dispositivo génesis. La creación del planeta no es posible."; 
+$l_gns_pcreate           = "Planeta creado."; 
 
 // ship.php
 
-$l_ship_title		 = "Órdenes de la Nave"; 
-$l_ship_the		 = "La"; 
-$l_ship_nolonger	 = "ya no está en este sector"; 
-$l_ship_youc		 = "Ves la"; 
-$l_ship_owned		 = "propiedad de"; 
-$l_ship_perform		 = "Puedes realizar las siguientes acciones:"; 
+$l_ship_title           = "Órdenes de la Nave"; 
+$l_ship_the           = "La"; 
+$l_ship_nolonger      = "ya no está en este sector"; 
+$l_ship_youc           = "Ves la"; 
+$l_ship_owned           = "propiedad de"; 
+$l_ship_perform           = "Puedes realizar las siguientes acciones:"; 
 
 // selfdestruct.php
 
-$l_die_title		 = "Autodestrucción"; 
-$l_die_rusure		 = "¿Estás seguro de que deseas destruir tu nave? Esto te eliminará del juego."; 
-$l_die_goodbye		 = "¡Adios, galaxia cruel!"; 
-$l_die_check		 = "¿Estás seguro de que deseas eliminarte del juego?"; 
-$l_die_nonono		 = "¡NO! ¡NO! ¡NO!"; 
-$l_die_what		 = "¿En qué estaba yo pensando?"; 
-$l_die_count		 = "5.. 4.. 3.. 2.. 1.. ¡Bum!"; 
-$l_die_vapor		 = "Tu nave y todos los que estaban a bordo han sido vaporizados."; 
-$l_die_please		 = "Por favor, <A HREF=logout.php>desconéctate</A>"; 
-$l_die_exploit		 = "No juegues con lo que no entiendes."; 
+$l_die_title           = "Autodestrucción"; 
+$l_die_rusure           = "¿Estás seguro de que deseas destruir tu nave? Esto te eliminará del juego."; 
+$l_die_goodbye           = "¡Adios, galaxia cruel!"; 
+$l_die_check           = "¿Estás seguro de que deseas eliminarte del juego?"; 
+$l_die_nonono           = "¡NO! ¡NO! ¡NO!"; 
+$l_die_what           = "¿En qué estaba yo pensando?"; 
+$l_die_count           = "5.. 4.. 3.. 2.. 1.. ¡Bum!"; 
+$l_die_vapor           = "Tu nave y todos los que estaban a bordo han sido vaporizados."; 
+$l_die_please           = "Por favor, <A HREF=logout.php>desconéctate</A>"; 
+$l_die_exploit           = "No juegues con lo que no entiendes."; 
 
 // move.php
 
-$l_move_title 		 = "Mover"; 
-$l_move_turn		 = "Necesitas al menos un turno para moverte."; 
-$l_move_failed		 = "¡Movimiento fallido!"; 
+$l_move_title            = "Mover"; 
+$l_move_turn           = "Necesitas al menos un turno para moverte."; 
+$l_move_failed           = "¡Movimiento fallido!"; 
 
 // scan.php
 
-$l_scan_title		 = "Escanear Nave"; 
-$l_scan_turn		 = "Necesitas al menos un turno para escanear la nave de otro."; 
-$l_scan_ron		 = "Los resultados del escaneo de "; 
-$l_scan_capt		 = "Capitaneada por:"; 
-$l_scan_arma		 = "Armamento:"; 
-$l_scan_carry		 = "Transportando:"; 
+$l_scan_title           = "Escanear Nave"; 
+$l_scan_turn           = "Necesitas al menos un turno para escanear la nave de otro."; 
+$l_scan_ron           = "Los resultados del escaneo de "; 
+$l_scan_capt           = "Capitaneada por:"; 
+$l_scan_arma           = "Armamento:"; 
+$l_scan_carry           = "Transportando:"; 
 
 // lrscan.php
 
-$l_lrs_title		 = "Escaneo de Largo Alcance"; 
-$l_lrs_nofull		 = "Tus escáners no poseen la capacidad de realizar escaneos de largo alcance."; 
-$l_lrs_noturns		 = "Necesitas al menos $fullscan_cost turno(s) para realizar un escaneo de largo alcance."; 
-$l_lrs_used		 = "Usado"; 
-$l_lrs_turns		 = "turno(s)"; 
-$l_lrs_left		 = "restantes"; 
-$l_lrs_reach		 = "Las siguientes localizaciones pueden ser alcanzadas desde el sector [sector]:"; 
-$l_lrs_links		 = "Enlaces"; 
-$l_lrs_ships		 = "Naves"; 
-$l_lrs_click		 = "Pulsa en los enlaces para moverte hacia ese sector."; 
-$l_lrs_cantscan		 = "¡No puede escanear el sector desde el sector actual!"; 
-$l_lrs_zero		 = "¡El sector 0 está demasiado abarrotado para escanear por naves!"; 
-$l_lrs_moveto		 = "para mover hacia el sector"; 
+$l_lrs_title           = "Escaneo de Largo Alcance"; 
+$l_lrs_nofull           = "Tus escáners no poseen la capacidad de realizar escaneos de largo alcance."; 
+$l_lrs_noturns           = "Necesitas al menos $fullscan_cost turno(s) para realizar un escaneo de largo alcance."; 
+$l_lrs_used           = "Usado"; 
+$l_lrs_turns           = "turno(s)"; 
+$l_lrs_left           = "restantes"; 
+$l_lrs_reach           = "Las siguientes localizaciones pueden ser alcanzadas desde el sector [sector]:"; 
+$l_lrs_links           = "Enlaces"; 
+$l_lrs_ships           = "Naves"; 
+$l_lrs_click           = "Pulsa en los enlaces para moverte hacia ese sector."; 
+$l_lrs_cantscan           = "¡No puede escanear el sector desde el sector actual!"; 
+$l_lrs_zero           = "¡El sector 0 está demasiado abarrotado para escanear por naves!"; 
+$l_lrs_moveto           = "para mover hacia el sector"; 
 $l_log_titlet = "Ver Diario"; 
 
 // log.php
@@ -1837,23 +1837,23 @@ $l_log_title[LOG_PLANET_CAPTURED] = "¡Planeta capturado!";
 
 // modify-defences.php
 
-$l_md_title		 = "Defensas de Sector"; 
-$l_md_invalid		 = "Defensas de Sector no válidas"; 
-$l_md_nolonger		 = "Las Defensas de Sector seleccionadas ya no están ahí."; 
-$l_md_you		 = "tú mismo"; 
-$l_md_bmines		 = "Tus lásers han destruido"; 
-$l_md_msgdownerb	 = "[name] ha destruido [mines] minas en el sector [sector]."; 
-$l_md_retr		 = "Te han sido devueltos"; 
-$l_md_mode		 = "Los cazas seleccionados han sido modificados a modo [mode]."; 
-$l_md_consist		 = "Las defensas de este sector consisten en [qty] [type] propiedad de [owner]."; 
-$l_md_youcan		 = "Puedes"; 
-$l_md_retrieve		 = "Devolver"; 
-$l_md_change		 = "Cambiar la configuración de los cazas"; 
-$l_md_cmode		 = "Modo de los cazas"; 
-$l_md_attack		 = "Atacar"; 
-$l_md_toll		 = "Peaje"; 
-$l_md_attdef		 = "Ataca las Defensas de Sector. Todos los cazas del sector tomarán represalias."; 
-$l_md_noturn	  	 = "Necesitas al menos un turno."; 
+$l_md_title           = "Defensas de Sector"; 
+$l_md_invalid           = "Defensas de Sector no válidas"; 
+$l_md_nolonger           = "Las Defensas de Sector seleccionadas ya no están ahí."; 
+$l_md_you           = "tú mismo"; 
+$l_md_bmines           = "Tus lásers han destruido"; 
+$l_md_msgdownerb      = "[name] ha destruido [mines] minas en el sector [sector]."; 
+$l_md_retr           = "Te han sido devueltos"; 
+$l_md_mode           = "Los cazas seleccionados han sido modificados a modo [mode]."; 
+$l_md_consist           = "Las defensas de este sector consisten en [qty] [type] propiedad de [owner]."; 
+$l_md_youcan           = "Puedes"; 
+$l_md_retrieve           = "Devolver"; 
+$l_md_change           = "Cambiar la configuración de los cazas"; 
+$l_md_cmode           = "Modo de los cazas"; 
+$l_md_attack           = "Atacar"; 
+$l_md_toll           = "Peaje"; 
+$l_md_attdef           = "Ataca las Defensas de Sector. Todos los cazas del sector tomarán represalias."; 
+$l_md_noturn             = "Necesitas al menos un turno."; 
 $l_md_nothere            = "Necesitas estar en el mismo sector que las Defensas de Sector."; 
 $l_md_notyours           = "Acción no permitida. Esas Defensas de Sector no te pertenecen."; 
 $l_md_yours              = "No puedes atacar tus propias Defensas de Sector."; 
@@ -1861,220 +1861,220 @@ $l_md_yours              = "No puedes atacar tus propias Defensas de Sector.";
 // news.php
 
 
-$l_news_title		 = "BlackNova Universe News (Noticias del Unverso BlackNova)"; 
-$l_news_info		 = "BNN está entre los líderes de la galaxia<br>en la comunicación de noticias e información.<br>¡Una plantilla activa las 24 horas, los siete días de la semana,<br>ubicada en la sede central galáctica de BNN<br>situada en Alfa Centauri y con agencias en toda la galaxia!"; 
-$l_news_for		 = "Noticias para"; 
-$l_news_prev		 = "día anterior"; 
-$l_news_next		 = "día siguiente"; 
-$l_news_none		 = "Lo sentimos, no hay noticias hoy."; 
-$l_news_flash		 = "Avance Informativo"; 
+$l_news_title           = "Blacknova Universe News (Noticias del Unverso Blacknova)"; 
+$l_news_info           = "BNN está entre los líderes de la galaxia<br>en la comunicación de noticias e información.<br>¡Una plantilla activa las 24 horas, los siete días de la semana,<br>ubicada en la sede central galáctica de BNN<br>situada en Alfa Centauri y con agencias en toda la galaxia!"; 
+$l_news_for           = "Noticias para"; 
+$l_news_prev           = "día anterior"; 
+$l_news_next           = "día siguiente"; 
+$l_news_none           = "Lo sentimos, no hay noticias hoy."; 
+$l_news_flash           = "Avance Informativo"; 
 
 // dump.php
-$l_dump_title		 = "Dejando colonos"; 
-$l_dump_turn		 = "Necesitas al menos un turno para dejar colonos."; 
-$l_dump_nocol		 = "No tienes colonos en tu nave para realizar la acción."; 
-$l_dump_dumped		 = "Los colonos han sido dejandos en el almacén de provisiones."; 
-$l_dump_nono		 = "Necesitas al menos un almacén de provisiones para hacer esto."; 
+$l_dump_title           = "Dejando colonos"; 
+$l_dump_turn           = "Necesitas al menos un turno para dejar colonos."; 
+$l_dump_nocol           = "No tienes colonos en tu nave para realizar la acción."; 
+$l_dump_dumped           = "Los colonos han sido dejandos en el almacén de provisiones."; 
+$l_dump_nono           = "Necesitas al menos un almacén de provisiones para hacer esto."; 
 
 // readmail.php
-$l_readm_title		 = "Leer Mensaje"; 
-$l_readm_delete		 = "MENSAJE BORRADO"; 
-$l_readm_nomessage	 = "No hay mensajes esperándote...<br>"; 
-$l_readm_center		 = "Centro de Recepción de Mensajes"; 
-$l_readm_sender		 = "Remitente del Mensaje"; 
-$l_readm_captn		 = "Capitán de la"; 
-$l_readm_del		 = "Borrar"; 
-$l_readm_repl		 = "Responder"; 
+$l_readm_title           = "Leer Mensaje"; 
+$l_readm_delete           = "MENSAJE BORRADO"; 
+$l_readm_nomessage      = "No hay mensajes esperándote...<br>"; 
+$l_readm_center           = "Centro de Recepción de Mensajes"; 
+$l_readm_sender           = "Remitente del Mensaje"; 
+$l_readm_captn           = "Capitán de la"; 
+$l_readm_del           = "Borrar"; 
+$l_readm_repl           = "Responder"; 
 
 // mailto2.php
 
-$l_sendm_title		 = "Enviar Mensaje"; 
-$l_sendm_to		 = "Para"; 
-$l_sendm_from		 = "De"; 
-$l_sendm_ally		 = "Alianza:"; 
-$l_sendm_subj		 = "Asunto"; 
-$l_sendm_mess		 = "Mensaje"; 
-$l_sendm_send		 = "Enviar"; 
-$l_sendm_sent		 = "Mensake enviado"; 
+$l_sendm_title           = "Enviar Mensaje"; 
+$l_sendm_to           = "Para"; 
+$l_sendm_from           = "De"; 
+$l_sendm_ally           = "Alianza:"; 
+$l_sendm_subj           = "Asunto"; 
+$l_sendm_mess           = "Mensaje"; 
+$l_sendm_send           = "Enviar"; 
+$l_sendm_sent           = "Mensake enviado"; 
 
 // zoneinfo.php
 
-$l_zi_title		 = "Información de la Zona"; 
-$l_zi_nexist		 = "¡Esta sección de espacio no existe!"; 
-$l_zi_feds		 = "Federación"; 
-$l_zi_traders		 = "La Coalición de Comercio Libre"; 
-$l_zi_nobody		 = "Nadie"; 
-$l_zi_war		 = "Espacio en concurso"; 
-$l_zi_allow		 = "Permitido"; 
-$l_zi_notallow		 = "No permitido"; 
-$l_zi_limit		 = "Limitado al propietario y aliados"; 
-$l_zi_ul		 = "ilimitado"; 
-$l_zi_control		 = "Tienes el control de esta zona"; 
-$l_zi_tochange		 = "para cambiar sus leyes."; 
-$l_zi_owner		 = "Propietario de la zona"; 
-$l_zi_maxhull		 = "Máximo promedio de nivel tecnológico permitido"; 
+$l_zi_title           = "Información de la Zona"; 
+$l_zi_nexist           = "¡Esta sección de espacio no existe!"; 
+$l_zi_feds           = "Federación"; 
+$l_zi_traders           = "La Coalición de Comercio Libre"; 
+$l_zi_nobody           = "Nadie"; 
+$l_zi_war           = "Espacio en concurso"; 
+$l_zi_allow           = "Permitido"; 
+$l_zi_notallow           = "No permitido"; 
+$l_zi_limit           = "Limitado al propietario y aliados"; 
+$l_zi_ul           = "ilimitado"; 
+$l_zi_control           = "Tienes el control de esta zona"; 
+$l_zi_tochange           = "para cambiar sus leyes."; 
+$l_zi_owner           = "Propietario de la zona"; 
+$l_zi_maxhull           = "Máximo promedio de nivel tecnológico permitido"; 
 
 // zoneedit.php
 
-$l_ze_title		 = "Editar Zona"; 
-$l_ze_notowner		 = "No eres el propietario de esta zona, así que no puedes editarla."; 
-$l_ze_name		 = "Nombre de la zona"; 
-$l_ze_allow		 = "Permitir"; 
-$l_ze_attacks		 = "Permitir atacar a otras naves"; 
-$l_ze_genesis		 = "Permitir crear nuevos planetas"; 
-$l_ze_return		 = "para volver a a página de información de la zona"; 
-$l_ze_saved		 = "Tus cambios han sido guardados."; 
+$l_ze_title           = "Editar Zona"; 
+$l_ze_notowner           = "No eres el propietario de esta zona, así que no puedes editarla."; 
+$l_ze_name           = "Nombre de la zona"; 
+$l_ze_allow           = "Permitir"; 
+$l_ze_attacks           = "Permitir atacar a otras naves"; 
+$l_ze_genesis           = "Permitir crear nuevos planetas"; 
+$l_ze_return           = "para volver a a página de información de la zona"; 
+$l_ze_saved           = "Tus cambios han sido guardados."; 
 
 // teams.php
 
-$l_team_title		 = "Alianzas"; 
-$l_team_menu		 = "para regresar al Menú de Alianzas"; 
-$l_team_galax		 = "Alianzas presentes en la Galaxia:"; 
-$l_team_members		 = "Miembros"; 
-$l_team_coord		 = "Coordinador"; 
-$l_team_member		 = "Miembro"; 
-$l_team_noinvite	 = "Nadie te ha invitado a unirte a una alianza."; 
-$l_team_ifyouwant	 = "Si quieres unirte a una alianza, envía un mensaje a su coordinador pidiendo ser invitado."; 
-$l_team_tocreate	 = "para crear una nueva alianza."; 
-$l_team_injoin		 = "Te han invitado a unirte"; 
-$l_team_tojoin		 = "para unirte"; 
-$l_team_or		 = "o"; 
-$l_team_reject		 = "para rechazar la invitación."; 
-$l_team_ed		 = "Editar"; 
-$l_team_inv		 = "Invitar"; 
-$l_team_leave		 = "Abandonar"; 
-$l_team_eject		 = "Expulsar"; 
-$l_team_pending		 = "Invitación pendiente para"; 
-$l_team_noinvites	 = "Nadie ha sido invitado para formar parte de"; 
-$l_team_confirmleave	 = "¿Estás seguro de querer abandonar "; 
-$l_team_onlymember	 = "Eras el único miembro, así que [team_name] ya no existe."; 
-$l_team_youarecoord	 = "Eres el coordinador de"; 
-$l_team_relinq		 = "Debes relegar tu papel a otro jugador."; 
-$l_team_newc		 = "Nuevo coordinador:"; 
-$l_team_youveleft	 = "Has dejado la alianza"; 
-$l_team_relto		 = "relegando las funciones de coordinador a"; 
-$l_team_welcome		 = "Bienvenido a la alianza"; 
-$l_team_noinviteto	 = "No has sido invitado en ese equipo."; 
-$l_team_ejectsure	 = "Estás seguro de que deseas expulsar a"; 
-$l_team_ejected 	 = "ha sido expulsado de la alianza!"; 
-$l_team_testing		 = "Probando fase..."; 
-$l_team_pw		 = "Contraseña"; 
-$l_team_entername	 = "Introduce el nombre de la Alianza"; 
-$l_team_enterdesc	 = "Introduce una descripción de la Alianza"; 
-$l_team_hcreated	 = "ha sido creada y tú eres su líder"; 
-$l_team_team		 = "Alianza"; 
-$l_team_selectp		 = "Elije el Jugador al que deseas invitar"; 
-$l_team_isorry		 = "Lo lamento, pero [name] ya ha sido invitado a formar parte de una alianza - solo una invitación puede estar activa en cualquier momento"; 
-$l_team_plinvted	 = "Jugador invitado.<br>Debes esperar a que el jugador lea tu invitación."; 
-$l_team_refuse		 = "Has rechazado la invitación para unirte a"; 
-$l_team_edname		 = "Editar el nombre de tu Alianza"; 
-$l_team_eddesc		 = "Editar la descripción de tu Alianza"; 
-$l_team_hasbeenr	 = "ha sido renombrada."; 
-$l_team_error		 = "<b><font color=red>Ha ocurrido un error</font></b><br>No eres el líder de esta Alianza."; 
-$l_team_notmember	 = "No eres miembro de ninguna alianza."; 
-$l_team_urejected	 = "<b>ATENCIÓN</b> - has sido expulsado de"; 
-$l_team_noteams	 	= "No hay alianzas en la Galaxia en este momento."; 
+$l_team_title           = "Alianzas"; 
+$l_team_menu           = "para regresar al Menú de Alianzas"; 
+$l_team_galax           = "Alianzas presentes en la Galaxia:"; 
+$l_team_members           = "Miembros"; 
+$l_team_coord           = "Coordinador"; 
+$l_team_member           = "Miembro"; 
+$l_team_noinvite      = "Nadie te ha invitado a unirte a una alianza."; 
+$l_team_ifyouwant      = "Si quieres unirte a una alianza, envía un mensaje a su coordinador pidiendo ser invitado."; 
+$l_team_tocreate      = "para crear una nueva alianza."; 
+$l_team_injoin           = "Te han invitado a unirte"; 
+$l_team_tojoin           = "para unirte"; 
+$l_team_or           = "o"; 
+$l_team_reject           = "para rechazar la invitación."; 
+$l_team_ed           = "Editar"; 
+$l_team_inv           = "Invitar"; 
+$l_team_leave           = "Abandonar"; 
+$l_team_eject           = "Expulsar"; 
+$l_team_pending           = "Invitación pendiente para"; 
+$l_team_noinvites      = "Nadie ha sido invitado para formar parte de"; 
+$l_team_confirmleave      = "¿Estás seguro de querer abandonar "; 
+$l_team_onlymember      = "Eras el único miembro, así que [team_name] ya no existe."; 
+$l_team_youarecoord      = "Eres el coordinador de"; 
+$l_team_relinq           = "Debes relegar tu papel a otro jugador."; 
+$l_team_newc           = "Nuevo coordinador:"; 
+$l_team_youveleft      = "Has dejado la alianza"; 
+$l_team_relto           = "relegando las funciones de coordinador a"; 
+$l_team_welcome           = "Bienvenido a la alianza"; 
+$l_team_noinviteto      = "No has sido invitado en ese equipo."; 
+$l_team_ejectsure      = "Estás seguro de que deseas expulsar a"; 
+$l_team_ejected       = "ha sido expulsado de la alianza!"; 
+$l_team_testing           = "Probando fase..."; 
+$l_team_pw           = "Contraseña"; 
+$l_team_entername      = "Introduce el nombre de la Alianza"; 
+$l_team_enterdesc      = "Introduce una descripción de la Alianza"; 
+$l_team_hcreated      = "ha sido creada y tú eres su líder"; 
+$l_team_team           = "Alianza"; 
+$l_team_selectp           = "Elije el Jugador al que deseas invitar"; 
+$l_team_isorry           = "Lo lamento, pero [name] ya ha sido invitado a formar parte de una alianza - solo una invitación puede estar activa en cualquier momento"; 
+$l_team_plinvted      = "Jugador invitado.<br>Debes esperar a que el jugador lea tu invitación."; 
+$l_team_refuse           = "Has rechazado la invitación para unirte a"; 
+$l_team_edname           = "Editar el nombre de tu Alianza"; 
+$l_team_eddesc           = "Editar la descripción de tu Alianza"; 
+$l_team_hasbeenr      = "ha sido renombrada."; 
+$l_team_error           = "<b><font color=red>Ha ocurrido un error</font></b><br>No eres el líder de esta Alianza."; 
+$l_team_notmember      = "No eres miembro de ninguna alianza."; 
+$l_team_urejected      = "<b>ATENCIÓN</b> - has sido expulsado de"; 
+$l_team_noteams           = "No hay alianzas en la Galaxia en este momento."; 
 
 // ranking.php
 
-$l_ranks_title		 = "Mejores $max_rank Jugadores"; 
-$l_ranks_none		 = "No hay resultados a mostrar."; 
-$l_ranks_pnum		 = "Número total de jugadores"; 
-$l_ranks_dships		 = "Los jugadores con naves destruidas no son contados."; 
-$l_ranks_rank		 = "Posic."; 
-$l_ranks_lastlog	 = "Última conexión"; 
-$l_ranks_good		 = "Bueno"; 
-$l_ranks_evil		 = "Malvado"; 
+$l_ranks_title           = "Mejores $max_rank Jugadores"; 
+$l_ranks_none           = "No hay resultados a mostrar."; 
+$l_ranks_pnum           = "Número total de jugadores"; 
+$l_ranks_dships           = "Los jugadores con naves destruidas no son contados."; 
+$l_ranks_rank           = "Posic."; 
+$l_ranks_lastlog      = "Última conexión"; 
+$l_ranks_good           = "Bueno"; 
+$l_ranks_evil           = "Malvado"; 
 
 // beacon.php
 
-$l_beacon_title		 = "Lanzar Aerofaro Espacial"; 
-$l_beacon_notpermitted	 = "No está permitido lanzar aerofaros espaciales en este sector."; 
-$l_beacon_reads		 = "En el aerofaro actual se puede leer"; 
-$l_beacon_none		 = "Actualmente no hay ningún aerofaro en este sector."; 
-$l_beacon_enter		 = "Introduce el texto para el aerofaro"; 
-$l_beacon_nowreads	 = "En el aerofaro ahora puede leerse"; 
-$l_beacon_donthave	 = "No tienes aerofaros espaciales."; 
+$l_beacon_title           = "Lanzar Aerofaro Espacial"; 
+$l_beacon_notpermitted      = "No está permitido lanzar aerofaros espaciales en este sector."; 
+$l_beacon_reads           = "En el aerofaro actual se puede leer"; 
+$l_beacon_none           = "Actualmente no hay ningún aerofaro en este sector."; 
+$l_beacon_enter           = "Introduce el texto para el aerofaro"; 
+$l_beacon_nowreads      = "En el aerofaro ahora puede leerse"; 
+$l_beacon_donthave      = "No tienes aerofaros espaciales."; 
 
 // emerwarp.php
 
-$l_ewd_title		 = "Usar Dispositivo de Salto de Emergencia"; 
-$l_ewd_used		 = "Dispositivo de salto de emergencía accionado - has llegado al sector [sector]."; 
-$l_ewd_none		 = "No tienes un dispositivo de salto de emergencia."; 
+$l_ewd_title           = "Usar Dispositivo de Salto de Emergencia"; 
+$l_ewd_used           = "Dispositivo de salto de emergencía accionado - has llegado al sector [sector]."; 
+$l_ewd_none           = "No tienes un dispositivo de salto de emergencia."; 
 
 // defence-report.php
 
-$l_sdf_title		 = "Informe de la Defensa de Sector"; 
-$l_sdf_none		 = "No has instalado Defensas de Sector."; 
-$l_sdf_type		 = "Tipo"; 
-$l_sdf_mode		 = "Modo"; 
+$l_sdf_title           = "Informe de la Defensa de Sector"; 
+$l_sdf_none           = "No has instalado Defensas de Sector."; 
+$l_sdf_type           = "Tipo"; 
+$l_sdf_mode           = "Modo"; 
 
 // traderoute.php
 // cause its rather big i put everything in own vars than to re-use
 // the old ones so we could export to own file if performance problems
 // should occur
 
-$l_tdr_within		 = " en "; 
-$l_tdr_title    	 = "rutas comerciales"; 
-$l_tdr_newtdr   	 = "Pulsa <a href=\"traderoute.php?command=new\">aquí</a> para crear una nueva ruta"; 
+$l_tdr_within           = " en "; 
+$l_tdr_title          = "rutas comerciales"; 
+$l_tdr_newtdr         = "Pulsa <a href=\"traderoute.php?command=new\">aquí</a> para crear una nueva ruta"; 
 $l_tdr_modtdrset         = "Para modificar la configuración global de tus rutas comerciales, pulsa <a href=\"traderoute.php?command=settings\">aquí</a>";
-$l_tdr_confdel  	 = "Pulsa <a href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">aquí</a> para confirmar la eliminación de la siguiente ruta comercial:";
-$l_tdr_noactive 	 = "No tienes ninguna ruta comercial activa para mostrar."; 
-$l_tdr_curtdr   	 = "rutas comerciales Actuales"; 
-$l_tdr_deltdr   	 = "Eliminar ruta comercial"; 
-$l_tdr_src      	 = "Origen"; 
-$l_tdr_srctype  	 = "Tipo (orig)"; 
-$l_tdr_dest     	 = "Destino"; 
-$l_tdr_desttype 	 = "Tipo (dest)"; 
-$l_tdr_move     	 = "Movimiento"; 
-$l_tdr_circuit  	 = "Circuito"; 
-$l_tdr_change   	 = "Cambiar"; 
-$l_tdr_portin   	 = "Puerto en"; 
-$l_tdr_planet   	 = "Planeta"; 
+$l_tdr_confdel        = "Pulsa <a href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">aquí</a> para confirmar la eliminación de la siguiente ruta comercial:";
+$l_tdr_noactive       = "No tienes ninguna ruta comercial activa para mostrar."; 
+$l_tdr_curtdr         = "rutas comerciales Actuales"; 
+$l_tdr_deltdr         = "Eliminar ruta comercial"; 
+$l_tdr_src            = "Origen"; 
+$l_tdr_srctype        = "Tipo (orig)"; 
+$l_tdr_dest           = "Destino"; 
+$l_tdr_desttype       = "Tipo (dest)"; 
+$l_tdr_move           = "Movimiento"; 
+$l_tdr_circuit        = "Circuito"; 
+$l_tdr_change         = "Cambiar"; 
+$l_tdr_portin         = "Puerto en"; 
+$l_tdr_planet         = "Planeta"; 
 $l_tdr_nonexistance      = "¡El planeta no existe!"; 
-$l_tdr_na       	 = "N/A"; 
-$l_tdr_cargo    	 = "Carga"; 
-$l_tdr_none     	 = "Ninguno"; 
+$l_tdr_na             = "N/A"; 
+$l_tdr_cargo          = "Carga"; 
+$l_tdr_none           = "Ninguno"; 
 $l_tdr_colonists         = "Colonos"; 
-$l_tdr_fighters 	 = "Cazas"; 
-$l_tdr_torps    	 = "Torpedos"; 
-$l_tdr_escooped 	 = "[tdr_dist_triptime] turnos<br>[tdr_dist_scooped] energía conseguida"; 
-$l_tdr_warp     	 = "Salto"; 
-$l_tdr_turns    	 = "turnos"; 
-$l_tdr_way      	 = "dirección"; 
-$l_tdr_ways     	 = "direcciones"; 
-$l_tdr_edit     	 = "Editar"; 
-$l_tdr_del      	 = "Eliminar"; 
-$l_tdr_nowlink1 	 = "No hay un salto de enlace desde el sector [tdr_src_sector_id] hasta el sector [tdr_dest_sector_id]"; 
-$l_tdr_nowlink2 	 = "No hay un salto de enlace desde el sector [tdr_dest_sector_id] hasta el sector [tdr_src_sector_id]"; 
+$l_tdr_fighters       = "Cazas"; 
+$l_tdr_torps          = "Torpedos"; 
+$l_tdr_escooped       = "[tdr_dist_triptime] turnos<br>[tdr_dist_scooped] energía conseguida"; 
+$l_tdr_warp           = "Salto"; 
+$l_tdr_turns          = "turnos"; 
+$l_tdr_way            = "dirección"; 
+$l_tdr_ways           = "direcciones"; 
+$l_tdr_edit           = "Editar"; 
+$l_tdr_del            = "Eliminar"; 
+$l_tdr_nowlink1       = "No hay un salto de enlace desde el sector [tdr_src_sector_id] hasta el sector [tdr_dest_sector_id]"; 
+$l_tdr_nowlink2       = "No hay un salto de enlace desde el sector [tdr_dest_sector_id] hasta el sector [tdr_src_sector_id]"; 
 $l_tdr_sportissrc        = "Si un puerto especial es el destino, un planeta debe ser el destino para la colonización."; 
 $l_tdr_notownplanet      = "No puedes colonizar un planeta que tú o tu equipo no posea."; 
 $l_tdr_planetisdest      = "Un planeta puede ser un destino solo si el origen es un puerto especial."; 
-$l_tdr_samecom 		 = "No puedes crear una ruta comercial para puertos que venden las mismas mercancías."; 
-$l_tdr_sportcom 	 = "No puedes vender mercancías desde un planeta a un puerto especial."; 
-$l_tdr_editerr  	 = "Error al editar: la ruta comercial no se ha encontrado en la BD"; 
-$l_tdr_maxtdr   	 = "Lo lamento, pero has alcanzado el máximo número de rutas comerciales permitidas."; 
+$l_tdr_samecom            = "No puedes crear una ruta comercial para puertos que venden las mismas mercancías."; 
+$l_tdr_sportcom       = "No puedes vender mercancías desde un planeta a un puerto especial."; 
+$l_tdr_editerr        = "Error al editar: la ruta comercial no se ha encontrado en la BD"; 
+$l_tdr_maxtdr         = "Lo lamento, pero has alcanzado el máximo número de rutas comerciales permitidas."; 
 $l_tdr_createnew         = "Creando una nueva "; 
-$l_tdr_editinga 	 = "Editando una"; 
+$l_tdr_editinga       = "Editando una"; 
 $l_tdr_traderoute        = "ruta comercial"; 
-$l_tdr_unnamed  	 = "Sin nombre"; 
+$l_tdr_unnamed        = "Sin nombre"; 
 $l_tdr_cursector         = "Actualmente estás en el sector"; 
 $l_tdr_selspoint         = "Por favor, selecciona el punto de origen:"; 
-$l_tdr_port     	 = "Puerto"; 
-$l_tdr_insector 	 = "en el sector"; 
+$l_tdr_port           = "Puerto"; 
+$l_tdr_insector       = "en el sector"; 
 $l_tdr_selendpoint       = "Por favor, selecciona un punto de destino"; 
 $l_tdr_selmovetype       = "Por favor, selecciona un tipo de movimiento"; 
 $l_tdr_realspace         = "EspacioReal (RS)"; 
 $l_tdr_selcircuit        = "Por favor, selecciona un circuito"; 
-$l_tdr_oneway   	 = "Una dirección"; 
+$l_tdr_oneway         = "Una dirección"; 
 $l_tdr_errnotvalidport   = "Error: el puerto de origen [tdr_port_id] no parece ser válido."; 
-$l_tdr_bothways 	 = "Ambas direcciones"; 
-$l_tdr_create   	 = "Crear"; 
-$l_tdr_modify   	 = "Modificar"; 
+$l_tdr_bothways       = "Ambas direcciones"; 
+$l_tdr_create         = "Crear"; 
+$l_tdr_modify         = "Modificar"; 
 $l_tdr_returnmenu        = "Pulsa <a href=traderoute.php>aquí</a> para volver al menú de rutas comerciales."; 
 $l_tdr_errnotvalidport   = "Error: el puerto de origen [tdr_port_id] no parece ser un puerto válido."; 
 $l_tdr_errnoport         = "Error: no hay puertos en el sector [tdr_port_id]"; 
-$l_tdr_errnosrc    	 = "Error: el planeta de origen especificado no existe."; 
+$l_tdr_errnosrc          = "Error: el planeta de origen especificado no existe."; 
 $l_tdr_errnotownnotsell  = "Error: no eres el propietario del planeta [tdr_source_name] en el sector [tdr_source_sector_id] y el planeta no está vendiendo."; 
 $l_tdr_errnotvaliddestport= "Error : el puerto de destino [tdr_port_id] no es un puerto válido."; 
 $l_tdr_errnoport2        = "Error: no hay puertos en el sector [tdr_port_id]."; 
@@ -2088,13 +2088,13 @@ $l_tdr_tdrdeleted        = "La ruta comercial ha sido eliminada.";
 $l_tdr_globalset         = "Configuración global de las rutas comerciales"; 
 $l_tdr_tdrsportsrc       = "Para rutas comerciales que tengan un puerto especial como origen, comercia"; 
 $l_tdr_tdrescooped       = "Para las rutas comerciales via EspacioReal, ¿qué quieres hacer con la energía conseguida?"; 
-$l_tdr_trade    	 = "Comerciar"; 
-$l_tdr_keep    	 	 = "Almacenar"; 
-$l_tdr_save    	 	 = "Guardar"; 
+$l_tdr_trade          = "Comerciar"; 
+$l_tdr_keep                = "Almacenar"; 
+$l_tdr_save                = "Guardar"; 
 $l_tdr_globalsetsaved    = "Configuración global de las rutas comerciales guardada."; 
 $l_tdr_engagenonexist    = "¡Has intentado usar una ruta comercial que no existe!"; 
 $l_tdr_invalidspoint     = "¡El punto de origen no parece ser válido!"; 
-$l_tdr_inittdr  	 = "¡No estás en el sector [tdr_source_id]! ¡Debes estar en el sector de origen antes de iniciar una ruta comercial!"; 
+$l_tdr_inittdr        = "¡No estás en el sector [tdr_source_id]! ¡Debes estar en el sector de origen antes de iniciar una ruta comercial!"; 
 $l_tdr_invalidsrc        = "¡El planeta de origen no parece ser un planeta válido!"; 
 $l_tdr_inittdrsector     = "¡No estás en el sector [tdr_source_sector_id]! ¡Debes estar en el sector de origen antes de iniciar una ruta comercial!"; 
 $l_tdr_notyourplanet     = "¡No eres el propietario del planeta [tdr_source_name] en el sector [tdr_source_sector_id]!"; 
@@ -2109,28 +2109,28 @@ $l_tdr_nosrcporttrade    = "No está permitido el comercio con el puerto de orige
 $l_tdr_tradesrcportoutsider= "No está permitido el comercio en el punto de origen para los extranjeros."; 
 $l_tdr_nodestporttrade   = "No está permitido el comercio desde el puerto de destino."; 
 $l_tdr_tradedestportoutsider= "No está permitido el comercio en el puerto de destino para los extranjeros."; 
-$l_tdr_tdrres  		 = "Resultados de la Ruta Comercial"; 
-$l_tdr_bought  		 = "Comprado"; 
+$l_tdr_tdrres             = "Resultados de la Ruta Comercial"; 
+$l_tdr_bought             = "Comprado"; 
 $l_tdr_nothingtotrade    = "Nada con que comerciar"; 
-$l_tdr_sold   	  	 = "Vendido"; 
-$l_tdr_ore    		 = "Minerales"; 
+$l_tdr_sold                = "Vendido"; 
+$l_tdr_ore               = "Minerales"; 
 $l_tdr_portisfull        = "El puerto está lleno"; 
-$l_tdr_goods    	 = "bienes"; 
-$l_tdr_organics 	 = "orgánicos"; 
-$l_tdr_energy   	 = "energía"; 
+$l_tdr_goods          = "bienes"; 
+$l_tdr_organics       = "orgánicos"; 
+$l_tdr_energy         = "energía"; 
 $l_tdr_portisempty       = "El puerto está vacío"; 
-$l_tdr_loaded   	 = "Cargado"; 
+$l_tdr_loaded         = "Cargado"; 
 $l_tdr_nothingtoload     = "Nada que cargar"; 
-$l_tdr_scooped  	 = "Conseguido"; 
-$l_tdr_dumped   	 = "Dejado"; 
+$l_tdr_scooped        = "Conseguido"; 
+$l_tdr_dumped         = "Dejado"; 
 $l_tdr_planetisovercrowded= "El planeta está superpoblado"; 
 $l_tdr_nothingtodump     = "Nada que dejar"; 
 $l_tdr_onlyonewaytdr     = "No se ha hecho nada. La ruta comercial era solo de una dirección."; 
-$l_tdr_profit 		 = "Beneficio"; 
-$l_tdr_cost   		 = "Coste"; 
+$l_tdr_profit            = "Beneficio"; 
+$l_tdr_cost              = "Coste"; 
 $l_tdr_totalprofit       = "Beneficio Total"; 
 $l_tdr_totalcost         = "Coste Total"; 
-$l_tdr_credits  	 = "Créditos"; 
+$l_tdr_credits        = "Créditos"; 
 $l_tdr_turnsused         = "Turnos usados"; 
 $l_tdr_turnsleft         = "Turnos restantes"; 
 $l_tdr_notowner = "No eres el propietario de esta ruta comercial"; 
@@ -2411,131 +2411,131 @@ $l_chf_go       = "Adelante";
 
 // mines.php
 
-$l_mines_title			= "Instalar Minas de sector y Cazas"; 
-$l_mines_noturn		 	= "Necesitas al menos un turno para instalar defensas de sector."; 
-$l_mines_nopermit		= "No está permitido instalar Minas y Cazas en este sector."; 
-$l_mines_nodeploy		= "No puedes instalarlo aquí. Otra nave o Alianza tiene minas o cazas en este sector."; 
-$l_mines_info1			= "Actualmente estás en el sector [sector]. Hay [mines] minas y [fighters] cazas aquí."; 
-$l_mines_info2			= "Tienes [mines] minas y [fighters] cazas disponibles para instalar"; 
-$l_mines_deploy			= "Instalar"; 
-$l_mines_deployed		= "Instalado"; 
-$l_mines_att			= "Atacar"; 
-$l_mines_toll			= "Peaje"; 
-$l_mines_notorps		= "No tienes suficientes torpedos."; 
-$l_mines_nofighters		= "No tienes suficientes cazas"; 
-$l_mines_dmines			= "Instaladas [mines] minas."; 
-$l_mines_dfighter		= "Instalados [fighters] cazas en modo [mode]."; 
-$l_mines_fmode			= "Modo de los cazas"; 
+$l_mines_title               = "Instalar Minas de sector y Cazas"; 
+$l_mines_noturn                = "Necesitas al menos un turno para instalar defensas de sector."; 
+$l_mines_nopermit          = "No está permitido instalar Minas y Cazas en este sector."; 
+$l_mines_nodeploy          = "No puedes instalarlo aquí. Otra nave o Alianza tiene minas o cazas en este sector."; 
+$l_mines_info1               = "Actualmente estás en el sector [sector]. Hay [mines] minas y [fighters] cazas aquí."; 
+$l_mines_info2               = "Tienes [mines] minas y [fighters] cazas disponibles para instalar"; 
+$l_mines_deploy               = "Instalar"; 
+$l_mines_deployed          = "Instalado"; 
+$l_mines_att               = "Atacar"; 
+$l_mines_toll               = "Peaje"; 
+$l_mines_notorps          = "No tienes suficientes torpedos."; 
+$l_mines_nofighters          = "No tienes suficientes cazas"; 
+$l_mines_dmines               = "Instaladas [mines] minas."; 
+$l_mines_dfighter          = "Instalados [fighters] cazas en modo [mode]."; 
+$l_mines_fmode               = "Modo de los cazas"; 
 
 //team-planets.php
 
-$l_teamplanet_title		= "Informe de Alianza Planetaria"; 
-$l_teamplanet_notally		= "No estás en una alianza"; 
-$l_teamplanet_personal		= "Mostrar planetas personales"; 
-$l_teamplanet_noplanet		= "Tu alianza no tiene planetas"; 
+$l_teamplanet_title          = "Informe de Alianza Planetaria"; 
+$l_teamplanet_notally          = "No estás en una alianza"; 
+$l_teamplanet_personal          = "Mostrar planetas personales"; 
+$l_teamplanet_noplanet          = "Tu alianza no tiene planetas"; 
 
-$l_feedback_title		= "Enviar comentarios"; 
-$l_feedback_to			= "PARA:"; 
-$l_feedback_from		= "DE:"; 
-$l_feedback_topi		= "ASUNTO:"; 
-$l_feedback_feedback		= "Comentarios"; 
-$l_feedback_message		= "MENSAJE:"; 
-$l_feedback_messent		= "Mensaje Enviado"; 
-$l_feedback_subj		= "Comentarios WTW"; 
-$l_feedback_info		= "Por favor, envía comentarios solo en inglés. Gracias.";  // gameadmins put all your languages here
+$l_feedback_title          = "Enviar comentarios"; 
+$l_feedback_to               = "PARA:"; 
+$l_feedback_from          = "DE:"; 
+$l_feedback_topi          = "ASUNTO:"; 
+$l_feedback_feedback          = "Comentarios"; 
+$l_feedback_message          = "MENSAJE:"; 
+$l_feedback_messent          = "Mensaje Enviado"; 
+$l_feedback_subj          = "Comentarios WTW"; 
+$l_feedback_info          = "Por favor, envía comentarios solo en inglés. Gracias.";  // gameadmins put all your languages here
 
 // corp.php
-$l_corpm_title			= "Menú de la Corporación"; 
-$l_corpm_tocorp			= "¡El planeta es ahora un Planeta de la Corporación!"; 
-$l_corpm_topersonal		= "¡El planeta es ahora un Planeta Personal!"; 
-$l_corpm_exploit		= "Has interceptado un mensaje borg cortado en tu escaner... deberías empezar a preocuparte..."; 
+$l_corpm_title               = "Menú de la Corporación"; 
+$l_corpm_tocorp               = "¡El planeta es ahora un Planeta de la Corporación!"; 
+$l_corpm_topersonal          = "¡El planeta es ahora un Planeta Personal!"; 
+$l_corpm_exploit          = "Has interceptado un mensaje borg cortado en tu escaner... deberías empezar a preocuparte..."; 
 
 
 // login.php login2.php
-$l_login_title			= "Conectar";  
-$l_login_email			= "Dirección de email:"; 
-$l_login_pw			= "Contraseña:"; 
-$l_login_chooseres		= "Imposible determinar tu resolución de pantalla. Por favor, escoge la que mejor se ajuste:"; 
-$l_login_newp			= "Si eres un jugador nuevo, pulsa <A HREF=\"new.php\">aquí</A>."; 
-$l_login_prbs			= "¿Problemas?"; 
-$l_login_emailus		= "Mándanos un email"; 
-$l_login_sclosed		= "Servidor Cerrado"; 
-$l_login_closed_message		= "Servidor cerrado hasta futuras notificaciones."; 
-$l_login_title2			= "Fase Dos de la Conexión";  
-$l_login_banned			= "<b>Has sido vetado de este juego por el administrador. Ya no eres bienvenido a jugar en este servidor. La próxima vez, compórtate.</b>"; 
-$l_login_died			= "Tu nave ha sido destruida, pero tú y tu tripulación os habéis salvado gracias a una cápsula de salvamento. Pulsa <A HREF=main.php>aquí</A> para continuar con una nueva nave."; 
-$l_login_newbie			= "Debido a la seriedad de este crimen y el terrible ataque contra ti, la Federación ha decidido proveerte sin cargo alguno de una clonación de tus restos. Lamentablemente, incluso a estas alturas los nuevos clones no pueden poseer propiedades, aparte de las fundamentales para poder vivir. Te será otorgado una nave básica y unos cuantos créditos para que comiences. Esperamos que te vaya mejor en tu nueva vida."; 
+$l_login_title               = "Conectar";  
+$l_login_email               = "Dirección de email:"; 
+$l_login_pw               = "Contraseña:"; 
+$l_login_chooseres          = "Imposible determinar tu resolución de pantalla. Por favor, escoge la que mejor se ajuste:"; 
+$l_login_newp               = "Si eres un jugador nuevo, pulsa <A HREF=\"new.php\">aquí</A>."; 
+$l_login_prbs               = "¿Problemas?"; 
+$l_login_emailus          = "Mándanos un email"; 
+$l_login_sclosed          = "Servidor Cerrado"; 
+$l_login_closed_message          = "Servidor cerrado hasta futuras notificaciones."; 
+$l_login_title2               = "Fase Dos de la Conexión";  
+$l_login_banned               = "<b>Has sido vetado de este juego por el administrador. Ya no eres bienvenido a jugar en este servidor. La próxima vez, compórtate.</b>"; 
+$l_login_died               = "Tu nave ha sido destruida, pero tú y tu tripulación os habéis salvado gracias a una cápsula de salvamento. Pulsa <A HREF=main.php>aquí</A> para continuar con una nueva nave."; 
+$l_login_newbie               = "Debido a la seriedad de este crimen y el terrible ataque contra ti, la Federación ha decidido proveerte sin cargo alguno de una clonación de tus restos. Lamentablemente, incluso a estas alturas los nuevos clones no pueden poseer propiedades, aparte de las fundamentales para poder vivir. Te será otorgado una nave básica y unos cuantos créditos para que comiences. Esperamos que te vaya mejor en tu nueva vida."; 
 
-$l_login_newlife		= "Pulsa <A HREF=main.php>aquí</A> para continuar una nueva vida."; 
-$l_login_looser			= "No tenías cápsula de salvamento, y debido a tu modesto éxite en esta vida, la Federación no accede a clonarte. Tus restos caerán probablemente en un campo gravitatorio, con la esperanza de ser usados para crear vida en cualquier lugar... dentro de un billón de años.<br><br>Mejor suerte en tu siguiente partida..."; 
-$l_login_4gotpw1		= "La contraseña que has introducido es incorrecta<br><br>Si has olvidado tu contraseña,"; 
-$l_login_4gotpw2		= "para que te sea enviada por email.<br><br>De otro modo,"; 
-$l_login_4gotpw3		= "inténtalo de nuevo. Intento de conexión con la dirección IP de"; 
-$l_login_noone			= "¡No existe ese jugador! - Crea un nuevo jugador <A HREF=new.php>aquí</A>."; 
+$l_login_newlife          = "Pulsa <A HREF=main.php>aquí</A> para continuar una nueva vida."; 
+$l_login_looser               = "No tenías cápsula de salvamento, y debido a tu modesto éxite en esta vida, la Federación no accede a clonarte. Tus restos caerán probablemente en un campo gravitatorio, con la esperanza de ser usados para crear vida en cualquier lugar... dentro de un billón de años.<br><br>Mejor suerte en tu siguiente partida..."; 
+$l_login_4gotpw1          = "La contraseña que has introducido es incorrecta<br><br>Si has olvidado tu contraseña,"; 
+$l_login_4gotpw2          = "para que te sea enviada por email.<br><br>De otro modo,"; 
+$l_login_4gotpw3          = "inténtalo de nuevo. Intento de conexión con la dirección IP de"; 
+$l_login_noone               = "¡No existe ese jugador! - Crea un nuevo jugador <A HREF=new.php>aquí</A>."; 
 $l_login_lang = "Idioma"; 
 $l_login_settings = "Configuración del Juego"; 
 $l_login_change = "Cambiar"; 
 
 // new.php new2.php
-$l_new_title			= "Crear Nuevo Jugador";  
-$l_new_title2			= "Fase Dos de la Creación de un Nuevo Jugador";  
-$l_new_shipname			= "Nombre de la Nave"; 
-$l_new_pname			= "Nombre del Personaje del Jugador"; 
-$l_new_info			= "Prometemos no dar (o vender) tu dirección de email a nadie. Se requiere para enviarte la contraseña generada por el servidor."; 
-$l_new_closed_message		= "Juego cerrado por Partida de Torneo"; 
-$l_new_blank			= "El email, nombre de la nave, y nombre del personaje no pueden estar en blanco."; 
-$l_new_inuse			= "La dirección de email ya está en uso."; 
-$l_new_4gotpw1			= "Si has olvidado tu contraseña,"; 
-$l_new_4gotpw2			= "para que te sea enviada por email."; 
-$l_new_inusechar		= "El nombre de personaje $character ya está en uso."; 
-$l_new_inuseship		= "El nombre de la nave $shipname ya está en uso."; 
-$l_new_pwsent			= "La contraseña ha sido enviada a ${_POST['username']}"; 
-$l_new_login			= "para ir a la pantalla de conexión"; 
-$l_new_err			= "Por favor, ve atrás o <a href=new.php>pulsa aquí</a> e inténtalo de nuevo."; 
-$l_new_topic			= "Contraseña de Traders"; 
-$l_new_message			= "Saludos,\r\n\r\nAlguien desde la dirección IP $ip ha solicitado tu contraseña para Traders te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de Traders."; 
+$l_new_title               = "Crear Nuevo Jugador";  
+$l_new_title2               = "Fase Dos de la Creación de un Nuevo Jugador";  
+$l_new_shipname               = "Nombre de la Nave"; 
+$l_new_pname               = "Nombre del Personaje del Jugador"; 
+$l_new_info               = "Prometemos no dar (o vender) tu dirección de email a nadie. Se requiere para enviarte la contraseña generada por el servidor."; 
+$l_new_closed_message          = "Juego cerrado por Partida de Torneo"; 
+$l_new_blank               = "El email, nombre de la nave, y nombre del personaje no pueden estar en blanco."; 
+$l_new_inuse               = "La dirección de email ya está en uso."; 
+$l_new_4gotpw1               = "Si has olvidado tu contraseña,"; 
+$l_new_4gotpw2               = "para que te sea enviada por email."; 
+$l_new_inusechar          = "El nombre de personaje $character ya está en uso."; 
+$l_new_inuseship          = "El nombre de la nave $shipname ya está en uso."; 
+$l_new_pwsent               = "La contraseña ha sido enviada a ${_POST['username']}"; 
+$l_new_login               = "para ir a la pantalla de conexión"; 
+$l_new_err               = "Por favor, ve atrás o <a href=new.php>pulsa aquí</a> e inténtalo de nuevo."; 
+$l_new_topic               = "Contraseña de Traders"; 
+$l_new_message               = "Saludos,\r\n\r\nAlguien desde la dirección IP $ip ha solicitado tu contraseña para Traders te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de Traders."; 
 
 // logout.php
 
-$l_logout_score			= "Tu puntuación actual es"; 
-$l_logout_text			= "[name] está ahora desconectado. Pulsa <A HREF=index.php>aquí</A> para volver al juego."; 
+$l_logout_score               = "Tu puntuación actual es"; 
+$l_logout_text               = "[name] está ahora desconectado. Pulsa <A HREF=index.php>aquí</A> para volver al juego."; 
 
 
 // mail.php
-$l_mail_title			= "Enviar Contraseña";  
-$l_mail_noplayer		= "¡No existe ese jugador! - Crea un nuevo jugador desde <a href=new.php>aquí</a>."; 
-$l_mail_sent			= "La contraseña ha sido enviada a"; 
-$l_mail_topic			= "Contraseña de $game_name"; 
-$l_mail_message			= "Saludos,\r\n\r\nAlguien desde la dirección IP $ip ha solicitado que tu contraseña para $game_name te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de $game_name."; 
+$l_mail_title               = "Enviar Contraseña";  
+$l_mail_noplayer          = "¡No existe ese jugador! - Crea un nuevo jugador desde <a href=new.php>aquí</a>."; 
+$l_mail_sent               = "La contraseña ha sido enviada a"; 
+$l_mail_topic               = "Contraseña de $game_name"; 
+$l_mail_message               = "Saludos,\r\n\r\nAlguien desde la dirección IP $ip ha solicitado que tu contraseña para $game_name te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de $game_name."; 
 
 
 
 // global_funcs.php
-$l_global_mmenu			= "Pulsa <A HREF=main.php>aquí</A> para volver al menú principal."; 
-$l_global_mlogin		= "Pulsa <A HREF=login.php>aquí</A> para volver a la pantalla de conexión."; 
-$l_global_needlogin		= "Necesitas estar conectado, pulsa <A HREF=login.php>aquí</A>."; 
-$l_global_died			= "¡El jugador está MUERTO! <a href=log.php>Aquí</a> está lo que ha ocurido<br><br>¡Mejor suerte la próxima vez!"; 
-$l_global_warzone		= "¡La zona es una zona de guerra!"; 
-$l_global_nzone			= "La zona es una zona neutral."; 
-$l_global_team			= "La zona pertenece ahora a la alianza"; 
-$l_global_player		= "La zona pertenece ahora al jugador"; 
+$l_global_mmenu               = "Pulsa <A HREF=main.php>aquí</A> para volver al menú principal."; 
+$l_global_mlogin          = "Pulsa <A HREF=login.php>aquí</A> para volver a la pantalla de conexión."; 
+$l_global_needlogin          = "Necesitas estar conectado, pulsa <A HREF=login.php>aquí</A>."; 
+$l_global_died               = "¡El jugador está MUERTO! <a href=log.php>Aquí</a> está lo que ha ocurido<br><br>¡Mejor suerte la próxima vez!"; 
+$l_global_warzone          = "¡La zona es una zona de guerra!"; 
+$l_global_nzone               = "La zona es una zona neutral."; 
+$l_global_team               = "La zona pertenece ahora a la alianza"; 
+$l_global_player          = "La zona pertenece ahora al jugador"; 
 
 // texts for the news flashes
 
-$l_news_planets		  = " planetas"; 
-$l_news_cols		      = "Millones de colonos"; 
+$l_news_planets            = " planetas"; 
+$l_news_cols                = "Millones de colonos"; 
 $l_news_p_headline = "El Imperio de [player] tiene ahora "; 
 
 $l_killheadline = " ha muerto en un accidente"; 
 $l_news_killed = "[name] ha muerto en un trágico accidente hoy. Qué heroico - el capitán [name] era el último miembro a bordo de su nave, cuando notó que ya no quedaban cápsulas de salvamento para él. ¡Descanse en paz!"; 
-$l_news_p_text5		= "El emergente imperio de [name] tiene ahora cinco planetas, ¡la BNN estará al tanto de las acciones de [name] en el futuro!"; 
-$l_news_p_text10		= "El emergente imperio de [name] tiene ahora el control de diez planetas, ¡Informes de la BNN dicen que la progresiva expansión de [name] puede llevar a la guerra!"; 
-$l_news_p_text25		= "El gran imperio de [name] ha colonizado ya 25 planetas, ¡en una entrevista, [name] anunció que considera ralentizar sus expansiones en el futuro!"; 
-$l_news_p_text50		= "El enorme y vasto imperio de [name], representado por 50 planetas en toda la galaxia está consiguiendo una fuerza amenazadora. Uno de los reporteros de BNN descubrió que [name] está actualizando su nave, planeando una guerra masiva. ¡En una entrevista [name] anunció que esto se debe a motivos puramente devensivos!"; 
-$l_news_c_text25		= "El creciente imperio de [name] tiene ahora 25 millones de colonos, la BNN prestará más atención a las acciones de [name] en el futuro, ¡pero es realmente obvio que los índices de natalidad van a explotar!"; 
-$l_news_c_text100		= "El aspirante imperio de [name] tiene ahora 100 millones de colonos, ¡después de una explosión demográfica, las colonias de [name] parecen un buen lugar para que las familias se establezcan!"; 
-$l_news_c_text500		= "El gran imperio de [name] tiene ahora 500 millones de colonos, [name] dijo en una entrevista que la colonización de la galaxia tan solo acaba de empezar"; 
-$l_news_c_text1000		= "El inmenso imperio de [name] tiene ahora un billón de colonos, los reporteros de la BNN han descubierto que [name] está en posesión de algún tipo de extraño mecanismo de clonación que le permite crear nuevos colonos en cantidades industriales. Con esta cantidad de colonos, la fuerza económica de este imperio es enorme, la BNN espera que [name] no gaste su dinero en asuntos bélicos"; 
+$l_news_p_text5          = "El emergente imperio de [name] tiene ahora cinco planetas, ¡la BNN estará al tanto de las acciones de [name] en el futuro!"; 
+$l_news_p_text10          = "El emergente imperio de [name] tiene ahora el control de diez planetas, ¡Informes de la BNN dicen que la progresiva expansión de [name] puede llevar a la guerra!"; 
+$l_news_p_text25          = "El gran imperio de [name] ha colonizado ya 25 planetas, ¡en una entrevista, [name] anunció que considera ralentizar sus expansiones en el futuro!"; 
+$l_news_p_text50          = "El enorme y vasto imperio de [name], representado por 50 planetas en toda la galaxia está consiguiendo una fuerza amenazadora. Uno de los reporteros de BNN descubrió que [name] está actualizando su nave, planeando una guerra masiva. ¡En una entrevista [name] anunció que esto se debe a motivos puramente devensivos!"; 
+$l_news_c_text25          = "El creciente imperio de [name] tiene ahora 25 millones de colonos, la BNN prestará más atención a las acciones de [name] en el futuro, ¡pero es realmente obvio que los índices de natalidad van a explotar!"; 
+$l_news_c_text100          = "El aspirante imperio de [name] tiene ahora 100 millones de colonos, ¡después de una explosión demográfica, las colonias de [name] parecen un buen lugar para que las familias se establezcan!"; 
+$l_news_c_text500          = "El gran imperio de [name] tiene ahora 500 millones de colonos, [name] dijo en una entrevista que la colonización de la galaxia tan solo acaba de empezar"; 
+$l_news_c_text1000          = "El inmenso imperio de [name] tiene ahora un billón de colonos, los reporteros de la BNN han descubierto que [name] está en posesión de algún tipo de extraño mecanismo de clonación que le permite crear nuevos colonos en cantidades industriales. Con esta cantidad de colonos, la fuerza económica de este imperio es enorme, la BNN espera que [name] no gaste su dinero en asuntos bélicos"; 
 
 
 // Options.php
@@ -2746,4 +2746,3 @@ $l_cu_title = "Crear universo";
 $l_sys_update = "Actualización del sistema";
 $l_ai_control = "control Xenobe";
 ?>
-

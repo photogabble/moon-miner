@@ -33,7 +33,7 @@ include("header.php");
 
 <body bgcolor="#929292" text="#c0c0c0" link="blue" vlink="purple" alink="#f33" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
 <center>
-<img src="images/BNT-header.jpg" width="517" height="189" border="0" alt="BlackNova Traders">
+<img src="images/BNT-header.jpg" width="517" height="189" border="0" alt="Blacknova Traders">
 
 <table border="0" cellpadding="0" cellspacing="0" width="600">
   <tr>
@@ -41,7 +41,7 @@ include("header.php");
     <td><img src="images/spacer.gif" width="1" height="21" border="0" alt=""></td>
   </tr>
   <tr>
-    <td colspan="3"><img name="bnthed" src="images/bnthed.gif" width="600" height="61" border="0" alt="BlackNova Traders"></td>
+    <td colspan="3"><img name="bnthed" src="images/bnthed.gif" width="600" height="61" border="0" alt="Blacknova Traders"></td>
     <td><img src="images/spacer.gif" width="1" height="61" border="0" alt=""></td>
   </tr>
   <tr>
