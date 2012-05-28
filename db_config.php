@@ -63,14 +63,15 @@ $dbname = "bnt";
 // "ibase" for Interbase 6 or earlier
 // "borland_ibase" for Borland Interbase 6.5 or up
 // "mssql" for Microsoft SQL
-// "mysql" for MySQL
+// "mysql" for MySQL - please don't use this one, it doesn't support transactions, which we now use
+// "mysqlt" for MySQLi - needed for transaction support
 // "oci8" for Oracle8/9
 // "odbc" for a generic ODBC database
 // "postgres" for PostgreSQL ver < 7
 // "postgres7" for PostgreSQL ver 7 and up
 // "sybase" for a SyBase database
-// NOTE: only mysql work as of right now, due to SQL compat code
-$db_type = "mysql";
+// NOTE: only mysqlt work as of right now, due to SQL compat code
+$db_type = "mysqlt";
 
 // Set this to 1 to use db persistent connections, 0 otherwise - persistent connections can cause load problems!
 $db_persistent = 0;
