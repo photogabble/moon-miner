@@ -31,9 +31,10 @@ if ((!isset($_GET['startdate'])) || ($_GET['startdate'] == ''))
 
 // Check and validate the date.
 $startdate = substr($_GET['startdate'], 0, 10);
-if (!preg_match("/([0-9]{4})\/.([0-9]{1,2})\/.([0-9]{1,2})*/", $startdate, $regs) || $startdate == '')
+//if (!preg_match("/([0-9]{4})\/.([0-9]{1,2})\/.([0-9]{1,2})*/", $startdate, $regs) || $startdate == '')
+if (!preg_match("/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})/", $startdate, $regs) || $startdate == '')
 {
-    //The date wasn't supplied so use today's date
+    // The date wasn't supplied so use today's date
     $startdate = date("Y/m/d");
 }
 
