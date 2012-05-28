@@ -38,7 +38,7 @@ $allowed_rsw = "N";
 
 bigtitle();
 
-if($playerinfo[dev_beacon] > 0)
+if($playerinfo['dev_beacon'] > 0)
 {
     $res = $db->Execute("SELECT allow_beacon FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
     $zoneinfo = $res->fields;
