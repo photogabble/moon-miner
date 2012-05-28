@@ -49,7 +49,7 @@ if($server_closed)
 {
     $title=$l_login_sclosed;
     include("header.php");
-    echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br />$l_login_closed_message</div><br />\n";
+    echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
 
     TEXT_GOTOLOGIN();
 
@@ -88,7 +88,7 @@ if($playerfound)
             $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
             $_SESSION['logged_in'] = TRUE;
             TEXT_GOTOMAIN();
-            echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo[ship_id] . "\">";
+            echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo['ship_id'] . "\">";
         }
         else
         {
