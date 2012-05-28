@@ -108,7 +108,7 @@ else
         $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, sent, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$timestamp."', '".$subject."', '".$content."')");
         if(mysql_errno() != 0)
         {
-            echo "Message failed to send.<br />\n";
+            echo "Message failed to send.<br>\n";
         }
     }
     else

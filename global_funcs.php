@@ -156,11 +156,11 @@ function connectdb($do_die = true) // Returns true, false or a halt.
         if($do_die)
         {
             // We need to display the error message onto the screen.
-            echo "Unable to connect to the Database.<br />\n";
-            echo "Database Error: ". $db->ErrorNo() .": ". $db->ErrorMsg() ."<br />\n";
+            echo "Unable to connect to the Database.<br>\n";
+            echo "Database Error: ". $db->ErrorNo() .": ". $db->ErrorMsg() ."<br>\n";
 
             // We need to basically die here to stop the game.
-            die ("SYSTEM HALT<br />\n");
+            die ("SYSTEM HALT<br>\n");
         }
         // We need to return false.
         return (boolean) false;
