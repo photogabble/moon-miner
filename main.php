@@ -435,7 +435,7 @@ if($num_planets > 0)
 
     while($i < $num_planets)
     {
-        if($planets[$i][owner] != 0)
+        if($planets[$i]['owner'] != 0)
         {
             $result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=?;", array($planets[$i]['owner']) );
             $planet_owner = $result5->fields;
@@ -471,18 +471,18 @@ if($num_planets > 0)
         echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
         echo "<img class='mnu' width='79' height='90' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" border=0 alt=\"planet\"></a><BR><font size=", $basefontsize + 1, " color=\"#fff\" face=\"arial\">";
 
-        if(empty($planets[$i][name]))
+        if(empty($planets[$i]['name']))
         {
             echo $l_unnamed;
             $planet_bnthelper_string="<!--planet:Y:Unnamed:";
         }
         else
         {
-            echo $planets[$i][name];
-            $planet_bnthelper_string="<!--planet:Y:" . $planets[$i][name] . ":";
+            echo $planets[$i]['name'];
+            $planet_bnthelper_string="<!--planet:Y:" . $planets[$i]['name'] . ":";
         }
 
-        if($planets[$i][owner] == 0)
+        if($planets[$i]['owner'] == 0)
         {
             echo "<br>($l_unowned)";
             $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
@@ -490,7 +490,7 @@ if($num_planets > 0)
         else
         {
             echo "<br>($planet_owner[character_name])";
-            $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner[character_name] . ":N:-->";
+            $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner['character_name'] . ":N:-->";
         }
         echo "</font></td>";
 

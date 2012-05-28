@@ -31,7 +31,7 @@ $no_body=1;
 include("header.php");
 ?>
 
-<body bgcolor="#666" text="#c0c0c0" link="#000" vlink="#903" alink="#f33" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
+<body bgcolor="#929292" text="#c0c0c0" link="blue" vlink="purple" alink="#f33" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
 <center>
 <img src="images/BNT-header.jpg" width="517" height="189" border="0" alt="BlackNova Traders">
 

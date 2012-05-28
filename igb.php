@@ -35,7 +35,7 @@ $playerinfo = $result->fields;
 $result = $db->Execute("SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id=$playerinfo[ship_id]");
 $account = $result->fields;
 
-echo "<BODY bgcolor=#666 text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
+echo "<BODY bgcolor=#929292 text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
 ?>
 
 <STYLE TYPE="text/css">
@@ -219,7 +219,7 @@ function IGB_deposit()
        "</td></tr>" .
        "<tr>" .
        "  <td height=30  colspan=2 align=left>" .
-       "    <span style='font-family:Courier New, Courier, monospace; font-size:12px; color:#0f0;'>You can deposit only ". NUMBER($credit_space)." credits.</span><br />" .
+       "    <span style='font-family:Courier New, Courier, monospace; font-size:12px; color:#0f0;'>You can deposit only ". NUMBER($credit_space)." credits.</span><br>" .
        "  </td>" .
        "</tr>" .
        "<tr valign=bottom>" .
@@ -685,7 +685,7 @@ function IGB_deposit2()
     $tmpcredits = 0;
   }
   if($amount > $tmpcredits)
-    IGB_error("<center>Error You cannot deposit that much into your bank,<br /> (Max Credits Reached)</center>", "igb.php?command=deposit");
+    IGB_error("<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
 
   $account['balance'] += $amount;
   $playerinfo['credits'] -= $amount;
