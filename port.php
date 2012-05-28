@@ -37,19 +37,19 @@ $playerinfo = $res->fields;
 if ($playerinfo['ship_ore']<0)
         {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_ore=0 WHERE email='$username'");
-        $playerinfo[ship_ore] = 0;
+        $playerinfo['ship_ore'] = 0;
         }
 
 if ($playerinfo['ship_organics']<0)
         {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_organics=0 WHERE email='$username'");
-        $playerinfo[ship_organics] = 0;
+        $playerinfo['ship_organics'] = 0;
         }
 
 if ($playerinfo['ship_energy']<0)
         {
         $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_energy=0 WHERE email='$username'");
-        $playerinfo[ship_energy] = 0;
+        $playerinfo['ship_energy'] = 0;
         }
 
 if ($playerinfo['ship_goods']<0)
@@ -189,81 +189,81 @@ if($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
   // Establish default amounts for each commodity
   if($sb_ore == $l_buying)
   {
-    $amount_ore = $playerinfo[ship_ore];
+    $amount_ore = $playerinfo['ship_ore'];
   }
   else
   {
-    $amount_ore = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_colonists];
+    $amount_ore = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_colonists'];
   }
 
   if($sb_organics == $l_buying)
   {
-    $amount_organics = $playerinfo[ship_organics];
+    $amount_organics = $playerinfo['ship_organics'];
   }
   else
   {
-    $amount_organics = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_organics] - $playerinfo[ship_colonists];
+    $amount_organics = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_organics'] - $playerinfo['ship_colonists'];
   }
 
   if($sb_goods == $l_buying)
   {
-    $amount_goods = $playerinfo[ship_goods];
+    $amount_goods = $playerinfo['ship_goods'];
   }
   else
   {
-    $amount_goods = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $amount_goods = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
   }
 
   if($sb_energy == $l_buying)
   {
-    $amount_energy = $playerinfo[ship_energy];
+    $amount_energy = $playerinfo['ship_energy'];
   }
   else
   {
-    $amount_energy = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+    $amount_energy = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
   }
 
   // limit amounts to port quantities
-  $amount_ore = min($amount_ore, $sectorinfo[port_ore]);
-  $amount_organics = min($amount_organics, $sectorinfo[port_organics]);
-  $amount_goods = min($amount_goods, $sectorinfo[port_goods]);
-  $amount_energy = min($amount_energy, $sectorinfo[port_energy]);
+  $amount_ore = min($amount_ore, $sectorinfo['port_ore']);
+  $amount_organics = min($amount_organics, $sectorinfo['port_organics']);
+  $amount_goods = min($amount_goods, $sectorinfo['port_goods']);
+  $amount_energy = min($amount_energy, $sectorinfo['port_energy']);
 
   // limit amounts to what the player can afford
   if($sb_ore == $l_selling)
   {
-    $amount_ore = min($amount_ore, floor(($playerinfo[credits] + $amount_organics * $organics_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $ore_price));
+    $amount_ore = min($amount_ore, floor(($playerinfo['credits'] + $amount_organics * $organics_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $ore_price));
   }
   if($sb_organics == $l_selling)
   {
-    $amount_organics = min($amount_organics, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $organics_price));
+    $amount_organics = min($amount_organics, floor(($playerinfo['credits'] + $amount_ore * $ore_price + $amount_goods * $goods_price + $amount_energy * $energy_price) / $organics_price));
   }
   if($sb_goods == $l_selling)
   {
-    $amount_goods = min($amount_goods, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_energy * $energy_price) / $goods_price));
+    $amount_goods = min($amount_goods, floor(($playerinfo['credits'] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_energy * $energy_price) / $goods_price));
   }
   if($sb_energy == $l_selling)
   {
-    $amount_energy = min($amount_energy, floor(($playerinfo[credits] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
+    $amount_energy = min($amount_energy, floor(($playerinfo['credits'] + $amount_ore * $ore_price + $amount_organics * $organics_price + $amount_goods * $goods_price) / $energy_price));
   }
 
   echo "<FORM ACTION=port2.php METHOD=POST>";
   echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
   echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_commodity</B></TD><TD><B>$l_buying/$l_selling</B></TD><TD><B>$l_amount</B></TD><TD><B>$l_price</B></TD><TD><B>$l_buy/$l_sell</B></TD><TD><B>$l_cargo</B></TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_ore</TD><TD>$sb_ore</TD><TD>" . NUMBER($sectorinfo[port_ore]) . "</TD><TD>$ore_price</TD><TD><INPUT TYPE=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 VALUE=$amount_ore></TD><TD>" . NUMBER($playerinfo[ship_ore]) . "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo[port_organics]) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount_organics></TD><TD>" . NUMBER($playerinfo[ship_organics]) . "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo[port_goods]) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount_goods></TD><TD>" . NUMBER($playerinfo[ship_goods]) . "</TD></TR>";
-  echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo[port_energy]) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount_energy></TD><TD>" . NUMBER($playerinfo[ship_energy]) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_ore</TD><TD>$sb_ore</TD><TD>" . NUMBER($sectorinfo['port_ore']) . "</TD><TD>$ore_price</TD><TD><INPUT TYPE=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 VALUE=$amount_ore></TD><TD>" . NUMBER($playerinfo['ship_ore']) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo['port_organics']) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount_organics></TD><TD>" . NUMBER($playerinfo['ship_organics']) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo['port_goods']) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount_goods></TD><TD>" . NUMBER($playerinfo['ship_goods']) . "</TD></TR>";
+  echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo['port_energy']) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount_energy></TD><TD>" . NUMBER($playerinfo['ship_energy']) . "</TD></TR>";
   echo "</TABLE><BR>";
   echo "<INPUT TYPE=SUBMIT VALUE=$l_trade>";
   echo "</FORM>";
 
-  $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-  $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
+  $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+  $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
 
  $l_trade_st_info=str_replace("[free_holds]",NUMBER($free_holds),$l_trade_st_info);
  $l_trade_st_info=str_replace("[free_power]",NUMBER($free_power),$l_trade_st_info);
- $l_trade_st_info=str_replace("[credits]",NUMBER($playerinfo[credits]),$l_trade_st_info);
+ $l_trade_st_info=str_replace("[credits]",NUMBER($playerinfo['credits']),$l_trade_st_info);
 
  echo $l_trade_st_info;
 
@@ -332,9 +332,9 @@ elseif($sectorinfo['port_type'] == "special")
 
             if($bank_row['balance'] >= $bty['total_bounty'])
             {
-              echo "Full Payment Mode<br />\n";
-              echo "You have paid your entire bounty<br />\n";
-              echo "<br />\n";
+              echo "Full Payment Mode<br>\n";
+              echo "You have paid your entire bounty<br>\n";
+              echo "<br>\n";
 
               $bounty_payment = $bty['total_bounty'];
 
@@ -346,16 +346,16 @@ elseif($sectorinfo['port_type'] == "special")
             }
             else
             {
-              echo "Partial Payment Mode<br />\n";
-              echo "You don't have enough Credits within your Intergalactic Bank Account to pay your entire bounty.<br />\n";
-              echo "However you can pay your bounty off in instalments.<br />\n";
-              echo "And your first instalment will be ".NUMBER($bounty_payment)." credits.<br />\n";
-              echo "<br />\n";
+              echo "Partial Payment Mode<br>\n";
+              echo "You don't have enough Credits within your Intergalactic Bank Account to pay your entire bounty.<br>\n";
+              echo "However you can pay your bounty off in instalments.<br>\n";
+              echo "And your first instalment will be ".NUMBER($bounty_payment)." credits.<br>\n";
+              echo "<br>\n";
 
               $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
               $db->Execute("UPDATE $dbtables[bounty] SET amount = amount - $bounty_payment  WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
-              echo "You have paid part of the bounty.<br />\n";
-              echo "<br />\n";
+              echo "You have paid part of the bounty.<br>\n";
+              echo "<br>\n";
 
               TEXT_GOTOMAIN();
               die();
@@ -364,9 +364,9 @@ elseif($sectorinfo['port_type'] == "special")
           }
           else
           {
-            echo "Sorry you don't have enough funds in the bank.<br />\n";
-            echo "Try doing some trading then transfer your funds over to the <a href='igb.php'>Intergalactic Bank</a><br />\n";
-            echo "<br />\n";
+            echo "Sorry you don't have enough funds in the bank.<br>\n";
+            echo "Try doing some trading then transfer your funds over to the <a href='igb.php'>Intergalactic Bank</a><br>\n";
+            echo "<br>\n";
 
             TEXT_GOTOMAIN();
             die();
@@ -381,18 +381,18 @@ elseif($sectorinfo['port_type'] == "special")
         else
         {
           echo $l_port_bounty;
-          echo "<br />\n";
+          echo "<br>\n";
 
-          echo "Option Plan 1: Payment from Ship<br />\n";
+          echo "Option Plan 1: Payment from Ship<br>\n";
           $l_port_bounty2 = str_replace("[amount]",NUMBER($bty['total_bounty']),$l_port_bounty2);
           echo $l_port_bounty2 . "<BR>";
-          echo "<br />\n";
+          echo "<br>\n";
 
-          echo "Option Plan 2: Payment from Intergalactic Bank [Full/Partial Payments]<br />\n";
+          echo "Option Plan 2: Payment from Intergalactic Bank [Full/Partial Payments]<br>\n";
           $l_port_bounty3 = "Click <a href='port.php?pay=2'>here</a> to pay the bounty of [amount] Credits from your Intergalactic Bank Account.";
           $l_port_bounty3 = str_replace("[amount]",NUMBER($bty['total_bounty']),$l_port_bounty3);
-          echo "$l_port_bounty3<br />\n";
-          echo "<br />\n";
+          echo "$l_port_bounty3<br>\n";
+          echo "<br>\n";
 
           echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR><BR>";
           TEXT_GOTOMAIN();

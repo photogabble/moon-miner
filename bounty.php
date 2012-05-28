@@ -28,6 +28,12 @@ if(checklogin())
     die();
 }
 
+if (!isset($_GET['response']))
+{
+    $_GET['response'] = '';
+}
+$response = $_GET['response'];
+
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
