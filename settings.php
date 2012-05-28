@@ -297,6 +297,7 @@ if($allow_ibank)
 
 line("News will be generated every","{$sched_news} minutes", "right");
 line("Planets will generate production every","{$sched_planets} minutes", "right");
+$use_new_sched_planet = true; // We merged this change in, so all new versions use this
 line(" -> Using new Planet Update Code",($use_new_sched_planet?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
 line(" -> Limit captured planets Max Credits to {$max_credits_without_base}",($sched_planet_valid_credits?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
 line("Ports will regenerate x {$port_regenrate} every","{$sched_ports} minutes", "right");
