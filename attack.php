@@ -154,7 +154,7 @@ else
                     $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");
                     playerlog($playerinfo['ship_id'],LOG_BOUNTY_FEDBOUNTY,"$bounty");
                     echo "<div style='color:#f00;'>{$l_by_fedbounty2}</div>\n";
-                    echo "<br />\n";
+                    echo "<br>\n";
                 }
             }
 
@@ -375,7 +375,7 @@ else
 
             if ($bcs_stats_info == false)
             {
-                echo "No information available.<br />\n";
+                echo "No information available.<br>\n";
             }
             echo "  </div>\n";
             echo "  <div style='height:4px;'></div>\n";
@@ -458,7 +458,7 @@ else
 
             if ($bcs_stats_info == false)
             {
-                echo "No information available.<br />\n";
+                echo "No information available.<br>\n";
             }
 
             echo "  </div>\n";
@@ -531,7 +531,7 @@ else
 
             if ($bcs_stats_info == false)
             {
-                echo "No information available.<br />\n";
+                echo "No information available.<br>\n";
             }
             echo "  </div>\n";
             echo "  <div style='height:4px;'></div>\n";
@@ -547,7 +547,7 @@ else
                 if($targetinfo['dev_escapepod'] == "Y")
                 {
                     $rating=round($targetinfo['rating']/2);
-                    echo "$l_att_espod (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br />";
+                    echo "$l_att_espod (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br>";
                     $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$targetinfo[ship_id]");
                     playerlog($targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
                     collect_bounty($playerinfo['ship_id'],$targetinfo['ship_id']);
@@ -646,7 +646,7 @@ else
                     $l_att_ysalv=str_replace("[ship_salvage]",$ship_salvage,$l_att_ysalv);
                     $l_att_ysalv=str_replace("[rating_change]",NUMBER(abs($rating_change)),$l_att_ysalv);
 
-                    echo "{$l_att_ysalv}<br />\n";
+                    echo "{$l_att_ysalv}<br>\n";
                     $update3 = $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
                     $armor_lost=$playerinfo['armor_pts']-$playerarmor;
                     $fighters_lost=$playerinfo['ship_fighters']-$playerfighters;

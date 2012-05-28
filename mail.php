@@ -51,7 +51,7 @@ if(!$result->EOF)
         echo "  </tr>\n";
         echo "  <tr>\n";
         echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; padding:8px; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
-        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:400px; text-align:left; font-size:14px; padding:6px;'>Sending Email Request.<br />This may take a few seconds to send, so Please Wait.</td>\n";
+        echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; width:400px; text-align:left; font-size:14px; padding:6px;'>Sending Email Request.<br>This may take a few seconds to send, so Please Wait.</td>\n";
         echo "  </tr>\n";
         echo "  <tr>\n";
         echo "    <td colspan='2' style='background-color:#C0C0C0; border:#fff 1px solid; font-size:10px; color:#000;'>{$mailerInfo}</td>\n";
@@ -77,7 +77,7 @@ if(!$result->EOF)
         if($ret == true)
         {
             $image = "images/tick.png";
-            $result = "<div style='font-size:12px; font-weight:bold;'>Email sent to:&nbsp;&nbsp;{$playerinfo['email']}<br /><br />You should receive your email within 5 to 10 mins.</div><br /><div style='font-size:10px; font-weight:bold;'>PLEASE NOTE: This email may apear in your spam, trash or junk folder so check.</div>";
+            $result = "<div style='font-size:12px; font-weight:bold;'>Email sent to:&nbsp;&nbsp;{$playerinfo['email']}<br><br>You should receive your email within 5 to 10 mins.</div><br><div style='font-size:10px; font-weight:bold;'>PLEASE NOTE: This email may apear in your spam, trash or junk folder so check.</div>";
             $colors = array("#005500", "#0f0");
             $errorResult = null;
         }
@@ -85,7 +85,7 @@ if(!$result->EOF)
         {
             $err = $mailer->getError();
             $image = "images/cross.png";
-            $result = "{$err['msg']}<br />[Err: {$err['no']}]<br /><span style='font-size:9px;'>". implode("<br />\n", $err['debug']) ."</span><br />Please notify an admin on the forums.";
+            $result = "{$err['msg']}<br>[Err: {$err['no']}]<br><span style='font-size:9px;'>". implode("<br>\n", $err['debug']) ."</span><br>Please notify an admin on the forums.";
             $colors = array("#550000", "#f00");
         }
 
@@ -105,10 +105,10 @@ if(!$result->EOF)
         echo "</div>\n";
         unset($_SESSION['sendemail']);
 
-        echo "<br />\n";
-        echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br />DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
+        echo "<br>\n";
+        echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 
-        echo "<br />\n";
+        echo "<br>\n";
 
         if($_SESSION['logged_in'] == true)
         {
@@ -128,7 +128,7 @@ else
     $mailerInfo = $mailer->getInfo();
 
     $image = "images/cross.png";
-    $result = "Send Email Request Failed.<br />{$err['msg']}";
+    $result = "Send Email Request Failed.<br>{$err['msg']}";
     $colors = array("#550000", "#f00");
 
     echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
@@ -146,10 +146,10 @@ else
     echo "</table>\n";
     echo "</div>\n";
     unset($_SESSION['sendemail']);
-    echo "<br />\n";
-    echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br />DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
+    echo "<br>\n";
+    echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 
-    echo "<br />\n";
+    echo "<br>\n";
     if($_SESSION['logged_in'] == true)
     {
         TEXT_GOTOMAIN();
