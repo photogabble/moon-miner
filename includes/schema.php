@@ -339,7 +339,7 @@ $db->Execute("CREATE TABLE $dbtables[teams](" .
              "description tinytext," .
              "number_of_members tinyint(3) DEFAULT '0' NOT NULL," .
              "admin enum('Y','N') NOT NULL default 'N'," .
-             "PRIMARY KEY(id)" .
+             "PRIMARY KEY(id)," .
              "KEY admin (admin)" .
              ")");
 $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
