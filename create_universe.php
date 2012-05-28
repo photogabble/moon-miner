@@ -850,12 +850,12 @@ Table_Footer("Completed successfully.");
 
       $password = substr($admin_mail, 0, $maxlen_password);
       $stamp=date("Y-m-d H:i:s");
-      $db->Execute("INSERT INTO $dbtables[ships] VALUES(NULL,'WebMaster','N','WebMaster','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y','N')");
+      $db->Execute("INSERT INTO $dbtables[ships] VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y','N')");
 
     Table_1Col("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$password'");
     Table_Row("Inserting Admins Ship Information","Failed","Inserted");
 
-      $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'WebMaster\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+      $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'Game Admin\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
     Table_Row("Inserting Admins Zone Information","Failed","Inserted");
     Table_Footer("Completed successfully.");
 
