@@ -27,12 +27,19 @@ setcookie("password","",0); // Legacy support, delete the old login cookies.
 setcookie("id","",0);
 setcookie("res","",0);
 include("header.php");
+$current_score = 0;
 
-$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo = $result->fields;
-
-$current_score = gen_score($playerinfo[ship_id]);
-playerlog($playerinfo[ship_id], LOG_LOGOUT, $ip);
+if (!isset($username))
+{
+    $username = '';
+}
+else
+{
+    $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+    $playerinfo = $result->fields;
+    $current_score = gen_score($playerinfo['ship_id']);
+    playerlog($playerinfo['ship_id'], LOG_LOGOUT, $ip);
+}
 
 bigtitle();
 echo "$l_logout_score $current_score.<BR>";

@@ -114,7 +114,7 @@ if(!empty($logs))
   foreach($logs as $log)
   {
     $event = log_parse($log);
-    $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
+    $time = $l_log_months[substr($log['time'], 5, 2) - 1] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
 
     echo "<table border=0 cellspacing=5 width=100%>\n" .
          "  <tr>\n" .
@@ -176,7 +176,7 @@ if($mode != 'compat')
     foreach($logs as $log)
     {
       $event = log_parse($log);
-      $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
+      $time = $l_log_months[substr($log['time'], 5, 2) - 1] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
 
       echo "<table border=0 cellspacing=5 width=100%>\n" .
            "  <tr>\n" .
@@ -218,7 +218,7 @@ if($mode != 'compat')
     foreach($logs as $log)
     {
       $event = log_parse($log);
-      $time = $l_log_months[substr($log[time], 5, 2) - 1] . " " . substr($log[time], 8, 2) . " " . substr($log[time], 0, 4) . " " . substr($log[time], 11);
+      $time = $l_log_months[substr($log['time'], 5, 2) - 1] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
 
       echo "<table border=0 cellspacing=5 width=100%>\n" .
            "<tr>\n" .
@@ -332,14 +332,14 @@ function log_parse($entry)
   global $l_log_pod;
   global $l_log_nopod;
 
-  switch($entry[type])
+  switch($entry['type'])
   {
     case LOG_LOGIN: //data args are : [ip]
     case LOG_LOGOUT:
     case LOG_BADLOGIN:
     case LOG_HARAKIRI:
-    $retvalue[text] = str_replace("[ip]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[ip]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry['type']]);
+    $retvalue['title'] = $l_log_title[$entry['type']];
     break;
 
     case LOG_ATTACK_OUTMAN: //data args are : [player]
@@ -350,8 +350,8 @@ function log_parse($entry)
     case LOG_SHIP_SCAN_FAIL:
     case LOG_Xenobe_ATTACK:
     case LOG_TEAM_NOT_LEAVE:
-    $retvalue[text] = str_replace("[player]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[player]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry['type']]);
+    $retvalue['title'] = $l_log_title[$entry['type']];
     break;
 
     case LOG_ATTACK_LOSE: //data args are : [player] [pod]
@@ -367,36 +367,36 @@ function log_parse($entry)
 
     case LOG_ATTACKED_WIN: //data args are : [player] [armor] [fighters]
     list($name, $armor, $fighters)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[player]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[armor]", "<font color=white><b>$armor</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[fighters]", "<font color=white><b>$fighters</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[player]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[armor]", "<font color=white><b>$armor</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[fighters]", "<font color=white><b>$fighters</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_TOLL_PAID: //data args are : [toll] [sector]
     case LOG_TOLL_RECV:
     list($toll, $sector)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[toll]", "<font color=white><b>$toll</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[toll]", "<font color=white><b>$toll</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_HIT_MINES: //data args are : [mines] [sector]
     list($mines, $sector)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[mines]", "<font color=white><b>$mines</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[mines]", "<font color=white><b>$mines</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_SHIP_DESTROYED_MINES: //data args are : [sector] [pod]
     case LOG_DEFS_KABOOM:
     list($sector, $pod)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     if($pod == 'Y')
-      $retvalue[text] = $retvalue[text] . $l_log_pod;
+      $retvalue['text'] = $retvalue['text'] . $l_log_pod;
     else
-      $retvalue[text] = $retvalue[text] . $l_log_nopod;
+      $retvalue['text'] = $retvalue['text'] . $l_log_nopod;
     break;
 
     case LOG_PLANET_DEFEATED_D: //data args are :[planet_name] [sector] [name]
@@ -404,72 +404,72 @@ function log_parse($entry)
     case LOG_PLANET_SCAN:
     case LOG_PLANET_SCAN_FAIL:
     list($planet_name, $sector, $name)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_PLANET_NOT_DEFEATED: //data args are : [planet_name] [sector] [name] [ore] [organics] [goods] [salvage] [credits]
     list($planet_name, $sector, $name, $ore, $organics, $goods, $salvage, $credits)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[ore]", "<font color=white><b>$ore</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[goods]", "<font color=white><b>$goods</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[organics]", "<font color=white><b>$organics</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[salvage]", "<font color=white><b>$salvage</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[credits]", "<font color=white><b>$credits</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[ore]", "<font color=white><b>$ore</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[goods]", "<font color=white><b>$goods</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[organics]", "<font color=white><b>$organics</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[salvage]", "<font color=white><b>$salvage</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[credits]", "<font color=white><b>$credits</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_RAW: //data is stored as a message
-    $retvalue[title] = $l_log_title[$entry[type]];
-    $retvalue[text] = $entry[data];
+    $retvalue['title'] = $l_log_title[$entry[type]];
+    $retvalue['text'] = $entry[data];
     break;
 
     case LOG_DEFS_DESTROYED: //data args are : [quantity] [type] [sector]
     list($quantity, $type, $sector)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[quantity]", "<font color=white><b>$quantity</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[type]", "<font color=white><b>$type</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[quantity]", "<font color=white><b>$quantity</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[type]", "<font color=white><b>$type</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_PLANET_EJECT: //data args are : [sector] [player]
     list($sector, $name)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_STARVATION: //data args are : [sector] [starvation]
     list($sector, $starvation)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[starvation]", "<font color=white><b>$starvation</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[starvation]", "<font color=white><b>$starvation</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_TOW: //data args are : [sector] [newsector] [hull]
     list($sector, $newsector, $hull)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[newsector]", "<font color=white><b>$newsector</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[hull]", "<font color=white><b>$hull</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[newsector]", "<font color=white><b>$newsector</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[hull]", "<font color=white><b>$hull</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_DEFS_DESTROYED_F: //data args are : [fighters] [sector]
     list($fighters, $sector)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[fighters]", "<font color=white><b>$fighters</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[fighters]", "<font color=white><b>$fighters</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_TEAM_REJECT: //data args are : [player] [teamname]
     list($player, $teamname)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[teamname]", "<font color=white><b>$teamname</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[teamname]", "<font color=white><b>$teamname</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_TEAM_RENAME: //data args are : [team]
@@ -480,109 +480,109 @@ function log_parse($entry)
     case LOG_TEAM_LEAD:
     case LOG_TEAM_JOIN:
     case LOG_TEAM_INVITE:
-    $retvalue[text] = str_replace("[team]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[team]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_TEAM_NEWLEAD: //data args are : [team] [name]
     case LOG_TEAM_NEWMEMBER:
     list($team, $name)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[team]", "<font color=white><b>$team</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[team]", "<font color=white><b>$team</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_ADMIN_HARAKIRI: //data args are : [player] [ip]
     list($player, $ip)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[ip]", "<font color=white><b>$ip</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[ip]", "<font color=white><b>$ip</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_ADMIN_ILLEGVALUE: //data args are : [player] [quantity] [type] [holds]
     list($player, $quantity, $type, $holds)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[quantity]", "<font color=white><b>$quantity</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[type]", "<font color=white><b>$type</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[holds]", "<font color=white><b>$holds</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[player]", "<font color=white><b>$player</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[quantity]", "<font color=white><b>$quantity</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[type]", "<font color=white><b>$type</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[holds]", "<font color=white><b>$holds</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_ADMIN_PLANETDEL: //data args are : [attacker] [defender] [sector]
     list($attacker, $defender, $sector)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[attacker]", "<font color=white><b>$attacker</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[defender]", "<font color=white><b>$defender</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[attacker]", "<font color=white><b>$attacker</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[defender]", "<font color=white><b>$defender</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_DEFENCE_DEGRADE: //data args are : [sector] [degrade]
     list($sector, $degrade)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[degrade]", "<font color=white><b>$degrade</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[degrade]", "<font color=white><b>$degrade</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
     case LOG_PLANET_CAPTURED: //data args are : [cols] [credits] [owner]
     list($cols, $credits, $owner)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[cols]", "<font color=white><b>$cols</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[credits]", "<font color=white><b>$credits</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[owner]", "<font color=white><b>$owner</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[cols]", "<font color=white><b>$cols</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[credits]", "<font color=white><b>$credits</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[owner]", "<font color=white><b>$owner</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
     case LOG_BOUNTY_CLAIMED:
     list($amount,$bounty_on,$placed_by) = split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[placed_by]", "<font color=white><b>$placed_by</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[placed_by]", "<font color=white><b>$placed_by</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
  case LOG_BOUNTY_PAID:
     list($amount,$bounty_on) = split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
  case LOG_BOUNTY_CANCELLED:
     list($amount,$bounty_on) = split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[amount]", "<font color=white><b>$amount</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[bounty_on]", "<font color=white><b>$bounty_on</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 case LOG_BOUNTY_FEDBOUNTY:
-    $retvalue[text] = str_replace("[amount]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[amount]", "<font color=white><b>$entry[data]</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
  case LOG_SPACE_PLAGUE:
     list($name, $sector, $percentage) = split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[percentage]", "<font color=white><b>$percentage</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[percentage]", "<font color=white><b>$percentage</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
  case LOG_PLASMA_STORM:
     list($name,$sector,$percentage) = split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[percentage]", "<font color=white><b>$percentage</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[percentage]", "<font color=white><b>$percentage</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
  case LOG_PLANET_BOMBED:
     list($planet_name, $sector, $name, $beams, $torps, $figs)= split ("\|", $entry[data]);
-    $retvalue[text] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
-    $retvalue[text] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[beams]", "<font color=white><b>$beams</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[torps]", "<font color=white><b>$torps</b></font>", $retvalue[text]);
-    $retvalue[text] = str_replace("[figs]", "<font color=white><b>$figs</b></font>", $retvalue[text]);
-    $retvalue[title] = $l_log_title[$entry[type]];
+    $retvalue['text'] = str_replace("[planet_name]", "<font color=white><b>$planet_name</b></font>", $l_log_text[$entry[type]]);
+    $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[name]", "<font color=white><b>$name</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[beams]", "<font color=white><b>$beams</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[torps]", "<font color=white><b>$torps</b></font>", $retvalue['text']);
+    $retvalue['text'] = str_replace("[figs]", "<font color=white><b>$figs</b></font>", $retvalue['text']);
+    $retvalue['title'] = $l_log_title[$entry[type]];
     break;
 
  case 57:
     // Multi Browser Logs.
     list($ship_ip, $ship_id, $info)= split ("\|", $entry[data]);
-    $retvalue[text] = "Account: <span style='color:#ff0;'>{$ship_id}</span> with IP: '<span style='color:#ff0;'>{$ship_ip}</span>' <span style='color:#fff;'>{$info}</span>";
-    $retvalue[title] = "Possible Multi Browser Attempt.";
+    $retvalue['text'] = "Account: <span style='color:#ff0;'>{$ship_id}</span> with IP: '<span style='color:#ff0;'>{$ship_ip}</span>' <span style='color:#fff;'>{$info}</span>";
+    $retvalue['title'] = "Possible Multi Browser Attempt.";
     break;
 
  case 901:
@@ -590,28 +590,28 @@ case LOG_BOUNTY_FEDBOUNTY:
     list($ship_id, $last_hash, $this_hash, $status)= split ("\|", $entry[data]);
     $last_hash = strtoupper($last_hash);
     $this_hash = strtoupper($this_hash);
-    $retvalue[text] = "Account: <span style='color:#ff0;'>{$ship_id}</span> last used Hash: '<span style='color:#ff0;'>{$last_hash}</span>' and now is using Hash: '<span style='color:#ff0;'>{$this_hash}</span>', Status: <span style='color:#ff0;'>{$status}</span>";
-    $retvalue[title] = "Multi Hash Logs [Debug].";
+    $retvalue['text'] = "Account: <span style='color:#ff0;'>{$ship_id}</span> last used Hash: '<span style='color:#ff0;'>{$last_hash}</span>' and now is using Hash: '<span style='color:#ff0;'>{$this_hash}</span>', Status: <span style='color:#ff0;'>{$status}</span>";
+    $retvalue['title'] = "Multi Hash Logs [Debug].";
     break;
 
  case 950:
     // Attack logs debug info
     list($step, $attacker_armor, $target_armor, $attacker_fighters, $target_fighters, $attacker_id, $target_id)= split ("\|", $entry[data]);
-    $retvalue[text]  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br />\n";
-    $retvalue[text] .= "Target Ship: {$target_id}, Armor: {$target_armor}, Fighters: {$target_fighters}\n";
-    $retvalue[title] = "Attack Logs Stage: {$step} [Debug].";
+    $retvalue['text']  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br />\n";
+    $retvalue['text'] .= "Target Ship: {$target_id}, Armor: {$target_armor}, Fighters: {$target_fighters}\n";
+    $retvalue['title'] = "Attack Logs Stage: {$step} [Debug].";
     break;
 
  case 1019:
     // Invalid login try (wrong password etc)
     list($ship_ip, $ship_email, $used_password, $used_hash)= split ("\|", $entry[data]);
-    $retvalue[text] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>' and had the following Hash: '<span style='color:#ff0;'>{$used_hash}</span>'";
-    $retvalue[title] = "Invalid Login Attempt.";
+    $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>' and had the following Hash: '<span style='color:#ff0;'>{$used_hash}</span>'";
+    $retvalue['title'] = "Invalid Login Attempt.";
     break;
 
  default:
-    $retvalue[text] = $entry[data];
-    $retvalue[title] = $entry[type];
+    $retvalue['text'] = $entry[data];
+    $retvalue['title'] = $entry[type];
     break;
   }
 

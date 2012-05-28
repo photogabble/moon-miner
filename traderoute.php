@@ -53,12 +53,12 @@ while(!$result->EOF)
   $result->MoveNext();
 }
 
-$freeholds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-$maxholds = NUM_HOLDS($playerinfo[hull]);
-$maxenergy = NUM_ENERGY($playerinfo[power]);
-if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_ore] < 0 || $playerinfo[ship_organics] < 0 || $playerinfo[ship_goods] < 0 || $playerinfo[ship_energy] < 0 || $freeholds < 0)
+$freeholds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = NUM_HOLDS($playerinfo['hull']);
+$maxenergy = NUM_ENERGY($playerinfo['power']);
+if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
-    if ($playerinfo[ship_colonists] < 0 || $playerinfo[ship_colonists] > $maxholds)
+    if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
     {
         adminlog(LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
         $playerinfo[ship_colonists] = 0;
@@ -92,6 +92,11 @@ $update1 = $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_o
 if(!isset($tr_repeat) || $tr_repeat <= 0)
   $tr_repeat = 1;
 
+if (!isset($_REQUEST['command']))
+{
+    $_REQUEST['command'] = '';
+}
+$command = $_REQUEST['command'];
 
 if($command == 'new')   // Displays new trade route form
   traderoute_new('');

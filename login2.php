@@ -33,15 +33,13 @@ if($res)
 }
 $playerinfo = $res->fields;
 
-$lang=$playerinfo[lang];
+$lang=$playerinfo['lang'];
 if(empty($lang))
 {
     $lang=$default_lang;
 }
 setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
 include("languages/$lang" . ".inc");
-
-setcookie("interface", $mainfilename);
 
 // first placement of cookie - don't use updatecookie.
 $userpass = $email."+".$pass;
@@ -80,12 +78,12 @@ bigtitle();
 
 if($playerfound)
 {
-    if($playerinfo[password] == $pass)
+    if($playerinfo['password'] == $pass)
     {
-        if($playerinfo[ship_destroyed] == "N")
+        if($playerinfo['ship_destroyed'] == "N")
         {
             // player's ship has not been destroyed
-            playerlog($playerinfo[ship_id], LOG_LOGIN, $ip);
+            playerlog($playerinfo['ship_id'], LOG_LOGIN, $ip);
             $stamp = date("Y-m-d H-i-s");
             $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
             $_SESSION['logged_in'] = TRUE;

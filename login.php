@@ -57,6 +57,16 @@ echo "<center>\n";
 
 bigtitle();
 
+if (!isset($username))
+{
+    $username = '';
+}
+
+if (!isset($password))
+{
+    $password = '';
+}
+
 echo "<form action='login2.php' method='post'>\n";
 echo "  <br>\n";
 echo "  <br>\n";

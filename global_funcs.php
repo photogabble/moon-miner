@@ -286,12 +286,12 @@ function gen_score($sid)
 
   $res = $db->Execute("SELECT $calc_levels+$calc_equip+$calc_dev+$dbtables[ships].credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits AS score FROM $dbtables[ships] LEFT JOIN $dbtables[planets] ON $dbtables[planets].owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
   $row = $res->fields;
-  $score = $row[score];
+  $score = $row['score'];
   $res = $db->Execute("SELECT balance, loan FROM $dbtables[ibank_accounts] where ship_id = $sid");
   if($res)
   {
      $row = $res->fields;
-     $score += ($row[balance] - $row[loan]);
+     $score += ($row['balance'] - $row['loan']);
   }
   if($score<0) $score=0;
   $score = ROUND(SQRT($score));
