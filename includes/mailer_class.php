@@ -19,38 +19,38 @@
 
 class Mailer
 {
-    private static $module			= "Blacknova Mailing System";
-    private static $version			= "0.0.10 (0062) beta";
-    private static $author			= "TheMightyDude";
+    private static $module               = "Blacknova Mailing System";
+    private static $version               = "0.0.10 (0062) beta";
+    private static $author               = "TheMightyDude";
 
-    private $mailServers			= NULL;
-    private $debugMessage			= NULL;
-    private $debugMode				= false;
-    private $domain					= NULL;
-    private $readTimout				= 10;
+    private $mailServers               = NULL;
+    private $debugMessage               = NULL;
+    private $debugMode                    = false;
+    private $domain                         = NULL;
+    private $readTimout                    = 10;
 
-    private $mailSender				= NULL;
-    private $mailRecipient			= NULL;
-    private $mailSubject			= NULL;
-    private $mailMessage			= NULL;
+    private $mailSender                    = NULL;
+    private $mailRecipient               = NULL;
+    private $mailSubject               = NULL;
+    private $mailMessage               = NULL;
 
-    private $errorMessage			= NULL;
-    private $errorID				= NULL;
+    private $errorMessage               = NULL;
+    private $errorID                    = NULL;
 
-    private $handle					= NULL;
+    private $handle                         = NULL;
 
-    private $authenticate			= false;
+    private $authenticate               = false;
 
-    private $authenticating			= false;
+    private $authenticating               = false;
 
     function __construct($type = NULL)
     {
-        $this->authenticate			= false;
-        $this->authenticating		= false;
-        $this->errorMessage			= "";
-        $this->debugMessage 		= array();
-        $this->domain				= $_SERVER['SERVER_NAME'];
-        $this->lastCommandSent		= NULL;
+        $this->authenticate               = false;
+        $this->authenticating          = false;
+        $this->errorMessage               = "";
+        $this->debugMessage           = array();
+        $this->domain                    = $_SERVER['SERVER_NAME'];
+        $this->lastCommandSent          = NULL;
     }
 
     function __destruct()
@@ -222,7 +222,7 @@ class Mailer
         if (!$this->handle)
         {
             $this->errorMessage = "Unable to connect to MailServer.<br />Connection refused.";
-            $this->errorID		= 1;
+            $this->errorID          = 1;
 
             return (boolean) false;
         }
@@ -235,7 +235,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 2;
+            $this->errorID          = 2;
             fclose($this->handle);
             $this->displayDebug();
             $this->sendLog();
@@ -249,7 +249,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 3;
+            $this->errorID          = 3;
 
             $this->sendData("RSET\r\n", $retCode);
             $this->sendData("QUIT\r\n", $retCode);
@@ -265,7 +265,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 4;
+            $this->errorID          = 4;
 
             $this->sendData("RSET\r\n", $retCode);
             $this->sendData("QUIT\r\n", $retCode);
@@ -285,7 +285,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 5;
+            $this->errorID          = 5;
 
             $this->sendData("RSET\r\n", $retCode);
             $this->sendData("QUIT\r\n", $retCode);
@@ -303,7 +303,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 6;
+            $this->errorID          = 6;
 
             $this->sendData("RSET\r\n", $retCode);
             $this->sendData("QUIT\r\n", $retCode);
@@ -321,7 +321,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 7;
+            $this->errorID          = 7;
 
             $this->sendData("RSET\r\n", $retCode);
             $this->sendData("QUIT\r\n", $retCode);
@@ -362,7 +362,7 @@ class Mailer
             // Need to handle this better
             $this->em = $retData;
             $this->errorMessage = "Failed Sending email.";
-            $this->errorID		= 8;
+            $this->errorID          = 8;
 
             $this->sendData("RSET\r\n", $retCode);
             $this->sendData("QUIT\r\n", $retCode);
