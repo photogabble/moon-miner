@@ -147,6 +147,9 @@ function connectdb($do_die = true) // Returns true, false or a halt.
     // This should work...
     if( ($db instanceof ADOConnection) && (is_resource($db->_connectionID) || is_object($db->_connectionID)) )
     {
+        // Set our character set to utf-8
+        $db->Execute("set names 'utf8'");
+
         // Yes we connected ok, so return true.
         return (boolean) true;
     }
