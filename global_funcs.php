@@ -47,7 +47,7 @@ global $l_global_mlogin;
 
 function TEXT_JAVASCRIPT_BEGIN()
 {
-  echo "\n<SCRIPT LANGUAGE=\"JavaScript\" type=\"text/javascript\">\n";
+  echo "\n<SCRIPT type=\"text/javascript\">\n";
   echo "<!--\n";
 }
 
