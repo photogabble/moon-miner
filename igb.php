@@ -47,7 +47,7 @@ echo "<BODY bgcolor=#929292 text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=
 </STYLE>
 
 <center>
-<img src=images/div1.gif>
+<img src=images/div1.png>
 <div style="width:600px; max-width:600px;">
 <table style="width:600px; height:350px;" border=0>
 <tr><td style="background-image:URL(images/IGBscreen.gif); background-repeat:no-repeat;" align=center>
@@ -139,7 +139,7 @@ else
 </td></tr>
 </table>
 </div>
-<img src=images/div2.gif>
+<img src=images/div2.png>
 </center>
 
 <?php
