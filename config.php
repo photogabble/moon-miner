@@ -253,8 +253,6 @@ $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "b
 $footer_style = 'old';
 $footer_show_time = true;
 
-$register_globals_safe = false; // We hope to fix this soon
-
 date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 
 $sched_planet_valid_credits = true; // Limit captured planets Max Credits to max_credits_without_base
