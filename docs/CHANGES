@@ -5,7 +5,7 @@ Changed all (confusing/inconsistent) references to Alliance(s) to Team(s) instea
 Removed personal credits notices.
 Moved all documents (newplayer/faq) into docs directory.
 (Temporarily) removed innodb references, as they used an SQL syntax that is no longer supported (threw an error).
-
+test
 TheMightyDude (22 May 2011)
 --------------------------------------
 [1467445] Escape Pods not working (fixed)
