@@ -25,7 +25,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
 <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
@@ -34,6 +33,9 @@
 <title><?php echo $title; ?></title>
  <style type="text/css">
  <!--
+  a.new_link {font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#0f0; font-weight:bold;}
+  a.new_link:hover {font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
+
 <?php
 if(!isset($interface) || $interface == "")
 {
@@ -48,9 +50,6 @@ if(isset($interface) && $interface == "main.php")
 
   img.mnu {padding:4px; border:transparent 2px dashed;}
   img.mnu:hover {padding:4px; border:#f00 2px dashed;}
-
-  a.new_link {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#0f0; font-weight:bold;}
-  a.new_link:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
 
   div.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   span.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
@@ -85,7 +84,7 @@ if (isset($interface) && $interface == "index.php")
 {
 
 ?>
-  <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+  <SCRIPT type="text/javascript">
   <!--
   function MM_swapImgRestore()
   { //v3.0
