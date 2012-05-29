@@ -55,8 +55,6 @@ session_start();
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 if(!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
 
-$reg_globals_on = (bool) ini_get('register_globals');
-if ($register_globals_safe != 1 && !$reg_globals_on)
 if (1==1)
 {
   foreach ($_POST as $k=>$v)
