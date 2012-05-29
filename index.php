@@ -31,35 +31,38 @@ $no_body=1;
 include("header.php");
 ?>
 
-<body bgcolor="#929292" text="#c0c0c0" link="blue" vlink="purple" alink="#f33" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
-<center>
-<img src="images/BNT-header.jpg" width="517" height="189" border="0" alt="Blacknova Traders">
+<body style="background-color:#929292; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
+<!--<div align="center">-->
+<img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/BNT-header.jpg" width="517" height="189" alt="Blacknova Traders">
+<!-- <td colspan="3">-->
 
-<table border="0" cellpadding="0" cellspacing="0" width="600">
+<table style="width:600px; border:0; border-spacing:0; margin-left:auto; margin-right:auto">
   <tr>
-    <td colspan="3"><img name="div1" src="images/div1.gif" width="600" height="21" border="0" alt=""></td>
-    <td><img src="images/spacer.gif" width="1" height="21" border="0" alt=""></td>
+    <td><img style="border:0" id="div1" src="images/div1.gif" width="600" height="21" alt=""></td>
+    <td><img style="border:0" src="images/spacer.gif" width="1" height="21"  alt=""></td>
   </tr>
   <tr>
-    <td colspan="3"><img name="bnthed" src="images/bnthed.gif" width="600" height="61" border="0" alt="Blacknova Traders"></td>
-    <td><img src="images/spacer.gif" width="1" height="61" border="0" alt=""></td>
+    <td><img style="border:0" id="bnthed" src="images/bnthed.gif" width="600" height="61" alt="Blacknova Traders"></td>
+    <td><img style="border:0" src="images/spacer.gif" width="1" height="61"  alt=""></td>
   </tr>
   <tr>
-    <td colspan="3"><img name="div2" src="images/div2.gif" width="600" height="21" border="0" alt=""></td>
-    <td><img src="images/spacer.gif" width="1" height="21" border="0" alt=""></td>
+    <td><img style="border:0" id="div2" src="images/div2.gif" width="600" height="21" alt=""></td>
+    <td><img style="border:0" src="images/spacer.gif" width="1" height="21"  alt=""></td>
   </tr>
   <tr>
-    <td colspan=3 align=center><a href=<?php echo "login.php"; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img name="login" src="images/login.gif" width="146" height="58" border="0" alt="Login"></a></td>
-    <td><img src="images/spacer.gif" width="1" height="58" border="0" alt=""></td>
+    <td style="text-align:center"><a href="login.php" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img style="border:0" id="login" src="images/login.gif" width="146" height="58" alt="Login"></a></td>
+    <td><img style="border:0" src="images/spacer.gif" width="1" height="58"  alt=""></td>
   </tr>
   <tr>
-    <td colspan=3 align=center><a href=<?php echo "\"mailto:$admin_mail\""; ?> onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img name="mail" src="images/mail.gif" width="146" height="58" border="0" alt="Mail"></a></td>
-    <td><img src="images/spacer.gif" width="1" height="58" border="0" alt=""></td>
+    <td style="text-align:center"><a href="mailto:<?php echo $admin_mail; ?>" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img style="border:0" id="mail" src="images/mail.gif" width="146" height="58" alt="Mail"></a></td>
+    <td><img style="border:0" src="images/spacer.gif" width="1" height="58"  alt=""></td>
   </tr>
   <tr>
-  <td colspan=3 align=center><a href="docs/faq.html"><?php echo "$l_faq"; ?></a></td>
+    <td style="text-align:center"><a class="new_link" href="docs/faq.html"><?php echo "$l_faq"; ?></a></td>
+    <td></td>
   </tr>
-  </table></center>
+  </table>
+<!--</div>-->
 <?php
     include("footer.php");
 ?>
