@@ -33,31 +33,10 @@ include("header.php");
 
 <body style="background-color:#929292; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
 <img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/BNT-header.jpg" width="517" height="189" alt="Blacknova Traders">
-
-<table style="width:600px; border:0; border-spacing:0; margin-left:auto; margin-right:auto">
-  <tr>
-    <td><img style="border:0" id="div1" src="images/div1.gif" width="600" height="21" alt=""></td>
-    <td><img style="border:0" src="images/spacer.gif" width="1" height="21"  alt=""></td>
-  </tr>
-  <tr>
-    <td><img style="border:0" id="bnthed" src="images/bnthed.gif" width="600" height="61" alt="Blacknova Traders"></td>
-    <td><img style="border:0" src="images/spacer.gif" width="1" height="61"  alt=""></td>
-  </tr>
-  <tr>
-    <td><img style="border:0" id="div2" src="images/div2.gif" width="600" height="21" alt=""></td>
-    <td><img style="border:0" src="images/spacer.gif" width="1" height="21"  alt=""></td>
-  </tr>
-  <tr>
-    <td style="text-align:center"><a href="login.php" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img style="border:0" id="login" src="images/login.gif" width="146" height="58" alt="Login"></a></td>
-    <td><img style="border:0" src="images/spacer.gif" width="1" height="58"  alt=""></td>
-  </tr>
-  <tr>
-    <td style="text-align:center"><a href="mailto:<?php echo $admin_mail; ?>" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img style="border:0" id="mail" src="images/mail.gif" width="146" height="58" alt="Mail"></a></td>
-    <td><img style="border:0" src="images/spacer.gif" width="1" height="58"  alt=""></td>
-  </tr>
-  <tr>
-    <td style="text-align:center"><a class="new_link" href="docs/faq.html"><?php echo "$l_faq"; ?></a></td>
-    <td></td>
-  </tr>
-  </table>
+<img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="div1" src="images/div1.gif" width="600" height="21" alt="">
+<img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="bnthed" src="images/bnthed.gif" width="600" height="61" alt="Blacknova Traders">
+<img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="div2" src="images/div2.gif" width="600" height="21" alt="">
+<a href="login.php" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="login" src="images/login.gif" width="146" height="58" alt="Login"></a>
+<a href="mailto:<?php echo $admin_mail; ?>" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="mail" src="images/mail.gif" width="146" height="58" alt="Mail"></a>
+<a style="display:block; border:0; margin-left:auto; margin-right:auto; text-align:center" class="new_link" href="docs/faq.html"><?php echo "$l_faq"; ?></a>
 <?php include("footer.php"); ?>
