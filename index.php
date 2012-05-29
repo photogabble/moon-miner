@@ -32,9 +32,7 @@ include("header.php");
 ?>
 
 <body style="background-color:#929292; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
-<!--<div align="center">-->
 <img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/BNT-header.jpg" width="517" height="189" alt="Blacknova Traders">
-<!-- <td colspan="3">-->
 
 <table style="width:600px; border:0; border-spacing:0; margin-left:auto; margin-right:auto">
   <tr>
@@ -62,7 +60,4 @@ include("header.php");
     <td></td>
   </tr>
   </table>
-<!--</div>-->
-<?php
-    include("footer.php");
-?>
+<?php include("footer.php"); ?>
