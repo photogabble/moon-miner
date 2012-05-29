@@ -130,7 +130,7 @@ $result = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id=? AND no
 if ($result->RecordCount() > 0)
 {
     $alert_message = "{$l_youhave}{$result->RecordCount()}{$l_messages_wait}";
-    echo "<script language='javascript' type='text/javascript'>\n";
+    echo "<script type='text/javascript'>\n";
     echo "  // Due to be put into its own javascript file.\n";
     echo "  // Yeah I know it may not be worth it for just 3 lines but it keeps the code clean.\n";
     echo "  alert('{$alert_message}');\n";
@@ -166,7 +166,7 @@ if($zoneinfo['zone_id'] < 5)
 {
     $zoneinfo['zone_name'] = $l_zname[$zoneinfo['zone_id']];
 }
-echo "    <td style='text-align:right; color:#ccc; font-size:12px; font-weight:bold;'><a href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
+echo "    <td style='text-align:right; color:#ccc; font-size:12px; font-weight:bold;'><a class='new_link' href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 
