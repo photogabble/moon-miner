@@ -61,16 +61,13 @@ if(isset($interface) && $interface == "main.php")
   .headlines {text-decoration:none; font-size:8Pt; font-family: Verdana, Arial, sans-serif; font-weight:bold; color:white;}
   .portcosts1 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line1; color:#c0c0c0;}
   .portcosts2 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line2; color:#c0c0c0;}
-  .faderlines {background-color:$color_line2;}\n";
+  .faderlines {background-color:$color_line2;}
+  dl.login-form dt {float:left; text-align:right; width:45%; height:2em;}
+  dl.login-form dd {float:left; text-align:left; width:45%; height:2em;}\n";
 
 // Added for dev small text forthe rankings page
   echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
-
 }
-#echo "a:link {color: #0f0;}\n";
-#echo "a:visited {color: #0f0;}\n";
-#echo "a:hover {color: #06f;}\n";
-#echo "a:active {color: #f00;}\n";
 
 echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";
 ?>
