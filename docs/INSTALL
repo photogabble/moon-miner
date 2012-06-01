@@ -53,7 +53,12 @@ INSTALLATION
 
 7. chmod 000 setup_info.php - it contains information that might be a security risk.
 
-8. Hopefully - it works now. :)
+8. If you are using a Linux distribution that includes SELinux (Fedora, Redhat, etc), you will need to
+   allow the web server to talk to the MySQL server. Issue this command: setsebool -P httpd_can_network_connect_db 1 
+   (And wait several *minutes* on a 3ghz+ machine)
+
+9. Hopefully - it works now. :)
+
 
 Trouble Shooting:
 If, when you log in, you are presented with another screen telling you to log in,
@@ -72,9 +77,9 @@ http://www.sourceforge.net/projects/blacknova
 
 SUPPORT
 
-Support should be requested on the main Blacknova Traders site:
+Support should be requested on the main Blacknova Traders forums:
 
-http://blacknova.net
+http://forums.blacknova.net
 
 Regards,
 
