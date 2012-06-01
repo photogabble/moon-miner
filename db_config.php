@@ -45,7 +45,7 @@ $gamepath = "/bnt/";
 
 // Hostname and port of the database server:
 // These are defaults, you normally won't have to change them
-$dbhost = "localhost";
+$dbhost = "127.0.0.1";
 
 // Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
 $dbport = "";
