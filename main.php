@@ -131,8 +131,6 @@ if ($result->RecordCount() > 0)
 {
     $alert_message = "{$l_youhave}{$result->RecordCount()}{$l_messages_wait}";
     echo "<script type='text/javascript'>\n";
-    echo "  // Due to be put into its own javascript file.\n";
-    echo "  // Yeah I know it may not be worth it for just 3 lines but it keeps the code clean.\n";
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 
@@ -178,16 +176,16 @@ echo "  <tr>\n";
 echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
 
 // Caption
-        echo "<table width='140' border='0' cellpadding='0' cellspacing='0' align='center'>\n";
-        echo "  <tr valign='top'>\n";
-        echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
-        echo "    <td style='white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#fff'><b>$l_commands</b></font></td>\n";
-        echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
-        echo "  </tr>\n";
-        echo "</table>\n";
+echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px;' align='center'>\n";
+echo "  <tr valign='top'>\n";
+echo "    <td style='padding:0px' align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#fff'><b>$l_commands</b></font></td>\n";
+echo "    <td style='padding:0px;' align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
+echo "  </tr>\n";
+echo "</table>\n";
 
 // Menu
-echo "<table style='width:150px; margin:auto; text-align:center;' border='0' cellspacing='0' cellpadding='0'>\n";
+echo "<table style='width:150px; margin:auto; text-align:center; border:0px; padding:0px; border-spacing:0px'>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='device.php'>{$l_devices}</a></div>\n";
@@ -197,8 +195,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='readmail.php'>{$l_read_msg}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mailto2.php'>{$l_send_msg}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='ranking.php'>{$l_rankings}</a></div>\n";
-
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='settings.php'>Settings</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='settings.php'>{$l_settings}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='teams.php'>{$l_teams}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='self_destruct.php'>{$l_ohno}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='options.php'>{$l_options}</a></div>\n";
@@ -210,11 +207,9 @@ if ($ksm_allowed == true)
 }
 echo "    </td>\n";
 echo "  </tr>\n";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; height:2px; background-color:transparent;'></td>\n";
 echo "  </tr>\n";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='faq.html'>{$l_faq}</a></div>\n";
@@ -231,31 +226,28 @@ if(!empty($link_forums))
 
 echo "    </td>\n";
 echo "  </tr>\n";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; height:2px; background-color:transparent;'></td>\n";
 echo "  </tr>\n";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='logout.php'>{$l_logout}</a></div>\n";
 echo "    </td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
-
 echo "<br>\n";
 
 // Caption
-echo "<table width='140' border='0' cellpadding='0' cellspacing='0' align='center'>\n";
+echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px;' align='center'>\n";
 echo "  <tr valign='top'>\n";
-echo "    <td align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
-echo "    <td style='white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#fff'><b>$l_traderoutes</b></font></td>\n";
-echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
+echo "    <td style='padding:0px' align='right' width='8'><img align='right' src='images/lcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><font face='verdana' size='1' color='#fff'><b>$l_traderoutes</b></font></td>\n";
+echo "    <td style='padding:0px' align='left' width='8'><img align='left' src='images/rcorner.gif' width='8' height='18' border='0' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 
 // Menu
-$i=0;
+$i = 0;
 $num_traderoutes = 0;
 
 // Port querry
@@ -298,7 +290,7 @@ while(!$query->EOF)
     $query->MoveNext();
 }
 
-echo "<table style='width:150px; margin:auto; text-align:center;' border='0' cellspacing='0' cellpadding='0'>\n";
+echo "<table style='width:150px; margin:auto; text-align:center; border:0px; padding:0px; border-spacing:0px;'>\n";
 echo "  <tr>\n";
 echo "    <td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 if($num_traderoutes == 0)
@@ -380,32 +372,25 @@ else
         }
         echo "</a>&nbsp;<br>";
         $i++;
-echo "</div>\n";
+        echo "</div>\n";
     }
 }
 
-
 echo "    </td>\n";
 echo "  </tr>\n";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; height:2px; background-color:transparent;'></td>\n";
 echo "  </tr>\n";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 echo "      <div style='padding-left:4px; text-align:center;'><a class='mnu' href='traderoute.php'>{$l_trade_control}</a></div>\n";
-
 echo "    </td>\n";
 echo "  </tr>\n";
-
 echo "</table>\n";
 echo "<br>\n";
-
 echo "</td>\n";
 
 echo "<td style='vertical-align:top;'>\n";
-
 if($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
@@ -517,9 +502,7 @@ else
 echo "</td>\n";
 echo "</tr>\n";
 echo "</table>\n";
-
 echo "</div>\n";
-
 
 // Put all the Planets into a div container and center it.
 echo "<div style='text-align:center; border:transparent 1px solid;'>\n";
@@ -527,7 +510,6 @@ echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bol
 
 if($playerinfo['sector'] != 0)
 {
-
     $sql  = null;
     $sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
     $sql .= "FROM $dbtables[ships] LEFT OUTER JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id ";
@@ -559,19 +541,28 @@ if($playerinfo['sector'] != 0)
                 $shipavg = get_avg_tech($row, "ship");
 
                 if($shipavg < 8)
+                {
                     $shiplevel = 0;
+                }
                 else if ($shipavg < 12)
+                {
                     $shiplevel = 1;
+                }
                 else if ($shipavg < 16)
+                {
                     $shiplevel = 2;
+                }
                 else if ($shipavg < 20)
+                {
                     $shiplevel = 3;
+                }
                 else
+                {
                     $shiplevel = 4;
+                }
 
                 $row['shiplevel'] = $shiplevel;
                 $ship_detected[] = $row;
-
                 $ships_detected ++;
             }
             $result4->MoveNext();
@@ -636,52 +627,58 @@ if($num_defences>0)
 <?php
 if($num_defences > 0)
 {
-  $totalcount=0;
-  $curcount=0;
-  $i=0;
-  while($i < $num_defences)
-  {
+    $totalcount=0;
+    $curcount=0;
+    $i=0;
+    while($i < $num_defences)
+    {
+        $defence_id = $defences[$i]['defence_id'];
+        echo "<td align=center valign=top>";
+        if($defences[$i]['defence_type'] == 'F')
+        {
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=\"#fff\" face=\"arial\">";
+            $def_type = $l_fighters;
+            $mode = $defences[$i]['fm_setting'];
+            if($mode == 'attack')
+            {
+                $mode = $l_md_attack;
+            }
+            else
+            {
+                $mode = $l_md_toll;
+            }
+            $def_type .= $mode;
+        }
+        elseif($defences[$i]['defence_type'] == 'M')
+        {
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=\"#fff\" face=\"arial\">";
+            $def_type = $l_mines;
+        }
 
-    $defence_id = $defences[$i]['defence_id'];
-    echo "<td align=center valign=top>";
-    if($defences[$i]['defence_type'] == 'F')
-    {
-       echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=\"#fff\" face=\"arial\">";
-       $def_type = $l_fighters;
-       $mode = $defences[$i]['fm_setting'];
-       if($mode == 'attack')
-         $mode = $l_md_attack;
-       else
-        $mode = $l_md_toll;
-       $def_type .= $mode;
-    }
-    elseif($defences[$i]['defence_type'] == 'M')
-    {
-       echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.gif\" border=0></a><BR><font size=", $basefontsize + 1, " color=\"#fff\" face=\"arial\">";
-       $def_type = $l_mines;
-    }
-    $char_name = $defences[$i]['character_name'];
-    $qty = $defences[$i]['quantity'];
-    echo "$char_name ( $qty $def_type )";
-    echo "</font></td>";
+        $char_name = $defences[$i]['character_name'];
+        $qty = $defences[$i]['quantity'];
+        echo "$char_name ( $qty $def_type )";
+        echo "</font></td>";
 
-    $totalcount++;
-    if($curcount == $picsperrow - 1)
-    {
-      echo "</tr><tr>";
-      $curcount=0;
+        $totalcount++;
+        if($curcount == $picsperrow - 1)
+        {
+            echo "</tr><tr>";
+            $curcount=0;
+        }
+        else
+        {
+            $curcount++;
+        }
+        $i++;
     }
-    else
-      $curcount++;
-    $i++;
-  }
-  echo "</td></tr></table>";
+    echo "</td></tr></table>";
 }
 else
 {
-  echo "<td align=center valign=top>";
-//  echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
-  echo "</td></tr></table>";
+    echo "<td align=center valign=top>";
+//   echo "<br><font color=white size=", $basefontsize +2, ">None</font><br><br>";
+    echo "</td></tr></table>";
 }
 ?>
 <br>
@@ -696,8 +693,6 @@ echo "    <td align='left' width='8'><img align='left' src='images/rcorner.gif' 
 echo "  </tr>\n";
 echo "</table>\n";
 ?>
-
-
 
 <table width='150' BORDER=0 CELLPADDING=0 CELLSPACING=0 align="center">
   <tr>
@@ -737,7 +732,6 @@ echo "</table>\n";
     </td>
    </tr>
 </table>
-
 <br>
 
 <?php
@@ -750,8 +744,8 @@ echo "  </tr>\n";
 echo "</table>\n";
 ?>
 
-<TABLE width='150' BORDER=0 CELLPADDING=0 CELLSPACING=0 align="center">
-<TR><TD  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>
+<table width='150' BORDER=0 CELLPADDING=0 CELLSPACING=0 align="center">
+<tr><td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>
 
 <table style="width:100%;">
 <tr>
@@ -767,19 +761,16 @@ echo "</table>\n";
   <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
 </tr>
 </table>
-
 </td></tr>
 <?php
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; height:2px; background-color:transparent;'></td>\n";
 echo "  </tr>\n";
 ?>
-<TR><TD  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>
+<tr><td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>
 &nbsp;<a class=mnu href="rsmove.php">=&gt;&nbsp;<?php echo $l_main_other;?></a>&nbsp;<br>
 </td></tr>
-
 </table>
-
 <br>
 
 <?php
@@ -792,44 +783,39 @@ echo "  </tr>\n";
 echo "</table>\n";
 ?>
 
-<TABLE width='150' BORDER=0 CELLSPACING=0 CELLPADDING=0 align="center">
-<TR><TD style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; text-align:center;'>
+<table width='150' BORDER=0 CELLSPACING=0 CELLPADDING=0 align="center">
+<tr><td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; text-align:center;'>
 <div class=mnu>
 
 <?php
 
 if(!$num_links)
 {
-  echo "&nbsp;<a class=dis>$l_no_warplink</a>&nbsp;<br>";
-  $link_bnthelper_string="<!--links:N";
+    echo "&nbsp;<a class=dis>$l_no_warplink</a>&nbsp;<br>";
+    $link_bnthelper_string="<!--links:N";
 }
 else
 {
+    echo "<table style='width:100%;'>\n";
+    $link_bnthelper_string="<!--links:Y";
+    for($i=0; $i<$num_links;$i++)
+    {
+#        echo "&nbsp;<a class=\"mnu\" href=\"move.php?sector=$links[$i]\">=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=\"lrscan.php?sector=$links[$i]\">[$l_scan]</a>&nbsp;<br>";
+        $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
 
-echo "<table style='width:100%;'>\n";
-
-  $link_bnthelper_string="<!--links:Y";
-  for($i=0; $i<$num_links;$i++)
-  {
-#     echo "&nbsp;<a class=\"mnu\" href=\"move.php?sector=$links[$i]\">=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=\"lrscan.php?sector=$links[$i]\">[$l_scan]</a>&nbsp;<br>";
-     $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
-
-echo "<tr>\n";
-echo "  <td style='text-align:left;'><a class='mnu' href='move.php?sector={$links[$i]}'>=&gt;&nbsp;$links[$i]</a></td>\n";
-echo "  <td style='text-align:right;'>[<a class='mnu' href='lrscan.php?sector={$links[$i]}'>$l_scan</a>]</td>\n";
-echo "</tr>\n";
-
-  }
-echo "</table>\n";
+        echo "<tr>\n";
+        echo "  <td style='text-align:left;'><a class='mnu' href='move.php?sector={$links[$i]}'>=&gt;&nbsp;$links[$i]</a></td>\n";
+        echo "  <td style='text-align:right;'>[<a class='mnu' href='lrscan.php?sector={$links[$i]}'>$l_scan</a>]</td>\n";
+        echo "</tr>\n";
+    }
+    echo "</table>\n";
 }
 $link_bnthelper_string=$link_bnthelper_string . ":-->";
 echo "</div>";
 echo "</td></tr>";
-
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; height:2px; background-color:transparent;'></td>\n";
 echo "  </tr>\n";
-
 echo "<tr><td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; text-align:center;'>";
 echo "<div class=mnu>";
 echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[$l_fullscan]</a>&nbsp;<br>";
@@ -838,10 +824,8 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[$l_fullscan]</a>&nbsp;<br
 </div>
 </td></tr>
 </table>
-
 </td>
 </tr>
-
 </table>
 
 <?php
@@ -851,9 +835,7 @@ $rspace_bnthelper_string="<!--rspace:" . $sectorinfo['distance'] . ":" . $sector
 echo $player_bnthelper_string;
 echo $link_bnthelper_string;
 echo $planet_bnthelper_string;
-echo $rspace_bnthelper_string;
-
-echo "\n";
+echo $rspace_bnthelper_string . "\n";
 
 echo "<table align='center' style='border:#fff solid 1px; text-align:center; background-color:#000; color:#000;' cellpadding='2' cellspacing='1' title='news ticker v'>\n";
 echo "  <tr>\n";
