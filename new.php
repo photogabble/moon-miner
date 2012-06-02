@@ -23,29 +23,21 @@ include("languages/$lang");
 $title=$l_new_title;
 include("header.php");
 
-  bigtitle();
-?>
-<form action="new2.php" method="post">
- <center>
-  <table  width="" border="0" cellspacing="0" cellpadding="4">
-   <tr>
-    <td><?php echo $l_login_email;?></td>
-    <td><input type="text" name="username" size="20" maxlength="40" value=""></td>
-   </tr>
-   <tr>
-    <td><?php echo $l_new_shipname; ?></td>
-    <td><input type="text" name="shipname" size="20" maxlength="20" value=""></td>
-   </tr>
-   <tr>
-    <td><?php echo $l_new_pname;?></td>
-    <td><input type="text" name="character" size="20" maxlength="20" value=""></td>
-   </tr>
-  </table>
-  <br>
-  <input type="submit" value="<?php echo $l_submit;?>">
-  <input type="reset" value="<?php echo $l_reset;?>">
-  <br><br><?php echo $l_new_info;?><br>
- </center>
-</form>
+bigtitle();
 
-<?php include("footer.php"); ?>
+echo "<form action='new2.php' method='post'>\n";
+echo "    <dl class='twocolumn-form'>\n";
+echo "        <dt style='padding:3px'><label for='username'>{$l_login_email}:</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='text' id='username' name='username' size='20' maxlength='40' value='' style='width:200px'></dd>\n";
+echo "        <dt style='padding:3px'><label for='shipname'>{$l_new_shipname}:</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='text' id='shipname' name='shipname' size='20' maxlength='20' value='' style='width:200px'></dd>\n";
+echo "        <dt style='padding:3px'><label for='character'>{$l_new_pname}:</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='text' id='character' name='character' size='20' maxlength='20' value='' style='width:200px'></dd>\n";
+echo "    </dl>\n";
+echo "    <br style='clear:both;'><br>";
+echo "    <div style='text-align:center'><input type='submit' value='" . $l_submit . "'>&nbsp;<input type='reset' value='" . $l_reset . "'><br><br>\n";
+echo "        " . $l_new_info . "<br></div>\n";
+echo "</form>";
+
+include("footer.php");
+?>
