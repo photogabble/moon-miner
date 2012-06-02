@@ -20,47 +20,41 @@
 include("config.php");
 
 if(empty($lang))
-  $lang=$default_lang;
+{
+    $lang = $default_lang;
+}
 
 $found = 0;
 if(!empty($newlang))
 {
-  if(!preg_match("/^[\w]+$/", $lang))
-  {
-     $lang = $default_lang;
-
-  }
-  foreach($avail_lang as $key => $value)
-  {
-    if($newlang == $value[file])
+    if(!preg_match("/^[\w]+$/", $lang))
     {
-      $lang=$newlang;
-      setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-      $found = 1;
-      break;
+        $lang = $default_lang;
     }
-  }
+    foreach($avail_lang as $key => $value)
+    {
+        if($newlang == $value[file])
+        {
+            $lang=$newlang;
+            setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+            $found = 1;
+            break;
+        }
+    }
 
-  if($found == 0)
-    $lang = $default_lang;
+    if($found == 0)
+    {
+        $lang = $default_lang;
+    }
 
-  $lang = $lang . ".inc";
+    $lang = $lang . ".inc";
 }
 
 include("languages/$lang");
-
-$title=$l_login_title;
-
+$title = $l_login_title;
 include("header.php");
 
-//echo "<center>\n";
-//echo "<div style='margin-left:auto; margin-right:auto;'>";
-
 global $title;
-echo "<h1 style='text-align:center'>$title</h1>\n";
-echo "<br><br>\n";
-//bigtitle();
-
 if (!isset($username))
 {
     $username = '';
@@ -71,26 +65,25 @@ if (!isset($password))
     $password = '';
 }
 
+echo "<h1 style='text-align:center'>$title</h1>\n";
+echo "<br><br>\n";
 echo "<form action='login2.php' method='post'>\n";
-echo "      <dl class='twocolumn-form'>\n";
-echo "      <dt><label for='email'>{$l_login_email}:</label></dt>\n";
-echo "      <dd><input type='text' id='email' name='email' size='20' maxlength='40' value='{$username}' style='width:200px'></dd>\n";
-echo "      <dt><label for='pass'>{$l_login_pw}</label></dt>\n";
-echo "      <dd><input type='password' id='pass' name='pass' size='20' maxlength='20' value='{$password}' style='width:200px'></dd>\n";
-echo "      </dl>\n";
-echo "      <br style='clear:both;'>";
-echo "      <div style='text-align:center'>Forgot your password?  Enter it blank and press login.</div>\n";
-echo "  <br>\n";
-echo "  <div style='text-align:center'>";
-echo "  <input type='submit' value='{$l_login_title}'>\n";
-echo "  <br>\n";
-echo "  <br>\n";
-echo "  {$l_login_newp}\n";
-echo "  <br>\n";
-echo "  <br>\n";
-echo "  {$l_login_prbs} <a href='mailto:{$admin_mail}'>{$l_login_emailus}</a>\n";
-echo "  </div>";
-
+echo "    <dl class='twocolumn-form'>\n";
+echo "        <dt style='padding:3px'><label for='email'>{$l_login_email}:</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='text' id='email' name='email' size='20' maxlength='40' value='{$username}' style='width:200px'></dd>\n";
+echo "        <dt style='padding:3px'><label for='pass'>{$l_login_pw}</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='password' id='pass' name='pass' size='20' maxlength='20' value='{$password}' style='width:200px'></dd>\n";
+echo "    </dl>\n";
+echo "    <br style='clear:both;'>";
+echo "    <div style='text-align:center'>Forgot your password?  Enter it blank and press login.</div><br>\n";
+echo "    <div style='text-align:center'>";
+echo "        <input type='submit' value='{$l_login_title}'>\n";
+echo "        <br><br>\n";
+echo "        {$l_login_newp}\n";
+echo "        <br>\n";
+echo "        <br>\n";
+echo "        {$l_login_prbs} <a href='mailto:{$admin_mail}'>{$l_login_emailus}</a>\n";
+echo "    </div>";
 echo "</form>\n";
 
 
@@ -99,28 +92,26 @@ if(!empty($link_forums))
 {
     echo "<a href='$link_forums' target='_blank'>$l_forums</a> - ";
 }
-echo "<a href='ranking.php'>{$l_rankings}</a> - <a href='settings.php'>{$l_login_settings}</a>\n";
-echo "<br>\n";
-echo "<br></div>\n";
+echo "<a href='ranking.php'>{$l_rankings}</a> - <a href='settings.php'>{$l_login_settings}</a><br><br>\n";
+echo "</div>\n";
 echo "<form action='login.php' method='post'>\n";
-
 echo "<div style='text-align:center'>$l_login_lang&nbsp;&nbsp;<select name='newlang'>\n";
 
 foreach($avail_lang as $curlang)
 {
-  if($curlang['file'].".inc" == $lang)
-    $selected = "selected='selected'";
-  else
-    $selected = "";
-
-  echo "  <option value='{$curlang['file']}' {$selected} style='width:100px;'>{$curlang['name']}</option>\n";
+    if($curlang['file'].".inc" == $lang)
+    {
+        $selected = "selected='selected'";
+    }
+    else
+    {
+        $selected = "";
+    }
+    echo "  <option value='{$curlang['file']}' {$selected} style='width:100px;'>{$curlang['name']}</option>\n";
 }
 
 echo "  </select>\n&nbsp;&nbsp;<input type='submit' value='{$l_login_change}'></div>";
-
 echo "</form>\n";
-//echo "</center>\n";
-//echo "</div>\n";
 
 include("footer.php");
 ?>
