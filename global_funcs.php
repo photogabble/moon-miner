@@ -30,7 +30,7 @@ function mypw($one,$two)
 function bigtitle()
 {
   global $title;
-  echo "<H1>$title</H1>\n";
+  echo "<h1>$title</h1>\n";
 }
 
 function TEXT_GOTOMAIN()
