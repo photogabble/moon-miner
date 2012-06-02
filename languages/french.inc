@@ -1117,7 +1117,7 @@ $l_corpm_exploit          ="Vous interceptez un message codé... Peut-être devrie
 
 // login.php login2.php
 $l_login_title               ="Connection"; 
-$l_login_email               ="Adresse E-mail:";
+$l_login_email               ="Adresse E-mail";
 $l_login_pw               ="Mot de passe:";
 $l_login_chooseres          ="La résolution de votre écran n'a pu être déterminée. Veuillez choisir le plus près:";
 $l_login_newp               = "Si vous êtes un nouveau joueur, cliquez <A HREF=\"new.php\">ici</A>.";

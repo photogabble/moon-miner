@@ -1227,7 +1227,7 @@ $l_corpm_exploit          ="You intercept a garbled borg message on your scanner
 
 // login.php login2.php
 $l_login_title               ="Login"; 
-$l_login_email               ="E-mail Address:";
+$l_login_email               ="E-mail Address";
 $l_login_pw               ="Password:";
 $l_login_chooseres          ="Unable to determine your screen resolution. Please choose the best fit:";
 $l_login_newp               = "If you are a new player, click <A HREF=\"new.php\">here</A>.";
