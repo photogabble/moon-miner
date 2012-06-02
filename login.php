@@ -72,8 +72,8 @@ if (!isset($password))
 }
 
 echo "<form action='login2.php' method='post'>\n";
-echo "      <dl class='login-form'>\n";
-echo "      <dt><label for='email'>{$l_login_email}</label></dt>\n";
+echo "      <dl class='twocolumn-form'>\n";
+echo "      <dt><label for='email'>{$l_login_email}:</label></dt>\n";
 echo "      <dd><input type='text' id='email' name='email' size='20' maxlength='40' value='{$username}' style='width:200px'></dd>\n";
 echo "      <dt><label for='pass'>{$l_login_pw}</label></dt>\n";
 echo "      <dd><input type='password' id='pass' name='pass' size='20' maxlength='20' value='{$password}' style='width:200px'></dd>\n";
