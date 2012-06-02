@@ -22,7 +22,8 @@
     header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
     header("Keep-Alive: timeout=15, max=100");
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -62,8 +63,8 @@ if(isset($interface) && $interface == "main.php")
   .portcosts1 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line1; color:#c0c0c0;}
   .portcosts2 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line2; color:#c0c0c0;}
   .faderlines {background-color:$color_line2;}
-  dl.login-form dt {float:left; text-align:right; width:45%; height:2em;}
-  dl.login-form dd {float:left; text-align:left; width:45%; height:2em;}\n";
+  dl.twocolumn-form dt {float:left; text-align:right; width:45%; height:2em;}
+  dl.twocolumn-form dd {float:left; text-align:left; width:45%; height:2em;}\n";
 
 // Added for dev small text forthe rankings page
   echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
