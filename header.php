@@ -70,7 +70,8 @@ if(isset($interface) && $interface == "main.php")
   echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
 }
 
-echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";
+//echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";
+echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 85%; line-height:1.125em; color: #ccc;}\n";
 ?>
  -->
  </style>
