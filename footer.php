@@ -34,7 +34,7 @@ else
     $elapsed = 999;
 }
 ?><br>
- <div style="text-align:center">
+ <div style='clear:both'></div><div style="text-align:center">
 <?php
 // Update counter
 
