@@ -2745,4 +2745,7 @@ $l_change_uni_title = "Cambiar tamaño de universo";
 $l_cu_title = "Crear universo";
 $l_sys_update = "Actualización del sistema";
 $l_ai_control = "control Xenobe";
+
+// Missing from main.php
+$l_settings = "Settings";
 ?>

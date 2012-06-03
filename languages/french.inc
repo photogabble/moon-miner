@@ -1393,4 +1393,7 @@ $l_change_uni_title = "taille univers changement";
 $l_cu_title = "Créer l'univers";
 $l_sys_update = "Mise à jour système";
 $l_ai_control = "contrôle Xenobe";
+
+// Missing from main.php
+$l_settings = "Settings";
 ?>
