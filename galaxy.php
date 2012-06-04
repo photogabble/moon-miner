@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: galaxy.php
+// File: galaxy_new.php
 
 include("config.php");
 updatecookie();
@@ -31,106 +31,84 @@ if(checklogin())
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
-$result3 = $db->Execute("SELECT distinct $dbtables[movement_log].sector_id, port_type, beacon FROM $dbtables[movement_log], $dbtables[universe] WHERE ship_id = $playerinfo[ship_id] AND $dbtables[movement_log].sector_id=$dbtables[universe].sector_id order by sector_id ASC;");
+$result3 = $db->Execute("SELECT distinct $dbtables[movement_log].sector_id, port_type, beacon FROM $dbtables[movement_log],$dbtables[universe] WHERE ship_id = $playerinfo[ship_id] AND $dbtables[movement_log].sector_id=$dbtables[universe].sector_id order by sector_id ASC;");
 $row = $result3->fields;
 
 bigtitle();
 
-$tile['special']="space261_md_blk.gif";
-$tile['ore']="space262_md_blk.gif";
-$tile['organics']="space263_md_blk.gif";
-$tile['energy']="space264_md_blk.gif";
-$tile['goods']="space265_md_blk.gif";
-$tile['none']="space.gif";
-$tile['unknown']="uspace.gif";
+$tile['special']="port-special.png";
+$tile['ore']="port-ore.png";
+$tile['organics']="port-organics.png";
+$tile['energy']="port-energy.png";
+$tile['goods']="port-goods.png";
+$tile['none']="space.png";
+$tile['unknown']="uspace.png";
 
-$cur_sector= 0;
-$cur_index    = 0;
+$cur_sector= 0; // Clear this before iterating through the sectors
 
-echo "cursector = $cur_sector max= $sector_max";
+// Display sectors as imgs, and each class in css in header.php; then match the width and height here
+$div_w=20; // Only this width to match the included images
+$div_h=20; // Only this height to match the included images
+$div_border=2; // CSS border is 1 so this should be 2
+$div_xmax=50; // Where to wrap to next line
+$div_ymax=$sector_max / $div_xmax;
+$map_width= ($div_w+$div_border) * $div_xmax;  // Define the containing div to be the right width to wrap at $div_xmax
 
-echo "<table style='background-color:#000; border:#555555 1px solid;' border = '0' cellpadding = '0' cellspacing='1' >\n";
-echo "<tr><td style='background-color:#111; text-align:center; border:#555555 1px solid; color:#fff; font-size:26px; padding:4px;' colspan='52'>Blacknova Traders Galaxy Map</td></tr>\n";
-while($cur_sector < $sector_max)
+// Setup containing div to hold the width of the images
+echo "\n<div id='map' style='position:relative;background-color:#0000ff;width:".$map_width."px'>\n";
+for($r=0;$r<$div_ymax;$r++) // Loop the rows
 {
-    $break = ($cur_sector +1 ) % 50;
-    if ($break == 1)
+    for($c=0;$c<$div_xmax;$c++) // Loop the columns
     {
-        print "<tr><td style='background-color:#111; border:#555555 1px solid; text-align:right; padding:2px;'>$cur_sector</td> ";
-        flush();
-    }
-
-    if(isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
-    {
-        $port = $row['port_type'];
-        $alt  = "Sector: {$row['sector_id']}\nPort: {$row['port_type']}\n";
-        if (!is_null($row['beacon']))
+        if(isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
         {
-            $alt .= "{$row['beacon']}";
+            $p = $row['port_type'];
+            // Build the alt text for each image
+            $alt  = $l_sector . ": {$row['sector_id']} Port: {$row['port_type']} ";
+
+            if (!is_null($row['beacon']))
+            {
+                $alt .= "{$row['beacon']}";
+            }
+
+            echo "\n<a href=\"rsmove.php?engage=1&amp;destination=" . $row['sector_id'] . "\">";
+            echo "<img class='map ".$row['port_type']."' src='images/" . $tile[$p] . "' alt='" . $alt . "'></a> ";
+
+            // Move to next explored sector in database results
+            $result3->Movenext();
+            $row = $result3->fields;
+            $cur_sector = $cur_sector + 1;
         }
-        $cur_index = $cur_index + 1;
-        $result3->Movenext();
-        $row = $result3->fields;
-    }
-    elseif($cur_sector == 0)
-    {
-        $port = "special";
-        $alt = "Sector: $cur_sector\nPort: $port \nSol: Hub of the Universe.";
-    }
-    else
-    {
-        $port ="unknown";
-        $alt = "$cur_sector - unknown";
-    }
+        else
+        {
+            $p = 'unknown';
+            // Build the alt text for each image
+            $alt  = ($c+($div_xmax*$r)) . " - " . $l_unknown . " ";
 
-    print "<td style='background-color:#000; border:#555555 1px solid;'><A HREF=rsmove.php?engage=1&destination=$cur_sector><img width='25' height='25' src='images/{$tile[$port]}' alt='$alt' border='0'></A></td>";
-    flush();
-
-    if ($break==0)
-    {
-        print "<td style='background-color:#111; border:#555555 1px solid; text-align:right; padding:2px;'>$cur_sector</td></tr>\n";
-        flush();
+            // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
+            echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c+($div_xmax*$r)) ."\">";
+            echo "<img class='map un' src='images/" . $tile[$p] . "' alt='" . $alt . "'></a> ";
+            $cur_sector = $cur_sector + 1;
+        }
     }
-    $cur_sector = $cur_sector + 1;
 }
 
-echo "<tr><td style='background-color:#111; text-align:left; border:#555555 1px solid; color:#fff; font-size:12px; padding:4px;' colspan='52'>Galaxy Map</td></tr>\n";
-echo "</table>\n";
+// This is the row numbers on the side of the map
+for($a=1;$a<($sector_max/50 +1);$a++)
+{
+    echo "\n<div style='position:absolute;left:".($map_width+10)."px;top:".(($a-1) * ($div_h+$div_border))."px;'>".($a*50)."</div>";
+}
 
-echo "<BR><BR>";
+echo "</div><div style='clear:both'></div><br>";
+echo "    <div><img alt='" . $l_port . ": " . $l_special_port . "' src=images/{$tile['special']}> &lt;- " . $l_special_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_ore_port . "' src=images/{$tile['ore']}> &lt;- " . $l_ore_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_organics_port . "' src=images/{$tile['organics']}> &lt;- " . $l_organics_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_energy_port . "' src=images/{$tile['energy']}> &lt;- " . $l_energy_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_goods_port . "' src=images/{$tile['goods']}> &lt;- " . $l_goods_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_no_port . "' src=images/{$tile['none']}> &lt;- " . $l_no_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_unexplored . "' src=images/{$tile['unknown']}> &lt;- " . $l_unexplored . "</div>\n";
 
-echo "<table border='0' cellspacing='0' cellpadding='0'>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['special']}></td>\n";
-echo "    <td width='170'> &lt;- Special Port</td>\n";
-echo "  </tr>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['ore']}></td>\n";
-echo "    <td width='170'> &lt;- Ore Port</td>\n";
-echo "  </tr>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['organics']}></td>\n";
-echo "    <td width='170'> &lt;- Organics Port</td>\n";
-echo "  </tr>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['energy']}></td>\n";
-echo "    <td width='170'> &lt;- Energy Port</td>\n";
-echo "  </tr>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['goods']}></td>\n";
-echo "    <td width='170'> &lt;- Goods Port</td>\n";
-echo "  </tr>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['none']}></td>\n";
-echo "    <td width='170'> &lt;- No Port</td>\n";
-echo "  </tr>\n";
-echo "  <tr>\n";
-echo "    <td width='30'><img src=images/{$tile['unknown']}></td>\n";
-echo "    <td width='170'> &lt;- Unexplored</td>\n";
-echo "  </tr>\n";
-echo "</table>\n";
-echo "<BR><BR>";
-
-echo "Click <a href=main.php>here</a> to return to main menu.";
+echo "<br><br>";
+TEXT_GOTOMAIN();
 include("footer.php");
 ?>
