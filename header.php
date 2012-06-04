@@ -64,10 +64,14 @@ if(isset($interface) && $interface == "main.php")
   .portcosts2 {width:7em; border-style:none; font-family: Verdana, Arial, sans-serif; font-size:12pt; background-color:$color_line2; color:#c0c0c0;}
   .faderlines {background-color:$color_line2;}
   dl.twocolumn-form dt {float:left; text-align:right; width:45%; height:2em;}
-  dl.twocolumn-form dd {float:left; text-align:left; width:45%; height:2em;}\n";
+  dl.twocolumn-form dd {float:left; text-align:left; width:45%; height:2em;}
+  .map {padding:0px;float:left;width:20px;height:20px;background-color:#111;border:#555555 1px solid; color:#fff;z-index:-1;}
+  .map:hover {border:#ffffff 1px solid;}
+  .none {background-image:url('images/space.png');}
+  .un {opacity:0.5;background-image:url('images/uspace.png');}\n";
 
 // Added for dev small text forthe rankings page
-  echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
+  echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family: Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
 }
 
 //echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";
