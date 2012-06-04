@@ -1358,4 +1358,14 @@ $l_ai_control = "Xenobe control";
 
 // Missing from main.php
 $l_settings = "Settings";
+
+// Galaxy map
+$l_special_port = "Special Port";
+$l_ore_port = "Ore Port";
+$l_organics_port = "Organics Port";
+$l_energy_port = "Energy Port";
+$l_goods_port = "Goods Port";
+$l_no_port = "No Port";
+$l_unexplored = "Unexplored";
+$l_map_title = "Blacknova Traders Galaxy Map";
 ?>
