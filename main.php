@@ -108,17 +108,17 @@ $num_defences = $i;
 $res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
 $zoneinfo = $res->fields;
 
-$shiptypes[0]= "tinyship.gif";
-$shiptypes[1]= "smallship.gif";
-$shiptypes[2]= "mediumship.gif";
-$shiptypes[3]= "largeship.gif";
-$shiptypes[4]= "hugeship.gif";
+$shiptypes[0]= "tinyship.png";
+$shiptypes[1]= "smallship.png";
+$shiptypes[2]= "mediumship.png";
+$shiptypes[3]= "largeship.png";
+$shiptypes[4]= "hugeship.png";
 
-$planettypes[0]= "tinyplanet.gif";
-$planettypes[1]= "smallplanet.gif";
-$planettypes[2]= "mediumplanet.gif";
-$planettypes[3]= "largeplanet.gif";
-$planettypes[4]= "hugeplanet.gif";
+$planettypes[0]= "tinyplanet.png";
+$planettypes[1]= "smallplanet.png";
+$planettypes[2]= "mediumplanet.png";
+$planettypes[3]= "largeplanet.png";
+$planettypes[4]= "hugeplanet.png";
 
 $signame = player_insignia_name($username);
 
@@ -178,9 +178,9 @@ echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
 // Caption
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
-echo "    <td style='padding:0px; width:8px;'><img style='border:0px; height:18px; width:8px; float:right;' src='images/lcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px;'><img style='border:0px; height:18px; width:8px; float:right;' src='images/lcorner.png' alt=''></td>\n";
 echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><b style='font-face:Verdana; font-size:0.75em; color:#fff;'>$l_commands</b></td>\n";
-echo "    <td style='padding:0px; width:8px'><img style='border:0px; height:18px; width:8px; float:left;' src='images/rcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px'><img style='border:0px; height:18px; width:8px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 
@@ -240,9 +240,9 @@ echo "<br>\n";
 // Caption
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top;'>\n";
-echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
 echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><b style='font-face:Verdana; font-size:0.75em; color:#fff;'>$l_traderoutes</b></td>\n";
-echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 
@@ -636,7 +636,7 @@ if($num_defences > 0)
         echo "<td style='margin-left:auto; margin-right:auto;vertical-align:top'>";
         if($defences[$i]['defence_type'] == 'F')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.gif\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff; font-face:arial'>";
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff; font-face:arial'>";
             $def_type = $l_fighters;
             $mode = $defences[$i]['fm_setting'];
             if($mode == 'attack')
@@ -651,7 +651,7 @@ if($num_defences > 0)
         }
         elseif($defences[$i]['defence_type'] == 'M')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.gif\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff; font-face:arial'>";
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff; font-face:arial'>";
             $def_type = $l_mines;
         }
 
@@ -687,9 +687,9 @@ else
 <?php
 echo "<table style='width:140px; border:0; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
-echo "    <td style='padding:0px; width:8px; text-align:right;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px; text-align:right;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
 echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-face:verdana; font-size:0.75em; color:#fff;'><b>$l_cargo</b></span></td>\n";
-echo "    <td style='padding:0px; width:8px; text-align:left;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/rcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px; text-align:left;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 ?>
@@ -699,31 +699,31 @@ echo "</table>\n";
     <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; padding:0px;'>
       <table style='width:100%; border:0px; background-color:#500050; padding:1px; border-spacing:0px; margin-left:auto; margin-right:auto;'>
         <tr>
-          <td style='vertical-align:middle; white-space:nowrap; text-align:left;' >&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_ore ?>" src="images/ore.gif">&nbsp;<?php echo $l_ore ?>&nbsp;</td>
+          <td style='vertical-align:middle; white-space:nowrap; text-align:left;' >&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_ore ?>" src="images/ore.png">&nbsp;<?php echo $l_ore ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='vertical-align:middle; white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_ore']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_organics ?>" src="images/organics.gif">&nbsp;<?php echo $l_organics ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_organics ?>" src="images/organics.png">&nbsp;<?php echo $l_organics ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_organics']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_goods ?>" src="images/goods.gif">&nbsp;<?php echo $l_goods ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_goods ?>" src="images/goods.png">&nbsp;<?php echo $l_goods ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_goods']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_energy ?>" src="images/energy.gif">&nbsp;<?php echo $l_energy ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_energy ?>" src="images/energy.png">&nbsp;<?php echo $l_energy ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_energy']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_colonists ?>" src="images/colonists.gif">&nbsp;<?php echo $l_colonists ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_colonists ?>" src="images/colonists.png">&nbsp;<?php echo $l_colonists ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_colonists']); ?>&nbsp;</span></td>
@@ -737,9 +737,9 @@ echo "</table>\n";
 <?php
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
-echo "    <td style='padding:0px; width:8px; text-align:right'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px; text-align:right'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
 echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-face:verdana; font-size:0.75em; color:#fff'><b>$l_realspace</b></span></td>\n";
-echo "    <td style='padding:0px; width:8px; text-align:left'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px; text-align:left'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 ?>
@@ -776,9 +776,9 @@ echo "  </tr>\n";
 <?php
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px;margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
-echo "    <td style='padding:0px; width:8px; float:right;'><img style='width:8px; height:18px; border:0px; float:right' src='images/lcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px; float:right;'><img style='width:8px; height:18px; border:0px; float:right' src='images/lcorner.png' alt=''></td>\n";
 echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-face:verdana; font-size:0.75em; color:#fff;'><b>$l_main_warpto</b></span></td>\n";
-echo "    <td style='padding:0px; width:8px; float:left;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.gif' alt=''></td>\n";
+echo "    <td style='padding:0px; width:8px; float:left;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
 ?>
