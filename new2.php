@@ -127,6 +127,7 @@ if ($flag==0)
         $link_to_game .= str_replace($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
         mail("$username", "$l_new_topic", "$l_new_message\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion());
 
+        log_move($shipid['ship_id'],0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
         $db->Execute("INSERT INTO $dbtables[ibank_accounts] (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
         if($display_password)
