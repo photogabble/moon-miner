@@ -189,7 +189,7 @@ if(empty($no_body))
 {
     if(isset($interface) && $interface=="main.php")
     {
-        echo "<body style=\"background-image: url('images/bgoutspace1.gif'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
+        echo "<body style=\"background-image: url('images/bgoutspace1.png'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
     }
     else
     {
