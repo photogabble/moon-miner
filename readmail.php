@@ -67,7 +67,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                     <tr>
                       <td width="75%" align="left"><font color="white" size="2"><b><? echo $l_readm_center ?> (<span style='color:#00C0C0;'>Subspace</span>)</b></font></td>
                       <td width="21%" align="center" nowrap><font color="white" size="2"><?echo "$cur_D" ?>&nbsp;<?echo "$cur_T" ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A HREF="main.php"><img alt="Click here to return to the main menu" src="images/c95x.gif" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A HREF="main.php"><img alt="Click here to return to the main menu" src="images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -121,7 +121,7 @@ if ($isAdmin === true)
 ?>
 </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><? echo "$msg[sent]" ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A class="but" HREF="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><img src="images/c95x.gif" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A class="but" HREF="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><img src="images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
