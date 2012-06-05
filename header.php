@@ -65,8 +65,8 @@ if(isset($interface) && $interface == "main.php")
   .faderlines {background-color:$color_line2;}
   dl.twocolumn-form dt {float:left; text-align:right; width:45%; height:2em;}
   dl.twocolumn-form dd {float:left; text-align:left; width:45%; height:2em;}
-  .map {padding:0px;float:left;width:20px;height:20px;background-color:#111;border:#555555 1px solid; color:#fff;z-index:-1;}
-  .map:hover {border:#ffffff 1px solid;}
+  .map {padding:0px;float:left;width:20px;height:20px;background-color:#111;border:#555555 1px solid; color:#fff;z-index:-1; position:relative;background-color:#0000ff;}
+  .map:hover {border:#ffffff 1px solid;}                                                                                                       
   .none {background-image:url('images/space.png');}
   .un {opacity:0.5;background-image:url('images/uspace.png');}\n";
 
