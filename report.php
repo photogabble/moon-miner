@@ -32,11 +32,11 @@ $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'")
 
 $playerinfo=$result->fields;
 
-$shiptypes[0]= "tinyship.gif";
-$shiptypes[1]= "smallship.gif";
-$shiptypes[2]= "mediumship.gif";
-$shiptypes[3]= "largeship.gif";
-$shiptypes[4]= "hugeship.gif";
+$shiptypes[0]= "tinyship.png";
+$shiptypes[1]= "smallship.png";
+$shiptypes[2]= "mediumship.png";
+$shiptypes[3]= "largeship.png";
+$shiptypes[4]= "hugeship.png";
 
 $shipavg = get_avg_tech($playerinfo, "ship");
 

@@ -50,7 +50,7 @@ echo "<BODY bgcolor=#929292 text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=
 <img src=images/div1.png>
 <div style="width:600px; max-width:600px;">
 <table style="width:600px; height:350px;" border=0>
-<tr><td style="background-image:URL(images/IGBscreen.gif); background-repeat:no-repeat;" align=center>
+<tr><td style="background-image:URL(images/igbscreen.png); background-repeat:no-repeat;" align=center>
 <table background="" width="550px" height=300 border=0>
 
 <?php
@@ -1118,7 +1118,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
        "</table>" .
        "</td></tr>" .
        "</table>" .
-       "<img src=images/div2.gif>" .
+       "<img src=images/div2.png>" .
        "</center>";
 
   include("footer.php");

@@ -104,7 +104,7 @@ if($sector == "*")
         if ($port_type != "none")
         {
             $icon_alt_text = ucfirst(t_port($port_type));
-            $icon_port_type_name = $port_type . ".gif";
+            $icon_port_type_name = $port_type . ".png";
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">&nbsp;";
         }
         else
@@ -283,7 +283,7 @@ else
         {
             $port_type = $sectorinfo['port_type'];
             $icon_alt_text = ucfirst(t_port($port_type));
-            $icon_port_type_name = $port_type . ".gif";
+            $icon_port_type_name = $port_type . ".png";
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">";
         }
         echo "$image_string " . t_port($sectorinfo['port_type']);
