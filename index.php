@@ -31,10 +31,10 @@ $no_body=1;
 include("header.php");
 ?>
 
-<body style="background-color:#929292; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.gif','images/mail_.gif');">
-<img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/BNT-header.jpg" width="517" height="189" alt="Blacknova Traders">
+<body style="background-color:#929292; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.png','images/mail_.png');">
+<img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/bnt-header.jpg" width="517" height="189" alt="Blacknova Traders">
 <img style="display:block; border:0; margin-left:auto; margin-right:auto;" class="div" src="images/div2.png" width="600" height="21" alt="">
-<a href="login.php" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.gif',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="login" src="images/login.gif" width="146" height="58" alt="Login"></a>
-<a href="mailto:<?php echo $admin_mail; ?>" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.gif',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="mail" src="images/mail.gif" width="146" height="58" alt="Mail"></a>
+<a href="login.php" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.png',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="login" src="images/login.png" width="146" height="58" alt="Login"></a>
+<a href="mailto:<?php echo $admin_mail; ?>" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('mail','','images/mail_.png',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="mail" src="images/mail.png" width="146" height="58" alt="Mail"></a>
 <a style="display:block; border:0; margin-left:auto; margin-right:auto; text-align:center" class="new_link" href="docs/faq.html"><?php echo "$l_faq"; ?></a>
 <?php include("footer.php"); ?>

@@ -63,7 +63,7 @@ if($mode == 'full')
 elseif($mode == 'moz')
   echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
 
-echo '<BODY BACKGROUND="images/bgoutspace1.gif" bgcolor=#000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
+echo '<body background="images/bgoutspace1.png" bgcolor=#000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
 
 echo '<center>';
 
@@ -73,7 +73,7 @@ $logline = str_replace("[player]", "$playerinfo[character_name]", $l_log_log);
 ?>
 
 <tr><td><td width=100%><td></tr>
-<tr><td><td align='left' height=20 style="background-image: url(images/top_panel.gif); background-repeat:no-repeat">
+<tr><td><td align='left' height=20 style="background-image: url(images/top_panel.png); background-repeat:no-repeat">
 <font size=2 color=#040658><b>&nbsp;&nbsp;&nbsp;<?php echo $logline; ?></b></font>
 </td><td><td></tr>
 <tr><td valign=bottom>
@@ -275,7 +275,7 @@ if($mode != 'compat')
 {
   echo "<td valign=bottom>" .
        "<tr><td><td align=right>" .
-       "<img src=images/bottom_panel.gif>" .
+       "<img src=images/bottom_panel.png>" .
        "<br>" .
        "<div style=\"position:relative; top:-23px;\">" .
        "<font size=2><b>" .
