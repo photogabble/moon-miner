@@ -29,8 +29,8 @@ if (!function_exists('PrintFlush'))
 {
     function PrintFlush($Text="")
     {
-        print "$Text";
-        flush();
+        echo $Text;
+//        flush();
     }
 }
 
