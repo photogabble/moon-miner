@@ -17,13 +17,13 @@
 //
 // File: header.php
 
-    header("Content-type: text/html; charset=utf-8");
-    header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
-    header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
-    header("Keep-Alive: timeout=15, max=100");
+header("Content-type: text/html; charset=utf-8");
+header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
+header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
+header("Keep-Alive: timeout=15, max=100");
+
 ?>
-<!DOCTYPE html>
-<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -32,10 +32,10 @@
 <meta name="Rating" content="General">
 <link rel="shortcut icon" href="images/bntfavicon.ico">
 <title><?php echo $title; ?></title>
- <style type="text/css">
- <!--
-  a.new_link {font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#0f0; font-weight:bold;}
-  a.new_link:hover {font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
+<style type="text/css">
+<!--
+a.new_link {font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#0f0; font-weight:bold;}
+a.new_link:hover {font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
 
 <?php
 if(!isset($interface) || $interface == "")
@@ -45,7 +45,6 @@ if(!isset($interface) || $interface == "")
 
 if(isset($interface) && $interface == "main.php")
 {
-
   echo "  a.mnu {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:white; font-weight:bold;}
   a.mnu:hover {text-decoration:none; font-size: 8Pt; font-family: Verdana, Arial, sans-serif; color:#36f; font-weight:bold;}
 
@@ -70,15 +69,14 @@ if(isset($interface) && $interface == "main.php")
   .none {background-image:url('images/space.png');}
   .un {opacity:0.5;background-image:url('images/uspace.png');}\n";
 
-// Added for dev small text forthe rankings page
+  // Added for dev small text forthe rankings page
   echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-family: Verdana, Arial, Helvetica, sans-serif; font-size:10px;}\n";
 }
 
-//echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 12px; color: #ccc;}\n";
 echo "\n  body {font-family: Verdana, Arial, sans-serif; font-size: 85%; line-height:1.125em; color: #ccc;}\n";
 ?>
- -->
- </style>
+-->
+</style>
 
 <?php
 
@@ -182,7 +180,6 @@ if (isset($interface) && $interface == "index.php")
 ?>
 
 </head>
-
 <?php
 
 if(empty($no_body))
@@ -198,7 +195,7 @@ if(empty($no_body))
 }
 else
 {
-//    echo "<body bgcolor=\"#666\" text=\"#F0F0F0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
+//    echo "<body bgcolor=\"#666\" text=\"#f0f0f0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
 }
 
 echo "\n";
