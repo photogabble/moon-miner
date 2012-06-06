@@ -47,14 +47,14 @@ global $l_global_mlogin;
 
 function TEXT_JAVASCRIPT_BEGIN()
 {
-  echo "\n<SCRIPT type=\"text/javascript\">\n";
+  echo "\n<script type=\"text/javascript\">\n";
   echo "<!--\n";
 }
 
 function TEXT_JAVASCRIPT_END()
 {
   echo "\n// -->\n";
-  echo "</SCRIPT>\n";
+  echo "</script>\n";
 }
 
 function checklogin()
