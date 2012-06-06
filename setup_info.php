@@ -330,11 +330,11 @@ $setup_info->DisplayFlush("  <center>\n");
 $setup_info->DisplayFlush("  <table cellSpacing=\"0\" width=\"100%\" border=\"0\">\n");
 $setup_info->DisplayFlush("<tbody>\n");
 $setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td style=\"padding-top:4px;\" vAlign=\"top\" noWrap align=\"left\" width=\"50%\"><font face=\"Verdana\" size=\"1\" color=\"white\">Version <font color=\"lime\">{$setup_info->appinfo['version']} (<font color=\"white\">{$setup_info->appinfo['releasetype']}</font>)</font></font></td>\n");
-$setup_info->DisplayFlush("        <td style=\"padding-top:4px;\" vAlign=\"top\" noWrap align=\"right\" width=\"50%\"><font face=\"Verdana\" size=\"1\" color=\"white\">Created on <font color=\"lime\">{$setup_info->appinfo['createdate']}</font></font></td>\n");
+$setup_info->DisplayFlush("    <td style=\"padding-top:4px;\" vAlign=\"top\" noWrap align=\"left\" width=\"50%\"><font size=\"1\" color=\"white\">Version <font color=\"lime\">{$setup_info->appinfo['version']} (<font color=\"white\">{$setup_info->appinfo['releasetype']}</font>)</font></font></td>\n");
+$setup_info->DisplayFlush("        <td style=\"padding-top:4px;\" vAlign=\"top\" noWrap align=\"right\" width=\"50%\"><font size=\"1\" color=\"white\">Created on <font color=\"lime\">{$setup_info->appinfo['createdate']}</font></font></td>\n");
 $setup_info->DisplayFlush("      </tr>\n");
 $setup_info->DisplayFlush("      <tr>\n");
-$setup_info->DisplayFlush("        <td style=\"padding-bottom:4px;\" vAlign=\"top\" noWrap align=\"left\" width=\"50%\"><font face=\"Verdana\" size=\"1\" color=\"white\">");
+$setup_info->DisplayFlush("        <td style=\"padding-bottom:4px;\" vAlign=\"top\" noWrap align=\"left\" width=\"50%\"><font size=\"1\" color=\"white\">");
 
 if (function_exists('md5_file'))
 {
@@ -347,7 +347,7 @@ else
 }
 
 $setup_info->DisplayFlush("</font></td>\n");
-$setup_info->DisplayFlush("        <td style=\"padding-bottom:4px;\" vAlign=\"top\" noWrap align=\"right\" width=\"50%\"><font face=\"Verdana\" size=\"1\" color=\"white\">Updated on <font color=\"lime\">{$setup_info->appinfo['updatedate']}</font></font></td>\n");
+$setup_info->DisplayFlush("        <td style=\"padding-bottom:4px;\" vAlign=\"top\" noWrap align=\"right\" width=\"50%\"><font size=\"1\" color=\"white\">Updated on <font color=\"lime\">{$setup_info->appinfo['updatedate']}</font></font></td>\n");
 $setup_info->DisplayFlush("      </tr>\n");
 $setup_info->DisplayFlush("    </tbody>\n");
 $setup_info->DisplayFlush("  </table>\n");
