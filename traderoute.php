@@ -189,8 +189,8 @@ else
       $curcolor = $color_line1;
 
     echo "<td><font size=2 color=white>";
-    if($traderoutes[$i][source_type] == 'P')
-      echo "&nbsp;$l_tdr_portin <a href=rsmove.php?engage=1&destination=" . $traderoutes[$i][source_id] . ">" . $traderoutes[$i][source_id] . "</a></font></td>";
+    if($traderoutes[$i]['source_type'] == 'P')
+      echo "&nbsp;$l_tdr_portin <a href=rsmove.php?engage=1&destination=" . $traderoutes[$i]['source_id'] . ">" . $traderoutes[$i]['source_id'] . "</a></font></td>";
     else
     {
       $result = $db->Execute("SELECT name, sector_id FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][source_id]);
@@ -204,11 +204,11 @@ else
     }
 
     echo "<td align='center'><font size=2 color=white>";
-    if($traderoutes[$i][source_type] == 'P')
+    if($traderoutes[$i]['source_type'] == 'P')
     {
-      $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=" . $traderoutes[$i][source_id]);
+      $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=" . $traderoutes[$i]['source_id']);
       $port1 = $result->fields;
-      echo "&nbsp;" . t_port($port1[port_type]) . "</font></td>";
+      echo "&nbsp;" . t_port($port1['port_type']) . "</font></td>";
     }
     else
     {
@@ -220,11 +220,11 @@ else
 
     echo "<td><font size=2 color=white>";
 
-    if($traderoutes[$i][dest_type] == 'P')
-        echo "&nbsp;$l_tdr_portin <a href=\"rsmove.php?engage=1&destination=" . $traderoutes[$i][dest_id] . "\">" . $traderoutes[$i][dest_id] . "</a></font></td>";
+    if($traderoutes[$i]['dest_type'] == 'P')
+        echo "&nbsp;$l_tdr_portin <a href=\"rsmove.php?engage=1&destination=" . $traderoutes[$i]['dest_id'] . "\">" . $traderoutes[$i]['dest_id'] . "</a></font></td>";
     else
     {
-      $result = $db->Execute("SELECT name, sector_id FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
+      $result = $db->Execute("SELECT name, sector_id FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i]['dest_id']);
       if($result)
       {
         $planet2 = $result->fields;
@@ -371,18 +371,18 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
   // Check ports compatibility
   if($type1 == 'port')
   {
-    if($src[port_type] == 'special')
+    if($src['port_type'] == 'special')
     {
       if(($type2 != 'planet') && ($type2 != 'corp_planet'))
         traderoute_die($l_tdr_sportissrc);
-      if($dest[owner] != $playerinfo[ship_id] && ($dest[corp] == 0 || ($dest[corp] != $playerinfo[team])))
+      if($dest['owner'] != $playerinfo['ship_id'] && ($dest['corp'] == 0 || ($dest['corp'] != $playerinfo['team'])))
         traderoute_die($l_tdr_notownplanet);
     }
     else
     {
       if($type2 == 'planet')
         traderoute_die($l_tdr_planetisdest);
-      if($src[port_type] == $dest[port_type])
+      if($src['port_type'] == $dest['port_type'])
         traderoute_die($l_tdr_samecom);
     }
   }
@@ -831,7 +831,7 @@ function traderoute_create()
         traderoute_die($l_tdr_invalidspoint);
 
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$port_id1");
-    if(!$query || $db->EOF)
+    if(!$query || $query->EOF)
     {
       $l_tdr_errnotvalidport = str_replace("[tdr_port_id]", $port_id1, $l_tdr_errnotvalidport);
       traderoute_die($l_tdr_errnotvalidport);
