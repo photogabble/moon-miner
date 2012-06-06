@@ -303,11 +303,11 @@ else
     while($i<$num_traderoutes)
     {
         echo "<div style='text-align:center;'>&nbsp;<a class=mnu href=traderoute.php?engage={$traderoutes[$i]['traderoute_id']}>";
-        if($traderoutes[$i][source_type] == 'P')
+        if($traderoutes[$i]['source_type'] == 'P')
         {
             echo "$l_port&nbsp;";
         }
-        elseif($traderoutes[$i][source_type] == 'D')
+        elseif($traderoutes[$i]['source_type'] == 'D')
         {
             echo "Def's ";
         }
@@ -332,7 +332,7 @@ else
             }
         }
 
-        if($traderoutes[$i][circuit] == '1')
+        if($traderoutes[$i]['circuit'] == '1')
         {
             echo "=&gt;&nbsp;";
         }
@@ -341,13 +341,13 @@ else
             echo "&lt;=&gt;&nbsp;";
         }
 
-        if($traderoutes[$i][dest_type] == 'P')
+        if($traderoutes[$i]['dest_type'] == 'P')
         {
-            echo $traderoutes[$i][dest_id];
+            echo $traderoutes[$i]['dest_id'];
         }
-        elseif($traderoutes[$i][dest_type] == 'D')
+        elseif($traderoutes[$i]['dest_type'] == 'D')
         {
-            echo "Def's in " .  $traderoutes[$i][dest_id] . "";
+            echo "Def's in " .  $traderoutes[$i]['dest_id'] . "";
         }
         else
         {
@@ -454,7 +454,7 @@ if($num_planets > 0)
 
         echo "<td style='margin-left:auto; margin-right:auto; vertical-align:top; width:79px; height:90px; padding:4px;'>";
         echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
-        echo "<img class='mnu' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" style='width:79px; height:90px; border:0' alt=\"planet\"></a><br><span style='font-face:Arial; font-size:0.75em; color:#fff;'>";
+        echo "<img class='mnu' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" style='width:79px; height:90px; border:0' alt=\"planet\"></a><br><span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#fff;'>";
 
         if(empty($planets[$i]['name']))
         {
@@ -585,7 +585,7 @@ if($playerinfo['sector'] != 0)
                 echo "<a href=ship.php?ship_id={$ship_detected[$iPlayer]['ship_id']}>\n";
                 echo "  <img class='mnu' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" style='width:80px; height:60px; border:0px'>\n";
                 echo "</a>\n";
-                echo "<div style='color:#fff; font-family:Arial; font-size:12px; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
+                echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#fff; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
                 echo "(<span style='color:#ff0; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
                 if ($ship_detected[$iPlayer][team_name])
                 {
@@ -616,7 +616,7 @@ if($num_defences>0)
 {
     echo "<b>\n";
     echo "  <center>\n";
-    echo "    <span style='font-face:arial; color:#fff'>$l_sector_def</span>\n";
+    echo "    <span style='font-family:Verdana, Arial, Helvetica, sans-serif; color:#fff;'>$l_sector_def</span>\n";
     echo "    <br>\n";
     echo "  </center>\n";
     echo "</b>\n";
@@ -636,7 +636,7 @@ if($num_defences > 0)
         echo "<td style='margin-left:auto; margin-right:auto;vertical-align:top'>";
         if($defences[$i]['defence_type'] == 'F')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff; font-face:arial'>";
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.png\" style='border:0px'></a><br><span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:1.10em; color:#fff;>";
             $def_type = $l_fighters;
             $mode = $defences[$i]['fm_setting'];
             if($mode == 'attack')
@@ -651,7 +651,7 @@ if($num_defences > 0)
         }
         elseif($defences[$i]['defence_type'] == 'M')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff; font-face:arial'>";
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.png\" style='border:0px'></a><br><span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:1.10em; color:#fff;'>";
             $def_type = $l_mines;
         }
 

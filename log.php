@@ -315,7 +315,7 @@ if($swordfish == $adminpass)
        "<input type=hidden name=menu value=logview>" .
        "<input type=submit value=\"Return to Admin\"></td></tr>";
 else
-  echo "<tr><td><td style='text-align:left;'><p><font size=2 face=arial>$l_log_click</td></tr>";
+  echo "<tr><td><td style='text-align:left;'><p style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:2;'>$l_log_click></p></td></tr>";
 
 if($mode != 'compat')
   echo "<tr><td><td align=center><br><font size=2 color=white>$l_log_note</a>.</td></tr>";
