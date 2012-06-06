@@ -33,7 +33,7 @@ $playerinfo=$result->fields;
 
 if($playerinfo[turns] < 1)
 {
-    echo "$l_warp_turn<BR><BR>";
+    echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -41,7 +41,7 @@ if($playerinfo[turns] < 1)
 
 if($playerinfo[dev_warpedit] < 1)
 {
-    echo "$l_warp_none<BR><BR>";
+    echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -51,7 +51,7 @@ $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbt
 $zoneinfo = $res->fields;
 if($zoneinfo[allow_warpedit] == 'N')
 {
-    echo "$l_warp_forbid<BR><BR>";
+    echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -67,7 +67,7 @@ $zoneinfo = $res->fields;
 if($zoneinfo[allow_warpedit] == 'N' && $bothway)
 {
     $l_warp_forbidtwo = str_replace("[target_sector]", $target_sector, $l_warp_forbidtwo);
-    echo "$l_warp_forbidtwo<BR><BR>";
+    echo $l_warp_forbidtwo . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -77,7 +77,7 @@ $result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$targ
 $row = $result2->fields;
 if(!$row)
 {
-    echo "$l_warp_nosector<BR><BR>";
+    echo $l_warp_nosector . "<br><br>";
     TEXT_GOTOMAIN();
     die();
 }
@@ -97,7 +97,7 @@ if($result3 > 0)
     if($flag != 1)
     {
         $l_warp_unlinked = str_replace("[target_sector]", $target_sector, $l_warp_unlinked);
-        echo "$l_warp_unlinked<BR><BR>";
+        echo $l_warp_unlinked . "<br><br>";
     }
     else
     {
@@ -105,12 +105,12 @@ if($result3 > 0)
         $update1 = $db->Execute("UPDATE $dbtables[ships] SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
         if(!$bothway)
         {
-            echo "$l_warp_removed $target_sector.<BR><BR>";
+            echo "$l_warp_removed $target_sector.<br><br>";
         }
         else
         {
             $delete2 = $db->Execute("DELETE FROM $dbtables[links] WHERE link_start=$target_sector AND link_dest=$playerinfo[sector]");
-            echo "$l_warp_removedtwo $target_sector.<BR><BR>";
+            echo "$l_warp_removedtwo $target_sector.<br><br>";
         }
     }
 }

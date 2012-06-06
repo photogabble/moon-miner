@@ -33,7 +33,7 @@ $playerinfo=$result->fields;
 
 if($playerinfo[turns] < 1)
 {
-    echo "$l_warp_turn<BR><BR>";
+    echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -41,7 +41,7 @@ if($playerinfo[turns] < 1)
 
 if($playerinfo[dev_warpedit] < 1)
 {
-    echo "$l_warp_none<BR><BR>";
+    echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -51,7 +51,7 @@ $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbt
 $zoneinfo = $res->fields;
 if($zoneinfo[allow_warpedit] == 'N')
 {
-    echo "$l_warp_forbid<BR><BR>";
+    echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -67,7 +67,7 @@ $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id=$tar
 $row = $result2->fields;
 if(!$row)
 {
-    echo "$l_warp_nosector<BR><BR>";
+    echo $l_warp_nosector . "<br><br>";
     TEXT_GOTOMAIN();
     die();
 }
@@ -77,7 +77,7 @@ $zoneinfo = $res->fields;
 if($zoneinfo[allow_warpedit] == 'N' && !$oneway)
 {
     $l_warp_twoerror = str_replace("[target_sector]", $target_sector, $l_warp_twoerror);
-    echo "$l_warp_twoerror<BR><BR>";
+    echo $l_warp_twoerror . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -89,7 +89,7 @@ $numlink_start=$row[count];
 
 if($numlink_start>=$link_max)
 {
-    echo "$l_warp_sectex<BR><BR>";
+    echo $l_warp_sectex . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
@@ -111,7 +111,7 @@ if($result3 > 0)
     if($flag == 1)
     {
         $l_warp_linked = str_replace("[target_Sector]", $target_sector, $l_warp_linked);
-        echo "$l_warp_linked<BR><BR>";
+        echo $l_warp_linked . "<br><br>";
     }
     elseif($playerinfo[sector] == $target_sector)
     {
@@ -123,7 +123,7 @@ if($result3 > 0)
         $update1 = $db->Execute ("UPDATE $dbtables[ships] SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
         if($oneway)
         {
-            echo "$l_warp_coneway $target_sector.<BR><BR>";
+            echo "$l_warp_coneway $target_sector.<br><br>";
         }
         else
         {
@@ -144,13 +144,11 @@ if($result3 > 0)
             {
                 $insert2 = $db->Execute ("INSERT INTO $dbtables[links] SET link_start=$target_sector, link_dest=$playerinfo[sector]");
             }
-            echo "$l_warp_ctwoway $target_sector.<BR><BR>";
+            echo "$l_warp_ctwoway $target_sector.<br><br>";
         }
     }
 }
 
 TEXT_GOTOMAIN();
-
 include("footer.php");
-
 ?>
