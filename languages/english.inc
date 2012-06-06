@@ -1293,7 +1293,7 @@ $l_port_bountypaid = "You have paid the bounty. Click <a href=\"port.php\">here<
 $l_port_loannotrade = "The IGB has issued a lockdown on your ship account due to a late loan payment. You cannot trade at a special port until you pay back your loan.";
 $l_team_notyours = "You must be in the team in order to invite someone.";
 $l_team_leavefirst = "You must leave a team first before joining another.";
-$l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
+$l_tdr_engageagain = "Click <a href=\"traderoute.php?engage=[tdr_engage]\">here</a> to do this trade route again, or here to do it <a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=5\">five</A> or <a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=10\">ten</a> or <a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=50\">fifty</a> times";
 $l_scan_bounty = "This ship has a total bounty on it of [amount] credits.";
 $l_scan_fedbounty = "This ship has a bounty on it from The Federation.";
 $l_by_nofedbounty = "Attacking this player will <B>NOT</B> result in The Federation placing a bounty on you.";
