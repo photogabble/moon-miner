@@ -50,7 +50,7 @@ if (!function_exists('Table_Header'))
         PrintFlush( "  <center>\n");
         PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000\">\n");
         PrintFlush( "    <tr>\n");
-        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#99c\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"2\">$title</font></th>\n");
+        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#99c\" align=\"left\"><font color=\"#000\" size=\"2\">$title</font></th>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -61,11 +61,11 @@ if (!function_exists('Table_Row'))
     {
         $err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
         PrintFlush( "    <tr title=\"$err\">\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$data</font></td>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font size=\"1\" color=\"#000\">$data</font></td>\n");
         if(mysql_errno()!=0)
-            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
+            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
-            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"Blue\">$passed</font></td>\n");}
+            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
         echo "    </tr>\n";
     }
 }
@@ -75,8 +75,8 @@ if (!function_exists('Table_2Col'))
     function Table_2Col($name,$value)
     {
         PrintFlush("    <tr>\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$name</font></td>\n");
-        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$value</font></td>\n");
+        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font size=\"1\" color=\"#000\">$name</font></td>\n");
+        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"#000\">$value</font></td>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -86,7 +86,7 @@ if (!function_exists('Table_1Col'))
     function Table_1Col($data)
     {
         PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$data</font></td>\n");
+        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font color=\"#000\" size=\"1\">$data</font></td>\n");
         PrintFlush( "    </tr>\n");
     }
 }
@@ -108,7 +108,7 @@ if (!function_exists('Table_Footer'))
         if(!empty($footer))
         {
             PrintFlush( "    <tr>\n");
-            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$footer</font></td>\n");
+            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" align=\"left\"><font color=\"#000\" size=\"1\">$footer</font></td>\n");
             PrintFlush( "    </tr>\n");
         }
         PrintFlush( "  </table>\n");
@@ -795,7 +795,7 @@ Table_Footer("Completed successfully.");
 
     Table_Header("Configuring game scheduler --- Stage 7");
 
-    Table_2Col("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font face=\"Verdana\" size=\"1\" color=\"Blue\">Already Set</font></p>");
+    Table_2Col("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 
       $db->Execute("INSERT INTO $dbtables[scheduler] VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_turns.php', NULL,unix_timestamp(now()))");
     Table_Row("Turns will occur every $sched_turns minutes","Failed","Inserted");
@@ -872,11 +872,5 @@ Table_Footer("Completed successfully.");
       break;
 }
 
-$StopTime=$BenchmarkTimer->stop();
-$Elapsed=$BenchmarkTimer->elapsed();
-PrintFlush("<br>Elapsed Time - $Elapsed");
 include("footer.php");
-
-
-
 ?>
