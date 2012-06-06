@@ -103,3 +103,4 @@ if ($footer_show_time == true)
 ?>
 </body>
 </html>
+<?php ob_end_flush(); ?>
