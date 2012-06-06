@@ -132,7 +132,7 @@ switch ($teamwhat)
 
         if (!$confirmleave)
         {
-            echo "$l_team_confirmleave <B>$team[team_name]</B> ? <a href=\"teams.php?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">$l_yes</a> - <A HREF=\"teams.php\">$l_no</A><BR><BR>";
+            echo "$l_team_confirmleave <b>$team[team_name]</b> ? <a href=\"teams.php?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">$l_yes</a> - <a href=\"teams.php\">$l_no</a><br><br>";
         }
         elseif ($confirmleave == 1)
         {
@@ -140,7 +140,7 @@ switch ($teamwhat)
             {
                 if(!isTeamOwner($team, $playerinfo))
                 {
-                    echo "$l_team_error";
+                    echo $l_team_error;
                     LINK_BACK();
                     continue;
                 }
@@ -171,31 +171,31 @@ switch ($teamwhat)
                 kick_off_planet($playerinfo[ship_id],$whichteam);
 
                 $l_team_onlymember = str_replace("[team_name]", "<b>$team[team_name]</b>", $l_team_onlymember);
-                echo "$l_team_onlymember<BR><BR>";
+                echo $l_team_onlymember . "<br><br>";
                 playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
             }
             else
             {
                 if (isTeamOwner($team, $playerinfo))
                 {
-                    echo "$l_team_youarecoord <B>$team[team_name]</B>. $l_team_relinq<BR><BR>";
-                    echo "<FORM ACTION='teams.php' METHOD=POST>";
-                    echo "<TABLE><INPUT TYPE=hidden name=teamwhat value=$teamwhat><INPUT TYPE=hidden name=confirmleave value=2><INPUT TYPE=hidden name=whichteam value=$whichteam>";
-                    echo "<TR><TD>$l_team_newc</TD><TD><SELECT NAME=newcreator>";
+                    echo "$l_team_youarecoord <b>$team[team_name]</b>. $l_team_relinq<br><br>";
+                    echo "<form action='teams.php' method=post>";
+                    echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=confirmleave value=2><input type=hidden name=whichteam value=$whichteam>";
+                    echo "<tr><td>$l_team_newc</td><td><select name=newcreator>";
                     $res = $db->Execute("SELECT character_name,ship_id FROM $dbtables[ships] WHERE team=$whichteam ORDER BY character_name ASC");
                     while(!$res->EOF)
                     {
                         $row = $res->fields;
                         if (!isTeamOwner($team, $row))
                         {
-                            echo "<OPTION VALUE=$row[ship_id]>$row[character_name]";
+                            echo "<option value=$row[ship_id]>$row[character_name]";
                         }
                         $res->MoveNext();
                     }
-                    echo "</SELECT></TD></TR>";
-                    echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=$l_submit></TD></TR>";
-                    echo "</TABLE>";
-                    echo "</FORM>";
+                    echo "</select></td></tr>";
+                    echo "<tr><td><input type=submit value=$l_submit></td></tr>";
+                    echo "</table>";
+                    echo "</form>";
                 }
                 else
                 {
@@ -220,7 +220,7 @@ switch ($teamwhat)
                         }
                     }
 
-                    echo "$l_team_youveleft <B>$team[team_name]</B>.<BR><BR>";
+                    echo "$l_team_youveleft <b>$team[team_name]</b>.<br><br>";
                     defence_vs_defence($playerinfo[ship_id]);
                     kick_off_planet($playerinfo[ship_id],$whichteam);
                     playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
@@ -233,7 +233,7 @@ switch ($teamwhat)
             // owner of a team is leaving and set a new owner
             $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$newcreator");
             $newcreatorname = $res->fields;
-            echo "$l_team_youveleft <B>$team[team_name]</B> $l_team_relto $newcreatorname[character_name].<BR><BR>";
+            echo "$l_team_youveleft <b>$team[team_name]</b> $l_team_relto $newcreatorname[character_name].<br><br>";
             $db->Execute("UPDATE $dbtables[ships] SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
             $db->Execute("UPDATE $dbtables[ships] SET team=$newcreator WHERE team=$creator");
             $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members-1,creator=$newcreator WHERE id=$whichteam");
@@ -268,7 +268,7 @@ switch ($teamwhat)
     {
         if($playerinfo[team] <> 0)
         {
-            echo $l_team_leavefirst . "<BR>";
+            echo $l_team_leavefirst . "<br>";
         }
         else
         {
@@ -276,13 +276,13 @@ switch ($teamwhat)
             {
                 $db->Execute("UPDATE $dbtables[ships] SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
                 $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members+1 WHERE id=$whichteam");
-                echo "$l_team_welcome <B>$team[team_name]</B>.<BR><BR>";
+                echo "$l_team_welcome <b>$team[team_name]</b>.<br><br>";
                 playerlog($playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
                 playerlog($team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
             }
             else
             {
-                echo "$l_team_noinviteto<BR>";
+                echo "$l_team_noinviteto<br>";
             }
         }
         LINK_BACK();
@@ -291,7 +291,7 @@ switch ($teamwhat)
 
     case 4:
     {
-        echo "Not implemented yet. Sorry! :)<BR><BR>";
+        echo "Not implemented yet. Sorry! :)<br><br>";
         LINK_BACK();
         break;
     }
@@ -304,7 +304,7 @@ switch ($teamwhat)
 
         if(!isTeamOwner($team, $playerinfo))
         {
-            echo "$l_team_error";
+            echo $l_team_error;
             LINK_BACK();
             continue;
         }
@@ -315,7 +315,7 @@ switch ($teamwhat)
             $whotoexpel = $result->fields;
             if (!$confirmed)
             {
-                echo "$l_team_ejectsure $whotoexpel[character_name]? <A HREF=\"teams.php?teamwhat=$teamwhat&confirmed=1&who=$who\">$l_yes</A> - <a href=\"teams.php\">$l_no</a><BR>";
+                echo "$l_team_ejectsure $whotoexpel[character_name]? <a href=\"teams.php?teamwhat=$teamwhat&confirmed=1&who=$who\">$l_yes</a> - <a href=\"teams.php\">$l_no</a><br>";
             }
             else
             {
@@ -340,26 +340,26 @@ switch ($teamwhat)
     {
         if($playerinfo['team'] <> 0)
         {
-            echo $l_team_leavefirst . "<BR>";
+            echo $l_team_leavefirst . "<br>";
             LINK_BACK();
             continue;
         }
 
         if (!$teamname)
         {
-            echo "<FORM ACTION=\"teams.php\" METHOD=POST>";
-            echo "$l_team_entername: ";
+            echo "<form action=\"teams.php\" method=post>";
+            echo $l_team_entername . ": ";
             if ($testing)
             {
-                echo "<INPUT TYPE=hidden NAME=swordfish value='$swordfish'>";
+                echo "<input type=hidden name=swordfish value='$swordfish'>";
             }
-            echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
-            echo "<INPUT TYPE=TEXT NAME=teamname SIZE=40 MAXLENGTH=40><BR>";
-            echo "$l_team_enterdesc: ";
-            echo "<INPUT TYPE=TEXT NAME=teamdesc SIZE=40 MAXLENGTH=254><BR>";
-            echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
-            echo "</FORM>";
-            echo "<BR><BR>";
+            echo "<input type=hidden name=teamwhat value=$teamwhat>";
+            echo "<input type=text name=teamname size=40 maxlength=40><br>";
+            echo $l_team_enterdesc . ": ";
+            echo "<input type=text name=teamdesc size=40 maxlength=254><br>";
+            echo "<input type=submit value=$l_submit><input type=reset value=$l_reset>";
+            echo "</form>";
+            echo "<br><br>";
         }
         else
         {
@@ -376,7 +376,7 @@ switch ($teamwhat)
             $res = $db->Execute("INSERT INTO $dbtables[teams] (id,creator,team_name,number_of_members,description) VALUES ('$playerinfo[ship_id]','$playerinfo[ship_id]','$teamname','1','$teamdesc')");
             $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
             $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
-            echo "$l_team_team <B>$teamname</B> $l_team_hcreated.<BR><BR>";
+            echo "$l_team_team <b>$teamname</b> $l_team_hcreated.<br><br>";
             playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
         }
         LINK_BACK();
@@ -387,16 +387,16 @@ switch ($teamwhat)
     {
         if (!isTeamMember($team, $playerinfo))
         {
-            echo "<BR>You are not in this team!<BR>";
+            echo "<br>You are not in this team!<br>";
             LINK_BACK();
             break;
         }
 
         if (!$invited)
         {
-            echo "<FORM ACTION='teams.php' METHOD=POST>";
-            echo "<TABLE><INPUT TYPE=hidden name=teamwhat value=$teamwhat><INPUT TYPE=hidden name=invited value=1><INPUT TYPE=hidden name=whichteam value=$whichteam>";
-            echo "<TR><TD>$l_team_selectp:</TD><TD><SELECT NAME=who style='width:200px;'>";
+            echo "<form action='teams.php' method=post>";
+            echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=invited value=1><input type=hidden name=whichteam value=$whichteam>";
+            echo "<tr><td>$l_team_selectp:</td><td><select name=who style='width:200px;'>";
 
             $res = $db->Execute("SELECT character_name,ship_id FROM $dbtables[ships] WHERE team<>$whichteam AND ship_destroyed ='N' AND turns_used >0 ORDER BY character_name ASC");
             while(!$res->EOF)
@@ -404,21 +404,20 @@ switch ($teamwhat)
                 $row = $res->fields;
                 if (!isTeamOwner($team, $row))
                 {
-                    echo "<OPTION VALUE=$row[ship_id]>$row[character_name]";
+                    echo "<option value=$row[ship_id]>$row[character_name]";
                 }
                 $res->MoveNext();
             }
 
-            echo "</SELECT></TD></TR>";
-            echo "<TR><TD><INPUT TYPE=SUBMIT VALUE=$l_submit></TD></TR>";
-            echo "</TABLE>";
-            echo "</FORM>";
+            echo "</select></td></tr>";
+            echo "<tr><td><input type=submit value=$l_submit></td></tr>";
+            echo "</table>";
+            echo "</form>";
         }
         else
         {
             if($playerinfo[team] == $whichteam)
             {
-
                 if(is_null($who))
                 {
                     echo "No player was selected.<br>\n";
@@ -430,26 +429,26 @@ switch ($teamwhat)
                 if ($newpl[team_invite])
                 {
                     $l_team_isorry = str_replace("[name]", $newpl[character_name], $l_team_isorry);
-                    echo "$l_team_isorry<BR><BR>";
+                    echo $l_team_isorry . "<br><br>";
                 }
                 else
                 {
                     $db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
-                    echo("$l_team_plinvted<BR>");
+                    echo $l_team_plinvted . "<br>";
                     playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
                 }
             }
             else
             {
-                echo "$l_team_notyours<BR>";
+                echo $l_team_notyours . "<br>";
             }
         }
-        echo "<BR><BR><a href=\"teams.php\">$l_clickme</a> $l_team_menu<BR><BR>";
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu<br><br>";
         break;
     }
     case 8: // REFUSE invitation
     {
-        echo "$l_team_refuse <B>$invite_info[team_name]</B>.<BR><BR>";
+        echo "$l_team_refuse <b>$invite_info[team_name]</b>.<br><br>";
         $db->Execute("UPDATE $dbtables[ships] SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
         playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name]|$invite_info[team_name]");
         LINK_BACK();
@@ -464,25 +463,25 @@ switch ($teamwhat)
 
         if (isTeamOwner($team, $playerinfo) != true)
         {
-            echo "$l_team_error";
+            echo $l_team_error;
             LINK_BACK();
             break;
         }
 
         if (!$update)
         {
-            echo "<FORM ACTION=\"teams.php\" METHOD=POST>";
-            echo "$l_team_edname: <BR>";
-            echo "<INPUT TYPE=hidden NAME=swordfish value='$swordfish'>";
-            echo "<INPUT TYPE=hidden name=teamwhat value=$teamwhat>";
-            echo "<INPUT TYPE=hidden name=whichteam value=$whichteam>";
-            echo "<INPUT TYPE=hidden name=update value=true>";
-            echo "<INPUT TYPE=TEXT NAME=teamname SIZE=40 MAXLENGTH=40 VALUE=\"".$team[team_name]."\"><BR>";
-            echo "$l_team_eddesc: <BR>";
-            echo "<INPUT TYPE=TEXT NAME=teamdesc SIZE=40 MAXLENGTH=254 VALUE=\"".$team[description]."\"><BR>";
-            echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset>";
-            echo "</FORM>";
-            echo "<BR><BR>";
+            echo "<form action=\"teams.php\" method=post>";
+            echo $l_team_edname . ": <br>";
+            echo "<input type=hidden name=swordfish value='$swordfish'>";
+            echo "<input type=hidden name=teamwhat value=$teamwhat>";
+            echo "<input type=hidden name=whichteam value=$whichteam>";
+            echo "<input type=hidden name=update value=true>";
+            echo "<input type=text name=teamname size=40 maxlength=40 value=\"".$team[team_name]."\"><br>";
+            echo $l_team_eddesc . ": <br>";
+            echo "<input type=text name=teamdesc size=40 maxlength=254 value=\"".$team[description]."\"><br>";
+            echo "<input type=submit value=$l_submit><input type=reset value=$l_reset>";
+            echo "</form>";
+            echo "<br><br>";
         }
         else
         {
@@ -497,7 +496,7 @@ switch ($teamwhat)
             }
 
             $res = $db->Execute("UPDATE $dbtables[teams] SET team_name='$teamname', description='$teamdesc' WHERE id=$whichteam") or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
-            echo "$l_team_team <B>$teamname</B> $l_team_hasbeenr<BR><BR>";
+            echo "$l_team_team <b>$teamname</b> $l_team_hasbeenr<br><br>";
 
             // Adding a log entry to all members of the renamed team
             $result_team_name = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
@@ -517,7 +516,7 @@ switch ($teamwhat)
     {
         if (!$playerinfo['team'])
         {
-            echo "$l_team_notmember";
+            echo $l_team_notmember;
             DISPLAY_INVITE_INFO();
         }
         else
@@ -557,13 +556,13 @@ switch ($teamwhat)
         }
         else
         {
-            echo "$l_team_noteams<BR><BR>";
+            echo $l_team_noteams . "<br><br>";
         }
         break;
     }
 } // End of switch.
 
-echo "<BR><BR>";
+echo "<br><br>";
 TEXT_GOTOMAIN();
 
 function isTeamMember($team, $playerinfo)
@@ -608,7 +607,7 @@ function isTeamOwner($team, $playerinfo)
 function LINK_BACK()
 {
     global $l_clickme, $l_team_menu;
-    echo "<BR><BR><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<BR><BR>";
+    echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
 }
 
 // Rewritten display of teams list
@@ -617,9 +616,9 @@ function DISPLAY_ALL_TEAMS()
     global $color, $color_line1, $color_line2, $color_header, $order, $type, $l_team_galax, $l_team_members, $l_team_member, $l_team_coord, $l_score, $l_name;
     global $db, $dbtables;
 
-    echo "<br><br>$l_team_galax<BR>";
+    echo "<br><br>$l_team_galax<br>";
     echo "<table style='width:100%; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
-    echo "<TR BGCOLOR=\"$color_header\">";
+    echo "<tr bgcolor=\"$color_header\">";
 
     if ($type == "d")
     {
@@ -631,11 +630,11 @@ function DISPLAY_ALL_TEAMS()
         $type = "d";
         $by = "DESC";
     }
-    echo "<TD><B><A class='new_link' style='font-size:14px;' HREF=teams.php?order=team_name&type=$type>$l_name</A></B></TD>";
-    echo "<TD><B><A class='new_link' style='font-size:14px;' HREF=teams.php?order=number_of_members&type=$type>$l_team_members</A></B></TD>";
-    echo "<TD><B><A class='new_link' style='font-size:14px;' HREF=teams.php?order=character_name&type=$type>$l_team_coord</A></B></TD>";
-    echo "<TD><B><A class='new_link' style='font-size:14px;' HREF=teams.php?order=total_score&type=$type>$l_score</A></B></TD>";
-    echo "</TR>";
+    echo "<td><b><a class='new_link' style='font-size:14px;' href=teams.php?order=team_name&type=$type>$l_name</a></b></td>";
+    echo "<td><b><a class='new_link' style='font-size:14px;' href=teams.php?order=number_of_members&type=$type>$l_team_members</a></b></td>";
+    echo "<td><b><a class='new_link' style='font-size:14px;' href=teams.php?order=character_name&type=$type>$l_team_coord</a></b></td>";
+    echo "<td><b><a class='new_link' style='font-size:14px;' href=teams.php?order=total_score&type=$type>$l_score</a></b></td>";
+    echo "</tr>";
     $sql_query = "SELECT $dbtables[ships].character_name,
                 COUNT(*) as number_of_members,
                 ROUND(SQRT(SUM(POW($dbtables[ships].score,2)))) as total_score,
@@ -660,9 +659,9 @@ function DISPLAY_ALL_TEAMS()
     while(!$res->EOF)
     {
         $row = $res->fields;
-        echo "<TR BGCOLOR=\"$color\">";
-        echo "<TD><a href=teams.php?teamwhat=1&whichteam=".$row[id].">".$row[team_name]."</A></TD>";
-        echo "<TD>".$row[number_of_members]."</TD>";
+        echo "<tr bgcolor=\"$color\">";
+        echo "<td><a href=teams.php?teamwhat=1&whichteam=".$row[id].">".$row[team_name]."</a></td>";
+        echo "<td>".$row[number_of_members]."</td>";
 
         // This fixes it so that it actually displays the coordinator, and not the first member of the team.
         $sql_query_2 = "SELECT character_name FROM $dbtables[ships] WHERE ship_id = $row[creator]";
@@ -674,9 +673,9 @@ function DISPLAY_ALL_TEAMS()
         }
 
         // If there is a way to redo the original sql query instead, please, do so, but I didnt see a way to.
-        echo "<TD><a href=mailto2.php?name=".$row2[character_name].">".$row2[character_name]."</A></TD>";
-        echo "<TD>$row[total_score]</TD>";
-        echo "</TR>";
+        echo "<td><a href=mailto2.php?name=".$row2[character_name].">".$row2[character_name]."</a></td>";
+        echo "<td>$row[total_score]</td>";
+        echo "</tr>";
         if($color == $color_line1)
         {
             $color = $color_line2;
@@ -688,7 +687,7 @@ function DISPLAY_ALL_TEAMS()
 
         $res->MoveNext();
     }
-    echo "</table><BR>";
+    echo "</table><br>";
 }
 
 function DISPLAY_INVITE_INFO()
@@ -696,15 +695,15 @@ function DISPLAY_INVITE_INFO()
     global $playerinfo, $invite_info, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
     if (!$playerinfo['team_invite'])
     {
-        echo "<br><br><font color=blue size=2><b>$l_team_noinvite</b></font><BR>";
-        echo "$l_team_ifyouwant<BR>";
-        echo "<a href=\"teams.php?teamwhat=6\">$l_clickme</a> $l_team_tocreate<BR><BR>";
+        echo "<br><br><font color=blue size=2><b>$l_team_noinvite</b></font><br>";
+        echo $l_team_ifyouwant . "<br>";
+        echo "<a href=\"teams.php?teamwhat=6\">$l_clickme</a> $l_team_tocreate<br><br>";
     }
     else
     {
         echo "<br><br><font color=blue size=2><b>$l_team_injoin ";
-        echo "<a href=teams.php?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</A>.</b></font><BR>";
-        echo "<A HREF=teams.php?teamwhat=3&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_tojoin <B>$invite_info[team_name]</B> $l_team_or <A HREF=teams.php?teamwhat=8&whichteam=$playerinfo[team_invite]>$l_clickme</A> $l_team_reject<BR><BR>";
+        echo "<a href=teams.php?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</a>.</b></font><br>";
+        echo "<a href=teams.php?teamwhat=3&whichteam=$playerinfo[team_invite]>$l_clickme</a> $l_team_tojoin <b>$invite_info[team_name]</b> $l_team_or <a href=teams.php?teamwhat=8&whichteam=$playerinfo[team_invite]>$l_clickme</a> $l_team_reject<br><br>";
     }
 }
 
@@ -715,8 +714,8 @@ function showinfo($whichteam,$isowner)
 
     // Heading
     echo"<div align=center>";
-    echo "<h3><font color=white><B>$team[team_name]</B>";
-    echo "<br><font size=2>\"<i>$team[description]</i>\"</font></H3>";
+    echo "<h3><font color=white><B>$team[team_name]</b>";
+    echo "<br><font size=2>\"<i>$team[description]</i>\"</font></h3>";
     if ($playerinfo[team] == $team[id])
     {
         echo "<font color=white>";
@@ -750,13 +749,13 @@ function showinfo($whichteam,$isowner)
         echo "<td> - $member[character_name] ($l_score $member[score])";
         if ($isowner && ($member[ship_id] != $playerinfo[ship_id]))
         {
-            echo " - <font size=2>[<a href=\"teams.php?teamwhat=5&who=$member[ship_id]\">$l_team_eject</A>]</font></td>";
+            echo " - <font size=2>[<a href=\"teams.php?teamwhat=5&who=$member[ship_id]\">$l_team_eject</a>]</font></td>";
         }
         else
         {
             if ($member[ship_id] == $team[creator])
             {
-                echo " - $l_team_coord</td>";
+                echo " - $l_team_coord </td>";
             }
         }
         echo "</tr><tr bgcolor=$color_line2>";
@@ -765,7 +764,7 @@ function showinfo($whichteam,$isowner)
 
     // Displays for members name
     $res = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] WHERE team_invite=$whichteam");
-    echo "<td bgcolor=$color_line2><font color=white>$l_team_pending <B>$team[team_name]</B></font></td>";
+    echo "<td bgcolor=$color_line2><font color=white>$l_team_pending <b>$team[team_name]</b></font></td>";
     echo "</tr><tr>";
     if ($res->RecordCount() > 0)
     {
@@ -780,7 +779,7 @@ function showinfo($whichteam,$isowner)
     }
     else
     {
-        echo "<td>$l_team_noinvites <B>$team[team_name]</B>.</td>";
+        echo "<td>$l_team_noinvites <b>$team[team_name]</b>.</td>";
         echo "</tr><tr>";
     }
     echo "</tr></table>";
