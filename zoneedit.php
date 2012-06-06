@@ -32,65 +32,105 @@ bigtitle();
 
 $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
 if($res->EOF)
-  zoneedit_die($l_zi_nexist);
+{
+    zoneedit_die($l_zi_nexist);
+}
 $curzone = $res->fields;
 
 if($curzone[corp_zone] == 'N')
 {
-  $result = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
-  $ownerinfo = $result->fields;
+    $result = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
+    $ownerinfo = $result->fields;
 }
 else
 {
-  $result = $db->Execute("SELECT creator, id FROM $dbtables[teams] WHERE creator=$curzone[owner]");
-  $ownerinfo = $result->fields;
+    $result = $db->Execute("SELECT creator, id FROM $dbtables[teams] WHERE creator=$curzone[owner]");
+    $ownerinfo = $result->fields;
 }
 
 if(($curzone[corp_zone] == 'N' && $curzone[owner] != $ownerinfo[ship_id]) || ($curzone[corp_zone] == 'Y' && $curzone[owner] != $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
-  zoneedit_die($l_ze_notowner);
+{
+    zoneedit_die($l_ze_notowner);
+}
 
 if($command == change)
-  zoneedit_change();
+{
+    zoneedit_change();
+}
 
 if($curzone[allow_beacon] == 'Y')
-  $ybeacon = "checked";
+{
+    $ybeacon = "checked";
+}
 elseif($curzone[allow_beacon] == 'N')
-  $nbeacon = "checked";
+{
+    $nbeacon = "checked";
+}
 else
-  $lbeacon = "checked";
+{
+    $lbeacon = "checked";
+}
 
 if($curzone[allow_attack] == 'Y')
-  $yattack = "checked";
+{
+    $yattack = "checked";
+}
 else
-  $nattack = "checked";
+{
+    $nattack = "checked";
+}
 
 if($curzone[allow_warpedit] == 'Y')
-  $ywarpedit = "checked";
+{
+    $ywarpedit = "checked";
+}
 elseif($curzone[allow_warpedit] == 'N')
-  $nwarpedit = "checked";
+{
+    $nwarpedit = "checked";
+}
 else
-  $lwarpedit = "checked";
+{
+    $lwarpedit = "checked";
+}
 
 if($curzone[allow_planet] == 'Y')
-  $yplanet = "checked";
+{
+    $yplanet = "checked";
+}
 elseif($curzone[allow_planet] == 'N')
-  $nplanet = "checked";
+{
+    $nplanet = "checked";
+}
 else
-  $lplanet = "checked";
+{
+    $lplanet = "checked";
+}
 
 if($curzone[allow_trade] == 'Y')
-  $ytrade = "checked";
+{
+    $ytrade = "checked";
+}
 elseif($curzone[allow_trade] == 'N')
-  $ntrade = "checked";
+{
+    $ntrade = "checked";
+}
 else
-  $ltrade = "checked";
+{
+    $ltrade = "checked";
+}
 
 if($curzone[allow_defenses] == 'Y')
-  $ydefense = "checked";
+{
+    $ydefense = "checked";
+}
 elseif($curzone[allow_defenses] == 'N')
-  $ndefense = "checked";
+{
+    $ndefense = "checked";
+}
 else
-  $ldefense = "checked";
+{
+    $ldefense = "checked";
+}
 
 echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<table border=0><tr>" .
@@ -119,7 +159,6 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "</table>" .
      "</form>";
 
-
 echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
 TEXT_GOTOMAIN();
 
@@ -127,26 +166,29 @@ include("footer.php");
 
 function zoneedit_change()
 {
-  global $zone;
-  global $name;
-  global $beacons;
-  global $attacks;
-  global $warpedits;
-  global $planets;
-  global $trades;
-  global $defenses;
-  global $l_clickme, $l_ze_saved, $l_ze_return;
-  global $db,$dbtables;
+    global $zone;
+    global $name;
+    global $beacons;
+    global $attacks;
+    global $warpedits;
+    global $planets;
+    global $trades;
+    global $defenses;
+    global $l_clickme, $l_ze_saved, $l_ze_return;
+    global $db,$dbtables;
 
-  if(!get_magic_quotes_gpc())
-    $name = addslashes($name);
-  $db->Execute("UPDATE $dbtables[zones] SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
-  echo "$l_ze_saved<p>";
-  echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
-  TEXT_GOTOMAIN();
+    if(!get_magic_quotes_gpc())
+    {
+        $name = addslashes($name);
+    }
 
-  include("footer.php");
-  die();
+    $db->Execute("UPDATE $dbtables[zones] SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
+    echo "$l_ze_saved<p>";
+    echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
+    TEXT_GOTOMAIN();
+
+    include("footer.php");
+    die();
 }
 
 function zoneedit_die($error_msg)
@@ -156,5 +198,4 @@ function zoneedit_die($error_msg)
     include("footer.php");
     die();
 }
-
 ?>
