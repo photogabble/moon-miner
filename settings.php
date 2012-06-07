@@ -28,7 +28,7 @@ function title($value, $align = "center")
     global $line_color, $color_line1, $color_line2;
 
     echo "<tr bgcolor=\"$line_color\"><td colspan=\"2\" style='text-align:{$align};'>{$value}</td></tr>\n";
-    if($line_color == $color_line1)
+    if ($line_color == $color_line1)
     {
         $line_color = $color_line2;
     }
@@ -43,7 +43,7 @@ function line($item, $value, $align = "left")
     global $line_color, $color_line1, $color_line2;
 
     echo "<tr bgcolor=\"$line_color\"><td>&nbsp;{$item}</td><td style='text-align:{$align};'>{$value}&nbsp;</td></tr>\n";
-    if($line_color == $color_line1)
+    if ($line_color == $color_line1)
     {
         $line_color = $color_line2;
     }
@@ -58,7 +58,7 @@ function line2($item, $value, $align = "left")
     global $line_color, $color_line1, $color_line2;
 
     echo "<tr bgcolor=\"$line_color\"><td style='border-left:1px #FFCC00 solid;'>&nbsp;{$item}</td><td style='text-align:{$align}; border-right:1px #FFCC00 solid;'>{$value}&nbsp;</td></tr>\n";
-    if($line_color == $color_line1)
+    if ($line_color == $color_line1)
     {
         $line_color = $color_line2;
     }
@@ -73,7 +73,7 @@ function line_a($value, $align = "left")
     global $line_color, $color_line1, $color_line2;
 
     echo "<tr bgcolor=\"#FFCC00\"><td colspan=\"2\" style='text-align:{$align};'>{$value}</td></tr>\n";
-    if($line_color == $color_line1)
+    if ($line_color == $color_line1)
     {
         $line_color = $color_line2;
     }
@@ -88,7 +88,7 @@ function line_spacer()
     global $line_color, $color_line1, $color_line2;
 
     echo "<tr><td colspan='2' style='height:2px; padding:0px;'></td></tr>\n";
-    if($line_color == $color_line1)
+    if ($line_color == $color_line1)
     {
         $line_color = $color_line2;
     }
@@ -138,7 +138,7 @@ echo "<br>\n";
 $title="Loaded Plugins";
 bigtitle();
 
-if(count($plugin_config) <=0)
+if (count($plugin_config) <=0)
 {
     echo "<div style='width:798px; font-size:14px; color:#fff; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#fff 1px solid;'>&nbsp;No Plugins enabled.</div>\n";
     echo "<br>\n";
@@ -184,7 +184,7 @@ else
                    line_a("<span style='color:#000; font-size:10px; height:10px; padding:0px;'>Loaded {$pluginCount} Modules</span>", "center");
                    foreach ($pluginInfo['modules'] as $module_name => $module)
                    {
-                       if(class_exists($module_name))
+                       if (class_exists($module_name))
                        {
                            $module_disabled = NULL;
                            if (isset($module['isDisabled']) && $module['isDisabled'] == true)
@@ -226,7 +226,7 @@ line("Maximum average tech level for Federation Sectors",$fed_max_hull, "right")
 $bank_enabled = $allow_ibank ? "Yes" : "No";
 line("Intergalactic Bank Enabled",$bank_enabled, "right");
 
-if($allow_ibank)
+if ($allow_ibank)
 {
     $rate = $ibank_interest * 100;
     line("IGB Interest rate per update",$rate, "right");
@@ -290,7 +290,7 @@ line("{$turns_per_tick} Turns will happen every","{$sched_turns} minutes", "righ
 line("Defenses will be checked every","{$sched_turns} minutes", "right");
 line("Xenobes will play every","{$sched_turns} minutes", "right");
 
-if($allow_ibank)
+if ($allow_ibank)
 {
     line("Interests on IGB accounts will be accumulated every&nbsp;", "{$sched_igb} minutes", "right");
 }
@@ -310,7 +310,7 @@ echo "</table>";
 echo "<br>\n";
 echo "<br>\n";
 
-if(empty($username))
+if (empty($username))
 {
   TEXT_GOTOLOGIN();
 }

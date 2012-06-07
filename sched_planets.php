@@ -30,18 +30,18 @@ $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner >0;");
 // We are now using transactions to off load the SQL stuff in full to the Database Server.
 
 $db->Execute("START TRANSACTION;");
-while(!$res->EOF)
+while (!$res->EOF)
 {
     $row = $res->fields;
     $production = floor(min($row['colonists'], $colonist_limit) * $colonist_production_rate);
     $organics_production = floor($production * $organics_prate * $row['prod_organics'] / 100.0);// - ($production * $organics_consumption);
     $organics_production -= floor($production * $organics_consumption);
 
-    if($row['organics'] + $organics_production < 0)
+    if ($row['organics'] + $organics_production < 0)
     {
         $organics_production = -$row['organics'];
         $starvation = floor($row['colonists'] * $starvation_death_rate);
-        if($row['owner'] && $starvation >= 1)
+        if ($row['owner'] && $starvation >= 1)
         {
             playerlog($row[owner], LOG_STARVATION, "$row[sector_id]|$starvation");
         }
@@ -56,14 +56,14 @@ while(!$res->EOF)
     $energy_production = floor($production * $energy_prate * $row['prod_energy'] / 100.0);
     $reproduction = floor(($row['colonists'] - $starvation) * $colonist_reproduction_rate);
 
-    if(($row['colonists'] + $reproduction - $starvation) > $colonist_limit)
+    if (($row['colonists'] + $reproduction - $starvation) > $colonist_limit)
     {
         $reproduction = $colonist_limit - $row['colonists'];
     }
 
     $total_percent = $row['prod_organics'] + $row['prod_ore'] + $row['prod_goods'] + $row['prod_energy'];
 
-    if($row['owner'])
+    if ($row['owner'])
     {
         $fighter_production = floor($production * $fighter_prate * $row['prod_fighters'] / 100.0);
         $torp_production = floor($production * $torpedo_prate * $row['prod_torp'] / 100.0);

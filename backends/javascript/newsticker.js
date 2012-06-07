@@ -1,21 +1,9 @@
 <!--
-/*
- *****************************************
- ** File: newsticker.js                 **
- *****************************************
- ** Version: 0.0.4 (0055)               **
- **   Author: TheMightyDude             **
- **  Created: 12 Dec 2009               **
- **  Updated: 17 Jan 2011               **
- *****************************************
- */
 function newsTicker(inst)
 {
 // Private / Protected Variables
-	var version				= "0.0.4 (0055)";
-	var author				= "TheMightyDude";
-	var welcome				= "<span style=\"color:#00FF00;\"><span style=\"color:#FFFF00;\">NewsTicker</span> "+ version +", <span style=\"color:#FFFF00;\">Created by</span> "+ author +"</span>";
-	var title				= "NewsTicker "+ version +", Created by "+ author;
+	var welcome				= "<span style=\"color:#fff;\">Loading News, Please wait...</span>";
+	var title				= "News Ticker";
 	var instance			= Math.random() *1000000;
 	var article				= [];
 	var intervalId			= [];

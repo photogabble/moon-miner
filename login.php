@@ -19,21 +19,21 @@
 
 include("config.php");
 
-if(empty($lang))
+if (empty($lang))
 {
     $lang = $default_lang;
 }
 
 $found = 0;
-if(!empty($newlang))
+if (!empty($newlang))
 {
-    if(!preg_match("/^[\w]+$/", $lang))
+    if (!preg_match("/^[\w]+$/", $lang))
     {
         $lang = $default_lang;
     }
-    foreach($avail_lang as $key => $value)
+    foreach ($avail_lang as $key => $value)
     {
-        if($newlang == $value[file])
+        if ($newlang == $value[file])
         {
             $lang=$newlang;
             setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
@@ -42,7 +42,7 @@ if(!empty($newlang))
         }
     }
 
-    if($found == 0)
+    if ($found == 0)
     {
         $lang = $default_lang;
     }
@@ -88,7 +88,7 @@ echo "</form>\n";
 
 
 echo "<div style='text-align:center'>";
-if(!empty($link_forums))
+if (!empty($link_forums))
 {
     echo "<a href='$link_forums' target='_blank'>$l_forums</a> - ";
 }
@@ -97,9 +97,9 @@ echo "</div>\n";
 echo "<form action='login.php' method='post'>\n";
 echo "<div style='text-align:center'>$l_login_lang&nbsp;&nbsp;<select name='newlang'>\n";
 
-foreach($avail_lang as $curlang)
+foreach ($avail_lang as $curlang)
 {
-    if($curlang['file'].".inc" == $lang)
+    if ($curlang['file'].".inc" == $lang)
     {
         $selected = "selected='selected'";
     }

@@ -69,17 +69,17 @@ function checklogin()
   $playerinfo = $result1->fields;
 
   /* Check the cookie to see if username/password are empty - check password against database */
-  if($username == "" or $password == "" or $password != $playerinfo['password'])
+  if ($username == "" or $password == "" or $password != $playerinfo['password'])
   {
     echo $l_global_needlogin;
     $flag = 1;
   }
 
   /* Check for destroyed ship */
-  if($playerinfo['ship_destroyed'] == "Y")
+  if ($playerinfo['ship_destroyed'] == "Y")
   {
     /* if the player has an escapepod, set the player up with a new ship */
-    if($playerinfo['dev_escapepod'] == "Y")
+    if ($playerinfo['dev_escapepod'] == "Y")
     {
       $result2 = $db->Execute("UPDATE $dbtables[ships] SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' where email='$username'");
       echo $l_login_died;
@@ -97,7 +97,7 @@ function checklogin()
   }
   global $server_closed;
   global $l_login_closed_message;
-  if($server_closed && $flag==0)
+  if ($server_closed && $flag==0)
   {
     echo $l_login_closed_message;
     $flag=1;
@@ -119,14 +119,14 @@ function connectdb($do_die = true) // Returns true, false or a halt.
 
     // Check to see if we are already connected to the database.
     // If so just return true.
-    if($db instanceof ADOConnection)
+    if ($db instanceof ADOConnection)
     {
         return (boolean) true;
     }
 
     // Ok, seems that we are not connected to the database at this current time.
     // So we now need to setup all the database connection now.
-    if(!empty($dbport))
+    if (!empty($dbport))
     {
         $dbhost.= ":$dbport";
     }
@@ -134,7 +134,7 @@ function connectdb($do_die = true) // Returns true, false or a halt.
     $db = NewADOConnection($db_type);
     $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
-    if($db_persistent == 1)
+    if ($db_persistent == 1)
     {
         $result = @$db->PConnect("$dbhost", "$dbuname", "$dbpass", "$dbname");
     }
@@ -145,7 +145,7 @@ function connectdb($do_die = true) // Returns true, false or a halt.
 
     // Check to see if we have connected ok.
     // This should work...
-    if( ($db instanceof ADOConnection) && (is_resource($db->_connectionID) || is_object($db->_connectionID)) )
+    if ( ($db instanceof ADOConnection) && (is_resource($db->_connectionID) || is_object($db->_connectionID)) )
     {
         // Set our character set to utf-8
         $db->Execute("set names 'utf8'");
@@ -156,7 +156,7 @@ function connectdb($do_die = true) // Returns true, false or a halt.
     else
     {
         // Bad news, we failed to connect to the database.
-        if($do_die)
+        if ($do_die)
         {
             // We need to display the error message onto the screen.
             echo "Unable to connect to the Database.<br>\n";
@@ -276,27 +276,27 @@ function gen_score($sid)
   $calc_dev_genesis       = "dev_genesis*$dev_genesis_price";
   $calc_dev_beacon        = "dev_beacon*$dev_beacon_price";
   $calc_dev_emerwarp      = "dev_emerwarp*$dev_emerwarp_price";
-  $calc_dev_escapepod     = "IF(dev_escapepod='Y', $dev_escapepod_price, 0)";
-  $calc_dev_fuelscoop     = "IF(dev_fuelscoop='Y', $dev_fuelscoop_price, 0)";
-  $calc_dev_lssd          = "IF(dev_lssd='Y', $dev_lssd_price, 0)";
+  $calc_dev_escapepod     = "if (dev_escapepod='Y', $dev_escapepod_price, 0)";
+  $calc_dev_fuelscoop     = "if (dev_fuelscoop='Y', $dev_fuelscoop_price, 0)";
+  $calc_dev_lssd          = "if (dev_lssd='Y', $dev_lssd_price, 0)";
   $calc_dev_minedeflector = "dev_minedeflector*$dev_minedeflector_price";
   $calc_dev               = "$calc_dev_warpedit+$calc_dev_genesis+$calc_dev_beacon+$calc_dev_emerwarp+$calc_dev_escapepod+$calc_dev_fuelscoop+$calc_dev_minedeflector+$calc_dev_lssd";
 
   $calc_planet_goods      = "SUM($dbtables[planets].organics)*$organics_price+SUM($dbtables[planets].ore)*$ore_price+SUM($dbtables[planets].goods)*$goods_price+SUM($dbtables[planets].energy)*$energy_price";
   $calc_planet_colonists  = "SUM($dbtables[planets].colonists)*$colonist_price";
-  $calc_planet_defence    = "SUM($dbtables[planets].fighters)*$fighter_price+IF($dbtables[planets].base='Y', $base_credits+SUM($dbtables[planets].torps)*$torpedo_price, 0)";
+  $calc_planet_defence    = "SUM($dbtables[planets].fighters)*$fighter_price+if ($dbtables[planets].base='Y', $base_credits+SUM($dbtables[planets].torps)*$torpedo_price, 0)";
   $calc_planet_credits    = "SUM($dbtables[planets].credits)";
 
   $res = $db->Execute("SELECT $calc_levels+$calc_equip+$calc_dev+$dbtables[ships].credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits AS score FROM $dbtables[ships] LEFT JOIN $dbtables[planets] ON $dbtables[planets].owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
   $row = $res->fields;
   $score = $row['score'];
   $res = $db->Execute("SELECT balance, loan FROM $dbtables[ibank_accounts] where ship_id = $sid");
-  if($res)
+  if ($res)
   {
      $row = $res->fields;
      $score += ($row['balance'] - $row['loan']);
   }
-  if($score<0) $score=0;
+  if ($score<0) $score=0;
   $score = ROUND(SQRT($score));
   $db->Execute("UPDATE $dbtables[ships] SET score=$score WHERE ship_id=$sid");
 
@@ -322,7 +322,7 @@ function db_kill_player($ship_id, $remove_planets = false)
   $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner='$ship_id' AND base='Y'");
   $i=0;
 
-  while(!$res->EOF && $res)
+  while (!$res->EOF && $res)
   {
     $sectors[$i] = $res->fields[sector_id];
     $i++;
@@ -338,9 +338,9 @@ function db_kill_player($ship_id, $remove_planets = false)
     $db->Execute("UPDATE $dbtables[planets] SET owner=0, corp=0, fighters=0, base='N' WHERE owner=$ship_id");
   }
 
-  if(!empty($sectors))
+  if (!empty($sectors))
   {
-    foreach($sectors as $sector)
+    foreach ($sectors as $sector)
     {
       calc_ownership($sector);
     }
@@ -431,11 +431,11 @@ function SCAN_ERROR($level_scan, $level_cloak)
 
   $sc_error = (4 + $level_scan / 2 - $level_cloak / 2) * $scan_error_factor;
 
-  if($sc_error<1)
+  if ($sc_error<1)
   {
     $sc_error=1;
   }
-  if($sc_error>99)
+  if ($sc_error>99)
   {
     $sc_error=99;
   }
@@ -450,12 +450,12 @@ function explode_mines($sector, $num_mines)
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='M' order by quantity ASC");
     echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
-    if($result3 > 0)
+    if ($result3 > 0)
     {
-       while(!$result3->EOF && $num_mines > 0)
+       while (!$result3->EOF && $num_mines > 0)
        {
           $row = $result3->fields;
-          if($row[quantity] > $num_mines)
+          if ($row[quantity] > $num_mines)
           {
              $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity - $num_mines where defence_id = $row[defence_id]");
              $num_mines = 0;
@@ -478,12 +478,12 @@ function destroy_fighters($sector, $num_fighters)
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
     echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
-    if($result3 > 0)
+    if ($result3 > 0)
     {
-       while(!$result3->EOF && $num_fighters > 0)
+       while (!$result3->EOF && $num_fighters > 0)
        {
           $row=$result3->fields;
-          if($row[quantity] > $num_fighters)
+          if ($row[quantity] > $num_fighters)
           {
              $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
              $num_fighters = 0;
@@ -505,9 +505,9 @@ function message_defence_owner($sector, $message)
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' ");
     echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
-    if($result3 > 0)
+    if ($result3 > 0)
     {
-       while(!$result3->EOF)
+       while (!$result3->EOF)
        {
 
           playerlog($result3->fields[ship_id],LOG_RAW, $message);
@@ -523,9 +523,9 @@ function distribute_toll($sector, $toll, $total_fighters)
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' AND defence_type ='F' ");
     echo $db->ErrorMsg();
     //Put the defence information into the array "defenceinfo"
-    if($result3 > 0)
+    if ($result3 > 0)
     {
-       while(!$result3->EOF)
+       while (!$result3->EOF)
        {
           $row = $result3->fields;
           $toll_amount = ROUND(($row['quantity'] / $total_fighters) * $toll);
@@ -542,21 +542,21 @@ function defence_vs_defence($ship_id)
    global $db, $dbtables;
 
    $result1 = $db->Execute("SELECT * from $dbtables[sector_defence] where ship_id = $ship_id");
-   if($result1 > 0)
+   if ($result1 > 0)
    {
-      while(!$result1->EOF)
+      while (!$result1->EOF)
       {
          $row=$result1->fields;
          $deftype = $row[defence_type] == 'F' ? 'Fighters' : 'Mines';
          $qty = $row['quantity'];
          $result2 = $db->Execute("SELECT * from $dbtables[sector_defence] where sector_id = $row[sector_id] and ship_id <> $ship_id ORDER BY quantity DESC");
-         if($result2 > 0)
+         if ($result2 > 0)
          {
-            while(!$result2->EOF && $qty > 0)
+            while (!$result2->EOF && $qty > 0)
             {
                $cur = $result2->fields;
                $targetdeftype = $cur[defence_type] == 'F' ? $l_fighters : $l_mines;
-               if($qty > $cur['quantity'])
+               if ($qty > $cur['quantity'])
                {
                   $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $cur[defence_id]");
                   $qty -= $cur['quantity'];
@@ -587,15 +587,15 @@ function kick_off_planet($ship_id,$whichteam)
 
    $result1 = $db->Execute("SELECT * from $dbtables[planets] where owner = '$ship_id' ");
 
-   if($result1 > 0)
+   if ($result1 > 0)
    {
-      while(!$result1->EOF)
+      while (!$result1->EOF)
       {
          $row = $result1->fields;
          $result2 = $db->Execute("SELECT * from $dbtables[ships] where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
-         if($result2 > 0)
+         if ($result2 > 0)
          {
-            while(!$result2->EOF )
+            while (!$result2->EOF )
             {
                $cur = $result2->fields;
                $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
@@ -618,10 +618,10 @@ function calc_ownership($sector)
   $num_bases = $res->RecordCount();
 
   $i=0;
-  if($num_bases > 0)
+  if ($num_bases > 0)
   {
 
-   while(!$res->EOF)
+   while (!$res->EOF)
     {
       $bases[$i] = $res->fields;
       $i++;
@@ -634,18 +634,18 @@ function calc_ownership($sector)
 
   $owner_num = 0;
 
-  foreach($bases as $curbase)
+  foreach ($bases as $curbase)
   {
     $curcorp=-1;
     $curship=-1;
     $loop = 0;
     while ($loop < $owner_num)
     {
-      if($curbase[corp] != 0)
+      if ($curbase[corp] != 0)
       {
-        if($owners[$loop][type] == 'C')
+        if ($owners[$loop][type] == 'C')
         {
-          if($owners[$loop][id] == $curbase[corp])
+          if ($owners[$loop][id] == $curbase[corp])
           {
             $curcorp=$loop;
             $owners[$loop][num]++;
@@ -653,9 +653,9 @@ function calc_ownership($sector)
         }
       }
 
-      if($owners[$loop][type] == 'S')
+      if ($owners[$loop][type] == 'S')
       {
-        if($owners[$loop][id] == $curbase[owner])
+        if ($owners[$loop][id] == $curbase[owner])
         {
           $curship=$loop;
           $owners[$loop][num]++;
@@ -665,9 +665,9 @@ function calc_ownership($sector)
       $loop++;
     }
 
-    if($curcorp == -1)
+    if ($curcorp == -1)
     {
-      if($curbase[corp] != 0)
+      if ($curbase[corp] != 0)
       {
          $curcorp=$owner_num;
          $owner_num++;
@@ -677,9 +677,9 @@ function calc_ownership($sector)
       }
     }
 
-    if($curship == -1)
+    if ($curship == -1)
     {
-      if($curbase[owner] != 0)
+      if ($curbase[owner] != 0)
       {
         $curship=$owner_num;
         $owner_num++;
@@ -696,14 +696,14 @@ function calc_ownership($sector)
   $loop=0;
   $nbcorps=0;
   $nbships=0;
-  while($loop < $owner_num)
+  while ($loop < $owner_num)
   {
-    if($owners[$loop][type] == 'C')
+    if ($owners[$loop][type] == 'C')
       $nbcorps++;
     else
     {
       $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=" . $owners[$loop][id]);
-      if($res && $res->RecordCount() != 0)
+      if ($res && $res->RecordCount() != 0)
       {
         $curship = $res->fields;
         $ships[$nbships]=$owners[$loop][id];
@@ -716,7 +716,7 @@ function calc_ownership($sector)
   }
 
   //More than one corp, war
-  if($nbcorps > 1)
+  if ($nbcorps > 1)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
 
@@ -725,12 +725,12 @@ function calc_ownership($sector)
 
   //More than one unallied ship, war
   $numunallied = 0;
-  foreach($scorps as $corp)
+  foreach ($scorps as $corp)
   {
-    if($corp == 0)
+    if ($corp == 0)
       $numunallied++;
   }
-  if($numunallied > 1)
+  if ($numunallied > 1)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
 
@@ -738,7 +738,7 @@ function calc_ownership($sector)
   }
 
   //Unallied ship, another corp present, war
-  if($numunallied > 0 && $nbcorps > 0)
+  if ($numunallied > 0 && $nbcorps > 0)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
 
@@ -746,22 +746,22 @@ function calc_ownership($sector)
   }
 
   //Unallied ship, another ship in a corp, war
-  if($numunallied > 0)
+  if ($numunallied > 0)
   {
     $query = "SELECT team FROM $dbtables[ships] WHERE (";
     $i=0;
-    foreach($ships as $ship)
+    foreach ($ships as $ship)
     {
       $query = $query . "ship_id=$ship";
       $i++;
-      if($i!=$nbships)
+      if ($i!=$nbships)
         $query = $query . " OR ";
       else
         $query = $query . ")";
     }
     $query = $query . " AND team!=0";
     $res = $db->Execute($query);
-    if($res->RecordCount() != 0)
+    if ($res->RecordCount() != 0)
     {
       $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
 
@@ -775,17 +775,17 @@ function calc_ownership($sector)
   $i = 1;
   while ($i < $owner_num)
   {
-    if($owners[$i][num] > $owners[$winner][num])
+    if ($owners[$i][num] > $owners[$winner][num])
       $winner = $i;
-    elseif($owners[$i][num] == $owners[$winner][num])
+    elseif ($owners[$i][num] == $owners[$winner][num])
     {
-      if($owners[$i][type] == 'C')
+      if ($owners[$i][type] == 'C')
         $winner = $i;
     }
     $i++;
   }
 
-  if($owners[$winner][num] < $min_bases_to_own)
+  if ($owners[$winner][num] < $min_bases_to_own)
   {
     $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
 
@@ -793,7 +793,7 @@ function calc_ownership($sector)
   }
 
 
-  if($owners[$winner][type] == 'C')
+  if ($owners[$winner][type] == 'C')
   {
     $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
     $zone = $res->fields;
@@ -808,15 +808,15 @@ function calc_ownership($sector)
   else
   {
     $onpar = 0;
-    foreach($owners as $curowner)
+    foreach ($owners as $curowner)
     {
-      if($curowner[type] == 'S' && $curowner[id] != $owners[$winner][id] && $curowner[num] == $owners[winners][num])
+      if ($curowner[type] == 'S' && $curowner[id] != $owners[$winner][id] && $curowner[num] == $owners[winners][num])
         $onpar = 1;
         break;
     }
 
     //Two allies have the same number of bases
-    if($onpar == 1)
+    if ($onpar == 1)
     {
       $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
 
@@ -851,10 +851,10 @@ function player_insignia_name($a_username)
     $res = $db->Execute("SELECT score FROM $dbtables[ships] WHERE email='$a_username'");
     $playerinfo = $res->fields;
 
-    for($i=0; $i<20; $i++)
+    for ($i = 0; $i < 20; $i++)
     {
         $value = pow(2, $i*2);
-        if(!$value)
+        if (!$value)
         {
             // pow returned false so we need to return an error.
             $player_insignia = "<span style='color:#f00;'>ERR</span> [<span style='color:#09f; font-size:12px; cursor:help;' title='Error looking up Insignia, Please Report.'>?</span>]";
@@ -862,7 +862,7 @@ function player_insignia_name($a_username)
         }
 
         $value *= (500 * 2);
-        if($playerinfo['score'] <= $value)
+        if ($playerinfo['score'] <= $value)
         {
             // Ok we have found our Insignia, now set and break out of the for loop.
             $player_insignia = $l_insignia[$i];
@@ -870,7 +870,7 @@ function player_insignia_name($a_username)
         }
     }
 
-    if(!isset($player_insignia))
+    if (!isset($player_insignia))
     {
         // Hmm, player has out ranked out highest rank, so just return that.
         $player_insignia = end($l_insignia);
@@ -920,12 +920,12 @@ function collect_bounty($attacker,$bounty_on)
 {
    global $db,$dbtables,$l_by_thefeds;
    $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id and placed_by <> 0");
-   if($res)
+   if ($res)
    {
-      while(!$res->EOF)
+      while (!$res->EOF)
       {
          $bountydetails = $res->fields;
-         if($res->fields[placed_by] == 0)
+         if ($res->fields[placed_by] == 0)
          {
             $placed = $l_by_thefeds;
          }
@@ -950,12 +950,12 @@ function cancel_bounty($bounty_on)
 {
    global $db,$dbtables;
    $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
-   if($res)
+   if ($res)
    {
-      while(!$res->EOF)
+      while (!$res->EOF)
       {
          $bountydetails = $res->fields;
-         if($bountydetails[placed_by] <> 0)
+         if ($bountydetails[placed_by] <> 0)
          {
             $update = $db->Execute("UPDATE $dbtables[ships] SET credits = credits + $bountydetails[amount] WHERE ship_id = $bountydetails[placed_by]");
 
@@ -971,7 +971,7 @@ function get_player($ship_id)
 {
    global $db,$dbtables;
    $res = $db->Execute("SELECT character_name from $dbtables[ships] where ship_id = $ship_id");
-   if($res)
+   if ($res)
    {
       $row = $res->fields;
       $character_name = $row[character_name];
@@ -996,17 +996,17 @@ function isLoanPending($ship_id)
   global $IGB_lrate;
 
   $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM $dbtables[ibank_accounts] WHERE ship_id=$ship_id");
-  if($res)
+  if ($res)
   {
     $account=$res->fields;
 
-    if($account['loan'] == 0)
+    if ($account['loan'] == 0)
 
       return false;
 
     $curtime=time();
     $difftime = ($curtime - $account['time']) / 60;
-    if($difftime > $IGB_lrate)
+    if ($difftime > $IGB_lrate)
 
       return true;
     else
@@ -1024,7 +1024,7 @@ function get_avg_tech($ship_info = null, $type = "ship")
         // Defined in config.php
         global $calc_ship_tech, $calc_planet_tech;
 
-        if($type == "ship")
+        if ($type == "ship")
         {
                 $calc_tech = $calc_ship_tech;
         }
@@ -1036,7 +1036,7 @@ function get_avg_tech($ship_info = null, $type = "ship")
         $count = count($calc_tech);
 
         $shipavg  = 0;
-        for($i=0; $i<$count; $i++)
+        for ($i = 0; $i < $count; $i++)
         {
                 $shipavg += $ship_info[$calc_tech[$i]];
         }
@@ -1056,7 +1056,7 @@ function bnt_autoload($classname)
 
 function isSameTeam($attackerTeam = null, $attackieTeam = null)
 {
-        if( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
+        if ( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
         {
                 return (boolean) false;
         }

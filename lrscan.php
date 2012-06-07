@@ -22,7 +22,7 @@ updatecookie();
 include("languages/$lang");
 $title=$l_lrs_title;
 include("header.php");
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -38,16 +38,16 @@ $planet_bnthelper_string = '';
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
 
-if($sector == "*")
+if ($sector == "*")
 {
-    if(!$allow_fullscan)
+    if (!$allow_fullscan)
     {
         echo "$l_lrs_nofull<BR><BR>";
         TEXT_GOTOMAIN();
         include("footer.php");
         die();
     }
-    if($playerinfo['turns'] < $fullscan_cost)
+    if ($playerinfo['turns'] < $fullscan_cost)
     {
         echo "$l_lrs_noturns<BR><BR>";
         TEXT_GOTOMAIN();
@@ -68,13 +68,13 @@ if($sector == "*")
     $result = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]' ORDER BY link_dest");
     echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
     echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_sector</B><TD></TD></TD><TD><B>$l_lrs_links</B></TD><TD><B>$l_lrs_ships</B></TD><TD colspan=2><B>$l_port</B></TD><TD><B>$l_planets</B></TD><TD><B>$l_mines</B></TD><TD><B>$l_fighters</B></TD>";
-    if($playerinfo['dev_lssd'] == 'Y')
+    if ($playerinfo['dev_lssd'] == 'Y')
     {
         echo "<TD><B>$l_lss</B></TD>";
     }
     echo "</TR>";
     $color = $color_line1;
-    while(!$result->EOF)
+    while (!$result->EOF)
     {
         $row = $result->fields;
         // Get number of sectors which can be reached from scanned sector
@@ -114,10 +114,10 @@ if($sector == "*")
 
 
         echo "<TR BGCOLOR=\"$color\"><TD><A HREF=move.php?sector=$row[link_dest]>$row[link_dest]</A></TD><TD><A HREF=lrscan.php?sector=$row[link_dest]>Scan</A></TD><TD>$num_links</TD><TD>$num_ships</TD><TD WIDTH=12>$image_string</TD><TD>" . t_port($port_type) . "</TD><TD>$has_planet</TD><TD>$has_mines</TD><TD>$has_fighters</TD>";
-        if($playerinfo['dev_lssd'] == 'Y')
+        if ($playerinfo['dev_lssd'] == 'Y')
         {
             $resx = $db->Execute("SELECT * from $dbtables[movement_log] WHERE ship_id <> $playerinfo[ship_id] AND sector_id = $row[link_dest] ORDER BY time DESC LIMIT 1");
-            if(!$resx)
+            if (!$resx)
             {
                 echo "<TD>None</TD>";
             }
@@ -129,7 +129,7 @@ if($sector == "*")
         }
 
         echo "</TR>";
-        if($color == $color_line1)
+        if ($color == $color_line1)
         {
             $color = $color_line2;
         }
@@ -141,7 +141,7 @@ if($sector == "*")
     }
     echo "</TABLE>";
 
-    if($num_links == 0)
+    if ($num_links == 0)
     {
         echo "$l_none.";
     }
@@ -161,7 +161,7 @@ else
     $result3 = $db->Execute("SELECT link_dest FROM $dbtables[links] WHERE link_start='$sector' ORDER BY link_dest ASC");
     $i=0;
 
-    while(!$result3->EOF)
+    while (!$result3->EOF)
     {
         $links[$i] = $result3->fields['link_dest'];
         $i++;
@@ -174,9 +174,9 @@ else
     $i=0;
     $flag=0;
 
-    while(!$result3a->EOF)
+    while (!$result3a->EOF)
     {
-        if($result3a->fields['link_dest'] == $sector)
+        if ($result3a->fields['link_dest'] == $sector)
         {
             $flag=1;
         }
@@ -184,7 +184,7 @@ else
         $result3a->MoveNext();
     }
 
-    if($flag == 0)
+    if ($flag == 0)
     {
         echo "$l_lrs_cantscan<BR><BR>";
         TEXT_GOTOMAIN();
@@ -193,7 +193,7 @@ else
 
     echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
     echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_sector $sector";
-    if($sectorinfo['sector_name'] != "")
+    if ($sectorinfo['sector_name'] != "")
     {
         echo " ($sectorinfo[sector_name])";
     }
@@ -203,7 +203,7 @@ else
     echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 WIDTH=\"100%\">";
     echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_links</B></TD></TR>";
     echo "<TR><TD>";
-    if($num_links == 0)
+    if ($num_links == 0)
     {
         echo "$l_none";
         $link_bnthelper_string="<!--links:N:-->";
@@ -211,11 +211,11 @@ else
     else
     {
         $link_bnthelper_string="<!--links:Y";
-        for($i = 0; $i < $num_links; $i++)
+        for ($i = 0; $i < $num_links; $i++)
         {
             echo "$links[$i]";
             $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
-            if($i + 1 != $num_links)
+            if ($i + 1 != $num_links)
             {
                 echo ", ";
             }
@@ -226,39 +226,39 @@ else
     echo "</TD></TR>";
     echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_ships</B></TD></TR>";
     echo "<TR><TD>";
-    if($sector != 0)
+    if ($sector != 0)
     {
         // Get ships located in the scanned sector
         $result4 = $db->Execute("SELECT ship_id,ship_name,character_name,cloak FROM $dbtables[ships] WHERE sector='$sector' AND on_planet='N'");
-        if($result4->EOF)
+        if ($result4->EOF)
         {
             echo "$l_none";
         }
         else
         {
             $num_detected = 0;
-            while(!$result4->EOF)
+            while (!$result4->EOF)
             {
                 $row = $result4->fields;
                 // Display other ships in sector - unless they are successfully cloaked
                 $success = SCAN_SUCCESS($playerinfo['sensors'], $row['cloak']);
-                if($success < 5)
+                if ($success < 5)
                 {
                     $success = 5;
                 }
-                if($success > 95)
+                if ($success > 95)
                 {
                     $success = 95;
                 }
                 $roll = rand(1, 100);
-                if($roll < $success)
+                if ($roll < $success)
                 {
                     $num_detected++;
                     echo $row['ship_name'] . "(" . $row['character_name'] . ")<BR>";
                 }
                 $result4->MoveNext();
             }
-            if(!$num_detected)
+            if (!$num_detected)
             {
                 echo "$l_none";
             }
@@ -272,7 +272,7 @@ else
     echo "</TD></TR>";
     echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_port</B></TD></TR>";
     echo "<TR><TD>";
-    if($sectorinfo['port_type'] == "none")
+    if ($sectorinfo['port_type'] == "none")
     {
         echo "$l_none";
         $port_bnthelper_string="<!--port:none:0:0:0:0:-->";
@@ -294,16 +294,16 @@ else
     echo "<TR><TD>";
     $query = $db->Execute("SELECT name, owner FROM $dbtables[planets] WHERE sector_id=$sectorinfo[sector_id]");
 
-    if($query->EOF)
+    if ($query->EOF)
     {
         echo "$l_none";
         $planet_bnthelper_string="<!--planet:N:::-->";
     }
 
-    while(!$query->EOF)
+    while (!$query->EOF)
     {
         $planet = $query->fields;
-        if(empty($planet['name']))
+        if (empty($planet['name']))
         {
             echo "$l_unnamed";
         }
@@ -312,7 +312,7 @@ else
             echo "$planet[name]";
         }
 
-        if($planet['owner'] == 0)
+        if ($planet['owner'] == 0)
         {
             echo " ($l_unowned)";
         }
@@ -339,12 +339,12 @@ else
     $has_fighters =  NUMBER($defF['fighters']);
     echo "<TR><TD>" . $has_fighters;
     echo "</TD></TR>";
-    if($playerinfo['dev_lssd'] == 'Y')
+    if ($playerinfo['dev_lssd'] == 'Y')
     {
         echo "<TR BGCOLOR=\"$color_line2\"><TD><B>$l_lss</B></TD></TR>";
         echo "<TR><TD>";
         $resx = $db->Execute("SELECT * from $dbtables[movement_log] WHERE ship_id <> $playerinfo[ship_id] AND sector_id = $sector ORDER BY time DESC LIMIT 1");
-        if(!$resx)
+        if (!$resx)
         {
             echo "None";
         }

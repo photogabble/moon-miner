@@ -34,7 +34,7 @@ $playerinfo=$result->fields;
 $planet_id = stripnum($planet_id);
 
 $result2 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
-if($result2)
+if ($result2)
 {
     $planetinfo=$result2->fields;
 }
@@ -47,7 +47,7 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
         echo ("$l_corpm_tocorp<BR>");
         $result = $db->Execute("UPDATE $dbtables[planets] SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         $ownership = calc_ownership($playerinfo[sector]);
-        if(!empty($ownership))
+        if (!empty($ownership))
         {
             echo "<p>$ownership<p>";
         }
@@ -60,7 +60,7 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
         $ownership = calc_ownership($playerinfo[sector]);
         // Kick other players off the planet
         $result = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
-        if(!empty($ownership))
+        if (!empty($ownership))
         {
             echo "<p>$ownership<p>";
         }

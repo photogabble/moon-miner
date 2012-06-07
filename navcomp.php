@@ -23,14 +23,14 @@ include("languages/$lang");
 $title=$l_nav_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
 
 bigtitle();
 
-if(!$allow_navcomp)
+if (!$allow_navcomp)
 {
     echo "$l_nav_nocomp<BR><BR>";
     TEXT_GOTOMAIN();
@@ -58,7 +58,7 @@ $sectorinfo=$result2->fields;
 // Validats the post variable as a number.
 // Typecast variable into an integer.
 
-if(isset($_POST['stop_sector']))
+if (isset($_POST['stop_sector']))
 {
     $stop_sector = $_POST['stop_sector'];
     if (!is_numeric($stop_sector))

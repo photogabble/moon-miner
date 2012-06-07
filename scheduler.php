@@ -82,7 +82,7 @@ srand((double)microtime() * 1000000);
 
 #echo "<pre>[REQUEST]\n". print_r($_REQUEST, true) ."</pre>\n";
 
-if($swordfish != $adminpass)
+if ($swordfish != $adminpass)
 {
     echo "<form action='scheduler.php' method='post'>";
     echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><BR><BR>";
@@ -96,7 +96,7 @@ else
     $schedCount = 0;
     $lastrunList = NULL;
     $sched_res = $db->Execute("SELECT * FROM $dbtables[scheduler]");
-    if($sched_res)
+    if ($sched_res)
     {
         while (!$sched_res->EOF)
         {
@@ -111,14 +111,14 @@ $schedCount += 1;
 # Store the last time the individual schedule was last run.
 $lastrunList[$event['sched_file']] = $event['last_run'];
 
-            if($event['repeate'] == 'N')
+            if ($event['repeate'] == 'N')
             {
-                if($multiplier > $event['spawn'])
+                if ($multiplier > $event['spawn'])
                 {
                     $multiplier = $event['spawn'];
                 }
 
-                if($event[spawn] - $multiplier == 0)
+                if ($event[spawn] - $multiplier == 0)
                 {
                     $db->Execute("DELETE FROM $dbtables[scheduler] WHERE sched_id=$event[sched_id]");
                 }
@@ -136,7 +136,7 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
             $sched_var_extrainfo = $event['extra_info'];
 
             $sched_i = 0;
-            while($sched_i < $multiplier)
+            while ($sched_i < $multiplier)
             {
                 include("$event[sched_file]");
                 $sched_i++;

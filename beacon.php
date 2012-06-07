@@ -38,24 +38,24 @@ $allowed_rsw = "N";
 
 bigtitle();
 
-if($playerinfo['dev_beacon'] > 0)
+if ($playerinfo['dev_beacon'] > 0)
 {
     $res = $db->Execute("SELECT allow_beacon FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
     $zoneinfo = $res->fields;
-    if($zoneinfo[allow_beacon] == 'N')
+    if ($zoneinfo[allow_beacon] == 'N')
     {
         echo "$l_beacon_notpermitted<BR><BR>";
     }
-    elseif($zoneinfo[allow_beacon] == 'L')
+    elseif ($zoneinfo[allow_beacon] == 'L')
     {
         $result3 = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
         $zoneowner_info = $result3->fields;
         $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
         $zoneteam = $result5->fields;
 
-        if($zoneowner_info[owner] != $playerinfo[ship_id])
+        if ($zoneowner_info[owner] != $playerinfo[ship_id])
         {
-            if(($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
+            if (($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
             {
                 echo "$l_beacon_notpermitted<BR><BR>";
             }
@@ -74,11 +74,11 @@ if($playerinfo['dev_beacon'] > 0)
         $allowed_rsw = "Y";
     }
 
-    if($allowed_rsw == "Y")
+    if ($allowed_rsw == "Y")
     {
-        if($beacon_text == "")
+        if ($beacon_text == "")
         {
-            if($sectorinfo[beacon] != "")
+            if ($sectorinfo[beacon] != "")
             {
                 echo "$l_beacon_reads: \"$sectorinfo[beacon]\"<BR><BR>";
             }

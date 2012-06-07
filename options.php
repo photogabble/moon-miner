@@ -23,7 +23,7 @@ updatecookie();
 $title="$l_opt_title";
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -62,9 +62,9 @@ echo "</TR>";
 echo "<TR BGCOLOR=\"$color_line1\">";
 echo "<TD>$l_opt_select</TD><TD><select NAME=newlang>";
 
-foreach($avail_lang as $curlang)
+foreach ($avail_lang as $curlang)
 {
-    if($curlang['file'] == $playerinfo[lang])
+    if ($curlang['file'] == $playerinfo[lang])
     {
         $selected = "selected";
     }

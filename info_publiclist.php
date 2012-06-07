@@ -61,7 +61,7 @@ $info["P-AI-LVL"] = $dyn_xenobe_lvl;
 
     $xsql = "SELECT character_name, score  FROM $dbtables[ships] WHERE ship_destroyed = 'N' ORDER BY score DESC LIMIT 3 ";
     $res = $db->Execute($xsql);
-    while(!$res->EOF)
+    while (!$res->EOF)
         {
             $row = $res->fields;
             $tmp = $res->CurrentRow() + 1;

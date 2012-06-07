@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_ship_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -35,7 +35,7 @@ $othership = $res2->fields;
 
 bigtitle();
 
-if($othership[sector] != $playerinfo[sector])
+if ($othership[sector] != $playerinfo[sector])
 {
     echo "$l_ship_the <font color=white>{$othership[ship_name]}</font> $l_ship_nolonger {$playerinfo[sector]}<BR>";
 }
@@ -45,7 +45,7 @@ else
     echo "$l_ship_perform<BR><BR>";
     echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";
 
-    if( !isSameTeam($playerinfo['team'], $othership['team']) )
+    if ( !isSameTeam($playerinfo['team'], $othership['team']) )
     {
         echo "<a href=attack.php?ship_id=$ship_id>$l_planet_att_link</a><br>";
     }

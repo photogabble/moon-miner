@@ -90,7 +90,7 @@ class SETUPINFO_CLASS
     {
         global $db;
 
-        if($db)
+        if ($db)
         {
             $db->Close();
             $db = null;
@@ -100,9 +100,9 @@ class SETUPINFO_CLASS
     function initDB()
     {
         global $connectedtodb,$db;
-        if($this->switches['Enable_Database']['enabled']==true)
+        if ($this->switches['Enable_Database']['enabled']==true)
         {
-            if(!$connectedtodb)
+            if (!$connectedtodb)
             {
                 connectdb(false);
             }
@@ -111,7 +111,7 @@ class SETUPINFO_CLASS
 
     function error_switching()
     {
-        if($this->switches['Display_Errors']['enabled'])
+        if ($this->switches['Display_Errors']['enabled'])
         {
             ini_set('error_reporting', E_ALL | E_STRICT);
             ini_set('display_errors', 'On');
@@ -133,7 +133,7 @@ class SETUPINFO_CLASS
         $game_path['status']  = false;
 
         $result=dirname($_SERVER["PHP_SELF"]);
-        if(isset($result) && strlen($result) > 0)
+        if (isset($result) && strlen($result) > 0)
         {
             if ($result === "\\")
             {
@@ -174,15 +174,15 @@ class SETUPINFO_CLASS
 
         $result = NULL;
 
-        if(isset($_SERVER["PATH_TRANSLATED"]))
+        if (isset($_SERVER["PATH_TRANSLATED"]))
         {
             $result = $_SERVER["PATH_TRANSLATED"];
         }
 
-        if(!isset($result) || strlen($result)<=0)
+        if (!isset($result) || strlen($result)<=0)
         {
             $result = $_SERVER["SCRIPT_FILENAME"];
-            if(!isset($result) || strlen($result)<=0)
+            if (!isset($result) || strlen($result)<=0)
             {
                 $game_root['info']   = (($compare) ?"Unable to detect the gameroot to compare!":"Unable to detect the gameroot!");
                 $game_root['status'] =  false;
@@ -212,7 +212,7 @@ class SETUPINFO_CLASS
         $RemovePORT = true;
         $result = $_SERVER['HTTP_HOST'];
 
-        if(isset($result) && strlen($result) >0)
+        if (isset($result) && strlen($result) >0)
         {
             $pos = strpos($result,"http://");
             if (is_integer($pos))
@@ -224,7 +224,7 @@ class SETUPINFO_CLASS
             {
                 $result = substr($result,$pos+4);
             }
-            if($RemovePORT)
+            if ($RemovePORT)
             {
                 $pos = strpos($result,":");
             }
@@ -263,7 +263,7 @@ class SETUPINFO_CLASS
  // This my not be needed, but I will leave it here just in case we need it :)
 //        $this->database_client_version = mysql_get_client_info();
 
-        if($this->switches['Enable_Database']['enabled'])
+        if ($this->switches['Enable_Database']['enabled'])
         {
             $this->db_status['status'] = (( ($db instanceof ADOConnection) && is_resource($db->_connectionID))? "Connected OK":"Not Connected");
 
@@ -272,7 +272,7 @@ class SETUPINFO_CLASS
 
 #echo "<pre>[dump]\n". print_r($db, true) ."</pre>\n";
 
-            if( ($db instanceof ADOConnection) && $db->IsConnected() )
+            if ( ($db instanceof ADOConnection) && $db->IsConnected() )
             {
                 $server_version = $db->ServerInfo();
                 $this->database_server_version = "{$server_version['version']}";
@@ -299,16 +299,16 @@ class SETUPINFO_CLASS
         global $db, $dbtables;
         $db_info = null;
 
-        if($this->switches['Enable_Database']['enabled']==true)
+        if ($this->switches['Enable_Database']['enabled']==true)
         {
-            if($db)
+            if ($db)
             {
                 $db_info['status'] = "Setup Info has found ".count($dbtables)." tables in the Tables List.";
 
-                foreach($dbtables as $k => $v)
+                foreach ($dbtables as $k => $v)
                 {
                     $test = @$db->Execute("SELECT COUNT(*) as record_count FROM $v");
-                    if(is_bool($test) && $test == false)
+                    if (is_bool($test) && $test == false)
                     {
                         $count = 0;
                     }
@@ -319,7 +319,7 @@ class SETUPINFO_CLASS
                     $db_info[$k]['name']="$v";
                     $db_info[$k]['status']="Failed";
                     $db_info[$k]['info']=$db->ErrorMsg();
-                    if($db->ErrorNo()==0)
+                    if ($db->ErrorNo()==0)
                     {
                         $db_info[$k]['name']="$v";
                         $db_info[$k]['status']="Passed";
@@ -393,12 +393,12 @@ class SETUPINFO_CLASS
     function get_env_variables(&$env_info)
     {
         $env_info = NULL;
-        if($this->switches['Show_Env_Var']['enabled'])
+        if ($this->switches['Show_Env_Var']['enabled'])
         {
             $id=0;
             ksort($_SERVER);
             reset($_SERVER);
-            foreach($_SERVER as $name => $value)
+            foreach ($_SERVER as $name => $value)
             {
                 $array_var = explode(";", "$value");
                 $value =implode("; ",$array_var);
@@ -450,7 +450,7 @@ class SETUPINFO_CLASS
         $current_info[] = "%SEPERATOR%";
 
         $game_root = $this->get_gameroot(true);
-        if($game_root['status'] != false)
+        if ($game_root['status'] != false)
         {
             $current_info[] = array("caption" => '$gameroot', "value" => $gameroot, "status" => (trim($gameroot) == trim($game_root['result']) ? "Correct" : "Incorrect") );
         }
@@ -460,7 +460,7 @@ class SETUPINFO_CLASS
         }
 
         $game_path = $this->get_gamepath(true);
-        if($game_path['status'] != false)
+        if ($game_path['status'] != false)
         {
             $current_info[] = array("caption" => '$gamepath', "value" => $gamepath, "status" => (trim($gamepath) == trim($game_path['result']) ? "Correct" : "Incorrect") );
         }
@@ -471,7 +471,7 @@ class SETUPINFO_CLASS
 
 
         $game_domain = $this->get_gamedomain(true);
-        if($game_domain['status'] != false)
+        if ($game_domain['status'] != false)
         {
             $current_info[] = array("caption" => '$gamedomain', "value" => $gamedomain, "status" => (trim($gamedomain) == trim($game_domain['result']) ? "Correct" : "Incorrect") );
         }
@@ -511,7 +511,7 @@ class SETUPINFO_CLASS
 
     function get_switches()
     {
-        for($n=0; $n < count($this->switches); $n++)
+        for ($n = 0; $n < count($this->switches); $n++)
         {
             list($switch_name, $switch_array) = each($this->switches);
             $switch_info[$switch_name] = array("caption" => "{$switch_array['caption']}", "info" => "{$switch_array['info']}", "value" => "{$switch_array['enabled']}");
@@ -525,7 +525,7 @@ class SETUPINFO_CLASS
         ##########################
         # Get System Information #
         ##########################
-        if(function_exists('php_uname'))
+        if (function_exists('php_uname'))
         {
             $software_info[]['System'] = php_uname();
         }
@@ -549,7 +549,7 @@ class SETUPINFO_CLASS
         ######################
         # Get Remote Address #
         ######################
-        if(!empty($_SERVER['REMOTE_ADDR']))
+        if (!empty($_SERVER['REMOTE_ADDR']))
         {
             $RemoteAddr = "{$_SERVER['REMOTE_ADDR']}";
         }
@@ -557,7 +557,7 @@ class SETUPINFO_CLASS
         ######################
         # Get Server Address #
         ######################
-        if(!empty($_SERVER['SERVER_ADDR'])&&!empty($_SERVER['SERVER_PORT']))
+        if (!empty($_SERVER['SERVER_ADDR'])&&!empty($_SERVER['SERVER_PORT']))
         {
             $ServerAddr = "{$_SERVER['HTTP_HOST']}:{$_SERVER['SERVER_PORT']}";
         }
@@ -620,7 +620,7 @@ class SETUPINFO_CLASS
         }
         #####################
 
-        if(!empty($PHP_Interface))
+        if (!empty($PHP_Interface))
         {
             $software_info[]['php_interface'] = "$PHP_Interface";
         }
@@ -631,23 +631,23 @@ class SETUPINFO_CLASS
 
         for ($i=0;$i<(count($ar));$i++)
         {
-            switch(strtoupper($ar[$i]))
+            switch (strtoupper($ar[$i]))
             {
-                case 'MOD_SSL':$i++;if(empty($MOD_SSL_VERSION)) $MOD_SSL_VERSION = $ar[$i];break;
-                case 'OPENSSL':$i++;if(empty($OPENSSL_VERSION)) $OPENSSL_VERSION = $ar[$i];break;
-                case 'MICROSOFT-IIS':$i++;if(empty($IIS_VERSION)) $IIS_VERSION = $ar[$i];break;
+                case 'MOD_SSL':$i++;if (empty($MOD_SSL_VERSION)) $MOD_SSL_VERSION = $ar[$i];break;
+                case 'OPENSSL':$i++;if (empty($OPENSSL_VERSION)) $OPENSSL_VERSION = $ar[$i];break;
+                case 'MICROSOFT-IIS':$i++;if (empty($IIS_VERSION)) $IIS_VERSION = $ar[$i];break;
             }
         }
 
-        if(!empty($MOD_SSL_VERSION))
+        if (!empty($MOD_SSL_VERSION))
         {
             $software_info[]['* mod_ssl Version'] = "$MOD_SSL_VERSION";
         }
-        if(!empty($OPENSSL_VERSION))
+        if (!empty($OPENSSL_VERSION))
         {
             $software_info[]['* OpenSSL Version'] = "$OPENSSL_VERSION";
         }
-        if(!empty($IIS_VERSION))
+        if (!empty($IIS_VERSION))
         {
             $software_info[]['iis_version'] = "$IIS_VERSION";
         }
@@ -663,13 +663,13 @@ class SETUPINFO_CLASS
     function findinfile($filename,$pattern)
     {
         $result=false;
-        if(isset($filename) && function_exists('file'))
+        if (isset($filename) && function_exists('file'))
         {
             $lines = file($filename);
 
             foreach ($lines as $line_num => $line)
             {
-                if(preg_match("/\b$pattern\b/i", $line))
+                if (preg_match("/\b$pattern\b/i", $line))
                 {
                     $line = substr($line,strpos($line,$pattern));
                     list($fixname,$fixversion,$fixdate,$fixauthor) = preg_split("/[,]+/", $line, 4);
@@ -700,7 +700,7 @@ class SETUPINFO_CLASS
     #########################################
     function get_patch_info(&$patch_info)
     {
-        if($this->switches['Display_Patches']['enabled'])
+        if ($this->switches['Display_Patches']['enabled'])
         {
             ############################
             # Patch Settings Section   #
@@ -738,10 +738,10 @@ class SETUPINFO_CLASS
             $PATCH_INFO['create_universe']['author']=$result['author'];
             $PATCH_INFO['create_universe']['date']=$result['date'];
 
-            foreach($PATCH_INFO as $n => $s)
+            foreach ($PATCH_INFO as $n => $s)
             {
                 $patch_info[$n][0]= array("name" => $PATCH_INFO[$n]['name'], "info" => $PATCH_INFO[$n]['info'], "patched" => $PATCH_INFO[$n]['patched']);
-                if($PATCH_INFO[$n]['patched']!="Not Found")
+                if ($PATCH_INFO[$n]['patched']!="Not Found")
                 {
                     $patch_info[$n][1]=array("caption" => "Patch Information", "author" => $PATCH_INFO[$n]['author'],"created" => $PATCH_INFO[$n]['date']);
                 }
@@ -757,7 +757,7 @@ class SETUPINFO_CLASS
         global $gamepath, $gamedomain,$DoneRefresh,$_COOKIE,$_SESSION;
         $COOKIE_Info =NULL;
 
-        if($this->switches['Test_Cookie']['enabled'])
+        if ($this->switches['Test_Cookie']['enabled'])
         {
             if (function_exists('session_start'))
             {
@@ -876,7 +876,7 @@ class SETUPINFO_CLASS
         $Col_Str=''; $WrapStr=" nowrap";
 
         If ($Wrap==true) $WrapStr = '';
-        if($status==false)
+        if ($status==false)
         {
             if ($Cols==3) $Col_Str="colspan=\"".($Cols-1)."\"";
             $this->DisplayFlush("    <tr>\n");

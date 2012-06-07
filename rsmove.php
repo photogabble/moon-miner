@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_rs_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -35,7 +35,7 @@ bigtitle();
 
 $deg = pi() / 180;
 
-if(isset($destination))
+if (isset($destination))
 {
   $destination = round(abs($destination));
 }
@@ -54,17 +54,17 @@ if(isset($destination))
   $distance = round(sqrt(mypw($x, 2) + mypw($y, 2) + mypw($z, 2)));
   $shipspeed = mypw($level_factor, $playerinfo['engines']);
   $triptime = round($distance / $shipspeed);
-  if($triptime == 0 && $destination != $playerinfo['sector'])
+  if ($triptime == 0 && $destination != $playerinfo['sector'])
   {
     $triptime = 1;
   }
-  if($destination == $playerinfo['sector'])
+  if ($destination == $playerinfo['sector'])
   {
     $triptime = 0;
     $energyscooped = 0;
   }
 
-if(!isset($destination))
+if (!isset($destination))
 {
   echo "<FORM ACTION=rsmove.php METHOD=POST>";
   $l_rs_insector=str_replace("[sector]",$playerinfo['sector'],$l_rs_insector);
@@ -76,7 +76,7 @@ if(!isset($destination))
 }
 elseif (($destination < $sector_max && empty($engage)) || ($destination < $sector_max && $triptime > 100 && $engage == 1))
 {
-  if($playerinfo['dev_fuelscoop'] == "Y")
+  if ($playerinfo['dev_fuelscoop'] == "Y")
   {
     $energyscooped = $distance * 100;
   }
@@ -84,16 +84,16 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
   {
     $energyscooped = 0;
   }
-  if($playerinfo['dev_fuelscoop'] == "Y" && $energyscooped == 0 && $triptime == 1)
+  if ($playerinfo['dev_fuelscoop'] == "Y" && $energyscooped == 0 && $triptime == 1)
   {
     $energyscooped = 100;
   }
   $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
-  if($free_power < $energyscooped)
+  if ($free_power < $energyscooped)
   {
     $energyscooped = $free_power;
   }
-  if($energyscooped < 1)
+  if ($energyscooped < 1)
   {
     $energyscooped = 0;
   }
@@ -101,7 +101,7 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
  $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
  $l_rs_energy=str_replace("[energy]",NUMBER($energyscooped),$l_rs_energy);
   echo "$l_rs_movetime $l_rs_energy<BR><BR>";
-  if($triptime > $playerinfo['turns'])
+  if ($triptime > $playerinfo['turns'])
   {
     echo "$l_rs_noturns";
   }
@@ -113,9 +113,9 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
     echo "$l_rs_engage<BR><BR>";
   }
 }
-elseif($destination < $sector_max && $engage > 0)
+elseif ($destination < $sector_max && $engage > 0)
 {
-  if($playerinfo['dev_fuelscoop'] == "Y")
+  if ($playerinfo['dev_fuelscoop'] == "Y")
   {
     $energyscooped = $distance * 100;
   }
@@ -123,24 +123,24 @@ elseif($destination < $sector_max && $engage > 0)
   {
     $energyscooped = 0;
   }
-  if($playerinfo['dev_fuelscoop'] == "Y" && $energyscooped == 0 && $triptime == 1)
+  if ($playerinfo['dev_fuelscoop'] == "Y" && $energyscooped == 0 && $triptime == 1)
   {
     $energyscooped = 100;
   }
   $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
-  if($free_power < $energyscooped)
+  if ($free_power < $energyscooped)
   {
     $energyscooped = $free_power;
   }
-  if(!isset($energyscooped))
+  if (!isset($energyscooped))
   {
     $energyscooped = "0";
   }
-  if($energyscooped < 1)
+  if ($energyscooped < 1)
   {
     $energyscooped = 0;
   }
-  if($triptime > $playerinfo['turns'])
+  if ($triptime > $playerinfo['turns'])
   {
    $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
     echo "$l_rs_movetime<BR><BR>";
@@ -153,7 +153,7 @@ elseif($destination < $sector_max && $engage > 0)
     $sector = $destination;
     $calledfrom = "rsmove.php";
     include("check_fighters.php");
-    if($ok>0)
+    if ($ok>0)
     {
        $stamp = date("Y-m-d H-i-s");
        $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");

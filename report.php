@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_report_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -40,13 +40,13 @@ $shiptypes[4]= "hugeship.png";
 
 $shipavg = get_avg_tech($playerinfo, "ship");
 
-if($shipavg < 8)
+if ($shipavg < 8)
    $shiplevel = 0;
-elseif($shipavg < 12)
+elseif ($shipavg < 12)
    $shiplevel = 1;
-elseif($shipavg < 16)
+elseif ($shipavg < 16)
    $shiplevel = 2;
-elseif($shipavg < 20)
+elseif ($shipavg < 20)
    $shiplevel = 3;
 else
    $shiplevel = 4;

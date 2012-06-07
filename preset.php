@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_pre_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -33,7 +33,7 @@ $playerinfo = $result->fields;
 
 bigtitle();
 
-if(!isset($change))
+if (!isset($change))
 {
     echo "<form action='preset.php' method='post'>";
     echo "<div style='padding:2px;'>Preset 1: <input type='text' name='preset1' size='6' maxlength='6' value='{$playerinfo['preset1']}'></div>";
@@ -48,19 +48,19 @@ else
     $preset1 = round(abs($preset1));
     $preset2 = round(abs($preset2));
     $preset3 = round(abs($preset3));
-    if($preset1 >= $sector_max)
+    if ($preset1 >= $sector_max)
     {
         $l_pre_exceed = str_replace("[preset]", "1", $l_pre_exceed);
         $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
         echo $l_pre_exceed;
     }
-    elseif($preset2 >= $sector_max)
+    elseif ($preset2 >= $sector_max)
     {
         $l_pre_exceed = str_replace("[preset]", "2", $l_pre_exceed);
         $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
         echo $l_pre_exceed;
     }
-    elseif($preset3 >= $sector_max)
+    elseif ($preset3 >= $sector_max)
     {
         $l_pre_exceed = str_replace("[preset]", "3", $l_pre_exceed);
         $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);

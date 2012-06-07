@@ -32,7 +32,7 @@ if (result == true)
     $startdate = date("Y/m/d");
     $res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
 
-    if($res->EOF)
+    if ($res->EOF)
     {
         echo "    url = 'news.php';\n";
         echo "    text = '{$l_news_none}';\n";

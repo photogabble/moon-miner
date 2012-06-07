@@ -40,7 +40,7 @@ function YESNO($onoff)
 
 $module = $menu;
 
-if($swordfish != $adminpass)
+if ($swordfish != $adminpass)
 {
   echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
   echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20><BR><BR>";
@@ -52,7 +52,7 @@ else
   // ******************************
   // ******** MAIN MENU ***********
   // ******************************
-  if(empty($module))
+  if (empty($module))
   {
     echo "Welcome to the Blacknova Traders Xenobe Control module<BR><BR>";
     echo "Select a function from the list below:<BR>";
@@ -74,7 +74,7 @@ else
     // ***********************************************
     // ********* START OF INSTRUCTIONS SUB ***********
     // ***********************************************
-    if($module == "instruct")
+    if ($module == "instruct")
     {
       echo "<H2>Xenobe Instructions</H2>";
       echo "<P>&nbsp;&nbsp;&nbsp; Welcome to the Xenobe Control module.  This is the module that will control the Xenobe players in the game. ";
@@ -141,15 +141,15 @@ else
     // ***********************************************
     // ********* START OF Xenobe EDIT SUB ***********
     // ***********************************************
-    elseif($module == "xenobeedit")
+    elseif ($module == "xenobeedit")
     {
       echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0 \">Xenobe Editor</span><BR>";
       echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
-      if(empty($user))
+      if (empty($user))
       {
         echo "<SELECT SIZE=20 NAME=user>";
         $res = $db->Execute("SELECT email,character_name,ship_destroyed,active,sector FROM $dbtables[ships] JOIN $dbtables[xenobe] WHERE email=xenobe_id ORDER BY sector");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $row=$res->fields;
           $charnamelist = sprintf("%-20s", $row['character_name']);
@@ -165,7 +165,7 @@ else
       }
       else
       {
-        if(empty($operation))
+        if (empty($operation))
         {
           $res = $db->Execute("SELECT * FROM $dbtables[ships] JOIN $dbtables[xenobe] WHERE email=xenobe_id AND email='$user'");
           $row = $res->fields;
@@ -248,11 +248,11 @@ else
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><BR>";
 
           $logres = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
-          while(!$logres->EOF)
+          while (!$logres->EOF)
           {
             $logrow = $logres->fields;
             $logtype = "";
-            switch($logrow[type])
+            switch ($logrow[type])
             {
               case LOG_Xenobe_ATTACK:
                 $logtype = "Launching an attack on ";
@@ -269,7 +269,7 @@ else
             $logres->MoveNext();
           }
         }
-        elseif($operation == "save")
+        elseif ($operation == "save")
         {
           // update database
           $_ship_destroyed = empty($ship_destroyed) ? "N" : "Y";
@@ -277,13 +277,13 @@ else
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
           $_active = empty($active) ? "N" : "Y";
           $result = $db->Execute("UPDATE $dbtables[ships] SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE email='$user'");
-          if(!$result) {
+          if (!$result) {
             echo "Changes to Xenobe ship record have FAILED Due to the following Error:<BR><BR>";
             echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Xenobe ship record have been saved.<BR><BR>";
             $result2 = $db->Execute("UPDATE $dbtables[xenobe] SET active='$_active',orders='$orders',aggression='$aggression' WHERE xenobe_id='$user'");
-            if(!$result2) {
+            if (!$result2) {
               echo "Changes to Xenobe activity record have FAILED Due to the following Error:<BR><BR>";
               echo $db->ErrorMsg() . "<br>";
             } else {
@@ -305,19 +305,19 @@ else
     // ***********************************************
     // ******** START OF DROP Xenobe SUB ***********
     // ***********************************************
-    elseif($module == "dropxenobe")
+    elseif ($module == "dropxenobe")
     {
       echo "<H1>Drop and Re-Install Xenobe Database</H1>";
       echo "<H3>This will DELETE All Xenobe records from the <i>ships</i> TABLE then DROP and reset the <i>xenobe</i> TABLE</H3>";
       echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
-      if(empty($operation))
+      if (empty($operation))
       {
         echo "<BR>";
         echo "<H2><FONT COLOR=Red>Are You Sure?</FONT></H2><BR>";
         echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=dropxen>";
         echo "<INPUT TYPE=SUBMIT VALUE=Drop>";
       }
-      elseif($operation == "dropxen")
+      elseif ($operation == "dropxen")
       {
         // Delete all xenobe in the ships table
         echo "Deleting xenobe records in the ships table...<BR>";
@@ -350,22 +350,22 @@ else
     // ***********************************************
     // ***** START OF CLEAR Xenobe LOG SUB *********
     // ***********************************************
-    elseif($module == "clearlog")
+    elseif ($module == "clearlog")
     {
       echo "<H1>Clear All Xenobe Logs</H1>";
       echo "<H3>This will DELETE All Xenobe log files</H3>";
       echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
-      if(empty($operation))
+      if (empty($operation))
       {
         echo "<BR>";
         echo "<H2><FONT COLOR=Red>Are You Sure?</FONT></H2><BR>";
         echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=clearxenlog>";
         echo "<INPUT TYPE=SUBMIT VALUE=Clear>";
       }
-      elseif($operation == "clearxenlog")
+      elseif ($operation == "clearxenlog")
       {
         $res = $db->Execute("SELECT email,ship_id FROM $dbtables[ships] WHERE email LIKE '%@xenobe'");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $row = $res->fields;
           $db->Execute("DELETE FROM $dbtables[logs] WHERE ship_id=$row[ship_id]");
@@ -384,12 +384,12 @@ else
     // ***********************************************
     // ******** START OF CREATE Xenobe SUB **********
     // ***********************************************
-    elseif($module == "createnew")
+    elseif ($module == "createnew")
     {
       echo "<B>Create A New Xenobe</B>";
       echo "<BR>";
       echo "<FORM ACTION=xenobe_control.php METHOD=POST>";
-      if(empty($operation))
+      if (empty($operation))
       {
         // Create Xenobe Name
         $Sylable1 = array("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
@@ -445,7 +445,7 @@ else
         echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=createxenobe>";
         echo "<INPUT TYPE=SUBMIT VALUE=Create>";
       }
-      elseif($operation == "createxenobe")
+      elseif ($operation == "createxenobe")
       {
         // update database
         $_active = empty($active) ? "N" : "Y";
@@ -494,7 +494,7 @@ else
           $thesql = "INSERT INTO $dbtables[ships] ( `ship_id` , `ship_name` , `ship_destroyed` , `character_name` , `password` , `email` , `hull` , `engines` , `power` , `computer` , `sensors` , `beams` , `torp_launchers` , `torps` , `shields` , `armor` , `armor_pts` , `cloak` , `credits` , `sector` , `ship_ore` , `ship_organics` , `ship_goods` , `ship_energy` , `ship_colonists` , `ship_fighters` , `ship_damage` , `turns` , `on_planet` , `dev_warpedit` , `dev_genesis` , `dev_beacon` , `dev_emerwarp` , `dev_escapepod` , `dev_fuelscoop` , `dev_minedeflector` , `turns_used` , `last_login` , `rating` , `score` , `team` , `team_invite` , `interface` , `ip_address` , `planet_id` , `preset1` , `preset2` , `preset3` , `trade_colonists` , `trade_fighters` , `trade_torps` , `trade_energy` , `cleared_defences` , `lang` , `dhtml` , `dev_lssd` )
                                     VALUES (NULL,'$shipname','N','$character','$makepass','$emailname',$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$maxtorps,$xenlevel,$xenlevel,$maxarmor,$xenlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,0,$start_turns,'N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y',NULL,'$default_lang','N','Y')";
           $result2 = $db->Execute($thesql);
-          if(!$result2)
+          if (!$result2)
           {
                echo $db->ErrorMsg() . "<br>";
           }
@@ -505,7 +505,7 @@ else
             echo "Ship Records have been updated.<BR><BR>";
           }
           $result3 = $db->Execute("INSERT INTO $dbtables[xenobe] (xenobe_id,active,aggression,orders) VALUES('$emailname','$_active','$aggression','$orders')");
-          if(!$result3)
+          if (!$result3)
           {
             echo $db->ErrorMsg() . "<br>";
           }
@@ -530,7 +530,7 @@ else
       echo "Unknown function";
     }
 
-    if($button_main)
+    if ($button_main)
     {
       echo "<BR><BR>";
       echo "<FORM ACTION=xenobe_control.php METHOD=POST>";

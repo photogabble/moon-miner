@@ -24,7 +24,7 @@ global $l_map_title;
 $title=$l_map_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -56,11 +56,11 @@ $map_width= ($div_w+$div_border) * $div_xmax;  // Define the containing div to b
 
 // Setup containing div to hold the width of the images
 echo "\n<div id='map' style='position:relative;background-color:#0000ff;width:".$map_width."px'>\n";
-for($r=0;$r<$div_ymax;$r++) // Loop the rows
+for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
 {
-    for($c=0;$c<$div_xmax;$c++) // Loop the columns
+    for ($c = 0; $c < $div_xmax; $c++) // Loop the columns
     {
-        if(isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
+        if (isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
         {
             $p = $row['port_type'];
             // Build the alt text for each image
@@ -94,7 +94,7 @@ for($r=0;$r<$div_ymax;$r++) // Loop the rows
 }
 
 // This is the row numbers on the side of the map
-for($a=1;$a<($sector_max/50 +1);$a++)
+for ($a = 1; $a < ($sector_max/50 +1); $a++)
 {
     echo "\n<div style='position:absolute;left:".($map_width+10)."px;top:".(($a-1) * ($div_h+$div_border))."px;'>".($a*50)."</div>";
 }

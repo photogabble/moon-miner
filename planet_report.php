@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_pr_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -41,19 +41,19 @@ $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
-if($PRepType==1 || !isset($PRepType)) // Display the commodities on the planets
+if ($PRepType==1 || !isset($PRepType)) // Display the commodities on the planets
 {
     $title=$title .": Status";
     bigtitle();
     standard_report();
 }
-elseif($PRepType==2)                  // Display the production values of your planets and allow changing
+elseif ($PRepType==2)                  // Display the production values of your planets and allow changing
 {
     $title=$title .": Production";
     bigtitle();
     planet_production_change();
 }
-elseif($PRepType==0)                  // For typing in manually to get a report menu
+elseif ($PRepType==0)                  // For typing in manually to get a report menu
 {
     $title=$title . ": Menu";
     bigtitle();
@@ -115,18 +115,18 @@ function standard_report()
 
     $query = "SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id]";
 
-    if(!empty($sort))
+    if (!empty($sort))
     {
         $query .= " ORDER BY";
-        if($sort == "name")
+        if ($sort == "name")
         {
             $query .= " $sort ASC";
         }
-        elseif($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" ||$sort == "colonists" || $sort == "credits" || $sort == "fighters")
+        elseif ($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" ||$sort == "colonists" || $sort == "credits" || $sort == "fighters")
         {
             $query .= " $sort DESC, sector_id ASC";
         }
-        elseif($sort == "torp")
+        elseif ($sort == "torp")
         {
             $query .= " torps DESC, sector_id ASC";
         }
@@ -143,9 +143,9 @@ function standard_report()
     $res = $db->Execute($query);
 
     $i = 0;
-    if($res)
+    if ($res)
     {
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
             $planet[$i] = $res->fields;
             $i++;
@@ -155,7 +155,7 @@ function standard_report()
 
     global $l_pr_noplanet;
     $num_planets = $i;
-    if($num_planets < 1)
+    if ($num_planets < 1)
     {
         echo "<BR>$l_pr_noplanet";
     }
@@ -181,7 +181,7 @@ function standard_report()
         echo "<TD ALIGN=CENTER><B><A HREF=planet_report.php?PRepType=1&sort=fighters>$l_fighters</A></B></TD>";
         echo "<TD ALIGN=CENTER><B><A HREF=planet_report.php?PRepType=1&sort=torp>$l_torps</A></B></TD>";
         echo "<TD ALIGN=RIGHT><B>$l_base?</B></TD>";
-        if($playerinfo[team] > 0)
+        if ($playerinfo[team] > 0)
         {
             echo "<TD ALIGN=RIGHT><B>Corp?</B></TD>";
         }
@@ -201,7 +201,7 @@ function standard_report()
         $total_corp = 0;
         $total_selling = 0;
         $color = $color_line1;
-        for($i=0; $i<$num_planets; $i++)
+        for ($i = 0; $i < $num_planets; $i++)
         {
             $total_organics += $planet[$i][organics];
             $total_ore += $planet[$i][ore];
@@ -211,19 +211,19 @@ function standard_report()
             $total_credits += $planet[$i][credits];
             $total_fighters += $planet[$i][fighters];
             $total_torp += $planet[$i][torps];
-            if($planet[$i][base] == "Y")
+            if ($planet[$i][base] == "Y")
             {
                 $total_base += 1;
             }
-            if($planet[$i][corp] > 0)
+            if ($planet[$i][corp] > 0)
             {
                 $total_corp += 1;
             }
-            if($planet[$i][sells] == "Y")
+            if ($planet[$i][sells] == "Y")
             {
                 $total_selling += 1;
             }
-            if(empty($planet[$i][name]))
+            if (empty($planet[$i][name]))
             {
                 $planet[$i][name] = $l_unnamed;
             }
@@ -241,7 +241,7 @@ function standard_report()
             echo "<TD ALIGN=RIGHT>"  . NUMBER($planet[$i][fighters]) . "</TD>";
             echo "<TD ALIGN=RIGHT>"  . NUMBER($planet[$i][torps]) . "</TD>";
             echo "<TD ALIGN=CENTER>" . base_build_check($planet, $i) . "</TD>";
-            if($playerinfo[team] > 0)
+            if ($playerinfo[team] > 0)
             {
                 echo "<TD ALIGN=CENTER>" . ($planet[$i][corp] > 0  ? "$l_yes" : "$l_no") . "</TD>";
             }
@@ -249,7 +249,7 @@ function standard_report()
             echo "<TD ALIGN=CENTER>" . ($planet[$i][sells] == 'Y' ? "$l_yes" : "$l_no") . "</TD>";
             echo "</TR>";
 
-            if($color == $color_line1)
+            if ($color == $color_line1)
             {
                 $color = $color_line2;
             }
@@ -272,7 +272,7 @@ function standard_report()
         echo "<TD ALIGN=RIGHT>"  . NUMBER($total_fighters) . "</TD>";
         echo "<TD ALIGN=RIGHT>"  . NUMBER($total_torp) . "</TD>";
         echo "<TD ALIGN=CENTER>" . NUMBER($total_base) . "</TD>";
-        if($playerinfo[team] > 0)
+        if ($playerinfo[team] > 0)
         {
             echo "<TD ALIGN=CENTER>" . NUMBER($total_corp) . "</TD>";
         }
@@ -313,22 +313,22 @@ function planet_production_change()
         echo "<BR><B><A HREF=team_planets.php>$l_pr_teamlink</A></B><BR> <BR>";
     }
 
-    if(!empty($sort))
+    if (!empty($sort))
     {
         $query .= " ORDER BY";
-        if($sort == "name")
+        if ($sort == "name")
         {
             $query .= " $sort ASC";
         }
-        elseif($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" || $sort == "fighters")
+        elseif ($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" || $sort == "fighters")
         {
             $query .= " prod_$sort DESC, sector_id ASC";
         }
-        elseif($sort == "colonists" || $sort == "credits")
+        elseif ($sort == "colonists" || $sort == "credits")
         {
             $query .= " $sort DESC, sector_id ASC";
         }
-        elseif($sort == "torp")
+        elseif ($sort == "torp")
         {
             $query .= " prod_torp DESC, sector_id ASC";
         }
@@ -345,9 +345,9 @@ function planet_production_change()
     $res = $db->Execute($query);
 
     $i = 0;
-    if($res)
+    if ($res)
     {
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
             $planet[$i] = $res->fields;
             $i++;
@@ -356,7 +356,7 @@ function planet_production_change()
     }
 
     $num_planets = $i;
-    if($num_planets < 1)
+    if ($num_planets < 1)
     {
         echo "<BR>$l_pr_noplanet";
     }
@@ -379,7 +379,7 @@ function planet_production_change()
         echo "<TD ALIGN='CENTER'><B><A HREF='planet_report.php?PRepType=2&sort=fighters'>$l_fighters</A></B></TD>\n";
         echo "<TD ALIGN='CENTER'><B><A HREF='planet_report.php?PRepType=2&sort=torp'>$l_torps</A></B></TD>\n";
         //    echo "<TD ALIGN='CENTER'><B>$l_base?</B></TD>\n";
-        if($playerinfo[team] > 0)
+        if ($playerinfo[team] > 0)
         {
             echo "<TD ALIGN='CENTER'><B>Corp?</B></TD>\n";
         }
@@ -394,11 +394,11 @@ function planet_production_change()
 
         $color = $color_line1;
 
-        for($i=0; $i<$num_planets; $i++)
+        for ($i = 0; $i < $num_planets; $i++)
         {
             $total_colonists += $planet[$i][colonists];
             $total_credits += $planet[$i][credits];
-            if(empty($planet[$i][name]))
+            if (empty($planet[$i][name]))
             {
                 $planet[$i][name] = $l_unnamed;
             }
@@ -414,7 +414,7 @@ function planet_production_change()
             echo "<TD ALIGN=RIGHT>"  . NUMBER($planet[$i][credits])        . "</TD>\n";
             echo "<TD ALIGN=CENTER>" . "<input size=6 type=text name=\"prod_fighters[" . $planet[$i]["planet_id"] . "]\" value=\"" . $planet[$i]["prod_fighters"] . "\">" . "</TD>\n";
             echo "<TD ALIGN=CENTER>" . "<input size=6 type=text name=\"prod_torp["     . $planet[$i]["planet_id"] . "]\" value=\"" . $planet[$i]["prod_torp"]     . "\">" . "</TD>\n";
-            if($playerinfo[team] > 0)
+            if ($playerinfo[team] > 0)
             {
                 echo "<TD ALIGN=CENTER>" . corp_planet_checkboxes($planet, $i) . "</TD>\n";
             }
@@ -422,7 +422,7 @@ function planet_production_change()
             echo "<TD ALIGN=CENTER>" . selling_checkboxes($planet, $i)     . "</TD>\n";
             echo "</TR>\n";
 
-            if($color == $color_line1)
+            if ($color == $color_line1)
             {
                 $color = $color_line2;
             }
@@ -442,7 +442,7 @@ function planet_production_change()
         echo "<TD ALIGN=RIGHT>" . NUMBER($total_credits)   . "</TD>\n";
         echo "<TD>" . "" . "</TD>\n";
         echo "<TD>" . "" . "</TD>\n";
-        if($playerinfo[team] > 0)
+        if ($playerinfo[team] > 0)
         {
             echo "<TD></TD>\n";
         }
@@ -463,11 +463,11 @@ function planet_production_change()
 
 function corp_planet_checkboxes($planet, $i)
 {
-    if($planet[$i][corp] <= 0)
+    if ($planet[$i][corp] <= 0)
     {
         return("<INPUT TYPE='CHECKBOX' NAME='corp[{$i}]' VALUE='{$planet[$i]['planet_id']}' />");
     }
-    elseif($planet[$i][corp] > 0)
+    elseif ($planet[$i][corp] > 0)
     {
         return("<INPUT TYPE='CHECKBOX' NAME='corp[{$i}]' VALUE='{$planet[$i]['planet_id']}' CHECKED />");
     }
@@ -475,11 +475,11 @@ function corp_planet_checkboxes($planet, $i)
 
 function selling_checkboxes($planet, $i)
 {
-    if($planet[$i][sells] != 'Y')
+    if ($planet[$i][sells] != 'Y')
     {
         return("<INPUT TYPE='CHECKBOX' NAME='sells[{$i}]' VALUE='{$planet[$i]['planet_id']}' />");
     }
-    elseif($planet[$i][sells] == 'Y')
+    elseif ($planet[$i][sells] == 'Y')
     {
         return("<INPUT TYPE='CHECKBOX' NAME='sells[{$i}]' VALUE='{$planet[$i]['planet_id']}' CHECKED />");
     }
@@ -490,11 +490,11 @@ function base_build_check($planet, $i)
     global $l_yes, $l_no;
     global $base_ore, $base_organics, $base_goods, $base_credits;
 
-    if($planet[$i][base] == 'Y')
+    if ($planet[$i][base] == 'Y')
     {
         return("$l_yes");
     }
-    elseif($planet[$i][ore] >= $base_ore && $planet[$i][organics] >= $base_organics && $planet[$i][goods] >= $base_goods && $planet[$i][credits] >= $base_credits)
+    elseif ($planet[$i][ore] >= $base_ore && $planet[$i][organics] >= $base_organics && $planet[$i][goods] >= $base_goods && $planet[$i][credits] >= $base_credits)
     {
         return("<A HREF=planet_report_ce.php?buildp=" . $planet[$i]["planet_id"] . "&builds=" . $planet[$i]["sector_id"] . ">Build</A>");
     }

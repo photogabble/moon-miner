@@ -24,7 +24,7 @@ include("languages/$lang");
 $title=$l_sendm_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -34,7 +34,7 @@ $playerinfo = $res->fields;
 
 bigtitle();
 
-if(empty($content))
+if (empty($content))
 {
     $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
     $res2 = $db->Execute("SELECT team_name FROM $dbtables[teams] WHERE admin ='N' ORDER BY team_name ASC");
@@ -48,14 +48,14 @@ if(empty($content))
     # Add self to list.
     echo "          <OPTION".(($playerinfo['character_name']==$name)?" selected":"").">{$playerinfo['character_name']}</OPTION>\n";
 
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $row = $res->fields;
         echo "          <OPTION".(($row['character_name']==$name)?" selected":"").">{$row['character_name']}</OPTION>\n";
         $res->MoveNext();
     }
 
-    while(!$res2->EOF && $res2->fields != null)
+    while (!$res2->EOF && $res2->fields != null)
     {
         $row2 = $res2->fields;
         echo "          <OPTION>$l_sendm_ally $row2[team_name]</OPTION>\n";
@@ -106,7 +106,7 @@ else
         $content = addslashes($content);
         $subject = htmlspecialchars($subject);
         $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, sent, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$timestamp."', '".$subject."', '".$content."')");
-        if(mysql_errno() != 0)
+        if (mysql_errno() != 0)
         {
             echo "Message failed to send.<br>\n";
         }

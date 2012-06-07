@@ -102,9 +102,9 @@ function xenobetoship($ship_id)
   $targetdestroyed = 0;
 
   // BEGIN COMBAT PROCEDURES
-  if($attackerbeams > 0 && $targetfighters > 0)
+  if ($attackerbeams > 0 && $targetfighters > 0)
   {                         // ATTACKER HAS BEAMS - TARGET HAS FIGHTERS - BEAMS VS FIGHTERS
-    if($attackerbeams > round($targetfighters / 2))
+    if ($attackerbeams > round($targetfighters / 2))
     {                                  // ATTACKER BEAMS GT HALF TARGET FIGHTERS
       $lost = $targetfighters-(round($targetfighters/2));
       $targetfighters = $targetfighters-$lost;                 // T LOOSES HALF ALL FIGHTERS
@@ -115,9 +115,9 @@ function xenobetoship($ship_id)
       $attackerbeams = 0;                                      // A LOOSES ALL BEAMS
     }
   }
-  if($attackerfighters > 0 && $targetbeams > 0)
+  if ($attackerfighters > 0 && $targetbeams > 0)
   {                         // TARGET HAS BEAMS - ATTACKER HAS FIGHTERS - BEAMS VS FIGHTERS
-    if($targetbeams > round($attackerfighters / 2))
+    if ($targetbeams > round($attackerfighters / 2))
     {                                  // TARGET BEAMS GT HALF ATTACKER FIGHTERS
       $lost=$attackerfighters-(round($attackerfighters/2));
       $attackerfighters=$attackerfighters-$lost;               // A LOOSES HALF ALL FIGHTERS
@@ -128,9 +128,9 @@ function xenobetoship($ship_id)
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
-  if($attackerbeams > 0)
+  if ($attackerbeams > 0)
   {                         // ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS
-    if($attackerbeams > $targetshields)
+    if ($attackerbeams > $targetshields)
     {                                  // ATTACKER BEAMS GT TARGET SHIELDS
       $attackerbeams=$attackerbeams-$targetshields;            // A LOOSES BEAMS EQ TO T SHIELDS
       $targetshields=0;                                        // T LOOSES ALL SHIELDS
@@ -140,9 +140,9 @@ function xenobetoship($ship_id)
       $attackerbeams=0;                                        // A LOOSES ALL BEAMS
     }
   }
-  if($targetbeams > 0)
+  if ($targetbeams > 0)
   {                         // TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS
-    if($targetbeams > $attackershields)
+    if ($targetbeams > $attackershields)
     {                                  // TARGET BEAMS GT ATTACKER SHIELDS
       $targetbeams=$targetbeams-$attackershields;              // T LOOSES BEAMS EQ TO A SHIELDS
       $attackershields=0;                                      // A LOOSES ALL SHIELDS
@@ -152,9 +152,9 @@ function xenobetoship($ship_id)
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
-  if($attackerbeams > 0)
+  if ($attackerbeams > 0)
   {                         // ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR
-    if($attackerbeams > $targetarmor)
+    if ($attackerbeams > $targetarmor)
     {                                  // ATTACKER BEAMS GT TARGET ARMOR
       $attackerbeams=$attackerbeams-$targetarmor;              // A LOOSES BEAMS EQ TO T ARMOR
       $targetarmor=0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
@@ -164,9 +164,9 @@ function xenobetoship($ship_id)
       $attackerbeams=0;                                        // A LOOSES ALL BEAMS
     }
   }
-  if($targetbeams > 0)
+  if ($targetbeams > 0)
   {                        // TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR
-    if($targetbeams > $attackerarmor)
+    if ($targetbeams > $attackerarmor)
     {                                 // TARGET BEAMS GT ATTACKER ARMOR
       $targetbeams=$targetbeams-$attackerarmor;                // T LOOSES BEAMS EQ TO A ARMOR
       $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
@@ -176,9 +176,9 @@ function xenobetoship($ship_id)
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
-  if($targetfighters > 0 && $attackertorpdamage > 0)
+  if ($targetfighters > 0 && $attackertorpdamage > 0)
   {                        // ATTACKER FIRES TORPS - TARGET HAS FIGHTERS - TORPS VS FIGHTERS
-    if($attackertorpdamage > round($targetfighters / 2))
+    if ($attackertorpdamage > round($targetfighters / 2))
     {                                 // ATTACKER FIRED TORPS GT HALF TARGET FIGHTERS
       $lost=$targetfighters-(round($targetfighters/2));
       $targetfighters=$targetfighters-$lost;                   // T LOOSES HALF ALL FIGHTERS
@@ -189,9 +189,9 @@ function xenobetoship($ship_id)
       $attackertorpdamage=0;                                   // A LOOSES ALL TORPS FIRED
     }
   }
-  if($attackerfighters > 0 && $targettorpdmg > 0)
+  if ($attackerfighters > 0 && $targettorpdmg > 0)
   {                        // TARGET FIRES TORPS - ATTACKER HAS FIGHTERS - TORPS VS FIGHTERS
-    if($targettorpdmg > round($attackerfighters / 2))
+    if ($targettorpdmg > round($attackerfighters / 2))
     {                                 // TARGET FIRED TORPS GT HALF ATTACKER FIGHTERS
       $lost=$attackerfighters-(round($attackerfighters/2));
       $attackerfighters=$attackerfighters-$lost;               // A LOOSES HALF ALL FIGHTERS
@@ -202,9 +202,9 @@ function xenobetoship($ship_id)
       $targettorpdmg=0;                                        // T LOOSES ALL TORPS FIRED
     }
   }
-  if($attackertorpdamage > 0)
+  if ($attackertorpdamage > 0)
   {                        // ATTACKER FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR
-    if($attackertorpdamage > $targetarmor)
+    if ($attackertorpdamage > $targetarmor)
     {                                 // ATTACKER FIRED TORPS GT HALF TARGET ARMOR
       $attackertorpdamage=$attackertorpdamage-$targetarmor;    // A LOOSES FIRED TORPS EQ TO T ARMOR
       $targetarmor=0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
@@ -214,9 +214,9 @@ function xenobetoship($ship_id)
       $attackertorpdamage=0;                                   // A LOOSES ALL TORPS FIRED
     }
   }
-  if($targettorpdmg > 0)
+  if ($targettorpdmg > 0)
   {                        // TARGET FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR
-    if($targettorpdmg > $attackerarmor)
+    if ($targettorpdmg > $attackerarmor)
     {                                 // TARGET FIRED TORPS GT HALF ATTACKER ARMOR
       $targettorpdmg=$targettorpdmg-$attackerarmor;            // T LOOSES FIRED TORPS EQ TO A ARMOR
       $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
@@ -226,16 +226,16 @@ function xenobetoship($ship_id)
       $targettorpdmg=0;                                        // T LOOSES ALL TORPS FIRED
     }
   }
-  if($attackerfighters > 0 && $targetfighters > 0)
+  if ($attackerfighters > 0 && $targetfighters > 0)
   {                        // ATTACKER HAS FIGHTERS - TARGET HAS FIGHTERS - FIGHTERS VS FIGHTERS
-    if($attackerfighters > $targetfighters)
+    if ($attackerfighters > $targetfighters)
     {                                 // ATTACKER FIGHTERS GT TARGET FIGHTERS
       $temptargfighters=0;                                     // T WILL LOOSE ALL FIGHTERS
     } else
     {                                 // ATTACKER FIGHTERS LE TARGET FIGHTERS
       $temptargfighters=$targetfighters-$attackerfighters;     // T WILL LOOSE FIGHTERS EQ TO A FIGHTERS
     }
-    if($targetfighters > $attackerfighters)
+    if ($targetfighters > $attackerfighters)
     {                                 // TARGET FIGHTERS GT ATTACKER FIGHTERS
       $tempplayfighters=0;                                     // A WILL LOOSE ALL FIGHTERS
     } else
@@ -245,9 +245,9 @@ function xenobetoship($ship_id)
     $attackerfighters=$tempplayfighters;
     $targetfighters=$temptargfighters;
   }
-  if($attackerfighters > 0)
+  if ($attackerfighters > 0)
   {                        // ATTACKER HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR
-    if($attackerfighters > $targetarmor)
+    if ($attackerfighters > $targetarmor)
     {                                 // ATTACKER FIGHTERS GT TARGET ARMOR
       $targetarmor=0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
     } else
@@ -255,9 +255,9 @@ function xenobetoship($ship_id)
       $targetarmor=$targetarmor-$attackerfighters;             // T LOOSES ARMOR EQ TO A FIGHTERS
     }
   }
-  if($targetfighters > 0)
+  if ($targetfighters > 0)
   {                        // TARGET HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR
-    if($targetfighters > $attackerarmor)
+    if ($targetfighters > $attackerarmor)
     {                                 // TARGET FIGHTERS GT ATTACKER ARMOR
       $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
     } else
@@ -281,9 +281,9 @@ function xenobetoship($ship_id)
   // DEAL WITH DESTROYED SHIPS
 
   // TARGET SHIP WAS DESTROYED
-  if(!$targetarmor>0)
+  if (!$targetarmor>0)
   {
-    if($targetinfo[dev_escapepod] == "Y")
+    if ($targetinfo[dev_escapepod] == "Y")
     // TARGET HAD ESCAPE POD
     {
       $rating=round($targetinfo[rating]/2);
@@ -295,7 +295,7 @@ function xenobetoship($ship_id)
       playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
       db_kill_player($targetinfo['ship_id']);
     }
-    if($attackerarmor>0)
+    if ($attackerarmor>0)
     {
       // ATTACKER STILL ALIVE TO SALVAGE TRAGET
       $rating_change=round($targetinfo[rating]*$rating_combat_factor);
@@ -303,11 +303,11 @@ function xenobetoship($ship_id)
       $free_organics = round($targetinfo[ship_organics]/2);
       $free_goods = round($targetinfo[ship_goods]/2);
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-      if($free_holds > $free_goods)
+      if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT WE CAN CARRY
         $salv_goods=$free_goods;
         $free_holds=$free_holds-$free_goods;
-      } elseif($free_holds > 0)
+      } elseif ($free_holds > 0)
       {
         $salv_goods=$free_holds;
         $free_holds=0;
@@ -315,11 +315,11 @@ function xenobetoship($ship_id)
       {
         $salv_goods=0;
       }
-      if($free_holds > $free_ore)
+      if ($free_holds > $free_ore)
       {
         $salv_ore=$free_ore;
         $free_holds=$free_holds-$free_ore;
-      } elseif($free_holds > 0)
+      } elseif ($free_holds > 0)
       {
         $salv_ore=$free_holds;
         $free_holds=0;
@@ -327,11 +327,11 @@ function xenobetoship($ship_id)
       {
         $salv_ore=0;
       }
-      if($free_holds > $free_organics)
+      if ($free_holds > $free_organics)
       {
         $salv_organics=$free_organics;
         $free_holds=$free_holds-$free_organics;
-      } elseif($free_holds > 0)
+      } elseif ($free_holds > 0)
       {
         $salv_organics=$free_holds;
         $free_holds=0;
@@ -352,7 +352,7 @@ function xenobetoship($ship_id)
   }
 
   // TARGET AND ATTACKER LIVE
-  if($targetarmor>0 && $attackerarmor>0)
+  if ($targetarmor>0 && $attackerarmor>0)
   {
     $rating_change=round($targetinfo[rating]*.1);
     $armor_lost = $playerinfo[armor_pts] - $attackerarmor;
@@ -369,12 +369,12 @@ function xenobetoship($ship_id)
   }
 
   // ATTACKER SHIP DESTROYED
-  if(!$attackerarmor>0)
+  if (!$attackerarmor>0)
   {
     playerlog($playerinfo[ship_id], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
     db_kill_player($playerinfo['ship_id']);
     $xenobeisdead = 1;
-    if($targetarmor>0)
+    if ($targetarmor>0)
     {
       // TARGET STILL ALIVE TO SALVAGE ATTACKER
       $rating_change=round($playerinfo[rating]*$rating_combat_factor);
@@ -382,11 +382,11 @@ function xenobetoship($ship_id)
       $free_organics = round($playerinfo[ship_organics]/2);
       $free_goods = round($playerinfo[ship_goods]/2);
       $free_holds = NUM_HOLDS($targetinfo[hull]) - $targetinfo[ship_ore] - $targetinfo[ship_organics] - $targetinfo[ship_goods] - $targetinfo[ship_colonists];
-      if($free_holds > $free_goods)
+      if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT TARGET CAN CARRY
         $salv_goods=$free_goods;
         $free_holds=$free_holds-$free_goods;
-      } elseif($free_holds > 0)
+      } elseif ($free_holds > 0)
       {
         $salv_goods=$free_holds;
         $free_holds=0;
@@ -394,11 +394,11 @@ function xenobetoship($ship_id)
       {
         $salv_goods=0;
       }
-      if($free_holds > $free_ore)
+      if ($free_holds > $free_ore)
       {
         $salv_ore=$free_ore;
         $free_holds=$free_holds-$free_ore;
-      } elseif($free_holds > 0)
+      } elseif ($free_holds > 0)
       {
         $salv_ore=$free_holds;
         $free_holds=0;
@@ -406,11 +406,11 @@ function xenobetoship($ship_id)
       {
         $salv_ore=0;
       }
-      if($free_holds > $free_organics)
+      if ($free_holds > $free_organics)
       {
         $salv_organics=$free_organics;
         $free_holds=$free_holds-$free_organics;
-      } elseif($free_holds > 0)
+      } elseif ($free_holds > 0)
       {
         $salv_organics=$free_holds;
         $free_holds=0;
@@ -455,9 +455,9 @@ function xenobetosecdef()
     $resultf = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
     $i = 0;
     $total_sector_fighters = 0;
-    if($resultf > 0)
+    if ($resultf > 0)
     {
-      while(!$resultf->EOF)
+      while (!$resultf->EOF)
       {
         $defences[$i] = $resultf->fields;
         $total_sector_fighters += $defences[$i]['quantity'];
@@ -468,9 +468,9 @@ function xenobetosecdef()
     $resultm = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$targetlink' and defence_type ='M'");
     $i = 0;
     $total_sector_mines = 0;
-    if($resultm > 0)
+    if ($resultm > 0)
     {
-      while(!$resultm->EOF)
+      while (!$resultm->EOF)
       {
         $defences[$i] = $resultm->fields;
         $total_sector_mines += $defences[$i]['quantity'];
@@ -487,16 +487,16 @@ function xenobetosecdef()
 
       $targetfighters = $total_sector_fighters;
       $playerbeams = NUM_BEAMS($playerinfo[beams]);
-      if($playerbeams>$playerinfo[ship_energy]) {
+      if ($playerbeams>$playerinfo[ship_energy]) {
         $playerbeams=$playerinfo[ship_energy];
       }
       $playerinfo[ship_energy]=$playerinfo[ship_energy]-$playerbeams;
       $playershields = NUM_SHIELDS($playerinfo[shields]);
-      if($playershields>$playerinfo[ship_energy]) {
+      if ($playershields>$playerinfo[ship_energy]) {
         $playershields=$playerinfo[ship_energy];
       }
       $playertorpnum = round(mypw($level_factor,$playerinfo[torp_launchers]))*2;
-      if($playertorpnum > $playerinfo[torps]) {
+      if ($playertorpnum > $playerinfo[torps]) {
         $playertorpnum = $playerinfo[torps];
       }
       $playertorpdmg = $torp_dmg_rate*$playertorpnum;
@@ -515,8 +515,8 @@ function xenobetosecdef()
       // LETS DO SOME COMBAT !
       //
       // BEAMS VS FIGHTERS
-      if($targetfighters > 0 && $playerbeams > 0) {
-        if($playerbeams > round($targetfighters / 2))
+      if ($targetfighters > 0 && $playerbeams > 0) {
+        if ($playerbeams > round($targetfighters / 2))
         {
           $temp = round($targetfighters/2);
           $targetfighters = $temp;
@@ -527,8 +527,8 @@ function xenobetosecdef()
         }
       }
       // TORPS VS FIGHTERS
-      if($targetfighters > 0 && $playertorpdmg > 0) {
-        if($playertorpdmg > round($targetfighters / 2)) {
+      if ($targetfighters > 0 && $playertorpdmg > 0) {
+        if ($playertorpdmg > round($targetfighters / 2)) {
           $temp=round($targetfighters/2);
           $targetfighters=$temp;
           $playertorpdmg=$playertorpdmg-$temp;
@@ -538,14 +538,14 @@ function xenobetosecdef()
         }
       }
       // FIGHTERS VS FIGHTERS
-      if($playerfighters > 0 && $targetfighters > 0) {
-       if($playerfighters > $targetfighters) {
+      if ($playerfighters > 0 && $targetfighters > 0) {
+       if ($playerfighters > $targetfighters) {
          echo $l_sf_destfightall;
          $temptargfighters=0;
         } else {
           $temptargfighters=$targetfighters-$playerfighters;
         }
-        if($targetfighters > $playerfighters) {
+        if ($targetfighters > $playerfighters) {
           $tempplayfighters=0;
         } else {
           $tempplayfighters=$playerfighters-$targetfighters;
@@ -555,8 +555,8 @@ function xenobetosecdef()
       }
       // OH NO THERE ARE STILL FIGHTERS
       // ARMOUR VS FIGHTERS
-      if($targetfighters > 0) {
-        if($targetfighters > $playerarmor) {
+      if ($targetfighters > 0) {
+        if ($targetfighters > $playerarmor) {
           $playerarmor=0;
         } else {
           $playerarmor=$playerarmor-$targetfighters;
@@ -579,7 +579,7 @@ function xenobetosecdef()
       $update1 = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armor_pts=armor_pts-$armor_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
 
       // CHECK TO SEE IF Xenobe IS DEAD
-      if($playerarmor < 1) {
+      if ($playerarmor < 1) {
         $l_sf_sendlog2 = str_replace("[player]", "Xenobe " . $playerinfo[character_name], $l_sf_sendlog2);
         $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
         message_defence_owner($targetlink,$l_sf_sendlog2);
@@ -601,19 +601,19 @@ function xenobetosecdef()
       message_defence_owner($targetlink,"$l_chm_hehitminesinsector");
 
       // DEFLECTORS VS MINES
-      if($playerminedeflect >= $roll) {
+      if ($playerminedeflect >= $roll) {
         // Took no mine damage due to virtual mine deflectors
       } else {
         $mines_left = $roll - $playerminedeflect;
 
         // SHIELDS VS MINES
-        if($playershields >= $mines_left) {
+        if ($playershields >= $mines_left) {
           $update2 = $db->Execute("UPDATE $dbtables[ships] set ship_energy=ship_energy-$mines_left where ship_id=$playerinfo[ship_id]");
         } else {
           $mines_left = $mines_left - $playershields;
 
           // ARMOUR VS MINES
-          if($playerarmor >= $mines_left)
+          if ($playerarmor >= $mines_left)
           {
             $update2 = $db->Execute("UPDATE $dbtables[ships] set armor_pts=armor_pts-$mines_left,ship_energy=0 where ship_id=$playerinfo[ship_id]");
           } else {
@@ -713,9 +713,9 @@ function xenobemove()
     $resultf = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
     $i = 0;
     $total_sector_fighters = 0;
-    if($resultf > 0)
+    if ($resultf > 0)
     {
-      while(!$resultf->EOF)
+      while (!$resultf->EOF)
       {
         $defences[$i] = $resultf->fields;
         $total_sector_fighters += $defences[$i]['quantity'];
@@ -726,9 +726,9 @@ function xenobemove()
     $resultm = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$targetlink' and defence_type ='M'");
     $i = 0;
     $total_sector_mines = 0;
-    if($resultm > 0)
+    if ($resultm > 0)
     {
-      while(!$resultm->EOF)
+      while (!$resultm->EOF)
       {
         $defences[$i] = $resultm->fields;
         $total_sector_mines += $defences[$i]['quantity'];
@@ -908,42 +908,42 @@ function xenobetrade()
   //
   //  CHECK FOR A PORT WE CAN USE
   //
-  if($sectorinfo[port_type] == "none") return;
+  if ($sectorinfo[port_type] == "none") return;
   // Xenobe DO NOT TRADE AT ENERGY PORTS SINCE THEY REGEN ENERGY
-  if($sectorinfo[port_type] == "energy") return;
+  if ($sectorinfo[port_type] == "energy") return;
 
   //
   //  CHECK FOR NEG CREDIT/CARGO
   //
-  if($playerinfo[ship_ore]<0) $playerinfo[ship_ore]=$shipore=0;
-  if($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
-  if($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
-  if($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
-  if($sectorinfo[port_ore] <= 0) return;
-  if($sectorinfo[port_organics] <= 0) return;
-  if($sectorinfo[port_goods] <= 0) return;
+  if ($playerinfo[ship_ore]<0) $playerinfo[ship_ore]=$shipore=0;
+  if ($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
+  if ($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
+  if ($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
+  if ($sectorinfo[port_ore] <= 0) return;
+  if ($sectorinfo[port_organics] <= 0) return;
+  if ($sectorinfo[port_goods] <= 0) return;
 
   //
   //  CHECK Xenobe CREDIT/CARGO
   //
-  if($playerinfo[ship_ore]>0) $shipore=$playerinfo[ship_ore];
-  if($playerinfo[ship_organics]>0) $shiporganics=$playerinfo[ship_organics];
-  if($playerinfo[ship_goods]>0) $shipgoods=$playerinfo[ship_goods];
-  if($playerinfo[credits]>0) $shipcredits=$playerinfo[credits];
+  if ($playerinfo[ship_ore]>0) $shipore=$playerinfo[ship_ore];
+  if ($playerinfo[ship_organics]>0) $shiporganics=$playerinfo[ship_organics];
+  if ($playerinfo[ship_goods]>0) $shipgoods=$playerinfo[ship_goods];
+  if ($playerinfo[credits]>0) $shipcredits=$playerinfo[credits];
   // MAKE SURE WE HAVE CARGO OR CREDITS
-  if(!$playerinfo[credits]>0 && !$playerinfo[ship_ore]>0 && !$playerinfo[ship_goods]>0 && !$playerinfo[ship_organics]>0) return;
+  if (!$playerinfo[credits]>0 && !$playerinfo[ship_ore]>0 && !$playerinfo[ship_goods]>0 && !$playerinfo[ship_organics]>0) return;
 
   //
   //  MAKE SURE CARGOS COMPATABLE
   //
-  if($sectorinfo[port_type]=="ore" && $shipore>0) return;
-  if($sectorinfo[port_type]=="organics" && $shiporganics>0) return;
-  if($sectorinfo[port_type]=="goods" && $shipgoods>0) return;
+  if ($sectorinfo[port_type]=="ore" && $shipore>0) return;
+  if ($sectorinfo[port_type]=="organics" && $shiporganics>0) return;
+  if ($sectorinfo[port_type]=="goods" && $shipgoods>0) return;
 
   //
   // LETS TRADE SOME CARGO *
   //
-  if($sectorinfo[port_type]=="ore")
+  if ($sectorinfo[port_type]=="ore")
   //
   // PORT ORE
   //
@@ -971,7 +971,7 @@ function xenobetrade()
     $trade_result2 = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
     playerlog($playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
   }
-  if($sectorinfo[port_type]=="organics")
+  if ($sectorinfo[port_type]=="organics")
   //
   // PORT ORGANICS
   //
@@ -1003,7 +1003,7 @@ function xenobetrade()
     $trade_result2 = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore+$amount_ore, port_organics=port_organics-$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
     playerlog($playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
   }
-  if($sectorinfo[port_type]=="goods")
+  if ($sectorinfo[port_type]=="goods")
   //
   // PORT GOODS *
   //
@@ -1107,9 +1107,9 @@ function xenobehunter()
     $resultf = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id=$targetinfo[sector] and defence_type ='F' ORDER BY quantity DESC");
     $i = 0;
     $total_sector_fighters = 0;
-    if($resultf > 0)
+    if ($resultf > 0)
     {
-      while(!$resultf->EOF)
+      while (!$resultf->EOF)
       {
         $defences[$i] = $resultf->fields;
         $total_sector_fighters += $defences[$i]['quantity'];
@@ -1120,9 +1120,9 @@ function xenobehunter()
     $resultm = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id=$targetinfo[sector] and defence_type ='M'");
     $i = 0;
     $total_sector_mines = 0;
-    if($resultm > 0)
+    if ($resultm > 0)
     {
-      while(!$resultm->EOF)
+      while (!$resultm->EOF)
       {
         $defences[$i] = $resultm->fields;
         $total_sector_mines += $defences[$i]['quantity'];
@@ -1251,9 +1251,9 @@ function xenobetoplanet($planet_id)
   //
   // BEGIN COMBAT PROCEDURES
   //
-  if($attackerbeams > 0 && $targetfighters > 0)
+  if ($attackerbeams > 0 && $targetfighters > 0)
   {                         // ATTACKER HAS BEAMS - TARGET HAS FIGHTERS - BEAMS VS FIGHTERS
-    if($attackerbeams > $targetfighters)
+    if ($attackerbeams > $targetfighters)
     {                                  // ATTACKER BEAMS GT TARGET FIGHTERS
       $lost = $targetfighters;
       $targetfighters = 0;                                     // T LOOSES ALL FIGHTERS
@@ -1264,9 +1264,9 @@ function xenobetoplanet($planet_id)
       $attackerbeams = 0;                                      // A LOOSES ALL BEAMS
     }
   }
-  if($attackerfighters > 0 && $targetbeams > 0)
+  if ($attackerfighters > 0 && $targetbeams > 0)
   {                         // TARGET HAS BEAMS - ATTACKER HAS FIGHTERS - BEAMS VS FIGHTERS
-    if($targetbeams > round($attackerfighters / 2))
+    if ($targetbeams > round($attackerfighters / 2))
     {                                  // TARGET BEAMS GT HALF ATTACKER FIGHTERS
       $lost=$attackerfighters-(round($attackerfighters/2));
       $attackerfighters=$attackerfighters-$lost;               // A LOOSES HALF ALL FIGHTERS
@@ -1277,9 +1277,9 @@ function xenobetoplanet($planet_id)
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
-  if($attackerbeams > 0)
+  if ($attackerbeams > 0)
   {                         // ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS
-    if($attackerbeams > $targetshields)
+    if ($attackerbeams > $targetshields)
     {                                  // ATTACKER BEAMS GT TARGET SHIELDS
       $attackerbeams=$attackerbeams-$targetshields;            // A LOOSES BEAMS EQ TO T SHIELDS
       $targetshields=0;                                        // T LOOSES ALL SHIELDS
@@ -1289,9 +1289,9 @@ function xenobetoplanet($planet_id)
       $attackerbeams=0;                                        // A LOOSES ALL BEAMS
     }
   }
-  if($targetbeams > 0)
+  if ($targetbeams > 0)
   {                         // TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS
-    if($targetbeams > $attackershields)
+    if ($targetbeams > $attackershields)
     {                                  // TARGET BEAMS GT ATTACKER SHIELDS
       $targetbeams=$targetbeams-$attackershields;              // T LOOSES BEAMS EQ TO A SHIELDS
       $attackershields=0;                                      // A LOOSES ALL SHIELDS
@@ -1301,9 +1301,9 @@ function xenobetoplanet($planet_id)
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
-  if($targetbeams > 0)
+  if ($targetbeams > 0)
   {                        // TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR
-    if($targetbeams > $attackerarmor)
+    if ($targetbeams > $attackerarmor)
     {                                 // TARGET BEAMS GT ATTACKER ARMOR
       $targetbeams=$targetbeams-$attackerarmor;                // T LOOSES BEAMS EQ TO A ARMOR
       $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
@@ -1313,9 +1313,9 @@ function xenobetoplanet($planet_id)
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
-  if($targetfighters > 0 && $attackertorpdamage > 0)
+  if ($targetfighters > 0 && $attackertorpdamage > 0)
   {                        // ATTACKER FIRES TORPS - TARGET HAS FIGHTERS - TORPS VS FIGHTERS
-    if($attackertorpdamage > $targetfighters)
+    if ($attackertorpdamage > $targetfighters)
     {                                 // ATTACKER FIRED TORPS GT TARGET FIGHTERS
       $lost=$targetfighters;
       $targetfighters=0;                                       // T LOOSES ALL FIGHTERS
@@ -1326,9 +1326,9 @@ function xenobetoplanet($planet_id)
       $attackertorpdamage=0;                                   // A LOOSES ALL TORPS FIRED
     }
   }
-  if($attackerfighters > 0 && $targettorpdmg > 0)
+  if ($attackerfighters > 0 && $targettorpdmg > 0)
   {                        // TARGET FIRES TORPS - ATTACKER HAS FIGHTERS - TORPS VS FIGHTERS
-    if($targettorpdmg > round($attackerfighters / 2))
+    if ($targettorpdmg > round($attackerfighters / 2))
     {                                 // TARGET FIRED TORPS GT HALF ATTACKER FIGHTERS
       $lost=$attackerfighters-(round($attackerfighters/2));
       $attackerfighters=$attackerfighters-$lost;               // A LOOSES HALF ALL FIGHTERS
@@ -1339,9 +1339,9 @@ function xenobetoplanet($planet_id)
       $targettorpdmg=0;                                        // T LOOSES ALL TORPS FIRED
     }
   }
-  if($targettorpdmg > 0)
+  if ($targettorpdmg > 0)
   {                        // TARGET FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR
-    if($targettorpdmg > $attackerarmor)
+    if ($targettorpdmg > $attackerarmor)
     {                                 // TARGET FIRED TORPS GT HALF ATTACKER ARMOR
       $targettorpdmg=$targettorpdmg-$attackerarmor;            // T LOOSES FIRED TORPS EQ TO A ARMOR
       $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
@@ -1351,16 +1351,16 @@ function xenobetoplanet($planet_id)
       $targettorpdmg=0;                                        // T LOOSES ALL TORPS FIRED
     }
   }
-  if($attackerfighters > 0 && $targetfighters > 0)
+  if ($attackerfighters > 0 && $targetfighters > 0)
   {                        // ATTACKER HAS FIGHTERS - TARGET HAS FIGHTERS - FIGHTERS VS FIGHTERS
-    if($attackerfighters > $targetfighters)
+    if ($attackerfighters > $targetfighters)
     {                                 // ATTACKER FIGHTERS GT TARGET FIGHTERS
       $temptargfighters=0;                                     // T WILL LOOSE ALL FIGHTERS
     } else
     {                                 // ATTACKER FIGHTERS LE TARGET FIGHTERS
       $temptargfighters=$targetfighters-$attackerfighters;     // T WILL LOOSE FIGHTERS EQ TO A FIGHTERS
     }
-    if($targetfighters > $attackerfighters)
+    if ($targetfighters > $attackerfighters)
     {                                 // TARGET FIGHTERS GT ATTACKER FIGHTERS
       $tempplayfighters=0;                                     // A WILL LOOSE ALL FIGHTERS
     } else
@@ -1370,9 +1370,9 @@ function xenobetoplanet($planet_id)
     $attackerfighters=$tempplayfighters;
     $targetfighters=$temptargfighters;
   }
-  if($targetfighters > 0)
+  if ($targetfighters > 0)
   {                        // TARGET HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR
-    if($targetfighters > $attackerarmor)
+    if ($targetfighters > $attackerarmor)
     {                                 // TARGET FIGHTERS GT ATTACKER ARMOR
       $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
     } else
@@ -1397,7 +1397,7 @@ function xenobetoplanet($planet_id)
 
   // CHECK IF ATTACKER SHIP DESTROYED
 
-  if(!$attackerarmor>0)
+  if (!$attackerarmor>0)
   {
     playerlog($playerinfo[ship_id], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
     db_kill_player($playerinfo['ship_id']);

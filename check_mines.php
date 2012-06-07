@@ -37,12 +37,12 @@ $targetship = $playerinfo;
 $num_defences = 0;
 $total_sector_mines = 0;
 $owner = true;
-while(!$result3->EOF)
+while (!$result3->EOF)
 {
     $row=$result3->fields;
     $defences[$num_defences] = $row;
     $total_sector_mines += $defences[$i]['quantity'];
-    if($defences[$i]['ship_id'] != $playerinfo['ship_id'])
+    if ($defences[$i]['ship_id'] != $playerinfo['ship_id'])
     {
         $owner = false;
     }
@@ -93,7 +93,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         message_defence_owner($sector,"$l_chm_hehitminesinsector");
 
         // If the player has enough mine deflectors then subtract the ammount and continue
-        if($playerinfo['dev_minedeflector'] >= $roll)
+        if ($playerinfo['dev_minedeflector'] >= $roll)
         {
             $l_chm_youlostminedeflectors = str_replace("[chm_roll]", $roll, $l_chm_youlostminedeflectors);
             echo "$l_chm_youlostminedeflectors<BR>";
@@ -101,7 +101,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         }
         else
         {
-            if($playerinfo['dev_minedeflector'] > 0)
+            if ($playerinfo['dev_minedeflector'] > 0)
             {
                 echo "$l_chm_youlostallminedeflectors<BR>";
             }
@@ -113,17 +113,17 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
             // Shields up
             $mines_left = $roll - $playerinfo['dev_minedeflector'];
             $playershields = NUM_SHIELDS($playerinfo['shields']);
-            if($playershields > $playerinfo['ship_energy'])
+            if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields=$playerinfo['ship_energy'];
             }
-            if($playershields >= $mines_left)
+            if ($playershields >= $mines_left)
             {
                 $l_chm_yourshieldshitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourshieldshitforminesdmg);
                 echo "$l_chm_yourshieldshitforminesdmg<BR>";
 
                 $result2 = $db->Execute("UPDATE $dbtables[ships] set ship_energy=ship_energy-$mines_left, dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
-                if($playershields == $mines_left)
+                if ($playershields == $mines_left)
                 {
                     echo "$l_chm_yourshieldsaredown<BR>";
                 }
@@ -133,12 +133,12 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 // Direct hit
                 echo "$l_chm_youlostallyourshields<BR>";
                 $mines_left = $mines_left - $playershields;
-                if($playerinfo['armor_pts'] >= $mines_left)
+                if ($playerinfo['armor_pts'] >= $mines_left)
                 {
                     $l_chm_yourarmorhitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourarmorhitforminesdmg);
                     echo "$l_chm_yourarmorhitforminesdmg<BR>";
                     $result2 = $db->Execute("UPDATE $dbtables[ships] set armor_pts=armor_pts-$mines_left,ship_energy=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
-                    if($playerinfo['armor_pts'] == $mines_left)
+                    if ($playerinfo['armor_pts'] == $mines_left)
                     {
                         echo "$l_chm_yourhullisbreached<BR>";
                     }
@@ -154,7 +154,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     echo "$l_chm_yourshiphasbeendestroyed<BR><BR>";
 
                     // Survival
-                    if($playerinfo['dev_escapepod'] == "Y")
+                    if ($playerinfo['dev_escapepod'] == "Y")
                     {
                         $rating=round($playerinfo['rating']/2);
                         echo "$l_chm_luckescapepod<BR><BR>";

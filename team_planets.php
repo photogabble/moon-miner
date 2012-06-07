@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_teamplanet_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -43,19 +43,19 @@ if ($playerinfo[team]==0)
 }
 
 $query = "SELECT * FROM $dbtables[planets] WHERE corp=$playerinfo[team]";
-if(!empty($sort))
+if (!empty($sort))
 {
     $query .= " ORDER BY";
-    if($sort == "name")
+    if ($sort == "name")
     {
         $query .= " $sort ASC";
     }
-    elseif($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" ||
+    elseif ($sort == "organics" || $sort == "ore" || $sort == "goods" || $sort == "energy" ||
     $sort == "colonists" || $sort == "credits" || $sort == "fighters")
     {
         $query .= " $sort DESC";
     }
-    elseif($sort == "torp")
+    elseif ($sort == "torp")
     {
         $query .= " torps DESC";
     }
@@ -74,9 +74,9 @@ echo "<BR>";
 echo "<BR>";
 
 $i = 0;
-if($res)
+if ($res)
 {
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $planet[$i] = $res->fields;
         $i++;
@@ -85,7 +85,7 @@ if($res)
 }
 
 $num_planets = $i;
-if($num_planets < 1)
+if ($num_planets < 1)
 {
     echo "<BR>$l_teamplanet_noplanet";
 }
@@ -118,7 +118,7 @@ else
     $total_base = 0;
     $total_selling = 0;
     $color = $color_line1;
-    for($i=0; $i<$num_planets; $i++)
+    for ($i = 0; $i < $num_planets; $i++)
     {
         $total_organics += $planet[$i][organics];
         $total_ore += $planet[$i][ore];
@@ -128,16 +128,16 @@ else
         $total_credits += $planet[$i][credits];
         $total_fighters += $planet[$i][fighters];
         $total_torp += $planet[$i][torps];
-        if($planet[$i][base] == "Y")
+        if ($planet[$i][base] == "Y")
         {
             $total_base += 1;
         }
 
-        if($planet[$i][sells] == "Y")
+        if ($planet[$i][sells] == "Y")
         {
             $total_selling += 1;
         }
-        if(empty($planet[$i][name]))
+        if (empty($planet[$i][name]))
         {
             $planet[$i][name] = "$l_unnamed";
         }
@@ -162,7 +162,7 @@ else
         echo "<TD>" . $player                        . "</TD>";
         echo "</TR>";
 
-        if($color == $color_line1)
+        if ($color == $color_line1)
         {
             $color = $color_line2;
         }

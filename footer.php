@@ -61,7 +61,7 @@ $mySEC = ($sched_ticks * 60) - (TIME()-$result['last_run']);
 echo "  <b><span id=myx>$mySEC</span></b> $l_footer_until_update <br>\n";
 // End update counter
 
-if($online == 1)
+if ($online == 1)
 {
    echo "  ";
    echo $l_footer_one_player_on;

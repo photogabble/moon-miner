@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_warp_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -31,7 +31,7 @@ if(checklogin())
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo=$result->fields;
 
-if($playerinfo[turns] < 1)
+if ($playerinfo[turns] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
@@ -39,7 +39,7 @@ if($playerinfo[turns] < 1)
     die();
 }
 
-if($playerinfo[dev_warpedit] < 1)
+if ($playerinfo[dev_warpedit] < 1)
 {
     echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
@@ -49,7 +49,7 @@ if($playerinfo[dev_warpedit] < 1)
 
 $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[universe].zone_id=$dbtables[zones].zone_id");
 $zoneinfo = $res->fields;
-if($zoneinfo[allow_warpedit] == 'N')
+if ($zoneinfo[allow_warpedit] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
@@ -64,7 +64,7 @@ bigtitle();
 
 $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$target_sector AND $dbtables[universe].zone_id=$dbtables[zones].zone_id");
 $zoneinfo = $res->fields;
-if($zoneinfo[allow_warpedit] == 'N' && $bothway)
+if ($zoneinfo[allow_warpedit] == 'N' && $bothway)
 {
     $l_warp_forbidtwo = str_replace("[target_sector]", $target_sector, $l_warp_forbidtwo);
     echo $l_warp_forbidtwo . "<br><br>";
@@ -75,7 +75,7 @@ if($zoneinfo[allow_warpedit] == 'N' && $bothway)
 
 $result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$target_sector");
 $row = $result2->fields;
-if(!$row)
+if (!$row)
 {
     echo $l_warp_nosector . "<br><br>";
     TEXT_GOTOMAIN();
@@ -83,18 +83,18 @@ if(!$row)
 }
 
 $result3 = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start=$playerinfo[sector]");
-if($result3 > 0)
+if ($result3 > 0)
 {
-    while(!$result3->EOF)
+    while (!$result3->EOF)
     {
         $row = $result3->fields;
-        if($target_sector == $row[link_dest])
+        if ($target_sector == $row[link_dest])
         {
             $flag = 1;
         }
         $result3->MoveNext();
     }
-    if($flag != 1)
+    if ($flag != 1)
     {
         $l_warp_unlinked = str_replace("[target_sector]", $target_sector, $l_warp_unlinked);
         echo $l_warp_unlinked . "<br><br>";
@@ -103,7 +103,7 @@ if($result3 > 0)
     {
         $delete1 = $db->Execute("DELETE FROM $dbtables[links] WHERE link_start=$playerinfo[sector] AND link_dest=$target_sector");
         $update1 = $db->Execute("UPDATE $dbtables[ships] SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
-        if(!$bothway)
+        if (!$bothway)
         {
             echo "$l_warp_removed $target_sector.<br><br>";
         }

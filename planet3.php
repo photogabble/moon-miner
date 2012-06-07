@@ -55,7 +55,7 @@ $planet_id=(int) $_GET['planet_id'];
 bigtitle();
 
 // Check if planet_id is valid.
-if($planet_id <=0)
+if ($planet_id <= 0)
 {
     echo "Invalid Planet<BR><BR>";
     TEXT_GOTOMAIN();
@@ -69,24 +69,24 @@ $result2=$db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_
 $planetinfo=$result2->fields;
 
 // Check to see if it returned valid planet info.
-if($planetinfo == false)
+if ($planetinfo == false)
 {
     echo "Invalid Planet<BR><BR>";
     TEXT_GOTOMAIN();
     die();
 }
 
-if ($playerinfo[turns]<1)
+if ($playerinfo['turns'] < 1)
 {
-    echo "$l_trade_turnneed<BR><BR>";
+    echo "$l_trade_turnneed<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();
 }
 
-if($planetinfo[sector_id] <> $playerinfo[sector])
+if ($planetinfo['sector_id'] <> $playerinfo['sector'])
 {
-    echo "$l_planet2_sector<BR><BR>";
+    echo "$l_planet2_sector<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");
     die();

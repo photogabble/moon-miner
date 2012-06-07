@@ -22,7 +22,7 @@ if (preg_match("/global_funcs.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-if(!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
+if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
 
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new c_Timer;
@@ -55,7 +55,7 @@ connectdb();
 session_start();
 
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
-if(!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
+if (!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
 
 if (1==1)
 {
@@ -96,16 +96,16 @@ if ($userpass != '' and $userpass != '+')
 
 // Ensure lang is set
 $found = 0;
-if(!empty($lang))
+if (!empty($lang))
 {
-  if(!preg_match("/^[\w]+$/", $lang))
+  if (!preg_match("/^[\w]+$/", $lang))
   {
      $lang = $default_lang;
 
   }
-  foreach($avail_lang as $key => $value)
+  foreach ($avail_lang as $key => $value)
   {
-    if($lang == $value['file'])
+    if ($lang == $value['file'])
     {
       setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
       $found = 1;
@@ -113,7 +113,7 @@ if(!empty($lang))
     }
   }
 
-  if($found == 0)
+  if ($found == 0)
     $lang = $default_lang;
 }
 

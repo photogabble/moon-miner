@@ -17,7 +17,7 @@
 //
 // File: bnt_ls_client.php
 
-if (preg_match("/bnt_ls_client.php/i", $PHP_SELF)) {
+if (preg_match("/bnt_ls_client.php/i", $_SERVER['PHP_SELF'])) {
     echo "You can not access this file directly!";
     die();
 }

@@ -39,7 +39,7 @@ $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $
 $db->Execute("LOCK TABLES $dbtables[xenobe] WRITE, $dbtables[ships] WRITE;");
 
 $res = $db->Execute("SELECT * FROM {$dbtables['ships']} JOIN {$dbtables['xenobe']} WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id;");
-while(!$res->EOF)
+while (!$res->EOF)
 {
     $xenobeisdead = 0;
     $playerinfo = $res->fields;

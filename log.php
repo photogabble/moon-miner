@@ -23,7 +23,7 @@ include("languages/$lang");
 $title="$l_log_titlet";
 $no_body=1;
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -40,11 +40,11 @@ if (!isset($_GET['swordfish']))
 
 $swordfish = $_GET['swordfish'];
 
-if($swordfish == $adminpass) // Check if called by admin script
+if ($swordfish == $adminpass) // Check if called by admin script
 {
     $playerinfo[ship_id] = $player;
 
-  if($player == 0)
+  if ($player == 0)
     $playerinfo[character_name] = 'Administrator';
   else
   {
@@ -58,9 +58,9 @@ $mode = 'compat';
 
 $yres = 558;
 
-if($mode == 'full')
+if ($mode == 'full')
   echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
-elseif($mode == 'moz')
+elseif ($mode == 'moz')
   echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
 
 echo '<body background="images/bgoutspace1.png" bgcolor=#000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
@@ -79,20 +79,20 @@ $logline = str_replace("[player]", "$playerinfo[character_name]", $l_log_log);
 <tr><td valign=bottom>
 
 <?php
-if($mode == 'moz')
+if ($mode == 'moz')
   echo '<td colspan=2 style="border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid;" bgcolor=#63639C>';
-elseif($mode == 'full')
+elseif ($mode == 'full')
   echo '<td colspan=2 bgcolor=#63639C>';
 else
   echo "<td colspan=2><table border=1 width=100%><tr><td  bgcolor=#63639C>";
 
-if(empty($startdate))
+if (empty($startdate))
   $startdate = date("Y-m-d");
 
 
 $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
 //echo "SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC";
-while(!$res->EOF)
+while (!$res->EOF)
 {
   $logs[] = $res->fields;
   $res->MoveNext();
@@ -109,9 +109,9 @@ echo "<div id=\"divScroller1\">" .
      "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
      "</center>\n";
 
-if(!empty($logs))
+if (!empty($logs))
 {
-  foreach($logs as $log)
+  foreach ($logs as $log)
   {
     $event = log_parse($log);
     $time = $l_log_months[substr($log['time'], 5, 2) - 1] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
@@ -148,16 +148,16 @@ $day = substr($startdate, 8, 2) - 2;
 $yesterday2 = mktime (0,0,0,$month,$day,$year);
 $yesterday2 = date("Y-m-d", $yesterday2);
 
-if($mode == 'compat')
+if ($mode == 'compat')
   echo "</td></tr></table>";
 
-if($mode != 'compat')
+if ($mode != 'compat')
 {
   $entry = $l_log_months[substr($yesterday, 5, 2) - 1] . " " . substr($yesterday, 8, 2) . " " . substr($yesterday, 0, 4);
 
   unset($logs);
   $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
-  while(!$res->EOF)
+  while (!$res->EOF)
   {
     $logs[] = $res->fields;
     $res->MoveNext();
@@ -171,9 +171,9 @@ if($mode != 'compat')
        "</center>" .
        "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
 
-  if(!empty($logs))
+  if (!empty($logs))
   {
-    foreach($logs as $log)
+    foreach ($logs as $log)
     {
       $event = log_parse($log);
       $time = $l_log_months[substr($log['time'], 5, 2) - 1] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
@@ -199,7 +199,7 @@ if($mode != 'compat')
 
   unset($logs);
   $res = $db->Execute("SELECT * FROM $dbtables[logs] WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
-  while(!$res->EOF)
+  while (!$res->EOF)
   {
     $logs[] = $res->fields;
     $res->MoveNext();
@@ -213,9 +213,9 @@ if($mode != 'compat')
        "</center>" .
        "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
 
-  if(!empty($logs))
+  if (!empty($logs))
   {
-    foreach($logs as $log)
+    foreach ($logs as $log)
     {
       $event = log_parse($log);
       $time = $l_log_months[substr($log['time'], 5, 2) - 1] . " " . substr($log['time'], 8, 2) . " " . substr($log['time'], 0, 4) . " " . substr($log['time'], 11);
@@ -259,19 +259,19 @@ $backlink = date("Y-m-d", $backlink);
 $day = substr($startdate, 8, 2) + 3;
 
 $nextlink = mktime (0,0,0,$month,$day,$year);
-if($nextlink > time())
+if ($nextlink > time())
   $nextlink = time();
 $nextlink = date("Y-m-d", $nextlink);
 
-if($startdate == date("Y-m-d"))
+if ($startdate == date("Y-m-d"))
   $nonext = 1;
 
-if($swordfish == $adminpass) // Fix for admin log view
+if ($swordfish == $adminpass) // Fix for admin log view
   $postlink = "&swordfish=" . urlencode($swordfish) . "&player=$player";
 else
   $postlink = "";
 
-if($mode != 'compat')
+if ($mode != 'compat')
 {
   echo "<td valign=bottom>" .
        "<tr><td><td align=right>" .
@@ -280,13 +280,13 @@ if($mode != 'compat')
        "<div style=\"position:relative; top:-23px;\">" .
        "<font size=2><b>" .
        "<a href=log.php?startdate={$backlink}$postlink><<</a>&nbsp;&nbsp;&nbsp;" .
-       "<a href=\"#\" onclick=\"activate(2); return false;\" onfocus=\"if(this.blur)this.blur()\">$date3</a>" .
+       "<a href=\"#\" onclick=\"activate(2); return false;\" onfocus=\"if (this.blur)this.blur()\">$date3</a>" .
        " | " .
-       "<a href=\"#\" onclick=\"activate(1); return false;\" onfocus=\"if(this.blur)this.blur()\">$date2</a>" .
+       "<a href=\"#\" onclick=\"activate(1); return false;\" onfocus=\"if (this.blur)this.blur()\">$date2</a>" .
        " | " .
-       "<a href=\"#\" onclick=\"activate(0); return false;\" onfocus=\"if(this.blur)this.blur()\">$date1</a>";
+       "<a href=\"#\" onclick=\"activate(0); return false;\" onfocus=\"if (this.blur)this.blur()\">$date1</a>";
 
-  if($nonext != 1)
+  if ($nonext != 1)
     echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate={$nextlink}$postlink>>>></a>";
 
   echo "&nbsp;&nbsp;&nbsp;";
@@ -301,23 +301,23 @@ else
        " | " .
        "<a href=log.php?startdate={$startdate}$postlink><font color=white size=3><b>$date1</b></font></a>";
 
-  if($nonext != 1)
+  if ($nonext != 1)
     echo "&nbsp;&nbsp;&nbsp;<a href=log.php?startdate={$nextlink}$postlink><font color=white size=3><b>>></b></font></a>";
 
   echo "&nbsp;&nbsp;&nbsp;";
 
 }
 
-if($swordfish == $adminpass)
+if ($swordfish == $adminpass)
   echo "<tr><td><td>" .
        "<FORM action=admin.php method=POST>" .
        "<input type=hidden name=swordfish value=\"$swordfish\">" .
        "<input type=hidden name=menu value=logview>" .
        "<input type=submit value=\"Return to Admin\"></td></tr>";
 else
-  echo "<tr><td><td style='text-align:left;'><p style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:2;'>$l_log_click></p></td></tr>";
+  echo "<tr><td><td style='text-align:left;'><p style='font-size:2;'>$l_log_click></p></td></tr>";
 
-if($mode != 'compat')
+if ($mode != 'compat')
   echo "<tr><td><td align=center><br><font size=2 color=white>$l_log_note</a>.</td></tr>";
 
 echo "</table>" .
@@ -332,7 +332,7 @@ function log_parse($entry)
   global $l_log_pod;
   global $l_log_nopod;
 
-  switch($entry['type'])
+  switch ($entry['type'])
   {
     case LOG_LOGIN: //data args are : [ip]
     case LOG_LOGOUT:
@@ -359,7 +359,7 @@ function log_parse($entry)
 
     $retvalue['text'] = str_replace("[player]", "<font color=white><b>$name</b></font>", $l_log_text[$entry['type']]);
     $retvalue['title'] = $l_log_title[$entry['type']];
-    if($pod == 'Y')
+    if ($pod == 'Y')
       $retvalue['text'] = $retvalue['text'] . $l_log_pod;
     else
       $retvalue['text'] = $retvalue['text'] . $l_log_nopod;
@@ -393,7 +393,7 @@ function log_parse($entry)
     list($sector, $pod)= split ("\|", $entry[data]);
     $retvalue['text'] = str_replace("[sector]", "<font color=white><b>$sector</b></font>", $l_log_text[$entry[type]]);
     $retvalue['title'] = $l_log_title[$entry[type]];
-    if($pod == 'Y')
+    if ($pod == 'Y')
       $retvalue['text'] = $retvalue['text'] . $l_log_pod;
     else
       $retvalue['text'] = $retvalue['text'] . $l_log_nopod;

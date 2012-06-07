@@ -24,7 +24,7 @@ include("languages/$lang");
 $title=$l_device_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
   die();
 }

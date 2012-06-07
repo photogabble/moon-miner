@@ -35,7 +35,7 @@ $title=$l_new_title2;
 include("header.php");
 bigtitle();
 
-if($account_creation_closed)
+if ($account_creation_closed)
 {
     die($l_new_closed_message);
 }
@@ -46,7 +46,7 @@ $shipname=preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
 
 // $username = $_POST['username']; // This needs to STAY before the db query
 
-if(!get_magic_quotes_gpc())
+if (!get_magic_quotes_gpc())
 {
     $username = addslashes($username);
     $character = addslashes($character);
@@ -105,14 +105,14 @@ if ($flag==0)
 
     $mturns = $res['mturns'];
 
-    if($mturns > $max_turns)
+    if ($mturns > $max_turns)
     {
         $mturns = $max_turns;
     }
 
     $result2 = $db->Execute("INSERT INTO $dbtables[ships] (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,interface,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dhtml,dev_lssd)
                              VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','N','$ip','Y','N','N','Y',NULL,'$default_lang', 'Y','$start_lssd')");
-    if(!$result2)
+    if (!$result2)
     {
         echo $db->ErrorMsg() . "<br>";
     }
@@ -130,7 +130,7 @@ if ($flag==0)
         log_move($shipid['ship_id'],0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
         $db->Execute("INSERT INTO $dbtables[ibank_accounts] (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
-        if($display_password)
+        if ($display_password)
         {
             echo $l_new_pwis . " " . $makepass . "<BR><BR>";
         }

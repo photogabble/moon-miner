@@ -19,7 +19,7 @@
 
 include("config.php");
 
-if(empty($lang))
+if (empty($lang))
 {
     $lang = $default_lang;
 }

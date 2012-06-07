@@ -23,7 +23,7 @@ include("languages/$lang");
 $title="$l_mt_title";
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -33,16 +33,16 @@ $playerinfo = $res->fields;
 
 bigtitle();
 
-if(empty($content))
+if (empty($content))
 {
     $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND turns_used > 0 ORDER BY character_name ASC");
     echo "<FORM ACTION=mailto2.php METHOD=POST>";
     echo "<TABLE>";
     echo "<TR><TD>To:</TD><TD><SELECT NAME=to style='width:200px;'>";
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $row=$res->fields;
-        if($row[ship_id] == $to)
+        if ($row[ship_id] == $to)
         {
             echo "\n<OPTION SELECTED>$row[character_name]</OPTION>";
         }

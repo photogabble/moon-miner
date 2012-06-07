@@ -21,7 +21,7 @@ include("config.php");
 updatecookie();
 include("languages/$lang");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -48,19 +48,19 @@ $targetscore = gen_score($targetinfo['ship_id']);
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
 // Check to ensure target is in the same sector as player
-if($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == "Y")
+if ($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == "Y")
 {
     echo "$l_att_notarg<BR><BR>";
 }
-elseif($playerinfo['turns'] < 1)
+elseif ($playerinfo['turns'] < 1)
 {
     echo "$l_att_noturn<BR><BR>";
 }
-else if( isSameTeam($playerinfo['team'], $targetinfo['team']) )
+else if ( isSameTeam($playerinfo['team'], $targetinfo['team']) )
 {
     echo "<div style='color:#ff0;'>Sorry, You cannot attack a fellow Teamemate!</div>\n";
 }
-elseif(isset($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
+elseif (isset($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
 {
     echo "<div style='color:#ff0;'>Sorry, You are already in combat!</div>\n";
     adminlog(13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
@@ -72,12 +72,12 @@ else
 
     // Determine percent chance of success in detecting target ship - based on player's sensors and opponent's cloak
     $success = (10 - $targetinfo['cloak'] + $playerinfo['sensors']) * 5;
-    if($success < 5)
+    if ($success < 5)
     {
         $success = 5;
     }
 
-    if($success > 95)
+    if ($success > 95)
     {
         $success = 95;
     }
@@ -87,17 +87,17 @@ else
 
     $res = $db->Execute("SELECT allow_attack,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id='$targetinfo[sector]' AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
     $zoneinfo = $res->fields;
-    if($zoneinfo['allow_attack'] == 'N')
+    if ($zoneinfo['allow_attack'] == 'N')
     {
         echo "$l_att_noatt<BR><BR>";
     }
-    elseif($flee < $roll2)
+    elseif ($flee < $roll2)
     {
         echo "$l_att_flee<BR><BR>";
         $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
         playerlog($targetinfo['ship_id'], LOG_ATTACK_OUTMAN, "$playerinfo[character_name]");
     }
-    elseif($roll > $success)
+    elseif ($roll > $success)
     {
         // If scan fails - inform both player and target.
         echo "$l_planet_noscan<BR><BR>";
@@ -109,7 +109,7 @@ else
         // If scan succeeds, show results and inform target.
         $shipavg = get_avg_tech($targetship, "ship");
 
-        if($shipavg > $ewd_maxhullsize)
+        if ($shipavg > $ewd_maxhullsize)
         {
             $chance = ($shipavg - $ewd_maxhullsize) * 10;
         }
@@ -119,7 +119,7 @@ else
         }
         $random_value = rand(1,100);
 
-        if($targetinfo['dev_emerwarp'] > 0 && $random_value > $chance)
+        if ($targetinfo['dev_emerwarp'] > 0 && $random_value > $chance)
         {
             // Need to change warp destination to random sector in universe
             $rating_change=round($targetinfo['rating']*.1);
@@ -134,7 +134,7 @@ else
         }
         else
         {
-            if(($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/",$targetinfo['email']) === 0 )) // Bounty-free Xenobe attacking allowed.
+            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/",$targetinfo['email']) === 0 )) // Bounty-free Xenobe attacking allowed.
             {
                 // Changed xenobe check to a regexp cause a player could put @xen or whatever in his email address
                 // so (\@xenobe) is an exact match and the $ symbol means "this is the *end* of the string
@@ -142,13 +142,13 @@ else
                 // Check to see if there is Federation bounty on the player. If there is, people can attack regardless.
                 $btyamount = 0;
                 $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
-                if($hasbounty)
+                if ($hasbounty)
                 {
                     $resx = $hasbounty->fields;
                     $btyamount = $resx['btytotal'];
                 }
 
-                if($btyamount <= 0)
+                if ($btyamount <= 0)
                 {
                     $bounty = ROUND($playerscore * $bounty_maxvalue);
                     $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($playerinfo[ship_id], 0 ,$bounty)");
@@ -158,7 +158,7 @@ else
                 }
             }
 
-            if($targetinfo['dev_emerwarp'] > 0)
+            if ($targetinfo['dev_emerwarp'] > 0)
             {
                 playerlog($targetinfo['ship_id'], LOG_ATTACK_EWDFAIL, $playerinfo['character_name']);
             }
@@ -168,7 +168,7 @@ else
             // If we use the variables in calcs below, change the display of stats too
 
             $targetbeams = NUM_BEAMS($targetinfo['beams']);
-            if($targetbeams>$targetinfo['ship_energy'])
+            if ($targetbeams>$targetinfo['ship_energy'])
             {
                 $targetbeams=$targetinfo['ship_energy'];
             }
@@ -176,34 +176,34 @@ else
             // Why dont we set targetinfo[ship_energy] to a variable instead?
 
             $playerbeams = NUM_BEAMS($playerinfo['beams']);
-            if($playerbeams>$playerinfo['ship_energy'])
+            if ($playerbeams>$playerinfo['ship_energy'])
             {
                 $playerbeams=$playerinfo['ship_energy'];
             }
             $playerinfo['ship_energy']=$playerinfo['ship_energy']-$playerbeams;
 
             $playershields = NUM_SHIELDS($playerinfo['shields']);
-            if($playershields>$playerinfo['ship_energy'])
+            if ($playershields>$playerinfo['ship_energy'])
             {
                 $playershields=$playerinfo['ship_energy'];
             }
             $playerinfo['ship_energy']=$playerinfo['ship_energy']-$playershields;
 
             $targetshields = NUM_SHIELDS($targetinfo['shields']);
-            if($targetshields>$targetinfo['ship_energy'])
+            if ($targetshields>$targetinfo['ship_energy'])
             {
                 $targetshields=$targetinfo['ship_energy'];
             }
             $targetinfo['ship_energy']=$targetinfo['ship_energy']-$targetshields;
 
             $playertorpnum = round(mypw($level_factor,$playerinfo['torp_launchers']))*10;
-            if($playertorpnum > $playerinfo['torps'])
+            if ($playertorpnum > $playerinfo['torps'])
             {
                 $playertorpnum = $playerinfo['torps'];
             }
 
             $targettorpnum = round(mypw($level_factor,$targetinfo['torp_launchers']))*10;
-            if($targettorpnum > $targetinfo['torps'])
+            if ($targettorpnum > $targetinfo['torps'])
             {
                 $targettorpnum = $targetinfo['torps'];
             }
@@ -251,7 +251,7 @@ else
                 echo "    <td style='width:33%; text-align:right; padding:4px;background-color:{$color};'>{$bcs_info[$bcs_index][2]}</td>\n";
                 echo "  </tr>\n";
 
-                if($color == $color_line1)
+                if ($color == $color_line1)
                 {
                     $color = $color_line2;
                 }
@@ -270,10 +270,10 @@ else
 
             $bcs_stats_info = false;
 
-            if($targetfighters > 0 && $playerbeams > 0)
+            if ($targetfighters > 0 && $playerbeams > 0)
             {
                 $bcs_stats_info = true;
-                if($playerbeams > round($targetfighters / 2))
+                if ($playerbeams > round($targetfighters / 2))
                 {
                     $temp = round($targetfighters/2);
                     $lost = $targetfighters-$temp;
@@ -290,10 +290,10 @@ else
                 }
             }
 
-            if($playerfighters > 0 && $targetbeams > 0)
+            if ($playerfighters > 0 && $targetbeams > 0)
             {
                 $bcs_stats_info = true;
-                if($targetbeams > round($playerfighters / 2))
+                if ($targetbeams > round($playerfighters / 2))
                 {
                     $temp=round($playerfighters/2);
                     $lost=$playerfighters-$temp;
@@ -309,10 +309,10 @@ else
                 }
             }
 
-            if($playerbeams > 0)
+            if ($playerbeams > 0)
             {
                 $bcs_stats_info = true;
-                if($playerbeams > $targetshields)
+                if ($playerbeams > $targetshields)
                 {
                     $playerbeams=$playerbeams-$targetshields;
                     $targetshields=0;
@@ -326,10 +326,10 @@ else
                 }
             }
 
-            if($targetbeams > 0)
+            if ($targetbeams > 0)
             {
                 $bcs_stats_info = true;
-                if($targetbeams > $playershields)
+                if ($targetbeams > $playershields)
                 {
                     $targetbeams=$targetbeams-$playershields;
                     $playershields=0;
@@ -343,10 +343,10 @@ else
                 }
             }
 
-            if($playerbeams > 0)
+            if ($playerbeams > 0)
             {
                 $bcs_stats_info = true;
-                if($playerbeams > $targetarmor)
+                if ($playerbeams > $targetarmor)
                 {
                     $targetarmor=0;
                     echo "$targetinfo[character_name] " .$l_att_sarm ."<BR>";
@@ -358,10 +358,10 @@ else
                 }
             }
 
-            if($targetbeams > 0)
+            if ($targetbeams > 0)
             {
                 $bcs_stats_info = true;
-                if($targetbeams > $playerarmor)
+                if ($targetbeams > $playerarmor)
                 {
                     $playerarmor=0;
                     echo "$l_att_yarm<BR>";
@@ -387,10 +387,10 @@ else
             echo "  <div style='text-align:left; font-size:12px; padding:4px; background-color:{$color_line1}; border:#FFCC00 1px solid;'>\n";
             $bcs_stats_info = false;
 
-            if($targetfighters > 0 && $playertorpdmg > 0)
+            if ($targetfighters > 0 && $playertorpdmg > 0)
             {
                 $bcs_stats_info = true;
-                if($playertorpdmg > round($targetfighters / 2))
+                if ($playertorpdmg > round($targetfighters / 2))
                 {
                     $temp=round($targetfighters/2);
                     $lost=$targetfighters-$temp;
@@ -406,10 +406,10 @@ else
                 }
             }
 
-            if($playerfighters > 0 && $targettorpdmg > 0)
+            if ($playerfighters > 0 && $targettorpdmg > 0)
             {
                 $bcs_stats_info = true;
-                if($targettorpdmg > round($playerfighters / 2))
+                if ($targettorpdmg > round($playerfighters / 2))
                 {
                     $temp=round($playerfighters/2);
                     $lost=$playerfighters-$temp;
@@ -426,10 +426,10 @@ else
                 }
             }
 
-            if($playertorpdmg > 0)
+            if ($playertorpdmg > 0)
             {
                 $bcs_stats_info = true;
-                if($playertorpdmg > $targetarmor)
+                if ($playertorpdmg > $targetarmor)
                 {
                     $targetarmor=0;
                     echo "$targetinfo[character_name]" . $l_att_sarm ."<BR>";
@@ -441,10 +441,10 @@ else
                 }
             }
 
-            if($targettorpdmg > 0)
+            if ($targettorpdmg > 0)
             {
                 $bcs_stats_info = true;
-                if($targettorpdmg > $playerarmor)
+                if ($targettorpdmg > $playerarmor)
                 {
                     $playerarmor=0;
                     echo "$l_att_yarm<BR>";
@@ -471,10 +471,10 @@ else
             echo "  <div style='text-align:left; font-size:12px; padding:4px; background-color:{$color_line1}; border:#FFCC00 1px solid;'>\n";
             $bcs_stats_info = false;
 
-            if($playerfighters > 0 && $targetfighters > 0)
+            if ($playerfighters > 0 && $targetfighters > 0)
             {
                 $bcs_stats_info = true;
-                if($playerfighters > $targetfighters)
+                if ($playerfighters > $targetfighters)
                 {
                     echo "$targetinfo[character_name] $l_att_lostf<BR>";
                     $temptargfighters=0;
@@ -485,7 +485,7 @@ else
                     $temptargfighters=$targetfighters-$playerfighters;
                 }
 
-                if($targetfighters > $playerfighters)
+                if ($targetfighters > $playerfighters)
                 {
                     echo "$l_att_ylostf<BR>";
                     $tempplayfighters=0;
@@ -499,10 +499,10 @@ else
                 $targetfighters=$temptargfighters;
             }
 
-            if($playerfighters > 0)
+            if ($playerfighters > 0)
             {
                 $bcs_stats_info = true;
-                if($playerfighters > $targetarmor)
+                if ($playerfighters > $targetarmor)
                 {
                     $targetarmor=0;
                     echo "$targetinfo[character_name]". $l_att_sarm . "<BR>";
@@ -514,10 +514,10 @@ else
                 }
             }
 
-            if($targetfighters > 0)
+            if ($targetfighters > 0)
             {
                 $bcs_stats_info = true;
-                if($targetfighters > $playerarmor)
+                if ($targetfighters > $playerarmor)
                 {
                     $playerarmor=0;
                     echo "$l_att_yarm<BR>";
@@ -541,10 +541,10 @@ else
 
             echo "  <div style='text-align:left; font-size:12px; padding:4px; background-color:{$color_line1}; border:#FFCC00 1px solid;'>\n";
 
-            if($targetarmor < 1)
+            if ($targetarmor < 1)
             {
                 echo "$targetinfo[character_name]". $l_att_sdest ."<BR>";
-                if($targetinfo['dev_escapepod'] == "Y")
+                if ($targetinfo['dev_escapepod'] == "Y")
                 {
                     $rating=round($targetinfo['rating']/2);
                     echo "$l_att_espod (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br>";
@@ -563,7 +563,7 @@ else
                     adminlog(950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
 
-                if($playerarmor > 0)
+                if ($playerarmor > 0)
                 {
                     $rating_change=round($targetinfo['rating']*$rating_combat_factor);
                     // Updating to always get a positive rating increase for xenobe and the credits they are carrying
@@ -593,12 +593,12 @@ else
                     $free_organics = round($targetinfo['ship_organics']/2);
                     $free_goods = round($targetinfo['ship_goods']/2);
                     $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-                    if($free_holds > $free_goods)
+                    if ($free_holds > $free_goods)
                     {
                         $salv_goods=$free_goods;
                         $free_holds=$free_holds-$free_goods;
                     }
-                    elseif($free_holds > 0)
+                    elseif ($free_holds > 0)
                     {
                         $salv_goods=$free_holds;
                         $free_holds=0;
@@ -607,12 +607,12 @@ else
                     {
                         $salv_goods=0;
                     }
-                    if($free_holds > $free_ore)
+                    if ($free_holds > $free_ore)
                     {
                         $salv_ore=$free_ore;
                         $free_holds=$free_holds-$free_ore;
                     }
-                    elseif($free_holds > 0)
+                    elseif ($free_holds > 0)
                     {
                         $salv_ore=$free_holds;
                         $free_holds=0;
@@ -621,12 +621,12 @@ else
                     {
                         $salv_ore=0;
                     }
-                    if($free_holds > $free_organics)
+                    if ($free_holds > $free_organics)
                     {
                         $salv_organics=$free_organics;
                         $free_holds=$free_holds-$free_organics;
                     }
-                    elseif($free_holds > 0)
+                    elseif ($free_holds > 0)
                     {
                         $salv_organics=$free_holds;
                         $free_holds=0;
@@ -676,10 +676,10 @@ else
                 echo "$l_att_ylost $armor_lost $l_armorpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<BR><BR>";
             }
 
-            if($playerarmor < 1)
+            if ($playerarmor < 1)
             {
                 echo "$l_att_yshiplost<BR><BR>";
-                if($playerinfo['dev_escapepod'] == "Y")
+                if ($playerinfo['dev_escapepod'] == "Y")
                 {
                     $rating=round($playerinfo['rating']/2);
                     echo "$l_att_loosepod<BR><BR>";
@@ -693,18 +693,18 @@ else
                     collect_bounty($targetinfo[ship_id],$playerinfo[ship_id]);
                 }
 
-                if($targetarmor > 0)
+                if ($targetarmor > 0)
                 {
                     $free_ore = round($playerinfo[ship_ore]/2);
                     $free_organics = round($playerinfo[ship_organics]/2);
                     $free_goods = round($playerinfo[ship_goods]/2);
                     $free_holds = NUM_HOLDS($targetinfo[hull]) - $targetinfo[ship_ore] - $targetinfo[ship_organics] - $targetinfo[ship_goods] - $targetinfo[ship_colonists];
-                    if($free_holds > $free_goods)
+                    if ($free_holds > $free_goods)
                     {
                         $salv_goods=$free_goods;
                         $free_holds=$free_holds-$free_goods;
                     }
-                    elseif($free_holds > 0)
+                    elseif ($free_holds > 0)
                     {
                         $salv_goods=$free_holds;
                         $free_holds=0;
@@ -714,12 +714,12 @@ else
                         $salv_goods=0;
                     }
 
-                    if($free_holds > $free_ore)
+                    if ($free_holds > $free_ore)
                     {
                         $salv_ore=$free_ore;
                         $free_holds=$free_holds-$free_ore;
                     }
-                    elseif($free_holds > 0)
+                    elseif ($free_holds > 0)
                     {
                         $salv_ore=$free_holds;
                         $free_holds=0;
@@ -729,12 +729,12 @@ else
                         $salv_ore=0;
                     }
 
-                    if($free_holds > $free_organics)
+                    if ($free_holds > $free_organics)
                     {
                         $salv_organics=$free_organics;
                         $free_holds=$free_holds-$free_organics;
                     }
-                    elseif($free_holds > 0)
+                    elseif ($free_holds > 0)
                     {
                         $salv_organics=$free_holds;
                         $free_holds=0;

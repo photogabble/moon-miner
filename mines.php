@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_mines_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -42,26 +42,26 @@ $fighter_id = 0;
 $mine_id = 0;
 $set_attack = 'CHECKED';
 $set_toll = '';
-if($result3 > 0)
+if ($result3 > 0)
 {
-   while(!$result3->EOF)
+   while (!$result3->EOF)
    {
       $defences[$i] = $result3->fields;;
-      if($defences[$i]['defence_type'] == 'F')
+      if ($defences[$i]['defence_type'] == 'F')
          $total_sector_fighters += $defences[$i]['quantity'];
       else
          $total_sector_mines += $defences[$i]['quantity'];
 
-      if($defences[$i][ship_id] != $playerinfo[ship_id])
+      if ($defences[$i][ship_id] != $playerinfo[ship_id])
       {
          $owns_all = false;
       }
       else
       {
-         if($defences[$i]['defence_type'] == 'F')
+         if ($defences[$i]['defence_type'] == 'F')
          {
             $fighter_id = $defences[$i]['defence_id'];
-            if($defences[$i]['fm_setting'] == 'attack')
+            if ($defences[$i]['fm_setting'] == 'attack')
             {
                $set_attack = 'CHECKED';
                $set_toll = '';
@@ -92,21 +92,21 @@ if ($playerinfo[turns]<1)
 }
 $res = $db->Execute("SELECT allow_defenses,$dbtables[universe].zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
 $zoneinfo = $res->fields;
-if($zoneinfo[allow_defenses] == 'N')
+if ($zoneinfo[allow_defenses] == 'N')
 {
  echo "$l_mines_nopermit<BR><BR>";
 }
 else
 {
-   if($num_defences > 0)
+   if ($num_defences > 0)
    {
-      if(!$owns_all)
+      if (!$owns_all)
       {
          $defence_owner = $defences[0]['ship_id'];
          $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$defence_owner");
          $fighters_owner = $result2->fields;
 
-         if($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0)
+         if ($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0)
          {
             echo "$l_mines_nodeploy<BR>";
             TEXT_GOTOMAIN();
@@ -115,15 +115,15 @@ else
          }
       }
    }
-   if($zoneinfo[allow_defenses] == 'L')
+   if ($zoneinfo[allow_defenses] == 'L')
    {
          $zone_owner = $zoneinfo['owner'];
          $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$zone_owner");
          $zoneowner_info = $result2->fields;
 
-         if($zone_owner <> $playerinfo[ship_id])
+         if ($zone_owner <> $playerinfo[ship_id])
          {
-            if($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
+            if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                echo "$l_mines_nopermit<BR><BR>";
                TEXT_GOTOMAIN();
@@ -134,7 +134,7 @@ else
    }
 
 
-   if(!isset($nummines) or !isset($numfighters) or !isset($mode))
+   if (!isset($nummines) or !isset($numfighters) or !isset($mode))
    {
      $availmines = NUMBER($playerinfo[torps]);
      $availfighters = NUMBER($playerinfo[ship_fighters]);
@@ -185,9 +185,9 @@ else
      }
 
      $stamp = date("Y-m-d H-i-s");
-     if($numfighters > 0)
+     if ($numfighters > 0)
      {
-        if($fighter_id != 0)
+        if ($fighter_id != 0)
         {
            $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity + $numfighters,fm_setting = '$mode' where defence_id = $fighter_id");
         }
@@ -198,9 +198,9 @@ else
            echo $db->ErrorMsg();
         }
      }
-     if($nummines > 0)
+     if ($nummines > 0)
      {
-        if($mine_id != 0)
+        if ($mine_id != 0)
         {
            $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity + $nummines,fm_setting = '$mode' where defence_id = $mine_id");
         }

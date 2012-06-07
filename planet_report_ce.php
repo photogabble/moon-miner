@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_pr_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -36,11 +36,11 @@ bigtitle();
 echo "<BR>";
 echo "Click <A HREF=planet_report.php>here</A> to return to report menu<br>";
 
-if(isset($_POST["TPCreds"]))
+if (isset($_POST["TPCreds"]))
 {
   collect_credits($_POST["TPCreds"]);
 }
-elseif(isset($buildp) AND isset($builds))
+elseif (isset($buildp) AND isset($builds))
 {
   go_build_base($buildp, $builds);
 }
@@ -74,7 +74,7 @@ function go_build_base($planet_id, $sector_id)
 
   // Error out and return if the Player isn't the owner of the Planet
   // verify player owns the planet which is to have the base created on.
-  if($planetinfo[owner] != $playerinfo[ship_id])
+  if ($planetinfo[owner] != $playerinfo[ship_id])
   {
     echo "<div style='color:#f00; font-size:16px;'>Base Construction Failed!</div>\n";
     echo "<div style='color:#f00; font-size:16px;'>Invalid Planet or Sector Information Supplied.</div>\n";
@@ -82,7 +82,7 @@ function go_build_base($planet_id, $sector_id)
     return (boolean) false;
   }
 
-  if(!is_numeric($planet_id) || !is_numeric($sector_id))
+  if (!is_numeric($planet_id) || !is_numeric($sector_id))
   {
     $ip = $_SERVER['REMOTE_ADDR'];
     $hack_id = 0x1337;
@@ -95,7 +95,7 @@ function go_build_base($planet_id, $sector_id)
   Real_Space_Move($sector_id);
   echo "<BR>Click <A HREF=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<BR><BR>";
 
-  if($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
+  if ($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
   {
     // Create The Base
     $update1 = $db->Execute("UPDATE $dbtables[planets] SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
@@ -108,7 +108,7 @@ function go_build_base($planet_id, $sector_id)
     echo "$l_planet_bbuild<BR><BR>";
     // Calc Ownership and Notify User Of Results
     $ownership = calc_ownership($playerinfo[sector]);
-    if(!empty($ownership))
+    if (!empty($ownership))
     {
       echo "$ownership<p>";
     }
@@ -130,12 +130,12 @@ function collect_credits($planetarray)
   $s_p_pair = array();
 
   // create an array of sector -> planet pairs
-  for($i = 0; $i < count($planetarray); $i++)
+  for ($i = 0; $i < count($planetarray); $i++)
   {
     $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planetarray[$i];");
 
     // Only add to array if the Player owns the Planet.
-    if($res->fields['owner'] == $playerinfo['ship_id'] && $res->fields['sector_id'] < $sector_max)
+    if ($res->fields['owner'] == $playerinfo['ship_id'] && $res->fields['sector_id'] < $sector_max)
     {
       $s_p_pair[$i]= array($res->fields['sector_id'], $planetarray[$i]);
     }
@@ -157,7 +157,7 @@ function collect_credits($planetarray)
   // run through the list of sector planet pairs realspace moving to each sector and then performing the transfer.
   // Based on the way realspace works we don't need a sub loop -- might add a subloop to clean things up later.
 
-  for($i=0; $i < count($s_p_pair) && $CS == "GO"; $i++)
+  for ($i = 0; $i < count($s_p_pair) && $CS == "GO"; $i++)
   {
     echo "<BR>";
     $CS = Real_space_move($s_p_pair[$i][0]);
@@ -165,7 +165,7 @@ function collect_credits($planetarray)
     if ($CS == "HOSTILE")
     {
       $CS = "GO";
-    } else if($CS == "GO")
+    } else if ($CS == "GO")
     {
       $CS = Take_Credits($s_p_pair[$i][0], $s_p_pair[$i][1]);
     }
@@ -176,7 +176,7 @@ function collect_credits($planetarray)
     echo "<BR>";
   }
 
-  if($CS != "GO" && $CS != "HOSTILE")
+  if ($CS != "GO" && $CS != "HOSTILE")
   {
     echo "<BR>Not enough turns to complete credit collection<BR>";
   }
@@ -228,16 +228,16 @@ function change_planet_production($prodpercentarray)
 
   echo "Click <A HREF=planet_report.php?PRepType=2>here</A> to return to the Change Planet Production Report<br><br>";
 
-  while(list($commod_type, $valarray) = each($prodpercentarray))
+  while (list($commod_type, $valarray) = each($prodpercentarray))
   {
-    if($commod_type != "team_id" && $commod_type != "ship_id")
+    if ($commod_type != "team_id" && $commod_type != "ship_id")
     {
-      while(list($planet_id, $prodpercent) = each($valarray))
+      while (list($planet_id, $prodpercent) = each($valarray))
       {
-        if($commod_type == "prod_ore" || $commod_type == "prod_organics" || $commod_type == "prod_goods" || $commod_type == "prod_energy" || $commod_type == "prod_fighters" || $commod_type == "prod_torp")
+        if ($commod_type == "prod_ore" || $commod_type == "prod_organics" || $commod_type == "prod_goods" || $commod_type == "prod_energy" || $commod_type == "prod_fighters" || $commod_type == "prod_torp")
         {
           $res = $db->Execute("SELECT COUNT(*) AS owned_planet FROM $dbtables[planets] WHERE planet_id=$planet_id AND owner = $ship_id");
-          if($res->fields['owned_planet']==0)
+          if ($res->fields['owned_planet']==0)
           {
             $ip = $_SERVER['REMOTE_ADDR'];
             $stamp = date("Y-m-d H:i:s");
@@ -251,20 +251,20 @@ function change_planet_production($prodpercentarray)
           $db->Execute("UPDATE $dbtables[planets] SET sells='N' WHERE planet_id=$planet_id AND owner = $ship_id");
           $db->Execute("UPDATE $dbtables[planets] SET corp=0 WHERE planet_id=$planet_id AND owner = $ship_id");
         }
-        elseif($commod_type == "sells")
+        elseif ($commod_type == "sells")
         {
           $db->Execute("UPDATE $dbtables[planets] SET sells='Y' WHERE planet_id=$prodpercent AND owner = $ship_id");
         }
-        elseif($commod_type == "corp")
+        elseif ($commod_type == "corp")
         {
           /* Compare entered team_id and one in the db */
           /* If different then use one from db */
 
           $res = $db->Execute("SELECT $dbtables[ships].team as owner FROM $dbtables[ships], $dbtables[planets] WHERE ( $dbtables[ships].ship_id = $dbtables[planets].owner ) AND ( $dbtables[planets].planet_id ='$prodpercent')");
-          if($res) $team_id=$res->fields["owner"]; else $team_id = 0;
+          if ($res) $team_id=$res->fields["owner"]; else $team_id = 0;
 
           $db->Execute("UPDATE $dbtables[planets] SET corp=$team_id WHERE planet_id=$prodpercent AND owner = $ship_id");
-          if($prodpercentarray[team_id] <> $team_id)
+          if ($prodpercentarray[team_id] <> $team_id)
           {
             /* Oh dear they are different so send admin a log */
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -288,7 +288,7 @@ function change_planet_production($prodpercentarray)
     }
   }
 
-  if($planet_hack)
+  if ($planet_hack)
   {
     $serial_data = serialize($prodpercentarray);
     adminlog(LOG_ADMIN_PLANETCHEAT+1000, "{$ship_id}|{$serial_data}");
@@ -301,36 +301,36 @@ function change_planet_production($prodpercentarray)
 
   $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner=$ship_id ORDER BY sector_id");
   $i = 0;
-  if($res)
+  if ($res)
   {
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
       $planets[$i] = $res->fields;
       $i++;
       $res->MoveNext();
     }
 
-    foreach($planets as $planet)
+    foreach ($planets as $planet)
     {
-      if(empty($planet[name]))
+      if (empty($planet[name]))
       {
         $planet[name] = $l_unnamed;
       }
 
-      if($planet[prod_ore] < 0)
+      if ($planet[prod_ore] < 0)
         $planet[prod_ore] = 110;
-      if($planet[prod_organics] < 0)
+      if ($planet[prod_organics] < 0)
         $planet[prod_organics] = 110;
-      if($planet[prod_goods] < 0)
+      if ($planet[prod_goods] < 0)
         $planet[prod_goods] = 110;
-      if($planet[prod_energy] < 0)
+      if ($planet[prod_energy] < 0)
         $planet[prod_energy] = 110;
-      if($planet[prod_fighters] < 0)
+      if ($planet[prod_fighters] < 0)
         $planet[prod_fighters] = 110;
-      if($planet[prod_torp] < 0)
+      if ($planet[prod_torp] < 0)
         $planet[prod_torp] = 110;
 
-      if($planet[prod_ore] + $planet[prod_organics] + $planet[prod_goods] + $planet[prod_energy] + $planet[prod_fighters] + $planet[prod_torp] > 100)
+      if ($planet[prod_ore] + $planet[prod_organics] + $planet[prod_goods] + $planet[prod_energy] + $planet[prod_fighters] + $planet[prod_torp] > 100)
       {
         echo "Planet $planet[name] in sector $planet[sector_id] has a negative production value or exceeds 100% production.  Resetting to default production values<BR>";
         $db->Execute("UPDATE $dbtables[planets] SET prod_ore=$default_prod_ore           WHERE planet_id=$planet[planet_id]");
@@ -355,18 +355,18 @@ function Take_Credits($sector_id, $planet_id)
   $planetinfo = $res->fields;
 
   // Set the name for unamed planets to be "unnamed"
-  if(empty($planetinfo[name]))
+  if (empty($planetinfo[name]))
   {
     $planet[name] = $l_unnamed;
   }
 
   //verify player is still in same sector as the planet
-  if($playerinfo[sector] == $planetinfo[sector_id])
+  if ($playerinfo[sector] == $planetinfo[sector_id])
   {
-    if($playerinfo[turns] >= 1)
+    if ($playerinfo[turns] >= 1)
     {
       // verify player owns the planet to take credits from
-      if($planetinfo[owner] == $playerinfo[ship_id])
+      if ($planetinfo[owner] == $playerinfo[ship_id])
       {
         // get number of credits from the planet and current number player has on ship
         $CreditsTaken = $planetinfo[credits];
@@ -433,12 +433,12 @@ function Real_Space_Move($destination)
   $shipspeed = mypw($level_factor, $playerinfo[engines]);
   $triptime = round($distance / $shipspeed);
 
-  if($triptime == 0 && $destination != $playerinfo[sector])
+  if ($triptime == 0 && $destination != $playerinfo[sector])
   {
     $triptime = 1;
   }
 
-  if($playerinfo[dev_fuelscoop] == "Y")
+  if ($playerinfo[dev_fuelscoop] == "Y")
   {
     $energyscooped = $distance * 100;
   }
@@ -447,38 +447,38 @@ function Real_Space_Move($destination)
     $energyscooped = 0;
   }
 
-  if($playerinfo[dev_fuelscoop] == "Y" && $energyscooped == 0 && $triptime == 1)
+  if ($playerinfo[dev_fuelscoop] == "Y" && $energyscooped == 0 && $triptime == 1)
   {
     $energyscooped = 100;
   }
   $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
 
   // amount of energy that can be stored is less than amount scooped amount scooped is set to what can be stored
-  if($free_power < $energyscooped)
+  if ($free_power < $energyscooped)
   {
     $energyscooped = $free_power;
   }
 
   // make sure energyscooped is not null
-  if(!isset($energyscooped))
+  if (!isset($energyscooped))
   {
     $energyscooped = "0";
   }
 
   // make sure energyscooped not negative, or decimal
-  if($energyscooped < 1)
+  if ($energyscooped < 1)
   {
     $energyscooped = 0;
   }
 
   // check to see if already in that sector
-  if($destination == $playerinfo[sector])
+  if ($destination == $playerinfo[sector])
   {
     $triptime = 0;
     $energyscooped = 0;
   }
 
-  if($triptime > $playerinfo[turns])
+  if ($triptime > $playerinfo[turns])
   {
     $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
     echo "$l_rs_movetime<BR><BR>";
@@ -495,7 +495,7 @@ function Real_Space_Move($destination)
   $hostile = 0;
 
   $result99 = $db->Execute("SELECT * FROM $dbtables[sector_defence] WHERE sector_id = $destination AND ship_id <> $playerinfo[ship_id]");
-  if(!$result99->EOF)
+  if (!$result99->EOF)
   {
      $fighters_owner = $result99->fields;
      $nsresult = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fighters_owner[ship_id]");
@@ -507,7 +507,7 @@ function Real_Space_Move($destination)
   }
 
   $result98 = $db->Execute("SELECT * FROM $dbtables[sector_defence] WHERE sector_id = $destination AND ship_id <> $playerinfo[ship_id]");
-  if(!$result98->EOF)
+  if (!$result98->EOF)
   {
      $fighters_owner = $result98->fields;
      $nsresult = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fighters_owner[ship_id]");
@@ -518,7 +518,7 @@ function Real_Space_Move($destination)
      }
   }
 
-  if(($hostile > 0) && ($playerinfo[hull] > $mine_hullsize))
+  if (($hostile > 0) && ($playerinfo[hull] > $mine_hullsize))
   {
     $retval = "HOSTILE";
     // need to add a language value for this

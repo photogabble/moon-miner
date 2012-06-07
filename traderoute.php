@@ -24,7 +24,7 @@ $title=$l_tdr_title;
 include("header.php");
 
 $portfull = null; // This fixes an error of undefined variables on 1518
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -37,7 +37,7 @@ $playerinfo = $result->fields;
 $result = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE owner=$playerinfo[ship_id]");
 $num_traderoutes=$result->RecordCount();
 
-if(isset($traderoutes))
+if (isset($traderoutes))
 {
     adminlog(902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
     traderoute_die("<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#f00;'>Detected Traderoute Hack!</span></div>\n");
@@ -47,7 +47,7 @@ if(isset($traderoutes))
 $traderoutes = array();
 
 $i=0;
-while(!$result->EOF)
+while (!$result->EOF)
 {
   $traderoutes[$i] = $result->fields;
   $i++;
@@ -90,7 +90,7 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
     }
 $update1 = $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_organics=$playerinfo[ship_organics], ship_goods=$playerinfo[ship_goods], ship_energy=$playerinfo[ship_energy], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
 }
-if(!isset($tr_repeat) || $tr_repeat <= 0)
+if (!isset($tr_repeat) || $tr_repeat <= 0)
   $tr_repeat = 1;
 
 if (!isset($_REQUEST['command']))
@@ -99,19 +99,19 @@ if (!isset($_REQUEST['command']))
 }
 $command = $_REQUEST['command'];
 
-if($command == 'new')   // Displays new trade route form
+if ($command == 'new')   // Displays new trade route form
   traderoute_new('');
-elseif($command == 'create')    // Enters new route in db
+elseif ($command == 'create')    // Enters new route in db
   traderoute_create();
-elseif($command == 'edit')    // Displays new trade route form, edit
+elseif ($command == 'edit')    // Displays new trade route form, edit
   traderoute_new($traderoute_id);
-elseif($command == 'delete')  // Displays delete info
+elseif ($command == 'delete')  // Displays delete info
   traderoute_delete();
-elseif($command == 'settings')  // Global traderoute settings form
+elseif ($command == 'settings')  // Global traderoute settings form
   traderoute_settings();
-elseif($command == 'setsettings') // Enters settings in db
+elseif ($command == 'setsettings') // Enters settings in db
   traderoute_setsettings();
-elseif(isset($engage)) // Performs trade route
+elseif (isset($engage)) // Performs trade route
 {
     // Put in temp until we have a fix.
     if (strpos($_SERVER['HTTP_USER_AGENT'], "Firefox")===false)
@@ -132,7 +132,7 @@ elseif(isset($engage)) // Performs trade route
     }
 
     $i = $tr_repeat;
-    while($i > 0)
+    while ($i > 0)
     {
 
         $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
@@ -145,7 +145,7 @@ elseif(isset($engage)) // Performs trade route
 
 }
 
-if($command != 'delete')
+if ($command != 'delete')
 {
   echo "<p>$l_tdr_newtdr<p>";
   echo "<p>$l_tdr_modtdrset<p>";
@@ -155,7 +155,7 @@ else {
   echo "<p>$l_tdr_confdel<p>";
 }
 
-if($num_traderoutes == 0)
+if ($num_traderoutes == 0)
   echo "$l_tdr_noactive<p>";
 else
 {
@@ -163,7 +163,7 @@ else
        '<tr bgcolor=' . $color_line2 . '><td align="center" colspan=7><b><font color=white>
        ';
 
-  if($command != 'delete')
+  if ($command != 'delete')
     echo $l_tdr_curtdr;
   else
     echo $l_tdr_deltdr;
@@ -181,21 +181,21 @@ else
        "</tr>";
   $i=0;
   $curcolor=$color_line1;
-  while($i < $num_traderoutes)
+  while ($i < $num_traderoutes)
   {
     echo "<tr bgcolor=$curcolor>";
-    if($curcolor == $color_line1)
+    if ($curcolor == $color_line1)
       $curcolor = $color_line2;
     else
       $curcolor = $color_line1;
 
     echo "<td><font size=2 color=white>";
-    if($traderoutes[$i]['source_type'] == 'P')
+    if ($traderoutes[$i]['source_type'] == 'P')
       echo "&nbsp;$l_tdr_portin <a href=rsmove.php?engage=1&destination=" . $traderoutes[$i]['source_id'] . ">" . $traderoutes[$i]['source_id'] . "</a></font></td>";
     else
     {
       $result = $db->Execute("SELECT name, sector_id FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][source_id]);
-      if($result)
+      if ($result)
       {
         $planet1 = $result->fields;
         echo "&nbsp;$l_tdr_planet <b>$planet1[name]</b>$l_tdr_within<a href=\"rsmove.php?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
@@ -205,7 +205,7 @@ else
     }
 
     echo "<td align='center'><font size=2 color=white>";
-    if($traderoutes[$i]['source_type'] == 'P')
+    if ($traderoutes[$i]['source_type'] == 'P')
     {
       $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=" . $traderoutes[$i]['source_id']);
       $port1 = $result->fields;
@@ -213,7 +213,7 @@ else
     }
     else
     {
-      if(empty($planet1))
+      if (empty($planet1))
         echo "&nbsp;$l_tdr_na</font></td>";
       else
         echo "&nbsp;$l_tdr_cargo</font></td>";
@@ -221,12 +221,12 @@ else
 
     echo "<td><font size=2 color=white>";
 
-    if($traderoutes[$i]['dest_type'] == 'P')
+    if ($traderoutes[$i]['dest_type'] == 'P')
         echo "&nbsp;$l_tdr_portin <a href=\"rsmove.php?engage=1&destination=" . $traderoutes[$i]['dest_id'] . "\">" . $traderoutes[$i]['dest_id'] . "</a></font></td>";
     else
     {
       $result = $db->Execute("SELECT name, sector_id FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i]['dest_id']);
-      if($result)
+      if ($result)
       {
         $planet2 = $result->fields;
         echo "&nbsp;$l_tdr_planet <b>$planet2[name]</b>$l_tdr_within<a href=\"rsmove.php?engage=1&destination=$planet2[sector_id]\">$planet2[sector_id]</a></font></td>";
@@ -236,7 +236,7 @@ else
     }
 
     echo "<td align='center'><font size=2 color=white>";
-    if($traderoutes[$i]['dest_type'] == 'P')
+    if ($traderoutes[$i]['dest_type'] == 'P')
     {
       $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=" . $traderoutes[$i]['dest_id']);
       $port2 = $result->fields;
@@ -244,40 +244,40 @@ else
     }
     else
     {
-      if(empty($planet2))
+      if (empty($planet2))
         echo "&nbsp;$l_tdr_na</font></td>";
       else
       {
         echo "&nbsp;";
-        if($playerinfo['trade_colonists'] == 'N' && $playerinfo['trade_fighters'] == 'N' && $playerinfo['trade_torps'] == 'N')
+        if ($playerinfo['trade_colonists'] == 'N' && $playerinfo['trade_fighters'] == 'N' && $playerinfo['trade_torps'] == 'N')
           echo $l_tdr_none;
         else
         {
-          if($playerinfo['trade_colonists'] == 'Y')
+          if ($playerinfo['trade_colonists'] == 'Y')
             echo $l_tdr_colonists;
-          if($playerinfo['trade_fighters'] == 'Y')
+          if ($playerinfo['trade_fighters'] == 'Y')
           {
-            if($playerinfo['trade_colonists'] == 'Y')
+            if ($playerinfo['trade_colonists'] == 'Y')
               echo ", ";
             echo $l_tdr_fighters;
           }
-          if($playerinfo['trade_torps'] == 'Y')
+          if ($playerinfo['trade_torps'] == 'Y')
             echo "<br>$l_tdr_torps";
         }
         echo "</font></td>";
       }
     }
     echo "<td align='center'><font size=2 color=white>";
-    if($traderoutes[$i]['move_type'] == 'R')
+    if ($traderoutes[$i]['move_type'] == 'R')
     {
       echo "&nbsp;RS, ";
 
-      if($traderoutes[$i]['source_type'] == 'P')
+      if ($traderoutes[$i]['source_type'] == 'P')
         $src=$port1;
       else
         $src = $planet1['sector_id'];
 
-      if($traderoutes[$i]['dest_type'] == 'P')
+      if ($traderoutes[$i]['dest_type'] == 'P')
         $dst=$port2;
       else
         $dst = $planet2['sector_id'];
@@ -295,7 +295,7 @@ else
     else
     {
       echo "&nbsp;$l_tdr_warp";
-      if($traderoutes[$i]['circuit'] == '1')
+      if ($traderoutes[$i]['circuit'] == '1')
         echo ", 2 $l_tdr_turns";
       else
         echo ", 4 $l_tdr_turns";
@@ -303,7 +303,7 @@ else
     }
 
     echo "<td align='center'><font size=2 color=white>";
-    if($traderoutes[$i]['circuit'] == '1')
+    if ($traderoutes[$i]['circuit'] == '1')
       echo "&nbsp;1 $l_tdr_way</font></td>";
     else
       echo "&nbsp;2 $l_tdr_ways</font></td>";
@@ -348,19 +348,19 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
   global $db, $dbtables;
 
   // Check warp links compatibility
-  if($move == 'warp')
+  if ($move == 'warp')
   {
     $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$src[sector_id] AND link_dest=$dest[sector_id]");
-    if($query->EOF)
+    if ($query->EOF)
     {
       $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $src[sector_id], $l_tdr_nowlink1);
       $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
       traderoute_die($l_tdr_nowlink1);
     }
-    if($circuit == '2')
+    if ($circuit == '2')
     {
       $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$dest[sector_id] AND link_dest=$src[sector_id]");
-      if($query->EOF)
+      if ($query->EOF)
       {
         $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $src[sector_id], $l_tdr_nowlink2);
         $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
@@ -370,26 +370,26 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
   }
 
   // Check ports compatibility
-  if($type1 == 'port')
+  if ($type1 == 'port')
   {
-    if($src['port_type'] == 'special')
+    if ($src['port_type'] == 'special')
     {
-      if(($type2 != 'planet') && ($type2 != 'corp_planet'))
+      if (($type2 != 'planet') && ($type2 != 'corp_planet'))
         traderoute_die($l_tdr_sportissrc);
-      if($dest['owner'] != $playerinfo['ship_id'] && ($dest['corp'] == 0 || ($dest['corp'] != $playerinfo['team'])))
+      if ($dest['owner'] != $playerinfo['ship_id'] && ($dest['corp'] == 0 || ($dest['corp'] != $playerinfo['team'])))
         traderoute_die($l_tdr_notownplanet);
     }
     else
     {
-      if($type2 == 'planet')
+      if ($type2 == 'planet')
         traderoute_die($l_tdr_planetisdest);
-      if($src['port_type'] == $dest['port_type'])
+      if ($src['port_type'] == $dest['port_type'])
         traderoute_die($l_tdr_samecom);
     }
   }
   else
   {
-    if($dest['port_type'] == 'special')
+    if ($dest['port_type'] == 'special')
       traderoute_die($l_tdr_sportcom);
   }
 }
@@ -406,21 +406,21 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   $retvalue[scooped2] = 0;
   $retvalue[scooped] = 0;
 
-  if($type1 == 'L')
+  if ($type1 == 'L')
   {
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$start");
     $start = $query->fields;
   }
 
-  if($type2 == 'L')
+  if ($type2 == 'L')
   {
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$dest");
     $dest = $query->fields;
   }
 
-  if($start[sector_id] == $dest[sector_id])
+  if ($start[sector_id] == $dest[sector_id])
   {
-    if($circuit == '1')
+    if ($circuit == '1')
       $retvalue[triptime] = '1';
     else
       $retvalue[triptime] = '2';
@@ -441,48 +441,48 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   $shipspeed = mypw($level_factor, $playerinfo[engines]);
   $triptime = round($distance / $shipspeed);
 
-  if(!$triptime && $destination != $playerinfo[sector])
+  if (!$triptime && $destination != $playerinfo[sector])
     $triptime = 1;
 
-  if($playerinfo[dev_fuelscoop] == "Y")
+  if ($playerinfo[dev_fuelscoop] == "Y")
       $energyscooped = $distance * 100;
   else
     $energyscooped = 0;
 
-  if($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
+  if ($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
     $energyscooped = 100;
 
   $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
 
-  if($free_power < $energyscooped)
+  if ($free_power < $energyscooped)
     $energyscooped = $free_power;
 
-  if($energyscooped < 1)
+  if ($energyscooped < 1)
     $energyscooped = 0;
 
   $retvalue[scooped1] = $energyscooped;
 
-  if($circuit == '2')
+  if ($circuit == '2')
   {
-    if($sells == 'Y' && $playerinfo[dev_fuelscoop] == 'Y' && $type2 == 'P' && $dest[port_type] != 'energy')
+    if ($sells == 'Y' && $playerinfo[dev_fuelscoop] == 'Y' && $type2 == 'P' && $dest[port_type] != 'energy')
     {
       $energyscooped = $distance * 100;
       $free_power = NUM_ENERGY($playerinfo[power]);
-      if($free_power < $energyscooped)
+      if ($free_power < $energyscooped)
         $energyscooped = $free_power;
       $retvalue[scooped2] = $energyscooped;
     }
-    elseif($playerinfo[dev_fuelscoop] == 'Y')
+    elseif ($playerinfo[dev_fuelscoop] == 'Y')
     {
       $energyscooped = $distance * 100;
       $free_power = NUM_ENERGY($playerinfo[power]) - $retvalue[scooped1] - $playerinfo[ship_energy];
-      if($free_power < $energyscooped)
+      if ($free_power < $energyscooped)
         $energyscooped = $free_power;
       $retvalue[scooped2] = $energyscooped;
     }
   }
 
-  if($circuit == '2')
+  if ($circuit == '2')
   {
     $triptime*=2;
     $triptime+=2;
@@ -508,21 +508,21 @@ function traderoute_new($traderoute_id)
   global $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $l_footer_one_player_on, $sched_ticks;
   global $db, $dbtables;
 
-  if(!empty($traderoute_id))
+  if (!empty($traderoute_id))
   {
     $result = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE traderoute_id=$traderoute_id");
-    if(!result || $result->EOF)
+    if (!result || $result->EOF)
       traderoute_die($l_tdr_editerr);
     $editroute = $result->fields;
-    if($editroute[owner] != $playerinfo[ship_id])
+    if ($editroute[owner] != $playerinfo[ship_id])
       traderoute_die($l_tdr_notowner);
   }
 
-  if($num_traderoutes >= $max_traderoutes_player && empty($editroute))
+  if ($num_traderoutes >= $max_traderoutes_player && empty($editroute))
     traderoute_die("<p>$l_tdr_maxtdr<p>");
 
   echo "<p><font size=3 color=blue><b>";
-  if(empty($editroute))
+  if (empty($editroute))
     echo $l_tdr_createnew;
   else
     echo "$l_tdr_editinga ";
@@ -537,7 +537,7 @@ function traderoute_new($traderoute_id)
   while (!$result->EOF)
   {
     $planets[$i] = $result->fields;
-    if($planets[$i][name] == "")
+    if ($planets[$i][name] == "")
       $planets[$i][name] = $l_tdr_unnamed;
     $i++;
     $result->MoveNext();
@@ -549,7 +549,7 @@ function traderoute_new($traderoute_id)
   while (!$result->EOF)
   {
     $planets_corp[$i] = $result->fields;
-    if($planets_corp[$i][name] == "")
+    if ($planets_corp[$i][name] == "")
       $planets_corp[$i][name] = $l_tdr_unnamed;
     $i++;
     $result->MoveNext();
@@ -568,7 +568,7 @@ function traderoute_new($traderoute_id)
     <td><input type=radio name=\"ptype1\" value=\"port\"
     ";
 
-  if(empty($editroute) || (!empty($editroute) && $editroute[source_type] == 'P'))
+  if (empty($editroute) || (!empty($editroute) && $editroute[source_type] == 'P'))
     echo " checked";
 
     echo "
@@ -576,7 +576,7 @@ function traderoute_new($traderoute_id)
       <td>&nbsp;&nbsp;<input type=text name=port_id1 size=20 align='center'
       ";
 
-  if(!empty($editroute) && $editroute[source_type] == 'P')
+  if (!empty($editroute) && $editroute[source_type] == 'P')
     echo " value=\"$editroute[source_id]\"";
 
   echo "
@@ -589,7 +589,7 @@ function traderoute_new($traderoute_id)
     <td align=right><font size=2>Personal $l_tdr_planet : </font></td>
     <td><input type=radio name=\"ptype1\" value=\"planet\"
     ";
-  if(!empty($editroute) && $editroute[source_type] == 'L')
+  if (!empty($editroute) && $editroute[source_type] == 'L')
     echo " checked";
 
     echo '
@@ -597,15 +597,15 @@ function traderoute_new($traderoute_id)
     <td>&nbsp;&nbsp;<select name=planet_id1>
     ';
 
-  if($num_planets == 0)
+  if ($num_planets == 0)
     echo "<option value=none>$l_tdr_none</option>";
   else
   {
     $i=0;
-    while($i < $num_planets)
+    while ($i < $num_planets)
     {
       echo "<option ";
-      if($planets[$i][planet_id] == $editroute[source_id])
+      if ($planets[$i][planet_id] == $editroute[source_id])
         echo "selected ";
       echo "value=" . $planets[$i][planet_id] . ">" . $planets[$i][name] . " $l_tdr_insector " . $planets[$i][sector_id] . "</option>";
       $i++;
@@ -618,7 +618,7 @@ function traderoute_new($traderoute_id)
     <td><input type=radio name=\"ptype1\" value=\"corp_planet\"
     ";
 
-  if(!empty($editroute) && $editroute[source_type] == 'C')
+  if (!empty($editroute) && $editroute[source_type] == 'C')
     echo " checked";
 
     echo '
@@ -626,15 +626,15 @@ function traderoute_new($traderoute_id)
     <td>&nbsp;&nbsp;<select name=corp_planet_id1>
     ';
 
-  if($num_corp_planets == 0)
+  if ($num_corp_planets == 0)
     echo "<option value=none>$l_tdr_none</option>";
   else
   {
     $i=0;
-    while($i < $num_corp_planets)
+    while ($i < $num_corp_planets)
     {
       echo "<option ";
-      if($planets_corp[$i][planet_id] == $editroute[source_id])
+      if ($planets_corp[$i][planet_id] == $editroute[source_id])
         echo "selected ";
       echo "value=" . $planets_corp[$i][planet_id] . ">" . $planets_corp[$i][name] . " $l_tdr_insector " . $planets_corp[$i][sector_id] . "</option>";
       $i++;
@@ -653,7 +653,7 @@ function traderoute_new($traderoute_id)
     <td><input type=radio name=\"ptype2\" value=\"port\"
     ";
 
-  if(empty($editroute) || (!empty($editroute) && $editroute[dest_type] == 'P'))
+  if (empty($editroute) || (!empty($editroute) && $editroute[dest_type] == 'P'))
     echo " checked";
 
     echo '
@@ -661,7 +661,7 @@ function traderoute_new($traderoute_id)
     <td>&nbsp;&nbsp;<input type=text name=port_id2 size=20 align="center"
     ';
 
-  if(!empty($editroute) && $editroute[dest_type] == 'P')
+  if (!empty($editroute) && $editroute[dest_type] == 'P')
     echo " value=\"$editroute[dest_id]\"";
 
     echo "
@@ -674,7 +674,7 @@ function traderoute_new($traderoute_id)
     <td><input type=radio name=\"ptype2\" value=\"planet\"
     ";
 
-  if(!empty($editroute) && $editroute[dest_type] == 'L')
+  if (!empty($editroute) && $editroute[dest_type] == 'L')
     echo " checked";
 
   echo '
@@ -682,15 +682,15 @@ function traderoute_new($traderoute_id)
     <td>&nbsp;&nbsp;<select name=planet_id2>
     ';
 
-  if($num_planets == 0)
+  if ($num_planets == 0)
     echo "<option value=none>$l_tdr_none</option>";
   else
   {
     $i=0;
-    while($i < $num_planets)
+    while ($i < $num_planets)
     {
       echo "<option ";
-      if($planets[$i][planet_id] == $editroute[dest_id])
+      if ($planets[$i][planet_id] == $editroute[dest_id])
         echo "selected ";
       echo "value=" . $planets[$i][planet_id] . ">" . $planets[$i][name] . " $l_tdr_insector " . $planets[$i][sector_id] . "</option>";
       $i++;
@@ -703,7 +703,7 @@ function traderoute_new($traderoute_id)
     <td><input type=radio name=\"ptype2\" value=\"corp_planet\"
     ";
 
-  if(!empty($editroute) && $editroute[dest_type] == 'C')
+  if (!empty($editroute) && $editroute[dest_type] == 'C')
     echo " checked";
 
     echo '
@@ -711,15 +711,15 @@ function traderoute_new($traderoute_id)
     <td>&nbsp;&nbsp;<select name=corp_planet_id2>
     ';
 
-  if($num_corp_planets == 0)
+  if ($num_corp_planets == 0)
     echo "<option value=none>$l_tdr_none</option>";
   else
   {
     $i=0;
-    while($i < $num_corp_planets)
+    while ($i < $num_corp_planets)
     {
       echo "<option ";
-      if($planets_corp[$i][planet_id] == $editroute[dest_id])
+      if ($planets_corp[$i][planet_id] == $editroute[dest_id])
         echo "selected ";
       echo "value=" . $planets_corp[$i][planet_id] . ">" . $planets_corp[$i][name] . " $l_tdr_insector " . $planets_corp[$i][sector_id] . "</option>";
       $i++;
@@ -738,14 +738,14 @@ function traderoute_new($traderoute_id)
     <td colspan=2 valign=top><font size=2><input type=radio name=\"move_type\" value=\"realspace\"
     ";
 
-  if(empty($editroute) || (!empty($editroute) && $editroute[move_type] == 'R'))
+  if (empty($editroute) || (!empty($editroute) && $editroute[move_type] == 'R'))
     echo " checked";
 
   echo "
     >&nbsp;$l_tdr_realspace&nbsp;&nbsp<font size=2><input type=radio name=\"move_type\" value=\"warp\"
     ";
 
-  if(!empty($editroute) && $editroute[move_type] == 'W')
+  if (!empty($editroute) && $editroute[move_type] == 'W')
     echo " checked";
 
   echo "
@@ -755,14 +755,14 @@ function traderoute_new($traderoute_id)
     <td colspan=2 valign=top><font size=2><input type=radio name=\"circuit_type\" value=\"1\"
     ";
 
-  if(empty($editroute) || (!empty($editroute) && $editroute[circuit] == '1'))
+  if (empty($editroute) || (!empty($editroute) && $editroute[circuit] == '1'))
     echo " checked";
 
   echo "
     >&nbsp;$l_tdr_oneway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=\"circuit_type\" value=\"2\"
     ";
 
-  if(!empty($editroute) && $editroute[circuit] == '2')
+  if (!empty($editroute) && $editroute[circuit] == '2')
     echo " checked";
 
   echo "
@@ -773,7 +773,7 @@ function traderoute_new($traderoute_id)
     <td><td><td align='center'>
     ";
 
-  if(empty($editroute))
+  if (empty($editroute))
     echo "<input type=submit value=\"$l_tdr_create\">";
   else
   {
@@ -819,20 +819,20 @@ function traderoute_create()
   global $l_tdr_invaliddplanet, $l_tdr_invaliddport, $l_tdr_invalidsrc, $l_tdr_invalidspoint;
   global $db, $dbtables;
 
-    if($num_traderoutes >= $max_traderoutes_player && empty($editing))
+    if ($num_traderoutes >= $max_traderoutes_player && empty($editing))
     { // Dont let them exceed max traderoutes
         traderoute_die($l_tdr_maxtdr);
     }
   // Database sanity check for source
-  if($ptype1 == 'port')
+  if ($ptype1 == 'port')
   {
 
 // Check for valid Source Port
-      if($port_id1 >= $sector_max)
+      if ($port_id1 >= $sector_max)
         traderoute_die($l_tdr_invalidspoint);
 
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$port_id1");
-    if(!$query || $query->EOF)
+    if (!$query || $query->EOF)
     {
       $l_tdr_errnotvalidport = str_replace("[tdr_port_id]", $port_id1, $l_tdr_errnotvalidport);
       traderoute_die($l_tdr_errnotvalidport);
@@ -840,7 +840,7 @@ function traderoute_create()
 
     // OK we definitely have a port here
     $source=$query->fields;
-    if($source['port_type'] == 'none')
+    if ($source['port_type'] == 'none')
     {
       $l_tdr_errnoport = str_replace("[tdr_port_id]", $port_id1, $l_tdr_errnoport);
       traderoute_die($l_tdr_errnoport);
@@ -850,18 +850,18 @@ function traderoute_create()
   {
     $query = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id1");
     $source=$query->fields;
-    if(!$query || $query->EOF)
+    if (!$query || $query->EOF)
     {
       traderoute_die($l_tdr_errnosrc);
     }
 
 // Check for valid Source Planet
-      if($source['sector_id'] >= $sector_max)
+      if ($source['sector_id'] >= $sector_max)
         traderoute_die($l_tdr_invalidsrc);
 
-    if($source['owner'] != $playerinfo['ship_id'])
+    if ($source['owner'] != $playerinfo['ship_id'])
     {
-      if(($playerinfo['team'] == 0 || $playerinfo['team'] != $source['corp']) && $source['sells'] == 'N')
+      if (($playerinfo['team'] == 0 || $playerinfo['team'] != $source['corp']) && $source['sells'] == 'N')
       {
 #        $l_tdr_errnotownnotsell = str_replace("[tdr_source_name]", $source[name], $l_tdr_errnotownnotsell);
 #        $l_tdr_errnotownnotsell = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_errnotownnotsell);
@@ -878,22 +878,22 @@ traderoute_die($l_tdr_invalidsrc);
 
 $pl1query = $db->Execute("SELECT * FROM $dbtables[movement_log] WHERE sector_id=$source[sector_id] AND ship_id = $playerinfo[ship_id]");
 $num_res1 = $pl1query->numRows();
-if($num_res1 == 0)
+if ($num_res1 == 0)
 {
     traderoute_die("You cannot create a traderoute from a sector you have not visited!");
 }
 // Note: shouldnt we, more realistically, require a ship to be *IN* the source sector to create the traderoute?
 
   // Database sanity check for dest
-  if($ptype2 == 'port')
+  if ($ptype2 == 'port')
   {
 
 // Check for valid Dest Port
-      if($port_id2 >= $sector_max)
+      if ($port_id2 >= $sector_max)
         traderoute_die($l_tdr_invaliddport);
 
     $query = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$port_id2");
-    if(!$query || $query->EOF)
+    if (!$query || $query->EOF)
     {
       $l_tdr_errnotvaliddestport = str_replace("[tdr_port_id]", $port_id2, $l_tdr_errnotvaliddestport);
       traderoute_die($l_tdr_errnotvaliddestport);
@@ -901,7 +901,7 @@ if($num_res1 == 0)
 
     $destination=$query->fields;
 
-    if($destination['port_type'] == 'none')
+    if ($destination['port_type'] == 'none')
     {
       $l_tdr_errnoport2 = str_replace("[tdr_port_id]", $port_id2, $l_tdr_errnoport2);
       traderoute_die($l_tdr_errnoport2);
@@ -911,16 +911,16 @@ if($num_res1 == 0)
   {
     $query = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id2");
     $destination=$query->fields;
-        if(!$query || $query->EOF)
+        if (!$query || $query->EOF)
         {
             traderoute_die($l_tdr_errnodestplanet);
         }
 
 // Check for valid Dest Planet
-      if($destination['sector_id'] >= $sector_max)
+      if ($destination['sector_id'] >= $sector_max)
         traderoute_die($l_tdr_invaliddplanet);
 
-    if($destination['owner'] != $playerinfo['ship_id'] && $destination['sells'] == 'N')
+    if ($destination['owner'] != $playerinfo['ship_id'] && $destination['sells'] == 'N')
     {
 #      $l_tdr_errnotownnotsell2 = str_replace("[tdr_dest_name]", $destination['name'], $l_tdr_errnotownnotsell2);
 #      $l_tdr_errnotownnotsell2 = str_replace("[tdr_dest_sector_id]", $destination['sector_id'], $l_tdr_errnotownnotsell2);
@@ -935,13 +935,13 @@ traderoute_die($l_tdr_invaliddplanet);
 // OK now we have $destination lets see if we've been there.
 $pl2query = $db->Execute("SELECT * FROM $dbtables[movement_log] WHERE sector_id=$destination[sector_id] AND ship_id = $playerinfo[ship_id]");
 $num_res2 = $pl2query->numRows();
-if($num_res2 == 0)
+if ($num_res2 == 0)
 {
     traderoute_die("You cannot create a traderoute into a sector you have not visited!");
 }
 
 // Check destination - we cannot trade INTO a special port
-if($destination['port_type'] == 'special')
+if ($destination['port_type'] == 'special')
 {
 
     traderoute_die("You cannot create a traderoute into a special port!");
@@ -949,43 +949,43 @@ if($destination['port_type'] == 'special')
   // Check traderoute for src => dest
   traderoute_check_compatible($ptype1, $ptype2, $move_type, $circuit_type, $source , $destination);
 
-  if($ptype1 == 'port')
+  if ($ptype1 == 'port')
     $src_id = $port_id1;
-  elseif($ptype1 == 'planet')
+  elseif ($ptype1 == 'planet')
     $src_id = $planet_id1;
-  elseif($ptype1 == 'corp_planet')
+  elseif ($ptype1 == 'corp_planet')
     $src_id = $corp_planet_id1;
 
 
-  if($ptype2 == 'port')
+  if ($ptype2 == 'port')
     $dest_id = $port_id2;
-  elseif($ptype2 == 'planet')
+  elseif ($ptype2 == 'planet')
     $dest_id = $planet_id2;
-  elseif($ptype2 == 'corp_planet')
+  elseif ($ptype2 == 'corp_planet')
     $dest_id = $corp_planet_id2;
 
 
-  if($ptype1 == 'port')
+  if ($ptype1 == 'port')
     $src_type = 'P';
-  elseif($ptype1 == 'planet')
+  elseif ($ptype1 == 'planet')
     $src_type = 'L';
-  elseif($ptype1 == 'corp_planet')
+  elseif ($ptype1 == 'corp_planet')
     $src_type = 'C';
 
 
-  if($ptype2 == 'port')
+  if ($ptype2 == 'port')
     $dest_type = 'P';
-  elseif($ptype2 == 'planet')
+  elseif ($ptype2 == 'planet')
     $dest_type = 'L';
-  elseif($ptype2 == 'corp_planet')
+  elseif ($ptype2 == 'corp_planet')
     $dest_type = 'C';
 
-  if($move_type == 'realspace')
+  if ($move_type == 'realspace')
     $mtype = 'R';
   else
     $mtype = 'W';
 
-  if(empty($editing))
+  if (empty($editing))
   {
     $query = $db->Execute("INSERT INTO $dbtables[traderoutes] VALUES(NULL, $src_id, $dest_id, '$src_type', '$dest_type', '$mtype', $playerinfo[ship_id], '$circuit_type')");
     echo "<p>$l_tdr_newtdrcreated";
@@ -1012,15 +1012,15 @@ function traderoute_delete()
   global $db, $dbtables;
 
   $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE traderoute_id=$traderoute_id");
-  if(!$query || $query->EOF)
+  if (!$query || $query->EOF)
     traderoute_die($l_tdr_tdrdoesntexist);
 
   $delroute = $query->fields;
 
-  if($delroute['owner'] != $playerinfo['ship_id'])
+  if ($delroute['owner'] != $playerinfo['ship_id'])
     traderoute_die($l_tdr_notowntdr);
 
-  if(empty($confirm))
+  if (empty($confirm))
   {
     $num_traderoutes = 1;
     $traderoutes[0] = $delroute;
@@ -1049,21 +1049,21 @@ function traderoute_settings()
     "<td><font size=2 color=white> - $l_tdr_colonists :</font></td>".
     "<td><input type=checkbox name=colonists";
 
-  if($playerinfo[trade_colonists] == 'Y')
+  if ($playerinfo[trade_colonists] == 'Y')
     echo " checked";
 
   echo "></tr><tr>".
     "<td><font size=2 color=white> - $l_tdr_fighters :</font></td>".
     "<td><input type=checkbox name=fighters";
 
-  if($playerinfo[trade_fighters] == 'Y')
+  if ($playerinfo[trade_fighters] == 'Y')
     echo " checked";
 
   echo "></tr><tr>".
     "<td><font size=2 color=white> - $l_tdr_torps :</font></td>".
     "<td><input type=checkbox name=torps";
 
-  if($playerinfo[trade_torps] == 'Y')
+  if ($playerinfo[trade_torps] == 'Y')
     echo " checked";
 
   echo "></tr>".
@@ -1074,14 +1074,14 @@ function traderoute_settings()
     "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_trade</font></td>".
     "<td><input type=radio name=energy value=\"Y\"";
 
-  if($playerinfo[trade_energy] == 'Y')
+  if ($playerinfo[trade_energy] == 'Y')
     echo " checked";
 
   echo "></td></tr><tr>".
     "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_keep</font></td>".
     "<td><input type=radio name=energy value=\"N\"";
 
-  if($playerinfo[trade_energy] == 'N')
+  if ($playerinfo[trade_energy] == 'N')
     echo " checked";
 
   echo "></td></tr><tr><td>&nbsp;</td></tr><tr><td>".
@@ -1149,47 +1149,47 @@ function traderoute_engage($j)
   global $l_tdr_fighters, $l_tdr_nothingtotrade;
   global $db, $dbtables;
 
-  foreach($traderoutes as $testroute)
+  foreach ($traderoutes as $testroute)
   {
-    if($testroute['traderoute_id'] == $engage)
+    if ($testroute['traderoute_id'] == $engage)
       $traderoute = $testroute;
     //var_dump($traderoute);
   }
 
-  if(!isset($traderoute))
+  if (!isset($traderoute))
     traderoute_die($l_tdr_engagenonexist);
 
-  if($traderoute['owner'] != $playerinfo['ship_id'])
+  if ($traderoute['owner'] != $playerinfo['ship_id'])
     traderoute_die($l_tdr_notowntdr);
 
 // Source Check
-  if($traderoute['source_type'] == 'P')
+  if ($traderoute['source_type'] == 'P')
   {
     // Retrieve port info here, we'll need it later anyway
     $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$traderoute[source_id]");
 #    $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]));");
 
-    if(!$result || $result->EOF)
+    if (!$result || $result->EOF)
       traderoute_die($l_tdr_invalidspoint);
 
     $source = $result->fields;
 
-    if($traderoute['source_id'] != $playerinfo['sector'])
+    if ($traderoute['source_id'] != $playerinfo['sector'])
     {
       $l_tdr_inittdr = str_replace("[tdr_source_id]", $traderoute['source_id'], $l_tdr_inittdr);
       traderoute_die($l_tdr_inittdr);
     }
   }
-  elseif($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
+  elseif ($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
   {
 #    $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$traderoute[source_id]");
     $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]));");
-    if(!$result || $result->EOF)
+    if (!$result || $result->EOF)
       traderoute_die($l_tdr_invalidsrc);
 
     $source = $result->fields;
 
-    if($source['sector_id'] != $playerinfo['sector'])
+    if ($source['sector_id'] != $playerinfo['sector'])
     {
 // Check for valid Owned Source Planet
 ##      $l_tdr_inittdrsector = str_replace("[tdr_source_sector_id]", $source['sector_id'], $l_tdr_inittdrsector);
@@ -1198,9 +1198,9 @@ function traderoute_engage($j)
         traderoute_die("You must be in starting sector before you initiate a trade route!");
     }
 
-    if($traderoute['source_type'] == 'L')
+    if ($traderoute['source_type'] == 'L')
     {
-      if($source[owner] != $playerinfo[ship_id])
+      if ($source[owner] != $playerinfo[ship_id])
       {
 #        $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $source[name], $l_tdr_notyourplanet);
 #        $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_notyourplanet);
@@ -1209,9 +1209,9 @@ function traderoute_engage($j)
 
       }
     }
-    elseif($traderoute[source_type] == 'C')   // Check to make sure player and planet are in the same corp.
+    elseif ($traderoute[source_type] == 'C')   // Check to make sure player and planet are in the same corp.
     {
-      if($source[corp] != $playerinfo[team])
+      if ($source[corp] != $playerinfo[team])
       {
 #        $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $source[name], $l_tdr_notyourplanet);
 #        $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_notyourplanet);
@@ -1223,22 +1223,22 @@ function traderoute_engage($j)
 
     // Store starting port info, we'll need it later
     $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$source[sector_id]");
-    if(!$result || $result->EOF)
+    if (!$result || $result->EOF)
       traderoute_die($l_tdr_invalidssector);
 
     $sourceport = $result->fields;
   }
 
 // Destination Check
-  if($traderoute['dest_type'] == 'P')
+  if ($traderoute['dest_type'] == 'P')
   {
     $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$traderoute[dest_id]");
-    if(!$result || $result->EOF)
+    if (!$result || $result->EOF)
       traderoute_die($l_tdr_invaliddport);
 
     $dest = $result->fields;
   }
-  elseif(($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))  // Get data from planet table
+  elseif (($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))  // Get data from planet table
   {
 
 // Check for valid Owned Source Planet
@@ -1247,23 +1247,23 @@ function traderoute_engage($j)
     $result = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$traderoute[dest_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]));");
 /*--------------------------*/
 
-    if(!$result || $result->EOF)
+    if (!$result || $result->EOF)
       traderoute_die($l_tdr_invaliddplanet);
 
     $dest = $result->fields;
 
-    if($traderoute['dest_type'] == 'L')
+    if ($traderoute['dest_type'] == 'L')
     {
-      if($dest[owner] != $playerinfo[ship_id])
+      if ($dest[owner] != $playerinfo[ship_id])
       {
         $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest[name], $l_tdr_notyourplanet);
         $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest[sector_id], $l_tdr_notyourplanet);
         traderoute_die($l_tdr_notyourplanet);
       }
     }
-    elseif($traderoute[dest_type] == 'C')   // Check to make sure player and planet are in the same corp.
+    elseif ($traderoute[dest_type] == 'C')   // Check to make sure player and planet are in the same corp.
     {
-      if($dest[corp] != $playerinfo[team])
+      if ($dest[corp] != $playerinfo[team])
       {
         $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest[name], $l_tdr_notyourplanet);
         $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest[sector_id], $l_tdr_notyourplanet);
@@ -1272,31 +1272,31 @@ function traderoute_engage($j)
     }
 
     $result = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$dest[sector_id]");
-    if(!$result || $result->EOF)
+    if (!$result || $result->EOF)
       traderoute_die($l_tdr_invaliddsector);
 
     $destport = $result->fields;
   }
 
-  if(!isset($sourceport))
+  if (!isset($sourceport))
     $sourceport=$source;
-  if(!isset($destport))
+  if (!isset($destport))
     $destport=$dest;
 
 // Warp or RealSpace and generate distance
-  if($traderoute['move_type'] == 'W')
+  if ($traderoute['move_type'] == 'W')
   {
     $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$source[sector_id] AND link_dest=$dest[sector_id]");
-    if($query->EOF)
+    if ($query->EOF)
     {
       $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink1);
       $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
       traderoute_die($l_tdr_nowlink1);
     }
-    if($traderoute['circuit'] == '2')
+    if ($traderoute['circuit'] == '2')
     {
       $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$dest[sector_id] AND link_dest=$source[sector_id]");
-      if($query->EOF)
+      if ($query->EOF)
       {
         $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink2);
         $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
@@ -1314,7 +1314,7 @@ function traderoute_engage($j)
 
 
 // Check if player has enough turns
-  if($playerinfo['turns'] < $dist['triptime'])
+  if ($playerinfo['turns'] < $dist['triptime'])
   {
     $l_tdr_moreturnsneeded = str_replace("[tdr_dist_triptime]", $dist[triptime], $l_tdr_moreturnsneeded);
     $l_tdr_moreturnsneeded = str_replace("[tdr_playerinfo_turns]", $playerinfo[turns], $l_tdr_moreturnsneeded);
@@ -1326,7 +1326,7 @@ function traderoute_engage($j)
   $hostile = 0;
 
   $result99 = $db->Execute("SELECT * FROM $dbtables[sector_defence] WHERE sector_id = $source[sector_id] AND ship_id <> $playerinfo[ship_id]");
-  if(!$result99->EOF)
+  if (!$result99->EOF)
   {
      $fighters_owner = $result99->fields;
      $nsresult = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fighters_owner[ship_id]");
@@ -1336,7 +1336,7 @@ function traderoute_engage($j)
   }
 
   $result98 = $db->Execute("SELECT * FROM $dbtables[sector_defence] WHERE sector_id = $dest[sector_id] AND ship_id <> $playerinfo[ship_id]");
-  if(!$result98->EOF)
+  if (!$result98->EOF)
   {
      $fighters_owner = $result98->fields;
      $nsresult = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fighters_owner[ship_id]");
@@ -1345,59 +1345,59 @@ function traderoute_engage($j)
             $hostile = 1;
   }
 
-  if($hostile > 0 && $playerinfo[hull] > $mine_hullsize)
+  if ($hostile > 0 && $playerinfo[hull] > $mine_hullsize)
      traderoute_die($l_tdr_tdrhostdef);
 
 // Special Port Nothing to do
-  if($traderoute['source_type'] == 'P' && $source['port_type'] == 'special' && $playerinfo['trade_colonists'] == 'N' && $playerinfo['trade_fighters'] == 'N' && $playerinfo['trade_torps'] == 'N')
+  if ($traderoute['source_type'] == 'P' && $source['port_type'] == 'special' && $playerinfo['trade_colonists'] == 'N' && $playerinfo['trade_fighters'] == 'N' && $playerinfo['trade_torps'] == 'N')
     traderoute_die($l_tdr_globalsetbuynothing);
 
 
 // Check if zone allows trading  SRC
-  if($traderoute['source_type'] == 'P')
+  if ($traderoute['source_type'] == 'P')
   {
     $res = $db->Execute("SELECT * FROM $dbtables[zones],$dbtables[universe] WHERE $dbtables[universe].sector_id=$traderoute[source_id] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
     $zoneinfo = $res->fields;
-    if($zoneinfo['allow_trade'] == 'N')
+    if ($zoneinfo['allow_trade'] == 'N')
       traderoute_die($l_tdr_nosrcporttrade);
-    elseif($zoneinfo['allow_trade'] == 'L')
+    elseif ($zoneinfo['allow_trade'] == 'L')
     {
-      if($zoneinfo['corp_zone'] == 'N')
+      if ($zoneinfo['corp_zone'] == 'N')
       {
         $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
         $ownerinfo = $res->fields;
 
-        if($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
+        if ($playerinfo[ship_id] != $zoneinfo[owner] && $playerinfo[team] == 0 || $playerinfo[team] != $ownerinfo[team])
           traderoute_die($l_tdr_tradesrcportoutsider);
       }
       else
       {
-        if($playerinfo[team] != $zoneinfo[owner])
+        if ($playerinfo[team] != $zoneinfo[owner])
           traderoute_die($l_tdr_tradesrcportoutsider);
       }
     }
   }
 
 // Check if zone allows trading  DEST
-  if($traderoute['dest_type'] == 'P')
+  if ($traderoute['dest_type'] == 'P')
   {
     $res = $db->Execute("SELECT * FROM $dbtables[zones],$dbtables[universe] WHERE $dbtables[universe].sector_id=$traderoute[dest_id] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
     $zoneinfo = $res->fields;
-    if($zoneinfo['allow_trade'] == 'N')
+    if ($zoneinfo['allow_trade'] == 'N')
       traderoute_die($l_tdr_nodestporttrade);
-    elseif($zoneinfo['allow_trade'] == 'L')
+    elseif ($zoneinfo['allow_trade'] == 'L')
     {
-      if($zoneinfo['corp_zone'] == 'N')
+      if ($zoneinfo['corp_zone'] == 'N')
       {
         $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
         $ownerinfo = $res->fields;
 
-        if($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
+        if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
           traderoute_die($l_tdr_tradedestportoutsider);
       }
       else
       {
-        if($playerinfo['team'] != $zoneinfo['owner'])
+        if ($playerinfo['team'] != $zoneinfo['owner'])
           traderoute_die($l_tdr_tradedestportoutsider);
       }
     }
@@ -1405,22 +1405,22 @@ function traderoute_engage($j)
 
 traderoute_results_table_top();
 // Determine if Source is Planet or Port
-    if($traderoute['source_type'] == 'P')
+    if ($traderoute['source_type'] == 'P')
     {
         echo "$l_tdr_portin $source[sector_id]";
     }
-    elseif(($traderoute['source_type'] == 'L') || ($traderoute['source_type'] == 'C'))
+    elseif (($traderoute['source_type'] == 'L') || ($traderoute['source_type'] == 'C'))
     {
         echo "$l_tdr_planet $source[name] in $sourceport[sector_id]";
     }
   traderoute_results_source();
 
 // Determine if Destination is Planet or Port
-    if($traderoute['dest_type'] == 'P')
+    if ($traderoute['dest_type'] == 'P')
     {
         echo "$l_tdr_portin $dest[sector_id]";
     }
-    elseif(($traderoute['dest_type'] == 'L') || ($traderoute['dest_type'] == 'C'))
+    elseif (($traderoute['dest_type'] == 'L') || ($traderoute['dest_type'] == 'C'))
     {
         echo "$l_tdr_planet $dest[name] in $destport[sector_id]";
     }
@@ -1429,22 +1429,22 @@ traderoute_results_table_top();
   $sourcecost=0;
 
 // Source is Port
-  if($traderoute['source_type'] == 'P')
+  if ($traderoute['source_type'] == 'P')
   {
     // Special Port Section (begin)
-    if($source['port_type'] == 'special')
+    if ($source['port_type'] == 'special')
     {
       $total_credits = $playerinfo['credits'];
 
-      if($playerinfo['trade_colonists'] == 'Y')
+      if ($playerinfo['trade_colonists'] == 'Y')
       {
       $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
         $colonists_buy = $free_holds;
 
-        if($playerinfo[credits] < $colonist_price * $colonists_buy)
+        if ($playerinfo[credits] < $colonist_price * $colonists_buy)
           $colonists_buy = $playerinfo['credits'] / $colonist_price;
 
-        if($colonists_buy != 0)
+        if ($colonists_buy != 0)
           echo "$l_tdr_bought " . NUMBER($colonists_buy) . " $l_tdr_colonists<br>";
 
         $sourcecost-=$colonists_buy * $colonist_price;
@@ -1453,15 +1453,15 @@ traderoute_results_table_top();
       else
         $colonists_buy = 0;
 
-      if($playerinfo[trade_fighters] == 'Y')
+      if ($playerinfo[trade_fighters] == 'Y')
       {
         $free_fighters = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
         $fighters_buy = $free_fighters;
 
-        if($total_credits < $fighters_buy * $fighter_price)
+        if ($total_credits < $fighters_buy * $fighter_price)
           $fighters_buy = $total_credits / $fighter_price;
 
-        if($fighters_buy != 0)
+        if ($fighters_buy != 0)
           echo "$l_tdr_bought " . NUMBER($fighters_buy) . " $l_tdr_fighters<br>";
 
         $sourcecost-=$fighters_buy * $fighter_price;
@@ -1470,15 +1470,15 @@ traderoute_results_table_top();
       else
         $fighters_buy = 0;
 
-      if($playerinfo[trade_torps] == 'Y')
+      if ($playerinfo[trade_torps] == 'Y')
       {
         $free_torps = NUM_FIGHTERS($playerinfo[torp_launchers]) - $playerinfo[torps];
         $torps_buy = $free_torps;
 
-        if($total_credits < $torps_buy * $torpedo_price)
+        if ($total_credits < $torps_buy * $torpedo_price)
           $torps_buy = $total_credits / $torpedo_price;
 
-        if($torps_buy != 0)
+        if ($torps_buy != 0)
           echo "$l_tdr_bought " . NUMBER($torps_buy) . " $l_tdr_torps<br>";
 
         $sourcecost-=$torps_buy * $torpedo_price;
@@ -1486,10 +1486,10 @@ traderoute_results_table_top();
       else
         $torps_buy = 0;
 
-      if($torps_buy == 0 && $colonists_buy == 0 && $fighters_buy == 0)
+      if ($torps_buy == 0 && $colonists_buy == 0 && $fighters_buy == 0)
         echo "$l_tdr_nothingtotrade<br>";
 
-      if($traderoute[circuit] == '1')
+      if ($traderoute[circuit] == '1')
         $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=ship_colonists+$colonists_buy, ship_fighters=ship_fighters+$fighters_buy,torps=torps+$torps_buy, ship_energy=ship_energy+$dist[scooped1] WHERE ship_id=$playerinfo[ship_id]");
     }
     // Normal Port Section
@@ -1503,10 +1503,10 @@ traderoute_results_table_top();
             $organics_buy = 0;
             $energy_buy = 0;
 
-            if($source['port_type'] != 'ore')
+            if ($source['port_type'] != 'ore')
       {
         $ore_price1 = $ore_price + $ore_delta * $source['port_ore'] / $ore_limit * $inventory_factor;
-        if($source['port_ore'] - $playerinfo['ship_ore'] < 0)
+        if ($source['port_ore'] - $playerinfo['ship_ore'] < 0)
         {
           $ore_buy = $source['port_ore'];
           $portfull = 1;
@@ -1514,9 +1514,9 @@ traderoute_results_table_top();
         else
           $ore_buy = $playerinfo['ship_ore'];
         $sourcecost += $ore_buy * $ore_price1;
-        if($ore_buy != 0)
+        if ($ore_buy != 0)
         {
-          if($portfull == 1)
+          if ($portfull == 1)
             echo "$l_tdr_sold " . NUMBER($ore_buy) . " $l_tdr_ore ($l_tdr_portisfull)<br>";
           else
             echo "$l_tdr_sold " . NUMBER($ore_buy) . " $l_tdr_ore<br>";
@@ -1525,10 +1525,10 @@ traderoute_results_table_top();
       }
 
       $portfull = 0;
-      if($source['port_type'] != 'goods')
+      if ($source['port_type'] != 'goods')
       {
         $goods_price1 = $goods_price + $goods_delta * $source['port_goods'] / $goods_limit * $inventory_factor;
-        if($source['port_goods'] - $playerinfo['ship_goods'] < 0)
+        if ($source['port_goods'] - $playerinfo['ship_goods'] < 0)
         {
           $goods_buy = $source['port_goods'];
           $portfull = 1;
@@ -1536,9 +1536,9 @@ traderoute_results_table_top();
         else
           $goods_buy = $playerinfo['ship_goods'];
         $sourcecost += $goods_buy * $goods_price1;
-        if($goods_buy != 0)
+        if ($goods_buy != 0)
         {
-            if($portfull == 1)
+            if ($portfull == 1)
             {
                 echo "$l_tdr_sold " . NUMBER($goods_buy) . " $l_tdr_goods ($l_tdr_portisfull)<br>";
 
@@ -1552,10 +1552,10 @@ traderoute_results_table_top();
       }
 
       $portfull = 0;
-      if($source['port_type'] != 'organics')
+      if ($source['port_type'] != 'organics')
       {
         $organics_price1 = $organics_price + $organics_delta * $source['port_organics'] / $organics_limit * $inventory_factor;
-        if($source['port_organics'] - $playerinfo['ship_organics'] < 0)
+        if ($source['port_organics'] - $playerinfo['ship_organics'] < 0)
         {
           $organics_buy = $source['port_organics'];
           $portfull = 1;
@@ -1563,9 +1563,9 @@ traderoute_results_table_top();
         else
           $organics_buy = $playerinfo['ship_organics'];
         $sourcecost += $organics_buy * $organics_price1;
-        if($organics_buy != 0)
+        if ($organics_buy != 0)
         {
-            if($portfull == 1)
+            if ($portfull == 1)
             {
                 echo "$l_tdr_sold " . NUMBER($organics_buy) . " $l_tdr_organics ($l_tdr_portisfull)<br>";
             }
@@ -1578,10 +1578,10 @@ traderoute_results_table_top();
       }
 
       $portfull = 0;
-      if($source['port_type'] != 'energy' && $playerinfo['trade_energy'] == 'Y')
+      if ($source['port_type'] != 'energy' && $playerinfo['trade_energy'] == 'Y')
       {
         $energy_price1 = $energy_price + $energy_delta * $source['port_energy'] / $energy_limit * $inventory_factor;
-        if($source['port_energy'] - $playerinfo['ship_energy'] < 0)
+        if ($source['port_energy'] - $playerinfo['ship_energy'] < 0)
         {
           $energy_buy = $source['port_energy'];
           $portfull = 1;
@@ -1591,9 +1591,9 @@ traderoute_results_table_top();
             $energy_buy = $playerinfo['ship_energy'];
         }
         $sourcecost += $energy_buy * $energy_price1;
-        if($energy_buy != 0)
+        if ($energy_buy != 0)
         {
-            if($portfull == 1)
+            if ($portfull == 1)
             {
                 echo "$l_tdr_sold " . NUMBER($energy_buy) . " $l_tdr_energy ($l_tdr_portisfull)<br>";
             }
@@ -1608,21 +1608,21 @@ traderoute_results_table_top();
       $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
       // Time to buy
-      if($source['port_type'] == 'ore')
+      if ($source['port_type'] == 'ore')
       {
         $ore_price1 = $ore_price - $ore_delta * $source['port_ore'] / $ore_limit * $inventory_factor;
         $ore_buy = $free_holds;
-        if($playerinfo['credits'] + $sourcecost < $ore_buy * $ore_price1)
+        if ($playerinfo['credits'] + $sourcecost < $ore_buy * $ore_price1)
           $ore_buy = ($playerinfo['credits'] + $sourcecost) / $ore_price1;
-        if($source['port_ore'] < $ore_buy)
+        if ($source['port_ore'] < $ore_buy)
         {
           $ore_buy = $source['port_ore'];
-            if($source['port_ore'] == 0)
+            if ($source['port_ore'] == 0)
             {
                 echo "$l_tdr_bought " . NUMBER($ore_buy) . " $l_tdr_ore ($l_tdr_portisempty)<br>";
             }
         }
-        if($ore_buy != 0)
+        if ($ore_buy != 0)
         {
             echo "$l_tdr_bought " . NUMBER($ore_buy) . " $l_tdr_ore<br>";
         }
@@ -1631,19 +1631,19 @@ traderoute_results_table_top();
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
 
-      if($source['port_type'] == 'goods')
+      if ($source['port_type'] == 'goods')
       {
         $goods_price1 = $goods_price - $goods_delta * $source[port_goods] / $goods_limit * $inventory_factor;
         $goods_buy = $free_holds;
-        if($playerinfo['credits'] + $sourcecost < $goods_buy * $goods_price1)
+        if ($playerinfo['credits'] + $sourcecost < $goods_buy * $goods_price1)
           $goods_buy = ($playerinfo['credits'] + $sourcecost) / $goods_price1;
-        if($source['port_goods'] < $goods_buy)
+        if ($source['port_goods'] < $goods_buy)
         {
           $goods_buy = $source['port_goods'];
-          if($source['port_goods'] == 0)
+          if ($source['port_goods'] == 0)
             echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
         }
-        if($goods_buy != 0)
+        if ($goods_buy != 0)
           echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods<br>";
         $playerinfo['ship_goods'] += $goods_buy;
         $sourcecost -= $goods_buy * $goods_price1;
@@ -1651,69 +1651,69 @@ traderoute_results_table_top();
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
 
-      if($source['port_type'] == 'organics')
+      if ($source['port_type'] == 'organics')
       {
         $organics_price1 = $organics_price - $organics_delta * $source['port_organics'] / $organics_limit * $inventory_factor;
         $organics_buy = $free_holds;
-        if($playerinfo['credits'] + $sourcecost < $organics_buy * $organics_price1)
+        if ($playerinfo['credits'] + $sourcecost < $organics_buy * $organics_price1)
           $organics_buy = ($playerinfo['credits'] + $sourcecost) / $organics_price1;
-        if($source['port_organics'] < $organics_buy)
+        if ($source['port_organics'] < $organics_buy)
         {
           $organics_buy = $source['port_organics'];
-          if($source['port_organics'] == 0)
+          if ($source['port_organics'] == 0)
             echo "$l_tdr_bought " . NUMBER($organics_buy) . " $l_tdr_organics ($l_tdr_portisempty)<br>";
         }
-        if($organics_buy != 0)
+        if ($organics_buy != 0)
           echo "$l_tdr_bought " . NUMBER($organics_buy) . " $l_tdr_organics<br>";
         $playerinfo['ship_organics'] += $organics_buy;
         $sourcecost -= $organics_buy * $organics_price1;
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
 
-      if($source['port_type'] == 'energy')
+      if ($source['port_type'] == 'energy')
       {
         $energy_price1 = $energy_price - $energy_delta * $source['port_energy'] / $energy_limit * $inventory_factor;
         $energy_buy = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'] - $dist['scooped1'];
-        if($playerinfo['credits'] + $sourcecost < $energy_buy * $energy_price1)
+        if ($playerinfo['credits'] + $sourcecost < $energy_buy * $energy_price1)
           $energy_buy = ($playerinfo['credits'] + $sourcecost) / $energy_price1;
-        if($source['port_energy'] < $energy_buy)
+        if ($source['port_energy'] < $energy_buy)
         {
           $energy_buy = $source['port_energy'];
-          if($source[port_energy] == 0)
+          if ($source[port_energy] == 0)
             echo "$l_tdr_bought " . NUMBER($energy_buy) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
         }
-        if($energy_buy != 0)
+        if ($energy_buy != 0)
           echo "$l_tdr_bought " . NUMBER($energy_buy) . " $l_tdr_energy<br>";
         $playerinfo['ship_energy'] += $energy_buy;
         $sourcecost -= $energy_buy * $energy_price1;
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$source[sector_id]");
       }
-      if($dist['scooped1'] > 0)
+      if ($dist['scooped1'] > 0)
       {
         $playerinfo['ship_energy']+= $dist['scooped1'];
-        if($playerinfo['ship_energy'] > NUM_ENERGY($playerinfo['power']))
+        if ($playerinfo['ship_energy'] > NUM_ENERGY($playerinfo['power']))
           $playerinfo['ship_energy'] = NUM_ENERGY($playerinfo['power']);
       }
-      if($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
+      if ($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
         echo "$l_tdr_nothingtotrade<br>";
 
-      if($traderoute['circuit'] == '1')
+      if ($traderoute['circuit'] == '1')
         $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics], ship_energy=$playerinfo[ship_energy] WHERE ship_id=$playerinfo[ship_id]");
     }
   }
     // Source is planet
-  elseif(($traderoute[source_type] == 'L') || ($traderoute[source_type] == 'C'))
+  elseif (($traderoute[source_type] == 'L') || ($traderoute[source_type] == 'C'))
   {
     $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
 
-    if($traderoute[dest_type] == 'P')
+    if ($traderoute[dest_type] == 'P')
     {
       // Pick stuff up to sell at port
-      if(($playerinfo[ship_id] == $source[owner]) || ($playerinfo[team] == $source[corp]))
+      if (($playerinfo[ship_id] == $source[owner]) || ($playerinfo[team] == $source[corp]))
       {
-        if($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
+        if ($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
         {
-          if($source[goods] > $free_holds)
+          if ($source[goods] > $free_holds)
             $goods_buy = $free_holds;
           else
             $goods_buy = $source[goods];
@@ -1724,9 +1724,9 @@ traderoute_results_table_top();
         else
           $goods_buy = 0;
 
-        if($source[ore] > 0 && $free_holds > 0 && $dest[port_type] != 'ore')
+        if ($source[ore] > 0 && $free_holds > 0 && $dest[port_type] != 'ore')
         {
-          if($source[ore] > $free_holds)
+          if ($source[ore] > $free_holds)
             $ore_buy = $free_holds;
           else
             $ore_buy = $source[ore];
@@ -1737,9 +1737,9 @@ traderoute_results_table_top();
         else
           $ore_buy = 0;
 
-        if($source[organics] > 0 && $free_holds > 0 && $dest[port_type] != 'organics')
+        if ($source[organics] > 0 && $free_holds > 0 && $dest[port_type] != 'organics')
         {
-          if($source[organics] > $free_holds)
+          if ($source[organics] > $free_holds)
             $organics_buy = $free_holds;
           else
             $organics_buy = $source[organics];
@@ -1750,10 +1750,10 @@ traderoute_results_table_top();
         else
           $organics_buy = 0;
 
-        if($ore_buy == 0 && $goods_buy == 0 && $organics_buy == 0)
+        if ($ore_buy == 0 && $goods_buy == 0 && $organics_buy == 0)
           echo "$l_tdr_nothingtoload<br>";
 
-        if($traderoute[circuit] == '1')
+        if ($traderoute[circuit] == '1')
           $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics] WHERE ship_id=$playerinfo[ship_id]");
 
       }
@@ -1764,11 +1764,11 @@ traderoute_results_table_top();
       $db->Execute("UPDATE $dbtables[planets] SET ore=ore-$ore_buy, goods=goods-$goods_buy, organics=organics-$organics_buy WHERE planet_id=$source[planet_id]");
     }
     // Destination is a planet, so load cols and weapons
-    elseif(($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))
+    elseif (($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))
     {
-      if($source[colonists] > 0 && $free_holds > 0 && $playerinfo[trade_colonists] == 'Y')
+      if ($source[colonists] > 0 && $free_holds > 0 && $playerinfo[trade_colonists] == 'Y')
       {
-        if($source[colonists] > $free_holds)
+        if ($source[colonists] > $free_holds)
           $colonists_buy = $free_holds;
         else
           $colonists_buy = $source[colonists];
@@ -1780,9 +1780,9 @@ traderoute_results_table_top();
         $colonists_buy = 0;
 
       $free_torps = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
-      if($source[torps] > 0 && $free_torps > 0 && $playerinfo[trade_torps] == 'Y')
+      if ($source[torps] > 0 && $free_torps > 0 && $playerinfo[trade_torps] == 'Y')
       {
-        if($source[torps] > $free_torps)
+        if ($source[torps] > $free_torps)
           $torps_buy = $free_torps;
         else
           $torps_buy = $source[torps];
@@ -1794,9 +1794,9 @@ traderoute_results_table_top();
         $torps_buy = 0;
 
       $free_fighters = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
-      if($source[fighters] > 0 && $free_fighters > 0 && $playerinfo[trade_fighters] == 'Y')
+      if ($source[fighters] > 0 && $free_fighters > 0 && $playerinfo[trade_fighters] == 'Y')
       {
-        if($source[fighters] > $free_fighters)
+        if ($source[fighters] > $free_fighters)
           $fighters_buy = $free_fighters;
         else
           $fighters_buy = $source[fighters];
@@ -1807,26 +1807,26 @@ traderoute_results_table_top();
       else
         $fighters_buy = 0;
 
-      if($fighters_buy == 0 && $torps_buy == 0 && $colonists_buy == 0)
+      if ($fighters_buy == 0 && $torps_buy == 0 && $colonists_buy == 0)
         echo "$l_tdr_nothingtoload<br>";
 
-      if($traderoute[circuit] == '1')
+      if ($traderoute[circuit] == '1')
         $db->Execute("UPDATE $dbtables[ships] SET torps=$playerinfo[torps], ship_fighters=$playerinfo[ship_fighters], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
 
       $db->Execute("UPDATE $dbtables[planets] SET colonists=colonists-$colonists_buy, torps=torps-$torps_buy, fighters=fighters-$fighters_buy WHERE planet_id=$source[planet_id]");
     }
   }
 
-  if($dist['scooped1'] != 0)
+  if ($dist['scooped1'] != 0)
     echo "$l_tdr_scooped " . NUMBER($dist['scooped1']) . " $l_tdr_energy<br>";
 
   traderoute_results_close_cell();
 
-  if($traderoute['circuit'] == '2')
+  if ($traderoute['circuit'] == '2')
   {
     $playerinfo['credits'] += $sourcecost;
     $destcost = 0;
-    if($traderoute['dest_type'] == 'P')
+    if ($traderoute['dest_type'] == 'P')
     {
             // Added the below for traderoute bug
             $ore_buy = 0;
@@ -1836,10 +1836,10 @@ traderoute_results_table_top();
 
       // Sells commodities
       $portfull = 0;
-      if($dest['port_type'] != 'ore')
+      if ($dest['port_type'] != 'ore')
       {
         $ore_price1 = $ore_price + $ore_delta * $dest[port_ore] / $ore_limit * $inventory_factor;
-        if($dest['port_ore'] - $playerinfo['ship_ore'] < 0)
+        if ($dest['port_ore'] - $playerinfo['ship_ore'] < 0)
         {
           $ore_buy = $dest['port_ore'];
           $portfull = 1;
@@ -1847,9 +1847,9 @@ traderoute_results_table_top();
         else
           $ore_buy = $playerinfo['ship_ore'];
         $destcost += $ore_buy * $ore_price1;
-        if($ore_buy != 0)
+        if ($ore_buy != 0)
         {
-          if($portfull == 1)
+          if ($portfull == 1)
             echo "$l_tdr_sold " . NUMBER($ore_buy) . " $l_tdr_ore ($l_tdr_portisfull)<br>";
           else
             echo "$l_tdr_sold " . NUMBER($ore_buy) . " $l_tdr_ore<br>";
@@ -1858,10 +1858,10 @@ traderoute_results_table_top();
       }
 
       $portfull = 0;
-      if($dest['port_type'] != 'goods')
+      if ($dest['port_type'] != 'goods')
       {
         $goods_price1 = $goods_price + $goods_delta * $dest['port_goods'] / $goods_limit * $inventory_factor;
-        if($dest['port_goods'] - $playerinfo['ship_goods'] < 0)
+        if ($dest['port_goods'] - $playerinfo['ship_goods'] < 0)
         {
           $goods_buy = $dest['port_goods'];
           $portfull = 1;
@@ -1869,9 +1869,9 @@ traderoute_results_table_top();
         else
           $goods_buy = $playerinfo['ship_goods'];
         $destcost += $goods_buy * $goods_price1;
-        if($goods_buy != 0)
+        if ($goods_buy != 0)
         {
-          if($portfull == 1)
+          if ($portfull == 1)
             echo "$l_tdr_sold " . NUMBER($goods_buy) . " $l_tdr_goods ($l_tdr_portisfull)<br>";
           else
             echo "$l_tdr_sold " . NUMBER($goods_buy) . " $l_tdr_goods<br>";
@@ -1880,10 +1880,10 @@ traderoute_results_table_top();
       }
 
       $portfull = 0;
-      if($dest['port_type'] != 'organics')
+      if ($dest['port_type'] != 'organics')
       {
         $organics_price1 = $organics_price + $organics_delta * $dest['port_organics'] / $organics_limit * $inventory_factor;
-        if($dest['port_organics'] - $playerinfo['ship_organics'] < 0)
+        if ($dest['port_organics'] - $playerinfo['ship_organics'] < 0)
         {
           $organics_buy = $dest[port_organics];
           $portfull = 1;
@@ -1891,9 +1891,9 @@ traderoute_results_table_top();
         else
           $organics_buy = $playerinfo['ship_organics'];
         $destcost += $organics_buy * $organics_price1;
-        if($organics_buy != 0)
+        if ($organics_buy != 0)
         {
-          if($portfull == 1)
+          if ($portfull == 1)
             echo "$l_tdr_sold " . NUMBER($organics_buy) . " $l_tdr_organics ($l_tdr_portisfull)<br>";
           else
             echo "$l_tdr_sold " . NUMBER($organics_buy) . " $l_tdr_organics<br>";
@@ -1902,10 +1902,10 @@ traderoute_results_table_top();
       }
 
       $portfull = 0;
-      if($dest['port_type'] != 'energy' && $playerinfo['trade_energy'] == 'Y')
+      if ($dest['port_type'] != 'energy' && $playerinfo['trade_energy'] == 'Y')
       {
         $energy_price1 = $energy_price + $energy_delta * $dest['port_energy'] / $energy_limit * $inventory_factor;
-        if($dest['port_energy'] - $playerinfo['ship_energy'] < 0)
+        if ($dest['port_energy'] - $playerinfo['ship_energy'] < 0)
         {
           $energy_buy = $dest['port_energy'];
           $portfull = 1;
@@ -1913,9 +1913,9 @@ traderoute_results_table_top();
         else
           $energy_buy = $playerinfo['ship_energy'];
         $destcost += $energy_buy * $energy_price1;
-        if($energy_buy != 0)
+        if ($energy_buy != 0)
         {
-          if($portfull == 1)
+          if ($portfull == 1)
             echo "$l_tdr_sold " . NUMBER($energy_buy) . " $l_tdr_energy ($l_tdr_portisfull)<br>";
           else
             echo "$l_tdr_sold " . NUMBER($energy_buy) . " $l_tdr_energy<br>";
@@ -1928,23 +1928,23 @@ traderoute_results_table_top();
       $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
       // Time to buy
-      if($dest['port_type'] == 'ore')
+      if ($dest['port_type'] == 'ore')
       {
         $ore_price1 = $ore_price - $ore_delta * $dest['port_ore'] / $ore_limit * $inventory_factor;
-        if($traderoute['source_type'] == 'L')
+        if ($traderoute['source_type'] == 'L')
           $ore_buy = 0;
         else
         {
           $ore_buy = $free_holds;
-          if($playerinfo['credits'] + $destcost < $ore_buy * $ore_price1)
+          if ($playerinfo['credits'] + $destcost < $ore_buy * $ore_price1)
           $ore_buy = ($playerinfo['credits'] + $destcost) / $ore_price1;
-          if($dest['port_ore'] < $ore_buy)
+          if ($dest['port_ore'] < $ore_buy)
           {
             $ore_buy = $dest['port_ore'];
-            if($dest['port_ore'] == 0)
+            if ($dest['port_ore'] == 0)
               echo "$l_tdr_bought " . NUMBER($ore_buy) . " $l_tdr_ore ($l_tdr_portisempty)<br>";
           }
-          if($ore_buy != 0)
+          if ($ore_buy != 0)
             echo "$l_tdr_bought " . NUMBER($ore_buy) . " $l_tdr_ore<br>";
           $playerinfo['ship_ore'] += $ore_buy;
           $destcost -= $ore_buy * $ore_price1;
@@ -1952,23 +1952,23 @@ traderoute_results_table_top();
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
-      if($dest['port_type'] == 'goods')
+      if ($dest['port_type'] == 'goods')
       {
         $goods_price1 = $goods_price - $goods_delta * $dest['port_goods'] / $goods_limit * $inventory_factor;
-        if($traderoute['source_type'] == 'L')
+        if ($traderoute['source_type'] == 'L')
           $goods_buy = 0;
         else
         {
           $goods_buy = $free_holds;
-          if($playerinfo['credits'] + $destcost < $goods_buy * $goods_price1)
+          if ($playerinfo['credits'] + $destcost < $goods_buy * $goods_price1)
             $goods_buy = ($playerinfo['credits'] + $destcost) / $goods_price1;
-          if($dest['port_goods'] < $goods_buy)
+          if ($dest['port_goods'] < $goods_buy)
           {
             $goods_buy = $dest[port_goods];
-            if($dest['port_goods'] == 0)
+            if ($dest['port_goods'] == 0)
               echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
           }
-          if($goods_buy != 0)
+          if ($goods_buy != 0)
             echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods<br>";
           $playerinfo[ship_goods] += $goods_buy;
           $destcost -= $goods_buy * $goods_price1;
@@ -1976,23 +1976,23 @@ traderoute_results_table_top();
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
-      if($dest['port_type'] == 'organics')
+      if ($dest['port_type'] == 'organics')
       {
         $organics_price1 = $organics_price - $organics_delta * $dest['port_organics'] / $organics_limit * $inventory_factor;
-        if($traderoute['source_type'] == 'L')
+        if ($traderoute['source_type'] == 'L')
           $organics_buy = 0;
         else
         {
           $organics_buy = $free_holds;
-          if($playerinfo['credits'] + $destcost < $organics_buy * $organics_price1)
+          if ($playerinfo['credits'] + $destcost < $organics_buy * $organics_price1)
             $organics_buy = ($playerinfo['credits'] + $destcost) / $organics_price1;
-          if($dest['port_organics'] < $organics_buy)
+          if ($dest['port_organics'] < $organics_buy)
           {
             $organics_buy = $dest['port_organics'];
-            if($dest['port_organics'] == 0)
+            if ($dest['port_organics'] == 0)
               echo "$l_tdr_bought " . NUMBER($organics_buy) . " $l_tdr_organics ($l_tdr_portisempty)<br>";
           }
-          if($organics_buy != 0)
+          if ($organics_buy != 0)
             echo "$l_tdr_bought " . NUMBER($organics_buy) . " $l_tdr_organics<br>";
           $playerinfo['ship_organics'] += $organics_buy;
           $destcost -= $organics_buy * $organics_price1;
@@ -2000,76 +2000,76 @@ traderoute_results_table_top();
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
 
-      if($dest['port_type'] == 'energy')
+      if ($dest['port_type'] == 'energy')
       {
         $energy_price1 = $energy_price - $energy_delta * $dest['port_energy'] / $energy_limit * $inventory_factor;
-        if($traderoute['source_type'] == 'L')
+        if ($traderoute['source_type'] == 'L')
           $energy_buy = 0;
         else
         {
           $energy_buy = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'] - $dist['scooped1'];
-          if($playerinfo['credits'] + $destcost < $energy_buy * $energy_price1)
+          if ($playerinfo['credits'] + $destcost < $energy_buy * $energy_price1)
             $energy_buy = ($playerinfo['credits'] + $destcost) / $energy_price1;
-          if($dest['port_energy'] < $energy_buy)
+          if ($dest['port_energy'] < $energy_buy)
           {
             $energy_buy = $dest['port_energy'];
-            if($dest['port_energy'] == 0)
+            if ($dest['port_energy'] == 0)
               echo "$l_tdr_bought " . NUMBER($energy_buy) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
           }
-          if($energy_buy != 0)
+          if ($energy_buy != 0)
             echo "$l_tdr_bought " . NUMBER($energy_buy) . " $l_tdr_energy<br>";
           $playerinfo['ship_energy'] += $energy_buy;
           $destcost -= $energy_buy * $energy_price1;
         }
 
-        if($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
+        if ($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
           echo "$l_tdr_nothingtotrade<br>";
 
         $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");
       }
-      if($dist['scooped2'] > 0)
+      if ($dist['scooped2'] > 0)
       {
         $playerinfo['ship_energy']+= $dist['scooped2'];
-        if($playerinfo['ship_energy'] > NUM_ENERGY($playerinfo['power']))
+        if ($playerinfo['ship_energy'] > NUM_ENERGY($playerinfo['power']))
           $playerinfo['ship_energy'] = NUM_ENERGY($playerinfo['power']);
       }
       $db->Execute("UPDATE $dbtables[ships] SET ship_ore=$playerinfo[ship_ore], ship_goods=$playerinfo[ship_goods], ship_organics=$playerinfo[ship_organics], ship_energy=$playerinfo[ship_energy] WHERE ship_id=$playerinfo[ship_id]");
     }
     else // Dest is planet
     {
-      if($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
+      if ($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
       {
         $colonists_buy=0;
         $fighters_buy=0;
         $torps_buy=0;
       }
 
-      if($playerinfo[trade_colonists] == 'Y')
+      if ($playerinfo[trade_colonists] == 'Y')
       {
         $colonists_buy += $playerinfo[ship_colonists];
         $col_dump = $playerinfo[ship_colonists];
-        if($dest[colonists] + $colonists_buy >= $colonist_limit)
+        if ($dest[colonists] + $colonists_buy >= $colonist_limit)
         {
           $exceeding = $dest[colonists] + $colonists_buy - $colonist_limit;
           $col_dump = $exceeding;
           $setcol = 1;
           $colonists_buy-=$exceeding;
-          if($colonists_buy < 0)
+          if ($colonists_buy < 0)
             $colonists_buy = 0;
         }
       }
       else
         $col_dump = 0;
 
-      if($colonists_buy != 0)
+      if ($colonists_buy != 0)
       {
-        if($setcol ==1)
+        if ($setcol ==1)
           echo "$l_tdr_dumped " . NUMBER($colonists_buy) . " $l_tdr_colonists ($l_tdr_planetisovercrowded)<br>";
         else
           echo "$l_tdr_dumped " . NUMBER($colonists_buy) . " $l_tdr_colonists<br>";
       }
 
-      if($playerinfo[trade_fighters] == 'Y')
+      if ($playerinfo[trade_fighters] == 'Y')
       {
         $fighters_buy += $playerinfo[ship_fighters];
         $fight_dump = $playerinfo[ship_fighters];
@@ -2077,10 +2077,10 @@ traderoute_results_table_top();
       else
         $fight_dump = 0;
 
-      if($fighters_buy != 0)
+      if ($fighters_buy != 0)
         echo "$l_tdr_dumped " . NUMBER($fighters_buy) . " $l_tdr_fighters<br>";
 
-      if($playerinfo[trade_torps] == 'Y')
+      if ($playerinfo[trade_torps] == 'Y')
       {
         $torps_buy += $playerinfo[torps];
         $torps_dump = $playerinfo[torps];
@@ -2088,28 +2088,28 @@ traderoute_results_table_top();
       else
         $torps_dump = 0;
 
-      if($torps_buy != 0)
+      if ($torps_buy != 0)
         echo "$l_tdr_dumped " . NUMBER($torps_buy) . " $l_tdr_torps<br>";
 
-      if($torps_buy == 0 && $fighters_buy == 0 && $colonists_buy == 0 && $organics_buy == 0)
+      if ($torps_buy == 0 && $fighters_buy == 0 && $colonists_buy == 0 && $organics_buy == 0)
         echo "$l_tdr_nothingtodump<br>";
 
-      if($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
+      if ($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
       {
-        if($playerinfo[trade_colonists] == 'Y')
+        if ($playerinfo[trade_colonists] == 'Y')
         {
-          if($setcol != 1)
+          if ($setcol != 1)
             $col_dump = 0;
         }
         else
           $col_dump = $playerinfo[ship_colonists];
 
-        if($playerinfo[trade_fighters] == 'Y')
+        if ($playerinfo[trade_fighters] == 'Y')
           $fight_dump = 0;
         else
           $fight_dump = $playerinfo[ship_fighters];
 
-        if($playerinfo[trade_torps] == 'Y')
+        if ($playerinfo[trade_torps] == 'Y')
           $torps_dump = 0;
         else
           $torps_dump = $playerinfo[torps];
@@ -2117,19 +2117,19 @@ traderoute_results_table_top();
 
       $db->Execute("UPDATE $dbtables[planets] SET colonists=colonists+$colonists_buy, fighters=fighters+$fighters_buy, torps=torps+$torps_buy WHERE planet_id=$traderoute[dest_id]");
 
-      if($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
+      if ($traderoute[source_type] == 'L' || $traderoute[source_type] == 'C')
       {
         $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=$col_dump, ship_fighters=$fight_dump, torps=$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
       }
       else
       {
-        if($setcol == 1)
+        if ($setcol == 1)
           $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=$col_dump, ship_fighters=ship_fighters-$fight_dump, torps=torps-$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
         else
           $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=ship_colonists-$col_dump, ship_fighters=ship_fighters-$fight_dump, torps=torps-$torps_dump, ship_energy=ship_energy+$dist[scooped] WHERE ship_id=$playerinfo[ship_id]");
       }
     }
-    if($dist['scooped2'] != 0)
+    if ($dist['scooped2'] != 0)
     {
       echo "$l_tdr_scooped " . NUMBER($dist['scooped1']) . " $l_tdr_energy<br>";
     }
@@ -2142,13 +2142,13 @@ traderoute_results_table_top();
   }
   traderoute_results_show_cost();
 
-  if($sourcecost > 0)
+  if ($sourcecost > 0)
     echo "$l_tdr_profit : " . NUMBER(abs($sourcecost));
   else
     echo "$l_tdr_cost : " . NUMBER(abs($sourcecost));
     traderoute_results_close_cost();
 
-  if($destcost > 0)
+  if ($destcost > 0)
     echo "$l_tdr_profit : " . NUMBER(abs($destcost));
   else
     echo "$l_tdr_cost : " . NUMBER(abs($destcost));
@@ -2158,7 +2158,7 @@ traderoute_results_close_table();
   $total_profit = $sourcecost + $destcost;
 
     traderoute_results_display_totals($total_profit);
-    if($traderoute['circuit'] == '1')
+    if ($traderoute['circuit'] == '1')
     {
         $newsec = $destport['sector_id'];
     }
@@ -2173,16 +2173,16 @@ traderoute_results_close_table();
 $tdr_display_creds =   NUMBER($playerinfo['credits']);
   traderoute_results_display_summary($tdr_display_creds);
 // echo $j." -- ";
-  if($traderoute['circuit'] == 2)
+  if ($traderoute['circuit'] == 2)
   {
     $l_tdr_engageagain = str_replace("[tdr_engage]", $engage, $l_tdr_engageagain);
-    if($j == 1)
+    if ($j == 1)
     {
        echo $l_tdr_engageagain . "\n";
         traderoute_results_show_repeat();
     }
   }
-  if($j == 1)
+  if ($j == 1)
      traderoute_die("");
 }
 
@@ -2239,7 +2239,7 @@ function traderoute_results_close_table()
 function traderoute_results_display_totals($total_profit)
 {
     global $l_tdr_totalprofit,$l_tdr_totalcost;
-    if($total_profit > 0)
+    if ($total_profit > 0)
     {
         echo "<p><center><font size=3 color=white><b>$l_tdr_totalprofit : <font color='#0f0'><b>" . NUMBER(abs($total_profit)) . "</b></font><br>\n";
     }

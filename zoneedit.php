@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_ze_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -31,13 +31,13 @@ if(checklogin())
 bigtitle();
 
 $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
-if($res->EOF)
+if ($res->EOF)
 {
     zoneedit_die($l_zi_nexist);
 }
 $curzone = $res->fields;
 
-if($curzone[corp_zone] == 'N')
+if ($curzone[corp_zone] == 'N')
 {
     $result = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
     $ownerinfo = $result->fields;
@@ -48,21 +48,21 @@ else
     $ownerinfo = $result->fields;
 }
 
-if(($curzone[corp_zone] == 'N' && $curzone[owner] != $ownerinfo[ship_id]) || ($curzone[corp_zone] == 'Y' && $curzone[owner] != $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
+if (($curzone[corp_zone] == 'N' && $curzone[owner] != $ownerinfo[ship_id]) || ($curzone[corp_zone] == 'Y' && $curzone[owner] != $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
 {
     zoneedit_die($l_ze_notowner);
 }
 
-if($command == change)
+if ($command == change)
 {
     zoneedit_change();
 }
 
-if($curzone[allow_beacon] == 'Y')
+if ($curzone[allow_beacon] == 'Y')
 {
     $ybeacon = "checked";
 }
-elseif($curzone[allow_beacon] == 'N')
+elseif ($curzone[allow_beacon] == 'N')
 {
     $nbeacon = "checked";
 }
@@ -71,7 +71,7 @@ else
     $lbeacon = "checked";
 }
 
-if($curzone[allow_attack] == 'Y')
+if ($curzone[allow_attack] == 'Y')
 {
     $yattack = "checked";
 }
@@ -80,11 +80,11 @@ else
     $nattack = "checked";
 }
 
-if($curzone[allow_warpedit] == 'Y')
+if ($curzone[allow_warpedit] == 'Y')
 {
     $ywarpedit = "checked";
 }
-elseif($curzone[allow_warpedit] == 'N')
+elseif ($curzone[allow_warpedit] == 'N')
 {
     $nwarpedit = "checked";
 }
@@ -93,11 +93,11 @@ else
     $lwarpedit = "checked";
 }
 
-if($curzone[allow_planet] == 'Y')
+if ($curzone[allow_planet] == 'Y')
 {
     $yplanet = "checked";
 }
-elseif($curzone[allow_planet] == 'N')
+elseif ($curzone[allow_planet] == 'N')
 {
     $nplanet = "checked";
 }
@@ -106,11 +106,11 @@ else
     $lplanet = "checked";
 }
 
-if($curzone[allow_trade] == 'Y')
+if ($curzone[allow_trade] == 'Y')
 {
     $ytrade = "checked";
 }
-elseif($curzone[allow_trade] == 'N')
+elseif ($curzone[allow_trade] == 'N')
 {
     $ntrade = "checked";
 }
@@ -119,11 +119,11 @@ else
     $ltrade = "checked";
 }
 
-if($curzone[allow_defenses] == 'Y')
+if ($curzone[allow_defenses] == 'Y')
 {
     $ydefense = "checked";
 }
-elseif($curzone[allow_defenses] == 'N')
+elseif ($curzone[allow_defenses] == 'N')
 {
     $ndefense = "checked";
 }
@@ -177,7 +177,7 @@ function zoneedit_change()
     global $l_clickme, $l_ze_saved, $l_ze_return;
     global $db,$dbtables;
 
-    if(!get_magic_quotes_gpc())
+    if (!get_magic_quotes_gpc())
     {
         $name = addslashes($name);
     }

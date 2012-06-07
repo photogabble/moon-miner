@@ -30,7 +30,7 @@ function calcplanetbeams()
     $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
     $planetbeams = NUM_BEAMS($ownerinfo['beams'] + $base_factor);
     $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $planetbeams = $planetbeams + NUM_BEAMS($res->fields['beams']);
         $res->MoveNext();
@@ -70,9 +70,9 @@ function calcplanettorps()
     $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
     $torp_launchers = round(mypw($level_factor, ($ownerinfo['torp_launchers'])+ $base_factor)) * 10;
     $torps = $planetinfo['torps'];
-    if($res)
+    if ($res)
     {
-       while(!$res->EOF)
+       while (!$res->EOF)
        {
            $ship_torps =  round(mypw($level_factor, $res->fields['torp_launchers'])) * 10;
            $torp_launchers = $torp_launchers + $ship_torps;
@@ -104,7 +104,7 @@ function calcplanetshields()
     $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
     $planetshields = NUM_SHIELDS($ownerinfo[shields] + $base_factor);
     $energy_available = $planetinfo[energy];
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $planetshields += NUM_SHIELDS($res->fields[shields]);
         $res->MoveNext();
@@ -140,7 +140,7 @@ function planetbombing()
     global $l_strafesuccess;
 //$debug = true;
 
-    if($playerinfo[turns] < 1)
+    if ($playerinfo[turns] < 1)
     {
         echo "$l_cmb_atleastoneturn<BR><BR>";
         TEXT_GOTOMAIN();
@@ -164,13 +164,13 @@ function planetbombing()
         if ($debug) echo "FigsCapacity $attackerfightercapacity <BR>\n";
         if ($debug) echo "Figsused $attackerfighters<BR>\n";
 
-    if($ownerfightercapacity/$attackerfightercapacity<1)
+    if ($ownerfightercapacity/$attackerfightercapacity<1)
     {
      echo "$l_bigfigs<br><br>\n";
     }
 
 
-    if($planetbeams <= $attackerfighters)
+    if ($planetbeams <= $attackerfighters)
     {
         $attackerfighterslost=$planetbeams;
         $beamsused=$planetbeams;
@@ -181,7 +181,7 @@ function planetbombing()
         $beamsused=$attackerfighters;
     }
 
-    if($attackerfighters<=$attackerfighterslost)
+    if ($attackerfighters<=$attackerfighterslost)
     {
         echo "$l_bigbeams<br>\n";
         if ($debug) echo "Fighters destroyed by beams $attackerfighterslost<BR>\n";
@@ -192,12 +192,12 @@ function planetbombing()
 
         $attackerfighterslost+=$planettorps*$torp_dmg_rate;
 
-        if($attackerfighters<=$attackerfighterslost)
+        if ($attackerfighters<=$attackerfighterslost)
             echo "$l_bigtorps<br>\n";
         else
         {
             echo "$l_strafesuccess<br>\n";
-            if($ownerfightercapacity/$attackerfightercapacity>1)
+            if ($ownerfightercapacity/$attackerfightercapacity>1)
             {
                 $planetfighterslost=$attackerfighters-$attackerfighterslost;
                 if ($debug) echo "small guyfigs go boom $planetfighterslost<BR>\n";
@@ -209,7 +209,7 @@ function planetbombing()
                 if ($debug) echo "bigguy figs go boom $planetfighterslost<BR>\n";
                 if ($debug) echo "which is ".$attackerfighters."-".$attackerfighterslost." times ".$ownerfightercapacity/$attackerfightercapacity." <br>\n";
             }
-            if($planetfighterslost>$planetfighters)
+            if ($planetfighterslost>$planetfighters)
             {
                 $planetfighterslost = $planetfighters;
             }
@@ -273,7 +273,7 @@ function planetcombat()
     global $db, $dbtables;
     //$debug = true;
 
-    if($playerinfo[turns] < 1)
+    if ($playerinfo[turns] < 1)
     {
         echo "$l_cmb_atleastoneturn<BR><BR>";
         TEXT_GOTOMAIN();
@@ -379,9 +379,9 @@ function planetcombat()
     echo "<table width='75%' border='0'><tr align='center'><td><FONT COLOR='RED'>$l_cmb_you</FONT></td><td><FONT COLOR='#6098F8'>$l_cmb_defender</FONT></td>\n";
     echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_attackingplanet $playerinfo[sector]</b></FONT></td><td></td>";
     echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_youfireyourbeams</b></FONT></td><td></td>\n";
-    if($planetfighters > 0 && $attackerbeams > 0)
+    if ($planetfighters > 0 && $attackerbeams > 0)
     {
-        if($attackerbeams > $planetfighters)
+        if ($attackerbeams > $planetfighters)
         {
             $l_cmb_defenselost = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_defenselost);
             echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>$l_cmb_defenselost</B></FONT>";
@@ -397,10 +397,10 @@ function planetcombat()
         }
     }
 
-    if($attackerfighters > 0 && $planetbeams > 0)
+    if ($attackerfighters > 0 && $planetbeams > 0)
     {
         // If there are more beams on the planet than attacker has fighters
-        if($planetbeams > round($attackerfighters / 2))
+        if ($planetbeams > round($attackerfighters / 2))
         {
             // Half the attacker fighters
             $temp = round($attackerfighters / 2);
@@ -421,9 +421,9 @@ function planetcombat()
             $planetbeams = 0;
         }
     }
-    if($attackerbeams > 0)
+    if ($attackerbeams > 0)
     {
-        if($attackerbeams > $planetshields)
+        if ($attackerbeams > $planetshields)
         {
             $attackerbeams = $attackerbeams - $planetshields;
             $planetshields = 0;
@@ -437,9 +437,9 @@ function planetcombat()
             $attackerbeams = 0;
         }
     }
-    if($planetbeams > 0)
+    if ($planetbeams > 0)
     {
-        if($planetbeams > $attackershields)
+        if ($planetbeams > $attackershields)
         {
             $planetbeams = $planetbeams - $attackershields;
             $attackershields = 0;
@@ -453,9 +453,9 @@ function planetcombat()
             $planetbeams = 0;
         }
     }
-    if($planetbeams > 0)
+    if ($planetbeams > 0)
     {
-        if($planetbeams > $attackerarmor)
+        if ($planetbeams > $attackerarmor)
         {
             $attackerarmor = 0;
             echo "<tr align='center'><td></td><td><FONT COLOR='#6098F8'><B>$l_cmb_breachedyourarmor</B></FONT></td>";
@@ -468,9 +468,9 @@ function planetcombat()
         }
     }
     echo "<tr align='center'><td><FONT COLOR='YELLOW'><B>$l_cmb_torpedoexchangephase</b></FONT></td><td><b><FONT COLOr='YELLOW'>$l_cmb_torpedoexchangephase</b></FONT></td><BR>";
-    if($planetfighters > 0 && $attackertorpdamage > 0)
+    if ($planetfighters > 0 && $attackertorpdamage > 0)
     {
-        if($attackertorpdamage > $planetfighters)
+        if ($attackertorpdamage > $planetfighters)
         {
             $l_cmb_nofightersleft = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_nofightersleft);
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_nofightersleft</FONT></B></td><td></td>";
@@ -485,9 +485,9 @@ function planetcombat()
             $attackertorpdamage = 0;
         }
     }
-    if($attackerfighters > 0 && $planettorpdamage > 0)
+    if ($attackerfighters > 0 && $planettorpdamage > 0)
     {
-        if($planettorpdamage > round($attackerfighters / 2))
+        if ($planettorpdamage > round($attackerfighters / 2))
         {
             $temp = round($attackerfighters / 2);
             $lost = $attackerfighters - $temp;
@@ -504,9 +504,9 @@ function planetcombat()
             $planettorpdamage = 0;
         }
     }
-    if($planettorpdamage > 0)
+    if ($planettorpdamage > 0)
     {
-        if($planettorpdamage > $attackerarmor)
+        if ($planettorpdamage > $attackerarmor)
         {
             $attackerarmor = 0;
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_torpsbreachedyourarmor</B></FONT></td><td></td>";
@@ -518,7 +518,7 @@ function planetcombat()
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_planettorpsdestroy3</B></FONT></td><td></td>";
         }
     }
-    if($attackertorpdamage > 0 && $planetfighters > 0)
+    if ($attackertorpdamage > 0 && $planetfighters > 0)
     {
         $planetfighters = $planetfighters - $attackertorpdamage;
         if ($planetfighters < 0)
@@ -533,9 +533,9 @@ function planetcombat()
         }
     }
     echo "<tr align='center'><td><FONT COLOR='YELLOW'><B>$l_cmb_fightercombatphase</b></FONT></td><td><b><FONT COLOr='YELLOW'>$l_cmb_fightercombatphase</b></FONT></td><BR>";
-    if($attackerfighters > 0 && $planetfighters > 0)
+    if ($attackerfighters > 0 && $planetfighters > 0)
     {
-        if($attackerfighters > $planetfighters)
+        if ($attackerfighters > $planetfighters)
         {
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_youdestroyedallfighters2</B></FONT></td><td></td>";
             $tempplanetfighters = 0;
@@ -546,7 +546,7 @@ function planetcombat()
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_youdestroyplanetfighters2</B></FONT></td><td></td>";
             $tempplanetfighters = $planetfighters - $attackerfighters;
         }
-        if($planetfighters > $attackerfighters)
+        if ($planetfighters > $attackerfighters)
         {
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_allyourfightersdestroyed</B></FONT></td><td></td>";
             $tempplayfighters = 0;
@@ -560,9 +560,9 @@ function planetcombat()
         $attackerfighters = $tempplayfighters;
         $planetfighters = $tempplanetfighters;
     }
-    if($attackerfighters > 0 && $planetshields > 0)
+    if ($attackerfighters > 0 && $planetshields > 0)
     {
-        if($attackerfighters > $planetshields)
+        if ($attackerfighters > $planetshields)
         {
             $attackerfighters = $attackerfighters - round($planetshields / 2);
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_youbreachedplanetshields</B></FONT></td><td></td>";
@@ -575,9 +575,9 @@ function planetcombat()
             $planetshields = $planetshields - $attackerfighters;
         }
     }
-    if($planetfighters > 0)
+    if ($planetfighters > 0)
     {
-        if($planetfighters > $attackerarmor)
+        if ($planetfighters > $attackerarmor)
         {
             $attackerarmor = 0;
             echo "<tr align='center'><td><FONT COLOR='RED'><B>$l_cmb_fighterswarm</B></FONT></td><td></td>";
@@ -624,7 +624,7 @@ function planetcombat()
     else
         echo "<BR><BR><CENTER>$l_cmb_noshipsdocked</CENTER><BR><BR>\n";
 
-    if($attackerarmor < 1)
+    if ($attackerarmor < 1)
     {
         $free_ore = round($playerinfo[ship_ore]/2);
         $free_organics = round($playerinfo[ship_organics]/2);
@@ -633,7 +633,7 @@ function planetcombat()
         $ship_salvage_rate=rand(0,10);
         $ship_salvage=$ship_value*$ship_salvage_rate/100;
         echo "<BR><CENTER><FONT SIZE='+2' COLOR='RED'><B>$l_cmb_yourshipdestroyed</FONT></B></CENTER><BR>";
-        if($playerinfo[dev_escapepod] == "Y")
+        if ($playerinfo[dev_escapepod] == "Y")
         {
             echo "<CENTER><FONT COLOR='WHITE'>$l_cmb_escapepod</FONT></CENTER><BR><BR>";
             $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
@@ -653,7 +653,7 @@ function planetcombat()
         $ship_salvage_rate=0;
         $ship_salvage=0;
         $planetrating = $ownerinfo[hull] + $ownerinfo[engines] + $ownerinfo[computer] + $ownerinfo[beams] + $ownerinfo[torp_launchers] + $ownerinfo[shields] + $ownerinfo[armor];
-        if($ownerinfo[rating]!=0)
+        if ($ownerinfo[rating]!=0)
         {
             $rating_change=($ownerinfo[rating]/abs($ownerinfo[rating]))*$planetrating*10;
         }
@@ -682,7 +682,7 @@ function planetcombat()
     $result4 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
     $shipsonplanet = $result4->RecordCount();
 
-    if($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
+    if ($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
     {
         echo "<BR><BR><CENTER><FONT COLOR='GREEN'><B>$l_cmb_planetdefeated</b></FONT></CENTER><BR><BR>";
 
@@ -701,7 +701,7 @@ function planetcombat()
             echo "<div style='text-align:center; font-size:18px; color:#f00;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
         }
 
-        if($min_value_capture != 0)
+        if ($min_value_capture != 0)
         {
             $playerscore = gen_score($playerinfo[ship_id]);
             $playerscore *= $playerscore;
@@ -710,7 +710,7 @@ function planetcombat()
             $planetscore = $planetscore * $min_value_capture / 100;
 
             //            echo "playerscore $playerscore, planetscore $planetscore";
-            if($playerscore < $planetscore)
+            if ($playerscore < $planetscore)
             {
                 echo "<CENTER>$l_cmb_citizenswanttodie</CENTER><BR><BR>";
                 $db->Execute("DELETE FROM $dbtables[planets] WHERE planet_id=$planetinfo[planet_id]");
@@ -803,20 +803,20 @@ function shiptoship($ship_id)
     $l_cmb_statattackertorpdamage: $attackertorpdamage<BR>";
 
     $targetbeams = NUM_BEAMS($targetinfo['beams']);
-    if($targetbeams>$targetinfo['ship_energy'])
+    if ($targetbeams>$targetinfo['ship_energy'])
     {
         $targetbeams=$targetinfo['ship_energy'];
     }
     $targetinfo[ship_energy]=$targetinfo['ship_energy']-$targetbeams;
     $targetshields = NUM_SHIELDS($targetinfo['shields']);
-    if($targetshields>$targetinfo['ship_energy'])
+    if ($targetshields>$targetinfo['ship_energy'])
     {
         $targetshields=$targetinfo['ship_energy'];
     }
     $targetinfo['ship_energy']=$targetinfo['ship_energy']-$targetshields;
 
     $targettorpnum = round(mypw($level_factor,$targetinfo['torp_launchers']))*2;
-    if($targettorpnum > $targetinfo['torps'])
+    if ($targettorpnum > $targetinfo['torps'])
     {
         $targettorpnum = $targetinfo['torps'];
     }
@@ -827,9 +827,9 @@ function shiptoship($ship_id)
     $playerdestroyed = 0;
     echo "-->$targetinfo[ship_name] $l_cmb_isattackingyou<BR><BR>";
     echo "$l_cmb_beamexchange<BR>";
-    if($targetfighters > 0 && $attackerbeams > 0)
+    if ($targetfighters > 0 && $attackerbeams > 0)
     {
-        if($attackerbeams > round($targetfighters / 2))
+        if ($attackerbeams > round($targetfighters / 2))
         {
             $temp = round($targetfighters/2);
             $lost = $targetfighters-$temp;
@@ -850,9 +850,9 @@ function shiptoship($ship_id)
     echo "$l_cmb_nobeamsareleft<BR>";
     else
         echo "$l_cmb_beamshavenotarget<BR>";
-    if($attackerfighters > 0 && $targetbeams > 0)
+    if ($attackerfighters > 0 && $targetbeams > 0)
     {
-        if($targetbeams > round($attackerfighters / 2))
+        if ($targetbeams > round($attackerfighters / 2))
         {
             $temp=round($attackerfighters/2);
             $lost=$attackerfighters-$temp;
@@ -876,9 +876,9 @@ function shiptoship($ship_id)
     echo "$l_cmb_fighterunhindered<BR>";
     else
         echo "$l_cmb_youhavenofightersleft<BR>";
-    if($attackerbeams > 0)
+    if ($attackerbeams > 0)
     {
-        if($attackerbeams > $targetshields)
+        if ($attackerbeams > $targetshields)
         {
             $attackerbeams=$attackerbeams-$targetshields;
             $targetshields=0;
@@ -899,9 +899,9 @@ function shiptoship($ship_id)
         $l_cmb_nobeamslefttoattack = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_nobeamslefttoattack);
         echo "$l_cmb_nobeamslefttoattack<BR>";
     }
-    if($targetbeams > 0)
+    if ($targetbeams > 0)
     {
-        if($targetbeams > $attackershields)
+        if ($targetbeams > $attackershields)
         {
             $targetbeams=$targetbeams-$attackershields;
             $attackershields=0;
@@ -922,9 +922,9 @@ function shiptoship($ship_id)
         $l_cmb_hehasnobeamslefttoattack = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_hehasnobeamslefttoattack);
         echo "$l_cmb_hehasnobeamslefttoattack<BR>";
     }
-    if($attackerbeams > 0)
+    if ($attackerbeams > 0)
     {
-        if($attackerbeams > $targetarmor)
+        if ($attackerbeams > $targetarmor)
         {
             $targetarmor=0;
             $l_cmb_yourbeamsbreachedhim = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_yourbeamsbreachedhim);
@@ -943,9 +943,9 @@ function shiptoship($ship_id)
         $l_cmb_nobeamstoattackarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_nobeamstoattackarmor);
         echo "$l_cmb_nobeamstoattackarmor<BR>";
     }
-    if($targetbeams > 0)
+    if ($targetbeams > 0)
     {
-        if($targetbeams > $attackerarmor)
+        if ($targetbeams > $attackerarmor)
         {
             $attackerarmor=0;
             $l_cmb_yourarmorbreachedbybeams = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_yourarmorbreachedbybeams);
@@ -965,9 +965,9 @@ function shiptoship($ship_id)
         echo "$l_cmb_hehasnobeamslefttoattackyou<BR>";
     }
     echo "<BR>$l_cmb_torpedoexchange<BR>";
-    if($targetfighters > 0 && $attackertorpdamage > 0)
+    if ($targetfighters > 0 && $attackertorpdamage > 0)
     {
-        if($attackertorpdamage > round($targetfighters / 2))
+        if ($attackertorpdamage > round($targetfighters / 2))
         {
             $temp=round($targetfighters/2);
             $lost=$targetfighters-$temp;
@@ -996,9 +996,9 @@ function shiptoship($ship_id)
         $l_cmb_hehasnofighterleft = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_hehasnofighterleft);
         echo "$_cmb_hehasnofighterleft<BR>";
     }
-    if($attackerfighters > 0 && $targettorpdmg > 0)
+    if ($attackerfighters > 0 && $targettorpdmg > 0)
     {
-        if($targettorpdmg > round($attackerfighters / 2))
+        if ($targettorpdmg > round($attackerfighters / 2))
         {
             $temp=round($attackerfighters/2);
             $lost=$attackerfighters-$temp;
@@ -1027,9 +1027,9 @@ function shiptoship($ship_id)
         $l_cmb_youhavenofightersanymore = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_youhavenofightersanymore);
         echo "$l_cmb_youhavenofightersanymore<BR>";
     }
-    if($attackertorpdamage > 0)
+    if ($attackertorpdamage > 0)
     {
-        if($attackertorpdamage > $targetarmor)
+        if ($attackertorpdamage > $targetarmor)
         {
             $targetarmor=0;
             $l_cmb_youbreachedwithtorps = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_youbreachedwithtorps);
@@ -1048,9 +1048,9 @@ function shiptoship($ship_id)
         $l_cmb_notorpslefttoattackarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_notorpslefttoattackarmor);
         echo "$l_cmb_notorpslefttoattackarmor<BR>";
     }
-    if($targettorpdmg > 0)
+    if ($targettorpdmg > 0)
     {
-        if($targettorpdmg > $attackerarmor)
+        if ($targettorpdmg > $attackerarmor)
         {
             $attackerarmor=0;
             $l_cmb_yourarmorbreachedbytorps = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_yourarmorbreachedbytorps);
@@ -1070,9 +1070,9 @@ function shiptoship($ship_id)
         echo "$l_cmb_hehasnotorpsforyourarmor<BR>";
     }
     echo "<BR>$l_cmb_fightersattackexchange<BR>";
-    if($attackerfighters > 0 && $targetfighters > 0)
+    if ($attackerfighters > 0 && $targetfighters > 0)
     {
-        if($attackerfighters > $targetfighters)
+        if ($attackerfighters > $targetfighters)
         {
             $l_cmb_enemylostallfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_enemylostallfighters);
             echo "--> $l_cmb_enemylostallfighters<BR>";
@@ -1085,7 +1085,7 @@ function shiptoship($ship_id)
             echo "$l_cmb_helostsomefighters<BR>";
             $temptargfighters=$targetfighters-$attackerfighters;
         }
-        if($targetfighters > $attackerfighters)
+        if ($targetfighters > $attackerfighters)
         {
             echo "<-- $l_cmb_youlostallfighters<BR>";
             $tempplayfighters=0;
@@ -1109,9 +1109,9 @@ function shiptoship($ship_id)
         $l_cmb_younofightersattackleft = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_younofightersattackleft);
         echo "$l_cmb_younofightersattackleft<BR>";
     }
-    if($attackerfighters > 0)
+    if ($attackerfighters > 0)
     {
-        if($attackerfighters > $targetarmor)
+        if ($attackerfighters > $targetarmor)
         {
             $targetarmor=0;
             $l_cmb_youbreachedarmorwithfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_youbreachedarmorwithfighters);
@@ -1130,9 +1130,9 @@ function shiptoship($ship_id)
         $l_cmb_youhavenofighterstoarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_youhavenofighterstoarmor);
         echo "$l_cmb_youhavenofighterstoarmor<BR>";
     }
-    if($targetfighters > 0)
+    if ($targetfighters > 0)
     {
-        if($targetfighters > $attackerarmor)
+        if ($targetfighters > $attackerarmor)
         {
             $attackerarmor=0;
             $l_cmb_hasbreachedarmorfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_hasbreachedarmorfighters);
@@ -1151,23 +1151,23 @@ function shiptoship($ship_id)
         $l_cmb_nofightersleftheforyourarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_nofightersleftheforyourarmor);
         echo "$l_cmb_nofightersleftheforyourarmor<BR>";
     }
-    if($targetarmor < 1)
+    if ($targetarmor < 1)
     {
         $l_cmb_hehasbeendestroyed = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_hehasbeendestroyed);
         echo "<BR>$l_cmb_hehasbeendestroyed<BR>";
-        if($attackerarmor > 0)
+        if ($attackerarmor > 0)
         {
             $rating_change=round($targetinfo[rating]*$rating_combat_factor);
             $free_ore = round($targetinfo[ship_ore]/2);
             $free_organics = round($targetinfo[ship_organics]/2);
             $free_goods = round($targetinfo[ship_goods]/2);
             $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-            if($free_holds > $free_goods)
+            if ($free_holds > $free_goods)
             {
                 $salv_goods=$free_goods;
                 $free_holds=$free_holds-$free_goods;
             }
-            elseif($free_holds > 0)
+            elseif ($free_holds > 0)
             {
                 $salv_goods=$free_holds;
                 $free_holds=0;
@@ -1176,12 +1176,12 @@ function shiptoship($ship_id)
             {
                 $salv_goods=0;
             }
-            if($free_holds > $free_ore)
+            if ($free_holds > $free_ore)
             {
                 $salv_ore=$free_ore;
                 $free_holds=$free_holds-$free_ore;
             }
-            elseif($free_holds > 0)
+            elseif ($free_holds > 0)
             {
                 $salv_ore=$free_holds;
                 $free_holds=0;
@@ -1190,12 +1190,12 @@ function shiptoship($ship_id)
             {
                 $salv_ore=0;
             }
-            if($free_holds > $free_organics)
+            if ($free_holds > $free_organics)
             {
                 $salv_organics=$free_organics;
                 $free_holds=$free_holds-$free_organics;
             }
-            elseif($free_holds > 0)
+            elseif ($free_holds > 0)
             {
                 $salv_organics=$free_holds;
                 $free_holds=0;
@@ -1217,7 +1217,7 @@ function shiptoship($ship_id)
             $update3 = $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
         }
 
-        if($targetinfo[dev_escapepod] == "Y")
+        if ($targetinfo[dev_escapepod] == "Y")
         {
             $rating=round($targetinfo[rating]/2);
             echo "$l_cmb_escapepodlaunched<BR><BR>";

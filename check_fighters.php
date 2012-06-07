@@ -32,12 +32,12 @@ $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_i
 $i = 0;
 $total_sector_fighters = 0;
 $owner = true;
-while(!$result3->EOF)
+while (!$result3->EOF)
 {
     $row = $result3->fields;
     $defences[$i] = $row;
     $total_sector_fighters += $defences[$i]['quantity'];
-    if($defences[$i][ship_id] != $playerinfo[ship_id])
+    if ($defences[$i][ship_id] != $playerinfo[ship_id])
     {
         $owner = false;
     }
@@ -55,7 +55,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
     $fighters_owner = $result2->fields;
     if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
     {
-        switch($response)
+        switch ($response)
         {
             case "fight":
                 $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
@@ -76,7 +76,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             case "pay":
                 $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
-                if($playerinfo[credits] < $fighterstoll)
+                if ($playerinfo[credits] < $fighterstoll)
                 {
                     echo "$l_chf_notenoughcreditstoll<BR>";
                     echo "$l_chf_movefailed<BR>";
@@ -99,16 +99,16 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             case "sneak":
                 $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 $success = SCAN_SUCCESS($fighters_owner[sensors], $playerinfo[cloak]);
-                if($success < 5)
+                if ($success < 5)
                 {
                     $success = 5;
                 }
-                if($success > 95)
+                if ($success > 95)
                 {
                    $success = 95;
                 }
                 $roll = rand(1, 100);
-                if($roll < $success)
+                if ($roll < $success)
                 {
                     // Sector defences detect incoming ship
                     bigtitle();
@@ -131,13 +131,13 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 echo "<FORM ACTION=$calledfrom METHOD=POST>";
                 $l_chf_therearetotalfightersindest = str_replace("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
                 echo "$l_chf_therearetotalfightersindest<br>";
-                if($defences[0]['fm_setting'] == "toll")
+                if ($defences[0]['fm_setting'] == "toll")
                 {
                     $l_chf_creditsdemanded = str_replace("[chf_number_fighterstoll]", NUMBER($fighterstoll), $l_chf_creditsdemanded);
                     echo "$l_chf_creditsdemanded<BR>";
                 }
                 echo "$l_chf_youcanretreat";
-                if($defences[0]['fm_setting'] == "toll")
+                if ($defences[0]['fm_setting'] == "toll")
                 {
                     echo "$l_chf_inputpay";
                 }

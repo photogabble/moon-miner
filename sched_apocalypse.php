@@ -28,13 +28,13 @@ echo "The four horsemen of the apocalypse set forth...<BR>";
 $doomsday = $db->Execute("SELECT * from $dbtables[planets] WHERE colonists > $doomsday_value");
 $chance = 9;
 $reccount = $doomsday->RecordCount();
-if($reccount > 200)
+if ($reccount > 200)
 {
     $chance = 7; // increase chance it will happen if we have lots of planets meeting the criteria
 }
 
 $affliction = rand(1,$chance); // the chance something bad will happen
-if($doomsday && $affliction < 3 && $reccount > 0)
+if ($doomsday && $affliction < 3 && $reccount > 0)
 {
     $i=1;
     $targetnum=rand(1,$reccount);
@@ -48,7 +48,7 @@ if($doomsday && $affliction < 3 && $reccount > 0)
         $i++;
         $doomsday->MoveNext();
     }
-    if($affliction == 1) // Space Plague
+    if ($affliction == 1) // Space Plague
     {
         echo "The horsmen release the Space Plague!<BR>.";
         $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");

@@ -23,14 +23,14 @@ $title=$l_mail_title;
 include("header.php");
 bigtitle();
 
-if(!isset($_SESSION['sendemail']))
+if (!isset($_SESSION['sendemail']))
 {
     $_SESSION['sendemail'] = false;
 }
 
 $result = $db->Execute ("select character_name, email, password from $dbtables[ships] where email='$mail'");
 
-if(!$result->EOF)
+if (!$result->EOF)
 {
     $playerinfo=$result->fields;
     $l_mail_message=str_replace("[pass]", $playerinfo['password'], $l_mail_message);
@@ -40,11 +40,11 @@ if(!$result->EOF)
     $mailer = new Mailer();
     $mailerInfo = $mailer->getInfo();
 
-    if($_SESSION['sendemail'] == false)
+    if ($_SESSION['sendemail'] == false)
     {
         $_SESSION['sendemail'] = true;
         $image = "images/unknown.png";
-        echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+        echo "<div style='font-size:10px;'>\n";
         echo "<table style='width:500px; border:#fff 1px solid; color:#000;'>\n";
         echo "  <tr>\n";
         echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000;' colspan='2'>Sending Email Request</td>\n";
@@ -74,7 +74,7 @@ if(!$result->EOF)
         $mailer->setMessage( "$l_mail_message\r\n\r\nhttp://{$SERVER_NAME}\r\n" );
 
         $ret = $mailer->sendMail();
-        if($ret == true)
+        if ($ret == true)
         {
             $image = "images/tick.png";
             $result = "<div style='font-size:12px; font-weight:bold;'>Email sent to:&nbsp;&nbsp;{$playerinfo['email']}<br><br>You should receive your email within 5 to 10 mins.</div><br><div style='font-size:10px; font-weight:bold;'>PLEASE NOTE: This email may apear in your spam, trash or junk folder so check.</div>";
@@ -89,7 +89,7 @@ if(!$result->EOF)
             $colors = array("#550000", "#f00");
         }
 
-        echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+        echo "<div style='font-size:10px;'>\n";
         echo "<table style='width:500px; border:#fff 1px solid;'>\n";
         echo "  <tr>\n";
         echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000;' colspan='2'>Send Email Request</td>\n";
@@ -110,7 +110,7 @@ if(!$result->EOF)
 
         echo "<br>\n";
 
-        if($_SESSION['logged_in'] == true)
+        if ($_SESSION['logged_in'] == true)
         {
             TEXT_GOTOMAIN();
         }
@@ -131,7 +131,7 @@ else
     $result = "Send Email Request Failed.<br>{$err['msg']}";
     $colors = array("#550000", "#f00");
 
-    echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+    echo "<div style='font-size:10px;'>\n";
     echo "<table style='width:500px; border:#fff 1px solid;'>\n";
     echo "  <tr>\n";
     echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000;' colspan='2'>Send Email Request</td>\n";
@@ -150,7 +150,7 @@ else
     echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 
     echo "<br>\n";
-    if($_SESSION['logged_in'] == true)
+    if ($_SESSION['logged_in'] == true)
     {
         TEXT_GOTOMAIN();
     }

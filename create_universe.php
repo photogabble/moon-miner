@@ -62,7 +62,7 @@ if (!function_exists('Table_Row'))
         $err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
         PrintFlush( "    <tr title=\"$err\">\n");
         PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font size=\"1\" color=\"#000\">$data</font></td>\n");
-        if(mysql_errno()!=0)
+        if (mysql_errno()!=0)
             {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
             {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
@@ -105,7 +105,7 @@ if (!function_exists('Table_Footer'))
 {
     function Table_Footer($footer='')
     {
-        if(!empty($footer))
+        if (!empty($footer))
         {
             PrintFlush( "    <tr>\n");
             PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" align=\"left\"><font color=\"#000\" size=\"1\">$footer</font></td>\n");
@@ -148,17 +148,17 @@ if (!isset($engage))
 }
 
 
-if($adminpass!= $_POST['swordfish'])
+if ($adminpass!= $_POST['swordfish'])
 {
     $step="0";
 }
 
-if($engage == "" && $adminpass == $_POST['swordfish'] )
+if ($engage == "" && $adminpass == $_POST['swordfish'] )
 {
     $step="1";
 }
 
-if($engage == "1" && $adminpass == $_POST['swordfish'] )
+if ($engage == "1" && $adminpass == $_POST['swordfish'] )
 {
     $step="2";
 }
@@ -192,7 +192,7 @@ if ($bnt_ls)
             echo "Or correct the gamedomain and gamepath in your <B>config_local.php</B><BR>";
             echo "This URL is trasmited if your cronjob calls scheduler.php with localhost!";
         } else {
-            $gm_url = $gm_url . strrev(strstr(strrev($PHP_SELF),"/"));
+            $gm_url = $gm_url . strrev(strstr(strrev($_SERVER['PHP_SELF']),"/"));
             echo "<FONT COLOR=green><B>http://$gm_url</B></FONT><BR>";
             echo "YES, if this URL is correct ... continue !<BR>";
             echo "Remember: if your cronjob calls scheduler.php with localhost than run create_universe with localhost to check the correctnes of the transmitted URL!";
@@ -244,7 +244,7 @@ echo"</table>";
     Table_Header("Create Universe Confirmation [So you would like your $sector_max sector universe to have:] --- Stage2");
 
       $sector_max = round($sektors);
-      if($fedsecs > $sector_max)
+      if ($fedsecs > $sector_max)
       {
     Table_1Col("<FONT COLOR=RED>The number of Federation sectors must be smaller than the size of the universe!</FONT>");
     Table_Footer(" ");
@@ -348,21 +348,21 @@ echo"</table>";
 
         $loopsize = 500;
         $loops = round($sector_max / $loopsize)+1;
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>($sector_max)) $finish=($sector_max);
         $start=2;
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $insert="INSERT INTO $dbtables[universe] (sector_id,zone_id,angle1,angle2,distance) VALUES ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $distance=intval(rand(1,$universe_size));
                 $angle1=rand(0,180);
                 $angle2=rand(0,90);
                 $insert.="(NULL,'1',$angle1,$angle2,$distance)";
-                if($j<($finish-1)) $insert .= ", "; else $insert .= ";";
+                if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
             ### Now lets post the information to the mysql database.
 //          $db->Execute("$insert");
@@ -400,7 +400,7 @@ echo"</table>";
 
         $loopsize = 500;
         $loops = round($spp / $loopsize);
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$spp) $finish=($spp);
 
@@ -412,14 +412,14 @@ echo"</table>";
         $sql_query=$db->Execute("select sector_id from $dbtables[universe] WHERE port_type='none' order by rand() desc limit $spp");
         $update="UPDATE $dbtables[universe] SET zone_id='3',port_type='special' WHERE ";
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $update="UPDATE $dbtables[universe] SET zone_id='3',port_type='special' WHERE ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $result = $sql_query->fields;
                 $update .= "(port_type='none' and sector_id=$result[sector_id])";
-                if($j<($finish-1)) $update .= " or "; else $update .= ";";
+                if ($j<($finish-1)) $update .= " or "; else $update .= ";";
                 $sql_query->Movenext();
             }
             $db->Execute($update);
@@ -447,7 +447,7 @@ echo"</table>";
 
         $loopsize = 500;
         $loops = round($oep / $loopsize);
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$oep) $finish=($oep);
         $start=0;
@@ -457,14 +457,14 @@ echo"</table>";
         $sql_query=$db->Execute("select sector_id from $dbtables[universe] WHERE port_type='none' order by rand() desc limit $oep");
         $update="UPDATE $dbtables[universe] SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $update="UPDATE $dbtables[universe] SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $result = $sql_query->fields;
                 $update .= "(port_type='none' and sector_id=$result[sector_id])";
-                if($j<($finish-1)) $update .= " or "; else $update .= ";";
+                if ($j<($finish-1)) $update .= " or "; else $update .= ";";
                 $sql_query->Movenext();
             }
             $db->Execute($update);
@@ -492,7 +492,7 @@ echo"</table>";
 
         $loopsize = 500;
         $loops = round($ogp / $loopsize);
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$ogp) $finish=($ogp);
         $start=0;
@@ -502,14 +502,14 @@ echo"</table>";
         $sql_query=$db->Execute("select sector_id from $dbtables[universe] WHERE port_type='none' order by rand() desc limit $ogp");
         $update="UPDATE $dbtables[universe] SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $update="UPDATE $dbtables[universe] SET port_type='organics',port_ore=$initbore,port_organics=$initsorganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $result = $sql_query->fields;
                 $update .= "(port_type='none' and sector_id=$result[sector_id])";
-                if($j<($finish-1)) $update .= " or "; else $update .= ";";
+                if ($j<($finish-1)) $update .= " or "; else $update .= ";";
                 $sql_query->Movenext();
             }
             $db->Execute($update);
@@ -537,7 +537,7 @@ echo"</table>";
 
         $loopsize = 500;
         $loops = round($gop / $loopsize);
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$gop) $finish=($gop);
         $start=0;
@@ -547,14 +547,14 @@ echo"</table>";
         $sql_query=$db->Execute("select sector_id from $dbtables[universe] WHERE port_type='none' order by rand() desc limit $gop");
         $update="UPDATE $dbtables[universe] SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $update="UPDATE $dbtables[universe] SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $result = $sql_query->fields;
                 $update .= "(port_type='none' and sector_id=$result[sector_id])";
-                if($j<($finish-1)) $update .= " or "; else $update .= ";";
+                if ($j<($finish-1)) $update .= " or "; else $update .= ";";
                 $sql_query->Movenext();
             }
             $db->Execute($update);
@@ -582,7 +582,7 @@ echo"</table>";
 
         $loopsize = 500;
         $loops = round($enp / $loopsize);
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$enp) $finish=($enp);
 
@@ -594,14 +594,14 @@ echo"</table>";
         $sql_query=$db->Execute("select sector_id from $dbtables[universe] WHERE port_type='none' order by rand() desc limit $enp");
         $update="UPDATE $dbtables[universe] SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $update="UPDATE $dbtables[universe] SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $result = $sql_query->fields;
                 $update .= "(port_type='none' and sector_id=$result[sector_id])";
-                if($j<($finish-1)) $update .= " or "; else $update .= ";";
+                if ($j<($finish-1)) $update .= " or "; else $update .= ";";
                 $sql_query->Movenext();
             }
             $db->Execute($update);
@@ -643,7 +643,7 @@ Table_Header("Setting up Universe Sectors --- Stage 5");
         {
             $num = rand(2, ($sector_max-1));
             $select = $db->Execute("SELECT $dbtables[universe].sector_id FROM $dbtables[universe], $dbtables[zones] WHERE $dbtables[universe].sector_id=$num AND $dbtables[zones].zone_id=$dbtables[universe].zone_id AND $dbtables[zones].allow_planet='N'") or die("DB error");
-            if($select->RecordCount() == 0)
+            if ($select->RecordCount() == 0)
             {
                 $insert = $db->Execute("INSERT INTO $dbtables[planets] (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2,0,0,$default_prod_ore,$default_prod_organics,$default_prod_goods,$default_prod_energy, $default_prod_fighters, $default_prod_torp,$num)");
                 $p_add++;
@@ -662,19 +662,19 @@ Table_Spacer();
 
         $loopsize = 500;
         $loops = round($sector_max / $loopsize)+1;
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
         $start=0;
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $update = "INSERT INTO $dbtables[links] (link_start,link_dest) VALUES ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $k = $j + 1;
                 $update .= "($j,$k), ($k,$j)";
-                if($j<($finish-1)) $update .= ", "; else $update .= ";";
+                if ($j<($finish-1)) $update .= ", "; else $update .= ";";
             }
             if ($start<$sector_max && $finish<=$sector_max) $db->Execute($update);
 
@@ -700,20 +700,20 @@ Table_Spacer();
 
         $loopsize = 500;
         $loops = round($sector_max / $loopsize)+1;
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
         $start=0;
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $insert="INSERT INTO $dbtables[links] (link_start,link_dest) VALUES ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $link1=intval(rand(1,$sector_max-1));
                 $link2=intval(rand(1,$sector_max-1));
                 $insert.="($link1,$link2)";
-                if($j<($finish-1)) $insert .= ", "; else $insert .= ";";
+                if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
 #           PrintFlush("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 
@@ -743,20 +743,20 @@ Table_Spacer();
 
         $loopsize = 500;
         $loops = round($sector_max / $loopsize)+1;
-        if($loops <= 0) $loops = 1;
+        if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
         $start=0;
 
-        for($i=1; $i<=$loops; $i++)
+        for ($i = 1; $i <= $loops; $i++)
         {
             $insert="INSERT INTO $dbtables[links] (link_start,link_dest) VALUES ";
-            for($j=$start; $j<$finish; $j++)
+            for ($j = $start; $j < $finish; $j++)
             {
                 $link1=intval(rand(1,$sector_max-1));
                 $link2=intval(rand(1,$sector_max-1));
                 $insert.="($link1,$link2), ($link2,$link1)";
-                if($j<($finish-1)) $insert .= ", "; else $insert .= ";";
+                if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
 //          PrintFlush("<font color='#ff0'>Creating loop $i of $loopsize Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 //          $db->Execute($insert);

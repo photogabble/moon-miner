@@ -21,7 +21,7 @@ include("config.php");
 include("languages/$lang");
 updatecookie();
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -35,7 +35,7 @@ $picsperrow = 7;
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
-if($playerinfo['cleared_defences'] > ' ')
+if ($playerinfo['cleared_defences'] > ' ')
 {
     echo "$l_incompletemove <br>";
     echo "<a href=$playerinfo[cleared_defences]>$l_clicktocontinue</a>";
@@ -47,10 +47,10 @@ $sectorinfo = $res->fields;
 
 srand((double)microtime() * 1000000);
 
-if($playerinfo['on_planet'] == "Y")
+if ($playerinfo['on_planet'] == "Y")
 {
     $res2 = $db->Execute("SELECT planet_id, owner FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
-    if($res2->RecordCount() != 0)
+    if ($res2->RecordCount() != 0)
     {
         echo "<A HREF=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <br>";
         echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
@@ -66,9 +66,9 @@ if($playerinfo['on_planet'] == "Y")
 $res = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
 
 $i = 0;
-if($res != false)
+if ($res != false)
 {
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $links[$i] = $res->fields['link_dest'];
         $i++;
@@ -80,9 +80,9 @@ $num_links = $i;
 $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE sector_id='$playerinfo[sector]'");
 
 $i = 0;
-if($res != false)
+if ($res != false)
 {
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $planets[$i] = $res->fields;
         $i++;
@@ -94,9 +94,9 @@ $num_planets = $i;
 $res = $db->Execute("SELECT * FROM $dbtables[sector_defence],$dbtables[ships] WHERE $dbtables[sector_defence].sector_id='$playerinfo[sector]'
                                                     AND $dbtables[ships].ship_id = $dbtables[sector_defence].ship_id ");
 $i = 0;
-if($res != false)
+if ($res != false)
 {
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $defences[$i] = $res->fields;
         $i++;
@@ -154,13 +154,13 @@ echo "  </tr>\n";
 
 echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l_sector} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
-if(empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
+if (empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
 {
     $sectorinfo['beacon'] = null;
 }
 echo "    <td style='text-align:center; color:#fff; font-size:12px; font-weight:bold;'>&nbsp;{$sectorinfo['beacon']}&nbsp;</td>\n";
 
-if($zoneinfo['zone_id'] < 5)
+if ($zoneinfo['zone_id'] < 5)
 {
     $zoneinfo['zone_name'] = $l_zname[$zoneinfo['zone_id']];
 }
@@ -219,7 +219,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='rules.php' title='These are our Rules that you have agreed to.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Our Rules</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mail.php?mail={$username}' title='Request your login information to be emailed to you.'><span style='font-size:8px; color:#ff0; font-style:normal;'>TMP</span> REQ Password</a></div>\n";
 
-if(!empty($link_forums))
+if (!empty($link_forums))
 {
     echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='{$link_forums}'>{$l_forums}</a></div>\n";
 }
@@ -252,7 +252,7 @@ $num_traderoutes = 0;
 
 // Port querry
 $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type=? AND source_id=? AND owner=? ORDER BY dest_id ASC;", array("P", $playerinfo['sector'], $playerinfo['ship_id']) );
-while(!$query->EOF)
+while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
     $i++;
@@ -262,7 +262,7 @@ while(!$query->EOF)
 
 // Sector Defense Trade route query - this is still under developement
 $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type='D' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
-while(!$query->EOF)
+while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
     $i++;
@@ -272,7 +272,7 @@ while(!$query->EOF)
 
 // Personal planet traderoute type query
 $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='L' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
-while(!$query->EOF)
+while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
     $i++;
@@ -282,7 +282,7 @@ while(!$query->EOF)
 
 // Team planet traderoute type query
 $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='C' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
-while(!$query->EOF)
+while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
     $i++;
@@ -293,35 +293,35 @@ while(!$query->EOF)
 echo "<table style='width:150px; margin:auto; text-align:center; border:0px; padding:0px; border-spacing:0px;'>\n";
 echo "  <tr>\n";
 echo "    <td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
-if($num_traderoutes == 0)
+if ($num_traderoutes == 0)
 {
     echo "  <div style='text-align:center;'><a class='dis'>&nbsp;$l_none &nbsp;</a></div>";
 }
 else
 {
     $i=0;
-    while($i<$num_traderoutes)
+    while ($i<$num_traderoutes)
     {
         echo "<div style='text-align:center;'>&nbsp;<a class=mnu href=traderoute.php?engage={$traderoutes[$i]['traderoute_id']}>";
-        if($traderoutes[$i]['source_type'] == 'P')
+        if ($traderoutes[$i]['source_type'] == 'P')
         {
             echo "$l_port&nbsp;";
         }
-        elseif($traderoutes[$i]['source_type'] == 'D')
+        elseif ($traderoutes[$i]['source_type'] == 'D')
         {
             echo "Def's ";
         }
         else
         {
             $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=?;", array($traderoutes[$i]['source_id']) );
-            if(!$query || $query->RecordCount() == 0)
+            if (!$query || $query->RecordCount() == 0)
             {
                 echo $l_unknown;
             }
             else
             {
                 $planet = $query->fields;
-                if($planet[name] == "")
+                if ($planet[name] == "")
                 {
                     echo "$l_unnamed ";
                 }
@@ -332,7 +332,7 @@ else
             }
         }
 
-        if($traderoutes[$i]['circuit'] == '1')
+        if ($traderoutes[$i]['circuit'] == '1')
         {
             echo "=&gt;&nbsp;";
         }
@@ -341,11 +341,11 @@ else
             echo "&lt;=&gt;&nbsp;";
         }
 
-        if($traderoutes[$i]['dest_type'] == 'P')
+        if ($traderoutes[$i]['dest_type'] == 'P')
         {
             echo $traderoutes[$i]['dest_id'];
         }
-        elseif($traderoutes[$i]['dest_type'] == 'D')
+        elseif ($traderoutes[$i]['dest_type'] == 'D')
         {
             echo "Def's in " .  $traderoutes[$i]['dest_id'] . "";
         }
@@ -353,14 +353,14 @@ else
         {
             $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
 
-            if(!$query || $query->RecordCount() == 0)
+            if (!$query || $query->RecordCount() == 0)
             {
                 echo $l_unknown;
             }
             else
             {
                 $planet = $query->fields;
-                if($planet[name] == "")
+                if ($planet[name] == "")
                 {
                     echo $l_unnamed;
                 }
@@ -391,7 +391,7 @@ echo "<br>\n";
 echo "</td>\n";
 
 echo "<td style='vertical-align:top;'>\n";
-if($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
+if ($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
     echo "{$l_tradingport}:&nbsp;<span style='color:#0f0;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
@@ -412,21 +412,21 @@ echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bol
 echo "<table style='height:150px; text-align:center; margin:auto; border:0px'>\n";
 echo "  <tr>\n";
 
-if($num_planets > 0)
+if ($num_planets > 0)
 {
     $totalcount=0;
     $curcount=0;
     $i=0;
 
-    while($i < $num_planets)
+    while ($i < $num_planets)
     {
-        if($planets[$i]['owner'] != 0)
+        if ($planets[$i]['owner'] != 0)
         {
             $result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=?;", array($planets[$i]['owner']) );
             $planet_owner = $result5->fields;
             $planetavg = get_avg_tech($planet_owner, "planet");
 
-            if($planetavg < 8)
+            if ($planetavg < 8)
             {
                 $planetlevel = 0;
             }
@@ -454,9 +454,9 @@ if($num_planets > 0)
 
         echo "<td style='margin-left:auto; margin-right:auto; vertical-align:top; width:79px; height:90px; padding:4px;'>";
         echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
-        echo "<img class='mnu' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" style='width:79px; height:90px; border:0' alt=\"planet\"></a><br><span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#fff;'>";
+        echo "<img class='mnu' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" style='width:79px; height:90px; border:0' alt=\"planet\"></a><br><span style='font-size:10px; color:#fff;'>";
 
-        if(empty($planets[$i]['name']))
+        if (empty($planets[$i]['name']))
         {
             echo $l_unnamed;
             $planet_bnthelper_string="<!--planet:Y:Unnamed:";
@@ -467,7 +467,7 @@ if($num_planets > 0)
             $planet_bnthelper_string="<!--planet:Y:" . $planets[$i]['name'] . ":";
         }
 
-        if($planets[$i]['owner'] == 0)
+        if ($planets[$i]['owner'] == 0)
         {
             echo "<br>($l_unowned)";
             $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
@@ -480,7 +480,7 @@ if($num_planets > 0)
         echo "</font></td>";
 
         $totalcount++;
-        if($curcount == $picsperrow - 1)
+        if ($curcount == $picsperrow - 1)
         {
             echo "</tr><tr>";
             $curcount=0;
@@ -508,7 +508,7 @@ echo "</div>\n";
 echo "<div style='text-align:center; border:transparent 1px solid;'>\n";
 echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bold;'>{$l_ships_in_sec} {$sectorinfo['sector_id']}</div>\n";
 
-if($playerinfo['sector'] != 0)
+if ($playerinfo['sector'] != 0)
 {
     $sql  = null;
     $sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
@@ -518,29 +518,29 @@ if($playerinfo['sector'] != 0)
     $sql .= "ORDER BY RAND();";
     $result4 = $db->Execute($sql);
 
-    if($result4 != false )
+    if ($result4 != false )
     {
         $ships_detected = 0;
         $ship_detected = null;
-        while(!$result4->EOF)
+        while (!$result4->EOF)
         {
             $row=$result4->fields;
             $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
-            if($success < 5)
+            if ($success < 5)
             {
                 $success = 5;
             }
-            if($success > 95)
+            if ($success > 95)
             {
                 $success = 95;
             }
             $roll = rand(1, 100);
 
-            if($roll < $success)
+            if ($roll < $success)
             {
                 $shipavg = get_avg_tech($row, "ship");
 
-                if($shipavg < 8)
+                if ($shipavg < 8)
                 {
                     $shiplevel = 0;
                 }
@@ -567,7 +567,7 @@ if($playerinfo['sector'] != 0)
             }
             $result4->MoveNext();
         }
-        if($ships_detected <= 0)
+        if ($ships_detected <= 0)
         {
             echo "<div style='color:#fff;'>{$l_none}</div>\n";
         }
@@ -585,7 +585,7 @@ if($playerinfo['sector'] != 0)
                 echo "<a href=ship.php?ship_id={$ship_detected[$iPlayer]['ship_id']}>\n";
                 echo "  <img class='mnu' title='Interact with Ship' src=\"images/", $shiptypes[$ship_detected[$iPlayer]['shiplevel']],"\" style='width:80px; height:60px; border:0px'>\n";
                 echo "</a>\n";
-                echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#fff; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
+                echo "<div style='font-size:12px; color:#fff; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
                 echo "(<span style='color:#ff0; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
                 if ($ship_detected[$iPlayer][team_name])
                 {
@@ -612,11 +612,11 @@ else
 }
 echo "</div>";
 
-if($num_defences>0)
+if ($num_defences>0)
 {
     echo "<b>\n";
     echo "  <center>\n";
-    echo "    <span style='font-family:Verdana, Arial, Helvetica, sans-serif; color:#fff;'>$l_sector_def</span>\n";
+    echo "    <span style='color:#fff;'>$l_sector_def</span>\n";
     echo "    <br>\n";
     echo "  </center>\n";
     echo "</b>\n";
@@ -625,21 +625,21 @@ if($num_defences>0)
 <table style='border:0px; width:100%;'>
 <tr>
 <?php
-if($num_defences > 0)
+if ($num_defences > 0)
 {
     $totalcount=0;
     $curcount=0;
     $i=0;
-    while($i < $num_defences)
+    while ($i < $num_defences)
     {
         $defence_id = $defences[$i]['defence_id'];
         echo "<td style='margin-left:auto; margin-right:auto;vertical-align:top'>";
-        if($defences[$i]['defence_type'] == 'F')
+        if ($defences[$i]['defence_type'] == 'F')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.png\" style='border:0px'></a><br><span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:1.10em; color:#fff;>";
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff;>";
             $def_type = $l_fighters;
             $mode = $defences[$i]['fm_setting'];
-            if($mode == 'attack')
+            if ($mode == 'attack')
             {
                 $mode = $l_md_attack;
             }
@@ -649,9 +649,9 @@ if($num_defences > 0)
             }
             $def_type .= $mode;
         }
-        elseif($defences[$i]['defence_type'] == 'M')
+        elseif ($defences[$i]['defence_type'] == 'M')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.png\" style='border:0px'></a><br><span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:1.10em; color:#fff;'>";
+            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff;'>";
             $def_type = $l_mines;
         }
 
@@ -661,7 +661,7 @@ if($num_defences > 0)
         echo "</span></td>";
 
         $totalcount++;
-        if($curcount == $picsperrow - 1)
+        if ($curcount == $picsperrow - 1)
         {
             echo "</tr><tr>";
             $curcount=0;
@@ -789,7 +789,7 @@ echo "</table>\n";
 
 <?php
 
-if(!$num_links)
+if (!$num_links)
 {
     echo "&nbsp;<a class=dis>$l_no_warplink</a>&nbsp;<br>";
     $link_bnthelper_string="<!--links:N";
@@ -798,7 +798,7 @@ else
 {
     echo "<table style='width:100%;'>\n";
     $link_bnthelper_string="<!--links:Y";
-    for($i=0; $i<$num_links;$i++)
+    for ($i = 0; $i < $num_links; $i++)
     {
 #        echo "&nbsp;<a class=\"mnu\" href=\"move.php?sector=$links[$i]\">=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=\"lrscan.php?sector=$links[$i]\">[$l_scan]</a>&nbsp;<br>";
         $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];

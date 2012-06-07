@@ -29,11 +29,11 @@ $num_to_tow = 0;
 do
 {
     $res = $db->Execute("SELECT ship_id,character_name,hull,sector,$dbtables[universe].zone_id,max_hull FROM $dbtables[ships],$dbtables[universe],$dbtables[zones] WHERE sector=sector_id AND $dbtables[universe].zone_id=$dbtables[zones].zone_id AND max_hull<>0 AND (($dbtables[ships].hull + $dbtables[ships].engines + $dbtables[ships].computer + $dbtables[ships].beams + $dbtables[ships].torp_launchers + $dbtables[ships].shields + $dbtables[ships].armor)/7) >max_hull AND ship_destroyed='N'");
-    if($res)
+    if ($res)
     {
         $num_to_tow = $res->RecordCount();
         echo "<BR>$num_to_tow players to tow:<BR>";
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
             $row = $res->fields;
             echo "...towing $row[character_name] out of $row[sector] ...";
@@ -49,7 +49,7 @@ do
     {
         echo "<BR>No players to tow.<BR>";
     }
-} while($num_to_tow);
+} while ($num_to_tow);
 
 echo "<BR>";
 $multiplier = 0; //no use to run this again

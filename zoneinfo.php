@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_zi_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -34,7 +34,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
 $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
-if($res->EOF)
+if ($res->EOF)
 {
     echo $l_zi_nexist;
 }
@@ -42,30 +42,30 @@ else
 {
     $row = $res->fields;
 
-    if($row['zone_id'] < 5)
+    if ($row['zone_id'] < 5)
     {
         $row['zone_name'] = $l_zname[$row['zone_id']];
     }
 
-    if($row['zone_id'] == '2')
+    if ($row['zone_id'] == '2')
     {
         $ownername = $l_zi_feds;
     }
-    elseif($row['zone_id'] == '3')
+    elseif ($row['zone_id'] == '3')
     {
         $ownername = $l_zi_traders;
     }
-    elseif($row['zone_id'] == '1')
+    elseif ($row['zone_id'] == '1')
     {
         $ownername = $l_zi_nobody;
     }
-    elseif($row['zone_id'] == '4')
+    elseif ($row['zone_id'] == '4')
     {
         $ownername = $l_zi_war;
     }
     else
     {
-        if($row['corp_zone'] == 'N')
+        if ($row['corp_zone'] == 'N')
         {
             $result = $db->Execute("SELECT ship_id, character_name FROM $dbtables[ships] WHERE ship_id=$row[owner]");
             $ownerinfo = $result->fields;
@@ -79,11 +79,11 @@ else
         }
     }
 
-    if($row['allow_beacon'] == 'Y')
+    if ($row['allow_beacon'] == 'Y')
     {
         $beacon=$l_zi_allow;
     }
-    elseif($row['allow_beacon'] == 'N')
+    elseif ($row['allow_beacon'] == 'N')
     {
         $beacon=$l_zi_notallow;
     }
@@ -92,7 +92,7 @@ else
         $beacon=$l_zi_limit;
     }
 
-    if($row['allow_attack'] == 'Y')
+    if ($row['allow_attack'] == 'Y')
     {
         $attack=$l_zi_allow;
     }
@@ -101,11 +101,11 @@ else
         $attack=$l_zi_notallow;
     }
 
-    if($row['allow_defenses'] == 'Y')
+    if ($row['allow_defenses'] == 'Y')
     {
         $defense = $l_zi_allow;
     }
-    elseif($row['allow_defenses'] == 'N')
+    elseif ($row['allow_defenses'] == 'N')
     {
         $defense = $l_zi_notallow;
     }
@@ -114,11 +114,11 @@ else
         $defense = $l_zi_limit;
     }
 
-    if($row['allow_warpedit'] == 'Y')
+    if ($row['allow_warpedit'] == 'Y')
     {
         $warpedit=$l_zi_allow;
     }
-    elseif($row['allow_warpedit'] == 'N')
+    elseif ($row['allow_warpedit'] == 'N')
     {
         $warpedit=$l_zi_notallow;
     }
@@ -127,11 +127,11 @@ else
         $warpedit=$l_zi_limit;
     }
 
-    if($row['allow_planet'] == 'Y')
+    if ($row['allow_planet'] == 'Y')
     {
         $planet=$l_zi_allow;
     }
-    elseif($row['allow_planet'] == 'N')
+    elseif ($row['allow_planet'] == 'N')
     {
         $planet=$l_zi_notallow;
     }
@@ -140,11 +140,11 @@ else
         $planet=$l_zi_limit;
     }
 
-    if($row['allow_trade'] == 'Y')
+    if ($row['allow_trade'] == 'Y')
     {
         $trade=$l_zi_allow;
     }
-    elseif($row['allow_trade'] == 'N')
+    elseif ($row['allow_trade'] == 'N')
     {
         $trade=$l_zi_notallow;
     }
@@ -153,7 +153,7 @@ else
         $trade=$l_zi_limit;
     }
 
-    if($row['max_hull'] == 0)
+    if ($row['max_hull'] == 0)
     {
         $hull=$l_zi_ul;
     }
@@ -162,7 +162,7 @@ else
         $hull=$row['max_hull'];
     }
 
-    if(($row['corp_zone'] == 'N' && $row['owner'] == $playerinfo['ship_id']) || ($row['corp_zone'] == 'Y' && $row['owner'] == $playerinfo['team'] && $playerinfo['ship_id'] == $ownerinfo['creator']))
+    if (($row['corp_zone'] == 'N' && $row['owner'] == $playerinfo['ship_id']) || ($row['corp_zone'] == 'Y' && $row['owner'] == $playerinfo['team'] && $playerinfo['ship_id'] == $ownerinfo['creator']))
     {
         echo "<center>$l_zi_control. <a href=zoneedit.php?zone=$zone>$l_clickme</a> $l_zi_tochange</center><p>";
     }

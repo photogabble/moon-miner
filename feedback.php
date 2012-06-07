@@ -28,7 +28,7 @@ if (checklogin())
     die();
 }
 
-if(!isset($_SESSION['content']))
+if (!isset($_SESSION['content']))
 {
     $_SESSION['content'] = $_POST['content'];
     $_SESSION['sendemail'] = false;
@@ -55,13 +55,13 @@ else
     require_once("includes/mailer_class.php");
     $mailer = new Mailer();
 
-    if($_SESSION['sendemail'] == false)
+    if ($_SESSION['sendemail'] == false)
     {
         $_SESSION['sendemail'] = true;
 
         $image = "images/unknown.png";
 
-        echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+        echo "<div style='font-size:10px;'>\n";
         echo "<table style='width:400px; border:#fff 1px solid; color:#ff0;'>\n";
         echo "  <tr>\n";
         echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000;' colspan='2'>Sending Feedback</td>\n";
@@ -91,7 +91,7 @@ else
         $mailer->setSubject( $l_feedback_subj );
         $mailer->setMessage( "IP address - $ip\r\nGame Name - $playerinfo[character_name] - $gamedomain \r\n\r\n{$_SESSION['content']}\r\n" );
         $ret = $mailer->sendMail();
-        if($ret == true)
+        if ($ret == true)
         {
             $image = "images/tick.png";
             $result = "<span style='color:#00f;'>Send Feedback Passed.</span>";
@@ -100,7 +100,7 @@ else
         else
         {
             $err = $mailer->getError();
-            if($err['no'] == 2)
+            if ($err['no'] == 2)
             {
                 $image = "images/greylist.png";
                 $result = "<span style='color:#f00;'>Send Feedback Failed.<br>Detected Greylisting...<br>Please notify an admin on the forums.</span>";
@@ -112,7 +112,7 @@ else
             }
         }
 
-        echo "<div style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px;'>\n";
+        echo "<div style='font-size:10px;'>\n";
         echo "<table style='width:400px; border:#fff 1px solid;'>\n";
         echo "  <tr>\n";
         echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; text-align:center; font-size:14px; color:#000;' colspan='2'>Send Feedback</td>\n";
@@ -131,7 +131,7 @@ else
 }
 
 echo "<br>\n";
-if(empty($username))
+if (empty($username))
 {
     TEXT_GOTOLOGIN();
 }

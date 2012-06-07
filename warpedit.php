@@ -23,7 +23,7 @@ include("languages/$lang");
 $title=$l_warp_title;
 include("header.php");
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -35,7 +35,7 @@ $sectorinfo=$result4->fields;
 
 bigtitle();
 
-if($playerinfo['turns'] < 1)
+if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
@@ -43,7 +43,7 @@ if($playerinfo['turns'] < 1)
     die();
 }
 
-if($playerinfo['dev_warpedit'] < 1)
+if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none. "<br><br>";
     TEXT_GOTOMAIN();
@@ -53,7 +53,7 @@ if($playerinfo['dev_warpedit'] < 1)
 
 $res = $db->Execute("SELECT allow_warpedit FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
 $zoneinfo = $res->fields;
-if($zoneinfo[allow_warpedit] == 'N')
+if ($zoneinfo[allow_warpedit] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
@@ -61,16 +61,16 @@ if($zoneinfo[allow_warpedit] == 'N')
     die();
 }
 
-if($zoneinfo[allow_warpedit] == 'L')
+if ($zoneinfo[allow_warpedit] == 'L')
 {
     $result3 = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
     $zoneowner_info = $result3->fields;
     $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
     $zoneteam = $result5->fields;
 
-    if($zoneowner_info[owner] != $playerinfo[ship_id])
+    if ($zoneowner_info[owner] != $playerinfo[ship_id])
     {
-        if(($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
+        if (($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
         {
             echo $l_warp_forbid . "<br><br>";
             TEXT_GOTOMAIN();
@@ -81,14 +81,14 @@ if($zoneinfo[allow_warpedit] == 'L')
 }
 
 $result2 = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
-if($result2 < 1)
+if ($result2 < 1)
 {
     echo $l_warp_nolink . "<br><br>";
 }
 else
 {
     echo $l_warp_linkto ." ";
-    while(!$result2->EOF)
+    while (!$result2->EOF)
     {
         echo $result2->fields[link_dest] . " ";
         $result2->MoveNext();

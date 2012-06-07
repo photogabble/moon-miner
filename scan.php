@@ -22,7 +22,7 @@ updatecookie();
 include("languages/$lang");
 $title=$l_scan_title;
 include("header.php");
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -44,13 +44,13 @@ bigtitle();
 srand((double)microtime()*1000000);
 
 // Check to ensure target is in the same sector as player
-if($targetinfo[sector] != $playerinfo[sector])
+if ($targetinfo[sector] != $playerinfo[sector])
 {
   echo $l_planet_noscan;
 }
 else
 {
-  if($playerinfo[turns] < 1)
+  if ($playerinfo[turns] < 1)
   {
     echo $l_scan_turn;
   }
@@ -58,16 +58,16 @@ else
   {
     // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
     $success= SCAN_SUCCESS($playerinfo[sensors], $targetinfo[cloak]);
-    if($success < 5)
+    if ($success < 5)
     {
       $success = 5;
     }
-    if($success > 95)
+    if ($success > 95)
     {
       $success = 95;
     }
     $roll = rand(1, 100);
-    if($roll > $success)
+    if ($roll > $success)
     {
       // If scan fails - inform both player and target.
       echo $l_planet_noscan;
@@ -81,10 +81,10 @@ else
       $btyamount = 0;
       $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id]");
 
-      if($hasbounty)
+      if ($hasbounty)
       {
          $resx = $hasbounty->fields;
-         if($resx[btytotal] > 0)
+         if ($resx[btytotal] > 0)
          {
             $btyamount = NUMBER($resx[btytotal]);
             $l_scan_bounty=str_replace("[amount]",$btyamount,$l_scan_bounty);
@@ -92,10 +92,10 @@ else
             $btyamount = 0;
             // Check for Federation bounty
             $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
-            if($hasfedbounty)
+            if ($hasfedbounty)
             {
                $resy = $hasfedbounty->fields;
-               if($resy[btytotal] > 0)
+               if ($resy[btytotal] > 0)
                {
                   $btyamount = $resy[btytotal];
                   echo $l_scan_fedbounty . "<BR>";
@@ -105,7 +105,7 @@ else
       }
       // Player will get a Federation Bounty on themselves if they attack a player who's score is less than bounty_ratio of
       // themselves. If the target has a Federation Bounty, they can attack without attracting a bounty on themselves.
-      if($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo[turns_used] < $bounty_minturns))
+      if ($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo[turns_used] < $bounty_minturns))
       {
          echo $l_by_fedbounty . "<BR><BR>";
       }

@@ -78,13 +78,13 @@ $playerinfo    = $result->fields;
 
 // Typecast into integers (this also removes all non numbers)
 $teamwhat = NULL;
-if(isset($_REQUEST['teamwhat']))
+if (isset($_REQUEST['teamwhat']))
 {
     $teamwhat  = (int)$_REQUEST['teamwhat'];
 }
 
 $whichteam = NULL;
-if(isset($_REQUEST['whichteam']))
+if (isset($_REQUEST['whichteam']))
 {
     $whichteam = (int)$_REQUEST['whichteam'];
 }
@@ -123,7 +123,7 @@ switch ($teamwhat)
 
     case 2: // LEAVE
     {
-        if(!isTeamMember($team, $playerinfo))
+        if (!isTeamMember($team, $playerinfo))
         {
             echo "<b><font color=red>An error occured</font></b><br>You are not a member of this Team.";
             LINK_BACK();
@@ -138,7 +138,7 @@ switch ($teamwhat)
         {
             if ($team[number_of_members] == 1)
             {
-                if(!isTeamOwner($team, $playerinfo))
+                if (!isTeamOwner($team, $playerinfo))
                 {
                     echo $l_team_error;
                     LINK_BACK();
@@ -151,7 +151,7 @@ switch ($teamwhat)
 
                 $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id] AND base='Y'");
                 $i=0;
-                while(!$res->EOF)
+                while (!$res->EOF)
                 {
                     $row = $res->fields;
                     $sectors[$i] = $row[sector_id];
@@ -160,9 +160,9 @@ switch ($teamwhat)
                 }
 
                 $db->Execute("UPDATE $dbtables[planets] SET corp=0 WHERE owner=$playerinfo[ship_id]");
-                if(!empty($sectors))
+                if (!empty($sectors))
                 {
-                    foreach($sectors as $sector)
+                    foreach ($sectors as $sector)
                     {
                         calc_ownership($sector);
                     }
@@ -183,7 +183,7 @@ switch ($teamwhat)
                     echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=confirmleave value=2><input type=hidden name=whichteam value=$whichteam>";
                     echo "<tr><td>$l_team_newc</td><td><select name=newcreator>";
                     $res = $db->Execute("SELECT character_name,ship_id FROM $dbtables[ships] WHERE team=$whichteam ORDER BY character_name ASC");
-                    while(!$res->EOF)
+                    while (!$res->EOF)
                     {
                         $row = $res->fields;
                         if (!isTeamOwner($team, $row))
@@ -204,7 +204,7 @@ switch ($teamwhat)
 
                     $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
                     $i=0;
-                    while(!$res->EOF)
+                    while (!$res->EOF)
                     {
                         $sectors[$i] = $res->fields[sector_id];
                         $i++;
@@ -212,9 +212,9 @@ switch ($teamwhat)
                     }
 
                     $db->Execute("UPDATE $dbtables[planets] SET corp=0 WHERE owner=$playerinfo[ship_id]");
-                    if(!empty($sectors))
+                    if (!empty($sectors))
                     {
-                        foreach($sectors as $sector)
+                        foreach ($sectors as $sector)
                         {
                             calc_ownership($sector);
                         }
@@ -240,7 +240,7 @@ switch ($teamwhat)
 
             $res = $db->Execute("SELECT DISTINCT sector_id FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id] AND base='Y' AND corp!=0");
             $i=0;
-            while(!$res->EOF)
+            while (!$res->EOF)
             {
                 $sectors[$i] = $res->fields[sector_id];
                 $i++;
@@ -248,9 +248,9 @@ switch ($teamwhat)
             }
 
             $db->Execute("UPDATE $dbtables[planets] SET corp=0 WHERE owner=$playerinfo[ship_id]");
-            if(!empty($sectors))
+            if (!empty($sectors))
             {
-                foreach($sectors as $sector)
+                foreach ($sectors as $sector)
                 {
                     calc_ownership($sector);
                 }
@@ -266,13 +266,13 @@ switch ($teamwhat)
 
     case 3: // JOIN
     {
-        if($playerinfo[team] <> 0)
+        if ($playerinfo[team] <> 0)
         {
             echo $l_team_leavefirst . "<br>";
         }
         else
         {
-            if($playerinfo[team_invite] == $whichteam)
+            if ($playerinfo[team_invite] == $whichteam)
             {
                 $db->Execute("UPDATE $dbtables[ships] SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
                 $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members+1 WHERE id=$whichteam");
@@ -302,7 +302,7 @@ switch ($teamwhat)
         // If not display "An error occured, You are not the leader of this Team." message.
         // Then show link back and break;
 
-        if(!isTeamOwner($team, $playerinfo))
+        if (!isTeamOwner($team, $playerinfo))
         {
             echo $l_team_error;
             LINK_BACK();
@@ -338,7 +338,7 @@ switch ($teamwhat)
 
     case 6: // Create Team
     {
-        if($playerinfo['team'] <> 0)
+        if ($playerinfo['team'] <> 0)
         {
             echo $l_team_leavefirst . "<br>";
             LINK_BACK();
@@ -366,7 +366,7 @@ switch ($teamwhat)
             $teamname = trim(htmlspecialchars($teamname));
             $teamdesc = trim(htmlspecialchars($teamdesc));
 
-            if(!validate_team($teamname, $teamdesc, $playerinfo['ship_id']))
+            if (!validate_team($teamname, $teamdesc, $playerinfo['ship_id']))
             {
                 echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 LINK_BACK();
@@ -399,7 +399,7 @@ switch ($teamwhat)
             echo "<tr><td>$l_team_selectp:</td><td><select name=who style='width:200px;'>";
 
             $res = $db->Execute("SELECT character_name,ship_id FROM $dbtables[ships] WHERE team<>$whichteam AND ship_destroyed ='N' AND turns_used >0 ORDER BY character_name ASC");
-            while(!$res->EOF)
+            while (!$res->EOF)
             {
                 $row = $res->fields;
                 if (!isTeamOwner($team, $row))
@@ -416,9 +416,9 @@ switch ($teamwhat)
         }
         else
         {
-            if($playerinfo[team] == $whichteam)
+            if ($playerinfo[team] == $whichteam)
             {
-                if(is_null($who))
+                if (is_null($who))
                 {
                     echo "No player was selected.<br>\n";
                             echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu<br><br>";
@@ -488,7 +488,7 @@ switch ($teamwhat)
             $teamname = trim(htmlspecialchars($teamname));
             $teamdesc = trim(htmlspecialchars($teamdesc));
 
-            if(!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
+            if (!validate_team($teamname, $teamdesc, $playerinfo[ship_id]))
             {
                 echo "<span style='color:#f00;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 LINK_BACK();
@@ -501,7 +501,7 @@ switch ($teamwhat)
             // Adding a log entry to all members of the renamed team
             $result_team_name = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
             playerlog($playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
-            while(!$result_team_name->EOF)
+            while (!$result_team_name->EOF)
             {
                 $teamname_array = $result_team_name->fields;
                 playerlog($teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
@@ -568,13 +568,13 @@ TEXT_GOTOMAIN();
 function isTeamMember($team, $playerinfo)
 {
     // Check to see if the player is in a team?  if not return false right there, else carry on.
-    if($playerinfo['team'] == 0)
+    if ($playerinfo['team'] == 0)
     {
         return false;
     }
 
     // Check to see if the player is a member of $team['id'] if so return true, else return false.
-    if($playerinfo['team'] == $team['id'])
+    if ($playerinfo['team'] == $team['id'])
     {
         return true;
     }
@@ -587,13 +587,13 @@ function isTeamMember($team, $playerinfo)
 function isTeamOwner($team, $playerinfo)
 {
     // Check to see if the player is in a team?  if not return false right there, else carry on.
-    if($playerinfo['team'] == 0)
+    if ($playerinfo['team'] == 0)
     {
         return false;
     }
 
     // Check to see if the player is the Owner of $team['creator'] if so return true, else return false.
-    if($playerinfo['ship_id'] == $team['creator'])
+    if ($playerinfo['ship_id'] == $team['creator'])
     {
         return true;
     }
@@ -656,7 +656,7 @@ function DISPLAY_ALL_TEAMS()
     $res = $db->Execute($sql_query) or die($db->ErrorMsg());
     $color = $color_line1;
 
-    while(!$res->EOF)
+    while (!$res->EOF)
     {
         $row = $res->fields;
         echo "<tr bgcolor=\"$color\">";
@@ -666,7 +666,7 @@ function DISPLAY_ALL_TEAMS()
         // This fixes it so that it actually displays the coordinator, and not the first member of the team.
         $sql_query_2 = "SELECT character_name FROM $dbtables[ships] WHERE ship_id = $row[creator]";
         $res2 = $db->Execute($sql_query_2) or die($db->ErrorMsg());
-        while(!$res2->EOF)
+        while (!$res2->EOF)
         {
             $row2 = $res2->fields;
             $res2->MoveNext();
@@ -676,7 +676,7 @@ function DISPLAY_ALL_TEAMS()
         echo "<td><a href=mailto2.php?name=".$row2[character_name].">".$row2[character_name]."</a></td>";
         echo "<td>$row[total_score]</td>";
         echo "</tr>";
-        if($color == $color_line1)
+        if ($color == $color_line1)
         {
             $color = $color_line2;
         }
@@ -793,17 +793,17 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
     $desc = trim($desc);
     $creator = (int)$creator;
 
-    if( (is_null($name) || empty($name)) || (is_null($desc) || empty($desc)) || (is_null($creator) || empty($creator)) )
+    if ( (is_null($name) || empty($name)) || (is_null($desc) || empty($desc)) || (is_null($creator) || empty($creator)) )
     {
         return false;
     }
 
-    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $name));
+    if (!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $name));
     {
         return false;
     }
 
-    if(!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $desc));
+    if (!preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $desc));
     {
         return false;
     }

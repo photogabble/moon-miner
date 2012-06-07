@@ -39,7 +39,7 @@ function YESNO($onoff)
 
 $module = $menu;
 
-if($swordfish != $adminpass)
+if ($swordfish != $adminpass)
 {
   echo "<FORM ACTION=admin.php METHOD=POST>";
   echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20>&nbsp;&nbsp;";
@@ -48,7 +48,7 @@ if($swordfish != $adminpass)
 }
 else
 {
-  if(empty($module))
+  if (empty($module))
   {
     echo "Welcome to the Blacknova Traders administration module<BR><BR>";
     echo "Select a function from the list below:<BR>";
@@ -71,16 +71,16 @@ else
   {
     $button_main = true;
 
-    if($module == "useredit")
+    if ($module == "useredit")
     {
       echo "<B>User editor</B>";
       echo "<BR>";
       echo "<FORM ACTION=admin.php METHOD=POST>";
-      if(empty($user))
+      if (empty($user))
       {
         echo "<SELECT SIZE=20 NAME=user>";
         $res = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $row=$res->fields;
           echo "<OPTION VALUE=$row[ship_id]>$row[character_name]</OPTION>";
@@ -91,7 +91,7 @@ else
       }
       else
       {
-        if(empty($operation))
+        if (empty($operation))
         {
           $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$user");
           $row = $res->fields;
@@ -148,7 +148,7 @@ else
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
           echo "<INPUT TYPE=SUBMIT VALUE=Save>";
         }
-        elseif($operation == "save")
+        elseif ($operation == "save")
         {
           // update database
           $_ship_destroyed = empty($ship_destroyed) ? "N" : "Y";
@@ -168,7 +168,7 @@ else
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "</FORM>";
     }
-    elseif($module == "univedit")
+    elseif ($module == "univedit")
     {
       echo "<B>Universe editor</B>";
 
@@ -202,16 +202,16 @@ else
 
     }
         }
-    elseif($module == "sectedit")
+    elseif ($module == "sectedit")
     {
       echo "<H2>Sector editor</H2>";
       echo "<FORM ACTION=admin.php METHOD=POST>";
-      if(empty($sector))
+      if (empty($sector))
       {
         echo "<H5>Note: Cannot Edit Sector 0</H5>";
         echo "<SELECT SIZE=20 NAME=sector>";
         $res = $db->Execute("SELECT sector_id FROM $dbtables[universe] ORDER BY sector_id");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $row=$res->fields;
           echo "<OPTION VALUE=$row[sector_id]> $row[sector_id] </OPTION>";
@@ -222,7 +222,7 @@ else
       }
       else
       {
-        if(empty($operation))
+        if (empty($operation))
         {
           $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$sector");
           $row = $res->fields;
@@ -233,7 +233,7 @@ else
           echo "<TD ALIGN=Right><tt>  Zone ID    </tt></TD><TD>";
                                       echo "<SELECT SIZE=1 NAME=zone_id>";
                                       $ressubb = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
-                                      while(!$ressubb->EOF)
+                                      while (!$ressubb->EOF)
                                       {
                                         $rowsubb=$ressubb->fields;
                                         if ($rowsubb[zone_id] == $row[zone_id])
@@ -279,11 +279,11 @@ else
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
           echo "<INPUT TYPE=SUBMIT SIZE=1 VALUE=Save>";
         }
-        elseif($operation == "save")
+        elseif ($operation == "save")
         {
           // update database
           $secupdate = $db->Execute("UPDATE $dbtables[universe] SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
-          if(!$secupdate) {
+          if (!$secupdate) {
             echo "Changes to Sector record have FAILED Due to the following Error:<BR><BR>";
             echo $db->ErrorMsg() . "<br>";
           } else {
@@ -301,18 +301,18 @@ else
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "</FORM>";
     }
-    elseif($module == "planedit")
+    elseif ($module == "planedit")
     {
       echo "<H2>Planet editor</H2>";
       echo "<FORM ACTION=admin.php METHOD=POST>";
-      if(empty($planet))
+      if (empty($planet))
       {
         echo "<SELECT SIZE=15 NAME=planet>";
         $res = $db->Execute("SELECT planet_id, name, sector_id FROM $dbtables[planets] ORDER BY sector_id");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $row=$res->fields;
-          if($row[name] == "")
+          if ($row[name] == "")
 
             $row[name] = "Unnamed";
 
@@ -324,7 +324,7 @@ else
       }
       else
       {
-        if(empty($operation))
+        if (empty($operation))
         {
           $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet");
           $row = $res->fields;
@@ -344,7 +344,7 @@ else
                                       echo "<SELECT SIZE=1 NAME=owner>";
                                       $ressuba = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
                                       echo "<OPTION VALUE=0>No One</OPTION>";
-                                      while(!$ressuba->EOF)
+                                      while (!$ressuba->EOF)
                                       {
                                       $rowsuba=$ressuba->fields;
                                       if ($rowsuba[ship_id] == $row[owner])
@@ -381,14 +381,14 @@ else
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
           echo "<INPUT TYPE=SUBMIT SIZE=1 VALUE=Save>";
         }
-        elseif($operation == "save")
+        elseif ($operation == "save")
         {
           // update database
           $_defeated = empty($defeated) ? "N" : "Y";
           $_base = empty($base) ? "N" : "Y";
           $_sells = empty($sells) ? "N" : "Y";
           $planupdate = $db->Execute("UPDATE $dbtables[planets] SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
-          if(!$planupdate) {
+          if (!$planupdate) {
             echo "Changes to Planet record have FAILED Due to the following Error:<BR><BR>";
             echo $db->ErrorMsg() . "<br>";
           } else {
@@ -406,20 +406,20 @@ else
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "</FORM>";
     }
-    elseif($module == "linkedit")
+    elseif ($module == "linkedit")
     {
       echo "<B>Link editor</B>";
     }
-    elseif($module == "zoneedit")
+    elseif ($module == "zoneedit")
     {
       echo "<B>Zone editor</B>";
       echo "<BR>";
       echo "<FORM ACTION=admin.php METHOD=POST>";
-      if(empty($zone))
+      if (empty($zone))
       {
         echo "<SELECT SIZE=20 NAME=zone>";
         $res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $row=$res->fields;
           echo "<OPTION VALUE=$row[zone_id]>$row[zone_name]</OPTION>";
@@ -432,7 +432,7 @@ else
       }
       else
       {
-        if($operation == "editzone")
+        if ($operation == "editzone")
         {
           $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$zone");
           $row = $res->fields;
@@ -450,7 +450,7 @@ else
           echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=savezone>";
           echo "<INPUT TYPE=SUBMIT VALUE=Save>";
         }
-        elseif($operation == "savezone")
+        elseif ($operation == "savezone")
         {
           // update database
           $_zone_beacon = empty($zone_beacon) ? "N" : "Y";
@@ -471,10 +471,10 @@ else
       echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
       echo "</FORM>";
     }
-    elseif($module == "ipedit")
+    elseif ($module == "ipedit")
     {
       echo "<B>IP Bans editor</B><p>";
-      if(empty($command))
+      if (empty($command))
       {
         echo "<FORM ACTION=admin.php METHOD=POST>";
         echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
@@ -484,13 +484,13 @@ else
         echo "</form>";
 
         $res = $db->Execute("SELECT ban_mask FROM $dbtables[ip_bans]");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $bans[]=$res->fields[ban_mask];
           $res->MoveNext();
         }
 
-        if(empty($bans))
+        if (empty($bans))
           echo "<b>No IP bans are currently active.</b>";
         else
         {
@@ -508,10 +508,10 @@ else
 
           $curcolor=$color_line1;
 
-          foreach($bans as $ban)
+          foreach ($bans as $ban)
           {
             echo "<tr bgcolor=$curcolor>";
-            if($curcolor == $color_line1)
+            if ($curcolor == $color_line1)
               $curcolor = $color_line2;
             else
               $curcolor = $color_line1;
@@ -522,19 +522,19 @@ else
 
             $res = $db->Execute("SELECT character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address LIKE '$ban'");
             unset($players);
-            while(!$res->EOF)
+            while (!$res->EOF)
             {
               $players[] = $res->fields;
               $res->MoveNext();
             }
 
-            if(empty($players))
+            if (empty($players))
             {
               echo "None";
             }
             else
             {
-              foreach($players as $player)
+              foreach ($players as $player)
               {
                 echo "<b>$player[character_name]</b><br>";
               }
@@ -542,13 +542,13 @@ else
 
             echo "<td align=center><font size=2 color=white>";
 
-            if(empty($players))
+            if (empty($players))
             {
               echo "N/A";
             }
             else
             {
-              foreach($players as $player)
+              foreach ($players as $player)
               {
                 echo "$player[email]<br>";
               }
@@ -568,10 +568,10 @@ else
           echo "</table><p>";
         }
       }
-      elseif($command== 'showips')
+      elseif ($command== 'showips')
       {
         $res = $db->Execute("SELECT DISTINCT ip_address FROM $dbtables[ships]");
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $ips[]=$res->fields[ip_address];
           $res->MoveNext();
@@ -590,10 +590,10 @@ else
 
         $curcolor=$color_line1;
 
-        foreach($ips as $ip)
+        foreach ($ips as $ip)
         {
           echo "<tr bgcolor=$curcolor>";
-          if($curcolor == $color_line1)
+          if ($curcolor == $color_line1)
             $curcolor = $color_line2;
           else
             $curcolor = $color_line1;
@@ -603,20 +603,20 @@ else
 
           $res = $db->Execute("SELECT character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address='$ip'");
           unset($players);
-          while(!$res->EOF)
+          while (!$res->EOF)
           {
             $players[] = $res->fields;
             $res->MoveNext();
           }
 
-          foreach($players as $player)
+          foreach ($players as $player)
           {
             echo "<b>$player[character_name]</b><br>";
           }
 
           echo "<td align=center><font size=2 color=white>";
 
-          foreach($players as $player)
+          foreach ($players as $player)
           {
             echo "$player[email]<br>";
           }
@@ -646,7 +646,7 @@ else
              "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
              "</form>";
       }
-      elseif($command == 'banip')
+      elseif ($command == 'banip')
       {
         $ip = $_POST[ip];
         echo "<b>Banning ip : $ip<p>";
@@ -679,14 +679,14 @@ else
              "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
              "</form>";
       }
-      elseif($command == 'banip2')
+      elseif ($command == 'banip2')
       {
         $ip = $_POST[ip];
         $ipparts = explode(".", $ip);
 
-        if($class == 'A')
+        if ($class == 'A')
           $banmask = "$ipparts[0].$ipparts[1].$ipparts[2].%";
-        elseif($class == 'B')
+        elseif ($class == 'B')
           $banmask = "$ipparts[0].$ipparts[1].%";
         else
           $banmask = $ip;
@@ -709,35 +709,35 @@ else
              "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
              "</form>";
       }
-      elseif($command == 'unbanip')
+      elseif ($command == 'unbanip')
       {
         $ip = $_POST[ip];
 
-        if(!empty($ban))
+        if (!empty($ban))
           $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
         else
           $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
 
         $nbbans = $res->RecordCount();
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $res->fields[print_mask] = str_replace("%", "*", $res->fields[ban_mask]);
           $bans[]=$res->fields;
           $res->MoveNext();
         }
 
-        if(!empty($ban))
+        if (!empty($ban))
           $db->Execute("DELETE FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
         else
           $db->Execute("DELETE FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
 
         $query_string = "ip_address LIKE '" . $bans[0][ban_mask] ."'";
-        for( $i = 1; $i < $nbbans ; $i++)
+        for ($i = 1; $i < $nbbans ; $i++)
           $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
 
         $res = $db->Execute("SELECT DISTINCT character_name FROM $dbtables[ships] WHERE $query_string");
         $nbplayers = $res->RecordCount();
-        while(!$res->EOF)
+        while (!$res->EOF)
         {
           $players[]=$res->fields[character_name];
           $res->MoveNext();
@@ -745,17 +745,17 @@ else
 
         echo "<font size=2 color=white><b>Successfully removed $nbbans bans</b> :<p>";
 
-        foreach($bans as $ban)
+        foreach ($bans as $ban)
         {
           echo " - $ban[print_mask]<br>";
         }
 
         echo "<p><b>Affected players :</b><p>";
-        if(empty($players))
+        if (empty($players))
           echo " - None<br>";
         else
         {
-          foreach($players as $player)
+          foreach ($players as $player)
           {
             echo " - $player<br>";
           }
@@ -769,7 +769,7 @@ else
       }
 
     }
-    elseif($module == "logview")
+    elseif ($module == "logview")
     {
       echo "<form action=log.php method=POST>" .
            "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
@@ -781,13 +781,13 @@ else
            "<SELECT name=player>";
 
       $res = $db->execute("SELECT ship_id, character_name FROM $dbtables[ships] ORDER BY character_name ASC");
-      while(!$res->EOF)
+      while (!$res->EOF)
       {
         $players[] = $res->fields;
         $res->MoveNext();
       }
 
-      foreach($players as $player)
+      foreach ($players as $player)
         echo "<OPTION value=$player[ship_id]>$player[character_name]</OPTION>";
 
       echo "</SELECT>&nbsp;&nbsp;" .
@@ -799,7 +799,7 @@ else
       echo "Unknown function";
     }
 
-    if($button_main)
+    if ($button_main)
     {
       echo "<p>";
       echo "<FORM ACTION=admin.php METHOD=POST>";

@@ -26,7 +26,7 @@ include("header.php");
 
 bigtitle();
 
-if(checklogin())
+if (checklogin())
 {
     die();
 }
@@ -95,7 +95,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
  else
  {
   $line_counter = true;
-  while(!$res->EOF)
+  while (!$res->EOF)
   {
    $msg = $res->fields;
    $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id='".$msg[sender_id]."'");
