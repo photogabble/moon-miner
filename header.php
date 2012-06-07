@@ -34,17 +34,17 @@ header("Keep-Alive: timeout=15, max=100");
 <title><?php echo $title; ?></title>
 <style type="text/css">
 <!--
-body {font-family: Verdana, Arial, sans-serif;}
+body {font-family: Verdana, "DejaVu Sans", sans-serif;}
 a.new_link {font-size: 8Pt; color:#0f0; font-weight:bold;}
 a.new_link:hover {font-size: 8Pt; color:#36f; font-weight:bold;}
 
 <?php
-if(!isset($interface) || $interface == "")
+if (!isset($interface) || $interface == "")
 {
   $interface = "main.php";
 }
 
-if(isset($interface) && $interface == "main.php")
+if (isset($interface) && $interface == "main.php")
 {
   echo "  a.mnu {text-decoration:none; font-size: 8Pt; color:white; font-weight:bold;}
   a.mnu:hover {text-decoration:none; font-size: 8Pt; color:#36f; font-weight:bold;}
@@ -68,7 +68,10 @@ if(isset($interface) && $interface == "main.php")
   .map {padding:0px;float:left;width:20px;height:20px;background-color:#111;border:#555555 1px solid; color:#fff;z-index:-1; position:relative;background-color:#0000ff;}
   .map:hover {border:#ffffff 1px solid;}
   .none {background-image:url('images/space.png');}
-  .un {opacity:0.5;background-image:url('images/uspace.png');}\n";
+  .un {opacity:0.5;background-image:url('images/uspace.png');}
+  input.term {background-color: #000; color: #0f0; font-family:Verdana; font-size:10pt; border-color:#0f0;}
+  select.term {background-color: #000; color: #0f0; font-family:Verdana; font-size:10pt; border-color:#0f0;}
+  \n";
 
   // Added for dev small text forthe rankings page
   echo "  .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:10px;}\n";
@@ -91,7 +94,7 @@ if (isset($interface) && $interface == "index.php")
   function MM_swapImgRestore()
   { //v3.0
       var i,x,a=document.MM_sr;
-      for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++)
+      for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++)
       {
           x.src=x.oSrc;
       }
@@ -100,15 +103,15 @@ if (isset($interface) && $interface == "index.php")
   function MM_preloadImages()
   { //v3.0
       var d=document;
-      if(d.images)
+      if (d.images)
       {
-          if(!d.MM_p)
+          if (!d.MM_p)
           {
               d.MM_p=new Array();
           }
 
           var i,j=d.MM_p.length,a=MM_preloadImages.arguments;
-          for(i=0; i<a.length; i++)
+          for (i = 0; i < a.length; i++)
           {
               if (a[i].indexOf("#")!=0)
               {
@@ -122,33 +125,33 @@ if (isset($interface) && $interface == "index.php")
   function MM_findObj(n, d)
   { //v4.0
       var p,i,x;
-      if(!d)
+      if (!d)
       {
           d=document;
       }
 
-      if((p=n.indexOf("?"))>0&&parent.frames.length)
+      if ((p=n.indexOf("?"))>0&&parent.frames.length)
       {
           d=parent.frames[n.substring(p+1)].document;
           n=n.substring(0,p);
       }
 
-      if(!(x=d[n])&&d.all)
+      if (!(x=d[n])&&d.all)
       {
           x=d.all[n];
       }
 
-      for (i=0;!x&&i<d.forms.length;i++)
+      for (i=0; !x && i < d.forms.length; i++)
       {
           x=d.forms[i][n];
       }
 
-      for(i=0;!x&&d.layers&&i<d.layers.length;i++)
+      for (i=0; !x && d.layers && i < d.layers.length; i++)
       {
           x=MM_findObj(n,d.layers[i].document);
       }
 
-      if(!x && document.getElementById)
+      if (!x && document.getElementById)
       {
           x=document.getElementById(n);
       }
@@ -160,12 +163,12 @@ if (isset($interface) && $interface == "index.php")
   { //v3.0
       var i,j=0,x,a=MM_swapImage.arguments;
       document.MM_sr=new Array;
-      for(i=0;i<(a.length-2);i+=3)
+      for (i = 0; i < (a.length-2); i + =3)
       {
           if ((x=MM_findObj(a[i]))!=null)
           {
               document.MM_sr[j++]=x;
-              if(!x.oSrc)
+              if (!x.oSrc)
               {
                   x.oSrc=x.src;
               }
@@ -183,9 +186,9 @@ if (isset($interface) && $interface == "index.php")
 </head>
 <?php
 
-if(empty($no_body))
+if (empty($no_body))
 {
-    if(isset($interface) && $interface=="main.php")
+    if (isset($interface) && $interface=="main.php")
     {
         echo "<body style=\"background-image: url('images/bgoutspace1.png'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
     }
