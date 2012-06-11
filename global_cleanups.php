@@ -177,6 +177,7 @@ define('LOG_BOUNTY_FEDBOUNTY', 52);       // Sent when the federation places a b
 define('LOG_PLANET_BOMBED', 53);     //Sent after bombing a planet
 define('LOG_ADMIN_ILLEGVALUE', 54);        //sent to admin on planet destruction instead of capture
 // Database tables variables
+$dbtables['languages'] = "{$db_prefix}languages";
 $dbtables['ibank_accounts'] = "{$db_prefix}ibank_accounts";
 $dbtables['links'] = "{$db_prefix}links";
 $dbtables['planets'] = "{$db_prefix}planets";
