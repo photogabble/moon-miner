@@ -1066,22 +1066,22 @@ function isSameTeam($attackerTeam = null, $attackieTeam = null)
         }
 }
 
-function getLanguageVars($db = NULL, $dbtables, $language = NULL, $category = NULL, &$langvars = NULL)
+function getLanguageVars($db = NULL, $dbtables, $language = NULL, $categories = NULL, &$langvars = NULL)
 {
     // Check if all supplied args are valid, if not return false.
-    if (is_null($db) || is_null($language) || is_null($category))
+    if (is_null($db) || is_null($language) || !is_array($categories))
     {
         return false;
     }
 
-    // We want to cache our result, because language variables don't change.
-    $result = $db->CacheExecute("SELECT name,value FROM $dbtables[languages] where category=? AND language=?", array($category, $language));
-
-    while ($result && !$result->EOF)
+    foreach($categories as $category)
     {
-        $row = $result->fields;
-        $langvars[$row['name']] = $row['value'];
-        $result->MoveNext();
+        $result = $db->CacheGetAll("SELECT name, value FROM $dbtables[languages] WHERE category=? AND language=?;", array($category, $language));
+        foreach($result as $key=>$value)
+        {
+            # Now cycle through returned array and add into langvars.
+            $langvars[$value['name']] = $value['value'];
+        }
     }
 
     return true; // Results were added into array, signal that we were successful.
