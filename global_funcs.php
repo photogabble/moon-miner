@@ -1065,4 +1065,25 @@ function isSameTeam($attackerTeam = null, $attackieTeam = null)
                 return (boolean) true;
         }
 }
+
+function getLanguageVars($db = NULL, $dbtables, $language = NULL, $category = NULL, &$langvars = NULL)
+{
+    // Check if all supplied args are valid, if not return false.
+    if (is_null($db) || is_null($language) || is_null($category))
+    {
+        return false;
+    }
+
+    // We want to cache our result, because language variables don't change.
+    $result = $db->CacheExecute("SELECT name,value FROM $dbtables[languages] where category='" . $category . "' AND language='" . $language . "';");
+
+    while ($result && !$result->EOF)
+    {
+        $row = $result->fields;
+        $langvars[$row['name']] = $row['value'];
+        $result->MoveNext();
+    }
+
+    return true; // Results were added into array, signal that we were successful.
+}
 ?>
