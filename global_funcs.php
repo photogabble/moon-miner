@@ -1075,7 +1075,7 @@ function getLanguageVars($db = NULL, $dbtables, $language = NULL, $category = NU
     }
 
     // We want to cache our result, because language variables don't change.
-    $result = $db->CacheExecute("SELECT name,value FROM $dbtables[languages] where category='" . $category . "' AND language='" . $language . "';");
+    $result = $db->CacheExecute("SELECT name,value FROM $dbtables[languages] where category=? AND language=?", array($category, $language));
 
     while ($result && !$result->EOF)
     {
