@@ -140,6 +140,18 @@ echo "<b>Dropping stage complete.</b><p>";
 // Create database schema
 Table_Header("Creating Tables");
 
+$db->Execute("CREATE TABLE $dbtables[languages] (" .
+             "lang_id smallint(5) NOT NULL AUTO_INCREMENT," .
+             "language varchar(30) NOT NULL DEFAULT 'english'," .
+             "name varchar(75) NOT NULL," .
+             "value char(255) NOT NULL," .
+             "category char(30) NOT NULL," .
+             "PRIMARY KEY (lang_id)" .
+             ")");
+$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+
+Table_Row("Creating languages Table","Failed","Passed");
+
 $db->Execute("CREATE TABLE $dbtables[links] (" .
              "link_id int unsigned NOT NULL auto_increment," .
              "link_start int unsigned DEFAULT '0' NOT NULL," .
