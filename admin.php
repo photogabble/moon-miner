@@ -17,12 +17,12 @@
 //
 // File: admin.php
 
-include("config.php");
-include("languages/$lang");
+include "config.php";
+include "languages/$lang";
 updatecookie();
 
-$title=$l_admin_title;
-include("header.php");
+$title = $l_admin_title;
+include "header.php";
 
 connectdb();
 bigtitle();
@@ -810,6 +810,5 @@ else
   }
 }
 
-include("footer.php");
-
+include "footer.php";
 ?>
