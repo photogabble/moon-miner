@@ -25,7 +25,7 @@
 
   echo "<B>The Governor</B><BR><BR>";
 
-  echo "Validating Ship Fighters, Torpedoes, Armour points and Credits...<br>\n";
+  echo "Validating Ship Fighters, Torpedoes, Armor points and Credits...<br>\n";
   $tdres = $db->Execute("SELECT * FROM $dbtables[ships];");
 
   $detected = (boolean) false;
@@ -35,7 +35,7 @@
     $playerinfo = $tdres->fields;
     $ship_fighters_max = NUM_FIGHTERS($playerinfo['computer']);
     $torps_max = NUM_TORPEDOES($playerinfo['torp_launchers']);
-    $armor_pts_max = NUM_ARMOUR($playerinfo['armor']);
+    $armor_pts_max = NUM_ARMOR($playerinfo['armor']);
 
 // Checking Fighters
     if ($playerinfo['ship_fighters'] > $ship_fighters_max)
@@ -88,7 +88,7 @@
 // Checking Armor Points
     if ($playerinfo['armor_pts'] > $armor_pts_max)
     {
-      echo "'-> <span style='color:#f00;'>Detected Armour points Overload on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
+      echo "'-> <span style='color:#f00;'>Detected Armor points Overload on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
       $db->Execute("UPDATE $dbtables[ships] SET armor_pts = ? WHERE ship_id = ? LIMIT 1;", array($armor_pts_max, $playerinfo['ship_id']));
       if ($db->ErrorNo() >0)
       {
@@ -99,7 +99,7 @@
     }
     elseif ($playerinfo['armor_pts'] < 0)
     {
-      echo "'-> <span style='color:#f00;'>Detected Armour points Flip on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
+      echo "'-> <span style='color:#f00;'>Detected Armor points Flip on Ship: {$playerinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
       $db->Execute("UPDATE $dbtables[ships] SET armor_pts = ? WHERE ship_id = ? LIMIT 1;", array(0, $playerinfo['ship_id']));
       if ($db->ErrorNo() >0)
       {

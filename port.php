@@ -412,7 +412,7 @@ elseif ($sectorinfo['port_type'] == "special")
   $fighter_free = $fighter_max - $playerinfo['ship_fighters'];
   $torpedo_max = NUM_TORPEDOES($playerinfo['torp_launchers']);
   $torpedo_free = $torpedo_max - $playerinfo['torps'];
-  $armor_max = NUM_ARMOUR($playerinfo['armor']);
+  $armor_max = NUM_ARMOR($playerinfo['armor']);
   $armor_free = $armor_max - $playerinfo['armor_pts'];
   $colonist_max = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'];
 

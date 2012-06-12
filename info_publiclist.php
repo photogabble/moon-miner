@@ -53,7 +53,7 @@ $info["P-HUMAN"] = $row[x];
     $row = $res->fields;
 $info["P-ONLINE"] = $row[x];
 
-    $res = $db->Execute("SELECT AVG(hull) AS a1 , AVG(engines) AS a2 , AVG(power) AS a3 , AVG(computer) AS a4 , AVG(sensors) AS a5 , AVG(beams) AS a6 , AVG(torp_launchers) AS a7 , AVG(shields) AS a8 , AVG(armour) AS a9 , AVG(cloak) AS a10 FROM $dbtables[ships] WHERE ship_destroyed='N' and email LIKE '%@xenobe'");
+    $res = $db->Execute("SELECT AVG(hull) AS a1 , AVG(engines) AS a2 , AVG(power) AS a3 , AVG(computer) AS a4 , AVG(sensors) AS a5 , AVG(beams) AS a6 , AVG(torp_launchers) AS a7 , AVG(shields) AS a8 , AVG(armor) AS a9 , AVG(cloak) AS a10 FROM $dbtables[ships] WHERE ship_destroyed='N' and email LIKE '%@xenobe'");
     $row = $res->fields;
     $dyn_xenobe_lvl = $row[a1] + $row[a2] + $row[a3] + $row[a4] + $row[a5] + $row[a6] + $row[a7] + $row[a8] + $row[a9] + $row[a10];
     $dyn_xenobe_lvl = $dyn_xenobe_lvl / 10;
@@ -137,7 +137,7 @@ $info["DEV_LSSD_PRICE"] = $dev_lssd_price;
 
 $info["FIGHTER_PRICE"] = $fighter_price;
 $info["TORPEDO_PRICE"] = $torpedo_price;
-$info["ARMOUR_PRICE"] = $armour_price;
+$info["ARMOR_PRICE"] = $armor_price;
 $info["COLONIST_PRICE"] = $colonist_price;
 
 $info["BASEDEFENSE"] = $basedefense;

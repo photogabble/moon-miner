@@ -84,7 +84,7 @@ echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_organics</TD><TD ALIGN=RIGHT>" . NUMBE
 echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_goods</TD><TD ALIGN=RIGHT>" . NUMBER($playerinfo['ship_goods']) . "</TD></TR>";
 echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_colonists</TD><TD ALIGN=RIGHT>" . NUMBER($playerinfo['ship_colonists']) . "</TD></TR>";
 echo "<TR><TD>&nbsp;</TD></TR>";
-$armor_pts_max = NUM_ARMOUR($playerinfo['armor']);
+$armor_pts_max = NUM_ARMOR($playerinfo['armor']);
 $ship_fighters_max = NUM_FIGHTERS($playerinfo['computer']);
 $torps_max = NUM_TORPEDOES($playerinfo['torp_launchers']);
 echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_arm_weap</B></TD><TD></TD></TR>";

@@ -554,7 +554,7 @@ function xenobetosecdef()
         $targetfighters=$temptargfighters;
       }
       // OH NO THERE ARE STILL FIGHTERS
-      // ARMOUR VS FIGHTERS
+      // ARMOR VS FIGHTERS
       if ($targetfighters > 0) {
         if ($targetfighters > $playerarmor) {
           $playerarmor=0;
@@ -612,7 +612,7 @@ function xenobetosecdef()
         } else {
           $mines_left = $mines_left - $playershields;
 
-          // ARMOUR VS MINES
+          // ARMOR VS MINES
           if ($playerarmor >= $mines_left)
           {
             $update2 = $db->Execute("UPDATE $dbtables[ships] set armor_pts=armor_pts-$mines_left,ship_energy=0 where ship_id=$playerinfo[ship_id]");
@@ -798,13 +798,13 @@ function xenoberegen()
   }
 
   //
-  // LETS REGENERATE ARMOUR
+  // LETS REGENERATE ARMOR
   //
-  $maxarmor = NUM_ARMOUR($playerinfo[armor]);
+  $maxarmor = NUM_ARMOR($playerinfo[armor]);
   if ($playerinfo[armor_pts] <= ($maxarmor - 50))  // STOP REGEN WHEN WITHIN 50 OF MAX
-  {                                                  // REGEN HALF OF REMAINING ARMOUR
+  {                                                  // REGEN HALF OF REMAINING ARMOR
     $playerinfo[armor_pts] = $playerinfo[armor_pts] + round(($maxarmor - $playerinfo[armor_pts])/2);
-    $gena = "regenerated Armour to $playerinfo[armor_pts] points,";
+    $gena = "regenerated Armor to $playerinfo[armor_pts] points,";
   }
 
   //
@@ -1245,7 +1245,7 @@ function xenobetoplanet($planet_id)
   // ATTACKER FIGHTERS
   $attackerfighters = $playerinfo[ship_fighters];
 
-  // ATTACKER ARMOUR
+  // ATTACKER ARMOR
   $attackerarmor = $playerinfo[armor_pts];
 
   //

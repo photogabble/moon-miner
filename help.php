@@ -139,7 +139,7 @@ echo "<B>Sensors:</B><BR>";
 echo "Determines the precision of your sensors when scanning a ship or planet. Scan success is dependent upon ";
 echo "the target's cloak level.";
 echo "<BR><BR>";
-echo "<B>Armour:</B><BR>";
+echo "<B>Armor:</B><BR>";
 echo "Determines the number of armor points your ship can use.";
 echo "<BR><BR>";
 echo "<B>Shields:</B><BR>";

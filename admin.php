@@ -109,7 +109,7 @@ else
           echo "<TD>Power</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=power VALUE=\"$row[power]\"></TD>";
           echo "<TD>Computer</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=computer VALUE=\"$row[computer]\"></TD></TR>";
           echo "<TR><TD>Sensors</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=sensors VALUE=\"$row[sensors]\"></TD>";
-          echo "<TD>Armour</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=armor VALUE=\"$row[armor]\"></TD>";
+          echo "<TD>Armor</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=armor VALUE=\"$row[armor]\"></TD>";
           echo "<TD>Shields</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=shields VALUE=\"$row[shields]\"></TD>";
           echo "<TD>Beams</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=beams VALUE=\"$row[beams]\"></TD></TR>";
           echo "<TR><TD>Torpedoes</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=torp_launchers VALUE=\"$row[torp_launchers]\"></TD>";
@@ -127,7 +127,7 @@ else
           echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
           echo "<TR><TD>Fighters</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_fighters VALUE=\"$row[ship_fighters]\"></TD>";
           echo "<TD>Torpedoes</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=torps VALUE=\"$row[torps]\"></TD></TR>";
-          echo "<TR><TD>Armour Pts</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=armor_pts VALUE=\"$row[armor_pts]\"></TD></TR>";
+          echo "<TR><TD>Armor Pts</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=armor_pts VALUE=\"$row[armor_pts]\"></TD></TR>";
           echo "</TABLE></TD></TR>";
           echo "<TR><TD>Devices</TD>";
           echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
