@@ -842,7 +842,6 @@ function player_insignia_name($a_username)
     // Somewhat inefficient, but I think this is the best way to do this.
 
     global $db, $dbtables, $username;
-    global $l_insignia;
 
     // Ok, first things first, always make sure our variable that is to be returned is unset or null.
     unset($player_insignia);
@@ -866,6 +865,7 @@ function player_insignia_name($a_username)
         {
             // Ok we have found our Insignia, now set and break out of the for loop.
             $temp_insignia = "l_insignia_" . $i;
+            global $$temp_insignia;
             $player_insignia = $$temp_insignia;
             break;
         }
@@ -874,7 +874,7 @@ function player_insignia_name($a_username)
     if (!isset($player_insignia))
     {
         // Hmm, player has out ranked out highest rank, so just return that.
-        $player_insignia = end($l_insignia);
+        $player_insignia = $l_insignia_19;
     }
 
     return $player_insignia;
