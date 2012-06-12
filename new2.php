@@ -122,6 +122,7 @@ if ($flag==0)
         $shipid = $result2->fields;
         // To do: build a bit better "new player" message
         $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
+        $l_new_message = str_replace("[ip]", $ip, $l_new_message);
         $link_to_game = "http://";
         $link_to_game .= ltrim($gamedomain,".");// Trim off the leading . if any
         $link_to_game .= str_replace($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));

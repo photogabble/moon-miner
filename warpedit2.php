@@ -89,6 +89,7 @@ $numlink_start=$row[count];
 
 if ($numlink_start>=$link_max)
 {
+    $l_warp_sectex = str_replace("[link_max]", $link_max, $l_warp_sectex);
     echo $l_warp_sectex . "<br><br>";
     TEXT_GOTOMAIN();
     include("footer.php");

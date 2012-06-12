@@ -140,6 +140,7 @@ switch ($teamwhat)
             {
                 if (!isTeamOwner($team, $playerinfo))
                 {
+                    $l_team_error = str_replace("[error]", "<b><font color=red>An error occured</font></b><br>", $l_team_error);
                     echo $l_team_error;
                     LINK_BACK();
                     continue;
@@ -304,6 +305,7 @@ switch ($teamwhat)
 
         if (!isTeamOwner($team, $playerinfo))
         {
+            $l_team_error = str_replace("[error]", "<b><font color=red>An error occured</font></b><br>", $l_team_error);
             echo $l_team_error;
             LINK_BACK();
             continue;
@@ -463,6 +465,7 @@ switch ($teamwhat)
 
         if (isTeamOwner($team, $playerinfo) != true)
         {
+            $l_team_error = str_replace("[error]", "<b><font color=red>An error occured</font></b><br>", $l_team_error);
             echo $l_team_error;
             LINK_BACK();
             break;

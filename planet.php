@@ -414,6 +414,10 @@ if (!empty($planetinfo))
         }
         else
         {
+            $l_planet_baseinfo = str_replace("[base_credits]",$base_credits,$l_planet_baseinfo);
+            $l_planet_baseinfo = str_replace("[base_ore]",$base_ore,$l_planet_baseinfo);
+            $l_planet_baseinfo = str_replace("[base_organics]",$base_organics,$l_planet_baseinfo);
+            $l_planet_baseinfo = str_replace("[base_goods]",$base_goods,$l_planet_baseinfo);
             echo "$l_planet_baseinfo<BR><BR>";
         }
     }

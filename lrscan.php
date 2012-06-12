@@ -49,7 +49,8 @@ if ($sector == "*")
     }
     if ($playerinfo['turns'] < $fullscan_cost)
     {
-        echo "$l_lrs_noturns<BR><BR>";
+        $l_lrs_noturns=str_replace("[turns]",$fullscan_cost,$l_lrs_noturns);
+        echo $l_lrs_noturns . "<br><br>";
         TEXT_GOTOMAIN();
         include("footer.php");
         die();

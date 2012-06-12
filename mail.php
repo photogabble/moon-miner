@@ -35,6 +35,8 @@ if (!$result->EOF)
     $playerinfo=$result->fields;
     $l_mail_message=str_replace("[pass]", $playerinfo['password'], $l_mail_message);
     $l_mail_message=str_replace("[name]", $playerinfo['character_name'], $l_mail_message);
+    $l_mail_message=str_replace("[ip]", $ip, $l_mail_message);
+    $l_mail_message=str_replace("[game_name]", $game_name, $l_mail_message);
 
     require_once("includes/mailer_class.php");
     $mailer = new Mailer();
@@ -70,6 +72,8 @@ if (!$result->EOF)
         $mailer->setDomain($email_server);
         $mailer->setSender( "Blacknova Mail", $admin_mail );
         $mailer->setRecipient( $playerinfo['character_name'], $playerinfo['email'] );
+
+        $l_mail_topic=str_replace("[game_name]",$game_name,$l_mail_topic);
         $mailer->setSubject( $l_mail_topic );
         $mailer->setMessage( "$l_mail_message\r\n\r\nhttp://{$SERVER_NAME}\r\n" );
 

@@ -70,7 +70,7 @@ $release_version = "0.55";     // Please do not change this. Doing so will cause
 
 $fed_max_hull = 8;
 $maxlen_password = 16;
-$max_rank=100;
+$max_ranks=100;
 $rating_combat_factor=.8;    // Amount of rating gained from combat
 $server_closed=false;        // True = block logins but not new account creation
 $account_creation_closed=false;    // True = block new account creation
