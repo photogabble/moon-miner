@@ -847,7 +847,7 @@ function player_insignia_name($a_username)
     // Ok, first things first, always make sure our variable that is to be returned is unset or null.
     unset($player_insignia);
 
-    // Looup players score.
+    // Lookup players score.
     $res = $db->Execute("SELECT score FROM $dbtables[ships] WHERE email='$a_username'");
     $playerinfo = $res->fields;
 
@@ -865,7 +865,8 @@ function player_insignia_name($a_username)
         if ($playerinfo['score'] <= $value)
         {
             // Ok we have found our Insignia, now set and break out of the for loop.
-            $player_insignia = $l_insignia[$i];
+            $temp_insignia = "l_insignia_" . $i;
+            $player_insignia = $$temp_insignia;
             break;
         }
     }
