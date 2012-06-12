@@ -46,7 +46,7 @@ echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";
 echo "    <td height=\"73\" width=\"27%\"><img src=\"images/bnnhead.png\" width=\"312\" height=\"123\" alt=\"The Blacknova Network\"></td>\n";
 echo "    <td height=\"73\" width=\"73%\" bgcolor=\"#000\" valign=\"bottom\" align=\"right\">\n";
-echo "      <p><font size=\"-1\">{$l_news_info}</font></p>\n";
+echo "      <p><font size=\"-1\">{$l_news_info_1}<br>{$l_news_info_2}<br>{$l_news_info_3}<br>{$l_news_info_4}<br>{$l_news_info_5}<br></font></p>\n";
 echo "      <p>{$l_news_for} {$startdate}</p>\n";
 echo "    </td>\n";
 echo "  </tr>\n";

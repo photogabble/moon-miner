@@ -162,8 +162,10 @@ echo "    <td style='text-align:center; color:#fff; font-size:12px; font-weight:
 
 if ($zoneinfo['zone_id'] < 5)
 {
-    $zoneinfo['zone_name'] = $l_zname[$zoneinfo['zone_id']];
+    $zonevar = "l_zname_" . $zoneinfo['zone_id'];
+    $zoneinfo['zone_name'] = $$zonevar;
 }
+
 echo "    <td style='text-align:right; color:#ccc; font-size:12px; font-weight:bold;'><a class='new_link' href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
 echo "  </tr>\n";
 echo "</table>\n";

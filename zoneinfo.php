@@ -42,9 +42,10 @@ else
 {
     $row = $res->fields;
 
-    if ($row['zone_id'] < 5)
+    if ($zoneinfo['zone_id'] < 5)
     {
-        $row['zone_name'] = $l_zname[$row['zone_id']];
+        $zonevar = "l_zname_" . $zoneinfo['zone_id'];
+        $zoneinfo['zone_name'] = $$zonevar;
     }
 
     if ($row['zone_id'] == '2')
