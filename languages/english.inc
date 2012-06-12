@@ -30,7 +30,7 @@ $l_ship                                = "Ship";
 $l_ships                               = "Ships";
 $l_set                                 = "set";
 $l_realspace                           = "Realspace";
-$l_armorpts                            = "Armour points";
+$l_armorpts                            = "Armor points";
 $l_links                               = "Links";
 
 // main.php
@@ -87,7 +87,7 @@ $l_engines           = "Engines";
 $l_power           = "Power";
 $l_computer           = "Computer";
 $l_sensors           = "Sensors";
-$l_armor           = "Armour";
+$l_armor           = "Armor";
 $l_shields           = "Shields";
 $l_beams           = "Beam Weapons";
 $l_torp_launch              = "Torpedo launchers";
@@ -96,7 +96,7 @@ $l_holds           = "Holds";
 $l_deflect           = "Mine Deflectors";
 $l_ewd                = "Emegency Warp Device";
 $l_shipavg           = "Average tech level";
-$l_arm_weap           = "Armour & Weapons";
+$l_arm_weap           = "Armor & Weapons";
 $l_beacons           = "Space Beacons";
 $l_warpedit           = "Warp Editors";
 $l_genesis           = "Genesis Torpedoes";
