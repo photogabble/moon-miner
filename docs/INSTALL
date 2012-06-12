@@ -57,6 +57,11 @@ INSTALLATION
    allow the web server to talk to the MySQL server. Issue this command: setsebool -P httpd_can_network_connect_db 1 
    (And wait several *minutes* on a 3ghz+ machine)
 
+9. If you'd like additional security, we have included .htaccess files for some protection.
+   Some systems do not ship with .htaccess enabled. You'll need to edit your Apache config 
+   (either httpd.conf or the correct file for your host/directory), and set it to AllowOverrides Limits
+   (it is often set to AllowOverrides None). Don't forget to reload Apache's config if you make this change.
+
 9. Hopefully - it works now. :)
 
 
