@@ -17,10 +17,10 @@
 //
 // File: zoneinfo.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_zi_title;
+include "languages/$lang";
+$title = $l_zi_title;
 include("header.php");
 
 if (checklogin())
