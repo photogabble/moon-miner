@@ -121,7 +121,6 @@ $planettypes[3]= "largeplanet.png";
 $planettypes[4]= "hugeplanet.png";
 
 $signame = player_insignia_name($username);
-
 echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C0; text-align:center; border:#fff 1px solid; padding:4px;'>\n";
 echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$l_aboard}<span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";

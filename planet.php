@@ -172,6 +172,7 @@ if (!empty($planetinfo))
       {
         echo "$l_planet_onsurface<BR>";
         echo "$l_planet_leave<BR>";
+        $l_planet_logout = str_replace("[logout]", "<a href='logout.php'>logout</a>", $l_planet_logout);
         echo "$l_planet_logout<BR>";
       }
       else
@@ -459,7 +460,8 @@ if (!empty($planetinfo))
       echo "$l_planet_left<BR><BR>";
 
       $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N', planet_id = 0 WHERE ship_id=$playerinfo[ship_id]");
-      echo "{$l_global_mmenu}<br>\n";
+      $l_global_mmenu=str_replace("[here]","<a href='main.php'>[here]</a>",$l_global_mmenu);
+      echo $l_global_mmenu . "<br>\n";
       echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">\n";
 
     }

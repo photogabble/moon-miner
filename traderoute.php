@@ -147,11 +147,13 @@ elseif (isset($engage)) // Performs trade route
 
 if ($command != 'delete')
 {
+  $l_tdr_newtdr = str_replace("[here]", "<a href='traderoute.php?command=new'>here</a>", $l_tdr_newtdr);
   echo "<p>$l_tdr_newtdr<p>";
+  $l_tdr_modtdrset = str_replace("[here]", "<a href='traderoute.php?command=settings'>here</a>", $l_tdr_modtrset);
   echo "<p>$l_tdr_modtdrset<p>";
 }
 else {
-  $l_tdr_confdel = str_replace("[tdr_id]", $traderoute_id, $l_tdr_confdel);
+  $l_tdr_confdel = str_replace("[here]", "<a href='traderoute.php?command=delete&amp;confirm=yes&amp;traderoute_id=" . $traderoute_id . "'>here</a>", $l_tdr_confdel);
   echo "<p>$l_tdr_confdel<p>";
 }
 
@@ -781,6 +783,8 @@ function traderoute_new($traderoute_id)
     echo "<input type=submit value=\"$l_tdr_modify\">";
   }
 
+  $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>here</a>", $l_tdr_returnmenu);
+
   echo "
     </table>
     $l_tdr_returnmenu<br>
@@ -996,6 +1000,7 @@ if ($destination['port_type'] == 'special')
     echo "<p>$l_tdr_tdrmodified";
   }
 
+  $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>here</a>", $l_tdr_returnmenu);
   echo " $l_tdr_returnmenu";
   traderoute_die("");
 
@@ -1029,6 +1034,7 @@ function traderoute_delete()
   else
   {
     $query = $db->Execute("DELETE FROM $dbtables[traderoutes] WHERE traderoute_id=$traderoute_id");
+    $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>here</a>", $l_tdr_returnmenu);
     echo "$l_tdr_tdrdeleted $l_tdr_returnmenu";
     traderoute_die("");
   }
@@ -1089,6 +1095,7 @@ function traderoute_settings()
     "</tr></table>".
     "</form>";
 
+  $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>here</a>", $l_tdr_returnmenu);
   echo $l_tdr_returnmenu;
   traderoute_die("");
 
@@ -1110,6 +1117,7 @@ function traderoute_setsettings()
 
   $db->Execute("UPDATE $dbtables[ships] SET trade_colonists='$colonists', trade_fighters='$fighters', trade_torps='$torps', trade_energy='$energy' WHERE ship_id=$playerinfo[ship_id]");
 
+  $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>here</a>", $l_tdr_returnmenu);
   echo "$l_tdr_globalsetsaved $l_tdr_returnmenu";
   traderoute_die("");
 }
@@ -2176,6 +2184,10 @@ $tdr_display_creds =   NUMBER($playerinfo['credits']);
   if ($traderoute['circuit'] == 2)
   {
     $l_tdr_engageagain = str_replace("[tdr_engage]", $engage, $l_tdr_engageagain);
+    $l_tdr_engageagain = str_replace("[here]", "<a href=\"traderoute.php?engage=[tdr_engage]\">here</a>", $l_tdr_engageagain);
+    $l_tdr_engageagain = str_replace("[five]", "<a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=5\">five</a>", $l_tdr_engageagain);
+    $l_tdr_engageagain = str_replace("[ten]", "<a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=10\">ten</a>", $l_tdr_engageagain);
+    $l_tdr_engageagain = str_replace("[fifty]", "<a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=50\">fifty</a>", $l_tdr_engageagain);
     if ($j == 1)
     {
        echo $l_tdr_engageagain . "\n";

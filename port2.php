@@ -524,10 +524,12 @@ echo "</div>\n";
 
    if ($free_holds < $cargo_exchanged)
    {
+   
    echo "$l_notenough_cargo  $l_returnto_port<BR><BR>";
    }
    elseif ($trade_energy > $free_power)
    {
+   $l_returnto_port = str_replace("[here]", "<a href='port.php'>here</a>", $l_returnto_port);
    echo "$l_notenough_power  $l_returnto_port<BR><BR>";
    }
    elseif ($playerinfo['turns'] < 1)

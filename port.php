@@ -315,6 +315,7 @@ elseif ($sectorinfo['port_type'] == "special")
            {
               $db->Execute("UPDATE $dbtables[ships] SET credits=credits-$bty[total_bounty] WHERE ship_id = $playerinfo[ship_id]");
               $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+              $l_port_bountypaid=str_replace("[here]","<a href='port.php'>here</a>",$l_port_bountypaid);
               echo $l_port_bountypaid;
               die();
            }
@@ -385,7 +386,8 @@ elseif ($sectorinfo['port_type'] == "special")
 
           echo "Option Plan 1: Payment from Ship<br>\n";
           $l_port_bounty2 = str_replace("[amount]",NUMBER($bty['total_bounty']),$l_port_bounty2);
-          echo $l_port_bounty2 . "<BR>";
+          $l_port_bounty2 = str_replace("[here]","<a href='port.php?pay=1'>here</a>",$l_port_bounty2);
+          echo $l_port_bounty2 . "<br>";
           echo "<br>\n";
 
           echo "Option Plan 2: Payment from Intergalactic Bank [Full/Partial Payments]<br>\n";

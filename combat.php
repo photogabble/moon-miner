@@ -268,7 +268,7 @@ function planetcombat()
     global $l_cmb_youbreachedplanetshields, $l_cmb_shieldsremainup, $l_cmb_fighterswarm, $l_cmb_swarmandrepel, $l_cmb_engshiptoshipcombat;
     global $l_cmb_shipdock, $l_cmb_approachattackvector, $l_cmb_noshipsdocked, $l_cmb_yourshipdestroyed, $l_cmb_escapepod;
     global $l_cmb_finalcombatstats, $l_cmb_youlostfighters, $l_cmb_youlostarmorpoints, $l_cmb_energyused, $l_cmb_planetdefeated;
-    global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_youmaycapture2, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
+    global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
     global $l_cmb_fighterloststat, $l_cmb_energyleft;
     global $db, $dbtables;
     //$debug = true;
@@ -720,8 +720,8 @@ function planetcombat()
             }
             else
             {
-                $l_cmb_youmaycapture = str_replace("[cmb_planetinfo_planet_id]", $planetinfo[planet_id], $l_cmb_youmaycapture);
-                echo "<CENTER><font color=red>$l_cmb_youmaycapture</font></CENTER><BR><BR>";
+                $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=" , $planetinfo['planet_id'] . "&amp;command=capture'>", $l_cmb_youmaycapture);
+                echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
                 playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 gen_score($ownerinfo[ship_id]);
                 $update7a = $db->Execute("UPDATE $dbtables[planets] SET owner=0, fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
@@ -729,8 +729,8 @@ function planetcombat()
         }
         else
         {
-            $l_cmb_youmaycapture2 = str_replace("[cmb_planetinfo_planet_id]", $planetinfo[planet_id], $l_cmb_youmaycapture2);
-            echo "<CENTER>$l_cmb_youmaycapture2</CENTER><BR><BR>";
+            $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=" , $planetinfo['planet_id'] . "&amp;command=capture'>", $l_cmb_youmaycapture);
+            echo "<center>$l_cmb_youmaycapture</center><br><br>";
             playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             gen_score($ownerinfo[ship_id]);
             $update7a = $db->Execute("UPDATE $dbtables[planets] SET owner=0,fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");

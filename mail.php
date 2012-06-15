@@ -142,6 +142,7 @@ else
     echo "  </tr>\n";
     echo "  <tr>\n";
     echo "    <td style='background-color:#C0C0C0; border:#fff 1px solid; padding:8px; width:100px; text-align:center;'><img src='{$image}' width='64' height='64' borders='0' /></td>\n";
+    $l_mail_noplayer=str_replace("[here]", "<a href='new.php'>here</a>", $l_mail_noplayer);
     echo "    <td style='background-color:{$colors[0]}; border:{$colors[1]} 1px solid; color:#fff; width:400px; text-align:left; font-size:12px; padding:6px;'>{$l_mail_noplayer}</td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";

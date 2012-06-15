@@ -49,9 +49,10 @@ elseif ($sure == 1)
 }
 elseif ($sure == 2)
 {
-    echo "$l_die_count<BR>";
-    echo "$l_die_vapor<BR><BR>";
-    echo "$l_die_please.<BR>";
+    echo "$l_die_count<br>";
+    echo "$l_die_vapor<br><br>";
+    $l_die_please = str_replace("[logout]", "<a href='logout.php'>logout</a>", $l_die_please);
+    echo $l_die_please. "<br>";
     db_kill_player($playerinfo['ship_id'], true);
     cancel_bounty($playerinfo['ship_id']);
     adminlog(LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
