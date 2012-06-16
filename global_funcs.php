@@ -63,7 +63,7 @@ function checklogin()
 {
   $flag = 0;
 
-  global $username, $l_global_needlogin, $l_global_died;
+  global $username, $l_global_needlogin, $l_global_died, $l_global_died2;
   global $password, $l_login_died, $l_die_please;
   global $db, $dbtables;
 
@@ -94,7 +94,7 @@ function checklogin()
       /* if the player doesn't have an escapepod - they're dead, delete them. */
       /* uhhh  don't delete them to prevent self-distruct inherit*/
       $l_global_died = str_replace("[here]", "<a href='log.php'>Here</a>", $l_global_died);
-      echo $l_global_died;
+      echo $l_global_died . "<br><br>" . $l_global_died2;
 
       $l_die_please = str_replace("[logout]", "<a href='logout.php'>logout</a>", $l_die_please);
       echo $l_die_please;

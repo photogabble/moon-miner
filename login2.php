@@ -119,13 +119,13 @@ if ($playerfound)
                     }
                     else
                     {
-                        echo "<BR><BR>$l_login_looser";
+                        echo "<br><br>" . $l_login_looser . "<br><br>" . $l_login_looser2;
                     }
 
                 } // End if $newbie_nice
                 else
                 {
-                    echo "<BR><BR>$l_login_looser";
+                    echo "<br><br>" . $l_login_looser . "<br><br>" . $l_login_looser2;
                 }
             }
         }
@@ -133,7 +133,7 @@ if ($playerfound)
     else
     {
         // password is incorrect
-        echo "$l_login_4gotpw1 <A HREF=mail.php?mail=$email>$l_clickme</A> $l_login_4gotpw2 <a href=login.php>$l_clickme</a> $l_login_4gotpw3 $ip...";
+        echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . "<a href='mail.php?mail=" . $email . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='login.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
         playerlog($playerinfo['ship_id'], LOG_BADLOGIN, $ip);
         adminlog((1000 + LOG_BADLOGIN), "{$ip}|{$email}|{$pass}");
     }

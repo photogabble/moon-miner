@@ -436,7 +436,7 @@ switch ($teamwhat)
                 else
                 {
                     $db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
-                    echo $l_team_plinvted . "<br>";
+                    echo $l_team_plinvted . "<br>" . $l_team_plinvted2 . "<br>";
                     playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
                 }
             }

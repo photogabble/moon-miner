@@ -136,13 +136,23 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     $l_chf_creditsdemanded = str_replace("[chf_number_fighterstoll]", NUMBER($fighterstoll), $l_chf_creditsdemanded);
                     echo "$l_chf_creditsdemanded<BR>";
                 }
-                echo "$l_chf_youcanretreat";
+
+                $l_chf_youcanretreat = str_replace("[retreat]", "<b>Retreat</b>", $l_chf_youcanretreat);
+                echo $l_chf_youcan . " <br><input type=radio name=response value=retreat>" . $l_chf_youcanretreat . "<br></input>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    echo "$l_chf_inputpay";
+                    $l_chf_inputpay = str_replace("[pay]", "<b>Pay</b>", $l_chf_inputpay);
+                    echo "<input type=radio name=response checked value=pay>" . $l_chf_inputpay . "<br></input>";
                 }
-                echo "$l_chf_inputfight";
-                echo "$l_chf_inputcloak<BR>";
+
+                echo "<input type=radio name=response checked value=fight>";
+                $l_chf_inputfight = str_replace("[fight]", "<b>Fight</b>", $l_chf_inputfight);
+                echo $l_chf_inputfight . "<br></input>";
+
+                echo "<input type=radio name=response checked value=sneak>";
+                $l_chf_inputcloak = str_replace("[cloak]", "<b>Cloak</b>", $l_chf_inputcloak);
+                echo $l_chf_inputcloak . "<br></input><br>";
+
                 echo "<INPUT TYPE=SUBMIT VALUE=$l_chf_go><BR><BR>";
                 echo "<input type=hidden name=sector value=$sector>";
                 echo "<input type=hidden name=engage value=1>";

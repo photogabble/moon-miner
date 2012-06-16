@@ -55,15 +55,15 @@ bigtitle();
 
 if ($newpass1 == "" && $newpass2 == "")
 {
-    echo $l_opt2_passunchanged;
+    echo $l_opt2_passunchanged . "<br><br>";
 }
 elseif ($password != $oldpass)
 {
-    echo $l_opt2_srcpassfalse;
+    echo $l_opt2_srcpassfalse . "<br><br>";
 }
 elseif ($newpass1 != $newpass2)
 {
-    echo $l_opt2_newpassnomatch;
+    echo $l_opt2_newpassnomatch . "<br><br>";
 }
 else
 {
@@ -78,11 +78,11 @@ else
         $res = $db->Execute("UPDATE $dbtables[ships] SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
         if ($res)
         {
-            echo $l_opt2_passchanged;
+            echo $l_opt2_passchanged . "<br><br>";
         }
         else
         {
-            echo $l_opt2_passchangeerr;
+            echo $l_opt2_passchangeerr . "<br><br>";
         }
     }
 }
@@ -90,11 +90,11 @@ else
 $res = $db->Execute("UPDATE $dbtables[ships] SET interface='$intrf' WHERE email='$username'");
 if ($res)
 {
-    echo $l_opt2_userintup;
+    echo $l_opt2_userintup . "<br><br>";
 }
 else
 {
-    echo $l_opt2_userintfail;
+    echo $l_opt2_userintfail . "<br><br>";
 }
 
 $res = $db->Execute("UPDATE $dbtables[ships] SET lang='$lang' WHERE email='$username'");
@@ -103,7 +103,7 @@ foreach ($avail_lang as $curlang)
     if ($lang == $curlang[file])
     {
         $l_opt2_chlang = str_replace("[lang]", "$curlang[name]", $l_opt2_chlang);
-        echo $l_opt2_chlang;
+        echo $l_opt2_chlang . "<p>";
         break;
     }
 }
@@ -116,11 +116,11 @@ if ($dhtml != 'Y')
 $res = $db->Execute("UPDATE $dbtables[ships] SET dhtml='$dhtml' WHERE email='$username'");
 if ($res)
 {
-    echo $l_opt2_dhtmlup;
+    echo $l_opt2_dhtmlup . "<br>";
 }
 else
 {
-    echo $l_opt2_dhtmlfail;
+    echo $l_opt2_dhtmlfail . "<br>";
 }
 
 TEXT_GOTOMAIN();

@@ -52,19 +52,19 @@ else
     {
         $l_pre_exceed = str_replace("[preset]", "1", $l_pre_exceed);
         $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
-        echo $l_pre_exceed;
+        echo $l_pre_exceed . "<br><br>";
     }
     elseif ($preset2 >= $sector_max)
     {
         $l_pre_exceed = str_replace("[preset]", "2", $l_pre_exceed);
         $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
-        echo $l_pre_exceed;
+        echo $l_pre_exceed . "<br><br>";
     }
     elseif ($preset3 >= $sector_max)
     {
         $l_pre_exceed = str_replace("[preset]", "3", $l_pre_exceed);
         $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
-        echo $l_pre_exceed;
+        echo $l_pre_exceed . "<br><br>";
     }
     else
     {
@@ -72,12 +72,10 @@ else
         $l_pre_set = str_replace("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $l_pre_set);
         $l_pre_set = str_replace("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $l_pre_set);
         $l_pre_set = str_replace("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset3>$preset3</a>", $l_pre_set);
-        echo $l_pre_set;
+        echo $l_pre_set . "<br><br>";
     }
 }
 
 TEXT_GOTOMAIN();
 include("footer.php");
 ?>
-
-

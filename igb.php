@@ -829,7 +829,7 @@ function IGB_borrow()
   global $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor;
   global $l_igb_invalidamount,$l_igb_notwoloans, $l_igb_loantoobig;
   global $l_igb_takenaloan, $l_igb_loancongrats, $l_igb_loantransferred;
-  global $l_igb_loanfee, $l_igb_amountowned, $IGB_lrate, $l_igb_loanreminder;
+  global $l_igb_loanfee, $l_igb_amountowned, $IGB_lrate, $l_igb_loanreminder, $l_igb_loanreminder2;
   global $db, $dbtables, $l_igb_back, $l_igb_logout;
 
   $amount = StripNonNum($amount);
@@ -866,7 +866,7 @@ function IGB_borrow()
        "<tr valign=top>" .
        "<td><font size=2 face=\"courier new\" color=#0f0>$l_igb_amountowned :</td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>" . NUMBER($amount3) . " C<br>" .
        "<tr valign=top>" .
-       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>---------------------------------<br><br>$l_igb_loanreminder</td>" .
+       "<td colspan=2 align=center><font size=2 face=\"courier new\" color=#0f0>---------------------------------<br><br>$l_igb_loanreminder<br><br>\"" . $l_igb_loanreminder2 ."\"</td>" .
        "<tr valign=top>" .
        "<td nowrap><font size=2 face=\"courier new\" color=#0f0><a href=igb.php?command=login>$l_igb_back</a></td><td nowrap align=right><font size=2 face=\"courier new\" color=#0f0>&nbsp;<a href=\"main.php\">$l_igb_logout</a></td>" .
        "</tr>";

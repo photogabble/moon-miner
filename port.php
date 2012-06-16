@@ -307,7 +307,7 @@ elseif ($sectorinfo['port_type'] == "special")
            if ($playerinfo['credits'] < $bty['total_bounty'])
            {
               $l_port_btynotenough = str_replace("[amount]",NUMBER($bty[total_bounty]),$l_port_btynotenough);
-              echo $l_port_btynotenough;
+              echo $l_port_btynotenough . "<br>";
               TEXT_GOTOMAIN();
               die();
            }
@@ -316,7 +316,7 @@ elseif ($sectorinfo['port_type'] == "special")
               $db->Execute("UPDATE $dbtables[ships] SET credits=credits-$bty[total_bounty] WHERE ship_id = $playerinfo[ship_id]");
               $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
               $l_port_bountypaid=str_replace("[here]","<a href='port.php'>here</a>",$l_port_bountypaid);
-              echo $l_port_bountypaid;
+              echo $l_port_bountypaid . "<br>";
               die();
            }
         }
@@ -342,7 +342,7 @@ elseif ($sectorinfo['port_type'] == "special")
               $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
               $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
 
-              echo $l_port_bountypaid;
+              echo $l_port_bountypaid . "<br>";
               die();
             }
             else
@@ -381,7 +381,7 @@ elseif ($sectorinfo['port_type'] == "special")
         }
         else
         {
-          echo $l_port_bounty;
+          echo $l_port_bounty . "<br>";
           echo "<br>\n";
 
           echo "Option Plan 1: Payment from Ship<br>\n";

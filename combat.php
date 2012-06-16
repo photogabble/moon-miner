@@ -784,7 +784,7 @@ function shiptoship($ship_id)
     global $l_cmb_enemylostallfighters, $l_cmb_helostsomefighters, $l_cmb_youlostallfighters, $l_cmb_youalsolostsomefighters, $l_cmb_hehasnofightersleftattack;
     global $l_cmb_younofightersattackleft, $l_cmb_youbreachedarmorwithfighters, $l_cmb_youhitarmordmgfighters, $l_cmb_youhavenofighterstoarmor;
     global $l_cmb_hasbreachedarmorfighters, $l_cmb_yourarmorishitfordmgby, $l_cmb_nofightersleftheforyourarmor, $l_cmb_hehasbeendestroyed;
-    global $l_cmb_escapepodlaunched, $l_cmb_yousalvaged, $l_cmb_youdidntdestroyhim, $l_cmb_shiptoshipcombatstats;
+    global $l_cmb_escapepodlaunched, $l_cmb_yousalvaged, $l_cmb_yousalvaged2, $l_cmb_youdidntdestroyhim, $l_cmb_shiptoshipcombatstats;
     global $db, $dbtables;
 
     $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[zones] READ");
@@ -860,7 +860,7 @@ function shiptoship($ship_id)
             $targetbeams=$targetbeams-$lost;
             $l_cmb_fighterdestroyedbybeams = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_fighterdestroyedbybeams);
             $l_cmb_fighterdestroyedbybeams = str_replace("[cmb_lost]", $lost, $l_cmb_fighterdestroyedbybeams);
-            echo "--> $l_cmb_fighterdestroyedbybeams";
+            echo "--> $l_cmb_fighterdestroyedbybeams<br>";
         }
         else
         {
@@ -868,7 +868,7 @@ function shiptoship($ship_id)
             $l_cmb_beamsdestroystillhave = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_beamsdestroystillhave);
             $l_cmb_beamsdestroystillhave = str_replace("[cmb_targetbeams]", $targetbeams, $l_cmb_beamsdestroystillhave);
             $l_cmb_beamsdestroystillhave = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_beamsdestroystillhave);
-            echo "<-- $l_cmb_beamsdestroystillhave<BR>";
+            echo "<-- $l_cmb_beamsdestroystillhave<br>";
             $targetbeams=0;
         }
     }
@@ -1212,8 +1212,8 @@ function shiptoship($ship_id)
             $l_cmb_yousalvaged = str_replace("[cmb_salv_goods]", $salv_goods, $l_cmb_yousalvaged);
             $l_cmb_yousalvaged = str_replace("[cmb_salvage_rate]", $ship_salvage_rate, $l_cmb_yousalvaged);
             $l_cmb_yousalvaged = str_replace("[cmb_salvage]", $ship_salvage, $l_cmb_yousalvaged);
-            $l_cmb_yousalvaged = str_replace("[cmb_number_rating_change]", NUMBER(abs($rating_change)), $l_cmb_yousalvaged);
-            echo "$l_cmb_yousalvaged";
+            $l_cmb_yousalvaged2 = str_replace("[cmb_number_rating_change]", NUMBER(abs($rating_change)), $l_cmb_yousalvaged2);
+            echo $l_cmb_yousalvaged . "<br>" . $l_cmb_yousalvaged2;
             $update3 = $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
         }
 

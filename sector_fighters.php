@@ -24,7 +24,7 @@ if (preg_match("/sector_fighters.php/i", $_SERVER['PHP_SELF'])) {
 
 include("languages/$lang");
 
-echo $l_sf_attacking;
+echo $l_sf_attacking . "<br>";
 $targetfighters = $total_sector_fighters;
 $playerbeams = NUM_BEAMS($playerinfo[beams]);
 if ($calledfrom == 'rsmove.php')
@@ -61,7 +61,7 @@ if ($targetfighters > 0 && $playerbeams > 0)
         $temp = round ($targetfighters / 2);
         $lost = $targetfighters - $temp;
         $l_sf_destfight = str_replace("[lost]", $lost, $l_sf_destfight);
-        echo $l_sf_destfight;
+        echo $l_sf_destfight . "<br>";
         $targetfighters = $temp;
         $playerbeams = $playerbeams - $lost;
     }
@@ -69,7 +69,7 @@ if ($targetfighters > 0 && $playerbeams > 0)
     {
         $targetfighters = $targetfighters - $playerbeams;
         $l_sf_destfightb = str_replace("[lost]", $playerbeams, $l_sf_destfightb);
-        echo $l_sf_destfightb;
+        echo $l_sf_destfightb . "<br>";
         $playerbeams = 0;
     }
 }
@@ -82,7 +82,7 @@ if ($targetfighters > 0 && $playertorpdmg > 0)
         $temp = round ($targetfighters / 2);
         $lost = $targetfighters - $temp;
         $l_sf_destfightt = str_replace("[lost]", $lost, $l_sf_destfightt);
-        echo $l_sf_destfightt;
+        echo $l_sf_destfightt . "<br>";
         $targetfighters = $temp;
         $playertorpdmg = $playertorpdmg - $lost;
     }
@@ -100,25 +100,25 @@ if ($playerfighters > 0 && $targetfighters > 0)
 {
     if ($playerfighters > $targetfighters)
     {
-        echo $l_sf_destfightall;
+        echo $l_sf_destfightall . "<br>";
         $temptargfighters = 0;
     }
     else
     {
         $l_sf_destfightt2 = str_replace("[lost]", $playerfighters, $l_sf_destfightt2);
-        echo $l_sf_destfightt2;
+        echo $l_sf_destfightt2 . "<br>";
         $temptargfighters = $targetfighters - $playerfighters;
     }
 
     if ($targetfighters > $playerfighters)
     {
-        echo $l_sf_lostfight;
+        echo $l_sf_lostfight . "<br>";
         $tempplayfighters = 0;
     }
     else
     {
          $l_sf_lostfight2 = str_replace("[lost]", $targetfighters, $l_sf_lostfight2);
-         echo $l_sf_lostfight2;
+         echo $l_sf_lostfight2 . "<br>";
          $tempplayfighters = $playerfighters - $targetfighters;
     }
 
@@ -131,13 +131,13 @@ if ($targetfighters > 0)
     if ($targetfighters > $playerarmor)
     {
         $playerarmor = 0;
-        echo $l_sf_armorbreach;
+        echo $l_sf_armorbreach . "<br>";
     }
     else
     {
         $playerarmor = $playerarmor - $targetfighters;
         $l_sf_armorbreach2 = str_replace("[lost]", $targetfighters, $l_sf_armorbreach2);
-        echo $l_sf_armorbreach2;
+        echo $l_sf_armorbreach2 . "<br>";
     }
 }
 
@@ -157,10 +157,10 @@ $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$energy,ship_
 $l_sf_lreport = str_replace ("[armor]", $armor_lost, $l_sf_lreport);
 $l_sf_lreport = str_replace ("[fighters]", $fighters_lost, $l_sf_lreport);
 $l_sf_lreport = str_replace ("[torps]", $playertorpnum, $l_sf_lreport);
-echo $l_sf_lreport;
+echo $l_sf_lreport . "<br><br>";
 if ($playerarmor < 1)
 {
-    echo $l_sf_shipdestroyed;
+    echo $l_sf_shipdestroyed . "<br><br>";
     playerlog($playerinfo['ship_id'], LOG_DEFS_KABOOM, "$sector|$playerinfo[dev_escapepod]");
     $l_sf_sendlog2 = str_replace("[player]", $playerinfo['character_name'], $l_sf_sendlog2);
     $l_sf_sendlog2 = str_replace("[sector]", $sector, $l_sf_sendlog2);
@@ -168,7 +168,7 @@ if ($playerarmor < 1)
     if ($playerinfo['dev_escapepod'] == 'Y')
     {
         $rating = round ($playerinfo['rating'] / 2);
-        echo $l_sf_escape;
+        echo $l_sf_escape . "<br><br>";
         $db->Execute ("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
         cancel_bounty ($playerinfo['ship_id']);
         $ok = 0;
