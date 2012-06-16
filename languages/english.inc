@@ -430,7 +430,7 @@ $l_log_log = "[player]'s Log";
 $l_log_start = "Log entry for";
 $l_log_end = "End of log entry for";
 $l_log_click = "Click <A HREF=main.php><font color=#00ff00>here</font></A> to return to the main menu.";
-$l_log_note = "NOTE: If this page displays incorrectly, or if you simply don't like the dynamic html effects or find them annoying, you can disable them <a href=options.php><font color=#00FF00>here</font>";
+$l_log_note = "NOTE: If this page displays incorrectly, or if you simply don't like the dynamic html effects or find them annoying, you can disable them <a href=options.php><font color=#00FF00>here</font></a>";
 $l_log_text_LOG_LOGIN = "You have logged in, from [ip].";
 $l_log_title_LOG_LOGIN = "Logged in";
 $l_log_text_LOG_LOGOUT = "You have logged out, from [ip].";
