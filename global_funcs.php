@@ -1093,4 +1093,22 @@ function getLanguageVars($db = NULL, $dbtables, $language = NULL, $categories = 
 
     return true; // Results were added into array, signal that we were successful.
 }
+
+function getPlanetOwnerInformation($db = NULL, $dbtables, $planetID = NULL, &$ownerInfo = NULL)
+{
+    $ownerInfo = NULL;
+    if(!is_null($planetID) && is_numeric($planetID) && $planetID >0)
+    {
+        $sql  = "SELECT ship_id, character_name, team FROM $dbtables[planets] ";
+        $sql .= "LEFT JOIN $dbtables[ships] ON $dbtables[ships].ship_id = $dbtables[planets].owner ";
+        $sql .= "WHERE $dbtables[planets].planet_id=?;";
+        $res = $db->Execute($sql, array($planetID));
+        if($res->RecordCount() >0)
+        {
+            $ownerInfo = (array)$res->fields;
+            return true;
+        }
+    }
+    return false;
+}
 ?>

@@ -278,8 +278,7 @@ if (!empty($planetinfo))
 
       $retOwnerInfo = NULL;
 
-/*
-      $owner_found = getPlanetOwnerInformation($planetinfo['planet_id'], $retOwnerInfo);
+      $owner_found = getPlanetOwnerInformation($db, $dbtables, $planetinfo['planet_id'], $retOwnerInfo);
       if ($owner_found == true && !is_null($retOwnerInfo))
       {
         if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -297,7 +296,6 @@ if (!empty($planetinfo))
           if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
         }
       }
-*/
     }
   }
   elseif ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $playerinfo['team'] && $playerinfo['team'] > 0))
@@ -520,7 +518,7 @@ if (!empty($planetinfo))
         }
 
         $retOwnerInfo = NULL;
-        $owner_found = getPlanetOwnerInformation($planetinfo['planet_id'], $retOwnerInfo);
+        $owner_found = getPlanetOwnerInformation($db, $dbtables, $planetinfo['planet_id'], $retOwnerInfo);
         if ($owner_found == true && !is_null($retOwnerInfo))
         {
             if ($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
@@ -555,7 +553,7 @@ if (!empty($planetinfo))
         unset($_SESSION['planet_selected']);
 
         $retOwnerInfo = NULL;
-        $owner_found = getPlanetOwnerInformation($planetinfo['planet_id'], $retOwnerInfo);
+        $owner_found = getPlanetOwnerInformation($db, $dbtables, $planetinfo['planet_id'], $retOwnerInfo);
         if ($owner_found == true && !is_null($retOwnerInfo))
         {
             if ($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
