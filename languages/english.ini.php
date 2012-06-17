@@ -37,6 +37,7 @@ l_zname_1                             = "Unchartered space";
 l_zname_2                             = "Federation space";
 l_zname_3                             = "Free-trade space";
 l_zname_4                             = "War Zone";
+l_logout                              = "Logout";
 
 [main]
 l_main_title                          = "Main Menu";
@@ -53,7 +54,6 @@ l_help                                = "Help";
 l_faq                                 = "FAQ";
 l_feedback                            = "Feedback";
 l_forums                              = "Forums";
-l_logout                              = "Logout";
 l_commands                            = "Commands";
 l_command_no                          = "Command not available.";
 l_devices                             = "Devices";

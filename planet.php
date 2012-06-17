@@ -172,7 +172,7 @@ if (!empty($planetinfo))
       {
         echo "$l_planet_onsurface<BR>";
         echo "$l_planet_leave<BR>";
-        $l_planet_logout = str_replace("[logout]", "<a href='logout.php'>logout</a>", $l_planet_logout);
+        $l_planet_logout = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_planet_logout);
         echo "$l_planet_logout<BR>";
       }
       else

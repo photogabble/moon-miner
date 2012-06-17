@@ -51,7 +51,7 @@ elseif ($sure == 2)
 {
     echo "$l_die_count<br>";
     echo "$l_die_vapor<br><br>";
-    $l_die_please = str_replace("[logout]", "<a href='logout.php'>logout</a>", $l_die_please);
+    $l_die_please = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
     echo $l_die_please. "<br>";
     db_kill_player($playerinfo['ship_id'], true);
     cancel_bounty($playerinfo['ship_id']);

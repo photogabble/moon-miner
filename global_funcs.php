@@ -64,7 +64,7 @@ function checklogin()
   $flag = 0;
 
   global $username, $l_global_needlogin, $l_global_died, $l_global_died2;
-  global $password, $l_login_died, $l_die_please;
+  global $password, $l_login_died, $l_die_please, $l_logout;
   global $db, $dbtables;
 
   $result1 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username' LIMIT 1");
@@ -96,7 +96,7 @@ function checklogin()
       $l_global_died = str_replace("[here]", "<a href='log.php'>Here</a>", $l_global_died);
       echo $l_global_died . "<br><br>" . $l_global_died2;
 
-      $l_die_please = str_replace("[logout]", "<a href='logout.php'>logout</a>", $l_die_please);
+      $l_die_please = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
       echo $l_die_please;
       $flag = 1;
     }
