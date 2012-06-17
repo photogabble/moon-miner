@@ -63,7 +63,7 @@ if ($playerinfo['on_planet'] == "Y")
     if ($res2->RecordCount() != 0)
     {
         echo "<A HREF=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <br>";
-        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo[ship_id]."\">";
+        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=planet.php?planet_id=$playerinfo[planet_id]&id=".$playerinfo['ship_id']."\">";
         die();
     }
     else
@@ -536,7 +536,7 @@ if ($playerinfo['sector'] != 0)
         while (!$result4->EOF)
         {
             $row=$result4->fields;
-            $success = SCAN_SUCCESS($playerinfo[sensors], $row[cloak]);
+            $success = SCAN_SUCCESS($playerinfo['sensors'], $row['cloak']);
             if ($success < 5)
             {
                 $success = 5;
