@@ -96,7 +96,7 @@ if ($playerfound)
             if ($playerinfo[dev_escapepod] == "Y")
             {
                 $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
-                $l_login_died = str_replace("[here]", "<a href='main.php'>here</a>", $l_login_died);
+                $l_login_died = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
                 echo $l_login_died;
             }
             else
@@ -114,7 +114,7 @@ if ($playerfound)
                         echo "<BR><BR>$l_login_newbie<BR><BR>";
                         $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,credits=1000,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
 
-                        $l_login_newlife = str_replace("[here]", "<a href='main.php'>here</a>", $l_login_newlife);
+                        $l_login_newlife = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
                         echo $l_login_newlife;
                     }
                     else
@@ -140,7 +140,7 @@ if ($playerfound)
 }
 else
 {
-    $l_login_noone = str_replace("[here]", "<a href='new.php'>here</a>", $l_login_noone);
+    $l_login_noone = str_replace("[here]", "<a href='new.php'>" . $l_here . "</a>", $l_login_noone);
     echo "<b>" . $l_login_noone . "</b><br>";
 }
 

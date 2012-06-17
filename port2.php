@@ -529,7 +529,7 @@ echo "</div>\n";
    }
    elseif ($trade_energy > $free_power)
    {
-   $l_returnto_port = str_replace("[here]", "<a href='port.php'>here</a>", $l_returnto_port);
+   $l_returnto_port = str_replace("[here]", "<a href='port.php'>" . $l_here . "</a>", $l_returnto_port);
    echo "$l_notenough_power  $l_returnto_port<BR><BR>";
    }
    elseif ($playerinfo['turns'] < 1)

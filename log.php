@@ -328,14 +328,14 @@ if ($swordfish == $adminpass)
 else
 {
 
-  $l_log_click = str_replace("[here]", "<a href=main.php><font color=#00ff00>here</font></a>", $l_log_click);
+  $l_log_click = str_replace("[here]", "<a href=main.php><font color=#00ff00>" . $l_here . "</font></a>", $l_log_click);
   echo "<tr><td><td style='text-align:left;'><p style='font-size:2;'>$l_log_click</p></td></tr>";
 }
 
 
 if ($mode != 'compat')
 {
-  $l_log_note = str_replace("[disable them]", "<a href=options.php><font color=#00FF00>disable them</font></a>", $l_log_note);
+  $l_log_note = str_replace("[disable them]", "<a href=options.php><font color=#00FF00>" . $l_log_note_disable . "</font></a>", $l_log_note);
   echo "<tr><td><td align=center><br><font size=2 color=white>$l_log_note</td></tr>";
 }
 echo "</table>" .

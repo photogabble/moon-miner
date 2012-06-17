@@ -44,7 +44,7 @@ else
 bigtitle();
 echo "$l_logout_score $current_score.<BR>";
 $l_logout_text=str_replace("[name]",$username,$l_logout_text);
-$l_logout_text=str_replace("[here]","<a href='index.php'>here</a>",$l_logout_text);
+$l_logout_text=str_replace("[here]","<a href='index.php'>" . $l_here . "</a>",$l_logout_text);
 echo $l_logout_text;
 
 include("footer.php");

@@ -461,7 +461,7 @@ if (!empty($planetinfo))
       echo "$l_planet_left<BR><BR>";
 
       $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N', planet_id = 0 WHERE ship_id=$playerinfo[ship_id]");
-      $l_global_mmenu=str_replace("[here]","<a href='main.php'>[here]</a>",$l_global_mmenu);
+      $l_global_mmenu=str_replace("[here]","<a href='main.php'>" . $l_here . "</a>",$l_global_mmenu);
       echo $l_global_mmenu . "<br>\n";
       echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">\n";
 

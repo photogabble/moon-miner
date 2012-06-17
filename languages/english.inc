@@ -423,6 +423,7 @@ $l_log_start = "Log entry for";
 $l_log_end = "End of log entry for";
 $l_log_click = "Click [here] to return to the main menu.";
 $l_log_note = "NOTE: If this page displays incorrectly, or if you simply don't like the dynamic html effects or find them annoying, you can [disable them]";
+$l_log_note_disable                    = "disable them";
 $l_log_text_LOG_LOGIN = "You have logged in, from [ip].";
 $l_log_title_LOG_LOGIN = "Logged in";
 $l_log_text_LOG_LOGOUT = "You have logged out, from [ip].";
@@ -816,6 +817,9 @@ $l_tdr_credits        = "Credits";
 $l_tdr_turnsused         = "Turns used";
 $l_tdr_turnsleft         = "Turns left";
 $l_tdr_notowner          = "You do not own this trade route";
+$l_tdr_five              = "five";
+$l_tdr_ten               = "ten";
+$l_tdr_fifty             = "fifty";
 
 // IGB.php
 $l_igb_credit_symbol     = "C";

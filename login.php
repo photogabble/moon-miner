@@ -79,7 +79,7 @@ echo "    <div style='text-align:center'>Forgot your password?  Enter it blank a
 echo "    <div style='text-align:center'>";
 echo "        <input type='submit' value='{$l_login_title}'>\n";
 echo "        <br><br>\n";
-$l_login_newp = str_replace("[here]", "<a href='new.php'>here</a>", $l_login_newp);
+$l_login_newp = str_replace("[here]", "<a href='new.php'>" . $l_here . "</a>", $l_login_newp);
 echo "        {$l_login_newp}\n";
 echo "        <br>\n";
 echo "        <br>\n";

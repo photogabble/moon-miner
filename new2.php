@@ -143,7 +143,7 @@ if ($flag==0)
 }
 else
 {
-    $l_new_err=str_replace("[here]","<a href='new.php'>here</a>",$l_new_err);
+    $l_new_err=str_replace("[here]","<a href='new.php'>" . $l_here . "</a>",$l_new_err);
     echo $l_new_err;
 }
 
