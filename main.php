@@ -18,7 +18,17 @@
 // File: main.php
 
 include("config.php");
-include("languages/$lang");
+include("languages/$lang"); // Current language file (english.inc)
+
+/*
+// New db-driven language entries
+getLanguageVars($db, $dbtables, 'english', array('main', 'common', 'global_includes', 'combat', 'footer'), &$langvars);
+$key = ''; $pairs = '';
+foreach(array_keys($langvars) as $key) {
+  $$key = $langvars[$key];
+}
+*/
+
 updatecookie();
 
 if (checklogin())

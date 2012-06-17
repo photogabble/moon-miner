@@ -299,6 +299,17 @@ echo"</table>";
       break;
    case "3":
       create_schema();
+      include "includes/ini_to_db.php";
+      $result = ini_to_db($db, "languages/english.ini.php", $dbtables['languages']);
+      if ($result)
+      {
+          echo "Languages imported into database successfully.";
+      }
+      else
+      {
+          echo "Languages NOT imported into database successfully.";
+      }
+
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=4>";
       echo "<input type=hidden name=spp value=$spp>";
