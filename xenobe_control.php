@@ -395,9 +395,9 @@ else
         $Sylable1 = array("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
         $Sylable2 = array("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
         $Sylable3 = array("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
-        $sy1roll = rand(0,19);
-        $sy2roll = rand(0,19);
-        $sy3roll = rand(0,19);
+        $sy1roll = mt_rand(0,19);
+        $sy2roll = mt_rand(0,19);
+        $sy3roll = mt_rand(0,19);
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $resultnm = $db->Execute ("select character_name from $dbtables[ships] where character_name='$character'");
@@ -406,9 +406,9 @@ else
         $nametry = 1;
         // If Name Exists Try Again - Up To Nine Times
         while (($namecheck[0]) and ($nametry <= 9)) {
-          $sy1roll = rand(0,19);
-          $sy2roll = rand(0,19);
-          $sy3roll = rand(0,19);
+          $sy1roll = mt_rand(0,19);
+          $sy2roll = mt_rand(0,19);
+          $sy3roll = mt_rand(0,19);
           $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
           $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
           $resultnm = $db->Execute ("select character_name from $dbtables[ships] where character_name='$character'");
@@ -419,7 +419,7 @@ else
         // Create Ship Name
         $shipname = "Xenobe-" . $character;
         // Select Random Sector
-        $sector = rand(1,$sector_max);
+        $sector = mt_rand(1,$sector_max);
         // Display Confirmation form
         echo "<td><table border=0 cellspacing=0 cellpadding=5>";
         echo "<tr><td>Xenobe Name</td><td><input type=text size=20 name=character value=$character></td>";
@@ -474,12 +474,11 @@ else
           $makepass="";
           $syllables="er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
           $syllable_array=explode(",", $syllables);
-          srand((double)microtime()*1000000);
           for ($count=1;$count<=4;$count++) {
-            if (rand()%10 == 1) {
-              $makepass .= sprintf("%0.0f",(rand()%50)+1);
+            if (mt_rand()%10 == 1) {
+              $makepass .= sprintf("%0.0f",(mt_rand()%50)+1);
             } else {
-              $makepass .= sprintf("%s",$syllable_array[rand()%62]);
+              $makepass .= sprintf("%s",$syllable_array[mt_rand()%62]);
             }
           }
           if ($xenlevel=='') $xenlevel=0;

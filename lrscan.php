@@ -29,7 +29,6 @@ if (checklogin())
 
 bigtitle();
 
-srand((double)microtime() * 1000000);
 $link_bnthelper_string = '';
 $port_bnthelper_string = '';
 $planet_bnthelper_string = '';
@@ -251,7 +250,7 @@ else
                 {
                     $success = 95;
                 }
-                $roll = rand(1, 100);
+                $roll = mt_rand(1, 100);
                 if ($roll < $success)
                 {
                     $num_detected++;

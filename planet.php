@@ -76,8 +76,6 @@ if ($planetinfo == false)
   die();
 }
 
-srand((double)microtime()*1000000);
-
 if (!empty($planetinfo))
 // If there is a planet in the sector show appropriate menu
 {
@@ -625,7 +623,7 @@ if (!empty($planetinfo))
       {
         $success = 95;
       }
-      $roll = rand(1, 100);
+      $roll = mt_rand(1, 100);
       if ($roll > $success)
       {
         // If scan fails - inform both player and target.
@@ -648,7 +646,7 @@ if (!empty($planetinfo))
         echo "<table>";
         echo "<tr><td>$l_commodities:</td><td></td>";
         echo "<tr><td>$l_organics:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_organics=NUMBER(round($planetinfo[organics] * $sc_error / 100));
@@ -659,7 +657,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_ore:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_ore=NUMBER(round($planetinfo[ore] * $sc_error / 100));
@@ -670,7 +668,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_goods:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_goods=NUMBER(round($planetinfo[goods] * $sc_error / 100));
@@ -681,7 +679,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_energy:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_energy=NUMBER(round($planetinfo[energy] * $sc_error / 100));
@@ -692,7 +690,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_colonists:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_colonists=NUMBER(round($planetinfo[colonists] * $sc_error / 100));
@@ -703,7 +701,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_credits:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_credits=NUMBER(round($planetinfo[credits] * $sc_error / 100));
@@ -715,7 +713,7 @@ if (!empty($planetinfo))
         }
         echo "<tr><td>$l_defense:</td><td></td>";
         echo "<tr><td>$l_base:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           echo "<td>$planetinfo[base]</td></tr>";
@@ -725,7 +723,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_base $l_torps:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_base_torp=NUMBER(round($planetinfo[torps] * $sc_error / 100));
@@ -736,7 +734,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_fighters:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_planet_fighters=NUMBER(round($planetinfo[fighters] * $sc_error / 100));
@@ -747,7 +745,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_beams:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_beams=NUMBER(round($ownerinfo[beams] * $sc_error / 100));
@@ -758,7 +756,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_torp_launch:</td>";
-        $roll = rand(1, 100);
+        $roll = mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_torp_launchers=NUMBER(round($ownerinfo[torp_launchers] * $sc_error / 100));
@@ -769,7 +767,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "<tr><td>$l_shields</td>";
-        $roll=rand(1, 100);
+        $roll=mt_rand(1, 100);
         if ($roll < $success)
         {
           $sc_shields=NUMBER(round($ownerinfo[shields] * $sc_error / 100));
@@ -780,7 +778,7 @@ if (!empty($planetinfo))
           echo "<td>???</td></tr>";
         }
         echo "</table><br>";
-//         $roll=rand(1, 100);
+//         $roll=mt_rand(1, 100);
 //         if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //         {
 //           echo "<b>$ownerinfo[character_name] $l_planet_ison</b><br>";
@@ -800,7 +798,7 @@ if (!empty($planetinfo))
          {
            $success = 95;
          }
-         $roll = rand(1, 100);
+         $roll = mt_rand(1, 100);
 
          if ($roll < $success)
          {

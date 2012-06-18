@@ -189,12 +189,11 @@ else
         elseif ($action == "doexpand")
         {
         echo "<br><font size='+2'>Be sure to update your config.php file with the new universe_size value</font><br>";
-        srand((double)microtime()*1000000);
         $result = $db->Execute("select sector_id FROM $dbtables[universe] ORDER BY sector_id ASC");
         while (!$result->EOF)
         {
                 $row=$result->fields;
-                $distance=rand(1,$radius);
+                $distance=mt_rand(1,$radius);
                 $db->Execute("UPDATE $dbtables[universe] SET distance=$distance WHERE sector_id=$row[sector_id]");
                 echo "Updated sector $row[sector_id] set to $distance<br>";
                 $result->MoveNext();

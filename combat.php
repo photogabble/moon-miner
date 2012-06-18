@@ -630,7 +630,7 @@ function planetcombat()
         $free_organics = round($playerinfo[ship_organics]/2);
         $free_goods = round($playerinfo[ship_goods]/2);
         $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
-        $ship_salvage_rate=rand(0,10);
+        $ship_salvage_rate = mt_rand(0,10);
         $ship_salvage=$ship_value*$ship_salvage_rate/100;
         echo "<br><center><font size='+2' COLOR='red'><B>$l_cmb_yourshipdestroyed</font></b></center><br>";
         if ($playerinfo[dev_escapepod] == "Y")
@@ -690,7 +690,7 @@ function planetcombat()
         $self_tech = get_avg_tech($playerinfo);
         $target_tech = round(get_avg_tech($ownerinfo));
 
-        $roll = rand(0, (integer) $target_tech);
+        $roll = mt_rand(0, (integer) $target_tech);
     if ($roll > $self_tech)
         {
             // Reset Planet Assets.
@@ -1205,7 +1205,7 @@ function shiptoship($ship_id)
                 $salv_organics=0;
             }
             $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $targetinfo[hull]))+round(mypw($upgrade_factor, $targetinfo[engines]))+round(mypw($upgrade_factor, $targetinfo[power]))+round(mypw($upgrade_factor, $targetinfo[computer]))+round(mypw($upgrade_factor, $targetinfo[sensors]))+round(mypw($upgrade_factor, $targetinfo[beams]))+round(mypw($upgrade_factor, $targetinfo[torp_launchers]))+round(mypw($upgrade_factor, $targetinfo[shields]))+round(mypw($upgrade_factor, $targetinfo[armor]))+round(mypw($upgrade_factor, $targetinfo[cloak])));
-            $ship_salvage_rate=rand(10,20);
+            $ship_salvage_rate=mt_rand(10,20);
             $ship_salvage=$ship_value*$ship_salvage_rate/100;
             $l_cmb_yousalvaged = str_replace("[cmb_salv_ore]", $salv_ore, $l_cmb_yousalvaged);
             $l_cmb_yousalvaged = str_replace("[cmb_salv_organics]", $salv_organics, $l_cmb_yousalvaged);

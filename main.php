@@ -55,8 +55,6 @@ if ($playerinfo['cleared_defences'] > ' ')
 $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
 $sectorinfo = $res->fields;
 
-srand((double)microtime() * 1000000);
-
 if ($playerinfo['on_planet'] == "Y")
 {
     $res2 = $db->Execute("SELECT planet_id, owner FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
@@ -545,7 +543,7 @@ if ($playerinfo['sector'] != 0)
             {
                 $success = 95;
             }
-            $roll = rand(1, 100);
+            $roll = mt_rand(1, 100);
 
             if ($roll < $success)
             {

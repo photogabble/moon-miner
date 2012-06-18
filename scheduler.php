@@ -78,8 +78,6 @@ bigtitle();
 
 require_once "sched_funcs.php";
 
-srand((double)microtime() * 1000000);
-
 #echo "<pre>[REQUEST]\n". print_r($_REQUEST, true) ."</pre>\n";
 
 if ($swordfish != $adminpass)

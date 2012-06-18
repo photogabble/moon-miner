@@ -51,7 +51,7 @@ while (!$res->EOF)
     // ****** RUN THROUGH ORDERS *******
     // *********************************
     $furcount++;
-    if (rand(1,5) > 1)                                 // ****** 20% CHANCE OF NOT MOVING AT ALL ******
+    if (mt_rand(1,5) > 1)                                 // ****** 20% CHANCE OF NOT MOVING AT ALL ******
     {
       // *********************************
       // ****** ORDERS = 0 SENTINEL ******
@@ -212,7 +212,7 @@ while (!$res->EOF)
       {
         $furcount3++;
         // ****** LET SEE IF WE GO HUNTING THIS ROUND BEFORE WE DO ANYTHING ELSE ******
-        $hunt=rand(0,3);                               // *** 25% CHANCE OF HUNTING ***
+        $hunt=mt_rand(0,3);                               // *** 25% CHANCE OF HUNTING ***
         // Uncomment below for Debugging
         //$hunt=0;
         if ($hunt==0)

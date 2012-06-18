@@ -120,7 +120,6 @@ if (!function_exists('Table_Footer'))
 // Set timelimit and randomize timer.
 
 set_time_limit(0);
-srand((double)microtime()*1000000);
 
 // Include config files and db scheme.
 
@@ -369,9 +368,9 @@ echo"</table>";
             $insert="INSERT INTO $dbtables[universe] (sector_id,zone_id,angle1,angle2,distance) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $distance=intval(rand(1,$universe_size));
-                $angle1=rand(0,180);
-                $angle2=rand(0,90);
+                $distance=intval(mt_rand(1,$universe_size));
+                $angle1=mt_rand(0,180);
+                $angle2=mt_rand(0,90);
                 $insert.="(NULL,'1',$angle1,$angle2,$distance)";
                 if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
@@ -652,7 +651,7 @@ Table_Header("Setting up Universe Sectors --- Stage 5");
 
         do
         {
-            $num = rand(2, ($sector_max-1));
+            $num = mt_rand(2, ($sector_max-1));
             $select = $db->Execute("SELECT $dbtables[universe].sector_id FROM $dbtables[universe], $dbtables[zones] WHERE $dbtables[universe].sector_id=$num AND $dbtables[zones].zone_id=$dbtables[universe].zone_id AND $dbtables[zones].allow_planet='N'") or die("DB error");
             if ($select->RecordCount() == 0)
             {
@@ -721,8 +720,8 @@ Table_Spacer();
             $insert="INSERT INTO $dbtables[links] (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $link1=intval(rand(1,$sector_max-1));
-                $link2=intval(rand(1,$sector_max-1));
+                $link1=intval(mt_rand(1,$sector_max-1));
+                $link2=intval(mt_rand(1,$sector_max-1));
                 $insert.="($link1,$link2)";
                 if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
@@ -764,8 +763,8 @@ Table_Spacer();
             $insert="INSERT INTO $dbtables[links] (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $link1=intval(rand(1,$sector_max-1));
-                $link2=intval(rand(1,$sector_max-1));
+                $link1=intval(mt_rand(1,$sector_max-1));
+                $link2=intval(mt_rand(1,$sector_max-1));
                 $insert.="($link1,$link2), ($link2,$link1)";
                 if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }

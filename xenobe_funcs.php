@@ -65,7 +65,7 @@ function xenobetoship($ship_id)
   if ($targetinfo[dev_emerwarp]>0)
   {
     playerlog($targetinfo[ship_id], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
-    $dest_sector=rand(0,$sector_max);
+    $dest_sector=mt_rand(0,$sector_max);
     $result_warp = $db->Execute ("UPDATE $dbtables[ships] SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
 
     return;
@@ -340,7 +340,7 @@ function xenobetoship($ship_id)
         $salv_organics=0;
       }
       $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $targetinfo[hull]))+round(mypw($upgrade_factor, $targetinfo[engines]))+round(mypw($upgrade_factor, $targetinfo[power]))+round(mypw($upgrade_factor, $targetinfo[computer]))+round(mypw($upgrade_factor, $targetinfo[sensors]))+round(mypw($upgrade_factor, $targetinfo[beams]))+round(mypw($upgrade_factor, $targetinfo[torp_launchers]))+round(mypw($upgrade_factor, $targetinfo[shields]))+round(mypw($upgrade_factor, $targetinfo[armor]))+round(mypw($upgrade_factor, $targetinfo[cloak])));
-      $ship_salvage_rate=rand(10,20);
+      $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog($playerinfo[ship_id], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
       $db->Execute ("UPDATE $dbtables[ships] SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
@@ -419,7 +419,7 @@ function xenobetoship($ship_id)
         $salv_organics=0;
       }
       $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
-      $ship_salvage_rate=rand(10,20);
+      $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog($targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
       playerlog($targetinfo[ship_id], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
@@ -504,7 +504,7 @@ function xenobetosecdef()
       $playerfighters = $playerinfo[ship_fighters];
       $totalmines = $total_sector_mines;
       if ($totalmines>1) {
-        $roll = rand(1,$totalmines);
+        $roll = mt_rand(1,$totalmines);
       } else {
         $roll = 1;
       }
@@ -671,7 +671,7 @@ function xenobemove()
       $zonerow = $zoneres->fields;
       if ($zonerow[allow_attack]=="Y")                        // DEST LINK MUST ALLOW ATTACKING
       {
-        $setlink=rand(0,2);                        // 33% CHANCE OF REPLACING DEST LINK WITH THIS ONE
+        $setlink=mt_rand(0,2);                        // 33% CHANCE OF REPLACING DEST LINK WITH THIS ONE
         if ($setlink==0 || !$targetlink>0)          // UNLESS THERE IS NO DEST LINK, CHHOSE THIS ONE
         {
           $targetlink=$row[link_dest];
@@ -685,7 +685,7 @@ function xenobemove()
   if (!$targetlink>0)
   {
     // GENERATE A RANDOM SECTOR NUMBER
-    $wormto=rand(1,($sector_max-15));
+    $wormto=mt_rand(1,($sector_max-15));
     $limitloop=1;                        // LIMIT THE NUMBER OF LOOPS
     while (!$targetlink>0 && $limitloop<15)
     {
@@ -1061,7 +1061,7 @@ function xenobehunter()
 
   // LETS CHOOSE A TARGET FROM THE TOP PLAYER LIST
   $i=1;
-  $targetnum=rand(1,$topnum);
+  $targetnum=mt_rand(1,$topnum);
   while (!$res->EOF)
   {
     if ($i==$targetnum)
@@ -1407,7 +1407,7 @@ function xenobetoplanet($planet_id)
     $free_organics = round($playerinfo[ship_organics]/2);
     $free_goods = round($playerinfo[ship_goods]/2);
     $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
-    $ship_salvage_rate=rand(10,20);
+    $ship_salvage_rate=mt_rand(10,20);
     $ship_salvage=$ship_value*$ship_salvage_rate/100;
     $fighters_lost = $planetinfo[fighters] - $targetfighters;
 

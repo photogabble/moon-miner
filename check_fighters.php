@@ -107,7 +107,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 {
                    $success = 95;
                 }
-                $roll = rand(1, 100);
+                $roll = mt_rand(1, 100);
                 if ($roll < $success)
                 {
                     // Sector defences detect incoming ship
