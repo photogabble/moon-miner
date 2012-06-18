@@ -1,4 +1,3 @@
-<script type="text/javascript" src="backends/javascript/newsticker.js"></script>
 <script type="text/javascript">
 
 // Ticker Constructor
