@@ -32,14 +32,11 @@ header("Keep-Alive: timeout=15, max=100");
 <meta name="Rating" content="General">
 <link rel="shortcut icon" href="images/bntfavicon.ico">
 <title><?php echo $title; ?></title>
-<style type="text/css">
-<!--
-body {font-family: Verdana, "DejaVu Sans", sans-serif;}
-a.new_link {font-size: 8Pt; color:#0f0; font-weight:bold;}
-a.new_link:hover {font-size: 8Pt; color:#36f; font-weight:bold;}
-body {font-size: 85%; line-height:1.125em; color: #ccc;}
--->
-</style>
+<link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'></link>
+<link rel='stylesheet' type='text/css' href='templates/classic/styles/general.css'></link>
+<script type='text/javascript' src='backends/javascript/newsticker.js'></script>
+<script type='text/javascript' src='backends/javascript/imageswap.js'></script>
+</head>
 
 <?php
 if (!isset($interface) || $interface == "")
@@ -47,38 +44,8 @@ if (!isset($interface) || $interface == "")
   $interface = "main.php";
 }
 
-if (isset($interface) && $interface == "main.php")
+if ($no_body != 1)
 {
-    echo "<link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'></link>";
+    echo "<body style=\"background-image: url('images/bgoutspace1.png'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
 }
-
-echo "<script type='text/javascript' src='backends/javascript/newsticker.js'></script>";
-
-// Java functions for index.php used for button images
-if (isset($interface) && $interface == "index.php")
-{
-    echo "<script type='text/javascript' src='backends/javascript/imageswap.js'></script>";
-}
-
-echo "</head>";
-
-if (empty($no_body))
-{
-    if (isset($interface) && $interface=="main.php")
-    {
-        echo "<body style=\"background-image: url('images/bgoutspace1.png'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
-    }
-    else
-    {
-        echo "<body background=\"\" bgcolor=\"#000\" text=\"#c0c0c0\" link=\"#0f0\" vlink=\"#808080\" alink=\"#f00\">";
-    }
-}
-else
-{
-//    echo "<body bgcolor=\"#666\" text=\"#f0f0f0\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
-}
-
-echo "\n";
-
-// include "server_ticker.php";
 ?>
