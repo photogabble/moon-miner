@@ -37,14 +37,14 @@ if (!isset($sure))
 {
     echo "<font color=red><b>$l_die_rusure</b></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
-    echo "<a href=$interface>$l_die_nonono</a> $l_die_what<br><br>";
+    echo "<a href='main.php'>$l_die_nonono</a> $l_die_what<br><br>";
     echo "<a href=self_destruct.php?sure=1>$l_yes!</a> $l_die_goodbye<br><br>";
 }
 elseif ($sure == 1)
 {
     echo "<font color=red><b>$l_die_check</b></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
-    echo "<a href=$interface>$l_die_nonono</a> $l_die_what<br><br>";
+    echo "<a href='main.php'>$l_die_nonono</a> $l_die_what<br><br>";
     echo "<a href=self_destruct.php?sure=2>$l_yes!</a> $l_die_goodbye<br><br>";
 }
 elseif ($sure == 2)

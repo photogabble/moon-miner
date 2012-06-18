@@ -94,7 +94,7 @@ if ($flag==1)
     include "check_mines.php";
     if ($ok==1)
     {
-        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";
+        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
     }
     else
     {

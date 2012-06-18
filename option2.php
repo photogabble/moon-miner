@@ -25,18 +25,6 @@ if (checklogin())
 
 $title = $l_opt2_title;
 
-if ($intrf == "N")
-{
-    $interface = "main.php";
-    setcookie("interface", "main.php");
-}
-else
-{
-    $intrf = "O";
-    $interface = "maintext.php";
-    setcookie("interface", "maintext.php");
-}
-
 if ($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
     $userpass = $username."+".$newpass1;
@@ -88,15 +76,6 @@ else
     }
 }
 
-$res = $db->Execute("UPDATE $dbtables[ships] SET interface='$intrf' WHERE email='$username'");
-if ($res)
-{
-    echo $l_opt2_userintup . "<br><br>";
-}
-else
-{
-    echo $l_opt2_userintfail . "<br><br>";
-}
 
 $res = $db->Execute("UPDATE $dbtables[ships] SET lang='$lang' WHERE email='$username'");
 foreach ($avail_lang as $curlang)

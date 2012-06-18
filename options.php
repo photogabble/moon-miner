@@ -49,6 +49,7 @@ echo "<tr bgcolor=\"$color_line1\">";
 echo "<td>$l_opt_newpagain</td>";
 echo "<td><input type=password name=newpass2 size=16 maxlength=16 value=\"\"></td>";
 echo "</tr>";
+/*
 echo "<tr bgcolor=\"$color_header\">";
 echo "<td colspan=2><B>$l_opt_userint</B></td>";
 echo "</tr>";
@@ -56,6 +57,7 @@ $intrf = ($playerinfo['interface'] == 'N') ? "CHECKED" : "";
 echo "<tr bgcolor=\"$color_line1\">";
 echo "<td>$l_opt_usenew</td><td><input type=checkbox name=intrf value=N $intrf></input></td>";
 echo "</tr>";
+*/
 echo "<tr bgcolor=\"$color_header\">";
 echo "<td colspan=2><B>$l_opt_lang</B></td>";
 echo "</tr>";

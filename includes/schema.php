@@ -254,7 +254,6 @@ $db->Execute("CREATE TABLE $dbtables[ships](" .
              "score int DEFAULT '0' NOT NULL," .
              "team int DEFAULT '0' NOT NULL," .
              "team_invite int DEFAULT '0' NOT NULL," .
-             "interface enum('N','O') DEFAULT 'N' NOT NULL," .
              "ip_address tinytext NOT NULL," .
              "planet_id int unsigned DEFAULT '0' NOT NULL," .
              "preset1 int DEFAULT '0' NOT NULL," .
