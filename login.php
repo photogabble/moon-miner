@@ -17,7 +17,7 @@
 //
 // File: login.php
 
-include("config.php");
+include "config.php";
 
 if (empty($lang))
 {
@@ -50,9 +50,9 @@ if (!empty($newlang))
     $lang = $lang . ".inc";
 }
 
-include("languages/$lang");
+include "languages/$lang";
 $title = $l_login_title;
-include("header.php");
+include "header.php";
 
 global $title;
 if (!isset($username))
@@ -114,5 +114,5 @@ foreach ($avail_lang as $curlang)
 echo "  </select>\n&nbsp;&nbsp;<input type='submit' value='{$l_login_change}'></div>";
 echo "</form>\n";
 
-include("footer.php");
+include "footer.php";
 ?>

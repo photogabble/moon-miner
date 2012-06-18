@@ -17,11 +17,11 @@
 //
 // File: move.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_move_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_move_title;
+include "header.php";
 
 // Check to see if the user is logged in
 if (checklogin())
@@ -38,9 +38,9 @@ $playerinfo=$result->fields;
 // and if so return to the main menu
 if ($playerinfo['turns']<1)
 {
-    echo "$l_move_turn<BR><BR>";
+    echo $l_move_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -76,7 +76,7 @@ if ($flag==1)
 {
     $ok=1;
     $calledfrom = "move.php";
-    include("check_fighters.php");
+    include "check_fighters.php";
     if ($ok > 0)
     {
        $stamp = date("Y-m-d H-i-s");
@@ -91,15 +91,19 @@ if ($flag==1)
     }
     }
     // Enter code for checking dangers in new sector
-    include("check_mines.php");
-    if ($ok==1) {echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";} else
+    include "check_mines.php";
+    if ($ok==1)
+    {
+        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface\">";
+    }
+    else
     {
         TEXT_GOTOMAIN();
     }
 }
 else
 {
-    echo "$l_move_failed<BR><BR>";
+    echo $l_move_failed . "<br><br>";
     $db->Execute("UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
 
     TEXT_GOTOMAIN();

@@ -17,11 +17,11 @@
 //
 // File: warpedit2.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_warp_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_warp_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -29,35 +29,35 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
-if ($playerinfo[turns] < 1)
+if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
-if ($playerinfo[dev_warpedit] < 1)
+if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
 $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[universe].zone_id=$dbtables[zones].zone_id");
 $zoneinfo = $res->fields;
-if ($zoneinfo[allow_warpedit] == 'N')
+if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
-$target_sector=round($target_sector);
+$target_sector = round($target_sector);
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
 
@@ -74,12 +74,12 @@ if (!$row)
 
 $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$target_sector AND $dbtables[universe].zone_id=$dbtables[zones].zone_id");
 $zoneinfo = $res->fields;
-if ($zoneinfo[allow_warpedit] == 'N' && !$oneway)
+if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
 {
     $l_warp_twoerror = str_replace("[target_sector]", $target_sector, $l_warp_twoerror);
     echo $l_warp_twoerror . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -92,7 +92,7 @@ if ($numlink_start>=$link_max)
     $l_warp_sectex = str_replace("[link_max]", $link_max, $l_warp_sectex);
     echo $l_warp_sectex . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -145,11 +145,11 @@ if ($result3 > 0)
             {
                 $insert2 = $db->Execute ("INSERT INTO $dbtables[links] SET link_start=$target_sector, link_dest=$playerinfo[sector]");
             }
-            echo "$l_warp_ctwoway $target_sector.<br><br>";
+            echo $l_warp_ctwoway . " " . $target_sector . ".<br><br>";
         }
     }
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

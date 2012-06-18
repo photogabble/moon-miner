@@ -17,11 +17,11 @@
 //
 // File: mines.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_mines_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_mines_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -85,9 +85,9 @@ $num_defences = $i;
 bigtitle();
 if ($playerinfo[turns]<1)
 {
-    echo "$l_mines_noturn<BR><BR>";
+    echo $l_mines_noturn . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 $res = $db->Execute("SELECT allow_defenses,$dbtables[universe].zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
@@ -217,5 +217,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

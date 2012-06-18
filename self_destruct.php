@@ -17,11 +17,11 @@
 //
 // File: self_destruct.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_die_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_die_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -61,7 +61,7 @@ elseif ($sure == 2)
 }
 else
 {
-    echo "$l_die_exploit<BR><BR>";
+    echo $l_die_exploit . "<br><br>";
 }
 
 if ($sure != 2)
@@ -69,5 +69,5 @@ if ($sure != 2)
     TEXT_GOTOMAIN();
 }
 
-include("footer.php");
+include "footer.php";
 ?>

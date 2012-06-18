@@ -17,21 +17,21 @@
 //
 // File: scan.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_scan_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_scan_title;
+include "header.php";
 if (checklogin())
 {
     die();
 }
 
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
-$targetinfo=$result2->fields;
+$targetinfo = $result2->fields;
 
 $playerscore = gen_score($playerinfo[ship_id]);
 $targetscore = gen_score($targetinfo[ship_id]);
@@ -44,20 +44,20 @@ bigtitle();
 srand((double)microtime()*1000000);
 
 // Check to ensure target is in the same sector as player
-if ($targetinfo[sector] != $playerinfo[sector])
+if ($targetinfo['sector'] != $playerinfo['sector'])
 {
   echo $l_planet_noscan;
 }
 else
 {
-  if ($playerinfo[turns] < 1)
+  if ($playerinfo['turns'] < 1)
   {
     echo $l_scan_turn;
   }
   else
   {
     // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
-    $success= SCAN_SUCCESS($playerinfo[sensors], $targetinfo[cloak]);
+    $success= SCAN_SUCCESS($playerinfo['sensors'], $targetinfo['cloak']);
     if ($success < 5)
     {
       $success = 5;
@@ -71,7 +71,7 @@ else
     {
       // If scan fails - inform both player and target.
       echo $l_planet_noscan;
-      playerlog($targetinfo[ship_id], LOG_SHIP_SCAN_FAIL, "$playerinfo[character_name]");
+      playerlog($targetinfo['ship_id'], LOG_SHIP_SCAN_FAIL, $playerinfo['character_name']);
     }
     else
     {
@@ -87,8 +87,8 @@ else
          if ($resx[btytotal] > 0)
          {
             $btyamount = NUMBER($resx[btytotal]);
-            $l_scan_bounty=str_replace("[amount]",$btyamount,$l_scan_bounty);
-            echo $l_scan_bounty . "<BR>";
+            $l_scan_bounty = str_replace("[amount]", $btyamount, $l_scan_bounty);
+            echo $l_scan_bounty . "<br>";
             $btyamount = 0;
             // Check for Federation bounty
             $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM $dbtables[bounty] WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
@@ -98,7 +98,7 @@ else
                if ($resy[btytotal] > 0)
                {
                   $btyamount = $resy[btytotal];
-                  echo $l_scan_fedbounty . "<BR>";
+                  echo $l_scan_fedbounty . "<br>";
                }
             }
          }
@@ -107,15 +107,15 @@ else
       // themselves. If the target has a Federation Bounty, they can attack without attracting a bounty on themselves.
       if ($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo[turns_used] < $bounty_minturns))
       {
-         echo $l_by_fedbounty . "<BR><BR>";
+         echo $l_by_fedbounty . "<br><br>";
       }
       else
       {
-         echo $l_by_nofedbounty . "<BR><BR>";
+         echo $l_by_nofedbounty . "<br><br>";
       }
       $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
-      echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<BR><BR>";
-      echo "<b>$l_ship_levels:</b><BR><BR>";
+      echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<br><br>";
+      echo "<b>$l_ship_levels:</b><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>$l_hull:</td>";
       $roll=rand(1,100);
@@ -197,8 +197,8 @@ else
         echo "<td>$sc_cloak</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
-      echo "</table><BR>";
-      echo "<b>$l_scan_arma</b><BR><BR>";
+      echo "</table><br>";
+      echo "<b>$l_scan_arma</b><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>$l_armorpts:</td>";
       $roll=rand(1,100);
@@ -224,8 +224,8 @@ else
         echo "<td>$sc_torps</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
-      echo "</table><BR>";
-      echo "<b>$l_scan_carry</b><BR><BR>";
+      echo "</table><br>";
+      echo "<b>$l_scan_carry</b><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>Credits:</td>";
       $roll=rand(1,100);
@@ -275,8 +275,8 @@ else
         echo "<td>$sc_ship_goods</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
-      echo "</table><BR>";
-      echo "<b>$l_devices:</b><BR><BR>";
+      echo "</table><br>";
+      echo "<b>$l_devices:</b><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>$l_warpedit:</td>";
       $roll=rand(1,100);
@@ -318,7 +318,7 @@ else
       $roll=rand(1,100);
       if ($roll<$success)
         {echo "<td>$targetinfo[dev_fuelscoop]</td></tr>";} else {echo"<td>???</td></tr>";}
-      echo "</table><BR>";
+      echo "</table><br>";
       playerlog($targetinfo[ship_id], LOG_SHIP_SCAN, "$playerinfo[character_name]");
     }
 
@@ -326,7 +326,7 @@ else
   }
 }
 
-echo "<BR><BR>";
+echo "<br><br>";
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

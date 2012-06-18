@@ -17,12 +17,12 @@
 //
 // File: igb.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_igb_title;
-$no_body=1;
-include("header.php");
+include "languages/$lang";
+$title = $l_igb_title;
+$no_body = 1;
+include "header.php";
 
 if (checklogin())
 {
@@ -143,7 +143,7 @@ else
 </center>
 
 <?php
-include("footer.php");
+include "footer.php";
 
 function IGB_login()
 {
@@ -1121,7 +1121,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
        "<img src=images/div2.png>" .
        "</center>";
 
-  include("footer.php");
+  include "footer.php";
   die();
 }
 

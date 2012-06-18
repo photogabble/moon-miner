@@ -22,7 +22,7 @@ if (preg_match("/sector_fighters.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-include("languages/$lang");
+include "languages/$lang";
 
 echo $l_sf_attacking . "<br>";
 $targetfighters = $total_sector_fighters;

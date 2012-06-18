@@ -17,11 +17,11 @@
 //
 // File: port2.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_title_port;
-include("header.php");
+include "languages/$lang";
+$title = $l_title_port;
+include "header.php";
 
 if (checklogin())
 {
@@ -39,11 +39,11 @@ $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_trade'] == 'N')
 {
-  $title=$l_no_trade;
+  $title = $l_no_trade;
   bigtitle();
-  echo "$l_no_trade_info<p>";
+  echo $l_no_trade_info . "<p>";
   TEXT_GOTOMAIN();
-  include("footer.php");
+  include "footer.php";
   die();
 }
 elseif ($zoneinfo['allow_trade'] == 'L')
@@ -55,11 +55,11 @@ elseif ($zoneinfo['allow_trade'] == 'L')
 
     if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
     {
-      $title=$l_no_trade;
+      $title = $l_no_trade;
       bigtitle();
-      echo "$l_no_trade_out<p>";
+      echo $l_no_trade_out . "<p>";
       TEXT_GOTOMAIN();
-      include("footer.php");
+      include "footer.php";
       die();
     }
   }
@@ -67,11 +67,11 @@ elseif ($zoneinfo['allow_trade'] == 'L')
   {
     if ($playerinfo['team'] != $zoneinfo['owner'])
     {
-      $title=$l_no_trade;
+      $title = $l_no_trade;
       bigtitle();
-      echo "$l_no_trade_out<p>";
+      echo $l_no_trade_out . "<p>";
       TEXT_GOTOMAIN();
-      include("footer.php");
+      include "footer.php";
       die();
     }
   }
@@ -127,7 +127,7 @@ global $upgrade_cost;
 
 if ($playerinfo['turns'] < 1)
 {
-  echo "$l_trade_turnneed<BR><BR>";
+  echo "$l_trade_turnneed<br><br>";
 }
 else
 {
@@ -149,17 +149,17 @@ else
         echo "<br>\n";
 
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
     }
     unset($_SESSION['port_shopping']);
 
     if (isLoanPending($playerinfo['ship_id']))
     {
-      echo "$l_port_loannotrade<p>";
+      echo $l_port_loannotrade . "<p>";
       echo "<A HREF=igb.php>$l_igb_term</a><p>";
       TEXT_GOTOMAIN();
-      include("footer.php");
+      include "footer.php";
       die();
     }
 
@@ -306,7 +306,7 @@ if ($colonist_max <0) $colonist_max = 0;
       $dev_escapepod_cost + $dev_fuelscoop_cost + $dev_lssd_cost + $shields_upgrade_cost;
     if ($total_cost > $playerinfo['credits'])
     {
-      echo "You do not have enough credits for this transaction.  The total cost is " . NUMBER($total_cost) . " credits and you only have " . NUMBER($playerinfo['credits']) . " credits.<BR><BR>Click <A HREF=port.php>here</A> to return to the supply depot.<BR><BR>";
+      echo "You do not have enough credits for this transaction.  The total cost is " . NUMBER($total_cost) . " credits and you only have " . NUMBER($playerinfo['credits']) . " credits.<br><br>Click <A HREF=port.php>here</A> to return to the supply depot.<br><br>";
     }
     else
     {
@@ -319,7 +319,7 @@ if ($colonist_max <0) $colonist_max = 0;
             <TD colspan=99 align=center><b><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></b></TD>
          </TR>";
 
-       //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<BR><BR>";
+       //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<br><br>";
       $query = "UPDATE $dbtables[ships] SET credits=credits-$total_cost";
       if ($hull_upgrade > $playerinfo['hull'])
       {
@@ -525,20 +525,20 @@ echo "</div>\n";
    if ($free_holds < $cargo_exchanged)
    {
    
-   echo "$l_notenough_cargo  $l_returnto_port<BR><BR>";
+   echo "$l_notenough_cargo  $l_returnto_port<br><br>";
    }
    elseif ($trade_energy > $free_power)
    {
    $l_returnto_port = str_replace("[here]", "<a href='port.php'>" . $l_here . "</a>", $l_returnto_port);
-   echo "$l_notenough_power  $l_returnto_port<BR><BR>";
+   echo "$l_notenough_power  $l_returnto_port<br><br>";
    }
    elseif ($playerinfo['turns'] < 1)
    {
-   echo "$l_notenough_turns.<BR><BR>";
+   echo "$l_notenough_turns.<br><br>";
    }
    elseif ($playerinfo['credits'] < $total_cost)
    {
-   echo "$l_notenough_credits <BR><BR>";
+   echo "$l_notenough_credits <br><br>";
    }
    elseif ($trade_ore < 0 && abs($playerinfo['ship_ore']) < abs($trade_ore))
    {
@@ -627,18 +627,18 @@ echo "</div>\n";
       // Decrease supply and demand on port
       $trade_result2    = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
 
-      echo "$l_trade_complete.<BR><BR>";
+      echo "$l_trade_complete.<br><br>";
     }
   }
 }
 
-echo "<BR><BR>";
+echo "<br><br>";
 TEXT_GOTOMAIN();
 
 if ($sectorinfo['port_type'] == "special")
 {
-    echo "<BR><BR>Click <A HREF=port.php>here</A> to return to the supply depot.";
+    echo "<br><br>Click <A HREF=port.php>here</A> to return to the supply depot.";
 }
 
-include("footer.php");
+include "footer.php";
 ?>

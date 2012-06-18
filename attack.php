@@ -17,26 +17,26 @@
 //
 // File: attack.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
+include "languages/$lang";
 
 if (checklogin())
 {
     die();
 }
 
-$title=$l_att_title;
-include("header.php");
+$title = $l_att_title;
+include "header.php";
 
 $db->Execute("LOCK TABLES $dbtables[ships] WRITE, $dbtables[universe] WRITE, $dbtables[bounty] WRITE $dbtables[zones] READ, $dbtables[planets] WRITE, $dbtables[news] WRITE, $dbtables[logs] WRITE");
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
 $ship_id = stripnum($ship_id);
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE ship_id='$ship_id'");
-$targetinfo=$result2->fields;
+$targetinfo = $result2->fields;
 
 bigtitle();
 
@@ -777,7 +777,5 @@ $db->Execute("UNLOCK TABLES");
 $_SESSION['in_combat'] = (boolean) false;
 
 TEXT_GOTOMAIN();
-
-include("footer.php");
-
+include "footer.php";
 ?>

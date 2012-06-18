@@ -17,11 +17,11 @@
 //
 // File: feedback.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_feedback_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_feedback_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -52,7 +52,7 @@ if (is_null($_SESSION['content']))
 }
 else
 {
-    require_once("includes/mailer_class.php");
+    require_once "includes/mailer_class.php";
     $mailer = new Mailer();
 
     if ($_SESSION['sendemail'] == false)
@@ -140,5 +140,5 @@ else
     TEXT_GOTOMAIN();
 }
 
-include("footer.php");
+include "footer.php";
 ?>

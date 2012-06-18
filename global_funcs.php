@@ -320,7 +320,7 @@ function db_kill_player($ship_id, $remove_planets = false)
   global $gameroot;
   global $db,$dbtables;
 
-  include("languages/english.inc");
+  include "languages/english.inc";
 
   $db->Execute("UPDATE $dbtables[ships] SET ship_destroyed='Y',on_planet='N',sector=0,cleared_defences=' ' WHERE ship_id=$ship_id");
   $db->Execute("DELETE from $dbtables[bounty] WHERE placed_by = $ship_id");
@@ -1057,7 +1057,7 @@ function bnt_autoload($classname)
     $class_location = "classes/" . $classname . ".php";
     if (is_readable($class_location))
     {
-        include($class_location);
+        include $class_location;
     }
 }
 

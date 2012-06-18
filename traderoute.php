@@ -17,11 +17,11 @@
 //
 // File: traderoute.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_tdr_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_tdr_title;
+include "header.php";
 
 $portfull = null; // This fixes an error of undefined variables on 1518
 if (checklogin())
@@ -35,7 +35,7 @@ $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'")
 $playerinfo = $result->fields;
 
 $result = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE owner=$playerinfo[ship_id]");
-$num_traderoutes=$result->RecordCount();
+$num_traderoutes = $result->RecordCount();
 
 if (isset($traderoutes))
 {
@@ -324,7 +324,7 @@ echo "<div style='text-align:left;'>\n";
 TEXT_GOTOMAIN();
 echo "</div>\n";
 
-include("footer.php");
+include "footer.php";
 
 function traderoute_die($error_msg)
 {
@@ -337,7 +337,7 @@ echo "<div style='text-align:left;'>\n";
 TEXT_GOTOMAIN();
 echo "</div>\n";
 
-  include("footer.php");
+  include "footer.php";
   die();
 }
 
@@ -795,7 +795,7 @@ TEXT_GOTOMAIN();
 echo "</div>\n";
 
 
-  include("footer.php");
+  include "footer.php";
   die();
 }
 

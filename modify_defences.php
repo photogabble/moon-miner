@@ -17,11 +17,11 @@
 //
 // File: modify_defences.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_md_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_md_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -42,9 +42,9 @@ $sectorinfo = $res->fields;
 
 if ($playerinfo[turns]<1)
 {
-    echo "$l_md_noturn<BR><BR>";
+    echo $l_md_noturn . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -62,7 +62,7 @@ if ($defenceinfo['sector_id'] <> $playerinfo['sector'])
 {
    echo "$l_md_nothere<BR><BR>";
    TEXT_GOTOMAIN();
-   include("footer.php");
+   include "footer.php";
    die();
 }
 if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
@@ -96,7 +96,7 @@ switch ($response) {
       {
          echo "$l_md_yours<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php");
+         include "footer.php";
          die();
       }
       $sector = $playerinfo[sector] ;
@@ -105,7 +105,7 @@ switch ($response) {
          $countres = $db->Execute("SELECT SUM(quantity) as totalfighters FROM $dbtables[sector_defence] where sector_id = $sector and defence_type = 'F'");
          $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
-         include("sector_fighters.php");
+         include "sector_fighters.php";
       }
       else
       {
@@ -139,7 +139,7 @@ switch ($response) {
       {
          echo "$l_md_notyours<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php");
+         include "footer.php";
          die();
       }
       $quantity = stripnum($quantity);
@@ -192,7 +192,7 @@ switch ($response) {
       {
          echo "$l_md_notyours<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php");
+         include "footer.php";
          die();
       }
       $db->Execute("UPDATE $dbtables[sector_defence] SET fm_setting = '$mode' where defence_id = $defence_id");
@@ -257,5 +257,5 @@ switch ($response) {
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

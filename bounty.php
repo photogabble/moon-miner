@@ -17,11 +17,11 @@
 //
 // File: bounty.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_by_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_by_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -112,7 +112,7 @@ switch ($response) {
       {
     echo "$l_by_noturn<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
       }
 
@@ -121,7 +121,7 @@ switch ($response) {
       {
           echo "$l_by_nobounty<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
       }
       $bty = $res->fields;
@@ -129,7 +129,7 @@ switch ($response) {
       {
           echo "$l_by_notyours<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
       }
       $del = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $bid");
@@ -148,7 +148,7 @@ switch ($response) {
       {
     echo "$l_by_notexists<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
       }
       $bty = $ex->fields;
@@ -156,14 +156,14 @@ switch ($response) {
       {
     echo "$l_by_destroyed<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
       }
       if ($playerinfo[turns]<1 )
       {
     echo "$l_by_noturn<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
       }
       $amount = stripnum($amount);
@@ -171,21 +171,21 @@ switch ($response) {
       {
          echo "$l_by_zeroamount<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php");
+         include "footer.php";
          die();
       }
       if ($bounty_on == $playerinfo['ship_id'])
       {
          echo "$l_by_yourself<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php");
+         include "footer.php";
          die();
       }
       if ($amount > $playerinfo['credits'])
       {
          echo "$l_by_notenough<BR><BR>";
          TEXT_GOTOMAIN();
-         include("footer.php");
+         include "footer.php";
          die();
       }
       if ($bounty_maxvalue != 0)
@@ -205,7 +205,7 @@ switch ($response) {
             $l_by_toomuch=str_replace("[percent]",$percent,$l_by_toomuch);
             echo "$l_by_toomuch<BR><BR>";
             TEXT_GOTOMAIN();
-            include("footer.php");
+            include "footer.php";
             die();
          }
 
@@ -296,5 +296,5 @@ switch ($response) {
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

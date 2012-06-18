@@ -17,11 +17,11 @@
 //
 // File: port.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_title_port;
-include("header.php");
+include "languages/$lang";
+$title = $l_title_port;
+include "header.php";
 
 if (checklogin())
 {
@@ -93,20 +93,20 @@ $zoneinfo = $res->fields;
 
 if ($zoneinfo['zone_id'] == 4)
 {
-  $title=$l_sector_war;
+  $title = $l_sector_war;
   bigtitle();
-  echo "$l_war_info <p>";
+  echo $l_war_info . "<p>";
   TEXT_GOTOMAIN();
-  include("footer.php");
+  include "footer.php";
   die();
 }
 elseif ($zoneinfo['allow_trade'] == 'N')
 {
-  $title="Trade forbidden";
+  $title = "Trade forbidden";
   bigtitle();
-  echo "$l_no_trade_info<p>";
+  echo $l_no_trade_info . "<p>";
   TEXT_GOTOMAIN();
-  include("footer.php");
+  include "footer.php";
   die();
 }
 
@@ -123,7 +123,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
       bigtitle();
       echo "Trading at this port is not allowed for outsiders<p>";
       TEXT_GOTOMAIN();
-      include("footer.php");
+      include "footer.php";
       die();
     }
   }
@@ -135,7 +135,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
       bigtitle();
       echo "$l_no_trade_out<p>";
       TEXT_GOTOMAIN();
-      include("footer.php");
+      include "footer.php";
       die();
     }
   }
@@ -254,7 +254,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
   echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_organics</TD><TD>$sb_organics</TD><TD>" . NUMBER($sectorinfo['port_organics']) . "</TD><TD>$organics_price</TD><TD><INPUT TYPE=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 VALUE=$amount_organics></TD><TD>" . NUMBER($playerinfo['ship_organics']) . "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line1\"><TD>$l_goods</TD><TD>$sb_goods</TD><TD>" . NUMBER($sectorinfo['port_goods']) . "</TD><TD>$goods_price</TD><TD><INPUT TYPE=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 VALUE=$amount_goods></TD><TD>" . NUMBER($playerinfo['ship_goods']) . "</TD></TR>";
   echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_energy</TD><TD>$sb_energy</TD><TD>" . NUMBER($sectorinfo['port_energy']) . "</TD><TD>$energy_price</TD><TD><INPUT TYPE=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 VALUE=$amount_energy></TD><TD>" . NUMBER($playerinfo['ship_energy']) . "</TD></TR>";
-  echo "</TABLE><BR>";
+  echo "</TABLE><br>";
   echo "<INPUT TYPE=SUBMIT VALUE=$l_trade>";
   echo "</FORM>";
 
@@ -279,9 +279,9 @@ elseif ($sectorinfo['port_type'] == "special")
   if (isLoanPending($playerinfo['ship_id']))
   {
     echo "$l_port_loannotrade<p>";
-    echo "<A HREF=igb.php>$l_igb_term</a><p>";
+    echo "<a href=igb.php>$l_igb_term</a><p>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
   }
 
@@ -396,7 +396,7 @@ elseif ($sectorinfo['port_type'] == "special")
           echo "$l_port_bounty3<br>\n";
           echo "<br>\n";
 
-          echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR><BR>";
+          echo "<a href=\"bounty.php\">$l_by_placebounty</a><br><br>";
           TEXT_GOTOMAIN();
           die();
         }
@@ -637,16 +637,16 @@ return $dropdownvar;
 
   echo "<P>\n";
   $l_creds_to_spend=str_replace("[credits]",NUMBER($playerinfo['credits']),$l_creds_to_spend);
-  echo "$l_creds_to_spend<BR>\n";
+  echo "$l_creds_to_spend<br>\n";
   if ($allow_ibank)
   {
-    $igblink = "\n<A HREF=igb.php>$l_igb_term</a>";
+    $igblink = "\n<a href=igb.php>$l_igb_term</a>";
     $l_ifyouneedmore=str_replace("[igb]",$igblink,$l_ifyouneedmore);
 
-    echo "$l_ifyouneedmore<BR>";
+    echo "$l_ifyouneedmore<br>";
   }
   echo "\n";
-  echo "<A HREF=\"bounty.php\">$l_by_placebounty</A><BR>\n";
+  echo "<a href=\"bounty.php\">$l_by_placebounty</a><br>\n";
   echo " <FORM ACTION=port2.php METHOD=POST>\n";
   echo "  <TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>\n";
   echo "   <TR BGCOLOR=\"$color_header\">\n";
@@ -882,7 +882,7 @@ return $dropdownvar;
   echo "    </TD>\n";
   echo "  </TR>\n";
   echo " </TABLE>\n";
-  echo " <BR>\n";
+  echo " <br>\n";
   echo " <TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>\n";
   echo "  <TR BGCOLOR=\"$color_header\">\n";
   echo "    <TD><B>$l_item</B></TD>\n";
@@ -956,7 +956,7 @@ return $dropdownvar;
   }
   echo "    </TD>\n";
   echo "  </TR>\n";
-  echo " </TABLE><BR>\n";
+  echo " </TABLE><br>\n";
   echo " <TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>\n";
   echo "  <TR>\n";
   echo "    <TD><INPUT TYPE=SUBMIT VALUE=$l_buy $onclick></TD>\n";
@@ -964,7 +964,7 @@ return $dropdownvar;
   echo "  </TR>\n";
   echo " </TABLE>\n";
   echo "</FORM>\n";
-  echo "$l_would_dump <A HREF=dump.php>$l_here</A>.\n";
+  echo "$l_would_dump <a href=dump.php>$l_here</a>.\n";
 }
 else
 {
@@ -972,9 +972,9 @@ else
 }
 
 echo "\n";
-echo "<BR><BR>\n";
+echo "<br><br>\n";
 TEXT_GOTOMAIN();
 echo "\n";
 
-include("footer.php");
+include "footer.php";
 ?>

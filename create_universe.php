@@ -20,8 +20,8 @@
 // This is required by Setup Info, So DO NOT REMOVE
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
-include("config.php");
-include("languages/$lang");
+include "config.php";
+include "languages/$lang";
 
 // HTML Table Functions
 
@@ -124,12 +124,12 @@ srand((double)microtime()*1000000);
 
 // Include config files and db scheme.
 
-include("includes/schema.php");
+include "includes/schema.php";
 
 updatecookie();
 
 $title=$l_cu_title;
-include("header.php");
+include "header.php";
 
 connectdb();
 
@@ -850,7 +850,7 @@ Table_Footer("Completed successfully.");
         Table_Row("The public list updater will occur every 60 minutes","Failed","Inserted");
 
             $creating=1;
-            include("bnt_ls_client.php");
+            include "bnt_ls_client.php";
       }
     Table_Footer("Completed successfully");
 
@@ -883,5 +883,5 @@ Table_Footer("Completed successfully.");
       break;
 }
 
-include("footer.php");
+include "footer.php";
 ?>

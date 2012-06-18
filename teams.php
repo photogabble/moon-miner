@@ -20,12 +20,12 @@
 // Added a quick fix for creating a new team with the same name
 // This file needs to be completely recoded from scratch :(
 
-include("config.php");
+include "config.php";
 updatecookie();
 
-include("languages/$lang");
-$title=$l_team_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_team_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -815,7 +815,7 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
     // This is just a temp fix until we find a better one.
     $res= $db->Execute("SELECT COUNT(*) as found FROM $dbtables[teams] WHERE team_name = '{$name}' AND creator != $creator;");
     $num_res = $res->fields;
-    if ($num_res[found] > 0)
+    if ($num_res['found'] > 0)
     {
         return false;
     }
@@ -823,5 +823,5 @@ function validate_team($name = NULL, $desc = NULL, $creator = NULL)
     return true;
 }
 
-include("footer.php");
+include "footer.php";
 ?>

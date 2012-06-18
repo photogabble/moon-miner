@@ -17,11 +17,11 @@
 //
 // File: ship.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_ship_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_ship_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -53,7 +53,7 @@ else
     echo "<a href=mailto.php?to=$ship_id>$l_send_msg</a><br>";
 }
 
-echo "<BR>";
+echo "<br>";
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

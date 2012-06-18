@@ -17,10 +17,10 @@
 //
 // File: mail.php
 
-include("config.php");
-include("languages/$lang");
-$title=$l_mail_title;
-include("header.php");
+include "config.php";
+include "languages/$lang";
+$title = $l_mail_title;
+include "header.php";
 bigtitle();
 
 if (!isset($_SESSION['sendemail']))
@@ -38,7 +38,7 @@ if (!$result->EOF)
     $l_mail_message=str_replace("[ip]", $ip, $l_mail_message);
     $l_mail_message=str_replace("[game_name]", $game_name, $l_mail_message);
 
-    require_once("includes/mailer_class.php");
+    require_once "includes/mailer_class.php";
     $mailer = new Mailer();
     $mailerInfo = $mailer->getInfo();
 
@@ -126,7 +126,7 @@ if (!$result->EOF)
 }
 else
 {
-    require_once("includes/mailer_class.php");
+    require_once "includes/mailer_class.php";
     $mailer = new Mailer();
 
     $mailerInfo = $mailer->getInfo();
@@ -164,5 +164,6 @@ else
         TEXT_GOTOLOGIN();
     }
 }
-include("footer.php");
+
+include "footer.php";
 ?>

@@ -17,8 +17,8 @@
 //
 // File: info_publiclist.php
 
-include("config.php");
-//include("languages/$lang");
+include "config.php";
+//include "languages/$lang";
 connectdb();
 
 $info = array();
@@ -155,10 +155,7 @@ $info["SERVERTIMEZONE"] = $servertimezone;
 $info["ADMIN_MAIL"] = $admin_mail;
 $info["LINK_FORUMS"] = $link_forums;
 
-
-
 foreach ($info as $key => $value) {
-    echo $key . ":" . $value . "<BR>";
+    echo $key . ":" . $value . "<br>";
 }
-
 ?>

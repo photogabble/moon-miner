@@ -17,8 +17,7 @@
 //
 // File: login2.php
 
-include("config.php");
-include("languages/$lang");
+include "config.php";
 
 // Test to see if server is closed to logins
 $playerfound = false;
@@ -31,15 +30,16 @@ if ($res)
 {
     $playerfound = $res->RecordCount();
 }
+
 $playerinfo = $res->fields;
 
 $lang=$playerinfo['lang'];
 if (empty($lang))
 {
-    $lang=$default_lang;
+    $lang = $default_lang;
 }
 setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include("languages/$lang" . ".inc");
+include "languages/$lang" . ".inc";
 
 // first placement of cookie - don't use updatecookie.
 $userpass = $email."+".$pass;
@@ -47,17 +47,17 @@ setcookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
 
 if ($server_closed)
 {
-    $title=$l_login_sclosed;
-    include("header.php");
+    $title = $l_login_sclosed;
+    include "header.php";
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
 
     TEXT_GOTOLOGIN();
 
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
-$title=$l_login_title2;
+$title = $l_login_title2;
 
 // Check Banned
 $banned = 0;
@@ -73,7 +73,7 @@ if ($res->RecordCount() != 0)
     $banned = 1;
 }
 
-include("header.php");
+include "header.php";
 bigtitle();
 
 if ($playerfound)
@@ -111,7 +111,7 @@ if ($playerfound)
 
                     if ($num_rows)
                     {
-                        echo "<BR><BR>$l_login_newbie<BR><BR>";
+                        echo "<br><br>" . $l_login_newbie . "<br><br>";
                         $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,credits=1000,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
 
                         $l_login_newlife = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
@@ -144,6 +144,5 @@ else
     echo "<b>" . $l_login_noone . "</b><br>";
 }
 
-include("footer.php");
-
+include "footer.php";
 ?>

@@ -17,8 +17,8 @@
 //
 // File: main.php
 
-include("config.php");
-include("languages/$lang"); // Current language file (english.inc)
+include "config.php";
+include "languages/$lang"; // Current language file (english.inc)
 
 /*
 // New db-driven language entries
@@ -36,8 +36,8 @@ if (checklogin())
     die();
 }
 
-$title=$l_main_title;
-include("header.php");
+$title = $l_main_title;
+include "header.php";
 
 $basefontsize = 1;
 $stylefontsize = "12Pt";
@@ -854,6 +854,6 @@ echo "    <td id='news_ticker' class='faderlines' style='text-align:center; colo
 echo "  </tr>\n";
 echo "</table>\n";
 
-include("fader.php");
-include("footer.php");
+include "fader.php";
+include "footer.php";
 ?>

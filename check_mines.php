@@ -22,7 +22,7 @@ if (preg_match("/check_mines.php/i", $_SERVER['PHP_SELF']))
     die("You can not access this file directly!");
 }
 
-include("languages/$lang");
+include "languages/$lang";
 
 // Put the sector information into the array "sectorinfo"
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$sector'");

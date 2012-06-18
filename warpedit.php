@@ -17,11 +17,11 @@
 //
 // File: warpedit.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_warp_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_warp_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -29,9 +29,9 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 $result4 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
-$sectorinfo=$result4->fields;
+$sectorinfo = $result4->fields;
 
 bigtitle();
 
@@ -39,7 +39,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -47,7 +47,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none. "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -57,7 +57,7 @@ if ($zoneinfo[allow_warpedit] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -74,7 +74,7 @@ if ($zoneinfo[allow_warpedit] == 'L')
         {
             echo $l_warp_forbid . "<br><br>";
             TEXT_GOTOMAIN();
-            include("footer.php");
+            include "footer.php";
             die();
         }
     }
@@ -113,5 +113,5 @@ echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$
 echo "</form>";
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

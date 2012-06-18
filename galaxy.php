@@ -17,12 +17,12 @@
 //
 // File: galaxy_new.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
+include "languages/$lang";
 global $l_map_title;
-$title=$l_map_title;
-include("header.php");
+$title = $l_map_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -47,11 +47,11 @@ $tile['unknown']="uspace.png";
 $cur_sector= 0; // Clear this before iterating through the sectors
 
 // Display sectors as imgs, and each class in css in header.php; then match the width and height here
-$div_w=20; // Only this width to match the included images
-$div_h=20; // Only this height to match the included images
-$div_border=2; // CSS border is 1 so this should be 2
-$div_xmax=50; // Where to wrap to next line
-$div_ymax=$sector_max / $div_xmax;
+$div_w = 20; // Only this width to match the included images
+$div_h = 20; // Only this height to match the included images
+$div_border = 2; // CSS border is 1 so this should be 2
+$div_xmax = 50; // Where to wrap to next line
+$div_ymax = $sector_max / $div_xmax;
 $map_width= ($div_w+$div_border) * $div_xmax;  // Define the containing div to be the right width to wrap at $div_xmax
 
 // Setup containing div to hold the width of the images
@@ -110,5 +110,5 @@ echo "    <div><img alt='" . $l_port . ": " . $l_unexplored . "' src=images/{$ti
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

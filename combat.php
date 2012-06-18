@@ -144,7 +144,7 @@ function planetbombing()
     {
         echo "$l_cmb_atleastoneturn<BR><BR>";
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
     }
 
@@ -277,7 +277,7 @@ function planetcombat()
     {
         echo "$l_cmb_atleastoneturn<BR><BR>";
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
     }
 

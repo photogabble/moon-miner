@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 include "languages/$lang";
 $title = $l_zi_title;
-include("header.php");
+include "header.php";
 
 if (checklogin())
 {
@@ -187,5 +187,5 @@ else
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

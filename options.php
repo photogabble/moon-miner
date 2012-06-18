@@ -17,11 +17,11 @@
 //
 // File: options.php
 
-include("config.php");
-include("languages/$lang");
+include "config.php";
+include "languages/$lang";
 updatecookie();
-$title="$l_opt_title";
-include("header.php");
+$title = $l_opt_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -89,6 +89,6 @@ echo "<INPUT TYPE=SUBMIT value=$l_opt_save>";
 echo "</FORM>";
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>
 

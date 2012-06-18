@@ -17,12 +17,12 @@
 //
 // File: defence_report.php
 
-include("config.php");
+include "config.php";
 updatecookie();
 
-include("languages/$lang");
-$title=$l_sdf_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_sdf_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -76,29 +76,29 @@ if ($num_sectors < 1)
 }
 else
 {
-  echo "$l_pr_clicktosort<BR><BR>";
-  echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-  echo "<TR BGCOLOR=\"$color_header\">";
-  echo "<TD><B><A HREF=defence_report.php?sort=sector>$l_sector</A></B></TD>";
-  echo "<TD><B><A HREF=defence_report.php?sort=quantity>$l_qty</A></B></TD>";
-  echo "<TD><B><A HREF=defence_report.php?sort=type>$l_sdf_type</A></B></TD>";
-  echo "<TD><B><A HREF=defence_report.php?sort=mode>$l_sdf_mode</A></B></TD>";
-  echo "</TR>";
+  echo "$l_pr_clicktosort<br><br>";
+  echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
+  echo "<tr bgcolor=\"$color_header\">";
+  echo "<td><b><a href=defence_report.php?sort=sector>$l_sector</a></b></td>";
+  echo "<td><b><a href=defence_report.php?sort=quantity>$l_qty</a></b></td>";
+  echo "<td><b><a href=defence_report.php?sort=type>$l_sdf_type</a></b></td>";
+  echo "<td><b><a href=defence_report.php?sort=mode>$l_sdf_mode</a></b></td>";
+  echo "</tr>";
   $color = $color_line1;
   for ($i = 0; $i < $num_sectors; $i++) {
 
-    echo "<TR BGCOLOR=\"$color\">";
-    echo "<TD><A HREF=rsmove.php?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</A></TD>";
-    echo "<TD>" . NUMBER($sector[$i]['quantity']) . "</TD>";
+    echo "<tr bgcolor=\"$color\">";
+    echo "<td><a href=rsmove.php?engage=1&destination=". $sector[$i][sector_id] . ">". $sector[$i][sector_id] ."</a></td>";
+    echo "<td>" . NUMBER($sector[$i]['quantity']) . "</td>";
     $defence_type = $sector[$i]['defence_type'] == 'F' ? $l_fighters : $l_mines;
-    echo "<TD> $defence_type </TD>";
+    echo "<td> $defence_type </td>";
     $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $l_n_a;
     if ($mode == 'attack')
       $mode = $l_md_attack;
     else
       $mode = $l_md_toll;
-    echo "<TD> $mode </TD>";
-    echo "</TR>";
+    echo "<td> $mode </td>";
+    echo "</tr>";
 
     if ($color == $color_line1)
     {
@@ -109,12 +109,10 @@ else
       $color = $color_line1;
     }
   }
-  echo "</TABLE>";
+  echo "</table>";
 }
-echo "<BR><BR>";
+echo "<br><br>";
 
 TEXT_GOTOMAIN();
-
-include("footer.php");
-
+include "footer.php";
 ?>

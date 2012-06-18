@@ -17,11 +17,11 @@
 //
 // File: new.php
 
-include("config.php");
-include("languages/$lang");
+include "config.php";
+include "languages/$lang";
 
-$title=$l_new_title;
-include("header.php");
+$title = $l_new_title;
+include "header.php";
 
 bigtitle();
 
@@ -39,5 +39,5 @@ echo "    <div style='text-align:center'><input type='submit' value='" . $l_subm
 echo "        " . $l_new_info . "<br></div>\n";
 echo "</form>";
 
-include("footer.php");
+include "footer.php";
 ?>

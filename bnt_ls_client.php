@@ -22,7 +22,7 @@ if (preg_match("/bnt_ls_client.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-include_once("config.php");
+include_once "config.php";
 $url = "http://www.rednova.de/bnt_ls_server2z.php";
 
 $url .= "?url1=" . urlencode($bnt_ls_gameurl);

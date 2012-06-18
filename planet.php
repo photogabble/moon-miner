@@ -17,12 +17,12 @@
 //
 // File: planet.php
 
-include("config.php");
-include("combat.php");
+include "config.php";
+include "combat.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_planet_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_planet_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -57,7 +57,7 @@ $planetinfo         = NULL;
 // Check if planet_id is valid.
 if ($planet_id <=0)
 {
-  echo "Invalid Planet<BR><BR>";
+  echo "Invalid Planet<br><br>";
   TEXT_GOTOMAIN();
   die();
 }
@@ -71,7 +71,7 @@ $planetinfo=$result3->fields;
 // Check to see if it returned valid planet info.
 if ($planetinfo == false)
 {
-  echo "Invalid Planet<BR><BR>";
+  echo "Invalid Planet<br><br>";
   TEXT_GOTOMAIN();
   die();
 }
@@ -87,18 +87,18 @@ if (!empty($planetinfo))
       $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "$l_planet_none <p>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
   }
   if (($planetinfo['owner'] == 0  || $planetinfo['defeated'] == 'Y') && $command != "capture")
   {
-    if ($planetinfo['owner'] == 0) echo "$l_planet_unowned.<BR><BR>";
+    if ($planetinfo['owner'] == 0) echo "$l_planet_unowned.<br><br>";
     $capture_link="<a href=planet.php?planet_id=$planet_id&command=capture>$l_planet_capture1</a>";
     $l_planet_capture2=str_replace("[capture]",$capture_link,$l_planet_capture2);
-    echo "$l_planet_capture2.<BR><BR>";
-    echo "<BR>";
+    echo "$l_planet_capture2.<br><br>";
+    echo "<br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
   }
   if ($planetinfo['owner'] != 0)
@@ -115,20 +115,20 @@ if (!empty($planetinfo))
     if (empty($planetinfo['name']))
     {
         $l_planet_unnamed=str_replace("[name]",$ownerinfo[character_name],$l_planet_unnamed);
-      echo "$l_planet_unnamed<BR><BR>";
+      echo "$l_planet_unnamed<br><br>";
     }
     else
     {
      $l_planet_named=str_replace("[name]",$ownerinfo['character_name'],$l_planet_named);
      $l_planet_named=str_replace("[planetname]",$planetinfo['name'],$l_planet_named);
-      echo "$l_planet_named<BR><BR>";
+      echo "$l_planet_named<br><br>";
     }
     if ($playerinfo['ship_id'] == $planetinfo['owner'])
     {
        if ($destroy==1 && $allow_genesis_destroy)
        {
           echo "<font color=red>$l_planet_confirm</font><br><A HREF=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
-          echo "<A HREF=planet.php?planet_id=$planet_id>no!</A><BR><br>";
+          echo "<A HREF=planet.php?planet_id=$planet_id>no!</A><br><br>";
        }
        elseif ($destroy==2 && $allow_genesis_destroy)
        {
@@ -159,7 +159,7 @@ if (!empty($planetinfo))
      $l_planet_name_link = "<a href=planet.php?planet_id=$planet_id&command=name>" . $l_planet_name_link . "</a>";
      $l_planet_name =str_replace("[name]",$l_planet_name_link,$l_planet_name2);
 
-     echo "$l_planet_name<BR>";
+     echo "$l_planet_name<br>";
 
      $l_planet_leave_link = "<a href=planet.php?planet_id=$planet_id&command=leave>" . $l_planet_leave_link . "</a>";
      $l_planet_leave=str_replace("[leave]",$l_planet_leave_link,$l_planet_leave);
@@ -170,20 +170,20 @@ if (!empty($planetinfo))
 
       if ($playerinfo['on_planet'] == 'Y' && $playerinfo['planet_id'] == $planet_id)
       {
-        echo "$l_planet_onsurface<BR>";
-        echo "$l_planet_leave<BR>";
+        echo "$l_planet_onsurface<br>";
+        echo "$l_planet_leave<br>";
         $l_planet_logout = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_planet_logout);
-        echo "$l_planet_logout<BR>";
+        echo "$l_planet_logout<br>";
       }
       else
       {
-        echo "$l_planet_orbit<BR>";
-        echo "$l_planet_land<BR>";
+        echo "$l_planet_orbit<br>";
+        echo "$l_planet_land<br>";
       }
 
       $l_planet_transfer_link="<a href=planet.php?planet_id=$planet_id&command=transfer>" . $l_planet_transfer_link . "</a>";
       $l_planet_transfer=str_replace("[transfer]",$l_planet_transfer_link,$l_planet_transfer);
-      echo "$l_planet_transfer<BR>";
+      echo "$l_planet_transfer<br>";
       if ($planetinfo['sells'] == "Y")
       {
         echo $l_planet_selling;
@@ -194,21 +194,21 @@ if (!empty($planetinfo))
       }
       $l_planet_tsell_link="<a href=planet.php?planet_id=$planet_id&command=sell>" . $l_planet_tsell_link ."</a>";
       $l_planet_tsell=str_replace("[selling]",$l_planet_tsell_link,$l_planet_tsell);
-      echo "$l_planet_tsell<BR>";
+      echo "$l_planet_tsell<br>";
       if ($planetinfo['base'] == "N")
       {
          $l_planet_bbase_link = "<a href=planet.php?planet_id=$planet_id&command=base>" . $l_planet_bbase_link . "</a>";
          $l_planet_bbase=str_replace("[build]",$l_planet_bbase_link,$l_planet_bbase);
-        echo "$l_planet_bbase<BR>";
+        echo "$l_planet_bbase<br>";
       }
       else
       {
-        echo "$l_planet_hasbase<BR>";
+        echo "$l_planet_hasbase<br>";
       }
 
       $l_planet_readlog_link="<a href=log.php>" . $l_planet_readlog_link ."</a>";
       $l_planet_readlog=str_replace("[View]",$l_planet_readlog_link,$l_planet_readlog);
-      echo "<BR>$l_planet_readlog<BR>";
+      echo "<br>$l_planet_readlog<br>";
 
       if ($playerinfo['ship_id'] == $planetinfo['owner'])
       {
@@ -218,13 +218,13 @@ if (!empty($planetinfo))
            {
            $l_planet_mcorp_linkC = "<a href=corp.php?planet_id=$planet_id&action=planetcorp>" . $l_planet_mcorp_linkC . "</a>";
            $l_planet_mcorp=str_replace("[planet]",$l_planet_mcorp_linkC,$l_planet_mcorp);
-         echo "$l_planet_mcorp<BR>";
+         echo "$l_planet_mcorp<br>";
        }
        else
        {
         $l_planet_mcorp_linkP = "<a href=corp.php?planet_id=$planet_id&action=planetpersonal>" . $l_planet_mcorp_linkP . "</a>";
         $l_planet_mcorp=str_replace("[planet]",$l_planet_mcorp_linkP,$l_planet_mcorp);
-        echo "$l_planet_mcorp<BR>";
+        echo "$l_planet_mcorp<br>";
        }
          }
       }
@@ -251,7 +251,7 @@ if (!empty($planetinfo))
       echo "<TD>n/a</TD><TD>*</TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=pfighters VALUE=\"$planetinfo[prod_fighters]\" SIZE=6 MAXLENGTH=6></TD>";
       echo "<TD><INPUT TYPE=TEXT NAME=ptorp VALUE=\"$planetinfo[prod_torp]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "</TABLE>$l_planet_interest<BR><BR>";
+      echo "</TABLE>$l_planet_interest<br><br>";
       echo "<INPUT TYPE=SUBMIT VALUE=$l_planet_update>";
       echo "</FORM>";
     }
@@ -262,11 +262,11 @@ if (!empty($planetinfo))
       {
         $l_planet_buy_link="<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
         $l_planet_buy=str_replace("[buy]",$l_planet_buy_link,$l_planet_buy);
-        echo "$l_planet_buy<BR>";
+        echo "$l_planet_buy<br>";
       }
       else
       {
-        echo "$l_planet_not_selling.<BR>";
+        echo "$l_planet_not_selling.<br>";
       }
 
       // Fix for corp member leaving a non corp planet
@@ -291,9 +291,9 @@ if (!empty($planetinfo))
           $l_planet_att=str_replace("[attack]",$l_planet_att_link,$l_planet_att);
           $l_planet_scn_link="<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
           $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
-          echo "$l_planet_att<BR>";
-          echo "$l_planet_scn<BR>";
-          if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
+          echo "$l_planet_att<br>";
+          echo "$l_planet_scn<br>";
+          if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
         }
       }
     }
@@ -306,12 +306,12 @@ if (!empty($planetinfo))
       if ($planetinfo['sells'] == "Y")
       {
         // Set planet to not sell
-        echo "$l_planet_nownosell<BR>";
+        echo "$l_planet_nownosell<br>";
         $result4 = $db->Execute("UPDATE $dbtables[planets] SET sells='N' WHERE planet_id=$planet_id");
       }
       else
       {
-        echo "$l_planet_nowsell<BR>";
+        echo "$l_planet_nowsell<br>";
         $result4b = $db->Execute ("UPDATE $dbtables[planets] SET sells='Y' WHERE planet_id=$planet_id");
       }
     }
@@ -320,8 +320,8 @@ if (!empty($planetinfo))
       // Name menu
       echo "<form action=\"planet.php?planet_id=$planet_id&command=cname\" method=\"post\">";
       echo "$l_planet_iname:  ";
-      echo "<input type=\"text\" name=\"new_name\" size=\"20\" maxlength=\"20\" value=\"$planetinfo[name]\"><BR><BR>";
-      echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\"><BR><BR>";
+      echo "<input type=\"text\" name=\"new_name\" size=\"20\" maxlength=\"20\" value=\"$planetinfo[name]\"><br><br>";
+      echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\"><br><br>";
       echo "</form>";
     }
     elseif ($command == "cname")
@@ -336,13 +336,13 @@ if (!empty($planetinfo))
     elseif ($command == "land")
     {
       // Land menu
-      echo "$l_planet_landed<BR><BR>";
+      echo "$l_planet_landed<br><br>";
       $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet='Y', planet_id=$planet_id WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif ($command == "leave")
     {
       // Leave menu
-      echo "$l_planet_left<BR><BR>";
+      echo "$l_planet_left<br><br>";
       $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif ($command == "transfer")
@@ -353,7 +353,7 @@ if (!empty($planetinfo))
       $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
       $l_planet_cinfo=str_replace("[cargo]",NUMBER($free_holds),$l_planet_cinfo);
       $l_planet_cinfo=str_replace("[energy]",NUMBER($free_power),$l_planet_cinfo);
-      echo "$l_planet_cinfo<BR><BR>";
+      echo "$l_planet_cinfo<br><br>";
       echo "<FORM ACTION=planet2.php?planet_id=$planet_id METHOD=POST>";
       echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
       echo"<TR BGCOLOR=\"$color_header\"><TD><B>$l_commodity</B></TD><TD><B>$l_planet</B></TD><TD><B>$l_ship</B></TD><TD><B>$l_planet_transfer_link</B></TD><TD><B>$l_planet_toplanet</B></TD><TD><B>$l_all?</B></TD></TR>";
@@ -365,7 +365,7 @@ if (!empty($planetinfo))
       echo"<TR BGCOLOR=\"$color_line2\"><TD>$l_fighters</TD><TD>" . NUMBER($planetinfo['fighters']) . "</TD><TD>" . NUMBER($playerinfo['ship_fighters']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_fighters SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpfighters VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allfighters VALUE=-1></TD></TR>";
       echo"<TR BGCOLOR=\"$color_line1\"><TD>$l_torps</TD><TD>" . NUMBER($planetinfo['torps']) . "</TD><TD>" . NUMBER($playerinfo['torps']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_torps SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tptorps VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=alltorps VALUE=-1></TD></TR>";
       echo"<TR BGCOLOR=\"$color_line2\"><TD>$l_credits</TD><TD>" . NUMBER($planetinfo['credits']) . "</TD><TD>" . NUMBER($playerinfo['credits']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_credits SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpcredits VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allcredits VALUE=-1></TD></TR>";
-      echo "</TABLE><BR>";
+      echo "</TABLE><br>";
       echo "<INPUT TYPE=SUBMIT VALUE=$l_planet_transfer_link>&nbsp;<INPUT TYPE=RESET VALUE=Reset>";
       echo "</FORM>";
     }
@@ -380,9 +380,9 @@ if (!empty($planetinfo))
         if ($_SESSION['planet_selected'] != $planet_id && $_SESSION['planet_selected'] != '')
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
-            echo "You need to Click on the planet first.<BR><BR>";
+            echo "You need to Click on the planet first.<br><br>";
             TEXT_GOTOMAIN();
-            include("footer.php");
+            include "footer.php";
             die();
         }
         unset($_SESSION['planet_selected']);
@@ -405,7 +405,7 @@ if (!empty($planetinfo))
                 $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
                 $planetinfo=$result3->fields;
                 // Notify User Of Base Results
-                echo "$l_planet_bbuild<BR><BR>";
+                echo "$l_planet_bbuild<br><br>";
                 // Calc Ownership and Notify User Of Results
                 $ownership = calc_ownership($playerinfo['sector']);
                 if (!empty($ownership))
@@ -420,7 +420,7 @@ if (!empty($planetinfo))
             $l_planet_baseinfo = str_replace("[base_ore]",$base_ore,$l_planet_baseinfo);
             $l_planet_baseinfo = str_replace("[base_organics]",$base_organics,$l_planet_baseinfo);
             $l_planet_baseinfo = str_replace("[base_goods]",$base_goods,$l_planet_baseinfo);
-            echo "$l_planet_baseinfo<BR><BR>";
+            echo "$l_planet_baseinfo<br><br>";
         }
     }
     elseif ($command == "productions")
@@ -436,21 +436,21 @@ if (!empty($planetinfo))
 
       if ($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
       {
-        echo "$l_planet_p_under<BR><BR>";
+        echo "$l_planet_p_under<br><br>";
       }
       elseif (($porganics + $pore + $pgoods + $penergy + $pfighters + $ptorp) > 100.0)
       {
-        echo "$l_planet_p_over<BR><BR>";
+        echo "$l_planet_p_over<br><br>";
       }
       else
       {
         $db->Execute("UPDATE $dbtables[planets] SET prod_ore=$pore,prod_organics=$porganics,prod_goods=$pgoods,prod_energy=$penergy,prod_fighters=$pfighters,prod_torp=$ptorp WHERE planet_id=$planet_id");
-        echo "$l_planet_p_changed<BR><BR>";
+        echo "$l_planet_p_changed<br><br>";
       }
     }
     else
     {
-      echo "$l_command_no<BR>";
+      echo "$l_command_no<br>";
     }
   }
   elseif (($planetinfo[planet_id] == $playerinfo[planet_id] && $playerinfo[on_planet] == "Y") && $planetinfo[corp] == 0) // Fix for corp member leaving a non corp planet
@@ -458,7 +458,7 @@ if (!empty($planetinfo))
     if ($command == "leave")
     {
       // Leave menu
-      echo "$l_planet_left<BR><BR>";
+      echo "$l_planet_left<br><br>";
 
       $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N', planet_id = 0 WHERE ship_id=$playerinfo[ship_id]");
       $l_global_mmenu=str_replace("[here]","<a href='main.php'>" . $l_here . "</a>",$l_global_mmenu);
@@ -486,11 +486,11 @@ if (!empty($planetinfo))
         echo "<tr><td>$l_goods</td><td>$planetinfo[goods]</td><td>$goods_price</td><td><input type=text name=trade_goods size=10 maxlength=20 value=0></td><td>$playerinfo[ship_goods]</td></tr>";
         echo "<tr><td>$l_energy</td><td>$planetinfo[energy]</td><td>$energy_price</td><td><input type=text name=trade_energy size=10 maxlength=20 value=0></td><td>$playerinfo[ship_energy]</td></tr>";
         echo "</table>";
-        echo "<input type=submit value=$l_submit><input type=reset value=$l_reset><BR></form>";
+        echo "<input type=submit value=$l_submit><input type=reset value=$l_reset><br></form>";
       }
       else
       {
-        echo "$l_planet_not_selling<BR>";
+        echo "$l_planet_not_selling<br>";
       }
     }
     elseif ($command == "attac")
@@ -499,9 +499,9 @@ if (!empty($planetinfo))
         if ($_SESSION['planet_selected'] != $planet_id)
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
-            echo "You need to Click on the planet first.<BR><BR>";
+            echo "You need to Click on the planet first.<br><br>";
             TEXT_GOTOMAIN();
-            include("footer.php");
+            include "footer.php";
             die();
         }
 
@@ -510,11 +510,11 @@ if (!empty($planetinfo))
         {
             $l_planet_buy_link="<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
             $l_planet_buy=str_replace("[buy]",$l_planet_buy_link,$l_planet_buy);
-            echo "$l_planet_buy<BR>";
+            echo "$l_planet_buy<br>";
         }
         else
         {
-            echo "$l_planet_not_selling<BR>";
+            echo "$l_planet_not_selling<br>";
         }
 
         $retOwnerInfo = NULL;
@@ -532,9 +532,9 @@ if (!empty($planetinfo))
                 $l_planet_att=str_replace("[attack]",$l_planet_att_link,$l_planet_att);
                 $l_planet_scn_link="<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
                 $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
-                echo "$l_planet_att <b>$l_planet_att_sure</b><BR>";
-                echo "$l_planet_scn<BR>";
-                if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><BR>";
+                echo "$l_planet_att <b>$l_planet_att_sure</b><br>";
+                echo "$l_planet_scn<br>";
+                if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
             }
         }
 
@@ -545,9 +545,9 @@ if (!empty($planetinfo))
         if ($_SESSION['planet_selected'] != $planet_id)
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
-            echo "You need to Click on the planet first.<BR><BR>";
+            echo "You need to Click on the planet first.<br><br>";
             TEXT_GOTOMAIN();
-            include("footer.php");
+            include "footer.php";
             die();
         }
         unset($_SESSION['planet_selected']);
@@ -574,19 +574,19 @@ if (!empty($planetinfo))
       {
                $l_planet_buy_link="<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
                $l_planet_buy=str_replace("[buy]",$l_planet_buy_link,$l_planet_buy);
-        echo "$l_planet_buy<BR>";
+        echo "$l_planet_buy<br>";
       }
       else
       {
-        echo "$l_planet_not_selling<BR>";
+        echo "$l_planet_not_selling<br>";
       }
        $l_planet_att_link="<a href=planet.php?planet_id=$planet_id&command=attac>" . $l_planet_att_link ."</a>";
        $l_planet_att=str_replace("[attack]",$l_planet_att_link,$l_planet_att);
        $l_planet_scn_link="<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
        $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
-      echo "$l_planet_att<BR>";
-      echo "$l_planet_scn<BR>";
-    echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><b>$l_planet_att_sure</b><BR>";
+      echo "$l_planet_att<br>";
+      echo "$l_planet_scn<br>";
+    echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><b>$l_planet_att_sure</b><br>";
 
     }
     elseif ($command == "bomb" && $sofa_on)
@@ -600,9 +600,9 @@ if (!empty($planetinfo))
         if ($_SESSION['planet_selected'] != $planet_id)
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
-            echo "You need to Click on the planet first.<BR><BR>";
+            echo "You need to Click on the planet first.<br><br>";
             TEXT_GOTOMAIN();
-            include("footer.php");
+            include "footer.php";
             die();
         }
         unset($_SESSION['planet_selected']);
@@ -610,9 +610,9 @@ if (!empty($planetinfo))
       // Scan menu
       if ($playerinfo[turns] < 1)
       {
-        echo "$l_plant_scn_turn<BR><BR>";
+        echo "$l_plant_scn_turn<br><br>";
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
       }
       // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
@@ -629,10 +629,10 @@ if (!empty($planetinfo))
       if ($roll > $success)
       {
         // If scan fails - inform both player and target.
-        echo "$l_planet_noscan<BR><BR>";
+        echo "$l_planet_noscan<br><br>";
         TEXT_GOTOMAIN();
         playerlog($ownerinfo[ship_id], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-        include("footer.php");
+        include "footer.php";
         die();
       }
       else
@@ -644,7 +644,7 @@ if (!empty($planetinfo))
            $planetinfo[name] = $l_unnamed;
         $l_planet_scn_report=str_replace("[name]",$planetinfo[name],$l_planet_scn_report);
         $l_planet_scn_report=str_replace("[owner]",$ownerinfo[character_name],$l_planet_scn_report);
-        echo "$l_planet_scn_report<BR><BR>";
+        echo "$l_planet_scn_report<br><br>";
         echo "<table>";
         echo "<tr><td>$l_commodities:</td><td></td>";
         echo "<tr><td>$l_organics:</td>";
@@ -779,11 +779,11 @@ if (!empty($planetinfo))
         {
           echo "<td>???</td></tr>";
         }
-        echo "</table><BR>";
+        echo "</table><br>";
 //         $roll=rand(1, 100);
 //         if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //         {
-//           echo "<B>$ownerinfo[character_name] $l_planet_ison</B><BR>";
+//           echo "<B>$ownerinfo[character_name] $l_planet_ison</B><br>";
 //         }
 
        $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE on_planet = 'Y' and planet_id = $planet_id");
@@ -804,7 +804,7 @@ if (!empty($planetinfo))
 
          if ($roll < $success)
          {
-           echo "<B>$row[character_name] $l_planet_ison</B><BR>";
+           echo "<B>$row[character_name] $l_planet_ison</B><br>";
          }
          $res->MoveNext();
        }
@@ -815,7 +815,7 @@ if (!empty($planetinfo))
     }
     elseif ($command == "capture" &&  $planetinfo[owner] == 0)
     {
-      echo "$l_planet_captured<BR>";
+      echo "$l_planet_captured<br>";
       $update = $db->Execute("UPDATE $dbtables[planets] SET corp=0, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
       $ownership = calc_ownership($playerinfo[sector]);
 
@@ -841,12 +841,12 @@ if (!empty($planetinfo))
     }
     elseif ($command == "capture" &&  ($planetinfo[owner] == 0 || $planetinfo[defeated] == 'Y'))
     {
-      echo "$l_planet_notdef<BR>";
+      echo "$l_planet_notdef<br>";
       $db->Execute("UPDATE $dbtables[planets] SET defeated='N' WHERE planet_id=$planetinfo[planet_id]");
     }
     else
     {
-      echo "$l_command_no<BR>";
+      echo "$l_command_no<br>";
     }
   }
 }
@@ -856,16 +856,14 @@ else
 }
 if ($command != "")
 {
-  echo "<BR><a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<BR><BR>";
+  echo "<br><a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<br><br>";
 }
 if ($allow_ibank)
 {
-  echo "$l_ifyouneedplan <A HREF=\"igb.php?planet_id=$planet_id\">$l_igb_term</A>.<BR><BR>";
+  echo "$l_ifyouneedplan <A HREF=\"igb.php?planet_id=$planet_id\">$l_igb_term</A>.<br><br>";
 }
 echo "<A HREF =\"bounty.php\">$l_by_placebounty</A><p>";
 
 TEXT_GOTOMAIN();
-
-include("footer.php");
-
+include "footer.php";
 ?>

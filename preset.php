@@ -17,11 +17,11 @@
 //
 // File: preset.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_pre_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_pre_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -77,5 +77,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

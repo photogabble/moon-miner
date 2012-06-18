@@ -17,12 +17,12 @@
 //
 // File: device.php
 
-include("config.php");
+include "config.php";
 updatecookie();
 
-include("languages/$lang");
-$title=$l_device_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_device_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -72,6 +72,6 @@ echo "<BR>";
 
 TEXT_GOTOMAIN();
 
-include("footer.php");
+include "footer.php";
 
 ?>

@@ -27,8 +27,8 @@ if (preg_match("/sched_xenobe.php/i", $_SERVER['PHP_SELF']))
 echo "<BR><B>Xenobe TURNS</B><BR><BR>";
 
 // INCLUDE FUNCTIONS
-include_once("xenobe_funcs.php");
-include_once("languages/$lang");
+include_once "xenobe_funcs.php";
+include_once "languages/$lang";
 global $targetlink;
 global $xenobeisdead;
 

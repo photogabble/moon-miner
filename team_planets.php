@@ -17,11 +17,11 @@
 //
 // File: team_planets.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_teamplanet_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_teamplanet_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -34,11 +34,11 @@ $playerinfo = $res->fields;
 
 if ($playerinfo[team]==0)
 {
-    echo "<BR>$l_teamplanet_notally";
-    echo "<BR><BR>";
+    echo "<br>$l_teamplanet_notally";
+    echo "<br><br>";
     TEXT_GOTOMAIN();
 
-    include("footer.php");
+    include "footer.php";
     return;
 }
 
@@ -68,10 +68,10 @@ if (!empty($sort))
 $res = $db->Execute($query);
 bigtitle();
 
-echo "<BR>";
-echo "<B><A HREF=planet_report.php>$l_teamplanet_personal</A></B>";
-echo "<BR>";
-echo "<BR>";
+echo "<br>";
+echo "<b><A HREF=planet_report.php>$l_teamplanet_personal</a></b>";
+echo "<br>";
+echo "<br>";
 
 $i = 0;
 if ($res)
@@ -87,25 +87,25 @@ if ($res)
 $num_planets = $i;
 if ($num_planets < 1)
 {
-    echo "<BR>$l_teamplanet_noplanet";
+    echo "<br>$l_teamplanet_noplanet";
 }
 else
 {
-    echo "$l_pr_clicktosort<BR><BR>";
+    echo "$l_pr_clicktosort<br><br>";
     echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
     echo "<TR BGCOLOR=\"$color_header\">";
-    echo "<TD><B><A HREF=team_planets.php?sort=sector>$l_sector</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=name>$l_name</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=ore>$l_ore</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=organics>$l_organics</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=goods>$l_goods</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=energy>$l_energy</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=colonists>$l_colonists</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=credits>$l_credits</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=fighters>$l_fighters</A></B></TD>";
-    echo "<TD><B><A HREF=team_planets.php?sort=torp>$l_torps</A></B></TD>";
-    echo "<TD><B>$l_base?</B></TD><TD><B>$l_selling?</B></TD>";
-    echo "<TD><B>Player</B></TD>";
+    echo "<td><b><A HREF=team_planets.php?sort=sector>$l_sector</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=name>$l_name</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=ore>$l_ore</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=organics>$l_organics</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=goods>$l_goods</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=energy>$l_energy</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=colonists>$l_colonists</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=credits>$l_credits</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=fighters>$l_fighters</a></b></td>";
+    echo "<td><b><A HREF=team_planets.php?sort=torp>$l_torps</a></b></td>";
+    echo "<td><b>$l_base?</b></td><td><b>$l_selling?</b></td>";
+    echo "<td><b>Player</b></td>";
     echo "</TR>";
     $total_organics = 0;
     $total_ore = 0;
@@ -147,19 +147,19 @@ else
         $player = $res->fields[character_name];
 
         echo "<TR BGCOLOR=\"$color\">";
-        echo "<TD><A HREF=rsmove.php?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</A></TD>";
-        echo "<TD>" . $planet[$i][name]              . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][ore])       . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][organics])  . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][goods])     . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][energy])    . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][colonists]) . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][credits])   . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][fighters])  . "</TD>";
-        echo "<TD>" . NUMBER($planet[$i][torps])     . "</TD>";
-        echo "<TD>" . ($planet[$i][base] == 'Y' ? "$l_yes" : "$l_no") . "</TD>";
-        echo "<TD>" . ($planet[$i][sells] == 'Y' ? "$l_yes" : "$l_no") . "</TD>";
-        echo "<TD>" . $player                        . "</TD>";
+        echo "<td><A HREF=rsmove.php?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</a></td>";
+        echo "<td>" . $planet[$i][name]              . "</td>";
+        echo "<td>" . NUMBER($planet[$i][ore])       . "</td>";
+        echo "<td>" . NUMBER($planet[$i][organics])  . "</td>";
+        echo "<td>" . NUMBER($planet[$i][goods])     . "</td>";
+        echo "<td>" . NUMBER($planet[$i][energy])    . "</td>";
+        echo "<td>" . NUMBER($planet[$i][colonists]) . "</td>";
+        echo "<td>" . NUMBER($planet[$i][credits])   . "</td>";
+        echo "<td>" . NUMBER($planet[$i][fighters])  . "</td>";
+        echo "<td>" . NUMBER($planet[$i][torps])     . "</td>";
+        echo "<td>" . ($planet[$i][base] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
+        echo "<td>" . ($planet[$i][sells] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
+        echo "<td>" . $player                        . "</td>";
         echo "</TR>";
 
         if ($color == $color_line1)
@@ -173,24 +173,24 @@ else
     }
 
     echo "<TR BGCOLOR=\"$color\">";
-    echo "<TD></TD>";
-    echo "<TD>$l_pr_totals</TD>";
-    echo "<TD>" . NUMBER($total_ore) . "</TD>";
-    echo "<TD>" . NUMBER($total_organics) . "</TD>";
-    echo "<TD>" . NUMBER($total_goods) . "</TD>";
-    echo "<TD>" . NUMBER($total_energy) . "</TD>";
-    echo "<TD>" . NUMBER($total_colonists) . "</TD>";
-    echo "<TD>" . NUMBER($total_credits) . "</TD>";
-    echo "<TD>" . NUMBER($total_fighters) . "</TD>";
-    echo "<TD>" . NUMBER($total_torp) . "</TD>";
-    echo "<TD>" . NUMBER($total_base) . "</TD>";
-    echo "<TD>" . NUMBER($total_selling) . "</TD>";
-    echo "<TD></TD>";
+    echo "<td></td>";
+    echo "<td>$l_pr_totals</td>";
+    echo "<td>" . NUMBER($total_ore) . "</td>";
+    echo "<td>" . NUMBER($total_organics) . "</td>";
+    echo "<td>" . NUMBER($total_goods) . "</td>";
+    echo "<td>" . NUMBER($total_energy) . "</td>";
+    echo "<td>" . NUMBER($total_colonists) . "</td>";
+    echo "<td>" . NUMBER($total_credits) . "</td>";
+    echo "<td>" . NUMBER($total_fighters) . "</td>";
+    echo "<td>" . NUMBER($total_torp) . "</td>";
+    echo "<td>" . NUMBER($total_base) . "</td>";
+    echo "<td>" . NUMBER($total_selling) . "</td>";
+    echo "<td></td>";
     echo "</TR>";
     echo "</TABLE>";
 }
 
-echo "<BR><BR>";
+echo "<br><br>";
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

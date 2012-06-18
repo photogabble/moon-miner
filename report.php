@@ -17,11 +17,11 @@
 //
 // File: report.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_report_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_report_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -117,6 +117,6 @@ echo "<p align=center>";
 echo "<img src=\"images/$shiptypes[$shiplevel]\" border=0></p>";
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>
 

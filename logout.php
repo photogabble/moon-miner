@@ -17,16 +17,16 @@
 //
 // File: logout.php
 
-include("config.php");
-include("languages/$lang");
-$title=$l_logout;
+include "config.php";
+include "languages/$lang";
+$title = $l_logout;
 setcookie("userpass","",0,$gamepath,$gamedomain);
 setcookie("userpass","",0); // Delete from default path as well.
 setcookie("username","",0); // Legacy support, delete the old login cookies.
 setcookie("password","",0); // Legacy support, delete the old login cookies.
 setcookie("id","",0);
 setcookie("res","",0);
-include("header.php");
+include "header.php";
 $current_score = 0;
 
 if (!isset($username))
@@ -42,10 +42,10 @@ else
 }
 
 bigtitle();
-echo "$l_logout_score $current_score.<BR>";
-$l_logout_text=str_replace("[name]",$username,$l_logout_text);
-$l_logout_text=str_replace("[here]","<a href='index.php'>" . $l_here . "</a>",$l_logout_text);
+echo $l_logout_score $current_score . ".<br>";
+$l_logout_text = str_replace("[name]", $username, $l_logout_text);
+$l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
 echo $l_logout_text;
 
-include("footer.php");
+include "footer.php";
 ?>

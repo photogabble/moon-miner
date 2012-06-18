@@ -17,12 +17,12 @@
 //
 // File: readmail.php
 
-include("config.php");
+include "config.php";
 updatecookie();
 
-include("languages/$lang");
-$title=$l_readm_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_readm_title;
+include "header.php";
 
 bigtitle();
 
@@ -208,5 +208,5 @@ if ($isAdmin === true)
 
 TEXT_GOTOMAIN();
 
-include("footer.php");
+include "footer.php";
 ?>

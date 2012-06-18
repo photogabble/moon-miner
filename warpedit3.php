@@ -17,11 +17,11 @@
 //
 // File: warpedit3.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_warp_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_warp_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -29,31 +29,31 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
-if ($playerinfo[turns] < 1)
+if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
-if ($playerinfo[dev_warpedit] < 1)
+if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
 $res = $db->Execute("SELECT allow_warpedit,$dbtables[universe].zone_id FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[universe].zone_id=$dbtables[zones].zone_id");
 $zoneinfo = $res->fields;
-if ($zoneinfo[allow_warpedit] == 'N')
+if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -69,7 +69,7 @@ if ($zoneinfo[allow_warpedit] == 'N' && $bothway)
     $l_warp_forbidtwo = str_replace("[target_sector]", $target_sector, $l_warp_forbidtwo);
     echo $l_warp_forbidtwo . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -88,7 +88,7 @@ if ($result3 > 0)
     while (!$result3->EOF)
     {
         $row = $result3->fields;
-        if ($target_sector == $row[link_dest])
+        if ($target_sector == $row['link_dest'])
         {
             $flag = 1;
         }
@@ -116,5 +116,5 @@ if ($result3 > 0)
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

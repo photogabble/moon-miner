@@ -23,14 +23,18 @@ are generated in the server's default language. The news text
 will have to be removed from the database for the next version
 ************************************************************/
 
-if (preg_match("/sched_news.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/sched_news.php/i", $_SERVER['PHP_SELF']))
+{
     echo "You can not access this file directly!";
     die();
 }
+
 global $default_lang;
-include("languages/$default_lang" .".inc");
-echo "<B>Posting News</B><BR><BR>";
-// generation of planet amount
+include "languages/$default_lang" .".inc";
+
+echo "<b>Posting News</b><br><br>";
+
+// Generation of planet amount
 $sql = $db->Execute("select count(owner) as amount, owner from $dbtables[planets] where owner !='0' group by owner order by amount ASC");
 
 while (!$sql->EOF)

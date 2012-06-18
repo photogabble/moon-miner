@@ -17,13 +17,13 @@
 //
 // File: xenobe_control.php
 
-include("config.php");
+include "config.php";
 updatecookie();
 
-include("languages/$lang");
+include "languages/$lang";
 
-$title=$l_ai_control;
-include("header.php");
+$title = $l_ai_control;
+include "header.php";
 
 connectdb();
 bigtitle();
@@ -541,6 +541,6 @@ else
   }
 }
 
-include("footer.php");
+include "footer.php";
 
 ?>

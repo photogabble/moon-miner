@@ -17,11 +17,11 @@
 //
 // File: navcomp.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_nav_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_nav_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -32,9 +32,9 @@ bigtitle();
 
 if (!$allow_navcomp)
 {
-    echo "$l_nav_nocomp<BR><BR>";
+    echo $l_nav_nocomp . "<br><br>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
@@ -42,17 +42,18 @@ if (!isset($_GET['state']))
 {
     $_GET['state'] = '';
 }
+
 $state = $_GET['state'];
 
 unset($stop_sector);
 
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$current_sector'");
-$sectorinfo=$result2->fields;
+$sectorinfo = $result2->fields;
 
 // Gets the stop_sector POST Variable.
 // Validats the post variable as a number.
@@ -67,9 +68,10 @@ if (isset($_POST['stop_sector']))
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
     }
+
     $stop_sector = (int)$stop_sector;
 }
 else
@@ -176,10 +178,10 @@ elseif ($state == 1)
     }
     else
     {
-        echo "$l_nav_proper<BR><BR>";
+        echo "$l_nav_proper . "<br><br>";
     }
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

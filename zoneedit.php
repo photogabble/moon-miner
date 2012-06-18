@@ -17,11 +17,11 @@
 //
 // File: zoneedit.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_ze_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_ze_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -37,7 +37,7 @@ if ($res->EOF)
 }
 $curzone = $res->fields;
 
-if ($curzone[corp_zone] == 'N')
+if ($curzone['corp_zone'] == 'N')
 {
     $result = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
     $ownerinfo = $result->fields;
@@ -48,7 +48,7 @@ else
     $ownerinfo = $result->fields;
 }
 
-if (($curzone[corp_zone] == 'N' && $curzone[owner] != $ownerinfo[ship_id]) || ($curzone[corp_zone] == 'Y' && $curzone[owner] != $ownerinfo[id] && $row[owner] == $ownerinfo[creator]))
+if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id']) || ($curzone['corp_zone'] == 'Y' && $curzone['owner'] != $ownerinfo['id'] && $row['owner'] == $ownerinfo['creator']))
 {
     zoneedit_die($l_ze_notowner);
 }
@@ -58,11 +58,11 @@ if ($command == change)
     zoneedit_change();
 }
 
-if ($curzone[allow_beacon] == 'Y')
+if ($curzone['allow_beacon'] == 'Y')
 {
     $ybeacon = "checked";
 }
-elseif ($curzone[allow_beacon] == 'N')
+elseif ($curzone['allow_beacon'] == 'N')
 {
     $nbeacon = "checked";
 }
@@ -71,7 +71,7 @@ else
     $lbeacon = "checked";
 }
 
-if ($curzone[allow_attack] == 'Y')
+if ($curzone['allow_attack'] == 'Y')
 {
     $yattack = "checked";
 }
@@ -80,11 +80,11 @@ else
     $nattack = "checked";
 }
 
-if ($curzone[allow_warpedit] == 'Y')
+if ($curzone['allow_warpedit'] == 'Y')
 {
     $ywarpedit = "checked";
 }
-elseif ($curzone[allow_warpedit] == 'N')
+elseif ($curzone['allow_warpedit'] == 'N')
 {
     $nwarpedit = "checked";
 }
@@ -93,11 +93,11 @@ else
     $lwarpedit = "checked";
 }
 
-if ($curzone[allow_planet] == 'Y')
+if ($curzone['allow_planet'] == 'Y')
 {
     $yplanet = "checked";
 }
-elseif ($curzone[allow_planet] == 'N')
+elseif ($curzone['allow_planet'] == 'N')
 {
     $nplanet = "checked";
 }
@@ -106,11 +106,11 @@ else
     $lplanet = "checked";
 }
 
-if ($curzone[allow_trade] == 'Y')
+if ($curzone['allow_trade'] == 'Y')
 {
     $ytrade = "checked";
 }
-elseif ($curzone[allow_trade] == 'N')
+elseif ($curzone['allow_trade'] == 'N')
 {
     $ntrade = "checked";
 }
@@ -119,11 +119,11 @@ else
     $ltrade = "checked";
 }
 
-if ($curzone[allow_defenses] == 'Y')
+if ($curzone['allow_defenses'] == 'Y')
 {
     $ydefense = "checked";
 }
-elseif ($curzone[allow_defenses] == 'N')
+elseif ($curzone['allow_defenses'] == 'N')
 {
     $ndefense = "checked";
 }
@@ -162,7 +162,7 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
 echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
 TEXT_GOTOMAIN();
 
-include("footer.php");
+include "footer.php";
 
 function zoneedit_change()
 {
@@ -183,19 +183,19 @@ function zoneedit_change()
     }
 
     $db->Execute("UPDATE $dbtables[zones] SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
-    echo "$l_ze_saved<p>";
-    echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
+    echo $l_ze_saved . "<p>";
+    echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();
 
-    include("footer.php");
+    include "footer.php";
     die();
 }
 
 function zoneedit_die($error_msg)
 {
-    echo "<p>$error_msg<p>";
+    echo "<p>" . $error_msg . "<p>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include "footer.php";
     die();
 }
 ?>

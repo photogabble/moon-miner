@@ -17,11 +17,11 @@
 //
 // File: news.php
 
-include("config.php");
-include("includes/newsservices.php");
-include("languages/$lang");
-$title=$l_news_title;
-include("header.php");
+include "config.php";
+include "includes/newsservices.php";
+include "languages/$lang";
+$title = $l_news_title;
+include "header.php";
 
 if ((!isset($_GET['startdate'])) || ($_GET['startdate'] == ''))
 {
@@ -86,5 +86,4 @@ echo "<div style=\"height:16px;\"></div>\n";
 
 TEXT_GOTOMAIN();
 die();
-
 ?>

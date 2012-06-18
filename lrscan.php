@@ -17,11 +17,11 @@
 //
 // File: lrscan.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_lrs_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_lrs_title;
+include "header.php";
 if (checklogin())
 {
     die();
@@ -42,9 +42,9 @@ if ($sector == "*")
 {
     if (!$allow_fullscan)
     {
-        echo "$l_lrs_nofull<BR><BR>";
+        echo $l_lrs_nofull . "<br><br>";
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
     }
     if ($playerinfo['turns'] < $fullscan_cost)
@@ -52,7 +52,7 @@ if ($sector == "*")
         $l_lrs_noturns=str_replace("[turns]",$fullscan_cost,$l_lrs_noturns);
         echo $l_lrs_noturns . "<br><br>";
         TEXT_GOTOMAIN();
-        include("footer.php");
+        include "footer.php";
         die();
     }
 
@@ -369,8 +369,8 @@ echo $link_bnthelper_string;
 echo $port_bnthelper_string;
 echo $planet_bnthelper_string;
 echo $rspace_bnthelper_string;
-echo "<BR><BR>";
+echo "<br><br>";
 TEXT_GOTOMAIN();
 
-include("footer.php");
+include "footer.php";
 ?>

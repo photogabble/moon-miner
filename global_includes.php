@@ -18,10 +18,10 @@
 // File: global_includes.php
 
 // Define needed variables for the database, and include the adodb library to allow us DB access
-require_once("db_config.php");
-include("$ADOdbpath" . "/adodb.inc.php");
+require_once "db_config.php";
+include $ADOdbpath . "/adodb.inc.php";
 
-require_once("./includes/timer.php");
-require_once("global_funcs.php");
-require_once("global_cleanups.php");
+require_once "./includes/timer.php";
+require_once "global_funcs.php";
+require_once "global_cleanups.php";
 ?>

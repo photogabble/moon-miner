@@ -1,11 +1,29 @@
 <?php
-include("config.php");
-updatecookie();
-include("languages/$lang");
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Affero General Public License as
+//  published by the Free Software Foundation, either version 3 of the
+//  License, or (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Affero General Public License for more details.
+//
+//  You should have received a copy of the GNU Affero General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+// File: ranking.php
 
-$l_ranks_title=str_replace("[max_ranks]",$max_ranks,$l_ranks_title);
-$title=$l_ranks_title;
-include("header.php");
+include "config.php";
+updatecookie();
+include "languages/$lang";
+
+$l_ranks_title = str_replace("[max_ranks]", $max_ranks, $l_ranks_title);
+$title = $l_ranks_title;
+include "header.php";
 bigtitle();
 
 $res = $db->Execute("SELECT COUNT(*) AS num_players FROM $dbtables[ships] WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe'");
@@ -51,12 +69,12 @@ $res = $db->Execute("SELECT $dbtables[ships].email,$dbtables[ships].score,$dbtab
 
 if (!$res)
 {
-    echo "$l_ranks_none<BR>";
+    echo "$l_ranks_none<br>";
 }
 else
 {
-    echo "<BR>$l_ranks_pnum: " . NUMBER($num_players);
-    echo "<BR>$l_ranks_dships<BR><BR>";
+    echo "<br>$l_ranks_pnum: " . NUMBER($num_players);
+    echo "<br>$l_ranks_dships<br><br>";
     echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
     echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_ranks_rank</B></TD><TD><B><A HREF=\"ranking.php\">$l_score</A></B></TD><TD><B>$l_player</B></TD><TD><B><A HREF=\"ranking.php?sort=turns\">$l_turns_used</A></B></TD><TD><B><A HREF=\"ranking.php?sort=login\">$l_ranks_lastlog</A></B></TD><TD><B><A HREF=\"ranking.php?sort=good\">$l_ranks_good</A>/<A HREF=\"ranking.php?sort=bad\">$l_ranks_evil</A></B></TD><TD><B><A HREF=\"ranking.php?sort=team\">$l_team_team</A></B></TD><TD><B><A HREF=\"ranking.php?sort=online\">Online</A></B></TD><TD><B><A HREF=\"ranking.php?sort=efficiency\">Eff. Rating.</A></B></TD></TR>\n";
     $color = $color_line1;
@@ -105,7 +123,7 @@ else
     echo "</TABLE>";
 }
 
-echo "<BR>";
+echo "<br>";
 
 if (empty($username))
 {
@@ -116,5 +134,5 @@ else
     TEXT_GOTOMAIN();
 }
 
-include("footer.php");
+include "footer.php";
 ?>

@@ -17,12 +17,13 @@
 //
 // File: option2.php
 
-include("config.php");
+include "config.php";
 if (checklogin())
 {
     die();
 }
-$title=$l_opt2_title;
+
+$title = $l_opt2_title;
 
 if ($intrf == "N")
 {
@@ -47,10 +48,10 @@ if (!preg_match("/^[\w]+$/", $newlang))
     $newlang = $default_lang;
 }
 
-$lang=$newlang;
-SetCookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
-include("languages/$lang" . ".inc");
-include("header.php");
+$lang = $newlang;
+SetCookie ("lang", $lang, time()+(3600*24)*365, $gamepath, $gamedomain);
+include "languages/$lang" . ".inc";
+include "header.php";
 bigtitle();
 
 if ($newpass1 == "" && $newpass2 == "")
@@ -124,5 +125,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

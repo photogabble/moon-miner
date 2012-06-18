@@ -17,11 +17,11 @@
 //
 // File: corp.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_corpm_title;;
-include("header.php");
+include "languages/$lang";
+$title = $l_corpm_title;
+include "header.php" ;
 
 if (checklogin())
 {
@@ -29,14 +29,14 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
 $planet_id = stripnum($planet_id);
 
 $result2 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
 if ($result2)
 {
-    $planetinfo=$result2->fields;
+    $planetinfo = $result2->fields;
 }
 
 if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playerinfo[team] && $playerinfo[team] > 0))
@@ -44,7 +44,7 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
     bigtitle();
     if ($action == "planetcorp")
     {
-        echo ("$l_corpm_tocorp<BR>");
+        echo $l_corpm_tocorp . "<br>";
         $result = $db->Execute("UPDATE $dbtables[planets] SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         $ownership = calc_ownership($playerinfo[sector]);
         if (!empty($ownership))
@@ -62,16 +62,16 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
         $result = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
         if (!empty($ownership))
         {
-            echo "<p>$ownership<p>";
+            echo "<p>" . $ownership . "<p>";
         }
     }
     TEXT_GOTOMAIN();
 }
 else
 {
-    echo ("<BR>$l_corpm_exploit<BR>");
+    echo "<br>" . $l_corpm_exploit . "<br>";
     TEXT_GOTOMAIN();
 }
 
-include("footer.php");
+include "footer.php";
 ?>

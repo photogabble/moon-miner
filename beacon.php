@@ -17,11 +17,11 @@
 //
 // File: beacon.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_beacon_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_beacon_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -29,10 +29,10 @@ if (checklogin())
 }
 
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
-$sectorinfo=$result2->fields;
+$sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
 
@@ -104,9 +104,9 @@ if ($playerinfo['dev_beacon'] > 0)
 }
 else
 {
-    echo "$l_beacon_donthave<BR><BR>";
+    echo $l_beacon_donthave . "<br><br>";
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

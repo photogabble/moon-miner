@@ -22,7 +22,7 @@ if (preg_match("/check_fighters.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-include("languages/$lang");
+include "languages/$lang";
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$sector'");
 // Put the sector information into the array "sectorinfo"
@@ -60,7 +60,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             case "fight":
                 $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 bigtitle();
-                include("sector_fighters.php");
+                include "sector_fighters.php";
                 break;
 
             case "retreat":
@@ -113,7 +113,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     // Sector defences detect incoming ship
                     bigtitle();
                     echo "$l_chf_thefightersdetectyou<BR>";
-                    include("sector_fighters.php");
+                    include "sector_fighters.php";
                     break;
                 }
                 else

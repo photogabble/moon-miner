@@ -17,9 +17,9 @@
 //
 // File: settings.php
 
-include("config.php");
-include("languages/$lang");
-include("header.php");
+include "config.php";
+include "languages/$lang";
+include "header.php";
 
 $line_color = $color_line1;
 
@@ -319,6 +319,6 @@ else
   TEXT_GOTOMAIN();
 }
 
-include("footer.php");
+include "footer.php";
 
 ?>

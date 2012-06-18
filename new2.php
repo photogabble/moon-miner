@@ -17,10 +17,12 @@
 //
 // File: new2.php
 
-include("config.php");
+include "config.php";
+
 // Added these variables for future reference- we'll move em to config values
 // *eventually* - the goal will be to move "start up" config values to some other location
 // where we will only include them where needed - why include em every page load, when they are used maybe 1% of the time?
+
 $start_lssd = 'N';  // Do ships start with an lssd ?
 $start_editors = 0;// Starting warp editors
 $start_minedeflectors = 0;// Start mine deflectors
@@ -30,19 +32,20 @@ $start_genesis = 0; // Starting genesis torps
 $escape = 'N';  // Start game equip[[ped with escape pod?]]
 $scoop = 'N';  // Start game equipped with fuel scoop?
 
-include("languages/$lang");
-$title=$l_new_title2;
-include("header.php");
+include "languages/$lang";
+$title = $l_new_title2;
+include "header.php";
 bigtitle();
 
 if ($account_creation_closed)
 {
     die($l_new_closed_message);
 }
-$character=htmlspecialchars($character);
-$shipname=htmlspecialchars($shipname);
-$character=preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
-$shipname=preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
+
+$character = htmlspecialchars($character);
+$shipname = htmlspecialchars($shipname);
+$character = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
+$shipname = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
 
 // $username = $_POST['username']; // This needs to STAY before the db query
 
@@ -54,7 +57,8 @@ if (!get_magic_quotes_gpc())
 }
 
 $result = $db->Execute ("select email, character_name, ship_name from $dbtables[ships] where email='$username' OR character_name='$character' OR ship_name='$shipname'");
-$flag=0;
+$flag = 0;
+
 if ($username=='' || $character=='' || $shipname=='' )
 {
     echo "$l_new_blank<BR>"; $flag=1;

@@ -17,11 +17,11 @@
 //
 // File: rsmove.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_rs_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_rs_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -69,9 +69,9 @@ if (!isset($destination))
   echo "<FORM ACTION=rsmove.php METHOD=POST>";
   $l_rs_insector=str_replace("[sector]",$playerinfo['sector'],$l_rs_insector);
   $l_rs_insector=str_replace("[sector_max]",$sector_max-1,$l_rs_insector);
-  echo "$l_rs_insector<BR><BR>";
-  echo "$l_rs_whichsector:  <INPUT TYPE=TEXT NAME=destination SIZE=10 MAXLENGTH=10><BR><BR>";
-  echo "<INPUT TYPE=SUBMIT VALUE=$l_rs_submit><BR><BR>";
+  echo "$l_rs_insector<br><br>";
+  echo "$l_rs_whichsector:  <INPUT TYPE=TEXT NAME=destination SIZE=10 MAXLENGTH=10><br><br>";
+  echo "<INPUT TYPE=SUBMIT VALUE=$l_rs_submit><br><br>";
   echo "</FORM>";
 }
 elseif (($destination < $sector_max && empty($engage)) || ($destination < $sector_max && $triptime > 100 && $engage == 1))
@@ -100,7 +100,7 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
 
  $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
  $l_rs_energy=str_replace("[energy]",NUMBER($energyscooped),$l_rs_energy);
-  echo "$l_rs_movetime $l_rs_energy<BR><BR>";
+  echo "$l_rs_movetime $l_rs_energy<br><br>";
   if ($triptime > $playerinfo['turns'])
   {
     echo "$l_rs_noturns";
@@ -110,7 +110,7 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
     $l_rs_engage_link= "<A HREF=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
     $l_rs_engage=str_replace("[turns]",NUMBER($playerinfo['turns']),$l_rs_engage);
     $l_rs_engage=str_replace("[engage]",$l_rs_engage_link,$l_rs_engage);
-    echo "$l_rs_engage<BR><BR>";
+    echo "$l_rs_engage<br><br>";
   }
 }
 elseif ($destination < $sector_max && $engage > 0)
@@ -143,7 +143,7 @@ elseif ($destination < $sector_max && $engage > 0)
   if ($triptime > $playerinfo['turns'])
   {
    $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
-    echo "$l_rs_movetime<BR><BR>";
+    echo "$l_rs_movetime<br><br>";
     echo "$l_rs_noturns";
     $db->Execute("UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
   }
@@ -152,7 +152,7 @@ elseif ($destination < $sector_max && $engage > 0)
     $ok=1;
     $sector = $destination;
     $calledfrom = "rsmove.php";
-    include("check_fighters.php");
+    include "check_fighters.php";
     if ($ok>0)
     {
        $stamp = date("Y-m-d H-i-s");
@@ -161,17 +161,17 @@ elseif ($destination < $sector_max && $engage > 0)
        $l_rs_ready=str_replace("[sector]",$destination,$l_rs_ready);
        $l_rs_ready=str_replace("[triptime]",NUMBER($triptime),$l_rs_ready);
        $l_rs_ready=str_replace("[energy]",NUMBER($energyscooped),$l_rs_ready);
-       echo "$l_rs_ready<BR><BR>";
-       include("check_mines.php");
+       echo "$l_rs_ready<br><br>";
+       include "check_mines.php";
     }
   }
 }
 else
 {
-  echo "$l_rs_invalid.<BR><BR>";
+  echo $l_rs_invalid . ".<br><br>";
   $db->Execute("UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
 }
 
 TEXT_GOTOMAIN();
-include("footer.php");
+include "footer.php";
 ?>

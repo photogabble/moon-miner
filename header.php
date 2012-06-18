@@ -204,5 +204,5 @@ else
 
 echo "\n";
 
-//include("server_ticker.php");
+// include "server_ticker.php";
 ?>

@@ -341,7 +341,7 @@ if ($mode != 'compat')
 echo "</table>" .
      "</center>";
 
-include("footer.php");
+include "footer.php";
 
 function log_parse($entry)
 {

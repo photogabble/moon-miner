@@ -17,11 +17,11 @@
 //
 // File: planet_report_ce.php
 
-include("config.php");
+include "config.php";
 updatecookie();
-include("languages/$lang");
-$title=$l_pr_title;
-include("header.php");
+include "languages/$lang";
+$title = $l_pr_title;
+include "header.php";
 
 if (checklogin())
 {
@@ -33,8 +33,8 @@ if (checklogin())
 
 bigtitle();
 
-echo "<BR>";
-echo "Click <A HREF=planet_report.php>here</A> to return to report menu<br>";
+echo "<br>";
+echo "Click <a href=planet_report.php>here</A> to return to report menu<br>";
 
 if (isset($_POST["TPCreds"]))
 {
@@ -49,7 +49,7 @@ else
   change_planet_production($_POST);
 }
 
-echo "<BR><BR>";
+echo "<br><br>";
 TEXT_GOTOMAIN();
 
 
@@ -61,7 +61,7 @@ function go_build_base($planet_id, $sector_id)
   global $l_planet_bbuild;
   global $username;
 
-  echo "<BR>Click <A HREF=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<BR><BR>";
+  echo "<br>Click <A HREF=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br><br>";
 
   $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
   $playerinfo=$result->fields;
@@ -93,7 +93,7 @@ function go_build_base($planet_id, $sector_id)
   }  // build a base
 
   Real_Space_Move($sector_id);
-  echo "<BR>Click <A HREF=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<BR><BR>";
+  echo "<br>Click <A HREF=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<br><br>";
 
   if ($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
   {
@@ -105,7 +105,7 @@ function go_build_base($planet_id, $sector_id)
     $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
     $planetinfo=$result3->fields;
     // Notify User Of Base Results
-    echo "$l_planet_bbuild<BR><BR>";
+    echo "$l_planet_bbuild<br><br>";
     // Calc Ownership and Notify User Of Results
     $ownership = calc_ownership($playerinfo[sector]);
     if (!empty($ownership))
@@ -159,7 +159,7 @@ function collect_credits($planetarray)
 
   for ($i = 0; $i < count($s_p_pair) && $CS == "GO"; $i++)
   {
-    echo "<BR>";
+    echo "<br>";
     $CS = Real_space_move($s_p_pair[$i][0]);
 
     if ($CS == "HOSTILE")
@@ -171,17 +171,17 @@ function collect_credits($planetarray)
     }
     else
     {
-      echo "<BR> NOT ENOUGH TURNS TO TAKE CREDITS<BR>";
+      echo "<br> NOT ENOUGH TURNS TO TAKE CREDITS<br>";
     }
-    echo "<BR>";
+    echo "<br>";
   }
 
   if ($CS != "GO" && $CS != "HOSTILE")
   {
-    echo "<BR>Not enough turns to complete credit collection<BR>";
+    echo "<br>Not enough turns to complete credit collection<br>";
   }
 
-  echo "<BR>";
+  echo "<br>";
   echo "Click <A HREF=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br>";
 }
 
@@ -295,9 +295,9 @@ function change_planet_production($prodpercentarray)
     printf("<font color=\"red\"><B>Your Cheat has been logged to the admin (%08x) [%02X:%02X:%02X].</B></font><br>\n", (int)$hack_id, (int)$hack_count[0], (int)$hack_count[1], (int)$hack_count[2]);
   }
 
-  echo "<BR>";
-  echo "Production Percentages Updated <BR><BR>";
-  echo "Checking Values for excess of 100% and negative production values <BR><BR>";
+  echo "<br>";
+  echo "Production Percentages Updated <br><br>";
+  echo "Checking Values for excess of 100% and negative production values <br><br>";
 
   $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner=$ship_id ORDER BY sector_id");
   $i = 0;
@@ -332,7 +332,7 @@ function change_planet_production($prodpercentarray)
 
       if ($planet[prod_ore] + $planet[prod_organics] + $planet[prod_goods] + $planet[prod_energy] + $planet[prod_fighters] + $planet[prod_torp] > 100)
       {
-        echo "Planet $planet[name] in sector $planet[sector_id] has a negative production value or exceeds 100% production.  Resetting to default production values<BR>";
+        echo "Planet $planet[name] in sector $planet[sector_id] has a negative production value or exceeds 100% production.  Resetting to default production values<br>";
         $db->Execute("UPDATE $dbtables[planets] SET prod_ore=$default_prod_ore           WHERE planet_id=$planet[planet_id]");
         $db->Execute("UPDATE $dbtables[planets] SET prod_organics=$default_prod_organics WHERE planet_id=$planet[planet_id]");
         $db->Execute("UPDATE $dbtables[planets] SET prod_goods=$default_prod_goods       WHERE planet_id=$planet[planet_id]");
@@ -382,25 +382,25 @@ function Take_Credits($sector_id, $planet_id)
         // turns
         $res = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1 WHERE email='$username'");
 
-        echo "Took " . NUMBER($CreditsTaken) . " Credits from planet $planetinfo[name]. <BR>";
-        echo "Your ship - " . $playerinfo[ship_name] . " - now has " . NUMBER($NewShipCredits) . " onboard. <BR>";
+        echo "Took " . NUMBER($CreditsTaken) . " Credits from planet $planetinfo[name]. <br>";
+        echo "Your ship - " . $playerinfo[ship_name] . " - now has " . NUMBER($NewShipCredits) . " onboard. <br>";
         $retval = "GO";
       }
       else
       {
-        echo "<BR><BR>You do not own planet {$planetinfo['name']} !!<BR><BR>";
+        echo "<br><br>You do not own planet {$planetinfo['name']} !!<br><br>";
         $retval = "BREAK-INVALID";
       }
     }
     else
     {
-      echo "<BR><BR>You do not have enough turns to take credits from $planetinfo[name] in sector $planetinfo[sector_id]<BR><BR>";
+      echo "<br><br>You do not have enough turns to take credits from $planetinfo[name] in sector $planetinfo[sector_id]<br><br>";
       $retval = "BREAK-TURNS";
     }
   }
   else
   {
-    echo "<BR><BR>You must be in the same sector as the planet to transfer to/from the planet<BR><BR>";
+    echo "<br><br>You must be in the same sector as the planet to transfer to/from the planet<br><br>";
     $retval = "BREAK-SECTORS";
   }
 
@@ -481,7 +481,7 @@ function Real_Space_Move($destination)
   if ($triptime > $playerinfo[turns])
   {
     $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
-    echo "$l_rs_movetime<BR><BR>";
+    echo "$l_rs_movetime<br><br>";
     echo "$l_rs_noturns";
     $db->Execute("UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
 
@@ -533,7 +533,7 @@ function Real_Space_Move($destination)
 
        $l_rs_ready= str_replace("[triptime]",NUMBER($triptime),$l_rs_ready);
        $l_rs_ready=str_replace("[energy]",NUMBER($energyscooped),$l_rs_ready);
-       echo "$l_rs_ready<BR>";
+       echo "$l_rs_ready<br>";
        $retval = "GO";
   }
  }
@@ -541,5 +541,5 @@ function Real_Space_Move($destination)
   return($retval);
 }
 
-include("footer.php");
+include "footer.php";
 ?>
