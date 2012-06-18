@@ -39,11 +39,6 @@ header("Keep-Alive: timeout=15, max=100");
 </head>
 
 <?php
-if (!isset($interface) || $interface == "")
-{
-  $interface = "main.php";
-}
-
 if ($no_body != 1)
 {
     echo "<body style=\"background-image: url('images/bgoutspace1.png'); background-color:#000; color:#C0C0C0;\" link=\"#0f0\" vlink=\"#0f0\" alink=\"#f00\">";
