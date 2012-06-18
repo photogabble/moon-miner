@@ -88,7 +88,7 @@ if ($playerfound)
             $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
             $_SESSION['logged_in'] = true;
             TEXT_GOTOMAIN();
-            echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=$interface?id=" . $playerinfo['ship_id'] . "\">";
+            echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
         }
         else
         {
