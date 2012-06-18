@@ -584,7 +584,7 @@ if ($playerinfo['sector'] != 0)
         }
         else
         {
-            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030;'>Ship(s) Detected</div>\n";
+            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030;'>" . $l_main_ships_detected . "</div>\n";
             echo "<div style='width:498px; margin:auto; overflow:auto; height:145px; scrollbar-base-color: #303030; scrollbar-arrow-color: #fff; padding:0px;'>\n";
             echo "<table style='padding:0px; border-spacing:1px;'>\n";
             echo "  <tr>\n";

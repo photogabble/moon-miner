@@ -83,6 +83,7 @@ l_planet_in_sec                       = "Planets in sector ";
 l_ships_in_sec                        = "Other ships in sector ";
 l_sector_0                            = "There is so much traffic in Sol (Sector 0) that you cannot even isolate other ships!";
 l_settings                            = "Settings";
+l_main_ships_detected                 = "Ship(s) Detected";
 
 [report]
 l_report_title                        = "Ship Report";
