@@ -859,7 +859,7 @@ Table_Footer("Completed successfully.");
       $update = $db->Execute("INSERT INTO $dbtables[ibank_accounts] (ship_id,balance,loan) VALUES (1,0,0)");
     Table_Row("Inserting Admins ibank Information","Failed","Inserted");
 
-      $password = substr($admin_mail, 0, $maxlen_password);
+      $password = substr($admin_mail, 0, 16); // Sixteen is the old max length. This should be changed when we switch to using a better password process
       $stamp=date("Y-m-d H:i:s");
       $db->Execute("INSERT INTO $dbtables[ships] VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y','N')");
 

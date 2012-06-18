@@ -69,7 +69,6 @@ $game_name = "Default Game Name"; // Please set this to a unique name for your g
 $release_version = "0.55";     // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
 
 $fed_max_hull = 8;
-$maxlen_password = 16;
 $max_ranks=100;
 $rating_combat_factor=.8;    // Amount of rating gained from combat
 $server_closed=false;        // True = block logins but not new account creation
