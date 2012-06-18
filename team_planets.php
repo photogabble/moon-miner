@@ -69,7 +69,7 @@ $res = $db->Execute($query);
 bigtitle();
 
 echo "<br>";
-echo "<b><A HREF=planet_report.php>$l_teamplanet_personal</a></b>";
+echo "<b><a href=planet_report.php>$l_teamplanet_personal</a></b>";
 echo "<br>";
 echo "<br>";
 
@@ -92,21 +92,21 @@ if ($num_planets < 1)
 else
 {
     echo "$l_pr_clicktosort<br><br>";
-    echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-    echo "<TR BGCOLOR=\"$color_header\">";
-    echo "<td><b><A HREF=team_planets.php?sort=sector>$l_sector</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=name>$l_name</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=ore>$l_ore</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=organics>$l_organics</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=goods>$l_goods</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=energy>$l_energy</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=colonists>$l_colonists</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=credits>$l_credits</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=fighters>$l_fighters</a></b></td>";
-    echo "<td><b><A HREF=team_planets.php?sort=torp>$l_torps</a></b></td>";
+    echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
+    echo "<tr bgcolor=\"$color_header\">";
+    echo "<td><b><a href=team_planets.php?sort=sector>$l_sector</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=name>$l_name</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=ore>$l_ore</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=organics>$l_organics</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=goods>$l_goods</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=energy>$l_energy</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=colonists>$l_colonists</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=credits>$l_credits</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=fighters>$l_fighters</a></b></td>";
+    echo "<td><b><a href=team_planets.php?sort=torp>$l_torps</a></b></td>";
     echo "<td><b>$l_base?</b></td><td><b>$l_selling?</b></td>";
     echo "<td><b>Player</b></td>";
-    echo "</TR>";
+    echo "</tr>";
     $total_organics = 0;
     $total_ore = 0;
     $total_goods = 0;
@@ -146,8 +146,8 @@ else
         $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$owner");
         $player = $res->fields[character_name];
 
-        echo "<TR BGCOLOR=\"$color\">";
-        echo "<td><A HREF=rsmove.php?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</a></td>";
+        echo "<tr bgcolor=\"$color\">";
+        echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</a></td>";
         echo "<td>" . $planet[$i][name]              . "</td>";
         echo "<td>" . NUMBER($planet[$i][ore])       . "</td>";
         echo "<td>" . NUMBER($planet[$i][organics])  . "</td>";
@@ -160,7 +160,7 @@ else
         echo "<td>" . ($planet[$i][base] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
         echo "<td>" . ($planet[$i][sells] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
         echo "<td>" . $player                        . "</td>";
-        echo "</TR>";
+        echo "</tr>";
 
         if ($color == $color_line1)
         {
@@ -172,7 +172,7 @@ else
         }
     }
 
-    echo "<TR BGCOLOR=\"$color\">";
+    echo "<tr bgcolor=\"$color\">";
     echo "<td></td>";
     echo "<td>$l_pr_totals</td>";
     echo "<td>" . NUMBER($total_ore) . "</td>";
@@ -186,8 +186,8 @@ else
     echo "<td>" . NUMBER($total_base) . "</td>";
     echo "<td>" . NUMBER($total_selling) . "</td>";
     echo "<td></td>";
-    echo "</TR>";
-    echo "</TABLE>";
+    echo "</tr>";
+    echo "</table>";
 }
 
 echo "<br><br>";

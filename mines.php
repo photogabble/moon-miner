@@ -94,7 +94,7 @@ $res = $db->Execute("SELECT allow_defenses,$dbtables[universe].zone_id,owner FRO
 $zoneinfo = $res->fields;
 if ($zoneinfo[allow_defenses] == 'N')
 {
- echo "$l_mines_nopermit<BR><BR>";
+ echo "$l_mines_nopermit<br><br>";
 }
 else
 {
@@ -108,7 +108,7 @@ else
 
          if ($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0)
          {
-            echo "$l_mines_nodeploy<BR>";
+            echo "$l_mines_nodeploy<br>";
             TEXT_GOTOMAIN();
             die();
 
@@ -125,7 +125,7 @@ else
          {
             if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
-               echo "$l_mines_nopermit<BR><BR>";
+               echo "$l_mines_nopermit<br><br>";
                TEXT_GOTOMAIN();
                die();
 
@@ -142,15 +142,15 @@ else
      $l_mines_info1=str_replace("[sector]",$playerinfo[sector], $l_mines_info1);
      $l_mines_info1=str_replace("[mines]",NUMBER($sectorinfo[mines]), $l_mines_info1);
      $l_mines_info1=str_replace("[fighters]",NUMBER($sectorinfo[fighters]), $l_mines_info1);
-     echo "$l_mines_info1<BR><BR>";
+     echo "$l_mines_info1<br><br>";
      $l_mines_info2=str_replace("[mines]",$availmines, $l_mines_info2);
      $l_mines_info2=str_replace("[fighters]",$availfighters, $l_mines_info2);
-     echo "You have $availmines mines and $availfighters fighters available to deploy.<BR>";
-     echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[torps]> $l_mines.<BR>";
-     echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[ship_fighters]> $l_fighters.<BR>";
+     echo "You have $availmines mines and $availfighters fighters available to deploy.<br>";
+     echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[torps]> $l_mines.<br>";
+     echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[ship_fighters]> $l_fighters.<br>";
      echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_mines_att</INPUT>";
-     echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_mines_toll</INPUT><BR>";
-     echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset><BR><BR>";
+     echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_mines_toll</INPUT><br>";
+     echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset><br><br>";
      echo "<input type=hidden name=op value=$op>";
      echo "</FORM>";
   }
@@ -164,24 +164,24 @@ else
      if ($numfighters < 0) $numfighters =0;
      if ($nummines > $playerinfo[torps])
      {
-        echo "$l_mines_notorps<BR>";
+        echo "$l_mines_notorps<br>";
         $nummines = 0;
      }
      else
      {
       $l_mines_dmines=str_replace("[mines]",$nummines, $l_mines_dmines);
-        echo "$l_mines_dmines<BR>";
+        echo "$l_mines_dmines<br>";
      }
      if ($numfighters > $playerinfo[ship_fighters])
      {
-        echo "$l_mines_nofighters.<BR>";
+        echo "$l_mines_nofighters.<br>";
         $numfighters = 0;
      }
      else
      {
      $l_mines_dfighter=str_replace("[fighters]",$numfighters, $l_mines_dfighter);
      $l_mines_dfighter=str_replace("[mode]",$mode, $l_mines_dfighter);
-        echo "$l_mines_dfighter<BR>";
+        echo "$l_mines_dfighter<br>";
      }
 
      $stamp = date("Y-m-d H-i-s");

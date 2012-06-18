@@ -69,8 +69,8 @@ elseif ($sectorinfo['planet'] == "Y") // With many planets by sector that code i
     if ($destroy==1 && $allow_genesis_destroy)
     {
     // not multilingualed cause its not working right now anyway
-      echo "<BR>Are you sure???<BR><A HREF=genesis.php?destroy=2>YES, Let them die!</A><BR>";
-      echo "<A HREF=device.php>No! That would be Evil!</A><BR>";
+      echo "<br>Are you sure???<br><a href=genesis.php?destroy=2>YES, Let them die!</A><br>";
+      echo "<a href=device.php>No! That would be Evil!</A><br>";
     }
     elseif ($destroy==2 && $allow_genesis_destroy)
     {
@@ -79,7 +79,7 @@ elseif ($sectorinfo['planet'] == "Y") // With many planets by sector that code i
         $deltarating=$sectorinfo[planet_colonists];
         $update = $db->Execute("UPDATE $dbtables[universe] SET planet_name=NULL, planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, planet_corp=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
         $update2=$db->Execute("UPDATE $dbtables[ships] SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1, rating=rating-$deltarating WHERE ship_id=$playerinfo[ship_id]");
-        echo "<BR>Errr, there was one with $deltarating colonists here....<BR>";
+        echo "<br>Errr, there was one with $deltarating colonists here....<br>";
       }
       else
       {
@@ -88,7 +88,7 @@ elseif ($sectorinfo['planet'] == "Y") // With many planets by sector that code i
     }
     elseif ($allow_genesis_destroy)
     {
-      echo "<BR>Do you want to destroy <A HREF=genesis.php?destroy=1>";
+      echo "<br>Do you want to destroy <a href=genesis.php?destroy=1>";
       if ($sectorinfo['planet_name']=="")
       {
         echo "Unnamed</A>?";

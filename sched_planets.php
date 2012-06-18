@@ -88,7 +88,7 @@ if ($sched_planet_valid_credits == true)
     $ret = $db->Execute("UPDATE $dbtables[planets] SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
 }
 
-echo "Planets updated.<BR><BR>";
-echo "<BR>";
+echo "Planets updated.<br><br>";
+echo "<br>";
 
 ?>

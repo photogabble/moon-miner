@@ -37,12 +37,12 @@ bigtitle();
 
 if ($othership[sector] != $playerinfo[sector])
 {
-    echo "$l_ship_the <font color=white>{$othership[ship_name]}</font> $l_ship_nolonger {$playerinfo[sector]}<BR>";
+    echo "$l_ship_the <font color=white>{$othership[ship_name]}</font> $l_ship_nolonger {$playerinfo[sector]}<br>";
 }
 else
 {
     echo "$l_ship_youc <font color=white>{$othership[ship_name]}</font>, $l_ship_owned <font color=white>{$othership[character_name]}</font>.<br><br>";
-    echo "$l_ship_perform<BR><BR>";
+    echo "$l_ship_perform<br><br>";
     echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";
 
     if ( !isSameTeam($playerinfo['team'], $othership['team']) )

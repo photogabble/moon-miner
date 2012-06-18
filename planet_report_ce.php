@@ -61,7 +61,7 @@ function go_build_base($planet_id, $sector_id)
   global $l_planet_bbuild;
   global $username;
 
-  echo "<br>Click <A HREF=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br><br>";
+  echo "<br>Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br><br>";
 
   $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
   $playerinfo=$result->fields;
@@ -93,7 +93,7 @@ function go_build_base($planet_id, $sector_id)
   }  // build a base
 
   Real_Space_Move($sector_id);
-  echo "<br>Click <A HREF=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<br><br>";
+  echo "<br>Click <a href=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<br><br>";
 
   if ($planetinfo[ore] >= $base_ore && $planetinfo[organics] >= $base_organics && $planetinfo[goods] >= $base_goods && $planetinfo[credits] >= $base_credits)
   {
@@ -182,7 +182,7 @@ function collect_credits($planetarray)
   }
 
   echo "<br>";
-  echo "Click <A HREF=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br>";
+  echo "Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br>";
 }
 
 
@@ -226,7 +226,7 @@ function change_planet_production($prodpercentarray)
   $hack_id     = 0x0000;
   $hack_count  = array(0, 0, 0);
 
-  echo "Click <A HREF=planet_report.php?PRepType=2>here</A> to return to the Change Planet Production Report<br><br>";
+  echo "Click <a href=planet_report.php?PRepType=2>here</A> to return to the Change Planet Production Report<br><br>";
 
   while (list($commod_type, $valarray) = each($prodpercentarray))
   {

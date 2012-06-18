@@ -61,7 +61,7 @@ $flag = 0;
 
 if ($username=='' || $character=='' || $shipname=='' )
 {
-    echo "$l_new_blank<BR>"; $flag=1;
+    echo "$l_new_blank<br>"; $flag=1;
 }
 
 while (!$result->EOF)
@@ -69,18 +69,18 @@ while (!$result->EOF)
     $row = $result->fields;
     if (strtolower($row['email'])==strtolower($username))
     {
-        echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<BR>";
+        echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<br>";
         $flag=1;
     }
     if (strtolower($row['character_name'])==strtolower($character))
     {
         $l_new_inusechar=str_replace("[character]",$character,$l_new_inusechar);
-        echo "$l_new_inusechar<BR>"; $flag=1;
+        echo "$l_new_inusechar<br>"; $flag=1;
     }
     if (strtolower($row['ship_name'])==strtolower($shipname))
     {
         $l_new_inuseship=str_replace("[shipname]",$shipname,$l_new_inuseship);
-        echo "$l_new_inuseship<BR>"; $flag=1;
+        echo "$l_new_inuseship<br>"; $flag=1;
     }
     $result->MoveNext();
 }
@@ -137,12 +137,12 @@ if ($flag==0)
         $db->Execute("INSERT INTO $dbtables[ibank_accounts] (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
         if ($display_password)
         {
-            echo $l_new_pwis . " " . $makepass . "<BR><BR>";
+            echo $l_new_pwis . " " . $makepass . "<br><br>";
         }
 
         $l_new_pwsent=str_replace("[username]",$_POST['username'],$l_new_pwsent);
-        echo "$l_new_pwsent<BR><BR>";
-        echo "<A HREF=login.php>$l_clickme</A> $l_new_login";
+        echo "$l_new_pwsent<br><br>";
+        echo "<a href=login.php>$l_clickme</A> $l_new_login";
     }
 }
 else

@@ -75,8 +75,8 @@ else
 {
     echo "<br>$l_ranks_pnum: " . NUMBER($num_players);
     echo "<br>$l_ranks_dships<br><br>";
-    echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-    echo "<TR BGCOLOR=\"$color_header\"><TD><B>$l_ranks_rank</B></TD><TD><B><A HREF=\"ranking.php\">$l_score</A></B></TD><TD><B>$l_player</B></TD><TD><B><A HREF=\"ranking.php?sort=turns\">$l_turns_used</A></B></TD><TD><B><A HREF=\"ranking.php?sort=login\">$l_ranks_lastlog</A></B></TD><TD><B><A HREF=\"ranking.php?sort=good\">$l_ranks_good</A>/<A HREF=\"ranking.php?sort=bad\">$l_ranks_evil</A></B></TD><TD><B><A HREF=\"ranking.php?sort=team\">$l_team_team</A></B></TD><TD><B><A HREF=\"ranking.php?sort=online\">Online</A></B></TD><TD><B><A HREF=\"ranking.php?sort=efficiency\">Eff. Rating.</A></B></TD></TR>\n";
+    echo "<table border=0 cellspacing=0 cellpadding=2>";
+    echo "<tr bgcolor=\"$color_header\"><td><b>$l_ranks_rank</b></td><td><b><a href=\"ranking.php\">$l_score</A></b></td><td><b>$l_player</b></td><td><b><a href=\"ranking.php?sort=turns\">$l_turns_used</A></b></td><td><b><a href=\"ranking.php?sort=login\">$l_ranks_lastlog</A></b></td><td><b><a href=\"ranking.php?sort=good\">$l_ranks_good</A>/<a href=\"ranking.php?sort=bad\">$l_ranks_evil</A></b></td><td><b><a href=\"ranking.php?sort=team\">$l_team_team</A></b></td><td><b><a href=\"ranking.php?sort=online\">Online</A></b></td><td><b><a href=\"ranking.php?sort=efficiency\">Eff. Rating.</A></b></td></tr>\n";
     $color = $color_line1;
     $i = '';
     while (!$res->EOF)
@@ -104,11 +104,11 @@ else
             $online = "Online";
         }
 
-        echo "<TR BGCOLOR=\"$color\"><TD>" . NUMBER($i) . "</TD><TD>" . NUMBER($row['score']) . "</TD><TD>";
+        echo "<tr bgcolor=\"$color\"><td>" . NUMBER($i) . "</td><td>" . NUMBER($row['score']) . "</td><td>";
         echo "&nbsp;";
         echo player_insignia_name($row['email']);
         echo "&nbsp;";
-        echo "<b>$row[character_name]</b></TD><TD>" . NUMBER($row['turns_used']) . "</TD><TD>$row[last_login]</TD><TD>&nbsp;&nbsp;" . NUMBER($rating) . "</TD><TD>$row[team_name]&nbsp;</TD><TD>$online</TD><TD>$row[efficiency]</TD></TR>\n";
+        echo "<b>$row[character_name]</b></td><td>" . NUMBER($row['turns_used']) . "</td><td>$row[last_login]</td><td>&nbsp;&nbsp;" . NUMBER($rating) . "</td><td>$row[team_name]&nbsp;</td><td>$online</td><td>$row[efficiency]</td></tr>\n";
         if ($color == $color_line1)
         {
             $color = $color_line2;
@@ -120,7 +120,7 @@ else
 
         $res->MoveNext();
     }
-    echo "</TABLE>";
+    echo "</table>";
 }
 
 echo "<br>";

@@ -83,7 +83,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
 
         // You are hit. Tell the player and put it in the log
         $l_chm_youhitsomemines = str_replace("[chm_roll]", $roll, $l_chm_youhitsomemines);
-        echo "$l_chm_youhitsomemines<BR>";
+        echo "$l_chm_youhitsomemines<br>";
         playerlog($playerinfo['ship_id'], LOG_HIT_MINES, "$roll|$sector");
 
         // Tell the owner that his mines where hit
@@ -96,18 +96,18 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         if ($playerinfo['dev_minedeflector'] >= $roll)
         {
             $l_chm_youlostminedeflectors = str_replace("[chm_roll]", $roll, $l_chm_youlostminedeflectors);
-            echo "$l_chm_youlostminedeflectors<BR>";
+            echo "$l_chm_youlostminedeflectors<br>";
             $result2 = $db->Execute("UPDATE $dbtables[ships] set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
         }
         else
         {
             if ($playerinfo['dev_minedeflector'] > 0)
             {
-                echo "$l_chm_youlostallminedeflectors<BR>";
+                echo "$l_chm_youlostallminedeflectors<br>";
             }
             else
             {
-                echo "$l_chm_youhadnominedeflectors<BR>";
+                echo "$l_chm_youhadnominedeflectors<br>";
             }
 
             // Shields up
@@ -120,27 +120,27 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
             if ($playershields >= $mines_left)
             {
                 $l_chm_yourshieldshitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourshieldshitforminesdmg);
-                echo "$l_chm_yourshieldshitforminesdmg<BR>";
+                echo "$l_chm_yourshieldshitforminesdmg<br>";
 
                 $result2 = $db->Execute("UPDATE $dbtables[ships] set ship_energy=ship_energy-$mines_left, dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
                 if ($playershields == $mines_left)
                 {
-                    echo "$l_chm_yourshieldsaredown<BR>";
+                    echo "$l_chm_yourshieldsaredown<br>";
                 }
             }
             else
             {
                 // Direct hit
-                echo "$l_chm_youlostallyourshields<BR>";
+                echo "$l_chm_youlostallyourshields<br>";
                 $mines_left = $mines_left - $playershields;
                 if ($playerinfo['armor_pts'] >= $mines_left)
                 {
                     $l_chm_yourarmorhitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourarmorhitforminesdmg);
-                    echo "$l_chm_yourarmorhitforminesdmg<BR>";
+                    echo "$l_chm_yourarmorhitforminesdmg<br>";
                     $result2 = $db->Execute("UPDATE $dbtables[ships] set armor_pts=armor_pts-$mines_left,ship_energy=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
                     if ($playerinfo['armor_pts'] == $mines_left)
                     {
-                        echo "$l_chm_yourhullisbreached<BR>";
+                        echo "$l_chm_yourhullisbreached<br>";
                     }
                 }
                 else
@@ -151,13 +151,13 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", $playerinfo['character_name'], $l_chm_hewasdestroyedbyyourmines);
                     $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $sector, $l_chm_hewasdestroyedbyyourmines);
                     message_defence_owner($sector,"$l_chm_hewasdestroyedbyyourmines");
-                    echo "$l_chm_yourshiphasbeendestroyed<BR><BR>";
+                    echo "$l_chm_yourshiphasbeendestroyed<br><br>";
 
                     // Survival
                     if ($playerinfo['dev_escapepod'] == "Y")
                     {
                         $rating=round($playerinfo['rating']/2);
-                        echo "$l_chm_luckescapepod<BR><BR>";
+                        echo "$l_chm_luckescapepod<br><br>";
                         $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
                         cancel_bounty($playerinfo['ship_id']);
                     }

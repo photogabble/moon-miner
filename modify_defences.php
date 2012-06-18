@@ -30,7 +30,7 @@ if (checklogin())
 
 if (!isset($defence_id))
 {
-    echo "$l_md_invalid<BR>";
+    echo "$l_md_invalid<br>";
     TEXT_GOTOMAIN();
     die();
 }
@@ -53,14 +53,14 @@ $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE defence_
 
 if ($result3 == 0)
 {
-   echo "$l_md_nolonger<BR>";
+   echo "$l_md_nolonger<br>";
    TEXT_GOTOMAIN();
    die();
 }
 $defenceinfo = $result3->fields;
 if ($defenceinfo['sector_id'] <> $playerinfo['sector'])
 {
-   echo "$l_md_nothere<BR><BR>";
+   echo "$l_md_nothere<br><br>";
    TEXT_GOTOMAIN();
    include "footer.php";
    die();
@@ -94,7 +94,7 @@ switch ($response) {
       bigtitle();
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
-         echo "$l_md_yours<BR><BR>";
+         echo "$l_md_yours<br><br>";
          TEXT_GOTOMAIN();
          include "footer.php";
          die();
@@ -122,7 +122,7 @@ switch ($response) {
          {
             $playerbeams=$total_sector_mines;
          }
-         echo "$l_md_bmines $playerbeams $l_mines<BR>";
+         echo "$l_md_bmines $playerbeams $l_mines<br>";
          $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=ship_energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
          explode_mines($sector,$playerbeams);
          $char_name = $playerinfo['character_name'];
@@ -137,7 +137,7 @@ switch ($response) {
    case "retrieve":
       if ($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
       {
-         echo "$l_md_notyours<BR><BR>";
+         echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN();
          include "footer.php";
          die();
@@ -182,7 +182,7 @@ switch ($response) {
 
       $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
       bigtitle();
-      echo "$l_md_retr $quantity $defence_type.<BR>";
+      echo "$l_md_retr $quantity $defence_type.<br>";
       TEXT_GOTOMAIN();
       die();
       break;
@@ -190,7 +190,7 @@ switch ($response) {
       bigtitle();
       if ($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
       {
-         echo "$l_md_notyours<BR><BR>";
+         echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN();
          include "footer.php";
          die();
@@ -203,7 +203,7 @@ switch ($response) {
       else
         $mode = $l_md_toll;
       $l_md_mode=str_replace("[mode]",$mode,$l_md_mode);
-      echo "$l_md_mode<BR>";
+      echo "$l_md_mode<br>";
       TEXT_GOTOMAIN();
       die();
       break;
@@ -212,24 +212,24 @@ switch ($response) {
       $l_md_consist=str_replace("[qty]",$qty,$l_md_consist);
       $l_md_consist=str_replace("[type]",$defence_type,$l_md_consist);
       $l_md_consist=str_replace("[owner]",$defence_owner,$l_md_consist);
-      echo "$l_md_consist<BR>";
+      echo "$l_md_consist<br>";
 
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
-         echo "$l_md_youcan:<BR>";
+         echo "$l_md_youcan:<br>";
          echo "<FORM ACTION=modify_defences.php METHOD=POST>";
-         echo "$l_md_retrieve <INPUT TYPE=TEST NAME=quantity SIZE=10 MAXLENGTH=10 VALUE=0></INPUT> $defence_type<BR>";
+         echo "$l_md_retrieve <INPUT TYPE=TEST NAME=quantity SIZE=10 MAXLENGTH=10 VALUE=0></INPUT> $defence_type<br>";
          echo "<input type=hidden name=response value=retrieve>";
          echo "<input type=hidden name=defence_id value=$defence_id>";
-         echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><BR><BR>";
+         echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><br><br>";
          echo "</FORM>";
          if ($defenceinfo['defence_type'] == 'F')
          {
-            echo "$l_md_change:<BR>";
+            echo "$l_md_change:<br>";
             echo "<FORM ACTION=modify_defences.php METHOD=POST>";
             echo "$l_md_cmode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_md_attack</INPUT>";
-            echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_md_toll</INPUT><BR>";
-            echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><BR><BR>";
+            echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_md_toll</INPUT><br>";
+            echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><br><br>";
             echo "<input type=hidden name=response value=change>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
             echo "</FORM>";
@@ -243,9 +243,9 @@ switch ($response) {
 
          if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team] == 0)
          {
-            echo "$l_youcan:<BR>";
+            echo "$l_youcan:<br>";
             echo "<FORM ACTION=modify_defences.php METHOD=POST>";
-            echo "$l_md_attdef<BR><INPUT TYPE=SUBMIT VALUE=$l_md_attack></INPUT><BR>";
+            echo "$l_md_attdef<br><INPUT TYPE=SUBMIT VALUE=$l_md_attack></INPUT><br>";
             echo "<input type=hidden name=response value=fight>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
             echo "</FORM>";

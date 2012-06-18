@@ -35,17 +35,17 @@ $playerinfo = $result->fields;
 
 if (!isset($sure))
 {
-    echo "<FONT COLOR=RED><B>$l_die_rusure</B></FONT><BR><BR>";
+    echo "<font color=red><b>$l_die_rusure</b></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
-    echo "<A HREF=$interface>$l_die_nonono</A> $l_die_what<BR><BR>";
-    echo "<A HREF=self_destruct.php?sure=1>$l_yes!</A> $l_die_goodbye<BR><BR>";
+    echo "<a href=$interface>$l_die_nonono</a> $l_die_what<br><br>";
+    echo "<a href=self_destruct.php?sure=1>$l_yes!</a> $l_die_goodbye<br><br>";
 }
 elseif ($sure == 1)
 {
-    echo "<FONT COLOR=RED><B>$l_die_check</B></FONT><BR><BR>";
+    echo "<font color=red><b>$l_die_check</b></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
-    echo "<A HREF=$interface>$l_die_nonono</A> $l_die_what<BR><BR>";
-    echo "<A HREF=self_destruct.php?sure=2>$l_yes!</A> $l_die_goodbye<BR><BR>";
+    echo "<a href=$interface>$l_die_nonono</a> $l_die_what<br><br>";
+    echo "<a href=self_destruct.php?sure=2>$l_yes!</a> $l_die_goodbye<br><br>";
 }
 elseif ($sure == 2)
 {

@@ -23,7 +23,7 @@
       die();
   }
 
-  echo "<B>The Governor</B><BR><BR>";
+  echo "<B>The Governor</B><br><br>";
 
   echo "Validating Ship Fighters, Torpedoes, Armor points and Credits...<br>\n";
   $tdres = $db->Execute("SELECT * FROM $dbtables[ships];");

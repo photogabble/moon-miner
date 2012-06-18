@@ -67,7 +67,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                     <tr>
                       <td width="75%" align="left"><font color="white" size="2"><b><? echo $l_readm_center ?> (<span style='color:#00C0C0;'>Subspace</span>)</b></font></td>
                       <td width="21%" align="center" nowrap><font color="white" size="2"><?echo "$cur_D" ?>&nbsp;<?echo "$cur_T" ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A HREF="main.php"><img alt="Click here to return to the main menu" src="images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -121,7 +121,7 @@ if ($isAdmin === true)
 ?>
 </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><? echo "$msg[sent]" ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><A class="but" HREF="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><img src="images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><img src="images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -167,8 +167,8 @@ if ($isAdmin === true)
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver" cellpadding="0">
                     <tr>
-                      <td width="100%" align="center" valign="middle"><A class="but" HREF="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><? echo $l_readm_del ?></A> |
-        <A class="but" HREF="mailto2.php?name=<? echo $sender[character_name]; ?>&subject=<? echo $msg[subject] ?>"><? echo $l_readm_repl ?></A>
+                      <td width="100%" align="center" valign="middle"><a class="but" href="readmail.php?action=delete&ID=<? echo $msg[ID]; ?>"><? echo $l_readm_del ?></A> |
+        <a class="but" href="mailto2.php?name=<? echo $sender[character_name]; ?>&subject=<? echo $msg[subject] ?>"><? echo $l_readm_repl ?></A>
                       </td>
                     </tr>
                   </table>
@@ -189,7 +189,7 @@ if ($isAdmin === true)
                   <table border="1" cellspacing="1" width="100%" bgcolor="#808080" bordercolorlight="#000" bordercolordark="#C0C0C0" height="8">
                     <tr>
                       <td width="50%"><p align="left"><font color="#fff" size="2">Mail Reader </font></td>
-                      <td width="50%"><p align="right"><font color="#fff" size="2"><A class="but" HREF="readmail.php?action=delete_all">Delete All</a></font></td>
+                      <td width="50%"><p align="right"><font color="#fff" size="2"><a class="but" href="readmail.php?action=delete_all">Delete All</a></font></td>
                     </tr>
                   </table>
                 </div>

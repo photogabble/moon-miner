@@ -87,18 +87,18 @@ $trade_benefit = "$l_profit : ";
 
 function BuildOneCol( $text = "&nbsp;", $align = "left" ) {
    echo"
-   <TR>
-      <TD colspan=99 align=".$align.">".$text.".</TD>
-   </TR>
+   <tr>
+      <td colspan=99 align=".$align.">".$text.".</td>
+   </tr>
    ";
 }
 
 function BuildTwoCol( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left" ) {
    echo"
-   <TR>
-      <TD align=".$align_col1.">".$text_col1."</TD>
-      <TD align=".$align_col2.">".$text_col2."</TD>
-   </TR>";
+   <tr>
+      <td align=".$align_col1.">".$text_col1."</td>
+      <td align=".$align_col2.">".$text_col2."</td>
+   </tr>";
 }
 
 
@@ -157,7 +157,7 @@ else
     if (isLoanPending($playerinfo['ship_id']))
     {
       echo $l_port_loannotrade . "<p>";
-      echo "<A HREF=igb.php>$l_igb_term</a><p>";
+      echo "<a href=igb.php>$l_igb_term</a><p>";
       TEXT_GOTOMAIN();
       include "footer.php";
       die();
@@ -306,18 +306,18 @@ if ($colonist_max <0) $colonist_max = 0;
       $dev_escapepod_cost + $dev_fuelscoop_cost + $dev_lssd_cost + $shields_upgrade_cost;
     if ($total_cost > $playerinfo['credits'])
     {
-      echo "You do not have enough credits for this transaction.  The total cost is " . NUMBER($total_cost) . " credits and you only have " . NUMBER($playerinfo['credits']) . " credits.<br><br>Click <A HREF=port.php>here</A> to return to the supply depot.<br><br>";
+      echo "You do not have enough credits for this transaction.  The total cost is " . NUMBER($total_cost) . " credits and you only have " . NUMBER($playerinfo['credits']) . " credits.<br><br>Click <a href=port.php>here</A> to return to the supply depot.<br><br>";
     }
     else
     {
      $trade_credits = NUMBER(abs($total_cost));
-      echo "<TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
-         <TR>
-            <TD colspan=99 align=center bgcolor=#300030><font size=3 color=white><b>$l_trade_result</b></font></TD>
-         </TR>
-         <TR>
-            <TD colspan=99 align=center><b><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></b></TD>
-         </TR>";
+      echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
+         <tr>
+            <td colspan=99 align=center bgcolor=#300030><font size=3 color=white><b>$l_trade_result</b></font></td>
+         </tr>
+         <tr>
+            <td colspan=99 align=center><b><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></b></td>
+         </tr>";
 
        //  Total cost is " . NUMBER(abs($total_cost)) . " credits.<br><br>";
       $query = "UPDATE $dbtables[ships] SET credits=credits-$total_cost";
@@ -476,11 +476,11 @@ echo "</div>\n";
   }
   elseif ($sectorinfo['port_type'] != "none")
   {
-      // Here is the TRADE fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
+      // Here is the trADE fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
       // easier to modify/add something in this part.
    $price_array = array();
 
-   function TRADE($price, $delta, $max, $limit, $factor, $port_type, $origin)
+   function trADE($price, $delta, $max, $limit, $factor, $port_type, $origin)
    {
       global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array;
 
@@ -501,10 +501,10 @@ echo "</div>\n";
    }
 
 
-   $trade_ore       =  TRADE($ore_price,        $ore_delta,       $sectorinfo['port_ore'],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
-   $trade_organics  =  TRADE($organics_price,   $organics_delta,  $sectorinfo['port_organics'],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );
-   $trade_goods     =  TRADE($goods_price,      $goods_delta,     $sectorinfo['port_goods'],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
-   $trade_energy    =  TRADE($energy_price,     $energy_delta,    $sectorinfo['port_energy'],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
+   $trade_ore       =  trADE($ore_price,        $ore_delta,       $sectorinfo['port_ore'],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
+   $trade_organics  =  trADE($organics_price,   $organics_delta,  $sectorinfo['port_organics'],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );
+   $trade_goods     =  trADE($goods_price,      $goods_delta,     $sectorinfo['port_goods'],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);
+   $trade_energy    =  trADE($energy_price,     $energy_delta,    $sectorinfo['port_energy'],     $energy_limit,    $inventory_factor, "energy",     $trade_energy);
 
    $ore_price       =  $price_array['ore'];
    $organics_price  =  $price_array['organics'];
@@ -592,26 +592,26 @@ echo "</div>\n";
       }
 
       echo "
-      <TABLE BORDER=2 CELLSPACING=2 CELLPADDING=2 BGCOLOR=#400040 WIDTH=600 ALIGN=CENTER>
-         <TR>
-            <TD colspan=99 align=center><font size=3 color=white><b>$l_trade_result</b></font></TD>
-         </TR>
-         <TR>
-            <TD colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . NUMBER(abs($total_cost)) . " $l_credits</font></b></TD>
-         </TR>
-         <TR bgcolor=$color_line1>
-            <TD><b><font size=2 color=white>$l_traded_ore: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_ore) . "</font></b></TD>
-         </TR>
-         <TR bgcolor=$color_line2>
-            <TD><b><font size=2 color=white>$l_traded_organics: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_organics) . "</font></b></TD>
-         </TR>
-         <TR bgcolor=$color_line1>
-            <TD><b><font size=2 color=white>$l_traded_goods: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_goods) . "</font></b></TD>
-         </TR>
-         <TR bgcolor=$color_line2>
-            <TD><b><font size=2 color=white>$l_traded_energy: </font><b></TD><TD align=right><b><font size=2 color=white>" . NUMBER($trade_energy) . "</font></b></TD>
-         </TR>
-      </TABLE>
+      <table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
+         <tr>
+            <td colspan=99 align=center><font size=3 color=white><b>$l_trade_result</b></font></td>
+         </tr>
+         <tr>
+            <td colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . NUMBER(abs($total_cost)) . " $l_credits</font></b></td>
+         </tr>
+         <tr bgcolor=$color_line1>
+            <td><b><font size=2 color=white>$l_traded_ore: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER($trade_ore) . "</font></b></td>
+         </tr>
+         <tr bgcolor=$color_line2>
+            <td><b><font size=2 color=white>$l_traded_organics: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER($trade_organics) . "</font></b></td>
+         </tr>
+         <tr bgcolor=$color_line1>
+            <td><b><font size=2 color=white>$l_traded_goods: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER($trade_goods) . "</font></b></td>
+         </tr>
+         <tr bgcolor=$color_line2>
+            <td><b><font size=2 color=white>$l_traded_energy: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER($trade_energy) . "</font></b></td>
+         </tr>
+      </table>
       ";
 
       // Update ship cargo, credits and turns
@@ -637,7 +637,7 @@ TEXT_GOTOMAIN();
 
 if ($sectorinfo['port_type'] == "special")
 {
-    echo "<br><br>Click <A HREF=port.php>here</A> to return to the supply depot.";
+    echo "<br><br>Click <a href=port.php>here</A> to return to the supply depot.";
 }
 
 include "footer.php";

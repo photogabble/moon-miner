@@ -29,21 +29,21 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("select * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
 bigtitle();
 
 if (empty($content))
 {
-    $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
-    $res2 = $db->Execute("SELECT team_name FROM $dbtables[teams] WHERE admin ='N' ORDER BY team_name ASC");
-    echo "<FORM ACTION=mailto2.php METHOD=POST>\n";
-    echo "  <TABLE>\n";
-    echo "    <TR>\n";
-    echo "      <TD>$l_sendm_to:</TD>\n";
-    echo "      <TD>\n";
-    echo "        <SELECT NAME=to style='width:200px;'>\n";
+    $res = $db->Execute("select character_name FROM $dbtables[ships] WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
+    $res2 = $db->Execute("select team_name FROM $dbtables[teams] WHERE admin ='N' ORDER BY team_name ASC");
+    echo "<form action=mailto2.php method=post>\n";
+    echo "  <table>\n";
+    echo "    <tr>\n";
+    echo "      <td>$l_sendm_to:</td>\n";
+    echo "      <td>\n";
+    echo "        <select NAME=to style='width:200px;'>\n";
 
     # Add self to list.
     echo "          <OPTION".(($playerinfo['character_name']==$name)?" selected":"").">{$playerinfo['character_name']}</OPTION>\n";
@@ -62,13 +62,13 @@ if (empty($content))
         $res2->MoveNext();
     }
 
-    echo "        </SELECT>\n";
-    echo "      </TD>\n";
-    echo "    </TR>\n";
-    echo "    <TR>\n";
-    echo "      <TD>$l_sendm_from:</TD>\n";
-    echo "      <TD><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></TD>\n";
-    echo "    </TR>\n";
+    echo "        </select>\n";
+    echo "      </td>\n";
+    echo "    </tr>\n";
+    echo "    <tr>\n";
+    echo "      <td>$l_sendm_from:</td>\n";
+    echo "      <td><INPUT DISABLED TYPE=TEXT NAME=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></td>\n";
+    echo "    </tr>\n";
     if (isset($subject))
     {
         $subject = "RE: " . $subject;
@@ -78,29 +78,29 @@ if (empty($content))
         $subject = '';
     }
 
-    echo "    <TR>\n";
-    echo "      <TD>$l_sendm_subj:</TD>\n";
-    echo "      <TD><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40 VALUE=\"$subject\"></TD>\n";
-    echo "    </TR>\n";
-    echo "    <TR>\n";
-    echo "      <TD>$l_sendm_mess:</TD>\n";
-    echo "      <TD><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></TD>\n";
-    echo "    </TR>";
-    echo "    <TR>\n";
-    echo "      <TD></TD>\n";
-    echo "      <TD><INPUT TYPE=SUBMIT VALUE=$l_sendm_send><INPUT TYPE=RESET VALUE=$l_reset></TD>\n";
-    echo "    </TR>\n";
-    echo "  </TABLE>\n";
-    echo "</FORM>\n";
+    echo "    <tr>\n";
+    echo "      <td>$l_sendm_subj:</td>\n";
+    echo "      <td><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40 VALUE=\"$subject\"></td>\n";
+    echo "    </tr>\n";
+    echo "    <tr>\n";
+    echo "      <td>$l_sendm_mess:</td>\n";
+    echo "      <td><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></td>\n";
+    echo "    </tr>";
+    echo "    <tr>\n";
+    echo "      <td></td>\n";
+    echo "      <td><INPUT TYPE=SUBMIT VALUE=$l_sendm_send><INPUT TYPE=RESET VALUE=$l_reset></td>\n";
+    echo "    </tr>\n";
+    echo "  </table>\n";
+    echo "</form>\n";
 }
 else
 {
-    echo "$l_sendm_sent<BR><BR>";
+    echo "$l_sendm_sent<br><br>";
 
     if (strpos($to, $l_sendm_ally)===false)
     {
         $timestamp = date("Y\-m\-d H\:i\:s");
-        $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE character_name='$to'");
+        $res = $db->Execute("select * FROM $dbtables[ships] WHERE character_name='$to'");
         $target_info = $res->fields;
         $content = htmlspecialchars($content);
         $content = addslashes($content);
@@ -117,10 +117,10 @@ else
         $to = str_replace ($l_sendm_ally, "", $to);
         $to = trim($to);
         $to = addslashes($to);
-        $res = $db->Execute("SELECT id FROM $dbtables[teams] WHERE team_name='$to'");
+        $res = $db->Execute("select id FROM $dbtables[teams] WHERE team_name='$to'");
         $row = $res->fields;
 
-        $res2 = $db->Execute("SELECT * FROM $dbtables[ships] where team='$row[id]'");
+        $res2 = $db->Execute("select * FROM $dbtables[ships] where team='$row[id]'");
 
         while (!$res2->EOF)
         {

@@ -58,7 +58,7 @@ $planetinfo         = NULL;
 if ($planet_id <=0)
 {
   echo "Invalid Planet<br><br>";
-  TEXT_GOTOMAIN();
+  text_GOTOMAIN();
   die();
 }
 
@@ -72,7 +72,7 @@ $planetinfo=$result3->fields;
 if ($planetinfo == false)
 {
   echo "Invalid Planet<br><br>";
-  TEXT_GOTOMAIN();
+  text_GOTOMAIN();
   die();
 }
 
@@ -86,7 +86,7 @@ if (!empty($planetinfo))
     if ($playerinfo['on_planet'] == 'Y')
       $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "$l_planet_none <p>";
-    TEXT_GOTOMAIN();
+    text_GOTOMAIN();
     include "footer.php";
     die();
   }
@@ -97,7 +97,7 @@ if (!empty($planetinfo))
     $l_planet_capture2=str_replace("[capture]",$capture_link,$l_planet_capture2);
     echo "$l_planet_capture2.<br><br>";
     echo "<br>";
-    TEXT_GOTOMAIN();
+    text_GOTOMAIN();
     include "footer.php";
     die();
   }
@@ -127,8 +127,8 @@ if (!empty($planetinfo))
     {
        if ($destroy==1 && $allow_genesis_destroy)
        {
-          echo "<font color=red>$l_planet_confirm</font><br><A HREF=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
-          echo "<A HREF=planet.php?planet_id=$planet_id>no!</A><br><br>";
+          echo "<font color=red>$l_planet_confirm</font><br><a href=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
+          echo "<a href=planet.php?planet_id=$planet_id>no!</A><br><br>";
        }
        elseif ($destroy==2 && $allow_genesis_destroy)
        {
@@ -147,7 +147,7 @@ if (!empty($planetinfo))
        }
        elseif ($allow_genesis_destroy)
        {
-          echo "<A onclick=\"javascript: alert ('alert:$l_planet_warning');\" HREF=planet.php?planet_id=$planet_id&destroy=1>$l_planet_destroyplanet</a><br>";
+          echo "<A onclick=\"javascript: alert ('alert:$l_planet_warning');\" href=planet.php?planet_id=$planet_id&destroy=1>$l_planet_destroyplanet</a><br>";
        }
     }
 
@@ -229,31 +229,31 @@ if (!empty($planetinfo))
          }
       }
       // Change production rates
-      echo "<FORM ACTION=planet.php?planet_id=$planet_id&command=productions METHOD=POST>";
-      echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2>";
-      echo "<TR BGCOLOR=\"$color_header\"><TD></TD><TD><B>$l_ore</B></TD><TD><B>$l_organics</B></TD><TD><B>$l_goods</B></TD><TD><B>$l_energy</B></TD><TD><B>$l_colonists</B></TD><TD><B>$l_credits</B></TD><TD><B>$l_fighters</B></TD><TD><B>$l_torps</TD></TR>";
-      echo "<TR BGCOLOR=\"$color_line1\">";
-      echo "<TD>$l_current_qty</TD>";
-      echo "<TD>" . NUMBER($planetinfo['ore']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['organics']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['goods']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['energy']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['colonists']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['credits']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['fighters']) . "</TD>";
-      echo "<TD>" . NUMBER($planetinfo['torps']) . "</TD>";
-      echo "</TR>";
-      echo "<TR BGCOLOR=\"$color_line2\"><TD>$l_planet_perc</TD>";
-      echo "<TD><INPUT TYPE=TEXT NAME=pore VALUE=\"$planetinfo[prod_ore]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "<TD><INPUT TYPE=TEXT NAME=porganics VALUE=\"$planetinfo[prod_organics]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "<TD><INPUT TYPE=TEXT NAME=pgoods VALUE=\"" .round($planetinfo['prod_goods'])."\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "<TD><INPUT TYPE=TEXT NAME=penergy VALUE=\"$planetinfo[prod_energy]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "<TD>n/a</TD><TD>*</TD>";
-      echo "<TD><INPUT TYPE=TEXT NAME=pfighters VALUE=\"$planetinfo[prod_fighters]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "<TD><INPUT TYPE=TEXT NAME=ptorp VALUE=\"$planetinfo[prod_torp]\" SIZE=6 MAXLENGTH=6></TD>";
-      echo "</TABLE>$l_planet_interest<br><br>";
-      echo "<INPUT TYPE=SUBMIT VALUE=$l_planet_update>";
-      echo "</FORM>";
+      echo "<form action=planet.php?planet_id=$planet_id&command=productions method=post>";
+      echo "<table border=0 cellspacing=0 cellpadding=2>";
+      echo "<tr bgcolor=\"$color_header\"><td></td><td><b>$l_ore</b></td><td><b>$l_organics</b></td><td><b>$l_goods</b></td><td><b>$l_energy</b></td><td><b>$l_colonists</b></td><td><b>$l_credits</b></td><td><b>$l_fighters</b></td><td><b>$l_torps</td></tr>";
+      echo "<tr bgcolor=\"$color_line1\">";
+      echo "<td>$l_current_qty</td>";
+      echo "<td>" . NUMBER($planetinfo['ore']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['organics']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['goods']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['energy']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['colonists']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['credits']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['fighters']) . "</td>";
+      echo "<td>" . NUMBER($planetinfo['torps']) . "</td>";
+      echo "</tr>";
+      echo "<tr bgcolor=\"$color_line2\"><td>$l_planet_perc</td>";
+      echo "<td><input type=text name=pore value=\"$planetinfo[prod_ore]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=porganics value=\"$planetinfo[prod_organics]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=pgoods value=\"" .round($planetinfo['prod_goods'])."\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=penergy value=\"$planetinfo[prod_energy]\" size=6 maxlength=6></td>";
+      echo "<td>n/a</td><td>*</td>";
+      echo "<td><input type=text name=pfighters value=\"$planetinfo[prod_fighters]\" size=6 maxlength=6></td>";
+      echo "<td><input type=text name=ptorp value=\"$planetinfo[prod_torp]\" size=6 maxlength=6></td>";
+      echo "</table>$l_planet_interest<br><br>";
+      echo "<input type=submit value=$l_planet_update>";
+      echo "</form>";
     }
     else
     {
@@ -327,7 +327,7 @@ if (!empty($planetinfo))
     elseif ($command == "cname")
     {
       // Name2 menu
-      $new_name = trim(strip_tags($_POST['new_name']));
+      $new_name = trim(strip_tags($_post['new_name']));
       $new_name = addslashes($new_name);
       $result5 = $db->Execute("UPDATE $dbtables[planets] SET name='$new_name' WHERE planet_id=$planet_id");
       $new_name = stripslashes($new_name);
@@ -354,20 +354,20 @@ if (!empty($planetinfo))
       $l_planet_cinfo=str_replace("[cargo]",NUMBER($free_holds),$l_planet_cinfo);
       $l_planet_cinfo=str_replace("[energy]",NUMBER($free_power),$l_planet_cinfo);
       echo "$l_planet_cinfo<br><br>";
-      echo "<FORM ACTION=planet2.php?planet_id=$planet_id METHOD=POST>";
-      echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=0>";
-      echo"<TR BGCOLOR=\"$color_header\"><TD><B>$l_commodity</B></TD><TD><B>$l_planet</B></TD><TD><B>$l_ship</B></TD><TD><B>$l_planet_transfer_link</B></TD><TD><B>$l_planet_toplanet</B></TD><TD><B>$l_all?</B></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line1\"><TD>$l_ore</TD><TD>" . NUMBER($planetinfo['ore']) . "</TD><TD>" . NUMBER($playerinfo['ship_ore']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_ore SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpore VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allore VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line2\"><TD>$l_organics</TD><TD>" . NUMBER($planetinfo['organics']) . "</TD><TD>" . NUMBER($playerinfo['ship_organics']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_organics SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tporganics VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allorganics VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line1\"><TD>$l_goods</TD><TD>" . NUMBER($planetinfo['goods']) . "</TD><TD>" . NUMBER($playerinfo['ship_goods']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_goods SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpgoods VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allgoods VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line2\"><TD>$l_energy</TD><TD>" . NUMBER($planetinfo['energy']) . "</TD><TD>" . NUMBER($playerinfo['ship_energy']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_energy SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpenergy VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allenergy VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line1\"><TD>$l_colonists</TD><TD>" . NUMBER($planetinfo['colonists']) . "</TD><TD>" . NUMBER($playerinfo['ship_colonists']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_colonists SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpcolonists VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allcolonists VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line2\"><TD>$l_fighters</TD><TD>" . NUMBER($planetinfo['fighters']) . "</TD><TD>" . NUMBER($playerinfo['ship_fighters']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_fighters SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpfighters VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allfighters VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line1\"><TD>$l_torps</TD><TD>" . NUMBER($planetinfo['torps']) . "</TD><TD>" . NUMBER($playerinfo['torps']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_torps SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tptorps VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=alltorps VALUE=-1></TD></TR>";
-      echo"<TR BGCOLOR=\"$color_line2\"><TD>$l_credits</TD><TD>" . NUMBER($planetinfo['credits']) . "</TD><TD>" . NUMBER($playerinfo['credits']) . "</TD><TD><INPUT TYPE=TEXT NAME=transfer_credits SIZE=10 MAXLENGTH=20></TD><TD><INPUT TYPE=CHECKBOX NAME=tpcredits VALUE=-1></TD><TD><INPUT TYPE=CHECKBOX NAME=allcredits VALUE=-1></TD></TR>";
-      echo "</TABLE><br>";
-      echo "<INPUT TYPE=SUBMIT VALUE=$l_planet_transfer_link>&nbsp;<INPUT TYPE=RESET VALUE=Reset>";
-      echo "</FORM>";
+      echo "<form action=planet2.php?planet_id=$planet_id method=post>";
+      echo "<table WIDTH=\"100%\" border=0 cellspacing=0 cellpadding=0>";
+      echo"<tr bgcolor=\"$color_header\"><td><b>$l_commodity</b></td><td><b>$l_planet</b></td><td><b>$l_ship</b></td><td><b>$l_planet_transfer_link</b></td><td><b>$l_planet_toplanet</b></td><td><b>$l_all?</b></td></tr>";
+      echo"<tr bgcolor=\"$color_line1\"><td>$l_ore</td><td>" . NUMBER($planetinfo['ore']) . "</td><td>" . NUMBER($playerinfo['ship_ore']) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line2\"><td>$l_organics</td><td>" . NUMBER($planetinfo['organics']) . "</td><td>" . NUMBER($playerinfo['ship_organics']) . "</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=CHECKBOX name=tporganics value=-1></td><td><input type=CHECKBOX name=allorganics value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line1\"><td>$l_goods</td><td>" . NUMBER($planetinfo['goods']) . "</td><td>" . NUMBER($playerinfo['ship_goods']) . "</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=CHECKBOX name=tpgoods value=-1></td><td><input type=CHECKBOX name=allgoods value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line2\"><td>$l_energy</td><td>" . NUMBER($planetinfo['energy']) . "</td><td>" . NUMBER($playerinfo['ship_energy']) . "</td><td><input type=text name=transfer_energy size=10 maxlength=20></td><td><input type=CHECKBOX name=tpenergy value=-1></td><td><input type=CHECKBOX name=allenergy value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line1\"><td>$l_colonists</td><td>" . NUMBER($planetinfo['colonists']) . "</td><td>" . NUMBER($playerinfo['ship_colonists']) . "</td><td><input type=text name=transfer_colonists size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcolonists value=-1></td><td><input type=CHECKBOX name=allcolonists value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line2\"><td>$l_fighters</td><td>" . NUMBER($planetinfo['fighters']) . "</td><td>" . NUMBER($playerinfo['ship_fighters']) . "</td><td><input type=text name=transfer_fighters size=10 maxlength=20></td><td><input type=CHECKBOX name=tpfighters value=-1></td><td><input type=CHECKBOX name=allfighters value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line1\"><td>$l_torps</td><td>" . NUMBER($planetinfo['torps']) . "</td><td>" . NUMBER($playerinfo['torps']) . "</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=CHECKBOX name=tptorps value=-1></td><td><input type=CHECKBOX name=alltorps value=-1></td></tr>";
+      echo"<tr bgcolor=\"$color_line2\"><td>$l_credits</td><td>" . NUMBER($planetinfo['credits']) . "</td><td>" . NUMBER($playerinfo['credits']) . "</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcredits value=-1></td><td><input type=CHECKBOX name=allcredits value=-1></td></tr>";
+      echo "</table><br>";
+      echo "<input type=submit value=$l_planet_transfer_link>&nbsp;<input type=RESET value=Reset>";
+      echo "</form>";
     }
     elseif ($command == "base")
     {
@@ -381,7 +381,7 @@ if (!empty($planetinfo))
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
-            TEXT_GOTOMAIN();
+            text_GOTOMAIN();
             include "footer.php";
             die();
         }
@@ -427,12 +427,12 @@ if (!empty($planetinfo))
     {
 
       // Change production percentages
-      $pore       = (int) $_POST['pore'];
-      $porganics  = (int) $_POST['porganics'];
-      $pgoods     = (int) $_POST['pgoods'];
-      $penergy    = (int) $_POST['penergy'];
-      $pfighters  = (int) $_POST['pfighters'];
-      $ptorp      = (int) $_POST['ptorp'];
+      $pore       = (int) $_post['pore'];
+      $porganics  = (int) $_post['porganics'];
+      $pgoods     = (int) $_post['pgoods'];
+      $penergy    = (int) $_post['penergy'];
+      $pfighters  = (int) $_post['pfighters'];
+      $ptorp      = (int) $_post['ptorp'];
 
       if ($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
       {
@@ -500,7 +500,7 @@ if (!empty($planetinfo))
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
-            TEXT_GOTOMAIN();
+            text_GOTOMAIN();
             include "footer.php";
             die();
         }
@@ -546,7 +546,7 @@ if (!empty($planetinfo))
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
-            TEXT_GOTOMAIN();
+            text_GOTOMAIN();
             include "footer.php";
             die();
         }
@@ -601,7 +601,7 @@ if (!empty($planetinfo))
         {
             adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
-            TEXT_GOTOMAIN();
+            text_GOTOMAIN();
             include "footer.php";
             die();
         }
@@ -611,7 +611,7 @@ if (!empty($planetinfo))
       if ($playerinfo[turns] < 1)
       {
         echo "$l_plant_scn_turn<br><br>";
-        TEXT_GOTOMAIN();
+        text_GOTOMAIN();
         include "footer.php";
         die();
       }
@@ -630,7 +630,7 @@ if (!empty($planetinfo))
       {
         // If scan fails - inform both player and target.
         echo "$l_planet_noscan<br><br>";
-        TEXT_GOTOMAIN();
+        text_GOTOMAIN();
         playerlog($ownerinfo[ship_id], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
         include "footer.php";
         die();
@@ -783,7 +783,7 @@ if (!empty($planetinfo))
 //         $roll=rand(1, 100);
 //         if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //         {
-//           echo "<B>$ownerinfo[character_name] $l_planet_ison</B><br>";
+//           echo "<b>$ownerinfo[character_name] $l_planet_ison</b><br>";
 //         }
 
        $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE on_planet = 'Y' and planet_id = $planet_id");
@@ -804,7 +804,7 @@ if (!empty($planetinfo))
 
          if ($roll < $success)
          {
-           echo "<B>$row[character_name] $l_planet_ison</B><br>";
+           echo "<b>$row[character_name] $l_planet_ison</b><br>";
          }
          $res->MoveNext();
        }
@@ -860,10 +860,10 @@ if ($command != "")
 }
 if ($allow_ibank)
 {
-  echo "$l_ifyouneedplan <A HREF=\"igb.php?planet_id=$planet_id\">$l_igb_term</A>.<br><br>";
+  echo "$l_ifyouneedplan <a href=\"igb.php?planet_id=$planet_id\">$l_igb_term</A>.<br><br>";
 }
-echo "<A HREF =\"bounty.php\">$l_by_placebounty</A><p>";
+echo "<a href =\"bounty.php\">$l_by_placebounty</A><p>";
 
-TEXT_GOTOMAIN();
+text_GOTOMAIN();
 include "footer.php";
 ?>

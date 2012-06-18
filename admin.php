@@ -41,31 +41,31 @@ $module = $menu;
 
 if ($swordfish != $adminpass)
 {
-  echo "<FORM ACTION=admin.php METHOD=POST>";
-  echo "Password: <INPUT TYPE=PASSWORD NAME=swordfish SIZE=20 MAXLENGTH=20>&nbsp;&nbsp;";
-  echo "<INPUT TYPE=SUBMIT VALUE=Submit><INPUT TYPE=RESET VALUE=Reset>";
-  echo "</FORM>";
+  echo "<form action=admin.php method=post>";
+  echo "Password: <input type=password name=swordfish size=20 maxlength=20>&nbsp;&nbsp;";
+  echo "<input type=submit value=Submit><input type=reset value=Reset>";
+  echo "</form>";
 }
 else
 {
   if (empty($module))
   {
-    echo "Welcome to the Blacknova Traders administration module<BR><BR>";
-    echo "Select a function from the list below:<BR>";
-    echo "<FORM ACTION=admin.php METHOD=POST>";
-    echo "<SELECT NAME=menu>";
-    echo "<OPTION VALUE=useredit SELECTED>User editor</OPTION>";
-    echo "<OPTION VALUE=univedit>Universe editor</OPTION>";
-    echo "<OPTION VALUE=sectedit>Sector editor</OPTION>";
-    echo "<OPTION VALUE=planedit>Planet editor</OPTION>";
-    echo "<OPTION VALUE=linkedit>Link editor</OPTION>";
-    echo "<OPTION VALUE=zoneedit>Zone editor</OPTION>";
-    echo "<OPTION VALUE=ipedit>IP bans editor</OPTION>";
-    echo "<OPTION VALUE=logview>Log Viewer</OPTION>";
-    echo "</SELECT>";
-    echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-    echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Submit>";
-    echo "</FORM>";
+    echo "Welcome to the Blacknova Traders administration module<br><br>";
+    echo "select a function from the list below:<br>";
+    echo "<form action=admin.php method=post>";
+    echo "<select name=menu>";
+    echo "<option value=useredit selectED>User editor</option>";
+    echo "<option value=univedit>Universe editor</option>";
+    echo "<option value=sectedit>Sector editor</option>";
+    echo "<option value=planedit>Planet editor</option>";
+    echo "<option value=linkedit>Link editor</option>";
+    echo "<option value=zoneedit>Zone editor</option>";
+    echo "<option value=ipedit>IP bans editor</option>";
+    echo "<option value=logview>Log Viewer</option>";
+    echo "</select>";
+    echo "<input type=hidden name=swordfish value=$swordfish>";
+    echo "&nbsp;<input type=submit value=Submit>";
+    echo "</form>";
   }
   else
   {
@@ -74,79 +74,79 @@ else
     if ($module == "useredit")
     {
       echo "<B>User editor</B>";
-      echo "<BR>";
-      echo "<FORM ACTION=admin.php METHOD=POST>";
+      echo "<br>";
+      echo "<form action=admin.php method=post>";
       if (empty($user))
       {
-        echo "<SELECT SIZE=20 NAME=user>";
-        $res = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
+        echo "<select size=20 name=user>";
+        $res = $db->Execute("select ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
         while (!$res->EOF)
         {
           $row=$res->fields;
-          echo "<OPTION VALUE=$row[ship_id]>$row[character_name]</OPTION>";
+          echo "<option value=$row[ship_id]>$row[character_name]</option>";
           $res->MoveNext();
         }
-        echo "</SELECT>";
-        echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
+        echo "</select>";
+        echo "&nbsp;<input type=submit value=Edit>";
       }
       else
       {
         if (empty($operation))
         {
-          $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$user");
+          $res = $db->Execute("select * FROM $dbtables[ships] WHERE ship_id=$user");
           $row = $res->fields;
-          echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
-          echo "<TR><TD>Player name</TD><TD><INPUT TYPE=TEXT NAME=character_name VALUE=\"$row[character_name]\"></TD></TR>";
-          echo "<TR><TD>Password</TD><TD><INPUT TYPE=TEXT NAME=password2 VALUE=\"$row[password]\"></TD></TR>";
-          echo "<TR><TD>E-mail</TD><TD><INPUT TYPE=TEXT NAME=email VALUE=\"$row[email]\"></TD></TR>";
-          echo "<TR><TD>ID</TD><TD>$user</TD></TR>";
-          echo "<TR><TD>Ship</TD><TD><INPUT TYPE=TEXT NAME=ship_name VALUE=\"$row[ship_name]\"></TD></TR>";
-          echo "<TR><TD>Destroyed?</TD><TD><INPUT TYPE=CHECKBOX NAME=ship_destroyed VALUE=ON " . CHECKED($row[ship_destroyed]) . "></TD></TR>";
-          echo "<TR><TD>Levels</TD>";
-          echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
-          echo "<TR><TD>Hull</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=hull VALUE=\"$row[hull]\"></TD>";
-          echo "<TD>Engines</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=engines VALUE=\"$row[engines]\"></TD>";
-          echo "<TD>Power</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=power VALUE=\"$row[power]\"></TD>";
-          echo "<TD>Computer</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=computer VALUE=\"$row[computer]\"></TD></TR>";
-          echo "<TR><TD>Sensors</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=sensors VALUE=\"$row[sensors]\"></TD>";
-          echo "<TD>Armor</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=armor VALUE=\"$row[armor]\"></TD>";
-          echo "<TD>Shields</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=shields VALUE=\"$row[shields]\"></TD>";
-          echo "<TD>Beams</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=beams VALUE=\"$row[beams]\"></TD></TR>";
-          echo "<TR><TD>Torpedoes</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=torp_launchers VALUE=\"$row[torp_launchers]\"></TD>";
-          echo "<TD>Cloak</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=cloak VALUE=\"$row[cloak]\"></TD></TR>";
-          echo "</TABLE></TD></TR>";
-          echo "<TR><TD>Holds</TD>";
-          echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
-          echo "<TR><TD>Ore</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_ore VALUE=\"$row[ship_ore]\"></TD>";
-          echo "<TD>Organics</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_organics VALUE=\"$row[ship_organics]\"></TD>";
-          echo "<TD>Goods</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_goods VALUE=\"$row[ship_goods]\"></TD></TR>";
-          echo "<TR><TD>Energy</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_energy VALUE=\"$row[ship_energy]\"></TD>";
-          echo "<TD>Colonists</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_colonists VALUE=\"$row[ship_colonists]\"></TD></TR>";
-          echo "</TABLE></TD></TR>";
-          echo "<TR><TD>Combat</TD>";
-          echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
-          echo "<TR><TD>Fighters</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=ship_fighters VALUE=\"$row[ship_fighters]\"></TD>";
-          echo "<TD>Torpedoes</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=torps VALUE=\"$row[torps]\"></TD></TR>";
-          echo "<TR><TD>Armor Pts</TD><TD><INPUT TYPE=TEXT SIZE=8 NAME=armor_pts VALUE=\"$row[armor_pts]\"></TD></TR>";
-          echo "</TABLE></TD></TR>";
-          echo "<TR><TD>Devices</TD>";
-          echo "<TD><TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
-          echo "<TR><TD>Beacons</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=dev_beacon VALUE=\"$row[dev_beacon]\"></TD>";
-          echo "<TD>Warp Editors</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=dev_warpedit VALUE=\"$row[dev_warpedit]\"></TD>";
-          echo "<TD>Genesis Torpedoes</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=dev_genesis VALUE=\"$row[dev_genesis]\"></TD></TR>";
-          echo "<TR><TD>Mine Deflectors</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=dev_minedeflector VALUE=\"$row[dev_minedeflector]\"></TD>";
-          echo "<TD>Emergency Warp</TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=dev_emerwarp VALUE=\"$row[dev_emerwarp]\"></TD></TR>";
-          echo "<TR><TD>Escape Pod</TD><TD><INPUT TYPE=CHECKBOX NAME=dev_escapepod VALUE=ON " . CHECKED($row[dev_escapepod]) . "></TD>";
-          echo "<TD>FuelScoop</TD><TD><INPUT TYPE=CHECKBOX NAME=dev_fuelscoop VALUE=ON " . CHECKED($row[dev_fuelscoop]) . "></TD></TR>";
-          echo "</TABLE></TD></TR>";
-          echo "<TR><TD>Credits</TD><TD><INPUT TYPE=TEXT NAME=credits VALUE=\"$row[credits]\"></TD></TR>";
-          echo "<TR><TD>Turns</TD><TD><INPUT TYPE=TEXT NAME=turns VALUE=\"$row[turns]\"></TD></TR>";
-          echo "<TR><TD>Current sector</TD><TD><INPUT TYPE=TEXT NAME=sector VALUE=\"$row[sector]\"></TD></TR>";
-          echo "</TABLE>";
-          echo "<BR>";
-          echo "<INPUT TYPE=HIDDEN NAME=user VALUE=$user>";
-          echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
-          echo "<INPUT TYPE=SUBMIT VALUE=Save>";
+          echo "<table border=0 cellspacing=0 cellpadding=5>";
+          echo "<tr><td>Player name</td><td><input type=text name=character_name value=\"$row[character_name]\"></td></tr>";
+          echo "<tr><td>Password</td><td><input type=text name=password2 value=\"$row[password]\"></td></tr>";
+          echo "<tr><td>E-mail</td><td><input type=text name=email value=\"$row[email]\"></td></tr>";
+          echo "<tr><td>ID</td><td>$user</td></tr>";
+          echo "<tr><td>Ship</td><td><input type=text name=ship_name value=\"$row[ship_name]\"></td></tr>";
+          echo "<tr><td>Destroyed?</td><td><input type=CHECKBOX name=ship_destroyed value=ON " . CHECKED($row[ship_destroyed]) . "></td></tr>";
+          echo "<tr><td>Levels</td>";
+          echo "<td><table border=0 cellspacing=0 cellpadding=5>";
+          echo "<tr><td>Hull</td><td><input type=text size=5 name=hull value=\"$row[hull]\"></td>";
+          echo "<td>Engines</td><td><input type=text size=5 name=engines value=\"$row[engines]\"></td>";
+          echo "<td>Power</td><td><input type=text size=5 name=power value=\"$row[power]\"></td>";
+          echo "<td>Computer</td><td><input type=text size=5 name=computer value=\"$row[computer]\"></td></tr>";
+          echo "<tr><td>Sensors</td><td><input type=text size=5 name=sensors value=\"$row[sensors]\"></td>";
+          echo "<td>Armor</td><td><input type=text size=5 name=armor value=\"$row[armor]\"></td>";
+          echo "<td>Shields</td><td><input type=text size=5 name=shields value=\"$row[shields]\"></td>";
+          echo "<td>Beams</td><td><input type=text size=5 name=beams value=\"$row[beams]\"></td></tr>";
+          echo "<tr><td>Torpedoes</td><td><input type=text size=5 name=torp_launchers value=\"$row[torp_launchers]\"></td>";
+          echo "<td>Cloak</td><td><input type=text size=5 name=cloak value=\"$row[cloak]\"></td></tr>";
+          echo "</table></td></tr>";
+          echo "<tr><td>Holds</td>";
+          echo "<td><table border=0 cellspacing=0 cellpadding=5>";
+          echo "<tr><td>Ore</td><td><input type=text size=8 name=ship_ore value=\"$row[ship_ore]\"></td>";
+          echo "<td>Organics</td><td><input type=text size=8 name=ship_organics value=\"$row[ship_organics]\"></td>";
+          echo "<td>Goods</td><td><input type=text size=8 name=ship_goods value=\"$row[ship_goods]\"></td></tr>";
+          echo "<tr><td>Energy</td><td><input type=text size=8 name=ship_energy value=\"$row[ship_energy]\"></td>";
+          echo "<td>Colonists</td><td><input type=text size=8 name=ship_colonists value=\"$row[ship_colonists]\"></td></tr>";
+          echo "</table></td></tr>";
+          echo "<tr><td>Combat</td>";
+          echo "<td><table border=0 cellspacing=0 cellpadding=5>";
+          echo "<tr><td>Fighters</td><td><input type=text size=8 name=ship_fighters value=\"$row[ship_fighters]\"></td>";
+          echo "<td>Torpedoes</td><td><input type=text size=8 name=torps value=\"$row[torps]\"></td></tr>";
+          echo "<tr><td>Armor Pts</td><td><input type=text size=8 name=armor_pts value=\"$row[armor_pts]\"></td></tr>";
+          echo "</table></td></tr>";
+          echo "<tr><td>Devices</td>";
+          echo "<td><table border=0 cellspacing=0 cellpadding=5>";
+          echo "<tr><td>Beacons</td><td><input type=text size=5 name=dev_beacon value=\"$row[dev_beacon]\"></td>";
+          echo "<td>Warp Editors</td><td><input type=text size=5 name=dev_warpedit value=\"$row[dev_warpedit]\"></td>";
+          echo "<td>Genesis Torpedoes</td><td><input type=text size=5 name=dev_genesis value=\"$row[dev_genesis]\"></td></tr>";
+          echo "<tr><td>Mine Deflectors</td><td><input type=text size=5 name=dev_minedeflector value=\"$row[dev_minedeflector]\"></td>";
+          echo "<td>Emergency Warp</td><td><input type=text size=5 name=dev_emerwarp value=\"$row[dev_emerwarp]\"></td></tr>";
+          echo "<tr><td>Escape Pod</td><td><input type=CHECKBOX name=dev_escapepod value=ON " . CHECKED($row[dev_escapepod]) . "></td>";
+          echo "<td>FuelScoop</td><td><input type=CHECKBOX name=dev_fuelscoop value=ON " . CHECKED($row[dev_fuelscoop]) . "></td></tr>";
+          echo "</table></td></tr>";
+          echo "<tr><td>Credits</td><td><input type=text name=credits value=\"$row[credits]\"></td></tr>";
+          echo "<tr><td>Turns</td><td><input type=text name=turns value=\"$row[turns]\"></td></tr>";
+          echo "<tr><td>Current sector</td><td><input type=text name=sector value=\"$row[sector]\"></td></tr>";
+          echo "</table>";
+          echo "<br>";
+          echo "<input type=hidden name=user value=$user>";
+          echo "<input type=hidden name=operation value=save>";
+          echo "<input type=submit value=Save>";
         }
         elseif ($operation == "save")
         {
@@ -155,8 +155,8 @@ else
           $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
           $db->Execute("UPDATE $dbtables[ships] SET character_name='$character_name',password='$password2',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE ship_id=$user");
-          echo "Changes saved<BR><BR>";
-          echo "<INPUT TYPE=SUBMIT VALUE=\"Return to User editor\">";
+          echo "Changes saved<br><br>";
+          echo "<input type=submit value=\"Return to User editor\">";
           $button_main = false;
         }
         else
@@ -164,39 +164,39 @@ else
           echo "Invalid operation";
         }
       }
-      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=useredit>";
-      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-      echo "</FORM>";
+      echo "<input type=hidden name=menu value=useredit>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "</form>";
     }
     elseif ($module == "univedit")
     {
       echo "<B>Universe editor</B>";
 
         $title=$l_change_uni_title;
-        echo "<BR>Expand or Contract the Universe <BR>";
+        echo "<br>Expand or Contract the Universe <br>";
 
 
         if (empty($action))
         {
-        echo "<FORM ACTION=admin.php METHOD=POST>";
-        echo "Universe Size: <INPUT TYPE=TEXT NAME=radius VALUE=\"$universe_size\">";
-        echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-        echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=univedit>";
-        echo "<INPUT TYPE=HIDDEN NAME=action VALUE=doexpand> ";
-        echo "<INPUT TYPE=SUBMIT VALUE=\"Play God\">";
-        echo "</FORM>";
+        echo "<form action=admin.php method=post>";
+        echo "Universe Size: <input type=text name=radius value=\"$universe_size\">";
+        echo "<input type=hidden name=swordfish value=$swordfish>";
+        echo "<input type=hidden name=menu value=univedit>";
+        echo "<input type=hidden name=action value=doexpand> ";
+        echo "<input type=submit value=\"Play God\">";
+        echo "</form>";
         }
         elseif ($action == "doexpand")
         {
-        echo "<BR><FONT SIZE='+2'>Be sure to update your config.php file with the new universe_size value</FONT><BR>";
+        echo "<br><font size='+2'>Be sure to update your config.php file with the new universe_size value</font><br>";
         srand((double)microtime()*1000000);
-        $result = $db->Execute("SELECT sector_id FROM $dbtables[universe] ORDER BY sector_id ASC");
+        $result = $db->Execute("select sector_id FROM $dbtables[universe] ORDER BY sector_id ASC");
         while (!$result->EOF)
         {
                 $row=$result->fields;
                 $distance=rand(1,$radius);
                 $db->Execute("UPDATE $dbtables[universe] SET distance=$distance WHERE sector_id=$row[sector_id]");
-                echo "Updated sector $row[sector_id] set to $distance<BR>";
+                echo "Updated sector $row[sector_id] set to $distance<br>";
                 $result->MoveNext();
         }
 
@@ -205,91 +205,91 @@ else
     elseif ($module == "sectedit")
     {
       echo "<H2>Sector editor</H2>";
-      echo "<FORM ACTION=admin.php METHOD=POST>";
+      echo "<form action=admin.php method=post>";
       if (empty($sector))
       {
         echo "<H5>Note: Cannot Edit Sector 0</H5>";
-        echo "<SELECT SIZE=20 NAME=sector>";
-        $res = $db->Execute("SELECT sector_id FROM $dbtables[universe] ORDER BY sector_id");
+        echo "<select size=20 name=sector>";
+        $res = $db->Execute("select sector_id FROM $dbtables[universe] ORDER BY sector_id");
         while (!$res->EOF)
         {
           $row=$res->fields;
-          echo "<OPTION VALUE=$row[sector_id]> $row[sector_id] </OPTION>";
+          echo "<option value=$row[sector_id]> $row[sector_id] </option>";
           $res->MoveNext();
         }
-        echo "</SELECT>";
-        echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
+        echo "</select>";
+        echo "&nbsp;<input type=submit value=Edit>";
       }
       else
       {
         if (empty($operation))
         {
-          $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$sector");
+          $res = $db->Execute("select * FROM $dbtables[universe] WHERE sector_id=$sector");
           $row = $res->fields;
 
-          echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
-          echo "<TR><TD><tt>          Sector ID  </tt></TD><TD><FONT COLOR=#6f0>$sector</FONT></TD>";
-          echo "<TD ALIGN=Right><tt>  Sector Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=sector_name VALUE=\"$row[sector_name]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Zone ID    </tt></TD><TD>";
-                                      echo "<SELECT SIZE=1 NAME=zone_id>";
-                                      $ressubb = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
+          echo "<table border=0 cellspacing=2 cellpadding=2>";
+          echo "<tr><td><tt>          Sector ID  </tt></td><td><font color=#6f0>$sector</font></td>";
+          echo "<td align=Right><tt>  Sector Name</tt></td><td><input type=text size=15 name=sector_name value=\"$row[sector_name]\"></td>";
+          echo "<td align=Right><tt>  Zone ID    </tt></td><td>";
+                                      echo "<select size=1 name=zone_id>";
+                                      $ressubb = $db->Execute("select zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
                                       while (!$ressubb->EOF)
                                       {
                                         $rowsubb=$ressubb->fields;
                                         if ($rowsubb[zone_id] == $row[zone_id])
                                         {
-                                        echo "<OPTION SELECTED=$rowsubb[zone_id] VALUE=$rowsubb[zone_id]>$rowsubb[zone_name]</OPTION>";
+                                        echo "<option selectED=$rowsubb[zone_id] value=$rowsubb[zone_id]>$rowsubb[zone_name]</option>";
                                         } else {
-                                        echo "<OPTION VALUE=$rowsubb[zone_id]>$rowsubb[zone_name]</OPTION>";
+                                        echo "<option value=$rowsubb[zone_id]>$rowsubb[zone_name]</option>";
                                         }
                                         $ressubb->MoveNext();
                                       }
-                                      echo "</SELECT></TD></TR>";
-          echo "<TR><TD><tt>          Beacon     </tt></TD><TD COLSPAN=5><INPUT TYPE=TEXT SIZE=70 NAME=beacon VALUE=\"$row[beacon]\"></TD></TR>";
-          echo "<TR><TD><tt>          Distance   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=distance VALUE=\"$row[distance]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Angle1     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=angle1 VALUE=\"$row[angle1]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Angle2     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=angle2 VALUE=\"$row[angle2]\"></TD></TR>";
-          echo "<TR><TD COLSPAN=6>    <HR>       </TD></TR>";
-          echo "</TABLE>";
+                                      echo "</select></td></tr>";
+          echo "<tr><td><tt>          Beacon     </tt></td><td colspan=5><input type=text size=70 name=beacon value=\"$row[beacon]\"></td></tr>";
+          echo "<tr><td><tt>          Distance   </tt></td><td><input type=text size=9 name=distance value=\"$row[distance]\"></td>";
+          echo "<td align=Right><tt>  Angle1     </tt></td><td><input type=text size=9 name=angle1 value=\"$row[angle1]\"></td>";
+          echo "<td align=Right><tt>  Angle2     </tt></td><td><input type=text size=9 name=angle2 value=\"$row[angle2]\"></td></tr>";
+          echo "<tr><td colspan=6>    <HR>       </td></tr>";
+          echo "</table>";
 
-          echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
-          echo "<TR><TD><tt>          Port Type  </tt></TD><TD>";
-                                      echo "<SELECT SIZE=1 NAME=port_type>";
-                                      $oportnon = $oportorg = $oportore = $oportgoo = $oportene = "VALUE";
-                                      if ($row[port_type] == "none") $oportnon = "SELECTED=none VALUE";
-                                      if ($row[port_type] == "organics") $oportorg = "SELECTED=organics VALUE";
-                                      if ($row[port_type] == "ore") $oportore = "SELECTED=ore VALUE";
-                                      if ($row[port_type] == "goods") $oportgoo = "SELECTED=goods VALUE";
-                                      if ($row[port_type] == "energy") $oportene = "SELECTED=energy VALUE";
-                                      echo "<OPTION $oportnon=none>none</OPTION>";
-                                      echo "<OPTION $oportorg=organics>organics</OPTION>";
-                                      echo "<OPTION $oportore=ore>ore</OPTION>";
-                                      echo "<OPTION $oportgoo=goods>goods</OPTION>";
-                                      echo "<OPTION $oportene=energy>energy</OPTION>";
-                                      echo "</SELECT></TD>";
-          echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_organics VALUE=\"$row[port_organics]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_ore VALUE=\"$row[port_ore]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_goods VALUE=\"$row[port_goods]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=port_energy VALUE=\"$row[port_energy]\"></TD></TR>";
-          echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
-          echo "</TABLE>";
+          echo "<table border=0 cellspacing=2 cellpadding=2>";
+          echo "<tr><td><tt>          Port Type  </tt></td><td>";
+                                      echo "<select size=1 name=port_type>";
+                                      $oportnon = $oportorg = $oportore = $oportgoo = $oportene = "value";
+                                      if ($row[port_type] == "none") $oportnon = "selectED=none value";
+                                      if ($row[port_type] == "organics") $oportorg = "selectED=organics value";
+                                      if ($row[port_type] == "ore") $oportore = "selectED=ore value";
+                                      if ($row[port_type] == "goods") $oportgoo = "selectED=goods value";
+                                      if ($row[port_type] == "energy") $oportene = "selectED=energy value";
+                                      echo "<option $oportnon=none>none</option>";
+                                      echo "<option $oportorg=organics>organics</option>";
+                                      echo "<option $oportore=ore>ore</option>";
+                                      echo "<option $oportgoo=goods>goods</option>";
+                                      echo "<option $oportene=energy>energy</option>";
+                                      echo "</select></td>";
+          echo "<td align=Right><tt>  Organics   </tt></td><td><input type=text size=9 name=port_organics value=\"$row[port_organics]\"></td>";
+          echo "<td align=Right><tt>  Ore        </tt></td><td><input type=text size=9 name=port_ore value=\"$row[port_ore]\"></td>";
+          echo "<td align=Right><tt>  Goods      </tt></td><td><input type=text size=9 name=port_goods value=\"$row[port_goods]\"></td>";
+          echo "<td align=Right><tt>  Energy     </tt></td><td><input type=text size=9 name=port_energy value=\"$row[port_energy]\"></td></tr>";
+          echo "<tr><td colspan=10>   <HR>       </td></tr>";
+          echo "</table>";
 
-          echo "<BR>";
-          echo "<INPUT TYPE=HIDDEN NAME=sector VALUE=$sector>";
-          echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
-          echo "<INPUT TYPE=SUBMIT SIZE=1 VALUE=Save>";
+          echo "<br>";
+          echo "<input type=hidden name=sector value=$sector>";
+          echo "<input type=hidden name=operation value=save>";
+          echo "<input type=submit size=1 value=Save>";
         }
         elseif ($operation == "save")
         {
           // update database
           $secupdate = $db->Execute("UPDATE $dbtables[universe] SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
           if (!$secupdate) {
-            echo "Changes to Sector record have FAILED Due to the following Error:<BR><BR>";
+            echo "Changes to Sector record have FAILED Due to the following Error:<br><br>";
             echo $db->ErrorMsg() . "<br>";
           } else {
-            echo "Changes to Sector record have been saved.<BR><BR>";
+            echo "Changes to Sector record have been saved.<br><br>";
           }
-          echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Sector editor\">";
+          echo "<input type=submit value=\"Return to Sector editor\">";
           $button_main = false;
         }
         else
@@ -297,18 +297,18 @@ else
           echo "Invalid operation";
         }
       }
-      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=sectedit>";
-      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-      echo "</FORM>";
+      echo "<input type=hidden name=menu value=sectedit>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "</form>";
     }
     elseif ($module == "planedit")
     {
       echo "<H2>Planet editor</H2>";
-      echo "<FORM ACTION=admin.php METHOD=POST>";
+      echo "<form action=admin.php method=post>";
       if (empty($planet))
       {
-        echo "<SELECT SIZE=15 NAME=planet>";
-        $res = $db->Execute("SELECT planet_id, name, sector_id FROM $dbtables[planets] ORDER BY sector_id");
+        echo "<select size=15 name=planet>";
+        $res = $db->Execute("select planet_id, name, sector_id FROM $dbtables[planets] ORDER BY sector_id");
         while (!$res->EOF)
         {
           $row=$res->fields;
@@ -316,70 +316,70 @@ else
 
             $row[name] = "Unnamed";
 
-          echo "<OPTION VALUE=$row[planet_id]> $row[name] in sector $row[sector_id] </OPTION>";
+          echo "<option value=$row[planet_id]> $row[name] in sector $row[sector_id] </option>";
           $res->MoveNext();
         }
-        echo "</SELECT>";
-        echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
+        echo "</select>";
+        echo "&nbsp;<input type=submit value=Edit>";
       }
       else
       {
         if (empty($operation))
         {
-          $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet");
+          $res = $db->Execute("select * FROM $dbtables[planets] WHERE planet_id=$planet");
           $row = $res->fields;
 
-          echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
-          echo "<TR><TD><tt>          Planet ID  </tt></TD><TD><FONT COLOR=#6f0>$planet</FONT></TD>";
-          echo "<TD ALIGN=Right><tt>  Sector ID  </tt><INPUT TYPE=TEXT SIZE=5 NAME=sector_id VALUE=\"$row[sector_id]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Defeated   </tt><INPUT TYPE=CHECKBOX NAME=defeated VALUE=ON " . CHECKED($row[defeated]) . "></TD></TR>";
-          echo "<TR><TD><tt>          Planet Name</tt></TD><TD><INPUT TYPE=TEXT SIZE=15 NAME=name VALUE=\"$row[name]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Base       </tt><INPUT TYPE=CHECKBOX NAME=base VALUE=ON " . CHECKED($row[base]) . "></TD>";
-          echo "<TD ALIGN=Right><tt>  Sells      </tt><INPUT TYPE=CHECKBOX NAME=sells VALUE=ON " . CHECKED($row[sells]) . "></TD></TR>";
-          echo "<TR><TD COLSPAN=4>    <HR>       </TD></TR>";
-          echo "</TABLE>";
+          echo "<table border=0 cellspacing=2 cellpadding=2>";
+          echo "<tr><td><tt>          Planet ID  </tt></td><td><font color=#6f0>$planet</font></td>";
+          echo "<td align=Right><tt>  Sector ID  </tt><input type=text size=5 name=sector_id value=\"$row[sector_id]\"></td>";
+          echo "<td align=Right><tt>  Defeated   </tt><input type=CHECKBOX name=defeated value=ON " . CHECKED($row[defeated]) . "></td></tr>";
+          echo "<tr><td><tt>          Planet Name</tt></td><td><input type=text size=15 name=name value=\"$row[name]\"></td>";
+          echo "<td align=Right><tt>  Base       </tt><input type=CHECKBOX name=base value=ON " . CHECKED($row[base]) . "></td>";
+          echo "<td align=Right><tt>  Sells      </tt><input type=CHECKBOX name=sells value=ON " . CHECKED($row[sells]) . "></td></tr>";
+          echo "<tr><td colspan=4>    <HR>       </td></tr>";
+          echo "</table>";
 
-          echo "<TABLE BORDER=0 CELLSPACING=2 CELLPADDING=2>";
-          echo "<TR><TD><tt>          Planet Owner</tt></TD><TD>";
-                                      echo "<SELECT SIZE=1 NAME=owner>";
-                                      $ressuba = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
-                                      echo "<OPTION VALUE=0>No One</OPTION>";
+          echo "<table border=0 cellspacing=2 cellpadding=2>";
+          echo "<tr><td><tt>          Planet Owner</tt></td><td>";
+                                      echo "<select size=1 name=owner>";
+                                      $ressuba = $db->Execute("select ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
+                                      echo "<option value=0>No One</option>";
                                       while (!$ressuba->EOF)
                                       {
                                       $rowsuba=$ressuba->fields;
                                       if ($rowsuba[ship_id] == $row[owner])
                                         {
-                                        echo "<OPTION SELECTED=$rowsuba[ship_id] VALUE=$rowsuba[ship_id]>$rowsuba[character_name]</OPTION>";
+                                        echo "<option selectED=$rowsuba[ship_id] value=$rowsuba[ship_id]>$rowsuba[character_name]</option>";
                                         } else {
-                                        echo "<OPTION VALUE=$rowsuba[ship_id]>$rowsuba[character_name]</OPTION>";
+                                        echo "<option value=$rowsuba[ship_id]>$rowsuba[character_name]</option>";
                                         }
                                         $ressuba->MoveNext();
                                       }
-                                      echo "</SELECT></TD>";
-          echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=organics VALUE=\"$row[organics]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=ore VALUE=\"$row[ore]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=goods VALUE=\"$row[goods]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=energy VALUE=\"$row[energy]\"></TD></TR>";
-          echo "<TR><TD><tt>          Planet Corp</tt></TD><TD><INPUT TYPE=TEXT SIZE=5 NAME=corp VALUE=\"$row[corp]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Colonists  </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=colonists VALUE=\"$row[colonists]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Credits    </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=credits VALUE=\"$row[credits]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Fighters   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=fighters VALUE=\"$row[fighters]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Torpedoes  </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=torps VALUE=\"$row[torps]\"></TD></TR>";
-          echo "<TR><TD COLSPAN=2><tt>Planet Production</tt></TD>";
-          echo "<TD ALIGN=Right><tt>  Organics   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_organics VALUE=\"$row[prod_organics]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Ore        </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_ore VALUE=\"$row[prod_ore]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Goods      </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_goods VALUE=\"$row[prod_goods]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Energy     </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_energy VALUE=\"$row[prod_energy]\"></TD></TR>";
-          echo "<TR><TD COLSPAN=6><tt>Planet Production</tt></TD>";
-          echo "<TD ALIGN=Right><tt>  Fighters   </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_fighters VALUE=\"$row[prod_fighters]\"></TD>";
-          echo "<TD ALIGN=Right><tt>  Torpedoes  </tt></TD><TD><INPUT TYPE=TEXT SIZE=9 NAME=prod_torp VALUE=\"$row[prod_torp]\"></TD></TR>";
-          echo "<TR><TD COLSPAN=10>   <HR>       </TD></TR>";
-          echo "</TABLE>";
+                                      echo "</select></td>";
+          echo "<td align=Right><tt>  Organics   </tt></td><td><input type=text size=9 name=organics value=\"$row[organics]\"></td>";
+          echo "<td align=Right><tt>  Ore        </tt></td><td><input type=text size=9 name=ore value=\"$row[ore]\"></td>";
+          echo "<td align=Right><tt>  Goods      </tt></td><td><input type=text size=9 name=goods value=\"$row[goods]\"></td>";
+          echo "<td align=Right><tt>  Energy     </tt></td><td><input type=text size=9 name=energy value=\"$row[energy]\"></td></tr>";
+          echo "<tr><td><tt>          Planet Corp</tt></td><td><input type=text size=5 name=corp value=\"$row[corp]\"></td>";
+          echo "<td align=Right><tt>  Colonists  </tt></td><td><input type=text size=9 name=colonists value=\"$row[colonists]\"></td>";
+          echo "<td align=Right><tt>  Credits    </tt></td><td><input type=text size=9 name=credits value=\"$row[credits]\"></td>";
+          echo "<td align=Right><tt>  Fighters   </tt></td><td><input type=text size=9 name=fighters value=\"$row[fighters]\"></td>";
+          echo "<td align=Right><tt>  Torpedoes  </tt></td><td><input type=text size=9 name=torps value=\"$row[torps]\"></td></tr>";
+          echo "<tr><td colspan=2><tt>Planet Production</tt></td>";
+          echo "<td align=Right><tt>  Organics   </tt></td><td><input type=text size=9 name=prod_organics value=\"$row[prod_organics]\"></td>";
+          echo "<td align=Right><tt>  Ore        </tt></td><td><input type=text size=9 name=prod_ore value=\"$row[prod_ore]\"></td>";
+          echo "<td align=Right><tt>  Goods      </tt></td><td><input type=text size=9 name=prod_goods value=\"$row[prod_goods]\"></td>";
+          echo "<td align=Right><tt>  Energy     </tt></td><td><input type=text size=9 name=prod_energy value=\"$row[prod_energy]\"></td></tr>";
+          echo "<tr><td colspan=6><tt>Planet Production</tt></td>";
+          echo "<td align=Right><tt>  Fighters   </tt></td><td><input type=text size=9 name=prod_fighters value=\"$row[prod_fighters]\"></td>";
+          echo "<td align=Right><tt>  Torpedoes  </tt></td><td><input type=text size=9 name=prod_torp value=\"$row[prod_torp]\"></td></tr>";
+          echo "<tr><td colspan=10>   <HR>       </td></tr>";
+          echo "</table>";
 
-          echo "<BR>";
-          echo "<INPUT TYPE=HIDDEN NAME=planet VALUE=$planet>";
-          echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=save>";
-          echo "<INPUT TYPE=SUBMIT SIZE=1 VALUE=Save>";
+          echo "<br>";
+          echo "<input type=hidden name=planet value=$planet>";
+          echo "<input type=hidden name=operation value=save>";
+          echo "<input type=submit size=1 value=Save>";
         }
         elseif ($operation == "save")
         {
@@ -389,12 +389,12 @@ else
           $_sells = empty($sells) ? "N" : "Y";
           $planupdate = $db->Execute("UPDATE $dbtables[planets] SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
           if (!$planupdate) {
-            echo "Changes to Planet record have FAILED Due to the following Error:<BR><BR>";
+            echo "Changes to Planet record have FAILED Due to the following Error:<br><br>";
             echo $db->ErrorMsg() . "<br>";
           } else {
-            echo "Changes to Planet record have been saved.<BR><BR>";
+            echo "Changes to Planet record have been saved.<br><br>";
           }
-          echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Planet editor\">";
+          echo "<input type=submit value=\"Return to Planet editor\">";
           $button_main = false;
         }
         else
@@ -402,9 +402,9 @@ else
           echo "Invalid operation";
         }
       }
-      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=planedit>";
-      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-      echo "</FORM>";
+      echo "<input type=hidden name=menu value=planedit>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "</form>";
     }
     elseif ($module == "linkedit")
     {
@@ -413,42 +413,42 @@ else
     elseif ($module == "zoneedit")
     {
       echo "<B>Zone editor</B>";
-      echo "<BR>";
-      echo "<FORM ACTION=admin.php METHOD=POST>";
+      echo "<br>";
+      echo "<form action=admin.php method=post>";
       if (empty($zone))
       {
-        echo "<SELECT SIZE=20 NAME=zone>";
-        $res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
+        echo "<select size=20 name=zone>";
+        $res = $db->Execute("select zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
         while (!$res->EOF)
         {
           $row=$res->fields;
-          echo "<OPTION VALUE=$row[zone_id]>$row[zone_name]</OPTION>";
+          echo "<option value=$row[zone_id]>$row[zone_name]</option>";
           $res->MoveNext();
         }
-        echo "</SELECT>";
-        echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=editzone>";
-        echo "&nbsp;<INPUT TYPE=SUBMIT VALUE=Edit>";
+        echo "</select>";
+        echo "<input type=hidden name=operation value=editzone>";
+        echo "&nbsp;<input type=submit value=Edit>";
 
       }
       else
       {
         if ($operation == "editzone")
         {
-          $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$zone");
+          $res = $db->Execute("select * FROM $dbtables[zones] WHERE zone_id=$zone");
           $row = $res->fields;
-          echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=5>";
-          echo "<TR><TD>Zone ID</TD><TD>$row[zone_id]</TD></TR>";
-          echo "<TR><TD>Zone Name</TD><TD><INPUT TYPE=TEXT NAME=zone_name VALUE=\"$row[zone_name]\"></TD></TR>";
-          echo "<TR><TD>Allow Beacon</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_beacon VALUE=ON " . CHECKED($row[allow_beacon]) . "></TD>";
-          echo "<TR><TD>Allow Attack</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_attack VALUE=ON " . CHECKED($row[allow_attack]) . "></TD>";
-          echo "<TR><TD>Allow WarpEdit</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_warpedit VALUE=ON " . CHECKED($row[allow_warpedit]) . "></TD>";
-          echo "<TR><TD>Allow Planet</TD><TD><INPUT TYPE=CHECKBOX NAME=zone_planet VALUE=ON " . CHECKED($row[allow_planet]) . "></TD>";
-          echo "</TABLE>";
-          echo "<TR><TD>Max Hull</TD><TD><INPUT TYPE=TEXT NAME=zone_hull VALUE=\"$row[max_hull]\"></TD></TR>";
-          echo "<BR>";
-          echo "<INPUT TYPE=HIDDEN NAME=zone VALUE=$zone>";
-          echo "<INPUT TYPE=HIDDEN NAME=operation VALUE=savezone>";
-          echo "<INPUT TYPE=SUBMIT VALUE=Save>";
+          echo "<table border=0 cellspacing=0 cellpadding=5>";
+          echo "<tr><td>Zone ID</td><td>$row[zone_id]</td></tr>";
+          echo "<tr><td>Zone Name</td><td><input type=text name=zone_name value=\"$row[zone_name]\"></td></tr>";
+          echo "<tr><td>Allow Beacon</td><td><input type=CHECKBOX name=zone_beacon value=ON " . CHECKED($row[allow_beacon]) . "></td>";
+          echo "<tr><td>Allow Attack</td><td><input type=CHECKBOX name=zone_attack value=ON " . CHECKED($row[allow_attack]) . "></td>";
+          echo "<tr><td>Allow WarpEdit</td><td><input type=CHECKBOX name=zone_warpedit value=ON " . CHECKED($row[allow_warpedit]) . "></td>";
+          echo "<tr><td>Allow Planet</td><td><input type=CHECKBOX name=zone_planet value=ON " . CHECKED($row[allow_planet]) . "></td>";
+          echo "</table>";
+          echo "<tr><td>Max Hull</td><td><input type=text name=zone_hull value=\"$row[max_hull]\"></td></tr>";
+          echo "<br>";
+          echo "<input type=hidden name=zone value=$zone>";
+          echo "<input type=hidden name=operation value=savezone>";
+          echo "<input type=submit value=Save>";
         }
         elseif ($operation == "savezone")
         {
@@ -458,8 +458,8 @@ else
           $_zone_warpedit = empty($zone_warpedit) ? "N" : "Y";
           $_zone_planet = empty($zone_planet) ? "N" : "Y";
           $db->Execute("UPDATE $dbtables[zones] SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
-          echo "Changes saved<BR><BR>";
-          echo "<INPUT TYPE=SUBMIT VALUE=\"Return to Zone Editor \">";
+          echo "Changes saved<br><br>";
+          echo "<input type=submit value=\"Return to Zone Editor \">";
           $button_main = false;
         }
         else
@@ -467,23 +467,23 @@ else
           echo "Invalid operation";
         }
       }
-      echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=zoneedit>";
-      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-      echo "</FORM>";
+      echo "<input type=hidden name=menu value=zoneedit>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "</form>";
     }
     elseif ($module == "ipedit")
     {
       echo "<B>IP Bans editor</B><p>";
       if (empty($command))
       {
-        echo "<FORM ACTION=admin.php METHOD=POST>";
-        echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-        echo "<INPUT TYPE=HIDDEN NAME=command VALUE=showips>";
-        echo "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>";
-        echo "<INPUT TYPE=SUBMIT VALUE=\"Show player's ips\">";
+        echo "<form action=admin.php method=post>";
+        echo "<input type=hidden name=swordfish value=$swordfish>";
+        echo "<input type=hidden name=command value=showips>";
+        echo "<input type=hidden name=menu value=ipedit>";
+        echo "<input type=submit value=\"Show player's ips\">";
         echo "</form>";
 
-        $res = $db->Execute("SELECT ban_mask FROM $dbtables[ip_bans]");
+        $res = $db->Execute("select ban_mask FROM $dbtables[ip_bans]");
         while (!$res->EOF)
         {
           $bans[]=$res->fields[ban_mask];
@@ -520,7 +520,7 @@ else
             echo "<td align=center><font size=2 color=white>$printban</td>" .
                  "<td align=center><font size=2 color=white>";
 
-            $res = $db->Execute("SELECT character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address LIKE '$ban'");
+            $res = $db->Execute("select character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address LIKE '$ban'");
             unset($players);
             while (!$res->EOF)
             {
@@ -555,12 +555,12 @@ else
             }
 
             echo "<td align=center nowrap valign=center><font size=2 color=white>" .
-                 "<form action=admin.php method=POST>" .
-                 "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-                 "<INPUT TYPE=HIDDEN NAME=command VALUE=unbanip>" .
-                 "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-                 "<INPUT TYPE=HIDDEN NAME=ban VALUE=$ban>" .
-                 "<INPUT TYPE=SUBMIT VALUE=Remove>" .
+                 "<form action=admin.php method=post>" .
+                 "<input type=hidden name=swordfish value=$swordfish>" .
+                 "<input type=hidden name=command value=unbanip>" .
+                 "<input type=hidden name=menu value=ipedit>" .
+                 "<input type=hidden name=ban value=$ban>" .
+                 "<input type=submit value=Remove>" .
                  "</form>";
 
           }
@@ -570,7 +570,7 @@ else
       }
       elseif ($command== 'showips')
       {
-        $res = $db->Execute("SELECT DISTINCT ip_address FROM $dbtables[ships]");
+        $res = $db->Execute("select DISTINCT ip_address FROM $dbtables[ships]");
         while (!$res->EOF)
         {
           $ips[]=$res->fields[ip_address];
@@ -601,7 +601,7 @@ else
           echo "<td align=center><font size=2 color=white>$ip</td>" .
                "<td align=center><font size=2 color=white>";
 
-          $res = $db->Execute("SELECT character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address='$ip'");
+          $res = $db->Execute("select character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address='$ip'");
           unset($players);
           while (!$res->EOF)
           {
@@ -622,28 +622,28 @@ else
           }
 
           echo "<td align=center nowrap valign=center><font size=2 color=white>" .
-               "<form action=admin.php method=POST>" .
-               "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-               "<INPUT TYPE=HIDDEN NAME=command VALUE=banip>" .
-               "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-               "<INPUT TYPE=HIDDEN NAME=ip VALUE=$ip>" .
-               "<INPUT TYPE=SUBMIT VALUE=Ban>" .
+               "<form action=admin.php method=post>" .
+               "<input type=hidden name=swordfish value=$swordfish>" .
+               "<input type=hidden name=command value=banip>" .
+               "<input type=hidden name=menu value=ipedit>" .
+               "<input type=hidden name=ip value=$ip>" .
+               "<input type=submit value=Ban>" .
                "</form>" .
-               "<form action=admin.php method=POST>" .
-               "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-               "<INPUT TYPE=HIDDEN NAME=command VALUE=unbanip>" .
-               "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-               "<INPUT TYPE=HIDDEN NAME=ip VALUE=$ip>" .
-               "<INPUT TYPE=SUBMIT VALUE=Unban>" .
+               "<form action=admin.php method=post>" .
+               "<input type=hidden name=swordfish value=$swordfish>" .
+               "<input type=hidden name=command value=unbanip>" .
+               "<input type=hidden name=menu value=ipedit>" .
+               "<input type=hidden name=ip value=$ip>" .
+               "<input type=submit value=Unban>" .
                "</form>";
 
         }
 
         echo "</table><p>" .
-             "<form action=admin.php method=POST>" .
-             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+             "<form action=admin.php method=post>" .
+             "<input type=hidden name=swordfish value=$swordfish>" .
+             "<input type=hidden name=menu value=ipedit>" .
+             "<input type=submit value=\"Return to IP bans menu\">" .
              "</form>";
       }
       elseif ($command == 'banip')
@@ -656,11 +656,11 @@ else
 
         echo "<table border=0>" .
              "<tr><td align=right>" .
-             "<form action=admin.php method=POST>" .
-             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-             "<INPUT TYPE=HIDDEN NAME=command VALUE=banip2>" .
-             "<INPUT TYPE=HIDDEN NAME=ip VALUE=$ip>" .
+             "<form action=admin.php method=post>" .
+             "<input type=hidden name=swordfish value=$swordfish>" .
+             "<input type=hidden name=menu value=ipedit>" .
+             "<input type=hidden name=command value=banip2>" .
+             "<input type=hidden name=ip value=$ip>" .
              "<input type=radio name=class value=I checked>" .
              "<td><font size=2 color=white>IP only : $ip</td>" .
              "<tr><td>" .
@@ -673,10 +673,10 @@ else
              "</table>" .
              "</form>";
 
-        echo "<form action=admin.php method=POST>" .
-             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+        echo "<form action=admin.php method=post>" .
+             "<input type=hidden name=swordfish value=$swordfish>" .
+             "<input type=hidden name=menu value=ipedit>" .
+             "<input type=submit value=\"Return to IP bans menu\">" .
              "</form>";
       }
       elseif ($command == 'banip2')
@@ -694,8 +694,8 @@ else
         $printban = str_replace("%", "*", $banmask);
         echo "<font size=2 color=white><b>Successfully banned $printban</b>.<p>";
 
-        $db->Execute("INSERT INTO $dbtables[ip_bans] VALUES(NULL, '$banmask')");
-        $res = $db->Execute("SELECT DISTINCT character_name FROM $dbtables[ships], $dbtables[ip_bans] WHERE ip_address LIKE ban_mask");
+        $db->Execute("INSERT INTO $dbtables[ip_bans] valueS(NULL, '$banmask')");
+        $res = $db->Execute("select DISTINCT character_name FROM $dbtables[ships], $dbtables[ip_bans] WHERE ip_address LIKE ban_mask");
         echo "Affected players :<p>";
         while (!$res->EOF)
         {
@@ -703,10 +703,10 @@ else
           $res->MoveNext();
         }
 
-        echo "<form action=admin.php method=POST>" .
-             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+        echo "<form action=admin.php method=post>" .
+             "<input type=hidden name=swordfish value=$swordfish>" .
+             "<input type=hidden name=menu value=ipedit>" .
+             "<input type=submit value=\"Return to IP bans menu\">" .
              "</form>";
       }
       elseif ($command == 'unbanip')
@@ -714,9 +714,9 @@ else
         $ip = $_POST[ip];
 
         if (!empty($ban))
-          $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
+          $res = $db->Execute("select * FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
         else
-          $res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
+          $res = $db->Execute("select * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
 
         $nbbans = $res->RecordCount();
         while (!$res->EOF)
@@ -735,7 +735,7 @@ else
         for ($i = 1; $i < $nbbans ; $i++)
           $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
 
-        $res = $db->Execute("SELECT DISTINCT character_name FROM $dbtables[ships] WHERE $query_string");
+        $res = $db->Execute("select DISTINCT character_name FROM $dbtables[ships] WHERE $query_string");
         $nbplayers = $res->RecordCount();
         while (!$res->EOF)
         {
@@ -761,26 +761,26 @@ else
           }
         }
 
-        echo "<form action=admin.php method=POST>" .
-             "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-             "<INPUT TYPE=HIDDEN NAME=menu VALUE=ipedit>" .
-             "<INPUT TYPE=SUBMIT VALUE=\"Return to IP bans menu\">" .
+        echo "<form action=admin.php method=post>" .
+             "<input type=hidden name=swordfish value=$swordfish>" .
+             "<input type=hidden name=menu value=ipedit>" .
+             "<input type=submit value=\"Return to IP bans menu\">" .
              "</form>";
       }
 
     }
     elseif ($module == "logview")
     {
-      echo "<form action=log.php method=POST>" .
-           "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-           "<INPUT TYPE=HIDDEN NAME=player VALUE=0>" .
-           "<INPUT TYPE=SUBMIT VALUE=\"View admin log\">" .
+      echo "<form action=log.php method=post>" .
+           "<input type=hidden name=swordfish value=$swordfish>" .
+           "<input type=hidden name=player value=0>" .
+           "<input type=submit value=\"View admin log\">" .
            "</form>" .
-           "<form action=log.php method=POST>" .
-           "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>" .
-           "<SELECT name=player>";
+           "<form action=log.php method=post>" .
+           "<input type=hidden name=swordfish value=$swordfish>" .
+           "<select name=player>";
 
-      $res = $db->execute("SELECT ship_id, character_name FROM $dbtables[ships] ORDER BY character_name ASC");
+      $res = $db->execute("select ship_id, character_name FROM $dbtables[ships] ORDER BY character_name ASC");
       while (!$res->EOF)
       {
         $players[] = $res->fields;
@@ -788,10 +788,10 @@ else
       }
 
       foreach ($players as $player)
-        echo "<OPTION value=$player[ship_id]>$player[character_name]</OPTION>";
+        echo "<option value=$player[ship_id]>$player[character_name]</option>";
 
-      echo "</SELECT>&nbsp;&nbsp;" .
-           "<INPUT TYPE=SUBMIT VALUE=\"View player log\">" .
+      echo "</select>&nbsp;&nbsp;" .
+           "<input type=submit value=\"View player log\">" .
            "</form><HR size=1 width=80%>";
     }
     else
@@ -802,10 +802,10 @@ else
     if ($button_main)
     {
       echo "<p>";
-      echo "<FORM ACTION=admin.php METHOD=POST>";
-      echo "<INPUT TYPE=HIDDEN NAME=swordfish VALUE=$swordfish>";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"Return to main menu\">";
-      echo "</FORM>";
+      echo "<form action=admin.php method=post>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "<input type=submit value=\"Return to main menu\">";
+      echo "</form>";
     }
   }
 }

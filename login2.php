@@ -101,7 +101,7 @@ if ($playerfound)
             }
             else
             {
-                echo "You have died in a horrible incident, <a href=log.php>here</a> is the blackbox information that was retrieved from your ships wreckage.<BR><BR>";
+                echo "You have died in a horrible incident, <a href=log.php>here</a> is the blackbox information that was retrieved from your ships wreckage.<br><br>";
 
                 // Check if $newbie_nice is set, if so, verify ship limits
                 if ($newbie_nice == "YES")

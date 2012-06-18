@@ -23,8 +23,8 @@ if (preg_match("/sched_apocalypse.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-echo "<B>PLANETARY APOCALYPSE</B><BR><BR>";
-echo "The four horsemen of the apocalypse set forth...<BR>";
+echo "<B>PLANETARY APOCALYPSE</B><br><br>";
+echo "The four horsemen of the apocalypse set forth...<br>";
 $doomsday = $db->Execute("SELECT * from $dbtables[planets] WHERE colonists > $doomsday_value");
 $chance = 9;
 $reccount = $doomsday->RecordCount();
@@ -50,17 +50,17 @@ if ($doomsday && $affliction < 3 && $reccount > 0)
     }
     if ($affliction == 1) // Space Plague
     {
-        echo "The horsmen release the Space Plague!<BR>.";
+        echo "The horsmen release the Space Plague!<br>.";
         $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
         $logpercent = ROUND($space_plague_kills * 100);
         playerlog($targetinfo['owner'],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
     }
     else
     {
-        echo "The horsemen release a Plasma Storm!<BR>.";
+        echo "The horsemen release a Plasma Storm!<br>.";
         $db->Execute("UPDATE $dbtables[planets] SET energy = 0 WHERE planet_id = $targetinfo[planet_id]");
         playerlog($targetinfo['owner'],LOG_PLASMA_STORM,"$targetinfo[name]|$targetinfo[sector_id]");
     }
 }
-echo "<BR>";
+echo "<br>";
 ?>

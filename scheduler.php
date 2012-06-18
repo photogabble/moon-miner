@@ -85,7 +85,7 @@ srand((double)microtime() * 1000000);
 if ($swordfish != $adminpass)
 {
     echo "<form action='scheduler.php' method='post'>";
-    echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><BR><BR>";
+    echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><br><br>";
     echo "<input type='submit' value='Submit'><input type='reset' value='Reset'>";
     echo "</form>";
 }

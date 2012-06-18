@@ -55,7 +55,7 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
 
     if ($action == "planetpersonal")
     {
-        echo ("$l_corpm_topersonal<BR>");
+        echo ("$l_corpm_topersonal<br>");
         $result = $db->Execute("UPDATE $dbtables[planets] SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         $ownership = calc_ownership($playerinfo[sector]);
         // Kick other players off the planet

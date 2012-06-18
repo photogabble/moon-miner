@@ -23,7 +23,7 @@ if (preg_match("/sched_defenses.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-echo "<B>Sector Defence Cleanup</B><BR><BR>";
+echo "<b>Sector Defence Cleanup</b><br><br>";
 if (!isset($swordfish) || $swordfish != $adminpass)
 {
     die("Script has not been called properly");

@@ -331,7 +331,7 @@ switch ($teamwhat)
                 // $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
 
                 playerlog($who, LOG_TEAM_KICK, "$team[team_name]");
-                echo "$whotoexpel[character_name] $l_team_ejected<BR>";
+                echo "$whotoexpel[character_name] $l_team_ejected<br>";
             }
             LINK_BACK();
         }
@@ -529,7 +529,7 @@ switch ($teamwhat)
                 $playerinfo['team'] = -$playerinfo['team'];
                 $result = $db->Execute("SELECT * FROM $dbtables[teams] WHERE id=$playerinfo[team]");
                 $whichteam = $result->fields;
-                echo "$l_team_urejected <B>$whichteam[team_name]</B><BR><BR>";
+                echo "$l_team_urejected <B>$whichteam[team_name]</B><br><br>";
 
                 // No more necessary due to COUNT(*) in previous SQL statement
                 // AND already done in case 5:

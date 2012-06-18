@@ -72,7 +72,7 @@ if ($res)
 $num_sectors = $i;
 if ($num_sectors < 1)
 {
-  echo "<BR>$l_sdf_none";
+  echo "<br>" . $l_sdf_none;
 }
 else
 {

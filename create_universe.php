@@ -177,24 +177,24 @@ if ($bnt_ls)
       echo "<table border=1 cellspacing=0 cellpadding=2 width=100%>";
       echo "<tr><td>";
 
-      echo "<FONT COLOR=red><B>Domain Check!</B></FONT><BR>";
-      echo "Make sure you call the <B>create_universe.php</B> from the same URL as:<BR>";
-      echo "- your cronjob calls <B>scheduler.php</B><BR>";
+      echo "<font color=red><b>Domain Check!</b></font><br>";
+      echo "Make sure you call the <B>create_universe.php</B> from the same URL as:<br>";
+      echo "- your cronjob calls <B>scheduler.php</B><br>";
 
-        echo "<BR>This URL will be used on the Public list: ";
+        echo "<br>This URL will be used on the Public list: ";
         $gm_url = $SERVER_NAME;
         if ( ($gm_url == "localhost") || ($gm_url == "127.0.0.1") || ($gm_url == "") )
         {
             $gm_url = $gamedomain . $gamepath;
             $gm_url = (substr($gm_url,0,1)==".")?substr($gm_url,1):$gm_url;
-            echo "<FONT COLOR=red><B>http://$gm_url</B></FONT><BR>";
-            echo "It is better if you run the create_universe.php from the correct URL!<BR>";
-            echo "Or correct the gamedomain and gamepath in your <B>config_local.php</B><BR>";
+            echo "<font COLOR=red><B>http://$gm_url</B></font><br>";
+            echo "It is better if you run the create_universe.php from the correct URL!<br>";
+            echo "Or correct the gamedomain and gamepath in your <B>config_local.php</B><br>";
             echo "This URL is trasmited if your cronjob calls scheduler.php with localhost!";
         } else {
             $gm_url = $gm_url . strrev(strstr(strrev($_SERVER['PHP_SELF']),"/"));
-            echo "<FONT COLOR=green><B>http://$gm_url</B></FONT><BR>";
-            echo "YES, if this URL is correct ... continue !<BR>";
+            echo "<font COLOR=green><B>http://$gm_url</B></font><br>";
+            echo "YES, if this URL is correct ... continue !<br>";
             echo "Remember: if your cronjob calls scheduler.php with localhost than run create_universe with localhost to check the correctnes of the transmitted URL!";
         }
 
@@ -246,7 +246,7 @@ echo"</table>";
       $sector_max = round($sektors);
       if ($fedsecs > $sector_max)
       {
-    Table_1Col("<FONT COLOR=RED>The number of Federation sectors must be smaller than the size of the universe!</FONT>");
+    Table_1Col("<font color=red>The number of Federation sectors must be smaller than the size of the universe!</font>");
     Table_Footer(" ");
          break;
       }
@@ -291,7 +291,7 @@ echo"</table>";
     Table_1Col("<p align='center'><input type=submit value=Confirm></p>");
     Table_Spacer();
 
-    Table_1Col("<FONT COLOR=RED>WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!</FONT>");
+    Table_1Col("<font color=red>WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!</font>");
     Table_Footer(" ");
 
       echo "</form>";
@@ -696,13 +696,13 @@ Table_Spacer();
             if ($finish>$sector_max) $finish=$sector_max;
         }
 
-//      PrintFlush("<BR>Sector Links created successfully.<BR>");
+//      PrintFlush("<br>Sector Links created successfully.<br>");
 
 ####################
 
 Table_Spacer();
 
-//      PrintFlush("<BR>Randomly One-way Linking $i Sectors (out of $sector_max sectors)<br>\n");
+//      PrintFlush("<br>Randomly One-way Linking $i Sectors (out of $sector_max sectors)<br>\n");
 
 ## Adds Sector Size amount of links to the links table ##
 
@@ -739,13 +739,13 @@ Table_Row("Creating loop $i of $loops Random One-way Links (from sector ".($star
             if ($finish>$sector_max) $finish=($sector_max);
         }
 
-//      PrintFlush("Completed successfully.<BR>\n");
+//      PrintFlush("Completed successfully.<br>\n");
 
 ######################
 
 Table_Spacer();
 
-//      PrintFlush("<BR>Randomly Two-way Linking Sectors<br>\n");
+//      PrintFlush("<br>Randomly Two-way Linking Sectors<br>\n");
 
 ## Adds Sector Size*2 amount of links to the links table ##
 
@@ -870,8 +870,8 @@ Table_Footer("Completed successfully.");
     Table_Row("Inserting Admins Zone Information","Failed","Inserted");
     Table_Footer("Completed successfully.");
 
-      PrintFlush("<BR><BR><center><BR><B>Congratulations! Universe created successfully.</B><BR>");
-      PrintFlush("<B>Click <A HREF=login.php>here</A> to return to the login screen.</B></center>");
+      PrintFlush("<br><br><center><br><B>Congratulations! Universe created successfully.</B><br>");
+      PrintFlush("<B>Click <a href=login.php>here</A> to return to the login screen.</B></center>");
 
       break;
    default:

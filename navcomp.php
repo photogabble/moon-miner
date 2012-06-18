@@ -82,7 +82,7 @@ else
 if ($state == 0)
 {
     echo "<FORM ACTION=\"navcomp.php\" METHOD=POST>";
-    echo "$l_nav_query <INPUT NAME=\"stop_sector\">&nbsp;<INPUT TYPE=SUBMIT VALUE=$l_submit><BR>\n";
+    echo "$l_nav_query <INPUT NAME=\"stop_sector\">&nbsp;<INPUT TYPE=SUBMIT VALUE=$l_submit><br>\n";
     echo "<INPUT NAME=\"state\" VALUE=1 TYPE=HIDDEN>";
     echo "</FORM>\n";
 }
@@ -173,8 +173,8 @@ elseif ($state == 1)
             echo " >> " . $links[$i];
         }
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-        echo "<BR><BR>";
-        echo "$l_nav_answ1 $search_depth $l_nav_answ2<BR><BR>";
+        echo "<br><br>";
+        echo "$l_nav_answ1 $search_depth $l_nav_answ2<br><br>";
     }
     else
     {

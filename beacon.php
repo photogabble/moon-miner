@@ -44,7 +44,7 @@ if ($playerinfo['dev_beacon'] > 0)
     $zoneinfo = $res->fields;
     if ($zoneinfo[allow_beacon] == 'N')
     {
-        echo "$l_beacon_notpermitted<BR><BR>";
+        echo "$l_beacon_notpermitted<br><br>";
     }
     elseif ($zoneinfo[allow_beacon] == 'L')
     {
@@ -57,7 +57,7 @@ if ($playerinfo['dev_beacon'] > 0)
         {
             if (($zoneteam[team] != $playerinfo[team]) || ($playerinfo[team] == 0))
             {
-                echo "$l_beacon_notpermitted<BR><BR>";
+                echo "$l_beacon_notpermitted<br><br>";
             }
             else
             {
@@ -80,11 +80,11 @@ if ($playerinfo['dev_beacon'] > 0)
         {
             if ($sectorinfo[beacon] != "")
             {
-                echo "$l_beacon_reads: \"$sectorinfo[beacon]\"<BR><BR>";
+                echo "$l_beacon_reads: \"$sectorinfo[beacon]\"<br><br>";
             }
             else
             {
-                echo "$l_beacon_none<BR><BR>";
+                echo "$l_beacon_none<br><br>";
             }
             echo "<form action=beacon.php method=post>";
             echo "<table>";
@@ -96,7 +96,7 @@ if ($playerinfo['dev_beacon'] > 0)
         else
         {
             $beacon_text = trim(strip_tags($beacon_text));
-            echo "$l_beacon_nowreads: \"$beacon_text\".<BR><BR>";
+            echo "$l_beacon_nowreads: \"$beacon_text\".<br><br>";
             $update = $db->Execute("UPDATE $dbtables[universe] SET beacon='$beacon_text' WHERE sector_id=$sectorinfo[sector_id]");
             $update = $db->Execute("UPDATE $dbtables[ships] SET dev_beacon=dev_beacon-1 WHERE ship_id=$playerinfo[ship_id]");
         }
