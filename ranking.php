@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 include "languages/$lang";
 
-$l_ranks_title = str_replace("[max_ranks]", $max_ranks, $l_ranks_title);
+$l_ranks_title = str_replace("[max_rank]", $max_ranks, $l_ranks_title);
 $title = $l_ranks_title;
 include "header.php";
 bigtitle();

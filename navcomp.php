@@ -178,7 +178,7 @@ elseif ($state == 1)
     }
     else
     {
-        echo "$l_nav_proper . "<br><br>";
+        echo $l_nav_proper . "<br><br>";
     }
 }
 
