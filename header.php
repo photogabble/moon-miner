@@ -32,7 +32,7 @@ header("Keep-Alive: timeout=15, max=100");
 <meta name="Rating" content="General">
 <link rel="shortcut icon" href="images/bntfavicon.ico">
 <title><?php echo $title; ?></title>
-<link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'></link>
+<link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'>
 <script type='text/javascript' src='backends/javascript/newsticker.js'></script>
 <script type='text/javascript' src='backends/javascript/imageswap.js'></script>
 </head>
