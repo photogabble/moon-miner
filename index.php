@@ -30,7 +30,7 @@ $no_body = 1;
 include "header.php";
 ?>
 
-<body style="background-color:#929292; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.png','images/mail_.png');">
+<body style="background-color:#929292; background-image:none; color:#c0c0c0;" onLoad="MM_preloadImages('images/login_.png','images/mail_.png');">
 <img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/bnt-header.jpg" width="517" height="189" alt="Blacknova Traders">
 <img style="display:block; border:0; margin-left:auto; margin-right:auto;" class="div" src="images/div2.png" width="600" height="21" alt="">
 <a href="login.php" onMouseOut="MM_swapImgRestore()"  onMouseOver="MM_swapImage('login','','images/login_.png',1);" ><img style="display:block; border:0; margin-left:auto; margin-right:auto;" id="login" src="images/login.png" width="146" height="58" alt="Login"></a>
