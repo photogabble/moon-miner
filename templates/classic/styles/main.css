@@ -1,3 +1,8 @@
+a:link { color: #0f0; }
+a:visited { color: #0f0; }
+a:active { color: #f00; }
+a.new_link {font-size: 8Pt; color:#0f0; font-weight:bold;}
+a.new_link:hover {font-size: 8Pt; color:#36f; font-weight:bold;}
 a.mnu {text-decoration:none; font-size: 8Pt; color:white; font-weight:bold;}
 a.mnu:hover {text-decoration:none; font-size: 8Pt; color:#36f; font-weight:bold;}
 img.mnu {padding:4px; border:transparent 2px dashed;}
@@ -24,8 +29,5 @@ select.term {background-color: #000; color: #0f0; font-family:Verdana; font-size
 
 /* Added for dev small text for the rankings page */
 .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:10px;}
-
 body {font-family: Verdana, "DejaVu Sans", sans-serif;}
 body {font-size: 85%; line-height:1.125em; color: #ccc;}
-a.new_link {font-size: 8Pt; color:#0f0; font-weight:bold;}
-a.new_link:hover {font-size: 8Pt; color:#36f; font-weight:bold;}
