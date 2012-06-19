@@ -41,7 +41,7 @@ do
             echo " to sector $newsector.<br>";
             $query = $db->Execute("UPDATE $dbtables[ships] SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
             playerlog($row[ship_id], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
-            log_move($row[ship_id],$newsector);
+            log_move ($db, $dbtables, $row['ship_id'], $newsector);
             $res->MoveNext();
         }
     }

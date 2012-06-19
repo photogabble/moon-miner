@@ -22,9 +22,8 @@ if (preg_match("/log_move.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function log_move ($ship_id, $sector_id)
+function log_move ($db, $dbtables, $ship_id, $sector_id)
 {
-   global $db, $dbtables;
-   $res = $db->Execute("INSERT INTO $dbtables[movement_log] (ship_id,sector_id,time) VALUES ($ship_id,$sector_id,NOW())");
+   $res = $db->Execute("INSERT INTO $dbtables[movement_log] (ship_id, sector_id, time) VALUES ($ship_id, $sector_id, NOW())");
 }
 ?>

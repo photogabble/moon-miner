@@ -128,7 +128,7 @@ else
             $l_att_ewdlog=str_replace("[sector]",$playerinfo['sector'],$l_att_ewdlog);
             playerlog($targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
             $result_warp = $db->Execute ("UPDATE $dbtables[ships] SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1,cleared_defences=' ' WHERE ship_id=$targetinfo[ship_id]");
-            log_move($targetinfo['ship_id'],$dest_sector);
+            log_move ($db, $dbtables, $targetinfo['ship_id'], $dest_sector);
             echo "$l_att_ewd<br><br>";
         }
         else

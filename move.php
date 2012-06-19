@@ -81,7 +81,7 @@ if ($flag==1)
     {
        $stamp = date("Y-m-d H-i-s");
        $query="UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-       log_move($playerinfo['ship_id'],$sector);
+       log_move ($db, $dbtables, $playerinfo['ship_id'], $sector);
        $move_result = $db->Execute ("$query");
       if (!$move_result)
     {
