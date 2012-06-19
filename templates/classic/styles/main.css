@@ -31,3 +31,5 @@ select.term {background-color: #000; color: #0f0; font-family:Verdana; font-size
 .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:10px;}
 body {font-family: Verdana, "DejaVu Sans", sans-serif;}
 body {font-size: 85%; line-height:1.125em; color: #ccc;}
+body {background-image: url('images/bgoutspace1.png');}
+body {background-color:#000; color:#c0c0c0;}

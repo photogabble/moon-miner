@@ -41,6 +41,6 @@ header("Keep-Alive: timeout=15, max=100");
 <?php
 if ($no_body != 1)
 {
-    echo "<body style=\"background-image: url('images/bgoutspace1.png'); background-color:#000; color:#C0C0C0;\">";
+    echo "<body style=\"background-image: url('images/bgoutspace1.png');\">";
 }
 ?>
