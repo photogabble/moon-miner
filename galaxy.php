@@ -100,13 +100,13 @@ for ($a = 1; $a < ($sector_max/50 +1); $a++)
 }
 
 echo "</div><div style='clear:both'></div><br>";
-echo "    <div><img alt='" . $l_port . ": " . $l_special_port . "' src=images/{$tile['special']}> &lt;- " . $l_special_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_ore_port . "' src=images/{$tile['ore']}> &lt;- " . $l_ore_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_organics_port . "' src=images/{$tile['organics']}> &lt;- " . $l_organics_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_energy_port . "' src=images/{$tile['energy']}> &lt;- " . $l_energy_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_goods_port . "' src=images/{$tile['goods']}> &lt;- " . $l_goods_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_no_port . "' src=images/{$tile['none']}> &lt;- " . $l_no_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_unexplored . "' src=images/{$tile['unknown']}> &lt;- " . $l_unexplored . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_special_port . "' src='images/{$tile['special']}'> &lt;- " . $l_special_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_ore_port . "' src='images/{$tile['ore']}'> &lt;- " . $l_ore_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_organics_port . "' src='images/{$tile['organics']}'> &lt;- " . $l_organics_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_energy_port . "' src='images/{$tile['energy']}'> &lt;- " . $l_energy_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_goods_port . "' src='images/{$tile['goods']}'> &lt;- " . $l_goods_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_no_port . "' src='images/{$tile['none']}'> &lt;- " . $l_no_port . "</div>\n";
+echo "    <div><img alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$tile['unknown']}'> &lt;- " . $l_unexplored . "</div>\n";
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
