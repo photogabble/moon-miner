@@ -504,7 +504,7 @@ if ($num_planets > 0)
 else
 {
     echo "<td style='margin-left:auto; margin-right:auto; vertical-align:top'>";
-    echo "<br><span style='font-color:white; size:1.25em'>$l_none</span><br><br>";
+    echo "<br><span style='color:white; size:1.25em'>$l_none</span><br><br>";
     $planet_bnthelper_string="<!--planet:N:::-->";
 }
 
