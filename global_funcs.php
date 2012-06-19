@@ -39,7 +39,6 @@ include_once "includes/gen_score.php";
 include_once "includes/get_avg_tech.php";
 include_once "includes/getlanguagevars.php";
 include_once "includes/getplanetownerinformation.php";
-include_once "includes/get_player.php";
 include_once "includes/isloanpending.php";
 include_once "includes/issameteam.php";
 include_once "includes/kick_off_planet.php";

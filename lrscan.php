@@ -33,6 +33,21 @@ $link_bnthelper_string = '';
 $port_bnthelper_string = '';
 $planet_bnthelper_string = '';
 
+function get_player ($db, $dbtables, $ship_id)
+{
+    $res = $db->Execute("SELECT character_name from $dbtables[ships] where ship_id = $ship_id");
+    if ($res)
+    {
+        $row = $res->fields;
+        $character_name = $row['character_name'];
+        return $character_name;
+    }
+    else
+    {
+        return "Unknown";
+    }
+}
+
 // Get user info
 $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $result->fields;
@@ -124,7 +139,7 @@ if ($sector == "*")
             else
             {
                 $myrow = $resx->fields;
-                echo "<td>" . get_player($myrow['ship_id']) . "</td>";
+                echo "<td>" . get_player($db, $dbtables, $myrow['ship_id']) . "</td>";
             }
         }
 
@@ -351,7 +366,7 @@ else
         else
         {
             $myrow = $resx->fields;
-            echo get_player($myrow['ship_id']);
+            echo get_player($db, $dbtables, $myrow['ship_id']);
         }
     }
     else
