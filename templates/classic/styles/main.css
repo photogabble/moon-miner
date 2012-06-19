@@ -41,3 +41,6 @@ div.index-imgswap-login:hover img {visibility:hidden;}
 a.index-imgswap-mail {width:146px; height:58px; display:block; margin:auto; border:0;}
 div.index-imgswap-mail {width:146px; height:58px; display:block; margin:auto; background-repeat:no-repeat; border:0; background-image:url("../../../images/mail_.png");}
 div.index-imgswap-mail:hover img {visibility:hidden;}
+
+img.index {display:block; border:0; margin-left:auto; margin-right:auto;}
+a.index {display:block; border:0; margin-left:auto; margin-right:auto; text-align:center;}

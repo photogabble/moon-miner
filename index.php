@@ -31,9 +31,9 @@ include "header.php";
 ?>
 
 <body style="background-color:#929292; background-image:none; color:#c0c0c0;">
-<img style="display:block; border:0; margin-left:auto; margin-right:auto;" src="images/bnt-header.jpg" width="517" height="189" alt="Blacknova Traders">
-<img style="display:block; border:0; margin-left:auto; margin-right:auto;" class="div" src="images/div2.png" width="600" height="21" alt="">
-<a class="index-imgswap-login" href="login.php"><div class="index-imgswap-login"><img src="images/login.png" width="146" height="58" alt="Login"></div></a>
-<a class="index-imgswap-mail" href="mailto:<?php echo $admin_mail; ?>"><div class="index-imgswap-mail"><img id="mail" src="images/mail.png" width="146" height="58" alt="Mail"></div></a>
-<a style="display:block; border:0; margin-left:auto; margin-right:auto; text-align:center" class="new_link" href="docs/faq.html"><?php echo "$l_faq"; ?></a>
+<img class="index" src="images/bnt-header.jpg" width="517" height="189" alt="Blacknova Traders">
+<img class="index" src="images/div2.png" width="600" height="21" alt="">
+<div class="index-imgswap-login"><a class="index-imgswap-login" href="login.php"><img src="images/login.png" width="146" height="58" alt="Login"></a></div>
+<div class="index-imgswap-mail"><a class="index-imgswap-mail" href="mailto:<?php echo $admin_mail; ?>"><img id="mail" src="images/mail.png" width="146" height="58" alt="Mail"></a></div>
+<a class="index new_link" href="docs/faq.html"><?php echo "$l_faq"; ?></a>
 <?php include "footer.php"; ?>
