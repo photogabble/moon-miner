@@ -89,3 +89,9 @@ http://forums.blacknova.net
 Regards,
 
 The Blacknova development team.
+
+ADDITIONAL FEDORA/REDHAT NOTES
+
+For Fedora/Redhat to be able to sendmail from Apache, you'll need to set:
+
+setsebool -P httpd_can_sendmail=1
