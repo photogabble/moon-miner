@@ -29,7 +29,6 @@ select.term {background-color: #000; color: #0f0; font-family:Verdana; font-size
 center.term {background-color: #000; color: #0f0; font-size:10pt; border-color:#0f0;}
 pre.term {background-color: #000; color: #0f0; font-size:10pt; border-color:#0f0;}
 
-/* Added for dev small text for the rankings page */
 .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:10px;}
 body {font-family: Verdana, "DejaVu Sans", sans-serif;}
 body {font-size: 85%; line-height:1.125em; color: #ccc; background-color:#000; color:#c0c0c0; background-image: url('../../../images/bgoutspace1.png');}

@@ -21,6 +21,10 @@ header("Content-type: text/html; charset=utf-8");
 header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
 header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
 header("Keep-Alive: timeout=15, max=100");
+if (!isset($body_class))
+{
+    $body_class = "bnt";
+}
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -35,10 +39,4 @@ header("Keep-Alive: timeout=15, max=100");
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'>
 <script type='text/javascript' src='backends/javascript/newsticker.js'></script>
 </head>
-
-<?php
-if (isset($body_class))
-{
-    echo "<body class=\"" . $body_class . "\">";
-}
-?>
+<body class="<?php echo $body_class; ?>">
