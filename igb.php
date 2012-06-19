@@ -100,10 +100,10 @@ else
 {
   echo "
   <tr>
-    <td width=25% valign=bottom align=left><a href=\"main.php\"><font size=2 face=\"courier new\" color=#0f0>$l_igb_quit</a></td>
-    <td width='50%' style='white-space:pre; text-align:left;'>
-  <font style=\"font-size:10px; font-family:'Courier New'; color:#0f0;\">
-<!--  <pre style='text-align:left;'>-->
+    <td width=25% valign=bottom align=left><a href=\"main.php\"><font style=\"font-size:10px; font-family:\"Courier New\" color:#0f0;\">$l_igb_quit</a></td>
+    <td width='50%' style='text-align:left;'>
+  <font style=\"font-size:12px; font-family:'Courier New'; color:#0f0;\">
+  <pre style='text-align:left;'>
   IIIIIIIIII          GGGGGGGGGGGGG    BBBBBBBBBBBBBBBBB
   I::::::::I       GGG::::::::::::G    B::::::::::::::::B
   I::::::::I     GG:::::::::::::::G    B::::::BBBBBB:::::B
@@ -120,9 +120,9 @@ else
   I::::::::I     GG:::::::::::::::G    B:::::::::::::::::B
   I::::::::I       GGG::::::GGG:::G    B::::::::::::::::B
   IIIIIIIIII          GGGGGG   GGGG    BBBBBBBBBBBBBBBBB
-<!--  </pre>-->
+  </pre>
   <center>
-  <p>";
+  ";
   echo $l_igb_title;
   echo "(tm)<br>";
   echo $l_igb_humor;
