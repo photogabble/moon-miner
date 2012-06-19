@@ -44,3 +44,11 @@ div.index-imgswap-mail:hover img {visibility:hidden;}
 
 img.index {display:block; border:0; margin-left:auto; margin-right:auto;}
 a.index {display:block; border:0; margin-left:auto; margin-right:auto; text-align:center;}
+
+body.index {background-color:#929292; background-image:none; color:#c0c0c0;}
+body.igb {background-color:#929292; background-image:none; color:#f0f0f0;}
+
+body.log {background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0;}
+body.log.a:link { color: #040658;}
+body.log.a:visited { color: #040658;}
+body.log.a:active { color: #040658;}

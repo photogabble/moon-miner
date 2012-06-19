@@ -26,11 +26,10 @@ if (empty($lang))
 
 include "languages/$lang";
 $title = $l_login_title;
-$no_body = 1;
+$body_class = 'index';
 include "header.php";
 ?>
 
-<body style="background-color:#929292; background-image:none; color:#c0c0c0;">
 <img class="index" src="images/bnt-header.jpg" width="517" height="189" alt="Blacknova Traders">
 <img class="index" src="images/div2.png" width="600" height="21" alt="">
 <div class="index-imgswap-login"><a class="index-imgswap-login" href="login.php"><img src="images/login.png" width="146" height="58" alt="Login"></a></div>

@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 include "languages/$lang";
 $title = $l_igb_title;
-$no_body = 1;
+$body_class = 'igb';
 include "header.php";
 
 if (checklogin())
@@ -34,8 +34,6 @@ $playerinfo = $result->fields;
 
 $result = $db->Execute("SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id=$playerinfo[ship_id]");
 $account = $result->fields;
-
-echo "<body style=\"background-color:#929292; background-image:none; color:#f0f0f0;\">";
 
 ?>
 <center>

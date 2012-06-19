@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 include "languages/$lang";
 $title = $l_log_titlet;
-$no_body = 1;
+$body_class = 'log';
 
 if (checklogin())
 {
@@ -62,8 +62,6 @@ if ($mode == 'full')
   echo "#divScroller1 {position:relative; overflow:hidden; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; border-width:1px 1px 1px 1px; border-color:#C6D6E7; border-style:solid; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
 elseif ($mode == 'moz')
   echo "#divScroller1 {position:relative; overflow:visible; overflow-y:scroll; z-index:9; left:0px; top:0px; width:100%; height:{$yres}px; visbility:visible; scrollbar-track-color: #DEDEEF; scrollbar-face-color:#040658; scrollbar-arrow-color:#DEDEEF}";
-
-echo '<body background="images/bgoutspace1.png" bgcolor=#000 text="#c0c0c0" link="#040658" vlink="#040658" alink="#040658">';
 
 echo '<center>';
 

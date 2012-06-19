@@ -37,8 +37,8 @@ header("Keep-Alive: timeout=15, max=100");
 </head>
 
 <?php
-if ($no_body != 1)
+if (isset($body_class))
 {
-    echo "<body>";
+    echo "<body class=\"" . $body_class . "\">";
 }
 ?>
