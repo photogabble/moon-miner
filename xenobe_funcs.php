@@ -78,7 +78,7 @@ function xenobetoship($ship_id)
   $attackershields = NUM_SHIELDS($playerinfo[shields]);
   if ($attackershields > $playerinfo[ship_energy]) $attackershields = $playerinfo[ship_energy];
   $playerinfo[ship_energy] = $playerinfo[ship_energy] - $attackershields;
-  $attackertorps = round(mypw($level_factor, $playerinfo[torp_launchers])) * 2;
+  $attackertorps = round(pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
   if ($attackertorps > $playerinfo[torps]) $attackertorps = $playerinfo[torps];
   $playerinfo[torps] = $playerinfo[torps] - $attackertorps;
   $attackertorpdamage = $torp_dmg_rate * $attackertorps;
@@ -93,7 +93,7 @@ function xenobetoship($ship_id)
   $targetshields = NUM_SHIELDS($targetinfo[shields]);
   if ($targetshields>$targetinfo[ship_energy]) $targetshields=$targetinfo[ship_energy];
   $targetinfo[ship_energy]=$targetinfo[ship_energy]-$targetshields;
-  $targettorpnum = round(mypw($level_factor,$targetinfo[torp_launchers]))*2;
+  $targettorpnum = round(pow ($level_factor, $targetinfo['torp_launchers']))*2;
   if ($targettorpnum > $targetinfo[torps]) $targettorpnum = $targetinfo[torps];
   $targetinfo[torps] = $targetinfo[torps] - $targettorpnum;
   $targettorpdmg = $torp_dmg_rate*$targettorpnum;
@@ -339,7 +339,7 @@ function xenobetoship($ship_id)
       {
         $salv_organics=0;
       }
-      $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $targetinfo[hull]))+round(mypw($upgrade_factor, $targetinfo[engines]))+round(mypw($upgrade_factor, $targetinfo[power]))+round(mypw($upgrade_factor, $targetinfo[computer]))+round(mypw($upgrade_factor, $targetinfo[sensors]))+round(mypw($upgrade_factor, $targetinfo[beams]))+round(mypw($upgrade_factor, $targetinfo[torp_launchers]))+round(mypw($upgrade_factor, $targetinfo[shields]))+round(mypw($upgrade_factor, $targetinfo[armor]))+round(mypw($upgrade_factor, $targetinfo[cloak])));
+      $ship_value=$upgrade_cost*(round(pow ($upgrade_factor, $targetinfo['hull']))+round(pow ($upgrade_factor, $targetinfo['engines']))+round(pow ($upgrade_factor, $targetinfo['power']))+round(pow ($upgrade_factor, $targetinfo['computer']))+round(pow ($upgrade_factor, $targetinfo['sensors']))+round(pow ($upgrade_factor, $targetinfo['beams']))+round(pow ($upgrade_factor, $targetinfo['torp_launchers']))+round(pow ($upgrade_factor, $targetinfo['shields']))+round(pow ($upgrade_factor, $targetinfo['armor']))+round(pow ($upgrade_factor, $targetinfo['cloak'])));
       $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog($playerinfo[ship_id], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
@@ -418,7 +418,7 @@ function xenobetoship($ship_id)
       {
         $salv_organics=0;
       }
-      $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
+      $ship_value=$upgrade_cost*(round(pow ($upgrade_factor, $playerinfo[hull]))+round(pow ($upgrade_factor, $playerinfo[engines]))+round(pow ($upgrade_factor, $playerinfo[power]))+round(pow ($upgrade_factor, $playerinfo[computer]))+round(pow ($upgrade_factor, $playerinfo[sensors]))+round(pow ($upgrade_factor, $playerinfo[beams]))+round(pow ($upgrade_factor, $playerinfo[torp_launchers]))+round(pow ($upgrade_factor, $playerinfo[shields]))+round(pow ($upgrade_factor, $playerinfo[armor]))+round(pow ($upgrade_factor, $playerinfo[cloak])));
       $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog($targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
@@ -495,7 +495,7 @@ function xenobetosecdef()
       if ($playershields>$playerinfo[ship_energy]) {
         $playershields=$playerinfo[ship_energy];
       }
-      $playertorpnum = round(mypw($level_factor,$playerinfo[torp_launchers]))*2;
+      $playertorpnum = round(pow ($level_factor,$playerinfo[torp_launchers]))*2;
       if ($playertorpnum > $playerinfo[torps]) {
         $playertorpnum = $playerinfo[torps];
       }
@@ -1212,7 +1212,7 @@ function xenobetoplanet($planet_id)
   $planetinfo[energy] -= $targetshields;
 
   // PLANET TORPS
-  $torp_launchers = round(mypw($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 10;
+  $torp_launchers = round(pow ($level_factor, ($ownerinfo[torp_launchers])+ $base_factor)) * 10;
   $torps = $planetinfo[torps];
   $targettorps = $torp_launchers;
   if ($torp_launchers > $torps) $targettorps = $torps;
@@ -1237,7 +1237,7 @@ function xenobetoplanet($planet_id)
   $playerinfo[ship_energy] -= $attackershields;
 
   // ATTACKER TORPS
-  $attackertorps = round(mypw($level_factor, $playerinfo[torp_launchers])) * 2;
+  $attackertorps = round(pow ($level_factor, $playerinfo[torp_launchers])) * 2;
   if ($attackertorps > $playerinfo[torps]) $attackertorps = $playerinfo[torps];
   $playerinfo[torps] -= $attackertorps;
   $attackertorpdamage = $torp_dmg_rate * $attackertorps;
@@ -1406,7 +1406,7 @@ function xenobetoplanet($planet_id)
     $free_ore = round($playerinfo[ship_ore]/2);
     $free_organics = round($playerinfo[ship_organics]/2);
     $free_goods = round($playerinfo[ship_goods]/2);
-    $ship_value=$upgrade_cost*(round(mypw($upgrade_factor, $playerinfo[hull]))+round(mypw($upgrade_factor, $playerinfo[engines]))+round(mypw($upgrade_factor, $playerinfo[power]))+round(mypw($upgrade_factor, $playerinfo[computer]))+round(mypw($upgrade_factor, $playerinfo[sensors]))+round(mypw($upgrade_factor, $playerinfo[beams]))+round(mypw($upgrade_factor, $playerinfo[torp_launchers]))+round(mypw($upgrade_factor, $playerinfo[shields]))+round(mypw($upgrade_factor, $playerinfo[armor]))+round(mypw($upgrade_factor, $playerinfo[cloak])));
+    $ship_value=$upgrade_cost*(round(pow ($upgrade_factor, $playerinfo[hull]))+round(pow ($upgrade_factor, $playerinfo[engines]))+round(pow ($upgrade_factor, $playerinfo[power]))+round(pow ($upgrade_factor, $playerinfo[computer]))+round(pow ($upgrade_factor, $playerinfo[sensors]))+round(pow ($upgrade_factor, $playerinfo[beams]))+round(pow ($upgrade_factor, $playerinfo[torp_launchers]))+round(pow ($upgrade_factor, $playerinfo[shields]))+round(pow ($upgrade_factor, $playerinfo[armor]))+round(pow ($upgrade_factor, $playerinfo[cloak])));
     $ship_salvage_rate=mt_rand(10,20);
     $ship_salvage=$ship_value*$ship_salvage_rate/100;
     $fighters_lost = $planetinfo[fighters] - $targetfighters;

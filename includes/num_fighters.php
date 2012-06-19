@@ -25,6 +25,6 @@ if (preg_match("/num_fighters.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_FIGHTERS ($level_computer)
 {
     global $level_factor;
-    return round (mypw ($level_factor, $level_computer) * 100);
+    return round (pow ($level_factor, $level_computer) * 100);
 }
 ?>

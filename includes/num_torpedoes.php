@@ -25,6 +25,6 @@ if (preg_match("/num_torpedoes.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_TORPEDOES ($level_torp_launchers)
 {
     global $level_factor;
-    return round (mypw ($level_factor, $level_torp_launchers) * 100);
+    return round (pow ($level_factor, $level_torp_launchers) * 100);
 }
 ?>

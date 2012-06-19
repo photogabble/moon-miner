@@ -23,8 +23,8 @@ if (preg_match("/sched_igb.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-$exponinter = mypw($ibank_interest + 1, $multiplier);
-$expoloan = mypw($ibank_loaninterest + 1, $multiplier);
+$exponinter = pow ($ibank_interest + 1, $multiplier);
+$expoloan = pow ($ibank_loaninterest + 1, $multiplier);
 
 echo "<B>IBANK</B><p>";
 

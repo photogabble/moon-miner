@@ -25,6 +25,6 @@ if (preg_match("/num_beams.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_BEAMS ($level_beams)
 {
     global $level_factor;
-    return round (mypw ($level_factor, $level_beams) * 100);
+    return round (pow ($level_factor, $level_beams) * 100);
 }
 ?>

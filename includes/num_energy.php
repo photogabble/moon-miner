@@ -25,6 +25,6 @@ if (preg_match("/num_energy.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_ENERGY ($level_power)
 {
     global $level_factor;
-    return round (mypw ($level_factor, $level_power) * 500);
+    return round (pow ($level_factor, $level_power) * 500);
 }
 ?>

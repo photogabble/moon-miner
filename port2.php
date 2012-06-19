@@ -117,8 +117,8 @@ global $upgrade_cost;
 
     while ($Delta>0)
     {
-     $DeltaCost=$DeltaCost + mypw(2,$desiredvalue-$Delta);
-     $Delta=$Delta-1;
+     $DeltaCost = $DeltaCost + pow(2,$desiredvalue-$Delta);
+     $Delta = $Delta-1;
     }
     $DeltaCost=$DeltaCost * $upgrade_cost;
 
