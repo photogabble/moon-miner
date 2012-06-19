@@ -17,7 +17,7 @@
 //
 // File: includes/schema.php
 
-function create_schema()
+function create_schema ()
 {
 /*********************************************************
 If you add/remove a table, don't forget to update the
