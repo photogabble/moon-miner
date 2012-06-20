@@ -377,7 +377,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id && $_SESSION['planet_selected'] != '')
         {
-            adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
+            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -496,7 +496,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id)
         {
-            adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
+            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -542,7 +542,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id)
         {
-            adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
+            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -597,7 +597,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id)
         {
-            adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
+            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";

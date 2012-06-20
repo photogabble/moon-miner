@@ -86,7 +86,7 @@ function go_build_base($planet_id, $sector_id)
   {
     $ip = $_SERVER['REMOTE_ADDR'];
     $hack_id = 0x1337;
-    adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
+    adminlog($db, $dbtables, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
     echo "<div style='color:#f00; font-size:16px;'>Base Construction Failed!</div>\n";
 
     return (boolean) false;
@@ -145,7 +145,7 @@ function collect_credits($planetarray)
       $ip = $_SERVER['REMOTE_ADDR'];
       $planet_id = $res->fields['planet_id'];
       $sector_id = $res->fields['sector_id'];
-      adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
+      adminlog($db, $dbtables, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
       break;
     }
   }
@@ -244,7 +244,7 @@ function change_planet_production($prodpercentarray)
             $planet_hack=true;
             $hack_id = 0x18582;
             $hack_count[0]++;
-            adminlog(LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
+            adminlog($db, $dbtables, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
           }
 
           $db->Execute("UPDATE $dbtables[planets] SET $commod_type=$prodpercent WHERE planet_id=$planet_id AND owner = $ship_id");
@@ -272,7 +272,7 @@ function change_planet_production($prodpercentarray)
             $planet_hack=true;
             $hack_id = 0x18531;
             $hack_count[1]++;
-            adminlog(LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray[team_id]} not {$team_id}");
+            adminlog($db, $dbtables, LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray[team_id]} not {$team_id}");
           }
         }
         else
@@ -282,7 +282,7 @@ function change_planet_production($prodpercentarray)
           $planet_hack=true;
           $hack_id = 0x18598;
           $hack_count[2]++;
-          adminlog(LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
+          adminlog($db, $dbtables, LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
         }
       }
     }
@@ -291,7 +291,7 @@ function change_planet_production($prodpercentarray)
   if ($planet_hack)
   {
     $serial_data = serialize($prodpercentarray);
-    adminlog(LOG_ADMIN_PLANETCHEAT+1000, "{$ship_id}|{$serial_data}");
+    adminlog($db, $dbtables, LOG_ADMIN_PLANETCHEAT+1000, "{$ship_id}|{$serial_data}");
     printf("<font color=\"red\"><B>Your Cheat has been logged to the admin (%08x) [%02X:%02X:%02X].</B></font><br>\n", (int)$hack_id, (int)$hack_count[0], (int)$hack_count[1], (int)$hack_count[2]);
   }
 

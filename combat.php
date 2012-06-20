@@ -715,7 +715,7 @@ function planetcombat()
                 echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
                 $db->Execute("DELETE FROM $dbtables[planets] WHERE planet_id=$planetinfo[planet_id]");
                 playerlog ($db, $dbtables, $ownerinfo[ship_id], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                adminlog(LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
+                adminlog($db, $dbtables, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
                 gen_score($ownerinfo[ship_id]);
             }
             else

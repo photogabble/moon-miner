@@ -33,7 +33,7 @@ function db_op_result ($db, $query, $served_line, $served_page, $db_logging)
         return $db->ErrorMsg();
         if ($db_logging)
         {
-            adminlog($db, "LOG_RAW", $dberror);
+            adminlog($db, $dbtables, "LOG_RAW", $dberror);
         }
     }
 }

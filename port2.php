@@ -141,7 +141,7 @@ else
     // Kami Multi Browser Window Upgrade Fix
     if ($_SESSION['port_shopping'] != true)
     {
-        adminlog(57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
+        adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
         echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
         echo "<div style='color:#f00; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
         echo "<br>\n";
@@ -463,7 +463,7 @@ if ((NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['shi
 
     echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
     $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
-    adminlog(5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
+    adminlog($db, $dbtables, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
 }
 else
 {

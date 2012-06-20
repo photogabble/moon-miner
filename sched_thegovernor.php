@@ -47,7 +47,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "1|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|{$ship_fighters_max}");
+      adminlog ($db, $dbtables, 960, "1|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|{$ship_fighters_max}");
     }
     elseif ($playerinfo['ship_fighters'] < 0)
     {
@@ -58,7 +58,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "2|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
+      adminlog ($db, $dbtables, 960, "2|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
     }
 
 // Checking Torpedoes
@@ -71,7 +71,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "3|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|{$ship_fighters_max}");
+      adminlog ($db, $dbtables, 960, "3|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|{$ship_fighters_max}");
     }
     elseif ($playerinfo['torps'] < 0)
     {
@@ -82,7 +82,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "4|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
+      adminlog ($db, $dbtables, 960, "4|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
     }
 
 // Checking Armor Points
@@ -95,7 +95,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "5|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|{$ship_fighters_max}");
+      adminlog ($db, $dbtables, 960, "5|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|{$ship_fighters_max}");
     }
     elseif ($playerinfo['armor_pts'] < 0)
     {
@@ -106,7 +106,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "6|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
+      adminlog ($db, $dbtables, 960, "6|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
     }
 
 // Checking Credits
@@ -119,7 +119,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "7|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
+      adminlog ($db, $dbtables, 960, "7|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
     }
 
     if ($playerinfo['credits'] > 100000000000000000000)
@@ -131,7 +131,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "7|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
+      adminlog ($db, $dbtables, 960, "7|{$playerinfo['ship_id']}|{$playerinfo['ship_fighters']}|0");
     }
 
     $tdres->MoveNext();
@@ -154,7 +154,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "10|{$planetinfo['planet_id']}|{$planetinfo['credits']}|{$planetinfo['owner']}");
+      adminlog ($db, $dbtables, 960, "10|{$planetinfo['planet_id']}|{$planetinfo['credits']}|{$planetinfo['owner']}");
     }
 
     if ($planetinfo['credits'] > 100000000000000000000)
@@ -166,7 +166,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "10|{$planetinfo['planet_id']}|{$planetinfo['credits']}|{$planetinfo['owner']}");
+      adminlog ($db, $dbtables, 960, "10|{$planetinfo['planet_id']}|{$planetinfo['credits']}|{$planetinfo['owner']}");
     }
 
 // Checking Fighters
@@ -179,7 +179,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "11|{$planetinfo['planet_id']}|{$planetinfo['fighters']}|{$planetinfo['owner']}");
+      adminlog ($db, $dbtables, 960, "11|{$planetinfo['planet_id']}|{$planetinfo['fighters']}|{$planetinfo['owner']}");
     }
 
 // Checking Torpedoes
@@ -192,7 +192,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "12|{$planetinfo['planet_id']}|{$planetinfo['torps']}|{$planetinfo['owner']}");
+      adminlog ($db, $dbtables, 960, "12|{$planetinfo['planet_id']}|{$planetinfo['torps']}|{$planetinfo['owner']}");
     }
 
     $tdres->MoveNext();
@@ -216,7 +216,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
+      adminlog ($db, $dbtables, 960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
     }
 
     if ($bankinfo['balance'] > 100000000000000000000)
@@ -228,7 +228,7 @@
             echo "error: ". $db->ErrorMsg() . "<br>\n";
         }
         $detected = (boolean) true;
-        #adminlog(960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
+        #adminlog ($db, $dbtables, 960, "20|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
     }
 
 // Checking IGB Loan Credits
@@ -241,7 +241,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "21|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
+      adminlog ($db, $dbtables, 960, "21|{$bankinfo['ship_id']}|{$bankinfo['balance']}");
     }
 
     $tdres->MoveNext();
@@ -264,7 +264,7 @@
         echo "error: ". $db->ErrorMsg() . "<br>\n";
       }
       $detected = (boolean) true;
-      adminlog(960, "22|{$transferinfo['transfer_id']}|{$transferinfo['amount']}|{$transferinfo['source_id']}|{$transferinfo['dest_id']}");
+      adminlog ($db, $dbtables, 960, "22|{$transferinfo['transfer_id']}|{$transferinfo['amount']}|{$transferinfo['source_id']}|{$transferinfo['dest_id']}");
     }
 
     $tdres->MoveNext();
