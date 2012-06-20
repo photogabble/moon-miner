@@ -583,8 +583,8 @@ function xenobetosecdef()
         $l_sf_sendlog2 = str_replace("[player]", "Xenobe " . $playerinfo[character_name], $l_sf_sendlog2);
         $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
         message_defence_owner ($db, $dbtables, $targetlink, $l_sf_sendlog2);
-        cancel_bounty($playerinfo[ship_id]);
-        db_kill_player($playerinfo['ship_id']);
+        cancel_bounty ($db, $dbtables, $playerinfo['ship_id']);
+        db_kill_player ($playerinfo['ship_id']);
         $xenobeisdead = 1;
 
         return;
@@ -623,8 +623,8 @@ function xenobetosecdef()
             $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $targetlink, $l_chm_hewasdestroyedbyyourmines);
             message_defence_owner ($db, $dbtables, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
             // LETS ACTUALLY KILL THE Xenobe NOW
-            cancel_bounty($playerinfo[ship_id]);
-            db_kill_player($playerinfo['ship_id']);
+            cancel_bounty ($db, $dbtables, $playerinfo['ship_id']);
+            db_kill_player ($playerinfo['ship_id']);
             $xenobeisdead = 1;
             // LETS GET RID OF THE MINES NOW AND RETURN OUT OF THIS FUNCTION
             explode_mines($targetlink,$roll);
