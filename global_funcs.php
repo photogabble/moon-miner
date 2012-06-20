@@ -31,7 +31,6 @@ include_once "includes/checklogin.php";
 include_once "includes/collect_bounty.php";
 include_once "includes/connectdb.php";
 include_once "includes/db_kill_player.php";
-include_once "includes/distribute_toll.php";
 include_once "includes/explode_mines.php";
 include_once "includes/gen_score.php";
 include_once "includes/get_avg_tech.php";

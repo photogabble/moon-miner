@@ -23,6 +23,7 @@ if (preg_match("/check_fighters.php/i", $_SERVER['PHP_SELF'])) {
 }
 
 include "languages/$lang";
+include_once "includes/distribute_toll.php";
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$sector'");
 // Put the sector information into the array "sectorinfo"
@@ -90,7 +91,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     $l_chf_youpaidsometoll = str_replace("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
                     echo "$l_chf_youpaidsometoll<br>";
                     $db->Execute("UPDATE $dbtables[ships] SET credits=credits-$fighterstoll where ship_id=$playerinfo[ship_id]");
-                    distribute_toll($sector,$fighterstoll,$total_sector_fighters);
+                    distribute_toll ($db, $dbtables, $sector, $fighterstoll, $total_sector_fighters);
                     playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
                     $ok=1;
                 }

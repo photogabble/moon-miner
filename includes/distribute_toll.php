@@ -22,10 +22,8 @@ if (preg_match("/distribute_toll.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function distribute_toll ($sector, $toll, $total_fighters)
+function distribute_toll ($db, $dbtables, $sector, $toll, $total_fighters)
 {
-    global $db, $dbtables;
-
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' AND defence_type ='F' ");
     echo $db->ErrorMsg();
     // Put the defence information into the array "defenceinfo"
