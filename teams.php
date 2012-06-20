@@ -26,6 +26,7 @@ updatecookie();
 include "languages/$lang";
 $title = $l_team_title;
 include "header.php";
+include "defence_vs_defence.php";
 
 if (checklogin())
 {
@@ -168,7 +169,7 @@ switch ($teamwhat)
                         calc_ownership($sector);
                     }
                 }
-                defence_vs_defence($playerinfo[ship_id]);
+                defence_vs_defence ($db, $dbtables, $playerinfo['ship_id']);
                 kick_off_planet($playerinfo[ship_id],$whichteam);
 
                 $l_team_onlymember = str_replace("[team_name]", "<b>$team[team_name]</b>", $l_team_onlymember);

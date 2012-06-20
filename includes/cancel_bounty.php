@@ -24,7 +24,6 @@ if (preg_match("/cancel_bounty.php/i", $_SERVER['PHP_SELF'])) {
 
 function cancel_bounty ($db, $dbtables, $bounty_on)
 {
-    global $db, $dbtables;
     $res = $db->Execute("SELECT * FROM $dbtables[bounty],$dbtables[ships] WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
     if ($res)
     {

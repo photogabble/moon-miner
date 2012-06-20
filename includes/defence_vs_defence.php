@@ -22,10 +22,8 @@ if (preg_match("/defence_vs_defence.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function defence_vs_defence ($ship_id)
+function defence_vs_defence ($db, $dbtables, $ship_id)
 {
-    global $db, $dbtables;
-
     $result1 = $db->Execute("SELECT * from $dbtables[sector_defence] where ship_id = $ship_id");
     if ($result1 > 0)
     {
