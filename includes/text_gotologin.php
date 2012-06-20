@@ -17,7 +17,7 @@
 //
 // File: includes/text_gotologin.php
 
-if (preg_match("/global_funcs.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/text_gotologin.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }

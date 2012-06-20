@@ -17,7 +17,7 @@
 //
 // File: includes/scan_success.php
 
-if (preg_match("/global_funcs.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/scan_success.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
