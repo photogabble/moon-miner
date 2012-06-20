@@ -1,5 +1,11 @@
 BlackNova Traders
 
+REQUIREMENTS
+
+- PHP version 5.3 minimum is required. (For Smarty, crypt for login, and many other features)
+- MySQL version 5.5 is supported, we have not determined a required minimum.
+- Apache version 2.2.20+ is supported, we have not determined a required minimum.
+
 INSTALLATION
 
 1. Untar the distribution (be sure to untar the subdirectories):
@@ -53,11 +59,7 @@ INSTALLATION
 
 7. chmod 000 setup_info.php - it contains information that might be a security risk.
 
-8. If you are using a Linux distribution that includes SELinux (Fedora, Redhat, etc), you will need to
-   allow the web server to talk to the MySQL server. Issue this command: setsebool -P httpd_can_network_connect_db 1 
-   (And wait several *minutes* on a 3ghz+ machine)
-
-9. If you'd like additional security, we have included .htaccess files for some protection.
+8. If you'd like additional security, we have included .htaccess files for some protection.
    Some systems do not ship with .htaccess enabled. You'll need to edit your Apache config 
    (either httpd.conf or the correct file for your host/directory), and set it to AllowOverrides Limits
    (it is often set to AllowOverrides None). Don't forget to reload Apache's config if you make this change.
@@ -90,8 +92,15 @@ Regards,
 
 The Blacknova development team.
 
+
+------------------------------
 ADDITIONAL FEDORA/REDHAT NOTES
 
 For Fedora/Redhat to be able to sendmail from Apache, you'll need to set:
 
 setsebool -P httpd_can_sendmail=1
+
+To allow the web server to talk to the MySQL server. Issue this command: 
+
+setsebool -P httpd_can_network_connect_db 1 
+
