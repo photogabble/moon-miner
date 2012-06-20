@@ -22,9 +22,8 @@ if (preg_match("/message_defence_owner.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function message_defence_owner ($sector, $message)
+function message_defence_owner ($db, $dbtables, $sector, $message)
 {
-    global $db, $dbtables;
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' ");
     echo $db->ErrorMsg();
     // Put the defence information into the array "defenceinfo"

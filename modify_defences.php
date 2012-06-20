@@ -129,7 +129,7 @@ switch ($response) {
          $l_md_msgdownerb=str_replace("[sector]",$sector,$l_md_msgdownerb);
          $l_md_msgdownerb=str_replace("[mines]",$playerbeams,$l_md_msgdownerb);
          $l_md_msgdownerb=str_replace("[name]",$char_name,$l_md_msgdownerb);
-         message_defence_owner($sector,"$l_md_msgdownerb");
+         message_defence_owner ($db, $dbtables, $sector,"$l_md_msgdownerb");
          TEXT_GOTOMAIN();
          die();
       }
