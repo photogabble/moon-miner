@@ -435,6 +435,8 @@ function xenobetoship($ship_id)
 
 function xenobetosecdef()
 {
+
+  include_once "includes/destroy_fighters.php";
   // Xenobe TO SECTOR DEFENCE
 
   // SETUP GENERAL VARIABLES
@@ -564,7 +566,7 @@ function xenobetosecdef()
       }
       // GET RID OF THE SECTOR FIGHTERS THAT DIED
       $fighterslost = $total_sector_fighters - $targetfighters;
-      destroy_fighters($targetlink,$fighterslost);
+      destroy_fighters ($db, $dbtables, $targetlink, $fighterslost);
 
       // LETS LET DEFENCE OWNER KNOW WHAT HAPPENED
       $l_sf_sendlog = str_replace("[player]", "Xenobe $playerinfo[character_name]", $l_sf_sendlog);

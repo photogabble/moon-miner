@@ -22,10 +22,8 @@ if (preg_match("/destroy_fighters.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function destroy_fighters ($sector, $num_fighters)
+function destroy_fighters ($db, $dbtables, $sector, $num_fighters)
 {
-    global $db, $dbtables;
-
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
     echo $db->ErrorMsg();
 
