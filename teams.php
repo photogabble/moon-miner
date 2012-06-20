@@ -27,6 +27,7 @@ include "languages/$lang";
 $title = $l_team_title;
 include "header.php";
 include_once "includes/defence_vs_defence.php";
+include_once "includes/kick_off_planet.php";
 
 if (checklogin())
 {
@@ -170,7 +171,7 @@ switch ($teamwhat)
                     }
                 }
                 defence_vs_defence ($db, $dbtables, $playerinfo['ship_id']);
-                kick_off_planet($playerinfo[ship_id],$whichteam);
+                kick_off_planet($db, $dbtables, $playerinfo['ship_id'], $whichteam);
 
                 $l_team_onlymember = str_replace("[team_name]", "<b>$team[team_name]</b>", $l_team_onlymember);
                 echo $l_team_onlymember . "<br><br>";
@@ -224,7 +225,7 @@ switch ($teamwhat)
 
                     echo "$l_team_youveleft <b>$team[team_name]</b>.<br><br>";
                     defence_vs_defence($playerinfo[ship_id]);
-                    kick_off_planet($playerinfo[ship_id],$whichteam);
+                    kick_off_planet ($db, $dbtables, $playerinfo['ship_id'], $whichteam);
                     playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
                     playerlog ($db, $dbtables, $team[creator], LOG_TEAM_NOT_LEAVE, "$playerinfo[character_name]");
                 }

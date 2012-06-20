@@ -22,9 +22,8 @@ if (preg_match("/kick_off_planet.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function kick_off_planet ($ship_id, $whichteam)
+function kick_off_planet ($db, $dbtables, $ship_id, $whichteam)
 {
-    global $db, $dbtables;
     $result1 = $db->Execute("SELECT * from $dbtables[planets] where owner = '$ship_id' ");
 
     if ($result1 > 0)

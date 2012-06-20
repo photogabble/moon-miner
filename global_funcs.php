@@ -38,7 +38,6 @@ include_once "includes/getlanguagevars.php";
 include_once "includes/getplanetownerinformation.php";
 include_once "includes/isloanpending.php";
 include_once "includes/issameteam.php";
-include_once "includes/kick_off_planet.php";
 include_once "includes/log_move.php";
 include_once "includes/message_defence_owner.php";
 include_once "includes/num_armor.php";
