@@ -22,10 +22,8 @@ if (preg_match("/player_insignia_name.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function player_insignia_name ($a_username)
+function player_insignia_name ($db, $dbtables, $a_username)
 {
-    global $db, $dbtables, $username;
-
     unset ($player_insignia);
 
     // Lookup players score.
