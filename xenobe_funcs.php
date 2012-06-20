@@ -629,14 +629,14 @@ function xenobetosecdef()
             db_kill_player ($playerinfo['ship_id']);
             $xenobeisdead = 1;
             // LETS GET RID OF THE MINES NOW AND RETURN OUT OF THIS FUNCTION
-            explode_mines($targetlink,$roll);
+            explode_mines ($db, $dbtables, $targetlink, $roll);
 
             return;
           }
         }
       }
       // LETS GET RID OF THE MINES NOW
-      explode_mines($targetlink,$roll);
+      explode_mines ($db, $dbtables, $targetlink, $roll);
     } else {
       // FOR SOME REASON THIS WAS CALLED WITHOUT ANY SECTOR DEFENCES TO ATTACK
       return;

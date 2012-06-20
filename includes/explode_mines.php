@@ -22,10 +22,8 @@ if (preg_match("/explode_mines.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function explode_mines ($sector, $num_mines)
+function explode_mines ($db, $dbtables, $sector, $num_mines)
 {
-    global $db, $dbtables;
-
     $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='M' order by quantity ASC");
     echo $db->ErrorMsg();
     // Put the defence information into the array "defenceinfo"

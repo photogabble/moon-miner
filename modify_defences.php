@@ -124,7 +124,7 @@ switch ($response) {
          }
          echo "$l_md_bmines $playerbeams $l_mines<br>";
          $update4b = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=ship_energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
-         explode_mines($sector,$playerbeams);
+         explode_mines ($db, $dbtables, $sector, $playerbeams);
          $char_name = $playerinfo['character_name'];
          $l_md_msgdownerb=str_replace("[sector]",$sector,$l_md_msgdownerb);
          $l_md_msgdownerb=str_replace("[mines]",$playerbeams,$l_md_msgdownerb);
