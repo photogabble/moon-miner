@@ -38,7 +38,7 @@ else
     $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
     $playerinfo = $result->fields;
     $current_score = gen_score($playerinfo['ship_id']);
-    playerlog($playerinfo['ship_id'], LOG_LOGOUT, $ip);
+    playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
 }
 
 bigtitle();

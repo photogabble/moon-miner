@@ -35,7 +35,7 @@ while (!$res->EOF)
     {
         $db->Execute ("UPDATE $dbtables[sector_defence] set quantity = quantity - GREATEST(ROUND(quantity * $defence_degrade_rate),1) where defence_id = $row[defence_id] and quantity > 0");
         $degrade_rate = $defence_degrade_rate * 100;
-        playerlog($row[ship_id], LOG_DEFENCE_DEGRADE, "$row[sector_id]|$degrade_rate");
+        playerlog ($db, $dbtables, $row['ship_id'], LOG_DEFENCE_DEGRADE, "$row[sector_id]|$degrade_rate");
     }
     else
     {
@@ -57,7 +57,7 @@ while (!$res->EOF)
         {
             $db->Execute ("UPDATE $dbtables[sector_defence] set quantity = quantity - GREATEST(ROUND(quantity * $defence_degrade_rate),1) where defence_id = $row[defence_id] ");
             $degrade_rate = $defence_degrade_rate * 100;
-            playerlog($row[ship_id], LOG_DEFENCE_DEGRADE, "$row[sector_id]|$degrade_rate");
+            playerlog ($db, $dbtables, $row['ship_id'], LOG_DEFENCE_DEGRADE, "$row[sector_id]|$degrade_rate");
         }
     }
     $res->MoveNext();

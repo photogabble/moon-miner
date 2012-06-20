@@ -40,7 +40,7 @@ do
             $newsector = mt_rand(0, $sector_max-1);
             echo " to sector $newsector.<br>";
             $query = $db->Execute("UPDATE $dbtables[ships] SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
-            playerlog($row[ship_id], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
+            playerlog ($db, $dbtables, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
             log_move ($db, $dbtables, $row['ship_id'], $newsector);
             $res->MoveNext();
         }

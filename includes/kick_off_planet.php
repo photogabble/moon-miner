@@ -39,7 +39,7 @@ function kick_off_planet ($ship_id, $whichteam)
                 {
                     $cur = $result2->fields;
                     $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
-                    playerlog($cur['ship_id'], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
+                    playerlog ($db, $dbtables, $cur['ship_id'], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
                     $result2->MoveNext();
                 }
             }

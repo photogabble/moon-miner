@@ -53,13 +53,13 @@ if ($doomsday && $affliction < 3 && $reccount > 0)
         echo "The horsmen release the Space Plague!<br>.";
         $db->Execute("UPDATE $dbtables[planets] SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
         $logpercent = ROUND($space_plague_kills * 100);
-        playerlog($targetinfo['owner'],LOG_SPACE_PLAGUE,"$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
+        playerlog ($db, $dbtables, $targetinfo['owner'], LOG_SPACE_PLAGUE, "$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
     }
     else
     {
         echo "The horsemen release a Plasma Storm!<br>.";
         $db->Execute("UPDATE $dbtables[planets] SET energy = 0 WHERE planet_id = $targetinfo[planet_id]");
-        playerlog($targetinfo['owner'],LOG_PLASMA_STORM,"$targetinfo[name]|$targetinfo[sector_id]");
+        playerlog ($db, $dbtables, $targetinfo['owner'], LOG_PLASMA_STORM, "$targetinfo[name]|$targetinfo[sector_id]");
     }
 }
 echo "<br>";

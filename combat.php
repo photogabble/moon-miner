@@ -218,7 +218,7 @@ function planetbombing()
 
     if ($debug) echo "total figs go boom $planetfighterslost<br>\n";
     echo "<br><br>\n";
-playerlog($ownerinfo[ship_id], LOG_PLANET_BOMBED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$beamsused|$planettorps|$planetfighterslost");
+playerlog ($db, $dbtables, $ownerinfo[ship_id], LOG_PLANET_BOMBED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$beamsused|$planettorps|$planetfighterslost");
 
     $res = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, ship_fighters=ship_fighters-$attackerfighters WHERE ship_id=$playerinfo[ship_id]");
     $res = $db->Execute("UPDATE $dbtables[planets] SET energy=energy-$beamsused,fighters=fighters-$planetfighterslost, torps=torps-$planettorps WHERE planet_id=$planetinfo[planet_id]");
@@ -714,7 +714,7 @@ function planetcombat()
             {
                 echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
                 $db->Execute("DELETE FROM $dbtables[planets] WHERE planet_id=$planetinfo[planet_id]");
-                playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                playerlog ($db, $dbtables, $ownerinfo[ship_id], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 adminlog(LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
                 gen_score($ownerinfo[ship_id]);
             }
@@ -722,7 +722,7 @@ function planetcombat()
             {
                 $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=" , $planetinfo['planet_id'] . "&amp;command=capture'>", $l_cmb_youmaycapture);
                 echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
-                playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                playerlog ($db, $dbtables, $ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 gen_score($ownerinfo[ship_id]);
                 $update7a = $db->Execute("UPDATE $dbtables[planets] SET owner=0, fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
             }
@@ -731,7 +731,7 @@ function planetcombat()
         {
             $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=" , $planetinfo['planet_id'] . "&amp;command=capture'>", $l_cmb_youmaycapture);
             echo "<center>$l_cmb_youmaycapture</center><br><br>";
-            playerlog($ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+            playerlog ($db, $dbtables, $ownerinfo[ship_id], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             gen_score($ownerinfo[ship_id]);
             $update7a = $db->Execute("UPDATE $dbtables[planets] SET owner=0,fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
         }
@@ -751,7 +751,7 @@ function planetcombat()
         $energy=$planetinfo[energy];
         if ($debug)
             echo "$l_cmb_energyleft: $planetinfo[energy]<br>";
-        playerlog($ownerinfo[ship_id], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+        playerlog ($db, $dbtables, $ownerinfo[ship_id], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         gen_score($ownerinfo[ship_id]);
         $update7b = $db->Execute("UPDATE $dbtables[planets] SET energy=$energy,fighters=fighters-$fighters_lost, torps=torps-$planettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
         if ($debug)
@@ -1223,12 +1223,12 @@ function shiptoship($ship_id)
             echo "$l_cmb_escapepodlaunched<br><br>";
             echo "<br><br>ship_id=$targetinfo[ship_id]<br><br>";
             $test = $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',dev_lssd='N' WHERE ship_id=$targetinfo[ship_id]");
-            playerlog($targetinfo[ship_id],LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
+            playerlog ($db, $dbtables, $targetinfo[ship_id],LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
             collect_bounty($playerinfo[ship_id],$targetinfo[ship_id]);
         }
         else
         {
-            playerlog($targetinfo[ship_id], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
+            playerlog ($db, $dbtables, $targetinfo[ship_id], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
             db_kill_player($targetinfo['ship_id']);
             collect_bounty($playerinfo[ship_id],$targetinfo[ship_id]);
         }
@@ -1241,7 +1241,7 @@ function shiptoship($ship_id)
         $target_armor_lost=$targetinfo[armor_pts]-$targetarmor;
         $target_fighters_lost=$targetinfo[ship_fighters]-$targetfighters;
         $target_energy=$targetinfo[ship_energy];
-        playerlog($targetinfo[ship_id], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
+        playerlog ($db, $dbtables, $targetinfo[ship_id], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
         $update4 = $db->Execute ("UPDATE $dbtables[ships] SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armor_pts=armor_pts-$target_armor_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
     }
     echo "<br>_+_+_+_+_+_+_<br>";

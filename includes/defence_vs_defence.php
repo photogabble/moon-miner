@@ -46,15 +46,15 @@ function defence_vs_defence ($ship_id)
                         $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $cur[defence_id]");
                         $qty -= $cur['quantity'];
                         $db->Execute("UPDATE $dbtables[sector_defence] SET quantity = $qty where defence_id = $row[defence_id]");
-                        playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity]|$targetdeftype|$row[sector_id]");
-                        playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$cur[quantity]|$deftype|$row[sector_id]");
+                        playerlog ($db, $dbtables, $cur['ship_id'], LOG_DEFS_DESTROYED, "$cur[quantity]|$targetdeftype|$row[sector_id]");
+                        playerlog ($db, $dbtables, $row['ship_id'], LOG_DEFS_DESTROYED, "$cur[quantity]|$deftype|$row[sector_id]");
                     }
                     else
                     {
                         $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $row[defence_id]");
                         $db->Execute("UPDATE $dbtables[sector_defence] SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
-                        playerlog($cur[ship_id], LOG_DEFS_DESTROYED, "$qty|$targetdeftype|$row[sector_id]");
-                        playerlog($row[ship_id], LOG_DEFS_DESTROYED, "$qty|$deftype|$row[sector_id]");
+                        playerlog ($db, $dbtables, $cur['ship_id'], LOG_DEFS_DESTROYED, "$qty|$targetdeftype|$row[sector_id]");
+                        playerlog ($db, $dbtables, $row['ship_id'], LOG_DEFS_DESTROYED, "$qty|$deftype|$row[sector_id]");
                         $qty = 0;
                     }
 

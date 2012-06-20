@@ -77,7 +77,7 @@ while (!$res->EOF)
             if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
             {
               $furcount0a++;
-              playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
+              playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
               xenobetoship($rowo0[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
@@ -88,7 +88,7 @@ while (!$res->EOF)
           elseif ($playerinfo[aggression] == 2)        // ****** O = 0 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
             $furcount0a++;
-            playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
+            playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
             xenobetoship($rowo0[ship_id]);
             if ($xenobeisdead>0) {
               $res->MoveNext();
@@ -126,7 +126,7 @@ while (!$res->EOF)
             if ($playerinfo[ship_fighters] > $rowo1[ship_fighters] && $rowo1[planet_id] == 0)
             {
               $furcount1a++;
-              playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
+              playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
               xenobetoship($rowo1[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
@@ -137,7 +137,7 @@ while (!$res->EOF)
           elseif ($playerinfo[aggression] == 2)        // ****** O = 1 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
             $furcount1a++;
-            playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
+            playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
             if (!$rowo1[planet_id] == 0) {              // *** IS ON PLANET ***
               xenobetoplanet($rowo1[planet_id]);
             } else {
@@ -181,7 +181,7 @@ while (!$res->EOF)
             if ($playerinfo[ship_fighters] > $rowo2[ship_fighters] && $rowo2[planet_id] == 0)
             {
               $furcount2a++;
-              playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
+              playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
               xenobetoship($rowo2[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
@@ -192,7 +192,7 @@ while (!$res->EOF)
           elseif ($playerinfo[aggression] == 2)        // ****** O = 2 & AGRESSION = 2 ATTACK ALLWAYS ******
           {
             $furcount2a++;
-            playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
+            playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
             if (!$rowo2[planet_id] == 0) {              // *** IS ON PLANET ***
               xenobetoplanet($rowo2[planet_id]);
             } else {
@@ -247,7 +247,7 @@ while (!$res->EOF)
               if ($playerinfo[ship_fighters] > $rowo3[ship_fighters] && $rowo3[planet_id] == 0)
               {
                 $furcount3a++;
-                playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
+                playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
                 xenobetoship($rowo3[ship_id]);
                 if ($xenobeisdead>0) {
                   $res->MoveNext();
@@ -258,7 +258,7 @@ while (!$res->EOF)
             elseif ($playerinfo[aggression] == 2)        // ****** O = 3 & AGRESSION = 2 ATTACK ALLWAYS ******
             {
               $furcount3a++;
-              playerlog($playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
+              playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
               if (!$rowo3[planet_id] == 0) {              // *** IS ON PLANET ***
                 xenobetoplanet($rowo3[planet_id]);
               } else {

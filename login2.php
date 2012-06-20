@@ -83,7 +83,7 @@ if ($playerfound)
         if ($playerinfo['ship_destroyed'] == "N")
         {
             // player's ship has not been destroyed
-            playerlog($playerinfo['ship_id'], LOG_LOGIN, $ip);
+            playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_LOGIN, $ip);
             $stamp = date("Y-m-d H-i-s");
             $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
             $_SESSION['logged_in'] = true;
@@ -134,7 +134,7 @@ if ($playerfound)
     {
         // password is incorrect
         echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . "<a href='mail.php?mail=" . $email . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='login.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
-        playerlog($playerinfo['ship_id'], LOG_BADLOGIN, $ip);
+        playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
         adminlog((1000 + LOG_BADLOGIN), "{$ip}|{$email}|{$pass}");
     }
 }

@@ -84,7 +84,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         // You are hit. Tell the player and put it in the log
         $l_chm_youhitsomemines = str_replace("[chm_roll]", $roll, $l_chm_youhitsomemines);
         echo "$l_chm_youhitsomemines<br>";
-        playerlog($playerinfo['ship_id'], LOG_HIT_MINES, "$roll|$sector");
+        playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_HIT_MINES, "$roll|$sector");
 
         // Tell the owner that his mines where hit
         $l_chm_hehitminesinsector = str_replace("[chm_playerinfo_character_name]", $playerinfo['character_name'], $l_chm_hehitminesinsector);
@@ -147,7 +147,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 {
                     // BOOM
                     $pod = $playerinfo['dev_escapepod'];
-                    playerlog($playerinfo['ship_id'], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
+                    playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
                     $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", $playerinfo['character_name'], $l_chm_hewasdestroyedbyyourmines);
                     $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $sector, $l_chm_hewasdestroyedbyyourmines);
                     message_defence_owner($sector,"$l_chm_hewasdestroyedbyyourmines");

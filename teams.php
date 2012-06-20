@@ -173,7 +173,7 @@ switch ($teamwhat)
 
                 $l_team_onlymember = str_replace("[team_name]", "<b>$team[team_name]</b>", $l_team_onlymember);
                 echo $l_team_onlymember . "<br><br>";
-                playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
+                playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
             }
             else
             {
@@ -224,8 +224,8 @@ switch ($teamwhat)
                     echo "$l_team_youveleft <b>$team[team_name]</b>.<br><br>";
                     defence_vs_defence($playerinfo[ship_id]);
                     kick_off_planet($playerinfo[ship_id],$whichteam);
-                    playerlog($playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
-                    playerlog($team[creator], LOG_TEAM_NOT_LEAVE, "$playerinfo[character_name]");
+                    playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_LEAVE, "$team[team_name]");
+                    playerlog ($db, $dbtables, $team[creator], LOG_TEAM_NOT_LEAVE, "$playerinfo[character_name]");
                 }
             }
         }
@@ -257,8 +257,8 @@ switch ($teamwhat)
                 }
             }
 
-            playerlog($playerinfo[ship_id], LOG_TEAM_NEWLEAD, "$team[team_name]|$newcreatorname[character_name]");
-            playerlog($newcreator, LOG_TEAM_LEAD,"$team[team_name]");
+            playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_NEWLEAD, "$team[team_name]|$newcreatorname[character_name]");
+            playerlog ($db, $dbtables, $newcreator, LOG_TEAM_LEAD,"$team[team_name]");
         }
 
         LINK_BACK();
@@ -278,8 +278,8 @@ switch ($teamwhat)
                 $db->Execute("UPDATE $dbtables[ships] SET team=$whichteam,team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
                 $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members+1 WHERE id=$whichteam");
                 echo "$l_team_welcome <b>$team[team_name]</b>.<br><br>";
-                playerlog($playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
-                playerlog($team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
+                playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_JOIN, "$team[team_name]");
+                playerlog ($db, $dbtables, $team[creator], LOG_TEAM_NEWMEMBER, "$team[team_name]|$playerinfo[character_name]");
             }
             else
             {
@@ -330,7 +330,7 @@ switch ($teamwhat)
                 // No more necessary due to COUNT(*) in previous SQL statement
                 // $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members-1 WHERE id=$whotoexpel[team]");
 
-                playerlog($who, LOG_TEAM_KICK, "$team[team_name]");
+                playerlog ($db, $dbtables, $who, LOG_TEAM_KICK, "$team[team_name]");
                 echo "$whotoexpel[character_name] $l_team_ejected<br>";
             }
             LINK_BACK();
@@ -379,7 +379,7 @@ switch ($teamwhat)
             $db->Execute("INSERT INTO $dbtables[zones] VALUES(NULL,'$teamname\'s Empire', $playerinfo[ship_id], 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
             $db->Execute("UPDATE $dbtables[ships] SET team='$playerinfo[ship_id]' WHERE ship_id='$playerinfo[ship_id]'");
             echo "$l_team_team <b>$teamname</b> $l_team_hcreated.<br><br>";
-            playerlog($playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
+            playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_CREATE, "$teamname");
         }
         LINK_BACK();
         break;
@@ -437,7 +437,7 @@ switch ($teamwhat)
                 {
                     $db->Execute("UPDATE $dbtables[ships] SET team_invite=$whichteam WHERE ship_id=$who");
                     echo $l_team_plinvted . "<br>" . $l_team_plinvted2 . "<br>";
-                    playerlog($who,LOG_TEAM_INVITE, "$team[team_name]");
+                    playerlog ($db, $dbtables, $who,LOG_TEAM_INVITE, "$team[team_name]");
                 }
             }
             else
@@ -452,7 +452,7 @@ switch ($teamwhat)
     {
         echo "$l_team_refuse <b>$invite_info[team_name]</b>.<br><br>";
         $db->Execute("UPDATE $dbtables[ships] SET team_invite=0 WHERE ship_id=$playerinfo[ship_id]");
-        playerlog($team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name]|$invite_info[team_name]");
+        playerlog ($db, $dbtables, $team[creator], LOG_TEAM_REJECT, "$playerinfo[character_name]|$invite_info[team_name]");
         LINK_BACK();
         break;
     }
@@ -503,11 +503,11 @@ switch ($teamwhat)
 
             // Adding a log entry to all members of the renamed team
             $result_team_name = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE team=$whichteam AND ship_id<>$playerinfo[ship_id]") or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
-            playerlog($playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
+            playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_RENAME, "$teamname");
             while (!$result_team_name->EOF)
             {
                 $teamname_array = $result_team_name->fields;
-                playerlog($teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
+                playerlog ($db, $dbtables, $teamname_array[ship_id], LOG_TEAM_M_RENAME, "$teamname");
                 $result_team_name->MoveNext();
             }
         }
@@ -535,7 +535,7 @@ switch ($teamwhat)
                 // AND already done in case 5:
                 # $db->Execute("UPDATE $dbtables[ships] SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
                 # $db->Execute("UPDATE $dbtables[teams] SET number_of_members=number_of_members-1 WHERE id=$whichteam");
-                # playerlog($playerinfo[ship_id], LOG_TEAM_KICK, "$whichteam[team_name]");
+                # playerlog ($db, $dbtables, $playerinfo[ship_id], LOG_TEAM_KICK, "$whichteam[team_name]");
 
                 LINK_BACK();
                 break;

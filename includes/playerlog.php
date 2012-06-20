@@ -22,9 +22,8 @@ if (preg_match("/playerlog.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function playerlog ($sid, $log_type, $data = "")
+function playerlog ($db, $dbtables, $sid, $log_type, $data = "")
 {
-    global $db, $dbtables;
     // Write log_entry to the player's log - identified by player's ship_id - sid.
     if ($sid != "" && !empty($log_type))
     {
