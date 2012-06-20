@@ -105,7 +105,7 @@ switch ($response) {
          $countres = $db->Execute("SELECT SUM(quantity) as totalfighters FROM $dbtables[sector_defence] where sector_id = $sector and defence_type = 'F'");
          $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
-         include "sector_fighters.php";
+         include_once "includes/sector_fighters.php";
       }
       else
       {

@@ -26,7 +26,7 @@ updatecookie();
 include "languages/$lang";
 $title = $l_team_title;
 include "header.php";
-include "defence_vs_defence.php";
+include_once "includes/defence_vs_defence.php";
 
 if (checklogin())
 {
