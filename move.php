@@ -76,7 +76,7 @@ if ($flag==1)
 {
     $ok=1;
     $calledfrom = "move.php";
-    include_once "includes/check_fighters.php";
+    include_once "check_fighters.php";
     if ($ok > 0)
     {
        $stamp = date("Y-m-d H-i-s");
@@ -91,7 +91,7 @@ if ($flag==1)
     }
     }
     // Enter code for checking dangers in new sector
-    include_once "includes/check_mines.php";
+    include_once "check_mines.php";
     if ($ok==1)
     {
         echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";

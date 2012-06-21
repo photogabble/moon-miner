@@ -45,7 +45,7 @@ function connectdb ($do_die = true) // Returns true, false or a halt.
     }
 
     $db = NewADOConnection($db_type);
-    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+//    $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
     if ($db_persistent == 1)
     {

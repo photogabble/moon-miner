@@ -38,8 +38,6 @@ $deg = pi() / 180;
 if (isset($destination))
 {
   $destination = round(abs($destination));
-}
-
   $result2 = $db->Execute("SELECT angle1,angle2,distance FROM $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
   $start = $result2->fields;
   $result3 = $db->Execute("SELECT angle1,angle2,distance FROM $dbtables[universe] WHERE sector_id=$destination");
@@ -63,6 +61,7 @@ if (isset($destination))
     $triptime = 0;
     $energyscooped = 0;
   }
+}
 
 if (!isset($destination))
 {
@@ -152,7 +151,7 @@ elseif ($destination < $sector_max && $engage > 0)
     $ok=1;
     $sector = $destination;
     $calledfrom = "rsmove.php";
-    include_once "includes/check_fighters.php";
+    include_once "check_fighters.php";
     if ($ok>0)
     {
        $stamp = date("Y-m-d H-i-s");
@@ -162,7 +161,7 @@ elseif ($destination < $sector_max && $engage > 0)
        $l_rs_ready=str_replace("[triptime]",NUMBER($triptime),$l_rs_ready);
        $l_rs_ready=str_replace("[energy]",NUMBER($energyscooped),$l_rs_ready);
        echo "$l_rs_ready<br><br>";
-       include_once "includes/check_mines.php";
+       include_once "check_mines.php";
     }
   }
 }

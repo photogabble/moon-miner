@@ -96,7 +96,7 @@ while (!$res->EOF)
   $res->MoveNext();
 }
 
-$log_months_temp = "l_log_months_" . (substr($startdate, 5, 2) - 1);
+$l_log_months_temp = "l_log_months_" . (substr($startdate, 5, 2) - 1);
 $entry = $$l_log_months_temp . " " . substr($startdate, 8, 2) . " " . substr($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
@@ -249,13 +249,13 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$log_months_short_temp = "l_log_months_short_" . (substr($startdate, 5, 2) - 1);
+$l_log_months_short_temp = "l_log_months_short_" . (substr($startdate, 5, 2) - 1);
 $date1 = $$l_log_months_short_temp . " " . substr($startdate, 8, 2);
 
-$log_months_short_temp = "l_log_months_short_" . (substr($startdate, 5, 2) - 1);
+$l_log_months_short_temp = "l_log_months_short_" . (substr($startdate, 5, 2) - 1);
 $date2 = $$l_log_months_short_temp . " " . substr($yesterday, 8, 2);
 
-$log_months_short_temp = "l_log_months_short_" . (substr($startdate, 5, 2) - 1);
+$l_log_months_short_temp = "l_log_months_short_" . (substr($startdate, 5, 2) - 1);
 $date3 = $$l_log_months_short_temp . " " . substr($yesterday2, 8, 2);
 
 $month = substr($startdate, 5, 2);
@@ -350,7 +350,9 @@ function log_parse($entry)
   $l_log_nopod = "<font color=yellow><b>" . $l_log_nopod . "</b></font>"; // This should be done better, but I needed it moved out of the language file.
 
     $texttemp = "l_log_text_" . $entry['type'];
+    global $$texttemp;
     $titletemp = "l_log_title_" . $entry['type'];
+    global $$titletemp;
 
   switch ($entry['type'])
   {

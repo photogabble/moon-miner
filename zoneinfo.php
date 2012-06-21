@@ -34,6 +34,8 @@ $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
 $playerinfo = $res->fields;
 
 $res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
+$zoneinfo = $res->fields;
+
 if ($res->EOF)
 {
     echo $l_zi_nexist;

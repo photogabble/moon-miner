@@ -149,7 +149,7 @@ if ($command != 'delete')
 {
   $l_tdr_newtdr = str_replace("[here]", "<a href='traderoute.php?command=new'>" . $l_here . "</a>", $l_tdr_newtdr);
   echo "<p>$l_tdr_newtdr<p>";
-  $l_tdr_modtdrset = str_replace("[here]", "<a href='traderoute.php?command=settings'>" . $l_here . "</a>", $l_tdr_modtrset);
+  $l_tdr_modtdrset = str_replace("[here]", "<a href='traderoute.php?command=settings'>" . $l_here . "</a>", $l_tdr_modtdrset);
   echo "<p>$l_tdr_modtdrset<p>";
 }
 else {
@@ -286,8 +286,8 @@ else
 
       $dist = traderoute_distance($traderoutes[$i][source_type], $traderoutes[$i][dest_type], $src, $dst, $traderoutes[$i][circuit]);
 
-      $l_tdr_escooped = str_replace("[tdr_dist_triptime]", $dist[triptime], $l_tdr_escooped);
-      $l_tdr_escooped = str_replace("[tdr_dist_scooped]", $dist[scooped], $l_tdr_escooped);
+      $l_tdr_escooped = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_escooped);
+      $l_tdr_escooped = str_replace("[tdr_dist_scooped]", $dist['scooped'], $l_tdr_escooped);
       echo $l_tdr_escooped . "<br>" . $l_tdr_escooped2;
 
       echo "</font></td>";
@@ -402,10 +402,10 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   global $level_factor;
   global $db, $dbtables;
 
-  $retvalue[triptime] = 0;
-  $retvalue[scooped1] = 0;
-  $retvalue[scooped2] = 0;
-  $retvalue[scooped] = 0;
+  $retvalue['triptime'] = 0;
+  $retvalue['scooped1'] = 0;
+  $retvalue['scooped2'] = 0;
+  $retvalue['scooped'] = 0;
 
   if ($type1 == 'L')
   {
@@ -445,12 +445,12 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   if (!$triptime && $destination != $playerinfo['sector'])
     $triptime = 1;
 
-  if ($playerinfo[dev_fuelscoop] == "Y")
+  if ($playerinfo['dev_fuelscoop'] == "Y")
       $energyscooped = $distance * 100;
   else
     $energyscooped = 0;
 
-  if ($playerinfo[dev_fuelscoop] == "Y" && !$energyscooped && $triptime == 1)
+  if ($playerinfo['dev_fuelscoop'] == "Y" && !$energyscooped && $triptime == 1)
     $energyscooped = 100;
 
   $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
@@ -461,25 +461,25 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   if ($energyscooped < 1)
     $energyscooped = 0;
 
-  $retvalue[scooped1] = $energyscooped;
+  $retvalue['scooped1'] = $energyscooped;
 
   if ($circuit == '2')
   {
-    if ($sells == 'Y' && $playerinfo[dev_fuelscoop] == 'Y' && $type2 == 'P' && $dest[port_type] != 'energy')
+    if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
     {
       $energyscooped = $distance * 100;
       $free_power = NUM_ENERGY($playerinfo[power]);
       if ($free_power < $energyscooped)
         $energyscooped = $free_power;
-      $retvalue[scooped2] = $energyscooped;
+      $retvalue['scooped2'] = $energyscooped;
     }
     elseif ($playerinfo[dev_fuelscoop] == 'Y')
     {
       $energyscooped = $distance * 100;
-      $free_power = NUM_ENERGY($playerinfo[power]) - $retvalue[scooped1] - $playerinfo[ship_energy];
+      $free_power = NUM_ENERGY($playerinfo['power']) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
       if ($free_power < $energyscooped)
         $energyscooped = $free_power;
-      $retvalue[scooped2] = $energyscooped;
+      $retvalue['scooped2'] = $energyscooped;
     }
   }
 
@@ -491,8 +491,8 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   else
     $triptime+=1;
 
-  $retvalue[triptime] = $triptime;
-  $retvalue[scooped] = $retvalue[scooped1] + $retvalue[scooped2];
+  $retvalue['triptime'] = $triptime;
+  $retvalue['scooped'] = $retvalue['scooped1'] + $retvalue['scooped2'];
 
   return $retvalue;
 }
@@ -1153,14 +1153,13 @@ function traderoute_engage($j)
   global $l_tdr_invaliddsector, $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_moreturnsneeded, $l_tdr_tdrhostdef;
   global $l_tdr_globalsetbuynothing, $l_tdr_nosrcporttrade, $l_tdr_tradesrcportoutsider, $l_tdr_tdrres, $l_tdr_torps;
   global $l_tdr_nodestporttrade, $l_tdr_tradedestportoutsider, $l_tdr_portin, $l_tdr_planet, $l_tdr_bought, $l_tdr_colonists;
-  global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here;
+  global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here, $l_tdr_five, $l_tdr_ten, $l_tdr_fifty;
   global $db, $dbtables;
 
   foreach ($traderoutes as $testroute)
   {
     if ($testroute['traderoute_id'] == $engage)
       $traderoute = $testroute;
-    //var_dump($traderoute);
   }
 
   if (!isset($traderoute))
@@ -1323,8 +1322,8 @@ function traderoute_engage($j)
 // Check if player has enough turns
   if ($playerinfo['turns'] < $dist['triptime'])
   {
-    $l_tdr_moreturnsneeded = str_replace("[tdr_dist_triptime]", $dist[triptime], $l_tdr_moreturnsneeded);
-    $l_tdr_moreturnsneeded = str_replace("[tdr_playerinfo_turns]", $playerinfo[turns], $l_tdr_moreturnsneeded);
+    $l_tdr_moreturnsneeded = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_moreturnsneeded);
+    $l_tdr_moreturnsneeded = str_replace("[tdr_playerinfo_turns]", $playerinfo['turns'], $l_tdr_moreturnsneeded);
     traderoute_die($l_tdr_moreturnsneeded);
   }
 
@@ -1496,7 +1495,7 @@ traderoute_results_table_top();
       if ($torps_buy == 0 && $colonists_buy == 0 && $fighters_buy == 0)
         echo "$l_tdr_nothingtotrade<br>";
 
-      if ($traderoute[circuit] == '1')
+      if ($traderoute['circuit'] == '1')
         $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=ship_colonists+$colonists_buy, ship_fighters=ship_fighters+$fighters_buy,torps=torps+$torps_buy, ship_energy=ship_energy+$dist[scooped1] WHERE ship_id=$playerinfo[ship_id]");
     }
     // Normal Port Section
@@ -1609,7 +1608,7 @@ traderoute_results_table_top();
                 echo "$l_tdr_sold " . NUMBER($energy_buy) . " $l_tdr_energy<br>";
             }
         }
-        $playerinfo[ship_energy] -= $energy_buy;
+        $playerinfo['ship_energy'] -= $energy_buy;
       }
 
       $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
@@ -1845,7 +1844,7 @@ traderoute_results_table_top();
       $portfull = 0;
       if ($dest['port_type'] != 'ore')
       {
-        $ore_price1 = $ore_price + $ore_delta * $dest[port_ore] / $ore_limit * $inventory_factor;
+        $ore_price1 = $ore_price + $ore_delta * $dest['port_ore'] / $ore_limit * $inventory_factor;
         if ($dest['port_ore'] - $playerinfo['ship_ore'] < 0)
         {
           $ore_buy = $dest['port_ore'];
@@ -2182,11 +2181,11 @@ $tdr_display_creds =   NUMBER($playerinfo['credits']);
 // echo $j." -- ";
   if ($traderoute['circuit'] == 2)
   {
-    $l_tdr_engageagain = str_replace("[tdr_engage]", $engage, $l_tdr_engageagain);
     $l_tdr_engageagain = str_replace("[here]", "<a href=\"traderoute.php?engage=[tdr_engage]\">" . $l_here . "</a>", $l_tdr_engageagain);
     $l_tdr_engageagain = str_replace("[five]", "<a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=5\">" . $l_tdr_five . "</a>", $l_tdr_engageagain);
     $l_tdr_engageagain = str_replace("[ten]", "<a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=10\">" . $l_tdr_ten . "</a>", $l_tdr_engageagain);
     $l_tdr_engageagain = str_replace("[fifty]", "<a href=\"traderoute.php?engage=[tdr_engage]&amp;tr_repeat=50\">" . $l_tdr_fifty . "</a>", $l_tdr_engageagain);
+    $l_tdr_engageagain = str_replace("[tdr_engage]", $engage, $l_tdr_engageagain);
     if ($j == 1)
     {
        echo $l_tdr_engageagain . "\n";

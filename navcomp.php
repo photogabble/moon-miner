@@ -38,12 +38,12 @@ if (!$allow_navcomp)
     die();
 }
 
-if (!isset($_GET['state']))
+if (!isset($_REQUEST['state']))
 {
-    $_GET['state'] = '';
+    $_REQUEST['state'] = '';
 }
 
-$state = $_GET['state'];
+$state = $_REQUEST['state'];
 
 unset($stop_sector);
 
@@ -111,29 +111,29 @@ elseif ($state == 1)
 
     for ($search_depth = 1; $search_depth <= $max_search_depth; $search_depth++)
     {
-        $search_query = "SELECT    distinct\n    a1.link_start\n    ,a1.link_dest \n";
+        $search_query = "SELECT    distinct    a1.link_start    ,a1.link_dest ";
         for ($i = 2; $i<=$search_depth;$i++)
         {
-            $search_query = $search_query . "    ,a". $i . ".link_dest \n";
+            $search_query = $search_query . "    ,a". $i . ".link_dest ";
         }
 
-        $search_query = $search_query . "FROM\n     $dbtables[links] AS a1 \n";
+        $search_query = $search_query . "FROM     $dbtables[links] AS a1 ";
 
         for ($i = 2; $i<=$search_depth;$i++)
         {
-            $search_query = $search_query . "    ,$dbtables[links] AS a". $i . " \n";
+            $search_query = $search_query . "    ,$dbtables[links] AS a". $i . " ";
         }
 
-        $search_query = $search_query . "WHERE \n        a1.link_start = $current_sector \n";
+        $search_query = $search_query . "WHERE         a1.link_start = $current_sector ";
 
         for ($i = 2; $i<=$search_depth; $i++)
         {
             $k = $i-1;
-            $search_query = $search_query . "    AND a" . $k . ".link_dest = a" . $i . ".link_start \n";
+            $search_query = $search_query . "    AND a" . $k . ".link_dest = a" . $i . ".link_start ";
         }
 
-        $search_query = $search_query . "    AND a" . $search_depth . ".link_dest = $stop_sector \n";
-        $search_query = $search_query . "    AND a1.link_dest != a1.link_start \n";
+        $search_query = $search_query . "    AND a" . $search_depth . ".link_dest = $stop_sector ";
+        $search_query = $search_query . "    AND a1.link_dest != a1.link_start ";
 
         for ($i=2; $i<=$search_depth;$i++)
         {
@@ -143,7 +143,7 @@ elseif ($state == 1)
             {
                 $search_query = $search_query . ",a".$j.".link_dest ";
             }
-            $search_query = $search_query . ")\n";
+            $search_query = $search_query . ")";
         }
 
         $search_query = $search_query . "ORDER BY a1.link_start, a1.link_dest ";
@@ -152,7 +152,7 @@ elseif ($state == 1)
             $search_query = $search_query . ", a" . $i . ".link_dest";
         }
 
-        $search_query = $search_query . " \nLIMIT 1";
+        $search_query = $search_query . " LIMIT 1";
         //echo "$search_query\n\n";
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");

@@ -23,6 +23,7 @@ if (checklogin())
     die();
 }
 
+global $l_opt2_title;
 $title = $l_opt2_title;
 
 if ($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
@@ -80,7 +81,7 @@ else
 $res = $db->Execute("UPDATE $dbtables[ships] SET lang='$lang' WHERE email='$username'");
 foreach ($avail_lang as $curlang)
 {
-    if ($lang == $curlang[file])
+    if ($lang == $curlang['file'])
     {
         $l_opt2_chlang = str_replace("[lang]", "$curlang[name]", $l_opt2_chlang);
         echo $l_opt2_chlang . "<p>";
@@ -88,9 +89,13 @@ foreach ($avail_lang as $curlang)
     }
 }
 
-if ($dhtml != 'Y')
+if ($_POST['dhtml'] != 'Y')
 {
     $dhtml = 'N';
+}
+else
+{
+    $dhtml = 'Y';
 }
 
 $res = $db->Execute("UPDATE $dbtables[ships] SET dhtml='$dhtml' WHERE email='$username'");
