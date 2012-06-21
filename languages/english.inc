@@ -664,6 +664,8 @@ $l_team_error           = "[error]You are not the leader of this Team.";
 $l_team_notmember      = "You are not a member of any Team";
 $l_team_urejected      = "ATTENTION - you have been ejected from";
 $l_team_noteams           = "There are no teams in the Galaxy at this time.";
+$l_team_noattack_members = "Sorry, You cannot attack a fellow Team mate!";
+$l_team_already_combat   = "Sorry, You are already in combat!";
 
 // ranking.php
 $l_ranks_title           = "Top [max_rank] Players";
