@@ -1,3 +1,12 @@
+TheKabal (21 June 2012)
+--------------------------------------
+Massive lists of fixes to PHP notices
+Changes to bring all pages to a common coding style guideline level (in progress)
+Eliminated global_funcs (see global_includes instead), eliminated several functions, and moved others into individual files
+Greatly simplified the style & html for login, index, and main resulting in a single stylesheet they currently use
+Added German language to game
+
+
 TheKabal (3 May 2012)
 --------------------------------------
 Merged patch for teams.php from rjordan (SF Patch # 906580): revision 1450
