@@ -17,11 +17,10 @@
 //
 // File: global_includes.php
 
-// Define needed variables for the database, and include the adodb library to allow us DB access
+// Define needed variables for the database
 require_once "db_config.php";
-include $ADOdbpath . "/adodb.inc.php";
 
-require_once "./includes/timer.php";
+include_once "includes/timer.php";
 include_once "includes/adminlog.php";
 include_once "includes/bigtitle.php";
 include_once "includes/bnt_autoload.php";
@@ -62,8 +61,9 @@ include_once "includes/updatecookie.php";
 
 // Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
 // supported in the future, and cryptsessions, so the session data itself is encrypted.
-include_once ("$ADOdbpath" . "/adodb-perf.inc.php");
-include_once ("$ADOdbpath" . "/session/adodb-session.php");
+require_once $ADOdbpath . "/adodb.inc.php";
+include_once "$ADOdbpath" . "/adodb-perf.inc.php";
+include_once "$ADOdbpath" . "/session/adodb-session.php";
 
 require_once "global_cleanups.php";
 ?>

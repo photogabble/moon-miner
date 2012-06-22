@@ -54,30 +54,26 @@ session_start();
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 if (!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
 
-if (1==1)
+foreach ($_POST as $k=>$v)
 {
-  foreach ($_POST as $k=>$v)
-  {
-      if (!isset($GLOBALS[$k]))
-      {
-          ${$k}=$v;
-      }
-  }
-  foreach ($_GET as $k=>$v)
-  {
-      if (!isset($GLOBALS[$k]))
-      {
-          ${$k}=$v;
-      }
-  }
-
-  foreach ($_COOKIE as $k=>$v)
-  {
-      if (!isset($GLOBALS[$k]))
-      {
-          ${$k}=$v;
-      }
-  }
+    if (!isset($GLOBALS[$k]))
+    {
+        ${$k}=$v;
+    }
+}
+foreach ($_GET as $k=>$v)
+{
+    if (!isset($GLOBALS[$k]))
+    {
+        ${$k}=$v;
+    }
+}
+foreach ($_COOKIE as $k=>$v)
+{
+    if (!isset($GLOBALS[$k]))
+    {
+        ${$k}=$v;
+    }
 }
 
 if (!isset($userpass))
