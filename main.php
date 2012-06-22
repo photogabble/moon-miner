@@ -486,7 +486,7 @@ if ($num_planets > 0)
             echo "<br>($planet_owner[character_name])";
             $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner['character_name'] . ":N:-->";
         }
-        echo "</font></td>";
+        echo "</span></td></td>";
 
         $totalcount++;
         if ($curcount == $picsperrow - 1)
@@ -645,7 +645,7 @@ if ($num_defences > 0)
         echo "<td style='margin-left:auto; margin-right:auto;vertical-align:top'>";
         if ($defences[$i]['defence_type'] == 'F')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/fighters.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff;>";
+            echo "<a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/fighters.png\" style='border:0px' alt='Fighters'></a><br><div style='font-size:1em; color:#fff;'>";
             $def_type = $l_fighters;
             $mode = $defences[$i]['fm_setting'];
             if ($mode == 'attack')
@@ -660,14 +660,14 @@ if ($num_defences > 0)
         }
         elseif ($defences[$i]['defence_type'] == 'M')
         {
-            echo "<a href=modify_defences.php?defence_id=$defence_id><img src=\"images/mines.png\" style='border:0px'></a><br><span style='font-size:1.10em; color:#fff;'>";
+            echo "<a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/mines.png\" style='border:0px' alt='Mines'></a><br><div style='font-size:1em; color:#fff'>";
             $def_type = $l_mines;
         }
 
         $char_name = $defences[$i]['character_name'];
         $qty = $defences[$i]['quantity'];
         echo "$char_name ( $qty $def_type )";
-        echo "</span></td>";
+        echo "</div></td>";
 
         $totalcount++;
         if ($curcount == $picsperrow - 1)
@@ -681,7 +681,7 @@ if ($num_defences > 0)
         }
         $i++;
     }
-    echo "</td></tr></table>";
+    echo "</tr></table>";
 }
 else
 {
