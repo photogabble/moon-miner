@@ -56,10 +56,10 @@ if (!function_exists('Table_Row'))
 {
     function Table_Row($data,$failed="Failed",$passed="Passed")
     {
-        $err = TRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+        $err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
         PrintFlush( "    <tr title=\"$err\">\n");
         PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$data</font></td>\n");
-        if(mysql_errno()!=0)
+        if( $db->ErrorMsg()!=0)
             {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
             {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"Blue\">$passed</font></td>\n");}
@@ -128,7 +128,7 @@ Table_Header("Dropping Tables");
 foreach ($dbtables as $table => $tablename)
 {
     $query = $db->Execute("DROP TABLE $tablename");
-    $err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+    $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
     Table_Row("Dropping $tablename","Failed","Passed");
 
 }
@@ -148,7 +148,7 @@ $db->Execute("CREATE TABLE $dbtables[languages] (" .
              "category char(30) NOT NULL," .
              "PRIMARY KEY (lang_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating languages Table","Failed","Passed");
 
@@ -160,7 +160,7 @@ $db->Execute("CREATE TABLE $dbtables[links] (" .
              "KEY link_start (link_start)," .
              "KEY link_dest (link_dest)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating links Table","Failed","Passed");
 
@@ -191,7 +191,7 @@ $db->Execute("CREATE TABLE $dbtables[planets](" .
              "KEY owner (owner)," .
              "KEY corp (corp)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating planets Table","Failed","Passed");
 
@@ -207,7 +207,7 @@ $db->Execute("CREATE TABLE $dbtables[traderoutes](" .
              "PRIMARY KEY (traderoute_id)," .
              "KEY owner (owner)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating traderoutes Table","Failed","Passed");
 
@@ -275,7 +275,7 @@ $db->Execute("CREATE TABLE $dbtables[ships](" .
              "KEY team (team)," .
              "KEY ship_id (ship_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating ships Table","Failed","Passed");
 
@@ -297,7 +297,7 @@ $db->Execute("CREATE TABLE $dbtables[universe](" .
              "fighters bigint(20) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (sector_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating universe Table","Failed","Passed");
 
@@ -317,7 +317,7 @@ $db->execute("CREATE TABLE $dbtables[zones](" .
              "PRIMARY KEY(zone_id)," .
              "KEY zone_id(zone_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating zones Table","Failed","Passed");
 
@@ -328,7 +328,7 @@ $db->Execute("CREATE TABLE $dbtables[ibank_accounts](" .
              "loantime datetime," .
              "PRIMARY KEY(ship_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating ibank_accounts Table","Failed","Passed");
 
@@ -339,7 +339,7 @@ $db->Execute("CREATE TABLE $dbtables[IGB_transfers](" .
              "time datetime," .
              "PRIMARY KEY(transfer_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating IGB_transfers Table","Failed","Passed");
 
@@ -353,7 +353,7 @@ $db->Execute("CREATE TABLE $dbtables[teams](" .
              "PRIMARY KEY(id)," .
              "KEY admin (admin)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating teams Table","Failed","Passed");
 
@@ -368,14 +368,14 @@ $db->Execute("CREATE TABLE $dbtables[news] (" .
              "KEY news_id (news_id)," .
              "UNIQUE news_id_2 (news_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating news Table","Failed","Passed");
 
 $db->Execute("INSERT INTO $dbtables[news] (headline, newstext, date, news_type) " .
              "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
 
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Inserting first news item","Failed","Inserted");
 
@@ -390,7 +390,7 @@ $db->Execute("CREATE TABLE $dbtables[messages] (" .
              "notified enum('Y','N') NOT NULL default 'N'," .
              "PRIMARY KEY  (ID) " .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating messages Table","Failed","Passed");
 
@@ -402,7 +402,7 @@ $db->Execute("CREATE TABLE $dbtables[xenobe](" .
              "PRIMARY KEY (xenobe_id)," .
              "KEY xenobe_id (xenobe_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating xenobe Table","Failed","Passed");
 
@@ -417,7 +417,7 @@ $db->Execute("CREATE TABLE $dbtables[sector_defence](" .
              "KEY sector_id (sector_id)," .
              "KEY ship_id (ship_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating sector_defence Table","Failed","Passed");
 
@@ -432,7 +432,7 @@ $db->Execute("CREATE TABLE $dbtables[scheduler](" .
              "last_run BIGINT(20)," .
              "PRIMARY KEY (sched_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 echo $db->ErrorMsg();
 
 Table_Row("Creating scheduler Table","Failed","Passed");
@@ -442,7 +442,7 @@ $db->Execute("CREATE TABLE $dbtables[ip_bans](" .
              "ban_mask varchar(16) NOT NULL," .
              "PRIMARY KEY (ban_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating ip_bans Table","Failed","Passed");
 
@@ -455,7 +455,7 @@ $db->Execute("CREATE TABLE $dbtables[logs](" .
              "PRIMARY KEY (log_id)," .
              "KEY idate (ship_id,time)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating logs Table","Failed","Passed");
 
@@ -468,7 +468,7 @@ $db->Execute("CREATE TABLE $dbtables[bounty] (" .
              "KEY bounty_on (bounty_on)," .
              "KEY placed_by (placed_by)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating session Table","Failed","Passed");
 
@@ -480,7 +480,7 @@ $db->Execute("CREATE TABLE $dbtables[sessions] (" .
              "PRIMARY KEY (EXPIRY)," .
              "KEY SESSKEY(SESSKEY)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
 Table_Row("Creating bounty Table","Failed","Passed");
 
@@ -493,12 +493,20 @@ $db->Execute("CREATE TABLE $dbtables[movement_log](" .
              "KEY ship_id(ship_id)," .
              "KEY sector_id (sector_id)" .
              ")");
-$err = DBTRUEFALSE(0,mysql_errno(),"No errors found",mysql_errno() . ": " . mysql_error());
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
-Table_Row("Creating movement_log Table","Failed","Passed");
+$db->Execute("CREATE TABLE $dbtables[adodb_logsql](" .
+             "created datetime NOT NULL," .
+             "sql0 varchar(250) NOT NULL," .
+             "sql1 text NOT NULL," .
+             "params text NOT NULL," .
+             "tracer text NOT NULL," .
+             "timer decimal(16,6) NOT NULL" .
+             ")");
+$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+
+Table_Row("Creating adodb_logsql Table","Failed","Passed");
 Table_Footer("Hover over the failed row to see the error.");
-
-
 
 //Finished
 echo "<b>Database schema creation completed successfully.</b><BR>";
