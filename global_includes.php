@@ -22,8 +22,6 @@ require_once "db_config.php";
 include $ADOdbpath . "/adodb.inc.php";
 
 require_once "./includes/timer.php";
-require_once "global_funcs.php";
-
 include_once "includes/adminlog.php";
 include_once "includes/bigtitle.php";
 include_once "includes/bnt_autoload.php";
