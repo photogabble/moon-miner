@@ -55,16 +55,16 @@ switch ($response) {
       $num_details = $j;
       if ($num_details < 1)
       {
-         echo "$l_by_nobounties<br>";
+         echo $l_by_nobounties . "<br>";
       }
       else
       {
-         echo "$l_by_bountyon " . $bounty_details[0][character_name];
+         echo $l_by_bountyon. " " . $bounty_details[0]['character_name'];
          echo '<table border=1 cellspacing=1 cellpadding=2 width="50%" align=center>';
          echo "<tr bgcolor=\"$color_header\">";
-         echo "<td><b>$l_amount</td>";
-         echo "<td><b>$l_by_placedby</td>";
-         echo "<td><b>$l_by_action</td>";
+         echo "<td><b>" . $l_amount . "</td>";
+         echo "<td><b>" . $l_by_placedby . "</td>";
+         echo "<td><b>" . $l_by_action . "</td>";
          echo "</tr>";
          $color = $color_line1;
          for ($j = 0; $j < $num_details; $j++)
@@ -73,7 +73,7 @@ switch ($response) {
             $details = $someres->fields;
             echo "<tr bgcolor=\"$color\">";
             echo "<td>" . $bounty_details[$j]['amount'] . "</td>";
-            if ($bounty_details[$j][placed_by] == 0)
+            if ($bounty_details[$j]['placed_by'] == 0)
             {
                echo "<td>$l_by_thefeds</td>";
             }
