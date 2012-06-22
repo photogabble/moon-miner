@@ -48,6 +48,7 @@ ADODB_Session::dataFieldName('SESSDATA');
 
 global $db,$dbtables;
 connectdb();
+//$conn->LogSQL(); // turn on adodb performance logging
 
 session_start();
 
@@ -190,5 +191,6 @@ $dbtables['logs'] = "{$db_prefix}logs";
 $dbtables['bounty'] = "{$db_prefix}bounty";
 $dbtables['movement_log'] = "{$db_prefix}movement_log";
 $dbtables['sessions'] = "{$db_prefix}sessions";
+$dbtables['adodb_logsql'] = "{$db_prefix}adodb_logsql";
 spl_autoload_register('bnt_autoload');
 ?>
