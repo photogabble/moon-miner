@@ -18,7 +18,7 @@
 // File: bounty.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_by_title;
 include "header.php";
