@@ -40,11 +40,6 @@ $ADODB_SESSION_USER =$dbuname;
 $ADODB_SESSION_PWD =$dbpass;
 $ADODB_SESSION_DB =$dbname;
 
-// Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
-// supported in the future, and cryptsessions, so the session data itself is encrypted.
-include_once ("$ADOdbpath" . "/adodb-perf.inc.php");
-include_once ("$ADOdbpath" . "/session/adodb-session.php");
-
 // We explicitly use encrypted sessions, but this adds compression as well.
 ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
 

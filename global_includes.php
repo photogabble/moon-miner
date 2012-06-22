@@ -60,5 +60,10 @@ include_once "includes/text_javascript_end.php";
 include_once "includes/t_port.php";
 include_once "includes/updatecookie.php";
 
+// Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
+// supported in the future, and cryptsessions, so the session data itself is encrypted.
+include_once ("$ADOdbpath" . "/adodb-perf.inc.php");
+include_once ("$ADOdbpath" . "/session/adodb-session.php");
+
 require_once "global_cleanups.php";
 ?>
