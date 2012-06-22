@@ -166,43 +166,6 @@ class SETUPINFO_CLASS
         return $game_path;
     }
 
-    function get_gameroot($compare = false)
-    {
-        $game_root['result']  = NULL;
-        $game_root['info']    = NULL;
-        $game_root['status']  = false;
-
-        $result = NULL;
-
-        if (isset($_SERVER["PATH_TRANSLATED"]))
-        {
-            $result = $_SERVER["PATH_TRANSLATED"];
-        }
-
-        if (!isset($result) || strlen($result)<=0)
-        {
-            $result = $_SERVER["SCRIPT_FILENAME"];
-            if (!isset($result) || strlen($result)<=0)
-            {
-                $game_root['info']   = (($compare) ?"Unable to detect the gameroot to compare!":"Unable to detect the gameroot!");
-                $game_root['status'] =  false;
-            }
-            else
-            {
-                $game_root['result'] = str_replace("\\", "/", (dirname($result)));
-                $game_root['status'] =  true;
-            }
-
-        }
-        else
-        {
-            $game_root['result'] = str_replace("\\", "/", (dirname($result)));
-            $game_root['status'] = true;
-        }
-
-        return $game_root;
-    }
-
     function get_gamedomain($compare = false)
     {
         $game_domain['result']  = NULL;
@@ -431,7 +394,7 @@ class SETUPINFO_CLASS
         global $db_prefix;
         global $adminname;
         global $admin_mail;
-        global $gameroot, $gamepath, $gamedomain, $ADOdbpath;
+        global $gamepath, $gamedomain, $ADOdbpath;
 
         $current_info['status'][]="// This is what you already have set in db_config.php.";
         $current_info['status'][]="// This will also tell you if what you have set in config_local.php is the same as what Setup Info has Auto Detected.";
@@ -448,16 +411,6 @@ class SETUPINFO_CLASS
         $current_info[] = array("caption" => 'Admin Email', "value" => str_replace("@"," AT ",$admin_mail));
 
         $current_info[] = "%SEPERATOR%";
-
-        $game_root = $this->get_gameroot(true);
-        if ($game_root['status'] != false)
-        {
-            $current_info[] = array("caption" => '$gameroot', "value" => $gameroot, "status" => (trim($gameroot) == trim($game_root['result']) ? "Correct" : "Incorrect") );
-        }
-        else
-        {
-            $current_info[] = array("caption" => '$gameroot', "value" => $game_root['info'], "status" => "Unknown" );
-        }
 
         $game_path = $this->get_gamepath(true);
         if ($game_path['status'] != false)

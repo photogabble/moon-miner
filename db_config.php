@@ -17,10 +17,6 @@
 //
 // File: db_config.php
 
-// Path on the filesystem where the blacknova files
-// will reside:
-$gameroot = "/var/www/html/bnt";
-
 // The ADOdb db module is now required to run BNT. You
 // can find it at http://php.weblogs.com/ADODB. Enter the
 // path where it is installed here. I suggest simply putting

@@ -160,14 +160,6 @@ $setup_info->DisplayFlush("<p><font size=\"2\">// With this information it will 
 $setup_info->do_Table_Title("DB Config Settings",$Cols);
 
 $setup_info->do_Table_Blank_Row();
-$game_root = $setup_info->get_gameroot();
-$setup_info->do_Table_Row("gameroot","<B>".(!$game_root['status'] ? "<font color='#f00'>{$game_root['info']}</font>" : $game_root['result'] )."</B>");
-if (!$game_root['status'])
-{
-    $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
-}
-
-$setup_info->do_Table_Blank_Row();
 $game_path = $setup_info->get_gamepath();
 $setup_info->do_Table_Row("gamepath","<B>".(!$game_path['status'] ? "<font color='#f00'>{$game_path['info']}</font>" : $game_path['result'] )."</B>");
 if (!$game_path['status'])

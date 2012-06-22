@@ -30,7 +30,7 @@ function db_kill_player ($ship_id, $remove_planets = false)
     global $default_prod_energy;
     global $default_prod_fighters;
     global $default_prod_torp;
-    global $gameroot, $db, $dbtables;
+    global $db, $dbtables;
 
     include "languages/english.inc";
 

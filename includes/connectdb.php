@@ -28,7 +28,7 @@ function connectdb ($do_die = true) // Returns true, false or a halt.
     global $db, $db_type, $db_persistent;
 
     // Not too sure if we still need these variables.
-    global $default_lang, $lang, $gameroot;
+    global $default_lang, $lang;
 
     // Check to see if we are already connected to the database.
     // If so just return true.
