@@ -112,7 +112,7 @@ if (!empty($planetinfo))
     // If there is no planet command already
     if (empty($planetinfo['name']))
     {
-        $l_planet_unnamed=str_replace("[name]",$ownerinfo[character_name],$l_planet_unnamed);
+        $l_planet_unnamed=str_replace("[name]",$ownerinfo['character_name'],$l_planet_unnamed);
       echo "$l_planet_unnamed<br><br>";
     }
     else
