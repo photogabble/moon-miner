@@ -44,7 +44,9 @@ $stylefontsize = "12Pt";
 $picsperrow = 7;
 
 $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+db_op_result($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
+
 if ($playerinfo['cleared_defences'] > ' ')
 {
     echo "$l_incompletemove <br>";
@@ -53,11 +55,13 @@ if ($playerinfo['cleared_defences'] > ' ')
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+db_op_result($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['on_planet'] == "Y")
 {
     $res2 = $db->Execute("SELECT planet_id, owner FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
+    db_op_result($db, $res2, __LINE__, __FILE__);
     if ($res2->RecordCount() != 0)
     {
         echo "<a href=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <br>";
@@ -72,6 +76,7 @@ if ($playerinfo['on_planet'] == "Y")
 }
 
 $res = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
+db_op_result($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res != false)
@@ -86,6 +91,7 @@ if ($res != false)
 $num_links = $i;
 
 $res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE sector_id='$playerinfo[sector]'");
+db_op_result($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res != false)
@@ -101,6 +107,8 @@ $num_planets = $i;
 
 $res = $db->Execute("SELECT * FROM $dbtables[sector_defence],$dbtables[ships] WHERE $dbtables[sector_defence].sector_id='$playerinfo[sector]'
                                                     AND $dbtables[ships].ship_id = $dbtables[sector_defence].ship_id ");
+db_op_result($db, $res, __LINE__, __FILE__);
+
 $i = 0;
 if ($res != false)
 {
@@ -114,6 +122,7 @@ if ($res != false)
 $num_defences = $i;
 
 $res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
+db_op_result($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 $shiptypes[0]= "tinyship.png";
@@ -134,6 +143,7 @@ echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['chara
 echo "</div>\n";
 
 $result = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id=? AND notified=?;", array($playerinfo['ship_id'], "N") );
+db_op_result($db, $result, __LINE__, __FILE__);
 if ($result->RecordCount() > 0)
 {
     $alert_message = "{$l_youhave}{$result->RecordCount()}{$l_messages_wait}";
@@ -141,7 +151,8 @@ if ($result->RecordCount() > 0)
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 
-    $db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
+    $res = $db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
+    db_op_result($db, $res, __LINE__, __FILE__);
 }
 
 $ply_turns        = NUMBER($playerinfo['turns']);
@@ -261,6 +272,7 @@ $num_traderoutes = 0;
 
 // Port querry
 $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type=? AND source_id=? AND owner=? ORDER BY dest_id ASC;", array("P", $playerinfo['sector'], $playerinfo['ship_id']) );
+db_op_result($db, $query, __LINE__, __FILE__);
 while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
@@ -271,6 +283,7 @@ while (!$query->EOF)
 
 // Sector Defense Trade route query - this is still under developement
 $query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type='D' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
+db_op_result($db, $query, __LINE__, __FILE__);
 while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
@@ -281,6 +294,7 @@ while (!$query->EOF)
 
 // Personal planet traderoute type query
 $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='L' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
+db_op_result($db, $query, __LINE__, __FILE__);
 while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
@@ -291,6 +305,7 @@ while (!$query->EOF)
 
 // Team planet traderoute type query
 $query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='C' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
+db_op_result($db, $query, __LINE__, __FILE__);
 while (!$query->EOF)
 {
     $traderoutes[$i]=$query->fields;
@@ -323,6 +338,7 @@ else
         else
         {
             $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=?;", array($traderoutes[$i]['source_id']) );
+            db_op_result($db, $query, __LINE__, __FILE__);
             if (!$query || $query->RecordCount() == 0)
             {
                 echo $l_unknown;
@@ -361,6 +377,7 @@ else
         else
         {
             $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
+            db_op_result($db, $query, __LINE__, __FILE__);
 
             if (!$query || $query->RecordCount() == 0)
             {
@@ -432,6 +449,7 @@ if ($num_planets > 0)
         if ($planets[$i]['owner'] != 0)
         {
             $result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=?;", array($planets[$i]['owner']) );
+            db_op_result($db, $result5, __LINE__, __FILE__);
             $planet_owner = $result5->fields;
             $planetavg = get_avg_tech($planet_owner, "planet");
 
@@ -526,7 +544,8 @@ if ($playerinfo['sector'] != 0)
 #    $sql .= "WHERE $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
     $sql .= "ORDER BY RAND();";
     $result4 = $db->Execute($sql);
-
+    db_op_result($db, $result4, __LINE__, __FILE__);
+    
     if ($result4 != false )
     {
         $ships_detected = 0;
