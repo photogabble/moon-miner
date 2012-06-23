@@ -325,7 +325,7 @@ if (!empty($planetinfo))
     elseif ($command == "cname")
     {
       // Name2 menu
-      $new_name = trim(strip_tags($_post['new_name']));
+      $new_name = trim(strip_tags($_POST['new_name']));
       $new_name = addslashes($new_name);
       $result5 = $db->Execute("UPDATE $dbtables[planets] SET name='$new_name' WHERE planet_id=$planet_id");
       $new_name = stripslashes($new_name);
