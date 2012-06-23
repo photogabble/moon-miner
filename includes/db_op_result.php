@@ -17,7 +17,7 @@
 //
 // File: includes/db_op_result.php
 
-function db_op_result ($db, $query, $served_line, $served_page, $db_logging)
+function db_op_result ($db, $query, $served_line, $served_page, $db_logging = TRUE)
 {
     if ($db->ErrorMsg() == '')
     {
