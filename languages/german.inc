@@ -679,7 +679,7 @@ $l_team_noalliances = "Es gibt in der Galaxis derzeit keine Allianzen.";
 
 // ranking.php
 
-$l_ranks_title = "Top $max_rank Spieler";
+$l_ranks_title = "Top [max_rank] Spieler";
 $l_ranks_none = "Keine Ergebnisse anzuzeigen.";
 $l_ranks_pnum = "Gesamtzahl der Spieler";
 $l_ranks_dships = "Spieler mit zerst&ouml;rten Schiffen werden nicht gez&auml;hlt.";
@@ -1190,9 +1190,9 @@ $l_new_blank ="Email, Schiffsname und Charaktername sollten nicht leer sein.";
 $l_new_inuse ="Die Emailadresse gibt es bereits.";
 $l_new_4gotpw1 ="Falls Du dein Passwort vergessen hast,";
 $l_new_4gotpw2 ="um es Dir zukommen zulassen.";
-$l_new_inusechar ="Den Charakter $character gibt es bereits.";
-$l_new_inuseship ="Der Schiffsname $shipname ist bereits vergeben.";
-$l_new_pwsent ="Das Passwort wurde an ${HTTP_POST_VARS['username']} gesendet.";
+$l_new_inusechar ="Den Charakter [character] gibt es bereits.";
+$l_new_inuseship ="Der Schiffsname [shipname] ist bereits vergeben.";
+$l_new_pwsent ="Das Passwort wurde an [username] gesendet.";
 $l_new_login ="Um zur Startseite zur&uuml;ckzukehren.";
 $l_new_err ="Gehe zur&uuml;ck oder <a href=new.php>klick hier</a> um es erneut zuversuchen.";
 $l_new_topic ="Black Nova Trader Passwort";
@@ -1325,7 +1325,7 @@ $l_by_thefeds = "Die F&ouml;deration";
 $l_by_cancel = "Annullieren";
 $l_by_yourself = "Du kannst keine Belohnung auf Dich selbst aussetzen.";
 $l_by_notenough = "Du hast nicht gen&uuml;gends Credits, um eine Belohnung in dieser H&ouml;he auszusetzen.";
-$l_by_toomuch = "Du kannst die Belohnung nicht aussetzen. Die maximale Belohnung f&uuml;r einen anderen Spieler betr&auml;gt $percent Prozent deines Nettowertes";
+$l_by_toomuch = "Du kannst die Belohnung nicht aussetzen. Die maximale Belohnung f&uuml;r einen anderen Spieler betr&auml;gt [percent] Prozent deines Nettowertes";
 $l_by_zeroamount = "Belohnungen m&uuml;ssen gr&ouml;&szlig;er sein als 0 Credits.";
 $l_by_placed = "Die Belohnung wurde ausgesetzt.";
 $l_by_nobounty = "Diese Belohnung existiert nicht l&auml;nger.";
@@ -1417,5 +1417,14 @@ $l_insignia[16] = "Commodore";
 $l_insignia[17] = "Rear Admiral";
 $l_insignia[18] = "Vice Admiral";
 $l_insignia[19] = "Admiral";
+
+$l_time_gen_page = "Time to Seite zu erzeugen";
+$l_seconds = "Sekunden";
+$l_local_news = "Local News";
+
+// Index.php
+$l_welcome_bnt = "Willkommen bei Blacknova Traders!";
+$l_bnt_description = "Ein web-basiertes Massively-Multiplayer-Raum zu bekämpfen und Trading-Spiel";
+$l_cookie_warning = "Blacknova Traders erfordert Cookies für die Authentifizierung Das Spiel wird ohne sie nicht arbeiten Mit der Anmeldung oder der Anmeldung erklären Sie sich mit uns setzen Cookies...";
 ?>
 

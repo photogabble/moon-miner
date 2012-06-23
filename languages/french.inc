@@ -436,7 +436,7 @@ $l_log_nopod = "<font color=yellow><b>Vous n'aviez pas de module de secours, vou
 $l_log_log = "Journal de [player]";
 $l_log_start = "Entrées pour";
 $l_log_end = "Fin des entrées pour";
-$l_log_click = "Cliquez <A HREF=$interface><font color=#00ff00>ici</font></A> pour retourner au menu principal.";
+$l_log_click = "Cliquez <A HREF=main.php><font color=#00ff00>ici</font></A> pour retourner au menu principal.";
 $l_log_note = "NOTE: Si cette page ne s'affiche pas correctement, ou si vous n'aimez pas les effets de HTML dynamique ou vous les trouvez agaçants, vous pouvez les désactiver <a href=options.php><font color=#00FF00>ici</font>";
 
 $l_log_text[LOG_LOGIN] = "Vous vous êtes connecté, à partir de [ip].";
@@ -680,7 +680,7 @@ $l_team_noteams           = "Il n'y a présentement aucune alliance dans la galax
 
 // ranking.php
 
-$l_ranks_title           = "$max_rank meilleurs joueurs";
+$l_ranks_title           = "[max_rank] meilleurs joueurs";
 $l_ranks_none           = "Aucun résultat à afficher.";
 $l_ranks_pnum           = "Nombre total de joueurs ";
 $l_ranks_dships           = "Les joueurs avec un vaisseau détruit ne sont pas comptés.";
@@ -1361,6 +1361,12 @@ $l_map = "Map";
 $l_lss = "Last ship seen in this sector";
 $l_igb_errnobase = "The IGB can not transfer credits to a planet without a base.";
 
+// Footer text
+$l_footer_one_player_on = "Il ya 1 joueur en ligne.";
+$l_footer_players_on_1 = "Il ya";
+$l_footer_players_on_2 = "joueurs en ligne.";
+$l_footer_until_update = "secondes jusqu'à ce que la prochaine mise à jour.";
+
 //Ship officer insignia                
 $l_insignia[0] = "New Recruit";     
 $l_insignia[1] = "Crewman";            
@@ -1406,4 +1412,10 @@ $l_goods_port = "Goods Port";
 $l_no_port = "No Port";
 $l_unexplored = "Unexplored";
 $l_map_title = "Blacknova Traders Galaxy Map";
+
+// Index.php
+$l_welcome_bnt = "Bienvenue sur Traders BlackNova!";
+$l_bnt_description = "Un Web massivement multijoueur de combat spatial et le jeu de négociation";
+$l_cookie_warning = "Traders BlackNova requiert des cookies pour l'authentification Le jeu ne fonctionnera pas sans eux En vous inscrivant ou en se connectant en vous vous engagez à nous créer des cookies...";
+
 ?>
