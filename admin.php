@@ -331,10 +331,10 @@ else
           echo "<table border=0 cellspacing=2 cellpadding=2>";
           echo "<tr><td><tt>          Planet ID  </tt></td><td><font color=#6f0>$planet</font></td>";
           echo "<td align=Right><tt>  Sector ID  </tt><input type=text size=5 name=sector_id value=\"$row[sector_id]\"></td>";
-          echo "<td align=Right><tt>  Defeated   </tt><input type=CHECKBOX name=defeated value=ON " . CHECKED($row[defeated]) . "></td></tr>";
-          echo "<tr><td><tt>          Planet Name</tt></td><td><input type=text size=15 name=name value=\"$row[name]\"></td>";
-          echo "<td align=Right><tt>  Base       </tt><input type=CHECKBOX name=base value=ON " . CHECKED($row[base]) . "></td>";
-          echo "<td align=Right><tt>  Sells      </tt><input type=CHECKBOX name=sells value=ON " . CHECKED($row[sells]) . "></td></tr>";
+          echo "<td align=Right><tt>  Defeated   </tt><input type=CHECKBOX name=defeated value=ON " . CHECKED($row['defeated']) . "></td></tr>";
+          echo "<tr><td><tt>          Planet Name</tt></td><td><input type=text size=15 name=name value=\"$row['name']\"></td>";
+          echo "<td align=Right><tt>  Base       </tt><input type=CHECKBOX name=base value=ON " . CHECKED($row['base']) . "></td>";
+          echo "<td align=Right><tt>  Sells      </tt><input type=CHECKBOX name=sells value=ON " . CHECKED($row['sells']) . "></td></tr>";
           echo "<tr><td colspan=4>    <HR>       </td></tr>";
           echo "</table>";
 
