@@ -61,11 +61,11 @@ include "header.php";
 
 <div class="index-header"><img class="index" src="images/header1.png" alt="Blacknova Traders"></div>
 <div class="index-flags">
-<a href="newindex.php?indexlang=french"><img src="images/flags/France.png" alt="French"></a>
-<a href="newindex.php?indexlang=german"><img src="images/flags/Germany.png" alt="German"></a>
-<a href="newindex.php?indexlang=spanish"><img src="images/flags/Mexico.png" alt="Spanish"></a>
-<a href="newindex.php?indexlang=british"><img src="images/flags/United_Kingdom.png" alt="British English"></a>
-<a href="newindex.php?indexlang=english"><img src="images/flags/United_States_of_America.png" alt="American English"></a></div>
+<a href="index.php?indexlang=french"><img src="images/flags/France.png" alt="French"></a>
+<a href="index.php?indexlang=german"><img src="images/flags/Germany.png" alt="German"></a>
+<a href="index.php?indexlang=spanish"><img src="images/flags/Mexico.png" alt="Spanish"></a>
+<a href="index.php?indexlang=british"><img src="images/flags/United_Kingdom.png" alt="British English"></a>
+<a href="index.php?indexlang=english"><img src="images/flags/United_States_of_America.png" alt="American English"></a></div>
 <div class="index-header-text">Blacknova Traders</div>
 <br>
 <a href="login.php"><span class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></span></a>
