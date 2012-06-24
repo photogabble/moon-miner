@@ -2763,4 +2763,5 @@ $l_map_title = "Blacknova Traders Galaxy Map";
 $l_welcome_bnt = "Bienvenido a los comerciantes Blacknova!";
 $l_bnt_description = "Una red multijugador masivo de combate el espacio y el juego del comercio";
 $l_cookie_warning = "Blacknova Traders requiere que las cookies de autenticación El juego no funcionará sin ellos Al registrarse o iniciar sesión en la que están de acuerdo para hacernos cookies...";
+$l_new_player = "Nuevo Jugador";
 ?>

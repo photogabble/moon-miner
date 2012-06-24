@@ -1377,3 +1377,10 @@ l_cu_title                            = "Create universe";
 
 [scheduler]
 l_sys_update                          = "System update";
+
+[index]
+l_welcome_bnt                         = "Welcome to Blacknova Traders!";
+l_bnt_description                     = "A web-based massively multiplayer space combat and trading game";
+l_cookie_warning                      = "Blacknova Traders requires cookies for logins to work. By signing up or logging in you agree to let us set cookies.";
+l_new_player                          = "New Player";
+

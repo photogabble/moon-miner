@@ -1426,5 +1426,6 @@ $l_local_news = "Local News";
 $l_welcome_bnt = "Willkommen bei Blacknova Traders!";
 $l_bnt_description = "Ein web-basiertes Massively-Multiplayer-Raum zu bekämpfen und Trading-Spiel";
 $l_cookie_warning = "Blacknova Traders erfordert Cookies für die Authentifizierung Das Spiel wird ohne sie nicht arbeiten Mit der Anmeldung oder der Anmeldung erklären Sie sich mit uns setzen Cookies...";
+$l_new_player = "Neuer Spieler";
 ?>
 

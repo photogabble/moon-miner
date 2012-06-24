@@ -1417,5 +1417,5 @@ $l_map_title = "Blacknova Traders Galaxy Map";
 $l_welcome_bnt = "Bienvenue sur Traders BlackNova!";
 $l_bnt_description = "Un Web massivement multijoueur de combat spatial et le jeu de négociation";
 $l_cookie_warning = "Traders BlackNova requiert des cookies pour l'authentification Le jeu ne fonctionnera pas sans eux En vous inscrivant ou en se connectant en vous vous engagez à nous créer des cookies...";
-
+$l_new_player = "Nouveau Joueur";
 ?>
