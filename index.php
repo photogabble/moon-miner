@@ -17,6 +17,7 @@
 //
 // File: index.php
 
+$index_page = true;
 include "config.php";
 
 if (!isset($_GET['indexlang']))
