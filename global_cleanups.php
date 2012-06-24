@@ -22,8 +22,7 @@ if (preg_match("/global_cleanups.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
-ob_start();
+if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
 
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new c_Timer;

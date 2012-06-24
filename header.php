@@ -20,6 +20,7 @@
 header("Content-type: text/html; charset=utf-8");
 header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
 header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
+header("Vary: accept-encoding,accept-language");
 header("Keep-Alive: timeout=15, max=100");
 if (!isset($body_class))
 {
