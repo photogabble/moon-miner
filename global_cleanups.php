@@ -49,7 +49,7 @@ global $db,$dbtables;
 connectdb();
 //$conn->LogSQL(); // turn on adodb performance logging
 
-if (!$index_page)
+if (isset($index_page) && (!$index_page))
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
     session_start();
