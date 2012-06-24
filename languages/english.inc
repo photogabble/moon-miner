@@ -1387,5 +1387,5 @@ $l_map_title = "Blacknova Traders Galaxy Map";
 // Index.php
 $l_welcome_bnt = "Welcome to Blacknova Traders!";
 $l_bnt_description = "A web-based massively multiplayer space combat and trading game";
-$l_cookie_warning = "Blacknova Traders requires cookies for authentication. The game won't work without them. By signing up or logging in you agree to let us set cookies.";
+$l_cookie_warning = "Blacknova Traders requires cookies for logins to work. By signing up or logging in you agree to let us set cookies.";
 ?>
