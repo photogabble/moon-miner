@@ -37,7 +37,19 @@ function YESNO($onoff)
   return(($onoff == "ON") ? "Y" : "N");
 }
 
-$module = $menu;
+if (isset($_POST['menu']))
+{
+    $module = $_POST['menu'];
+}
+
+if (isset($_POST['swordfish']))
+{
+    $swordfish = $_POST['swordfish'];
+}
+else
+{
+    $swordfish = '';
+}
 
 if ($swordfish != $adminpass)
 {
@@ -101,7 +113,7 @@ else
           echo "<tr><td>E-mail</td><td><input type=text name=email value=\"$row[email]\"></td></tr>";
           echo "<tr><td>ID</td><td>$user</td></tr>";
           echo "<tr><td>Ship</td><td><input type=text name=ship_name value=\"$row[ship_name]\"></td></tr>";
-          echo "<tr><td>Destroyed?</td><td><input type=CHECKBOX name=ship_destroyed value=ON " . CHECKED($row[ship_destroyed]) . "></td></tr>";
+          echo "<tr><td>Destroyed?</td><td><input type=CHECKBOX name=ship_destroyed value=ON " . CHECKED($row['ship_destroyed']) . "></td></tr>";
           echo "<tr><td>Levels</td>";
           echo "<td><table border=0 cellspacing=0 cellpadding=5>";
           echo "<tr><td>Hull</td><td><input type=text size=5 name=hull value=\"$row[hull]\"></td>";
@@ -136,8 +148,8 @@ else
           echo "<td>Genesis Torpedoes</td><td><input type=text size=5 name=dev_genesis value=\"$row[dev_genesis]\"></td></tr>";
           echo "<tr><td>Mine Deflectors</td><td><input type=text size=5 name=dev_minedeflector value=\"$row[dev_minedeflector]\"></td>";
           echo "<td>Emergency Warp</td><td><input type=text size=5 name=dev_emerwarp value=\"$row[dev_emerwarp]\"></td></tr>";
-          echo "<tr><td>Escape Pod</td><td><input type=CHECKBOX name=dev_escapepod value=ON " . CHECKED($row[dev_escapepod]) . "></td>";
-          echo "<td>FuelScoop</td><td><input type=CHECKBOX name=dev_fuelscoop value=ON " . CHECKED($row[dev_fuelscoop]) . "></td></tr>";
+          echo "<tr><td>Escape Pod</td><td><input type=CHECKBOX name=dev_escapepod value=ON " . CHECKED($row['dev_escapepod']) . "></td>";
+          echo "<td>FuelScoop</td><td><input type=CHECKBOX name=dev_fuelscoop value=ON " . CHECKED($row['dev_fuelscoop']) . "></td></tr>";
           echo "</table></td></tr>";
           echo "<tr><td>Credits</td><td><input type=text name=credits value=\"$row[credits]\"></td></tr>";
           echo "<tr><td>Turns</td><td><input type=text name=turns value=\"$row[turns]\"></td></tr>";
@@ -332,7 +344,7 @@ else
           echo "<tr><td><tt>          Planet ID  </tt></td><td><font color=#6f0>$planet</font></td>";
           echo "<td align=Right><tt>  Sector ID  </tt><input type=text size=5 name=sector_id value=\"$row[sector_id]\"></td>";
           echo "<td align=Right><tt>  Defeated   </tt><input type=CHECKBOX name=defeated value=ON " . CHECKED($row['defeated']) . "></td></tr>";
-          echo "<tr><td><tt>          Planet Name</tt></td><td><input type=text size=15 name=name value=\"$row['name']\"></td>";
+          echo "<tr><td><tt>          Planet Name</tt></td><td><input type=text size=15 name=name value=\"" . $row['name'] . "\"></td>";
           echo "<td align=Right><tt>  Base       </tt><input type=CHECKBOX name=base value=ON " . CHECKED($row['base']) . "></td>";
           echo "<td align=Right><tt>  Sells      </tt><input type=CHECKBOX name=sells value=ON " . CHECKED($row['sells']) . "></td></tr>";
           echo "<tr><td colspan=4>    <HR>       </td></tr>";
@@ -438,10 +450,10 @@ else
           echo "<table border=0 cellspacing=0 cellpadding=5>";
           echo "<tr><td>Zone ID</td><td>$row[zone_id]</td></tr>";
           echo "<tr><td>Zone Name</td><td><input type=text name=zone_name value=\"$row[zone_name]\"></td></tr>";
-          echo "<tr><td>Allow Beacon</td><td><input type=CHECKBOX name=zone_beacon value=ON " . CHECKED($row[allow_beacon]) . "></td>";
-          echo "<tr><td>Allow Attack</td><td><input type=CHECKBOX name=zone_attack value=ON " . CHECKED($row[allow_attack]) . "></td>";
-          echo "<tr><td>Allow WarpEdit</td><td><input type=CHECKBOX name=zone_warpedit value=ON " . CHECKED($row[allow_warpedit]) . "></td>";
-          echo "<tr><td>Allow Planet</td><td><input type=CHECKBOX name=zone_planet value=ON " . CHECKED($row[allow_planet]) . "></td>";
+          echo "<tr><td>Allow Beacon</td><td><input type=CHECKBOX name=zone_beacon value=ON " . CHECKED($row['allow_beacon']) . "></td>";
+          echo "<tr><td>Allow Attack</td><td><input type=CHECKBOX name=zone_attack value=ON " . CHECKED($row['allow_attack']) . "></td>";
+          echo "<tr><td>Allow WarpEdit</td><td><input type=CHECKBOX name=zone_warpedit value=ON " . CHECKED($row['allow_warpedit']) . "></td>";
+          echo "<tr><td>Allow Planet</td><td><input type=CHECKBOX name=zone_planet value=ON " . CHECKED($row['allow_planet']) . "></td>";
           echo "</table>";
           echo "<tr><td>Max Hull</td><td><input type=text name=zone_hull value=\"$row[max_hull]\"></td></tr>";
           echo "<br>";
@@ -572,7 +584,7 @@ else
         $res = $db->Execute("select DISTINCT ip_address FROM $dbtables[ships]");
         while (!$res->EOF)
         {
-          $ips[]=$res->fields[ip_address];
+          $ips[]=$res->fields['ip_address'];
           $res->MoveNext();
         }
         echo "<table border=1 cellspacing=1 cellpadding=2 width=100% align=center>" .
