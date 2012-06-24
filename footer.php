@@ -93,7 +93,7 @@ if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i",
     $sf_logo_type++; // Make the SF logo darker for all pages except login 
 }
 
-echo "<div style='position:absolute; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
+echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0;' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php'>" . $l_local_news . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_time == true)
