@@ -58,7 +58,7 @@ $mySEC = ($sched_ticks * 60) - (TIME()-$result['last_run']);
     }
   </script>
 <?php
-echo "  <b><span id=myx>$mySEC</span></b> $l_footer_until_update <br>\n";
+echo "  <b><span id=myx>$mySEC</span></b> " . utf8_encode($l_footer_until_update) . " <br>\n";
 // End update counter
 
 if ($online == 1)
@@ -95,10 +95,10 @@ if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i",
 
 echo "<div style='position:absolute; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php'>" . $l_local_news . "</a></div>";
-echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the Blacknova Development team</div>";
+echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_time == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . $l_time_gen_page . ": " . $elapsed . " " . $l_seconds . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . utf8_encode($l_time_gen_page) . ": " . $elapsed . " " . $l_seconds . "</div>";
 }
 ?>
 </body>

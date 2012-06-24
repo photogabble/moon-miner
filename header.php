@@ -37,6 +37,7 @@ if (!isset($body_class))
 <link rel="shortcut icon" href="images/bntfavicon.ico">
 <title><?php echo $title; ?></title>
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 <script type='text/javascript' src='backends/javascript/newsticker.js'></script>
 </head>
 <body class="<?php echo $body_class; ?>">
