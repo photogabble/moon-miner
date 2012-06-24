@@ -50,7 +50,11 @@ global $db,$dbtables;
 connectdb();
 //$conn->LogSQL(); // turn on adodb performance logging
 
-session_start();
+if (!$index_page)
+{
+    // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
+    session_start();
+}
 
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 if (!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
