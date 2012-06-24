@@ -141,9 +141,10 @@ body.index {
 .button.purple {background: #4b3f5e;}
 .button.gray {background: #555;}
 div.index-header {width: 99%; height: 150px; margin:2px; border:2px solid white; left: 0px; top: 0px; box-shadow: 3px 3px 6px #000;}
-div.index-header-text {color:white; font-family: 'Ubuntu'; font-size:4em; position:absolute; height:auto; width:auto; left:30%; top:11%; text-shadow: black 2px 2px 0.1em;}
+/*div.index-header-text {color:white; font-family: 'Ubuntu'; font-size:4em; position:absolute; line-height:4em; height:4em; width:auto; left:30%; top:11%; text-shadow: black 2px 2px 0.1em;}*/
+div.index-header-text {color:white; font-family: 'Ubuntu'; font-size:4em; position:absolute; line-height:4em; height:auto; width:auto; left:30%; top:1%; text-shadow: black 2px 2px 0.1em;}
 div.index-welcome {text-align:center; color:#000; font-size:1.2em;}
 p.cookie-warning {font-size:0.7em}
 div.index-flags {position:absolute; height:auto; width:auto; left:80%; top:3%;}
-html>body.index>a {outline:none;}
+html>body.index>a {outline:none; text-decoration:none;}
 html>body.index>div>a>img {border:0;}
