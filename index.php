@@ -55,7 +55,7 @@ if (empty($lang))
 }
 
 include "languages/$lang";
-$title = $l_login_title;
+$title = $l_welcome_bnt;
 $body_class = 'index';
 include "header.php";
 ?>
@@ -69,22 +69,22 @@ include "header.php";
 <a href="index.php?indexlang=english"><img src="images/flags/United_States_of_America.png" alt="American English"></a></div>
 <div class="index-header-text">Blacknova Traders</div>
 <br>
-<a href="login.php"><span class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></span></a>
-<a href="new.php"><span class="button green"><span class="shine"></span><?php echo $l_new_player; ?></span></a>
-<a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></span></a>
-<a href="ranking.php"><span class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></span></a>
-<a href="docs/faq.html"><span class="button brown"><span class="shine"></span><?php echo $l_faq; ?></span></a>
-<a href="settings.php"><span class="button red"><span class="shine"></span><?php echo $l_settings; ?></span></a>
+<a href="login.php"><button class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></button></a>
+<a href="new.php"><button class="button green"><span class="shine"></span><?php echo $l_new_player; ?></button></a>
+<a href="mailto:<?php echo $admin_mail; ?>"><button class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></button></a>
+<a href="ranking.php"><button class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></button></a>
+<a href="docs/faq.html"><button class="button brown"><span class="shine"></span><?php echo $l_faq; ?></button></a>
+<a href="settings.php"><button class="button red"><span class="shine"></span><?php echo $l_settings; ?></button></a>
 <?php
 if (!empty($link_forums))
 {
-    echo "<a href='$link_forums' target='_blank'><span class='button orange'><span class='shine'></span>$l_forums</span></a>";
+    echo "<a href='$link_forums' target='_blank'><button class='button orange'><span class='shine'></span>$l_forums</button></a>";
 }
 ?>
 <br><br>
 <div><p></p></div>
 <div class="index-welcome"><p>
-<?php echo utf8_encode($l_welcome_bnt); ?><br>
+<h1 class="index-h1"><?php echo utf8_encode($l_welcome_bnt); ?></h1><br>
 <?php echo utf8_encode($l_bnt_description); ?><br></p>
 <br>
 <p class="cookie-warning"><?php echo utf8_encode($l_cookie_warning); ?></p></div>

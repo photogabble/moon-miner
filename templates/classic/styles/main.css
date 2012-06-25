@@ -33,14 +33,6 @@ pre.term {background-color: #000; color: #0f0; font-size:10pt; border-color:#0f0
 
 .rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:10px;}
 
-a.index-imgswap-login {width:146px; height:58px; display:block; margin:auto; border:0;}
-div.index-imgswap-login {width:146px; height:58px; display:block; margin:auto; background-repeat:no-repeat; border:0; background-image:url("../../../images/login_.png");}
-div.index-imgswap-login:hover img {visibility:hidden;}
-
-a.index-imgswap-mail {width:146px; height:58px; display:block; margin:auto; border:0;}
-div.index-imgswap-mail {width:146px; height:58px; display:block; margin:auto; background-repeat:no-repeat; border:0; background-image:url("../../../images/mail_.png");}
-div.index-imgswap-mail:hover img {visibility:hidden;}
-
 img.index {display:block; border:0; margin-left:auto; margin-right:auto; width:100%; height:150px}
 a.index {display:block; border:0; margin-left:auto; margin-right:auto; text-align:center;}
 
@@ -145,3 +137,4 @@ p.cookie-warning {font-size:0.7em}
 div.index-flags {position:absolute; height:auto; width:auto; left:80%; top:3%;}
 html>body.index>a {outline:none; text-decoration:none;}
 html>body.index>div>a>img {border:0;}
+h1.index-h1 {margin: 0; padding: 0; font-weight: normal; font-size:1em}
