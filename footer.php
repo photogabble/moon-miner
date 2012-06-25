@@ -58,7 +58,7 @@ $mySEC = ($sched_ticks * 60) - (TIME()-$result['last_run']);
     }
   </script>
 <?php
-echo "  <b><span id=myx>$mySEC</span></b> " . utf8_encode($l_footer_until_update) . " <br>\n";
+echo "  <strong><span id=myx>$mySEC</span></strong> " . utf8_encode($l_footer_until_update) . " <br>\n";
 // End update counter
 
 if ($online == 1)
