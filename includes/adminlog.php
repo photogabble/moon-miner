@@ -24,6 +24,7 @@ if (preg_match("/adminlog.php/i", $_SERVER['PHP_SELF'])) {
 
 function adminlog ($db, $dbtype, $log_type, $data = "")
 {
+    global $dbtables;
     // Write log_entry to the admin log
     $ret = (boolean) false;
     $data = addslashes ($data);
