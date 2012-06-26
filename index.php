@@ -72,16 +72,16 @@ include "header.php";
 <h2 style="display:none">Navigation</h2>
 <div class="navigation" role="navigation">
 <ul class="navigation">
-<li class="navigation"><a href="login.php"><div class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></div></a></li>
-<li class="navigation"><a href="new.php"><div class="button green"><span class="shine"></span><?php echo $l_new_player; ?></div></a></li>
-<li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><div class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></div></a></li>
-<li class="navigation"><a href="ranking.php"><div class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></div></a></li>
-<li class="navigation"><a href="docs/faq.html"><div class="button brown"><span class="shine"></span><?php echo $l_faq; ?></div></a></li>
-<li class="navigation"><a href="settings.php"><div class="button red"><span class="shine"></span><?php echo $l_settings; ?></div></a></li>
+<li class="navigation"><a href="login.php"><span class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></span></a></li>
+<li class="navigation"><a href="new.php"><span class="button green"><span class="shine"></span><?php echo $l_new_player; ?></span></a></li>
+<li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></span></a></li>
+<li class="navigation"><a href="ranking.php"><span class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></span></a></li>
+<li class="navigation"><a href="docs/faq.html"><span class="button brown"><span class="shine"></span><?php echo $l_faq; ?></span></a></li>
+<li class="navigation"><a href="settings.php"><span class="button red"><span class="shine"></span><?php echo $l_settings; ?></span></a></li>
 <?php
 if (!empty($link_forums))
 {
-    echo "<li class='navigation'><a href='$link_forums' target='_blank'><div class='button orange'><span class='shine'></span>$l_forums</div></a></li>";
+    echo "<li class='navigation'><a href='$link_forums' target='_blank'><span class='button orange'><span class='shine'></span>$l_forums</span></a></li>";
 }
 ?>
 </ul></div><br style="clear:both">
