@@ -69,23 +69,26 @@ include "header.php";
 <a href="index.php?indexlang=english"><img src="images/flags/United_States_of_America.png" alt="American English"></a></div>
 <div class="index-header-text">Blacknova Traders</div>
 <br>
-<a href="login.php"><button class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></button></a>
-<a href="new.php"><button class="button green"><span class="shine"></span><?php echo $l_new_player; ?></button></a>
-<a href="mailto:<?php echo $admin_mail; ?>"><button class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></button></a>
-<a href="ranking.php"><button class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></button></a>
-<a href="docs/faq.html"><button class="button brown"><span class="shine"></span><?php echo $l_faq; ?></button></a>
-<a href="settings.php"><button class="button red"><span class="shine"></span><?php echo $l_settings; ?></button></a>
+<h2 style="display:none">Navigation</h2>
+<div class="navigation" role="navigation">
+<ul class="navigation">
+<li class="navigation"><a href="login.php"><button class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></button></a></li>
+<li class="navigation"><a href="new.php"><button class="button green"><span class="shine"></span><?php echo $l_new_player; ?></button></a></li>
+<li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><button class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></button></a></li>
+<li class="navigation"><a href="ranking.php"><button class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></button></a></li>
+<li class="navigation"><a href="docs/faq.html"><button class="button brown"><span class="shine"></span><?php echo $l_faq; ?></button></a></li>
+<li class="navigation"><a href="settings.php"><button class="button red"><span class="shine"></span><?php echo $l_settings; ?></button></a></li>
 <?php
 if (!empty($link_forums))
 {
-    echo "<a href='$link_forums' target='_blank'><button class='button orange'><span class='shine'></span>$l_forums</button></a>";
+    echo "<li class='navigation'><a href='$link_forums' target='_blank'><button class='button orange'><span class='shine'></span>$l_forums</button></a></li>";
 }
 ?>
-<br><br>
+</ul></div><br style="clear:both">
 <div><p></p></div>
-<div class="index-welcome"><p>
+<div class="index-welcome">
 <h1 class="index-h1"><?php echo utf8_encode($l_welcome_bnt); ?></h1><br>
-<?php echo utf8_encode($l_bnt_description); ?><br></p>
+<p><?php echo utf8_encode($l_bnt_description); ?><br></p>
 <br>
 <p class="cookie-warning"><?php echo utf8_encode($l_cookie_warning); ?></p></div>
 <br>

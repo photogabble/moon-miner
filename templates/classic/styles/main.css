@@ -17,8 +17,8 @@ table.dis {text-decoration:none; font-size: 8Pt; color:silver; font-weight:bold;
 table.dis:hover {text-decoration:none; font-size: 8Pt; color:#36f; font-weight:bold;}
 .headlines:hover {text-decoration:none; color:#36f;}
 .headlines {text-decoration:none; font-size:8Pt; font-weight:bold; color:white;}
-.portcosts1 {width:7em; border-style:none; font-size:12pt; background-color:#300030; color:#c0c0c0;}
-.portcosts2 {width:7em; border-style:none; font-size:12pt; background-color:#400040; color:#c0c0c0;}
+.portcosts1 {width:7em; border-style:none; font-size:1em; background-color:#300030; color:#c0c0c0;}
+.portcosts2 {width:7em; border-style:none; font-size:1em; background-color:#400040; color:#c0c0c0;}
 .faderlines {background-color:#400040;}
 dl.twocolumn-form dt {float:left; text-align:right; width:45%; height:2em;}
 dl.twocolumn-form dd {float:left; text-align:left; width:45%; height:2em;}
@@ -26,12 +26,12 @@ dl.twocolumn-form dd {float:left; text-align:left; width:45%; height:2em;}
 .map:hover {border:#ffffff 1px solid;}
 .none {background-image:url('images/space.png');}
 .un {opacity:0.5;background-image:url('images/uspace.png');}
-input.term {background-color: #000; color: #0f0; font-family:Verdana, "DejaVu Sans", sans-serif; font-size:10pt; border-color:#0f0;}
-select.term {background-color: #000; color: #0f0; font-family:Verdana, "DejaVu Sans", sans-serif; font-size:10pt; border-color:#0f0;}
-center.term {background-color: #000; color: #0f0; font-size:10pt; border-color:#0f0;}
-pre.term {background-color: #000; color: #0f0; font-size:10pt; border-color:#0f0;}
+input.term {background-color: #000; color: #0f0; font-family:Verdana, "DejaVu Sans", sans-serif; font-size:0.8em; border-color:#0f0;}
+select.term {background-color: #000; color: #0f0; font-family:Verdana, "DejaVu Sans", sans-serif; font-size:0.8em; border-color:#0f0;}
+center.term {background-color: #000; color: #0f0; font-size:0.8em; border-color:#0f0;}
+pre.term {background-color: #000; color: #0f0; font-size:0.8em; border-color:#0f0;}
 
-.rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:10px;}
+.rank_dev_text {text-decoration:none; color:#f00; vertical-align:middle; font-size:0.8em;}
 
 img.index {display:block; border:0; margin-left:auto; margin-right:auto; width:100%; height:150px}
 a.index {display:block; border:0; margin-left:auto; margin-right:auto; text-align:center;}
@@ -135,6 +135,9 @@ div.index-header-text {color:white; font-family: 'Ubuntu', Verdana, "DejaVu Sans
 div.index-welcome {text-align:center; font-size:1.2em;}
 p.cookie-warning {font-size:0.7em}
 div.index-flags {position:absolute; height:auto; width:auto; left:80%; top:3%;}
-html>body.index>a {outline:none; text-decoration:none;}
-html>body.index>div>a>img {border:0;}
 h1.index-h1 {margin: 0; padding: 0; font-weight: normal; font-size:1em}
+div.navigation { display:table; margin: 0 auto;}
+ul.navigation {list-style:none;}
+ul.navigation li {display:inline;}
+body.index img {border:0;}
+body.index a {outline:none; text-decoration:none;}
