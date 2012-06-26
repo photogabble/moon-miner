@@ -1,4 +1,6 @@
 <?php
+$l_lang_attribute                      = "en";
+
 // General
 $l_yes                                 = "Yes";
 $l_no                                  = "No";
@@ -45,7 +47,7 @@ $l_turns_have           = "Turns available: ";
 $l_score           = "Score: ";
 $l_sector           = "Sector";
 $l_help                = "Help";
-$l_faq                   = "FAQ";
+$l_faq                   = "F.A.Q.";
 $l_feedback           = "Feedback";
 $l_forums           = "Forums";
 $l_logout           = "Logout";

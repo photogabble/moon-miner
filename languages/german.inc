@@ -1,4 +1,6 @@
 <?php
+$l_lang_attribute                      = "de";
+
 //general
 
 $l_yes = "Ja";

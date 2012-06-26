@@ -1,4 +1,5 @@
 <?php
+$l_lang_attribute                      = "fr";
 
 //general
 
