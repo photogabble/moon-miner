@@ -425,12 +425,12 @@ if (!empty($planetinfo))
     {
 
       // Change production percentages
-      $pore       = (int) $_post['pore'];
-      $porganics  = (int) $_post['porganics'];
-      $pgoods     = (int) $_post['pgoods'];
-      $penergy    = (int) $_post['penergy'];
-      $pfighters  = (int) $_post['pfighters'];
-      $ptorp      = (int) $_post['ptorp'];
+      $pore       = (int) $_POST['pore'];
+      $porganics  = (int) $_POST['porganics'];
+      $pgoods     = (int) $_POST['pgoods'];
+      $penergy    = (int) $_POST['penergy'];
+      $pfighters  = (int) $_POST['pfighters'];
+      $ptorp      = (int) $_POST['ptorp'];
 
       if ($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
       {
@@ -451,7 +451,7 @@ if (!empty($planetinfo))
       echo "$l_command_no<br>";
     }
   }
-  elseif (($planetinfo[planet_id] == $playerinfo[planet_id] && $playerinfo[on_planet] == "Y") && $planetinfo[corp] == 0) // Fix for corp member leaving a non corp planet
+  elseif (($planetinfo['planet_id'] == $playerinfo['planet_id'] && $playerinfo['on_planet'] == "Y") && $planetinfo['corp'] == 0) // Fix for corp member leaving a non corp planet
   {
     if ($command == "leave")
     {
@@ -470,7 +470,7 @@ if (!empty($planetinfo))
     // Player doesn't own planet and there is a command
     if ($command == "buy")
     {
-      if ($planetinfo[sells] == "Y")
+      if ($planetinfo['sells'] == "Y")
       {
         $ore_price = ($ore_price + $ore_delta / 4);
         $organics_price = ($organics_price + $organics_delta / 4);
@@ -811,25 +811,25 @@ if (!empty($planetinfo))
       }
       $update = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     }
-    elseif ($command == "capture" &&  $planetinfo[owner] == 0)
+    elseif ($command == "capture" &&  $planetinfo['owner'] == 0)
     {
       echo "$l_planet_captured<br>";
       $update = $db->Execute("UPDATE $dbtables[planets] SET corp=0, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
-      $ownership = calc_ownership($playerinfo[sector]);
+      $ownership = calc_ownership($playerinfo['sector']);
 
         if (!empty($ownership))
 
           echo "$ownership<p>";
-      if ($planetinfo[owner] != 0)
+      if ($planetinfo['owner'] != 0)
       {
-        gen_score($planetinfo[owner]);
+        gen_score($planetinfo['owner']);
       }
 
-      if ($planetinfo[owner] != 0)
+      if ($planetinfo['owner'] != 0)
       {
         $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$planetinfo[owner]");
         $query = $res->fields;
-        $planetowner=$query[character_name];
+        $planetowner=$query['character_name'];
       }
       else
         $planetowner="$l_planet_noone";
