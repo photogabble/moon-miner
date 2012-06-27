@@ -354,8 +354,8 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
     $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$src[sector_id] AND link_dest=$dest[sector_id]");
     if ($query->EOF)
     {
-      $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $src[sector_id], $l_tdr_nowlink1);
-      $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
+      $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink1);
+      $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest['sector_id'], $l_tdr_nowlink1);
       traderoute_die($l_tdr_nowlink1);
     }
     if ($circuit == '2')
@@ -363,8 +363,8 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
       $query = $db->Execute("SELECT link_id FROM $dbtables[links] WHERE link_start=$dest[sector_id] AND link_dest=$src[sector_id]");
       if ($query->EOF)
       {
-        $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $src[sector_id], $l_tdr_nowlink2);
-        $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
+        $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink2);
+        $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest['sector_id'], $l_tdr_nowlink2);
         traderoute_die($l_tdr_nowlink2);
       }
     }
@@ -946,7 +946,6 @@ if ($num_res2 == 0)
 // Check destination - we cannot trade INTO a special port
 if ($destination['port_type'] == 'special')
 {
-
     traderoute_die("You cannot create a traderoute into a special port!");
 }
   // Check traderoute for src => dest
