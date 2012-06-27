@@ -182,6 +182,7 @@ elseif ($state == 1)
     }
 }
 
+$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 TEXT_GOTOMAIN();
 include "footer.php";
 ?>
