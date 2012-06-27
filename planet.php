@@ -834,8 +834,7 @@ if (!empty($planetinfo))
       else
         $planetowner="$l_planet_noone";
 
-      var_dump($playerinfo);
-      playerlog ($db, $dbtables, $playerinfo['player_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
+      playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
 
     }
     elseif ($command == "capture" &&  ($planetinfo[owner] == 0 || $planetinfo[defeated] == 'Y'))
