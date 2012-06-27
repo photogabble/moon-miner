@@ -538,8 +538,8 @@ function traderoute_new($traderoute_id)
   while (!$result->EOF)
   {
     $planets[$i] = $result->fields;
-    if ($planets[$i][name] == "")
-      $planets[$i][name] = $l_tdr_unnamed;
+    if ($planets[$i]['name'] == "")
+      $planets[$i]['name'] = $l_tdr_unnamed;
     $i++;
     $result->MoveNext();
   }
@@ -550,8 +550,8 @@ function traderoute_new($traderoute_id)
   while (!$result->EOF)
   {
     $planets_corp[$i] = $result->fields;
-    if ($planets_corp[$i][name] == "")
-      $planets_corp[$i][name] = $l_tdr_unnamed;
+    if ($planets_corp[$i]['name'] == "")
+      $planets_corp[$i]['name'] = $l_tdr_unnamed;
     $i++;
     $result->MoveNext();
   }
@@ -1054,21 +1054,21 @@ function traderoute_settings()
     "<td><font size=2 color=white> - $l_tdr_colonists :</font></td>".
     "<td><input type=checkbox name=colonists";
 
-  if ($playerinfo[trade_colonists] == 'Y')
+  if ($playerinfo['trade_colonists'] == 'Y')
     echo " checked";
 
   echo "></tr><tr>".
     "<td><font size=2 color=white> - $l_tdr_fighters :</font></td>".
     "<td><input type=checkbox name=fighters";
 
-  if ($playerinfo[trade_fighters] == 'Y')
+  if ($playerinfo['trade_fighters'] == 'Y')
     echo " checked";
 
   echo "></tr><tr>".
     "<td><font size=2 color=white> - $l_tdr_torps :</font></td>".
     "<td><input type=checkbox name=torps";
 
-  if ($playerinfo[trade_torps] == 'Y')
+  if ($playerinfo['trade_torps'] == 'Y')
     echo " checked";
 
   echo "></tr>".
@@ -1079,14 +1079,14 @@ function traderoute_settings()
     "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_trade</font></td>".
     "<td><input type=radio name=energy value=\"Y\"";
 
-  if ($playerinfo[trade_energy] == 'Y')
+  if ($playerinfo['trade_energy'] == 'Y')
     echo " checked";
 
   echo "></td></tr><tr>".
     "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_keep</font></td>".
     "<td><input type=radio name=energy value=\"N\"";
 
-  if ($playerinfo[trade_energy] == 'N')
+  if ($playerinfo['trade_energy'] == 'N')
     echo " checked";
 
   echo "></td></tr><tr><td>&nbsp;</td></tr><tr><td>".

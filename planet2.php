@@ -454,7 +454,7 @@ else
     echo "$l_planet2_losup $transfer_credits $l_credits.<br>\n";
   }
 
-  if (($tpcredits == -1) && $planetinfo[base] == 'N' && ($transfer_credits + $planetinfo['credits'] > $max_credits_without_base))
+  if (($tpcredits == -1) && $planetinfo['base'] == 'N' && ($transfer_credits + $planetinfo['credits'] > $max_credits_without_base))
   {
      $transfer_credits = MAX($max_credits_without_base - $planetinfo['credits'],0);
      echo "$l_planet2_baseexceeded $l_planet2_settr $transfer_credits $l_credits.<br>\n";
