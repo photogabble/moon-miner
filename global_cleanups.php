@@ -47,9 +47,18 @@ ADODB_Session::dataFieldName('SESSDATA');
 
 global $db,$dbtables;
 connectdb();
-//$conn->LogSQL(); // turn on adodb performance logging
 
-if (isset($index_page) && (!$index_page))
+if ($db_logging)
+{
+    $db->LogSQL(); // Turn on adodb performance logging
+}
+
+if (!isset($index_page))
+{
+    $index_page = false;
+}
+
+if (!$index_page)
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
     session_start();
