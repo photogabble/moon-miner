@@ -17,10 +17,11 @@
 //
 // File: config.php
 
-//ini_set('error_reporting', E_ALL); // During development
 ini_set('error_reporting', 0);
-//ini_set('display_errors', '1'); // During development
 ini_set('display_errors', '0');
+//ini_set('error_reporting', E_ALL); // During development
+//ini_set('display_errors', '1'); // During development
+$db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development! This makes a huge amount of logs! You have been warned!!
 
 ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 
@@ -253,15 +254,11 @@ $footer_style = 'old';
 $footer_show_time = true;
 
 date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
-
 $sched_planet_valid_credits = true; // Limit captured planets Max Credits to max_credits_without_base
-
-$db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete. Almost definitely you will want false.
 
 // Must stay at 55 due to PHP/MySQL cap limit.
 $max_upgrades_devices       = 55;
 $max_emerwarp               = 10;
-
 $max_genesis                = 10;
 $max_beacons                = 10;
 $max_warpedit               = 10;
