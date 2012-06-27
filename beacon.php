@@ -29,21 +29,30 @@ if (checklogin())
 }
 
 $result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
-db_op_result($db, $result, __LINE__, __FILE__);
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
-db_op_result($db, $result2, __LINE__, __FILE__);
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
 
 bigtitle();
 
+if (!isset($_POST['beacon_text']))
+{
+    $beacon_text = null;
+}
+else
+{
+    $beacon_text = $_POST['beacon_text'];
+}
+
 if ($playerinfo['dev_beacon'] > 0)
 {
     $res = $db->Execute("SELECT allow_beacon FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
-    db_op_result($db, $res, __LINE__, __FILE__);
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_beacon'] == 'N')
     {
@@ -52,10 +61,10 @@ if ($playerinfo['dev_beacon'] > 0)
     elseif ($zoneinfo['allow_beacon'] == 'L')
     {
         $result3 = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
-        db_op_result($db, $result3, __LINE__, __FILE__);
+        db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
         $zoneowner_info = $result3->fields;
         $result5 = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id='$zoneowner_info[owner]'");
-        db_op_result($db, $result5, __LINE__, __FILE__);
+        db_op_result ($db, $result5, __LINE__, __FILE__, $db_logging);
         $zoneteam = $result5->fields;
 
         if ($zoneowner_info['owner'] != $playerinfo['ship_id'])
@@ -103,9 +112,9 @@ if ($playerinfo['dev_beacon'] > 0)
             $beacon_text = trim (strip_tags ($beacon_text));
             echo $l_beacon_nowreads . ": " . $beacon_text . ".<br><br>";
             $update = $db->Execute("UPDATE $dbtables[universe] SET beacon='$beacon_text' WHERE sector_id=$sectorinfo[sector_id]");
-            db_op_result($db, $update, __LINE__, __FILE__);
+            db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
             $update = $db->Execute("UPDATE $dbtables[ships] SET dev_beacon=dev_beacon-1 WHERE ship_id=$playerinfo[ship_id]");
-            db_op_result($db, $update, __LINE__, __FILE__);
+            db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
         }
     }
 }
