@@ -35,12 +35,14 @@ if (!isset($_GET['response']))
 $response = $_GET['response'];
 
 $res = $db->Execute("select * FROM $dbtables[ships] WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 switch ($response) {
    case "display":
       bigtitle();
       $res5 = $db->Execute("select * FROM $dbtables[ships],$dbtables[bounty] WHERE bounty_on = ship_id AND bounty_on = $bounty_on");
+      db_op_result ($db, $res5, __LINE__, __FILE__, $db_logging);
       $j = 0;
       if ($res5)
       {
@@ -70,6 +72,7 @@ switch ($response) {
          for ($j = 0; $j < $num_details; $j++)
          {
             $someres = $db->execute("select character_name FROM $dbtables[ships] WHERE ship_id = " . $bounty_details[$j][placed_by]);
+            db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
             $details = $someres->fields;
             echo "<tr bgcolor=\"$color\">";
             echo "<td>" . $bounty_details[$j]['amount'] . "</td>";
@@ -117,6 +120,7 @@ switch ($response) {
       }
 
       $res = $db->Execute("select * from $dbtables[bounty] WHERE bounty_id = $bid");
+      db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       if (!res || $res->RowCount() ==0)
       {
           echo "$l_by_nobounty<br><br>";
@@ -133,9 +137,11 @@ switch ($response) {
     die();
       }
       $del = $db->Execute("DELETE FROM $dbtables[bounty] WHERE bounty_id = $bid");
+      db_op_result ($db, $del, __LINE__, __FILE__, $db_logging);
       $stamp = date("Y-m-d H-i-s");
       $refund = $bty['amount'];
-      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund where ship_id=$playerinfo[ship_id]");
+      $resx = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund where ship_id=$playerinfo[ship_id]");
+      db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
       echo "$l_by_canceled<br>";
       TEXT_GOTOMAIN();
       die();
@@ -144,6 +150,7 @@ switch ($response) {
       bigtitle();
       $bounty_on = stripnum($bounty_on);
       $ex = $db->Execute("select * from $dbtables[ships] WHERE ship_id = $bounty_on");
+      db_op_result ($db, $ex, __LINE__, __FILE__, $db_logging);
       if (!$ex)
       {
     echo "$l_by_notexists<br><br>";
@@ -195,6 +202,7 @@ switch ($response) {
          $maxtrans = $score * $score * $bounty_maxvalue;
          $previous_bounty = 0;
          $pb = $db->Execute("select SUM(amount) AS totalbounty FROM $dbtables[ships] WHERE bounty_on = $bounty_on AND placed_by = $playerinfo[ship_id]");
+         db_op_result ($db, $pb, __LINE__, __FILE__, $db_logging);
          if ($pb)
          {
             $prev = $pb->fields;
@@ -211,8 +219,10 @@ switch ($response) {
 
       }
       $insert = $db->Execute("INSERT INTO $dbtables[bounty] (bounty_on,placed_by,amount) values ($bounty_on, $playerinfo[ship_id] ,$amount)");
+      db_op_result ($db, $insert, __LINE__, __FILE__, $db_logging);
       $stamp = date("Y-m-d H-i-s");
-      $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount where ship_id=$playerinfo[ship_id]");
+      $resx = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount where ship_id=$playerinfo[ship_id]");
+      db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
       echo "$l_by_placed<br>";
       TEXT_GOTOMAIN();
       die();
@@ -220,6 +230,7 @@ switch ($response) {
    default:
       bigtitle();
       $res = $db->Execute("select * FROM $dbtables[ships] WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
+      db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       echo "<form action=bounty.php method=post>";
       echo "<table>";
       echo "<tr><td>$l_by_bountyon</td><td><select NAME=bounty_on>";
@@ -243,6 +254,7 @@ switch ($response) {
 
 
       $result3 = $db->Execute ("select bounty_on, SUM(amount) as total_bounty FROM $dbtables[bounty] GROUP BY bounty_on");
+      db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 
       $i = 0;
       if ($result3)
@@ -272,6 +284,7 @@ switch ($response) {
          for ($i = 0; $i < $num_bounties; $i++)
          {
             $someres = $db->execute("select character_name FROM $dbtables[ships] WHERE ship_id = " . $bounties[$i][bounty_on]);
+            db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
             $details = $someres->fields;
             echo "<tr bgcolor=\"$color\">";
             echo "<td><a href=bounty.php?bounty_on=" . $bounties[$i][bounty_on] . "&response=display>". $details[character_name] ."</A></td>";
