@@ -143,7 +143,7 @@ else
         if ($_SESSION['port_shopping'] != true)
         {
             adminlog ($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
-//            echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
+            echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
             echo "<div style='color:#f00; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
             echo "<br>\n";
             echo "<div style='color:#fff; font-size:12px;'>Auto redirecting in 2 seconds.</div>\n";
