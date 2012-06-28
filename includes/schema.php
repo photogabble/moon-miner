@@ -19,107 +19,9 @@
 
 function create_schema ()
 {
-/*********************************************************
-If you add/remove a table, don't forget to update the
-table name variables in the global_func file.
-*********************************************************/
 
 global $maxlen_password;
-global $db;
-
-## HTML Table Functions ##
-
-if (!function_exists('PrintFlush'))
-{
-    function PrintFlush($Text="")
-    {
-        print "$Text";
-        flush();
-    }
-}
-
-if (!function_exists('Table_Header'))
-{
-    function Table_Header($title="")
-    {
-        PrintFlush( "<div align=\"center\">\n");
-        PrintFlush( "  <center>\n");
-        PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000\">\n");
-        PrintFlush( "    <tr>\n");
-        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#99c\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"2\">$title</font></th>\n");
-        PrintFlush( "    </tr>\n");
-    }
-}
-
-if (!function_exists('Table_Row'))
-{
-    function Table_Row($data,$failed="Failed",$passed="Passed")
-    {
-        $err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
-        PrintFlush( "    <tr title=\"$err\">\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$data</font></td>\n");
-        if( $db->ErrorMsg()!=0)
-            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"red\">$failed</font></td>\n");}
-        else
-            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"Blue\">$passed</font></td>\n");}
-        echo "    </tr>\n";
-    }
-}
-
-
-if (!function_exists('Table_2Col'))
-{
-    function Table_2Col($name,$value)
-    {
-        PrintFlush("    <tr>\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccf\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$name</font></td>\n");
-        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font face=\"Verdana\" size=\"1\" color=\"#000\">$value</font></td>\n");
-        PrintFlush( "    </tr>\n");
-    }
-}
-
-if (!function_exists('Table_1Col'))
-{
-    function Table_1Col($data)
-    {
-        PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$data</font></td>\n");
-        PrintFlush( "    </tr>\n");
-    }
-}
-
-if (!function_exists('Table_Spacer'))
-{
-    function Table_Spacer()
-    {
-        PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" height=\"1\"></td>\n");
-        PrintFlush( "    </tr>\n");
-    }
-}
-
-if (!function_exists('Table_Footer'))
-{
-    function Table_Footer($footer='')
-    {
-        if(!empty($footer))
-        {
-            PrintFlush( "    <tr>\n");
-            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#99c\" align=\"left\"><font face=\"Verdana\" color=\"#000\" size=\"1\">$footer</font></td>\n");
-            PrintFlush( "    </tr>\n");
-        }
-        PrintFlush( "  </table>\n");
-        PrintFlush( "  </center>\n");
-        PrintFlush( "</div><p>\n");
-    }
-}
-
-## ---- ##
-
-function DBTRUEFALSE($truefalse,$Stat,$True,$False)
-{
-    return(($truefalse == $Stat) ? $True : $False);
-}
+global $db, $dbname;
 
 // Delete all tables in the database
 Table_Header("Dropping Tables");
@@ -130,7 +32,8 @@ $drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TAB
 // Use the query to now drop all tables as reported by SQL.
 $drop_tables = $db->Execute($drop_tables_stmt->fields['stmt']);
 
-$err = DBTRUEFALSE(0, $db->ErrorMsg(), "No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
 Table_Row("Dropping all tables","Failed","Passed");
 
 Table_Footer("Hover over the failed line to see the error.");
@@ -148,7 +51,7 @@ $db->Execute("CREATE TABLE {$db->prefix}languages (" .
              "category char(30) NOT NULL," .
              "PRIMARY KEY (lang_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating languages Table","Failed","Passed");
 
@@ -160,7 +63,7 @@ $db->Execute("CREATE TABLE {$db->prefix}links (" .
              "KEY link_start (link_start)," .
              "KEY link_dest (link_dest)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating links Table","Failed","Passed");
 
@@ -191,7 +94,7 @@ $db->Execute("CREATE TABLE {$db->prefix}planets (" .
              "KEY owner (owner)," .
              "KEY corp (corp)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating planets Table","Failed","Passed");
 
@@ -207,7 +110,7 @@ $db->Execute("CREATE TABLE {$db->prefix}traderoutes (" .
              "PRIMARY KEY (traderoute_id)," .
              "KEY owner (owner)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating traderoutes Table","Failed","Passed");
 
@@ -275,7 +178,7 @@ $db->Execute("CREATE TABLE {$db->prefix}ships (" .
              "KEY team (team)," .
              "KEY ship_id (ship_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating ships Table","Failed","Passed");
 
@@ -297,7 +200,7 @@ $db->Execute("CREATE TABLE {$db->prefix}universe (" .
              "fighters bigint(20) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY (sector_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating universe Table","Failed","Passed");
 
@@ -317,7 +220,7 @@ $db->execute("CREATE TABLE {$db->prefix}zones (" .
              "PRIMARY KEY(zone_id)," .
              "KEY zone_id(zone_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating zones Table","Failed","Passed");
 
@@ -328,7 +231,7 @@ $db->Execute("CREATE TABLE {$db->prefix}ibank_accounts (" .
              "loantime datetime," .
              "PRIMARY KEY(ship_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating ibank_accounts Table","Failed","Passed");
 
@@ -339,7 +242,7 @@ $db->Execute("CREATE TABLE {$db->prefix}IGB_transfers (" .
              "time datetime," .
              "PRIMARY KEY(transfer_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating IGB_transfers Table","Failed","Passed");
 
@@ -353,7 +256,7 @@ $db->Execute("CREATE TABLE {$db->prefix}teams (" .
              "PRIMARY KEY(id)," .
              "KEY admin (admin)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating teams Table","Failed","Passed");
 
@@ -368,14 +271,14 @@ $db->Execute("CREATE TABLE {$db->prefix}news (" .
              "KEY news_id (news_id)," .
              "UNIQUE news_id_2 (news_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating news Table","Failed","Passed");
 
 $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type) " .
              "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
 
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Inserting first news item","Failed","Inserted");
 
@@ -390,7 +293,7 @@ $db->Execute("CREATE TABLE {$db->prefix}messages (" .
              "notified enum('Y','N') NOT NULL default 'N'," .
              "PRIMARY KEY  (ID) " .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating messages Table","Failed","Passed");
 
@@ -402,7 +305,7 @@ $db->Execute("CREATE TABLE {$db->prefix}xenobe (" .
              "PRIMARY KEY (xenobe_id)," .
              "KEY xenobe_id (xenobe_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating xenobe Table","Failed","Passed");
 
@@ -417,7 +320,7 @@ $db->Execute("CREATE TABLE {$db->prefix}sector_defence (" .
              "KEY sector_id (sector_id)," .
              "KEY ship_id (ship_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating sector_defence Table","Failed","Passed");
 
@@ -432,7 +335,7 @@ $db->Execute("CREATE TABLE {$db->prefix}scheduler (" .
              "last_run BIGINT(20)," .
              "PRIMARY KEY (sched_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 echo $db->ErrorMsg();
 
 Table_Row("Creating scheduler Table","Failed","Passed");
@@ -442,7 +345,7 @@ $db->Execute("CREATE TABLE {$db->prefix}ip_bans (" .
              "ban_mask varchar(16) NOT NULL," .
              "PRIMARY KEY (ban_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating ip_bans Table","Failed","Passed");
 
@@ -455,7 +358,7 @@ $db->Execute("CREATE TABLE {$db->prefix}logs (" .
              "PRIMARY KEY (log_id)," .
              "KEY idate (ship_id,time)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating logs Table","Failed","Passed");
 
@@ -468,7 +371,7 @@ $db->Execute("CREATE TABLE {$db->prefix}bounty (" .
              "KEY bounty_on (bounty_on)," .
              "KEY placed_by (placed_by)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating session Table","Failed","Passed");
 
@@ -480,7 +383,7 @@ $db->Execute("CREATE TABLE {$db->prefix}sessions (" .
              "PRIMARY KEY (EXPIRY)," .
              "KEY SESSKEY(SESSKEY)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating bounty Table","Failed","Passed");
 
@@ -493,7 +396,7 @@ $db->Execute("CREATE TABLE {$db->prefix}movement_log (" .
              "KEY ship_id(ship_id)," .
              "KEY sector_id (sector_id)" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 $db->Execute("CREATE TABLE {$db->prefix}adodb_logsql (" .
              "created datetime NOT NULL," .
@@ -503,7 +406,7 @@ $db->Execute("CREATE TABLE {$db->prefix}adodb_logsql (" .
              "tracer text NOT NULL," .
              "timer decimal(16,6) NOT NULL" .
              ")");
-$err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 Table_Row("Creating adodb_logsql Table","Failed","Passed");
 Table_Footer("Hover over the failed row to see the error.");
