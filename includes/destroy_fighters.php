@@ -22,9 +22,9 @@ if (preg_match("/destroy_fighters.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function destroy_fighters ($db, $dbtables, $sector, $num_fighters)
+function destroy_fighters ($db, $sector, $num_fighters)
 {
-    $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
+    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
     echo $db->ErrorMsg();
 
     // Put the defence information into the array "defenceinfo"
@@ -35,12 +35,12 @@ function destroy_fighters ($db, $dbtables, $sector, $num_fighters)
             $row = $result3->fields;
             if ($row['quantity'] > $num_fighters)
             {
-                $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
                 $num_fighters = 0;
             }
             else
             {
-                $update = $db->Execute("DELETE FROM $dbtables[sector_defence] WHERE defence_id = $row[defence_id]");
+                $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = $row[defence_id]");
                 $num_fighters -= $row['quantity'];
             }
 

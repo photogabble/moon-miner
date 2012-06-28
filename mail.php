@@ -28,7 +28,8 @@ if (!isset($_SESSION['sendemail']))
     $_SESSION['sendemail'] = false;
 }
 
-$result = $db->Execute ("select character_name, email, password from $dbtables[ships] where email='$mail'");
+$result = $db->Execute ("select character_name, email, password from {$db->prefix}ships where email='$mail'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 
 if (!$result->EOF)
 {
@@ -73,7 +74,7 @@ if (!$result->EOF)
         $mailer->setSender( "Blacknova Mail", $admin_mail );
         $mailer->setRecipient( $playerinfo['character_name'], $playerinfo['email'] );
 
-        $l_mail_topic=str_replace("[game_name]",$game_name,$l_mail_topic);
+        $l_mail_topic = str_replace("[game_name]", $game_name, $l_mail_topic);
         $mailer->setSubject( $l_mail_topic );
         $mailer->setMessage( "$l_mail_message\r\n\r\nhttp://{$SERVER_NAME}\r\n" );
 

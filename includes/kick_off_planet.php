@@ -22,23 +22,23 @@ if (preg_match("/kick_off_planet.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function kick_off_planet ($db, $dbtables, $ship_id, $whichteam)
+function kick_off_planet ($db, $ship_id, $whichteam)
 {
-    $result1 = $db->Execute("SELECT * from $dbtables[planets] where owner = '$ship_id' ");
+    $result1 = $db->Execute("SELECT * from {$db->prefix}planets where owner = '$ship_id' ");
 
     if ($result1 > 0)
     {
         while (!$result1->EOF)
         {
             $row = $result1->fields;
-            $result2 = $db->Execute("SELECT * from $dbtables[ships] where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
+            $result2 = $db->Execute("SELECT * from {$db->prefix}ships where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
             if ($result2 > 0)
             {
                 while (!$result2->EOF )
                 {
                     $cur = $result2->fields;
-                    $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
-                    playerlog ($db, $dbtables, $cur['ship_id'], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
+                    $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
+                    playerlog ($db, $cur['ship_id'], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
                     $result2->MoveNext();
                 }
             }

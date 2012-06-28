@@ -28,9 +28,9 @@ function checklogin ()
 
     global $username, $l_global_needlogin, $l_global_died, $l_global_died2;
     global $password, $l_login_died, $l_die_please, $l_logout, $l_here;
-    global $db, $dbtables;
+    global $db;
 
-    $result1 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username' LIMIT 1");
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username' LIMIT 1");
     $playerinfo = $result1->fields;
 
     // Check the cookie to see if username/password are empty - check password against database
@@ -47,7 +47,7 @@ function checklogin ()
         // if the player has an escapepod, set the player up with a new ship
         if ($playerinfo['dev_escapepod'] == "Y")
         {
-            $result2 = $db->Execute("UPDATE $dbtables[ships] SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' where email='$username'");
+            $result2 = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' where email='$username'");
             $l_login_died = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
             echo $l_login_died;
             $flag = 1;

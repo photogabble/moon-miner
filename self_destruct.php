@@ -30,19 +30,19 @@ if (checklogin())
 
 bigtitle();
 
-$result = $db->Execute("SELECT ship_id,character_name FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $result->fields;
 
 if (!isset($sure))
 {
-    echo "<font color=red><b>$l_die_rusure</b></font><br><br>";
+    echo "<font color=red><strong>$l_die_rusure</strong></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
     echo "<a href='main.php'>$l_die_nonono</a> $l_die_what<br><br>";
     echo "<a href=self_destruct.php?sure=1>$l_yes!</a> $l_die_goodbye<br><br>";
 }
 elseif ($sure == 1)
 {
-    echo "<font color=red><b>$l_die_check</b></font><br><br>";
+    echo "<font color=red><strong>$l_die_check</strong></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
     echo "<a href='main.php'>$l_die_nonono</a> $l_die_what<br><br>";
     echo "<a href=self_destruct.php?sure=2>$l_yes!</a> $l_die_goodbye<br><br>";
@@ -54,9 +54,9 @@ elseif ($sure == 2)
     $l_die_please = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
     echo $l_die_please. "<br>";
     db_kill_player ($playerinfo['ship_id'], true);
-    cancel_bounty ($db, $dbtables, $playerinfo['ship_id']);
-    adminlog ($db, $dbtables, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
-    playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
+    cancel_bounty ($db, $playerinfo['ship_id']);
+    adminlog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
+    playerlog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else

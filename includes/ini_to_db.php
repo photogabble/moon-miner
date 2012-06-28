@@ -33,7 +33,7 @@ function ini_to_db ($db, $ini_file, $ini_table)
     {
         foreach ($config_line as $config_key=>$config_value)
         {
-            $debug_query = $db->Execute("INSERT into $ini_table (name, category, value) VALUES (?,?,?)", array($config_key, $config_category, $config_value));
+            $debug_query = $db->Execute("INSERT into {$db->prefix}$ini_table (name, category, value) VALUES (?,?,?)", array($config_key, $config_category, $config_value));
             if (!$debug_query)
             {
                 $status = false;

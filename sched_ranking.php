@@ -23,8 +23,8 @@ if (preg_match("/sched_ranking.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-echo "<b>Ranking</b><br><br>";
-$res = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE ship_destroyed='N'");
+echo "<strong>Ranking</strong><br><br>";
+$res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE ship_destroyed='N'");
 while (!$res->EOF)
 {
     gen_score($res->fields['ship_id']);

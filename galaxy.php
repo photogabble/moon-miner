@@ -29,9 +29,11 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
-$result3 = $db->Execute("SELECT distinct $dbtables[movement_log].sector_id, port_type, beacon FROM $dbtables[movement_log],$dbtables[universe] WHERE ship_id = $playerinfo[ship_id] AND $dbtables[movement_log].sector_id=$dbtables[universe].sector_id order by sector_id ASC;");
+$result3 = $db->Execute("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = $playerinfo[ship_id] AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC;");
+db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 $row = $result3->fields;
 
 bigtitle();
@@ -52,7 +54,7 @@ $div_h = 20; // Only this height to match the included images
 $div_border = 2; // CSS border is 1 so this should be 2
 $div_xmax = 50; // Where to wrap to next line
 $div_ymax = $sector_max / $div_xmax;
-$map_width= ($div_w+$div_border) * $div_xmax;  // Define the containing div to be the right width to wrap at $div_xmax
+$map_width = ($div_w + $div_border) * $div_xmax;  // Define the containing div to be the right width to wrap at $div_xmax
 
 // Setup containing div to hold the width of the images
 echo "\n<div id='map' style='position:relative;background-color:#0000ff;width:".$map_width."px'>\n";

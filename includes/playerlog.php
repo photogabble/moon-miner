@@ -22,12 +22,12 @@ if (preg_match("/playerlog.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function playerlog ($db, $dbtables, $sid, $log_type, $data = "")
+function playerlog ($db, $sid, $log_type, $data = "")
 {
     // Write log_entry to the player's log - identified by player's ship_id - sid.
     if ($sid != "" && !empty($log_type))
     {
-        $db->Execute("INSERT INTO $dbtables[logs] VALUES(NULL, $sid, $log_type, NOW(), '$data')");
+        $db->Execute("INSERT INTO {$db->prefix}logs VALUES(NULL, $sid, $log_type, NOW(), '$data')");
     }
 }
 ?>

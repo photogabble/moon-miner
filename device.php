@@ -29,14 +29,14 @@ if (checklogin())
   die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
 bigtitle();
 
 echo $l_device_expl . "<br><br>";
 echo "<table border=0 cellspacing=0 cellpadding=2>";
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_device</b></td><td><b>$l_qty</b></td><td><b>$l_usage</b></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_device</strong></td><td><strong>$l_qty</strong></td><td><strong>$l_usage</strong></td></tr>";
 echo "<tr bgcolor=\"$color_line1\">";
 echo "<td><a href=beacon.php>$l_beacons</A></td><td>" . NUMBER($playerinfo['dev_beacon']) . "</td><td>$l_manual</td>";
 echo "</tr>";
@@ -71,7 +71,5 @@ echo "</table>";
 echo "<br>";
 
 TEXT_GOTOMAIN();
-
 include "footer.php";
-
 ?>

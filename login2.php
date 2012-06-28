@@ -25,7 +25,7 @@ $playerfound = false;
 $email = $_POST['email'];
 $pass = $_POST['pass'];
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$email'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$email'");
 if ($res)
 {
     $playerfound = $res->RecordCount();
@@ -61,7 +61,7 @@ $title = $l_login_title2;
 
 // Check Banned
 $banned = 0;
-$res = $db->Execute("SELECT * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
 if ($res->RecordCount() != 0)
 {
     setcookie("userpass","",0,$gamepath,$gamedomain);
@@ -83,9 +83,9 @@ if ($playerfound)
         if ($playerinfo['ship_destroyed'] == "N")
         {
             // player's ship has not been destroyed
-            playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_LOGIN, $ip);
+            playerlog ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
             $stamp = date("Y-m-d H-i-s");
-            $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
             $_SESSION['logged_in'] = true;
             TEXT_GOTOMAIN();
             echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
@@ -95,7 +95,7 @@ if ($playerfound)
             // player's ship has been destroyed
             if ($playerinfo[dev_escapepod] == "Y")
             {
-                $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
                 $l_login_died = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
                 echo $l_login_died;
             }
@@ -106,13 +106,13 @@ if ($playerfound)
                 // Check if $newbie_nice is set, if so, verify ship limits
                 if ($newbie_nice == "YES")
                 {
-                    $newbie_info = $db->Execute("SELECT hull,engines,power,computer,sensors,armor,shields,beams,torp_launchers,cloak FROM $dbtables[ships] WHERE ship_id='$playerinfo[ship_id]' AND hull<='$newbie_hull' AND engines<='$newbie_engines' AND power<='$newbie_power' AND computer<='$newbie_computer' AND sensors<='$newbie_sensors' AND armor<='$newbie_armor' AND shields<='$newbie_shields' AND beams<='$newbie_beams' AND torp_launchers<='$newbie_torp_launchers' AND cloak<='$newbie_cloak'");
+                    $newbie_info = $db->Execute("SELECT hull,engines,power,computer,sensors,armor,shields,beams,torp_launchers,cloak FROM {$db->prefix}ships WHERE ship_id='$playerinfo[ship_id]' AND hull<='$newbie_hull' AND engines<='$newbie_engines' AND power<='$newbie_power' AND computer<='$newbie_computer' AND sensors<='$newbie_sensors' AND armor<='$newbie_armor' AND shields<='$newbie_shields' AND beams<='$newbie_beams' AND torp_launchers<='$newbie_torp_launchers' AND cloak<='$newbie_cloak'");
                     $num_rows = $newbie_info->RecordCount();
 
                     if ($num_rows)
                     {
                         echo "<br><br>" . $l_login_newbie . "<br><br>";
-                        $db->Execute("UPDATE $dbtables[ships] SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,credits=1000,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
+                        $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,credits=1000,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
 
                         $l_login_newlife = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
                         echo $l_login_newlife;
@@ -134,14 +134,14 @@ if ($playerfound)
     {
         // password is incorrect
         echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . "<a href='mail.php?mail=" . $email . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='login.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
-        playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
-        adminlog($db, $dbtables, (1000 + LOG_BADLOGIN), "{$ip}|{$email}|{$pass}");
+        playerlog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
+        adminlog($db, (1000 + LOG_BADLOGIN), "{$ip}|{$email}|{$pass}");
     }
 }
 else
 {
     $l_login_noone = str_replace("[here]", "<a href='new.php'>" . $l_here . "</a>", $l_login_noone);
-    echo "<b>" . $l_login_noone . "</b><br>";
+    echo "<strong>" . $l_login_noone . "</strong><br>";
 }
 
 include "footer.php";

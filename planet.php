@@ -48,7 +48,7 @@ $planet_id=(int) $_GET['planet_id'];
 bigtitle();
 
 // Get the Player Info
-$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo=$result->fields;
 
 // Empty out Planet and Ship vars
@@ -62,10 +62,10 @@ if ($planet_id <=0)
   die();
 }
 
-$result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 $sectorinfo=$result2->fields;
 
-$result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
 $planetinfo=$result3->fields;
 
 // Check to see if it returned valid planet info.
@@ -82,7 +82,7 @@ if (!empty($planetinfo))
   if ($playerinfo['sector'] != $planetinfo['sector_id'])
   {
     if ($playerinfo['on_planet'] == 'Y')
-      $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     echo "$l_planet_none <p>";
     text_GOTOMAIN();
     include "footer.php";
@@ -101,7 +101,7 @@ if (!empty($planetinfo))
   }
   if ($planetinfo['owner'] != 0)
   {
-    $result3 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=$planetinfo[owner]");
+    $result3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$planetinfo[owner]");
     $ownerinfo = $result3->fields;
   }
   if (empty($command))
@@ -132,9 +132,9 @@ if (!empty($planetinfo))
        {
           if ($playerinfo[dev_genesis] > 0)
           {
-             $update = $db->Execute("delete from $dbtables[planets] where planet_id=$planet_id");
-             $update2=$db->Execute("UPDATE $dbtables[ships] SET turns_used=turns_used+1, turns=turns-1,dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]");
-             $update3=$db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE planet_id=$planet_id");
+             $update = $db->Execute("delete from {$db->prefix}planets where planet_id=$planet_id");
+             $update2=$db->Execute("UPDATE {$db->prefix}ships SET turns_used=turns_used+1, turns=turns-1,dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]");
+             $update3=$db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id=$planet_id");
              calc_ownership($playerinfo[sector]);
              echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
           }
@@ -229,7 +229,7 @@ if (!empty($planetinfo))
       // Change production rates
       echo "<form action=planet.php?planet_id=$planet_id&command=productions method=post>";
       echo "<table border=0 cellspacing=0 cellpadding=2>";
-      echo "<tr bgcolor=\"$color_header\"><td></td><td><b>$l_ore</b></td><td><b>$l_organics</b></td><td><b>$l_goods</b></td><td><b>$l_energy</b></td><td><b>$l_colonists</b></td><td><b>$l_credits</b></td><td><b>$l_fighters</b></td><td><b>$l_torps</td></tr>";
+      echo "<tr bgcolor=\"$color_header\"><td></td><td><strong>$l_ore</strong></td><td><strong>$l_organics</strong></td><td><strong>$l_goods</strong></td><td><strong>$l_energy</strong></td><td><strong>$l_colonists</strong></td><td><strong>$l_credits</strong></td><td><strong>$l_fighters</strong></td><td><strong>$l_torps</td></tr>";
       echo "<tr bgcolor=\"$color_line1\">";
       echo "<td>$l_current_qty</td>";
       echo "<td>" . NUMBER($planetinfo['ore']) . "</td>";
@@ -276,7 +276,7 @@ if (!empty($planetinfo))
 
       $retOwnerInfo = NULL;
 
-      $owner_found = getPlanetOwnerInformation($db, $dbtables, $planetinfo['planet_id'], $retOwnerInfo);
+      $owner_found = getPlanetOwnerInformation($db, $planetinfo['planet_id'], $retOwnerInfo);
       if ($owner_found == true && !is_null($retOwnerInfo))
       {
         if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -305,12 +305,12 @@ if (!empty($planetinfo))
       {
         // Set planet to not sell
         echo "$l_planet_nownosell<br>";
-        $result4 = $db->Execute("UPDATE $dbtables[planets] SET sells='N' WHERE planet_id=$planet_id");
+        $result4 = $db->Execute("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id=$planet_id");
       }
       else
       {
         echo "$l_planet_nowsell<br>";
-        $result4b = $db->Execute ("UPDATE $dbtables[planets] SET sells='Y' WHERE planet_id=$planet_id");
+        $result4b = $db->Execute ("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id=$planet_id");
       }
     }
     elseif ($command == "name")
@@ -327,7 +327,7 @@ if (!empty($planetinfo))
       // Name2 menu
       $new_name = trim(strip_tags($_POST['new_name']));
       $new_name = addslashes($new_name);
-      $result5 = $db->Execute("UPDATE $dbtables[planets] SET name='$new_name' WHERE planet_id=$planet_id");
+      $result5 = $db->Execute("UPDATE {$db->prefix}planets SET name='$new_name' WHERE planet_id=$planet_id");
       $new_name = stripslashes($new_name);
       echo "$l_planet_cname $new_name.";
     }
@@ -335,13 +335,13 @@ if (!empty($planetinfo))
     {
       // Land menu
       echo "$l_planet_landed<br><br>";
-      $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet='Y', planet_id=$planet_id WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='Y', planet_id=$planet_id WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif ($command == "leave")
     {
       // Leave menu
       echo "$l_planet_left<br><br>";
-      $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif ($command == "transfer")
     {
@@ -354,7 +354,7 @@ if (!empty($planetinfo))
       echo "$l_planet_cinfo<br><br>";
       echo "<form action=planet2.php?planet_id=$planet_id method=post>";
       echo "<table WIDTH=\"100%\" border=0 cellspacing=0 cellpadding=0>";
-      echo"<tr bgcolor=\"$color_header\"><td><b>$l_commodity</b></td><td><b>$l_planet</b></td><td><b>$l_ship</b></td><td><b>$l_planet_transfer_link</b></td><td><b>$l_planet_toplanet</b></td><td><b>$l_all?</b></td></tr>";
+      echo"<tr bgcolor=\"$color_header\"><td><strong>$l_commodity</strong></td><td><strong>$l_planet</strong></td><td><strong>$l_ship</strong></td><td><strong>$l_planet_transfer_link</strong></td><td><strong>$l_planet_toplanet</strong></td><td><strong>$l_all?</strong></td></tr>";
       echo"<tr bgcolor=\"$color_line1\"><td>$l_ore</td><td>" . NUMBER($planetinfo['ore']) . "</td><td>" . NUMBER($playerinfo['ship_ore']) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
       echo"<tr bgcolor=\"$color_line2\"><td>$l_organics</td><td>" . NUMBER($planetinfo['organics']) . "</td><td>" . NUMBER($playerinfo['ship_organics']) . "</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=CHECKBOX name=tporganics value=-1></td><td><input type=CHECKBOX name=allorganics value=-1></td></tr>";
       echo"<tr bgcolor=\"$color_line1\"><td>$l_goods</td><td>" . NUMBER($planetinfo['goods']) . "</td><td>" . NUMBER($playerinfo['ship_goods']) . "</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=CHECKBOX name=tpgoods value=-1></td><td><input type=CHECKBOX name=allgoods value=-1></td></tr>";
@@ -377,7 +377,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id && $_SESSION['planet_selected'] != '')
         {
-            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
+            adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -396,11 +396,11 @@ if (!empty($planetinfo))
             else
             {
                 // Create The Base
-                $update1 = $db->Execute("UPDATE $dbtables[planets] SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
+                $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
                 // Update User Turns
-                $update1b = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
+                $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
                 // Refresh Plant Info
-                $result3 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
+                $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
                 $planetinfo=$result3->fields;
                 // Notify User Of Base Results
                 echo "$l_planet_bbuild<br><br>";
@@ -442,7 +442,7 @@ if (!empty($planetinfo))
       }
       else
       {
-        $db->Execute("UPDATE $dbtables[planets] SET prod_ore=$pore,prod_organics=$porganics,prod_goods=$pgoods,prod_energy=$penergy,prod_fighters=$pfighters,prod_torp=$ptorp WHERE planet_id=$planet_id");
+        $db->Execute("UPDATE {$db->prefix}planets SET prod_ore=$pore,prod_organics=$porganics,prod_goods=$pgoods,prod_energy=$penergy,prod_fighters=$pfighters,prod_torp=$ptorp WHERE planet_id=$planet_id");
         echo "$l_planet_p_changed<br><br>";
       }
     }
@@ -458,7 +458,7 @@ if (!empty($planetinfo))
       // Leave menu
       echo "$l_planet_left<br><br>";
 
-      $update = $db->Execute("UPDATE $dbtables[ships] SET on_planet = 'N', planet_id = 0 WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id=$playerinfo[ship_id]");
       $l_global_mmenu=str_replace("[here]","<a href='main.php'>" . $l_here . "</a>",$l_global_mmenu);
       echo $l_global_mmenu . "<br>\n";
       echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">\n";
@@ -496,7 +496,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id)
         {
-            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
+            adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -516,7 +516,7 @@ if (!empty($planetinfo))
         }
 
         $retOwnerInfo = NULL;
-        $owner_found = getPlanetOwnerInformation($db, $dbtables, $planetinfo['planet_id'], $retOwnerInfo);
+        $owner_found = getPlanetOwnerInformation($db, $planetinfo['planet_id'], $retOwnerInfo);
         if ($owner_found == true && !is_null($retOwnerInfo))
         {
             if ($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
@@ -530,7 +530,7 @@ if (!empty($planetinfo))
                 $l_planet_att=str_replace("[attack]",$l_planet_att_link,$l_planet_att);
                 $l_planet_scn_link="<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
                 $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
-                echo "$l_planet_att <b>$l_planet_att_sure</b><br>";
+                echo "$l_planet_att <strong>$l_planet_att_sure</strong><br>";
                 echo "$l_planet_scn<br>";
                 if ($sofa_on) echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
             }
@@ -542,7 +542,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id)
         {
-            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
+            adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -551,7 +551,7 @@ if (!empty($planetinfo))
         unset($_SESSION['planet_selected']);
 
         $retOwnerInfo = NULL;
-        $owner_found = getPlanetOwnerInformation($db, $dbtables, $planetinfo['planet_id'], $retOwnerInfo);
+        $owner_found = getPlanetOwnerInformation($db, $planetinfo['planet_id'], $retOwnerInfo);
         if ($owner_found == true && !is_null($retOwnerInfo))
         {
             if ($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
@@ -584,7 +584,7 @@ if (!empty($planetinfo))
        $l_planet_scn=str_replace("[scan]",$l_planet_scn_link,$l_planet_scn);
       echo "$l_planet_att<br>";
       echo "$l_planet_scn<br>";
-    echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><b>$l_planet_att_sure</b><br>";
+    echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><strong>$l_planet_att_sure</strong><br>";
 
     }
     elseif ($command == "bomb" && $sofa_on)
@@ -597,7 +597,7 @@ if (!empty($planetinfo))
         // Kami Multi Browser Window Attack Fix
         if ($_SESSION['planet_selected'] != $planet_id)
         {
-            adminlog($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
+            adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
             echo "You need to Click on the planet first.<br><br>";
             text_GOTOMAIN();
             include "footer.php";
@@ -629,13 +629,13 @@ if (!empty($planetinfo))
         // If scan fails - inform both player and target.
         echo "$l_planet_noscan<br><br>";
         text_GOTOMAIN();
-        playerlog ($db, $dbtables, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+        playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
         include "footer.php";
         die();
       }
       else
       {
-        playerlog ($db, $dbtables, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+        playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
         // Scramble results by scan error factor.
         $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
         if (empty($planetinfo[name]))
@@ -781,10 +781,10 @@ if (!empty($planetinfo))
 //         $roll=mt_rand(1, 100);
 //         if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //         {
-//           echo "<b>$ownerinfo[character_name] $l_planet_ison</b><br>";
+//           echo "<strong>$ownerinfo[character_name] $l_planet_ison</strong><br>";
 //         }
 
-       $res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE on_planet = 'Y' and planet_id = $planet_id");
+       $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' and planet_id = $planet_id");
 
        while (!$res->EOF)
        {
@@ -802,19 +802,19 @@ if (!empty($planetinfo))
 
          if ($roll < $success)
          {
-           echo "<b>$row[character_name] $l_planet_ison</b><br>";
+           echo "<strong>$row[character_name] $l_planet_ison</strong><br>";
          }
          $res->MoveNext();
        }
         //
 
       }
-      $update = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+      $update = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     }
     elseif ($command == "capture" &&  $planetinfo['owner'] == 0)
     {
       echo "$l_planet_captured<br>";
-      $update = $db->Execute("UPDATE $dbtables[planets] SET corp=0, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
+      $update = $db->Execute("UPDATE {$db->prefix}planets SET corp=0, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
       $ownership = calc_ownership($playerinfo['sector']);
 
         if (!empty($ownership))
@@ -827,20 +827,20 @@ if (!empty($planetinfo))
 
       if ($planetinfo['owner'] != 0)
       {
-        $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$planetinfo[owner]");
+        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$planetinfo[owner]");
         $query = $res->fields;
         $planetowner=$query['character_name'];
       }
       else
         $planetowner="$l_planet_noone";
 
-      playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
+      playerlog ($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
 
     }
     elseif ($command == "capture" &&  ($planetinfo[owner] == 0 || $planetinfo[defeated] == 'Y'))
     {
       echo "$l_planet_notdef<br>";
-      $db->Execute("UPDATE $dbtables[planets] SET defeated='N' WHERE planet_id=$planetinfo[planet_id]");
+      $db->Execute("UPDATE {$db->prefix}planets SET defeated='N' WHERE planet_id=$planetinfo[planet_id]");
     }
     else
     {

@@ -23,13 +23,13 @@ if (preg_match("/sched_turns.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-echo "<b>TURNS</b><br><br>";
+echo "<strong>TURNS</strong><br><br>";
 echo "Adding turns...";
 global $db_logging;
-QUERYOK($db->Execute("UPDATE $dbtables[ships] SET turns = turns + ($turns_per_tick * $multiplier) WHERE turns < $max_turns"));
+QUERYOK($db->Execute("UPDATE {$db->prefix}ships SET turns = turns + ($turns_per_tick * $multiplier) WHERE turns < $max_turns"));
 
 echo "Ensuring maximum turns are $max_turns...";
-QUERYOK($db->Execute("UPDATE $dbtables[ships] SET turns = $max_turns WHERE turns > $max_turns;"));
+QUERYOK($db->Execute("UPDATE {$db->prefix}ships SET turns = $max_turns WHERE turns > $max_turns;"));
 echo "<br>";
 $multiplier = 0;
 ?>

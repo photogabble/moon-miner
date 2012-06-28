@@ -28,12 +28,12 @@ if (checklogin())
     die();
 }
 
-$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $result->fields;
 
 $planet_id = stripnum($planet_id);
 
-$result2 = $db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
 if ($result2)
 {
     $planetinfo = $result2->fields;
@@ -45,7 +45,7 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
     if ($action == "planetcorp")
     {
         echo $l_corpm_tocorp . "<br>";
-        $result = $db->Execute("UPDATE $dbtables[planets] SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
+        $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         $ownership = calc_ownership($playerinfo[sector]);
         if (!empty($ownership))
         {
@@ -56,10 +56,10 @@ if ($planetinfo[owner] == $playerinfo[ship_id] || ($planetinfo[corp] == $playeri
     if ($action == "planetpersonal")
     {
         echo ("$l_corpm_topersonal<br>");
-        $result = $db->Execute("UPDATE $dbtables[planets] SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
+        $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         $ownership = calc_ownership($playerinfo[sector]);
         // Kick other players off the planet
-        $result = $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
+        $result = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
         if (!empty($ownership))
         {
             echo "<p>" . $ownership . "<p>";

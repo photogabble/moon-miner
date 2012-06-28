@@ -22,7 +22,7 @@ include "languages/$lang"; // Current language file (english.inc)
 
 /*
 // New db-driven language entries
-getLanguageVars($db, $dbtables, 'english', array('main', 'common', 'global_includes', 'combat', 'footer'), &$langvars);
+getLanguageVars($db, 'english', array('main', 'common', 'global_includes', 'combat', 'footer'), &$langvars);
 $key = ''; $pairs = '';
 foreach(array_keys($langvars) as $key) {
   $$key = $langvars[$key];
@@ -43,7 +43,7 @@ $basefontsize = 1;
 $stylefontsize = "12Pt";
 $picsperrow = 7;
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -54,13 +54,13 @@ if ($playerinfo['cleared_defences'] > ' ')
     die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['on_planet'] == "Y")
 {
-    $res2 = $db->Execute("SELECT planet_id, owner FROM $dbtables[planets] WHERE planet_id=$playerinfo[planet_id]");
+    $res2 = $db->Execute("SELECT planet_id, owner FROM {$db->prefix}planets WHERE planet_id=$playerinfo[planet_id]");
     db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
     if ($res2->RecordCount() != 0)
     {
@@ -70,12 +70,12 @@ if ($playerinfo['on_planet'] == "Y")
     }
     else
     {
-        $db->Execute("UPDATE $dbtables[ships] SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
+        $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
         echo "<br>$l_nonexistant_pl<br><br>";
     }
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
+$res = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start='$playerinfo[sector]' ORDER BY link_dest ASC");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 $i = 0;
@@ -90,7 +90,7 @@ if ($res != false)
 }
 $num_links = $i;
 
-$res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE sector_id='$playerinfo[sector]'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE sector_id='$playerinfo[sector]'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 $i = 0;
@@ -105,8 +105,8 @@ if ($res != false)
 }
 $num_planets = $i;
 
-$res = $db->Execute("SELECT * FROM $dbtables[sector_defence],$dbtables[ships] WHERE $dbtables[sector_defence].sector_id='$playerinfo[sector]'
-                                                    AND $dbtables[ships].ship_id = $dbtables[sector_defence].ship_id ");
+$res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence,{$db->prefix}ships WHERE {$db->prefix}sector_defence.sector_id='$playerinfo[sector]'
+                                                    AND {$db->prefix}ships.ship_id = {$db->prefix}sector_defence.ship_id ");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 $i = 0;
@@ -121,7 +121,7 @@ if ($res != false)
 }
 $num_defences = $i;
 
-$res = $db->Execute("SELECT zone_id,zone_name FROM $dbtables[zones] WHERE zone_id='$sectorinfo[zone_id]'");
+$res = $db->Execute("SELECT zone_id,zone_name FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 
@@ -137,12 +137,12 @@ $planettypes[2]= "mediumplanet.png";
 $planettypes[3]= "largeplanet.png";
 $planettypes[4]= "hugeplanet.png";
 
-$signame = player_insignia_name ($db, $dbtables, $username);
+$signame = player_insignia_name ($db, $username);
 echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C0; text-align:center; border:#fff 1px solid; padding:4px;'>\n";
 echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$l_aboard}<span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";
 
-$result = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id=? AND notified=?;", array($playerinfo['ship_id'], "N") );
+$result = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id=? AND notified=?;", array($playerinfo['ship_id'], "N") );
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 if ($result->RecordCount() > 0)
 {
@@ -151,7 +151,7 @@ if ($result->RecordCount() > 0)
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 
-    $res = $db->Execute("UPDATE $dbtables[messages] SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
+    $res = $db->Execute("UPDATE {$db->prefix}messages SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 }
 
@@ -199,7 +199,7 @@ echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px;'><img style='border:0px; height:18px; width:8px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><b style='font-size:0.75em; color:#fff;'>$l_commands</b></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>$l_commands</strong></td>\n";
 echo "    <td style='padding:0px; width:8px'><img style='border:0px; height:18px; width:8px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -261,7 +261,7 @@ echo "<br>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top;'>\n";
 echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><b style='font-size:0.75em; color:#fff;'>$l_traderoutes</b></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>$l_traderoutes</strong></td>\n";
 echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -271,7 +271,7 @@ $i = 0;
 $num_traderoutes = 0;
 
 // Port querry
-$query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type=? AND source_id=? AND owner=? ORDER BY dest_id ASC;", array("P", $playerinfo['sector'], $playerinfo['ship_id']) );
+$query = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE source_type=? AND source_id=? AND owner=? ORDER BY dest_id ASC;", array("P", $playerinfo['sector'], $playerinfo['ship_id']) );
 db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 while (!$query->EOF)
 {
@@ -282,7 +282,7 @@ while (!$query->EOF)
 }
 
 // Sector Defense Trade route query - this is still under developement
-$query = $db->Execute("SELECT * FROM $dbtables[traderoutes] WHERE source_type='D' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
+$query = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE source_type='D' AND source_id=$playerinfo[sector] AND owner=$playerinfo[ship_id] ORDER BY dest_id ASC");
 db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 while (!$query->EOF)
 {
@@ -293,7 +293,7 @@ while (!$query->EOF)
 }
 
 // Personal planet traderoute type query
-$query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='L' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
+$query = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type='L' AND source_id={$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id=$playerinfo[sector] AND {$db->prefix}traderoutes.owner=$playerinfo[ship_id]");
 db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 while (!$query->EOF)
 {
@@ -304,7 +304,7 @@ while (!$query->EOF)
 }
 
 // Team planet traderoute type query
-$query = $db->Execute("SELECT * FROM $dbtables[planets], $dbtables[traderoutes] WHERE source_type='C' AND source_id=$dbtables[planets].planet_id AND $dbtables[planets].sector_id=$playerinfo[sector] AND $dbtables[traderoutes].owner=$playerinfo[ship_id]");
+$query = $db->Execute("SELECT * FROM {$db->prefix}planets, {$db->prefix}traderoutes WHERE source_type='C' AND source_id={$db->prefix}planets.planet_id AND {$db->prefix}planets.sector_id=$playerinfo[sector] AND {$db->prefix}traderoutes.owner=$playerinfo[ship_id]");
 db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 while (!$query->EOF)
 {
@@ -337,7 +337,7 @@ else
         }
         else
         {
-            $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=?;", array($traderoutes[$i]['source_id']) );
+            $query = $db->Execute("SELECT name FROM {$db->prefix}planets WHERE planet_id=?;", array($traderoutes[$i]['source_id']) );
             db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
             if (!$query || $query->RecordCount() == 0)
             {
@@ -376,7 +376,7 @@ else
         }
         else
         {
-            $query = $db->Execute("SELECT name FROM $dbtables[planets] WHERE planet_id=" . $traderoutes[$i][dest_id]);
+            $query = $db->Execute("SELECT name FROM {$db->prefix}planets WHERE planet_id=" . $traderoutes[$i][dest_id]);
             db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 
             if (!$query || $query->RecordCount() == 0)
@@ -448,7 +448,7 @@ if ($num_planets > 0)
     {
         if ($planets[$i]['owner'] != 0)
         {
-            $result5 = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id=?;", array($planets[$i]['owner']) );
+            $result5 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($planets[$i]['owner']) );
             db_op_result ($db, $result5, __LINE__, __FILE__, $db_logging);
             $planet_owner = $result5->fields;
             $planetavg = get_avg_tech($planet_owner, "planet");
@@ -538,10 +538,10 @@ echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bol
 if ($playerinfo['sector'] != 0)
 {
     $sql  = null;
-    $sql .= "SELECT $dbtables[ships].*, $dbtables[teams].team_name, $dbtables[teams].id ";
-    $sql .= "FROM $dbtables[ships] LEFT OUTER JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id ";
-    $sql .= "WHERE $dbtables[ships].ship_id<>$playerinfo[ship_id] AND $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
-#    $sql .= "WHERE $dbtables[ships].sector=$playerinfo[sector] AND $dbtables[ships].on_planet='N' ";
+    $sql .= "SELECT {$db->prefix}ships.*, {$db->prefix}teams.team_name, {$db->prefix}teams.id ";
+    $sql .= "FROM {$db->prefix}ships LEFT OUTER JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id ";
+    $sql .= "WHERE {$db->prefix}ships.ship_id<>$playerinfo[ship_id] AND {$db->prefix}ships.sector=$playerinfo[sector] AND {$db->prefix}ships.on_planet='N' ";
+#    $sql .= "WHERE {$db->prefix}ships.sector=$playerinfo[sector] AND {$db->prefix}ships.on_planet='N' ";
     $sql .= "ORDER BY RAND();";
     $result4 = $db->Execute($sql);
     db_op_result ($db, $result4, __LINE__, __FILE__, $db_logging);
@@ -642,12 +642,12 @@ echo "</div>";
 
 if ($num_defences>0)
 {
-    echo "<b>\n";
+    echo "<strong>\n";
     echo "  <center>\n";
     echo "    <span style='color:#fff;'>$l_sector_def</span>\n";
     echo "    <br>\n";
     echo "  </center>\n";
-    echo "</b>\n";
+    echo "</strong>\n";
 }
 ?>
 <table style='border:0px; width:100%;'>
@@ -716,7 +716,7 @@ else
 echo "<table style='width:140px; border:0; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px; text-align:right;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><b>$l_cargo</b></span></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><strong>$l_cargo</strong></span></td>\n";
 echo "    <td style='padding:0px; width:8px; text-align:left;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -766,7 +766,7 @@ echo "</table>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px; text-align:right'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff'><b>$l_realspace</b></span></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff'><strong>$l_realspace</strong></span></td>\n";
 echo "    <td style='padding:0px; width:8px; text-align:left'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -805,7 +805,7 @@ echo "  </tr>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px;margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px; float:right;'><img style='width:8px; height:18px; border:0px; float:right' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><b>$l_main_warpto</b></span></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><strong>$l_main_warpto</strong></span></td>\n";
 echo "    <td style='padding:0px; width:8px; float:left;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";

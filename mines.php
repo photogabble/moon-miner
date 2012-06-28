@@ -28,11 +28,14 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
-$res = $db->Execute("SELECT * from $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+$res = $db->Execute("SELECT * from {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
-$result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id=$playerinfo[sector] ");
+$result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$playerinfo[sector] ");
+db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 //Put the defence information into the array "defenceinfo"
 $i = 0;
 $total_sector_fighters = 0;
@@ -90,7 +93,8 @@ if ($playerinfo[turns]<1)
     include "footer.php";
     die();
 }
-$res = $db->Execute("SELECT allow_defenses,$dbtables[universe].zone_id,owner FROM $dbtables[zones],$dbtables[universe] WHERE sector_id=$playerinfo[sector] AND $dbtables[zones].zone_id=$dbtables[universe].zone_id");
+$res = $db->Execute("SELECT allow_defenses,{$db->prefix}universe.zone_id,owner FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=$playerinfo[sector] AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 if ($zoneinfo[allow_defenses] == 'N')
 {
@@ -103,7 +107,8 @@ else
       if (!$owns_all)
       {
          $defence_owner = $defences[0]['ship_id'];
-         $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$defence_owner");
+         $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$defence_owner");
+         db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
          $fighters_owner = $result2->fields;
 
          if ($fighters_owner[team] != $playerinfo[team] || $playerinfo['team'] == 0)
@@ -118,7 +123,8 @@ else
    if ($zoneinfo[allow_defenses] == 'L')
    {
          $zone_owner = $zoneinfo['owner'];
-         $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$zone_owner");
+         $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$zone_owner");
+         db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
          $zoneowner_info = $result2->fields;
 
          if ($zone_owner <> $playerinfo[ship_id])
@@ -189,12 +195,14 @@ else
      {
         if ($fighter_id != 0)
         {
-           $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity + $numfighters,fm_setting = '$mode' where defence_id = $fighter_id");
+           $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity + $numfighters,fm_setting = '$mode' where defence_id = $fighter_id");
+           db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
         }
         else
         {
 
-           $update = $db->Execute("INSERT INTO $dbtables[sector_defence] (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
+           $update = $db->Execute("INSERT INTO {$db->prefix}sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
+           db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
            echo $db->ErrorMsg();
         }
      }
@@ -202,17 +210,18 @@ else
      {
         if ($mine_id != 0)
         {
-           $update = $db->Execute("UPDATE $dbtables[sector_defence] set quantity=quantity + $nummines,fm_setting = '$mode' where defence_id = $mine_id");
+           $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity + $nummines,fm_setting = '$mode' where defence_id = $mine_id");
+           db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
         }
         else
         {
-           $update = $db->Execute("INSERT INTO $dbtables[sector_defence] (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
-
+           $update = $db->Execute("INSERT INTO {$db->prefix}sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
+           db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
         }
      }
 
-     $update = $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
-
+     $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
+     db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
   }
 }
 

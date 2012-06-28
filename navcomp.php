@@ -47,12 +47,12 @@ $state = $_REQUEST['state'];
 
 unset($stop_sector);
 
-$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $result->fields;
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
-$result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$current_sector'");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$current_sector'");
 $sectorinfo = $result2->fields;
 
 // Gets the stop_sector POST Variable.
@@ -64,7 +64,7 @@ if (isset($_POST['stop_sector']))
     $stop_sector = $_POST['stop_sector'];
     if (!is_numeric($stop_sector))
     {
-        adminlog($db, $dbtables, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
+        adminlog($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
         TEXT_GOTOMAIN();
@@ -117,11 +117,11 @@ elseif ($state == 1)
             $search_query = $search_query . "    ,a". $i . ".link_dest ";
         }
 
-        $search_query = $search_query . "FROM     $dbtables[links] AS a1 ";
+        $search_query = $search_query . "FROM     {$db->prefix}links AS a1 ";
 
         for ($i = 2; $i<=$search_depth;$i++)
         {
-            $search_query = $search_query . "    ,$dbtables[links] AS a". $i . " ";
+            $search_query = $search_query . "    ,{$db->prefix}links AS a". $i . " ";
         }
 
         $search_query = $search_query . "WHERE         a1.link_start = $current_sector ";

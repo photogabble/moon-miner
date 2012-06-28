@@ -36,9 +36,9 @@ function QUERYOK ($res)
 
 function get_player_name ($userid)
 {
-    global $db, $dbtables;
+    global $db;
 
-    $query = $db->Execute ("select character_name from $dbtables[ships] where ship_id='$userid'");
+    $query = $db->Execute ("select character_name from {$db->prefix}ships where ship_id='$userid'");
     $name = $query->fields;
 
     return $name['character_name'];

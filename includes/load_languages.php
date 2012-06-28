@@ -22,7 +22,7 @@ if (preg_match("/getLanguageVars.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function getLanguageVars ($db = NULL, $dbtables, $language = NULL, $categories = NULL, &$langvars = NULL)
+function getLanguageVars ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
 {
     // Check if all supplied args are valid, if not return false.
     if (is_null($db) || is_null($language) || !is_array($categories))
@@ -32,7 +32,7 @@ function getLanguageVars ($db = NULL, $dbtables, $language = NULL, $categories =
 
     foreach ($categories as $category)
     {
-        $result = $db->CacheGetAll("SELECT name, value FROM $dbtables[languages] WHERE category=? AND language=?;", array($category, $language));
+        $result = $db->CacheGetAll("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array($category, $language));
         foreach($result as $key=>$value)
         {
             # Now cycle through returned array and add into langvars.

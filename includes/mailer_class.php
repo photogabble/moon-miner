@@ -511,11 +511,11 @@ class Mailer
         $debugMsg = addslashes(serialize($this->debugMessage));
         $debugErr = addslashes(serialize($this->errorMessage));
         $time = time();
-        $ret = adminlog($db, $dbtables, 3001, "{$debugMsg}|{$debugErr}|{$_SERVER['REMOTE_ADDR']}|{$time}");
+        $ret = adminlog($db, 3001, "{$debugMsg}|{$debugErr}|{$_SERVER['REMOTE_ADDR']}|{$time}");
 
         if ($ret == false)
         {
-            adminlog($db, $dbtables, 3002, "Err: {$db->ErrorNo()}: {$db->ErrorMsg()}|".time());
+            adminlog($db, 3002, "Err: {$db->ErrorNo()}: {$db->ErrorMsg()}|".time());
         }
 
     }

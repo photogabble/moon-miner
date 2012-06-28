@@ -24,13 +24,12 @@ if (preg_match("/adminlog.php/i", $_SERVER['PHP_SELF'])) {
 
 function adminlog ($db, $dbtype, $log_type, $data = "")
 {
-    global $dbtables;
     // Write log_entry to the admin log
     $ret = (boolean) false;
     $data = addslashes ($data);
     if (!empty($log_type))
     {
-        $ret = $db->Execute("INSERT INTO $dbtables[logs] VALUES(NULL, 0, $log_type, NOW(), '$data')");
+        $ret = $db->Execute("INSERT INTO {$db->prefix}logs VALUES(NULL, 0, $log_type, NOW(), '$data')");
     }
 
     if (!$ret)

@@ -31,7 +31,7 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
 if (!isset($_GET['action']))
@@ -41,17 +41,17 @@ if (!isset($_GET['action']))
 
 if ($_GET['action']=="delete")
 {
-    $db->Execute("DELETE FROM $dbtables[messages] WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
+    $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
 }
 else if ($_GET['action']=="delete_all")
 {
-    $db->Execute("DELETE FROM $dbtables[messages] WHERE recp_id='".$playerinfo[ship_id]."'");
+    $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id='".$playerinfo[ship_id]."'");
 }
 
 $cur_D = date("Y-m-d");
 $cur_T = date("H:i:s");
 
-$res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playerinfo['ship_id']."' ORDER BY sent DESC");
+$res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id='".$playerinfo['ship_id']."' ORDER BY sent DESC");
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
@@ -65,7 +65,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="75%" align="left"><font color="white" size="2"><b><? echo $l_readm_center ?> (<span style='color:#00C0C0;'>Subspace</span>)</b></font></td>
+                      <td width="75%" align="left"><font color="white" size="2"><strong><? echo $l_readm_center ?> (<span style='color:#00C0C0;'>Subspace</span>)</strong></font></td>
                       <td width="21%" align="center" nowrap><font color="white" size="2"><?echo "$cur_D" ?>&nbsp;<?echo "$cur_T" ?></font></td>
                       <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
@@ -98,7 +98,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
   while (!$res->EOF)
   {
    $msg = $res->fields;
-   $result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE ship_id='".$msg[sender_id]."'");
+   $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='".$msg[sender_id]."'");
    $sender = $result->fields;
    $isAdmin = isAdmin($sender);
 ?>
@@ -110,7 +110,7 @@ $res = $db->Execute("SELECT * FROM $dbtables[messages] WHERE recp_id='".$playeri
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%" style="text-align:left;"><font color="white" size="2"><b><? echo $l_readm_sender; ?></b></td>
+                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><? echo $l_readm_sender; ?></strong></td>
                       <td width="55%" style="text-align:left;"><font color="yellow" size="2">
 <?php
 echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
@@ -132,7 +132,7 @@ if ($isAdmin === true)
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%" style="text-align:left;"><font color="white" size="2"><b><? echo $l_readm_captn ?></b></font></td>
+                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><? echo $l_readm_captn ?></strong></font></td>
                       <td width="80%" style="text-align:left;"><font color="yellow" size="2"><? echo $sender[ship_name] ?></font></td>
                     </tr>
                   </table>
@@ -144,8 +144,8 @@ if ($isAdmin === true)
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%" style="text-align:left;"><font color="white" size="2"><b>Subject</b></font></td>
-                      <td width="80%" style="text-align:left;"><b><font color="yellow" size="2"><? echo $msg[subject]; ?></font></b></td>
+                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong>Subject</strong></font></td>
+                      <td width="80%" style="text-align:left;"><strong><font color="yellow" size="2"><? echo $msg[subject]; ?></font></strong></td>
                     </tr>
                   </table>
                 </div>

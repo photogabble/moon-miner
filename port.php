@@ -28,7 +28,7 @@ if (checklogin () )
     die();
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -36,65 +36,65 @@ $playerinfo = $res->fields;
 
 if ($playerinfo['ship_ore'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_ore=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_ore=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_ore'] = 0;
 }
 
 if ($playerinfo['ship_organics'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_organics=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_organics=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_organics'] = 0;
 }
 
 if ($playerinfo['ship_energy'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_energy=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_energy'] = 0;
 }
 
 if ($playerinfo['ship_goods'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[ships] set ship_goods=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_goods=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_goods'] = 0;
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
 
 if ($sectorinfo['port_ore'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[universe] set port_ore=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_ore=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_ore'] = 0;
 }
 
 if ($sectorinfo['port_goods'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[universe] set port_goods=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_goods=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_goods'] = 0;
 }
 
 if ($sectorinfo['port_organics'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[universe] set port_organics=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_organics=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_organics'] = 0;
 }
 
 if ($sectorinfo['port_energy'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE $dbtables[universe] set port_energy=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_energy=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_energy'] = 0;
 }
 
-$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$sectorinfo[zone_id]");
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=$sectorinfo[zone_id]");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 
@@ -121,7 +121,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
 {
     if ($zoneinfo['corp_zone'] == 'N')
     {
-        $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
+        $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=$zoneinfo[owner]");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         $ownerinfo = $res->fields;
 
@@ -301,12 +301,12 @@ elseif ($sectorinfo['port_type'] == "special")
 
     if ($bounty_all_special == true)
     {
-        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM $dbtables[bounty] WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id];");
+        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id];");
         db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
     }
     else
     {
-        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM $dbtables[bounty] WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id] AND {$sectorinfo[zone_id]}=2;");
+        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id] AND {$sectorinfo[zone_id]}=2;");
         db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
     }
 
@@ -315,7 +315,7 @@ elseif ($sectorinfo['port_type'] == "special")
         $bty = $res2->fields;
         if ($bty['total_bounty'] > 0)
         {
-            $bank_sql = "SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id = $playerinfo[ship_id]";
+            $bank_sql = "SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = $playerinfo[ship_id]";
             $bank_res = $db->Execute($bank_sql);
             db_op_result ($db, $bank_res, __LINE__, __FILE__, $db_logging);
             $bank_row = $bank_res->fields;
@@ -331,9 +331,9 @@ elseif ($sectorinfo['port_type'] == "special")
                 }
                 else
                 {
-                    $resx = $db->Execute("UPDATE $dbtables[ships] SET credits=credits-$bty[total_bounty] WHERE ship_id = $playerinfo[ship_id]");
+                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-$bty[total_bounty] WHERE ship_id = $playerinfo[ship_id]");
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-                    $resx = $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+                    $resx = $db->Execute("DELETE from {$db->prefix}bounty WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     $l_port_bountypaid = str_replace ("[here]","<a href='port.php'>" . $l_here . "</a>",$l_port_bountypaid);
                     echo $l_port_bountypaid . "<br>";
@@ -342,7 +342,7 @@ elseif ($sectorinfo['port_type'] == "special")
             }
             elseif (isset($pay) && $pay == 2)
             {
-                $bank_sql = "SELECT * FROM $dbtables[ibank_accounts] WHERE ship_id = $playerinfo[ship_id]";
+                $bank_sql = "SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = $playerinfo[ship_id]";
                 $bank_res = $db->Execute($bank_sql);
                 db_op_result ($db, $bank_res, __LINE__, __FILE__, $db_logging);
                 $bank_row = $bank_res->fields;
@@ -361,10 +361,10 @@ elseif ($sectorinfo['port_type'] == "special")
 
                         $bounty_payment = $bty['total_bounty'];
 
-                        $resx = $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
+                        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 
-                        $resx = $db->Execute("DELETE from $dbtables[bounty] WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+                        $resx = $db->Execute("DELETE from {$db->prefix}bounty WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 
                         echo $l_port_bountypaid . "<br>";
@@ -379,9 +379,9 @@ elseif ($sectorinfo['port_type'] == "special")
                         echo "And your first instalment will be " . NUMBER ($bounty_payment)." credits.<br>\n";
                         echo "<br>\n";
 
-                        $resx = $db->Execute("UPDATE $dbtables[ibank_accounts] SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
+                        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance-$bounty_payment WHERE ship_id = $playerinfo[ship_id]");
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-                        $resx = $db->Execute("UPDATE $dbtables[bounty] SET amount = amount - $bounty_payment  WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
+                        $resx = $db->Execute("UPDATE {$db->prefix}bounty SET amount = amount - $bounty_payment  WHERE bounty_on = $playerinfo[ship_id] AND placed_by = 0");
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                         echo "You have paid part of the bounty.<br>\n";
                         echo "<br>\n";

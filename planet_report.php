@@ -37,7 +37,7 @@ if (!isset($_GET['PRepType']))
 $PRepType = $_GET['PRepType'];
 
 // Get data about planets
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
@@ -74,16 +74,16 @@ function planet_report_menu ()
 
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 
-    echo "<b><a href=planet_report.php?PRepType=1 name=Planet Status>Planet Status</a></b><br>" .
+    echo "<strong><a href=planet_report.php?PRepType=1 name=Planet Status>Planet Status</a></strong><br>" .
          "Displays the number of each Commodity on the planet (Ore, Organics, Goods, Energy, Colonists, Credits, Fighters, and Torpedoes)<br>" .
          "<br>" .
-         "<b><a href=planet_report.php?PRepType=2 name=Planet Status>Change Production</a></b> &nbsp;&nbsp; <b>Base Required</b> on Planet<br>" .
+         "<strong><a href=planet_report.php?PRepType=2 name=Planet Status>Change Production</a></strong> &nbsp;&nbsp; <strong>Base Required</strong> on Planet<br>" .
          "This Report allows you to change the rate of production of commondits on planets that have a base<br>" .
          "-- You must travel to the planet to build a base set the planet to coporate or change the name (celebrations and such)<br>";
 
     if ($playerinfo['team'] > 0)
     {
-        echo "<br><b><a href=team_planets.php>$l_pr_teamlink</a></b><br> " .
+        echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> " .
              "Commondity Report (like Planet Status) for planets marked Corporate by you and/or your fellow team member<br><br>";
     }
     echo "</div>\n";
@@ -94,7 +94,6 @@ function standard_report ()
     global $db;
     global $res;
     global $playerinfo;
-    global $dbtables;
     global $username;
     global $sort;
     global $query;
@@ -105,15 +104,15 @@ function standard_report ()
 
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 
-    echo "Planetary report descriptions and <b><a href=planet_report.php?PRepType=0>menu</a></b><br><br>" .
-         "<b><a href=planet_report.php?PRepType=2>Change Production</a></b> &nbsp;&nbsp; <b>Base Required</b> on Planet<br>";
+    echo "Planetary report descriptions and <strong><a href=planet_report.php?PRepType=0>menu</a></strong><br><br>" .
+         "<strong><a href=planet_report.php?PRepType=2>Change Production</a></strong> &nbsp;&nbsp; <strong>Base Required</strong> on Planet<br>";
 
     if ($playerinfo['team'] > 0)
     {
-        echo "<br><b><a href=team_planets.php>$l_pr_teamlink</a></b><br> <br>";
+        echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> <br>";
     }
 
-    $query = "SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id]";
+    $query = "SELECT * FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id]";
 
     if (!empty($sort))
     {
@@ -166,26 +165,26 @@ function standard_report ()
 
         // Next block of echo's creates the header of the table
         echo $l_pr_clicktosort . "<br><br>";
-        echo "<b>WARNING:</b> \"Build\" and \"Take Credits\" will cause your ship to move. <br><br>";
+        echo "<strong>WARNING:</strong> \"Build\" and \"Take Credits\" will cause your ship to move. <br><br>";
         echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
         echo "<tr bgcolor=\"$color_header\" valign=bottom>";
-        echo "<td><b><a href=planet_report.php?PRepType=1&sort=sector_id>" . $l_sector . "</a></b></td>";
-        echo "<td><b><a href=planet_report.php?PRepType=1&sort=name>" . $l_name . "</a></b></td>";
-        echo "<td><b><a href=planet_report.php?PRepType=1&sort=ore>" . $l_ore . "</a></b></td>";
-        echo "<td><b><a href=planet_report.php?PRepType=1&sort=organics>" . $l_organics ."</a></b></td>";
-        echo "<td><b><a href=planet_report.php?PRepType=1&sort=goods>" . $l_goods . "</a></b></td>";
-        echo "<td><b><a href=planet_report.php?PRepType=1&sort=energy>" . $l_energy . "</a></b></td>";
-        echo "<td align=center><b><a href=planet_report.php?PRepType=1&sort=colonists>" . $l_colonists . "</a></b></td>";
-        echo "<td align=center><b><a href=planet_report.php?PRepType=1&sort=credits>" . $l_credits . "</a></b></td>";
-        echo "<td align=center><b>Take<br>Credits</b></td>";
-        echo "<td align=center><b><a href=planet_report.php?PRepType=1&sort=fighters>" . $l_fighters . "</a></b></td>";
-        echo "<td align=center><b><a href=planet_report.php?PRepType=1&sort=torp>" . $l_torps . "</a></b></td>";
-        echo "<td align=right><b>" . $l_base . "?</b></td>";
+        echo "<td><strong><a href=planet_report.php?PRepType=1&sort=sector_id>" . $l_sector . "</a></strong></td>";
+        echo "<td><strong><a href=planet_report.php?PRepType=1&sort=name>" . $l_name . "</a></strong></td>";
+        echo "<td><strong><a href=planet_report.php?PRepType=1&sort=ore>" . $l_ore . "</a></strong></td>";
+        echo "<td><strong><a href=planet_report.php?PRepType=1&sort=organics>" . $l_organics ."</a></strong></td>";
+        echo "<td><strong><a href=planet_report.php?PRepType=1&sort=goods>" . $l_goods . "</a></strong></td>";
+        echo "<td><strong><a href=planet_report.php?PRepType=1&sort=energy>" . $l_energy . "</a></strong></td>";
+        echo "<td align=center><strong><a href=planet_report.php?PRepType=1&sort=colonists>" . $l_colonists . "</a></strong></td>";
+        echo "<td align=center><strong><a href=planet_report.php?PRepType=1&sort=credits>" . $l_credits . "</a></strong></td>";
+        echo "<td align=center><strong>Take<br>Credits</strong></td>";
+        echo "<td align=center><strong><a href=planet_report.php?PRepType=1&sort=fighters>" . $l_fighters . "</a></strong></td>";
+        echo "<td align=center><strong><a href=planet_report.php?PRepType=1&sort=torp>" . $l_torps . "</a></strong></td>";
+        echo "<td align=right><strong>" . $l_base . "?</strong></td>";
         if ($playerinfo['team'] > 0)
         {
-            echo "<td align=right><b>Corp?</b></td>";
+            echo "<td align=right><strong>Corp?</strong></td>";
         }
-        echo "<td align=right><b>$l_selling?</b></td>";
+        echo "<td align=right><strong>$l_selling?</strong></td>";
 
         // Next block of echo's fils the table and calculates the totals of all the commoditites as well as counting the bases and selling planets
         echo "</tr>";
@@ -293,7 +292,6 @@ function planet_production_change()
     global $db;
     global $res;
     global $playerinfo;
-    global $dbtables;
     global $username;
     global $sort;
     global $query;
@@ -303,15 +301,15 @@ function planet_production_change()
     global $l_sector, $l_name, $l_unnamed, $l_ore, $l_organics, $l_goods, $l_energy, $l_colonists, $l_credits, $l_fighters;
     global $l_torps, $l_base, $l_selling, $l_pr_totals, $l_yes, $l_no;
 
-    $query = "SELECT * FROM $dbtables[planets] WHERE owner=$playerinfo[ship_id] AND base='Y'";
+    $query = "SELECT * FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND base='Y'";
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 
-    echo "Planetary report <b><a href=planet_report.php?PRepType=0>menu</a></b><br><br>" .
-         "<b><a href=planet_report.php?PRepType=1>Planet Status</a></b><br>";
+    echo "Planetary report <strong><a href=planet_report.php?PRepType=0>menu</a></strong><br><br>" .
+         "<strong><a href=planet_report.php?PRepType=1>Planet Status</a></strong><br>";
 
     if ($playerinfo['team'] > 0)
     {
-        echo "<br><b><a href=team_planets.php>$l_pr_teamlink</a></b><br> <br>";
+        echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> <br>";
     }
 
     if (!empty($sort))
@@ -369,22 +367,22 @@ function planet_production_change()
         echo "$l_pr_clicktosort<br><br>\n";
         echo "<table width='100%' border='0' cellspacing='0' cellpadding='2'>\n";
         echo "<tr bgcolor='{$color_header}' valign='bottom'>\n";
-        echo "<td align='left'>  <b><a href='planet_report.php?PRepType=2&sort=sector_id'>$l_sector</a></b></td>\n";
-        echo "<td align='left'>  <b><a href='planet_report.php?PRepType=2&sort=name'>$l_name</a></b></td>\n";
-        echo "<td align='center'><b><a href='planet_report.php?PRepType=2&sort=ore'>$l_ore</a></b></td>\n";
-        echo "<td align='center'><b><a href='planet_report.php?PRepType=2&sort=organics'>$l_organics</a></b></td>\n";
-        echo "<td align='center'><b><a href='planet_report.php?PRepType=2&sort=goods'>$l_goods</a></b></td>\n";
-        echo "<td align='center'><b><a href='planet_report.php?PRepType=2&sort=energy'>$l_energy</a></b></td>\n";
-        echo "<td align='right'> <b><a href='planet_report.php?PRepType=2&sort=colonists'>$l_colonists</a></b></td>\n";
-        echo "<td align='right'> <b><a href='planet_report.php?PRepType=2&sort=credits'>$l_credits</a></b></td>\n";
-        echo "<td align='center'><b><a href='planet_report.php?PRepType=2&sort=fighters'>$l_fighters</a></b></td>\n";
-        echo "<td align='center'><b><a href='planet_report.php?PRepType=2&sort=torp'>$l_torps</a></b></td>\n";
-        //    echo "<td align='center'><b>$l_base?</b></td>\n";
+        echo "<td align='left'>  <strong><a href='planet_report.php?PRepType=2&sort=sector_id'>$l_sector</a></strong></td>\n";
+        echo "<td align='left'>  <strong><a href='planet_report.php?PRepType=2&sort=name'>$l_name</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?PRepType=2&sort=ore'>$l_ore</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?PRepType=2&sort=organics'>$l_organics</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?PRepType=2&sort=goods'>$l_goods</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?PRepType=2&sort=energy'>$l_energy</a></strong></td>\n";
+        echo "<td align='right'> <strong><a href='planet_report.php?PRepType=2&sort=colonists'>$l_colonists</a></strong></td>\n";
+        echo "<td align='right'> <strong><a href='planet_report.php?PRepType=2&sort=credits'>$l_credits</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?PRepType=2&sort=fighters'>$l_fighters</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?PRepType=2&sort=torp'>$l_torps</a></strong></td>\n";
+        //    echo "<td align='center'><strong>$l_base?</strong></td>\n";
         if ($playerinfo['team'] > 0)
         {
-            echo "<td align='center'><b>Corp?</b></td>\n";
+            echo "<td align='center'><strong>Corp?</strong></td>\n";
         }
-        echo "<td align='center'><b>$l_selling?</b></td>\n";
+        echo "<td align='center'><strong>$l_selling?</strong></td>\n";
         echo "</tr>\n";
 
         $total_colonists = 0;

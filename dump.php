@@ -28,10 +28,10 @@ if (checklogin())
     die();
 }
 
-$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id=$playerinfo[sector]");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 $sectorinfo = $result2->fields;
 bigtitle();
 
@@ -49,7 +49,7 @@ if ($playerinfo['ship_colonists']==0)
 }
 elseif ($sectorinfo[port_type]=="special")
 {
-    $update = $db->Execute("UPDATE $dbtables[ships] SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $update = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     echo $l_dump_dumped . "<br><br>";
 }
 else

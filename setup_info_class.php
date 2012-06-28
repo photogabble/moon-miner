@@ -259,14 +259,15 @@ class SETUPINFO_CLASS
 
     function validate_database()
     {
-        global $db, $dbtables;
+        global $db;
         $db_info = null;
 
         if ($this->switches['Enable_Database']['enabled']==true)
         {
             if ($db)
             {
-                $db_info['status'] = "Setup Info has found ".count($dbtables)." tables in the Tables List.";
+                  // This currently doesn't work, I'll have to code a replacement later
+/*                $db_info['status'] = "Setup Info has found ".count($dbtables)." tables in the Tables List.";
 
                 foreach ($dbtables as $k => $v)
                 {
@@ -288,7 +289,7 @@ class SETUPINFO_CLASS
                         $db_info[$k]['status']="Passed";
                         $db_info[$k]['info']="Found $count records in the $k table.";
                     }
-                }
+                }*/
             }
             else
             {
@@ -789,7 +790,7 @@ class SETUPINFO_CLASS
         $this->DisplayFlush("  <table border=\"0\" cellpadding=\"2\" cellspacing=\"1\" width=\"700\" bgcolor=\"#000\">\n");
         $this->DisplayFlush("    <tr>\n");
         $this->DisplayFlush("      <td width=\"100%\" colspan=\"$Cols\" align=\"center\" bgcolor=\"#99c\">\n");
-        $this->DisplayFlush("        <p align=\"center\"><b><font color=\"#000\">$title</font></b></td>\n");
+        $this->DisplayFlush("        <p align=\"center\"><strong><font color=\"#000\">$title</font></strong></td>\n");
         $this->DisplayFlush("    </tr>\n");
     }
 
@@ -842,7 +843,7 @@ class SETUPINFO_CLASS
             $this->DisplayFlush("    <tr>\n");
             $this->DisplayFlush("      <td width=\"25%\" bgcolor=\"#ccf\"$WrapStr align=\"left\" valign=\"top\"><font size=\"1\" color=\"#000\">$col1</font></td>\n");
             $this->DisplayFlush("      <td width=\"65%\" bgcolor=\"#C0C0C0\"$WrapStr align=\"left\" valign=\"top\"><font size=\"1\" color=\"#000\">$col2</font></td>\n");
-            $this->DisplayFlush("      <td width=\"10%\" bgcolor=\"#ccf\" align=\"center\"$WrapStr valign=\"top\"><font size=\"1\" color=\"#000\"><b>$status</b></font></td>\n");
+            $this->DisplayFlush("      <td width=\"10%\" bgcolor=\"#ccf\" align=\"center\"$WrapStr valign=\"top\"><font size=\"1\" color=\"#000\"><strong>$status</strong></font></td>\n");
             $this->DisplayFlush("    </tr>\n");
         }
     }

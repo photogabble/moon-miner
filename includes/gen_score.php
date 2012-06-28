@@ -24,7 +24,7 @@ if (preg_match("/gen_score.php/i", $_SERVER['PHP_SELF'])) {
 
 function gen_score ($sid)
 {
-    global $dbtables,$db;
+    global $db;
     global $upgrade_factor;
     global $upgrade_cost;
     global $torpedo_price;
@@ -60,7 +60,7 @@ function gen_score ($sid)
     $calc_cloak          = "ROUND(pow($upgrade_factor,cloak))";
     $calc_levels         = "($calc_hull + $calc_engines + $calc_power + $calc_computer + $calc_sensors + $calc_beams + $calc_torp_launchers + $calc_shields + $calc_armor + $calc_cloak) * $upgrade_cost";
 
-    $calc_torps          = "$dbtables[ships].torps * $torpedo_price";
+    $calc_torps          = "{$db->prefix}ships.torps * $torpedo_price";
     $calc_armor_pts      = "armor_pts * $armor_price";
     $calc_ship_ore       = "ship_ore * $ore_price";
     $calc_ship_organics  = "ship_organics * $organics_price";
@@ -80,15 +80,15 @@ function gen_score ($sid)
     $calc_dev_minedeflector = "dev_minedeflector * $dev_minedeflector_price";
     $calc_dev               = "$calc_dev_warpedit + $calc_dev_genesis + $calc_dev_beacon + $calc_dev_emerwarp + $calc_dev_escapepod + $calc_dev_fuelscoop + $calc_dev_minedeflector + $calc_dev_lssd";
 
-    $calc_planet_goods      = "SUM($dbtables[planets].organics) * $organics_price + SUM($dbtables[planets].ore) * $ore_price + SUM($dbtables[planets].goods) * $goods_price + SUM($dbtables[planets].energy) * $energy_price";
-    $calc_planet_colonists  = "SUM($dbtables[planets].colonists) * $colonist_price";
-    $calc_planet_defence    = "SUM($dbtables[planets].fighters) * $fighter_price + if ($dbtables[planets].base='Y', $base_credits + SUM($dbtables[planets].torps) * $torpedo_price, 0)";
-    $calc_planet_credits    = "SUM($dbtables[planets].credits)";
+    $calc_planet_goods      = "SUM({$db->prefix}planets.organics) * $organics_price + SUM({$db->prefix}planets.ore) * $ore_price + SUM({$db->prefix}planets.goods) * $goods_price + SUM({$db->prefix}planets.energy) * $energy_price";
+    $calc_planet_colonists  = "SUM({$db->prefix}planets.colonists) * $colonist_price";
+    $calc_planet_defence    = "SUM({$db->prefix}planets.fighters) * $fighter_price + if ({$db->prefix}planets.base='Y', $base_credits + SUM({$db->prefix}planets.torps) * $torpedo_price, 0)";
+    $calc_planet_credits    = "SUM({$db->prefix}planets.credits)";
 
-    $res = $db->Execute("SELECT $calc_levels+$calc_equip+$calc_dev+$dbtables[ships].credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits AS score FROM $dbtables[ships] LEFT JOIN $dbtables[planets] ON $dbtables[planets].owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+    $res = $db->Execute("SELECT $calc_levels+$calc_equip+$calc_dev+{$db->prefix}ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits AS score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
     $row = $res->fields;
     $score = $row['score'];
-    $res = $db->Execute("SELECT balance, loan FROM $dbtables[ibank_accounts] where ship_id = $sid");
+    $res = $db->Execute("SELECT balance, loan FROM {$db->prefix}ibank_accounts where ship_id = $sid");
     if ($res)
     {
         $row = $res->fields;
@@ -101,7 +101,7 @@ function gen_score ($sid)
     }
 
     $score = ROUND(SQRT($score));
-    $db->Execute("UPDATE $dbtables[ships] SET score=$score WHERE ship_id=$sid");
+    $db->Execute("UPDATE {$db->prefix}ships SET score=$score WHERE ship_id=$sid");
 
     return $score;
 }

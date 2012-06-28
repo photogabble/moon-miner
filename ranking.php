@@ -26,7 +26,7 @@ $title = $l_ranks_title;
 include "header.php";
 bigtitle();
 
-$res = $db->Execute("SELECT COUNT(*) AS num_players FROM $dbtables[ships] WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe'");
+$res = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe'");
 $row = $res->fields;
 $num_players = $row['num_players'];
 
@@ -54,7 +54,7 @@ elseif ($sort=="bad")
 }
 elseif ($sort=="team")
 {
-    $by="$dbtables[teams].team_name DESC, character_name ASC";
+    $by="{$db->prefix}teams.team_name DESC, character_name ASC";
 }
 elseif ($sort=="efficiency")
 {
@@ -65,7 +65,7 @@ else
     $by="score DESC,character_name ASC";
 }
 
-$res = $db->Execute("SELECT $dbtables[ships].email,$dbtables[ships].score,$dbtables[ships].character_name,$dbtables[ships].turns_used,$dbtables[ships].last_login,UNIX_TIMESTAMP($dbtables[ships].last_login) as online,$dbtables[ships].rating, $dbtables[teams].team_name, if ($dbtables[ships].turns_used<150,0,ROUND($dbtables[ships].score/$dbtables[ships].turns_used)) AS efficiency FROM $dbtables[ships] LEFT JOIN $dbtables[teams] ON $dbtables[ships].team = $dbtables[teams].id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' ORDER BY $by LIMIT $max_ranks");
+$res = $db->Execute("SELECT {$db->prefix}ships.email,{$db->prefix}ships.score,{$db->prefix}ships.character_name,{$db->prefix}ships.turns_used,{$db->prefix}ships.last_login,UNIX_TIMESTAMP({$db->prefix}ships.last_login) as online,{$db->prefix}ships.rating, {$db->prefix}teams.team_name, if ({$db->prefix}ships.turns_used<150,0,ROUND({$db->prefix}ships.score/{$db->prefix}ships.turns_used)) AS efficiency FROM {$db->prefix}ships LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' ORDER BY $by LIMIT $max_ranks");
 
 if (!$res)
 {
@@ -76,7 +76,7 @@ else
     echo "<br>$l_ranks_pnum: " . NUMBER($num_players);
     echo "<br>$l_ranks_dships<br><br>";
     echo "<table border=0 cellspacing=0 cellpadding=2>";
-    echo "<tr bgcolor=\"$color_header\"><td><b>$l_ranks_rank</b></td><td><b><a href=\"ranking.php\">$l_score</A></b></td><td><b>$l_player</b></td><td><b><a href=\"ranking.php?sort=turns\">$l_turns_used</A></b></td><td><b><a href=\"ranking.php?sort=login\">$l_ranks_lastlog</A></b></td><td><b><a href=\"ranking.php?sort=good\">$l_ranks_good</A>/<a href=\"ranking.php?sort=bad\">$l_ranks_evil</A></b></td><td><b><a href=\"ranking.php?sort=team\">$l_team_team</A></b></td><td><b><a href=\"ranking.php?sort=online\">Online</A></b></td><td><b><a href=\"ranking.php?sort=efficiency\">Eff. Rating.</A></b></td></tr>\n";
+    echo "<tr bgcolor=\"$color_header\"><td><strong>$l_ranks_rank</strong></td><td><strong><a href=\"ranking.php\">$l_score</A></strong></td><td><strong>$l_player</strong></td><td><strong><a href=\"ranking.php?sort=turns\">$l_turns_used</A></strong></td><td><strong><a href=\"ranking.php?sort=login\">$l_ranks_lastlog</A></strong></td><td><strong><a href=\"ranking.php?sort=good\">$l_ranks_good</A>/<a href=\"ranking.php?sort=bad\">$l_ranks_evil</A></strong></td><td><strong><a href=\"ranking.php?sort=team\">$l_team_team</A></strong></td><td><strong><a href=\"ranking.php?sort=online\">Online</A></strong></td><td><strong><a href=\"ranking.php?sort=efficiency\">Eff. Rating.</A></strong></td></tr>\n";
     $color = $color_line1;
     $i = '';
     while (!$res->EOF)
@@ -106,9 +106,9 @@ else
 
         echo "<tr bgcolor=\"$color\"><td>" . NUMBER($i) . "</td><td>" . NUMBER($row['score']) . "</td><td>";
         echo "&nbsp;";
-        echo player_insignia_name ($db, $dbtables, $row['email']);
+        echo player_insignia_name ($db, $row['email']);
         echo "&nbsp;";
-        echo "<b>$row[character_name]</b></td><td>" . NUMBER($row['turns_used']) . "</td><td>$row[last_login]</td><td>&nbsp;&nbsp;" . NUMBER($rating) . "</td><td>$row[team_name]&nbsp;</td><td>$online</td><td>$row[efficiency]</td></tr>\n";
+        echo "<strong>$row[character_name]</strong></td><td>" . NUMBER($row['turns_used']) . "</td><td>$row[last_login]</td><td>&nbsp;&nbsp;" . NUMBER($rating) . "</td><td>$row[team_name]&nbsp;</td><td>$online</td><td>$row[efficiency]</td></tr>\n";
         if ($color == $color_line1)
         {
             $color = $color_line2;

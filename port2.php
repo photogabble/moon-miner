@@ -28,15 +28,15 @@ if (checklogin () )
     die();
 }
 
-$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result2->fields;
 
-$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id=$sectorinfo[zone_id]");
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=$sectorinfo[zone_id]");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 
@@ -53,7 +53,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
 {
     if ($zoneinfo['corp_zone'] == 'N')
     {
-        $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=$zoneinfo[owner]");
+        $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=$zoneinfo[owner]");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         $ownerinfo = $res->fields;
 
@@ -142,7 +142,7 @@ else
         // Kami multi-browser window upgrade fix
         if ($_SESSION['port_shopping'] != true)
         {
-            adminlog ($db, $dbtables, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
+            adminlog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
             echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
             echo "<div style='color:#f00; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
             echo "<br>\n";
@@ -374,14 +374,14 @@ else
             $trade_credits = NUMBER (abs ($total_cost));
             echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
                     <tr>
-                        <td colspan=99 align=center bgcolor=#300030><font size=3 color=white><b>$l_trade_result</b></font></td>
+                        <td colspan=99 align=center bgcolor=#300030><font size=3 color=white><strong>$l_trade_result</strong></font></td>
                     </tr>
                     <tr>
-                        <td colspan=99 align=center><b><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></b></td>
+                        <td colspan=99 align=center><strong><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></strong></td>
                     </tr>";
 
             //  Total cost is " . NUMBER (abs ($total_cost)) . " credits.<br><br>";
-            $query = "UPDATE $dbtables[ships] SET credits=credits-$total_cost";
+            $query = "UPDATE {$db->prefix}ships SET credits=credits-$total_cost";
             if ($hull_upgrade > $playerinfo['hull'])
             {
                 $tempvar = 0;
@@ -533,7 +533,7 @@ else
 #           if ($colonist_max < 0 )
 #           {
 #               BuildTwoCol("<span style='color:#f00;'>Detected Overflow</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
-#               $resx = $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
+#               $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
 #               db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 #           }
 
@@ -547,9 +547,9 @@ else
             {
                 // BuildTwoCol("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
-                $resx = $db->Execute("UPDATE $dbtables[ships] SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
+                $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
                 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-                adminlog ($db, $dbtables, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
+                adminlog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
             }
             else
             {
@@ -677,27 +677,27 @@ else
 
             echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
                     <tr>
-                        <td colspan=99 align=center><font size=3 color=white><b>$l_trade_result</b></font></td>
+                        <td colspan=99 align=center><font size=3 color=white><strong>$l_trade_result</strong></font></td>
                     </tr>
                     <tr>
-                        <td colspan=99 align=center><b><font color=\"". $trade_color . "\">". $trade_result ." " . NUMBER (abs ($total_cost)) . " $l_credits</font></b></td>
+                        <td colspan=99 align=center><strong><font color=\"". $trade_color . "\">". $trade_result ." " . NUMBER (abs ($total_cost)) . " $l_credits</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
-                        <td><b><font size=2 color=white>$l_traded_ore: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER ($trade_ore) . "</font></b></td>
+                        <td><strong><font size=2 color=white>$l_traded_ore: </font><strong></td><td align=right><strong><font size=2 color=white>" . NUMBER ($trade_ore) . "</font></strong></td>
                     </tr>
                    <tr bgcolor=$color_line2>
-                        <td><b><font size=2 color=white>$l_traded_organics: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER ($trade_organics) . "</font></b></td>
+                        <td><strong><font size=2 color=white>$l_traded_organics: </font><strong></td><td align=right><strong><font size=2 color=white>" . NUMBER ($trade_organics) . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
-                        <td><b><font size=2 color=white>$l_traded_goods: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER ($trade_goods) . "</font></b></td>
+                        <td><strong><font size=2 color=white>$l_traded_goods: </font><strong></td><td align=right><strong><font size=2 color=white>" . NUMBER ($trade_goods) . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line2>
-                        <td><b><font size=2 color=white>$l_traded_energy: </font><b></td><td align=right><b><font size=2 color=white>" . NUMBER ($trade_energy) . "</font></b></td>
+                        <td><strong><font size=2 color=white>$l_traded_energy: </font><strong></td><td align=right><strong><font size=2 color=white>" . NUMBER ($trade_energy) . "</font></strong></td>
                     </tr>
                     </table>";
 
             // Update ship cargo, credits and turns
-            $trade_result     = $db->Execute("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+            $trade_result     = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
             db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
 
             // Make all trades positive to change port values
@@ -707,7 +707,7 @@ else
             $trade_energy     = round (abs ($trade_energy));
 
             // Decrease supply and demand on port
-            $trade_result2    = $db->Execute("UPDATE $dbtables[universe] SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
+            $trade_result2    = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
             db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
 
             echo $l_trade_complete . ".<br><br>";

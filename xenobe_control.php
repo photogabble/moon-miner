@@ -83,30 +83,30 @@ else
       echo "I need not say that the Xenobe will also make good cannon fodder for those games with a large user base. ";
 
       echo "<h3>Xenobe Creation</h3>";
-      echo "<p>&nbsp;&nbsp;&nbsp; In order to create a Xenobe you must choose the <b>\"Create A Xenobe Character\"</b> option from the menu. ";
+      echo "<p>&nbsp;&nbsp;&nbsp; In order to create a Xenobe you must choose the <strong>\"Create A Xenobe Character\"</strong> option from the menu. ";
       echo "This will bring up the Xenobe character creation screen.  There are only a few fields for you to edit. ";
       echo "However, with these fields you will determine not only how your Xenobe will be created, but how he will act in the game. ";
       echo "We will now go over these fields and what they will do. ";
 
-      echo "<p>&nbsp;&nbsp;&nbsp; When creating a new Xenobe character the <b>Xenobe Name</b> and the <b>Shipname</b> are automatically generated. ";
+      echo "<p>&nbsp;&nbsp;&nbsp; When creating a new Xenobe character the <strong>Xenobe Name</strong> and the <strong>Shipname</strong> are automatically generated. ";
       echo "You can change these default values by editing these fields before submitting the character for creation. ";
       echo "Take care not to duplicate a current player or ship name, for that will result in creation failure. ";
-      echo "<br>&nbsp;&nbsp;&nbsp; The starting <b>Sector</b> number will also be randomly generated. ";
+      echo "<br>&nbsp;&nbsp;&nbsp; The starting <strong>Sector</strong> number will also be randomly generated. ";
       echo "You can change this to any sector.  However, you should take care to use a valid sector number. Otherwise the creation will fail.";
-      echo "<br>&nbsp;&nbsp;&nbsp; The <b>Level</b> field will default to '3'.  This field refers to the starting tech level of all ship stats. ";
+      echo "<br>&nbsp;&nbsp;&nbsp; The <strong>Level</strong> field will default to '3'.  This field refers to the starting tech level of all ship stats. ";
       echo "So a default Xenobe will have it's Hull, Beams, Power, Engine, etc... all set to 3 unless this value is changed. ";
       echo "All appropriate ship stores will be set to the maximum allowed by the given tech level. ";
       echo "So, starting levels of energy, fighters, armor, torps, etc... are all affected by this setting. ";
-      echo "<br>&nbsp;&nbsp;&nbsp; The <b>Active</b> checkbox will default to checked. ";
+      echo "<br>&nbsp;&nbsp;&nbsp; The <strong>Active</strong> checkbox will default to checked. ";
       echo "This box refers to if the Xenobe AI system will see this Xenobe and execute it's orders. ";
       echo "If this box is not checked then the Xenobe AI system will ignore this record and the next two fields are ignored. ";
-      echo "<br>&nbsp;&nbsp;&nbsp; The <b>Orders</b> selection box will default to 'SENTINEL'. ";
+      echo "<br>&nbsp;&nbsp;&nbsp; The <strong>Orders</strong> selection box will default to 'SENTINEL'. ";
       echo "There are three other options available: ROAM, ROAM AND trADE, and ROAM AND HUNT. ";
       echo "These Orders and what they mean will be detailed below. ";
-      echo "<br>&nbsp;&nbsp;&nbsp; The <b>Aggression</b> selection box will default to 'PEACEFUL'. ";
+      echo "<br>&nbsp;&nbsp;&nbsp; The <strong>Aggression</strong> selection box will default to 'PEACEFUL'. ";
       echo "There are two other options available: ATTACK SOMETIMES, and ATTACK ALWAYS. ";
       echo "These Aggression settings and what they mean will be detailed below. ";
-      echo "<br>&nbsp;&nbsp;&nbsp; Pressing the <b>Create</b> button will create the Xenobe and return to the creation screen to create another. ";
+      echo "<br>&nbsp;&nbsp;&nbsp; Pressing the <strong>Create</strong> button will create the Xenobe and return to the creation screen to create another. ";
 
       echo "<h3>Xenobe Orders</h3>";
       echo "<p> Here are the Xenobe Order options and what the Xenobe AI system will do for each: ";
@@ -148,7 +148,7 @@ else
       if (empty($user))
       {
         echo "<select size=20 name=user>";
-        $res = $db->Execute("select email,character_name,ship_destroyed,active,sector FROM $dbtables[ships] JOIN $dbtables[xenobe] WHERE email=xenobe_id ORDER BY sector");
+        $res = $db->Execute("select email,character_name,ship_destroyed,active,sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id ORDER BY sector");
         while (!$res->EOF)
         {
           $row=$res->fields;
@@ -167,7 +167,7 @@ else
       {
         if (empty($operation))
         {
-          $res = $db->Execute("select * FROM $dbtables[ships] JOIN $dbtables[xenobe] WHERE email=xenobe_id AND email='$user'");
+          $res = $db->Execute("select * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email='$user'");
           $row = $res->fields;
           echo "<table border=0 cellspacing=0 cellpadding=5>";
           echo "<tr><td>Xenobe name</td><td><input type=text name=character_name value=\"$row[character_name]\"></td></tr>";
@@ -247,7 +247,7 @@ else
           echo "<hr>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><br>";
 
-          $logres = $db->Execute("select * FROM $dbtables[logs] WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
+          $logres = $db->Execute("select * FROM {$db->prefix}logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
           while (!$logres->EOF)
           {
             $logrow = $logres->fields;
@@ -276,13 +276,13 @@ else
           $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
           $_active = empty($active) ? "N" : "Y";
-          $result = $db->Execute("UPDATE $dbtables[ships] SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE email='$user'");
+          $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE email='$user'");
           if (!$result) {
             echo "Changes to Xenobe ship record have FAILED Due to the following Error:<br><br>";
             echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Xenobe ship record have been saved.<br><br>";
-            $result2 = $db->Execute("UPDATE $dbtables[xenobe] SET active='$_active',orders='$orders',aggression='$aggression' WHERE xenobe_id='$user'");
+            $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active='$_active',orders='$orders',aggression='$aggression' WHERE xenobe_id='$user'");
             if (!$result2) {
               echo "Changes to Xenobe activity record have FAILED Due to the following Error:<br><br>";
               echo $db->ErrorMsg() . "<br>";
@@ -321,15 +321,15 @@ else
       {
         // Delete all xenobe in the ships table
         echo "Deleting xenobe records in the ships table...<br>";
-        $db->Execute("DELETE FROM $dbtables[ships] WHERE email LIKE '%@xenobe'");
+        $db->Execute("DELETE FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
         echo "deleted.<br>";
         // Drop xenobe table
         echo "Dropping xenobe table...<br>";
-        $db->Execute("DROP table IF EXISTS $dbtables[xenobe]");
+        $db->Execute("DROP table IF EXISTS {$db->prefix}xenobe");
         echo "dropped.<br>";
         // Create xenobe table
         echo "Re-Creating table: xenobe...<br>";
-        $db->Execute("CREATE table $dbtables[xenobe](" .
+        $db->Execute("CREATE table {$db->prefix}xenobe(" .
             "xenobe_id char(40) NOT NULL," .
             "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
             "aggression smallint(5) DEFAULT '0' NOT NULL," .
@@ -364,11 +364,11 @@ else
       }
       elseif ($operation == "clearxenlog")
       {
-        $res = $db->Execute("select email,ship_id FROM $dbtables[ships] WHERE email LIKE '%@xenobe'");
+        $res = $db->Execute("select email,ship_id FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
         while (!$res->EOF)
         {
           $row = $res->fields;
-          $db->Execute("DELETE FROM $dbtables[logs] WHERE ship_id=$row[ship_id]");
+          $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id=$row[ship_id]");
           echo "Log for ship_id $row[ship_id] cleared.<br>";
           $res->MoveNext();
         }
@@ -386,7 +386,7 @@ else
     // ***********************************************
     elseif ($module == "createnew")
     {
-      echo "<b>Create A New Xenobe</b>";
+      echo "<strong>Create A New Xenobe</strong>";
       echo "<br>";
       echo "<form action=xenobe_control.php method=post>";
       if (empty($operation))
@@ -400,7 +400,7 @@ else
         $sy3roll = mt_rand(0,19);
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $resultnm = $db->Execute ("select character_name from $dbtables[ships] where character_name='$character'");
+        $resultnm = $db->Execute ("select character_name from {$db->prefix}ships where character_name='$character'");
         $namecheck = $resultnm->fields;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
         $nametry = 1;
@@ -411,7 +411,7 @@ else
           $sy3roll = mt_rand(0,19);
           $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
           $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-          $resultnm = $db->Execute ("select character_name from $dbtables[ships] where character_name='$character'");
+          $resultnm = $db->Execute ("select character_name from {$db->prefix}ships where character_name='$character'");
           $namecheck = $resultnm->fields;
           $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
           $nametry++;
@@ -456,7 +456,7 @@ else
         // Create emailname from character
         $emailname = str_replace(" ","_",$character) . "@xenobe";
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $result = $db->Execute ("select email, character_name, ship_name from $dbtables[ships] where email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
+        $result = $db->Execute ("select email, character_name, ship_name from {$db->prefix}ships where email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
         if ($result>0)
         {
           while (!$result->EOF)
@@ -490,7 +490,7 @@ else
 // *****************************************************************************
 // *** ADD Xenobe RECORD TO ships table ... MODIFY IF ships SCHEMA CHANGES ***
 // *****************************************************************************
-          $thesql = "INSERT INTO $dbtables[ships] ( `ship_id` , `ship_name` , `ship_destroyed` , `character_name` , `password` , `email` , `hull` , `engines` , `power` , `computer` , `sensors` , `beams` , `torp_launchers` , `torps` , `shields` , `armor` , `armor_pts` , `cloak` , `credits` , `sector` , `ship_ore` , `ship_organics` , `ship_goods` , `ship_energy` , `ship_colonists` , `ship_fighters` , `ship_damage` , `turns` , `on_planet` , `dev_warpedit` , `dev_genesis` , `dev_beacon` , `dev_emerwarp` , `dev_escapepod` , `dev_fuelscoop` , `dev_minedeflector` , `turns_used` , `last_login` , `rating` , `score` , `team` , `team_invite` , `interface` , `ip_address` , `planet_id` , `preset1` , `preset2` , `preset3` , `trade_colonists` , `trade_fighters` , `trade_torps` , `trade_energy` , `cleared_defences` , `lang` , `dhtml` , `dev_lssd` )
+          $thesql = "INSERT INTO {$db->prefix}ships ( `ship_id` , `ship_name` , `ship_destroyed` , `character_name` , `password` , `email` , `hull` , `engines` , `power` , `computer` , `sensors` , `beams` , `torp_launchers` , `torps` , `shields` , `armor` , `armor_pts` , `cloak` , `credits` , `sector` , `ship_ore` , `ship_organics` , `ship_goods` , `ship_energy` , `ship_colonists` , `ship_fighters` , `ship_damage` , `turns` , `on_planet` , `dev_warpedit` , `dev_genesis` , `dev_beacon` , `dev_emerwarp` , `dev_escapepod` , `dev_fuelscoop` , `dev_minedeflector` , `turns_used` , `last_login` , `rating` , `score` , `team` , `team_invite` , `interface` , `ip_address` , `planet_id` , `preset1` , `preset2` , `preset3` , `trade_colonists` , `trade_fighters` , `trade_torps` , `trade_energy` , `cleared_defences` , `lang` , `dhtml` , `dev_lssd` )
                                     valueS (NULL,'$shipname','N','$character','$makepass','$emailname',$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$maxtorps,$xenlevel,$xenlevel,$maxarmor,$xenlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,0,$start_turns,'N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y',NULL,'$default_lang','N','Y')";
           $result2 = $db->Execute($thesql);
           if (!$result2)
@@ -503,7 +503,7 @@ else
             echo "password has been set.<br><br>";
             echo "Ship Records have been updated.<br><br>";
           }
-          $result3 = $db->Execute("INSERT INTO $dbtables[xenobe] (xenobe_id,active,aggression,orders) valueS('$emailname','$_active','$aggression','$orders')");
+          $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id,active,aggression,orders) valueS('$emailname','$_active','$aggression','$orders')");
           if (!$result3)
           {
             echo $db->ErrorMsg() . "<br>";

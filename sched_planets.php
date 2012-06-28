@@ -23,9 +23,9 @@ if (preg_match("/sched_planets.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-echo "<B>PLANETS</B><p>";
+echo "<strong>PLANETS</strong><p>";
 
-$res = $db->Execute("SELECT * FROM $dbtables[planets] WHERE owner >0;");
+$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner >0;");
 // Using Planet Update Code from BNT version 0.36 due to code bugs.
 // We are now using transactions to off load the SQL stuff in full to the Database Server.
 
@@ -43,7 +43,7 @@ while (!$res->EOF)
         $starvation = floor($row['colonists'] * $starvation_death_rate);
         if ($row['owner'] && $starvation >= 1)
         {
-            playerlog ($db, $dbtables, $row['owner'], LOG_STARVATION, "$row[sector_id]|$starvation");
+            playerlog ($db, $row['owner'], LOG_STARVATION, "$row[sector_id]|$starvation");
         }
     }
     else
@@ -76,7 +76,7 @@ while (!$res->EOF)
     }
 
     $credits_production = floor($production * $credits_prate * (100.0 - $total_percent) / 100.0);
-    $SQL = "UPDATE $dbtables[planets] SET organics = organics + $organics_production, ore = ore + $ore_production, goods = goods + $goods_production, energy = energy + $energy_production, colonists = colonists + $reproduction-$starvation, torps = torps + $torp_production, fighters = fighters + $fighter_production, credits = credits * $interest_rate + $credits_production WHERE planet_id=$row[planet_id] LIMIT 1; ";
+    $SQL = "UPDATE {$db->prefix}planets SET organics = organics + $organics_production, ore = ore + $ore_production, goods = goods + $goods_production, energy = energy + $energy_production, colonists = colonists + $reproduction-$starvation, torps = torps + $torp_production, fighters = fighters + $fighter_production, credits = credits * $interest_rate + $credits_production WHERE planet_id=$row[planet_id] LIMIT 1; ";
     $ret = $db->Execute($SQL);
     $res->MoveNext();
 }
@@ -85,7 +85,7 @@ $ret = $db->Execute("COMMIT;");
 global $sched_planet_valid_credits;
 if ($sched_planet_valid_credits == true)
 {
-    $ret = $db->Execute("UPDATE $dbtables[planets] SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
+    $ret = $db->Execute("UPDATE {$db->prefix}planets SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
 }
 
 echo "Planets updated.<br><br>";

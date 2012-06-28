@@ -25,10 +25,10 @@ if (preg_match("/check_fighters.php/i", $_SERVER['PHP_SELF'])) {
 include "languages/$lang";
 include_once "includes/distribute_toll.php";
 
-$result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$sector'");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$sector'");
 // Put the sector information into the array "sectorinfo"
 $sectorinfo=$result2->fields;
-$result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' and defence_type ='F' ORDER BY quantity DESC");
+$result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$sector' and defence_type ='F' ORDER BY quantity DESC");
 // Put the defence information into the array "defenceinfo"
 $i = 0;
 $total_sector_fighters = 0;
@@ -52,22 +52,22 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
     // Find out if the fighter owner and player are on the same team
     // All sector defences must be owned by members of the same team
     $fm_owner = $defences[0]['ship_id'];
-    $result2 = $db->Execute("SELECT * from $dbtables[ships] where ship_id=$fm_owner");
+    $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$fm_owner");
     $fighters_owner = $result2->fields;
     if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team]==0)
     {
         switch ($response)
         {
             case "fight":
-                $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 bigtitle();
                 include_once "includes/sector_fighters.php";
                 break;
 
             case "retreat":
-                $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 $stamp = date("Y-m-d H-i-s");
-                $db->Execute("UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
                 bigtitle();
                 echo "$l_chf_youretreatback<br>";
                 TEXT_GOTOMAIN();
@@ -75,14 +75,14 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 break;
 
             case "pay":
-                $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 if ($playerinfo[credits] < $fighterstoll)
                 {
                     echo "$l_chf_notenoughcreditstoll<br>";
                     echo "$l_chf_movefailed<br>";
                     // Undo the move
-                    $db->Execute("UPDATE $dbtables[ships] SET sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+                    $db->Execute("UPDATE {$db->prefix}ships SET sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
                     $ok=0;
                 }
                 else
@@ -90,15 +90,15 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     $tollstring = NUMBER($fighterstoll);
                     $l_chf_youpaidsometoll = str_replace("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
                     echo "$l_chf_youpaidsometoll<br>";
-                    $db->Execute("UPDATE $dbtables[ships] SET credits=credits-$fighterstoll where ship_id=$playerinfo[ship_id]");
-                    distribute_toll ($db, $dbtables, $sector, $fighterstoll, $total_sector_fighters);
-                    playerlog ($db, $dbtables, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
+                    $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-$fighterstoll where ship_id=$playerinfo[ship_id]");
+                    distribute_toll ($db, $sector, $fighterstoll, $total_sector_fighters);
+                    playerlog ($db, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
                     $ok=1;
                 }
                 break;
 
             case "sneak":
-                $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = $playerinfo[ship_id]");
                 $success = SCAN_SUCCESS($fighters_owner[sensors], $playerinfo[cloak]);
                 if ($success < 5)
                 {
@@ -126,7 +126,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
 
             default:
                 $interface_string = $calledfrom . '?sector='.$sector.'&destination='.$destination.'&engage='.$engage;
-                $db->Execute("UPDATE $dbtables[ships] SET cleared_defences = '$interface_string' WHERE ship_id = $playerinfo[ship_id]");
+                $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = '$interface_string' WHERE ship_id = $playerinfo[ship_id]");
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 bigtitle();
                 echo "<FORM ACTION=$calledfrom METHOD=POST>";
@@ -138,20 +138,20 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     echo "$l_chf_creditsdemanded<br>";
                 }
 
-                $l_chf_youcanretreat = str_replace("[retreat]", "<b>Retreat</b>", $l_chf_youcanretreat);
+                $l_chf_youcanretreat = str_replace("[retreat]", "<strong>Retreat</strong>", $l_chf_youcanretreat);
                 echo $l_chf_youcan . " <br><input type=radio name=response value=retreat>" . $l_chf_youcanretreat . "<br></input>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $l_chf_inputpay = str_replace("[pay]", "<b>Pay</b>", $l_chf_inputpay);
+                    $l_chf_inputpay = str_replace("[pay]", "<strong>Pay</strong>", $l_chf_inputpay);
                     echo "<input type=radio name=response checked value=pay>" . $l_chf_inputpay . "<br></input>";
                 }
 
                 echo "<input type=radio name=response checked value=fight>";
-                $l_chf_inputfight = str_replace("[fight]", "<b>Fight</b>", $l_chf_inputfight);
+                $l_chf_inputfight = str_replace("[fight]", "<strong>Fight</strong>", $l_chf_inputfight);
                 echo $l_chf_inputfight . "<br></input>";
 
                 echo "<input type=radio name=response checked value=sneak>";
-                $l_chf_inputcloak = str_replace("[cloak]", "<b>Cloak</b>", $l_chf_inputcloak);
+                $l_chf_inputcloak = str_replace("[cloak]", "<strong>Cloak</strong>", $l_chf_inputcloak);
                 echo $l_chf_inputcloak . "<br></input><br>";
 
                 echo "<INPUT TYPE=SUBMIT VALUE=$l_chf_go><br><br>";
@@ -164,7 +164,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
 
         }
         // Clean up any sectors that have used up all mines or fighters
-        $db->Execute("delete from $dbtables[sector_defence] where quantity <= 0 ");
+        $db->Execute("delete from {$db->prefix}sector_defence where quantity <= 0 ");
     }
 }
 ?>

@@ -29,7 +29,7 @@ if (checklogin())
 }
 
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
 if ($playerinfo[team]==0)
@@ -42,7 +42,7 @@ if ($playerinfo[team]==0)
     return;
 }
 
-$query = "SELECT * FROM $dbtables[planets] WHERE corp=$playerinfo[team]";
+$query = "SELECT * FROM {$db->prefix}planets WHERE corp=$playerinfo[team]";
 if (!empty($sort))
 {
     $query .= " ORDER BY";
@@ -69,7 +69,7 @@ $res = $db->Execute($query);
 bigtitle();
 
 echo "<br>";
-echo "<b><a href=planet_report.php>$l_teamplanet_personal</a></b>";
+echo "<strong><a href=planet_report.php>$l_teamplanet_personal</a></strong>";
 echo "<br>";
 echo "<br>";
 
@@ -94,18 +94,18 @@ else
     echo "$l_pr_clicktosort<br><br>";
     echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
     echo "<tr bgcolor=\"$color_header\">";
-    echo "<td><b><a href=team_planets.php?sort=sector>$l_sector</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=name>$l_name</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=ore>$l_ore</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=organics>$l_organics</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=goods>$l_goods</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=energy>$l_energy</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=colonists>$l_colonists</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=credits>$l_credits</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=fighters>$l_fighters</a></b></td>";
-    echo "<td><b><a href=team_planets.php?sort=torp>$l_torps</a></b></td>";
-    echo "<td><b>$l_base?</b></td><td><b>$l_selling?</b></td>";
-    echo "<td><b>Player</b></td>";
+    echo "<td><strong><a href=team_planets.php?sort=sector>$l_sector</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=name>$l_name</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=ore>$l_ore</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=organics>$l_organics</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=goods>$l_goods</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=energy>$l_energy</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=colonists>$l_colonists</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=credits>$l_credits</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=fighters>$l_fighters</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=torp>$l_torps</a></strong></td>";
+    echo "<td><strong>$l_base?</strong></td><td><strong>$l_selling?</strong></td>";
+    echo "<td><strong>Player</strong></td>";
     echo "</tr>";
     $total_organics = 0;
     $total_ore = 0;
@@ -143,7 +143,7 @@ else
         }
 
         $owner = $planet[$i][owner];
-        $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=$owner");
+        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
         $player = $res->fields[character_name];
 
         echo "<tr bgcolor=\"$color\">";

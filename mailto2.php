@@ -29,15 +29,18 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("select * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("select * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 bigtitle();
 
 if (empty($content))
 {
-    $res = $db->Execute("select character_name FROM $dbtables[ships] WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
-    $res2 = $db->Execute("select team_name FROM $dbtables[teams] WHERE admin ='N' ORDER BY team_name ASC");
+    $res = $db->Execute("select character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    $res2 = $db->Execute("select team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC");
+    db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
     echo "<form action=mailto2.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
@@ -100,12 +103,14 @@ else
     if (strpos($to, $l_sendm_ally)===false)
     {
         $timestamp = date("Y\-m\-d H\:i\:s");
-        $res = $db->Execute("select * FROM $dbtables[ships] WHERE character_name='$to'");
+        $res = $db->Execute("select * FROM {$db->prefix}ships WHERE character_name='$to'");
+        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         $target_info = $res->fields;
         $content = htmlspecialchars($content);
         $content = addslashes($content);
         $subject = htmlspecialchars($subject);
-        $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, sent, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$timestamp."', '".$subject."', '".$content."')");
+        $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$timestamp."', '".$subject."', '".$content."')");
+        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         if (mysql_errno() != 0)
         {
             echo "Message failed to send.<br>\n";
@@ -117,15 +122,18 @@ else
         $to = str_replace ($l_sendm_ally, "", $to);
         $to = trim($to);
         $to = addslashes($to);
-        $res = $db->Execute("select id FROM $dbtables[teams] WHERE team_name='$to'");
+        $res = $db->Execute("select id FROM {$db->prefix}teams WHERE team_name='$to'");
+        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         $row = $res->fields;
 
-        $res2 = $db->Execute("select * FROM $dbtables[ships] where team='$row[id]'");
+        $res2 = $db->Execute("select * FROM {$db->prefix}ships where team='$row[id]'");
+        db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
 
         while (!$res2->EOF)
         {
             $row2 = $res2->fields;
-            $db->Execute("INSERT INTO $dbtables[messages] (sender_id, recp_id, sent, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$row2[ship_id]."', '".$timestamp."', '".$subject."', '".$content."')");
+            $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$row2[ship_id]."', '".$timestamp."', '".$subject."', '".$content."')");
+            db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
             $res2->MoveNext();
         }
    }

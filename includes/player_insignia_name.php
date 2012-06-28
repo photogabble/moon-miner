@@ -22,12 +22,12 @@ if (preg_match("/player_insignia_name.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function player_insignia_name ($db, $dbtables, $a_username)
+function player_insignia_name ($db, $a_username)
 {
     unset ($player_insignia);
 
     // Lookup players score.
-    $res = $db->Execute("SELECT score FROM $dbtables[ships] WHERE email='$a_username'");
+    $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email='$a_username'");
     $playerinfo = $res->fields;
 
     for ($i = 0; $i < 20; $i++)

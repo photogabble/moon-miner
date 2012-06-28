@@ -93,7 +93,7 @@ else
     $lastRun = 0;
     $schedCount = 0;
     $lastrunList = NULL;
-    $sched_res = $db->Execute("SELECT * FROM $dbtables[scheduler]");
+    $sched_res = $db->Execute("SELECT * FROM {$db->prefix}scheduler");
     if ($sched_res)
     {
         while (!$sched_res->EOF)
@@ -118,16 +118,16 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
 
                 if ($event[spawn] - $multiplier == 0)
                 {
-                    $db->Execute("DELETE FROM $dbtables[scheduler] WHERE sched_id=$event[sched_id]");
+                    $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id=$event[sched_id]");
                 }
                 else
                 {
-                    $db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
+                    $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
                 }
             }
             else
             {
-                $db->Execute("UPDATE $dbtables[scheduler] SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
+                $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
               }
 
             $sched_var_id = $event['sched_id'];
@@ -149,13 +149,13 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
     if ( abs($schedDiff) > ($sched_ticks * 60) )
     {
         # Hmmm, seems that we have missed at least 1 update, so log it to the admin.
-        adminlog($db, $dbtables, 2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
+        adminlog($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
     }
 
     $runtime = time() - $starttime;
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
     include "footer.php";
-    $db->Execute("UPDATE $dbtables[scheduler] SET last_run=". TIME());
+    $db->Execute("UPDATE {$db->prefix}scheduler SET last_run=". TIME());
 }
 ?>

@@ -30,10 +30,10 @@ if (checklogin())
 
 bigtitle();
 
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
-$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
 $zoneinfo = $res->fields;
 
 if ($res->EOF)
@@ -70,13 +70,13 @@ else
     {
         if ($row['corp_zone'] == 'N')
         {
-            $result = $db->Execute("SELECT ship_id, character_name FROM $dbtables[ships] WHERE ship_id=$row[owner]");
+            $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id=$row[owner]");
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
-            $result = $db->Execute("SELECT team_name, creator, id FROM $dbtables[teams] WHERE id=$row[owner]");
+            $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id=$row[owner]");
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];
         }
@@ -171,7 +171,7 @@ else
     }
 
     echo "<table border=1 cellspacing=1 cellpadding=0 width=\"65%\" align=center>" .
-         "<tr bgcolor=$color_line2><td align=center colspan=2><b><font color=white>$row[zone_name]</font></b></td></tr>" .
+         "<tr bgcolor=$color_line2><td align=center colspan=2><strong><font color=white>$row[zone_name]</font></strong></td></tr>" .
          "<tr><td colspan=2>" .
          "<table border=0 cellspacing=0 cellpadding=2 width=\"100%\" align=center>" .
          "<tr bgcolor=$color_line1><td width=\"50%\"><font color=white size=3>&nbsp;$l_zi_owner</font></td><td width=\"50%\"><font color=white size=3>$ownername&nbsp;</font></td></tr>" .

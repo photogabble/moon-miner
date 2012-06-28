@@ -29,13 +29,13 @@ if (checklogin())
 }
 
 bigtitle();
-$res = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
 echo "<form action=option2.php method=post>";
 echo "<table border=0 cellspacing=0 cellpadding=2>";
 echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><B>$l_opt_chpass</B></td>";
+echo "<td colspan=2><strong>$l_opt_chpass</strong></td>";
 echo "</tr>";
 echo "<tr bgcolor=\"$color_line1\">";
 echo "<td>$l_opt_curpass</td>";
@@ -51,7 +51,7 @@ echo "<td><input type=password name=newpass2 size=16 maxlength=16 value=\"\"></t
 echo "</tr>";
 /*
 echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><B>$l_opt_userint</B></td>";
+echo "<td colspan=2><strong>$l_opt_userint</strong></td>";
 echo "</tr>";
 $intrf = ($playerinfo['interface'] == 'N') ? "CHECKED" : "";
 echo "<tr bgcolor=\"$color_line1\">";
@@ -59,7 +59,7 @@ echo "<td>$l_opt_usenew</td><td><input type=checkbox name=intrf value=N $intrf><
 echo "</tr>";
 */
 echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><B>$l_opt_lang</B></td>";
+echo "<td colspan=2><strong>$l_opt_lang</strong></td>";
 echo "</tr>";
 echo "<tr bgcolor=\"$color_line1\">";
 echo "<td>$l_opt_select</td><td><select name=newlang>";
@@ -80,7 +80,7 @@ foreach ($avail_lang as $curlang)
 echo "</select></td>";
 echo "</tr>";
 echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><B>DHTML</B></td>";
+echo "<td colspan=2><strong>DHTML</strong></td>";
 echo "</tr>";
 echo "<tr bgcolor=\"$color_line2\">";
 $dhtml = ($playerinfo['dhtml'] == 'Y') ? "CHECKED" : "";

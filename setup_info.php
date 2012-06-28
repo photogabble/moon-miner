@@ -45,10 +45,10 @@ $setup_info->DisplayFlush("  <tr>\n");
 $setup_info->DisplayFlush("    <td><font size=\"6\" color=\"#fff\">{$setup_info->appinfo['title']}</font></td>\n");
 $setup_info->DisplayFlush("  </tr>\n");
 $setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#fff\"><B>{$setup_info->appinfo['description']}</B></font></td>\n");
+$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#fff\"><strong>{$setup_info->appinfo['description']}</strong></font></td>\n");
 $setup_info->DisplayFlush("  </tr>\n");
 $setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#fff\"><B>Written by {$setup_info->appinfo['author']}</B></font></td>\n");
+$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#fff\"><strong>Written by {$setup_info->appinfo['author']}</strong></font></td>\n");
 $setup_info->DisplayFlush("  </tr>\n");
 $setup_info->DisplayFlush("</table>\n");
 $setup_info->DisplayFlush("</div><br>\n");
@@ -100,27 +100,27 @@ for ($n = 0; $n < count($software_info); $n++)
 
 if ($setup_info->testdb_connection())
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#00f'><B>".$setup_info->db_status['status']."</B></font>");
+    $setup_info->do_Table_Row("DB CONNECTION","<font color='#00f'><strong>".$setup_info->db_status['status']."</strong></font>");
 }
 else
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#f00'><B>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</B></font>");
+    $setup_info->do_Table_Row("DB CONNECTION","<font color='#f00'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
 }
 
 if ($setup_info->cookie_test['enabled'])
 {
     if ($setup_info->cookie_test['result'])
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#00f'><B>Passed</B></font>");
+        $setup_info->do_Table_Row("Cookie Test","<font color='#00f'><strong>Passed</strong></font>");
     }
     else
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><B>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</B></font>");
+        $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><strong>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</strong></font>");
     }
 }
 else
 {
-    $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><B>{$setup_info->cookie_test['status']}</B></font>");
+    $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><strong>{$setup_info->cookie_test['status']}</strong></font>");
 }
 
 $setup_info->do_Table_Footer("");
@@ -161,7 +161,7 @@ $setup_info->do_Table_Title("DB Config Settings",$Cols);
 
 $setup_info->do_Table_Blank_Row();
 $game_path = $setup_info->get_gamepath();
-$setup_info->do_Table_Row("gamepath","<B>".(!$game_path['status'] ? "<font color='#f00'>{$game_path['info']}</font>" : $game_path['result'] )."</B>");
+$setup_info->do_Table_Row("gamepath","<strong>".(!$game_path['status'] ? "<font color='#f00'>{$game_path['info']}</font>" : $game_path['result'] )."</strong>");
 if (!$game_path['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -169,7 +169,7 @@ if (!$game_path['status'])
 
 $setup_info->do_Table_Blank_Row();
 $game_domain = $setup_info->get_gamedomain();
-$setup_info->do_Table_Row("gamedomain","<B>".(!$game_domain['status'] ? "<font color='#f00'>{$game_domain['info']}</font>" : $game_domain['result'] )."</B>");
+$setup_info->do_Table_Row("gamedomain","<strong>".(!$game_domain['status'] ? "<font color='#f00'>{$game_domain['info']}</font>" : $game_domain['result'] )."</strong>");
 if (!$game_domain['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -253,7 +253,7 @@ else
             $env_status .="<br>";
         }
     }
-    $setup_info->do_Table_Single_Row("<B>$env_status</B>");
+    $setup_info->do_Table_Single_Row("<strong>$env_status</strong>");
 }
 $setup_info->do_Table_Footer("<br>");
 

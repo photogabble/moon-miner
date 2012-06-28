@@ -28,7 +28,8 @@ if (result == true)
 
 <?php
     $startdate = date("Y/m/d");
-    $res = $db->Execute("SELECT * from $dbtables[news] WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
+    $res = $db->Execute("SELECT * from {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     if ($res->EOF)
     {

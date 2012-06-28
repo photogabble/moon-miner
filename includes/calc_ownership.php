@@ -25,9 +25,9 @@ if (preg_match("/calc_ownership.php/i", $_SERVER['PHP_SELF'])) {
 function calc_ownership ($sector)
 {
   global $min_bases_to_own, $l_global_warzone, $l_global_nzone, $l_global_team, $l_global_player;
-  global $db, $dbtables;
+  global $db;
 
-  $res = $db->Execute("SELECT owner, corp FROM $dbtables[planets] WHERE sector_id=$sector AND base='Y'");
+  $res = $db->Execute("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=$sector AND base='Y'");
   $num_bases = $res->RecordCount();
 
   $i=0;
@@ -115,7 +115,7 @@ function calc_ownership ($sector)
       $nbcorps++;
     else
     {
-      $res = $db->Execute("SELECT team FROM $dbtables[ships] WHERE ship_id=" . $owners[$loop][id]);
+      $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=" . $owners[$loop][id]);
       if ($res && $res->RecordCount() != 0)
       {
         $curship = $res->fields;
@@ -131,7 +131,7 @@ function calc_ownership ($sector)
   //More than one corp, war
   if ($nbcorps > 1)
   {
-    $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+    $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=$sector");
 
     return $l_global_warzone;
   }
@@ -145,7 +145,7 @@ function calc_ownership ($sector)
   }
   if ($numunallied > 1)
   {
-    $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+    $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=$sector");
 
     return $l_global_warzone;
   }
@@ -153,7 +153,7 @@ function calc_ownership ($sector)
   //Unallied ship, another corp present, war
   if ($numunallied > 0 && $nbcorps > 0)
   {
-    $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+    $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=$sector");
 
     return $l_global_warzone;
   }
@@ -161,7 +161,7 @@ function calc_ownership ($sector)
   //Unallied ship, another ship in a corp, war
   if ($numunallied > 0)
   {
-    $query = "SELECT team FROM $dbtables[ships] WHERE (";
+    $query = "SELECT team FROM {$db->prefix}ships WHERE (";
     $i=0;
     foreach ($ships as $ship)
     {
@@ -176,7 +176,7 @@ function calc_ownership ($sector)
     $res = $db->Execute($query);
     if ($res->RecordCount() != 0)
     {
-      $db->Execute("UPDATE $dbtables[universe] SET zone_id=4 WHERE sector_id=$sector");
+      $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=$sector");
 
       return $l_global_warzone;
     }
@@ -200,7 +200,7 @@ function calc_ownership ($sector)
 
   if ($owners[$winner][num] < $min_bases_to_own)
   {
-    $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
+    $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=$sector");
 
     return $l_global_nzone;
   }
@@ -208,13 +208,13 @@ function calc_ownership ($sector)
 
   if ($owners[$winner][type] == 'C')
   {
-    $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
+    $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
     $zone = $res->fields;
 
-    $res = $db->Execute("SELECT team_name FROM $dbtables[teams] WHERE id=" . $owners[$winner][id]);
+    $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=" . $owners[$winner][id]);
     $corp = $res->fields;
 
-    $db->Execute("UPDATE $dbtables[universe] SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+    $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
 
     return "$l_global_team $corp[team_name]!";
   }
@@ -231,19 +231,19 @@ function calc_ownership ($sector)
     //Two allies have the same number of bases
     if ($onpar == 1)
     {
-      $db->Execute("UPDATE $dbtables[universe] SET zone_id=1 WHERE sector_id=$sector");
+      $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=$sector");
 
       return $l_global_nzone;
     }
     else
     {
-      $res = $db->Execute("SELECT zone_id FROM $dbtables[zones] WHERE corp_zone='N' && owner=" . $owners[$winner][id]);
+      $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=" . $owners[$winner][id]);
       $zone = $res->fields;
 
-      $res = $db->Execute("SELECT character_name FROM $dbtables[ships] WHERE ship_id=" . $owners[$winner][id]);
+      $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=" . $owners[$winner][id]);
       $ship = $res->fields;
 
-      $db->Execute("UPDATE $dbtables[universe] SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
+      $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=$sector");
 
       return "$l_global_player $ship[character_name]!";
     }

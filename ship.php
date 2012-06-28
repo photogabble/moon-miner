@@ -28,9 +28,9 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT team, ship_name, character_name, sector FROM $dbtables[ships] WHERE email='$username'");
+$res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
-$res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM $dbtables[ships] WHERE ship_id=$ship_id");
+$res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id=$ship_id");
 $othership = $res2->fields;
 
 bigtitle();

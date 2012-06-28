@@ -22,16 +22,16 @@ if (preg_match("/message_defence_owner.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function message_defence_owner ($db, $dbtables, $sector, $message)
+function message_defence_owner ($db, $sector, $message)
 {
-    $result3 = $db->Execute ("SELECT * FROM $dbtables[sector_defence] WHERE sector_id='$sector' ");
+    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$sector' ");
     echo $db->ErrorMsg();
     // Put the defence information into the array "defenceinfo"
     if ($result3 > 0)
     {
         while (!$result3->EOF)
         {
-            playerlog ($db, $dbtables, $result3->fields['ship_id'], LOG_RAW, $message);
+            playerlog ($db, $result3->fields['ship_id'], LOG_RAW, $message);
             $result3->MoveNext();
          }
      }

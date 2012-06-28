@@ -28,7 +28,7 @@ if (checklogin())
     die();
 }
 
-$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 
 $playerinfo=$result->fields;
 
@@ -55,13 +55,13 @@ bigtitle();
 
 echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 echo "<table border=0 cellspacing=0 cellpadding=0 width='100%'>";
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_player: $playerinfo[character_name]</b></td><td align=center><b>$l_ship: $playerinfo[ship_name]</b></td><td align=right><b>$l_credits: " . NUMBER($playerinfo['credits']) . "</b></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_player: $playerinfo[character_name]</strong></td><td align=center><strong>$l_ship: $playerinfo[ship_name]</strong></td><td align=right><strong>$l_credits: " . NUMBER($playerinfo['credits']) . "</strong></td></tr>";
 echo "</table>";
 echo "<br>";
 echo "<table border=0 cellspacing=5 cellpadding=0  width='100%'>";
 echo "<tr><td>";
 echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_ship_levels</b></td><td></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_ship_levels</strong></td><td></td></tr>";
 echo "<tr bgcolor=\"$color_line1\" style='font-style:italic;'><td> $l_hull</td><td style='text-align:right;'>$l_level $playerinfo[hull]</td></tr>";
 echo "<tr bgcolor=\"$color_line2\" style='font-style:italic;'><td> $l_engines</td><td style='text-align:right;'>$l_level $playerinfo[engines]</td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_power</td><td style='text-align:right;'>$l_level $playerinfo[power]</td></tr>";
@@ -78,7 +78,7 @@ echo "</td><td Valign=TOP>";
 echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
 $holds_max = NUM_HOLDS($playerinfo['hull']);
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_holds</b></td><td align=right><b>" . NUMBER($holds_used) . " / " . NUMBER($holds_max) . "</b></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_holds</strong></td><td align=right><strong>" . NUMBER($holds_used) . " / " . NUMBER($holds_max) . "</strong></td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_ore</td><td align=right>" . NUMBER($playerinfo['ship_ore']) . "</td></tr>";
 echo "<tr bgcolor=\"$color_line2\"><td>$l_organics</td><td align=right>" . NUMBER($playerinfo['ship_organics']) . "</td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_goods</td><td align=right>" . NUMBER($playerinfo['ship_goods']) . "</td></tr>";
@@ -87,7 +87,7 @@ echo "<tr><td>&nbsp;</td></tr>";
 $armor_pts_max = NUM_ARMOR($playerinfo['armor']);
 $ship_fighters_max = NUM_FIGHTERS($playerinfo['computer']);
 $torps_max = NUM_TORPEDOES($playerinfo['torp_launchers']);
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_arm_weap</b></td><td></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_arm_weap</strong></td><td></td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_armorpts</td><td align=right>" . NUMBER($playerinfo['armor_pts']) . " / " . NUMBER($armor_pts_max) . "</td></tr>";
 echo "<tr bgcolor=\"$color_line2\"><td>$l_fighters</td><td align=right>" . NUMBER($playerinfo['ship_fighters']) . " / " . NUMBER($ship_fighters_max) . "</td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_torps</td><td align=right>" . NUMBER($playerinfo['torps']) . " / " . NUMBER($torps_max) . "</td></tr>";
@@ -95,9 +95,9 @@ echo "</table>";
 echo "</td><td Valign=TOP>";
 echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
 $energy_max = NUM_ENERGY($playerinfo['power']);
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_energy</b></td><td align=right><b>" . NUMBER($playerinfo['ship_energy']) . " / " . NUMBER($energy_max) . "</b></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_energy</strong></td><td align=right><strong>" . NUMBER($playerinfo['ship_energy']) . " / " . NUMBER($energy_max) . "</strong></td></tr>";
 echo "<tr><td>&nbsp;</td></tr>";
-echo "<tr bgcolor=\"$color_header\"><td><b>$l_devices</b></td><td></b></td></tr>";
+echo "<tr bgcolor=\"$color_header\"><td><strong>$l_devices</strong></td><td></strong></td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_beacons</td><td align=right>$playerinfo[dev_beacon]</td></tr>";
 echo "<tr bgcolor=\"$color_line2\"><td>$l_warpedit</td><td align=right>$playerinfo[dev_warpedit]</td></tr>";
 echo "<tr bgcolor=\"$color_line1\"><td>$l_genesis</td><td align=right>$playerinfo[dev_genesis]</td></tr>";

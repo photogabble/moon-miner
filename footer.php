@@ -17,8 +17,8 @@
 //
 // File: footer.php
 
-global $db, $dbtables, $sched_ticks, $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $footer_show_time, $l_time_gen_page, $l_seconds, $l_local_news, $db_logging;
-$res = $db->Execute("SELECT COUNT(*) as loggedin from $dbtables[ships] WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP($dbtables[ships].last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'");
+global $db, $sched_ticks, $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $footer_show_time, $l_time_gen_page, $l_seconds, $l_local_news, $db_logging;
+$res = $db->Execute("SELECT COUNT(*) as loggedin from {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 and email NOT LIKE '%@xenobe'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 $row = $res->fields;
@@ -40,7 +40,8 @@ else
 <?php
 // Update counter
 
-$res = $db->Execute("SELECT last_run FROM $dbtables[scheduler] LIMIT 1");
+$res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $result = $res->fields;
 $mySEC = ($sched_ticks * 60) - (TIME()-$result['last_run']);
 ?>

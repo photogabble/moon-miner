@@ -62,10 +62,10 @@ if ($planet_id <= 0)
     die();
 }
 
-$result = $db->Execute("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $result->fields;
 
-$result2=$db->Execute("SELECT * FROM $dbtables[planets] WHERE planet_id=$planet_id");
+$result2=$db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
 $planetinfo = $result2->fields;
 
 // Check to see if it returned valid planet info.
@@ -153,9 +153,9 @@ if ($planetinfo[sells] == 'Y')
     {
         echo "$l_totalcost: $total_cost<br>$l_traded_ore: $trade_ore<br>$l_traded_organics: $trade_organics<br>$l_traded_goods: $trade_goods<br>$l_traded_energy: $trade_energy<br><br>";
         // Update ship cargo, credits and turns
-        $trade_result = $db->Execute ("UPDATE $dbtables[ships] SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+        $trade_result = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
 
-        $trade_result2 = $db->Execute ("UPDATE $dbtables[planets] SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
+        $trade_result2 = $db->Execute ("UPDATE {$db->prefix}planets SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
         echo "$l_trade_complete<br><br>";
     }
 }

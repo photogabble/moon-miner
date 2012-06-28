@@ -23,12 +23,13 @@ if (preg_match("/sched_tow.php/i", $_SERVER['PHP_SELF']))
     die();
 }
 
-echo "<B>ZONES</B><br><br>";
+echo "<strong>ZONES</strong><br><br>";
 echo "Towing bigger players out of restricted zones...";
 $num_to_tow = 0;
 do
 {
-    $res = $db->Execute("SELECT ship_id,character_name,hull,sector,$dbtables[universe].zone_id,max_hull FROM $dbtables[ships],$dbtables[universe],$dbtables[zones] WHERE sector=sector_id AND $dbtables[universe].zone_id=$dbtables[zones].zone_id AND max_hull<>0 AND (($dbtables[ships].hull + $dbtables[ships].engines + $dbtables[ships].computer + $dbtables[ships].beams + $dbtables[ships].torp_launchers + $dbtables[ships].shields + $dbtables[ships].armor)/7) >max_hull AND ship_destroyed='N'");
+    $res = $db->Execute("SELECT ship_id,character_name,hull,sector,{$db->prefix}universe.zone_id,max_hull FROM {$db->prefix}ships,{$db->prefix}universe,{$db->prefix}zones WHERE sector=sector_id AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id AND max_hull<>0 AND (({$db->prefix}ships.hull + {$db->prefix}ships.engines + {$db->prefix}ships.computer + {$db->prefix}ships.beams + {$db->prefix}ships.torp_launchers + {$db->prefix}ships.shields + {$db->prefix}ships.armor)/7) >max_hull AND ship_destroyed='N'");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
     {
         $num_to_tow = $res->RecordCount();
@@ -39,9 +40,10 @@ do
             echo "...towing $row[character_name] out of $row[sector] ...";
             $newsector = mt_rand(0, $sector_max-1);
             echo " to sector $newsector.<br>";
-            $query = $db->Execute("UPDATE $dbtables[ships] SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
-            playerlog ($db, $dbtables, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
-            log_move ($db, $dbtables, $row['ship_id'], $newsector);
+            $query = $db->Execute("UPDATE {$db->prefix}ships SET sector=$newsector,cleared_defences=' ' where ship_id=$row[ship_id]");
+            db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+            playerlog ($db, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
+            log_move ($db, $row['ship_id'], $newsector);
             $res->MoveNext();
         }
     }
@@ -52,5 +54,5 @@ do
 } while ($num_to_tow);
 
 echo "<br>";
-$multiplier = 0; //no use to run this again
+$multiplier = 0; // No need to run this again
 ?>

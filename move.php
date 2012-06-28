@@ -29,8 +29,8 @@ if (checklogin())
     die();
 }
 
-//Retrieve the user and ship information
-$result = $db->Execute ("SELECT * FROM $dbtables[ships] WHERE email='$username'");
+// Retrieve the user and ship information
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 // Put the player information into the array: "playerinfo"
 $playerinfo=$result->fields;
 
@@ -45,7 +45,7 @@ if ($playerinfo['turns']<1)
 }
 
 // Retrieve all the sector information about the current sector
-$result2 = $db->Execute ("SELECT * FROM $dbtables[universe] WHERE sector_id='$playerinfo[sector]'");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
 // Put the sector information into the array "sectorinfo"
 $sectorinfo=$result2->fields;
 
@@ -55,7 +55,7 @@ if (!isset($_GET['sector']))
 }
 
 // Retrive all the warp links out of the current sector
-$result3 = $db->Execute ("SELECT * FROM $dbtables[links] WHERE link_start='$playerinfo[sector]'");
+$result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start='$playerinfo[sector]'");
 $i=0;
 $flag=0;
 
@@ -80,8 +80,8 @@ if ($flag==1)
     if ($ok > 0)
     {
        $stamp = date("Y-m-d H-i-s");
-       $query="UPDATE $dbtables[ships] SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-       log_move ($db, $dbtables, $playerinfo['ship_id'], $sector);
+       $query="UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
+       log_move ($db, $playerinfo['ship_id'], $sector);
        $move_result = $db->Execute ("$query");
       if (!$move_result)
     {
@@ -104,7 +104,7 @@ if ($flag==1)
 else
 {
     echo $l_move_failed . "<br><br>";
-    $db->Execute("UPDATE $dbtables[ships] SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
+    $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
 
     TEXT_GOTOMAIN();
 }

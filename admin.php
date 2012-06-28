@@ -85,13 +85,13 @@ else
 
         if ($module == "useredit")
         {
-            echo "<B>User editor</B>";
+            echo "<strong>User editor</strong>";
             echo "<br>";
             echo "<form action=admin.php method=post>";
             if (empty($user))
             {
                 echo "<select size=20 name=user>";
-                $res = $db->Execute("select ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
+                $res = $db->Execute("select ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 while (!$res->EOF)
                 {
@@ -106,7 +106,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM $dbtables[ships] WHERE ship_id=$user");
+                    $res = $db->Execute("select * FROM {$db->prefix}ships WHERE ship_id=$user");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -168,7 +168,7 @@ else
                     $_ship_destroyed = empty($ship_destroyed) ? "N" : "Y";
                     $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
                     $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
-                    $resx = $db->Execute("UPDATE $dbtables[ships] SET character_name='$character_name',password='$password2',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE ship_id=$user");
+                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET character_name='$character_name',password='$password2',email='$email',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE ship_id=$user");
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     echo "Changes saved<br><br>";
                     echo "<input type=submit value=\"Return to User editor\">";
@@ -185,7 +185,7 @@ else
         }
         elseif ($module == "univedit")
         {
-            echo "<B>Universe editor</B>";
+            echo "<strong>Universe editor</strong>";
             $title=$l_change_uni_title;
             echo "<br>Expand or Contract the Universe <br>";
 
@@ -202,13 +202,13 @@ else
             elseif ($action == "doexpand")
             {
                 echo "<br><font size='+2'>Be sure to update your config.php file with the new universe_size value</font><br>";
-                $result = $db->Execute("select sector_id FROM $dbtables[universe] ORDER BY sector_id ASC");
+                $result = $db->Execute("select sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
                 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
                 while (!$result->EOF)
                 {
                     $row=$result->fields;
                     $distance=mt_rand(1,$radius);
-                    $resx = $db->Execute("UPDATE $dbtables[universe] SET distance=$distance WHERE sector_id=$row[sector_id]");
+                    $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance=$distance WHERE sector_id=$row[sector_id]");
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     echo "Updated sector $row[sector_id] set to $distance<br>";
                     $result->MoveNext();
@@ -223,7 +223,7 @@ else
             {
                 echo "<H5>Note: Cannot Edit Sector 0</H5>";
                 echo "<select size=20 name=sector>";
-                $res = $db->Execute("select sector_id FROM $dbtables[universe] ORDER BY sector_id");
+                $res = $db->Execute("select sector_id FROM {$db->prefix}universe ORDER BY sector_id");
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 while (!$res->EOF)
                 {
@@ -238,7 +238,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM $dbtables[universe] WHERE sector_id=$sector");
+                    $res = $db->Execute("select * FROM {$db->prefix}universe WHERE sector_id=$sector");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
 
@@ -247,7 +247,7 @@ else
                     echo "<td align=Right><tt>  Sector Name</tt></td><td><input type=text size=15 name=sector_name value=\"$row[sector_name]\"></td>";
                     echo "<td align=Right><tt>  Zone ID    </tt></td><td>";
                     echo "<select size=1 name=zone_id>";
-                    $ressubb = $db->Execute("select zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
+                    $ressubb = $db->Execute("select zone_id,zone_name FROM {$db->prefix}zones ORDER BY zone_name");
                     db_op_result ($db, $ressubb, __LINE__, __FILE__, $db_logging);
                     while (!$ressubb->EOF)
                     {
@@ -301,7 +301,7 @@ else
                 elseif ($operation == "save")
                 {
                     // Update database
-                    $secupdate = $db->Execute("UPDATE $dbtables[universe] SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
+                    $secupdate = $db->Execute("UPDATE {$db->prefix}universe SET sector_name='$sector_name',zone_id='$zone_id',beacon='$beacon',port_type='$port_type',port_organics='$port_organics',port_ore='$port_ore',port_goods='$port_goods',port_energy='$port_energy',distance='$distance',angle1='$angle1',angle2='$angle2' WHERE sector_id=$sector");
                     db_op_result ($db, $secupdate, __LINE__, __FILE__, $db_logging);
                     if (!$secupdate)
                     {
@@ -332,7 +332,7 @@ else
             if (empty($planet))
             {
                 echo "<select size=15 name=planet>";
-                $res = $db->Execute("select planet_id, name, sector_id FROM $dbtables[planets] ORDER BY sector_id");
+                $res = $db->Execute("select planet_id, name, sector_id FROM {$db->prefix}planets ORDER BY sector_id");
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 while (!$res->EOF)
                 {
@@ -353,7 +353,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM $dbtables[planets] WHERE planet_id=$planet");
+                    $res = $db->Execute("select * FROM {$db->prefix}planets WHERE planet_id=$planet");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
 
@@ -370,7 +370,7 @@ else
                     echo "<table border=0 cellspacing=2 cellpadding=2>";
                     echo "<tr><td><tt>          Planet Owner</tt></td><td>";
                     echo "<select size=1 name=owner>";
-                    $ressuba = $db->Execute("select ship_id,character_name FROM $dbtables[ships] ORDER BY character_name");
+                    $ressuba = $db->Execute("select ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
                     db_op_result ($db, $ressuba, __LINE__, __FILE__, $db_logging);
                     echo "<option value=0>No One</option>";
                     while (!$ressuba->EOF)
@@ -420,7 +420,7 @@ else
                     $_defeated = empty($defeated) ? "N" : "Y";
                     $_base = empty($base) ? "N" : "Y";
                     $_sells = empty($sells) ? "N" : "Y";
-                    $planupdate = $db->Execute("UPDATE $dbtables[planets] SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
+                    $planupdate = $db->Execute("UPDATE {$db->prefix}planets SET sector_id='$sector_id',defeated='$_defeated',name='$name',base='$_base',sells='$_sells',owner='$owner',organics='$organics',ore='$ore',goods='$goods',energy='$energy',corp='$corp',colonists='$colonists',credits='$credits',fighters='$fighters',torps='$torps',prod_organics='$prod_organics',prod_ore='$prod_ore',prod_goods='$prod_goods',prod_energy='$prod_energy',prod_fighters='$prod_fighters',prod_torp='$prod_torp' WHERE planet_id=$planet");
                     db_op_result ($db, $planupdate, __LINE__, __FILE__, $db_logging);
                     if (!$planupdate)
                     {
@@ -447,17 +447,17 @@ else
         }
         elseif ($module == "linkedit")
         {
-            echo "<B>Link editor</B>";
+            echo "<strong>Link editor</strong>";
         }
         elseif ($module == "zoneedit")
         {
-            echo "<B>Zone editor</B>";
+            echo "<strong>Zone editor</strong>";
             echo "<br>";
             echo "<form action=admin.php method=post>";
             if (empty($zone))
             {
                 echo "<select size=20 name=zone>";
-                $res = $db->Execute("select zone_id,zone_name FROM $dbtables[zones] ORDER BY zone_name");
+                $res = $db->Execute("select zone_id,zone_name FROM {$db->prefix}zones ORDER BY zone_name");
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 while (!$res->EOF)
                 {
@@ -474,7 +474,7 @@ else
             {
                 if ($operation == "editzone")
                 {
-                    $res = $db->Execute("select * FROM $dbtables[zones] WHERE zone_id=$zone");
+                    $res = $db->Execute("select * FROM {$db->prefix}zones WHERE zone_id=$zone");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -498,7 +498,7 @@ else
                     $_zone_attack = empty($zone_attack) ? "N" : "Y";
                     $_zone_warpedit = empty($zone_warpedit) ? "N" : "Y";
                     $_zone_planet = empty($zone_planet) ? "N" : "Y";
-                    $resx = $db->Execute("UPDATE $dbtables[zones] SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
+                    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name='$zone_name',allow_beacon='$_zone_beacon' ,allow_attack='$_zone_attack' ,allow_warpedit='$_zone_warpedit' ,allow_planet='$_zone_planet', max_hull='$zone_hull' WHERE zone_id=$zone");
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     echo "Changes saved<br><br>";
                     echo "<input type=submit value=\"Return to Zone Editor \">";
@@ -516,7 +516,7 @@ else
         }
         elseif ($module == "ipedit")
         {
-            echo "<B>IP Bans editor</B><p>";
+            echo "<strong>IP Bans editor</strong><p>";
             if (empty($command))
             {
                 echo "<form action=admin.php method=post>";
@@ -526,7 +526,7 @@ else
                 echo "<input type=submit value=\"Show player's ips\">";
                 echo "</form>";
 
-                $res = $db->Execute("select ban_mask FROM $dbtables[ip_bans]");
+                $res = $db->Execute("select ban_mask FROM {$db->prefix}ip_bans");
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 while (!$res->EOF)
                 {
@@ -536,20 +536,20 @@ else
 
                 if (empty($bans))
                 {
-                    echo "<b>No IP bans are currently active.</b>";
+                    echo "<strong>No IP bans are currently active.</strong>";
                 }
                 else
                 {
                     echo "<table border=1 cellspacing=1 cellpadding=2 width=100% align=center>" .
-                         "<tr bgcolor=$color_line2><td align=center colspan=7><b><font color=white>" .
+                         "<tr bgcolor=$color_line2><td align=center colspan=7><strong><font color=white>" .
                          "Active IP Bans" .
-                         "</font></b>" .
+                         "</font></strong>" .
                          "</td></tr>" .
                          "<tr align=center bgcolor=$color_line2>" .
-                         "<td><font size=2 color=white><b>Ban Mask</b></font></td>" .
-                         "<td><font size=2 color=white><b>Affected Players</b></font></td>" .
-                         "<td><font size=2 color=white><b>E-mail</b></font></td>" .
-                         "<td><font size=2 color=white><b>Operations</b></font></td>" .
+                         "<td><font size=2 color=white><strong>Ban Mask</strong></font></td>" .
+                         "<td><font size=2 color=white><strong>Affected Players</strong></font></td>" .
+                         "<td><font size=2 color=white><strong>E-mail</strong></font></td>" .
+                         "<td><font size=2 color=white><strong>Operations</strong></font></td>" .
                          "</tr>";
 
                          $curcolor=$color_line1;
@@ -570,7 +570,7 @@ else
                              echo "<td align=center><font size=2 color=white>$printban</td>" .
                                   "<td align=center><font size=2 color=white>";
 
-                             $res = $db->Execute("select character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address LIKE '$ban'");
+                             $res = $db->Execute("select character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address LIKE '$ban'");
                              db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                              unset($players);
                              while (!$res->EOF)
@@ -587,7 +587,7 @@ else
                              {
                                  foreach ($players as $player)
                                  {
-                                     echo "<b>$player[character_name]</b><br>";
+                                     echo "<strong>$player[character_name]</strong><br>";
                                  }
                              }
 
@@ -620,7 +620,7 @@ else
                  }
                  elseif ($command== 'showips')
                  {
-                     $res = $db->Execute("select DISTINCT ip_address FROM $dbtables[ships]");
+                     $res = $db->Execute("select DISTINCT ip_address FROM {$db->prefix}ships");
                      db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                      while (!$res->EOF)
                      {
@@ -629,15 +629,15 @@ else
                      }
 
                      echo "<table border=1 cellspacing=1 cellpadding=2 width=100% align=center>" .
-                          "<tr bgcolor=$color_line2><td align=center colspan=7><b><font color=white>" .
+                          "<tr bgcolor=$color_line2><td align=center colspan=7><strong><font color=white>" .
                           "Players sorted by IP address" .
-                          "</font></b>" .
+                          "</font></strong>" .
                           "</td></tr>" .
                           "<tr align=center bgcolor=$color_line2>" .
-                          "<td><font size=2 color=white><b>IP address</b></font></td>" .
-                          "<td><font size=2 color=white><b>Players</b></font></td>" .
-                          "<td><font size=2 color=white><b>E-mail</b></font></td>" .
-                          "<td><font size=2 color=white><b>Operations</b></font></td>" .
+                          "<td><font size=2 color=white><strong>IP address</strong></font></td>" .
+                          "<td><font size=2 color=white><strong>Players</strong></font></td>" .
+                          "<td><font size=2 color=white><strong>E-mail</strong></font></td>" .
+                          "<td><font size=2 color=white><strong>Operations</strong></font></td>" .
                           "</tr>";
 
                      $curcolor=$color_line1;
@@ -657,7 +657,7 @@ else
                          echo "<td align=center><font size=2 color=white>$ip</td>" .
                               "<td align=center><font size=2 color=white>";
 
-                         $res = $db->Execute("select character_name, ship_id, email FROM $dbtables[ships] WHERE ip_address='$ip'");
+                         $res = $db->Execute("select character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address='$ip'");
                          db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                          unset($players);
                          while (!$res->EOF)
@@ -668,7 +668,7 @@ else
 
                          foreach ($players as $player)
                          {
-                             echo "<b>$player[character_name]</b><br>";
+                             echo "<strong>$player[character_name]</strong><br>";
                          }
 
                          echo "<td align=center><font size=2 color=white>";
@@ -705,7 +705,7 @@ else
                 elseif ($command == 'banip')
                 {
                     $ip = $_POST[ip];
-                    echo "<b>Banning ip : $ip<p>";
+                    echo "<strong>Banning ip : $ip<p>";
                     echo "<font size=2 color=white>Please select ban type :<p>";
 
                     $ipparts = explode(".", $ip);
@@ -754,11 +754,11 @@ else
                     }
 
                     $printban = str_replace("%", "*", $banmask);
-                    echo "<font size=2 color=white><b>Successfully banned $printban</b>.<p>";
+                    echo "<font size=2 color=white><strong>Successfully banned $printban</strong>.<p>";
 
-                    $resx = $db->Execute("INSERT INTO $dbtables[ip_bans] valueS(NULL, '$banmask')");
+                    $resx = $db->Execute("INSERT INTO {$db->prefix}ip_bans valueS(NULL, '$banmask')");
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-                    $res = $db->Execute("select DISTINCT character_name FROM $dbtables[ships], $dbtables[ip_bans] WHERE ip_address LIKE ban_mask");
+                    $res = $db->Execute("select DISTINCT character_name FROM {$db->prefix}ships, {$db->prefix}ip_bans WHERE ip_address LIKE ban_mask");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     echo "Affected players :<p>";
                     while (!$res->EOF)
@@ -778,12 +778,12 @@ else
                     $ip = $_POST[ip];
                     if (!empty($ban))
                     {
-                        $res = $db->Execute("select * FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
+                        $res = $db->Execute("select * FROM {$db->prefix}ip_bans WHERE ban_mask='$ban'");
                         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     }
                     else
                     {
-                        $res = $db->Execute("select * FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
+                        $res = $db->Execute("select * FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask");
                         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     }
 
@@ -797,12 +797,12 @@ else
 
                     if (!empty($ban))
                     {
-                        $resx = $db->Execute("DELETE FROM $dbtables[ip_bans] WHERE ban_mask='$ban'");
+                        $resx = $db->Execute("DELETE FROM {$db->prefix}ip_bans WHERE ban_mask='$ban'");
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     }
                     else
                     {
-                        $resx = $db->Execute("DELETE FROM $dbtables[ip_bans] WHERE '$ip' LIKE ban_mask");
+                        $resx = $db->Execute("DELETE FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask");
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     }
 
@@ -812,7 +812,7 @@ else
                         $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
                     }
 
-                    $res = $db->Execute("select DISTINCT character_name FROM $dbtables[ships] WHERE $query_string");
+                    $res = $db->Execute("select DISTINCT character_name FROM {$db->prefix}ships WHERE $query_string");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $nbplayers = $res->RecordCount();
                     while (!$res->EOF)
@@ -821,14 +821,14 @@ else
                         $res->MoveNext();
                 }
 
-                echo "<font size=2 color=white><b>Successfully removed $nbbans bans</b> :<p>";
+                echo "<font size=2 color=white><strong>Successfully removed $nbbans bans</strong> :<p>";
 
                 foreach ($bans as $ban)
                 {
                     echo " - $ban[print_mask]<br>";
                 }
 
-                echo "<p><b>Affected players :</b><p>";
+                echo "<p><strong>Affected players :</strong><p>";
                 if (empty($players))
                 {
                     echo " - None<br>";
@@ -859,7 +859,7 @@ else
                  "<input type=hidden name=swordfish value=$swordfish>" .
                  "<select name=player>";
 
-            $res = $db->execute("select ship_id, character_name FROM $dbtables[ships] ORDER BY character_name ASC");
+            $res = $db->execute("select ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name ASC");
             db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
             while (!$res->EOF)
             {

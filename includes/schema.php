@@ -25,7 +25,6 @@ table name variables in the global_func file.
 *********************************************************/
 
 global $maxlen_password;
-global $dbtables;
 global $db;
 
 ## HTML Table Functions ##
@@ -125,22 +124,23 @@ function DBTRUEFALSE($truefalse,$Stat,$True,$False)
 // Delete all tables in the database
 Table_Header("Dropping Tables");
 
-foreach ($dbtables as $table => $tablename)
-{
-    $query = $db->Execute("DROP TABLE $tablename");
-    $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
-    Table_Row("Dropping $tablename","Failed","Passed");
+// Have SQL prepare a query for dropping tables that contains the list of all tables according to SQL.
+$drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $dbname. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
 
-}
+// Use the query to now drop all tables as reported by SQL.
+$drop_tables = $db->Execute($drop_tables_stmt->fields['stmt']);
+
+$err = DBTRUEFALSE(0, $db->ErrorMsg(), "No errors found", $db->ErrorMsg() . ": " . mysql_error());
+Table_Row("Dropping all tables","Failed","Passed");
 
 Table_Footer("Hover over the failed line to see the error.");
 
-echo "<b>Dropping stage complete.</b><p>";
+echo "<strong>Dropping stage complete.</strong><p>";
 
 // Create database schema
 Table_Header("Creating Tables");
 
-$db->Execute("CREATE TABLE $dbtables[languages] (" .
+$db->Execute("CREATE TABLE {$db->prefix}languages (" .
              "lang_id smallint(5) NOT NULL AUTO_INCREMENT," .
              "language varchar(30) NOT NULL DEFAULT 'english'," .
              "name varchar(75) NOT NULL," .
@@ -152,7 +152,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating languages Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[links] (" .
+$db->Execute("CREATE TABLE {$db->prefix}links (" .
              "link_id int unsigned NOT NULL auto_increment," .
              "link_start int unsigned DEFAULT '0' NOT NULL," .
              "link_dest int unsigned DEFAULT '0' NOT NULL," .
@@ -164,7 +164,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating links Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[planets](" .
+$db->Execute("CREATE TABLE {$db->prefix}planets (" .
              "planet_id int unsigned NOT NULL auto_increment," .
              "sector_id int unsigned DEFAULT '0' NOT NULL," .
              "name tinytext," .
@@ -195,7 +195,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating planets Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[traderoutes](" .
+$db->Execute("CREATE TABLE {$db->prefix}traderoutes (" .
              "traderoute_id int unsigned NOT NULL auto_increment," .
              "source_id int unsigned DEFAULT '0' NOT NULL," .
              "dest_id int unsigned DEFAULT '0' NOT NULL," .
@@ -211,7 +211,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating traderoutes Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[ships](" .
+$db->Execute("CREATE TABLE {$db->prefix}ships (" .
              "ship_id int unsigned NOT NULL auto_increment," .
              "ship_name char(20)," .
              "ship_destroyed enum('Y','N') DEFAULT 'N' NOT NULL," .
@@ -279,7 +279,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating ships Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[universe](" .
+$db->Execute("CREATE TABLE {$db->prefix}universe (" .
              "sector_id int unsigned NOT NULL auto_increment," .
              "sector_name tinytext," .
              "zone_id int DEFAULT '0' NOT NULL," .
@@ -301,7 +301,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating universe Table","Failed","Passed");
 
-$db->execute("CREATE TABLE $dbtables[zones](" .
+$db->execute("CREATE TABLE {$db->prefix}zones (" .
              "zone_id int unsigned NOT NULL auto_increment," .
              "zone_name tinytext," .
              "owner int unsigned DEFAULT '0' NOT NULL," .
@@ -321,7 +321,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating zones Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[ibank_accounts](" .
+$db->Execute("CREATE TABLE {$db->prefix}ibank_accounts (" .
              "ship_id int DEFAULT '0' NOT NULL," .
              "balance bigint(20) DEFAULT '0'," .
              "loan bigint(20)  DEFAULT '0'," .
@@ -332,7 +332,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating ibank_accounts Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[IGB_transfers](" .
+$db->Execute("CREATE TABLE {$db->prefix}IGB_transfers (" .
              "transfer_id int NOT NULL auto_increment," .
              "source_id int DEFAULT '0' NOT NULL," .
              "dest_id int DEFAULT '0' NOT NULL," .
@@ -343,7 +343,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating IGB_transfers Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[teams](" .
+$db->Execute("CREATE TABLE {$db->prefix}teams (" .
              "id int DEFAULT '0' NOT NULL," .
              "creator int DEFAULT '0'," .
              "team_name tinytext," .
@@ -357,7 +357,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating teams Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[news] (" .
+$db->Execute("CREATE TABLE {$db->prefix}news (" .
              "news_id int(11) NOT NULL auto_increment," .
              "headline varchar(100) NOT NULL," .
              "newstext text NOT NULL," .
@@ -372,7 +372,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating news Table","Failed","Passed");
 
-$db->Execute("INSERT INTO $dbtables[news] (headline, newstext, date, news_type) " .
+$db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type) " .
              "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
 
 $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
@@ -380,7 +380,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 Table_Row("Inserting first news item","Failed","Inserted");
 
 
-$db->Execute("CREATE TABLE $dbtables[messages] (" .
+$db->Execute("CREATE TABLE {$db->prefix}messages (" .
              "ID int NOT NULL auto_increment," .
              "sender_id int NOT NULL default '0'," .
              "recp_id int NOT NULL default '0'," .
@@ -394,7 +394,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating messages Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[xenobe](" .
+$db->Execute("CREATE TABLE {$db->prefix}xenobe (" .
              "xenobe_id char(40) NOT NULL," .
              "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
              "aggression smallint(5) DEFAULT '0' NOT NULL," .
@@ -406,7 +406,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating xenobe Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[sector_defence](" .
+$db->Execute("CREATE TABLE {$db->prefix}sector_defence (" .
              "defence_id int unsigned NOT NULL auto_increment," .
              "ship_id int DEFAULT '0' NOT NULL," .
              "sector_id int unsigned DEFAULT '0' NOT NULL," .
@@ -421,7 +421,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating sector_defence Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[scheduler](" .
+$db->Execute("CREATE TABLE {$db->prefix}scheduler (" .
              "sched_id int unsigned NOT NULL auto_increment," .
              "repeate enum('Y','N') DEFAULT 'N' NOT NULL," .
              "ticks_left int unsigned DEFAULT '0' NOT NULL," .
@@ -437,7 +437,7 @@ echo $db->ErrorMsg();
 
 Table_Row("Creating scheduler Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[ip_bans](" .
+$db->Execute("CREATE TABLE {$db->prefix}ip_bans (" .
              "ban_id int unsigned NOT NULL auto_increment," .
              "ban_mask varchar(16) NOT NULL," .
              "PRIMARY KEY (ban_id)" .
@@ -446,7 +446,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating ip_bans Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[logs](" .
+$db->Execute("CREATE TABLE {$db->prefix}logs (" .
              "log_id int unsigned NOT NULL auto_increment," .
              "ship_id int DEFAULT '0' NOT NULL," .
              "type mediumint(5) DEFAULT '0' NOT NULL," .
@@ -459,7 +459,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating logs Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[bounty] (" .
+$db->Execute("CREATE TABLE {$db->prefix}bounty (" .
              "bounty_id int unsigned NOT NULL auto_increment," .
              "amount bigint(20) unsigned DEFAULT '0' NOT NULL," .
              "bounty_on int unsigned DEFAULT '0' NOT NULL," .
@@ -472,7 +472,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating session Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[sessions] (" .
+$db->Execute("CREATE TABLE {$db->prefix}sessions (" .
              "SESSKEY varchar(32) DEFAULT '' NOT NULL," .
              "EXPIRY int(11) default '0' NOT NULL," .
              "EXPIREREF varchar(64)," .
@@ -484,7 +484,7 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 
 Table_Row("Creating bounty Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE $dbtables[movement_log](" .
+$db->Execute("CREATE TABLE {$db->prefix}movement_log (" .
              "event_id int unsigned NOT NULL auto_increment," .
              "ship_id int DEFAULT '0' NOT NULL," .
              "sector_id int DEFAULT '0'," .
@@ -495,7 +495,7 @@ $db->Execute("CREATE TABLE $dbtables[movement_log](" .
              ")");
 $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " . mysql_error());
 
-$db->Execute("CREATE TABLE $dbtables[adodb_logsql](" .
+$db->Execute("CREATE TABLE {$db->prefix}adodb_logsql (" .
              "created datetime NOT NULL," .
              "sql0 varchar(250) NOT NULL," .
              "sql1 text NOT NULL," .
@@ -508,8 +508,8 @@ $err = DBTRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorMsg() . ": " 
 Table_Row("Creating adodb_logsql Table","Failed","Passed");
 Table_Footer("Hover over the failed row to see the error.");
 
-//Finished
-echo "<b>Database schema creation completed successfully.</b><BR>";
+// Finished
+echo "<strong>Database schema creation completed successfully.</strong><BR>";
 }
 
 ?>

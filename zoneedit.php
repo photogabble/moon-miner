@@ -30,7 +30,7 @@ if (checklogin())
 
 bigtitle();
 
-$res = $db->Execute("SELECT * FROM $dbtables[zones] WHERE zone_id='$zone'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
 if ($res->EOF)
 {
     zoneedit_die($l_zi_nexist);
@@ -39,12 +39,12 @@ $curzone = $res->fields;
 
 if ($curzone['corp_zone'] == 'N')
 {
-    $result = $db->Execute("SELECT ship_id FROM $dbtables[ships] WHERE email='$username'");
+    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
     $ownerinfo = $result->fields;
 }
 else
 {
-    $result = $db->Execute("SELECT creator, id FROM $dbtables[teams] WHERE creator=$curzone[owner]");
+    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator=$curzone[owner]");
     $ownerinfo = $result->fields;
 }
 
@@ -134,25 +134,25 @@ else
 
 echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<table border=0><tr>" .
-     "<td align=right><font size=2><b>$l_ze_name : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_ze_name : &nbsp;</strong></font></td>" .
      "<td><input type=text name=name size=30 maxlength=30 value=\"$curzone[zone_name]\"></td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>$l_ze_allow $l_beacons : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_ze_allow $l_beacons : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=L $lbeacon>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>$l_ze_attacks : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_ze_attacks : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=attacks value=Y $yattack>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=attacks value=N $nattack>&nbsp;$l_no</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>$l_ze_allow $l_warpedit : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_ze_allow $l_warpedit : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=L $lwarpedit>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>$l_allow $l_sector_def : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_allow $l_sector_def : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>$l_ze_genesis : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_ze_genesis : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=planets value=Y $yplanet>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=N $nplanet>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=L $lplanet>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><b>$l_allow $l_title_port : &nbsp;</b></font></td>" .
+     "<td align=right><font size=2><strong>$l_allow $l_title_port : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=trades value=Y $ytrade>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=N $ntrade>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=L $ltrade>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
      "<td colspan=2 align=center><br><input type=submit value=$l_submit></td></tr>" .
@@ -175,14 +175,14 @@ function zoneedit_change()
     global $trades;
     global $defenses;
     global $l_clickme, $l_ze_saved, $l_ze_return;
-    global $db,$dbtables;
+    global $db;
 
     if (!get_magic_quotes_gpc())
     {
         $name = addslashes($name);
     }
 
-    $db->Execute("UPDATE $dbtables[zones] SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
+    $db->Execute("UPDATE {$db->prefix}zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();
