@@ -841,6 +841,9 @@ Table_Footer("Completed successfully.");
       $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_apocalypse, 0, 'sched_apocalypse.php', NULL,unix_timestamp(now()))");
     Table_Row("The planetary apocalypse will occur every $sched_apocalypse minutes.","Failed","Inserted");
 
+      $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_thegovernor, 0, 'sched_thegovernor.php', NULL,unix_timestamp(now()))");
+    Table_Row("The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
+
       $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', '60', '60', '0', 'bnt_ls_client.php', NULL, unix_timestamp(now()))");
         Table_Row("The Master server list update will occur every 60 minutes.","Failed","Inserted");
 
@@ -859,11 +862,10 @@ Table_Footer("Completed successfully.");
       $update = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
     Table_Row("Inserting Admins ibank Information","Failed","Inserted");
 
-      $password = substr($admin_mail, 0, 16); // Sixteen is the old max length. This should be changed when we switch to using a better password process
       $stamp=date("Y-m-d H:i:s");
-      $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$password','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y','N')");
+      $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$adminpass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'Y','N')");
 
-    Table_1Col("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$password'");
+    Table_1Col("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$adminpass'");
     Table_Row("Inserting Admins Ship Information","Failed","Inserted");
 
       $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'Game Admin\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
