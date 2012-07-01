@@ -25,11 +25,11 @@ $row = $res->fields;
 $online = $row['loggedin'];
 
 global $BenchmarkTimer;
-if (is_object($BenchmarkTimer))
+if (is_object ($BenchmarkTimer) )
 {
     $stoptime = $BenchmarkTimer->stop();
     $elapsed = $BenchmarkTimer->elapsed();
-    $elapsed = substr($elapsed,0,5);
+    $elapsed = substr ($elapsed, 0, 5);
 }
 else
 {
@@ -71,12 +71,7 @@ if ($online == 1)
 }
 else
 {
-echo "  ";
-echo $l_footer_players_on_1;
-echo " ";
-echo $online;
-echo " ";
-echo $l_footer_players_on_2;
+echo "  " . $l_footer_players_on_1 . " " . $online . " " . $l_footer_players_on_2;
 }
 ?>
 </div><br>
@@ -101,7 +96,7 @@ echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href=
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_time == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . utf8_encode($l_time_gen_page) . ": " . $elapsed . " " . $l_seconds . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . utf8_encode ($l_time_gen_page) . ": " . $elapsed . " " . $l_seconds . "</div>";
 }
 ?>
 </body>

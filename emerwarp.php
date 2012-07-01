@@ -18,19 +18,19 @@
 // File: emerwarp.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_ewd_title;
 include "header.php";
-if (checklogin())
+if ( checklogin () )
 {
-    die();
+    die ();
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
-bigtitle();
+bigtitle ();
 if ($playerinfo['dev_emerwarp'] > 0)
 {
     $dest_sector = mt_rand(0, $sector_max - 1);

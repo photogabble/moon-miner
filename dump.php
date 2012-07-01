@@ -18,14 +18,14 @@
 // File: dump.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_dump_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -33,9 +33,9 @@ $playerinfo = $result->fields;
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 $sectorinfo = $result2->fields;
-bigtitle();
+bigtitle ();
 
-if ($playerinfo['turns']<1)
+if ($playerinfo['turns'] < 1)
 {
     echo $l_dump_turn  . "<br><br>";
     TEXT_GOTOMAIN();
@@ -43,11 +43,11 @@ if ($playerinfo['turns']<1)
     die();
 }
 
-if ($playerinfo['ship_colonists']==0)
+if ($playerinfo['ship_colonists'] == 0)
 {
     echo $l_dump_nocol . "<br><br>";
 }
-elseif ($sectorinfo[port_type]=="special")
+elseif ($sectorinfo['port_type'] == "special")
 {
     $update = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     echo $l_dump_dumped . "<br><br>";

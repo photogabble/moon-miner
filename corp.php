@@ -18,14 +18,14 @@
 // File: corp.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_corpm_title;
 include "header.php" ;
 
-if (checklogin())
+if ( checklogin ())
 {
-    die();
+    die ();
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -49,8 +49,8 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
         echo $l_corpm_tocorp . "<br>";
         $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-        $ownership = calc_ownership($playerinfo['sector']);
-        if (!empty($ownership))
+        $ownership = calc_ownership ($playerinfo['sector']);
+        if (!empty ($ownership))
         {
             echo "<p>$ownership<p>";
         }
@@ -58,10 +58,11 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
 
     if ($action == "planetpersonal")
     {
-        echo ("$l_corpm_topersonal<br>");
+        echo $l_corpm_topersonal . "<br>";
         $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
         $ownership = calc_ownership ($playerinfo['sector']);
+        
         // Kick other players off the planet
         $result = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);

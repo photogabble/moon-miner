@@ -17,15 +17,20 @@
 //
 // File: genesis.php
 
+// If anyone who's coded this thing is willing to update it to
+// support multiple planets, go ahead. I suggest removing this
+// code completely from here and putting it in the planet menu
+// instead. Easier to manage, makes more sense too.
+
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_gns_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
 // Adding db lock to prevent more than 5 planets in a sector
@@ -47,64 +52,59 @@ bigtitle();
 
 if ($playerinfo['turns'] < 1)
 {
-  echo "$l_gns_turn";
+    echo "$l_gns_turn";
 }
 elseif ($playerinfo['on_planet']=='Y')
 {
-  echo $l_gns_onplanet;
+    echo $l_gns_onplanet;
 }
 elseif ($num_planets >= $max_planets_sector)
 {
-  echo $l_gns_full;
+    echo $l_gns_full;
 }
 elseif ($sectorinfo['sector_id'] >= $sector_max )
 {
-  echo "Invalid sector<br>\n";
+    echo "Invalid sector<br>\n";
 }
 elseif ($sectorinfo['planet'] == "Y") // With many planets by sector that code is hard to manage, and too powerful (?)
 {
-  echo "There is already a planet in this sector.";
-  if ($playerinfo['ship_id']==$sectorinfo['planet_owner'])
-  {
-    if ($destroy==1 && $allow_genesis_destroy)
+    echo "There is already a planet in this sector.";
+    if ($playerinfo['ship_id']==$sectorinfo['planet_owner'])
     {
-    // not multilingualed cause its not working right now anyway
-      echo "<br>Are you sure???<br><a href=genesis.php?destroy=2>YES, Let them die!</A><br>";
-      echo "<a href=device.php>No! That would be Evil!</A><br>";
+        if ($destroy == 1 && $allow_genesis_destroy)
+        {
+            // not multilingualed cause its not working right now anyway
+            echo "<br>Are you sure???<br><a href=genesis.php?destroy=2>YES, Let them die!</A><br>";
+            echo "<a href=device.php>No! That would be Evil!</A><br>";
+        }
+        elseif ($destroy==2 && $allow_genesis_destroy)
+        {
+            if ($playerinfo['dev_genesis'] > 0)
+            {
+                $deltarating=$sectorinfo[planet_colonists];
+                $update = $db->Execute("UPDATE {$db->prefix}universe SET planet_name=NULL, planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, planet_corp=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
+                $update2=$db->Execute("UPDATE {$db->prefix}ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1, rating=rating-$deltarating WHERE ship_id=$playerinfo[ship_id]");
+                echo "<br>Errr, there was one with $deltarating colonists here....<br>";
+            }
+            else
+            {
+                echo "$l_gns_nogenesis";
+            }
+        }
+        elseif ($allow_genesis_destroy)
+        {
+            echo "<br>Do you want to destroy <a href=genesis.php?destroy=1>";
+            if ($sectorinfo['planet_name']=="")
+            {
+                echo "Unnamed</A>?";
+            }
+            else
+            {
+                echo $sectorinfo['planet_name'] . "</A>?";
+            }
+        }
     }
-    elseif ($destroy==2 && $allow_genesis_destroy)
-    {
-      if ($playerinfo['dev_genesis'] > 0)
-      {
-        $deltarating=$sectorinfo[planet_colonists];
-        $update = $db->Execute("UPDATE {$db->prefix}universe SET planet_name=NULL, planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, planet_corp=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
-        $update2=$db->Execute("UPDATE {$db->prefix}ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1, rating=rating-$deltarating WHERE ship_id=$playerinfo[ship_id]");
-        echo "<br>Errr, there was one with $deltarating colonists here....<br>";
-      }
-      else
-      {
-        echo "$l_gns_nogenesis";
-      }
-    }
-    elseif ($allow_genesis_destroy)
-    {
-      echo "<br>Do you want to destroy <a href=genesis.php?destroy=1>";
-      if ($sectorinfo['planet_name']=="")
-      {
-        echo "Unnamed</A>?";
-      }
-      else
-      {
-        echo $sectorinfo['planet_name'] . "</A>?";
-      }
-    }
-  }
 }
-// If anyone who's coded this thing is willing to update it to
-// support multiple planets, go ahead. I suggest removing this
-// code completely from here and putting it in the planet menu
-// instead. Easier to manage, makes more sense too.
-
 elseif ($playerinfo['dev_genesis'] < 1)
 {
   echo "$l_gns_nogenesis";

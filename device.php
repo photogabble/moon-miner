@@ -18,21 +18,21 @@
 // File: device.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 
 include "languages/$lang";
 $title = $l_device_title;
 include "header.php";
 
-if (checklogin())
+if ( checklogin () )
 {
-  die();
+  die ();
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
-bigtitle();
+bigtitle ();
 
 echo $l_device_expl . "<br><br>";
 echo "<table border=0 cellspacing=0 cellpadding=2>";

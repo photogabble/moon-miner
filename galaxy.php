@@ -18,13 +18,13 @@
 // File: galaxy_new.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 global $l_map_title;
 $title = $l_map_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
     die();
 }
@@ -36,7 +36,7 @@ $result3 = $db->Execute("SELECT distinct {$db->prefix}movement_log.sector_id, po
 db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 $row = $result3->fields;
 
-bigtitle();
+bigtitle ();
 
 $tile['special']="port-special.png";
 $tile['ore']="port-ore.png";
@@ -77,7 +77,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
             echo "<img class='map ".$row['port_type']."' src='images/" . $tile[$p] . "' alt='" . $alt . "'></a> ";
 
             // Move to next explored sector in database results
-            $result3->Movenext();
+            $result3->Movenext ();
             $row = $result3->fields;
             $cur_sector = $cur_sector + 1;
         }

@@ -18,14 +18,14 @@
 // File: feedback.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_feedback_title;
 include "header.php";
 
-if (checklogin())
+if ( checklogin () )
 {
-    die();
+    die ();
 }
 
 if (!isset($_SESSION['content']))
@@ -36,8 +36,8 @@ if (!isset($_SESSION['content']))
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-$playerinfo=$result->fields;
-bigtitle();
+$playerinfo = $result->fields;
+bigtitle ();
 if (is_null($_SESSION['content']))
 {
     echo "<form action=feedback.php method=post>";
@@ -54,7 +54,7 @@ if (is_null($_SESSION['content']))
 else
 {
     require_once "includes/mailer_class.php";
-    $mailer = new Mailer();
+    $mailer = new Mailer ();
 
     if ($_SESSION['sendemail'] == false)
     {
@@ -81,17 +81,17 @@ else
     }
     else
     {
-        $mailer->setDebugMode(false);
+        $mailer->setDebugMode (false);
 
-        $mailer->setMailHost($ExtMailCfg['host']);
-        $ret = $mailer->Authenticate($ExtMailCfg);
+        $mailer->setMailHost ($ExtMailCfg['host']);
+        $ret = $mailer->Authenticate ($ExtMailCfg);
 
-        $mailer->setDomain($email_server );
-        $mailer->setSender( $playerinfo[character_name], $playerinfo[email] );
-        $mailer->setRecipient( $adminname, $admin_mail );
-        $mailer->setSubject( $l_feedback_subj );
-        $mailer->setMessage( "IP address - $ip\r\nGame Name - $playerinfo[character_name] - $gamedomain \r\n\r\n{$_SESSION['content']}\r\n" );
-        $ret = $mailer->sendMail();
+        $mailer->setDomain ($email_server );
+        $mailer->setSender ( $playerinfo[character_name], $playerinfo[email] );
+        $mailer->setRecipient ( $adminname, $admin_mail );
+        $mailer->setSubject ( $l_feedback_subj );
+        $mailer->setMessage ( "IP address - $ip\r\nGame Name - $playerinfo[character_name] - $gamedomain \r\n\r\n{$_SESSION['content']}\r\n" );
+        $ret = $mailer->sendMail ();
         if ($ret == true)
         {
             $image = "images/tick.png";
@@ -100,7 +100,7 @@ else
         }
         else
         {
-            $err = $mailer->getError();
+            $err = $mailer->getError ();
             if ($err['no'] == 2)
             {
                 $image = "images/greylist.png";

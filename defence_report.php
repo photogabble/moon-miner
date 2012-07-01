@@ -24,9 +24,9 @@ include "languages/$lang";
 $title = $l_sdf_title;
 include "header.php";
 
-if (checklogin())
+if ( checklogin() )
 {
-    die();
+    die ();
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -79,7 +79,7 @@ if ($num_sectors < 1)
 }
 else
 {
-    echo "$l_pr_clicktosort<br><br>";
+    echo $l_pr_clicktosort . "<br><br>";
     echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
     echo "<tr bgcolor=\"$color_header\">";
     echo "<td><strong><a href=defence_report.php?sort=sector>$l_sector</a></strong></td>";
@@ -92,7 +92,7 @@ else
     {
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $sector[$i]['sector_id'] . ">". $sector[$i]['sector_id'] ."</a></td>";
-        echo "<td>" . NUMBER($sector[$i]['quantity']) . "</td>";
+        echo "<td>" . NUMBER ($sector[$i]['quantity']) . "</td>";
         $defence_type = $sector[$i]['defence_type'] == 'F' ? $l_fighters : $l_mines;
         echo "<td> $defence_type </td>";
         $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $l_n_a;
@@ -105,7 +105,7 @@ else
             $mode = $l_md_toll;
         }
 
-        echo "<td> $mode </td>";
+        echo "<td> " . $mode . " </td>";
         echo "</tr>";
 
         if ($color == $color_line1)
