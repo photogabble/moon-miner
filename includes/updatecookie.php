@@ -24,21 +24,16 @@ if (preg_match("/updatecookie.php/i", $_SERVER['PHP_SELF'])) {
 
 function updatecookie ()
 {
-    // Refresh the cookie with username/password/id/res - Times out after 60 mins, and player must login again.
-    global $gamepath, $gamedomain, $userpass, $username, $password, $id, $res;
+    // Refresh the cookie with username/password - Times out after 60 mins, and player must login again.
+    global $gamepath, $gamedomain, $userpass, $username, $password;
 
     // The new combined cookie login.
     $userpass = $username."+".$password;
     setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
     if ($userpass != '' and $userpass != '+')
     {
-        setcookie ("username", "", 0); // Legacy support, delete the old login cookies.
-        setcookie ("password", "", 0); // Legacy support, delete the old login cookies.
         $username = substr ($userpass, 0, strpos ($userpass, "+"));
         $password = substr ($userpass, strpos ($userpass, "+")+1);
     }
-
-    setcookie ("id", $id);
-    setcookie ("res", $res);
 }
 ?>

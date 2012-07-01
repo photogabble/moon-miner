@@ -67,10 +67,6 @@ if ($res->RecordCount() != 0)
 {
     setcookie("userpass","",0,$gamepath,$gamedomain);
     setcookie("userpass","",0); // Delete from default path as well.
-    setcookie("username","",0); // Legacy support, delete the old login cookies.
-    setcookie("password","",0); // Legacy support, delete the old login cookies.
-    setcookie("id","",0);
-    setcookie("res","",0);
     $banned = 1;
 }
 
