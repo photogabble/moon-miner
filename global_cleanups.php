@@ -106,7 +106,10 @@ $found = 0;
 
 if (!$index_page)
 {
-    $lang = $_SESSION['lang'];
+    if (isset($_SESSION['lang']))
+    {
+        $lang = $_SESSION['lang'];
+    }
 }
 
 if (!empty($lang))
