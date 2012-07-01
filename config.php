@@ -17,11 +17,19 @@
 //
 // File: config.php
 
-ini_set('error_reporting', 0);
-ini_set('display_errors', '0');
-//ini_set('error_reporting', E_ALL); // During development
-//ini_set('display_errors', '1'); // During development
-$db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development! This makes a huge amount of logs! You have been warned!!
+// create/touch a file named dev in the main game directory to activate development mode
+if (file_exists("dev"))
+{
+    ini_set('error_reporting', E_ALL); // During development, output all errors, even notices
+    ini_set('display_errors', '1'); // During development, *display* all errors
+    $db_logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development! This makes a huge amount of logs! You have been warned!!
+}
+else
+{
+    ini_set('error_reporting', 0); // No errors
+    ini_set('display_errors', '0'); // Don't show them
+    $db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development! This makes a huge amount of logs! You have been warned!!
+}
 
 ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 
@@ -44,6 +52,7 @@ $sched_ranking = 30; // How often rankings will be generated
 $sched_news = 15;    // How often news are generated
 $sched_degrade = 6;  // How often sector fighters degrade when unsupported by a planet
 $sched_apocalypse = 15;
+$sched_thegovernor = 1; 
 $doomsday_value = 90000000; // number of colonists a planet needs before being affected by the apocalypse
 
 // Scheduler config end
