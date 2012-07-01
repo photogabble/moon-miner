@@ -35,8 +35,8 @@ if (!empty($newlang))
     {
         if ($newlang == $value[file])
         {
-            $lang=$newlang;
-            setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+            $lang = $newlang;
+            $_SESSION['lang'] = $lang;
             $found = 1;
             break;
         }

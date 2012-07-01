@@ -22,8 +22,8 @@ if (preg_match("/global_cleanups.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
-
+//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
+ob_start();
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
@@ -103,6 +103,12 @@ if ($userpass != '' and $userpass != '+')
 
 // Ensure lang is set
 $found = 0;
+
+if (!$index_page)
+{
+    $lang = $_SESSION['lang'];
+}
+
 if (!empty($lang))
 {
   if (!preg_match("/^[\w]+$/", $lang))
@@ -114,7 +120,7 @@ if (!empty($lang))
   {
     if ($lang == $value['file'])
     {
-      setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+      $_SESSION['lang'] = $lang;
       $found = 1;
       break;
     }

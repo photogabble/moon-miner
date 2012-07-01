@@ -38,7 +38,8 @@ if (empty($lang))
 {
     $lang = $default_lang;
 }
-setcookie("lang",$lang,time()+(3600*24)*365,$gamepath,$gamedomain);
+
+$_SESSION['lang'] = $lang;
 include "languages/$lang" . ".inc";
 
 // first placement of cookie - don't use updatecookie.
