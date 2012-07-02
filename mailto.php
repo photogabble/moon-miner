@@ -18,12 +18,12 @@
 // File: mailto.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_mt_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
     die();
 }
@@ -32,7 +32,7 @@ $res = $db->Execute("select * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
-bigtitle();
+bigtitle ();
 
 if (empty($content))
 {
@@ -43,8 +43,8 @@ if (empty($content))
     echo "<tr><td>To:</td><td><select name=to style='width:200px;'>";
     while (!$res->EOF)
     {
-        $row=$res->fields;
-        if ($row[ship_id] == $to)
+        $row = $res->fields;
+        if ($row['ship_id'] == $to)
         {
             echo "\n<option selectED>$row[character_name]</option>";
         }
@@ -65,14 +65,14 @@ if (empty($content))
 else
 {
     echo "$l_mt_sent<br><br>";
-    $content = htmlspecialchars($content);
-    $subject = htmlspecialchars($subject);
+    $content = htmlspecialchars ($content);
+    $subject = htmlspecialchars ($subject);
 
     $res = $db->Execute("select * FROM {$db->prefix}ships WHERE character_name='$to'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $target_info = $res->fields;
     $db->Execute("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
-    #using this three lines to get recipients ship_id and sending the message -- blindcoder
+    // Using this three lines to get recipients ship_id and sending the message -- blindcoder
 }
 
 TEXT_GOTOMAIN();

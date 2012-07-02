@@ -25,7 +25,7 @@ if (empty($lang))
 }
 
 $found = 0;
-if (!empty($newlang))
+if (!empty ($newlang) )
 {
     if (!preg_match("/^[\w]+$/", $lang))
     {
@@ -33,7 +33,7 @@ if (!empty($newlang))
     }
     foreach ($avail_lang as $key => $value)
     {
-        if ($newlang == $value[file])
+        if ($newlang == $value['file'])
         {
             $lang = $newlang;
             $_SESSION['lang'] = $lang;
@@ -55,12 +55,12 @@ $title = $l_login_title;
 include "header.php";
 
 global $title;
-if (!isset($username))
+if (!isset ($username) )
 {
     $username = '';
 }
 
-if (!isset($password))
+if (!isset ($password) )
 {
     $password = '';
 }

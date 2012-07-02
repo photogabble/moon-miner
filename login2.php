@@ -26,6 +26,7 @@ $email = $_POST['email'];
 $pass = $_POST['pass'];
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$email'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 if ($res)
 {
     $playerfound = $res->RecordCount();
@@ -33,8 +34,8 @@ if ($res)
 
 $playerinfo = $res->fields;
 
-$lang=$playerinfo['lang'];
-if (empty($lang))
+$lang = $playerinfo['lang'];
+if (empty ($lang) )
 {
     $lang = $default_lang;
 }
@@ -44,14 +45,13 @@ include "languages/$lang" . ".inc";
 
 // first placement of cookie - don't use updatecookie.
 $userpass = $email."+".$pass;
-setcookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
+setcookie("userpass", $userpass, time() + (3600*24)*365, $gamepath, $gamedomain);
 
 if ($server_closed)
 {
     $title = $l_login_sclosed;
     include "header.php";
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
-
     TEXT_GOTOLOGIN();
 
     include "footer.php";
@@ -63,15 +63,16 @@ $title = $l_login_title2;
 // Check Banned
 $banned = 0;
 $res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 if ($res->RecordCount() != 0)
 {
-    setcookie("userpass","",0,$gamepath,$gamedomain);
-    setcookie("userpass","",0); // Delete from default path as well.
+    setcookie("userpass", "", 0, $gamepath, $gamedomain);
+    setcookie("userpass", "", 0); // Delete from default path as well.
     $banned = 1;
 }
 
 include "header.php";
-bigtitle();
+bigtitle ();
 
 if ($playerfound)
 {
@@ -83,6 +84,7 @@ if ($playerfound)
             playerlog ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
             $stamp = date("Y-m-d H-i-s");
             $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
+            db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
             $_SESSION['logged_in'] = true;
             TEXT_GOTOMAIN();
             echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
@@ -90,9 +92,10 @@ if ($playerfound)
         else
         {
             // player's ship has been destroyed
-            if ($playerinfo[dev_escapepod] == "Y")
+            if ($playerinfo['dev_escapepod'] == "Y")
             {
-                $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
+                $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
+                db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                 $l_login_died = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
                 echo $l_login_died;
             }
@@ -104,12 +107,14 @@ if ($playerfound)
                 if ($newbie_nice == "YES")
                 {
                     $newbie_info = $db->Execute("SELECT hull,engines,power,computer,sensors,armor,shields,beams,torp_launchers,cloak FROM {$db->prefix}ships WHERE ship_id='$playerinfo[ship_id]' AND hull<='$newbie_hull' AND engines<='$newbie_engines' AND power<='$newbie_power' AND computer<='$newbie_computer' AND sensors<='$newbie_sensors' AND armor<='$newbie_armor' AND shields<='$newbie_shields' AND beams<='$newbie_beams' AND torp_launchers<='$newbie_torp_launchers' AND cloak<='$newbie_cloak'");
+                    db_op_result ($db, $newbie_info, __LINE__, __FILE__, $db_logging);
                     $num_rows = $newbie_info->RecordCount();
 
                     if ($num_rows)
                     {
                         echo "<br><br>" . $l_login_newbie . "<br><br>";
-                        $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,credits=1000,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
+                        $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,computer=0,sensors=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_ore=0,ship_organics=0,ship_energy=1000,ship_colonists=0,ship_goods=0,ship_fighters=100,ship_damage=0,credits=1000,on_planet='N',dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,ship_destroyed='N',dev_lssd='N' where ship_id=$playerinfo[ship_id]");
+                        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 
                         $l_login_newlife = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
                         echo $l_login_newlife;

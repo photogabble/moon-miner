@@ -23,83 +23,89 @@ include "languages/$lang";
 $title = $l_md_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
-if (!isset($defence_id))
+if (!isset ($defence_id))
 {
-    echo "$l_md_invalid<br>";
-    TEXT_GOTOMAIN();
+    echo $l_md_invalid . "<br>";
+    TEXT_GOTOMAIN ();
     die();
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 $res = $db->Execute("SELECT * from {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
 
-if ($playerinfo[turns]<1)
+if ($playerinfo['turns'] < 1)
 {
     echo $l_md_noturn . "<br><br>";
-    TEXT_GOTOMAIN();
+    TEXT_GOTOMAIN ();
     include "footer.php";
     die();
 }
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defence_id=$defence_id ");
-//Put the defence information into the array "defenceinfo"
+db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+// Put the defence information into the array "defenceinfo"
 
 if ($result3 == 0)
 {
-   echo "$l_md_nolonger<br>";
-   TEXT_GOTOMAIN();
+   echo $l_md_nolonger . "<br>";
+   TEXT_GOTOMAIN ();
    die();
 }
+
 $defenceinfo = $result3->fields;
 if ($defenceinfo['sector_id'] <> $playerinfo['sector'])
 {
-   echo "$l_md_nothere<br><br>";
-   TEXT_GOTOMAIN();
+   echo $l_md_nothere . "<br><br>";
+   TEXT_GOTOMAIN ();
    include "footer.php";
    die();
 }
+
 if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
 {
-   $defence_owner = $l_md_you;
+    $defence_owner = $l_md_you;
 }
 else
 {
-   $defence_ship_id = $defenceinfo['ship_id'];
-   $resulta = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = $defence_ship_id ");
-   $ownerinfo = $resulta->fields;
-   $defence_owner = $ownerinfo['character_name'];
+    $defence_ship_id = $defenceinfo['ship_id'];
+    $resulta = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = $defence_ship_id ");
+    $ownerinfo = $resulta->fields;
+    $defence_owner = $ownerinfo['character_name'];
 }
+
 $defence_type = $defenceinfo['defence_type'] == 'F' ? $l_fighters : $l_mines;
 $qty = $defenceinfo['quantity'];
 if ($defenceinfo['fm_setting'] == 'attack')
 {
-   $set_attack = 'CHECKED';
-   $set_toll = '';
+    $set_attack = 'CHECKED';
+    $set_toll = '';
 }
 else
 {
-   $set_attack = '';
-   $set_toll = 'CHECKED';
+    $set_attack = '';
+    $set_toll = 'CHECKED';
 }
 
 switch ($response) {
    case "fight":
-      bigtitle();
+      bigtitle ();
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
          echo "$l_md_yours<br><br>";
-         TEXT_GOTOMAIN();
+         TEXT_GOTOMAIN ();
          include "footer.php";
          die();
       }
-      $sector = $playerinfo[sector] ;
+      $sector = $playerinfo['sector'] ;
       if ($defenceinfo['defence_type'] == 'F')
       {
          $countres = $db->Execute("SELECT SUM(quantity) as totalfighters FROM {$db->prefix}sector_defence where sector_id = $sector and defence_type = 'F'");
@@ -116,11 +122,11 @@ switch ($response) {
          $playerbeams = NUM_BEAMS($playerinfo[beams]);
          if ($playerbeams>$playerinfo[ship_energy])
          {
-            $playerbeams=$playerinfo[ship_energy];
+             $playerbeams=$playerinfo[ship_energy];
          }
          if ($playerbeams>$total_sector_mines)
          {
-            $playerbeams=$total_sector_mines;
+             $playerbeams=$total_sector_mines;
          }
          echo "$l_md_bmines $playerbeams $l_mines<br>";
          $update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-$playerbeams WHERE ship_id=$playerinfo[ship_id]");
@@ -130,7 +136,7 @@ switch ($response) {
          $l_md_msgdownerb=str_replace("[mines]",$playerbeams,$l_md_msgdownerb);
          $l_md_msgdownerb=str_replace("[name]",$char_name,$l_md_msgdownerb);
          message_defence_owner ($db, $sector,"$l_md_msgdownerb");
-         TEXT_GOTOMAIN();
+         TEXT_GOTOMAIN ();
          die();
       }
       break;
@@ -138,7 +144,7 @@ switch ($response) {
       if ($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
-         TEXT_GOTOMAIN();
+         TEXT_GOTOMAIN ();
          include "footer.php";
          die();
       }
@@ -183,7 +189,7 @@ switch ($response) {
       $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
       bigtitle();
       echo "$l_md_retr $quantity $defence_type.<br>";
-      TEXT_GOTOMAIN();
+      TEXT_GOTOMAIN ();
       die();
       break;
    case "change":
@@ -191,7 +197,7 @@ switch ($response) {
       if ($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
-         TEXT_GOTOMAIN();
+         TEXT_GOTOMAIN ();
          include "footer.php";
          die();
       }
@@ -204,7 +210,7 @@ switch ($response) {
         $mode = $l_md_toll;
       $l_md_mode=str_replace("[mode]",$mode,$l_md_mode);
       echo "$l_md_mode<br>";
-      TEXT_GOTOMAIN();
+      TEXT_GOTOMAIN ();
       die();
       break;
    default:
@@ -251,11 +257,11 @@ switch ($response) {
             echo "</FORM>";
          }
       }
-      TEXT_GOTOMAIN();
+      TEXT_GOTOMAIN ();
       die();
       break;
 }
 
-TEXT_GOTOMAIN();
+TEXT_GOTOMAIN ();
 include "footer.php";
 ?>

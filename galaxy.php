@@ -38,13 +38,13 @@ $row = $result3->fields;
 
 bigtitle ();
 
-$tile['special']="port-special.png";
-$tile['ore']="port-ore.png";
-$tile['organics']="port-organics.png";
-$tile['energy']="port-energy.png";
-$tile['goods']="port-goods.png";
-$tile['none']="space.png";
-$tile['unknown']="uspace.png";
+$tile['special'] = "port-special.png";
+$tile['ore'] = "port-ore.png";
+$tile['organics'] = "port-organics.png";
+$tile['energy'] = "port-energy.png";
+$tile['goods'] = "port-goods.png";
+$tile['none'] = "space.png";
+$tile['unknown'] = "uspace.png";
 
 $cur_sector= 0; // Clear this before iterating through the sectors
 
@@ -62,7 +62,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
 {
     for ($c = 0; $c < $div_xmax; $c++) // Loop the columns
     {
-        if (isset($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
+        if (isset ($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
         {
             $p = $row['port_type'];
             // Build the alt text for each image

@@ -43,7 +43,7 @@ else
 $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $result = $res->fields;
-$mySEC = ($sched_ticks * 60) - (TIME()-$result['last_run']);
+$mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
 ?>
   <script type="text/javascript">
    var myi = '<?php echo $mySEC; ?>';
@@ -66,12 +66,12 @@ echo "  <strong><span id=myx>$mySEC</span></strong> " . utf8_encode($l_footer_un
 
 if ($online == 1)
 {
-   echo "  ";
-   echo $l_footer_one_player_on;
+    echo "  ";
+    echo $l_footer_one_player_on;
 }
 else
 {
-echo "  " . $l_footer_players_on_1 . " " . $online . " " . $l_footer_players_on_2;
+    echo "  " . $l_footer_players_on_1 . " " . $online . " " . $l_footer_players_on_2;
 }
 ?>
 </div><br>

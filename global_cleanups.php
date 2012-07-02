@@ -32,12 +32,12 @@ global $ADODB_CRYPT_KEY;
 global $db_type, $dbhost, $dbuname, $dbpass, $dbname;
 
 $ADODB_SESS_CONN = '';
-$ADODB_SESSION_TBL     = "bnt_sessions";
-$ADODB_SESSION_DRIVER=$db_type;
-$ADODB_SESSION_CONNECT=$dbhost;
-$ADODB_SESSION_USER =$dbuname;
-$ADODB_SESSION_PWD =$dbpass;
-$ADODB_SESSION_DB =$dbname;
+$ADODB_SESSION_TBL = "bnt_sessions";
+$ADODB_SESSION_DRIVER = $db_type;
+$ADODB_SESSION_CONNECT = $dbhost;
+$ADODB_SESSION_USER = $dbuname;
+$ADODB_SESSION_PWD = $dbpass;
+$ADODB_SESSION_DB = $dbname;
 
 // We explicitly use encrypted sessions, but this adds compression as well.
 ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
@@ -46,7 +46,7 @@ ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
 ADODB_Session::dataFieldName('SESSDATA');
 
 global $db;
-connectdb();
+connectdb ();
 $db->prefix = $db_prefix;
 
 if ($db_logging)
@@ -62,7 +62,7 @@ if (!isset($index_page))
 if (!$index_page)
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
-    session_start();
+    session_start ();
 }
 
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
@@ -97,8 +97,8 @@ if (!isset($userpass))
 
 if ($userpass != '' and $userpass != '+')
 {
-    $username = substr($userpass, 0, strpos($userpass, "+"));
-    $password = substr($userpass, strpos($userpass, "+")+1);
+    $username = substr ($userpass, 0, strpos ($userpass, "+"));
+    $password = substr ($userpass, strpos ($userpass, "+")+1);
 }
 
 // Ensure lang is set
@@ -114,27 +114,32 @@ if (!$index_page)
 
 if (!empty($lang))
 {
-  if (!preg_match("/^[\w]+$/", $lang))
-  {
-     $lang = $default_lang;
-
-  }
-  foreach ($avail_lang as $key => $value)
-  {
-    if ($lang == $value['file'])
+    if (!preg_match("/^[\w]+$/", $lang))
     {
-      $_SESSION['lang'] = $lang;
-      $found = 1;
-      break;
+        $lang = $default_lang;
     }
-  }
 
-  if ($found == 0)
-    $lang = $default_lang;
+    foreach ($avail_lang as $key => $value)
+    {
+        if ($lang == $value['file'])
+        {
+            $_SESSION['lang'] = $lang;
+            $found = 1;
+            break;
+        }
+    }
+
+    if ($found == 0)
+    {
+        $lang = $default_lang;
+    }
 }
 
 if (!isset($lang) || empty($lang))
-  $lang = $default_lang;
+{
+    $lang = $default_lang;
+}
+
 $lang = $lang . ".inc";
 // Log constants
 

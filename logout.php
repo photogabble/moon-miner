@@ -20,8 +20,8 @@
 include "config.php";
 include "languages/$lang";
 $title = $l_logout;
-setcookie("userpass","",0,$gamepath,$gamedomain);
-setcookie("userpass","",0); // Delete from default path as well.
+setcookie ("userpass", "", 0, $gamepath, $gamedomain);
+setcookie ("userpass", "", 0); // Delete from default path as well.
 include "header.php";
 $current_score = 0;
 
@@ -32,12 +32,13 @@ if (!isset($username))
 else
 {
     $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
     $playerinfo = $result->fields;
-    $current_score = gen_score($playerinfo['ship_id']);
+    $current_score = gen_score ($playerinfo['ship_id']);
     playerlog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
 }
 
-bigtitle();
+bigtitle ();
 echo $l_logout_score . " " . $current_score . ".<br>";
 $l_logout_text = str_replace("[name]", $username, $l_logout_text);
 $l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);

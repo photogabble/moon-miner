@@ -18,16 +18,16 @@
 // File: help.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 $title = $l_help;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
-bigtitle();
+bigtitle ();
 
 echo "Greetings and welcome to Blacknova Traders!";
 echo "<br><br>";
@@ -38,7 +38,7 @@ echo "<a href=#mainmenu>Main Menu commands</a><br>";
 echo "<a href=#techlevels>Tech levels</a><br>";
 echo "<a href=#devices>Devices</a><br>";
 echo "<a href=#zones>Zones</a><br>";
-echo "<A NAME=mainmenu></a><H2>Main Menu commands:</H2>";
+echo "<a name=mainmenu></a><H2>Main Menu commands:</H2>";
 echo "<strong>Ship report:</strong><br>";
 echo "Display a detailed report on your ship's systems, cargo and weaponry. You can display this report by ";
 echo "clicking on your ship's name at the top of the main page.";
@@ -118,7 +118,7 @@ echo "<br><br>";
 echo "<strong>Logout:</strong><br>";
 echo "Remove any game cookies from your system, ending your current session.";
 echo "<br><br>";
-echo "<A NAME=techlevels></a><H2>Tech levels:</H2>";
+echo "<a name=techlevels></a><H2>Tech levels:</H2>";
 echo "You can upgrade your ship components at any special port. Each component upgrade improves your ship's ";
 echo "attributes and capabilities.";
 echo "<br><br>";
@@ -154,7 +154,7 @@ echo "<br><br>";
 echo "<strong>Cloak:</strong><br>";
 echo "Determines the efficiency of your ship's cloaking system. See 'Sensors' for more details.";
 echo "<br><br>";
-echo "<A NAME=devices></a><H2>Devices:</H2>";
+echo "<a name=devices></a><H2>Devices:</H2>";
 echo "<strong>Space Beacons:</strong><br>";
 echo "Post a warning or message which will be displayed to anyone entering this sector. Only 1 beacon can be ";
 echo "active in each sector, so a new beacon removes the existing one (if any).";
