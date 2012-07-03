@@ -18,36 +18,40 @@
 // File: move.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_move_title;
 include "header.php";
 
 // Check to see if the user is logged in
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
 // Retrieve the user and ship information
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+
 // Put the player information into the array: "playerinfo"
-$playerinfo=$result->fields;
+$playerinfo = $result->fields;
 
 // Check to see if the player has less than one turn available
 // and if so return to the main menu
-if ($playerinfo['turns']<1)
+if ($playerinfo['turns'] < 1)
 {
-    echo $l_move_turn . "<br><br>";
-    TEXT_GOTOMAIN();
+    echo $l_move_turn . '<br><br>';
+    TEXT_GOTOMAIN ();
     include "footer.php";
-    die();
+    die ();
 }
 
 // Retrieve all the sector information about the current sector
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+
 // Put the sector information into the array "sectorinfo"
-$sectorinfo=$result2->fields;
+$sectorinfo = $result2->fields;
 
 if (!isset($_GET['sector']))
 {
@@ -56,57 +60,59 @@ if (!isset($_GET['sector']))
 
 // Retrive all the warp links out of the current sector
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start='$playerinfo[sector]'");
-$i=0;
-$flag=0;
+db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+$i = 0;
+$flag = 0;
 
 // Loop through the available warp links to make sure it's a valid move
 while (!$result3->EOF)
 {
     $row = $result3->fields;
-    if ($row['link_dest']==$_GET['sector'] && $row['link_start']==$playerinfo['sector'])
+    if ($row['link_dest'] == $_GET['sector'] && $row['link_start'] == $playerinfo['sector'])
     {
-        $flag=1;
+        $flag = 1;
     }
     $i++;
     $result3->MoveNext();
 }
 
 // Check if there was a valid warp link to move to
-if ($flag==1)
+if ($flag == 1)
 {
-    $ok=1;
+    $ok = 1;
     $calledfrom = "move.php";
     include_once "check_fighters.php";
     if ($ok > 0)
     {
-       $stamp = date("Y-m-d H-i-s");
-       $query="UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
-       log_move ($db, $playerinfo['ship_id'], $sector);
-       $move_result = $db->Execute ("$query");
-      if (!$move_result)
-    {
-    // is this really STILL needed?
-        $error = $db->ErrorMsg();
-        mail ($admin_mail,"Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nSQL error: $error");
-    }
+        $stamp = date("Y-m-d H-i-s");
+        $query = "UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
+        log_move ($db, $playerinfo['ship_id'], $sector);
+        $move_result = $db->Execute ("$query");
+        db_op_result ($db, $move_result, __LINE__, __FILE__, $db_logging);
+        if (!$move_result)
+        {
+            // is this really STILL needed?
+            $error = $db->ErrorMsg();
+            mail ($admin_mail,"Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nSQL error: $error");
+        }
     }
     // Enter code for checking dangers in new sector
     include_once "check_mines.php";
-    if ($ok==1)
+    if ($ok == 1)
     {
         echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
     }
     else
     {
-        TEXT_GOTOMAIN();
+        TEXT_GOTOMAIN ();
     }
 }
 else
 {
-    echo $l_move_failed . "<br><br>";
-    $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
-
-    TEXT_GOTOMAIN();
+    echo $l_move_failed . '<br><br>';
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    TEXT_GOTOMAIN ();
 }
 
 echo "</body></html>";

@@ -18,9 +18,9 @@
 // File: option2.php
 
 include "config.php";
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
 global $l_opt2_title;
@@ -29,8 +29,9 @@ $title = $l_opt2_title;
 if ($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
 {
     $userpass = $username."+".$newpass1;
-    setcookie("userpass",$userpass,time()+(3600*24)*365,$gamepath,$gamedomain);
+    setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
 }
+
 if (!preg_match("/^[\w]+$/", $newlang))
 {
     $newlang = $default_lang;
@@ -41,7 +42,7 @@ $lang = $newlang;
 $_SESSION['lang'] = $lang;
 include "languages/$lang" . ".inc";
 include "header.php";
-bigtitle();
+bigtitle ();
 
 if ($newpass1 == "" && $newpass2 == "")
 {
@@ -58,14 +59,16 @@ elseif ($newpass1 != $newpass2)
 else
 {
     $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE email='$username'");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $playerinfo = $res->fields;
-    if ($oldpass != $playerinfo[password])
+    if ($oldpass != $playerinfo['password'])
     {
         echo $l_opt2_srcpassfalse;
     }
     else
     {
         $res = $db->Execute("UPDATE {$db->prefix}ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
+        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         if ($res)
         {
             echo $l_opt2_passchanged . "<br><br>";
@@ -79,6 +82,7 @@ else
 
 
 $res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 foreach ($avail_lang as $curlang)
 {
     if ($lang == $curlang['file'])
@@ -99,6 +103,7 @@ else
 }
 
 $res = $db->Execute("UPDATE {$db->prefix}ships SET dhtml='$dhtml' WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 if ($res)
 {
     echo $l_opt2_dhtmlup . "<br>";

@@ -18,24 +18,24 @@
 // File: navcomp.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_nav_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
-bigtitle();
+bigtitle ();
 
 if (!$allow_navcomp)
 {
-    echo $l_nav_nocomp . "<br><br>";
+    echo $l_nav_nocomp . '<br><br>';
     TEXT_GOTOMAIN();
     include "footer.php";
-    die();
+    die ();
 }
 
 if (!isset($_REQUEST['state']))
@@ -45,14 +45,17 @@ if (!isset($_REQUEST['state']))
 
 $state = $_REQUEST['state'];
 
-unset($stop_sector);
+unset ($stop_sector);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
+
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$current_sector'");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result2->fields;
 
 // Gets the stop_sector POST Variable.
@@ -156,6 +159,7 @@ elseif ($state == 1)
         //echo "$search_query\n\n";
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");
+        db_op_result ($db, $search_result, __LINE__, __FILE__, $db_logging);
         $found = $search_result->RecordCount();
         if ($found > 0)
         {
@@ -165,10 +169,10 @@ elseif ($state == 1)
 
     if ($found > 0)
     {
-        echo "<H3>$l_nav_pathfnd</H3>\n";
-        $links=$search_result->fields;
+        echo "<h3>$l_nav_pathfnd</h3>\n";
+        $links = $search_result->fields;
         echo $links[0];
-        for ($i=1;$i<$search_depth+1;$i++)
+        for ($i=1; $i<$search_depth+1; $i++)
         {
             echo " >> " . $links[$i];
         }

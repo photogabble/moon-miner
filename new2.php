@@ -35,75 +35,80 @@ $scoop = 'N';  // Start game equipped with fuel scoop?
 include "languages/$lang";
 $title = $l_new_title2;
 include "header.php";
-bigtitle();
+bigtitle ();
 
 if ($account_creation_closed)
 {
-    die($l_new_closed_message);
+    die ($l_new_closed_message);
 }
 
-$character = htmlspecialchars($character);
-$shipname = htmlspecialchars($shipname);
-$character = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
-$shipname = preg_replace('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
+$character = htmlspecialchars ($character);
+$shipname = htmlspecialchars ($shipname);
+$character = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
+$shipname = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
 
 // $username = $_POST['username']; // This needs to STAY before the db query
 
 if (!get_magic_quotes_gpc())
 {
-    $username = addslashes($username);
-    $character = addslashes($character);
-    $shipname = addslashes($shipname);
+    $username = addslashes ($username);
+    $character = addslashes ($character);
+    $shipname = addslashes ($shipname);
 }
 
 $result = $db->Execute ("select email, character_name, ship_name from {$db->prefix}ships where email='$username' OR character_name='$character' OR ship_name='$shipname'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $flag = 0;
 
-if ($username=='' || $character=='' || $shipname=='' )
+if ($username == '' || $character == '' || $shipname == '' )
 {
-    echo "$l_new_blank<br>"; $flag=1;
+    echo $l_new_blank . '<br>';
+    $flag = 1;
 }
 
 while (!$result->EOF)
 {
     $row = $result->fields;
-    if (strtolower($row['email'])==strtolower($username))
+    if (strtolower ($row['email']) == strtolower ($username))
     {
         echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<br>";
-        $flag=1;
+        $flag = 1;
     }
-    if (strtolower($row['character_name'])==strtolower($character))
+    if (strtolower ($row['character_name']) == strtolower($character))
     {
-        $l_new_inusechar=str_replace("[character]",$character,$l_new_inusechar);
-        echo "$l_new_inusechar<br>"; $flag=1;
+        $l_new_inusechar=str_replace("[character]", $character, $l_new_inusechar);
+        echo $l_new_inusechar . '<br>'; 
+        $flag = 1;
     }
-    if (strtolower($row['ship_name'])==strtolower($shipname))
+    if (strtolower ($row['ship_name']) == strtolower ($shipname))
     {
-        $l_new_inuseship=str_replace("[shipname]",$shipname,$l_new_inuseship);
-        echo "$l_new_inuseship<br>"; $flag=1;
+        $l_new_inuseship = str_replace ("[shipname]", $shipname, $l_new_inuseship);
+        echo $l_new_inuseship . '<br>';
+        $flag = 1;
     }
     $result->MoveNext();
 }
 
-if ($flag==0)
+if ($flag == 0)
 {
     // Insert code to add player to database
-    $makepass="";
-    $syllables="er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
-    $syllable_array=explode(",", $syllables);
-    for ($count=1;$count<=4;$count++)
+    $makepass = "";
+    $syllables = "er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
+    $syllable_array = explode (",", $syllables);
+    for ($count=1; $count<=4; $count++)
     {
-        if (mt_rand()%10 == 1)
+        if (mt_rand ()%10 == 1)
         {
-            $makepass .= sprintf("%0.0f",(mt_rand()%50)+1);
+            $makepass .= sprintf("%0.0f",(mt_rand ()%50)+1);
         }
         else
         {
-            $makepass .= sprintf("%s",$syllable_array[mt_rand()%62]);
+            $makepass .= sprintf("%s", $syllable_array[mt_rand ()%62]);
         }
     }
     $stamp=date("Y-m-d H:i:s");
     $query = $db->Execute("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships");
+    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
     $res = $query->fields;
 
     $mturns = $res['mturns'];
@@ -115,6 +120,8 @@ if ($flag==0)
 
     $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,interface,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dhtml,dev_lssd)
                              VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','N','$ip','Y','N','N','Y',NULL,'$default_lang', 'Y','$start_lssd')");
+    db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+    
     if (!$result2)
     {
         echo $db->ErrorMsg() . "<br>";
@@ -122,7 +129,10 @@ if ($flag==0)
     else
     {
         $result2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
+        db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+        
         $shipid = $result2->fields;
+        
         // To do: build a bit better "new player" message
         $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
         $l_new_message = str_replace("[ip]", $ip, $l_new_message);
@@ -132,21 +142,25 @@ if ($flag==0)
         mail("$username", "$l_new_topic", "$l_new_message\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion());
 
         log_move ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
-        $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
-        $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
+        $resx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        
+        $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
+        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        
         if ($display_password)
         {
             echo $l_new_pwis . " " . $makepass . "<br><br>";
         }
 
-        $l_new_pwsent=str_replace("[username]",$_POST['username'],$l_new_pwsent);
-        echo "$l_new_pwsent<br><br>";
+        $l_new_pwsent=str_replace("[username]", $_POST['username'], $l_new_pwsent);
+        echo $l_new_pwsent . '<br><br>';
         echo "<a href=login.php>$l_clickme</A> $l_new_login";
     }
 }
 else
 {
-    $l_new_err=str_replace("[here]","<a href='new.php'>" . $l_here . "</a>",$l_new_err);
+    $l_new_err = str_replace ("[here]", "<a href='new.php'>" . $l_here . "</a>",$l_new_err);
     echo $l_new_err;
 }
 

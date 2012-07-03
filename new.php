@@ -23,7 +23,7 @@ include "languages/$lang";
 $title = $l_new_title;
 include "header.php";
 
-bigtitle();
+bigtitle ();
 
 echo "<form action='new2.php' method='post'>\n";
 echo "    <dl class='twocolumn-form'>\n";

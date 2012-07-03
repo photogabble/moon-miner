@@ -30,7 +30,7 @@ if ((!isset($_GET['startdate'])) || ($_GET['startdate'] == ''))
 }
 
 // Check and validate the date.
-$startdate = substr($_GET['startdate'], 0, 10);
+$startdate = substr ($_GET['startdate'], 0, 10);
 $validformat = preg_match('/^(\d\d\d\d)\/(\d\d?)\/(\d\d?)$/', $startdate, $regs);
 
 if (!($validformat && $regs[1] >= 1900 && $regs[1] <= date("Y") + 1000 && ($regs[2] < 12) && ($regs[3] < 30)))
@@ -39,8 +39,8 @@ if (!($validformat && $regs[1] >= 1900 && $regs[1] <= date("Y") + 1000 && ($regs
     $startdate = date("Y/m/d");
 }
 
-$previousday = getpreviousday($startdate);
-$nextday = getnextday($startdate);
+$previousday = getpreviousday ($startdate);
+$nextday = getnextday ($startdate);
 
 echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";
@@ -58,9 +58,10 @@ echo "  </tr>\n";
 
 //Select news for date range
 $res = $db->Execute("SELECT * from {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' order by news_id desc");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 //Check to see if there was any news to be shown
-if ($res->RecordCount() >0)
+if ($res->RecordCount() > 0 )
 {
     // Yes we do, now cycle through them.
     while (!$res->EOF)
@@ -84,6 +85,6 @@ else
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 
-TEXT_GOTOMAIN();
-die();
+TEXT_GOTOMAIN ();
+die ();
 ?>

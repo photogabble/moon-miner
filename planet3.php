@@ -18,14 +18,14 @@
 // File: plaent3.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 include "languages/$lang";
 $title = $l_planet3_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
 // Fixed The Phantom Planet Transfer Bug
@@ -52,70 +52,72 @@ $trade_energy = (int) $_POST['trade_energy'];
 // Validate and set the type of $_GET vars;
 $planet_id = (int) $_GET['planet_id'];
 
-bigtitle();
+bigtitle ();
 
 // Check if planet_id is valid.
 if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN();
-    die();
+    TEXT_GOTOMAIN ();
+    die ();
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-$result2=$db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $planetinfo = $result2->fields;
 
 // Check to see if it returned valid planet info.
 if ($planetinfo == false)
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN();
-    die();
+    TEXT_GOTOMAIN ();
+    die ();
 }
 
 if ($playerinfo['turns'] < 1)
 {
-    echo "$l_trade_turnneed<br><br>";
-    TEXT_GOTOMAIN();
+    echo $l_trade_turnneed . '<br><br>';
+    TEXT_GOTOMAIN ();
     include "footer.php";
-    die();
+    die ();
 }
 
 if ($planetinfo['sector_id'] <> $playerinfo['sector'])
 {
-    echo "$l_planet2_sector<br><br>";
-    TEXT_GOTOMAIN();
+    echo $l_planet2_sector . '<br><br>';
+    TEXT_GOTOMAIN ();
     include "footer.php";
-    die();
+    die ();
 }
 
-if (empty($planetinfo))
+if (empty ($planetinfo))
 {
     echo "$l_planet_none<br>";
-    TEXT_GOTOMAIN();
+    TEXT_GOTOMAIN ();
     include "footer.php";
-    die();
+    die ();
 }
 
-$trade_ore = round(abs($trade_ore));
-$trade_organics = round(abs($trade_organics));
-$trade_goods = round(abs($trade_goods));
-$trade_energy = round(abs($trade_energy));
-$ore_price = ($ore_price + $ore_delta/4);
-$organics_price = ($organics_price + $organics_delta/4);
-$goods_price = ($goods_price + $goods_delta/4);
-$energy_price = ($energy_price + $energy_delta/4);
+$trade_ore = round (abs ($trade_ore));
+$trade_organics = round (abs ($trade_organics));
+$trade_goods = round (abs ($trade_goods));
+$trade_energy = round (abs ($trade_energy));
+$ore_price = ($ore_price + $ore_delta / 4);
+$organics_price = ($organics_price + $organics_delta / 4);
+$goods_price = ($goods_price + $goods_delta / 4);
+$energy_price = ($energy_price + $energy_delta / 4);
 
-if ($planetinfo[sells] == 'Y')
+if ($planetinfo['sells'] == 'Y')
 {
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
 
-    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
-    $free_power = NUM_ENERGY($playerinfo[power]) - $playerinfo[ship_energy];
-    $total_cost = ($trade_ore*$ore_price) + ($trade_organics*$organics_price) + ($trade_goods*$goods_price) + ($trade_energy*$energy_price);
+    $free_holds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+    $free_power = NUM_ENERGY ($playerinfo['power']) - $playerinfo['ship_energy'];
+    $total_cost = ($trade_ore * $ore_price) + ($trade_organics * $organics_price) + ($trade_goods * $goods_price) + ($trade_energy * $energy_price);
 
     if ($free_holds < $cargo_exchanged)
     {
@@ -125,27 +127,27 @@ if ($planetinfo[sells] == 'Y')
     {
         echo "$l_notenough_power <a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<br><br>";
     }
-    elseif ($playerinfo[turns]<1)
+    elseif ($playerinfo['turns'] < 1 )
     {
         echo "$l_notenough_turns<br><br>";
     }
-    elseif ($playerinfo[credits]<$total_cost)
+    elseif ($playerinfo['credits'] < $total_cost)
     {
         echo "$l_notenough_credits<br><br>";
     }
-    elseif ($trade_organics > $planetinfo[organics])
+    elseif ($trade_organics > $planetinfo['organics'])
     {
         echo "$l_exceed_organics  ";
     }
-    elseif ($trade_ore > $planetinfo[ore])
+    elseif ($trade_ore > $planetinfo['ore'])
     {
         echo "$l_exceed_ore  ";
     }
-    elseif ($trade_goods > $planetinfo[goods])
+    elseif ($trade_goods > $planetinfo['goods'])
     {
         echo "$l_exceed_goods  ";
     }
-    elseif ($trade_energy > $planetinfo[energy])
+    elseif ($trade_energy > $planetinfo['energy'])
     {
         echo "$l_exceed_energy  ";
     }
@@ -154,13 +156,15 @@ if ($planetinfo[sells] == 'Y')
         echo "$l_totalcost: $total_cost<br>$l_traded_ore: $trade_ore<br>$l_traded_organics: $trade_organics<br>$l_traded_goods: $trade_goods<br>$l_traded_energy: $trade_energy<br><br>";
         // Update ship cargo, credits and turns
         $trade_result = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+        db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
 
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}planets SET ore=ore-$trade_ore, organics=organics-$trade_organics, goods=goods-$trade_goods, energy=energy-$trade_energy, credits=credits+$total_cost WHERE planet_id=$planet_id");
+        db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
         echo "$l_trade_complete<br><br>";
     }
 }
 
-gen_score($planetinfo['owner']);
-TEXT_GOTOMAIN();
+gen_score ($planetinfo['owner']);
+TEXT_GOTOMAIN ();
 include "footer.php";
 ?>

@@ -19,16 +19,16 @@
 
 include "config.php";
 include "languages/$lang";
-updatecookie();
+updatecookie ();
 $title = $l_opt_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
-bigtitle();
+bigtitle ();
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
@@ -90,7 +90,6 @@ echo "<br>";
 echo "<input type=submit value=$l_opt_save>";
 echo "</form>";
 
-TEXT_GOTOMAIN();
+TEXT_GOTOMAIN ();
 include "footer.php";
 ?>
-
