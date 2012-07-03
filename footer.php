@@ -61,7 +61,7 @@ $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
     }
   </script>
 <?php
-echo "  <strong><span id=myx>$mySEC</span></strong> " . utf8_encode($l_footer_until_update) . " <br>\n";
+echo "  <strong><span id=myx>$mySEC</span></strong> " . $l_footer_until_update . " <br>\n";
 // End update counter
 
 if ($online == 1)
@@ -96,9 +96,12 @@ echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href=
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_time == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . utf8_encode ($l_time_gen_page) . ": " . $elapsed . " " . $l_seconds . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . $l_time_gen_page . ": " . $elapsed . " " . $l_seconds . "</div>";
 }
 ?>
 </body>
 </html>
-<?php ob_end_flush(); ?>
+<?php 
+// Push all content through a UTF8 encoder, so that multi-byte characters work correctly. (Seen often in foreign language output)
+echo utf8_encode(ob_get_clean());
+?>

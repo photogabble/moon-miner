@@ -74,7 +74,7 @@ include "header.php";
 <ul class="navigation">
 <li class="navigation"><a href="login.php"><span class="button blue"><span class="shine"></span><?php echo $l_login_title; ?></span></a></li>
 <li class="navigation"><a href="new.php"><span class="button green"><span class="shine"></span><?php echo $l_new_player; ?></span></a></li>
-<li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo utf8_encode($l_login_emailus); ?></span></a></li>
+<li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo $l_login_emailus; ?></span></a></li>
 <li class="navigation"><a href="ranking.php"><span class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></span></a></li>
 <li class="navigation"><a href="docs/faq.html"><span class="button brown"><span class="shine"></span><?php echo $l_faq; ?></span></a></li>
 <li class="navigation"><a href="settings.php"><span class="button red"><span class="shine"></span><?php echo $l_settings; ?></span></a></li>
@@ -87,9 +87,9 @@ if (!empty($link_forums))
 </ul></div><br style="clear:both">
 <div><p></p></div>
 <div class="index-welcome">
-<h1 class="index-h1"><?php echo utf8_encode($l_welcome_bnt); ?></h1><br>
-<p><?php echo utf8_encode($l_bnt_description); ?><br></p>
+<h1 class="index-h1"><?php echo $l_welcome_bnt; ?></h1><br>
+<p><?php echo $l_bnt_description; ?><br></p>
 <br>
-<p class="cookie-warning"><?php echo utf8_encode($l_cookie_warning); ?></p></div>
+<p class="cookie-warning"><?php echo $l_cookie_warning; ?></p></div>
 <br>
 <?php include "footer.php"; ?>
