@@ -142,3 +142,5 @@ ul.navigation li {display:inline;}
 body.index img {border:0;}
 body.index a {outline:none; text-decoration:none;}
 div.index-flags img {height:16px;}
+tr:nth-child(even) { background-color:#300030;}
+tr:nth-child(odd) { background-color:#400040;}
