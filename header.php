@@ -35,7 +35,6 @@ if (!isset($body_class))
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
 <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
 <meta name="Rating" content="General">
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
 <link rel="shortcut icon" href="images/bntfavicon.ico">
 <title><?php echo $title; ?></title>
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'>
