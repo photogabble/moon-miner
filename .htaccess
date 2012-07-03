@@ -1,0 +1,3 @@
+<FilesMatch "\.(php|html)$" >
+Header set X-UA-Compatible "IE=Edge"
+</FilesMatch>
