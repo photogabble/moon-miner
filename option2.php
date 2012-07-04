@@ -40,7 +40,10 @@ if (!preg_match("/^[\w]+$/", $newlang))
 $lang = $newlang;
 
 $_SESSION['lang'] = $lang;
-include "languages/$lang" . ".inc";
+
+// New database driven language entries
+load_languages($db, $langsh, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 include "header.php";
 bigtitle ();
 

@@ -101,6 +101,7 @@ l_cloak           = "Camouflage";
 l_holds           = "Cargaison";
 l_deflect           = "Déflecteurs (mines)";
 l_ewd                = "Hyper-espace d'urgence";
+l_shipavg                             = "Niveau moyen de technologies";
 l_arm_weap           = "Armes & Armures";
 l_beacons           = "Bouées Spatiales";
 l_warpedit           = "Éditeurs de liens";
@@ -254,7 +255,7 @@ l_planet2_laun       = "lanceurs de torpilles";
 l_planet2_nocorptransfer = "Vous ne pouvez transferer des crédits sur une planète corporative.";
 l_planet3_title      = "Commerce de planète";
 
-[planet-report]
+[planet_report]
 l_pr_title           = "Rapport des planètes";
 l_pr_teamlink           = "Montrer les planètes de votre alliance";
 l_pr_noplanet           = "Vous ne possédez aucune planète.";
@@ -525,7 +526,7 @@ l_log_title_LOG_DEFENCE_DEGRADE = "Dégradation";
 l_log_text_LOG_PLANET_CAPTURED = "Vous avez capturé une planète appartenant à [owner]. Il y avait [cols] colons et [credits] crédits sur celle-ci.";
 l_log_title_LOG_PLANET_CAPTURED = "Planète capturée!";
 
-[modify-defences]
+[modify_defences]
 l_md_title           = "Défenses de secteur";
 l_md_invalid           = "Défense invalide";
 l_md_nolonger           = "La défense que vous avez choisi n'est plus dans ce secteur.";
@@ -686,7 +687,7 @@ l_ewd_title           = "Hyper-espace d'urgence";
 l_ewd_used           = "Hyper-espace d'urgence engagé - vous arrivez dans le secteur [sector].";
 l_ewd_none           = "Vous n'avez pas d'hyper-espace d'urgence.";
 
-[defence-report]
+[defence_report]
 l_sdf_title           = "Rapport des défenses";
 l_sdf_none           = "Vous n'avez aucune défense déployée.";
 l_sdf_type           = "Type";
@@ -1267,7 +1268,7 @@ l_by_nobounty = "That bounty no longer exists.";
 l_by_notyours = "That bounty was not placed by you.";
 l_by_canceled = "The bounty has been canceled.";
 l_by_action   = "Action";
-l_by_placebounty = "Place or view bounties.";
+l_by_placebounty = "Placer les primes ou de la vue.";
 l_by_moredetails = "Click on the name for more details.";
 l_by_fedbounty = "Attacking this player would result in The Federation placing a bounty on you.";
 l_by_fedbounty2 = "The Federation does not approve of attacking much smaller ships. It has placed a bounty on you.";
