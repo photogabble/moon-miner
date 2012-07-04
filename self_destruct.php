@@ -72,13 +72,6 @@ else
     echo $l_die_exploit . "<br><br>";
 }
 
-if (isset ($sure))
-{
-    if ($sure != 2)
-    {
-        TEXT_GOTOMAIN();
-    }
-}
-
+TEXT_GOTOMAIN();
 include "footer.php";
 ?>
