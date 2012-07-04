@@ -20,6 +20,7 @@
 // This is required by Setup Info, So DO NOT REMOVE
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
+$index_page = true;
 include "config.php";
 include "languages/$lang";
 
@@ -336,6 +337,7 @@ echo"</table>";
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
+      include_once "footer.php";
       break;
    case "4":
 
@@ -653,6 +655,7 @@ echo"</table>";
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
+      include_once "footer.php";
       break;
    case "5":
 
@@ -811,6 +814,7 @@ Table_Footer("Completed successfully.");
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
+      include_once "footer.php";
       break;
    case "7":
 
@@ -882,6 +886,7 @@ Table_Footer("Completed successfully.");
       PrintFlush("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");
       PrintFlush("<strong>Click <a href=login.php>here</A> to return to the login screen.</strong></center>");
 
+      include_once "footer.php";
       break;
    default:
       echo "<form action=create_universe.php method=post>";
@@ -892,5 +897,5 @@ Table_Footer("Completed successfully.");
       break;
 }
 
-include "footer.php";
+//include "footer.php";
 ?>
