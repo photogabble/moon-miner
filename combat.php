@@ -548,7 +548,7 @@ function planetcombat()
             if ($attackerarmor    < 1)
             {
                 break;
-            |
+            }
 
             echo "<br>-$onplanet[ship_name] $l_cmb_approachattackvector-<br>";
             shiptoship ($onplanet['ship_id']);

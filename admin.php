@@ -18,7 +18,10 @@
 // File: admin.php
 
 include "config.php";
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 updatecookie();
 
 $title = $l_admin_title;

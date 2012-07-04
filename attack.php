@@ -19,7 +19,9 @@
 
 include "config.php";
 updatecookie ();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('attack', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 if (checklogin ())
 {
