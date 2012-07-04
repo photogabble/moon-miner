@@ -22,7 +22,7 @@ if (preg_match("/defence_vs_defence.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function defence_vs_defence ($db, $$ship_id)
+function defence_vs_defence ($db, $ship_id)
 {
     $result1 = $db->Execute("SELECT * from {$db->prefix}sector_defence where ship_id = $ship_id");
     if ($result1 > 0)

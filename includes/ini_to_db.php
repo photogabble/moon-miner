@@ -19,7 +19,7 @@
 //
 // Function for importing values from an INI file into the database.
 
-function ini_to_db ($db, $ini_file, $ini_table)
+function ini_to_db ($db, $ini_file, $ini_table, $language)
 {
     // This is a loop, that reads a ini file, of the type variable = value.
     // It will loop thru the list of the ini variables, and push them into the db.
@@ -33,7 +33,9 @@ function ini_to_db ($db, $ini_file, $ini_table)
     {
         foreach ($config_line as $config_key=>$config_value)
         {
-            $debug_query = $db->Execute("INSERT into {$db->prefix}$ini_table (name, category, value) VALUES (?,?,?)", array($config_key, $config_category, $config_value));
+            // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
+            $config_value = utf8_encode($config_value);
+            $debug_query = $db->Execute("INSERT into {$db->prefix}$ini_table (name, category, value, language) VALUES (?,?,?,?)", array($config_key, $config_category, $config_value, $language));
             if (!$debug_query)
             {
                 $status = false;

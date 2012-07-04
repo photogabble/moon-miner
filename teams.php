@@ -23,7 +23,9 @@
 include "config.php";
 updatecookie();
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+
 $title = $l_team_title;
 include "header.php";
 include_once "includes/defence_vs_defence.php";

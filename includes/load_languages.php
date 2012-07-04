@@ -22,7 +22,7 @@ if (preg_match("/getLanguageVars.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
+function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL, $db_logging)
 {
     // Check if all supplied args are valid, if not return false.
     if (is_null($db) || is_null($language) || !is_array($categories))
@@ -30,13 +30,19 @@ function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$lan
         return false;
     }
 
+    // Populate the $langvars array
     foreach ($categories as $category)
     {
-        $result = $db->CacheGetAll("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array($category, $language));
-        foreach($result as $key=>$value)
+        $result = $db->CacheExecute(0, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array($category, $language));
+        db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+
+        while ($result && !$result->EOF)
         {
-            # Now cycle through returned array and add into langvars.
-            $langvars[$value['name']] = $value['value'];
+            $row = $result->fields;
+            global $$row['name'];
+            $$row['name'] = $row['value'];
+            $langvars[$row['name']] = $row['value'];
+            $result->MoveNext();
         }
     }
 

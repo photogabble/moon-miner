@@ -140,7 +140,9 @@ if (!isset($lang) || empty($lang))
     $lang = $default_lang;
 }
 
+$langsh = $lang;
 $lang = $lang . ".inc";
+
 // Log constants
 
 define('LOG_LOGIN', 1);

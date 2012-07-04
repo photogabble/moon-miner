@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie ();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_lrs_title;
 include "header.php";
 if (checklogin () )

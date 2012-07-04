@@ -18,7 +18,10 @@
 // File: options.php
 
 include "config.php";
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+
 updatecookie ();
 $title = $l_opt_title;
 include "header.php";

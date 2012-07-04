@@ -119,6 +119,7 @@ l_qty                                 = "Quantity";
 l_usage                               = "Usage";
 l_manual                              = "Manual";
 l_automatic                           = "Automatic";
+l_lssd                                = "Last ship seen device";
 
 [port]
 l_trade                               = "Trade";
@@ -257,7 +258,7 @@ l_planet2_nocorptransfer              = "You cannot transfer credits to or from 
 l_planet2_baseexceeded                = "Planets without a base can not hold that amount of credits.";
 l_planet3_title                       = "Trading at Planet";
 
-[planet-report]
+[planet_report]
 l_pr_title                            = "Planet Report";
 l_pr_teamlink                         = "Show team planets";
 l_pr_noplanet                         = "You have no planets so far";
@@ -1089,7 +1090,6 @@ l_bigfigs                             = "Your huge ship has given them ample war
 l_bigbeams                            = "There is a bright flash of discharging beams.  Your fighters probably didn't make it to the atmosphere.";
 l_bigtorps                            = "A large explosion blossoms in the upper air of the planet.  Your fighters probably didn't have time to attack.";
 l_strafesuccess                       = "It looks like some of your fighters made it through, although you can't tell how many from here.";
-l_lssd                                = "Last ship seen device";
 l_lss                                 = "Last ship seen in this sector";
 l_map                                 = "Map";
 l_igb_errnobase                       = "The IGB can not transfer credits to a planet without a base.";
@@ -1367,7 +1367,7 @@ l_energy_port                         = "Energy Port";
 l_goods_port                          = "Goods Port";
 l_no_port                             = "No Port";
 l_unexplored                          = "Unexplored";
-l_map_title                           = "Blacknova Traders Galaxy Map";
+l_map_title                           = "Galaxy Map";
 
 [admin]
 l_admin_title                         = "Administration";

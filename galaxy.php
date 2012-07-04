@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie ();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('main', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+
 global $l_map_title;
 $title = $l_map_title;
 include "header.php";

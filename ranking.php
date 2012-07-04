@@ -19,7 +19,9 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $langvars, $db_logging);
 
 $l_ranks_title = str_replace("[max_rank]", $max_ranks, $l_ranks_title);
 $title = $l_ranks_title;

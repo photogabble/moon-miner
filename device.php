@@ -20,7 +20,9 @@
 include "config.php";
 updatecookie ();
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'), $langvars, $db_logging);
+
 $title = $l_device_title;
 $body_class = 'device';
 include "header.php";

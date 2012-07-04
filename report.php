@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+
 $title = $l_report_title;
 include "header.php";
 

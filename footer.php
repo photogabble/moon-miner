@@ -103,5 +103,6 @@ if ($footer_show_time == true)
 </html>
 <?php 
 // Push all content through a UTF8 encoder, so that multi-byte characters work correctly. (Seen often in foreign language output)
-echo utf8_encode(ob_get_clean());
+//echo utf8_encode(ob_get_clean());
+echo ob_get_clean();
 ?>

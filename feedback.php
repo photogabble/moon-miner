@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie ();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+
 $title = $l_feedback_title;
 include "header.php";
 
@@ -30,7 +33,10 @@ if ( checklogin () )
 
 if (!isset($_SESSION['content']))
 {
-    $_SESSION['content'] = $_POST['content'];
+    if (isset($_POST['content']))
+    {
+        $_SESSION['content'] = $_POST['content'];
+    }
     $_SESSION['sendemail'] = false;
 }
 

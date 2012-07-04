@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('rsmove', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_rs_title;
 include "header.php";
 
@@ -106,9 +109,9 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
   }
   else
   {
-    $l_rs_engage_link= "<a href=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
-    $l_rs_engage=str_replace("[turns]",NUMBER($playerinfo['turns']),$l_rs_engage);
-    $l_rs_engage=str_replace("[engage]",$l_rs_engage_link,$l_rs_engage);
+    $l_rs_engage_link = "<a href=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
+    $l_rs_engage = str_replace("[turns]", NUMBER($playerinfo['turns']), $l_rs_engage);
+    $l_rs_engage = str_replace("[engage]", $l_rs_engage_link, $l_rs_engage);
     echo "$l_rs_engage<br><br>";
   }
 }
