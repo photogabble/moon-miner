@@ -34,7 +34,7 @@ if (result == true)
     if ($res->EOF)
     {
         echo "    url = 'news.php';\n";
-        echo "    text = '{$l_news_none}';\n";
+        echo "    text = \"{$l_news_none}\";\n";
         echo "    type = null;    // Not used as yet.\n";
         echo "    delay = 5;                       // in seconds.\n";
         echo "    news.addArticle(url, text, type, delay);\n";
