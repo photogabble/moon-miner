@@ -54,9 +54,21 @@ if (empty($lang))
     $lang = $default_lang;
 }
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('main', 'index', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
+// Check to see if the language database has been installed yet. If not, redirect to create_universe.
+$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array('common', $langsh));
+if (!$result)
+{
+    echo "Universe creation has not occurred yet. Please run <a href='create_universe.php'>create universe</a>. We will now redirect you to that page.<br>";
+    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=create_universe.php\">";
+    die ();
+}
+
 $title = $l_welcome_bnt;
 $body_class = 'index';
+
 include "header.php";
 ?>
 
