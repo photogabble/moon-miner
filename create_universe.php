@@ -22,7 +22,9 @@
 
 $index_page = true;
 include "config.php";
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 // HTML Table Functions
 
@@ -129,7 +131,8 @@ include "includes/schema.php";
 
 updatecookie();
 
-$title=$l_cu_title;
+// This is needed here until the language database is installed
+$title = 'Create universe';
 include "header.php";
 
 connectdb();
@@ -337,7 +340,6 @@ echo"</table>";
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
-      include_once "footer.php";
       break;
    case "4":
 
