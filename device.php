@@ -27,7 +27,7 @@ include "header.php";
 
 if ( checklogin () )
 {
-  die ();
+    die ();
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -71,6 +71,6 @@ echo "</tr>";
 echo "</table>";
 echo "<br>";
 
-TEXT_GOTOMAIN();
+TEXT_GOTOMAIN ();
 include "footer.php";
 ?>
