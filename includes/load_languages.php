@@ -15,14 +15,14 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/getLanguageVars.php
+// File: includes/load_languages.php
 
 if (preg_match("/getLanguageVars.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function getLanguageVars ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
+function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
 {
     // Check if all supplied args are valid, if not return false.
     if (is_null($db) || is_null($language) || !is_array($categories))

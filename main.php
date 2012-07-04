@@ -22,13 +22,12 @@ include "languages/$lang"; // Current language file (english.inc)
 
 /*
 // New db-driven language entries
-getLanguageVars($db, 'english', array('main', 'common', 'global_includes', 'combat', 'footer'), &$langvars);
+load_languages($db, 'english', array('main', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 $key = ''; $pairs = '';
 foreach(array_keys($langvars) as $key) {
   $$key = $langvars[$key];
 }
 */
-
 updatecookie();
 
 if (checklogin())
