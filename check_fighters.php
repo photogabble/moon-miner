@@ -22,7 +22,9 @@ if (preg_match("/check_fighters.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 include_once "includes/distribute_toll.php";
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$sector'");

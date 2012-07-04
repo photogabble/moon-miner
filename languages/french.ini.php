@@ -664,7 +664,7 @@ l_team_urejected      = "<B>ATTENTION</B> - vous avez été éjecté de";
 l_team_noteams           = "Il n'y a présentement aucune alliance dans la galaxie.";
 
 [ranking]
-l_ranks_title           = "[max_rank] meilleurs joueurs";
+l_ranks_title           = "[max_ranks] meilleurs joueurs";
 l_ranks_none           = "Aucun résultat à afficher.";
 l_ranks_pnum           = "Nombre total de joueurs ";
 l_ranks_dships           = "Les joueurs avec un vaisseau détruit ne sont pas comptés.";

@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('defence_report', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('defence_report', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_sdf_title;
 include "header.php";

@@ -105,7 +105,7 @@ elseif (($destination < $sector_max && empty($engage)) || ($destination < $secto
   echo "$l_rs_movetime $l_rs_energy<br><br>";
   if ($triptime > $playerinfo['turns'])
   {
-    echo "$l_rs_noturns";
+    echo $l_rs_noturns;
   }
   else
   {

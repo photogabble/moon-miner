@@ -36,6 +36,11 @@ bigtitle();
 $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $result->fields;
 
+if (isset($_GET['sure']))
+{
+    $sure = $_GET['sure'];
+}
+
 if (!isset($sure))
 {
     echo "<font color=red><strong>$l_die_rusure</strong></font><br><br>";
@@ -67,9 +72,12 @@ else
     echo $l_die_exploit . "<br><br>";
 }
 
-if ($sure != 2)
+if (isset ($sure))
 {
-    TEXT_GOTOMAIN();
+    if ($sure != 2)
+    {
+        TEXT_GOTOMAIN();
+    }
 }
 
 include "footer.php";
