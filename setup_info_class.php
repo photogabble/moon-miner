@@ -223,8 +223,8 @@ class SETUPINFO_CLASS
         $this->mysql_version = null;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
- // This my not be needed, but I will leave it here just in case we need it :)
-//        $this->database_client_version = mysql_get_client_info();
+        // This my not be needed, but I will leave it here just in case we need it :)
+        // $this->database_client_version = mysql_get_client_info();
 
         if ($this->switches['Enable_Database']['enabled'])
         {
@@ -665,7 +665,7 @@ class SETUPINFO_CLASS
             #######################################
             # Register Glopbals Patch Lookup Info #
             #######################################
-            $result=$this->findinfile("global_funcs.php","reg_global_fix");
+            $result=$this->findinfile("global_cleanups.php","reg_global_fix");
             $PATCH_INFO['global_funcs']['name']="Register Globals Fix";
             $PATCH_INFO['global_funcs']['patched']=$this->SI_TRUEFALSE($result,true,$result['version'],"Not Found");
             $PATCH_INFO['global_funcs']['info']="This is required if register_globals is disabled.";

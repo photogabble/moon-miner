@@ -18,7 +18,6 @@
 // File: setup_info.php
 
 include "config.php";
-include "languages/$lang";
 
 // Stores the class for creating the universe.
 include "setup_info_class.php";
@@ -27,14 +26,17 @@ include "setup_info_class.php";
 $setup_info = new SETUPINFO_CLASS();
 
 // Class Test Switches.
-$setup_info->switches['Show_Env_Var']['enabled']    = true;
-$setup_info->switches['Test_Cookie']['enabled']     = true;
-$setup_info->switches['Enable_Database']['enabled'] = true;
-$setup_info->switches['Display_Patches']['enabled'] = true;
-$setup_info->switches['Display_Errors']['enabled']  = true;
+$setup_info->switches['Show_Env_Var']['enabled']    = false;
+$setup_info->switches['Test_Cookie']['enabled']     = false;
+$setup_info->switches['Enable_Database']['enabled'] = false;
+$setup_info->switches['Display_Patches']['enabled'] = false;
+$setup_info->switches['Display_Errors']['enabled']  = false;
 
 $setup_info->testcookies();
 $setup_info->initDB();
+
+// New database driven language entries
+load_languages($db, $langsh, array('common', 'global_includes', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $setup_info->appinfo['title'];
 include "header.php";
@@ -180,6 +182,7 @@ $setup_info->do_Table_Single_Row("You need to set this information in db_config.
 $setup_info->do_Table_Blank_Row();
 $setup_info->do_Table_Footer();
 
+/*
 // Display BNT DataBase Status.
 #$setup_info->DisplayFlush("<hr align='center' width='80%' size='1'>\n");
 $setup_info->DisplayFlush("<br>\n");
@@ -201,6 +204,7 @@ foreach ($DB_STATUS as $n => $s)
 }
 $setup_info->do_Table_Blank_Row();
 $setup_info->do_Table_Footer("<br>");
+*/
 
 // Display BNT Patch Status.
 $setup_info->get_patch_info($patch_info);
