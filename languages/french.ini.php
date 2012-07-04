@@ -550,16 +550,29 @@ l_md_yours              = "Vous ne pouvez attaquer vos propre défenses.";
 
 [news]
 l_news_title           = "Nouvelles de l'Univers Blacknova";
-l_news_info           = "BNN est la meilleur source<br>
-                   de nouvelles et informations dans l'univers.<br>
-                   Une équipe qui travaille 24 heures, sept jours par <br>
-                   semaines vous apporte toutes les manchettes! Nos <br>
-                   bureaux sont disséminés à travers toute la galaxie!";
+l_news_info_1           = "BNN est la meilleur source<br>";
+l_news_info_2           =  "de nouvelles et informations dans l'univers.<br>";
+l_news_info_3           =  "Une équipe qui travaille 24 heures, sept jours par <br>";
+l_news_info_4          = "semaines vous apporte toutes les manchettes! Nos <br>";
+l_news_info_5           = "bureaux sont disséminés à travers toute la galaxie!";
 l_news_for           = "Manchettes pour";
 l_news_prev           = "jour précédent";
 l_news_next           = "jour suivant";
 l_news_none           = "Désolé, aucune nouvelles ajourd'hui.";
 l_news_flash           = "Manchette!";
+l_news_planets            = " planètes";
+l_news_cols                = " millions de colons";
+l_news_p_headline = "l'Empire de [player] a maintenant ";
+l_killheadline=" a été tué dans un accident,";
+l_news_killed = "[name] a été tué dans un accident tragique! Il était à bord de son vaisseau quand il a été détruit et il n'avait pas de module de secours. Que son âme repose en paix.";
+l_news_p_text5     = "L'Empire émergent de [name] possède maintenant cing planètes. La BNN suveillera de plus près les actions de [name] dans le futur!";
+l_news_p_text10          = "L'Empire grossisant de [name] contrôle maintenant dix planètes. Les reporters de BNN disent qu'une expansion continue de [name] pourrait mener à la guerre!";
+l_news_p_text25          = "L'immense Empire de [name] a colonisé 25 planètes. Dans un interview, [name] a annoncé que l'expension pourrait diminuer quelque peut dans le futur!";
+l_news_p_text50          = "L'énorme et vaste Empire de [name], représenté par 50 planètes dans toute la galaxie, est maintenant une force dont il faut tenir compte. Un reporter de BNN a découvert que [name] améliorait son vaisseau en prévision d'une guerre majeure. Dans une entrevue avec [name], on apprend que toutes ces préparations sont à des fins défensives seulement...";
+l_news_c_text25          = "L'Empire émergent de [name] a maintenant 25 millions de colons. La BNN va surveiller les actions futures de [name] avec attention, mais il semble évident que le taux de natalité va littéralement exploser!";
+l_news_c_text100          = "L'Empire grossisant de [name] a maintenant 100 millions de colons. Après une explosion du taux de natalité, les colonies de [name] semblent être un bon endroit pour les nouvelles familles qui s'installent!";
+l_news_c_text500          = "Le large Empire de [name] a maintenant 500 millions de colons. [name] a déclaré en entrevue que la colonization de la galaxie s'était à peine amorçée";
+l_news_c_text1000          = "L'énorme Empire de [name] a maintenant un milliard de colons. Les reporters de BNN ont découvert que [name] est en possession d'un mécanisme étrange de clonage, lui permettant de reproduire ses colons à un rythme effarant. Avec ce nombre de colons, la force économique de l'Empire est immense. BNN espère que [name] ne dépensera pas cet influx d'argent à des fins militaires.";
 
 [dump]
 l_dump_title           = "Débarquement de colons";
@@ -693,7 +706,7 @@ l_sdf_none           = "Vous n'avez aucune défense déployée.";
 l_sdf_type           = "Type";
 l_sdf_mode           = "Mode";
 
-[traderoute]
+[traderoutes]
 l_tdr_title          = "Routes Commerciales";
 l_tdr_newtdr         = "Cliquez <a href=\"traderoute.php?command=new\">ici</a> pour créer une nouvelle route";
 l_tdr_modtdrset         = "Pour modifier les paramètres commerciaux globaux, cliquez <a href=\"traderoute.php?command=settings\">ici</a>";
@@ -1193,42 +1206,6 @@ l_pre_title = "Changer les raccourcis d'espace réel";
 l_pre_exceed = "Le raccourci [preset] dépasse le nombre maximum de secteurs [sector_max]. Aucun raccourci sauvegardé.<BR><BR>"; 
 l_pre_set = "Le raccourci 1 est [preset1], le 2 est [preset2] et le 3 est [preset3].<BR><BR>";
 l_pre_save = "Sauvegarder";
-
-[news]
-l_news_planets            = " planètes";
-l_news_cols                = " millions de colons";
-l_news_p_headline = "l'Empire de [player] a maintenant ";
-l_killheadline=" a été tué dans un accident,";
-l_news_killed = "[name] a été tué dans un accident tragique! Il était à bord de son vaisseau quand il a été détruit et il n'avait pas de module de secours. Que son âme repose en paix.";
-l_news_p_text5          = "L'Empire émergent de [name] possède maintenant cing planètes.
-                   La BNN suveillera de plus près les actions de [name] dans le futur
-                   !";
-l_news_p_text10          = "L'Empire grossisant de [name] contrôle maintenant dix planètes.
-                   Les reporters de BNN disent qu'une expansion continue de [name]
-                   pourrait mener à la guerre!";
-l_news_p_text25          = "L'immense Empire de [name] a colonisé 25 planètes.
-                   Dans un interview, [name] a annoncé que l'expension pourrait diminuer
-                   quelque peut dans le futur!";
-l_news_p_text50          = "L'énorme et vaste Empire de [name], représenté par 50 planètes dans
-                   toute la galaxie, est maintenant une force dont il faut tenir compte. Un
-                   reporter de BNN a découvert que [name] améliorait son vaisseau
-                   en prévision d'une guerre majeure. Dans une entrevue avec [name], 
-                   on apprend que toutes ces préparations sont à des fins défensives seulement...";
-l_news_c_text25          = "L'Empire émergent de [name] a maintenant 25 millions de colons.
-                   La BNN va surveiller les actions futures de [name] avec attention, mais
-                   il semble évident que le taux de natalité va littéralement exploser!";
-l_news_c_text100          = "L'Empire grossisant de [name] a maintenant 100 millions de colons.
-                   Après une explosion du taux de natalité, les colonies de [name] semblent
-                   être un bon endroit pour les nouvelles familles qui s'installent!";
-l_news_c_text500          = "Le large Empire de [name] a maintenant 500 millions de colons.
-                   [name] a déclaré en entrevue que la colonization de la galaxie s'était
-                   à peine amorçée";
-l_news_c_text1000          = "L'énorme Empire de [name] a maintenant un milliard de colons.
-                   Les reporters de BNN ont découvert que [name] est en possession d'un
-                   mécanisme étrange de clonage, lui permettant de reproduire ses colons
-                   à un rythme effarant. Avec ce nombre de colons, la force économique de
-                   l'Empire est immense. BNN espère que [name] ne dépensera pas cet influx
-                   d'argent à des fins militaires.";
 
 [sector_fighters]
 l_sf_attacking = "Les défenses de secteur vous attaquent!<BR>";

@@ -50,7 +50,9 @@ if (!empty ($newlang) )
     $lang = $lang . ".inc";
 }
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('login', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_login_title;
 include "header.php";
 

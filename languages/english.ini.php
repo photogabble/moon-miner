@@ -397,10 +397,10 @@ l_lrs_click                           = "Click one of the links to move to that 
 l_lrs_cantscan                        = "Can't scan sector from current sector!";
 l_lrs_zero                            = "Sector 0 is too crowded to scan for ships!";
 l_lrs_moveto                          = "to move to sector";
-l_log_titlet                          = "View Log";
 
 // All the log_text and log_titles were arrays, as were log_months
 [log]
+l_log_titlet                          = "View Log";
 l_log_pod                             = "Luckily, you had an escape pod!";
 l_log_nopod                           = "You did not have an escape pod, you died.";
 l_log_log                             = "[player]'s Log";
