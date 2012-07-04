@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('port', 'report', 'device', 'common', 'global_includes', 'combat', 'footer', 'news', 'bounty'), $langvars, $db_logging);
+load_languages($db, $langsh, array('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty'), $langvars, $db_logging);
 
 $title = $l_title_port;
 include "header.php";
@@ -1003,7 +1003,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td ALIGN=RIGHT>$l_totalcost: <input type=TEXT style=\"text-align:right\" NAME=total_cost SIZE=22 value=0 $onfocus $onblur $onchange $onclick></td>\n";
     echo "  </tr>\n";
     echo " </table>\n";
-    echo "</form>\n";
+    echo "</form><br>\n";
     echo "$l_would_dump <a href=dump.php>$l_here</a>.\n";
 }
 else
