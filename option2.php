@@ -116,6 +116,7 @@ else
     echo $l_opt2_dhtmlfail . "<br>";
 }
 
+echo "<br>";
 TEXT_GOTOMAIN();
 include "footer.php";
 ?>
