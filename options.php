@@ -91,7 +91,7 @@ echo "<td>$l_opt_enabled</td><td><input type=checkbox name=dhtml value=Y $dhtml>
 echo "</table>";
 echo "<br>";
 echo "<input type=submit value=$l_opt_save>";
-echo "</form>";
+echo "</form><br>";
 
 TEXT_GOTOMAIN ();
 include "footer.php";
