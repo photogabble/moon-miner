@@ -22,7 +22,9 @@ if (preg_match("/sector_fighters.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 include_once "includes/destroy_fighters.php";
 
 echo $l_sf_attacking . "<br>";

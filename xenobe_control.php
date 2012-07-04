@@ -20,7 +20,8 @@
 include "config.php";
 updatecookie();
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_ai_control;
 include "header.php";
@@ -38,7 +39,23 @@ function YESNO($onoff)
   return(($onoff == "ON") ? "Y" : "N");
 }
 
-$module = $menu;
+if (isset($_POST['menu']))
+{
+    $module = $menu;
+}
+else
+{
+    $module = '';
+}
+
+if (isset($_POST['swordfish']))
+{
+    $swordfish = $_POST['swordfish'];
+}
+else
+{
+    $swordfish = '';
+}
 
 if ($swordfish != $adminpass)
 {

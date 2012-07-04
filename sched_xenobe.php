@@ -28,7 +28,10 @@ echo "<br><strong>Xenobe TURNS</strong><br><br>";
 
 // INCLUDE FUNCTIONS
 include_once "xenobe_funcs.php";
-include_once "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 global $targetlink;
 global $xenobeisdead;
 

@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie ();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_igb_title;
 $body_class = 'igb';
 include "header.php";

@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('team_planets', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_teamplanet_title;
 include "header.php";
 
@@ -32,7 +35,7 @@ if (checklogin())
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
-if ($playerinfo[team]==0)
+if ($playerinfo['team'] == 0)
 {
     echo "<br>$l_teamplanet_notally";
     echo "<br><br>";
@@ -120,45 +123,45 @@ else
     $color = $color_line1;
     for ($i = 0; $i < $num_planets; $i++)
     {
-        $total_organics += $planet[$i][organics];
-        $total_ore += $planet[$i][ore];
-        $total_goods += $planet[$i][goods];
-        $total_energy += $planet[$i][energy];
-        $total_colonists += $planet[$i][colonists];
-        $total_credits += $planet[$i][credits];
-        $total_fighters += $planet[$i][fighters];
-        $total_torp += $planet[$i][torps];
-        if ($planet[$i][base] == "Y")
+        $total_organics += $planet[$i]['organics'];
+        $total_ore += $planet[$i]['ore'];
+        $total_goods += $planet[$i]['goods'];
+        $total_energy += $planet[$i]['energy'];
+        $total_colonists += $planet[$i]['colonists'];
+        $total_credits += $planet[$i]['credits'];
+        $total_fighters += $planet[$i]['fighters'];
+        $total_torp += $planet[$i]['torps'];
+        if ($planet[$i]['base'] == "Y")
         {
             $total_base += 1;
         }
 
-        if ($planet[$i][sells] == "Y")
+        if ($planet[$i]['sells'] == "Y")
         {
             $total_selling += 1;
         }
-        if (empty($planet[$i][name]))
+        if (empty($planet[$i]['name']))
         {
-            $planet[$i][name] = "$l_unnamed";
+            $planet[$i]['name'] = "$l_unnamed";
         }
 
-        $owner = $planet[$i][owner];
+        $owner = $planet[$i]['owner'];
         $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
-        $player = $res->fields[character_name];
+        $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";
-        echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i][sector_id] . ">". $planet[$i][sector_id] ."</a></td>";
-        echo "<td>" . $planet[$i][name]              . "</td>";
-        echo "<td>" . NUMBER($planet[$i][ore])       . "</td>";
-        echo "<td>" . NUMBER($planet[$i][organics])  . "</td>";
-        echo "<td>" . NUMBER($planet[$i][goods])     . "</td>";
-        echo "<td>" . NUMBER($planet[$i][energy])    . "</td>";
-        echo "<td>" . NUMBER($planet[$i][colonists]) . "</td>";
-        echo "<td>" . NUMBER($planet[$i][credits])   . "</td>";
-        echo "<td>" . NUMBER($planet[$i][fighters])  . "</td>";
-        echo "<td>" . NUMBER($planet[$i][torps])     . "</td>";
-        echo "<td>" . ($planet[$i][base] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
-        echo "<td>" . ($planet[$i][sells] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
+        echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i]['sector_id'] . ">". $planet[$i]['sector_id'] ."</a></td>";
+        echo "<td>" . $planet[$i]['name']              . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['ore'])       . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['organics'])  . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['goods'])     . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['energy'])    . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['colonists']) . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['credits'])   . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['fighters'])  . "</td>";
+        echo "<td>" . NUMBER($planet[$i]['torps'])     . "</td>";
+        echo "<td>" . ($planet[$i]['base'] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
+        echo "<td>" . ($planet[$i]['sells'] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
         echo "<td>" . $player                        . "</td>";
         echo "</tr>";
 

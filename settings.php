@@ -18,7 +18,10 @@
 // File: settings.php
 
 include "config.php";
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 include "header.php";
 
 $line_color = $color_line1;

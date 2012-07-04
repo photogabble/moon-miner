@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_md_title;
 include "header.php";
 
@@ -30,8 +33,9 @@ if (checklogin () )
 
 if (!isset ($defence_id))
 {
-    echo $l_md_invalid . "<br>";
+    echo $l_md_invalid . "<br><br>";
     TEXT_GOTOMAIN ();
+    include "footer.php";
     die();
 }
 

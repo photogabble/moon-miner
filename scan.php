@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('scan', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars, $db_logging);
+
 $title = $l_scan_title;
 include "header.php";
 if (checklogin())
@@ -33,8 +36,8 @@ $playerinfo = $result->fields;
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
 $targetinfo = $result2->fields;
 
-$playerscore = gen_score($playerinfo[ship_id]);
-$targetscore = gen_score($targetinfo[ship_id]);
+$playerscore = gen_score($playerinfo['ship_id']);
+$targetscore = gen_score($targetinfo['ship_id']);
 
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
@@ -64,7 +67,7 @@ else
     {
       $success = 95;
     }
-    $roll = mt_rand(1, 100);
+    $roll = mt_rand (1, 100);
     if ($roll > $success)
     {
       // If scan fails - inform both player and target.
@@ -82,9 +85,9 @@ else
       if ($hasbounty)
       {
          $resx = $hasbounty->fields;
-         if ($resx[btytotal] > 0)
+         if ($resx['btytotal'] > 0)
          {
-            $btyamount = NUMBER($resx[btytotal]);
+            $btyamount = NUMBER($resx['btytotal']);
             $l_scan_bounty = str_replace("[amount]", $btyamount, $l_scan_bounty);
             echo $l_scan_bounty . "<br>";
             $btyamount = 0;
@@ -93,9 +96,9 @@ else
             if ($hasfedbounty)
             {
                $resy = $hasfedbounty->fields;
-               if ($resy[btytotal] > 0)
+               if ($resy['btytotal'] > 0)
                {
-                  $btyamount = $resy[btytotal];
+                  $btyamount = $resy['btytotal'];
                   echo $l_scan_fedbounty . "<br>";
                }
             }
@@ -103,7 +106,7 @@ else
       }
       // Player will get a Federation Bounty on themselves if they attack a player who's score is less than bounty_ratio of
       // themselves. If the target has a Federation Bounty, they can attack without attracting a bounty on themselves.
-      if ($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo[turns_used] < $bounty_minturns))
+      if ($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo['turns_used'] < $bounty_minturns))
       {
          echo $l_by_fedbounty . "<br><br>";
       }
@@ -111,87 +114,87 @@ else
       {
          echo $l_by_nofedbounty . "<br><br>";
       }
-      $sc_error= SCAN_ERROR($playerinfo[sensors], $targetinfo[cloak]);
+      $sc_error = SCAN_ERROR($playerinfo['sensors'], $targetinfo['cloak']);
       echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<br><br>";
       echo "<strong>$l_ship_levels:</strong><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>$l_hull:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_hull=round($targetinfo[hull] * $sc_error / 100);
+        $sc_hull = round ($targetinfo['hull'] * $sc_error / 100);
         echo "<td>$sc_hull</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_engines:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_engines=round($targetinfo[engines] * $sc_error / 100);
+        $sc_engines = round ($targetinfo['engines'] * $sc_error / 100);
         echo "<td>$sc_engines</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_power:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_power=round($targetinfo[power] * $sc_error / 100);
+        $sc_power = round ($targetinfo['power'] * $sc_error / 100);
         echo "<td>$sc_power</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_computer:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_computer=round($targetinfo[computer] * $sc_error / 100);
+        $sc_computer = round ($targetinfo['computer'] * $sc_error / 100);
         echo "<td>$sc_computer</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_sensors:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_sensors=round($targetinfo[sensors] * $sc_error / 100);
+        $sc_sensors = round ($targetinfo['sensors'] * $sc_error / 100);
         echo "<td>$sc_sensors</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_beams:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_beams=round($targetinfo[beams] * $sc_error / 100);
+        $sc_beams = round ($targetinfo['beams'] * $sc_error / 100);
         echo "<td>$sc_beams</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_torpedo Launchers:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_torp_launchers=round($targetinfo[torp_launchers] * $sc_error / 100);
+        $sc_torp_launchers = round ($targetinfo['torp_launchers'] * $sc_error / 100);
         echo "<td>$sc_torp_launchers</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_armor:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_armor=round($targetinfo[armor] * $sc_error / 100);
+        $sc_armor = round ($targetinfo['armor'] * $sc_error / 100);
         echo "<td>$sc_armor</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_shields:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_shields=round($targetinfo[shields] * $sc_error / 100);
+        $sc_shields = round ($targetinfo['shields'] * $sc_error / 100);
         echo "<td>$sc_shields</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_cloak:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_cloak=round($targetinfo[cloak] * $sc_error / 100);
+        $sc_cloak = round ($targetinfo['cloak'] * $sc_error / 100);
         echo "<td>$sc_cloak</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
@@ -199,26 +202,26 @@ else
       echo "<strong>$l_scan_arma</strong><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>$l_armorpts:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_armor_pts=round($targetinfo[armor_pts] * $sc_error / 100);
+        $sc_armor_pts = round ($targetinfo['armor_pts'] * $sc_error / 100);
         echo "<td>$sc_armor_pts</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_fighters:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_ship_fighters=round($targetinfo[ship_fighters] * $sc_error / 100);
+        $sc_ship_fighters = round ($targetinfo['ship_fighters'] * $sc_error / 100);
         echo "<td>$sc_ship_fighters</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_torps:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_torps=round($targetinfo[torps] * $sc_error / 100);
+        $sc_torps = round ($targetinfo['torps'] * $sc_error / 100);
         echo "<td>$sc_torps</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
@@ -226,50 +229,50 @@ else
       echo "<strong>$l_scan_carry</strong><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>Credits:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_credits=round($targetinfo[credits] * $sc_error / 100);
+        $sc_credits = round ($targetinfo['credits'] * $sc_error / 100);
         echo "<td>$sc_credits</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_colonists:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_ship_colonists=round($targetinfo[ship_colonists] * $sc_error / 100);
+        $sc_ship_colonists=round ($targetinfo['ship_colonists'] * $sc_error / 100);
         echo "<td>$sc_ship_colonists</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_energy:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_ship_energy=round($targetinfo[ship_energy] * $sc_error / 100);
+        $sc_ship_energy=round ($targetinfo['ship_energy'] * $sc_error / 100);
         echo "<td>$sc_ship_energy</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_ore:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_ship_ore=round($targetinfo[ship_ore] * $sc_error / 100);
+        $sc_ship_ore = round ($targetinfo['ship_ore'] * $sc_error / 100);
         echo "<td>$sc_ship_ore</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_organics:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_ship_organics=round($targetinfo[ship_organics] * $sc_error / 100);
+        $sc_ship_organics = round ($targetinfo['ship_organics'] * $sc_error / 100);
         echo "<td>$sc_ship_organics</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_goods:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_ship_goods=round($targetinfo[ship_goods] * $sc_error / 100);
+        $sc_ship_goods = round ($targetinfo['ship_goods'] * $sc_error / 100);
         echo "<td>$sc_ship_goods</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
@@ -277,44 +280,44 @@ else
       echo "<strong>$l_devices:</strong><br><br>";
       echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
       echo "<tr><td>$l_warpedit:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_dev_warpedit=round($targetinfo[dev_warpedit] * $sc_error / 100);
+        $sc_dev_warpedit=round ($targetinfo['dev_warpedit'] * $sc_error / 100);
         echo "<td>$sc_dev_warpedit</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_genesis:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_dev_genesis=round($targetinfo[dev_genesis] * $sc_error / 100);
+        $sc_dev_genesis = round ($targetinfo['dev_genesis'] * $sc_error / 100);
         echo "<td>$sc_dev_genesis</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_deflect:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_dev_minedeflector=round($targetinfo[dev_minedeflector] * $sc_error / 100);
+        $sc_dev_minedeflector = round ($targetinfo['dev_minedeflector'] * $sc_error / 100);
         echo "<td>$sc_dev_minedeflector</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_ewd:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
       {
-        $sc_dev_emerwarp=round($targetinfo[dev_emerwarp] * $sc_error / 100);
+        $sc_dev_emerwarp = round ($targetinfo['dev_emerwarp'] * $sc_error / 100);
         echo "<td>$sc_dev_emerwarp</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_escape_pod:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
         {echo "<td>$targetinfo[dev_escapepod]</td></tr>";} else {echo"<td>???</td></tr>";}
       echo "<tr><td>$l_fuel_scoop:</td>";
-      $roll=mt_rand(1,100);
-      if ($roll<$success)
+      $roll = mt_rand (1,100);
+      if ($roll < $success)
         {echo "<td>$targetinfo[dev_fuelscoop]</td></tr>";} else {echo"<td>???</td></tr>";}
       echo "</table><br>";
       playerlog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");

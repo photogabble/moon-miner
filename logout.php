@@ -18,7 +18,10 @@
 // File: logout.php
 
 include "config.php";
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_logout;
 setcookie ("userpass", "", 0, $gamepath, $gamedomain);
 setcookie ("userpass", "", 0); // Delete from default path as well.

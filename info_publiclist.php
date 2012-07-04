@@ -18,7 +18,6 @@
 // File: info_publiclist.php
 
 include "config.php";
-//include "languages/$lang";
 connectdb();
 
 $info = array();

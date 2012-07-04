@@ -41,7 +41,9 @@ if (empty ($lang) )
 }
 
 $_SESSION['lang'] = $lang;
-include "languages/$lang" . ".inc";
+
+// New database driven language entries
+load_languages($db, $langsh, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 // first placement of cookie - don't use updatecookie.
 $userpass = $email."+".$pass;

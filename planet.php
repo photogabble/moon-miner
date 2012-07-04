@@ -20,7 +20,10 @@
 include "config.php";
 include "combat.php";
 updatecookie ();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_planet_title;
 include "header.php";
 
@@ -42,8 +45,15 @@ if (!isset ($_REQUEST['command']) )
 }
 $command = $_REQUEST['command'];
 
-// Validate and set the type of $_GET vars;
-$planet_id = (int) $_GET['planet_id'];
+if (isset($_GET['planet_id']))
+{
+    // Validate and set the type of $_GET vars;
+    $planet_id = (int) $_GET['planet_id'];
+}
+else
+{
+    $planet_id = '';
+}
 
 bigtitle ();
 
@@ -60,6 +70,7 @@ if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
     text_GOTOMAIN ();
+    include "footer.php";
     die ();
 }
 

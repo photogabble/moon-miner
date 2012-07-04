@@ -18,7 +18,9 @@
 // File: new.php
 
 include "config.php";
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_new_title;
 include "header.php";

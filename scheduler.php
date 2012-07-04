@@ -69,7 +69,9 @@ global $l_sys_update;
 $title = $l_sys_update;
 
 //global $default_lang;
-include "languages/$default_lang.inc";
+
+// New database driven language entries
+load_languages($db, $langsh, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include "header.php";
 connectdb();
@@ -79,6 +81,15 @@ bigtitle();
 require_once "sched_funcs.php";
 
 #echo "<pre>[REQUEST]\n". print_r($_REQUEST, true) ."</pre>\n";
+
+if (isset($_POST['swordfish']))
+{
+    $swordfish = $_POST['swordfish'];
+}
+else
+{
+    $swordfish = '';
+}
 
 if ($swordfish != $adminpass)
 {
@@ -155,7 +166,9 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
     $runtime = time() - $starttime;
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
-    include "footer.php";
     $db->Execute("UPDATE {$db->prefix}scheduler SET last_run=". TIME());
 }
+
+TEXT_GOTOMAIN ();
+include "footer.php";
 ?>

@@ -32,7 +32,9 @@ $start_genesis = 0; // Starting genesis torps
 $escape = 'N';  // Start game equip[[ped with escape pod?]]
 $scoop = 'N';  // Start game equipped with fuel scoop?
 
-include "languages/$lang";
+// New database driven language entries
+load_languages($db, $langsh, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_new_title2;
 include "header.php";
 bigtitle ();

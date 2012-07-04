@@ -32,7 +32,8 @@ function db_kill_player ($ship_id, $remove_planets = false)
     global $default_prod_torp;
     global $db;
 
-    include "languages/english.inc";
+    // New database driven language entries
+    load_languages($db, $langsh, array('news'), $langvars, $db_logging);
 
     $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=$ship_id");
     $db->Execute("DELETE from {$db->prefix}bounty WHERE placed_by = $ship_id");

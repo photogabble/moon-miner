@@ -248,8 +248,9 @@
   }
 
   echo "Validating IGB Transfer Amount Credits...<br>\n";
-  $tdres = $db->Execute("SELECT transfer_id, source_id, dest_id, amount FROM {$db->prefix}IGB_transfers;");
+  $tdres = $db->Execute("SELECT transfer_id, source_id, dest_id, amount FROM {$db->prefix}IGB_transfers");
 
+/*
   while (!$tdres->EOF)
   {
     $transferinfo = $tdres->fields;
@@ -269,7 +270,7 @@
 
     $tdres->MoveNext();
   }
-
+*/
 
   if ($detected == false)
   {

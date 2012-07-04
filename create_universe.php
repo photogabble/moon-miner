@@ -854,16 +854,13 @@ Table_Footer("Completed successfully.");
       $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_thegovernor, 0, 'sched_thegovernor.php', NULL,unix_timestamp(now()))");
     Table_Row("The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
 
-      $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', '60', '60', '0', 'bnt_ls_client.php', NULL, unix_timestamp(now()))");
-        Table_Row("The Master server list update will occur every 60 minutes.","Failed","Inserted");
-
       if ($bnt_ls===true)
       {
-            $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, 60, 0, 'bnt_ls_client.php', NULL,unix_timestamp(now()))");
-        Table_Row("The public list updater will occur every 60 minutes","Failed","Inserted");
+//            $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, 60, 0, 'bnt_ls_client.php', NULL,unix_timestamp(now()))");
+//        Table_Row("The public list updater will occur every 60 minutes","Failed","Inserted");
 
             $creating=1;
-            include "bnt_ls_client.php";
+//            include "bnt_ls_client.php";
       }
     Table_Footer("Completed successfully");
 

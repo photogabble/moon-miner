@@ -19,7 +19,10 @@
 
 include "config.php";
 updatecookie();
-include "languages/$lang";
+
+// New database driven language entries
+load_languages($db, $langsh, array('planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+
 $title = $l_planet2_title;
 include "header.php";
 
@@ -155,6 +158,7 @@ if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
     TEXT_GOTOMAIN ();
+    include "footer.php";
     die ();
 }
 
