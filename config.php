@@ -102,7 +102,7 @@ $newbie_cloak = "8";
 $allow_fullscan = true;                // full long range scan
 $allow_navcomp = true;                 // navigation computer
 $allow_ibank = true;                  // Intergalactic Bank (IGB)
-$allow_genesis_destroy = true;         // Genesis torps can destroy planets
+$allow_genesis_destroy = false;         // Genesis torps can destroy planets
 
 // iBank Config - Intergalactic Banking
 // Trying to keep ibank constants unique by prefixing with $ibank_
