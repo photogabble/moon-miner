@@ -32,8 +32,10 @@ if (checklogin())
 }
 
 $res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 $res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id=$ship_id");
+db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
 $othership = $res2->fields;
 
 bigtitle();

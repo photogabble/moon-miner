@@ -34,6 +34,7 @@ if (checklogin())
 bigtitle();
 
 $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
 if (isset($_GET['sure']))

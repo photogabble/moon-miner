@@ -33,6 +33,7 @@ if (checklogin())
 
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
@@ -69,6 +70,7 @@ if (!empty($sort))
 }
 
 $res = $db->Execute($query);
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 bigtitle();
 
 echo "<br>";
@@ -147,6 +149,7 @@ else
 
         $owner = $planet[$i]['owner'];
         $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
+        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";

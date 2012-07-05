@@ -41,6 +41,7 @@ $PRepType = $_GET['PRepType'];
 
 // Get data about planets
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
@@ -143,6 +144,7 @@ function standard_report ()
     }
 
     $res = $db->Execute($query);
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     $i = 0;
     if ($res)
@@ -345,6 +347,7 @@ function planet_production_change()
     }
 
     $res = $db->Execute($query);
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     $i = 0;
     if ($res)

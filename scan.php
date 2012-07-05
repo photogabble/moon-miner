@@ -31,9 +31,11 @@ if (checklogin())
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $targetinfo = $result2->fields;
 
 $playerscore = gen_score($playerinfo['ship_id']);
@@ -81,6 +83,7 @@ else
       // Get total bounty on this player, if any
       $btyamount = 0;
       $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = $targetinfo[ship_id]");
+      db_op_result ($db, $hasbounty, __LINE__, __FILE__, $db_logging);
 
       if ($hasbounty)
       {
@@ -93,6 +96,7 @@ else
             $btyamount = 0;
             // Check for Federation bounty
             $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = $targetinfo[ship_id] AND placed_by = 0");
+            db_op_result ($db, $hasfedbounty, __LINE__, __FILE__, $db_logging);
             if ($hasfedbounty)
             {
                $resy = $hasfedbounty->fields;
@@ -323,7 +327,8 @@ else
       playerlog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
     }
 
-    $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
   }
 }
 

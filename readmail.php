@@ -34,6 +34,7 @@ if (checklogin())
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 if (!isset($_GET['action']))
@@ -43,17 +44,20 @@ if (!isset($_GET['action']))
 
 if ($_GET['action']=="delete")
 {
-    $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
+    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
+    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 else if ($_GET['action']=="delete_all")
 {
-    $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id='".$playerinfo[ship_id]."'");
+    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id='".$playerinfo[ship_id]."'");
+    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 
 $cur_D = date("Y-m-d");
 $cur_T = date("H:i:s");
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id='".$playerinfo['ship_id']."' ORDER BY sent DESC");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
@@ -101,6 +105,7 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id='".$playe
   {
    $msg = $res->fields;
    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='".$msg[sender_id]."'");
+   db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
    $sender = $result->fields;
    $isAdmin = isAdmin($sender);
 ?>

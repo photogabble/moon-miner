@@ -32,6 +32,7 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 
 $playerinfo=$result->fields;
 
