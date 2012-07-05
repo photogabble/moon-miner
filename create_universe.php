@@ -331,7 +331,7 @@ echo"</table>";
           echo "German language NOT imported into database successfully.\n<br>";
       }
 
-/*      $result = ini_to_db($db, "languages/spanish.ini.php", "languages", "spanish");
+      $result = ini_to_db($db, "languages/spanish.ini.php", "languages", "spanish");
       if ($result)
       {
           echo "Spanish language imported into database successfully.\n<br>";
@@ -339,7 +339,7 @@ echo"</table>";
       else
       {
           echo "Spanish language NOT imported into database successfully.\n<br>";
-      }*/
+      }
 
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=4>";
