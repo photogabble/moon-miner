@@ -718,7 +718,7 @@ l_sdf_none = "Du hast keine Sektor Verteidigung losgeschickt.";
 l_sdf_type = "Typ";
 l_sdf_mode = "Modus";
 
-[traderoute]
+[traderoutes]
 l_tdr_within = " in ";
 l_tdr_title = "Handelsrouten";
 l_tdr_newtdr = "Klicke [here] um eine neue Handelsroute zu erstellen";
@@ -1149,6 +1149,8 @@ l_teamplanet_title ="Allianz Planeten Bericht";
 l_teamplanet_notally ="Du bist nicht in einer Allianz.";
 l_teamplanet_personal ="Zeige private Planeten";
 l_teamplanet_noplanet ="Deine Allianz hat keine Planeten";
+
+[feedback]
 l_feedback_title ="Sende Feedback";
 l_feedback_to ="An:";
 l_feedback_from ="Von:";
@@ -1317,18 +1319,18 @@ l_by_fedbounty = "Diesen Spieler anzugreifen hat zur Folge, da&szlig; die F&ouml
 l_by_fedbounty2 = "Die F&ouml;deration genehmigt nicht die Attacke eines wesentlich kleineren Schiffes. Es wurde eine Belohnung auf Dich ausgesetzt.";
 l_by_notexists = "Den Spieler, f&uuml;r den Du eine Belohnung forderst, existiert nicht.";
 l_by_destroyed = "Du kannst keine Belohnung f&uuml;r einen Spieler fordern, dessen Schiff zerst&ouml;rt ist.";
-l_log_text_LOG_BOUNTY_CLAIMED] = "Du forderst eine Belohnung in H&ouml;he von [amount] Credits f&uuml;r die Zerst&ouml;rung des Schiffes von [bounty_on]. Die Belohnung wurde ausgesetzt von [placed_by].";
-l_log_title_LOG_BOUNTY_CLAIMED] = "Belohnung gefordert.";
-l_log_text_LOG_BOUNTY_PAID] = "Deine Belohnung f&uuml;r [bounty_on] wurde in H&ouml;he von [amount] Credits bezahlt.";
-l_log_title_LOG_BOUNTY_PAID] = "Belohnung bezahlt.";
-l_log_text_LOG_BOUNTY_CANCELLED] = "Deine Belohnung f&uuml;r [bounty_on] in H&ouml;he von [amount] Credits zur&uuml;ckgenommen.";
-l_log_title_LOG_BOUNTY_CANCELLED] = "Belohnung zur&uuml;ckgenommen.";
-l_log_text_LOG_SPACE_PLAGUE] = "Dein Planet [name] im Sektor [sector] wurde von einer Weltraumplage heimgesucht. [percentage] Prozent der Siedler wurden get&ouml;tet.";
-l_log_title_LOG_SPACE_PLAGUE] = "Weltraumplage!";
-l_log_text_LOG_PLASMA_STORM] = "Dein Planet [name] im Sektor [sector] wurde von einem Plasmasturm getroffen. Alle Energie ist verloren.";
-l_log_title_LOG_PLASMA_STORM] = "Plasma Sturm!";
-l_log_text_LOG_BOUNTY_FEDBOUNTY] = "Die F&ouml;deration hat eine Belohnung auf Dich ausgesetzt in der H&ouml;he von [amount] Credits.";
-l_log_title_LOG_BOUNTY_FEDBOUNTY] = "F&ouml;derale Belohnung!";
+l_log_text_LOG_BOUNTY_CLAIMED = "Du forderst eine Belohnung in H&ouml;he von [amount] Credits f&uuml;r die Zerst&ouml;rung des Schiffes von [bounty_on]. Die Belohnung wurde ausgesetzt von [placed_by].";
+l_log_title_LOG_BOUNTY_CLAIMED = "Belohnung gefordert.";
+l_log_text_LOG_BOUNTY_PAID = "Deine Belohnung f&uuml;r [bounty_on] wurde in H&ouml;he von [amount] Credits bezahlt.";
+l_log_title_LOG_BOUNTY_PAID = "Belohnung bezahlt.";
+l_log_text_LOG_BOUNTY_CANCELLED = "Deine Belohnung f&uuml;r [bounty_on] in H&ouml;he von [amount] Credits zur&uuml;ckgenommen.";
+l_log_title_LOG_BOUNTY_CANCELLED = "Belohnung zur&uuml;ckgenommen.";
+l_log_text_LOG_SPACE_PLAGUE = "Dein Planet [name] im Sektor [sector] wurde von einer Weltraumplage heimgesucht. [percentage] Prozent der Siedler wurden get&ouml;tet.";
+l_log_title_LOG_SPACE_PLAGUE = "Weltraumplage!";
+l_log_text_LOG_PLASMA_STORM = "Dein Planet [name] im Sektor [sector] wurde von einem Plasmasturm getroffen. Alle Energie ist verloren.";
+l_log_title_LOG_PLASMA_STORM = "Plasma Sturm!";
+l_log_text_LOG_BOUNTY_FEDBOUNTY = "Die F&ouml;deration hat eine Belohnung auf Dich ausgesetzt in der H&ouml;he von [amount] Credits.";
+l_log_title_LOG_BOUNTY_FEDBOUNTY = "F&ouml;derale Belohnung!";
 l_new_pwis = "Dein Passwort ist";
 l_planet2_sector = "Du bist nicht in demselben Sektor wie der Planet.";
 l_planet_destroyplanet = "Zerst&ouml;re den Planeten";

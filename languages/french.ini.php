@@ -158,7 +158,7 @@ l_totalcost           = "Coût Total";
 l_would_dump              = "Si vous aimeriez laisser tous les colons que vous transportez ici, cliquez ";
 l_noport           = "Il n'y a aucun port ici!";
 l_trade_turnneed      = "Vous avez besoin d'au moins un tour pour faire du commerce à un port ou planète.";
-l_returnto_port         = " Cliquer <A HREF=port.php>ici</A> pour retourner au menu du port.";
+l_returnto_port         = " Cliquer [here] pour retourner au menu du port.";
 l_notenough_cargo      = "Vous n'avez pas assez d'espace pour stocker les commodités que vous voulez acheter.";
 l_notenough_power      = "Vous ne disposez pas d'assez de puissance pour stocker l'énergie que vous voulez acheter.";
 l_notenough_credits      = "Vous n'avez pas suffisament de crédits pour conclure cette transaction.";
@@ -197,7 +197,7 @@ l_planet_land_link      = "Atterir";
 l_planet_land           = "[land] sur la planète";
 l_planet_name_link = "Nommer";
 l_planet_name2 = "[name] la planète";
-l_planet_logout      = "Vous pouvez aussi <a href=logout.php>Quitter</a> le jeu sous la protection de votre planète.";
+l_planet_logout      = "Vous pouvez aussi [logout] le jeu sous la protection de votre planète.";
 l_planet_selling      = "La planète vend des commodités. ";
 l_planet_not_selling    = "La planète ne vend aucune commodité. ";
 l_planet_transfer_link      = "Transférer";
@@ -310,7 +310,8 @@ l_att_lostf           = "a perdu tous ses intercepteurs.";
 l_att_ylostf           = "Vous avez perdu tous vos intercepteurs.";
 l_att_sdest           = " -> Vaisseau détruit.";
 l_att_espod           = "Un module de secours a été lancé!";
-l_att_ysalv           = "Vous récupérez [salv_ore] unités de métaux, [salv_organics] unités de végétaux, [salv_goods] unités de produits, et [ship_salvage_rate]% du vaisseau pour [ship_salvage] crédits.<BR>Vous gagnez [rating_change] points.";
+l_att_ysalv           = "Vous récupérez [salv_ore] unités de métaux, [salv_organics] unités de végétaux, [salv_goods] unités de produits, et [ship_salvage_rate]% du vaisseau pour [ship_salvage] crédits.";
+l_att_ysalv2          = "Vous gagnez [rating_change] points.";
 l_att_andused           = "et utilisé";
 l_att_stilship           = "Vous n'avez pas détruit le vaisseau de [name].";
 l_att_atyou           = "attacked you";
@@ -369,7 +370,7 @@ l_die_nonono           = "NON! NON! NON!";
 l_die_what           = "À quoi je pensais?";
 l_die_count           = "5.. 4.. 3.. 2.. 1.. Boom!";
 l_die_vapor           = "Votre vaisseau et tous ceux à bord ont été vaporisés.";
-l_die_please           = "S'il vous plaît, <A HREF=logout.php>Quittez</A>";
+l_die_please           = "S'il vous plaît, [logout]";
 l_die_exploit           = "Ne jouez pas avec ce que vous ne comprenez pas.";
 
 [move]
@@ -428,12 +429,12 @@ l_log_months_short_10 = 'Oct';
 l_log_months_short_11 = 'Nov';
 l_log_months_short_12 = 'Déc';
 l_log_pod = "Heureusement, vous aviez un module de secours!";
-l_log_nopod = "<font color=yellow><b>Vous n'aviez pas de module de secours, vous êtes mort.</b></font>";
+l_log_nopod = "Vous n'aviez pas de module de secours, vous êtes mort.";
 l_log_log = "Journal de [player]";
 l_log_start = "Entrées pour";
 l_log_end = "Fin des entrées pour";
-l_log_click = "Cliquez <A HREF=main.php><font color=#00ff00>ici</font></A> pour retourner au menu principal.";
-l_log_note = "NOTE: Si cette page ne s'affiche pas correctement, ou si vous n'aimez pas les effets de HTML dynamique ou vous les trouvez agaçants, vous pouvez les désactiver <a href=options.php><font color=#00FF00>ici</font>";
+l_log_click = "Cliquez [here] pour retourner au menu principal.";
+l_log_note = "NOTE: Si cette page ne s'affiche pas correctement, ou si vous n'aimez pas les effets de HTML dynamique ou vous les trouvez agaçants, vous pouvez les désactiver [here]";
 l_log_text_LOG_LOGIN = "Vous vous êtes connecté, à partir de [ip].";
 l_log_title_LOG_LOGIN = "Connection";
 l_log_text_LOG_LOGOUT = "Vous vous êtes déconnecté, à partir de [ip].";
@@ -445,21 +446,21 @@ l_log_title_LOG_ATTACK_OUTSCAN = "Camouflage!";
 l_log_text_LOG_ATTACK_EWD = "Vous êtes surpris par l'attaque en traitre de [player]. Vous pouvez apercevoir les missiles qui se dirigent vers vous pendant que vous courez vers le bouton d'hyper-espace d'urgence. L'univers se brouille autour de vous et, pour une milli-seconde, vous croyez que vous êtes mort. Quand vous ouvrez finallement les yeux, vous vous apercevez que vous avez été transporté dans un endroit plus sûr. Mais où est cet endroit, vous ne le savez pas...";
 l_log_title_LOG_ATTACK_EWD = "Hyper-espace d'urgence!";
 l_log_text_LOG_ATTACK_EWDFAIL = "Vos détecteurs se fixent sur le vaisseau de [player], qui est sur un vecteur d'attaque. \"Mieux vaut prévenir que guérir\", vous pensez, appuyant sur le bouton d'hyper-espace d'urgence. Vous entendez un son étrange d'étouffement venant de la salle des moteurs et vous sentez des circuits brûlés. \"Stupide boîte de conserve!\", vous criez, en donnant un coup de pied à l'ordinateur. Il émet des bips de protestation pendant que vous vous préparez pour le combat...";
-l_log_title_LOG_ATTACK_EWDFAIL = "Hyper-espace d'urgence <font color=red>en panne!</font>";
+l_log_title_LOG_ATTACK_EWDFAIL = "Hyper-espace d'urgence en panne!";
 l_log_text_LOG_ATTACK_LOSE = "Votre vaisseau est attaqué par [player]. Vous faites de votre mieux, mais vous ne pouvez vous défendre contre l'armement supérieur de [player]. Votre vaisseau a été détruit. ";
-l_log_title_LOG_ATTACK_LOSE = "<font color=red>Combat perdu!</font>";
+l_log_title_LOG_ATTACK_LOSE = "Combat perdu!";
 l_log_text_LOG_ATTACKED_WIN = "Votre vaisseau a été attaqué par [player]. Vous vous battez un moment, puis le combat cesse. Vous perdez [armor] points d'armure et [fighters] intercepteurs dans l'escarmouche.";
-l_log_title_LOG_ATTACKED_WIN = "<font color=yellow>Escarmouche!</font>";
+l_log_title_LOG_ATTACKED_WIN = "Escarmouche!";
 l_log_text_LOG_TOLL_PAID = "Vous avez dû payer [toll] crédits pour entrer dans le secteur [sector]. Vous vous promettez bien de trouvez un moyen de récupérer votre argent.";
 l_log_title_LOG_TOLL_PAID = "Extortion";
 l_log_text_LOG_HIT_MINES = "Vous frappez [mines] mines dans le secteur [sector].";
-l_log_title_LOG_HIT_MINES = "<font color=yellow>Alerte, mines!</font>";
+l_log_title_LOG_HIT_MINES = "Alerte, mines!";
 l_log_text_LOG_SHIP_DESTROYED_MINES = "Votre vaisseau a été détruit par un champ de mines dans le secteur [sector]. ";
-l_log_title_LOG_SHIP_DESTROYED_MINES = "<font color=red>Alerte, mines!</font>";
+l_log_title_LOG_SHIP_DESTROYED_MINES = "Alerte, mines!";
 l_log_text_LOG_PLANET_DEFEATED_D = "Votre planète [planet_name] dans le secteur [sector] a été capturée dans une féroce bataille par [name]. Heureusement, la forte loyauté de vos citoyens a joué en votre faveur. Ils ont bravement choisi de détruire la planète plutôt que de la laisser entre des mains ennemies. Vous organizez de superbes funérailles  en mémoire de vos gens fidèles.";
-l_log_title_LOG_PLANET_DEFEATED_D = "<font color=yellow>Planète détruite</font>";
+l_log_title_LOG_PLANET_DEFEATED_D = "Planète détruite";
 l_log_text_LOG_PLANET_DEFEATED = "Votre planète [planet_name] dans le secteur [sector] dans une féroce bataille par [name]. Les gens de la planète souhaitent la bienvenue à leur nouveau seigneur. Vous entendez un témoignage sur BNN : \"Nous sommes bien content d'être débarassé de ce vieux crouton! Nous ne voulons pas d'un perdant qui ne peut même pas assurer notre protection!\". Vous vous jurez de les faire payer pour leur arrogance.";
-l_log_title_LOG_PLANET_DEFEATED = "<font color=red>Planète capturée!</font>";
+l_log_title_LOG_PLANET_DEFEATED = "Planète capturée!";
 l_log_text_LOG_PLANET_NOT_DEFEATED = "Votre planète [planet_name] dans le secteur [sector] a été attaquée par [name]. Les citoyens ont organisé une vaillante résistance, cependant, et ont réussi à détruire l'ennemi. Ils ont récupéré quelques ressources des débris : [goods] produits, [ore] métaux, [organics] végétaux et [salvage]% de la valeur du vaisseau pour [credits] crédits.";
 l_log_title_LOG_PLANET_NOT_DEFEATED = "Victoire!";
 l_log_title_LOG_RAW = "Notice";
@@ -482,15 +483,15 @@ l_log_title_LOG_SHIP_SCAN_FAIL = "Tentative de sonde";
 l_log_text_LOG_Xenobe_ATTACK = "Attaque sur [player]...";
 l_log_title_LOG_Xenobe_ATTACK = "Attaque";
 l_log_text_LOG_STARVATION = "Une de vos planètes dans le secteur [sector] ne peut soutenir sa population! Plus de végétaux sont nécéssaires. [starvation] colons sont morts de faim.";
-l_log_title_LOG_STARVATION = "<font color=yellow>Famine!</font>";
+l_log_title_LOG_STARVATION = "Famine!";
 l_log_text_LOG_TOW = "Votre vaisseau a été remorqué du secteur [sector] vers le secteur [newsector] parce que sa coque dépassait la limite persise de [hull].";
 l_log_title_LOG_TOW = "Remorqué!";
 l_log_text_LOG_DEFS_DESTROYED_F = "Vous avez détruit [fighters] intercepteurs dans le secteur [sector].";
 l_log_title_LOG_DEFS_DESTROYED_F = "Intercepteurs détruits";
 l_log_text_LOG_DEFS_KABOOM = "Votre vaisseau a été détruit par une force d'intercepteurs dans le secteur [sector]. ";
-l_log_title_LOG_DEFS_KABOOM = "<font color=red>Vaisseau détruit!</font>";
+l_log_title_LOG_DEFS_KABOOM = "Vaisseau détruit!";
 l_log_text_LOG_HARAKIRI = "Vous êtes fatigué de commander cette poubelle volante. Vous décidez que l'univers sera un meilleur endroit sans vous. Votre vaisseau et tout son équipage sont vaporisés quand vous activez la commande d'auto-destruction. Authorisé à partir de [ip].";
-l_log_title_LOG_HARAKIRI = "<font color=red>Auto-destruction!</font>";
+l_log_title_LOG_HARAKIRI = "Auto-destruction!";
 l_log_text_LOG_TEAM_REJECT = "[player] a rejeté l'invitation pour faire partie de votre alliance [teamname].";
 l_log_title_LOG_TEAM_REJECT = "Invitation rejetée";
 l_log_text_LOG_TEAM_RENAME = "Vous avez renommé votre alliance [team].";
@@ -550,10 +551,10 @@ l_md_yours              = "Vous ne pouvez attaquer vos propre défenses.";
 
 [news]
 l_news_title           = "Nouvelles de l'Univers Blacknova";
-l_news_info_1           = "BNN est la meilleur source<br>";
-l_news_info_2           =  "de nouvelles et informations dans l'univers.<br>";
-l_news_info_3           =  "Une équipe qui travaille 24 heures, sept jours par <br>";
-l_news_info_4          = "semaines vous apporte toutes les manchettes! Nos <br>";
+l_news_info_1           = "BNN est la meilleur source";
+l_news_info_2           =  "de nouvelles et informations dans l'univers.";
+l_news_info_3           =  "Une équipe qui travaille 24 heures, sept jours par ";
+l_news_info_4          = "semaines vous apporte toutes les manchettes! Nos ";
 l_news_info_5           = "bureaux sont disséminés à travers toute la galaxie!";
 l_news_for           = "Manchettes pour";
 l_news_prev           = "jour précédent";
@@ -666,14 +667,16 @@ l_team_hcreated      = "à été créée et vous êtes son co-ordonateur";
 l_team_team           = "Alliance";
 l_team_selectp           = "Sélectionnez le joueur que vous désirez inviter";
 l_team_isorry           = "Désolé, mais [name] à déjà reçu une invitation pour faire partie d'une alliance - seulement une invitation à la fois est permise";
-l_team_plinvted      = "Le joueur a été invité.<BR>Vous devez attendre la réponse de ce joueur.";
+l_team_plinvted      = "Le joueur a été invité.";
+l_team_pinvted        = "Vous devez attendre la réponse de ce joueur.";
 l_team_refuse           = "Vous avez refusé l'invitation à vous joindre à";
 l_team_edname           = "Modifier le nom de l'alliance";
 l_team_eddesc           = "Modifier la description de l'alliance";
 l_team_hasbeenr      = "a été renommée.";
-l_team_error           = "<b><font color=red>Une erreur s'est produite</font></b><br>Vous n'êtes pas le co-ordonateur de cette Alliance.";
+l_team_error           = "Une erreur s'est produite";
+l_team_error2          = "Vous n'êtes pas le co-ordonateur de cette Alliance.";
 l_team_notmember      = "Vous n'êtes membre d'aucune alliance";
-l_team_urejected      = "<B>ATTENTION</B> - vous avez été éjecté de";
+l_team_urejected      = "ATTENTION - vous avez été éjecté de";
 l_team_noteams           = "Il n'y a présentement aucune alliance dans la galaxie.";
 
 [ranking]
@@ -708,9 +711,9 @@ l_sdf_mode           = "Mode";
 
 [traderoutes]
 l_tdr_title          = "Routes Commerciales";
-l_tdr_newtdr         = "Cliquez <a href=\"traderoute.php?command=new\">ici</a> pour créer une nouvelle route";
-l_tdr_modtdrset         = "Pour modifier les paramètres commerciaux globaux, cliquez <a href=\"traderoute.php?command=settings\">ici</a>";
-l_tdr_confdel        = "Cliquez <a href=\"traderoute.php?command=delete&confirm=yes&traderoute_id=[tdr_id]\">ici</a> pour confirmer la destruction de la route suivante :";
+l_tdr_newtdr         = "Cliquez [here] pour créer une nouvelle route";
+l_tdr_modtdrset         = "Pour modifier les paramètres commerciaux globaux, cliquez [here]";
+l_tdr_confdel        = "Cliquez [here] pour confirmer la destruction de la route suivante :";
 l_tdr_noactive       = "Vous n'avez aucune route commerciale.";
 l_tdr_curtdr         = "Routes commerciales courantes";
 l_tdr_deltdr         = "Détruire une route commerciale";
@@ -730,7 +733,8 @@ l_tdr_none           = "Aucun";
 l_tdr_colonists         = "Colons";
 l_tdr_fighters       = "Intercepteurs";
 l_tdr_torps          = "Torpilles";
-l_tdr_escooped       = "[tdr_dist_triptime] tours<br>[tdr_dist_scooped] énergie accumulée";
+l_tdr_escooped       = "[tdr_dist_triptime] tours";
+l_tdr_escooped2      = "[tdr_dist_scooped] énergie accumulée";
 l_tdr_warp           = "Hyper-espace";
 l_tdr_turns          = "tours";
 l_tdr_way            = "sens";
@@ -763,7 +767,7 @@ l_tdr_errnotvalidport   = "Erreur : le port source [tdr_port_id] ne semble pas v
 l_tdr_bothways       = "Double sens";
 l_tdr_create         = "Créer";
 l_tdr_modify         = "Modifier";
-l_tdr_returnmenu        = "Cliquez <a href=traderoute.php>ici</a> pour retourner au menu des routes commerciales.";
+l_tdr_returnmenu        = "Cliquez [here] pour retourner au menu des routes commerciales.";
 l_tdr_errnotvalidport   = "Erreur : port source [tdr_port_id] est invalide.";
 l_tdr_errnoport         = "Erreur : il n'y a aucun port dans [tdr_port_id].";
 l_tdr_errnosrc          = "Erreur : La planète source n'existe pas.";
@@ -826,7 +830,7 @@ l_tdr_totalcost         = "Coûts totaux";
 l_tdr_credits        = "Crédits";
 l_tdr_turnsused         = "Tours utilisés";
 l_tdr_turnsleft         = "Tours restant";
-l_tdr_engageagain       = "Cliquez <A HREF=\"traderoute.php?engage=[tdr_engage]\">ici</A> pour refaire cette route.";
+l_tdr_engageagain       = "Cliquez [here] pour refaire cette route.";
 l_tdr_notowner = "Cette route ne vous appartient pas.";
 
 [igb]
@@ -962,8 +966,7 @@ l_cmb_youlostarmorpoints       = "Vous avez perdu [cmb_armor_lost] de [cmb_playe
 l_cmb_energyused       = "Vous avez utilisé [cmb_energy] unités d'énergie, de [cmb_playerinfo_ship_energy].";
 l_cmb_planetdefeated   = "Planète vaincue";
 l_cmb_citizenswanttodie        = "Les citoyens de cette planète ont décidé qu'ils aimaient mieux mourir que de vous servir. Ils utilisent une perceuse pour atteindre le centre de la planète. Vous avez à peine le temps d'attendre l'orbite avant que la planète ne devienne un gigantesque boule de feu.";
-l_cmb_youmaycapture    = "Vous pouvez <a href=planet.php?planet_id=[cmb_planetinfo_planet_id]&command=capture>capturer</a> la planète ou la laisser sans défense.";
-l_cmb_youmaycapture2   = "Vous pouvez <a href=planet.php?planet_id=[cmb_planetinfo_planet_id]&command=capture>capturer</a> la planète ou la laisser sans défense.";
+l_cmb_youmaycapture    = "Vous pouvez [capture] la planète ou la laisser sans défense.";
 l_cmb_planetnotdefeated        = "La planète n'est pas vaincue";
 l_cmb_planetstatistics = "Statistiques de la planète";
 l_cmb_fighterloststat  = "Intercepteurs perdus: [cmb_fighters_lost] sur [cmb_planetinfo_fighters] ([cmb_planetfighters] restant)";
@@ -981,7 +984,7 @@ l_cmb_beamsdestroy     = "Vos rayons détruisent [cmb_lost] intercepteurs";
 l_cmb_beamsdestroy2    = "Vos rayons détruisent [cmb_attackerbeams] intercepteurs, mais d'autres les remplacent";
 l_cmb_nobeamsareleft   = "Vous n'avez plus de rayons pour détruire les intercepteurs!";
 l_cmb_beamshavenotarget        = "Vos rayons n'ont pas d'intercepteurs à cibler";
-l_cmb_fighterdestroyedbybeams  = "[cmb_targetinfo_ship_name] a détruit [cmb_lost] de vos intercepteurs avec ses rayons<BR>";
+l_cmb_fighterdestroyedbybeams  = "[cmb_targetinfo_ship_name] a détruit [cmb_lost] de vos intercepteurs avec ses rayons";
 l_cmb_beamsdestroystillhave    = "[cmb_targetinfo_ship_name] a détruit [cmb_targetbeams] de vos intercepteurs avec ses rayons, mais il vous en reste [cmb_attackerfighters]";
 l_cmb_fighterunhindered        = "Vos intercepteurs attaquent sans résistance de la part de l'ennemi.";
 l_cmb_youhavenofightersleft    = "Vous n'avez plus d'intercepteurs pour attaquer";
@@ -1027,7 +1030,8 @@ l_cmb_yourarmorishitfordmgby   = "Votre armure est touchée de [cmb_targetfighter
 l_cmb_nofightersleftheforyourarmor     = "[cmb_targetinfo_ship_name] n'a plus d'intercepteurs pour attaquer votre armure";
 l_cmb_hehasbeendestroyed       = "[cmb_targetinfo_ship_name] a été détruit";
 l_cmb_escapepodlaunched        = "Un module de secours a été lancé!";
-l_cmb_yousalvaged      = "Vous collectez [cmb_salv_ore] unités de métaux, [cmb_salv_organics] unités de végétaux, [cmb_salv_goods] unités de produits, et collectez [cmb_salvage_rate]% du vaisseau pour [cmb_salvage] crédits.<BR>Votre pointage a changé de [cmb_number_rating_change] points.";
+l_cmb_yousalvaged      = "Vous collectez [cmb_salv_ore] unités de métaux, [cmb_salv_organics] unités de végétaux, [cmb_salv_goods] unités de produits, et collectez [cmb_salvage_rate]% du vaisseau pour [cmb_salvage] crédits.";
+l_cmb_yousalvaged2      = "Votre pointage a changé de [cmb_number_rating_change] points.";
 l_cmb_youdidntdestroyhim       = "Vous n'avez pas détruit [cmb_targetinfo_ship_name]";
 l_cmb_shiptoshipcombatstats    = "Statistiques du combat entre vaisseaux";
 l_sofa = "Sub-Orbital Fighter Attack";
@@ -1037,7 +1041,7 @@ l_bigbeams = "There is a bright flash of discharging beams.  Your fighters proba
 l_bigtorps = "A large explosion blossoms in the upper air of the planet.  Your fighters probably didn't have time to attack.";
 l_strafesuccess = "It looks like some of your fighters made it through, although you can't tell how many from here.";
 l_log_text_LOG_PLANET_BOMBED = "Your planet [planet_name] in sector [sector] was bombed by [name]. You used [beams] energy and [torps] torpedoes in your defense.  You lost [figs] fighters.";
-l_log_title_LOG_PLANET_BOMBED = "<font color=red>Planet bombed!</font>";
+l_log_title_LOG_PLANET_BOMBED = "Planet bombed!";
 l_map = "Map";
 l_lss = "Last ship seen in this sector";
 l_igb_errnobase = "The IGB can not transfer credits to a planet without a base.";
@@ -1065,10 +1069,10 @@ l_chf_youpaidsometoll  = "Vous payez [chf_tollstring] crédits pour la taxe.";
 l_chf_thefightersdetectyou     = "Les intercepteurs vous détectent!";
 l_chf_therearetotalfightersindest      = "Il y a [chf_total_sector_fighters] intercepteurs dans votre secteur de destination.";
 l_chf_creditsdemanded  = "Ils demandent [chf_number_fighterstoll] crédits pour entrer dans ce secteur.";
-l_chf_youcanretreat    = "You can <BR><INPUT TYPE=RADIO NAME=response VALUE=retreat><B>Battre en retraite</B> - Ceci vous coûtera un tour.<BR></INPUT>";
-l_chf_inputpay = "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=pay><B>Payer</B> et entrer dans le secteur.<BR></INPUT>";
-l_chf_inputfight       = "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=fight><B>Combattre</B> - Vous devez détruire tous les intercepteurs pour entrer dans le secteur.<BR></INPUT>";
-l_chf_inputcloak       = "<INPUT TYPE=RADIO NAME=response CHECKED VALUE=sneak><B>Camouflage</B> - Utiliser votre camouflage pour essayer de passer les intercepteurs.<BR></INPUT>";
+l_chf_youcanretreat    = "You can [retreat] - Ceci vous coûtera un tour.";
+l_chf_inputpay = "[pay] - et entrer dans le secteur.";
+l_chf_inputfight       = "[fight] - Vous devez détruire tous les intercepteurs pour entrer dans le secteur.";
+l_chf_inputcloak       = "[cloak] - Utiliser votre camouflage pour essayer de passer les intercepteurs.";
 l_chf_go       = "Aller";
 
 [mines]
@@ -1088,7 +1092,7 @@ l_mines_dmines               ="Vous avez déployé [mines] mines.";
 l_mines_dfighter          ="Vous avez déployé [fighters] intercepteurs en mode [mode].";
 l_mines_fmode               ="Fighter mode";
 
-[team-planets]
+[team_planets]
 l_teamplanet_title          ="Rapport des planètes de l'alliance";
 l_teamplanet_notally          ="Vous n'êtes dans aucune alliance.";
 l_teamplanet_personal          ="Montrer les planètes personnelles";
@@ -1116,21 +1120,24 @@ l_login_title               ="Connection";
 l_login_email               ="Adresse E-mail";
 l_login_pw               ="Mot de passe:";
 l_login_chooseres          ="La résolution de votre écran n'a pu être déterminée. Veuillez choisir le plus près:";
-l_login_newp               = "Si vous êtes un nouveau joueur, cliquez <A HREF=\"new.php\">ici</A>.";
+l_login_newp               = "Si vous êtes un nouveau joueur, cliquez [here].";
 l_login_prbs               = "Problèmes?";
 l_login_emailus          = "Écrivez nous";
 l_login_sclosed          = "Le serveur est fermé";
 l_login_closed_message          ="Le serveur est fermé jusqu'à nouvel ordre.";
 l_login_title2               ="Phase deux de la connection"; 
-l_login_banned               ="<b>Vous avez été bannis de ce serveur par l'administrateur. La prochaine fois, conduisez-vous mieux</b>";
-l_login_died               ="Votre vaisseau a été détruit, mais votre module de secours vous a sauvé vous ainsi que votre équipage.  Cliquez <A HREF=main.php>ici</A> pour recommencer avec un nouveau vaisseau.";
+l_login_banned               ="Vous avez été bannis de ce serveur par l'administrateur. La prochaine fois, conduisez-vous mieux";
+l_login_died               ="Votre vaisseau a été détruit, mais votre module de secours vous a sauvé vous ainsi que votre équipage.  Cliquez [here] pour recommencer avec un nouveau vaisseau.";
 l_login_newbie               ="À cause du degré de ce crime contre vous, la Fédération a gracieusement accepté de vous cloner. Malheureusement, même en cet âge, les nouveaux clones ne peuvent avoir de propriété, sauf les besoins essentiels. Vous aurez un vaisseau de base et quelque crédits pour commencer une nouvelle vie. Espérons qu'elle sera meilleure que l'ancienne.";
-l_login_newlife          ="Cliquez <A HREF=main.php>ici</A> pour continuer vers une nouvelle vie.";
-l_login_looser               ="Vous n'aviez pas de module de secours, donc vous avez péri.<BR><BR> Meilleure chance la prochaine fois...";
-l_login_4gotpw1          = "Le mot de passe que vous avez entré est incorrect.<BR><BR>  Si vous avez oublié votre mot de passe, ";
-l_login_4gotpw2          = "pour le recevoir par e-mail.<BR><BR>  Sinon,";
+l_login_newlife          ="Cliquez [here] pour continuer vers une nouvelle vie.";
+l_login_looser               ="Vous n'aviez pas de module de secours, donc vous avez péri.";
+l_login_looser2             =" Meilleure chance la prochaine fois...";
+l_login_4gotpw1a          = "Le mot de passe que vous avez entré est incorrect.";
+l_login_4gotpw1b           = "Si vous avez oublié votre mot de passe, ";
+l_login_4gotpw2a          = "pour le recevoir par e-mail.";
+l_login_4gotopw2b        = " Sinon,";
 l_login_4gotpw3          = "pour essayer encore une fois.  La tentative a été enregistrée, de l'ip";
-l_login_noone               = "Ce joueur n'existe pas! - Créer un nouveau joueur <A HREF=new.php>ici</A>.";
+l_login_noone               = "Ce joueur n'existe pas! - Créer un nouveau joueur [here].";
 l_login_lang = "Langue";
 l_login_settings = "Paramètres";
 l_login_change = "Changer";
@@ -1150,26 +1157,27 @@ l_new_inusechar          ="Le nom de joueur [character] est déjà en utilisation.
 l_new_inuseship          ="Le nom de vaisseau [shipname] est déjà en utilisation.";
 l_new_pwsent               ="Le mot de passe a été envoyé à [username].";
 l_new_login               ="pour aller à l'écran de connection.";
-l_new_err               ="S'il vous plaît cliquez <a href=new.php>ici</a> pour réessayer.";
+l_new_err               ="S'il vous plaît cliquez [here] pour réessayer.";
 l_new_topic               ="Mot de passe pour Blacknova Traders";
 l_new_message               ="Salutations,\n\nQuelqu'un avec l'ip $ip a demandé que votre mot de passe pour Blacknova Traders soit envoyé à cette adresse.\n\nVotre mot de passe est: [pass]\n\nMerci\n\nL'équipe de Blacknova Traders.";
 
 [logout]
 l_logout_score               ="Votre pointage est";
-l_logout_text               ="[name] est maintenant déconnecté.  Cliquez <A HREF=index.php>ici</A> pour retourner au jeu.";
+l_logout_text               ="[name] est maintenant déconnecté.  Cliquez [here] pour retourner au jeu.";
 
 [mail]
 l_mail_title               ="Envoyer le mot de passe"; 
-l_mail_noplayer          ="Ce joueur n'existe pas! - Créer un nouveau joueur <a href=new.php>ici</a>.";
+l_mail_noplayer          ="Ce joueur n'existe pas! - Créer un nouveau joueur [here].";
 l_mail_sent               ="Le mot de passe a été envoyé à";
 l_mail_topic               ="Mot de passe pour $game_name";
 l_mail_message               ="Salutations,\n\nQuelqu'un avec l'ip $ip a demandé que votre mot de passe pour Blacknova Traders soit envoyé à cette adresse.\n\nVotre mot de passe est: [pass]\n\nMerci\n\nL'équipe de Blacknova Traders.";
 
 [global_funcs]
-l_global_mmenu               ="Cliquez <A HREF=main.php>ici</A> pour retourner au menu principal.";
-l_global_mlogin          ="Cliquez <A HREF=login.php>ici</A> pour retourner à l'écran de connection.";
-l_global_needlogin          ="Vous devez vous connecter, cliquez <A HREF=login.php>ici</A>.";
-l_global_died               ="Vous êtes mort! <a href=log.php>Voici</a> ce qui vous est arrivé<BR><BR>Meilleure chance la prochaine fois!";
+l_global_mmenu               ="Cliquez [here] pour retourner au menu principal.";
+l_global_mlogin          ="Cliquez [here] pour retourner à l'écran de connection.";
+l_global_needlogin          ="Vous devez vous connecter, cliquez [here].";
+l_global_died               ="Vous êtes mort! [here] ce qui vous est arrivé";
+l_global_died2              = "Meilleure chance la prochaine fois!";
 l_global_warzone          ="La zone est maintenant une Zone de Guerre!";
 l_global_nzone               ="La zone est maintenant une Zone Neutre.";
 l_global_team               ="La zone appartient maintenant à l'alliance";
@@ -1190,41 +1198,49 @@ l_opt_save = "Sauvegarder";
 
 [option2]
 l_opt2_title = "Sauvegarde des options";
-l_opt2_passunchanged = "Le mot de passe n'a pas été changé.<BR><BR>";
-l_opt2_srcpassfalse = "Le mot de passe original n'était pas valide. Le mot de passe n'a pas été modifié.<BR><BR>";
-l_opt2_newpassnomatch = "Les mots de passe entrés comme nouveau mots de passe ne concordent pas. Le mot de passe n'a pas été modifié.<BR><BR>";
-l_opt2_passchanged = "Mot de passe modifié.<BR><BR>";
-l_opt2_passchangeerr = "Erreur durant le changement de mot de passe.<BR><BR>";
-l_opt2_userintup = "L'interface utilisateur a été mis a jour.<BR><BR>";
-l_opt2_userintfail = "Erreur durant la mise à jour de l'interface utilisateur.<BR><BR>";
-l_opt2_chlang = "La langue a été changée pour [lang].<p>";
-l_opt2_dhtmlup = "Les paramètres de HTML dynamique ont été changés.<BR><BR>";
-l_opt2_dhtmlfail = "Erreur durant la mise à jour des paramètres DHTML.<BR><BR>";
+l_opt2_passunchanged = "Le mot de passe n'a pas été changé.";
+l_opt2_srcpassfalse = "Le mot de passe original n'était pas valide. Le mot de passe n'a pas été modifié.";
+l_opt2_newpassnomatch = "Les mots de passe entrés comme nouveau mots de passe ne concordent pas. Le mot de passe n'a pas été modifié.";
+l_opt2_passchanged = "Mot de passe modifié.";
+l_opt2_passchangeerr = "Erreur durant le changement de mot de passe.";
+l_opt2_userintup = "L'interface utilisateur a été mis a jour.";
+l_opt2_userintfail = "Erreur durant la mise à jour de l'interface utilisateur.";
+l_opt2_chlang = "La langue a été changée pour [lang].";
+l_opt2_dhtmlup = "Les paramètres de HTML dynamique ont été changés.";
+l_opt2_dhtmlfail = "Erreur durant la mise à jour des paramètres DHTML.";
 
 [presets]
 l_pre_title = "Changer les raccourcis d'espace réel";
-l_pre_exceed = "Le raccourci [preset] dépasse le nombre maximum de secteurs [sector_max]. Aucun raccourci sauvegardé.<BR><BR>"; 
-l_pre_set = "Le raccourci 1 est [preset1], le 2 est [preset2] et le 3 est [preset3].<BR><BR>";
+l_pre_exceed = "Le raccourci [preset] dépasse le nombre maximum de secteurs [sector_max]. Aucun raccourci sauvegardé."; 
+l_pre_set = "Le raccourci 1 est [preset1], le 2 est [preset2] et le 3 est [preset3].";
 l_pre_save = "Sauvegarder";
 
+[mailto]
+l_mt_title                            = "Envoyer un message";
+l_mt_from                             = "De:";
+l_mt_subject                          = "Sujet:";
+l_mt_message                          = "Message:";
+l_mt_sent                             = "Message envoyé";
+l_mt_send                             = ""Envoyer"";
+
 [sector_fighters]
-l_sf_attacking = "Les défenses de secteur vous attaquent!<BR>";
-l_sf_destfight = "Vos rayons détruisent [lost] intercepteurs<BR>";
-l_sf_destfightb = "Vos rayons détruisent [lost] intercepteurs<BR>";
+l_sf_attacking = "Les défenses de secteur vous attaquent!";
+l_sf_destfight = "Vos rayons détruisent [lost] intercepteurs";
+l_sf_destfightb = "Vos rayons détruisent [lost] intercepteurs";
 l_sf_torphit = "Les torpilles touchent:";
-l_sf_destfightt = "Vos torpilles ont détruit [lost] intercepteurs<BR>";
+l_sf_destfightt = "Vos torpilles ont détruit [lost] intercepteurs";
 l_sf_fighthit = "Les intercepteurs attaquent:";
-l_sf_destfightall = "Vous détruisez tous les intercepteurs.<BR>";
-l_sf_destfightt2 = "Vous détruisez [lost] intercepteurs.<BR>";
-l_sf_lostfight = "Vous perdez tous vos intercepteurs.<BR>";
-l_sf_lostfight2 = "Vous perdez [lost] intercepteurs.<BR>";
-l_sf_armorbreach = "Votre armure a été traversée!<BR>";
-l_sf_armorbreach2 = "Votre armure est touchée pour [lost] points de dommage.<BR>";
+l_sf_destfightall = "Vous détruisez tous les intercepteurs.";
+l_sf_destfightt2 = "Vous détruisez [lost] intercepteurs.";
+l_sf_lostfight = "Vous perdez tous vos intercepteurs.";
+l_sf_lostfight2 = "Vous perdez [lost] intercepteurs.";
+l_sf_armorbreach = "Votre armure a été traversée!";
+l_sf_armorbreach2 = "Votre armure est touchée pour [lost] points de dommage.";
 l_sf_sendlog = "[player] a détruit [lost] intercepteurs en défense dans le secteur [sector].";
-l_sf_lreport = "Vous avez perdu [armor] points d'armure, [fighters] intercepteurs et avez utilisé [torps] torpilles.<BR><BR>";
-l_sf_shipdestroyed = "Votre vaisseau a été détruit!<BR><BR>";
+l_sf_lreport = "Vous avez perdu [armor] points d'armure, [fighters] intercepteurs et avez utilisé [torps] torpilles.";
+l_sf_shipdestroyed = "Votre vaisseau a été détruit!";
 l_sf_sendlog2 = "Les intercepteurs en défense dans le secteur [sector] ont détruit [player].";
-l_sf_escape = "Heureusement vous aviez un module de secours!<BR><BR>";
+l_sf_escape = "Heureusement vous aviez un module de secours!";
 
 [bounty]
 l_by_title = "Bounties";
@@ -1268,13 +1284,13 @@ l_planet2_sector = "You are not in the same sector as that planet.";
 l_planet_destroyplanet = "Destroy Planet";
 l_planet_warning = "Doing this will totally destroy this planet";
 l_planet_confirm = "Do you really want to destroy this planet?";
-l_port_bounty = "You can not access a special port while you have a bounty on you placed by The Federation.<BR>";
-l_port_bounty = "Click <a href=\"port.php?pay=1\">here</a> to pay the bounty of [amount] credits.";
-l_port_btynotenough = "You do not have enough credtis to pay the bounty of [amount] credits.<BR>";
-l_port_bountypaid = "You have paid the bounty. Click <a href=\"port.php\">here</a> to continue.<BR>";
+l_port_bounty = "You can not access a special port while you have a bounty on you placed by The Federation.";
+l_port_bounty = "Click [here]> to pay the bounty of [amount] credits.";
+l_port_btynotenough = "You do not have enough credtis to pay the bounty of [amount] credits.";
+l_port_bountypaid = "You have paid the bounty. Click [here] to continue.";
 l_team_notyours = "You must be in the Alliance in order to invite someone.";
 l_team_leavefirst = "You must leave a team first before joining another.";
-l_tdr_engageagain = "Click <A HREF=\"traderoute.php?engage=[tdr_engage]\">here</A> to do this trade route again, or here to do it <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=5\">five</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=10\">ten</A> or <A HREF=\"traderoute.php?engage=[tdr_engage]&tr_repeat=50\">fifty</A> times<p>";
+l_tdr_engageagain = "Click [here] to do this trade route again, or here to do it [five] or [ten] or [fifty] times";
 l_scan_bounty = "This ship has a total bounty on it of [amount] credits.";
 l_scan_fedbounty = "This ship has a bounty on it from The Federation.";
 
@@ -1309,16 +1325,8 @@ l_time_gen_page = "Temps pour générer la page";
 l_seconds = "secondes";
 l_local_news = "Nouvelles locales";
 
-[create_universe]
-l_cu_title = "Créer l'univers";
-
-[admin]
-l_admin_title = "Administration";
-l_change_uni_title = "taille univers changement";
-
-[scheduler]
-l_sys_update = "Mise à jour système";
-l_ai_control = "contrôle Xenobe";
+[xenobe_control]
+l_ai_control                          = "Xenobe control";
 
 [galaxy]
 l_special_port = "le port spécial";
@@ -1329,6 +1337,17 @@ l_goods_port = "Les marchandises du port";
 l_no_port = "Pas de port";
 l_unexplored = "inexploré";
 l_map_title = "Galaxy Carte";
+
+[admin]
+l_admin_title = "Administration";
+l_change_uni_title = "taille univers changement";
+
+[create_universe]
+l_cu_title = "Créer l'univers";
+
+[scheduler]
+l_sys_update = "Mise à jour système";
+l_ai_control = "contrôle Xenobe";
 
 [index]
 l_welcome_bnt = "Bienvenue sur Traders BlackNova!";
