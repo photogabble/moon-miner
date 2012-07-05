@@ -32,6 +32,7 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
 if ($playerinfo['turns'] < 1)
@@ -51,6 +52,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 }
 
 $res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=$playerinfo[sector] AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
@@ -62,10 +64,12 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 
 $target_sector = round($target_sector);
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 bigtitle();
 
 $res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=$target_sector AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 if ($zoneinfo[allow_warpedit] == 'N' && $bothway)
 {
@@ -77,6 +81,7 @@ if ($zoneinfo[allow_warpedit] == 'N' && $bothway)
 }
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$target_sector");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $row = $result2->fields;
 if (!$row)
 {
@@ -86,6 +91,7 @@ if (!$row)
 }
 
 $result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start=$playerinfo[sector]");
+db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 if ($result3 > 0)
 {
     while (!$result3->EOF)
@@ -105,7 +111,9 @@ if ($result3 > 0)
     else
     {
         $delete1 = $db->Execute("DELETE FROM {$db->prefix}links WHERE link_start=$playerinfo[sector] AND link_dest=$target_sector");
+        db_op_result ($db, $delete1, __LINE__, __FILE__, $db_logging);
         $update1 = $db->Execute("UPDATE {$db->prefix}ships SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+        db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
         if (!$bothway)
         {
             echo "$l_warp_removed $target_sector.<br><br>";
@@ -113,6 +121,7 @@ if ($result3 > 0)
         else
         {
             $delete2 = $db->Execute("DELETE FROM {$db->prefix}links WHERE link_start=$target_sector AND link_dest=$playerinfo[sector]");
+            db_op_result ($db, $delete2, __LINE__, __FILE__, $db_logging);
             echo "$l_warp_removedtwo $target_sector.<br><br>";
         }
     }

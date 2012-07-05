@@ -32,8 +32,10 @@ if (checklogin())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 $result4 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+db_op_result ($db, $result4, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result4->fields;
 
 bigtitle();
@@ -55,6 +57,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 }
 
 $res = $db->Execute("SELECT allow_warpedit FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 if ($zoneinfo[allow_warpedit] == 'N')
 {
@@ -67,8 +70,10 @@ if ($zoneinfo[allow_warpedit] == 'N')
 if ($zoneinfo[allow_warpedit] == 'L')
 {
     $result3 = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
+    db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
     $zoneowner_info = $result3->fields;
     $result5 = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id='$zoneowner_info[owner]'");
+    db_op_result ($db, $result5, __LINE__, __FILE__, $db_logging);
     $zoneteam = $result5->fields;
 
     if ($zoneowner_info[owner] != $playerinfo[ship_id])
@@ -84,6 +89,7 @@ if ($zoneinfo[allow_warpedit] == 'L')
 }
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start=$playerinfo[sector] ORDER BY link_dest ASC");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 if ($result2 < 1)
 {
     echo $l_warp_nolink . "<br><br>";

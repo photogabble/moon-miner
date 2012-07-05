@@ -34,9 +34,11 @@ if (checklogin())
 bigtitle();
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 
 if ($res->EOF)
@@ -74,12 +76,14 @@ else
         if ($row['corp_zone'] == 'N')
         {
             $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id=$row[owner]");
+            db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
             $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id=$row[owner]");
+            db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];
         }

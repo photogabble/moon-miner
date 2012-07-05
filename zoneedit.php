@@ -34,6 +34,7 @@ if (checklogin())
 bigtitle();
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 if ($res->EOF)
 {
     zoneedit_die($l_zi_nexist);
@@ -43,11 +44,13 @@ $curzone = $res->fields;
 if ($curzone['corp_zone'] == 'N')
 {
     $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
+    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
     $ownerinfo = $result->fields;
 }
 else
 {
     $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator=$curzone[owner]");
+    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
     $ownerinfo = $result->fields;
 }
 
@@ -185,7 +188,8 @@ function zoneedit_change()
         $name = addslashes($name);
     }
 
-    $db->Execute("UPDATE {$db->prefix}zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
+    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
+    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();
