@@ -105,6 +105,7 @@ else
     $schedCount = 0;
     $lastrunList = NULL;
     $sched_res = $db->Execute("SELECT * FROM {$db->prefix}scheduler");
+    db_op_result ($db, $sched_res, __LINE__, __FILE__, $db_logging);
     if ($sched_res)
     {
         while (!$sched_res->EOF)
@@ -129,17 +130,20 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
 
                 if ($event[spawn] - $multiplier == 0)
                 {
-                    $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id=$event[sched_id]");
+                    $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id=$event[sched_id]");
+                    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                 }
                 else
                 {
-                    $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
+                    $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
+                    db_op_result ($db, $resy, __LINE__, __FILE__, $db_logging);
                 }
             }
             else
             {
-                $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
-              }
+                $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
+                db_op_result ($db, $resz, __LINE__, __FILE__, $db_logging);
+            }
 
             $sched_var_id = $event['sched_id'];
             $sched_var_extrainfo = $event['extra_info'];
@@ -166,7 +170,8 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
     $runtime = time() - $starttime;
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
-    $db->Execute("UPDATE {$db->prefix}scheduler SET last_run=". TIME());
+    $res = $db->Execute("UPDATE {$db->prefix}scheduler SET last_run=". TIME());
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 }
 
 TEXT_GOTOMAIN ();
