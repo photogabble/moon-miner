@@ -27,48 +27,64 @@
     # Update Ore in Ports
     echo "<strong>PORTS</strong><br><br>";
     echo "Adding ore to all commodities ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+($ore_rate*$multiplier*$port_regenrate) WHERE port_type='ore' AND port_ore<$ore_limit"));
+    $resa = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+($ore_rate*$multiplier*$port_regenrate) WHERE port_type='ore' AND port_ore<$ore_limit");
+    QUERYOK($resa);
     echo "Adding ore to all ore ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+($ore_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_ore<$ore_limit"));
+    $resb = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+($ore_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_ore<$ore_limit");
+    QUERYOK($resb);
     echo "Ensuring minimum ore levels are 0...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_ore=0 WHERE port_ore<0"));
+    $resc = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=0 WHERE port_ore<0");
+    QUERYOK($resc);
     echo "<br>";
 
     # Update Organics in Ports
     echo "Adding organics to all commodities ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_organics=port_organics+($organics_rate*$multiplier*$port_regenrate) WHERE port_type='organics' AND port_organics<$organics_limit"));
+    $resd = $db->Execute("UPDATE {$db->prefix}universe SET port_organics=port_organics+($organics_rate*$multiplier*$port_regenrate) WHERE port_type='organics' AND port_organics<$organics_limit");
+    QUERYOK($resd);
     echo "Adding organics to all organics ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_organics=port_organics+($organics_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_organics<$organics_limit"));
+    $rese = $db->Execute("UPDATE {$db->prefix}universe SET port_organics=port_organics+($organics_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_organics<$organics_limit");
+    QUERYOK($rese);
     echo "Ensuring minimum organics levels are 0...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_organics=0 WHERE port_organics<0"));
+    $resf = $db->Execute("UPDATE {$db->prefix}universe SET port_organics=0 WHERE port_organics<0");
+    QUERYOK($resf);
     echo "<br>";
 
     # Update Goods in Ports
     echo "Adding goods to all commodities ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_goods=port_goods+($goods_rate*$multiplier*$port_regenrate) WHERE port_type='goods' AND port_goods<$goods_limit"));
+    $resg = $db->Execute("UPDATE {$db->prefix}universe SET port_goods=port_goods+($goods_rate*$multiplier*$port_regenrate) WHERE port_type='goods' AND port_goods<$goods_limit");
+    QUERYOK($resg);
     echo "Adding goods to all goods ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_goods=port_goods+($goods_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_goods<$goods_limit"));
+    $resh = $db->Execute("UPDATE {$db->prefix}universe SET port_goods=port_goods+($goods_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_goods<$goods_limit");
+    QUERYOK($resh);
     echo "Ensuring minimum goods levels are 0...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_goods=0 WHERE port_goods<0"));
+    $resi = $db->Execute("UPDATE {$db->prefix}universe SET port_goods=0 WHERE port_goods<0");
+    QUERYOK($resi);
     echo "<br>";
 
     # Update Energy in Ports
     echo "Adding energy to all commodities ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_energy=port_energy+($energy_rate*$multiplier*$port_regenrate) WHERE port_type='energy' AND port_energy<$energy_limit"));
+    $resj = $db->Execute("UPDATE {$db->prefix}universe SET port_energy=port_energy+($energy_rate*$multiplier*$port_regenrate) WHERE port_type='energy' AND port_energy<$energy_limit");
+    QUERYOK($resj);
     echo "Adding energy to all energy ports...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_energy=port_energy+($energy_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_energy<$energy_limit"));
+    $resk = $db->Execute("UPDATE {$db->prefix}universe SET port_energy=port_energy+($energy_rate*$multiplier*$port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_energy<$energy_limit");
+    QUERYOK($resk);
     echo "Ensuring minimum energy levels are 0...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_energy=0 WHERE port_energy<0"));
+    $resl = $db->Execute("UPDATE {$db->prefix}universe SET port_energy=0 WHERE port_energy<0");
+    QUERYOK($resl);
     echo "<br>";
 
     # Now check to see if any ports are over max, if so rectify.
     echo "Checking Energy Port Cap...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_energy=$energy_limit WHERE port_energy > $energy_limit"));
+    $resm = $db->Execute("UPDATE {$db->prefix}universe SET port_energy=$energy_limit WHERE port_energy > $energy_limit");
+    QUERYOK($resm);
     echo "Checking Goods Port Cap...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_goods=$goods_limit WHERE  port_goods > $goods_limit"));
+    $resn = $db->Execute("UPDATE {$db->prefix}universe SET port_goods=$goods_limit WHERE  port_goods > $goods_limit");
+    QUERYOK($resn);
     echo "Checking Organics Port Cap...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_organics=$organics_limit WHERE port_organics > $organics_limit"));
+    $reso = $db->Execute("UPDATE {$db->prefix}universe SET port_organics=$organics_limit WHERE port_organics > $organics_limit");
+    QUERYOK($reso);
     echo "Checking Ore Port Cap...";
-    QUERYOK($db->Execute("UPDATE {$db->prefix}universe SET port_ore=$ore_limit WHERE port_ore > $ore_limit"));
+    $resp = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=$ore_limit WHERE port_ore > $ore_limit");
+    QUERYOK($resp);
     $multiplier = 0;
 ?>

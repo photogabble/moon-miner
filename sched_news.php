@@ -38,12 +38,14 @@ echo "<strong>Posting News</strong><br><br>";
 
 // Generation of planet amount
 $sql = $db->Execute("select count(owner) as amount, owner from {$db->prefix}planets where owner !='0' group by owner order by amount ASC");
+db_op_result ($db, $sql, __LINE__, __FILE__, $db_logging);
 
 while (!$sql->EOF)
   {
    $row = $sql->fields;
    if ($row[amount] >= 50) {
                             $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='planet50'");
+                            db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                             if ($sql2->EOF) {
                                             $planetcount = 50;
@@ -52,10 +54,12 @@ while (!$sql->EOF)
                           $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
                                             $l_news_p_text502=str_replace("[name]",$name,$l_news_p_text50);
                                             $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text502','$row[owner]',NOW(), 'planet50')");
+                                            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                                           }
                            }
   elseif ($row[amount] >= 25) {
                            $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='planet25'");
+                           db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                            if ($sql2->EOF) {
                                            $planetcount = 25;
@@ -64,10 +68,12 @@ while (!$sql->EOF)
                           $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
                                            $l_news_p_text252=str_replace("[name]",$name,$l_news_p_text25);
                                            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text252','$row[owner]',NOW(), 'planet25')");
+                                           db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                                          }
                            }
  elseif ($row[amount] >= 10) {
                            $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='planet10'");
+                           db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                            if ($sql2->EOF) {
                                            $planetcount = 10;
@@ -76,10 +82,12 @@ while (!$sql->EOF)
                           $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
                                            $l_news_p_text102=str_replace("[name]",$name,$l_news_p_text10);
                                            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text102','$row[owner]',NOW(), 'planet10')");
+                                           db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                                          }
                            }
  elseif ($row[amount] >= 5) {
                            $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='planet5'");
+                           db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                            if ($sql2->EOF) {
                                            $planetcount = 5;
@@ -88,6 +96,7 @@ while (!$sql->EOF)
                           $headline = $l_news_p_headline2 . $planetcount . $l_news_planets;
                                            $l_news_p_text52=str_replace("[name]",$name,$l_news_p_text5);
                                            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_p_text52','$row[owner]',NOW(), 'planet5')");
+                                           db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                              }
 
                            }
@@ -100,12 +109,14 @@ while (!$sql->EOF)
 // generation of colonist amount
 
 $sql = $db->Execute("select sum(colonists) as amount, owner from {$db->prefix}planets where owner !='0' group by owner order by amount ASC");
+db_op_result ($db, $sql, __LINE__, __FILE__, $db_logging);
 
 while (!$sql->EOF)
   {
    $row = $sql->fields;
    if ($row[amount] >= 1000000000) {
                             $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='col1000'");
+                            db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                             if ($sql2->EOF) {
                                             $colcount = 1000;
@@ -114,10 +125,12 @@ while (!$sql->EOF)
                                             $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
                                             $l_news_c_text10002=str_replace("[name]",$name,$l_news_c_text1000);
                                             $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text10002','$row[owner]',NOW(), 'col1000')");
+                                            db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                                           }
                            }
   elseif ($row[amount] >= 500000000) {
                            $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='col500'");
+                           db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                            if ($sql2->EOF) {
                                            $colcount = 500;
@@ -126,10 +139,12 @@ while (!$sql->EOF)
                                             $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
                                            $l_news_c_text5002=str_replace("[name]",$name,$l_news_c_text500);
                                            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text5002','$row[owner]',NOW(), 'col500')");
+                                           db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                                          }
                            }
  elseif ($row[amount] >= 100000000) {
                            $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='col100'");
+                           db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                            if ($sql2->EOF) {
                                            $colcount = 100;
@@ -138,10 +153,12 @@ while (!$sql->EOF)
                                             $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
                                            $l_news_c_text1002=str_replace("[name]",$name,$l_news_c_text100);
                                            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text1002','$row[owner]',NOW(), 'col100')");
+                                           db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                                          }
                            }
  elseif ($row[amount] >= 25000000) {
                            $sql2 = $db->Execute("select * from {$db->prefix}news where user_id='$row[owner]' and news_type='col25'");
+                           db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
 
                            if ($sql2->EOF) {
                                            $colcount = 25;
@@ -150,10 +167,9 @@ while (!$sql->EOF)
                                             $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
                                            $l_news_c_text252=str_replace("[name]",$name,$l_news_c_text25);
                                            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES ('$headline','$l_news_c_text252','$row[owner]',NOW(), 'col25')");
+                                           db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
                                              }
-
                            }
-
     $sql->MoveNext();
   } // while
 // end generation of colonist amount
