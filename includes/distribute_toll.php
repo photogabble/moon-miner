@@ -25,6 +25,7 @@ if (preg_match("/distribute_toll.php/i", $_SERVER['PHP_SELF'])) {
 function distribute_toll ($db, $sector, $toll, $total_fighters)
 {
     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$sector' AND defence_type ='F' ");
+    db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
     echo $db->ErrorMsg();
     // Put the defence information into the array "defenceinfo"
     if ($result3 > 0)
@@ -33,7 +34,8 @@ function distribute_toll ($db, $sector, $toll, $total_fighters)
         {
             $row = $result3->fields;
             $toll_amount = ROUND (($row['quantity'] / $total_fighters) * $toll);
-            $db->Execute("UPDATE {$db->prefix}ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
+            $resa = $db->Execute("UPDATE {$db->prefix}ships set credits=credits + $toll_amount WHERE ship_id = $row[ship_id]");
+            db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
             playerlog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
             $result3->MoveNext();
         }

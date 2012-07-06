@@ -272,6 +272,7 @@ class SETUPINFO_CLASS
                 foreach ($dbtables as $k => $v)
                 {
                     $test = @$db->Execute("SELECT COUNT(*) as record_count FROM $v");
+                    db_op_result ($db, $test, __LINE__, __FILE__, $db_logging);
                     if (is_bool($test) && $test == false)
                     {
                         $count = 0;

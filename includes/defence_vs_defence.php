@@ -25,6 +25,7 @@ if (preg_match("/defence_vs_defence.php/i", $_SERVER['PHP_SELF'])) {
 function defence_vs_defence ($db, $ship_id)
 {
     $result1 = $db->Execute("SELECT * from {$db->prefix}sector_defence where ship_id = $ship_id");
+    db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
     if ($result1 > 0)
     {
         while (!$result1->EOF)
@@ -33,6 +34,7 @@ function defence_vs_defence ($db, $ship_id)
             $deftype = $row['defence_type'] == 'F' ? 'Fighters' : 'Mines';
             $qty = $row['quantity'];
             $result2 = $db->Execute("SELECT * from {$db->prefix}sector_defence where sector_id = $row[sector_id] and ship_id <> $ship_id ORDER BY quantity DESC");
+            db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
             if ($result2 > 0)
             {
                 while (!$result2->EOF && $qty > 0)
@@ -41,16 +43,20 @@ function defence_vs_defence ($db, $ship_id)
                     $targetdeftype = $cur['defence_type'] == 'F' ? $l_fighters : $l_mines;
                     if ($qty > $cur['quantity'])
                     {
-                        $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = $cur[defence_id]");
+                        $resa = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = $cur[defence_id]");
+                        db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
                         $qty -= $cur['quantity'];
-                        $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = $qty where defence_id = $row[defence_id]");
+                        $resb = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = $qty where defence_id = $row[defence_id]");
+                        db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
                         playerlog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, "$cur[quantity]|$targetdeftype|$row[sector_id]");
                         playerlog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, "$cur[quantity]|$deftype|$row[sector_id]");
                     }
                     else
                     {
-                        $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = $row[defence_id]");
-                        $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
+                        $resc = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = $row[defence_id]");
+                        db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
+                        $resd = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - $qty WHERE defence_id = $cur[defence_id]");
+                        db_op_result ($db, $resd, __LINE__, __FILE__, $db_logging);
                         playerlog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, "$qty|$targetdeftype|$row[sector_id]");
                         playerlog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, "$qty|$deftype|$row[sector_id]");
                         $qty = 0;
@@ -63,7 +69,8 @@ function defence_vs_defence ($db, $ship_id)
             $result1->MoveNext();
         }
 
-        $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
+        $rese = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
+        db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
     }
 }
 ?>

@@ -24,7 +24,9 @@ if (preg_match("/destroy_fighters.php/i", $_SERVER['PHP_SELF'])) {
 
 function destroy_fighters ($db, $sector, $num_fighters)
 {
+    global $db_logging;
     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$sector' and defence_type ='F' order by quantity ASC");
+    db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
     echo $db->ErrorMsg();
 
     // Put the defence information into the array "defenceinfo"
@@ -36,11 +38,13 @@ function destroy_fighters ($db, $sector, $num_fighters)
             if ($row['quantity'] > $num_fighters)
             {
                 $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity - $num_fighters where defence_id = $row[defence_id]");
+                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
                 $num_fighters = 0;
             }
             else
             {
                 $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = $row[defence_id]");
+                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
                 $num_fighters -= $row['quantity'];
             }
 
