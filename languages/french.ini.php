@@ -1299,6 +1299,8 @@ l_footer_one_player_on = "Il ya 1 joueur en ligne.";
 l_footer_players_on_1 = "Il ya";
 l_footer_players_on_2 = "joueurs en ligne.";
 l_footer_until_update = "secondes jusqu'à ce que la prochaine mise à jour.";
+l_time_gen_page = "Temps pour générer la page";
+l_seconds = "secondes";
 
 [global_includes]
 l_insignia_0 = "New Recruit";     
@@ -1321,8 +1323,6 @@ l_insignia_16 = "Commodore";
 l_insignia_17 = "Rear Admiral";
 l_insignia_18 = "Vice Admiral";
 l_insignia_19 = "Admiral";           
-l_time_gen_page = "Temps pour générer la page";
-l_seconds = "secondes";
 l_local_news = "Nouvelles locales";
 
 [xenobe_control]

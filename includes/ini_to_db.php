@@ -21,6 +21,7 @@
 
 function ini_to_db ($db, $ini_file, $ini_table, $language)
 {
+    global $db_logging;
     // This is a loop, that reads a ini file, of the type variable = value.
     // It will loop thru the list of the ini variables, and push them into the db.
     $ini_keys = parse_ini_file ($ini_file, true);

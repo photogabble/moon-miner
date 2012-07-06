@@ -1345,10 +1345,13 @@ l_team_leavefirst = "Debes dejar un equipo primero antes de unirte a otro.";
 l_by_nofedbounty = "Atacar a este jugador NO acabará con la Federación ofreciendo una recompensa por tu cabeza."; 
 
 [footer]
+l_local_news = "Noticias Locales";
 l_footer_one_player_on = "Hay 1 jugador conectado."; 
 l_footer_players_on_1 = "Hay"; 
 l_footer_players_on_2 = "jugadores conectados"; 
 l_footer_until_update = "segundos hasta la nueva actualización."; 
+l_time_gen_page = "Tiempo para generar la página";
+l_seconds = "segundo";
 
 [global_includes]
 l_insignia_0 = "Nuevo Recluta";      
@@ -1371,11 +1374,6 @@ l_insignia_16 = "Comodoro";
 l_insignia_17 = "ContraAlmirante"; 
 l_insignia_18 = "ViceAlmirante"; 
 l_insignia_19 = "Almirante";            
-
-[footer]
-l_time_gen_page = "Tiempo para generar la página";
-l_seconds = "segundo";
-l_local_news = "Noticias Locales";
 
 [galaxy]
 l_special_port = "Special Port";
