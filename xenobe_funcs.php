@@ -33,26 +33,31 @@ function xenobetoship($ship_id)
   global $upgrade_factor;
   global $sector_max;
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
 
   // LOOKUP TARGET DETAILS
-  $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ, {$db->prefix}planets READ, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+  $resa = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ, {$db->prefix}planets READ, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+  db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
   $resultt = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
+  db_op_result ($db, $resultt, __LINE__, __FILE__, $db_logging);
   $targetinfo=$resultt->fields;
 
   // VERIFY NOT ATTACKING ANOTHER XENOBE
     // Added because the xenobe were killing each other off
   if (strstr($targetinfo[email], '@xenobe'))                       // He's a xenobe
         {
-        $db->Execute("UNLOCK TABLES");
+        $resb = $db->Execute("UNLOCK TABLES");
+        db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
 
     return;
         }
 
   // VERIFY SECTOR ALLOWS ATTACK
   $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id='$targetinfo[sector]'");
+  db_op_result ($db, $sectres, __LINE__, __FILE__, $db_logging);
   $sectrow = $sectres->fields;
   $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=$sectrow[zone_id]");
+  db_op_result ($db, $zoneres, __LINE__, __FILE__, $db_logging);
   $zonerow = $zoneres->fields;
   if ($zonerow[allow_attack]=="N")                        //  DEST LINK MUST ALLOW ATTACKING
   {
@@ -67,6 +72,7 @@ function xenobetoship($ship_id)
     playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
     $dest_sector=mt_rand(0,$sector_max);
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
+    db_op_result ($db, $result_warp, __LINE__, __FILE__, $db_logging);
 
     return;
   }
@@ -287,7 +293,8 @@ function xenobetoship($ship_id)
     // TARGET HAD ESCAPE POD
     {
       $rating=round($targetinfo[rating]/2);
-      $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', planet_id=0, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', rating='$rating',dev_lssd='N' where ship_id=$targetinfo[ship_id]");
+      $resc = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', planet_id=0, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', rating='$rating',dev_lssd='N' where ship_id=$targetinfo[ship_id]");
+      db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
       playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|Y");
     } else
     // TARGET HAD NO POD
@@ -343,11 +350,13 @@ function xenobetoship($ship_id)
       $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
-      $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
+      $resd = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
+      db_op_result ($db, $resd, __LINE__, __FILE__, $db_logging);
       $armor_lost = $playerinfo[armor_pts] - $attackerarmor;
       $fighters_lost = $playerinfo[ship_fighters] - $attackerfighters;
       $energy=$playerinfo[ship_energy];
-      $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+      $rese = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+      db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
     }
   }
 
@@ -364,8 +373,10 @@ function xenobetoship($ship_id)
     $target_energy=$targetinfo[ship_energy];
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Attack failed, $targetinfo[character_name] survived.");
     playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
-    $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
-    $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armor_pts=armor_pts-$target_armor_lost, torps=torps-$targettorpnum, rating=$target_rating_change WHERE ship_id=$targetinfo[ship_id]");
+    $resf = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $resf, __LINE__, __FILE__, $db_logging);
+    $resg = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armor_pts=armor_pts-$target_armor_lost, torps=torps-$targettorpnum, rating=$target_rating_change WHERE ship_id=$targetinfo[ship_id]");
+    db_op_result ($db, $resg, __LINE__, __FILE__, $db_logging);
   }
 
   // ATTACKER SHIP DESTROYED
@@ -423,14 +434,17 @@ function xenobetoship($ship_id)
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
       playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
       playerlog ($db, $targetinfo[ship_id], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
-      $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$targetinfo[ship_id]");
+      $resh = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$targetinfo[ship_id]");
+      db_op_result ($db, $resh, __LINE__, __FILE__, $db_logging);
       $armor_lost = $targetinfo[armor_pts] - $targetarmor;
       $fighters_lost = $targetinfo[ship_fighters] - $targetfighters;
       $energy=$targetinfo[ship_energy];
-      $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$targettorpnum,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$targetinfo[ship_id]");
+      $resi = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$targettorpnum,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$targetinfo[ship_id]");
+      db_op_result ($db, $resi, __LINE__, __FILE__, $db_logging);
     }
   }
-  $db->Execute("UNLOCK TABLES");
+  $resj = $db->Execute("UNLOCK TABLES");
+  db_op_result ($db, $resj, __LINE__, __FILE__, $db_logging);
 }
 
 function xenobetosecdef()
@@ -449,12 +463,13 @@ function xenobetosecdef()
   global $l_chm_hewasdestroyedbyyourmines;
 
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
 
   // CHECK FOR SECTOR DEFENCE
   if ($targetlink>0)
   {
     $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
+    db_op_result ($db, $resultf, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_fighters = 0;
     if ($resultf > 0)
@@ -468,6 +483,7 @@ function xenobetosecdef()
       }
     }
     $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$targetlink' and defence_type ='M'");
+    db_op_result ($db, $resultm, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_mines = 0;
     if ($resultm > 0)
@@ -579,6 +595,7 @@ function xenobetosecdef()
       $fighters_lost=$playerinfo[ship_fighters]-$playerfighters;
       $energy=$playerinfo[ship_energy];
       $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armor_pts=armor_pts-$armor_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
+      db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
 
       // CHECK TO SEE IF Xenobe IS DEAD
       if ($playerarmor < 1) {
@@ -611,6 +628,7 @@ function xenobetosecdef()
         // SHIELDS VS MINES
         if ($playershields >= $mines_left) {
           $update2 = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=ship_energy-$mines_left where ship_id=$playerinfo[ship_id]");
+          db_op_result ($db, $update2, __LINE__, __FILE__, $db_logging);
         } else {
           $mines_left = $mines_left - $playershields;
 
@@ -618,6 +636,7 @@ function xenobetosecdef()
           if ($playerarmor >= $mines_left)
           {
             $update2 = $db->Execute("UPDATE {$db->prefix}ships set armor_pts=armor_pts-$mines_left,ship_energy=0 where ship_id=$playerinfo[ship_id]");
+            db_op_result ($db, $update2, __LINE__, __FILE__, $db_logging);
           } else {
             // OH NO WE DIED
             // LETS LOG THE FACT THAT WE DIED
@@ -654,13 +673,14 @@ function xenobemove()
   global $sector_max;
   global $targetlink;
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
 
   //
   // OBTAIN A TARGET LINK
   //
   if ($targetlink==$playerinfo[sector]) $targetlink=0;
   $linkres = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start='$playerinfo[sector]'");
+  db_op_result ($db, $linkres, __LINE__, __FILE__, $db_logging);
   if ($linkres>0)
   {
     while (!$linkres->EOF)
@@ -668,8 +688,10 @@ function xenobemove()
       $row = $linkres->fields;
       // OBTAIN SECTOR INFORMATION
       $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id='$row[link_dest]'");
+      db_op_result ($db, $sectres, __LINE__, __FILE__, $db_logging);
       $sectrow = $sectres->fields;
       $zoneres = $db->Execute("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=$sectrow[zone_id]");
+      db_op_result ($db, $zoneres, __LINE__, __FILE__, $db_logging);
       $zonerow = $zoneres->fields;
       if ($zonerow[allow_attack]=="Y")                        // DEST LINK MUST ALLOW ATTACKING
       {
@@ -693,8 +715,10 @@ function xenobemove()
     {
       // OBTAIN SECTOR INFORMATION
       $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id='$wormto'");
+      db_op_result ($db, $sectres, __LINE__, __FILE__, $db_logging);
       $sectrow = $sectres->fields;
       $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=$sectrow[zone_id]");
+      db_op_result ($db, $zoneres, __LINE__, __FILE__, $db_logging);
       $zonerow = $zoneres->fields;
       if ($zonerow[allow_attack]=="Y")
       {
@@ -713,6 +737,7 @@ function xenobemove()
   if ($targetlink>0)
   {
     $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$targetlink' and defence_type ='F' ORDER BY quantity DESC");
+    db_op_result ($db, $resultf, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_fighters = 0;
     if ($resultf > 0)
@@ -726,6 +751,7 @@ function xenobemove()
       }
     }
     $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id='$targetlink' and defence_type ='M'");
+    db_op_result ($db, $resultm, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_mines = 0;
     if ($resultm > 0)
@@ -761,6 +787,7 @@ function xenobemove()
     $stamp = date("Y-m-d H-i-s");
     $query="UPDATE {$db->prefix}ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetlink where ship_id=$playerinfo[ship_id]";
     $move_result = $db->Execute ("$query");
+    db_op_result ($db, $move_result, __LINE__, __FILE__, $db_logging);
     if (!$move_result)
     {
       $error = $db->ErrorMsg();
@@ -784,7 +811,7 @@ function xenoberegen()
   global $playerinfo;
   global $xen_unemployment;
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
 
   // Xenobe Unempoyment Check
 
@@ -860,7 +887,8 @@ function xenoberegen()
   //
   // UPDATE Xenobe RECORD
   //
-  $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$playerinfo[ship_energy], armor_pts=$playerinfo[armor_pts], ship_fighters=$playerinfo[ship_fighters], torps=$playerinfo[torps], credits=$playerinfo[credits] WHERE ship_id=$playerinfo[ship_id]");
+  $resg = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$playerinfo[ship_energy], armor_pts=$playerinfo[armor_pts], ship_fighters=$playerinfo[ship_fighters], torps=$playerinfo[torps], credits=$playerinfo[credits] WHERE ship_id=$playerinfo[ship_id]");
+  db_op_result ($db, $resg, __LINE__, __FILE__, $db_logging);
   if (!$gene=='' || !$gena=='' || !$genf=='' || !$gent=='')
   {
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
@@ -885,7 +913,7 @@ function xenobetrade()
   global $organics_delta;
   global $organics_limit;
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
   // We need to get rid of this.. the bug causing it needs to be identified and squashed. In the meantime, we want functional xen's. :)
     $ore_price = 11;
     $organics_price = 5;
@@ -893,10 +921,12 @@ function xenobetrade()
 
   // OBTAIN SECTOR INFORMATION
   $sectres = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+  db_op_result ($db, $sectres, __LINE__, __FILE__, $db_logging);
   $sectorinfo = $sectres->fields;
 
   // OBTAIN ZONE INFORMATION
   $zoneres = $db->Execute ("SELECT zone_id,allow_attack,allow_trade FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
+  db_op_result ($db, $zoneres, __LINE__, __FILE__, $db_logging);
   $zonerow = $zoneres->fields;
 
   // Debug info
@@ -970,7 +1000,9 @@ function xenobetrade()
     $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
     $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
     $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
   }
   if ($sectorinfo[port_type]=="organics")
@@ -1002,7 +1034,9 @@ function xenobetrade()
     $neworganics = $playerinfo[ship_organics]+$amount_organics;
     $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
     $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics-$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
   }
   if ($sectorinfo[port_type]=="goods")
@@ -1036,7 +1070,9 @@ function xenobetrade()
     $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
     $newgoods = $playerinfo[ship_goods]+$amount_goods;
     $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods-$amount_goods where sector_id=$sectorinfo[sector_id]");
+    db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
   }
 
@@ -1050,9 +1086,10 @@ function xenobehunter()
   global $playerinfo;
   global $targetlink;
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
 
   $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' and ship_id > 1");
+  db_op_result ($db, $rescount, __LINE__, __FILE__, $db_logging);
   $rowcount = $rescount->fields;
   $topnum = min(10,$rowcount[num_players]);
 
@@ -1060,6 +1097,7 @@ function xenobehunter()
   if ($topnum<1) return;
 
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' and ship_id > 1 ORDER BY score DESC LIMIT $topnum");
+  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
   // LETS CHOOSE A TARGET FROM THE TOP PLAYER LIST
   $i=1;
@@ -1086,8 +1124,10 @@ function xenobehunter()
   // WORM HOLE TO TARGET SECTOR
   //
   $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id='$targetinfo[sector]'");
+  db_op_result ($db, $sectres, __LINE__, __FILE__, $db_logging);
   $sectrow = $sectres->fields;
   $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=$sectrow[zone_id]");
+  db_op_result ($db, $zoneres, __LINE__, __FILE__, $db_logging);
   $zonerow = $zoneres->fields;
   // ONLY WORM HOLM TO TARGET IF WE CAN ATTACK IN TARGET SECTOR
   if ($zonerow[allow_attack]=="Y")
@@ -1095,6 +1135,7 @@ function xenobehunter()
     $stamp = date("Y-m-d H-i-s");
     $query="UPDATE {$db->prefix}ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetinfo[sector] where ship_id=$playerinfo[ship_id]";
     $move_result = $db->Execute ("$query");
+    db_op_result ($db, $move_result, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
     if (!$move_result)
     {
@@ -1107,6 +1148,7 @@ function xenobehunter()
   // CHECK FOR SECTOR DEFENCE
   //
     $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$targetinfo[sector] and defence_type ='F' ORDER BY quantity DESC");
+    db_op_result ($db, $resultf, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_fighters = 0;
     if ($resultf > 0)
@@ -1120,6 +1162,7 @@ function xenobehunter()
       }
     }
     $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$targetinfo[sector] and defence_type ='M'");
+    db_op_result ($db, $resultm, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_mines = 0;
     if ($resultm > 0)
@@ -1181,21 +1224,24 @@ function xenobetoplanet($planet_id)
   global $upgrade_factor;
   global $sector_max;
   global $xenobeisdead;
-  global $db;
+  global $db, $db_logging;
 
   // LOCKING TABLES
-  $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+  $resh = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+  db_op_result ($db, $resh, __LINE__, __FILE__, $db_logging);
 
   //
   // LOOKUP PLANET DETAILS
   //
   $resultp = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id='$planet_id'");
+  db_op_result ($db, $resultp, __LINE__, __FILE__, $db_logging);
   $planetinfo=$resultp->fields;
 
   //
   // LOOKUP OWNER DETAILS
   //
   $resulto = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$planetinfo[owner]'");
+  db_op_result ($db, $resulto, __LINE__, __FILE__, $db_logging);
   $ownerinfo=$resulto->fields;
 
   //
@@ -1417,7 +1463,8 @@ function xenobetoplanet($planet_id)
     playerlog ($db, $planetinfo[owner], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
 
     // UPDATE PLANET
-    $db->Execute("UPDATE {$db->prefix}planets SET energy=$planetinfo[energy],fighters=fighters-$fighters_lost, torps=torps-$targettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
+    $resi = $db->Execute("UPDATE {$db->prefix}planets SET energy=$planetinfo[energy],fighters=fighters-$fighters_lost, torps=torps-$targettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
+    db_op_result ($db, $resi, __LINE__, __FILE__, $db_logging);
 
   }
 
@@ -1431,19 +1478,22 @@ function xenobetoplanet($planet_id)
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
 
     // UPDATE ATTACKER
-    $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$playerinfo[ship_energy], ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps, armor_pts=armor_pts-$armor_lost WHERE ship_id=$playerinfo[ship_id]");
+    $resj = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$playerinfo[ship_energy], ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps, armor_pts=armor_pts-$armor_lost WHERE ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $resj, __LINE__, __FILE__, $db_logging);
     $playerinfo[ship_fighters] = $attackerfighters;
     $playerinfo[torps] = $attackertorps;
     $playerinfo[armor_pts] = $attackerarmor;
 
 
     // UPDATE PLANET
-    $db->Execute ("UPDATE {$db->prefix}planets SET energy=$planetinfo[energy], fighters=$targetfighters, torps=torps-$targettorps WHERE planet_id=$planetinfo[planet_id]");
+    $resk = $db->Execute ("UPDATE {$db->prefix}planets SET energy=$planetinfo[energy], fighters=$targetfighters, torps=torps-$targettorps WHERE planet_id=$planetinfo[planet_id]");
+    db_op_result ($db, $resk, __LINE__, __FILE__, $db_logging);
     $planetinfo[fighters] = $targetfighters;
     $planetinfo[torps] = $targettorps;
 
     // NOW WE MUST ATTACK ALL SHIPS ON THE PLANET ONE BY ONE
     $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+    db_op_result ($db, $resultps, __LINE__, __FILE__, $db_logging);
     $shipsonplanet = $resultps->RecordCount();
     if ($shipsonplanet > 0)
     {
@@ -1455,6 +1505,7 @@ function xenobetoplanet($planet_id)
       }
     }
     $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+    db_op_result ($db, $resultps, __LINE__, __FILE__, $db_logging);
     $shipsonplanet = $resultps->RecordCount();
     if ($shipsonplanet == 0 && $xenobeisdead < 1)
     {
@@ -1464,7 +1515,8 @@ function xenobetoplanet($planet_id)
       playerlog ($db, $planetinfo[owner], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
       // UPDATE PLANET
-      $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=$planetinfo[planet_id]");
+      $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=$planetinfo[planet_id]");
+      db_op_result ($db, $resl, __LINE__, __FILE__, $db_logging);
       calc_ownership($planetinfo[sector_id]);
 
     } else {
@@ -1480,8 +1532,8 @@ function xenobetoplanet($planet_id)
 
 
   // END OF Xenobe PLANET ATTACK CODE
-  $db->Execute("UNLOCK TABLES");
-
+  $resx = $db->Execute("UNLOCK TABLES");
+  db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 
 

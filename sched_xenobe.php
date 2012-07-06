@@ -39,9 +39,11 @@ global $xenobeisdead;
 $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
 
 // Lock the tables.
-$db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE;");
+$resa = $db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE;");
+db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id;");
+db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 while (!$res->EOF)
 {
     $xenobeisdead = 0;
@@ -67,6 +69,7 @@ while (!$res->EOF)
 
         $SQL = "SELECT * FROM {$db->prefix}ships WHERE sector=$playerinfo[sector] AND email!='$playerinfo[email]' AND email NOT LIKE '%@xenobe' AND planet_id=0 AND ship_id > 1";
         $reso0 = $db->Execute($SQL);
+        db_op_result ($db, $res0, __LINE__, __FILE__, $db_logging);
         if (!$reso0->EOF)
         {
           $rowo0 = $reso0->fields;
@@ -116,6 +119,7 @@ while (!$res->EOF)
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF ******
         $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
+        db_op_result ($db, $reso1, __LINE__, __FILE__, $db_logging);
         if (!$reso1->EOF)
         {
           $rowo1= $reso1->fields;
@@ -171,6 +175,7 @@ while (!$res->EOF)
         // ****** FIND A TARGET ******
         // ****** IN MY SECTOR, NOT MYSELF ******
         $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
+        db_op_result ($db, $reso2, __LINE__, __FILE__, $db_logging);
         if (!$reso2->EOF)
         {
           $rowo2=$reso2->fields;
@@ -237,6 +242,7 @@ while (!$res->EOF)
           // ****** FIND A TARGET ******
           // ****** IN MY SECTOR, NOT MYSELF ******
           $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and ship_id > 1");
+          db_op_result ($db, $reso3, __LINE__, __FILE__, $db_logging);
           if (!$reso3->EOF)
           {
             $rowo3=$reso3->fields;
@@ -294,6 +300,6 @@ while (!$res->EOF)
   // *********************************
 
 // Unlock the tables.
-$db->Execute("UNLOCK TABLES;");
-
+$result = $db->Execute("UNLOCK TABLES;");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 ?>
