@@ -24,7 +24,7 @@ if (preg_match("/gen_score.php/i", $_SERVER['PHP_SELF'])) {
 
 function gen_score ($sid)
 {
-    global $db;
+    global $db, $db_logging;
     global $upgrade_factor;
     global $upgrade_cost;
     global $torpedo_price;
@@ -86,9 +86,11 @@ function gen_score ($sid)
     $calc_planet_credits    = "SUM({$db->prefix}planets.credits)";
 
     $res = $db->Execute("SELECT $calc_levels+$calc_equip+$calc_dev+{$db->prefix}ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits AS score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $row = $res->fields;
     $score = $row['score'];
     $res = $db->Execute("SELECT balance, loan FROM {$db->prefix}ibank_accounts where ship_id = $sid");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
     {
         $row = $res->fields;
@@ -101,7 +103,8 @@ function gen_score ($sid)
     }
 
     $score = ROUND(SQRT($score));
-    $db->Execute("UPDATE {$db->prefix}ships SET score=$score WHERE ship_id=$sid");
+    $resa = $db->Execute("UPDATE {$db->prefix}ships SET score=$score WHERE ship_id=$sid");
+    db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
 
     return $score;
 }

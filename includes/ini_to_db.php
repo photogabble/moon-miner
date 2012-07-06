@@ -27,7 +27,8 @@ function ini_to_db ($db, $ini_file, $ini_table, $language)
 
     $status = true; // This variable allows us to track the inserts into the databse. If one fails, the whole process is considered failed.
 
-    $db->StartTrans(); // We enclose the inserts in a transaction as it is roughly 30 times faster
+    $resa = $db->StartTrans(); // We enclose the inserts in a transaction as it is roughly 30 times faster
+    db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
 
     foreach ($ini_keys as $config_category=>$config_line)
     {
@@ -36,6 +37,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $language)
             // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
             $config_value = utf8_encode($config_value);
             $debug_query = $db->Execute("INSERT into {$db->prefix}$ini_table (name, category, value, language) VALUES (?,?,?,?)", array($config_key, $config_category, $config_value, $language));
+            db_op_result ($db, $debug_query, __LINE__, __FILE__, $db_logging);
             if (!$debug_query)
             {
                 $status = false;
@@ -44,6 +46,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $language)
     }
 
     $trans_status = $db->CompleteTrans(); // Complete the transaction
+    db_op_result ($db, $trans_status, __LINE__, __FILE__, $db_logging);
 
     if ($trans_status && $status)
     {

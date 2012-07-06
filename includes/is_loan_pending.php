@@ -24,10 +24,11 @@ if (preg_match("/isLoanPending.php/i", $_SERVER['PHP_SELF'])) {
 
 function isLoanPending ($ship_id)
 {
-    global $db;
+    global $db, $db_logging;
     global $IGB_lrate;
 
     $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id=$ship_id");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
     {
         $account = $res->fields;
