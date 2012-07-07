@@ -23,6 +23,8 @@ updatecookie();
 // New database driven language entries
 load_languages($db, $langsh, array('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
+include_once "includes/explode_mines.php";
+
 $title = $l_md_title;
 include "header.php";
 

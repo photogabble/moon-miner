@@ -451,6 +451,7 @@ function xenobetosecdef()
 {
 
   include_once "includes/destroy_fighters.php";
+  include_once "includes/explode_mines.php";
   // Xenobe TO SECTOR DEFENCE
 
   // SETUP GENERAL VARIABLES
