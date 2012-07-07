@@ -20,6 +20,7 @@
 // Define needed variables for the database
 require_once "db_config.php";
 
+include_once "global_defines.php";
 include_once "includes/timer.php";
 include_once "includes/adminlog.php";
 include_once "includes/bigtitle.php";

@@ -46,8 +46,6 @@ if (!empty ($newlang) )
     {
         $lang = $default_lang;
     }
-
-    $lang = $lang . ".inc";
 }
 
 // New database driven language entries
@@ -102,7 +100,7 @@ echo "<div style='text-align:center'>$l_login_lang&nbsp;&nbsp;<select name='newl
 
 foreach ($avail_lang as $curlang)
 {
-    if ($curlang['file'].".inc" == $lang)
+    if ($curlang['file'] == $lang)
     {
         $selected = "selected='selected'";
     }
