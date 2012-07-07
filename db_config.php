@@ -67,7 +67,7 @@ $dbname = "bnt";
 // "postgres7" for PostgreSQL ver 7 and up
 // "sybase" for a SyBase database
 // NOTE: only mysqlt work as of right now, due to SQL compat code
-$db_type = "mysqlt";
+$ADODB_SESSION_DRIVER = "mysqlt";
 
 // Set this to 1 to use db persistent connections, 0 otherwise - persistent connections can cause load problems!
 $db_persistent = 0;

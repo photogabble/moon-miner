@@ -25,7 +25,7 @@ if (preg_match("/connectdb.php/i", $_SERVER['PHP_SELF'])) {
 function connectdb ($do_die = true) // Returns true, false or a halt.
 {
     global $dbhost, $dbport, $dbuname, $dbpass, $dbname;
-    global $db, $db_type, $db_persistent;
+    global $db, $ADODB_SESSION_DRIVER, $db_persistent;
 
     // Not too sure if we still need these variables.
     global $default_lang, $lang;
@@ -44,7 +44,7 @@ function connectdb ($do_die = true) // Returns true, false or a halt.
         $dbhost.= ":$dbport";
     }
 
-    $db = NewADOConnection($db_type);
+    $db = NewADOConnection($ADODB_SESSION_DRIVER);
 //    $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
     if ($db_persistent == 1)

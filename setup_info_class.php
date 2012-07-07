@@ -389,7 +389,7 @@ class SETUPINFO_CLASS
     function get_current_db_config_info()
     {
         global $release_version, $game_name;
-        global $db_type;
+        global $ADODB_SESSION_DRIVER;
         global $db_persistent;
         global $dbhost,$dbport;
         global $dbname;
@@ -404,7 +404,7 @@ class SETUPINFO_CLASS
         $current_info[] = array("caption" => 'Release Version', "value" => (strlen($release_version)>0) ? $release_version : "NOT SET or NOT Available in this Version");
         $current_info[] = array("caption" => 'Game Name', "value" => (strlen($game_name)>0) ? $game_name : "NOT SET or NOT Available in this Version");
 
-        $current_info[] = array("caption" => 'Database Type', "value" => $db_type);
+        $current_info[] = array("caption" => 'Database Type', "value" => $ADODB_SESSION_DRIVER);
         $current_info[] = array("caption" => 'Connection Type', "value" => $db_persistent ? "Persistent Connection" : "Non Persistent Connection");
         $current_info[] = array("caption" => 'Database Server Address', "value" => ($dbport=="") ? "$dbhost:3306":"$dbhost");
         $current_info[] = array("caption" => 'Database Name', "value" => $dbname);

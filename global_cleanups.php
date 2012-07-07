@@ -29,11 +29,10 @@ $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
 global $ADODB_CRYPT_KEY;
-global $db_type, $dbhost, $dbuname, $dbpass, $dbname;
+global $dbhost, $dbuname, $dbpass, $dbname;
 
 $ADODB_SESS_CONN = '';
 $ADODB_SESSION_TBL = "bnt_sessions";
-$ADODB_SESSION_DRIVER = $db_type;
 $ADODB_SESSION_CONNECT = $dbhost;
 $ADODB_SESSION_USER = $dbuname;
 $ADODB_SESSION_PWD = $dbpass;

@@ -843,7 +843,7 @@ function showinfo($whichteam,$isowner)
 
 function validate_team($name = NULL, $desc = NULL, $creator = NULL)
 {
-    global $db, $db_type;
+    global $db;
 
     $name = trim($name);
     $desc = trim($desc);

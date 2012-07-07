@@ -96,7 +96,7 @@ echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href=
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $l_seconds . " " . $l_time_gen_page ." / " . floor(memory_get_peak_usage() / 1000) . $l_peak_mem . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $l_seconds . " " . $l_time_gen_page ." / " . floor(memory_get_peak_usage() / 1024) . $l_peak_mem . "</div>";
 }
 ?>
 </body>
