@@ -262,7 +262,7 @@ $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "b
 
 // Switch between old style footer and new style. Old is text, and only the time until next update. New is a table, and also includes server time.
 $footer_style = 'old';
-$footer_show_time = true;
+$footer_show_debug = true;
 
 date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 $sched_planet_valid_credits = true; // Limit captured planets Max Credits to max_credits_without_base

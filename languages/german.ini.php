@@ -1354,6 +1354,9 @@ l_footer_players_on_2 = "Spieler online.";
 l_footer_until_update = "Sekunden bis zum n&auml;chsten Update.";
 l_time_gen_page = "Time to Seite zu erzeugen";
 l_seconds = "Sekunden";
+l_time_gen_page                       = "der Seite";
+l_peak_mem                            = "k der Peak-Speicher verwendet";
+
 
 [global_includes]
 l_insignia_0 = "New Recruit";

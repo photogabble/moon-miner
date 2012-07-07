@@ -94,15 +94,13 @@ if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i",
 echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0;' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php'>" . $l_local_news . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
-if ($footer_show_time == true)
+if ($footer_show_debug == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . $l_time_gen_page . ": " . $elapsed . " " . $l_seconds . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $l_seconds . " " . $l_time_gen_page ." / " . floor(memory_get_peak_usage() / 1000) . $l_peak_mem . "</div>";
 }
 ?>
 </body>
 </html>
 <?php 
-// Push all content through a UTF8 encoder, so that multi-byte characters work correctly. (Seen often in foreign language output)
-//echo utf8_encode(ob_get_clean());
 echo ob_get_clean();
 ?>
