@@ -25,7 +25,7 @@ load_languages($db, $langsh, array('port', 'report', 'device', 'common', 'global
 
 include_once "includes/text_javascript_begin.php";
 include_once "includes/text_javascript_end.php";
-include_once "include/is_loan_pending.php";
+include_once "includes/is_loan_pending.php";
 
 $title = $l_title_port;
 include "header.php";
