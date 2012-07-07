@@ -89,5 +89,6 @@ echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 
 TEXT_GOTOMAIN ();
+include "footer.php";
 die ();
 ?>
