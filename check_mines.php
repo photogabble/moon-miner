@@ -26,6 +26,7 @@ if (preg_match("/check_mines.php/i", $_SERVER['PHP_SELF']))
 load_languages($db, $langsh, array('check_mines', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 include_once "includes/explode_mines.php";
+include_once "includes/cancel_bounty.php";
 
 // Put the sector information into the array "sectorinfo"
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$sector'");

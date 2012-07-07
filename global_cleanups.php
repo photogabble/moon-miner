@@ -140,8 +140,6 @@ if (!isset($lang) || empty($lang))
 $langsh = $lang;
 // $lang = $lang . ".inc"; // eliminated these files
 
-spl_autoload_register('bnt_autoload');
-
 if (empty($link_forums))
 {
     $link_forums = "http://forums.blacknova.net";

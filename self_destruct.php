@@ -23,6 +23,8 @@ updatecookie();
 // New database driven language entries
 load_languages($db, $langsh, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
+include_once "includes/cancel_bounty.php";
+
 $title = $l_die_title;
 include "header.php";
 

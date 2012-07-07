@@ -26,7 +26,6 @@ include_once "includes/adminlog.php";
 include_once "includes/bigtitle.php";
 include_once "includes/bnt_autoload.php";
 include_once "includes/calc_ownership.php";
-include_once "includes/cancel_bounty.php";
 include_once "includes/checklogin.php";
 include_once "includes/collect_bounty.php";
 include_once "includes/connectdb.php";
@@ -61,8 +60,9 @@ include_once "includes/db_op_result.php";
 // Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
 // supported in the future, and cryptsessions, so the session data itself is encrypted.
 require_once $ADOdbpath . "/adodb.inc.php";
-include_once "$ADOdbpath" . "/adodb-perf.inc.php";
-include_once "$ADOdbpath" . "/session/adodb-session.php";
+include_once $ADOdbpath . "/adodb-perf.inc.php";
+include_once $ADOdbpath . "/session/adodb-session.php";
 
+spl_autoload_register('bnt_autoload');
 require_once "global_cleanups.php";
 ?>
