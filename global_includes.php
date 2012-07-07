@@ -34,8 +34,6 @@ include_once "includes/gen_score.php";
 include_once "includes/get_avg_tech.php";
 include_once "includes/load_languages.php";
 include_once "includes/get_planet_owner.php";
-include_once "includes/is_loan_pending.php";
-include_once "includes/is_same_team.php";
 include_once "includes/log_move.php";
 include_once "includes/message_defence_owner.php";
 include_once "includes/num_armor.php";

@@ -28,6 +28,8 @@ if (checklogin ())
     die();
 }
 
+include_once "includes/is_same_team.php";
+
 $title = $l_att_title;
 include "header.php";
 
@@ -60,7 +62,7 @@ elseif ($playerinfo['turns'] < 1)
 {
     echo $l_att_noturn . "<br><br>";
 }
-else if ( isSameTeam($playerinfo['team'], $targetinfo['team']) )
+else if ( is_same_team($playerinfo['team'], $targetinfo['team']) )
 {
     echo "<div style='color:#ff0;'>" . $l_team_noattack_members . "</div>\n";
 }

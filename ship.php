@@ -23,6 +23,8 @@ updatecookie();
 // New database driven language entries
 load_languages($db, $langsh, array('ship', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
+include_once "includes/is_same_team.php";
+
 $title = $l_ship_title;
 include "header.php";
 
@@ -50,7 +52,7 @@ else
     echo "$l_ship_perform<br><br>";
     echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";
 
-    if ( !isSameTeam($playerinfo['team'], $othership['team']) )
+    if ( !is_same_team($playerinfo['team'], $othership['team']) )
     {
         echo "<a href=attack.php?ship_id=$ship_id>$l_planet_att_link</a><br>";
     }

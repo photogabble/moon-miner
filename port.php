@@ -25,6 +25,7 @@ load_languages($db, $langsh, array('port', 'report', 'device', 'common', 'global
 
 include_once "includes/text_javascript_begin.php";
 include_once "includes/text_javascript_end.php";
+include_once "include/is_loan_pending.php";
 
 $title = $l_title_port;
 include "header.php";
@@ -296,7 +297,7 @@ elseif ($sectorinfo['port_type'] == "special")
     // Kami Multi-browser window upgrade fix
     $_SESSION['port_shopping'] = true;
 
-    if (isLoanPending ($playerinfo['ship_id']))
+    if (is_loan_pending ($playerinfo['ship_id']))
     {
         echo $l_port_loannotrade . "<p>";
         echo "<a href=igb.php>" . $l_igb_term . "</a><p>";

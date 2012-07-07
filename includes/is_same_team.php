@@ -15,14 +15,14 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/isSameTeam.php
+// File: includes/is_same_team.php
 
-if (preg_match("/isSameTeam.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/is_same_team.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function isSameTeam ($attackerTeam = null, $attackieTeam = null)
+function is_same_team ($attackerTeam = null, $attackieTeam = null)
 {
         if ( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
         {

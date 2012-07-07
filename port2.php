@@ -23,6 +23,8 @@ updatecookie ();
 // New database driven language entries
 load_languages($db, $langsh, array('port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
+include_once "includes/is_loan_pending.php";
+
 $title = $l_title_port;
 include "header.php";
 
@@ -158,7 +160,7 @@ else
         }
         unset ($_SESSION['port_shopping']);
 
-        if (isLoanPending ($playerinfo['ship_id']))
+        if (is_loan_pending ($playerinfo['ship_id']))
         {
             echo $l_port_loannotrade . "<p>";
             echo "<a href=igb.php>" . $l_igb_term . "</a><p>";
@@ -176,7 +178,7 @@ else
         {
             $escapepod_purchase = $_POST['escapepod_purchase'];
         }
-        
+
         if (!isset($_POST['fuelscoop_purchase']))
         {
             $fuelscoop_purchase = null;
@@ -185,7 +187,7 @@ else
         {
             $fuelscoop_purchase = $_POST['fuelscoop_purchase'];
         }
-        
+
         if (!isset($_POST['lssd_purchase']))
         {
             $lssd_purchase = null;
@@ -194,7 +196,7 @@ else
         {
             $lssd_purchase = $_POST['lssd_purchase'];
         }
-        
+
         $hull_upgrade_cost = 0;
         if ($hull_upgrade > $playerinfo['hull'])
         {
@@ -242,7 +244,7 @@ else
         {
             $cloak_upgrade_cost = phpChangeDelta ($cloak_upgrade, $playerinfo['cloak']);
         }
-        
+
         $torp_launchers_upgrade_cost = 0;
         if ($torp_launchers_upgrade > $playerinfo['torp_launchers'])
         {
@@ -259,7 +261,7 @@ else
         {
             $fighter_number = 0;
         }
-    
+
         $fighter_number = round (abs ($fighter_number));
         $fighter_max = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
         if ($fighter_max < 0)
@@ -352,7 +354,7 @@ else
         {
             $dev_escapepod_cost = $dev_escapepod_price;
         }
-        
+
         if (($fuelscoop_purchase) && ($playerinfo['dev_fuelscoop'] != 'Y'))
         {
             $dev_fuelscoop_cost = $dev_fuelscoop_price;
@@ -421,7 +423,7 @@ else
                 $query = $query . ", sensors=sensors+$tempvar";
                 BuildOneCol ("$l_sensors $l_trade_upgraded $sensors_upgrade");
             }
-            
+
             if ($beams_upgrade > $playerinfo['beams'])
             {
                 $tempvar = 0; $tempvar=phpTrueDelta ($beams_upgrade, $playerinfo['beams']);
@@ -468,25 +470,25 @@ else
                 $query = $query . ", torps=torps+$torpedo_number";
                 BuildTwoCol("$l_torps $l_trade_added:", $torpedo_number, "left", "right" );
             }
-            
+
             if ($armor_number)
             {
                 $query = $query . ", armor_pts=armor_pts+$armor_number";
                 BuildTwoCol("$l_armorpts $l_trade_added:", $armor_number, "left", "right" );
             }
-            
+
             if ($colonist_number)
             {
                 $query = $query . ", ship_colonists=ship_colonists+$colonist_number";
                 BuildTwoCol("$l_colonists $l_trade_added:", $colonist_number, "left", "right" );
             }
-            
+
             if ($dev_genesis_number)
             {
                 $query = $query . ", dev_genesis=dev_genesis+$dev_genesis_number";
                 BuildTwoCol("$l_genesis $l_trade_added:", $dev_genesis_number, "left", "right" );
             }
-            
+
             if ($dev_beacon_number)
             {
                 $query = $query . ", dev_beacon=dev_beacon+$dev_beacon_number";
@@ -591,7 +593,7 @@ else
         $trade_organics = round (abs ($_POST['trade_organics']));
         $trade_goods    = round (abs ($_POST['trade_goods']));
         $trade_energy   = round (abs ($_POST['trade_energy']));
-        
+
         $trade_ore       =  trade($ore_price,        $ore_delta,       $sectorinfo['port_ore'],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
         $trade_organics  =  trade($organics_price,   $organics_delta,  $sectorinfo['port_organics'],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );
         $trade_goods     =  trade($goods_price,      $goods_delta,     $sectorinfo['port_goods'],      $goods_limit,     $inventory_factor, "goods",      $trade_goods);

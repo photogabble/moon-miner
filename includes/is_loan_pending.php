@@ -15,14 +15,14 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/isLoanPending.php
+// File: includes/is_loan_pending.php
 
-if (preg_match("/isLoanPending.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/is_loan_pending.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function isLoanPending ($ship_id)
+function is_loan_pending ($ship_id)
 {
     global $db, $db_logging;
     global $IGB_lrate;
