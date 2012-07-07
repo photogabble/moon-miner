@@ -217,7 +217,7 @@ class SETUPINFO_CLASS
     ################################
     function testdb_connection()
     {
-        global $dbhost, $dbport, $dbuname, $dbpass, $dbname, $db, $ADODB_FETCH_MODE;
+        global $ADODB_SESSION_CONNECT, $dbport, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $db, $ADODB_FETCH_MODE;
         global $default_lang;
 
         $this->mysql_version = null;
@@ -391,8 +391,8 @@ class SETUPINFO_CLASS
         global $release_version, $game_name;
         global $ADODB_SESSION_DRIVER;
         global $db_persistent;
-        global $dbhost,$dbport;
-        global $dbname;
+        global $ADODB_SESSION_CONNECT, $dbport;
+        global $ADODB_SESSION_DB;
         global $db_prefix;
         global $adminname;
         global $admin_mail;
@@ -406,8 +406,8 @@ class SETUPINFO_CLASS
 
         $current_info[] = array("caption" => 'Database Type', "value" => $ADODB_SESSION_DRIVER);
         $current_info[] = array("caption" => 'Connection Type', "value" => $db_persistent ? "Persistent Connection" : "Non Persistent Connection");
-        $current_info[] = array("caption" => 'Database Server Address', "value" => ($dbport=="") ? "$dbhost:3306":"$dbhost");
-        $current_info[] = array("caption" => 'Database Name', "value" => $dbname);
+        $current_info[] = array("caption" => 'Database Server Address', "value" => ($dbport=="") ? "$ADODB_SESSION_CONNECT:3306":"$ADODB_SESSION_CONNECT");
+        $current_info[] = array("caption" => 'Database Name', "value" => $ADODB_SESSION_DB);
         $current_info[] = array("caption" => 'Table Prefix', "value" => $db_prefix);
         $current_info[] = array("caption" => 'Admin Name', "value" => (strlen($adminname)>0) ? $adminname : "NOT SET or NOT Available in this Version");
         $current_info[] = array("caption" => 'Admin Email', "value" => str_replace("@"," AT ",$admin_mail));

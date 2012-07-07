@@ -24,7 +24,7 @@ if (preg_match("/connectdb.php/i", $_SERVER['PHP_SELF'])) {
 
 function connectdb ($do_die = true) // Returns true, false or a halt.
 {
-    global $dbhost, $dbport, $dbuname, $dbpass, $dbname;
+    global $ADODB_SESSION_CONNECT, $dbport, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB;
     global $db, $ADODB_SESSION_DRIVER, $db_persistent;
 
     // Not too sure if we still need these variables.
@@ -41,7 +41,7 @@ function connectdb ($do_die = true) // Returns true, false or a halt.
     // So we now need to setup all the database connection now.
     if (!empty($dbport))
     {
-        $dbhost.= ":$dbport";
+        $ADODB_SESSION_CONNECT.= ":$dbport";
     }
 
     $db = NewADOConnection($ADODB_SESSION_DRIVER);
@@ -49,11 +49,11 @@ function connectdb ($do_die = true) // Returns true, false or a halt.
 
     if ($db_persistent == 1)
     {
-        $result = @$db->PConnect("$dbhost", "$dbuname", "$dbpass", "$dbname");
+        $result = @$db->PConnect("$ADODB_SESSION_CONNECT", "$ADODB_SESSION_USER", "$ADODB_SESSION_PWD", "$ADODB_SESSION_DB");
     }
     else
     {
-        $result = @$db->Connect("$dbhost", "$dbuname", "$dbpass", "$dbname");
+        $result = @$db->Connect("$ADODB_SESSION_CONNECT", "$ADODB_SESSION_USER", "$ADODB_SESSION_PWD", "$ADODB_SESSION_DB");
     }
 
     // Check to see if we have connected

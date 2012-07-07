@@ -47,11 +47,11 @@ $dbhost = "127.0.0.1";
 $dbport = "";
 
 // Username and password to connect to the database:
-$dbuname = "bnt";
-$dbpass = "bnt";
+$ADODB_SESSION_USER = "bnt";
+$ADODB_SESSION_PWD = "bnt";
 
 // Name of the SQL database:
-$dbname = "bnt";
+$ADODB_SESSION_DB = "bnt";
 
 // Type of the SQL database. This can be anything supported by ADOdb. Here are a few:
 // "access" for MS Access databases. You need to create an ODBC DSN.
@@ -84,7 +84,7 @@ $adminpass = "secret";
 $admin_mail = "admin@example.com";
 $adminname = "Admin Name";
 
-// Address the forum link, link's to:
+// Address for the forum link:
 $link_forums = "http://forums.blacknova.net";
 
 // Define a random crypto key for ADOdb to use for encrypted sessions.

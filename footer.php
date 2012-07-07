@@ -101,6 +101,4 @@ if ($footer_show_debug == true)
 ?>
 </body>
 </html>
-<?php 
-echo ob_get_clean();
-?>
+<?php ob_end_flush();?>

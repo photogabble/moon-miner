@@ -21,13 +21,13 @@ function create_schema ()
 {
 
 global $maxlen_password;
-global $db, $dbname;
+global $db, $ADODB_SESSION_DB;
 
 // Delete all tables in the database
 Table_Header("Dropping Tables");
 
 // Have SQL prepare a query for dropping tables that contains the list of all tables according to SQL.
-$drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $dbname. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
+$drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $ADODB_SESSION_DB. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
 
 // Use the query to now drop all tables as reported by SQL.
 $drop_tables = $db->Execute($drop_tables_stmt->fields['stmt']);

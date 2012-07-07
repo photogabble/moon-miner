@@ -22,21 +22,18 @@ if (preg_match("/global_cleanups.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
-ob_start();
+if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
+//ob_start();
+
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
 global $ADODB_CRYPT_KEY;
-global $dbhost, $dbuname, $dbpass, $dbname;
+global $ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_DB;
 
 $ADODB_SESS_CONN = '';
-$ADODB_SESSION_TBL = "bnt_sessions";
-$ADODB_SESSION_CONNECT = $dbhost;
-$ADODB_SESSION_USER = $dbuname;
-$ADODB_SESSION_PWD = $dbpass;
-$ADODB_SESSION_DB = $dbname;
+$ADODB_SESSION_TBL = $db_prefix . "sessions";
 
 // We explicitly use encrypted sessions, but this adds compression as well.
 ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
