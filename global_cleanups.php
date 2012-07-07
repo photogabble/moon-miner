@@ -51,6 +51,7 @@ $db->prefix = $db_prefix;
 
 if ($db_logging)
 {
+    adodb_perf::table("{$db->prefix}adodb_logsql");
     $db->LogSQL(); // Turn on adodb performance logging
 }
 
@@ -201,4 +202,9 @@ define('LOG_PLANET_BOMBED', 53);     //Sent after bombing a planet
 define('LOG_ADMIN_ILLEGVALUE', 54);        //sent to admin on planet destruction instead of capture
 
 spl_autoload_register('bnt_autoload');
+
+if (empty($link_forums))
+{
+    $link_forums = "http://forums.blacknova.net";
+}
 ?>

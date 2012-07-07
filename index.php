@@ -20,42 +20,18 @@
 $index_page = true;
 include "config.php";
 
-if (!isset($_GET['indexlang']))
+if (!isset($_GET['lang']))
 {
-    $_GET['indexlang'] = null;
-}
-
-if ($_GET['indexlang'] == 'french')
-{
-    $lang = 'french.inc';
-}
-elseif ($_GET['indexlang'] == 'german')
-{
-    $lang = 'german.inc';
-}
-elseif ($_GET['indexlang'] == 'spanish')
-{
-    $lang = 'spanish.inc';
-}
-elseif ($_GET['indexlang'] == 'british')
-{
-    $lang = 'english.inc';
-}
-elseif ($_GET['indexlang'] == 'english')
-{
-    $lang = 'english.inc';
+    $_GET['lang'] = null;
+    $lang = $default_lang;
 }
 else
 {
-    $lang = $default_lang . ".inc";
-}
-if (empty($lang))
-{
-    $lang = $default_lang;
+    $lang = $_GET['lang'];
 }
 
 // New database driven language entries
-load_languages($db, $langsh, array('main', 'index', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('main', 'index', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 // Check to see if the language database has been installed yet. If not, redirect to create_universe.
 $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array('common', $langsh));
@@ -74,11 +50,10 @@ include "header.php";
 
 <div class="index-header"><img class="index" src="images/header1.png" alt="Blacknova Traders"></div>
 <div class="index-flags">
-<a href="index.php?indexlang=french"><img src="images/flags/France.png" alt="French"></a>
-<a href="index.php?indexlang=german"><img src="images/flags/Germany.png" alt="German"></a>
-<a href="index.php?indexlang=spanish"><img src="images/flags/Mexico.png" alt="Spanish"></a>
-<a href="index.php?indexlang=british"><img src="images/flags/United_Kingdom.png" alt="British English"></a>
-<a href="index.php?indexlang=english"><img src="images/flags/United_States_of_America.png" alt="American English"></a></div>
+<a href="index.php?lang=french"><img src="images/flags/France.png" alt="French"></a>
+<a href="index.php?lang=german"><img src="images/flags/Germany.png" alt="German"></a>
+<a href="index.php?lang=spanish"><img src="images/flags/Mexico.png" alt="Spanish"></a>
+<a href="index.php?lang=english"><img src="images/flags/United_States_of_America.png" alt="American English"></a></div>
 <div class="index-header-text">Blacknova Traders</div>
 <br>
 <h2 style="display:none">Navigation</h2>
@@ -90,16 +65,11 @@ include "header.php";
 <li class="navigation"><a href="ranking.php"><span class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></span></a></li>
 <li class="navigation"><a href="docs/faq.html"><span class="button brown"><span class="shine"></span><?php echo $l_faq; ?></span></a></li>
 <li class="navigation"><a href="settings.php"><span class="button red"><span class="shine"></span><?php echo $l_settings; ?></span></a></li>
-<?php
-if (!empty($link_forums))
-{
-    echo "<li class='navigation'><a href='$link_forums' target='_blank'><span class='button orange'><span class='shine'></span>$l_forums</span></a></li>";
-}
-?>
+<li class="navigation"><a href="<?php echo $link_forums; ?>" target="_blank"><span class="button orange"><span class="shine"></span><?php echo $l_forums; ?></span></a></li>
 </ul></div><br style="clear:both">
 <div><p></p></div>
 <div class="index-welcome">
-<h1 class="index-h1"><?php echo $l_welcome_bnt; ?></h1><br>
+<h1 class="index-h1"><?php echo $l_welcome_bnt; ?></h1>
 <p><?php echo $l_bnt_description; ?><br></p>
 <br>
 <p class="cookie-warning"><?php echo $l_cookie_warning; ?></p></div>
