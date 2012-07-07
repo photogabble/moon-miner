@@ -38,8 +38,8 @@ $playerinfo = $res->fields;
 bigtitle ();
 
 echo $l_device_expl . "<br><br>";
-echo "<table>";
-echo "<tr><th>$l_device</th><th>$l_qty</th><th>$l_usage</th></tr>";
+echo "<table style=\"width:33%\">";
+echo "<tr><th style=\"text-align:left;\">$l_device</th><th>$l_qty</th><th>$l_usage</th></tr>";
 echo "<tr>";
 echo "<td><a href='beacon.php'>$l_beacons</A></td><td>" . NUMBER($playerinfo['dev_beacon']) . "</td><td>$l_manual</td>";
 echo "</tr>";

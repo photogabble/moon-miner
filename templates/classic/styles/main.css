@@ -145,5 +145,5 @@ div.index-flags img {height:16px;}
 body.device tr:nth-child(even) { background-color:#300030;}
 body.device tr:nth-child(odd) { background-color:#400040;}
 body.device th { background-color:#500050; text-align:left}
-body.device table {border:0; border-spacing:0px; width:33%}
-body.device td {padding:3px;}
+body.device table {border:0; border-spacing:0px;}
+body.device td {padding:3px; color:white; text-size:3;}
