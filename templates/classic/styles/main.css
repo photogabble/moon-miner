@@ -37,7 +37,8 @@ img.index {display:block; border:0; margin-left:auto; margin-right:auto; width:1
 a.index {display:block; border:0; margin-left:auto; margin-right:auto; text-align:center;}
 
 body.index {background-color:#929292; background-image:none; color:#000;}
-body.igb {background-color:#929292; background-image:none; color:#f0f0f0;}
+body.igb {background-color:#929292; background-image:none; color:#f0f0f0; font-family:Courier New, Courier, monospace; font-size:0.8em;}
+div.igb { color:#00ff00;}
 
 body.log {background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0;}
 body.log.a:link { color: #040658;}
