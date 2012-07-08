@@ -38,6 +38,7 @@ l_zname_1 = "Unbesetzte Zone";
 l_zname_2 = "F&ouml;derationsraum";
 l_zname_3 = "Freier Handelsraum";
 l_zname_4 = "Kriegszone";
+l_error                               = "Error";
 
 [main]
 l_main_title = "Hauptmen&uuml;";

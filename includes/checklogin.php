@@ -30,7 +30,7 @@ function checklogin ()
     global $password, $l_login_died, $l_die_please, $l_logout, $l_here;
     global $db, $db_logging;
 
-    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username' LIMIT 1");
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($username));
     db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
     $playerinfo = $result1->fields;
 
@@ -38,7 +38,10 @@ function checklogin ()
     if ($username == "" or $password == "" or $password != $playerinfo['password'])
     {
         $l_global_needlogin = str_replace("[here]", "<a href='login.php'>" . $l_here . "</a>", $l_global_needlogin);
+        $title = $l_error;
+        include "header.php";
         echo $l_global_needlogin;
+        include "footer.php";
         $flag = 1;
     }
 

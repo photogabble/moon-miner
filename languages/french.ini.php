@@ -37,6 +37,7 @@ l_zname_1 = "Espace non-exploré";
 l_zname_2 = "Espace de la Fédération";
 l_zname_3 = "Espace de libre-commerce";
 l_zname_4 = "Zonne de Guerre";
+l_error                               = "Error";
 
 [main]
 l_main_title            = "Menu Principal";

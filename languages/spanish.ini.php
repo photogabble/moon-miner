@@ -39,6 +39,7 @@ l_zname_2 = "Espacio de la Federación";
 l_zname_3 = "Espacio de Libre Comercio"; 
 l_zname_4 = "Zona de Guerra"; 
 l_armorpts                            = "Armor points";
+l_error                               = "Error";
 
 [main]
 l_main_title            = "Menú principal";

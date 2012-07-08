@@ -39,6 +39,7 @@ l_zname_2                             = "Federation space";
 l_zname_3                             = "Free-trade space";
 l_zname_4                             = "War Zone";
 l_logout                              = "Logout";
+l_error                               = "Error";
 
 [main]
 l_main_title                          = "Main Menu";
