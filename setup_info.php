@@ -44,27 +44,27 @@ include "header.php";
 $setup_info->DisplayFlush("<div align=\"center\">\n");
 $setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
 $setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td><font size=\"6\" color=\"#fff\">{$setup_info->appinfo['title']}</font></td>\n");
+$setup_info->DisplayFlush("    <td><font size=\"6\" color=\"#ffffff\">{$setup_info->appinfo['title']}</font></td>\n");
 $setup_info->DisplayFlush("  </tr>\n");
 $setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#fff\"><strong>{$setup_info->appinfo['description']}</strong></font></td>\n");
+$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#ffffff\"><strong>{$setup_info->appinfo['description']}</strong></font></td>\n");
 $setup_info->DisplayFlush("  </tr>\n");
 $setup_info->DisplayFlush("  <tr>\n");
-$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#fff\"><strong>Written by {$setup_info->appinfo['author']}</strong></font></td>\n");
+$setup_info->DisplayFlush("    <td align=\"center\"><font size=\"2\" color=\"#ffffff\"><strong>Written by {$setup_info->appinfo['author']}</strong></font></td>\n");
 $setup_info->DisplayFlush("  </tr>\n");
 $setup_info->DisplayFlush("</table>\n");
 $setup_info->DisplayFlush("</div><br>\n");
 $setup_info->DisplayFlush("<br>\n");
 
 //End of own HTML Tables
-$setup_info->DisplayFlush("<font size=\"2\" color=#ff0><i>Well since a lot of people are having problems setting up Blacknova Traders on a Linux based server.</i></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#ff0><i>Here is the settings that you may require to set.</i></font><br><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffff00><i>Well since a lot of people are having problems setting up Blacknova Traders on a Linux based server.</i></font><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffff00><i>Here is the settings that you may require to set.</i></font><br><br>\n");
 
-$setup_info->DisplayFlush("<font size=\"2\" color=#fff>ADMINS: <font color=#ff0>If you get any errors or incorrect info returned then set <font color=\"#0f0\">\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font></font></font><br><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Cookie Test, set <font color=\"#0f0\">\$setup_info->switches['Test_Cookie']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Database Test, set <font color=\"#0f0\">\$setup_info->switches['Enable_Database']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Display All installed patches, set <font color=\"#0f0\">\$setup_info->switches['Display_Patches']['enabled'] = true;</font></font><br>\n");
-$setup_info->DisplayFlush("<font size=\"2\" color=#fff>To Enable the Display All Errors, set <font color=\"#0f0\">\$setup_info->switches['Display_Errors']['enabled'] = true;</font></font><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>ADMINS: <font color=#ffff00>If you get any errors or incorrect info returned then set <font color=\"#0000fff00\">\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font></font></font><br><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Cookie Test, set <font color=\"#0000fff00\">\$setup_info->switches['Test_Cookie']['enabled'] = true;</font></font><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Database Test, set <font color=\"#0000fff00\">\$setup_info->switches['Enable_Database']['enabled'] = true;</font></font><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Display All installed patches, set <font color=\"#0000fff00\">\$setup_info->switches['Display_Patches']['enabled'] = true;</font></font><br>\n");
+$setup_info->DisplayFlush("<font size=\"2\" color=#ffffff>To Enable the Display All Errors, set <font color=\"#0000fff00\">\$setup_info->switches['Display_Errors']['enabled'] = true;</font></font><br>\n");
 $setup_info->DisplayFlush("<font size=\"2\" color=yellow>Then refresh the page and then save it as htm or html and then Email it to me.</font><br>\n");
 $setup_info->DisplayFlush("<br>\n");
 $setup_info->DisplayFlush("<div style='height:1px; width:100%; margin:0px; background-color:#808080;'></div>\n");
@@ -76,7 +76,7 @@ $setup_info->do_Table_Title("Setup Info Switch Configuration",$Cols);
 for ($n = 0; $n < count($switch_info); $n++)
 {
     list($switch_name, $switch_array) = each($switch_info);
-    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#00f'>Enabled</font>" : "<font color='#f00'>Disabled</font>"));
+    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#0000ff'>Enabled</font>" : "<font color='#ff0000'>Disabled</font>"));
 }
 $setup_info->do_Table_Footer("<br>");
 
@@ -102,27 +102,27 @@ for ($n = 0; $n < count($software_info); $n++)
 
 if ($setup_info->testdb_connection())
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#00f'><strong>".$setup_info->db_status['status']."</strong></font>");
+    $setup_info->do_Table_Row("DB CONNECTION","<font color='#0000ff'><strong>".$setup_info->db_status['status']."</strong></font>");
 }
 else
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#f00'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
+    $setup_info->do_Table_Row("DB CONNECTION","<font color='#ff0000'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
 }
 
 if ($setup_info->cookie_test['enabled'])
 {
     if ($setup_info->cookie_test['result'])
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#00f'><strong>Passed</strong></font>");
+        $setup_info->do_Table_Row("Cookie Test","<font color='#0000ff'><strong>Passed</strong></font>");
     }
     else
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><strong>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</strong></font>");
+        $setup_info->do_Table_Row("Cookie Test","<font color='#ff0000'><strong>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</strong></font>");
     }
 }
 else
 {
-    $setup_info->do_Table_Row("Cookie Test","<font color='#f00'><strong>{$setup_info->cookie_test['status']}</strong></font>");
+    $setup_info->do_Table_Row("Cookie Test","<font color='#ff0000'><strong>{$setup_info->cookie_test['status']}</strong></font>");
 }
 
 $setup_info->do_Table_Footer("");
@@ -152,10 +152,10 @@ $setup_info->DisplayFlush("<p><font size=\"2\">// This is what you need to put i
 $setup_info->DisplayFlush("<font size=\"2\">// If you are having problems using this script then email me <a class=\"email\" href=\"mailto:{$setup_info->appinfo['email']}\">{$setup_info->appinfo['author']}</a>.</font><br>\n");
 $setup_info->DisplayFlush("<font size=\"2\">// Also if you think the info displayed is Incorrect then Email me <a class=\"email\" href=\"mailto:{$setup_info->appinfo['email']}\">{$setup_info->appinfo['author']}</a> with the following information:</font></p>\n");
 $setup_info->DisplayFlush("<ul>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>A htm or html saved page from within you browser of Setup Info with <font size=\"2\" color=#0f0>\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font> This is settable within setup_info.php.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>What Operating System you are using.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>What Version of Apache, PHP and mySQL that you are using.</font></li>\n");
-$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ff0>And if using Windows OS are you using IIS.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>A htm or html saved page from within you browser of Setup Info with <font size=\"2\" color=#0000fff00>\$setup_info->switches['Show_Env_Var']['enabled'] = true;</font> This is settable within setup_info.php.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>What Operating System you are using.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>What Version of Apache, PHP and mySQL that you are using.</font></li>\n");
+$setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>And if using Windows OS are you using IIS.</font></li>\n");
 $setup_info->DisplayFlush("</ul>\n");
 $setup_info->DisplayFlush("<p><font size=\"2\">// With this information it will help me to help you much faster and also get my Script to display more reliable information.</font></p>\n");
 
@@ -163,7 +163,7 @@ $setup_info->do_Table_Title("DB Config Settings",$Cols);
 
 $setup_info->do_Table_Blank_Row();
 $game_path = $setup_info->get_gamepath();
-$setup_info->do_Table_Row("gamepath","<strong>".(!$game_path['status'] ? "<font color='#f00'>{$game_path['info']}</font>" : $game_path['result'] )."</strong>");
+$setup_info->do_Table_Row("gamepath","<strong>".(!$game_path['status'] ? "<font color='#ff0000'>{$game_path['info']}</font>" : $game_path['result'] )."</strong>");
 if (!$game_path['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -171,7 +171,7 @@ if (!$game_path['status'])
 
 $setup_info->do_Table_Blank_Row();
 $game_domain = $setup_info->get_gamedomain();
-$setup_info->do_Table_Row("gamedomain","<strong>".(!$game_domain['status'] ? "<font color='#f00'>{$game_domain['info']}</font>" : $game_domain['result'] )."</strong>");
+$setup_info->do_Table_Row("gamedomain","<strong>".(!$game_domain['status'] ? "<font color='#ff0000'>{$game_domain['info']}</font>" : $game_domain['result'] )."</strong>");
 if (!$game_domain['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
