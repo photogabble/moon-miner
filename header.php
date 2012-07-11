@@ -32,7 +32,7 @@ if (!isset($body_class))
 <!DOCTYPE html>
 <html lang="<?php echo $l_lang_attribute; ?>">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
 <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
 <meta name="Rating" content="General">
@@ -40,6 +40,6 @@ if (!isset($body_class))
 <title><?php echo $title; ?></title>
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-<script type='text/javascript' src='backends/javascript/newsticker.js'></script>
+<script src='backends/javascript/newsticker.js'></script>
 </head>
 <body class="<?php echo $body_class; ?>">

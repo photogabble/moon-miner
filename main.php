@@ -140,7 +140,7 @@ db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 if ($result->RecordCount() > 0)
 {
     $alert_message = "{$l_youhave}{$result->RecordCount()}{$l_messages_wait}";
-    echo "<script type='text/javascript'>\n";
+    echo "<script>\n";
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 

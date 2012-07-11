@@ -24,7 +24,7 @@ if (preg_match("/text_javascript_begin.php/i", $_SERVER['PHP_SELF'])) {
 
 function TEXT_JAVASCRIPT_BEGIN ()
 {
-    echo "\n<script type=\"text/javascript\">\n";
+    echo "\n<script>\n";
     echo "<!--\n";
 }
 ?>
