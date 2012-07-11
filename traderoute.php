@@ -18,21 +18,21 @@
 // File: traderoute.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+load_languages ($db, $langsh, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 $title = $l_tdr_title;
 include "header.php";
 
 $portfull = null; // This fixes an error of undefined variables on 1518
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
-bigtitle();
+bigtitle ();
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
@@ -46,191 +46,210 @@ if (isset($traderoutes))
 {
     adminlog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
     traderoute_die("<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#f00;'>Detected Traderoute Hack!</span></div>\n");
-
 }
 
-$traderoutes = array();
+$traderoutes = array ();
 
 $i=0;
 while (!$result->EOF)
 {
-  $traderoutes[$i] = $result->fields;
-  $i++;
-  $result->MoveNext();
+    $traderoutes[$i] = $result->fields;
+    $i++;
+    $result->MoveNext ();
 }
 
-$freeholds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-$maxholds = NUM_HOLDS($playerinfo['hull']);
-$maxenergy = NUM_ENERGY($playerinfo['power']);
+$freeholds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = NUM_HOLDS ($playerinfo['hull']);
+$maxenergy = NUM_ENERGY ($playerinfo['power']);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
     {
         adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
-        $playerinfo[ship_colonists] = 0;
+        $playerinfo['ship_colonists'] = 0;
     }
-    if ($playerinfo[ship_ore] < 0 || $playerinfo[ship_ore] > $maxholds)
+    if ($playerinfo['ship_ore'] < 0 || $playerinfo['ship_ore'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
-        $playerinfo[ship_ore] = 0;
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
+        $playerinfo['ship_ore'] = 0;
     }
-    if ($playerinfo[ship_organics] < 0 || $playerinfo[ship_organics] > $maxholds)
+    if ($playerinfo['ship_organics'] < 0 || $playerinfo['ship_organics'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
-        $playerinfo[ship_organics] = 0;
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
+        $playerinfo['ship_organics'] = 0;
     }
-    if ($playerinfo[ship_goods] < 0 || $playerinfo[ship_goods] > $maxholds)
+    if ($playerinfo['ship_goods'] < 0 || $playerinfo['ship_goods'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");
-        $playerinfo[ship_goods] = 0;
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");
+        $playerinfo['ship_goods'] = 0;
     }
-    if ($playerinfo[ship_energy] < 0 || $playerinfo[ship_energy] > $maxenergy)
+    if ($playerinfo['ship_energy'] < 0 || $playerinfo['ship_energy'] > $maxenergy)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
-        $playerinfo[ship_energy] = 0;
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
+        $playerinfo['ship_energy'] = 0;
     }
     if ($freeholds < 0)
     {
         $freeholds = 0;
     }
-$update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=$playerinfo[ship_ore], ship_organics=$playerinfo[ship_organics], ship_goods=$playerinfo[ship_goods], ship_energy=$playerinfo[ship_energy], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
-db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
+
+    $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=$playerinfo[ship_ore], ship_organics=$playerinfo[ship_organics], ship_goods=$playerinfo[ship_goods], ship_energy=$playerinfo[ship_energy], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
 }
+
 if (!isset($tr_repeat) || $tr_repeat <= 0)
-  $tr_repeat = 1;
+{
+    $tr_repeat = 1;
+}
 
 if (!isset($_REQUEST['command']))
 {
     $_REQUEST['command'] = '';
 }
+
 $command = $_REQUEST['command'];
 
-if ($command == 'new')   // Displays new trade route form
-  traderoute_new('');
-elseif ($command == 'create')    // Enters new route in db
-  traderoute_create();
-elseif ($command == 'edit')    // Displays new trade route form, edit
-  traderoute_new($traderoute_id);
-elseif ($command == 'delete')  // Displays delete info
-  traderoute_delete();
-elseif ($command == 'settings')  // Global traderoute settings form
-  traderoute_settings();
-elseif ($command == 'setsettings') // Enters settings in db
-  traderoute_setsettings();
-elseif (isset($engage)) // Performs trade route
+if ($command == 'new')
 {
-    // Put in temp until we have a fix.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "Firefox")===false)
-    {}
-    else
-    {
-        if ($tr_repeat >20)
-        {
-//            echo "<div style='border:#f00 1px solid; text-align:center; font-size:16px; color:#fff; font-weight:bold; background-color:#550000; padding:4px;'>\n";
-//            echo "  <div>Detected Firefox Browser. Our broken HTML code causes issues with Traderoutes in Firefox.</div>\n";
-//            echo "  <div>Limiting multiplier to 20, sorry if this causes any issues.</div>\n";
-//            echo "  <div style='height:16px;'></div>\n";
-//            echo "  <div>If you want to do larger repeats, please use a different Browser (i.e. not Firefox)</div>\n";
-//            echo "</div>\n";
-//            echo "<div style='height:16px;'></div>\n";
-//            $tr_repeat = 20;
-        }
-    }
-
+    // Displays new trade route form
+    traderoute_new ('');
+}
+elseif ($command == 'create')
+{
+    // Enters new route in db
+    traderoute_create ();
+}
+elseif ($command == 'edit')
+{
+    // Displays new trade route form, edit
+    traderoute_new ($traderoute_id);
+}
+elseif ($command == 'delete')
+{
+    // Displays delete info
+    traderoute_delete ();
+}
+elseif ($command == 'settings')
+{
+    // Global traderoute settings form
+    traderoute_settings ();
+}
+elseif ($command == 'setsettings')
+{
+    // Enters settings in db
+    traderoute_setsettings ();
+}
+elseif (isset ($engage) )
+{
+    // Perform trade route
     $i = $tr_repeat;
     while ($i > 0)
     {
-
         $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
         $playerinfo = $result->fields;
-        // echo $i;
-        traderoute_engage($i);
-        // echo $i;
+        traderoute_engage ($i);
         $i--;
     }
-
 }
 
 if ($command != 'delete')
 {
-  $l_tdr_newtdr = str_replace("[here]", "<a href='traderoute.php?command=new'>" . $l_here . "</a>", $l_tdr_newtdr);
-  echo "<p>$l_tdr_newtdr<p>";
-  $l_tdr_modtdrset = str_replace("[here]", "<a href='traderoute.php?command=settings'>" . $l_here . "</a>", $l_tdr_modtdrset);
-  echo "<p>$l_tdr_modtdrset<p>";
+    $l_tdr_newtdr = str_replace("[here]", "<a href='traderoute.php?command=new'>" . $l_here . "</a>", $l_tdr_newtdr);
+    echo "<p>" . $l_tdr_newtdr . "<p>";
+    $l_tdr_modtdrset = str_replace("[here]", "<a href='traderoute.php?command=settings'>" . $l_here . "</a>", $l_tdr_modtdrset);
+    echo "<p>" . $l_tdr_modtdrset . "<p>";
 }
-else {
-  $l_tdr_confdel = str_replace("[here]", "<a href='traderoute.php?command=delete&amp;confirm=yes&amp;traderoute_id=" . $traderoute_id . "'>" . $l_here . "</a>", $l_tdr_confdel);
-  echo "<p>$l_tdr_confdel<p>";
+else
+{
+    $l_tdr_confdel = str_replace("[here]", "<a href='traderoute.php?command=delete&amp;confirm=yes&amp;traderoute_id=" . $traderoute_id . "'>" . $l_here . "</a>", $l_tdr_confdel);
+    echo "<p>$l_tdr_confdel<p>";
 }
 
 if ($num_traderoutes == 0)
-  echo "$l_tdr_noactive<p>";
+{
+    echo "$l_tdr_noactive<p>";
+}
 else
 {
-  echo '<table border=1 cellspacing=1 cellpadding=2 width="100%" align="center">' .
-       '<tr bgcolor=' . $color_line2 . '><td align="center" colspan=7><strong><font color=white>
-       ';
+    echo '<table border=1 cellspacing=1 cellpadding=2 width="100%" align="center">' .
+         '<tr bgcolor=' . $color_line2 . '><td align="center" colspan=7><strong><font color=white>
+         ';
 
-  if ($command != 'delete')
-    echo $l_tdr_curtdr;
-  else
-    echo $l_tdr_deltdr;
-
-  echo "</font></strong>" .
-       "</td></tr>" .
-       "<tr align='center' bgcolor=$color_line2>" .
-       "<td><font size=2 color=white><strong>$l_tdr_src</strong></font></td>" .
-       "<td><font size=2 color=white><strong>$l_tdr_srctype</strong></font></td>" .
-       "<td><font size=2 color=white><strong>$l_tdr_dest</strong></font></td>" .
-       "<td><font size=2 color=white><strong>$l_tdr_desttype</strong></font></td>" .
-       "<td><font size=2 color=white><strong>$l_tdr_move</strong></font></td>" .
-       "<td><font size=2 color=white><strong>$l_tdr_circuit</strong></font></td>" .
-       "<td><font size=2 color=white><strong>$l_tdr_change</strong></font></td>" .
-       "</tr>";
-  $i=0;
-  $curcolor=$color_line1;
-  while ($i < $num_traderoutes)
-  {
-    echo "<tr bgcolor=$curcolor>";
-    if ($curcolor == $color_line1)
-      $curcolor = $color_line2;
-    else
-      $curcolor = $color_line1;
-
-    echo "<td><font size=2 color=white>";
-    if ($traderoutes[$i]['source_type'] == 'P')
-      echo "&nbsp;$l_tdr_portin <a href=rsmove.php?engage=1&destination=" . $traderoutes[$i]['source_id'] . ">" . $traderoutes[$i]['source_id'] . "</a></font></td>";
-    else
+    if ($command != 'delete')
     {
-      $result = $db->Execute("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=" . $traderoutes[$i][source_id]);
-      db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-      if ($result)
-      {
-        $planet1 = $result->fields;
-        echo "&nbsp;$l_tdr_planet <strong>$planet1[name]</strong>$l_tdr_within<a href=\"rsmove.php?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
-      }
-      else
-        echo "&nbsp;$l_tdr_nonexistance</font></td>";
-    }
-
-    echo "<td align='center'><font size=2 color=white>";
-    if ($traderoutes[$i]['source_type'] == 'P')
-    {
-      $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=" . $traderoutes[$i]['source_id']);
-      db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-      $port1 = $result->fields;
-      echo "&nbsp;" . t_port($port1['port_type']) . "</font></td>";
+        echo $l_tdr_curtdr;
     }
     else
     {
-      if (empty($planet1))
-        echo "&nbsp;$l_tdr_na</font></td>";
-      else
-        echo "&nbsp;$l_tdr_cargo</font></td>";
+        echo $l_tdr_deltdr;
     }
 
-    echo "<td><font size=2 color=white>";
+    echo "</font></strong>" .
+         "</td></tr>" .
+         "<tr align='center' bgcolor=$color_line2>" .
+         "<td><font size=2 color=white><strong>$l_tdr_src</strong></font></td>" .
+         "<td><font size=2 color=white><strong>$l_tdr_srctype</strong></font></td>" .
+         "<td><font size=2 color=white><strong>$l_tdr_dest</strong></font></td>" .
+         "<td><font size=2 color=white><strong>$l_tdr_desttype</strong></font></td>" .
+         "<td><font size=2 color=white><strong>$l_tdr_move</strong></font></td>" .
+         "<td><font size=2 color=white><strong>$l_tdr_circuit</strong></font></td>" .
+         "<td><font size=2 color=white><strong>$l_tdr_change</strong></font></td>" .
+         "</tr>";
+    $i = 0;
+    $curcolor = $color_line1;
+    while ($i < $num_traderoutes)
+    {
+        echo "<tr bgcolor=$curcolor>";
+        if ($curcolor == $color_line1)
+        {
+            $curcolor = $color_line2;
+        }
+        else
+        {
+            $curcolor = $color_line1;
+        }
+
+        echo "<td><font size=2 color=white>";
+        if ($traderoutes[$i]['source_type'] == 'P')
+        {
+            echo "&nbsp;$l_tdr_portin <a href=rsmove.php?engage=1&destination=" . $traderoutes[$i]['source_id'] . ">" . $traderoutes[$i]['source_id'] . "</a></font></td>";
+        }
+        else
+        {
+            $result = $db->Execute("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=" . $traderoutes[$i][source_id]);
+            db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+            if ($result)
+            {
+                $planet1 = $result->fields;
+                echo "&nbsp;$l_tdr_planet <strong>$planet1[name]</strong>$l_tdr_within<a href=\"rsmove.php?engage=1&destination=$planet1[sector_id]\">$planet1[sector_id]</a></font></td>";
+            }
+            else
+            {
+                echo "&nbsp;$l_tdr_nonexistance</font></td>";
+            }
+        }
+
+        echo "<td align='center'><font size=2 color=white>";
+        if ($traderoutes[$i]['source_type'] == 'P')
+        {
+            $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=" . $traderoutes[$i]['source_id']);
+            db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+            $port1 = $result->fields;
+            echo "&nbsp;" . t_port($port1['port_type']) . "</font></td>";
+        }
+        else
+        {
+            if (empty($planet1))
+            {
+                echo "&nbsp;$l_tdr_na</font></td>";
+            }
+            else
+            {
+                echo "&nbsp;$l_tdr_cargo</font></td>";
+            }
+        }
+        echo "<td><font size=2 color=white>";
 
     if ($traderoutes[$i]['dest_type'] == 'P')
         echo "&nbsp;$l_tdr_portin <a href=\"rsmove.php?engage=1&destination=" . $traderoutes[$i]['dest_id'] . "\">" . $traderoutes[$i]['dest_id'] . "</a></font></td>";
