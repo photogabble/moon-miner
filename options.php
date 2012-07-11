@@ -21,8 +21,9 @@ include "config.php";
 
 // New database driven language entries
 load_languages($db, $langsh, array('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
-
 updatecookie ();
+
+$body_class = 'options';
 $title = $l_opt_title;
 include "header.php";
 
@@ -36,35 +37,26 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;
 
 echo "<form action=option2.php method=post>";
-echo "<table border=0 cellspacing=0 cellpadding=2>";
-echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><strong>$l_opt_chpass</strong></td>";
+echo "<table>";
+echo "<tr>";
+echo "<th colspan=2><strong>$l_opt_chpass</strong></th>";
 echo "</tr>";
-echo "<tr bgcolor=\"$color_line1\">";
+echo "<tr>";
 echo "<td>$l_opt_curpass</td>";
 echo "<td><input type=password name=oldpass size=16 maxlength=16 value=\"\"></td>";
 echo "</tr>";
-echo "<tr bgcolor=\"$color_line2\">";
+echo "<tr>";
 echo "<td>$l_opt_newpass</td>";
 echo "<td><input type=password name=newpass1 size=16 maxlength=16 value=\"\"></td>";
 echo "</tr>";
-echo "<tr bgcolor=\"$color_line1\">";
+echo "<tr>";
 echo "<td>$l_opt_newpagain</td>";
 echo "<td><input type=password name=newpass2 size=16 maxlength=16 value=\"\"></td>";
 echo "</tr>";
-/*
-echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><strong>$l_opt_userint</strong></td>";
+echo "<tr>";
+echo "<th colspan=2><strong>$l_opt_lang</strong></th>";
 echo "</tr>";
-$intrf = ($playerinfo['interface'] == 'N') ? "CHECKED" : "";
-echo "<tr bgcolor=\"$color_line1\">";
-echo "<td>$l_opt_usenew</td><td><input type=checkbox name=intrf value=N $intrf></input></td>";
-echo "</tr>";
-*/
-echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><strong>$l_opt_lang</strong></td>";
-echo "</tr>";
-echo "<tr bgcolor=\"$color_line1\">";
+echo "<tr>";
 echo "<td>$l_opt_select</td><td><select name=newlang>";
 
 foreach ($avail_lang as $curlang)
@@ -82,12 +74,12 @@ foreach ($avail_lang as $curlang)
 
 echo "</select></td>";
 echo "</tr>";
-echo "<tr bgcolor=\"$color_header\">";
-echo "<td colspan=2><strong>DHTML</strong></td>";
+echo "<tr>";
+echo "<th colspan=2><strong>DHTML</strong></th>";
 echo "</tr>";
-echo "<tr bgcolor=\"$color_line2\">";
+echo "<tr>";
 $dhtml = ($playerinfo['dhtml'] == 'Y') ? "CHECKED" : "";
-echo "<td>$l_opt_enabled</td><td><input type=checkbox name=dhtml value=Y $dhtml></input></td>";
+echo "<td>$l_opt_enabled</td><td><input type=checkbox name=dhtml value=Y $dhtml></td>";
 echo "</table>";
 echo "<br>";
 echo "<input type=submit value=$l_opt_save>";

@@ -53,12 +53,18 @@ body.port td {padding:0px; font-size:1.1em;}
 body.zoneinfo tr:nth-child(even) { background-color:#300030;}
 body.zoneinfo tr:nth-child(odd) { background-color:#400040;}
 body.zoneinfo th { background-color:#500050; text-align:left}
-body.zoneinfo table {border:0; color:#ffffff;}
 body.zoneinfo td {font-size:1.1em;}
 body.zoneinfo td.zonename { text-align:center;}
 body.zoneinfo td.name { width: 50%;}
 body.zoneinfo td.value { width: 50%;}
-body.zoneinfo table { padding:0px; width:60%; border:1px solid white; border-spacing:0px; margin-left:20%; margin-right: 20% }
+body.zoneinfo table { border:0; color: #ffffff; padding:0px; width:60%; border:1px solid white; border-spacing:0px; margin-left:20%; margin-right: 20% }
+
+body.options tr:nth-child(even) { background-color:#300030;}
+body.options tr:nth-child(odd) { background-color:#400040;}
+body.options th { background-color:#500050; text-align:left}
+body.options table {border:0; color:#ffffff; border-spacing:0px; padding:2px;}
+
+
 body.index { font-size: 75%; text-align: center;}
 .button:hover .shine {left: 24px;}
 .button:active .shine {opacity: 0;}
