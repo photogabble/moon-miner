@@ -22,7 +22,7 @@ if (preg_match("/adminlog.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function adminlog ($db, $dbtype, $log_type, $data = "")
+function adminlog ($db, $log_type, $data = "")
 {
     global $db_logging;
     // Write log_entry to the admin log
