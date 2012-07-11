@@ -27,6 +27,7 @@ include_once "includes/text_javascript_begin.php";
 include_once "includes/text_javascript_end.php";
 include_once "includes/is_loan_pending.php";
 
+$body_class = 'port';
 $title = $l_title_port;
 include "header.php";
 
@@ -194,7 +195,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
         $goods_price = $goods_price + $goods_delta * $sectorinfo['port_goods'] / $goods_limit * $inventory_factor;
         $sb_goods = $l_buying;
     }
-    
+
     if ($sectorinfo['port_type'] == "energy")
     {
         $energy_price = $energy_price - $energy_delta * $sectorinfo['port_energy'] / $energy_limit * $inventory_factor;
@@ -271,12 +272,12 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     }
 
     echo "<form action=port2.php method=post>";
-    echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=0>";
-    echo "<tr bgcolor=\"$color_header\"><td><strong>$l_commodity</strong></td><td><strong>$l_buying/$l_selling</strong></td><td><strong>$l_amount</strong></td><td><strong>$l_price</strong></td><td><strong>$l_buy/$l_sell</strong></td><td><strong>$l_cargo</strong></td></tr>";
-    echo "<tr bgcolor=\"$color_line1\"><td>$l_ore</td><td>$sb_ore</td><td>" . NUMBER ($sectorinfo['port_ore']) . "</td><td>$ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . NUMBER ($playerinfo['ship_ore']) . "</td></tr>";
-    echo "<tr bgcolor=\"$color_line2\"><td>$l_organics</td><td>$sb_organics</td><td>" . NUMBER ($sectorinfo['port_organics']) . "</td><td>$organics_price</td><td><input type=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 value=$amount_organics></td><td>" . NUMBER ($playerinfo['ship_organics']) . "</td></tr>";
-    echo "<tr bgcolor=\"$color_line1\"><td>$l_goods</td><td>$sb_goods</td><td>" . NUMBER ($sectorinfo['port_goods']) . "</td><td>$goods_price</td><td><input type=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 value=$amount_goods></td><td>" . NUMBER ($playerinfo['ship_goods']) . "</td></tr>";
-    echo "<tr bgcolor=\"$color_line2\"><td>$l_energy</td><td>$sb_energy</td><td>" . NUMBER ($sectorinfo['port_energy']) . "</td><td>$energy_price</td><td><input type=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 value=$amount_energy></td><td>" . NUMBER ($playerinfo['ship_energy']) . "</td></tr>";
+    echo "<table>";
+    echo "<tr><td><strong>$l_commodity</strong></td><td><strong>$l_buying/$l_selling</strong></td><td><strong>$l_amount</strong></td><td><strong>$l_price</strong></td><td><strong>$l_buy/$l_sell</strong></td><td><strong>$l_cargo</strong></td></tr>";
+    echo "<tr><td>$l_ore</td><td>$sb_ore</td><td>" . NUMBER ($sectorinfo['port_ore']) . "</td><td>$ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . NUMBER ($playerinfo['ship_ore']) . "</td></tr>";
+    echo "<tr><td>$l_organics</td><td>$sb_organics</td><td>" . NUMBER ($sectorinfo['port_organics']) . "</td><td>$organics_price</td><td><input type=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 value=$amount_organics></td><td>" . NUMBER ($playerinfo['ship_organics']) . "</td></tr>";
+    echo "<tr><td>$l_goods</td><td>$sb_goods</td><td>" . NUMBER ($sectorinfo['port_goods']) . "</td><td>$goods_price</td><td><input type=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 value=$amount_goods></td><td>" . NUMBER ($playerinfo['ship_goods']) . "</td></tr>";
+    echo "<tr><td>$l_energy</td><td>$sb_energy</td><td>" . NUMBER ($sectorinfo['port_energy']) . "</td><td>$energy_price</td><td><input type=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 value=$amount_energy></td><td>" . NUMBER ($playerinfo['ship_energy']) . "</td></tr>";
     echo "</table><br>";
     echo "<input type=submit value=$l_trade>";
     echo "</form>";
@@ -610,7 +611,7 @@ elseif ($sectorinfo['port_type'] == "special")
     {
         echo "+ form.torpedo_number.value * $torpedo_price ";
     }
-    
+
     if ($playerinfo['armor_pts'] != $armor_max)
     {
         echo "+ form.armor_number.value * $armor_price ";
@@ -686,19 +687,19 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "\n";
     echo "<a href=\"bounty.php\">$l_by_placebounty</a><br>\n";
     echo " <form action=port2.php method=post>\n";
-    echo "  <table width=\"100%\" border=0 cellspacing=0 cellpadding=0>\n";
-    echo "   <tr bgcolor=\"$color_header\">\n";
-    echo "    <td><strong>$l_device</strong></td>\n";
-    echo "    <td><strong>$l_cost</strong></td>\n";
-    echo "    <td><strong>$l_current</strong></td>\n";
-    echo "    <td><strong>$l_max</strong></td>\n";
-    echo "    <td><strong>$l_qty</strong></td>\n";
-    echo "    <td><strong>$l_ship_levels</strong></td>\n";
-    echo "    <td><strong>$l_cost</strong></td>\n";
-    echo "    <td><strong>$l_current</strong></td>\n";
-    echo "    <td><strong>$l_upgrade</strong></td>\n";
+    echo "  <table>\n";
+    echo "   <tr>\n";
+    echo "    <th><strong>$l_device</strong></th>\n";
+    echo "    <th><strong>$l_cost</strong></th>\n";
+    echo "    <th><strong>$l_current</strong></th>\n";
+    echo "    <th><strong>$l_max</strong></th>\n";
+    echo "    <th><strong>$l_qty</strong></th>\n";
+    echo "    <th><strong>$l_ship_levels</strong></th>\n";
+    echo "    <th><strong>$l_cost</strong></th>\n";
+    echo "    <th><strong>$l_current</strong></th>\n";
+    echo "    <th><strong>$l_upgrade</strong></th>\n";
     echo "   </tr>\n";
-    echo "   <tr bgcolor=\"$color_line1\">\n";
+    echo "   <tr>\n";
 #   echo "    <td>$l_genesis</td>\n";
 #   echo "    <td>" . NUMBER ($dev_genesis_price) . "</td>\n";
 #   echo "    <td>" . NUMBER ($playerinfo[dev_genesis]) . "</td>\n";
@@ -729,7 +730,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("hull_upgrade",$playerinfo['hull']);
     echo "    </td>\n";
     echo "   </tr>\n";
-    echo "   <tr bgcolor=\"$color_line2\">\n";
+    echo "   <tr>\n";
 #   echo "    <td>$l_beacons</td>\n";
 #   echo "    <td>" . NUMBER ($dev_beacon_price) . "</td>\n";
 #   echo "    <td>" . NUMBER ($playerinfo['dev_beacon']) . "</td>\n";
@@ -759,7 +760,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("engine_upgrade",$playerinfo['engines']);
     echo "    </td>\n";
     echo "   </tr>\n";
-    echo "   <tr bgcolor=\"$color_line1\">\n";
+    echo "   <tr>\n";
     echo "    <td>$l_ewd</td>\n";
     echo "    <td>" . NUMBER ($dev_emerwarp_price) . "</td>\n";
     echo "    <td>" . NUMBER ($playerinfo['dev_emerwarp']) . "</td>\n";
@@ -784,7 +785,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("power_upgrade",$playerinfo['power']);
     echo "    </td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line2\">\n";
+    echo "  <tr>\n";
 #   echo "    <td>$l_warpedit</td>\n";
 #   echo "    <td>" . NUMBER ($dev_warpedit_price) . "</td>\n";
 #   echo "    <td>" . NUMBER ($playerinfo['dev_warpedit']) . "</td><td>$l_unlimited</td><td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>";
@@ -814,7 +815,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("computer_upgrade",$playerinfo['computer']);
     echo "    </td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line1\">\n";
+    echo "  <tr>\n";
     echo "    <td>&nbsp;</td>\n";
     echo "    <td>&nbsp;</td>\n";
     echo "    <td>&nbsp;</td>\n";
@@ -827,7 +828,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("sensors_upgrade",$playerinfo['sensors']);
     echo "    </td>\n";
     echo "  </tr>";
-    echo "  <tr bgcolor=\"$color_line2\">\n";
+    echo "  <tr>\n";
     echo "    <td>$l_deflect</td>\n";
     echo "    <td>" . NUMBER ($dev_minedeflector_price) . "</td>\n";
     echo "    <td>" . NUMBER ($playerinfo['dev_minedeflector']) . "</td>\n";
@@ -840,7 +841,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("beams_upgrade",$playerinfo['beams']);
     echo "    </td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line1\">\n";
+    echo "  <tr>\n";
     echo "    <td>$l_escape_pod</td>\n";
     echo "    <td>" . NUMBER ($dev_escapepod_price) . "</td>\n";
     if ($playerinfo['dev_escapepod'] == "N")
@@ -863,7 +864,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("armor_upgrade",$playerinfo['armor']);
     echo "    </td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line2\">\n";
+    echo "  <tr>\n";
     echo "    <td>$l_fuel_scoop</td>\n";
     echo "    <td>" . NUMBER ($dev_fuelscoop_price) . "</td>\n";
     if ($playerinfo['dev_fuelscoop'] == "N")
@@ -886,7 +887,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("cloak_upgrade",$playerinfo['cloak']);
     echo "    </td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line1\">\n";
+    echo "  <tr>\n";
     echo "    <td>$l_lssd</td>\n";
     echo "    <td>" . NUMBER ($dev_lssd_price) . "</td>\n";
     if ($playerinfo['dev_lssd'] == "N")
@@ -909,7 +910,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo dropdown("torp_launchers_upgrade",$playerinfo['torp_launchers']);
     echo "    </td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line2\">\n";
+    echo "  <tr>\n";
     echo "    <td>&nbsp;</td>\n";
     echo "    <td>&nbsp;</td>\n";
     echo "    <td>&nbsp;</td>\n";
@@ -924,20 +925,20 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  </tr>\n";
     echo " </table>\n";
     echo " <br>\n";
-    echo " <table width=\"100%\" border=0 cellspacing=0 cellpadding=0>\n";
-    echo "  <tr bgcolor=\"$color_header\">\n";
-    echo "    <td><strong>$l_item</strong></td>\n";
-    echo "    <td><strong>$l_cost</strong></td>\n";
-    echo "    <td><strong>$l_current</strong></td>\n";
-    echo "    <td><strong>$l_max</strong></td>\n";
-    echo "    <td><strong>$l_qty</strong></td>\n";
-    echo "    <td><strong>$l_item</strong></td>\n";
-    echo "    <td><strong>$l_cost</strong></td>\n";
-    echo "    <td><strong>$l_current</strong></td>\n";
-    echo "    <td><strong>$l_max</strong></td>\n";
-    echo "    <td><strong>$l_qty</strong></td>\n";
+    echo " <table>\n";
+    echo "  <tr>\n";
+    echo "    <th><strong>$l_item</strong></th>\n";
+    echo "    <th><strong>$l_cost</strong></th>\n";
+    echo "    <th><strong>$l_current</strong></th>\n";
+    echo "    <th><strong>$l_max</strong></th>\n";
+    echo "    <th><strong>$l_qty</strong></th>\n";
+    echo "    <th><strong>$l_item</strong></th>\n";
+    echo "    <th><strong>$l_cost</strong></th>\n";
+    echo "    <th><strong>$l_current</strong></th>\n";
+    echo "    <th><strong>$l_max</strong></th>\n";
+    echo "    <th><strong>$l_qty</strong></th>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line1\">\n";
+    echo "  <tr>\n";
     echo "    <td>$l_fighters</td>\n";
     echo "    <td>" . NUMBER ($fighter_price) . "</td>\n";
     echo "    <td>" . NUMBER ($playerinfo['ship_fighters']) . " / " . NUMBER ($fighter_max) . "</td>\n";
@@ -969,7 +970,7 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "</td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor=\"$color_line2\">\n";
+    echo "  <tr>\n";
     echo "    <td>$l_armorpts</td>\n";
     echo "    <td>" . NUMBER ($armor_price) . "</td>\n";
     echo "    <td>" . NUMBER ($playerinfo['armor_pts']) . " / " . NUMBER ($armor_max) . "</td>\n";
@@ -1001,10 +1002,10 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    </td>\n";
     echo "  </tr>\n";
     echo " </table><br>\n";
-    echo " <table width=\"100%\" border=0 cellspacing=0 cellpadding=0>\n";
-    echo "  <tr>\n";
+    echo " <table>\n";
+    echo "  <tr style=\"background-color: transparent;\">\n";
     echo "    <td><input type=submit value=$l_buy $onclick></td>\n";
-    echo "    <td ALIGN=RIGHT>$l_totalcost: <input type=TEXT style=\"text-align:right\" NAME=total_cost SIZE=22 value=0 $onfocus $onblur $onchange $onclick></td>\n";
+    echo "    <td style=\"text-align:right\">$l_totalcost: <input type=TEXT style=\"text-align:right\" NAME=total_cost SIZE=22 value=0 $onfocus $onblur $onchange $onclick></td>\n";
     echo "  </tr>\n";
     echo " </table>\n";
     echo "</form><br>\n";
