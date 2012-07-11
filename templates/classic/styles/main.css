@@ -147,10 +147,15 @@ body.device tr:nth-child(even) { background-color:#300030;}
 body.device tr:nth-child(odd) { background-color:#400040;}
 body.device th { background-color:#500050; text-align:left}
 body.device table {border:0; border-spacing:0px;}
-body.device td {padding:3px; color:white; text-size:1em;}
-
+body.device td {padding:3px; color:white; font-size:1.1em;}
 body.port tr:nth-child(even) { background-color:#300030;}
 body.port tr:nth-child(odd) { background-color:#400040;}
 body.port th { background-color:#500050; text-align:left}
 body.port table {border:0; border-spacing:0px; width:100%; color:#ffffff;}
-body.port td {padding:0px; text-size:1em;}
+body.port td {padding:0px; font-size:1.1em;}
+
+body.zoneinfo tr:nth-child(even) { background-color:#300030;}
+body.zoneinfo tr:nth-child(odd) { background-color:#400040;}
+body.zoneinfo th { background-color:#500050; text-align:left}
+body.zoneinfo table {border:0; color:#ffffff;}
+body.zoneinfo td {font-size:1.1em;}

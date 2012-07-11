@@ -18,20 +18,21 @@
 // File: zoneinfo.php
 
 include "config.php";
-updatecookie();
+updatecookie ();
 
 // New database driven language entries
 load_languages($db, $langsh, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars, $db_logging);
 
+$body_class = 'zoneinfo';
 $title = $l_zi_title;
 include "header.php";
 
-if (checklogin())
+if (checklogin () )
 {
-    die();
+    die ();
 }
 
-bigtitle();
+bigtitle ();
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -91,24 +92,24 @@ else
 
     if ($row['allow_beacon'] == 'Y')
     {
-        $beacon=$l_zi_allow;
+        $beacon = $l_zi_allow;
     }
     elseif ($row['allow_beacon'] == 'N')
     {
-        $beacon=$l_zi_notallow;
+        $beacon = $l_zi_notallow;
     }
     else
     {
-        $beacon=$l_zi_limit;
+        $beacon = $l_zi_limit;
     }
 
     if ($row['allow_attack'] == 'Y')
     {
-        $attack=$l_zi_allow;
+        $attack = $l_zi_allow;
     }
     else
     {
-        $attack=$l_zi_notallow;
+        $attack = $l_zi_notallow;
     }
 
     if ($row['allow_defenses'] == 'Y')
@@ -126,50 +127,50 @@ else
 
     if ($row['allow_warpedit'] == 'Y')
     {
-        $warpedit=$l_zi_allow;
+        $warpedit = $l_zi_allow;
     }
     elseif ($row['allow_warpedit'] == 'N')
     {
-        $warpedit=$l_zi_notallow;
+        $warpedit = $l_zi_notallow;
     }
     else
     {
-        $warpedit=$l_zi_limit;
+        $warpedit = $l_zi_limit;
     }
 
     if ($row['allow_planet'] == 'Y')
     {
-        $planet=$l_zi_allow;
+        $planet = $l_zi_allow;
     }
     elseif ($row['allow_planet'] == 'N')
     {
-        $planet=$l_zi_notallow;
+        $planet = $l_zi_notallow;
     }
     else
     {
-        $planet=$l_zi_limit;
+        $planet = $l_zi_limit;
     }
 
     if ($row['allow_trade'] == 'Y')
     {
-        $trade=$l_zi_allow;
+        $trade = $l_zi_allow;
     }
     elseif ($row['allow_trade'] == 'N')
     {
-        $trade=$l_zi_notallow;
+        $trade = $l_zi_notallow;
     }
     else
     {
-        $trade=$l_zi_limit;
+        $trade = $l_zi_limit;
     }
 
     if ($row['max_hull'] == 0)
     {
-        $hull=$l_zi_ul;
+        $hull = $l_zi_ul;
     }
     else
     {
-        $hull=$row['max_hull'];
+        $hull = $row['max_hull'];
     }
 
     if (($row['corp_zone'] == 'N' && $row['owner'] == $playerinfo['ship_id']) || ($row['corp_zone'] == 'Y' && $row['owner'] == $playerinfo['team'] && $playerinfo['ship_id'] == $ownerinfo['creator']))
@@ -178,17 +179,17 @@ else
     }
 
     echo "<table border=1 cellspacing=1 cellpadding=0 width=\"65%\" align=center>" .
-         "<tr bgcolor=$color_line2><td align=center colspan=2><strong><font color=white>$row[zone_name]</font></strong></td></tr>" .
+         "<tr><td align=center colspan=2><strong>$row[zone_name]</strong></td></tr>" .
          "<tr><td colspan=2>" .
          "<table border=0 cellspacing=0 cellpadding=2 width=\"100%\" align=center>" .
-         "<tr bgcolor=$color_line1><td width=\"50%\"><font color=white size=3>&nbsp;$l_zi_owner</font></td><td width=\"50%\"><font color=white size=3>$ownername&nbsp;</font></td></tr>" .
-         "<tr bgcolor=$color_line2><td><font color=white size=3>&nbsp;$l_beacons</font></td><td><font color=white size=3>$beacon&nbsp;</font></td></tr>" .
-         "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;$l_att_att</font></td><td><font color=white size=3>$attack&nbsp;</font></td></tr>" .
-         "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;$l_md_title</font></td><td><font color=white size=3>$defense&nbsp;</font></td></tr>" .
-         "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;$l_warpedit</font></td><td><font color=white size=3>$warpedit&nbsp;</font></td></tr>" .
-         "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;$l_planets</font></td><td><font color=white size=3>$planet&nbsp;</font></td></tr>" .
-         "<tr bgcolor=#300030><td><font color=white size=3>&nbsp;$l_title_port</font></td><td><font color=white size=3>$trade&nbsp;</font></td></tr>" .
-         "<tr bgcolor=#400040><td><font color=white size=3>&nbsp;$l_zi_maxhull</font></td><td><font color=white size=3>$hull&nbsp;</font></td></tr>" .
+         "<tr><td width=\"50%\">&nbsp;$l_zi_owner</td><td width=\"50%\">$ownername&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_beacons</td><td>$beacon&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_att_att</td><td>$attack&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_md_title</td><td>$defense&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_warpedit</td><td>$warpedit&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_planets</td><td>$planet&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_title_port</td><td>$trade&nbsp;</td></tr>" .
+         "<tr><td>&nbsp;$l_zi_maxhull</td><td>$hull&nbsp;</td></tr>" .
          "</table>" .
          "</td></tr>" .
          "</table>";
