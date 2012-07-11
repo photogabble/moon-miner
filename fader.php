@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
 
 // Ticker Constructor
 news                      = new newsTicker();

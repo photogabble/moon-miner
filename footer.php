@@ -46,7 +46,7 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $result = $res->fields;
 $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
 ?>
-  <script type="text/javascript">
+  <script>
    var myi = '<?php echo $mySEC; ?>';
    setTimeout("rmyx();",1000);
 
