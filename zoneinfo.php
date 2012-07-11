@@ -178,21 +178,18 @@ else
         echo "<center>$l_zi_control. <a href=zoneedit.php?zone=$zone>$l_clickme</a> $l_zi_tochange</center><p>";
     }
 
-    echo "<table border=1 cellspacing=1 cellpadding=0 width=\"65%\" align=center>" .
-         "<tr><td align=center colspan=2><strong>$row[zone_name]</strong></td></tr>" .
-         "<tr><td colspan=2>" .
-         "<table border=0 cellspacing=0 cellpadding=2 width=\"100%\" align=center>" .
-         "<tr><td width=\"50%\">&nbsp;$l_zi_owner</td><td width=\"50%\">$ownername&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_beacons</td><td>$beacon&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_att_att</td><td>$attack&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_md_title</td><td>$defense&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_warpedit</td><td>$warpedit&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_planets</td><td>$planet&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_title_port</td><td>$trade&nbsp;</td></tr>" .
-         "<tr><td>&nbsp;$l_zi_maxhull</td><td>$hull&nbsp;</td></tr>" .
-         "</table>" .
-         "</td></tr>" .
-         "</table>";
+    echo "<table class=\"top\">\n" .
+         "<tr><td class=\"zonename\"><strong>$row[zone_name]</strong></td></tr></table>\n" .
+         "<table class=\"bottom\">\n" .
+         "<tr><td class=\"name\">&nbsp;$l_zi_owner</td><td class=\"value\">$ownername&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_beacons</td><td>$beacon&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_att_att</td><td>$attack&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_md_title</td><td>$defense&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_warpedit</td><td>$warpedit&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_planets</td><td>$planet&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_title_port</td><td>$trade&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;$l_zi_maxhull</td><td>$hull&nbsp;</td></tr>\n" .
+         "</table>\n";
 }
 echo "<br><br>";
 
