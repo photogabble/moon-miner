@@ -168,7 +168,6 @@ $db->Execute("CREATE TABLE {$db->prefix}ships (" .
              "trade_energy enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
              "cleared_defences tinytext," .
              "lang varchar(30) DEFAULT 'english.inc' NOT NULL," .
-             "dhtml enum('Y', 'N') DEFAULT 'Y' NOT NULL," .
              "dev_lssd enum('Y','N') DEFAULT 'Y' NOT NULL," .
              "PRIMARY KEY (email)," .
              "KEY email (email)," .

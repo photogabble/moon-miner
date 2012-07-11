@@ -120,10 +120,10 @@ if ($flag == 0)
         $mturns = $max_turns;
     }
 
-    $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dhtml,dev_lssd)
-                             VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','N','$ip','Y','N','N','Y',NULL,'$default_lang', 'Y','$start_lssd')");
+    $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dev_lssd)
+                             VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','N','$ip','Y','N','N','Y',NULL,'$default_lang', '$start_lssd')");
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
-    
+
     if (!$result2)
     {
         echo $db->ErrorMsg() . "<br>";
@@ -132,9 +132,9 @@ if ($flag == 0)
     {
         $result2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
         db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
-        
+
         $shipid = $result2->fields;
-        
+
         // To do: build a bit better "new player" message
         $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
         $l_new_message = str_replace("[ip]", $ip, $l_new_message);
@@ -146,10 +146,10 @@ if ($flag == 0)
         log_move ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $resx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-        
+
         $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-        
+
         if ($display_password)
         {
             echo $l_new_pwis . " " . $makepass . "<br><br>";

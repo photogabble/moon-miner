@@ -33,7 +33,7 @@ if (checklogin () )
 
 include "header.php";
 
-$res = $db->Execute("SELECT character_name, ship_id, dhtml FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 

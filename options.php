@@ -74,12 +74,6 @@ foreach ($avail_lang as $curlang)
 
 echo "</select></td>";
 echo "</tr>";
-echo "<tr>";
-echo "<th colspan=2><strong>DHTML</strong></th>";
-echo "</tr>";
-echo "<tr>";
-$dhtml = ($playerinfo['dhtml'] == 'Y') ? "CHECKED" : "";
-echo "<td>$l_opt_enabled</td><td><input type=checkbox name=dhtml value=Y $dhtml></td>";
 echo "</table>";
 echo "<br>";
 echo "<input type=submit value=$l_opt_save>";

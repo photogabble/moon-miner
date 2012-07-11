@@ -96,26 +96,6 @@ foreach ($avail_lang as $curlang)
     }
 }
 
-if ($_POST['dhtml'] != 'Y')
-{
-    $dhtml = 'N';
-}
-else
-{
-    $dhtml = 'Y';
-}
-
-$res = $db->Execute("UPDATE {$db->prefix}ships SET dhtml='$dhtml' WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-if ($res)
-{
-    echo $l_opt2_dhtmlup . "<br>";
-}
-else
-{
-    echo $l_opt2_dhtmlfail . "<br>";
-}
-
 echo "<br>";
 TEXT_GOTOMAIN();
 include "footer.php";
