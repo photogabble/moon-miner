@@ -27,7 +27,7 @@ function checklogin ()
     $flag = 0;
 
     global $username, $l_global_needlogin, $l_global_died, $l_global_died2;
-    global $password, $l_login_died, $l_die_please, $l_logout, $l_here;
+    global $password, $l_login_died, $l_die_please, $l_logout, $l_here, $l_error;
     global $db, $db_logging;
 
     $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($username));
