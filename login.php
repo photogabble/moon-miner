@@ -70,7 +70,7 @@ echo "<br><br>\n";
 echo "<form action='login2.php' method='post'>\n";
 echo "    <dl class='twocolumn-form'>\n";
 echo "        <dt style='padding:3px'><label for='email'>{$l_login_email}:</label></dt>\n";
-echo "        <dd style='padding:3px'><input type='text' id='email' name='email' size='20' maxlength='40' value='{$username}' style='width:200px'></dd>\n";
+echo "        <dd style='padding:3px'><input type='email' id='email' name='email' size='20' maxlength='40' value='{$username}' style='width:200px'></dd>\n";
 echo "        <dt style='padding:3px'><label for='pass'>{$l_login_pw}</label></dt>\n";
 echo "        <dd style='padding:3px'><input type='password' id='pass' name='pass' size='20' maxlength='20' value='{$password}' style='width:200px'></dd>\n";
 echo "    </dl>\n";

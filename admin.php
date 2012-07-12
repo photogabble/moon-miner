@@ -115,7 +115,7 @@ else
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
                     echo "<tr><td>Player name</td><td><input type=text name=character_name value=\"$row[character_name]\"></td></tr>";
                     echo "<tr><td>Password</td><td><input type=text name=password2 value=\"$row[password]\"></td></tr>";
-                    echo "<tr><td>E-mail</td><td><input type=text name=email value=\"$row[email]\"></td></tr>";
+                    echo "<tr><td>E-mail</td><td><input type=email name=email value=\"$row[email]\"></td></tr>";
                     echo "<tr><td>ID</td><td>$user</td></tr>";
                     echo "<tr><td>Ship</td><td><input type=text name=ship_name value=\"$row[ship_name]\"></td></tr>";
                     echo "<tr><td>Destroyed?</td><td><input type=CHECKBOX name=ship_destroyed value=ON " . CHECKED($row['ship_destroyed']) . "></td></tr>";
