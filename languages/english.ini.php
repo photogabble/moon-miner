@@ -1207,7 +1207,7 @@ l_new_pwsent                          = "Password has been sent to [username].";
 l_new_login                           = "to go to the login screen.";
 l_new_err                             = "Please go back or click [here] and try again.";
 l_new_topic                           = "Traders Password";
-l_new_message                         = "Greetings,\n\nSomeone from the IP address [ip] requested that your password for Traders be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe Traders web team.";
+l_new_message                         = "Greetings,\r\n\r\nSomeone from the IP address [ip] requested that your password for Traders be sent to you.\r\n\r\nYour password is: [pass]\r\n\r\nThank you\r\n\r\nThe Traders web team.";
 
 [logout]
 l_logout_score                        = "You current score is";
@@ -1218,7 +1218,7 @@ l_mail_title                          = "Mail Password";
 l_mail_noplayer                       = "No Such Player! - Create a new player [here].";
 l_mail_sent                           = "Password has been sent to";
 l_mail_topic                          = "[game_name] Password";
-l_mail_message                        = "Greetings,\n\nSomeone from the IP address [ip] requested that your password for [game_name] be sent to you.\n\nYour password is: [pass]\n\nThank you\n\nThe [game_name] web team.";
+l_mail_message                        = "Greetings,\r\n\r\nSomeone from the IP address [ip] requested that your password for [game_name] be sent to you.\r\n\r\nYour password is: [pass]\r\n\r\nThank you\r\n\r\nThe [game_name] web team.";
 
 [global_funcs]
 l_global_mmenu                        = "Click [here] to return to the main menu.";

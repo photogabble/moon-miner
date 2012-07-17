@@ -25,28 +25,39 @@ load_languages($db, $langsh, array('common', 'global_includes', 'global_funcs', 
 
 $title = "Performance Monitor";
 include "header.php";
-
-if (checklogin())
-{
-    die();
-}
-
 bigtitle();
 
-define('ADODB_PERF_NO_RUN_SQL',1);
-$perf =& NewPerfMonitor($db);
+$swordfish = NULL;
+if (array_key_exists('swordfish', $_POST))
+{
+    $swordfish = $_POST['swordfish'];
+}
 
-echo '<style type="text/css">';
-echo '<!--  ';
-echo 'TABLE            { background-color: #000;}';
-echo '-->';
-echo '</style>';
 
-echo $perf->HealthCheck(); // Not using this until adodb patches removing bgcolor=white are accepted
-echo $perf->SuspiciousSQL(10);
-echo $perf->ExpensiveSQL(10);
-echo $perf->InvalidSQL(10);
+if ($swordfish != $adminpass)
+{
+    echo "<form action='perfmon.php' method='post'>";
+    echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><br><br>";
+    echo "<input type='submit' value='Submit'><input type='reset' value='Reset'>";
+    echo "</form>";
+}
+else
+{
+    define('ADODB_PERF_NO_RUN_SQL',1);
+    $perf =& NewPerfMonitor($db);
 
+    echo '<style type="text/css">';
+    echo '<!--  ';
+    echo 'TABLE            { background-color: #000;}';
+    echo '-->';
+    echo '</style>';
+
+    echo $perf->HealthCheck(); // Not using this until adodb patches removing bgcolor=white are accepted
+    echo $perf->SuspiciousSQL(10);
+    echo $perf->ExpensiveSQL(10);
+    echo $perf->InvalidSQL(10);
+}
+echo "<br />\n";
 TEXT_GOTOMAIN();
 include "footer.php";
 ?>

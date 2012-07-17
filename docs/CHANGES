@@ -1,3 +1,15 @@
+TheMightyDude (17 July 2012)
+--------------------------------------
+Fixed missing 'amount' field in IGB_transfers error.
+Fixed mail.php, it now sends the email with the password.
+Fixed lanuage ini files for email needs to be \r\n and not just \n
+Fixed l_mail_topic in language ini files so that they all use [game_name]
+Removed the mailer_class.php due to its not used.
+Fixed feedback.php to use mail() and cleaned up code a bit.
+Updated perfmon.php to now require the admin password.
+Updated create_universe.php to display the importing of the languages into the same html table as the rest.
+Updated schema.php, we now only create the table if it doesn't already exist.
+
 TheKabal (21 June 2012)
 --------------------------------------
 Massive lists of fixes to PHP notices

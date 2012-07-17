@@ -1212,7 +1212,7 @@ l_new_pwsent ="Das Passwort wurde an [username] gesendet.";
 l_new_login ="Um zur Startseite zur&uuml;ckzukehren.";
 l_new_err ="Gehe zur&uuml;ck oder klick [here] um es erneut zuversuchen.";
 l_new_topic ="Black Nova Trader Passwort";
-l_new_message ="Hallo,\n\nJemand mit der IP $ip hat ein Passwort für Dich für Dich als Black Nova Trader angefordert und an Dich gesendet.\n\nDein Passwort ist: [pass]\n\nThank you\n\n";
+l_new_message ="Hallo,\r\n\r\nJemand mit der IP [ip] hat ein Passwort für Dich für Dich als Black Nova Trader angefordert und an Dich gesendet.\r\n\r\nDein Passwort ist: [pass]\r\n\r\nThank you\r\n\r\n";
 
 [logout]
 l_logout_score ="Derzeitiger Punktestand:";
@@ -1222,8 +1222,8 @@ l_logout_text ="[name] ist nun ausgeloggt. Klicke [here] um zum Spiel zur&uuml;c
 l_mail_title ="E-mail Passwort";
 l_mail_noplayer ="Kein solcher Spieler! - Erstelle einen neuen Spieler [here].";
 l_mail_sent ="Das Passwort wurde gesendet an";
-l_mail_topic ="$game_name Passwort";
-l_mail_message ="Hallo,\n\nJemand mit der IP $ip hat ein Passwort f&uuml;r $game_name angefordert, es wurde dir zugesandt.\n\nDein Passwort lautet: [pass]\n\nThank you\n\nDas $game_name -Team.";
+l_mail_topic ="[game_name] Passwort";
+l_mail_message ="Hallo,\r\n\r\nJemand mit der IP [ip] hat ein Passwort f&uuml;r [game_name] angefordert, es wurde dir zugesandt.\r\n\r\nDein Passwort lautet: [pass]\r\n\r\nThank you\r\n\r\nDas [game_name] -Team.";
 
 [global_funcs]
 l_global_mmenu ="Klicke [here] um ins Hauptmen&uuml; zugelangen.";

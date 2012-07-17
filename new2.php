@@ -44,6 +44,24 @@ if ($account_creation_closed)
     die ($l_new_closed_message);
 }
 
+# Get the user supplied post vars.
+$username  = NULL;
+$shipname  = NULL;
+$character = NULL;
+if (array_key_exists('character', $_POST))
+{
+    $character  = $_POST['character'];
+}
+if (array_key_exists('shipname', $_POST))
+{
+    $shipname   = $_POST['shipname'];
+}
+if (array_key_exists('username', $_POST))
+{
+    $username   = $_POST['username'];
+}
+####
+
 $character = htmlspecialchars ($character);
 $shipname = htmlspecialchars ($shipname);
 $character = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
@@ -121,7 +139,7 @@ if ($flag == 0)
     }
 
     $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dev_lssd)
-                             VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','N','$ip','Y','N','N','Y',NULL,'$default_lang', '$start_lssd')");
+                             VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','$ip','Y','N','N','Y',NULL,'$default_lang', '$start_lssd')");
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 
     if (!$result2)
@@ -138,6 +156,10 @@ if ($flag == 0)
         // To do: build a bit better "new player" message
         $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
         $l_new_message = str_replace("[ip]", $ip, $l_new_message);
+ 
+        # Some reason \r\n is broken, so replace them now.
+        $l_new_message = str_replace('\r\n', "\r\n", $l_new_message);
+
         $link_to_game = "http://";
         $link_to_game .= ltrim($gamedomain,".");// Trim off the leading . if any
         //$link_to_game .= str_replace($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));

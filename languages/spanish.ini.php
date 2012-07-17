@@ -1208,7 +1208,7 @@ l_new_pwsent               = "La contraseña ha sido enviada a [username]";
 l_new_login               = "para ir a la pantalla de conexión"; 
 l_new_err               = "Por favor, ve atrás o [here] e inténtalo de nuevo."; 
 l_new_topic               = "Contraseña de Traders"; 
-l_new_message               = "Saludos,\r\n\r\nAlguien desde la dirección IP $ip ha solicitado tu contraseña para Traders te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de Traders."; 
+l_new_message               = "Saludos,\r\n\r\nAlguien desde la dirección IP [ip] ha solicitado tu contraseña para Traders te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de Traders."; 
 
 [logout]
 l_logout_score               = "Tu puntuación actual es"; 
@@ -1218,8 +1218,8 @@ l_logout_text               = "[name] está ahora desconectado. Pulsa [here] para
 l_mail_title               = "Enviar Contraseña";  
 l_mail_noplayer          = "¡No existe ese jugador! - Crea un nuevo jugador desde [here]."; 
 l_mail_sent               = "La contraseña ha sido enviada a"; 
-l_mail_topic               = "Contraseña de $game_name"; 
-l_mail_message               = "Saludos,\r\n\r\nAlguien desde la dirección IP $ip ha solicitado que tu contraseña para $game_name te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de $game_name."; 
+l_mail_topic               = "Contraseña de [game_name]"; 
+l_mail_message               = "Saludos,\r\n\r\nAlguien desde la dirección IP [ip] ha solicitado que tu contraseña para [game_name] te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de [game_name]."; 
 
 [global_funcs]
 l_global_mmenu               = "Pulsa [here] para volver al menú principal."; 
