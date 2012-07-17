@@ -31,7 +31,7 @@ db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
 QUERYOK($resa);
 
 echo "Ensuring maximum turns are $max_turns...";
-$db->Execute("UPDATE {$db->prefix}ships SET turns = $max_turns WHERE turns > $max_turns;");
+$resb = $db->Execute("UPDATE {$db->prefix}ships SET turns = $max_turns WHERE turns > $max_turns;");
 db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
 QUERYOK($resb);
 echo "<br>";
