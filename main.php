@@ -607,7 +607,7 @@ if ($playerinfo['sector'] != 0)
                 echo "</a>\n";
                 echo "<div style='font-size:12px; color:#fff; white-space:nowrap;'>{$ship_detected[$iPlayer]['ship_name']}<br>\n";
                 echo "(<span style='color:#ff0; white-space:nowrap;'>{$ship_detected[$iPlayer]['character_name']}</span>)<br>\n";
-                if ($ship_detected[$iPlayer][team_name])
+                if ($ship_detected[$iPlayer]['team_name'])
                 {
                     echo "(<span style='color:#0f0; white-space:nowrap;'>{$ship_detected[$iPlayer]['team_name']}</span>)\n";
                 }
