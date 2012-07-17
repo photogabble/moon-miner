@@ -12,6 +12,8 @@ Updated schema.php, we now only create the table if it doesn't already exist.
 Updated checklogin.php file to update the players online status, this was missing, updates ever 60 seconds.
 Updated admin.php to allow setting special ports into sectors.
 Fixed Notice: Use of undefined constant team_name - assumed 'team_name'
+Fixed genscore() when player has no planets.
+Fixed invalid character in header.php
 
 TheKabal (21 June 2012)
 --------------------------------------
