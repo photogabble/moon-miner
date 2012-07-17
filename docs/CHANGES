@@ -16,6 +16,7 @@ Fixed genscore() when player has no planets.
 Fixed invalid character in header.php
 Fixed Notice: Use of undefined constant amount - assumed 'amount' in sched_news.php
 Fixed Notice: Undefined variable: db_logging in traderoute.php
+Fixed Notice: Undefined index: scooped1 and scooped2 in traderoute.php
 
 TheKabal (21 June 2012)
 --------------------------------------

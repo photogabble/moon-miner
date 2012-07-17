@@ -358,179 +358,185 @@ include "footer.php";
 
 function traderoute_die($error_msg)
 {
-  global $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $l_footer_one_player_on;
-    global $sched_ticks, $color_line1, $color_line2, $color_header, $servertimezone;
-  echo "<p>$error_msg<p>";
+	global $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $l_footer_one_player_on;
+	global $sched_ticks, $color_line1, $color_line2, $color_header, $servertimezone;
+	echo "<p>$error_msg<p>";
 
+	echo "<div style='text-align:left;'>\n";
+	TEXT_GOTOMAIN();
+	echo "</div>\n";
 
-echo "<div style='text-align:left;'>\n";
-TEXT_GOTOMAIN();
-echo "</div>\n";
-
-  include "footer.php";
-  die();
+	include "footer.php";
+	die();
 }
 
 function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $dest)
 {
-  global $playerinfo;
-  global $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_sportissrc, $l_tdr_notownplanet, $l_tdr_planetisdest;
-  global $l_tdr_samecom, $l_tdr_sportcom, $color_line1, $color_line2, $color_header, $servertimezone;
-  global $db;
-  global $db_logging;
+	global $playerinfo;
+	global $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_sportissrc, $l_tdr_notownplanet, $l_tdr_planetisdest;
+	global $l_tdr_samecom, $l_tdr_sportcom, $color_line1, $color_line2, $color_header, $servertimezone;
+	global $db;
+	global $db_logging;
 
-  // Check warp links compatibility
-  if ($move == 'warp')
-  {
-    $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$src[sector_id] AND link_dest=$dest[sector_id]");
-    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-    if ($query->EOF)
-    {
-      $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink1);
-      $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest['sector_id'], $l_tdr_nowlink1);
-      traderoute_die($l_tdr_nowlink1);
-    }
-    if ($circuit == '2')
-    {
-      $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$dest[sector_id] AND link_dest=$src[sector_id]");
-      db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-      if ($query->EOF)
-      {
-        $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink2);
-        $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest['sector_id'], $l_tdr_nowlink2);
-        traderoute_die($l_tdr_nowlink2);
-      }
-    }
-  }
+	// Check warp links compatibility
+	if ($move == 'warp')
+	{
+		$query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$src[sector_id] AND link_dest=$dest[sector_id]");
+		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+		if ($query->EOF)
+		{
+			$l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink1);
+			$l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest['sector_id'], $l_tdr_nowlink1);
+			traderoute_die($l_tdr_nowlink1);
+		}
+
+		if ($circuit == '2')
+		{
+			$query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$dest[sector_id] AND link_dest=$src[sector_id]");
+			db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+			if ($query->EOF)
+			{
+				$l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink2);
+				$l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest['sector_id'], $l_tdr_nowlink2);
+				traderoute_die($l_tdr_nowlink2);
+			}
+		}
+	}
 
   // Check ports compatibility
-  if ($type1 == 'port')
-  {
-    if ($src['port_type'] == 'special')
-    {
-      if (($type2 != 'planet') && ($type2 != 'corp_planet'))
-        traderoute_die($l_tdr_sportissrc);
-      if ($dest['owner'] != $playerinfo['ship_id'] && ($dest['corp'] == 0 || ($dest['corp'] != $playerinfo['team'])))
-        traderoute_die($l_tdr_notownplanet);
-    }
-    else
-    {
-      if ($type2 == 'planet')
-        traderoute_die($l_tdr_planetisdest);
-      if ($src['port_type'] == $dest['port_type'])
-        traderoute_die($l_tdr_samecom);
-    }
-  }
-  else
-  {
-    if ($dest['port_type'] == 'special')
-      traderoute_die($l_tdr_sportcom);
-  }
+	if ($type1 == 'port')
+	{
+		if ($src['port_type'] == 'special')
+		{
+			if (($type2 != 'planet') && ($type2 != 'corp_planet'))
+				traderoute_die($l_tdr_sportissrc);
+
+			if ($dest['owner'] != $playerinfo['ship_id'] && ($dest['corp'] == 0 || ($dest['corp'] != $playerinfo['team'])))
+				traderoute_die($l_tdr_notownplanet);
+		}
+		else
+		{
+			if ($type2 == 'planet')
+				traderoute_die($l_tdr_planetisdest);
+
+			if ($src['port_type'] == $dest['port_type'])
+				traderoute_die($l_tdr_samecom);
+		}
+	}
+	else
+	{
+		if ($dest['port_type'] == 'special')
+			traderoute_die($l_tdr_sportcom);
+	}
 }
 
 
 function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = 'N')
 {
-  global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
-  global $level_factor;
-  global $db;
-  global $db_logging;
+	global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
+	global $level_factor;
+	global $db;
+	global $db_logging;
+	
+	$retvalue['triptime'] = 0;
+	$retvalue['scooped1'] = 0;
+	$retvalue['scooped2'] = 0;
+	$retvalue['scooped'] = 0;
 
-  $retvalue['triptime'] = 0;
-  $retvalue['scooped1'] = 0;
-  $retvalue['scooped2'] = 0;
-  $retvalue['scooped'] = 0;
+	if ($type1 == 'L')
+	{
+		$query = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$start");
+		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+		$start = $query->fields;
+	}
 
-  if ($type1 == 'L')
-  {
-    $query = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$start");
-    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-    $start = $query->fields;
-  }
+	if ($type2 == 'L')
+	{
+		$query = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$dest");
+		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+		$dest = $query->fields;
+	}
 
-  if ($type2 == 'L')
-  {
-    $query = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$dest");
-    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-    $dest = $query->fields;
-  }
+	if ($start[sector_id] == $dest[sector_id])
+	{
+		if ($circuit == '1')
+			$retvalue[triptime] = '1';
+		else
+			$retvalue[triptime] = '2';
 
-  if ($start[sector_id] == $dest[sector_id])
-  {
-    if ($circuit == '1')
-      $retvalue[triptime] = '1';
-    else
-      $retvalue[triptime] = '2';
+		return $retvalue;
+	}
 
-    return $retvalue;
-  }
+	$deg = pi() / 180;
 
-  $deg = pi() / 180;
+	$sa1 = $start[angle1] * $deg;
+	$sa2 = $start[angle2] * $deg;
+	$fa1 = $dest[angle1] * $deg;
+	$fa2 = $dest[angle2] * $deg;
+	$x = $start[distance] * sin($sa1) * cos($sa2) - $dest[distance] * sin($fa1) * cos($fa2);
+	$y = $start[distance] * sin($sa1) * sin($sa2) - $dest[distance] * sin($fa1) * sin($fa2);
+	$z = $start[distance] * cos($sa1) - $dest[distance] * cos($fa1);
+	$distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
+	$shipspeed = pow ($level_factor, $playerinfo['engines']);
+	$triptime = round($distance / $shipspeed);
 
-  $sa1 = $start[angle1] * $deg;
-  $sa2 = $start[angle2] * $deg;
-  $fa1 = $dest[angle1] * $deg;
-  $fa2 = $dest[angle2] * $deg;
-  $x = $start[distance] * sin($sa1) * cos($sa2) - $dest[distance] * sin($fa1) * cos($fa2);
-  $y = $start[distance] * sin($sa1) * sin($sa2) - $dest[distance] * sin($fa1) * sin($fa2);
-  $z = $start[distance] * cos($sa1) - $dest[distance] * cos($fa1);
-  $distance = round(sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-  $shipspeed = pow ($level_factor, $playerinfo['engines']);
-  $triptime = round($distance / $shipspeed);
+	if (!$triptime && $destination != $playerinfo['sector'])
+		$triptime = 1;
+	
+	if ($playerinfo['dev_fuelscoop'] == "Y")
+		$energyscooped = $distance * 100;
+	else
+		$energyscooped = 0;
+	
+	if ($playerinfo['dev_fuelscoop'] == "Y" && !$energyscooped && $triptime == 1)
+		$energyscooped = 100;
+	
+	$free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
+	
+	if ($free_power < $energyscooped)
+		$energyscooped = $free_power;
+	
+	if ($energyscooped < 1)
+		$energyscooped = 0;
 
-  if (!$triptime && $destination != $playerinfo['sector'])
-    $triptime = 1;
+	$retvalue['scooped1'] = $energyscooped;
+	
+	if ($circuit == '2')
+	{
+		if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
+		{
+			$energyscooped = $distance * 100;
+			$free_power = NUM_ENERGY($playerinfo[power]);
 
-  if ($playerinfo['dev_fuelscoop'] == "Y")
-      $energyscooped = $distance * 100;
-  else
-    $energyscooped = 0;
+			if ($free_power < $energyscooped)
+				$energyscooped = $free_power;
 
-  if ($playerinfo['dev_fuelscoop'] == "Y" && !$energyscooped && $triptime == 1)
-    $energyscooped = 100;
+			$retvalue['scooped2'] = $energyscooped;
+		}
+		elseif ($playerinfo[dev_fuelscoop] == 'Y')
+		{
+			$energyscooped = $distance * 100;
+			$free_power = NUM_ENERGY($playerinfo['power']) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
 
-  $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
+			if ($free_power < $energyscooped)
+				$energyscooped = $free_power;
 
-  if ($free_power < $energyscooped)
-    $energyscooped = $free_power;
+			$retvalue['scooped2'] = $energyscooped;
+		}
+	}
 
-  if ($energyscooped < 1)
-    $energyscooped = 0;
+	if ($circuit == '2')
+	{
+		$triptime*=2;
+		$triptime+=2;
+	}
+	else
+		$triptime+=1;
 
-  $retvalue['scooped1'] = $energyscooped;
+	$retvalue['triptime'] = $triptime;
+	$retvalue['scooped'] = $retvalue['scooped1'] + $retvalue['scooped2'];
 
-  if ($circuit == '2')
-  {
-    if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
-    {
-      $energyscooped = $distance * 100;
-      $free_power = NUM_ENERGY($playerinfo[power]);
-      if ($free_power < $energyscooped)
-        $energyscooped = $free_power;
-      $retvalue['scooped2'] = $energyscooped;
-    }
-    elseif ($playerinfo[dev_fuelscoop] == 'Y')
-    {
-      $energyscooped = $distance * 100;
-      $free_power = NUM_ENERGY($playerinfo['power']) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
-      if ($free_power < $energyscooped)
-        $energyscooped = $free_power;
-      $retvalue['scooped2'] = $energyscooped;
-    }
-  }
-
-  if ($circuit == '2')
-  {
-    $triptime*=2;
-    $triptime+=2;
-  }
-  else
-    $triptime+=1;
-
-  $retvalue['triptime'] = $triptime;
-  $retvalue['scooped'] = $retvalue['scooped1'] + $retvalue['scooped2'];
-
-  return $retvalue;
+	return $retvalue;
 }
 
 function traderoute_new($traderoute_id)
@@ -1209,6 +1215,7 @@ function traderoute_engage($j)
   global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here, $l_tdr_five, $l_tdr_ten, $l_tdr_fifty;
   global $db;
   global $db_logging;
+  global $portfull;
 
   foreach ($traderoutes as $testroute)
   {
@@ -1344,50 +1351,53 @@ function traderoute_engage($j)
     $destport = $result->fields;
   }
 
-  if (!isset($sourceport))
-    $sourceport=$source;
-  if (!isset($destport))
-    $destport=$dest;
+if (!isset($sourceport))
+	$sourceport=$source;
+
+if (!isset($destport))
+	$destport=$dest;
 
 // Warp or RealSpace and generate distance
-  if ($traderoute['move_type'] == 'W')
-  {
-    $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$source[sector_id] AND link_dest=$dest[sector_id]");
-    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-    if ($query->EOF)
-    {
-      $l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink1);
-      $l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
-      traderoute_die($l_tdr_nowlink1);
-    }
-    if ($traderoute['circuit'] == '2')
-    {
-      $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$dest[sector_id] AND link_dest=$source[sector_id]");
-      db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-      if ($query->EOF)
-      {
-        $l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink2);
-        $l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
-        traderoute_die($l_tdr_nowlink2);
-      }
-      $dist['triptime'] = 4;
-    }
-    else
-      $dist['triptime'] = 2;
-
-    $dist['scooped'] = 0;
-  }
-  else
-    $dist = traderoute_distance('P', 'P', $sourceport, $destport, $traderoute['circuit']);
+	if ($traderoute['move_type'] == 'W')
+	{
+		$query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$source[sector_id] AND link_dest=$dest[sector_id]");
+		db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+		if ($query->EOF)
+		{
+			$l_tdr_nowlink1 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink1);
+			$l_tdr_nowlink1 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink1);
+			traderoute_die($l_tdr_nowlink1);
+		}
+		if ($traderoute['circuit'] == '2')
+		{
+			$query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=$dest[sector_id] AND link_dest=$source[sector_id]");
+			db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+			if ($query->EOF)
+			{
+				$l_tdr_nowlink2 = str_replace("[tdr_src_sector_id]", $source[sector_id], $l_tdr_nowlink2);
+				$l_tdr_nowlink2 = str_replace("[tdr_dest_sector_id]", $dest[sector_id], $l_tdr_nowlink2);
+				traderoute_die($l_tdr_nowlink2);
+			}
+			$dist['triptime'] = 4;
+		}
+		else
+			$dist['triptime'] = 2;
+		
+		$dist['scooped'] = 0;
+		$dist['scooped1'] = 0;
+		$dist['scooped2'] = 0;
+	}
+	else
+		$dist = traderoute_distance('P', 'P', $sourceport, $destport, $traderoute['circuit']);
 
 
 // Check if player has enough turns
-  if ($playerinfo['turns'] < $dist['triptime'])
-  {
-    $l_tdr_moreturnsneeded = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_moreturnsneeded);
-    $l_tdr_moreturnsneeded = str_replace("[tdr_playerinfo_turns]", $playerinfo['turns'], $l_tdr_moreturnsneeded);
-    traderoute_die($l_tdr_moreturnsneeded);
-  }
+	if ($playerinfo['turns'] < $dist['triptime'])
+	{
+		$l_tdr_moreturnsneeded = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_moreturnsneeded);
+		$l_tdr_moreturnsneeded = str_replace("[tdr_playerinfo_turns]", $playerinfo['turns'], $l_tdr_moreturnsneeded);
+		traderoute_die($l_tdr_moreturnsneeded);
+	}
 
 
 // Sector Defense Check
@@ -1755,6 +1765,7 @@ traderoute_results_table_top();
       if ($source['port_type'] == 'energy')
       {
         $energy_price1 = $energy_price - $energy_delta * $source['port_energy'] / $energy_limit * $inventory_factor;
+
         $energy_buy = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'] - $dist['scooped1'];
         if ($playerinfo['credits'] + $sourcecost < $energy_buy * $energy_price1)
           $energy_buy = ($playerinfo['credits'] + $sourcecost) / $energy_price1;
@@ -2354,20 +2365,20 @@ function traderoute_results_display_totals($total_profit)
     global $l_tdr_totalprofit,$l_tdr_totalcost;
     if ($total_profit > 0)
     {
-        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalprofit : <font color='#0f0'><strong>" . NUMBER(abs($total_profit)) . "</strong></font><br>\n";
+        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalprofit : <font style='color:#0f0;'><strong>" . NUMBER(abs($total_profit)) . "</strong></font><br>\n";
     }
     else
     {
-        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalcost : <font color='red'><strong>" . NUMBER(abs($total_profit)) . "</strong></font><br>\n";
+        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalcost : <font style='color:#f00;'><strong>" . NUMBER(abs($total_profit)) . "</strong></font><br>\n";
     }
 }
 function traderoute_results_display_summary($tdr_display_creds)
 {
   global  $l_tdr_turnsused , $dist, $l_tdr_turnsleft, $playerinfo,$l_tdr_credits;
-  echo "\n<font size='3' color='white'><strong>$l_tdr_turnsused : <font color='red'>$dist[triptime]</font></strong></font><br>";
-  echo "\n<font size='3' color='white'><strong>$l_tdr_turnsleft : <font color='#0f0'>$playerinfo[turns]</font></strong></font><br>";
+  echo "\n<font size='3' color='white'><strong>$l_tdr_turnsused : <font style='color:#f00;'>$dist[triptime]</font></strong></font><br>";
+  echo "\n<font size='3' color='white'><strong>$l_tdr_turnsleft : <font style='color:#0f0;'>$playerinfo[turns]</font></strong></font><br>";
 
-  echo "\n<font size='3' color='white'><strong>$l_tdr_credits : <font color='#0f0'> $tdr_display_creds\n</font></strong></font><br> </strong></font></center>\n";
+  echo "\n<font size='3' color='white'><strong>$l_tdr_credits : <font style='color:#0f0;'> $tdr_display_creds\n</font></strong></font><br> </strong></font></center>\n";
 //  echo "<font size='2'>\n";
 
 }
