@@ -82,9 +82,9 @@ require_once "sched_funcs.php";
 
 #echo "<pre>[REQUEST]\n". print_r($_REQUEST, true) ."</pre>\n";
 
-if (isset($_POST['swordfish']))
+if (isset($_REQUEST['swordfish']))
 {
-    $swordfish = $_POST['swordfish'];
+    $swordfish = $_REQUEST['swordfish'];
 }
 else
 {
