@@ -85,10 +85,15 @@ function gen_score ($sid)
     $calc_planet_defence    = "SUM({$db->prefix}planets.fighters) * $fighter_price + if ({$db->prefix}planets.base='Y', $base_credits + SUM({$db->prefix}planets.torps) * $torpedo_price, 0)";
     $calc_planet_credits    = "SUM({$db->prefix}planets.credits)";
 
-    $res = $db->Execute("SELECT $calc_levels+$calc_equip+$calc_dev+{$db->prefix}ships.credits+$calc_planet_goods+$calc_planet_colonists+$calc_planet_defence+$calc_planet_credits AS score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+    $res = $db->Execute("SELECT if(COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) as planet_score FROM {$db->prefix}planets WHERE owner=$sid;");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-    $row = $res->fields;
-    $score = $row['score'];
+    $planet_score = $res->fields['planet_score'];
+
+    $res = $db->Execute("SELECT if(COUNT(*)>0, $calc_levels+$calc_equip+$calc_dev+{$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=$sid AND ship_destroyed='N'");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    $ship_score = $res->fields['ship_score'];
+
+    $score = $ship_score + $planet_score;
     $res = $db->Execute("SELECT balance, loan FROM {$db->prefix}ibank_accounts where ship_id = $sid");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
