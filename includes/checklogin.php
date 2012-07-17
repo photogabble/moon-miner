@@ -45,6 +45,20 @@ function checklogin ()
         $flag = 1;
     }
 
+    if($playerinfo)
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $stamp = date("Y-m-d H:i:s");
+        $timestamp['now']  = (int)strtotime($stamp);
+        $timestamp['last'] = (int)strtotime($playerinfo['last_login']);
+
+        // Update the players last_login ever 60 seconds to cut back SQL Queries.
+        if($timestamp['now'] >= ($timestamp['last'] +60))
+        {
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array($stamp, $ip, $playerinfo['ship_id']));
+        }
+    }
+
     // Check for destroyed ship
     if ($playerinfo['ship_destroyed'] == "Y")
     {

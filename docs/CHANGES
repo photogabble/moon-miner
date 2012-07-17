@@ -9,6 +9,7 @@ Fixed feedback.php to use mail() and cleaned up code a bit.
 Updated perfmon.php to now require the admin password.
 Updated create_universe.php to display the importing of the languages into the same html table as the rest.
 Updated schema.php, we now only create the table if it doesn't already exist.
+Updated checklogin.php file to update the players online status, this was missing, updates ever 60 seconds.
 
 TheKabal (21 June 2012)
 --------------------------------------
