@@ -32,7 +32,6 @@ if (checklogin())
 $title = $l_main_title;
 include "header.php";
 
-$basefontsize = 1;
 $stylefontsize = "12Pt";
 $picsperrow = 7;
 
