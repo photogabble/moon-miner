@@ -239,7 +239,9 @@ $db->Execute("CREATE TABLE {$db->prefix}IGB_transfers (" .
              "source_id int DEFAULT '0' NOT NULL," .
              "dest_id int DEFAULT '0' NOT NULL," .
              "time datetime," .
+             "amount double(54,0) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY(transfer_id)" .
+             "KEY amount (amount)" .
              ")");
 $err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
