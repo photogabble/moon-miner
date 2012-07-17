@@ -377,6 +377,7 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
   global $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_sportissrc, $l_tdr_notownplanet, $l_tdr_planetisdest;
   global $l_tdr_samecom, $l_tdr_sportcom, $color_line1, $color_line2, $color_header, $servertimezone;
   global $db;
+  global $db_logging;
 
   // Check warp links compatibility
   if ($move == 'warp')
@@ -433,6 +434,7 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
   global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
   global $level_factor;
   global $db;
+  global $db_logging;
 
   $retvalue['triptime'] = 0;
   $retvalue['scooped1'] = 0;
@@ -1885,6 +1887,7 @@ traderoute_results_table_top();
       {
         if ($source[fighters] > $free_fighters)
           $fighters_buy = $free_fighters;
+
         else
           $fighters_buy = $source[fighters];
         $free_fighters -= $fighters_buy;
@@ -2175,6 +2178,7 @@ traderoute_results_table_top();
 
       if ($fighters_buy != 0)
         echo "$l_tdr_dumped " . NUMBER($fighters_buy) . " $l_tdr_fighters<br>";
+
 
       if ($playerinfo[trade_torps] == 'Y')
       {
