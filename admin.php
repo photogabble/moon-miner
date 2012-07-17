@@ -277,13 +277,15 @@ else
                     echo "<table border=0 cellspacing=2 cellpadding=2>";
                     echo "<tr><td><tt>          Port Type  </tt></td><td>";
                     echo "<select size=1 name=port_type>";
-                    $oportnon = $oportorg = $oportore = $oportgoo = $oportene = "value";
+                    $oportnon = $oportspe = $oportorg = $oportore = $oportgoo = $oportene = "value";
                     if ($row[port_type] == "none") $oportnon = "selectED=none value";
+                    if ($row[port_type] == "special") $oportspe = "selectED=special value";
                     if ($row[port_type] == "organics") $oportorg = "selectED=organics value";
                     if ($row[port_type] == "ore") $oportore = "selectED=ore value";
                     if ($row[port_type] == "goods") $oportgoo = "selectED=goods value";
                     if ($row[port_type] == "energy") $oportene = "selectED=energy value";
                     echo "<option $oportnon=none>none</option>";
+                    echo "<option $oportspe=special>special</option>";
                     echo "<option $oportorg=organics>organics</option>";
                     echo "<option $oportore=ore>ore</option>";
                     echo "<option $oportgoo=goods>goods</option>";
