@@ -14,6 +14,7 @@ Updated admin.php to allow setting special ports into sectors.
 Fixed Notice: Use of undefined constant team_name - assumed 'team_name'
 Fixed genscore() when player has no planets.
 Fixed invalid character in header.php
+Fixed Notice: Use of undefined constant amount - assumed 'amount' in sched_news.php
 
 TheKabal (21 June 2012)
 --------------------------------------
@@ -23,7 +24,6 @@ Eliminated global_funcs (see global_includes instead), eliminated several functi
 Greatly simplified the style & html for login, index, and main resulting in a single stylesheet they currently use
 Added German language to game
 
-
 TheKabal (3 May 2012)
 --------------------------------------
 Merged patch for teams.php from rjordan (SF Patch # 906580): revision 1450
@@ -31,7 +31,7 @@ Changed all (confusing/inconsistent) references to Alliance(s) to Team(s) instea
 Removed personal credits notices.
 Moved all documents (newplayer/faq) into docs directory.
 (Temporarily) removed innodb references, as they used an SQL syntax that is no longer supported (threw an error).
-test
+
 TheMightyDude (22 May 2011)
 --------------------------------------
 [1467445] Escape Pods not working (fixed)
