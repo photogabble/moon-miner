@@ -859,6 +859,7 @@ function traderoute_create()
   global $l_tdr_newtdrcreated, $l_tdr_tdrmodified, $l_tdr_returnmenu;
   global $l_tdr_invaliddplanet, $l_tdr_invaliddport, $l_tdr_invalidsrc, $l_tdr_invalidspoint, $l_here;
   global $db;
+  global $db_logging;
 
     if ($num_traderoutes >= $max_traderoutes_player && empty($editing))
     { // Dont let them exceed max traderoutes
@@ -1059,6 +1060,7 @@ function traderoute_delete()
   global $traderoutes;
   global $l_tdr_returnmenu, $l_tdr_tdrdoesntexist, $l_tdr_notowntdr, $l_tdr_tdrdeleted, $l_here;
   global $db;
+  global $db_logging;
 
   $query = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=$traderoute_id");
   db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
@@ -1156,6 +1158,7 @@ function traderoute_setsettings()
   global $energy;
   global $l_tdr_returnmenu, $l_tdr_globalsetsaved, $l_here;
   global $db;
+  global $db_logging;
 
   empty($colonists) ? $colonists = 'N' : $colonists = 'Y';
   empty($fighters) ? $fighters = 'N' : $fighters = 'Y';
@@ -1203,6 +1206,7 @@ function traderoute_engage($j)
   global $l_tdr_nodestporttrade, $l_tdr_tradedestportoutsider, $l_tdr_portin, $l_tdr_planet, $l_tdr_bought, $l_tdr_colonists;
   global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here, $l_tdr_five, $l_tdr_ten, $l_tdr_fifty;
   global $db;
+  global $db_logging;
 
   foreach ($traderoutes as $testroute)
   {
