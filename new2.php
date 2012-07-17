@@ -140,7 +140,8 @@ if ($flag == 0)
         $l_new_message = str_replace("[ip]", $ip, $l_new_message);
         $link_to_game = "http://";
         $link_to_game .= ltrim($gamedomain,".");// Trim off the leading . if any
-        $link_to_game .= str_replace($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
+        //$link_to_game .= str_replace($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
+        $link_to_game .= $gamepath;
         mail("$username", "$l_new_topic", "$l_new_message\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion());
 
         log_move ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
