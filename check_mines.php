@@ -47,8 +47,8 @@ while (!$result3->EOF)
 {
     $row=$result3->fields;
     $defences[$num_defences] = $row;
-    $total_sector_mines += $defences[$i]['quantity'];
-    if ($defences[$i]['ship_id'] != $playerinfo['ship_id'])
+    $total_sector_mines += $defences[$num_defences]['quantity'];
+    if ($defences[$num_defences]['ship_id'] != $playerinfo['ship_id'])
     {
         $owner = false;
     }
