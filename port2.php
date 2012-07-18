@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('port', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include_once "includes/is_loan_pending.php";
 
@@ -666,7 +666,7 @@ else
         {
             if ($total_cost == 0 )
             {
-                $trade_color   = "white";
+                $trade_color   = "#fff";
                 $trade_result  = "$l_cost : ";
             }
             elseif ($total_cost < 0 )
@@ -685,7 +685,7 @@ else
                         <td colspan=99 align=center><font size=3 color=white><strong>$l_trade_result</strong></font></td>
                     </tr>
                     <tr>
-                        <td colspan=99 align=center><strong><font color=\"". $trade_color . "\">". $trade_result ." " . NUMBER (abs ($total_cost)) . " $l_credits</font></strong></td>
+                        <td colspan=99 align=center><strong><font style='color:{$trade_color};'>". $trade_result ." " . NUMBER (abs ($total_cost)) . " $l_credits</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
                         <td><strong><font size=2 color=white>$l_traded_ore: </font><strong></td><td align=right><strong><font size=2 color=white>" . NUMBER ($trade_ore) . "</font></strong></td>
