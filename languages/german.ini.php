@@ -184,6 +184,7 @@ l_trade_added = "hinzugef&uuml;gt";
 l_trade_installed = "installiert";
 
 [planet]
+l_planet = "Planeten";
 l_planet_title = "Planeten Men&uuml;";
 l_planet_none = "Du bist nicht im gleichen Sektor wie dieser Planet, daher ist keine Interaktion m&ouml;glich.";
 l_planet_capture1 = "besetzten";

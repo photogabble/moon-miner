@@ -183,6 +183,7 @@ l_trade_added = "ajoutés";
 l_trade_installed = "installé";
 
 [planet]
+l_planet                 = "planète";
 l_planet_title           = "Menu de planète";
 l_planet_none           = "Vous n'êtes pas dans le même secteur que cette planète, alors vous ne pouvez interagir avec elle.";
 l_planet_capture1      = "capturer"; 

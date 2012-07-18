@@ -186,6 +186,7 @@ l_trade_added = "añadido";
 l_trade_installed = "instalado"; 
 
 [planet]
+l_planet                 = "Planeta";
 l_planet_title           = "Menú del Planeta"; 
 l_planet_none           = "No estás en el mismo sector que este planeta, así que no puedes interactuar con él."; 
 l_planet_capture1      = "capturar";  
