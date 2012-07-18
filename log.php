@@ -47,12 +47,12 @@ $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHER
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
-if (!isset($_GET['swordfish']))
+if (!isset($_REQUEST['swordfish']))
 {
-    $_GET['swordfish'] = '';
+    $_REQUEST['swordfish'] = '';
 }
 
-$swordfish = $_GET['swordfish'];
+$swordfish = $_REQUEST['swordfish'];
 
 if ($swordfish == $adminpass) // Check if called by admin script
 {
