@@ -419,7 +419,7 @@ function planet_production_change()
             echo "<td align=right>"  . NUMBER($planet[$i]['credits'])        . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_fighters[" . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_fighters'] . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_torp["     . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_torp']     . "\">" . "</td>\n";
-            if ($playerinfo[team] > 0)
+            if ($playerinfo['team'] > 0)
             {
                 echo "<td align=center>" . corp_planet_checkboxes($planet, $i) . "</td>\n";
             }
@@ -447,7 +447,7 @@ function planet_production_change()
         echo "<td align=right>" . NUMBER($total_credits)   . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
-        if ($playerinfo[team] > 0)
+        if ($playerinfo['team'] > 0)
         {
             echo "<td></td>\n";
         }
