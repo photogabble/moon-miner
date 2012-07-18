@@ -77,7 +77,7 @@ while (!$sql->EOF)
     }
     elseif ($row['amount'] >= 10)
     {
-        $sql2 = $db->Execute("SELETE * FROM {$db->prefix}news WHERE user_id='$row[owner]' AND news_type='planet10'");
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id='$row[owner]' AND news_type='planet10'");
         db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
         
         if ($sql2->EOF)
