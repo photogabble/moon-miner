@@ -143,7 +143,7 @@ if ($result->RecordCount() > 0)
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
 
-    $res = $db->Execute("UPDATE {$db->prefix}messages SET notified='Y' WHERE recp_id='".$playerinfo[ship_id]."'");
+    $res = $db->Execute("UPDATE {$db->prefix}messages SET notified='Y' WHERE recp_id=?;", array($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 }
 

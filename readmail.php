@@ -33,7 +33,7 @@ if (checklogin())
     die();
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -44,19 +44,19 @@ if (!isset($_GET['action']))
 
 if ($_GET['action']=="delete")
 {
-    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID='".$ID."' AND recp_id='".$playerinfo[ship_id]."'");
+    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id=?;", array($ID, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 else if ($_GET['action']=="delete_all")
 {
-    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id='".$playerinfo[ship_id]."'");
+    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id=?;", array($playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 
 $cur_D = date("Y-m-d");
 $cur_T = date("H:i:s");
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id='".$playerinfo['ship_id']."' ORDER BY sent DESC");
+$res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id=? ORDER BY sent DESC;", array($playerinfo['ship_id']));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 ?>
 <div align="center">
@@ -104,10 +104,10 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   while (!$res->EOF)
   {
    $msg = $res->fields;
-   $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id='".$msg[sender_id]."'");
+   $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($msg['sender_id']));
    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
    $sender = $result->fields;
-   $isAdmin = isAdmin($sender);
+//   $isAdmin = isAdmin($sender);
 ?>
             <tr>
               <td width="100%" align="center" bgcolor="black" height="4"></td>
@@ -121,10 +121,10 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                       <td width="55%" style="text-align:left;"><font color="yellow" size="2">
 <?php
 echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
-if ($isAdmin === true)
-{
-    echo "&nbsp;<img style='border:none; padding:0px; vertical-align:text-bottom;' src='images/validated_administrator2.gif' alt='Validated as Admin' />";
-}
+//if ($isAdmin === true)
+//{
+//    echo "&nbsp;<img style='border:none; padding:0px; vertical-align:text-bottom;' src='images/validated_administrator2.gif' alt='Validated as Admin' />";
+//}
 ?>
 </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><?php echo $msg['sent']; ?></font></td>
