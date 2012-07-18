@@ -634,15 +634,19 @@ echo "</div>";
 
 if ($num_defences>0)
 {
-    echo "<strong>\n";
-    echo "  <center>\n";
-    echo "    <span style='color:#fff;'>$l_sector_def</span>\n";
-    echo "    <br>\n";
-    echo "  </center>\n";
-    echo "</strong>\n";
+            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030; text-align:center;'>" . $l_sector_def . "</div>\n";
+
+#echo "<div style='border:#FF0000 1px solid;'>\n";
+ #   echo "<strong>\n";
+ #   echo "  <center>\n";
+ #   echo "    <span style='color:#fff;'>$l_sector_def</span>\n";
+ #   echo "    <br>\n";
+ #   echo "  </center>\n";
+ #   echo "</strong>\n";
+echo "<div style='width:498px; margin:auto; overflow:auto; height:125px; scrollbar-base-color: #303030; scrollbar-arrow-color: #fff; padding:0px; text-align:center;'>\n";
 }
 ?>
-<table style='border:0px; width:100%;'>
+<table>
 <tr>
 <?php
 if ($num_defences > 0)
@@ -653,10 +657,10 @@ if ($num_defences > 0)
     while ($i < $num_defences)
     {
         $defence_id = $defences[$i]['defence_id'];
-        echo "<td style='margin-left:auto; margin-right:auto;vertical-align:top'>";
+        echo "<td style='vertical-align:top; background: URL(images/bg_alpha.png) repeat;'><div style=' width:160px; font-size:12px; '>";
         if ($defences[$i]['defence_type'] == 'F')
         {
-            echo "<a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/fighters.png\" style='border:0px' alt='Fighters'></a><br><div style='font-size:1em; color:#fff;'>";
+            echo "<a class='new_link' href='modify_defences.php?defence_id=$defence_id'><img class='mnu' src=\"images/fighters.png\" style='border:0px' alt='Fighters'></a>\n";
             $def_type = $l_fighters;
             $mode = $defences[$i]['fm_setting'];
             if ($mode == 'attack')
@@ -671,14 +675,14 @@ if ($num_defences > 0)
         }
         elseif ($defences[$i]['defence_type'] == 'M')
         {
-            echo "<a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/mines.png\" style='border:0px' alt='Mines'></a><br><div style='font-size:1em; color:#fff'>";
+            echo "<div><a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/mines.png\" style='border:0px' alt='Mines'></a></div>\n";
             $def_type = $l_mines;
         }
 
         $char_name = $defences[$i]['character_name'];
         $qty = $defences[$i]['quantity'];
-        echo "$char_name ( $qty $def_type )";
-        echo "</div></td>";
+        echo "<div style='font-size:1em; color:#fff;'>$char_name<br>( $qty $def_type )</div>\n";
+		echo "</div></td>";
 
         $totalcount++;
         if ($curcount == $picsperrow - 1)
@@ -693,11 +697,12 @@ if ($num_defences > 0)
         $i++;
     }
     echo "</tr></table>";
+echo "</div>\n";
 }
 else
 {
-    echo "<td style='margin-left:auto; margin-right:auto;vertical-align:top'>";
-//   echo "<br><span style='color:white; size:1.25em;'>None</font><br><br>";
+    echo "<td style='vertical-align:top; text-align:center;'>";
+#   echo "<br><span style='color:white; size:1.25em;'>None</font><br><br>";
     echo "</td></tr></table>";
 }
 ?>

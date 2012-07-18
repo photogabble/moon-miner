@@ -45,13 +45,15 @@ db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 // Put the defence information into the array "defenceinfo"
 $i = 0;
 $total_sector_fighters = 0;
-$total_sector_miness = 0;
+$total_sector_mines = 0;
 $owns_all = true;
 $fighter_id = 0;
 $mine_id = 0;
 $set_attack = 'CHECKED';
 $set_toll = '';
-if ($result3 > 0)
+
+# Do we have a valid recordset?
+if ($result3 instanceof ADORecordSet)
 {
     while (!$result3->EOF)
     {
@@ -157,16 +159,18 @@ else
         $availfighters = NUMBER ($playerinfo['ship_fighters']);
         echo "<FORM ACTION=mines.php METHOD=POST>";
         $l_mines_info1 = str_replace("[sector]", $playerinfo['sector'], $l_mines_info1);
-        $l_mines_info1 = str_replace("[mines]", NUMBER ($sectorinfo['mines']), $l_mines_info1);
-        $l_mines_info1 = str_replace("[fighters]", NUMBER ($sectorinfo['fighters']), $l_mines_info1);
+        $l_mines_info1 = str_replace("[mines]", NUMBER ($total_sector_mines), $l_mines_info1);
+        $l_mines_info1 = str_replace("[fighters]", NUMBER ($total_sector_fighters), $l_mines_info1);
         echo "$l_mines_info1<br><br>";
         $l_mines_info2 = str_replace("[mines]", $availmines, $l_mines_info2);
         $l_mines_info2 = str_replace("[fighters]", $availfighters, $l_mines_info2);
-        echo "You have $availmines mines and $availfighters fighters available to deploy.<br>";
+        echo "You have $availmines mines and $availfighters fighters available to deploy.<br>\n";
+		echo "<br />\n";
         echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[torps]> $l_mines.<br>";
         echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[ship_fighters]> $l_fighters.<br>";
         echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_mines_att</INPUT>";
         echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_mines_toll</INPUT><br>";
+ 		echo "<br />\n";
         echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset><br><br>";
         echo "<input type=hidden name=op value=$op>";
         echo "</FORM>";
