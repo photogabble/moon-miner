@@ -4,6 +4,7 @@ Temp hack/fix for the player log until we have a better way to do it.
 Fixed bug in main.php, readmail.php, mailto2.php Notice: Use of undefined constant ship_id - assumed 'ship_id'
 Fixed Missing language variables when upgrading the ship at the Special Port.
 Fixed Depolying Sector Defences, added a div container with overflow so that we can scroll defences.
+Fixed Notice: Undefined index: port_shopping in port2.php
 
 TheMightyDude (17 July 2012)
 --------------------------------------
