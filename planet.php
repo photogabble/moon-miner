@@ -181,7 +181,7 @@ if (!empty ($planetinfo) )
         if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $playerinfo['team'] && $playerinfo['team'] > 0))
         {
             // Owner menu
-            echo "$l_turns_have: $playerinfo[turns]<p>";
+            echo "$l_turns_have $playerinfo[turns]<p>";
 
             $l_planet_name_link = "<a href=planet.php?planet_id=$planet_id&command=name>" . $l_planet_name_link . "</a>";
             $l_planet_name = str_replace ("[name]", $l_planet_name_link, $l_planet_name2);
