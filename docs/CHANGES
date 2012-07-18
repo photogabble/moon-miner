@@ -1,5 +1,6 @@
 TheKabal (18 July 2012)
 --------------------------------------
+Fix news headline to add space before "5 planets"
 Fix goto main link in rsmove
 Fixes for undefined constants in traderoutes with a planet
 

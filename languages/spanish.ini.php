@@ -1234,7 +1234,7 @@ l_global_player          = "La zona pertenece ahora al jugador";
 
 l_news_planets            = " planetas"; 
 l_news_cols                = "Millones de colonos"; 
-l_news_p_headline = "El Imperio de [player] tiene ahora "; 
+l_news_p_headline = "El Imperio de [player] tiene ahora"; 
 
 l_killheadline = " ha muerto en un accidente"; 
 l_news_killed = "[name] ha muerto en un trágico accidente hoy. Qué heroico - el capitán [name] era el último miembro a bordo de su nave, cuando notó que ya no quedaban cápsulas de salvamento para él. ¡Descanse en paz!"; 
