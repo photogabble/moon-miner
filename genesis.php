@@ -37,7 +37,7 @@ if (checklogin () )
 }
 
 // Adding db lock to prevent more than 5 planets in a sector
-$resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}logsql WRITE");
+$resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE");
 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
