@@ -1,5 +1,6 @@
 TheKabal (18 July 2012)
 --------------------------------------
+Fix undefined constants in includes/calc_ownership.php
 Fix missing language string "Planet" in planet menu
 Fix undefined variable l_toplanetmenu in planet2 when transferring to planet
 Fix news headline to add space before "5 planets"

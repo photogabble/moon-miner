@@ -55,24 +55,24 @@ function calc_ownership ($sector)
     $loop = 0;
     while ($loop < $owner_num)
     {
-      if ($curbase[corp] != 0)
+      if ($curbase['corp'] != 0)
       {
-        if ($owners[$loop][type] == 'C')
+        if ($owners[$loop]['type'] == 'C')
         {
-          if ($owners[$loop][id] == $curbase[corp])
+          if ($owners[$loop]['id'] == $curbase['corp'])
           {
             $curcorp=$loop;
-            $owners[$loop][num]++;
+            $owners[$loop]['num']++;
           }
         }
       }
 
-      if ($owners[$loop][type] == 'S')
+      if ($owners[$loop]['type'] == 'S')
       {
-        if ($owners[$loop][id] == $curbase[owner])
+        if ($owners[$loop]['id'] == $curbase['owner'])
         {
           $curship=$loop;
-          $owners[$loop][num]++;
+          $owners[$loop]['num']++;
         }
       }
 
@@ -81,25 +81,25 @@ function calc_ownership ($sector)
 
     if ($curcorp == -1)
     {
-      if ($curbase[corp] != 0)
+      if ($curbase['corp'] != 0)
       {
          $curcorp=$owner_num;
          $owner_num++;
-         $owners[$curcorp][type] = 'C';
-         $owners[$curcorp][num] = 1;
-         $owners[$curcorp][id] = $curbase[corp];
+         $owners[$curcorp]['type'] = 'C';
+         $owners[$curcorp]['num'] = 1;
+         $owners[$curcorp]['id'] = $curbase['corp'];
       }
     }
 
     if ($curship == -1)
     {
-      if ($curbase[owner] != 0)
+      if ($curbase['owner'] != 0)
       {
         $curship=$owner_num;
         $owner_num++;
-        $owners[$curship][type] = 'S';
-        $owners[$curship][num] = 1;
-        $owners[$curship][id] = $curbase[owner];
+        $owners[$curship]['type'] = 'S';
+        $owners[$curship]['num'] = 1;
+        $owners[$curship]['id'] = $curbase['owner'];
       }
     }
   }
@@ -112,17 +112,17 @@ function calc_ownership ($sector)
   $nbships=0;
   while ($loop < $owner_num)
   {
-    if ($owners[$loop][type] == 'C')
+    if ($owners[$loop]['type'] == 'C')
       $nbcorps++;
     else
     {
-      $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=" . $owners[$loop][id]);
+      $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=" . $owners[$loop]['id']);
       db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       if ($res && $res->RecordCount() != 0)
       {
         $curship = $res->fields;
-        $ships[$nbships]=$owners[$loop][id];
-        $scorps[$nbships]=$curship[team];
+        $ships[$nbships]=$owners[$loop]['id'];
+        $scorps[$nbships]=$curship['team'];
         $nbships++;
       }
     }
@@ -195,17 +195,17 @@ function calc_ownership ($sector)
   $i = 1;
   while ($i < $owner_num)
   {
-    if ($owners[$i][num] > $owners[$winner][num])
+    if ($owners[$i]['num'] > $owners[$winner]['num'])
       $winner = $i;
-    elseif ($owners[$i][num] == $owners[$winner][num])
+    elseif ($owners[$i]['num'] == $owners[$winner]['num'])
     {
-      if ($owners[$i][type] == 'C')
+      if ($owners[$i]['type'] == 'C')
         $winner = $i;
     }
     $i++;
   }
 
-  if ($owners[$winner][num] < $min_bases_to_own)
+  if ($owners[$winner]['num'] < $min_bases_to_own)
   {
     $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=$sector");
     db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
@@ -214,13 +214,13 @@ function calc_ownership ($sector)
   }
 
 
-  if ($owners[$winner][type] == 'C')
+  if ($owners[$winner]['type'] == 'C')
   {
-    $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=" . $owners[$winner][id]);
+    $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=" . $owners[$winner]['id']);
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $zone = $res->fields;
 
-    $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=" . $owners[$winner][id]);
+    $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=" . $owners[$winner]['id']);
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $corp = $res->fields;
 
@@ -234,7 +234,7 @@ function calc_ownership ($sector)
     $onpar = 0;
     foreach ($owners as $curowner)
     {
-      if ($curowner[type] == 'S' && $curowner[id] != $owners[$winner][id] && $curowner[num] == $owners[winners][num])
+      if ($curowner['type'] == 'S' && $curowner['id'] != $owners[$winner]['id'] && $curowner['num'] == $owners['winners']['num'])
         $onpar = 1;
         break;
     }
@@ -249,11 +249,11 @@ function calc_ownership ($sector)
     }
     else
     {
-      $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=" . $owners[$winner][id]);
+      $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=" . $owners[$winner]['id']);
       db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       $zone = $res->fields;
 
-      $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=" . $owners[$winner][id]);
+      $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=" . $owners[$winner]['id']);
       db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       $ship = $res->fields;
 
