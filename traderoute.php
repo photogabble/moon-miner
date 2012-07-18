@@ -1723,7 +1723,7 @@ traderoute_results_table_top();
 
       if ($source['port_type'] == 'goods')
       {
-        $goods_price1 = $goods_price - $goods_delta * $source[port_goods] / $goods_limit * $inventory_factor;
+        $goods_price1 = $goods_price - $goods_delta * $source['port_goods'] / $goods_limit * $inventory_factor;
         $goods_buy = $free_holds;
         if ($playerinfo['credits'] + $sourcecost < $goods_buy * $goods_price1)
           $goods_buy = ($playerinfo['credits'] + $sourcecost) / $goods_price1;
@@ -1799,49 +1799,49 @@ traderoute_results_table_top();
     }
   }
     // Source is planet
-  elseif (($traderoute[source_type] == 'L') || ($traderoute[source_type] == 'C'))
+  elseif (($traderoute['source_type'] == 'L') || ($traderoute['source_type'] == 'C'))
   {
-    $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+    $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
-    if ($traderoute[dest_type] == 'P')
+    if ($traderoute['dest_type'] == 'P')
     {
       // Pick stuff up to sell at port
-      if (($playerinfo[ship_id] == $source[owner]) || ($playerinfo[team] == $source[corp]))
+      if (($playerinfo['ship_id'] == $source['owner']) || ($playerinfo['team'] == $source['corp']))
       {
-        if ($source[goods] > 0 && $free_holds > 0 && $dest[port_type] != 'goods')
+        if ($source['goods'] > 0 && $free_holds > 0 && $dest['port_type'] != 'goods')
         {
-          if ($source[goods] > $free_holds)
+          if ($source['goods'] > $free_holds)
             $goods_buy = $free_holds;
           else
-            $goods_buy = $source[goods];
+            $goods_buy = $source['goods'];
           $free_holds -= $goods_buy;
-          $playerinfo[ship_goods] += $goods_buy;
+          $playerinfo['ship_goods'] += $goods_buy;
           echo "$l_tdr_loaded " . NUMBER($goods_buy) . " $l_tdr_goods<br>";
         }
         else
           $goods_buy = 0;
 
-        if ($source[ore] > 0 && $free_holds > 0 && $dest[port_type] != 'ore')
+        if ($source['ore'] > 0 && $free_holds > 0 && $dest['port_type'] != 'ore')
         {
-          if ($source[ore] > $free_holds)
+          if ($source['ore'] > $free_holds)
             $ore_buy = $free_holds;
           else
-            $ore_buy = $source[ore];
+            $ore_buy = $source['ore'];
           $free_holds -= $ore_buy;
-          $playerinfo[ship_ore] += $ore_buy;
+          $playerinfo['ship_ore'] += $ore_buy;
           echo "$l_tdr_loaded " . NUMBER($ore_buy) . " $l_tdr_ore<br>";
         }
         else
           $ore_buy = 0;
 
-        if ($source[organics] > 0 && $free_holds > 0 && $dest[port_type] != 'organics')
+        if ($source['organics'] > 0 && $free_holds > 0 && $dest['port_type'] != 'organics')
         {
-          if ($source[organics] > $free_holds)
+          if ($source['organics'] > $free_holds)
             $organics_buy = $free_holds;
           else
-            $organics_buy = $source[organics];
+            $organics_buy = $source['organics'];
           $free_holds -= $organics_buy;
-          $playerinfo[ship_organics] += $organics_buy;
+          $playerinfo['ship_organics'] += $organics_buy;
           echo "$l_tdr_loaded " . NUMBER($organics_buy) . " $l_tdr_organics<br>";
         }
         else
@@ -1864,45 +1864,45 @@ traderoute_results_table_top();
       db_op_result ($db, $resh, __LINE__, __FILE__, $db_logging);
     }
     // Destination is a planet, so load cols and weapons
-    elseif (($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))
+    elseif (($traderoute['dest_type'] == 'L') || ($traderoute['dest_type'] == 'C'))
     {
-      if ($source[colonists] > 0 && $free_holds > 0 && $playerinfo[trade_colonists] == 'Y')
+      if ($source['colonists'] > 0 && $free_holds > 0 && $playerinfo['trade_colonists'] == 'Y')
       {
-        if ($source[colonists] > $free_holds)
+        if ($source['colonists'] > $free_holds)
           $colonists_buy = $free_holds;
         else
-          $colonists_buy = $source[colonists];
+          $colonists_buy = $source['colonists'];
         $free_holds -= $colonists_buy;
-        $playerinfo[ship_colonists] += $colonists_buy;
+        $playerinfo['ship_colonists'] += $colonists_buy;
         echo "$l_tdr_loaded " . NUMBER($colonists_buy) . " $l_tdr_colonists<br>";
       }
       else
         $colonists_buy = 0;
 
-      $free_torps = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
-      if ($source[torps] > 0 && $free_torps > 0 && $playerinfo[trade_torps] == 'Y')
+      $free_torps = NUM_TORPEDOES($playerinfo['torp_launchers']) - $playerinfo['torps'];
+      if ($source['torps'] > 0 && $free_torps > 0 && $playerinfo['trade_torps'] == 'Y')
       {
-        if ($source[torps] > $free_torps)
+        if ($source['torps'] > $free_torps)
           $torps_buy = $free_torps;
         else
-          $torps_buy = $source[torps];
+          $torps_buy = $source['torps'];
         $free_torps -= $torps_buy;
-        $playerinfo[torps] += $torps_buy;
+        $playerinfo['torps'] += $torps_buy;
         echo "$l_tdr_loaded " . NUMBER($torps_buy) . " $l_tdr_torps<br>";
       }
       else
         $torps_buy = 0;
 
-      $free_fighters = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
-      if ($source[fighters] > 0 && $free_fighters > 0 && $playerinfo[trade_fighters] == 'Y')
+      $free_fighters = NUM_FIGHTERS($playerinfo['computer']) - $playerinfo['ship_fighters'];
+      if ($source['fighters'] > 0 && $free_fighters > 0 && $playerinfo['trade_fighters'] == 'Y')
       {
-        if ($source[fighters] > $free_fighters)
+        if ($source['fighters'] > $free_fighters)
           $fighters_buy = $free_fighters;
 
         else
-          $fighters_buy = $source[fighters];
+          $fighters_buy = $source['fighters'];
         $free_fighters -= $fighters_buy;
-        $playerinfo[ship_fighters] += $fighters_buy;
+        $playerinfo['ship_fighters'] += $fighters_buy;
         echo "$l_tdr_loaded " . NUMBER($fighters_buy) . " $l_tdr_fighters<br>";
       }
       else
@@ -1911,7 +1911,7 @@ traderoute_results_table_top();
       if ($fighters_buy == 0 && $torps_buy == 0 && $colonists_buy == 0)
         echo "$l_tdr_nothingtoload<br>";
 
-      if ($traderoute[circuit] == '1')
+      if ($traderoute['circuit'] == '1')
       {
         $resi = $db->Execute("UPDATE {$db->prefix}ships SET torps=$playerinfo[torps], ship_fighters=$playerinfo[ship_fighters], ship_colonists=$playerinfo[ship_colonists] WHERE ship_id=$playerinfo[ship_id]");
         db_op_result ($db, $resi, __LINE__, __FILE__, $db_logging);
@@ -2070,13 +2070,13 @@ traderoute_results_table_top();
             $goods_buy = ($playerinfo['credits'] + $destcost) / $goods_price1;
           if ($dest['port_goods'] < $goods_buy)
           {
-            $goods_buy = $dest[port_goods];
+            $goods_buy = $dest['port_goods'];
             if ($dest['port_goods'] == 0)
               echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
           }
           if ($goods_buy != 0)
             echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods<br>";
-          $playerinfo[ship_goods] += $goods_buy;
+          $playerinfo['ship_goods'] += $goods_buy;
           $destcost -= $goods_buy * $goods_price1;
         }
         $resl = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$ore_buy, port_energy=port_energy-$energy_buy, port_goods=port_goods-$goods_buy, port_organics=port_organics-$organics_buy WHERE sector_id=$dest[sector_id]");

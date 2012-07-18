@@ -1,3 +1,7 @@
+TheKabal (18 July 2012)
+--------------------------------------
+Fixes for undefined constants in traderoutes with a planet
+
 TheMightyDude (18 July 2012)
 --------------------------------------
 Temp hack/fix for the player log until we have a better way to do it.
