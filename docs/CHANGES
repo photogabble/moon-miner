@@ -1,5 +1,6 @@
 TheKabal (18 July 2012)
 --------------------------------------
+Fix goto main link in rsmove
 Fixes for undefined constants in traderoutes with a planet
 
 TheMightyDude (18 July 2012)
