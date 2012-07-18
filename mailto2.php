@@ -111,6 +111,7 @@ else
         $content = htmlspecialchars($content);
         $content = addslashes($content);
         $subject = htmlspecialchars($subject);
+        $subject = addslashes($subject);
         $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array($playerinfo['ship_id'], $target_info['ship_id'], $timestamp, $subject, $content));
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         if (mysql_errno() != 0)
