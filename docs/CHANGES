@@ -5,6 +5,7 @@ Fixed most if not all Notice: Use of undefined constant source_type - assumed 's
 Fixed Blank White screen when logged in and server is closed.
 Once again Fixed invalid character in header.php and Notice: Undefined variable: l_lang_attribute.
 Fixed  Notice: Use of undefined constant ship_id - assumed 'ship_id' and character_name - assumed 'character_name'
+Fixed Notice: Undefined variable: targetinfo and missing language vars.
 
 TheMightyDude (18 July 2012)
 --------------------------------------

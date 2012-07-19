@@ -22,7 +22,7 @@ include "combat.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('bounty', 'port', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars, $db_logging);
+load_languages($db, $langsh, array('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars, $db_logging);
 
 $title = $l_planet_title;
 include "header.php";
@@ -407,7 +407,7 @@ if (!empty ($planetinfo) )
         }
         elseif ($command == "base")
         {
-            if (!isset ($_SESSION['planet_selected']) )
+            if (array_key_exists('planet_selected', $_SESSION) == false )
             {
                 $_SESSION['planet_selected'] = '';
             }
@@ -538,7 +538,7 @@ if (!empty ($planetinfo) )
         elseif ($command == "attac")
         {
             // Kami Multi Browser Window Attack Fix
-            if ($_SESSION['planet_selected'] != $planet_id)
+            if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -585,7 +585,7 @@ if (!empty ($planetinfo) )
         elseif ($command == "attack")
         {
             // Kami Multi Browser Window Attack Fix
-            if ($_SESSION['planet_selected'] != $planet_id)
+            if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -638,7 +638,7 @@ if (!empty ($planetinfo) )
         elseif ($command == "scan")
         {
             // Kami Multi Browser Window Attack Fix
-            if ($_SESSION['planet_selected'] != $planet_id)
+            if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -682,7 +682,7 @@ if (!empty ($planetinfo) )
             {
                 playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
-                $sc_error = SCAN_ERROR ($playerinfo['sensors'], $targetinfo['cloak']);
+                $sc_error = SCAN_ERROR ($playerinfo['sensors'], $ownerinfo['cloak']);
                 if (empty ($planetinfo['name']))
                 {
                     $planetinfo['name'] = $l_unnamed;
