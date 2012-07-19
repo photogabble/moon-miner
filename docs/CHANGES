@@ -3,6 +3,7 @@ TheMightyDude (19 July 2012)
 Indented the traderoute.php file.
 Fixed most if not all Notice: Use of undefined constant source_type - assumed 'source_type' messages.
 Fixed Blank White screen when logged in and server is closed.
+Once again Fixed invalid character in header.php and Notice: Undefined variable: l_lang_attribute.
 
 TheMightyDude (18 July 2012)
 --------------------------------------

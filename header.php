@@ -18,7 +18,7 @@
 // File: header.php
 
 header("Content-type: text/html; charset=utf-8");
-header("X-UA-Compatible: IE=Edge,chrome=1");
+header("X-UA-Compatible: IE=Edge, chrome=1");
 header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
 header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
 header("Vary: Accept-Encoding, Accept-Language");
@@ -30,7 +30,7 @@ if (!isset($body_class))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $l_lang_attribute; ?>">
+<html lang="<?php global $l_lang_attribute; echo $l_lang_attribute; ?>">
 <head>
 <meta charset="utf-8">
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
