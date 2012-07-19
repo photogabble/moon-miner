@@ -2131,7 +2131,7 @@ function traderoute_engage($j)
                     if ($goods_buy != 0)
                         echo "$l_tdr_bought " . NUMBER($goods_buy) . " $l_tdr_goods<br>";
 
-                    $playerinfo[ship_goods] += $goods_buy;
+                    $playerinfo['ship_goods'] += $goods_buy;
                     $destcost -= $goods_buy * $goods_price1;
                 }
                 $resl = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
