@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('bounty', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_by_title;
 include "header.php";
@@ -31,11 +31,11 @@ if (checklogin())
     die();
 }
 
-if (!isset($_GET['response']))
+$response = NULL;
+if (array_key_exists('response', $_POST) == true)
 {
-    $_GET['response'] = '';
+    $response = $_POST['response'];
 }
-$response = $_GET['response'];
 
 $res = $db->Execute("select * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -74,7 +74,7 @@ switch ($response) {
             $color = $color_line1;
             for ($j = 0; $j < $num_details; $j++)
             {
-                $someres = $db->execute("select character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounty_details[$j][placed_by]);
+                $someres = $db->execute("select character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounty_details[$j]['placed_by']);
                 db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
@@ -87,9 +87,9 @@ switch ($response) {
                 {
                     echo "<td>" . $details['character_name'] . "</td>";
                 }
-                if ($bounty_details[$j][placed_by] == $playerinfo[ship_id])
+                if ($bounty_details[$j]['placed_by'] == $playerinfo['ship_id'])
                 {
-                    echo "<td><a href=bounty.php?bid=" . $bounty_details[$j][bounty_id] . "&response=cancel>$l_by_cancel</A></td>";
+                    echo "<td><a href=bounty.php?bid=" . $bounty_details[$j]['bounty_id'] . "&response=cancel>$l_by_cancel</A></td>";
                 }
                 else
                 {
@@ -114,7 +114,7 @@ switch ($response) {
         $bid = (int)$_GET['bid'];
 
         bigtitle();
-        if ($playerinfo[turns]<1 )
+        if ($playerinfo['turns']<1 )
         {
             echo "$l_by_noturn<br><br>";
             TEXT_GOTOMAIN();
@@ -133,7 +133,7 @@ switch ($response) {
         }
 
         $bty = $res->fields;
-        if ($bty[placed_by] <> $playerinfo[ship_id])
+        if ($bty[placed_by] <> $playerinfo['ship_id'])
         {
             echo "$l_by_notyours<br><br>";
             TEXT_GOTOMAIN();
@@ -165,7 +165,7 @@ switch ($response) {
         }
 
         $bty = $ex->fields;
-        if ($bty[ship_destroyed] == "Y")
+        if ($bty['ship_destroyed'] == "Y")
         {
             echo "$l_by_destroyed<br><br>";
             TEXT_GOTOMAIN();
@@ -173,7 +173,7 @@ switch ($response) {
             die();
         }
 
-        if ($playerinfo[turns]<1 )
+        if ($playerinfo['turns']<1 )
         {
             echo "$l_by_noturn<br><br>";
             TEXT_GOTOMAIN();
@@ -209,7 +209,7 @@ switch ($response) {
         if ($bounty_maxvalue != 0)
         {
             $percent = $bounty_maxvalue * 100;
-            $score = gen_score($playerinfo[ship_id]);
+            $score = gen_score($playerinfo['ship_id']);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
             $pb = $db->Execute("select SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = $bounty_on AND placed_by = $playerinfo[ship_id]");
@@ -217,10 +217,10 @@ switch ($response) {
             if ($pb)
             {
                 $prev = $pb->fields;
-                $previous_bounty = $prev[totalbounty];
+                $previous_bounty = $prev['totalbounty'];
             }
 
-            if ($amount + previous_bounty > $maxtrans)
+            if ($amount + $previous_bounty > $maxtrans)
             {
                 $l_by_toomuch=str_replace("[percent]",$percent,$l_by_toomuch);
                 echo "$l_by_toomuch<br><br>";
@@ -248,7 +248,7 @@ switch ($response) {
         echo "<tr><td>$l_by_bountyon</td><td><select NAME=bounty_on>";
         while (!$res->EOF)
         {
-            if (isset($bounty_on) && $bounty_on == $res->fields[ship_id])
+            if (isset($bounty_on) && $bounty_on == $res->fields['ship_id'])
             {
                 $selected = "selected";
             }
@@ -257,8 +257,8 @@ switch ($response) {
                 $selected = "";
             }
 
-            $charname = $res->fields[character_name];
-            $ship_id = $res->fields[ship_id];
+            $charname = $res->fields['character_name'];
+            $ship_id = $res->fields['ship_id'];
             echo "<OPTION VALUE=$ship_id $selected>$charname</OPTION>";
             $res->MoveNext();
         }
@@ -270,7 +270,7 @@ switch ($response) {
         echo "<input type=hidden name=response value=place>";
         echo "</form>";
 
-        $result3 = $db->Execute ("select bounty_on, SUM(amount) as total_bounty FROM {$db->prefix}bounty GROUP BY bounty_on");
+        $result3 = $db->Execute ("SELECT bounty_on, SUM(amount) as total_bounty FROM {$db->prefix}bounty GROUP BY bounty_on");
         db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 
         $i = 0;
@@ -300,12 +300,12 @@ switch ($response) {
             $color = $color_line1;
             for ($i = 0; $i < $num_bounties; $i++)
             {
-                $someres = $db->execute("select character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounties[$i][bounty_on]);
+                $someres = $db->execute("select character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounties[$i]['bounty_on']);
                 db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
-                echo "<td><a href=bounty.php?bounty_on=" . $bounties[$i][bounty_on] . "&response=display>". $details[character_name] ."</A></td>";
-                echo "<td>" . $bounties[$i][total_bounty] . "</td>";
+                echo "<td><a href=bounty.php?bounty_on=" . $bounties[$i]['bounty_on'] . "&response=display>". $details['character_name'] ."</A></td>";
+                echo "<td>" . $bounties[$i]['total_bounty'] . "</td>";
                 echo "</tr>";
 
                 if ($color == $color_line1)
