@@ -10,6 +10,7 @@ Fixed Notice: Use of undefined constant team, response, destination, engage in c
 Fixed Movment failed bug when you hit fighters.
 Fixed Notice: Use of undefined constant port_goods in traderoute.php
 Fixed location to the image folder for main.css
+Fixed most of teams.php but will finish later.
 
 TheMightyDude (18 July 2012)
 --------------------------------------
