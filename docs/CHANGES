@@ -6,6 +6,7 @@ Fixed Blank White screen when logged in and server is closed.
 Once again Fixed invalid character in header.php and Notice: Undefined variable: l_lang_attribute.
 Fixed  Notice: Use of undefined constant ship_id - assumed 'ship_id' and character_name - assumed 'character_name'
 Fixed Notice: Undefined variable: targetinfo and missing language vars.
+Fixed Notice: Use of undefined constant team, response, destination, engage in check_fighters.php
 
 TheMightyDude (18 July 2012)
 --------------------------------------

@@ -40,6 +40,26 @@ db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 $i = 0;
 $total_sector_fighters = 0;
 $owner = true;
+
+$response = NULL;
+if (array_key_exists('response', $_POST) == true)
+{
+    $response = $_POST['response'];
+}
+
+$destination = NULL;
+if (array_key_exists('destination', $_REQUEST) == true)
+{
+    $destination = $_REQUEST['destination'];
+}
+
+$engage = NULL;
+if (array_key_exists('engage', $_REQUEST) == true)
+{
+    $engage = $_REQUEST['engage'];
+}
+
+
 while (!$result3->EOF)
 {
     $row = $result3->fields;
@@ -62,7 +82,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
     $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=?;", array($fm_owner));
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
     $fighters_owner = $result2->fields;
-    if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team] == 0)
+    if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
     {
         switch ($response)
         {
@@ -145,7 +165,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 bigtitle();
-                echo "<FORM ACTION=$calledfrom METHOD=POST>";
+                echo "<form action='{$calledfrom}' method='post'>";
                 $l_chf_therearetotalfightersindest = str_replace("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
                 echo "$l_chf_therearetotalfightersindest<br>";
                 if ($defences[0]['fm_setting'] == "toll")
@@ -155,14 +175,14 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 }
 
                 $l_chf_youcanretreat = str_replace("[retreat]", "<strong>Retreat</strong>", $l_chf_youcanretreat);
-                echo $l_chf_youcan . " <br><input type=radio name=response value=retreat>" . $l_chf_youcanretreat . "<br></input>";
+                echo $l_chf_youcan . " <br><input type='radio' name='response' value='retreat'>" . $l_chf_youcanretreat . "<br></input>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
                     $l_chf_inputpay = str_replace("[pay]", "<strong>Pay</strong>", $l_chf_inputpay);
-                    echo "<input type=radio name=response checked value=pay>" . $l_chf_inputpay . "<br></input>";
+                    echo "<input type='radio' name='response' checked value='pay'>" . $l_chf_inputpay . "<br></input>";
                 }
 
-                echo "<input type=radio name=response checked value=fight>";
+                echo "<input type='radio' name='response' checked value='fight'>";
                 $l_chf_inputfight = str_replace("[fight]", "<strong>Fight</strong>", $l_chf_inputfight);
                 echo $l_chf_inputfight . "<br></input>";
 
@@ -170,11 +190,11 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $l_chf_inputcloak = str_replace("[cloak]", "<strong>Cloak</strong>", $l_chf_inputcloak);
                 echo $l_chf_inputcloak . "<br></input><br>";
 
-                echo "<INPUT TYPE=SUBMIT VALUE=$l_chf_go><br><br>";
-                echo "<input type=hidden name=sector value=$sector>";
-                echo "<input type=hidden name=engage value=1>";
-                echo "<input type=hidden name=destination value=$destination>";
-                echo "</FORM>";
+                echo "<input type='submit' value='{$l_chf_go}'><br><br>";
+                echo "<input type='hidden' name='sector' value='{$sector}'>";
+                echo "<input type='hidden' name='engage' value='1'>";
+                echo "<input type='hidden' name='destination' value='{$destination}'>";
+                echo "</form>";
                 die();
                 break;
 
