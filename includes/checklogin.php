@@ -87,7 +87,10 @@ function checklogin ()
     global $server_closed, $l_login_closed_message;
     if ($server_closed && $flag == 0)
     {
+        $title = $l_login_closed_message;
+        include "header.php";
         echo $l_login_closed_message;
+        include "footer.php";
         $flag = 1;
     }
 
