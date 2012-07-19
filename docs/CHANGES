@@ -9,6 +9,7 @@ Fixed Notice: Undefined variable: targetinfo and missing language vars.
 Fixed Notice: Use of undefined constant team, response, destination, engage in check_fighters.php
 Fixed Movment failed bug when you hit fighters.
 Fixed Notice: Use of undefined constant port_goods in traderoute.php
+Fixed location to the image folder for main.css
 
 TheMightyDude (18 July 2012)
 --------------------------------------
