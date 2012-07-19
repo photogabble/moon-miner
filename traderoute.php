@@ -1750,7 +1750,7 @@ function traderoute_engage($j)
 
             if ($source['port_type'] == 'goods')
             {
-                $goods_price1 = $goods_price - $goods_delta * $source[port_goods] / $goods_limit * $inventory_factor;
+                $goods_price1 = $goods_price - $goods_delta * $source['port_goods'] / $goods_limit * $inventory_factor;
                 $goods_buy = $free_holds;
                 if ($playerinfo['credits'] + $sourcecost < $goods_buy * $goods_price1)
                     $goods_buy = ($playerinfo['credits'] + $sourcecost) / $goods_price1;
