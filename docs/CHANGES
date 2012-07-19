@@ -7,6 +7,7 @@ Once again Fixed invalid character in header.php and Notice: Undefined variable:
 Fixed  Notice: Use of undefined constant ship_id - assumed 'ship_id' and character_name - assumed 'character_name'
 Fixed Notice: Undefined variable: targetinfo and missing language vars.
 Fixed Notice: Use of undefined constant team, response, destination, engage in check_fighters.php
+Fixed Movment failed bug when you hit fighters.
 
 TheMightyDude (18 July 2012)
 --------------------------------------

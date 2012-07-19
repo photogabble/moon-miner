@@ -56,9 +56,10 @@ db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 // Put the sector information into the array "sectorinfo"
 $sectorinfo = $result2->fields;
 
-if (!isset($_GET['sector']))
+$sector = NULL;
+if (array_key_exists('sector', $_REQUEST) == true)
 {
-    $_GET['sector'] = '';
+    $sector = $_REQUEST['sector'];
 }
 
 // Retrive all the warp links out of the current sector
@@ -71,7 +72,7 @@ $flag = 0;
 while (!$result3->EOF)
 {
     $row = $result3->fields;
-    if ($row['link_dest'] == $_GET['sector'] && $row['link_start'] == $playerinfo['sector'])
+    if ($row['link_dest'] == $sector && $row['link_start'] == $playerinfo['sector'])
     {
         $flag = 1;
     }
