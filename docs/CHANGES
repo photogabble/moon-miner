@@ -7,6 +7,19 @@ Fixed Depolying Sector Defences, added a div container with overflow so that we 
 Fixed Notice: Undefined index: port_shopping in port2.php
 Fixed Notice:Use of undefined constant ship_id, undefined offset 1 in check_fighters.php and check_mines.php
 
+TheKabal (18 July 2012)     
+--------------------------------------  
+Add slashes to subject before saving to database, allowing apostrohphes ("It can't work otherwise").
+Restore changes from changelog
+Fix undefined constant 'team' in planet_report.     
+Fix missing space in "You have messages waiting" alert in main  
+Fix undefined constants in includes/calc_ownership.php  
+Fix missing language string "Planet" in planet menu     
+Fix undefined variable l_toplanetmenu in planet2 when transferring to planet    
+Fix news headline to add space before "5 planets"   
+Fix goto main link in rsmove    
+Fixes for undefined constants in traderoutes with a planet
+
 TheMightyDude (17 July 2012)
 --------------------------------------
 Fixed missing 'amount' field in IGB_transfers error.
