@@ -6,6 +6,8 @@ Fixed Notice:  Undefined variable: name in mailto2.php
 Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in mailto2.php
 Fixed Notice:  Undefined variable: l_lssd in port2.php
 Fixed Notice:  Undefined variable: db_logging in lrscan.php also cleanup.
+Fixed some more issues in traderoute (SIGH)
+Fixed Notice:  Use of undefined constant dest_id - assumed 'dest_id' and undefined constant name - assumed 'name' in main.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------

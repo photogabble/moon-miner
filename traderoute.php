@@ -102,12 +102,11 @@ if (!isset($tr_repeat) || $tr_repeat <= 0)
     $tr_repeat = 1;
 }
 
-if (!isset($_REQUEST['command']))
+$command = NULL;
+if (array_key_exists('command', $_REQUEST) == true)
 {
-    $_REQUEST['command'] = '';
+    $command = $_REQUEST['command'];
 }
-
-$command = $_REQUEST['command'];
 
 if ($command == 'new')
 {
@@ -442,7 +441,7 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
     global $level_factor;
     global $db;
     global $db_logging;
-    
+
     $retvalue['triptime'] = 0;
     $retvalue['scooped1'] = 0;
     $retvalue['scooped2'] = 0;
@@ -485,7 +484,8 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
     $shipspeed = pow ($level_factor, $playerinfo['engines']);
     $triptime = round($distance / $shipspeed);
 
-    if (!$triptime && $destination != $playerinfo['sector'])
+#    if (!$triptime && $destination != $playerinfo['sector']) // Duno why this wasn't working.
+    if (!$triptime && $dest['sector_id'] != $playerinfo['sector'])
         $triptime = 1;
     
     if ($playerinfo['dev_fuelscoop'] == "Y")
@@ -1024,7 +1024,7 @@ function traderoute_create()
     }
 
     // Check destination - we cannot trade INTO a special port
-    if ($destination['port_type'] == 'special')
+    if (array_key_exists('port_type', $destination) == true && $destination['port_type'] == 'special')
     {
         traderoute_die("You cannot create a traderoute into a special port!");
     }
@@ -1236,6 +1236,7 @@ function traderoute_engage($j)
     global $l_tdr_globalsetbuynothing, $l_tdr_nosrcporttrade, $l_tdr_tradesrcportoutsider, $l_tdr_tdrres, $l_tdr_torps;
     global $l_tdr_nodestporttrade, $l_tdr_tradedestportoutsider, $l_tdr_portin, $l_tdr_planet, $l_tdr_bought, $l_tdr_colonists;
     global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here, $l_tdr_five, $l_tdr_ten, $l_tdr_fifty;
+    global $l_tdr_nothingtodump;
     global $db;
     global $db_logging;
     global $portfull;
@@ -1292,7 +1293,7 @@ function traderoute_engage($j)
 
         if ($traderoute['source_type'] == 'L')
         {
-            if ($source[owner] != $playerinfo[ship_id])
+            if ($source['owner'] != $playerinfo['ship_id'])
             {
 #               $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $source[name], $l_tdr_notyourplanet);
 #               $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_notyourplanet);
@@ -1300,9 +1301,9 @@ function traderoute_engage($j)
                 traderoute_die($l_tdr_invalidsrc);
             }
         }
-        elseif ($traderoute[source_type] == 'C')   // Check to make sure player and planet are in the same corp.
+        elseif ($traderoute['source_type'] == 'C')   // Check to make sure player and planet are in the same corp.
         {
-            if ($source[corp] != $playerinfo[team])
+            if ($source['corp'] != $playerinfo['team'])
             {
 #                $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $source[name], $l_tdr_notyourplanet);
 #                $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $source[sector_id], $l_tdr_notyourplanet);
@@ -1333,7 +1334,7 @@ function traderoute_engage($j)
 
         $dest = $result->fields;
     }
-    elseif (($traderoute[dest_type] == 'L') || ($traderoute[dest_type] == 'C'))  // Get data from planet table
+    elseif (($traderoute['dest_type'] == 'L') || ($traderoute['dest_type'] == 'C'))  // Get data from planet table
     {
         // Check for valid Owned Source Planet
         // This now only returns Planets that the player owns or planets that belong to the team and set as corp planets..
@@ -1351,17 +1352,17 @@ function traderoute_engage($j)
         {
             if ($dest['owner'] != $playerinfo['ship_id'])
             {
-                $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest[name], $l_tdr_notyourplanet);
-                $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest[sector_id], $l_tdr_notyourplanet);
+                $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest['name'], $l_tdr_notyourplanet);
+                $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest['sector_id'], $l_tdr_notyourplanet);
                 traderoute_die($l_tdr_notyourplanet);
             }
         }
-        elseif ($traderoute[dest_type] == 'C')   // Check to make sure player and planet are in the same corp.
+        elseif ($traderoute['dest_type'] == 'C')   // Check to make sure player and planet are in the same corp.
         {
             if ($dest['corp'] != $playerinfo['team'])
             {
-                $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest[name], $l_tdr_notyourplanet);
-                $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest[sector_id], $l_tdr_notyourplanet);
+                $l_tdr_notyourplanet = str_replace("[tdr_source_name]", $dest['name'], $l_tdr_notyourplanet);
+                $l_tdr_notyourplanet = str_replace("[tdr_source_sector_id]", $dest['sector_id'], $l_tdr_notyourplanet);
                 traderoute_die($l_tdr_notyourplanet);
             }
         }
@@ -1412,8 +1413,9 @@ function traderoute_engage($j)
         $dist['scooped2'] = 0;
     }
     else
+    {
         $dist = traderoute_distance('P', 'P', $sourceport, $destport, $traderoute['circuit']);
-
+    }
 
     // Check if player has enough turns
     if ($playerinfo['turns'] < $dist['triptime'])
@@ -1544,6 +1546,12 @@ function traderoute_engage($j)
         // Special Port Section (begin)
         if ($source['port_type'] == 'special')
         {
+
+            $ore_buy = 0;
+            $goods_buy = 0;
+            $organics_buy = 0;
+            $energy_buy = 0;
+
             $total_credits = $playerinfo['credits'];
 
             if ($playerinfo['trade_colonists'] == 'Y')
@@ -1551,7 +1559,7 @@ function traderoute_engage($j)
                 $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                 $colonists_buy = $free_holds;
 
-                if ($playerinfo[credits] < $colonist_price * $colonists_buy)
+                if ($playerinfo['credits'] < $colonist_price * $colonists_buy)
                     $colonists_buy = $playerinfo['credits'] / $colonist_price;
 
                 if ($colonists_buy != 0)
@@ -1808,7 +1816,7 @@ function traderoute_engage($j)
                 if ($source['port_energy'] < $energy_buy)
                 {
                     $energy_buy = $source['port_energy'];
-                    if ($source[port_energy] == 0)
+                    if ($source['port_energy'] == 0)
                         echo "$l_tdr_bought " . NUMBER($energy_buy) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
                 }
 
@@ -1924,7 +1932,7 @@ function traderoute_engage($j)
                 $colonists_buy = 0;
 
             $free_torps = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo['torps'];
-            if ($source[torps] > 0 && $free_torps > 0 && $playerinfo['trade_torps'] == 'Y')
+            if ($source['torps'] > 0 && $free_torps > 0 && $playerinfo['trade_torps'] == 'Y')
             {
                 if ($source['torps'] > $free_torps)
                     $torps_buy = $free_torps;
@@ -2217,10 +2225,11 @@ function traderoute_engage($j)
                 $torps_buy=0;
             }
 
+$setcol =0;
             if ($playerinfo['trade_colonists'] == 'Y')
             {
                 $colonists_buy += $playerinfo['ship_colonists'];
-                $col_dump = $playerinfo[ship_colonists];
+                $col_dump = $playerinfo['ship_colonists'];
                 if ($dest['colonists'] + $colonists_buy >= $colonist_limit)
                 {
                     $exceeding = $dest['colonists'] + $colonists_buy - $colonist_limit;
@@ -2305,7 +2314,7 @@ function traderoute_engage($j)
                 }
                 else
                 {
-                    $ress = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=ship_colonists-?, ship_fighters=ship_fighters-?, torps=torps-?, ship_energy=ship_energy+? WHERE ship_id=?;", array($col_dump, $fight_dump, $torps_dump, $dist[scooped], $playerinfo['ship_id']));
+                    $ress = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=ship_colonists-?, ship_fighters=ship_fighters-?, torps=torps-?, ship_energy=ship_energy+? WHERE ship_id=?;", array($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
                     db_op_result ($db, $ress, __LINE__, __FILE__, $db_logging);
                 }
             }

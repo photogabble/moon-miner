@@ -368,7 +368,7 @@ else
         }
         else
         {
-            $query = $db->Execute("SELECT name FROM {$db->prefix}planets WHERE planet_id=" . $traderoutes[$i][dest_id]);
+            $query = $db->Execute("SELECT name FROM {$db->prefix}planets WHERE planet_id=" . $traderoutes[$i]['dest_id']);
             db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
 
             if (!$query || $query->RecordCount() == 0)
@@ -378,13 +378,13 @@ else
             else
             {
                 $planet = $query->fields;
-                if ($planet[name] == "")
+                if ($planet['name'] == "")
                 {
                     echo $l_unnamed;
                 }
                 else
                 {
-                    echo $planet[name];
+                    echo $planet['name'];
                 }
             }
         }
