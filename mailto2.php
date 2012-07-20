@@ -31,13 +31,38 @@ if (checklogin())
     die();
 }
 
+$name = NULL;
+if (array_key_exists('name', $_GET) == true)
+{
+	$name = (string) $_GET['name'];
+}
+
+$content = NULL;
+if (array_key_exists('content', $_POST) == true)
+{
+	$content = (string) $_POST['content'];
+}
+
+$subject = NULL;
+if (array_key_exists('subject', $_REQUEST) == true)
+{
+	$subject = (string) $_REQUEST['subject'];
+}
+
+$to = NULL;
+if (array_key_exists('to', $_POST) == true)
+{
+	$to = (string) $_POST['to'];
+}
+
+
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 bigtitle();
 
-if (empty($content))
+if (is_null($content))
 {
     $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -135,7 +160,7 @@ else
         while (!$res2->EOF)
         {
             $row2 = $res2->fields;
-            $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array($playerinfo[ship_id], $row2['ship_id'], $timestamp, $subject, $content));
+            $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array($playerinfo['ship_id'], $row2['ship_id'], $timestamp, $subject, $content));
             db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
             $res2->MoveNext();
         }

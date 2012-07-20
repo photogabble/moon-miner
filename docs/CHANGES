@@ -2,6 +2,8 @@ TheMightyDude (20 July 2012)
 --------------------------------------
 Fixed Notice:  Use of undefined constant quantity - assumed 'quantity' and energy_available - assumed 'energy_available' in sched_degrade.php
 Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in sched_degrade.php
+Fixed Notice:  Undefined variable: name in mailto2.php
+Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in mailto2.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------
