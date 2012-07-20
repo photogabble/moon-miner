@@ -16,6 +16,8 @@ Fixed exploit where a player could scan or attack a ssip without clicking on the
 Cleaned up rsmove.php
 Fixed Notice:  Undefined variable: editroute in traderoute.php
 Fixed Notice:  Undefined variable: title in header.php (intermittent)
+Fixed Notice:  Undefined variable: targetship, l_by_fedbounty2, l_aboard, l_att_andused in attack.php
+Fixed Notice:  Undefined variable: langsh, l_killheadline, l_news_killed in db_kill_player.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------

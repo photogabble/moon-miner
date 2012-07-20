@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('attack', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('attack', 'bounty', 'main', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 if (checklogin ())
 {
@@ -33,7 +33,8 @@ include_once "includes/is_same_team.php";
 $title = $l_att_title;
 include "header.php";
 
-$result = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE {$db->prefix}zones READ, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+# need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE or it will fail to log the sql.
+$result = $db->Execute("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, {$db->prefix}zones READ, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE;");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -128,7 +129,7 @@ else
     else
     {
         // If scan succeeds, show results and inform target.
-        $shipavg = get_avg_tech ($targetship, "ship");
+        $shipavg = get_avg_tech ($targetinfo, "ship");
 
         if ($shipavg > $ewd_maxhullsize)
         {

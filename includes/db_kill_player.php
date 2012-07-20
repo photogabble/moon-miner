@@ -30,10 +30,12 @@ function db_kill_player ($ship_id, $remove_planets = false)
     global $default_prod_energy;
     global $default_prod_fighters;
     global $default_prod_torp;
-    global $db, $db_logging;
+
+    global $db, $langsh, $db_logging;
 
     // New database driven language entries
     load_languages($db, $langsh, array('news'), $langvars, $db_logging);
+    global $l_killheadline, $l_news_killed;
 
     $resa = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=$ship_id");
     db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
