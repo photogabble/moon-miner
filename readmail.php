@@ -104,9 +104,14 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   while (!$res->EOF)
   {
    $msg = $res->fields;
+   $msg['subject'] = stripslashes($msg['subject']);
+   $msg['message'] = stripslashes($msg['message']);
+
    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($msg['sender_id']));
    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
    $sender = $result->fields;
+   $sender['character_name'] = stripslashes($sender['character_name']);
+
 //   $isAdmin = isAdmin($sender);
 ?>
             <tr>
