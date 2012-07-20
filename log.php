@@ -122,7 +122,7 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 
-$l_log_months_temp = "l_log_months_" . (substr ($startdate, 5, 2) - 1);
+$l_log_months_temp = "l_log_months_" . (int)(substr ($startdate, 5, 2) );
 $entry = $$l_log_months_temp . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
@@ -139,7 +139,7 @@ if (!empty ($logs) )
     foreach ($logs as $log)
     {
         $event = log_parse($log);
-        $log_months_temp = "l_log_months_" . (substr ($log['time'], 5, 2) - 1);
+        $log_months_temp = "l_log_months_" . (int)(substr ($log['time'], 5, 2) );
         $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
         echo "<table border=0 cellspacing=5 width=100%>\n" .
@@ -181,7 +181,7 @@ if ($mode == 'compat')
 
 if ($mode != 'compat')
 {
-    $log_months_temp = "l_log_months_" . (substr ($yesterday, 5, 2) - 1);
+    $log_months_temp = "l_log_months_" . (int)(substr ($yesterday, 5, 2));
     $entry = $$l_log_months_temp . " " . substr ($yesterday, 8, 2) . " " . substr ($yesterday, 0, 4);
 
     unset ($logs);
@@ -206,7 +206,7 @@ if ($mode != 'compat')
         foreach ($logs as $log)
         {
             $event = log_parse($log);
-            $log_months_temp = "l_log_months_" . (substr ($log['time'], 5, 2) - 1);
+            $log_months_temp = "l_log_months_" . (int)(substr ($log['time'], 5, 2) );
             $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
@@ -226,7 +226,7 @@ if ($mode != 'compat')
          "</center>" .
          "</div>\n";
 
-    $log_months_temp = "l_log_months_" . (substr ($yesterday2, 5, 2) - 1);
+    $log_months_temp = "l_log_months_" . (int)(substr ($yesterday2, 5, 2));
     $entry = $$l_log_months_temp . " " . substr ($yesterday2, 8, 2) . " " . substr ($yesterday2, 0, 4);
 
     unset ($logs);
@@ -251,7 +251,7 @@ if ($mode != 'compat')
         foreach ($logs as $log)
         {
             $event = log_parse($log);
-            $log_months_temp = "l_log_months_" . (substr ($log['time'], 5, 2) - 1);
+            $log_months_temp = "l_log_months_" . (int)(substr ($log['time'], 5, 2) );
             $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
@@ -279,13 +279,13 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$l_log_months_short_temp = "l_log_months_short_" . (substr ($startdate, 5, 2) - 1);
+$l_log_months_short_temp = "l_log_months_short_" . (int)(substr ($startdate, 5, 2) );
 $date1 = $$l_log_months_short_temp . " " . substr ($startdate, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . (substr ($startdate, 5, 2) - 1);
+$l_log_months_short_temp = "l_log_months_short_" . (int)(substr ($startdate, 5, 2));
 $date2 = $$l_log_months_short_temp . " " . substr ($yesterday, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . (substr ($startdate, 5, 2) - 1);
+$l_log_months_short_temp = "l_log_months_short_" . (int)(substr ($startdate, 5, 2));
 $date3 = $$l_log_months_short_temp . " " . substr ($yesterday2, 8, 2);
 
 $month = substr ($startdate, 5, 2);
