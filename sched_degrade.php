@@ -30,7 +30,7 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 while (!$res->EOF)
 {
     $row = $res->fields;
-    $res3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array($row[ship_id]));
+    $res3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array($row['ship_id']));
     db_op_result ($db, $res3, __LINE__, __FILE__, $db_logging);
     $sched_playerinfo = $res3->fields;
     $res2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE (owner = ? OR (corp = ? AND ? <> 0)) AND sector_id = ? AND energy > 0;", array($row['ship_id'], $sched_playerinfo['team'], $sched_playerinfo['team'], $row['sector_id']));
