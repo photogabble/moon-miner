@@ -34,27 +34,26 @@ if (checklogin())
 $name = NULL;
 if (array_key_exists('name', $_GET) == true)
 {
-	$name = (string) $_GET['name'];
+    $name = (string) $_GET['name'];
 }
 
 $content = NULL;
 if (array_key_exists('content', $_POST) == true)
 {
-	$content = (string) $_POST['content'];
+    $content = (string) $_POST['content'];
 }
 
 $subject = NULL;
 if (array_key_exists('subject', $_REQUEST) == true)
 {
-	$subject = (string) $_REQUEST['subject'];
+    $subject = (string) $_REQUEST['subject'];
 }
 
 $to = NULL;
 if (array_key_exists('to', $_POST) == true)
 {
-	$to = (string) $_POST['to'];
+    $to = (string) $_POST['to'];
 }
-
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
