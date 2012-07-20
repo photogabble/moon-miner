@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('ship', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include_once "includes/is_same_team.php";
 
@@ -48,6 +48,7 @@ if ($othership['sector'] != $playerinfo['sector'])
 }
 else
 {
+	$_SESSION['ship_selected'] = $ship_id;
     echo "$l_ship_youc <font color=white>" . $othership['ship_name'] . "</font>, $l_ship_owned <font color=white>" . $othership['character_name'] . "</font>.<br><br>";
     echo "$l_ship_perform<br><br>";
     echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";

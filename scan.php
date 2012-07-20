@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('scan', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars, $db_logging);
+load_languages($db, $langsh, array('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars, $db_logging);
 
 $title = $l_scan_title;
 include "header.php";
@@ -29,6 +29,8 @@ if (checklogin())
 {
     die();
 }
+
+
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
@@ -45,6 +47,15 @@ $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
 
 bigtitle();
+// Kami Multi Browser Window Attack Fix
+if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
+{
+    echo "You need to Click on the ship first.<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
+}
+unset($_SESSION['ship_selected']);
 
 // Check to ensure target is in the same sector as player
 if ($targetinfo['sector'] != $playerinfo['sector'])
@@ -170,7 +181,7 @@ else
         echo "<td>$sc_beams</td></tr>";
       }
       else {echo"<td>???</td></tr>";}
-      echo "<tr><td>$l_torpedo Launchers:</td>";
+      echo "<tr><td>$l_torp_launch:</td>";
       $roll = mt_rand (1,100);
       if ($roll < $success)
       {

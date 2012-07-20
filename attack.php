@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('attack', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('attack', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 if (checklogin ())
 {
@@ -47,6 +47,17 @@ db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $targetinfo = $result2->fields;
 
 bigtitle ();
+
+// Kami Multi Browser Window Attack Fix
+if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
+{
+    echo "You need to Click on the ship first.<BR><BR>";
+    TEXT_GOTOMAIN();
+    include("footer.php");
+    die();
+}
+unset($_SESSION['ship_selected']);
+
 
 $playerscore = gen_score($playerinfo['ship_id']);
 $targetscore = gen_score($targetinfo['ship_id']);
