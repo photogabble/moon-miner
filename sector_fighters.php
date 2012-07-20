@@ -30,10 +30,10 @@ include_once "includes/cancel_bounty.php";
 
 echo $l_sf_attacking . "<br>";
 $targetfighters = $total_sector_fighters;
-$playerbeams = NUM_BEAMS($playerinfo[beams]);
+$playerbeams = NUM_BEAMS($playerinfo['beams']);
 if ($calledfrom == 'rsmove.php')
 {
-    $playerinfo['ship_enery'] += $energyscooped;
+    $playerinfo['ship_energy'] += $energyscooped;
 }
 
 if ($playerbeams > $playerinfo['ship_energy'])

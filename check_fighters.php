@@ -90,7 +90,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array($playerinfo['ship_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                 bigtitle();
-                include_once "includes/sector_fighters.php";
+                include_once "sector_fighters.php";
                 break;
 
             case "retreat":
@@ -149,7 +149,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     // Sector defences detect incoming ship
                     bigtitle();
                     echo "$l_chf_thefightersdetectyou<br>";
-                    include_once "includes/sector_fighters.php";
+                    include_once "sector_fighters.php";
                     break;
                 }
                 else

@@ -41,9 +41,17 @@ if (!isset ($defence_id))
     die();
 }
 
+$response = NULL;
+if (array_key_exists('response', $_REQUEST) == true)
+{
+    $response = $_REQUEST['response'];
+}
+
+
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
+
 $res = $db->Execute("SELECT * from {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
@@ -60,7 +68,7 @@ $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defenc
 db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 // Put the defence information into the array "defenceinfo"
 
-if ($result3 == 0)
+if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.
 {
    echo $l_md_nolonger . "<br>";
    TEXT_GOTOMAIN ();
@@ -101,7 +109,8 @@ else
     $set_toll = 'CHECKED';
 }
 
-switch ($response) {
+switch ($response)
+{
    case "fight":
       bigtitle ();
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
@@ -160,8 +169,8 @@ switch ($response) {
       {
          $quantity = $defenceinfo['quantity'];
       }
-      $torpedo_max = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo[torps];
-      $fighter_max = NUM_FIGHTERS($playerinfo[computer]) - $playerinfo[ship_fighters];
+      $torpedo_max = NUM_TORPEDOES($playerinfo['torp_launchers']) - $playerinfo['torps'];
+      $fighter_max = NUM_FIGHTERS($playerinfo['computer']) - $playerinfo['ship_fighters'];
       if ($defenceinfo['defence_type'] == 'F')
       {
          if ($quantity > $fighter_max)
@@ -176,7 +185,7 @@ switch ($response) {
             $quantity = $torpedo_max;
          }
       }
-      $ship_id = $playerinfo[ship_id];
+      $ship_id = $playerinfo['ship_id'];
       if ($quantity > 0)
       {
          $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - $quantity WHERE defence_id = $defence_id");
@@ -253,7 +262,7 @@ switch ($response) {
          $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$ship_id");
          $fighters_owner = $result2->fields;
 
-         if ($fighters_owner[team] != $playerinfo[team] || $playerinfo[team] == 0)
+         if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
          {
             echo "$l_youcan:<br>";
             echo "<FORM ACTION=modify_defences.php METHOD=POST>";
