@@ -19,7 +19,7 @@ Fixed Notice:  Undefined variable: title in header.php (intermittent)
 Fixed Notice:  Undefined variable: targetship, l_by_fedbounty2, l_aboard, l_att_andused in attack.php
 Fixed Notice:  Undefined variable: langsh, l_killheadline, l_news_killed in db_kill_player.php
 Fixed readmail.php was displaying \' instead of just ' (single quote)
-
+Fixed Notice:  Use of undefined constant name - assumed 'name' in main.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------

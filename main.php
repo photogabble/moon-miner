@@ -338,7 +338,7 @@ else
             else
             {
                 $planet = $query->fields;
-                if ($planet[name] == "")
+                if ($planet['name'] == "")
                 {
                     echo "$l_unnamed ";
                 }
