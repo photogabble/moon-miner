@@ -8,6 +8,9 @@ Fixed Notice:  Undefined variable: l_lssd in port2.php
 Fixed Notice:  Undefined variable: db_logging in lrscan.php also cleanup.
 Fixed some more issues in traderoute (SIGH)
 Fixed Notice:  Use of undefined constant dest_id - assumed 'dest_id' and undefined constant name - assumed 'name' in main.php
+Fixed Parse error:  syntax error, unexpected T_VARIABLE in planet_report_ce.php
+Fixed Notice:  Undefined variable: db_logging in planet_report_ce.php
+Fixed Notice:  Use of undefined constant corp - assumed 'corp' in planet_report.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------

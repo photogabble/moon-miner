@@ -59,6 +59,7 @@ TEXT_GOTOMAIN();
 function go_build_base($planet_id, $sector_id)
 {
   global $db;
+  global $db_logging;
   global $base_ore, $base_organics, $base_goods, $base_credits;
   global $l_planet_bbuild;
   global $username;
@@ -105,11 +106,11 @@ function go_build_base($planet_id, $sector_id)
     // Create The Base
     $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
     db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
-    
+
     // Update User Turns
     $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $update1b, __LINE__, __FILE__, $db_logging);
-    
+
     // Refresh Plant Info
     $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
     db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
@@ -130,6 +131,7 @@ function go_build_base($planet_id, $sector_id)
 function collect_credits($planetarray)
 {
   global $db, $username, $sector_max;
+  global $db_logging;
 
   $CS = "GO"; // Current State
 
@@ -229,12 +231,13 @@ function change_planet_production($prodpercentarray)
 //  This should patch the game from being hacked with planet Hack.
 
   global $db;
+  global $db_logging;
   global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
   global $username;
 
   $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE email='$username'");
   db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-  $ship_id = $result->fields['ship_id']; 
+  $ship_id = $result->fields['ship_id'];
   $team_id = $result->fields['team'];
 
   $planet_hack = false;
@@ -272,7 +275,7 @@ function change_planet_production($prodpercentarray)
         }
         elseif ($commod_type == "sells")
         {
-          $resx$db->Execute("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id=$prodpercent AND owner = $ship_id");
+          $resx = $db->Execute("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id=$prodpercent AND owner = $ship_id");
           db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         }
         elseif ($commod_type == "corp")
@@ -358,19 +361,19 @@ function change_planet_production($prodpercentarray)
         echo "Planet $planet[name] in sector $planet[sector_id] has a negative production value or exceeds 100% production.  Resetting to default production values<br>";
         $resa = $db->Execute("UPDATE {$db->prefix}planets SET prod_ore=$default_prod_ore           WHERE planet_id=$planet[planet_id]");
         db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
-        
+
         $resb = $db->Execute("UPDATE {$db->prefix}planets SET prod_organics=$default_prod_organics WHERE planet_id=$planet[planet_id]");
         db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
-        
+
         $resc = $db->Execute("UPDATE {$db->prefix}planets SET prod_goods=$default_prod_goods       WHERE planet_id=$planet[planet_id]");
         db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
-        
+
         $resd = $db->Execute("UPDATE {$db->prefix}planets SET prod_energy=$default_prod_energy     WHERE planet_id=$planet[planet_id]");
         db_op_result ($db, $resd, __LINE__, __FILE__, $db_logging);
-        
+
         $rese = $db->Execute("UPDATE {$db->prefix}planets SET prod_fighters=$default_prod_fighters WHERE planet_id=$planet[planet_id]");
         db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
-        
+
         $resf = $db->Execute("UPDATE {$db->prefix}planets SET prod_torp=$default_prod_torp         WHERE planet_id=$planet[planet_id]");
         db_op_result ($db, $resf, __LINE__, __FILE__, $db_logging);
       }
@@ -386,7 +389,7 @@ function Take_Credits($sector_id, $planet_id)
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   $playerinfo = $res->fields;
-  
+
   $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   $planetinfo = $res->fields;

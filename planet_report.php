@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('main', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $langsh, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
 
 $title = $l_pr_title;
 include "header.php";
@@ -31,13 +31,12 @@ if (checklogin())
     die();
 }
 
-$PRepType = '';
-if (!isset($_GET['PRepType']))
+$PRepType = NULL;
+if (array_key_exists('PRepType', $_GET) == true) //!isset($_GET['PRepType']))
 {
-    $_GET['PRepType'] = '';
+    $PRepType = $_GET['PRepType'];
 }
 
-$PRepType = $_GET['PRepType'];
 
 // Get data about planets
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -306,7 +305,7 @@ function planet_production_change()
     global $l_sector, $l_name, $l_unnamed, $l_ore, $l_organics, $l_goods, $l_energy, $l_colonists, $l_credits, $l_fighters;
     global $l_torps, $l_base, $l_selling, $l_pr_totals, $l_yes, $l_no;
 
-    $query = "SELECT * FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND base='Y'";
+    $query = "SELECT * FROM {$db->prefix}planets WHERE owner=? AND base='Y'";
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 
     echo "Planetary report <strong><a href=\"planet_report.php?PRepType=0\">menu</a></strong><br><br>" .
@@ -346,7 +345,7 @@ function planet_production_change()
         $query .= " ORDER BY sector_id ASC";
     }
 
-    $res = $db->Execute($query);
+    $res = $db->Execute($query, array($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     $i = 0;
@@ -468,7 +467,7 @@ function planet_production_change()
 
 function corp_planet_checkboxes($planet, $i)
 {
-    if ($planet[$i][corp] <= 0)
+    if ($planet[$i]['corp'] <= 0)
     {
         return("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' />");
     }
