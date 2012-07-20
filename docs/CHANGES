@@ -15,6 +15,7 @@ Fixed Genesis bug that wouldn't allow you to create more than 1 planet in the sa
 Fixed exploit where a player could scan or attack a ssip without clicking on them first, multi refresh scan exploit.
 Cleaned up rsmove.php
 Fixed Notice:  Undefined variable: editroute in traderoute.php
+Fixed Notice:  Undefined variable: title in header.php (intermittent)
 
 TheMightyDude (19 July 2012)
 --------------------------------------

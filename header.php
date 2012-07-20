@@ -37,7 +37,7 @@ if (!isset($body_class))
 <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
 <meta name="Rating" content="General">
 <link rel="shortcut icon" href="images/bntfavicon.ico">
-<title><?php echo $title; ?></title>
+<title><?php global $title; echo $title; ?></title>
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css'>
 <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 <script src='backends/javascript/newsticker.js'></script>
