@@ -37,18 +37,18 @@ if (checklogin () )
 }
 
 // Adding db lock to prevent more than 5 planets in a sector
-$resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE");
+$resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE;");
 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($playerinfo['sector']));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result2->fields;
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE sector_id='$playerinfo[sector]'");
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE sector_id=?;", array($playerinfo['sector']));
 db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 $planetinfo = $result3->fields;
 $num_planets = $result3->RecordCount();
@@ -58,13 +58,10 @@ $planetname = substr($playerinfo['character_name'],0,1) . substr($playerinfo['sh
 
 bigtitle ();
 
-if (isset($_GET['destroy']))
+$destroy = NULL;
+if (array_key_exists('destroy', $_GET) == true)//isset($_GET['destroy']))
 {
     $destroy = $_GET['destroy'];
-}
-else
-{
-    $destroy = '';
 }
 
 if ($playerinfo['turns'] < 1)
@@ -82,47 +79,6 @@ elseif ($num_planets >= $max_planets_sector)
 elseif ($sectorinfo['sector_id'] >= $sector_max )
 {
     echo "Invalid sector<br>\n";
-}
-elseif ($num_planets > 0) // With many planets by sector that code is hard to manage, and too powerful (?)
-{
-    echo "There is already a planet in this sector.";
-    if ($playerinfo['ship_id'] == $planetinfo['owner'])
-    {
-        if ($destroy == 1 && $allow_genesis_destroy)
-        {
-            // not multilingualed cause its not working right now anyway
-            echo "<br>Are you sure???<br><a href=genesis.php?destroy=2>YES, Let them die!</A><br>";
-            echo "<a href=device.php>No! That would be Evil!</a><br>";
-        }
-        elseif ($destroy==2 && $allow_genesis_destroy)
-        {
-            if ($playerinfo['dev_genesis'] > 0)
-            {
-                $deltarating = $planetinfo['colonists'];
-                $update = $db->Execute("UPDATE {$db->prefix}universe SET planet_name=NULL, planet_organics=0, planet_energy=0, planet_ore=0, planet_goods=0, planet_colonists=0, planet_credits=0, planet_fighters=0, planet_owner=null, planet_corp=null, base='N',base_sells='N', base_torp=0, planet_defeated='N', planet='N' WHERE sector_id=$playerinfo[sector]");
-                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
-                $update2=$db->Execute("UPDATE {$db->prefix}ships SET turns_used=turns_used+1, turns=turns-1, dev_genesis=dev_genesis-1, rating=rating-$deltarating WHERE ship_id=$playerinfo[ship_id]");
-                db_op_result ($db, $update2, __LINE__, __FILE__, $db_logging);
-                echo "<br>Errr, there was one with $deltarating colonists here....<br>";
-            }
-            else
-            {
-                echo $l_gns_nogenesis;
-            }
-        }
-        elseif ($allow_genesis_destroy)
-        {
-            echo "<br>Do you want to destroy <a href=genesis.php?destroy=1>";
-            if ($planetinfo['name'] == "")
-            {
-                echo "Unnamed</a>?";
-            }
-            else
-            {
-                echo $planetinfo['name'] . "</A>?";
-            }
-        }
-    }
 }
 elseif ($playerinfo['dev_genesis'] < 1)
 {

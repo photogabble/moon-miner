@@ -11,6 +11,7 @@ Fixed Notice:  Use of undefined constant dest_id - assumed 'dest_id' and undefin
 Fixed Parse error:  syntax error, unexpected T_VARIABLE in planet_report_ce.php
 Fixed Notice:  Undefined variable: db_logging in planet_report_ce.php
 Fixed Notice:  Use of undefined constant corp - assumed 'corp' in planet_report.php
+Fixed Genesis bug that wouldn't allow you to create more than 1 planet in the same sector.
 
 TheMightyDude (19 July 2012)
 --------------------------------------
