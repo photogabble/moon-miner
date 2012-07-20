@@ -4,6 +4,7 @@ Fixed Notice:  Use of undefined constant quantity - assumed 'quantity' and energ
 Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in sched_degrade.php
 Fixed Notice:  Undefined variable: name in mailto2.php
 Fixed Notice:  Use of undefined constant ship_id - assumed 'ship_id' in mailto2.php
+Fixed Notice:  Undefined variable: l_lssd in port2.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------
