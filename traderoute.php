@@ -49,12 +49,12 @@ if (isset($traderoutes))
 }
 
 $traderoutes = array ();
-
 $i=0;
 while (!$result->EOF)
 {
-    $traderoutes[$i] = $result->fields;
-    $i++;
+    $i = array_push($traderoutes, $result->fields);
+#    $traderoutes[$i] = $result->fields;
+#    $i++;
     $result->MoveNext ();
 }
 
@@ -557,6 +557,8 @@ function traderoute_new($traderoute_id)
     global $db;
     global $db_logging;
 
+    $editroute = NULL;
+
     if (!empty($traderoute_id))
     {
         $result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array($traderoute_id));
@@ -571,12 +573,12 @@ function traderoute_new($traderoute_id)
             traderoute_die($l_tdr_notowner);
     }
 
-    if ($num_traderoutes >= $max_traderoutes_player && empty($editroute))
+    if ($num_traderoutes >= $max_traderoutes_player && is_null($editroute))
         traderoute_die("<p>$l_tdr_maxtdr<p>");
 
     echo "<p><font size=3 color=blue><strong>";
 
-    if (empty($editroute))
+    if (is_null($editroute))
         echo $l_tdr_createnew;
     else
         echo "$l_tdr_editinga ";
@@ -629,7 +631,7 @@ function traderoute_new($traderoute_id)
         <td><input type=radio name=\"ptype1\" value=\"port\"
         ";
 
-    if (empty($editroute) || (!empty($editroute) && $editroute['source_type'] == 'P'))
+    if (is_null($editroute) || (!is_null($editroute) && $editroute['source_type'] == 'P'))
         echo " checked";
 
     echo "
@@ -637,7 +639,7 @@ function traderoute_new($traderoute_id)
         <td>&nbsp;&nbsp;<input type=text name=port_id1 size=20 align='center'
         ";
 
-    if (!empty($editroute) && $editroute['source_type'] == 'P')
+    if (!is_null($editroute) && $editroute['source_type'] == 'P')
         echo " value=\"$editroute[source_id]\"";
 
     echo "
@@ -651,7 +653,7 @@ function traderoute_new($traderoute_id)
         <td><input type=radio name=\"ptype1\" value=\"planet\"
         ";
 
-    if (!empty($editroute) && $editroute['source_type'] == 'L')
+    if (!is_null($editroute) && $editroute['source_type'] == 'L')
         echo " checked";
 
     echo '
@@ -683,7 +685,7 @@ function traderoute_new($traderoute_id)
         <td><input type=radio name=\"ptype1\" value=\"corp_planet\"
         ";
 
-    if (!empty($editroute) && $editroute['source_type'] == 'C')
+    if (!is_null($editroute) && $editroute['source_type'] == 'C')
         echo " checked";
 
     echo '
@@ -722,7 +724,7 @@ function traderoute_new($traderoute_id)
         <td><input type=radio name=\"ptype2\" value=\"port\"
         ";
 
-    if (empty($editroute) || (!empty($editroute) && $editroute['dest_type'] == 'P'))
+    if (is_null($editroute) || (!is_null($editroute) && $editroute['dest_type'] == 'P'))
         echo " checked";
 
     echo '
@@ -730,7 +732,7 @@ function traderoute_new($traderoute_id)
         <td>&nbsp;&nbsp;<input type=text name=port_id2 size=20 align="center"
         ';
 
-    if (!empty($editroute) && $editroute['dest_type'] == 'P')
+    if (!is_null($editroute) && $editroute['dest_type'] == 'P')
         echo " value=\"$editroute[dest_id]\"";
 
     echo "
@@ -744,7 +746,7 @@ function traderoute_new($traderoute_id)
         <td><input type=radio name=\"ptype2\" value=\"planet\"
         ";
 
-    if (!empty($editroute) && $editroute['dest_type'] == 'L')
+    if (!is_null($editroute) && $editroute['dest_type'] == 'L')
         echo " checked";
 
     echo '
@@ -776,7 +778,7 @@ function traderoute_new($traderoute_id)
         <td><input type=radio name=\"ptype2\" value=\"corp_planet\"
         ";
 
-    if (!empty($editroute) && $editroute['dest_type'] == 'C')
+    if (!is_null($editroute) && $editroute['dest_type'] == 'C')
         echo " checked";
 
     echo '
@@ -813,14 +815,14 @@ function traderoute_new($traderoute_id)
         <td colspan=2 valign=top><font size=2><input type=radio name=\"move_type\" value=\"realspace\"
         ";
 
-    if (empty($editroute) || (!empty($editroute) && $editroute['move_type'] == 'R'))
+    if (is_null($editroute) || (!is_null($editroute) && $editroute['move_type'] == 'R'))
         echo " checked";
 
     echo "
         >&nbsp;$l_tdr_realspace&nbsp;&nbsp<font size=2><input type=radio name=\"move_type\" value=\"warp\"
         ";
 
-    if (!empty($editroute) && $editroute['move_type'] == 'W')
+    if (!is_null($editroute) && $editroute['move_type'] == 'W')
         echo " checked";
 
     echo "
@@ -830,14 +832,14 @@ function traderoute_new($traderoute_id)
         <td colspan=2 valign=top><font size=2><input type=radio name=\"circuit_type\" value=\"1\"
         ";
 
-    if (empty($editroute) || (!empty($editroute) && $editroute['circuit'] == '1'))
+    if (is_null($editroute) || (!empty($editroute) && $editroute['circuit'] == '1'))
         echo " checked";
 
     echo "
         >&nbsp;$l_tdr_oneway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=\"circuit_type\" value=\"2\"
         ";
 
-    if (!empty($editroute) && $editroute['circuit'] == '2')
+    if (!is_null($editroute) && $editroute['circuit'] == '2')
         echo " checked";
 
     echo "
@@ -848,7 +850,7 @@ function traderoute_new($traderoute_id)
         <td><td><td align='center'>
         ";
 
-    if (empty($editroute))
+    if (is_null($editroute))
         echo "<input type=submit value=\"$l_tdr_create\">";
     else
     {
@@ -2225,7 +2227,8 @@ function traderoute_engage($j)
                 $torps_buy=0;
             }
 
-$setcol =0;
+            $setcol =0;
+
             if ($playerinfo['trade_colonists'] == 'Y')
             {
                 $colonists_buy += $playerinfo['ship_colonists'];

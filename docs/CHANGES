@@ -14,6 +14,7 @@ Fixed Notice:  Use of undefined constant corp - assumed 'corp' in planet_report.
 Fixed Genesis bug that wouldn't allow you to create more than 1 planet in the same sector.
 Fixed exploit where a player could scan or attack a ssip without clicking on them first, multi refresh scan exploit.
 Cleaned up rsmove.php
+Fixed Notice:  Undefined variable: editroute in traderoute.php
 
 TheMightyDude (19 July 2012)
 --------------------------------------
