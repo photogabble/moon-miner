@@ -1,3 +1,7 @@
+TheKabal (21 July 2012)
+--------------------------------------
+igb_transfers was incorrectly set to use double as the data type. This gives inaccurate results, and should actually match the data type of the transfer (bigint).
+
 TheMightyDude (21 July 2012)
 --------------------------------------
 Fixed Notice:  Undefined index: team in teams.php

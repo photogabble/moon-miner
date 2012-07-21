@@ -239,7 +239,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}IGB_transfers (" .
              "source_id int DEFAULT '0' NOT NULL," .
              "dest_id int DEFAULT '0' NOT NULL," .
              "time datetime," .
-             "amount double(54,0) DEFAULT '0' NOT NULL," .
+             "amount bigint(20) DEFAULT '0' NOT NULL," .
              "PRIMARY KEY(transfer_id)," .
              "KEY amount (amount)" .
              ")");
