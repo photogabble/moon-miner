@@ -97,7 +97,7 @@ else
     {
         if ($zoneinfo['corp_zone'] == 'N')
         {
-            if ($playerinfo['team'] == 0 && $zoneinfo['owner'] <> $playerinfo['ship_id'])
+            if ($playerinfo['team'] == 0 && $zoneinfo['owner'] != $playerinfo['ship_id'])
             {
                 echo $l_gns_bforbid;
             }

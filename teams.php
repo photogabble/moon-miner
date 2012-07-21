@@ -384,7 +384,7 @@ switch ($teamwhat)
 
     case 6: // Create Team
     {
-        if ($playerinfo['team'] <> 0)
+        if ($playerinfo['team'] != 0)
         {
             echo $l_team_leavefirst . "<br>";
             LINK_BACK();

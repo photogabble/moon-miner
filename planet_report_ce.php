@@ -289,7 +289,7 @@ function change_planet_production($prodpercentarray)
 
           $resx = $db->Execute("UPDATE {$db->prefix}planets SET corp=$team_id WHERE planet_id=$prodpercent AND owner = $ship_id");
           db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-          if ($prodpercentarray['team_id'] <> $team_id)
+          if ($prodpercentarray['team_id'] != $team_id)
           {
             /* Oh dear they are different so send admin a log */
             $ip = $_SERVER['REMOTE_ADDR'];

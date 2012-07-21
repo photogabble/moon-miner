@@ -32,7 +32,7 @@ function cancel_bounty ($db, $bounty_on)
         while (!$res->EOF)
         {
             $bountydetails = $res->fields;
-            if ($bountydetails['placed_by'] <> 0)
+            if ($bountydetails['placed_by'] != 0)
             {
                 $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + $bountydetails[amount] WHERE ship_id = $bountydetails[placed_by]");
                 db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);

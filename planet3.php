@@ -90,7 +90,7 @@ if ($playerinfo['turns'] < 1)
     die ();
 }
 
-if ($planetinfo['sector_id'] <> $playerinfo['sector'])
+if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $l_planet2_sector . '<br><br>';
     TEXT_GOTOMAIN ();

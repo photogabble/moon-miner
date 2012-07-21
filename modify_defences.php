@@ -76,7 +76,7 @@ if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on 
 }
 
 $defenceinfo = $result3->fields;
-if ($defenceinfo['sector_id'] <> $playerinfo['sector'])
+if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
    echo $l_md_nothere . "<br><br>";
    TEXT_GOTOMAIN ();
@@ -156,7 +156,7 @@ switch ($response)
       }
       break;
    case "retrieve":
-      if ($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
+      if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN ();
@@ -209,7 +209,7 @@ switch ($response)
       break;
    case "change":
       bigtitle();
-      if ($defenceinfo['ship_id'] <> $playerinfo['ship_id'])
+      if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN ();

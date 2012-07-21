@@ -181,7 +181,7 @@ if ($planetinfo == false)
 }
 
 // Check to see Ship and Planet are in the same sector
-if ($planetinfo['sector_id'] <> $playerinfo['sector'])
+if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo "$l_planet2_sector<br><br>";
     TEXT_GOTOMAIN ();
@@ -210,17 +210,17 @@ else
     {
         $tporganics  = 1;
     }
-    
+
     if ($tpgoods != -1)
     {
         $tpgoods = 1;
     }
-    
+
     if ($tpenergy != -1)
     {
         $tpenergy = 1;
     }
-    
+
     if ($tpcolonists != -1)
     {
         $tpcolonists = 1;
@@ -230,12 +230,12 @@ else
     {
         $tpcredits = 1;
     }
-  
+
     if ($tptorps != -1)
     {
         $tptorps = 1;
     }
-  
+
     if ($tpfighters != -1)
     {
         $tpfighters = 1;
@@ -262,7 +262,7 @@ else
             $transfer_ore = $planetinfo['ore'];
         }
     }
-    
+
     if ($allorganics == -1)
     {
         if ($tporganics == -1)
@@ -334,7 +334,7 @@ else
             $transfer_torps = $planetinfo['torps'];
         }
     }
-  
+
     if ($allfighters == -1)
     {
         if ($tpfighters == -1)
@@ -517,7 +517,7 @@ else
     {
         if (!empty($planetinfo))
         {
-            if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $playerinfo['team'] && $playerinfo['team'] <> 0))
+            if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $playerinfo['team'] && $playerinfo['team'] != 0))
             {
                 if ($transfer_ore < 0 && $playerinfo['ship_ore'] < abs($transfer_ore))
                 {
@@ -529,7 +529,7 @@ else
                     echo "$l_planet2_noten $l_ore $l_planet2_fortr<br>";
                     $transfer_ore = 0;
                 }
-                
+
                 if ($transfer_organics < 0 && $playerinfo['ship_organics'] < abs($transfer_organics))
                 {
                     echo "$l_planet2_noten $l_organics $l_planet2_fortr<br>";
@@ -540,7 +540,7 @@ else
                     echo "$l_planet2_noten $l_organics $l_planet2_fortr<br>";
                     $transfer_organics = 0;
                 }
-                
+
                 if ($transfer_goods < 0 && $playerinfo['ship_goods'] < abs($transfer_goods))
                 {
                     echo "$l_planet2_noten $l_goods $l_planet2_fortr<br>";
@@ -567,7 +567,7 @@ else
                     echo "$l_planet2_noten $l_planet2_power $l_planet2_fortr<br>";
                     $transfer_energy = 0;
                 }
-                
+
                 if ($transfer_colonists < 0 && $playerinfo['ship_colonists'] < abs($transfer_colonists))
                 {
                     echo "$l_planet2_noten $l_colonists $l_planet2_fortr<br>";
@@ -643,4 +643,3 @@ else
 TEXT_GOTOMAIN();
 include "footer.php";
 ?>
-

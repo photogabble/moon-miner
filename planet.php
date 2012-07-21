@@ -234,7 +234,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
 
             if ($playerinfo['ship_id'] == $planetinfo['owner'])
             {
-                if ($playerinfo['team'] <> 0)
+                if ($playerinfo['team'] != 0)
                 {
                     if ($planetinfo['corp'] == 0)
                     {

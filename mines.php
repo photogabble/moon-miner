@@ -142,7 +142,7 @@ else
         db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
         $zoneowner_info = $result2->fields;
 
-        if ($zone_owner <> $playerinfo['ship_id'])
+        if ($zone_owner != $playerinfo['ship_id'])
         {
             if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
