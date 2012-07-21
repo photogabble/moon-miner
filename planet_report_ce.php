@@ -233,7 +233,7 @@ function change_planet_production($prodpercentarray)
   global $db;
   global $db_logging;
   global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
-  global $username;
+  global $username, $l_unnamed;
 
   $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE email='$username'");
   db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
