@@ -635,15 +635,7 @@ echo "</div>";
 if ($num_defences>0)
 {
             echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030; text-align:center;'>" . $l_sector_def . "</div>\n";
-
-#echo "<div style='border:#FF0000 1px solid;'>\n";
- #   echo "<strong>\n";
- #   echo "  <center>\n";
- #   echo "    <span style='color:#fff;'>$l_sector_def</span>\n";
- #   echo "    <br>\n";
- #   echo "  </center>\n";
- #   echo "</strong>\n";
-echo "<div style='width:498px; margin:auto; overflow:auto; height:125px; scrollbar-base-color: #303030; scrollbar-arrow-color: #fff; padding:0px; text-align:center;'>\n";
+            echo "<div style='width:498px; margin:auto; overflow:auto; height:125px; scrollbar-base-color: #303030; scrollbar-arrow-color: #fff; padding:0px; text-align:center;'>\n";
 }
 ?>
 <table>
