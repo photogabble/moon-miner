@@ -32,33 +32,28 @@ if (checklogin () )
     die ();
 }
 
-if (!isset ($_GET['destroy']) )
+$destroy = NULL;
+if (array_key_exists('destroy', $_GET) == true)
 {
-    $_GET['destroy'] = '';
+    $destroy = $_GET['destroy'];
 }
 
-$destroy = $_GET['destroy'];
-
-if (!isset ($_REQUEST['command']) )
+$command = NULL;
+if (array_key_exists('command', $_REQUEST) == true)
 {
-    $_REQUEST['command'] = '';
+    $command = $_REQUEST['command'];
 }
-$command = $_REQUEST['command'];
 
-if (isset($_GET['planet_id']))
+$planet_id = NULL;
+if (array_key_exists('planet_id', $_GET) == true)
 {
-    // Validate and set the type of $_GET vars;
     $planet_id = (int) $_GET['planet_id'];
-}
-else
-{
-    $planet_id = '';
 }
 
 bigtitle ();
 
 // Get the Player Info
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
@@ -74,23 +69,23 @@ if ($planet_id <= 0 )
     die ();
 }
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($playerinfo['sector']));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result2->fields;
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array($planet_id));
 db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 $planetinfo = $result3->fields;
 
 // Check to see if it returned valid planet info.
-if ($planetinfo == false)
+if (!$result3 instanceof ADORecordSet || (is_bool($planetinfo) && $planetinfo == false))
 {
   echo "Invalid Planet<br><br>";
   text_GOTOMAIN ();
   die ();
 }
 
-if (!empty ($planetinfo) )
+if (!is_bool($planetinfo) && $planetinfo != false )
 // If there is a planet in the sector show appropriate menu
 {
     if ($playerinfo['sector'] != $planetinfo['sector_id'])
@@ -436,19 +431,19 @@ if (!empty ($planetinfo) )
                     // Create The Base
                     $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
                     db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
-                    
+
                     // Update User Turns
                     $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
                     db_op_result ($db, $update1b, __LINE__, __FILE__, $db_logging);
-                    
+
                     // Refresh Plant Info
                     $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
                     db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
                     $planetinfo = $result3->fields;
-                    
+
                     // Notify User Of Base Results
                     echo "$l_planet_bbuild<br><br>";
-                    
+
                     // Calc Ownership and Notify User Of Results
                     $ownership = calc_ownership ($playerinfo['sector'] );
                     if (!empty($ownership))
@@ -563,7 +558,7 @@ if (!empty ($planetinfo) )
             $owner_found = getPlanetOwnerInformation($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null($retOwnerInfo))
             {
-                if ($retOwnerInfo['team'] == $playerinfo[team] && ($playerinfo[team] != 0 || $retOwnerInfo['team'] != 0))
+                if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
                 {
                     echo "<div style='color:#ff0;'>Sorry, You cannot attack a Friendly Owned Private Planet.</div>\n";
                 }
@@ -656,7 +651,7 @@ if (!empty ($planetinfo) )
                 include "footer.php";
                 die ();
             }
-        
+
             // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
             $success = (10 - $ownerinfo['cloak'] / 2 + $playerinfo['sensors']) * 5;
             if ($success < 5)

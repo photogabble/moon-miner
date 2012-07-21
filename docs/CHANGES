@@ -6,6 +6,7 @@ Fixed Notice:  Undefined variable: db_logging in defence_vs_defence.php
 Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in defence_vs_defence.php
 Fixed Notice:  Undefined variable: db_logging in defence_vs_defence.php
 Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in kick_off_planet.php
+Fixed Notice:  Use of undefined constant team - assumed 'team' in planet.php
 
 TheMightyDude (20 July 2012)
 --------------------------------------
