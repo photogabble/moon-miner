@@ -25,6 +25,7 @@ Fixed Notice:  Undefined variable: l_pr_clicktosort, l_sector, l_qty, l_n_a, l_m
 Fixed loads of errors in check_fighters.php, modify_defences.php, sector_fighters.php, destroy_fighters.php, message_defence_owner.php
 Fixed incorect log date being displayed (display 1 month behind).
 Fixed the correct LOCK TABLES was causing some Invalid SQL logs in file attack.php
+Rankings Page now only display alive ships that have used 1 or more turns.
 
 TheMightyDude (19 July 2012)
 --------------------------------------
