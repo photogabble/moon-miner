@@ -133,7 +133,7 @@ switch ($response) {
         }
 
         $bty = $res->fields;
-        if ($bty[placed_by] <> $playerinfo['ship_id'])
+        if ($bty['placed_by'] != $playerinfo['ship_id'])
         {
             echo "$l_by_notyours<br><br>";
             TEXT_GOTOMAIN();
