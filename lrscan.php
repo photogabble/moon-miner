@@ -36,6 +36,15 @@ $link_bnthelper_string = '';
 $port_bnthelper_string = '';
 $planet_bnthelper_string = '';
 
+if (isset($_GET['sector']))
+{
+    $sector = $_GET['sector'];
+}
+else
+{
+    $sector = null;
+}
+
 function get_player ($db, $ship_id)
 {
     global $db_logging;
@@ -200,7 +209,7 @@ else
     $sectorinfo = $result2->fields;
 
     // Get sectors which can be reached through scanned sector
-    $result3 = $db->Execute("SELECT link_dest FROM {$db->prefix}links WHERE link_start=$sector ORDER BY link_dest ASC;", array($sector));
+    $result3 = $db->Execute("SELECT link_dest FROM {$db->prefix}links WHERE link_start=? ORDER BY link_dest ASC;", array($sector));
     db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
     $i=0;
 
