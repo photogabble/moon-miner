@@ -33,20 +33,6 @@ include_once "includes/is_same_team.php";
 $title = $l_att_title;
 include "header.php";
 
-# need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE or it will fail to log the sql.
-$result = $db->Execute("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, {$db->prefix}zones READ, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE;");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
-$playerinfo = $result->fields;
-
-$ship_id = stripnum ($ship_id);
-
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
-db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
-$targetinfo = $result2->fields;
-
 bigtitle ();
 
 // Kami Multi Browser Window Attack Fix
@@ -59,6 +45,19 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 }
 unset($_SESSION['ship_selected']);
 
+# need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE or it will fail to log the sql.
+$result = $db->Execute("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}languages READ, {$db->prefix}ibank_accounts READ, {$db->prefix}sector_defence WRITE, {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, {$db->prefix}zones READ, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE;");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+$playerinfo = $result->fields;
+
+$ship_id = stripnum ($ship_id);
+
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
+db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+$targetinfo = $result2->fields;
 
 $playerscore = gen_score($playerinfo['ship_id']);
 $targetscore = gen_score($targetinfo['ship_id']);
