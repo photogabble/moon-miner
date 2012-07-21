@@ -27,7 +27,6 @@ function message_defence_owner ($db, $sector, $message)
     global $db_logging;
     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=?;", array($sector));
     db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
-#    echo $db->ErrorMsg();
 
     // Put the defence information into the array "defenceinfo"
     if ($result3 instanceof ADORecordSet)
