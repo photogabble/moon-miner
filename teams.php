@@ -395,10 +395,6 @@ switch ($teamwhat)
         {
             echo "<form action='teams.php' method='post'>\n";
             echo $l_team_entername . ": ";
-#            if ($testing)
-#            {
-#                echo "<input type='hidden' name='swordfish' value='$swordfish'>";
-#            }
             echo "<input type='hidden' name='teamwhat' value='{$teamwhat}'>\n";
             echo "<input type='text' name='teamname' size='40' maxlength='40'><br>\n";
             echo $l_team_enterdesc . ": ";
@@ -526,7 +522,6 @@ switch ($teamwhat)
         {
             echo "<form action='teams.php' method='post'>";
             echo $l_team_edname . ": <br>";
-#            echo "<input type=hidden name=swordfish value='$swordfish'>";
             echo "<input type='hidden' name='teamwhat' value='{$teamwhat}'>";
             echo "<input type='hidden' name='whichteam' value='{$whichteam}'>";
             echo "<input type='hidden' name='update' value='true'>";
@@ -584,13 +579,6 @@ switch ($teamwhat)
                 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
                 $whichteam = $result->fields;
                 echo "$l_team_urejected <strong>$whichteam[team_name]</strong><br><br>";
-
-                // No more necessary due to COUNT(*) in previous SQL statement
-                // AND already done in case 5:
-                # $db->Execute("UPDATE {$db->prefix}ships SET team='0' WHERE ship_id='$playerinfo[ship_id]'");
-                # $db->Execute("UPDATE {$db->prefix}teams SET number_of_members=number_of_members-1 WHERE id=$whichteam");
-                # playerlog ($db, $playerinfo[ship_id], LOG_TEAM_KICK, "$whichteam[team_name]");
-
                 LINK_BACK();
                 break;
             }
@@ -727,7 +715,6 @@ function DISPLAY_ALL_TEAMS()
         echo "<td>{$row['number_of_members']}</td>";
 
         // This fixes it so that it actually displays the coordinator, and not the first member of the team.
-#        $sql_query_2 = "SELECT character_name FROM {$db->prefix}ships WHERE ship_id = $row[creator]";
         $res2 = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array($row['creator'])) or die($db->ErrorMsg());
         db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
         while (!$res2->EOF)
