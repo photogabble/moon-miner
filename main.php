@@ -694,7 +694,6 @@ echo "</div>\n";
 else
 {
     echo "<td style='vertical-align:top; text-align:center;'>";
-#   echo "<br><span style='color:white; size:1.25em;'>None</font><br><br>";
     echo "</td></tr></table>";
 }
 ?>
