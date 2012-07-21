@@ -717,11 +717,11 @@ case LOG_BOUNTY_FEDBOUNTY:
   return $retvalue;
 }
 
-function getLogInfo($id = NULL, &$title = NULL, &$text = NULL)
+function getLogInfo($id = null, &$title = null, &$text = null)
 {
     global $LOG_LIST;
-    $title = NULL;
-    $text = NULL;
+    $title = null;
+    $text = null;
     if (array_key_exists("l_log_title_". $LOG_LIST[$id], $GLOBALS))
     {
         $title = $GLOBALS["l_log_title_". $LOG_LIST[$id]];

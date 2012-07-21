@@ -189,13 +189,13 @@ else
                    {
                        if (class_exists($module_name))
                        {
-                           $module_disabled = NULL;
+                           $module_disabled = null;
                            if (isset($module['isDisabled']) && $module['isDisabled'] == true)
                            {
                                $module_disabled = " (<span style='color:#f00;'>Diasbled</span>)";
                            }
 
-                           $module_stage = NULL;
+                           $module_stage = null;
                            if (isset($module['stage']))
                            {
                                $module_stage = " [<span style='color:#ff0;'>{$module['stage']}</span>]";

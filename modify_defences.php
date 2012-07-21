@@ -41,7 +41,7 @@ if (!isset ($defence_id))
     die();
 }
 
-$response = NULL;
+$response = null;
 if (array_key_exists('response', $_REQUEST) == true)
 {
     $response = $_REQUEST['response'];

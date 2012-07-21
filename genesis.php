@@ -58,7 +58,7 @@ $planetname = substr($playerinfo['character_name'],0,1) . substr($playerinfo['sh
 
 bigtitle ();
 
-$destroy = NULL;
+$destroy = null;
 if (array_key_exists('destroy', $_GET) == true)//isset($_GET['destroy']))
 {
     $destroy = $_GET['destroy'];

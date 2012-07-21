@@ -41,19 +41,19 @@ $i = 0;
 $total_sector_fighters = 0;
 $owner = true;
 
-$response = NULL;
+$response = null;
 if (array_key_exists('response', $_POST) == true)
 {
     $response = $_POST['response'];
 }
 
-$destination = NULL;
+$destination = null;
 if (array_key_exists('destination', $_REQUEST) == true)
 {
     $destination = $_REQUEST['destination'];
 }
 
-$engage = NULL;
+$engage = null;
 if (array_key_exists('engage', $_REQUEST) == true)
 {
     $engage = $_REQUEST['engage'];

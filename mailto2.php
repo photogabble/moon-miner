@@ -31,25 +31,25 @@ if (checklogin())
     die();
 }
 
-$name = NULL;
+$name = null;
 if (array_key_exists('name', $_GET) == true)
 {
     $name = (string) $_GET['name'];
 }
 
-$content = NULL;
+$content = null;
 if (array_key_exists('content', $_POST) == true)
 {
     $content = (string) $_POST['content'];
 }
 
-$subject = NULL;
+$subject = null;
 if (array_key_exists('subject', $_REQUEST) == true)
 {
     $subject = (string) $_REQUEST['subject'];
 }
 
-$to = NULL;
+$to = null;
 if (array_key_exists('to', $_POST) == true)
 {
     $to = (string) $_POST['to'];

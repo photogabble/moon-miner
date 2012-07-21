@@ -22,10 +22,10 @@ if (preg_match("/getPlanetOwnerInformation.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function getPlanetOwnerInformation ($db = NULL, $planetID = NULL, &$ownerInfo = NULL)
+function getPlanetOwnerInformation ($db = null, $planetID = null, &$ownerInfo = null)
 {
     global $db_logging;
-    $ownerInfo = NULL;
+    $ownerInfo = null;
     if(!is_null($planetID) && is_numeric($planetID) && $planetID >0)
     {
         $sql  = "SELECT ship_id, character_name, team FROM {$db->prefix}planets ";

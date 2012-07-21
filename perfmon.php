@@ -27,7 +27,7 @@ $title = "Performance Monitor";
 include "header.php";
 bigtitle();
 
-$swordfish = NULL;
+$swordfish = null;
 if (array_key_exists('swordfish', $_POST))
 {
     $swordfish = $_POST['swordfish'];

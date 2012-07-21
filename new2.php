@@ -45,22 +45,23 @@ if ($account_creation_closed)
 }
 
 # Get the user supplied post vars.
-$username  = NULL;
-$shipname  = NULL;
-$character = NULL;
+$username  = null;
+$shipname  = null;
+$character = null;
 if (array_key_exists('character', $_POST))
 {
     $character  = $_POST['character'];
 }
+
 if (array_key_exists('shipname', $_POST))
 {
     $shipname   = $_POST['shipname'];
 }
+
 if (array_key_exists('username', $_POST))
 {
     $username   = $_POST['username'];
 }
-####
 
 $character = htmlspecialchars ($character);
 $shipname = htmlspecialchars ($shipname);

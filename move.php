@@ -56,7 +56,7 @@ db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 // Put the sector information into the array "sectorinfo"
 $sectorinfo = $result2->fields;
 
-$sector = NULL;
+$sector = null;
 if (array_key_exists('sector', $_REQUEST) == true)
 {
     $sector = $_REQUEST['sector'];

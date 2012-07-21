@@ -102,7 +102,7 @@ if (!isset($tr_repeat) || $tr_repeat <= 0)
     $tr_repeat = 1;
 }
 
-$command = NULL;
+$command = null;
 if (array_key_exists('command', $_REQUEST) == true)
 {
     $command = $_REQUEST['command'];
@@ -557,7 +557,7 @@ function traderoute_new($traderoute_id)
     global $db;
     global $db_logging;
 
-    $editroute = NULL;
+    $editroute = null;
 
     if (!empty($traderoute_id))
     {

@@ -1,6 +1,8 @@
 TheKabal (21 July 2012)
 --------------------------------------
 igb_transfers was incorrectly set to use double as the data type. This gives inaccurate results, and should actually match the data type of the transfer (bigint).
+For consistency, change all if statements from <> to !=
+The constant "null" is lowercase in all non-sql cases
 
 TheMightyDude (21 July 2012)
 --------------------------------------

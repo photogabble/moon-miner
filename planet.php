@@ -32,19 +32,19 @@ if (checklogin () )
     die ();
 }
 
-$destroy = NULL;
+$destroy = null;
 if (array_key_exists('destroy', $_GET) == true)
 {
     $destroy = $_GET['destroy'];
 }
 
-$command = NULL;
+$command = null;
 if (array_key_exists('command', $_REQUEST) == true)
 {
     $command = $_REQUEST['command'];
 }
 
-$planet_id = NULL;
+$planet_id = null;
 if (array_key_exists('planet_id', $_GET) == true)
 {
     $planet_id = (int) $_GET['planet_id'];
@@ -58,7 +58,7 @@ db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
 // Empty out Planet and Ship vars
-$planetinfo = NULL;
+$planetinfo = null;
 
 // Check if planet_id is valid.
 if ($planet_id <= 0 )

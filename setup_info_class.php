@@ -128,8 +128,8 @@ class SETUPINFO_CLASS
     ##############################
     function get_gamepath($compare = false)
     {
-        $game_path['result']  = NULL;
-        $game_path['info']    = NULL;
+        $game_path['result']  = null;
+        $game_path['info']    = null;
         $game_path['status']  = false;
 
         $result=dirname($_SERVER["PHP_SELF"]);
@@ -168,8 +168,8 @@ class SETUPINFO_CLASS
 
     function get_gamedomain($compare = false)
     {
-        $game_domain['result']  = NULL;
-        $game_domain['info']    = NULL;
+        $game_domain['result']  = null;
+        $game_domain['info']    = null;
         $game_domain['status']  = false;
 
         $RemovePORT = true;
@@ -357,7 +357,7 @@ class SETUPINFO_CLASS
     #########################################
     function get_env_variables(&$env_info)
     {
-        $env_info = NULL;
+        $env_info = null;
         if ($this->switches['Show_Env_Var']['enabled'])
         {
             $id=0;
@@ -710,7 +710,7 @@ class SETUPINFO_CLASS
     function testcookies()
     {
         global $gamepath, $gamedomain,$DoneRefresh,$_COOKIE,$_SESSION;
-        $COOKIE_Info =NULL;
+        $COOKIE_Info = null;
 
         if ($this->switches['Test_Cookie']['enabled'])
         {
@@ -728,7 +728,7 @@ class SETUPINFO_CLASS
                 }
                 else
                 {
-                    $_SESSION['count']=NULL;
+                    $_SESSION['count'] = null;
                     unset($_SESSION["count"]);
                 }
             }

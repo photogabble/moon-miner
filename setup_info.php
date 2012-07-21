@@ -248,7 +248,7 @@ if ($setup_info->get_env_variables($env_info))
 }
 else
 {
-    $env_status = NULL;
+    $env_status = null;
     for ($n=0; $n <count($env_info['status']); $n++)
     {
         $env_status .= $env_info['status'][$n];

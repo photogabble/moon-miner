@@ -40,49 +40,49 @@ bigtitle();
 $testing = false; // set to false to get rid of password when creating new team
 
 // Typecast into integers (this also removes all non numbers)
-$whichteam = NULL;
+$whichteam = null;
 if (array_key_exists('whichteam', $_REQUEST) == true)
 {
     $whichteam = (int)$_REQUEST['whichteam'];
 }
 
-$teamwhat = NULL;
+$teamwhat = null;
 if (array_key_exists('teamwhat', $_REQUEST) == true)
 {
     $teamwhat  = (int)$_REQUEST['teamwhat'];
 }
 
-$confirmleave = NULL;
+$confirmleave = null;
 if (array_key_exists('confirmleave', $_REQUEST) == true)
 {
     $confirmleave = stripnum($_REQUEST['confirmleave']);
 }
 
-$invited = NULL;
+$invited = null;
 if (array_key_exists('invited', $_REQUEST) == true)
 {
     $invited      = stripnum($_REQUEST['invited']);
 }
 
-$teamname = NULL;
+$teamname = null;
 if (array_key_exists('teamname', $_POST) == true)
 {
     $teamname = $_POST['teamname'];
 }
 
-$confirmed = NULL;
+$confirmed = null;
 if (array_key_exists('confirmed', $_REQUEST) == true)
 {
     $confirmed = stripnum($_REQUEST['confirmed']);
 }
 
-$update = NULL;
+$update = null;
 if (array_key_exists('update', $_POST) == true)
 {
     $update = $_POST['update'];
 }
 
-$who = NULL;
+$who = null;
 if (array_key_exists('who', $_REQUEST) == true)
 {
     $who  = (int)$_REQUEST['who'];
@@ -839,7 +839,7 @@ function showinfo($whichteam,$isowner)
     echo "</tr></table>";
 }
 
-function validate_team($name = NULL, $desc = NULL, $creator = NULL)
+function validate_team($name = null, $desc = null, $creator = null)
 {
     global $db;
     global $db_logging;

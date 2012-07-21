@@ -31,7 +31,7 @@ if (checklogin())
     die();
 }
 
-$PRepType = NULL;
+$PRepType = null;
 if (array_key_exists('PRepType', $_GET) == true) //!isset($_GET['PRepType']))
 {
     $PRepType = $_GET['PRepType'];

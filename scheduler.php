@@ -103,7 +103,7 @@ else
     $starttime = time();
     $lastRun = 0;
     $schedCount = 0;
-    $lastrunList = NULL;
+    $lastrunList = null;
     $sched_res = $db->Execute("SELECT * FROM {$db->prefix}scheduler");
     db_op_result ($db, $sched_res, __LINE__, __FILE__, $db_logging);
     if ($sched_res)

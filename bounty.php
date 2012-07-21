@@ -31,7 +31,7 @@ if (checklogin())
     die();
 }
 
-$response = NULL;
+$response = null;
 if (array_key_exists('response', $_POST) == true)
 {
     $response = $_POST['response'];
