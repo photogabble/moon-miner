@@ -18,37 +18,37 @@
 // File: includes/kick_off_planet.php
 
 if (preg_match("/kick_off_planet.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+    echo "You can not access this file directly!";
+    die();
 }
 
 function kick_off_planet ($db, $ship_id, $whichteam)
 {
     global $db_logging;
-    $result1 = $db->Execute("SELECT * from {$db->prefix}planets where owner = '$ship_id' ");
+
+    $result1 = $db->Execute("SELECT * from {$db->prefix}planets where owner = ?;", array($ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
 
-    if ($result1 > 0)
+    if ($result1 instanceof ADORecordSet)
     {
         while (!$result1->EOF)
         {
             $row = $result1->fields;
-            $result2 = $db->Execute("SELECT * from {$db->prefix}ships where on_planet = 'Y' and planet_id = '$row[planet_id]' and ship_id <> '$ship_id' ");
+            $result2 = $db->Execute("SELECT * from {$db->prefix}ships where on_planet = 'Y' and planet_id = ? and ship_id <> ?;", array($row['planet_id'], $ship_id));
             db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
-            if ($result2 > 0)
+            if ($result2 instanceof ADORecordSet)
             {
                 while (!$result2->EOF )
                 {
                     $cur = $result2->fields;
-                    $resa = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id='$cur[ship_id]'");
+                    $resa = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id=?;", array($cur['ship_id']));
                     db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
-                    playerlog ($db, $cur['ship_id'], LOG_PLANET_EJECT, "$cur[sector]|$row[character_name]");
+                    playerlog ($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
                     $result2->MoveNext();
                 }
             }
-
             $result1->MoveNext();
         }
-   }
+    }
 }
 ?>
