@@ -30,11 +30,11 @@ if (checklogin())
     die();
 }
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='?'", array($username));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='?'", array($ship_id));
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array($ship_id));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $targetinfo = $result2->fields;
 
