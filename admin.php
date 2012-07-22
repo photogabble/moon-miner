@@ -109,7 +109,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM {$db->prefix}ships WHERE ship_id=$user");
+                    $res = $db->Execute("select * FROM {$db->prefix}ships WHERE ship_id=?", array($user));
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -211,7 +211,7 @@ else
                 {
                     $row=$result->fields;
                     $distance=mt_rand(1,$radius);
-                    $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance=$distance WHERE sector_id=$row[sector_id]");
+                    $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance=$distance WHERE sector_id=?", array($row['sector_id']));
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     echo "Updated sector $row[sector_id] set to $distance<br>";
                     $result->MoveNext();
@@ -241,7 +241,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM {$db->prefix}universe WHERE sector_id=$sector");
+                    $res = $db->Execute("select * FROM {$db->prefix}universe WHERE sector_id=?", array($sector));
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
 
@@ -358,7 +358,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM {$db->prefix}planets WHERE planet_id=$planet");
+                    $res = $db->Execute("select * FROM {$db->prefix}planets WHERE planet_id=?", array($planet));
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
 
@@ -479,7 +479,7 @@ else
             {
                 if ($operation == "editzone")
                 {
-                    $res = $db->Execute("select * FROM {$db->prefix}zones WHERE zone_id=$zone");
+                    $res = $db->Execute("select * FROM {$db->prefix}zones WHERE zone_id=?", array($zone));
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -575,7 +575,7 @@ else
                              echo "<td align=center><font size=2 color=white>$printban</td>" .
                                   "<td align=center><font size=2 color=white>";
 
-                             $res = $db->Execute("select character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address LIKE '$ban'");
+                             $res = $db->Execute("select character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address LIKE '?'", array($ban));
                              db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                              unset($players);
                              while (!$res->EOF)
@@ -662,7 +662,7 @@ else
                          echo "<td align=center><font size=2 color=white>$ip</td>" .
                               "<td align=center><font size=2 color=white>";
 
-                         $res = $db->Execute("select character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address='$ip'");
+                         $res = $db->Execute("select character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address='?'", array($ip));
                          db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                          unset($players);
                          while (!$res->EOF)
@@ -761,7 +761,7 @@ else
                     $printban = str_replace("%", "*", $banmask);
                     echo "<font size=2 color=white><strong>Successfully banned $printban</strong>.<p>";
 
-                    $resx = $db->Execute("INSERT INTO {$db->prefix}ip_bans valueS(NULL, '$banmask')");
+                    $resx = $db->Execute("INSERT INTO {$db->prefix}ip_bans values(NULL, '?')", array($banmask));
                     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     $res = $db->Execute("select DISTINCT character_name FROM {$db->prefix}ships, {$db->prefix}ip_bans WHERE ip_address LIKE ban_mask");
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -783,31 +783,31 @@ else
                     $ip = $_POST[ip];
                     if (!empty($ban))
                     {
-                        $res = $db->Execute("select * FROM {$db->prefix}ip_bans WHERE ban_mask='$ban'");
+                        $res = $db->Execute("select * FROM {$db->prefix}ip_bans WHERE ban_mask='?'", array($ban));
                         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     }
                     else
                     {
-                        $res = $db->Execute("select * FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask");
+                        $res = $db->Execute("select * FROM {$db->prefix}ip_bans WHERE '?' LIKE ban_mask", array($ip));
                         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     }
 
                     $nbbans = $res->RecordCount();
                     while (!$res->EOF)
                     {
-                        $res->fields[print_mask] = str_replace("%", "*", $res->fields[ban_mask]);
+                        $res->fields['print_mask'] = str_replace("%", "*", $res->fields['ban_mask']);
                         $bans[]=$res->fields;
                         $res->MoveNext();
                     }
 
                     if (!empty($ban))
                     {
-                        $resx = $db->Execute("DELETE FROM {$db->prefix}ip_bans WHERE ban_mask='$ban'");
+                        $resx = $db->Execute("DELETE FROM {$db->prefix}ip_bans WHERE ban_mask='?'", array($ban));
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     }
                     else
                     {
-                        $resx = $db->Execute("DELETE FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask");
+                        $resx = $db->Execute("DELETE FROM {$db->prefix}ip_bans WHERE '?' LIKE ban_mask", array($ip));
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                     }
 
@@ -817,7 +817,7 @@ else
                         $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
                     }
 
-                    $res = $db->Execute("select DISTINCT character_name FROM {$db->prefix}ships WHERE $query_string");
+                    $res = $db->Execute("select DISTINCT character_name FROM {$db->prefix}ships WHERE ?", array($query_string));
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $nbplayers = $res->RecordCount();
                     while (!$res->EOF)
