@@ -180,7 +180,7 @@ function calc_ownership ($sector)
     $query = $query . " AND team!=0";
     $resd = $db->Execute($query);
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-    if ($res->RecordCount() != 0)
+    if ($resd->RecordCount() != 0)
     {
       $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=$sector");
       db_op_result ($db, $resd, __LINE__, __FILE__, $db_logging);
