@@ -518,7 +518,6 @@ else
     $planet_bnthelper_string="<!--planet:N:::-->";
 }
 
-//echo "</td>\n"; lps
 echo "</tr>\n";
 echo "</table>\n";
 echo "</div>\n";
@@ -537,7 +536,7 @@ if ($playerinfo['sector'] != 0)
     $sql .= "ORDER BY RAND();";
     $result4 = $db->Execute($sql);
     db_op_result ($db, $result4, __LINE__, __FILE__, $db_logging);
-    
+
     if ($result4 != false )
     {
         $ships_detected = 0;
