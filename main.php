@@ -496,7 +496,7 @@ if ($num_planets > 0)
             echo "<br>($planet_owner[character_name])";
             $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner['character_name'] . ":N:-->";
         }
-        echo "</span></td></td>";
+        echo "</span></td>";
 
         $totalcount++;
         if ($curcount == $picsperrow - 1)
@@ -518,7 +518,7 @@ else
     $planet_bnthelper_string="<!--planet:N:::-->";
 }
 
-echo "</td>\n";
+//echo "</td>\n"; lps
 echo "</tr>\n";
 echo "</table>\n";
 echo "</div>\n";
