@@ -272,8 +272,8 @@ function IGB_transfer()
   {
     foreach ($planets as $planet)
     {
-      if (empty($planet[name]))
-        $planet[name] = $l_igb_unnamed;
+      if (empty($planet['name']))
+        $planet['name'] = $l_igb_unnamed;
       echo "<option value=$planet[planet_id]>$planet[name] $l_igb_in $planet[sector_id]</option>";
     }
   }
@@ -288,8 +288,8 @@ function IGB_transfer()
   {
     foreach ($planets as $planet)
     {
-      if (empty($planet[name]))
-        $planet[name] = $l_igb_unnamed;
+      if (empty($planet['name']))
+        $planet['name'] = $l_igb_unnamed;
       echo "<option value=$planet[planet_id]>$planet[name] $l_igb_in $planet[sector_id]</option>";
     }
   }
@@ -314,8 +314,8 @@ function IGB_transfer()
   {
     foreach ($planets as $planet)
     {
-      if (empty($planet[name]))
-        $planet[name] = $l_igb_unnamed;
+      if (empty($planet['name']))
+        $planet['name'] = $l_igb_unnamed;
       echo "<option value=$planet[planet_id]>$planet[name] $l_igb_in $planet[sector_id]</option>";
     }
   }

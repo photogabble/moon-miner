@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('planet_report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_pr_title;
 include "header.php";
@@ -384,7 +384,7 @@ function change_planet_production($prodpercentarray)
 function Take_Credits($sector_id, $planet_id)
 {
   global $db, $username;
-
+  global $db_logging;
   // Get basic Database information (ship and planet)
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -456,6 +456,9 @@ function Real_Space_Move($destination)
   global $level_factor;
   global $username;
   global $lang;
+  global $db_logging;
+
+  global $l_rs_ready;
 
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -467,6 +470,8 @@ function Real_Space_Move($destination)
   $result3 = $db->Execute("SELECT angle1,angle2,distance FROM {$db->prefix}universe WHERE sector_id=$destination");
   db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
   $finish = $result3->fields;
+
+  $deg = pi() / 180;
   $sa1 = $start['angle1'] * $deg;
   $sa2 = $start['angle2'] * $deg;
   $fa1 = $finish['angle1'] * $deg;

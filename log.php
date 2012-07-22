@@ -703,7 +703,7 @@ case LOG_BOUNTY_FEDBOUNTY:
 
  case 1019:
     // Invalid login try (wrong password etc)
-    list($ship_ip, $ship_email, $used_password, $used_hash)= explode ("|", $entry['data']);
+    list($ship_ip, $ship_email, $used_password)= explode ("|", $entry['data']);
     $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>' and had the following Hash: '<span style='color:#ff0;'>{$used_hash}</span>'";
     $retvalue['title'] = "Invalid Login Attempt.";
     break;
@@ -722,14 +722,18 @@ function getLogInfo($id = null, &$title = null, &$text = null)
     global $LOG_LIST;
     $title = null;
     $text = null;
-    if (array_key_exists("l_log_title_". $LOG_LIST[$id], $GLOBALS))
-    {
-        $title = $GLOBALS["l_log_title_". $LOG_LIST[$id]];
-    }
 
-    if (array_key_exists("l_log_text_". $LOG_LIST[$id], $GLOBALS))
+    if ($id < count($LOG_LIST))
     {
-        $text = $GLOBALS["l_log_text_". $LOG_LIST[$id]];
+        if (array_key_exists("l_log_title_". $LOG_LIST[$id], $GLOBALS))
+        {
+            $title = $GLOBALS["l_log_title_". $LOG_LIST[$id]];
+        }
+
+        if (array_key_exists("l_log_text_". $LOG_LIST[$id], $GLOBALS))
+        {
+            $text = $GLOBALS["l_log_text_". $LOG_LIST[$id]];
+        }
     }
 }
 
