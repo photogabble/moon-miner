@@ -841,7 +841,7 @@ function IGB_borrow()
   global $l_igb_invalidamount,$l_igb_notwoloans, $l_igb_loantoobig;
   global $l_igb_takenaloan, $l_igb_loancongrats, $l_igb_loantransferred;
   global $l_igb_loanfee, $l_igb_amountowned, $IGB_lrate, $l_igb_loanreminder, $l_igb_loanreminder2;
-  global $db, $l_igb_back, $l_igb_logout;
+  global $db, $db_logging, $l_igb_back, $l_igb_logout;
 
   $amount = StripNonNum($amount);
   if (($amount * 1) != $amount)
@@ -884,6 +884,7 @@ function IGB_borrow()
 
   $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan=$amount3, loantime=NOW() WHERE ship_id=$playerinfo[ship_id]");
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+
   $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits+$amount WHERE ship_id=$playerinfo[ship_id]");
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }

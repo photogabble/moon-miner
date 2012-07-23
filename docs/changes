@@ -31,6 +31,7 @@ Fixed Notice: Use of undefined constant fighters - assumed 'fighters' in combat.
 Fixed Notice: Undefined variable: update7a in combat.php
 Fixed Notice: Undefined variable: upgrade_factor in combat.php
 Fixed Notice: Undefined variable: upgrade_cost in combat.php
+Fixed Notice: Undefined variable: db_logging in igb.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------
