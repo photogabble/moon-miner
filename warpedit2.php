@@ -37,7 +37,7 @@ if (array_key_exists('oneway', $_POST)== true)
     $oneway = $_POST['oneway'];
 }
 
-$target_sector = NULL;
+$target_sector = null;
 if (array_key_exists('target_sector', $_POST)== true)
 {
     $target_sector = $_POST['target_sector'];
