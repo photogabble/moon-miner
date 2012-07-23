@@ -65,27 +65,27 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo[ship_id], "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
         $playerinfo['ship_colonists'] = 0;
     }
     if ($playerinfo['ship_ore'] < 0 || $playerinfo['ship_ore'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
         $playerinfo['ship_ore'] = 0;
     }
     if ($playerinfo['ship_organics'] < 0 || $playerinfo['ship_organics'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
         $playerinfo['ship_organics'] = 0;
     }
     if ($playerinfo['ship_goods'] < 0 || $playerinfo['ship_goods'] > $maxholds)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");
         $playerinfo['ship_goods'] = 0;
     }
     if ($playerinfo['ship_energy'] < 0 || $playerinfo['ship_energy'] > $maxenergy)
     {
-        adminlog ($db, LOG_ADMIN_ILLEGVALUE, $playerinfo['ship_id'], "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
+        adminlog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
         $playerinfo['ship_energy'] = 0;
     }
     if ($freeholds < 0)
@@ -487,25 +487,25 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
 #    if (!$triptime && $destination != $playerinfo['sector']) // Duno why this wasn't working.
     if (!$triptime && $dest['sector_id'] != $playerinfo['sector'])
         $triptime = 1;
-    
+
     if ($playerinfo['dev_fuelscoop'] == "Y")
         $energyscooped = $distance * 100;
     else
         $energyscooped = 0;
-    
+
     if ($playerinfo['dev_fuelscoop'] == "Y" && !$energyscooped && $triptime == 1)
         $energyscooped = 100;
-    
+
     $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
-    
+
     if ($free_power < $energyscooped)
         $energyscooped = $free_power;
-    
+
     if ($energyscooped < 1)
         $energyscooped = 0;
 
     $retvalue['scooped1'] = $energyscooped;
-    
+
     if ($circuit == '2')
     {
         if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
@@ -620,7 +620,7 @@ function traderoute_new($traderoute_id)
 
     // Display Current Sector
     echo "$l_tdr_cursector $playerinfo[sector]<br>";
-    
+
     // Start of form for starting location
     echo "
         <form action=traderoute.php?command=create method=post>
@@ -859,7 +859,7 @@ function traderoute_new($traderoute_id)
     }
 
     $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
-    
+
     echo "
         </table>
         $l_tdr_returnmenu<br>
@@ -906,11 +906,11 @@ function traderoute_create()
     // Database sanity check for source
     if ($ptype1 == 'port')
     {
-        
+
         // Check for valid Source Port
         if ($port_id1 >= $sector_max)
             traderoute_die($l_tdr_invalidspoint);
-        
+
         $query = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($port_id1));
         db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
         if (!$query || $query->EOF)
@@ -918,7 +918,7 @@ function traderoute_create()
             $l_tdr_errnotvalidport = str_replace("[tdr_port_id]", $port_id1, $l_tdr_errnotvalidport);
             traderoute_die($l_tdr_errnotvalidport);
         }
-        
+
         // OK we definitely have a port here
         $source=$query->fields;
         if ($source['port_type'] == 'none')
@@ -936,11 +936,11 @@ function traderoute_create()
         {
             traderoute_die($l_tdr_errnosrc);
         }
-        
+
         // Check for valid Source Planet
         if ($source['sector_id'] >= $sector_max)
             traderoute_die($l_tdr_invalidsrc);
-        
+
         if ($source['owner'] != $playerinfo['ship_id'])
         {
             if (($playerinfo['team'] == 0 || $playerinfo['team'] != $source['corp']) && $source['sells'] == 'N')
@@ -973,7 +973,7 @@ function traderoute_create()
         // Check for valid Dest Port
         if ($port_id2 >= $sector_max)
             traderoute_die($l_tdr_invaliddport);
-        
+
         $query = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($port_id2));
         db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
         if (!$query || $query->EOF)
@@ -981,9 +981,9 @@ function traderoute_create()
             $l_tdr_errnotvaliddestport = str_replace("[tdr_port_id]", $port_id2, $l_tdr_errnotvaliddestport);
             traderoute_die($l_tdr_errnotvaliddestport);
         }
-        
+
         $destination=$query->fields;
-        
+
         if ($destination['port_type'] == 'none')
         {
             $l_tdr_errnoport2 = str_replace("[tdr_port_id]", $port_id2, $l_tdr_errnoport2);
@@ -1009,7 +1009,7 @@ function traderoute_create()
 #           $l_tdr_errnotownnotsell2 = str_replace("[tdr_dest_name]", $destination['name'], $l_tdr_errnotownnotsell2);
 #           $l_tdr_errnotownnotsell2 = str_replace("[tdr_dest_sector_id]", $destination['sector_id'], $l_tdr_errnotownnotsell2);
 #           traderoute_die($l_tdr_errnotownnotsell2);
-        
+
             // Check for valid Owned Source Planet
             adminlog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id2} as dest.");
             traderoute_die($l_tdr_invaliddplanet);
@@ -1128,9 +1128,9 @@ function traderoute_settings()
     global $l_tdr_globalset, $l_tdr_tdrsportsrc, $l_tdr_colonists, $l_tdr_fighters, $l_tdr_torps, $l_tdr_trade;
     global $l_tdr_tdrescooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu, $l_here;
     global $db;
-    
+
     echo "<p><font size=3 color=blue><strong>$l_tdr_globalset</strong></font><p>";
-    
+
     echo "<font color=white size=2><strong>$l_tdr_tdrsportsrc :</strong></font><p>".
         "<form action=traderoute.php?command=setsettings method=post>".
         "<table border=0><tr>".
@@ -1368,12 +1368,12 @@ function traderoute_engage($j)
                 traderoute_die($l_tdr_notyourplanet);
             }
         }
-        
+
         $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($dest['sector_id']));
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
         if (!$result || $result->EOF)
         traderoute_die($l_tdr_invaliddsector);
-        
+
         $destport = $result->fields;
     }
 
@@ -1505,7 +1505,7 @@ function traderoute_engage($j)
                 $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?;", array($zoneinfo['owner']));
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 $ownerinfo = $res->fields;
-                
+
                 if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
                     traderoute_die($l_tdr_tradedestportoutsider);
             }
@@ -2200,10 +2200,10 @@ function traderoute_engage($j)
                     $playerinfo['ship_energy'] += $energy_buy;
                     $destcost -= $energy_buy * $energy_price1;
                 }
-                
+
                 if ($ore_buy == 0 && $goods_buy == 0 && $energy_buy == 0 && $organics_buy == 0)
                     echo "$l_tdr_nothingtotrade<br>";
-                
+
                 $resn = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
                 db_op_result ($db, $resn, __LINE__, __FILE__, $db_logging);
             }
@@ -2363,7 +2363,7 @@ function traderoute_engage($j)
     db_op_result ($db, $rest, __LINE__, __FILE__, $db_logging);
     $playerinfo['credits']+=$total_profit - $sourcecost;
     $playerinfo['turns']-=$dist['triptime'];
-    
+
     $tdr_display_creds =   NUMBER($playerinfo['credits']);
     traderoute_results_display_summary($tdr_display_creds);
     // echo $j." -- ";

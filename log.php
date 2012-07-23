@@ -21,7 +21,7 @@ include "config.php";
 updatecookie ();
 
 # Hack for log bug issue, *** this really needs to be fixed ***
-$LOG_LIST = array(NULL, 
+$LOG_LIST = array(NULL,
         'LOG_LOGIN', 'LOG_LOGOUT', 'LOG_ATTACK_OUTMAN', 'LOG_ATTACK_OUTSCAN', 'LOG_ATTACK_EWD','LOG_ATTACK_EWDFAIL', 'LOG_ATTACK_LOSE', 'LOG_ATTACKED_WIN', 'LOG_TOLL_PAID', 'LOG_HIT_MINES',
         'LOG_SHIP_DESTROYED_MINES', 'LOG_PLANET_DEFEATED_D', 'LOG_PLANET_DEFEATED', 'LOG_PLANET_NOT_DEFEATED', 'LOG_RAW', 'LOG_TOLL_RECV', 'LOG_DEFS_DESTROYED', 'LOG_PLANET_EJECT', 'LOG_BADLOGIN', 'LOG_PLANET_SCAN',
         'LOG_PLANET_SCAN_FAIL', 'LOG_PLANET_CAPTURE', 'LOG_SHIP_SCAN', 'LOG_SHIP_SCAN_FAIL', 'LOG_Xenobe_ATTACK', 'LOG_STARVATION', 'LOG_TOW', 'LOG_DEFS_DESTROYED_F', 'LOG_DEFS_KABOOM', 'LOG_HARAKIRI',
@@ -684,27 +684,35 @@ case LOG_BOUNTY_FEDBOUNTY:
     $retvalue['title'] = "Possible Multi Browser Attempt.";
     break;
 
- case 901:
-    // Multi Hash Logs debug info
-    list($ship_id, $last_hash, $this_hash, $status)= explode ("|", $entry['data']);
-    $last_hash = strtoupper($last_hash);
-    $this_hash = strtoupper($this_hash);
-    $retvalue['text'] = "Account: <span style='color:#ff0;'>{$ship_id}</span> last used Hash: '<span style='color:#ff0;'>{$last_hash}</span>' and now is using Hash: '<span style='color:#ff0;'>{$this_hash}</span>', Status: <span style='color:#ff0;'>{$status}</span>";
-    $retvalue['title'] = "Multi Hash Logs [Debug].";
-    break;
-
  case 950:
     // Attack logs debug info
-    list($step, $attacker_armor, $target_armor, $attacker_fighters, $target_fighters, $attacker_id, $target_id)= explode ("|", $entry['data']);
-    $retvalue['text']  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br>\n";
-    $retvalue['text'] .= "Target Ship: {$target_id}, Armor: {$target_armor}, Fighters: {$target_fighters}\n";
+    if (count(explode ("|", $entry['data'])) == 7)
+    {
+        list($step, $attacker_armor, $target_armor, $attacker_fighters, $target_fighters, $attacker_id, $target_id)= explode ("|", $entry['data']);
+        $retvalue['text']  = "Attacker Ship: {$attacker_id}, Armor: {$attacker_armor}, Fighters: {$attacker_fighters}<br>\n";
+        $retvalue['text'] .= "Target Ship: {$target_id}, Armor: {$target_armor}, Fighters: {$target_fighters}\n";
+    }
+    else
+    {
+        list($step, $attacker_id, $target_id, $info)= explode ("|", $entry['data']);
+        $retvalue['text']  = "Attacker Ship: {$attacker_id}, Target Ship: {$target_id}, Target Ship: {$info}\n";
+    }
     $retvalue['title'] = "Attack Logs Stage: {$step} [Debug].";
+
     break;
 
  case 1019:
     // Invalid login try (wrong password etc)
-    list($ship_ip, $ship_email, $used_password)= explode ("|", $entry['data']);
-    $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>' and had the following Hash: '<span style='color:#ff0;'>{$used_hash}</span>'";
+    if (count(explode ("|", $entry['data'])) == 3)
+    {
+        list($ship_ip, $ship_email, $used_password)= explode ("|", $entry['data']);
+        $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>'";
+    }
+    else
+    {
+        list($ship_ip, $ship_email)= explode ("|", $entry['data']);
+        $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with a blank Password.'";
+    }
     $retvalue['title'] = "Invalid Login Attempt.";
     break;
 

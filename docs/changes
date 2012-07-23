@@ -10,6 +10,7 @@ Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in igb.php
 Fixed Notice: Use of undefined constant turns_used - assumed 'turns_used' in igb.php
 Fixed Notice: Use of undefined constant balance - assumed 'balance' in igb.php
 Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in explode_mines.php
+Fixed undefined indexes and offsets for the logs.
 
 TheMightyDude (22 July 2012)
 --------------------------------------
