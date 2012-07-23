@@ -12,6 +12,7 @@ Fixed Notice: Use of undefined constant balance - assumed 'balance' in igb.php
 Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int in explode_mines.php
 Fixed undefined indexes and offsets for the logs.
 Fixed correct background image for newplayer.html
+Fixed Notice: Undefined variable: l_holds in planet2.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------
