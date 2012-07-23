@@ -14,6 +14,11 @@ Fixed undefined indexes and offsets for the logs.
 Fixed correct background image for newplayer.html
 Fixed Notice: Undefined variable: l_holds in planet2.php
 Fixed loads of Undefined variables and Undefined indexes in port2.php if no port.php post vars are passes.
+Fixed Use of undefined constant count - assumed 'count' in warpedit2.php
+Fixed Object of class ADORecordSet_mysqlt could not be converted to int in warpedit2.php
+Fixed loads of Use of undefined constant link_dest - assumed 'link_dest' in warpedit2.php
+Fixed Undefined variable: flag and flag2 in warpedit2.php
+Fixed Use of undefined constant sector - assumed 'sector' in warpedit2.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------

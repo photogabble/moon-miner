@@ -31,9 +31,23 @@ if (checklogin())
     die();
 }
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$oneway = null;
+if (array_key_exists('oneway', $_POST)== true)
+{
+    $oneway = $_POST['oneway'];
+}
+
+$target_sector = NULL;
+if (array_key_exists('target_sector', $_POST)== true)
+{
+    $target_sector = $_POST['target_sector'];
+}
+
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
+
+bigtitle();
 
 if ($playerinfo['turns'] < 1)
 {
@@ -51,7 +65,16 @@ if ($playerinfo['dev_warpedit'] < 1)
     die();
 }
 
-$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=$playerinfo[sector] AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id");
+if (is_null($target_sector))
+{
+    // This is the best that I can do without adding a new language variable.
+    $l_warp_twoerror = str_replace('[target_sector]', $l_unknown, $l_warp_twoerror);
+    echo $l_warp_twoerror ."<br><br>";
+    TEXT_GOTOMAIN();
+    die();
+}
+
+$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array($playerinfo['sector']));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
@@ -63,13 +86,12 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 }
 
 $target_sector = round($target_sector);
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-bigtitle();
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=$target_sector");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($target_sector));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $row = $result2->fields;
 if (!$row)
@@ -79,7 +101,7 @@ if (!$row)
     die();
 }
 
-$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=$target_sector AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id");
+$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array($target_sector));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
@@ -91,12 +113,12 @@ if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
     die();
 }
 
-$res = $db->Execute("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start=$playerinfo[sector]");
+$res = $db->Execute("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start=?;", array($playerinfo['sector']));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $row = $res->fields;
-$numlink_start=$row[count];
+$numlink_start=$row['count'];
 
-if ($numlink_start>=$link_max)
+if ($numlink_start >= $link_max)
 {
     $l_warp_sectex = str_replace("[link_max]", $link_max, $l_warp_sectex);
     echo $l_warp_sectex . "<br><br>";
@@ -105,14 +127,15 @@ if ($numlink_start>=$link_max)
     die();
 }
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start=$playerinfo[sector]");
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start=?;", array($playerinfo['sector']));
 db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
-if ($result3 > 0)
+if ($result3 instanceof ADORecordSet)
 {
+    $flag = 0;
     while (!$result3->EOF)
     {
         $row = $result3->fields;
-        if ($target_sector == $row[link_dest])
+        if ($target_sector == $row['link_dest'])
         {
             $flag = 1;
         }
@@ -124,31 +147,33 @@ if ($result3 > 0)
         $l_warp_linked = str_replace("[target_Sector]", $target_sector, $l_warp_linked);
         echo $l_warp_linked . "<br><br>";
     }
-    elseif ($playerinfo[sector] == $target_sector)
+    elseif ($playerinfo['sector'] == $target_sector)
     {
         echo $l_warp_cantsame;
     }
     else
     {
-        $insert1 = $db->Execute ("INSERT INTO {$db->prefix}links SET link_start=$playerinfo[sector], link_dest=$target_sector");
+        $insert1 = $db->Execute ("INSERT INTO {$db->prefix}links SET link_start=?, link_dest=$target_sector;", array($playerinfo['sector'], $target_sector));
         db_op_result ($db, $insert1, __LINE__, __FILE__, $db_logging);
-        
-        $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+
+        $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used + 1 WHERE ship_id=?;", array($playerinfo['ship_id']));
         db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
-        if ($oneway)
+
+        if (!is_null($oneway))
         {
             echo "$l_warp_coneway $target_sector.<br><br>";
         }
         else
         {
-            $result4 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start=$target_sector");
+            $result4 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start=?;", array($target_sector));
             db_op_result ($db, $result4, __LINE__, __FILE__, $db_logging);
-            if ($result4)
+            if ($result4 instanceof ADORecordSet)
             {
+                $flag2 = 0;
                 while (!$result4->EOF)
                 {
                     $row = $result4->fields;
-                    if ($playerinfo[sector] == $row[link_dest])
+                    if ($playerinfo['sector'] == $row['link_dest'])
                     {
                         $flag2 = 1;
                     }
@@ -157,7 +182,7 @@ if ($result3 > 0)
             }
             if ($flag2 != 1)
             {
-                $insert2 = $db->Execute ("INSERT INTO {$db->prefix}links SET link_start=$target_sector, link_dest=$playerinfo[sector]");
+                $insert2 = $db->Execute ("INSERT INTO {$db->prefix}links SET link_start=?, link_dest=?;", array($target_sector, $playerinfo['sector']));
                 db_op_result ($db, $insert2, __LINE__, __FILE__, $db_logging);
             }
             echo $l_warp_ctwoway . " " . $target_sector . ".<br><br>";
