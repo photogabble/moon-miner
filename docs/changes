@@ -13,6 +13,7 @@ Fixed Notice:  Object of class ADORecordSet_mysqlt could not be converted to int
 Fixed undefined indexes and offsets for the logs.
 Fixed correct background image for newplayer.html
 Fixed Notice: Undefined variable: l_holds in planet2.php
+Fixed loads of Undefined variables and Undefined indexes in port2.php if no port.php post vars are passes.
 
 TheMightyDude (22 July 2012)
 --------------------------------------

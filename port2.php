@@ -170,6 +170,177 @@ else
         }
 
         // Clear variables that are not selected in the form
+        if (!isset($_POST['hull_upgrade']))
+        {
+            $hull_upgrade = null;
+        }
+        else
+        {
+            $hull_upgrade = $_POST['hull_upgrade'];
+        }
+
+        if (!isset($_POST['engine_upgrade']))
+        {
+            $engine_upgrade = null;
+        }
+        else
+        {
+            $engine_upgrade = $_POST['engine_upgrade'];
+        }
+
+        if (!isset($_POST['power_upgrade']))
+        {
+            $power_upgrade = null;
+        }
+        else
+        {
+            $power_upgrade = $_POST['power_upgrade'];
+        }
+
+        if (!isset($_POST['computer_upgrade']))
+        {
+            $computer_upgrade = null;
+        }
+        else
+        {
+            $computer_upgrade = $_POST['computer_upgrade'];
+        }
+
+        if (!isset($_POST['sensors_upgrade']))
+        {
+            $sensors_upgrade = null;
+        }
+        else
+        {
+            $sensors_upgrade = $_POST['sensors_upgrade'];
+        }
+
+        if (!isset($_POST['beams_upgrade']))
+        {
+            $beams_upgrade = null;
+        }
+        else
+        {
+            $beams_upgrade = $_POST['beams_upgrade'];
+        }
+
+        if (!isset($_POST['armor_upgrade']))
+        {
+            $armor_upgrade = null;
+        }
+        else
+        {
+            $armor_upgrade = $_POST['armor_upgrade'];
+        }
+
+        if (!isset($_POST['cloak_upgrade']))
+        {
+            $cloak_upgrade = null;
+        }
+        else
+        {
+            $cloak_upgrade = $_POST['cloak_upgrade'];
+        }
+
+        if (!isset($_POST['torp_launchers_upgrade']))
+        {
+            $torp_launchers_upgrade = null;
+        }
+        else
+        {
+            $torp_launchers_upgrade = $_POST['torp_launchers_upgrade'];
+        }
+
+        if (!isset($_POST['shields_upgrade']))
+        {
+            $shields_upgrade = null;
+        }
+        else
+        {
+            $shields_upgrade = $_POST['shields_upgrade'];
+        }
+
+        if (!isset($_POST['fighter_number']))
+        {
+            $fighter_number = null;
+        }
+        else
+        {
+            $fighter_number = $_POST['fighter_number'];
+        }
+
+        if (!isset($_POST['torpedo_number']))
+        {
+            $torpedo_number = null;
+        }
+        else
+        {
+            $torpedo_number = $_POST['torpedo_number'];
+        }
+
+        if (!isset($_POST['armor_number']))
+        {
+            $armor_number = null;
+        }
+        else
+        {
+            $armor_number = $_POST['armor_number'];
+        }
+
+        if (!isset($_POST['colonist_number']))
+        {
+            $colonist_number = null;
+        }
+        else
+        {
+            $colonist_number = $_POST['colonist_number'];
+        }
+
+        if (!isset($_POST['dev_genesis_number']))
+        {
+            $dev_genesis_number = null;
+        }
+        else
+        {
+            $dev_genesis_number = $_POST['dev_genesis_number'];
+        }
+
+        if (!isset($_POST['dev_beacon_number']))
+        {
+            $dev_beacon_number = null;
+        }
+        else
+        {
+            $dev_beacon_number = $_POST['dev_beacon_number'];
+        }
+
+        if (!isset($_POST['dev_emerwarp_number']))
+        {
+            $dev_emerwarp_number = null;
+        }
+        else
+        {
+            $dev_emerwarp_number = $_POST['dev_emerwarp_number'];
+        }
+
+        if (!isset($_POST['dev_warpedit_number']))
+        {
+            $dev_warpedit_number = null;
+        }
+        else
+        {
+            $dev_warpedit_number = $_POST['dev_warpedit_number'];
+        }
+
+        if (!isset($_POST['dev_minedeflector_number']))
+        {
+            $dev_minedeflector_number = null;
+        }
+        else
+        {
+            $dev_minedeflector_number = $_POST['dev_minedeflector_number'];
+        }
+
         if (!isset($_POST['escapepod_purchase']))
         {
             $escapepod_purchase = null;
@@ -569,6 +740,44 @@ else
         // easier to modify/add something in this part.
         $price_array = array();
 
+
+        // Clear variables that are not selected in the form
+        if (!isset($_POST['trade_ore']))
+        {
+            $trade_ore = null;
+        }
+        else
+        {
+            $trade_ore = $_POST['trade_ore'];
+        }
+
+        if (!isset($_POST['trade_organics']))
+        {
+            $trade_organics = null;
+        }
+        else
+        {
+            $trade_organics = $_POST['trade_organics'];
+        }
+
+        if (!isset($_POST['trade_goods']))
+        {
+            $trade_goods = null;
+        }
+        else
+        {
+            $trade_goods = $_POST['trade_goods'];
+        }
+
+        if (!isset($_POST['trade_energy']))
+        {
+            $trade_energy = null;
+        }
+        else
+        {
+            $trade_energy = $_POST['trade_energy'];
+        }
+
         function trade ($price, $delta, $max, $limit, $factor, $port_type, $origin)
         {
             global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array;
@@ -589,10 +798,10 @@ else
             return $origin;
         }
 
-        $trade_ore      = round (abs ($_POST['trade_ore']));
-        $trade_organics = round (abs ($_POST['trade_organics']));
-        $trade_goods    = round (abs ($_POST['trade_goods']));
-        $trade_energy   = round (abs ($_POST['trade_energy']));
+        $trade_ore      = round (abs ($trade_ore));
+        $trade_organics = round (abs ($trade_organics));
+        $trade_goods    = round (abs ($trade_goods));
+        $trade_energy   = round (abs ($trade_energy));
 
         $trade_ore       =  trade($ore_price,        $ore_delta,       $sectorinfo['port_ore'],        $ore_limit,       $inventory_factor, "ore",        $trade_ore);
         $trade_organics  =  trade($organics_price,   $organics_delta,  $sectorinfo['port_organics'],   $organics_limit,  $inventory_factor, "organics",   $trade_organics );
