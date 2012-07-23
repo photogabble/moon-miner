@@ -31,6 +31,20 @@ if (checklogin())
     die();
 }
 
+$bothway = null;
+if (array_key_exists('bothway', $_POST)== true)
+{
+    $bothway = $_POST['bothway'];
+}
+
+$target_sector = null;
+if (array_key_exists('target_sector', $_POST)== true)
+{
+    $target_sector = $_POST['target_sector'];
+}
+
+bigtitle();
+
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
@@ -51,6 +65,14 @@ if ($playerinfo['dev_warpedit'] < 1)
     die();
 }
 
+if (is_null($target_sector))
+{
+    // This is the best that I can do without adding a new language variable.
+    echo $l_warp_nosector ."<br><br>";
+    TEXT_GOTOMAIN();
+    die();
+}
+
 $res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id;", array($playerinfo['sector']));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $zoneinfo = $res->fields;
@@ -66,7 +88,6 @@ $target_sector = round($target_sector);
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
-bigtitle();
 
 $res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id;", array($target_sector));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -94,6 +115,7 @@ $result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start=?;", 
 db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
 if ($result3 instanceof ADORecordSet)
 {
+    $flag = 0;
     while (!$result3->EOF)
     {
         $row = $result3->fields;
@@ -115,7 +137,7 @@ if ($result3 instanceof ADORecordSet)
 
         $update1 = $db->Execute("UPDATE {$db->prefix}ships SET dev_warpedit=dev_warpedit - 1, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=?;", array($playerinfo['ship_id']));
         db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
-        if (!$bothway)
+        if (is_null($bothway))
         {
             echo "$l_warp_removed $target_sector.<br><br>";
         }
