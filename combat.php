@@ -19,7 +19,7 @@
 
 function calcplanetbeams()
 {
-    global $playerinfo, $ownerinfo, $sectorinfo, $basedefense, $planetinfo, $db;
+    global $playerinfo, $ownerinfo, $sectorinfo, $basedefense, $planetinfo, $db, $db_logging;
 
     $energy_available = $planetinfo['energy'];
     $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
@@ -43,7 +43,7 @@ function calcplanetbeams()
 
 function calcplanettorps()
 {
-    global $playerinfo, $ownerinfo, $sectorinfo, $level_factor, $basedefense, $planetinfo, $db;
+    global $playerinfo, $ownerinfo, $sectorinfo, $level_factor, $basedefense, $planetinfo, $db, $db_logging;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
 
@@ -75,7 +75,7 @@ function calcplanettorps()
 
 function calcplanetshields()
 {
-    global $playerinfo, $ownerinfo, $sectorinfo, $basedefense, $planetinfo, $db;
+    global $playerinfo, $ownerinfo, $sectorinfo, $basedefense, $planetinfo, $db, $db_logging;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
@@ -100,7 +100,7 @@ function calcplanetshields()
 function planetbombing()
 {
     global $playerinfo, $ownerinfo, $sectorinfo, $planetinfo, $planetbeams, $planetfighters, $attackerfighters;
-    global $planettorps, $torp_dmg_rate, $l_cmb_atleastoneturn, $db;
+    global $planettorps, $torp_dmg_rate, $l_cmb_atleastoneturn, $db, $db_logging;
     global $l_bombsaway, $l_bigfigs, $l_bigbeams, $l_bigtorps, $l_strafesuccess;
 
     if ($playerinfo['turns'] < 1)
@@ -187,12 +187,12 @@ function planetcombat()
 {
     global $playerinfo, $ownerinfo, $sectorinfo, $planetinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
 
-    global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields;
+    global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
     global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture, $l_cmb_atleastoneturn;
     global $l_cmb_atleastoneturn, $l_cmb_shipenergybb, $l_cmb_shipenergyab, $l_cmb_shipenergyas, $l_cmb_shiptorpsbtl, $l_cmb_shiptorpsatl;
     global $l_cmb_planettorpdamage, $l_cmb_attackertorpdamage, $l_cmb_beams, $l_cmb_fighters, $l_cmb_shields, $l_cmb_torps;
     global $l_cmb_torpdamage, $l_cmb_armor, $l_cmb_you, $l_cmb_planet, $l_cmb_combatflow, $l_cmb_defender, $l_cmb_attackingplanet;
-    global $l_cmb_youfireyourbeams, $l_cmb_defenselost, $l_cmb_defenselost2, $l_cmb_planetarybeams, $l_cmb_planetarybeams;
+    global $l_cmb_youfireyourbeams, $l_cmb_defenselost, $l_cmb_defenselost2, $l_cmb_planetarybeams, $l_cmb_planetarybeams2;
     global $l_cmb_youdestroyedplanetshields, $l_cmb_beamsexhausted, $l_cmb_breachedyourshields, $l_cmb_destroyedyourshields;
     global $l_cmb_breachedyourarmor, $l_cmb_destroyedyourarmor, $l_cmb_torpedoexchangephase, $l_cmb_nofightersleft;
     global $l_cmb_youdestroyfighters, $l_cmb_planettorpsdestroy, $l_cmb_planettorpsdestroy2, $l_cmb_torpsbreachedyourarmor;
@@ -203,7 +203,7 @@ function planetcombat()
     global $l_cmb_finalcombatstats, $l_cmb_youlostfighters, $l_cmb_youlostarmorpoints, $l_cmb_energyused, $l_cmb_planetdefeated;
     global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
     global $l_cmb_fighterloststat, $l_cmb_energyleft;
-    global $db;
+    global $db, $db_logging;
 
     if ($playerinfo['turns'] < 1 )
     {
@@ -386,7 +386,7 @@ function planetcombat()
         {
             $attackerarmor = $attackerarmor - $planetbeams;
             $l_cmb_destroyedyourarmor = str_replace("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourarmor);
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_destroyedyourarmor</font></strong></td>";
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_destroyedyourarmor</font></strong></td>";
         }
     }
     echo "<tr align='center'><td><font color='YELLOW'><strong>$l_cmb_torpedoexchangephase</strong></font></td><td><strong><font color='YELLOW'>$l_cmb_torpedoexchangephase</strong></font></td><br>";
@@ -599,11 +599,11 @@ function planetcombat()
         echo "<center><br><strong><font size='+2'>$l_cmb_finalcombatstats</font></strong><br><br>";
         $fighters_lost = $playerinfo['ship_fighters'] - $attackerfighters;
         $l_cmb_youlostfighters = str_replace("[cmb_fighters_lost]", $fighters_lost, $l_cmb_youlostfighters);
-        $l_cmb_youlostfighters = str_replace("[cmb_playerinfo_ship_fighters]", $playerinfo[ship_fighters], $l_cmb_youlostfighters);
+        $l_cmb_youlostfighters = str_replace("[cmb_playerinfo_ship_fighters]", $playerinfo['ship_fighters'], $l_cmb_youlostfighters);
         echo "$l_cmb_youlostfighters<br>";
         $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
         $l_cmb_youlostarmorpoints = str_replace("[cmb_armor_lost]", $armor_lost, $l_cmb_youlostarmorpoints);
-        $l_cmb_youlostarmorpoints = str_replace("[cmb_playerinfo_armor_pts]", $playerinfo[armor_pts], $l_cmb_youlostarmorpoints);
+        $l_cmb_youlostarmorpoints = str_replace("[cmb_playerinfo_armor_pts]", $playerinfo['armor_pts'], $l_cmb_youlostarmorpoints);
         $l_cmb_youlostarmorpoints = str_replace("[cmb_attackerarmor]", $attackerarmor, $l_cmb_youlostarmorpoints);
         echo "$l_cmb_youlostarmorpoints<br>";
         $energy = $playerinfo['ship_energy'];
@@ -680,15 +680,15 @@ function planetcombat()
     else
     {
         echo "<br><br><center><font color='#6098F8'><strong>$l_cmb_planetnotdefeated</strong></font></center><br><br>";
-        $fighters_lost = $planetinfo[fighters] - $planetfighters;
+        $fighters_lost = $planetinfo['fighters'] - $planetfighters;
         $l_cmb_fighterloststat = str_replace("[cmb_fighters_lost]", $fighters_lost, $l_cmb_fighterloststat);
-        $l_cmb_fighterloststat = str_replace("[cmb_planetinfo_fighters]", $planetinfo[fighters], $l_cmb_fighterloststat);
+        $l_cmb_fighterloststat = str_replace("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $l_cmb_fighterloststat);
         $l_cmb_fighterloststat = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_fighterloststat);
         $energy = $planetinfo['energy'];
         playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         gen_score ($ownerinfo['ship_id']);
         $update7b = $db->Execute("UPDATE {$db->prefix}planets SET energy=$energy,fighters=fighters-$fighters_lost, torps=torps-$planettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
-        db_op_result ($db, $update7a, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $update7b, __LINE__, __FILE__, $db_logging);
     }
     $update = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
@@ -696,7 +696,7 @@ function planetcombat()
 
 function shiptoship($ship_id)
 {
-    global $attackerbeams, $attackerfighters, $attackershields, $attackertorps, $attackerarmor, $attackertorpdamage, $start_energy, $playerinfo, $db;
+    global $attackerbeams, $attackerfighters, $attackershields, $attackertorps, $attackerarmor, $attackertorpdamage, $start_energy, $playerinfo, $db, $db_logging;
     global $l_cmb_attackershields, $l_cmb_attackertorps, $l_cmb_attackerarmor, $l_cmb_attackertorpdamage;
     global $l_cmb_startingstats, $l_cmb_statattackerbeams, $l_cmb_statattackerfighters, $l_cmb_statattackershields, $l_cmb_statattackertorps;
     global $l_cmb_statattackerarmor, $l_cmb_statattackertorpdamage, $l_cmb_isattackingyou, $l_cmb_beamexchange, $l_cmb_beamsdestroy;

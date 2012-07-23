@@ -21,7 +21,16 @@ Fixed Undefined variable: flag and flag2 in warpedit2.php
 Fixed Use of undefined constant sector - assumed 'sector' in warpedit2.php
 Fixed Undefined variable: flag in warpedit3.php
 Fixed Undefined variable: bothway in warpedit3.php
-Fixed Notice Undefined variable: dbtables in check_mines.php
+Fixed Notice: Undefined variable: dbtables in check_mines.php
+Fixed loads of Notice: Undefined variable: db_logging in combat.php
+Fixed Notice: Use of undefined constant ship_fighters - assumed 'ship_fighters' in combat.php
+Fixed Notice: Use of undefined constant armor_pts - assumed 'armor_pts' in combat.php
+Fixed Notice: Undefined variable: l_destroyedyourarmor in combat.php
+Fixed Notice: Undefined variable: l_planetarybeams2 in combat.php
+Fixed Notice: Use of undefined constant fighters - assumed 'fighters' in combat.php
+Fixed Notice: Undefined variable: update7a in combat.php
+Fixed Notice: Undefined variable: upgrade_factor in combat.php
+Fixed Notice: Undefined variable: upgrade_cost in combat.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------
