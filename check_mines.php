@@ -70,7 +70,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
 {
     // Find out if the mine owner and player are on the same team
     $fm_owner = $defences[0]['ship_id'];
-    $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$fm_owner");
+    $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships where ship_id=?;", array($fm_owner));
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 
     $mine_owner = $result2->fields;
@@ -79,7 +79,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         // You hit mines
         bigtitle();
         $ok=0;
-
+        $totalmines = $total_sector_mines;
         // Before we had a issue where if there where a lot of mines in the sector the result will go -
         // I changed the behaivor so that rand will chose a % of mines to attack will
         // (it will always be at least 5% of the mines or at the very least 1 mine);
@@ -104,7 +104,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         {
             $l_chm_youlostminedeflectors = str_replace("[chm_roll]", $roll, $l_chm_youlostminedeflectors);
             echo $l_chm_youlostminedeflectors . "<br>";
-            $result2 = $db->Execute("UPDATE {$db->prefix}ships set dev_minedeflector=dev_minedeflector-$roll where ship_id=$playerinfo[ship_id]");
+            $result2 = $db->Execute("UPDATE {$db->prefix}ships set dev_minedeflector=dev_minedeflector-? where ship_id=?;", array($roll, $playerinfo['ship_id']));
             db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
         }
         else
@@ -130,7 +130,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 $l_chm_yourshieldshitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourshieldshitforminesdmg);
                 echo $l_chm_yourshieldshitforminesdmg . "<br>";
 
-                $result2 = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=ship_energy-$mines_left, dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
+                $result2 = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=ship_energy-?, dev_minedeflector=0 where ship_id=?;", array($mines_left, $playerinfo['ship_id']));
                 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
                 if ($playershields == $mines_left)
                 {
@@ -146,7 +146,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 {
                     $l_chm_yourarmorhitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourarmorhitforminesdmg);
                     echo $l_chm_yourarmorhitforminesdmg . "<br>";
-                    $result2 = $db->Execute("UPDATE {$db->prefix}ships set armor_pts=armor_pts-$mines_left,ship_energy=0,dev_minedeflector=0 where ship_id=$playerinfo[ship_id]");
+                    $result2 = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts=armor_pts-?, ship_energy=0, dev_minedeflector=0 WHERE ship_id=?;", array($mines_left, $playerinfo['ship_id']));
                     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
                     if ($playerinfo['armor_pts'] == $mines_left)
                     {
@@ -168,7 +168,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     {
                         $rating = round ($playerinfo['rating'] / 2);
                         echo $l_chm_luckescapepod . "<br><br>";
-                        $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
+                        $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, sensors=0, computer=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=?, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, on_planet='N', rating=?, cleared_defences=' ', dev_lssd='N' WHERE ship_id=?;", array($start_energy, $rating, $playerinfo['ship_id']));
                         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
                         cancel_bounty ($db, $playerinfo['ship_id']);
                     }
