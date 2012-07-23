@@ -32,6 +32,9 @@ Fixed Notice: Undefined variable: update7a in combat.php
 Fixed Notice: Undefined variable: upgrade_factor in combat.php
 Fixed Notice: Undefined variable: upgrade_cost in combat.php
 Fixed Notice: Undefined variable: db_logging in igb.php
+Fixed Notice: Undefined variable: l_unnamed in planet_report_ce.php
+Fixed Notice: Undefined variable: l_rs_noturns in planet_report_ce.php
+Fixed Notice: Undefined variable: l_rs_noturns in planet_report_ce.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------
