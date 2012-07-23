@@ -21,6 +21,7 @@ Fixed Undefined variable: flag and flag2 in warpedit2.php
 Fixed Use of undefined constant sector - assumed 'sector' in warpedit2.php
 Fixed Undefined variable: flag in warpedit3.php
 Fixed Undefined variable: bothway in warpedit3.php
+Fixed Notice Undefined variable: dbtables in check_mines.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------

@@ -181,7 +181,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 }
             }
         }
-        explode_mines($db, $dbtbales, $sector, $roll);
+        explode_mines($db, $sector, $roll);
     }
 }
 ?>
