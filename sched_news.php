@@ -61,7 +61,7 @@ while (!$sql->EOF)
     }
     elseif ($row['amount'] >= 25)
     {
-        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet25';", array($row[owner]));
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet25';", array($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__, $db_logging);
         
         if ($sql2->EOF)
