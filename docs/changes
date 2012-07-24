@@ -44,6 +44,7 @@ Fixed Notice: Use of undefined constant name - assumed 'name' in igb.php
 Fixed Notice: Undefined offset: 2 in log.php 
 Fixed Notice: Undefined index: port_type in traderoute.php
 Fixed Notice: Use of undefined constant torp_launchers - assumed 'torp_launchers' in igb.php
+Fixed some issues in zoneedit.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------

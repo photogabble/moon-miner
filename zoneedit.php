@@ -21,7 +21,7 @@ include "config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('zoneedit', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_ze_title;
 include "header.php";
@@ -32,6 +32,61 @@ if (checklogin())
 }
 
 bigtitle();
+
+$command = null;
+if (array_key_exists('command', $_GET) == true)
+{
+    $command = $_GET['command'];
+}
+
+$zone = null;
+if (array_key_exists('zone', $_GET) == true)
+{
+    $zone = $_GET['zone'];
+}
+
+$name = null;
+if (array_key_exists('name', $_POST) == true)
+{
+    $name = $_POST['name'];
+}
+
+$beacons = null;
+if (array_key_exists('beacons', $_POST) == true)
+{
+    $beacons = $_POST['beacons'];
+}
+
+$attacks = null;
+if (array_key_exists('attacks', $_POST) == true)
+{
+    $attacks = $_POST['attacks'];
+}
+
+$warpedits = null;
+if (array_key_exists('warpedits', $_POST) == true)
+{
+    $warpedits = $_POST['warpedits'];
+}
+
+$defenses = null;
+if (array_key_exists('defenses', $_POST) == true)
+{
+    $defenses = $_POST['defenses'];
+}
+
+$planets = null;
+if (array_key_exists('planets', $_POST) == true)
+{
+    $planets = $_POST['planets'];
+}
+
+$trades = null;
+if (array_key_exists('trades', $_POST) == true)
+{
+    $trades = $_POST['trades'];
+}
+
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -59,11 +114,14 @@ if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id'])
     zoneedit_die($l_ze_notowner);
 }
 
-if ($command == change)
+if ($command == 'change')
 {
     zoneedit_change();
 }
 
+$ybeacon = null;
+$nbeacon = null;
+$lbeacon = null;
 if ($curzone['allow_beacon'] == 'Y')
 {
     $ybeacon = "checked";
@@ -77,6 +135,8 @@ else
     $lbeacon = "checked";
 }
 
+$yattack = null;
+$nattack = null;
 if ($curzone['allow_attack'] == 'Y')
 {
     $yattack = "checked";
@@ -86,6 +146,9 @@ else
     $nattack = "checked";
 }
 
+$ywarpedit = null;
+$nwarpedit = null;
+$lwarpedit = null;
 if ($curzone['allow_warpedit'] == 'Y')
 {
     $ywarpedit = "checked";
@@ -99,6 +162,9 @@ else
     $lwarpedit = "checked";
 }
 
+$yplanet = null;
+$nplanet = null;
+$lplanet = null;
 if ($curzone['allow_planet'] == 'Y')
 {
     $yplanet = "checked";
@@ -112,6 +178,9 @@ else
     $lplanet = "checked";
 }
 
+$ytrade = null;
+$ntrade = null;
+$ltrade = null;
 if ($curzone['allow_trade'] == 'Y')
 {
     $ytrade = "checked";
@@ -125,6 +194,9 @@ else
     $ltrade = "checked";
 }
 
+$ydefense = null;
+$ndefense = null;
+$ldefense = null;
 if ($curzone['allow_defenses'] == 'Y')
 {
     $ydefense = "checked";
@@ -152,13 +224,13 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<td align=right><font size=2><strong>$l_ze_allow $l_warpedit : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=L $lwarpedit>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_allow $l_sector_def : &nbsp;</strong></font></td>" .
+     "<td align=right><font size=2><strong>$l_zi_allow $l_sector_def : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
      "<td align=right><font size=2><strong>$l_ze_genesis : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=planets value=Y $yplanet>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=N $nplanet>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=L $lplanet>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_allow $l_title_port : &nbsp;</strong></font></td>" .
+     "<td align=right><font size=2><strong>$l_zi_allow $l_title_port : &nbsp;</strong></font></td>" .
      "<td><input type=radio name=trades value=Y $ytrade>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=N $ntrade>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=L $ltrade>&nbsp;$l_zi_limit</td>" .
      "</tr><tr>" .
      "<td colspan=2 align=center><br><input type=submit value=$l_submit></td></tr>" .
@@ -181,7 +253,7 @@ function zoneedit_change()
     global $trades;
     global $defenses;
     global $l_clickme, $l_ze_saved, $l_ze_return;
-    global $db;
+    global $db, $db_logging;
 
     if (!get_magic_quotes_gpc())
     {
