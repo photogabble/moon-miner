@@ -114,6 +114,15 @@ if ($userpass != '' and $userpass != '+')
     $password = substr ($userpass, strpos ($userpass, "+")+1);
 }
 
+$avail_lang[0]['file'] = 'english';
+$avail_lang[0]['name'] = 'English';
+$avail_lang[1]['file'] = 'french';
+$avail_lang[1]['name'] = 'Francais';
+$avail_lang[2]['file'] = 'german';
+$avail_lang[2]['name'] = 'German';
+$avail_lang[3]['file'] = 'spanish';
+$avail_lang[3]['name'] = 'Spanish';
+
 // Ensure lang is set
 $found = 0;
 
@@ -162,5 +171,14 @@ if (empty($link_forums))
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
+$plugin_config = array();
+$admin_list = array();
+date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
+
+// Used to define what devices are used to calculate the average tech level.
+$calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+
 $l = new bnt_translation();
 ?>

@@ -19,9 +19,7 @@
 
 // create/touch a file named dev in the main game directory to activate development mode
 
-//  Set this to how often (in minutes) you are running the scheduler script.
-
-$sched_ticks = 1;
+$sched_ticks = 1; //  Set this to how often (in minutes) you are running the scheduler script.
 
 // All following vars are in minutes.
 // These are true minutes, no matter to what interval
@@ -38,10 +36,8 @@ $sched_ranking = 30; // How often rankings will be generated
 $sched_news = 15;    // How often news are generated
 $sched_degrade = 6;  // How often sector fighters degrade when unsupported by a planet
 $sched_apocalypse = 15;
-$sched_thegovernor = 1; 
+$sched_thegovernor = 1;
 $doomsday_value = 90000000; // number of colonists a planet needs before being affected by the apocalypse
-
-// Scheduler config end
 
 // GUI colors (temporary until we have something nicer)
 $color_header = "#500050";
@@ -57,7 +53,7 @@ $language = "english";
 $mine_hullsize = 8; // Minimum size hull has to be to hit mines
 $ewd_maxhullsize = 15; // Max hull size before EWD degrades
 $sector_max = 1000;
-$link_max=10;
+$link_max = 10;
 $universe_size = 200;
 
 $game_name = "Default Game Name"; // Please set this to a unique name for your game
@@ -65,9 +61,9 @@ $release_version = "0.55";     // Please do not change this. Doing so will cause
 
 $fed_max_hull = 8;
 $max_ranks = 100;
-$rating_combat_factor=.8;    // Amount of rating gained from combat
-$server_closed=false;        // True = block logins but not new account creation
-$account_creation_closed=false;    // True = block new account creation
+$rating_combat_factor = .8;    // Amount of rating gained from combat
+$server_closed = false;        // True = block logins but not new account creation
+$account_creation_closed = false;    // True = block new account creation
 
 // Newbie niceness variables
 $newbie_nice = "YES";
@@ -144,7 +140,6 @@ $inventory_factor = 1;
 $upgrade_cost = 1000;
 $upgrade_factor = 2;
 $level_factor = 1.5;
-
 $dev_genesis_price = 1000000;
 $dev_beacon_price = 100;
 $dev_emerwarp_price = 1000000;
@@ -153,65 +148,39 @@ $dev_minedeflector_price = 10;
 $dev_escapepod_price = 100000;
 $dev_fuelscoop_price = 100000;
 $dev_lssd_price = 10000000;
-
 $fighter_price = 50;
 $fighter_prate = .01;
-
 $torpedo_price = 25;
 $torpedo_prate = .025;
 $torp_dmg_rate = 10;
-
 $credits_prate = 3.0;
-
 $armor_price = 5;
 $basedefense = 1;  // Additional factor added to tech levels by having a base on your planet. All your base are belong to us.
-
 $colonist_price = 5;
 $colonist_production_rate = .005;
 $colonist_reproduction_rate = 0.0005;
 $colonist_limit = 100000000;
 $organics_consumption = 0.05;
 $starvation_death_rate = 0.01;
-
 $interest_rate = 1.0005;
-
 $base_ore = 10000;
 $base_goods = 10000;
 $base_organics = 10000;
 $base_credits = 10000000;
 $base_modifier = 1;
-
 $start_fighters = 10;
 $start_armor = 10;
 $start_credits = 1000;
 $start_energy = 100;
 $start_turns = 1200;
-
 $max_turns = 2500;
 $max_emerwarp = 10;
-
 $fullscan_cost = 1;
 $scan_error_factor=20;
-
 $max_planets_sector = 5;
 $max_traderoutes_player = 40;
-
-// Must stay at 55 due to PHP/MySQL cap limit.
-$max_upgrades_devices = 55;
-
 $min_bases_to_own = 3;
-
 $default_lang = 'english';
-
-$avail_lang[0]['file'] = 'english';
-$avail_lang[0]['name'] = 'English';
-$avail_lang[1]['file'] = 'french';
-$avail_lang[1]['name'] = 'Francais';
-$avail_lang[2]['file'] = 'german';
-$avail_lang[2]['name'] = 'German';
-$avail_lang[3]['file'] = 'spanish';
-$avail_lang[3]['name'] = 'Spanish';
-
 $IGB_min_turns = 1200; // Turns a player has to play before ship transfers are allowed 0=disable
 $IGB_svalue = 0.15; // Max amount of sender's value allowed for ship transfers 0=disable
 $IGB_trate = 1440; // Time (in minutes) before two similar transfers are allowed for ship transfers.0=disable
@@ -229,27 +198,17 @@ $space_plague_kills = 0.20; // Percentage of colonists killed by space plague
 $max_credits_without_base = 10000000; // Max amount of credits allowed on a planet without a base
 $sofa_on = false;
 $ksm_allowed = true;
-
 $xenobe_max = 10;           // Sets the number of xenobe in the universe
 $xen_start_credits = 1000000;         // What Xenobe start with
 $xen_unemployment = 100000;   // Amount of credits each xenobe receive on each xenobe tick
 $xen_aggression = 100;                // Percent of xenobe that are aggressive or hostile
 $xen_planets = 5;                     //Percent of created xenobe that will own planets. Recommended to keep at small percentage
 $xenstartsize = 15;                   // Max starting size of Xenobes at universe creation
-
-# Port Regen Rate.
 $port_regenrate                         = 10;
-
-// Used to define what devices are used to calculate the average tech level.
-$calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-$calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-$calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 
 // Switch between old style footer and new style. Old is text, and only the time until next update. New is a table, and also includes server time.
 $footer_style = 'old';
 $footer_show_debug = true;
-
-date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 $sched_planet_valid_credits = true; // Limit captured planets Max Credits to max_credits_without_base
 
 // Must stay at 55 due to PHP/MySQL cap limit.
@@ -259,9 +218,7 @@ $max_genesis                = 10;
 $max_beacons                = 10;
 $max_warpedit               = 10;
 $bounty_all_special         = true;             // Stop access on all Special Ports when you have a federation bounty on you.
-
-$plugin_config = array();
-$admin_list = array();
 $bnt_ls = false;
+
 require "global_includes.php"; // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
