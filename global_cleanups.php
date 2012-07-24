@@ -29,6 +29,7 @@ if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip co
 $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
+// Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists("dev"))
 {
     ini_set('error_reporting', E_ALL); // During development, output all errors, even notices
