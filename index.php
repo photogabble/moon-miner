@@ -35,7 +35,7 @@ $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE cat
 if (!$result)
 {
     echo "Universe creation has not occurred yet. Please run <a href='create_universe.php'>create universe</a>. We will now redirect you to that page.<br>";
-    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=create_universe.php\">";
+    header("Location: create_universe.php");
     die ();
 }
 
