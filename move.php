@@ -89,7 +89,7 @@ if ($flag == 1)
     if ($ok > 0)
     {
         $stamp = date("Y-m-d H-i-s");
-        $query = "UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector where ship_id=$playerinfo[ship_id]";
+        $query = "UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector WHERE ship_id=$playerinfo[ship_id]";
         log_move ($db, $playerinfo['ship_id'], $sector);
         $move_result = $db->Execute ("$query");
         db_op_result ($db, $move_result, __LINE__, __FILE__, $db_logging);
@@ -114,7 +114,7 @@ if ($flag == 1)
 else
 {
     echo $l_move_failed . '<br><br>';
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
     TEXT_GOTOMAIN ();
 }

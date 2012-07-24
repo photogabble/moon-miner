@@ -72,7 +72,7 @@ function db_kill_player ($ship_id, $remove_planets = false)
         }
     }
 
-    $rese = $db->Execute("DELETE FROM {$db->prefix}sector_defence where ship_id=$ship_id");
+    $rese = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE ship_id=$ship_id");
     db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
 
     $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=$ship_id");

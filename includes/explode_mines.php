@@ -25,7 +25,7 @@ if (preg_match("/explode_mines.php/i", $_SERVER['PHP_SELF'])) {
 function explode_mines ($db, $sector, $num_mines)
 {
     global $db_logging;
-    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M' order by quantity ASC;", array($sector));
+    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='M' ORDER BY QUANTITY ASC;", array($sector));
     db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
     echo $db->ErrorMsg();
     // Put the defence information into the array "defenceinfo"
@@ -36,7 +36,7 @@ function explode_mines ($db, $sector, $num_mines)
             $row = $result3->fields;
             if ($row['quantity'] > $num_mines)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity - ? where defence_id = ?;", array($num_mines, $row['defence_id']));
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?;", array($num_mines, $row['defence_id']));
                 db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
                 $num_mines = 0;
             }

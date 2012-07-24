@@ -70,7 +70,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
 {
     // Find out if the mine owner and player are on the same team
     $fm_owner = $defences[0]['ship_id'];
-    $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships where ship_id=?;", array($fm_owner));
+    $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($fm_owner));
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 
     $mine_owner = $result2->fields;
@@ -104,7 +104,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         {
             $l_chm_youlostminedeflectors = str_replace("[chm_roll]", $roll, $l_chm_youlostminedeflectors);
             echo $l_chm_youlostminedeflectors . "<br>";
-            $result2 = $db->Execute("UPDATE {$db->prefix}ships set dev_minedeflector=dev_minedeflector-? where ship_id=?;", array($roll, $playerinfo['ship_id']));
+            $result2 = $db->Execute("UPDATE {$db->prefix}ships SET dev_minedeflector=dev_minedeflector-? WHERE ship_id=?;", array($roll, $playerinfo['ship_id']));
             db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
         }
         else
@@ -130,7 +130,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 $l_chm_yourshieldshitforminesdmg = str_replace("[chm_mines_left]", $mines_left, $l_chm_yourshieldshitforminesdmg);
                 echo $l_chm_yourshieldshitforminesdmg . "<br>";
 
-                $result2 = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=ship_energy-?, dev_minedeflector=0 where ship_id=?;", array($mines_left, $playerinfo['ship_id']));
+                $result2 = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-?, dev_minedeflector=0 WHERE ship_id=?;", array($mines_left, $playerinfo['ship_id']));
                 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
                 if ($playershields == $mines_left)
                 {

@@ -156,7 +156,7 @@ elseif ($destination < $sector_max && $engage > 0)
         $l_rs_movetime=str_replace("[triptime]",NUMBER($triptime),$l_rs_movetime);
         echo "$l_rs_movetime<br><br>";
         echo "$l_rs_noturns<br><br>";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
     }
     else
@@ -182,7 +182,7 @@ elseif ($destination < $sector_max && $engage > 0)
 else
 {
     echo $l_rs_invalid . ".<br><br>";
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 

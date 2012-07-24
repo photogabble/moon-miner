@@ -44,28 +44,28 @@ $playerinfo = $res->fields;
 
 if ($playerinfo['ship_ore'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_ore=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_ore'] = 0;
 }
 
 if ($playerinfo['ship_organics'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_organics=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_organics=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_organics'] = 0;
 }
 
 if ($playerinfo['ship_energy'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_energy'] = 0;
 }
 
 if ($playerinfo['ship_goods'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships set ship_goods=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_goods=0 WHERE email='$username'");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $playerinfo['ship_goods'] = 0;
 }
@@ -76,28 +76,28 @@ $sectorinfo = $res->fields;
 
 if ($sectorinfo['port_ore'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_ore=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_ore'] = 0;
 }
 
 if ($sectorinfo['port_goods'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_goods=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_goods=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_goods'] = 0;
 }
 
 if ($sectorinfo['port_organics'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_organics=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_organics=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_organics'] = 0;
 }
 
 if ($sectorinfo['port_energy'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}universe set port_energy=0 WHERE sector_id=$playerinfo[sector]");
+    $fixres = $db->Execute("UPDATE {$db->prefix}universe SET port_energy=0 WHERE sector_id=$playerinfo[sector]");
     db_op_result ($db, $fixres, __LINE__, __FILE__, $db_logging);
     $sectorinfo['port_energy'] = 0;
 }

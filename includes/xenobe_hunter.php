@@ -27,7 +27,7 @@ function xenobehunter()
   global $xenobeisdead;
   global $db, $db_logging;
 
-  $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' and ship_id > 1");
+  $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1");
   db_op_result ($db, $rescount, __LINE__, __FILE__, $db_logging);
   $rowcount = $rescount->fields;
   $topnum = min(10,$rowcount[num_players]);
@@ -35,7 +35,7 @@ function xenobehunter()
   // IF WE HAVE KILLED ALL THE PLAYERS IN THE GAME THEN THERE IS LITTLE POINT IN PROCEEDING
   if ($topnum<1) return;
 
-  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' and ship_id > 1 ORDER BY score DESC LIMIT $topnum");
+  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT $topnum");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
   // LETS CHOOSE A TARGET FROM THE TOP PLAYER LIST
@@ -72,7 +72,7 @@ function xenobehunter()
   if ($zonerow[allow_attack]=="Y")
   {
     $stamp = date("Y-m-d H-i-s");
-    $query="UPDATE {$db->prefix}ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetinfo[sector] where ship_id=$playerinfo[ship_id]";
+    $query="UPDATE {$db->prefix}ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetinfo[sector] WHERE ship_id=$playerinfo[ship_id]";
     $move_result = $db->Execute ("$query");
     db_op_result ($db, $move_result, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
@@ -86,7 +86,7 @@ function xenobehunter()
   //
   // CHECK FOR SECTOR DEFENCE
   //
-    $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$targetinfo[sector] and defence_type ='F' ORDER BY quantity DESC");
+    $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$targetinfo[sector] AND defence_type ='F' ORDER BY quantity DESC");
     db_op_result ($db, $resultf, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_fighters = 0;
@@ -100,7 +100,7 @@ function xenobehunter()
         $resultf->MoveNext();
       }
     }
-    $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$targetinfo[sector] and defence_type ='M'");
+    $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$targetinfo[sector] AND defence_type ='M'");
     db_op_result ($db, $resultm, __LINE__, __FILE__, $db_logging);
     $i = 0;
     $total_sector_mines = 0;

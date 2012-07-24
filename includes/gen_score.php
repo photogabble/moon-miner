@@ -94,7 +94,7 @@ function gen_score ($sid)
     $ship_score = $res->fields['ship_score'];
 
     $score = $ship_score + $planet_score;
-    $res = $db->Execute("SELECT balance, loan FROM {$db->prefix}ibank_accounts where ship_id = $sid");
+    $res = $db->Execute("SELECT balance, loan FROM {$db->prefix}ibank_accounts WHERE ship_id = $sid");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
     {

@@ -211,7 +211,7 @@ else
         {
             if ($fighter_id != 0)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity + $numfighters,fm_setting = '$mode' where defence_id = $fighter_id");
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity + $numfighters,fm_setting = '$mode' WHERE defence_id = $fighter_id");
                 db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
             }
             else
@@ -226,7 +226,7 @@ else
         {
             if ($mine_id != 0)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}sector_defence set quantity=quantity + $nummines,fm_setting = '$mode' where defence_id = $mine_id");
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity + $nummines,fm_setting = '$mode' WHERE defence_id = $mine_id");
                 db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
             }
             else

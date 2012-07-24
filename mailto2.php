@@ -153,7 +153,7 @@ else
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         $row = $res->fields;
 
-        $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships where team=?;", array($row['id']));
+        $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE team=?;", array($row['id']));
         db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
 
         while (!$res2->EOF)

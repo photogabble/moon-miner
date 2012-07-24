@@ -145,7 +145,7 @@ switch ($response) {
         db_op_result ($db, $del, __LINE__, __FILE__, $db_logging);
         $stamp = date("Y-m-d H-i-s");
         $refund = $bty['amount'];
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund where ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund WHERE ship_id=$playerinfo[ship_id]");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         echo "$l_by_canceled<br>";
         TEXT_GOTOMAIN();
@@ -233,7 +233,7 @@ switch ($response) {
         $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values ($bounty_on, $playerinfo[ship_id] ,$amount)");
         db_op_result ($db, $insert, __LINE__, __FILE__, $db_logging);
         $stamp = date("Y-m-d H-i-s");
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount where ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount WHERE ship_id=$playerinfo[ship_id]");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         echo "$l_by_placed<br>";
         TEXT_GOTOMAIN();

@@ -433,7 +433,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                     db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
 
                     // Update User Turns
-                    $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
+                    $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
                     db_op_result ($db, $update1b, __LINE__, __FILE__, $db_logging);
 
                     // Refresh Plant Info

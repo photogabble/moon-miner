@@ -138,7 +138,7 @@ function xenobemove()
   if ($targetlink>0)
   {
     $stamp = date("Y-m-d H-i-s");
-    $query="UPDATE {$db->prefix}ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetlink where ship_id=$playerinfo[ship_id]";
+    $query="UPDATE {$db->prefix}ships SET last_login='$stamp', turns_used=turns_used+1, sector=$targetlink WHERE ship_id=$playerinfo[ship_id]";
     $move_result = $db->Execute ("$query");
     db_op_result ($db, $move_result, __LINE__, __FILE__, $db_logging);
     if (!$move_result)

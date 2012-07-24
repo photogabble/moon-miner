@@ -123,7 +123,7 @@ switch ($response)
       $sector = $playerinfo['sector'] ;
       if ($defenceinfo['defence_type'] == 'F')
       {
-         $countres = $db->Execute("SELECT SUM(quantity) as totalfighters FROM {$db->prefix}sector_defence where sector_id = $sector and defence_type = 'F'");
+         $countres = $db->Execute("SELECT SUM(quantity) AS totalfighters FROM {$db->prefix}sector_defence WHERE sector_id = $sector AND defence_type = 'F'");
          $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
          include_once "includes/sector_fighters.php";
@@ -131,7 +131,7 @@ switch ($response)
       else
       {
           // Attack mines goes here
-         $countres = $db->Execute("SELECT SUM(quantity) as totalmines FROM {$db->prefix}sector_defence where sector_id = $sector and defence_type = 'M'");
+         $countres = $db->Execute("SELECT SUM(quantity) AS totalmines FROM {$db->prefix}sector_defence WHERE sector_id = $sector AND defence_type = 'M'");
          $ttl = $countres->fields;
          $total_sector_mines = $ttl['totalmines'];
          $playerbeams = NUM_BEAMS($playerinfo[beams]);
@@ -191,17 +191,17 @@ switch ($response)
          $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - $quantity WHERE defence_id = $defence_id");
          if ($defenceinfo['defence_type'] == 'M')
          {
-            $db->Execute("UPDATE {$db->prefix}ships set torps=torps + $quantity where ship_id = $ship_id");
+            $db->Execute("UPDATE {$db->prefix}ships SET torps=torps + $quantity WHERE ship_id = $ship_id");
          }
          else
          {
-            $db->Execute("UPDATE {$db->prefix}ships set ship_fighters=ship_fighters + $quantity where ship_id = $ship_id");
+            $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters=ship_fighters + $quantity WHERE ship_id = $ship_id");
          }
          $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
       }
       $stamp = date("Y-m-d H-i-s");
 
-      $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] WHERE ship_id=$playerinfo[ship_id]");
       bigtitle();
       echo "$l_md_retr $quantity $defence_type.<br>";
       TEXT_GOTOMAIN ();
@@ -216,9 +216,9 @@ switch ($response)
          include "footer.php";
          die();
       }
-      $db->Execute("UPDATE {$db->prefix}sector_defence SET fm_setting = '$mode' where defence_id = $defence_id");
+      $db->Execute("UPDATE {$db->prefix}sector_defence SET fm_setting = '$mode' WHERE defence_id = $defence_id");
       $stamp = date("Y-m-d H-i-s");
-      $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] where ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] WHERE ship_id=$playerinfo[ship_id]");
       if ($mode == 'attack')
         $mode = $l_md_attack;
       else

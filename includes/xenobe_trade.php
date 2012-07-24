@@ -120,9 +120,9 @@ function xenobetrade()
     $newore = $playerinfo[ship_ore]+$amount_ore;
     $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
     $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
-    $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
-    $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods+$amount_goods WHERE sector_id=$sectorinfo[sector_id]");
     db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
   }
@@ -154,9 +154,9 @@ function xenobetrade()
     $newore = max(0,$playerinfo[ship_ore]-$amount_ore);
     $neworganics = $playerinfo[ship_organics]+$amount_organics;
     $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
-    $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
-    $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics-$amount_organics, port_goods=port_goods+$amount_goods where sector_id=$sectorinfo[sector_id]");
+    $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics-$amount_organics, port_goods=port_goods+$amount_goods WHERE sector_id=$sectorinfo[sector_id]");
     db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
   }
@@ -190,9 +190,9 @@ function xenobetrade()
     $newore = max(0,$playerinfo[ship_ore]-$amount_ore);
     $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
     $newgoods = $playerinfo[ship_goods]+$amount_goods;
-    $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods where ship_id=$playerinfo[ship_id]");
+    $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits=$newcredits, ship_ore=$newore, ship_organics=$neworganics, ship_goods=$newgoods WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
-    $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods-$amount_goods where sector_id=$sectorinfo[sector_id]");
+    $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore+$amount_ore, port_organics=port_organics+$amount_organics, port_goods=port_goods-$amount_goods WHERE sector_id=$sectorinfo[sector_id]");
     db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
   }

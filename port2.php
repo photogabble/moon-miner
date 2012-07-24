@@ -911,7 +911,7 @@ else
                     </table>";
 
             // Update ship cargo, credits and turns
-            $trade_result     = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy where ship_id=$playerinfo[ship_id]");
+            $trade_result     = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy WHERE ship_id=$playerinfo[ship_id]");
             db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
 
             // Make all trades positive to change port values
@@ -921,7 +921,7 @@ else
             $trade_energy     = round (abs ($trade_energy));
 
             // Decrease supply and demand on port
-            $trade_result2    = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy where sector_id=$sectorinfo[sector_id]");
+            $trade_result2    = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy WHERE sector_id=$sectorinfo[sector_id]");
             db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
 
             echo $l_trade_complete . ".<br><br>";

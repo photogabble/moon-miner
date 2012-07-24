@@ -199,7 +199,7 @@ function xenobetosecdef()
 
         // SHIELDS VS MINES
         if ($playershields >= $mines_left) {
-          $update2 = $db->Execute("UPDATE {$db->prefix}ships set ship_energy=ship_energy-$mines_left where ship_id=$playerinfo[ship_id]");
+          $update2 = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-$mines_left WHERE ship_id=$playerinfo[ship_id]");
           db_op_result ($db, $update2, __LINE__, __FILE__, $db_logging);
         } else {
           $mines_left = $mines_left - $playershields;
@@ -207,7 +207,7 @@ function xenobetosecdef()
           // ARMOR VS MINES
           if ($playerarmor >= $mines_left)
           {
-            $update2 = $db->Execute("UPDATE {$db->prefix}ships set armor_pts=armor_pts-$mines_left,ship_energy=0 where ship_id=$playerinfo[ship_id]");
+            $update2 = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts=armor_pts-$mines_left,ship_energy=0 WHERE ship_id=$playerinfo[ship_id]");
             db_op_result ($db, $update2, __LINE__, __FILE__, $db_logging);
           } else {
             // OH NO WE DIED

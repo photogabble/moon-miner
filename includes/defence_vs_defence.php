@@ -49,7 +49,7 @@ function defence_vs_defence ($db, $ship_id)
                         $resa = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?;", array($cur['defence_id']));
                         db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
                         $qty -= $cur['quantity'];
-                        $resb = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = ? where defence_id = ?;", array($qty, $row['defence_id']));
+                        $resb = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = ? WHERE defence_id = ?;", array($qty, $row['defence_id']));
                         db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
                         playerlog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $targetdeftype ."|". $row['sector_id']);
                         playerlog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $deftype ."|". $row['sector_id']);

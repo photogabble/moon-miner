@@ -108,7 +108,7 @@ function go_build_base($planet_id, $sector_id)
     db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
 
     // Update User Turns
-    $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 where ship_id=$playerinfo[ship_id]");
+    $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $update1b, __LINE__, __FILE__, $db_logging);
 
     // Refresh Plant Info
@@ -535,7 +535,7 @@ function Real_Space_Move($destination)
     $l_rs_movetime=str_replace("[triptime]", NUMBER($triptime), $l_rs_movetime);
     echo "$l_rs_movetime<br><br>";
     echo "$l_rs_noturns";
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' where ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 
     $retval = "BREAK-TURNS";
