@@ -26,7 +26,7 @@ function defence_vs_defence ($db, $ship_id)
 {
     global $db_logging;
 
-    $result1 = $db->Execute("SELECT * from {$db->prefix}sector_defence where ship_id = ?;", array($ship_id));
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array($ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
 
     if ($result1 instanceof ADORecordSet)
@@ -36,7 +36,7 @@ function defence_vs_defence ($db, $ship_id)
             $row = $result1->fields;
             $deftype = $row['defence_type'] == 'F' ? 'Fighters' : 'Mines';
             $qty = $row['quantity'];
-            $result2 = $db->Execute("SELECT * from {$db->prefix}sector_defence where sector_id = ? and ship_id <> ? ORDER BY quantity DESC;", array($row['sector_id'], $ship_id));
+            $result2 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ? ORDER BY quantity DESC;", array($row['sector_id'], $ship_id));
             db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
             if ($result2 instanceof ADORecordSet)
             {

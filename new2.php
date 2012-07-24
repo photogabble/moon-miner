@@ -77,7 +77,7 @@ if (!get_magic_quotes_gpc())
     $shipname = addslashes ($shipname);
 }
 
-$result = $db->Execute ("select email, character_name, ship_name from {$db->prefix}ships where email='$username' OR character_name='$character' OR ship_name='$shipname'");
+$result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email='$username' OR character_name='$character' OR ship_name='$shipname'");
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $flag = 0;
 

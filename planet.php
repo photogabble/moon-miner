@@ -153,7 +153,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             {
                 if ($playerinfo['dev_genesis'] > 0)
                 {
-                    $update = $db->Execute("delete from {$db->prefix}planets where planet_id=$planet_id");
+                    $update = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id=$planet_id");
                     db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
                     $update2 = $db->Execute("UPDATE {$db->prefix}ships SET turns_used=turns_used+1, turns=turns-1,dev_genesis=dev_genesis-1 WHERE ship_id=$playerinfo[ship_id]");
                     db_op_result ($db, $update2, __LINE__, __FILE__, $db_logging);

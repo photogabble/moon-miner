@@ -453,7 +453,7 @@ echo"</table>";
 
     Table_Spacer();
 
-        $sql_query=$db->Execute("select sector_id from {$db->prefix}universe WHERE port_type='none' order by rand() desc limit $spp");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $spp");
         $update="UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -498,7 +498,7 @@ echo"</table>";
 
     Table_Spacer();
 
-        $sql_query=$db->Execute("select sector_id from {$db->prefix}universe WHERE port_type='none' order by rand() desc limit $oep");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $oep");
         $update="UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -543,7 +543,7 @@ echo"</table>";
 
     Table_Spacer();
 
-        $sql_query=$db->Execute("select sector_id from {$db->prefix}universe WHERE port_type='none' order by rand() desc limit $ogp");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $ogp");
         $update="UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -588,7 +588,7 @@ echo"</table>";
 
     Table_Spacer();
 
-        $sql_query=$db->Execute("select sector_id from {$db->prefix}universe WHERE port_type='none' order by rand() desc limit $gop");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $gop");
         $update="UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -635,7 +635,7 @@ echo"</table>";
 
     Table_Spacer();
 
-        $sql_query=$db->Execute("select sector_id from {$db->prefix}universe WHERE port_type='none' order by rand() desc limit $enp");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $enp");
         $update="UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)

@@ -94,7 +94,7 @@ else
             if (empty($user))
             {
                 echo "<select size=20 name=user>";
-                $res = $db->Execute("select ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
+                $res = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
                 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                 while (!$res->EOF)
                 {
@@ -109,7 +109,7 @@ else
             {
                 if (empty($operation))
                 {
-                    $res = $db->Execute("select * FROM {$db->prefix}ships WHERE ship_id=?", array($user));
+                    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array($user));
                     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
                     $row = $res->fields;
                     echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -279,12 +279,12 @@ else
                     echo "<tr><td><tt>          Port Type  </tt></td><td>";
                     echo "<select size=1 name=port_type>";
                     $oportnon = $oportspe = $oportorg = $oportore = $oportgoo = $oportene = "value";
-                    if ($row['port_type'] == "none") $oportnon = "selectED=none value";
-                    if ($row['port_type'] == "special") $oportspe = "selectED=special value";
-                    if ($row['port_type'] == "organics") $oportorg = "selectED=organics value";
-                    if ($row['port_type'] == "ore") $oportore = "selectED=ore value";
-                    if ($row['port_type'] == "goods") $oportgoo = "selectED=goods value";
-                    if ($row['port_type'] == "energy") $oportene = "selectED=energy value";
+                    if ($row['port_type'] == "none") $oportnon = "selected=none value";
+                    if ($row['port_type'] == "special") $oportspe = "selected=special value";
+                    if ($row['port_type'] == "organics") $oportorg = "selected=organics value";
+                    if ($row['port_type'] == "ore") $oportore = "selected=ore value";
+                    if ($row['port_type'] == "goods") $oportgoo = "selected=goods value";
+                    if ($row['port_type'] == "energy") $oportene = "selected=energy value";
                     echo "<option $oportnon=none>none</option>";
                     echo "<option $oportspe=special>special</option>";
                     echo "<option $oportorg=organics>organics</option>";

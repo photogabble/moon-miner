@@ -39,7 +39,7 @@ function db_kill_player ($ship_id, $remove_planets = false)
 
     $resa = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=$ship_id");
     db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
-    $resb = $db->Execute("DELETE from {$db->prefix}bounty WHERE placed_by = $ship_id");
+    $resb = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE placed_by = $ship_id");
     db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
 
     $res = $db->Execute("SELECT DISTINCT sector_id FROM {$db->prefix}planets WHERE owner='$ship_id' AND base='Y'");
@@ -55,7 +55,7 @@ function db_kill_player ($ship_id, $remove_planets = false)
 
     if ($remove_planets == true && $ship_id > 0)
     {
-        $resc = $db->Execute("DELETE from {$db->prefix}planets WHERE owner = $ship_id");
+        $resc = $db->Execute("DELETE FROM {$db->prefix}planets WHERE owner = $ship_id");
         db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
     }
     else
@@ -82,7 +82,7 @@ function db_kill_player ($ship_id, $remove_planets = false)
     $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE zone_id=$zone[zone_id]");
     db_op_result ($db, $resf, __LINE__, __FILE__, $db_logging);
 
-    $query = $db->Execute("select character_name from {$db->prefix}ships where ship_id='$ship_id'");
+    $query = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
     db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
     $name = $query->fields;
 

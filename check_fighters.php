@@ -79,7 +79,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
     // Find out if the fighter owner and player are on the same team
     // All sector defences must be owned by members of the same team
     $fm_owner = $defences[0]['ship_id'];
-    $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=?;", array($fm_owner));
+    $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($fm_owner));
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
     $fighters_owner = $result2->fields;
     if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
@@ -200,7 +200,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
 
         }
         // Clean up any sectors that have used up all mines or fighters
-        $resx = $db->Execute("delete from {$db->prefix}sector_defence where quantity <= 0 ");
+        $resx = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0 ");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
     }
 }

@@ -52,7 +52,7 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
-$res = $db->Execute("SELECT * from {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
 
@@ -259,7 +259,7 @@ switch ($response)
       else
       {
          $ship_id = $defenceinfo['ship_id'];
-         $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$ship_id");
+         $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$ship_id");
          $fighters_owner = $result2->fields;
 
          if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)

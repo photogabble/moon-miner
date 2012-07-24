@@ -49,7 +49,7 @@ function get_player ($db, $ship_id)
 {
     global $db_logging;
 
-    $res = $db->Execute("SELECT character_name from {$db->prefix}ships where ship_id = ?;", array($ship_id));
+    $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array($ship_id));
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if ($res)
     {

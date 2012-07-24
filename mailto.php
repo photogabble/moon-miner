@@ -31,7 +31,7 @@ if (checklogin () )
     die();
 }
 
-$res = $db->Execute("select * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
@@ -39,7 +39,7 @@ bigtitle ();
 
 if (empty($content))
 {
-    $res = $db->Execute("select * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND turns_used > 0 ORDER BY character_name ASC");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND turns_used > 0 ORDER BY character_name ASC");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     echo "<form action=mailto2.php method=post>";
     echo "<table>";
@@ -71,7 +71,7 @@ else
     $content = htmlspecialchars ($content);
     $subject = htmlspecialchars ($subject);
 
-    $res = $db->Execute("select * FROM {$db->prefix}ships WHERE character_name='$to'");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE character_name='$to'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $target_info = $res->fields;
     $db->Execute("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");

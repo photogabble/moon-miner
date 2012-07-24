@@ -1003,7 +1003,7 @@ function IGB_consolidate2()
   $minimum = StripNonNum($minimum);
   $maximum = StripNonNum($maximum);
 
-  $query = "SELECT SUM(credits) as total, COUNT(*) as count from {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
+  $query = "SELECT SUM(credits) AS total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
 
   if ($minimum != 0)
     $query .= " AND credits >= $minimum";
@@ -1076,7 +1076,7 @@ function IGB_consolidate3()
   $minimum = StripNonNum($minimum);
   $maximum = StripNonNum($maximum);
 
-  $query = "SELECT SUM(credits) as total, COUNT(*) as count from {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
+  $query = "SELECT SUM(credits) as total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
 
   if ($minimum != 0)
     $query .= " AND credits >= $minimum";

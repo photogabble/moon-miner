@@ -25,7 +25,7 @@ if (preg_match("/sched_apocalypse.php/i", $_SERVER['PHP_SELF']))
 
 echo "<strong>PLANETARY APOCALYPSE</strong><br><br>";
 echo "The four horsemen of the apocalypse set forth...<br>";
-$doomsday = $db->Execute("SELECT * from {$db->prefix}planets WHERE colonists > $doomsday_value");
+$doomsday = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE colonists > $doomsday_value");
 db_op_result ($db, $doomsday, __LINE__, __FILE__, $db_logging);
 $chance = 9;
 $reccount = $doomsday->RecordCount();

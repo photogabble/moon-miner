@@ -24,7 +24,7 @@ if (preg_match("/sched_degrade.php/i", $_SERVER['PHP_SELF']))
 }
 
 echo "<strong>Degrading Sector Fighters with no friendly base</strong><br><br>";
-$res = $db->Execute("SELECT * from {$db->prefix}sector_defence where defence_type = 'F'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE defence_type = 'F'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
 while (!$res->EOF)

@@ -35,7 +35,7 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
-$res = $db->Execute("SELECT * from {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
+$res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $res->fields;
 
@@ -122,7 +122,7 @@ else
         if (!$owns_all)
         {
             $defence_owner = $defences[0]['ship_id'];
-            $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$defence_owner");
+            $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$defence_owner");
             db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
             $fighters_owner = $result2->fields;
 
@@ -138,7 +138,7 @@ else
     if ($zoneinfo['allow_defenses'] == 'L')
     {
         $zone_owner = $zoneinfo['owner'];
-        $result2 = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$zone_owner");
+        $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$zone_owner");
         db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
         $zoneowner_info = $result2->fields;
 

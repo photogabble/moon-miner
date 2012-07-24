@@ -37,14 +37,14 @@ if (array_key_exists('response', $_POST) == true)
     $response = $_POST['response'];
 }
 
-$res = $db->Execute("select * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 switch ($response) {
     case "display":
         bigtitle ();
-        $res5 = $db->Execute("select * FROM {$db->prefix}ships,{$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = $bounty_on");
+        $res5 = $db->Execute("SELECT * FROM {$db->prefix}ships,{$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = $bounty_on");
         db_op_result ($db, $res5, __LINE__, __FILE__, $db_logging);
         $j = 0;
         if ($res5)
@@ -74,7 +74,7 @@ switch ($response) {
             $color = $color_line1;
             for ($j = 0; $j < $num_details; $j++)
             {
-                $someres = $db->execute("select character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounty_details[$j]['placed_by']);
+                $someres = $db->execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounty_details[$j]['placed_by']);
                 db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
@@ -122,7 +122,7 @@ switch ($response) {
             die();
         }
 
-        $res = $db->Execute("select * from {$db->prefix}bounty WHERE bounty_id = $bid");
+        $res = $db->Execute("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = $bid");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         if (!res || $res->RowCount() ==0)
         {
@@ -154,7 +154,7 @@ switch ($response) {
     case "place":
         bigtitle();
         $bounty_on = stripnum($bounty_on);
-        $ex = $db->Execute("select * from {$db->prefix}ships WHERE ship_id = $bounty_on");
+        $ex = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = $bounty_on");
         db_op_result ($db, $ex, __LINE__, __FILE__, $db_logging);
         if (!$ex)
         {
@@ -212,7 +212,7 @@ switch ($response) {
             $score = gen_score($playerinfo['ship_id']);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
-            $pb = $db->Execute("select SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = $bounty_on AND placed_by = $playerinfo[ship_id]");
+            $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = $bounty_on AND placed_by = $playerinfo[ship_id]");
             db_op_result ($db, $pb, __LINE__, __FILE__, $db_logging);
             if ($pb)
             {
@@ -241,7 +241,7 @@ switch ($response) {
         break;
     default:
         bigtitle();
-        $res = $db->Execute("select * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
+        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         echo "<form action=bounty.php method=post>";
         echo "<table>";
@@ -300,7 +300,7 @@ switch ($response) {
             $color = $color_line1;
             for ($i = 0; $i < $num_bounties; $i++)
             {
-                $someres = $db->execute("select character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounties[$i]['bounty_on']);
+                $someres = $db->execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounties[$i]['bounty_on']);
                 db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";

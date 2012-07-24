@@ -552,7 +552,7 @@ function Real_Space_Move($destination)
   if (!$result99->EOF)
   {
      $fighters_owner = $result99->fields;
-     $nsresult = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$fighters_owner[ship_id]");
+     $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$fighters_owner[ship_id]");
      db_op_result ($db, $nsresult, __LINE__, __FILE__, $db_logging);
      $nsfighters = $nsresult->fields;
      if ($nsfighters['team'] != $playerinfo['team'] || $playerinfo['team']==0)
@@ -566,7 +566,7 @@ function Real_Space_Move($destination)
   if (!$result98->EOF)
   {
      $fighters_owner = $result98->fields;
-     $nsresult = $db->Execute("SELECT * from {$db->prefix}ships where ship_id=$fighters_owner[ship_id]");
+     $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$fighters_owner[ship_id]");
      db_op_result ($db, $nsresult, __LINE__, __FILE__, $db_logging);
      $nsfighters = $nsresult->fields;
      if ($nsfighters['team'] != $playerinfo['team'] || $playerinfo['team']==0)

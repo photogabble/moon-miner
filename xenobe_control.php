@@ -165,7 +165,7 @@ else
       if (empty($user))
       {
         echo "<select size=20 name=user>";
-        $res = $db->Execute("select email,character_name,ship_destroyed,active,sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id ORDER BY sector");
+        $res = $db->Execute("SELECT email,character_name,ship_destroyed,active,sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id ORDER BY sector");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         while (!$res->EOF)
         {
@@ -185,7 +185,7 @@ else
       {
         if (empty($operation))
         {
-          $res = $db->Execute("select * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email='$user'");
+          $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email='$user'");
           db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
           $row = $res->fields;
           echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -266,7 +266,7 @@ else
           echo "<hr>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><br>";
 
-          $logres = $db->Execute("select * FROM {$db->prefix}logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
+          $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
           db_op_result ($db, $logres, __LINE__, __FILE__, $db_logging);
           while (!$logres->EOF)
           {
@@ -389,7 +389,7 @@ else
       }
       elseif ($operation == "clearxenlog")
       {
-        $res = $db->Execute("select email,ship_id FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
+        $res = $db->Execute("SELECT email,ship_id FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         while (!$res->EOF)
         {
@@ -427,7 +427,7 @@ else
         $sy3roll = mt_rand(0,19);
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $resultnm = $db->Execute ("select character_name from {$db->prefix}ships where character_name='$character'");
+        $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name='$character'");
         db_op_result ($db, $resultnm, __LINE__, __FILE__, $db_logging);
         $namecheck = $resultnm->fields;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -439,7 +439,7 @@ else
           $sy3roll = mt_rand(0,19);
           $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
           $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-          $resultnm = $db->Execute ("select character_name from {$db->prefix}ships where character_name='$character'");
+          $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name='$character'");
           db_op_result ($db, $resultnm, __LINE__, __FILE__, $db_logging);
           $namecheck = $resultnm->fields;
           $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -485,7 +485,7 @@ else
         // Create emailname from character
         $emailname = str_replace(" ","_",$character) . "@xenobe";
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $result = $db->Execute ("select email, character_name, ship_name from {$db->prefix}ships where email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
+        $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
         if ($result>0)
         {

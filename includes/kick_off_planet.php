@@ -26,7 +26,7 @@ function kick_off_planet ($db, $ship_id, $whichteam)
 {
     global $db_logging;
 
-    $result1 = $db->Execute("SELECT * from {$db->prefix}planets where owner = ?;", array($ship_id));
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner = ?;", array($ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
 
     if ($result1 instanceof ADORecordSet)
@@ -34,7 +34,7 @@ function kick_off_planet ($db, $ship_id, $whichteam)
         while (!$result1->EOF)
         {
             $row = $result1->fields;
-            $result2 = $db->Execute("SELECT * from {$db->prefix}ships where on_planet = 'Y' and planet_id = ? and ship_id <> ?;", array($row['planet_id'], $ship_id));
+            $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' AND planet_id = ? AND ship_id <> ?;", array($row['planet_id'], $ship_id));
             db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
             if ($result2 instanceof ADORecordSet)
             {
