@@ -429,7 +429,7 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
     }
     else
     {
-        if ($dest['port_type'] == 'special')
+        if (array_key_exists('port_type', $dest) == true && $dest['port_type'] == 'special')
             traderoute_die($l_tdr_sportcom);
     }
 }
@@ -1933,7 +1933,7 @@ function traderoute_engage($j)
             else
                 $colonists_buy = 0;
 
-            $free_torps = NUM_TORPEDOES($playerinfo[torp_launchers]) - $playerinfo['torps'];
+            $free_torps = NUM_TORPEDOES($playerinfo['torp_launchers']) - $playerinfo['torps'];
             if ($source['torps'] > 0 && $free_torps > 0 && $playerinfo['trade_torps'] == 'Y')
             {
                 if ($source['torps'] > $free_torps)

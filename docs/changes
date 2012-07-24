@@ -42,6 +42,8 @@ Fixed Notice: Undefined variable: l_rs_noturns in planet_report_ce.php
 Fixed Notice: Undefined variable: dest in igb.php 
 Fixed Notice: Use of undefined constant name - assumed 'name' in igb.php
 Fixed Notice: Undefined offset: 2 in log.php 
+Fixed Notice: Undefined index: port_type in traderoute.php
+Fixed Notice: Use of undefined constant torp_launchers - assumed 'torp_launchers' in igb.php
 
 TheMightyDude (22 July 2012)
 --------------------------------------
