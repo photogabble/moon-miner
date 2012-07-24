@@ -953,7 +953,9 @@ function IGB_consolidate()
   $l_igb_transferrate3 = str_replace("[igb_num_percent]", NUMBER($percent,1), $l_igb_transferrate3);
   $l_igb_transferrate3 = str_replace("[nbplanets]", $IGB_tconsolidate, $l_igb_transferrate3);
 
-  $destplanetcreds  = $dest['credits'];
+// Why this line is here I have no clue, its not used in this file as far as I can see.
+// But just in case, leve it commented out but keep it.
+//  $destplanetcreds  = $dest['credits'];
 
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_planetconsolidate<br>---------------------------------</td></tr>" .
        "<form action='igb.php?command=consolidate2' method=POST>" .
@@ -992,7 +994,7 @@ function IGB_consolidate2()
       IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
   $dest = $res->fields;
 
-  if (empty($dest[name]))
+  if (empty($dest['name']))
     $dest['name']=$l_igb_unnamed;
 
   if ($dest['owner'] != $playerinfo['ship_id'])
