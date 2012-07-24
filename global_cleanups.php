@@ -145,4 +145,5 @@ if (empty($link_forums))
 {
     $link_forums = "http://forums.blacknova.net";
 }
+$l = new bnt_translation();
 ?>
