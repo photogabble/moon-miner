@@ -1,3 +1,7 @@
+TheMightyDude (24 July 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: mine_hullsize in planet_report_ce.php
+
 TheKabal (24 July 2012)
 --------------------------------------
 Set db_logging to be a property of $db ($db->logging), reducing the need to pass that value to functions

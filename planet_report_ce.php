@@ -455,7 +455,7 @@ function Take_Credits($sector_id, $planet_id)
 function Real_Space_Move($destination)
 {
   global $db;
-  global $level_factor;
+  global $level_factor, $mine_hullsize;
   global $username;
   global $lang;
   global $db_logging;
