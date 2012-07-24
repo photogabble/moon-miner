@@ -89,7 +89,6 @@ if ($playerfound)
             db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
             $_SESSION['logged_in'] = true;
             TEXT_GOTOMAIN();
-//            echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
             header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
         }
         else

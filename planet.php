@@ -160,7 +160,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                     $update3 = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id=$planet_id");
                     db_op_result ($db, $update3, __LINE__, __FILE__, $db_logging);
                     calc_ownership ($playerinfo['sector']);
-                    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
+                    header("Location: main.php");
                 }
                 else
                 {
@@ -501,7 +501,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
             $l_global_mmenu = str_replace ("[here]","<a href='main.php'>" . $l_here . "</a>", $l_global_mmenu);
             echo $l_global_mmenu . "<br>\n";
-            echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">\n";
+            header("Location: main.php");
         }
     }
     else
