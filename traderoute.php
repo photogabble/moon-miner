@@ -2649,7 +2649,7 @@ function traderoute_engage($j)
                 echo "$l_tdr_dumped " . NUMBER($torps_buy) . " $l_tdr_torps<br>";
             }
 
-            if ($torps_buy == 0 && $fighters_buy == 0 && $colonists_buy == 0 && $organics_buy == 0)
+            if ($torps_buy == 0 && $fighters_buy == 0 && $colonists_buy == 0)
             {
                 echo "$l_tdr_nothingtodump<br>";
             }
