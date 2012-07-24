@@ -182,4 +182,34 @@ $calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "b
 $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 
 $l = new bnt_translation();
+
+// Auto detect and set the game path (uses the logic from setup_info)
+// If it does not work, please comment this out and set it in db_config.php instead.
+$gamepath = dirname($_SERVER['PHP_SELF']);
+if (isset($gamepath) && strlen($gamepath) > 0)
+{
+    if ($gamepath === "\\")
+    {
+        $gamepath = "/";
+    }
+
+    if ($gamepath[0] != ".")
+    {
+        if ($gamepath[0] != "/")
+        {
+            $gamepath = "/$result";
+        }
+
+        if ($gamepath[strlen($gamepath)-1] != "/")
+        {
+            $gamepath = "$gamepath/";
+        }
+    }
+    else
+    {
+        $gamepath ="/";
+    }
+    $gamepath = str_replace("\\", "/", stripcslashes($gamepath));
+}
+// Game path setting ends
 ?>

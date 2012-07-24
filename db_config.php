@@ -33,11 +33,11 @@ $ADOdbpath = "backends/adodb";
 //$gamedomain = "127.0.0.1";
 $gamedomain = "";
 
+// This is now set automatically in global_cleanups. If it does not work, you'll need to comment it out, and uncomment and set this.
 // This is the trailing part of the URL, that is not part of the domain.
 // If you enter www.blah.com/blacknova to access the game, you would leave the line as it is.
 // If you do not need to specify blacknova, just enter a single slash eg:
-// $gamepath = "/";
-$gamepath = "/bnt/";
+// $gamepath = "/bnt/";
 
 // Hostname and port of the database server:
 // These are defaults, you normally won't have to change them
