@@ -1,5 +1,15 @@
 ; <?php die( 'Please do not access this page directly.' ); ?>
 ; This is the languages page, do not modify the above line.
+[regional]
+local_date_full_format                = "Y-m-d H:i:s";
+local_date_short_format               = "Y-m-d";
+local_lang                            = "de";
+local_logdate_full_format             = "F d Y H:i";
+local_logdate_med_format              = "F d Y";
+local_logdate_short_format            = "M d";
+local_number_dec_point                = ".";
+local_number_thousands_sep            = ",";
+
 [common]
 l_lang_attribute                      = "de";
 l_yes = "Ja";
