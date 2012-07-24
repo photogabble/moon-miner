@@ -17,8 +17,7 @@
 //
 // File: footer.php
 
-global $db, $sched_ticks, $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $footer_show_time, $l_time_gen_page, $l_seconds, $l_local_news, $db_logging;
-global $footer_show_debug, $l_peak_mem, $l_footer_one_player_on;
+global $sched_ticks, $footer_show_time, $footer_show_debug;
 $res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
@@ -62,17 +61,17 @@ $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
     }
   </script>
 <?php
-echo "  <strong><span id=myx>$mySEC</span></strong> " . $l_footer_until_update . " <br>\n";
+echo "  <strong><span id=myx>$mySEC</span></strong> " . $l->get('l_footer_until_update') . " <br>\n";
 // End update counter
 
 if ($online == 1)
 {
     echo "  ";
-    echo $l_footer_one_player_on;
+    echo $l->get('l_footer_one_player_on');
 }
 else
 {
-    echo "  " . $l_footer_players_on_1 . " " . $online . " " . $l_footer_players_on_2;
+    echo "  " . $l->get('l_footer_players_on_1') . " " . $online . " " . $l->get('l_footer_players_on_2');
 }
 ?>
 </div><br>
@@ -89,15 +88,15 @@ else
 
 if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']))
 {
-    $sf_logo_type++; // Make the SF logo darker for all pages except login 
+    $sf_logo_type++; // Make the SF logo darker for all pages except login
 }
 
 echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0;' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
-echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php'>" . $l_local_news . "</a></div>";
+echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php'>" . $l->get('l_local_news') . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $l_seconds . " " . $l_time_gen_page ." / " . floor(memory_get_peak_usage() / 1024) . $l_peak_mem . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $l->get('l_seconds') . " " . $l->get('l_time_gen_page') ." / " . floor(memory_get_peak_usage() / 1024) . $l->get('l_peak_mem') . "</div>";
 }
 ?>
 </body>

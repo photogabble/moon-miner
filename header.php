@@ -30,7 +30,7 @@ if (!isset($body_class))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php global $l_lang_attribute; echo $l_lang_attribute; ?>">
+<html lang="<?php echo $l->get('l_lang_attribute'); ?>">
 <head>
 <meta charset="utf-8">
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
