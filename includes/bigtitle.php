@@ -24,7 +24,7 @@ if (preg_match("/bigtitle.php/i", $_SERVER['PHP_SELF'])) {
 
 function bigtitle ()
 {
-  global $title;
-  echo "<h1>" . $title . "</h1>\n";
+    global $title;
+    echo "<h1>" . $title . "</h1>\n";
 }
 ?>

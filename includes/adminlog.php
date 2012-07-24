@@ -30,7 +30,7 @@ function adminlog ($db, $log_type, $data = "")
     $data = addslashes ($data);
     if (!empty($log_type))
     {
-        $ret = $db->Execute("INSERT INTO {$db->prefix}logs VALUES(NULL, 0, $log_type, NOW(), '$data')");
+        $ret = $db->Execute("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array($log_type, $data));
         db_op_result ($db, $ret, __LINE__, __FILE__, $db_logging);
     }
 
