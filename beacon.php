@@ -31,11 +31,11 @@ if (checklogin())
     die();
 }
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array($playerinfo['sector']));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 $sectorinfo = $result2->fields;
 
@@ -54,7 +54,7 @@ else
 
 if ($playerinfo['dev_beacon'] > 0)
 {
-    $res = $db->Execute("SELECT allow_beacon FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
+    $res = $db->Execute("SELECT allow_beacon FROM {$db->prefix}zones WHERE zone_id=?", array($sectorinfo['zone_id']));
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_beacon'] == 'N')
@@ -63,10 +63,10 @@ if ($playerinfo['dev_beacon'] > 0)
     }
     elseif ($zoneinfo['allow_beacon'] == 'L')
     {
-        $result3 = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
+        $result3 = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array($sectorinfo['zone_id']));
         db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
         $zoneowner_info = $result3->fields;
-        $result5 = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id='$zoneowner_info[owner]'");
+        $result5 = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array($zoneowner_info['owner']));
         db_op_result ($db, $result5, __LINE__, __FILE__, $db_logging);
         $zoneteam = $result5->fields;
 
@@ -114,9 +114,9 @@ if ($playerinfo['dev_beacon'] > 0)
         {
             $beacon_text = trim (strip_tags ($beacon_text));
             echo $l_beacon_nowreads . ": " . $beacon_text . ".<br><br>";
-            $update = $db->Execute("UPDATE {$db->prefix}universe SET beacon='$beacon_text' WHERE sector_id=$sectorinfo[sector_id]");
+            $update = $db->Execute("UPDATE {$db->prefix}universe SET beacon=? WHERE sector_id=?", array($beacon_text, $sectorinfo['sector_id']));
             db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET dev_beacon=dev_beacon-1 WHERE ship_id=$playerinfo[ship_id]");
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET dev_beacon=dev_beacon-1 WHERE ship_id=?", array($playerinfo['ship_id']));
             db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
         }
     }
