@@ -2,6 +2,7 @@ TheMightyDude (24 July 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: mine_hullsize in planet_report_ce.php
 Fixed Notice: Use of undefined constant owner - assumed 'owner' in sched_news.php
+Fixed Missing argument 2 for defence_vs_defence() was missing first argument of $db
 
 TheKabal (24 July 2012)
 --------------------------------------

@@ -248,7 +248,7 @@ switch ($teamwhat)
                     }
 
                     echo "$l_team_youveleft <strong>$team[team_name]</strong>.<br><br>";
-                    defence_vs_defence($playerinfo['ship_id']);
+                    defence_vs_defence($db, $playerinfo['ship_id']);
                     kick_off_planet ($db, $playerinfo['ship_id'], $whichteam);
                     playerlog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
                     playerlog ($db, $team['creator'], LOG_TEAM_NOT_LEAVE, $playerinfo['character_name']);
