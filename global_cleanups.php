@@ -29,6 +29,21 @@ if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip co
 $BenchmarkTimer = new c_Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
+if (file_exists("dev"))
+{
+    ini_set('error_reporting', E_ALL); // During development, output all errors, even notices
+    ini_set('display_errors', '1'); // During development, *display* all errors
+    $db_logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+}
+else
+{
+    ini_set('error_reporting', 0); // No errors
+    ini_set('display_errors', '0'); // Don't show them
+    $db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+}
+
+ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+
 global $ADODB_CRYPT_KEY;
 global $ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_DB;
 
@@ -145,5 +160,7 @@ if (empty($link_forums))
 {
     $link_forums = "http://forums.blacknova.net";
 }
+
+$ip = $_SERVER['REMOTE_ADDR'];
 $l = new bnt_translation();
 ?>

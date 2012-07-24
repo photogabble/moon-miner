@@ -18,20 +18,6 @@
 // File: config.php
 
 // create/touch a file named dev in the main game directory to activate development mode
-if (file_exists("dev"))
-{
-    ini_set('error_reporting', E_ALL); // During development, output all errors, even notices
-    ini_set('display_errors', '1'); // During development, *display* all errors
-    $db_logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development! This makes a huge amount of logs! You have been warned!!
-}
-else
-{
-    ini_set('error_reporting', 0); // No errors
-    ini_set('display_errors', '0'); // Don't show them
-    $db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development! This makes a huge amount of logs! You have been warned!!
-}
-
-ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 
 //  Set this to how often (in minutes) you are running the scheduler script.
 
@@ -68,7 +54,6 @@ $local_number_thousands_sep = ",";
 $language = "english";
 
 // Game variables
-$ip = $_SERVER['REMOTE_ADDR'];
 $mine_hullsize = 8; // Minimum size hull has to be to hit mines
 $ewd_maxhullsize = 15; // Max hull size before EWD degrades
 $sector_max = 1000;
@@ -227,7 +212,7 @@ $avail_lang[2]['name'] = 'German';
 $avail_lang[3]['file'] = 'spanish';
 $avail_lang[3]['name'] = 'Spanish';
 
-$IGB_min_turns = $start_turns; // Turns a player has to play before ship transfers are allowed 0=disable
+$IGB_min_turns = 1200; // Turns a player has to play before ship transfers are allowed 0=disable
 $IGB_svalue = 0.15; // Max amount of sender's value allowed for ship transfers 0=disable
 $IGB_trate = 1440; // Time (in minutes) before two similar transfers are allowed for ship transfers.0=disable
 $IGB_lrate = 1440; // Time (in minutes) players have to repay a loan
@@ -241,7 +226,7 @@ $bounty_ratio = 0.75; // Ratio of players networth before attacking results in a
 $bounty_minturns = 500; // Minimum number of turns a target must have had before attacking them may not get you a bounty. 0=disable
 $display_password = false; // If true, will display password on signup screen.
 $space_plague_kills = 0.20; // Percentage of colonists killed by space plague
-$max_credits_without_base = $base_credits; // Max amount of credits allowed on a planet without a base
+$max_credits_without_base = 10000000; // Max amount of credits allowed on a planet without a base
 $sofa_on = false;
 $ksm_allowed = true;
 
