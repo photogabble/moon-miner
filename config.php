@@ -57,7 +57,7 @@ $link_max = 10;
 $universe_size = 200;
 
 $game_name = "Default Game Name"; // Please set this to a unique name for your game
-$release_version = "0.55";     // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
+$release_version = "0.65";     // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
 
 $fed_max_hull = 8;
 $max_ranks = 100;
