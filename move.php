@@ -104,7 +104,7 @@ if ($flag == 1)
     include_once "check_mines.php";
     if ($ok == 1)
     {
-        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=main.php\">";
+        header("Location: main.php");
     }
     else
     {
