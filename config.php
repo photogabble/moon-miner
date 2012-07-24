@@ -173,17 +173,9 @@ $max_beacons                = 10;
 $max_warpedit               = 10;
 $bounty_all_special         = true;                 // Stop access on all Special Ports when you have a federation bounty on you.
 $bnt_ls                     = false;
-
-// Localization (regional) settings - soon to be moved into languages
-$local_number_dec_point     = ".";
-$local_number_thousands_sep = ",";
-$language                   = "english";
-
-// Information displayed on the 'Manage Own Account' section
-$ibank_ownaccount_info = "Interest rate is " . $ibank_interest * 100 . "%<br>Loan rate is " .
-$ibank_loaninterest * 100 . "%<P>If you have loans Make sure you have enough credits deposited each turn " .
-  "to pay the interest and mortage, otherwise it will be deducted from your ships acccount at <font color=red>" .
-  "twice the current Loan rate (" . $ibank_loaninterest * 100 * 2 .")%</font>.";
+$local_number_dec_point     = ".";                  // Localization (regional) settings - soon to be moved into languages
+$local_number_thousands_sep = ",";                  // Localization (regional) settings - soon to be moved into languages
+$language                   = "english";            // Localization (regional) settings - soon to be moved into languages
 
 require "global_includes.php"; // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
