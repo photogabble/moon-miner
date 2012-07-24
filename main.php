@@ -20,7 +20,7 @@
 include "config.php";
 
 // New database driven language entries
-load_languages($db, $langsh, array('main', 'login', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'modify_defences'), $langvars, $db_logging);
+load_languages($db, $langsh, array('common', 'global_includes'), $langvars, $db_logging);
 
 updatecookie();
 
@@ -29,7 +29,7 @@ if (checklogin())
     die();
 }
 
-$title = $l_main_title;
+$title = $l->get('l_main_title');
 include "header.php";
 
 $stylefontsize = "12Pt";
@@ -41,8 +41,8 @@ $playerinfo = $res->fields;
 
 if ($playerinfo['cleared_defences'] > ' ')
 {
-    echo "$l_incompletemove <br>";
-    echo "<a href=$playerinfo[cleared_defences]>$l_clicktocontinue</a>";
+    echo $l->get('l_incompletemove') . " <br>";
+    echo "<a href=$playerinfo[cleared_defences]>" . $l->get('l_clicktocontinue') . "</a>";
     die();
 }
 
@@ -56,14 +56,14 @@ if ($playerinfo['on_planet'] == "Y")
     db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
     if ($res2->RecordCount() != 0)
     {
-        echo "<a href=planet.php?planet_id=$playerinfo[planet_id]>$l_clickme</A> $l_toplanetmenu    <br>";
+        echo "<a href=planet.php?planet_id=$playerinfo[planet_id]>" . $l->get('l_clickme') . "</a> " . $l->get('l_toplanetmenu') . "    <br>";
         header("Location: planet.php?planet_id=" . $playerinfo['planet_id'] . "&id=" . $playerinfo['ship_id']);
         die();
     }
     else
     {
         $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id=$playerinfo[ship_id]");
-        echo "<br>$l_nonexistant_pl<br><br>";
+        echo "<br>" . $l->get('l_nonexistant_pl') . "<br><br>";
     }
 }
 
@@ -131,14 +131,14 @@ $planettypes[4]= "hugeplanet.png";
 
 $signame = player_insignia_name ($db, $username);
 echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C0; text-align:center; border:#fff 1px solid; padding:4px;'>\n";
-echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$l_aboard} <span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
+echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$l->get('l_aboard')} <span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id=? AND notified=?;", array($playerinfo['ship_id'], "N") );
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 if ($result->RecordCount() > 0)
 {
-    $alert_message = "{$l_youhave} {$result->RecordCount()}{$l_messages_wait}";
+    $alert_message = "{$l->get('l_youhave')} {$result->RecordCount()}{$l->get('l_messages_wait')}";
     echo "<script>\n";
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
@@ -154,16 +154,16 @@ $ply_credits    = NUMBER($playerinfo['credits']);
 
 echo "<table style='width:90%; margin:auto; text-align:center; border:0px;'>\n";
 echo "  <tr>\n";
-echo "    <td style='width:33%; text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l_turns_have} <span style='color:#fff; font-weight:bold;'>{$ply_turns}</span></td>\n";
-echo "    <td style='width:33%; text-align:center; color:#ccc; font-size:12px;'>{$l_turns_used} <span style='color:#fff; font-weight:bold;'>{$ply_turnsused}</span></td>\n";
-echo "    <td style='width:33%; text-align:right; color:#ccc; font-size:12px;'>{$l_score} <span style='color:#fff; font-weight:bold;'>{$ply_score}&nbsp;</span></td>\n";
+echo "    <td style='width:33%; text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l->get('l_turns_have')} <span style='color:#fff; font-weight:bold;'>{$ply_turns}</span></td>\n";
+echo "    <td style='width:33%; text-align:center; color:#ccc; font-size:12px;'>{$l->get('l_turns_used')} <span style='color:#fff; font-weight:bold;'>{$ply_turnsused}</span></td>\n";
+echo "    <td style='width:33%; text-align:right; color:#ccc; font-size:12px;'>{$l->get('l_score')} <span style='color:#fff; font-weight:bold;'>{$ply_score}&nbsp;</span></td>\n";
 echo "  </tr>\n";
 echo "  <tr>\n";
-echo "    <td colspan='3' style='width:33%; text-align:right; color:#ccc; font-size:12px;'>&nbsp;{$l_credits}: <span style='color:#fff; font-weight:bold;'>{$ply_credits}</span></td>\n";
+echo "    <td colspan='3' style='width:33%; text-align:right; color:#ccc; font-size:12px;'>&nbsp;{$l->get('l_credits')}: <span style='color:#fff; font-weight:bold;'>{$ply_credits}</span></td>\n";
 echo "  </tr>\n";
 
 echo "  <tr>\n";
-echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l_sector} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
+echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$l->get('l_sector')} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
 if (empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
 {
     $sectorinfo['beacon'] = null;
@@ -191,7 +191,7 @@ echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px;'><img style='border:0px; height:18px; width:8px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>$l_commands</strong></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>{$l->get('l_commands')}</strong></td>\n";
 echo "    <td style='padding:0px; width:8px'><img style='border:0px; height:18px; width:8px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -200,22 +200,22 @@ echo "</table>\n";
 echo "<table style='width:150px; margin:auto; text-align:center; border:0px; padding:0px; border-spacing:0px'>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='device.php'>{$l_devices}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='planet_report.php'>{$l_planets}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='log.php'>{$l_log}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='defence_report.php'>{$l_sector_def}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='readmail.php'>{$l_read_msg}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mailto2.php'>{$l_send_msg}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='ranking.php'>{$l_rankings}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='settings.php'>{$l_settings}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='teams.php'>{$l_teams}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='self_destruct.php'>{$l_ohno}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='options.php'>{$l_options}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='navcomp.php'>{$l_navcomp}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='device.php'>{$l->get('l_devices')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='planet_report.php'>{$l->get('l_planets')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='log.php'>{$l->get('l_log')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='defence_report.php'>{$l->get('l_sector_def')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='readmail.php'>{$l->get('l_read_msg')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mailto2.php'>{$l->get('l_send_msg')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='ranking.php'>{$l->get('l_rankings')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='settings.php'>{$l->get('l_settings')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='teams.php'>{$l->get('l_teams')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='self_destruct.php'>{$l->get('l_ohno')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='options.php'>{$l->get('l_options')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='navcomp.php'>{$l->get('l_navcomp')}</a></div>\n";
 
 if ($ksm_allowed == true)
 {
-    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='galaxy.php'>{$l_map}</a></div>\n";
+    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='galaxy.php'>{$l->get('l_map')}</a></div>\n";
 }
 echo "    </td>\n";
 echo "  </tr>\n";
@@ -224,8 +224,8 @@ echo "    <td style='white-space:nowrap; height:2px; background-color:transparen
 echo "  </tr>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='docs/faq.html'>{$l_faq}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='feedback.php'>{$l_feedback}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='docs/faq.html'>{$l->get('l_faq')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='feedback.php'>{$l->get('l_feedback')}</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='main.php' title='Not implemented'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Support</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='maint_info.php' title='This will display the Scheduled Maintenance information for this game or Core Code.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Maint Info</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='rules.php' title='These are our Rules that you have agreed to.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Our Rules</a></div>\n";
@@ -233,7 +233,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 
 if (!empty($link_forums))
 {
-    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='{$link_forums}'>{$l_forums}</a></div>\n";
+    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='{$link_forums}'>{$l->get('l_forums')}</a></div>\n";
 }
 
 echo "    </td>\n";
@@ -243,7 +243,7 @@ echo "    <td style='white-space:nowrap; height:2px; background-color:transparen
 echo "  </tr>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='logout.php'>{$l_logout}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='logout.php'>{$l->get('l_logout')}</a></div>\n";
 echo "    </td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -253,7 +253,7 @@ echo "<br>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top;'>\n";
 echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>$l_traderoutes</strong></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>{$l->get('l_traderoutes')}</strong></td>\n";
 echo "    <td style='padding:0px; width:8px;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -311,7 +311,7 @@ echo "  <tr>\n";
 echo "    <td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 if ($num_traderoutes == 0)
 {
-    echo "  <div style='text-align:center;'><a class='dis'>&nbsp;$l_none &nbsp;</a></div>";
+    echo "  <div style='text-align:center;'><a class='dis'>&nbsp;{$l->get('l_none')} &nbsp;</a></div>";
 }
 else
 {
@@ -321,7 +321,7 @@ else
         echo "<div style='text-align:center;'>&nbsp;<a class=mnu href=traderoute.php?engage={$traderoutes[$i]['traderoute_id']}>";
         if ($traderoutes[$i]['source_type'] == 'P')
         {
-            echo "$l_port&nbsp;";
+            echo $l->get('l_port') . "&nbsp;";
         }
         elseif ($traderoutes[$i]['source_type'] == 'D')
         {
@@ -333,14 +333,14 @@ else
             db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
             if (!$query || $query->RecordCount() == 0)
             {
-                echo $l_unknown;
+                echo $l->get('l_unknown');
             }
             else
             {
                 $planet = $query->fields;
                 if ($planet['name'] == "")
                 {
-                    echo "$l_unnamed ";
+                    echo $l->get('l_unnamed') . " ";
                 }
                 else
                 {
@@ -373,14 +373,14 @@ else
 
             if (!$query || $query->RecordCount() == 0)
             {
-                echo $l_unknown;
+                echo $l->get('l_unknown');
             }
             else
             {
                 $planet = $query->fields;
                 if ($planet['name'] == "")
                 {
-                    echo $l_unnamed;
+                    echo $l->get('l_unnamed');
                 }
                 else
                 {
@@ -401,7 +401,7 @@ echo "    <td style='white-space:nowrap; height:2px; background-color:transparen
 echo "  </tr>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
-echo "      <div style='padding-left:4px; text-align:center;'><a class='mnu' href='traderoute.php'>{$l_trade_control}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:center;'><a class='mnu' href='traderoute.php'>{$l->get('l_trade_control')}</a></div>\n";
 echo "    </td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -412,21 +412,21 @@ echo "<td style='vertical-align:top;'>\n";
 if ($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
-    echo "{$l_tradingport}:&nbsp;<span style='color:#0f0;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
+    echo "{$l->get('l_tradingport')}:&nbsp;<span style='color:#0f0;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
     echo "<br>\n";
     echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' alt='Space Station Port'></a>\n";
     echo "</div>\n";
 }
 else
 {
-    echo "<div style='color:#fff; text-align:center;'>{$l_tradingport}&nbsp;{$l_none}</div>\n";
+    echo "<div style='color:#fff; text-align:center;'>{$l->get('l_tradingport')}&nbsp;{$l->get('l_none')}</div>\n";
 }
 
 echo "<br>\n";
 
 // Put all the Planets into a div container and center it.
 echo "<div style='margin-left:auto; margin-right:auto; text-align:center; border:transparent 1px solid;'>\n";
-echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bold;'>{$l_planet_in_sec} {$sectorinfo['sector_id']}</div>\n";
+echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bold;'>{$l->get('l_planet_in_sec')} {$sectorinfo['sector_id']}</div>\n";
 echo "<table style='height:150px; text-align:center; margin:auto; border:0px'>\n";
 echo "  <tr>\n";
 
@@ -477,7 +477,7 @@ if ($num_planets > 0)
 
         if (empty($planets[$i]['name']))
         {
-            echo $l_unnamed;
+            echo $l->get('l_unnamed');
             $planet_bnthelper_string="<!--planet:Y:Unnamed:";
         }
         else
@@ -488,7 +488,7 @@ if ($num_planets > 0)
 
         if ($planets[$i]['owner'] == 0)
         {
-            echo "<br>($l_unowned)";
+            echo "<br>(" . $l->get('l_unowned') . ")";
             $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
         }
         else
@@ -514,7 +514,7 @@ if ($num_planets > 0)
 else
 {
     echo "<td style='margin-left:auto; margin-right:auto; vertical-align:top'>";
-    echo "<br><span style='color:white; size:1.25em'>$l_none</span><br><br>";
+    echo "<br><span style='color:white; size:1.25em'>" . $l->get('l_none') . "</span><br><br>";
     $planet_bnthelper_string="<!--planet:N:::-->";
 }
 
@@ -524,7 +524,7 @@ echo "</div>\n";
 
 // Put all the Planets into a div container and center it.
 echo "<div style='text-align:center; border:transparent 1px solid;'>\n";
-echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bold;'>{$l_ships_in_sec} {$sectorinfo['sector_id']}</div>\n";
+echo "<div style='text-align:center; font-size:12px; color:#fff; font-weight:bold;'>{$l->get('l_ships_in_sec')} {$sectorinfo['sector_id']}</div>\n";
 
 if ($playerinfo['sector'] != 0)
 {
@@ -588,11 +588,11 @@ if ($playerinfo['sector'] != 0)
         }
         if ($ships_detected <= 0)
         {
-            echo "<div style='color:#fff;'>{$l_none}</div>\n";
+            echo "<div style='color:#fff;'>{$l->get('l_none')}</div>\n";
         }
         else
         {
-            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030;'>" . $l_main_ships_detected . "</div>\n";
+            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030;'>" . $l->get('l_main_ships_detected') . "</div>\n";
             echo "<div style='width:498px; margin:auto; overflow:auto; height:145px; scrollbar-base-color: #303030; scrollbar-arrow-color: #fff; padding:0px;'>\n";
             echo "<table style='padding:0px; border-spacing:1px;'>\n";
             echo "  <tr>\n";
@@ -622,18 +622,18 @@ if ($playerinfo['sector'] != 0)
     }
     else
     {
-        echo "<div style='color:#fff;'>{$l_none}</div>\n";
+        echo "<div style='color:#fff;'>{$l->get('l_none')}</div>\n";
     }
 }
 else
 {
-        echo "<div style='color:#fff;'>{$l_sector_0}</div>\n";
+        echo "<div style='color:#fff;'>{$l->get('l_sector_0')}</div>\n";
 }
 echo "</div>";
 
 if ($num_defences>0)
 {
-            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030; text-align:center;'>" . $l_sector_def . "</div>\n";
+            echo "<div style='padding-top:4px; padding-bottom:4px; width:500px; margin:auto; background-color:#303030; text-align:center;'>" . $l->get('l_sector_def') . "</div>\n";
             echo "<div style='width:498px; margin:auto; overflow:auto; height:125px; scrollbar-base-color: #303030; scrollbar-arrow-color: #fff; padding:0px; text-align:center;'>\n";
 }
 ?>
@@ -652,22 +652,22 @@ if ($num_defences > 0)
         if ($defences[$i]['defence_type'] == 'F')
         {
             echo "<a class='new_link' href='modify_defences.php?defence_id=$defence_id'><img class='mnu' src=\"images/fighters.png\" style='border:0px' alt='Fighters'></a>\n";
-            $def_type = $l_fighters;
+            $def_type = $l->get('l_fighters');
             $mode = $defences[$i]['fm_setting'];
             if ($mode == 'attack')
             {
-                $mode = $l_md_attack;
+                $mode = $l->get('l_md_attack');
             }
             else
             {
-                $mode = $l_md_toll;
+                $mode = $l->get('l_md_toll');
             }
             $def_type .= $mode;
         }
         elseif ($defences[$i]['defence_type'] == 'M')
         {
             echo "<div><a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/mines.png\" style='border:0px' alt='Mines'></a></div>\n";
-            $def_type = $l_mines;
+            $def_type = $l->get('l_mines');
         }
 
         $char_name = $defences[$i]['character_name'];
@@ -703,7 +703,7 @@ else
 echo "<table style='width:140px; border:0; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px; text-align:right;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><strong>$l_cargo</strong></span></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><strong>" . $l->get('l_cargo') . "</strong></span></td>\n";
 echo "    <td style='padding:0px; width:8px; text-align:left;'><img style='width:8px; height:18px; border:0px; float:right;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -714,31 +714,31 @@ echo "</table>\n";
     <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; padding:0px;'>
       <table style='width:100%; border:0px; background-color:#500050; padding:1px; border-spacing:0px; margin-left:auto; margin-right:auto;'>
         <tr>
-          <td style='vertical-align:middle; white-space:nowrap; text-align:left;' >&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_ore ?>" src="images/ore.png">&nbsp;<?php echo $l_ore ?>&nbsp;</td>
+          <td style='vertical-align:middle; white-space:nowrap; text-align:left;' >&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l->get('l_ore'); ?>" src="images/ore.png">&nbsp;<?php echo $l->get('l_ore'); ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='vertical-align:middle; white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_ore']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_organics ?>" src="images/organics.png">&nbsp;<?php echo $l_organics ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l->get('l_organics'); ?>" src="images/organics.png">&nbsp;<?php echo $l->get('l_organics'); ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_organics']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_goods ?>" src="images/goods.png">&nbsp;<?php echo $l_goods ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l->get('l_goods'); ?>" src="images/goods.png">&nbsp;<?php echo $l->get('l_goods'); ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_goods']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_energy ?>" src="images/energy.png">&nbsp;<?php echo $l_energy ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l->get('l_energy'); ?>" src="images/energy.png">&nbsp;<?php echo $l->get('l_energy'); ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_energy']); ?>&nbsp;</span></td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l_colonists ?>" src="images/colonists.png">&nbsp;<?php echo $l_colonists ?>&nbsp;</td>
+          <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $l->get('l_colonists'); ?>" src="images/colonists.png">&nbsp;<?php echo $l->get('l_colonists'); ?>&nbsp;</td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_colonists']); ?>&nbsp;</span></td>
@@ -753,7 +753,7 @@ echo "</table>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px; text-align:right'><img style='width:8px; height:18px; border:0px; float:right;' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff'><strong>$l_realspace</strong></span></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff'><strong>" . $l->get('l_realspace') . "</strong></span></td>\n";
 echo "    <td style='padding:0px; width:8px; text-align:left'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -765,15 +765,15 @@ echo "</table>\n";
 <table style="width:100%;">
 <tr>
   <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset1']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset1']; ?></a></td>
-  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
+  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l->get('l_set')); ?></a>]</td>
 </tr>
 <tr>
   <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset2']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset2']; ?></a></td>
-  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
+  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l->get('l_set')); ?></a>]</td>
 </tr>
 <tr>
   <td style="text-align:left;"><a class=mnu href="rsmove.php?engage=1&amp;destination=<?php echo $playerinfo['preset3']; ?>">=&gt;&nbsp;<?php echo $playerinfo['preset3']; ?></a></td>
-  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l_set); ?></a>]</td>
+  <td style="text-align:right;">[<a class=mnu href=preset.php><?php echo ucwords($l->get('l_set')); ?></a>]</td>
 </tr>
 </table>
 </td></tr>
@@ -783,7 +783,7 @@ echo "    <td style='white-space:nowrap; height:2px; background-color:transparen
 echo "  </tr>\n";
 ?>
 <tr><td  style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>
-&nbsp;<a class=mnu href="rsmove.php">=&gt;&nbsp;<?php echo $l_main_other;?></a>&nbsp;<br>
+&nbsp;<a class=mnu href="rsmove.php">=&gt;&nbsp;<?php echo $l->get('l_main_other');?></a>&nbsp;<br>
 </td></tr>
 </table>
 <br>
@@ -792,7 +792,7 @@ echo "  </tr>\n";
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px;margin-left:auto; margin-right:auto;'>\n";
 echo "  <tr style='vertical-align:top'>\n";
 echo "    <td style='padding:0px; width:8px; float:right;'><img style='width:8px; height:18px; border:0px; float:right' src='images/lcorner.png' alt=''></td>\n";
-echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><strong>$l_main_warpto</strong></span></td>\n";
+echo "    <td style='padding:0px; white-space:nowrap; background-color:#400040; text-align:center; vertical-align:middle;'><span style='font-size:0.75em; color:#fff;'><strong>" . $l->get('l_main_warpto') . "</strong></span></td>\n";
 echo "    <td style='padding:0px; width:8px; float:left;'><img style='width:8px; height:18px; border:0px; float:left;' src='images/rcorner.png' alt=''></td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
@@ -806,7 +806,7 @@ echo "</table>\n";
 
 if (!$num_links)
 {
-    echo "&nbsp;<a class=dis>$l_no_warplink</a>&nbsp;<br>";
+    echo "&nbsp;<a class=dis>" . $l->get('l_no_warplink') . "</a>&nbsp;<br>";
     $link_bnthelper_string="<!--links:N";
 }
 else
@@ -815,12 +815,12 @@ else
     $link_bnthelper_string="<!--links:Y";
     for ($i = 0; $i < $num_links; $i++)
     {
-#        echo "&nbsp;<a class=\"mnu\" href=\"move.php?sector=$links[$i]\">=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=\"lrscan.php?sector=$links[$i]\">[$l_scan]</a>&nbsp;<br>";
+#        echo "&nbsp;<a class=\"mnu\" href=\"move.php?sector=$links[$i]\">=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=\"lrscan.php?sector=$links[$i]\">[" . $l->get('l_scan') . "]</a>&nbsp;<br>";
         $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
 
         echo "<tr>\n";
         echo "  <td style='text-align:left;'><a class='mnu' href='move.php?sector={$links[$i]}'>=&gt;&nbsp;$links[$i]</a></td>\n";
-        echo "  <td style='text-align:right;'>[<a class='mnu' href='lrscan.php?sector={$links[$i]}'>$l_scan</a>]</td>\n";
+        echo "  <td style='text-align:right;'>[<a class='mnu' href='lrscan.php?sector={$links[$i]}'>" . $l->get('l_scan') . "</a>]</td>\n";
         echo "</tr>\n";
     }
     echo "</table>\n";
@@ -833,7 +833,7 @@ echo "    <td style='white-space:nowrap; height:2px; background-color:transparen
 echo "  </tr>\n";
 echo "<tr><td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; text-align:center;'>";
 echo "<div class=mnu>";
-echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[$l_fullscan]</a>&nbsp;<br>";
+echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[" . $l->get('l_fullscan') . "]</a>&nbsp;<br>";
 ?>
 
 </div>
