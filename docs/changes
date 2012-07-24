@@ -1,3 +1,7 @@
+TheKabal (24 July 2012)
+--------------------------------------
+Set db_logging to be a property of $db ($db->logging), reducing the need to pass that value to functions
+
 TheKabal (23 July 2012)
 --------------------------------------
 Make SQL keywords consistently uppercase

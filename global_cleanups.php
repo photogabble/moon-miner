@@ -44,6 +44,7 @@ ADODB_Session::dataFieldName('SESSDATA');
 global $db;
 connectdb ();
 $db->prefix = $db_prefix;
+$db->logging = $db_logging;
 
 if ($db_logging)
 {

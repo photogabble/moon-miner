@@ -17,7 +17,7 @@
 //
 // File: includes/db_op_result.php
 
-function db_op_result ($db, $query, $served_line, $served_page, $db_logging = TRUE)
+function db_op_result ($db, $query, $served_line, $served_page)
 {
     if ($db->ErrorMsg() == '')
     {
@@ -31,7 +31,7 @@ function db_op_result ($db, $query, $served_line, $served_page, $db_logging = TR
                    " (called from: " . $safe_script_name . ": " . $db->ErrorMsg();
         $dberror = str_replace("'","&#39;",$dberror); // Allows the use of apostrophes.
         return $db->ErrorMsg();
-        if ($db_logging)
+        if ($db->logging)
         {
             adminlog($db, "LOG_RAW", $dberror);
         }
