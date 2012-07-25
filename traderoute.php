@@ -1395,7 +1395,7 @@ function traderoute_engage($j)
     global $l_tdr_invalidspoint, $l_tdr_inittdr, $l_tdr_invalidsrc, $l_tdr_inittdrsector, $l_tdr_organics, $l_tdr_energy, $l_tdr_loaded;
     global $l_tdr_nothingtoload, $l_tdr_scooped, $l_tdr_dumped, $l_tdr_portisempty, $l_tdr_portisfull, $l_tdr_ore, $l_tdr_sold;
     global $l_tdr_goods, $l_tdr_notyourplanet, $l_tdr_invalidssector, $l_tdr_invaliddport, $l_tdr_invaliddplanet;
-    global $l_tdr_invaliddsector, $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_moreturnsneeded, $l_tdr_tdrhostdef;
+    global $l_tdr_invaliddsector, $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_moreturnsneeded, $l_tdr_hostdef;
     global $l_tdr_globalsetbuynothing, $l_tdr_nosrcporttrade, $l_tdr_tradesrcportoutsider, $l_tdr_res, $l_tdr_torps;
     global $l_tdr_nodestporttrade, $l_tdr_tradedestportoutsider, $l_tdr_portin, $l_tdr_planet, $l_tdr_bought, $l_tdr_colonists;
     global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here, $l_tdr_five, $l_tdr_ten, $l_tdr_fifty;
@@ -1645,7 +1645,7 @@ function traderoute_engage($j)
 
     if ($hostile > 0 && $playerinfo['hull'] > $mine_hullsize)
     {
-        traderoute_die ($l_tdr_tdrhostdef);
+        traderoute_die ($l_tdr_hostdef);
     }
 
     // Special Port Nothing to do

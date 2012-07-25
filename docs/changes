@@ -25,6 +25,7 @@ Fixed Incorrect language variable was $l_cmb_attackershields, $l_cmb_attackertor
 Fixed Incorrect language variable was $l_igb_ctransferred should be $l_igb_ctransferredfrom in igb.php
 Fixed Incorrect language variable was $l_torpedoes should be $l_torps like the rest of the files in planet2.php
 Fixed renamed a few language vars to be consistant in traderoute.php
+Fixed missed 2 non consistent language vars in traderoute.php
 
 TheMightyDude (24 July 2012)
 --------------------------------------
