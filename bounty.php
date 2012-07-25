@@ -28,7 +28,7 @@ include "header.php";
 
 if (checklogin())
 {
-    die();
+    die ();
 }
 
 $response = null;
@@ -37,14 +37,14 @@ if (array_key_exists('response', $_POST) == true)
     $response = $_POST['response'];
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
 
 switch ($response) {
     case "display":
         bigtitle ();
-        $res5 = $db->Execute("SELECT * FROM {$db->prefix}ships,{$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = $bounty_on");
+        $res5 = $db->Execute("SELECT * FROM {$db->prefix}ships,{$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = ?", array($bounty_on));
         db_op_result ($db, $res5, __LINE__, __FILE__, $db_logging);
         $j = 0;
         if ($res5)
@@ -74,7 +74,7 @@ switch ($response) {
             $color = $color_line1;
             for ($j = 0; $j < $num_details; $j++)
             {
-                $someres = $db->execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = " . $bounty_details[$j]['placed_by']);
+                $someres = $db->execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?", array($bounty_details[$j]['placed_by']));
                 db_op_result ($db, $someres, __LINE__, __FILE__, $db_logging);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
@@ -113,106 +113,106 @@ switch ($response) {
     case "cancel":
         $bid = (int)$_GET['bid'];
 
-        bigtitle();
-        if ($playerinfo['turns']<1 )
+        bigtitle ();
+        if ($playerinfo['turns'] < 1)
         {
             echo "$l_by_noturn<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
-        $res = $db->Execute("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = $bid");
+        $res = $db->Execute("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bid));
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         if (!res || $res->RowCount() ==0)
         {
             echo "$l_by_nobounty<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
         $bty = $res->fields;
         if ($bty['placed_by'] != $playerinfo['ship_id'])
         {
             echo "$l_by_notyours<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
-        $del = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = $bid");
+        $del = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bid));
         db_op_result ($db, $del, __LINE__, __FILE__, $db_logging);
         $stamp = date("Y-m-d H-i-s");
         $refund = $bty['amount'];
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits+$refund WHERE ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login=?,turns=turns-1, turns_used=turns_used+1, credits=credits+? WHERE ship_id=?", array($stamp, $refund, $playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         echo "$l_by_canceled<br>";
-        TEXT_GOTOMAIN();
-        die();
+        TEXT_GOTOMAIN ();
+        die ();
         break;
     case "place":
-        bigtitle();
-        $bounty_on = stripnum($bounty_on);
-        $ex = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = $bounty_on");
+        bigtitle ();
+        $bounty_on = stripnum ($bounty_on);
+        $ex = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($bounty_on));
         db_op_result ($db, $ex, __LINE__, __FILE__, $db_logging);
         if (!$ex)
         {
             echo "$l_by_notexists<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
         $bty = $ex->fields;
         if ($bty['ship_destroyed'] == "Y")
         {
             echo "$l_by_destroyed<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
         if ($playerinfo['turns']<1 )
         {
             echo "$l_by_noturn<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
-        $amount = stripnum($amount);
+        $amount = stripnum ($amount);
         if ($amount < 0)
         {
             echo "$l_by_zeroamount<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
         if ($bounty_on == $playerinfo['ship_id'])
         {
             echo "$l_by_yourself<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
         if ($amount > $playerinfo['credits'])
         {
             echo "$l_by_notenough<br><br>";
-            TEXT_GOTOMAIN();
+            TEXT_GOTOMAIN ();
             include "footer.php";
-            die();
+            die ();
         }
 
         if ($bounty_maxvalue != 0)
         {
             $percent = $bounty_maxvalue * 100;
-            $score = gen_score($playerinfo['ship_id']);
+            $score = gen_score ($playerinfo['ship_id']);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
-            $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = $bounty_on AND placed_by = $playerinfo[ship_id]");
+            $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = ? AND placed_by = ?", array($bounty_on, $playerinfo['ship_id']);
             db_op_result ($db, $pb, __LINE__, __FILE__, $db_logging);
             if ($pb)
             {
@@ -222,26 +222,26 @@ switch ($response) {
 
             if ($amount + $previous_bounty > $maxtrans)
             {
-                $l_by_toomuch=str_replace("[percent]",$percent,$l_by_toomuch);
+                $l_by_toomuch = str_replace("[percent]", $percent, $l_by_toomuch);
                 echo "$l_by_toomuch<br><br>";
-                TEXT_GOTOMAIN();
+                TEXT_GOTOMAIN ();
                 include "footer.php";
-                die();
+                die ();
             }
         }
 
-        $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values ($bounty_on, $playerinfo[ship_id] ,$amount)");
+        $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?)", array($bounty_on, $playerinfo['ship_id'] ,$amount))");
         db_op_result ($db, $insert, __LINE__, __FILE__, $db_logging);
         $stamp = date("Y-m-d H-i-s");
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, credits=credits-$amount WHERE ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login=?, turns=turns-1, turns_used=turns_used+1, credits=credits-? WHERE ship_id=?", array($stamp, $amount, $playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
         echo "$l_by_placed<br>";
-        TEXT_GOTOMAIN();
-        die();
+        TEXT_GOTOMAIN ();
+        die ();
         break;
     default:
-        bigtitle();
-        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> $playerinfo[ship_id] ORDER BY character_name ASC");
+        bigtitle ();
+        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> ? ORDER BY character_name ASC", array($playerinfo['ship_id']));
         db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
         echo "<form action=bounty.php method=post>";
         echo "<table>";
@@ -323,6 +323,6 @@ switch ($response) {
         break;
 }
 
-TEXT_GOTOMAIN();
+TEXT_GOTOMAIN ();
 include "footer.php";
 ?>
