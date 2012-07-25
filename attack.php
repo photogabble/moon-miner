@@ -147,8 +147,6 @@ else
             $dest_sector = mt_rand (1, $sector_max-1);
             $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1,rating=rating-? WHERE ship_id=?", array($rating_change, $playerinfo['ship_id']));
             db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-            $l_att_ewdlog = str_replace("[name]", $playerinfo['character_name'], $l_att_ewdlog);
-            $l_att_ewdlog = str_replace("[sector]", $playerinfo['sector'], $l_att_ewdlog);
             playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
             $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1,cleared_defences=' ' WHERE ship_id=?", array($targetinfo['ship_id']));
             db_op_result ($db, $result_warp, __LINE__, __FILE__, $db_logging);

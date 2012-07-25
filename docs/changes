@@ -15,7 +15,8 @@ Fixed Notice: Use of undefined constant beams - assumed 'beams' in modify_defenc
 Fixed Notice: Use of undefined constant ship_energy - assumed 'ship_energy' in modify_defences.php
 Fixed Warning:include_once(includes/sector_fighters.php): failed to open stream: No such file or directory in modify_defences.php
 Fixed Notice: Undefined variable: mine_hullsize in traderoute.php
- 
+Removed two lines of language log lines that should of been there (not used) in attack.php
+
 TheMightyDude (24 July 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: mine_hullsize in planet_report_ce.php
