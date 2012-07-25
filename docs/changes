@@ -13,7 +13,8 @@ Fixed Notice: Undefined index: winers should be $winer in calc_ownership.php
 Fixed Notice: Undefined variable: l_youcan should be l_md_youcan in modify_defences.php
 Fixed Notice: Use of undefined constant beams - assumed 'beams' in modify_defences.php
 Fixed Notice: Use of undefined constant ship_energy - assumed 'ship_energy' in modify_defences.php
-Fixed Warning:include_once(includes/sector_fighters.php): failed to open stream: No such file or directoy in modify_defences.php
+Fixed Warning:include_once(includes/sector_fighters.php): failed to open stream: No such file or directory in modify_defences.php
+Fixed Notice: Undefined variable: mine_hullsize in traderoute.php
  
 TheMightyDude (24 July 2012)
 --------------------------------------
