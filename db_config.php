@@ -19,16 +19,16 @@
 
 // The ADOdb db module is now required to run BNT. You
 // can find it at http://php.weblogs.com/ADODB. Enter the
-// path where it is installed here. I suggest simply putting
-// every ADOdb file in a subdir of BNT.
+// path where it is installed here. We suggest putting
+// ADOdb into a subdirectory (adodb) under a subdirectory of BNT called backends.
 $ADOdbpath = "backends/adodb";
+
+// Port to connect to database on. Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
+$dbport = "";
 
 // Hostname and port of the database server:
 // These are defaults, you normally won't have to change them
-$dbhost = "127.0.0.1";
-
-// Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
-$dbport = "";
+$ADODB_SESSION_CONNECT = "127.0.0.1";
 
 // Username and password to connect to the database:
 $ADODB_SESSION_USER = "bnt";
@@ -36,6 +36,9 @@ $ADODB_SESSION_PWD = "bnt";
 
 // Name of the SQL database:
 $ADODB_SESSION_DB = "bnt";
+
+// Define a random crypto key for ADOdb to use for encrypted sessions.
+$ADODB_CRYPT_KEY = "ptjsiaanxyhdhjz";
 
 // Type of the SQL database. This can be anything supported by ADOdb. Here are a few:
 // "access" for MS Access databases. You need to create an ODBC DSN.
@@ -50,7 +53,7 @@ $ADODB_SESSION_DB = "bnt";
 // "postgres" for PostgreSQL ver < 7
 // "postgres7" for PostgreSQL ver 7 and up
 // "sybase" for a SyBase database
-// NOTE: only mysqlt work as of right now, due to SQL compat code
+// NOTE: only mysqlt works as of this release.
 $ADODB_SESSION_DRIVER = "mysqlt";
 
 // Set this to 1 to use db persistent connections, 0 otherwise - persistent connections can cause load problems!
@@ -62,22 +65,7 @@ $db_persistent = 0;
 // need to change this
 $db_prefix = "bnt_";
 
-// Administrator's password and email:
-// Be sure to change these. Don't leave them as is.
-$adminpass = "secret";
-$admin_mail = "admin@example.com";
-$adminname = "Admin Name";
-
-// Address for the forum link:
-$link_forums = "http://forums.blacknova.net";
-
-// Define a random crypto key for ADOdb to use for encrypted sessions.
-$ADODB_CRYPT_KEY = "ptjsiaanxyhdhjz";
-
-// What mail server (an FQDN DNS name) should emails be sent from?
-$email_server = 'mail.example.com';
-
-// The following two settings are now set automatically in global_cleanups. 
+// The following two settings are now set automatically in global_cleanups.
 // If it does not work, you'll need to comment them out, and uncomment and set the variables listed below.
 
 // Domain & path of the game on your webserver (used to validate login cookie)
