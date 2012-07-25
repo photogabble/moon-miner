@@ -190,7 +190,7 @@ function planetcombat()
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
     global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture, $l_cmb_atleastoneturn;
     global $l_cmb_atleastoneturn, $l_cmb_shipenergybb, $l_cmb_shipenergyab, $l_cmb_shipenergyas, $l_cmb_shiptorpsbtl, $l_cmb_shiptorpsatl;
-    global $l_cmb_planettorpdamage, $l_cmb_attackertorpdamage, $l_cmb_beams, $l_cmb_fighters, $l_cmb_shields, $l_cmb_torps;
+    global $l_cmb_planettorpdamage, $l_cmb_beams, $l_cmb_fighters, $l_cmb_shields, $l_cmb_torps;
     global $l_cmb_torpdamage, $l_cmb_armor, $l_cmb_you, $l_cmb_planet, $l_cmb_combatflow, $l_cmb_defender, $l_cmb_attackingplanet;
     global $l_cmb_youfireyourbeams, $l_cmb_defenselost, $l_cmb_defenselost2, $l_cmb_planetarybeams, $l_cmb_planetarybeams2;
     global $l_cmb_youdestroyedplanetshields, $l_cmb_beamsexhausted, $l_cmb_breachedyourshields, $l_cmb_destroyedyourshields;
@@ -699,7 +699,6 @@ function shiptoship($ship_id)
     global $attackerbeams, $attackerfighters, $attackershields, $attackertorps, $attackerarmor, $attackertorpdamage, $start_energy, $level_factor;
     global $torp_dmg_rate, $rating_combat_factor, $upgrade_factor, $upgrade_cost, $armor_lost, $fighters_lost, $playerinfo;
     global $db, $db_logging;
-    global $l_cmb_attackershields, $l_cmb_attackertorps, $l_cmb_attackerarmor, $l_cmb_attackertorpdamage;
     global $l_cmb_startingstats, $l_cmb_statattackerbeams, $l_cmb_statattackerfighters, $l_cmb_statattackershields, $l_cmb_statattackertorps;
     global $l_cmb_statattackerarmor, $l_cmb_statattackertorpdamage, $l_cmb_isattackingyou, $l_cmb_beamexchange, $l_cmb_beamsdestroy;
     global $l_cmb_beamsdestroy2, $l_cmb_nobeamsareleft, $l_cmb_beamshavenotarget, $l_cmb_fighterdestroyedbybeams, $l_cmb_beamsdestroystillhave;
@@ -1186,10 +1185,10 @@ function shiptoship($ship_id)
     echo "$l_cmb_shiptoshipcombatstats<br>";
     echo "$l_cmb_statattackerbeams: $attackerbeams<br>";
     echo "$l_cmb_statattackerfighters: $attackerfighters<br>";
-    echo "$l_cmb_attackershields: $attackershields<br>";
-    echo "$l_cmb_attackertorps: $attackertorps<br>";
-    echo "$l_cmb_attackerarmor: $attackerarmor<br>";
-    echo "$l_cmb_attackertorpdamage: $attackertorpdamage<br>";
+    echo "$l_cmb_statattackershields: $attackershields<br>";
+    echo "$l_cmb_statattackertorps: $attackertorps<br>";
+    echo "$l_cmb_statattackerarmor: $attackerarmor<br>";
+    echo "$l_cmb_statattackertorpdamage: $attackertorpdamage<br>";
     echo "_+_+_+_+_+_+<br>";
     $resx = $db->Execute("UNLOCK TABLES");
     db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);

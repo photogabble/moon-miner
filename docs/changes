@@ -17,6 +17,7 @@ Fixed Warning:include_once(includes/sector_fighters.php): failed to open stream:
 Fixed Notice: Undefined variable: mine_hullsize in traderoute.php
 Removed two lines of language log lines that should of been there (not used) in attack.php
 Fixed Incorrect language variable was $l_att_ysal2 should be $l_att_ysalv2 in attack.php
+Fixed Incorrect language variable was $l_cmb_attackershields, $l_cmb_attackertorps, $l_cmb_attackerarmor and $l_cmb_attackertorpdamage in combat.php
 
 TheMightyDude (24 July 2012)
 --------------------------------------
