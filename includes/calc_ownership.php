@@ -24,11 +24,10 @@ if (preg_match("/calc_ownership.php/i", $_SERVER['PHP_SELF'])) {
 
 function calc_ownership ($sector)
 {
-    global $min_bases_to_own, $l_global_warzone, $l_global_nzone, $l_global_team, $l_global_player;
-    global $db, $db_logging;
+    global $min_bases_to_own, $l_global_warzone, $l_global_nzone, $l_global_team, $l_global_player, $db;
 
     $res = $db->Execute("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array($sector));
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $num_bases = $res->RecordCount();
 
     $i = 0;
@@ -117,7 +116,7 @@ while ($loop < $owner_num)
     else
     {
         $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array($owners[$loop]['id']));
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res && $res->RecordCount() != 0)
         {
             $curship = $res->fields;
@@ -133,7 +132,7 @@ while ($loop < $owner_num)
 if ($nbcorps > 1)
 {
     $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resa, __LINE__, __FILE__);
     return $l_global_warzone;
 }
 
@@ -150,7 +149,7 @@ foreach ($scorps as $corp)
 if ($numunallied > 1)
 {
     $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resb, __LINE__, __FILE__);
     return $l_global_warzone;
 }
 
@@ -158,7 +157,7 @@ if ($numunallied > 1)
 if ($numunallied > 0 && $nbcorps > 0)
 {
     $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resc, __LINE__, __FILE__);
     return $l_global_warzone;
 }
 
@@ -182,11 +181,11 @@ if ($numunallied > 0)
     }
     $query = $query . " AND team!=0";
     $resd = $db->Execute($query);
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     if ($resd->RecordCount() != 0)
     {
         $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-        db_op_result ($db, $resd, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resd, __LINE__, __FILE__);
         return $l_global_warzone;
     }
 }
@@ -213,22 +212,22 @@ while ($i < $owner_num)
 if ($owners[$winner]['num'] < $min_bases_to_own)
 {
     $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $rese, __LINE__, __FILE__);
     return $l_global_nzone;
 }
 
 if ($owners[$winner]['type'] == 'C')
 {
     $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=?", array($owners[$winner]['id']));
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $zone = $res->fields;
 
     $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=?", array($owners[$winner]['id']));
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $corp = $res->fields;
 
     $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resf, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resf, __LINE__, __FILE__);
 
     return "$l_global_team $corp[team_name]!";
 }
@@ -248,21 +247,21 @@ else
     if ($onpar == 1)
     {
         $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
-        db_op_result ($db, $resg, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resg, __LINE__, __FILE__);
         return $l_global_nzone;
     }
     else
     {
         $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=?", array($owners[$winner]['id']));
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $zone = $res->fields;
 
         $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$winner]['id']));
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $ship = $res->fields;
 
         $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
-        db_op_result ($db, $resg, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resg, __LINE__, __FILE__);
 
         return "$l_global_player $ship[character_name]!";
     }

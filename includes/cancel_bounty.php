@@ -24,9 +24,8 @@ if (preg_match("/cancel_bounty.php/i", $_SERVER['PHP_SELF'])) {
 
 function cancel_bounty ($db, $bounty_on)
 {
-    global $db_logging;
-    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = $bounty_on AND bounty_on = ship_id");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id", array($bounty_on));
+    db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
         while (!$res->EOF)
@@ -34,13 +33,13 @@ function cancel_bounty ($db, $bounty_on)
             $bountydetails = $res->fields;
             if ($bountydetails['placed_by'] != 0)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + $bountydetails[amount] WHERE ship_id = $bountydetails[placed_by]");
-                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+                $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array($bountydetails['amount'], $bountydetails['placed_by']));
+                db_op_result ($db, $update, __LINE__, __FILE__);
                 playerlog ($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
              }
 
-             $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = $bountydetails[bounty_id]");
-             db_op_result ($db, $delete, __LINE__, __FILE__, $db_logging);
+             $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bountydetails['bounty_id']));
+             db_op_result ($db, $delete, __LINE__, __FILE__);
              $res->MoveNext();
          }
      }

@@ -24,8 +24,8 @@ if (preg_match("/collect_bounty.php/i", $_SERVER['PHP_SELF'])) {
 
 function collect_bounty ($attacker, $bounty_on)
 {
-    global $db, $l_by_thefeds, $db_logging;
-    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = $bounty_on AND bounty_on = ship_id and placed_by <> 0");
+    global $db, $l_by_thefeds;
+    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array($bounty_on));
     if ($res)
     {
         while (!$res->EOF)
@@ -37,22 +37,22 @@ function collect_bounty ($attacker, $bounty_on)
             }
             else
             {
-                $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = $bountydetails[placed_by]");
-                db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
+                $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($bountydetails['placed_by']));
+                db_op_result ($db, $res2, __LINE__, __FILE__);
                 $placed = $res2->fields['character_name'];
             }
 
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + $bountydetails[amount] WHERE ship_id = $attacker");
-            db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
-            $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = $bountydetails[bounty_id]");
-            db_op_result ($db, $delete, __LINE__, __FILE__, $db_logging);
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array($bountydetails['amount'], $attacker));
+            db_op_result ($db, $update, __LINE__, __FILE__);
+            $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bountydetails['bounty_id']));
+            db_op_result ($db, $delete, __LINE__, __FILE__);
 
             playerlog ($db, $attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
             playerlog ($db, $bountydetails['placed_by'], LOG_BOUNTY_PAID, "$bountydetails[amount]|$bountydetails[character_name]");
             $res->MoveNext();
         }
    }
-   $resa = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = $bounty_on");
-   db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
+   $resa = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array($bounty_on));
+   db_op_result ($db, $resa, __LINE__, __FILE__);
 }
 ?>

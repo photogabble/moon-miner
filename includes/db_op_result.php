@@ -25,16 +25,16 @@ function db_op_result ($db, $query, $served_line, $served_page)
     }
     else
     {
-        $safe_script_name = htmlentities(strip_tags($_SERVER['PHP_SELF']));
+        $safe_script_name = htmlentities (strip_tags ($_SERVER['PHP_SELF']));
         $dberror = "A Database error occurred in " . $served_page .
                    " on line " . ($served_line-1) .
                    " (called from: " . $safe_script_name . ": " . $db->ErrorMsg();
-        $dberror = str_replace("'","&#39;",$dberror); // Allows the use of apostrophes.
-        return $db->ErrorMsg();
+        $dberror = str_replace("'","&#39;", $dberror); // Allows the use of apostrophes.
         if ($db->logging)
         {
             adminlog($db, "LOG_RAW", $dberror);
         }
+        return $db->ErrorMsg();
     }
 }
 ?>
