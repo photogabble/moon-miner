@@ -822,13 +822,13 @@ else
         // Debug info
         // echo "$trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price = $total_cost";
 
+        $l_returnto_port = str_replace("[here]", "<a href='port.php'>" . $l_here . "</a>", $l_returnto_port);
         if ($free_holds < $cargo_exchanged)
         {
             echo "$l_notenough_cargo  $l_returnto_port<br><br>";
         }
         elseif ($trade_energy > $free_power)
         {
-            $l_returnto_port = str_replace("[here]", "<a href='port.php'>" . $l_here . "</a>", $l_returnto_port);
             echo "$l_notenough_power  $l_returnto_port<br><br>";
         }
         elseif ($playerinfo['turns'] < 1)
