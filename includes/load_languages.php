@@ -22,7 +22,7 @@ if (preg_match("/getLanguageVars.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL, $db_logging)
+function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
 {
     // Check if all supplied args are valid, if not return false.
     if (is_null($db) || is_null($language) || !is_array($categories))
@@ -34,7 +34,7 @@ function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$lan
     foreach ($categories as $category)
     {
         $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array($category, $language));
-        db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result, __LINE__, __FILE__);
 
         while ($result && !$result->EOF)
         {

@@ -24,12 +24,11 @@ if (preg_match("/player_insignia_name.php/i", $_SERVER['PHP_SELF'])) {
 
 function player_insignia_name ($db, $a_username)
 {
-    global $db_logging;
     unset ($player_insignia);
 
     // Lookup players score.
-    $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email='$a_username'");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email=?", array($a_username));
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
 
     for ($i = 0; $i < 20; $i++)
@@ -38,7 +37,7 @@ function player_insignia_name ($db, $a_username)
         if (!$value)
         {
             // Pow returned false so we need to return an error.
-            $player_insignia = "<span style='color:#f00;'>ERR</span> [<span style='color:#09f; font-size:12px; cursor:help;' title='Error looking up Insignia, Please Report.'>?</span>]";
+            $player_insignia = "<span style='color:#f00;'>ERR</span> [<span style='color:#09f; font-size:12px; cursor:help;' title='Error looking up insignia, please report this error.'>?</span>]";
             break;
         }
 

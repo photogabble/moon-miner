@@ -28,10 +28,11 @@ function SCAN_ERROR ($level_scan, $level_cloak)
 
     $sc_error = (4 + $level_scan / 2 - $level_cloak / 2) * $scan_error_factor;
 
-    if ($sc_error<1)
+    if ($sc_error < 1)
     {
         $sc_error = 1;
     }
+
     if ($sc_error > 99)
     {
         $sc_error = 99;
