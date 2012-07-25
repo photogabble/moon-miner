@@ -18,7 +18,7 @@
 // File: global_includes.php
 
 // Define needed variables for the database
-require_once "db_config.php";
+require_once "config/db_config.php";
 
 include_once "global_defines.php";
 include_once "includes/timer.php";
