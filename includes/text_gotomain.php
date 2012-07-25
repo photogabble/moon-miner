@@ -24,8 +24,7 @@ if (preg_match("/text_gotomain.php/i", $_SERVER['PHP_SELF'])) {
 
 function TEXT_GOTOMAIN ()
 {
-    global $l_global_mmenu, $l_here;
-    $l_global_mmenu = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_global_mmenu);
-    echo $l_global_mmenu;
+    global $l; // The language object
+    echo str_replace("[here]", "<a href='main.php'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
 }
 ?>

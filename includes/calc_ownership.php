@@ -24,7 +24,7 @@ if (preg_match("/calc_ownership.php/i", $_SERVER['PHP_SELF'])) {
 
 function calc_ownership ($sector)
 {
-    global $min_bases_to_own, $l_global_warzone, $l_global_nzone, $l_global_team, $l_global_player, $db;
+    global $min_bases_to_own, $db, $l;
 
     $res = $db->Execute("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array($sector));
     db_op_result ($db, $res, __LINE__, __FILE__);
@@ -89,182 +89,183 @@ function calc_ownership ($sector)
             }
         }
 
-    if ($curship == -1)
-    {
-        if ($curbase['owner'] != 0)
+        if ($curship == -1)
         {
-            $curship = $owner_num;
-            $owner_num++;
-            $owners[$curship]['type'] = 'S';
-            $owners[$curship]['num'] = 1;
-            $owners[$curship]['id'] = $curbase['owner'];
+            if ($curbase['owner'] != 0)
+            {
+                $curship = $owner_num;
+                $owner_num++;
+                $owners[$curship]['type'] = 'S';
+                $owners[$curship]['num'] = 1;
+                $owners[$curship]['id'] = $curbase['owner'];
+            }
         }
     }
-}
 
-// We've got all the contenders with their bases.
-// Time to test for conflict
-$loop = 0;
-$nbcorps = 0;
-$nbships = 0;
-while ($loop < $owner_num)
-{
-    if ($owners[$loop]['type'] == 'C')
+    // We've got all the contenders with their bases.
+    // Time to test for conflict
+    $loop = 0;
+    $nbcorps = 0;
+    $nbships = 0;
+    while ($loop < $owner_num)
     {
-        $nbcorps++;
-    }
-    else
-    {
-        $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array($owners[$loop]['id']));
-        db_op_result ($db, $res, __LINE__, __FILE__);
-        if ($res && $res->RecordCount() != 0)
+        if ($owners[$loop]['type'] == 'C')
         {
-            $curship = $res->fields;
-            $ships[$nbships] = $owners[$loop]['id'];
-            $scorps[$nbships] = $curship['team'];
-            $nbships++;
-        }
-    }
-    $loop++;
-}
-
-// More than one corp, war
-if ($nbcorps > 1)
-{
-    $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resa, __LINE__, __FILE__);
-    return $l_global_warzone;
-}
-
-// More than one unallied ship, war
-$numunallied = 0;
-foreach ($scorps as $corp)
-{
-    if ($corp == 0)
-    {
-        $numunallied++;
-    }
-}
-
-if ($numunallied > 1)
-{
-    $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resb, __LINE__, __FILE__);
-    return $l_global_warzone;
-}
-
-// Unallied ship, another corp present, war
-if ($numunallied > 0 && $nbcorps > 0)
-{
-    $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resc, __LINE__, __FILE__);
-    return $l_global_warzone;
-}
-
-// Unallied ship, another ship in a corp, war
-if ($numunallied > 0)
-{
-    $query = "SELECT team FROM {$db->prefix}ships WHERE (";
-    $i=0;
-    foreach ($ships as $ship)
-    {
-        $query = $query . "ship_id=$ship";
-        $i++;
-        if ($i!=$nbships)
-        {
-            $query = $query . " OR ";
+            $nbcorps++;
         }
         else
         {
-            $query = $query . ")";
+            $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array($owners[$loop]['id']));
+            db_op_result ($db, $res, __LINE__, __FILE__);
+            if ($res && $res->RecordCount() != 0)
+            {
+                $curship = $res->fields;
+                $ships[$nbships] = $owners[$loop]['id'];
+                $scorps[$nbships] = $curship['team'];
+                $nbships++;
+            }
+        }
+        $loop++;
+    }
+
+    // More than one corp, war
+    if ($nbcorps > 1)
+    {
+        $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
+        db_op_result ($db, $resa, __LINE__, __FILE__);
+        return $l->get('l_global_warzone');
+    }
+
+    // More than one unallied ship, war
+    $numunallied = 0;
+    foreach ($scorps as $corp)
+    {
+        if ($corp == 0)
+        {
+            $numunallied++;
         }
     }
-    $query = $query . " AND team!=0";
-    $resd = $db->Execute($query);
-    db_op_result ($db, $res, __LINE__, __FILE__);
-    if ($resd->RecordCount() != 0)
-    {
-        $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
-        db_op_result ($db, $resd, __LINE__, __FILE__);
-        return $l_global_warzone;
-    }
-}
 
-// Ok, all bases are allied at this point. Let's make a winner.
-$winner = 0;
-$i = 1;
-while ($i < $owner_num)
-{
-    if ($owners[$i]['num'] > $owners[$winner]['num'])
+    if ($numunallied > 1)
     {
-        $winner = $i;
+        $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
+        db_op_result ($db, $resb, __LINE__, __FILE__);
+        return $l->get('l_global_warzone');
     }
-    elseif ($owners[$i]['num'] == $owners[$winner]['num'])
+
+    // Unallied ship, another corp present, war
+    if ($numunallied > 0 && $nbcorps > 0)
     {
-        if ($owners[$i]['type'] == 'C')
+        $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
+        db_op_result ($db, $resc, __LINE__, __FILE__);
+        return $l->get('l_global_warzone');
+    }
+
+    // Unallied ship, another ship in a corp, war
+    if ($numunallied > 0)
+    {
+        $query = "SELECT team FROM {$db->prefix}ships WHERE (";
+        $i = 0;
+        foreach ($ships as $ship)
+        {
+            $query = $query . "ship_id=$ship";
+            $i++;
+            if ($i!=$nbships)
+            {
+                $query = $query . " OR ";
+            }
+            else
+            {
+                $query = $query . ")";
+            }
+        }
+
+        $query = $query . " AND team!=0";
+        $resd = $db->Execute($query);
+        db_op_result ($db, $res, __LINE__, __FILE__);
+        if ($resd->RecordCount() != 0)
+        {
+            $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
+            db_op_result ($db, $resd, __LINE__, __FILE__);
+            return $l->get('l_global_warzone');
+        }
+    }
+
+    // Ok, all bases are allied at this point. Let's make a winner.
+    $winner = 0;
+    $i = 1;
+    while ($i < $owner_num)
+    {
+        if ($owners[$i]['num'] > $owners[$winner]['num'])
         {
             $winner = $i;
         }
-    }
-    $i++;
-}
-
-if ($owners[$winner]['num'] < $min_bases_to_own)
-{
-    $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
-    db_op_result ($db, $rese, __LINE__, __FILE__);
-    return $l_global_nzone;
-}
-
-if ($owners[$winner]['type'] == 'C')
-{
-    $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=?", array($owners[$winner]['id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
-    $zone = $res->fields;
-
-    $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=?", array($owners[$winner]['id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
-    $corp = $res->fields;
-
-    $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
-    db_op_result ($db, $resf, __LINE__, __FILE__);
-
-    return "$l_global_team $corp[team_name]!";
-}
-else
-{
-    $onpar = 0;
-    foreach ($owners as $curowner)
-    {
-        if ($curowner['type'] == 'S' && $curowner['id'] != $owners[$winner]['id'] && $curowner['num'] == $owners[$winner]['num'])
+        elseif ($owners[$i]['num'] == $owners[$winner]['num'])
         {
-            $onpar = 1;
-            break;
+            if ($owners[$i]['type'] == 'C')
+            {
+                $winner = $i;
+            }
         }
+        $i++;
     }
 
-    // Two allies have the same number of bases
-    if ($onpar == 1)
+    if ($owners[$winner]['num'] < $min_bases_to_own)
     {
-        $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
-        db_op_result ($db, $resg, __LINE__, __FILE__);
-        return $l_global_nzone;
+        $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
+        db_op_result ($db, $rese, __LINE__, __FILE__);
+        return $l->get('l_global_nzone');
     }
-    else
+
+    if ($owners[$winner]['type'] == 'C')
     {
-        $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=?", array($owners[$winner]['id']));
+        $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=?", array($owners[$winner]['id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $zone = $res->fields;
 
-        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$winner]['id']));
+        $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=?", array($owners[$winner]['id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
-        $ship = $res->fields;
+        $corp = $res->fields;
 
-        $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
-        db_op_result ($db, $resg, __LINE__, __FILE__);
+        $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
+        db_op_result ($db, $resf, __LINE__, __FILE__);
 
-        return "$l_global_player $ship[character_name]!";
+        return $l->get('l_global_team') . " " . $corp['team_name'] . "!";
     }
-}
+    else
+    {
+        $onpar = 0;
+        foreach ($owners as $curowner)
+        {
+            if ($curowner['type'] == 'S' && $curowner['id'] != $owners[$winner]['id'] && $curowner['num'] == $owners[$winner]['num'])
+            {
+                $onpar = 1;
+                break;
+            }
+        }
+
+        // Two allies have the same number of bases
+        if ($onpar == 1)
+        {
+            $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
+            db_op_result ($db, $resg, __LINE__, __FILE__);
+            return $l->get('l_global_nzone');
+        }
+        else
+        {
+            $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=?", array($owners[$winner]['id']));
+            db_op_result ($db, $res, __LINE__, __FILE__);
+            $zone = $res->fields;
+
+            $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$winner]['id']));
+            db_op_result ($db, $res, __LINE__, __FILE__);
+            $ship = $res->fields;
+
+            $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
+            db_op_result ($db, $resg, __LINE__, __FILE__);
+
+            return $l->get('l_global_player') . " " . $ship['character_name'] . "!";
+        }
+    }
 }
 ?>

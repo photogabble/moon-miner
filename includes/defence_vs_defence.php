@@ -24,6 +24,7 @@ if (preg_match("/defence_vs_defence.php/i", $_SERVER['PHP_SELF'])) {
 
 function defence_vs_defence ($db, $ship_id)
 {
+    global $l;
     $result1 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array($ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__);
 
@@ -41,7 +42,7 @@ function defence_vs_defence ($db, $ship_id)
                 while (!$result2->EOF && $qty > 0)
                 {
                     $cur = $result2->fields;
-                    $targetdeftype = $cur['defence_type'] == 'F' ? $l_fighters : $l_mines;
+                    $targetdeftype = $cur['defence_type'] == 'F' ? $l->get('l_fighters') : $l->get('l_mines');
                     if ($qty > $cur['quantity'])
                     {
                         $resa = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array($cur['defence_id']));

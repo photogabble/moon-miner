@@ -24,27 +24,27 @@ if (preg_match("/t_port.php/i", $_SERVER['PHP_SELF'])) {
 
 function t_port ($ptype)
 {
-    global $l_ore, $l_none, $l_energy, $l_organics, $l_goods, $l_special;
+    global $l;
 
     switch ($ptype)
     {
     case "ore":
-        $ret = $l_ore;
+        $ret = $l->get('l_ore');
         break;
     case "none":
-        $ret = $l_none;
+        $ret = $l->get('l_none');
         break;
     case "energy":
-        $ret = $l_energy;
+        $ret = $l->get('l_energy');
         break;
     case "organics":
-        $ret = $l_organics;
+        $ret = $l->get('l_organics');
         break;
     case "goods":
-        $ret = $l_goods;
+        $ret = $l->get('l_goods');
         break;
     case "special":
-        $ret = $l_special;
+        $ret = $l->get('l_special');
         break;
     }
 

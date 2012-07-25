@@ -30,11 +30,7 @@ function db_kill_player ($ship_id, $remove_planets = false)
     global $default_prod_energy;
     global $default_prod_fighters;
     global $default_prod_torp;
-    global $db, $langsh;
-
-    // New database driven language entries
-    load_languages($db, $langsh, array('news'), $langvars);
-    global $l_killheadline, $l_news_killed;
+    global $db, $langsh, $l;
 
     $resa = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=?", array($ship_id));
     db_op_result ($db, $resa, __LINE__, __FILE__);
@@ -85,9 +81,9 @@ function db_kill_player ($ship_id, $remove_planets = false)
     db_op_result ($db, $query, __LINE__, __FILE__);
     $name = $query->fields;
 
-    $headline = $name['character_name'] . $l_killheadline;
+    $headline = $name['character_name'] . $l->get('l_killheadline');
 
-    $newstext = str_replace("[name]", $name['character_name'], $l_news_killed);
+    $newstext = str_replace("[name]", $name['character_name'], $l->get('l_news_killed'));
 
     $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?,?,?,NOW(), 'killed')", array($headline, $newstext, $ship_id));
     db_op_result ($db, $news, __LINE__, __FILE__);
