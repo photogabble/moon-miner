@@ -126,7 +126,7 @@ switch ($response)
          $countres = $db->Execute("SELECT SUM(quantity) AS totalfighters FROM {$db->prefix}sector_defence WHERE sector_id = $sector AND defence_type = 'F'");
          $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
-         include_once "includes/sector_fighters.php";
+         include_once "sector_fighters.php";
       }
       else
       {
@@ -134,10 +134,10 @@ switch ($response)
          $countres = $db->Execute("SELECT SUM(quantity) AS totalmines FROM {$db->prefix}sector_defence WHERE sector_id = $sector AND defence_type = 'M'");
          $ttl = $countres->fields;
          $total_sector_mines = $ttl['totalmines'];
-         $playerbeams = NUM_BEAMS($playerinfo[beams]);
-         if ($playerbeams>$playerinfo[ship_energy])
+         $playerbeams = NUM_BEAMS($playerinfo['beams']);
+         if ($playerbeams>$playerinfo['ship_energy'])
          {
-             $playerbeams=$playerinfo[ship_energy];
+             $playerbeams=$playerinfo['ship_energy'];
          }
          if ($playerbeams>$total_sector_mines)
          {
@@ -264,7 +264,7 @@ switch ($response)
 
          if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
          {
-            echo "$l_youcan:<br>";
+            echo "$l_md_youcan:<br>";
             echo "<FORM ACTION=modify_defences.php METHOD=POST>";
             echo "$l_md_attdef<br><INPUT TYPE=SUBMIT VALUE=$l_md_attack></INPUT><br>";
             echo "<input type=hidden name=response value=fight>";

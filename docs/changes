@@ -10,7 +10,11 @@ Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in combat.ph
 Fixed Notice: Undefined variable: armor_lost in combat.php
 Fixed Notice: Undefined variable: fighters_lost in combat.php
 Fixed Notice: Undefined index: winers should be $winer in calc_ownership.php
-
+Fixed Notice: Undefined variable: l_youcan should be l_md_youcan in modify_defences.php
+Fixed Notice: Use of undefined constant beams - assumed 'beams' in modify_defences.php
+Fixed Notice: Use of undefined constant ship_energy - assumed 'ship_energy' in modify_defences.php
+Fixed Warning:include_once(includes/sector_fighters.php): failed to open stream: No such file or directoy in modify_defences.php
+ 
 TheMightyDude (24 July 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: mine_hullsize in planet_report_ce.php
