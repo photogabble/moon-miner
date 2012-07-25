@@ -21,7 +21,7 @@
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
 $index_page = true;
-include "config.php";
+include "config/config.php";
 
 // HTML Table Functions
 

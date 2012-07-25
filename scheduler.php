@@ -64,7 +64,7 @@
 * End of scheduler explanation                                    *
 ******************************************************************/
 
-require_once "config.php";
+require_once "config/config.php";
 global $l_sys_update;
 $title = $l_sys_update;
 

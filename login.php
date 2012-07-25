@@ -17,7 +17,7 @@
 //
 // File: login.php
 
-include "config.php";
+include "config/config.php";
 
 if (empty($lang))
 {

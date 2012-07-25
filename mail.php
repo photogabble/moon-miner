@@ -18,7 +18,7 @@
 // File: mail.php
 
 
-include "config.php";
+include "config/config.php";
 
 // New database driven language entries
 load_languages($db, $langsh, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);

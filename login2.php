@@ -17,7 +17,7 @@
 //
 // File: login2.php
 
-include "config.php";
+include "config/config.php";
 
 // Test to see if server is closed to logins
 $playerfound = false;

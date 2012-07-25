@@ -17,7 +17,7 @@
 //
 // File: option2.php
 
-include "config.php";
+include "config/config.php";
 if (checklogin () )
 {
     die ();

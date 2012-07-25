@@ -17,7 +17,7 @@
 //
 // File: move.php
 
-include "config.php";
+include "config/config.php";
 updatecookie ();
 
 // New database driven language entries

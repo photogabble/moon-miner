@@ -17,7 +17,7 @@
 //
 // File: emerwarp.php
 
-include "config.php";
+include "config/config.php";
 updatecookie ();
 
 // New database driven language entries

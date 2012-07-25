@@ -20,7 +20,7 @@
 // Added a quick fix for creating a new team with the same name
 // This file needs to be completely recoded from scratch :(
 
-include "config.php";
+include "config/config.php";
 updatecookie();
 
 // New database driven language entries

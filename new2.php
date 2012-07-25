@@ -17,7 +17,7 @@
 //
 // File: new2.php
 
-include "config.php";
+include "config/config.php";
 
 // Added these variables for future reference- we'll move em to config values
 // *eventually* - the goal will be to move "start up" config values to some other location

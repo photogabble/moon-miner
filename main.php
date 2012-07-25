@@ -17,7 +17,7 @@
 //
 // File: main.php
 
-include "config.php";
+include "config/config.php";
 
 // New database driven language entries
 load_languages($db, $langsh, array('common', 'global_includes'), $langvars, $db_logging);

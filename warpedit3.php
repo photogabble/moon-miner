@@ -17,7 +17,7 @@
 //
 // File: warpedit3.php
 
-include "config.php";
+include "config/config.php";
 updatecookie();
 
 // New database driven language entries

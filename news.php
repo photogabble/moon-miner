@@ -17,7 +17,7 @@
 //
 // File: news.php
 
-include "config.php";
+include "config/config.php";
 include "includes/newsservices.php";
 
 // New database driven language entries
