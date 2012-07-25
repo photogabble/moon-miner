@@ -1,3 +1,7 @@
+TheKabal (25 July 2012)
+--------------------------------------
+All (function) files in includes/ now have correct indention, use the language object, and bind variables for SQL calls.
+
 TheMightyDude (25 July 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: level_factor in combat.php
@@ -20,7 +24,7 @@ Fixed Incorrect language variable was $l_att_ysal2 should be $l_att_ysalv2 in at
 Fixed Incorrect language variable was $l_cmb_attackershields, $l_cmb_attackertorps, $l_cmb_attackerarmor and $l_cmb_attackertorpdamage in combat.php
 Fixed Incorrect language variable was $l_igb_ctransferred should be $l_igb_ctransferredfrom in igb.php
 Fixed Incorrect language variable was $l_torpedoes should be $l_torps like the rest of the files in planet2.php
-Fixed renamed a few language vars to be cosistan in traderoute.php
+Fixed renamed a few language vars to be consistant in traderoute.php
 
 TheMightyDude (24 July 2012)
 --------------------------------------
