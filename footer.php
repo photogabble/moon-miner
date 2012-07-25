@@ -35,6 +35,15 @@ else
 {
     $elapsed = 999;
 }
+
+// Suppress the news ticker on the IGB and index pages
+if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])))
+{
+    echo "<p></p>\n";
+    echo "<div id='news_ticker' class='faderlines'></div>\n";
+    include "fader.php";
+}
+
 ?><br>
  <div style='clear:both'></div><div style="text-align:center">
 <?php

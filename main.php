@@ -836,12 +836,5 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[" . $l->get('l_fullscan')
 
 <?php
 
-echo "<table style='margin-left:auto; margin-right:auto; border:#fff solid 1px; text-align:center; background-color:#000; color:#000; padding:0px; border-spacing:0px;' title='news ticker v'>\n";
-echo "  <tr>\n";
-echo "    <td id='news_ticker' class='faderlines' style='text-align:center; color:#fff; font-size:12px; width:600px;'></td>\n";
-echo "  </tr>\n";
-echo "</table>\n";
-
-include "fader.php";
 include "footer.php";
 ?>
