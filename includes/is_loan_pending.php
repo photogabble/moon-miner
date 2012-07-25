@@ -22,13 +22,12 @@ if (preg_match("/is_loan_pending.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function is_loan_pending ($ship_id)
+function is_loan_pending ($db, $ship_id)
 {
-    global $db, $db_logging;
     global $IGB_lrate;
 
-    $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id=$ship_id");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id=?", array($ship_id));
+    db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
         $account = $res->fields;
