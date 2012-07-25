@@ -504,7 +504,7 @@ function IGB_transfer3()
   global $l_igb_invalidtransferinput, $l_igb_nozeroamount, $l_igb_notenoughcredits, $l_igb_notenoughcredits2, $l_igb_in, $l_igb_to;
   global $l_igb_amounttoogreat, $l_igb_transfersuccessful, $l_igb_creditsto, $l_igb_transferamount, $l_igb_amounttransferred;
   global $l_igb_transferfee, $l_igb_igbaccount, $l_igb_back, $l_igb_logout, $l_igb_errplanetsrcanddest, $l_igb_errnotyourplanet;
-  global $l_igb_errunknownplanet, $l_igb_unnamed, $l_igb_ctransferred, $l_igb_srcplanet, $l_igb_destplanet;
+  global $l_igb_errunknownplanet, $l_igb_unnamed, $l_igb_ctransferredfrom, $l_igb_srcplanet, $l_igb_destplanet;
   global $db, $db_logging;
 
   $amount = StripNonNum($amount);
