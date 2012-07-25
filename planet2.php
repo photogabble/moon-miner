@@ -597,12 +597,12 @@ else
 
                 if ($transfer_torps < 0 && $playerinfo['torps'] < abs($transfer_torps))
                 {
-                    echo "$l_planet2_noten $l_torpedoes $l_planet2_fortr<br>";
+                    echo "$l_planet2_noten $l_torps $l_planet2_fortr<br>";
                     $transfer_torps = 0;
                 }
                 elseif ($transfer_torps > 0 && $planetinfo['torps'] < abs($transfer_torps))
                 {
-                    echo "$l_planet2_noten $l_torpedoes $l_planet2_fortr<br>";
+                    echo "$l_planet2_noten $l_torps $l_planet2_fortr<br>";
                     $transfer_torps = 0;
                 }
                 elseif ($transfer_torps > 0 && abs($transfer_torps) > $torpedo_max)

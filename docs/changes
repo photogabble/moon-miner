@@ -19,6 +19,7 @@ Removed two lines of language log lines that should of been there (not used) in 
 Fixed Incorrect language variable was $l_att_ysal2 should be $l_att_ysalv2 in attack.php
 Fixed Incorrect language variable was $l_cmb_attackershields, $l_cmb_attackertorps, $l_cmb_attackerarmor and $l_cmb_attackertorpdamage in combat.php
 Fixed Incorrect language variable was $l_igb_ctransferred should be $l_igb_ctransferredfrom in igb.php
+Fixed Incorrect language variable was $l_torpedoes should be $l_torps like the rest of the files in planet2.php
 
 TheMightyDude (24 July 2012)
 --------------------------------------
