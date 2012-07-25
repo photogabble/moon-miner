@@ -22,9 +22,8 @@ if (preg_match("/getPlanetOwnerInformation.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function getPlanetOwnerInformation ($db = null, $planetID = null, &$ownerInfo = null)
+function get_planet_owner_information ($db = null, $planetID = null, &$ownerInfo = null)
 {
-    global $db_logging;
     $ownerInfo = null;
     if(!is_null($planetID) && is_numeric($planetID) && $planetID >0)
     {
@@ -32,8 +31,8 @@ function getPlanetOwnerInformation ($db = null, $planetID = null, &$ownerInfo = 
         $sql .= "LEFT JOIN {$db->prefix}ships ON {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ";
         $sql .= "WHERE {$db->prefix}planets.planet_id=?;";
         $res = $db->Execute($sql, array($planetID));
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-        if($res->RecordCount() > 0 )
+        db_op_result ($db, $res, __LINE__, __FILE__);
+        if ($res->RecordCount() > 0 )
         {
             $ownerInfo = (array)$res->fields;
             return true;
