@@ -1,3 +1,15 @@
+TheMightyDude (25 July 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: level_factor in combat.php
+Fixed Notice: Undefined variable: torp_dmg_rate in combat.php
+Fixed Notice: Undefined variable: rating_combat_factor in combat.php
+Fixed Notice: Undefined variable: upgrade_factor in combat.php
+Fixed Notice: Undefined variable: upgrade_cost in combat.php
+Fixed Notice: Use of undefined constant dev_escapepod - assumed 'dev_escapepod' in combat.php
+Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in combat.php
+Fixed Notice: Undefined variable: armor_lost in combat.php
+Fixed Notice: Undefined variable: fighters_lost in combat.php
+
 TheMightyDude (24 July 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: mine_hullsize in planet_report_ce.php
