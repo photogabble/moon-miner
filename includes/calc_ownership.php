@@ -237,7 +237,7 @@ else
     $onpar = 0;
     foreach ($owners as $curowner)
     {
-        if ($curowner['type'] == 'S' && $curowner['id'] != $owners[$winner]['id'] && $curowner['num'] == $owners['winners']['num'])
+        if ($curowner['type'] == 'S' && $curowner['id'] != $owners[$winner]['id'] && $curowner['num'] == $owners[$winner]['num'])
         {
             $onpar = 1;
             break;

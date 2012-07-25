@@ -9,6 +9,7 @@ Fixed Notice: Use of undefined constant dev_escapepod - assumed 'dev_escapepod' 
 Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in combat.php
 Fixed Notice: Undefined variable: armor_lost in combat.php
 Fixed Notice: Undefined variable: fighters_lost in combat.php
+Fixed Notice: Undefined index: winers should be $winer in calc_ownership.php
 
 TheMightyDude (24 July 2012)
 --------------------------------------
