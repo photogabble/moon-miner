@@ -1006,7 +1006,7 @@ function traderoute_create()
     global $editing;
     global $l_tdr_maxtdr, $l_tdr_errnotvalidport, $l_tdr_errnoport, $l_tdr_errnosrc, $l_tdr_errnotownnotsell;
     global $l_tdr_errnotvaliddestport, $l_tdr_errnoport2, $l_tdr_errnodestplanet, $l_tdr_errnotownnotsell2;
-    global $l_tdr_newtdrcreated, $l_tdr_tdrmodified, $l_tdr_returnmenu;
+    global $l_tdr_newtdrcreated, $l_tdr_modified, $l_tdr_returnmenu;
     global $l_tdr_invaliddplanet, $l_tdr_invaliddport, $l_tdr_invalidsrc, $l_tdr_invalidspoint, $l_here;
     global $db;
     global $db_logging;
@@ -1222,7 +1222,7 @@ function traderoute_create()
     {
         $query = $db->Execute("UPDATE {$db->prefix}traderoutes SET source_id=?, dest_id=?, source_type=?, dest_type=?, move_type=?, owner=?, circuit=? WHERE traderoute_id=?;", array($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type, $editing));
         db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-        echo "<p>$l_tdr_tdrmodified";
+        echo "<p>$l_tdr_modified";
     }
 
     $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
@@ -1237,7 +1237,7 @@ function traderoute_delete()
     global $num_traderoutes;
     global $traderoute_id;
     global $traderoutes;
-    global $l_tdr_returnmenu, $l_tdr_tdrdoesntexist, $l_tdr_notowntdr, $l_tdr_tdrdeleted, $l_here;
+    global $l_tdr_returnmenu, $l_tdr_doesntexist, $l_tdr_notowntdr, $l_tdr_deleted, $l_here;
     global $db;
     global $db_logging;
 
@@ -1246,7 +1246,7 @@ function traderoute_delete()
 
     if (!$query || $query->EOF)
     {
-        traderoute_die ($l_tdr_tdrdoesntexist);
+        traderoute_die ($l_tdr_doesntexist);
     }
 
     $delroute = $query->fields;
@@ -1267,7 +1267,7 @@ function traderoute_delete()
         $query = $db->Execute("DELETE FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array($traderoute_id));
         db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
         $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
-        echo "$l_tdr_tdrdeleted $l_tdr_returnmenu";
+        echo "$l_tdr_deleted $l_tdr_returnmenu";
         traderoute_die ("");
     }
 }
@@ -1275,13 +1275,13 @@ function traderoute_delete()
 function traderoute_settings()
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
-    global $l_tdr_globalset, $l_tdr_tdrsportsrc, $l_tdr_colonists, $l_tdr_fighters, $l_tdr_torps, $l_tdr_trade;
-    global $l_tdr_tdrescooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu, $l_here;
+    global $l_tdr_globalset, $l_tdr_sportsrc, $l_tdr_colonists, $l_tdr_fighters, $l_tdr_torps, $l_tdr_trade;
+    global $l_tdr_escooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu, $l_here;
     global $db;
 
     echo "<p><font size=3 color=blue><strong>$l_tdr_globalset</strong></font><p>";
 
-    echo "<font color=white size=2><strong>$l_tdr_tdrsportsrc :</strong></font><p>".
+    echo "<font color=white size=2><strong>$l_tdr_sportsrc :</strong></font><p>".
         "<form action=traderoute.php?command=setsettings method=post>".
         "<table border=0><tr>".
         "<td><font size=2 color=white> - $l_tdr_colonists :</font></td>".
@@ -1313,7 +1313,7 @@ function traderoute_settings()
     echo "></tr>".
         "</table>".
         "<p>".
-        "<font color=white size=2><strong>$l_tdr_tdrescooped :</strong></font><p>".
+        "<font color=white size=2><strong>$l_tdr_escooped :</strong></font><p>".
         "<table border=0><tr>".
         "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_trade</font></td>".
         "<td><input type=radio name=energy value=\"Y\"";
@@ -1396,7 +1396,7 @@ function traderoute_engage($j)
     global $l_tdr_nothingtoload, $l_tdr_scooped, $l_tdr_dumped, $l_tdr_portisempty, $l_tdr_portisfull, $l_tdr_ore, $l_tdr_sold;
     global $l_tdr_goods, $l_tdr_notyourplanet, $l_tdr_invalidssector, $l_tdr_invaliddport, $l_tdr_invaliddplanet;
     global $l_tdr_invaliddsector, $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_moreturnsneeded, $l_tdr_tdrhostdef;
-    global $l_tdr_globalsetbuynothing, $l_tdr_nosrcporttrade, $l_tdr_tradesrcportoutsider, $l_tdr_tdrres, $l_tdr_torps;
+    global $l_tdr_globalsetbuynothing, $l_tdr_nosrcporttrade, $l_tdr_tradesrcportoutsider, $l_tdr_res, $l_tdr_torps;
     global $l_tdr_nodestporttrade, $l_tdr_tradedestportoutsider, $l_tdr_portin, $l_tdr_planet, $l_tdr_bought, $l_tdr_colonists;
     global $l_tdr_fighters, $l_tdr_nothingtotrade, $l_here, $l_tdr_five, $l_tdr_ten, $l_tdr_fifty;
     global $l_tdr_nothingtodump;
@@ -2783,10 +2783,10 @@ function traderoute_engage($j)
 
 function traderoute_results_table_top()
 {
-    global $color_line2,$l_tdr_tdrres;
+    global $color_line2,$l_tdr_res;
     echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
     echo "  <tr bgcolor='".$color_line2."'>\n";
-    echo "    <td align='center' colspan='7'><strong><font color='white'>".$l_tdr_tdrres."</font></strong></td>\n";
+    echo "    <td align='center' colspan='7'><strong><font color='white'>".$l_tdr_res."</font></strong></td>\n";
     echo "  </tr>\n";
     echo "  <tr align='center' bgcolor='".$color_line2."'>\n";
     echo "    <td width='50%'><font size='2' color='white'><strong>";
