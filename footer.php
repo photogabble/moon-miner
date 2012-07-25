@@ -17,9 +17,9 @@
 //
 // File: footer.php
 
-global $sched_ticks, $footer_show_time, $footer_show_debug;
+global $sched_ticks, $footer_show_time, $footer_show_debug, $db, $l;
 $res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 
 $row = $res->fields;
 $online = $row['loggedin'];
@@ -41,7 +41,7 @@ else
 // Update counter
 
 $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $result = $res->fields;
 $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
 ?>
