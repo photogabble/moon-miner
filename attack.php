@@ -661,7 +661,7 @@ else
                     $l_att_ysalv = str_replace("[salv_goods]", $salv_goods, $l_att_ysalv);
                     $l_att_ysalv = str_replace("[ship_salvage_rate]", $ship_salvage_rate, $l_att_ysalv);
                     $l_att_ysalv = str_replace("[ship_salvage]", $ship_salvage, $l_att_ysalv);
-                    $l_att_ysal2 = str_replace("[rating_change]", NUMBER(abs($rating_change)), $l_att_ysalv2);
+                    $l_att_ysalv2 = str_replace("[rating_change]", NUMBER(abs($rating_change)), $l_att_ysalv2);
 
                     echo $l_att_ysalv . "<br>" . $l_att_ysalv2 . "<br>\n";
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+?, ship_organics=ship_organics+?, ship_goods=ship_goods+?, credits=credits+? WHERE ship_id=?", array($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
