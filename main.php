@@ -478,23 +478,19 @@ if ($num_planets > 0)
         if (empty($planets[$i]['name']))
         {
             echo $l->get('l_unnamed');
-            $planet_bnthelper_string="<!--planet:Y:Unnamed:";
         }
         else
         {
             echo $planets[$i]['name'];
-            $planet_bnthelper_string="<!--planet:Y:" . $planets[$i]['name'] . ":";
         }
 
         if ($planets[$i]['owner'] == 0)
         {
             echo "<br>(" . $l->get('l_unowned') . ")";
-            $planet_bnthelper_string=$planet_bnthelper_string . "Unowned:-->";
         }
         else
         {
             echo "<br>($planet_owner[character_name])";
-            $planet_bnthelper_string=$planet_bnthelper_string . $planet_owner['character_name'] . ":N:-->";
         }
         echo "</span></td>";
 
@@ -515,7 +511,6 @@ else
 {
     echo "<td style='margin-left:auto; margin-right:auto; vertical-align:top'>";
     echo "<br><span style='color:white; size:1.25em'>" . $l->get('l_none') . "</span><br><br>";
-    $planet_bnthelper_string="<!--planet:N:::-->";
 }
 
 echo "</tr>\n";
@@ -807,16 +802,13 @@ echo "</table>\n";
 if (!$num_links)
 {
     echo "&nbsp;<a class=dis>" . $l->get('l_no_warplink') . "</a>&nbsp;<br>";
-    $link_bnthelper_string="<!--links:N";
 }
 else
 {
     echo "<table style='width:100%;'>\n";
-    $link_bnthelper_string="<!--links:Y";
     for ($i = 0; $i < $num_links; $i++)
     {
 #        echo "&nbsp;<a class=\"mnu\" href=\"move.php?sector=$links[$i]\">=&gt;&nbsp;$links[$i]</a>&nbsp;<a class=dis href=\"lrscan.php?sector=$links[$i]\">[" . $l->get('l_scan') . "]</a>&nbsp;<br>";
-        $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
 
         echo "<tr>\n";
         echo "  <td style='text-align:left;'><a class='mnu' href='move.php?sector={$links[$i]}'>=&gt;&nbsp;$links[$i]</a></td>\n";
@@ -825,7 +817,6 @@ else
     }
     echo "</table>\n";
 }
-$link_bnthelper_string=$link_bnthelper_string . ":-->";
 echo "</div>";
 echo "</td></tr>";
 echo "  <tr>\n";
@@ -844,13 +835,6 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[" . $l->get('l_fullscan')
 </table>
 
 <?php
-
-$player_bnthelper_string="<!--player info:" . $playerinfo['hull'] . ":" .  $playerinfo['engines'] . ":"  .  $playerinfo['power'] . ":" .  $playerinfo['computer'] . ":" . $playerinfo['sensors'] . ":" .  $playerinfo['beams'] . ":" . $playerinfo['torp_launchers'] . ":" .  $playerinfo['torps'] . ":" . $playerinfo['shields'] . ":" .  $playerinfo['armor'] . ":" . $playerinfo['armor_pts'] . ":" .  $playerinfo['cloak'] . ":" . $playerinfo['credits'] . ":" .  $playerinfo['sector'] . ":" . $playerinfo['ship_ore'] . ":" .  $playerinfo['ship_organics'] . ":" . $playerinfo['ship_goods'] . ":" .  $playerinfo['ship_energy'] . ":" . $playerinfo['ship_colonists'] . ":" .  $playerinfo['ship_fighters'] . ":" . $playerinfo['turns'] . ":" .  $playerinfo['on_planet'] . ":" . $playerinfo['dev_warpedit'] . ":" .  $playerinfo['dev_genesis'] . ":" . $playerinfo['dev_beacon'] . ":" .  $playerinfo['dev_emerwarp'] . ":" . $playerinfo['dev_escapepod'] . ":" .  $playerinfo['dev_fuelscoop'] . ":" . $playerinfo['dev_minedeflector'] . ":-->";
-$rspace_bnthelper_string="<!--rspace:" . $sectorinfo['distance'] . ":" . $sectorinfo['angle1'] . ":" . $sectorinfo['angle2'] . ":-->";
-echo $player_bnthelper_string;
-echo $link_bnthelper_string;
-echo $planet_bnthelper_string;
-echo $rspace_bnthelper_string . "\n";
 
 echo "<table style='margin-left:auto; margin-right:auto; border:#fff solid 1px; text-align:center; background-color:#000; color:#000; padding:0px; border-spacing:0px;' title='news ticker v'>\n";
 echo "  <tr>\n";

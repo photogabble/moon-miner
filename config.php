@@ -17,9 +17,10 @@
 //
 // File: config.php
 
-// All sched_* vars are in minutes.
-// These are true minutes, no matter to what interval you're running the scheduler script!
-// The scheduler will auto-adjust, possibly running many of the same events in a single call.
+                                                                // All sched_* vars are in minutes.
+                                                                // These are true minutes, no matter to what interval you're running the scheduler script!
+                                                                // The scheduler will auto-adjust, possibly running many of the same events in a single call.
+
 $sched_ticks                = 1;                                // Set this to how often (in minutes) you are running the scheduler script.
 $turns_per_tick             = 6;                                // Update how many turns per tick
 $sched_turns                = 2;                                // New turns rate (also includes towing, xenobe)
@@ -44,7 +45,7 @@ $game_name                  = 'Default Game Name';              // Please set th
 $release_version            = '0.65';                           // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
 $fed_max_hull               = 8;                                // The maximum hull size you can have before being towed out of fed space
 $max_ranks                  = 100;                              // The maximum number of ranks displayed on ranking.php
-$rating_combat_factor       = .8;                               // Amount of rating gained from combat
+$rating_combat_factor       = 0.8;                              // Amount of rating gained from combat
 $server_closed              = false;                            // True = block logins but not new account creation
 $account_creation_closed    = false;                            // True = block new account creation
 $newbie_nice                = 'YES';                            // If a ship is destroyed without a EWD, *and* is below a certain level for all items, then regen their ship
@@ -106,15 +107,15 @@ $dev_escapepod_price        = 100000;                           // The price for
 $dev_fuelscoop_price        = 100000;                           // The price for a fuel scoop (gives energy while real spacing) purchased at a special port
 $dev_lssd_price             = 10000000;                         // The price for a last seen ship device purchased at a special port
 $fighter_price              = 50;                               // The price for a fighter purchased at a special port
-$fighter_prate              = .01;                              // The rate of production for fighters on a planet (times production, times player/planet setting for fit_prate)
+$fighter_prate              = 0.01;                              // The rate of production for fighters on a planet (times production, times player/planet setting for fit_prate)
 $torpedo_price              = 25;                               // The price for a torpedo purchased at a special port
-$torpedo_prate              = .025;                             // The rate of production for torpedoes on a planet (times production, times player/planet setting for torp_prate)
+$torpedo_prate              = 0.025;                             // The rate of production for torpedoes on a planet (times production, times player/planet setting for torp_prate)
 $torp_dmg_rate              = 10;                               // The amount of damage a single torpedo will cause
 $credits_prate              = 3.0;                              // The rate of production for credits on a planet (times production, times player/planet setting for 100% minus all prates)
 $armor_price                = 5;                                // The price for units of armor purchased at a special port
 $basedefense                = 1;                                // Additional factor added to tech levels by having a base on your planet. All your base are belong to us.
 $colonist_price             = 5;                                // The standard price for a colonist at a special port
-$colonist_production_rate   = .005;                             // The rate of production for colonists on a planet (prior to consideration of organics)
+$colonist_production_rate   = 0.005;                             // The rate of production for colonists on a planet (prior to consideration of organics)
 $colonist_reproduction_rate = 0.0005;                           // The rate of reproduction for colonists on a planet after consideration of starvation due to organics
 $colonist_limit             = 100000000;                        // The maximum number of colonists on a planet
 $organics_consumption       = 0.05;                             // How many units of organics does a single colonist eat (require to avoid starvation)

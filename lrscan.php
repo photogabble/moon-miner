@@ -32,10 +32,6 @@ if (checklogin () )
 
 bigtitle ();
 
-$link_bnthelper_string = '';
-$port_bnthelper_string = '';
-$planet_bnthelper_string = '';
-
 if (isset($_GET['sector']))
 {
     $sector = $_GET['sector'];
@@ -259,21 +255,17 @@ else
     if ($num_links == 0)
     {
         echo "$l_none";
-        $link_bnthelper_string="<!--links:N:-->";
     }
     else
     {
-        $link_bnthelper_string="<!--links:Y";
         for ($i = 0; $i < $num_links; $i++)
         {
             echo "$links[$i]";
-            $link_bnthelper_string=$link_bnthelper_string . ":" . $links[$i];
             if ($i + 1 != $num_links)
             {
                 echo ", ";
             }
         }
-        $link_bnthelper_string=$link_bnthelper_string . ":-->";
     }
 
     echo "</td></tr>";
@@ -332,7 +324,6 @@ else
     if ($sectorinfo['port_type'] == "none")
     {
         echo "$l_none";
-        $port_bnthelper_string="<!--port:none:0:0:0:0:-->";
     }
     else
     {
@@ -344,7 +335,6 @@ else
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">";
         }
         echo "$image_string " . t_port($sectorinfo['port_type']);
-        $port_bnthelper_string="<!--port:" . $sectorinfo['port_type'] . ":" . $sectorinfo['port_ore'] . ":" . $sectorinfo['port_organics'] . ":" . $sectorinfo['port_goods'] . ":" . $sectorinfo['port_energy'] . ":-->";
     }
     echo "</td></tr>";
     echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_planets</strong></td></tr>";
@@ -355,7 +345,6 @@ else
     if ($query->EOF)
     {
         echo "$l_none";
-        $planet_bnthelper_string="<!--planet:N:::-->";
     }
 
     while (!$query->EOF)
@@ -425,11 +414,6 @@ else
     echo "<a href=move.php?sector=$sector>$l_clickme</a> $l_lrs_moveto $sector.";
 }
 
-$rspace_bnthelper_string="<!--rspace:" . $sectorinfo['distance'] . ":" . $sectorinfo['angle1'] . ":" . $sectorinfo['angle2'] . ":-->";
-echo $link_bnthelper_string;
-echo $port_bnthelper_string;
-echo $planet_bnthelper_string;
-echo $rspace_bnthelper_string;
 echo "<br><br>";
 TEXT_GOTOMAIN();
 
