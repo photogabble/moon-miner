@@ -27,9 +27,6 @@ function connectdb ($do_die = true) // Returns true, false or a halt.
     global $ADODB_SESSION_CONNECT, $dbport, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB;
     global $db, $ADODB_SESSION_DRIVER, $db_persistent;
 
-    // Not too sure if we still need these variables.
-    global $default_lang, $lang;
-
     // Check to see if we are already connected to the database.
     // If so just return true.
     if ($db instanceof ADOConnection)
