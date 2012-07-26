@@ -129,7 +129,7 @@ while (!$sql->EOF)
             $colcount = 1000;
             $name = get_player_name($row['owner']);
             $l_news_p_headline2=str_replace("[player]",$name,$l_news_p_headline);
-            $headline = $l_news_p_headline2 . $colcount . $l_news_cols;
+            $headline = $l_news_p_headline2 . $colcount . " " . $l_news_cols;
             $l_news_c_text10002=str_replace("[name]",$name,$l_news_c_text1000);
             $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'col1000');", array($headline, $l_news_c_text10002, $row['owner']));
             db_op_result ($db, $news, __LINE__, __FILE__, $db_logging);
