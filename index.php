@@ -67,23 +67,20 @@ include "header.php";
 <div class="index-welcome">
 <h1 class="index-h1"><?php echo $l->get('l_welcome_bnt'); ?></h1>
 <p><?php echo $l->get('l_bnt_description'); ?><br></p>
-<div class="hideme">
-<?php
-echo "<form action='login2.php' method='post'>\n";
-echo "    <dl class='twocolumn-form'>\n";
-echo "        <dt style='padding:3px'><label for='email'>{$l->get('l_login_email')}:</label></dt>\n";
-echo "        <dd style='padding:3px'><input type='email' id='email' name='email' size='20' maxlength='40' style='width:200px'></dd>\n";
-echo "        <dt style='padding:3px'><label for='pass'>{$l->get('l_login_pw')}</label></dt>\n";
-echo "        <dd style='padding:3px'><input type='password' id='pass' name='pass' size='20' maxlength='20' style='width:200px'></dd>\n";
-echo "    </dl>\n";
-echo "    <br style='clear:both;'>";
-echo "    <div style='text-align:center'>Forgot your password?&nbsp; &nbsp;Enter it blank and press login.</div><br>\n";
-echo "    <div style='text-align:center'>";
-echo "<input class='button green' type='submit' value='{$l->get('l_login_title')}'>";
-echo "    </div>";
-echo "</form>\n";
-?>
-</div><br>
+<form action="login2.php" method="post">
+<dl class="twocolumn-form">
+<dt style="padding:3px"><label for="email"><?php echo $l->get('l_login_email'); ?>:</label></dt>
+<dd style="padding:3px"><input type="email" id="email" name="email" size="20" maxlength="40" style="width:200px"></dd>
+<dt style="padding:3px"><label for="pass"><?php echo $l->get('l_login_pw'); ?></label></dt>
+<dd style="padding:3px"><input type="password" id="pass" name="pass" size="20" maxlength="20" style="width:200px"></dd>
+</dl>
+<br style="clear:both">
+<div style="text-align:center">Forgot your password?&nbsp; &nbsp;Enter it blank and press login.</div><br>
+<div style="text-align:center">
+<input class="button green" type="submit" value="<?php echo $l->get('l_login_title'); ?>">
+</div>
+</form>
+<br>
 <p class="cookie-warning"><?php echo $l->get('l_cookie_warning'); ?></p></div>
 <br>
 <?php include "footer.php"; ?>
