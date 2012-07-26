@@ -69,10 +69,10 @@ include "header.php";
 <p><?php echo $l->get('l_bnt_description'); ?><br></p>
 <form action="login2.php" method="post">
 <dl class="twocolumn-form">
-<dt style="padding:3px"><label for="email"><?php echo $l->get('l_login_email'); ?>:</label></dt>
-<dd style="padding:3px"><input type="email" id="email" name="email" size="20" maxlength="40" style="width:200px"></dd>
-<dt style="padding:3px"><label for="pass"><?php echo $l->get('l_login_pw'); ?></label></dt>
-<dd style="padding:3px"><input type="password" id="pass" name="pass" size="20" maxlength="20" style="width:200px"></dd>
+<dt><label for="email"><?php echo $l->get('l_login_email'); ?>:</label></dt>
+<dd><input type="email" id="email" name="email" size="20" maxlength="40"></dd>
+<dt><label for="pass"><?php echo $l->get('l_login_pw'); ?></label></dt>
+<dd><input type="password" id="pass" name="pass" size="20" maxlength="20"></dd>
 </dl>
 <br style="clear:both">
 <div style="text-align:center">Forgot your password?&nbsp; &nbsp;Enter it blank and press login.</div><br>
