@@ -457,7 +457,6 @@ function Real_Space_Move($destination)
   global $db;
   global $level_factor, $mine_hullsize;
   global $username;
-  global $lang;
   global $db_logging;
 
   global $l_rs_ready, $l_rs_movetime, $l_rs_noturns;
