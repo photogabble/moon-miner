@@ -56,8 +56,7 @@ include "header.php";
 <h2 style="display:none">Navigation</h2>
 <div class="navigation" role="navigation">
 <ul class="navigation">
-<li class="navigation"><a href="login.php"><span class="button blue"><span class="shine"></span><?php echo $l->get('l_login_title'); ?></span></a></li>
-<li class="navigation"><a href="new.php"><span class="button green"><span class="shine"></span><?php echo $l->get('l_new_player'); ?></span></a></li>
+<li class="navigation"><a href="new.php"><span class="button blue"><span class="shine"></span><?php echo $l->get('l_new_player'); ?></span></a></li>
 <li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo $l->get('l_login_emailus'); ?></span></a></li>
 <li class="navigation"><a href="ranking.php"><span class="button purple"><span class="shine"></span><?php echo $l->get('l_rankings'); ?></span></a></li>
 <li class="navigation"><a href="docs/faq.html"><span class="button brown"><span class="shine"></span><?php echo $l->get('l_faq'); ?></span></a></li>
@@ -68,7 +67,23 @@ include "header.php";
 <div class="index-welcome">
 <h1 class="index-h1"><?php echo $l->get('l_welcome_bnt'); ?></h1>
 <p><?php echo $l->get('l_bnt_description'); ?><br></p>
-<br>
+<div class="hideme">
+<?php
+echo "<form action='login2.php' method='post'>\n";
+echo "    <dl class='twocolumn-form'>\n";
+echo "        <dt style='padding:3px'><label for='email'>{$l->get('l_login_email')}:</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='email' id='email' name='email' size='20' maxlength='40' value='{$username}' style='width:200px'></dd>\n";
+echo "        <dt style='padding:3px'><label for='pass'>{$l->get('l_login_pw')}</label></dt>\n";
+echo "        <dd style='padding:3px'><input type='password' id='pass' name='pass' size='20' maxlength='20' value='{$password}' style='width:200px'></dd>\n";
+echo "    </dl>\n";
+echo "    <br style='clear:both;'>";
+echo "    <div style='text-align:center'>Forgot your password?&nbsp; &nbsp;Enter it blank and press login.</div><br>\n";
+echo "    <div style='text-align:center'>";
+echo "<input class='button green' type='submit' value='{$l->get('l_login_title')}'>";
+echo "    </div>";
+echo "</form>\n";
+?>
+</div><br>
 <p class="cookie-warning"><?php echo $l->get('l_cookie_warning'); ?></p></div>
 <br>
 <?php include "footer.php"; ?>

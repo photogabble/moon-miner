@@ -181,7 +181,7 @@ if ($flag == 0)
 
         $l_new_pwsent=str_replace("[username]", $_POST['username'], $l_new_pwsent);
         echo $l_new_pwsent . '<br><br>';
-        echo "<a href=login.php>$l_clickme</A> $l_new_login";
+        echo "<a href=index.php>$l_clickme</A> $l_new_login";
     }
 }
 else

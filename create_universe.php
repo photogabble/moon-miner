@@ -909,7 +909,7 @@ Table_Footer("Completed successfully.");
     Table_Footer("Completed successfully.");
 
       PrintFlush("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");
-      PrintFlush("<strong>Click <a href=login.php>here</A> to return to the login screen.</strong></center>");
+      PrintFlush("<strong>Click <a href=index.php>here</A> to return to the login screen.</strong></center>");
 
       include_once "footer.php";
       break;

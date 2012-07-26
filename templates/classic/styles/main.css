@@ -62,6 +62,7 @@ body.options tr:nth-child(odd) { background-color:#400040}
 body.options th { background-color:#500050; text-align:left}
 body.options table { border:0; border-spacing:0px; color:#fff; padding:2px}
 body.index { font-size: 75%; text-align: center}
+/*input.shine {visibility: hidden; opacity:0}*/
 .button:hover .shine { left: 24px}
 .button:active .shine { opacity: 0}
 .button.red { background: #723131}
