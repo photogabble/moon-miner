@@ -1,3 +1,7 @@
+TheMightyDude (27 July 2012)
+--------------------------------------
+Cleaned up all the language files and removed redundant language variables.
+
 TheKabal (25 July 2012)
 --------------------------------------
 All (function) files in includes/ now have correct indention, use the language object, and bind variables for SQL calls.
