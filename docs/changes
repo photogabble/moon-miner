@@ -13,6 +13,7 @@ Fixed Notice: Undefined variable: l_base in team_planets.php
 Fixed Notice: Undefined variable: l_selling in team_planets.php
 Fixed Notice: Undefined variable: l_pr_totals in team_planets.php
 Fixed some issues in the language files due to a bug in my Language Validator App.
+Fixed reverted one of my changes due to a clash with another language variable name.
 
 TheMightyDude (27 July 2012)
 --------------------------------------

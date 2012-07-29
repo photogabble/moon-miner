@@ -1276,7 +1276,7 @@ function traderoute_settings()
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
     global $l_tdr_globalset, $l_tdr_sportsrc, $l_tdr_colonists, $l_tdr_fighters, $l_tdr_torps, $l_tdr_trade;
-    global $l_tdr_escooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu, $l_here;
+    global $l_tdr_tdrescooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu, $l_here;
     global $db;
 
     echo "<p><font size=3 color=blue><strong>$l_tdr_globalset</strong></font><p>";
@@ -1313,7 +1313,7 @@ function traderoute_settings()
     echo "></tr>".
         "</table>".
         "<p>".
-        "<font color=white size=2><strong>$l_tdr_escooped :</strong></font><p>".
+        "<font color=white size=2><strong>$l_tdr_tdrescooped :</strong></font><p>".
         "<table border=0><tr>".
         "<td><font size=2 color=white>&nbsp;&nbsp;&nbsp;$l_tdr_trade</font></td>".
         "<td><input type=radio name=energy value=\"Y\"";
