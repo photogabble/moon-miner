@@ -1,3 +1,7 @@
+TheMightyDude (29 July 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: _cmb_hehasnofighterleft in combat.php
+
 TheMightyDude (27 July 2012)
 --------------------------------------
 Cleaned up all the language files and removed redundant language variables.

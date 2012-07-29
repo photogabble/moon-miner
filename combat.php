@@ -928,7 +928,7 @@ function shiptoship($ship_id)
     else
     {
         $l_cmb_hehasnofighterleft = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnofighterleft);
-        echo "$_cmb_hehasnofighterleft<br>";
+        echo "$l_cmb_hehasnofighterleft<br>";
     }
     if ($attackerfighters > 0 && $targettorpdmg > 0)
     {
