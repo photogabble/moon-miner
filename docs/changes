@@ -17,6 +17,7 @@ Fixed reverted one of my changes due to a clash with another language variable n
 Fixed issue in schema where the language value size was too small and was cutting off the text.
 Fixed issue where we no longer have or use login.php, some files still refer to login.php which needs to be resolved.
 Fixed Notice: Undefined variable: db_logging in fader.php
+Fixed the incorrect end of row sector value (was 1 extra) in galaxy.php
 
 TheMightyDude (27 July 2012)
 --------------------------------------
