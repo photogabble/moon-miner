@@ -316,6 +316,7 @@ l_corpm_topersonal                      = "La planète est maintenant une planète
 l_corpm_exploit                         = "Vous interceptez un message codé... Peut-être devriez-vous vous inquiéter...";
 
 [create_universe]
+l_cu_title                              = "Créer l'univers";
 
 [defence_report]
 l_sdf_title                             = "Rapport des défenses";
@@ -700,6 +701,7 @@ l_login_noone                           = "Ce joueur n'existe pas! - Créer un no
 l_login_lang                            = "Langue";
 l_login_settings                        = "Paramètres";
 l_login_change                          = "Changer";
+l_login_banned                          = "Vous avez été bannis de ce serveur par l'administrateur. La prochaine fois, conduisez-vous mieux";
 
 [logout]
 l_logout_score                          = "Votre pointage est";
@@ -1075,6 +1077,7 @@ l_readm_sender                          = "Source";
 l_readm_captn                           = "Capitaine du";
 l_readm_del                             = "Effacer";
 l_readm_repl                            = "Répondre";
+l_readm_delete                          = "MESSAGE EFFACÉ";
 
 [report]
 l_report_title                          = "État du vaisseau";
@@ -1290,12 +1293,13 @@ l_tdr_errnoport2                        = "Erreur : il n'y a aucun port dans le 
 l_tdr_errnodestplanet                   = "Erreur : la planète de destination n'existe pas.";
 l_tdr_errnotownnotsell2                 = "Erreur : la planète [tdr_dest_name] dans le secteur [tdr_dest_sector_id] ne vous appartient pas.";
 l_tdr_newtdrcreated                     = "Nouvelle route commerciale créée!";
-l_tdr_modified                          = "Trade route modified!";
+l_tdr_modified                          = "Route commerciale modifiée!";
 l_tdr_doesntexist                       = "Cette route commerciale n'existe pas!";
 l_tdr_notowntdr                         = "Cette route ne vous appartient pas!";
-l_tdr_deleted                           = "Trade route deleted.";
+l_tdr_deleted                           = "Route commerciale détruite.";
 l_tdr_globalset                         = "Paramètres commerciaux globaux";
-l_tdr_sportsrc                          = "For trade routes having a special port as a source, trade";
+l_tdr_sportsrc                          = "Pour les routes commerciales qui ont un port spécial comme point de départ, acheter";
+l_tdr_tdrescooped                       = "Pour les routes en espace réel, quoi faire avec l'énergie accumulée?";
 l_tdr_trade                             = "Vendre";
 l_tdr_keep                              = "Garder";
 l_tdr_save                              = "Enregistrer";
@@ -1311,13 +1315,13 @@ l_tdr_invaliddport                      = "Le port de destination est invalide!"
 l_tdr_invaliddplanet                    = "La planète de destination est invalide!";
 l_tdr_invaliddsector                    = "Le secteur de destination n'est pas valide!";
 l_tdr_moreturnsneeded                   = "Cette route requiert [tdr_dist_triptime] tours. Vous n'avez que [tdr_playerinfo_turns] tours disponibles.";
-l_tdr_hostdef                           = "You can not use trade routes between sectors with hostile defences. You must defeat the defences first.";
+l_tdr_hostdef                           = "Vous ne pouvez utiliser une route commerciale entre des secteurs où il y a des défenses hostiles. Vous devez détruire les défenses en premier.";
 l_tdr_globalsetbuynothing               = "Vos paramètres spécifient de ne rien acheter. Il ne vous servirait à rien de faire cette route!";
 l_tdr_nosrcporttrade                    = "Il n'est pas permis d'acheter à partir du port source.";
 l_tdr_tradesrcportoutsider              = "Il n'est pas permis pour vous d'acheter à partir du port source";
 l_tdr_nodestporttrade                   = "Il n'est pas permis d'acheter à partir du port de destination.";
 l_tdr_tradedestportoutsider             = "Il n'est pas permis pour vous d'acheter à partir du port de destination";
-l_tdr_res                               = "Trade Route Results";
+l_tdr_res                               = "Résultats du commerce";
 l_tdr_bought                            = "Acheté";
 l_tdr_nothingtotrade                    = "Rien à acheter/vendre";
 l_tdr_sold                              = "Vendu";
@@ -1398,3 +1402,4 @@ l_zi_control                            = "Vous êtes en contôle de cette zone";
 l_zi_tochange                           = "pour changer ses lois.";
 l_zi_owner                              = "Responsable de la zone";
 l_zi_maxhull                            = "Coque maximum permise";
+

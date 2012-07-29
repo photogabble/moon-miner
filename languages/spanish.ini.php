@@ -4,7 +4,7 @@
 ; Language File created by BNT Lang Checker.
 
 [regional]
-local_date_full_format                  = "Y-m-\"d H:\"i:s";
+local_date_full_format                  = "Y-m-d H:i:s";
 local_date_short_format                 = "Y-m-d";
 local_lang                              = "es";
 local_logdate_full_format               = "F d Y H:i";
@@ -316,6 +316,7 @@ l_corpm_topersonal                      = "¡El planeta es ahora un Planeta Perso
 l_corpm_exploit                         = "Has interceptado un mensaje borg cortado en tu escaner... deberías empezar a preocuparte...";
 
 [create_universe]
+l_cu_title                              = "Crear universo";
 
 [defence_report]
 l_sdf_title                             = "Informe de la Defensa de Sector";
@@ -700,6 +701,7 @@ l_login_noone                           = "¡No existe ese jugador! - Crea un nue
 l_login_lang                            = "Idioma";
 l_login_settings                        = "Configuración del Juego";
 l_login_change                          = "Cambiar";
+l_login_banned                          = "Has sido vetado de este juego por el administrador. Ya no eres bienvenido a jugar en este servidor. La próxima vez, compórtate.";
 
 [logout]
 l_logout_score                          = "Tu puntuación actual es";
@@ -1075,6 +1077,7 @@ l_readm_sender                          = "Remitente del Mensaje";
 l_readm_captn                           = "Capitán de la";
 l_readm_del                             = "Borrar";
 l_readm_repl                            = "Responder";
+l_readm_delete                          = "MENSAJE BORRADO";
 
 [report]
 l_report_title                          = "Informe de la Nave";
@@ -1296,6 +1299,7 @@ l_tdr_notowntdr                         = "¡No eres el propietario de esa ruta c
 l_tdr_deleted                           = "Trade route deleted.";
 l_tdr_globalset                         = "Configuración global de las rutas comerciales";
 l_tdr_sportsrc                          = "For trade routes having a special port as a source, trade";
+l_tdr_tdrescooped                       = "Para las rutas comerciales via EspacioReal, ¿qué quieres hacer con la energía conseguida?";
 l_tdr_trade                             = "Comerciar";
 l_tdr_keep                              = "Almacenar";
 l_tdr_save                              = "Guardar";
@@ -1398,3 +1402,4 @@ l_zi_control                            = "Tienes el control de esta zona";
 l_zi_tochange                           = "para cambiar sus leyes.";
 l_zi_owner                              = "Propietario de la zona";
 l_zi_maxhull                            = "Máximo promedio de nivel tecnológico permitido";
+

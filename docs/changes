@@ -12,6 +12,7 @@ Fixed Notice: Undefined variable: l_sector in team_planets.php
 Fixed Notice: Undefined variable: l_base in team_planets.php
 Fixed Notice: Undefined variable: l_selling in team_planets.php
 Fixed Notice: Undefined variable: l_pr_totals in team_planets.php
+Fixed some issues in the language files due to a bug in my Language Validator App.
 
 TheMightyDude (27 July 2012)
 --------------------------------------

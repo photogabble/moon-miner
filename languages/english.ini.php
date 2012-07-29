@@ -316,6 +316,7 @@ l_corpm_topersonal                      = "Planet is now a Personal Planet!";
 l_corpm_exploit                         = "You intercept a garbled borg message on your scanner... you should probably start worrying...";
 
 [create_universe]
+l_cu_title                              = "Create universe";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";
@@ -678,7 +679,7 @@ l_log_months_short_12                   = "Dec";
 
 [login]
 l_login_title                           = "Login";
-l_login_email                           = "E-mail Address";
+l_login_email                           = "E-mail Address:";
 l_login_pw                              = "Password:";
 l_login_newp                            = "If you are a new player, click [here] to create a new account.";
 l_login_prbs                            = "Problems?";
@@ -700,6 +701,7 @@ l_login_noone                           = "No Such Player! - Create a new player
 l_login_lang                            = "Language";
 l_login_settings                        = "Game Settings";
 l_login_change                          = "Change";
+l_login_banned                          = "You have been banned from this game by the administrator. You are no longer welcome to play on this server. Next time, behave.";
 
 [logout]
 l_logout_score                          = "You current score is";
@@ -1075,6 +1077,7 @@ l_readm_sender                          = "Message Sender";
 l_readm_captn                           = "Captain of the";
 l_readm_del                             = "Delete";
 l_readm_repl                            = "Reply";
+l_readm_delete                          = "MESSAGE DELETED";
 
 [report]
 l_report_title                          = "Ship Report";
@@ -1296,6 +1299,7 @@ l_tdr_notowntdr                         = "You do not own that traderoute!";
 l_tdr_deleted                           = "Trade route deleted.";
 l_tdr_globalset                         = "Global trade route settings";
 l_tdr_sportsrc                          = "For trade routes having a special port as a source, trade";
+l_tdr_tdrescooped                       = "For real space trade routes, what to do with the energy scooped?";
 l_tdr_trade                             = "Trade";
 l_tdr_keep                              = "Keep";
 l_tdr_save                              = "Save";
@@ -1398,3 +1402,4 @@ l_zi_control                            = "You are in control of this zone";
 l_zi_tochange                           = "to change its laws.";
 l_zi_owner                              = "Zone owner";
 l_zi_maxhull                            = "Maximum average tech level allowed";
+
