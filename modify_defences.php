@@ -126,6 +126,8 @@ switch ($response)
          $countres = $db->Execute("SELECT SUM(quantity) AS totalfighters FROM {$db->prefix}sector_defence WHERE sector_id = $sector AND defence_type = 'F'");
          $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
+
+         $calledfrom = "modify_defences.php";
          include_once "sector_fighters.php";
       }
       else
