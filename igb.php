@@ -390,8 +390,8 @@ function IGB_transfer2()
       if (!$res->EOF)
       {
         $time = $res->fields;
-        $difftime = ($time[time] - $curtime) / 60;
-        $l_igb_mustwait = str_replace("[igb_target_char_name]", $target[character_name], $l_igb_mustwait);
+        $difftime = ($time['time'] - $curtime) / 60;
+        $l_igb_mustwait = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_mustwait);
         $l_igb_mustwait = str_replace("[igb_trate]", NUMBER($IGB_trate), $l_igb_mustwait);
         $l_igb_mustwait = str_replace("[igb_difftime]", NUMBER($difftime), $l_igb_mustwait);
         IGB_error($l_igb_mustwait, "igb.php?command=transfer");
@@ -564,7 +564,7 @@ function IGB_transfer3()
     if ($amount == 0)
       IGB_error($l_igb_nozeroamount, "igb.php?command=transfer");
 
-    if ($amount > $account[balance])
+    if ($amount > $account['balance'])
       IGB_error($l_igb_notenoughcredits, "igb.php?command=transfer");
 
     if ($IGB_svalue != 0)
