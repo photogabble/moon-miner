@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('team_planets', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $langsh, array('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_teamplanet_title;
 include "header.php";

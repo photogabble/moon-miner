@@ -7,6 +7,11 @@ Fixed Notice: Use of undefined constant character_name - assumed 'character_name
 Fixed Notice: Use of undefined constant balance - assumed 'balance' in igb.php
 Fixed Notice: Undefined variable: num_links in lrscan.php
 Fixed Notice: Undefined variable: calledfrom in sector_fighters.php
+Fixed Notice: Undefined variable: l_pr_clicktosort in team_planet.php
+Fixed Notice: Undefined variable: l_sector in team_planets.php
+Fixed Notice: Undefined variable: l_base in team_planets.php
+Fixed Notice: Undefined variable: l_selling in team_planets.php
+Fixed Notice: Undefined variable: l_pr_totals in team_planets.php
 
 TheMightyDude (27 July 2012)
 --------------------------------------
