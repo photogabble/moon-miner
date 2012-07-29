@@ -14,6 +14,7 @@ Fixed Notice: Undefined variable: l_selling in team_planets.php
 Fixed Notice: Undefined variable: l_pr_totals in team_planets.php
 Fixed some issues in the language files due to a bug in my Language Validator App.
 Fixed reverted one of my changes due to a clash with another language variable name.
+Fixed issue in schema where the language value size was too small and was cutting off the text.
 
 TheMightyDude (27 July 2012)
 --------------------------------------
