@@ -15,6 +15,7 @@ Fixed Notice: Undefined variable: l_pr_totals in team_planets.php
 Fixed some issues in the language files due to a bug in my Language Validator App.
 Fixed reverted one of my changes due to a clash with another language variable name.
 Fixed issue in schema where the language value size was too small and was cutting off the text.
+Fixed issue where we no longer have or use login.php, some files still refer to login.php which needs to be resolved.
 
 TheMightyDude (27 July 2012)
 --------------------------------------

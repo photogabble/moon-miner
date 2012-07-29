@@ -37,7 +37,7 @@ function checklogin ()
     {
         $title = $l->get('l_error');
         include "header.php";
-        echo str_replace("[here]", "<a href='login.php'>" . $l->get('l_here') . "</a>", $l->get('l_global_needlogin'));
+        echo str_replace("[here]", "<a href='index.php'>" . $l->get('l_here') . "</a>", $l->get('l_global_needlogin'));
         include "footer.php";
         $flag = 1;
     }
