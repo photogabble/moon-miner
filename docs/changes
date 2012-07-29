@@ -5,6 +5,7 @@ Fixed Notice: Undefined variable: l_special_port in galaxy.php
 Fixed Notice: Use of undefined constant time - assumed 'time' in igb.php
 Fixed Notice: Use of undefined constant character_name - assumed 'character_name' in igb.php
 Fixed Notice: Use of undefined constant balance - assumed 'balance' in igb.php
+Fixed Notice: Undefined variable: num_links in lrscan.php
 
 TheMightyDude (27 July 2012)
 --------------------------------------

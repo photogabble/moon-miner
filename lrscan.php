@@ -66,6 +66,8 @@ $playerinfo = $result->fields;
 
 if ($sector == "*")
 {
+    $num_links = 0;
+
     if (!$allow_fullscan)
     {
         echo $l_lrs_nofull . "<br><br>";
