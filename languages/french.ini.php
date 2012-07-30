@@ -702,6 +702,7 @@ l_login_lang                            = "Langue";
 l_login_settings                        = "Paramètres";
 l_login_change                          = "Changer";
 l_login_banned                          = "Vous avez été bannis de ce serveur par l'administrateur. La prochaine fois, conduisez-vous mieux";
+l_login_forgotpw                        = "Mot de passe oublié?&nbsp; &nbsp;Entrez le champ vide et appuyez sur la connexion.";
 
 [logout]
 l_logout_score                          = "Votre pointage est";

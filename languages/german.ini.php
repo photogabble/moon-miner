@@ -702,6 +702,7 @@ l_login_lang                            = "Sprache";
 l_login_settings                        = "Spiel Einstellungen";
 l_login_change                          = "Wechsel";
 l_login_banned                          = "Du wurdest vom Administrator von diesem Spiel ausgeschlossen. Du bist nicht l&auml;nger willkommen auf diesem Server. Benimm Dich das n&auml;chste Mal.";
+l_login_forgotpw                        = "Passwort vergessen?&nbsp; &nbsp; Geben Sie das Feld leer und drücken Sie auf Login.";
 
 [logout]
 l_logout_score                          = "Derzeitiger Punktestand:";

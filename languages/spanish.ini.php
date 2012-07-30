@@ -702,6 +702,7 @@ l_login_lang                            = "Idioma";
 l_login_settings                        = "Configuración del Juego";
 l_login_change                          = "Cambiar";
 l_login_banned                          = "Has sido vetado de este juego por el administrador. Ya no eres bienvenido a jugar en este servidor. La próxima vez, compórtate.";
+l_login_forgotpw                        = "¿Olvidaste tu contraseña?&nbsp; &nbsp; Introduzca en blanco y pulse inicio de sesión.";
 
 [logout]
 l_logout_score                          = "Tu puntuación actual es";
