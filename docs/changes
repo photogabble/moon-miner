@@ -1,3 +1,14 @@
+TheKabal (29 July 2012)
+--------------------------------------
+Moved script to external file, and moved the load position for it to footer instead of in the header (improves page render speed in most browsers)
+Changed $lang, $langsh, and other related language variables to be just $lang
+Index now adds $lang get variable to links, so that a non-logged in user that chooses a language will get the language they chose until they login
+Moved faq from docs to main game directory, change from html to php so that it will be able to offer different link backs (to index or to main)
+Moved faq css out to main.css
+Recoded the links for new player, rankings, faq, settings, and news so they will respect the language choice from the index page
+Added the "forgot password" text into language files with translations
+Added correct code for removing session / truly logging out player
+
 TheMightyDude (29 July 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: _cmb_hehasnofighterleft in combat.php
