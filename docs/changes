@@ -2,6 +2,7 @@ TheMightyDude (30 July 2012)
 --------------------------------------
 Fixed Notice: Use of undefined constant creator - assumed 'creator' in teams.php
 Fixed Notice: Undefined variable: l_planet_noscan in attack.php
+Fixed GenScore due to error in the code (my bad)
 
 TheKabal (29 July 2012)
 --------------------------------------
