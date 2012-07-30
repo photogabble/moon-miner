@@ -706,6 +706,7 @@ l_login_banned                          = "You have been banned from this game b
 [logout]
 l_logout_score                          = "You current score is";
 l_logout_text                           = "[name] is now logged out.  Click [here] to return to game.";
+l_login_forgotpw                        = "Forgot your password?&nbsp; &nbsp;Enter it blank and press login.";
 
 [lrscan]
 l_lrs_title                             = "Long Range Scan";
