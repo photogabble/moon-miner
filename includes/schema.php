@@ -47,7 +47,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}languages (" .
              "lang_id smallint(5) NOT NULL AUTO_INCREMENT," .
              "language varchar(30) NOT NULL DEFAULT 'english'," .
              "name varchar(75) NOT NULL," .
-             "value text NOT NULL," .
+             "value varchar(2000) NOT NULL," .
              "category char(30) NOT NULL," .
              "PRIMARY KEY (lang_id)" .
              ")");
