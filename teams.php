@@ -499,7 +499,7 @@ switch ($teamwhat)
         echo "$l_team_refuse <strong>$invite_info[team_name]</strong>.<br><br>";
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET team_invite=0 WHERE ship_id=?;", array($playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-        playerlog ($db, $team[creator], LOG_TEAM_REJECT, $playerinfo['character_name'] ."|". $invite_info['team_name']);
+        playerlog ($db, $team['creator'], LOG_TEAM_REJECT, $playerinfo['character_name'] ."|". $invite_info['team_name']);
         LINK_BACK();
         break;
     }
