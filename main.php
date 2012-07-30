@@ -224,7 +224,7 @@ echo "    <td style='white-space:nowrap; height:2px; background-color:transparen
 echo "  </tr>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='docs/faq.html'>{$l->get('l_faq')}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='faq.php'>{$l->get('l_faq')}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='feedback.php'>{$l->get('l_feedback')}</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='main.php' title='Not implemented'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Support</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='maint_info.php' title='This will display the Scheduled Maintenance information for this game or Core Code.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Maint Info</a></div>\n";
