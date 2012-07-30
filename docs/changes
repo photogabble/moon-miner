@@ -1,5 +1,6 @@
 TheKabal (29 July 2012)
 --------------------------------------
+Bumped version for release
 Moved script to external file, and moved the load position for it to footer instead of in the header (improves page render speed in most browsers)
 Changed $lang, $langsh, and other related language variables to be just $lang
 Index now adds $lang get variable to links, so that a non-logged in user that chooses a language will get the language they chose until they login
