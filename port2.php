@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include_once "includes/is_loan_pending.php";
 

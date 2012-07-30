@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_mines_title;
 include "header.php";

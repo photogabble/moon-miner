@@ -32,7 +32,7 @@ if (preg_match("/sched_news.php/i", $_SERVER['PHP_SELF']))
 global $default_lang;
 
 // New database driven language entries
-load_languages($db, $langsh, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 echo "<strong>Posting News</strong><br><br>";
 

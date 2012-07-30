@@ -40,6 +40,7 @@ else
 if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])))
 {
     echo "<p></p>\n";
+    echo "<script src='backends/javascript/newsticker.js'></script>\n";
     echo "<div id='news_ticker' class='faderlines'></div>\n";
     include "fader.php";
 }
@@ -53,23 +54,7 @@ $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
 db_op_result ($db, $res, __LINE__, __FILE__);
 $result = $res->fields;
 $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
-?>
-  <script>
-   var myi = '<?php echo $mySEC; ?>';
-   setTimeout("rmyx();",1000);
-
-   function rmyx()
-    {
-     myi = myi - 1;
-     if (myi <= 0)
-      {
-      myi = <?php echo ($sched_ticks * 60); echo "\n";?>
-      }
-     document.getElementById("myx").innerHTML = myi;
-     setTimeout("rmyx();",1000);
-    }
-  </script>
-<?php
+echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
 echo "  <strong><span id=myx>$mySEC</span></strong> " . $l->get('l_footer_until_update') . " <br>\n";
 // End update counter
 
@@ -100,8 +85,17 @@ if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i",
     $sf_logo_type++; // Make the SF logo darker for all pages except login
 }
 
+if (!isset($_GET['lang']))
+{
+    $link = '';
+}
+else
+{
+    $link = "?lang=" . $_GET['lang'];
+}
+
 echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0;' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
-echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php'>" . $l->get('l_local_news') . "</a></div>";
+echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $l->get('l_local_news') . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
 {

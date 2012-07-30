@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_move_title;
 include "header.php";

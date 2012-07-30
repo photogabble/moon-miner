@@ -20,7 +20,7 @@
 include "config/config.php";
 
 // New database driven language entries
-load_languages($db, $langsh, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 updatecookie();
 

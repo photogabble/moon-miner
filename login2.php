@@ -25,25 +25,32 @@ $playerfound = false;
 $email = $_POST['email'];
 $pass = $_POST['pass'];
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$email'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-if ($res)
+if ($_POST['email'] != null)
 {
-    $playerfound = $res->RecordCount();
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$email'");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    if ($res)
+    {
+        $playerfound = $res->RecordCount();
+    }
+    $playerinfo = $res->fields;
+    $lang = $playerinfo['lang'];
 }
 
-$playerinfo = $res->fields;
-
-$lang = $playerinfo['lang'];
-if (empty ($lang) )
+if (!isset($_GET['lang']))
 {
+    $_GET['lang'] = null;
     $lang = $default_lang;
+    $link = '';
 }
-
-$_SESSION['lang'] = $lang;
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
+}
 
 // New database driven language entries
-load_languages($db, $langsh, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 // first placement of cookie - don't use updatecookie.
 $userpass = $email."+".$pass;
@@ -64,13 +71,17 @@ $title = $l_login_title2;
 
 // Check Banned
 $banned = 0;
-$res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-if ($res->RecordCount() != 0)
+
+if (isset($playerinfo))
 {
-    setcookie("userpass", "", 0, $gamepath, $gamedomain);
-    setcookie("userpass", "", 0); // Delete from default path as well.
-    $banned = 1;
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE '$ip' LIKE ban_mask OR '$playerinfo[ip_address]' LIKE ban_mask");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    if ($res->RecordCount() != 0)
+    {
+        setcookie("userpass", "", 0, $gamepath, $gamedomain);
+        setcookie("userpass", "", 0); // Delete from default path as well.
+        $banned = 1;
+    }
 }
 
 include "header.php";
@@ -144,7 +155,7 @@ if ($playerfound)
 }
 else
 {
-    $l_login_noone = str_replace("[here]", "<a href='new.php'>" . $l_here . "</a>", $l_login_noone);
+    $l_login_noone = str_replace("[here]", "<a href='new.php" . $link . "'>" . $l_here . "</a>", $l_login_noone);
     echo "<strong>" . $l_login_noone . "</strong><br>";
 }
 

@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars, $db_logging);
+load_languages($db, $lang, array('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars, $db_logging);
 
 $title = $l_scan_title;
 include "header.php";

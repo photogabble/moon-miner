@@ -19,15 +19,27 @@
 
 include "config/config.php";
 
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = '';
+}
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
+}
+
 // New database driven language entries
-load_languages($db, $langsh, array('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_new_title;
 include "header.php";
 
 bigtitle ();
 
-echo "<form action='new2.php' method='post'>\n";
+echo "<form action='new2.php" . $link . "' method='post'>\n";
 echo "    <dl class='twocolumn-form'>\n";
 echo "        <dt style='padding:3px'><label for='username'>{$l_login_email}:</label></dt>\n";
 echo "        <dd style='padding:3px'><input type='text' id='username' name='username' size='20' maxlength='40' value='' style='width:200px'></dd>\n";

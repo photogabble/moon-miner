@@ -1,65 +1,46 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD><TITLE>BlackNova Traders Faq</TITLE>
-<META http-equiv=Content-Type content="text/html; charset=windows-1252">
-<STYLE type=text/css>BODY {
-	FONT-SIZE: 14px; BACKGROUND-ATTACHMENT: fixed; COLOR: #c0c0c0
+<?php
+include "config/config.php";
+$title = "Blacknova Traders FAQ";
+$body_class = 'faq';
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = '';
 }
-TABLE {
-	FONT-SIZE: 14px; BACKGROUND-ATTACHMENT: fixed; COLOR: #c0c0c0
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
 }
-P {
-	FONT-SIZE: 14px; COLOR: #c0c0c0
-}
-TD {
-	FONT-SIZE: 14px; COLOR: #c0c0c0
-}
-A {
-	FONT-SIZE: 14px; COLOR: #ffffff; TEXT-DECORATION: none
-}
-.firstbar {
-	FONT-SIZE: 36px; COLOR: #eeeeee; BACKGROUND-COLOR: #500050
-}
-.secondbar {
-	FONT-SIZE: 14px; COLOR: #eeeeee; BACKGROUND-COLOR: #400040
-}
-.header {
-	FONT-WEIGHT: bold; FONT-SIZE: 18px; COLOR: #eeeeee; BACKGROUND-COLOR: #400040
-}
-.subheader {
-	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #eeeeee; BACKGROUND-COLOR: #400040
-}
-.spacer {
-	BACKGROUND-COLOR: #300030
-}
-</STYLE>
-
-<META content="Microsoft FrontPage 5.0" name=GENERATOR></HEAD>
-<BODY background="../images/bgoutspace1.png">
+include "header.php";
+global $l; // The language object
+?>
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=firstbar align=middle>BlackNova Traders FAQ</TD></TR>
+    <TD class="firstbar" align=middle>BlackNova Traders FAQ</TD></TR>
   <TR>
   <TR></TR></TBODY></TABLE><BR>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header align=middle width="25%"><A 
-      href="faq.html#new">New Players</A>
+    <TD class="header" align=middle width="25%"><A 
+      href="faq.php#new">New Players</A>
     <TD>
-    <TD class=header align=middle width="25%"><A 
-      href="faq.html#strategies">Strategies</A>
+    <TD class="header" align=middle width="25%"><A 
+      href="faq.php#strategies">Strategies</A>
     <TD>
-    <TD class=header align=middle width="25%"><A 
-      href="faq.html#misc">Misc</A>
+    <TD class="header" align=middle width="25%"><A 
+      href="faq.php#misc">Misc</A>
     <TD>
-    <TD class=header align=middle width="25%"><A 
-      href="faq.html#qa">Q&amp;A</A>
+    <TD class="header" align=middle width="25%"><A 
+      href="faq.php#qa">Q&amp;A</A>
     <TD></TD></TR></TBODY></TABLE><BR>
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header>Introduction: </TD></TR>
+    <TD class="header">Introduction: </TD></TR>
   <TR>
     <TD>
       <P>Welcome to the BlackNova Traders FAQ. This most recent 
@@ -68,65 +49,65 @@ A {
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header>Table of Contents: </TD></TR>
+    <TD class="header">Table of Contents: </TD></TR>
   <TR>
     <TD>
       <OL type=I>
         <LI><A 
-        href="faq.html#new">For 
+        href="faq.php#new">For 
         Everyone: 
         <OL type=i>
           <LI><A 
-          href="faq.html#new1">New Players 
+          href="faq.php#new1">New Players 
           Guide</A> 
           <LI><A 
-          href="faq.html#new2">The 
+          href="faq.php#new2">The 
           Rules</A> 
           <LI><A 
-          href="faq.html#new3">More 
+          href="faq.php#new3">More 
           Info</A> </LI></OL><BR><BR>
         <LI><A 
-        href="faq.html#strategies">Strategies:</A> 
+        href="faq.php#strategies">Strategies:</A> 
 
         <OL type=i>
           <LI><A 
-          href="faq.html#strategies1">The 
+          href="faq.php#strategies1">The 
           Trader</A> 
           <LI><A 
-          href="faq.html#strategies2">The 
+          href="faq.php#strategies2">The 
           Builder</A> 
           <LI><A 
-          href="faq.html#strategies3">The 
+          href="faq.php#strategies3">The 
           Banker</A> 
           <LI><A 
-          href="faq.html#strategies4">The 
+          href="faq.php#strategies4">The 
           Conqueror</A> 
           <LI><A 
-          href="faq.html#strategies5">The 
+          href="faq.php#strategies5">The 
           Idiot</A> </LI></OL><BR><BR>
         <LI><A 
-        href="faq.html#misc">Misc:</A> 
+        href="faq.php#misc">Misc:</A> 
         <OL type=i>
           <LI><A 
-          href="faq.html#misc1">Cool 
+          href="faq.php#misc1">Cool 
           Tricks</A> 
           <LI><A 
-          href="faq.html#misc2">Planetary 
+          href="faq.php#misc2">Planetary 
           Production Values</A> 
           <LI><A 
-          href="faq.html#misc3">Hull 
+          href="faq.php#misc3">Hull 
           Sizes by Tech Level</A> 
           <LI><A 
-          href="faq.html#misc4">Upgrade 
+          href="faq.php#misc4">Upgrade 
           Costs by Tech Level</A> 
           <LI><A 
-          href="faq.html#misc5">The 
+          href="faq.php#misc5">The 
           Particulars of Combat</A> 
           <LI><A 
-          href="faq.html#misc6">How... 
+          href="faq.php#misc6">How... 
           or How Not to Colonize a Planet</A> </LI></OL><BR><BR>
         <LI><A 
-        href="faq.html#qa">Questions and 
+        href="faq.php#qa">Questions and 
         Answers:</A> 
         <OL type=i>
           
@@ -134,27 +115,27 @@ A {
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header colSpan=3>For Everyone: </TD></TR>
+    <TD class="header" colSpan=3>For Everyone: </TD></TR>
   <TR>
     <TD colSpan=3>
       <P>This is the section to read if you are a new player. 
       <BR><BR></P></TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=new1></A>New Players Guide</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=new1></A>New Players Guide</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
       <P>This will take you to the <A 
-      href="newplayer.html">New Players
-      Guide</A>. Click <A href="newplayer.html">here</A> to find 
+      href="docs/newplayer.html">New Players
+      Guide</a>. Click <a href="newplayer.html">here</a> to find 
       out how to stay alive when you fist log on. <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=new2></A>The Rules</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=new2></A>The Rules</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -184,9 +165,9 @@ A {
       <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=new3></A>More Info</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=new3></A>More Info</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -204,7 +185,7 @@ A {
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header colSpan=3>Strategies: </TD></TR>
+    <TD class="header" colSpan=3>Strategies: </TD></TR>
   <TR>
     <TD colSpan=3>
       <P>These are some generic strategies to help you get started. These aren't 
@@ -217,9 +198,9 @@ A {
       href="newplayer.html">New Player
       Guide</A> first. <BR><BR></P></TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=strategies1></A>The Trader</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=strategies1></A>The Trader</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -243,9 +224,9 @@ A {
       wrong. It's probably a lower tech level in reality. <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=strategies2></A>The Builder</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=strategies2></A>The Builder</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -276,9 +257,9 @@ A {
       <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=strategies3></A>The Banker</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=strategies3></A>The Banker</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -303,9 +284,9 @@ A {
       many planets to produce for you. <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=strategies4></A>The Conqueror</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=strategies4></A>The Conqueror</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -323,9 +304,9 @@ A {
       to defend new "acquisitions". <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=strategies5></A>The Idiot</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=strategies5></A>The Idiot</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -350,16 +331,16 @@ A {
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header colSpan=3>Misc: </TD></TR>
+    <TD class="header" colSpan=3>Misc: </TD></TR>
   <TR>
     <TD colSpan=3>
       <P>This section contains some information on game mechanics. For example, 
       if you want to know how many units of organics your planet can make in a 
       turn, you could probably find it here. <BR><BR></P></TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=misc1></A>Cool Tricks</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=misc1></A>Cool Tricks</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -381,10 +362,10 @@ A {
 </LI></OL><BR><BR></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=misc2></A>Planetary Production 
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=misc2></A>Planetary Production 
       Values</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -419,10 +400,10 @@ A {
       </LI></OL><BR><BR></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=misc3></A>Hull Sizes by Tech 
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=misc3></A>Hull Sizes by Tech 
     Level</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -473,10 +454,10 @@ A {
               <LI>1,683,411 </LI></OL></TD></TR></TBODY></TABLE><BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=misc4></A>Upgrade Costs by Tech 
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=misc4></A>Upgrade Costs by Tech 
       Level</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -522,10 +503,10 @@ A {
               <LI>16,777,216,000 </LI></OL></TD></TR></TBODY></TABLE><BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=misc5></A>The Particulars of 
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=misc5></A>The Particulars of 
     Combat</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -668,10 +649,10 @@ bad.<BR><BR>
       <P>See, I told you it was easy. <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    <TD class=subheader width="90%"><A name=misc6></A>How... or How Not to 
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="subheader" width="90%"><A name=misc6></A>How... or How Not to 
       Colonize a Planet</TD>
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
@@ -704,29 +685,38 @@ bad.<BR><BR>
       mine. By spreading the same number of colonists over a greater number of 
       planets you are increasing the total future amount of residual income. The 
       only downside is that you have more planets to defend. The upside is that 
-      even if you lose one, you have other equally large planets to rely on for 
-      income. 
-      <P>Hence, the moral of this story is not to colonize to 100 million. It's 
-      dumb. I am going to suggest a maximum colonizing limit of 15-25 million 
-      colonists. That gives you a solid planet, but also gives you plenty of 
-      time for the planets to grow. That's just a suggestion. Use your own 
-      judgment. 
+      even if you lose one, you have other equally large planets to rely on for
+      income.
+      <P>Hence, the moral of this story is not to colonize to 100 million. It's
+      dumb. I am going to suggest a maximum colonizing limit of 15-25 million
+      colonists. That gives you a solid planet, but also gives you plenty of
+      time for the planets to grow. That's just a suggestion. Use your own
+      judgment.
       <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR></TBODY></TABLE><A name=qa></A>
 <TABLE cellSpacing=0 width="100%" border=0>
   <TBODY>
   <TR>
-    <TD class=header colSpan=3>Questions and Answers: </TD></TR>
+    <TD class="header" colSpan=3>Questions and Answers: </TD></TR>
   <TR>
     <TD colSpan=3>
-      <P>When people send me questions, I'll answer them here. I'll reprint the 
+      <P>When people send me questions, I'll answer them here. I'll reprint the
       question and answer it to the best of my ability. <BR><BR></P></TD></TR>
   <TR>
-    <TD class=spacer width="5%">&nbsp;</TD>
-    
-    <TD class=spacer width="5%">&nbsp;</TD></TR>
+    <TD class="spacer" width="5%">&nbsp;</TD>
+    <TD class="spacer" width="5%">&nbsp;</TD></TR>
   <TR>
     <TD width="5%">&nbsp;</TD>
     <TD width="90%">
       <P> <BR><BR></P></TD>
     <TD width="5%">&nbsp;</TD></TR></TBODY></TABLE></BODY></HTML>
+<?php
+if (empty($username))
+{
+    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mlogin'));
+}
+else
+{
+    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
+}
+include "footer.php"; ?>

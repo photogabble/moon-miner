@@ -36,13 +36,13 @@ if (!preg_match("/^[\w]+$/", $newlang))
 {
     $newlang = $default_lang;
 }
-
-$lang = $newlang;
-
-$_SESSION['lang'] = $lang;
+else
+{
+    $lang = $_POST['newlang'];
+}
 
 // New database driven language entries
-load_languages($db, $langsh, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 include "header.php";
 bigtitle ();

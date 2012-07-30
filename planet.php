@@ -22,7 +22,7 @@ include "combat.php";
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $langsh, array('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars, $db_logging);
+load_languages($db, $lang, array('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars, $db_logging);
 
 $title = $l_planet_title;
 include "header.php";

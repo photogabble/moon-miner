@@ -18,10 +18,23 @@
 // File: news.php
 
 include "config/config.php";
+
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = '';
+}
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
+}
+
 include "includes/newsservices.php";
 
 // New database driven language entries
-load_languages($db, $langsh, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_news_title;
 include "header.php";
@@ -88,7 +101,8 @@ else
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 
-TEXT_GOTOMAIN ();
+echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
+
 include "footer.php";
 die ();
 ?>

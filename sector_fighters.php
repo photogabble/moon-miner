@@ -23,7 +23,7 @@ if (preg_match("/sector_fighters.php/i", $_SERVER['PHP_SELF'])) {
 }
 
 // New database driven language entries
-load_languages($db, $langsh, array('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include_once "includes/destroy_fighters.php";
 include_once "includes/cancel_bounty.php";

@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
 
 $title = $l_sendm_title;
 include "header.php";

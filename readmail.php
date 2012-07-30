@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
 
 $title = $l_readm_title;
 include "header.php";

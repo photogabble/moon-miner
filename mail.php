@@ -21,7 +21,7 @@
 include "config/config.php";
 
 // New database driven language entries
-load_languages($db, $langsh, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_mail_title;
 include "header.php";

@@ -19,21 +19,20 @@
 
 include "config/config.php";
 
-// Added these variables for future reference- we'll move em to config values
-// *eventually* - the goal will be to move "start up" config values to some other location
-// where we will only include them where needed - why include em every page load, when they are used maybe 1% of the time?
-
-$start_lssd = 'N';  // Do ships start with an lssd ?
-$start_editors = 0;// Starting warp editors
-$start_minedeflectors = 0;// Start mine deflectors
-$start_emerwarp = 0; // Start emergency warp units
-$start_beacon = 0; // Start space_beacons
-$start_genesis = 0; // Starting genesis torps
-$escape = 'N';  // Start game equip[[ped with escape pod?]]
-$scoop = 'N';  // Start game equipped with fuel scoop?
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = '';
+}
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
+}
 
 // New database driven language entries
-load_languages($db, $langsh, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_new_title2;
 include "header.php";
@@ -61,6 +60,15 @@ if (array_key_exists('shipname', $_POST))
 if (array_key_exists('username', $_POST))
 {
     $username   = $_POST['username'];
+}
+
+if (array_key_exists('lang', $_POST))
+{
+    $lang   = $_POST['lang'];
+}
+else
+{
+    $lang = $default_lang;
 }
 
 $character = htmlspecialchars ($character);
@@ -98,7 +106,7 @@ while (!$result->EOF)
     if (strtolower ($row['character_name']) == strtolower($character))
     {
         $l_new_inusechar=str_replace("[character]", $character, $l_new_inusechar);
-        echo $l_new_inusechar . '<br>'; 
+        echo $l_new_inusechar . '<br>';
         $flag = 1;
     }
     if (strtolower ($row['ship_name']) == strtolower ($shipname))
@@ -139,8 +147,8 @@ if ($flag == 0)
         $mturns = $max_turns;
     }
 
-    $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name,ship_destroyed,character_name,password,email,armor_pts,credits,ship_energy,ship_fighters,turns,on_planet,dev_warpedit,dev_genesis,dev_beacon,dev_emerwarp,dev_escapepod,dev_fuelscoop,dev_minedeflector,last_login,ip_address,trade_colonists,trade_fighters,trade_torps,trade_energy,cleared_defences,lang,dev_lssd)
-                             VALUES ('$shipname','N','$character','$makepass','$username',$start_armor,$start_credits,$start_energy,$start_fighters,$mturns,'N',$start_editors,$start_genesis,$start_beacon,$start_emerwarp,'$escape','$scoop',$start_minedeflectors,'$stamp','$ip','Y','N','N','Y',NULL,'$default_lang', '$start_lssd')");
+    $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
+                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", array ($shipname, 'N', $character, $makepass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $escape, $scoop, $start_minedeflectors, $stamp, $ip, 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
     db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
 
     if (!$result2)
@@ -157,7 +165,7 @@ if ($flag == 0)
         // To do: build a bit better "new player" message
         $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
         $l_new_message = str_replace("[ip]", $ip, $l_new_message);
- 
+
         # Some reason \r\n is broken, so replace them now.
         $l_new_message = str_replace('\r\n', "\r\n", $l_new_message);
 
@@ -181,7 +189,7 @@ if ($flag == 0)
 
         $l_new_pwsent=str_replace("[username]", $_POST['username'], $l_new_pwsent);
         echo $l_new_pwsent . '<br><br>';
-        echo "<a href=index.php>$l_clickme</A> $l_new_login";
+        echo "<a href=index.php" . $link . ">$l_clickme</A> $l_new_login";
     }
 }
 else

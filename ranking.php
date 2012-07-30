@@ -20,8 +20,22 @@
 include "config/config.php";
 updatecookie();
 
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = 'ranking.php';
+    $link_back = '';
+}
+else
+{
+    $lang = $_GET['lang'];
+    $link = "ranking.php?lang=" . $lang;
+    $link_back = '?lang=' . $lang;
+}
+
 // New database driven language entries
-load_languages($db, $langsh, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $langvars, $db_logging);
+load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $langvars, $db_logging);
 
 $l_ranks_title = str_replace("[max_ranks]", $max_ranks, $l_ranks_title);
 $title = $l_ranks_title;
@@ -80,7 +94,20 @@ else
     echo "<br>$l_ranks_pnum: " . NUMBER($num_players);
     echo "<br>$l_ranks_dships<br><br>";
     echo "<table border=0 cellspacing=0 cellpadding=2>";
-    echo "<tr bgcolor=\"$color_header\"><td><strong>$l_ranks_rank</strong></td><td><strong><a href=\"ranking.php\">$l_score</A></strong></td><td><strong>$l_player</strong></td><td><strong><a href=\"ranking.php?sort=turns\">$l_turns_used</A></strong></td><td><strong><a href=\"ranking.php?sort=login\">$l_ranks_lastlog</A></strong></td><td><strong><a href=\"ranking.php?sort=good\">$l_ranks_good</A>/<a href=\"ranking.php?sort=bad\">$l_ranks_evil</A></strong></td><td><strong><a href=\"ranking.php?sort=team\">$l_team_team</A></strong></td><td><strong><a href=\"ranking.php?sort=online\">Online</A></strong></td><td><strong><a href=\"ranking.php?sort=efficiency\">Eff. Rating.</A></strong></td></tr>\n";
+    echo "<tr bgcolor=\"$color_header\">";
+    echo "<td><strong>$l_ranks_rank</strong></td>";
+    echo "<td><strong><a href=\"" . $link . "\">$l_score</a></strong></td>";
+    echo "<td><strong>$l_player</strong></td>";
+    if ($link != null)
+    {
+        $link .= "&amp;sort=";
+    }
+    echo "<td><strong><a href=\"" . $link . "turns\">$l_turns_used</a></strong></td>";
+    echo "<td><strong><a href=\"" . $link . "login\">$l_ranks_lastlog</a></strong></td>";
+    echo "<td><strong><a href=\"" . $link . "good\">$l_ranks_good</a>/<a href=\"" . $link . "?sort=bad\">$l_ranks_evil</a></strong></td>";
+    echo "<td><strong><a href=\"" . $link . "team\">$l_team_team</a></strong></td>";
+    echo "<td><strong><a href=\"" . $link . "online\">Online</a></strong></td>";
+    echo "<td><strong><a href=\"" . $link . "efficiency\">Eff. Rating.</a></strong></td></tr>\n";
     $color = $color_line1;
     $i = '';
     while (!$res->EOF)
@@ -129,13 +156,23 @@ else
 
 echo "<br>";
 
-if (empty($username))
+if (!isset($_GET['lang']))
 {
-    TEXT_GOTOLOGIN();
+    $_GET['lang'] = null;
+    $lang = $default_lang;
 }
 else
 {
-    TEXT_GOTOMAIN();
+    $lang = $_GET['lang'];
+}
+
+if (empty($username))
+{
+    echo str_replace("[here]", "<a href='index.php" . $link_back . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mlogin'));
+}
+else
+{
+    echo str_replace("[here]", "<a href='main.php" . $link_back . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
 }
 
 include "footer.php";

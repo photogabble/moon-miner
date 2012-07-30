@@ -154,3 +154,11 @@ div.index-flags img { height:16px}
          -o-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
 }
+
+body.faq { color:#c0c0c0; font-size:14px; height:14px;}
+body.faq a { color:#ffffff; text-decoration: none}
+body.faq td.firstbar { background-color:#500050; color:#eeeeee; font-size:36px; height:36px}
+body.faq td.secondbar { background-color:#400040; color:#eeeeee; font-size:14px; height:14px}
+body.faq td.header { background-color:#400040; color:#eeeeee; font-size:18px; font-weight:bold; height:18px}
+body.faq td.subheader { background-color:#400040; color:#eeeeee; font-size:16px; font-weight:bold; height:16px}
+body.faq td.spacer { background-color:#300030}

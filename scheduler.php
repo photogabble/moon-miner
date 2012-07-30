@@ -71,7 +71,7 @@ $title = $l_sys_update;
 //global $default_lang;
 
 // New database driven language entries
-load_languages($db, $langsh, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include "header.php";
 connectdb();

@@ -24,17 +24,19 @@ if (!isset($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $default_lang;
+    $link = '';
 }
 else
 {
     $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
 }
 
-// Check to see if the language database has been installed yet. If not, redirect to create_universe.
-$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array('common', $langsh));
+// Check to see if the language database has been installed yet.
+$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array('common', $lang));
 if (!$result)
 {
-    echo "Universe creation has not occurred yet. Please run <a href='create_universe.php'>create universe</a>. We will now redirect you to that page.<br>";
+    // If not, redirect to create_universe.
     header("Location: create_universe.php");
     die ();
 }
@@ -56,26 +58,26 @@ include "header.php";
 <h2 style="display:none">Navigation</h2>
 <div class="navigation" role="navigation">
 <ul class="navigation">
-<li class="navigation"><a href="new.php"><span class="button blue"><span class="shine"></span><?php echo $l->get('l_new_player'); ?></span></a></li>
+<li class="navigation"><a href="new.php<?php echo $link; ?>"><span class="button blue"><span class="shine"></span><?php echo $l->get('l_new_player'); ?></span></a></li>
 <li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo $l->get('l_login_emailus'); ?></span></a></li>
-<li class="navigation"><a href="ranking.php"><span class="button purple"><span class="shine"></span><?php echo $l->get('l_rankings'); ?></span></a></li>
-<li class="navigation"><a href="docs/faq.html"><span class="button brown"><span class="shine"></span><?php echo $l->get('l_faq'); ?></span></a></li>
-<li class="navigation"><a href="settings.php"><span class="button red"><span class="shine"></span><?php echo $l->get('l_settings'); ?></span></a></li>
+<li class="navigation"><a href="ranking.php<?php echo $link; ?>"><span class="button purple"><span class="shine"></span><?php echo $l->get('l_rankings'); ?></span></a></li>
+<li class="navigation"><a href="faq.php<?php echo $link; ?>"><span class="button brown"><span class="shine"></span><?php echo $l->get('l_faq'); ?></span></a></li>
+<li class="navigation"><a href="settings.php<?php echo $link; ?>"><span class="button red"><span class="shine"></span><?php echo $l->get('l_settings'); ?></span></a></li>
 <li class="navigation"><a href="<?php echo $link_forums; ?>" target="_blank"><span class="button orange"><span class="shine"></span><?php echo $l->get('l_forums'); ?></span></a></li>
 </ul></div><br style="clear:both">
 <div><p></p></div>
 <div class="index-welcome">
 <h1 class="index-h1"><?php echo $l->get('l_welcome_bnt'); ?></h1>
 <p><?php echo $l->get('l_bnt_description'); ?><br></p>
-<form action="login2.php" method="post">
+<form action="login2.php<?php echo $link; ?>" method="post">
 <dl class="twocolumn-form">
-<dt><label for="email"><?php echo $l->get('l_login_email'); ?>:</label></dt>
+<dt><label for="email"><?php echo $l->get('l_login_email'); ?></label></dt>
 <dd><input type="email" id="email" name="email" size="20" maxlength="40"></dd>
 <dt><label for="pass"><?php echo $l->get('l_login_pw'); ?></label></dt>
 <dd><input type="password" id="pass" name="pass" size="20" maxlength="20"></dd>
 </dl>
 <br style="clear:both">
-<div style="text-align:center">Forgot your password?&nbsp; &nbsp;Enter it blank and press login.</div><br>
+<div style="text-align:center"><?php echo $l->get('l_login_forgotpw'); ?></div><br>
 <div style="text-align:center">
 <input class="button green" type="submit" value="<?php echo $l->get('l_login_title'); ?>">
 </div>

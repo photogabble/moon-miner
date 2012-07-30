@@ -21,7 +21,7 @@ include "config/config.php";
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $langsh, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 include_once "includes/cancel_bounty.php";
 

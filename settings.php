@@ -19,8 +19,20 @@
 
 include "config/config.php";
 
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = '';
+}
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
+}
+
 // New database driven language entries
-load_languages($db, $langsh, array('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include "header.php";
 
@@ -315,11 +327,11 @@ echo "<br>\n";
 
 if (empty($username))
 {
-  TEXT_GOTOLOGIN();
+    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mlogin'));
 }
 else
 {
-  TEXT_GOTOMAIN();
+    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
 }
 
 include "footer.php";

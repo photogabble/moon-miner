@@ -76,7 +76,10 @@ if (!isset($index_page))
 if (!$index_page)
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
-    session_start ();
+    if (!isset($_SESSION))
+    {
+        session_start();
+    }
 }
 
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
@@ -115,6 +118,28 @@ if ($userpass != '' and $userpass != '+')
     $password = substr ($userpass, strpos ($userpass, "+")+1);
 }
 
+$lang = $default_lang;
+
+if (empty($username))  // If the user has not logged in
+{
+    if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
+    {
+        $lang = $_GET['lang'];  // Set $lang to the language the user has chosen
+    }
+}
+else // The user has logged in, so use his preference from the database
+{
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    if ($res)
+    {
+        $playerfound = $res->RecordCount();
+    }
+
+    $playerinfo = $res->fields;
+    $lang = $playerinfo['lang'];
+}
+
 $avail_lang[0]['file'] = 'english';
 $avail_lang[0]['name'] = 'English';
 $avail_lang[1]['file'] = 'french';
@@ -123,48 +148,6 @@ $avail_lang[2]['file'] = 'german';
 $avail_lang[2]['name'] = 'German';
 $avail_lang[3]['file'] = 'spanish';
 $avail_lang[3]['name'] = 'Spanish';
-
-// Ensure lang is set
-$found = 0;
-
-if (!$index_page)
-{
-    if (isset($_SESSION['lang']))
-    {
-        $lang = $_SESSION['lang'];
-    }
-}
-
-if (!empty($lang))
-{
-    if (!preg_match("/^[\w]+$/", $lang))
-    {
-        $lang = $default_lang;
-    }
-
-    foreach ($avail_lang as $key => $value)
-    {
-        if ($lang == $value['file'])
-        {
-            $_SESSION['lang'] = $lang;
-            $found = 1;
-            break;
-        }
-    }
-
-    if ($found == 0)
-    {
-        $lang = $default_lang;
-    }
-}
-
-if (!isset($lang) || empty($lang))
-{
-    $lang = $default_lang;
-}
-
-$langsh = $lang;
-// $lang = $lang . ".inc"; // eliminated these files
 
 if (empty($link_forums))
 {

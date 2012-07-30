@@ -20,7 +20,7 @@
 include "config/config.php";
 updatecookie ();
 
-# Hack for log bug issue, *** this really needs to be fixed ***
+// Hack for log bug issue - this really needs to be fixed
 $LOG_LIST = array(null,
         'LOG_LOGIN', 'LOG_LOGOUT', 'LOG_ATTACK_OUTMAN', 'LOG_ATTACK_OUTSCAN', 'LOG_ATTACK_EWD','LOG_ATTACK_EWDFAIL', 'LOG_ATTACK_LOSE', 'LOG_ATTACKED_WIN', 'LOG_TOLL_PAID', 'LOG_HIT_MINES',
         'LOG_SHIP_DESTROYED_MINES', 'LOG_PLANET_DEFEATED_D', 'LOG_PLANET_DEFEATED', 'LOG_PLANET_NOT_DEFEATED', 'LOG_RAW', 'LOG_TOLL_RECV', 'LOG_DEFS_DESTROYED', 'LOG_PLANET_EJECT', 'LOG_BADLOGIN', 'LOG_PLANET_SCAN',
@@ -31,7 +31,7 @@ $LOG_LIST = array(null,
                 );
 
 // New database driven language entries
-load_languages($db, $langsh, array('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
 
 $title = $l_log_titlet;
 $body_class = 'log';

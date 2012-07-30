@@ -187,7 +187,7 @@ function newsTicker(inst)
 			}
 			else
 			{
-				this.output("<A class='headlines' target=_new href='" + ticketArticle[instance].URL[article[instance]] + "'>" + ticketArticle[instance].TEXT[article[instance]] + "</" + "A>");
+				this.output("<a class='headlines' href='" + ticketArticle[instance].URL[article[instance]] + "'>" + ticketArticle[instance].TEXT[article[instance]] + "</" + "a>");
 				this.nextArticle();
 				return true;
 			}
