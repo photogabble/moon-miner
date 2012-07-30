@@ -27,7 +27,7 @@ if (result == true)
     // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
 
 <?php
-    global $db_logging
+    global $db_logging;
 
     $startdate = date("Y/m/d");
     $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
