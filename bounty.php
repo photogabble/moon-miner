@@ -212,7 +212,7 @@ switch ($response) {
             $score = gen_score ($playerinfo['ship_id']);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
-            $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = ? AND placed_by = ?", array($bounty_on, $playerinfo['ship_id']);
+            $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = ? AND placed_by = ?;", array($bounty_on, $playerinfo['ship_id']));
             db_op_result ($db, $pb, __LINE__, __FILE__, $db_logging);
             if ($pb)
             {
@@ -230,7 +230,7 @@ switch ($response) {
             }
         }
 
-        $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?)", array($bounty_on, $playerinfo['ship_id'] ,$amount))");
+        $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?);", array($bounty_on, $playerinfo['ship_id'] ,$amount));
         db_op_result ($db, $insert, __LINE__, __FILE__, $db_logging);
         $stamp = date("Y-m-d H-i-s");
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login=?, turns=turns-1, turns_used=turns_used+1, credits=credits-? WHERE ship_id=?", array($stamp, $amount, $playerinfo['ship_id']));
