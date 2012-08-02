@@ -1,3 +1,7 @@
+TheMightyDude (02 August 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: l_igb_invalidamount in igb.php
+
 TheMightyDude (31 July 2012)
 --------------------------------------
 Fixed bug in bounty.php causing a HTTP 500 Internal Server Error when viewed.

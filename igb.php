@@ -894,6 +894,7 @@ function IGB_repay()
   global $playerinfo, $account, $amount;
   global $l_igb_notrepay, $l_igb_notenoughrepay,$l_igb_payloan;
   global $l_igb_shipaccount, $l_igb_currentloan, $l_igb_loanthanks;
+  global $l_igb_invalidamount;
   global $db, $l_igb_back, $l_igb_logout, $db_logging;
 
   $amount = StripNonNum($amount);
