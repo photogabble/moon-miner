@@ -1014,7 +1014,7 @@ function shiptoship($ship_id)
         }
         else
         {
-            $l_cmb_helostsomefighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo[ship_name], $l_cmb_helostsomefighters);
+            $l_cmb_helostsomefighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_helostsomefighters);
             $l_cmb_helostsomefighters = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_helostsomefighters);
             echo "$l_cmb_helostsomefighters<br>";
             $temptargfighters = $targetfighters - $attackerfighters;
@@ -1177,7 +1177,7 @@ function shiptoship($ship_id)
         $target_armor_lost = $targetinfo['armor_pts'] - $targetarmor;
         $target_fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
         $target_energy = $targetinfo['ship_energy'];
-        playerlog ($db, $targetinfo[ship_id], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
+        playerlog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
         $update4 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armor_pts=armor_pts-$target_armor_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
         db_op_result ($db, $update4, __LINE__, __FILE__, $db_logging);
     }
