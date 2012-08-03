@@ -471,7 +471,7 @@ function corp_planet_checkboxes($planet, $i)
     {
         return("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' />");
     }
-    elseif ($planet[$i][corp] > 0)
+    elseif ($planet[$i]['corp'] > 0)
     {
         return("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' checked />");
     }
