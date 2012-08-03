@@ -352,7 +352,7 @@ function IGB_transfer2()
   global $l_igb_seltransferamount, $l_igb_transfer, $l_igb_back, $l_igb_logout, $l_igb_in;
   global $l_igb_errplanetsrcanddest, $l_igb_errunknownplanet, $l_igb_unnamed;
   global $l_igb_errnotyourplanet, $l_igb_planettransfer, $l_igb_srcplanet, $l_igb_destplanet;
-  global $l_igb_transferrate2, $l_igb_seltransferamount;
+  global $l_igb_transferrate2, $l_igb_seltransferamount, $l_igb_errnobase;
   global $db, $db_logging;
 
   if (isset($ship_id)) //ship transfer
