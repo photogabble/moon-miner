@@ -4,6 +4,7 @@ Fixed bug in news.php where some dates wasn't working.
 Fixed Notice: Use of undefined constant ship_name - assumed 'ship_name' in combat.php
 Fixed Notice: Use of undefined constant ship_id - assumed 'ship_id' in combat.php
 Fixed Notice: Undefined variable: l_igb_errnobase in igb.php
+Fixed Notice: Undefined variable: op in mines.php
 
 TheMightyDude (02 August 2012)
 --------------------------------------

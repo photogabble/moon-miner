@@ -31,6 +31,16 @@ if (checklogin () )
     die ();
 }
 
+$op = null;
+if (array_key_exists('op', $_GET) == true)
+{
+    $op = $_GET['op'];
+}
+elseif(array_key_exists('op', $_POST) == true)
+{
+    $op = $_POST['op'];
+}
+
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 $playerinfo = $res->fields;
