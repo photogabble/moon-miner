@@ -39,21 +39,21 @@ load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'c
 $title = $l_news_title;
 include "header.php";
 
-if ((!isset($_GET['startdate'])) || ($_GET['startdate'] == ''))
+$startdate = date("Y/m/d");
+if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] != ''))
 {
     // The date wasn't supplied so use today's date
-    $_GET['startdate'] = date("Y-m-d");
+    $startdate = $_GET['startdate'];
 }
 
 // Check and validate the date.
-$startdate = substr ($_GET['startdate'], 0, 10);
-$validformat = preg_match('/^(\d\d\d\d)\/(\d\d?)\/(\d\d?)$/', $startdate, $regs);
-
-if (!($validformat && $regs[1] >= 1900 && $regs[1] <= date("Y") + 1000 && ($regs[2] < 12) && ($regs[3] < 30)))
+$validformat = preg_match("/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/", $startdate, $regs);
+if($validformat !=1 || checkdate($regs[2], $regs[3], $regs[1]) == false)
 {
     // The date wasn't supplied so use today's date
     $startdate = date("Y/m/d");
 }
+
 
 $previousday = getpreviousday ($startdate);
 $nextday = getnextday ($startdate);
