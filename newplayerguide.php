@@ -1,67 +1,48 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML><HEAD><TITLE>BlackNova Traders Faq</TITLE>
-<META http-equiv=Content-Type content="text/html; charset=windows-1252">
-<STYLE type=text/css>BODY {
-	FONT-SIZE: 14px; BACKGROUND-ATTACHMENT: fixed; COLOR: #c0c0c0
+<?php
+include "config/config.php";
+$title = "Blacknova Traders FAQ";
+$body_class = 'faq';
+if (!isset($_GET['lang']))
+{
+    $_GET['lang'] = null;
+    $lang = $default_lang;
+    $link = '';
 }
-TABLE {
-	FONT-SIZE: 14px; BACKGROUND-ATTACHMENT: fixed; COLOR: #c0c0c0
+else
+{
+    $lang = $_GET['lang'];
+    $link = "?lang=" . $lang;
 }
-P {
-	FONT-SIZE: 14px; COLOR: #c0c0c0
-}
-TD {
-	FONT-SIZE: 14px; COLOR: #c0c0c0
-}
-A {
-	FONT-SIZE: 14px; COLOR: #ffffff; TEXT-DECORATION: none
-}
-.firstbar {
-	FONT-SIZE: 36px; COLOR: #eeeeee; BACKGROUND-COLOR: #500050
-}
-.secondbar {
-	FONT-SIZE: 14px; COLOR: #eeeeee; BACKGROUND-COLOR: #400040
-}
-.header {
-	FONT-WEIGHT: bold; FONT-SIZE: 18px; COLOR: #eeeeee; BACKGROUND-COLOR: #400040
-}
-.subheader {
-	FONT-WEIGHT: bold; FONT-SIZE: 16px; COLOR: #eeeeee; BACKGROUND-COLOR: #400040
-}
-.spacer {
-	BACKGROUND-COLOR: #300030
-}
-</STYLE>
-
-<META content="MSHTML 5.50.4616.200" name=GENERATOR></HEAD>
-<BODY background="../images/bgoutspace1.png">
-<TABLE cellSpacing=0 width="100%" border=0>
-  <TBODY>
-  <TR>
-    <TD class=firstbar align=middle>BlackNova Traders New Players Guide</TD></TR>
-  <TR>
-    <TD class=secondbar align=middle>How to Play</TD>
-  <TR></TR></TBODY></TABLE><BR>
-<TABLE cellSpacing=0 width="100%" border=0>
-  <TBODY>
-  <TR>
-    <TD>
+include "header.php";
+global $l; // The language object
+?>
+<table>
+  <tbody>
+  <tr>
+    <td class=firstbar>BlackNova Traders New Players Guide</td></tr>
+  <tr>
+    <td class=secondbar>How to Play</td>
+  </tr></tbody></table><br>
+<table>
+  <tbody>
+  <tr>
+    <td>
       <P>Welcome to the New Players Guide. You can always go back to the <A 
-      href="faq.html">FAQ</A> if you came here by accident. Good luck in the game. 
-</P></TD></TR></TBODY></TABLE><BR>
-<TABLE cellSpacing=0 width="100%" border=0>
-  <TBODY>
-  <TR>
-    <TD class=header>Introduction: </TD></TR>
-  <TR>
-    <TD>
+      href="faq.php">FAQ</A> if you came here by accident. Good luck in the game. 
+</P></td></tr></tbody></table><br>
+<table>
+  <tbody>
+  <tr>
+    <td class=header>Introduction: </td></tr>
+  <tr>
+    <td>
       <P>Blacknova Traders is loosely based on the BBS game Tradewars. In this
       game, you are equipped with a basic ship with which you can trade goods between
       space ports to earn credits to upgrade your ship. Upgrades include larger cargo hulls
       so you can trade more in each turn (hence more money per turn), better weaponry, engines
       and sensors. You can also colonise planets, which will produce goods and money for you.
       <P>After the first fews days of trading, you need to decide on a strategy. Some general strategies are
-      listed on the <A href="faq.html">FAQ</A> page. Its reccommended that you use the Trader up until about hull level 17 or so and then 
+      listed on the <A href="faq.php">FAQ</A> page. Its reccommended that you use the Trader up until about hull level 17 or so and then 
       switching over to the Builder. </P> 
 
 
@@ -115,7 +96,7 @@ A {
         device to try and sneak in to the sector. Sector fighters require energy from a friendly planet in the same sector, otherwise they begin to degrade. The default amount of energy required is 1 unit of energy per 10 ships. Energy can be taken from any of your planets or from a corporate planet from your team in that sector.
         <LI> Planets can created using a genesis torpedoe. Planets can produce commodoties and credits to fund your ship. The more colonists you have, the more they produce. You can use traderoutes to populate your planets from special ports.
         <LI>Now go to the regular <A 
-        href="faq.html">FAQ</A> and pick 
+        href="faq.php">FAQ</A> and pick 
         a strategy to follow. Or make up your own. </LI></OL>
       <P> Here's a list of things for new players NOT to do: 
       <OL>
@@ -126,13 +107,13 @@ A {
         decide to kill you. 
         <LI>Don't attack anyone who is ranked higher than you. You will most 
         likely die in the attempt. </LI></OL>
-</TD></TR></TBODY></TABLE><BR>
-<TABLE cellSpacing=0 width="100%" border=0>
-  <TBODY>
-  <TR>
-    <TD class=header>Some helpful hints: </TD></TR>
-  <TR>
-    <TD>
+</td></tr></tbody></table><br>
+<table>
+  <tbody>
+  <tr>
+    <td class=header>Some helpful hints: </td></tr>
+  <tr>
+    <td>
       <P>This is just a random listing of helpful hints. Most of them come from 
       the forums or the other top players. 
       <OL>
@@ -160,13 +141,13 @@ A {
         <LI>If you don't use a utility to map where you've been, write down all 
         specials, planets and who own them, goods ports, and ore ports you run 
         across. It's nice to know where a new ore port.
-</LI></OL></TD></TR></TBODY></TABLE><BR>
-<TABLE cellSpacing=0 width="100%" border=0>
-  <TBODY>
-  <TR>
-    <TD class=header>Glossary: </TD></TR>
-  <TR>
-    <TD>
+</LI></OL></td></tr></tbody></table><br>
+<table>
+  <tbody>
+  <tr>
+    <td class=header>Glossary: </td></tr>
+  <tr>
+    <td>
       <P>
       <OL>
         <LI><B>creds</B>- short for credits. 
@@ -182,4 +163,16 @@ A {
         using your engines to move. 
         <LI><B>sol bump</B>- when you're above a certain level you automatically 
         get kicked out of federation space. People call this a sol bump. 
-    </LI></OL></TD></TR></TBODY></TABLE></BODY></HTML>
+    </LI></OL></td></tr></tbody></table>
+
+<?php
+if (empty($username))
+{
+    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mlogin'));
+}
+else
+{
+    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
+}
+include "footer.php"; ?>
+
