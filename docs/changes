@@ -1,3 +1,9 @@
+TheKabal (05 August 2012)
+--------------------------------------
+Migrated newplayer guide and faq to PHP, fixed html, fixed CSS for them, changed all links to point to their new locations
+Bumped version number for release
+Removed dev file before release
+
 TheMightyDude (05 August 2012)
 --------------------------------------
 Fixed Notice: Undefined index: pore, porganics, pgoods, penergy, pfighters and ptorp in planet.php
