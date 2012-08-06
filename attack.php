@@ -103,7 +103,7 @@ else
     $roll2 = mt_rand (1, 100);
 
     $res = $db->Execute("SELECT allow_attack,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=? AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id", array($targetinfo['sector']));
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $zoneinfo = $res->fields;
 
     if ($zoneinfo['allow_attack'] == 'N')

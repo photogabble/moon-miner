@@ -55,7 +55,7 @@ else
 if ($playerinfo['dev_beacon'] > 0)
 {
     $res = $db->Execute("SELECT allow_beacon FROM {$db->prefix}zones WHERE zone_id=?", array($sectorinfo['zone_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_beacon'] == 'N')
     {
