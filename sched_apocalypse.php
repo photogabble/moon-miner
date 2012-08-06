@@ -25,16 +25,16 @@ if (preg_match("/sched_apocalypse.php/i", $_SERVER['PHP_SELF']))
 
 echo "<strong>PLANETARY APOCALYPSE</strong><br><br>";
 echo "The four horsemen of the apocalypse set forth...<br>";
-$doomsday = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE colonists > $doomsday_value");
-db_op_result ($db, $doomsday, __LINE__, __FILE__, $db_logging);
+$doomsday = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE colonists > ?", array($doomsday_value));
+db_op_result ($db, $doomsday, __LINE__, __FILE__);
 $chance = 9;
 $reccount = $doomsday->RecordCount();
 if ($reccount > 200)
 {
-    $chance = 7; // increase chance it will happen if we have lots of planets meeting the criteria
+    $chance = 7; // Increase the chance it will happen if we have lots of planets meeting the criteria
 }
 
-$affliction = mt_rand(1,$chance); // the chance something bad will happen
+$affliction = mt_rand (1, $chance); // The chance something bad will happen
 if ($doomsday && $affliction < 3 && $reccount > 0)
 {
     $i = 1;
@@ -52,16 +52,16 @@ if ($doomsday && $affliction < 3 && $reccount > 0)
     if ($affliction == 1) // Space Plague
     {
         echo "The horsmen release the Space Plague!<br>.";
-        $resx = $db->Execute("UPDATE {$db->prefix}planets SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
-        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        $resx = $db->Execute("UPDATE {$db->prefix}planets SET colonists = ROUND (colonists - colonists * ?) WHERE planet_id = ?", array($space_plague_kills, $targetinfo['planet_id']));
+        db_op_result ($db, $resx, __LINE__, __FILE__);
         $logpercent = ROUND ($space_plague_kills * 100);
         playerlog ($db, $targetinfo['owner'], LOG_SPACE_PLAGUE, "$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
     }
     else
     {
         echo "The horsemen release a Plasma Storm!<br>.";
-        $resy = $db->Execute("UPDATE {$db->prefix}planets SET energy = 0 WHERE planet_id = $targetinfo[planet_id]");
-        db_op_result ($db, $resy, __LINE__, __FILE__, $db_logging);
+        $resy = $db->Execute("UPDATE {$db->prefix}planets SET energy = 0 WHERE planet_id = ?", array($targetinfo['planet_id']));
+        db_op_result ($db, $resy, __LINE__, __FILE__);
         playerlog ($db, $targetinfo['owner'], LOG_PLASMA_STORM, "$targetinfo[name]|$targetinfo[sector_id]");
     }
 }
