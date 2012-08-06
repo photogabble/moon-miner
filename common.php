@@ -15,9 +15,11 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: global_cleanups.php
+// File: common.php
+//
+// This file must not contain any include/require type actions - those must occur in global_includes instead.
 
-if (preg_match("/global_cleanups.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/common.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
@@ -130,7 +132,7 @@ if (empty($username))  // If the user has not logged in
 else // The user has logged in, so use his preference from the database
 {
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
         $playerfound = $res->RecordCount();
