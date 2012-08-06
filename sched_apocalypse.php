@@ -37,13 +37,13 @@ if ($reccount > 200)
 $affliction = mt_rand(1,$chance); // the chance something bad will happen
 if ($doomsday && $affliction < 3 && $reccount > 0)
 {
-    $i=1;
-    $targetnum = mt_rand(1,$reccount);
+    $i = 1;
+    $targetnum = mt_rand (1, $reccount);
     while (!$doomsday->EOF)
     {
-        if ($i==$targetnum)
+        if ($i == $targetnum)
         {
-            $targetinfo=$doomsday->fields;
+            $targetinfo = $doomsday->fields;
             break;
         }
         $i++;
@@ -54,7 +54,7 @@ if ($doomsday && $affliction < 3 && $reccount > 0)
         echo "The horsmen release the Space Plague!<br>.";
         $resx = $db->Execute("UPDATE {$db->prefix}planets SET colonists = ROUND(colonists-colonists*$space_plague_kills) WHERE planet_id = $targetinfo[planet_id]");
         db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-        $logpercent = ROUND($space_plague_kills * 100);
+        $logpercent = ROUND ($space_plague_kills * 100);
         playerlog ($db, $targetinfo['owner'], LOG_SPACE_PLAGUE, "$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
     }
     else

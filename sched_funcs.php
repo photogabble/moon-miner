@@ -33,15 +33,4 @@ function QUERYOK ($res)
         die (" Failed.");
     }
 }
-
-function get_player_name ($userid)
-{
-    global $db, $db_logging;
-
-    $query = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id='$userid'");
-    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
-    $name = $query->fields;
-
-    return $name['character_name'];
-}
 ?>
