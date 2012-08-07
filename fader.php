@@ -27,16 +27,17 @@ if (result == true)
     // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
 
 <?php
-    global $db_logging;
+    // New database driven language entries
+    load_languages($db, $lang, array('news'), $langvars, $db_logging);
 
     $startdate = date("Y/m/d");
     $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
 
     if ($res->EOF)
     {
         echo "    url = 'news.php';\n";
-        echo "    text = \"{$l->get('l_news_none')}\";\n";
+        echo "    text = \"{$l_news_none}\";\n";
         echo "    type = null;    // Not used as yet.\n";
         echo "    delay = 5;                       // in seconds.\n";
         echo "    news.addArticle(url, text, type, delay);\n";
