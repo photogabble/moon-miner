@@ -17,6 +17,9 @@
 //
 // File: header.php
 
+// New database driven language entries
+load_languages($db, $lang, array('common'), $langvars, $db_logging);
+
 header("Content-type: text/html; charset=utf-8");
 header("X-UA-Compatible: IE=Edge, chrome=1");
 header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
@@ -30,7 +33,7 @@ if (!isset($body_class))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $l->get('l_lang_attribute'); ?>">
+<html lang="<?php echo $l_lang_attribute; ?>">
 <head>
 <meta charset="utf-8">
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
