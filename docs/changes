@@ -1,3 +1,7 @@
+TheMightyDude (07 August 2012)
+--------------------------------------
+Fixed issue with perfmon.php where when you click on the explain links it then had issues with the database.
+
 TheKabal (05 August 2012)
 --------------------------------------
 Migrated newplayer guide and faq to PHP, fixed html, fixed CSS for them, changed all links to point to their new locations
