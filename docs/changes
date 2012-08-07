@@ -1,6 +1,7 @@
 TheMightyDude (07 August 2012)
 --------------------------------------
 Fixed issue with perfmon.php where when you click on the explain links it then had issues with the database.
+Fixed multiple Notice: Undefined offset: x in navcomp.php
 
 TheKabal (05 August 2012)
 --------------------------------------

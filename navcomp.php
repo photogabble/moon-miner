@@ -160,7 +160,9 @@ elseif ($state == 1)
 
         $search_query = $search_query . " LIMIT 1";
         //echo "$search_query\n\n";
-        $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+
+        $db->SetFetchMode(ADODB_FETCH_NUM);
+
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");
         db_op_result ($db, $search_result, __LINE__, __FILE__, $db_logging);
         $found = $search_result->RecordCount();
@@ -179,7 +181,9 @@ elseif ($state == 1)
         {
             echo " >> " . $links[$i];
         }
-        $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+
+        $db->SetFetchMode(ADODB_FETCH_ASSOC);
+
         echo "<br><br>";
         echo "$l_nav_answ1 $search_depth $l_nav_answ2<br><br>";
     }
@@ -189,7 +193,8 @@ elseif ($state == 1)
     }
 }
 
-$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+$db->SetFetchMode(ADODB_FETCH_ASSOC);
+
 TEXT_GOTOMAIN();
 include "footer.php";
 ?>
