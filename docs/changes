@@ -1,3 +1,7 @@
+TheMightyDude (11 August 2012)
+--------------------------------------
+Added the Smarty Template Backend.
+
 TheMightyDude (07 August 2012)
 --------------------------------------
 Fixed issue with perfmon.php where when you click on the explain links it then had issues with the database.
