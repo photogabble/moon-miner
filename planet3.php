@@ -34,13 +34,13 @@ if (checklogin () )
 // Fixed The Phantom Planet Transfer Bug
 // Needs to be validated and type cast into their correct types.
 // [GET]
-// (int)    planet_id
+// (int) planet_id
 
 // [POST]
-// (int)    trade_ore
-// (int)    trade_organics
-// (int)    trade_goods
-// (int)    trade_energy
+// (int) trade_ore
+// (int) trade_organics
+// (int) trade_goods
+// (int) trade_energy
 
 // Empty out Planet and Ship vars
 $planetinfo = null;

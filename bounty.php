@@ -111,7 +111,7 @@ switch ($response) {
         }
         break;
     case "cancel":
-        $bid = (int)$_GET['bid'];
+        $bid = (int) $_GET['bid'];
 
         bigtitle ();
         if ($playerinfo['turns'] < 1)

@@ -43,13 +43,13 @@ $testing = false; // set to false to get rid of password when creating new team
 $whichteam = null;
 if (array_key_exists('whichteam', $_REQUEST) == true)
 {
-    $whichteam = (int)$_REQUEST['whichteam'];
+    $whichteam = (int) $_REQUEST['whichteam'];
 }
 
 $teamwhat = null;
 if (array_key_exists('teamwhat', $_REQUEST) == true)
 {
-    $teamwhat  = (int)$_REQUEST['teamwhat'];
+    $teamwhat  = (int) $_REQUEST['teamwhat'];
 }
 
 $confirmleave = null;
@@ -85,7 +85,7 @@ if (array_key_exists('update', $_POST) == true)
 $who = null;
 if (array_key_exists('who', $_REQUEST) == true)
 {
-    $who  = (int)$_REQUEST['who'];
+    $who  = (int) $_REQUEST['who'];
 }
 
 // Setting up some recordsets.
@@ -846,7 +846,7 @@ function validate_team($name = null, $desc = null, $creator = null)
 
     $name = trim($name);
     $desc = trim($desc);
-    $creator = (int)$creator;
+    $creator = (int) $creator;
 
     if ( (is_null($name) || empty($name)) || (is_null($desc) || empty($desc)) || (is_null($creator) || empty($creator)) )
     {

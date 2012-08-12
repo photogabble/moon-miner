@@ -33,31 +33,31 @@ if (checklogin () )
 
 // Needs to be validated and type cast into their correct types.
 // [GET]
-// (int)    planet_id
+// (int) planet_id
 //
 // [POST]
-// (int)    transfer_ore
+// (int) transfer_ore
 //          tpore
 //          allore
-// (int)    transfer_organics
+// (int) transfer_organics
 //          tporganics
 //          allorganics
-// (int)    transfer_goods
+// (int) transfer_goods
 //          tpgoods
 //          allgoods
-// (int)    transfer_energy
+// (int) transfer_energy
 //          tpenergy
 //          allenergy
-// (int)    transfer_colonists
+// (int) transfer_colonists
 //          tpcolonists
 //          allcolonists
-// (int)    transfer_fighters
+// (int) transfer_fighters
 //          tpfighters
 //          allfighters
-// (int)    transfer_torps
+// (int) transfer_torps
 //          tptorps
 //          alltorps
-// (int)    transfer_credits
+// (int) transfer_credits
 //          tpcredits
 //          allcredits
 

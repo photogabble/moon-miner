@@ -479,7 +479,7 @@ else
         // update database
         $_active = empty($active) ? "N" : "Y";
         $errflag=0;
-        if ( $character=='' || $shipname=='' ) { echo "Ship name, and character name may not be blank.<br>"; $errflag=1;}
+        if ($character=='' || $shipname=='') { echo "Ship name, and character name may not be blank.<br>"; $errflag=1;}
         // Change Spaces to Underscores in shipname
         $shipname = str_replace(" ","_",$shipname);
         // Create emailname from character

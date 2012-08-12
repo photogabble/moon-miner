@@ -1153,7 +1153,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
 
 function StripNonNum($str)
 {
-  $str=(string)$str;
+  $str=(string) $str;
   $output = preg_replace("/[^0-9]/","",$str);
 
   return $output;

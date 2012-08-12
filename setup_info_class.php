@@ -490,7 +490,7 @@ class SETUPINFO_CLASS
         ########################
         $var = $_SERVER['SERVER_SOFTWARE'];
         $Spos = strpos($var, "(")+1;
-        $Epos = strpos($var, ")",(int)$Spos);
+        $Epos = strpos($var, ")",(int) $Spos);
 
         if (is_integer(strpos($var, "Apache")))
         {

@@ -78,7 +78,7 @@ if (isset($_POST['stop_sector']))
         die();
     }
 
-    $stop_sector = (int)$stop_sector;
+    $stop_sector = (int) $stop_sector;
 }
 else
 {
