@@ -64,7 +64,7 @@
 * End of scheduler explanation                                    *
 ******************************************************************/
 
-require_once "config/config.php";
+require_once 'config/config.php';
 global $l_sys_update;
 $title = $l_sys_update;
 
@@ -73,12 +73,12 @@ $title = $l_sys_update;
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
-include "header.php";
+include 'header.php';
 connectdb();
 
 bigtitle();
 
-require_once "sched_funcs.php";
+require_once 'sched_funcs.php';
 
 #echo "<pre>[REQUEST]\n". print_r($_REQUEST, true) ."</pre>\n";
 
@@ -175,5 +175,5 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
 }
 
 TEXT_GOTOMAIN ();
-include "footer.php";
+include 'footer.php';
 ?>

@@ -17,14 +17,14 @@
 //
 // File: defence_report.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_sdf_title;
-include "header.php";
+include 'header.php';
 
 if ( checklogin() )
 {
@@ -124,5 +124,5 @@ else
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

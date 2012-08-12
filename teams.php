@@ -20,16 +20,16 @@
 // Added a quick fix for creating a new team with the same name
 // This file needs to be completely recoded from scratch :(
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 $title = $l_team_title;
-include "header.php";
-include_once "includes/defence_vs_defence.php";
-include_once "includes/kick_off_planet.php";
+include 'header.php';
+include_once 'includes/defence_vs_defence.php';
+include_once 'includes/kick_off_planet.php';
 
 if (checklogin())
 {
@@ -876,5 +876,5 @@ function validate_team($name = null, $desc = null, $creator = null)
     return true;
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

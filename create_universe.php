@@ -21,7 +21,7 @@
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
 $index_page = true;
-include "config/config.php";
+include 'config/config.php';
 
 // HTML Table Functions
 
@@ -124,13 +124,13 @@ set_time_limit(0);
 
 // Include config files and db scheme.
 
-include "includes/schema.php";
+include 'includes/schema.php';
 
 updatecookie();
 
 // This is needed here until the language database is installed
 $title = 'Create universe';
-include "header.php";
+include 'header.php';
 
 connectdb();
 
@@ -300,7 +300,7 @@ echo"</table>";
       break;
    case "3":
       create_schema();
-      include "includes/ini_to_db.php";
+      include 'includes/ini_to_db.php';
       $result = ini_to_db($db, "languages/english.ini.php", "languages", "english");
       if ($result)
       {
@@ -676,7 +676,7 @@ echo"</table>";
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
-      include_once "footer.php";
+      include_once 'footer.php';
       break;
    case "5":
 
@@ -837,7 +837,7 @@ Table_Footer("Completed successfully.");
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
-      include_once "footer.php";
+      include_once 'footer.php';
       break;
    case "7":
 
@@ -911,7 +911,7 @@ Table_Footer("Completed successfully.");
       PrintFlush("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");
       PrintFlush("<strong>Click <a href=index.php>here</A> to return to the login screen.</strong></center>");
 
-      include_once "footer.php";
+      include_once 'footer.php';
       break;
    default:
       echo "<form action=create_universe.php method=post>";

@@ -17,14 +17,14 @@
 //
 // File: xenobe_control.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_ai_control;
-include "header.php";
+include 'header.php';
 
 connectdb();
 bigtitle();
@@ -572,6 +572,6 @@ else
   }
 }
 
-include "footer.php";
+include 'footer.php';
 
 ?>

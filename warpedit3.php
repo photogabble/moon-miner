@@ -17,14 +17,14 @@
 //
 // File: warpedit3.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_warp_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -53,7 +53,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -61,7 +61,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -80,7 +80,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -97,7 +97,7 @@ if ($zoneinfo['allow_warpedit'] == 'N' && $bothway)
     $l_warp_forbidtwo = str_replace("[target_sector]", $target_sector, $l_warp_forbidtwo);
     echo $l_warp_forbidtwo . "<br><br>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -151,5 +151,5 @@ if ($result3 instanceof ADORecordSet)
 }
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

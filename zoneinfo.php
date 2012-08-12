@@ -17,7 +17,7 @@
 //
 // File: zoneinfo.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
@@ -25,7 +25,7 @@ load_languages($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report',
 
 $body_class = 'zoneinfo';
 $title = $l_zi_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -194,5 +194,5 @@ else
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

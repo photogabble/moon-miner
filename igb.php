@@ -17,7 +17,7 @@
 //
 // File: igb.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
@@ -25,7 +25,7 @@ load_languages($db, $lang, array('igb', 'common', 'global_includes', 'global_fun
 
 $title = $l_igb_title;
 $body_class = 'igb';
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -137,7 +137,7 @@ else
 </center>
 
 <?php
-include "footer.php";
+include 'footer.php';
 
 function IGB_login()
 {
@@ -1147,7 +1147,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
        "<img src=images/div2.png>" .
        "</center>";
 
-  include "footer.php";
+  include 'footer.php';
   die();
 }
 

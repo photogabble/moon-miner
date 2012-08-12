@@ -17,14 +17,14 @@
 //
 // File: beacon.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_beacon_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -127,5 +127,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

@@ -17,15 +17,15 @@
 //
 // File: planet.php
 
-include "config/config.php";
-include "combat.php";
+include 'config/config.php';
+include 'combat.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars, $db_logging);
 
 $title = $l_planet_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -65,7 +65,7 @@ if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
     text_GOTOMAIN ();
-    include "footer.php";
+    include 'footer.php';
     die ();
 }
 
@@ -98,7 +98,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
 
         echo "$l_planet_none <p>";
         text_GOTOMAIN ();
-        include "footer.php";
+        include 'footer.php';
         die ();
     }
 
@@ -113,7 +113,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
         echo "$l_planet_capture2.<br><br>";
         echo "<br>";
         text_GOTOMAIN ();
-        include "footer.php";
+        include 'footer.php';
         die ();
     }
 
@@ -413,7 +413,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 text_GOTOMAIN ();
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
             unset($_SESSION['planet_selected']);
@@ -538,7 +538,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 text_GOTOMAIN ();
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
 
@@ -585,7 +585,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 text_GOTOMAIN ();
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
             unset ($_SESSION['planet_selected']);
@@ -638,7 +638,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 adminlog($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
                 text_GOTOMAIN ();
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
             unset($_SESSION['planet_selected']);
@@ -648,7 +648,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             {
                 echo "$l_plant_scn_turn<br><br>";
                 text_GOTOMAIN ();
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
 
@@ -670,7 +670,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 echo "$l_planet_noscan<br><br>";
                 text_GOTOMAIN ();
                 playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
             else
@@ -919,5 +919,5 @@ if ($allow_ibank)
 echo "<a href =\"bounty.php\">$l_by_placebounty</A><p>";
 
 text_GOTOMAIN ();
-include "footer.php";
+include 'footer.php';
 ?>

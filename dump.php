@@ -17,14 +17,14 @@
 //
 // File: dump.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('dump', 'main', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_dump_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -42,7 +42,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_dump_turn  . "<br><br>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -61,5 +61,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

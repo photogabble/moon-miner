@@ -17,7 +17,7 @@
 //
 // File: attack.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
@@ -28,10 +28,10 @@ if (checklogin ())
     die();
 }
 
-include_once "includes/is_same_team.php";
+include_once 'includes/is_same_team.php';
 
 $title = $l_att_title;
-include "header.php";
+include 'header.php';
 
 bigtitle ();
 
@@ -40,7 +40,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 {
     echo "You need to Click on the ship first.<BR><BR>";
     TEXT_GOTOMAIN();
-    include("footer.php");
+    include 'footer.php';
     die();
 }
 unset($_SESSION['ship_selected']);
@@ -800,5 +800,5 @@ db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 $_SESSION['in_combat'] = (boolean) false;
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

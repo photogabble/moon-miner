@@ -17,14 +17,14 @@
 //
 // File: readmail.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
 
 $title = $l_readm_title;
-include "header.php";
+include 'header.php';
 
 bigtitle();
 
@@ -220,5 +220,5 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 
 TEXT_GOTOMAIN();
 
-include "footer.php";
+include 'footer.php';
 ?>

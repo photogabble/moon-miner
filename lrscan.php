@@ -17,14 +17,14 @@
 //
 // File: lrscan.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_lrs_title;
-include "header.php";
+include 'header.php';
 if (checklogin () )
 {
     die ();
@@ -73,7 +73,7 @@ if ($sector == "*")
     {
         echo $l_lrs_nofull . "<br><br>";
         TEXT_GOTOMAIN ();
-        include "footer.php";
+        include 'footer.php';
         die();
     }
 
@@ -82,7 +82,7 @@ if ($sector == "*")
         $l_lrs_noturns=str_replace("[turns]", $fullscan_cost, $l_lrs_noturns);
         echo $l_lrs_noturns . "<br><br>";
         TEXT_GOTOMAIN ();
-        include "footer.php";
+        include 'footer.php';
         die();
     }
 
@@ -420,5 +420,5 @@ else
 echo "<br><br>";
 TEXT_GOTOMAIN();
 
-include "footer.php";
+include 'footer.php';
 ?>

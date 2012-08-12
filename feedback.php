@@ -17,14 +17,14 @@
 //
 // File: feedback.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 $title = $l_feedback_title;
-include "header.php";
+include 'header.php';
 
 if ( checklogin () )
 {
@@ -68,5 +68,5 @@ else
     TEXT_GOTOMAIN();
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

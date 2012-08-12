@@ -17,19 +17,19 @@
 //
 // File: port.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty'), $langvars, $db_logging);
 
-include_once "includes/text_javascript_begin.php";
-include_once "includes/text_javascript_end.php";
-include_once "includes/is_loan_pending.php";
+include_once 'includes/text_javascript_begin.php';
+include_once 'includes/text_javascript_end.php';
+include_once 'includes/is_loan_pending.php';
 
 $body_class = 'port';
 $title = $l_title_port;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -112,7 +112,7 @@ if ($zoneinfo['zone_id'] == 4)
     bigtitle ();
     echo $l_war_info . "<p>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 elseif ($zoneinfo['allow_trade'] == 'N')
@@ -122,7 +122,7 @@ elseif ($zoneinfo['allow_trade'] == 'N')
     bigtitle ();
     echo $l_no_trade_info . "<p>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 elseif ($zoneinfo['allow_trade'] == 'L')
@@ -140,7 +140,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             bigtitle ();
             echo "Trading at this port is not allowed for outsiders<p>";
             TEXT_GOTOMAIN();
-            include "footer.php";
+            include 'footer.php';
             die();
         }
     }
@@ -152,7 +152,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             bigtitle ();
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN();
-            include "footer.php";
+            include 'footer.php';
             die();
         }
     }
@@ -303,7 +303,7 @@ elseif ($sectorinfo['port_type'] == "special")
         echo $l_port_loannotrade . "<p>";
         echo "<a href=igb.php>" . $l_igb_term . "</a><p>";
         TEXT_GOTOMAIN();
-        include "footer.php";
+        include 'footer.php';
         die();
     }
 
@@ -1022,5 +1022,5 @@ echo "<br><br>\n";
 TEXT_GOTOMAIN();
 echo "\n";
 
-include "footer.php";
+include 'footer.php';
 ?>

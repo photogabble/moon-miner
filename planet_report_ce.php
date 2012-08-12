@@ -17,14 +17,14 @@
 //
 // File: planet_report_ce.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_pr_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -598,5 +598,5 @@ function Real_Space_Move($destination)
   return($retval);
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

@@ -17,14 +17,14 @@
 //
 // File: report.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 $title = $l_report_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -121,5 +121,5 @@ echo "<p align=center>";
 echo "<img src=\"images/$shiptypes[$shiplevel]\" border=0></p>";
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

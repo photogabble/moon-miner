@@ -17,7 +17,7 @@
 //
 // File: login2.php
 
-include "config/config.php";
+include 'config/config.php';
 
 // Test to see if server is closed to logins
 $playerfound = false;
@@ -59,11 +59,11 @@ setcookie("userpass", $userpass, time() + (3600*24)*365, $gamepath, $gamedomain)
 if ($server_closed)
 {
     $title = $l_login_sclosed;
-    include "header.php";
+    include 'header.php';
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
     TEXT_GOTOLOGIN();
 
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -84,7 +84,7 @@ if (isset($playerinfo))
     }
 }
 
-include "header.php";
+include 'header.php';
 bigtitle ();
 
 if ($playerfound)
@@ -159,5 +159,5 @@ else
     echo "<strong>" . $l_login_noone . "</strong><br>";
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

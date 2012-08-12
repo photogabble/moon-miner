@@ -17,14 +17,14 @@
 //
 // File: navcomp.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('navcomp', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 $title = $l_nav_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -37,7 +37,7 @@ if (!$allow_navcomp)
 {
     echo $l_nav_nocomp . '<br><br>';
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die ();
 }
 
@@ -74,7 +74,7 @@ if (isset($_POST['stop_sector']))
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
         TEXT_GOTOMAIN();
-        include "footer.php";
+        include 'footer.php';
         die();
     }
 
@@ -196,5 +196,5 @@ elseif ($state == 1)
 $db->SetFetchMode(ADODB_FETCH_ASSOC);
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

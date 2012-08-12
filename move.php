@@ -17,14 +17,14 @@
 //
 // File: move.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_move_title;
-include "header.php";
+include 'header.php';
 
 // Check to see if the user is logged in
 if (checklogin () )
@@ -45,7 +45,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_move_turn . '<br><br>';
     TEXT_GOTOMAIN ();
-    include "footer.php";
+    include 'footer.php';
     die ();
 }
 
@@ -85,7 +85,7 @@ if ($flag == 1)
 {
     $ok = 1;
     $calledfrom = "move.php";
-    include_once "check_fighters.php";
+    include_once 'check_fighters.php';
     if ($ok > 0)
     {
         $stamp = date("Y-m-d H-i-s");
@@ -101,7 +101,7 @@ if ($flag == 1)
         }
     }
     // Enter code for checking dangers in new sector
-    include_once "check_mines.php";
+    include_once 'check_mines.php';
     if ($ok == 1)
     {
         header("Location: main.php");

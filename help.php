@@ -17,10 +17,10 @@
 //
 // File: help.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 $title = $l_help;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -187,5 +187,5 @@ echo "be disallowed in some zones.";
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

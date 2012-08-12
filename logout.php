@@ -17,7 +17,7 @@
 //
 // File: logout.php
 
-include "config/config.php";
+include 'config/config.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
@@ -34,7 +34,7 @@ setcookie("PHPSESSID","",0,"/");
 // Destroy the session entirely
 session_destroy();
 
-include "header.php";
+include 'header.php';
 $current_score = 0;
 
 if (!isset($username))
@@ -56,5 +56,5 @@ $l_logout_text = str_replace("[name]", $username, $l_logout_text);
 $l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
 echo $l_logout_text;
 
-include "footer.php";
+include 'footer.php';
 ?>

@@ -18,7 +18,7 @@
 // File: index.php
 
 $index_page = true;
-include "config/config.php";
+include 'config/config.php';
 
 if (!isset($_GET['lang']))
 {
@@ -47,7 +47,7 @@ load_languages($db, $lang, array('main', 'login', 'logout', 'index'), $langvars,
 $title = $l_welcome_bnt;
 $body_class = 'index';
 
-include "header.php";
+include 'header.php';
 ?>
 
 <div class="index-header"><img class="index" src="images/header1.png" alt="Blacknova Traders"></div>

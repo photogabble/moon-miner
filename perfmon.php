@@ -17,14 +17,14 @@
 //
 // File: perfmon.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = "Performance Monitor";
-include "header.php";
+include 'header.php';
 bigtitle();
 
 $swordfish = null;
@@ -59,5 +59,5 @@ else
 }
 echo "<br />\n";
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

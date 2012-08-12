@@ -17,7 +17,7 @@
 //
 // File: new2.php
 
-include "config/config.php";
+include 'config/config.php';
 
 if (!isset($_GET['lang']))
 {
@@ -35,7 +35,7 @@ else
 load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_new_title2;
-include "header.php";
+include 'header.php';
 bigtitle ();
 
 if ($account_creation_closed)
@@ -198,5 +198,5 @@ else
     echo $l_new_err;
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

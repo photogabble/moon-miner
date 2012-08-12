@@ -17,16 +17,16 @@
 //
 // File: port2.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
-include_once "includes/is_loan_pending.php";
+include_once 'includes/is_loan_pending.php';
 
 $title = $l_title_port;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -51,7 +51,7 @@ if ($zoneinfo['allow_trade'] == 'N')
     bigtitle ();
     echo $l_no_trade_info . "<p>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 elseif ($zoneinfo['allow_trade'] == 'L')
@@ -68,7 +68,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             bigtitle ();
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
     }
@@ -80,7 +80,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             bigtitle ();
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
     }
@@ -157,7 +157,7 @@ else
             echo "<br>\n";
 
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die();
         }
         unset ($_SESSION['port_shopping']);
@@ -167,7 +167,7 @@ else
             echo $l_port_loannotrade . "<p>";
             echo "<a href=igb.php>" . $l_igb_term . "</a><p>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -938,5 +938,5 @@ if ($sectorinfo['port_type'] == "special")
     echo "<br><br>Click <a href=port.php>here</A> to return to the supply depot.";
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

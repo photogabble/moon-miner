@@ -1,5 +1,5 @@
 <?php
-include "config/config.php";
+include 'config/config.php';
 $title = "Blacknova Traders FAQ";
 $body_class = 'faq';
 if (!isset($_GET['lang']))
@@ -13,7 +13,7 @@ else
     $lang = $_GET['lang'];
     $link = "?lang=" . $lang;
 }
-include "header.php";
+include 'header.php';
 global $l; // The language object
 ?>
 <table>
@@ -174,4 +174,4 @@ else
 {
     echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
 }
-include "footer.php"; ?>
+include 'footer.php'; ?>

@@ -17,14 +17,14 @@
 //
 // File: planet2.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'report', 'planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_planet2_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -158,7 +158,7 @@ if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
     TEXT_GOTOMAIN ();
-    include "footer.php";
+    include 'footer.php';
     die ();
 }
 
@@ -641,5 +641,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

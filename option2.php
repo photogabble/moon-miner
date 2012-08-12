@@ -17,7 +17,7 @@
 //
 // File: option2.php
 
-include "config/config.php";
+include 'config/config.php';
 if (checklogin () )
 {
     die ();
@@ -44,7 +44,7 @@ else
 // New database driven language entries
 load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
-include "header.php";
+include 'header.php';
 bigtitle ();
 
 if ($newpass1 == "" && $newpass2 == "")
@@ -98,5 +98,5 @@ foreach ($avail_lang as $curlang)
 
 echo "<br>";
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

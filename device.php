@@ -17,7 +17,7 @@
 //
 // File: device.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
@@ -25,7 +25,7 @@ load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_
 
 $title = $l_device_title;
 $body_class = 'device';
-include "header.php";
+include 'header.php';
 
 if ( checklogin () )
 {
@@ -74,5 +74,5 @@ echo "</table>";
 echo "<br>";
 
 TEXT_GOTOMAIN ();
-include "footer.php";
+include 'footer.php';
 ?>

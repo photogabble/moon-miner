@@ -17,7 +17,7 @@
 //
 // File: galaxy_new.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
@@ -25,7 +25,7 @@ load_languages($db, $lang, array('main', 'port', 'galaxy', 'common', 'global_inc
 
 global $l_map_title;
 $title = $l_map_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -115,5 +115,5 @@ echo "    <div><img alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$t
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

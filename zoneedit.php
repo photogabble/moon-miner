@@ -17,14 +17,14 @@
 //
 // File: zoneedit.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_ze_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -240,7 +240,7 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
 echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
 TEXT_GOTOMAIN();
 
-include "footer.php";
+include 'footer.php';
 
 function zoneedit_change()
 {
@@ -266,7 +266,7 @@ function zoneedit_change()
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();
 
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -274,7 +274,7 @@ function zoneedit_die($error_msg)
 {
     echo "<p>" . $error_msg . "<p>";
     TEXT_GOTOMAIN();
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 ?>

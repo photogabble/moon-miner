@@ -17,7 +17,7 @@
 //
 // File: main.php
 
-include "config/config.php";
+include 'config/config.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('common', 'global_includes'), $langvars, $db_logging);
@@ -30,7 +30,7 @@ if (checklogin())
 }
 
 $title = $l->get('l_main_title');
-include "header.php";
+include 'header.php';
 
 $stylefontsize = "12Pt";
 $picsperrow = 7;
@@ -836,5 +836,5 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[" . $l->get('l_fullscan')
 
 <?php
 
-include "footer.php";
+include 'footer.php';
 ?>

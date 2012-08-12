@@ -27,13 +27,13 @@ if (preg_match("/sched_xenobe.php/i", $_SERVER['PHP_SELF']))
 echo "<br><strong>Xenobe TURNS</strong><br><br>";
 
 // Include functions
-include_once "includes/xenobe_hunter.php";
-include_once "includes/xenobe_move.php";
-include_once "includes/xenobe_regen.php";
-include_once "includes/xenobe_to_sec_def.php";
-include_once "includes/xenobe_to_ship.php";
-include_once "includes/xenobe_trade.php";
-include_once "includes/xenobe_to_planet.php";
+include_once 'includes/xenobe_hunter.php';
+include_once 'includes/xenobe_move.php';
+include_once 'includes/xenobe_regen.php';
+include_once 'includes/xenobe_to_sec_def.php';
+include_once 'includes/xenobe_to_ship.php';
+include_once 'includes/xenobe_trade.php';
+include_once 'includes/xenobe_to_planet.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);

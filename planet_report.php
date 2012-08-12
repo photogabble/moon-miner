@@ -17,14 +17,14 @@
 //
 // File: planet_report.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
 
 $title = $l_pr_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -510,5 +510,5 @@ function base_build_check($planet, $i)
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

@@ -17,7 +17,7 @@
 //
 // File: info_publiclist.php
 
-include "config/config.php";
+include 'config/config.php';
 connectdb();
 
 $info = array();

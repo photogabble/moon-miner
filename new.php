@@ -17,7 +17,7 @@
 //
 // File: new.php
 
-include "config/config.php";
+include 'config/config.php';
 
 if (!isset($_GET['lang']))
 {
@@ -35,7 +35,7 @@ else
 load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_new_title;
-include "header.php";
+include 'header.php';
 
 bigtitle ();
 
@@ -53,5 +53,5 @@ echo "    <div style='text-align:center'><input type='submit' value='" . $l_subm
 echo "        " . $l_new_info . "<br></div>\n";
 echo "</form>";
 
-include "footer.php";
+include 'footer.php';
 ?>

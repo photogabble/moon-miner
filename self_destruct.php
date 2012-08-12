@@ -17,16 +17,16 @@
 //
 // File: self_destruct.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
-include_once "includes/cancel_bounty.php";
+include_once 'includes/cancel_bounty.php';
 
 $title = $l_die_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -76,5 +76,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

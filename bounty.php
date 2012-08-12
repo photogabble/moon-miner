@@ -17,14 +17,14 @@
 //
 // File: bounty.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_by_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin())
 {
@@ -118,7 +118,7 @@ switch ($response) {
         {
             echo "$l_by_noturn<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -128,7 +128,7 @@ switch ($response) {
         {
             echo "$l_by_nobounty<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -137,7 +137,7 @@ switch ($response) {
         {
             echo "$l_by_notyours<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -160,7 +160,7 @@ switch ($response) {
         {
             echo "$l_by_notexists<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -169,7 +169,7 @@ switch ($response) {
         {
             echo "$l_by_destroyed<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -177,7 +177,7 @@ switch ($response) {
         {
             echo "$l_by_noturn<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -186,7 +186,7 @@ switch ($response) {
         {
             echo "$l_by_zeroamount<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -194,7 +194,7 @@ switch ($response) {
         {
             echo "$l_by_yourself<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -202,7 +202,7 @@ switch ($response) {
         {
             echo "$l_by_notenough<br><br>";
             TEXT_GOTOMAIN ();
-            include "footer.php";
+            include 'footer.php';
             die ();
         }
 
@@ -225,7 +225,7 @@ switch ($response) {
                 $l_by_toomuch = str_replace("[percent]", $percent, $l_by_toomuch);
                 echo "$l_by_toomuch<br><br>";
                 TEXT_GOTOMAIN ();
-                include "footer.php";
+                include 'footer.php';
                 die ();
             }
         }
@@ -324,5 +324,5 @@ switch ($response) {
 }
 
 TEXT_GOTOMAIN ();
-include "footer.php";
+include 'footer.php';
 ?>

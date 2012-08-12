@@ -22,14 +22,14 @@
 // code completely from here and putting it in the planet menu
 // instead. Easier to manage, makes more sense too.
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_gns_title;
-include "header.php";
+include 'header.php';
 
 if (checklogin () )
 {
@@ -154,5 +154,5 @@ db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include "footer.php";
+include 'footer.php';
 ?>

@@ -17,7 +17,7 @@
 //
 // File: log.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // Hack for log bug issue - this really needs to be fixed
@@ -41,7 +41,7 @@ if (checklogin () )
     die();
 }
 
-include "header.php";
+include 'header.php';
 
 $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -381,7 +381,7 @@ if ($mode != 'compat')
 }
 
 echo "</table></center>";
-include "footer.php";
+include 'footer.php';
 
 function log_parse($entry)
 {

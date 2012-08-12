@@ -17,14 +17,14 @@
 //
 // File: traderoute.php
 
-include "config/config.php";
+include 'config/config.php';
 updatecookie ();
 
 // New database driven language entries
 load_languages ($db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
 
 $title = $l_tdr_title;
-include "header.php";
+include 'header.php';
 
 $portfull = null; // This fixes an error of undefined variables on 1518
 if (checklogin () )
@@ -388,7 +388,7 @@ echo "<div style='text-align:left;'>\n";
 TEXT_GOTOMAIN();
 echo "</div>\n";
 
-include "footer.php";
+include 'footer.php';
 
 function traderoute_die ($error_msg)
 {
@@ -398,7 +398,7 @@ function traderoute_die ($error_msg)
     echo "<div style='text-align:left;'>\n";
     TEXT_GOTOMAIN();
     echo "</div>\n";
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 
@@ -983,7 +983,7 @@ function traderoute_new($traderoute_id)
     TEXT_GOTOMAIN();
     echo "</div>\n";
 
-    include "footer.php";
+    include 'footer.php';
     die();
 }
 

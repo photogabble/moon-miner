@@ -17,7 +17,7 @@
 //
 // File: admin.php
 
-include "config/config.php";
+include 'config/config.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
@@ -25,7 +25,7 @@ load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat',
 updatecookie();
 
 $title = $l->get('l_admin_title');
-include "header.php";
+include 'header.php';
 
 connectdb ();
 bigtitle ();
@@ -899,5 +899,5 @@ else
     }
 }
 
-include "footer.php";
+include 'footer.php';
 ?>

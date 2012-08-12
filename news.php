@@ -17,7 +17,7 @@
 //
 // File: news.php
 
-include "config/config.php";
+include 'config/config.php';
 
 if (!isset($_GET['lang']))
 {
@@ -31,13 +31,13 @@ else
     $link = "?lang=" . $lang;
 }
 
-include "includes/newsservices.php";
+include 'includes/newsservices.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_news_title;
-include "header.php";
+include 'header.php';
 
 $startdate = date("Y/m/d");
 if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] != ''))
@@ -103,6 +103,6 @@ echo "<div style=\"height:16px;\"></div>\n";
 
 echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
 
-include "footer.php";
+include 'footer.php';
 die ();
 ?>

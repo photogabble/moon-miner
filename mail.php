@@ -18,13 +18,13 @@
 // File: mail.php
 
 
-include "config/config.php";
+include 'config/config.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 $title = $l_mail_title;
-include "header.php";
+include 'header.php';
 bigtitle();
 
 $result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array($mail));
@@ -69,5 +69,5 @@ else
     }
 }
 
-include "footer.php";
+include 'footer.php';
 ?>
