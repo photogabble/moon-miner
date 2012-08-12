@@ -180,7 +180,7 @@ function collect_credits($planetarray)
     if ($CS == "HOSTILE")
     {
       $CS = "GO";
-    } else if ($CS == "GO")
+    } elseif ($CS == "GO")
     {
       $CS = Take_Credits($s_p_pair[$i][0], $s_p_pair[$i][1]);
     }
