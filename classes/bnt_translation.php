@@ -41,6 +41,7 @@ class bnt_translation
         if ($result && !$result->EOF)
         {
             $row = $result->fields;
+
             return $row['value'];
         }
     }
