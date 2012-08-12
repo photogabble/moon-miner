@@ -65,7 +65,7 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
         $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
         $ownership = calc_ownership ($playerinfo['sector']);
-        
+
         // Kick other players off the planet
         $result = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
         db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);

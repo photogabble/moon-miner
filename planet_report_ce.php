@@ -386,7 +386,7 @@ function Take_Credits($sector_id, $planet_id)
   global $db, $username;
   global $db_logging;
   global $l_unnamed;
-  
+
   // Get basic Database information (ship and planet)
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);

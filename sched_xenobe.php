@@ -178,7 +178,7 @@ while (!$res->EOF)
           {
             // This Guy Does Nothing But Roam And Trade
           }
-          elseif ($playerinfo[aggression] == 1)        // O = 2 & AGRESSION = 1 ATTACK SOMETIMES 
+          elseif ($playerinfo[aggression] == 1)        // O = 2 & AGRESSION = 1 ATTACK SOMETIMES
           {
             // Xenobe's only compare number of fighters when determining if they have an attack advantage
             if ($playerinfo[ship_fighters] > $rowo2[ship_fighters] && $rowo2[planet_id] == 0)
