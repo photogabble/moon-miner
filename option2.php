@@ -83,7 +83,6 @@ else
     }
 }
 
-
 $res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 foreach ($avail_lang as $curlang)

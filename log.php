@@ -113,7 +113,6 @@ if (empty($startdate))
     $startdate = date ("Y-m-d");
 }
 
-
 $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 while (!$res->EOF)

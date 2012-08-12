@@ -17,7 +17,6 @@
 //
 // File: mail.php
 
-
 include 'config/config.php';
 
 // New database driven language entries

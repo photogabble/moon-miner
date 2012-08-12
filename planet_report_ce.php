@@ -55,7 +55,6 @@ else
 echo "<br><br>";
 TEXT_GOTOMAIN();
 
-
 function go_build_base($planet_id, $sector_id)
 {
   global $db;
@@ -199,7 +198,6 @@ function collect_credits($planetarray)
   echo "<br>";
   echo "Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br>";
 }
-
 
 function change_planet_production($prodpercentarray)
 {
@@ -579,7 +577,6 @@ function Real_Space_Move($destination)
     $retval = "HOSTILE";
     // need to add a language value for this
     echo "CANNOT MOVE TO SECTOR $destination THROUGH HOSTILE DEFENSES<br>";
-
 
   } else
   {

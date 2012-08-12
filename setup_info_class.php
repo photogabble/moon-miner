@@ -424,7 +424,6 @@ class SETUPINFO_CLASS
             $current_info[] = array("caption" => '$gamepath', "value" => $game_path['info'], "status" => "Unknown" );
         }
 
-
         $game_domain = $this->get_gamedomain(true);
         if ($game_domain['status'] != false)
         {

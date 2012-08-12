@@ -33,7 +33,6 @@ if (array_key_exists('swordfish', $_POST))
     $swordfish = $_POST['swordfish'];
 }
 
-
 if ($swordfish != $adminpass)
 {
     echo "<form action='perfmon.php' method='post'>";

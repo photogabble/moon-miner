@@ -54,7 +54,6 @@ if($validformat !=1 || checkdate($regs[2], $regs[3], $regs[1]) == false)
     $startdate = date("Y/m/d");
 }
 
-
 $previousday = getpreviousday ($startdate);
 $nextday = getnextday ($startdate);
 
@@ -70,7 +69,6 @@ echo "  <tr>\n";
 echo "    <td height=\"22\" width=\"27%\" bgcolor=\"#00001A\">&nbsp;</td>\n";
 echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a href=\"news.php?startdate={$previousday}\">{$l_news_prev}</a> - <a href=\"news.php?startdate={$nextday}\">{$l_news_next}</a></td>\n";
 echo "  </tr>\n";
-
 
 //Select news for date range
 $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id DESC");

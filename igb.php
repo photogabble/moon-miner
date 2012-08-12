@@ -199,7 +199,6 @@ function IGB_deposit()
   if ($credit_space <0)
   $credit_space = 0;
 
-
   echo "<tr><td height=53 colspan=2 align=center valign=top>$l_igb_depositfunds<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
        "<td height=30>$l_igb_fundsavailable :</td>" .
@@ -246,7 +245,6 @@ function IGB_transfer()
     $planets[]=$res->fields;
     $res->MoveNext();
   }
-
 
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_transfertype<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
@@ -297,7 +295,6 @@ function IGB_transfer()
   {
      echo "<option value=none>$l_igb_none</option>";
   }
-
 
   echo "</select></td><td valign=center align=right>" .
        "<br><input class=term type=submit name=planett value=\"$l_igb_planettransfer\">" .
@@ -441,7 +438,6 @@ function IGB_transfer2()
       IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
     $source = $res->fields;
 
-
     if (empty($source['name']))
       $source['name']=$l_igb_unnamed;
 
@@ -455,8 +451,6 @@ function IGB_transfer2()
       $dest['name']=$l_igb_unnamed;
     if ($dest['base'] == 'N')
       IGB_error($l_igb_errnobase, "igb.php?command=transfer");
-
-
 
     if ($source['owner'] != $playerinfo['ship_id'] || $dest['owner'] != $playerinfo['ship_id'])
       IGB_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
@@ -511,7 +505,6 @@ function IGB_transfer3()
 
   if ($amount < 0)
     $amount = 0;
-
 
   if (isset($ship_id)) //ship transfer
   {

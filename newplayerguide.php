@@ -45,7 +45,6 @@ global $l; // The language object
       listed on the <A href="faq.php">FAQ</A> page. Its reccommended that you use the Trader up until about hull level 17 or so and then
       switching over to the Builder. </P>
 
-
       <P> Tradewars is a turn based game. Each action you take generally takes 1 turns. You start with an initial number of turns
        and get an extra turn every system update, which is dependant on the particular game you play. Generally its every 6 minutes,
        so roughly get 10 turns per hour.</P>

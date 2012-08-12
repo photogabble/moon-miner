@@ -674,7 +674,6 @@ elseif ($sectorinfo['port_type'] == "special")
         return $dropdownvar;
     }
 
-
     echo "<P>\n";
     $l_creds_to_spend = str_replace ("[credits]", NUMBER ($playerinfo['credits']), $l_creds_to_spend);
     echo $l_creds_to_spend . "<br>\n";

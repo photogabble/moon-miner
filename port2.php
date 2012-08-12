@@ -111,7 +111,6 @@ function BuildTwoCol ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1
     </tr>";
 }
 
-
 function phpTrueDelta ($futurevalue, $shipvalue)
 {
     $tempval = $futurevalue - $shipvalue;

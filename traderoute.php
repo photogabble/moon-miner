@@ -472,7 +472,6 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
     }
 }
 
-
 function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = 'N')
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;

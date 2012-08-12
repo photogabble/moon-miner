@@ -87,7 +87,6 @@ if (array_key_exists('trades', $_POST) == true)
     $trades = $_POST['trades'];
 }
 
-
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
 db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 if ($res->EOF)

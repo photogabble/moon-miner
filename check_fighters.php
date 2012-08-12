@@ -59,7 +59,6 @@ if (array_key_exists('engage', $_REQUEST) == true)
     $engage = $_REQUEST['engage'];
 }
 
-
 while (!$result3->EOF)
 {
     $row = $result3->fields;

@@ -212,7 +212,6 @@
     $tdres->MoveNext();
   }
 
-
   echo "Validating IGB Balance and Loan Credits...<br>\n";
   $tdres = $db->Execute("SELECT ship_id, balance, loan FROM {$db->prefix}ibank_accounts;");
   db_op_result ($db, $tdres, __LINE__, __FILE__, $db_logging);
