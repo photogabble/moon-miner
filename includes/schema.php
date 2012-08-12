@@ -283,7 +283,6 @@ $err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $
 
 Table_Row("Inserting first news item","Failed","Inserted");
 
-
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}messages (" .
              "ID int NOT NULL auto_increment," .
              "sender_id int NOT NULL default '0'," .
