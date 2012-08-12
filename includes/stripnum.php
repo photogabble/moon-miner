@@ -25,6 +25,7 @@ if (preg_match("/stripnum.php/i", $_SERVER['PHP_SELF'])) {
 function stripnum ($str)
 {
     $output = preg_replace('/[^0-9]/', '', $str);
+
     return $output;
 }
 ?>

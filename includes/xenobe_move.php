@@ -117,11 +117,13 @@ function xenobemove()
             if ($playerinfo['aggression'] == 2 || $playerinfo['aggression'] == 1)
             {
                 xenobetosecdef(); // Attack sector defences
+
                 return;
             }
             else
             {
                 playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines.");
+
                 return;
             }
         }

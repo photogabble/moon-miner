@@ -25,6 +25,7 @@ if (preg_match("/num_shields.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_SHIELDS ($level_shields)
 {
     global $level_factor;
+
     return round (pow ($level_factor, $level_shields) * 100);
 }
 ?>

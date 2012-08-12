@@ -133,6 +133,7 @@ function calc_ownership ($sector)
     {
         $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
         db_op_result ($db, $resa, __LINE__, __FILE__);
+
         return $l->get('l_global_warzone');
     }
 
@@ -150,6 +151,7 @@ function calc_ownership ($sector)
     {
         $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
         db_op_result ($db, $resb, __LINE__, __FILE__);
+
         return $l->get('l_global_warzone');
     }
 
@@ -158,6 +160,7 @@ function calc_ownership ($sector)
     {
         $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
         db_op_result ($db, $resc, __LINE__, __FILE__);
+
         return $l->get('l_global_warzone');
     }
 
@@ -187,6 +190,7 @@ function calc_ownership ($sector)
         {
             $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
             db_op_result ($db, $resd, __LINE__, __FILE__);
+
             return $l->get('l_global_warzone');
         }
     }
@@ -214,6 +218,7 @@ function calc_ownership ($sector)
     {
         $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
         db_op_result ($db, $rese, __LINE__, __FILE__);
+
         return $l->get('l_global_nzone');
     }
 
@@ -249,6 +254,7 @@ function calc_ownership ($sector)
         {
             $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
             db_op_result ($db, $resg, __LINE__, __FILE__);
+
             return $l->get('l_global_nzone');
         }
         else

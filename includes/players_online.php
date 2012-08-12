@@ -27,6 +27,7 @@ function players_online($db)
     {
         $online = (integer) $rs->fields['loggedin'];
     }
+
     return (integer) $online;
 }
 

@@ -25,6 +25,7 @@ if (preg_match("/num_holds.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_HOLDS ($level_hull)
 {
     global $level_factor;
+
     return round (pow ($level_factor, $level_hull) * 100);
 }
 ?>

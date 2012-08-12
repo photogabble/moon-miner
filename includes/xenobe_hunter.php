@@ -53,6 +53,7 @@ function xenobehunter()
     if (!$targetinfo)
     {
         playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Hunt Failed: No Target ");
+
         return;
     }
 
@@ -76,6 +77,7 @@ function xenobehunter()
         {
             $error = $db->ErrorMsg();
             playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Move failed with error: $error ");
+
             return;
         }
 

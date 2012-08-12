@@ -32,6 +32,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             if (isset($_GET[$name]) && strlen($_GET[$name]) > 0)
             {
                 $value = $_GET[$name];
+
                 return (boolean) true;
             }
             break;
@@ -42,6 +43,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             if (isset($_POST[$name]) && strlen($_POST[$name]) > 0)
             {
                 $value = $_POST[$name];
+
                 return (boolean) true;
             }
             break;
@@ -52,6 +54,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             if (isset($_REQUEST[$name]) && strlen($_REQUEST[$name]) > 0)
             {
                 $value = $_REQUEST[$name];
+
                 return (boolean) true;
             }
             break;
@@ -62,6 +65,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             if (isset($_COOKIE[$name]) && strlen($_COOKIE[$name]) > 0)
             {
                 $value = $_COOKIE[$name];
+
                 return (boolean) true;
             }
             break;
@@ -72,6 +76,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             if (isset($_SESSION[$name]) && strlen($_SESSION[$name]) > 0)
             {
                 $value = $_SESSION[$name];
+
                 return (boolean) true;
             }
             break;
@@ -82,6 +87,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             if (isset($_SERVER[$name]) && strlen($_SERVER[$name]) > 0)
             {
                 $value = $_SERVER[$name];
+
                 return (boolean) true;
             }
             break;
@@ -104,6 +110,7 @@ function request_var($type = NULL, $name = NULL, &$value = NULL)
             break;
         }
     }
+
     return (boolean) false;
 }
 

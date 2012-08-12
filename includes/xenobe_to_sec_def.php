@@ -195,6 +195,7 @@ function xenobetosecdef()
                 cancel_bounty ($db, $playerinfo['ship_id']);
                 db_kill_player ($playerinfo['ship_id']);
                 $xenobeisdead = 1;
+
                 return;
             }
 
@@ -242,6 +243,7 @@ function xenobetosecdef()
                         $xenobeisdead = 1;
                         // Lets get rid of the mines now and return out of this function
                         explode_mines ($db, $targetlink, $roll);
+
                         return;
                     }
                 }

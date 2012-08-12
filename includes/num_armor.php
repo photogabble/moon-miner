@@ -25,6 +25,7 @@ if (preg_match("/num_armor.php/i", $_SERVER['PHP_SELF'])) {
 function NUM_ARMOR ($level_armor)
 {
     global $level_factor;
+
     return round (pow ($level_factor, $level_armor) * 100);
 }
 ?>

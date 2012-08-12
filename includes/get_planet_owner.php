@@ -35,9 +35,11 @@ function get_planet_owner_information ($db = null, $planetID = null, &$ownerInfo
         if ($res->RecordCount() > 0 )
         {
             $ownerInfo = (array)$res->fields;
+
             return true;
         }
     }
+
     return false;
 }
 ?>

@@ -34,6 +34,7 @@ function db_op_result ($db, $query, $served_line, $served_page)
         {
             adminlog($db, "LOG_RAW", $dberror);
         }
+
         return $db->ErrorMsg();
     }
 }
