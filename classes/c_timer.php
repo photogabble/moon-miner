@@ -17,9 +17,8 @@
 //
 // File: includes/timer.php
 
-
-namespace bnt\core\timer;
-class c_Timer
+// namespace bnt\core\timer;
+class c_timer
 {
     public $t_start = 0;
     public $t_stop = 0;

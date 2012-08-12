@@ -22,7 +22,7 @@ if (preg_match("/check_fighters.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-namespace bnt\core\translation;
+//namespace bnt\core\translation;
 class bnt_translation
 {
     public function get($langvar = null)
