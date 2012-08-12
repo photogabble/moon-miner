@@ -777,7 +777,7 @@ class SETUPINFO_CLASS
     ##############################
     Function DisplayFlush($Text)
     {
-        echo $Text; 
+        echo $Text;
         //flush();
     }
 

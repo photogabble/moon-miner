@@ -668,7 +668,7 @@ if ($num_defences > 0)
         $char_name = $defences[$i]['character_name'];
         $qty = $defences[$i]['quantity'];
         echo "<div style='font-size:1em; color:#fff;'>$char_name<br>( $qty $def_type )</div>\n";
-		echo "</div></td>";
+        echo "</div></td>";
 
         $totalcount++;
         if ($curcount == $picsperrow - 1)
