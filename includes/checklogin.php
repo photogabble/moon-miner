@@ -36,9 +36,9 @@ function checklogin ()
     if ($username == "" or $password == "" or $password != $playerinfo['password'])
     {
         $title = $l->get('l_error');
-        include "header.php";
+        include 'header.php';
         echo str_replace("[here]", "<a href='index.php'>" . $l->get('l_here') . "</a>", $l->get('l_global_needlogin'));
-        include "footer.php";
+        include 'footer.php';
         $flag = 1;
     }
 
@@ -81,9 +81,9 @@ function checklogin ()
     if ($server_closed && $flag == 0)
     {
         $title = $l->get('l_login_closed_message');
-        include "header.php";
+        include 'header.php';
         echo $l->get('l_login_closed_message');
-        include "footer.php";
+        include 'footer.php';
         $flag = 1;
     }
 

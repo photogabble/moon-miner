@@ -19,9 +19,9 @@
 
 function xenobetosecdef()
 {
-    include_once "destroy_fighters.php";
-    include_once "explode_mines.php";
-    include_once "cancel_bounty.php";
+    include_once 'destroy_fighters.php';
+    include_once 'explode_mines.php';
+    include_once 'cancel_bounty.php';
     // Xenobe to sector defense
 
     global $playerinfo, $targetlink, $xenobeisdead, $db, $l;
