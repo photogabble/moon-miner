@@ -175,12 +175,12 @@ else
         $l_mines_info2 = str_replace("[mines]", $availmines, $l_mines_info2);
         $l_mines_info2 = str_replace("[fighters]", $availfighters, $l_mines_info2);
         echo "You have $availmines mines and $availfighters fighters available to deploy.<br>\n";
-		echo "<br />\n";
+        echo "<br />\n";
         echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[torps]> $l_mines.<br>";
         echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[ship_fighters]> $l_fighters.<br>";
         echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_mines_att</INPUT>";
         echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_mines_toll</INPUT><br>";
- 		echo "<br />\n";
+         echo "<br />\n";
         echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset><br><br>";
         echo "<input type=hidden name=op value=$op>";
         echo "</FORM>";
