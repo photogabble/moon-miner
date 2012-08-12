@@ -1403,4 +1403,3 @@ l_zi_control                            = "Tienes el control de esta zona";
 l_zi_tochange                           = "para cambiar sus leyes.";
 l_zi_owner                              = "Propietario de la zona";
 l_zi_maxhull                            = "Máximo promedio de nivel tecnológico permitido";
-

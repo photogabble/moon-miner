@@ -1403,4 +1403,3 @@ l_zi_control                            = "Du kontrollierst diese Zone";
 l_zi_tochange                           = "um die Gesetzte zu &auml;ndern.";
 l_zi_owner                              = "Zonen Eigent&uuml;mer";
 l_zi_maxhull                            = "Maximal erlaubter durchschnittlicher Technikstand";
-

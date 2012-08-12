@@ -123,4 +123,3 @@ echo "<img src=\"images/$shiptypes[$shiplevel]\" border=0></p>";
 TEXT_GOTOMAIN();
 include "footer.php";
 ?>
-

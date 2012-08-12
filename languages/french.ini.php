@@ -1403,4 +1403,3 @@ l_zi_control                            = "Vous êtes en contôle de cette zone";
 l_zi_tochange                           = "pour changer ses lois.";
 l_zi_owner                              = "Responsable de la zone";
 l_zi_maxhull                            = "Coque maximum permise";
-
