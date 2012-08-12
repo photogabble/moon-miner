@@ -19,21 +19,21 @@
 
 class c_Timer
 {
-    var $t_start = 0;
-    var $t_stop = 0;
-    var $t_elapsed = 0;
+    public $t_start = 0;
+    public $t_stop = 0;
+    public $t_elapsed = 0;
 
-    function start ()
+    public function start ()
     {
         $this->t_start = microtime ();
     }
 
-    function stop ()
+    public function stop ()
     {
         $this->t_stop  = microtime ();
     }
 
-    function elapsed ()
+    public function elapsed ()
     {
         $start_u = substr($this->t_start, 0, 10); $start_s = substr($this->t_start, 11, 10);
         $stop_u  = substr($this->t_stop, 0, 10);  $stop_s  = substr($this->t_stop, 11, 10);
