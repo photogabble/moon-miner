@@ -670,6 +670,7 @@ elseif ($sectorinfo['port_type'] == "special")
         }
 
         $dropdownvar = "$dropdownvar       </select>\n";
+
         return $dropdownvar;
     }
 

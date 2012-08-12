@@ -872,6 +872,7 @@ function validate_team($name = null, $desc = null, $creator = null)
     {
         return false;
     }
+
     return true;
 }
 

@@ -115,6 +115,7 @@ function BuildTwoCol ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1
 function phpTrueDelta ($futurevalue, $shipvalue)
 {
     $tempval = $futurevalue - $shipvalue;
+
     return $tempval;
 }
 
@@ -133,6 +134,7 @@ function phpChangeDelta ($desiredvalue, $currentvalue)
     }
 
     $DeltaCost = $DeltaCost * $upgrade_cost;
+
     return $DeltaCost;
 }
 

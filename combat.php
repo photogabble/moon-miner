@@ -70,6 +70,7 @@ function calcplanettorps()
     }
 
     $planetinfo['torps'] -= $planettorps;
+
     return $planettorps;
 }
 

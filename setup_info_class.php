@@ -611,7 +611,6 @@ class SETUPINFO_CLASS
 
  // This my not be needed, but I will leave it here just in case we need it :)
 //        $software_info[]['MySQL Client Version'] = $this->database_client_version;
-
         return $software_info;
     }
 

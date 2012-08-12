@@ -51,6 +51,7 @@ function get_player ($db, $ship_id)
     {
         $row = $res->fields;
         $character_name = $row['character_name'];
+
         return $character_name;
     }
     else
