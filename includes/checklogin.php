@@ -46,8 +46,8 @@ function checklogin ()
     {
         $ip = $_SERVER['REMOTE_ADDR'];
         $stamp = date("Y-m-d H:i:s");
-        $timestamp['now']  = (int)strtotime ($stamp);
-        $timestamp['last'] = (int)strtotime ($playerinfo['last_login']);
+        $timestamp['now']  = (int) strtotime ($stamp);
+        $timestamp['last'] = (int) strtotime ($playerinfo['last_login']);
 
         // Update the players last_login ever 60 seconds to cut back SQL Queries.
         if($timestamp['now'] >= ($timestamp['last'] +60))

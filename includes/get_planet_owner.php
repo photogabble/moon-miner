@@ -34,7 +34,7 @@ function get_planet_owner_information ($db = null, $planetID = null, &$ownerInfo
         db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res->RecordCount() > 0 )
         {
-            $ownerInfo = (array)$res->fields;
+            $ownerInfo = (array) $res->fields;
 
             return true;
         }
