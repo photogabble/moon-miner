@@ -189,5 +189,5 @@ $adminpass                  = 'secret';                         // The administr
 $admin_mail                 = 'admin@example.com';              // The administrator email address
 $adminname                  = 'Admin Name';                     // The title for the administrator (used when emailing)
 
-require "global_includes.php";                                  // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
+require 'global_includes.php';                                  // A central location for including/requiring other files - Note that we use require because the game cannot function without it.
 ?>
