@@ -17,7 +17,7 @@ class Template
         // Here we check if it's an External Client, else it's a Browser Client.
         request_var("SERVER", "HTTP_CLIENT", $type);
         request_var("SERVER", "HTTP_USER_AGENT", $agent);
-        if ((!is_null($type) && strtolower(trim($type)) === "externalxml" && substr($agent, 0, 6) === "Warden") || (isset($_GET['testxml']) === true))
+        if ( (!is_null($type) && strtolower(trim($type)) === "externalxml" && substr($agent, 0, 6) === "Warden"))
         {
             // We have an Extrenal Client, so init the XML Template API.
             $this->Initialize(TEMPLATE_USE_XML) or die("ERR");
