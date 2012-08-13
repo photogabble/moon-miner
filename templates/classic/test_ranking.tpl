@@ -28,6 +28,7 @@
     {$language_vars['l_ranks_dships']}<br>
     <br>
 
+{if isset($players)}
     <!-- Display the Rank Table -->
     <table style="border-collapse:separate; border-spacing:0px; border:none;">
       <tr style="padding:2px; background-color:{$variables['color_header']};">
@@ -76,6 +77,10 @@
       </tr>
 {/foreach}
     </table>
+
+{else}
+    {$language_vars['l_ranks_none']}<br />
+{/if}
     <br />
 
 <!-- Display link back (index, main) -->
