@@ -159,7 +159,7 @@ if (empty($link_forums))
 $ip = $_SERVER['REMOTE_ADDR'];
 $plugin_config = array();
 $admin_list = array();
-date_default_timezone_set('America/New_York'); // Set to your server's local time zone - PHP throws a notice if this is not set.
+date_default_timezone_set('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 
 // Used to define what devices are used to calculate the average tech level.
 $calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
@@ -236,4 +236,14 @@ if (isset($gamedomain) && strlen($gamedomain) >0)
     }
 }
 // Game domain setting ends
+
+// Template API.
+require_once("classes/template.php");
+$template = new Template();
+
+// We set the name of the theme.
+$template->SetTheme("classic");
+// End of Template API.
+
+
 ?>

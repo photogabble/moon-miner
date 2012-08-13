@@ -1,3 +1,7 @@
+TheMightyDude (13 August 2012)
+--------------------------------------
+Added the Template API to support both Smarty Templates (HTML) and XML DOM (External Clients when added)
+
 TheMightyDude (11 August 2012)
 --------------------------------------
 Added the Smarty Template Backend.
