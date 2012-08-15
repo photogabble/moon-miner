@@ -27,8 +27,8 @@ $res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (
 db_op_result ($db, $res, __LINE__, __FILE__);
 if ($res instanceof ADORecordSet)
 {
-	$row = $res->fields;
-	$online = $row['loggedin'];
+    $row = $res->fields;
+    $online = $row['loggedin'];
 }
 
 global $BenchmarkTimer;
@@ -61,9 +61,9 @@ $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
 db_op_result ($db, $res, __LINE__, __FILE__);
 if ($res instanceof ADORecordSet)
 {
-	$result = $res->fields;
-	$mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
-	echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
+    $result = $res->fields;
+    $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
+    echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
 }
 echo "  <strong><span id=myx>$mySEC</span></strong> " . $l_footer_until_update . " <br>\n";
 // End update counter
