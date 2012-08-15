@@ -1153,7 +1153,7 @@ function shiptoship($ship_id)
             db_op_result ($db, $update3, __LINE__, __FILE__, $db_logging);
         }
 
-        if ($targetinfo[dev_escapepod] == "Y")
+        if ($targetinfo['dev_escapepod'] == "Y")
         {
             $rating = round ($targetinfo['rating'] / 2 );
             echo "$l_cmb_escapepodlaunched<br><br>";

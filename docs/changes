@@ -1,3 +1,7 @@
+TheMightyDude (15 August 2012)
+--------------------------------------
+Fixed Notice: Use of undefined constant dev_escapepod - assumed 'dev_escapepod' in combat.php
+
 TheMightyDude (13 August 2012)
 --------------------------------------
 Added the Template API to support both Smarty Templates (HTML) and XML DOM (External Clients when added)
