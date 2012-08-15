@@ -1,6 +1,7 @@
 TheMightyDude (15 August 2012)
 --------------------------------------
 Fixed Notice: Use of undefined constant dev_escapepod - assumed 'dev_escapepod' in combat.php
+Fixed Notice: Undefined index: loggedin, last_run in footer.php
 
 TheMightyDude (13 August 2012)
 --------------------------------------

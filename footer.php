@@ -22,11 +22,14 @@ global $sched_ticks, $footer_show_time, $footer_show_debug, $db, $l;
 // New database driven language entries
 load_languages($db, $lang, array('footer','global_includes'), $langvars);
 
-$res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
+$online = (integer) 0;
+$res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe';");
 db_op_result ($db, $res, __LINE__, __FILE__);
-
-$row = $res->fields;
-$online = $row['loggedin'];
+if ($res instanceof ADORecordSet)
+{
+	$row = $res->fields;
+	$online = $row['loggedin'];
+}
 
 global $BenchmarkTimer;
 if (is_object ($BenchmarkTimer) )
@@ -53,12 +56,15 @@ if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i
  <div style='clear:both'></div><div style="text-align:center">
 <?php
 // Update counter
-
+$mySEC = (integer) 0;
 $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
 db_op_result ($db, $res, __LINE__, __FILE__);
-$result = $res->fields;
-$mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
-echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
+if ($res instanceof ADORecordSet)
+{
+	$result = $res->fields;
+	$mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
+	echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
+}
 echo "  <strong><span id=myx>$mySEC</span></strong> " . $l_footer_until_update . " <br>\n";
 // End update counter
 
