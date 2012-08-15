@@ -33,7 +33,7 @@ if (array_key_exists('swordfish', $_POST))
     $swordfish = $_POST['swordfish'];
 }
 
-if ($swordfish != $adminpass)
+if ($swordfish != $adminpass && (array_key_exists('swordfish', $_SESSION) == false || $_SESSION['swordfish'] != $adminpass))
 {
     echo "<form action='perfmon.php' method='post'>";
     echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><br><br>";
@@ -42,6 +42,10 @@ if ($swordfish != $adminpass)
 }
 else
 {
+    if(array_key_exists('swordfish', $_SESSION) == false || $_SESSION['swordfish'] != $adminpass)
+    {
+        $_SESSION['swordfish'] = $adminpass;
+    }
     define('ADODB_PERF_NO_RUN_SQL',1);
     $perf =& NewPerfMonitor($db);
 
