@@ -42,11 +42,11 @@ $account = $result->fields;
 
 ?>
 <center>
-<img src="images/div1.png" alt="">
+<img src="images/div1.png" alt="" style="width: 600px; height:21px">
 <div style="width:600px; max-width:600px;" class="igb">
-<table style="width:600px; height:350px;" border=0>
+<table style="width:600px; height:350px;" border="0px">
 <tr><td style="background-image:URL(images/igbscreen.png); background-repeat:no-repeat;" align="center">
-<table style="width:550px; height:300px;" border=0>
+<table style="width:550px; height:300px;" border="0px">
 
 <?php
 
@@ -133,7 +133,7 @@ else
 </td></tr>
 </table>
 </div>
-<img src="images/div2.png" alt="">
+<img src="images/div2.png" alt="" style="width: 600px; height:21px">
 </center>
 
 <?php
@@ -1137,7 +1137,7 @@ function IGB_error($errmsg, $backlink, $title="Error!")
        "</table>" .
        "</td></tr>" .
        "</table>" .
-       "<img src=images/div2.png>" .
+       "<img style='width: 600px; height:21px' src=images/div2.png>" .
        "</center>";
 
   include 'footer.php';

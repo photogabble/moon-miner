@@ -77,7 +77,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
             }
 
             echo "\n<a href=\"rsmove.php?engage=1&amp;destination=" . $row['sector_id'] . "\">";
-            echo "<img class='map ".$row['port_type']."' src='images/" . $tile[$p] . "' alt='" . $alt . "'></a> ";
+            echo "<img class='map ".$row['port_type']."' src='images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
 
             // Move to next explored sector in database results
             $result3->Movenext ();
@@ -92,7 +92,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
 
             // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
             echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c+($div_xmax*$r)) ."\">";
-            echo "<img class='map un' src='images/" . $tile[$p] . "' alt='" . $alt . "'></a> ";
+            echo "<img class='map un' src='images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
             $cur_sector = $cur_sector + 1;
         }
     }
@@ -105,13 +105,13 @@ for ($a = 1; $a < ($sector_max/50 +1); $a++)
 }
 
 echo "</div><div style='clear:both'></div><br>";
-echo "    <div><img alt='" . $l_port . ": " . $l_special_port . "' src='images/{$tile['special']}'> &lt;- " . $l_special_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_ore_port . "' src='images/{$tile['ore']}'> &lt;- " . $l_ore_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_organics_port . "' src='images/{$tile['organics']}'> &lt;- " . $l_organics_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_energy_port . "' src='images/{$tile['energy']}'> &lt;- " . $l_energy_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_goods_port . "' src='images/{$tile['goods']}'> &lt;- " . $l_goods_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_no_port . "' src='images/{$tile['none']}'> &lt;- " . $l_no_port . "</div>\n";
-echo "    <div><img alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$tile['unknown']}'> &lt;- " . $l_unexplored . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_special_port . "' src='images/{$tile['special']}'> &lt;- " . $l_special_port . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_ore_port . "' src='images/{$tile['ore']}'> &lt;- " . $l_ore_port . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_organics_port . "' src='images/{$tile['organics']}'> &lt;- " . $l_organics_port . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_energy_port . "' src='images/{$tile['energy']}'> &lt;- " . $l_energy_port . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_goods_port . "' src='images/{$tile['goods']}'> &lt;- " . $l_goods_port . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_no_port . "' src='images/{$tile['none']}'> &lt;- " . $l_no_port . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$tile['unknown']}'> &lt;- " . $l_unexplored . "</div>\n";
 
 echo "<br><br>";
 TEXT_GOTOMAIN();

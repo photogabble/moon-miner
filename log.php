@@ -323,7 +323,7 @@ if ($mode != 'compat')
 {
     echo "<td valign=bottom>" .
          "<tr><td><td align=right>" .
-         "<img src=images/bottom_panel.png>" .
+         "<img alt=\"\" style=\"height:296px; width:20px\" src=\"images/bottom_panel.png\">" .
          "<br>" .
          "<div style=\"position:relative; top:-23px;\">" .
          "<font size=2><strong>" .

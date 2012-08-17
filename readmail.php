@@ -128,7 +128,7 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 //if ($isAdmin === true)
 //{
-//    echo "&nbsp;<img style='border:none; padding:0px; vertical-align:text-bottom;' src='images/validated_administrator2.gif' alt='Validated as Admin' />";
+//    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='images/validated_administrator2.gif' alt='Validated as Admin' />";
 //}
 ?>
 </font></td>

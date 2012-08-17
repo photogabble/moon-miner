@@ -118,7 +118,7 @@ echo "</td></tr>";
 echo "</table>";
 echo "</div>\n";
 echo "<p align=center>";
-echo "<img src=\"images/$shiptypes[$shiplevel]\" border=0></p>";
+echo "<img src=\"images/$shiptypes[$shiplevel]\" style=\"border:0px; width:80px; height:60px\"></p>";
 
 TEXT_GOTOMAIN();
 include 'footer.php';

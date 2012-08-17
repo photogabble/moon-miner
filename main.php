@@ -646,7 +646,7 @@ if ($num_defences > 0)
         echo "<td style='vertical-align:top; background: URL(images/bg_alpha.png) repeat;'><div style=' width:160px; font-size:12px; '>";
         if ($defences[$i]['defence_type'] == 'F')
         {
-            echo "<a class='new_link' href='modify_defences.php?defence_id=$defence_id'><img class='mnu' src=\"images/fighters.png\" style='border:0px' alt='Fighters'></a>\n";
+            echo "<a class='new_link' href='modify_defences.php?defence_id=$defence_id'><img class='mnu' src=\"images/fighters.png\" style='border:0px; width:80px; height:60px' alt='Fighters'></a>\n";
             $def_type = $l->get('l_fighters');
             $mode = $defences[$i]['fm_setting'];
             if ($mode == 'attack')
@@ -661,7 +661,7 @@ if ($num_defences > 0)
         }
         elseif ($defences[$i]['defence_type'] == 'M')
         {
-            echo "<div><a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/mines.png\" style='border:0px' alt='Mines'></a></div>\n";
+            echo "<div><a href='modify_defences.php?defence_id=$defence_id'><img src=\"images/mines.png\" style='border:0px; width:80px; height:60px' alt='Mines'></a></div>\n";
             $def_type = $l->get('l_mines');
         }
 
