@@ -84,15 +84,19 @@ else
 if ($footer_show_time == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
 {
     $sf_logo_type = '14';
+    $sf_logo_width = "150px";
+    $sf_logo_height = "40px";
 }
 else
 {
     $sf_logo_type = '11';
+    $sf_logo_width = "120px";
+    $sf_logo_height = "30px";
 }
 
 if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']))
 {
-    $sf_logo_type++; // Make the SF logo darker for all pages except login
+    $sf_logo_type++; // Make the SF logo darker for all pages except login. No need to change the sizes as 12 is the same size as 11 and 15 is the same size as 14.
 }
 
 if (!isset($_GET['lang']))
@@ -104,7 +108,7 @@ else
     $link = "?lang=" . $_GET['lang'];
 }
 
-echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0;' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
+echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0; width:" . $sf_logo_width . "; height:" . $sf_logo_height ."' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $l_local_news . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
