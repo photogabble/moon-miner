@@ -50,12 +50,12 @@ $body_class = 'index';
 include 'header.php';
 ?>
 
-<div class="index-header"><img class="index" src="images/header1.png" style="width:994px; height:150px" alt="Blacknova Traders"></div>
+<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="Blacknova Traders"></div>
 <div class="index-flags">
-<a href="index.php?lang=french"><img style="width: 24px; height:16px" src="images/flags/France.png" alt="French"></a>
-<a href="index.php?lang=german"><img style="width: 24px; height:16px" src="images/flags/Germany.png" alt="German"></a>
-<a href="index.php?lang=spanish"><img style="width: 24px; height:16px" src="images/flags/Mexico.png" alt="Spanish"></a>
-<a href="index.php?lang=english"><img style="width: 24px; height:16px" src="images/flags/United_States_of_America.png" alt="American English"></a></div>
+<a href="index.php?lang=french"><img width="24" height="16" src="images/flags/France.png" alt="French"></a>
+<a href="index.php?lang=german"><img width="24" height="16" src="images/flags/Germany.png" alt="German"></a>
+<a href="index.php?lang=spanish"><img width="24" height="16" src="images/flags/Mexico.png" alt="Spanish"></a>
+<a href="index.php?lang=english"><img width="24" height="16" src="images/flags/United_States_of_America.png" alt="American English"></a></div>
 <div class="index-header-text">Blacknova Traders</div>
 <br>
 <h2 style="display:none">Navigation</h2>
