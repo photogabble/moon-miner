@@ -44,7 +44,7 @@ function newsTicker(inst)
 			window.alert (errMSG);
 			return false;
 		}
-	
+
 		// Default Settings DO NOT CHANGE THESE VALUES.
 		article[instance]				= 0;
 		intervalId[instance]			= null;
@@ -56,8 +56,7 @@ function newsTicker(inst)
 		started[instance]				= false;
 		ticketArticle[instance]			= [];
 		element[instance]				= null;
-		
-		
+
 		element[instance]				= document.getElementById(container);
 		element[instance].height		= parseInt(tickerHeight[instance]) +"px";
 		element[instance].width			= parseInt(tickerWidth[instance]) +"px";
@@ -69,7 +68,7 @@ function newsTicker(inst)
 		initialized[instance]			= true;
 		return true;
 	}
-	
+
 	this.startTicker = function()
 	{
 		var self = this;
@@ -89,7 +88,7 @@ function newsTicker(inst)
 			intervalId[instance] = setInterval(function (){ self.getArticle();}, (100));
 		}
 	}
-	
+
 	this.stopTicker = function()
 	{
 		if (intervalId[instance] != null)
@@ -116,14 +115,14 @@ function newsTicker(inst)
 		ticketArticle[instance].DELAY[ticketArticle[instance].NUM]	= delay;
 		ticketArticle[instance].NUM ++;
 	}
-	
+
 	this.Width = function(width)
 	{
 		if (typeof width == "undefined")
 		{
 			return parseInt(tickerWidth[instance]);
 		}
-		
+
 		if (started[instance] == false)
 		{
 			if (typeof width != "undefined")
