@@ -21,7 +21,7 @@
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
 $index_page = true;
-include 'config/config.php';
+include 'global_includes.php';
 
 // HTML Table Functions
 
@@ -224,7 +224,7 @@ echo"</table>";
     $fedsecs = intval($sector_max / 200);
     $loops = intval($sector_max / 500);
 
-    Table_2Col("Number of sectors total (<strong>overrides config.php</strong>)","<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
+    Table_2Col("Number of sectors total (<strong>overrides config</strong>)","<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
     Table_2Col("Number of Federation sectors","<input type=text name=fedsecs size=10 maxlength=10 value=$fedsecs>");
     Table_2Col("Number of loops","<input type=text name=loops size=10 maxlength=10 value=$loops>");
     Table_2Col("Percent of sectors with unowned planets","<input type=text name=planets size=10 maxlength=10 value=10>");
@@ -301,6 +301,17 @@ echo"</table>";
    case "3":
       create_schema();
       include 'includes/ini_to_db.php';
+
+      $gameconfig_result = ini_to_db($db, "config/configset_classic.php", "gameconfig", "game");
+      if ($gameconfig_result)
+      {
+          echo "Config variables imported into database successfully.\n<br>";
+      }
+      else
+      {
+          echo "Config variables NOT imported into the database successfully.\n<br>";
+      }
+
       $result = ini_to_db($db, "languages/english.ini.php", "languages", "english");
       if ($result)
       {

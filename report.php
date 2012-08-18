@@ -17,7 +17,7 @@
 //
 // File: report.php
 
-include 'config/config.php';
+include 'global_includes.php';
 updatecookie();
 
 // New database driven language entries

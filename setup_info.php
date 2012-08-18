@@ -17,7 +17,7 @@
 //
 // File: setup_info.php
 
-include 'config/config.php';
+include 'global_includes.php';
 
 // Stores the class for creating the universe.
 include 'setup_info_class.php';

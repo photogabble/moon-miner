@@ -17,7 +17,7 @@
 //
 // File: help.php
 
-include 'config/config.php';
+include 'global_includes.php';
 updatecookie ();
 $title = $l_help;
 include 'header.php';

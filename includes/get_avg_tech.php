@@ -24,7 +24,7 @@ if (preg_match("/get_avg_tech.php/i", $_SERVER['PHP_SELF'])) {
 
 function get_avg_tech ($ship_info = null, $type = "ship")
 {
-        // Defined in config.php
+        // Defined in config
         global $calc_ship_tech, $calc_planet_tech;
 
         if ($type == "ship")

@@ -17,7 +17,7 @@
 //
 // File: planet.php
 
-include 'config/config.php';
+include 'global_includes.php';
 include 'combat.php';
 updatecookie ();
 

@@ -24,7 +24,7 @@ if (preg_match("/text_gotomain.php/i", $_SERVER['PHP_SELF'])) {
 
 function TEXT_GOTOMAIN ()
 {
-    global $l; // The language object
+    global $langvars; // The language object
     echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 ?>

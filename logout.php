@@ -17,7 +17,7 @@
 //
 // File: logout.php
 
-include 'config/config.php';
+include 'global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);

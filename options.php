@@ -17,7 +17,7 @@
 //
 // File: options.php
 
-include 'config/config.php';
+include 'global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);

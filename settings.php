@@ -17,7 +17,7 @@
 //
 // File: settings.php
 
-include 'config/config.php';
+include 'global_includes.php';
 
 if (!isset($_GET['lang']))
 {

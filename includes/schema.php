@@ -43,9 +43,22 @@ echo "<strong>Dropping stage complete.</strong><p>";
 // Create database schema
 Table_Header("Creating Tables");
 
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}gameconfig (" .
+             "config_id smallint(5) NOT NULL AUTO_INCREMENT," .
+             "section varchar(30) NOT NULL DEFAULT 'game'," .
+             "name varchar(75) NOT NULL," .
+             "category char(30) NOT NULL," .
+             "value varchar(128) NOT NULL," .
+             "description varchar(255) NOT NULL," .
+             "PRIMARY KEY (config_id)" .
+             ")");
+$err = TRUEFALSE(0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+Table_Row("Creating settings Table","Failed","Passed");
+
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}languages (" .
              "lang_id smallint(5) NOT NULL AUTO_INCREMENT," .
-             "language varchar(30) NOT NULL DEFAULT 'english'," .
+             "section varchar(30) NOT NULL DEFAULT 'english'," .
              "name varchar(75) NOT NULL," .
              "value varchar(2000) NOT NULL," .
              "category char(30) NOT NULL," .

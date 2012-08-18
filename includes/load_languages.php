@@ -33,7 +33,7 @@ function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$lan
     // Populate the $langvars array
     foreach ($categories as $category)
     {
-        $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array($category, $language));
+        $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
         db_op_result ($db, $result, __LINE__, __FILE__);
 
         while ($result && !$result->EOF)

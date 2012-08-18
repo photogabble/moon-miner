@@ -17,7 +17,7 @@
 //
 // File: admin.php
 
-include 'config/config.php';
+include 'global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);

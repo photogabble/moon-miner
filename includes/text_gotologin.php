@@ -24,7 +24,7 @@ if (preg_match("/text_gotologin.php/i", $_SERVER['PHP_SELF'])) {
 
 function TEXT_GOTOLOGIN ()
 {
-    global $l;
+    global $langvars;
     echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 ?>

@@ -17,7 +17,7 @@
 //
 // File: log.php
 
-include 'config/config.php';
+include 'global_includes.php';
 updatecookie ();
 
 // Hack for log bug issue - this really needs to be fixed

@@ -1,3 +1,9 @@
+TheKabal (18 August 2012)
+--------------------------------------
+Config.php is now config/configset_classic.ini.php
+Config variables are loaded into and from the database
+Files now include global_includes, instead of config.php
+
 TheMightyDude (18 August 2012)
 --------------------------------------
 Fixed Notice: Use of undefined constant LOG_ADMIN_PLANETCHEAT - assumed 'LOG_ADMIN_PLANETCHEAT' in planet_report_ce.php

@@ -17,11 +17,10 @@
 //
 // File: main.php
 
-include 'config/config.php';
+include 'global_includes.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('common', 'global_includes'), $langvars, $db_logging);
-
+load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars, $db_logging);
 updatecookie();
 
 if (checklogin())

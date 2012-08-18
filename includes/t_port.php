@@ -24,7 +24,7 @@ if (preg_match("/t_port.php/i", $_SERVER['PHP_SELF'])) {
 
 function t_port ($ptype)
 {
-    global $l;
+    global $langvars;
 
     switch ($ptype)
     {

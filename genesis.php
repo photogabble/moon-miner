@@ -22,7 +22,7 @@
 // code completely from here and putting it in the planet menu
 // instead. Easier to manage, makes more sense too.
 
-include 'config/config.php';
+include 'global_includes.php';
 updatecookie ();
 
 // New database driven language entries

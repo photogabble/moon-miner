@@ -18,7 +18,7 @@
 // File: index.php
 
 $index_page = true;
-include 'config/config.php';
+include 'global_includes.php';
 
 if (!isset($_GET['lang']))
 {
@@ -33,7 +33,7 @@ else
 }
 
 // Check to see if the language database has been installed yet.
-$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND language=?;", array('common', $lang));
+$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array('common', $lang));
 if (!$result)
 {
     // If not, redirect to create_universe.

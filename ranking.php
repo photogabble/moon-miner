@@ -17,7 +17,7 @@
 //
 // File: ranking.php
 
-include 'config/config.php';
+include 'global_includes.php';
 updatecookie();
 
 if (!isset($_GET['lang']))

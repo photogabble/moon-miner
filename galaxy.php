@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: galaxy_new.php
+// File: galaxy.php
 
-include 'config/config.php';
+include 'global_includes.php';
 updatecookie ();
 
 // New database driven language entries

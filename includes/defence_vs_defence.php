@@ -24,7 +24,7 @@ if (preg_match("/defence_vs_defence.php/i", $_SERVER['PHP_SELF'])) {
 
 function defence_vs_defence ($db, $ship_id)
 {
-    global $l;
+    global $langvars;
     $result1 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array($ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__);
 

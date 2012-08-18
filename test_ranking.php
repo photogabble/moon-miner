@@ -1,7 +1,7 @@
 <?php
 
 // Include the Config File.
-include "config/config.php";
+include 'global_includes.php';
 
 // Always make sure we are using empty vars before use.
 $language_vars = null;

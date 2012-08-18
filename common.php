@@ -70,6 +70,38 @@ if ($db_logging)
     $db->LogSQL(); // Turn on adodb performance logging
 }
 
+// Get the config_values from the DB
+$debug_query = $db->Execute("SELECT name,value FROM {$db->prefix}gameconfig");
+
+if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
+{
+    db_op_result($db,$debug_query,__LINE__,__FILE__);
+    $no_db = false; // We have a database connection!
+}
+else
+{
+    $no_db = true; // Set a variable so we know not to do DB activities.
+
+    // Slurp in config variables from the ini file directly
+    $ini_file = 'config/configset_classic.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
+    $ini_keys = parse_ini_file ($ini_file, true);
+
+    foreach ($ini_keys as $config_category=>$config_line)
+    {
+        foreach ($config_line as $config_key=>$config_value)
+        {
+            $$config_key = $config_value;
+        }
+    }
+}
+
+while ($debug_query && !$debug_query->EOF)
+{
+    $row = $debug_query->fields;
+    $$row['name'] = $row['value'];
+    $debug_query->MoveNext();
+}
+
 if (!isset($index_page))
 {
     $index_page = false;
@@ -122,24 +154,27 @@ if ($userpass != '' and $userpass != '+')
 
 $lang = $default_lang;
 
-if (empty($username))  // If the user has not logged in
+if ($no_db != true) // Before DB is installed, don't try to setup userinfo
 {
-    if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
+    if (empty($username))  // If the user has not logged in
     {
-        $lang = $_GET['lang'];  // Set $lang to the language the user has chosen
+        if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
+        {
+            $lang = $_GET['lang'];  // Set $lang to the language the user has chosen
+        }
     }
-}
-else // The user has logged in, so use his preference from the database
-{
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-    db_op_result ($db, $res, __LINE__, __FILE__);
-    if ($res)
+    else // The user has logged in, so use his preference from the database
     {
-        $playerfound = $res->RecordCount();
-    }
+        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+        db_op_result ($db, $res, __LINE__, __FILE__);
+        if ($res)
+        {
+            $playerfound = $res->RecordCount();
+        }
 
-    $playerinfo = $res->fields;
-    $lang = $playerinfo['lang'];
+        $playerinfo = $res->fields;
+        $lang = $playerinfo['lang'];
+    }
 }
 
 $avail_lang[0]['file'] = 'english';
@@ -165,8 +200,6 @@ date_default_timezone_set('UTC'); // Set to your server's local time zone - PHP 
 $calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 $calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 $calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-
-$l = new bnt_translation();
 
 // Auto detect and set the game path (uses the logic from setup_info)
 // If it does not work, please comment this out and set it in db_config.php instead.

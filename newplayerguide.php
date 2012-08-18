@@ -1,5 +1,5 @@
 <?php
-include 'config/config.php';
+include 'global_includes.php';
 $title = "Blacknova Traders FAQ";
 $body_class = 'faq';
 if (!isset($_GET['lang']))
@@ -14,7 +14,7 @@ else
     $link = "?lang=" . $lang;
 }
 include 'header.php';
-global $l; // The language object
+global $langvars; // The language object
 ?>
 <table>
   <tbody>

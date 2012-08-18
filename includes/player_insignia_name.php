@@ -24,7 +24,7 @@ if (preg_match("/player_insignia_name.php/i", $_SERVER['PHP_SELF'])) {
 
 function player_insignia_name ($db, $a_username)
 {
-    global $l;
+    global $langvars;
     unset ($player_insignia);
 
     // Lookup players score.
