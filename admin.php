@@ -24,7 +24,7 @@ load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat',
 
 updatecookie();
 
-$title = $l->get('l_admin_title');
+$title = $langvars['l_admin_title'];
 include 'header.php';
 
 connectdb ();
@@ -190,7 +190,7 @@ else
         elseif ($module == "univedit")
         {
             echo "<strong>Universe editor</strong>";
-            $title = $l->get('l_change_uni_title');
+            $title = $langvars['l_change_uni_title'];
             echo "<br>Expand or Contract the Universe <br>";
 
             if (empty($action))

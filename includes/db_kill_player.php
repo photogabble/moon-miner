@@ -81,9 +81,9 @@ function db_kill_player ($ship_id, $remove_planets = false)
     db_op_result ($db, $query, __LINE__, __FILE__);
     $name = $query->fields;
 
-    $headline = $name['character_name'] . $l->get('l_killheadline');
+    $headline = $name['character_name'] . $langvars['l_killheadline'];
 
-    $newstext = str_replace("[name]", $name['character_name'], $l->get('l_news_killed'));
+    $newstext = str_replace("[name]", $name['character_name'], $langvars['l_news_killed']);
 
     $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?,?,?,NOW(), 'killed')", array($headline, $newstext, $ship_id));
     db_op_result ($db, $news, __LINE__, __FILE__);

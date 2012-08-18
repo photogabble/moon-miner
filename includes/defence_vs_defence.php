@@ -42,7 +42,7 @@ function defence_vs_defence ($db, $ship_id)
                 while (!$result2->EOF && $qty > 0)
                 {
                     $cur = $result2->fields;
-                    $targetdeftype = $cur['defence_type'] == 'F' ? $l->get('l_fighters') : $l->get('l_mines');
+                    $targetdeftype = $cur['defence_type'] == 'F' ? $langvars['l_fighters'] : $langvars['l_mines'];
                     if ($qty > $cur['quantity'])
                     {
                         $resa = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array($cur['defence_id']));

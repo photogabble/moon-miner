@@ -135,7 +135,7 @@ function xenobetosecdef()
             {
                 if ($playerfighters > $targetfighters)
                 {
-                    echo $l->get('l_sf_destfightall');
+                    echo $langvars['l_sf_destfightall'];
                     $temptargfighters = 0;
                 }
                 else
@@ -174,7 +174,7 @@ function xenobetosecdef()
             destroy_fighters ($db, $targetlink, $fighterslost);
 
             // Message the defence owner with what happened
-            $l_sf_sendlog = str_replace("[player]", "Xenobe $playerinfo[character_name]", $l->get('l_sf_sendlog'));
+            $l_sf_sendlog = str_replace("[player]", "Xenobe $playerinfo[character_name]", $langvars['l_sf_sendlog']);
             $l_sf_sendlog = str_replace("[lost]", $fighterslost, $l_sf_sendlog);
             $l_sf_sendlog = str_replace("[sector]", $targetlink, $l_sf_sendlog);
             message_defence_owner ($db, $targetlink, $l_sf_sendlog);
@@ -189,7 +189,7 @@ function xenobetosecdef()
             // Check to see if Xenobe is dead
             if ($playerarmor < 1)
             {
-                $l_sf_sendlog2 = str_replace("[player]", "Xenobe " . $playerinfo['character_name'], $l->get('l_sf_sendlog2'));
+                $l_sf_sendlog2 = str_replace("[player]", "Xenobe " . $playerinfo['character_name'], $langvars['l_sf_sendlog2']);
                 $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
                 message_defence_owner ($db, $targetlink, $l_sf_sendlog2);
                 cancel_bounty ($db, $playerinfo['ship_id']);
@@ -200,7 +200,7 @@ function xenobetosecdef()
             }
 
             // Xenobe is still alive, so he hits mines, and logs it
-            $l_chm_hehitminesinsector = str_replace("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $l->get('l_chm_hehitminesinsector'));
+            $l_chm_hehitminesinsector = str_replace("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
             $l_chm_hehitminesinsector = str_replace("[chm_roll]", $roll, $l_chm_hehitminesinsector);
             $l_chm_hehitminesinsector = str_replace("[chm_sector]", $targetlink, $l_chm_hehitminesinsector);
             message_defence_owner ($db, $targetlink, "$l_chm_hehitminesinsector");
@@ -233,7 +233,7 @@ function xenobetosecdef()
                     else
                     {
                         // Xenobe dies, logs the fact that he died
-                        $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $l->get('l_chm_hewasdestroyedbyyourmines'));
+                        $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
                         $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $targetlink, $l_chm_hewasdestroyedbyyourmines);
                         message_defence_owner ($db, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
 

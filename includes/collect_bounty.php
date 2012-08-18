@@ -33,7 +33,7 @@ function collect_bounty ($attacker, $bounty_on)
             $bountydetails = $res->fields;
             if ($res->fields['placed_by'] == 0)
             {
-                $placed = $l->get('l_by_thefeds');
+                $placed = $langvars['l_by_thefeds'];
             }
             else
             {

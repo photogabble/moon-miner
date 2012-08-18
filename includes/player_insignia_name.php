@@ -47,7 +47,7 @@ function player_insignia_name ($db, $a_username)
         {
             // Ok we have found our Insignia, now set and break out of the for loop.
             $temp_insignia = "l_insignia_" . $i;
-            $player_insignia = $l->get($temp_insignia);
+            $player_insignia = $langvars[$temp_insignia];
             break;
         }
     }
@@ -55,7 +55,7 @@ function player_insignia_name ($db, $a_username)
     if (!isset($player_insignia))
     {
         // Hmm, player has out ranked out highest rank, so just return that.
-        $player_insignia = $l->get('l_insignia_19');
+        $player_insignia = $langvars['l_insignia_19'];
     }
 
     return $player_insignia;

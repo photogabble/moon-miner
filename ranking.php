@@ -168,11 +168,11 @@ else
 
 if (empty($username))
 {
-    echo str_replace("[here]", "<a href='index.php" . $link_back . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mlogin'));
+    echo str_replace("[here]", "<a href='index.php" . $link_back . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace("[here]", "<a href='main.php" . $link_back . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
+    echo str_replace("[here]", "<a href='main.php" . $link_back . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
 include 'footer.php';

@@ -29,22 +29,22 @@ function t_port ($ptype)
     switch ($ptype)
     {
     case "ore":
-        $ret = $l->get('l_ore');
+        $ret = $langvars['l_ore'];
         break;
     case "none":
-        $ret = $l->get('l_none');
+        $ret = $langvars['l_none'];
         break;
     case "energy":
-        $ret = $l->get('l_energy');
+        $ret = $langvars['l_energy'];
         break;
     case "organics":
-        $ret = $l->get('l_organics');
+        $ret = $langvars['l_organics'];
         break;
     case "goods":
-        $ret = $l->get('l_goods');
+        $ret = $langvars['l_goods'];
         break;
     case "special":
-        $ret = $l->get('l_special');
+        $ret = $langvars['l_special'];
         break;
     }
 

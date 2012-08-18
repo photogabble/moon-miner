@@ -99,7 +99,7 @@ else
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 
-echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $l->get('l_here') . "</a>", $l->get('l_global_mmenu'));
+echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 
 include 'footer.php';
 die ();

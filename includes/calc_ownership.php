@@ -134,7 +134,7 @@ function calc_ownership ($sector)
         $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
         db_op_result ($db, $resa, __LINE__, __FILE__);
 
-        return $l->get('l_global_warzone');
+        return $langvars['l_global_warzone'];
     }
 
     // More than one unallied ship, war
@@ -152,7 +152,7 @@ function calc_ownership ($sector)
         $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
         db_op_result ($db, $resb, __LINE__, __FILE__);
 
-        return $l->get('l_global_warzone');
+        return $langvars['l_global_warzone'];
     }
 
     // Unallied ship, another corp present, war
@@ -161,7 +161,7 @@ function calc_ownership ($sector)
         $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
         db_op_result ($db, $resc, __LINE__, __FILE__);
 
-        return $l->get('l_global_warzone');
+        return $langvars['l_global_warzone'];
     }
 
     // Unallied ship, another ship in a corp, war
@@ -191,7 +191,7 @@ function calc_ownership ($sector)
             $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array($sector));
             db_op_result ($db, $resd, __LINE__, __FILE__);
 
-            return $l->get('l_global_warzone');
+            return $langvars['l_global_warzone'];
         }
     }
 
@@ -219,7 +219,7 @@ function calc_ownership ($sector)
         $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
         db_op_result ($db, $rese, __LINE__, __FILE__);
 
-        return $l->get('l_global_nzone');
+        return $langvars['l_global_nzone'];
     }
 
     if ($owners[$winner]['type'] == 'C')
@@ -235,7 +235,7 @@ function calc_ownership ($sector)
         $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
         db_op_result ($db, $resf, __LINE__, __FILE__);
 
-        return $l->get('l_global_team') . " " . $corp['team_name'] . "!";
+        return $langvars['l_global_team'] . " " . $corp['team_name'] . "!";
     }
     else
     {
@@ -255,7 +255,7 @@ function calc_ownership ($sector)
             $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array($sector));
             db_op_result ($db, $resg, __LINE__, __FILE__);
 
-            return $l->get('l_global_nzone');
+            return $langvars['l_global_nzone'];
         }
         else
         {
@@ -270,7 +270,7 @@ function calc_ownership ($sector)
             $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array($sector));
             db_op_result ($db, $resg, __LINE__, __FILE__);
 
-            return $l->get('l_global_player') . " " . $ship['character_name'] . "!";
+            return $langvars['l_global_player'] . " " . $ship['character_name'] . "!";
         }
     }
 }
