@@ -85,7 +85,7 @@ elseif ($command == 'loans') //loans menu
 elseif ($command == 'borrow') //borrow operation
   IGB_borrow();
 elseif ($command == 'repay') //repay operation
-  IGB_repay();
+  ibank_repay();
 elseif ($command == 'consolidate') //consolidate menu
   ibank_consolidate();
 elseif ($command == 'consolidate2') //consolidate compute
@@ -751,9 +751,9 @@ function IGB_loans()
 {
   global $playerinfo, $account;
   global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest;
-  global $l_igb_loanstatus,$l_igb_shipaccount, $l_igb_currentloan, $l_igb_repay;
+  global $l_igb_loanstatus,$l_igb_shipaccount, $l_igb_currentloan, $l_ibank_repay;
   global $l_igb_maxloanpercent, $l_igb_loanamount, $l_igb_borrow, $l_igb_loanrates;
-  global $l_igb_back, $l_igb_logout, $ibank_lrate, $l_igb_loantimeleft, $l_igb_loanlate, $l_igb_repayamount;
+  global $l_igb_back, $l_igb_logout, $ibank_lrate, $l_igb_loantimeleft, $l_igb_loanlate, $l_ibank_repayamount;
   global $db, $db_logging;
 
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_loanstatus<br>---------------------------------</td></tr>" .
@@ -793,9 +793,9 @@ function IGB_loans()
 
     echo "<form action='igb.php?command=repay' method=POST>" .
          "<tr valign=top>" .
-         "<td><br>$l_igb_repayamount :</td>" .
+         "<td><br>$l_ibank_repayamount :</td>" .
          "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
-         "<br><input class=term type=submit value=$l_igb_repay></td>" .
+         "<br><input class=term type=submit value=$l_ibank_repay></td>" .
          "</form>" .
          "<tr><td colspan=2 align=center>" .
          "$l_igb_loanrates";
@@ -884,7 +884,7 @@ function IGB_borrow()
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 
-function IGB_repay()
+function ibank_repay()
 {
   global $playerinfo, $account, $amount;
   global $l_igb_notrepay, $l_igb_notenoughrepay,$l_igb_payloan;
