@@ -1,12 +1,10 @@
 <?php
-if(extension_loaded('zlib'))
-{
-    ob_start('ob_gzhandler');
-}
+include '../../includes/bnt_compress.php';
+ob_start('bnt_compress');
 
-header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
-header("Content-type: text/css");
+//header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
 header("Vary: Accept-Encoding");
+header("Content-type: text/javascript");
 header("Connection: Keep-Alive");
 header("Cache-Control: public");
 ?>
@@ -242,8 +240,5 @@ function newsTicker(inst)
 <?php
 $etag = md5_file(__FILE__);
 header('ETag: "' . $etag . '"');
-if(extension_loaded('zlib'))
-{
-    ob_end_flush();
-}
+ob_end_flush();
 ?>

@@ -2,6 +2,8 @@
 include '../../includes/bnt_compress.php';
 ob_start('bnt_compress');
 
+//header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
+header("Vary: Accept-Encoding");
 header("Content-type: text/javascript");
 header("Connection: Keep-Alive");
 header("Cache-Control: public");
@@ -50,4 +52,8 @@ header("Cache-Control: public");
         }
     }
 -->
-<?php ob_end_flush();?>
+<?php
+$etag = md5_file(__FILE__);
+header('ETag: "' . $etag . '"');
+ob_end_flush();
+?>
