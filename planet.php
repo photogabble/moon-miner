@@ -316,7 +316,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                     $l_planet_scn = str_replace ("[scan]", $l_planet_scn_link, $l_planet_scn);
                     echo "$l_planet_att<br>";
                     echo "$l_planet_scn<br>";
-                    if ($sofa_on)
+                    if ($allow_sofa)
                     {
                         echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
                     }
@@ -570,7 +570,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                     $l_planet_scn = str_replace ("[scan]", $l_planet_scn_link, $l_planet_scn);
                     echo "$l_planet_att <strong>$l_planet_att_sure</strong><br>";
                     echo "$l_planet_scn<br>";
-                    if ($sofa_on)
+                    if ($allow_sofa)
                     {
                         echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
                     }
@@ -607,7 +607,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
         elseif ($command == "bom")
         {
             // Check to see if sure...
-            if ($planetinfo['sells'] == "Y" && $sofa_on)
+            if ($planetinfo['sells'] == "Y" && $allow_sofa)
             {
                 $l_planet_buy_link = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
                 $l_planet_buy = str_replace ("[buy]", $l_planet_buy_link, $l_planet_buy);
@@ -626,7 +626,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             echo "$l_planet_scn<br>";
             echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><strong>$l_planet_att_sure</strong><br>";
         }
-        elseif ($command == "bomb" && $sofa_on)
+        elseif ($command == "bomb" && $allow_sofa)
         {
             planetbombing ();
         }

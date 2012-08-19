@@ -51,8 +51,8 @@ allow_fullscan             = true;                             // Allow players 
 allow_navcomp              = true;                             // Allow players to use the Navigation computer during this game?
 allow_ibank                = true;                             // Allow players to use the Intergalactic Bank IGB during this game?
 allow_genesis_destroy      = false;                            // Allow players to use genesis torps to destroy planets?
-sofa_on                    = false;                            // Is the sub-orbital fighter sofa attack allowed in this game?
-ksm_allowed                = true;                             // Is the known space map allowed in this game?
+allow_sofa                 = false;                            // Is the sub-orbital fighter sofa attack allowed in this game?
+allow_ksm                  = true;                             // Is the known space map allowed in this game?
 display_password           = false;                            // If true, will display password on signup screen.
 
 [STARTING_VALUES]

@@ -106,8 +106,8 @@ $info['G-PORT-LIMIT-ENERGY'] = $energy_limit;
 $info['G-PORT-RATE-ENERGY'] = $energy_rate;
 $info['G-PORT-DELTA-ENERGY'] = $energy_delta;
 
-$info['G-SOFA'] = ($sofa_on===true ? "1" : "0");
-$info['G-KSM'] = ($ksm_allowed ? "1" : "0");
+$info['G-SOFA'] = ($allow_sofa===true ? "1" : "0");
+$info['G-KSM'] = ($allow_ksm ? "1" : "0");
 
 $info['S-CLOSED'] = ($server_closed ? "1" : "0");
 $info['S-CLOSED-ACCOUNTS'] = ($account_creation_closed ? "1" : "0");
