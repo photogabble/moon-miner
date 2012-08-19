@@ -1,4 +1,5 @@
 <?php
+include '../../includes/bnt_compress.php';
 ob_start('bnt_compress');
 
 header("Content-type: text/javascript");
