@@ -1,11 +1,7 @@
 <?php
-if(extension_loaded('zlib'))
-{
-    ob_start('ob_gzhandler');
-}
+ob_start('bnt_compress');
 
-header("Content-type: text/css");
-header("Vary: Accept-Encoding");
+header("Content-type: text/javascript");
 header("Connection: Keep-Alive");
 header("Cache-Control: public");
 ?>
@@ -53,4 +49,4 @@ header("Cache-Control: public");
         }
     }
 -->
-<?php if(extension_loaded('zlib')){ob_end_flush();}?>
+<?php ob_end_flush();?>
