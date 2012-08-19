@@ -19,10 +19,10 @@
 
 function calcplanetbeams()
 {
-    global $playerinfo, $ownerinfo, $sectorinfo, $basedefense, $planetinfo, $db, $db_logging;
+    global $playerinfo, $ownerinfo, $sectorinfo, $base_defense, $planetinfo, $db, $db_logging;
 
     $energy_available = $planetinfo['energy'];
-    $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
+    $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
     $planetbeams = NUM_BEAMS ($ownerinfo['beams'] + $base_factor);
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -43,9 +43,9 @@ function calcplanetbeams()
 
 function calcplanettorps()
 {
-    global $playerinfo, $ownerinfo, $sectorinfo, $level_factor, $basedefense, $planetinfo, $db, $db_logging;
+    global $playerinfo, $ownerinfo, $sectorinfo, $level_factor, $base_defense, $planetinfo, $db, $db_logging;
 
-    $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
+    $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -76,9 +76,9 @@ function calcplanettorps()
 
 function calcplanetshields()
 {
-    global $playerinfo, $ownerinfo, $sectorinfo, $basedefense, $planetinfo, $db, $db_logging;
+    global $playerinfo, $ownerinfo, $sectorinfo, $base_defense, $planetinfo, $db, $db_logging;
 
-    $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
+    $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     $planetshields = NUM_SHIELDS ($ownerinfo['shields'] + $base_factor);

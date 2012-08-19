@@ -249,7 +249,7 @@ if ($allow_ibank)
     $rate = $ibank_loaninterest * 100;
     line("IGB Loan rate per update",$rate, "right");
 }
-line("Tech Level upgrade for Bases",$basedefense, "right");
+line("Tech Level upgrade for Bases",$base_defense, "right");
 
 $num = NUMBER($colonist_limit);
 line("Colonists Limit",$num, "right");

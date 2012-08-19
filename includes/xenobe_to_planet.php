@@ -34,7 +34,7 @@ function xenobetoplanet($planet_id)
     db_op_result ($db, $resulto, __LINE__, __FILE__);
     $ownerinfo = $resulto->fields;
 
-    $base_factor = ($planetinfo['base'] == 'Y') ? $basedefense : 0;
+    $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     // Planet beams
     $targetbeams = NUM_BEAMS ($ownerinfo['beams'] + $base_factor);

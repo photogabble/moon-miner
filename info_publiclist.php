@@ -136,7 +136,7 @@ $info['TORPEDO_PRICE'] = $torpedo_price;
 $info['ARMOR_PRICE'] = $armor_price;
 $info['COLONIST_PRICE'] = $colonist_price;
 
-$info['BASEDEFENSE'] = $basedefense;
+$info['BASE_DEFENSE'] = $base_defense;
 
 $info['COLONIST_PRODUCTION_RATE'] = $colonist_production_rate;
 $info['COLONIST_REPRODUCTION_RATE'] = $colonist_reproduction_rate;
