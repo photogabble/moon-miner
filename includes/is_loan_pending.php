@@ -24,7 +24,7 @@ if (preg_match("/is_loan_pending.php/i", $_SERVER['PHP_SELF'])) {
 
 function is_loan_pending ($db, $ship_id)
 {
-    global $IGB_lrate;
+    global $ibank_lrate;
 
     $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id=?", array($ship_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
@@ -39,7 +39,7 @@ function is_loan_pending ($db, $ship_id)
 
         $curtime = time();
         $difftime = ($curtime - $account['time']) / 60;
-        if ($difftime > $IGB_lrate)
+        if ($difftime > $ibank_lrate)
         {
             return true;
         }

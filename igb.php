@@ -225,12 +225,12 @@ function IGB_transfer()
 {
   global $playerinfo;
   global $account;
-  global $IGB_min_turns;
+  global $ibank_min_turns;
   global $l_igb_transfertype, $l_igb_toanothership, $l_igb_shiptransfer, $l_igb_fromplanet, $l_igb_source, $l_igb_consolidate;
   global $l_igb_unnamed, $l_igb_in, $l_igb_none, $l_igb_planettransfer, $l_igb_back, $l_igb_logout, $l_igb_destination, $l_igb_conspl;
   global $db, $db_logging;
 
-  $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > $IGB_min_turns ORDER BY character_name ASC");
+  $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > $ibank_min_turns ORDER BY character_name ASC");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   while (!$res->EOF)
   {
@@ -339,11 +339,11 @@ function IGB_transfer2()
   global $ship_id;
   global $splanet_id;
   global $dplanet_id;
-  global $IGB_min_turns;
-  global $IGB_svalue;
+  global $ibank_min_turns;
+  global $ibank_svalue;
   global $ibank_paymentfee;
-  global $IGB_trate;
-  global $l_igb_sendyourself, $l_igb_unknowntargetship, $l_igb_min_turns, $l_igb_min_turns2;
+  global $ibank_trate;
+  global $l_igb_sendyourself, $l_igb_unknowntargetship, $l_ibank_min_turns, $l_ibank_min_turns2;
   global $l_igb_mustwait, $l_igb_shiptransfer, $l_igb_igbaccount, $l_igb_maxtransfer;
   global $l_igb_unlimited, $l_igb_maxtransferpercent, $l_igb_transferrate, $l_igb_recipient;
   global $l_igb_seltransferamount, $l_igb_transfer, $l_igb_back, $l_igb_logout, $l_igb_in;
@@ -354,7 +354,7 @@ function IGB_transfer2()
 
   if (isset($ship_id)) //ship transfer
   {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$ship_id AND ship_destroyed ='N' AND turns_used > $IGB_min_turns;");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$ship_id AND ship_destroyed ='N' AND turns_used > $ibank_min_turns;");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     if ($playerinfo['ship_id'] == $ship_id)
@@ -365,23 +365,23 @@ function IGB_transfer2()
 
     $target = $res->fields;
 
-    if ($target['turns_used'] < $IGB_min_turns)
+    if ($target['turns_used'] < $ibank_min_turns)
     {
-      $l_igb_min_turns = str_replace("[igb_min_turns]", $IGB_min_turns, $l_igb_min_turns);
-      $l_igb_min_turns = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_min_turns);
-      IGB_error($l_igb_min_turns, "igb.php?command=transfer");
+      $l_ibank_min_turns = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns);
+      $l_ibank_min_turns = str_replace("[igb_target_char_name]", $target['character_name'], $l_ibank_min_turns);
+      IGB_error($l_ibank_min_turns, "igb.php?command=transfer");
     }
 
-    if ($playerinfo['turns_used'] < $IGB_min_turns)
+    if ($playerinfo['turns_used'] < $ibank_min_turns)
     {
-      $l_igb_min_turns2 = str_replace("[igb_min_turns]", $IGB_min_turns, $l_igb_min_turns2);
-      IGB_error($l_igb_min_turns2, "igb.php?command=transfer");
+      $l_ibank_min_turns2 = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns2);
+      IGB_error($l_ibank_min_turns2, "igb.php?command=transfer");
     }
 
-    if ($IGB_trate > 0)
+    if ($ibank_trate > 0)
     {
       $curtime = time();
-      $curtime -= $IGB_trate * 60;
+      $curtime -= $ibank_trate * 60;
       $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > $curtime AND source_id=$playerinfo[ship_id] AND dest_id=$target[ship_id]");
       db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       if (!$res->EOF)
@@ -389,7 +389,7 @@ function IGB_transfer2()
         $time = $res->fields;
         $difftime = ($time['time'] - $curtime) / 60;
         $l_igb_mustwait = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_mustwait);
-        $l_igb_mustwait = str_replace("[igb_trate]", NUMBER($IGB_trate), $l_igb_mustwait);
+        $l_igb_mustwait = str_replace("[ibank_trate]", NUMBER($ibank_trate), $l_igb_mustwait);
         $l_igb_mustwait = str_replace("[igb_difftime]", NUMBER($difftime), $l_igb_mustwait);
         IGB_error($l_igb_mustwait, "igb.php?command=transfer");
       }
@@ -398,13 +398,13 @@ function IGB_transfer2()
     echo "<tr><td colspan=2 align=center valign=top>$l_igb_shiptransfer<br>---------------------------------</td></tr>" .
          "<tr valign=top><td>$l_igb_igbaccount :</td><td align=right>" . NUMBER($account['balance']) . " C</td></tr>";
 
-    if ($IGB_svalue == 0)
+    if ($ibank_svalue == 0)
       echo "<tr valign=top><td>$l_igb_maxtransfer :</td><td align=right>$l_igb_unlimited</td></tr>";
     else
     {
-      $percent = $IGB_svalue * 100;
+      $percent = $ibank_svalue * 100;
       $score = gen_score($playerinfo['ship_id']);
-      $maxtrans = $score * $score * $IGB_svalue;
+      $maxtrans = $score * $score * $ibank_svalue;
 
       $l_igb_maxtransferpercent = str_replace("[igb_percent]", $percent, $l_igb_maxtransferpercent);
       echo "<tr valign=top><td nowrap>$l_igb_maxtransferpercent :</td><td align=right>" . NUMBER($maxtrans) . " C</td></tr>";
@@ -489,12 +489,12 @@ function IGB_transfer3()
   global $ship_id;
   global $splanet_id;
   global $dplanet_id;
-  global $IGB_min_turns;
-  global $IGB_svalue;
+  global $ibank_min_turns;
+  global $ibank_svalue;
   global $ibank_paymentfee;
   global $amount;
-  global $IGB_trate;
-  global $l_igb_errsendyourself, $l_igb_unknowntargetship, $l_igb_min_turns3, $l_igb_min_turns4, $l_igb_mustwait2;
+  global $ibank_trate;
+  global $l_igb_errsendyourself, $l_igb_unknowntargetship, $l_ibank_min_turns3, $l_ibank_min_turns4, $l_igb_mustwait2;
   global $l_igb_invalidtransferinput, $l_igb_nozeroamount, $l_igb_notenoughcredits, $l_igb_notenoughcredits2, $l_igb_in, $l_igb_to;
   global $l_igb_amounttoogreat, $l_igb_transfersuccessful, $l_igb_creditsto, $l_igb_transferamount, $l_igb_amounttransferred;
   global $l_igb_transferfee, $l_igb_igbaccount, $l_igb_back, $l_igb_logout, $l_igb_errplanetsrcanddest, $l_igb_errnotyourplanet;
@@ -510,7 +510,7 @@ function IGB_transfer3()
   {
     // Need to check again to prevent cheating by manual posts
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$ship_id AND ship_destroyed ='N' AND turns_used > $IGB_min_turns;");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$ship_id AND ship_destroyed ='N' AND turns_used > $ibank_min_turns;");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     if ($playerinfo['ship_id'] == $ship_id)
@@ -521,23 +521,23 @@ function IGB_transfer3()
 
     $target = $res->fields;
 
-    if ($target['turns_used'] < $IGB_min_turns)
+    if ($target['turns_used'] < $ibank_min_turns)
     {
-      $l_igb_min_turns3 = str_replace("[igb_min_turns]", $IGB_min_turns, $l_igb_min_turns3);
-      $l_igb_min_turns3 = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_min_turns3);
-      IGB_error($l_igb_min_turns3, "igb.php?command=transfer");
+      $l_ibank_min_turns3 = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns3);
+      $l_ibank_min_turns3 = str_replace("[igb_target_char_name]", $target['character_name'], $l_ibank_min_turns3);
+      IGB_error($l_ibank_min_turns3, "igb.php?command=transfer");
     }
 
-    if ($playerinfo['turns_used'] < $IGB_min_turns)
+    if ($playerinfo['turns_used'] < $ibank_min_turns)
     {
-      $l_igb_min_turns4 = str_replace("[igb_min_turns]", $IGB_min_turns, $l_igb_min_turns4);
-      IGB_error($l_igb_min_turns4, "igb.php?command=transfer");
+      $l_ibank_min_turns4 = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns4);
+      IGB_error($l_ibank_min_turns4, "igb.php?command=transfer");
     }
 
-    if ($IGB_trate > 0)
+    if ($ibank_trate > 0)
     {
       $curtime = time();
-      $curtime -= $IGB_trate * 60;
+      $curtime -= $ibank_trate * 60;
       $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > $curtime AND source_id=$playerinfo[ship_id] AND dest_id=$target[ship_id]");
       db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
       if (!$res->EOF)
@@ -545,7 +545,7 @@ function IGB_transfer3()
         $time = $res->fields;
         $difftime = ($time['time'] - $curtime) / 60;
         $l_igb_mustwait2 = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_mustwait2);
-        $l_igb_mustwait2 = str_replace("[igb_trate]", NUMBER($IGB_trate), $l_igb_mustwait2);
+        $l_igb_mustwait2 = str_replace("[ibank_trate]", NUMBER($ibank_trate), $l_igb_mustwait2);
         $l_igb_mustwait2 = str_replace("[igb_difftime]", NUMBER($difftime), $l_igb_mustwait2);
         IGB_error($l_igb_mustwait2, "igb.php?command=transfer");
       }
@@ -560,11 +560,11 @@ function IGB_transfer3()
     if ($amount > $account['balance'])
       IGB_error($l_igb_notenoughcredits, "igb.php?command=transfer");
 
-    if ($IGB_svalue != 0)
+    if ($ibank_svalue != 0)
     {
-      $percent = $IGB_svalue * 100;
+      $percent = $ibank_svalue * 100;
       $score = gen_score($playerinfo['ship_id']);
-      $maxtrans = $score * $score * $IGB_svalue;
+      $maxtrans = $score * $score * $ibank_svalue;
 
       if ($amount > $maxtrans)
         IGB_error($l_igb_amounttoogreat, "igb.php?command=transfer");
@@ -751,7 +751,7 @@ function IGB_loans()
   global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest;
   global $l_igb_loanstatus,$l_igb_shipaccount, $l_igb_currentloan, $l_igb_repay;
   global $l_igb_maxloanpercent, $l_igb_loanamount, $l_igb_borrow, $l_igb_loanrates;
-  global $l_igb_back, $l_igb_logout, $IGB_lrate, $l_igb_loantimeleft, $l_igb_loanlate, $l_igb_repayamount;
+  global $l_igb_back, $l_igb_logout, $ibank_lrate, $l_igb_loantimeleft, $l_igb_loanlate, $l_igb_repayamount;
   global $db, $db_logging;
 
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_loanstatus<br>---------------------------------</td></tr>" .
@@ -772,11 +772,11 @@ function IGB_loans()
 
     echo "<tr valign=top><td nowrap>$l_igb_loantimeleft :</td>";
 
-    if ($difftime > $IGB_lrate)
+    if ($difftime > $ibank_lrate)
       echo "<td align=right>$l_igb_loanlate</td></tr>";
     else
     {
-      $difftime=$IGB_lrate - $difftime;
+      $difftime=$ibank_lrate - $difftime;
       $hours = $difftime / 60;
       $hours = (int) $hours;
       $mins = $difftime % 60;
@@ -833,7 +833,7 @@ function IGB_borrow()
   global $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor;
   global $l_igb_invalidamount,$l_igb_notwoloans, $l_igb_loantoobig;
   global $l_igb_takenaloan, $l_igb_loancongrats, $l_igb_loantransferred;
-  global $l_igb_loanfee, $l_igb_amountowned, $IGB_lrate, $l_igb_loanreminder, $l_igb_loanreminder2;
+  global $l_igb_loanfee, $l_igb_amountowned, $ibank_lrate, $l_igb_loanreminder, $l_igb_loanreminder2;
   global $db, $db_logging, $l_igb_back, $l_igb_logout;
 
   $amount = StripNonNum($amount);
@@ -855,8 +855,8 @@ function IGB_borrow()
   $amount2 = $amount * $ibank_loanfactor;
   $amount3= $amount + $amount2;
 
-  $hours = $IGB_lrate / 60;
-  $mins = $IGB_lrate % 60;
+  $hours = $ibank_lrate / 60;
+  $mins = $ibank_lrate % 60;
 
   $l_igb_loanreminder = str_replace("[hours]", $hours, $l_igb_loanreminder);
   $l_igb_loanreminder = str_replace("[mins]", $mins, $l_igb_loanreminder);
@@ -937,7 +937,7 @@ function IGB_consolidate()
   global $playerinfo, $account;
   global $db, $db_logging;
   global $l_igb_errunknownplanet, $l_igb_errnotyourplanet, $l_igb_transferrate3;
-  global $l_igb_planettransfer, $l_igb_destplanet, $l_igb_in, $IGB_tconsolidate;
+  global $l_igb_planettransfer, $l_igb_destplanet, $l_igb_in, $ibank_tconsolidate;
   global $dplanet_id, $l_igb_unnamed, $l_igb_currentpl, $l_igb_consolrates;
   global $l_igb_minimum, $l_igb_maximum, $l_igb_back, $l_igb_logout;
   global $l_igb_planetconsolidate, $l_igb_compute, $ibank_paymentfee;
@@ -945,7 +945,7 @@ function IGB_consolidate()
   $percent = $ibank_paymentfee * 100;
 
   $l_igb_transferrate3 = str_replace("[igb_num_percent]", NUMBER($percent,1), $l_igb_transferrate3);
-  $l_igb_transferrate3 = str_replace("[nbplanets]", $IGB_tconsolidate, $l_igb_transferrate3);
+  $l_igb_transferrate3 = str_replace("[nbplanets]", $ibank_tconsolidate, $l_igb_transferrate3);
 
 // Why this line is here I have no clue, its not used in this file as far as I can see.
 // But just in case, leve it commented out but keep it.
@@ -975,7 +975,7 @@ function IGB_consolidate2()
 {
   global $playerinfo, $account;
   global $db, $db_logging;
-  global $dplanet_id, $minimum, $maximum, $IGB_tconsolidate, $ibank_paymentfee;
+  global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
   global $l_igb_planetconsolidate, $l_igb_back, $l_igb_logout;
   global $l_igb_errunknownplanet, $l_igb_unnamed, $l_igb_errnotyourplanet;
   global $l_igb_currentpl, $l_igb_in, $l_igb_transferamount, $l_igb_plaffected;
@@ -1013,7 +1013,7 @@ function IGB_consolidate2()
 
   $fee = $ibank_paymentfee * $amount['total'];
 
-  $tcost = ceil($amount['count'] / $IGB_tconsolidate);
+  $tcost = ceil($amount['count'] / $ibank_tconsolidate);
   $transfer = $amount['total'] - $fee;
 
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_planetconsolidate<br>---------------------------------</td></tr>" .
@@ -1051,7 +1051,7 @@ function IGB_consolidate3()
 {
   global $playerinfo;
   global $db, $db_logging;
-  global $dplanet_id, $minimum, $maximum, $IGB_tconsolidate, $ibank_paymentfee;
+  global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
   global $l_igb_notenturns, $l_igb_back, $l_igb_logout, $l_igb_transfersuccessful;
   global $l_igb_currentpl, $l_igb_in, $l_igb_turncost, $l_igb_unnamed;
 
@@ -1086,7 +1086,7 @@ function IGB_consolidate3()
 
   $fee = $ibank_paymentfee * $amount['total'];
 
-  $tcost = ceil($amount['count'] / $IGB_tconsolidate);
+  $tcost = ceil($amount['count'] / $ibank_tconsolidate);
   $transfer = $amount['total'] - $fee;
 
   $cplanet = $transfer + $dest['credits'];

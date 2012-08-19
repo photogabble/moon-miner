@@ -74,11 +74,11 @@ ibank_paymentfee           = 0.05;                             // Paymentfee
 ibank_loaninterest         = 0.0010;                           // Loan interest - it is a good idea to put double what you get on a planet
 ibank_loanfactor           = 0.10;                             // One-time loan fee
 ibank_loanlimit            = 0.25;                             // Maximum loan allowed, percent of net worth
-IGB_min_turns              = 1200;                             // Turns a player has to play before ship transfers are allowed 0=disable
-IGB_svalue                 = 0.15;                             // Max amount of sender's value allowed for ship transfers 0=disable
-IGB_trate                  = 1440;                             // Time in minutes before two similar transfers are allowed for ship transfers.0=disable
-IGB_lrate                  = 1440;                             // Time in minutes players have to repay a loan
-IGB_tconsolidate           = 10;                               // Cost in turns for consolidate : 1/$IGB_consolidate
+ibank_min_turns            = 1200;                             // Turns a player has to play before ship transfers are allowed 0=disable
+ibank_svalue               = 0.15;                             // Max amount of sender's value allowed for ship transfers 0=disable
+ibank_trate                = 1440;                             // Time in minutes before two similar transfers are allowed for ship transfers.0=disable
+ibank_lrate                = 1440;                             // Time in minutes players have to repay a loan
+ibank_tconsolidate         = 10;                               // Cost in turns for consolidate : 1/$IGB_consolidate
 
 [PLANET_PRODUCTION]
 default_prod_ore           = 20.0;                             // Default planet ore production percentage
