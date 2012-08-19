@@ -18,6 +18,7 @@
 // File: igb.php
 
 include 'global_includes.php';
+include_once 'includes/ibank_error.php';
 updatecookie ();
 
 // New database driven language entries
@@ -51,7 +52,7 @@ $account = $result->fields;
 <?php
 
 if (!$allow_ibank)
-  IGB_error($l_igb_malfunction, "main.php");
+  ibank_error($l_igb_malfunction, "main.php");
 
 if (!isset($_REQUEST['command']))
 {
@@ -358,10 +359,10 @@ function IGB_transfer2()
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     if ($playerinfo['ship_id'] == $ship_id)
-      IGB_error($l_igb_sendyourself, "igb.php?command=transfer");
+      ibank_error($l_igb_sendyourself, "igb.php?command=transfer");
 
     if (!$res instanceof ADORecordSet || $res->EOF)
-      IGB_error($l_igb_unknowntargetship, "igb.php?command=transfer");
+      ibank_error($l_igb_unknowntargetship, "igb.php?command=transfer");
 
     $target = $res->fields;
 
@@ -369,13 +370,13 @@ function IGB_transfer2()
     {
       $l_ibank_min_turns = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns);
       $l_ibank_min_turns = str_replace("[igb_target_char_name]", $target['character_name'], $l_ibank_min_turns);
-      IGB_error($l_ibank_min_turns, "igb.php?command=transfer");
+      ibank_error($l_ibank_min_turns, "igb.php?command=transfer");
     }
 
     if ($playerinfo['turns_used'] < $ibank_min_turns)
     {
       $l_ibank_min_turns2 = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns2);
-      IGB_error($l_ibank_min_turns2, "igb.php?command=transfer");
+      ibank_error($l_ibank_min_turns2, "igb.php?command=transfer");
     }
 
     if ($ibank_trate > 0)
@@ -391,7 +392,7 @@ function IGB_transfer2()
         $l_igb_mustwait = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_mustwait);
         $l_igb_mustwait = str_replace("[ibank_trate]", NUMBER($ibank_trate), $l_igb_mustwait);
         $l_igb_mustwait = str_replace("[igb_difftime]", NUMBER($difftime), $l_igb_mustwait);
-        IGB_error($l_igb_mustwait, "igb.php?command=transfer");
+        ibank_error($l_igb_mustwait, "igb.php?command=transfer");
       }
     }
 
@@ -430,12 +431,12 @@ function IGB_transfer2()
   else
   {
     if ($splanet_id == $dplanet_id)
-      IGB_error($l_igb_errplanetsrcanddest, "igb.php?command=transfer");
+      ibank_error($l_igb_errplanetsrcanddest, "igb.php?command=transfer");
 
     $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$splanet_id");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if (!$res || $res->EOF)
-      IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errunknownplanet, "igb.php?command=transfer");
     $source = $res->fields;
 
     if (empty($source['name']))
@@ -444,16 +445,16 @@ function IGB_transfer2()
     $res = $db->Execute("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if (!$res || $res->EOF)
-      IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errunknownplanet, "igb.php?command=transfer");
     $dest = $res->fields;
 
     if (empty($dest['name']))
       $dest['name']=$l_igb_unnamed;
     if ($dest['base'] == 'N')
-      IGB_error($l_igb_errnobase, "igb.php?command=transfer");
+      ibank_error($l_igb_errnobase, "igb.php?command=transfer");
 
     if ($source['owner'] != $playerinfo['ship_id'] || $dest['owner'] != $playerinfo['ship_id'])
-      IGB_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
 
     $percent = $ibank_paymentfee * 100;
 
@@ -514,10 +515,10 @@ function IGB_transfer3()
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
 
     if ($playerinfo['ship_id'] == $ship_id)
-      IGB_error($l_igb_errsendyourself, "igb.php?command=transfer");
+      ibank_error($l_igb_errsendyourself, "igb.php?command=transfer");
 
     if (!$res || $res->EOF)
-      IGB_error($l_igb_unknowntargetship, "igb.php?command=transfer");
+      ibank_error($l_igb_unknowntargetship, "igb.php?command=transfer");
 
     $target = $res->fields;
 
@@ -525,13 +526,13 @@ function IGB_transfer3()
     {
       $l_ibank_min_turns3 = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns3);
       $l_ibank_min_turns3 = str_replace("[igb_target_char_name]", $target['character_name'], $l_ibank_min_turns3);
-      IGB_error($l_ibank_min_turns3, "igb.php?command=transfer");
+      ibank_error($l_ibank_min_turns3, "igb.php?command=transfer");
     }
 
     if ($playerinfo['turns_used'] < $ibank_min_turns)
     {
       $l_ibank_min_turns4 = str_replace("[ibank_min_turns]", $ibank_min_turns, $l_ibank_min_turns4);
-      IGB_error($l_ibank_min_turns4, "igb.php?command=transfer");
+      ibank_error($l_ibank_min_turns4, "igb.php?command=transfer");
     }
 
     if ($ibank_trate > 0)
@@ -547,18 +548,18 @@ function IGB_transfer3()
         $l_igb_mustwait2 = str_replace("[igb_target_char_name]", $target['character_name'], $l_igb_mustwait2);
         $l_igb_mustwait2 = str_replace("[ibank_trate]", NUMBER($ibank_trate), $l_igb_mustwait2);
         $l_igb_mustwait2 = str_replace("[igb_difftime]", NUMBER($difftime), $l_igb_mustwait2);
-        IGB_error($l_igb_mustwait2, "igb.php?command=transfer");
+        ibank_error($l_igb_mustwait2, "igb.php?command=transfer");
       }
     }
 
     if (($amount * 1) != $amount)
-      IGB_error($l_igb_invalidtransferinput, "igb.php?command=transfer");
+      ibank_error($l_igb_invalidtransferinput, "igb.php?command=transfer");
 
     if ($amount == 0)
-      IGB_error($l_igb_nozeroamount, "igb.php?command=transfer");
+      ibank_error($l_igb_nozeroamount, "igb.php?command=transfer");
 
     if ($amount > $account['balance'])
-      IGB_error($l_igb_notenoughcredits, "igb.php?command=transfer");
+      ibank_error($l_igb_notenoughcredits, "igb.php?command=transfer");
 
     if ($ibank_svalue != 0)
     {
@@ -567,7 +568,7 @@ function IGB_transfer3()
       $maxtrans = $score * $score * $ibank_svalue;
 
       if ($amount > $maxtrans)
-        IGB_error($l_igb_amounttoogreat, "igb.php?command=transfer");
+        ibank_error($l_igb_amounttoogreat, "igb.php?command=transfer");
     }
 
     $account['balance'] -= $amount;
@@ -600,12 +601,12 @@ function IGB_transfer3()
   else
   {
     if ($splanet_id == $dplanet_id)
-      IGB_error($l_igb_errplanetsrcanddest, "igb.php?command=transfer");
+      ibank_error($l_igb_errplanetsrcanddest, "igb.php?command=transfer");
 
     $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$splanet_id");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if (!$res || $res->EOF)
-      IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errunknownplanet, "igb.php?command=transfer");
     $source = $res->fields;
 
     if (empty($source['name']))
@@ -614,17 +615,17 @@ function IGB_transfer3()
     $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
     db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
     if (!$res || $res->EOF)
-      IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errunknownplanet, "igb.php?command=transfer");
     $dest = $res->fields;
 
     if (empty($dest['name']))
       $dest['name']=$l_igb_unnamed;
 
     if ($source['owner'] != $playerinfo['ship_id'] || $dest['owner'] != $playerinfo['ship_id'])
-      IGB_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
 
     if ($amount > $source['credits'])
-      IGB_error($l_igb_notenoughcredits2, "igb.php?command=transfer");
+      ibank_error($l_igb_notenoughcredits2, "igb.php?command=transfer");
 
     $percent = $ibank_paymentfee * 100;
 
@@ -669,13 +670,13 @@ function IGB_deposit2()
 
   $amount = StripNonNum($amount);
   if (($amount * 1) != $amount)
-    IGB_error($l_igb_invaliddepositinput, "igb.php?command=deposit");
+    ibank_error($l_igb_invaliddepositinput, "igb.php?command=deposit");
 
   if ($amount == 0)
-    IGB_error($l_igb_nozeroamount2, "igb.php?command=deposit");
+    ibank_error($l_igb_nozeroamount2, "igb.php?command=deposit");
 
   if ($amount > $playerinfo['credits'])
-    IGB_error($l_igb_notenoughcredits, "igb.php?command=deposit");
+    ibank_error($l_igb_notenoughcredits, "igb.php?command=deposit");
 
 // temp credits
   $tmpcredits = $max_credits_allowed - $account['balance'];
@@ -684,7 +685,7 @@ function IGB_deposit2()
     $tmpcredits = 0;
   }
   if ($amount > $tmpcredits)
-    IGB_error("<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
+    ibank_error("<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
 
   $account['balance'] += $amount;
   $playerinfo['credits'] -= $amount;
@@ -717,13 +718,13 @@ function IGB_withdraw2()
 
   $amount = StripNonNum($amount);
   if (($amount * 1) != $amount)
-    IGB_error($l_igb_invalidwithdrawinput, "igb.php?command=withdraw");
+    ibank_error($l_igb_invalidwithdrawinput, "igb.php?command=withdraw");
 
   if ($amount == 0)
-    IGB_error($l_igb_nozeroamount3, "igb.php?command=withdraw");
+    ibank_error($l_igb_nozeroamount3, "igb.php?command=withdraw");
 
   if ($amount > $account['balance'])
-    IGB_error($l_igb_notenoughcredits, "igb.php?command=withdraw");
+    ibank_error($l_igb_notenoughcredits, "igb.php?command=withdraw");
 
   $account['balance'] -= $amount;
   $playerinfo['credits'] += $amount;
@@ -838,19 +839,19 @@ function IGB_borrow()
 
   $amount = StripNonNum($amount);
   if (($amount * 1) != $amount)
-    IGB_error($l_igb_invalidamount, "igb.php?command=loans");
+    ibank_error($l_igb_invalidamount, "igb.php?command=loans");
 
   if ($amount <= 0)
-    IGB_error($l_igb_invalidamount, "igb.php?command=loans");
+    ibank_error($l_igb_invalidamount, "igb.php?command=loans");
 
   if ($account['loan'] != 0)
-    IGB_error($l_igb_notwoloans, "igb.php?command=loans");
+    ibank_error($l_igb_notwoloans, "igb.php?command=loans");
 
   $score = gen_score($playerinfo['ship_id']);
   $maxtrans = $score * $score * $ibank_loanlimit;
 
   if ($amount > $maxtrans)
-    IGB_error($l_igb_loantoobig, "igb.php?command=loans");
+    ibank_error($l_igb_loantoobig, "igb.php?command=loans");
 
   $amount2 = $amount * $ibank_loanfactor;
   $amount3= $amount + $amount2;
@@ -892,19 +893,19 @@ function IGB_repay()
 
   $amount = StripNonNum($amount);
   if (($amount * 1) != $amount)
-    IGB_error($l_igb_invalidamount, "igb.php?command=loans");
+    ibank_error($l_igb_invalidamount, "igb.php?command=loans");
 
   if ($amount == 0)
-    IGB_error($l_igb_invalidamount, "igb.php?command=loans");
+    ibank_error($l_igb_invalidamount, "igb.php?command=loans");
 
   if ($account['loan'] == 0)
-    IGB_error($l_igb_notrepay, "igb.php?command=loans");
+    ibank_error($l_igb_notrepay, "igb.php?command=loans");
 
   if ($amount > $account['loan'])
     $amount = $account['loan'];
 
   if ($amount > $playerinfo['credits'])
-    IGB_error($l_igb_notenoughrepay, "igb.php?command=loans");
+    ibank_error($l_igb_notenoughrepay, "igb.php?command=loans");
 
   $playerinfo['credits']-=$amount;
   $account['loan']-=$amount;
@@ -985,14 +986,14 @@ function IGB_consolidate2()
   $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   if (!$res || $res->EOF)
-      IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errunknownplanet, "igb.php?command=transfer");
   $dest = $res->fields;
 
   if (empty($dest['name']))
     $dest['name']=$l_igb_unnamed;
 
   if ($dest['owner'] != $playerinfo['ship_id'])
-    IGB_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
+    ibank_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
 
   $minimum = StripNonNum($minimum);
   $maximum = StripNonNum($maximum);
@@ -1058,14 +1059,14 @@ function IGB_consolidate3()
   $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   if (!$res || $res->EOF)
-      IGB_error($l_igb_errunknownplanet, "igb.php?command=transfer");
+      ibank_error($l_igb_errunknownplanet, "igb.php?command=transfer");
   $dest = $res->fields;
 
   if (empty($dest['name']))
     $dest['name']=$l_igb_unnamed;
 
   if ($dest['owner'] != $playerinfo['ship_id'])
-    IGB_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
+    ibank_error($l_igb_errnotyourplanet, "igb.php?command=transfer");
 
   $minimum = StripNonNum($minimum);
   $maximum = StripNonNum($maximum);
@@ -1092,7 +1093,7 @@ function IGB_consolidate3()
   $cplanet = $transfer + $dest['credits'];
 
   if ($tcost > $playerinfo['turns'])
-    IGB_error($l_igb_notenturns, "igb.php?command=transfer");
+    ibank_error($l_igb_notenturns, "igb.php?command=transfer");
 
   echo "<tr><td colspan=2 align=center valign=top>$l_igb_transfersuccessful<br>---------------------------------</td></tr>" .
        "<tr valign=top>" .
@@ -1120,28 +1121,6 @@ function IGB_consolidate3()
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
   $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - $tcost WHERE ship_id = $playerinfo[ship_id]");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
-}
-
-function IGB_error($errmsg, $backlink, $title="Error!")
-{
-  global $l_igb_igberrreport, $l_igb_back, $l_igb_logout;
-
-  $title=$l_igb_igberrreport;
-  echo "<tr><td colspan=2 align=center valign=top>$title<br>---------------------------------</td></tr>" .
-       "<tr valign=top>" .
-       "<td colspan=2 align=center>$errmsg</td>" .
-       "</tr>" .
-       "<tr valign=bottom>" .
-       "<td><a href=$backlink>$l_igb_back</a></td><td align=right>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .
-       "</tr>" .
-       "</table>" .
-       "</td></tr>" .
-       "</table>" .
-       "<img style='width: 600px; height:21px' src=images/div2.png>" .
-       "</center>";
-
-  include 'footer.php';
-  die();
 }
 
 function StripNonNum($str)
