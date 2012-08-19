@@ -87,11 +87,11 @@ elseif ($command == 'borrow') //borrow operation
 elseif ($command == 'repay') //repay operation
   IGB_repay();
 elseif ($command == 'consolidate') //consolidate menu
-  IGB_consolidate();
+  ibank_consolidate();
 elseif ($command == 'consolidate2') //consolidate compute
-  IGB_consolidate2();
+  ibank_consolidate2();
 elseif ($command == 'consolidate3') //consolidate operation
-  IGB_consolidate3();
+  ibank_consolidate3();
 else
 {
   echo "
@@ -224,23 +224,24 @@ function IGB_deposit()
 
 function IGB_transfer()
 {
-  global $playerinfo;
-  global $account;
+  global $db, $playerinfo, $account;
   global $ibank_min_turns;
-  global $l_igb_transfertype, $l_igb_toanothership, $l_igb_shiptransfer, $l_igb_fromplanet, $l_igb_source, $l_igb_consolidate;
+  global $l_igb_transfertype, $l_igb_toanothership, $l_igb_shiptransfer, $l_igb_fromplanet, $l_igb_source, $l_ibank_consolidate;
   global $l_igb_unnamed, $l_igb_in, $l_igb_none, $l_igb_planettransfer, $l_igb_back, $l_igb_logout, $l_igb_destination, $l_igb_conspl;
-  global $db, $db_logging;
 
+  echo "SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > $ibank_min_turns ORDER BY character_name ASC";
   $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > $ibank_min_turns ORDER BY character_name ASC");
-  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+  var_dump($res);
+  db_op_result ($db, $res, __LINE__, __FILE__);
   while (!$res->EOF)
   {
     $ships[]=$res->fields;
     $res->MoveNext();
   }
 
+  echo "Madeit here";
   $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] ORDER BY sector_id ASC");
-  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $res, __LINE__, __FILE__);
   while (!$res->EOF)
   {
     $planets[]=$res->fields;
@@ -323,7 +324,7 @@ function IGB_transfer()
   }
 
   echo "</select></td><td valign=top align=right>" .
-       "<br><input class=term type=submit name=planetc value=\"  $l_igb_consolidate  \">" .
+       "<br><input class=term type=submit name=planetc value=\"  $l_ibank_consolidate  \">" .
        "</td></tr>" .
        "</form>";
 // ---- End Consol Credits form ---
@@ -933,7 +934,7 @@ function IGB_repay()
   db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 }
 
-function IGB_consolidate()
+function ibank_consolidate()
 {
   global $playerinfo, $account;
   global $db, $db_logging;
@@ -972,7 +973,7 @@ function IGB_consolidate()
        "</tr>";
 }
 
-function IGB_consolidate2()
+function ibank_consolidate2()
 {
   global $playerinfo, $account;
   global $db, $db_logging;
@@ -981,7 +982,7 @@ function IGB_consolidate2()
   global $l_igb_errunknownplanet, $l_igb_unnamed, $l_igb_errnotyourplanet;
   global $l_igb_currentpl, $l_igb_in, $l_igb_transferamount, $l_igb_plaffected;
   global $l_igb_transferfee, $l_igb_turncost, $l_igb_amounttransferred;
-  global $l_igb_consolidate;
+  global $l_ibank_consolidate;
 
   $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
   db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
@@ -1041,7 +1042,7 @@ function IGB_consolidate2()
        "<input type=hidden name=minimum value=$minimum><br>" .
        "<input type=hidden name=maximum value=$maximum><br>" .
        "<input type=hidden name=dplanet_id value=$dplanet_id>" .
-       "<input class=term type=submit value=\"$l_igb_consolidate\"></td>" .
+       "<input class=term type=submit value=\"$l_ibank_consolidate\"></td>" .
        "</form>" .
        "<tr valign=bottom>" .
        "<td><a href='igb.php?command=transfer'>$l_igb_back</a></td><td align=right>&nbsp;<br><a href=\"main.php\">$l_igb_logout</a></td>" .

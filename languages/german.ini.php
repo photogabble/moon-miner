@@ -527,7 +527,7 @@ l_igb_planetconsolidate                 = "Planeten Konsolidierung";
 l_igb_compute                           = "Berechne";
 l_igb_plaffected                        = "Anzahl betroffener Planeten";
 l_igb_turncost                          = "Gesamtkosten Z&uuml;ge";
-l_igb_consolidate                       = "Konsolidiere";
+l_ibank_consolidate                     = "Konsolidiere";
 l_igb_conspl                            = "Konsolidiere Credits f&uuml;r einen einzelnen Planeten";
 l_igb_notenturns                        = "Sie haben nicht genug z&uuml;ge, um diese Operation auszuf&uuml;hren.";
 

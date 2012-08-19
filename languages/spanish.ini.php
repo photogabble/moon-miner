@@ -527,7 +527,7 @@ l_igb_planetconsolidate                 = "Consolidar Planeta";
 l_igb_compute                           = "Computar";
 l_igb_plaffected                        = "Total de planetas afectados";
 l_igb_turncost                          = "Coste total de turnos";
-l_igb_consolidate                       = "Consolidar";
+l_ibank_consolidate                     = "Consolidar";
 l_igb_conspl                            = "Consolidar los Créditos a un solo planeta";
 l_igb_notenturns                        = "No tiene suficientes turnos para realizar esta operación";
 

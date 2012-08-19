@@ -527,7 +527,7 @@ l_igb_planetconsolidate                 = "Planet Consolidate";
 l_igb_compute                           = "Compute";
 l_igb_plaffected                        = "Total planets affected";
 l_igb_turncost                          = "Total turns cost";
-l_igb_consolidate                       = "Consolidate";
+l_ibank_consolidate                     = "Consolidate";
 l_igb_conspl                            = "Consolidate Credits to a single planet";
 l_igb_notenturns                        = "You do not have enough turns to perform this operation";
 

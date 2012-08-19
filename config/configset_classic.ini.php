@@ -80,7 +80,7 @@ ibank_min_turns            = '1200';                           // Turns a player
 ibank_svalue               = '0.15';                           // Max amount of sender's value allowed for ship transfers 0=disable
 ibank_trate                = '1440';                           // Time in minutes before two similar transfers are allowed for ship transfers.0=disable
 ibank_lrate                = '1440';                           // Time in minutes players have to repay a loan
-ibank_tconsolidate         = 10;                               // Cost in turns for consolidate : 1/$IGB_consolidate
+ibank_tconsolidate         = 10;                               // Cost in turns for consolidate : 1/$ibank_consolidate
 
 [PLANET_PRODUCTION]
 default_prod_ore           = '20.0';                           // Default planet ore production percentage
