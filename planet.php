@@ -424,7 +424,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 // Check if the player has enough turns to create the base.
                 if ($playerinfo['turns'] <= 0)
                 {
-                    echo "$l_igb_notenturns";
+                    echo "$l_ibank_notenturns";
                 }
                 else
                 {
@@ -914,7 +914,7 @@ if ($command != "")
 
 if ($allow_ibank)
 {
-  echo "$l_ifyouneedplan <a href=\"igb.php?planet_id=$planet_id\">$l_igb_term</A>.<br><br>";
+  echo "$l_ifyouneedplan <a href=\"igb.php?planet_id=$planet_id\">$l_ibank_term</A>.<br><br>";
 }
 echo "<a href =\"bounty.php\">$l_by_placebounty</A><p>";
 

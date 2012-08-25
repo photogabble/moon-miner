@@ -17,28 +17,28 @@
 //
 // File: includes/ibank_repay.php
 
-function ibank_repay()
+function ibank_repay ()
 {
     global $db, $playerinfo, $account, $amount;
-    global $l_igb_notrepay, $l_igb_notenoughrepay,$l_igb_payloan;
-    global $l_igb_shipaccount, $l_igb_currentloan, $l_igb_loanthanks;
-    global $l_igb_invalidamount;
-    global $l_igb_back, $l_igb_logout;
+    global $l_ibank_notrepay, $l_ibank_notenoughrepay,$l_ibank_payloan;
+    global $l_ibank_shipaccount, $l_ibank_currentloan, $l_ibank_loanthanks;
+    global $l_ibank_invalidamount;
+    global $l_ibank_back, $l_ibank_logout;
 
-    $amount = StripNonNum ($amount);
+    $amount = strip_non_num ($amount);
     if (($amount * 1) != $amount)
     {
-        ibank_error ($l_igb_invalidamount, "igb.php?command=loans");
+        ibank_error ($l_ibank_invalidamount, "igb.php?command=loans");
     }
 
     if ($amount == 0)
     {
-        ibank_error ($l_igb_invalidamount, "igb.php?command=loans");
+        ibank_error ($l_ibank_invalidamount, "igb.php?command=loans");
     }
 
     if ($account['loan'] == 0)
     {
-        ibank_error ($l_igb_notrepay, "igb.php?command=loans");
+        ibank_error ($l_ibank_notrepay, "igb.php?command=loans");
     }
 
     if ($amount > $account['loan'])
@@ -48,27 +48,27 @@ function ibank_repay()
 
     if ($amount > $playerinfo['credits'])
     {
-        ibank_error ($l_igb_notenoughrepay, "igb.php?command=loans");
+        ibank_error ($l_ibank_notenoughrepay, "igb.php?command=loans");
     }
 
     $playerinfo['credits'] -= $amount;
     $account['loan'] -= $amount;
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_igb_payloan . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_payloan . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . $l_igb_loanthanks . "</td>" .
-         "<tr valign=top>" .
-         "<td colspan=2 align=center>---------------------------------</td>" .
-         "<tr valign=top>" .
-         "<td>" . $l_igb_shipaccount . " :</td><td nowrap align=right>" . NUMBER ($playerinfo['credits']) . " C<br>" .
-         "<tr valign=top>" .
-         "<td>" . $l_igb_payloan . " :</td><td nowrap align=right>" . NUMBER($amount) . " C<br>" .
-         "<tr valign=top>" .
-         "<td>" . $l_igb_currentloan . " :</td><td nowrap align=right>" . NUMBER($account['loan']) . " C<br>" .
+         "<td colspan=2 align=center>" . $l_ibank_loanthanks . "</td>" .
          "<tr valign=top>" .
          "<td colspan=2 align=center>---------------------------------</td>" .
          "<tr valign=top>" .
-         "<td nowrap><a href='igb.php?command=login'>" . $l_igb_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_igb_logout . "</a></td>" .
+         "<td>" . $l_ibank_shipaccount . " :</td><td nowrap align=right>" . NUMBER ($playerinfo['credits']) . " C<br>" .
+         "<tr valign=top>" .
+         "<td>" . $l_ibank_payloan . " :</td><td nowrap align=right>" . NUMBER ($amount) . " C<br>" .
+         "<tr valign=top>" .
+         "<td>" . $l_ibank_currentloan . " :</td><td nowrap align=right>" . NUMBER ($account['loan']) . " C<br>" .
+         "<tr valign=top>" .
+         "<td colspan=2 align=center>---------------------------------</td>" .
+         "<tr valign=top>" .
+         "<td nowrap><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
     $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan=loan-$amount,loantime='$account[loantime]' WHERE ship_id=$playerinfo[ship_id]");

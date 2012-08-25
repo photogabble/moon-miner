@@ -17,36 +17,36 @@
 //
 // File: includes/ibank_consolidate3.php
 
-function ibank_consolidate3()
+function ibank_consolidate3 ()
 {
     global $db, $playerinfo;
     global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
-    global $l_igb_notenturns, $l_igb_back, $l_igb_logout, $l_igb_transfersuccessful;
-    global $l_igb_currentpl, $l_igb_in, $l_igb_turncost, $l_igb_unnamed;
+    global $l_ibank_notenturns, $l_ibank_back, $l_ibank_logout, $l_ibank_transfersuccessful;
+    global $l_ibank_currentpl, $l_ibank_in, $l_ibank_turncost, $l_ibank_unnamed;
 
     $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
     db_op_result ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
         include_once 'ibank_error.php';
-        ibank_error ($l_igb_errunknownplanet, "igb.php?command=transfer");
+        ibank_error ($l_ibank_errunknownplanet, "igb.php?command=transfer");
     }
 
     $dest = $res->fields;
 
     if (empty ($dest['name']))
     {
-        $dest['name'] = $l_igb_unnamed;
+        $dest['name'] = $l_ibank_unnamed;
     }
 
     if ($dest['owner'] != $playerinfo['ship_id'])
     {
         include_once 'ibank_error.php';
-        ibank_error ($l_igb_errnotyourplanet, "igb.php?command=transfer");
+        ibank_error ($l_ibank_errnotyourplanet, "igb.php?command=transfer");
     }
 
-    $minimum = StripNonNum ($minimum);
-    $maximum = StripNonNum ($maximum);
+    $minimum = strip_non_num ($minimum);
+    $maximum = strip_non_num ($maximum);
 
     $query = "SELECT SUM(credits) as total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
 
@@ -76,17 +76,17 @@ function ibank_consolidate3()
     if ($tcost > $playerinfo['turns'])
     {
         include_once 'ibank_error.php';
-        ibank_error ($l_igb_notenturns, "igb.php?command=transfer");
+        ibank_error ($l_ibank_notenturns, "igb.php?command=transfer");
     }
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_igb_transfersuccessful . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_transfersuccessful . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td>" . $l_igb_currentpl . " " . $dest['name'] . " " . $l_igb_in . " " . $dest['sector_id'] . " :<br><br>" .
-         $l_igb_turncost . " :</td>" .
+         "<td>" . $l_ibank_currentpl . " " . $dest['name'] . " " . $l_ibank_in . " " . $dest['sector_id'] . " :<br><br>" .
+         $l_ibank_turncost . " :</td>" .
          "<td align=right>" . NUMBER ($cplanet) . " C<br><br>" .
          NUMBER ($tcost) . "</td>" .
          "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>" . $l_igb_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_igb_logout . "</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
     $query = "UPDATE {$db->prefix}planets SET credits=0 WHERE owner=$playerinfo[ship_id] AND credits != 0";

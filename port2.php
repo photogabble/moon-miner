@@ -164,7 +164,7 @@ else
         if (is_loan_pending ($db, $playerinfo['ship_id']))
         {
             echo $l_port_loannotrade . "<p>";
-            echo "<a href=igb.php>" . $l_igb_term . "</a><p>";
+            echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
             TEXT_GOTOMAIN ();
             include 'footer.php';
             die ();

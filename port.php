@@ -301,7 +301,7 @@ elseif ($sectorinfo['port_type'] == "special")
     if (is_loan_pending ($db, $playerinfo['ship_id']))
     {
         echo $l_port_loannotrade . "<p>";
-        echo "<a href=igb.php>" . $l_igb_term . "</a><p>";
+        echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
         TEXT_GOTOMAIN();
         include 'footer.php';
         die();
@@ -679,8 +679,8 @@ elseif ($sectorinfo['port_type'] == "special")
     echo $l_creds_to_spend . "<br>\n";
     if ($allow_ibank)
     {
-        $igblink = "\n<a href=igb.php>" . $l_igb_term . "</a>";
-        $l_ifyouneedmore = str_replace ("[igb]", $igblink, $l_ifyouneedmore);
+        $igblink = "\n<a href=igb.php>" . $l_ibank_term . "</a>";
+        $l_ifyouneedmore = str_replace ("[ibank]", $igblink, $l_ifyouneedmore);
 
         echo $l_ifyouneedmore . "<br>";
     }

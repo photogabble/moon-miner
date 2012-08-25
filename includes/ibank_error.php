@@ -19,15 +19,15 @@
 
 function ibank_error($errmsg, $backlink, $title="Error!")
 {
-    global $l_igb_igberrreport, $l_igb_back, $l_igb_logout;
+    global $l_ibank_ibankerrreport, $l_ibank_back, $l_ibank_logout;
 
-    $title = $l_igb_igberrreport;
+    $title = $l_ibank_ibankerrreport;
     echo "<tr><td colspan=2 align=center valign=top>" . $title . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td colspan=2 align=center>" . $errmsg . "</td>" .
          "</tr>" .
          "<tr valign=bottom>" .
-         "<td><a href=" . $backlink . ">" . $l_igb_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_igb_logout . "</a></td>" .
+         "<td><a href=" . $backlink . ">" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>" .
          "</table>" .
          "</td></tr>" .

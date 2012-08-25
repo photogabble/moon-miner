@@ -17,37 +17,37 @@
 //
 // File: ibank_consolidate.php
 
-function ibank_consolidate()
+function ibank_consolidate ()
 {
     global $db, $playerinfo, $account;
-    global $l_igb_errunknownplanet, $l_igb_errnotyourplanet, $l_igb_transferrate3;
-    global $l_igb_planettransfer, $l_igb_destplanet, $l_igb_in, $ibank_tconsolidate;
-    global $dplanet_id, $l_igb_unnamed, $l_igb_currentpl, $l_igb_consolrates;
-    global $l_igb_minimum, $l_igb_maximum, $l_igb_back, $l_igb_logout;
-    global $l_igb_planetconsolidate, $l_igb_compute, $ibank_paymentfee;
+    global $l_ibank_errunknownplanet, $l_ibank_errnotyourplanet, $l_ibank_transferrate3;
+    global $l_ibank_planettransfer, $l_ibank_destplanet, $l_ibank_in, $ibank_tconsolidate;
+    global $dplanet_id, $l_ibank_unnamed, $l_ibank_currentpl, $l_ibank_consolrates;
+    global $l_ibank_minimum, $l_ibank_maximum, $l_ibank_back, $l_ibank_logout;
+    global $l_ibank_planetconsolidate, $l_ibank_compute, $ibank_paymentfee;
 
     $percent = $ibank_paymentfee * 100;
 
-    $l_igb_transferrate3 = str_replace("[igb_num_percent]", NUMBER ($percent, 1), $l_igb_transferrate3);
-    $l_igb_transferrate3 = str_replace("[nbplanets]", $ibank_tconsolidate, $l_igb_transferrate3);
+    $l_ibank_transferrate3 = str_replace ("[ibank_num_percent]", NUMBER ($percent, 1), $l_ibank_transferrate3);
+    $l_ibank_transferrate3 = str_replace ("[nbplanets]", $ibank_tconsolidate, $l_ibank_transferrate3);
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_igb_planetconsolidate . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_planetconsolidate . "<br>---------------------------------</td></tr>" .
          "<form action='igb.php?command=consolidate2' method=POST>" .
          "<tr valign=top>" .
-         "<td colspan=2>" . $l_igb_consolrates . " :</td>" .
+         "<td colspan=2>" . $l_ibank_consolrates . " :</td>" .
          "<tr valign=top>" .
-         "<td>" . $l_igb_minimum . " :<br>" .
-         "<br>" . $l_igb_maximum . " :</td>" .
+         "<td>" . $l_ibank_minimum . " :<br>" .
+         "<br>" . $l_ibank_maximum . " :</td>" .
          "<td align=right>" .
          "<input class=term type=text size=15 maxlength=20 name=minimum value=0><br><br>" .
          "<input class=term type=text size=15 maxlength=20 name=maximum value=0><br><br>" .
-         "<input class=term type=submit value=\"" . $l_igb_compute . "\"></td>" .
+         "<input class=term type=submit value=\"" . $l_ibank_compute . "\"></td>" .
          "<input type=hidden name=dplanet_id value=" . $dplanet_id . ">" .
          "</form>" .
          "<tr><td colspan=2 align=center>" .
-         "$l_igb_transferrate3" .
+         "$l_ibank_transferrate3" .
          "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=transfer'>" . $l_igb_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_igb_logout . "</a></td>" .
+         "<td><a href='igb.php?command=transfer'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 }
 ?>
