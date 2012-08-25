@@ -25,96 +25,96 @@ include 'global_includes.php';
 
 // HTML Table Functions
 
-if (!function_exists('PrintFlush'))
+if (!function_exists('print_flush'))
 {
-    function PrintFlush($Text="")
+    function print_flush ($text="")
     {
-        echo $Text;
+        echo $text;
 //        flush();
     }
 }
 
-if (!function_exists('TRUEFALSE'))
+if (!function_exists('true_or_false'))
 {
-    function TRUEFALSE($truefalse,$Stat,$True,$False)
+    function true_or_false ($true_or_false, $stat, $true, $false)
     {
-        return(($truefalse == $Stat) ? $True : $False);
+        return(($true_or_false == $Stat) ? $true : $false);
     }
 }
 
-if (!function_exists('Table_Header'))
+if (!function_exists('table_header'))
 {
-    function Table_Header($title="")
+    function table_header ($title="")
     {
-        PrintFlush( "<div align=\"center\">\n");
-        PrintFlush( "  <center>\n");
-        PrintFlush( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000000\">\n");
-        PrintFlush( "    <tr>\n");
-        PrintFlush( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999cc\" align=\"left\"><font color=\"#000000\" size=\"2\">$title</font></th>\n");
-        PrintFlush( "    </tr>\n");
+        print_flush ( "<div align=\"center\">\n");
+        print_flush ( "  <center>\n");
+        print_flush ( "  <table border=\"0\" cellpadding=\"1\" width=\"700\" cellspacing=\"1\" bgcolor=\"#000000\">\n");
+        print_flush ( "    <tr>\n");
+        print_flush ( "      <th width=\"700\" colspan=\"2\" height=\"20\" bgcolor=\"#9999cc\" align=\"left\"><font color=\"#000000\" size=\"2\">$title</font></th>\n");
+        print_flush ( "    </tr>\n");
     }
 }
 
-if (!function_exists('Table_Row'))
+if (!function_exists('table_row'))
 {
-    function Table_Row($data, $failed="Failed", $passed="Passed")
+    function table_row($data, $failed="Failed", $passed="Passed")
     {
         global $db;
-        $err = TRUEFALSE(0, $db->ErrorNo(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-        PrintFlush( "    <tr title=\"$err\">\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
+        $err = true_or_false (0, $db->ErrorNo(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+        print_flush ( "    <tr title=\"$err\">\n");
+        print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
         if ($db->ErrorNo()!=0)
-            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
+            {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
-            {PrintFlush( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
+            {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
         echo "    </tr>\n";
     }
 }
 
-if (!function_exists('Table_2Col'))
+if (!function_exists('table_2col'))
 {
-    function Table_2Col($name,$value)
+    function table_2col ($name,$value)
     {
-        PrintFlush("    <tr>\n");
-        PrintFlush( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$name</font></td>\n");
-        PrintFlush( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"#000000\">$value</font></td>\n");
-        PrintFlush( "    </tr>\n");
+        print_flush ("    <tr>\n");
+        print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$name</font></td>\n");
+        print_flush ( "      <td width=\"100\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"#000000\">$value</font></td>\n");
+        print_flush ( "    </tr>\n");
     }
 }
 
-if (!function_exists('Table_1Col'))
+if (!function_exists('table_1col'))
 {
-    function Table_1Col($data)
+    function table_1col($data)
     {
-        PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font color=\"#000000\" size=\"1\">$data</font></td>\n");
-        PrintFlush( "    </tr>\n");
+        print_flush ( "    <tr>\n");
+        print_flush ( "      <td width=\"700\" colspan=\"2\" bgcolor=\"#C0C0C0\" align=\"left\"><font color=\"#000000\" size=\"1\">$data</font></td>\n");
+        print_flush ( "    </tr>\n");
     }
 }
 
-if (!function_exists('Table_Spacer'))
+if (!function_exists('table_spacer'))
 {
-    function Table_Spacer()
+    function table_spacer ()
     {
-        PrintFlush( "    <tr>\n");
-        PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999cc\" height=\"1\"></td>\n");
-        PrintFlush( "    </tr>\n");
+        print_flush ( "    <tr>\n");
+        print_flush ( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999cc\" height=\"1\"></td>\n");
+        print_flush ( "    </tr>\n");
     }
 }
 
-if (!function_exists('Table_Footer'))
+if (!function_exists('table_footer'))
 {
-    function Table_Footer($footer='')
+    function table_footer ($footer='')
     {
         if (!empty($footer))
         {
-            PrintFlush( "    <tr>\n");
-            PrintFlush( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999cc\" align=\"left\"><font color=\"#000000\" size=\"1\">$footer</font></td>\n");
-            PrintFlush( "    </tr>\n");
+            print_flush ( "    <tr>\n");
+            print_flush ( "      <td width=\"100%\" colspan=\"2\" bgcolor=\"#9999cc\" align=\"left\"><font color=\"#000000\" size=\"1\">$footer</font></td>\n");
+            print_flush ( "    </tr>\n");
         }
-        PrintFlush( "  </table>\n");
-        PrintFlush( "  </center>\n");
-        PrintFlush( "</div><p>\n");
+        print_flush ( "  </table>\n");
+        print_flush ( "  </center>\n");
+        print_flush ( "</div><p>\n");
     }
 }
 
@@ -206,49 +206,49 @@ if ($bnt_ls)
 echo"</table>";
 // Domain Check End
 
-    Table_Header("Create Universe [Base/Planet Setup]");
-    Table_2Col("Percent Special","<input type=text name=special size=10 maxlength=10 value=1>");
-    Table_2Col("Percent Ore","<input type=text name=ore size=10 maxlength=10 value=15>");
-    Table_2Col("Percent Organics","<input type=text name=organics size=10 maxlength=10 value=10>");
-    Table_2Col("Percent Goods","<input type=text name=goods size=10 maxlength=10 value=15>");
-    Table_2Col("Percent Energy","<input type=text name=energy size=10 maxlength=10 value=10>");
+    table_header ("Create Universe [Base/Planet Setup]");
+    table_2col ("Percent Special","<input type=text name=special size=10 maxlength=10 value=1>");
+    table_2col ("Percent Ore","<input type=text name=ore size=10 maxlength=10 value=15>");
+    table_2col ("Percent Organics","<input type=text name=organics size=10 maxlength=10 value=10>");
+    table_2col ("Percent Goods","<input type=text name=goods size=10 maxlength=10 value=15>");
+    table_2col ("Percent Energy","<input type=text name=energy size=10 maxlength=10 value=10>");
 
-    Table_1Col("Percent Empty: Equal to 100 - total of above.");
+    table_1col ("Percent Empty: Equal to 100 - total of above.");
 
-    Table_2Col("Initial Commodities to Sell [% of max]","<input type=text name=initscommod size=10 maxlength=10 value=100.00>");
-    Table_2Col("Initial Commodities to Buy [% of max]","<input type=text name=initbcommod size=10 maxlength=10 value=100.00>");
-    Table_Footer(" ");
+    table_2col ("Initial Commodities to Sell [% of max]","<input type=text name=initscommod size=10 maxlength=10 value=100.00>");
+    table_2col ("Initial Commodities to Buy [% of max]","<input type=text name=initbcommod size=10 maxlength=10 value=100.00>");
+    table_footer (" ");
 
-    Table_Header("Create Universe [Sector/Link Setup] --- Stage 1");
+    table_header ("Create Universe [Sector/Link Setup] --- Stage 1");
 
     $fedsecs = intval($sector_max / 200);
     $loops = intval($sector_max / 500);
 
-    Table_2Col("Number of sectors total (<strong>overrides config</strong>)","<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
-    Table_2Col("Number of Federation sectors","<input type=text name=fedsecs size=10 maxlength=10 value=$fedsecs>");
-    Table_2Col("Number of loops","<input type=text name=loops size=10 maxlength=10 value=$loops>");
-    Table_2Col("Percent of sectors with unowned planets","<input type=text name=planets size=10 maxlength=10 value=10>");
-    Table_Footer(" ");
+    table_2col ("Number of sectors total (<strong>overrides config</strong>)","<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
+    table_2col ("Number of Federation sectors","<input type=text name=fedsecs size=10 maxlength=10 value=$fedsecs>");
+    table_2col ("Number of loops","<input type=text name=loops size=10 maxlength=10 value=$loops>");
+    table_2col ("Percent of sectors with unowned planets","<input type=text name=planets size=10 maxlength=10 value=10>");
+    table_footer (" ");
 
     echo "<input type=hidden name=engage value=1>\n";
     echo "<input type=hidden name=step value=2>\n";
     echo "<input type=hidden name=swordfish value=$swordfish>\n";
 
-    Table_Header("Submit Settings");
-    Table_1Col("<p align='center'><input type=submit value=Submit><input type=reset value=Reset></p>");
-    Table_Footer(" ");
+    table_header ("Submit Settings");
+    table_1col ("<p align='center'><input type=submit value=Submit><input type=reset value=Reset></p>");
+    table_footer (" ");
 
     echo "</form>";
       break;
    case "2":
 
-    Table_Header("Create Universe Confirmation [So you would like your $sector_max sector universe to have:] --- Stage2");
+    table_header ("Create Universe Confirmation [So you would like your $sector_max sector universe to have:] --- Stage2");
 
       $sector_max = round($sektors);
       if ($fedsecs > $sector_max)
       {
-    Table_1Col("<font color=red>The number of Federation sectors must be smaller than the size of the universe!</font>");
-    Table_Footer(" ");
+    table_1col ("<font color=red>The number of Federation sectors must be smaller than the size of the universe!</font>");
+    table_footer (" ");
          break;
       }
       $spp = round($sector_max*$special/100);
@@ -274,26 +274,26 @@ echo"</table>";
       echo "<input type=hidden name=engage value=2>\n";
       echo "<input type=hidden name=swordfish value=$swordfish>\n";
 
-    Table_2Col("Special ports",$spp);
-    Table_2Col("Ore ports",$oep);
-    Table_2Col("Organics ports",$ogp);
-    Table_2Col("Goods ports",$gop);
-    Table_2Col("Energy ports",$enp);
-    Table_Spacer();
-    Table_2Col("Initial commodities to sell",$initscommod."%");
-    Table_2Col("Initial commodities to buy",$initbcommod."%");
-    Table_Spacer();
-    Table_2Col("Empty sectors",$empty);
-    Table_2Col("Federation sectors",$fedsecs);
-    Table_2Col("Loops",$loops);
-    Table_2Col("Unowned planets",$nump);
-    Table_Spacer();
+    table_2col ("Special ports",$spp);
+    table_2col ("Ore ports",$oep);
+    table_2col ("Organics ports",$ogp);
+    table_2col ("Goods ports",$gop);
+    table_2col ("Energy ports",$enp);
+    table_spacer ();
+    table_2col ("Initial commodities to sell",$initscommod."%");
+    table_2col ("Initial commodities to buy",$initbcommod."%");
+    table_spacer ();
+    table_2col ("Empty sectors",$empty);
+    table_2col ("Federation sectors",$fedsecs);
+    table_2col ("Loops",$loops);
+    table_2col ("Unowned planets",$nump);
+    table_spacer ();
 
-    Table_1Col("<p align='center'><input type=submit value=Confirm></p>");
-    Table_Spacer();
+    table_1col ("<p align='center'><input type=submit value=Confirm></p>");
+    table_spacer ();
 
-    Table_1Col("<font color=red>WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!</font>");
-    Table_Footer(" ");
+    table_1col ("<font color=red>WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!</font>");
+    table_footer (" ");
 
       echo "</form>";
 
@@ -373,7 +373,7 @@ echo"</table>";
 
       // New database driven language entries
       load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
-      Table_Header("Setting up Sectors --- STAGE 4");
+      table_header ("Setting up Sectors --- STAGE 4");
 
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
@@ -386,17 +386,17 @@ echo"</table>";
 
       $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
       db_op_result ($db, $insert, __LINE__, __FILE__);
-      Table_Row("Creating Sol sector","Failed","Created");
+      table_row("Creating Sol sector","Failed","Created");
 
       $update = $db->Execute("UPDATE {$db->prefix}universe SET sector_id=0 WHERE sector_id=1");
       db_op_result ($db, $update, __LINE__, __FILE__);
-      Table_Row("Converting Sol Sector Id to 0","False","True");
+      table_row("Converting Sol Sector Id to 0","False","True");
 
       $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
       db_op_result ($db, $insert, __LINE__, __FILE__);
-      Table_Row("Creating Alpha Centauri in sector 1","Failed","Created");
+      table_row("Creating Alpha Centauri in sector 1","Failed","Created");
 
-      Table_Spacer();
+      table_spacer ();
 
       $remaining = $sector_max-2;
       ### Cycle through remaining sectors
@@ -426,34 +426,34 @@ echo"</table>";
 //          $db->Execute("$insert");
             if ($start<$sector_max && $finish<=$sector_max) $db->Execute($insert);
 
-        Table_Row("Inserting loop $i of $loops Sector Block [".($start)." - ".($finish-1)."] into the Universe.","Failed","Inserted");
+        table_row("Inserting loop $i of $loops Sector Block [".($start)." - ".($finish-1)."] into the Universe.","Failed","Inserted");
 
             $start = $finish;
             $finish += $loopsize;
             if ($finish>($sector_max)) $finish=($sector_max);
         };
 
-    Table_Spacer();
+    table_spacer ();
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones (zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('1', 'Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
       db_op_result ($db, $replace, __LINE__, __FILE__);
-      Table_Row("Setting up Zone (Unchartered space)","Failed","Set");
+      table_row("Setting up Zone (Unchartered space)","Failed","Set");
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('2', 'Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
       db_op_result ($db, $replace, __LINE__, __FILE__);
-      Table_Row("Setting up Zone (Federation space)","Failed","Set");
+      table_row("Setting up Zone (Federation space)","Failed","Set");
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('3', 'Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
       db_op_result ($db, $replace, __LINE__, __FILE__);
-      Table_Row("Setting up Zone (Free-Trade space)","Failed","Set");
+      table_row("Setting up Zone (Free-Trade space)","Failed","Set");
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('4', 'War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
       db_op_result ($db, $replace, __LINE__, __FILE__);
-      Table_Row("Setting up Zone (War Zone)","Failed","Set");
+      table_row("Setting up Zone (War Zone)","Failed","Set");
 
       $update = $db->Execute("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
       db_op_result ($db, $update, __LINE__, __FILE__);
-      Table_Row("Setting up the $fedsecs Federation Sectors","Failed","Set");
+      table_row("Setting up the $fedsecs Federation Sectors","Failed","Set");
 
       ### Finding random sectors where port=none and getting their sector ids in one sql query
       ### For Special Ports
@@ -470,7 +470,7 @@ echo"</table>";
     # Well since we hard coded a special port already, we start from 1.
         $start=1;
 
-    Table_Spacer();
+    table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $spp");
         db_op_result ($db, $sql_query, __LINE__, __FILE__);
@@ -489,7 +489,7 @@ echo"</table>";
             $resx = $db->Execute($update);
             db_op_result ($db, $resx, __LINE__, __FILE__);
 
-    Table_Row("Loop $i of $loops (Setting up Special Ports) Port [".($start+1)." - $finish]","Failed","Selected");
+    table_row("Loop $i of $loops (Setting up Special Ports) Port [".($start+1)." - $finish]","Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
@@ -517,7 +517,7 @@ echo"</table>";
         if ($finish>$oep) $finish=($oep);
         $start=0;
 
-    Table_Spacer();
+    table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $oep");
         db_op_result ($db, $sql_query, __LINE__, __FILE__);
@@ -536,7 +536,7 @@ echo"</table>";
             $resx = $db->Execute($update);
             db_op_result ($db, $resx, __LINE__, __FILE__);
 
-    Table_Row("Loop $i of $loops (Setting up Ore Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+    table_row("Loop $i of $loops (Setting up Ore Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
@@ -564,7 +564,7 @@ echo"</table>";
         if ($finish>$ogp) $finish=($ogp);
         $start=0;
 
-    Table_Spacer();
+    table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $ogp");
         db_op_result ($db, $sql_query, __LINE__, __FILE__);
@@ -583,7 +583,7 @@ echo"</table>";
             $resx = $db->Execute($update);
             db_op_result ($db, $resx, __LINE__, __FILE__);
 
-    Table_Row("Loop $i of $loops (Setting up Organics Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+    table_row("Loop $i of $loops (Setting up Organics Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
@@ -611,7 +611,7 @@ echo"</table>";
         if ($finish>$gop) $finish=($gop);
         $start=0;
 
-    Table_Spacer();
+    table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $gop");
         db_op_result ($db, $sql_query, __LINE__, __FILE__);
@@ -630,7 +630,7 @@ echo"</table>";
             $resx = $db->Execute($update);
             db_op_result ($db, $resx, __LINE__, __FILE__);
 
-    Table_Row("Loop $i of $loops (Setting up Goods Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+    table_row("Loop $i of $loops (Setting up Goods Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
@@ -660,7 +660,7 @@ echo"</table>";
     # Well since we hard coded an energy port already, we start from 1.
         $start=1;
 
-    Table_Spacer();
+    table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $enp");
         db_op_result ($db, $sql_query, __LINE__, __FILE__);
@@ -679,15 +679,15 @@ echo"</table>";
             $resx = $db->Execute($update);
             db_op_result ($db, $resx, __LINE__, __FILE__);
 
-    Table_Row("Loop $i of $loops (Setting up Energy Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+    table_row("Loop $i of $loops (Setting up Energy Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
             if ($finish>$enp) $finish=($enp);
         }
 
-    Table_Spacer();
-    Table_Footer("Completed successfully");
+    table_spacer ();
+    table_footer ("Completed successfully");
 
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=5>";
@@ -713,7 +713,7 @@ echo"</table>";
       load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
         $p_add=0;$p_skip=0;$i=0;
 
-Table_Header("Setting up Universe Sectors --- Stage 5");
+table_header ("Setting up Universe Sectors --- Stage 5");
 
         do
         {
@@ -729,9 +729,9 @@ Table_Header("Setting up Universe Sectors --- Stage 5");
         }
         while ($p_add < $nump);
 
-Table_Row("Selecting $nump sectors to place unowned planets in.","Failed","Selected");
+table_row("Selecting $nump sectors to place unowned planets in.","Failed","Selected");
 
-Table_Spacer();
+table_spacer ();
 
 ## Adds Sector Size *2 amount of links to the links table ##
 
@@ -760,20 +760,20 @@ Table_Spacer();
                 db_op_result ($db, $resx, __LINE__, __FILE__);
             }
 
-            Table_Row("Creating loop $i of $loops sectors (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
+            table_row("Creating loop $i of $loops sectors (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
 
             $start=$finish;
             $finish += $loopsize;
             if ($finish>$sector_max) $finish=$sector_max;
         }
 
-//      PrintFlush("<br>Sector Links created successfully.<br>");
+//      print_flush ("<br>Sector Links created successfully.<br>");
 
 ####################
 
-Table_Spacer();
+table_spacer ();
 
-//      PrintFlush("<br>Randomly One-way Linking $i Sectors (out of $sector_max sectors)<br>\n");
+//      print_flush ("<br>Randomly One-way Linking $i Sectors (out of $sector_max sectors)<br>\n");
 
 ## Adds Sector Size amount of links to the links table ##
 
@@ -797,7 +797,7 @@ Table_Spacer();
                 $insert.="($link1,$link2)";
                 if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
-#           PrintFlush("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
+#           print_flush ("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 
             if ($start<$sector_max && $finish<=$sector_max)
             {
@@ -805,20 +805,20 @@ Table_Spacer();
                 db_op_result ($db, $resx, __LINE__, __FILE__);
             }
 
-Table_Row("Creating loop $i of $loops Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
+table_row("Creating loop $i of $loops Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
 
             $start=$finish;
             $finish += $loopsize;
             if ($finish>$sector_max) $finish=($sector_max);
         }
 
-//      PrintFlush("Completed successfully.<br>\n");
+//      print_flush ("Completed successfully.<br>\n");
 
 ######################
 
-Table_Spacer();
+table_spacer ();
 
-//      PrintFlush("<br>Randomly Two-way Linking Sectors<br>\n");
+//      print_flush ("<br>Randomly Two-way Linking Sectors<br>\n");
 
 ## Adds Sector Size*2 amount of links to the links table ##
 
@@ -842,14 +842,14 @@ Table_Spacer();
                 $insert.="($link1,$link2), ($link2,$link1)";
                 if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
             }
-//          PrintFlush("<font color='#ff0'>Creating loop $i of $loopsize Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
+//          print_flush ("<font color='#ff0'>Creating loop $i of $loopsize Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
             if ($start<$sector_max && $finish<=$sector_max)
             {
                 $resx = $db->Execute($insert);
                 db_op_result ($db, $resx, __LINE__, __FILE__);
             }
 
-Table_Row("Creating loop $i of $loops Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
+table_row("Creating loop $i of $loops Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
 
             $start=$finish;
             $finish += $loopsize;
@@ -858,9 +858,9 @@ Table_Row("Creating loop $i of $loops Random Two-way Links (from sector ".($star
 
 $resx = $db->Execute("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
 db_op_result ($db, $resx, __LINE__, __FILE__);
-Table_Row("Removing links to and from the end of the Universe","Failed","Deleted");
+table_row("Removing links to and from the end of the Universe","Failed","Deleted");
 
-Table_Footer("Completed successfully.");
+table_footer ("Completed successfully.");
 
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=7>";
@@ -884,88 +884,88 @@ Table_Footer("Completed successfully.");
 
       // New database driven language entries
       load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
-      Table_Header("Configuring game scheduler --- Stage 7");
+      table_header ("Configuring game scheduler --- Stage 7");
 
-      Table_2Col("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
+      table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_turns.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Turns will occur every $sched_turns minutes","Failed","Inserted");
+      table_row("Turns will occur every $sched_turns minutes","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_defenses.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Defenses will be checked every $sched_turns minutes","Failed","Inserted");
+      table_row("Defenses will be checked every $sched_turns minutes","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_xenobe.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Xenobes will play every $sched_turns minutes.","Failed","Inserted");
+      table_row("Xenobes will play every $sched_turns minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_igb, 0, 'sched_igb.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Interests on IGB accounts will be accumulated every $sched_igb minutes.","Failed","Inserted");
+      table_row("Interests on IGB accounts will be accumulated every $sched_igb minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_news, 0, 'sched_news.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("News will be generated every $sched_news minutes.","Failed","Inserted");
+      table_row("News will be generated every $sched_news minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_planets, 0, 'sched_planets.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Planets will generate production every $sched_planets minutes.","Failed","Inserted");
+      table_row("Planets will generate production every $sched_planets minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_ports, 0, 'sched_ports.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Ports will regenerate every $sched_ports minutes.","Failed","Inserted");
+      table_row("Ports will regenerate every $sched_ports minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_tow.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Ships will be towed from fed sectors every $sched_turns minutes.","Failed","Inserted");
+      table_row("Ships will be towed from fed sectors every $sched_turns minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_ranking, 0, 'sched_ranking.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Rankings will be generated every $sched_ranking minutes.","Failed","Inserted");
+      table_row("Rankings will be generated every $sched_ranking minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_degrade, 0, 'sched_degrade.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Sector Defences will degrade every $sched_degrade minutes.","Failed","Inserted");
+      table_row("Sector Defences will degrade every $sched_degrade minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_apocalypse, 0, 'sched_apocalypse.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("The planetary apocalypse will occur every $sched_apocalypse minutes.","Failed","Inserted");
+      table_row("The planetary apocalypse will occur every $sched_apocalypse minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_thegovernor, 0, 'sched_thegovernor.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
+      table_row("The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
 
       if ($bnt_ls===true)
       {
 //            $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, 60, 0, 'bnt_ls_client.php', NULL,unix_timestamp(now()))");
-//        Table_Row("The public list updater will occur every 60 minutes","Failed","Inserted");
+//        table_row("The public list updater will occur every 60 minutes","Failed","Inserted");
 
             $creating=1;
 //            include "bnt_ls_client.php";
       }
-      Table_Footer("Completed successfully");
+      table_footer ("Completed successfully");
 
-      Table_Header("Inserting Admins Acount Information");
+      table_header ("Inserting Admins Acount Information");
 
       $update = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
       db_op_result ($db, $update, __LINE__, __FILE__);
-      Table_Row("Inserting Admins ibank Information","Failed","Inserted");
+      table_row("Inserting Admins ibank Information","Failed","Inserted");
 
       $stamp = date("Y-m-d H:i:s");
       $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$adminpass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
 
-      Table_1Col("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$adminpass'");
-      Table_Row("Inserting Admins Ship Information","Failed","Inserted");
+      table_1col ("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$adminpass'");
+      table_row("Inserting Admins Ship Information","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'Game Admin\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
-      Table_Row("Inserting Admins Zone Information","Failed","Inserted");
-      Table_Footer("Completed successfully.");
+      table_row("Inserting Admins Zone Information","Failed","Inserted");
+      table_footer ("Completed successfully.");
 
-      PrintFlush("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");
-      PrintFlush("<strong>Click <a href=index.php>here</A> to return to the login screen.</strong></center>");
+      print_flush ("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");
+      print_flush ("<strong>Click <a href=index.php>here</A> to return to the login screen.</strong></center>");
 
       include_once 'footer.php';
       break;
