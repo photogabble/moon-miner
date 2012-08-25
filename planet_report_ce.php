@@ -97,7 +97,7 @@ function go_build_base($planet_id, $sector_id)
     return (boolean) false;
   }  // build a base
 
-  Real_Space_Move($sector_id);
+  real_space_move ($db, $sector_id);
   echo "<br>Click <a href=planet.php?planet_id=$planet_id>here</A> to go to the Planet Menu<br><br>";
 
   if ($planetinfo['ore'] >= $base_ore && $planetinfo['organics'] >= $base_organics && $planetinfo['goods'] >= $base_goods && $planetinfo['credits'] >= $base_credits)
@@ -176,7 +176,7 @@ function collect_credits($planetarray)
   for ($i = 0; $i < count($s_p_pair) && $CS == "GO"; $i++)
   {
     echo "<br>";
-    $CS = Real_space_move($s_p_pair[$i][0]);
+    $CS = real_space_move ($db, $s_p_pair[$i][0]);
 
     if ($CS == "HOSTILE")
     {
@@ -450,13 +450,9 @@ function take_credits ($db, $sector_id, $planet_id)
   return($retval);
 }
 
-function Real_Space_Move($destination)
+function real_space_move ($db, $destination)
 {
-  global $db;
-  global $level_factor, $mine_hullsize;
-  global $username;
-  global $db_logging;
-
+  global $username, $level_factor, $mine_hullsize;
   global $l_rs_ready, $l_rs_movetime, $l_rs_noturns;
 
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");

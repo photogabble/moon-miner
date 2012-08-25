@@ -22,7 +22,7 @@ if (preg_match("/sched_funcs.php/i", $_SERVER['PHP_SELF'])) {
     die();
 }
 
-function QUERYOK ($res)
+function is_query_ok ($res)
 {
     if ($res)
     {
