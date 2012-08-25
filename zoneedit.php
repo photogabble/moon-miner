@@ -252,7 +252,7 @@ function zoneedit_change()
     global $trades;
     global $defenses;
     global $l_clickme, $l_ze_saved, $l_ze_return;
-    global $db, $db_logging;
+    global $db;
 
     if (!get_magic_quotes_gpc())
     {
@@ -260,7 +260,7 @@ function zoneedit_change()
     }
 
     $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();
