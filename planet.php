@@ -27,7 +27,7 @@ load_languages($db, $lang, array('bounty', 'port', 'main', 'planet', 'report', '
 $title = $l_planet_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

@@ -26,7 +26,7 @@ load_languages($db, $lang, array('navcomp', 'common', 'global_includes', 'global
 $title = $l_nav_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

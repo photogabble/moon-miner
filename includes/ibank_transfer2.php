@@ -17,7 +17,7 @@
 //
 // File: includes/ibank_transfer2.php
 
-function ibank_transfer2()
+function ibank_transfer2 ()
 {
     global $db, $playerinfo, $account, $ship_id, $splanet_id, $dplanet_id, $ibank_min_turns, $ibank_svalue;
     global $ibank_paymentfee, $ibank_trate;

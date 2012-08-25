@@ -27,7 +27,7 @@ $title = $l_move_title;
 include 'header.php';
 
 // Check to see if the user is logged in
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

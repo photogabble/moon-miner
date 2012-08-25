@@ -26,7 +26,7 @@ load_languages($db, $lang, array('mines', 'common', 'global_includes', 'global_f
 $title = $l_mines_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

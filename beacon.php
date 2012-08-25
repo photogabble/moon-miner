@@ -26,7 +26,7 @@ load_languages($db, $lang, array('beacon', 'common', 'global_includes', 'global_
 $title = $l_beacon_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login())
 {
     die();
 }

@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/xenobetoplanet.php
+// File: includes/xenobe_to_planet.php
 
-function xenobetoplanet($planet_id)
+function xenobe_to_planet ($planet_id)
 {
     // Xenobe planet attack code
     global $playerinfo, $planetinfo, $torp_dmg_rate, $level_factor;
@@ -311,7 +311,7 @@ function xenobetoplanet($planet_id)
             while (!$resultps->EOF && $xenobeisdead < 1)
             {
                 $onplanet = $resultps->fields;
-                xenobetoship ($onplanet['ship_id']);
+                xenobe_to_ship ($onplanet['ship_id']);
                 $resultps->MoveNext();
             }
         }

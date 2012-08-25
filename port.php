@@ -31,7 +31,7 @@ $body_class = 'port';
 $title = $l_title_port;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die();
 }

@@ -18,7 +18,7 @@
 // File: option2.php
 
 include 'global_includes.php';
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

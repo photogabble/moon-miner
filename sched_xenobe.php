@@ -84,7 +84,7 @@ while (!$res->EOF)
             {
               $furcount0a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
-              xenobetoship($rowo0[ship_id]);
+              xenobe_to_ship ($rowo0[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
@@ -95,7 +95,7 @@ while (!$res->EOF)
           {
             $furcount0a++;
             playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
-            xenobetoship($rowo0[ship_id]);
+            xenobe_to_ship ($rowo0[ship_id]);
             if ($xenobeisdead>0) {
               $res->MoveNext();
               continue;
@@ -131,7 +131,7 @@ while (!$res->EOF)
             {
               $furcount1a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
-              xenobetoship($rowo1[ship_id]);
+              xenobe_to_ship ($rowo1[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
@@ -143,9 +143,9 @@ while (!$res->EOF)
             $furcount1a++;
             playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
             if (!$rowo1[planet_id] == 0) {              // IS ON PLANET
-              xenobetoplanet($rowo1[planet_id]);
+              xenobe_to_planet ($rowo1[planet_id]);
             } else {
-              xenobetoship($rowo1[ship_id]);
+              xenobe_to_ship ($rowo1[ship_id]);
             }
             if ($xenobeisdead>0) {
               $res->MoveNext();
@@ -166,7 +166,7 @@ while (!$res->EOF)
           continue;
         }
         // NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS
-        xenobetrade();
+        xenobe_trade ();
         // FIND A TARGET
         // IN MY SECTOR, NOT MYSELF
         $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
@@ -185,7 +185,7 @@ while (!$res->EOF)
             {
               $furcount2a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
-              xenobetoship($rowo2[ship_id]);
+              xenobe_to_ship ($rowo2[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
@@ -197,9 +197,9 @@ while (!$res->EOF)
             $furcount2a++;
             playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
             if (!$rowo2[planet_id] == 0) {              // IS ON PLANET
-              xenobetoplanet($rowo2[planet_id]);
+              xenobe_to_planet ($rowo2[planet_id]);
             } else {
-              xenobetoship($rowo2[ship_id]);
+              xenobe_to_ship ($rowo2[ship_id]);
             }
             if ($xenobeisdead>0) {
               $res->MoveNext();
@@ -219,7 +219,7 @@ while (!$res->EOF)
         if ($hunt==0)
         {
         $furcount3h++;
-        xenobehunter();
+        xenobe_hunter ();
         if ($xenobeisdead>0) {
           $res->MoveNext();
           continue;
@@ -250,7 +250,7 @@ while (!$res->EOF)
               {
                 $furcount3a++;
                 playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
-                xenobetoship($rowo3[ship_id]);
+                xenobe_to_ship ($rowo3[ship_id]);
                 if ($xenobeisdead>0) {
                   $res->MoveNext();
                   continue;
@@ -262,9 +262,9 @@ while (!$res->EOF)
               $furcount3a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
               if (!$rowo3[planet_id] == 0) {              // IS ON PLANET
-                xenobetoplanet($rowo3[planet_id]);
+                xenobe_to_planet ($rowo3[planet_id]);
               } else {
-                xenobetoship($rowo3[ship_id]);
+                xenobe_to_ship ($rowo3[ship_id]);
               }
               if ($xenobeisdead>0) {
                 $res->MoveNext();

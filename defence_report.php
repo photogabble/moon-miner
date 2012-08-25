@@ -26,7 +26,7 @@ load_languages($db, $lang, array('defence_report', 'planet_report', 'main', 'dev
 $title = $l_sdf_title;
 include 'header.php';
 
-if ( checklogin() )
+if (check_login ())
 {
     die ();
 }

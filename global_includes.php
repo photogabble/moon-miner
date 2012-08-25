@@ -25,7 +25,7 @@ include_once 'classes/c_timer.php';
 include_once 'includes/adminlog.php';
 include_once 'includes/bigtitle.php';
 include_once 'includes/bnt_autoload.php';
-include_once 'includes/checklogin.php';
+include_once 'includes/check_login.php';
 include_once 'includes/collect_bounty.php';
 include_once 'includes/connectdb.php';
 include_once 'includes/db_kill_player.php';

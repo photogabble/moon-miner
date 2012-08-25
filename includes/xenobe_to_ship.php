@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: xenobetoship.php
+// File: xenobe_to_ship.php
 
-function xenobetoship($ship_id)
+function xenobe_to_ship ($ship_id)
 {
   // SETUP GENERAL VARIABLES
   global $attackerbeams;

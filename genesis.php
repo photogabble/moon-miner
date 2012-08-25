@@ -31,7 +31,7 @@ load_languages($db, $lang, array('genesis', 'common', 'global_includes', 'global
 $title = $l_gns_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

@@ -17,7 +17,7 @@
 //
 // File: includes/players_online.php
 
-function players_online($db)
+function players_online ($db)
 {
     $online = (integer) 0;
 

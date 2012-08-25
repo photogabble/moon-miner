@@ -26,7 +26,7 @@ load_languages($db, $lang, array('bounty', 'port', 'common', 'global_includes', 
 $title = $l_by_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login())
 {
     die ();
 }

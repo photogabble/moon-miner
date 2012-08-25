@@ -28,7 +28,7 @@ include_once 'includes/explode_mines.php';
 $title = $l_md_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }
@@ -163,14 +163,14 @@ switch ($response)
          include 'footer.php';
          die();
       }
-      $quantity = stripnum($quantity);
+      $quantity = stripnum ($quantity);
       if ($quantity < 0) $quantity = 0;
       if ($quantity > $defenceinfo['quantity'])
       {
          $quantity = $defenceinfo['quantity'];
       }
-      $torpedo_max = NUM_TORPEDOES($playerinfo['torp_launchers']) - $playerinfo['torps'];
-      $fighter_max = NUM_FIGHTERS($playerinfo['computer']) - $playerinfo['ship_fighters'];
+      $torpedo_max = NUM_TORPEDOES ($playerinfo['torp_launchers']) - $playerinfo['torps'];
+      $fighter_max = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
       if ($defenceinfo['defence_type'] == 'F')
       {
          if ($quantity > $fighter_max)

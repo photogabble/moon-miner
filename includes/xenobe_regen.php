@@ -17,7 +17,7 @@
 //
 // File: includes/xenoberegen.php
 
-function xenoberegen()
+function xenoberegen ()
 {
     global $playerinfo, $xen_unemployment, $xenobeisdead, $db;
 

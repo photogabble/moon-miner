@@ -25,7 +25,7 @@ load_languages($db, $lang, array('scan', 'common', 'bounty', 'report', 'main', '
 
 $title = $l_scan_title;
 include 'header.php';
-if (checklogin())
+if (check_login ())
 {
     die();
 }

@@ -26,7 +26,7 @@ load_languages($db, $lang, array('zoneedit', 'report', 'port', 'main', 'zoneinfo
 $title = $l_ze_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

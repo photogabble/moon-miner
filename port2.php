@@ -28,7 +28,7 @@ include_once 'includes/is_loan_pending.php';
 $title = $l_title_port;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die();
 }

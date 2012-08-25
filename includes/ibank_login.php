@@ -17,7 +17,7 @@
 //
 // File: includes/ibank_login.php
 
-function ibank_login()
+function ibank_login ()
 {
     global $playerinfo, $account;
     global $l_ibank_welcometoibank, $l_ibank_accountholder, $l_ibank_shipaccount;

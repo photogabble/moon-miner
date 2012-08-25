@@ -27,7 +27,7 @@ load_languages($db, $lang, array('corp', 'common', 'global_includes', 'combat', 
 $title = $l_corpm_title;
 include 'header.php';
 
-if ( checklogin ())
+if (check_login ())
 {
     die ();
 }

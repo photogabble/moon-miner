@@ -27,7 +27,7 @@ $body_class = 'options';
 $title = $l_opt_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

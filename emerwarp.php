@@ -25,7 +25,7 @@ load_languages($db, $lang, array('emerwarp', 'common', 'global_includes', 'globa
 
 $title = $l_ewd_title;
 include 'header.php';
-if ( checklogin () )
+if (check_login ())
 {
     die ();
 }

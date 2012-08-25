@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/xenobehunter.php
+// File: includes/xenobe_hunter.php
 
-function xenobehunter()
+function xenobe_hunter ()
 {
     // Setup general Variables
     global $playerinfo, $targetlink, $xenobeisdead, $db;
@@ -116,7 +116,7 @@ function xenobehunter()
         {
             // Attack sector defences
             $targetlink = $targetinfo['sector'];
-            xenobetosecdef();
+            xenobe_to_sec_def();
         }
 
         if ($xenobeisdead > 0)
@@ -128,11 +128,11 @@ function xenobehunter()
 
         if ($targetinfo['planet_id'] > 0) // Is player target on a planet?
         {
-            xenobetoplanet ($targetinfo['planet_id']); // Yes, so move to that planet
+            xenobe_to_planet ($targetinfo['planet_id']); // Yes, so move to that planet
         }
         else
         {
-            xenobetoship ($targetinfo['ship_id']); // Not on a planet, so move to the ship
+            xenobe_to_ship ($targetinfo['ship_id']); // Not on a planet, so move to the ship
         }
     }
     else

@@ -27,7 +27,7 @@ $body_class = 'zoneinfo';
 $title = $l_zi_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

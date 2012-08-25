@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/xenobetosecdef.php
+// File: includes/xenobe_to_sec_def.php
 
-function xenobetosecdef()
+function xenobe_to_sec_def ()
 {
     include_once 'destroy_fighters.php';
     include_once 'explode_mines.php';

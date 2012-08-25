@@ -26,7 +26,7 @@ load_languages($db, $lang, array('mailto2', 'common', 'global_includes', 'global
 $title = $l_sendm_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

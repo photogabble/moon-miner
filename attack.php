@@ -23,7 +23,7 @@ updatecookie ();
 // New database driven language entries
 load_languages($db, $lang, array('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
-if (checklogin ())
+if (check_login ())
 {
     die();
 }

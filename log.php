@@ -36,7 +36,7 @@ load_languages($db, $lang, array('log', 'common', 'global_includes', 'global_fun
 $title = $l_log_titlet;
 $body_class = 'log';
 
-if (checklogin () )
+if (check_login ())
 {
     die();
 }

@@ -17,7 +17,7 @@
 //
 // File: includes/ibank_loans.php
 
-function ibank_loans()
+function ibank_loans ()
 {
     global $db, $playerinfo, $account;
     global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest;

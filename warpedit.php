@@ -26,7 +26,7 @@ load_languages($db, $lang, array('warpedit', 'common', 'global_includes', 'globa
 $title = $l_warp_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

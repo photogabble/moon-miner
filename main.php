@@ -23,7 +23,7 @@ include 'global_includes.php';
 load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars, $db_logging);
 updatecookie();
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

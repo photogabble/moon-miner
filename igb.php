@@ -28,7 +28,7 @@ $title = $l_ibank_title;
 $body_class = 'igb';
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

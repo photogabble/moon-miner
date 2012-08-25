@@ -22,7 +22,7 @@ updatecookie ();
 $title = $l_help;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

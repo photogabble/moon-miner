@@ -26,7 +26,7 @@ load_languages($db, $lang, array('team_planets', 'planet_report', 'planet', 'mai
 $title = $l_teamplanet_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

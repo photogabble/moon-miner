@@ -27,7 +27,7 @@ global $l_map_title;
 $title = $l_map_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die();
 }

@@ -17,7 +17,7 @@
 //
 // File: includes/ibank_transfer.php
 
-function ibank_transfer()
+function ibank_transfer ()
 {
     global $db, $playerinfo, $account;
     global $ibank_min_turns;

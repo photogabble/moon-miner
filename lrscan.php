@@ -25,7 +25,7 @@ load_languages($db, $lang, array('main', 'lrscan', 'common', 'global_includes', 
 
 $title = $l_lrs_title;
 include 'header.php';
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

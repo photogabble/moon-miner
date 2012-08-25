@@ -26,7 +26,7 @@ load_languages($db, $lang, array('dump', 'main', 'common', 'global_includes', 'g
 $title = $l_dump_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

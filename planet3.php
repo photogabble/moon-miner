@@ -26,7 +26,7 @@ load_languages($db, $lang, array('planet', 'common', 'global_includes', 'global_
 $title = $l_planet3_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

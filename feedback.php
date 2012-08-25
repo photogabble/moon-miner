@@ -26,7 +26,7 @@ load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_include
 $title = $l_feedback_title;
 include 'header.php';
 
-if ( checklogin () )
+if (check_login ())
 {
     die ();
 }

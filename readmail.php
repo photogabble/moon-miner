@@ -28,7 +28,7 @@ include 'header.php';
 
 bigtitle();
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

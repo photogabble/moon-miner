@@ -28,7 +28,7 @@ include_once 'includes/is_same_team.php';
 $title = $l_ship_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

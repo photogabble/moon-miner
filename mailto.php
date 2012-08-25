@@ -26,7 +26,7 @@ load_languages($db, $lang, array('mailto', 'common', 'global_includes', 'global_
 $title = $l_mt_title;
 include 'header.php';
 
-if (checklogin () )
+if (check_login ())
 {
     die();
 }

@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/xenobetrade.php
+// File: includes/xenobe_trade.php
 
-function xenobetrade()
+function xenobe_trade ()
 {
   //
   // SETUP GENERAL VARIABLES

@@ -26,7 +26,7 @@ load_languages($db, $lang, array('rsmove', 'common', 'global_funcs', 'global_inc
 $title = $l_rs_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

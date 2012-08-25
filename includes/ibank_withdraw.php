@@ -17,7 +17,7 @@
 //
 // File: includes/ibank_withdraw.php
 
-function ibank_withdraw()
+function ibank_withdraw ()
 {
     global $playerinfo, $account;
     global $l_ibank_withdrawfunds, $l_ibank_fundsavailable, $l_ibank_selwithdrawamount;

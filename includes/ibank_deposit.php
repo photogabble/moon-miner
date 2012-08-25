@@ -17,7 +17,7 @@
 //
 // File: includes/ibank_deposit.php
 
-function ibank_deposit()
+function ibank_deposit ()
 {
     global $account, $playerinfo;
     global $l_ibank_depositfunds, $l_ibank_fundsavailable, $l_ibank_seldepositamount;

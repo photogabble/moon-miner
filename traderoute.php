@@ -27,7 +27,7 @@ $title = $l_tdr_title;
 include 'header.php';
 
 $portfull = null; // This fixes an error of undefined variables on 1518
-if (checklogin () )
+if (check_login ())
 {
     die ();
 }

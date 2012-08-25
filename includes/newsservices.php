@@ -20,7 +20,7 @@
 /*
 Assumes $day is a valid formatted time
 */
-function getpreviousday ($day)
+function get_previous_day ($day)
 {
     //convert the formatted date into a timestamp
     $day = strtotime ($day);
@@ -32,7 +32,7 @@ function getpreviousday ($day)
     return date ("Y/m/d", $day);
 }
 
-function getnextday ($day)
+function get_next_day ($day)
 {
     //convert the formatted date into a timestamp
     $day = strtotime ($day);

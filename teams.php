@@ -32,7 +32,7 @@ include 'header.php';
 include_once 'includes/defence_vs_defence.php';
 include_once 'includes/kick_off_planet.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }
@@ -56,13 +56,13 @@ if (array_key_exists('teamwhat', $_REQUEST) == true)
 $confirmleave = null;
 if (array_key_exists('confirmleave', $_REQUEST) == true)
 {
-    $confirmleave = stripnum($_REQUEST['confirmleave']);
+    $confirmleave = stripnum ($_REQUEST['confirmleave']);
 }
 
 $invited = null;
 if (array_key_exists('invited', $_REQUEST) == true)
 {
-    $invited      = stripnum($_REQUEST['invited']);
+    $invited      = stripnum ($_REQUEST['invited']);
 }
 
 $teamname = null;
@@ -74,7 +74,7 @@ if (array_key_exists('teamname', $_POST) == true)
 $confirmed = null;
 if (array_key_exists('confirmed', $_REQUEST) == true)
 {
-    $confirmed = stripnum($_REQUEST['confirmed']);
+    $confirmed = stripnum ($_REQUEST['confirmed']);
 }
 
 $update = null;
@@ -352,7 +352,7 @@ switch ($teamwhat)
         }
         else
         {
-            $who = stripnum($who);
+            $who = stripnum ($who);
             $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($who));
             db_op_result ($db, $result, __LINE__, __FILE__);
             $whotoexpel = $result->fields;

@@ -17,7 +17,7 @@
 //
 // File: includes/xenobemove.php
 
-function xenobemove()
+function xenobemove ()
 {
     global $playerinfo, $sector_max, $targetlink, $xenobeisdead, $db;
 
@@ -116,7 +116,7 @@ function xenobemove()
         {
             if ($playerinfo['aggression'] == 2 || $playerinfo['aggression'] == 1)
             {
-                xenobetosecdef(); // Attack sector defences
+                xenobe_to_sec_def(); // Attack sector defences
 
                 return;
             }

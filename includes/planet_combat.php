@@ -17,7 +17,7 @@
 //
 // File: includes/planet_combat.php
 
-function planet_combat()
+function planet_combat ()
 {
     global $db, $playerinfo, $ownerinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;

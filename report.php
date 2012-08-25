@@ -26,7 +26,7 @@ load_languages($db, $lang, array('main', 'report', 'device', 'common', 'global_i
 $title = $l_report_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }

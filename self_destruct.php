@@ -28,7 +28,7 @@ include_once 'includes/cancel_bounty.php';
 $title = $l_die_title;
 include 'header.php';
 
-if (checklogin())
+if (check_login ())
 {
     die();
 }
