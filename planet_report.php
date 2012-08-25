@@ -21,7 +21,7 @@ include 'global_includes.php';
 updatecookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_pr_title;
 include 'header.php';
@@ -39,7 +39,7 @@ if (array_key_exists('PRepType', $_GET) == true) //!isset($_GET['PRepType']))
 
 // Get data about planets
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
@@ -93,7 +93,7 @@ function planet_report_menu ()
 
 function standard_report ()
 {
-    global $db, $db_logging;
+    global $db;
     global $res;
     global $playerinfo;
     global $username;
@@ -142,7 +142,7 @@ function standard_report ()
     }
 
     $res = $db->Execute($query);
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
 
     $i = 0;
     if ($res)
@@ -290,10 +290,9 @@ function standard_report ()
     echo "</div>\n";
 }
 
-function planet_production_change()
+function planet_production_change ()
 {
-    global $db, $db_logging;
-    global $res;
+    global $db;
     global $playerinfo;
     global $username;
     global $sort;
@@ -345,7 +344,7 @@ function planet_production_change()
     }
 
     $res = $db->Execute($query, array($playerinfo['ship_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
 
     $i = 0;
     if ($res)

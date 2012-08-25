@@ -241,7 +241,7 @@ TEXT_GOTOMAIN();
 
 include 'footer.php';
 
-function zoneedit_change()
+function zoneedit_change ()
 {
     global $zone;
     global $name;
@@ -269,7 +269,7 @@ function zoneedit_change()
     die();
 }
 
-function zoneedit_die($error_msg)
+function zoneedit_die ($error_msg)
 {
     echo "<p>" . $error_msg . "<p>";
     TEXT_GOTOMAIN();

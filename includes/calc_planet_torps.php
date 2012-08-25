@@ -17,9 +17,9 @@
 //
 // File: includes/calc_planet_torps.php
 
-function calc_planet_torps ()
+function calc_planet_torps ($db)
 {
-    global $db, $ownerinfo, $base_defense, $planetinfo;
+    global $ownerinfo, $base_defense, $planetinfo;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 

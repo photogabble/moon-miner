@@ -17,9 +17,9 @@
 //
 // File: includes/calc_planet_shields.php
 
-function calc_planet_shields ()
+function calc_planet_shields ($db)
 {
-    global $db, $ownerinfo, $base_defense, $planetinfo;
+    global $ownerinfo, $base_defense, $planetinfo;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");

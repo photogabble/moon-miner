@@ -48,15 +48,15 @@ function planet_combat()
     // Planetary defense system calculation
 
     include 'calc_planet_beams.php';
-    $planetbeams        = calc_planet_beams();
+    $planetbeams        = calc_planet_beams ($db);
 
     $planetfighters     = $planetinfo['fighters'];
 
     include 'calc_planet_shields.php';
-    $planetshields      = calc_planet_shields();
+    $planetshields      = calc_planet_shields ($db);
 
     include 'calc_planet_torps.php';
-    $planettorps        = calc_planet_torps();
+    $planettorps        = calc_planet_torps ($db);
 
     // Attacking ship calculations
 

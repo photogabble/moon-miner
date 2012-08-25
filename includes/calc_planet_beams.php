@@ -17,9 +17,9 @@
 //
 // File: includes/calc_planet_beams.php
 
-function calc_planet_beams()
+function calc_planet_beams ($db)
 {
-    global $db, $ownerinfo, $base_defense, $planetinfo;
+    global $ownerinfo, $base_defense, $planetinfo;
 
     $energy_available = $planetinfo['energy'];
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;

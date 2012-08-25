@@ -93,7 +93,7 @@ $color_green = "#0f0"; // Light green
 $trade_deficit = "$l_cost : ";
 $trade_benefit = "$l_profit : ";
 
-function BuildOneCol ( $text = "&nbsp;", $align = "left" )
+function build_one_col ( $text = "&nbsp;", $align = "left" )
 {
     echo"
     <tr>
@@ -102,7 +102,7 @@ function BuildOneCol ( $text = "&nbsp;", $align = "left" )
     ";
 }
 
-function BuildTwoCol ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left" )
+function build_two_col ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left" )
 {
     echo"
     <tr>
@@ -111,30 +111,30 @@ function BuildTwoCol ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1
     </tr>";
 }
 
-function phpTrueDelta ($futurevalue, $shipvalue)
+function php_true_delta ($futurevalue, $shipvalue)
 {
     $tempval = $futurevalue - $shipvalue;
 
     return $tempval;
 }
 
-function phpChangeDelta ($desiredvalue, $currentvalue)
+function php_change_delta ($desiredvalue, $currentvalue)
 {
     global $upgrade_cost;
 
-    $Delta = 0;
-    $DeltaCost = 0;
-    $Delta = $desiredvalue - $currentvalue;
+    $delta = 0;
+    $deltaCost = 0;
+    $delta = $desiredvalue - $currentvalue;
 
-    while ($Delta > 0 )
+    while ($delta > 0 )
     {
-        $DeltaCost = $DeltaCost + pow (2, $desiredvalue - $Delta);
-        $Delta = $Delta - 1;
+        $delta_cost = $delta_cost + pow (2, $desiredvalue - $Delta);
+        $delta = $delta - 1;
     }
 
-    $DeltaCost = $DeltaCost * $upgrade_cost;
+    $delta_cost = $delta_cost * $upgrade_cost;
 
-    return $DeltaCost;
+    return $delta_cost;
 }
 
 if ($playerinfo['turns'] < 1 )
@@ -372,61 +372,61 @@ else
         $hull_upgrade_cost = 0;
         if ($hull_upgrade > $playerinfo['hull'])
         {
-            $hull_upgrade_cost = phpChangeDelta ($hull_upgrade, $playerinfo['hull']);
+            $hull_upgrade_cost = php_change_delta ($hull_upgrade, $playerinfo['hull']);
         }
 
         $engine_upgrade_cost = 0;
         if ($engine_upgrade > $playerinfo['engines'])
         {
-            $engine_upgrade_cost = phpChangeDelta ($engine_upgrade, $playerinfo['engines']);
+            $engine_upgrade_cost = php_change_delta ($engine_upgrade, $playerinfo['engines']);
         }
 
         $power_upgrade_cost = 0;
         if ($power_upgrade > $playerinfo['power'])
         {
-            $power_upgrade_cost = phpChangeDelta ($power_upgrade, $playerinfo['power']);
+            $power_upgrade_cost = php_change_delta ($power_upgrade, $playerinfo['power']);
         }
 
         $computer_upgrade_cost = 0;
         if ($computer_upgrade > $playerinfo['computer'])
         {
-            $computer_upgrade_cost = phpChangeDelta ($computer_upgrade, $playerinfo['computer']);
+            $computer_upgrade_cost = php_change_delta ($computer_upgrade, $playerinfo['computer']);
         }
 
         $sensors_upgrade_cost = 0;
         if ($sensors_upgrade > $playerinfo['sensors'])
         {
-            $sensors_upgrade_cost = phpChangeDelta ($sensors_upgrade, $playerinfo['sensors']);
+            $sensors_upgrade_cost = php_change_delta ($sensors_upgrade, $playerinfo['sensors']);
         }
 
         $beams_upgrade_cost = 0;
         if ($beams_upgrade > $playerinfo['beams'])
         {
-            $beams_upgrade_cost = phpChangeDelta ($beams_upgrade, $playerinfo['beams']);
+            $beams_upgrade_cost = php_change_delta ($beams_upgrade, $playerinfo['beams']);
         }
 
         $armor_upgrade_cost = 0;
         if ($armor_upgrade > $playerinfo['armor'])
         {
-            $armor_upgrade_cost = phpChangeDelta ($armor_upgrade, $playerinfo['armor']);
+            $armor_upgrade_cost = php_change_delta ($armor_upgrade, $playerinfo['armor']);
         }
 
         $cloak_upgrade_cost = 0;
         if ($cloak_upgrade > $playerinfo['cloak'])
         {
-            $cloak_upgrade_cost = phpChangeDelta ($cloak_upgrade, $playerinfo['cloak']);
+            $cloak_upgrade_cost = php_change_delta ($cloak_upgrade, $playerinfo['cloak']);
         }
 
         $torp_launchers_upgrade_cost = 0;
         if ($torp_launchers_upgrade > $playerinfo['torp_launchers'])
         {
-            $torp_launchers_upgrade_cost = phpChangeDelta ($torp_launchers_upgrade, $playerinfo['torp_launchers']);
+            $torp_launchers_upgrade_cost = php_change_delta ($torp_launchers_upgrade, $playerinfo['torp_launchers']);
         }
 
         $shields_upgrade_cost = 0;
         if ($shields_upgrade > $playerinfo['shields'])
         {
-            $shields_upgrade_cost = phpChangeDelta ($shields_upgrade, $playerinfo['shields']);
+            $shields_upgrade_cost = php_change_delta ($shields_upgrade, $playerinfo['shields']);
         }
 
         if ($fighter_number < 0)
@@ -562,145 +562,145 @@ else
             if ($hull_upgrade > $playerinfo['hull'])
             {
                 $tempvar = 0;
-                $tempvar = phpTrueDelta ($hull_upgrade, $playerinfo['hull']);
+                $tempvar = php_true_delta ($hull_upgrade, $playerinfo['hull']);
                 $query = $query . ", hull=hull+$tempvar";
-                BuildOneCol ("$l_hull $l_trade_upgraded $hull_upgrade");
+                build_one_col ("$l_hull $l_trade_upgraded $hull_upgrade");
             }
 
             if ($engine_upgrade > $playerinfo['engines'])
             {
                 $tempvar = 0;
-                $tempvar = phpTrueDelta ($engine_upgrade, $playerinfo['engines']);
+                $tempvar = php_true_delta ($engine_upgrade, $playerinfo['engines']);
                 $query = $query . ", engines=engines + $tempvar";
-                BuildOneCol ("$l_engines $l_trade_upgraded $engine_upgrade");
+                build_one_col ("$l_engines $l_trade_upgraded $engine_upgrade");
             }
 
             if ($power_upgrade > $playerinfo['power'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($power_upgrade, $playerinfo['power']);
+                $tempvar = 0; $tempvar=php_true_delta ($power_upgrade, $playerinfo['power']);
                 $query = $query . ", power=power+$tempvar";
-                BuildOneCol ("$l_power $l_trade_upgraded $power_upgrade");
+                build_one_col ("$l_power $l_trade_upgraded $power_upgrade");
             }
 
             if ($computer_upgrade > $playerinfo['computer'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($computer_upgrade, $playerinfo['computer']);
+                $tempvar = 0; $tempvar=php_true_delta ($computer_upgrade, $playerinfo['computer']);
                 $query = $query . ", computer=computer+$tempvar";
-                BuildOneCol ("$l_computer $l_trade_upgraded $computer_upgrade");
+                build_one_col ("$l_computer $l_trade_upgraded $computer_upgrade");
             }
 
             if ($sensors_upgrade > $playerinfo['sensors'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($sensors_upgrade, $playerinfo['sensors']);
+                $tempvar = 0; $tempvar=php_true_delta ($sensors_upgrade, $playerinfo['sensors']);
                 $query = $query . ", sensors=sensors+$tempvar";
-                BuildOneCol ("$l_sensors $l_trade_upgraded $sensors_upgrade");
+                build_one_col ("$l_sensors $l_trade_upgraded $sensors_upgrade");
             }
 
             if ($beams_upgrade > $playerinfo['beams'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($beams_upgrade, $playerinfo['beams']);
+                $tempvar = 0; $tempvar=php_true_delta ($beams_upgrade, $playerinfo['beams']);
                 $query = $query . ", beams=beams+$tempvar";
-                BuildOneCol ("$l_beams $l_trade_upgraded $beams_upgrade");
+                build_one_col ("$l_beams $l_trade_upgraded $beams_upgrade");
             }
 
             if ($armor_upgrade > $playerinfo['armor'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($armor_upgrade, $playerinfo['armor']);
+                $tempvar = 0; $tempvar=php_true_delta ($armor_upgrade, $playerinfo['armor']);
                 $query = $query . ", armor=armor+$tempvar";
-                BuildOneCol ("$l_armor $l_trade_upgraded $armor_upgrade");
+                build_one_col ("$l_armor $l_trade_upgraded $armor_upgrade");
             }
 
             if ($cloak_upgrade > $playerinfo['cloak'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($cloak_upgrade, $playerinfo['cloak']);
+                $tempvar = 0; $tempvar=php_true_delta ($cloak_upgrade, $playerinfo['cloak']);
                 $query = $query . ", cloak=cloak+$tempvar";
-                BuildOneCol ("$l_cloak $l_trade_upgraded $cloak_upgrade");
+                build_one_col ("$l_cloak $l_trade_upgraded $cloak_upgrade");
             }
 
             if ($torp_launchers_upgrade > $playerinfo['torp_launchers'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($torp_launchers_upgrade, $playerinfo['torp_launchers']);
+                $tempvar = 0; $tempvar=php_true_delta ($torp_launchers_upgrade, $playerinfo['torp_launchers']);
                 $query = $query . ", torp_launchers=torp_launchers+$tempvar";
-                BuildOneCol ("$l_torp_launch $l_trade_upgraded $torp_launchers_upgrade");
+                build_one_col ("$l_torp_launch $l_trade_upgraded $torp_launchers_upgrade");
             }
 
             if ($shields_upgrade > $playerinfo['shields'])
             {
-                $tempvar = 0; $tempvar=phpTrueDelta ($shields_upgrade, $playerinfo['shields']);
+                $tempvar = 0; $tempvar=php_true_delta ($shields_upgrade, $playerinfo['shields']);
                 $query = $query . ", shields=shields+$tempvar";
-                BuildOneCol ("$l_shields $l_trade_upgraded $shields_upgrade");
+                build_one_col ("$l_shields $l_trade_upgraded $shields_upgrade");
             }
 
             if ($fighter_number)
             {
                 $query = $query . ", ship_fighters=ship_fighters+$fighter_number";
-                BuildTwoCol("$l_fighters $l_trade_added:", $fighter_number, "left", "right" );
+                build_two_col ("$l_fighters $l_trade_added:", $fighter_number, "left", "right" );
             }
 
             if ($torpedo_number)
             {
                 $query = $query . ", torps=torps+$torpedo_number";
-                BuildTwoCol("$l_torps $l_trade_added:", $torpedo_number, "left", "right" );
+                build_two_col ("$l_torps $l_trade_added:", $torpedo_number, "left", "right" );
             }
 
             if ($armor_number)
             {
                 $query = $query . ", armor_pts=armor_pts+$armor_number";
-                BuildTwoCol("$l_armorpts $l_trade_added:", $armor_number, "left", "right" );
+                build_two_col ("$l_armorpts $l_trade_added:", $armor_number, "left", "right" );
             }
 
             if ($colonist_number)
             {
                 $query = $query . ", ship_colonists=ship_colonists+$colonist_number";
-                BuildTwoCol("$l_colonists $l_trade_added:", $colonist_number, "left", "right" );
+                build_two_col ("$l_colonists $l_trade_added:", $colonist_number, "left", "right" );
             }
 
             if ($dev_genesis_number)
             {
                 $query = $query . ", dev_genesis=dev_genesis+$dev_genesis_number";
-                BuildTwoCol("$l_genesis $l_trade_added:", $dev_genesis_number, "left", "right" );
+                build_two_col ("$l_genesis $l_trade_added:", $dev_genesis_number, "left", "right" );
             }
 
             if ($dev_beacon_number)
             {
                 $query = $query . ", dev_beacon=dev_beacon+$dev_beacon_number";
-                BuildTwoCol("$l_beacons $l_trade_added:", $dev_beacon_number , "left", "right" );
+                build_two_col ("$l_beacons $l_trade_added:", $dev_beacon_number , "left", "right" );
             }
 
             if ($dev_emerwarp_number)
             {
                 $query = $query . ", dev_emerwarp=dev_emerwarp+$dev_emerwarp_number";
-                BuildTwoCol("$l_ewd $l_trade_added:", $dev_emerwarp_number , "left", "right" );
+                build_two_col ("$l_ewd $l_trade_added:", $dev_emerwarp_number , "left", "right" );
             }
 
             if ($dev_warpedit_number)
             {
                 $query = $query . ", dev_warpedit=dev_warpedit+$dev_warpedit_number";
-                BuildTwoCol("$l_warpedit $l_trade_added:", $dev_warpedit_number , "left", "right" );
+                build_two_col ("$l_warpedit $l_trade_added:", $dev_warpedit_number , "left", "right" );
             }
 
             if ($dev_minedeflector_number)
             {
                 $query = $query . ", dev_minedeflector=dev_minedeflector+$dev_minedeflector_number";
-                BuildTwoCol("$l_deflect $l_trade_added:", $dev_minedeflector_number , "left", "right" );
+                build_two_col ("$l_deflect $l_trade_added:", $dev_minedeflector_number , "left", "right" );
             }
 
             if (($escapepod_purchase) && ($playerinfo['dev_escapepod'] != 'Y'))
             {
                 $query = $query . ", dev_escapepod='Y'";
-                BuildOneCol ("$l_escape_pod $l_trade_installed");
+                build_one_col ("$l_escape_pod $l_trade_installed");
             }
 
             if (($fuelscoop_purchase) && ($playerinfo['dev_fuelscoop'] != 'Y'))
             {
                 $query = $query . ", dev_fuelscoop='Y'";
-                BuildOneCol ("$l_fuel_scoop $l_trade_installed");
+                build_one_col ("$l_fuel_scoop $l_trade_installed");
             }
 
             if (($lssd_purchase) && ($playerinfo['dev_lssd'] != 'Y'))
             {
                 $query = $query . ", dev_lssd='Y'";
-                BuildOneCol ("$l_lssd $l_trade_installed");
+                build_one_col ("$l_lssd $l_trade_installed");
             }
 
             $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
@@ -709,7 +709,7 @@ else
 
 #           if ($colonist_max < 0 )
 #           {
-#               BuildTwoCol("<span style='color:#f00;'>Detected Overflow</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
+#               build_two_col ("<span style='color:#f00;'>Detected Overflow</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
 #               $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
 #               db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
 #           }
@@ -722,7 +722,7 @@ else
 
             if ((NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0 )
             {
-                // BuildTwoCol("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
+                // build_two_col ("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
                 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);

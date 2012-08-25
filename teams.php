@@ -130,7 +130,7 @@ switch ($teamwhat)
 {
     case 1: // INFO on single team
     {
-        showinfo($whichteam, 0);
+        show_info ($whichteam, 0);
         link_back();
         break;
     }
@@ -593,7 +593,7 @@ switch ($teamwhat)
                 $whichinvitingteam = $result->fields;
             }
             $isowner = is_team_owner($whichteam, $playerinfo);
-            showinfo($playerinfo['team'], $isowner);
+            show_info ($playerinfo['team'], $isowner);
         }
         $res= $db->Execute("SELECT COUNT(*) as TOTAL FROM {$db->prefix}teams WHERE admin='N';");
         db_op_result ($db, $res, __LINE__, __FILE__);
@@ -757,7 +757,7 @@ function display_invite_info ()
     }
 }
 
-function showinfo($whichteam,$isowner)
+function show_info ($whichteam, $isowner)
 {
     global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_team_ed, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
     global $db, $l_team_eject;

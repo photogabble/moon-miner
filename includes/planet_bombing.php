@@ -42,10 +42,10 @@ function planet_bombing ()
     $ownerfightercapacity = NUM_FIGHTERS ($ownerinfo['computer']);
     $beamsused = 0;
     include 'calc_planet_torps.php';
-    $planettorps = calc_planet_torps();
+    $planettorps = calc_planet_torps ($db);
 
     include 'calc_planet_beams.php';
-    $planetbeams = calc_planet_beams();
+    $planetbeams = calc_planet_beams ($db);
 
     $planetfighters = $planetinfo['fighters'];
     $attackerfighters = $playerinfo['ship_fighters'];
