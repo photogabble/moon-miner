@@ -21,7 +21,7 @@ include 'global_includes.php';
 updatecookie ();
 
 // Hack for log bug issue - this really needs to be fixed
-$LOG_LIST = array(null,
+$log_list = array(null,
         'LOG_LOGIN', 'LOG_LOGOUT', 'LOG_ATTACK_OUTMAN', 'LOG_ATTACK_OUTSCAN', 'LOG_ATTACK_EWD','LOG_ATTACK_EWDFAIL', 'LOG_ATTACK_LOSE', 'LOG_ATTACKED_WIN', 'LOG_TOLL_PAID', 'LOG_HIT_MINES',
         'LOG_SHIP_DESTROYED_MINES', 'LOG_PLANET_DEFEATED_D', 'LOG_PLANET_DEFEATED', 'LOG_PLANET_NOT_DEFEATED', 'LOG_RAW', 'LOG_TOLL_RECV', 'LOG_DEFS_DESTROYED', 'LOG_PLANET_EJECT', 'LOG_BADLOGIN', 'LOG_PLANET_SCAN',
         'LOG_PLANET_SCAN_FAIL', 'LOG_PLANET_CAPTURE', 'LOG_SHIP_SCAN', 'LOG_SHIP_SCAN_FAIL', 'LOG_Xenobe_ATTACK', 'LOG_STARVATION', 'LOG_TOW', 'LOG_DEFS_DESTROYED_F', 'LOG_DEFS_KABOOM', 'LOG_HARAKIRI',
@@ -394,7 +394,7 @@ function log_parse($entry)
 #    global $$texttemp;
 #    $titletemp = "l_log_title_" . $entry['type'];
 #    global $$titletemp;
-    getLogInfo($entry['type'], $titletemp, $texttemp);
+    get_log_info ($entry['type'], $titletemp, $texttemp);
 
   switch ($entry['type'])
   {
@@ -723,22 +723,22 @@ case LOG_BOUNTY_FEDBOUNTY:
   return $retvalue;
 }
 
-function getLogInfo($id = null, &$title = null, &$text = null)
+function get_log_info ($id = null, &$title = null, &$text = null, $log_list)
 {
-    global $LOG_LIST;
+    global $log_list;
     $title = null;
     $text = null;
 
-    if ($id < count($LOG_LIST))
+    if ($id < count($log_list))
     {
-        if (array_key_exists("l_log_title_". $LOG_LIST[$id], $GLOBALS))
+        if (array_key_exists("l_log_title_". $log_list[$id], $GLOBALS))
         {
-            $title = $GLOBALS["l_log_title_". $LOG_LIST[$id]];
+            $title = $GLOBALS["l_log_title_". $log_list[$id]];
         }
 
-        if (array_key_exists("l_log_text_". $LOG_LIST[$id], $GLOBALS))
+        if (array_key_exists("l_log_text_". $log_list[$id], $GLOBALS))
         {
-            $text = $GLOBALS["l_log_text_". $LOG_LIST[$id]];
+            $text = $GLOBALS["l_log_text_". $log_list[$id]];
         }
     }
 }
