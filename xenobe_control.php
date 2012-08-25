@@ -29,14 +29,9 @@ include 'header.php';
 connectdb();
 bigtitle();
 
-function CHECKED($yesno)
+function checked ($yesno)
 {
-  return(($yesno == "Y") ? "CHECKED" : "");
-}
-
-function YESNO($onoff)
-{
-  return(($onoff == "ON") ? "Y" : "N");
+    return(($yesno == "Y") ? "CHECKED" : "");
 }
 
 if (isset($_POST['menu']))
@@ -190,11 +185,11 @@ else
           $row = $res->fields;
           echo "<table border=0 cellspacing=0 cellpadding=5>";
           echo "<tr><td>Xenobe name</td><td><input type=text name=character_name value=\"$row[character_name]\"></td></tr>";
-          echo "<tr><td>Active?</td><td><input type=checkbox name=active value=ON " . CHECKED($row[active]) . "></td></tr>";
+          echo "<tr><td>Active?</td><td><input type=checkbox name=active value=ON " . checked ($row[active]) . "></td></tr>";
           echo "<tr><td>E-mail</td><td>$row[email]</td></tr>";
           echo "<tr><td>ID</td><td>$row[ship_id]</td></tr>";
           echo "<tr><td>Ship</td><td><input type=text name=ship_name value=\"$row[ship_name]\"></td></tr>";
-          echo "<tr><td>Destroyed?</td><td><input type=checkbox name=ship_destroyed value=ON " . CHECKED($row[ship_destroyed]) . "></td></tr>";
+          echo "<tr><td>Destroyed?</td><td><input type=checkbox name=ship_destroyed value=ON " . checked ($row[ship_destroyed]) . "></td></tr>";
           echo "<tr><td>Orders</td><td>";
             echo "<select size=1 name=orders>";
             $oorder0 = $oorder1 = $oorder2 = $oorder3 = "value";
@@ -251,8 +246,8 @@ else
           echo "<td>Genesis Torpedoes</td><td><input type=text size=5 name=dev_genesis value=\"$row[dev_genesis]\"></td></tr>";
           echo "<tr><td>Mine Deflectors</td><td><input type=text size=5 name=dev_minedeflector value=\"$row[dev_minedeflector]\"></td>";
           echo "<td>Emergency Warp</td><td><input type=text size=5 name=dev_emerwarp value=\"$row[dev_emerwarp]\"></td></tr>";
-          echo "<tr><td>Escape Pod</td><td><input type=checkbox name=dev_escapepod value=ON " . CHECKED($row[dev_escapepod]) . "></td>";
-          echo "<td>FuelScoop</td><td><input type=checkbox name=dev_fuelscoop value=ON " . CHECKED($row[dev_fuelscoop]) . "></td></tr>";
+          echo "<tr><td>Escape Pod</td><td><input type=checkbox name=dev_escapepod value=ON " . checked ($row[dev_escapepod]) . "></td>";
+          echo "<td>FuelScoop</td><td><input type=checkbox name=dev_fuelscoop value=ON " . checked ($row[dev_fuelscoop]) . "></td></tr>";
           echo "</table></td></tr>";
           echo "<tr><td>Credits</td><td><input type=text name=credits value=\"$row[credits]\"></td></tr>";
           echo "<tr><td>Turns</td><td><input type=text name=turns value=\"$row[turns]\"></td></tr>";
@@ -454,7 +449,7 @@ else
         echo "<tr><td>Xenobe Name</td><td><input type=text size=20 name=character value=$character></td>";
         echo "<td>Level <input type=text size=5 name=xenlevel value=3></td>";
         echo "<td>Ship Name <input type=text size=20 name=shipname value=$shipname></td>";
-        echo "<tr><td>Active?<input type=checkbox name=active value=ON CHECKED ></td>";
+        echo "<tr><td>Active?<input type=checkbox name=active value=on checked></td>";
         echo "<td>Orders ";
           echo "<select size=1 name=orders>";
           echo "<option selected=0 value=0>Sentinel</option>";

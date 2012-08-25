@@ -63,7 +63,7 @@ function ibank_consolidate2 ()
     $query .= " AND planet_id != $dplanet_id";
 
     $res = $db->Execute($query);
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 
     $fee = $ibank_paymentfee * $amount['total'];

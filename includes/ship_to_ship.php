@@ -37,10 +37,10 @@ function ship_to_ship ($ship_id)
     global $l_cmb_escapepodlaunched, $l_cmb_yousalvaged, $l_cmb_yousalvaged2, $l_cmb_youdidntdestroyhim, $l_cmb_shiptoshipcombatstats;
 
     $resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ");
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
 
     $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
-    db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result2, __LINE__, __FILE__);
     $targetinfo = $result2->fields;
 
     echo "<br><br>-=-=-=-=-=-=-=--<br>
@@ -471,7 +471,7 @@ function ship_to_ship ($ship_id)
             $l_cmb_yousalvaged2 = str_replace("[cmb_number_rating_change]", NUMBER (abs($rating_change)), $l_cmb_yousalvaged2);
             echo $l_cmb_yousalvaged . "<br>" . $l_cmb_yousalvaged2;
             $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
-            db_op_result ($db, $update3, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $update3, __LINE__, __FILE__);
         }
 
         if ($targetinfo['dev_escapepod'] == "Y")
@@ -480,7 +480,7 @@ function ship_to_ship ($ship_id)
             echo "$l_cmb_escapepodlaunched<br><br>";
             echo "<br><br>ship_id=$targetinfo[ship_id]<br><br>";
             $test = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',dev_lssd='N' WHERE ship_id=$targetinfo[ship_id]");
-            db_op_result ($db, $test, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $test, __LINE__, __FILE__);
             playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
             collect_bounty ($playerinfo['ship_id'], $targetinfo['ship_id']);
         }
@@ -501,7 +501,7 @@ function ship_to_ship ($ship_id)
         $target_energy = $targetinfo['ship_energy'];
         playerlog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
         $update4 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armor_pts=armor_pts-$target_armor_lost, torps=torps-$targettorpnum WHERE ship_id=$targetinfo[ship_id]");
-        db_op_result ($db, $update4, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $update4, __LINE__, __FILE__);
     }
     echo "<br>_+_+_+_+_+_+_<br>";
     echo "$l_cmb_shiptoshipcombatstats<br>";
@@ -513,6 +513,6 @@ function ship_to_ship ($ship_id)
     echo "$l_cmb_statattackertorpdamage: $attackertorpdamage<br>";
     echo "_+_+_+_+_+_+<br>";
     $resx = $db->Execute("UNLOCK TABLES");
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 ?>
