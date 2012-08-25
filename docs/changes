@@ -1,3 +1,8 @@
+TheKabal (25 August 2012)
+--------------------------------------
+Split combat and IGB into seperate function files
+Cleaned up many CamelCaps and ALLCAPS function names
+
 TheKabal (18 August 2012)
 --------------------------------------
 Config.php is now config/configset_classic.ini.php
