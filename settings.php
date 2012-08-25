@@ -38,7 +38,7 @@ include 'header.php';
 
 $line_color = $color_line1;
 
-function title($value, $align = "center")
+function title ($value, $align = "center")
 {
     global $line_color, $color_line1, $color_line2;
 
@@ -53,7 +53,7 @@ function title($value, $align = "center")
     }
 }
 
-function line($item, $value, $align = "left")
+function line ($item, $value, $align = "left")
 {
     global $line_color, $color_line1, $color_line2;
 
@@ -68,7 +68,7 @@ function line($item, $value, $align = "left")
     }
 }
 
-function line2($item, $value, $align = "left")
+function line2 ($item, $value, $align = "left")
 {
     global $line_color, $color_line1, $color_line2;
 
@@ -83,7 +83,7 @@ function line2($item, $value, $align = "left")
     }
 }
 
-function line_a($value, $align = "left")
+function line_a ($value, $align = "left")
 {
     global $line_color, $color_line1, $color_line2;
 
@@ -98,7 +98,7 @@ function line_a($value, $align = "left")
     }
 }
 
-function line_spacer()
+function line_spacer ()
 {
     global $line_color, $color_line1, $color_line2;
 
