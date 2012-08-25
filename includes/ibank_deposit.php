@@ -42,7 +42,7 @@ function ibank_deposit()
          "<td align=right>" . NUMBER ($playerinfo['credits']) ." C<br></td>" .
          "</tr><tr valign=top>" .
          "<td height=90>" . $l_ibank_seldepositamount . " :</td><td align=right>" .
-         "<form action='igb.php?command=deposit2' method=POST>" .
+         "<form action='igb.php?command=deposit2' method=post>" .
          "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
          "<br><br><input class=term type=submit value=" . $l_ibank_deposit . ">" .
          "</form>" .

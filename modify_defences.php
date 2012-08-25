@@ -238,22 +238,22 @@ switch ($response)
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
          echo "$l_md_youcan:<br>";
-         echo "<FORM ACTION=modify_defences.php METHOD=POST>";
-         echo "$l_md_retrieve <INPUT TYPE=TEST NAME=quantity SIZE=10 MAXLENGTH=10 VALUE=0></INPUT> $defence_type<br>";
+         echo "<form action=modify_defences.php method=post>";
+         echo "$l_md_retrieve <input type=test name=quantity size=10 maxlength=10 value=0></input> $defence_type<br>";
          echo "<input type=hidden name=response value=retrieve>";
          echo "<input type=hidden name=defence_id value=$defence_id>";
-         echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><br><br>";
-         echo "</FORM>";
+         echo "<input type=submit value=$l_submit><br><br>";
+         echo "</form>";
          if ($defenceinfo['defence_type'] == 'F')
          {
             echo "$l_md_change:<br>";
-            echo "<FORM ACTION=modify_defences.php METHOD=POST>";
-            echo "$l_md_cmode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_md_attack</INPUT>";
-            echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_md_toll</INPUT><br>";
-            echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><br><br>";
+            echo "<form action=modify_defences.php method=post>";
+            echo "$l_md_cmode <input type=radio name=mode $set_attack value=attack>$l_md_attack</input>";
+            echo "<input type=radio name=mode $set_toll value=toll>$l_md_toll</input><br>";
+            echo "<input type=submit value=$l_submit><br><br>";
             echo "<input type=hidden name=response value=change>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
-            echo "</FORM>";
+            echo "</form>";
          }
       }
       else
@@ -265,11 +265,11 @@ switch ($response)
          if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
          {
             echo "$l_md_youcan:<br>";
-            echo "<FORM ACTION=modify_defences.php METHOD=POST>";
-            echo "$l_md_attdef<br><INPUT TYPE=SUBMIT VALUE=$l_md_attack></INPUT><br>";
+            echo "<form action=modify_defences.php method=post>";
+            echo "$l_md_attdef<br><input type=submit value=$l_md_attack></input><br>";
             echo "<input type=hidden name=response value=fight>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
-            echo "</FORM>";
+            echo "</form>";
          }
       }
       TEXT_GOTOMAIN ();

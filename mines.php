@@ -167,7 +167,7 @@ else
     {
         $availmines = NUMBER ($playerinfo['torps']);
         $availfighters = NUMBER ($playerinfo['ship_fighters']);
-        echo "<FORM ACTION=mines.php METHOD=POST>";
+        echo "<form action=mines.php method=post>";
         $l_mines_info1 = str_replace("[sector]", $playerinfo['sector'], $l_mines_info1);
         $l_mines_info1 = str_replace("[mines]", NUMBER ($total_sector_mines), $l_mines_info1);
         $l_mines_info1 = str_replace("[fighters]", NUMBER ($total_sector_fighters), $l_mines_info1);
@@ -176,14 +176,14 @@ else
         $l_mines_info2 = str_replace("[fighters]", $availfighters, $l_mines_info2);
         echo "You have $availmines mines and $availfighters fighters available to deploy.<br>\n";
         echo "<br />\n";
-        echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=nummines SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[torps]> $l_mines.<br>";
-        echo "$l_mines_deploy <INPUT TYPE=TEXT NAME=numfighters SIZE=10 MAXLENGTH=10 VALUE=$playerinfo[ship_fighters]> $l_fighters.<br>";
-        echo "Fighter mode <INPUT TYPE=RADIO NAME=mode $set_attack VALUE=attack>$l_mines_att</INPUT>";
-        echo "<INPUT TYPE=RADIO NAME=mode $set_toll VALUE=toll>$l_mines_toll</INPUT><br>";
+        echo "$l_mines_deploy <input type=text name=nummines size=10 maxlength=10 value=$playerinfo[torps]> $l_mines.<br>";
+        echo "$l_mines_deploy <input type=text name=numfighters size=10 maxlength=10 value=$playerinfo[ship_fighters]> $l_fighters.<br>";
+        echo "Fighter mode <input type=radio name=mode $set_attack value=attack>$l_mines_att</INPUT>";
+        echo "<input type=radio name=mode $set_toll value=toll>$l_mines_toll</INPUT><br>";
          echo "<br />\n";
-        echo "<INPUT TYPE=SUBMIT VALUE=$l_submit><INPUT TYPE=RESET VALUE=$l_reset><br><br>";
+        echo "<input type=submit value=$l_submit><input type=reset value=$l_reset><br><br>";
         echo "<input type=hidden name=op value=$op>";
-        echo "</FORM>";
+        echo "</form>";
     }
     else
     {

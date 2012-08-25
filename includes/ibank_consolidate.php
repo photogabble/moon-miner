@@ -32,7 +32,7 @@ function ibank_consolidate ()
     $l_ibank_transferrate3 = str_replace ("[nbplanets]", $ibank_tconsolidate, $l_ibank_transferrate3);
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_planetconsolidate . "<br>---------------------------------</td></tr>" .
-         "<form action='igb.php?command=consolidate2' method=POST>" .
+         "<form action='igb.php?command=consolidate2' method=post>" .
          "<tr valign=top>" .
          "<td colspan=2>" . $l_ibank_consolrates . " :</td>" .
          "<tr valign=top>" .

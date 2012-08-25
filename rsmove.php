@@ -73,13 +73,13 @@ if (isset($destination))
 
 if (!isset($destination))
 {
-    echo "<FORM ACTION=rsmove.php METHOD=POST>";
+    echo "<form action=rsmove.php method=post>";
     $l_rs_insector=str_replace("[sector]",$playerinfo['sector'],$l_rs_insector);
     $l_rs_insector=str_replace("[sector_max]",$sector_max-1,$l_rs_insector);
     echo "$l_rs_insector<br><br>";
-    echo "$l_rs_whichsector:  <INPUT TYPE=TEXT NAME=destination SIZE=10 MAXLENGTH=10><br><br>";
-    echo "<INPUT TYPE=SUBMIT VALUE=$l_rs_submit><br><br>";
-    echo "</FORM>";
+    echo "$l_rs_whichsector:  <input type=text name=destination size=10 maxlength=10><br><br>";
+    echo "<input type=submit value=$l_rs_submit><br><br>";
+    echo "</form>";
 }
 elseif (($destination < $sector_max && empty($engage)) || ($destination < $sector_max && $triptime > 100 && $engage == 1))
 {

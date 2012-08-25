@@ -42,7 +42,7 @@ function ibank_transfer()
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_transfertype . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<form action='igb.php?command=transfer2' method=POST>" .
+         "<form action='igb.php?command=transfer2' method=post>" .
          "<td>" . $l_ibank_toanothership . " :<br><br>" .
          "<select class=term name=ship_id style='width:200px;'>";
 

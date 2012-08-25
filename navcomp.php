@@ -87,10 +87,10 @@ else
 
 if ($state == 0)
 {
-    echo "<FORM ACTION=\"navcomp.php\" METHOD=POST>";
-    echo "$l_nav_query <INPUT NAME=\"stop_sector\">&nbsp;<INPUT TYPE=SUBMIT VALUE=$l_submit><br>\n";
-    echo "<INPUT NAME=\"state\" VALUE=1 TYPE=HIDDEN>";
-    echo "</FORM>\n";
+    echo "<form action=\"navcomp.php\" method=post>";
+    echo "$l_nav_query <input name=\"stop_sector\">&nbsp;<input type=submit value=$l_submit><br>\n";
+    echo "<input name=\"state\" value=1 TYPE=HIDDEN>";
+    echo "</form>\n";
 }
 elseif ($state == 1)
 {

@@ -362,7 +362,7 @@ else
 if ($swordfish == $adminpass)
 {
     echo "<tr><td><td>" .
-         "<FORM action=admin.php method=POST>" .
+         "<form action=admin.php method=post>" .
         "<input type=hidden name=swordfish value=\"$swordfish\">" .
          "<input type=hidden name=menu value=logview>" .
          "<input type=submit value=\"Return to Admin\"></td></tr>";
