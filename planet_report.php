@@ -419,10 +419,10 @@ function planet_production_change()
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_torp["     . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_torp']     . "\">" . "</td>\n";
             if ($playerinfo['team'] > 0)
             {
-                echo "<td align=center>" . corp_planet_checkboxes($planet, $i) . "</td>\n";
+                echo "<td align=center>" . corp_planet_checkboxes ($planet, $i) . "</td>\n";
             }
 
-            echo "<td align=center>" . selling_checkboxes($planet, $i)     . "</td>\n";
+            echo "<td align=center>" . selling_checkboxes ($planet, $i)     . "</td>\n";
             echo "</tr>\n";
 
             if ($color == $color_line1)
@@ -464,7 +464,7 @@ function planet_production_change()
     echo "</div>\n";
 }
 
-function corp_planet_checkboxes($planet, $i)
+function corp_planet_checkboxes ($planet, $i)
 {
     if ($planet[$i]['corp'] <= 0)
     {
@@ -476,7 +476,7 @@ function corp_planet_checkboxes($planet, $i)
     }
 }
 
-function selling_checkboxes($planet, $i)
+function selling_checkboxes ($planet, $i)
 {
     if ($planet[$i]['sells'] != 'Y')
     {

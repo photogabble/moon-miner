@@ -30,12 +30,12 @@ include 'header.php';
 connectdb ();
 bigtitle ();
 
-function checked($yesno)
+function checked ($yesno)
 {
     return(($yesno == "Y") ? "checked" : "");
 }
 
-function yesno($onoff)
+function yesno ($onoff)
 {
     return(($onoff == "ON") ? "Y" : "N");
 }

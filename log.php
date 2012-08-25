@@ -137,7 +137,7 @@ if (!empty ($logs) )
 {
     foreach ($logs as $log)
     {
-        $event = log_parse($log);
+        $event = log_parse ($log);
         $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
         $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
@@ -204,7 +204,7 @@ if ($mode != 'compat')
     {
         foreach ($logs as $log)
         {
-            $event = log_parse($log);
+            $event = log_parse ($log);
             $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
             $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
@@ -249,7 +249,7 @@ if ($mode != 'compat')
     {
         foreach ($logs as $log)
         {
-            $event = log_parse($log);
+            $event = log_parse ($log);
             $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
             $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
@@ -382,18 +382,14 @@ if ($mode != 'compat')
 echo "</table></center>";
 include 'footer.php';
 
-function log_parse($entry)
+function log_parse ($entry)
 {
-  global $l_log_title;
-  global $l_log_text;
-  global $l_log_pod;
-  global $l_log_nopod;
-  $l_log_nopod = "<font color=yellow><strong>" . $l_log_nopod . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
+    global $l_log_title;
+    global $l_log_text;
+    global $l_log_pod;
+    global $l_log_nopod;
+    $l_log_nopod = "<font color=yellow><strong>" . $l_log_nopod . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
 
-#    $texttemp = "l_log_text_" . $entry['type'];
-#    global $$texttemp;
-#    $titletemp = "l_log_title_" . $entry['type'];
-#    global $$titletemp;
     get_log_info ($entry['type'], $titletemp, $texttemp);
 
   switch ($entry['type'])

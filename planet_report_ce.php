@@ -41,24 +41,22 @@ echo "Click <a href=planet_report.php>here</A> to return to report menu<br>";
 
 if (isset($_POST["TPCreds"]))
 {
-  collect_credits($_POST["TPCreds"]);
+    collect_credits ($db, $_POST["TPCreds"]);
 }
 elseif (isset($buildp) AND isset($builds))
 {
-  go_build_base($buildp, $builds);
+    go_build_base ($db, $buildp, $builds);
 }
 else
 {
-  change_planet_production($_POST);
+    change_planet_production($db, $_POST);
 }
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
 
-function go_build_base($planet_id, $sector_id)
+function go_build_base ($db, $planet_id, $sector_id)
 {
-  global $db;
-  global $db_logging;
   global $base_ore, $base_organics, $base_goods, $base_credits;
   global $l_planet_bbuild;
   global $username;
@@ -129,10 +127,9 @@ function go_build_base($planet_id, $sector_id)
 }
 
 
-function collect_credits($planetarray)
+function collect_credits ($db, $planetarray)
 {
-  global $db, $username, $sector_max;
-  global $db_logging;
+  global $username, $sector_max;
 
   $CS = "GO"; // Current State
 
@@ -201,7 +198,7 @@ function collect_credits($planetarray)
   echo "Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br>";
 }
 
-function change_planet_production($prodpercentarray)
+function change_planet_production ($db, $prodpercentarray)
 {
 //  NOTES on what this function does and how
 //  Declares some global variables so they are accessable
@@ -230,8 +227,6 @@ function change_planet_production($prodpercentarray)
 
 //  This should patch the game from being hacked with planet Hack.
 
-  global $db;
-  global $db_logging;
   global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
   global $username, $l_unnamed;
 
