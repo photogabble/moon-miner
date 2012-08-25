@@ -35,11 +35,6 @@ function checked ($yesno)
     return(($yesno == "Y") ? "checked" : "");
 }
 
-function yesno ($onoff)
-{
-    return(($onoff == "ON") ? "Y" : "N");
-}
-
 if (isset($_POST['menu']))
 {
     $module = $_POST['menu'];
