@@ -21,6 +21,7 @@
 // This file needs to be completely recoded from scratch :(
 
 include 'global_includes.php';
+include 'includes/calc_ownership.php';
 updatecookie();
 
 // New database driven language entries

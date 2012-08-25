@@ -117,6 +117,8 @@ function go_build_base($planet_id, $sector_id)
 
     // Notify User Of Base Results
     echo "$l_planet_bbuild<br><br>";
+
+    include 'includes/calc_ownership.php';
     // Calc Ownership and Notify User Of Results
     $ownership = calc_ownership($playerinfo['sector']);
     if (!empty($ownership))

@@ -18,7 +18,7 @@
 // File: planet.php
 
 include 'global_includes.php';
-include 'combat.php';
+include 'includes/calc_ownership.php';
 updatecookie ();
 
 // New database driven language entries
@@ -600,7 +600,8 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 }
                 else
                 {
-                    planetcombat ();
+                    include 'includes/planet_combat.php';
+                    planet_combat ();
                 }
             }
         }
@@ -628,7 +629,8 @@ if (!is_bool($planetinfo) && $planetinfo != false )
         }
         elseif ($command == "bomb" && $allow_sofa)
         {
-            planetbombing ();
+            include 'includes/planet_bombing.php';
+            planet_bombing ();
         }
         elseif ($command == "scan")
         {

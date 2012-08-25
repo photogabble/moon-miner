@@ -24,7 +24,7 @@ if (preg_match("/calc_ownership.php/i", $_SERVER['PHP_SELF'])) {
 
 function calc_ownership ($sector)
 {
-    global $min_bases_to_own, $db, $l;
+    global $db, $min_bases_to_own;
 
     $res = $db->Execute("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array($sector));
     db_op_result ($db, $res, __LINE__, __FILE__);

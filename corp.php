@@ -18,6 +18,7 @@
 // File: corp.php
 
 include 'global_includes.php';
+include 'calc_ownership.php';
 updatecookie ();
 
 // New database driven language entries
