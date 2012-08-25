@@ -53,7 +53,7 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array(
 db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
 $playerinfo = $result->fields;
 
-$ship_id = stripnum ($ship_id);
+$ship_id = preg_replace('/[^0-9]/', '', $ship_id);
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'", array($ship_id));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);

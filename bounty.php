@@ -153,7 +153,7 @@ switch ($response) {
         break;
     case "place":
         bigtitle ();
-        $bounty_on = stripnum ($bounty_on);
+        $bounty_on = preg_replace('/[^0-9]/', '', $bounty_on);
         $ex = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($bounty_on));
         db_op_result ($db, $ex, __LINE__, __FILE__, $db_logging);
         if (!$ex)
@@ -181,7 +181,7 @@ switch ($response) {
             die ();
         }
 
-        $amount = stripnum ($amount);
+        $amount = preg_replace('/[^0-9]/', '', $amount);
         if ($amount < 0)
         {
             echo "$l_by_zeroamount<br><br>";
