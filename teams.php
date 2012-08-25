@@ -409,7 +409,7 @@ switch ($teamwhat)
             $teamname = trim(htmlspecialchars($teamname));
             $teamdesc = trim(htmlspecialchars($teamdesc));
 
-            if (!validate_team($teamname, $teamdesc, $playerinfo['ship_id']))
+            if (!validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
                 echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 link_back();
@@ -538,7 +538,7 @@ switch ($teamwhat)
             $teamname = trim(htmlspecialchars($teamname));
             $teamdesc = trim(htmlspecialchars($teamdesc));
 
-            if (validate_team($teamname, $teamdesc, $playerinfo['ship_id']) == false)
+            if (validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
             {
                 echo "<span style='color:#f00;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 link_back();
@@ -569,7 +569,7 @@ switch ($teamwhat)
         if ($playerinfo['team'] == 0)
         {
             echo $l_team_notmember;
-            DISPLAY_INVITE_INFO();
+            display_invite_info ();
         }
         else
         {
@@ -740,7 +740,7 @@ function display_all_teams ()
     echo "</table><br>";
 }
 
-function DISPLAY_INVITE_INFO()
+function display_invite_info ()
 {
     global $playerinfo, $invite_info, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
     if (!$playerinfo['team_invite'])
@@ -761,8 +761,8 @@ function showinfo($whichteam,$isowner)
 {
     global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_team_ed, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
     global $db, $l_team_eject;
-    global $db_logging;
     global $color_line2;
+
     // Heading
     echo"<div align=center>";
     echo "<h3><font color=white><strong>$team[team_name]</strong>";
@@ -785,7 +785,7 @@ function showinfo($whichteam,$isowner)
         }
         echo "[<a href=teams.php?teamwhat=7&whichteam=$playerinfo[team]>$l_team_inv</a>] - [<a href=teams.php?teamwhat=2&whichteam=$playerinfo[team]>$l_team_leave</a>]</font></font>";
     }
-    DISPLAY_INVITE_INFO();
+    display_invite_info ();
     echo "</div>";
 
     // Main table
@@ -838,11 +838,8 @@ function showinfo($whichteam,$isowner)
     echo "</tr></table>";
 }
 
-function validate_team($name = null, $desc = null, $creator = null)
+function validate_team ($db, $name = null, $desc = null, $creator = null)
 {
-    global $db;
-    global $db_logging;
-
     $name = trim($name);
     $desc = trim($desc);
     $creator = (int) $creator;

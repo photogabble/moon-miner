@@ -21,7 +21,7 @@ include 'global_includes.php';
 updatecookie();
 
 // New database driven language entries
-load_languages($db, $lang, array('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_pr_title;
 include 'header.php';
@@ -66,15 +66,15 @@ function go_build_base($planet_id, $sector_id)
   echo "<br>Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br><br>";
 
   $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-  db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result, __LINE__, __FILE__);
   $playerinfo=$result->fields;
 
   $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
-  db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result2, __LINE__, __FILE__);
   $sectorinfo=$result2->fields;
 
   $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
-  db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result3, __LINE__, __FILE__);
   $planetinfo=$result3->fields;
 
   // Error out and return if the Player isn't the owner of the Planet
@@ -104,15 +104,15 @@ function go_build_base($planet_id, $sector_id)
   {
     // Create The Base
     $update1 = $db->Execute("UPDATE {$db->prefix}planets SET base='Y', ore=$planetinfo[ore]-$base_ore, organics=$planetinfo[organics]-$base_organics, goods=$planetinfo[goods]-$base_goods, credits=$planetinfo[credits]-$base_credits WHERE planet_id=$planet_id");
-    db_op_result ($db, $update1, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $update1, __LINE__, __FILE__);
 
     // Update User Turns
     $update1b = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
-    db_op_result ($db, $update1b, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $update1b, __LINE__, __FILE__);
 
     // Refresh Plant Info
     $result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
-    db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result3, __LINE__, __FILE__);
     $planetinfo=$result3->fields;
 
     // Notify User Of Base Results
@@ -138,7 +138,7 @@ function collect_credits($planetarray)
 
   // Look up Player info that wants to collect the credits.
   $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username' LIMIT 1");
-  db_op_result ($db, $result1, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result1, __LINE__, __FILE__);
   $playerinfo = $result1->fields;
 
   // Set var as an Array.
@@ -148,7 +148,7 @@ function collect_credits($planetarray)
   for ($i = 0; $i < count($planetarray); $i++)
   {
     $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planetarray[$i];");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
 
     // Only add to array if the Player owns the Planet.
     if ($res->fields['owner'] == $playerinfo['ship_id'] && $res->fields['sector_id'] < $sector_max)
@@ -183,7 +183,7 @@ function collect_credits($planetarray)
       $CS = "GO";
     } elseif ($CS == "GO")
     {
-      $CS = Take_Credits($s_p_pair[$i][0], $s_p_pair[$i][1]);
+      $CS = take_credits ($db, $s_p_pair[$i][0], $s_p_pair[$i][1]);
     }
     else
     {
@@ -236,7 +236,7 @@ function change_planet_production($prodpercentarray)
   global $username, $l_unnamed;
 
   $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE email='$username'");
-  db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result, __LINE__, __FILE__);
   $ship_id = $result->fields['ship_id'];
   $team_id = $result->fields['team'];
 
@@ -255,7 +255,7 @@ function change_planet_production($prodpercentarray)
         if ($commod_type == "prod_ore" || $commod_type == "prod_organics" || $commod_type == "prod_goods" || $commod_type == "prod_energy" || $commod_type == "prod_fighters" || $commod_type == "prod_torp")
         {
           $res = $db->Execute("SELECT COUNT(*) AS owned_planet FROM {$db->prefix}planets WHERE planet_id=$planet_id AND owner = $ship_id");
-          db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $res, __LINE__, __FILE__);
           if ($res->fields['owned_planet'] == 0)
           {
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -267,16 +267,16 @@ function change_planet_production($prodpercentarray)
           }
 
           $resx = $db->Execute("UPDATE {$db->prefix}planets SET $commod_type=$prodpercent WHERE planet_id=$planet_id AND owner = $ship_id");
-          db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resx, __LINE__, __FILE__);
           $resy = $db->Execute("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id=$planet_id AND owner = $ship_id");
-          db_op_result ($db, $resy, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resy, __LINE__, __FILE__);
           $resz = $db->Execute("UPDATE {$db->prefix}planets SET corp=0 WHERE planet_id=$planet_id AND owner = $ship_id");
-          db_op_result ($db, $resz, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resz, __LINE__, __FILE__);
         }
         elseif ($commod_type == "sells")
         {
           $resx = $db->Execute("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id=$prodpercent AND owner = $ship_id");
-          db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resx, __LINE__, __FILE__);
         }
         elseif ($commod_type == "corp")
         {
@@ -284,11 +284,11 @@ function change_planet_production($prodpercentarray)
           /* If different then use one from db */
 
           $res = $db->Execute("SELECT {$db->prefix}ships.team as owner FROM {$db->prefix}ships, {$db->prefix}planets WHERE ( {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ) AND ( {$db->prefix}planets.planet_id ='$prodpercent')");
-          db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $res, __LINE__, __FILE__);
           if ($res) $team_id=$res->fields['owner']; else $team_id = 0;
 
           $resx = $db->Execute("UPDATE {$db->prefix}planets SET corp=$team_id WHERE planet_id=$prodpercent AND owner = $ship_id");
-          db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resx, __LINE__, __FILE__);
           if ($prodpercentarray['team_id'] != $team_id)
           {
             /* Oh dear they are different so send admin a log */
@@ -325,7 +325,7 @@ function change_planet_production($prodpercentarray)
   echo "Checking Values for excess of 100% and negative production values <br><br>";
 
   $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner=$ship_id ORDER BY sector_id");
-  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $res, __LINE__, __FILE__);
   $i = 0;
   if ($res)
   {
@@ -360,40 +360,38 @@ function change_planet_production($prodpercentarray)
       {
         echo "Planet $planet[name] in sector $planet[sector_id] has a negative production value or exceeds 100% production.  Resetting to default production values<br>";
         $resa = $db->Execute("UPDATE {$db->prefix}planets SET prod_ore=$default_prod_ore           WHERE planet_id=$planet[planet_id]");
-        db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resa, __LINE__, __FILE__);
 
         $resb = $db->Execute("UPDATE {$db->prefix}planets SET prod_organics=$default_prod_organics WHERE planet_id=$planet[planet_id]");
-        db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resb, __LINE__, __FILE__);
 
         $resc = $db->Execute("UPDATE {$db->prefix}planets SET prod_goods=$default_prod_goods       WHERE planet_id=$planet[planet_id]");
-        db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resc, __LINE__, __FILE__);
 
         $resd = $db->Execute("UPDATE {$db->prefix}planets SET prod_energy=$default_prod_energy     WHERE planet_id=$planet[planet_id]");
-        db_op_result ($db, $resd, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resd, __LINE__, __FILE__);
 
         $rese = $db->Execute("UPDATE {$db->prefix}planets SET prod_fighters=$default_prod_fighters WHERE planet_id=$planet[planet_id]");
-        db_op_result ($db, $rese, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $rese, __LINE__, __FILE__);
 
         $resf = $db->Execute("UPDATE {$db->prefix}planets SET prod_torp=$default_prod_torp         WHERE planet_id=$planet[planet_id]");
-        db_op_result ($db, $resf, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resf, __LINE__, __FILE__);
       }
     }
   }
 } // <== Moved from line 215 to fix Invalid argument supplied for foreach().
 
-function Take_Credits($sector_id, $planet_id)
+function take_credits ($db, $sector_id, $planet_id)
 {
-  global $db, $username;
-  global $db_logging;
-  global $l_unnamed;
+  global $username, $l_unnamed;
 
   // Get basic Database information (ship and planet)
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $res, __LINE__, __FILE__);
   $playerinfo = $res->fields;
 
   $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
-  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $res, __LINE__, __FILE__);
   $planetinfo = $res->fields;
 
   // Set the name for unamed planets to be "unnamed"
@@ -417,15 +415,15 @@ function Take_Credits($sector_id, $planet_id)
 
         // update the planet record for credits
         $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=0 WHERE planet_id=$planetinfo[planet_id]");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
 
         // update the player record
         // credits
         $res = $db->Execute("UPDATE {$db->prefix}ships SET credits=$NewShipCredits WHERE email='$username'");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         // turns
         $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1 WHERE email='$username'");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
 
         echo "Took " . NUMBER($CreditsTaken) . " Credits from planet $planetinfo[name]. <br>";
         echo "Your ship - " . $playerinfo['ship_name'] . " - now has " . NUMBER($NewShipCredits) . " onboard. <br>";
@@ -462,14 +460,14 @@ function Real_Space_Move($destination)
   global $l_rs_ready, $l_rs_movetime, $l_rs_noturns;
 
   $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-  db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $res, __LINE__, __FILE__);
   $playerinfo = $res->fields;
 
   $result2 = $db->Execute("SELECT angle1,angle2,distance FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
-  db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result2, __LINE__, __FILE__);
   $start = $result2->fields;
   $result3 = $db->Execute("SELECT angle1,angle2,distance FROM {$db->prefix}universe WHERE sector_id=$destination");
-  db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result3, __LINE__, __FILE__);
   $finish = $result3->fields;
 
   $deg = pi() / 180;
@@ -535,7 +533,7 @@ function Real_Space_Move($destination)
     echo "$l_rs_movetime<br><br>";
     echo "$l_rs_noturns";
     $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
 
     $retval = "BREAK-TURNS";
   }
@@ -547,12 +545,12 @@ function Real_Space_Move($destination)
   $hostile = 0;
 
   $result99 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = $destination AND ship_id <> $playerinfo[ship_id]");
-  db_op_result ($db, $result99, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result99, __LINE__, __FILE__);
   if (!$result99->EOF)
   {
      $fighters_owner = $result99->fields;
      $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$fighters_owner[ship_id]");
-     db_op_result ($db, $nsresult, __LINE__, __FILE__, $db_logging);
+     db_op_result ($db, $nsresult, __LINE__, __FILE__);
      $nsfighters = $nsresult->fields;
      if ($nsfighters['team'] != $playerinfo['team'] || $playerinfo['team']==0)
      {
@@ -561,12 +559,12 @@ function Real_Space_Move($destination)
   }
 
   $result98 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = $destination AND ship_id <> $playerinfo[ship_id]");
-  db_op_result ($db, $result98, __LINE__, __FILE__, $db_logging);
+  db_op_result ($db, $result98, __LINE__, __FILE__);
   if (!$result98->EOF)
   {
      $fighters_owner = $result98->fields;
      $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$fighters_owner[ship_id]");
-     db_op_result ($db, $nsresult, __LINE__, __FILE__, $db_logging);
+     db_op_result ($db, $nsresult, __LINE__, __FILE__);
      $nsfighters = $nsresult->fields;
      if ($nsfighters['team'] != $playerinfo['team'] || $playerinfo['team']==0)
      {
@@ -584,7 +582,7 @@ function Real_Space_Move($destination)
   {
        $stamp = date("Y-m-d H-i-s");
        $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
-       db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+       db_op_result ($db, $update, __LINE__, __FILE__);
        $l_rs_ready = str_replace("[sector]", $destination, $l_rs_ready);
 
        $l_rs_ready = str_replace("[triptime]", NUMBER($triptime), $l_rs_ready);
