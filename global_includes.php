@@ -28,6 +28,7 @@ include_once 'includes/bnt_autoload.php';
 include_once 'includes/check_login.php';
 include_once 'includes/connect_database.php';
 include_once 'includes/db_kill_player.php';
+include_once 'includes/db_op_result.php';
 include_once 'includes/gen_score.php';
 include_once 'includes/get_avg_tech.php';
 include_once 'includes/load_languages.php';
@@ -35,18 +36,17 @@ include_once 'includes/log_move.php';
 include_once 'includes/message_defence_owner.php';
 include_once 'includes/num_armor.php';
 include_once 'includes/num_beams.php';
-include_once 'includes/number.php';
 include_once 'includes/num_energy.php';
 include_once 'includes/num_fighters.php';
 include_once 'includes/num_holds.php';
 include_once 'includes/num_shields.php';
 include_once 'includes/num_torpedoes.php';
+include_once 'includes/number.php';
 include_once 'includes/playerlog.php';
 include_once 'includes/players_online.php';
 include_once 'includes/request_var.php';
 include_once 'includes/text_gotomain.php';
 include_once 'includes/update_cookie.php';
-include_once 'includes/db_op_result.php';
 
 // Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
 // supported in the future, and cryptsessions, so the session data itself is encrypted.
