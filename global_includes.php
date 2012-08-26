@@ -52,7 +52,7 @@ include_once 'includes/scan_success.php';
 include_once 'includes/text_gotologin.php';
 include_once 'includes/text_gotomain.php';
 include_once 'includes/t_port.php';
-include_once 'includes/updatecookie.php';
+include_once 'includes/update_cookie.php';
 include_once 'includes/db_op_result.php';
 
 // Adodb handles database abstraction. We also use clob sessions, so that pgsql can be

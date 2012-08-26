@@ -18,7 +18,7 @@
 // File: log.php
 
 include 'global_includes.php';
-updatecookie ();
+update_cookie ();
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array(null,

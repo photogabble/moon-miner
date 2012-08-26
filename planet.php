@@ -19,7 +19,7 @@
 
 include 'global_includes.php';
 include 'includes/calc_ownership.php';
-updatecookie ();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars, $db_logging);

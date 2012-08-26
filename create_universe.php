@@ -125,7 +125,7 @@ set_time_limit(0);
 
 include 'includes/schema.php';
 
-updatecookie();
+update_cookie();
 
 // This is needed here until the language database is installed
 $title = 'Create universe';

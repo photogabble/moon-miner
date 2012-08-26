@@ -18,7 +18,7 @@
 // File: team_planets.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);

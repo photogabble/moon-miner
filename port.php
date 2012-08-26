@@ -18,7 +18,7 @@
 // File: port.php
 
 include 'global_includes.php';
-updatecookie ();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty'), $langvars, $db_logging);

@@ -20,8 +20,8 @@
 include 'global_includes.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars, $db_logging);
-updatecookie();
+load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars);
+update_cookie();
 
 if (check_login ())
 {

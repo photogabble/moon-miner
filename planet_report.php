@@ -18,7 +18,7 @@
 // File: planet_report.php
 
 include 'global_includes.php';
-updatecookie ();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);

@@ -18,7 +18,7 @@
 // File: mailto2.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);

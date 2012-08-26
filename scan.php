@@ -18,7 +18,7 @@
 // File: scan.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars, $db_logging);

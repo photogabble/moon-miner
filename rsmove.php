@@ -18,7 +18,7 @@
 // File: rsmove.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);

@@ -18,7 +18,7 @@
 // File: galaxy.php
 
 include 'global_includes.php';
-updatecookie ();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'port', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);

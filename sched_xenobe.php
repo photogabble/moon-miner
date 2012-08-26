@@ -55,7 +55,7 @@ while (!$res->EOF)
     $xenobeisdead = 0;
     $playerinfo = $res->fields;
     // Regenerate / Buy stats
-    xenoberegen();
+    xenobe_regen ($db);
 
     // Run through orders
     $furcount++;
@@ -109,7 +109,7 @@ while (!$res->EOF)
         $furcount1++;
         // Roam to a new sector before doing anything else
         $targetlink = $playerinfo[sector];
-        xenobemove();
+        xenobe_move ($db);
         if ($xenobeisdead>0) {
           $res->MoveNext();
           continue;
@@ -160,7 +160,7 @@ while (!$res->EOF)
         $furcount2++;
         // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
         $targetlink = $playerinfo[sector];
-        xenobemove();
+        xenobe_move ($db);
         if ($xenobeisdead>0) {
           $res->MoveNext();
           continue;
@@ -227,7 +227,7 @@ while (!$res->EOF)
         } else
         {
           // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
-          xenobemove();
+          xenobe_move ($db);
           if ($xenobeisdead>0) {
             $res->MoveNext();
             continue;

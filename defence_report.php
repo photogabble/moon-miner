@@ -18,7 +18,7 @@
 // File: defence_report.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);

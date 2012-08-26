@@ -15,11 +15,11 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/xenobemove.php
+// File: includes/xenobe_move.php
 
-function xenobemove ()
+function xenobe_move ($db)
 {
-    global $playerinfo, $sector_max, $targetlink, $xenobeisdead, $db;
+    global $playerinfo, $sector_max, $targetlink, $xenobeisdead;
 
     // Obtain a target link
     if ($targetlink == $playerinfo['sector'])

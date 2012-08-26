@@ -21,7 +21,7 @@ include 'global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
-updatecookie ();
+update_cookie ();
 
 $body_class = 'options';
 $title = $l_opt_title;

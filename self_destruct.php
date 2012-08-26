@@ -18,7 +18,7 @@
 // File: self_destruct.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);

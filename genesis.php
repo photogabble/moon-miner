@@ -23,7 +23,7 @@
 // instead. Easier to manage, makes more sense too.
 
 include 'global_includes.php';
-updatecookie ();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);

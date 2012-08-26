@@ -52,7 +52,7 @@ else
 // New database driven language entries
 load_languages($db, $lang, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
-// first placement of cookie - don't use updatecookie.
+// first placement of cookie - don't use update_cookie.
 $userpass = $email."+".$pass;
 setcookie("userpass", $userpass, time() + (3600*24)*365, $gamepath, $gamedomain);
 
