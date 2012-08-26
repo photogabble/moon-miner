@@ -63,10 +63,13 @@ global $db;
 connect_database ();
 $db->prefix = $db_prefix;
 
-if (property_exists($db->logging) && $db->logging)
+if (property_exists($db->logging))
 {
-    adodb_perf::table("{$db->prefix}adodb_logsql");
-    $db->LogSQL(); // Turn on adodb performance logging
+    if ($db->logging)
+    {
+        adodb_perf::table("{$db->prefix}adodb_logsql");
+        $db->LogSQL(); // Turn on adodb performance logging
+    }
 }
 
 // Get the config_values from the DB
