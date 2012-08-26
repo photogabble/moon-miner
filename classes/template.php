@@ -42,7 +42,7 @@ class Template
             if($type === TEMPLATE_USE_SMARTY)
             {
                 // Include the templat wrapper file.
-                require_once './template_api/template_smarty.php';
+                require_once './classes/template_api/template_smarty.php';
 
                 // Create the module.
                 $api = new SmartyAPI($this);
@@ -50,7 +50,7 @@ class Template
             else if($type === TEMPLATE_USE_XML)
             {
                 // Include the templat wrapper file.
-                require_once './template_api/template_xml.php';
+                require_once './classes/template_api/template_xml.php';
 
                 // Create the module.
                 $api = new XMLAPI($this);
