@@ -109,15 +109,15 @@ if (is_null($content))
 
     echo "    <tr>\n";
     echo "      <td>$l_sendm_subj:</td>\n";
-    echo "      <td><INPUT TYPE=TEXT NAME=subject SIZE=40 MAXLENGTH=40 VALUE=\"$subject\"></td>\n";
+    echo "      <td><input type=text name=subject size=40 maxlength=40 value=\"$subject\"></td>\n";
     echo "    </tr>\n";
     echo "    <tr>\n";
     echo "      <td>$l_sendm_mess:</td>\n";
-    echo "      <td><TEXTAREA NAME=content ROWS=5 COLS=40></TEXTAREA></td>\n";
+    echo "      <td><textarea name=content rows=5 cols=40></textarea></td>\n";
     echo "    </tr>";
     echo "    <tr>\n";
     echo "      <td></td>\n";
-    echo "      <td><INPUT TYPE=SUBMIT VALUE=$l_sendm_send><INPUT TYPE=RESET VALUE=$l_reset></td>\n";
+    echo "      <td><input type=submit value=$l_sendm_send><input type=reset value=$l_reset></td>\n";
     echo "    </tr>\n";
     echo "  </table>\n";
     echo "</form>\n";

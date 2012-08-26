@@ -400,7 +400,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             echo "<tr bgcolor=\"$color_line1\"><td>$l_torps</td><td>" . NUMBER ($planetinfo['torps']) . "</td><td>" . NUMBER ($playerinfo['torps']) . "</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=CHECKBOX name=tptorps value=-1></td><td><input type=CHECKBOX name=alltorps value=-1></td></tr>";
             echo "<tr bgcolor=\"$color_line2\"><td>$l_credits</td><td>" . NUMBER ($planetinfo['credits']) . "</td><td>" . NUMBER ($playerinfo['credits']) . "</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcredits value=-1></td><td><input type=CHECKBOX name=allcredits value=-1></td></tr>";
             echo "</table><br>";
-            echo "<input type=submit value=$l_planet_transfer_link>&nbsp;<input type=RESET value=Reset>";
+            echo "<input type=submit value=$l_planet_transfer_link>&nbsp;<input type=reset value=Reset>";
             echo "</form>";
         }
         elseif ($command == "base")

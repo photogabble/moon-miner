@@ -45,7 +45,7 @@ if (!isset($change))
     echo "<div style='padding:2px;'>Preset 3: <input type='text' name='preset3' size='6' maxlength='6' value='{$playerinfo['preset3']}'></div>";
     echo "<input type='hidden' name='change' value='1'>";
     echo "<div style='padding:2px;'><input type='submit' value={$l_pre_save}></div>";
-    echo "</FORM>";
+    echo "</form>";
 }
 else
 {

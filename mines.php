@@ -178,8 +178,8 @@ else
         echo "<br />\n";
         echo "$l_mines_deploy <input type=text name=nummines size=10 maxlength=10 value=$playerinfo[torps]> $l_mines.<br>";
         echo "$l_mines_deploy <input type=text name=numfighters size=10 maxlength=10 value=$playerinfo[ship_fighters]> $l_fighters.<br>";
-        echo "Fighter mode <input type=radio name=mode $set_attack value=attack>$l_mines_att</INPUT>";
-        echo "<input type=radio name=mode $set_toll value=toll>$l_mines_toll</INPUT><br>";
+        echo "Fighter mode <input type=radio name=mode $set_attack value=attack>$l_mines_att</input>";
+        echo "<input type=radio name=mode $set_toll value=toll>$l_mines_toll</input><br>";
          echo "<br />\n";
         echo "<input type=submit value=$l_submit><input type=reset value=$l_reset><br><br>";
         echo "<input type=hidden name=op value=$op>";

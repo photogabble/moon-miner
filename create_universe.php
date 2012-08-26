@@ -871,7 +871,7 @@ table_footer ("Completed successfully.");
       echo "<input type=hidden name=initscommod value=$initscommod>";
       echo "<input type=hidden name=initbcommod value=$initbcommod>";
       echo "<input type=hidden name=nump value=$nump>";
-      echo "<INPUT TYPE=HIDDEN NAME=fedsecs VALUE=$fedsecs>";
+      echo "<input type=hidden name=fedsecs value=$fedsecs>";
       echo "<input type=hidden name=loops value=$loops>";
       echo "<input type=hidden name=engage value=2>";
       echo "<input type=hidden name=swordfish value=$swordfish>";

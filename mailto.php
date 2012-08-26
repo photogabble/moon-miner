@@ -58,10 +58,10 @@ if (empty($content))
         $res->MoveNext();
     }
     echo "</select></td></tr>";
-    echo "<tr><td>$l_mt_from</td><td><INPUT DISABLED TYPE=TEXT name=dummy SIZE=40 MAXLENGTH=40 VALUE=\"$playerinfo[character_name]\"></td></tr>";
-    echo "<tr><td>$l_mt_subject</td><td><INPUT TYPE=TEXT name=subject SIZE=40 MAXLENGTH=40></td></tr>";
-    echo "<tr><td>$l_mt_message:</td><td><TEXTAREA name=content ROWS=5 COLS=40></TEXTAREA></td></tr>";
-    echo "<tr><td></td><td><INPUT TYPE=SUBMIT VALUE=$l_mt_send><INPUT TYPE=RESET VALUE=Clear></td>";
+    echo "<tr><td>$l_mt_from</td><td><input disabled type=text name=dummy size=50 maxlength=40 value=\"$playerinfo[character_name]\"></td></tr>";
+    echo "<tr><td>$l_mt_subject</td><td><input type=text name=subject size=40 maxlength=40></td></tr>";
+    echo "<tr><td>$l_mt_message:</td><td><textarea name=content rows=5 cols=40></textarea></td></tr>";
+    echo "<tr><td></td><td><input type=submit value=$l_mt_send><input type=reset value=Clear></td>";
     echo "</table>";
     echo "</form>";
 }
@@ -78,6 +78,6 @@ else
     // Using this three lines to get recipients ship_id and sending the message -- blindcoder
 }
 
-TEXT_GOTOMAIN();
+text_GOTOMAIN();
 include 'footer.php';
 ?>
