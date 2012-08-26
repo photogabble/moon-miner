@@ -17,7 +17,7 @@
 //
 // File: inclues/bnt_compress.php
 //
-function bnt_compress ($output = NULL)
+function bnt_compress ($output = null)
 {
     // Check to see if we have data, if not error out.
     if (is_null($output))

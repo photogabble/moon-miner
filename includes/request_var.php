@@ -17,9 +17,9 @@
 //
 // File: includes/request_var.php
 
-function request_var ($type = NULL, $name = NULL, &$value = NULL)
+function request_var ($type = null, $name = null, &$value = null)
 {
-    $value = NULL;
+    $value = null;
     if(is_null($type) || is_null($name))
     {
         return (boolean) false;

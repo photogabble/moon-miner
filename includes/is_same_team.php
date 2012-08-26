@@ -22,9 +22,9 @@ if (preg_match("/is_same_team.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function is_same_team ($attackerTeam = null, $attackieTeam = null)
+function is_same_team ($attacker_team = null, $attackie_team = null)
 {
-        if ( ($attackerTeam != $attackieTeam) || ($attackerTeam == 0 || $attackieTeam == 0) )
+        if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
         {
                 return (boolean) false;
         }

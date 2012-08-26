@@ -23,8 +23,6 @@ update_cookie ();
 // New database driven language entries
 load_languages($db, $lang, array('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty'), $langvars, $db_logging);
 
-include_once 'includes/text_javascript_begin.php';
-include_once 'includes/text_javascript_end.php';
 include_once 'includes/is_loan_pending.php';
 
 $body_class = 'port';
@@ -455,7 +453,7 @@ elseif ($sectorinfo['port_type'] == "special")
     }
 
     $colonist_free = $colonist_max - $playerinfo['ship_colonists'];
-    TEXT_JAVASCRIPT_BEGIN ();
+    echo "\n<script>\n<!--\n";
 
     echo "function MakeMax(name, val)\n";
     echo "{\n";
@@ -641,7 +639,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "form.hull_costper.value=changeDelta(form.hull_upgrade.value,$playerinfo[hull]);\n";
     echo "form.shields_costper.value=changeDelta(form.shields_upgrade.value,$playerinfo[shields]);\n";
     echo "}";
-    TEXT_JAVASCRIPT_END();
+    echo "\n// -->\n</script>\n";
 
     $onblur = "ONBLUR=\"countTotal()\"";
     $onfocus =  "ONFOCUS=\"countTotal()\"";

@@ -22,7 +22,7 @@ if (preg_match("/getLanguageVars.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function load_languages ($db = NULL, $language = NULL, $categories = NULL, &$langvars = NULL)
+function load_languages ($db = null, $language = null, $categories = null, &$langvars = null)
 {
     // Check if all supplied args are valid, if not return false.
     if (is_null($db) || is_null($language) || !is_array($categories))
