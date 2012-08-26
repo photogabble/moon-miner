@@ -25,8 +25,8 @@ if (preg_match("/sector_fighters.php/i", $_SERVER['PHP_SELF'])) {
 // New database driven language entries
 load_languages($db, $lang, array('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once 'includes/destroy_fighters.php';
-include_once 'includes/cancel_bounty.php';
+include_once './includes/destroy_fighters.php';
+include_once './includes/cancel_bounty.php';
 
 echo $l_sf_attacking . "<br>";
 $targetfighters = $total_sector_fighters;

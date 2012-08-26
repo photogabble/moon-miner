@@ -17,8 +17,8 @@
 //
 // File: igb.php
 
-include 'global_includes.php';
-include_once 'includes/ibank_error.php';
+include './global_includes.php';
+include './includes/ibank_error.php';
 update_cookie ();
 
 // New database driven language entries
@@ -26,7 +26,7 @@ load_languages($db, $lang, array('igb', 'common', 'global_includes', 'global_fun
 
 $title = $l_ibank_title;
 $body_class = 'igb';
-include 'header.php';
+include './header.php';
 
 if (check_login ())
 {
@@ -68,72 +68,72 @@ else
 
 if ($command == 'login') //main menu
 {
-    include 'includes/ibank_login.php';
+    include './includes/ibank_login.php';
     ibank_login();
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
-    include 'includes/ibank_withdraw.php';
+    include './includes/ibank_withdraw.php';
     ibank_withdraw();
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
-    include 'includes/ibank_withdraw2.php';
+    include './includes/ibank_withdraw2.php';
     ibank_withdraw2();
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    include 'includes/ibank_deposit.php';
+    include './includes/ibank_deposit.php';
     ibank_deposit();
 }
 elseif ($command == 'deposit2') //deposit operation
 {
-    include 'includes/ibank_deposit2.php';
+    include './includes/ibank_deposit2.php';
     ibank_deposit2();
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    include 'includes/ibank_transfer.php';
+    include './includes/ibank_transfer.php';
     ibank_transfer();
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
-    include 'includes/ibank_transfer2.php';
+    include './includes/ibank_transfer2.php';
     ibank_transfer2();
 }
 elseif ($command == 'transfer3') //transfer operation
 {
-    include 'includes/ibank_transfer3.php';
+    include './includes/ibank_transfer3.php';
     ibank_transfer3();
 }
 elseif ($command == 'loans') //loans menu
 {
-    include 'includes/ibank_loans.php';
+    include './includes/ibank_loans.php';
     ibank_loans();
 }
 elseif ($command == 'borrow') //borrow operation
 {
-    include 'includes/ibank_borrow.php';
+    include './includes/ibank_borrow.php';
     ibank_borrow();
 }
 elseif ($command == 'repay') //repay operation
 {
-    include 'includes/ibank_repay.php';
+    include './includes/ibank_repay.php';
     ibank_repay();
 }
 elseif ($command == 'consolidate') //consolidate menu
 {
-    include 'includes/ibank_consolidate.php';
+    include './includes/ibank_consolidate.php';
     ibank_consolidate();
 }
 elseif ($command == 'consolidate2') //consolidate compute
 {
-    include 'includes/ibank_consolidate2.php';
+    include './includes/ibank_consolidate2.php';
     ibank_consolidate2();
 }
 elseif ($command == 'consolidate3') //consolidate operation
 {
-    include 'includes/ibank_consolidate3.php';
+    include './includes/ibank_consolidate3.php';
     ibank_consolidate3();
 }
 else

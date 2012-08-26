@@ -17,16 +17,16 @@
 //
 // File: traderoute.php
 
-include 'global_includes.php';
-include 'includes/t_port.php';
-include_once 'includes/traderoute_new.php';
+include './global_includes.php';
+include './includes/t_port.php';
+include './includes/traderoute_new.php';
 update_cookie ();
 
 // New database driven language entries
 load_languages ($db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_tdr_title;
-include 'header.php';
+include './header.php';
 
 $portfull = null; // This fixes an error of undefined variables on 1518
 if (check_login ())
@@ -149,7 +149,7 @@ elseif (isset ($engage) )
         $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
         db_op_result ($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
-        include_once 'includes/traderoute_engage.php';
+        include_once './includes/traderoute_engage.php';
         traderoute_engage ($db, $i);
         $i--;
     }
@@ -391,7 +391,7 @@ echo "<div style='text-align:left;'>\n";
 TEXT_GOTOMAIN();
 echo "</div>\n";
 
-include 'footer.php';
+include './footer.php';
 
 function traderoute_die ($error_msg)
 {
@@ -401,7 +401,7 @@ function traderoute_die ($error_msg)
     echo "<div style='text-align:left;'>\n";
     TEXT_GOTOMAIN();
     echo "</div>\n";
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 

@@ -17,16 +17,16 @@
 //
 // File: modify_defences.php
 
-include 'global_includes.php';
+include './global_includes.php';
 update_cookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once 'includes/explode_mines.php';
+include_once './includes/explode_mines.php';
 
 $title = $l_md_title;
-include 'header.php';
+include './header.php';
 
 if (check_login ())
 {
@@ -37,7 +37,7 @@ if (!isset ($defence_id))
 {
     echo $l_md_invalid . "<br><br>";
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -59,7 +59,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_md_noturn . "<br><br>";
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -79,7 +79,7 @@ if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
    echo $l_md_nothere . "<br><br>";
    TEXT_GOTOMAIN ();
-   include 'footer.php';
+   include './footer.php';
    die();
 }
 
@@ -116,7 +116,7 @@ switch ($response)
       {
          echo "$l_md_yours<br><br>";
          TEXT_GOTOMAIN ();
-         include 'footer.php';
+         include './footer.php';
          die();
       }
       $sector = $playerinfo['sector'] ;
@@ -126,7 +126,7 @@ switch ($response)
          $ttl = $countres->fields;
          $total_sector_fighters = $ttl['totalfighters'];
          $calledfrom = "modify_defences.php";
-         include_once 'sector_fighters.php';
+         include_once './sector_fighters.php';
       }
       else
       {
@@ -160,7 +160,7 @@ switch ($response)
       {
          echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN ();
-         include 'footer.php';
+         include './footer.php';
          die();
       }
       $quantity = preg_replace('/[^0-9]/', '', $quantity);
@@ -213,7 +213,7 @@ switch ($response)
       {
          echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN ();
-         include 'footer.php';
+         include './footer.php';
          die();
       }
       $db->Execute("UPDATE {$db->prefix}sector_defence SET fm_setting = '$mode' WHERE defence_id = $defence_id");
@@ -278,5 +278,5 @@ switch ($response)
 }
 
 TEXT_GOTOMAIN ();
-include 'footer.php';
+include './footer.php';
 ?>

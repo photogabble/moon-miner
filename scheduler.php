@@ -64,8 +64,8 @@
 * End of scheduler explanation                                    *
 ******************************************************************/
 
-include 'global_includes.php';
-include 'config/admin_pw.php';
+include './global_includes.php';
+include './config/admin_pw.php';
 
 global $l_sys_update;
 $title = $l_sys_update;
@@ -75,7 +75,7 @@ $title = $l_sys_update;
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include 'header.php';
+include './header.php';
 connect_database ();
 
 bigtitle ();
@@ -151,7 +151,7 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
             $sched_i = 0;
             while ($sched_i < $multiplier)
             {
-                include $event['sched_file'];
+                include "./" . $event['sched_file'];
                 $sched_i++;
             }
             $sched_res->MoveNext();
@@ -175,5 +175,5 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
 }
 
 TEXT_GOTOMAIN ();
-include 'footer.php';
+include './footer.php';
 ?>

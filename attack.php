@@ -17,8 +17,8 @@
 //
 // File: attack.php
 
-include 'global_includes.php';
-include 'includes/collect_bounty.php';
+include './global_includes.php';
+include './includes/collect_bounty.php';
 update_cookie ();
 
 // New database driven language entries
@@ -29,7 +29,7 @@ if (check_login ())
     die();
 }
 
-include_once 'includes/is_same_team.php';
+include './includes/is_same_team.php';
 
 $title = $l_att_title;
 include 'header.php';
@@ -801,5 +801,5 @@ db_op_result ($db, $resx, __LINE__, __FILE__);
 $_SESSION['in_combat'] = (boolean) false;
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

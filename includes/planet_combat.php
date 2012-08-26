@@ -36,27 +36,27 @@ function planet_combat ()
     global $l_cmb_finalcombatstats, $l_cmb_youlostfighters, $l_cmb_youlostarmorpoints, $l_cmb_energyused, $l_cmb_planetdefeated;
     global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
     global $l_cmb_fighterloststat, $l_cmb_energyleft;
-    include_once 'includes/collect_bounty.php';
+    include_once './includes/collect_bounty.php';
 
     if ($playerinfo['turns'] < 1 )
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
         TEXT_GOTOMAIN();
-        include 'footer.php';
+        include './footer.php';
         die();
     }
 
     // Planetary defense system calculation
 
-    include 'calc_planet_beams.php';
+    include_once './calc_planet_beams.php';
     $planetbeams        = calc_planet_beams ($db);
 
     $planetfighters     = $planetinfo['fighters'];
 
-    include 'calc_planet_shields.php';
+    include './calc_planet_shields.php';
     $planetshields      = calc_planet_shields ($db);
 
-    include 'calc_planet_torps.php';
+    include './calc_planet_torps.php';
     $planettorps        = calc_planet_torps ($db);
 
     // Attacking ship calculations
@@ -515,7 +515,7 @@ function planet_combat ()
             db_op_result ($db, $update7a, __LINE__, __FILE__);
         }
 
-        include 'calc_ownership.php';
+        include './calc_ownership.php';
         calc_ownership ($planetinfo['sector_id']);
     }
     else

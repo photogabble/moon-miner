@@ -17,16 +17,16 @@
 //
 // File: ship.php
 
-include 'global_includes.php';
+include './global_includes.php';
 update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once 'includes/is_same_team.php';
+include_once './includes/is_same_team.php';
 
 $title = $l_ship_title;
-include 'header.php';
+include './header.php';
 
 if (check_login ())
 {
@@ -63,5 +63,5 @@ else
 
 echo "<br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

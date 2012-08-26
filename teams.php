@@ -20,17 +20,17 @@
 // Added a quick fix for creating a new team with the same name
 // This file needs to be completely recoded from scratch :(
 
-include 'global_includes.php';
-include 'includes/calc_ownership.php';
+include './global_includes.php';
+include './includes/calc_ownership.php';
 update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_team_title;
-include 'header.php';
-include_once 'includes/defence_vs_defence.php';
-include_once 'includes/kick_off_planet.php';
+include './header.php';
+include './includes/defence_vs_defence.php';
+include './includes/kick_off_planet.php';
 
 if (check_login ())
 {
@@ -872,5 +872,5 @@ function validate_team ($db, $name = null, $desc = null, $creator = null)
     return true;
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

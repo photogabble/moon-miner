@@ -17,14 +17,14 @@
 //
 // File: rsmove.php
 
-include 'global_includes.php';
+include './global_includes.php';
 update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_rs_title;
-include 'header.php';
+include './header.php';
 
 if (check_login ())
 {
@@ -164,7 +164,7 @@ elseif ($destination < $sector_max && $engage > 0)
         $ok=1;
         $sector = $destination;
         $calledfrom = "rsmove.php";
-        include_once 'check_fighters.php';
+        include_once './check_fighters.php';
         if ($ok>0)
         {
             $stamp = date("Y-m-d H-i-s");
@@ -175,7 +175,7 @@ elseif ($destination < $sector_max && $engage > 0)
             $l_rs_ready = str_replace("[triptime]", NUMBER($triptime), $l_rs_ready);
             $l_rs_ready = str_replace("[energy]", NUMBER($energyscooped), $l_rs_ready);
             echo $l_rs_ready . "<br><br>";
-            include_once 'check_mines.php';
+            include_once './check_mines.php';
         }
     }
 }
@@ -187,6 +187,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
-
+include './footer.php';
 ?>

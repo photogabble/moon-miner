@@ -21,7 +21,7 @@
 // can find it at http://php.weblogs.com/ADODB. Enter the
 // path where it is installed here. We suggest putting
 // ADOdb into a subdirectory (adodb) under a subdirectory of BNT called backends.
-$ADOdbpath = "backends/adodb";
+$ADOdbpath = "./backends/adodb";
 
 // Port to connect to database on. Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
 $dbport = "";
