@@ -24,10 +24,6 @@ if (preg_match("/sched_defenses.php/i", $_SERVER['PHP_SELF']))
 }
 
 echo "<strong>Sector Defence Cleanup</strong><br><br>";
-if (!isset($swordfish) || $swordfish != $adminpass)
-{
-    die("Script has not been called properly");
-}
 
 $res = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
 db_op_result ($db, $res, __LINE__, __FILE__);
