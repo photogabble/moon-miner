@@ -20,6 +20,7 @@
 include 'global_includes.php';
 include 'includes/t_port.php';
 include 'includes/scan_success.php';
+include 'includes/player_insignia_name.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars);

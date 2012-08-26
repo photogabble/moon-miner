@@ -43,7 +43,6 @@ include_once 'includes/num_fighters.php';
 include_once 'includes/num_holds.php';
 include_once 'includes/num_shields.php';
 include_once 'includes/num_torpedoes.php';
-include_once 'includes/player_insignia_name.php';
 include_once 'includes/playerlog.php';
 include_once 'includes/players_online.php';
 include_once 'includes/request_var.php';

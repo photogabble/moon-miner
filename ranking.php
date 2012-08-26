@@ -18,6 +18,7 @@
 // File: ranking.php
 
 include 'global_includes.php';
+include 'includes/player_insignia_name.php';
 update_cookie ();
 
 if (!isset($_GET['lang']))
