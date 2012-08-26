@@ -18,6 +18,7 @@
 // File: main.php
 
 include 'global_includes.php';
+include 'includes/t_port.php';
 include 'includes/scan_success.php';
 
 // New database driven language entries

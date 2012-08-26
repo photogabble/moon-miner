@@ -48,7 +48,6 @@ include_once 'includes/playerlog.php';
 include_once 'includes/players_online.php';
 include_once 'includes/request_var.php';
 include_once 'includes/text_gotomain.php';
-include_once 'includes/t_port.php';
 include_once 'includes/update_cookie.php';
 include_once 'includes/db_op_result.php';
 

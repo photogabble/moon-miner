@@ -18,6 +18,7 @@
 // File: traderoute.php
 
 include 'global_includes.php';
+include 'includes/t_port.php';
 update_cookie ();
 
 // New database driven language entries
