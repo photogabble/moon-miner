@@ -19,6 +19,7 @@
 
 include 'global_includes.php';
 include 'includes/scan_error.php';
+include 'includes/scan_success.php';
 update_cookie ();
 
 // New database driven language entries
@@ -70,7 +71,7 @@ else
     else
     {
         // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
-        $success= SCAN_SUCCESS ($playerinfo['sensors'], $targetinfo['cloak']);
+        $success = scan_success ($playerinfo['sensors'], $targetinfo['cloak']);
         if ($success < 5)
         {
             $success = 5;

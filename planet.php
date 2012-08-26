@@ -19,6 +19,7 @@
 
 include 'global_includes.php';
 include 'includes/scan_error.php';
+include 'includes/scan_success.php';
 include 'includes/calc_ownership.php';
 update_cookie ();
 
@@ -840,7 +841,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 while (!$res->EOF)
                 {
                     $row = $res->fields;
-                    $success = SCAN_SUCCESS ($playerinfo['sensors'], $row['cloak']);
+                    $success = scan_success ($playerinfo['sensors'], $row['cloak']);
                     if ($success < 5)
                     {
                         $success = 5;

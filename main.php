@@ -18,6 +18,7 @@
 // File: main.php
 
 include 'global_includes.php';
+include 'includes/scan_success.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars);
@@ -538,7 +539,7 @@ if ($playerinfo['sector'] != 0)
         while (!$result4->EOF)
         {
             $row=$result4->fields;
-            $success = SCAN_SUCCESS($playerinfo['sensors'], $row['cloak']);
+            $success = scan_success ($playerinfo['sensors'], $row['cloak']);
             if ($success < 5)
             {
                 $success = 5;

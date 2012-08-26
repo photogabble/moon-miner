@@ -18,6 +18,7 @@
 // File: lrscan.php
 
 include 'global_includes.php';
+include 'includes/scan_success.php';
 update_cookie ();
 
 // New database driven language entries
@@ -290,7 +291,7 @@ else
             {
                 $row = $result4->fields;
                 // Display other ships in sector - unless they are successfully cloaked
-                $success = SCAN_SUCCESS($playerinfo['sensors'], $row['cloak']);
+                $success = scan_success ($playerinfo['sensors'], $row['cloak']);
                 if ($success < 5)
                 {
                     $success = 5;

@@ -26,6 +26,7 @@ if (preg_match("/check_fighters.php/i", $_SERVER['PHP_SELF'])) {
 load_languages($db, $lang, array('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
 
 include_once 'includes/distribute_toll.php';
+include_once 'includes/scan_success.php';
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($sector));
 db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
@@ -133,7 +134,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             case "sneak":
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array($playerinfo['ship_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-                $success = SCAN_SUCCESS($fighters_owner['sensors'], $playerinfo['cloak']);
+                $success = scan_success ($fighters_owner['sensors'], $playerinfo['cloak']);
                 if ($success < 5)
                 {
                     $success = 5;

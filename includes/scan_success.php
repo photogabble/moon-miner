@@ -22,7 +22,7 @@ if (preg_match("/scan_success.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function SCAN_SUCCESS ($level_scan, $level_cloak)
+function scan_success ($level_scan, $level_cloak)
 {
     return (5 + $level_scan - $level_cloak) * 5;
 }
