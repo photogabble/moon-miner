@@ -60,7 +60,7 @@ ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
 ADODB_Session::dataFieldName('SESSDATA');
 
 global $db;
-connectdb ();
+connect_database ();
 $db->prefix = $db_prefix;
 $db->logging = $db_logging;
 

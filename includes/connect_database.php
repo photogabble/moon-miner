@@ -15,14 +15,14 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/connectdb.php
+// File: includes/connect_database.php
 
-if (preg_match("/connectdb.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/connect_database.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function connectdb ($do_die = true) // Returns true, false or a halt.
+function connect_database ($do_die = true) // Returns true, false or a halt.
 {
     global $ADODB_SESSION_CONNECT, $dbport, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB;
     global $db, $ADODB_SESSION_DRIVER, $db_persistent;

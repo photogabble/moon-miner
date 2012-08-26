@@ -27,7 +27,7 @@ update_cookie ();
 $title = $langvars['l_admin_title'];
 include 'header.php';
 
-connectdb ();
+connect_datbase ();
 bigtitle ();
 
 function checked ($yesno)

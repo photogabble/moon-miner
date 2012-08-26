@@ -131,9 +131,9 @@ update_cookie();
 $title = 'Create universe';
 include 'header.php';
 
-connectdb();
+connect_database ();
 
-bigtitle();
+bigtitle ();
 
 // Manually set step var if info isn't correct.
 

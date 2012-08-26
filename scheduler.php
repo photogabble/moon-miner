@@ -74,9 +74,9 @@ $title = $l_sys_update;
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
 
 include 'header.php';
-connectdb();
+connect_database ();
 
-bigtitle();
+bigtitle ();
 
 require_once 'sched_funcs.php';
 
