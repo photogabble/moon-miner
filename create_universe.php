@@ -72,7 +72,7 @@ if (!function_exists('table_row'))
 
 if (!function_exists('table_2col'))
 {
-    function table_2col ($name,$value)
+    function table_2col ($name, $value)
     {
         print_flush ("    <tr>\n");
         print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$name</font></td>\n");

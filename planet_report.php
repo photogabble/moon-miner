@@ -242,7 +242,7 @@ function standard_report ()
             echo "<td align=center>" . "<input type=checkbox name=TPCreds[] value=\"" . $planet[$i]['planet_id'] . "\">" . "</td>";
             echo "<td align=right>"  . NUMBER($planet[$i]['fighters']) . "</td>";
             echo "<td align=right>"  . NUMBER($planet[$i]['torps']) . "</td>";
-            echo "<td align=center>" . base_build_check($planet, $i) . "</td>";
+            echo "<td align=center>" . base_build_check ($planet, $i) . "</td>";
             if ($playerinfo['team'] > 0)
             {
                 echo "<td align=center>" . ($planet[$i]['corp'] > 0  ? "$l_yes" : "$l_no") . "</td>";
@@ -487,7 +487,7 @@ function selling_checkboxes ($planet, $i)
     }
 }
 
-function base_build_check($planet, $i)
+function base_build_check ($planet, $i)
 {
     global $l_yes, $l_no;
     global $base_ore, $base_organics, $base_goods, $base_credits;

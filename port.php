@@ -455,7 +455,7 @@ elseif ($sectorinfo['port_type'] == "special")
     $colonist_free = $colonist_max - $playerinfo['ship_colonists'];
     echo "\n<script>\n<!--\n";
 
-    echo "function MakeMax(name, val)\n";
+    echo "function make_max(name, val)\n";
     echo "{\n";
     echo " if (document.forms[0].elements[name].value != val)\n";
     echo " {\n";
@@ -466,8 +466,8 @@ elseif ($sectorinfo['port_type'] == "special")
     echo " }\n";
     echo "}\n";
 
-    // changeDelta function //
-    echo "function changeDelta(desiredvalue,currentvalue)\n";
+    // change_delta function //
+    echo "function change_delta(desiredvalue,currentvalue)\n";
     echo "{\n";
     echo "  Delta=0; DeltaCost=0;\n";
     echo "  Delta = desiredvalue - currentvalue;\n";
@@ -482,7 +482,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  return DeltaCost;\n";
     echo "}\n";
 
-    echo "function countTotal()\n";
+    echo "function count_total()\n";
     echo "{\n";
     echo "// Here we cycle through all form values (other than buy, or full), and regexp out all non-numerics. (1,000 = 1000)\n";
     echo "// Then, if its become a null value (type in just a, it would be a blank value. blank is bad.) we set it to zero.\n";
@@ -589,16 +589,16 @@ elseif ($sectorinfo['port_type'] == "special")
         echo "+ (form.lssd_purchase.checked ?  $dev_lssd_price : 0)\n";
     }
 
-    echo "+ changeDelta(form.hull_upgrade.value,$playerinfo[hull])\n";
-    echo "+ changeDelta(form.engine_upgrade.value,$playerinfo[engines])\n";
-    echo "+ changeDelta(form.power_upgrade.value,$playerinfo[power])\n";
-    echo "+ changeDelta(form.computer_upgrade.value,$playerinfo[computer])\n";
-    echo "+ changeDelta(form.sensors_upgrade.value,$playerinfo[sensors])\n";
-    echo "+ changeDelta(form.beams_upgrade.value,$playerinfo[beams])\n";
-    echo "+ changeDelta(form.armor_upgrade.value,$playerinfo[armor])\n";
-    echo "+ changeDelta(form.cloak_upgrade.value,$playerinfo[cloak])\n";
-    echo "+ changeDelta(form.torp_launchers_upgrade.value,$playerinfo[torp_launchers])\n";
-    echo "+ changeDelta(form.shields_upgrade.value,$playerinfo[shields])\n";
+    echo "+ change_delta(form.hull_upgrade.value,$playerinfo[hull])\n";
+    echo "+ change_delta(form.engine_upgrade.value,$playerinfo[engines])\n";
+    echo "+ change_delta(form.power_upgrade.value,$playerinfo[power])\n";
+    echo "+ change_delta(form.computer_upgrade.value,$playerinfo[computer])\n";
+    echo "+ change_delta(form.sensors_upgrade.value,$playerinfo[sensors])\n";
+    echo "+ change_delta(form.beams_upgrade.value,$playerinfo[beams])\n";
+    echo "+ change_delta(form.armor_upgrade.value,$playerinfo[armor])\n";
+    echo "+ change_delta(form.cloak_upgrade.value,$playerinfo[cloak])\n";
+    echo "+ change_delta(form.torp_launchers_upgrade.value,$playerinfo[torp_launchers])\n";
+    echo "+ change_delta(form.shields_upgrade.value,$playerinfo[shields])\n";
 
     if ($playerinfo['ship_fighters'] != $fighter_max)
     {
@@ -628,23 +628,23 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  }\n";
     echo "  form.total_cost.length = form.total_cost.value.length;\n";
     echo "\n";
-    echo "form.engine_costper.value=changeDelta(form.engine_upgrade.value,$playerinfo[engines]);\n";
-    echo "form.power_costper.value=changeDelta(form.power_upgrade.value,$playerinfo[power]);\n";
-    echo "form.computer_costper.value=changeDelta(form.computer_upgrade.value,$playerinfo[computer]);\n";
-    echo "form.sensors_costper.value=changeDelta(form.sensors_upgrade.value,$playerinfo[sensors]);\n";
-    echo "form.beams_costper.value=changeDelta(form.beams_upgrade.value,$playerinfo[beams]);\n";
-    echo "form.armor_costper.value=changeDelta(form.armor_upgrade.value,$playerinfo[armor]);\n";
-    echo "form.cloak_costper.value=changeDelta(form.cloak_upgrade.value,$playerinfo[cloak]);\n";
-    echo "form.torp_launchers_costper.value=changeDelta(form.torp_launchers_upgrade.value,$playerinfo[torp_launchers]);\n";
-    echo "form.hull_costper.value=changeDelta(form.hull_upgrade.value,$playerinfo[hull]);\n";
-    echo "form.shields_costper.value=changeDelta(form.shields_upgrade.value,$playerinfo[shields]);\n";
+    echo "form.engine_costper.value=change_delta(form.engine_upgrade.value,$playerinfo[engines]);\n";
+    echo "form.power_costper.value=change_delta(form.power_upgrade.value,$playerinfo[power]);\n";
+    echo "form.computer_costper.value=change_delta(form.computer_upgrade.value,$playerinfo[computer]);\n";
+    echo "form.sensors_costper.value=change_delta(form.sensors_upgrade.value,$playerinfo[sensors]);\n";
+    echo "form.beams_costper.value=change_delta(form.beams_upgrade.value,$playerinfo[beams]);\n";
+    echo "form.armor_costper.value=change_delta(form.armor_upgrade.value,$playerinfo[armor]);\n";
+    echo "form.cloak_costper.value=change_delta(form.cloak_upgrade.value,$playerinfo[cloak]);\n";
+    echo "form.torp_launchers_costper.value=change_delta(form.torp_launchers_upgrade.value,$playerinfo[torp_launchers]);\n";
+    echo "form.hull_costper.value=change_delta(form.hull_upgrade.value,$playerinfo[hull]);\n";
+    echo "form.shields_costper.value=change_delta(form.shields_upgrade.value,$playerinfo[shields]);\n";
     echo "}";
     echo "\n// -->\n</script>\n";
 
-    $onblur = "ONBLUR=\"countTotal()\"";
-    $onfocus =  "ONFOCUS=\"countTotal()\"";
-    $onchange =  "ONCHANGE=\"countTotal()\"";
-    $onclick =  "ONCLICK=\"countTotal()\"";
+    $onblur = "ONBLUR=\"count_total()\"";
+    $onfocus =  "ONFOCUS=\"count_total()\"";
+    $onchange =  "ONCHANGE=\"count_total()\"";
+    $onclick =  "ONCLICK=\"count_total()\"";
 
     // Create dropdowns when called
     function dropdown ($element_name, $current_value)
@@ -710,7 +710,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_genesis'] != $max_genesis)
     {
-        echo"<a href='#' onClick=\"MakeMax('dev_genesis_number', $genesis_free);countTotal();return false;\">";
+        echo"<a href='#' onClick=\"make_max('dev_genesis_number', $genesis_free);count_total();return false;\">";
         echo NUMBER ($genesis_free) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
@@ -741,7 +741,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_beacon'] != $max_beacons)
     {
-        echo"<a href='#' onClick=\"MakeMax('dev_beacon_number', $beacon_free);countTotal();return false;\">";
+        echo"<a href='#' onClick=\"make_max('dev_beacon_number', $beacon_free);count_total();return false;\">";
         echo NUMBER ($beacon_free) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
@@ -765,7 +765,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_emerwarp'] != $max_emerwarp)
     {
-        echo"<a href='#' onClick=\"MakeMax('dev_emerwarp_number', $emerwarp_free);countTotal();return false;\">";
+        echo"<a href='#' onClick=\"make_max('dev_emerwarp_number', $emerwarp_free);count_total();return false;\">";
         echo NUMBER ($emerwarp_free) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
@@ -794,7 +794,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_warpedit'] != $max_warpedit)
     {
-        echo"<a href='#' onClick=\"MakeMax('dev_warpedit_number', $warpedit_free);countTotal();return false;\">";
+        echo"<a href='#' onClick=\"make_max('dev_warpedit_number', $warpedit_free);count_total();return false;\">";
         echo NUMBER ($warpedit_free) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
@@ -943,7 +943,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['ship_fighters'] != $fighter_max)
     {
-        echo "<a href='#' onClick=\"MakeMax('fighter_number', $fighter_free);countTotal();return false;\" $onblur>" . NUMBER ($fighter_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('fighter_number', $fighter_free);count_total();return false;\" $onblur>" . NUMBER ($fighter_free) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=fighter_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
@@ -958,7 +958,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['torps'] != $torpedo_max)
     {
-        echo "<a href='#' onClick=\"MakeMax('torpedo_number', $torpedo_free);countTotal();return false;\" $onblur>" . NUMBER ($torpedo_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('torpedo_number', $torpedo_free);count_total();return false;\" $onblur>" . NUMBER ($torpedo_free) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=torpedo_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
@@ -975,7 +975,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['armor_pts'] != $armor_max)
     {
-        echo "<a href='#' onClick=\"MakeMax('armor_number', $armor_free);countTotal();return false;\" $onblur>" . NUMBER ($armor_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('armor_number', $armor_free);count_total();return false;\" $onblur>" . NUMBER ($armor_free) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=armor_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
@@ -990,7 +990,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['ship_colonists'] != $colonist_max)
     {
-        echo "<a href='#' onClick=\"MakeMax('colonist_number', $colonist_free);countTotal();return false;\" $onblur>" . NUMBER ($colonist_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('colonist_number', $colonist_free);count_total();return false;\" $onblur>" . NUMBER ($colonist_free) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=colonist_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
