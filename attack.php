@@ -18,6 +18,7 @@
 // File: attack.php
 
 include 'global_includes.php';
+include 'includes/collect_bounty.php';
 update_cookie ();
 
 // New database driven language entries
