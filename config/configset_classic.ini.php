@@ -226,3 +226,4 @@ local_number_thousands_sep = ',';                              // Localization r
 language                   = 'english';                        // Localization regional settings - soon to be moved into languages
 link_forums                = 'http://forums.blacknova.net';    // Address for the forum link
 adminname                  = 'Admin Name';                     // The title for the administrator used when emailing
+disable_cache              = false;                            // In case your server cannot run caching, or you'd prefer not to have it.

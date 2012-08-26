@@ -33,7 +33,17 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
     // Populate the $langvars array
     foreach ($categories as $category)
     {
-        $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
+        if ($disable_cache)
+        {
+            // Select from the database and return the value of the language variables requested, but do not use caching
+            $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
+        }
+        else
+        {
+            // Do a cached select from the database and return the value of the language variables requested
+            $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
+        }
+
         db_op_result ($db, $result, __LINE__, __FILE__);
 
         while ($result && !$result->EOF)
