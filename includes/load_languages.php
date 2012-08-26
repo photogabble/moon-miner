@@ -33,6 +33,11 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
     // Populate the $langvars array
     foreach ($categories as $category)
     {
+        if (!isset($disable_cache))
+        {
+            $disable_cache = true;
+        }
+
         if ($disable_cache)
         {
             // Select from the database and return the value of the language variables requested, but do not use caching
