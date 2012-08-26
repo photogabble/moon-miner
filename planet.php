@@ -21,6 +21,7 @@ include 'global_includes.php';
 include 'includes/scan_error.php';
 include 'includes/scan_success.php';
 include 'includes/calc_ownership.php';
+include 'includes/get_planet_owner.php';
 update_cookie ();
 
 // New database driven language entries
