@@ -173,7 +173,7 @@ level_factor               = '1.5';                            // How effective 
 inventory_factor           = 1;                                // The number of units that a single hull can hold
 
 [BOUNTY_SETTINGS]
-bounty_maxvalue            = '0.15';                           // Max amount a player can place as bounty - good idea to make it the same as $IGB_svalue. 0=disable
+bounty_maxvalue            = '0.15';                           // Max amount a player can place as bounty - good idea to make it the same as $ibank_svalue. 0=disable
 bounty_ratio               = '0.75';                           // Ratio of players networth before attacking results in a bounty. 0=disable
 bounty_minturns            = 500;                              // Minimum number of turns a target must have had before attacking them may not get you a bounty. 0=disable
 
@@ -225,5 +225,4 @@ local_number_dec_point     = '.';                              // Localization r
 local_number_thousands_sep = ',';                              // Localization regional settings - soon to be moved into languages
 language                   = 'english';                        // Localization regional settings - soon to be moved into languages
 link_forums                = 'http://forums.blacknova.net';    // Address for the forum link
-adminpass                  = 'secret';                         // The administrator password
 adminname                  = 'Admin Name';                     // The title for the administrator used when emailing

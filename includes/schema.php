@@ -19,12 +19,11 @@
 
 function create_schema ()
 {
-
-global $maxlen_password;
-global $db, $ADODB_SESSION_DB;
+    global $maxlen_password;
+    global $db, $ADODB_SESSION_DB;
 
 // Delete all tables in the database
-Table_Header("Dropping Tables");
+table_header("Dropping Tables");
 
 // Have SQL prepare a query for dropping tables that contains the list of all tables according to SQL.
 $drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $ADODB_SESSION_DB. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
@@ -34,14 +33,14 @@ $drop_tables = $db->Execute($drop_tables_stmt->fields['stmt']);
 
 $err = true_or_false (0, $db->ErrorMsg(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Dropping all tables","Failed","Passed");
+table_row ($db, "Dropping all tables","Failed","Passed");
 
-Table_Footer("Hover over the failed line to see the error.");
+table_footer("Hover over the failed line to see the error.");
 
 echo "<strong>Dropping stage complete.</strong><p>";
 
 // Create database schema
-Table_Header("Creating Tables");
+table_header("Creating Tables");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}gameconfig (" .
              "config_id smallint(5) NOT NULL AUTO_INCREMENT," .
@@ -54,7 +53,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}gameconfig (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating settings Table","Failed","Passed");
+table_row ($db, "Creating settings Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}languages (" .
              "lang_id smallint(5) NOT NULL AUTO_INCREMENT," .
@@ -66,7 +65,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}languages (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating languages Table","Failed","Passed");
+table_row ($db, "Creating languages Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}links (" .
              "link_id int unsigned NOT NULL auto_increment," .
@@ -78,7 +77,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}links (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating links Table","Failed","Passed");
+table_row ($db, "Creating links Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}planets (" .
              "planet_id int unsigned NOT NULL auto_increment," .
@@ -109,7 +108,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}planets (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating planets Table","Failed","Passed");
+table_row ($db, "Creating planets Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}traderoutes (" .
              "traderoute_id int unsigned NOT NULL auto_increment," .
@@ -125,7 +124,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}traderoutes (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating traderoutes Table","Failed","Passed");
+table_row ($db, "Creating traderoutes Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ships (" .
              "ship_id int unsigned NOT NULL auto_increment," .
@@ -192,7 +191,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ships (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating ships Table","Failed","Passed");
+table_row ($db, "Creating ships Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}universe (" .
              "sector_id int unsigned NOT NULL auto_increment," .
@@ -214,7 +213,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}universe (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating universe Table","Failed","Passed");
+table_row ($db, "Creating universe Table","Failed","Passed");
 
 $db->execute("CREATE TABLE IF NOT EXISTS {$db->prefix}zones (" .
              "zone_id int unsigned NOT NULL auto_increment," .
@@ -234,7 +233,7 @@ $db->execute("CREATE TABLE IF NOT EXISTS {$db->prefix}zones (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating zones Table","Failed","Passed");
+table_row ($db, "Creating zones Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ibank_accounts (" .
              "ship_id int DEFAULT '0' NOT NULL," .
@@ -245,7 +244,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ibank_accounts (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating ibank_accounts Table","Failed","Passed");
+table_row ($db, "Creating ibank_accounts Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}IGB_transfers (" .
              "transfer_id int NOT NULL auto_increment," .
@@ -258,7 +257,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}IGB_transfers (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating IGB_transfers Table","Failed","Passed");
+table_row ($db, "Creating IGB_transfers Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}teams (" .
              "id int DEFAULT '0' NOT NULL," .
@@ -272,7 +271,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}teams (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating teams Table","Failed","Passed");
+table_row ($db, "Creating teams Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}news (" .
              "news_id int(11) NOT NULL auto_increment," .
@@ -287,14 +286,14 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}news (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating news Table","Failed","Passed");
+table_row ($db, "Creating news Table","Failed","Passed");
 
 $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type) " .
              "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
 
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Inserting first news item","Failed","Inserted");
+table_row ($db, "Inserting first news item","Failed","Inserted");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}messages (" .
              "ID int NOT NULL auto_increment," .
@@ -308,7 +307,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}messages (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating messages Table","Failed","Passed");
+table_row ($db, "Creating messages Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}xenobe (" .
              "xenobe_id char(40) NOT NULL," .
@@ -320,7 +319,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}xenobe (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating xenobe Table","Failed","Passed");
+table_row ($db, "Creating xenobe Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sector_defence (" .
              "defence_id int unsigned NOT NULL auto_increment," .
@@ -335,7 +334,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sector_defence (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating sector_defence Table","Failed","Passed");
+table_row ($db, "Creating sector_defence Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}scheduler (" .
              "sched_id int unsigned NOT NULL auto_increment," .
@@ -351,7 +350,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}scheduler (" .
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 echo $db->ErrorMsg();
 
-Table_Row("Creating scheduler Table","Failed","Passed");
+table_row ($db, "Creating scheduler Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ip_bans (" .
              "ban_id int unsigned NOT NULL auto_increment," .
@@ -360,7 +359,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ip_bans (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating ip_bans Table","Failed","Passed");
+table_row ($db, "Creating ip_bans Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}logs (" .
              "log_id int unsigned NOT NULL auto_increment," .
@@ -373,7 +372,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}logs (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating logs Table","Failed","Passed");
+table_row ($db, "Creating logs Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}bounty (" .
              "bounty_id int unsigned NOT NULL auto_increment," .
@@ -386,7 +385,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}bounty (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating session Table","Failed","Passed");
+table_row ($db, "Creating session Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sessions (" .
              "SESSKEY varchar(32) DEFAULT '' NOT NULL," .
@@ -398,7 +397,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sessions (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating bounty Table","Failed","Passed");
+table_row ($db, "Creating bounty Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}movement_log (" .
              "event_id int unsigned NOT NULL auto_increment," .
@@ -421,8 +420,8 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}adodb_logsql (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-Table_Row("Creating adodb_logsql Table","Failed","Passed");
-Table_Footer("Hover over the failed row to see the error.");
+table_row ($db, "Creating adodb_logsql Table","Failed","Passed");
+table_footer("Hover over the failed row to see the error.");
 
 // Finished
 echo "<strong>Database schema creation completed successfully.</strong><BR>";

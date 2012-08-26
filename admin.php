@@ -18,6 +18,7 @@
 // File: admin.php
 
 include 'global_includes.php';
+include 'config/admin_pw.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
@@ -27,7 +28,7 @@ update_cookie ();
 $title = $langvars['l_admin_title'];
 include 'header.php';
 
-connect_datbase ();
+connect_database ();
 bigtitle ();
 
 function checked ($yesno)
@@ -40,16 +41,12 @@ if (isset($_POST['menu']))
     $module = $_POST['menu'];
 }
 
-if (isset($_POST['swordfish']))
+if (!isset($_POST['swordfish']))
 {
-    $swordfish = $_POST['swordfish'];
-}
-else
-{
-    $swordfish = '';
+    $_POST['swordfish'] = '';
 }
 
-if ($swordfish != $adminpass)
+if ($_POST['swordfish'] != ADMIN_PW)
 {
     echo "<form action='admin.php' method='post'>";
     echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'>&nbsp;&nbsp;";
@@ -73,7 +70,7 @@ else
         echo "<option value='ipedit'>IP bans editor</option>";
         echo "<option value='logview'>Log Viewer</option>";
         echo "</select>";
-        echo "<input type='hidden' name='swordfish' value='$swordfish'>";
+        echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
         echo "&nbsp;<input type='submit' value='Submit'>";
         echo "</form>";
     }
@@ -110,7 +107,7 @@ else
                     echo "<table border='0' cellspacing='0' cellpadding='5'>";
                     echo "<tr><td>Player name</td><td><input type='text' name='character_name' value=\"$row[character_name]\"></td></tr>";
                     echo "<tr><td>Password</td><td><input type='text' name='password2' value=\"$row[password]\"></td></tr>";
-                    echo "<tr><td>E-mail</td><td><input type='email' name='email' placeholder="admin@example.com" value=\"$row[email]\"></td></tr>";
+                    echo "<tr><td>E-mail</td><td><input type='email' name='email' placeholder='admin@example.com' value=\"$row[email]\"></td></tr>";
                     echo "<tr><td>ID</td><td>$user</td></tr>";
                     echo "<tr><td>Ship</td><td><input type='text' name='ship_name' value=\"$row[ship_name]\"></td></tr>";
                     echo "<tr><td>Destroyed?</td><td><input type='checkbox' name='ship_destroyed' value='ON' " . checked($row['ship_destroyed']) . "></td></tr>";
@@ -179,7 +176,7 @@ else
                 }
             }
             echo "<input type='hidden' name='menu' value='useredit'>";
-            echo "<input type='hidden' name='swordfish' value='$swordfish'>";
+            echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
             echo "</form>";
         }
         elseif ($module == "univedit")
@@ -192,7 +189,7 @@ else
             {
                 echo "<form action='admin.php' method='post'>";
                 echo "Universe Size: <input type='text' name='radius' value=\"$universe_size\">";
-                echo "<input type='hidden' name='swordfish' value='$swordfish'>";
+                echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
                 echo "<input type='hidden' name='menu' value='univedit'>";
                 echo "<input type='hidden' name='action' value='doexpand'> ";
                 echo "<input type='submit' value=\"Play God\">";
@@ -324,7 +321,7 @@ else
                 }
             }
             echo "<input type='hidden' name='menu' value='sectedit'>";
-            echo "<input type='hidden' name='swordfish' value='$swordfish'>";
+            echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
             echo "</form>";
         }
         elseif ($module == "planedit")
@@ -444,7 +441,7 @@ else
             }
 
             echo "<input type='hidden' name='menu' value='planedit'>";
-            echo "<input type='hidden' name='swordfish' value=$swordfish>";
+            echo "<input type='hidden' name='swordfish' value=" . $_POST['swordfish'] . ">";
             echo "</form>";
         }
         elseif ($module == "linkedit")
@@ -513,7 +510,7 @@ else
             }
 
             echo "<input type='hidden' name=menu value=zoneedit>";
-            echo "<input type='hidden' name=swordfish value=$swordfish>";
+            echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
             echo "</form>";
         }
         elseif ($module == "ipedit")
@@ -522,7 +519,7 @@ else
             if (empty($command))
             {
                 echo "<form action=admin.php method=post>";
-                echo "<input type='hidden' name=swordfish value=$swordfish>";
+                echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
                 echo "<input type='hidden' name=command value=showips>";
                 echo "<input type='hidden' name=menu value=ipedit>";
                 echo "<input type=submit value=\"Show player's ips\">";
@@ -609,7 +606,7 @@ else
 
                              echo "<td align=center nowrap valign=center><font size=2 color=white>" .
                                   "<form action=admin.php method=post>" .
-                                  "<input type='hidden' name=swordfish value=$swordfish>" .
+                                  "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                                   "<input type='hidden' name=command value=unbanip>" .
                                   "<input type='hidden' name=menu value=ipedit>" .
                                   "<input type='hidden' name=ban value=$ban>" .
@@ -682,14 +679,14 @@ else
 
                          echo "<td align=center nowrap valign=center><font size=2 color=white>" .
                               "<form action=admin.php method=post>" .
-                              "<input type='hidden' name=swordfish value=$swordfish>" .
+                              "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                               "<input type='hidden' name=command value=banip>" .
                               "<input type='hidden' name=menu value=ipedit>" .
                               "<input type='hidden' name=ip value=$ip>" .
                               "<input type=submit value=Ban>" .
                               "</form>" .
                               "<form action=admin.php method=post>" .
-                              "<input type='hidden' name=swordfish value=$swordfish>" .
+                              "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                               "<input type='hidden' name=command value=unbanip>" .
                               "<input type='hidden' name=menu value=ipedit>" .
                               "<input type='hidden' name=ip value=$ip>" .
@@ -699,7 +696,7 @@ else
 
                     echo "</table><p>" .
                          "<form action=admin.php method=post>" .
-                         "<input type='hidden' name=swordfish value=$swordfish>" .
+                         "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                          "<input type='hidden' name=menu value=ipedit>" .
                          "<input type=submit value=\"Return to IP bans menu\">" .
                          "</form>";
@@ -715,7 +712,7 @@ else
                     echo "<table border=0>" .
                          "<tr><td align=right>" .
                          "<form action=admin.php method=post>" .
-                         "<input type='hidden' name=swordfish value=$swordfish>" .
+                         "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                          "<input type='hidden' name=menu value=ipedit>" .
                          "<input type='hidden' name=command value=banip2>" .
                          "<input type='hidden' name=ip value=$ip>" .
@@ -732,7 +729,7 @@ else
                          "</form>";
 
                     echo "<form action=admin.php method=post>" .
-                         "<input type='hidden' name=swordfish value=$swordfish>" .
+                         "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                          "<input type='hidden' name=menu value=ipedit>" .
                          "<input type=submit value=\"Return to IP bans menu\">" .
                          "</form>";
@@ -770,7 +767,7 @@ else
                     }
 
                     echo "<form action=admin.php method=post>" .
-                         "<input type='hidden' name=swordfish value=$swordfish>" .
+                         "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                          "<input type='hidden' name=menu value=ipedit>" .
                          "<input type=submit value=\"Return to IP bans menu\">" .
                          "</form>";
@@ -844,7 +841,7 @@ else
                 }
 
                 echo "<form action=admin.php method=post>" .
-                     "<input type='hidden' name=swordfish value=$swordfish>" .
+                     "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                      "<input type='hidden' name=menu value=ipedit>" .
                      "<input type=submit value=\"Return to IP bans menu\">" .
                      "</form>";
@@ -853,12 +850,12 @@ else
         elseif ($module == "logview")
         {
             echo "<form action=log.php method=post>" .
-                 "<input type='hidden' name=swordfish value=$swordfish>" .
+                 "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                  "<input type='hidden' name=player value=0>" .
                  "<input type=submit value=\"View admin log\">" .
                  "</form>" .
                  "<form action=log.php method=post>" .
-                 "<input type='hidden' name=swordfish value=$swordfish>" .
+                 "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                  "<select name=player>";
 
             $res = $db->execute("SELECT ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name ASC;");
@@ -887,7 +884,7 @@ else
         {
             echo "<p>";
             echo "<form action=admin.php method=post>";
-            echo "<input type='hidden' name=swordfish value=$swordfish>";
+            echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
             echo "<input type=submit value=\"Return to main menu\">";
             echo "</form>";
         }

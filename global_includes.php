@@ -48,6 +48,9 @@ include_once 'includes/request_var.php';
 include_once 'includes/text_gotomain.php';
 include_once 'includes/update_cookie.php';
 
+// Include the phpass library for password storage using salted bcrypt
+require_once 'backends/phpass/PasswordHash.php';
+
 // Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
 // supported in the future, and cryptsessions, so the session data itself is encrypted.
 require_once $ADOdbpath . "/adodb.inc.php";

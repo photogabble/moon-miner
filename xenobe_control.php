@@ -18,6 +18,7 @@
 // File: xenobe_control.php
 
 include 'global_includes.php';
+include 'config/admin_pw.php';
 update_cookie ();
 
 // New database driven language entries
@@ -52,7 +53,7 @@ else
     $swordfish = '';
 }
 
-if ($swordfish != $adminpass)
+if ($swordfish != ADMIN_PW)
 {
   echo "<form action=xenobe_control.php method=post>";
   echo "password: <input type=password name=swordfish size=20 maxlength=20><br><br>";

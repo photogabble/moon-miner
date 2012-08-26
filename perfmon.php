@@ -18,6 +18,7 @@
 // File: perfmon.php
 
 include 'global_includes.php';
+include 'config/admin_pw.php';
 update_cookie();
 
 // New database driven language entries
@@ -33,7 +34,7 @@ if (array_key_exists('swordfish', $_POST))
     $swordfish = $_POST['swordfish'];
 }
 
-if ($swordfish != $adminpass && (array_key_exists('swordfish', $_SESSION) == false || $_SESSION['swordfish'] != $adminpass))
+if ($swordfish != ADMIN_PW && (array_key_exists('swordfish', $_SESSION) == false || $_SESSION['swordfish'] != ADMIN_PW))
 {
     echo "<form action='perfmon.php' method='post'>";
     echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><br><br>";
@@ -42,10 +43,11 @@ if ($swordfish != $adminpass && (array_key_exists('swordfish', $_SESSION) == fal
 }
 else
 {
-    if(array_key_exists('swordfish', $_SESSION) == false || $_SESSION['swordfish'] != $adminpass)
+    if (array_key_exists('swordfish', $_SESSION) == false || $_SESSION['swordfish'] != ADMIN_PW)
     {
-        $_SESSION['swordfish'] = $adminpass;
+        $_SESSION['swordfish'] = ADMIN_PW;
     }
+
     define('ADODB_PERF_NO_RUN_SQL',1);
     $perf =& NewPerfMonitor($db);
 

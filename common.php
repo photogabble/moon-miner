@@ -31,6 +31,21 @@ ob_start();
 $BenchmarkTimer = new c_timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
+global $ADODB_CRYPT_KEY;
+global $ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_DB;
+
+$ADODB_SESS_CONN = '';
+$ADODB_SESSION_TBL = $db_prefix . "sessions";
+
+// We explicitly use encrypted sessions, but this adds compression as well.
+ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
+
+// The data field name "data" violates SQL reserved words - switch it to SESSDATA
+ADODB_Session::dataFieldName('SESSDATA');
+
+global $db;
+connect_database ();
+
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists("dev"))
 {
@@ -47,29 +62,12 @@ else
 
 ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 
-global $ADODB_CRYPT_KEY;
-global $ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_DB;
-
-$ADODB_SESS_CONN = '';
-$ADODB_SESSION_TBL = $db_prefix . "sessions";
-
-// We explicitly use encrypted sessions, but this adds compression as well.
-ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
-
-// The data field name "data" violates SQL reserved words - switch it to SESSDATA
-ADODB_Session::dataFieldName('SESSDATA');
-
-global $db;
-connect_database ();
 $db->prefix = $db_prefix;
 
-if (property_exists($db->logging))
+if ($db->logging)
 {
-    if ($db->logging)
-    {
-        adodb_perf::table("{$db->prefix}adodb_logsql");
-        $db->LogSQL(); // Turn on adodb performance logging
-    }
+    adodb_perf::table("{$db->prefix}adodb_logsql");
+    $db->LogSQL(); // Turn on adodb performance logging
 }
 
 // Get the config_values from the DB
@@ -278,6 +276,4 @@ $template = new Template();
 // We set the name of the theme.
 $template->SetTheme("classic");
 // End of Template API.
-
-
 ?>

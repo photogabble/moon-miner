@@ -1,5 +1,6 @@
 TheKabal (25 August 2012)
 --------------------------------------
+Passwords are now salted & stored using bcrypt
 Split combat and IGB into seperate function files
 Cleaned up many CamelCaps and ALLCAPS function names
 

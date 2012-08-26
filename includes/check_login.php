@@ -26,14 +26,20 @@ function check_login ()
 {
     $flag = 0;
 
-    global $username, $password, $db;
+    global $username, $password, $db, $langvars;
 
     $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($username));
     db_op_result ($db, $result1, __LINE__, __FILE__);
     $playerinfo = $result1->fields;
 
+    // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
+    $hasher = new PasswordHash(8, false);
+
+    // Check the password against the stored hashed password
+    $password_match = $hasher->CheckPassword($password, $playerinfo['password']);
+
     // Check the cookie to see if username/password are empty - check password against database
-    if ($username == "" or $password == "" or $password != $playerinfo['password'])
+    if ($username == "" || $password == "" || !$password_match)
     {
         $title = $langvars['l_error'];
         include 'header.php';

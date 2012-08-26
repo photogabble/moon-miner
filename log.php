@@ -18,6 +18,7 @@
 // File: log.php
 
 include 'global_includes.php';
+include 'config/admin_pw.php';
 update_cookie ();
 
 // Hack for log bug issue - this really needs to be fixed
@@ -54,7 +55,7 @@ if (!isset($_REQUEST['swordfish']))
 
 $swordfish = $_REQUEST['swordfish'];
 
-if ($swordfish == $adminpass) // Check if called by admin script
+if ($swordfish == ADMIN_PW) // Check if called by admin script
 {
     $playerinfo['ship_id'] = $player;
     if ($player == 0)
@@ -310,7 +311,7 @@ if ($startdate == date ("Y-m-d"))
     $nonext = 1;
 }
 
-if ($swordfish == $adminpass) // Fix for admin log view
+if ($swordfish == ADMIN_PW) // Fix for admin log view
 {
     $postlink = "&swordfish=" . urlencode ($swordfish) . "&player=$player";
 }
@@ -359,7 +360,7 @@ else
     echo "&nbsp;&nbsp;&nbsp;";
 }
 
-if ($swordfish == $adminpass)
+if ($swordfish == ADMIN_PW)
 {
     echo "<tr><td><td>" .
          "<form action=admin.php method=post>" .
@@ -700,7 +701,7 @@ case LOG_BOUNTY_FEDBOUNTY:
     if (count(explode ("|", $entry['data'])) == 3)
     {
         list($ship_ip, $ship_email, $used_password)= explode ("|", $entry['data']);
-        $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with Password: '<span style='color:#ff0;'>{$used_password}</span>'";
+        $retvalue['text'] = "Someone using IP: <span style='color:#ff0;'>{$ship_ip}</span> tried to login into Account: '<span style='color:#ff0;'>{$ship_email}</span>' with a non-blank password.";
     }
     else
     {
@@ -719,7 +720,7 @@ case LOG_BOUNTY_FEDBOUNTY:
   return $retvalue;
 }
 
-function get_log_info ($id = null, &$title = null, &$text = null, $log_list)
+function get_log_info ($id = null, &$title = null, &$text = null)
 {
     global $log_list;
     $title = null;

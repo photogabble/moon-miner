@@ -22,8 +22,12 @@
 
 $index_page = true;
 include 'global_includes.php';
+include 'config/admin_pw.php';
 
 // HTML Table Functions
+
+global $db;
+connect_database (); // This must occur before the functions below
 
 if (!function_exists('print_flush'))
 {
@@ -38,7 +42,7 @@ if (!function_exists('true_or_false'))
 {
     function true_or_false ($true_or_false, $stat, $true, $false)
     {
-        return(($true_or_false == $Stat) ? $true : $false);
+        return (($true_or_false == $stat) ? $true : $false);
     }
 }
 
@@ -131,8 +135,6 @@ update_cookie();
 $title = 'Create universe';
 include 'header.php';
 
-connect_database ();
-
 bigtitle ();
 
 // Manually set step var if info isn't correct.
@@ -147,18 +149,17 @@ if (!isset($engage))
     $engage = '';
 }
 
-
-if ($adminpass!= $_POST['swordfish'])
+if (ADMIN_PW!= $_POST['swordfish'])
 {
     $step="0";
 }
 
-if ($engage == "" && $adminpass == $_POST['swordfish'] )
+if ($engage == "" && ADMIN_PW == $_POST['swordfish'] )
 {
     $step="1";
 }
 
-if ($engage == "1" && $adminpass == $_POST['swordfish'] )
+if ($engage == "1" && ADMIN_PW == $_POST['swordfish'] )
 {
     $step="2";
 }
@@ -952,10 +953,17 @@ table_footer ("Completed successfully.");
       table_row ($db, "Inserting Admins ibank Information","Failed","Inserted");
 
       $stamp = date("Y-m-d H:i:s");
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$adminpass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
+
+      // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
+      $hasher = new PasswordHash(8, false);
+
+      // Hash the password.  $hashedPassword will be a 60-character string.
+      $hashed_pass = $hasher->HashPassword(ADMIN_PW);
+
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
 
-      table_1col ("Admins login Information:<br>Username: '$admin_mail'<br>Password: '$adminpass'");
+      table_1col ("Admins login Information:<br>Username: " . $admin_mail . "<br>Password: " . ADMIN_PW);
       table_row ($db, "Inserting Admins Ship Information","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'Game Admin\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");

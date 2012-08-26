@@ -65,6 +65,8 @@
 ******************************************************************/
 
 include 'global_includes.php';
+include 'config/admin_pw.php';
+
 global $l_sys_update;
 $title = $l_sys_update;
 
@@ -80,8 +82,6 @@ bigtitle ();
 
 require_once 'sched_funcs.php';
 
-#echo "<pre>[REQUEST]\n". print_r($_REQUEST, true) ."</pre>\n";
-
 if (isset($_REQUEST['swordfish']))
 {
     $swordfish = $_REQUEST['swordfish'];
@@ -91,7 +91,7 @@ else
     $swordfish = '';
 }
 
-if ($swordfish != $adminpass)
+if ($swordfish != ADMIN_PW)
 {
     echo "<form action='scheduler.php' method='post'>";
     echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'><br><br>";

@@ -22,12 +22,9 @@ include 'global_includes.php';
 // Test to see if server is closed to logins
 $playerfound = false;
 
-$email = $_POST['email'];
-$pass = $_POST['pass'];
-
 if ($_POST['email'] != null)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$email'");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$_POST[email]'");
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
@@ -53,7 +50,7 @@ else
 load_languages($db, $lang, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 // first placement of cookie - don't use update_cookie.
-$userpass = $email."+".$pass;
+$userpass = $_POST['email']."+".$_POST['pass'];
 setcookie("userpass", $userpass, time() + (3600*24)*365, $gamepath, $gamedomain);
 
 if ($server_closed)
@@ -89,7 +86,10 @@ bigtitle ();
 
 if ($playerfound)
 {
-    if ($playerinfo['password'] == $pass)
+    // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
+    $hasher = new PasswordHash(8, false);
+
+    if ($hasher->CheckPassword($_POST['pass'], $playerinfo['password']))
     {
         if ($playerinfo['ship_destroyed'] == "N")
         {
@@ -148,9 +148,9 @@ if ($playerfound)
     else
     {
         // password is incorrect
-        echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . " <a href='mail.php?mail=" . $email . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='index.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
+        echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='index.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
         playerlog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
-        adminlog($db, (1000 + LOG_BADLOGIN), "{$ip}|{$email}|{$pass}");
+        adminlog($db, (1000 + LOG_BADLOGIN), "{$ip}|{$_POST['email']}|{$_POST['pass']}");
     }
 }
 else

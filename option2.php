@@ -26,9 +26,19 @@ if (check_login ())
 global $l_opt2_title;
 $title = $l_opt2_title;
 
-if ($newpass1 == $newpass2 && $password == $oldpass && $newpass1 != "")
+// Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
+$hasher = new PasswordHash(8, false);
+
+// Check the password against the stored hashed password
+$password_match = $hasher->CheckPassword($_POST['oldpass'], $playerinfo['password']);
+
+if ($newpass1 == $newpass2 && $password_match && $newpass1 != "")
 {
-    $userpass = $username."+".$newpass1;
+    // Hash the password.  $hashedPassword will be a 60-character string.
+    $hashed_pass = $hasher->HashPassword($newpass1);
+
+    $userpass = $username."+".$hashed_pass;
+//    $userpass = $username."+".$newpass1;
     setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
 }
 
@@ -51,7 +61,7 @@ if ($newpass1 == "" && $newpass2 == "")
 {
     echo $l_opt2_passunchanged . "<br><br>";
 }
-elseif ($password != $oldpass)
+elseif (!$password_match)
 {
     echo $l_opt2_srcpassfalse . "<br><br>";
 }
@@ -64,22 +74,15 @@ else
     $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE email='$username'");
     db_op_result ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
-    if ($oldpass != $playerinfo['password'])
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET password='$hashed_pass' WHERE ship_id=$playerinfo[ship_id]");
+    db_op_result ($db, $res, __LINE__, __FILE__);
+    if ($res)
     {
-        echo $l_opt2_srcpassfalse;
+        echo $l_opt2_passchanged . "<br><br>";
     }
     else
     {
-        $res = $db->Execute("UPDATE {$db->prefix}ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
-        db_op_result ($db, $res, __LINE__, __FILE__);
-        if ($res)
-        {
-            echo $l_opt2_passchanged . "<br><br>";
-        }
-        else
-        {
-            echo $l_opt2_passchangeerr . "<br><br>";
-        }
+        echo $l_opt2_passchangeerr . "<br><br>";
     }
 }
 
