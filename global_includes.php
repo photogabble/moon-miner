@@ -47,7 +47,6 @@ include_once 'includes/player_insignia_name.php';
 include_once 'includes/playerlog.php';
 include_once 'includes/players_online.php';
 include_once 'includes/request_var.php';
-include_once 'includes/scan_error.php';
 include_once 'includes/scan_success.php';
 include_once 'includes/text_gotomain.php';
 include_once 'includes/t_port.php';

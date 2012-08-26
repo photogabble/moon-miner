@@ -15,26 +15,26 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/getPlanetOwnerInformation.php
+// File: includes/get_planet_owner.php
 
-if (preg_match("/getPlanetOwnerInformation.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/get_planet_owner.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function get_planet_owner_information ($db = null, $planetID = null, &$ownerInfo = null)
+function get_planet_owner ($db = null, $planet_id = null, &$owner_info = null)
 {
-    $ownerInfo = null;
-    if(!is_null($planetID) && is_numeric($planetID) && $planetID >0)
+    $owner_info = null;
+    if(!is_null($planet_id) && is_numeric($planet_id) && $planet_id >0)
     {
         $sql  = "SELECT ship_id, character_name, team FROM {$db->prefix}planets ";
         $sql .= "LEFT JOIN {$db->prefix}ships ON {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ";
         $sql .= "WHERE {$db->prefix}planets.planet_id=?;";
-        $res = $db->Execute($sql, array($planetID));
+        $res = $db->Execute($sql, array($planet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res->RecordCount() > 0 )
         {
-            $ownerInfo = (array) $res->fields;
+            $owner_info = (array) $res->fields;
 
             return true;
         }

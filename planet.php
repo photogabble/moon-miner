@@ -18,6 +18,7 @@
 // File: planet.php
 
 include 'global_includes.php';
+include 'includes/scan_error.php';
 include 'includes/calc_ownership.php';
 update_cookie ();
 
@@ -301,7 +302,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
 
             $retOwnerInfo = NULL;
 
-            $owner_found = get_planet_owner_information ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -555,7 +556,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             }
 
             $retOwnerInfo = NULL;
-            $owner_found = get_planet_owner_information ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -591,7 +592,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             unset ($_SESSION['planet_selected']);
 
             $retOwnerInfo = NULL;
-            $owner_found = get_planet_owner_information ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -679,7 +680,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             {
                 playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
-                $sc_error = SCAN_ERROR ($playerinfo['sensors'], $ownerinfo['cloak']);
+                $sc_error = scan_error ($playerinfo['sensors'], $ownerinfo['cloak']);
                 if (empty ($planetinfo['name']))
                 {
                     $planetinfo['name'] = $l_unnamed;
