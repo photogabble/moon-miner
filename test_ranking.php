@@ -17,7 +17,7 @@ $variables['color_line1'] = $color_line1;
 $variables['color_line2'] = $color_line2;
 
 // Load required language variables for the ranking page.
-load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $language_vars, $db_logging);
+load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $language_vars);
 
 // Modify the requires language variables here.
 $language_vars['l_ranks_title'] = str_replace("[max_ranks]", $max_ranks, $language_vars['l_ranks_title']);
@@ -66,7 +66,7 @@ switch($sort)
 $variables['num_players'] = (integer) 0;
 
 $rs = $db->Execute("SELECT {$db->prefix}ships.email,{$db->prefix}ships.score,{$db->prefix}ships.character_name,{$db->prefix}ships.turns_used,{$db->prefix}ships.last_login,UNIX_TIMESTAMP({$db->prefix}ships.last_login) as online,{$db->prefix}ships.rating, {$db->prefix}teams.team_name, if ({$db->prefix}ships.turns_used<150,0,ROUND({$db->prefix}ships.score/{$db->prefix}ships.turns_used)) AS efficiency FROM {$db->prefix}ships LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0 ORDER BY $by LIMIT $max_ranks");
-db_op_result ($db, $rs, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $rs, __LINE__, __FILE__);
 if ($rs instanceof ADORecordSet)
 {
     $variables['num_players'] = (integer) $rs->RecordCount();
@@ -153,7 +153,7 @@ $template->AddVariables("language_vars", $language_vars);
 $language_vars = null;
 
 // Load required language variables for the bottom of the ranking page (i.e. footer).
-load_languages($db, $lang, array('global_includes', 'footer'), $language_vars, $db_logging);
+load_languages($db, $lang, array('global_includes', 'footer'), $language_vars);
 
 // Needs to be put into the language table.
 $language_vars['l_running_update'] = "Running Update";

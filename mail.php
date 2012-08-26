@@ -20,14 +20,14 @@
 include 'global_includes.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_mail_title;
 include 'header.php';
 bigtitle();
 
 $result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array($mail));
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF)
 {

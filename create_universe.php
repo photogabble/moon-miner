@@ -371,7 +371,7 @@ echo"</table>";
    case "4":
 
       // New database driven language entries
-      load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+      load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
       table_header ("Setting up Sectors --- STAGE 4");
 
       $initsore = $ore_limit * $initscommod / 100.0;
@@ -709,7 +709,7 @@ echo"</table>";
    case "5":
 
       // New database driven language entries
-      load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+      load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
         $p_add=0;$p_skip=0;$i=0;
 
 table_header ("Setting up Universe Sectors --- Stage 5");
@@ -882,7 +882,7 @@ table_footer ("Completed successfully.");
    case "7":
 
       // New database driven language entries
-      load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+      load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
       table_header ("Configuring game scheduler --- Stage 7");
 
       table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");

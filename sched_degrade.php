@@ -25,20 +25,20 @@ if (preg_match("/sched_degrade.php/i", $_SERVER['PHP_SELF']))
 
 echo "<strong>Degrading Sector Fighters with no friendly base</strong><br><br>";
 $res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE defence_type = 'F'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 
 while (!$res->EOF)
 {
     $row = $res->fields;
     $res3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($row['ship_id']));
-    db_op_result ($db, $res3, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res3, __LINE__, __FILE__);
     $sched_playerinfo = $res3->fields;
     $res2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE (owner = ? OR (corp = ? AND ? <> 0)) AND sector_id = ? AND energy > 0", array($row['ship_id'], $sched_playerinfo['team'], $sched_playerinfo['team'], $row['sector_id']));
-    db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res2, __LINE__, __FILE__);
     if ($res2->EOF)
     {
         $resa = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity - GREATEST(ROUND(quantity * ?),1) WHERE defence_id = ? AND quantity > 0", array($defence_degrade_rate, $row['defence_id']));
-        db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resa, __LINE__, __FILE__);
         $degrade_rate = $defence_degrade_rate * 100;
         playerlog ($db, $row['ship_id'], LOG_DEFENCE_DEGRADE, $row['sector_id'] ."|". $degrade_rate);
     }
@@ -46,7 +46,7 @@ while (!$res->EOF)
     {
         $energy_required = ROUND($row['quantity'] * $energy_per_fighter);
         $res4 = $db->Execute ("SELECT IFNULL(SUM(energy),0) AS energy_available FROM {$db->prefix}planets WHERE (owner = ? OR (corp = ? AND ? <> 0)) AND sector_id = ?", array($row['ship_id'], $sched_playerinfo['team'], $sched_playerinfo['team'], $row['sector_id']));
-        db_op_result ($db, $res4, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res4, __LINE__, __FILE__);
         $planet_energy = $res4->fields;
         $energy_available = $planet_energy['energy_available'];
         echo "available $energy_available, required $energy_required.";
@@ -56,14 +56,14 @@ while (!$res->EOF)
             {
                 $degrade_row = $res2->fields;
                 $resb = $db->Execute ("UPDATE {$db->prefix}planets SET energy = energy - GREATEST(ROUND(? * (energy / ?)),1)  WHERE planet_id = ?", array($energy_required, $energy_available, $degrade_row['planet_id']));
-                db_op_result ($db, $resb, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $resb, __LINE__, __FILE__);
                 $res2->MoveNext();
             }
         }
         else
         {
             $resc = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity - GREATEST(ROUND(quantity * ?),1) WHERE defence_id = ?;", array($defence_degrade_rate, $row['defence_id']));
-            db_op_result ($db, $resc, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $resc, __LINE__, __FILE__);
             $degrade_rate = $defence_degrade_rate * 100;
             playerlog ($db, $row['ship_id'], LOG_DEFENCE_DEGRADE, $row['sector_id'] ."|". $degrade_rate);
         }
@@ -71,5 +71,5 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 $resx = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
-db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $resx, __LINE__, __FILE__);
 ?>

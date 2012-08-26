@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 include_once 'includes/cancel_bounty.php';
 
@@ -36,7 +36,7 @@ if (check_login ())
 bigtitle();
 
 $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (isset($_GET['sure']))

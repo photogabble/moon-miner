@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_teamplanet_title;
 include 'header.php';
@@ -32,7 +32,7 @@ if (check_login ())
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
@@ -70,7 +70,7 @@ if (!empty($sort))
 }
 
 $res = $db->Execute($query);
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 bigtitle();
 
 echo "<br>";
@@ -149,7 +149,7 @@ else
 
         $owner = $planet[$i]['owner'];
         $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";

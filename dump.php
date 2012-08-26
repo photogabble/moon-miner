@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('dump', 'main', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('dump', 'main', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_dump_title;
 include 'header.php';

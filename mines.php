@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_mines_title;
 include 'header.php';
@@ -42,15 +42,15 @@ elseif(array_key_exists('op', $_POST) == true)
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=$playerinfo[sector] ");
-db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result3, __LINE__, __FILE__);
 
 // Put the defence information into the array "defenceinfo"
 $i = 0;
@@ -118,7 +118,7 @@ if ($playerinfo['turns'] < 1 )
 }
 
 $res = $db->Execute("SELECT allow_defenses,{$db->prefix}universe.zone_id,owner FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=$playerinfo[sector] AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_defenses'] == 'N')
@@ -133,7 +133,7 @@ else
         {
             $defence_owner = $defences[0]['ship_id'];
             $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$defence_owner");
-            db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $result2, __LINE__, __FILE__);
             $fighters_owner = $result2->fields;
 
             if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
@@ -149,7 +149,7 @@ else
     {
         $zone_owner = $zoneinfo['owner'];
         $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$zone_owner");
-        db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result2, __LINE__, __FILE__);
         $zoneowner_info = $result2->fields;
 
         if ($zone_owner != $playerinfo['ship_id'])
@@ -222,12 +222,12 @@ else
             if ($fighter_id != 0)
             {
                 $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity + $numfighters,fm_setting = '$mode' WHERE defence_id = $fighter_id");
-                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $update, __LINE__, __FILE__);
             }
             else
             {
                 $update = $db->Execute("INSERT INTO {$db->prefix}sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'F',$numfighters,'$mode')");
-                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $update, __LINE__, __FILE__);
                 echo $db->ErrorMsg();
             }
         }
@@ -237,17 +237,17 @@ else
             if ($mine_id != 0)
             {
                 $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity + $nummines,fm_setting = '$mode' WHERE defence_id = $mine_id");
-                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $update, __LINE__, __FILE__);
             }
             else
             {
                 $update = $db->Execute("INSERT INTO {$db->prefix}sector_defence (ship_id,sector_id,defence_type,quantity,fm_setting) values ($playerinfo[ship_id],$playerinfo[sector],'M',$nummines,'$mode')");
-                db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $update, __LINE__, __FILE__);
             }
         }
 
         $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1,turns_used=turns_used+1,ship_fighters=ship_fighters-$numfighters,torps=torps-$nummines WHERE ship_id=$playerinfo[ship_id]");
-        db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $update, __LINE__, __FILE__);
     }
 }
 

@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_pre_title;
 include 'header.php';
@@ -32,7 +32,7 @@ if (check_login ())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 bigtitle();
@@ -73,7 +73,7 @@ else
     else
     {
         $update = $db->Execute("UPDATE {$db->prefix}ships SET preset1=$preset1,preset2=$preset2,preset3=$preset3 WHERE ship_id=$playerinfo[ship_id]");
-        db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $update, __LINE__, __FILE__);
         $l_pre_set = str_replace("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $l_pre_set);
         $l_pre_set = str_replace("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $l_pre_set);
         $l_pre_set = str_replace("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset3>$preset3</a>", $l_pre_set);

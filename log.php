@@ -31,7 +31,7 @@ $log_list = array(null,
                 );
 
 // New database driven language entries
-load_languages($db, $lang, array('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_log_titlet;
 $body_class = 'log';
@@ -44,7 +44,7 @@ if (check_login ())
 include 'header.php';
 
 $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset($_REQUEST['swordfish']))
@@ -64,7 +64,7 @@ if ($swordfish == $adminpass) // Check if called by admin script
     else
     {
         $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$player");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $targetname = $res->fields;
         $playerinfo['character_name'] = $targetname['character_name'];
     }
@@ -114,7 +114,7 @@ if (empty($startdate))
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $logs[] = $res->fields;
@@ -185,7 +185,7 @@ if ($mode != 'compat')
 
     unset ($logs);
     $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;
@@ -230,7 +230,7 @@ if ($mode != 'compat')
 
     unset ($logs);
     $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;

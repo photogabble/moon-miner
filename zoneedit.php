@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ze_title;
 include 'header.php';
@@ -88,7 +88,7 @@ if (array_key_exists('trades', $_POST) == true)
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
     zoneedit_die($l_zi_nexist);
@@ -98,13 +98,13 @@ $curzone = $res->fields;
 if ($curzone['corp_zone'] == 'N')
 {
     $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
-    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 else
 {
     $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator=$curzone[owner]");
-    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 

@@ -36,13 +36,13 @@ if (file_exists("dev"))
 {
     ini_set('error_reporting', E_ALL); // During development, output all errors, even notices
     ini_set('display_errors', '1'); // During development, *display* all errors
-    $db_logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+    $db->logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 else
 {
     ini_set('error_reporting', 0); // No errors
     ini_set('display_errors', '0'); // Don't show them
-    $db_logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+    $db->logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 
 ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
@@ -62,9 +62,8 @@ ADODB_Session::dataFieldName('SESSDATA');
 global $db;
 connect_database ();
 $db->prefix = $db_prefix;
-$db->logging = $db_logging;
 
-if ($db_logging)
+if ($db->logging)
 {
     adodb_perf::table("{$db->prefix}adodb_logsql");
     $db->LogSQL(); // Turn on adodb performance logging

@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars, $db_logging);
+load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_feedback_title;
 include 'header.php';
@@ -33,7 +33,7 @@ if (check_login ())
 bigtitle ();
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (array_key_exists('content', $_POST) === false)

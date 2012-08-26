@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_rs_title;
 include 'header.php';
@@ -32,7 +32,7 @@ if (check_login ())
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 bigtitle();
@@ -43,10 +43,10 @@ if (isset($destination))
 {
     $destination = round(abs($destination));
     $result2 = $db->Execute("SELECT angle1,angle2,distance FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
-    db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result2, __LINE__, __FILE__);
     $start = $result2->fields;
     $result3 = $db->Execute("SELECT angle1,angle2,distance FROM {$db->prefix}universe WHERE sector_id=$destination");
-    db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result3, __LINE__, __FILE__);
     $finish = $result3->fields;
     $sa1 = $start['angle1'] * $deg;
     $sa2 = $start['angle2'] * $deg;
@@ -157,7 +157,7 @@ elseif ($destination < $sector_max && $engage > 0)
         echo "$l_rs_movetime<br><br>";
         echo "$l_rs_noturns<br><br>";
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
-        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resx, __LINE__, __FILE__);
     }
     else
     {
@@ -169,7 +169,7 @@ elseif ($destination < $sector_max && $engage > 0)
         {
             $stamp = date("Y-m-d H-i-s");
             $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
-            db_op_result ($db, $update, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $update, __LINE__, __FILE__);
             log_move ($db, $playerinfo['ship_id'], $destination);
             $l_rs_ready = str_replace("[sector]", $destination, $l_rs_ready);
             $l_rs_ready = str_replace("[triptime]", NUMBER($triptime), $l_rs_ready);
@@ -183,7 +183,7 @@ else
 {
     echo $l_rs_invalid . ".<br><br>";
     $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 
 TEXT_GOTOMAIN();

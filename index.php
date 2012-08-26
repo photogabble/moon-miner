@@ -42,7 +42,7 @@ if (!$result)
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('main', 'login', 'logout', 'index'), $langvars, $db_logging);
+load_languages($db, $lang, array('main', 'login', 'logout', 'index'), $langvars);
 
 $title = $l_welcome_bnt;
 $body_class = 'index';

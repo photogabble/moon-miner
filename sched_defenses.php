@@ -30,6 +30,6 @@ if (!isset($swordfish) || $swordfish != $adminpass)
 }
 
 $res = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $multiplier = 0; // No need to run this again
 ?>

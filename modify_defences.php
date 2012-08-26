@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie();
 
 // New database driven language entries
-load_languages($db, $lang, array('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include_once 'includes/explode_mines.php';
 
@@ -48,11 +48,11 @@ if (array_key_exists('response', $_REQUEST) == true)
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['turns'] < 1)
@@ -64,7 +64,7 @@ if ($playerinfo['turns'] < 1)
 }
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defence_id=$defence_id ");
-db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result3, __LINE__, __FILE__);
 // Put the defence information into the array "defenceinfo"
 
 if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.

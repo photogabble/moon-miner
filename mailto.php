@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_mt_title;
 include 'header.php';
@@ -32,7 +32,7 @@ if (check_login ())
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 bigtitle ();
@@ -40,7 +40,7 @@ bigtitle ();
 if (empty($content))
 {
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND turns_used > 0 ORDER BY character_name ASC");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     echo "<form action=mailto2.php method=post>";
     echo "<table>";
     echo "<tr><td>To:</td><td><select name=to style='width:200px;'>";
@@ -72,7 +72,7 @@ else
     $subject = htmlspecialchars ($subject);
 
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE character_name='$to'");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $target_info = $res->fields;
     $db->Execute("INSERT INTO messages (sender_id, recp_id, subject, message) VALUES ('".$playerinfo[ship_id]."', '".$target_info[ship_id]."', '".$subject."', '".$content."')");
     // Using this three lines to get recipients ship_id and sending the message -- blindcoder

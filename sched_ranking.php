@@ -25,7 +25,7 @@ if (preg_match("/sched_ranking.php/i", $_SERVER['PHP_SELF']))
 
 echo "<strong>Ranking</strong><br><br>";
 $res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE ship_destroyed='N'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     gen_score($res->fields['ship_id']);

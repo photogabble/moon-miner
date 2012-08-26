@@ -22,7 +22,7 @@ include_once 'includes/ibank_error.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ibank_title;
 $body_class = 'igb';
@@ -34,11 +34,11 @@ if (check_login ())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id=$playerinfo[ship_id]");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
 ?>

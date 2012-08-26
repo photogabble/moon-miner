@@ -36,7 +36,7 @@ include_once 'includes/xenobe_trade.php';
 include_once 'includes/xenobe_to_planet.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 global $targetlink;
 global $xenobeisdead;
@@ -46,10 +46,10 @@ $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $
 
 // Lock the tables
 $resa = $db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE;");
-db_op_result ($db, $resa, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $resa, __LINE__, __FILE__);
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id;");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $xenobeisdead = 0;
@@ -69,7 +69,7 @@ while (!$res->EOF)
 
         $SQL = "SELECT * FROM {$db->prefix}ships WHERE sector=$playerinfo[sector] AND email!='$playerinfo[email]' AND email NOT LIKE '%@xenobe' AND planet_id=0 AND ship_id > 1";
         $reso0 = $db->Execute($SQL);
-        db_op_result ($db, $res0, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res0, __LINE__, __FILE__);
         if (!$reso0->EOF)
         {
           $rowo0 = $reso0->fields;
@@ -116,7 +116,7 @@ while (!$res->EOF)
         }
         // Find a target in my sector, not myself
         $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
-        db_op_result ($db, $reso1, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $reso1, __LINE__, __FILE__);
         if (!$reso1->EOF)
         {
           $rowo1= $reso1->fields;
@@ -170,7 +170,7 @@ while (!$res->EOF)
         // FIND A TARGET
         // IN MY SECTOR, NOT MYSELF
         $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
-        db_op_result ($db, $reso2, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $reso2, __LINE__, __FILE__);
         if (!$reso2->EOF)
         {
           $rowo2=$reso2->fields;
@@ -235,7 +235,7 @@ while (!$res->EOF)
           // FIND A TARGET
           // IN MY SECTOR, NOT MYSELF
           $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and ship_id > 1");
-          db_op_result ($db, $reso3, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $reso3, __LINE__, __FILE__);
           if (!$reso3->EOF)
           {
             $rowo3=$reso3->fields;
@@ -292,5 +292,5 @@ while (!$res->EOF)
 
 // Unlock the tables.
 $result = $db->Execute("UNLOCK TABLES;");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 ?>

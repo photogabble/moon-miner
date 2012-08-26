@@ -42,7 +42,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 include 'header.php';
 bigtitle ();
@@ -62,7 +62,7 @@ elseif ($newpass1 != $newpass2)
 else
 {
     $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE email='$username'");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
     if ($oldpass != $playerinfo['password'])
     {
@@ -71,7 +71,7 @@ else
     else
     {
         $res = $db->Execute("UPDATE {$db->prefix}ships SET password='$newpass1' WHERE ship_id=$playerinfo[ship_id]");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
             echo $l_opt2_passchanged . "<br><br>";
@@ -84,7 +84,7 @@ else
 }
 
 $res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 foreach ($avail_lang as $curlang)
 {
     if ($lang == $curlang['file'])

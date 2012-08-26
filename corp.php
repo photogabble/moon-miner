@@ -22,7 +22,7 @@ include 'calc_ownership.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('corp', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('corp', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_corpm_title;
 include 'header.php';
@@ -33,13 +33,13 @@ if (check_login ())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $planet_id = preg_replace('/[^0-9]/', '', $planet_id);
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id");
-db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result2, __LINE__, __FILE__);
 if ($result2)
 {
     $planetinfo = $result2->fields;
@@ -52,7 +52,7 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
     {
         echo $l_corpm_tocorp . "<br>";
         $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='$playerinfo[team]', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
-        db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result, __LINE__, __FILE__);
         $ownership = calc_ownership ($playerinfo['sector']);
         if (!empty ($ownership))
         {
@@ -64,12 +64,12 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
     {
         echo $l_corpm_topersonal . "<br>";
         $result = $db->Execute("UPDATE {$db->prefix}planets SET corp='0', owner=$playerinfo[ship_id] WHERE planet_id=$planet_id");
-        db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result, __LINE__, __FILE__);
         $ownership = calc_ownership ($playerinfo['sector']);
 
         // Kick other players off the planet
         $result = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE on_planet='Y' AND planet_id = $planet_id AND ship_id <> $playerinfo[ship_id]");
-        db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result, __LINE__, __FILE__);
         if (!empty($ownership))
         {
             echo "<p>" . $ownership . "<p>";

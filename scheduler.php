@@ -71,7 +71,7 @@ $title = $l_sys_update;
 //global $default_lang;
 
 // New database driven language entries
-load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include 'header.php';
 connect_database ();
@@ -105,7 +105,7 @@ else
     $schedCount = 0;
     $lastrunList = null;
     $sched_res = $db->Execute("SELECT * FROM {$db->prefix}scheduler");
-    db_op_result ($db, $sched_res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $sched_res, __LINE__, __FILE__);
     if ($sched_res)
     {
         while (!$sched_res->EOF)
@@ -131,18 +131,18 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
                 if ($event[spawn] - $multiplier == 0)
                 {
                     $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id=$event[sched_id]");
-                    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+                    db_op_result ($db, $resx, __LINE__, __FILE__);
                 }
                 else
                 {
                     $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
-                    db_op_result ($db, $resy, __LINE__, __FILE__, $db_logging);
+                    db_op_result ($db, $resy, __LINE__, __FILE__);
                 }
             }
             else
             {
                 $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
-                db_op_result ($db, $resz, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $resz, __LINE__, __FILE__);
             }
 
             $sched_var_id = $event['sched_id'];
@@ -171,7 +171,7 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
     $res = $db->Execute("UPDATE {$db->prefix}scheduler SET last_run=". TIME());
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
 }
 
 TEXT_GOTOMAIN ();

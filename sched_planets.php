@@ -26,12 +26,12 @@ if (preg_match("/sched_planets.php/i", $_SERVER['PHP_SELF']))
 echo "<strong>PLANETS</strong><p>";
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner >0;");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 // Using Planet Update Code from BNT version 0.36 due to code bugs.
 // We are now using transactions to off load the SQL stuff in full to the Database Server.
 
 $result = $db->Execute("START TRANSACTION;");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $row = $res->fields;
@@ -80,17 +80,17 @@ while (!$res->EOF)
     $credits_production = floor($production * $credits_prate * (100.0 - $total_percent) / 100.0);
     $SQL = "UPDATE {$db->prefix}planets SET organics = organics + $organics_production, ore = ore + $ore_production, goods = goods + $goods_production, energy = energy + $energy_production, colonists = colonists + $reproduction-$starvation, torps = torps + $torp_production, fighters = fighters + $fighter_production, credits = credits * $interest_rate + $credits_production WHERE planet_id=$row[planet_id] LIMIT 1; ";
     $ret = $db->Execute($SQL);
-    db_op_result ($db, $ret, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $ret, __LINE__, __FILE__);
     $res->MoveNext();
 }
 
 $ret = $db->Execute("COMMIT;");
-db_op_result ($db, $ret, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $ret, __LINE__, __FILE__);
 global $sched_planet_valid_credits;
 if ($sched_planet_valid_credits == true)
 {
     $ret = $db->Execute("UPDATE {$db->prefix}planets SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
-    db_op_result ($db, $ret, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $ret, __LINE__, __FILE__);
 }
 
 echo "Planets updated.<br><br>";

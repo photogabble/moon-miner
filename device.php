@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'), $langvars, $db_logging);
+load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'), $langvars);
 
 $title = $l_device_title;
 $body_class = 'device';

@@ -32,7 +32,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_new_title2;
 include 'header.php';
@@ -86,7 +86,7 @@ if (!get_magic_quotes_gpc())
 }
 
 $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email='$username' OR character_name='$character' OR ship_name='$shipname'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $flag = 0;
 
 if ($username == '' || $character == '' || $shipname == '' )
@@ -137,7 +137,7 @@ if ($flag == 0)
     }
     $stamp=date("Y-m-d H:i:s");
     $query = $db->Execute("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships");
-    db_op_result ($db, $query, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $query, __LINE__, __FILE__);
     $res = $query->fields;
 
     $mturns = $res['mturns'];
@@ -149,7 +149,7 @@ if ($flag == 0)
 
     $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
                              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", array ($shipname, 'N', $character, $makepass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $start_escape_pod, $start_scoop, $start_minedeflectors, $stamp, $ip, 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
-    db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result2, __LINE__, __FILE__);
 
     if (!$result2)
     {
@@ -158,7 +158,7 @@ if ($flag == 0)
     else
     {
         $result2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
-        db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result2, __LINE__, __FILE__);
 
         $shipid = $result2->fields;
 
@@ -177,10 +177,10 @@ if ($flag == 0)
 
         log_move ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $resx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'$character\'s Territory', $shipid[ship_id], 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
-        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resx, __LINE__, __FILE__);
 
         $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
-        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resx, __LINE__, __FILE__);
 
         if ($display_password)
         {

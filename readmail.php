@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_readm_title;
 include 'header.php';
@@ -34,7 +34,7 @@ if (check_login ())
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset($_GET['action']))
@@ -45,19 +45,19 @@ if (!isset($_GET['action']))
 if ($_GET['action']=="delete")
 {
     $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id=?;", array($ID, $playerinfo['ship_id']));
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 else if ($_GET['action']=="delete_all")
 {
     $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id=?;", array($playerinfo['ship_id']));
-    db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 
 $cur_D = date("Y-m-d");
 $cur_T = date("H:i:s");
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id=? ORDER BY sent DESC;", array($playerinfo['ship_id']));
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
@@ -108,7 +108,7 @@ db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
    $msg['message'] = stripslashes($msg['message']);
 
    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($msg['sender_id']));
-   db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+   db_op_result ($db, $result, __LINE__, __FILE__);
    $sender = $result->fields;
    $sender['character_name'] = stripslashes($sender['character_name']);
 

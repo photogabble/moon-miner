@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars, $db_logging);
+load_languages($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
 
 $body_class = 'zoneinfo';
 $title = $l_zi_title;
@@ -35,11 +35,11 @@ if (check_login ())
 bigtitle ();
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($res->EOF)
@@ -77,14 +77,14 @@ else
         if ($row['corp_zone'] == 'N')
         {
             $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id=$row[owner]");
-            db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
             $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id=$row[owner]");
-            db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];
         }

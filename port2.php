@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include_once 'includes/is_loan_pending.php';
 
@@ -34,15 +34,15 @@ if (check_login ())
 }
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
-db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=$sectorinfo[zone_id]");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_trade'] == 'N')
@@ -59,7 +59,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
     if ($zoneinfo['corp_zone'] == 'N')
     {
         $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=$zoneinfo[owner]");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $ownerinfo = $res->fields;
 
         if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
@@ -705,14 +705,7 @@ else
 
             $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
             $purchase = $db->Execute("$query");
-            db_op_result ($db, $purchase, __LINE__, __FILE__, $db_logging);
-
-#           if ($colonist_max < 0 )
-#           {
-#               build_two_col ("<span style='color:#f00;'>Detected Overflow</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
-#               $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
-#               db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
-#           }
+            db_op_result ($db, $purchase, __LINE__, __FILE__);
 
             $hull_upgrade = 0;
             echo "</table>";
@@ -725,7 +718,7 @@ else
                 // build_two_col ("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id=$playerinfo[ship_id] LIMIT 1;");
-                db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+                db_op_result ($db, $resx, __LINE__, __FILE__);
                 adminlog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
             }
             else
@@ -912,7 +905,7 @@ else
 
             // Update ship cargo, credits and turns
             $trade_result     = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, rating=rating+1, credits=credits-$total_cost, ship_ore=ship_ore+$trade_ore, ship_organics=ship_organics+$trade_organics, ship_goods=ship_goods+$trade_goods, ship_energy=ship_energy+$trade_energy WHERE ship_id=$playerinfo[ship_id]");
-            db_op_result ($db, $trade_result, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $trade_result, __LINE__, __FILE__);
 
             // Make all trades positive to change port values
             $trade_ore        = round (abs ($trade_ore));
@@ -922,7 +915,7 @@ else
 
             // Decrease supply and demand on port
             $trade_result2    = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-$trade_ore, port_organics=port_organics-$trade_organics, port_goods=port_goods-$trade_goods, port_energy=port_energy-$trade_energy WHERE sector_id=$sectorinfo[sector_id]");
-            db_op_result ($db, $trade_result2, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $trade_result2, __LINE__, __FILE__);
 
             echo $l_trade_complete . ".<br><br>";
         }

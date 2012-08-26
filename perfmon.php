@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie();
 
 // New database driven language entries
-load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = "Performance Monitor";
 include 'header.php';

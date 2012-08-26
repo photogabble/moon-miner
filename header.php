@@ -18,7 +18,7 @@
 // File: header.php
 
 // New database driven language entries
-load_languages($db, $lang, array('common'), $langvars, $db_logging);
+load_languages($db, $lang, array('common'), $langvars);
 
 header("Content-type: text/html; charset=utf-8");
 header("X-UA-Compatible: IE=Edge, chrome=1");

@@ -28,7 +28,7 @@ if (result == true)
 
 <?php
     // New database driven language entries
-    load_languages($db, $lang, array('news'), $langvars, $db_logging);
+    load_languages($db, $lang, array('news'), $langvars);
 
     $startdate = date("Y/m/d");
     $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");

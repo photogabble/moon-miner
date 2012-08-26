@@ -20,7 +20,7 @@
 include 'global_includes.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_logout;
 setcookie ("userpass", "", 0, $gamepath, $gamedomain);
@@ -44,7 +44,7 @@ if (!isset($username))
 else
 {
     $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
-    db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     $current_score = gen_score ($playerinfo['ship_id']);
     playerlog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);

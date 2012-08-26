@@ -36,7 +36,7 @@ $setup_info->testcookies();
 $setup_info->initDB();
 
 // New database driven language entries
-load_languages($db, $lang, array('common', 'global_includes', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('common', 'global_includes', 'footer', 'news'), $langvars);
 
 $title = $setup_info->appinfo['title'];
 include 'header.php';

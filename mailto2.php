@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie();
 
 // New database driven language entries
-load_languages($db, $lang, array('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars, $db_logging);
+load_languages($db, $lang, array('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_sendm_title;
 include 'header.php';
@@ -56,7 +56,7 @@ if (array_key_exists('to', $_POST) == true)
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 bigtitle();
@@ -64,9 +64,9 @@ bigtitle();
 if (is_null($content))
 {
     $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_destroyed ='N' AND turns_used > 0 AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
-    db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res, __LINE__, __FILE__);
     $res2 = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC");
-    db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
+    db_op_result ($db, $res2, __LINE__, __FILE__);
     echo "<form action=mailto2.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
@@ -130,14 +130,14 @@ else
     {
         $timestamp = date("Y\-m\-d H\:i\:s");
         $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE character_name=?;", array($to));
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $target_info = $res->fields;
         $content = htmlspecialchars($content);
         $content = addslashes($content);
         $subject = htmlspecialchars($subject);
         $subject = addslashes($subject);
         $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array($playerinfo['ship_id'], $target_info['ship_id'], $timestamp, $subject, $content));
-        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resx, __LINE__, __FILE__);
         if (mysql_errno() != 0)
         {
             echo "Message failed to send.<br>\n";
@@ -150,17 +150,17 @@ else
         $to = trim($to);
         $to = addslashes($to);
         $res = $db->Execute("SELECT id FROM {$db->prefix}teams WHERE team_name=?;", array($to));
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
         $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE team=?;", array($row['id']));
-        db_op_result ($db, $res2, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res2, __LINE__, __FILE__);
 
         while (!$res2->EOF)
         {
             $row2 = $res2->fields;
             $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array($playerinfo['ship_id'], $row2['ship_id'], $timestamp, $subject, $content));
-            db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $resx, __LINE__, __FILE__);
             $res2->MoveNext();
         }
    }

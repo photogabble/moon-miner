@@ -34,7 +34,7 @@ else
 include 'includes/newsservices.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_news_title;
 include 'header.php';
@@ -72,7 +72,7 @@ echo "  </tr>\n";
 
 //Select news for date range
 $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id DESC");
-db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+db_op_result ($db, $res, __LINE__, __FILE__);
 
 //Check to see if there was any news to be shown
 if ($res->RecordCount() > 0 )

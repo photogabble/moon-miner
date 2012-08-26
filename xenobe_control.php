@@ -21,7 +21,7 @@ include 'global_includes.php';
 update_cookie ();
 
 // New database driven language entries
-load_languages($db, $lang, array('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars, $db_logging);
+load_languages($db, $lang, array('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ai_control;
 include 'header.php';
@@ -161,7 +161,7 @@ else
       {
         echo "<select size=20 name=user>";
         $res = $db->Execute("SELECT email,character_name,ship_destroyed,active,sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id ORDER BY sector");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         while (!$res->EOF)
         {
           $row=$res->fields;
@@ -181,7 +181,7 @@ else
         if (empty($operation))
         {
           $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email='$user'");
-          db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $res, __LINE__, __FILE__);
           $row = $res->fields;
           echo "<table border=0 cellspacing=0 cellpadding=5>";
           echo "<tr><td>Xenobe name</td><td><input type=text name=character_name value=\"$row[character_name]\"></td></tr>";
@@ -262,7 +262,7 @@ else
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><br>";
 
           $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
-          db_op_result ($db, $logres, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $logres, __LINE__, __FILE__);
           while (!$logres->EOF)
           {
             $logrow = $logres->fields;
@@ -292,14 +292,14 @@ else
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
           $_active = empty($active) ? "N" : "Y";
           $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE email='$user'");
-          db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $result, __LINE__, __FILE__);
           if (!$result) {
             echo "Changes to Xenobe ship record have FAILED Due to the following Error:<br><br>";
             echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Xenobe ship record have been saved.<br><br>";
             $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active='$_active',orders='$orders',aggression='$aggression' WHERE xenobe_id='$user'");
-            db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+            db_op_result ($db, $result2, __LINE__, __FILE__);
             if (!$result2) {
               echo "Changes to Xenobe activity record have FAILED Due to the following Error:<br><br>";
               echo $db->ErrorMsg() . "<br>";
@@ -339,12 +339,12 @@ else
         // Delete all xenobe in the ships table
         echo "Deleting xenobe records in the ships table...<br>";
         $resx = $db->Execute("DELETE FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
-        db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resx, __LINE__, __FILE__);
         echo "deleted.<br>";
         // Drop xenobe table
         echo "Dropping xenobe table...<br>";
         $resy = $db->Execute("DROP table IF EXISTS {$db->prefix}xenobe");
-        db_op_result ($db, $resy, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resy, __LINE__, __FILE__);
         echo "dropped.<br>";
         // Create xenobe table
         echo "Re-Creating table: xenobe...<br>";
@@ -356,7 +356,7 @@ else
             "PRIMARY KEY (xenobe_id)," .
             "KEY xenobe_id (xenobe_id)" .
             ")");
-        db_op_result ($db, $resz, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resz, __LINE__, __FILE__);
         echo "created.<br>";
       }
       else
@@ -385,12 +385,12 @@ else
       elseif ($operation == "clearxenlog")
       {
         $res = $db->Execute("SELECT email,ship_id FROM {$db->prefix}ships WHERE email LIKE '%@xenobe'");
-        db_op_result ($db, $res, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $res, __LINE__, __FILE__);
         while (!$res->EOF)
         {
           $row = $res->fields;
           $resx = $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id=$row[ship_id]");
-          db_op_result ($db, $resx, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resx, __LINE__, __FILE__);
           echo "Log for ship_id $row[ship_id] cleared.<br>";
           $res->MoveNext();
         }
@@ -423,7 +423,7 @@ else
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name='$character'");
-        db_op_result ($db, $resultnm, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $resultnm, __LINE__, __FILE__);
         $namecheck = $resultnm->fields;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
         $nametry = 1;
@@ -435,7 +435,7 @@ else
           $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
           $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
           $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name='$character'");
-          db_op_result ($db, $resultnm, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $resultnm, __LINE__, __FILE__);
           $namecheck = $resultnm->fields;
           $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
           $nametry++;
@@ -481,7 +481,7 @@ else
         $emailname = str_replace(" ","_",$character) . "@xenobe";
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
-        db_op_result ($db, $result, __LINE__, __FILE__, $db_logging);
+        db_op_result ($db, $result, __LINE__, __FILE__);
         if ($result>0)
         {
           while (!$result->EOF)
@@ -518,7 +518,7 @@ else
           $thesql = "INSERT INTO {$db->prefix}ships ( `ship_id` , `ship_name` , `ship_destroyed` , `character_name` , `password` , `email` , `hull` , `engines` , `power` , `computer` , `sensors` , `beams` , `torp_launchers` , `torps` , `shields` , `armor` , `armor_pts` , `cloak` , `credits` , `sector` , `ship_ore` , `ship_organics` , `ship_goods` , `ship_energy` , `ship_colonists` , `ship_fighters` , `ship_damage` , `turns` , `on_planet` , `dev_warpedit` , `dev_genesis` , `dev_beacon` , `dev_emerwarp` , `dev_escapepod` , `dev_fuelscoop` , `dev_minedeflector` , `turns_used` , `last_login` , `rating` , `score` , `team` , `team_invite` , `interface` , `ip_address` , `planet_id` , `preset1` , `preset2` , `preset3` , `trade_colonists` , `trade_fighters` , `trade_torps` , `trade_energy` , `cleared_defences` , `lang` , `dev_lssd` )
                                     valueS (NULL,'$shipname','N','$character','$makepass','$emailname',$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$xenlevel,$maxtorps,$xenlevel,$xenlevel,$maxarmor,$xenlevel,$start_credits,$sector,0,0,0,$maxenergy,0,$maxfighters,0,$start_turns,'N',0,0,0,0,'N','N',0,0, '$stamp',0,0,0,0,'N','127.0.0.1',0,0,0,0,'Y','N','N','Y',NULL,'$default_lang','Y')";
           $result2 = $db->Execute($thesql);
-          db_op_result ($db, $result2, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $result2, __LINE__, __FILE__);
           if (!$result2)
           {
                echo $db->ErrorMsg() . "<br>";
@@ -530,7 +530,7 @@ else
             echo "Ship Records have been updated.<br><br>";
           }
           $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id,active,aggression,orders) valueS('$emailname','$_active','$aggression','$orders')");
-          db_op_result ($db, $result3, __LINE__, __FILE__, $db_logging);
+          db_op_result ($db, $result3, __LINE__, __FILE__);
           if (!$result3)
           {
             echo $db->ErrorMsg() . "<br>";
