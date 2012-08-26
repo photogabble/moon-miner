@@ -80,7 +80,7 @@ connect_database ();
 
 bigtitle ();
 
-require_once 'sched_funcs.php';
+require_once './sched_funcs.php';
 
 if (isset($_REQUEST['swordfish']))
 {

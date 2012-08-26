@@ -1,6 +1,6 @@
 <?php
 
-require_once("classes/xml_dom/xml_dom.php");
+require_once './classes/xml_dom/xml_dom.php';
 
 class XMLAPI
 {

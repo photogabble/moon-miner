@@ -272,7 +272,7 @@ if (isset($gamedomain) && strlen($gamedomain) >0)
 // Game domain setting ends
 
 // Template API.
-require_once("classes/template.php");
+require_once './classes/template.php';
 $template = new Template();
 
 // We set the name of the theme.
