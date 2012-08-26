@@ -63,7 +63,7 @@ global $db;
 connect_database ();
 $db->prefix = $db_prefix;
 
-if ($db->logging)
+if (property_exists($db->logging) && $db->logging)
 {
     adodb_perf::table("{$db->prefix}adodb_logsql");
     $db->LogSQL(); // Turn on adodb performance logging
