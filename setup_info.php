@@ -355,7 +355,7 @@ $setup_info->DisplayFlush("<br>\n");
 
 if (empty($username))
 {
-    TEXT_GOTOLOGIN();
+    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {

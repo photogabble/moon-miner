@@ -60,11 +60,11 @@ else
     echo "<br>\n";
     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
-        TEXT_GOTOMAIN();
+        echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
     }
     else
     {
-        TEXT_GOTOLOGIN();
+        echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
     }
 }
 
