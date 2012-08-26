@@ -75,7 +75,7 @@ include 'header.php';
 <form action="login2.php<?php echo $link; ?>" method="post">
 <dl class="twocolumn-form">
 <dt><label for="email"><?php echo $l_login_email; ?></label></dt>
-<dd><input type="email" id="email" name="email" size="20" maxlength="40"></dd>
+<dd><input type="email" id="email" name="email" size="20" maxlength="40" placeholder="someone@example.com"></dd>
 <dt><label for="pass"><?php echo $l_login_pw; ?></label></dt>
 <dd><input type="password" id="pass" name="pass" size="20" maxlength="20"></dd>
 </dl>
