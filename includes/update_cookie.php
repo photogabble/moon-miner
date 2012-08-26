@@ -30,7 +30,7 @@ function update_cookie ()
     // The new combined cookie login.
     $userpass = $username."+".$password;
     setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
-    if ($userpass != '' and $userpass != '+')
+    if ($userpass != '' && $userpass != '+')
     {
         $username = substr ($userpass, 0, strpos ($userpass, "+"));
         $password = substr ($userpass, strpos ($userpass, "+")+1);

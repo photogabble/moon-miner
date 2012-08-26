@@ -43,7 +43,7 @@ if (isset($_POST["TPCreds"]))
 {
     collect_credits ($db, $_POST["TPCreds"]);
 }
-elseif (isset($buildp) AND isset($builds))
+elseif (isset($buildp) && isset($builds))
 {
     go_build_base ($db, $buildp, $builds);
 }

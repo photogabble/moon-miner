@@ -145,7 +145,7 @@ if (!isset($userpass))
     $userpass = '';
 }
 
-if ($userpass != '' and $userpass != '+')
+if ($userpass != '' && $userpass != '+')
 {
     $username = substr ($userpass, 0, strpos ($userpass, "+"));
     $password = substr ($userpass, strpos ($userpass, "+")+1);

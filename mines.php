@@ -163,7 +163,7 @@ else
         }
     }
 
-    if (!isset($nummines) or !isset($numfighters) or !isset($mode))
+    if (!isset($nummines) || !isset($numfighters) || !isset($mode))
     {
         $availmines = NUMBER ($playerinfo['torps']);
         $availfighters = NUMBER ($playerinfo['ship_fighters']);
