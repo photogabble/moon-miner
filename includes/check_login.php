@@ -15,18 +15,18 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/checklogin.php
+// File: includes/check_login.php
 
-if (preg_match("/checklogin.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/check_login.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function checklogin ()
+function check_login ()
 {
     $flag = 0;
 
-    global $username, $password, $db, $l;
+    global $username, $password, $db;
 
     $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($username));
     db_op_result ($db, $result1, __LINE__, __FILE__);

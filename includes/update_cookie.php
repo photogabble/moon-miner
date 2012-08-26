@@ -15,14 +15,14 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/updatecookie.php
+// File: includes/update_cookie.php
 
-if (preg_match("/updatecookie.php/i", $_SERVER['PHP_SELF'])) {
+if (preg_match("/update_cookie.php/i", $_SERVER['PHP_SELF'])) {
       echo "You can not access this file directly!";
       die();
 }
 
-function updatecookie ()
+function update_cookie ()
 {
     // Refresh the cookie with username/password - Times out after 60 mins, and player must login again.
     global $gamepath, $gamedomain, $userpass, $username, $password;
