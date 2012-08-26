@@ -18,7 +18,7 @@
 // File: bounty.php
 
 include 'global_includes.php';
-updatecookie ();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars, $db_logging);
@@ -26,7 +26,7 @@ load_languages($db, $lang, array('bounty', 'port', 'common', 'global_includes', 
 $title = $l_by_title;
 include 'header.php';
 
-if (check_login())
+if (check_login ())
 {
     die ();
 }

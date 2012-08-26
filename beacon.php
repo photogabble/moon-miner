@@ -18,7 +18,7 @@
 // File: beacon.php
 
 include 'global_includes.php';
-updatecookie();
+update_cookie ();
 
 // New database driven language entries
 load_languages($db, $lang, array('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
@@ -26,7 +26,7 @@ load_languages($db, $lang, array('beacon', 'common', 'global_includes', 'global_
 $title = $l_beacon_title;
 include 'header.php';
 
-if (check_login())
+if (check_login ())
 {
     die();
 }
