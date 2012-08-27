@@ -17,9 +17,9 @@
 //
 // File: includes/ibank_loans.php
 
-function ibank_loans ()
+function ibank_loans ($db)
 {
-    global $db, $playerinfo, $account;
+    global $playerinfo, $account;
     global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest;
     global $l_ibank_loanstatus,$l_ibank_shipaccount, $l_ibank_currentloan, $l_ibank_repay;
     global $l_ibank_maxloanpercent, $l_ibank_loanamount, $l_ibank_borrow, $l_ibank_loanrates;
@@ -32,7 +32,7 @@ function ibank_loans ()
     if ($account['loan'] != 0)
     {
         $curtime = time();
-        $res = $db->Execute("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id=$playerinfo[ship_id]");
+        $res = $db->Execute("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id=?", array($playerinfo['ship_id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res->EOF)
         {

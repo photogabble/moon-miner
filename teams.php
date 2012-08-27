@@ -129,7 +129,7 @@ switch ($teamwhat)
 {
     case 1: // INFO on single team
     {
-        show_info ($whichteam, 0);
+        show_info ($db, $whichteam, 0);
         link_back();
         break;
     }
@@ -592,7 +592,7 @@ switch ($teamwhat)
                 $whichinvitingteam = $result->fields;
             }
             $isowner = is_team_owner($whichteam, $playerinfo);
-            show_info ($playerinfo['team'], $isowner);
+            show_info ($db, $playerinfo['team'], $isowner);
         }
         $res= $db->Execute("SELECT COUNT(*) as TOTAL FROM {$db->prefix}teams WHERE admin='N';");
         db_op_result ($db, $res, __LINE__, __FILE__);
@@ -600,7 +600,7 @@ switch ($teamwhat)
 
         if ($num_res['TOTAL'] > 0)
         {
-            display_all_teams();
+            display_all_teams ($db);
         }
         else
         {
@@ -659,9 +659,9 @@ function link_back ()
 }
 
 // Rewritten display of teams list
-function display_all_teams ()
+function display_all_teams ($db)
 {
-    global $db, $color, $color_line1, $color_line2, $color_header, $order, $type, $l_team_galax, $l_team_members, $l_team_member, $l_team_coord, $l_score, $l_name;
+    global $color, $color_line1, $color_line2, $color_header, $order, $type, $l_team_galax, $l_team_members, $l_team_member, $l_team_coord, $l_score, $l_name;
 
     echo "<br><br>$l_team_galax<br>";
     echo "<table style='width:100%; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
@@ -756,11 +756,10 @@ function display_invite_info ()
     }
 }
 
-function show_info ($whichteam, $isowner)
+function show_info ($db, $whichteam, $isowner)
 {
     global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_team_ed, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
-    global $db, $l_team_eject;
-    global $color_line2;
+    global $l_team_eject, $color_line2;
 
     // Heading
     echo"<div align=center>";

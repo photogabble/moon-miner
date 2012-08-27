@@ -112,12 +112,12 @@ if (array_key_exists('command', $_REQUEST) == true)
 if ($command == 'new')
 {
     // Displays new trade route form
-    traderoute_new ($db, '');
+    traderoute_new ($db, null);
 }
 elseif ($command == 'create')
 {
     // Enters new route in db
-    traderoute_create ();
+    traderoute_create ($db);
 }
 elseif ($command == 'edit')
 {
@@ -127,17 +127,17 @@ elseif ($command == 'edit')
 elseif ($command == 'delete')
 {
     // Displays delete info
-    traderoute_delete ();
+    traderoute_delete ($db);
 }
 elseif ($command == 'settings')
 {
     // Global traderoute settings form
-    traderoute_settings ();
+    traderoute_settings ($db);
 }
 elseif ($command == 'setsettings')
 {
     // Enters settings in db
-    traderoute_setsettings ();
+    traderoute_setsettings ($db);
 }
 elseif (isset ($engage) )
 {
@@ -341,7 +341,7 @@ else
                 $dst = $planet2['sector_id'];
             }
 
-            $dist = traderoute_distance($traderoutes[$i]['source_type'], $traderoutes[$i]['dest_type'], $src, $dst, $traderoutes[$i]['circuit']);
+            $dist = traderoute_distance ($db, $traderoutes[$i]['source_type'], $traderoutes[$i]['dest_type'], $src, $dst, $traderoutes[$i]['circuit']);
 
             $l_tdr_escooped = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_escooped);
             $l_tdr_escooped2 = str_replace("[tdr_dist_scooped]", $dist['scooped'], $l_tdr_escooped2);
@@ -404,9 +404,9 @@ function traderoute_die ($error_msg)
     die();
 }
 
-function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $dest)
+function traderoute_check_compatible ($db, $type1, $type2, $move, $circuit, $src, $dest)
 {
-    global $db, $playerinfo;
+    global $playerinfo;
     global $l_tdr_nowlink1, $l_tdr_nowlink2, $l_tdr_sportissrc, $l_tdr_notownplanet, $l_tdr_planetisdest;
     global $l_tdr_samecom, $l_tdr_sportcom, $color_line1, $color_line2, $color_header, $servertimezone;
 
@@ -472,10 +472,9 @@ function traderoute_check_compatible($type1, $type2, $move, $circuit, $src, $des
     }
 }
 
-function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = 'N')
+function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
 {
-    global $db, $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
-    global $level_factor;
+    global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone, $level_factor;
 
     $retvalue['triptime'] = 0;
     $retvalue['scooped1'] = 0;
@@ -600,9 +599,9 @@ function traderoute_distance($type1, $type2, $start, $dest, $circuit, $sells = '
     return $retvalue;
 }
 
-function traderoute_create()
+function traderoute_create ($db)
 {
-    global $db, $playerinfo, $color_line1, $color_line2, $color_header;
+    global $playerinfo, $color_line1, $color_line2, $color_header;
     global $num_traderoutes, $servertimezone;
     global $max_traderoutes_player;
     global $sector_max;
@@ -760,7 +759,7 @@ function traderoute_create()
         traderoute_die ("You cannot create a traderoute into a special port!");
     }
     // Check traderoute for src => dest
-    traderoute_check_compatible($ptype1, $ptype2, $move_type, $circuit_type, $source , $destination);
+    traderoute_check_compatible ($db, $ptype1, $ptype2, $move_type, $circuit_type, $source , $destination);
 
     if ($ptype1 == 'port')
     {
@@ -841,9 +840,9 @@ function traderoute_create()
     traderoute_die ("");
 }
 
-function traderoute_delete()
+function traderoute_delete ($db)
 {
-    global $db, $playerinfo, $color_line1, $color_line2, $color_header;
+    global $playerinfo, $color_line1, $color_line2, $color_header;
     global $confirm, $servertimezone;
     global $num_traderoutes;
     global $traderoute_id;
@@ -881,12 +880,11 @@ function traderoute_delete()
     }
 }
 
-function traderoute_settings()
+function traderoute_settings ($db)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
     global $l_tdr_globalset, $l_tdr_sportsrc, $l_tdr_colonists, $l_tdr_fighters, $l_tdr_torps, $l_tdr_trade;
     global $l_tdr_tdrescooped, $l_tdr_keep, $l_tdr_save, $l_tdr_returnmenu, $l_here;
-    global $db;
 
     echo "<p><font size=3 color=blue><strong>$l_tdr_globalset</strong></font><p>";
 
@@ -951,13 +949,10 @@ function traderoute_settings()
     traderoute_die ("");
 }
 
-function traderoute_setsettings()
+function traderoute_setsettings ($db)
 {
-    global $db, $playerinfo, $color_line1, $color_line2, $color_header;
-    global $colonists, $servertimezone;
-    global $fighters;
-    global $torps;
-    global $energy;
+    global $playerinfo, $color_line1, $color_line2, $color_header;
+    global $colonists, $servertimezone, $fighters, $torps, $energy;
     global $l_tdr_returnmenu, $l_tdr_globalsetsaved, $l_here;
 
     empty($colonists) ? $colonists = 'N' : $colonists = 'Y';
@@ -972,9 +967,9 @@ function traderoute_setsettings()
     traderoute_die ("");
 }
 
-function traderoute_results_table_top()
+function traderoute_results_table_top ()
 {
-    global $color_line2,$l_tdr_res;
+    global $color_line2, $l_tdr_res;
     echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
     echo "  <tr bgcolor='".$color_line2."'>\n";
     echo "    <td align='center' colspan='7'><strong><font color='white'>".$l_tdr_res."</font></strong></td>\n";
@@ -982,12 +977,14 @@ function traderoute_results_table_top()
     echo "  <tr align='center' bgcolor='".$color_line2."'>\n";
     echo "    <td width='50%'><font size='2' color='white'><strong>";
 }
-function traderoute_results_source()
+
+function traderoute_results_source ()
 {
     echo "</strong></font></td>\n";
     echo "    <td width='50%'><font size='2' color='white'><strong>";
 }
-function traderoute_results_destination()
+
+function traderoute_results_destination ()
 {
     global $color_line1;
     echo "</strong></font></td>\n";
@@ -995,12 +992,14 @@ function traderoute_results_destination()
     echo "  <tr bgcolor='".$color_line1."'>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
-function traderoute_results_close_cell()
+
+function traderoute_results_close_cell ()
 {
     echo "</font></td>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
-function traderoute_results_show_cost()
+
+function traderoute_results_show_cost ()
 {
     global $color_line2;
     echo "</font></td>\n";
@@ -1008,12 +1007,14 @@ function traderoute_results_show_cost()
     echo "  <tr bgcolor='".$color_line2."'>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
-function traderoute_results_close_cost()
+
+function traderoute_results_close_cost ()
 {
     echo "</font></td>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
-function traderoute_results_close_table()
+
+function traderoute_results_close_table ()
 {
     echo "</font></td>\n";
     echo "  </tr>\n";
@@ -1021,9 +1022,9 @@ function traderoute_results_close_table()
     // echo "<p><center><font size=3 color=white><strong>\n";
 }
 
-function traderoute_results_display_totals($total_profit)
+function traderoute_results_display_totals ($total_profit)
 {
-    global $l_tdr_totalprofit,$l_tdr_totalcost;
+    global $l_tdr_totalprofit, $l_tdr_totalcost;
     if ($total_profit > 0)
     {
         echo "<p><center><font size=3 color=white><strong>$l_tdr_totalprofit : <font style='color:#0f0;'><strong>" . NUMBER(abs($total_profit)) . "</strong></font><br>\n";
@@ -1033,18 +1034,19 @@ function traderoute_results_display_totals($total_profit)
         echo "<p><center><font size=3 color=white><strong>$l_tdr_totalcost : <font style='color:#f00;'><strong>" . NUMBER(abs($total_profit)) . "</strong></font><br>\n";
     }
 }
+
 function traderoute_results_display_summary($tdr_display_creds)
 {
-    global  $l_tdr_turnsused , $dist, $l_tdr_turnsleft, $playerinfo,$l_tdr_credits;
+    global  $l_tdr_turnsused , $dist, $l_tdr_turnsleft, $playerinfo, $l_tdr_credits;
     echo "\n<font size='3' color='white'><strong>$l_tdr_turnsused : <font style='color:#f00;'>$dist[triptime]</font></strong></font><br>";
     echo "\n<font size='3' color='white'><strong>$l_tdr_turnsleft : <font style='color:#0f0;'>$playerinfo[turns]</font></strong></font><br>";
 
     echo "\n<font size='3' color='white'><strong>$l_tdr_credits : <font style='color:#0f0;'> $tdr_display_creds\n</font></strong></font><br> </strong></font></center>\n";
     //echo "<font size='2'>\n";
 }
-function traderoute_results_show_repeat()
+
+function traderoute_results_show_repeat ($engage)
 {
-    global $engage;
     echo "<form action='traderoute.php?engage=".$engage."' method='post'>\n";
     echo "<br>Enter times to repeat <input type='TEXT' name='tr_repeat' value='1' size='5'> <input type='SUBMIT' value='SUBMIT'>\n";
     echo "</form>\n";

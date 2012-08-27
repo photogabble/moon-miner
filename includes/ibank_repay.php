@@ -17,10 +17,10 @@
 //
 // File: includes/ibank_repay.php
 
-function ibank_repay ()
+function ibank_repay ($db)
 {
-    global $db, $playerinfo, $account, $amount;
-    global $l_ibank_notrepay, $l_ibank_notenoughrepay,$l_ibank_payloan;
+    global $playerinfo, $account, $amount;
+    global $l_ibank_notrepay, $l_ibank_notenoughrepay, $l_ibank_payloan;
     global $l_ibank_shipaccount, $l_ibank_currentloan, $l_ibank_loanthanks;
     global $l_ibank_invalidamount;
     global $l_ibank_back, $l_ibank_logout;

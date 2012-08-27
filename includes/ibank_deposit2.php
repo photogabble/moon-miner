@@ -17,9 +17,9 @@
 //
 // File: includes/ibank_deposit2.php
 
-function ibank_deposit2 ()
+function ibank_deposit2 ($db)
 {
-    global $db, $playerinfo, $amount, $account;
+    global $playerinfo, $amount, $account;
     global $l_ibank_invaliddepositinput, $l_ibank_nozeroamount2, $l_ibank_notenoughcredits, $l_ibank_accounts, $l_ibank_logout;
     global $l_ibank_operationsuccessful, $l_ibank_creditstoyou, $l_ibank_ibankaccount, $l_ibank_shipaccount, $l_ibank_back;
 

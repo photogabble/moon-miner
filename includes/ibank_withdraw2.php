@@ -17,9 +17,9 @@
 //
 // File: includes/ibank_withdraw2.php
 
-function ibank_withdraw2 ()
+function ibank_withdraw2 ($db)
 {
-    global $db, $playerinfo, $amount, $account;
+    global $playerinfo, $amount, $account;
     global $l_ibank_invalidwithdrawinput, $l_ibank_nozeroamount3, $l_ibank_notenoughcredits, $l_ibank_accounts;
     global $l_ibank_operationsuccessful, $l_ibank_creditstoyourship, $l_ibank_ibankaccount, $l_ibank_back, $l_ibank_logout;
 
@@ -53,9 +53,9 @@ function ibank_withdraw2 ()
          "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance-$amount WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits+$amount WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 ?>

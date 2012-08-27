@@ -17,14 +17,14 @@
 //
 // File: includes/ibank_consolidate3.php
 
-function ibank_consolidate3 ()
+function ibank_consolidate3 ($db)
 {
-    global $db, $playerinfo;
+    global $playerinfo;
     global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
     global $l_ibank_notenturns, $l_ibank_back, $l_ibank_logout, $l_ibank_transfersuccessful;
     global $l_ibank_currentpl, $l_ibank_in, $l_ibank_turncost, $l_ibank_unnamed;
 
-    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
+    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array ($dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
@@ -105,9 +105,9 @@ function ibank_consolidate3 ()
 
     $res = $db->Execute($query);
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + $transfer WHERE planet_id=$dplanet_id");
+    $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array($transfer, $dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - $tcost WHERE ship_id = $playerinfo[ship_id]");
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array($tcost, $playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
 }
 ?>

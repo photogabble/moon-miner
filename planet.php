@@ -603,7 +603,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 else
                 {
                     include './includes/planet_combat.php';
-                    planet_combat ();
+                    planet_combat ($db);
                 }
             }
         }
@@ -632,7 +632,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
         elseif ($command == "bomb" && $allow_sofa)
         {
             include './includes/planet_bombing.php';
-            planet_bombing ();
+            planet_bombing ($db);
         }
         elseif ($command == "scan")
         {

@@ -17,20 +17,20 @@
 //
 // File: includes/xenobe_to_planet.php
 
-function xenobe_to_planet ($planet_id)
+function xenobe_to_planet ($db, $planet_id)
 {
     // Xenobe planet attack code
     global $playerinfo, $planetinfo, $torp_dmg_rate, $level_factor;
-    global $rating_combat_factor, $upgrade_cost, $upgrade_factor, $sector_max, $xenobeisdead, $db;
+    global $rating_combat_factor, $upgrade_cost, $upgrade_factor, $sector_max, $xenobeisdead;
 
     $resh = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
     db_op_result ($db, $resh, __LINE__, __FILE__);
 
-    $resultp = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?", array($planet_id)); // Get target planet information
+    $resultp = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?", array ($planet_id)); // Get target planet information
     db_op_result ($db, $resultp, __LINE__, __FILE__);
     $planetinfo = $resultp->fields;
 
-    $resulto = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array($planetinfo['owner'])); // Get target player information
+    $resulto = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($planetinfo['owner'])); // Get target player information
     db_op_result ($db, $resulto, __LINE__, __FILE__);
     $ownerinfo = $resulto->fields;
 
@@ -279,7 +279,7 @@ function xenobe_to_planet ($planet_id)
         playerlog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
 
         // Update planet
-        $resi = $db->Execute("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
+        $resi = $db->Execute("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
         db_op_result ($db, $resi, __LINE__, __FILE__);
     }
     else  // Must have made it past planet defences
@@ -290,20 +290,20 @@ function xenobe_to_planet ($planet_id)
         playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
 
         // Update attackers
-        $resj = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, torps=torps-?, armor_pts=armor_pts-? WHERE ship_id=?", array($playerinfo['ship_energy'], $fighters_lost, $attackertorps, $armor_lost, $playerinfo['ship_id']));
+        $resj = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, torps=torps-?, armor_pts=armor_pts-? WHERE ship_id=?", array ($playerinfo['ship_energy'], $fighters_lost, $attackertorps, $armor_lost, $playerinfo['ship_id']));
         db_op_result ($db, $resj, __LINE__, __FILE__);
         $playerinfo['ship_fighters'] = $attackerfighters;
         $playerinfo['torps'] = $attackertorps;
         $playerinfo['armor_pts'] = $attackerarmor;
 
         // Update planet
-        $resk = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?, fighters=?, torps=torps-? WHERE planet_id=?", array($planetinfo['energy'], $targetfighters, $targettorps, $planetinfo['planet_id']));
+        $resk = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?, fighters=?, torps=torps-? WHERE planet_id=?", array ($planetinfo['energy'], $targetfighters, $targettorps, $planetinfo['planet_id']));
         db_op_result ($db, $resk, __LINE__, __FILE__);
         $planetinfo['fighters'] = $targetfighters;
         $planetinfo['torps'] = $targettorps;
 
         // Now we must attack all ships on the planet one by one
-        $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array($planetinfo['planet_id']));
+        $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
         db_op_result ($db, $resultps, __LINE__, __FILE__);
         $shipsonplanet = $resultps->RecordCount();
         if ($shipsonplanet > 0)
@@ -316,7 +316,7 @@ function xenobe_to_planet ($planet_id)
             }
         }
 
-        $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array($planetinfo['planet_id']));
+        $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
         db_op_result ($db, $resultps, __LINE__, __FILE__);
         $shipsonplanet = $resultps->RecordCount();
         if ($shipsonplanet == 0 && $xenobeisdead < 1)
@@ -328,7 +328,7 @@ function xenobe_to_planet ($planet_id)
             playerlog ($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
             // Update planet
-            $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array($planetinfo['planet_id']));
+            $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
             db_op_result ($db, $resl, __LINE__, __FILE__);
 
             include 'calc_ownership.php';

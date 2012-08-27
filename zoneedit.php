@@ -85,7 +85,7 @@ if (array_key_exists('trades', $_POST) == true)
     $trades = $_POST['trades'];
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
 db_op_result ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
@@ -101,7 +101,7 @@ if ($curzone['corp_zone'] == 'N')
 }
 else
 {
-    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator=$curzone[owner]");
+    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator=?", array ($curzone['owner']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
@@ -113,7 +113,7 @@ if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id'])
 
 if ($command == 'change')
 {
-    zoneedit_change();
+    zoneedit_change ($db);
 }
 
 $ybeacon = null;
@@ -239,25 +239,17 @@ TEXT_GOTOMAIN();
 
 include './footer.php';
 
-function zoneedit_change ()
+function zoneedit_change ($db)
 {
-    global $zone;
-    global $name;
-    global $beacons;
-    global $attacks;
-    global $warpedits;
-    global $planets;
-    global $trades;
-    global $defenses;
+    global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
     global $l_clickme, $l_ze_saved, $l_ze_return;
-    global $db;
 
     if (!get_magic_quotes_gpc())
     {
         $name = addslashes($name);
     }
 
-    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name='$name', allow_beacon='$beacons', allow_attack='$attacks', allow_warpedit='$warpedits', allow_planet='$planets', allow_trade='$trades', allow_defenses='$defenses' WHERE zone_id=$zone");
+    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name=?, allow_beacon=?, allow_attack=?, allow_warpedit=?, allow_planet=?, allow_trade=?, allow_defenses=? WHERE zone_id=?", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
     db_op_result ($db, $resx, __LINE__, __FILE__);
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";

@@ -19,10 +19,7 @@
 
 function ibank_consolidate ()
 {
-    global $db, $playerinfo, $account;
-    global $l_ibank_errunknownplanet, $l_ibank_errnotyourplanet, $l_ibank_transferrate3;
-    global $l_ibank_planettransfer, $l_ibank_destplanet, $l_ibank_in, $ibank_tconsolidate;
-    global $dplanet_id, $l_ibank_unnamed, $l_ibank_currentpl, $l_ibank_consolrates;
+    global $dplanet_id, $l_ibank_transferrate3, $ibank_tconsolidate, $l_ibank_consolrates;
     global $l_ibank_minimum, $l_ibank_maximum, $l_ibank_back, $l_ibank_logout;
     global $l_ibank_planetconsolidate, $l_ibank_compute, $ibank_paymentfee;
 

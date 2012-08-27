@@ -17,11 +17,11 @@
 //
 // File: includes/ibank_transfer2.php
 
-function ibank_transfer2 ()
+function ibank_transfer2 ($db)
 {
-    global $db, $playerinfo, $account, $ship_id, $splanet_id, $dplanet_id, $ibank_min_turns, $ibank_svalue;
+    global $playerinfo, $account, $ship_id, $splanet_id, $dplanet_id, $ibank_min_turns, $ibank_svalue;
     global $ibank_paymentfee, $ibank_trate;
-    global $l_ibank_sendyourself, $l_ibank_unknowntargetship, $l_ibank_min_turns, $l_ibank_min_turns2;
+    global $l_ibank_sendyourself, $l_ibank_unknowntargetship, $l_ibank_min_turns2;
     global $l_ibank_mustwait, $l_ibank_shiptransfer, $l_ibank_ibankaccount, $l_ibank_maxtransfer;
     global $l_ibank_unlimited, $l_ibank_maxtransferpercent, $l_ibank_transferrate, $l_ibank_recipient;
     global $l_ibank_seltransferamount, $l_ibank_transfer, $l_ibank_back, $l_ibank_logout, $l_ibank_in;
@@ -117,7 +117,7 @@ function ibank_transfer2 ()
             ibank_error ($l_ibank_errplanetsrcanddest, "igb.php?command=transfer");
         }
 
-        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$splanet_id");
+        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array($splanet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
@@ -131,7 +131,7 @@ function ibank_transfer2 ()
             $source['name'] = $l_ibank_unnamed;
         }
 
-        $res = $db->Execute("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
+        $res = $db->Execute("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id=?", array($dplanet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {

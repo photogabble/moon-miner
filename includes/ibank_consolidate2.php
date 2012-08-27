@@ -17,9 +17,9 @@
 //
 // File: includes/ibank_consolidate2.php
 
-function ibank_consolidate2 ()
+function ibank_consolidate2 ($db)
 {
-    global $db, $playerinfo, $account;
+    global $playerinfo, $account;
     global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
     global $l_ibank_planetconsolidate, $l_ibank_back, $l_ibank_logout;
     global $l_ibank_errunknownplanet, $l_ibank_unnamed, $l_ibank_errnotyourplanet;
@@ -27,7 +27,7 @@ function ibank_consolidate2 ()
     global $l_ibank_transferfee, $l_ibank_turncost, $l_ibank_amounttransferred;
     global $l_ibank_consolidate;
 
-    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=$dplanet_id");
+    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array($dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {

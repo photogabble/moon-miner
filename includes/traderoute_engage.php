@@ -1422,7 +1422,7 @@ function traderoute_engage ($db, $j)
         if ($j == 1)
         {
             echo $l_tdr_engageagain . "\n";
-            traderoute_results_show_repeat();
+            traderoute_results_show_repeat ($db);
         }
     }
     if ($j == 1)

@@ -142,7 +142,7 @@ while (!$res->EOF)
             $furcount1a++;
             playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
             if (!$rowo1[planet_id] == 0) {              // IS ON PLANET
-              xenobe_to_planet ($rowo1[planet_id]);
+              xenobe_to_planet ($db, $rowo1[planet_id]);
             } else {
               xenobe_to_ship ($db, $rowo1[ship_id]);
             }
@@ -196,7 +196,7 @@ while (!$res->EOF)
             $furcount2a++;
             playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
             if (!$rowo2[planet_id] == 0) {              // IS ON PLANET
-              xenobe_to_planet ($rowo2[planet_id]);
+              xenobe_to_planet ($db, $rowo2[planet_id]);
             } else {
               xenobe_to_ship ($db, $rowo2[ship_id]);
             }
@@ -218,7 +218,7 @@ while (!$res->EOF)
         if ($hunt==0)
         {
         $furcount3h++;
-        xenobe_hunter ();
+        xenobe_hunter ($db);
         if ($xenobeisdead>0) {
           $res->MoveNext();
           continue;
@@ -261,7 +261,7 @@ while (!$res->EOF)
               $furcount3a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
               if (!$rowo3[planet_id] == 0) {              // IS ON PLANET
-                xenobe_to_planet ($rowo3[planet_id]);
+                xenobe_to_planet ($db, $rowo3[planet_id]);
               } else {
                 xenobe_to_ship ($db, $rowo3[ship_id]);
               }

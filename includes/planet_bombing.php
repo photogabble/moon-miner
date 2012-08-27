@@ -17,30 +17,30 @@
 //
 // File: includes/planet_bombing.php
 
-function planet_bombing ()
+function planet_bombing ($db)
 {
-    global $db, $playerinfo, $ownerinfo, $planetinfo, $planetbeams, $planetfighters, $attackerfighters;
+    global $playerinfo, $ownerinfo, $planetinfo, $planetbeams, $planetfighters, $attackerfighters;
     global $planettorps, $torp_dmg_rate, $l_cmb_atleastoneturn;
     global $l_bombsaway, $l_bigfigs, $l_bigbeams, $l_bigtorps, $l_strafesuccess;
 
     if ($playerinfo['turns'] < 1)
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
-        TEXT_GOTOMAIN();
+        TEXT_GOTOMAIN ();
         include 'footer.php';
-        die();
+        die ();
     }
 
-    $res = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
-    db_op_result ($db, $res, __LINE__, __FILE__);
-
     echo $l_bombsaway . "<br><br>\n";
-
     $attackerfighterslost = 0;
     $planetfighterslost = 0;
     $attackerfightercapacity = NUM_FIGHTERS ($playerinfo['computer']);
     $ownerfightercapacity = NUM_FIGHTERS ($ownerinfo['computer']);
     $beamsused = 0;
+
+    $res = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
+    db_op_result ($db, $res, __LINE__, __FILE__);
+
     include 'calc_planet_torps.php';
     $planettorps = calc_planet_torps ($db);
 
@@ -99,9 +99,9 @@ function planet_bombing ()
 
     echo "<br><br>\n";
     playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_BOMBED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$beamsused|$planettorps|$planetfighterslost");
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, ship_fighters=ship_fighters-$attackerfighters WHERE ship_id=$playerinfo[ship_id]");
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, ship_fighters=ship_fighters-? WHERE ship_id=?", array ($attackerfighters, $playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}planets SET energy=energy-$beamsused, fighters=fighters-$planetfighterslost, torps=torps-$planettorps WHERE planet_id=$planetinfo[planet_id]");
+    $res = $db->Execute("UPDATE {$db->prefix}planets SET energy=energy-?, fighters=fighters-?, torps=torps-? WHERE planet_id=?", array ($beamsused, $planetfighterslost, $planettorps, $planetinfo['planet_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $res = $db->Execute("UNLOCK TABLES");
     db_op_result ($db, $res, __LINE__, __FILE__);

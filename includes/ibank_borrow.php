@@ -17,9 +17,9 @@
 //
 // File: includes/ibank_borrow.php
 
-function ibank_borrow ()
+function ibank_borrow ($db)
 {
-    global $db, $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor;
+    global $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor;
     global $l_ibank_invalidamount,$l_ibank_notwoloans, $l_ibank_loantoobig;
     global $l_ibank_takenaloan, $l_ibank_loancongrats, $l_ibank_loantransferred;
     global $l_ibank_loanfee, $l_ibank_amountowned, $ibank_lrate, $l_ibank_loanreminder, $l_ibank_loanreminder2;

@@ -17,27 +17,21 @@
 //
 // File: includes/schema.php
 
-function create_schema ()
+function create_schema ($db, $ADODB_SESSION_DB)
 {
-    global $maxlen_password;
-    global $db, $ADODB_SESSION_DB;
+    // Delete all tables in the database
+    table_header("Dropping Tables --- Stage 3");
 
-// Delete all tables in the database
-table_header("Dropping Tables --- Stage 3");
+    // Have SQL prepare a query for dropping tables that contains the list of all tables according to SQL.
+    $drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $ADODB_SESSION_DB. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
 
-// Have SQL prepare a query for dropping tables that contains the list of all tables according to SQL.
-$drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $ADODB_SESSION_DB. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
+    // Use the query to now drop all tables as reported by SQL.
+    $drop_tables = $db->Execute($drop_tables_stmt->fields['stmt']);
 
-// Use the query to now drop all tables as reported by SQL.
-$drop_tables = $db->Execute($drop_tables_stmt->fields['stmt']);
-
-$err = true_or_false (0, $db->ErrorMsg(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-table_row ($db, "Dropping all tables","Failed","Passed");
-
-table_footer("Hover over the failed line to see the error.");
-
-echo "<strong>Dropping stage complete.</strong><p>";
+    $err = true_or_false (0, $db->ErrorMsg(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+    table_row ($db, "Dropping all tables","Failed","Passed");
+    table_footer("Hover over the failed line to see the error.");
+    echo "<strong>Dropping stage complete.</strong><p>";
 
 // Create database schema
 table_header("Creating Tables");

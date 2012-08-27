@@ -46,13 +46,13 @@ if ($PRepType == 1 || !isset($PRepType)) // Display the commodities on the plane
 {
     $title = $title .": Status";
     bigtitle ();
-    standard_report ();
+    standard_report ($db);
 }
 elseif ($PRepType == 2)                  // Display the production values of your planets and allow changing
 {
     $title = $title .": Production";
     bigtitle ();
-    planet_production_change ();
+    planet_production_change ($db);
 }
 elseif ($PRepType == 0)                  // For typing in manually to get a report menu
 {
@@ -90,9 +90,8 @@ function planet_report_menu ()
     echo "</div>\n";
 }
 
-function standard_report ()
+function standard_report ($db)
 {
-    global $db;
     global $res;
     global $playerinfo;
     global $sort;
@@ -288,9 +287,8 @@ function standard_report ()
     echo "</div>\n";
 }
 
-function planet_production_change ()
+function planet_production_change ($db)
 {
-    global $db;
     global $playerinfo;
     global $sort;
     global $query;

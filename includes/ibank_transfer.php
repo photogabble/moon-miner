@@ -17,14 +17,13 @@
 //
 // File: includes/ibank_transfer.php
 
-function ibank_transfer ()
+function ibank_transfer ($db)
 {
-    global $db, $playerinfo, $account;
-    global $ibank_min_turns;
+    global $playerinfo, $ibank_min_turns;
     global $l_ibank_transfertype, $l_ibank_toanothership, $l_ibank_shiptransfer, $l_ibank_fromplanet, $l_ibank_source, $l_ibank_consolidate;
     global $l_ibank_unnamed, $l_ibank_in, $l_ibank_none, $l_ibank_planettransfer, $l_ibank_back, $l_ibank_logout, $l_ibank_destination, $l_ibank_conspl;
 
-    $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > $ibank_min_turns ORDER BY character_name ASC");
+    $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -32,7 +31,7 @@ function ibank_transfer ()
         $res->MoveNext();
     }
 
-    $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] ORDER BY sector_id ASC");
+    $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {

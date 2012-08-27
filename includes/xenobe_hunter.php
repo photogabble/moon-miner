@@ -17,10 +17,10 @@
 //
 // File: includes/xenobe_hunter.php
 
-function xenobe_hunter ()
+function xenobe_hunter ($db)
 {
     // Setup general Variables
-    global $playerinfo, $targetlink, $xenobeisdead, $db;
+    global $playerinfo, $targetlink, $xenobeisdead;
 
     $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1");
     db_op_result ($db, $rescount, __LINE__, __FILE__);
@@ -128,7 +128,7 @@ function xenobe_hunter ()
 
         if ($targetinfo['planet_id'] > 0) // Is player target on a planet?
         {
-            xenobe_to_planet ($targetinfo['planet_id']); // Yes, so move to that planet
+            xenobe_to_planet ($db, $targetinfo['planet_id']); // Yes, so move to that planet
         }
         else
         {

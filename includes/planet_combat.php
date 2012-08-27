@@ -17,9 +17,9 @@
 //
 // File: includes/planet_combat.php
 
-function planet_combat ()
+function planet_combat ($db)
 {
-    global $db, $playerinfo, $ownerinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
+    global $playerinfo, $ownerinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
     global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture, $l_cmb_atleastoneturn;
     global $l_cmb_atleastoneturn, $l_cmb_shipenergybb, $l_cmb_shipenergyab, $l_cmb_shipenergyas, $l_cmb_shiptorpsbtl, $l_cmb_shiptorpsatl;
@@ -36,6 +36,7 @@ function planet_combat ()
     global $l_cmb_finalcombatstats, $l_cmb_youlostfighters, $l_cmb_youlostarmorpoints, $l_cmb_energyused, $l_cmb_planetdefeated;
     global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
     global $l_cmb_fighterloststat, $l_cmb_energyleft;
+
     include_once './collect_bounty.php';
     include_once './gen_score.php';
 
@@ -353,7 +354,7 @@ function planet_combat ()
 
     echo "</table></center>\n";
     // Send each docked ship in sequence to attack agressor
-    $result4 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+    $result4 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
     db_op_result ($db, $result4, __LINE__, __FILE__);
     $shipsonplanet = $result4->RecordCount();
 
@@ -391,7 +392,7 @@ function planet_combat ()
             }
 
             echo "<br>-$onplanet[ship_name] $l_cmb_approachattackvector-<br>";
-            shiptoship ($onplanet['ship_id']);
+            ship_to_ship ($db, $onplanet['ship_id']);
             $result4->MoveNext();
         }
     }
@@ -410,7 +411,7 @@ function planet_combat ()
         if ($playerinfo['dev_escapepod'] == "Y")
         {
             echo "<center><font color='white'>$l_cmb_escapepod</font></center><br><br>";
-            $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
+            $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($start_energy, $playerinfo['ship_id']));
             db_op_result ($db, $resx, __LINE__, __FILE__);
             collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
@@ -451,11 +452,11 @@ function planet_combat ()
         $l_cmb_energyused = str_replace("[cmb_energy_lost]", $energy_lost, $l_cmb_energyused);
         $l_cmb_energyused = str_replace("[cmb_playerinfo_ship_energy]", $start_energy, $l_cmb_energyused);
         echo "$l_cmb_energyused<br></center>";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, torps=torps-?,armor_pts=armor_pts-?, rating=rating-? WHERE ship_id=?", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
     }
 
-    $result4 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+    $result4 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
     db_op_result ($db, $result4, __LINE__, __FILE__);
     $shipsonplanet = $result4->RecordCount();
 
@@ -473,8 +474,8 @@ function planet_combat ()
             // Reset Planet Assets.
             $sql  = "UPDATE {$db->prefix}planets ";
             $sql .= "SET organics = '0', ore = '0', goods = '0', energy = '0', colonists = '2', credits = '0', fighters = '0', torps = '0', corp = '0', base = 'N', sells = 'N', prod_organics = '20', prod_ore = '20', prod_goods = '20', prod_energy = '20', prod_fighters = '10', prod_torp = '10' ";
-            $sql .= "WHERE `dev_planets`.`planet_id` =$planetinfo[planet_id] LIMIT 1;";
-            $resx = $db->Execute($sql);
+            $sql .= "WHERE `dev_planets`.`planet_id` =? LIMIT 1;";
+            $resx = $db->Execute($sql, array ($planetinfo['planet_id']));
             db_op_result ($db, $resx, __LINE__, __FILE__);
             echo "<div style='text-align:center; font-size:18px; color:#f00;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
         }
@@ -490,7 +491,7 @@ function planet_combat ()
             if ($playerscore < $planetscore)
             {
                 echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
-                $resx = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id=$planetinfo[planet_id]");
+                $resx = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__);
                 playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 adminlog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
@@ -502,7 +503,7 @@ function planet_combat ()
                 echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
                 playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 gen_score ($db, $ownerinfo['ship_id']);
-                $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
+                $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
                 db_op_result ($db, $update7a, __LINE__, __FILE__);
             }
         }
@@ -512,7 +513,7 @@ function planet_combat ()
             echo "<center>$l_cmb_youmaycapture</center><br><br>";
             playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             gen_score ($db, $ownerinfo['ship_id']);
-            $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-$planettorps, base='N', defeated='Y' WHERE planet_id=$planetinfo[planet_id]");
+            $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
             db_op_result ($db, $update7a, __LINE__, __FILE__);
         }
 
@@ -529,10 +530,10 @@ function planet_combat ()
         $energy = $planetinfo['energy'];
         playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         gen_score ($db, $ownerinfo['ship_id']);
-        $update7b = $db->Execute("UPDATE {$db->prefix}planets SET energy=$energy,fighters=fighters-$fighters_lost, torps=torps-$planettorps, ore=ore+$free_ore, goods=goods+$free_goods, organics=organics+$free_organics, credits=credits+$ship_salvage WHERE planet_id=$planetinfo[planet_id]");
+        $update7b = $db->Execute("UPDATE {$db->prefix}planets SET energy=?,fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($energy, $fighters_lost, $planettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
         db_op_result ($db, $update7b, __LINE__, __FILE__);
     }
-    $update = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $update = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
     db_op_result ($db, $update, __LINE__, __FILE__);
 }
 ?>

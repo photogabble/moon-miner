@@ -127,7 +127,7 @@ set_time_limit(0);
 
 // Include config files and db scheme.
 
-include 'includes/schema.php';
+include 'includes/create_schema.php';
 
 // This is needed here until the language database is installed
 $title = 'Create universe';
@@ -297,10 +297,10 @@ echo"</table>";
 
       break;
    case "3":
-      create_schema();
+      create_schema ($db, $ADODB_SESSION_DB);
       include 'includes/ini_to_db.php';
 
-      $gameconfig_result = ini_to_db($db, "config/configset_classic.ini.php", "gameconfig", "game");
+      $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
       if ($gameconfig_result)
       {
           echo "Config variables imported into database successfully.\n<br>";
