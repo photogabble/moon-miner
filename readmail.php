@@ -17,21 +17,20 @@
 //
 // File: readmail.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_readm_title;
-include 'header.php';
+include './header.php';
 
 bigtitle();
-
-if (check_login ())
-{
-    die();
-}
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -220,5 +219,5 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 
 TEXT_GOTOMAIN();
 
-include 'footer.php';
+include './footer.php';
 ?>

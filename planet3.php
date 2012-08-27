@@ -17,19 +17,18 @@
 //
 // File: plaent3.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_planet3_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
+include './header.php';
 
 // Fixed The Phantom Planet Transfer Bug
 // Needs to be validated and type cast into their correct types.
@@ -62,7 +61,7 @@ if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die ();
 }
 
@@ -86,7 +85,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_trade_turnneed . '<br><br>';
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die ();
 }
 
@@ -94,7 +93,7 @@ if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $l_planet2_sector . '<br><br>';
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die ();
 }
 
@@ -102,7 +101,7 @@ if (empty ($planetinfo))
 {
     echo "$l_planet_none<br>";
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die ();
 }
 
@@ -170,5 +169,5 @@ if ($planetinfo['sells'] == 'Y')
 
 gen_score ($planetinfo['owner']);
 TEXT_GOTOMAIN ();
-include 'footer.php';
+include './footer.php';
 ?>

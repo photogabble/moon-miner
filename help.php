@@ -18,14 +18,14 @@
 // File: help.php
 
 include 'global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
+
 $title = $l_help;
 include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 bigtitle ();
 

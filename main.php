@@ -22,14 +22,13 @@ include 'includes/t_port.php';
 include 'includes/scan_success.php';
 include 'includes/player_insignia_name.php';
 
-// New database driven language entries
-load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars);
-update_cookie();
-
-if (check_login ())
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
     die();
 }
+
+// New database driven language entries
+load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars);
 
 $title = $langvars['l_main_title'];
 include 'header.php';
@@ -37,7 +36,7 @@ include 'header.php';
 $stylefontsize = "12Pt";
 $picsperrow = 7;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -131,7 +130,7 @@ $planettypes[2]= "mediumplanet.png";
 $planettypes[3]= "largeplanet.png";
 $planettypes[4]= "hugeplanet.png";
 
-$signame = player_insignia_name ($db, $username);
+$signame = player_insignia_name ($db, $_SESSION['username']);
 echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C0; text-align:center; border:#fff 1px solid; padding:4px;'>\n";
 echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$langvars['l_aboard']} <span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";
@@ -202,6 +201,13 @@ echo "</table>\n";
 echo "<table style='width:150px; margin:auto; text-align:center; border:0px; padding:0px; border-spacing:0px'>\n";
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
+
+/*
+if ($playerinfo['email'] == $admin_mail)
+{
+    echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='admin.php'>{$langvars['l_admin_menu']}</a></div>\n";
+}
+*/
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='device.php'>{$langvars['l_devices']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='planet_report.php'>{$langvars['l_planets']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='log.php'>{$langvars['l_log']}</a></div>\n";

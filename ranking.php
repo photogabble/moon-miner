@@ -19,7 +19,6 @@
 
 include 'global_includes.php';
 include 'includes/player_insignia_name.php';
-update_cookie ();
 
 if (!isset($_GET['lang']))
 {
@@ -167,7 +166,7 @@ else
     $lang = $_GET['lang'];
 }
 
-if (empty($username))
+if (empty($_SESSION['username']))
 {
     echo str_replace("[here]", "<a href='index.php" . $link_back . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }

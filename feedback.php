@@ -18,7 +18,11 @@
 // File: feedback.php
 
 include 'global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
@@ -26,10 +30,6 @@ load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_include
 $title = $l_feedback_title;
 include 'header.php';
 
-if (check_login ())
-{
-    die ();
-}
 bigtitle ();
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");

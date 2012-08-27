@@ -17,19 +17,18 @@
 //
 // File: mines.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_mines_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
+include './header.php';
 
 $op = null;
 if (array_key_exists('op', $_GET) == true)
@@ -113,7 +112,7 @@ if ($playerinfo['turns'] < 1 )
 {
     echo $l_mines_noturn . "<br><br>";
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die ();
 }
 
@@ -252,5 +251,5 @@ else
 }
 
 TEXT_GOTOMAIN ();
-include 'footer.php';
+include './footer.php';
 ?>

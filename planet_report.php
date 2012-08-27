@@ -17,19 +17,18 @@
 //
 // File: planet_report.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_pr_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 $PRepType = null;
 if (array_key_exists('PRepType', $_GET) == true) //!isset($_GET['PRepType']))
@@ -508,5 +507,5 @@ function base_build_check ($planet, $i)
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

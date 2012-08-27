@@ -17,7 +17,7 @@
 //
 // File: header.php
 
-global $lang, $langvars;
+//global $lang, $langvars;
 
 // New database driven language entries
 load_languages($db, $lang, array('common'), $langvars);
@@ -35,7 +35,7 @@ if (!isset($body_class))
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $l_lang_attribute; ?>">
+<html lang="<?php echo $langvars['l_lang_attribute']; ?>">
 <head>
 <meta charset="utf-8">
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">

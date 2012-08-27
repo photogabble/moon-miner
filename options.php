@@ -17,20 +17,19 @@
 //
 // File: options.php
 
-include 'global_includes.php';
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
-update_cookie ();
 
 $body_class = 'options';
 $title = $l_opt_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
+include './header.php';
 
 bigtitle ();
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -80,5 +79,5 @@ echo "<input type=submit value=$l_opt_save>";
 echo "</form><br>";
 
 TEXT_GOTOMAIN ();
-include 'footer.php';
+include './footer.php';
 ?>

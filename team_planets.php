@@ -17,19 +17,18 @@
 //
 // File: team_planets.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_teamplanet_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -40,9 +39,7 @@ if ($playerinfo['team'] == 0)
     echo "<br>$l_teamplanet_notally";
     echo "<br><br>";
     TEXT_GOTOMAIN();
-
-    include 'footer.php';
-
+    include './footer.php';
     return;
 }
 
@@ -198,5 +195,5 @@ else
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

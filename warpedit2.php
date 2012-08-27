@@ -17,19 +17,19 @@
 //
 // File: warpedit2.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_warp_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
+bigtitle();
 
 $oneway = null;
 if (array_key_exists('oneway', $_POST)== true)
@@ -47,13 +47,11 @@ $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array(
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-bigtitle();
-
 if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -61,7 +59,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -81,7 +79,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -108,7 +106,7 @@ if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
     $l_warp_twoerror = str_replace("[target_sector]", $target_sector, $l_warp_twoerror);
     echo $l_warp_twoerror . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -122,7 +120,7 @@ if ($numlink_start >= $link_max)
     $l_warp_sectex = str_replace("[link_max]", $link_max, $l_warp_sectex);
     echo $l_warp_sectex . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -190,5 +188,5 @@ if ($result3 instanceof ADORecordSet)
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

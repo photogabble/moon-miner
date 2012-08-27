@@ -19,18 +19,17 @@
 
 include 'global_includes.php';
 include 'calc_ownership.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('corp', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_corpm_title;
 include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__);

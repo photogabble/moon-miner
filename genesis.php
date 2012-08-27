@@ -23,18 +23,17 @@
 // instead. Easier to manage, makes more sense too.
 
 include 'global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_gns_title;
 include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 // Adding db lock to prevent more than 5 planets in a sector
 $resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE;");

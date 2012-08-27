@@ -17,21 +17,19 @@
 //
 // File: zoneinfo.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
 
 $body_class = 'zoneinfo';
 $title = $l_zi_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
-
+include './header.php';
 bigtitle ();
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
@@ -194,5 +192,5 @@ else
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

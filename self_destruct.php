@@ -18,21 +18,18 @@
 // File: self_destruct.php
 
 include './global_includes.php';
-update_cookie ();
-
-// New database driven language entries
-load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
-
 include_once './includes/cancel_bounty.php';
 
-$title = $l_die_title;
-include './header.php';
-
-if (check_login ())
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
     die();
 }
 
+// New database driven language entries
+load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+
+$title = $l_die_title;
+include './header.php';
 bigtitle();
 
 $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email='$username'");

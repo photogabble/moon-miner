@@ -18,20 +18,19 @@
 // File: ship.php
 
 include './global_includes.php';
-update_cookie ();
+include_once './includes/is_same_team.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once './includes/is_same_team.php';
-
 $title = $l_ship_title;
 include './header.php';
-
-if (check_login ())
-{
-    die();
-}
+bigtitle();
 
 $res = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -39,8 +38,6 @@ $playerinfo = $res->fields;
 $res2 = $db->Execute("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id=$ship_id");
 db_op_result ($db, $res2, __LINE__, __FILE__);
 $othership = $res2->fields;
-
-bigtitle();
 
 if ($othership['sector'] != $playerinfo['sector'])
 {

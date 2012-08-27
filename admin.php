@@ -23,8 +23,6 @@ include './config/admin_pw.php';
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
-update_cookie ();
-
 $title = $langvars['l_admin_title'];
 include './header.php';
 

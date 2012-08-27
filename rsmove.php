@@ -18,18 +18,17 @@
 // File: rsmove.php
 
 include './global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_rs_title;
 include './header.php';
-
-if (check_login ())
-{
-    die();
-}
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__);

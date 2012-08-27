@@ -74,17 +74,17 @@ if (!$no_db)
 }
 
 echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
-echo "  <strong><span id=myx>$mySEC</span></strong> " . $l_footer_until_update . " <br>\n";
+echo "  <strong><span id=myx>$mySEC</span></strong> " . $langvars['l_footer_until_update'] . " <br>\n";
 // End update counter
 
 if ($online == 1)
 {
     echo "  ";
-    echo $l_footer_one_player_on;
+    echo $langvars['l_footer_one_player_on'];
 }
 else
 {
-    echo "  " . $l_footer_players_on_1 . " " . $online . " " . $l_footer_players_on_2;
+    echo "  " . $langvars['l_footer_players_on_1'] . " " . $online . " " . $langvars['l_footer_players_on_2'];
 }
 ?>
 </div><br>
@@ -118,11 +118,11 @@ else
 }
 
 echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style='border:0;' width='" . $sf_logo_width . "' height='" . $sf_logo_height ."' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'></a></div>";
-echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $l_local_news . "</a></div>";
+echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $langvars['l_local_news'] . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $l_seconds . " " . $l_time_gen_page ." / " . floor(memory_get_peak_usage() / 1024) . $l_peak_mem . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";
 }
 ?>
 </body>

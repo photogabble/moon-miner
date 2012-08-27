@@ -17,20 +17,20 @@
 //
 // File: lrscan.php
 
-include 'global_includes.php';
-include 'includes/t_port.php';
-include 'includes/scan_success.php';
-update_cookie ();
+include './global_includes.php';
+include './includes/t_port.php';
+include './includes/scan_success.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_lrs_title;
-include 'header.php';
-if (check_login ())
-{
-    die ();
-}
+include './header.php';
 
 bigtitle ();
 
@@ -73,7 +73,7 @@ if ($sector == "*")
     {
         echo $l_lrs_nofull . "<br><br>";
         TEXT_GOTOMAIN ();
-        include 'footer.php';
+        include './footer.php';
         die();
     }
 
@@ -82,7 +82,7 @@ if ($sector == "*")
         $l_lrs_noturns=str_replace("[turns]", $fullscan_cost, $l_lrs_noturns);
         echo $l_lrs_noturns . "<br><br>";
         TEXT_GOTOMAIN ();
-        include 'footer.php';
+        include './footer.php';
         die();
     }
 
@@ -420,5 +420,5 @@ else
 echo "<br><br>";
 TEXT_GOTOMAIN();
 
-include 'footer.php';
+include './footer.php';
 ?>

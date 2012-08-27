@@ -388,12 +388,15 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 table_row ($db, "Creating session Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sessions (" .
-             "SESSKEY varchar(32) DEFAULT '' NOT NULL," .
-             "EXPIRY int(11) default '0' NOT NULL," .
-             "EXPIREREF varchar(64)," .
-             "SESSDATA longblob default '' NOT NULL," .
-             "PRIMARY KEY (EXPIRY)," .
-             "KEY SESSKEY(SESSKEY)" .
+             "sesskey VARCHAR(64) NOT NULL DEFAULT ''," .
+             "expiry DATETIME NOT NULL," .
+             "expireref VARCHAR(250) DEFAULT ''," .
+             "created DATETIME NOT NULL," .
+             "modified DATETIME NOT NULL," .
+             "sessdata LONGTEXT," .
+             "PRIMARY KEY (sesskey)," .
+             "INDEX sess2_expiry( expiry )," .
+             "INDEX sess2_expireref( expireref )" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 

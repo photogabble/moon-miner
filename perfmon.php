@@ -19,7 +19,6 @@
 
 include 'global_includes.php';
 include 'config/admin_pw.php';
-update_cookie();
 
 // New database driven language entries
 load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);

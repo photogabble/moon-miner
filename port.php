@@ -18,21 +18,19 @@
 // File: port.php
 
 include './global_includes.php';
-update_cookie ();
+include_once './includes/is_loan_pending.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty'), $langvars);
 
-include_once './includes/is_loan_pending.php';
-
 $body_class = 'port';
 $title = $l_title_port;
 include './header.php';
-
-if (check_login ())
-{
-    die();
-}
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__);

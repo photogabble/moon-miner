@@ -18,18 +18,17 @@
 // File: bounty.php
 
 include 'global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_by_title;
 include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 $response = null;
 if (array_key_exists('response', $_POST) == true)

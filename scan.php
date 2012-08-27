@@ -17,20 +17,20 @@
 //
 // File: scan.php
 
-include 'global_includes.php';
-include 'includes/scan_error.php';
-include 'includes/scan_success.php';
-update_cookie ();
+include './global_includes.php';
+include './includes/scan_error.php';
+include './includes/scan_success.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'), $langvars);
 
 $title = $l_scan_title;
-include 'header.php';
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__);
@@ -52,7 +52,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 {
     echo "You need to Click on the ship first.<BR><BR>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 unset($_SESSION['ship_selected']);
@@ -455,5 +455,5 @@ else
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

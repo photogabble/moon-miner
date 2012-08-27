@@ -18,7 +18,11 @@
 // File: port2.php
 
 include './global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
@@ -27,11 +31,6 @@ include_once './includes/is_loan_pending.php';
 
 $title = $l_title_port;
 include './header.php';
-
-if (check_login ())
-{
-    die();
-}
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__);

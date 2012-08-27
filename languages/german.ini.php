@@ -15,6 +15,7 @@ local_number_thousands_sep              = ",";
 
 [admin]
 l_admin_title                           = "Verwaltung";
+l_admin_menu                            = "Admin-Menü";
 l_change_uni_title                      = "Ändern Sie Größe Universum";
 
 [attack]

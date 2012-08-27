@@ -18,19 +18,17 @@
 // File: move.php
 
 include './global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_move_title;
 include './header.php';
-
-// Check to see if the user is logged in
-if (check_login ())
-{
-    die ();
-}
 
 // Retrieve the user and ship information
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");

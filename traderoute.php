@@ -20,21 +20,20 @@
 include './global_includes.php';
 include './includes/t_port.php';
 include './includes/traderoute_new.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages ($db, $lang, array('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_tdr_title;
 include './header.php';
+bigtitle ();
 
 $portfull = null; // This fixes an error of undefined variables on 1518
-if (check_login ())
-{
-    die ();
-}
-
-bigtitle ();
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__);

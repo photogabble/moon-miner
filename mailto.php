@@ -18,18 +18,16 @@
 // File: mailto.php
 
 include 'global_includes.php';
-update_cookie ();
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_mt_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -78,6 +76,6 @@ else
     // Using this three lines to get recipients ship_id and sending the message -- blindcoder
 }
 
-text_GOTOMAIN();
-include 'footer.php';
+TEXT_GOTOMAIN();
+include './footer.php';
 ?>

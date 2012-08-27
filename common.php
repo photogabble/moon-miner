@@ -142,7 +142,7 @@ foreach ($_COOKIE as $k=>$v)
     {
         ${$k}=$v;
     }
-}*/
+}
 
 if (!isset($userpass))
 {
@@ -154,7 +154,7 @@ if ($userpass != '' && $userpass != '+')
     $username = substr ($userpass, 0, strpos ($userpass, "+"));
     $password = substr ($userpass, strpos ($userpass, "+")+1);
 }
-
+*/
 $lang = $default_lang;
 
 if ($no_db != true) // Before DB is installed, don't try to setup userinfo
@@ -272,6 +272,9 @@ if (isset($gamedomain) && strlen($gamedomain) >0)
     }
 }
 // Game domain setting ends
+
+// We need language variables in every page, and a language setting for them.
+global $lang, $langvars;
 
 // Template API.
 require_once './classes/template.php';

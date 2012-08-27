@@ -17,19 +17,17 @@
 //
 // File: mailto2.php
 
-include 'global_includes.php';
-update_cookie();
+include './global_includes.php';
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_sendm_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 $name = null;
 if (array_key_exists('name', $_GET) == true)
@@ -167,5 +165,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

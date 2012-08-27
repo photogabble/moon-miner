@@ -17,19 +17,19 @@
 //
 // File: warpedit.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_warp_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
+bigtitle();
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
 db_op_result ($db, $result, __LINE__, __FILE__);
@@ -39,13 +39,11 @@ $result4 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;"
 db_op_result ($db, $result4, __LINE__, __FILE__);
 $sectorinfo = $result4->fields;
 
-bigtitle();
-
 if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -53,7 +51,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none. "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -64,7 +62,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -84,7 +82,7 @@ if ($zoneinfo['allow_warpedit'] == 'L')
         {
             echo $l_warp_forbid . "<br><br>";
             TEXT_GOTOMAIN();
-            include 'footer.php';
+            include './footer.php';
             die();
         }
     }
@@ -124,5 +122,5 @@ echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$
 echo "</form>";
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

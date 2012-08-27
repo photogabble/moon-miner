@@ -22,22 +22,21 @@
 
 include './global_includes.php';
 include './includes/calc_ownership.php';
-update_cookie ();
+include './includes/kick_off_planet.php';
+include './includes/defence_vs_defence.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_team_title;
 include './header.php';
-include './includes/defence_vs_defence.php';
-include './includes/kick_off_planet.php';
-
-if (check_login ())
-{
-    die();
-}
-
 bigtitle();
+
 $testing = false; // set to false to get rid of password when creating new team
 
 // Typecast into integers (this also removes all non numbers)

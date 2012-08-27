@@ -46,7 +46,6 @@ include_once './includes/playerlog.php';
 include_once './includes/players_online.php';
 include_once './includes/request_var.php';
 include_once './includes/text_gotomain.php';
-include_once './includes/update_cookie.php';
 
 // Include the phpass library for password storage using salted bcrypt
 require_once './backends/phpass/PasswordHash.php';
@@ -55,7 +54,7 @@ require_once './backends/phpass/PasswordHash.php';
 // supported in the future, and cryptsessions, so the session data itself is encrypted.
 require_once $ADOdbpath . "/adodb.inc.php";
 include_once $ADOdbpath . "/adodb-perf.inc.php";
-include_once $ADOdbpath . "/session/adodb-session.php";
+include_once $ADOdbpath . "/session/adodb-session2.php";
 
 spl_autoload_register('bnt_autoload');
 require_once 'common.php';

@@ -17,19 +17,18 @@
 //
 // File: planet_report_ce.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_pr_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 // This is required by Setup Info
 // planet_hack_fix,0.2.0,25-02-2004,TheMightyDude
@@ -116,7 +115,7 @@ function go_build_base ($db, $planet_id, $sector_id)
     // Notify User Of Base Results
     echo "$l_planet_bbuild<br><br>";
 
-    include 'includes/calc_ownership.php';
+    include './includes/calc_ownership.php';
     // Calc Ownership and Notify User Of Results
     $ownership = calc_ownership($playerinfo['sector']);
     if (!empty($ownership))
@@ -586,5 +585,5 @@ function real_space_move ($db, $destination)
   return($retval);
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

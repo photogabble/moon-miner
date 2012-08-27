@@ -18,20 +18,18 @@
 // File: modify_defences.php
 
 include './global_includes.php';
-update_cookie();
+include_once './includes/explode_mines.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('modify_defences', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once './includes/explode_mines.php';
-
 $title = $l_md_title;
 include './header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 if (!isset ($defence_id))
 {

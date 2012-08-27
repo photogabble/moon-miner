@@ -18,7 +18,11 @@
 // File: device.php
 
 include 'global_includes.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'), $langvars);
@@ -26,11 +30,6 @@ load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_
 $title = $l_device_title;
 $body_class = 'device';
 include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 $playerinfo = $res->fields;

@@ -19,7 +19,11 @@
 
 include './global_includes.php';
 include './includes/ibank_error.php';
-update_cookie ();
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
@@ -27,11 +31,6 @@ load_languages($db, $lang, array('igb', 'common', 'global_includes', 'global_fun
 $title = $l_ibank_title;
 $body_class = 'igb';
 include './header.php';
-
-if (check_login ())
-{
-    die ();
-}
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__);

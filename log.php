@@ -17,9 +17,13 @@
 //
 // File: log.php
 
-include 'global_includes.php';
-include 'config/admin_pw.php';
-update_cookie ();
+include './global_includes.php';
+include './config/admin_pw.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array(null,
@@ -37,14 +41,9 @@ load_languages($db, $lang, array('log', 'common', 'global_includes', 'global_fun
 $title = $l_log_titlet;
 $body_class = 'log';
 
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
-include 'header.php';
-
-$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -381,7 +380,7 @@ if ($mode != 'compat')
 }
 
 echo "</table></center>";
-include 'footer.php';
+include './footer.php';
 
 function log_parse ($entry)
 {
@@ -739,5 +738,4 @@ function get_log_info ($id = null, &$title = null, &$text = null)
         }
     }
 }
-
 ?>

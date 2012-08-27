@@ -18,18 +18,16 @@
 // File: attack.php
 
 include './global_includes.php';
+include './includes/is_same_team.php';
 include './includes/collect_bounty.php';
-update_cookie ();
 
-// New database driven language entries
-load_languages($db, $lang, array('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
-if (check_login ())
+if (check_login ($db, $lang, $langvars))
 {
     die();
 }
 
-include './includes/is_same_team.php';
+// New database driven language entries
+load_languages($db, $lang, array('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_att_title;
 include 'header.php';

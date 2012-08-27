@@ -17,19 +17,18 @@
 //
 // File: planet2.php
 
-include 'global_includes.php';
-update_cookie();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'report', 'planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_planet2_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die ();
-}
+include './header.php';
 
 // Needs to be validated and type cast into their correct types.
 // [GET]
@@ -158,7 +157,7 @@ if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
     TEXT_GOTOMAIN ();
-    include 'footer.php';
+    include './footer.php';
     die ();
 }
 
@@ -641,5 +640,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

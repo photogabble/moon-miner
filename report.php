@@ -17,19 +17,18 @@
 //
 // File: report.php
 
-include 'global_includes.php';
-update_cookie ();
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+{
+    die();
+}
 
 // New database driven language entries
 load_languages($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_report_title;
-include 'header.php';
-
-if (check_login ())
-{
-    die();
-}
+include './header.php';
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
 db_op_result ($db, $result, __LINE__, __FILE__);
@@ -121,5 +120,5 @@ echo "<p align=center>";
 echo "<img src=\"images/$shiptypes[$shiplevel]\" style=\"border:0px; width:80px; height:60px\"></p>";
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

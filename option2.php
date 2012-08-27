@@ -17,10 +17,11 @@
 //
 // File: option2.php
 
-include 'global_includes.php';
-if (check_login ())
+include './global_includes.php';
+
+if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die ();
+    die();
 }
 
 global $l_opt2_title;
@@ -37,9 +38,9 @@ if ($newpass1 == $newpass2 && $password_match && $newpass1 != "")
     // Hash the password.  $hashedPassword will be a 60-character string.
     $hashed_pass = $hasher->HashPassword($newpass1);
 
-    $userpass = $username."+".$hashed_pass;
+//    $userpass = $username."+".$hashed_pass;
 //    $userpass = $username."+".$newpass1;
-    setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
+//    setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
 }
 
 if (!preg_match("/^[\w]+$/", $newlang))
@@ -54,7 +55,7 @@ else
 // New database driven language entries
 load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
-include 'header.php';
+include './header.php';
 bigtitle ();
 
 if ($newpass1 == "" && $newpass2 == "")
@@ -100,5 +101,5 @@ foreach ($avail_lang as $curlang)
 
 echo "<br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>
