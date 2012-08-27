@@ -86,15 +86,36 @@ function gen_score ($db, $sid)
 
     $res = $db->Execute("SELECT if (COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) as planet_score FROM {$db->prefix}planets WHERE owner=?", array ($sid));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $planet_score = $res->fields['planet_score'];
+    if ($res instanceof ADORecordSet)
+    {
+        $planet_score = $res->fields['planet_score'];
+    }
+    else
+    {
+        $planet_score = null;
+    }
 
     $res = $db->Execute("SELECT if (COUNT(*)>0, $calc_levels + $calc_equip + $calc_dev + {$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=? AND ship_destroyed='N'", array ($sid));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $ship_score = $res->fields['ship_score'];
+    if ($res instanceof ADORecordSet)
+    {
+        $ship_score = $res->fields['ship_score'];
+    }
+    else
+    {
+        $ship_score = null;
+    }
 
     $res = $db->Execute("SELECT (balance - loan) as bank_score FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($sid));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $bank_score = $res->fields['bank_score'];
+    if ($res instanceof ADORecordSet)
+    {
+        $bank_score = $res->fields['bank_score'];
+    }
+    else
+    {
+        $bank_score = null;
+    }
 
     $score = $ship_score + $planet_score + $bank_score;
     if ($score < 0)

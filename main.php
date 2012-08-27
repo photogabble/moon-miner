@@ -21,6 +21,7 @@ include 'global_includes.php';
 include 'includes/t_port.php';
 include 'includes/scan_success.php';
 include 'includes/player_insignia_name.php';
+include 'includes/gen_score.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -36,9 +37,19 @@ include 'header.php';
 $stylefontsize = "12Pt";
 $picsperrow = 7;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->SelectLimit("SELECT * FROM {$db->prefix}ships WHERE email=?", 1, -1,array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
+
+if (!isset ($_GET['command']))
+{
+    $_GET['command'] = null;
+}
+
+if ($_GET['command'] == "score")
+{
+    $playerinfo['score'] = gen_score ($db, $playerinfo['ship_id']);
+}
 
 if ($playerinfo['cleared_defences'] > ' ')
 {
@@ -157,7 +168,7 @@ echo "<table style='width:90%; margin:auto; text-align:center; border:0px;'>\n";
 echo "  <tr>\n";
 echo "    <td style='width:33%; text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_turns_have']} <span style='color:#fff; font-weight:bold;'>{$ply_turns}</span></td>\n";
 echo "    <td style='width:33%; text-align:center; color:#ccc; font-size:12px;'>{$langvars['l_turns_used']} <span style='color:#fff; font-weight:bold;'>{$ply_turnsused}</span></td>\n";
-echo "    <td style='width:33%; text-align:right; color:#ccc; font-size:12px;'>{$langvars['l_score']} <span style='color:#fff; font-weight:bold;'>{$ply_score}&nbsp;</span></td>\n";
+echo "    <td style='width:33%; text-align:right; color:#ccc; font-size:12px;'>{$langvars['l_score']} <span style='color:#fff; font-weight:bold;'><a href='main.php?command=score'>{$ply_score}</a>&nbsp;</span></td>\n";
 echo "  </tr>\n";
 echo "  <tr>\n";
 echo "    <td colspan='3' style='width:33%; text-align:right; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_credits']}: <span style='color:#fff; font-weight:bold;'>{$ply_credits}</span></td>\n";
