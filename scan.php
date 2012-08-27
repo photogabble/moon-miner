@@ -40,8 +40,9 @@ $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", arr
 db_op_result ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
-$playerscore = gen_score($playerinfo['ship_id']);
-$targetscore = gen_score($targetinfo['ship_id']);
+include './includes/gen_score.php';
+$playerscore = gen_score ($db, $playerinfo['ship_id']);
+$targetscore = gen_score ($db, $targetinfo['ship_id']);
 
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;

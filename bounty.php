@@ -208,7 +208,9 @@ switch ($response) {
         if ($bounty_maxvalue != 0)
         {
             $percent = $bounty_maxvalue * 100;
-            $score = gen_score ($playerinfo['ship_id']);
+
+            include_once './includes/gen_score.php';
+            $score = gen_score ($db, $playerinfo['ship_id']);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
             $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}ships WHERE bounty_on = ? AND placed_by = ?;", array($bounty_on, $playerinfo['ship_id']));

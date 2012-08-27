@@ -73,7 +73,8 @@ function ibank_loans ()
     else
     {
         $percent = $ibank_loanlimit * 100;
-        $score = gen_score ($playerinfo['ship_id']);
+        include_once './gen_score.php';
+        $score = gen_score ($db, $playerinfo['ship_id']);
         $maxloan = $score * $score * $ibank_loanlimit;
 
         $l_ibank_maxloanpercent = str_replace ("[ibank_percent]", $percent, $l_ibank_maxloanpercent);

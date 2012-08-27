@@ -42,7 +42,8 @@ if (isset($_SESSION['username']))
     $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
-    $current_score = gen_score ($playerinfo['ship_id']);
+    include_once './includes/gen_score.php';
+    $current_score = gen_score ($db, $playerinfo['ship_id']);
     playerlog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
 }
 

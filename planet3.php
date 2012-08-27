@@ -167,7 +167,8 @@ if ($planetinfo['sells'] == 'Y')
     }
 }
 
-gen_score ($planetinfo['owner']);
+include './includes/gen_score.php';
+gen_score ($db, $planetinfo['owner']);
 TEXT_GOTOMAIN ();
 include './footer.php';
 ?>

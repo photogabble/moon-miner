@@ -28,7 +28,8 @@ $res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE ship_destroyed
 db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
-    gen_score($res->fields['ship_id']);
+    include_once './includes/gen_score.php';
+    gen_score ($db, $res->fields['ship_id']);
     $res->MoveNext();
 }
 echo "<br>";
