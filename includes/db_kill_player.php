@@ -63,7 +63,7 @@ function db_kill_player ($db, $ship_id, $remove_planets = false)
         foreach ($sectors as $sector)
         {
             include 'calc_ownership.php';
-            calc_ownership ($sector);
+            calc_ownership ($db, $sector);
         }
     }
 
