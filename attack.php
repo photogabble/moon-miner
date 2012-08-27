@@ -30,7 +30,7 @@ if (check_login ($db, $lang, $langvars))
 load_languages($db, $lang, array('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_att_title;
-include 'header.php';
+include './header.php';
 
 bigtitle ();
 
@@ -39,7 +39,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 {
     echo "You need to click on the ship first.<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 unset($_SESSION['ship_selected']);

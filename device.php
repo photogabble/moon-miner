@@ -17,7 +17,7 @@
 //
 // File: device.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -29,7 +29,7 @@ load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_
 
 $title = $l_device_title;
 $body_class = 'device';
-include 'header.php';
+include './header.php';
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 $playerinfo = $res->fields;
@@ -73,5 +73,5 @@ echo "</table>";
 echo "<br>";
 
 TEXT_GOTOMAIN ();
-include 'footer.php';
+include './footer.php';
 ?>

@@ -18,7 +18,7 @@
 // File: index.php
 
 $index_page = true;
-include 'global_includes.php';
+include './global_includes.php';
 
 if (!isset($_GET['lang']))
 {
@@ -47,7 +47,7 @@ load_languages($db, $lang, array('main', 'login', 'logout', 'index'), $langvars)
 $title = $l_welcome_bnt;
 $body_class = 'index';
 
-include 'header.php';
+include './header.php';
 ?>
 
 <div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="Blacknova Traders"></div>
@@ -88,4 +88,4 @@ include 'header.php';
 <br>
 <p class="cookie-warning"><?php echo $l_cookie_warning; ?></p></div>
 <br>
-<?php include "footer.php"; ?>
+<?php include './footer.php'; ?>

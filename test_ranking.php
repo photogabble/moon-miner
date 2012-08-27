@@ -1,8 +1,8 @@
 <?php
 
 // Include the Config File.
-include 'global_includes.php';
-include 'includes/player_insignia_name.php';
+include './global_includes.php';
+include './includes/player_insignia_name.php';
 
 // Always make sure we are using empty vars before use.
 $language_vars = null;

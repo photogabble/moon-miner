@@ -17,7 +17,7 @@
 //
 // File: login2.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 // Test to see if server is closed to logins
 $playerfound = false;
@@ -56,11 +56,11 @@ load_languages($db, $lang, array('login2', 'login', 'common', 'global_includes',
 if ($server_closed)
 {
     $title = $l_login_sclosed;
-    include 'header.php';
+    include './header.php';
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
     echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -81,7 +81,7 @@ if (isset($playerinfo))
     }
 }
 
-include 'header.php';
+include './header.php';
 bigtitle ();
 
 if ($playerfound)
@@ -161,5 +161,5 @@ else
     echo "<strong>" . $l_login_noone . "</strong><br>";
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

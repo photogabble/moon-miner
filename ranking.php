@@ -17,8 +17,8 @@
 //
 // File: ranking.php
 
-include 'global_includes.php';
-include 'includes/player_insignia_name.php';
+include './global_includes.php';
+include './includes/player_insignia_name.php';
 
 if (!isset($_GET['lang']))
 {
@@ -39,7 +39,7 @@ load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes',
 
 $l_ranks_title = str_replace("[max_ranks]", $max_ranks, $l_ranks_title);
 $title = $l_ranks_title;
-include 'header.php';
+include './header.php';
 bigtitle();
 
 $res = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0");
@@ -175,5 +175,5 @@ else
     echo str_replace("[here]", "<a href='main.php" . $link_back . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

@@ -17,11 +17,11 @@
 //
 // File: main.php
 
-include 'global_includes.php';
-include 'includes/t_port.php';
-include 'includes/scan_success.php';
-include 'includes/player_insignia_name.php';
-include 'includes/gen_score.php';
+include './global_includes.php';
+include './includes/t_port.php';
+include './includes/scan_success.php';
+include './includes/player_insignia_name.php';
+include './includes/gen_score.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -32,7 +32,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main', 'admin'), $langvars);
 
 $title = $langvars['l_main_title'];
-include 'header.php';
+include './header.php';
 
 $stylefontsize = "12Pt";
 $picsperrow = 7;
@@ -853,5 +853,5 @@ echo "&nbsp;<a class=dis href=\"lrscan.php?sector=*\">[" . $langvars['l_fullscan
 
 <?php
 
-include 'footer.php';
+include './footer.php';
 ?>

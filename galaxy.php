@@ -17,7 +17,7 @@
 //
 // File: galaxy.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -29,7 +29,7 @@ load_languages($db, $lang, array('main', 'port', 'galaxy', 'common', 'global_inc
 
 global $l_map_title;
 $title = $l_map_title;
-include 'header.php';
+include './header.php';
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -114,5 +114,5 @@ echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

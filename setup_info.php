@@ -17,10 +17,10 @@
 //
 // File: setup_info.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 // Stores the class for creating the universe.
-include 'setup_info_class.php';
+include './setup_info_class.php';
 
 // Load up SETUPINFO Class
 $setup_info = new SETUPINFO_CLASS();
@@ -39,7 +39,7 @@ $setup_info->initDB();
 load_languages($db, $lang, array('common', 'global_includes', 'footer', 'news'), $langvars);
 
 $title = $setup_info->appinfo['title'];
-include 'header.php';
+include './header.php';
 
 $setup_info->DisplayFlush("<div align=\"center\">\n");
 $setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");
@@ -362,5 +362,5 @@ else
     TEXT_GOTOMAIN();
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

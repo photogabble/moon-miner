@@ -17,7 +17,7 @@
 //
 // File: help.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -25,7 +25,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 $title = $l_help;
-include 'header.php';
+include './header.php';
 
 bigtitle ();
 
@@ -187,5 +187,5 @@ echo "be disallowed in some zones.";
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

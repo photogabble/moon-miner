@@ -17,13 +17,13 @@
 //
 // File: mail.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_mail_title;
-include 'header.php';
+include './header.php';
 bigtitle();
 
 $result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array($mail));
@@ -68,5 +68,5 @@ else
     }
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

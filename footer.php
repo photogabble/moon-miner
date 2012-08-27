@@ -53,7 +53,7 @@ if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i
     echo "<p></p>\n";
     echo "<script src='backends/javascript/newsticker.js.php'></script>\n";
     echo "<div id='news_ticker' class='faderlines'></div>\n";
-    include 'fader.php';
+    include './fader.php';
 }
 
 ?><br>

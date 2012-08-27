@@ -181,7 +181,7 @@ else
 </center>
 
 <?php
-include 'footer.php';
+include './footer.php';
 
 function strip_non_num ($str)
 {

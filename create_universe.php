@@ -21,8 +21,8 @@
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
 $index_page = true;
-include 'global_includes.php';
-include 'config/admin_pw.php';
+include './global_includes.php';
+include './config/admin_pw.php';
 
 // HTML Table Functions
 if (!function_exists('print_flush'))
@@ -123,11 +123,11 @@ set_time_limit(0);
 
 // Include config files and db scheme.
 
-include 'includes/create_schema.php';
+include './includes/create_schema.php';
 
 // This is needed here until the language database is installed
 $title = 'Create universe';
-include 'header.php';
+include './header.php';
 
 bigtitle ();
 
@@ -294,7 +294,7 @@ echo"</table>";
       break;
    case "3":
       create_schema ($db, $ADODB_SESSION_DB);
-      include 'includes/ini_to_db.php';
+      include './includes/ini_to_db.php';
 
       $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
       if ($gameconfig_result)
@@ -928,13 +928,13 @@ table_footer ("Completed successfully.");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
 
-      if ($bnt_ls===true)
+      if ($bnt_ls === true)
       {
 //            $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, 60, 0, 'bnt_ls_client.php', NULL,unix_timestamp(now()))");
 //        table_row ($db, "The public list updater will occur every 60 minutes","Failed","Inserted");
 
             $creating=1;
-//            include "bnt_ls_client.php";
+//            include './bnt_ls_client.php';
       }
       table_footer ("Completed successfully");
 

@@ -17,7 +17,7 @@
 //
 // File: newplayerguide.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (!isset($_GET['lang']))
 {
@@ -36,7 +36,7 @@ load_languages($db, $lang, array('global_funcs'), $langvars);
 
 $title = "Blacknova Traders New player guide";
 $body_class = 'faq';
-include 'header.php';
+include './header.php';
 ?>
 <table>
   <tbody>
@@ -195,4 +195,4 @@ else
 {
     echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
-include 'footer.php'; ?>
+include './footer.php'; ?>

@@ -331,7 +331,7 @@ function xenobe_to_planet ($db, $planet_id)
             $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
             db_op_result ($db, $resl, __LINE__, __FILE__);
 
-            include 'calc_ownership.php';
+            include './calc_ownership.php';
             calc_ownership ($db, $planetinfo['sector_id']);
         }
         else

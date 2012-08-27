@@ -17,7 +17,7 @@
 //
 // File: settings.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (!isset($_GET['lang']))
 {
@@ -34,7 +34,7 @@ else
 // New database driven language entries
 load_languages($db, $lang, array('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include 'header.php';
+include './header.php';
 
 $line_color = $color_line1;
 
@@ -334,6 +334,5 @@ else
     echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
-include 'footer.php';
-
+include './footer.php';
 ?>

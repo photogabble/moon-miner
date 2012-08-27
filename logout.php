@@ -17,7 +17,7 @@
 //
 // File: logout.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
@@ -34,7 +34,7 @@ setcookie("PHPSESSID","",0,"/");
 // Destroy the session entirely
 session_destroy();
 
-include 'header.php';
+include './header.php';
 bigtitle ();
 
 if (isset($_SESSION['username']))
@@ -56,5 +56,5 @@ else
     echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

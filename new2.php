@@ -17,7 +17,7 @@
 //
 // File: new2.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (!isset($_GET['lang']))
 {
@@ -35,7 +35,7 @@ else
 load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_new_title2;
-include 'header.php';
+include './header.php';
 bigtitle ();
 
 if ($account_creation_closed)
@@ -199,5 +199,5 @@ else
     echo $l_new_err;
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

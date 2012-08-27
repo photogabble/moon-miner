@@ -53,9 +53,9 @@ function check_login ($db, $lang)
     if ($_SESSION['username'] === null || $_SESSION['password'] === null || !$password_match)
     {
         $title = $langvars['l_error'];
-        include 'header.php';
+        include '../header.php';
         echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
-        include 'footer.php';
+        include '../footer.php';
         $flag = 1;
     }
 
@@ -99,9 +99,9 @@ function check_login ($db, $lang)
     if ($server_closed && $flag == 0)
     {
         $title = $langvars['l_login_closed_message'];
-        include 'header.php';
+        include '../header.php';
         echo $langvars['l_login_closed_message'];
-        include 'footer.php';
+        include '../footer.php';
         $flag = 1;
     }
 

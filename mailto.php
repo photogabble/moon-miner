@@ -17,7 +17,7 @@
 //
 // File: mailto.php
 
-include 'global_includes.php';
+include './global_includes.php';
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
     die();
