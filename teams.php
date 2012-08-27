@@ -136,7 +136,7 @@ switch ($teamwhat)
 
     case 2: // LEAVE
     {
-        if (!is_team_member$team, $playerinfo))
+        if (!is_team_member($team, $playerinfo))
         {
             echo "<strong><font color=red>An error occured</font></strong><br>You are not a member of this Team.";
             link_back();
@@ -430,7 +430,7 @@ switch ($teamwhat)
 
     case 7: // INVITE player
     {
-        if (is_team_member$team, $playerinfo) == false)
+        if (is_team_member($team, $playerinfo) == false)
         {
             echo "<br>You are not in this team!<br>";
             link_back();
