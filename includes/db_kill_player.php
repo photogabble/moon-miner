@@ -22,7 +22,7 @@ if (preg_match("/db_kill_player.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function db_kill_player ($ship_id, $remove_planets = false)
+function db_kill_player ($db, $ship_id, $remove_planets = false)
 {
     global $default_prod_ore;
     global $default_prod_organics;
@@ -30,7 +30,6 @@ function db_kill_player ($ship_id, $remove_planets = false)
     global $default_prod_energy;
     global $default_prod_fighters;
     global $default_prod_torp;
-    global $db, $l;
 
     $resa = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=?", array($ship_id));
     db_op_result ($db, $resa, __LINE__, __FILE__);

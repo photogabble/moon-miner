@@ -573,7 +573,7 @@ else
                 else
                 {
                     playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-                    db_kill_player ($targetinfo['ship_id']);
+                    db_kill_player ($db, $targetinfo['ship_id']);
                     collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     adminlog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
@@ -597,7 +597,7 @@ else
                             $rating_change = 0 - $rating_change;
                             playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
-                            db_kill_player ($targetinfo['ship_id']);
+                            db_kill_player ($db, $targetinfo['ship_id']);
 
                             adminlog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
 
@@ -710,7 +710,7 @@ else
                 else
                 {
                     echo "Didnt have pod?! $playerinfo[dev_escapepod]<br>";
-                    db_kill_player ($playerinfo['ship_id'] );
+                    db_kill_player ($db, $playerinfo['ship_id'] );
                     collect_bounty ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
 

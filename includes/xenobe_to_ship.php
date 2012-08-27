@@ -299,7 +299,7 @@ function xenobe_to_ship ($db, $ship_id)
     // TARGET HAD NO POD
     {
       playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
-      db_kill_player($targetinfo['ship_id']);
+      db_kill_player ($db, $targetinfo['ship_id']);
     }
     if ($attackerarmor>0)
     {
@@ -382,7 +382,7 @@ function xenobe_to_ship ($db, $ship_id)
   if (!$attackerarmor>0)
   {
     playerlog ($db, $playerinfo[ship_id], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
-    db_kill_player($playerinfo['ship_id']);
+    db_kill_player ($db, $playerinfo['ship_id']);
     $xenobeisdead = 1;
     if ($targetarmor>0)
     {

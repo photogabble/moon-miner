@@ -264,7 +264,7 @@ function xenobe_to_planet ($planet_id)
     if (!$attackerarmor > 0) // Check if attackers ship destroyed
     {
         playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
-        db_kill_player ($playerinfo['ship_id']);
+        db_kill_player ($db, $playerinfo['ship_id']);
         $xenobeisdead = 1;
 
         $free_ore = round ($playerinfo['ship_ore'] / 2);

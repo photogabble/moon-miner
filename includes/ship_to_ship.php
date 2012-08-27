@@ -488,7 +488,7 @@ function ship_to_ship ($ship_id)
         else
         {
             playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-            db_kill_player ($targetinfo['ship_id']);
+            db_kill_player ($db, $targetinfo['ship_id']);
             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
     }

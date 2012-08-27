@@ -184,7 +184,7 @@ if ($playerarmor < 1)
     else
     {
         cancel_bounty ($db, $playerinfo['ship_id']);
-        db_kill_player ($playerinfo['ship_id']);
+        db_kill_player ($db, $playerinfo['ship_id']);
         $ok = 0;
         TEXT_GOTOMAIN();
         die();
