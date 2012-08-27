@@ -28,6 +28,12 @@ function check_login ()
 
     global $username, $password, $db, $langvars;
 
+    if (isset($_SESSION['logged_in']))
+    {
+        $username = $_SESSION['username'];
+        $password = $_SESSION['password'];
+    }
+
     $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($username));
     db_op_result ($db, $result1, __LINE__, __FILE__);
     $playerinfo = $result1->fields;

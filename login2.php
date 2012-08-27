@@ -99,6 +99,8 @@ if ($playerfound)
             $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',ip_address='$ip' WHERE ship_id=$playerinfo[ship_id]");
             db_op_result ($db, $update, __LINE__, __FILE__);
             $_SESSION['logged_in'] = true;
+            $_SESSION['password'] = $_POST['pass'];
+            $_SESSION['username'] = $playerinfo['email'];
             TEXT_GOTOMAIN();
             header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
         }
