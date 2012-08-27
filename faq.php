@@ -18,8 +18,6 @@
 // File: faq.php
 
 include 'global_includes.php';
-$title = "Blacknova Traders FAQ";
-$body_class = 'faq';
 
 if (!isset($_GET['lang']))
 {
@@ -33,8 +31,12 @@ else
     $link = "?lang=" . $lang;
 }
 
+// New database driven language entries
+load_languages($db, $lang, array('global_funcs'), $langvars);
+
+$title = "Blacknova Traders FAQ";
+$body_class = 'faq';
 include 'header.php';
-global $langvars; // The language object
 ?>
 <table>
   <tbody>

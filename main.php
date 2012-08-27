@@ -141,7 +141,7 @@ $planettypes[2]= "mediumplanet.png";
 $planettypes[3]= "largeplanet.png";
 $planettypes[4]= "hugeplanet.png";
 
-$signame = player_insignia_name ($db, $_SESSION['username']);
+$signame = player_insignia_name ($db, $_SESSION['username'], $langvars);
 echo "<div style='width:90%; margin:auto; background-color:#400040; color:#C0C0C0; text-align:center; border:#fff 1px solid; padding:4px;'>\n";
 echo "{$signame} <span style='color:#fff; font-weight:bold;'>{$playerinfo['character_name']}</span>{$langvars['l_aboard']} <span style='color:#fff; font-weight:bold;'><a class='new_link' style='font-size:14px;' href='report.php'>{$playerinfo['ship_name']}</a></span>\n";
 echo "</div>\n";
@@ -429,7 +429,7 @@ echo "<td style='vertical-align:top;'>\n";
 if ($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
-    echo "{$langvars['l_tradingport']}:&nbsp;<span style='color:#0f0;'>". ucfirst(t_port($sectorinfo['port_type'])) ."</span>\n";
+    echo "{$langvars['l_tradingport']}:&nbsp;<span style='color:#0f0;'>". ucfirst (t_port ($sectorinfo['port_type'], $langvars)) ."</span>\n";
     echo "<br>\n";
     echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='images/space_station_port.png' alt='Space Station Port'></a>\n";
     echo "</div>\n";

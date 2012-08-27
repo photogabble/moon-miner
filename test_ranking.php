@@ -107,7 +107,7 @@ if ($rs instanceof ADORecordSet)
             }
 
             // Set the players Insignia.
-            $row['insignia'] = player_insignia_name ($db, $row['email']);
+            $row['insignia'] = player_insignia_name ($db, $row['email'], $langvars);
 
             // This is just to show that we can set the type of player.
             // like: banned, admin, player, npc etc.

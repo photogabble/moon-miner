@@ -137,7 +137,7 @@ else
 
         echo "<tr bgcolor=\"$color\"><td>" . NUMBER($i) . "</td><td>" . NUMBER($row['score']) . "</td><td>";
         echo "&nbsp;";
-        echo player_insignia_name ($db, $row['email']);
+        echo player_insignia_name ($db, $row['email'], $langvars);
         echo "&nbsp;";
         echo "<strong>$row[character_name]</strong></td><td>" . NUMBER($row['turns_used']) . "</td><td>$row[last_login]</td><td>&nbsp;&nbsp;" . NUMBER($rating) . "</td><td>$row[team_name]&nbsp;</td><td>$online</td><td>$row[efficiency]</td></tr>\n";
         if ($color == $color_line1)

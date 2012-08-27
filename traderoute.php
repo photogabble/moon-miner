@@ -238,7 +238,7 @@ else
             $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($traderoutes[$i]['source_id']));
             db_op_result ($db, $result, __LINE__, __FILE__);
             $port1 = $result->fields;
-            echo "&nbsp;" . t_port($port1['port_type']) . "</font></td>";
+            echo "&nbsp;" . t_port ($port1['port_type'], $langvars) . "</font></td>";
         }
         else
         {
@@ -278,7 +278,7 @@ else
             $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($traderoutes[$i]['dest_id']));
             db_op_result ($db, $result, __LINE__, __FILE__);
             $port2 = $result->fields;
-            echo "&nbsp;" . t_port($port2['port_type']) . "</font></td>";
+            echo "&nbsp;" . t_port ($port2['port_type'], $langvars) . "</font></td>";
         }
         else
         {

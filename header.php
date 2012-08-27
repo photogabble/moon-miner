@@ -17,8 +17,6 @@
 //
 // File: header.php
 
-//global $lang, $langvars;
-
 // New database driven language entries
 load_languages($db, $lang, array('common'), $langvars);
 

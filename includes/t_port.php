@@ -22,10 +22,8 @@ if (preg_match("/t_port.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function t_port ($ptype)
+function t_port ($ptype, $langvars)
 {
-    global $langvars;
-
     switch ($ptype)
     {
     case "ore":
