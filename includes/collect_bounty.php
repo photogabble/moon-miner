@@ -22,9 +22,8 @@ if (preg_match("/collect_bounty.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function collect_bounty ($attacker, $bounty_on)
+function collect_bounty ($db, $attacker, $bounty_on)
 {
-    global $db, $l;
     $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array($bounty_on));
     if ($res)
     {

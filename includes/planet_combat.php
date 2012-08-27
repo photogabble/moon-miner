@@ -411,12 +411,12 @@ function planet_combat ()
             echo "<center><font color='white'>$l_cmb_escapepod</font></center><br><br>";
             $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
             db_op_result ($db, $resx, __LINE__, __FILE__);
-            collect_bounty ($planetinfo['owner'], $playerinfo['ship_id']);
+            collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
         else
         {
             db_kill_player ($playerinfo['ship_id']);
-            collect_bounty ($planetinfo['owner'], $playerinfo['ship_id']);
+            collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
     }
     else

@@ -37,7 +37,7 @@ bigtitle ();
 // Kami Multi Browser Window Attack Fix
 if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
 {
-    echo "You need to Click on the ship first.<BR><BR>";
+    echo "You need to click on the ship first.<br><br>";
     TEXT_GOTOMAIN();
     include 'footer.php';
     die();
@@ -567,14 +567,14 @@ else
                     $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,cleared_defences=' ',dev_lssd='N' WHERE ship_id=?", array($start_energy, $rating, $targetinfo['ship_id']));
                     db_op_result ($db, $resx, __LINE__, __FILE__);
                     playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
-                    collect_bounty ($playerinfo['ship_id'], $targetinfo['ship_id']);
+                    collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     adminlog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
                 }
                 else
                 {
                     playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                     db_kill_player ($targetinfo['ship_id']);
-                    collect_bounty ($playerinfo['ship_id'], $targetinfo['ship_id']);
+                    collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     adminlog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
 
@@ -596,7 +596,7 @@ else
                         {
                             $rating_change = 0 - $rating_change;
                             playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-                            collect_bounty ($playerinfo['ship_id'], $targetinfo['ship_id']);
+                            collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                             db_kill_player ($targetinfo['ship_id']);
 
                             adminlog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
@@ -705,13 +705,13 @@ else
                     echo $l_att_loosepod. "<br><br>";
                     $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,dev_lssd='N' WHERE ship_id=?", array($start_energy, $rating, $playerinfo['ship_id']));
                     db_op_result ($db, $resx, __LINE__, __FILE__);
-                    collect_bounty ($targetinfo['ship_id'], $playerinfo['ship_id']);
+                    collect_bounty ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
                 else
                 {
                     echo "Didnt have pod?! $playerinfo[dev_escapepod]<br>";
-                    db_kill_player ( $playerinfo['ship_id'] );
-                    collect_bounty ( $targetinfo['ship_id'], $playerinfo['ship_id']);
+                    db_kill_player ($playerinfo['ship_id'] );
+                    collect_bounty ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
 
                 if ($targetarmor > 0)
