@@ -41,7 +41,7 @@ function ibank_borrow ($db)
         ibank_error($l_ibank_notwoloans, "igb.php?command=loans");
     }
 
-    include_once 'gen_score.php';
+    include_once './gen_score.php';
     $score = gen_score ($db, $playerinfo['ship_id']);
     $maxtrans = $score * $score * $ibank_loanlimit;
 

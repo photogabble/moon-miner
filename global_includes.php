@@ -58,5 +58,5 @@ include_once $ADOdbpath . "/adodb-perf.inc.php";
 include_once $ADOdbpath . "/session/adodb-session2.php";
 
 spl_autoload_register('bnt_autoload');
-require_once 'common.php';
+require_once './common.php';
 ?>
