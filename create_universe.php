@@ -705,7 +705,6 @@ echo"</table>";
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
-      include_once 'footer.php';
       break;
    case "5":
 
@@ -863,7 +862,7 @@ table_row ($db, "Removing links to and from the end of the Universe","Failed","D
 table_footer ("Completed successfully.");
 
       echo "<form action=create_universe.php method=post>";
-      echo "<input type=hidden name=step value=7>";
+      echo "<input type=hidden name=step value=6>";
       echo "<input type=hidden name=spp value=$spp>";
       echo "<input type=hidden name=oep value=$oep>";
       echo "<input type=hidden name=ogp value=$ogp>";
@@ -878,13 +877,12 @@ table_footer ("Completed successfully.");
       echo "<input type=hidden name=swordfish value=$swordfish>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
-      include_once 'footer.php';
       break;
-   case "7":
+   case "6":
 
       // New database driven language entries
       load_languages($db, $lang, array('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-      table_header ("Configuring game scheduler --- Stage 7");
+      table_header ("Configuring game scheduler --- Stage 6");
 
       table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 
@@ -974,7 +972,6 @@ table_footer ("Completed successfully.");
       print_flush ("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");
       print_flush ("<strong>Click <a href=index.php>here</A> to return to the login screen.</strong></center>");
 
-      include_once 'footer.php';
       break;
    default:
       echo "<form action=create_universe.php method=post>";
@@ -984,6 +981,5 @@ table_footer ("Completed successfully.");
       echo "</form>";
       break;
 }
-
-//include "footer.php";
+include './footer.php';
 ?>

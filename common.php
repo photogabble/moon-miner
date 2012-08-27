@@ -134,13 +134,15 @@ foreach ($_GET as $k=>$v)
         ${$k}=$v;
     }
 }
+
+/*
 foreach ($_COOKIE as $k=>$v)
 {
     if (!isset($GLOBALS[$k]))
     {
         ${$k}=$v;
     }
-}
+}*/
 
 if (!isset($userpass))
 {

@@ -30,37 +30,58 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
         return false;
     }
 
-    // Populate the $langvars array
-    foreach ($categories as $category)
+    global $no_db;
+
+    if ($no_db)
     {
-        if (!isset($disable_cache))
+        // Slurp in language variables from the ini file directly
+        $ini_file = './languages/' . $language . '.ini.php';
+        $ini_keys = parse_ini_file ($ini_file, true);
+        foreach ($ini_keys as $config_category=>$config_line)
         {
-            $disable_cache = true;
+            foreach ($config_line as $config_key=>$config_value)
+            {
+                global $$config_key;
+                $$config_key = $config_value;
+                $langvars[$config_key] = $config_value;
+            }
         }
-
-        if ($disable_cache)
-        {
-            // Select from the database and return the value of the language variables requested, but do not use caching
-            $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
-        }
-        else
-        {
-            // Do a cached select from the database and return the value of the language variables requested
-            $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
-        }
-
-        db_op_result ($db, $result, __LINE__, __FILE__);
-
-        while ($result && !$result->EOF)
-        {
-            $row = $result->fields;
-            global $$row['name'];
-            $$row['name'] = $row['value'];
-            $langvars[$row['name']] = $row['value'];
-            $result->MoveNext();
-        }
+        return true; // Results were added into array, signal that we were successful.
     }
+    else
+    {
+        // Populate the $langvars array
+        foreach ($categories as $category)
+        {
+            if (!isset($disable_cache))
+            {
+                // Disable caching until we have the config preferences in the database
+                $disable_cache = true;
+            }
 
-    return true; // Results were added into array, signal that we were successful.
+            if ($disable_cache)
+            {
+                // Select from the database and return the value of the language variables requested, but do not use caching
+                $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
+            }
+            else
+            {
+                // Do a cached select from the database and return the value of the language variables requested
+                $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array($category, $language));
+            }
+
+            db_op_result ($db, $result, __LINE__, __FILE__);
+
+            while ($result && !$result->EOF)
+            {
+                $row = $result->fields;
+                global $$row['name'];
+                $$row['name'] = $row['value'];
+                $langvars[$row['name']] = $row['value'];
+                $result->MoveNext();
+            }
+        }
+        return true; // Results were added into array, signal that we were successful.
+    }
 }
 ?>

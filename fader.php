@@ -31,10 +31,7 @@ if (result == true)
     load_languages($db, $lang, array('news'), $langvars);
 
     $startdate = date("Y/m/d");
-    $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
-    db_op_result ($db, $res, __LINE__, __FILE__);
-
-    if ($res->EOF)
+    if ($no_db)
     {
         echo "    url = 'news.php';\n";
         echo "    text = \"{$l_news_none}\";\n";
@@ -44,6 +41,9 @@ if (result == true)
     }
     else
     {
+        $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
+        db_op_result ($db, $res, __LINE__, __FILE__);
+
         while (!$res->EOF)
         {
             $row = $res->fields;

@@ -23,7 +23,7 @@ function create_schema ()
     global $db, $ADODB_SESSION_DB;
 
 // Delete all tables in the database
-table_header("Dropping Tables");
+table_header("Dropping Tables --- Stage 3");
 
 // Have SQL prepare a query for dropping tables that contains the list of all tables according to SQL.
 $drop_tables_stmt = $db->Execute('SELECT CONCAT( "DROP TABLE ", GROUP_CONCAT(TABLE_NAME)) AS stmt FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $ADODB_SESSION_DB. '" AND TABLE_NAME LIKE "' . $db->prefix. '%"');
