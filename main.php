@@ -28,7 +28,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main'), $langvars);
+load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main', 'admin'), $langvars);
 
 $title = $langvars['l_main_title'];
 include 'header.php';
@@ -202,12 +202,10 @@ echo "<table style='width:150px; margin:auto; text-align:center; border:0px; pad
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 
-/*
 if ($playerinfo['email'] == $admin_mail)
 {
     echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='admin.php'>{$langvars['l_admin_menu']}</a></div>\n";
 }
-*/
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='device.php'>{$langvars['l_devices']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='planet_report.php'>{$langvars['l_planets']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='log.php'>{$langvars['l_log']}</a></div>\n";
