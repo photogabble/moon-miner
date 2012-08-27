@@ -161,7 +161,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                     db_op_result ($db, $update2, __LINE__, __FILE__);
                     $update3 = $db->Execute("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id=$planet_id");
                     db_op_result ($db, $update3, __LINE__, __FILE__);
-                    calc_ownership ($playerinfo['sector']);
+                    calc_ownership ($db, $playerinfo['sector']);
                     header("Location: main.php");
                 }
                 else
@@ -447,7 +447,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                     echo "$l_planet_bbuild<br><br>";
 
                     // Calc Ownership and Notify User Of Results
-                    $ownership = calc_ownership ($playerinfo['sector'] );
+                    $ownership = calc_ownership ($db, $playerinfo['sector'] );
                     if (!empty($ownership))
                     {
                         echo "$ownership<p>";
@@ -868,7 +868,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
             echo "$l_planet_captured<br>";
             $update = $db->Execute("UPDATE {$db->prefix}planets SET corp=0, owner=$playerinfo[ship_id], base='N', defeated='N' WHERE planet_id=$planet_id");
             db_op_result ($db, $update, __LINE__, __FILE__);
-            $ownership = calc_ownership ($playerinfo['sector']);
+            $ownership = calc_ownership ($db, $playerinfo['sector']);
 
             if (!empty($ownership))
             {

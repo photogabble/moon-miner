@@ -185,7 +185,7 @@ switch ($teamwhat)
                 {
                     foreach ($sectors as $sector)
                     {
-                        calc_ownership($sector);
+                        calc_ownership ($db, $sector);
                     }
                 }
                 defence_vs_defence ($db, $playerinfo['ship_id']);
@@ -243,7 +243,7 @@ switch ($teamwhat)
                     {
                         foreach ($sectors as $sector)
                         {
-                            calc_ownership($sector);
+                            calc_ownership ($db, $sector);
                         }
                     }
 
@@ -288,7 +288,7 @@ switch ($teamwhat)
             {
                 foreach ($sectors as $sector)
                 {
-                    calc_ownership($sector);
+                    calc_ownership ($db, $sector);
                 }
             }
 

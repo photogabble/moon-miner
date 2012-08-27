@@ -516,7 +516,7 @@ function planet_combat ()
         }
 
         include './calc_ownership.php';
-        calc_ownership ($planetinfo['sector_id']);
+        calc_ownership ($db, $planetinfo['sector_id']);
     }
     else
     {

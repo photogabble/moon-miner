@@ -332,7 +332,7 @@ function xenobe_to_planet ($planet_id)
             db_op_result ($db, $resl, __LINE__, __FILE__);
 
             include 'calc_ownership.php';
-            calc_ownership ($planetinfo['sector_id']);
+            calc_ownership ($db, $planetinfo['sector_id']);
         }
         else
         {
