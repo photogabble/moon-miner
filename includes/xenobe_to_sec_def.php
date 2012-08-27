@@ -17,14 +17,14 @@
 //
 // File: includes/xenobe_to_sec_def.php
 
-function xenobe_to_sec_def ()
+function xenobe_to_sec_def ($db)
 {
     include_once './destroy_fighters.php';
     include_once './explode_mines.php';
     include_once './cancel_bounty.php';
     // Xenobe to sector defense
 
-    global $playerinfo, $targetlink, $xenobeisdead, $db, $l;
+    global $playerinfo, $targetlink, $xenobeisdead;
 
     // Check for sector defenses
     if ($targetlink > 0)

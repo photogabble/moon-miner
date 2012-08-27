@@ -30,7 +30,6 @@ echo "<br><strong>Xenobe TURNS</strong><br><br>";
 include_once './includes/xenobe_hunter.php';
 include_once './includes/xenobe_move.php';
 include_once './includes/xenobe_regen.php';
-include_once './includes/xenobe_to_sec_def.php';
 include_once './includes/xenobe_to_ship.php';
 include_once './includes/xenobe_trade.php';
 include_once './includes/xenobe_to_planet.php';

@@ -116,7 +116,7 @@ function xenobe_move ($db)
         {
             if ($playerinfo['aggression'] == 2 || $playerinfo['aggression'] == 1)
             {
-                xenobe_to_sec_def(); // Attack sector defences
+                xenobe_to_sec_def ($db); // Attack sector defences
 
                 return;
             }
