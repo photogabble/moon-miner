@@ -99,7 +99,14 @@ else
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 
-echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+if (empty($_SESSION['username']))
+{
+    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+}
+else
+{
+    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+}
 
 include 'footer.php';
 die ();
