@@ -21,7 +21,7 @@ include './global_includes.php';
 include './config/admin_pw.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('admin', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
+load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $langvars['l_admin_title'];
 include './header.php';
@@ -883,11 +883,13 @@ else
             echo "<p>";
             echo "<form action=admin.php method=post>";
             echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
-            echo "<input type=submit value=\"Return to main menu\">";
+            echo "<input type=submit value=\"Return to admin menu\">";
             echo "</form>";
         }
     }
 }
 
+echo "<br>";
+echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 include './footer.php';
 ?>
