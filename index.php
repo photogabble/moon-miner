@@ -88,6 +88,4 @@ include 'header.php';
 <br>
 <p class="cookie-warning"><?php echo $l_cookie_warning; ?></p></div>
 <br>
-<?php include "footer.php";
-echo ini_get('session.gc_maxlifetime');
-?>
+<?php include "footer.php"; ?>
