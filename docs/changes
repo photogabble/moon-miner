@@ -3,6 +3,9 @@ TheKabal (25 August 2012)
 Passwords are now salted & stored using bcrypt
 Split combat and IGB into seperate function files
 Cleaned up many CamelCaps and ALLCAPS function names
+All authentication now uses sessions instead of cookies
+check_login now performs both the checking of login/authentication, but also updates the session (like update_cookie used to do)
+Main menu now includes an admin menu link if you are logged in with the adminmail account
 
 TheKabal (18 August 2012)
 --------------------------------------
