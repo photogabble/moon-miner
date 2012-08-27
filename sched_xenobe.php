@@ -166,7 +166,7 @@ while (!$res->EOF)
           continue;
         }
         // NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS
-        xenobe_trade ();
+        xenobe_trade ($db);
         // FIND A TARGET
         // IN MY SECTOR, NOT MYSELF
         $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");

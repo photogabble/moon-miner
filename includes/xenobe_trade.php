@@ -17,64 +17,44 @@
 //
 // File: includes/xenobe_trade.php
 
-function xenobe_trade ()
+function xenobe_trade ($db)
 {
-  //
-  // SETUP GENERAL VARIABLES
-  //
-  global $playerinfo;
-  global $inventory_factor;
-  global $ore_price;
-  global $ore_delta;
-  global $ore_limit;
-  global $goods_price;
-  global $goods_delta;
-  global $goods_limit;
-  global $organics_price;
-  global $organics_delta;
-  global $organics_limit;
-  global $xenobeisdead;
-  global $db;
-  // We need to get rid of this.. the bug causing it needs to be identified and squashed. In the meantime, we want functional xen's. :)
+    // Setup general variables
+    global $playerinfo, $inventory_factor, $ore_price, $ore_delta, $ore_limit, $goods_price;
+    global $goods_delta, $goods_limit, $organics_price, $organics_delta, $organics_limit, $xenobeisdead;
+
+    // We need to get rid of this.. the bug causing it needs to be identified and squashed. In the meantime, we want functional xen's. :)
     $ore_price = 11;
     $organics_price = 5;
     $goods_price = 15;
 
-  // OBTAIN SECTOR INFORMATION
-  $sectres = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
-  db_op_result ($db, $sectres, __LINE__, __FILE__);
-  $sectorinfo = $sectres->fields;
+    // Obtain sector information
+    $sectres = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+    db_op_result ($db, $sectres, __LINE__, __FILE__);
+    $sectorinfo = $sectres->fields;
 
-  // OBTAIN ZONE INFORMATION
-  $zoneres = $db->Execute ("SELECT zone_id,allow_attack,allow_trade FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
-  db_op_result ($db, $zoneres, __LINE__, __FILE__);
-  $zonerow = $zoneres->fields;
+    // Obtain zone information
+    $zoneres = $db->Execute ("SELECT zone_id,allow_attack,allow_trade FROM {$db->prefix}zones WHERE zone_id='$sectorinfo[zone_id]'");
+    db_op_result ($db, $zoneres, __LINE__, __FILE__);
+    $zonerow = $zoneres->fields;
 
-  // Debug info
-  //playerlog ($db, $playerinfo[ship_id], LOG_RAW, "PORT $sectorinfo[port_type] ALLOW_TRADE $zonerow[allow_trade] PORE $sectorinfo[port_ore] PORG $sectorinfo[port_organics] PGOO $sectorinfo[port_goods] ORE $playerinfo[ship_ore] ORG $playerinfo[ship_organics] GOO $playerinfo[ship_goods] CREDITS $playerinfo[credits] ");
+    // Make sure we can trade here
+    if ($zonerow[allow_trade]=="N") return;
 
-  //
-  //  MAKE SURE WE CAN TRADE HERE
-  //
-  if ($zonerow[allow_trade]=="N") return;
+    // Check for a port we can use
+    if ($sectorinfo[port_type] == "none") return;
 
-  //
-  //  CHECK FOR A PORT WE CAN USE
-  //
-  if ($sectorinfo[port_type] == "none") return;
-  // Xenobe DO NOT TRADE AT ENERGY PORTS SINCE THEY REGEN ENERGY
-  if ($sectorinfo[port_type] == "energy") return;
+    // Xenobe do not trade at energy ports since they regen energy
+    if ($sectorinfo[port_type] == "energy") return;
 
-  //
-  //  CHECK FOR NEG CREDIT/CARGO
-  //
-  if ($playerinfo[ship_ore]<0) $playerinfo[ship_ore]=$shipore=0;
-  if ($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
-  if ($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
-  if ($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
-  if ($sectorinfo[port_ore] <= 0) return;
-  if ($sectorinfo[port_organics] <= 0) return;
-  if ($sectorinfo[port_goods] <= 0) return;
+    // Check for negative credits or cargo
+    if ($playerinfo[ship_ore]<0) $playerinfo[ship_ore]=$shipore=0;
+    if ($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
+    if ($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
+    if ($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
+    if ($sectorinfo[port_ore] <= 0) return;
+    if ($sectorinfo[port_organics] <= 0) return;
+    if ($sectorinfo[port_goods] <= 0) return;
 
   //
   //  CHECK Xenobe CREDIT/CARGO
