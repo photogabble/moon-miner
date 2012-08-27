@@ -117,17 +117,17 @@ function php_true_delta ($futurevalue, $shipvalue)
     return $tempval;
 }
 
-function php_change_delta ($desiredvalue, $currentvalue)
+function php_change_delta ($desired_value, $current_value)
 {
     global $upgrade_cost;
 
     $delta = 0;
-    $deltaCost = 0;
-    $delta = $desiredvalue - $currentvalue;
+    $delta_cost = 0;
+    $delta = $desired_value - $current_value;
 
     while ($delta > 0 )
     {
-        $delta_cost = $delta_cost + pow (2, $desiredvalue - $Delta);
+        $delta_cost = $delta_cost + pow (2, $desired_value - $delta);
         $delta = $delta - 1;
     }
 
