@@ -26,7 +26,6 @@ load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_f
 $title = $langvars['l_admin_title'];
 include './header.php';
 
-connect_database ();
 bigtitle ();
 
 function checked ($yesno)

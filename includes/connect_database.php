@@ -22,10 +22,10 @@ if (preg_match("/connect_database.php/i", $_SERVER['PHP_SELF'])) {
       die();
 }
 
-function connect_database ($do_die = true) // Returns true, false or a halt.
+// Returns true or false
+function connect_database ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent)
 {
-    global $ADODB_SESSION_CONNECT, $dbport, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB;
-    global $db, $ADODB_SESSION_DRIVER, $db_persistent;
+    global $db;
 
     // Check to see if we are already connected to the database.
     // If so just return true.

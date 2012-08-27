@@ -33,10 +33,7 @@ if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip co
 $BenchmarkTimer = new c_timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
-global $ADODB_CRYPT_KEY;
-global $ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_DB;
-
-$ADODB_SESS_CONN = '';
+$ADODB_SESS_CONN = null;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";
 
 // We explicitly use encrypted sessions, but this adds compression as well.
@@ -45,8 +42,7 @@ ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
 // The data field name "data" violates SQL reserved words - switch it to SESSDATA
 ADODB_Session::dataFieldName('SESSDATA');
 
-global $db;
-connect_database ();
+connect_database ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent);
 
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists("dev"))

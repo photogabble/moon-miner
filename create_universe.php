@@ -25,10 +25,6 @@ include 'global_includes.php';
 include 'config/admin_pw.php';
 
 // HTML Table Functions
-
-global $db;
-connect_database (); // This must occur before the functions below
-
 if (!function_exists('print_flush'))
 {
     function print_flush ($text="")

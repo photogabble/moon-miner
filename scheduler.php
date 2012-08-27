@@ -76,7 +76,6 @@ $title = $l_sys_update;
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include './header.php';
-connect_database ();
 
 bigtitle ();
 

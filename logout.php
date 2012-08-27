@@ -35,23 +35,26 @@ setcookie("PHPSESSID","",0,"/");
 session_destroy();
 
 include 'header.php';
-$current_score = 0;
+bigtitle ();
 
 if (isset($_SESSION['username']))
 {
+    $current_score = 0;
     $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     include_once './includes/gen_score.php';
     $current_score = gen_score ($db, $playerinfo['ship_id']);
     playerlog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
+    echo $l_logout_score . " " . $current_score . ".<br>";
+    $l_logout_text = str_replace("[name]", $_SESSION['username'], $l_logout_text);
+    $l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
+    echo $l_logout_text;
 }
-
-bigtitle ();
-echo $l_logout_score . " " . $current_score . ".<br>";
-$l_logout_text = str_replace("[name]", $_SESSION['username'], $l_logout_text);
-$l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
-echo $l_logout_text;
+else
+{
+    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+}
 
 include 'footer.php';
 ?>

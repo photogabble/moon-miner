@@ -18,7 +18,6 @@
 // File: info_publiclist.php
 
 include 'global_includes.php';
-connect_database ();
 
 $info = array();
 
