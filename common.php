@@ -135,31 +135,11 @@ foreach ($_GET as $k=>$v)
     }
 }
 
-/*
-foreach ($_COOKIE as $k=>$v)
-{
-    if (!isset($GLOBALS[$k]))
-    {
-        ${$k}=$v;
-    }
-}
-
-if (!isset($userpass))
-{
-    $userpass = '';
-}
-
-if ($userpass != '' && $userpass != '+')
-{
-    $username = substr ($userpass, 0, strpos ($userpass, "+"));
-    $password = substr ($userpass, strpos ($userpass, "+")+1);
-}
-*/
 $lang = $default_lang;
 
 if ($no_db != true) // Before DB is installed, don't try to setup userinfo
 {
-    if (empty($username))  // If the user has not logged in
+    if (empty($_SESSION['username']))  // If the user has not logged in
     {
         if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
         {
@@ -168,7 +148,7 @@ if ($no_db != true) // Before DB is installed, don't try to setup userinfo
     }
     else // The user has logged in, so use his preference from the database
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res)
         {

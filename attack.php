@@ -48,7 +48,7 @@ unset($_SESSION['ship_selected']);
 $result = $db->Execute("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}languages READ, {$db->prefix}ibank_accounts READ, {$db->prefix}sector_defence WRITE, {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, {$db->prefix}zones READ, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}movement_log WRITE, {$db->prefix}logs WRITE;");
 db_op_result ($db, $result, __LINE__, __FILE__);
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

@@ -32,7 +32,7 @@ load_languages($db, $lang, array('scan', 'common', 'bounty', 'report', 'main', '
 $title = $l_scan_title;
 include './header.php';
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

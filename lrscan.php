@@ -61,7 +61,7 @@ function get_player ($db, $ship_id)
 }
 
 // Get user info
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

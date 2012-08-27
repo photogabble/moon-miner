@@ -30,7 +30,7 @@ load_languages($db, $lang, array('presets', 'common', 'global_includes', 'global
 $title = $l_pre_title;
 include './header.php';
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

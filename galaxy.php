@@ -31,7 +31,7 @@ global $l_map_title;
 $title = $l_map_title;
 include 'header.php';
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 $result3 = $db->Execute("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = $playerinfo[ship_id] AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC;");

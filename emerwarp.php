@@ -17,7 +17,7 @@
 //
 // File: emerwarp.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -28,12 +28,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ewd_title;
-include 'header.php';
+include './header.php';
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 bigtitle ();
+
 if ($playerinfo['dev_emerwarp'] > 0)
 {
     $dest_sector = mt_rand(0, $sector_max - 1);
@@ -49,5 +50,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

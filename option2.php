@@ -37,10 +37,6 @@ if ($newpass1 == $newpass2 && $password_match && $newpass1 != "")
 {
     // Hash the password.  $hashedPassword will be a 60-character string.
     $hashed_pass = $hasher->HashPassword($newpass1);
-
-//    $userpass = $username."+".$hashed_pass;
-//    $userpass = $username."+".$newpass1;
-//    setcookie("userpass", $userpass, time()+(3600*24)*365, $gamepath, $gamedomain);
 }
 
 if (!preg_match("/^[\w]+$/", $newlang))
@@ -72,9 +68,10 @@ elseif ($newpass1 != $newpass2)
 }
 else
 {
-    $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE email='$username'");
+    $res = $db->Execute("SELECT ship_id,password FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
+
     $res = $db->Execute("UPDATE {$db->prefix}ships SET password='$hashed_pass' WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
@@ -87,7 +84,7 @@ else
     }
 }
 
-$res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE email='$username'");
+$res = $db->Execute("UPDATE {$db->prefix}ships SET lang='$lang' WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 foreach ($avail_lang as $curlang)
 {

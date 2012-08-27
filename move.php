@@ -31,7 +31,7 @@ $title = $l_move_title;
 include './header.php';
 
 // Retrieve the user and ship information
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 
 // Put the player information into the array: "playerinfo"

@@ -43,7 +43,7 @@ if (array_key_exists('target_sector', $_POST)== true)
     $target_sector = $_POST['target_sector'];
 }
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -84,7 +84,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 }
 
 $target_sector = round($target_sector);
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

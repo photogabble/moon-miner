@@ -53,7 +53,7 @@ if (array_key_exists('to', $_POST) == true)
     $to = (string) $_POST['to'];
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 

@@ -37,13 +37,9 @@ session_destroy();
 include 'header.php';
 $current_score = 0;
 
-if (!isset($username))
+if (isset($_SESSION['username']))
 {
-    $username = '';
-}
-else
-{
-    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     $current_score = gen_score ($playerinfo['ship_id']);
@@ -52,7 +48,7 @@ else
 
 bigtitle ();
 echo $l_logout_score . " " . $current_score . ".<br>";
-$l_logout_text = str_replace("[name]", $username, $l_logout_text);
+$l_logout_text = str_replace("[name]", $_SESSION['username'], $l_logout_text);
 $l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
 echo $l_logout_text;
 

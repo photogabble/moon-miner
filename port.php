@@ -32,7 +32,7 @@ $body_class = 'port';
 $title = $l_title_port;
 include './header.php';
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -40,28 +40,28 @@ $playerinfo = $res->fields;
 
 if ($playerinfo['ship_ore'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0 WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_ore'] = 0;
 }
 
 if ($playerinfo['ship_organics'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_organics=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_organics=0 WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_organics'] = 0;
 }
 
 if ($playerinfo['ship_energy'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=0 WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_energy'] = 0;
 }
 
 if ($playerinfo['ship_goods'] < 0 )
 {
-    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_goods=0 WHERE email='$username'");
+    $fixres = $db->Execute("UPDATE {$db->prefix}ships SET ship_goods=0 WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $fixres, __LINE__, __FILE__);
     $playerinfo['ship_goods'] = 0;
 }

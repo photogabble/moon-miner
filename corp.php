@@ -17,8 +17,8 @@
 //
 // File: corp.php
 
-include 'global_includes.php';
-include 'calc_ownership.php';
+include './global_includes.php';
+include './calc_ownership.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -29,9 +29,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('corp', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_corpm_title;
-include 'header.php';
+include './header.php';
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -82,5 +82,5 @@ else
     TEXT_GOTOMAIN();
 }
 
-include 'footer.php';
+include './footer.php';
 ?>

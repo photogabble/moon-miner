@@ -58,11 +58,10 @@ function go_build_base ($db, $planet_id, $sector_id)
 {
   global $base_ore, $base_organics, $base_goods, $base_credits;
   global $l_planet_bbuild;
-  global $username;
 
   echo "<br>Click <a href=planet_report.php?PRepType=1>here</A> to return to the Planet Status Report<br><br>";
 
-  $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+  $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
   db_op_result ($db, $result, __LINE__, __FILE__);
   $playerinfo=$result->fields;
 
@@ -128,12 +127,12 @@ function go_build_base ($db, $planet_id, $sector_id)
 
 function collect_credits ($db, $planetarray)
 {
-  global $username, $sector_max;
+  global $sector_max;
 
   $CS = "GO"; // Current State
 
   // Look up Player info that wants to collect the credits.
-  $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username' LIMIT 1");
+  $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($_SESSION['username']));
   db_op_result ($db, $result1, __LINE__, __FILE__);
   $playerinfo = $result1->fields;
 
@@ -227,9 +226,9 @@ function change_planet_production ($db, $prodpercentarray)
 //  This should patch the game from being hacked with planet Hack.
 
   global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
-  global $username, $l_unnamed;
+  global $l_unnamed;
 
-  $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE email='$username'");
+  $result = $db->Execute("SELECT ship_id,team FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
   db_op_result ($db, $result, __LINE__, __FILE__);
   $ship_id = $result->fields['ship_id'];
   $team_id = $result->fields['team'];
@@ -377,10 +376,10 @@ function change_planet_production ($db, $prodpercentarray)
 
 function take_credits ($db, $sector_id, $planet_id)
 {
-  global $username, $l_unnamed;
+  global $l_unnamed;
 
   // Get basic Database information (ship and planet)
-  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']);
   db_op_result ($db, $res, __LINE__, __FILE__);
   $playerinfo = $res->fields;
 
@@ -413,10 +412,10 @@ function take_credits ($db, $sector_id, $planet_id)
 
         // update the player record
         // credits
-        $res = $db->Execute("UPDATE {$db->prefix}ships SET credits=$NewShipCredits WHERE email='$username'");
+        $res = $db->Execute("UPDATE {$db->prefix}ships SET credits=$NewShipCredits WHERE email=?", array($_SESSION['username']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         // turns
-        $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1 WHERE email='$username'");
+        $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1 WHERE email=?", array($_SESSION['username']));
         db_op_result ($db, $res, __LINE__, __FILE__);
 
         echo "Took " . NUMBER($CreditsTaken) . " Credits from planet $planetinfo[name]. <br>";
@@ -446,10 +445,10 @@ function take_credits ($db, $sector_id, $planet_id)
 
 function real_space_move ($db, $destination)
 {
-  global $username, $level_factor, $mine_hullsize;
+  global $level_factor, $mine_hullsize;
   global $l_rs_ready, $l_rs_movetime, $l_rs_noturns;
 
-  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
   db_op_result ($db, $res, __LINE__, __FILE__);
   $playerinfo = $res->fields;
 

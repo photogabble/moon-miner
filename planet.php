@@ -55,7 +55,7 @@ if (array_key_exists('planet_id', $_GET) == true)
 bigtitle ();
 
 // Get the Player Info
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -71,11 +71,11 @@ if ($planet_id <= 0 )
     die ();
 }
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($playerinfo['sector']));
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array($playerinfo['sector']));
 db_op_result ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array($planet_id));
+$result3 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=?", array($planet_id));
 db_op_result ($db, $result3, __LINE__, __FILE__);
 $planetinfo = $result3->fields;
 

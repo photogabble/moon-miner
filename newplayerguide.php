@@ -184,7 +184,7 @@ global $langvars; // The language object
     </LI></OL></td></tr></tbody></table>
 
 <?php
-if (empty($username))
+if (empty($_SESSION['username']))
 {
     echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }

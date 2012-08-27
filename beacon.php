@@ -17,20 +17,20 @@
 //
 // File: beacon.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 // New database driven language entries
 load_languages($db, $lang, array('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_beacon_title;
-include 'header.php';
+include './header.php';
 
 if (check_login ($db, $lang, $langvars))
 {
     die();
 }
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($username));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -126,5 +126,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

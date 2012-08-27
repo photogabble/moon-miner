@@ -31,7 +31,7 @@ $title = $l_device_title;
 $body_class = 'device';
 include 'header.php';
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 $playerinfo = $res->fields;
 
 bigtitle ();

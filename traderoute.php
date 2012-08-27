@@ -35,11 +35,11 @@ bigtitle ();
 
 $portfull = null; // This fixes an error of undefined variables on 1518
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE owner=?;", array($playerinfo['ship_id']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE owner=?", array($playerinfo['ship_id']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $num_traderoutes = $result->RecordCount();
 
@@ -145,7 +145,7 @@ elseif (isset ($engage) )
     $i = $tr_repeat;
     while ($i > 0)
     {
-        $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
         db_op_result ($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
         include_once './includes/traderoute_engage.php';

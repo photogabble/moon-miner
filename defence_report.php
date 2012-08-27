@@ -17,7 +17,7 @@
 //
 // File: defence_report.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -28,9 +28,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_sdf_title;
-include 'header.php';
+include './header.php';
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -123,5 +123,5 @@ else
 
 echo "<br><br>";
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

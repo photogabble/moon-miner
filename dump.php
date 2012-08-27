@@ -17,7 +17,7 @@
 //
 // File: dump.php
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -28,9 +28,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('dump', 'main', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_dump_title;
-include 'header.php';
+include './header.php';
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
@@ -41,7 +41,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_dump_turn  . "<br><br>";
     TEXT_GOTOMAIN();
-    include 'footer.php';
+    include './footer.php';
     die();
 }
 
@@ -60,5 +60,5 @@ else
 }
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

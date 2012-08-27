@@ -325,7 +325,7 @@ echo "</table>";
 echo "<br>\n";
 echo "<br>\n";
 
-if (empty($username))
+if (empty($_SESSION['username']))
 {
     echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }

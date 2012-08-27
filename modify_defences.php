@@ -45,7 +45,7 @@ if (array_key_exists('response', $_REQUEST) == true)
     $response = $_REQUEST['response'];
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 

@@ -129,7 +129,7 @@ if ($rs instanceof ADORecordSet)
     }
 }
 
-if (empty($username))
+if (empty($_SESSION['username']))
 {
     $variables['loggedin'] = (boolean) true;
     $variables['linkback'] = array("caption"=>$language_vars['l_global_mlogin'], "link"=>"index.php");

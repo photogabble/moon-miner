@@ -95,7 +95,7 @@ if (array_key_exists('who', $_REQUEST) == true)
 $result = $db->Execute("SELECT {$db->prefix}ships.*, {$db->prefix}teams.team_name, {$db->prefix}teams.description, {$db->prefix}teams.creator, {$db->prefix}teams.id
             FROM {$db->prefix}ships
             LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id
-            WHERE {$db->prefix}ships.email=?;", array($username)) or die($db->ErrorMsg());
+            WHERE {$db->prefix}ships.email=?;", array($_SESSION['username'])) or die($db->ErrorMsg());
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo    = $result->fields;
 
@@ -106,7 +106,7 @@ if ($playerinfo['team_invite'] != 0)
     $invite = $db->Execute(" SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.team_invite, {$db->prefix}teams.team_name,{$db->prefix}teams.id
             FROM {$db->prefix}ships
             LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team_invite = {$db->prefix}teams.id
-            WHERE {$db->prefix}ships.email=?;", array($username)) or die($db->ErrorMsg());
+            WHERE {$db->prefix}ships.email=?;", array($_SESSION['username'])) or die($db->ErrorMsg());
     db_op_result ($db, $invite, __LINE__, __FILE__);
     $invite_info  = $invite->fields;
 }

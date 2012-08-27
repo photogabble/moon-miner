@@ -31,11 +31,11 @@ $title = $l_warp_title;
 include './header.php';
 bigtitle();
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result4 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($playerinfo['sector']));
+$result4 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array($playerinfo['sector']));
 db_op_result ($db, $result4, __LINE__, __FILE__);
 $sectorinfo = $result4->fields;
 

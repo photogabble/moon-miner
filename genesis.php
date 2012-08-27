@@ -22,7 +22,7 @@
 // code completely from here and putting it in the planet menu
 // instead. Easier to manage, makes more sense too.
 
-include 'global_includes.php';
+include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -33,13 +33,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_gns_title;
-include 'header.php';
+include './header.php';
 
 // Adding db lock to prevent more than 5 planets in a sector
 $resx = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE;");
 db_op_result ($db, $resx, __LINE__, __FILE__);
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($username));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?;", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -153,5 +153,5 @@ db_op_result ($db, $resx, __LINE__, __FILE__);
 echo "<br><br>";
 
 TEXT_GOTOMAIN();
-include 'footer.php';
+include './footer.php';
 ?>

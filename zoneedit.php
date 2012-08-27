@@ -95,7 +95,7 @@ $curzone = $res->fields;
 
 if ($curzone['corp_zone'] == 'N')
 {
-    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email='$username'");
+    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }

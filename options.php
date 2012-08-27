@@ -30,9 +30,9 @@ load_languages($db, $lang, array('options', 'common', 'global_includes', 'global
 $body_class = 'options';
 $title = $l_opt_title;
 include './header.php';
-
 bigtitle ();
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 $playerinfo = $res->fields;
 
 echo "<form action=option2.php method=post>";

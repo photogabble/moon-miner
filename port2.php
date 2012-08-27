@@ -32,7 +32,7 @@ include_once './includes/is_loan_pending.php';
 $title = $l_title_port;
 include './header.php';
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

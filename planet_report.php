@@ -37,7 +37,7 @@ if (array_key_exists('PRepType', $_GET) == true) //!isset($_GET['PRepType']))
 }
 
 // Get data about planets
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email='$username'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -95,7 +95,6 @@ function standard_report ()
     global $db;
     global $res;
     global $playerinfo;
-    global $username;
     global $sort;
     global $query;
     global $color_header, $color, $color_line1, $color_line2;
@@ -293,7 +292,6 @@ function planet_production_change ()
 {
     global $db;
     global $playerinfo;
-    global $username;
     global $sort;
     global $query;
     global $color_header, $color, $color_line1, $color_line2;

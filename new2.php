@@ -76,8 +76,6 @@ $shipname = htmlspecialchars ($shipname);
 $character = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
 $shipname = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
 
-// $username = $_POST['username']; // This needs to STAY before the db query
-
 if (!get_magic_quotes_gpc())
 {
     $username = addslashes ($username);
@@ -85,11 +83,11 @@ if (!get_magic_quotes_gpc())
     $shipname = addslashes ($shipname);
 }
 
-$result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email='$username' OR character_name='$character' OR ship_name='$shipname'");
+$result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email=? || character_name=? || ship_name=?", array($username, $character, $shipname));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $flag = 0;
 
-if ($username == '' || $character == '' || $shipname == '' )
+if ($username === null || $character === null || $shipname === null )
 {
     echo $l_new_blank . '<br>';
     $flag = 1;
