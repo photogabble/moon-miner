@@ -84,7 +84,7 @@ while (!$res->EOF)
             {
               $furcount0a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
-              xenobe_to_ship ($rowo0[ship_id]);
+              xenobe_to_ship ($db, $rowo0[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
@@ -95,7 +95,7 @@ while (!$res->EOF)
           {
             $furcount0a++;
             playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
-            xenobe_to_ship ($rowo0[ship_id]);
+            xenobe_to_ship ($db, $rowo0[ship_id]);
             if ($xenobeisdead>0) {
               $res->MoveNext();
               continue;
@@ -131,7 +131,7 @@ while (!$res->EOF)
             {
               $furcount1a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
-              xenobe_to_ship ($rowo1[ship_id]);
+              xenobe_to_ship ($db, $rowo1[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
@@ -145,7 +145,7 @@ while (!$res->EOF)
             if (!$rowo1[planet_id] == 0) {              // IS ON PLANET
               xenobe_to_planet ($rowo1[planet_id]);
             } else {
-              xenobe_to_ship ($rowo1[ship_id]);
+              xenobe_to_ship ($db, $rowo1[ship_id]);
             }
             if ($xenobeisdead>0) {
               $res->MoveNext();
@@ -185,7 +185,7 @@ while (!$res->EOF)
             {
               $furcount2a++;
               playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
-              xenobe_to_ship ($rowo2[ship_id]);
+              xenobe_to_ship ($db, $rowo2[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
@@ -199,7 +199,7 @@ while (!$res->EOF)
             if (!$rowo2[planet_id] == 0) {              // IS ON PLANET
               xenobe_to_planet ($rowo2[planet_id]);
             } else {
-              xenobe_to_ship ($rowo2[ship_id]);
+              xenobe_to_ship ($db, $rowo2[ship_id]);
             }
             if ($xenobeisdead>0) {
               $res->MoveNext();
@@ -250,7 +250,7 @@ while (!$res->EOF)
               {
                 $furcount3a++;
                 playerlog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
-                xenobe_to_ship ($rowo3[ship_id]);
+                xenobe_to_ship ($db, $rowo3[ship_id]);
                 if ($xenobeisdead>0) {
                   $res->MoveNext();
                   continue;
@@ -264,7 +264,7 @@ while (!$res->EOF)
               if (!$rowo3[planet_id] == 0) {              // IS ON PLANET
                 xenobe_to_planet ($rowo3[planet_id]);
               } else {
-                xenobe_to_ship ($rowo3[ship_id]);
+                xenobe_to_ship ($db, $rowo3[ship_id]);
               }
               if ($xenobeisdead>0) {
                 $res->MoveNext();

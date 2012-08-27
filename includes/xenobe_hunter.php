@@ -132,7 +132,7 @@ function xenobe_hunter ()
         }
         else
         {
-            xenobe_to_ship ($targetinfo['ship_id']); // Not on a planet, so move to the ship
+            xenobe_to_ship ($db, $targetinfo['ship_id']); // Not on a planet, so move to the ship
         }
     }
     else

@@ -17,7 +17,7 @@
 //
 // File: xenobe_to_ship.php
 
-function xenobe_to_ship ($ship_id)
+function xenobe_to_ship ($db, $ship_id)
 {
   // SETUP GENERAL VARIABLES
   global $attackerbeams;
@@ -33,7 +33,6 @@ function xenobe_to_ship ($ship_id)
   global $upgrade_factor;
   global $sector_max;
   global $xenobeisdead;
-  global $db;
 
   // LOOKUP TARGET DETAILS
   $resa = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ, {$db->prefix}planets READ, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");

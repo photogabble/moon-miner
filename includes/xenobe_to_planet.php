@@ -311,7 +311,7 @@ function xenobe_to_planet ($planet_id)
             while (!$resultps->EOF && $xenobeisdead < 1)
             {
                 $onplanet = $resultps->fields;
-                xenobe_to_ship ($onplanet['ship_id']);
+                xenobe_to_ship ($db, $onplanet['ship_id']);
                 $resultps->MoveNext();
             }
         }
