@@ -186,10 +186,10 @@ if ($flag == 0)
         $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES($shipid[ship_id],0,0)");
         db_op_result ($db, $resx, __LINE__, __FILE__);
 
-        echo $l_new_pwis . " " . $makepass . "<br><br>";
+        echo $langvars['l_new_pwis'] . " " . $makepass . "<br><br>";
 
-        $l_new_pwsent=str_replace("[username]", $_POST['username'], $l_new_pwsent);
-        echo $l_new_pwsent . '<br><br>';
+        $langvars['l_new_pwsent'] = str_replace("[username]", $_POST['username'], $langvars['l_new_pwsent']);
+        echo $langvars['l_new_pwsent'] . '<br><br>';
         echo "<a href=index.php" . $link . ">$l_clickme</A> $l_new_login";
     }
 }
