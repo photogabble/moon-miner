@@ -32,11 +32,11 @@ load_languages($db, $lang, array('scan', 'common', 'bounty', 'report', 'main', '
 $title = $l_scan_title;
 include './header.php';
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array($ship_id));
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($_GET['ship_id']));
 db_op_result ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
@@ -49,7 +49,7 @@ $targetscore = $targetscore * $targetscore;
 
 bigtitle();
 // Kami Multi Browser Window Attack Fix
-if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
+if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
 {
     echo "You need to Click on the ship first.<BR><BR>";
     TEXT_GOTOMAIN();
@@ -95,7 +95,7 @@ else
 
             // Get total bounty on this player, if any
             $btyamount = 0;
-            $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ?", array($targetinfo['ship_id']));
+            $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($targetinfo['ship_id']));
             db_op_result ($db, $hasbounty, __LINE__, __FILE__);
 
             if ($hasbounty)
@@ -109,7 +109,7 @@ else
                     $btyamount = 0;
 
                     // Check for Federation bounty
-                    $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0", array($targetinfo['ship_id']));
+                    $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0", array ($targetinfo['ship_id']));
                     db_op_result ($db, $hasfedbounty, __LINE__, __FILE__);
                     if ($hasfedbounty)
                     {
@@ -251,7 +251,7 @@ else
             if ($roll < $success)
             {
                 $sc_cloak = round ($targetinfo['cloak'] * $sc_error / 100);
-                echo "<td>$sc_cloak</td></tr>";
+                echo "<td>" . $sc_cloak . "</td></tr>";
             }
             else
             {
@@ -259,14 +259,14 @@ else
             }
 
             echo "</table><br>";
-            echo "<strong>$l_scan_arma</strong><br><br>";
+            echo "<strong>" . $l_scan_arma . "</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
-            echo "<tr><td>$l_armorpts:</td>";
+            echo "<tr><td>" . $l_armorpts . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
                 $sc_armor_pts = round ($targetinfo['armor_pts'] * $sc_error / 100);
-                echo "<td>$sc_armor_pts</td></tr>";
+                echo "<td>" . $sc_armor_pts . "</td></tr>";
             }
             else
             {
@@ -449,7 +449,7 @@ else
             playerlog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
         }
 
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array($playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
     }
 }
