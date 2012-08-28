@@ -70,8 +70,6 @@ include './config/admin_pw.php';
 global $l_sys_update;
 $title = $l_sys_update;
 
-//global $default_lang;
-
 // New database driven language entries
 load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
