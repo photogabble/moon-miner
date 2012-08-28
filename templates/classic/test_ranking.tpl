@@ -19,26 +19,26 @@
 *}
 
 {extends file="layout.tpl"}
-{block name=title}{$language_vars['l_ranks_title']}{/block}
-{block name=body_title}<h1>{$language_vars['l_ranks_title']}</h1>{/block}
+{block name=title}{$langvars['l_ranks_title']}{/block}
+{block name=body_title}<h1>{$langvars['l_ranks_title']}</h1>{/block}
 
 {block name=body}
     <br>
-    {$language_vars['l_ranks_pnum']}: {$variables['num_players']|number_format}<br>
-    {$language_vars['l_ranks_dships']}<br>
+    {$langvars['l_ranks_pnum']}: {$variables['num_players']|number_format}<br>
+    {$langvars['l_ranks_dships']}<br>
     <br>
 
 {if isset($players)}
     <!-- Display the Rank Table -->
     <table style="border-collapse:separate; border-spacing:0px; border:none;">
       <tr style="padding:2px; background-color:{$variables['color_header']};">
-        <td style="padding:2px;"><strong>{$language_vars['l_ranks_rank']}</strong></td>
-        <td style="padding:2px;"><strong><a href="{$variables['link']}">{$language_vars['l_score']}</a></strong></td>
-        <td style="padding:2px;"><strong>{$language_vars['l_player']}</strong></td>
-        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=turns">{$language_vars['l_turns_used']}</a></strong></td>
-        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=login">{$language_vars['l_ranks_lastlog']}</a></strong></td>
-        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=good">{$language_vars['l_ranks_good']}</a>/<a href="{$variables['link']}?sort=bad">{$language_vars['l_ranks_evil']}</a></strong></td>
-        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=team">{$language_vars['l_team_team']}</a></strong></td>
+        <td style="padding:2px;"><strong>{$langvars['l_ranks_rank']}</strong></td>
+        <td style="padding:2px;"><strong><a href="{$variables['link']}">{$langvars['l_score']}</a></strong></td>
+        <td style="padding:2px;"><strong>{$langvars['l_player']}</strong></td>
+        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=turns">{$langvars['l_turns_used']}</a></strong></td>
+        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=login">{$langvars['l_ranks_lastlog']}</a></strong></td>
+        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=good">{$langvars['l_ranks_good']}</a>/<a href="{$variables['link']}?sort=bad">{$langvars['l_ranks_evil']}</a></strong></td>
+        <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=team">{$langvars['l_team_team']}</a></strong></td>
         <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=online">Online</a></strong></td>
         <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=efficiency">Eff. Rating.</a></strong></td>
       </tr>
@@ -79,11 +79,11 @@
     </table>
 
 {else}
-    {$language_vars['l_ranks_none']}<br />
+    {$langvars['l_ranks_none']}<br />
 {/if}
     <br />
 
 <!-- Display link back (index, main) -->
 {* $articleTitle|replace:'Garden':'Vineyard' *}
-    {$variables['linkback']['caption']|replace:"[here]":"<a href='{$variables['linkback']['link']}'>{$language_vars['l_here']}</a>"}
+    {$variables['linkback']['caption']|replace:"[here]":"<a href='{$variables['linkback']['link']}'>{$langvars['l_here']}</a>"}
 {/block}

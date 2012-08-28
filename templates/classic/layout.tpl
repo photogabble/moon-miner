@@ -18,7 +18,7 @@
     File: layout.tpl
 *}
 <!DOCTYPE html>
-<html lang="{$language_vars['l_lang_attribute']}">
+<html lang="{$langvars['l_lang_attribute']}">
   <head>
     <meta charset="utf-8">
     <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
@@ -52,12 +52,12 @@
         var seconds = {$variables['update_ticker']['seconds_left']};
         var nextInterval = new Date().getTime();
 	    var maxTicks = ({$variables['update_ticker']['sched_ticks']} * 60);
-	    var l_running_update = '{$language_vars['l_running_update']}';
-	    var l_footer_until_update = '{$language_vars['l_footer_until_update']}';
+	    var l_running_update = '{$langvars['l_running_update']}';
+	    var l_footer_until_update = '{$langvars['l_footer_until_update']}';
 
         setTimeout("NextUpdate();", 100);
     </script>
-    <div style="width:600px; margin:auto; text-align:center;"><strong><span id=update_ticker>{$language_vars['l_please_wait']}</span></strong></div>
+    <div style="width:600px; margin:auto; text-align:center;"><strong><span id=update_ticker>{$langvars['l_please_wait']}</span></strong></div>
 {/if}
 {* End of Servers Update Ticker *}
 
@@ -66,20 +66,20 @@
       <div style="width:600px; margin:auto; text-align:center;">
 {* Handle the Online Players Counter *}
 {if isset($variables['players_online']) && $variables['players_online'] == 1}
-{$language_vars['l_footer_one_player_on']}
+{$langvars['l_footer_one_player_on']}
 {else}
-{$language_vars['l_footer_players_on_1']} {$variables['players_online']} {$language_vars['l_footer_players_on_2']}
+{$langvars['l_footer_players_on_1']} {$variables['players_online']} {$langvars['l_footer_players_on_2']}
 {/if}
 {* End of Online Players Counter *}
 	  </div>
     </div>
 
     <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
-    <div style="font-size:smaller; text-align:right"><a class="new_link" href="news.php">{$language_vars['l_local_news']}</a></div>
+    <div style="font-size:smaller; text-align:right"><a class="new_link" href="news.php">{$langvars['l_local_news']}</a></div>
     <div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>
 
 {if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
-    <div style="font-size:smaller; text-align:right">{10|number_format:2} {$language_vars['l_seconds']} {$language_vars['l_time_gen_page']} / {$variables['mem_peak_usage']} {$language_vars['l_peak_mem']}</div>
+    <div style="font-size:smaller; text-align:right">{10|number_format:2} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']} {$langvars['l_peak_mem']}</div>
 {/if}
 <!-- END OF FOOTER -->
 

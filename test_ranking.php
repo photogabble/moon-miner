@@ -5,7 +5,7 @@ include './global_includes.php';
 include './includes/player_insignia_name.php';
 
 // Always make sure we are using empty vars before use.
-$language_vars = null;
+$langvars = null;
 $variables = null;
 
 $variables['lang'] = $lang;
@@ -17,10 +17,10 @@ $variables['color_line1'] = $color_line1;
 $variables['color_line2'] = $color_line2;
 
 // Load required language variables for the ranking page.
-load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $language_vars);
+load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $langvars);
 
 // Modify the requires language variables here.
-$language_vars['l_ranks_title'] = str_replace("[max_ranks]", $max_ranks, $language_vars['l_ranks_title']);
+$langvars['l_ranks_title'] = str_replace("[max_ranks]", $max_ranks, $langvars['l_ranks_title']);
 
 // Get requested ranking order.
 request_var("GET", "sort", $sort);
@@ -132,36 +132,36 @@ if ($rs instanceof ADORecordSet)
 if (empty($_SESSION['username']))
 {
     $variables['loggedin'] = (boolean) true;
-    $variables['linkback'] = array("caption"=>$language_vars['l_global_mlogin'], "link"=>"index.php");
+    $variables['linkback'] = array("caption"=>$langvars['l_global_mlogin'], "link"=>"index.php");
 }
 else
 {
     $variables['loggedin'] = (boolean) false;
-    $variables['linkback'] = array("caption"=>$language_vars['l_global_mmenu'], "link"=>"main.php");
+    $variables['linkback'] = array("caption"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 }
 
 $variables['container'] = "variable";
 $template->AddVariables('variables', $variables);
 
 // Now add the loaded language variables into the Template API.
-$language_vars['container'] = "language_var";
-$template->AddVariables("language_vars", $language_vars);
+$langvars['container'] = "language_var";
+$template->AddVariables("langvars", $langvars);
 
 
 
 // Always null out the arrays before use.
-$language_vars = null;
+$langvars = null;
 
 // Load required language variables for the bottom of the ranking page (i.e. footer).
-load_languages($db, $lang, array('global_includes', 'footer'), $language_vars);
+load_languages($db, $lang, array('global_includes', 'footer'), $langvars);
 
 // Needs to be put into the language table.
-$language_vars['l_running_update'] = "Running Update";
-$language_vars['l_please_wait'] = "Please wait.";
+$langvars['l_running_update'] = "Running Update";
+$langvars['l_please_wait'] = "Please wait.";
 
 // Now add the loaded language variables into the Template API.
-$language_vars['container'] = "language_var";
-$template->AddVariables("language_vars", $language_vars);
+$langvars['container'] = "language_var";
+$template->AddVariables("langvars", $langvars);
 
 
 
@@ -173,15 +173,15 @@ $template->AddVariables("language_vars", $language_vars);
 // ======================================
 
 // Always null out the arrays before use.
-$language_vars = null;
+$langvars = null;
 
 // Needs to be put into the language table.
-$language_vars['l_running_update'] = "Running Update";
-$language_vars['l_please_wait'] = "Please wait.";
+$langvars['l_running_update'] = "Running Update";
+$langvars['l_please_wait'] = "Please wait.";
 
 // Now add the loaded language variables into the Template API.
-$language_vars['container'] = "language_var";
-$template->AddVariables("language_vars", $language_vars);
+$langvars['container'] = "language_var";
+$template->AddVariables("langvars", $langvars);
 
 $display_update_ticker = false;
 

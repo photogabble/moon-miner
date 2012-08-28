@@ -24,6 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die();
 }
 
+$langvars = null;
 // New database driven language entries
 load_languages ($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
@@ -89,30 +90,30 @@ $variables['playerinfo_sensors'] = $playerinfo['sensors'];
 $variables['playerinfo_armor'] = $playerinfo['armor'];
 $variables['playerinfo_shields'] = $playerinfo['shields'];
 $variables['playerinfo_beams'] = $playerinfo['beams'];
+$variables['players_online'] = 420; // Being silly
 
 // Now set a container for the variables and send them off to the template system
 $variables['container'] = "variable";
 $template->AddVariables('variables', $variables);
 
 // Set array with all used language variables in page
-$language_vars = null;
-$language_vars['l_report_title'] = $l_report_title;
-$language_vars['l_player'] = $l_player;
-$language_vars['l_ship'] = $l_ship;
-$language_vars['l_credits'] = $l_credits;
-$language_vars['l_ship_levels'] = $l_ship_levels;
-$language_vars['l_player'] = $l_hull;
-$language_vars['l_level'] = $l_level;
-$language_vars['l_engines'] = $l_engines;
-$language_vars['l_computer'] = $l_computer;
-$language_vars['l_sensors'] = $l_sensors;
-$language_vars['l_armor'] = $l_armor;
-$language_vars['l_shields'] = $l_shields;
-$language_vars['l_beams'] = $l_beams;
+$langvars['l_report_title'] = $l_report_title;
+$langvars['l_player'] = $l_player;
+$langvars['l_ship'] = $l_ship;
+$langvars['l_credits'] = $l_credits;
+$langvars['l_ship_levels'] = $l_ship_levels;
+$langvars['l_player'] = $l_hull;
+$langvars['l_level'] = $l_level;
+$langvars['l_engines'] = $l_engines;
+$langvars['l_computer'] = $l_computer;
+$langvars['l_sensors'] = $l_sensors;
+$langvars['l_armor'] = $l_armor;
+$langvars['l_shields'] = $l_shields;
+$langvars['l_beams'] = $l_beams;
 
 // Now set a container for the language variables and send them off to the template system
-$language_vars['container'] = "language_var";
-$template->AddVariables("language_vars", $language_vars);
+$langvars['container'] = "language_var";
+$template->AddVariables("langvars", $langvars);
 
 //bigtitle ();
 /*
