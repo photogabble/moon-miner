@@ -183,23 +183,22 @@ switch ($response)
             $quantity = $torpedo_max;
          }
       }
-      $ship_id = $playerinfo['ship_id'];
       if ($quantity > 0)
       {
-         $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - $quantity WHERE defence_id = $defence_id");
+         $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($quantity, $defence_id));
          if ($defenceinfo['defence_type'] == 'M')
          {
-            $db->Execute("UPDATE {$db->prefix}ships SET torps=torps + $quantity WHERE ship_id = $ship_id");
+            $db->Execute("UPDATE {$db->prefix}ships SET torps=torps + ? WHERE ship_id = ?", array ($quantity, $playerinfo['ship_id']));
          }
          else
          {
-            $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters=ship_fighters + $quantity WHERE ship_id = $ship_id");
+            $db->Execute("UPDATE {$db->prefix}ships SET ship_fighters=ship_fighters + ? WHERE ship_id = ?", array ($quantity, $playerinfo['ship_id']));
          }
          $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
       }
       $stamp = date("Y-m-d H-i-s");
 
-      $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$playerinfo[sector] WHERE ship_id=$playerinfo[ship_id]");
+      $db->Execute("UPDATE {$db->prefix}ships SET last_login=?,turns=turns-1, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       bigtitle();
       echo "$l_md_retr $quantity $defence_type.<br>";
       TEXT_GOTOMAIN ();
@@ -256,8 +255,7 @@ switch ($response)
       }
       else
       {
-         $ship_id = $defenceinfo['ship_id'];
-         $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=$ship_id");
+         $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($defenceinfo['ship_id']));
          $fighters_owner = $result2->fields;
 
          if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
