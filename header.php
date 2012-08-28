@@ -45,3 +45,4 @@ if (!isset($body_class))
 <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 </head>
 <body class="<?php echo $body_class; ?>">
+<div class="wrapper">

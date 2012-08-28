@@ -1,4 +1,5 @@
-body {background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em}
+body { background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+html { height: 86%}
 a:link { color: #0f0}
 a:visited { color: #0f0}
 a:active { color: #f00}
@@ -165,3 +166,6 @@ body.faq td.spacer { background-color:#300030; width:5%}
 body.faq table { border:0px; width:100%; border-spacing:0px}
 body.faq table.navbar { border-spacing:0px}
 body.faq td.lists { text-align:center; width:20%}
+.wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -4em; }
+.footer, .push { height: 4em; }
+.footer, .push { clear:both; }

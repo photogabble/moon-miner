@@ -46,6 +46,8 @@ else
 {
     $elapsed = 999;
 }
+echo '<div class="push"></div></div>';
+echo '<div class="footer">';
 
 // Suppress the news ticker on the IGB and index pages
 if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])))
@@ -56,7 +58,8 @@ if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i
     include './fader.php';
 }
 
-?><br>
+?>
+<br>
  <div style='clear:both'></div><div style="text-align:center">
 <?php
 // Update counter
@@ -125,6 +128,7 @@ if ($footer_show_debug == true)
     echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";
 }
 ?>
+</div>
 </body>
 </html>
 <?php ob_end_flush();?>
