@@ -27,7 +27,8 @@ if (preg_match("/common.php/i", $_SERVER['PHP_SELF'])) {
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
 ini_set("include_path","."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
-if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
+//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
+ob_start();
 
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new c_timer;
