@@ -1,0 +1,30 @@
+{*
+    Blacknova Traders - A web-based massively multiplayer space combat and trading game
+    Copyright (C) 2001-2012 Ron Harwood and the BNT development team.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    File: test_report.tpl
+*}
+
+{extends file="layout.tpl"}
+{block name=title}{$language_vars['l_report_title']}{/block}
+{block name=body_title}<h1>{$language_vars['l_report_title']}</h1>{/block}
+
+{block name=body}
+<div style="width:90%; margin:auto; font-size:14px;">
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+<tr bgcolor="{$variables['color_header']}"><td><strong>{$language_variables['l_player']}: {$variables['playerinfo_character_name']}</strong></td><td align=center><strong>{$language_vars['l_ship']}: {$variables['playerinfo_ship_name']}</strong></td><td align=right><strong>{$language_vars['l_credits']}: {$variables['number_playerinfo_credits']}</strong></td></tr>
+</table>
+{/block}
