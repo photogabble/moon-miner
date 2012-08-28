@@ -112,7 +112,7 @@ $langvars['l_shields'] = $l_shields;
 $langvars['l_beams'] = $l_beams;
 
 // Now set a container for the language variables and send them off to the template system
-$langvars['container'] = "language_var";
+$langvars['container'] = "langvar";
 $template->AddVariables("langvars", $langvars);
 
 //bigtitle ();

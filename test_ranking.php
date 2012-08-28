@@ -144,7 +144,7 @@ $variables['container'] = "variable";
 $template->AddVariables('variables', $variables);
 
 // Now add the loaded language variables into the Template API.
-$langvars['container'] = "language_var";
+$langvars['container'] = "langvar";
 $template->AddVariables("langvars", $langvars);
 
 
@@ -160,7 +160,7 @@ $langvars['l_running_update'] = "Running Update";
 $langvars['l_please_wait'] = "Please wait.";
 
 // Now add the loaded language variables into the Template API.
-$langvars['container'] = "language_var";
+$langvars['container'] = "langvar";
 $template->AddVariables("langvars", $langvars);
 
 
@@ -180,7 +180,7 @@ $langvars['l_running_update'] = "Running Update";
 $langvars['l_please_wait'] = "Please wait.";
 
 // Now add the loaded language variables into the Template API.
-$langvars['container'] = "language_var";
+$langvars['container'] = "langvar";
 $template->AddVariables("langvars", $langvars);
 
 $display_update_ticker = false;
