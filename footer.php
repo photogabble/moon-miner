@@ -93,14 +93,14 @@ else
 if ($footer_show_time == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
 {
     $sf_logo_type = '14';
-    $sf_logo_width = "150px";
-    $sf_logo_height = "40px";
+    $sf_logo_width = "150";
+    $sf_logo_height = "40";
 }
 else
 {
     $sf_logo_type = '11';
-    $sf_logo_width = "120px";
-    $sf_logo_height = "30px";
+    $sf_logo_width = "120";
+    $sf_logo_height = "30";
 }
 
 if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF']))
