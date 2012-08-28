@@ -27,9 +27,6 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 // New database driven language entries
 load_languages ($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
-$title = $l_report_title;
-include './header.php';
-
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
@@ -117,8 +114,7 @@ $language_vars['l_beams'] = $l_beams;
 $language_vars['container'] = "language_var";
 $template->AddVariables("language_vars", $language_vars);
 
-
-bigtitle ();
+//bigtitle ();
 /*
 echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 echo "<table border=0 cellspacing=0 cellpadding=0 width='100%'>";
@@ -177,5 +173,5 @@ echo "<img src=\"images/$shiptypes[$shiplevel]\" style=\"border:0px; width:80px;
 TEXT_GOTOMAIN();
 */
 $template->Display("test_report.tpl");
-include './footer.php';
+//include './footer.php';
 ?>

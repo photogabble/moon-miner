@@ -23,8 +23,5 @@
 {block name=body_title}<h1>{$language_vars['l_report_title']}</h1>{/block}
 
 {block name=body}
-<div style="width:90%; margin:auto; font-size:14px;">
-<table border=0 cellspacing=0 cellpadding=0 width="100%">
-<tr bgcolor="{$variables['color_header']}"><td><strong>{$language_variables['l_player']}: {$variables['playerinfo_character_name']}</strong></td><td align=center><strong>{$language_vars['l_ship']}: {$variables['playerinfo_ship_name']}</strong></td><td align=right><strong>{$language_vars['l_credits']}: {$variables['number_playerinfo_credits']}</strong></td></tr>
-</table>
+<p>test</p>
 {/block}
