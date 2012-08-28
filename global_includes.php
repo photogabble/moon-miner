@@ -19,11 +19,8 @@
 
 // Define needed variables for the database
 require_once './config/db_config.php';
-
 include_once './global_defines.php';
 
-// Include the benchmark timer class
-//include_once './classes/c_timer.php';
 include_once './includes/adminlog.php';
 include_once './includes/bigtitle.php';
 include_once './includes/bnt_autoload.php';
@@ -57,6 +54,6 @@ require_once $ADOdbpath . "/adodb.inc.php";
 include_once $ADOdbpath . "/adodb-perf.inc.php";
 include_once $ADOdbpath . "/session/adodb-session2.php";
 
-spl_autoload_register('bnt_autoload');
+spl_autoload_register ('bnt_autoload');
 require_once './common.php';
 ?>
