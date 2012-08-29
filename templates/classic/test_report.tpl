@@ -115,6 +115,6 @@
 </td></tr>
 </table>
 </div>
-<p align=center>
-<img src="{$variables['ship_img']}" style="border:0px; width:80px; height:60px"></p>{$langvars['l_global_mmenu']}
+<p align=center><img src="{$variables['ship_img']}" style="border:0px; width:80px; height:60px"></p>
+{$variables['linkback']['fulltext']|replace:"[here]":"<a href='{$variables['linkback']['link']}'>{$langvars['l_here']}</a>"}
 {/block}

@@ -31,7 +31,7 @@ $langvars = null;
 load_languages ($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 // Do string replacement for any language strings prior to sending them to the Template system
-$langvars['l_global_mmenu'] = str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+//$langvars['l_global_mmenu'] = str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
@@ -121,6 +121,7 @@ $variables['escape_pod'] = $escape_pod;
 $variables['fuel_scoop'] = $fuel_scoop;
 $variables['lssd'] = $lssd;
 $variables['ship_img'] = "images/" . $shiptypes[$shiplevel];
+$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
