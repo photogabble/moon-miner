@@ -20,7 +20,12 @@
 global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db;
 
 // New database driven language entries
-load_languages($db, $lang, array('footer','global_includes'), $langvars);
+load_languages($db, $lang, array('regional', 'footer','global_includes'), $langvars);
+
+// Needs to be put into the language table.
+$langvars['l_running_update'] = "Running Update";
+$langvars['l_please_wait'] = "Please wait.";
+
 
 $online = (integer) 0;
 
@@ -51,16 +56,18 @@ else
 $no_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])));
 
 // Update counter
-$mySEC = (integer) 0;
+$seconds_left = (integer) 0;
+$display_update_ticker = false;
 
 if (!$no_db)
 {
-    $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
-    db_op_result ($db, $res, __LINE__, __FILE__);
-    if ($res instanceof ADORecordSet)
+    $rs = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1;");
+    db_op_result ($db, $rs, __LINE__, __FILE__);
+    if ($rs instanceof ADORecordSet)
     {
-        $result = $res->fields;
-        $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
+        $last_run = $rs->fields['last_run'];
+        $seconds_left = ($sched_ticks * 60) - (time() - $last_run);
+        $display_update_ticker = true;
     }
 }
 // End update counter
@@ -96,11 +103,10 @@ $elapsed = number_format ($elapsed, 2);
 $mem_peak_usage = floor (memory_get_peak_usage() / 1024);
 
 // Set array with all used variables in page
-$variables['update_ticker']['display'] = true;
+$variables['update_ticker'] = array("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$sched_ticks);
+
 $variables['players_online'] = $online;
 $variables['no_ticker'] = $no_ticker;
-$variables['mySEC'] = $mySEC;
-$variables['sched_ticks'] = $sched_ticks;
 $variables['sf_logo_type'] = $sf_logo_type;
 $variables['sf_logo_height'] = $sf_logo_height;
 $variables['sf_logo_width'] = $sf_logo_width;
