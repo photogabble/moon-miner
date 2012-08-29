@@ -29,12 +29,12 @@ class SmartyAPI
         $this->smarty->registerPlugin("modifier","number_format", "number_format");
 
         // Add a Modifier Wrapper for PHP Function: strlen.
-        // Usage in the tpl file {$string|strlen:decimals}
-		$this->smarty->registerPlugin("modifier","strlen", "strlen");
+        // Usage in the tpl file {$string|strlen}
+        $this->smarty->registerPlugin("modifier","strlen", "strlen");
 
         // Add a Modifier Wrapper for PHP Function: gettype.
         // Usage in the tpl file {$variable|gettype}
-		$this->smarty->registerPlugin("modifier","gettype", "gettype");
+        $this->smarty->registerPlugin("modifier","gettype", "gettype");
 
         $this->smarty->enableSecurity();
 
