@@ -28,7 +28,7 @@
     <tr bgcolor="{$variables['color_header']}">
         <td><strong>{$langvars['l_player']}: {$variables['playerinfo_character_name']}</strong></td>
         <td align=center><strong>{$langvars['l_ship']}: {$variables['playerinfo_ship_name']}</strong></td>
-        <td align=right><strong>{$langvars['l_credits']}: {$variables['number_playerinfo_credits']}</strong></td>
+        <td align=right><strong>{$langvars['l_credits']}: {$variables['playerinfo_credits']|number_format:0:$langvars['local_number_dec_point']:$langvars['local_number_thousands_sep']}</strong></td>
     </tr>
 </table>
 <br>
@@ -88,7 +88,9 @@
 </td><td valign=top>
 <table border=0 cellspacing=0 cellpadding=0 width="100%">
 <tr bgcolor="{$variables['color_header']}"><td><strong>{$langvars['l_holds']}</strong></td><td align=right><strong>{$variables['number_holds_used']} / {$variables['number_holds_max']}</strong></td></tr>
-<tr bgcolor="{$variables['color_line1']}"><td>{$langvars['l_ore']}</td><td align=right>{$variables['number_playerinfo_ship_ore']}</td></tr>
+<tr bgcolor="{$variables['color_line1']}"><td>{$langvars['l_ore']}</td><td align=right>
+{$variables['playerinfo_ship_ore']|number_format:0:$langvars['local_number_dec_point']:$langvars['local_number_thousands_sep']}
+</td></tr>
 <tr bgcolor="{$variables['color_line2']}"><td>{$langvars['l_organics']}</td><td align=right>{$variables['number_playerinfo_ship_organics']}</td></tr>
 <tr bgcolor="{$variables['color_line1']}"><td>{$langvars['l_goods']}</td><td align=right>{$variables['number_playerinfo_ship_goods']}</td></tr>
 <tr bgcolor="{$variables['color_line2']}"><td>{$langvars['l_colonists']}</td><td align=right>{$variables['number_playerinfo_ship_colonists']}</td></tr>
