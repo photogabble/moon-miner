@@ -96,6 +96,7 @@ $elapsed = number_format ($elapsed, 2);
 $mem_peak_usage = floor (memory_get_peak_usage() / 1024);
 
 // Set array with all used variables in page
+$variables['update_ticker']['display'] = true;
 $variables['players_online'] = $online;
 $variables['no_ticker'] = $no_ticker;
 $variables['mySEC'] = $mySEC;
