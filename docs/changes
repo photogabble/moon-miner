@@ -1,6 +1,7 @@
 TheMightyDude (29 August 2012)
 --------------------------------------
 Added strlen and gettype functionality to Smarty.
+Added a more compliant way to check for clients that require XML output, uses HTTP_ACCEPT.
 
 TheKabal (25 August 2012)
 --------------------------------------

@@ -15,17 +15,31 @@ class Template
         $this->api                      = array();
 
         // Here we check if it's an External Client, else it's a Browser Client.
-        request_var("SERVER", "HTTP_CLIENT", $type);
-        request_var("SERVER", "HTTP_USER_AGENT", $agent);
-        if ( (!is_null($type) && strtolower(trim($type)) === "externalxml" && substr($agent, 0, 6) === "Warden"))
+        request_var("SERVER", "HTTP_ACCEPT", $accept);
+
+        // Seperate the accepted output type.
+        $accepts = explode(",", $accept);
+
+        // Cycle through the list of accepted output types.
+        foreach($accepts as $accepted)
         {
-            // We have an Extrenal Client, so init the XML Template API.
-            $this->Initialize(TEMPLATE_USE_XML) or die("ERR");
-        }
-        else
-        {
-            // We have an Browser Client, so init the Smarty Template API.
-            $this->Initialize(TEMPLATE_USE_SMARTY, "classic");
+            // Seperate the q prefered order if found.
+            $a_accepts = explode(";", $accepted);
+            switch($a_accepts[0])
+            {
+                case "application/xml":
+                {
+                    // We have a Client that requires XML, so init the XML Template API.
+                    $this->Initialize(TEMPLATE_USE_XML) or die("ERR");
+                    break 2;
+                }
+                default:
+                {
+                    // We have a Client that doesn't require XML, so fallback and init the Smarty Template API.
+                    $this->Initialize(TEMPLATE_USE_SMARTY);
+                    break 2;
+                }
+            }
         }
     }
 
