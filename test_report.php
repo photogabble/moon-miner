@@ -126,8 +126,8 @@ $variables['ship_img'] = "images/" . $shiptypes[$shiplevel];
 $variables['container'] = "variable";
 $langvars['container'] = "langvar";
 
-// Pull in footer variables from footer_t.php
-include './footer_t.php';
+// Pull in footer variables from footert.php
+include './footert.php';
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
 $template->Display("test_report.tpl");
