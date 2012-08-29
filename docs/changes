@@ -1,3 +1,7 @@
+TheMightyDude (29 August 2012)
+--------------------------------------
+Added strlen and gettype functionality to Smarty.
+
 TheKabal (25 August 2012)
 --------------------------------------
 Passwords are now salted & stored using bcrypt

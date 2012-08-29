@@ -28,6 +28,14 @@ class SmartyAPI
         // Usage in the tpl file {$number|number_format:decimals:"dec_point":"thousands_sep"}
         $this->smarty->registerPlugin("modifier","number_format", "number_format");
 
+        // Add a Modifier Wrapper for PHP Function: strlen.
+        // Usage in the tpl file {$string|strlen:decimals}
+		$this->smarty->registerPlugin("modifier","strlen", "strlen");
+
+        // Add a Modifier Wrapper for PHP Function: gettype.
+        // Usage in the tpl file {$variable|gettype}
+		$this->smarty->registerPlugin("modifier","gettype", "gettype");
+
         $this->smarty->enableSecurity();
 
         // Smarty Caching.
