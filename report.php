@@ -18,6 +18,7 @@
 // File: report.php
 
 include './global_includes.php';
+include_once './includes/get_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
