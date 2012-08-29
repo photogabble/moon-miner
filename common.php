@@ -27,6 +27,8 @@ if (preg_match("/common.php/i", $_SERVER['PHP_SELF'])) {
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
 ini_set("include_path","."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
+ini_set('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+
 //if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
 ob_start();
 
