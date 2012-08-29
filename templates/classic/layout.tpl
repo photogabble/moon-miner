@@ -30,10 +30,11 @@
     <link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
   </head>
 
-{if !isset($variables['display_newsticker'])}
+{if !isset($variables['body_class'])}
 {$variables['body_class'] = "bnt"}
 {/if}
   <body class="{$variables['body_class']}">
+<div class="wrapper">
 
 <!-- START OF BODY -->
 {block name=body_title}{/block}
@@ -41,8 +42,11 @@
 <!-- END OF BODY -->
 
 <!-- START OF FOOTER -->
-{if isset($variables['display_newsticker']) && $variables['display_newsticker'] == true}
-    <div style="width:600px; margin:auto; text-align:center;">[NEWS TICKER GOES HERE]</div>
+<div class="push"></div></div>
+<div class="footer">
+{if $variables['no_ticker'] == 0}
+{else}
+    <div style="width:602px; margin:auto; text-align:center;">[NEWS TICKER GOES HERE]</div>
 {/if}
 
 {* Handle the Servers Update Ticker here *}
@@ -74,12 +78,12 @@
 	  </div>
     </div>
 
-    <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
-    <div style="font-size:smaller; text-align:right"><a class="new_link" href="news.php">{$langvars['l_local_news']}</a></div>
-    <div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>
+    <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
+    <div style="font-size:smaller; text-align:right"><a class="new_link" href="news.php{$variables['sf_logo_link']}">{$langvars['l_local_news']}</a></div>
+    <div style='font-size:smaller; text-align:right'>&copy; 2000-2012 Ron Harwood &amp; the BNT Dev team</div>
 
 {if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
-    <div style="font-size:smaller; text-align:right">{10|number_format:2} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']} {$langvars['l_peak_mem']}</div>
+    <div style="font-size:smaller; text-align:right">{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']} {$langvars['l_peak_mem']}</div>
 {/if}
 <!-- END OF FOOTER -->
 

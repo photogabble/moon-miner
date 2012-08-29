@@ -121,21 +121,14 @@ $variables['escape_pod'] = $escape_pod;
 $variables['fuel_scoop'] = $fuel_scoop;
 $variables['lssd'] = $lssd;
 $variables['ship_img'] = "images/" . $shiptypes[$shiplevel];
-$variables['players_online'] = 420; // Being silly
 
-// Now set a container for the variables and send them off to the template system
+// Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
-$template->AddVariables('variables', $variables);
-
-// Set used language variables in page like this:
-// $langvars['l_report_title'] = $l_report_title;
-// But since $langvars is imported at the top of the file, all you have to do is make sure the categories match
-
-// Now set a container for the language variables and send the populated langvars array off to the template system
 $langvars['container'] = "langvar";
-$template->AddVariables("langvars", $langvars);
-$template->Display("test_report.tpl");
 
-// Templated files will be including footer-t, which will populate all the variables for the footer (which is in layout.tpl)
-// include './footer-t.php';
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
+$template->Display("test_report.tpl");
 ?>
