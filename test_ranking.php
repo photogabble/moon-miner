@@ -150,7 +150,7 @@ $template->AddVariables("langvars", $langvars);
 
 
 // Now we include the Footer Logic.
-include_once "footer_t.php
+include_once './footer_t.php';
 
 
 // ======================================
