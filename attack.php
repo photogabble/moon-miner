@@ -128,6 +128,7 @@ else
     else
     {
         // If scan succeeds, show results and inform target.
+        include_once './includes/get_avg_tech.php';
         $shipavg = get_avg_tech ($targetinfo, "ship");
 
         if ($shipavg > $ewd_maxhullsize)

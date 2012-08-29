@@ -28,7 +28,6 @@ include_once './includes/check_login.php';
 include_once './includes/connect_database.php';
 include_once './includes/db_kill_player.php';
 include_once './includes/db_op_result.php';
-include_once './includes/get_avg_tech.php';
 include_once './includes/load_languages.php';
 include_once './includes/log_move.php';
 include_once './includes/message_defence_owner.php';
