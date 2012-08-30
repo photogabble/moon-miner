@@ -19,7 +19,8 @@
 
 if (preg_match("/check_mines.php/i", $_SERVER['PHP_SELF']))
 {
-    die("You can not access this file directly!");
+    echo "You can not access this file directly!";
+    die();
 }
 
 // New database driven language entries

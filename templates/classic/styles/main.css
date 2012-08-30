@@ -169,3 +169,11 @@ body.faq td.lists { text-align:center; width:20%}
 .wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -4em; }
 .footer, .push { height: 4em; }
 .footer, .push { clear:both; }
+body.error { background: url(../images/error.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;}
+html.error { height: 100%}
+div.error_text { background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.7); width:60%; margin: 0px auto; padding-left:1em}
+p.error_text { }
+p.error_return { }
+div.error_location { float:left; width: 20%}
+div.error_content { float:right; text-align:left; width: 80%}
+p.error_footer { clear:both;}
