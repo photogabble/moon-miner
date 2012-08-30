@@ -53,7 +53,7 @@ else
 }
 
 // Suppress the news ticker on the IGB and index pages
-$no_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])));
+$news_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])));
 
 // Update counter
 $seconds_left = (integer) 0;
@@ -85,7 +85,47 @@ else
     $sf_logo_height = "30";
 }
 
-if (!$no_ticker)
+if ($news_ticker == true)
+{
+    // New database driven language entries
+    load_languages($db, $lang, array('news'), $langvars);
+
+    $startdate = date("Y/m/d");
+
+    $news_ticker = array();
+
+    if ($no_db)
+    {
+        // Needs to be put into the language table.
+        array_push($news_ticker, array('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
+    }
+    else
+    {
+        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
+        db_op_result ($db, $rs, __LINE__, __FILE__);
+        if ($rs instanceof ADORecordSet)
+        {
+            if ($rs->RecordCount() == 0)
+            {
+                array_push($news_ticker, array('url'=>null, 'text'=>$langvars['l_news_none'], 'type'=>null, 'delay'=>5));
+            }
+            else
+            {
+                while (!$rs->EOF)
+                {
+                    $row = $rs->fields;
+                    $headline = addslashes($row['headline']);
+                    array_push($news_ticker, array('url'=>"news.php", 'text'=>$headline, 'type'=>$row['news_type'], 'delay'=>5));
+                    $rs->MoveNext();
+                }
+                array_push($news_ticker, array('url'=>null, 'text'=>"End of News", 'type'=>null, 'delay'=>5));
+            }
+        }
+    }
+    $news_ticker['container']    = "article";
+    $template->AddVariables("news", $news_ticker);
+}
+else
 {
     $sf_logo_type++; // Make the SF logo darker for all pages except login. No need to change the sizes as 12 is the same size as 11 and 15 is the same size as 14.
 }
@@ -106,7 +146,6 @@ $mem_peak_usage = floor (memory_get_peak_usage() / 1024);
 $variables['update_ticker'] = array("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$sched_ticks);
 
 $variables['players_online'] = $online;
-$variables['no_ticker'] = $no_ticker;
 $variables['sf_logo_type'] = $sf_logo_type;
 $variables['sf_logo_height'] = $sf_logo_height;
 $variables['sf_logo_width'] = $sf_logo_width;

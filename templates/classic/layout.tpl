@@ -44,20 +44,51 @@
 <!-- START OF FOOTER -->
 <div class="push"></div></div>
 <div class="footer">
-{if $variables['no_ticker'] == 0}
-{else}
-    <div style="width:602px; margin:auto; text-align:center;">[NEWS TICKER GOES HERE]</div>
-{/if}
+{if isset($news)}
+<br />
+<script type="text/javascript" src="backends/javascript/newsticker.js.php"></script>
+<div id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center;">News Ticker should be here unless you have broken it!</div>
+<script>
+// News Ticker Constructor.
+news = new newsTicker();
 
+// I have put in some safaty precautions, but just in case always check the return value from initTicker().
+if (news.initTicker("news_ticker") == true)
+{
+    // Set the width of the Ticker (in pixles)
+    news.Width(500);
+
+    // Sets the Interval/Update Time in seconds.
+    news.Interval(5);
+
+    // I have decided on adding single news articles at a time due to it makes it more easier to add when using PHP or XSL.
+    // We can supply the information by either of the following ways:
+    // 1: Supply the information from a Database and inserting it with PHP.
+    // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
+{* Cycle through the player list *}
+{foreach $news as $article}
+    news.addArticle('{$article['url']}', '{$article['text']}', '{$article['type']}', {$article['delay']});
+{/foreach}
+
+    // Starts the Ticker.
+    news.startTicker();
+
+    // If for some reason you need to stop the Ticker use the following line.
+    // news.stopTicker();
+}
+</script>
+
+{/if}
+<br />
 {* Handle the Servers Update Ticker here *}
 {if isset($variables['update_ticker']['display']) && $variables['update_ticker']['display'] == true}
     <script type='text/javascript' src='{$template_dir}/scripts/updateticker.js'></script>
     <script>
         var seconds = {$variables['update_ticker']['seconds_left']};
         var nextInterval = new Date().getTime();
-	    var maxTicks = ({$variables['update_ticker']['sched_ticks']} * 60);
-	    var l_running_update = '{$langvars['l_running_update']}';
-	    var l_footer_until_update = '{$langvars['l_footer_until_update']}';
+        var maxTicks = ({$variables['update_ticker']['sched_ticks']} * 60);
+        var l_running_update = '{$langvars['l_running_update']}';
+        var l_footer_until_update = '{$langvars['l_footer_until_update']}';
 
         setTimeout("NextUpdate();", 100);
     </script>
@@ -75,7 +106,8 @@
 {$langvars['l_footer_players_on_1']} {$variables['players_online']} {$langvars['l_footer_players_on_2']}
 {/if}
 {* End of Online Players Counter *}
-	  </div>
+      </div>
+<br />
     </div>
 
     <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
