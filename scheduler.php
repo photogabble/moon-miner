@@ -17,52 +17,50 @@
 //
 // File: scheduler.php
 
-/******************************************************************
-* Explanation of the scheduler                                    *
-*                                                                 *
-* Here are the scheduler DB fields, and what they are used for :  *
-*  - sched_id : Unique ID. Before calling the file responsible    *
-*    for the event, the variable $sched_var_id will be set to     *
-*    this value, so the called file can modify the triggering     *
-*    scheduler entry if it needs to.                              *
-*                                                                 *
-*  - repeate : Set this to 'Y' if you want the event to be        *
-*    repeated endlessly. If this value is set to 'Y', the 'spawn' *
-*    field is not used.                                           *
-*                                                                 *
-*  - ticks_left : Used internally by the scheduler. It represents *
-*    the number of mins elapsed since the last call. ALWAYS set   *
-*    this to 0 when scheduling a new event.                       *
-*                                                                 *
-*  - ticks_full : This is the interval in minutes between         *
-*    different runs of your event. Set this to the frenquency     *
-*    you wish the event to happen. For example, if you want your  *
-*    event to be run every three minutes, set this to 3.          *
-*                                                                 *
-*  - spawn : If you want your event to be run a certain number of *
-*    times only, set this to the number of times. For this to     *
-*    work, loop must be set to 'N'. When the event has been run   *
-*    spawn number of times, it is deleted from the scheduler.     *
-*                                                                 *
-*  - sched_file : This is the file that will be called when an    *
-*    event has been trigerred.                                    *
-*                                                                 *
-*  - extra_info : This is a text variable that can be used to     *
-*    store any extra information concerning the event triggered.  *
-*    It will be made available to the called file through the     *
-*    variable $sched_var_extrainfo.                               *
-*                                                                 *
-* If you are including files in your trigger file, it is important*
-* to use include_once instead of include, as your file might      *
-* be called multiple times in a single execution. If you need to  *
-* define functions, you can put them in the sched_funcs.php file  *
-* that is included by the scheduler. Else put them in your own    *
-* include file, with an include statement. THEY CANNOT BE         *
-* DEFINED IN YOUR MAIN FILE BODY. This would cause PHP to issue a *
-* multiple function declaration error.                            *
-*                                                                 *
-* End of scheduler explanation                                    *
-******************************************************************/
+// Explanation of the scheduler
+//
+// Here are the scheduler DB fields, and what they are used for :
+// - sched_id : Unique ID. Before calling the file responsible
+//   for the event, the variable $sched_var_id will be set to
+//   this value, so the called file can modify the triggering
+//   scheduler entry if it needs to.
+//
+// - repeate : Set this to 'Y' if you want the event to be
+//   repeated endlessly. If this value is set to 'Y', the 'spawn'
+//   field is not used.
+//
+// - ticks_left : Used internally by the scheduler. It represents
+//   the number of mins elapsed since the last call. ALWAYS set
+//   this to 0 when scheduling a new event.
+//
+// - ticks_full : This is the interval in minutes between
+//   different runs of your event. Set this to the frenquency
+//   you wish the event to happen. For example, if you want your
+//   event to be run every three minutes, set this to 3.
+//
+// - spawn : If you want your event to be run a certain number of
+//   times only, set this to the number of times. For this to
+//   work, loop must be set to 'N'. When the event has been run
+//   spawn number of times, it is deleted from the scheduler.
+//
+// - sched_file : This is the file that will be called when an
+//   event has been trigerred.
+//
+// - extra_info : This is a text variable that can be used to
+//   store any extra information concerning the event triggered.
+//   It will be made available to the called file through the
+//   variable $sched_var_extrainfo.
+//
+//  If you are including files in your trigger file, it is important*
+//  to use include_once instead of include, as your file might
+//  be called multiple times in a single execution. If you need to
+//  define functions, you can put them in the sched_funcs.php file
+//  that is included by the scheduler. Or put them in your own
+//  include file, with an include statement. THEY CANNOT BE
+//  DEFINED IN YOUR MAIN FILE BODY. This would cause PHP to issue a
+//  multiple function declaration error.
+//
+//  End of scheduler explanation
 
 include './global_includes.php';
 include './config/admin_pw.php';
@@ -111,12 +109,11 @@ else
             $multiplier = ($sched_ticks / $event['ticks_full']) + ($event['ticks_left'] / $event['ticks_full']);
             $multiplier = (int) $multiplier;
             $ticks_left = ($sched_ticks + $event['ticks_left']) % $event['ticks_full'];
+            $lastRun += $event['last_run'];
+            $schedCount += 1;
 
-$lastRun += $event['last_run'];
-$schedCount += 1;
-
-# Store the last time the individual schedule was last run.
-$lastrunList[$event['sched_file']] = $event['last_run'];
+            // Store the last time the individual schedule was last run.
+            $lastrunList[$event['sched_file']] = $event['last_run'];
 
             if ($event['repeate'] == 'N')
             {
@@ -127,18 +124,18 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
 
                 if ($event[spawn] - $multiplier == 0)
                 {
-                    $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id=$event[sched_id]");
+                    $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array ($event['sched_id']));
                     db_op_result ($db, $resx, __LINE__, __FILE__);
                 }
                 else
                 {
-                    $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left, spawn=spawn-$multiplier WHERE sched_id=$event[sched_id]");
+                    $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ?, spawn = spawn - ? WHERE sched_id = ?", array ($ticks_left, $multiplier, $event['sched_id']));
                     db_op_result ($db, $resy, __LINE__, __FILE__);
                 }
             }
             else
             {
-                $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left=$ticks_left WHERE sched_id=$event[sched_id]");
+                $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ? WHERE sched_id = ?", array ($ticks_left, $event['sched_id']));
                 db_op_result ($db, $resz, __LINE__, __FILE__);
             }
 
@@ -156,21 +153,22 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
         $lastRun /= $schedCount;
     }
 
-    # Calculate the difference in time when the last good update happened.
+    // Calculate the difference in time when the last good update happened.
     $schedDiff = ($lastRun - ( time() - ($sched_ticks * 60) ));
     if ( abs($schedDiff) > ($sched_ticks * 60) )
     {
-        # Hmmm, seems that we have missed at least 1 update, so log it to the admin.
+        // Hmmm, seems that we have missed at least 1 update, so log it to the admin.
         admin_log($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
     }
 
     $runtime = time() - $starttime;
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
-    $res = $db->Execute("UPDATE {$db->prefix}scheduler SET last_run=". TIME());
+    $res = $db->Execute("UPDATE {$db->prefix}scheduler SET last_run = ". TIME());
     db_op_result ($db, $res, __LINE__, __FILE__);
 }
 
+echo "<br>";
 TEXT_GOTOMAIN ();
 include './footer.php';
 ?>
