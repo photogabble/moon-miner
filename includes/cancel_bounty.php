@@ -17,14 +17,15 @@
 //
 // File: includes/cancel_bounty.php
 
-if (preg_match("/cancel_bounty.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'cancel_bounty.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function cancel_bounty ($db, $bounty_on)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id", array($bounty_on));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id", array ($bounty_on));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
@@ -33,12 +34,12 @@ function cancel_bounty ($db, $bounty_on)
             $bountydetails = $res->fields;
             if ($bountydetails['placed_by'] != 0)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array($bountydetails['amount'], $bountydetails['placed_by']));
+                $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $bountydetails['placed_by']));
                 db_op_result ($db, $update, __LINE__, __FILE__);
                 playerlog ($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
              }
 
-             $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bountydetails['bounty_id']));
+             $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
              db_op_result ($db, $delete, __LINE__, __FILE__);
              $res->MoveNext();
          }

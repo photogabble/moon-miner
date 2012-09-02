@@ -17,9 +17,10 @@
 //
 // File: includes/check_login.php
 
-if (preg_match("/check_login.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'check_login.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function check_login ($db, $lang)
@@ -29,25 +30,25 @@ function check_login ($db, $lang)
 
     $flag = 0;
 
-    if (!isset($_SESSION['username']))
+    if (!isset ($_SESSION['username']))
     {
         $_SESSION['username'] = null;
     }
 
-    if (!isset($_SESSION['password']))
+    if (!isset ($_SESSION['password']))
     {
         $_SESSION['password'] = null;
     }
 
-    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array($_SESSION['username']));
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1", array ($_SESSION['username']));
     db_op_result ($db, $result1, __LINE__, __FILE__);
     $playerinfo = $result1->fields;
 
     // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
-    $hasher = new PasswordHash(8, false);
+    $hasher = new PasswordHash (8, false);
 
     // Check the password against the stored hashed password
-    $password_match = $hasher->CheckPassword($_SESSION['password'], $playerinfo['password']);
+    $password_match = $hasher->CheckPassword ($_SESSION['password'], $playerinfo['password']);
 
     // Check the cookie to see if username/password are empty - check password against database
     if ($_SESSION['username'] === null || $_SESSION['password'] === null || !$password_match)

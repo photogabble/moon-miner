@@ -17,39 +17,46 @@
 //
 // File: inclues/bnt_compress.php
 //
+
+if (strpos ($_SERVER['PHP_SELF'], 'bnt_compress.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function bnt_compress ($output = null)
 {
     // Check to see if we have data, if not error out.
-    if (is_null($output))
+    if (is_null ($output))
     {
-        die("SYSTEM HALT: NOTHING TO OUTPUT.");
+        die ("SYSTEM HALT: NOTHING TO OUTPUT.");
         exit;
     }
 
     // Handle the supported compressions.
     $supported_enc = array();
-    if (isset($_SERVER['HTTP_ACCEPT_ENCODING']))
+    if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']))
     {
-        $supported_enc = explode(",", $_SERVER['HTTP_ACCEPT_ENCODING']);
+        $supported_enc = explode (",", $_SERVER['HTTP_ACCEPT_ENCODING']);
     }
 
-    if (in_array("gzip", $supported_enc) === true)
+    if (in_array ("gzip", $supported_enc) === true)
     {
-        header('Vary: Accept-Encoding');
-        header('Content-Encoding: gzip');
-        header("DEBUG: gzip found");
-        return gzencode($output, 9);
+        header ('Vary: Accept-Encoding');
+        header ('Content-Encoding: gzip');
+        header ("DEBUG: gzip found");
+        return gzencode ($output, 9);
     }
-    elseif(in_array("deflate", $supported_enc) === true)
+    elseif (in_array ("deflate", $supported_enc) === true)
     {
-        header('Vary: Accept-Encoding');
-        header('Content-Encoding: deflate');
-        header("DEBUG: deflate found");
-        return gzdeflate($output, 9);
+        header ('Vary: Accept-Encoding');
+        header ('Content-Encoding: deflate');
+        header ("DEBUG: deflate found");
+        return gzdeflate ($output, 9);
     }
     else
     {
-        header("DEBUG: None found");
+        header ("DEBUG: None found");
         return $output;
     }
 }

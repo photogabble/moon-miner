@@ -256,7 +256,6 @@ if (isset($gamedomain) && strlen($gamedomain) >0)
 global $lang, $langvars;
 
 // Template API.
-require_once './classes/template.php';
 $template = new Template();
 
 // We set the name of the theme.

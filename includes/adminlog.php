@@ -17,9 +17,10 @@
 //
 // File: includes/adminlog.php
 
-if (preg_match("/adminlog.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'adminlog.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function adminlog ($db, $log_type, $data = "")
@@ -29,7 +30,7 @@ function adminlog ($db, $log_type, $data = "")
     $data = addslashes ($data);
     if (!empty($log_type))
     {
-        $ret = $db->Execute("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array($log_type, $data));
+        $ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
         db_op_result ($db, $ret, __LINE__, __FILE__);
     }
 

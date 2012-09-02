@@ -17,14 +17,15 @@
 //
 // File: includes/collect_bounty.php
 
-if (preg_match("/collect_bounty.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'collect_bounty.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function collect_bounty ($db, $attacker, $bounty_on)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array($bounty_on));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
     if ($res)
     {
         while (!$res->EOF)
@@ -36,14 +37,14 @@ function collect_bounty ($db, $attacker, $bounty_on)
             }
             else
             {
-                $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($bountydetails['placed_by']));
+                $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array ($bountydetails['placed_by']));
                 db_op_result ($db, $res2, __LINE__, __FILE__);
                 $placed = $res2->fields['character_name'];
             }
 
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array($bountydetails['amount'], $attacker));
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $attacker));
             db_op_result ($db, $update, __LINE__, __FILE__);
-            $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bountydetails['bounty_id']));
+            $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
             db_op_result ($db, $delete, __LINE__, __FILE__);
 
             playerlog ($db, $attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
@@ -51,7 +52,7 @@ function collect_bounty ($db, $attacker, $bounty_on)
             $res->MoveNext();
         }
    }
-   $resa = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array($bounty_on));
+   $resa = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($bounty_on));
    db_op_result ($db, $resa, __LINE__, __FILE__);
 }
 ?>

@@ -17,6 +17,12 @@
 //
 // File: includes/calc_planet_beams.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_beams.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function calc_planet_beams ($db)
 {
     global $ownerinfo, $base_defense, $planetinfo;
@@ -24,7 +30,7 @@ function calc_planet_beams ($db)
     $energy_available = $planetinfo['energy'];
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
     $planetbeams = NUM_BEAMS ($ownerinfo['beams'] + $base_factor);
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {

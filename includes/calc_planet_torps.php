@@ -17,13 +17,19 @@
 //
 // File: includes/calc_planet_torps.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_torps.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function calc_planet_torps ($db)
 {
     global $ownerinfo, $base_defense, $planetinfo;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=$planetinfo[planet_id] AND on_planet='Y'");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
     $torps = $planetinfo['torps'];

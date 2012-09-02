@@ -15,7 +15,13 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/schema.php
+// File: includes/create_schema.php
+
+if (strpos ($_SERVER['PHP_SELF'], 'create_schema.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
 
 function create_schema ($db, $ADODB_SESSION_DB)
 {

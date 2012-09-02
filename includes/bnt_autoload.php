@@ -17,9 +17,10 @@
 //
 // File: includes/bnt_autoload.php
 
-if (preg_match("/bnt_autoload.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'bnt_autoload.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function bnt_autoload ($classname)
