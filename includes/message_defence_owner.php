@@ -32,7 +32,7 @@ function message_defence_owner ($db, $sector, $message)
     {
         while (!$result3->EOF)
         {
-            playerlog ($db, $result3->fields['ship_id'], LOG_RAW, $message);
+            player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
             $result3->MoveNext();
          }
      }

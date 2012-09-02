@@ -501,7 +501,7 @@ function planet_combat ($db)
                 echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
                 $resx = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__);
-                playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                player_log ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 admin_log ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
                 gen_score ($db, $ownerinfo['ship_id']);
             }
@@ -509,7 +509,7 @@ function planet_combat ($db)
             {
                 $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=" , $planetinfo['planet_id'] . "&amp;command=capture'>", $l_cmb_youmaycapture);
                 echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
-                playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                player_log ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 gen_score ($db, $ownerinfo['ship_id']);
                 $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
                 db_op_result ($db, $update7a, __LINE__, __FILE__);
@@ -519,7 +519,7 @@ function planet_combat ($db)
         {
             $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=" , $planetinfo['planet_id'] . "&amp;command=capture'>", $l_cmb_youmaycapture);
             echo "<center>$l_cmb_youmaycapture</center><br><br>";
-            playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+            player_log ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             gen_score ($db, $ownerinfo['ship_id']);
             $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
             db_op_result ($db, $update7a, __LINE__, __FILE__);
@@ -536,7 +536,7 @@ function planet_combat ($db)
         $l_cmb_fighterloststat = str_replace("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $l_cmb_fighterloststat);
         $l_cmb_fighterloststat = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_fighterloststat);
         $energy = $planetinfo['energy'];
-        playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+        player_log ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         gen_score ($db, $ownerinfo['ship_id']);
         $update7b = $db->Execute("UPDATE {$db->prefix}planets SET energy=?,fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($energy, $fighters_lost, $planettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
         db_op_result ($db, $update7b, __LINE__, __FILE__);

@@ -78,7 +78,7 @@ function xenobe_move ($db)
             if ($zonerow['allow_attack'] == "Y")
             {
                 $targetlink = $wormto;
-                playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Used a wormhole to warp to a zone where attacks are allowed.");
+                player_log ($db, $playerinfo['ship_id'], LOG_RAW, "Used a wormhole to warp to a zone where attacks are allowed.");
             }
             $wormto++;
             $wormto++;
@@ -128,7 +128,7 @@ function xenobe_move ($db)
             }
             else
             {
-                playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines.");
+                player_log ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed, the sector is defended by $total_sector_fighters fighters and $total_sector_mines mines.");
 
                 return;
             }
@@ -143,12 +143,12 @@ function xenobe_move ($db)
         if (!$move_result)
         {
             $error = $db->ErrorMsg();
-            playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
+            player_log ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
         }
     }
     else
     {
-        playerlog ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed due to lack of target link."); // We have no target link for some reason
+        player_log ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed due to lack of target link."); // We have no target link for some reason
         $targetlink = $playerinfo['sector'];         // Reset target link so it is not zero
     }
 }

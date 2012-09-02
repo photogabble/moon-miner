@@ -64,7 +64,7 @@ elseif ($sure == 2)
     db_kill_player ($db, $playerinfo['ship_id'], true);
     cancel_bounty ($db, $playerinfo['ship_id']);
     admin_log ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
-    playerlog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
+    player_log ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else

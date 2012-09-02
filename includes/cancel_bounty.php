@@ -36,7 +36,7 @@ function cancel_bounty ($db, $bounty_on)
             {
                 $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $bountydetails['placed_by']));
                 db_op_result ($db, $update, __LINE__, __FILE__);
-                playerlog ($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
+                player_log ($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
              }
 
              $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));

@@ -45,7 +45,7 @@ if (isset($_SESSION['username']))
     $playerinfo = $result->fields;
     include_once './includes/gen_score.php';
     $current_score = gen_score ($db, $playerinfo['ship_id']);
-    playerlog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
+    player_log ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
     echo $l_logout_score . " " . $current_score . ".<br>";
     $l_logout_text = str_replace("[name]", $_SESSION['username'], $l_logout_text);
     $l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);

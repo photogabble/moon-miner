@@ -39,7 +39,7 @@ include_once './includes/num_holds.php';
 include_once './includes/num_shields.php';
 include_once './includes/num_torpedoes.php';
 include_once './includes/number.php';
-include_once './includes/playerlog.php';
+include_once './includes/player_log.php';
 include_once './includes/players_online.php';
 include_once './includes/request_var.php';
 include_once './includes/text_gotomain.php';

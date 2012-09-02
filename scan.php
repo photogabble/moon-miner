@@ -87,7 +87,7 @@ else
         {
             // If scan fails - inform both player and target.
             echo $l_planet_noscan;
-            playerlog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN_FAIL, $playerinfo['character_name']);
+            player_log ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN_FAIL, $playerinfo['character_name']);
         }
         else
         {
@@ -446,7 +446,7 @@ else
             }
 
             echo "</table><br>";
-            playerlog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
+            player_log ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
         }
 
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));

@@ -68,7 +68,7 @@ function xenobe_to_ship ($db, $ship_id)
   $zonerow = $zoneres->fields;
   if ($zonerow[allow_attack]=="N")                        //  DEST LINK MUST ALLOW ATTACKING
   {
-    playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks.");
+    player_log ($db, $playerinfo[ship_id], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks.");
 
     return;
   }
@@ -76,7 +76,7 @@ function xenobe_to_ship ($db, $ship_id)
   // USE EMERGENCY WARP DEVICE
   if ($targetinfo[dev_emerwarp]>0)
   {
-    playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
+    player_log ($db, $targetinfo[ship_id], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
     $dest_sector=mt_rand(0,$sector_max);
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
     db_op_result ($db, $result_warp, __LINE__, __FILE__);
@@ -302,11 +302,11 @@ function xenobe_to_ship ($db, $ship_id)
       $rating=round($targetinfo[rating]/2);
       $resc = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', planet_id=0, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', rating='$rating',dev_lssd='N' WHERE ship_id=$targetinfo[ship_id]");
       db_op_result ($db, $resc, __LINE__, __FILE__);
-      playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|Y");
+      player_log ($db, $targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|Y");
     } else
     // TARGET HAD NO POD
     {
-      playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
+      player_log ($db, $targetinfo[ship_id], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
       db_kill_player ($db, $targetinfo['ship_id']);
     }
     if ($attackerarmor>0)
@@ -356,7 +356,7 @@ function xenobe_to_ship ($db, $ship_id)
       $ship_value=$upgrade_cost*(round(pow ($upgrade_factor, $targetinfo['hull']))+round(pow ($upgrade_factor, $targetinfo['engines']))+round(pow ($upgrade_factor, $targetinfo['power']))+round(pow ($upgrade_factor, $targetinfo['computer']))+round(pow ($upgrade_factor, $targetinfo['sensors']))+round(pow ($upgrade_factor, $targetinfo['beams']))+round(pow ($upgrade_factor, $targetinfo['torp_launchers']))+round(pow ($upgrade_factor, $targetinfo['shields']))+round(pow ($upgrade_factor, $targetinfo['armor']))+round(pow ($upgrade_factor, $targetinfo['cloak'])));
       $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
-      playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
+      player_log ($db, $playerinfo[ship_id], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
       $resd = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$playerinfo[ship_id]");
       db_op_result ($db, $resd, __LINE__, __FILE__);
       $armor_lost = $playerinfo[armor_pts] - $attackerarmor;
@@ -378,8 +378,8 @@ function xenobe_to_ship ($db, $ship_id)
     $target_armor_lost = $targetinfo[armor_pts] - $targetarmor;
     $target_fighters_lost = $targetinfo[ship_fighters] - $targetfighters;
     $target_energy=$targetinfo[ship_energy];
-    playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Attack failed, $targetinfo[character_name] survived.");
-    playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
+    player_log ($db, $playerinfo[ship_id], LOG_RAW, "Attack failed, $targetinfo[character_name] survived.");
+    player_log ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
     $resf = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, torps=torps-$attackertorps,armor_pts=armor_pts-$armor_lost, rating=rating-$rating_change WHERE ship_id=$playerinfo[ship_id]");
     db_op_result ($db, $resf, __LINE__, __FILE__);
     $resg = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$target_energy,ship_fighters=ship_fighters-$target_fighters_lost, armor_pts=armor_pts-$target_armor_lost, torps=torps-$targettorpnum, rating=$target_rating_change WHERE ship_id=$targetinfo[ship_id]");
@@ -389,7 +389,7 @@ function xenobe_to_ship ($db, $ship_id)
   // ATTACKER SHIP DESTROYED
   if (!$attackerarmor>0)
   {
-    playerlog ($db, $playerinfo[ship_id], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
+    player_log ($db, $playerinfo[ship_id], LOG_RAW, "$targetinfo[character_name] destroyed your ship!");
     db_kill_player ($db, $playerinfo['ship_id']);
     $xenobeisdead = 1;
     if ($targetarmor>0)
@@ -439,8 +439,8 @@ function xenobe_to_ship ($db, $ship_id)
       $ship_value=$upgrade_cost*(round(pow ($upgrade_factor, $playerinfo[hull]))+round(pow ($upgrade_factor, $playerinfo[engines]))+round(pow ($upgrade_factor, $playerinfo[power]))+round(pow ($upgrade_factor, $playerinfo[computer]))+round(pow ($upgrade_factor, $playerinfo[sensors]))+round(pow ($upgrade_factor, $playerinfo[beams]))+round(pow ($upgrade_factor, $playerinfo[torp_launchers]))+round(pow ($upgrade_factor, $playerinfo[shields]))+round(pow ($upgrade_factor, $playerinfo[armor]))+round(pow ($upgrade_factor, $playerinfo[cloak])));
       $ship_salvage_rate=mt_rand(10,20);
       $ship_salvage=$ship_value*$ship_salvage_rate/100;
-      playerlog ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
-      playerlog ($db, $targetinfo[ship_id], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
+      player_log ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
+      player_log ($db, $targetinfo[ship_id], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
       $resh = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$salv_ore, ship_organics=ship_organics+$salv_organics, ship_goods=ship_goods+$salv_goods, credits=credits+$ship_salvage WHERE ship_id=$targetinfo[ship_id]");
       db_op_result ($db, $resh, __LINE__, __FILE__);
       $armor_lost = $targetinfo[armor_pts] - $targetarmor;

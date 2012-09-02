@@ -50,8 +50,8 @@ function defence_vs_defence ($db, $ship_id, $langvars)
                         $qty -= $cur['quantity'];
                         $resb = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = ? WHERE defence_id = ?", array ($qty, $row['defence_id']));
                         db_op_result ($db, $resb, __LINE__, __FILE__);
-                        playerlog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $targetdeftype ."|". $row['sector_id']);
-                        playerlog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $deftype ."|". $row['sector_id']);
+                        player_log ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $targetdeftype ."|". $row['sector_id']);
+                        player_log ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $deftype ."|". $row['sector_id']);
                     }
                     else
                     {
@@ -59,8 +59,8 @@ function defence_vs_defence ($db, $ship_id, $langvars)
                         db_op_result ($db, $resc, __LINE__, __FILE__);
                         $resd = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($qty, $cur['defence_id']));
                         db_op_result ($db, $resd, __LINE__, __FILE__);
-                        playerlog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $qty ."|". $targetdeftype ."|". $row['sector_id']);
-                        playerlog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $qty ."|". $deftype ."|". $row['sector_id']);
+                        player_log ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $qty ."|". $targetdeftype ."|". $row['sector_id']);
+                        player_log ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $qty ."|". $deftype ."|". $row['sector_id']);
                         $qty = 0;
                     }
                     $result2->MoveNext();

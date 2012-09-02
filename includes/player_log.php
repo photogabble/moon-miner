@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/playerlog.php
+// File: includes/player_log.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'playerlog.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'player_log.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function playerlog ($db, $sid, $log_type, $data = "")
+function player_log ($db, $sid, $log_type, $data = "")
 {
     $data = addslashes ($data);
 
