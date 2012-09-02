@@ -17,6 +17,13 @@
 //
 // File: includes/planet_combat.php
 
+// Todo: Finish separating out variables in echo statements
+if (strpos ($_SERVER['PHP_SELF'], 'planet_combat.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function planet_combat ($db)
 {
     global $playerinfo, $ownerinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
@@ -121,11 +128,11 @@ function planet_combat ($db)
     </tr>
     <tr align='center'>
     <td width='9%'> <font color='#6098F8'>$l_cmb_planet</font></td>
-    <td width='12%'><font color='#6098F8'><strong>$planetbeams</strong></font></td>
-    <td width='17%'><font color='#6098F8'><strong>$planetfighters</strong></font></td>
-    <td width='18%'><font color='#6098F8'><strong>$planetshields</strong></font></td>
-    <td width='11%'><font color='#6098F8'><strong>$planettorps</strong></font></td>
-    <td width='22%'><font color='#6098F8'><strong>$planettorpdamage</strong></font></td>
+    <td width='12%'><font color='#6098F8'><strong>" . $planetbeams . "</strong></font></td>
+    <td width='17%'><font color='#6098F8'><strong>" . $planetfighters . "</strong></font></td>
+    <td width='18%'><font color='#6098F8'><strong>" . $planetshields . "</strong></font></td>
+    <td width='11%'><font color='#6098F8'><strong>" . $planettorps . "</strong></font></td>
+    <td width='22%'><font color='#6098F8'><strong>" . $planettorpdamage . "</strong></font></td>
     <td width='11%'><font color='#6098F8'><strong>N/A</strong></font></td>
     </tr>
     </table>
@@ -138,16 +145,16 @@ function planet_combat ($db)
     $planetdestroyed   = 0;
     $attackerdestroyed = 0;
 
-    echo "<br><center><strong><font size='+2'>$l_cmb_combatflow</font></strong><br><br>\n";
-    echo "<table width='75%' border='0'><tr align='center'><td><font color='red'>$l_cmb_you</font></td><td><font color='#6098F8'>$l_cmb_defender</font></td>\n";
-    echo "<tr align='center'><td><font color='red'><strong>$l_cmb_attackingplanet $playerinfo[sector]</strong></font></td><td></td>";
-    echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youfireyourbeams</strong></font></td><td></td>\n";
+    echo "<br><center><strong><font size='+2'>" . $l_cmb_combatflow . "</font></strong><br><br>\n";
+    echo "<table width='75%' border='0'><tr align='center'><td><font color='red'>" . $l_cmb_you . "</font></td><td><font color='#6098F8'>" . $l_cmb_defender . "</font></td>\n";
+    echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_attackingplanet . " " . $playerinfo['sector'] . "</strong></font></td><td></td>";
+    echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_youfireyourbeams . "</strong></font></td><td></td>\n";
     if ($planetfighters > 0 && $attackerbeams > 0)
     {
         if ($attackerbeams > $planetfighters)
         {
             $l_cmb_defenselost = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_defenselost);
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_defenselost</strong></font>";
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $l_cmb_defenselost . "</strong></font>";
             $attackerbeams = $attackerbeams - $planetfighters;
             $planetfighters = 0;
         }
@@ -155,7 +162,7 @@ function planet_combat ($db)
         {
             $l_cmb_defenselost2 = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_defenselost2);
             $planetfighters = $planetfighters - $attackerbeams;
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_defenselost2</strong></font>";
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $l_cmb_defenselost2 . "</strong></font>";
             $attackerbeams = 0;
         }
     }
@@ -174,13 +181,13 @@ function planet_combat ($db)
             // Subtract half the attacker fighters from available planetary beams
             $planetbeams = $planetbeams - $lost;
             $l_cmb_planetarybeams = str_replace("[cmb_temp]", $temp, $l_cmb_planetarybeams);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_planetarybeams</strong></font><TD></TD>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_planetarybeams  . "</strong></font><td></td>";
         }
         else
         {
             $l_cmb_planetarybeams2 = str_replace("[cmb_planetbeams]", $planetbeams, $l_cmb_planetarybeams2);
             $attackerfighters = $attackerfighters - $planetbeams;
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_planetarybeams2</strong></font><TD></TD>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_planetarybeams2 . "</strong></font><td></td>";
             $planetbeams = 0;
         }
     }
@@ -190,12 +197,12 @@ function planet_combat ($db)
         {
             $attackerbeams = $attackerbeams - $planetshields;
             $planetshields = 0;
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyedplanetshields</font></strong><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_youdestroyedplanetshields . "</font></strong><td></td>";
         }
         else
         {
             $l_cmb_beamsexhausted = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsexhausted);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_beamsexhausted</font></strong><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_beamsexhausted . "</font></strong><td></td>";
             $planetshields = $planetshields - $attackerbeams;
             $attackerbeams = 0;
         }

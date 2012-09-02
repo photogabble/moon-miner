@@ -17,14 +17,15 @@
 //
 // File: includes/kick_off_planet.php
 
-if (preg_match("/kick_off_planet.php/i", $_SERVER['PHP_SELF'])) {
-    echo "You can not access this file directly!";
-    die();
+if (strpos ($_SERVER['PHP_SELF'], 'kick_off_planet.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function kick_off_planet ($db, $ship_id, $whichteam)
 {
-    $result1 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner = ?", array($ship_id));
+    $result1 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
     db_op_result ($db, $result1, __LINE__, __FILE__);
 
     if ($result1 instanceof ADORecordSet)
@@ -39,7 +40,7 @@ function kick_off_planet ($db, $ship_id, $whichteam)
                 while (!$result2->EOF )
                 {
                     $cur = $result2->fields;
-                    $resa = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id=?", array($cur['ship_id']));
+                    $resa = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array($cur['ship_id']));
                     db_op_result ($db, $resa, __LINE__, __FILE__);
                     playerlog ($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
                     $result2->MoveNext();

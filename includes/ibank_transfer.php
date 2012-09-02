@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_transfer.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_transfer.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_transfer ($db)
 {
     global $playerinfo, $ibank_min_turns;
@@ -59,11 +65,11 @@ function ibank_transfer ($db)
          "<form action='igb.php?command=transfer2' method=post>" .
          $l_ibank_source . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class=term name=splanet_id>";
 
-    if (isset($planets))
+    if (isset ($planets))
     {
         foreach ($planets as $planet)
         {
-            if (empty($planet['name']))
+            if (empty ($planet['name']))
             {
                 $planet['name'] = $l_ibank_unnamed;
             }
@@ -77,11 +83,11 @@ function ibank_transfer ($db)
 
     echo "</select><br>" . $l_ibank_destination . "<select class=term name=dplanet_id>";
 
-    if (isset($planets))
+    if (isset ($planets))
     {
         foreach ($planets as $planet)
         {
-            if (empty($planet['name']))
+            if (empty ($planet['name']))
             {
                 $planet['name'] = $l_ibank_unnamed;
             }
@@ -104,11 +110,11 @@ function ibank_transfer ($db)
          "<form action='igb.php?command=consolidate' method=post>" .
          $l_ibank_destination . " <select class=term name=dplanet_id>";
 
-    if (isset($planets))
+    if (isset ($planets))
     {
         foreach ($planets as $planet)
         {
-            if (empty($planet['name']))
+            if (empty ($planet['name']))
             {
                 $planet['name'] = $l_ibank_unnamed;
             }

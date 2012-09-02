@@ -17,14 +17,15 @@
 //
 // File: includes/message_defence_owner.php
 
-if (preg_match("/message_defence_owner.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'message_defence_owner.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function message_defence_owner ($db, $sector, $message)
 {
-    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=?", array($sector));
+    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ?", array ($sector));
     db_op_result ($db, $result3, __LINE__, __FILE__);
 
     if ($result3 instanceof ADORecordSet)

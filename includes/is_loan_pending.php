@@ -17,16 +17,17 @@
 //
 // File: includes/is_loan_pending.php
 
-if (preg_match("/is_loan_pending.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'is_loan_pending.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function is_loan_pending ($db, $ship_id)
 {
     global $ibank_lrate;
 
-    $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id=?", array($ship_id));
+    $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
@@ -37,7 +38,7 @@ function is_loan_pending ($db, $ship_id)
             return false;
         }
 
-        $curtime = time();
+        $curtime = time ();
         $difftime = ($curtime - $account['time']) / 60;
         if ($difftime > $ibank_lrate)
         {

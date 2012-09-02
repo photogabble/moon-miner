@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_deposit2.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_deposit2.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_deposit2 ($db)
 {
     global $playerinfo, $amount, $account;
@@ -56,20 +62,20 @@ function ibank_deposit2 ($db)
     $account['balance'] += $amount;
     $playerinfo['credits'] -= $amount;
 
-    echo "<tr><td colspan=2 align=center valign=top>$l_ibank_operationsuccessful<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_operationsuccessful . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . NUMBER ($amount) ." $l_ibank_creditstoyou</td>" .
-         "<tr><td colspan=2 align=center>$l_ibank_accounts<br>---------------------------------</td></tr>" .
+         "<td colspan=2 align=center>" . NUMBER ($amount) ." " . $l_ibank_creditstoyou . "</td>" .
+         "<tr><td colspan=2 align=center>" . $l_ibank_accounts . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td>$l_ibank_shipaccount :<br>$l_ibank_ibankaccount :</td>" .
+         "<td>" . $l_ibank_shipaccount . " :<br>" . $l_ibank_ibankaccount . " :</td>" .
          "<td align=right>" . NUMBER ($playerinfo['credits']) . " C<br>" . NUMBER ($account['balance']) . " C</tr>" .
          "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>$l_ibank_back</a></td><td align=right>&nbsp;<br><a href=\"main.php\">$l_ibank_logout</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance+$amount WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-$amount WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 ?>

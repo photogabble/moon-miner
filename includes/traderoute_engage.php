@@ -17,6 +17,12 @@
 //
 // File: includes/traderoute_engage.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'traderoute_engage.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function traderoute_engage ($db, $j)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
@@ -76,7 +82,7 @@ function traderoute_engage ($db, $j)
     if ($traderoute['source_type'] == 'P')
     {
         // Retrieve port info here, we'll need it later anyway
-        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($traderoute['source_id']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($traderoute['source_id']));
         db_op_result ($db, $result, __LINE__, __FILE__);
         // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]));");
 
@@ -96,7 +102,7 @@ function traderoute_engage ($db, $j)
     elseif ($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
     {
         // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[source_id]");
-        $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=? AND (owner = ? OR (corp <> 0 AND corp = ?));", array($traderoute['source_id'], $playerinfo['ship_id'], $playerinfo['team']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=? AND (owner = ? OR (corp <> 0 AND corp = ?));", array ($traderoute['source_id'], $playerinfo['ship_id'], $playerinfo['team']));
         db_op_result ($db, $result, __LINE__, __FILE__);
         if (!$result || $result->EOF)
         {
@@ -136,7 +142,7 @@ function traderoute_engage ($db, $j)
         }
 
         // Store starting port info, we'll need it later
-        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($source['sector_id']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($source['sector_id']));
         db_op_result ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
@@ -150,7 +156,7 @@ function traderoute_engage ($db, $j)
     // Destination Check
     if ($traderoute['dest_type'] == 'P')
     {
-        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($traderoute['dest_id']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($traderoute['dest_id']));
         db_op_result ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
@@ -165,7 +171,7 @@ function traderoute_engage ($db, $j)
         // Check for valid Owned Source Planet
         // This now only returns Planets that the player owns or planets that belong to the team and set as corp planets..
         // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[dest_id]");
-        $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=? AND (owner = ? OR (corp <> 0 AND corp = ?));", array($traderoute['dest_id'], $playerinfo['ship_id'], $playerinfo['team']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=? AND (owner = ? OR (corp <> 0 AND corp = ?));", array ($traderoute['dest_id'], $playerinfo['ship_id'], $playerinfo['team']));
         db_op_result ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
@@ -194,7 +200,7 @@ function traderoute_engage ($db, $j)
             }
         }
 
-        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array($dest['sector_id']));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($dest['sector_id']));
         db_op_result ($db, $result, __LINE__, __FILE__);
         if (!$result || $result->EOF)
         {
@@ -217,7 +223,7 @@ function traderoute_engage ($db, $j)
     // Warp or RealSpace and generate distance
     if ($traderoute['move_type'] == 'W')
     {
-        $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array($source['sector_id'], $dest['sector_id']));
+        $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?", array ($source['sector_id'], $dest['sector_id']));
         db_op_result ($db, $query, __LINE__, __FILE__);
         if ($query->EOF)
         {
@@ -228,7 +234,7 @@ function traderoute_engage ($db, $j)
 
         if ($traderoute['circuit'] == '2')
         {
-            $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array($dest['sector_id'], $source['sector_id']));
+            $query = $db->Execute("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?", array ($dest['sector_id'], $source['sector_id']));
             db_op_result ($db, $query, __LINE__, __FILE__);
             if ($query->EOF)
             {
@@ -263,12 +269,12 @@ function traderoute_engage ($db, $j)
     // Sector Defense Check
     $hostile = 0;
 
-    $result99 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ?;", array($source['sector_id'], $playerinfo['ship_id']));
+    $result99 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ?", array ($source['sector_id'], $playerinfo['ship_id']));
     db_op_result ($db, $result99, __LINE__, __FILE__);
     if (!$result99->EOF)
     {
         $fighters_owner = $result99->fields;
-        $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($fighters_owner['ship_id']));
+        $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($fighters_owner['ship_id']));
         db_op_result ($db, $nsresult, __LINE__, __FILE__);
         $nsfighters = $nsresult->fields;
 
@@ -278,12 +284,12 @@ function traderoute_engage ($db, $j)
         }
     }
 
-    $result98 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ?;", array($dest['sector_id'], $playerinfo['ship_id']));
+    $result98 = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ?", array ($dest['sector_id'], $playerinfo['ship_id']));
     db_op_result ($db, $result98, __LINE__, __FILE__);
     if (!$result98->EOF)
     {
         $fighters_owner = $result98->fields;
-        $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($fighters_owner['ship_id']));
+        $nsresult = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($fighters_owner['ship_id']));
         db_op_result ($db, $nsresult, __LINE__, __FILE__);
         $nsfighters = $nsresult->fields;
 
@@ -307,7 +313,7 @@ function traderoute_engage ($db, $j)
     // Check if zone allows trading  SRC
     if ($traderoute['source_type'] == 'P')
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}zones,{$db->prefix}universe WHERE {$db->prefix}universe.sector_id=? AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id;", array($traderoute['source_id']));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}zones,{$db->prefix}universe WHERE {$db->prefix}universe.sector_id=? AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id;", array ($traderoute['source_id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $zoneinfo = $res->fields;
         if ($zoneinfo['allow_trade'] == 'N')
@@ -318,7 +324,7 @@ function traderoute_engage ($db, $j)
         {
             if ($zoneinfo['corp_zone'] == 'N')
             {
-                $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?;", array($zoneinfo['owner']));
+                $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array ($zoneinfo['owner']));
                 db_op_result ($db, $res, __LINE__, __FILE__);
                 $ownerinfo = $res->fields;
 
@@ -340,7 +346,7 @@ function traderoute_engage ($db, $j)
     // Check if zone allows trading  DEST
     if ($traderoute['dest_type'] == 'P')
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}zones,{$db->prefix}universe WHERE {$db->prefix}universe.sector_id=? AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id;", array($traderoute['dest_id']));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}zones,{$db->prefix}universe WHERE {$db->prefix}universe.sector_id=? AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id;", array ($traderoute['dest_id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $zoneinfo = $res->fields;
         if ($zoneinfo['allow_trade'] == 'N')
@@ -351,7 +357,7 @@ function traderoute_engage ($db, $j)
         {
             if ($zoneinfo['corp_zone'] == 'N')
             {
-                $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?;", array($zoneinfo['owner']));
+                $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array ($zoneinfo['owner']));
                 db_op_result ($db, $res, __LINE__, __FILE__);
                 $ownerinfo = $res->fields;
 
@@ -483,7 +489,7 @@ function traderoute_engage ($db, $j)
 
             if ($traderoute['circuit'] == '1')
             {
-                $resb = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=ship_colonists+?, ship_fighters=ship_fighters+?,torps=torps+?, ship_energy=ship_energy+? WHERE ship_id=?;", array($colonists_buy, $fighters_buy, $torps_buy, $dist['scooped1'], $playerinfo['ship_id']));
+                $resb = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=ship_colonists+?, ship_fighters=ship_fighters+?,torps=torps+?, ship_energy=ship_energy+? WHERE ship_id=?", array ($colonists_buy, $fighters_buy, $torps_buy, $dist['scooped1'], $playerinfo['ship_id']));
                 db_op_result ($db, $resb, __LINE__, __FILE__);
             }
         }
@@ -638,7 +644,7 @@ function traderoute_engage ($db, $j)
                 }
                 $playerinfo['ship_ore'] += $ore_buy;
                 $sourcecost -= $ore_buy * $ore_price1;
-                $resc = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
+                $resc = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
                 db_op_result ($db, $resc, __LINE__, __FILE__);
             }
 
@@ -668,7 +674,7 @@ function traderoute_engage ($db, $j)
                 $playerinfo['ship_goods'] += $goods_buy;
                 $sourcecost -= $goods_buy * $goods_price1;
 
-                $resd = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
+                $resd = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
                 db_op_result ($db, $resd, __LINE__, __FILE__);
             }
 
@@ -698,7 +704,7 @@ function traderoute_engage ($db, $j)
 
                 $playerinfo['ship_organics'] += $organics_buy;
                 $sourcecost -= $organics_buy * $organics_price1;
-                $rese = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
+                $rese = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
                 db_op_result ($db, $rese, __LINE__, __FILE__);
             }
 
@@ -727,7 +733,7 @@ function traderoute_engage ($db, $j)
                 }
                 $playerinfo['ship_energy'] += $energy_buy;
                 $sourcecost -= $energy_buy * $energy_price1;
-                $resf = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
+                $resf = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $source['sector_id']));
                 db_op_result ($db, $resf, __LINE__, __FILE__);
             }
 
@@ -747,7 +753,7 @@ function traderoute_engage ($db, $j)
 
             if ($traderoute['circuit'] == '1')
             {
-                $resf = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=?, ship_energy=? WHERE ship_id=?;", array($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_energy'], $playerinfo['ship_id']));
+                $resf = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=?, ship_energy=? WHERE ship_id=?", array ($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_energy'], $playerinfo['ship_id']));
                 db_op_result ($db, $resf, __LINE__, __FILE__);
             }
         }
@@ -828,7 +834,7 @@ function traderoute_engage ($db, $j)
 
                 if ($traderoute['circuit'] == '1')
                 {
-                    $resg = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=? WHERE ship_id=?;", array($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_id']));
+                    $resg = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=? WHERE ship_id=?", array ($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_id']));
                     db_op_result ($db, $resg, __LINE__, __FILE__);
                 }
             }
@@ -836,7 +842,7 @@ function traderoute_engage ($db, $j)
             {
             }
 
-            $resh = $db->Execute("UPDATE {$db->prefix}planets SET ore=ore-?, goods=goods-?, organics=organics-? WHERE planet_id=?;", array($ore_buy, $goods_buy, $organics_buy, $source['planet_id']));
+            $resh = $db->Execute("UPDATE {$db->prefix}planets SET ore=ore-?, goods=goods-?, organics=organics-? WHERE planet_id=?", array ($ore_buy, $goods_buy, $organics_buy, $source['planet_id']));
             db_op_result ($db, $resh, __LINE__, __FILE__);
         }
         // Destination is a planet, so load cols and weapons
@@ -911,11 +917,11 @@ function traderoute_engage ($db, $j)
 
             if ($traderoute['circuit'] == '1')
             {
-                $resi = $db->Execute("UPDATE {$db->prefix}ships SET torps=?, ship_fighters=?, ship_colonists=? WHERE ship_id=?;", array($playerinfo['torps'], $playerinfo['ship_fighters'], $playerinfo['ship_colonists'], $playerinfo['ship_id']));
+                $resi = $db->Execute("UPDATE {$db->prefix}ships SET torps=?, ship_fighters=?, ship_colonists=? WHERE ship_id=?", array ($playerinfo['torps'], $playerinfo['ship_fighters'], $playerinfo['ship_colonists'], $playerinfo['ship_id']));
                 db_op_result ($db, $resi, __LINE__, __FILE__);
             }
 
-            $resj = $db->Execute("UPDATE {$db->prefix}planets SET colonists=colonists-?, torps=torps-?, fighters=fighters-? WHERE planet_id=?;", array($colonists_buy, $torps_buy, $fighters_buy, $source['planet_id']));
+            $resj = $db->Execute("UPDATE {$db->prefix}planets SET colonists=colonists-?, torps=torps-?, fighters=fighters-? WHERE planet_id=?", array ($colonists_buy, $torps_buy, $fighters_buy, $source['planet_id']));
             db_op_result ($db, $resj, __LINE__, __FILE__);
         }
     }
@@ -1096,7 +1102,7 @@ function traderoute_engage ($db, $j)
                     $playerinfo['ship_ore'] += $ore_buy;
                     $destcost -= $ore_buy * $ore_price1;
                 }
-                $resk = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
+                $resk = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
                 db_op_result ($db, $resk, __LINE__, __FILE__);
             }
 
@@ -1132,7 +1138,7 @@ function traderoute_engage ($db, $j)
                     $playerinfo['ship_goods'] += $goods_buy;
                     $destcost -= $goods_buy * $goods_price1;
                 }
-                $resl = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
+                $resl = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
                 db_op_result ($db, $resl, __LINE__, __FILE__);
             }
 
@@ -1168,7 +1174,7 @@ function traderoute_engage ($db, $j)
                     $playerinfo['ship_organics'] += $organics_buy;
                     $destcost -= $organics_buy * $organics_price1;
                 }
-                $resm = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
+                $resm = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
                 db_op_result ($db, $resm, __LINE__, __FILE__);
             }
 
@@ -1210,7 +1216,7 @@ function traderoute_engage ($db, $j)
                     echo "$l_tdr_nothingtotrade<br>";
                 }
 
-                $resn = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?;", array($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
+                $resn = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore-?, port_energy=port_energy-?, port_goods=port_goods-?, port_organics=port_organics-? WHERE sector_id=?", array ($ore_buy, $energy_buy, $goods_buy, $organics_buy, $dest['sector_id']));
                 db_op_result ($db, $resn, __LINE__, __FILE__);
             }
 
@@ -1223,7 +1229,7 @@ function traderoute_engage ($db, $j)
                     $playerinfo['ship_energy'] = NUM_ENERGY($playerinfo['power']);
                 }
             }
-            $reso = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=?, ship_energy=? WHERE ship_id=?;", array($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_energy'], $playerinfo['ship_id']));
+            $reso = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=?, ship_energy=? WHERE ship_id=?", array ($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_energy'], $playerinfo['ship_id']));
             db_op_result ($db, $reso, __LINE__, __FILE__);
         }
         else // Dest is planet
@@ -1338,24 +1344,24 @@ function traderoute_engage ($db, $j)
                 }
             }
 
-            $resp = $db->Execute("UPDATE {$db->prefix}planets SET colonists=colonists+?, fighters=fighters+?, torps=torps+? WHERE planet_id=?;", array($colonists_buy, $fighters_buy, $torps_buy, $traderoute['dest_id']));
+            $resp = $db->Execute("UPDATE {$db->prefix}planets SET colonists=colonists+?, fighters=fighters+?, torps=torps+? WHERE planet_id=?", array ($colonists_buy, $fighters_buy, $torps_buy, $traderoute['dest_id']));
             db_op_result ($db, $resp, __LINE__, __FILE__);
 
             if ($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')
             {
-                $resq = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=?, ship_fighters=?, torps=?, ship_energy=ship_energy+? WHERE ship_id=?;", array($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
+                $resq = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=?, ship_fighters=?, torps=?, ship_energy=ship_energy+? WHERE ship_id=?", array ($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
                 db_op_result ($db, $resq, __LINE__, __FILE__);
             }
             else
             {
                 if ($setcol == 1)
                 {
-                    $resr = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=?, ship_fighters=ship_fighters-?, torps=torps-?, ship_energy=ship_energy+? WHERE ship_id=?;", array($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
+                    $resr = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=?, ship_fighters=ship_fighters-?, torps=torps-?, ship_energy=ship_energy+? WHERE ship_id=?", array ($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
                     db_op_result ($db, $resr, __LINE__, __FILE__);
                 }
                 else
                 {
-                    $ress = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=ship_colonists-?, ship_fighters=ship_fighters-?, torps=torps-?, ship_energy=ship_energy+? WHERE ship_id=?;", array($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
+                    $ress = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=ship_colonists-?, ship_fighters=ship_fighters-?, torps=torps-?, ship_energy=ship_energy+? WHERE ship_id=?", array ($col_dump, $fight_dump, $torps_dump, $dist['scooped'], $playerinfo['ship_id']));
                     db_op_result ($db, $ress, __LINE__, __FILE__);
                 }
             }
@@ -1404,7 +1410,7 @@ function traderoute_engage ($db, $j)
     {
         $newsec = $sourceport['sector_id'];
     }
-    $rest = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-?, credits=credits+?, turns_used=turns_used+?, sector=? WHERE ship_id=?;", array($dist['triptime'], $total_profit, $dist['triptime'], $newsec, $playerinfo['ship_id']));
+    $rest = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-?, credits=credits+?, turns_used=turns_used+?, sector=? WHERE ship_id=?", array ($dist['triptime'], $total_profit, $dist['triptime'], $newsec, $playerinfo['ship_id']));
     db_op_result ($db, $rest, __LINE__, __FILE__);
     $playerinfo['credits']+= $total_profit - $sourcecost;
     $playerinfo['turns']-= $dist['triptime'];

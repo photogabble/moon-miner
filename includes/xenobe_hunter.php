@@ -17,6 +17,12 @@
 //
 // File: includes/xenobe_hunter.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'xenobe_hunter.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function xenobe_hunter ($db)
 {
     // Setup general Variables
@@ -33,7 +39,7 @@ function xenobe_hunter ($db)
         return;
     }
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT ?", array($topnum));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT ?", array ($topnum));
     db_op_result ($db, $res, __LINE__, __FILE__);
 
     // Choose a target from the top player list
@@ -58,11 +64,11 @@ function xenobe_hunter ($db)
     }
 
     // Jump to target sector
-    $sectres = $db->Execute ("SELECT sector_id, zone_id FROM {$db->prefix}universe WHERE sector_id=?", array($targetinfo['sector']));
+    $sectres = $db->Execute ("SELECT sector_id, zone_id FROM {$db->prefix}universe WHERE sector_id=?", array ($targetinfo['sector']));
     db_op_result ($db, $sectres, __LINE__, __FILE__);
     $sectrow = $sectres->fields;
 
-    $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array($sectrow['zone_id']));
+    $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
     db_op_result ($db, $zoneres, __LINE__, __FILE__);
     $zonerow = $zoneres->fields;
 
@@ -70,7 +76,7 @@ function xenobe_hunter ($db)
     if ($zonerow['allow_attack'] == "Y")
     {
         $stamp = date("Y-m-d H-i-s");
-        $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array($stamp, $targetinfo['sector'], $playerinfo['ship_id']));
+        $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetinfo['sector'], $playerinfo['ship_id']));
         db_op_result ($db, $move_result, __LINE__, __FILE__);
         playerlog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
         if (!$move_result)
@@ -82,7 +88,7 @@ function xenobe_hunter ($db)
         }
 
         // Check for sector defences
-        $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity DESC", array($targetinfo['sector']));
+        $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity DESC", array ($targetinfo['sector']));
         db_op_result ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
@@ -97,7 +103,7 @@ function xenobe_hunter ($db)
             }
         }
 
-        $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='M'", array($targetinfo['sector']));
+        $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='M'", array ($targetinfo['sector']));
         db_op_result ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;

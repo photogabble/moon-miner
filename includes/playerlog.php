@@ -17,9 +17,10 @@
 //
 // File: includes/playerlog.php
 
-if (preg_match("/playerlog.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'playerlog.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function playerlog ($db, $sid, $log_type, $data = "")
@@ -27,9 +28,9 @@ function playerlog ($db, $sid, $log_type, $data = "")
     $data = addslashes ($data);
 
     // Write log_entry to the player's log - identified by player's ship_id - sid.
-    if ($sid != "" && !empty($log_type))
+    if ($sid != "" && !empty ($log_type))
     {
-        $resa = $db->Execute("INSERT INTO {$db->prefix}logs VALUES(NULL, ?, ?, NOW(), ?)", array($sid, $log_type, $data));
+        $resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
         db_op_result ($db, $resa, __LINE__, __FILE__);
     }
 }

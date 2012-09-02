@@ -17,11 +17,17 @@
 //
 // File: includes/players_online.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'players_online.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function players_online ($db)
 {
     $online = (integer) 0;
 
-    $rs = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
+    $rs = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
     db_op_result ($db, $rs, __LINE__, __FILE__);
     if ($rs instanceof ADORecordSet)
     {

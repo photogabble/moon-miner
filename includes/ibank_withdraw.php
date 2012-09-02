@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_withdraw.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_withdraw ()
 {
     global $playerinfo, $account;

@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_deposit.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_deposit.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_deposit ()
 {
     global $account, $playerinfo;

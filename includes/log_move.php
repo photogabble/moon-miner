@@ -17,14 +17,15 @@
 //
 // File: includes/log_move.php
 
-if (preg_match("/log_move.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'log_move.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function log_move ($db, $ship_id, $sector_id)
 {
-    $res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array($ship_id, $sector_id));
+    $res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
 }
 ?>

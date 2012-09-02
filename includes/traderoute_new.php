@@ -17,6 +17,12 @@
 //
 // File: includes/traderoute_new.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'traderoute_new.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function traderoute_new ($db, $traderoute_id)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
@@ -32,7 +38,7 @@ function traderoute_new ($db, $traderoute_id)
 
     if (!empty($traderoute_id))
     {
-        $result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?", array($traderoute_id));
+        $result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?", array ($traderoute_id));
         db_op_result ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
@@ -68,7 +74,7 @@ function traderoute_new ($db, $traderoute_id)
 
     // Get Planet info Corp and Personal
 
-    $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id", array($playerinfo['ship_id']));
+    $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id", array ($playerinfo['ship_id']));
     db_op_result ($db, $result, __LINE__, __FILE__);
 
     $num_planets = $result->RecordCount();
@@ -86,7 +92,7 @@ function traderoute_new ($db, $traderoute_id)
         $result->MoveNext();
     }
 
-    $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE corp=? AND corp!=0 AND owner<>? ORDER BY sector_id", array($playerinfo['team'], $playerinfo['ship_id']));
+    $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE corp=? AND corp!=0 AND owner<>? ORDER BY sector_id", array ($playerinfo['team'], $playerinfo['ship_id']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $num_corp_planets = $result->RecordCount();
     $i=0;

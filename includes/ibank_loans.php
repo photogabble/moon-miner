@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_loans.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_loans.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_loans ($db)
 {
     global $playerinfo, $account;
@@ -32,7 +38,7 @@ function ibank_loans ($db)
     if ($account['loan'] != 0)
     {
         $curtime = time();
-        $res = $db->Execute("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id=?", array($playerinfo['ship_id']));
+        $res = $db->Execute("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($playerinfo['ship_id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res->EOF)
         {
@@ -41,11 +47,11 @@ function ibank_loans ($db)
 
         $difftime = ($curtime - $time['time']) / 60;
 
-        echo "<tr valign=top><td nowrap>$l_ibank_loantimeleft :</td>";
+        echo "<tr valign=top><td nowrap>" . $l_ibank_loantimeleft . " :</td>";
 
         if ($difftime > $ibank_lrate)
         {
-            echo "<td align=right>$l_ibank_loanlate</td></tr>";
+            echo "<td align=right>" . $l_ibank_loanlate . "</td></tr>";
         }
         else
         {

@@ -19,6 +19,12 @@
 //
 // Function for importing values from an INI file into the database.
 
+if (strpos ($_SERVER['PHP_SELF'], 'tags_to_db.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function tags_to_db ($db, $ini_file, $ini_table)
 {
     // This is a loop, that reads a ini file, of the type variable = value.
@@ -27,12 +33,12 @@ function tags_to_db ($db, $ini_file, $ini_table)
 
     $status = true; // This variable allows us to track the inserts into the databse. If one fails, the whole process is considered failed.
 
-    $db->StartTrans(); // We enclose the inserts in a transaction as it is roughly 30 times faster
+    $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
 
-    foreach ($ini_keys as $config_category=>$config_line)
+    foreach ($ini_keys as $config_category => $config_line)
     {
         var_dump($config_line);
-        foreach ($config_line as $config_key=>$config_value)
+        foreach ($config_line as $config_key => $config_value)
         {
             // explode here and then loop through each of the values as a new config value (tag entry), but with the same config_key (l_var)
             $values = explode('|', $config_value);
@@ -45,7 +51,7 @@ function tags_to_db ($db, $ini_file, $ini_table)
         }
     }
 
-    $trans_status = $db->CompleteTrans(); // Complete the transaction
+    $trans_status = $db->CompleteTrans (); // Complete the transaction
 
     if ($trans_status && $status)
     {

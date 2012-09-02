@@ -17,9 +17,10 @@
 //
 // File: includes/text_gotomain.php
 
-if (preg_match("/text_gotomain.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'text_gotomain.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function TEXT_GOTOMAIN ()

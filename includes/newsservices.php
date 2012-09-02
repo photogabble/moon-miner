@@ -17,9 +17,13 @@
 //
 // File: includes/newsservices.php
 
-/*
-Assumes $day is a valid formatted time
-*/
+// Todo: Add validity checking for the format of $day
+if (strpos ($_SERVER['PHP_SELF'], 'newsservices.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function get_previous_day ($day)
 {
     //convert the formatted date into a timestamp

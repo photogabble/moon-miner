@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_transfer2.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_transfer2.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_transfer2 ($db)
 {
     global $playerinfo, $account, $ship_id, $splanet_id, $dplanet_id, $ibank_min_turns, $ibank_svalue;
@@ -63,7 +69,7 @@ function ibank_transfer2 ($db)
         {
             $curtime = time();
             $curtime -= $ibank_trate * 60;
-            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id=? AND dest_id=?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
+            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
             db_op_result ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {
@@ -117,7 +123,7 @@ function ibank_transfer2 ($db)
             ibank_error ($l_ibank_errplanetsrcanddest, "igb.php?command=transfer");
         }
 
-        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array($splanet_id));
+        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
@@ -131,7 +137,7 @@ function ibank_transfer2 ($db)
             $source['name'] = $l_ibank_unnamed;
         }
 
-        $res = $db->Execute("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id=?", array($dplanet_id));
+        $res = $db->Execute("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {

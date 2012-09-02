@@ -17,9 +17,10 @@
 //
 // File: includes/number.php
 
-if (preg_match("/number.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'number.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function NUMBER ($number, $decimals = 0)

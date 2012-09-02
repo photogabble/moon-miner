@@ -17,6 +17,12 @@
 //
 // File: includes/xenobe_to_sec_def.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_sec_def.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function xenobe_to_sec_def ($db)
 {
     include_once './destroy_fighters.php';
@@ -29,7 +35,7 @@ function xenobe_to_sec_def ($db)
     // Check for sector defenses
     if ($targetlink > 0)
     {
-        $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array($targetlink));
+        $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array ($targetlink));
         db_op_result ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
@@ -44,7 +50,7 @@ function xenobe_to_sec_def ($db)
             }
         }
 
-        $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array($targetlink));
+        $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($targetlink));
         db_op_result ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
@@ -183,7 +189,7 @@ function xenobe_to_sec_def ($db)
             $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
             $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
             $energy = $playerinfo['ship_energy'];
-            $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, armor_pts=armor_pts-?,torps=torps-? WHERE ship_id=?", array($energy, $fighters_lost, $armor_lost, $playertorpnum, $playerinfo['ship_id']));
+            $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, armor_pts=armor_pts-?,torps=torps-? WHERE ship_id=?", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $playerinfo['ship_id']));
             db_op_result ($db, $update1, __LINE__, __FILE__);
 
             // Check to see if Xenobe is dead
@@ -217,7 +223,7 @@ function xenobe_to_sec_def ($db)
                 // Shields v. mines
                 if ($playershields >= $mines_left)
                 {
-                    $update2 = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-? WHERE ship_id=?", array($mines_left, $playerinfo['ship_id']));
+                    $update2 = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-? WHERE ship_id=?", array ($mines_left, $playerinfo['ship_id']));
                     db_op_result ($db, $update2, __LINE__, __FILE__);
                 }
                 else
@@ -227,7 +233,7 @@ function xenobe_to_sec_def ($db)
                     // Armor v. mines
                     if ($playerarmor >= $mines_left)
                     {
-                        $update2 = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts=armor_pts-?, ship_energy=0 WHERE ship_id=?", array($mines_left, $playerinfo['ship_id']));
+                        $update2 = $db->Execute("UPDATE {$db->prefix}ships SET armor_pts=armor_pts-?, ship_energy=0 WHERE ship_id=?", array ($mines_left, $playerinfo['ship_id']));
                         db_op_result ($db, $update2, __LINE__, __FILE__);
                     }
                     else

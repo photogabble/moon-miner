@@ -17,6 +17,13 @@
 //
 // File: includes/ibank_consolidate3.php
 
+// Todo: Database escaping on the query with minimum / maximum credits
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate3.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_consolidate3 ($db)
 {
     global $playerinfo;
@@ -24,7 +31,7 @@ function ibank_consolidate3 ($db)
     global $l_ibank_notenturns, $l_ibank_back, $l_ibank_logout, $l_ibank_transfersuccessful;
     global $l_ibank_currentpl, $l_ibank_in, $l_ibank_turncost, $l_ibank_unnamed;
 
-    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array ($dplanet_id));
+    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
@@ -48,7 +55,7 @@ function ibank_consolidate3 ($db)
     $minimum = strip_non_num ($minimum);
     $maximum = strip_non_num ($maximum);
 
-    $query = "SELECT SUM(credits) as total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
+    $query = "SELECT SUM(credits) as total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=? AND credits != 0 AND planet_id != ?";
 
     if ($minimum != 0)
     {
@@ -60,9 +67,7 @@ function ibank_consolidate3 ($db)
         $query .= " AND credits <= $maximum";
     }
 
-    $query .= " AND planet_id != $dplanet_id";
-
-    $res = $db->Execute($query);
+    $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 
@@ -89,7 +94,7 @@ function ibank_consolidate3 ($db)
          "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $query = "UPDATE {$db->prefix}planets SET credits=0 WHERE owner=$playerinfo[ship_id] AND credits != 0";
+    $query = "UPDATE {$db->prefix}planets SET credits=0 WHERE owner=? AND credits != 0 AND planet_id != ?";
 
     if ($minimum != 0)
     {
@@ -101,13 +106,11 @@ function ibank_consolidate3 ($db)
         $query .= " AND credits <= $maximum";
     }
 
-    $query .= " AND planet_id != $dplanet_id";
-
-    $res = $db->Execute($query);
+    $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array($transfer, $dplanet_id));
+    $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array ($transfer, $dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array($tcost, $playerinfo['ship_id']));
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array ($tcost, $playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
 }
 ?>

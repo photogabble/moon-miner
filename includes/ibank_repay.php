@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_repay.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_repay.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_repay ($db)
 {
     global $playerinfo, $account, $amount;
@@ -71,9 +77,9 @@ function ibank_repay ($db)
          "<td nowrap><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan=loan-$amount,loantime='$account[loantime]' WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan=loan - ?, loantime=? WHERE ship_id = ?", array ($amount, $account['loantime'], $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits-$amount WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits - ? WHERE ship_id = ?" , array ($amount, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 ?>

@@ -17,14 +17,15 @@
 //
 // File: includes/distribute_toll.php
 
-if (preg_match("/distribute_toll.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'distribute_toll.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function distribute_toll ($db, $sector, $toll, $total_fighters)
 {
-    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array($sector));
+    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
     db_op_result ($db, $result3, __LINE__, __FILE__);
 
     // Put the defence information into the array "defenceinfo"
@@ -34,7 +35,7 @@ function distribute_toll ($db, $sector, $toll, $total_fighters)
         {
             $row = $result3->fields;
             $toll_amount = ROUND (($row['quantity'] / $total_fighters) * $toll);
-            $resa = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array($toll_amount, $row['ship_id']));
+            $resa = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
             db_op_result ($db, $resa, __LINE__, __FILE__);
             playerlog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
             $result3->MoveNext();

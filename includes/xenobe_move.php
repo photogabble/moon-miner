@@ -17,6 +17,12 @@
 //
 // File: includes/xenobe_move.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'xenobe_move.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function xenobe_move ($db)
 {
     global $playerinfo, $sector_max, $targetlink, $xenobeisdead;
@@ -27,7 +33,7 @@ function xenobe_move ($db)
         $targetlink = 0;
     }
 
-    $linkres = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start=?", array($playerinfo['sector']));
+    $linkres = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start=?", array ($playerinfo['sector']));
     db_op_result ($db, $linkres, __LINE__, __FILE__);
     if ($linkres > 0)
     {
@@ -36,11 +42,11 @@ function xenobe_move ($db)
             $row = $linkres->fields;
 
             // Obtain sector information
-            $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id=?", array($row['link_dest']));
+            $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id=?", array ($row['link_dest']));
             db_op_result ($db, $sectres, __LINE__, __FILE__);
             $sectrow = $sectres->fields;
 
-            $zoneres = $db->Execute("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array($sectrow['zone_id']));
+            $zoneres = $db->Execute("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
             db_op_result ($db, $zoneres, __LINE__, __FILE__);
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y") // Dest link must allow attacking
@@ -62,11 +68,11 @@ function xenobe_move ($db)
         while (!$targetlink > 0 && $limitloop < 15)
         {
             // Obtain sector information
-            $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id=?", array($wormto));
+            $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id=?", array ($wormto));
             db_op_result ($db, $sectres, __LINE__, __FILE__);
             $sectrow = $sectres->fields;
 
-            $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array($sectrow['zone_id']));
+            $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
             db_op_result ($db, $zoneres, __LINE__, __FILE__);
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y")
@@ -82,7 +88,7 @@ function xenobe_move ($db)
 
     if ($targetlink > 0) // Check for sector defenses
     {
-        $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array($targetlink));
+        $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array ($targetlink));
         db_op_result ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
@@ -97,7 +103,7 @@ function xenobe_move ($db)
             }
         }
 
-        $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array($targetlink));
+        $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($targetlink));
         db_op_result ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
@@ -132,7 +138,7 @@ function xenobe_move ($db)
     if ($targetlink > 0) // Move to target link
     {
         $stamp = date("Y-m-d H-i-s");
-        $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array($stamp, $targetlink, $playerinfo['ship_id']));
+        $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetlink, $playerinfo['ship_id']));
         db_op_result ($db, $move_result, __LINE__, __FILE__);
         if (!$move_result)
         {

@@ -17,6 +17,14 @@
 //
 // File: includes/ibank_consolidate2.php
 
+// Todo: Database escaping on the query with minimum/naximum credits
+
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate2.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_consolidate2 ($db)
 {
     global $playerinfo, $account;
@@ -27,8 +35,9 @@ function ibank_consolidate2 ($db)
     global $l_ibank_transferfee, $l_ibank_turncost, $l_ibank_amounttransferred;
     global $l_ibank_consolidate;
 
-    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array($dplanet_id));
+    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
+
     if (!$res || $res->EOF)
     {
         ibank_error ($l_ibank_errunknownplanet, "igb.php?command=transfer");
@@ -48,7 +57,7 @@ function ibank_consolidate2 ($db)
     $minimum = strip_non_num ($minimum);
     $maximum = strip_non_num ($maximum);
 
-    $query = "SELECT SUM(credits) AS total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] AND credits != 0";
+    $query = "SELECT SUM(credits) AS total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=? AND credits != 0 AND planet_id != ?";
 
     if ($minimum != 0)
     {
@@ -60,9 +69,7 @@ function ibank_consolidate2 ($db)
         $query .= " AND credits <= $maximum";
     }
 
-    $query .= " AND planet_id != $dplanet_id";
-
-    $res = $db->Execute($query);
+    $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 
@@ -92,9 +99,9 @@ function ibank_consolidate2 ($db)
          "<td align=right>" . NUMBER ($transfer) . " C</td>" .
          "<tr valign=top><td colspan=2 align=right>" .
          "<form action='igb.php?command=consolidate3' method=post>" .
-         "<input type=hidden name=minimum value=$minimum><br>" .
-         "<input type=hidden name=maximum value=$maximum><br>" .
-         "<input type=hidden name=dplanet_id value=$dplanet_id>" .
+         "<input type=hidden name=minimum value=" . $minimum> . "<br>" .
+         "<input type=hidden name=maximum value=" . $maximum> . "<br>" .
+         "<input type=hidden name=dplanet_id value=" . $dplanet_id . ">" .
          "<input class=term type=submit value=\"" . $l_ibank_consolidate . "\"></td>" .
          "</form>" .
          "<tr valign=bottom>" .

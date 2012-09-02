@@ -17,6 +17,12 @@
 //
 // File: includes/planet_bombing.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'planet_bombing.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function planet_bombing ($db)
 {
     global $playerinfo, $ownerinfo, $planetinfo, $planetbeams, $planetfighters, $attackerfighters;
@@ -99,9 +105,9 @@ function planet_bombing ($db)
 
     echo "<br><br>\n";
     playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_BOMBED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$beamsused|$planettorps|$planetfighterslost");
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1, ship_fighters=ship_fighters-? WHERE ship_id=?", array ($attackerfighters, $playerinfo['ship_id']));
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, ship_fighters = ship_fighters - ? WHERE ship_id = ?", array ($attackerfighters, $playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}planets SET energy=energy-?, fighters=fighters-?, torps=torps-? WHERE planet_id=?", array ($beamsused, $planetfighterslost, $planettorps, $planetinfo['planet_id']));
+    $res = $db->Execute("UPDATE {$db->prefix}planets SET energy=energy - ?, fighters=fighters - ?, torps=torps - ? WHERE planet_id = ?", array ($beamsused, $planetfighterslost, $planettorps, $planetinfo['planet_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $res = $db->Execute("UNLOCK TABLES");
     db_op_result ($db, $res, __LINE__, __FILE__);

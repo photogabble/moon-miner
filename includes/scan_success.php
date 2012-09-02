@@ -17,9 +17,10 @@
 //
 // File: includes/scan_success.php
 
-if (preg_match("/scan_success.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'scan_success.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function scan_success ($level_scan, $level_cloak)

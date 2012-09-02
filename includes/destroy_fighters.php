@@ -17,14 +17,15 @@
 //
 // File: includes/destroy_fighters.php
 
-if (preg_match("/destroy_fighters.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'destroy_fighters.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function destroy_fighters ($db, $sector, $num_fighters)
 {
-    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity ASC", array($sector));
+    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity ASC", array ($sector));
     db_op_result ($db, $result3, __LINE__, __FILE__);
 
     // Put the defence information into the array "defenceinfo"
@@ -35,13 +36,13 @@ function destroy_fighters ($db, $sector, $num_fighters)
             $row = $result3->fields;
             if ($row['quantity'] > $num_fighters)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array($num_fighters, $row['defence_id']));
+                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($num_fighters, $row['defence_id']));
                 db_op_result ($db, $update, __LINE__, __FILE__);
                 $num_fighters = 0;
             }
             else
             {
-                $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array($row['defence_id']));
+                $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
                 db_op_result ($db, $update, __LINE__, __FILE__);
                 $num_fighters -= $row['quantity'];
             }

@@ -17,6 +17,12 @@
 //
 // File: ibank_consolidate.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_consolidate ()
 {
     global $dplanet_id, $l_ibank_transferrate3, $ibank_tconsolidate, $l_ibank_consolrates;
@@ -42,7 +48,7 @@ function ibank_consolidate ()
          "<input type=hidden name=dplanet_id value=" . $dplanet_id . ">" .
          "</form>" .
          "<tr><td colspan=2 align=center>" .
-         "$l_ibank_transferrate3" .
+         $l_ibank_transferrate3 .
          "<tr valign=bottom>" .
          "<td><a href='igb.php?command=transfer'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";

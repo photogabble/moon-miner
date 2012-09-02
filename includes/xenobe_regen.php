@@ -17,6 +17,12 @@
 //
 // File: includes/xenobe_regen.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'xenobe_regen.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function xenobe_regen ($db)
 {
     global $playerinfo, $xen_unemployment, $xenobeisdead;
@@ -80,7 +86,7 @@ function xenobe_regen ($db)
     }
 
     // Update Xenobe record
-    $resg = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, armor_pts=?, ship_fighters=?, torps=?, credits=? WHERE ship_id=?", array($playerinfo['ship_energy'], $playerinfo['armor_pts'], $playerinfo['ship_fighters'], $playerinfo['torps'], $playerinfo['credits'], $playerinfo['ship_id']));
+    $resg = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, armor_pts=?, ship_fighters=?, torps=?, credits=? WHERE ship_id=?", array ($playerinfo['ship_energy'], $playerinfo['armor_pts'], $playerinfo['ship_fighters'], $playerinfo['torps'], $playerinfo['credits'], $playerinfo['ship_id']));
     db_op_result ($db, $resg, __LINE__, __FILE__);
     if (!$gene=='' || !$gena=='' || !$genf=='' || !$gent=='')
     {

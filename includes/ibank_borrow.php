@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_borrow.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_borrow.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_borrow ($db)
 {
     global $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor;
@@ -73,10 +79,10 @@ function ibank_borrow ($db)
          "<td nowrap><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan=$amount3, loantime=NOW() WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits+$amount WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 ?>

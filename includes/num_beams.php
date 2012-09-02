@@ -17,9 +17,10 @@
 //
 // File: includes/num_beams.php
 
-if (preg_match("/num_beams.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'num_beams.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function NUM_BEAMS ($level_beams)

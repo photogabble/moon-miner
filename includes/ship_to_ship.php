@@ -17,6 +17,12 @@
 //
 // File: includes/ship_to_ship.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ship_to_ship.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ship_to_ship ($db, $ship_id)
 {
     global $attackerbeams, $attackerfighters, $attackershields, $attackertorps, $attackerarmor, $attackertorpdamage, $start_energy, $level_factor;
@@ -88,13 +94,13 @@ function ship_to_ship ($db, $ship_id)
             $lost = $targetfighters-$temp;
             $targetfighters = $temp;
             $attackerbeams = $attackerbeams-$lost;
-            $l_cmb_beamsdestroy = str_replace("[cmb_lost]", $lost, $l_cmb_beamsdestroy);
+            $l_cmb_beamsdestroy = str_replace ("[cmb_lost]", $lost, $l_cmb_beamsdestroy);
             echo "<-- $l_cmb_beamsdestroy<br>";
         }
         else
         {
             $targetfighters = $targetfighters-$attackerbeams;
-            $l_cmb_beamsdestroy2 = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsdestroy2);
+            $l_cmb_beamsdestroy2 = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsdestroy2);
             echo "--> $l_cmb_beamsdestroy2<br>";
             $attackerbeams = 0;
         }
@@ -111,16 +117,16 @@ function ship_to_ship ($db, $ship_id)
             $lost = $attackerfighters - $temp;
             $attackerfighters = $temp;
             $targetbeams = $targetbeams - $lost;
-            $l_cmb_fighterdestroyedbybeams = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_fighterdestroyedbybeams);
-            $l_cmb_fighterdestroyedbybeams = str_replace("[cmb_lost]", $lost, $l_cmb_fighterdestroyedbybeams);
+            $l_cmb_fighterdestroyedbybeams = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_fighterdestroyedbybeams);
+            $l_cmb_fighterdestroyedbybeams = str_replace ("[cmb_lost]", $lost, $l_cmb_fighterdestroyedbybeams);
             echo "--> $l_cmb_fighterdestroyedbybeams<br>";
         }
         else
         {
             $attackerfighters = $attackerfighters - $targetbeams;
-            $l_cmb_beamsdestroystillhave = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_beamsdestroystillhave);
-            $l_cmb_beamsdestroystillhave = str_replace("[cmb_targetbeams]", $targetbeams, $l_cmb_beamsdestroystillhave);
-            $l_cmb_beamsdestroystillhave = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_beamsdestroystillhave);
+            $l_cmb_beamsdestroystillhave = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_beamsdestroystillhave);
+            $l_cmb_beamsdestroystillhave = str_replace ("[cmb_targetbeams]", $targetbeams, $l_cmb_beamsdestroystillhave);
+            $l_cmb_beamsdestroystillhave = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_beamsdestroystillhave);
             echo "<-- $l_cmb_beamsdestroystillhave<br>";
             $targetbeams = 0;
         }
@@ -140,13 +146,13 @@ function ship_to_ship ($db, $ship_id)
         {
             $attackerbeams = $attackerbeams - $targetshields;
             $targetshields = 0;
-            $l_cmb_breachedsomeshields = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_breachedsomeshields);
+            $l_cmb_breachedsomeshields = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_breachedsomeshields);
             echo "<-- $l_cmb_breachedsomeshields<br>";
         }
         else
         {
-            $l_cmb_shieldsarehitbybeams = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_shieldsarehitbybeams);
-            $l_cmb_shieldsarehitbybeams = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_shieldsarehitbybeams);
+            $l_cmb_shieldsarehitbybeams = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_shieldsarehitbybeams);
+            $l_cmb_shieldsarehitbybeams = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_shieldsarehitbybeams);
             echo "$l_cmb_shieldsarehitbybeams<br>";
             $targetshields = $targetshields - $attackerbeams;
             $attackerbeams = 0;
@@ -154,7 +160,7 @@ function ship_to_ship ($db, $ship_id)
     }
     else
     {
-        $l_cmb_nobeamslefttoattack = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_nobeamslefttoattack);
+        $l_cmb_nobeamslefttoattack = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_nobeamslefttoattack);
         echo "$l_cmb_nobeamslefttoattack<br>";
     }
     if ($targetbeams > 0)
@@ -163,13 +169,13 @@ function ship_to_ship ($db, $ship_id)
         {
             $targetbeams = $targetbeams - $attackershields;
             $attackershields = 0;
-            $l_cmb_yourshieldsbreachedby = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourshieldsbreachedby);
+            $l_cmb_yourshieldsbreachedby = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourshieldsbreachedby);
             echo "--> $l_cmb_yourshieldsbreachedby<br>";
         }
         else
         {
-            $l_cmb_yourshieldsarehit = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourshieldsarehit);
-            $l_cmb_yourshieldsarehit = str_replace("[cmb_targetbeams]", $targetbeams, $l_cmb_yourshieldsarehit);
+            $l_cmb_yourshieldsarehit = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourshieldsarehit);
+            $l_cmb_yourshieldsarehit = str_replace ("[cmb_targetbeams]", $targetbeams, $l_cmb_yourshieldsarehit);
             echo "<-- $l_cmb_yourshieldsarehit<br>";
             $attackershields = $attackershields - $targetbeams;
             $targetbeams = 0;
@@ -177,7 +183,7 @@ function ship_to_ship ($db, $ship_id)
     }
     else
     {
-        $l_cmb_hehasnobeamslefttoattack = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnobeamslefttoattack);
+        $l_cmb_hehasnobeamslefttoattack = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnobeamslefttoattack);
         echo "$l_cmb_hehasnobeamslefttoattack<br>";
     }
     if ($attackerbeams > 0)
@@ -185,20 +191,20 @@ function ship_to_ship ($db, $ship_id)
         if ($attackerbeams > $targetarmor)
         {
             $targetarmor=0;
-            $l_cmb_yourbeamsbreachedhim = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourbeamsbreachedhim);
+            $l_cmb_yourbeamsbreachedhim = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourbeamsbreachedhim);
             echo "--> $l_cmb_yourbeamsbreachedhim<br>";
         }
         else
         {
             $targetarmor=$targetarmor-$attackerbeams;
-            $l_cmb_yourbeamshavedonedamage = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_yourbeamshavedonedamage);
-            $l_cmb_yourbeamshavedonedamage = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourbeamshavedonedamage);
+            $l_cmb_yourbeamshavedonedamage = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_yourbeamshavedonedamage);
+            $l_cmb_yourbeamshavedonedamage = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourbeamshavedonedamage);
             echo "$l_cmb_yourbeamshavedonedamage<br>";
         }
     }
     else
     {
-        $l_cmb_nobeamstoattackarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_nobeamstoattackarmor);
+        $l_cmb_nobeamstoattackarmor = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_nobeamstoattackarmor);
         echo "$l_cmb_nobeamstoattackarmor<br>";
     }
     if ($targetbeams > 0)
@@ -206,20 +212,20 @@ function ship_to_ship ($db, $ship_id)
         if ($targetbeams > $attackerarmor)
         {
             $attackerarmor = 0;
-            $l_cmb_yourarmorbreachedbybeams = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorbreachedbybeams);
+            $l_cmb_yourarmorbreachedbybeams = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorbreachedbybeams);
             echo "--> $l_cmb_yourarmorbreachedbybeams<br>";
         }
         else
         {
             $attackerarmor = $attackerarmor - $targetbeams;
-            $l_cmb_yourarmorhitdamaged = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorhitdamaged);
-            $l_cmb_yourarmorhitdamaged = str_replace("[cmb_targetbeams]", $targetbeams, $l_cmb_yourarmorhitdamaged);
+            $l_cmb_yourarmorhitdamaged = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorhitdamaged);
+            $l_cmb_yourarmorhitdamaged = str_replace ("[cmb_targetbeams]", $targetbeams, $l_cmb_yourarmorhitdamaged);
             echo "<-- $l_cmb_yourarmorhitdamaged<br>";
         }
     }
     else
     {
-        $l_cmb_hehasnobeamslefttoattackyou = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnobeamslefttoattackyou);
+        $l_cmb_hehasnobeamslefttoattackyou = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnobeamslefttoattackyou);
         echo "$l_cmb_hehasnobeamslefttoattackyou<br>";
     }
     echo "<br>$l_cmb_torpedoexchange<br>";
@@ -231,27 +237,27 @@ function ship_to_ship ($db, $ship_id)
             $lost=$targetfighters - $temp;
             $targetfighters = $temp;
             $attackertorpdamage = $attackertorpdamage - $lost;
-            $l_cmb_yourtorpsdestroy = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourtorpsdestroy);
-            $l_cmb_yourtorpsdestroy = str_replace("[cmb_lost]", $lost, $l_cmb_yourtorpsdestroy);
+            $l_cmb_yourtorpsdestroy = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourtorpsdestroy);
+            $l_cmb_yourtorpsdestroy = str_replace ("[cmb_lost]", $lost, $l_cmb_yourtorpsdestroy);
             echo "--> $l_cmb_yourtorpsdestroy<br>";
         }
         else
         {
             $targetfighters = $targetfighters - $attackertorpdamage;
-            $l_cmb_yourtorpsdestroy2 = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourtorpsdestroy2);
-            $l_cmb_yourtorpsdestroy2 = str_replace("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_yourtorpsdestroy2);
+            $l_cmb_yourtorpsdestroy2 = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourtorpsdestroy2);
+            $l_cmb_yourtorpsdestroy2 = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_yourtorpsdestroy2);
             echo "<-- $l_cmb_yourtorpsdestroy2<br>";
             $attackertorpdamage = 0;
         }
     }
     elseif ($targetfighters > 0 && $attackertorpdamage < 1)
     {
-        $l_cmb_youhavenotorpsleft = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhavenotorpsleft);
+        $l_cmb_youhavenotorpsleft = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhavenotorpsleft);
         echo "$l_cmb_youhavenotorpsleft<br>";
     }
     else
     {
-        $l_cmb_hehasnofighterleft = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnofighterleft);
+        $l_cmb_hehasnofighterleft = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnofighterleft);
         echo "$l_cmb_hehasnofighterleft<br>";
     }
     if ($attackerfighters > 0 && $targettorpdmg > 0)
@@ -262,27 +268,27 @@ function ship_to_ship ($db, $ship_id)
             $lost = $attackerfighters - $temp;
             $attackerfighters = $temp;
             $targettorpdmg = $targettorpdmg - $lost;
-            $l_cmb_torpsdestroyyou = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_torpsdestroyyou);
-            $l_cmb_torpsdestroyyou = str_replace("[cmb_lost]", $lost, $l_cmb_torpsdestroyyou);
+            $l_cmb_torpsdestroyyou = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_torpsdestroyyou);
+            $l_cmb_torpsdestroyyou = str_replace ("[cmb_lost]", $lost, $l_cmb_torpsdestroyyou);
             echo "--> $l_cmb_torpsdestroyyou<br>";
         }
         else
         {
             $attackerfighters = $attackerfighters - $targettorpdmg;
-            $l_cmb_someonedestroyedfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_someonedestroyedfighters);
-            $l_cmb_someonedestroyedfighters = str_replace("[cmb_targettorpdmg]", $targettorpdmg, $l_cmb_someonedestroyedfighters);
+            $l_cmb_someonedestroyedfighters = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_someonedestroyedfighters);
+            $l_cmb_someonedestroyedfighters = str_replace ("[cmb_targettorpdmg]", $targettorpdmg, $l_cmb_someonedestroyedfighters);
             echo "<-- $l_cmb_someonedestroyedfighters<br>";
             $targettorpdmg=0;
         }
     }
     elseif ($attackerfighters > 0 && $targettorpdmg < 1)
     {
-        $l_cmb_hehasnotorpsleftforyou = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnotorpsleftforyou);
+        $l_cmb_hehasnotorpsleftforyou = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnotorpsleftforyou);
         echo "$l_cmb_hehasnotorpsleftforyou<br>";
     }
     else
     {
-        $l_cmb_youhavenofightersanymore = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhavenofightersanymore);
+        $l_cmb_youhavenofightersanymore = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhavenofightersanymore);
         echo "$l_cmb_youhavenofightersanymore<br>";
     }
     if ($attackertorpdamage > 0)
@@ -290,20 +296,20 @@ function ship_to_ship ($db, $ship_id)
         if ($attackertorpdamage > $targetarmor)
         {
             $targetarmor = 0;
-            $l_cmb_youbreachedwithtorps = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youbreachedwithtorps);
+            $l_cmb_youbreachedwithtorps = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youbreachedwithtorps);
             echo "--> $l_cmb_youbreachedwithtorps<br>";
         }
         else
         {
             $targetarmor=$targetarmor-$attackertorpdamage;
-            $l_cmb_hisarmorishitbytorps = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hisarmorishitbytorps);
-            $l_cmb_hisarmorishitbytorps = str_replace("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_hisarmorishitbytorps);
+            $l_cmb_hisarmorishitbytorps = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hisarmorishitbytorps);
+            $l_cmb_hisarmorishitbytorps = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_hisarmorishitbytorps);
             echo "<-- $l_cmb_hisarmorishitbytorps<br>";
         }
     }
     else
     {
-        $l_cmb_notorpslefttoattackarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_notorpslefttoattackarmor);
+        $l_cmb_notorpslefttoattackarmor = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_notorpslefttoattackarmor);
         echo "$l_cmb_notorpslefttoattackarmor<br>";
     }
     if ($targettorpdmg > 0)
@@ -311,20 +317,20 @@ function ship_to_ship ($db, $ship_id)
         if ($targettorpdmg > $attackerarmor)
         {
             $attackerarmor = 0;
-            $l_cmb_yourarmorbreachedbytorps = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorbreachedbytorps);
+            $l_cmb_yourarmorbreachedbytorps = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorbreachedbytorps);
             echo "<-- $l_cmb_yourarmorbreachedbytorps<br>";
         }
         else
         {
             $attackerarmor=$attackerarmor-$targettorpdmg;
-            $l_cmb_yourarmorhitdmgtorps = str_replace("[cmb_targettorpdmg]", $targettorpdmg, $l_cmb_yourarmorhitdmgtorps);
-            $l_cmb_yourarmorhitdmgtorps = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorhitdmgtorps);
+            $l_cmb_yourarmorhitdmgtorps = str_replace ("[cmb_targettorpdmg]", $targettorpdmg, $l_cmb_yourarmorhitdmgtorps);
+            $l_cmb_yourarmorhitdmgtorps = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorhitdmgtorps);
             echo "<-- $l_cmb_yourarmorhitdmgtorps<br>";
         }
     }
     else
     {
-        $l_cmb_hehasnotorpsforyourarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnotorpsforyourarmor);
+        $l_cmb_hehasnotorpsforyourarmor = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnotorpsforyourarmor);
         echo "$l_cmb_hehasnotorpsforyourarmor<br>";
     }
     echo "<br>$l_cmb_fightersattackexchange<br>";
@@ -332,14 +338,14 @@ function ship_to_ship ($db, $ship_id)
     {
         if ($attackerfighters > $targetfighters)
         {
-            $l_cmb_enemylostallfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_enemylostallfighters);
+            $l_cmb_enemylostallfighters = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_enemylostallfighters);
             echo "--> $l_cmb_enemylostallfighters<br>";
             $temptargfighters = 0;
         }
         else
         {
-            $l_cmb_helostsomefighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_helostsomefighters);
-            $l_cmb_helostsomefighters = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_helostsomefighters);
+            $l_cmb_helostsomefighters = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_helostsomefighters);
+            $l_cmb_helostsomefighters = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_helostsomefighters);
             echo "$l_cmb_helostsomefighters<br>";
             $temptargfighters = $targetfighters - $attackerfighters;
         }
@@ -350,7 +356,7 @@ function ship_to_ship ($db, $ship_id)
         }
         else
         {
-            $l_cmb_youalsolostsomefighters = str_replace("[cmb_targetfighters]", $targetfighters, $l_cmb_youalsolostsomefighters);
+            $l_cmb_youalsolostsomefighters = str_replace ("[cmb_targetfighters]", $targetfighters, $l_cmb_youalsolostsomefighters);
             echo "<-- $l_cmb_youalsolostsomefighters<br>";
             $tempplayfighters = $attackerfighters - $targetfighters;
         }
@@ -359,12 +365,12 @@ function ship_to_ship ($db, $ship_id)
     }
     elseif ($attackerfighters > 0 && $targetfighters < 1)
     {
-        $l_cmb_hehasnofightersleftattack = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnofightersleftattack);
+        $l_cmb_hehasnofightersleftattack = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasnofightersleftattack);
         echo "$l_cmb_hehasnofightersleftattack<br>";
     }
     else
     {
-        $l_cmb_younofightersattackleft = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_younofightersattackleft);
+        $l_cmb_younofightersattackleft = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_younofightersattackleft);
         echo "$l_cmb_younofightersattackleft<br>";
     }
     if ($attackerfighters > 0)
@@ -372,20 +378,20 @@ function ship_to_ship ($db, $ship_id)
         if ($attackerfighters > $targetarmor)
         {
             $targetarmor = 0;
-            $l_cmb_youbreachedarmorwithfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youbreachedarmorwithfighters);
+            $l_cmb_youbreachedarmorwithfighters = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youbreachedarmorwithfighters);
             echo "--> $l_cmb_youbreachedarmorwithfighters<br>";
         }
         else
         {
             $targetarmor = $targetarmor - $attackerfighters;
-            $l_cmb_youhitarmordmgfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhitarmordmgfighters);
-            $l_cmb_youhitarmordmgfighters = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_youhitarmordmgfighters);
+            $l_cmb_youhitarmordmgfighters = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhitarmordmgfighters);
+            $l_cmb_youhitarmordmgfighters = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_youhitarmordmgfighters);
             echo "<-- $l_cmb_youhitarmordmgfighters<br>";
         }
     }
     else
     {
-        $l_cmb_youhavenofighterstoarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhavenofighterstoarmor);
+        $l_cmb_youhavenofighterstoarmor = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youhavenofighterstoarmor);
         echo "$l_cmb_youhavenofighterstoarmor<br>";
     }
     if ($targetfighters > 0)
@@ -393,25 +399,25 @@ function ship_to_ship ($db, $ship_id)
         if ($targetfighters > $attackerarmor)
         {
             $attackerarmor = 0;
-            $l_cmb_hasbreachedarmorfighters = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hasbreachedarmorfighters);
+            $l_cmb_hasbreachedarmorfighters = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hasbreachedarmorfighters);
             echo "<-- $l_cmb_hasbreachedarmorfighters<br>";
         }
         else
         {
             $attackerarmor = $attackerarmor - $targetfighters;
-            $l_cmb_yourarmorishitfordmgby = str_replace("[cmb_targetfighters]", $targetfighters, $l_cmb_yourarmorishitfordmgby);
-            $l_cmb_yourarmorishitfordmgby = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorishitfordmgby);
+            $l_cmb_yourarmorishitfordmgby = str_replace ("[cmb_targetfighters]", $targetfighters, $l_cmb_yourarmorishitfordmgby);
+            $l_cmb_yourarmorishitfordmgby = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorishitfordmgby);
             echo "--> $l_cmb_yourarmorishitfordmgby<br>";
         }
     }
     else
     {
-        $l_cmb_nofightersleftheforyourarmor = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_nofightersleftheforyourarmor);
+        $l_cmb_nofightersleftheforyourarmor = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_nofightersleftheforyourarmor);
         echo "$l_cmb_nofightersleftheforyourarmor<br>";
     }
     if ($targetarmor < 1)
     {
-        $l_cmb_hehasbeendestroyed = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasbeendestroyed);
+        $l_cmb_hehasbeendestroyed = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hehasbeendestroyed);
         echo "<br>$l_cmb_hehasbeendestroyed<br>";
         if ($attackerarmor > 0)
         {
@@ -465,12 +471,12 @@ function ship_to_ship ($db, $ship_id)
             $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $targetinfo['hull']))+round (pow ($upgrade_factor, $targetinfo['engines']))+round (pow ($upgrade_factor, $targetinfo['power']))+round (pow ($upgrade_factor, $targetinfo['computer']))+round (pow ($upgrade_factor, $targetinfo['sensors']))+round (pow ($upgrade_factor, $targetinfo['beams']))+round (pow ($upgrade_factor, $targetinfo['torp_launchers']))+round (pow ($upgrade_factor, $targetinfo['shields']))+round (pow ($upgrade_factor, $targetinfo['armor']))+round (pow ($upgrade_factor, $targetinfo['cloak'])));
             $ship_salvage_rate = mt_rand (10,20);
             $ship_salvage = $ship_value*$ship_salvage_rate / 100;
-            $l_cmb_yousalvaged = str_replace("[cmb_salv_ore]", $salv_ore, $l_cmb_yousalvaged);
-            $l_cmb_yousalvaged = str_replace("[cmb_salv_organics]", $salv_organics, $l_cmb_yousalvaged);
-            $l_cmb_yousalvaged = str_replace("[cmb_salv_goods]", $salv_goods, $l_cmb_yousalvaged);
-            $l_cmb_yousalvaged = str_replace("[cmb_salvage_rate]", $ship_salvage_rate, $l_cmb_yousalvaged);
-            $l_cmb_yousalvaged = str_replace("[cmb_salvage]", $ship_salvage, $l_cmb_yousalvaged);
-            $l_cmb_yousalvaged2 = str_replace("[cmb_number_rating_change]", NUMBER (abs($rating_change)), $l_cmb_yousalvaged2);
+            $l_cmb_yousalvaged = str_replace ("[cmb_salv_ore]", $salv_ore, $l_cmb_yousalvaged);
+            $l_cmb_yousalvaged = str_replace ("[cmb_salv_organics]", $salv_organics, $l_cmb_yousalvaged);
+            $l_cmb_yousalvaged = str_replace ("[cmb_salv_goods]", $salv_goods, $l_cmb_yousalvaged);
+            $l_cmb_yousalvaged = str_replace ("[cmb_salvage_rate]", $ship_salvage_rate, $l_cmb_yousalvaged);
+            $l_cmb_yousalvaged = str_replace ("[cmb_salvage]", $ship_salvage, $l_cmb_yousalvaged);
+            $l_cmb_yousalvaged2 = str_replace ("[cmb_number_rating_change]", NUMBER (abs($rating_change)), $l_cmb_yousalvaged2);
             echo $l_cmb_yousalvaged . "<br>" . $l_cmb_yousalvaged2;
             $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+?, ship_organics=ship_organics+?, ship_goods=ship_goods+?, credits=credits+? WHERE ship_id=?", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
             db_op_result ($db, $update3, __LINE__, __FILE__);
@@ -495,7 +501,7 @@ function ship_to_ship ($db, $ship_id)
     }
     else
     {
-        $l_cmb_youdidntdestroyhim = str_replace("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youdidntdestroyhim);
+        $l_cmb_youdidntdestroyhim = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_youdidntdestroyhim);
         echo "$l_cmb_youdidntdestroyhim<br>";
         $target_rating_change = round ($targetinfo['rating'] * .1);
         $target_armor_lost = $targetinfo['armor_pts'] - $targetarmor;

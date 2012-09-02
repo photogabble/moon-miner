@@ -17,6 +17,12 @@
 //
 // File: includes/ibank_transfer3.php
 
+if (strpos ($_SERVER['PHP_SELF'], 'ibank_transfer3.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
+}
+
 function ibank_transfer3 ($db)
 {
     global $playerinfo, $account, $ship_id, $splanet_id, $dplanet_id, $ibank_min_turns, $ibank_svalue;
@@ -38,7 +44,7 @@ function ibank_transfer3 ($db)
     {
         // Need to check again to prevent cheating by manual posts
 
-        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=? AND ship_destroyed ='N' AND turns_used >?", array ($ship_id, $ibank_min_turns));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ? AND ship_destroyed ='N' AND turns_used > ?", array ($ship_id, $ibank_min_turns));
         db_op_result ($db, $res, __LINE__, __FILE__);
 
         if ($playerinfo['ship_id'] == $ship_id)
@@ -68,9 +74,9 @@ function ibank_transfer3 ($db)
 
         if ($ibank_trate > 0)
         {
-            $curtime = time();
+            $curtime = time ();
             $curtime -= $ibank_trate * 60;
-            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id=? AND dest_id=?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
+            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
             db_op_result ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {
@@ -129,12 +135,12 @@ function ibank_transfer3 ($db)
              "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
-        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($transfer, $target['ship_id']));
+        $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance + ? WHERE ship_id = ?", array ($transfer, $target['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
 
-        $resx = $db->Execute("INSERT INTO {$db->prefix}IGB_transfers VALUES(NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
+        $resx = $db->Execute("INSERT INTO {$db->prefix}IGB_transfers VALUES (NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
         db_op_result ($db, $resx, __LINE__, __FILE__);
     }
     else
@@ -144,7 +150,7 @@ function ibank_transfer3 ($db)
             ibank_error ($l_ibank_errplanetsrcanddest, "igb.php?command=transfer");
         }
 
-        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array ($splanet_id));
+        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
@@ -158,7 +164,7 @@ function ibank_transfer3 ($db)
             $source['name'] = $l_ibank_unnamed;
         }
 
-        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id=?", array ($dplanet_id));
+        $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
@@ -205,9 +211,9 @@ function ibank_transfer3 ($db)
              "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
              "</tr>";
 
-        $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits-? WHERE planet_id=?", array ($amount, $splanet_id));
+        $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits - ? WHERE planet_id = ?", array ($amount, $splanet_id));
         db_op_result ($db, $resx, __LINE__, __FILE__);
-        $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits+? WHERE planet_id=?", array ($transfer, $dplanet_id));
+        $resx = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id = ?", array ($transfer, $dplanet_id));
         db_op_result ($db, $resx, __LINE__, __FILE__);
     }
 }

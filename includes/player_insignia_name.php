@@ -17,9 +17,10 @@
 //
 // File: includes/player_insignia_name.php
 
-if (preg_match("/player_insignia_name.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'player_insignia_name.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 function player_insignia_name ($db, $a_username, $langvars)
@@ -27,7 +28,7 @@ function player_insignia_name ($db, $a_username, $langvars)
     unset ($player_insignia);
 
     // Lookup players score.
-    $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email=?", array($a_username));
+    $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
     db_op_result ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
 
