@@ -17,9 +17,10 @@
 //
 // File: sector_fighters.php
 
-if (preg_match("/sector_fighters.php/i", $_SERVER['PHP_SELF'])) {
-    echo "You can not access this file directly!";
-    die();
+if (strpos ($_SERVER['PHP_SELF'], 'sector_fighters.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 // New database driven language entries

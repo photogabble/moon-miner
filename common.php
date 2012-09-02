@@ -19,9 +19,10 @@
 //
 // This file must not contain any include/require type actions - those must occur in global_includes instead.
 
-if (preg_match("/common.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP

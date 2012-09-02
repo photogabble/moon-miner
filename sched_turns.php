@@ -17,20 +17,20 @@
 //
 // File: sched_turns.php
 
-if (preg_match("/sched_turns.php/i", $_SERVER['PHP_SELF']))
+if (strpos ($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 echo "<strong>TURNS</strong><br><br>";
 echo "Adding turns...";
-$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns + (? * ?) WHERE turns < ?", array($turns_per_tick, $multiplier, $max_turns));
+$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns + (? * ?) WHERE turns < ?", array ($turns_per_tick, $multiplier, $max_turns));
 db_op_result ($db, $resa, __LINE__, __FILE__);
 is_query_ok ($resa);
 
 echo "Ensuring maximum turns are $max_turns...";
-$resb = $db->Execute("UPDATE {$db->prefix}ships SET turns = ? WHERE turns > ?", array($max_turns, $max_turns));
+$resb = $db->Execute("UPDATE {$db->prefix}ships SET turns = ? WHERE turns > ?", array ($max_turns, $max_turns));
 db_op_result ($db, $resb, __LINE__, __FILE__);
 is_query_ok ($resb);
 echo "<br>";

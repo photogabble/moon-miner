@@ -17,10 +17,10 @@
 //
 // File: sched_tow.php
 
-if (preg_match("/sched_tow.php/i", $_SERVER['PHP_SELF']))
+if (strpos ($_SERVER['PHP_SELF'], 'sched_tow.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 echo "<strong>ZONES</strong><br><br>";
@@ -40,7 +40,7 @@ do
             echo "...towing $row[character_name] out of $row[sector] ...";
             $newsector = mt_rand(0, $sector_max-1);
             echo " to sector $newsector.<br>";
-            $query = $db->Execute("UPDATE {$db->prefix}ships SET sector=$newsector,cleared_defences=' ' WHERE ship_id=$row[ship_id]");
+            $query = $db->Execute("UPDATE {$db->prefix}ships SET sector = ?, cleared_defences=' ' WHERE ship_id=?", array ($newsector, $row['ship']));
             db_op_result ($db, $query, __LINE__, __FILE__);
             playerlog ($db, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
             log_move ($db, $row['ship_id'], $newsector);

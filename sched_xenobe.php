@@ -17,10 +17,11 @@
 //
 // File: sched_xenobe.php
 
-if (preg_match("/sched_xenobe.php/i", $_SERVER['PHP_SELF']))
+// Todo: SQL bind varibles
+if (strpos ($_SERVER['PHP_SELF'], 'sched_ranking.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 // Xenobe turn updates
@@ -44,10 +45,10 @@ global $xenobeisdead;
 $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
 
 // Lock the tables
-$resa = $db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE;");
+$resa = $db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE");
 db_op_result ($db, $resa, __LINE__, __FILE__);
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id;");
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
 db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {

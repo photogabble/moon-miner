@@ -17,9 +17,10 @@
 //
 // File: global_defines.php
 
-if (preg_match("/global_defines.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+if (strpos ($_SERVER['PHP_SELF'], 'global_defines.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 // Log constants

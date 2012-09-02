@@ -17,12 +17,11 @@
 //
 // File: sched_defenses.php
 
-if (preg_match("/sched_defenses.php/i", $_SERVER['PHP_SELF']))
+if (strpos ($_SERVER['PHP_SELF'], 'sched_defenses.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
-
 echo "<strong>Sector Defence Cleanup</strong><br><br>";
 
 $res = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");

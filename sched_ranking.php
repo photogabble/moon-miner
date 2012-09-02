@@ -17,10 +17,10 @@
 //
 // File: sched_ranking.php
 
-if (preg_match("/sched_ranking.php/i", $_SERVER['PHP_SELF']))
+if (strpos ($_SERVER['PHP_SELF'], 'sched_ranking.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 echo "<strong>Ranking</strong><br><br>";

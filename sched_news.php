@@ -17,16 +17,12 @@
 //
 // File: sched_news.php
 
-/***********************************************************
-This file includes the default language for now, so that news
-are generated in the server's default language. The news text
-will have to be removed from the database for the next version
-************************************************************/
+// Todo: Recode file so that news are generated in the server default language, and remove hard-coded (language) news text from the database
 
-if (preg_match("/sched_news.php/i", $_SERVER['PHP_SELF']))
+if (strpos ($_SERVER['PHP_SELF'], 'sched_news.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 global $default_lang;

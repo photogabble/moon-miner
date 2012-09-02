@@ -17,10 +17,10 @@
 //
 // File: sched_planets.php
 
-if (preg_match("/sched_planets.php/i", $_SERVER['PHP_SELF']))
+if (strpos ($_SERVER['PHP_SELF'], 'sched_planets.php')) // Prevent direct access to this file
 {
-    echo "You can not access this file directly!";
-    die();
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include 'error.php';
 }
 
 echo "<strong>PLANETS</strong><p>";
