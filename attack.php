@@ -80,7 +80,7 @@ else if ( is_same_team($playerinfo['team'], $targetinfo['team']) )
 elseif (isset($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
 {
     echo "<div style='color:#ff0;'>" . $l_team_already_combat . "</div>\n";
-    adminlog($db, 13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
+    admin_log($db, 13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
 }
 else
 {
@@ -570,14 +570,14 @@ else
                     db_op_result ($db, $resx, __LINE__, __FILE__);
                     playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
                     collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
-                    adminlog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
+                    admin_log ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
                 }
                 else
                 {
                     playerlog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                     db_kill_player ($db, $targetinfo['ship_id']);
                     collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
-                    adminlog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
+                    admin_log ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
 
                 if ($playerarmor > 0)
@@ -592,7 +592,7 @@ else
                         $resx = $db->Execute("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id=?", array($targetinfo['email']));
                         db_op_result ($db, $resx, __LINE__, __FILE__);
 
-                        adminlog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
+                        admin_log($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
 
                         if ($rating_change > 0)
                         {
@@ -601,7 +601,7 @@ else
                             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                             db_kill_player ($db, $targetinfo['ship_id']);
 
-                            adminlog($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
+                            admin_log($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
 
                         }
                         $salv_credits = $targetinfo['credits'];

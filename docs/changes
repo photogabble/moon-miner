@@ -1,3 +1,7 @@
+TheKabal (2 September 2012)
+--------------------------------------
+Adminlog() is now admin_log
+
 TheMightyDude (29 August 2012)
 --------------------------------------
 Added strlen and gettype functionality to Smarty.

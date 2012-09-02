@@ -502,7 +502,7 @@ function planet_combat ($db)
                 $resx = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__);
                 playerlog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                adminlog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
+                admin_log ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
                 gen_score ($db, $ownerinfo['ship_id']);
             }
             else

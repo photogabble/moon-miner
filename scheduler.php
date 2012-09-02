@@ -161,7 +161,7 @@ $lastrunList[$event['sched_file']] = $event['last_run'];
     if ( abs($schedDiff) > ($sched_ticks * 60) )
     {
         # Hmmm, seems that we have missed at least 1 update, so log it to the admin.
-        adminlog($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
+        admin_log($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
     }
 
     $runtime = time() - $starttime;

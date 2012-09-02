@@ -21,7 +21,7 @@
 require_once './config/db_config.php';
 include_once './global_defines.php';
 
-include_once './includes/adminlog.php';
+include_once './includes/admin_log.php';
 include_once './includes/bigtitle.php';
 include_once './includes/bnt_autoload.php';
 include_once './includes/check_login.php';

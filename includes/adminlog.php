@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/adminlog.php
+// File: includes/admin_log.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'adminlog.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'admin_log.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function adminlog ($db, $log_type, $data = "")
+function admin_log ($db, $log_type, $data = "")
 {
     // Write log_entry to the admin log
     $ret = (boolean) false;
