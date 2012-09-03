@@ -6,7 +6,7 @@
     /*   Version: 0.0.9 (0032) Development Version.                          */
     /*   Created: March 15 2012                                              */
     /*   Updated: August 12 2012                                             */
-    /* Copyright: Â© 2012 Paul Kirby                                          */  
+    /* Copyright: © 2012 Paul Kirby                                          */
     /*************************************************************************/
     /* This file handles all the XML formatting and allows to validate the   */
     /* XML Format by using a DTD file, we also use a style sheet that uses   */

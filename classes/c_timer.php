@@ -15,7 +15,12 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/timer.php
+// File: classes/timer.php
+
+if (strpos ($_SERVER['PHP_SELF'], 'c_timer.php')) // Prevent direct access to this file
+{
+    die ('Please do not access this file directly');
+}
 
 // namespace bnt\core\timer;
 class c_timer
