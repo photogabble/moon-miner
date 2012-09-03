@@ -6,6 +6,8 @@ Added l_news_down to each of the language files, translated using Google Transla
 Updated fader.php to only display as link when we have news.
 Added a switch to display the users password upon signup.
 Moved l_new_pwis to its correct category.
+Fixed PHP Warning: include(../header.php): failed to open stream: No such file or directory in includes/check_login.php
+Fixed PHP Warning: include(../footer.php): failed to open stream: No such file or directory in includes/check_login.php
 
 TheKabal (2 September 2012)
 --------------------------------------
