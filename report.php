@@ -25,11 +25,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die();
 }
 
-// New database driven language entries
+// Database driven language entries
+$langvars = null;
 load_languages ($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
-
-$title = $l_report_title;
-include './header.php';
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
@@ -64,8 +62,6 @@ else
     $shiplevel = 4;
 }
 
-echo "<h1>" . $title . "</h1>\n";
-
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
 $holds_max = NUM_HOLDS ($playerinfo['hull']);
 $armor_pts_max = NUM_ARMOR ($playerinfo['armor']);
@@ -75,60 +71,59 @@ $energy_max = NUM_ENERGY($playerinfo['power']);
 $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no;
 $fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $l_yes : $l_no;
 $lssd = ($playerinfo['dev_lssd'] == 'Y') ? $l_yes : $l_no;
-echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
-echo "<table border=0 cellspacing=0 cellpadding=0 width='100%'>";
-echo "<tr bgcolor=\"$color_header\"><td><strong>$l_player: $playerinfo[character_name]</strong></td><td align=center><strong>$l_ship: $playerinfo[ship_name]</strong></td><td align=right><strong>$l_credits: " . NUMBER($playerinfo['credits']) . "</strong></td></tr>";
-echo "</table>";
-echo "<br>";
-echo "<table border=0 cellspacing=5 cellpadding=0  width='100%'>";
-echo "<tr><td>";
-echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
-echo "<tr bgcolor=\"$color_header\"><td><strong>$l_ship_levels</strong></td><td></td></tr>";
-echo "<tr bgcolor=\"$color_line1\" style='font-style:italic;'><td> $l_hull</td><td style='text-align:right;'>$l_level $playerinfo[hull]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\" style='font-style:italic;'><td> $l_engines</td><td style='text-align:right;'>$l_level $playerinfo[engines]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_power</td><td style='text-align:right;'>$l_level $playerinfo[power]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\" style='font-style:italic;'><td> $l_computer</td><td style='text-align:right;'>$l_level $playerinfo[computer]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_sensors</td><td style='text-align:right;'>$l_level $playerinfo[sensors]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\" style='font-style:italic;'><td> $l_armor</td><td style='text-align:right;'>$l_level $playerinfo[armor]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\" style='font-style:italic;'><td> $l_shields</td><td style='text-align:right;'>$l_level $playerinfo[shields]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\" style='font-style:italic;'><td> $l_beams</td><td style='text-align:right;'>$l_level $playerinfo[beams]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\" style='font-style:italic;'><td>$l_torp_launch</td><td style='text-align:right;'>$l_level $playerinfo[torp_launchers]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_cloak</td><td style='text-align:right;'>$l_level $playerinfo[cloak]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td><i>$l_shipavg</i></td><td style='text-align:right;'>$l_level " . NUMBER ($shipavg, 2) . "</td></tr>";
-echo "</table>";
-echo "</td><td Valign=TOP>";
-echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
-echo "<tr bgcolor=\"$color_header\"><td><strong>$l_holds</strong></td><td align=right><strong>" . NUMBER($holds_used) . " / " . NUMBER($holds_max) . "</strong></td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_ore</td><td align=right>" . NUMBER($playerinfo['ship_ore']) . "</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_organics</td><td align=right>" . NUMBER($playerinfo['ship_organics']) . "</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_goods</td><td align=right>" . NUMBER($playerinfo['ship_goods']) . "</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_colonists</td><td align=right>" . NUMBER($playerinfo['ship_colonists']) . "</td></tr>";
-echo "<tr><td>&nbsp;</td></tr>";
-echo "<tr bgcolor=\"$color_header\"><td><strong>$l_arm_weap</strong></td><td></td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_armorpts</td><td align=right>" . NUMBER($playerinfo['armor_pts']) . " / " . NUMBER($armor_pts_max) . "</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_fighters</td><td align=right>" . NUMBER($playerinfo['ship_fighters']) . " / " . NUMBER($ship_fighters_max) . "</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_torps</td><td align=right>" . NUMBER($playerinfo['torps']) . " / " . NUMBER($torps_max) . "</td></tr>";
-echo "</table>";
-echo "</td><td Valign=TOP>";
-echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
-echo "<tr bgcolor=\"$color_header\"><td><strong>$l_energy</strong></td><td align=right><strong>" . NUMBER($playerinfo['ship_energy']) . " / " . NUMBER($energy_max) . "</strong></td></tr>";
-echo "<tr><td>&nbsp;</td></tr>";
-echo "<tr bgcolor=\"$color_header\"><td><strong>$l_devices</strong></td><td></strong></td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_beacons</td><td align=right>$playerinfo[dev_beacon]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_warpedit</td><td align=right>$playerinfo[dev_warpedit]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_genesis</td><td align=right>$playerinfo[dev_genesis]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_deflect</td><td align=right>$playerinfo[dev_minedeflector]</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_ewd</td><td align=right>$playerinfo[dev_emerwarp]</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_escape_pod</td><td align=right>$escape_pod</td></tr>";
-echo "<tr bgcolor=\"$color_line1\"><td>$l_fuel_scoop</td><td align=right>$fuel_scoop</td></tr>";
-echo "<tr bgcolor=\"$color_line2\"><td>$l_lssd</td><td align=right>$lssd</td></tr>";
-echo "</table>";
-echo "</td></tr>";
-echo "</table>";
-echo "</div>\n";
-echo "<p align=center>";
-echo "<img src=\"images/$shiptypes[$shiplevel]\" style=\"border:0px; width:80px; height:60px\"></p>";
 
-TEXT_GOTOMAIN();
-include './footer.php';
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['lang'] = $lang;
+$variables['color_header'] = $color_header;
+$variables['color_line1'] = $color_line1;
+$variables['color_line2'] = $color_line2;
+$variables['playerinfo_character_name'] = $playerinfo['character_name'];
+$variables['playerinfo_ship_name'] = $playerinfo['ship_name'];
+$variables['playerinfo_credits'] = $playerinfo['credits'];
+$variables['playerinfo_hull'] = $playerinfo['hull'];
+$variables['playerinfo_engines'] = $playerinfo['engines'];
+$variables['playerinfo_computer'] = $playerinfo['computer'];
+$variables['playerinfo_sensors'] = $playerinfo['sensors'];
+$variables['playerinfo_armor'] = $playerinfo['armor'];
+$variables['playerinfo_shields'] = $playerinfo['shields'];
+$variables['playerinfo_beams'] = $playerinfo['beams'];
+$variables['playerinfo_power'] = $playerinfo['power'];
+$variables['playerinfo_torp_launchers'] = $playerinfo['torp_launchers'];
+$variables['playerinfo_cloak'] = $playerinfo['cloak'];
+$variables['shipavg'] = $shipavg;
+$variables['holds_used'] = $holds_used;
+$variables['holds_max'] = $holds_max;
+$variables['playerinfo_ship_ore'] = $playerinfo['ship_ore'];
+$variables['playerinfo_ship_organics'] = $playerinfo['ship_organics'];
+$variables['playerinfo_ship_goods'] = $playerinfo['ship_goods'];
+$variables['playerinfo_ship_energy'] = $playerinfo['ship_energy'];
+$variables['playerinfo_ship_colonists'] = $playerinfo['ship_colonists'];
+$variables['playerinfo_ship_fighters'] = $playerinfo['ship_fighters'];
+$variables['playerinfo_armor_pts'] = $playerinfo['armor_pts'];
+$variables['playerinfo_torps'] = $playerinfo['torps'];
+$variables['torps_max'] = $torps_max;
+$variables['energy_max'] = $energy_max;
+$variables['armor_pts_max'] = $armor_pts_max;
+$variables['ship_fighters_max'] = $ship_fighters_max;
+$variables['playerinfo_dev_beacon'] = $playerinfo['dev_beacon'];
+$variables['playerinfo_dev_warpedit'] = $playerinfo['dev_warpedit'];
+$variables['playerinfo_dev_genesis'] = $playerinfo['dev_genesis'];
+$variables['playerinfo_dev_minedeflector'] = $playerinfo['dev_minedeflector'];
+$variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
+$variables['escape_pod'] = $escape_pod;
+$variables['fuel_scoop'] = $fuel_scoop;
+$variables['lssd'] = $lssd;
+$variables['ship_img'] = "images/" . $shiptypes[$shiplevel];
+$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
+$template->Display("test_report.tpl");
 ?>
