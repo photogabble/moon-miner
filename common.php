@@ -149,15 +149,14 @@ if ($no_db != true) // Before DB is installed, don't try to setup userinfo
     }
     else // The user has logged in, so use his preference from the database
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+        $res = $db->Execute("SELECT lang FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
-            $playerfound = $res->RecordCount();
+            $playerinfo['lang'] = $res->fields['lang'];
+            $lang = $playerinfo['lang'];
         }
 
-        $playerinfo = $res->fields;
-        $lang = $playerinfo['lang'];
     }
 }
 
