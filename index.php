@@ -45,8 +45,6 @@ if (!$result)
 $langvars = null;
 load_languages ($db, $lang, array('main', 'login', 'logout', 'index', 'common'), $langvars);
 
-$title = $l_welcome_bnt;
-
 $variables = null;
 $variables['lang'] = $lang;
 $variables['link'] = $link;
@@ -54,7 +52,6 @@ $variables['link_forums'] = $link_forums;
 $variables['admin_mail'] = $admin_mail;
 $variables['body_class'] = 'index';
 
-//include './header.php';
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
 $langvars['container'] = "langvar";
