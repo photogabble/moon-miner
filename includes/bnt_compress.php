@@ -34,7 +34,7 @@ function bnt_compress ($output = null)
     }
 
     // Handle the supported compressions.
-    $supported_enc = array();
+    $supported_enc = array ();
     if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']))
     {
         $supported_enc = explode (",", $_SERVER['HTTP_ACCEPT_ENCODING']);

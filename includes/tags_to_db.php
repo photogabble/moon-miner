@@ -43,7 +43,7 @@ function tags_to_db ($db, $ini_file, $ini_table)
             // explode here and then loop through each of the values as a new config value (tag entry), but with the same config_key (l_var)
             $values = explode('|', $config_value);
             var_dump($values);
-/*            $debug_query = $db->Execute("INSERT into $ini_table (name, category, value) VALUES (?,?,?)", array($config_key, $config_category, $config_value));
+/*            $debug_query = $db->Execute("INSERT into $ini_table (name, category, value) VALUES (?,?,?)", array ($config_key, $config_category, $config_value));
             if (!$debug_query)
             {
                 $status = false;

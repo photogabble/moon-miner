@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_login.php')) // Prevent direct access t
 function check_login ($db, $lang)
 {
     // New database driven language entries
-    load_languages($db, $lang, array('global_funcs', 'common', 'footer'), $langvars);
+    load_languages($db, $lang, array ('global_funcs', 'common', 'footer'), $langvars);
 
     $flag = 0;
 
@@ -70,7 +70,7 @@ function check_login ($db, $lang)
         // Update the players last_login ever 60 seconds to cut back SQL Queries.
         if($timestamp['now'] >= ($timestamp['last'] +60))
         {
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array($stamp, $ip, $playerinfo['ship_id']));
+            $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
             $_SESSION['last_activity'] = $timestamp['now']; // Reset the last activity time on the session so that the session renews - this is the replacement for the (now removed) update_cookie function.
         }
     }
@@ -81,7 +81,7 @@ function check_login ($db, $lang)
         // if the player has an escapepod, set the player up with a new ship
         if ($playerinfo['dev_escapepod'] == "Y")
         {
-            $result2 = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' WHERE email=?", array($_SESSION['username']));
+            $result2 = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' WHERE email=?", array ($_SESSION['username']));
             db_op_result ($db, $result2, __LINE__, __FILE__);
             echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_died']);
             $flag = 1;

@@ -33,14 +33,14 @@ function kick_off_planet ($db, $ship_id, $whichteam)
         while (!$result1->EOF)
         {
             $row = $result1->fields;
-            $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' AND planet_id = ? AND ship_id <> ?", array($row['planet_id'], $ship_id));
+            $result2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' AND planet_id = ? AND ship_id <> ?", array ($row['planet_id'], $ship_id));
             db_op_result ($db, $result2, __LINE__, __FILE__);
             if ($result2 instanceof ADORecordSet)
             {
                 while (!$result2->EOF )
                 {
                     $cur = $result2->fields;
-                    $resa = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array($cur['ship_id']));
+                    $resa = $db->Execute("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array ($cur['ship_id']));
                     db_op_result ($db, $resa, __LINE__, __FILE__);
                     player_log ($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
                     $result2->MoveNext();
