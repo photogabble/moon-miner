@@ -37,55 +37,31 @@ $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE cat
 if (!$result)
 {
     // If not, redirect to create_universe.
-    header("Location: create_universe.php");
+    header ("Location: create_universe.php");
     die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('main', 'login', 'logout', 'index'), $langvars);
+$langvars = null;
+load_languages($db, $lang, array('main', 'login', 'logout', 'index', 'common'), $langvars);
 
 $title = $l_welcome_bnt;
-$body_class = 'index';
 
-include './header.php';
+$variables = null;
+$variables['lang'] = $lang;
+$variables['link'] = $link;
+$variables['link_forums'] = $link_forums;
+$variables['admin_mail'] = $admin_mail;
+$variables['body_class'] = 'index';
+
+//include './header.php';
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
+$template->Display("index.tpl");
 ?>
-
-<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="Blacknova Traders"></div>
-<div class="index-flags">
-<a href="index.php?lang=french"><img width="24" height="16" src="images/flags/France.png" alt="French"></a>
-<a href="index.php?lang=german"><img width="24" height="16" src="images/flags/Germany.png" alt="German"></a>
-<a href="index.php?lang=spanish"><img width="24" height="16" src="images/flags/Mexico.png" alt="Spanish"></a>
-<a href="index.php?lang=english"><img width="24" height="16" src="images/flags/United_States_of_America.png" alt="American English"></a></div>
-<div class="index-header-text">Blacknova Traders</div>
-<br>
-<h2 style="display:none">Navigation</h2>
-<div class="navigation" role="navigation">
-<ul class="navigation">
-<li class="navigation"><a href="new.php<?php echo $link; ?>"><span class="button blue"><span class="shine"></span><?php echo $l_new_player; ?></span></a></li>
-<li class="navigation"><a href="mailto:<?php echo $admin_mail; ?>"><span class="button gray"><span class="shine"></span><?php echo $l_login_emailus; ?></span></a></li>
-<li class="navigation"><a href="ranking.php<?php echo $link; ?>"><span class="button purple"><span class="shine"></span><?php echo $l_rankings; ?></span></a></li>
-<li class="navigation"><a href="faq.php<?php echo $link; ?>"><span class="button brown"><span class="shine"></span><?php echo $l_faq; ?></span></a></li>
-<li class="navigation"><a href="settings.php<?php echo $link; ?>"><span class="button red"><span class="shine"></span><?php echo $l_settings; ?></span></a></li>
-<li class="navigation"><a href="<?php echo $link_forums; ?>" target="_blank"><span class="button orange"><span class="shine"></span><?php echo $l_forums; ?></span></a></li>
-</ul></div><br style="clear:both">
-<div><p></p></div>
-<div class="index-welcome">
-<h1 class="index-h1"><?php echo $l_welcome_bnt; ?></h1>
-<p><?php echo $l_bnt_description; ?><br></p>
-<form action="login2.php<?php echo $link; ?>" method="post">
-<dl class="twocolumn-form">
-<dt><label for="email"><?php echo $l_login_email; ?></label></dt>
-<dd><input type="email" id="email" name="email" size="20" maxlength="40" placeholder="someone@example.com"></dd>
-<dt><label for="pass"><?php echo $l_login_pw; ?></label></dt>
-<dd><input type="password" id="pass" name="pass" size="20" maxlength="20"></dd>
-</dl>
-<br style="clear:both">
-<div style="text-align:center"><?php echo $l_login_forgotpw; ?></div><br>
-<div style="text-align:center">
-<input class="button green" type="submit" value="<?php echo $l_login_title; ?>">
-</div>
-</form>
-<br>
-<p class="cookie-warning"><?php echo $l_cookie_warning; ?></p></div>
-<br>
-<?php include './footer.php'; ?>
