@@ -66,15 +66,16 @@ function connect_database ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB
     else
     {
         // We failed to connect to the database.
-        if ($do_die)
-        {
+// At the moment we force this on.
+//        if ($do_die)
+//        {
             // We need to display the error message onto the screen.
             echo "Unable to connect to the Database.<br>\n";
             echo "Database Error: ". $db->ErrorNo () .": ". $db->ErrorMsg () ."<br>\n";
 
             // We need to stop, as we cannot function without a database.
             die ("SYSTEM HALT<br>\n");
-        }
+//        }
 
         return false;
     }

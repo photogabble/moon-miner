@@ -33,10 +33,10 @@ if (result == true)
     $startdate = date("Y/m/d");
     if ($no_db)
     {
-        echo "    url = 'news.php';\n";
-        echo "    text = \"{$l_news_none}\";\n";
-        echo "    type = null;    // Not used as yet.\n";
-        echo "    delay = 5;                       // in seconds.\n";
+        echo "    url = null;\n";
+        echo "    text = \"{$l_news_down}\";\n";
+        echo "    type = null;      // Not used as yet.\n";
+        echo "    delay = 5;        // in seconds.\n";
         echo "    news.addArticle(url, text, type, delay);\n";
     }
     else
@@ -44,19 +44,30 @@ if (result == true)
         $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
         db_op_result ($db, $res, __LINE__, __FILE__);
 
-        while (!$res->EOF)
+        if (!$res instanceof ADORecordSet || $res->RecordCount() == 0)
         {
-            $row = $res->fields;
-            $headline = addslashes($row['headline']);
-            echo "    url = 'news.php';\n";
-            echo "    text = '{$headline}';\n";
-            echo "    type = '{$row['news_type']}';    // Not used as yet.\n";
-            echo "    delay = 5;                       // in seconds.\n";
+            echo "    url = null;\n";
+            echo "    text = \"{$l_news_none}\";\n";
+            echo "    type = null;      // Not used as yet.\n";
+            echo "    delay = 5;        // in seconds.\n";
             echo "    news.addArticle(url, text, type, delay);\n";
-            echo "\n";
-            $res->MoveNext();
         }
-        echo "    news.addArticle(null, 'End of News', null, 5);\n";
+        else
+        {
+            while (!$res->EOF)
+            {
+                $row = $res->fields;
+                $headline = addslashes($row['headline']);
+                echo "    url = 'news.php';\n";
+                echo "    text = '{$headline}';\n";
+                echo "    type = '{$row['news_type']}';    // Not used as yet.\n";
+                echo "    delay = 5;                       // in seconds.\n";
+                echo "    news.addArticle(url, text, type, delay);\n";
+                echo "\n";
+                $res->MoveNext();
+            }
+            echo "    news.addArticle(null, 'End of News', null, 5);\n";
+        }
     }
 ?>
     // Starts the Ticker.

@@ -1,3 +1,12 @@
+TheMightyDude (03 September 2012)
+--------------------------------------
+Fixed PHP Notice: Undefined variable: do_die in includes/connect_database.php
+Updated fader.php to display "Network News Down" (l_news_down) when unable to access the database and more checks.
+Added l_news_down to each of the language files, translated using Google Translate (needs checking).
+Updated fader.php to only display as link when we have news.
+Added a switch to display the users password upon signup.
+Moved l_new_pwis to its correct category.
+
 TheKabal (2 September 2012)
 --------------------------------------
 Adminlog() is now admin_log
