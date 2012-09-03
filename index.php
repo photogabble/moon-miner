@@ -33,7 +33,7 @@ else
 }
 
 // Check to see if the language database has been installed yet.
-$result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category=? AND section=?;", array('common', $lang));
+$result = $db->Execute ("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?", array ('common', $lang));
 if (!$result)
 {
     // If not, redirect to create_universe.
@@ -43,7 +43,7 @@ if (!$result)
 
 // New database driven language entries
 $langvars = null;
-load_languages($db, $lang, array('main', 'login', 'logout', 'index', 'common'), $langvars);
+load_languages ($db, $lang, array('main', 'login', 'logout', 'index', 'common'), $langvars);
 
 $title = $l_welcome_bnt;
 
@@ -61,7 +61,7 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$template->AddVariables('langvars', $langvars);
-$template->AddVariables('variables', $variables);
-$template->Display("index.tpl");
+$template->AddVariables ('langvars', $langvars);
+$template->AddVariables ('variables', $variables);
+$template->Display ("index.tpl");
 ?>
