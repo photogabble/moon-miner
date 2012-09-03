@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_thegovernor.php')) // Prevent direct ac
 echo "<strong>The Governor</strong><br><br>";
 
 echo "Validating Ship Fighters, Torpedoes, Armor points and Credits...<br>\n";
-$tdres = $db->Execute("SELECT * FROM {$db->prefix}ships;");
+$tdres = $db->Execute("SELECT * FROM {$db->prefix}ships");
 db_op_result ($db, $tdres, __LINE__, __FILE__);
 
 $detected = (boolean) false;
@@ -154,7 +154,7 @@ while (!$tdres->EOF)
 }
 
 echo "Validating Planets Fighters, Torpedoes, Credits...<br>\n";
-$tdres = $db->Execute("SELECT planet_id, credits, fighters, torps, owner FROM {$db->prefix}planets;");
+$tdres = $db->Execute("SELECT planet_id, credits, fighters, torps, owner FROM {$db->prefix}planets");
 db_op_result ($db, $tdres, __LINE__, __FILE__);
 
 while (!$tdres->EOF)
@@ -224,7 +224,7 @@ $tdres->MoveNext();
 }
 
 echo "Validating IGB Balance and Loan Credits...<br>\n";
-$tdres = $db->Execute("SELECT ship_id, balance, loan FROM {$db->prefix}ibank_accounts;");
+$tdres = $db->Execute("SELECT ship_id, balance, loan FROM {$db->prefix}ibank_accounts");
 db_op_result ($db, $tdres, __LINE__, __FILE__);
 
 while (!$tdres->EOF)

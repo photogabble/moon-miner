@@ -305,12 +305,12 @@ elseif ($sectorinfo['port_type'] == "special")
 
     if ($bounty_all_special == true)
     {
-        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id];");
+        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id]");
         db_op_result ($db, $res2, __LINE__, __FILE__);
     }
     else
     {
-        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id] AND {$sectorinfo[zone_id]}=2;");
+        $res2 = $db->Execute("SELECT SUM(amount) as total_bounty FROM {$db->prefix}bounty WHERE placed_by = 0 AND bounty_on = $playerinfo[ship_id] AND {$sectorinfo[zone_id]}=2");
         db_op_result ($db, $res2, __LINE__, __FILE__);
     }
 

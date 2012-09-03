@@ -84,7 +84,7 @@ function traderoute_engage ($db, $j)
         // Retrieve port info here, we'll need it later anyway
         $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($traderoute['source_id']));
         db_op_result ($db, $result, __LINE__, __FILE__);
-        // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]));");
+        // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]))");
 
         if (!$result || $result->EOF)
         {

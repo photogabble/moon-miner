@@ -291,6 +291,6 @@ while (!$res->EOF)
   // END OF Xenobe TURNS
 
 // Unlock the tables.
-$result = $db->Execute("UNLOCK TABLES;");
+$result = $db->Execute("UNLOCK TABLES");
 db_op_result ($db, $result, __LINE__, __FILE__);
 ?>

@@ -109,7 +109,7 @@ while (!$sql->EOF)
 
 
 // generation of colonist amount
-$sql = $db->Execute("SELECT SUM(colonists) AS amount, owner FROM {$db->prefix}planets WHERE owner !='0' GROUP BY owner ORDER BY amount ASC;");
+$sql = $db->Execute("SELECT SUM(colonists) AS amount, owner FROM {$db->prefix}planets WHERE owner !='0' GROUP BY owner ORDER BY amount ASC");
 db_op_result ($db, $sql, __LINE__, __FILE__);
 
 while (!$sql->EOF)

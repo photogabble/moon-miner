@@ -25,12 +25,12 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_planets.php')) // Prevent direct access
 
 echo "<strong>PLANETS</strong><p>";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner >0;");
+$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner >0");
 db_op_result ($db, $res, __LINE__, __FILE__);
 // Using Planet Update Code from BNT version 0.36 due to code bugs.
 // We are now using transactions to off load the SQL stuff in full to the Database Server.
 
-$result = $db->Execute("START TRANSACTION;");
+$result = $db->Execute("START TRANSACTION");
 db_op_result ($db, $result, __LINE__, __FILE__);
 while (!$res->EOF)
 {
@@ -84,7 +84,7 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 
-$ret = $db->Execute("COMMIT;");
+$ret = $db->Execute("COMMIT");
 db_op_result ($db, $ret, __LINE__, __FILE__);
 global $sched_planet_valid_credits;
 if ($sched_planet_valid_credits == true)

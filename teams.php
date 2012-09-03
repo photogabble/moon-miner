@@ -594,7 +594,7 @@ switch ($teamwhat)
             $isowner = is_team_owner($whichteam, $playerinfo);
             show_info ($db, $playerinfo['team'], $isowner);
         }
-        $res= $db->Execute("SELECT COUNT(*) as TOTAL FROM {$db->prefix}teams WHERE admin='N';");
+        $res= $db->Execute("SELECT COUNT(*) as TOTAL FROM {$db->prefix}teams WHERE admin='N'");
         db_op_result ($db, $res, __LINE__, __FILE__);
         $num_res = $res->fields;
 

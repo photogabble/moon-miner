@@ -141,7 +141,7 @@ function collect_credits ($db, $planetarray)
   // create an array of sector -> planet pairs
   for ($i = 0; $i < count($planetarray); $i++)
   {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planetarray[$i];");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planetarray[$i]");
     db_op_result ($db, $res, __LINE__, __FILE__);
 
     // Only add to array if the Player owns the Planet.
