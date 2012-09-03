@@ -181,13 +181,13 @@ if ($bnt_ls)
         {
             $gm_url = $gamedomain . $gamepath;
             $gm_url = (substr($gm_url,0,1)==".")?substr($gm_url,1):$gm_url;
-            echo "<font COLOR=red><strong>http://$gm_url</strong></font><br>";
+            echo "<font color=red><strong>http://$gm_url</strong></font><br>";
             echo "It is better if you run the create_universe.php from the correct URL!<br>";
             echo "Or correct the gamedomain and gamepath in your <strong>config_local.php</strong><br>";
             echo "This URL is trasmited if your cronjob calls scheduler.php with localhost!";
         } else {
             $gm_url = $gm_url . strrev(strstr(strrev($_SERVER['PHP_SELF']),"/"));
-            echo "<font COLOR=green><strong>http://$gm_url</strong></font><br>";
+            echo "<font color=green><strong>http://$gm_url</strong></font><br>";
             echo "YES, if this URL is correct ... continue !<br>";
             echo "Remember: if your cronjob calls scheduler.php with localhost than run create_universe with localhost to check the correctnes of the transmitted URL!";
         }
