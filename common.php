@@ -34,7 +34,7 @@ ini_set('session.cookie_httponly', 1); // Make the session cookie HTTP only, a f
 ob_start();
 
 // Benchmarking - start before anything else.
-$BenchmarkTimer = new c_timer;
+$BenchmarkTimer = new bnt_timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
 $ADODB_SESS_CONN = null;

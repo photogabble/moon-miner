@@ -17,13 +17,13 @@
 //
 // File: classes/timer.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'c_timer.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'bnt_timer.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
 
 // namespace bnt\core\timer;
-class c_timer
+class bnt_timer
 {
     public $t_start = 0;
     public $t_stop = 0;
