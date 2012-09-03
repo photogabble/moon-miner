@@ -22,7 +22,7 @@ include './includes/t_port.php';
 include './includes/scan_success.php';
 include './includes/player_insignia_name.php';
 include './includes/calc_score.php';
-include './includes/get_avg_tech.php';
+include './includes/calc_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -461,7 +461,7 @@ if ($num_planets > 0)
             $result5 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($planets[$i]['owner']) );
             db_op_result ($db, $result5, __LINE__, __FILE__);
             $planet_owner = $result5->fields;
-            $planetavg = get_avg_tech($planet_owner, "planet");
+            $planetavg = calc_avg_tech($planet_owner, "planet");
 
             if ($planetavg < 8)
             {
@@ -570,7 +570,7 @@ if ($playerinfo['sector'] != 0)
 
             if ($roll < $success)
             {
-                $shipavg = get_avg_tech($row, "ship");
+                $shipavg = calc_avg_tech($row, "ship");
 
                 if ($shipavg < 8)
                 {

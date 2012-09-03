@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/get_avg_tech.php
+// File: includes/calc_avg_tech.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'get_avg_tech.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'calc_avg_tech.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function get_avg_tech ($ship_info = null, $type = "ship")
+function calc_avg_tech ($ship_info = null, $type = "ship")
 {
         // Defined in config
         global $calc_ship_tech, $calc_planet_tech;

@@ -472,9 +472,9 @@ function planet_combat ($db)
         echo "<br><br><center><font color='GREEN'><strong>$l_cmb_planetdefeated</strong></font></center><br><br>";
 
         // Patch to stop players dumping credits for other players.
-        include_once 'get_avg_tech.php';
-        $self_tech = get_avg_tech ($playerinfo);
-        $target_tech = round (get_avg_tech ($ownerinfo));
+        include_once 'calc_avg_tech.php';
+        $self_tech = calc_avg_tech ($playerinfo);
+        $target_tech = round (calc_avg_tech ($ownerinfo));
 
         $roll = mt_rand (0, (integer) $target_tech);
         if ($roll > $self_tech)

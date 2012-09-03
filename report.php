@@ -18,7 +18,7 @@
 // File: report.php
 
 include './global_includes.php';
-include_once './includes/get_avg_tech.php';
+include_once './includes/calc_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -39,7 +39,7 @@ $shiptypes[2] = "mediumship.png";
 $shiptypes[3] = "largeship.png";
 $shiptypes[4] = "hugeship.png";
 
-$shipavg = get_avg_tech ($playerinfo, "ship");
+$shipavg = calc_avg_tech ($playerinfo, "ship");
 
 if ($shipavg < 8)
 {
