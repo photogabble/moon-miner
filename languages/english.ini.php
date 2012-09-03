@@ -366,6 +366,8 @@ l_footer_until_update                   = "seconds until next update.";
 l_time_gen_page                         = "to create page";
 l_seconds                               = "seconds";
 l_peak_mem                              = "k of peak mem used";
+l_running_update                        = "Running Update";
+l_please_wait                           = "Please wait.";
 
 [galaxy]
 l_ore_port                              = "Ore Port";

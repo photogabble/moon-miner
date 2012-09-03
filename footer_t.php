@@ -22,12 +22,7 @@ global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db;
 // New database driven language entries
 load_languages($db, $lang, array('regional', 'footer','global_includes'), $langvars);
 
-// Needs to be put into the language table.
-$langvars['l_running_update'] = "Running Update";
-$langvars['l_please_wait'] = "Please wait.";
-
-
-$online = (integer) 0;
+$online = 0;
 
 if (!$no_db)
 {
