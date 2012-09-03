@@ -30,11 +30,10 @@ load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_
 $title = $l_device_title;
 $body_class = 'device';
 include './header.php';
+echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 $playerinfo = $res->fields;
-
-bigtitle ();
 
 echo $l_device_expl . "<br><br>";
 echo "<table style=\"width:33%\">";

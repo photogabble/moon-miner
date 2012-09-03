@@ -25,7 +25,7 @@ load_languages($db, $lang, array('common', 'global_includes', 'global_funcs', 'f
 
 $title = "Performance Monitor";
 include './header.php';
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $swordfish = null;
 if (array_key_exists('swordfish', $_POST))

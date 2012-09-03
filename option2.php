@@ -52,7 +52,7 @@ else
 load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 if ($newpass1 == "" && $newpass2 == "")
 {

@@ -29,7 +29,7 @@ load_languages($db, $lang, array('navcomp', 'common', 'global_includes', 'global
 
 $title = $l_nav_title;
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 if (!$allow_navcomp)
 {

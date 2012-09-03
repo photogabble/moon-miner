@@ -79,7 +79,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
     if ($mine_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0 )
     {
         // You hit mines
-        bigtitle();
+        echo "<h1>" . $title . "</h1>\n";
         $ok=0;
         $totalmines = $total_sector_mines;
         // Before we had a issue where if there where a lot of mines in the sector the result will go -

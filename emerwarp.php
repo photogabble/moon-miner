@@ -28,12 +28,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 load_languages($db, $lang, array('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ewd_title;
-include './header.php';
+echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
-bigtitle ();
 
 if ($playerinfo['dev_emerwarp'] > 0)
 {

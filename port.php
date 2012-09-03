@@ -105,7 +105,7 @@ $zoneinfo = $res->fields;
 if ($zoneinfo['zone_id'] == 4)
 {
     $title = $l_sector_war;
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     echo $l_war_info . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
@@ -115,7 +115,7 @@ elseif ($zoneinfo['allow_trade'] == 'N')
 {
     // Translation needed
     $title = "Trade forbidden";
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     echo $l_no_trade_info . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
@@ -133,7 +133,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
         {
             // Translation needed
             $title = "Trade forbidden";
-            bigtitle ();
+            echo "<h1>" . $title . "</h1>\n";
             echo "Trading at this port is not allowed for outsiders<p>";
             TEXT_GOTOMAIN();
             include './footer.php';
@@ -145,7 +145,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
         if ($playerinfo['team'] != $zoneinfo['owner'])
         {
             $title = $l_no_trade;
-            bigtitle ();
+            echo "<h1>" . $title . "</h1>\n";
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN();
             include './footer.php';
@@ -157,7 +157,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
 if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
 {
     $title = $l_title_trade;
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
 
     if ($sectorinfo['port_type'] == "ore")
     {
@@ -289,7 +289,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
 elseif ($sectorinfo['port_type'] == "special")
 {
     $title = $l_special_port;
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
 
     // Kami Multi-browser window upgrade fix
     $_SESSION['port_shopping'] = true;

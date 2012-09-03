@@ -31,7 +31,7 @@ load_languages ($db, $lang, array('traderoutes', 'common', 'global_includes', 'g
 
 $title = $l_tdr_title;
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 $portfull = null; // This fixes an error of undefined variables on 1518
 

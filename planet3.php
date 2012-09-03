@@ -54,7 +54,7 @@ $trade_energy = (int) $_POST['trade_energy'];
 // Validate and set the type of $_GET vars;
 $planet_id = (int) $_GET['planet_id'];
 
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 // Check if planet_id is valid.
 if ($planet_id <= 0)

@@ -47,7 +47,8 @@ $targetscore = gen_score ($db, $targetinfo['ship_id']);
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;
 
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
+
 // Kami Multi Browser Window Attack Fix
 if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
 {

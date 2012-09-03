@@ -68,7 +68,7 @@ if (!empty($sort))
 
 $res = $db->Execute($query);
 db_op_result ($db, $res, __LINE__, __FILE__);
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
 echo "<strong><a href=planet_report.php>$l_teamplanet_personal</a></strong>";

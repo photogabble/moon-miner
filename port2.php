@@ -47,7 +47,7 @@ $zoneinfo = $res->fields;
 if ($zoneinfo['allow_trade'] == 'N')
 {
     $title = $l_no_trade;
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     echo $l_no_trade_info . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
@@ -64,7 +64,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
         if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
         {
             $title = $l_no_trade;
-            bigtitle ();
+            echo "<h1>" . $title . "</h1>\n";
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN ();
             include './footer.php';
@@ -76,7 +76,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
         if ($playerinfo['team'] != $zoneinfo['owner'])
         {
             $title = $l_no_trade;
-            bigtitle ();
+            echo "<h1>" . $title . "</h1>\n";
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN ();
             include './footer.php';
@@ -85,7 +85,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
     }
 }
 
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 $color_red = "red";
 $color_green = "#0f0"; // Light green

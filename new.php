@@ -36,8 +36,7 @@ load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'g
 
 $title = $l_new_title;
 include './header.php';
-
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 echo "<form action='new2.php" . $link . "' method='post'>\n";
 echo "    <dl class='twocolumn-form'>\n";

@@ -42,7 +42,7 @@ $playerinfo = $res->fields;
 
 switch ($response) {
     case "display":
-        bigtitle ();
+        echo "<h1>" . $title . "</h1>\n";
         $res5 = $db->Execute("SELECT * FROM {$db->prefix}ships,{$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = ?", array($bounty_on));
         db_op_result ($db, $res5, __LINE__, __FILE__);
         $j = 0;
@@ -112,7 +112,7 @@ switch ($response) {
     case "cancel":
         $bid = (int) $_GET['bid'];
 
-        bigtitle ();
+        echo "<h1>" . $title . "</h1>\n";
         if ($playerinfo['turns'] < 1)
         {
             echo "$l_by_noturn<br><br>";
@@ -151,7 +151,7 @@ switch ($response) {
         die ();
         break;
     case "place":
-        bigtitle ();
+        echo "<h1>" . $title . "</h1>\n";
         $bounty_on = preg_replace('/[^0-9]/', '', $bounty_on);
         $ex = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array($bounty_on));
         db_op_result ($db, $ex, __LINE__, __FILE__);
@@ -241,7 +241,7 @@ switch ($response) {
         die ();
         break;
     default:
-        bigtitle ();
+        echo "<h1>" . $title . "</h1>\n";
         $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> ? ORDER BY character_name ASC", array($playerinfo['ship_id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         echo "<form action=bounty.php method=post>";

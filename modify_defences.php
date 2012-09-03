@@ -109,7 +109,7 @@ else
 switch ($response)
 {
    case "fight":
-      bigtitle ();
+      echo "<h1>" . $title . "</h1>\n";
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
          echo "$l_md_yours<br><br>";
@@ -199,13 +199,13 @@ switch ($response)
       $stamp = date("Y-m-d H-i-s");
 
       $db->Execute("UPDATE {$db->prefix}ships SET last_login=?,turns=turns-1, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
-      bigtitle();
+      echo "<h1>" . $title . "</h1>\n";
       echo "$l_md_retr $quantity $defence_type.<br>";
       TEXT_GOTOMAIN ();
       die();
       break;
    case "change":
-      bigtitle();
+      echo "<h1>" . $title . "</h1>\n";
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
@@ -226,7 +226,7 @@ switch ($response)
       die();
       break;
    default:
-      bigtitle();
+      echo "<h1>" . $title . "</h1>\n";
       $l_md_consist=str_replace("[qty]",$qty,$l_md_consist);
       $l_md_consist=str_replace("[type]",$defence_type,$l_md_consist);
       $l_md_consist=str_replace("[owner]",$defence_owner,$l_md_consist);

@@ -146,7 +146,7 @@ $allcredits         = $_POST['allcredits'];
 $planet_id          = (int) $_GET['planet_id'];
 
 // Display Page Title.
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 // Empty out Planet and Ship vars
 $planetinfo         = null;

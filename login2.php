@@ -82,7 +82,7 @@ if (isset($playerinfo))
 }
 
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 if ($playerfound)
 {

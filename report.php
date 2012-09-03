@@ -64,7 +64,7 @@ else
     $shiplevel = 4;
 }
 
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
 $holds_max = NUM_HOLDS ($playerinfo['hull']);

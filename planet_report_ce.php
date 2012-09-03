@@ -29,11 +29,10 @@ load_languages($db, $lang, array('planet_report', 'rsmove', 'common', 'global_in
 
 $title = $l_pr_title;
 include './header.php';
+echo "<h1>" . $title . "</h1>\n";
 
 // This is required by Setup Info
 // planet_hack_fix,0.2.0,25-02-2004,TheMightyDude
-
-bigtitle();
 
 echo "<br>";
 echo "Click <a href=planet_report.php>here</A> to return to report menu<br>";

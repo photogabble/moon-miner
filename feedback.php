@@ -29,7 +29,7 @@ load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_include
 
 $title = $l_feedback_title;
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);

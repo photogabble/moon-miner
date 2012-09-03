@@ -115,7 +115,7 @@ function line_spacer ()
 
 /*
 $title="Game Reset Information";
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line("Last Reset:","<span style='color:#ff0; font-size:14px;'>~ {$last_reset}</span>", "right");
 line("Next Reset:","<span style='color:#ff0; font-size:14px;'>~ {$next_reset}</span>", "right");
@@ -127,7 +127,7 @@ echo "<br>\n";
 echo "<br>\n";
 */
 $title="Game Administrators";
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 $found_blues = 0;
 foreach ($admin_list as $key => $admin)
 {
@@ -151,7 +151,7 @@ if ($found_blues === 0)
 echo "<br>\n";
 
 $title="Loaded Plugins";
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 if (count($plugin_config) <=0)
 {
@@ -226,7 +226,7 @@ else
 }
 
 $title="Game Settings";
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line("Game version:",$release_version, "right");
 line("Game name:",$game_name, "right");
@@ -295,7 +295,7 @@ echo "<br>\n";
 echo "<br>\n";
 
 $title="Game Scheduler Settings";
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $line_color = $color_line1;
 

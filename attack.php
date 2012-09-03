@@ -31,8 +31,7 @@ load_languages($db, $lang, array('attack', 'bounty', 'main', 'planet', 'common',
 
 $title = $l_att_title;
 include './header.php';
-
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 // Kami Multi Browser Window Attack Fix
 if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)

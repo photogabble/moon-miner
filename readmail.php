@@ -29,8 +29,7 @@ load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'globa
 
 $title = $l_readm_title;
 include './header.php';
-
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);

@@ -34,7 +34,7 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SE
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $deg = pi() / 180;
 

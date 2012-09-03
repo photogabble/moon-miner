@@ -25,9 +25,8 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die();
 }
 
+// Database driven language entries
 $langvars = null;
-
-// New database driven language entries
 load_languages ($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 // Do string replacement for any language strings prior to sending them to the Template system
@@ -76,10 +75,8 @@ $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no;
 $fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $l_yes : $l_no;
 $lssd = ($playerinfo['dev_lssd'] == 'Y') ? $l_yes : $l_no;
 
-// Always make sure we are using empty vars before use.
+// Clear variables array before use, and set array with all used variables in page
 $variables = null;
-
-// Set array with all used variables in page
 $variables['lang'] = $lang;
 $variables['color_header'] = $color_header;
 $variables['color_line1'] = $color_line1;
@@ -100,7 +97,6 @@ $variables['playerinfo_cloak'] = $playerinfo['cloak'];
 $variables['shipavg'] = $shipavg;
 $variables['holds_used'] = $holds_used;
 $variables['holds_max'] = $holds_max;
-//$variables['number_playerinfo_ship_ore'] = NUMBER ($playerinfo['ship_ore']);
 $variables['playerinfo_ship_ore'] = $playerinfo['ship_ore'];
 $variables['playerinfo_ship_organics'] = $playerinfo['ship_organics'];
 $variables['playerinfo_ship_goods'] = $playerinfo['ship_goods'];

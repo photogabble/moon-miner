@@ -26,8 +26,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 
 $title = $l_help;
 include './header.php';
-
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 echo "Greetings and welcome to Blacknova Traders!";
 echo "<br><br>";

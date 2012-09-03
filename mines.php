@@ -107,7 +107,7 @@ if ($result3 instanceof ADORecordSet)
 }
 
 $num_defences = $i;
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 if ($playerinfo['turns'] < 1 )
 {
     echo $l_mines_noturn . "<br><br>";

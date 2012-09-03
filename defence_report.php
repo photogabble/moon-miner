@@ -29,6 +29,7 @@ load_languages($db, $lang, array('defence_report', 'planet_report', 'main', 'dev
 
 $title = $l_sdf_title;
 include './header.php';
+echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -59,8 +60,6 @@ if (!empty($sort))
 
 $res = $db->Execute($query);
 db_op_result ($db, $res, __LINE__, __FILE__);
-
-bigtitle ();
 
 $i = 0;
 if ($res)

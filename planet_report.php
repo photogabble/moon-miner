@@ -45,25 +45,25 @@ $playerinfo = $res->fields;
 if ($PRepType == 1 || !isset($PRepType)) // Display the commodities on the planets
 {
     $title = $title .": Status";
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     standard_report ($db);
 }
 elseif ($PRepType == 2)                  // Display the production values of your planets and allow changing
 {
     $title = $title .": Production";
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     planet_production_change ($db);
 }
 elseif ($PRepType == 0)                  // For typing in manually to get a report menu
 {
     $title = $title . ": Menu";
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     planet_report_menu ();
 }
 else                                  // Display the menu if no valid options are passed in
 {
     $title = $title . ": Status";
-    bigtitle ();
+    echo "<h1>" . $title . "</h1>\n";
     planet_report ();
 }
 

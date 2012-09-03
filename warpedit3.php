@@ -29,7 +29,7 @@ load_languages($db, $lang, array('warpedit', 'common', 'global_includes', 'globa
 
 $title = $l_warp_title;
 include './header.php';
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $bothway = null;
 if (array_key_exists('bothway', $_POST)== true)

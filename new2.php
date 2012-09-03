@@ -36,7 +36,7 @@ load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'c
 
 $title = $l_new_title2;
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 if ($account_creation_closed)
 {

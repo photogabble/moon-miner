@@ -25,7 +25,7 @@ load_languages($db, $lang, array('xenobe_control', 'common', 'global_includes', 
 
 $title = $l_ai_control;
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 function checked ($yesno)
 {

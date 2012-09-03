@@ -35,7 +35,7 @@ $playerinfo = $result->fields;
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
 $sectorinfo = $result2->fields;
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 if ($playerinfo['turns'] < 1)
 {

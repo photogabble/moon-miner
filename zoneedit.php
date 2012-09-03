@@ -29,7 +29,7 @@ load_languages($db, $lang, array('zoneedit', 'report', 'port', 'main', 'zoneinfo
 
 $title = $l_ze_title;
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 $command = null;
 if (array_key_exists('command', $_GET) == true)

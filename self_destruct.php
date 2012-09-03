@@ -30,7 +30,7 @@ load_languages($db, $lang, array('self_destruct', 'ranking', 'common', 'global_i
 
 $title = $l_die_title;
 include './header.php';
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);

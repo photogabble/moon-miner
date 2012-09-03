@@ -128,8 +128,7 @@ include './includes/create_schema.php';
 // This is needed here until the language database is installed
 $title = 'Create universe';
 include './header.php';
-
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 // Manually set step var if info isn't correct.
 

@@ -35,7 +35,7 @@ setcookie("PHPSESSID","",0,"/");
 session_destroy();
 
 include './header.php';
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 if (isset($_SESSION['username']))
 {

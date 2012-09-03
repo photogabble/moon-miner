@@ -52,7 +52,7 @@ if (array_key_exists('planet_id', $_GET) == true)
     $planet_id = (int) $_GET['planet_id'];
 }
 
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 // Get the Player Info
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));

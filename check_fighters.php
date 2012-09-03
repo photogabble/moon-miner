@@ -90,7 +90,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             case "fight":
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array($playerinfo['ship_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__);
-                bigtitle();
+                echo "<h1>" . $title . "</h1>\n";
                 include_once './sector_fighters.php';
                 break;
 
@@ -100,7 +100,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $stamp = date("Y-m-d H-i-s");
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=? WHERE ship_id=?;", array($playerinfo['sector'], $playerinfo['ship_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__);
-                bigtitle();
+                echo "<h1>" . $title . "</h1>\n";
                 echo "$l_chf_youretreatback<br>";
                 TEXT_GOTOMAIN();
                 die();
@@ -148,7 +148,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 if ($roll < $success)
                 {
                     // Sector defences detect incoming ship
-                    bigtitle();
+                    echo "<h1>" . $title . "</h1>\n";
                     echo "$l_chf_thefightersdetectyou<br>";
                     include_once './sector_fighters.php';
                     break;
@@ -165,7 +165,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences = ? WHERE ship_id = ?;", array($interface_string, $playerinfo['ship_id']));
                 db_op_result ($db, $resx, __LINE__, __FILE__);
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
-                bigtitle();
+                echo "<h1>" . $title . "</h1>\n";
                 echo "<form action='{$calledfrom}' method='post'>";
                 $l_chf_therearetotalfightersindest = str_replace("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
                 echo "$l_chf_therearetotalfightersindest<br>";

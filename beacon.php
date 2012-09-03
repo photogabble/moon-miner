@@ -24,6 +24,7 @@ load_languages($db, $lang, array('beacon', 'common', 'global_includes', 'global_
 
 $title = $l_beacon_title;
 include './header.php';
+echo "<h1>" . $title . "</h1>\n";
 
 if (check_login ($db, $lang, $langvars))
 {
@@ -39,8 +40,6 @@ db_op_result ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
-
-bigtitle();
 
 if (!isset($_POST['beacon_text']))
 {

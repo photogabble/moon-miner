@@ -24,7 +24,7 @@ load_languages($db, $lang, array('mail', 'common', 'global_funcs', 'global_inclu
 
 $title = $l_mail_title;
 include './header.php';
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array($mail));
 db_op_result ($db, $result, __LINE__, __FILE__);

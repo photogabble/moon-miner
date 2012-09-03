@@ -46,7 +46,7 @@ if ($result2)
 
 if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $playerinfo['team'] && $playerinfo['team'] > 0))
 {
-    bigtitle();
+    echo "<h1>" . $title . "</h1>\n";
     if ($action == "planetcorp")
     {
         echo $l_corpm_tocorp . "<br>";

@@ -40,7 +40,7 @@ load_languages($db, $lang, array('main', 'ranking', 'common', 'global_includes',
 $l_ranks_title = str_replace("[max_ranks]", $max_ranks, $l_ranks_title);
 $title = $l_ranks_title;
 include './header.php';
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0");
 db_op_result ($db, $res, __LINE__, __FILE__);

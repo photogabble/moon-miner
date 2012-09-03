@@ -55,7 +55,7 @@ $num_planets = $result3->RecordCount();
 // Generate Planetname
 $planetname = substr($playerinfo['character_name'],0,1) . substr($playerinfo['ship_name'],0,1) . "-" . $playerinfo['sector'] . "-" . ($num_planets + 1);
 
-bigtitle ();
+echo "<h1>" . $title . "</h1>\n";
 
 $destroy = null;
 if (array_key_exists('destroy', $_GET) == true)//isset($_GET['destroy']))

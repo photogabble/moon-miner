@@ -35,7 +35,7 @@ load_languages($db, $lang, array('teams', 'common', 'global_includes', 'global_f
 
 $title = $l_team_title;
 include './header.php';
-bigtitle();
+echo "<h1>" . $title . "</h1>\n";
 
 $testing = false; // set to false to get rid of password when creating new team
 
