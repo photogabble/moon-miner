@@ -2,6 +2,12 @@ TheKabal (2 September 2012)
 --------------------------------------
 Adminlog() is now admin_log
 Playerlog() is now player_log
+Switched index and report to template driven versions.
+Renamed a number of functions (gen_score, get_avg_tech) to be more consistent with other functions (calc_score, calc_avg_tech).
+Added compression and encryption to the session table, which means that admins cannot view data inside a player session.
+Cleaned up the direct-test error handling to be more consistent, and also added its test on several files that did not have it.
+Simplified the config files further, including removing commented out code.
+Created some new language strings for text that was in footer
 
 TheMightyDude (29 August 2012)
 --------------------------------------
