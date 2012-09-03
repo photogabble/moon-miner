@@ -15,11 +15,10 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: secure_password.php
-
-if (preg_match("/secure_password.php/i", $_SERVER['PHP_SELF'])) {
-      echo "You can not access this file directly!";
-      die();
+// File: admin_password.php
+if (strpos ($_SERVER['PHP_SELF'], 'admin_pw.php')) // Prevent direct access to this file
+{
+    die ('Please do not access this file directly');
 }
 
 // Define the admin password, used for accessing create_universe, scheduler, and the admin control panel
