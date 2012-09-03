@@ -92,8 +92,8 @@ function ibank_transfer2 ($db)
         else
         {
             $percent = $ibank_svalue * 100;
-            include_once './gen_score.php';
-            $score = gen_score ($db, $playerinfo['ship_id']);
+            include_once './calc_score.php';
+            $score = calc_score ($db, $playerinfo['ship_id']);
             $maxtrans = $score * $score * $ibank_svalue;
 
             $l_ibank_maxtransferpercent = str_replace("[ibank_percent]", $percent, $l_ibank_maxtransferpercent);

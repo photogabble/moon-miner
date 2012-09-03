@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/gen_score.php
+// File: includes/calc_score.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'gen_score.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'calc_score.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function gen_score ($db, $sid)
+function calc_score ($db, $sid)
 {
     global $upgrade_factor;
     global $upgrade_cost;

@@ -21,7 +21,7 @@ include './global_includes.php';
 include './includes/t_port.php';
 include './includes/scan_success.php';
 include './includes/player_insignia_name.php';
-include './includes/gen_score.php';
+include './includes/calc_score.php';
 include './includes/get_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
@@ -49,7 +49,7 @@ if (!isset ($_GET['command']))
 
 if ($_GET['command'] == "score")
 {
-    $playerinfo['score'] = gen_score ($db, $playerinfo['ship_id']);
+    $playerinfo['score'] = calc_score ($db, $playerinfo['ship_id']);
 }
 
 if ($playerinfo['cleared_defences'] > ' ')

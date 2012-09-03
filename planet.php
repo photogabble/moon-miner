@@ -877,8 +877,8 @@ if (!is_bool($planetinfo) && $planetinfo != false )
 
             if ($planetinfo['owner'] != 0)
             {
-                include_once './includes/gen_score.php';
-                gen_score ($db, $planetinfo['owner'] );
+                include_once './includes/calc_score.php';
+                calc_score ($db, $planetinfo['owner'] );
             }
 
             if ($planetinfo['owner'] != 0)
