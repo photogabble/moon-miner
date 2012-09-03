@@ -40,11 +40,12 @@ $BenchmarkTimer->start(); // Start benchmarking immediately
 $ADODB_SESS_CONN = null;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";
 
-// We explicitly use encrypted sessions, but this adds compression as well.
-ADODB_Session::encryptionKey($ADODB_CRYPT_KEY);
-
 // The data field name "data" violates SQL reserved words - switch it to SESSDATA
 ADODB_Session::dataFieldName('SESSDATA');
+
+// Add MD5 encryption for sessions, and then compress it before storing it in the database
+ADODB_Session::filter(new ADODB_Encrypt_MD5());
+ADODB_Session::filter(new ADODB_Compress_Gzip());
 
 connect_database ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent);
 

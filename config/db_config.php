@@ -41,9 +41,6 @@ $ADODB_SESSION_PWD = "bnt";
 // Name of the SQL database:
 $ADODB_SESSION_DB = "bnt";
 
-// Define a random crypto key for ADOdb to use for encrypted sessions.
-$ADODB_CRYPT_KEY = "ptjsiaanxyhdhjz";
-
 // Type of the SQL database. This can be anything supported by ADOdb. Here are a few:
 // "mysql" for MySQL - please don't use this one, it doesn't support transactions, which we now use
 // "mysqlt" for MySQLi - needed for transaction support
