@@ -125,5 +125,5 @@ $langvars['container'] = "langvar";
 include './footer_t.php';
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
-$template->Display("test_report.tpl");
+$template->Display("report.tpl");
 ?>
