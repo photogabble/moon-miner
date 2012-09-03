@@ -169,7 +169,7 @@ newbie_cloak               = '8';                              // If a destroyed
 [SHIP_SETTINGS]
 upgrade_cost               = 1000;                             // Upgrade price is upgrade factor OR 2^level difference times the upgrade cost
 upgrade_factor             = 2;                                // Upgrade factor is the numeric base usually 2 that is raised to the power of level difference for determining cost
-level_factor               = '1.5';                            // How effective a level is. amount = level_factor ^ item_level possibly times another value, depending on the item
+level_factor               = '1.45';                           // How effective a level is. amount = level_factor ^ item_level possibly times another value, depending on the item
 inventory_factor           = 1;                                // The number of units that a single hull can hold
 
 [BOUNTY_SETTINGS]
