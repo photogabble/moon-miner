@@ -76,8 +76,17 @@ if (!$no_db)
     }
 }
 
-echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
-echo "  <strong><span id=myx>$mySEC</span></strong> " . $langvars['l_footer_until_update'] . " <br>\n";
+//echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
+echo "<script src='backends/javascript/updateticker.js'></script>";
+echo "<script>";
+echo "var seconds = '" . $mySEC . "';";
+echo "var nextInterval = new Date().getTime();";
+echo "var maxTicks = '" . ($sched_ticks * 60) . "';";
+echo "var l_running_update = '" . $langvars['l_running_update'] . "';";
+echo "var l_footer_until_update = '" . $langvars['l_footer_until_update'] . "';";
+echo 'setTimeout("NextUpdate();", 100);';
+echo "</script>";
+echo '<div style="width:600px; margin:auto; text-align:center;"><span id=update_ticker>' . $langvars['l_please_wait'] . '</span></div>';
 // End update counter
 
 if ($online == 1)

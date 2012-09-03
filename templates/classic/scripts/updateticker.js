@@ -38,7 +38,7 @@
         }
         else
         {
-            document.getElementById('update_ticker').innerHTML = '~ '+ seconds +' '+ l_footer_until_update;
+            document.getElementById('update_ticker').innerHTML = seconds +' '+ l_footer_until_update;
         }
     }
 -->

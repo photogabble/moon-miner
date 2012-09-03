@@ -92,7 +92,7 @@ if (news.initTicker("news_ticker") == true)
 
         setTimeout("NextUpdate();", 100);
     </script>
-    <div style="width:600px; margin:auto; text-align:center;"><strong><span id=update_ticker>{$langvars['l_please_wait']}</span></strong></div>
+    <div style="width:600px; margin:auto; text-align:center;"><span id=update_ticker>{$langvars['l_please_wait']}</span></div>
 {/if}
 {* End of Servers Update Ticker *}
 
