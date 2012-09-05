@@ -1,3 +1,10 @@
+TheMightyDude (05 September 2012)
+--------------------------------------
+Fixed option2.php and re-ordered the code so that it works how it was intended.
+It now does the hashing of the new password when it has all valid data and after it has loaded the player info.
+It now updates the language when the new language is different from the players language.
+The password session is also set once a valid password change, this was to stop the you need to login after changing your password.
+
 TheMightyDude (03 September 2012)
 --------------------------------------
 Fixed PHP Notice: Undefined variable: do_die in includes/connect_database.php
