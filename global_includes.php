@@ -50,7 +50,7 @@ require_once './backends/phpass/PasswordHash.php';
 require_once $ADOdbpath . "/adodb.inc.php";
 include_once $ADOdbpath . "/adodb-perf.inc.php";
 include_once $ADOdbpath . "/session/adodb-session2.php";
-include_once $ADOdbpath . "/session/adodb-encrypt-md5.php";
+include_once $ADOdbpath . "/session/adodb-encrypt-mcrypt.php";
 include_once $ADOdbpath . "/session/adodb-compress-gzip.php";
 
 spl_autoload_register ('bnt_autoload');
