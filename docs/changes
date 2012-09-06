@@ -1,3 +1,7 @@
+TheMightyDude (06 September 2012)
+--------------------------------------
+Fixed and resolved issue with conflicting languages when the player changes the language in options.
+
 TheMightyDude (05 September 2012)
 --------------------------------------
 Fixed option2.php and re-ordered the code so that it works how it was intended.

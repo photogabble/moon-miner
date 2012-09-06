@@ -26,24 +26,27 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die();
 }
 
+// Set old language to the current;
+$oldlang = $lang;
+
 // Get POST['newlang'] returns null is not found.
 if (request_var('POST', 'newlang', $newlang) === true)
 {
-    // Now validate the sent newlang.
-    if (!preg_match("/^[\w]+$/", $newlang))
+    // Cycle through the supported language list.
+    foreach ($avail_lang as $supported)
     {
-        // Failed validation so use default.
-        $newlang = $default_lang;
+        // Trim and compare the new langauge with the supported.
+        if (trim($newlang) == $supported['file'])
+        {
+            // We have a match so set lang to the required supported language, then break out of loop.
+            $lang = $supported['file'];
+            break;
+        }
     }
-}
-else
-{
-    // Set newlang to the servers default.
-    $newlang = $default_lang;
 }
 
 // New database driven language entries
-load_languages($db, $newlang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $langvars['l_opt2_title'];
 include './header.php';
@@ -118,16 +121,16 @@ else
 }
 
 // Is the current language ($lang) different from the requested new language (newlang)
-if ($lang != $newlang)
+if ($oldlang != $lang)
 {
     // Yes, so update to the new requited language.
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array($newlang, $_SESSION['username']));
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array($lang, $_SESSION['username']));
     db_op_result ($db, $res, __LINE__, __FILE__);
 
     // Now cycle through the supported language list unto we get a match to the new language.
     foreach ($avail_lang as $curlang)
     {
-        if ($newlang == $curlang['file'])
+        if ($lang == $curlang['file'])
         {
             $langvars['l_opt2_chlang'] = str_replace("[lang]", "$curlang[name]", $langvars['l_opt2_chlang']);
             echo $langvars['l_opt2_chlang'] . "<p>";
