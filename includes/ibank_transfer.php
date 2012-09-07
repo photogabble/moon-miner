@@ -37,7 +37,7 @@ function ibank_transfer ($db)
         $res->MoveNext();
     }
 
-    $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id] ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
+    $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC;", array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
