@@ -8,6 +8,9 @@ Fixed PHP Notice: Trying to get property of non-object in includes/ibank_transfe
 Fixed PHP Fatal error: Call to a member function MoveNext() on a non-object in includes/ibank_transfer.php on line 45
 Fixed PHP Notice: Undefined variable: db, lang in footer.php
 Fixed PHP Catchable fatal error: Object of class ADODB_mysqlt could not be converted to string in traderoute.php on line 1050.
+Fixed PHP Warning: include(./calc_ownership.php): failed to open stream: No such file or directory in corp.php on line 21
+Fixed PHP Warning: include(): Failed opening './calc_ownership.php' for inclusion (include_path='.') in corp.php on line 21
+Fixed PHP Fatal error: Call to undefined function calc_ownership() in corp.php on line 55
 
 TheMightyDude (06 September 2012)
 --------------------------------------
