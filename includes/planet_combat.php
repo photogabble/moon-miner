@@ -44,8 +44,8 @@ function planet_combat ($db)
     global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
     global $l_cmb_fighterloststat, $l_cmb_energyleft;
 
-    include_once './collect_bounty.php';
-    include_once './calc_score.php';
+    include_once './includes/collect_bounty.php';
+    include_once './includes/calc_score.php';
 
     if ($playerinfo['turns'] < 1 )
     {
@@ -57,15 +57,15 @@ function planet_combat ($db)
 
     // Planetary defense system calculation
 
-    include_once './calc_planet_beams.php';
+    include_once './includes/calc_planet_beams.php';
     $planetbeams        = calc_planet_beams ($db);
 
     $planetfighters     = $planetinfo['fighters'];
 
-    include './calc_planet_shields.php';
+    include './includes/calc_planet_shields.php';
     $planetshields      = calc_planet_shields ($db);
 
-    include './calc_planet_torps.php';
+    include './includes/calc_planet_torps.php';
     $planettorps        = calc_planet_torps ($db);
 
     // Attacking ship calculations
@@ -472,7 +472,7 @@ function planet_combat ($db)
         echo "<br><br><center><font color='GREEN'><strong>$l_cmb_planetdefeated</strong></font></center><br><br>";
 
         // Patch to stop players dumping credits for other players.
-        include_once 'calc_avg_tech.php';
+        include_once './includes/calc_avg_tech.php';
         $self_tech = calc_avg_tech ($playerinfo);
         $target_tech = round (calc_avg_tech ($ownerinfo));
 
@@ -525,7 +525,7 @@ function planet_combat ($db)
             db_op_result ($db, $update7a, __LINE__, __FILE__);
         }
 
-        include './calc_ownership.php';
+        include './includes/calc_ownership.php';
         calc_ownership ($db, $planetinfo['sector_id']);
     }
     else
