@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_ownership.php')) // Prevent direct acces
 
 function calc_ownership ($db, $sector)
 {
-    global $min_bases_to_own;
+    global $min_bases_to_own $langvars;
 
     $res = $db->Execute ("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array ($sector));
     db_op_result ($db, $res, __LINE__, __FILE__);

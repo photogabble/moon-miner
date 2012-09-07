@@ -11,6 +11,9 @@ Fixed PHP Catchable fatal error: Object of class ADODB_mysqlt could not be conve
 Fixed PHP Warning: include(./calc_ownership.php): failed to open stream: No such file or directory in corp.php on line 21
 Fixed PHP Warning: include(): Failed opening './calc_ownership.php' for inclusion (include_path='.') in corp.php on line 21
 Fixed PHP Fatal error: Call to undefined function calc_ownership() in corp.php on line 55
+Fixed PHP Notice: Undefined variable: langvars in includes/calc_ownership.php on line 223
+Fixed PHP Notice: Undefined index: l_global_mmenu in includes/text_gotomain.php on line 29
+Fixed PHP Notice: Undefined index: l_global_nzone in includes/calc_ownership.php on line 223
 
 TheMightyDude (06 September 2012)
 --------------------------------------
