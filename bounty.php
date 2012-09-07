@@ -35,6 +35,10 @@ if (array_key_exists('response', $_POST) == true)
 {
     $response = $_POST['response'];
 }
+elseif (array_key_exists('response', $_GET) == true)
+{
+    $response = $_GET['response'];
+}
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
@@ -123,7 +127,7 @@ switch ($response) {
 
         $res = $db->Execute("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = ?", array($bid));
         db_op_result ($db, $res, __LINE__, __FILE__);
-        if (!res || $res->RowCount() ==0)
+        if (!$res || $res->RowCount() ==0)
         {
             echo "$l_by_nobounty<br><br>";
             TEXT_GOTOMAIN ();
