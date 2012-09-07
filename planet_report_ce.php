@@ -378,7 +378,7 @@ function take_credits ($db, $sector_id, $planet_id)
   global $l_unnamed;
 
   // Get basic Database information (ship and planet)
-  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']);
+  $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
   db_op_result ($db, $res, __LINE__, __FILE__);
   $playerinfo = $res->fields;
 
