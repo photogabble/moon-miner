@@ -1428,7 +1428,7 @@ function traderoute_engage ($db, $j)
         if ($j == 1)
         {
             echo $l_tdr_engageagain . "\n";
-            traderoute_results_show_repeat ($db);
+            traderoute_results_show_repeat ($engage);
         }
     }
     if ($j == 1)

@@ -7,6 +7,7 @@ Fixed PHP Notice: Trying to get property of non-object in includes/ibank_transfe
 Fixed PHP Notice: Trying to get property of non-object in includes/ibank_transfer.php on line 44
 Fixed PHP Fatal error: Call to a member function MoveNext() on a non-object in includes/ibank_transfer.php on line 45
 Fixed PHP Notice: Undefined variable: db, lang in footer.php
+Fixed PHP Catchable fatal error: Object of class ADODB_mysqlt could not be converted to string in traderoute.php on line 1050.
 
 TheMightyDude (06 September 2012)
 --------------------------------------
