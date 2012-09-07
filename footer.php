@@ -17,7 +17,7 @@
 //
 // File: footer.php
 
-global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db;
+global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db, $db, $lang;
 
 // New database driven language entries
 load_languages($db, $lang, array('footer','global_includes'), $langvars);

@@ -6,6 +6,7 @@ Fixed paths for igb as well as some errors.
 Fixed PHP Notice: Trying to get property of non-object in includes/ibank_transfer.php on line 42
 Fixed PHP Notice: Trying to get property of non-object in includes/ibank_transfer.php on line 44
 Fixed PHP Fatal error: Call to a member function MoveNext() on a non-object in includes/ibank_transfer.php on line 45
+Fixed PHP Notice: Undefined variable: db, lang in footer.php
 
 TheMightyDude (06 September 2012)
 --------------------------------------
