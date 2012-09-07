@@ -1,3 +1,8 @@
+TheMightyDude (07 September 2012)
+--------------------------------------
+Re-Coded check_login.php to a more ordered layout and it does the required checks if it has valid information.
+Also fixed a bug where you couldn't read your logs when you have been killed (* while logged in only *)
+
 TheMightyDude (06 September 2012)
 --------------------------------------
 Fixed and resolved issue with conflicting languages when the player changes the language in options.
