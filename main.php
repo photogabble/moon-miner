@@ -30,7 +30,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main', 'admin'), $langvars);
+load_languages($db, $lang, array('combat', 'common', 'global_includes', 'main', 'modify_defences', 'admin'), $langvars);
 
 $title = $langvars['l_main_title'];
 include './header.php';
