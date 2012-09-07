@@ -19,6 +19,7 @@ Fixed invalid include paths.
 Fixed PHP Warning: Missing argument 6 for traderoute_distance(), called in includes/traderoute_engage.php on line 258
 Fixed PHP Notice: Undefined index: l_md_toll in main.php on line 676
 Fixed PHP Parse error: syntax error, unexpected ';' in planet_report_ce.php on line 381
+Fixed PHP Notice: Undefined index: ship in sched_tow.php on line 43
 
 TheMightyDude (06 September 2012)
 --------------------------------------

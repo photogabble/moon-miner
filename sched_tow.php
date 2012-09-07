@@ -40,7 +40,7 @@ do
             echo "...towing $row[character_name] out of $row[sector] ...";
             $newsector = mt_rand(0, $sector_max-1);
             echo " to sector $newsector.<br>";
-            $query = $db->Execute("UPDATE {$db->prefix}ships SET sector = ?, cleared_defences=' ' WHERE ship_id=?", array ($newsector, $row['ship']));
+            $query = $db->Execute("UPDATE {$db->prefix}ships SET sector = ?, cleared_defences=' ' WHERE ship_id=?", array ($newsector, $row['ship_id']));
             db_op_result ($db, $query, __LINE__, __FILE__);
             player_log ($db, $row['ship_id'], LOG_TOW, "$row[sector]|$newsector|$row[max_hull]");
             log_move ($db, $row['ship_id'], $newsector);
