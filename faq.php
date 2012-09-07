@@ -32,7 +32,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('global_funcs'), $langvars);
+load_languages($db, $lang, array('common', 'global_funcs'), $langvars);
 
 $title = "Blacknova Traders FAQ";
 $body_class = 'faq';

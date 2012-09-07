@@ -14,6 +14,7 @@ Fixed PHP Fatal error: Call to undefined function calc_ownership() in corp.php o
 Fixed PHP Notice: Undefined variable: langvars in includes/calc_ownership.php on line 223
 Fixed PHP Notice: Undefined index: l_global_mmenu in includes/text_gotomain.php on line 29
 Fixed PHP Notice: Undefined index: l_global_nzone in includes/calc_ownership.php on line 223
+Fixed PHP Notice: Undefined index: l_here in faq.php on line 740
 
 TheMightyDude (06 September 2012)
 --------------------------------------
