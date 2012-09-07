@@ -255,7 +255,7 @@ function traderoute_engage ($db, $j)
     }
     else
     {
-        $dist = traderoute_distance('P', 'P', $sourceport, $destport, $traderoute['circuit']);
+        $dist = traderoute_distance($db, 'P', 'P', $sourceport, $destport, $traderoute['circuit']);
     }
 
     // Check if player has enough turns
