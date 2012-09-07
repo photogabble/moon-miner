@@ -22,6 +22,7 @@ Fixed PHP Parse error: syntax error, unexpected ';' in planet_report_ce.php on l
 Fixed PHP Notice: Undefined index: ship in sched_tow.php on line 43
 Fixed PHP Notice: Use of undefined constant res - assumed 'res' in bounty.php on line 131
 Fixed response for GET as well as POST so that players can remove their set bounties.
+Fixed Bounty where a player could place a bounty of 0 credits.
 
 TheMightyDude (06 September 2012)
 --------------------------------------

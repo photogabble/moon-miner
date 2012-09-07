@@ -185,7 +185,7 @@ switch ($response) {
         }
 
         $amount = preg_replace('/[^0-9]/', '', $amount);
-        if ($amount < 0)
+        if ($amount <= 0)
         {
             echo "$l_by_zeroamount<br><br>";
             TEXT_GOTOMAIN ();
