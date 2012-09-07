@@ -118,7 +118,7 @@ elseif ($command == 'borrow') //borrow operation
 elseif ($command == 'repay') //repay operation
 {
     include './includes/ibank_repay.php';
-    ibank_repay ();
+    ibank_repay ($db);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {

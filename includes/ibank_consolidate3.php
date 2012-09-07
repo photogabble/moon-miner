@@ -35,7 +35,7 @@ function ibank_consolidate3 ($db)
     db_op_result ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
-        include_once './ibank_error.php';
+        include_once './includes/ibank_error.php';
         ibank_error ($l_ibank_errunknownplanet, "igb.php?command=transfer");
     }
 
@@ -48,7 +48,7 @@ function ibank_consolidate3 ($db)
 
     if ($dest['owner'] != $playerinfo['ship_id'])
     {
-        include_once './ibank_error.php';
+        include_once './includes/ibank_error.php';
         ibank_error ($l_ibank_errnotyourplanet, "igb.php?command=transfer");
     }
 
@@ -80,7 +80,7 @@ function ibank_consolidate3 ($db)
 
     if ($tcost > $playerinfo['turns'])
     {
-        include_once './ibank_error.php';
+        include_once './includes/ibank_error.php';
         ibank_error ($l_ibank_notenturns, "igb.php?command=transfer");
     }
 

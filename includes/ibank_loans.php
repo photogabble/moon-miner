@@ -79,7 +79,7 @@ function ibank_loans ($db)
     else
     {
         $percent = $ibank_loanlimit * 100;
-        include_once './calc_score.php';
+        include_once './includes/calc_score.php';
         $score = calc_score ($db, $playerinfo['ship_id']);
         $maxloan = $score * $score * $ibank_loanlimit;
 

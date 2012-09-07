@@ -41,7 +41,7 @@ function ibank_error ($errmsg, $backlink, $title="Error!")
          "<img width=600 height=21 src=images/div2.png>" .
          "</center>";
 
-    include '../footer.php';
+    include './footer.php';
     die();
 }
 ?>

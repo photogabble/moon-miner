@@ -107,7 +107,7 @@ function ibank_transfer3 ($db)
         if ($ibank_svalue != 0)
         {
             $percent = $ibank_svalue * 100;
-            include_once './calc_score.php';
+            include_once './includes/calc_score.php';
             $score = calc_score ($db, $playerinfo['ship_id']);
             $maxtrans = $score * $score * $ibank_svalue;
 
