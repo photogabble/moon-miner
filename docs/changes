@@ -1,3 +1,9 @@
+TheMightyDude (08 September 2012)
+--------------------------------------
+Fixed Ranking page so that it passes the language through it correctly, not how I would do it, but hey.
+Added language variable l_online, l_offline and l_status to all 4 supported languages to the common category to be used on the ranking page.
+A couple of players requested the player online status to be a different color than the offline status.
+
 TheMightyDude (07 September 2012)
 --------------------------------------
 Re-Coded check_login.php to a more ordered layout and it does the required checks if it has valid information.

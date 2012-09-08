@@ -308,6 +308,9 @@ l_zname_3                               = "Espace de libre-commerce";
 l_zname_4                               = "Zonne de Guerre";
 l_logout                                = "Quitter";
 l_error                                 = "Error";
+l_status                                = "statut";
+l_online                                = "En ligne";
+l_offline                               = "Hors ligne";
 
 [corp]
 l_corpm_title                           = "Menu de corporation";

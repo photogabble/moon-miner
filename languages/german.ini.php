@@ -308,6 +308,9 @@ l_zname_3                               = "Freier Handelsraum";
 l_zname_4                               = "Kriegszone";
 l_logout                                = "Logout";
 l_error                                 = "Error";
+l_status                                = "Status";
+l_online                                = "Online";
+l_offline                               = "Offline";
 
 [corp]
 l_corpm_title                           = "Allianz Men&uuml;";

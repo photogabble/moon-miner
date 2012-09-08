@@ -25,7 +25,7 @@ if (!isset($_GET['lang']))
     $_GET['lang'] = null;
     $lang = $default_lang;
     $link = 'ranking.php';
-    $link_back = '';
+    $link_back = null;
 }
 else
 {
@@ -98,7 +98,11 @@ else
     echo "<td><strong>$l_ranks_rank</strong></td>";
     echo "<td><strong><a href=\"" . $link . "\">$l_score</a></strong></td>";
     echo "<td><strong>$l_player</strong></td>";
-    if ($link != null)
+    if (is_null($link_back))
+    {
+        $link .= "?sort="; 
+    }
+    else
     {
         $link .= "&amp;sort=";
     }
@@ -106,7 +110,7 @@ else
     echo "<td><strong><a href=\"" . $link . "login\">$l_ranks_lastlog</a></strong></td>";
     echo "<td><strong><a href=\"" . $link . "good\">$l_ranks_good</a>/<a href=\"" . $link . "?sort=bad\">$l_ranks_evil</a></strong></td>";
     echo "<td><strong><a href=\"" . $link . "team\">$l_team_team</a></strong></td>";
-    echo "<td><strong><a href=\"" . $link . "online\">Online</a></strong></td>";
+    echo "<td><strong><a href=\"" . $link . "online\">$l_status</a></strong></td>";
     echo "<td><strong><a href=\"" . $link . "efficiency\">Eff. Rating.</a></strong></td></tr>\n";
     $color = $color_line1;
     $i = '';
@@ -132,7 +136,11 @@ else
         $online = " ";
         if ($difftime <= 5)
         {
-            $online = "Online";
+            $online = "<span style='color:#FFFF00;'>{$l_online}</span>";
+        }
+        else
+        {
+            $online = $l_offline;
         }
 
         echo "<tr bgcolor=\"$color\"><td>" . NUMBER($i) . "</td><td>" . NUMBER($row['score']) . "</td><td>";
