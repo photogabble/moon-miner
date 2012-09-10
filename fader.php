@@ -66,7 +66,7 @@ if (result == true)
                 echo "\n";
                 $res->MoveNext();
             }
-            echo "    news.addArticle(null, $langvars['l_news_end'], null, 5);\n";
+            echo "    news.addArticle(null, '{$langvars['l_news_end']}', null, 5);\n";
         }
     }
 ?>
