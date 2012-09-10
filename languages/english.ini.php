@@ -903,6 +903,7 @@ l_news_prev                             = "previous day";
 l_news_next                             = "next day";
 l_news_down                             = "News Network Down";
 l_news_none                             = "Sorry, no news today.";
+l_news_end                              = "End of News";
 l_news_flash                            = "News Flash";
 l_news_planets                          = "planets";
 l_news_cols                             = "Million colonists";

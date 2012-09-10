@@ -903,6 +903,7 @@ l_news_prev                             = "día anterior";
 l_news_next                             = "día siguiente";
 l_news_down                             = "noticias de la red abajo";
 l_news_none                             = "Lo sentimos, no hay noticias hoy.";
+l_news_end                              = "Fin de Noticias";
 l_news_flash                            = "Avance Informativo";
 l_news_planets                          = "planetas";
 l_news_cols                             = "Millones de colonos";

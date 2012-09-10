@@ -903,6 +903,7 @@ l_news_prev                             = "jour précédent";
 l_news_next                             = "jour suivant";
 l_news_down                             = "Nouvelles du Réseau vers le bas";
 l_news_none                             = "Désolé, aucune nouvelles ajourd'hui.";
+l_news_end                              = "Fin de Nouvelles";
 l_news_flash                            = "Manchette!";
 l_news_planets                          = "planètes";
 l_news_cols                             = "millions de colons";

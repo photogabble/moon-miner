@@ -903,6 +903,7 @@ l_news_prev                             = "den letzten Tag";
 l_news_next                             = "den n&auml;chsten Tag";
 l_news_down                             = "Nachrichten Netzwerk Nach unten";
 l_news_none                             = "Sorry, heute keine News.";
+l_news_end                              = "Ende der Nachrichten";
 l_news_flash                            = "Schlagzeilen";
 l_news_planets                          = "Planeten";
 l_news_cols                             = "Million Siedler";

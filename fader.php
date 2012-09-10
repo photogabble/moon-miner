@@ -34,7 +34,7 @@ if (result == true)
     if ($no_db)
     {
         echo "    url = null;\n";
-        echo "    text = \"{$l_news_down}\";\n";
+        echo "    text = \"{$langvars['l_news_down']}\";\n";
         echo "    type = null;      // Not used as yet.\n";
         echo "    delay = 5;        // in seconds.\n";
         echo "    news.addArticle(url, text, type, delay);\n";
@@ -47,7 +47,7 @@ if (result == true)
         if (!$res instanceof ADORecordSet || $res->RecordCount() == 0)
         {
             echo "    url = null;\n";
-            echo "    text = \"{$l_news_none}\";\n";
+            echo "    text = \"{$langvars['l_news_none']}\";\n";
             echo "    type = null;      // Not used as yet.\n";
             echo "    delay = 5;        // in seconds.\n";
             echo "    news.addArticle(url, text, type, delay);\n";
@@ -66,7 +66,7 @@ if (result == true)
                 echo "\n";
                 $res->MoveNext();
             }
-            echo "    news.addArticle(null, 'End of News', null, 5);\n";
+            echo "    news.addArticle(null, $langvars['l_news_end'], null, 5);\n";
         }
     }
 ?>

@@ -3,6 +3,8 @@ TheMightyDude (10 September 2012)
 Fixed ERROR: FUNCTION blacknova_svn_db.SUM does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual.
 Fixed Bug in db_op_result where if a db query got an error it would insert an admin log with type 0 instead of type 15.
 Fixed bug in admin_log where it check for an empty type, should be is_int.
+Fixed PHP Notice: Undefined variable: l_news_none in fader.php and moved over to use the $langvars array.
+Added new language variable l_news_end for all support languages which is "End of News" was hardcoded.
 
 TheMightyDude (08 September 2012)
 --------------------------------------
