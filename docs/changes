@@ -1,3 +1,7 @@
+TheMightyDude (10 September 2012)
+--------------------------------------
+Fixed ERROR: FUNCTION blacknova_svn_db.SUM does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual.
+
 TheMightyDude (08 September 2012)
 --------------------------------------
 Fixed Ranking page so that it passes the language through it correctly, not how I would do it, but hey.

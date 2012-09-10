@@ -48,44 +48,45 @@ function calc_score ($db, $sid)
     global $base_organics;
     global $base_credits;
 
-    $calc_hull           = "ROUND (pow ($upgrade_factor, hull))";
-    $calc_engines        = "ROUND (pow ($upgrade_factor, engines))";
-    $calc_power          = "ROUND (pow ($upgrade_factor, power))";
-    $calc_computer       = "ROUND (pow ($upgrade_factor, computer))";
-    $calc_sensors        = "ROUND (pow ($upgrade_factor, sensors))";
-    $calc_beams          = "ROUND (pow ($upgrade_factor, beams))";
-    $calc_torp_launchers = "ROUND (pow ($upgrade_factor, torp_launchers))";
-    $calc_shields        = "ROUND (pow ($upgrade_factor, shields))";
-    $calc_armor          = "ROUND (pow ($upgrade_factor, armor))";
-    $calc_cloak          = "ROUND (pow ($upgrade_factor, cloak))";
-    $calc_levels         = "($calc_hull + $calc_engines + $calc_power + $calc_computer + $calc_sensors + $calc_beams + $calc_torp_launchers + $calc_shields + $calc_armor + $calc_cloak) * $upgrade_cost";
+    // These are all SQL Queries, so treat them like them.
+    $calc_hull              = "ROUND(POW($upgrade_factor, hull))";
+    $calc_engines           = "ROUND(POW($upgrade_factor, engines))";
+    $calc_power             = "ROUND(POW($upgrade_factor, power))";
+    $calc_computer          = "ROUND(POW($upgrade_factor, computer))";
+    $calc_sensors           = "ROUND(POW($upgrade_factor, sensors))";
+    $calc_beams             = "ROUND(POW($upgrade_factor, beams))";
+    $calc_torp_launchers    = "ROUND(POW($upgrade_factor, torp_launchers))";
+    $calc_shields           = "ROUND(POW($upgrade_factor, shields))";
+    $calc_armor             = "ROUND(POW($upgrade_factor, armor))";
+    $calc_cloak             = "ROUND(POW($upgrade_factor, cloak))";
+    $calc_levels            = "($calc_hull + $calc_engines + $calc_power + $calc_computer + $calc_sensors + $calc_beams + $calc_torp_launchers + $calc_shields + $calc_armor + $calc_cloak) * $upgrade_cost";
 
-    $calc_torps          = "{$db->prefix}ships.torps * $torpedo_price";
-    $calc_armor_pts      = "armor_pts * $armor_price";
-    $calc_ship_ore       = "ship_ore * $ore_price";
-    $calc_ship_organics  = "ship_organics * $organics_price";
-    $calc_ship_goods     = "ship_goods * $goods_price";
-    $calc_ship_energy    = "ship_energy * $energy_price";
-    $calc_ship_colonists = "ship_colonists * $colonist_price";
-    $calc_ship_fighters  = "ship_fighters * $fighter_price";
-    $calc_equip          = "$calc_torps + $calc_armor_pts + $calc_ship_ore + $calc_ship_organics + $calc_ship_goods + $calc_ship_energy + $calc_ship_colonists + $calc_ship_fighters";
+    $calc_torps             = "{$db->prefix}ships.torps * $torpedo_price";
+    $calc_armor_pts         = "armor_pts * $armor_price";
+    $calc_ship_ore          = "ship_ore * $ore_price";
+    $calc_ship_organics     = "ship_organics * $organics_price";
+    $calc_ship_goods        = "ship_goods * $goods_price";
+    $calc_ship_energy       = "ship_energy * $energy_price";
+    $calc_ship_colonists    = "ship_colonists * $colonist_price";
+    $calc_ship_fighters     = "ship_fighters * $fighter_price";
+    $calc_equip             = "$calc_torps + $calc_armor_pts + $calc_ship_ore + $calc_ship_organics + $calc_ship_goods + $calc_ship_energy + $calc_ship_colonists + $calc_ship_fighters";
 
     $calc_dev_warpedit      = "dev_warpedit * $dev_warpedit_price";
     $calc_dev_genesis       = "dev_genesis * $dev_genesis_price";
     $calc_dev_beacon        = "dev_beacon * $dev_beacon_price";
     $calc_dev_emerwarp      = "dev_emerwarp * $dev_emerwarp_price";
-    $calc_dev_escapepod     = "if (dev_escapepod='Y', $dev_escapepod_price, 0)";
-    $calc_dev_fuelscoop     = "if (dev_fuelscoop='Y', $dev_fuelscoop_price, 0)";
-    $calc_dev_lssd          = "if (dev_lssd='Y', $dev_lssd_price, 0)";
+    $calc_dev_escapepod     = "IF(dev_escapepod='Y', $dev_escapepod_price, 0)";
+    $calc_dev_fuelscoop     = "IF(dev_fuelscoop='Y', $dev_fuelscoop_price, 0)";
+    $calc_dev_lssd          = "IF(dev_lssd='Y', $dev_lssd_price, 0)";
     $calc_dev_minedeflector = "dev_minedeflector * $dev_minedeflector_price";
     $calc_dev               = "$calc_dev_warpedit + $calc_dev_genesis + $calc_dev_beacon + $calc_dev_emerwarp + $calc_dev_escapepod + $calc_dev_fuelscoop + $calc_dev_minedeflector + $calc_dev_lssd";
 
-    $calc_planet_goods      = "SUM ({$db->prefix}planets.organics) * $organics_price + SUM ({$db->prefix}planets.ore) * $ore_price + SUM ({$db->prefix}planets.goods) * $goods_price + SUM ({$db->prefix}planets.energy) * $energy_price";
-    $calc_planet_colonists  = "SUM ({$db->prefix}planets.colonists) * $colonist_price";
-    $calc_planet_defence    = "SUM ({$db->prefix}planets.fighters) * $fighter_price + if ({$db->prefix}planets.base='Y', $base_credits + SUM ({$db->prefix}planets.torps) * $torpedo_price, 0)";
-    $calc_planet_credits    = "SUM ({$db->prefix}planets.credits)";
+    $calc_planet_goods      = "SUM({$db->prefix}planets.organics) * $organics_price + SUM({$db->prefix}planets.ore) * $ore_price + SUM({$db->prefix}planets.goods) * $goods_price + SUM({$db->prefix}planets.energy) * $energy_price";
+    $calc_planet_colonists  = "SUM({$db->prefix}planets.colonists) * $colonist_price";
+    $calc_planet_defence    = "SUM({$db->prefix}planets.fighters) * $fighter_price + IF({$db->prefix}planets.base='Y', $base_credits + SUM({$db->prefix}planets.torps) * $torpedo_price, 0)";
+    $calc_planet_credits    = "SUM({$db->prefix}planets.credits)";
 
-    $res = $db->Execute("SELECT if (COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) as planet_score FROM {$db->prefix}planets WHERE owner=?", array ($sid));
+    $res = $db->Execute("SELECT IF(COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) AS planet_score FROM {$db->prefix}planets WHERE owner=?", array ($sid));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
@@ -96,7 +97,7 @@ function calc_score ($db, $sid)
         $planet_score = null;
     }
 
-    $res = $db->Execute("SELECT if (COUNT(*)>0, $calc_levels + $calc_equip + $calc_dev + {$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=? AND ship_destroyed='N'", array ($sid));
+    $res = $db->Execute("SELECT IF(COUNT(*)>0, $calc_levels + $calc_equip + $calc_dev + {$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=? AND ship_destroyed='N'", array ($sid));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
@@ -107,7 +108,7 @@ function calc_score ($db, $sid)
         $ship_score = null;
     }
 
-    $res = $db->Execute("SELECT (balance - loan) as bank_score FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($sid));
+    $res = $db->Execute("SELECT (balance - loan) AS bank_score FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($sid));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
