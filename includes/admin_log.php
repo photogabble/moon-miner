@@ -28,7 +28,7 @@ function admin_log ($db, $log_type, $data = "")
     // Write log_entry to the admin log
     $ret = (boolean) false;
     $data = addslashes ($data);
-    if (!empty($log_type))
+    if (is_int($log_type))
     {
         $ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
         db_op_result ($db, $ret, __LINE__, __FILE__);

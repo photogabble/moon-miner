@@ -2,6 +2,7 @@ TheMightyDude (10 September 2012)
 --------------------------------------
 Fixed ERROR: FUNCTION blacknova_svn_db.SUM does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual.
 Fixed Bug in db_op_result where if a db query got an error it would insert an admin log with type 0 instead of type 15.
+Fixed bug in admin_log where it check for an empty type, should be is_int.
 
 TheMightyDude (08 September 2012)
 --------------------------------------
