@@ -1,3 +1,8 @@
+TheMightyDude (11 September 2012)
+--------------------------------------
+Fixed PHP Warning: include(../footer.php): failed to open stream: No such file or directory in includes/traderoute_new.php on line 404
+Fixed PHP Warning: include(): Failed opening '../footer.php' for inclusion (include_path='.') in includes/traderoute_new.php on line 404
+
 TheMightyDude (10 September 2012)
 --------------------------------------
 Fixed ERROR: FUNCTION blacknova_svn_db.SUM does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual.

@@ -401,7 +401,7 @@ function traderoute_new ($db, $traderoute_id)
     TEXT_GOTOMAIN();
     echo "</div>\n";
 
-    include '../footer.php';
+    include './footer.php';
     die();
 }
 ?>
