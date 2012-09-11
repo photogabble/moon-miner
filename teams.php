@@ -204,7 +204,7 @@ switch ($teamwhat)
                     echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=confirmleave value=2><input type=hidden name=whichteam value=$whichteam>";
                     echo "<tr><td>$l_team_newc</td><td><select name=newcreator>";
 
-                    $res = $db->Execute("SELECT character_name,ship_id FROM {$db->prefix}ships WHERE team=? ORDER BY character_name ASC;", array($whichteam));
+                    $res = $db->Execute("SELECT character_name,ship_id,team FROM {$db->prefix}ships WHERE team=? ORDER BY character_name ASC;", array($whichteam));
                     db_op_result ($db, $res, __LINE__, __FILE__);
                     while (!$res->EOF)
                     {
