@@ -2,6 +2,7 @@ TheMightyDude (11 September 2012)
 --------------------------------------
 Fixed PHP Warning: include(../footer.php): failed to open stream: No such file or directory in includes/traderoute_new.php on line 404
 Fixed PHP Warning: include(): Failed opening '../footer.php' for inclusion (include_path='.') in includes/traderoute_new.php on line 404
+Fix bug where it doesn't display the complete link to capture a planet after you have attacked and won the battle.
 
 TheMightyDude (10 September 2012)
 --------------------------------------
