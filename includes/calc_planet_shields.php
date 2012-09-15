@@ -28,15 +28,19 @@ function calc_planet_shields ($db)
     global $ownerinfo, $base_defense, $planetinfo;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
 
     $planetshields = NUM_SHIELDS ($ownerinfo['shields'] + $base_factor);
     $energy_available = $planetinfo['energy'];
-    while (!$res->EOF)
+
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+    db_op_result ($db, $res, __LINE__, __FILE__);
+    if ($res instanceof ADORecordSet)
     {
-        $planetshields += NUM_SHIELDS ($res->fields['shields']);
-        $res->MoveNext();
+        while (!$res->EOF)
+        {
+            $planetshields += NUM_SHIELDS ($res->fields['shields']);
+            $res->MoveNext();
+        }
     }
 
     if ($planetshields > $energy_available)
