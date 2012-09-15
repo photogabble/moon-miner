@@ -39,7 +39,71 @@ db_op_result ($db, $sql, __LINE__, __FILE__);
 while (!$sql->EOF)
 {
     $row = $sql->fields;
-    if ($row['amount'] >= 50)
+    if ($row['amount'] >= 1000)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet1000';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__);
+
+        if ($sql2->EOF)
+        {
+            $planetcount = 1000;
+            $name = get_player_name ($db, $row['owner']);
+            $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
+            $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
+            $l_news_p_text1002 = str_replace ("[name]", $name, $l_news_p_text1000);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet1000');", array($headline, $l_news_p_text1002, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__);
+        }
+    }
+    elseif ($row['amount'] >= 500)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet500';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__);
+
+        if ($sql2->EOF)
+        {
+            $planetcount = 500;
+            $name = get_player_name ($db, $row['owner']);
+            $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
+            $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
+            $l_news_p_text502 = str_replace ("[name]", $name, $l_news_p_text500);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet500');", array($headline, $l_news_p_text502, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__);
+        }
+    }
+    elseif ($row['amount'] >= 250)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet250';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__);
+
+        if ($sql2->EOF)
+        {
+            $planetcount = 250;
+            $name = get_player_name ($db, $row['owner']);
+            $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
+            $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
+            $l_news_p_text2502 = str_replace ("[name]", $name, $l_news_p_text250);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet250');", array($headline, $l_news_p_text2502, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__);
+        }
+    }
+    elseif ($row['amount'] >= 100)
+    {
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet100';", array($row['owner']));
+        db_op_result ($db, $sql2, __LINE__, __FILE__);
+
+        if ($sql2->EOF)
+        {
+            $planetcount = 100;
+            $name = get_player_name ($db, $row['owner']);
+            $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
+            $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
+            $l_news_p_text102 = str_replace ("[name]", $name, $l_news_p_text100);
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet100');", array($headline, $l_news_p_text102, $row['owner']));
+            db_op_result ($db, $news, __LINE__, __FILE__);
+        }
+    }
+    elseif ($row['amount'] >= 50)
     {
         $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id=? AND news_type='planet50';", array($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -51,7 +115,7 @@ while (!$sql->EOF)
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text502 = str_replace ("[name]", $name, $l_news_p_text50);
-            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet50');", array($headline, $l_news_p_text502, $row['owner']));
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet25');", array($headline, $l_news_p_text502, $row['owner']));
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }

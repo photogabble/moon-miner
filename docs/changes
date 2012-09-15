@@ -1,5 +1,6 @@
 TheKabal (15 September 2012)
 --------------------------------------
+Expanded news to include events for 100, 250, 500, and 1000 planets - thanks to Alex1981m @ http://forums.blacknova.net/viewtopic.php?f=15&t=479
 Split admin into seperate files for each command/module
 Translated all variables in admin
 Merged l_team_ed & l_tdr_edit down to l_edit (now in the common section of language)
