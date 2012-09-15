@@ -42,7 +42,7 @@ function planet_combat ($db)
     global $l_cmb_shipdock, $l_cmb_approachattackvector, $l_cmb_noshipsdocked, $l_cmb_yourshipdestroyed, $l_cmb_escapepod;
     global $l_cmb_finalcombatstats, $l_cmb_youlostfighters, $l_cmb_youlostarmorpoints, $l_cmb_energyused, $l_cmb_planetdefeated;
     global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
-    global $l_cmb_fighterloststat, $l_cmb_energyleft;
+    global $l_cmb_fighterloststat, $l_cmb_energyleft, $l_planet_capture1;
 
     include_once './includes/collect_bounty.php';
     include_once './includes/calc_score.php';
