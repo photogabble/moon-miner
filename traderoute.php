@@ -98,9 +98,13 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
     db_op_result ($db, $update1, __LINE__, __FILE__);
 }
 
-if (!isset($tr_repeat) || $tr_repeat <= 0)
+// Default to 1 run if we don't get a valid repeat value.
+$tr_repeat = 1;
+// Check if we have a $_POST['tr_repeat'] and that the type-casted value is larger than 0.
+if (array_key_exists('tr_repeat', $_POST) == true && (integer) $_POST['tr_repeat'] >0)
 {
-    $tr_repeat = 1;
+    // Now type cast the repeat value into an integer.
+    $tr_repeat = (integer) $_POST['tr_repeat'];
 }
 
 $command = null;

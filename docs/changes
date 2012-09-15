@@ -3,6 +3,7 @@ TheMightyDude (15 September 2012)
 Fixed PHP Notice: Undefined variable: level_factor in includes/calc_planet_torps.php on line 34
 Fixed PHP Notice: Undefined variable: planetinfo in includes/planet_combat.php on multi lines.
 Fixed PHP Notice: Undefined variable: l_planet_capture1 in includes/planet_combat.php on a couple of lines.
+Fixed bug where you enter 1.2.3 as a repeat amount which resulted in using all your turns up.
 
 TheMightyDude (11 September 2012)
 --------------------------------------
