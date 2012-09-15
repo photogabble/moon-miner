@@ -1,3 +1,7 @@
+TheMightyDude (15 September 2012)
+--------------------------------------
+Fixed PHP Notice: Undefined variable: level_factor in includes/calc_planet_torps.php on line 34
+
 TheMightyDude (11 September 2012)
 --------------------------------------
 Fixed PHP Warning: include(../footer.php): failed to open stream: No such file or directory in includes/traderoute_new.php on line 404

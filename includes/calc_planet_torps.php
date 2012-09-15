@@ -25,15 +25,16 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_torps.php')) // Prevent direct ac
 
 function calc_planet_torps ($db)
 {
-    global $ownerinfo, $base_defense, $planetinfo;
+    global $ownerinfo, $planetinfo, $base_defense, $level_factor;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
     $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
     $torps = $planetinfo['torps'];
-    if ($res)
+
+    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+    db_op_result ($db, $res, __LINE__, __FILE__);
+    if ($res instanceof ADORecordSet)
     {
        while (!$res->EOF)
        {
