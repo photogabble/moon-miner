@@ -758,7 +758,7 @@ function display_invite_info ()
 
 function show_info ($db, $whichteam, $isowner)
 {
-    global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_team_ed, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
+    global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_edit, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
     global $l_team_eject, $color_line2;
 
     // Heading
@@ -779,7 +779,7 @@ function show_info ($db, $whichteam, $isowner)
         echo "$l_options<br><font size=2>";
         if ( is_team_owner($team, $playerinfo) == true)
         {
-            echo "[<a href=teams.php?teamwhat=9&whichteam=$playerinfo[team]>$l_team_ed</a>] - ";
+            echo "[<a href=teams.php?teamwhat=9&whichteam=$playerinfo[team]>$l_edit</a>] - ";
         }
         echo "[<a href=teams.php?teamwhat=7&whichteam=$playerinfo[team]>$l_team_inv</a>] - [<a href=teams.php?teamwhat=2&whichteam=$playerinfo[team]>$l_team_leave</a>]</font></font>";
     }

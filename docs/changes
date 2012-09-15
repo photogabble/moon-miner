@@ -1,3 +1,11 @@
+TheKabal (15 September 2012)
+--------------------------------------
+Split admin into seperate files for each command/module
+Translated all variables in admin
+Merged l_team_ed & l_tdr_edit down to l_edit (now in the common section of language)
+Added several variables (that are used in multiple files) into the common section of the language file
+Removed comment about sector zero not being editable in preparation for moving Sol to sector one
+
 TheMightyDude (15 September 2012)
 --------------------------------------
 Fixed PHP Notice: Undefined variable: level_factor in includes/calc_planet_torps.php on line 34
