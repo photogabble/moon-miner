@@ -136,7 +136,7 @@ else
     }
 }
 
-echo "<input type='hidden' name='menu' value='planedit'>";
+echo "<input type='hidden' name='menu' value='planet_editor.php'>";
 echo "<input type='hidden' name='swordfish' value=" . $_POST['swordfish'] . ">";
 echo "</form>";
 ?>

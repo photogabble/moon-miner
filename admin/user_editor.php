@@ -119,7 +119,7 @@ else
         echo $langvars['l_admin_invalid_operation'];
     }
 }
-echo "<input type='hidden' name='menu' value='useredit'>";
+echo "<input type='hidden' name='menu' value='user_editor.php'>";
 echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
 echo "</form>";
 ?>

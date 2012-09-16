@@ -60,7 +60,7 @@ else
         echo "<tr><td>" . $langvars['l_admin_max_hull'] . "</td><td><input type='text' name=zone_hull value=\"" . $row['max_hull'] . "\"></td></tr>";
         echo "<br>";
         echo "<input type='hidden' name=zone value=" . $zone . ">";
-        echo "<input type='hidden' name=operation value='save'zone>";
+        echo "<input type='hidden' name=operation value='savezone'>";
         echo "<input type=submit value='save'>";
     }
     elseif ($operation == "savezone")
@@ -73,7 +73,7 @@ else
         $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $zone));
         db_op_result ($db, $resx, __LINE__, __FILE__);
         echo $langvars['l_admin_changes_saved'] . "<br><br>";
-        echo "<input type=submit value=\"" . $langvars['l_return_zone_editor'] . "\">";
+        echo "<input type=submit value=\"" . $langvars['l_admin_return_zone_editor'] . "\">";
         $button_main = false;
     }
     else
@@ -82,7 +82,7 @@ else
     }
 }
 
-echo "<input type='hidden' name=menu value=zoneedit>";
+echo "<input type='hidden' name=menu value='zone_editor.php'>";
 echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
 echo "</form>";
 ?>

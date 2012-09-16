@@ -52,7 +52,10 @@ if ($_POST['swordfish'] != ADMIN_PW)
 else
 {
     $i = 0;
-    foreach (new DirectoryIterator ('admin/') as $file_info) // Get a list of the files in the admin directory
+//    foreach (new DirectoryIterator ('admin/') as $file_info) // Get a list of the files in the admin directory
+
+    $admin_dir = new DirectoryIterator ('admin/');
+    foreach ($admin_dir as $file_info) // Get a list of the files in the admin directory
     {
         if ($file_info->isFile () && $file_info->getExtension () == 'php') // If it is a PHP file, add it to the list of accepted admin files
         {

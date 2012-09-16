@@ -29,7 +29,7 @@ if (empty ($command))
     echo "<form action=admin.php method=post>";
     echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
     echo "<input type='hidden' name=command value=showips>";
-    echo "<input type='hidden' name=menu value=banedit>";
+    echo "<input type='hidden' name=menu value='bans_editor.php'>";
     echo "<input type=submit value=\"" . $langvars['l_admin_show_ip'] . "\">";
     echo "</form>";
 
@@ -116,7 +116,7 @@ if (empty ($command))
                  "<form action=admin.php method=post>" .
                  "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
                  "<input type='hidden' name=command value=unbanip>" .
-                 "<input type='hidden' name=menu value=banedit>" .
+                 "<input type='hidden' name=menu value='bans_editor.php'>" .
                  "<input type='hidden' name=ban value=" . $ban . ">" .
                  "<input type=submit value=" . $langvars['l_admin_remove'] . ">" .
                  "</form>";
@@ -189,14 +189,14 @@ elseif ($command == 'showips')
              "<form action=admin.php method=post>" .
              "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
              "<input type='hidden' name=command value=banip>" .
-             "<input type='hidden' name=menu value=banedit>" .
+             "<input type='hidden' name=menu value='bans_editor.php'>" .
              "<input type='hidden' name=ip value=" . $ip . ">" .
              "<input type=submit value=" . $langvars['l_admin_ban'] . ">" .
              "</form>" .
              "<form action=admin.php method=post>" .
              "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
              "<input type='hidden' name=command value=unbanip>" .
-             "<input type='hidden' name=menu value=banedit>" .
+             "<input type='hidden' name=menu value='bans_editor.php'>" .
              "<input type='hidden' name=ip value=" . $ip . ">" .
              "<input type=submit value=" . $langvars['l_admin_unban'] . ">" .
              "</form>";
@@ -205,7 +205,7 @@ elseif ($command == 'showips')
     echo "</table><p>" .
          "<form action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-         "<input type='hidden' name=menu value=banedit>" .
+         "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
          "</form>";
 }
@@ -221,7 +221,7 @@ elseif ($command == 'banip')
          "<tr><td align=right>" .
          "<form action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-         "<input type='hidden' name=menu value=banedit>" .
+         "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type='hidden' name=command value=banip2>" .
          "<input type='hidden' name=ip value=" . $ip . ">" .
          "<input type=radio name=class value=" . $langvars['l_admin_i_checked'] . ">" .
@@ -238,7 +238,7 @@ elseif ($command == 'banip')
 
     echo "<form action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-         "<input type='hidden' name=menu value=banedit>" .
+         "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
          "</form>";
 }
@@ -276,7 +276,7 @@ elseif ($command == 'banip2')
 
     echo "<form action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-         "<input type='hidden' name=menu value=banedit>" .
+         "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
          "</form>";
 }
@@ -313,10 +313,10 @@ elseif ($command == 'unbanip')
         db_op_result ($db, $resx, __LINE__, __FILE__);
     }
 
-    $query_string = "ip_address LIKE '" . $bans[0][ban_mask] ."'";
+    $query_string = "ip_address LIKE '" . $bans[0]['ban_mask'] ."'";
     for ($i = 1; $i < $nbbans ; $i++)
     {
-        $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i][ban_mask] . "'";
+        $query_string = $query_string . " OR ip_address LIKE '" . $bans[$i]['ban_mask'] . "'";
     }
 
     $res = $db->Execute("SELECT DISTINCT character_name FROM {$db->prefix}ships WHERE ?;", array ($query_string));
@@ -350,7 +350,7 @@ elseif ($command == 'unbanip')
 
     echo "<form action=admin.php method=post>" .
          "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-         "<input type='hidden' name=menu value=banedit>" .
+         "<input type='hidden' name=menu value='bans_editor.php'>" .
          "<input type=submit value=\"" . $langvars['l_admin_return_bans_menu'] . "\">" .
          "</form>";
 }

@@ -32,7 +32,7 @@ if (empty($action))
     echo "<form action='admin.php' method='post'>";
     echo $langvars['l_universe_size'] . ": <input type='text' name='radius' value=\"" . $universe_size . "\">";
     echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
-    echo "<input type='hidden' name='menu' value='univedit'>";
+    echo "<input type='hidden' name='menu' value='universe_editor.php'>";
     echo "<input type='hidden' name='action' value='doexpand'> ";
     echo "<input type='submit' value=\"" . $langvars['l_change_uni_title'] . "\">";
     echo "</form>";
