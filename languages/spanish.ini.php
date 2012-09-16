@@ -57,6 +57,7 @@ l_admin_no_bans                         = "No hay prohibiciones IP se encuentran
 l_admin_no_one                          = "Ninguno";
 l_admin_operations                      = "Explotaciones";
 l_admin_password                        = "contraseña";
+l_admin_perf_monitor                    = "Adodb monitor de rendimiento";
 l_admin_planet_corp                     = "Planet equipo";
 l_admin_planet_editor                   = "Planet editor";
 l_admin_planet_id                       = "Planet ID";

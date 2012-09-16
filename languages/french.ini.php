@@ -57,6 +57,7 @@ l_admin_no_bans                         = "Aucun ban IP sont actuellement actifs
 l_admin_no_one                          = "No one";
 l_admin_operations                      = "Opérations";
 l_admin_password                        = "Mot de passe";
+l_admin_perf_monitor                    = "performances Adodb écran";
 l_admin_planet_corp                     = "équipe de Planète";
 l_admin_planet_editor                   = "éditeur de Planet";
 l_admin_planet_id                       = "ID de la planète";
