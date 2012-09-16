@@ -26,10 +26,10 @@ if (strpos ($_SERVER['PHP_SELF'], 'bnt_ls_client.php')) // Prevent direct access
 include_once './global_includes.php';
 $url = "http://www.blacnova.net/bnt_ls_server.php";
 
-$url .= "?url1=" . urlencode($bnt_ls_gameurl);
-$url .= "&key1=" . urlencode($bnt_ls_key);
+$url .= "?url1=" . urlencode ($bnt_ls_gameurl);
+$url .= "&key1=" . urlencode ($bnt_ls_key);
 
 $url .= "&end1=true";
 
-@file($url);
+@file ($url);
 ?>
