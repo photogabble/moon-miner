@@ -145,8 +145,8 @@ if ($flag == 0)
         $mturns = $max_turns;
     }
 
-    // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
-    $hasher = new PasswordHash(8, false);
+    // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
+    $hasher = new PasswordHash (HASH_STRENGTH, false);
 
     // Hash the password.  $hashedPassword will be a 60-character string.
     $hashed_pass = $hasher->HashPassword($makepass);

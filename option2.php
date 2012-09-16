@@ -46,7 +46,7 @@ if (request_var('POST', 'newlang', $newlang) === true)
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $langvars['l_opt2_title'];
 include './header.php';
@@ -74,7 +74,7 @@ else
 {
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
-    $rs = $db->Execute("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array($_SESSION['username']));
+    $rs = $db->Execute("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array ($_SESSION['username']));
     db_op_result ($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
@@ -83,20 +83,20 @@ else
         // We have a valid RecorSet, so now set $playerinfo.
         $playerinfo = $rs->fields;
 
-        // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
-        $hasher = new PasswordHash(8, false);
+        // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
+        $hasher = new PasswordHash (HASH_STRENGTH, false);
 
         // Check the password against the stored hashed password
-        $password_match = $hasher->CheckPassword($oldpass, $playerinfo['password']);
+        $password_match = $hasher->CheckPassword ($oldpass, $playerinfo['password']);
 
         // Does the oldpass and the players password match?
         if ($password_match)
         {
             // Yes they match so hash the password.  $hashedPassword will be a 60-character string.
-            $hashed_pass = $hasher->HashPassword($newpass1);
+            $hashed_pass = $hasher->HashPassword ($newpass1);
 
             // Now update the players password.
-            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array($hashed_pass, $playerinfo['ship_id']));
+            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
             db_op_result ($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
@@ -124,7 +124,7 @@ else
 if ($oldlang != $lang)
 {
     // Yes, so update to the new requited language.
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array($lang, $_SESSION['username']));
+    $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array ($lang, $_SESSION['username']));
     db_op_result ($db, $res, __LINE__, __FILE__);
 
     // Now cycle through the supported language list unto we get a match to the new language.

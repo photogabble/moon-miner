@@ -945,11 +945,11 @@ table_footer ("Completed successfully.");
 
       $stamp = date("Y-m-d H:i:s");
 
-      // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
-      $hasher = new PasswordHash(8, false);
+      // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
+      $hasher = new PasswordHash (HASH_STRENTH, false);
 
       // Hash the password.  $hashedPassword will be a 60-character string.
-      $hashed_pass = $hasher->HashPassword(ADMIN_PW);
+      $hashed_pass = $hasher->HashPassword (ADMIN_PW);
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
       db_op_result ($db, $resxx, __LINE__, __FILE__);

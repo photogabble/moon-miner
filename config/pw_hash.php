@@ -15,12 +15,13 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: admin_pw.php
-if (strpos ($_SERVER['PHP_SELF'], 'admin_pw.php')) // Prevent direct access to this file
+// File: pw_hash.php
+if (strpos ($_SERVER['PHP_SELF'], 'pw_hash.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
 
-// Define the admin password, used for accessing create_universe, scheduler, and the admin control panel
-define('ADMIN_PW', 'secret');
+// Define the hash strength, which for now defaults to 10 (it is a base-2 log iteration count). This is used for password stretching and prevents less-secure portable hashes for older systems.
+// We will try to keep our default matching the current bcrypt strength used in the PHP implementation for password_hash, which should land in PHP-5.5
+define('HASH_STRENGTH', 8);
 ?>

@@ -86,10 +86,10 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($playerfound)
 {
-    // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
-    $hasher = new PasswordHash(8, false);
+    // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
+    $hasher = new PasswordHash (HASH_STRENGTH, false);
 
-    if ($hasher->CheckPassword($_POST['pass'], $playerinfo['password']))
+    if ($hasher->CheckPassword ($_POST['pass'], $playerinfo['password']))
     {
         if ($playerinfo['ship_destroyed'] == "N")
         {

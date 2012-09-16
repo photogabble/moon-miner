@@ -44,6 +44,7 @@ include_once './includes/text_gotomain.php';
 
 // Include the phpass library for password storage using salted bcrypt
 require_once './backends/phpass/PasswordHash.php';
+require_once './config/pw_hash.php';
 
 // Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
 // supported in the future, and cryptsessions, so the session data itself is encrypted.
