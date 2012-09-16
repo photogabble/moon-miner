@@ -1,5 +1,6 @@
 TheKabal (15 September 2012)
 --------------------------------------
+Admin panel now accepts drop-in modules (create a valid php file in admin/, and it will appear as a choice in the admin menu)
 Expanded news to include events for 100, 250, 500, and 1000 planets - thanks to Alex1981m @ http://forums.blacknova.net/viewtopic.php?f=15&t=479
 Split admin into seperate files for each command/module
 Translated all variables in admin

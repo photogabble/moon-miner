@@ -21,7 +21,7 @@ include './global_includes.php';
 include './config/admin_pw.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'), $langvars);
+load_languages($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'), $langvars);
 
 $title = $langvars['l_admin_title'];
 include './header.php';
@@ -29,15 +29,15 @@ echo "<h1>" . $title . "</h1>\n";
 
 function checked ($yesno)
 {
-    return(($yesno == "Y") ? "checked" : "");
+    return (($yesno == "Y") ? "checked" : "");
 }
 
-if (isset($_POST['menu']))
+if (isset ($_POST['menu']))
 {
     $module = $_POST['menu'];
 }
 
-if (!isset($_POST['swordfish']))
+if (!isset ($_POST['swordfish']))
 {
     $_POST['swordfish'] = '';
 }
@@ -45,26 +45,44 @@ if (!isset($_POST['swordfish']))
 if ($_POST['swordfish'] != ADMIN_PW)
 {
     echo "<form action='admin.php' method='post'>";
-    echo "Password: <input type='password' name='swordfish' size='20' maxlength='20'>&nbsp;&nbsp;";
+    echo $langvars['l_admin_password'] . ": <input type='password' name='swordfish' size='20' maxlength='20'>&nbsp;&nbsp;";
     echo "<input type='submit' value='" . $langvars['l_submit'] . "'><input type='reset' value='" . $langvars['l_reset'] . "'>";
     echo "</form>";
 }
 else
 {
-    if (empty($module))
+    $i = 0;
+    foreach (new DirectoryIterator ('admin/') as $file_info) // Get a list of the files in the admin directory
+    {
+        if ($file_info->isFile () && $file_info->getExtension () == 'php') // If it is a PHP file, add it to the list of accepted admin files
+        {
+            $i++; // Increment a counter, so we know how many files there are to choose from
+            $filename[$i] = $file_info->getFilename ();
+            $option_title[$i] = "l_admin_" . substr ($filename[$i], 0, -4); // Set the option title to a language string of the form l_admin + file name
+        }
+    }
+
+    if (empty ($module))
     {
         echo $langvars['l_admin_welcome'] . "<br><br>";
         echo $langvars['l_admin_menulist'] . "<br>";
         echo "<form action='admin.php' method='post'>";
         echo "<select name='menu'>";
-        echo "<option value='useredit' selected>" . $langvars['l_admin_user_editor'] . "</option>";
-        echo "<option value='univedit'>" . $langvars['l_admin_universe_editor'] . "</option>";
-        echo "<option value='sectedit'>" . $langvars['l_admin_sector_editor'] . "</option>";
-        echo "<option value='planedit'>" . $langvars['l_admin_planet_editor'] . "</option>";
-        echo "<option value='linkedit'>" . $langvars['l_admin_link_editor'] . "</option>";
-        echo "<option value='zoneedit'>" . $langvars['l_admin_zone_editor'] . "</option>";
-        echo "<option value='banedit'>" . $langvars['l_admin_bans_editor'] . "</option>";
-        echo "<option value='logview'>" . $langvars['l_admin_log_viewer'] . "</option>";
+
+        while ($i > 0) // While there are choices left, create a dropdown menu of them
+        {
+            if (isset ($langvars[$option_title[$i]])) // If we have a language name for the file, use that as the option choice
+            {
+                echo "<option value='" . $filename[$i] . "'>" . $langvars[$option_title[$i]] . "</option>";
+            }
+            else // But if it is a new module that doesn't have a language name yet, offer its filename as the name in the drop down
+            {
+                echo "<option value='" . $filename[$i] . "'>" . $langvars['l_admin_new_module'] . $filename[$i] . "</option>";
+            }
+
+            $i--;
+        }
+
         echo "</select>";
         echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
         echo "&nbsp;<input type='submit' value='" . $langvars['l_submit'] . "'>";
@@ -73,42 +91,14 @@ else
     else
     {
         $button_main = true;
-        if ($module == "useredit")
+        $module_location = array_search ($module, $filename); // Get the array index/location for the chosen module
+        if ($module_location !== false) // If the chosen module is one of the files in the admin directory
         {
-            include './admin/user_editor.php';
-        }
-        elseif ($module == "univedit")
-        {
-            include './admin/universe_editor.php';
-        }
-        elseif ($module == "sectedit")
-        {
-            include './admin/sector_editor.php';
-        }
-        elseif ($module == "planedit")
-        {
-            include './admin/planet_editor.php';
-        }
-        elseif ($module == "linkedit")
-        {
-            include './admin/link_editor.php';
-            echo "<strong>Link editor</strong>";
-        }
-        elseif ($module == "zoneedit")
-        {
-            include './admin/zone_editor.php';
-        }
-        elseif ($module == "logview")
-        {
-            include 'admin/log_viewer.php';
-        }
-        elseif ($module == "banedit")
-        {
-            include 'admin/bans_editor.php';
+            include './admin/' . $filename[$module_location]; // Include that filename
         }
         else
         {
-            echo $langvars['l_admin_unknown_function'];
+            echo $langvars['l_admin_unknown_function']; // Otherwise report back that it is an unknown module
         }
 
         if ($button_main)

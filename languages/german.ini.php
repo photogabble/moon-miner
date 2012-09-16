@@ -52,6 +52,7 @@ l_admin_log_viewer                      = "Log Viewer";
 l_admin_max_hull                        = "Max Rumpf";
 l_admin_menu                            = "Admin-Menü";
 l_admin_menulist                        = "Wählen Sie eine Funktion aus der Liste unten:";
+l_admin_new_module                      = "NEW (un-named-Modul):";
 l_admin_no_bans                         = "Keine IP Verbote sind derzeit aktiv.";
 l_admin_no_one                          = "No one";
 l_admin_operations                      = "Operations";

@@ -52,6 +52,7 @@ l_admin_log_viewer                      = "Log Viewer";
 l_admin_max_hull                        = "Max coque";
 l_admin_menu                            = "Menu Admin";
 l_admin_menulist                        = "Sélectionnez une fonction dans la liste ci-dessous:";
+l_admin_new_module                      = "NUEVO (sin nombre del módulo):";
 l_admin_no_bans                         = "Aucun ban IP sont actuellement actifs.";
 l_admin_no_one                          = "No one";
 l_admin_operations                      = "Opérations";

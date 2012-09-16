@@ -52,6 +52,7 @@ l_admin_log_viewer                      = "Visor de registros";
 l_admin_max_hull                        = "Max casco";
 l_admin_menu                            = "menú Admin";
 l_admin_menulist                        = "Seleccione una función de la lista de abajo:";
+l_admin_new_module                      = "NEW (non-nommé module):";
 l_admin_no_bans                         = "No hay prohibiciones IP se encuentran activos.";
 l_admin_no_one                          = "Ninguno";
 l_admin_operations                      = "Explotaciones";
