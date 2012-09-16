@@ -34,7 +34,8 @@ function checked ($yesno)
 
 if (isset ($_POST['menu']))
 {
-    $module = $_POST['menu'];
+//    $menu = $_POST['menu'];
+    $menu = filter_input(INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
 }
 
 if (!isset ($_POST['swordfish']))
@@ -65,7 +66,7 @@ else
         }
     }
 
-    if (empty ($module))
+    if (empty ($menu))
     {
         echo $langvars['l_admin_welcome'] . "<br><br>";
         echo $langvars['l_admin_menulist'] . "<br>";
@@ -94,10 +95,10 @@ else
     else
     {
         $button_main = true;
-        $module_location = array_search ($module, $filename); // Get the array index/location for the chosen module
-        if ($module_location !== false) // If the chosen module is one of the files in the admin directory
+        $menu_location = array_search ($menu, $filename); // Get the array index/location for the chosen module
+        if ($menu_location !== false) // If the chosen module is one of the files in the admin directory
         {
-            include './admin/' . $filename[$module_location]; // Include that filename
+            include './admin/' . $filename[$menu_location]; // Include that filename
         }
         else
         {
