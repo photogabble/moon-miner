@@ -17,8 +17,6 @@
 //
 // File: admin.php
 
-// test
-
 include './global_includes.php';
 include './config/admin_pw.php';
 
