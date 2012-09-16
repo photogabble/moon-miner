@@ -99,8 +99,8 @@ function ibank_consolidate2 ($db)
          "<td align=right>" . NUMBER ($transfer) . " C</td>" .
          "<tr valign=top><td colspan=2 align=right>" .
          "<form action='igb.php?command=consolidate3' method=post>" .
-         "<input type=hidden name=minimum value=" . $minimum> . "<br>" .
-         "<input type=hidden name=maximum value=" . $maximum> . "<br>" .
+         "<input type=hidden name=minimum value=" . $minimum . "><br>" .
+         "<input type=hidden name=maximum value=" . $maximum . "><br>" .
          "<input type=hidden name=dplanet_id value=" . $dplanet_id . ">" .
          "<input class=term type=submit value=\"" . $l_ibank_consolidate . "\"></td>" .
          "</form>" .
