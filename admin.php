@@ -55,7 +55,11 @@ else
     $admin_dir = new DirectoryIterator ('admin/');
     foreach ($admin_dir as $file_info) // Get a list of the files in the admin directory
     {
-        if ($file_info->isFile () && $file_info->getExtension () == 'php') // If it is a PHP file, add it to the list of accepted admin files
+        // This is to get around the issue of not having DirectoryIterator::getExtension.
+        $file_ext = pathinfo ($file_info->getFilename(), PATHINFO_EXTENSION);
+
+        // If it is a PHP file, add it to the list of accepted admin files
+        if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted admin files
         {
             $i++; // Increment a counter, so we know how many files there are to choose from
             $filename[$i] = $file_info->getFilename ();
