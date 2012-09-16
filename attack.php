@@ -144,7 +144,7 @@ else
         {
             // Need to change warp destination to random sector in universe
             $rating_change = round ($targetinfo['rating'] * .1);
-            $dest_sector = mt_rand (1, $sector_max-1);
+            $dest_sector = mt_rand (1, $sector_max - 1);
             $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? WHERE ship_id = ?;", array ($rating_change, $playerinfo['ship_id']));
             db_op_result ($db, $resx, __LINE__, __FILE__);
             player_log ($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
@@ -155,7 +155,7 @@ else
         }
         else
         {
-            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/",$targetinfo['email']) === 0 )) // Bounty-free Xenobe attacking allowed.
+            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/", $targetinfo['email']) === 0 )) // Bounty-free Xenobe attacking allowed.
             {
                 // Changed xenobe check to a regexp cause a player could put @xen or whatever in his email address
                 // so (\@xenobe) is an exact match and the $ symbol means "this is the *end* of the string
@@ -219,13 +219,13 @@ else
             }
             $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetshields;
 
-            $playertorpnum = round (pow ($level_factor, $playerinfo['torp_launchers']))*10;
+            $playertorpnum = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 10;
             if ($playertorpnum > $playerinfo['torps'])
             {
                 $playertorpnum = $playerinfo['torps'];
             }
 
-            $targettorpnum = round (pow ($level_factor, $targetinfo['torp_launchers']))*10;
+            $targettorpnum = round (pow ($level_factor, $targetinfo['torp_launchers'])) * 10;
             if ($targettorpnum > $targetinfo['torps'])
             {
                 $targettorpnum = $targetinfo['torps'];
@@ -285,10 +285,8 @@ else
             }
             echo "</table>\n";
             echo "  <div style='height:4px;'></div>\n";
-
             echo "  <div style='text-align:left; font-size:14px; font-weight:bold; padding:4px; background-color:{$color_header}; border:#FFCC00 1px solid;'>Beams</div>\n";
             echo "  <div style='height:1px;'></div>\n";
-
             echo "  <div style='text-align:left; font-size:12px; padding:4px; background-color:{$color_line1}; border:#FFCC00 1px solid;'>\n";
 
             $bcs_stats_info = false;
@@ -765,7 +763,7 @@ else
                     {
                         $salv_organics = 0;
                     }
-                    $ship_value = $upgrade_cost*(round (pow ($upgrade_factor, $playerinfo['hull']))+round (pow ($upgrade_factor, $playerinfo['engines']))+round (pow ($upgrade_factor, $playerinfo['power']))+round (pow ($upgrade_factor, $playerinfo['computer']))+round (pow ($upgrade_factor, $playerinfo['sensors']))+round (pow ($upgrade_factor, $playerinfo['beams']))+round (pow ($upgrade_factor, $playerinfo['torp_launchers']))+round (pow ($upgrade_factor, $playerinfo['shields']))+round (pow ($upgrade_factor, $playerinfo['armor']))+round (pow ($upgrade_factor, $playerinfo['cloak'])));
+                    $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $playerinfo['hull'])) + round (pow ($upgrade_factor, $playerinfo['engines'])) + round (pow ($upgrade_factor, $playerinfo['power'])) + round (pow ($upgrade_factor, $playerinfo['computer'])) + round (pow ($upgrade_factor, $playerinfo['sensors'])) + round (pow ($upgrade_factor, $playerinfo['beams'])) + round (pow ($upgrade_factor, $playerinfo['torp_launchers'])) + round (pow ($upgrade_factor, $playerinfo['shields'])) + round (pow ($upgrade_factor, $playerinfo['armor'])) + round (pow ($upgrade_factor, $playerinfo['cloak'])));
                     $ship_salvage_rate = mt_rand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
