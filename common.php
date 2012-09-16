@@ -47,7 +47,7 @@ ADODB_Session::dataFieldName('SESSDATA');
 ADODB_Session::filter(new ADODB_Encrypt_Mcrypt());
 ADODB_Session::filter(new ADODB_Compress_Gzip());
 
-connect_database ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent);
+bnt_database::connect ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent);
 
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists("dev"))
