@@ -140,7 +140,7 @@ $lang = $default_lang;
 
 if ($no_db != true) // Before DB is installed, don't try to setup userinfo
 {
-    if (empty($_SESSION['username']))  // If the user has not logged in
+    if (empty ($_SESSION['username']))  // If the user has not logged in
     {
         if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
         {
@@ -149,7 +149,7 @@ if ($no_db != true) // Before DB is installed, don't try to setup userinfo
     }
     else // The user has logged in, so use his preference from the database
     {
-        $res = $db->Execute("SELECT lang FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+        $res = $db->Execute("SELECT lang FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
@@ -169,20 +169,20 @@ $avail_lang[2]['name'] = 'German';
 $avail_lang[3]['file'] = 'spanish';
 $avail_lang[3]['name'] = 'Spanish';
 
-if (empty($link_forums))
+if (empty ($link_forums))
 {
     $link_forums = "http://forums.blacknova.net";
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
-$plugin_config = array();
-$admin_list = array();
+$plugin_config = array ();
+$admin_list = array ();
 date_default_timezone_set('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 
 // Used to define what devices are used to calculate the average tech level.
-$calc_tech         = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-$calc_ship_tech    = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-$calc_planet_tech  = array("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+$calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 
 // Auto detect and set the game path (uses the logic from setup_info)
 // If it does not work, please comment this out and set it in db_config.php instead.
