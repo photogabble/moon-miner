@@ -52,15 +52,16 @@ $title = $langvars['l_opt2_title'];
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-// Get POST['oldpass'], POST['newpass1'], POST['newpass2'] returns null is not found.
-request_var('POST', 'oldpass', $oldpass);
-request_var('POST', 'newpass1', $newpass1);
-request_var('POST', 'newpass2', $newpass2);
+// Filter POST['oldpass'], POST['newpass1'], POST['newpass2']. Returns "0" if these specific values are not set because that is what the form gives if they exist but were not set.
+// This filters to the FILTER_SANITIZE_URL ruleset, which is the most permissive of the string variants, I think
+$oldpass  = filter_input (INPUT_POST, 'oldpass', FILTER_SANITIZE_URL);
+$newpass1  = filter_input (INPUT_POST, 'newpass1', FILTER_SANITIZE_URL);
+$newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_URL);
 
-// Check to see if newpass1 and newpass2 is null.
-if (is_null($newpass1) && is_null($newpass2))
+// Check to see if newpass1 and newpass2 is empty.
+if (empty($newpass1) && empty($newpass2))
 {
-    // yes both newpass1 and newpass2 are null.
+    // yes both newpass1 and newpass2 are empty.
     echo $langvars['l_opt2_passunchanged'] . "<br><br>";
 }
 // Chack to see if newpass1 and newpass2 do not match.
