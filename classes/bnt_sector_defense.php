@@ -15,26 +15,29 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/message_defence_owner.php
+// File: classes/message_defense_owner.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'message_defence_owner.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'message_defense_owner.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function message_defence_owner ($db, $sector, $message)
+class bnt_sector_defense
 {
-    $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ?", array ($sector));
-    db_op_result ($db, $result3, __LINE__, __FILE__);
-
-    if ($result3 instanceof ADORecordSet)
+    static function message_defense_owner ($db, $sector, $message)
     {
-        while (!$result3->EOF)
+        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?", array ($sector));
+        db_op_result ($db, $result3, __LINE__, __FILE__);
+
+        if ($result3 instanceof ADORecordSet)
         {
-            player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
-            $result3->MoveNext();
-         }
-     }
+            while (!$result3->EOF)
+            {
+                player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
+                $result3->MoveNext();
+            }
+        }
+    }
 }
 ?>

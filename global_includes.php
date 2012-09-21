@@ -28,7 +28,6 @@ include_once './includes/db_kill_player.php';
 include_once './includes/db_op_result.php';
 include_once './includes/load_languages.php';
 include_once './includes/log_move.php';
-include_once './includes/message_defence_owner.php';
 include_once './includes/num_armor.php';
 include_once './includes/num_beams.php';
 include_once './includes/num_energy.php';
@@ -36,10 +35,10 @@ include_once './includes/num_fighters.php';
 include_once './includes/num_holds.php';
 include_once './includes/num_shields.php';
 include_once './includes/num_torpedoes.php';
-include_once './includes/number.php';
 include_once './includes/player_log.php';
 include_once './includes/request_var.php';
-include_once './includes/text_gotomain.php';
+include_once './includes/text_gotomain.php'; // This will be eliminated while migrating to templates
+include_once './includes/number.php';        // This will be eliminated while migrating to templates
 
 // Include the phpass library for password storage using salted bcrypt
 require_once './backends/phpass/PasswordHash.php';

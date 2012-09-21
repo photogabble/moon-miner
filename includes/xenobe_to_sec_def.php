@@ -183,7 +183,7 @@ function xenobe_to_sec_def ($db)
             $l_sf_sendlog = str_replace("[player]", "Xenobe $playerinfo[character_name]", $langvars['l_sf_sendlog']);
             $l_sf_sendlog = str_replace("[lost]", $fighterslost, $l_sf_sendlog);
             $l_sf_sendlog = str_replace("[sector]", $targetlink, $l_sf_sendlog);
-            message_defence_owner ($db, $targetlink, $l_sf_sendlog);
+            bnt_sector_defense::message_defense_owner ($db, $targetlink, $l_sf_sendlog);
 
             // Update Xenobe after comnbat
             $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
@@ -197,7 +197,7 @@ function xenobe_to_sec_def ($db)
             {
                 $l_sf_sendlog2 = str_replace("[player]", "Xenobe " . $playerinfo['character_name'], $langvars['l_sf_sendlog2']);
                 $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
-                message_defence_owner ($db, $targetlink, $l_sf_sendlog2);
+                bnt_sector_defense::message_defense_owner ($db, $targetlink, $l_sf_sendlog2);
                 cancel_bounty ($db, $playerinfo['ship_id']);
                 db_kill_player ($db, $playerinfo['ship_id']);
                 $xenobeisdead = 1;
@@ -209,7 +209,7 @@ function xenobe_to_sec_def ($db)
             $l_chm_hehitminesinsector = str_replace("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
             $l_chm_hehitminesinsector = str_replace("[chm_roll]", $roll, $l_chm_hehitminesinsector);
             $l_chm_hehitminesinsector = str_replace("[chm_sector]", $targetlink, $l_chm_hehitminesinsector);
-            message_defence_owner ($db, $targetlink, "$l_chm_hehitminesinsector");
+            bnt_sector_defense::message_defense_owner ($db, $targetlink, "$l_chm_hehitminesinsector");
 
             // Deflectors v. mines
             if ($playerminedeflect >= $roll)
@@ -241,7 +241,7 @@ function xenobe_to_sec_def ($db)
                         // Xenobe dies, logs the fact that he died
                         $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
                         $l_chm_hewasdestroyedbyyourmines = str_replace("[chm_sector]", $targetlink, $l_chm_hewasdestroyedbyyourmines);
-                        message_defence_owner ($db, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
+                        bnt_sector_defense::message_defense_owner ($db, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
 
                         // Actually kill the Xenobe now
                         cancel_bounty ($db, $playerinfo['ship_id']);
