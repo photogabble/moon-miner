@@ -34,7 +34,7 @@ function checked ($yesno)
 
 if (isset ($_POST['menu']))
 {
-    $menu = filter_input(INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
+    $menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
 }
 
 if (!isset ($_POST['swordfish']))
