@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'bnt_database.php')) // Prevent direct access 
 class bnt_database
 {
     // Returns true or false
-    function connect ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent)
+    static function connect ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent)
     {
         global $db;
 
