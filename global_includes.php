@@ -54,6 +54,5 @@ include_once $ADOdbpath . "/session/adodb-encrypt-mcrypt.php";
 include_once $ADOdbpath . "/session/adodb-compress-gzip.php";
 
 spl_autoload_register ('bnt_autoload');
-require_once './classes/template.php';
 require_once './common.php';
 ?>

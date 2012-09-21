@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/template.php
+// File: classes/bnt_template.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'template.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'bnt_template.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'template.php')) // Prevent direct access to t
 define("TEMPLATE_USE_SMARTY",           0x00000000,             true);
 define("TEMPLATE_USE_XML",              0x00000001,             true);
 
-class Template
+class bnt_template
 {
     private $type                       = NULL;
     private $initialiszd                = NULL;

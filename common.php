@@ -257,7 +257,7 @@ if (isset($gamedomain) && strlen($gamedomain) >0)
 global $lang, $langvars;
 
 // Template API.
-$template = new Template();
+$template = new bnt_template();
 
 // We set the name of the theme.
 $template->SetTheme("classic");
