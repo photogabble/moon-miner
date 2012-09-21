@@ -169,204 +169,31 @@ else
             die ();
         }
 
-        // Clear variables that are not selected in the form
-        if (!isset($_POST['hull_upgrade']))
-        {
-            $hull_upgrade = null;
-        }
-        else
-        {
-            $hull_upgrade = $_POST['hull_upgrade'];
-        }
+        // Clear variables that are not selected in the form, and filter them to be only the correct variable type (Int, float, and boolean)
+        $hull_upgrade               = filter_input (INPUT_POST, 'hull_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $engine_upgrade             = filter_input (INPUT_POST, 'engine_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $power_upgrade              = filter_input (INPUT_POST, 'power_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $computer_upgrade           = filter_input (INPUT_POST, 'computer_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $sensors_upgrade            = filter_input (INPUT_POST, 'sensors_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $beams_upgrade              = filter_input (INPUT_POST, 'beams_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $armor_upgrade              = filter_input (INPUT_POST, 'computer_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $cloak_upgrade              = filter_input (INPUT_POST, 'cloak_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $torp_launchers_upgrade     = filter_input (INPUT_POST, 'torp_launchers_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $shields_upgrade            = filter_input (INPUT_POST, 'shields_upgrade', FILTER_SANITIZE_NUMBER_INT);
 
-        if (!isset($_POST['engine_upgrade']))
-        {
-            $engine_upgrade = null;
-        }
-        else
-        {
-            $engine_upgrade = $_POST['engine_upgrade'];
-        }
+        $fighter_number             = filter_input (INPUT_POST, 'fighter_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $torpedo_number             = filter_input (INPUT_POST, 'torpedo_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $armor_number               = filter_input (INPUT_POST, 'armor_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $colonist_number            = filter_input (INPUT_POST, 'colonist_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $dev_genesis_number         = filter_input (INPUT_POST, 'dev_genesis_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $dev_beacon_number          = filter_input (INPUT_POST, 'dev_beacon_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $dev_emerwarp_number        = filter_input (INPUT_POST, 'dev_emerwarp_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $dev_warpedit_number        = filter_input (INPUT_POST, 'dev_warpedit_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+        $dev_minedeflector_number   = filter_input (INPUT_POST, 'dev_minedeflector_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
 
-        if (!isset($_POST['power_upgrade']))
-        {
-            $power_upgrade = null;
-        }
-        else
-        {
-            $power_upgrade = $_POST['power_upgrade'];
-        }
-
-        if (!isset($_POST['computer_upgrade']))
-        {
-            $computer_upgrade = null;
-        }
-        else
-        {
-            $computer_upgrade = $_POST['computer_upgrade'];
-        }
-
-        if (!isset($_POST['sensors_upgrade']))
-        {
-            $sensors_upgrade = null;
-        }
-        else
-        {
-            $sensors_upgrade = $_POST['sensors_upgrade'];
-        }
-
-        if (!isset($_POST['beams_upgrade']))
-        {
-            $beams_upgrade = null;
-        }
-        else
-        {
-            $beams_upgrade = $_POST['beams_upgrade'];
-        }
-
-        if (!isset($_POST['armor_upgrade']))
-        {
-            $armor_upgrade = null;
-        }
-        else
-        {
-            $armor_upgrade = $_POST['armor_upgrade'];
-        }
-
-        if (!isset($_POST['cloak_upgrade']))
-        {
-            $cloak_upgrade = null;
-        }
-        else
-        {
-            $cloak_upgrade = $_POST['cloak_upgrade'];
-        }
-
-        if (!isset($_POST['torp_launchers_upgrade']))
-        {
-            $torp_launchers_upgrade = null;
-        }
-        else
-        {
-            $torp_launchers_upgrade = $_POST['torp_launchers_upgrade'];
-        }
-
-        if (!isset($_POST['shields_upgrade']))
-        {
-            $shields_upgrade = null;
-        }
-        else
-        {
-            $shields_upgrade = $_POST['shields_upgrade'];
-        }
-
-        if (!isset($_POST['fighter_number']))
-        {
-            $fighter_number = null;
-        }
-        else
-        {
-            $fighter_number = $_POST['fighter_number'];
-        }
-
-        if (!isset($_POST['torpedo_number']))
-        {
-            $torpedo_number = null;
-        }
-        else
-        {
-            $torpedo_number = $_POST['torpedo_number'];
-        }
-
-        if (!isset($_POST['armor_number']))
-        {
-            $armor_number = null;
-        }
-        else
-        {
-            $armor_number = $_POST['armor_number'];
-        }
-
-        if (!isset($_POST['colonist_number']))
-        {
-            $colonist_number = null;
-        }
-        else
-        {
-            $colonist_number = $_POST['colonist_number'];
-        }
-
-        if (!isset($_POST['dev_genesis_number']))
-        {
-            $dev_genesis_number = null;
-        }
-        else
-        {
-            $dev_genesis_number = $_POST['dev_genesis_number'];
-        }
-
-        if (!isset($_POST['dev_beacon_number']))
-        {
-            $dev_beacon_number = null;
-        }
-        else
-        {
-            $dev_beacon_number = $_POST['dev_beacon_number'];
-        }
-
-        if (!isset($_POST['dev_emerwarp_number']))
-        {
-            $dev_emerwarp_number = null;
-        }
-        else
-        {
-            $dev_emerwarp_number = $_POST['dev_emerwarp_number'];
-        }
-
-        if (!isset($_POST['dev_warpedit_number']))
-        {
-            $dev_warpedit_number = null;
-        }
-        else
-        {
-            $dev_warpedit_number = $_POST['dev_warpedit_number'];
-        }
-
-        if (!isset($_POST['dev_minedeflector_number']))
-        {
-            $dev_minedeflector_number = null;
-        }
-        else
-        {
-            $dev_minedeflector_number = $_POST['dev_minedeflector_number'];
-        }
-
-        if (!isset($_POST['escapepod_purchase']))
-        {
-            $escapepod_purchase = null;
-        }
-        else
-        {
-            $escapepod_purchase = $_POST['escapepod_purchase'];
-        }
-
-        if (!isset($_POST['fuelscoop_purchase']))
-        {
-            $fuelscoop_purchase = null;
-        }
-        else
-        {
-            $fuelscoop_purchase = $_POST['fuelscoop_purchase'];
-        }
-
-        if (!isset($_POST['lssd_purchase']))
-        {
-            $lssd_purchase = null;
-        }
-        else
-        {
-            $lssd_purchase = $_POST['lssd_purchase'];
-        }
+        $escapepod_purchase         = filter_input (INPUT_POST, 'escapepod_purchase', FILTER_VALIDATE_BOOLEAN);
+        $fuelscoop_purchase         = filter_input (INPUT_POST, 'fuelscoop_purchase', FILTER_VALIDATE_BOOLEAN);
+        $lssd_purchase              = filter_input (INPUT_POST, 'lssd_purchase', FILTER_VALIDATE_BOOLEAN);
 
         $hull_upgrade_cost = 0;
         if ($hull_upgrade > $playerinfo['hull'])

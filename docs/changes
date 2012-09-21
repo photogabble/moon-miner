@@ -1,3 +1,7 @@
+TheKabal (20 September 2012)
+--------------------------------------
+Replace variable re-assignment with filtering in port2
+
 TheMightyDude (16 September 2012)
 --------------------------------------
 Fixed Parse error: syntax error, unexpected '.' in includes/ibank_consolidate2.php on line 102
