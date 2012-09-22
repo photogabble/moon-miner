@@ -1,6 +1,8 @@
 TheMightyDude (22 September 2012)
 --------------------------------------
 Fixed error in code where it filtered the POST Variables it was returning computer_upgrade insted of armor_upgrade.
+Fixed Notice: Undefined variable: langvars in includes/db_kill_player.php on line 85 
+Fixed Notice: Undefined variable: langvars in includes/db_kill_player.php on line 87
 
 TheKabal (20 September 2012)
 --------------------------------------
