@@ -23,7 +23,7 @@ table.dis:hover { color:#36f; font-size: 8pt; font-weight:bold; text-decoration:
 dl.twocolumn-form dt { float:left; height:2em; text-align:right; width:45%; padding:3px}
 dl.twocolumn-form dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
 dl.twocolumn-form input {width:200px}
-.map { background-color:#0000ff;  border:#555555 1px solid; color:#fff; float:left; height:20px; padding:0px; position:relative; width:20px; z-index:-1}
+.map { background-color:#0000ff;  border:#555555 1px solid; color:#fff; float:left; height:20px; padding:0px; position:relative; width:20px;}
 .map:hover { border:#fff 1px solid}
 .none { background-image:url('../../../images/space.png')}
 .un { background-image:url('../../../images/uspace.png'); opacity:0.5}
