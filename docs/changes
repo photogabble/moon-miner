@@ -1,3 +1,7 @@
+TheMightyDude (22 September 2012)
+--------------------------------------
+Fixed error in code where it filtered the POST Variables it was returning computer_upgrade insted of armor_upgrade.
+
 TheKabal (20 September 2012)
 --------------------------------------
 Replace variable re-assignment with filtering in port2

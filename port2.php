@@ -176,7 +176,7 @@ else
         $computer_upgrade           = filter_input (INPUT_POST, 'computer_upgrade', FILTER_SANITIZE_NUMBER_INT);
         $sensors_upgrade            = filter_input (INPUT_POST, 'sensors_upgrade', FILTER_SANITIZE_NUMBER_INT);
         $beams_upgrade              = filter_input (INPUT_POST, 'beams_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $armor_upgrade              = filter_input (INPUT_POST, 'computer_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $armor_upgrade              = filter_input (INPUT_POST, 'armor_upgrade', FILTER_SANITIZE_NUMBER_INT);
         $cloak_upgrade              = filter_input (INPUT_POST, 'cloak_upgrade', FILTER_SANITIZE_NUMBER_INT);
         $torp_launchers_upgrade     = filter_input (INPUT_POST, 'torp_launchers_upgrade', FILTER_SANITIZE_NUMBER_INT);
         $shields_upgrade            = filter_input (INPUT_POST, 'shields_upgrade', FILTER_SANITIZE_NUMBER_INT);
