@@ -151,7 +151,7 @@ $result = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id=? AND 
 db_op_result ($db, $result, __LINE__, __FILE__);
 if ($result->RecordCount() > 0)
 {
-    $alert_message = "{$langvars['l_youhave']} {$result->RecordCount()}{$langvars['l_messages_wait']}";
+    $alert_message = "{$langvars['l_youhave']} {$result->RecordCount()} {$langvars['l_messages_wait']}";
     echo "<script>\n";
     echo "  alert('{$alert_message}');\n";
     echo "</script>\n";
