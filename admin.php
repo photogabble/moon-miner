@@ -21,37 +21,31 @@ include './global_includes.php';
 include './config/admin_pw.php';
 
 // New database driven language entries
+$langvars = null;
 load_languages($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'), $langvars);
 
 $title = $langvars['l_admin_title'];
-include './header.php';
-echo "<h1>" . $title . "</h1>\n";
 
 function checked ($yesno)
 {
     return (($yesno == "Y") ? "checked" : "");
 }
 
+$menu = null;
 if (isset ($_POST['menu']))
 {
     $menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
 }
 
-if (!isset ($_POST['swordfish']))
-{
-    $_POST['swordfish'] = null;
-}
+$swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$filename = null;
+$menu_location = null;
+$button_main = false;
 
-if ($_POST['swordfish'] != ADMIN_PW)
-{
-    echo "<form action='admin.php' method='post'>";
-    echo $langvars['l_admin_password'] . ": <input type='password' name='swordfish' size='20' maxlength='20'>&nbsp;&nbsp;";
-    echo "<input type='submit' value='" . $langvars['l_submit'] . "'><input type='reset' value='" . $langvars['l_reset'] . "'>";
-    echo "</form>";
-}
-else
+if ($swordfish == ADMIN_PW)
 {
     $i = 0;
+    $option_title = array ();
     $admin_dir = new DirectoryIterator ('admin/');
     foreach ($admin_dir as $file_info) // Get a list of the files in the admin directory
     {
@@ -62,62 +56,48 @@ else
         if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted admin files
         {
             $i++; // Increment a counter, so we know how many files there are to choose from
-            $filename[$i] = $file_info->getFilename ();
-            $option_title[$i] = "l_admin_" . substr ($filename[$i], 0, -4); // Set the option title to a language string of the form l_admin + file name
-        }
-    }
+            $filename[$i]['file'] = $file_info->getFilename (); // The actual file name
+            $option_title = "l_admin_" . substr ($filename[$i]['file'], 0, -4); // Set the option title to a language string of the form l_admin + file name
 
-    if (empty ($menu))
-    {
-        echo $langvars['l_admin_welcome'] . "<br><br>";
-        echo $langvars['l_admin_menulist'] . "<br>";
-        echo "<form action='admin.php' method='post'>";
-        echo "<select name='menu'>";
-
-        while ($i > 0) // While there are choices left, create a dropdown menu of them
-        {
-            if (isset ($langvars[$option_title[$i]])) // If we have a language name for the file, use that as the option choice
+            if (isset ($langvars[$option_title]))
             {
-                echo "<option value='" . $filename[$i] . "'>" . $langvars[$option_title[$i]] . "</option>";
+                $filename[$i]['option_title'] = $langvars[$option_title]; // The language translated title for option
             }
-            else // But if it is a new module that doesn't have a language name yet, offer its filename as the name in the drop down
+            else
             {
-                echo "<option value='" . $filename[$i] . "'>" . $langvars['l_admin_new_module'] . $filename[$i] . "</option>";
+                $filename[$i]['option_title'] = $langvars['l_admin_new_module'] . $filename[$i]['file']; // The placeholder text for a not translated module
             }
 
-            $i--;
-        }
-
-        echo "</select>";
-        echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
-        echo "&nbsp;<input type='submit' value='" . $langvars['l_submit'] . "'>";
-        echo "</form>";
-    }
-    else
-    {
-        $button_main = true;
-        $menu_location = array_search ($menu, $filename); // Get the array index/location for the chosen module
-        if ($menu_location !== false) // If the chosen module is one of the files in the admin directory
-        {
-            include './admin/' . $filename[$menu_location]; // Include that filename
-        }
-        else
-        {
-            echo $langvars['l_admin_unknown_function']; // Otherwise report back that it is an unknown module
-        }
-
-        if ($button_main)
-        {
-            echo "<p>";
-            echo "<form action=admin.php method=post>";
-            echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
-            echo "<input type='submit' value='" . $langvars['l_admin_return_admin_menu'] . "'>";
-            echo "</form>";
+            if (!empty ($menu))
+            {
+                if ($menu == $filename[$i]['file'])
+                {
+                    $button_main = true;
+                    include './admin/' . $filename[$i]['file']; // Include that filename
+                }
+            }
         }
     }
 }
 
-echo "<br>";
-echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
-include './footer.php';
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['lang'] = $lang;
+$variables['swordfish'] = $swordfish;
+$variables['admin_pw'] = ADMIN_PW;
+$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['menu'] = $menu;
+$variables['filename'] = $filename;
+$variables['menu_location'] = $menu_location;
+$variables['button_main'] = $button_main;
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
+$template->Display("admin.tpl");
 ?>

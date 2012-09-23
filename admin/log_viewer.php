@@ -23,15 +23,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'log_viewer.php')) // Prevent direct access to
     include 'error.php';
 }
 
-echo "<form action=log.php method=post>" .
-     "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-     "<input type='hidden' name=player value=0>" .
-     "<input type=submit value=\"" . $langvars['l_admin_view_admin_log'] . "\">" .
-     "</form>" .
-     "<form action=log.php method=post>" .
-     "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">" .
-     "<select name=player>";
-
 $res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name ASC");
 db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
@@ -40,12 +31,18 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 
-foreach ($players as $player)
-{
-    echo "<option value=" . $player['ship_id'] . ">" . $player['character_name'] . "</option>";
-}
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['lang'] = $lang;
+global $swordfish;
+$variables['swordfish'] = $swordfish;
+$variables['players'] = $players;
 
-echo "</select>&nbsp;&nbsp;" .
-     "<input type=submit value=\"" . $langvars['l_admin_view_player_log'] . "\">" .
-     "</form><hr size=1 width=80%>";
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
+$template->Display("admin_log_viewer.tpl");
 ?>
