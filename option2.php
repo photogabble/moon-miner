@@ -53,10 +53,10 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 // Filter POST['oldpass'], POST['newpass1'], POST['newpass2']. Returns "0" if these specific values are not set because that is what the form gives if they exist but were not set.
-// This filters to the FILTER_SANITIZE_URL ruleset, which is the most permissive of the string variants, I think
-$oldpass  = filter_input (INPUT_POST, 'oldpass', FILTER_SANITIZE_URL);
-$newpass1  = filter_input (INPUT_POST, 'newpass1', FILTER_SANITIZE_URL);
-$newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_URL);
+// This filters to the FILTER_SANITIZE_STRING ruleset, because we need to allow spaces (URL doesn't)
+$oldpass  = filter_input (INPUT_POST, 'oldpass', FILTER_SANITIZE_STRING);
+$newpass1  = filter_input (INPUT_POST, 'newpass1', FILTER_SANITIZE_STRING);
+$newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
 
 // Check to see if newpass1 and newpass2 is empty.
 if (empty($newpass1) && empty($newpass2))
