@@ -946,7 +946,7 @@ table_footer ("Completed successfully.");
       $stamp = date("Y-m-d H:i:s");
 
       // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
-      $hasher = new PasswordHash (HASH_STRENTH, false);
+      $hasher = new PasswordHash (HASH_STRENGTH, false);
 
       // Hash the password.  $hashedPassword will be a 60-character string.
       $hashed_pass = $hasher->HashPassword (ADMIN_PW);
