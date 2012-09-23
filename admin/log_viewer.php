@@ -34,13 +34,11 @@ while (!$res->EOF)
 // Clear variables array before use, and set array with all used variables in page
 $variables = null;
 $variables['lang'] = $lang;
-global $swordfish;
 $variables['swordfish'] = $swordfish;
 $variables['players'] = $players;
 
 // Set the module name.
-// This can be done in the admin.php file, but I just wanted to get it working first.
-$variables['module'] = "log_viewer";
+$variables['module'] = $module_name;
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
@@ -48,7 +46,4 @@ $langvars['container'] = "langvar";
 
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
-
-// No longer need this.
-// $template->Display("admin_log_viewer.tpl");
 ?>
