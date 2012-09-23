@@ -1,3 +1,8 @@
+TheKabal (22 September 2012)
+--------------------------------------
+Add rich text editing via CKeditor
+Add HTML filtering of rich text submissions via HTML purifier
+
 TheMightyDude (23 September 2012)
 --------------------------------------
 Did a quick fix on the admin section to allow the displaying of admin module templates, this may need some work to get right, but its working for now.
