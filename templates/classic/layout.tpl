@@ -45,7 +45,7 @@
 <div class="push"></div></div>
 <div class="footer">
 {if isset($news)}
-<br />
+<br>
 <script type="text/javascript" src="backends/javascript/newsticker.js.php"></script>
 <div id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center;">News Ticker should be here unless you have broken it!</div>
 <script>
@@ -79,7 +79,7 @@ if (news.initTicker("news_ticker") == true)
 </script>
 
 {/if}
-<br />
+<br>
 {* Handle the Servers Update Ticker here *}
 {if isset($variables['update_ticker']['display']) && $variables['update_ticker']['display'] == true}
     <script type='text/javascript' src='{$template_dir}/scripts/updateticker.js'></script>
@@ -107,7 +107,7 @@ if (news.initTicker("news_ticker") == true)
 {/if}
 {* End of Online Players Counter *}
       </div>
-<br />
+<br>
     </div>
 
     <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
@@ -117,6 +117,7 @@ if (news.initTicker("news_ticker") == true)
 {if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
     <div style="font-size:smaller; text-align:right">{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']} {$langvars['l_peak_mem']}</div>
 {/if}
+</div>
 <!-- END OF FOOTER -->
 
   </body>
