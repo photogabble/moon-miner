@@ -50,6 +50,11 @@
         {/if}
             {$variables['menu_location']}*}
 
+{* Now check and handle the inclusion of the admin module templates *}
+        {if isset($variables['module'])}
+            {include file="admin_{$variables['module']}.tpl"}
+        {/if}
+
         {if $variables['button_main'] == true}
             <p><form action="admin.php" method="post">
             <input type="hidden" name="swordfish" value="{$variables['swordfish']}">
