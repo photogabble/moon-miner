@@ -50,7 +50,7 @@
         {/if}
             {$variables['menu_location']}*}
 
-{* Now check and handle the inclusion of the admin module templates *}
+        {* Now check and handle the inclusion of the admin module templates *}
         {if isset($variables['module'])}
             {include file="admin_{$variables['module']}.tpl"}
         {/if}

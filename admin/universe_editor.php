@@ -23,23 +23,13 @@ if (strpos ($_SERVER['PHP_SELF'], 'universe_editor.php')) // Prevent direct acce
     include 'error.php';
 }
 
-echo "<strong>" . $langvars['l_universe_editor'] . "</strong>";
-$title = $langvars['l_change_uni_title'];
-echo "<br>" . $langvars['l_expand_or_contract'] . "<br>";
+$i = 0;
+$changed_sectors = '';
+$action  = filter_input (INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+$radius  = filter_input (INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT);
 
-if (empty($action))
+if ($action == "doexpand")
 {
-    echo "<form action='admin.php' method='post'>";
-    echo $langvars['l_universe_size'] . ": <input type='text' name='radius' value=\"" . $universe_size . "\">";
-    echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
-    echo "<input type='hidden' name='menu' value='universe_editor.php'>";
-    echo "<input type='hidden' name='action' value='doexpand'> ";
-    echo "<input type='submit' value=\"" . $langvars['l_change_uni_title'] . "\">";
-    echo "</form>";
-}
-elseif ($action == "doexpand")
-{
-    echo "<br><font size='+2'>" . $langvars['l_universe_update'] . "</font><br>";
     $result = $db->Execute ("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
     db_op_result ($db, $result, __LINE__, __FILE__);
     while (!$result->EOF)
@@ -49,10 +39,32 @@ elseif ($action == "doexpand")
         $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
 
-        $langvars['l_admin_updated_distance'] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
-        $langvars['l_admin_updated_distance'] = str_replace("[distance]", $distance, $langvars['l_admin_updated_distance']);
-        echo $langvars['l_admin_updated_distance'] . "<br>";
+        $changed_sectors[$i] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
+        $changed_sectors[$i] = str_replace("[distance]", $distance, $changed_sectors[$i]);
+        $i++;
         $result->MoveNext();
     }
 }
+
+$title = $langvars['l_change_uni_title'];
+
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['lang'] = $lang;
+$variables['changed_sectors'] = $changed_sectors;
+$variables['swordfish'] = $swordfish;
+$variables['universe_size'] = $universe_size;
+$variables['action'] = $action;
+$variables['radius'] = $radius;
+
+// Set the module name.
+$variables['module'] = $module_name;
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
+
 ?>

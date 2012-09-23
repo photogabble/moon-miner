@@ -98,6 +98,7 @@ l_admin_zone_id                         = "Zone ID";
 l_change_uni_title                      = "Change universe size";
 l_expand_or_contract                    = "Expand or contract the universe";
 l_universe_editor                       = "Universe editor";
+l_universe_resize_slow                  = "WARNING: This process can take several minutes, as it is one of the slowest actions in the game!";
 l_universe_size                         = "Universe Size";
 l_universe_update                       = "Be sure to update your config.php file with the new universe_size value";
 l_universe_updated_sector               = "Updated sector [sector] set to [distance]";
