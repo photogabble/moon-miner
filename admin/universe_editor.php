@@ -32,17 +32,29 @@ if ($action == "doexpand")
 {
     $result = $db->Execute ("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
     db_op_result ($db, $result, __LINE__, __FILE__);
-    while (!$result->EOF)
-    {
-        $row = $result->fields;
-        $distance = mt_rand (1, $radius);
-        $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
-        db_op_result ($db, $resx, __LINE__, __FILE__);
 
-        $changed_sectors[$i] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
-        $changed_sectors[$i] = str_replace("[distance]", $distance, $changed_sectors[$i]);
-        $i++;
-        $result->MoveNext();
+    if (!$result->EOF)
+    {
+        $resa = $db->StartTrans (); // We enclose the updates in a transaction as it is faster
+        db_op_result ($db, $resa, __LINE__, __FILE__);
+
+        // Begin transaction
+        while (!$result->EOF)
+        {
+            $row = $result->fields;
+            $distance = mt_rand (1, $radius);
+            $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
+            db_op_result ($db, $resx, __LINE__, __FILE__);
+
+            $changed_sectors[$i] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
+            $changed_sectors[$i] = str_replace("[distance]", $distance, $changed_sectors[$i]);
+            $i++;
+            $result->MoveNext();
+        }
+
+        // End transaction
+        $trans_status = $db->CompleteTrans(); // Complete the transaction
+        db_op_result ($db, $trans_status, __LINE__, __FILE__);
     }
 }
 
@@ -66,5 +78,4 @@ $langvars['container'] = "langvar";
 
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
-
 ?>
