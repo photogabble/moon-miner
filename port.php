@@ -328,7 +328,7 @@ elseif ($sectorinfo['port_type'] == "special")
             {
                 if ($playerinfo['credits'] < $bty['total_bounty'])
                 {
-                    $l_port_btynotenough = str_replace ("[amount]", NUMBER ($bty[total_bounty]), $l_port_btynotenough);
+                    $l_port_btynotenough = str_replace ("[amount]", NUMBER ($bty['total_bounty']), $l_port_btynotenough);
                     echo $l_port_btynotenough . "<br>";
                     TEXT_GOTOMAIN();
                     die();
