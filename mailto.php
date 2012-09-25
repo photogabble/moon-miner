@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: mailto2.php
+// File: mailto.php
 
 include './global_includes.php';
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('mailto2', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+load_languages($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_sendm_title;
 include './header.php';
@@ -93,7 +93,7 @@ if (empty($content))
     db_op_result ($db, $res, __LINE__, __FILE__);
     $res2 = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC");
     db_op_result ($db, $res2, __LINE__, __FILE__);
-    echo "<form action=mailto2.php method=post>\n";
+    echo "<form action=mailto.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
     echo "      <td>$l_sendm_from:</td>\n";
