@@ -722,7 +722,7 @@ function display_all_teams ($db)
         }
 
         // If there is a way to redo the original sql query instead, please, do so, but I didnt see a way to.
-        echo "<td><a href='mailto2.php?name={$row2['character_name']}'>{$row2['character_name']}</a></td>";
+        echo "<td><a href='mailto.php?name={$row2['character_name']}'>{$row2['character_name']}</a></td>";
         echo "<td>{$row['total_score']}</td>";
         echo "</tr>";
         if ($color == $color_line1)

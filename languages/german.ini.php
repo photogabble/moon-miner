@@ -847,14 +847,6 @@ l_mail_topic                            = "[game_name] Passwort";
 l_mail_message                          = "Hallo,\r\n\r\nJemand mit der IP [ip] hat ein Passwort f&uuml;r [game_name] angefordert, es wurde dir zugesandt.\r\n\r\nDein Passwort lautet: [pass]\r\n\r\nThank you\r\n\r\nDas [game_name] -Team.";
 
 [mailto]
-l_mt_title                              = "Sende Nachricht";
-l_mt_from                               = "Von:";
-l_mt_subject                            = "Betreff:";
-l_mt_message                            = "Nachricht:";
-l_mt_sent                               = "Nachricht gesendet";
-l_mt_send                               = "Senden";
-
-[mailto2]
 l_sendm_title                           = "Nachricht senden";
 l_sendm_to                              = "An";
 l_sendm_from                            = "Von";

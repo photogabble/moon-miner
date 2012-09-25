@@ -847,14 +847,6 @@ l_mail_topic                            = "Mot de passe pour [game_name]";
 l_mail_message                          = "Salutations,\r\n\r\nQuelqu'un avec l'ip [ip] a demandé que votre mot de passe pour Blacknova Traders soit envoyé à cette adresse.\r\n\r\nVotre mot de passe est: [pass]\r\n\r\nMerci\r\n\r\nL'équipe de Blacknova Traders.";
 
 [mailto]
-l_mt_title                              = "Envoyer un message";
-l_mt_from                               = "De:";
-l_mt_subject                            = "Sujet:";
-l_mt_message                            = "Message:";
-l_mt_sent                               = "Message envoyé";
-l_mt_send                               = ""Envoyer"";
-
-[mailto2]
 l_sendm_title                           = "Envoyer un message";
 l_sendm_to                              = "À";
 l_sendm_from                            = "De";

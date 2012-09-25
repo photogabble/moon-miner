@@ -223,7 +223,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='log.php'>{$langvars['l_log']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='defence_report.php'>{$langvars['l_sector_def']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='readmail.php'>{$langvars['l_read_msg']}</a></div>\n";
-echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mailto2.php'>{$langvars['l_send_msg']}</a></div>\n";
+echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mailto.php'>{$langvars['l_send_msg']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='ranking.php'>{$langvars['l_rankings']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='settings.php'>{$langvars['l_settings']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='teams.php'>{$langvars['l_teams']}</a></div>\n";
