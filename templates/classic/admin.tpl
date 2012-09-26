@@ -61,7 +61,7 @@
             <input type="submit" value="{$langvars['l_admin_return_admin_menu']}">
             </form>
         {/if}
-    {/if} 
+    {/if}
 <br>
 {/if}
 <br>

@@ -23,66 +23,93 @@ if (strpos ($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access t
     include 'error.php';
 }
 
-echo "<strong>" . $langvars['l_admin_zone_editor'] . "</strong>";
-echo "<br>";
-echo "<form action='admin.php' method='post'>";
-if (empty ($zone))
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['operation'] = '';
+
+if (!isset ($_POST['zone']))
 {
-    echo "<select size='20' name='zone'>";
+    $_POST['zone'] = '';
+}
+
+if ($_POST['zone'] == '')
+{
     $res = $db->Execute("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
-        $row=$res->fields;
-        echo "<option value='" . $row['zone_id'] . "'>" . $row['zone_name'] . "</option>";
+        $zones[] = $res->fields;
         $res->MoveNext();
     }
-
-    echo "</select>";
-    echo "<input type='hidden' name='operation' value='editzone'>";
-    echo "&nbsp;<input type='submit' value='" . $langvars['l_edit'] . "'>";
+    $variables['zones'] = $zones;
+    $variables['zone'] = '';
 }
 else
 {
-    if ($operation == "editzone")
+    $variables['zone'] = '';
+    if ($_POST['operation'] == "edit")
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($zone));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
-        echo "<table border=0 cellspacing=0 cellpadding=5>";
-        echo "<tr><td>" . $langvars['l_admin_zone_id'] . "</td><td>" . $row['zone_id'] . "</td></tr>";
-        echo "<tr><td>" . $langvars['l_ze_name'] . "</td><td><input type='text' name=zone_name value=\"" . $row['zone_name'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_allow_beacon'] . "</td><td><input type=checkbox name=zone_beacon value=on " . checked($row['allow_beacon']) . "></td>";
-        echo "<tr><td>" . $langvars['l_admin_allow_attack'] . "</td><td><input type=checkbox name=zone_attack value=on " . checked($row['allow_attack']) . "></td>";
-        echo "<tr><td>" . $langvars['l_admin_allow_warpedit'] . "</td><td><input type=checkbox name=zone_warpedit value=on " . checked($row['allow_warpedit']) . "></td>";
-        echo "<tr><td>" . $langvars['l_admin_allow_planet'] . "</td><td><input type=checkbox name=zone_planet value=on " . checked($row['allow_planet']) . "></td>";
-        echo "</table>";
-        echo "<tr><td>" . $langvars['l_admin_max_hull'] . "</td><td><input type='text' name=zone_hull value=\"" . $row['max_hull'] . "\"></td></tr>";
-        echo "<br>";
-        echo "<input type='hidden' name=zone value=" . $zone . ">";
-        echo "<input type='hidden' name=operation value='savezone'>";
-        echo "<input type=submit value='save'>";
+        $variables['operation'] = "edit";
+        $variables['zone_id'] = $row['zone_id'];
+        $variables['zone_name'] = $row['zone_name'];
+        $variables['allow_attack'] = $row['allow_attack'];
+        $variables['allow_warpedit'] = $row['allow_warpedit'];
+        $variables['allow_planet'] = $row['allow_planet'];
+        $variables['max_hull'] = $row['max_hull'];
+        $variables['zone'] = $_POST['zone'];
+
+        $variables['allow_beacon'] = '';
+        if ($row['allow_beacon'] == 'Y')
+        {
+            $variables['allow_beacon'] = 'checked="checked"';
+        }
+
+        $variables['allow_attack'] = '';
+        if ($row['allow_attack'] == 'Y')
+        {
+            $variables['allow_attack'] = 'checked="checked"';
+        }
+
+        $variables['allow_warpedit'] = '';
+        if ($row['allow_warpedit'] == 'Y')
+        {
+            $variables['allow_warpedit'] = 'checked="checked"';
+        }
+
+        $variables['allow_planet'] = '';
+        if ($row['allow_planet'] == 'Y')
+        {
+            $variables['allow_planet'] = 'checked="checked"';
+        }
     }
-    elseif ($operation == "savezone")
+    elseif ($_POST['operation'] == "save")
     {
+        $variables['operation'] = "save";
+        $variables['zone'] = $_POST['zone'];
         // Update database
         $_zone_beacon = empty ($zone_beacon) ? "N" : "Y";
         $_zone_attack = empty ($zone_attack) ? "N" : "Y";
         $_zone_warpedit = empty ($zone_warpedit) ? "N" : "Y";
         $_zone_planet = empty ($zone_planet) ? "N" : "Y";
-        $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $zone));
+        $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?;", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $_POST['zone']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
-        echo $langvars['l_admin_changes_saved'] . "<br><br>";
-        echo "<input type=submit value=\"" . $langvars['l_admin_return_zone_editor'] . "\">";
         $button_main = false;
-    }
-    else
-    {
-        echo $langvars['l_invalid_operation'];
     }
 }
 
-echo "<input type='hidden' name=menu value='zone_editor.php'>";
-echo "<input type='hidden' name=swordfish value=" . $_POST['swordfish'] . ">";
-echo "</form>";
+$variables['lang'] = $lang;
+$variables['swordfish'] = $swordfish;
+
+// Set the module name.
+$variables['module'] = $module_name;
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
 ?>
