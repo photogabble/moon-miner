@@ -24,102 +24,115 @@ if (strpos ($_SERVER['PHP_SELF'], 'user_editor.php')) // Prevent direct access t
 }
 
 $button_main = true;
-echo "<strong>" . $langvars['l_admin_user_editor'] . "</strong>";
-echo "<br>";
-echo "<form action='admin.php' method='post'>";
-if (empty ($user))
+
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+if (!isset ($_POST['operation']))
 {
-    echo "<select size='20' name='user'>";
-    $res = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
+    $_POST['operation'] = '';
+}
+
+if (empty ($_POST['user']))
+{
+    $res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name");
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
-        $row=$res->fields;
-        echo "<option value='" . $row['ship_id'] . "'>" . $row['character_name'] . "</option>";
+        $players[]=$res->fields;
         $res->MoveNext();
     }
-    echo "</select>";
-    echo "&nbsp;<input type='submit' value='" . $langvars['l_edit'] . "'>";
+    $variables['user'] = '';
+    $variables['players'] = $players;
 }
 else
 {
-    if (empty ($operation))
+    if ($_POST['operation'] == '')
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($user));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array ($_POST['user']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
-        echo "<table border='0' cellspacing='0' cellpadding='5'>";
-        echo "<tr><td>" . $langvars['l_admin_player_name'] . "</td><td><input type='text' name='character_name' value=\"" . $row['character_name'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_password'] . "</td><td><input type='text' name='password2' value=\"" . $row['password'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_email'] . "</td><td><input type='email' name='email' placeholder='admin@example.com' value=\"" . $row['email'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_user_id'] . "</td><td>" . $user . "</td></tr>";
-        echo "<tr><td>" . $langvars['l_ship'] . "</td><td><input type='text' name='ship_name' value=\"" . $row['ship_name'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_destroyed'] . "</td><td><input type='checkbox' name='ship_destroyed' value='ON' " . checked($row['ship_destroyed']) . "></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_levels'] . "</td>";
-        echo "<td><table border='0' cellspacing='0' cellpadding='5'>";
-        echo "<tr><td>" . $langvars['l_hull'] . "</td><td><input type='text' size='5' name='hull' value=\"" . $row['hull'] . "\"></td>";
-        echo "<td>" . $langvars['l_engines'] . "</td><td><input type='text' size='5' name='engines' value=\"" . $row['engines'] . "\"></td>";
-        echo "<td>" . $langvars['l_power'] . "</td><td><input type='text' size='5' name='power' value=\"" . $row['power'] . "\"></td>";
-        echo "<td>" . $langvars['l_computer'] . "</td><td><input type='text' size='5' name='computer' value=\"" . $row['computer'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_sensors'] . "</td><td><input type='text' size='5' name='sensors' value=\"" . $row['sensors'] . "\"></td>";
-        echo "<td>" . $langvars['l_armor'] . "</td><td><input type='text' size='5' name='armor' value=\"" . $row['armor'] . "\"></td>";
-        echo "<td>" . $langvars['l_shields'] . "</td><td><input type='text' size='5' name='shields' value=\"" . $row['shields'] . "\"></td>";
-        echo "<td>" . $langvars['l_beams'] . "</td><td><input type='text' size='5' name='beams' value=\"" . $row['beams'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_torps'] . "</td><td><input type='text' size='5' name='torp_launchers' value=\"" . $row['torp_launchers'] . "\"></td>";
-        echo "<td>" . $langvars['l_cloak'] . "</td><td><input type='text' size='5' name='cloak' value=\"" . $row['cloak'] . "\"></td></tr>";
-        echo "</table></td></tr>";
-        echo "<tr><td>" . $langvars['l_holds'] . "</td>";
-        echo "<td><table border='0' cellspacing='0' cellpadding='5'>";
-        echo "<tr><td>" . $langvars['l_ore'] . "</td><td><input type='text' size='8' name='ship_ore' value=\"" . $row['ship_ore'] . "\"></td>";
-        echo "<td>" . $langvars['l_organics'] . "</td><td><input type='text' size='8' name='ship_organics' value=\"" . $row['ship_organics'] . "\"></td>";
-        echo "<td>" . $langvars['l_goods'] . "</td><td><input type='text' size='8' name='ship_goods' value=\"" . $row['ship_goods'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_energy'] . "</td><td><input type='text' size='8' name='ship_energy' value=\"" . $row['ship_energy'] . "\"></td>";
-        echo "<td>" . $langvars['l_colonists'] . "</td><td><input type='text' size='8' name='ship_colonists' value=\"" . $row['ship_colonists'] . "\"></td></tr>";
-        echo "</table></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_combat'] . "</td>";
-        echo "<td><table border='0' cellspacing='0' cellpadding='5'>";
-        echo "<tr><td>" . $langvars['l_fighters'] . "</td><td><input type='text' size='8' name='ship_fighters' value=\"" . $row['ship_fighters'] . "\"></td>";
-        echo "<td>" . $langvars['l_torps'] . "</td><td><input type='text' size='8' name='torps' value=\"" . $row['torps'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_armorpts'] . "</td><td><input type='text' size='8' name='armor_pts' value=\"" . $row['armor_pts'] . "\"></td></tr>";
-        echo "</table></td></tr>";
-        echo "<tr><td>" . $langvars['l_devices'] . "</td>";
-        echo "<td><table border='0' cellspacing='0' cellpadding='5'>";
-        echo "<tr><td>" . $langvars['l_admin_beacons'] . "</td><td><input type='text' size='5' name='dev_beacon' value=\"" . $row['dev_beacon'] . "\"></td>";
-        echo "<td>" . $langvars['l_warpedit'] . "</td><td><input type='text' size='5' name='dev_warpedit' value=\"" . $row['dev_warpedit'] . "\"></td>";
-        echo "<td>" . $langvars['l_genesis'] . "</td><td><input type='text' size='5' name='dev_genesis' value=\"" . $row['dev_genesis'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_deflect'] . "</td><td><input type='text' size='5' name='dev_minedeflector' value=\"" . $row['dev_minedeflector'] . "\"></td>";
-        echo "<td>" . $langvars['l_ewd'] . "</td><td><input type='text' size='5' name='dev_emerwarp' value=\"" . $row['dev_emerwarp'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_escape_pod'] . "</td><td><input type='checkbox' name='dev_escapepod' value='ON' " . checked($row['dev_escapepod']) . "></td>";
-        echo "<td>" . $langvars['l_fuel_scoop'] . "</td><td><input type='checkbox' name='dev_fuelscoop' value='ON' " . checked($row['dev_fuelscoop']) . "></td></tr>";
-        echo "</table></td></tr>";
-        echo "<tr><td>" . $langvars['l_credits'] . "</td><td><input type='text' name='credits' value=\"" . $row['credits'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_turns'] . "</td><td><input type='text' name='turns' value=\"" . $row['turns'] . "\"></td></tr>";
-        echo "<tr><td>" . $langvars['l_admin_current_sector'] . "</td><td><input type='text' name='sector' value=\"" . $row['sector'] . "\"></td></tr>";
-        echo "</table>";
-        echo "<br>";
-        echo "<input type='hidden' name='user' value='$user'>";
-        echo "<input type='hidden' name='operation' value='save'>";
-        echo "<input type='submit' value='" . $langvars['l_save'] . "'>";
+        $variables['operation'] = $_POST['operation'];
+        $variables['user'] = $_POST['user'];
+        $variables['character_name'] = $row['character_name'];
+        $variables['password'] = $row['password'];
+        $variables['email'] = $row['email'];
+        $variables['ship_name'] = $row['ship_name'];
+        $variables['hull'] = $row['hull'];
+        $variables['engines'] = $row['engines'];
+        $variables['power'] = $row['power'];
+        $variables['computer'] = $row['computer'];
+        $variables['sensors'] = $row['sensors'];
+        $variables['beams'] = $row['beams'];
+        $variables['armor'] = $row['armor'];
+        $variables['shields'] = $row['shields'];
+        $variables['torp_launchers'] = $row['torp_launchers'];
+        $variables['cloak'] = $row['cloak'];
+        $variables['ship_ore'] = $row['ship_ore'];
+        $variables['ship_organics'] = $row['ship_organics'];
+        $variables['ship_goods'] = $row['ship_goods'];
+        $variables['ship_energy'] = $row['ship_energy'];
+        $variables['ship_colonists'] = $row['ship_colonists'];
+        $variables['ship_fighters'] = $row['ship_fighters'];
+        $variables['torps'] = $row['torps'];
+        $variables['armor_pts'] = $row['armor_pts'];
+        $variables['dev_beacon'] = $row['dev_beacon'];
+        $variables['dev_warpedit'] = $row['dev_warpedit'];
+        $variables['dev_genesis'] = $row['dev_genesis'];
+        $variables['dev_minedeflector'] = $row['dev_minedeflector'];
+        $variables['credits'] = $row['credits'];
+        $variables['turns'] = $row['turns'];
+        $variables['sector'] = $row['sector'];
+
+        // For checkboxes, switch out the database stored value of Y/N for the html checked="checked", so the checkbox actually is checked.
+        $variables['dev_emerwarp'] = '';
+        if ($row['dev_emerwarp'] == 'Y')
+        {
+            $variables['dev_emerwarp'] = 'checked="checked"';
+        }
+
+        $variables['dev_escapepod'] = '';
+        if ($row['dev_escapepod'] == 'Y')
+        {
+            $variables['dev_escapepod'] = 'checked="checked"';
+        }
+
+        $variables['dev_fuelscoop'] = '';
+        if ($row['dev_fuelscoop'] == 'Y')
+        {
+            $variables['dev_fuelscoop'] = 'checked="checked"';
+        }
+
+        $variables['ship_destroyed'] = '';
+        if ($row['ship_destroyed'] == 'Y')
+        {
+            $variables['ship_destroyed'] = 'checked="checked"';
+        }
     }
-    elseif ($operation == "save")
+    elseif ($_POST['operation'] == 'save')
     {
         // update database
-        $_ship_destroyed = empty ($ship_destroyed) ? "N" : "Y";
-        $_dev_escapepod = empty ($dev_escapepod) ? "N" : "Y";
-        $_dev_fuelscoop = empty ($dev_fuelscoop) ? "N" : "Y";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET character_name=?, password=?, email=?, ship_name=?, ship_destroyed=?, hull=?, engines=?, power=?, computer=?, sensors=?, armor=?, shields=?, beams=?, torp_launchers=?, cloak=?, credits=?, turns=?, dev_warpedit=?, dev_genesis=?, dev_beacon=?, dev_emerwarp=?, dev_escapepod=?, dev_fuelscoop=?, dev_minedeflector=?, sector=?, ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=?, ship_fighters=?, torps=?, armor_pts=? WHERE ship_id=?", array ($character_name, $password2, $email, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $user));
-
+        $_ship_destroyed = empty ($_POST['ship_destroyed']) ? "N" : "Y";
+        $_dev_escapepod = empty ($_POST['dev_escapepod']) ? "N" : "Y";
+        $_dev_fuelscoop = empty ($_POST['dev_fuelscoop']) ? "N" : "Y";
+        $variables['debug'] = $_dev_escapepod;
+        $resx = $db->Execute("UPDATE {$db->prefix}ships SET character_name=?, password=?, email=?, ship_name=?, ship_destroyed=?, hull=?, engines=?, power=?, computer=?, sensors=?, armor=?, shields=?, beams=?, torp_launchers=?, cloak=?, credits=?, turns=?, dev_warpedit=?, dev_genesis=?, dev_beacon=?, dev_emerwarp=?, dev_escapepod=?, dev_fuelscoop=?, dev_minedeflector=?, sector=?, ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=?, ship_fighters=?, torps=?, armor_pts=? WHERE ship_id=?", array ($character_name, $password2, $email, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $_POST['user']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
-        echo $langvars['l_admin_changes_saved'] . "<br><br>";
-        echo "<input type='submit' value=\"" . $langvars['l_admin_return_user_editor'] . "\">";
         $button_main = false;
-    }
-    else
-    {
-        echo $langvars['l_admin_invalid_operation'];
+        $variables['user'] = $_POST['user'];
     }
 }
-echo "<input type='hidden' name='menu' value='user_editor.php'>";
-echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
-echo "</form>";
+
+$variables['lang'] = $lang;
+$variables['swordfish'] = $swordfish;
+$variables['operation'] = $_POST['operation'];
+
+// Set the module name.
+$variables['module'] = $module_name;
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
 ?>
