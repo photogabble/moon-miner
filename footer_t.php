@@ -137,6 +137,20 @@ else
 $elapsed = number_format ($elapsed, 2);
 $mem_peak_usage = floor (memory_get_peak_usage() / 1024);
 
+$public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
+$slash_position = strrpos ($_SERVER['PHP_SELF'], '/') + 1;
+$current_page = substr($_SERVER['PHP_SELF'], $slash_position);
+if (in_array ($current_page, $public_pages))
+{
+    // If it is a non-login required page, such as ranking, new, faq, settings, news, and index use the public SF logo, which increases project stats.
+    $variables['suppress_logo'] = false;
+}
+else
+{
+    // Else suppress the logo, so it is as fast as possible.
+    $variables['suppress_logo'] = true;
+}
+
 // Set array with all used variables in page
 $variables['update_ticker'] = array("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$sched_ticks);
 

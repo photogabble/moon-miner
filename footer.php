@@ -134,7 +134,7 @@ $slash_position = strrpos ($_SERVER['PHP_SELF'], '/') + 1;
 $current_page = substr($_SERVER['PHP_SELF'], $slash_position);
 if (in_array ($current_page, $public_pages))
 {
-    // If it is a non-login required page, such as ranking, new, faq, settings, news use the public SF logo, which increases project stats. Do not do so on index.
+    // If it is a non-login required page, such as ranking, new, faq, settings, news, and index use the public SF logo, which increases project stats.
     echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'>";
     echo "<img style='border:0;' width='" . $sf_logo_width . "' height='" . $sf_logo_height ."' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'>";
     echo "</a></div>";

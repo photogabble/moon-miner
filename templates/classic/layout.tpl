@@ -110,7 +110,9 @@ if (news.initTicker("news_ticker") == true)
 <br>
     </div>
 
+{if $variables['suppress_logo'] == false}
     <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
+{/if}
     <div style="font-size:smaller; text-align:right"><a class="new_link" href="news.php{$variables['sf_logo_link']}">{$langvars['l_local_news']}</a></div>
     <div style='font-size:smaller; text-align:right'>&copy; 2000-2012 Ron Harwood &amp; the BNT Dev team</div>
 
