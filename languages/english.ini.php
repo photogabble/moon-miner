@@ -648,8 +648,8 @@ l_ibank_conspl                            = "Consolidate Credits to a single pla
 l_ibank_notenturns                        = "You do not have enough turns to perform this operation";
 
 [index]
-l_welcome_bnt                           = "Welcome to Blacknova Traders!";
-l_bnt_description                       = "A web-based massively multiplayer space combat and trading game";
+l_welcome_bnt                           = "Welcome to Blacknova Traders (BNT)!";
+l_bnt_description                       = "BNT is a web-based massively multiplayer space combat and trading game inspired by the popular BBS games of TradeWars and Ultimate Universe.";
 l_cookie_warning                        = "Blacknova Traders requires cookies for logins to work. By signing up or logging in you agree to let us set cookies.";
 l_new_player                            = "New Player";
 
@@ -822,7 +822,7 @@ l_login_banned                          = "You have been banned from this game b
 [logout]
 l_logout_score                          = "You current score is";
 l_logout_text                           = "[name] is now logged out.  Click [here] to return to game.";
-l_login_forgotpw                        = "Forgot your password?&nbsp; &nbsp;Enter it blank and press login.";
+l_login_forgotpw                        = "Forgot your password?&nbsp; &nbsp;Enter only your email address and press login.";
 
 [lrscan]
 l_lrs_title                             = "Long Range Scan";
