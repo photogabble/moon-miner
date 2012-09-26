@@ -23,5 +23,18 @@ if (strpos ($_SERVER['PHP_SELF'], 'link_editor.php')) // Prevent direct access t
     include 'error.php';
 }
 
-echo "Link editor not implemented yet.";
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['lang'] = $lang;
+$variables['swordfish'] = $swordfish;
+
+// Set the module name.
+$variables['module'] = $module_name;
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
 ?>
