@@ -178,7 +178,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver" cellpadding="0">
                     <tr>
                       <td width="100%" align="center" valign="middle"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><?php echo $l_readm_del; ?></A> |
-        <a class="but" href="mailto.php?name=<?php echo $sender['character_name']; ?>&subject=<?php echo $msg['subject']; ?>"><?php echo $l_readm_repl; ?></A>
+        <a class="but" href="mailto.php?to=<?php echo $sender['character_name']; ?>&subject=<?php echo $msg['subject']; ?>"><?php echo $l_readm_repl; ?></A>
                       </td>
                     </tr>
                   </table>

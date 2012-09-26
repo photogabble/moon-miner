@@ -1,3 +1,7 @@
+TheMightyDude (23 September 2012)
+--------------------------------------
+Fixed bug that when replying to a message it was sent to the sender and not yourself.
+
 TheKabal (22 September 2012)
 --------------------------------------
 Add rich text editing via CKeditor
