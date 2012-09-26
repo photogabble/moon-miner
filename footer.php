@@ -129,24 +129,21 @@ else
     $link = "?lang=" . $_GET['lang'];
 }
 
-echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'>";
-
-$public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php');
+$public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
 $slash_position = strrpos ($_SERVER['PHP_SELF'], '/') + 1;
 $current_page = substr($_SERVER['PHP_SELF'], $slash_position);
 if (in_array ($current_page, $public_pages))
 {
     // If it is a non-login required page, such as ranking, new, faq, settings, news use the public SF logo, which increases project stats. Do not do so on index.
+    echo "<div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'>";
     echo "<img style='border:0;' width='" . $sf_logo_width . "' height='" . $sf_logo_height ."' src='http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type=" . $sf_logo_type . "' alt='Blacknova Traders at SourceForge.net'>";
+    echo "</a></div>";
 }
 else
 {
-    // Else show our png-converted, pngcrushed, locally served project logo, so it is as fast as possible.
-    // This includes index, because it is the page that search engines catalog the most, so we want it to be a fast landing for 1st time players.
-    echo "<img style='border:0;' width='" . $sf_logo_width . "' height='" . $sf_logo_height ."' src='images/sflogo" . $sf_logo_type . ".png' alt='Blacknova Traders at SourceForge.net'>";
+    // Else suppress the logo, so it is as fast as possible.
 }
 
-echo "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $langvars['l_local_news'] . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-2012 Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
