@@ -46,6 +46,7 @@ function planet_combat ($db)
 
     include_once './includes/collect_bounty.php';
     include_once './includes/calc_score.php';
+    include_once './includes/ship_to_ship.php';
 
     if ($playerinfo['turns'] < 1 )
     {
