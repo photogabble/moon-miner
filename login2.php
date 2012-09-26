@@ -98,6 +98,10 @@ if ($playerfound)
             $stamp = date("Y-m-d H-i-s");
             $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
             db_op_result ($db, $update, __LINE__, __FILE__);
+
+            // They have logged in successfully, so update their session ID as well
+            adodb_session_regenerate_id();
+
             $_SESSION['logged_in'] = true;
             $_SESSION['password'] = $_POST['pass'];
             $_SESSION['username'] = $playerinfo['email'];

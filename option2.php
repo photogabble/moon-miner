@@ -96,6 +96,9 @@ else
             // Yes they match so hash the password.  $hashedPassword will be a 60-character string.
             $hashed_pass = $hasher->HashPassword ($newpass1);
 
+            // They have changed their password successfully, so update their session ID as well
+            adodb_session_regenerate_id();
+
             // Now update the players password.
             $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
             db_op_result ($db, $rs, __LINE__, __FILE__);
