@@ -1,4 +1,4 @@
-TheMightyDude (23 September 2012)
+TheMightyDude (26 September 2012)
 --------------------------------------
 Fixed bug that when replying to a message it was sent to the sender and not yourself.
 Fixed PHP Fatal error: Call to undefined function ship_to_ship() in includes/planet_combat.php on line 402
