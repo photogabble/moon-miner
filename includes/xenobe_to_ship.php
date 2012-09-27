@@ -45,25 +45,24 @@ function xenobe_to_ship ($db, $ship_id)
   // LOOKUP TARGET DETAILS
   $resa = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ, {$db->prefix}planets READ, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
   db_op_result ($db, $resa, __LINE__, __FILE__);
-  $resultt = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id='$ship_id'");
+  $resultt = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
   db_op_result ($db, $resultt, __LINE__, __FILE__);
   $targetinfo=$resultt->fields;
 
   // VERIFY NOT ATTACKING ANOTHER XENOBE
     // Added because the xenobe were killing each other off
-  if (strstr($targetinfo[email], '@xenobe'))                       // He's a xenobe
-        {
+    if (strstr($targetinfo[email], '@xenobe'))                       // He's a xenobe
+    {
         $resb = $db->Execute("UNLOCK TABLES");
         db_op_result ($db, $resb, __LINE__, __FILE__);
-
-    return;
-        }
+        return;
+    }
 
   // VERIFY SECTOR ALLOWS ATTACK
-  $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id='$targetinfo[sector]'");
+  $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id = ?;", array ($targetinfo['sector']));
   db_op_result ($db, $sectres, __LINE__, __FILE__);
   $sectrow = $sectres->fields;
-  $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=$sectrow[zone_id]");
+  $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectrow['zone_id']));
   db_op_result ($db, $zoneres, __LINE__, __FILE__);
   $zonerow = $zoneres->fields;
   if ($zonerow[allow_attack]=="N")                        //  DEST LINK MUST ALLOW ATTACKING
@@ -78,7 +77,7 @@ function xenobe_to_ship ($db, $ship_id)
   {
     player_log ($db, $targetinfo[ship_id], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
     $dest_sector=mt_rand(0,$sector_max);
-    $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector=$dest_sector, dev_emerwarp=dev_emerwarp-1 WHERE ship_id=$targetinfo[ship_id]");
+    $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $targetinfo['ship_id']));
     db_op_result ($db, $result_warp, __LINE__, __FILE__);
 
     return;
