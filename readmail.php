@@ -102,13 +102,10 @@ db_op_result ($db, $res, __LINE__, __FILE__);
   while (!$res->EOF)
   {
    $msg = $res->fields;
-   $msg['subject'] = stripslashes($msg['subject']);
-   $msg['message'] = stripslashes($msg['message']);
 
    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($msg['sender_id']));
    db_op_result ($db, $result, __LINE__, __FILE__);
    $sender = $result->fields;
-   $sender['character_name'] = stripslashes($sender['character_name']);
 
 //   $isAdmin = isAdmin($sender);
 ?>
@@ -166,7 +163,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="white" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="100%" style="text-align:left; vertical-align:text-top;"><font color="black" size="2"><?php echo nl2br($msg['message']); ?></font></td>
+                      <td width="100%" style="text-align:left; vertical-align:text-top;"><font color="black" size="2"><?php echo $msg['message']; ?></font></td>
                     </tr>
                   </table>
                 </div>
