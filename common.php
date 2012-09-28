@@ -28,15 +28,14 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
 ini_set("include_path","."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
-ini_set('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
-
-//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
-ob_start();
-
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new bnt_timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
+//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
+ob_start();
+
+ini_set('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 mb_http_output ("UTF-8"); // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
 mb_internal_encoding ("UTF-8"); // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 
