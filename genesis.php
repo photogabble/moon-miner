@@ -53,7 +53,7 @@ $planetinfo = $result3->fields;
 $num_planets = $result3->RecordCount();
 
 // Generate Planetname
-$planetname = substr($playerinfo['character_name'],0,1) . substr($playerinfo['ship_name'],0,1) . "-" . $playerinfo['sector'] . "-" . ($num_planets + 1);
+$planetname = mb_substr($playerinfo['character_name'],0,1) . mb_substr($playerinfo['ship_name'],0,1) . "-" . $playerinfo['sector'] . "-" . ($num_planets + 1);
 
 echo "<h1>" . $title . "</h1>\n";
 
