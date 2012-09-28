@@ -37,6 +37,9 @@ ob_start();
 $BenchmarkTimer = new bnt_timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 
+mb_http_output ("UTF-8"); // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
+mb_internal_encoding ("UTF-8"); // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
+
 $ADODB_SESS_CONN = null;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";
 
