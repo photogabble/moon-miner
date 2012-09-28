@@ -151,7 +151,7 @@ if (empty($content))
 }
 else
 {
-    if (strpos ($to, $l_sendm_ally) === false)
+    if (mb_strpos ($to, $l_sendm_ally) === false)
     {
         $timestamp = date("Y\-m\-d H\:i\:s");
         $res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE character_name=?;", array ($to));
