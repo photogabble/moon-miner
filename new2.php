@@ -96,18 +96,18 @@ if ($username === null || $character === null || $shipname === null )
 while (!$result->EOF)
 {
     $row = $result->fields;
-    if (strtolower ($row['email']) == strtolower ($username))
+    if (mb_strtolower ($row['email']) == mb_strtolower ($username))
     {
         echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<br>";
         $flag = 1;
     }
-    if (strtolower ($row['character_name']) == strtolower($character))
+    if (mb_strtolower ($row['character_name']) == mb_strtolower($character))
     {
         $l_new_inusechar=str_replace("[character]", $character, $l_new_inusechar);
         echo $l_new_inusechar . '<br>';
         $flag = 1;
     }
-    if (strtolower ($row['ship_name']) == strtolower ($shipname))
+    if (mb_strtolower ($row['ship_name']) == mb_strtolower ($shipname))
     {
         $l_new_inuseship = str_replace ("[shipname]", $shipname, $l_new_inuseship);
         echo $l_new_inuseship . '<br>';
