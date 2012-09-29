@@ -358,10 +358,8 @@ if (!is_bool($planetinfo) && $planetinfo != false )
         {
             // Name2 menu
             $new_name = trim (strip_tags ($_POST['new_name']) );
-            $new_name = addslashes ($new_name);
-            $result5 = $db->Execute("UPDATE {$db->prefix}planets SET name='$new_name' WHERE planet_id=$planet_id");
+            $result5 = $db->Execute("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array ($new_name, $planet_id));
             db_op_result ($db, $result5, __LINE__, __FILE__);
-            $new_name = stripslashes ($new_name);
             echo "$l_planet_cname $new_name.";
         }
         elseif ($command == "land")
