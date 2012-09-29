@@ -17,7 +17,7 @@
 //
 // File: common.php
 //
-// This file must not contain any include/require type actions - those must occur in global_includes instead.
+// This file must not contain any include/require type actions (other than error) - those must occur in global_includes instead.
 
 if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to this file
 {
@@ -26,16 +26,16 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 }
 
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
-ini_set("include_path","."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
+ini_set ("include_path", "."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
 // Benchmarking - start before anything else.
 $BenchmarkTimer = new bnt_timer;
-$BenchmarkTimer->start(); // Start benchmarking immediately
+$BenchmarkTimer->start (); // Start benchmarking immediately
 
 //if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
-ob_start();
+ob_start ();
 
-ini_set('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+ini_set ('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 mb_http_output ("UTF-8"); // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
 mb_internal_encoding ("UTF-8"); // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 
@@ -43,44 +43,44 @@ $ADODB_SESS_CONN = null;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";
 
 // The data field name "data" violates SQL reserved words - switch it to SESSDATA
-ADODB_Session::dataFieldName('SESSDATA');
+ADODB_Session::dataFieldName ('SESSDATA');
 
 // Add MD5 encryption for sessions, and then compress it before storing it in the database
-ADODB_Session::filter(new ADODB_Encrypt_Mcrypt());
-ADODB_Session::filter(new ADODB_Compress_Gzip());
+ADODB_Session::filter (new ADODB_Encrypt_Mcrypt ());
+ADODB_Session::filter (new ADODB_Compress_Gzip ());
 
 bnt_database::connect ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, $db_persistent);
 
 // Create/touch a file named dev in the main game directory to activate development mode
-if (file_exists("dev"))
+if (file_exists ("dev"))
 {
-    ini_set('error_reporting', E_ALL); // During development, output all errors, even notices
-    ini_set('display_errors', '1'); // During development, *display* all errors
+    ini_set ('error_reporting', E_ALL); // During development, output all errors, even notices
+    ini_set ('display_errors', '1'); // During development, *display* all errors
     $db->logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 else
 {
-    ini_set('error_reporting', 0); // No errors
-    ini_set('display_errors', '0'); // Don't show them
+    ini_set ('error_reporting', 0); // No errors
+    ini_set ('display_errors', '0'); // Don't show them
     $db->logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 
-ini_set('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+ini_set ('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 
 $db->prefix = $db_prefix;
 
 if ($db->logging)
 {
-    adodb_perf::table("{$db->prefix}adodb_logsql");
-    $db->LogSQL(); // Turn on adodb performance logging
+    adodb_perf::table ("{$db->prefix}adodb_logsql");
+    $db->LogSQL (); // Turn on adodb performance logging
 }
 
 // Get the config_values from the DB
-$debug_query = $db->Execute("SELECT name,value FROM {$db->prefix}gameconfig");
+$debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
 if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
 {
-    db_op_result($db,$debug_query,__LINE__,__FILE__);
+    db_op_result ($db, $debug_query, __LINE__, __FILE__);
     $no_db = false; // We have a database connection!
 }
 else
@@ -103,10 +103,10 @@ while ($debug_query && !$debug_query->EOF)
 {
     $row = $debug_query->fields;
     $$row['name'] = $row['value'];
-    $debug_query->MoveNext();
+    $debug_query->MoveNext ();
 }
 
-if (!isset($index_page))
+if (!isset ($index_page))
 {
     $index_page = false;
 }
@@ -114,14 +114,14 @@ if (!isset($index_page))
 if (!$index_page)
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
-    if (!isset($_SESSION))
+    if (!isset ($_SESSION))
     {
-        session_start();
+        session_start ();
     }
 }
 
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
-if (!defined('reg_global_fix'))define('reg_global_fix', True, TRUE);
+if (!defined('reg_global_fix')) define('reg_global_fix', True, TRUE);
 
 foreach ($_POST as $k=>$v)
 {
@@ -130,6 +130,7 @@ foreach ($_POST as $k=>$v)
         ${$k}=$v;
     }
 }
+
 foreach ($_GET as $k=>$v)
 {
     if (!isset($GLOBALS[$k]))
@@ -144,14 +145,14 @@ if ($no_db != true) // Before DB is installed, don't try to setup userinfo
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
     {
-        if (array_key_exists('lang', $_GET)) // And the user has chosen a language on index.php
+        if (array_key_exists ('lang', $_GET)) // And the user has chosen a language on index.php
         {
             $lang = $_GET['lang'];  // Set $lang to the language the user has chosen
         }
     }
     else // The user has logged in, so use his preference from the database
     {
-        $res = $db->Execute("SELECT lang FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+        $res = $db->Execute ("SELECT lang FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
@@ -179,7 +180,7 @@ if (empty ($link_forums))
 $ip = $_SERVER['REMOTE_ADDR'];
 $plugin_config = array ();
 $admin_list = array ();
-date_default_timezone_set('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
+date_default_timezone_set ('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 
 // Used to define what devices are used to calculate the average tech level.
 $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
@@ -189,8 +190,8 @@ $calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "
 // Auto detect and set the game path (uses the logic from setup_info)
 // If it does not work, please comment this out and set it in db_config.php instead.
 // But PLEASE also report that it did not work for you at the main BNT forums (forums.blacknova.net)
-$gamepath = dirname($_SERVER['PHP_SELF']);
-if (isset($gamepath) && strlen($gamepath) > 0)
+$gamepath = dirname ($_SERVER['PHP_SELF']);
+if (isset ($gamepath) && strlen ($gamepath) > 0)
 {
     if ($gamepath === "\\")
     {
@@ -204,7 +205,7 @@ if (isset($gamepath) && strlen($gamepath) > 0)
             $gamepath = "/$gamepath";
         }
 
-        if ($gamepath[strlen($gamepath)-1] != "/")
+        if ($gamepath[strlen ($gamepath)-1] != "/")
         {
             $gamepath = "$gamepath/";
         }
@@ -213,9 +214,8 @@ if (isset($gamepath) && strlen($gamepath) > 0)
     {
         $gamepath ="/";
     }
-    $gamepath = str_replace("\\", "/", stripcslashes($gamepath));
-}
-// Game path setting ends
+    $gamepath = str_replace ("\\", "/", stripcslashes ($gamepath));
+} // Game path setting ends
 
 // Auto detect and set the Game domain setting (uses the logic from setup_info)
 // If it does not work, please comment this out and set it in db_config.php instead.
@@ -224,44 +224,39 @@ if (isset($gamepath) && strlen($gamepath) > 0)
 $remove_port = true;
 $gamedomain = $_SERVER['HTTP_HOST'];
 
-if (isset($gamedomain) && strlen($gamedomain) >0)
+if (isset ($gamedomain) && strlen ($gamedomain) >0)
 {
-    $pos = strpos($gamedomain,"http://");
-    if (is_integer($pos))
+    $pos = strpos ($gamedomain, "http://");
+    if (is_integer ($pos))
     {
-        $gamedomain = substr($gamedomain,$pos+7);
+        $gamedomain = substr ($gamedomain, $pos+7);
     }
 
-    $pos = strpos($gamedomain,"www.");
-    if (is_integer($pos))
+    $pos = strpos ($gamedomain, "www.");
+    if (is_integer ($pos))
     {
-        $gamedomain = substr($gamedomain,$pos+4);
+        $gamedomain = substr ($gamedomain, $pos+4);
     }
 
     if ($remove_port)
     {
-        $pos = strpos($gamedomain,":");
+        $pos = strpos ($gamedomain, ":");
     }
 
-    if (is_integer($pos))
+    if (is_integer ($pos))
     {
-        $gamedomain = substr($gamedomain,0,$pos);
+        $gamedomain = substr ($gamedomain, 0, $pos);
     }
 
-    if ($gamedomain[0]!=".")
+    if ($gamedomain[0] != ".")
     {
-        $gamedomain=".$gamedomain";
+        $gamedomain = ".$gamedomain";
     }
-}
-// Game domain setting ends
+} // Game domain setting ends
 
 // We need language variables in every page, and a language setting for them.
 global $lang, $langvars;
 
-// Template API.
-$template = new bnt_template();
-
-// We set the name of the theme.
-$template->SetTheme("classic");
-// End of Template API.
+$template = new bnt_template(); // Template API.
+$template->SetTheme ("classic"); // We set the name of the theme.
 ?>
