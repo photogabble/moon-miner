@@ -526,7 +526,7 @@ function planet_combat ($db)
             db_op_result ($db, $update7a, __LINE__, __FILE__);
         }
 
-        include './includes/calc_ownership.php';
+        include_once './includes/calc_ownership.php';
         calc_ownership ($db, $planetinfo['sector_id']);
     }
     else

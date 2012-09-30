@@ -18,10 +18,11 @@
 // File: planet.php
 
 include './global_includes.php';
-include './includes/scan_error.php';
-include './includes/scan_success.php';
-include './includes/calc_ownership.php';
-include './includes/get_planet_owner.php';
+
+include_once './includes/scan_error.php';
+include_once './includes/scan_success.php';
+include_once './includes/calc_ownership.php';
+include_once './includes/get_planet_owner.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -600,7 +601,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
                 }
                 else
                 {
-                    include './includes/planet_combat.php';
+                    include_once './includes/planet_combat.php';
                     planet_combat ($db);
                 }
             }
@@ -629,7 +630,7 @@ if (!is_bool($planetinfo) && $planetinfo != false )
         }
         elseif ($command == "bomb" && $allow_sofa)
         {
-            include './includes/planet_bombing.php';
+            include_once './includes/planet_bombing.php';
             planet_bombing ($db);
         }
         elseif ($command == "scan")
