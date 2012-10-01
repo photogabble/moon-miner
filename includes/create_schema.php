@@ -281,8 +281,6 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}news (" .
              "date datetime," .
              "news_type varchar(10)," .
              "PRIMARY KEY (news_id)," .
-             "KEY news_id (news_id)," .
-             "UNIQUE news_id_2 (news_id)" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
