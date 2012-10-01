@@ -3,6 +3,7 @@ TheMightyDude (01 October 2012)
 Fixed Notice: Undefined index: l_login_closed_message in includes/check_login.php on line 133 
 Fixed Notice: Undefined index: l_login_closed_message in includes/check_login.php on line 135
 Fixed bug in includes/create_schema.php where it was failing to create the news table.
+Fixed the News Ticker so it now works, my bad, I left some debug code in there.
 
 TheMightyDude (30 September 2012)
 --------------------------------------
