@@ -23,32 +23,30 @@ include './global_includes.php';
 load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_logout;
-//setcookie ("userpass", "", 0, $gamepath, $gamedomain);
-//setcookie ("userpass", "", 0); // Delete from default path as well.
 $_SESSION['logged_in'] = false;
 
 // Clear the session array, clear the session cookie
 $_SESSION = array();
-setcookie("PHPSESSID","",0,"/");
+setcookie ("PHPSESSID", "", 0, "/");
 
 // Destroy the session entirely
-session_destroy();
+session_destroy ();
 
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-if (isset($_SESSION['username']))
+if (isset ($_SESSION['username']))
 {
     $current_score = 0;
-    $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     include_once './includes/calc_score.php';
     $current_score = calc_score ($db, $playerinfo['ship_id']);
     player_log ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
     echo $l_logout_score . " " . $current_score . ".<br>";
-    $l_logout_text = str_replace("[name]", $_SESSION['username'], $l_logout_text);
-    $l_logout_text = str_replace("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
+    $l_logout_text = str_replace ("[name]", $_SESSION['username'], $l_logout_text);
+    $l_logout_text = str_replace ("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
     echo $l_logout_text;
 }
 else

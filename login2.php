@@ -49,10 +49,6 @@ else
 // New database driven language entries
 load_languages($db, $lang, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-// first placement of cookie - don't use update cookie.
-//$userpass = $_POST['email']."+".$_POST['pass'];
-//setcookie("userpass", $userpass, time() + (3600*24)*365, $gamepath, $gamedomain);
-
 if ($server_closed)
 {
     $title = $l_login_sclosed;
@@ -75,8 +71,6 @@ if (isset($playerinfo))
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res->RecordCount() != 0)
     {
-//        setcookie("userpass", "", 0, $gamepath, $gamedomain);
-//        setcookie("userpass", "", 0); // Delete from default path as well.
         $banned = 1;
     }
 }

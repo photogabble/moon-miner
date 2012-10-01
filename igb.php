@@ -36,7 +36,7 @@ $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id=$playerinfo[ship_id]");
+$result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
