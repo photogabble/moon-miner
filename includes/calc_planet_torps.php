@@ -32,7 +32,7 @@ function calc_planet_torps ($db)
     $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
     $torps = $planetinfo['torps'];
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+    $res = $db->Execute("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
@@ -40,7 +40,7 @@ function calc_planet_torps ($db)
        {
            $ship_torps =  round (pow ($level_factor, $res->fields['torp_launchers'])) * 10;
            $torp_launchers = $torp_launchers + $ship_torps;
-           $res->MoveNext();
+           $res->MoveNext ();
        }
     }
     if ($torp_launchers > $torps)

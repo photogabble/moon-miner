@@ -32,14 +32,14 @@ function calc_planet_shields ($db)
     $planetshields = NUM_SHIELDS ($ownerinfo['shields'] + $base_factor);
     $energy_available = $planetinfo['energy'];
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+    $res = $db->Execute("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         while (!$res->EOF)
         {
             $planetshields += NUM_SHIELDS ($res->fields['shields']);
-            $res->MoveNext();
+            $res->MoveNext ();
         }
     }
 
