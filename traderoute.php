@@ -382,7 +382,7 @@ else
 
         echo "<td align='center'><font size=2 color=white>";
         echo "<a href=\"traderoute.php?command=edit&traderoute_id=" . $traderoutes[$i]['traderoute_id'] . "\">";
-        echo "$l_tdr_edit</a><br><a href=\"traderoute.php?command=delete&traderoute_id=" . $traderoutes[$i]['traderoute_id'] . "\">";
+        echo "$l_edit</a><br><a href=\"traderoute.php?command=delete&traderoute_id=" . $traderoutes[$i]['traderoute_id'] . "\">";
         echo "$l_tdr_del</a></font></td></tr>";
 
         $i++;

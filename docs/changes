@@ -4,6 +4,7 @@ Fixed Notice: Undefined index: l_login_closed_message in includes/check_login.ph
 Fixed Notice: Undefined index: l_login_closed_message in includes/check_login.php on line 135
 Fixed bug in includes/create_schema.php where it was failing to create the news table.
 Fixed the News Ticker so it now works, my bad, I left some debug code in there.
+Fixed missing language variable "l_tdr_edit" should be using "l_edit" in traderoute.php.
 
 TheMightyDude (30 September 2012)
 --------------------------------------
