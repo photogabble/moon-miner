@@ -1,3 +1,8 @@
+TheMightyDude (01 October 2012)
+--------------------------------------
+Fixed Notice: Undefined index: l_login_closed_message in includes/check_login.php on line 133 
+Fixed Notice: Undefined index: l_login_closed_message in includes/check_login.php on line 135
+
 TheMightyDude (30 September 2012)
 --------------------------------------
 Fixed Warning: include(./calc_ownership.php): failed to open stream: No such file or directory in includes/db_kill_player.php on line 68 

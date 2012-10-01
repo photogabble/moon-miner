@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_login.php')) // Prevent direct access t
 function check_login ($db, $lang, $langvars, $stop_die = true)
 {
     // New database driven language entries
-    load_languages($db, $lang, array ('global_funcs', 'common', 'footer', 'self_destruct'), $langvars);
+    load_languages($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'), $langvars);
 
     $flag = 0;
 
