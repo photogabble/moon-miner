@@ -280,7 +280,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}news (" .
              "user_id int(11)," .
              "date datetime," .
              "news_type varchar(10)," .
-             "PRIMARY KEY (news_id)," .
+             "PRIMARY KEY (news_id)" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
