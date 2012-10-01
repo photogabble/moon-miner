@@ -130,7 +130,7 @@ if (empty($content))
     }
     else
     {
-        $subject = '';
+        $subject = 'no subject';
     }
 
     echo "    <tr>\n";
