@@ -32,7 +32,7 @@ function db_op_result ($db, $query, $served_line, $served_page)
     else
     {
         // Convert the content of PHP_SELF (in case it has been tainted) to the correct html entities
-        $safe_script_name = htmlentities ($_SERVER['PHP_SELF'], ENT_HTML5, "UTF-8"));
+        $safe_script_name = htmlentities ($_SERVER['PHP_SELF']);
         $dberror = "A Database error occurred in " . $served_page .
                    " on line " . ($served_line-1) .
                    " (called from: " . $safe_script_name . ": " . $db->ErrorMsg();
