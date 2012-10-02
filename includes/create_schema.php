@@ -297,7 +297,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}messages (" .
              "ID int NOT NULL auto_increment," .
              "sender_id int NOT NULL default '0'," .
              "recp_id int NOT NULL default '0'," .
-             "subject varchar(250) NOT NULL default ''," .
+             "subject varchar(250) default ''," .
              "sent varchar(19) NULL," .
              "message longtext NOT NULL," .
              "notified enum('Y','N') NOT NULL default 'N'," .
