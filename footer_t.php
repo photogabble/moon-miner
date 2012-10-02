@@ -96,7 +96,7 @@ if ($news_ticker == true)
     }
     else
     {
-        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '{$startdate} 00:00:00' AND date < '{$startdate} 23:59:59' ORDER BY news_id");
+        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > '? 00:00:00' AND date < '? 23:59:59' ORDER BY news_id", array ($startdate, $startdate));
         db_op_result ($db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {

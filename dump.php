@@ -30,10 +30,10 @@ load_languages($db, $lang, array('dump', 'main', 'common', 'global_includes', 'g
 $title = $l_dump_title;
 include './header.php';
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=$playerinfo[sector]");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
 $sectorinfo = $result2->fields;
 echo "<h1>" . $title . "</h1>\n";
 
@@ -51,7 +51,7 @@ if ($playerinfo['ship_colonists'] == 0)
 }
 elseif ($sectorinfo['port_type'] == "special")
 {
-    $update = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists=0, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+    $update = $db->Execute("UPDATE {$db->prefix}ships SET ship_colonists = 0, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
     echo $l_dump_dumped . "<br><br>";
 }
 else
