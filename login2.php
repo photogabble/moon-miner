@@ -22,7 +22,7 @@ include './global_includes.php';
 // Test to see if server is closed to logins
 $playerfound = false;
 
-if ($_POST['email'] != null)
+if (array_key_exists('email', $_POST) && $_POST['email'] != null)
 {
     $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_POST['email']));
     db_op_result ($db, $res, __LINE__, __FILE__);
@@ -65,7 +65,7 @@ $title = $l_login_title2;
 // Check Banned
 $banned = 0;
 
-if (isset($playerinfo))
+if (isset($playerinfo) && $playerfound != false)
 {
     $res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array ($ip, $playerinfo['ip_address']));
     db_op_result ($db, $res, __LINE__, __FILE__);
