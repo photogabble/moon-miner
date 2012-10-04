@@ -21,22 +21,22 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
+load_languages ($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
 
 $body_class = 'zoneinfo';
 $title = $l_zi_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id='$zone'");
+$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($zone));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
@@ -74,14 +74,14 @@ else
     {
         if ($row['corp_zone'] == 'N')
         {
-            $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id=$row[owner]");
+            $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['owner']));
             db_op_result ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
-            $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id=$row[owner]");
+            $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id = ?;", array ($row['owner']));
             db_op_result ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];
