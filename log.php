@@ -43,7 +43,7 @@ $body_class = 'log';
 
 include './header.php';
 
-$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -63,7 +63,7 @@ if ($swordfish == ADMIN_PW) // Check if called by admin script
     }
     else
     {
-        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$player");
+        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($player));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $targetname = $res->fields;
         $playerinfo['character_name'] = $targetname['character_name'];
@@ -113,7 +113,7 @@ if (empty($startdate))
     $startdate = date ("Y-m-d");
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$startdate%' ORDER BY time DESC, type DESC");
+$res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
@@ -184,7 +184,7 @@ if ($mode != 'compat')
     $entry = $$l_log_months_temp . " " . substr ($yesterday, 8, 2) . " " . substr ($yesterday, 0, 4);
 
     unset ($logs);
-    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -229,7 +229,7 @@ if ($mode != 'compat')
     $entry = $$l_log_months_temp . " " . substr ($yesterday2, 8, 2) . " " . substr ($yesterday2, 0, 4);
 
     unset ($logs);
-    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$playerinfo[ship_id] AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC");
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
