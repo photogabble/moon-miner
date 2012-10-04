@@ -23,63 +23,67 @@ if (strpos ($_SERVER['PHP_SELF'], 'sector_editor.php')) // Prevent direct access
     include 'error.php';
 }
 
-echo "<h2>" . $langvars['l_admin_sector_editor'] . "</h2>";
-echo "<form action='admin.php' method='post'>";
-if (empty ($sector))
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+$variables['operation'] = '';
+
+if (!isset ($_POST['sector']))
 {
-    echo "<select size='20' name='sector'>";
+    $_POST['sector'] = '';
+}
+
+if (!isset ($_POST['operation']))
+{
+    $_POST['operation'] = '';
+}
+
+$variables['sector'] = $_POST['sector'];
+if ($_POST['sector'] == '')
+{
     $res = $db->Execute("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id");
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
-        $row=$res->fields;
-        echo "<option value='" . $row['sector_id'] . "'>" . $row['sector_id'] . "</option>";
+        $sectors[] = $res->fields;
         $res->MoveNext();
     }
-    echo "</select>";
-    echo "&nbsp;<input type='submit' value='" . $langvars['l_edit'] . "'>";
+    $variables['sectors'] = $sectors;
 }
 else
 {
-    if (empty ($operation))
+    if ($_POST['operation'] == '')
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($sector));
+        $res = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($_POST['sector']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
-        echo "<table border='0' cellspacing='2' cellpadding='2'>";
-        echo "<tr><td><tt>" . $langvars['l_admin_sector_id'] . "</tt></td><td><font color='#6f0'>" . $sector . "</font></td>";
-        echo "<td align='right'><tt>" . $langvars['l_admin_sector_name'] . "</tt></td><td><input type='text' size='15' name='sector_name' value=\"" . $row['sector_name'] . "\"></td>";
-        echo "<td align='right'><tt>" . $langvars['l_admin_zone_id'] . "</tt></td><td>";
-        echo "<select size='1' name='zone_id'>";
+        $variables['sector_name'] = $row['sector_name'];
+
         $ressubb = $db->Execute("SELECT zone_id,zone_name FROM {$db->prefix}zones ORDER BY zone_name");
         db_op_result ($db, $ressubb, __LINE__, __FILE__);
         while (!$ressubb->EOF)
         {
-            $rowsubb=$ressubb->fields;
+            $rowsubb = $ressubb->fields;
             if ($rowsubb['zone_id'] == $row['zone_id'])
             {
-                echo "<option selected='" . $rowsubb['zone_id'] . "' value='" . $rowsubb['zone_id'] . "'>" . $rowsubb['zone_name'] . "</option>";
+                $variables['selected_zone'] = $rowsubb['zone_id'];
             }
-            else
-            {
-                echo "<option value='" . $rowsubb['zone_id'] . "'>" . $rowsubb['zone_name'] . "</option>";
-            }
+            $zones[] = $rowsubb;
             $ressubb->MoveNext();
         }
 
-        echo "</select></td></tr>";
-        echo "<tr><td><tt>" . $langvars['l_admin_beacon'] . "</tt></td><td colspan='5'><input type='text' size='70' name='beacon' value=\"" . $row['beacon'] . "\"></td></tr>";
-        echo "<tr><td><tt>" . $langvars['l_admin_distance'] . "</tt></td><td><input type='text' size='9' name='distance' value=\"" . $row['distance'] . "\"></td>";
-        echo "<td align='right'><tt>" . $langvars['l_admin_angle1'] . "</tt></td><td><input type='text' size='9' name='angle1' value=\"" . $row['angle1'] . "\"></td>";
-        echo "<td align='right'><tt>" . $langvars['l_admin_angle2'] . "</tt></td><td><input type='text' size='9' name='angle2' value=\"" . $row['angle2'] . "\"></td></tr>";
-        echo "<tr><td colspan='6'><hr></td></tr>";
-        echo "</table>";
+        $variables['zones'] = $zones;
+        $variables['beacon'] = $row['beacon'];
+        $variables['distance'] = $row['distance'];
+        $variables['angle1'] = $row['angle1'];
+        $variables['angle2'] = $row['angle2'];
+        $variables['port_organics'] = $row['port_organics'];
+        $variables['port_ore'] = $row['port_ore'];
+        $variables['port_goods'] = $row['port_goods'];
+        $variables['port_energy'] = $row['port_energy'];
+        $variables['sector'] = $row['sector_id'];
 
-        echo "<table border='0' cellspacing='2' cellpadding='2'>";
-        echo "<tr><td><tt>" . $langvars['l_admin_port_type'] . "</tt></td><td>";
-        echo "<select size='1' name='port_type'>";
-        $oportnon = $oportspe = $oportorg = $oportore = $oportgoo = $oportene = "value";
+/*        $oportnon = $oportspe = $oportorg = $oportore = $oportgoo = $oportene = "value";
         if ($row['port_type'] == "none") $oportnon = "selected='none' value";
         if ($row['port_type'] == "special") $oportspe = "selected='special' value";
         if ($row['port_type'] == "organics") $oportorg = "selected='organics' value";
@@ -91,45 +95,39 @@ else
         echo "<option $oportorg='organics'>" . $langvars['l_organics'] . "</option>";
         echo "<option $oportore='ore'>" . $langvars['l_ore'] . "</option>";
         echo "<option $oportgoo='goods'>" . $langvars['l_goods'] . "</option>";
-        echo "<option $oportene='energy'>" . $langvars['l_energy'] . "</option>";
-        echo "</select></td>";
-        echo "<td align='right'><tt>" . $langvars['l_organics'] . "</tt></td><td><input type='text' size='9' name='port_organics' value=\"$row[port_organics]\"></td>";
-        echo "<td align='right'><tt>" . $langvars['l_ore'] . "</tt></td><td><input type='text' size='9' name='port_ore' value=\"$row[port_ore]\"></td>";
-        echo "<td align='right'><tt>" . $langvars['l_goods'] . "</tt></td><td><input type='text' size='9' name='port_goods' value=\"$row[port_goods]\"></td>";
-        echo "<td align='right'><tt>" . $langvars['l_energy'] . "</tt></td><td><input type='text' size='9' name='port_energy' value=\"$row[port_energy]\"></td></tr>";
-        echo "<tr><td colspan='10'><hr></td></tr>";
-        echo "</table>";
-
-        echo "<br>";
-        echo "<input type='hidden' name='sector' value='" . $sector . "'>";
-        echo "<input type='hidden' name='operation' value='save'>";
-        echo "<input type='submit' size='1' value='" . $langvars['l_save'] . "'>";
+        echo "<option $oportene='energy'>" . $langvars['l_energy'] . "</option>";*/
     }
-    elseif ($operation == "save")
+    elseif ($_POST['operation'] == "save")
     {
         // Update database
-        $secupdate = $db->Execute("UPDATE {$db->prefix}universe SET sector_name=?, zone_id=?, beacon=?, port_type=?, port_organics=?, port_ore=?, port_goods=?, port_energy=?, distance=?, angle1=?, angle2=? WHERE sector_id=?;", array ($sector_name, $zone_id, $beacon, $port_type, $port_organics, $port_ore, $port_goods, $port_energy, $distance, $angle1, $angle2, $sector));
+        $secupdate = $db->Execute("UPDATE {$db->prefix}universe SET sector_name=?, zone_id=?, beacon=?, port_type=?, port_organics=?, port_ore=?, port_goods=?, port_energy=?, distance=?, angle1=?, angle2=? WHERE sector_id=?;", array ($_POST['sector_name'], $_POST['zone_id'], $_POST['beacon'], $_POST['port_type'], $_POST['port_organics'], $_POST['port_ore'], $_POST['port_goods'], $_POST['port_energy'], $_POST['distance'], $_POST['angle1'], $_POST['angle2'], $_POST['sector']));
 
         db_op_result ($db, $secupdate, __LINE__, __FILE__);
         if (!$secupdate)
         {
-            echo $langvars['l_admin_sector_editor_failed'] . "<br><br>";
-            echo $db->ErrorMsg() . "<br>";
+            $variables['secupdate'] = false;
+            $variables['db_error_msg'] = $db->ErrorMsg();
         }
         else
         {
-            echo $langvars['l_admin_sector_editor_saved'] . "<br><br>";
+            $variables['secupdate'] = true;
         }
 
-        echo "<input type='submit' value=\"" . $langvars['l_admin_return_sector_editor'] . "\">";
-        $button_main = false;
-    }
-    else
-    {
-        echo $langvars['l_admin_invalid_operation'];
+        $variables['button_main'] = false;
+        $variables['operation'] = 'save';
     }
 }
-echo "<input type='hidden' name='menu' value='sector_editor.php'>";
-echo "<input type='hidden' name='swordfish' value='" . $_POST['swordfish'] . "'>";
-echo "</form>";
+
+$variables['lang'] = $lang;
+$variables['swordfish'] = $swordfish;
+
+// Set the module name.
+$variables['module'] = $module_name;
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+$template->AddVariables('langvars', $langvars);
+$template->AddVariables('variables', $variables);
 ?>
