@@ -81,7 +81,7 @@ if (!empty ($subject))
     $subject = $purifier->purify($subject);
 }
 
-$res = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE email=?;", array ($_SESSION['username']));
+$res = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -89,9 +89,9 @@ echo "<h1>" . $title . "</h1>\n";
 
 if (empty($content))
 {
-    $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_id <> {$playerinfo['ship_id']} ORDER BY character_name ASC");
+    $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE email NOT LIKE '%@Xenobe' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
-    $res2 = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC");
+    $res2 = $db->Execute ("SELECT team_name FROM {$db->prefix}teams WHERE admin ='N' ORDER BY team_name ASC;");
     db_op_result ($db, $res2, __LINE__, __FILE__);
     echo "<form action=mailto.php method=post>\n";
     echo "  <table>\n";
@@ -154,7 +154,7 @@ else
     if (mb_strpos ($to, $l_sendm_ally) === false)
     {
         $timestamp = date("Y\-m\-d H\:i\:s");
-        $res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE character_name=?;", array ($to));
+        $res = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE character_name = ?;", array ($to));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $target_info = $res->fields;
         $resx = $db->Execute("INSERT INTO {$db->prefix}messages (sender_id, recp_id, sent, subject, message) VALUES (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $target_info['ship_id'], $timestamp, $subject, $content));
@@ -174,7 +174,7 @@ else
         $to = str_replace ($l_sendm_ally, "", $to);
         $to = trim($to);
         $to = addslashes($to);
-        $res = $db->Execute("SELECT id FROM {$db->prefix}teams WHERE team_name=?;", array ($to));
+        $res = $db->Execute("SELECT id FROM {$db->prefix}teams WHERE team_name = ?;", array ($to));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
