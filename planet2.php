@@ -162,12 +162,12 @@ if ($planet_id <= 0 )
 }
 
 // Get the Player Info
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 // Get the Planet Info
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$planet_id AND planet_id >0");
+$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ? AND planet_id > 0;", array ($planet_id));
 db_op_result ($db, $result2, __LINE__, __FILE__);
 $planetinfo = $result2->fields;
 
@@ -621,9 +621,9 @@ else
                     $transfer_credits = 0;
                 }
 
-                $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+$transfer_ore, ship_organics=ship_organics+$transfer_organics, ship_goods=ship_goods+$transfer_goods, ship_energy=ship_energy+$transfer_energy, ship_colonists=ship_colonists+$transfer_colonists, torps=torps+$transfer_torps, ship_fighters=ship_fighters+$transfer_fighters, credits=credits+$transfer_credits, turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]");
+                $update1 = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ?, ship_colonists = ship_colonists + ?, torps = torps + ?, ship_fighters = ship_fighters + ?, credits = credits + ?, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($transfer_ore, $transfer_organics, $transfer_goods, $transfer_energy, $transfer_colonists, $transfer_torps, $transfer_fighters, $transfer_credits, $playerinfo['ship_id']));
                 db_op_result ($db, $update1, __LINE__, __FILE__);
-                $update2 = $db->Execute("UPDATE {$db->prefix}planets SET ore=ore-$transfer_ore, organics=organics-$transfer_organics, goods=goods-$transfer_goods, energy=energy-$transfer_energy, colonists=colonists-$transfer_colonists, torps=torps-$transfer_torps, fighters=fighters-$transfer_fighters, credits=credits-$transfer_credits WHERE planet_id=$planet_id");
+                $update2 = $db->Execute("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, colonists = colonists - ?, torps = torps - ?, fighters = fighters - ?, credits = credits - ? WHERE planet_id = ?;", array ($transfer_ore, $transfer_organics, $transfer_goods, $transfer_energy, $transfer_colonists, $transfer_torps, $transfer_fighters, $transfer_credits, $planet_id));
                 db_op_result ($db, $update2, __LINE__, __FILE__);
                 echo "$l_planet2_compl<br><a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<br><br>";
             }

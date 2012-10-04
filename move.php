@@ -21,17 +21,17 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array('move', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_move_title;
 include './header.php';
 
 // Retrieve the user and ship information
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 
 // Put the player information into the array: "playerinfo"
@@ -48,20 +48,20 @@ if ($playerinfo['turns'] < 1)
 }
 
 // Retrieve all the sector information about the current sector
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$playerinfo[sector]'");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
 db_op_result ($db, $result2, __LINE__, __FILE__);
 
 // Put the sector information into the array "sectorinfo"
 $sectorinfo = $result2->fields;
 
 $sector = null;
-if (array_key_exists('sector', $_REQUEST) == true)
+if (array_key_exists ('sector', $_REQUEST) == true)
 {
     $sector = $_REQUEST['sector'];
 }
 
 // Retrive all the warp links out of the current sector
-$result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start='$playerinfo[sector]'");
+$result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
 db_op_result ($db, $result3, __LINE__, __FILE__);
 $i = 0;
 $flag = 0;
@@ -86,23 +86,22 @@ if ($flag == 1)
     include_once './check_fighters.php';
     if ($ok > 0)
     {
-        $stamp = date("Y-m-d H-i-s");
-        $query = "UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-1, turns_used=turns_used+1, sector=$sector WHERE ship_id=$playerinfo[ship_id]";
+        $stamp = date ("Y-m-d H-i-s");
         log_move ($db, $playerinfo['ship_id'], $sector);
-        $move_result = $db->Execute ("$query");
+        $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $sector, $playerinfo['ship_id']));
         db_op_result ($db, $move_result, __LINE__, __FILE__);
         if (!$move_result)
         {
             // is this really STILL needed?
-            $error = $db->ErrorMsg();
-            mail ($admin_mail,"Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nSQL error: $error");
+            $error = $db->ErrorMsg ();
+            mail ($admin_mail, "Move Error", "Start Sector: $sectorinfo[sector_id]\nEnd Sector: $sector\nPlayer: $playerinfo[character_name] - $playerinfo[ship_id]\n\nQuery:  $query\n\nSQL error: $error");
         }
     }
     // Enter code for checking dangers in new sector
     include_once './check_mines.php';
     if ($ok == 1)
     {
-        header("Location: main.php");
+        header ("Location: main.php");
     }
     else
     {
@@ -112,7 +111,7 @@ if ($flag == 1)
 else
 {
     echo $l_move_failed . '<br><br>';
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id=$playerinfo[ship_id]");
+    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
     TEXT_GOTOMAIN ();
 }

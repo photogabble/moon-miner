@@ -27,7 +27,7 @@ class bnt_sector_defense
 {
     static function message_defense_owner ($db, $sector, $message)
     {
-        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?", array ($sector));
+        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
         db_op_result ($db, $result3, __LINE__, __FILE__);
 
         if ($result3 instanceof ADORecordSet)

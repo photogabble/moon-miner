@@ -21,11 +21,11 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('navcomp', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+load_languages ($db, $lang, array ('navcomp', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_nav_title;
 include './header.php';
@@ -34,12 +34,12 @@ echo "<h1>" . $title . "</h1>\n";
 if (!$allow_navcomp)
 {
     echo $l_nav_nocomp . '<br><br>';
-    TEXT_GOTOMAIN();
+    TEXT_GOTOMAIN ();
     include './footer.php';
     die ();
 }
 
-if (!isset($_REQUEST['state']))
+if (!isset ($_REQUEST['state']))
 {
     $_REQUEST['state'] = '';
 }
@@ -48,14 +48,14 @@ $state = $_REQUEST['state'];
 
 unset ($stop_sector);
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id='$current_sector'");
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
 db_op_result ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
@@ -63,12 +63,12 @@ $sectorinfo = $result2->fields;
 // Validats the post variable as a number.
 // Typecast variable into an integer.
 
-if (isset($_POST['stop_sector']))
+if (isset ($_POST['stop_sector']))
 {
     $stop_sector = $_POST['stop_sector'];
-    if (!is_numeric($stop_sector))
+    if (!is_numeric ($stop_sector))
     {
-        admin_log($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
+        admin_log ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
         TEXT_GOTOMAIN();
@@ -115,10 +115,10 @@ elseif ($state == 1)
 
     for ($search_depth = 1; $search_depth <= $max_search_depth; $search_depth++)
     {
-        $search_query = "SELECT    distinct    a1.link_start    ,a1.link_dest ";
+        $search_query = "SELECT distinct a1.link_start, a1.link_dest ";
         for ($i = 2; $i<=$search_depth;$i++)
         {
-            $search_query = $search_query . "    ,a". $i . ".link_dest ";
+            $search_query = $search_query . " ,a". $i . ".link_dest ";
         }
 
         $search_query = $search_query . "FROM     {$db->prefix}links AS a1 ";
@@ -159,7 +159,7 @@ elseif ($state == 1)
         $search_query = $search_query . " LIMIT 1";
         //echo "$search_query\n\n";
 
-        $db->SetFetchMode(ADODB_FETCH_NUM);
+        $db->SetFetchMode (ADODB_FETCH_NUM);
 
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");
         db_op_result ($db, $search_result, __LINE__, __FILE__);
@@ -175,12 +175,12 @@ elseif ($state == 1)
         echo "<h3>$l_nav_pathfnd</h3>\n";
         $links = $search_result->fields;
         echo $links[0];
-        for ($i=1; $i<$search_depth+1; $i++)
+        for ($i = 1; $i < $search_depth + 1; $i++)
         {
             echo " >> " . $links[$i];
         }
 
-        $db->SetFetchMode(ADODB_FETCH_ASSOC);
+        $db->SetFetchMode (ADODB_FETCH_ASSOC);
 
         echo "<br><br>";
         echo "$l_nav_answ1 $search_depth $l_nav_answ2<br><br>";
@@ -191,8 +191,8 @@ elseif ($state == 1)
     }
 }
 
-$db->SetFetchMode(ADODB_FETCH_ASSOC);
+$db->SetFetchMode (ADODB_FETCH_ASSOC);
 
-TEXT_GOTOMAIN();
+TEXT_GOTOMAIN ();
 include './footer.php';
 ?>
