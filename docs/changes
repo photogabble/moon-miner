@@ -2,6 +2,8 @@ TheMightyDude (05 October 2012)
 --------------------------------------
 Fixed Notice: Trying to get property of non-object in main.php on line 43
 -> Seems that SelectLimit doesn't like to have ; in the SQL Query even though it should.
+Fixed FUNCTION blacknova_svn_db.SUM does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual.
+-> Seems that SQL Function SUM hates to have Spaces after it.
 
 TheMightyDude (03 October 2012)
 --------------------------------------

@@ -684,7 +684,7 @@ function display_all_teams ($db)
     echo "</tr>";
     $sql_query = "SELECT {$db->prefix}ships.character_name,
                 COUNT(*) as number_of_members,
-                ROUND (SQRT (SUM (POW ({$db->prefix}ships.score, 2)))) as total_score,
+                ROUND (SQRT (SUM(POW ({$db->prefix}ships.score, 2)))) as total_score,
                 {$db->prefix}teams.id,
                 {$db->prefix}teams.team_name,
                 {$db->prefix}teams.creator
