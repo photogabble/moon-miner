@@ -1,3 +1,8 @@
+TheMightyDude (05 October 2012)
+--------------------------------------
+Fixed Notice: Trying to get property of non-object in main.php on line 43
+-> Seems that SelectLimit doesn't like to have ; in the SQL Query even though it should.
+
 TheMightyDude (03 October 2012)
 --------------------------------------
 Fixed PHP Parse error: syntax error, unexpected ';' in planet.php on line 361

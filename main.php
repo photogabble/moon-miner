@@ -38,7 +38,7 @@ include './header.php';
 $stylefontsize = "12pt";
 $picsperrow = 7;
 
-$res = $db->SelectLimit("SELECT * FROM {$db->prefix}ships WHERE email = ?;", 1, -1, array ($_SESSION['username']));
+$res = $db->SelectLimit("SELECT * FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
