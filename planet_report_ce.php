@@ -571,11 +571,12 @@ function real_space_move ($db, $destination)
        $stamp = date("Y-m-d H-i-s");
        $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login='$stamp',sector=$destination,ship_energy=ship_energy+$energyscooped,turns=turns-$triptime,turns_used=turns_used+$triptime WHERE ship_id=$playerinfo[ship_id]");
        db_op_result ($db, $update, __LINE__, __FILE__);
-       $l_rs_ready = str_replace("[sector]", $destination, $l_rs_ready);
+       $l_rs_ready_result = '';
+       $l_rs_ready_result = str_replace("[sector]", $destination, $l_rs_ready);
 
-       $l_rs_ready = str_replace("[triptime]", NUMBER($triptime), $l_rs_ready);
-       $l_rs_ready = str_replace("[energy]", NUMBER($energyscooped), $l_rs_ready);
-       echo "$l_rs_ready<br>";
+       $l_rs_ready_result = str_replace("[triptime]", NUMBER($triptime), $l_rs_ready_result);
+       $l_rs_ready_result = str_replace("[energy]", NUMBER($energyscooped), $l_rs_ready_result);
+       echo "$l_rs_ready_result<br>";
        $retval = "GO";
   }
  }
