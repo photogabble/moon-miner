@@ -21,17 +21,17 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_pre_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?", array ($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -47,34 +47,34 @@ if (!isset($change))
 }
 else
 {
-    $preset1 = round(abs($preset1));
-    $preset2 = round(abs($preset2));
-    $preset3 = round(abs($preset3));
+    $preset1 = round (abs ($preset1));
+    $preset2 = round (abs ($preset2));
+    $preset3 = round (abs ($preset3));
     if ($preset1 >= $sector_max)
     {
-        $l_pre_exceed = str_replace("[preset]", "1", $l_pre_exceed);
-        $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
+        $l_pre_exceed = str_replace ("[preset]", "1", $l_pre_exceed);
+        $l_pre_exceed = str_replace ("[sector_max]", ($sector_max-1), $l_pre_exceed);
         echo $l_pre_exceed . "<br><br>";
     }
     elseif ($preset2 >= $sector_max)
     {
-        $l_pre_exceed = str_replace("[preset]", "2", $l_pre_exceed);
-        $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
+        $l_pre_exceed = str_replace ("[preset]", "2", $l_pre_exceed);
+        $l_pre_exceed = str_replace ("[sector_max]", ($sector_max-1), $l_pre_exceed);
         echo $l_pre_exceed . "<br><br>";
     }
     elseif ($preset3 >= $sector_max)
     {
-        $l_pre_exceed = str_replace("[preset]", "3", $l_pre_exceed);
-        $l_pre_exceed = str_replace("[sector_max]", ($sector_max-1), $l_pre_exceed);
+        $l_pre_exceed = str_replace ("[preset]", "3", $l_pre_exceed);
+        $l_pre_exceed = str_replace ("[sector_max]", ($sector_max-1), $l_pre_exceed);
         echo $l_pre_exceed . "<br><br>";
     }
     else
     {
-        $update = $db->Execute("UPDATE {$db->prefix}ships SET preset1=$preset1,preset2=$preset2,preset3=$preset3 WHERE ship_id=$playerinfo[ship_id]");
+        $update = $db->Execute("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset1, $preset2, $preset3, $playerinfo['ship_id']));
         db_op_result ($db, $update, __LINE__, __FILE__);
-        $l_pre_set = str_replace("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $l_pre_set);
-        $l_pre_set = str_replace("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $l_pre_set);
-        $l_pre_set = str_replace("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset3>$preset3</a>", $l_pre_set);
+        $l_pre_set = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $l_pre_set);
+        $l_pre_set = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $l_pre_set);
+        $l_pre_set = str_replace ("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset3>$preset3</a>", $l_pre_set);
         echo $l_pre_set . "<br><br>";
     }
 }
