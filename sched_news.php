@@ -115,7 +115,7 @@ while (!$sql->EOF)
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text502 = str_replace ("[name]", $name, $l_news_p_text50);
-            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet25');", array($headline, $l_news_p_text502, $row['owner']));
+            $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet50');", array($headline, $l_news_p_text502, $row['owner']));
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
