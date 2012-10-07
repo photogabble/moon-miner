@@ -21,22 +21,21 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_sdf_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-$query = "SELECT * FROM {$db->prefix}sector_defence WHERE ship_id=$playerinfo[ship_id]";
-db_op_result ($db, $query, __LINE__, __FILE__);
+$query = "SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?";
 if (!empty($sort))
 {
     $query .= " ORDER BY";
@@ -58,7 +57,7 @@ if (!empty($sort))
     }
 }
 
-$res = $db->Execute($query);
+$res = $db->Execute ($query, array ($playerinfo['ship_id']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 
 $i = 0;
