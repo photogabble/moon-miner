@@ -1101,11 +1101,27 @@ l_planet2_baseexceeded                  = "Los planetas sin una base no puede co
 l_planet3_title                         = "Comerciando en el Planeta";
 
 [planet_report]
-l_pr_title                              = "Informe del Planeta";
-l_pr_teamlink                           = "Mostrar planetas de la Alianza";
-l_pr_noplanet                           = "No tienes tantos planetas";
-l_pr_clicktosort                        = "Pulsa en un título de columna para ordenarlo";
+l_pr_cannot_move_defenses               = "No se puede mover al sector [destination] través de las defensas enemigas";
+l_pr_checking_values                    = "Comprobación de los valores de más del 100% y los valores negativos de producción";
+l_pr_click_return                       = "Haga clic en [here] para volver al menú de informes";
+l_pr_click_return_planet                = "Haga clic en [here] para volver al menú planeta";
+l_pr_click_return_prod                  = "Haga clic en [here] para volver al informe de cambio de producción planeta";
+l_pr_click_return_status                = "Haga clic en [here] para volver al informe sobre la situación del planeta";
+l_pr_clicktosort                        = "Click sobre el encabezado de columna para ordenar.";
+l_pr_have_credits_onboard               = "Su nave - [ship_name] - ahora tiene [new_ship_credits] a bordo.";
+l_pr_invalid_info                       = "Información inválido planeta o sector provisto.";
+l_pr_low_turns                          = "No hay suficiente se vuelve a obtener créditos";
+l_pr_make_base_failed                   = "Base construcción fallado!";
+l_pr_must_same_sector                   = "Debe estar en el mismo sector que el planeta para transferir a / desde el planeta";
+l_pr_noplanet                           = "No tiene planetas hasta ahora";
+l_pr_not_enough_turns                   = "Usted no tiene suficientes turnos para tomar créditos de [planet_name] en el sector [sector_id]";
+l_pr_not_your_planet                    = "No hacer propio planeta [planet_name]";
+l_pr_prod_updated                       = "porcentajes de producción actualizados";
+l_pr_teamlink                           = "Mostrar los planetas del equipo";
+l_pr_title                              = "Planet informe";
+l_pr_took_credits                       = "Tomó [credits_taken] créditos de planeta [planet_name].";
 l_pr_totals                             = "Totales";
+l_pr_value_reset                        = "Planet [planet_name] en el sector [sector_id] tiene un valor de producción negativa o excede el 100% de la producción Restablecimiento a los valores predeterminados de producción.".;
 
 [port]
 l_trade                                 = "Comerciar";

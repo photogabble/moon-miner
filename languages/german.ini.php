@@ -1101,11 +1101,27 @@ l_planet2_baseexceeded                  = "Planeten ohne Basis k&ouml;nnen nicht
 l_planet3_title                         = "Planet verkaufen";
 
 [planet_report]
-l_pr_title                              = "Planeten Report";
-l_pr_teamlink                           = "Zeige aliierte Planeten";
-l_pr_noplanet                           = "Du hast bisher keine Planeten";
-l_pr_clicktosort                        = "Zum Sortieren oben auf die Spalte klicken.";
-l_pr_totals                             = "Gesamtsummen";
+l_pr_cannot_move_defenses               = "Sie können nicht zu Sektors $ destination durch feindliche Verteidigung zu bewegen";
+l_pr_checking_values                    = "Überprüfen Werte für mehr als 100% und negative Produktion Werte";
+l_pr_click_return                       = "Klicken Sie [here], um den Bericht zurückzukehren";
+l_pr_click_return_planet                = "Klicken Sie [here], um den Planeten zurückzukehren";
+l_pr_click_return_prod                  = "Klicken Sie [here], um die Änderung Planeten Produktion Bericht zurückzukehren";
+l_pr_click_return_status                = "Klicken Sie [hier], um den Planeten Statusbericht zurückzukehren";
+l_pr_clicktosort                        = "on Spaltenüberschrift zu sortieren klicken.";
+l_pr_have_credits_onboard               = "Ihr Schiff - [ship_name] - hat jetzt [new_ship_credits] an Bord.";
+l_pr_invalid_info                       = "Ungültige Planeten oder Sektor-Informationen versorgt.";
+l_pr_low_turns                          = "Nicht genug dreht sich um Credits zu sammeln";
+l_pr_make_base_failed                   = "Base Konstruktion fehlgeschlagen!";
+l_pr_must_same_sector                   = "Sie müssen in der gleichen Branche sein, wie der Planet zu / von dem Planeten zu übertragen";
+l_pr_noplanet                           = "Sie haben keine Planeten so weit";
+l_pr_not_enough_turns                   = "Sie haben nicht genug dreht sich um Gutschriften aus [planet_name] nehmen im Sektor [sector_id]";
+l_pr_not_your_planet                    = "Sie tun nicht eigenen Planeten [planet_name]";
+l_pr_prod_updated                       = "Production Prozentsätze aktualisiert";
+l_pr_teamlink                           = "Show-Team Planeten";
+l_pr_title                              = "Planet Report";
+l_pr_took_credits                       = "Nahm [credits_taken] Gutschriften aus planet [planet_name].";
+l_pr_totals                             = "Totals";
+l_pr_value_reset                        = "Planet [planet_name] im Sektor [sector_id] hat eine negative Produktion Wert oder überschreitet 100% der Produktion Zurücksetzen auf Produktion Werte nachkommt..";
 
 [port]
 l_trade                                 = "Handeln";

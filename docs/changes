@@ -1,3 +1,8 @@
+TheKabal (07 October 2012)
+--------------------------------------
+Planet_report_ce redone, move all language string variables out to language files, and update foreign languages to match. Also use DB bind variables where possible. 
+Changed the variable in the url for report type to be all lower case.
+
 TheMightyDude (05 October 2012)
 --------------------------------------
 Fixed Notice: Trying to get property of non-object in main.php on line 43

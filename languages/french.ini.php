@@ -1101,11 +1101,27 @@ l_planet2_baseexceeded                  = "Planets without a base can not hold t
 l_planet3_title                         = "Commerce de planète";
 
 [planet_report]
-l_pr_title                              = "Rapport des planètes";
-l_pr_teamlink                           = "Montrer les planètes de votre alliance";
-l_pr_noplanet                           = "Vous ne possédez aucune planète.";
-l_pr_clicktosort                        = "Cliquez sur un en-tête pour trier les résultats.";
+l_pr_cannot_move_defenses               = "Vous ne pouvez pas passer au secteur $ destination à travers les défenses ennemies";
+l_pr_checking_values                    = "Vérification des valeurs de plus de 100% et les valeurs négatives de production";
+l_pr_click_return                       = "Cliquez [here] pour revenir au menu du rapport";
+l_pr_click_return_planet                = "Cliquez [here] pour revenir au menu planète";
+l_pr_click_return_prod                  = "Cliquez [here] pour revenir à la production des rapports changement planétaire";
+l_pr_click_return_status                = "Cliquez [here] pour revenir au rapport de situation planète";
+l_pr_clicktosort                        = "Cliquez sur l'entête de colonne pour trier.";
+l_pr_have_credits_onboard               = "Votre vaisseau - [ship_name] - [new_ship_credits] a maintenant à bord.";
+l_pr_invalid_info                       = "Des informations incorrectes planète ou d'un secteur fourni.";
+l_pr_low_turns                          = "Non tourne assez pour accumuler des crédits";
+l_pr_make_base_failed                   = "Base de la construction a échoué!";
+l_pr_must_same_sector                   = "Vous devez être dans le même secteur que la planète pour transférer de / vers la planète";
+l_pr_noplanet                           = "Vous n'avez pas d'planètes jusqu'à présent";
+l_pr_not_enough_turns                   = "Vous n'avez pas assez de se prendre crédits de [planet_name] dans le secteur [sector_id]";
+l_pr_not_your_planet                    = "Vous n'avez pas propre planète [planet_name]";
+l_pr_prod_updated                       = "pourcentages de production mis à jour";
+l_pr_teamlink                           = "planètes Voir l'équipe";
+l_pr_title                              = "rapport Planète";
+l_pr_took_credits                       = "Pris [credits_taken] crédits de la planète [planet_name].";
 l_pr_totals                             = "Totaux";
+l_pr_value_reset                        = "Planet [planet_name] dans le secteur [sector_id] a une valeur négative ou la production dépasse la production 100% Réinitialisation par défaut des valeurs de production.";
 
 [port]
 l_trade                                 = "Acheter/Vendre";
