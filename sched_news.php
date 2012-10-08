@@ -33,7 +33,7 @@ load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_f
 echo "<strong>Posting News</strong><br><br>";
 
 // Generation of planet amount
-$sql = $db->Execute("SELECT COUNT(owner) AS amount, owner FROM {$db->prefix}planets WHERE owner !='0' GROUP BY owner ORDER BY amount ASC");
+$sql = $db->Execute("SELECT COUNT(owner) AS amount, owner FROM {$db->prefix}planets WHERE owner != '0' GROUP BY owner ORDER BY amount ASC");
 db_op_result ($db, $sql, __LINE__, __FILE__);
 
 while (!$sql->EOF)
@@ -137,7 +137,7 @@ while (!$sql->EOF)
     }
     elseif ($row['amount'] >= 10)
     {
-        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id='$row[owner]' AND news_type='planet10'");
+        $sql2 = $db->Execute("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet10'", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
 
         if ($sql2->EOF)
@@ -252,7 +252,7 @@ $multiplier = 0; // No need to run this again
 // This function is only being used in this file.
 function get_player_name ($db, $userid)
 {
-    $query = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id='$userid'");
+    $query = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($userid));
     db_op_result ($db, $query, __LINE__, __FILE__);
     $name = $query->fields;
 

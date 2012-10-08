@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_planets.php')) // Prevent direct access
 
 echo "<strong>PLANETS</strong><p>";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner >0");
+$res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner > 0");
 db_op_result ($db, $res, __LINE__, __FILE__);
 // Using Planet Update Code from BNT version 0.36 due to code bugs.
 // We are now using transactions to off load the SQL stuff in full to the Database Server.
@@ -78,8 +78,7 @@ while (!$res->EOF)
     }
 
     $credits_production = floor($production * $credits_prate * (100.0 - $total_percent) / 100.0);
-    $SQL = "UPDATE {$db->prefix}planets SET organics = organics + $organics_production, ore = ore + $ore_production, goods = goods + $goods_production, energy = energy + $energy_production, colonists = colonists + $reproduction-$starvation, torps = torps + $torp_production, fighters = fighters + $fighter_production, credits = credits * $interest_rate + $credits_production WHERE planet_id=$row[planet_id] LIMIT 1; ";
-    $ret = $db->Execute($SQL);
+    $ret = $db->Execute ("UPDATE {$db->prefix}planets SET organics = organics + ?, ore = ore + ?, goods = goods + ?, energy = energy + ?, colonists = colonists + ? - ?, torps = torps + ?, fighters = fighters + ?, credits = credits * ? + ? WHERE planet_id = ? LIMIT 1; ", array ($organics_production, $ore_production, $goods_production, $energy_production, $reproduction, $starvation, $torp_production, $fighter_production, $interest_rate, $credits_production, $row['planet_id']));
     db_op_result ($db, $ret, __LINE__, __FILE__);
     $res->MoveNext();
 }
@@ -89,7 +88,7 @@ db_op_result ($db, $ret, __LINE__, __FILE__);
 global $sched_planet_valid_credits;
 if ($sched_planet_valid_credits == true)
 {
-    $ret = $db->Execute("UPDATE {$db->prefix}planets SET credits = $max_credits_without_base WHERE credits > $max_credits_without_base AND base = 'N'");
+    $ret = $db->Execute ("UPDATE {$db->prefix}planets SET credits = ? WHERE credits > ? AND base = 'N';", array ($max_credits_without_base, $max_credits_without_base));
     db_op_result ($db, $ret, __LINE__, __FILE__);
 }
 

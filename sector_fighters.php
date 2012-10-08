@@ -158,7 +158,7 @@ player_log ($db, $playerinfo['ship_id'], LOG_DEFS_DESTROYED_F, "$fighterslost|$s
 $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
 $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
 $energy = $playerinfo['ship_energy'];
-$update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=$energy,ship_fighters=ship_fighters-$fighters_lost, armor_pts=armor_pts-$armor_lost, torps=torps-$playertorpnum WHERE ship_id=$playerinfo[ship_id]");
+$update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts = armor_pts - ?, torps = torps - ? WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $playerinfo['ship_id']));
 db_op_result ($db, $update4b, __LINE__, __FILE__);
 $l_sf_lreport = str_replace ("[armor]", $armor_lost, $l_sf_lreport);
 $l_sf_lreport = str_replace ("[fighters]", $fighters_lost, $l_sf_lreport);
@@ -175,7 +175,7 @@ if ($playerarmor < 1)
     {
         $rating = round ($playerinfo['rating'] / 2);
         echo $l_sf_escape . "<br><br>";
-        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=$start_energy,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating='$rating',cleared_defences=' ',dev_lssd='N' WHERE ship_id=$playerinfo[ship_id]");
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, cleared_defences=' ', dev_lssd = 'N' WHERE ship_id = ?;", array ($start_energy, $rating, $playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
         cancel_bounty ($db, $playerinfo['ship_id']);
         $ok = 0;
