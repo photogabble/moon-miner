@@ -227,3 +227,4 @@ language                   = 'english';                        // Localization r
 link_forums                = 'http://forums.blacknova.net';    // Address for the forum link
 adminname                  = 'Admin Name';                     // The title for the administrator used when emailing
 disable_cache              = false;                            // In case your server cannot run caching, or you'd prefer not to have it.
+enable_gravatars           = false;                             // Set to true if you'd like to enable gravatars for players

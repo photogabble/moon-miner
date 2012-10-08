@@ -857,6 +857,7 @@ l_sendm_send                            = "Senden";
 l_sendm_sent                            = "Nachricht gesendet";
 
 [main]
+l_avatar                                = "Ihr Avatar";
 l_main_title                            = "Hauptmen&uuml;";
 l_main_warpto                           = "Warp Routen";
 l_main_other                            = "Anderes";

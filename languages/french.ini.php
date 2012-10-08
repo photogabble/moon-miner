@@ -857,6 +857,7 @@ l_sendm_send                            = "Envoyer";
 l_sendm_sent                            = "Message envoyé";
 
 [main]
+l_avatar                                = "Votre avatar";
 l_main_title                            = "Menu Principal";
 l_main_warpto                           = "Hyper-espace";
 l_main_other                            = "Autre";

@@ -196,8 +196,32 @@ echo "<br>\n";
 
 echo "<table style='width:90%; margin:auto; border:0px; border-spacing:0px;'>\n";
 echo "  <tr>\n";
+
 // Left Side.
 echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
+
+if ($enable_gravatars)
+{
+    $gravatar_id = md5($playerinfo['email']);
+
+    echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";
+    echo "  <tr style='vertical-align:top'>\n";
+    echo "    <td style='padding:0px; width:8px;'><img style='border:0px; height:18px; width:8px; float:right;' src='images/lcorner.png' alt=''></td>\n";
+    echo "    <td style='padding:0px; background-color:#400040; text-align:center; vertical-align:middle;'><strong style='font-size:0.75em; color:#fff;'>{$langvars['l_avatar']}</strong></td>\n";
+    echo "    <td style='padding:0px; width:8px'><img style='border:0px; height:18px; width:8px; float:left;' src='images/rcorner.png' alt=''></td>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+    echo "<table style='width:150px; margin:auto; text-align:center; border:0px; padding:0px; border-spacing:0px'>\n";
+    echo "  <tr>\n";
+    echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050; width:150px'>\n";
+    echo "<img style='display:block; margin-left:auto; margin-right:auto' height='80' width='80' alt='Player Avatar' src='http://www.gravatar.com/avatar.php?gravatar_id=" . $gravatar_id . "'>";
+    echo "    <div style='padding-left:4px; text-align:left'>\n";
+    echo "</div>\n";
+    echo "    </td>\n";
+    echo "  </tr>\n";
+    echo "</table>\n";
+    echo "<br>\n";
+}
 
 // Caption
 echo "<table style='width:140px; border:0px; padding:0px; border-spacing:0px; margin-left:auto; margin-right:auto;'>\n";

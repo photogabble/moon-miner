@@ -857,6 +857,7 @@ l_sendm_send                            = "Send";
 l_sendm_sent                            = "Message Sent";
 
 [main]
+l_avatar                                = "Your avatar";
 l_main_title                            = "Main Menu";
 l_main_warpto                           = "Warp to";
 l_main_other                            = "Other";
