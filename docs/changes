@@ -1,3 +1,8 @@
+TheMightyDude (09 October 2012)
+--------------------------------------
+Fixed Notice: Undefined variable: langvars in /var/www/virtual/blacknova.net/games/svn/html/planet_report_ce.php on multi lines.
+-> All functions that uses $langvars must global $langvars at the start of the function.
+
 TheKabal (07 October 2012)
 --------------------------------------
 Planet_report_ce redone, move all language string variables out to language files, and update foreign languages to match. Also use DB bind variables where possible. 

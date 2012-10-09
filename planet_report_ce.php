@@ -54,7 +54,7 @@ TEXT_GOTOMAIN();
 function go_build_base ($db, $planet_id, $sector_id)
 {
     global $base_ore, $base_organics, $base_goods, $base_credits;
-    global $l_planet_bbuild;
+    global $l_planet_bbuild, $langvars;
 
     echo "<br>";
     echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_pr_click_return_status'] . "</a>", $langvars['l_global_mmenu']);
@@ -224,7 +224,7 @@ function change_planet_production ($db, $prodpercentarray)
 //  This should patch the game from being hacked with planet Hack.
 
     global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
-    global $l_unnamed;
+    global $l_unnamed, $langvars;
 
     $result = $db->Execute ("SELECT ship_id, team FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
@@ -402,7 +402,7 @@ function change_planet_production ($db, $prodpercentarray)
 
 function take_credits ($db, $sector_id, $planet_id)
 {
-    global $l_unnamed;
+    global $l_unnamed, $langvars;
 
     // Get basic Database information (ship and planet)
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -479,7 +479,7 @@ function take_credits ($db, $sector_id, $planet_id)
 function real_space_move ($db, $destination)
 {
     global $level_factor, $mine_hullsize;
-    global $l_rs_ready, $l_rs_movetime, $l_rs_noturns;
+    global $l_rs_ready, $l_rs_movetime, $l_rs_noturns, $langvars;
 
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     db_op_result ($db, $res, __LINE__, __FILE__);
