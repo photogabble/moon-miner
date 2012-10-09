@@ -6,6 +6,8 @@ Notice: Trying to get property of non-object in planet_report_ce.php on line 251
 -> Please note we cannot have spaces between SQL Functions and their open bracket.
 Fixed incorrect links back to planet_report.php
 -> Should be like for example: str_replace ("[here]", "<a href='planet_report.php'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return'])
+Fixed ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2012/10/09' 00:00:00' AND date < ''2012/10/09' 23:59:59' ORDER BY news_id' at line 1
+-> We cannot use ? within a quote like the following "date > '? 00:00:00'" due to it auto adds a quote wrapper around the string and we end up with "date > ''2012/10/08' 00:00:00'".
 
 TheKabal (07 October 2012)
 --------------------------------------
