@@ -32,7 +32,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
-echo str_replace ("[here]", "<a href='planet_report.php'>" . $langvars['l_pr_click_return'] . "</a>", $langvars['l_global_mmenu']);
+echo str_replace ("[here]", "<a href='planet_report.php'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return']);
 echo "<br>";
 
 if (isset ($_POST["TPCreds"]))
@@ -57,7 +57,7 @@ function go_build_base ($db, $planet_id, $sector_id)
     global $l_planet_bbuild, $langvars;
 
     echo "<br>";
-    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_pr_click_return_status'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_status']);
     echo "<br><br>";
 
     $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -92,7 +92,7 @@ function go_build_base ($db, $planet_id, $sector_id)
 
     real_space_move ($db, $sector_id);
     echo "<br>";
-    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_pr_click_return_planet'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_planet']);
     echo "<br><br>";
 
     if ($planetinfo['ore'] >= $base_ore && $planetinfo['organics'] >= $base_organics && $planetinfo['goods'] >= $base_goods && $planetinfo['credits'] >= $base_credits)
@@ -192,7 +192,7 @@ function collect_credits ($db, $planetarray)
     }
 
     echo "<br>";
-    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_pr_click_return_status'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_status']);
     echo "<br><br>";
 }
 
@@ -235,7 +235,7 @@ function change_planet_production ($db, $prodpercentarray)
     $hack_id = 0x0000;
     $hack_count = array (0, 0, 0);
 
-    echo str_replace ("[here]", "<a href='planet_report.php?preptype=2'>" . $langvars['l_pr_click_return_prod'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='planet_report.php?preptype=2'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_prod']);
     echo "<br><br>";
 
     while (list ($commod_type, $valarray) = each ($prodpercentarray))

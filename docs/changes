@@ -4,6 +4,8 @@ Fixed Notice: Undefined variable: langvars in planet_report_ce.php on multi line
 -> All functions that uses $langvars must global $langvars at the start of the function.
 Notice: Trying to get property of non-object in planet_report_ce.php on line 251
 -> Please note we cannot have spaces between SQL Functions and their open bracket.
+Fixed incorrect links back to planet_report.php
+-> Should be like for example: str_replace ("[here]", "<a href='planet_report.php'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return'])
 
 TheKabal (07 October 2012)
 --------------------------------------
