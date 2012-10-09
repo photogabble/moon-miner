@@ -246,7 +246,7 @@ function change_planet_production ($db, $prodpercentarray)
             {
                 if ($commod_type == "prod_ore" || $commod_type == "prod_organics" || $commod_type == "prod_goods" || $commod_type == "prod_energy" || $commod_type == "prod_fighters" || $commod_type == "prod_torp")
                 {
-                    $res = $db->Execute ("SELECT count (*) AS owned_planet FROM {$db->prefix}planets WHERE planet_id = ? AND owner = ?;", array ($planet_id, $ship_id));
+                    $res = $db->Execute ("SELECT COUNT(*) AS owned_planet FROM {$db->prefix}planets WHERE planet_id = ? AND owner = ?;", array ($planet_id, $ship_id));
                     db_op_result ($db, $res, __LINE__, __FILE__);
                     if ($res->fields['owned_planet'] == 0)
                     {
