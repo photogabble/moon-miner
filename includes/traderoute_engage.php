@@ -84,7 +84,6 @@ function traderoute_engage ($db, $j)
         // Retrieve port info here, we'll need it later anyway
         $result = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($traderoute['source_id']));
         db_op_result ($db, $result, __LINE__, __FILE__);
-        // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[source_id] AND (owner = $playerinfo[ship_id] OR (corp <> 0 AND corp = $playerinfo[team]))");
 
         if (!$result || $result->EOF)
         {
@@ -101,7 +100,6 @@ function traderoute_engage ($db, $j)
     }
     elseif ($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
     {
-        // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[source_id]");
         $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=? AND (owner = ? OR (corp <> 0 AND corp = ?));", array ($traderoute['source_id'], $playerinfo['ship_id'], $playerinfo['team']));
         db_op_result ($db, $result, __LINE__, __FILE__);
         if (!$result || $result->EOF)
@@ -170,7 +168,6 @@ function traderoute_engage ($db, $j)
     {
         // Check for valid Owned Source Planet
         // This now only returns Planets that the player owns or planets that belong to the team and set as corp planets..
-        // $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=$traderoute[dest_id]");
         $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id=? AND (owner = ? OR (corp <> 0 AND corp = ?));", array ($traderoute['dest_id'], $playerinfo['ship_id'], $playerinfo['team']));
         db_op_result ($db, $result, __LINE__, __FILE__);
 

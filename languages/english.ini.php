@@ -795,7 +795,7 @@ l_log_months_short_12                   = "Dec";
 
 [login]
 l_login_title                           = "Login";
-l_login_email                           = "E-mail Address:";
+l_login_email                           = "E-mail Address";
 l_login_pw                              = "Password:";
 l_login_newp                            = "If you are a new player, click [here] to create a new account.";
 l_login_prbs                            = "Problems?";

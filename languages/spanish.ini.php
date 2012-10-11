@@ -795,7 +795,7 @@ l_log_months_short_12                   = "Dic";
 
 [login]
 l_login_title                           = "Conectar";
-l_login_email                           = "Dirección de email:";
+l_login_email                           = "Dirección de email";
 l_login_pw                              = "Contraseña:";
 l_login_newp                            = "Si eres un jugador nuevo, pulsa [here].";
 l_login_prbs                            = "¿Problemas?";

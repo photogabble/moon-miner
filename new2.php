@@ -32,7 +32,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_new_title2;
 include './header.php';
@@ -43,7 +43,7 @@ if ($account_creation_closed)
     die ($l_new_closed_message);
 }
 
-# Get the user supplied post vars.
+// Get the user supplied post vars.
 $username  = null;
 $shipname  = null;
 $character = null;
@@ -75,13 +75,6 @@ $character = htmlspecialchars ($character);
 $shipname = htmlspecialchars ($shipname);
 $character = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $character);
 $shipname = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', ' ', $shipname);
-
-if (!get_magic_quotes_gpc())
-{
-    $username = addslashes ($username);
-    $character = addslashes ($character);
-    $shipname = addslashes ($shipname);
-}
 
 $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email=? || character_name=? || ship_name=?;", array ($username, $character, $shipname));
 db_op_result ($db, $result, __LINE__, __FILE__);
@@ -170,7 +163,7 @@ if ($flag == 0)
         $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
         $l_new_message = str_replace("[ip]", $ip, $l_new_message);
 
-        # Some reason \r\n is broken, so replace them now.
+        // Some reason \r\n is broken, so replace them now.
         $l_new_message = str_replace('\r\n', "\r\n", $l_new_message);
 
         $link_to_game = "http://";

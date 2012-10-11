@@ -36,7 +36,7 @@ include_once './includes/xenobe_trade.php';
 include_once './includes/xenobe_to_planet.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 global $targetlink;
 global $xenobeisdead;
@@ -67,8 +67,7 @@ while (!$res->EOF)
         $furcount0++;
         // Find a target in my sector, not myself, not on a planet
 
-        $SQL = "SELECT * FROM {$db->prefix}ships WHERE sector=$playerinfo[sector] AND email!='$playerinfo[email]' AND email NOT LIKE '%@xenobe' AND planet_id=0 AND ship_id > 1";
-        $reso0 = $db->Execute($SQL);
+        $reso0 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
         db_op_result ($db, $res0, __LINE__, __FILE__);
         if (!$reso0->EOF)
         {
@@ -115,7 +114,7 @@ while (!$res->EOF)
           continue;
         }
         // Find a target in my sector, not myself
-        $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
+        $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
         db_op_result ($db, $reso1, __LINE__, __FILE__);
         if (!$reso1->EOF)
         {
@@ -169,7 +168,7 @@ while (!$res->EOF)
         xenobe_trade ($db);
         // FIND A TARGET
         // IN MY SECTOR, NOT MYSELF
-        $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$targetlink and email!='$playerinfo[email]' and ship_id > 1");
+        $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
         db_op_result ($db, $reso2, __LINE__, __FILE__);
         if (!$reso2->EOF)
         {
@@ -234,7 +233,7 @@ while (!$res->EOF)
           }
           // FIND A TARGET
           // IN MY SECTOR, NOT MYSELF
-          $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector=$playerinfo[sector] and email!='$playerinfo[email]' and ship_id > 1");
+          $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
           db_op_result ($db, $reso3, __LINE__, __FILE__);
           if (!$reso3->EOF)
           {
