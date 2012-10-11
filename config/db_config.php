@@ -49,9 +49,6 @@ $ADODB_SESSION_DB = "bnt";
 // NOTE: only mysqlt works as of this release.
 $ADODB_SESSION_DRIVER = "mysqlt";
 
-// Set this to 1 to use db persistent connections, 0 otherwise - persistent connections can cause load problems!
-$db_persistent = 0;
-
 // Table prefix for the database. If you want to run more than
 // one game of BNT on the same database, or if the current table
 // names conflict with tables you already have in your db, you will
