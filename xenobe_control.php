@@ -158,7 +158,7 @@ else
       if (empty($user))
       {
         echo "<select size=20 name=user>";
-        $res = $db->Execute("SELECT email,character_name,ship_destroyed,active,sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id ORDER BY sector");
+        $res = $db->Execute("SELECT email, character_name, ship_destroyed, active, sector FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email = xenobe_id ORDER BY sector;");
         db_op_result ($db, $res, __LINE__, __FILE__);
         while (!$res->EOF)
         {
@@ -178,7 +178,7 @@ else
       {
         if (empty($operation))
         {
-          $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email='$user'");
+          $res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id AND email = ?;", array ($user));
           db_op_result ($db, $res, __LINE__, __FILE__);
           $row = $res->fields;
           echo "<table border=0 cellspacing=0 cellpadding=5>";
@@ -259,7 +259,7 @@ else
           echo "<hr>";
           echo "<span style=\"font-family : courier, monospace; font-size: 12pt; color: #0f0;\">Log Data For This Xenobe</span><br>";
 
-          $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id=$row[ship_id] ORDER BY time DESC, type DESC");
+          $logres = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? ORDER BY time DESC, type DESC", array ($row['ship_id']));
           db_op_result ($db, $logres, __LINE__, __FILE__);
           while (!$logres->EOF)
           {
@@ -289,14 +289,14 @@ else
           $_dev_escapepod = empty($dev_escapepod) ? "N" : "Y";
           $_dev_fuelscoop = empty($dev_fuelscoop) ? "N" : "Y";
           $_active = empty($active) ? "N" : "Y";
-          $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name='$character_name',ship_name='$ship_name',ship_destroyed='$_ship_destroyed',hull='$hull',engines='$engines',power='$power',computer='$computer',sensors='$sensors',armor='$armor',shields='$shields',beams='$beams',torp_launchers='$torp_launchers',cloak='$cloak',credits='$credits',turns='$turns',dev_warpedit='$dev_warpedit',dev_genesis='$dev_genesis',dev_beacon='$dev_beacon',dev_emerwarp='$dev_emerwarp',dev_escapepod='$_dev_escapepod',dev_fuelscoop='$_dev_fuelscoop',dev_minedeflector='$dev_minedeflector',sector='$sector',ship_ore='$ship_ore',ship_organics='$ship_organics',ship_goods='$ship_goods',ship_energy='$ship_energy',ship_colonists='$ship_colonists',ship_fighters='$ship_fighters',torps='$torps',armor_pts='$armor_pts' WHERE email='$user'");
+          $result = $db->Execute("UPDATE {$db->prefix}ships SET character_name = ?, ship_name = ?, ship_destroyed = ?, hull = ?, engines = ?, power = ?, computer = ?, sensors = ?, armor = ?, shields = ?, beams = ?, torp_launchers = ?, cloak = ?, credits = ?, turns = ?, dev_warpedit = ?, dev_genesis = ?, dev_beacon = ?, dev_emerwarp = ?, dev_escapepod = ?, dev_fuelscoop = ?, dev_minedeflector = ?, sector = ?, ship_ore = ?, ship_organics = ?, ship_goods = ?, ship_energy = ?, ship_colonists = ?, ship_fighters = ?, torps = ?, armor_pts = ? WHERE email = ?;", array ($character_name, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $user));
           db_op_result ($db, $result, __LINE__, __FILE__);
           if (!$result) {
             echo "Changes to Xenobe ship record have FAILED Due to the following Error:<br><br>";
             echo $db->ErrorMsg() . "<br>";
           } else {
             echo "Changes to Xenobe ship record have been saved.<br><br>";
-            $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active='$_active',orders='$orders',aggression='$aggression' WHERE xenobe_id='$user'");
+            $result2 = $db->Execute("UPDATE {$db->prefix}xenobe SET active = ?, orders = ?, aggression = ? WHERE xenobe_id = ?;", array ($_active, $orders, $aggression, $user));
             db_op_result ($db, $result2, __LINE__, __FILE__);
             if (!$result2) {
               echo "Changes to Xenobe activity record have FAILED Due to the following Error:<br><br>";
@@ -387,7 +387,7 @@ else
         while (!$res->EOF)
         {
           $row = $res->fields;
-          $resx = $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id=$row[ship_id]");
+          $resx = $db->Execute("DELETE FROM {$db->prefix}logs WHERE ship_id = ?;", array ($row['ship_id']));
           db_op_result ($db, $resx, __LINE__, __FILE__);
           echo "Log for ship_id $row[ship_id] cleared.<br>";
           $res->MoveNext();
@@ -420,7 +420,7 @@ else
         $sy3roll = mt_rand(0,19);
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name='$character'");
+        $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
         db_op_result ($db, $resultnm, __LINE__, __FILE__);
         $namecheck = $resultnm->fields;
         $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -432,7 +432,7 @@ else
           $sy3roll = mt_rand(0,19);
           $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
           $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-          $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name='$character'");
+          $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
           db_op_result ($db, $resultnm, __LINE__, __FILE__);
           $namecheck = $resultnm->fields;
           $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -478,7 +478,7 @@ else
         // Create emailname from character
         $emailname = str_replace(" ","_",$character) . "@xenobe";
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email='$emailname' OR character_name='$character' OR ship_name='$shipname'");
+        $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array ($emailname, $character, $shipname));
         db_op_result ($db, $result, __LINE__, __FILE__);
         if ($result>0)
         {
@@ -527,7 +527,7 @@ else
             echo "password has been set.<br><br>";
             echo "Ship Records have been updated.<br><br>";
           }
-          $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id,active,aggression,orders) valueS('$emailname','$_active','$aggression','$orders')");
+          $result3 = $db->Execute("INSERT INTO {$db->prefix}xenobe (xenobe_id, active, aggression, orders) values(?,?,?,?)", array ($emailname, $_active, $aggression, $orders));
           db_op_result ($db, $result3, __LINE__, __FILE__);
           if (!$result3)
           {
