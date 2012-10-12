@@ -162,4 +162,5 @@ $variables['sf_logo_link'] = $sf_logo_link;
 $variables['elapsed'] = $elapsed;
 $variables['mem_peak_usage'] = $mem_peak_usage;
 $variables['footer_show_debug'] = $footer_show_debug;
+$variables['cur_year'] = date('Y');
 ?>
