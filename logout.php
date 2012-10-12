@@ -19,21 +19,11 @@
 
 include './global_includes.php';
 
+$variables = null;
+
 // New database driven language entries
-load_languages($db, $lang, array('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
-$title = $l_logout;
-$_SESSION['logged_in'] = false;
-
-// Clear the session array, clear the session cookie
-$_SESSION = array();
-setcookie ("PHPSESSID", "", 0, "/");
-
-// Destroy the session entirely
-session_destroy ();
-
-include './header.php';
-echo "<h1>" . $title . "</h1>\n";
+$langvars = null;
+load_languages ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 if (isset ($_SESSION['username']))
 {
@@ -44,15 +34,39 @@ if (isset ($_SESSION['username']))
     include_once './includes/calc_score.php';
     $current_score = calc_score ($db, $playerinfo['ship_id']);
     player_log ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
-    echo $l_logout_score . " " . $current_score . ".<br>";
     $l_logout_text = str_replace ("[name]", $_SESSION['username'], $l_logout_text);
     $l_logout_text = str_replace ("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
-    echo $l_logout_text;
+    // Convert language entries to include session information while it still exists
+    $langvars['l_logout_text_replaced'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
+    $langvars['l_logout_text_replaced'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text_replaced']);
+    $variables['current_score'] = $current_score;
+    $variables['session_username'] = $_SESSION['username'];
+    $variables['l_logout_text_replaced'] = $langvars['l_logout_text_replaced'];
 }
 else
 {
-    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    $variables['session_username'] = '';
+    $variables['linkback'] = array("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
 }
 
-include './footer.php';
+// Set login status to false, then clear the session array, and finally clear the session cookie
+$_SESSION['logged_in'] = false;
+$_SESSION = array();
+setcookie ("PHPSESSID", "", 0, "/");
+
+// Destroy the session entirely
+session_destroy ();
+
+$variables['lang'] = $lang;
+$variables['linkback'] = array("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvar";
+
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->AddVariables ('langvars', $langvars);
+$template->AddVariables ('variables', $variables);
+$template->Display ("logout.tpl");
 ?>
