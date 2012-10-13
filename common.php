@@ -54,8 +54,36 @@ ADODB_Session::dataFieldName ('SESSDATA');
 ADODB_Session::filter (new ADODB_Encrypt_Mcrypt ());
 ADODB_Session::filter (new ADODB_Compress_Gzip ());
 
-// The zero at the end disables persistent connections. Persistent connections can cause very bad things.
-bnt_database::connect ($ADODB_SESSION_CONNECT, $ADODB_SESSION_DRIVER, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $dbport, 0);
+// If there is a $dbport variable set, use it in the connection method
+if (!empty ($dbport))
+{
+    $ADODB_SESSION_CONNECT.= ":$dbport";
+}
+
+// Attempt to connect to the database
+try
+{
+    $db = NewADOConnection($ADODB_SESSION_DRIVER);
+    $db_init_result = @$db->Connect ("$ADODB_SESSION_CONNECT", "$ADODB_SESSION_USER", "$ADODB_SESSION_PWD", "$ADODB_SESSION_DB");
+    if ($db_init_result === false)
+    {
+        throw new Exception;
+    }
+    else
+    {
+        // We have connected successfully. Now set our character set to utf-8
+        $db->Execute ("SET NAMES 'utf8'");
+
+        // Set the fetch mode for database calls to be associative by default
+        $db->SetFetchMode (ADODB_FETCH_ASSOC);
+    }
+}
+catch (exception $e)
+{
+    // We need to display the error message onto the screen.
+    $err_msg = "Unable to connect to the Database.<br>\n Database Error: ". $db->ErrorNo () .": ". $db->ErrorMsg () ."<br>\n";
+    die ($err_msg);
+}
 
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
