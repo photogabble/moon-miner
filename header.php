@@ -20,13 +20,13 @@
 // New database driven language entries
 load_languages($db, $lang, array('common'), $langvars);
 
-header("Content-type: text/html; charset=utf-8");
-header("X-UA-Compatible: IE=Edge, chrome=1");
-header("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
-header("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
-header("Vary: Accept-Encoding, Accept-Language");
-header("Keep-Alive: timeout=15, max=100");
-if (!isset($body_class))
+header ("Content-type: text/html; charset=utf-8");
+header ("X-UA-Compatible: IE=Edge, chrome=1");
+header ("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
+header ("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
+header ("Vary: Accept-Encoding, Accept-Language");
+header ("Keep-Alive: timeout=15, max=100");
+if (!isset ($body_class))
 {
     $body_class = "bnt";
 }
@@ -39,11 +39,11 @@ if (!isset($body_class))
 <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
 <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
 <meta name="Rating" content="General">
-<link rel="shortcut icon" href="images/bntfavicon.ico">
-<title><?php global $title; echo $title; ?></title>
+<link rel='shortcut icon' href='images/bntfavicon.ico'>
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css.php'>
+<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Ubuntu'>
+<title><?php global $title; echo $title; ?></title>
 <script src="backends/ckeditor/ckeditor.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 </head>
 <body class="<?php echo $body_class; ?>">
 <div class="wrapper">
