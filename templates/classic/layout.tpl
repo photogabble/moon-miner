@@ -19,17 +19,19 @@
 *}
 <!DOCTYPE html>
 <html lang="{$langvars['l_lang_attribute']}">
+<!-- START OF HEADER -->
   <head>
     <meta charset="utf-8">
     <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
     <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
     <meta name="Rating" content="General">
     <link rel="shortcut icon" href="images/bntfavicon.ico">
-    <title>{block name=title}Default Page Title{/block}</title>
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css.php">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
+    <title>{block name=title}Default Page Title{/block}</title>
     <script src="backends/ckeditor/ckeditor.js"></script>
-    <link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
   </head>
+<!-- END OF HEADER -->
 
 {if !isset($variables['body_class'])}
 {$variables['body_class'] = "bnt"}
