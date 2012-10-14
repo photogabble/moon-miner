@@ -26,7 +26,7 @@
     <meta name="Rating" content="General">
     <link rel="shortcut icon" href="images/bntfavicon.ico">
     <title>{block name=title}Default Page Title{/block}</title>
-    <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css.php">
     <script src="backends/ckeditor/ckeditor.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
   </head>

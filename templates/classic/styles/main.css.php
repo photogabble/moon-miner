@@ -1,14 +1,17 @@
 <?php
 include '../../../includes/bnt_compress.php';
-ob_start('bnt_compress');
+ob_start ('bnt_compress');
 
+$etag = md5_file (__FILE__); // Generate an md5sum and use it as the etag for the file, ensuring that caches will revalidate if the code itself changes
 //header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
-header("Vary: Accept-Encoding");
-header("Content-type: text/javascript");
-header("Connection: Keep-Alive");
-header("Cache-Control: public");
+header ("Vary: Accept-Encoding");
+header ("Content-type: text/css");
+header ("Connection: Keep-Alive");
+header ("Cache-Control: public");
+header ('ETag: "' . $etag . '"');
 ?>
-body {background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em}
+body { background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+html { height: 85%}
 a:link { color: #0f0}
 a:visited { color: #0f0}
 a:active { color: #f00}
@@ -32,7 +35,7 @@ table.dis:hover { color:#36f; font-size: 8pt; font-weight:bold; text-decoration:
 dl.twocolumn-form dt { float:left; height:2em; text-align:right; width:45%; padding:3px}
 dl.twocolumn-form dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
 dl.twocolumn-form input {width:200px}
-.map { background-color:#0000ff;  border:#555555 1px solid; color:#fff; float:left; height:20px; padding:0px; position:relative; width:20px; z-index:-1}
+.map { background-color:#0000ff;  border:#555555 1px solid; color:#fff; float:left; height:20px; padding:0px; position:relative; width:20px;}
 .map:hover { border:#fff 1px solid}
 .none { background-image:url('../../../images/space.png')}
 .un { background-image:url('../../../images/uspace.png'); opacity:0.5}
@@ -175,9 +178,14 @@ body.faq td.spacer { background-color:#300030; width:5%}
 body.faq table { border:0px; width:100%; border-spacing:0px}
 body.faq table.navbar { border-spacing:0px}
 body.faq td.lists { text-align:center; width:20%}
-<?php if(extension_loaded('zlib')){ob_end_flush();}?>
-<?php
-$etag = md5_file(__FILE__);
-header('ETag: "' . $etag . '"');
-ob_end_flush();
-?>
+.wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -4em; }
+.footer, .push { height: 4em; }
+.footer, .push { clear:both; }
+body.error { background: url(../images/error.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;}
+html.error { height: 100%}
+div.error_text { background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.7); width:60%; margin: 0px auto; padding-left:1em}
+p.error_text { }
+p.error_return { }
+div.error_location { float:left; width: 20%}
+div.error_content { float:right; text-align:left; width: 80%}
+p.error_footer { clear:both;}
