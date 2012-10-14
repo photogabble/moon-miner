@@ -1,4 +1,15 @@
-<!--
+<?php
+include '../../../includes/bnt_compress.php';
+ob_start ('bnt_compress');
+
+$etag = md5_file (__FILE__); // Generate an md5sum and use it as the etag for the file, ensuring that caches will revalidate if the code itself changes
+//header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
+header ("Vary: Accept-Encoding");
+header ("Content-type: text/javascript");
+header ("Connection: Keep-Alive");
+header ("Cache-Control: public");
+header ('ETag: "' . $etag . '"');
+?><!--
     var seconds = 0;
     var nextInterval = new Date().getTime();
     var maxTicks = 0;
