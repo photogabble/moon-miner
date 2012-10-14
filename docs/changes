@@ -1,3 +1,11 @@
+TheKabal (14 October 2012)
+--------------------------------------
+Move test_ranking to become new rankings page
+Use input filtering on rankings page
+Move compression out of template class, and make it a ob_callback function that the entire game uses
+Change updateticker and newsticker to be compressed
+Change css to be compressed
+
 TheMightyDude (09 October 2012)
 --------------------------------------
 Fixed Notice: Undefined variable: langvars in planet_report_ce.php on multi lines.
