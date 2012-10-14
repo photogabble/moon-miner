@@ -111,8 +111,8 @@ class SmartyAPI
         // Process template and return the output in a
         // varable so that we can compress it or not.
         $output = $this->smarty->fetch($template_file);
-
-        echo $this->parent->HandleCompression($output);
+//        echo $this->parent->HandleCompression($output);
+        echo $output;
         exit;
     }
 }

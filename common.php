@@ -32,8 +32,7 @@ ini_set ("include_path", "."); // This seems to be a problem on a few platforms,
 $BenchmarkTimer = new bnt_timer;
 $BenchmarkTimer->start (); // Start benchmarking immediately
 
-//if (!ob_start("ob_gzhandler")) ob_start(); // If the server will support gzip compression, use it. Otherwise, start buffering.
-ob_start ();
+ob_start ("bnt_compress"); // Start a buffer, and when it closes (at the end of a request), call the callback function "bnt_compress" (in includes/) to properly handle detection of compression.
 
 ini_set ('session.use_only_cookies', 1); // Ensure that sessions will only be stored in a cookie
 ini_set ('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie

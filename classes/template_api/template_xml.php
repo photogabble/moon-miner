@@ -129,7 +129,8 @@ class XMLAPI
     public function Display()
     {
         $output = $this->xmldom->Display();
-        echo $this->parent->HandleCompression($output);
+//        echo $this->parent->HandleCompression($output);
+        echo $output;
         exit;
     }
 }

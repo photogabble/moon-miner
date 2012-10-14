@@ -154,4 +154,3 @@ if ($footer_show_debug == true)
 </div>
 </body>
 </html>
-<?php ob_end_flush();?>

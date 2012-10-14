@@ -26,11 +26,10 @@ if (strpos ($_SERVER['PHP_SELF'], 'bnt_compress.php')) // Prevent direct access 
 
 function bnt_compress ($output = null)
 {
-    // Check to see if we have data, if not error out.
+    // Check to see if we have data, if not, then return null
     if (is_null ($output))
     {
-        die ("SYSTEM HALT: NOTHING TO OUTPUT.");
-        exit;
+        return null;
     }
 
     // Handle the supported compressions.
