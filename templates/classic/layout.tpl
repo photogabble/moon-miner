@@ -27,7 +27,7 @@
     <link rel="shortcut icon" href="images/bntfavicon.ico">
     <title>{block name=title}Default Page Title{/block}</title>
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css">
-    <script src="backends/ckeditor/ckeditor.js"></script>
+    <script src="backends/ckeditor/ckeditor.js.php"></script>
     <link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
   </head>
 
@@ -83,7 +83,7 @@ if (news.initTicker("news_ticker") == true)
 <br>
 {* Handle the Servers Update Ticker here *}
 {if isset($variables['update_ticker']['display']) && $variables['update_ticker']['display'] == true}
-    <script type='text/javascript' src='{$template_dir}/scripts/updateticker.js'></script>
+    <script type='text/javascript' src='{$template_dir}/scripts/updateticker.js.php'></script>
     <script>
         var seconds = {$variables['update_ticker']['seconds_left']};
         var nextInterval = new Date().getTime();

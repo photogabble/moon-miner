@@ -77,7 +77,7 @@ if (!$no_db)
 }
 
 //echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
-echo "<script src='backends/javascript/updateticker.js'></script>";
+echo "<script src='backends/javascript/updateticker.js.php'></script>";
 echo "<script>";
 echo "var seconds = '" . $mySEC . "';";
 echo "var nextInterval = new Date().getTime();";

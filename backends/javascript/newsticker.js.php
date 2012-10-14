@@ -1,12 +1,14 @@
 <?php
 include '../../includes/bnt_compress.php';
-ob_start('bnt_compress');
+ob_start ('bnt_compress');
 
+$etag = md5_file (__FILE__); // Generate an md5sum and use it as the etag for the file, ensuring that caches will revalidate if the code itself changes
 //header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
-header("Vary: Accept-Encoding");
-header("Content-type: text/javascript");
-header("Connection: Keep-Alive");
-header("Cache-Control: public");
+header ("Vary: Accept-Encoding");
+header ("Content-type: text/javascript");
+header ("Connection: Keep-Alive");
+header ("Cache-Control: public");
+header ('ETag: "' . $etag . '"');
 ?>
 <!--
 function newsTicker(inst)
@@ -54,6 +56,7 @@ function newsTicker(inst)
         started[instance]               = false;
         ticketArticle[instance]         = [];
         element[instance]               = null;
+
 
         element[instance]               = document.getElementById(container);
         element[instance].height        = parseInt(tickerHeight[instance]) +"px";
@@ -237,8 +240,3 @@ function newsTicker(inst)
 
 }
 -->
-<?php
-$etag = md5_file(__FILE__);
-header('ETag: "' . $etag . '"');
-ob_end_flush();
-?>
