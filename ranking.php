@@ -25,7 +25,7 @@ $langvars = null;
 $variables = null;
 
 $variables['lang'] = $lang;
-$variables['link'] = "test_ranking.php";
+$variables['link'] = "ranking.php";
 
 // These should be set within the template config.
 $variables['color_header'] = $color_header;
