@@ -25,14 +25,14 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+load_languages ($db, $lang, array ('options', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $body_class = 'options';
 $title = $l_opt_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
 echo "<form action=option2.php method=post>";

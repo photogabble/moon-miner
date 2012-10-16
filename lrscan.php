@@ -27,7 +27,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_lrs_title;
 include './header.php';

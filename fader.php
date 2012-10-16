@@ -28,7 +28,7 @@ if (result == true)
 
 <?php
     // New database driven language entries
-    load_languages($db, $lang, array('news'), $langvars);
+    load_languages ($db, $lang, array ('news'), $langvars);
 
     $startdate = date("Y/m/d");
     if ($no_db)

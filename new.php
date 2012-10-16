@@ -32,7 +32,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_new_title;
 include './header.php';

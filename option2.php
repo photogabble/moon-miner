@@ -46,7 +46,7 @@ if (request_var('POST', 'newlang', $newlang) === true)
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('option2', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $langvars['l_opt2_title'];
 include './header.php';

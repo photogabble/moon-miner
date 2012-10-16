@@ -25,19 +25,19 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+load_languages ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_pr_title;
 include './header.php';
 
 $preptype = null;
-if (array_key_exists('preptype', $_GET) == true) //!isset($_GET['preptype']))
+if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))
 {
     $preptype = $_GET['preptype'];
 }
 
 // Get data about planets
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -338,7 +338,7 @@ function planet_production_change ($db)
         $query .= " ORDER BY sector_id ASC";
     }
 
-    $res = $db->Execute($query, array($playerinfo['ship_id']));
+    $res = $db->Execute ($query, array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
 
     $i = 0;

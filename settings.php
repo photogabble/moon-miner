@@ -32,7 +32,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include './header.php';
 
@@ -165,7 +165,7 @@ else
    {
        if ($plugin_config[$plugin_name]['enabled'] == true && (isset($plugin_config[$plugin_name]['has_settings']) && $plugin_config[$plugin_name]['has_settings'] == true))
        {
-           if (is_callable(array($$plugin_name, 'getPluginInfo')))
+           if (is_callable (array ($$plugin_name, 'getPluginInfo')))
            {
                $plugin_id ++;
                $pluginInfo = call_user_func( array($$plugin_name, 'getPluginInfo') );

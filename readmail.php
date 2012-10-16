@@ -25,13 +25,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+load_languages ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_readm_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -40,21 +40,21 @@ if (!isset($_GET['action']))
     $_GET['action'] = '';
 }
 
-if ($_GET['action']=="delete")
+if ($_GET['action'] == "delete")
 {
-    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id=?;", array($ID, $playerinfo['ship_id']));
+    $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id = ?;", array ($ID, $playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 }
-else if ($_GET['action']=="delete_all")
+else if ($_GET['action'] == "delete_all")
 {
-    $resx = $db->Execute("DELETE FROM {$db->prefix}messages WHERE recp_id=?;", array($playerinfo['ship_id']));
+    $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE recp_id = ?;", array ($playerinfo['ship_id']));
     db_op_result ($db, $resx, __LINE__, __FILE__);
 }
 
 $cur_D = date("Y-m-d");
 $cur_T = date("H:i:s");
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}messages WHERE recp_id=? ORDER BY sent DESC;", array($playerinfo['ship_id']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDER BY sent DESC;", array ($playerinfo['ship_id']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 ?>
 <div align="center">
@@ -103,7 +103,7 @@ db_op_result ($db, $res, __LINE__, __FILE__);
   {
    $msg = $res->fields;
 
-   $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array($msg['sender_id']));
+   $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($msg['sender_id']));
    db_op_result ($db, $result, __LINE__, __FILE__);
    $sender = $result->fields;
 

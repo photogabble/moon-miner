@@ -47,7 +47,7 @@ else
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 if ($server_closed)
 {

@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_fighters.php')) // Prevent direct acces
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 include './includes/distribute_toll.php';
 include './includes/scan_success.php';

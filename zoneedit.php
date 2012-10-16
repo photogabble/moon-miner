@@ -25,7 +25,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ze_title;
 include './header.php';
@@ -95,13 +95,13 @@ $curzone = $res->fields;
 
 if ($curzone['corp_zone'] == 'N')
 {
-    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 else
 {
-    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator=?", array ($curzone['owner']));
+    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator = ?;", array ($curzone['owner']));
     db_op_result ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }

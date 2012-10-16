@@ -21,43 +21,43 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'), $langvars);
+load_languages ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'), $langvars);
 
 $title = $l_device_title;
 $body_class = 'device';
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
 echo $l_device_expl . "<br><br>";
 echo "<table style=\"width:33%\">";
 echo "<tr><th style=\"text-align:left;\">$l_device</th><th>$l_qty</th><th>$l_usage</th></tr>";
 echo "<tr>";
-echo "<td><a href='beacon.php'>$l_beacons</A></td><td>" . NUMBER($playerinfo['dev_beacon']) . "</td><td>$l_manual</td>";
+echo "<td><a href='beacon.php'>$l_beacons</A></td><td>" . NUMBER ($playerinfo['dev_beacon']) . "</td><td>$l_manual</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='warpedit.php'>$l_warpedit</A></td><td>" . NUMBER($playerinfo['dev_warpedit']) . "</td><td>$l_manual</td>";
+echo "<td><a href='warpedit.php'>$l_warpedit</A></td><td>" . NUMBER ($playerinfo['dev_warpedit']) . "</td><td>$l_manual</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='genesis.php'>$l_genesis</A></td><td>" . NUMBER($playerinfo['dev_genesis']) . "</td><td>$l_manual</td>";
+echo "<td><a href='genesis.php'>$l_genesis</A></td><td>" . NUMBER ($playerinfo['dev_genesis']) . "</td><td>$l_manual</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>$l_deflect</td><td>" . NUMBER($playerinfo['dev_minedeflector']) . "</td><td>$l_automatic</td>";
+echo "<td>$l_deflect</td><td>" . NUMBER ($playerinfo['dev_minedeflector']) . "</td><td>$l_automatic</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='mines.php?op=1'>$l_mines</A></td><td>" . NUMBER($playerinfo['torps']) . "</td><td>$l_manual</td>";
+echo "<td><a href='mines.php?op=1'>$l_mines</A></td><td>" . NUMBER ($playerinfo['torps']) . "</td><td>$l_manual</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='mines.php?op=2'>$l_fighters</A></td><td>" . NUMBER($playerinfo['ship_fighters']) . "</td><td>$l_manual</td>";
+echo "<td><a href='mines.php?op=2'>$l_fighters</A></td><td>" . NUMBER ($playerinfo['ship_fighters']) . "</td><td>$l_manual</td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td><a href='emerwarp.php'>$l_ewd</A></td><td>" . NUMBER($playerinfo['dev_emerwarp']) . "</td><td>$l_manual/$l_automatic</td>";
+echo "<td><a href='emerwarp.php'>$l_ewd</A></td><td>" . NUMBER ($playerinfo['dev_emerwarp']) . "</td><td>$l_manual/$l_automatic</td>";
 echo "</tr>";
 echo "<tr>";
 echo "<td>$l_escape_pod</td><td>" . (($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no) . "</td><td>$l_automatic</td>";

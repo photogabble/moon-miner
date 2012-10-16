@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+load_languages ($db, $lang, array ('mailto', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_sendm_title;
 include './header.php';

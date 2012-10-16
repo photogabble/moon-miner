@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_mines.php')) // Prevent direct access t
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('check_mines', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('check_mines', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
 include './includes/explode_mines.php';
 include './includes/cancel_bounty.php';

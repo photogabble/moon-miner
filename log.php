@@ -26,7 +26,7 @@ if (check_login ($db, $lang, $langvars, false)) // Checks player login, sets pla
 }
 
 // Hack for log bug issue - this really needs to be fixed
-$log_list = array(null,
+$log_list = array (null,
         'LOG_LOGIN', 'LOG_LOGOUT', 'LOG_ATTACK_OUTMAN', 'LOG_ATTACK_OUTSCAN', 'LOG_ATTACK_EWD','LOG_ATTACK_EWDFAIL', 'LOG_ATTACK_LOSE', 'LOG_ATTACKED_WIN', 'LOG_TOLL_PAID', 'LOG_HIT_MINES',
         'LOG_SHIP_DESTROYED_MINES', 'LOG_PLANET_DEFEATED_D', 'LOG_PLANET_DEFEATED', 'LOG_PLANET_NOT_DEFEATED', 'LOG_RAW', 'LOG_TOLL_RECV', 'LOG_DEFS_DESTROYED', 'LOG_PLANET_EJECT', 'LOG_BADLOGIN', 'LOG_PLANET_SCAN',
         'LOG_PLANET_SCAN_FAIL', 'LOG_PLANET_CAPTURE', 'LOG_SHIP_SCAN', 'LOG_SHIP_SCAN_FAIL', 'LOG_Xenobe_ATTACK', 'LOG_STARVATION', 'LOG_TOW', 'LOG_DEFS_DESTROYED_F', 'LOG_DEFS_KABOOM', 'LOG_HARAKIRI',
@@ -36,7 +36,7 @@ $log_list = array(null,
                 );
 
 // New database driven language entries
-load_languages($db, $lang, array('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+load_languages ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
 
 $title = $l_log_titlet;
 $body_class = 'log';

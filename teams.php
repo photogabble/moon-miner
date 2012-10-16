@@ -31,7 +31,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+load_languages ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_team_title;
 include './header.php';

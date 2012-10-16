@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sector_fighters.php')) // Prevent direct acce
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include_once './includes/destroy_fighters.php';
 include_once './includes/cancel_bounty.php';

@@ -25,7 +25,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('main', 'report', 'planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('main', 'report', 'planet', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_planet2_title;
 include './header.php';
@@ -63,39 +63,39 @@ include './header.php';
 // Array list of valid vars and their types that are alowed for this page.
 // I know this is rather crude but it works.
 $valid_vars = null;
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_ore", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tpore", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allore", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_ore", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tpore", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allore", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_organics", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tporganics", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allorganics", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_organics", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tporganics", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allorganics", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_goods", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tpgoods", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allgoods", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_goods", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tpgoods", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allgoods", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_energy", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tpenergy", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allenergy", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_energy", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tpenergy", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allenergy", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_colonists", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tpcolonists", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allcolonists", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_colonists", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tpcolonists", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allcolonists", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_fighters", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tpfighters", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allfighters", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_fighters", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tpfighters", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allfighters", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_torps", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tptorps", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"alltorps", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_torps", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tptorps", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"alltorps", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_POST", "var"=>"transfer_credits", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"tpcredits", "type"=>"integer");
-$valid_vars[] = array("pref"=>"_POST", "var"=>"allcredits", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"transfer_credits", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"tpcredits", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_POST", "var"=>"allcredits", "type"=>"integer");
 
-$valid_vars[] = array("pref"=>"_GET", "var"=>"planet_id", "type"=>"integer");
+$valid_vars[] = array ("pref"=>"_GET", "var"=>"planet_id", "type"=>"integer");
 
 foreach ($valid_vars as $k=>$v)
 {

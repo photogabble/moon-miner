@@ -69,7 +69,7 @@ global $l_sys_update;
 $title = $l_sys_update;
 
 // New database driven language entries
-load_languages($db, $lang, array('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";

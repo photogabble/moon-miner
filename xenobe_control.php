@@ -21,7 +21,7 @@ include './global_includes.php';
 include './config/admin_pw.php';
 
 // New database driven language entries
-load_languages($db, $lang, array('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $title = $l_ai_control;
 include './header.php';
@@ -412,12 +412,12 @@ else
       if (empty($operation))
       {
         // Create Xenobe Name
-        $Sylable1 = array("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
-        $Sylable2 = array("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
-        $Sylable3 = array("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
-        $sy1roll = mt_rand(0,19);
-        $sy2roll = mt_rand(0,19);
-        $sy3roll = mt_rand(0,19);
+        $Sylable1 = array ("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
+        $Sylable2 = array ("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
+        $Sylable3 = array ("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
+        $sy1roll = mt_rand (0,19);
+        $sy2roll = mt_rand (0,19);
+        $sy3roll = mt_rand (0,19);
         $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));

@@ -30,7 +30,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('combat', 'common', 'global_includes', 'main', 'modify_defences', 'admin'), $langvars);
+load_languages ($db, $lang, array ('combat', 'common', 'global_includes', 'main', 'modify_defences', 'admin'), $langvars);
 
 $title = $langvars['l_main_title'];
 include './header.php';
@@ -38,7 +38,7 @@ include './header.php';
 $stylefontsize = "12pt";
 $picsperrow = 7;
 
-$res = $db->SelectLimit("SELECT * FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ($_SESSION['username']));
+$res = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ($_SESSION['username']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 

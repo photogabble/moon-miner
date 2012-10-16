@@ -22,7 +22,7 @@ include './config/admin_pw.php';
 
 // New database driven language entries
 $langvars = null;
-load_languages($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'), $langvars);
+load_languages ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'), $langvars);
 
 $title = $langvars['l_admin_title'];
 

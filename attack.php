@@ -27,7 +27,7 @@ if (check_login ($db, $lang, $langvars))
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_att_title;
 include './header.php';

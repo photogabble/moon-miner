@@ -20,13 +20,13 @@
 global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db, $db, $lang;
 
 // New database driven language entries
-load_languages($db, $lang, array('footer','global_includes'), $langvars);
+load_languages ($db, $lang, array ('footer','global_includes'), $langvars);
 
 $online = (integer) 0;
 
 if (!$no_db)
 {
-    $res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
+    $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
     db_op_result ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
@@ -131,7 +131,7 @@ else
 
 $public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
 $slash_position = strrpos ($_SERVER['PHP_SELF'], '/') + 1;
-$current_page = substr($_SERVER['PHP_SELF'], $slash_position);
+$current_page = substr ($_SERVER['PHP_SELF'], $slash_position);
 if (in_array ($current_page, $public_pages))
 {
     // If it is a non-login required page, such as ranking, new, faq, settings, news, and index use the public SF logo, which increases project stats.

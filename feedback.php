@@ -25,13 +25,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+load_languages ($db, $lang, array ('feedback', 'galaxy', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $title = $l_feedback_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 

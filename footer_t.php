@@ -20,7 +20,7 @@
 global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db;
 
 // New database driven language entries
-load_languages($db, $lang, array('regional', 'footer','global_includes'), $langvars);
+load_languages ($db, $lang, array ('regional', 'footer','global_includes'), $langvars);
 
 $online = 0;
 
@@ -83,16 +83,16 @@ else
 if ($news_ticker == true)
 {
     // New database driven language entries
-    load_languages($db, $lang, array('news'), $langvars);
+    load_languages ($db, $lang, array ('news'), $langvars);
 
     $startdate = date("Y/m/d");
 
-    $news_ticker = array();
+    $news_ticker = array ();
 
     if ($no_db)
     {
         // Needs to be put into the language table.
-        array_push($news_ticker, array('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
+        array_push ($news_ticker, array ('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
     }
     else
     {
@@ -102,7 +102,7 @@ if ($news_ticker == true)
         {
             if ($rs->RecordCount() == 0)
             {
-                array_push($news_ticker, array('url'=>null, 'text'=>$langvars['l_news_none'], 'type'=>null, 'delay'=>5));
+                array_push ($news_ticker, array ('url'=>null, 'text'=>$langvars['l_news_none'], 'type'=>null, 'delay'=>5));
             }
             else
             {
@@ -110,10 +110,10 @@ if ($news_ticker == true)
                 {
                     $row = $rs->fields;
                     $headline = addslashes($row['headline']);
-                    array_push($news_ticker, array('url'=>"news.php", 'text'=>$headline, 'type'=>$row['news_type'], 'delay'=>5));
+                    array_push ($news_ticker, array ('url'=>"news.php", 'text'=>$headline, 'type'=>$row['news_type'], 'delay'=>5));
                     $rs->MoveNext();
                 }
-                array_push($news_ticker, array('url'=>null, 'text'=>"End of News", 'type'=>null, 'delay'=>5));
+                array_push ($news_ticker, array ('url'=>null, 'text'=>"End of News", 'type'=>null, 'delay'=>5));
             }
         }
     }
@@ -152,7 +152,7 @@ else
 }
 
 // Set array with all used variables in page
-$variables['update_ticker'] = array("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$sched_ticks);
+$variables['update_ticker'] = array ("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$sched_ticks);
 
 $variables['players_online'] = $online;
 $variables['sf_logo_type'] = $sf_logo_type;

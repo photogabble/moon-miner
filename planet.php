@@ -30,25 +30,25 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages($db, $lang, array ('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars);
+load_languages ($db, $lang, array ('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars);
 
 $title = $l_planet_title;
 include './header.php';
 
 $destroy = null;
-if (array_key_exists('destroy', $_GET) == true)
+if (array_key_exists ('destroy', $_GET) == true)
 {
     $destroy = $_GET['destroy'];
 }
 
 $command = null;
-if (array_key_exists('command', $_REQUEST) == true)
+if (array_key_exists ('command', $_REQUEST) == true)
 {
     $command = $_REQUEST['command'];
 }
 
 $planet_id = null;
-if (array_key_exists('planet_id', $_GET) == true)
+if (array_key_exists ('planet_id', $_GET) == true)
 {
     $planet_id = (int) $_GET['planet_id'];
 }
@@ -88,7 +88,7 @@ if (!$result3 instanceof ADORecordSet || (is_bool($planetinfo) && $planetinfo ==
   die ();
 }
 
-if (!is_bool($planetinfo) && $planetinfo != false )
+if (!is_bool ($planetinfo) && $planetinfo != false )
 // If there is a planet in the sector show appropriate menu
 {
     if ($playerinfo['sector'] != $planetinfo['sector_id'])
