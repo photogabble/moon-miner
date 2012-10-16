@@ -86,7 +86,7 @@ $variables = null;
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
 $variables['admin_pw'] = ADMIN_PW;
-$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 $variables['menu'] = $menu;
 $variables['filename'] = $filename;
 $variables['menu_location'] = $menu_location;

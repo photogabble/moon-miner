@@ -273,23 +273,23 @@ $Cols = 3;
 $setup_info->do_Table_Title("Current DB Config Information",$Cols);
 $cur_cfg_loc = $setup_info->get_current_db_config_info();
 
-if (is_array($cur_cfg_loc))
+if (is_array ($cur_cfg_loc))
 {
-    for ($n=0; $n<count($cur_cfg_loc)-1;$n++)
+    for ($n=0; $n < count ($cur_cfg_loc) - 1; $n++)
     {
-        if (is_string($cur_cfg_loc[$n]) & $cur_cfg_loc[$n] =="%SEPERATOR%")
+        if (is_string ($cur_cfg_loc[$n]) & $cur_cfg_loc[$n] == "%SEPERATOR%")
         {
             $setup_info->do_Table_Blank_Row();
         }
-        if (is_array($cur_cfg_loc[$n]))
+        if (is_array ($cur_cfg_loc[$n]))
         {
-            if (count($cur_cfg_loc[$n])>2)
+            if (count ($cur_cfg_loc[$n])>2)
             {
-                $setup_info->do_Table_Row($cur_cfg_loc[$n]['caption'],$cur_cfg_loc[$n]['value'],$cur_cfg_loc[$n]['status']);
+                $setup_info->do_Table_Row ($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value'], $cur_cfg_loc[$n]['status']);
             }
             else
             {
-                $setup_info->do_Table_Row($cur_cfg_loc[$n]['caption'],$cur_cfg_loc[$n]['value']);
+                $setup_info->do_Table_Row ($cur_cfg_loc[$n]['caption'], $cur_cfg_loc[$n]['value']);
             }
         }
     }

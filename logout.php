@@ -46,19 +46,19 @@ if (isset ($_SESSION['username']))
 else
 {
     $variables['session_username'] = '';
-    $variables['linkback'] = array("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
+    $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
 }
 
 // Set login status to false, then clear the session array, and finally clear the session cookie
 $_SESSION['logged_in'] = false;
-$_SESSION = array();
+$_SESSION = array ();
 setcookie ("PHPSESSID", "", 0, "/");
 
 // Destroy the session entirely
 session_destroy ();
 
 $variables['lang'] = $lang;
-$variables['linkback'] = array("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
+$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";

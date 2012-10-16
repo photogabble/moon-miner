@@ -43,7 +43,7 @@ if (!$result)
 
 // New database driven language entries
 $langvars = null;
-load_languages ($db, $lang, array('main', 'login', 'logout', 'index', 'common'), $langvars);
+load_languages ($db, $lang, array ('main', 'login', 'logout', 'index', 'common'), $langvars);
 
 $variables = null;
 $variables['lang'] = $lang;

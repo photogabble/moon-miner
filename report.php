@@ -27,9 +27,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 
 // Database driven language entries
 $langvars = null;
-load_languages ($db, $lang, array('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+load_languages ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -115,7 +115,7 @@ $variables['escape_pod'] = $escape_pod;
 $variables['fuel_scoop'] = $fuel_scoop;
 $variables['lssd'] = $lssd;
 $variables['ship_img'] = "images/" . $shiptypes[$shiplevel];
-$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";

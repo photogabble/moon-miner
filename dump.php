@@ -30,10 +30,10 @@ load_languages ($db, $lang, array ('dump', 'main', 'common', 'global_includes', 
 $title = $l_dump_title;
 include './header.php';
 
-$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
 $sectorinfo = $result2->fields;
 echo "<h1>" . $title . "</h1>\n";
 

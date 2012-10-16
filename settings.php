@@ -168,11 +168,11 @@ else
            if (is_callable (array ($$plugin_name, 'getPluginInfo')))
            {
                $plugin_id ++;
-               $pluginInfo = call_user_func( array($$plugin_name, 'getPluginInfo') );
+               $pluginInfo = call_user_func( array ($$plugin_name, 'getPluginInfo') );
 #              $pluginInfo = $$plugin_name->getPluginInfo();
-               $pluginCount = count($pluginInfo['modules']);
+               $pluginCount = count ($pluginInfo['modules']);
 
-               $plugin['id']            = "0x". str_pad($plugin_id, 4, "0", STR_PAD_LEFT);
+               $plugin['id']            = "0x". str_pad ($plugin_id, 4, "0", STR_PAD_LEFT);
                $plugin['type']            = $plugin_config[$plugin_name]['plugin_type'];
 
                $plugin['name']            = $pluginInfo['name'];

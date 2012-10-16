@@ -32,16 +32,16 @@ $title = $l_die_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email=?", array($_SESSION['username']));
+$result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (isset($_GET['sure']))
+if (isset ($_GET['sure']))
 {
     $sure = $_GET['sure'];
 }
 
-if (!isset($sure))
+if (!isset ($sure))
 {
     echo "<font color=red><strong>$l_die_rusure</strong></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";

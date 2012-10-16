@@ -25,14 +25,14 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages ($db, $lang, array('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 include_once './includes/is_loan_pending.php';
 
 $title = $l_title_port;
 include './header.php';
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array($_SESSION['username']));
+$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 db_op_result ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -558,7 +558,7 @@ else
     {
         // Here is the trade fonction to strip out some "spaghetti code". The function saves about 60 lines of code, I hope it will be
         // easier to modify/add something in this part.
-        $price_array = array();
+        $price_array = array ();
 
 
         // Clear variables that are not selected in the form

@@ -42,7 +42,7 @@ if ($playerinfo['dev_emerwarp'] > 0)
 
 $variables['dest_sector'] = $dest_sector;
 $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
-$variables['linkback'] = array("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
+$variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";

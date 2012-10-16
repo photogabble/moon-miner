@@ -25,7 +25,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages ($db, $lang, array('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
+load_languages ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
 
 $body_class = 'zoneinfo';
 $title = $l_zi_title;

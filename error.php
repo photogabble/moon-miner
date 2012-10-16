@@ -22,7 +22,7 @@ include_once './global_includes.php';
 $langvars = null;
 
 // New database driven language entries
-load_languages ($db, $lang, array('footer', 'error', 'main'), $langvars);
+load_languages ($db, $lang, array ('footer', 'error', 'main'), $langvars);
 
 // Always make sure we are using empty vars before use.
 $variables = null;

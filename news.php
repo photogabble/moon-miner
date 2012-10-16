@@ -34,24 +34,24 @@ else
 include './includes/newsservices.php';
 
 // New database driven language entries
-load_languages ($db, $lang, array('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+load_languages ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
 $title = $l_news_title;
 include './header.php';
 
-$startdate = date("Y/m/d");
-if (array_key_exists('startdate', $_GET) && ($_GET['startdate'] != ''))
+$startdate = date ("Y/m/d");
+if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))
 {
     // The date wasn't supplied so use today's date
     $startdate = $_GET['startdate'];
 }
 
 // Check and validate the date.
-$validformat = preg_match("/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/", $startdate, $regs);
-if($validformat !=1 || checkdate($regs[2], $regs[3], $regs[1]) == false)
+$validformat = preg_match ("/([0-9]{4})\/([0-9]{2})\/([0-9]{2})$/", $startdate, $regs);
+if ($validformat !=1 || checkdate ($regs[2], $regs[3], $regs[1]) == false)
 {
     // The date wasn't supplied so use today's date
-    $startdate = date("Y/m/d");
+    $startdate = date ("Y/m/d");
 }
 
 $previousday = get_previous_day ($startdate);
