@@ -92,7 +92,7 @@ function go_build_base ($db, $planet_id, $sector_id)
 
     real_space_move ($db, $sector_id);
     echo "<br>";
-    echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_planet']);
+    echo str_replace ("[here]", "<a href='planet.php?planet_id=$planet_id'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_planet']);
     echo "<br><br>";
 
     if ($planetinfo['ore'] >= $base_ore && $planetinfo['organics'] >= $base_organics && $planetinfo['goods'] >= $base_goods && $planetinfo['credits'] >= $base_credits)
