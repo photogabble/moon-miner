@@ -1,3 +1,7 @@
+TheMightyDude (27 October 2012)
+--------------------------------------
+Fixed error in warpedit2.php which displayed Target sector ([target_sector]) already has a link from this sector.
+
 TheMightyDude (16 October 2012)
 --------------------------------------
 Fixed Planet Report when creating a base on the planet from that file then displays the correct link back to the planet.

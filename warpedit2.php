@@ -141,7 +141,7 @@ if ($result3 instanceof ADORecordSet)
 
     if ($flag == 1)
     {
-        $l_warp_linked = str_replace("[target_Sector]", $target_sector, $l_warp_linked);
+        $l_warp_linked = str_replace("[target_sector]", $target_sector, $l_warp_linked);
         echo $l_warp_linked . "<br><br>";
     }
     elseif ($playerinfo['sector'] == $target_sector)
