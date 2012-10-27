@@ -23,5 +23,5 @@ if (strpos ($_SERVER['PHP_SELF'], 'pw_hash.php')) // Prevent direct access to th
 
 // Define the hash strength, which for now defaults to 10 (it is a base-2 log iteration count). This is used for password stretching and prevents less-secure portable hashes for older systems.
 // We will try to keep our default matching the current bcrypt strength used in the PHP implementation for password_hash, which should land in PHP-5.5
-define('HASH_STRENGTH', 8);
+define('HASH_STRENGTH', 10);
 ?>
