@@ -87,7 +87,7 @@ catch (exception $e)
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
 {
-    ini_set ('error_reporting', E_ALL); // During development, output all errors, even notices
+    ini_set ('error_reporting', -1); // During development, output all errors, even notices
     ini_set ('display_errors', '1'); // During development, *display* all errors
     $db->logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
@@ -156,6 +156,7 @@ if (!$index_page)
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 if (!defined('reg_global_fix')) define('reg_global_fix', True, TRUE);
 
+// Add logging in these two functions to identify where we are using post and get, and start migrating away from them both needing to be globals.
 foreach ($_POST as $k=>$v)
 {
     if (!isset($GLOBALS[$k]))
