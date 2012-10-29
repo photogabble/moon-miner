@@ -470,7 +470,7 @@ function ship_to_ship ($db, $ship_id)
             }
             $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $targetinfo['hull']))+round (pow ($upgrade_factor, $targetinfo['engines']))+round (pow ($upgrade_factor, $targetinfo['power']))+round (pow ($upgrade_factor, $targetinfo['computer']))+round (pow ($upgrade_factor, $targetinfo['sensors']))+round (pow ($upgrade_factor, $targetinfo['beams']))+round (pow ($upgrade_factor, $targetinfo['torp_launchers']))+round (pow ($upgrade_factor, $targetinfo['shields']))+round (pow ($upgrade_factor, $targetinfo['armor']))+round (pow ($upgrade_factor, $targetinfo['cloak'])));
             $ship_salvage_rate = mt_rand (10,20);
-            $ship_salvage = $ship_value*$ship_salvage_rate / 100;
+            $ship_salvage = $ship_value * $ship_salvage_rate / 100;
             $l_cmb_yousalvaged = str_replace ("[cmb_salv_ore]", $salv_ore, $l_cmb_yousalvaged);
             $l_cmb_yousalvaged = str_replace ("[cmb_salv_organics]", $salv_organics, $l_cmb_yousalvaged);
             $l_cmb_yousalvaged = str_replace ("[cmb_salv_goods]", $salv_goods, $l_cmb_yousalvaged);
