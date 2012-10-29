@@ -161,7 +161,7 @@ foreach ($_POST as $k=>$v)
 {
     if (!isset($GLOBALS[$k]))
     {
-        ${$k}=$v;
+        ${$k} = $v;
     }
 }
 
@@ -169,7 +169,7 @@ foreach ($_GET as $k=>$v)
 {
     if (!isset($GLOBALS[$k]))
     {
-        ${$k}=$v;
+        ${$k} = $v;
     }
 }
 

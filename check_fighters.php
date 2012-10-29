@@ -33,7 +33,7 @@ $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;
 db_op_result ($db, $result2, __LINE__, __FILE__);
 
 // Put the sector information into the array "sectorinfo"
-$sectorinfo=$result2->fields;
+$sectorinfo = $result2->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC;", array ($sector));
 db_op_result ($db, $result3, __LINE__, __FILE__);

@@ -32,7 +32,7 @@ include './includes/cancel_bounty.php';
 // Put the sector information into the array "sectorinfo"
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($sector));
 db_op_result ($db, $result2, __LINE__, __FILE__);
-$sectorinfo=$result2->fields;
+$sectorinfo = $result2->fields;
 
 // Put the defence information into the array "defenceinfo"
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($sector));
@@ -46,7 +46,7 @@ $total_sector_mines = 0;
 $owner = true;
 while (!$result3->EOF)
 {
-    $row=$result3->fields;
+    $row = $result3->fields;
     $defences[$num_defences] = $row;
     $total_sector_mines += $defences[$num_defences]['quantity'];
     if ($defences[$num_defences]['ship_id'] != $playerinfo['ship_id'])
@@ -125,7 +125,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
             $playershields = NUM_SHIELDS($playerinfo['shields']);
             if ($playershields > $playerinfo['ship_energy'])
             {
-                $playershields=$playerinfo['ship_energy'];
+                $playershields = $playerinfo['ship_energy'];
             }
             if ($playershields >= $mines_left)
             {

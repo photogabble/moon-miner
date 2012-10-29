@@ -228,7 +228,7 @@ else
         $i++;
         $result3->MoveNext();
     }
-    $num_links=$i;
+    $num_links = $i;
 
     // Get sectors which can be reached from the player's current sector
     $result3a = $db->Execute ("SELECT link_dest FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));

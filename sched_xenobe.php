@@ -172,7 +172,7 @@ while (!$res->EOF)
         db_op_result ($db, $reso2, __LINE__, __FILE__);
         if (!$reso2->EOF)
         {
-          $rowo2=$reso2->fields;
+          $rowo2 = $reso2->fields;
           if ($playerinfo[aggression] == 0)            // O = 2 & AGRESSION = 0 PEACEFUL
           {
             // This Guy Does Nothing But Roam And Trade
@@ -237,7 +237,7 @@ while (!$res->EOF)
           db_op_result ($db, $reso3, __LINE__, __FILE__);
           if (!$reso3->EOF)
           {
-            $rowo3=$reso3->fields;
+            $rowo3 = $reso3->fields;
             if ($playerinfo[aggression] == 0)            // O = 3 & AGRESSION = 0 PEACEFUL
             {
               // This Guy Does Nothing But Roam Around As A Target Himself

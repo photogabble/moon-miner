@@ -162,7 +162,7 @@ else
         db_op_result ($db, $res, __LINE__, __FILE__);
         while (!$res->EOF)
         {
-          $row=$res->fields;
+          $row = $res->fields;
           $charnamelist = sprintf("%-20s", $row['character_name']);
           $charnamelist = str_replace("  ", "&nbsp;&nbsp;",$charnamelist);
           $sectorlist = sprintf("Sector %'04d&nbsp;&nbsp;", $row[sector]);
@@ -485,9 +485,9 @@ else
           while (!$result->EOF)
           {
             $row= $result->fields;
-            if ($row[0]==$emailname) { echo "ERROR: E-mail address $emailname, is already in use.  "; $errflag=1;}
-            if ($row[1]==$character) { echo "ERROR: Character name $character, is already in use.<br>"; $errflag=1;}
-            if ($row[2]==$shipname) { echo "ERROR: Ship name $shipname, is already in use.<br>"; $errflag=1;}
+            if ($row[0] == $emailname) { echo "ERROR: E-mail address $emailname, is already in use.  "; $errflag=1;}
+            if ($row[1] == $character) { echo "ERROR: Character name $character, is already in use.<br>"; $errflag=1;}
+            if ($row[2] == $shipname) { echo "ERROR: Ship name $shipname, is already in use.<br>"; $errflag=1;}
             $result->MoveNext();
           }
         }

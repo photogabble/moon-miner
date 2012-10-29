@@ -113,7 +113,7 @@ if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
 $res = $db->Execute("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
 db_op_result ($db, $res, __LINE__, __FILE__);
 $row = $res->fields;
-$numlink_start=$row['count'];
+$numlink_start = $row['count'];
 
 if ($numlink_start >= $link_max)
 {
