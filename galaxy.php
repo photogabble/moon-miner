@@ -99,7 +99,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
 // This is the row numbers on the side of the map
 for ($a = 1; $a < ($sector_max/50 +1); $a++)
 {
-    echo "\n<div style='position:absolute;left:".($map_width+10)."px;top:".(($a-1) * ($div_h+$div_border))."px;'>".(($a*50)-1)."</div>";
+    echo "\n<div style='position:absolute;left:" . ($map_width + 10)."px;top:".(($a - 1) * ($div_h + $div_border))."px;'>".(($a * 50) - 1)."</div>";
 }
 
 echo "</div><div style='clear:both'></div><br>";
