@@ -130,7 +130,8 @@ switch ($teamwhat)
     case 1: // INFO on single team
     {
         show_info ($db, $whichteam, 0);
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
@@ -139,7 +140,8 @@ switch ($teamwhat)
         if (!is_team_member($team, $playerinfo))
         {
             echo "<strong><font color=red>An error occured</font></strong><br>You are not a member of this Team.";
-            link_back();
+            global $l_clickme, $l_team_menu;
+            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
             break;
         }
 
@@ -155,7 +157,8 @@ switch ($teamwhat)
                 {
                     $l_team_error = str_replace("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
                     echo $l_team_error;
-                    link_back();
+                    global $l_clickme, $l_team_menu;
+                    echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
                     continue;
                 }
 
@@ -296,7 +299,8 @@ switch ($teamwhat)
             player_log ($db, $newcreator, LOG_TEAM_LEAD, $team['team_name']);
         }
 
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
@@ -325,14 +329,16 @@ switch ($teamwhat)
                 echo "$l_team_noinviteto<br>";
             }
         }
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
     case 4:
     {
         echo "Not implemented yet. Sorry! :)<br><br>";
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
@@ -346,7 +352,8 @@ switch ($teamwhat)
         {
             $l_team_error = str_replace("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
             echo $l_team_error;
-            link_back();
+            global $l_clickme, $l_team_menu;
+            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
             continue;
         }
         else
@@ -377,7 +384,8 @@ switch ($teamwhat)
                 player_log ($db, $who, LOG_TEAM_KICK, $team['team_name']);
                 echo "$whotoexpel[character_name] $l_team_ejected<br>";
             }
-            link_back();
+            global $l_clickme, $l_team_menu;
+            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         }
         break;
     }
@@ -387,7 +395,8 @@ switch ($teamwhat)
         if ($playerinfo['team'] != 0)
         {
             echo $l_team_leavefirst . "<br>";
-            link_back();
+            global $l_clickme, $l_team_menu;
+            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
             continue;
         }
 
@@ -411,7 +420,8 @@ switch ($teamwhat)
             if (!validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
                 echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
-                link_back();
+                global $l_clickme, $l_team_menu;
+                echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
                 break;
             }
 
@@ -424,7 +434,8 @@ switch ($teamwhat)
             echo "$l_team_team <strong>$teamname</strong> $l_team_hcreated.<br><br>";
             player_log ($db, $playerinfo['ship_id'], LOG_TEAM_CREATE, $teamname);
         }
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
@@ -433,7 +444,8 @@ switch ($teamwhat)
         if (is_team_member($team, $playerinfo) == false)
         {
             echo "<br>You are not in this team!<br>";
-            link_back();
+            global $l_clickme, $l_team_menu;
+            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
             break;
         }
 
@@ -500,7 +512,8 @@ switch ($teamwhat)
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET team_invite = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
         player_log ($db, $team['creator'], LOG_TEAM_REJECT, $playerinfo['character_name'] ."|". $invite_info['team_name']);
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
@@ -514,7 +527,8 @@ switch ($teamwhat)
         {
             $l_team_error = str_replace("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
             echo $l_team_error;
-            link_back();
+            global $l_clickme, $l_team_menu;
+            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
             break;
         }
 
@@ -540,7 +554,8 @@ switch ($teamwhat)
             if (validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
             {
                 echo "<span style='color:#f00;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
-                link_back();
+                global $l_clickme, $l_team_menu;
+                echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
                 break;
             }
 
@@ -559,7 +574,8 @@ switch ($teamwhat)
                 $result_team_name->MoveNext();
             }
         }
-        link_back();
+        global $l_clickme, $l_team_menu;
+        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
         break;
     }
 
@@ -579,7 +595,8 @@ switch ($teamwhat)
                 db_op_result ($db, $result, __LINE__, __FILE__);
                 $whichteam = $result->fields;
                 echo "$l_team_urejected <strong>$whichteam[team_name]</strong><br><br>";
-                link_back();
+                global $l_clickme, $l_team_menu;
+                echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
                 break;
             }
             $result = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($playerinfo['team']));
@@ -650,12 +667,6 @@ function is_team_owner ($team, $playerinfo)
         return false;
     }
 
-}
-
-function link_back ()
-{
-    global $l_clickme, $l_team_menu;
-    echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
 }
 
 // Rewritten display of teams list
