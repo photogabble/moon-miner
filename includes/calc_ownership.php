@@ -174,7 +174,7 @@ function calc_ownership ($db, $sector)
         {
             $query = $query . "ship_id=$ship";
             $i++;
-            if ($i!=$nbships)
+            if ($i != $nbships)
             {
                 $query = $query . " OR ";
             }

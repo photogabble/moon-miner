@@ -90,16 +90,16 @@ function ship_to_ship ($db, $ship_id)
     {
         if ($attackerbeams > round ($targetfighters / 2))
         {
-            $temp = round ($targetfighters/2);
-            $lost = $targetfighters-$temp;
+            $temp = round ($targetfighters / 2);
+            $lost = $targetfighters - $temp;
             $targetfighters = $temp;
-            $attackerbeams = $attackerbeams-$lost;
+            $attackerbeams = $attackerbeams - $lost;
             $l_cmb_beamsdestroy = str_replace ("[cmb_lost]", $lost, $l_cmb_beamsdestroy);
             echo "<-- $l_cmb_beamsdestroy<br>";
         }
         else
         {
-            $targetfighters = $targetfighters-$attackerbeams;
+            $targetfighters = $targetfighters - $attackerbeams;
             $l_cmb_beamsdestroy2 = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsdestroy2);
             echo "--> $l_cmb_beamsdestroy2<br>";
             $attackerbeams = 0;
@@ -196,7 +196,7 @@ function ship_to_ship ($db, $ship_id)
         }
         else
         {
-            $targetarmor=$targetarmor-$attackerbeams;
+            $targetarmor = $targetarmor - $attackerbeams;
             $l_cmb_yourbeamshavedonedamage = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_yourbeamshavedonedamage);
             $l_cmb_yourbeamshavedonedamage = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourbeamshavedonedamage);
             echo "$l_cmb_yourbeamshavedonedamage<br>";
@@ -233,8 +233,8 @@ function ship_to_ship ($db, $ship_id)
     {
         if ($attackertorpdamage > round ($targetfighters / 2))
         {
-            $temp=round ($targetfighters / 2);
-            $lost=$targetfighters - $temp;
+            $temp = round ($targetfighters / 2);
+            $lost = $targetfighters - $temp;
             $targetfighters = $temp;
             $attackertorpdamage = $attackertorpdamage - $lost;
             $l_cmb_yourtorpsdestroy = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourtorpsdestroy);
@@ -301,7 +301,7 @@ function ship_to_ship ($db, $ship_id)
         }
         else
         {
-            $targetarmor=$targetarmor-$attackertorpdamage;
+            $targetarmor = $targetarmor - $attackertorpdamage;
             $l_cmb_hisarmorishitbytorps = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_hisarmorishitbytorps);
             $l_cmb_hisarmorishitbytorps = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_hisarmorishitbytorps);
             echo "<-- $l_cmb_hisarmorishitbytorps<br>";
@@ -322,7 +322,7 @@ function ship_to_ship ($db, $ship_id)
         }
         else
         {
-            $attackerarmor=$attackerarmor-$targettorpdmg;
+            $attackerarmor = $attackerarmor - $targettorpdmg;
             $l_cmb_yourarmorhitdmgtorps = str_replace ("[cmb_targettorpdmg]", $targettorpdmg, $l_cmb_yourarmorhitdmgtorps);
             $l_cmb_yourarmorhitdmgtorps = str_replace ("[cmb_targetinfo_ship_name]", $targetinfo['ship_name'], $l_cmb_yourarmorhitdmgtorps);
             echo "<-- $l_cmb_yourarmorhitdmgtorps<br>";
@@ -486,7 +486,7 @@ function ship_to_ship ($db, $ship_id)
         {
             $rating = round ($targetinfo['rating'] / 2 );
             echo "$l_cmb_escapepodlaunched<br><br>";
-            echo "<br><br>ship_id=$targetinfo[ship_id]<br><br>";
+            echo "<br><br>ship_id = $targetinfo[ship_id]<br><br>";
             $test = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,dev_lssd='N' WHERE ship_id=?", array ($start_energy, $rating, $targetinfo['ship_id']));
             db_op_result ($db, $test, __LINE__, __FILE__);
             player_log ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");

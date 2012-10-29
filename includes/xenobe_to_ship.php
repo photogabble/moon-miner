@@ -47,7 +47,7 @@ function xenobe_to_ship ($db, $ship_id)
   db_op_result ($db, $resa, __LINE__, __FILE__);
   $resultt = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
   db_op_result ($db, $resultt, __LINE__, __FILE__);
-  $targetinfo=$resultt->fields;
+  $targetinfo = $resultt->fields;
 
   // VERIFY NOT ATTACKING ANOTHER XENOBE
     // Added because the xenobe were killing each other off
@@ -103,8 +103,8 @@ function xenobe_to_ship ($db, $ship_id)
   if ($targetbeams > $targetinfo['ship_energy']) $targetbeams = $targetinfo['ship_energy'];
   $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
   $targetshields = NUM_SHIELDS ($targetinfo['shields']);
-  if ($targetshields>$targetinfo[ship_energy]) $targetshields=$targetinfo[ship_energy];
-  $targetinfo[ship_energy]=$targetinfo[ship_energy]-$targetshields;
+  if ($targetshields>$targetinfo[ship_energy]) $targetshields = $targetinfo[ship_energy];
+  $targetinfo[ship_energy] = $targetinfo[ship_energy]-$targetshields;
   $targettorpnum = round (pow ($level_factor, $targetinfo['torp_launchers']))*2;
   if ($targettorpnum > $targetinfo[torps]) $targettorpnum = $targetinfo[torps];
   $targetinfo[torps] = $targetinfo[torps] - $targettorpnum;
@@ -131,12 +131,12 @@ function xenobe_to_ship ($db, $ship_id)
   {                         // TARGET HAS BEAMS - ATTACKER HAS FIGHTERS - BEAMS VS FIGHTERS
     if ($targetbeams > round ($attackerfighters / 2))
     {                                  // TARGET BEAMS GT HALF ATTACKER FIGHTERS
-      $lost=$attackerfighters-(round ($attackerfighters/2));
-      $attackerfighters=$attackerfighters-$lost;               // A LOOSES HALF ALL FIGHTERS
-      $targetbeams=$targetbeams-$lost;                         // T LOOSES BEAMS EQ TO HALF A FIGHTERS
+      $lost = $attackerfighters-(round ($attackerfighters / 2));
+      $attackerfighters = $attackerfighters - $lost;               // A LOOSES HALF ALL FIGHTERS
+      $targetbeams = $targetbeams - $lost;                         // T LOOSES BEAMS EQ TO HALF A FIGHTERS
     } else
     {                                  // TARGET BEAMS LE HALF ATTACKER FIGHTERS
-      $attackerfighters=$attackerfighters-$targetbeams;        // A LOOSES FIGHTERS EQ TO T BEAMS
+      $attackerfighters = $attackerfighters - $targetbeams;        // A LOOSES FIGHTERS EQ TO T BEAMS
       $targetbeams=0;                                          // T LOOSES ALL BEAMS
     }
   }
@@ -144,11 +144,11 @@ function xenobe_to_ship ($db, $ship_id)
   {                         // ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS
     if ($attackerbeams > $targetshields)
     {                                  // ATTACKER BEAMS GT TARGET SHIELDS
-      $attackerbeams=$attackerbeams-$targetshields;            // A LOOSES BEAMS EQ TO T SHIELDS
+      $attackerbeams = $attackerbeams - $targetshields;            // A LOOSES BEAMS EQ TO T SHIELDS
       $targetshields=0;                                        // T LOOSES ALL SHIELDS
     } else
     {                                  // ATTACKER BEAMS LE TARGET SHIELDS
-      $targetshields=$targetshields-$attackerbeams;            // T LOOSES SHIELDS EQ TO A BEAMS
+      $targetshields = $targetshields - $attackerbeams;            // T LOOSES SHIELDS EQ TO A BEAMS
       $attackerbeams=0;                                        // A LOOSES ALL BEAMS
     }
   }
@@ -156,86 +156,86 @@ function xenobe_to_ship ($db, $ship_id)
   {                         // TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS SHIELDS
     if ($targetbeams > $attackershields)
     {                                  // TARGET BEAMS GT ATTACKER SHIELDS
-      $targetbeams=$targetbeams-$attackershields;              // T LOOSES BEAMS EQ TO A SHIELDS
-      $attackershields=0;                                      // A LOOSES ALL SHIELDS
+      $targetbeams = $targetbeams - $attackershields;              // T LOOSES BEAMS EQ TO A SHIELDS
+      $attackershields = 0;                                      // A LOOSES ALL SHIELDS
     } else
     {                                  // TARGET BEAMS LE ATTACKER SHIELDS
-      $attackershields=$attackershields-$targetbeams;          // A LOOSES SHIELDS EQ TO T BEAMS
-      $targetbeams=0;                                          // T LOOSES ALL BEAMS
+      $attackershields = $attackershields - $targetbeams;          // A LOOSES SHIELDS EQ TO T BEAMS
+      $targetbeams = 0;                                          // T LOOSES ALL BEAMS
     }
   }
   if ($attackerbeams > 0)
   {                         // ATTACKER HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR
     if ($attackerbeams > $targetarmor)
     {                                  // ATTACKER BEAMS GT TARGET ARMOR
-      $attackerbeams=$attackerbeams-$targetarmor;              // A LOOSES BEAMS EQ TO T ARMOR
-      $targetarmor=0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
+      $attackerbeams = $attackerbeams - $targetarmor;              // A LOOSES BEAMS EQ TO T ARMOR
+      $targetarmor = 0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
     } else
     {                                  // ATTACKER BEAMS LE TARGET ARMOR
-      $targetarmor=$targetarmor-$attackerbeams;                // T LOOSES ARMORS EQ TO A BEAMS
-      $attackerbeams=0;                                        // A LOOSES ALL BEAMS
+      $targetarmor = $targetarmor - $attackerbeams;                // T LOOSES ARMORS EQ TO A BEAMS
+      $attackerbeams = 0;                                        // A LOOSES ALL BEAMS
     }
   }
   if ($targetbeams > 0)
   {                        // TARGET HAS BEAMS LEFT - CONTINUE COMBAT - BEAMS VS ARMOR
     if ($targetbeams > $attackerarmor)
     {                                 // TARGET BEAMS GT ATTACKER ARMOR
-      $targetbeams=$targetbeams-$attackerarmor;                // T LOOSES BEAMS EQ TO A ARMOR
-      $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
+      $targetbeams = $targetbeams - $attackerarmor;                // T LOOSES BEAMS EQ TO A ARMOR
+      $attackerarmor = 0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
     } else
     {                                 // TARGET BEAMS LE ATTACKER ARMOR
-      $attackerarmor=$attackerarmor-$targetbeams;              // A LOOSES ARMOR EQ TO T BEAMS
-      $targetbeams=0;                                          // T LOOSES ALL BEAMS
+      $attackerarmor = $attackerarmor - $targetbeams;              // A LOOSES ARMOR EQ TO T BEAMS
+      $targetbeams = 0;                                          // T LOOSES ALL BEAMS
     }
   }
   if ($targetfighters > 0 && $attackertorpdamage > 0)
   {                        // ATTACKER FIRES TORPS - TARGET HAS FIGHTERS - TORPS VS FIGHTERS
     if ($attackertorpdamage > round ($targetfighters / 2))
     {                                 // ATTACKER FIRED TORPS GT HALF TARGET FIGHTERS
-      $lost=$targetfighters-(round ($targetfighters/2));
-      $targetfighters=$targetfighters-$lost;                   // T LOOSES HALF ALL FIGHTERS
-      $attackertorpdamage=$attackertorpdamage-$lost;           // A LOOSES FIRED TORPS EQ TO HALF T FIGHTERS
+      $lost = $targetfighters - (round ($targetfighters / 2));
+      $targetfighters = $targetfighters - $lost;                   // T LOOSES HALF ALL FIGHTERS
+      $attackertorpdamage = $attackertorpdamage - $lost;           // A LOOSES FIRED TORPS EQ TO HALF T FIGHTERS
     } else
     {                                 // ATTACKER FIRED TORPS LE HALF TARGET FIGHTERS
-      $targetfighters=$targetfighters-$attackertorpdamage;     // T LOOSES FIGHTERS EQ TO A TORPS FIRED
-      $attackertorpdamage=0;                                   // A LOOSES ALL TORPS FIRED
+      $targetfighters = $targetfighters - $attackertorpdamage;     // T LOOSES FIGHTERS EQ TO A TORPS FIRED
+      $attackertorpdamage = 0;                                   // A LOOSES ALL TORPS FIRED
     }
   }
   if ($attackerfighters > 0 && $targettorpdmg > 0)
   {                        // TARGET FIRES TORPS - ATTACKER HAS FIGHTERS - TORPS VS FIGHTERS
     if ($targettorpdmg > round ($attackerfighters / 2))
     {                                 // TARGET FIRED TORPS GT HALF ATTACKER FIGHTERS
-      $lost=$attackerfighters-(round ($attackerfighters/2));
-      $attackerfighters=$attackerfighters-$lost;               // A LOOSES HALF ALL FIGHTERS
-      $targettorpdmg=$targettorpdmg-$lost;                     // T LOOSES FIRED TORPS EQ TO HALF A FIGHTERS
+      $lost = $attackerfighters - (round ($attackerfighters / 2));
+      $attackerfighters = $attackerfighters - $lost;               // A LOOSES HALF ALL FIGHTERS
+      $targettorpdmg = $targettorpdmg - $lost;                     // T LOOSES FIRED TORPS EQ TO HALF A FIGHTERS
     } else
     {                                 // TARGET FIRED TORPS LE HALF ATTACKER FIGHTERS
-      $attackerfighters=$attackerfighters-$targettorpdmg;      // A LOOSES FIGHTERS EQ TO T TORPS FIRED
-      $targettorpdmg=0;                                        // T LOOSES ALL TORPS FIRED
+      $attackerfighters = $attackerfighters - $targettorpdmg;      // A LOOSES FIGHTERS EQ TO T TORPS FIRED
+      $targettorpdmg = 0;                                        // T LOOSES ALL TORPS FIRED
     }
   }
   if ($attackertorpdamage > 0)
   {                        // ATTACKER FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR
     if ($attackertorpdamage > $targetarmor)
     {                                 // ATTACKER FIRED TORPS GT HALF TARGET ARMOR
-      $attackertorpdamage=$attackertorpdamage-$targetarmor;    // A LOOSES FIRED TORPS EQ TO T ARMOR
+      $attackertorpdamage = $attackertorpdamage - $targetarmor;    // A LOOSES FIRED TORPS EQ TO T ARMOR
       $targetarmor=0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
     } else
     {                                 // ATTACKER FIRED TORPS LE HALF TARGET ARMOR
-      $targetarmor=$targetarmor-$attackertorpdamage;           // T LOOSES ARMOR EQ TO A TORPS FIRED
-      $attackertorpdamage=0;                                   // A LOOSES ALL TORPS FIRED
+      $targetarmor = $targetarmor - $attackertorpdamage;           // T LOOSES ARMOR EQ TO A TORPS FIRED
+      $attackertorpdamage = 0;                                   // A LOOSES ALL TORPS FIRED
     }
   }
   if ($targettorpdmg > 0)
   {                        // TARGET FIRES TORPS - CONTINUE COMBAT - TORPS VS ARMOR
     if ($targettorpdmg > $attackerarmor)
     {                                 // TARGET FIRED TORPS GT HALF ATTACKER ARMOR
-      $targettorpdmg=$targettorpdmg-$attackerarmor;            // T LOOSES FIRED TORPS EQ TO A ARMOR
-      $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
+      $targettorpdmg = $targettorpdmg - $attackerarmor;            // T LOOSES FIRED TORPS EQ TO A ARMOR
+      $attackerarmor = 0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
     } else
     {                                 // TARGET FIRED TORPS LE HALF ATTACKER ARMOR
-      $attackerarmor=$attackerarmor-$targettorpdmg;            // A LOOSES ARMOR EQ TO T TORPS FIRED
-      $targettorpdmg=0;                                        // T LOOSES ALL TORPS FIRED
+      $attackerarmor = $attackerarmor - $targettorpdmg;            // A LOOSES ARMOR EQ TO T TORPS FIRED
+      $targettorpdmg = 0;                                        // T LOOSES ALL TORPS FIRED
     }
   }
   if ($attackerfighters > 0 && $targetfighters > 0)
@@ -245,17 +245,17 @@ function xenobe_to_ship ($db, $ship_id)
       $temptargfighters=0;                                     // T WILL LOOSE ALL FIGHTERS
     } else
     {                                 // ATTACKER FIGHTERS LE TARGET FIGHTERS
-      $temptargfighters=$targetfighters-$attackerfighters;     // T WILL LOOSE FIGHTERS EQ TO A FIGHTERS
+      $temptargfighters = $targetfighters - $attackerfighters;     // T WILL LOOSE FIGHTERS EQ TO A FIGHTERS
     }
     if ($targetfighters > $attackerfighters)
     {                                 // TARGET FIGHTERS GT ATTACKER FIGHTERS
-      $tempplayfighters=0;                                     // A WILL LOOSE ALL FIGHTERS
+      $tempplayfighters = 0;                                     // A WILL LOOSE ALL FIGHTERS
     } else
     {                                 // TARGET FIGHTERS LE ATTACKER FIGHTERS
-      $tempplayfighters=$attackerfighters-$targetfighters;     // A WILL LOOSE FIGHTERS EQ TO T FIGHTERS
+      $tempplayfighters = $attackerfighters - $targetfighters;     // A WILL LOOSE FIGHTERS EQ TO T FIGHTERS
     }
-    $attackerfighters=$tempplayfighters;
-    $targetfighters=$temptargfighters;
+    $attackerfighters = $tempplayfighters;
+    $targetfighters = $temptargfighters;
   }
   if ($attackerfighters > 0)
   {                        // ATTACKER HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR
@@ -264,17 +264,17 @@ function xenobe_to_ship ($db, $ship_id)
       $targetarmor=0;                                          // T LOOSES ALL ARMOR (T DESTROYED)
     } else
     {                                 // ATTACKER FIGHTERS LE TARGET ARMOR
-      $targetarmor=$targetarmor-$attackerfighters;             // T LOOSES ARMOR EQ TO A FIGHTERS
+      $targetarmor = $targetarmor - $attackerfighters;             // T LOOSES ARMOR EQ TO A FIGHTERS
     }
   }
   if ($targetfighters > 0)
   {                        // TARGET HAS FIGHTERS - CONTINUE COMBAT - FIGHTERS VS ARMOR
     if ($targetfighters > $attackerarmor)
     {                                 // TARGET FIGHTERS GT ATTACKER ARMOR
-      $attackerarmor=0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
+      $attackerarmor = 0;                                        // A LOOSES ALL ARMOR (A DESTROYED)
     } else
     {                                 // TARGET FIGHTERS LE ATTACKER ARMOR
-      $attackerarmor=$attackerarmor-$targetfighters;           // A LOOSES ARMOR EQ TO T FIGHTERS
+      $attackerarmor = $attackerarmor - $targetfighters;           // A LOOSES ARMOR EQ TO T FIGHTERS
     }
   }
 
@@ -318,65 +318,65 @@ function xenobe_to_ship ($db, $ship_id)
       $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
       if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT WE CAN CARRY
-        $salv_goods=$free_goods;
-        $free_holds=$free_holds-$free_goods;
+        $salv_goods = $free_goods;
+        $free_holds = $free_holds - $free_goods;
       } elseif ($free_holds > 0)
       {
-        $salv_goods=$free_holds;
-        $free_holds=0;
+        $salv_goods = $free_holds;
+        $free_holds = 0;
       } else
       {
-        $salv_goods=0;
+        $salv_goods = 0;
       }
       if ($free_holds > $free_ore)
       {
-        $salv_ore=$free_ore;
-        $free_holds=$free_holds-$free_ore;
+        $salv_ore = $free_ore;
+        $free_holds = $free_holds - $free_ore;
       } elseif ($free_holds > 0)
       {
-        $salv_ore=$free_holds;
-        $free_holds=0;
+        $salv_ore = $free_holds;
+        $free_holds = 0;
       } else
       {
-        $salv_ore=0;
+        $salv_ore = 0;
       }
       if ($free_holds > $free_organics)
       {
-        $salv_organics=$free_organics;
-        $free_holds=$free_holds-$free_organics;
+        $salv_organics = $free_organics;
+        $free_holds = $free_holds - $free_organics;
       } elseif ($free_holds > 0)
       {
-        $salv_organics=$free_holds;
-        $free_holds=0;
+        $salv_organics = $free_holds;
+        $free_holds = 0;
       } else
       {
-        $salv_organics=0;
+        $salv_organics = 0;
       }
-      $ship_value=$upgrade_cost*(round (pow ($upgrade_factor, $targetinfo['hull']))+round (pow ($upgrade_factor, $targetinfo['engines']))+round (pow ($upgrade_factor, $targetinfo['power']))+round (pow ($upgrade_factor, $targetinfo['computer']))+round (pow ($upgrade_factor, $targetinfo['sensors']))+round (pow ($upgrade_factor, $targetinfo['beams']))+round (pow ($upgrade_factor, $targetinfo['torp_launchers']))+round (pow ($upgrade_factor, $targetinfo['shields']))+round (pow ($upgrade_factor, $targetinfo['armor']))+round (pow ($upgrade_factor, $targetinfo['cloak'])));
-      $ship_salvage_rate=mt_rand(10,20);
-      $ship_salvage=$ship_value*$ship_salvage_rate/100;
+      $ship_value = $upgrade_cost*(round (pow ($upgrade_factor, $targetinfo['hull']))+round (pow ($upgrade_factor, $targetinfo['engines']))+round (pow ($upgrade_factor, $targetinfo['power']))+round (pow ($upgrade_factor, $targetinfo['computer']))+round (pow ($upgrade_factor, $targetinfo['sensors']))+round (pow ($upgrade_factor, $targetinfo['beams']))+round (pow ($upgrade_factor, $targetinfo['torp_launchers']))+round (pow ($upgrade_factor, $targetinfo['shields']))+round (pow ($upgrade_factor, $targetinfo['armor']))+round (pow ($upgrade_factor, $targetinfo['cloak'])));
+      $ship_salvage_rate = mt_rand (10,20);
+      $ship_salvage = $ship_value * $ship_salvage_rate / 100;
       player_log ($db, $playerinfo[ship_id], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
       $resd = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, credits = credits + ? WHERE ship_id = ?;", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
       db_op_result ($db, $resd, __LINE__, __FILE__);
       $armor_lost = $playerinfo[armor_pts] - $attackerarmor;
       $fighters_lost = $playerinfo[ship_fighters] - $attackerfighters;
-      $energy=$playerinfo[ship_energy];
+      $energy = $playerinfo['ship_energy'];
       $rese = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, torps = torps - ?, armor_pts = armor_pts - ?, rating = rating - ? WHERE ship_id = ?;", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
       db_op_result ($db, $rese, __LINE__, __FILE__);
     }
   }
 
   // TARGET AND ATTACKER LIVE
-  if ($targetarmor>0 && $attackerarmor>0)
+  if ($targetarmor > 0 && $attackerarmor > 0)
   {
-    $rating_change=round ($targetinfo[rating]*.1);
-    $armor_lost = $playerinfo[armor_pts] - $attackerarmor;
+    $rating_change = round ($targetinfo['rating'] * .1);
+    $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
     $fighters_lost = $playerinfo[ship_fighters] - $attackerfighters;
-    $energy=$playerinfo[ship_energy];
-    $target_rating_change=round ($targetinfo[rating]/2);
+    $energy = $playerinfo[ship_energy];
+    $target_rating_change = round ($targetinfo['rating'] / 2);
     $target_armor_lost = $targetinfo[armor_pts] - $targetarmor;
-    $target_fighters_lost = $targetinfo[ship_fighters] - $targetfighters;
-    $target_energy=$targetinfo[ship_energy];
+    $target_fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
+    $target_energy = $targetinfo['ship_energy'];
     player_log ($db, $playerinfo[ship_id], LOG_RAW, "Attack failed, $targetinfo[character_name] survived.");
     player_log ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
     $resf = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, torps = torps - ? , armor_pts = armor_pts - ?, rating=rating - ? WHERE ship_id = ?;", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo[ship_id]));
@@ -401,50 +401,50 @@ function xenobe_to_ship ($db, $ship_id)
       $free_holds = NUM_HOLDS($targetinfo[hull]) - $targetinfo[ship_ore] - $targetinfo[ship_organics] - $targetinfo[ship_goods] - $targetinfo[ship_colonists];
       if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT TARGET CAN CARRY
-        $salv_goods=$free_goods;
-        $free_holds=$free_holds-$free_goods;
+        $salv_goods = $free_goods;
+        $free_holds = $free_holds - $free_goods;
       } elseif ($free_holds > 0)
       {
-        $salv_goods=$free_holds;
-        $free_holds=0;
+        $salv_goods = $free_holds;
+        $free_holds = 0;
       } else
       {
-        $salv_goods=0;
+        $salv_goods = 0;
       }
       if ($free_holds > $free_ore)
       {
-        $salv_ore=$free_ore;
-        $free_holds=$free_holds-$free_ore;
+        $salv_ore = $free_ore;
+        $free_holds = $free_holds - $free_ore;
       } elseif ($free_holds > 0)
       {
-        $salv_ore=$free_holds;
-        $free_holds=0;
+        $salv_ore = $free_holds;
+        $free_holds = 0;
       } else
       {
-        $salv_ore=0;
+        $salv_ore = 0;
       }
       if ($free_holds > $free_organics)
       {
-        $salv_organics=$free_organics;
-        $free_holds=$free_holds-$free_organics;
+        $salv_organics = $free_organics;
+        $free_holds = $free_holds - $free_organics;
       } elseif ($free_holds > 0)
       {
-        $salv_organics=$free_holds;
-        $free_holds=0;
+        $salv_organics = $free_holds;
+        $free_holds = 0;
       } else
       {
-        $salv_organics=0;
+        $salv_organics = 0;
       }
-      $ship_value=$upgrade_cost*(round (pow ($upgrade_factor, $playerinfo[hull]))+round (pow ($upgrade_factor, $playerinfo[engines]))+round (pow ($upgrade_factor, $playerinfo[power]))+round (pow ($upgrade_factor, $playerinfo[computer]))+round (pow ($upgrade_factor, $playerinfo[sensors]))+round (pow ($upgrade_factor, $playerinfo[beams]))+round (pow ($upgrade_factor, $playerinfo[torp_launchers]))+round (pow ($upgrade_factor, $playerinfo[shields]))+round (pow ($upgrade_factor, $playerinfo[armor]))+round (pow ($upgrade_factor, $playerinfo[cloak])));
-      $ship_salvage_rate=mt_rand(10,20);
-      $ship_salvage=$ship_value*$ship_salvage_rate/100;
+      $ship_value = $upgrade_cost*(round (pow ($upgrade_factor, $playerinfo[hull]))+round (pow ($upgrade_factor, $playerinfo[engines]))+round (pow ($upgrade_factor, $playerinfo[power]))+round (pow ($upgrade_factor, $playerinfo[computer]))+round (pow ($upgrade_factor, $playerinfo[sensors]))+round (pow ($upgrade_factor, $playerinfo[beams]))+round (pow ($upgrade_factor, $playerinfo[torp_launchers]))+round (pow ($upgrade_factor, $playerinfo[shields]))+round (pow ($upgrade_factor, $playerinfo[armor]))+round (pow ($upgrade_factor, $playerinfo[cloak])));
+      $ship_salvage_rate = mt_rand (10,20);
+      $ship_salvage = $ship_value * $ship_salvage_rate / 100;
       player_log ($db, $targetinfo[ship_id], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
       player_log ($db, $targetinfo[ship_id], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
       $resh = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, credits = credits + ? WHERE ship_id = ?;", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $targetinfo['ship_id']));
       db_op_result ($db, $resh, __LINE__, __FILE__);
-      $armor_lost = $targetinfo[armor_pts] - $targetarmor;
-      $fighters_lost = $targetinfo[ship_fighters] - $targetfighters;
-      $energy=$targetinfo[ship_energy];
+      $armor_lost = $targetinfo['armor_pts'] - $targetarmor;
+      $fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
+      $energy = $targetinfo['ship_energy'];
       $resi = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ? , ship_fighters = ship_fighters - ?, torps = torps - ?, armor_pts = armor_pts - ?, rating=rating - ? WHERE ship_id = ?;", array ($energy, $fighters_lost, $targettorpnum, $armor_lost, $rating_change, $targetinfo['ship_id']));
       db_op_result ($db, $resi, __LINE__, __FILE__);
     }

@@ -55,10 +55,10 @@ function xenobe_trade ($db)
     if ($sectorinfo[port_type] == "energy") return;
 
     // Check for negative credits or cargo
-    if ($playerinfo[ship_ore]<0) $playerinfo[ship_ore]=$shipore=0;
-    if ($playerinfo[ship_organics]<0) $playerinfo[ship_organics]=$shiporganics=0;
-    if ($playerinfo[ship_goods]<0) $playerinfo[ship_goods]=$shipgoods=0;
-    if ($playerinfo[credits]<0) $playerinfo[credits]=$shipcredits=0;
+    if ($playerinfo[ship_ore]<0) $playerinfo[ship_ore] = $shipore = 0;
+    if ($playerinfo[ship_organics]<0) $playerinfo[ship_organics] = $shiporganics = 0;
+    if ($playerinfo[ship_goods]<0) $playerinfo[ship_goods] = $shipgoods = 0;
+    if ($playerinfo[credits]<0) $playerinfo[credits] = $shipcredits = 0;
     if ($sectorinfo[port_ore] <= 0) return;
     if ($sectorinfo[port_organics] <= 0) return;
     if ($sectorinfo[port_goods] <= 0) return;
@@ -66,24 +66,24 @@ function xenobe_trade ($db)
   //
   //  CHECK Xenobe CREDIT/CARGO
   //
-  if ($playerinfo[ship_ore]>0) $shipore=$playerinfo[ship_ore];
-  if ($playerinfo[ship_organics]>0) $shiporganics=$playerinfo[ship_organics];
-  if ($playerinfo[ship_goods]>0) $shipgoods=$playerinfo[ship_goods];
-  if ($playerinfo[credits]>0) $shipcredits=$playerinfo[credits];
+  if ($playerinfo[ship_ore] > 0) $shipore = $playerinfo[ship_ore];
+  if ($playerinfo[ship_organics] > 0) $shiporganics = $playerinfo[ship_organics];
+  if ($playerinfo[ship_goods] > 0) $shipgoods = $playerinfo[ship_goods];
+  if ($playerinfo[credits] > 0) $shipcredits = $playerinfo[credits];
   // MAKE SURE WE HAVE CARGO OR CREDITS
-  if (!$playerinfo[credits]>0 && !$playerinfo[ship_ore]>0 && !$playerinfo[ship_goods]>0 && !$playerinfo[ship_organics]>0) return;
+  if (!$playerinfo[credits] > 0 && !$playerinfo[ship_ore] > 0 && !$playerinfo[ship_goods] > 0 && !$playerinfo[ship_organics] > 0) return;
 
   //
   //  MAKE SURE CARGOS COMPATABLE
   //
-  if ($sectorinfo[port_type]=="ore" && $shipore>0) return;
-  if ($sectorinfo[port_type]=="organics" && $shiporganics>0) return;
-  if ($sectorinfo[port_type]=="goods" && $shipgoods>0) return;
+  if ($sectorinfo[port_type] == "ore" && $shipore > 0) return;
+  if ($sectorinfo[port_type] == "organics" && $shiporganics > 0) return;
+  if ($sectorinfo[port_type] == "goods" && $shipgoods > 0) return;
 
   //
   // LETS TRADE SOME CARGO *
   //
-  if ($sectorinfo[port_type]=="ore")
+  if ($sectorinfo[port_type] == "ore")
   //
   // PORT ORE
   //

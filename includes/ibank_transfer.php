@@ -33,7 +33,7 @@ function ibank_transfer ($db)
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
-        $ships[]=$res->fields;
+        $ships[] = $res->fields;
         $res->MoveNext();
     }
 
@@ -41,7 +41,7 @@ function ibank_transfer ($db)
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
-        $planets[]=$res->fields;
+        $planets[] = $res->fields;
         $res->MoveNext();
     }
 
