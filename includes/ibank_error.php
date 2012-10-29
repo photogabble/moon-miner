@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_error.php')) // Prevent direct access t
     include 'error.php';
 }
 
-function ibank_error ($errmsg, $backlink, $title="Error!")
+function ibank_error ($errmsg, $backlink, $title = "Error!")
 {
     global $l_ibank_ibankerrreport, $l_ibank_back, $l_ibank_logout;
 
