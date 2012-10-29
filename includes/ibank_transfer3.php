@@ -33,7 +33,7 @@ function ibank_transfer3 ($db)
     global $l_ibank_transferfee, $l_ibank_ibankaccount, $l_ibank_back, $l_ibank_logout, $l_ibank_errplanetsrcanddest, $l_ibank_errnotyourplanet;
     global $l_ibank_errunknownplanet, $l_ibank_unnamed, $l_ibank_ctransferredfrom, $l_ibank_srcplanet, $l_ibank_destplanet;
 
-    $amount = strip_non_num ($amount);
+    $amount = preg_replace("/[^0-9]/", "", $amount);
 
     if ($amount < 0)
     {

@@ -31,7 +31,7 @@ function ibank_deposit2 ($db)
 
     $max_credits_allowed = 18446744073709000000;
 
-    $amount = strip_non_num ($amount);
+    $amount = preg_replace("/[^0-9]/", "", $amount);
 
     if (($amount * 1) != $amount)
     {

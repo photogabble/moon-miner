@@ -182,11 +182,4 @@ else
 
 <?php
 include './footer.php';
-
-function strip_non_num ($str)
-{
-    $str = (string) $str;
-    $output = preg_replace("/[^0-9]/", "", $str);
-    return $output;
-}
 ?>
