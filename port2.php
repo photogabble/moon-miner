@@ -613,8 +613,8 @@ else
             }
 
             // Debug info
-            // print "$origin*$price_array[$port_type]=";
-            // print $origin*$price_array[$port_type]."<br>";
+            // print "$origin * $price_array[$port_type]=";
+            // print $origin * $price_array[$port_type]."<br>";
             return $origin;
         }
 

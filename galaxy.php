@@ -86,10 +86,10 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
         {
             $p = 'unknown';
             // Build the alt text for each image
-            $alt  = ($c+($div_xmax*$r)) . " - " . $l_unknown . " ";
+            $alt  = ($c + ($div_xmax * $r)) . " - " . $l_unknown . " ";
 
             // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
-            echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c+($div_xmax*$r)) ."\">";
+            echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c + ($div_xmax * $r)) ."\">";
             echo "<img class='map un' src='images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
             $cur_sector = $cur_sector + 1;
         }

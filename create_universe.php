@@ -237,20 +237,20 @@ echo"</table>";
 
     table_header ("Create Universe Confirmation [So you would like your $sector_max sector universe to have:] --- Stage2");
 
-      $sector_max = round($sektors);
+      $sector_max = round ($sektors);
       if ($fedsecs > $sector_max)
       {
     table_1col ("<font color=red>The number of Federation sectors must be smaller than the size of the universe!</font>");
     table_footer (" ");
          break;
       }
-      $spp = round($sector_max*$special/100);
-      $oep = round($sector_max*$ore/100);
-      $ogp = round($sector_max*$organics/100);
-      $gop = round($sector_max*$goods/100);
-      $enp = round($sector_max*$energy/100);
-      $empty = $sector_max-$spp-$oep-$ogp-$gop-$enp;
-      $nump = round ($sector_max*$planets/100);
+      $spp = round ($sector_max * $special / 100);
+      $oep = round ($sector_max * $ore / 100);
+      $ogp = round ($sector_max * $organics / 100);
+      $gop = round ($sector_max * $goods / 100);
+      $enp = round ($sector_max * $energy / 100);
+      $empty = $sector_max - $spp - $oep - $ogp - $gop - $enp;
+      $nump = round ($sector_max * $planets / 100);
 
       echo "<form action=create_universe.php method=post>\n";
       echo "<input type=hidden name=step value=3>\n";
@@ -398,7 +398,7 @@ echo"</table>";
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($sector_max / $loopsize)+1;
+        $loops = round ($sector_max / $loopsize)+1;
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>($sector_max)) $finish=($sector_max);
@@ -455,7 +455,7 @@ echo"</table>";
 # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($spp / $loopsize);
+        $loops = round ($spp / $loopsize);
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$spp) $finish=($spp);
@@ -504,7 +504,7 @@ echo"</table>";
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($oep / $loopsize);
+        $loops = round ($oep / $loopsize);
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$oep) $finish=($oep);
@@ -551,7 +551,7 @@ echo"</table>";
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($ogp / $loopsize);
+        $loops = round ($ogp / $loopsize);
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$ogp) $finish=($ogp);
@@ -598,7 +598,7 @@ echo"</table>";
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($gop / $loopsize);
+        $loops = round ($gop / $loopsize);
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$gop) $finish=($gop);
@@ -645,7 +645,7 @@ echo"</table>";
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($enp / $loopsize);
+        $loops = round ($enp / $loopsize);
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$enp) $finish=($enp);
@@ -731,7 +731,7 @@ table_spacer ();
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($sector_max / $loopsize)+1;
+        $loops = round ($sector_max / $loopsize)+1;
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
@@ -773,7 +773,7 @@ table_spacer ();
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($sector_max / $loopsize)+1;
+        $loops = round ($sector_max / $loopsize)+1;
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
@@ -818,7 +818,7 @@ table_spacer ();
     # This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
-        $loops = round($sector_max / $loopsize)+1;
+        $loops = round ($sector_max / $loopsize)+1;
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
