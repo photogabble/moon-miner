@@ -347,9 +347,9 @@ else
 
             $dist = traderoute_distance ($db, $traderoutes[$i]['source_type'], $traderoutes[$i]['dest_type'], $src, $dst, $traderoutes[$i]['circuit']);
 
-            $l_tdr_escooped = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_escooped);
-            $l_tdr_escooped2 = str_replace("[tdr_dist_scooped]", $dist['scooped'], $l_tdr_escooped2);
-            echo $l_tdr_escooped . "<br>" . $l_tdr_escooped2;
+            $l_tdr_escooped_temp = str_replace("[tdr_dist_triptime]", $dist['triptime'], $l_tdr_escooped);
+            $l_tdr_escooped2_temp = str_replace("[tdr_dist_scooped]", $dist['scooped'], $l_tdr_escooped2);
+            echo $l_tdr_escooped_temp . "<br>" . $l_tdr_escooped2_temp;
 
             echo "</font></td>";
         }
