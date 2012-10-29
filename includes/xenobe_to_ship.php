@@ -104,11 +104,11 @@ function xenobe_to_ship ($db, $ship_id)
   $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
   $targetshields = NUM_SHIELDS ($targetinfo['shields']);
   if ($targetshields>$targetinfo[ship_energy]) $targetshields = $targetinfo[ship_energy];
-  $targetinfo[ship_energy] = $targetinfo[ship_energy]-$targetshields;
+  $targetinfo[ship_energy] = $targetinfo[ship_energy] - $targetshields;
   $targettorpnum = round (pow ($level_factor, $targetinfo['torp_launchers']))*2;
   if ($targettorpnum > $targetinfo[torps]) $targettorpnum = $targetinfo[torps];
   $targetinfo[torps] = $targetinfo[torps] - $targettorpnum;
-  $targettorpdmg = $torp_dmg_rate*$targettorpnum;
+  $targettorpdmg = $torp_dmg_rate * $targettorpnum;
   $targetarmor = $targetinfo[armor_pts];
   $targetfighters = $targetinfo[ship_fighters];
   $targetdestroyed = 0;
@@ -119,11 +119,11 @@ function xenobe_to_ship ($db, $ship_id)
     if ($attackerbeams > round ($targetfighters / 2))
     {                                  // ATTACKER BEAMS GT HALF TARGET FIGHTERS
       $lost = $targetfighters-(round ($targetfighters/2));
-      $targetfighters = $targetfighters-$lost;                 // T LOOSES HALF ALL FIGHTERS
-      $attackerbeams = $attackerbeams-$lost;                   // A LOOSES BEAMS EQ TO HALF T FIGHTERS
+      $targetfighters = $targetfighters - $lost;                 // T LOOSES HALF ALL FIGHTERS
+      $attackerbeams = $attackerbeams - $lost;                   // A LOOSES BEAMS EQ TO HALF T FIGHTERS
     } else
     {                                  // ATTACKER BEAMS LE HALF TARGET FIGHTERS
-      $targetfighters = $targetfighters-$attackerbeams;        // T LOOSES FIGHTERS EQ TO A BEAMS
+      $targetfighters = $targetfighters - $attackerbeams;        // T LOOSES FIGHTERS EQ TO A BEAMS
       $attackerbeams = 0;                                      // A LOOSES ALL BEAMS
     }
   }
@@ -311,11 +311,11 @@ function xenobe_to_ship ($db, $ship_id)
     if ($attackerarmor>0)
     {
       // ATTACKER STILL ALIVE TO SALVAGE TRAGET
-      $rating_change=round ($targetinfo[rating]*$rating_combat_factor);
-      $free_ore = round ($targetinfo[ship_ore]/2);
-      $free_organics = round ($targetinfo[ship_organics]/2);
-      $free_goods = round ($targetinfo[ship_goods]/2);
-      $free_holds = NUM_HOLDS($playerinfo[hull]) - $playerinfo[ship_ore] - $playerinfo[ship_organics] - $playerinfo[ship_goods] - $playerinfo[ship_colonists];
+      $rating_change=round ($targetinfo['rating'] * $rating_combat_factor);
+      $free_ore = round ($targetinfo['ship_ore'] / 2);
+      $free_organics = round ($targetinfo['ship_organics'] / 2);
+      $free_goods = round ($targetinfo['ship_goods'] / 2);
+      $free_holds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
       if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT WE CAN CARRY
         $salv_goods = $free_goods;
@@ -394,11 +394,11 @@ function xenobe_to_ship ($db, $ship_id)
     if ($targetarmor>0)
     {
       // TARGET STILL ALIVE TO SALVAGE ATTACKER
-      $rating_change=round ($playerinfo[rating]*$rating_combat_factor);
-      $free_ore = round ($playerinfo[ship_ore]/2);
-      $free_organics = round ($playerinfo[ship_organics]/2);
-      $free_goods = round ($playerinfo[ship_goods]/2);
-      $free_holds = NUM_HOLDS($targetinfo[hull]) - $targetinfo[ship_ore] - $targetinfo[ship_organics] - $targetinfo[ship_goods] - $targetinfo[ship_colonists];
+      $rating_change = round ($playerinfo['rating'] * $rating_combat_factor);
+      $free_ore = round ($playerinfo['ship_ore'] / 2);
+      $free_organics = round ($playerinfo['ship_organics'] / 2);
+      $free_goods = round ($playerinfo['ship_goods'] / 2);
+      $free_holds = NUM_HOLDS ($targetinfo['hull']) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
       if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT TARGET CAN CARRY
         $salv_goods = $free_goods;

@@ -102,11 +102,11 @@ function xenobe_trade ($db)
     // WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEES WHAT WE CAN AFFORD TO BUY
     $amount_ore = min($amount_ore, floor(($playerinfo[credits] + $amount_organics * $organics_price + $amount_goods * $goods_price) / $ore_price));
     // BUY/SELL CARGO
-    $total_cost = round(($amount_ore * $ore_price) - ($amount_organics * $organics_price + $amount_goods * $goods_price));
-    $newcredits = max(0,$playerinfo[credits]-$total_cost);
-    $newore = $playerinfo[ship_ore]+$amount_ore;
-    $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
-    $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
+    $total_cost = round (($amount_ore * $ore_price) - ($amount_organics * $organics_price + $amount_goods * $goods_price));
+    $newcredits = max (0, $playerinfo['credits'] - $total_cost);
+    $newore = $playerinfo['ship_ore'] + $amount_ore;
+    $neworganics = max (0, $playerinfo['ship_organics'] - $amount_organics);
+    $newgoods = max (0, $playerinfo['ship_goods'] - $amount_goods);
     $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating = rating + 1, credits = ?, ship_ore = ?, ship_organics = ?, ship_goods = ? WHERE ship_id = ?;", array ($newcredits, $newore, $neworganics, $newgoods, $playerinfo['ship_id']));
     db_op_result ($db, $trade_result, __LINE__, __FILE__);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics + ?, port_goods = port_goods + ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
@@ -137,10 +137,10 @@ function xenobe_trade ($db)
     // BUY/SELL CARGO
     //
     $total_cost = round(($amount_organics * $organics_price) - ($amount_ore * $ore_price + $amount_goods * $goods_price));
-    $newcredits = max(0,$playerinfo[credits]-$total_cost);
-    $newore = max(0,$playerinfo[ship_ore]-$amount_ore);
-    $neworganics = $playerinfo[ship_organics]+$amount_organics;
-    $newgoods = max(0,$playerinfo[ship_goods]-$amount_goods);
+    $newcredits = max (0, $playerinfo['credits'] - $total_cost);
+    $newore = max (0, $playerinfo['ship_ore'] - $amount_ore);
+    $neworganics = $playerinfo['ship_organics'] + $amount_organics;
+    $newgoods = max (0, $playerinfo['ship_goods'] - $amount_goods);
     $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating = rating + 1, credits = ?, ship_ore = ?, ship_organics = ?, ship_goods = ? WHERE ship_id = ?;", array ($newcredits, $newore, $neworganics, $newgoods, $playerinfo['ship_id']));
     db_op_result ($db, $trade_result, __LINE__, __FILE__);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore + ?, port_organics = port_organics - ?, port_goods = port_goods + ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
@@ -173,10 +173,10 @@ function xenobe_trade ($db)
     // BUY/SELL CARGO
     //
     $total_cost = round(($amount_goods * $goods_price) - ($amount_organics * $organics_price + $amount_ore * $ore_price));
-    $newcredits = max(0,$playerinfo[credits]-$total_cost);
-    $newore = max(0,$playerinfo[ship_ore]-$amount_ore);
-    $neworganics = max(0,$playerinfo[ship_organics]-$amount_organics);
-    $newgoods = $playerinfo[ship_goods]+$amount_goods;
+    $newcredits = max (0, $playerinfo['credits'] - $total_cost);
+    $newore = max (0, $playerinfo['ship_ore'] - $amount_ore);
+    $neworganics = max (0, $playerinfo['ship_organics'] - $amount_organics);
+    $newgoods = $playerinfo['ship_goods'] + $amount_goods;
     $trade_result = $db->Execute("UPDATE {$db->prefix}ships SET rating=rating+1, credits = ?, ship_ore = ?, ship_organics = ?, ship_goods = ? WHERE ship_id = ?;", array ($newcredits, $newore, $neworganics, $newgoods, $playerinfo['ship_id']));
     db_op_result ($db, $trade_result, __LINE__, __FILE__);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore + ?, port_organics = port_organics + ?, port_goods = port_goods - ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
