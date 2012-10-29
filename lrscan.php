@@ -172,7 +172,18 @@ if ($sector == "*")
             else
             {
                 $myrow = $resx->fields;
-                echo "<td>" . get_player($db, $myrow['ship_id']) . "</td>";
+                $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($myrow['ship_id']));
+                db_op_result ($db, $res, __LINE__, __FILE__);
+                if ($res)
+                {
+                    $row = $res->fields;
+                    $character_name = $row['character_name'];
+                }
+                else
+                {
+                    $character_name = "Unknown";
+                }
+                echo "<td>" . $character_name . "</td>";
             }
         }
 
@@ -404,7 +415,19 @@ else
         else
         {
             $myrow = $resx->fields;
-            echo get_player($db, $myrow['ship_id']);
+            $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($myrow['ship_id']));
+            db_op_result ($db, $res, __LINE__, __FILE__);
+            if ($res)
+            {
+                $row = $res->fields;
+                $character_name = $row['character_name'];
+
+                echo $character_name;
+            }
+            else
+            {
+                echo "Unknown";
+            }
         }
     }
     else
