@@ -89,7 +89,10 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($
 db_op_result ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
-    zoneedit_die($l_zi_nexist);
+    echo "<p>" . $l_zi_nexist . "<p>";
+    TEXT_GOTOMAIN();
+    include './footer.php';
+    die();
 }
 $curzone = $res->fields;
 
@@ -108,12 +111,29 @@ else
 
 if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id']) || ($curzone['corp_zone'] == 'Y' && $curzone['owner'] != $ownerinfo['id'] && $row['owner'] == $ownerinfo['creator']))
 {
-    zoneedit_die($l_ze_notowner);
+    echo "<p>" . $l_ze_notowner . "<p>";
+    TEXT_GOTOMAIN();
+    include './footer.php';
+    die();
 }
 
 if ($command == 'change')
 {
-    zoneedit_change ($db);
+    global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
+    global $l_clickme, $l_ze_saved, $l_ze_return;
+
+    if (!get_magic_quotes_gpc())
+    {
+        $name = addslashes($name);
+    }
+
+    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
+    db_op_result ($db, $resx, __LINE__, __FILE__);
+    echo $l_ze_saved . "<p>";
+    echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
+    TEXT_GOTOMAIN();
+    include './footer.php';
+    die();
 }
 
 $ybeacon = null;
@@ -238,31 +258,4 @@ echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
 TEXT_GOTOMAIN();
 
 include './footer.php';
-
-function zoneedit_change ($db)
-{
-    global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
-    global $l_clickme, $l_ze_saved, $l_ze_return;
-
-    if (!get_magic_quotes_gpc())
-    {
-        $name = addslashes($name);
-    }
-
-    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name=?, allow_beacon=?, allow_attack=?, allow_warpedit=?, allow_planet=?, allow_trade=?, allow_defenses=? WHERE zone_id=?", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
-    db_op_result ($db, $resx, __LINE__, __FILE__);
-    echo $l_ze_saved . "<p>";
-    echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
-    TEXT_GOTOMAIN();
-    include './footer.php';
-    die();
-}
-
-function zoneedit_die ($error_msg)
-{
-    echo "<p>" . $error_msg . "<p>";
-    TEXT_GOTOMAIN();
-    include './footer.php';
-    die();
-}
 ?>
