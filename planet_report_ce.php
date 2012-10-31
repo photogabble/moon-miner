@@ -138,7 +138,8 @@ function collect_credits ($db, $planetarray)
     $s_p_pair = array ();
 
     // Create an array of sector -> planet pairs
-    for ($i = 0; $i < count ($planetarray); $i++)
+    $temp_count = count ($planetarray);
+    for ($i = 0; $i < $temp_count; $i++)
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planetarray[$i]));
         db_op_result ($db, $res, __LINE__, __FILE__);
@@ -166,7 +167,8 @@ function collect_credits ($db, $planetarray)
     // Run through the list of sector planet pairs realspace moving to each sector and then performing the transfer.
     // Based on the way realspace works we don't need a sub loop -- might add a subloop to clean things up later.
 
-    for ($i = 0; $i < count ($s_p_pair) && $CS == "GO"; $i++)
+    $temp_count2 = count ($s_p_pair);
+    for ($i = 0; $i < $temp_count2 && $CS == "GO"; $i++)
     {
         echo "<br>";
         $CS = real_space_move ($db, $s_p_pair[$i][0]);

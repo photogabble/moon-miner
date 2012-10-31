@@ -283,7 +283,8 @@ else
 
             $color = $color_line1;
 
-            for ($bcs_index=0; $bcs_index<count($bcs_info); $bcs_index++)
+            $temp_count = count ($bcs_info);
+            for ($bcs_index = 0; $bcs_index < $temp_count; $bcs_index++)
             {
                 echo "  <tr>\n";
                 echo "    <td style='text-align:right; font-weight:bold; padding:4px;background-color:{$color};'>{$bcs_info[$bcs_index][0]}</td>\n";

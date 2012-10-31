@@ -632,7 +632,8 @@ if ($playerinfo['sector'] != 0)
             echo "<table style='padding:0px; border-spacing:1px;'>\n";
             echo "  <tr>\n";
 
-            for ($iPlayer = 0; $iPlayer < count ($ship_detected); $iPlayer++)
+            $temp_count = count ($ship_detected);
+            for ($iPlayer = 0; $iPlayer < $temp_count; $iPlayer++)
             {
                 echo "<td style='text-align:center; vertical-align:top; padding:1px;'>\n";
                 echo "<div style='width:160px; height:120px; background: URL(images/bg_alpha.png) repeat; padding:1px;'>\n";

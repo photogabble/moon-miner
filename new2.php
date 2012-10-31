@@ -115,7 +115,7 @@ if ($flag == 0)
     $makepass = "";
     $syllables = "er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
     $syllable_array = explode (",", $syllables);
-    for ($count=1; $count<=4; $count++)
+    for ($count = 1; $count <= 4; $count++)
     {
         if (mt_rand ()%10 == 1)
         {
