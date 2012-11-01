@@ -1,3 +1,7 @@
+TheMightyDude (01 November 2012)
+--------------------------------------
+Fixed bug in new2.php when setting up the players zone.
+
 TheMightyDude (27 October 2012)
 --------------------------------------
 Fixed error in warpedit2.php which displayed Target sector ([target_sector]) already has a link from this sector.
