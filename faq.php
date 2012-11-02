@@ -383,8 +383,7 @@ include './header.php';
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
     <td class="spacer">&nbsp;</td>
-    <td class="subheader"><a id="misc2"></a>Planetary Production
-      Values</td>
+    <td class="subheader"><a id="misc2"></a>Planetary Production Values</td>
     <td class="spacer">&nbsp;</td></tr>
   <tr>
     <td style="width:5%">&nbsp;</td>
@@ -421,8 +420,7 @@ include './header.php';
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
     <td class="spacer">&nbsp;</td>
-    <td class="subheader"><a id="misc3"></a>Hull Sizes by Tech
-    Level</td>
+    <td class="subheader"><a id="misc3"></a>Hull Sizes by Tech Level</td>
     <td class="spacer">&nbsp;</td></tr>
   <tr>
     <td style="width:5%">&nbsp;</td>
@@ -475,8 +473,7 @@ include './header.php';
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
     <td class="spacer">&nbsp;</td>
-    <td class="subheader"><a id="misc4"></a>Upgrade Costs by Tech
-      Level</td>
+    <td class="subheader"><a id="misc4"></a>Upgrade Costs by Tech Level</td>
     <td class="spacer">&nbsp;</td></tr>
   <tr>
     <td style="width:5%">&nbsp;</td>
@@ -487,14 +484,14 @@ include './header.php';
         <tbody>
         <tr>
           <td class="lists">
-            <ol>
+            <ol start=1>
               <li>1,000
               <li>2,000
               <li>4,000
               <li>8,000
               <li>16,000 </li></ol></td>
           <td class="lists">
-            <ol start=5>
+            <ol start=6>
               <li>32,000
               <li>64,000
               <li>128,000
@@ -515,7 +512,7 @@ include './header.php';
               <li>262,144,000
               <li>524,288,000 </li></ol></td>
           <td class="lists">
-            <ol start=20>
+            <ol start=21>
               <li>1,048,576,000
               <li>2,097,152,000
               <li>4,194,304,000
@@ -524,8 +521,8 @@ include './header.php';
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
     <td class="spacer">&nbsp;</td>
-    <td class="spacer">&nbsp;</td>
     <td class="subheader"><a id="misc5"></a>The Particulars of Combat</td>
+    <td class="spacer">&nbsp;</td>
   <tr>
     <td style="width:5%">&nbsp;</td>
     <td style="width:90%">
@@ -623,8 +620,7 @@ include './header.php';
         You'll end up with 0 and he'll end up with 12,000.<br><br>
         <li>If there are any fighters left, they are applied to the defender's
         armor. So, if you have 34,000 fighters left, you can do 34,000 damage to
-        d_armor. If the defender doesn't have enough armor left, too
-bad.<br><br>
+        d_armor. If the defender doesn't have enough armor left, too bad.<br><br>
         <li>The last step is to test whether or not either player is dead. If
         either player has armor of 0 or less, they are dead. If you die, life
         sucks. You learned a hard lesson. If your opponent dies and you live,
@@ -669,8 +665,7 @@ bad.<br><br>
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
     <td class="spacer">&nbsp;</td>
-    <td class="subheader"><a id="misc6"></a>How... or How Not to
-      Colonize a Planet</td>
+    <td class="subheader"><a id="misc6"></a>How... or How Not to Colonize a Planet</td>
     <td class="spacer">&nbsp;</td></tr>
   <tr>
     <td style="width:5%">&nbsp;</td>
