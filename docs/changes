@@ -1,3 +1,8 @@
+TheMightyDude (04 November 2012)
+--------------------------------------
+Fixed bug in news.php where the news articles would increase the further the date you went back.
+
+
 TheMightyDude (02 November 2012)
 --------------------------------------
 Fixed a few errors in faq.php as well as some cleanup.
