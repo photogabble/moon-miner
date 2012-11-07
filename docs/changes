@@ -4,6 +4,7 @@ Fixed PHP Notice: Undefined variable: salv_credits in attack.php on line 768
 Fixed PHP Notice: Use of undefined constant character_name - assumed 'character_name' in attack.php on line 775
 Fixed PHP Notice: Undefined index: l_killheadline in includes/db_kill_player.php on line 87
 Fixed PHP Notice: Undefined index: l_news_killed in includes/db_kill_player.php on line 89
+Fixed PHP Notice: Undefined variable: l_planet2_sector in planet2.php on line 185
 
 TheMightyDude (04 November 2012)
 --------------------------------------
