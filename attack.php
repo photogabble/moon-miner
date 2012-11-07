@@ -747,6 +747,8 @@ else
 
                 if ($targetarmor > 0)
                 {
+                    $salv_credits = 0;
+
                     $free_ore = round ($playerinfo['ship_ore'] / 2);
                     $free_organics = round ($playerinfo['ship_organics']/2);
                     $free_goods = round ($playerinfo['ship_goods']/2);
@@ -804,7 +806,7 @@ else
                     $l_att_salv = str_replace("[salv_goods]", $salv_goods, $l_att_salv);
                     $l_att_salv = str_replace("[ship_salvage_rate]", $ship_salvage_rate, $l_att_salv);
                     $l_att_salv = str_replace("[ship_salvage]", $ship_salvage, $l_att_salv);
-                    $l_att_salv = str_replace("[name]", $targetinfo[character_name], $l_att_salv);
+                    $l_att_salv = str_replace("[name]", $targetinfo['character_name'], $l_att_salv);
 
                     echo $l_att_salv. "<br>";
                     $update6 = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, " .
