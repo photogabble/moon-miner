@@ -85,7 +85,9 @@ else
         $playerinfo = $rs->fields;
 
         // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
-        $hasher = new PasswordHash (HASH_STRENGTH, false);
+        require_once './config/pw_hash.php';
+        require_once './classes/phpass/PasswordHash.php';
+        $hasher = new PasswordHash(HASH_STRENGTH, false);
 
         // Check the password against the stored hashed password
         $password_match = $hasher->CheckPassword ($oldpass, $playerinfo['password']);
