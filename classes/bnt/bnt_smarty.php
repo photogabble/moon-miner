@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'bnt_smarty.php')) // Prevent direct access to
     die ('Please do not access this file directly');
 }
 
-define('SMARTY_DIR', 'classes/smarty/');
+define('SMARTY_DIR', 'classes/smarty/libs/');
 require SMARTY_DIR . 'Smarty.class.php';
 
 class bnt_smarty
