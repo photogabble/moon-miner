@@ -53,7 +53,7 @@ echo '<div class="footer">';
 if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])))
 {
     echo "<p></p>\n";
-    echo "<script src='backends/javascript/newsticker.js.php'></script>\n";
+    echo "<script src='templates/classic/javascript/newsticker.js.php'></script>\n";
     echo "<div id='news_ticker' class='faderlines'></div>\n";
     include './fader.php';
 }
@@ -76,8 +76,8 @@ if (!$no_db)
     }
 }
 
-//echo "<script src='backends/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
-echo "<script src='backends/javascript/updateticker.js.php'></script>";
+//echo "<script src='templates/classic/javascript/updateticker.js.php?mySEC={$mySEC}&amp;sched_ticks={$sched_ticks}'></script>";
+echo "<script src='templates/classic/javascript/updateticker.js.php'></script>";
 echo "<script>";
 echo "var seconds = '" . $mySEC . "';";
 echo "var nextInterval = new Date().getTime();";
