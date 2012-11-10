@@ -15,16 +15,18 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/template_api/template_smarty.php
+// File: classes/bnt/bnt_smarty.php
+namespace bnt;
 
-if (strpos ($_SERVER['PHP_SELF'], 'template_smarty.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'bnt_smarty.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
 
-require './backends/smarty/Smarty.class.php';
+define('SMARTY_DIR', 'classes/smarty/');
+require SMARTY_DIR . 'Smarty.class.php';
 
-class SmartyAPI
+class bnt_smarty
 {
     private $smarty                            = NULL;
     private $parent                            = NULL;
@@ -32,7 +34,7 @@ class SmartyAPI
     function __construct($parent)
     {
         $this->parent = $parent;
-        $this->smarty = new Smarty();
+        $this->smarty = new \Smarty();
     }
 
     function __destruct()
@@ -111,7 +113,6 @@ class SmartyAPI
         // Process template and return the output in a
         // varable so that we can compress it or not.
         $output = $this->smarty->fetch($template_file);
-//        echo $this->parent->HandleCompression($output);
         echo $output;
         exit;
     }

@@ -15,16 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/template_api/template_xml.php
+// File: classes/bnt/bnt_xml.php
+namespace bnt;
 
-if (strpos ($_SERVER['PHP_SELF'], 'template_xml.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'bnt_xml.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
 
-require_once './classes/xml_dom/xml_dom.php';
-
-class XMLAPI
+class bnt_xml
 {
     private $xmldom                         = NULL;
     private $parent                         = NULL;
@@ -35,7 +34,7 @@ class XMLAPI
     function __construct($parent)
     {
         $this->parent = $parent;
-        $this->xmldom = new TemplateSystem();
+        $this->xmldom = new \bnt\template_system();
     }
 
     function __destruct()
@@ -129,7 +128,6 @@ class XMLAPI
     public function Display()
     {
         $output = $this->xmldom->Display();
-//        echo $this->parent->HandleCompression($output);
         echo $output;
         exit;
     }

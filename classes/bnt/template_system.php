@@ -1,5 +1,5 @@
 <?php
-
+namespace bnt;
     /*************************************************************************/
     /*      Name: XML DOM Template System                                    */
     /*    Author: TheMightyDude (Paul Kirby)                                 */
@@ -17,7 +17,7 @@
     define ("XMLDOM_UNPROCESSED",           0x0002,            true);
     define ("XMLDOM_XML",                   0x0003,            true);
 
-    class TemplateSystem
+    class template_system
     {
         static $version                     = "0.0.9 (0032) [DEV]";
         static $author                      = "TheMightyDude";
@@ -34,7 +34,7 @@
         {
             $this->chkLibraries(array("xsl", "dom"));
 
-            $imp = new DOMImplementation;
+            $imp = new \DOMImplementation;
             if ( !is_null($publicId) && !is_null($systemId) )
             {
                 $this->validation = (boolean) true;
@@ -76,10 +76,10 @@
             // Add a comment to the document
             if (!is_null($comment))
             {
-                $this->document->appendChild(new DOMComment($comment));
+                $this->document->appendChild(new \DOMComment($comment));
             }
 
-            $this->root = $this->document->appendChild(new DOMElement($this->qualifiedName));
+            $this->root = $this->document->appendChild(new \DOMElement($this->qualifiedName));
             $this->StandAlone(true);
 
             // Add Template class info.
@@ -146,7 +146,7 @@
 				}
 				else
 				{
-					$this->stylesheet = new DOMDocument();
+					$this->stylesheet = new \DOMDocument();
 					$this->stylesheet->preserveWhiteSpace = true;
 					$this->stylesheet->formatOutput = true;
 					$ret = $this->stylesheet->load($stylesheet);
@@ -174,7 +174,7 @@
             {
                 $parent = $this->root;
             }
-            return $parent->appendChild(new DOMElement($nodeName));
+            return $parent->appendChild(new \DOMElement($nodeName));
         }
 
 		public function GetNode($parent = NULL, $nodeName = NULL, &$node = NULL)
@@ -235,10 +235,10 @@
             $count = (integer) count($nodeData);
             for($i=0; $i<$count; $i++)
             {
-                $node = $parent->appendChild(new DOMElement($nodeName));
+                $node = $parent->appendChild(new \DOMElement($nodeName));
                 foreach ($nodeData[$i] as $name => $value)
                 {
-                    $node->setAttributeNode(new DOMAttr($name, $value));
+                    $node->setAttributeNode(new \DOMAttr($name, $value));
                 }
             }
             return (boolean) true;
@@ -249,7 +249,7 @@
             $return = (boolean) false;
             if ( !is_null($node) && !is_null($name) )
             {
-                $node->setAttributeNode(new DOMAttr($name, $value));
+                $node->setAttributeNode(new \DOMAttr($name, $value));
                 $return = (boolean) true;
             }
             return $return;
@@ -262,7 +262,7 @@
             {
                 foreach ($array as $name => $value)
                 {
-                    $node->setAttributeNode(new DOMAttr($name, $value));
+                    $node->setAttributeNode(new \DOMAttr($name, $value));
                 }
                 $return = (boolean) true;
             }
@@ -285,7 +285,7 @@
             {
                 $node = $this->root;
             }
-            $node->appendChild(new DOMComment($comment));
+            $node->appendChild(new \DOMComment($comment));
             return (boolean) true;
         }
 
@@ -305,7 +305,7 @@
             {
                 $node = $this->root;
             }
-            $node->appendChild(new DOMCdataSection($cdata));
+            $node->appendChild(new \DOMCdataSection($cdata));
             return (boolean) true;
         }
 
@@ -325,7 +325,7 @@
             {
                 $node = $this->root;
             }
-            $node->appendChild(new DOMText($text));
+            $node->appendChild(new \DOMText($text));
             return (boolean) true;
         }
 
@@ -356,7 +356,7 @@
                     if (is_null($this->stylesheet)) trigger_error("StyleSheet Not Set.", E_USER_ERROR);
 //                    header("Content-Type: text/html; charset={$this->document->encoding}");
                     header("Content-Type: text/html");
-                    $proc = new XSLTProcessor;
+                    $proc = new \XSLTProcessor;
                     $proc->setProfiling('logs/profiling.txt');
                     @$proc->importStyleSheet($this->stylesheet); // attach the xsl rules
                     echo $proc->transformToXML($this->document);
