@@ -40,6 +40,7 @@ if ($playerinfo['dev_emerwarp'] > 0)
     $l_ewd_used = str_replace("[sector]", $dest_sector, $l_ewd_used);
 }
 
+$variables['body_class'] = 'emerwarp';
 $variables['dest_sector'] = $dest_sector;
 $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");

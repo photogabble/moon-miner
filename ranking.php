@@ -24,6 +24,7 @@ include './includes/player_insignia_name.php';
 $langvars = null;
 $variables = null;
 
+$variables['body_class'] = 'ranking';
 $variables['lang'] = $lang;
 $variables['link'] = "ranking.php";
 

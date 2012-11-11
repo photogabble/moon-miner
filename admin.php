@@ -83,6 +83,7 @@ if ($swordfish == ADMIN_PW)
 
 // Clear variables array before use, and set array with all used variables in page
 $variables = null;
+$variables['body_class'] = 'admin';
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
 $variables['admin_pw'] = ADMIN_PW;
