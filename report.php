@@ -74,6 +74,7 @@ $lssd = ($playerinfo['dev_lssd'] == 'Y') ? $l_yes : $l_no;
 
 // Clear variables array before use, and set array with all used variables in page
 $variables = null;
+$variables['body_class'] = 'report';
 $variables['lang'] = $lang;
 $variables['color_header'] = $color_header;
 $variables['color_line1'] = $color_line1;
