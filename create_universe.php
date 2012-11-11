@@ -883,10 +883,6 @@ table_footer ("Completed successfully.");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Turns will occur every $sched_turns minutes","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_defenses.php', NULL,unix_timestamp(now()))");
-      db_op_result ($db, $resxx, __LINE__, __FILE__);
-      table_row ($db, "Defenses will be checked every $sched_turns minutes","Failed","Inserted");
-
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_xenobe.php', NULL,unix_timestamp(now()))");
       db_op_result ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Xenobes will play every $sched_turns minutes.","Failed","Inserted");
