@@ -483,7 +483,7 @@ function planet_combat ($db)
             // Reset Planet Assets.
             $sql  = "UPDATE {$db->prefix}planets ";
             $sql .= "SET organics = '0', ore = '0', goods = '0', energy = '0', colonists = '2', credits = '0', fighters = '0', torps = '0', corp = '0', base = 'N', sells = 'N', prod_organics = '20', prod_ore = '20', prod_goods = '20', prod_energy = '20', prod_fighters = '10', prod_torp = '10' ";
-            $sql .= "WHERE `dev_planets`.`planet_id` =? LIMIT 1;";
+            $sql .= "WHERE planet_id = ? LIMIT 1;";
             $resx = $db->Execute($sql, array ($planetinfo['planet_id']));
             db_op_result ($db, $resx, __LINE__, __FILE__);
             echo "<div style='text-align:center; font-size:18px; color:#f00;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
