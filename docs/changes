@@ -2,6 +2,7 @@ TheMightyDude (18 November 2012)
 --------------------------------------
 Fixed A Database error occurred in includes/planet_combat.php on line 487 (called from: planet.php: Unknown column 'dev_planets.planet_id' in 'where clause'
 Fixed A Database error occurred in bounty.php on line 220 (called from: bounty.php: Unknown column 'amount' in 'field list'
+Fixed A Database error occurred in includes/collect_bounty.php on line 55 (called from: planet.php: Table 'bnt_bounty' was not locked with LOCK TABLES
 
 TheMightyDude (07 November 2012)
 --------------------------------------
