@@ -20,6 +20,8 @@
 include './global_includes.php';
 include './includes/player_insignia_name.php';
 
+include './includes/check_ban.php';
+
 // Always make sure we are using empty vars before use.
 $langvars = null;
 $variables = null;
@@ -140,6 +142,19 @@ if ($rs instanceof ADORecordSet)
             else
             {
                 $row['type'] = "player";
+            }
+
+            // Check for banned players.
+            $ban_result = check_ban($db, $lang, null, $row);
+            if ($ban_result === false || (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
+            {
+                $row['banned'] = (boolean) false;
+                $row['ban_info'] = null;
+            }
+            else
+            {
+                $row['banned'] = (boolean) true;
+                $row['ban_info'] = array('type'=>$ban_result['ban_type'], 'public_info'=>"Player banned/locked for the following:\n{$ban_result['public_info']}");
             }
 
             array_push ($player_list, $row);

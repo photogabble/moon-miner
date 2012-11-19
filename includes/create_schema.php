@@ -359,6 +359,20 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating ip_bans Table","Failed","Passed");
 
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}bans (" .
+             "ban_id int(10) unsigned NOT NULL AUTO_INCREMENT," .
+             "ban_type tinyint(3) unsigned NOT NULL DEFAULT '0'," .
+             "ban_mask varchar(16) DEFAULT NULL," .
+             "ban_ship int(10) unsigned DEFAULT NULL," .
+             "ban_date datetime DEFAULT NULL," .
+             "public_info text," .
+             "admin_info text," .
+             "PRIMARY KEY (`ban_id`)" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating bans Table","Failed","Passed");
+
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}logs (" .
              "log_id int unsigned NOT NULL auto_increment," .
              "ship_id int DEFAULT '0' NOT NULL," .

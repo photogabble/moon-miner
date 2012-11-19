@@ -37,6 +37,7 @@
         <td style="padding:2px;"><strong>{$langvars['l_ranks_rank']}</strong></td>
         <td style="padding:2px;"><strong><a href="{$variables['link']}">{$langvars['l_score']}</a></strong></td>
         <td style="padding:2px;"><strong>{$langvars['l_player']}</strong></td>
+        <td style="padding:2px; width:16px;"></td>
         <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=turns">{$langvars['l_turns_used']}</a></strong></td>
         <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=login">{$langvars['l_ranks_lastlog']}</a></strong></td>
         <td style="padding:2px;"><strong><a href="{$variables['link']}?sort=good">{$langvars['l_ranks_good']}</a>/<a href="{$variables['link']}?sort=bad">{$langvars['l_ranks_evil']}</a></strong></td>
@@ -59,6 +60,15 @@
         <td style="padding:2px; color:#009900;"><span style="font-weight:bold;">{$player['character_name']}</span></td>
 {else}
         <td style="padding:2px;">&nbsp;{$player['insignia']} <span style="font-weight:bold;">{$player['character_name']}</span></td>
+{/if}
+
+{* Check to see if they have been either banned or locked *}
+{if isset($player['banned']) && $player['banned'] == false}
+        <td><img style="cursor:help; padding-top:2px;" src="{$template_dir}/images/ban_status_ok.png" alt="Player Status: OK" title="Player Status: OK" /></td>
+{elseif isset($player['banned']) && $player['banned'] == true && isset($player['ban_info']['type']) && $player['ban_info']['type'] > 1}
+        <td><img style="cursor:help; padding-top:2px;" src="{$template_dir}/images/ban_status_banned.png" alt="Player Status: Banned" title="{$player['ban_info']['public_info']}" /></td>
+{elseif isset($player['banned']) && $player['banned'] == true && isset($player['ban_info']['type']) && $player['ban_info']['type'] == 1}
+        <td><img style="cursor:help; padding-top:2px;" src="{$template_dir}/images/ban_status_locked.png" alt="Player Status: Locked" title="{$player['ban_info']['public_info']}" /></td>
 {/if}
 
         <td style="padding:2px;">{$player['turns_used']|number_format:0:".":","}</td>
