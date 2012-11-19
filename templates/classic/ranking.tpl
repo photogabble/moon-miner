@@ -84,7 +84,12 @@
         <td style="padding:2px;">{$player['team_name']}&nbsp;</td>
 {/if}
 
-        <td style="padding:2px;">{$player['online']}</td>
+{if isset($player['online']) && $player['online'] == true}
+        <td style="padding:2px; color:#00FF00;">{$langvars['l_online']}</td>
+{else}
+        <td style="padding:2px; color:#7F7F7F;">{$langvars['l_offline']}</td>
+{/if}
+
         <td style="padding:2px;">{$player['efficiency']|number_format:0:".":","}</td>
       </tr>
 {/foreach}

@@ -4,6 +4,7 @@ Fixed PHP Notice:  Undefined variable: dest_sector in emerwarp.php on line 43, r
 Fixed SQL error in planet_report_ce.php we cannot use a bind ? for the tables field name.
 Added New Banning Code, still need to add to the Admin Section and Add new Language Variables.
 Cleaned Up check_ban.php file.
+Updated Ranking Page and Template to allow for Online status to be LIME (#00FF00) for easier viewing.
 
 TheMightyDude (18 November 2012)
 --------------------------------------

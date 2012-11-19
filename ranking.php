@@ -124,10 +124,11 @@ if ($rs instanceof ADORecordSet)
                 $temp_turns = 1;
             }
 
-            $row['online'] = "Offline";
+            // Set the players online/offline status.
+            $row['online'] = (boolean) false;
             if ($difftime <= 5)
             {
-                $row['online'] = "Online";
+                $row['online'] = (boolean) true;
             }
 
             // Set the players Insignia.
