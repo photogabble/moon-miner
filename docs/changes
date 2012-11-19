@@ -1,3 +1,7 @@
+TheMightyDude (19 November 2012)
+--------------------------------------
+Fixed PHP Notice:  Undefined variable: dest_sector in emerwarp.php on line 43, referer: device.php
+
 TheMightyDude (18 November 2012)
 --------------------------------------
 Fixed A Database error occurred in includes/planet_combat.php on line 487 (called from: planet.php: Unknown column 'dev_planets.planet_id' in 'where clause'

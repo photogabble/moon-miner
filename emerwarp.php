@@ -24,6 +24,10 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
+// Always make sure we are using empty vars before use.
+$langvars = null;
+$variables = null;
+
 // New database driven language entries
 load_languages ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
@@ -38,10 +42,11 @@ if ($playerinfo['dev_emerwarp'] > 0)
     db_op_result ($db, $result_warp, __LINE__, __FILE__);
     log_move ($db, $playerinfo['ship_id'], $dest_sector);
     $l_ewd_used = str_replace("[sector]", $dest_sector, $l_ewd_used);
+
+    $variables['dest_sector'] = $dest_sector;
 }
 
 $variables['body_class'] = 'emerwarp';
-$variables['dest_sector'] = $dest_sector;
 $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
