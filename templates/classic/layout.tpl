@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/{$variables['body_class']}.css.php">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
     <title>{block name=title}Default Page Title{/block}</title>
-    <script src="backends/ckeditor/ckeditor.js"></script>
+    <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>
   </head>
 <!-- END OF HEADER -->
 
@@ -50,7 +50,7 @@
 <div class="footer">
 {if isset($news)}
 <br>
-<script type="text/javascript" src="templates/classic/javascript/newsticker.js.php"></script>
+<script type="text/javascript" src="{$template_dir}/javascript/newsticker.js.php"></script>
 <div id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center;">News Ticker should be here unless you have broken it!</div>
 <script>
 // News Ticker Constructor.
