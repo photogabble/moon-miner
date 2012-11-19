@@ -23,23 +23,20 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_ban.php')) // Prevent direct access to 
     include 'error.php';
 }
 
-// All defines need to be put into the global_defines.php file.
-define ('ID_WATCH',     0x00, true);
-define ('ID_LOCKED',    0x01, true);
-define ('24HR_BAN',     0x02, true);
-define ('ID_BAN',       0x03, true);
-define ('IP_BAN',       0x04, true);
-define ('MULTI_BAN',    0x05, true);
+// All defines _may_ need to be put into the global_defines.php file.
+define ('ID_WATCH',     0x00, true);    // Player flagged as being watched.
+define ('ID_LOCKED',    0x01, true);    // Player flagged as being Locked. 
+define ('24HR_BAN',     0x02, true);    // Player flagged with a 24 Hour Ban.
+define ('ID_BAN',       0x03, true);    // Player flagged as banned by ShipID.
+define ('IP_BAN',       0x04, true);    // Player flagged as banned by IP Address.
+define ('MULTI_BAN',    0x05, true);    // Player flagged as banned by either IP or ShipID.
 
 // Returns a Boolean False when no account info or no ban found.
 // Returns an array which contains the ban information when it has found something.
 // Calling code needs to act on the returned information (boolean false or array of ban info).
 function check_ban ($db, $lang, $langvars, $player_acc = false)
 {
-    // New database driven language entries
-//    load_languages ($db, $lang, array ('global_funcs', 'common'), $langvars);
-
-    // Check to see if we have valid player info.   
+    // Check to see if we have valid player info.
     if(is_bool($player_acc) && $player_acc == false)
     {
         // Nope we do not have valid player info so we return a Boolean False.
@@ -50,7 +47,7 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
     // Check for IP Ban
     $rs = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE (ban_type = ? AND ban_mask = ?) OR (ban_mask = ? AND ? != NULL);", array(IP_BAN, $_SERVER['REMOTE_ADDR'], $player_acc['ip_address'], $player_acc['ip_address']));
     db_op_result ($db, $rs, __LINE__, __FILE__);
-    if($rs instanceof ADORecordSet && $rs->RecordCount() >0)
+    if($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
     {
         // Ok, we have a ban record matching the players current IP Address, so return the BanType.
         return (array) $rs->fields;
@@ -59,8 +56,9 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
     // Check for ID Watch, Ban, Lock, 24H Ban etc linked to the platyers ShipID.
     $rs = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE ban_ship = ?;", array($player_acc['ship_id']));
     db_op_result ($db, $rs, __LINE__, __FILE__);
-    if($rs instanceof ADORecordSet && $rs->RecordCount() >0)
+    if($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
     {
+        // Now return the highest ban type (i.e. worst type of ban)
         $ban_type = array("ban_type"=>0);
         while (!$rs->EOF)
         {
@@ -70,13 +68,13 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
             }
             $rs->MoveNext();
         }
-		return (array) $ban_type;
+        return (array) $ban_type;
     }
 
     // Check for Multi Ban (IP, ID)
     $rs = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE ban_type = ? AND (ban_mask = ? OR ban_mask = ? OR ban_ship = ?)", array(MULTI_BAN, $player_acc['ip_address'], $_SERVER['REMOTE_ADDR'], $player_acc['ship_id']));
     db_op_result ($db, $rs, __LINE__, __FILE__);
-    if($rs instanceof ADORecordSet && $rs->RecordCount() >0)
+    if($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
     {
         // Ok, we have a ban record matching the players current IP Address or their ShipID, so return the BanType.
         return (array) $rs->fields;
@@ -85,7 +83,5 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
     // Well we got here, so we haven't found anything, so we return a Boolean false.
     return (boolean) false;
 }
-
-
 
 ?>
