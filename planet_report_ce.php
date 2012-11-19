@@ -260,7 +260,7 @@ function change_planet_production ($db, $prodpercentarray)
                         admin_log ($db, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
                     }
 
-                    $resx = $db->Execute ("UPDATE {$db->prefix}planets SET ? = ? WHERE planet_id = ? AND owner = ?;", array ($commod_type, $prodpercent, $planet_id, $ship_id));
+                    $resx = $db->Execute ("UPDATE {$db->prefix}planets SET {$commod_type} = ? WHERE planet_id = ? AND owner = ?;", array ($prodpercent, $planet_id, $ship_id));
                     db_op_result ($db, $resx, __LINE__, __FILE__);
 
                     $resy = $db->Execute ("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id = ? AND owner = ?;", array ($planet_id, $ship_id));

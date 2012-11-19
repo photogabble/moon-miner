@@ -1,6 +1,7 @@
 TheMightyDude (19 November 2012)
 --------------------------------------
 Fixed PHP Notice:  Undefined variable: dest_sector in emerwarp.php on line 43, referer: device.php
+Fixed SQL error in planet_report_ce.php we cannot use a bind ? for the tables field name.
 
 TheMightyDude (18 November 2012)
 --------------------------------------
