@@ -6,6 +6,7 @@ Added New Banning Code, still need to add to the Admin Section and Add new Langu
 Cleaned Up check_ban.php file.
 Updated Ranking Page and Template to allow for Online status to be LIME (#00FF00) for easier viewing.
 Added ship_id and ip_address to Ranking Query for check_ban.
+Added team_admin to Ranking Query plus checks to handle the displaying of the admin.
 
 TheMightyDude (18 November 2012)
 --------------------------------------
