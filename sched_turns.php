@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access t
 
 echo "<strong>TURNS</strong><br><br>";
 echo "Adding turns...";
-$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = GREATEST(turns + (? * ?), ?) WHERE turns < ?", array ($turns_per_tick, $multiplier, $max_turns, $max_turns));
+$resa = $db->Execute("UPDATE {$db->prefix}ships SET turns = LEAST(turns + (? * ?), ?) WHERE turns < ?", array ($turns_per_tick, $multiplier, $max_turns, $max_turns));
 db_op_result ($db, $resa, __LINE__, __FILE__);
 is_query_ok ($resa);
 echo "<br>";

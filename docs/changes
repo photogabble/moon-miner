@@ -1,3 +1,7 @@
+TheMightyDude (20 November 2012)
+--------------------------------------
+Fixed bug in sched_turns.php should be using LEAST and not GREATEST.
+
 TheMightyDude (19 November 2012)
 --------------------------------------
 Fixed PHP Notice:  Undefined variable: dest_sector in emerwarp.php on line 43, referer: device.php
