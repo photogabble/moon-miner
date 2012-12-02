@@ -535,7 +535,7 @@ l_insignia_18                           = "Vice Admiral";
 l_insignia_19                           = "Admiral";
 l_local_news                            = "Local News";
 
-[ibank]
+[igb]
 l_ibank_credit_symbol                     = "C";
 l_ibank_title                             = "Die Intergalaktische Bank";
 l_ibank_humor                             = "Ihre Basis geh&ouml;rt uns.";

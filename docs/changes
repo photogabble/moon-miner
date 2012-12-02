@@ -1,3 +1,7 @@
+TheMightyDude (02 December 2012)
+--------------------------------------
+Fixed error in German language file, category was [ibank] should be set to [igb] like the other language files.
+
 TheMightyDude (20 November 2012)
 --------------------------------------
 Fixed bug in sched_turns.php should be using LEAST and not GREATEST.
