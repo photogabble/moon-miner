@@ -161,17 +161,24 @@ echo "<center>" .
      "</center>" .
      "</div>\n";
 
+// Convert the supplied date format (YYYY-MM-DD) to a time stamp.
+$start_time = strtotime($startdate);
+
+// Calculate timestamp for midnight 1 day ago.
+$yd1 = $start_time - (mktime(0,0,0,0,1,0) - 943920000);
+
+// Calculate timestamp for midnight tomorrow.
+$tm = $start_time + (mktime(0,0,0,0,1,0) - 943920000);
+
 $month = substr ($startdate, 5, 2);
-$day = substr ($startdate, 8, 2) - 1;
+$day = substr ($startdate, 8, 2);
 $year = substr ($startdate, 0, 4);
 
-$yesterday = mktime (0,0,0,$month,$day,$year);
-$yesterday = date ("Y-m-d", $yesterday);
+$yesterday = mktime (0, 0, 0, $month, (date("j")-1), $year);
+$yesterday = date ("Y-m-d", $yd1);
 
-$day = substr ($startdate, 8, 2) - 2;
-
-$yesterday2 = mktime (0,0,0,$month,$day,$year);
-$yesterday2 = date ("Y-m-d", $yesterday2);
+$tomorrow = mktime (0, 0, 0, $month, (date("j")+1), $year);
+$tomorrow = date ("Y-m-d", $tm);
 
 if ($mode == 'compat')
 {
@@ -225,11 +232,11 @@ if ($mode != 'compat')
          "</center>" .
          "</div>\n";
 
-    $log_months_temp = "l_log_months_" . (int) (substr ($yesterday2, 5, 2));
-    $entry = $$l_log_months_temp . " " . substr ($yesterday2, 8, 2) . " " . substr ($yesterday2, 0, 4);
+    $log_months_temp = "l_log_months_" . (int) (substr ($tomorrow, 5, 2));
+    $entry = $$l_log_months_temp . " " . substr ($tomorrow, 8, 2) . " " . substr ($tomorrow, 0, 4);
 
     unset ($logs);
-    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday2%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
+    $res = $db->Execute("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
     db_op_result ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -278,14 +285,14 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$l_log_months_short_temp = "l_log_months_short_" . (int) (substr ($startdate, 5, 2) );
-$date1 = $$l_log_months_short_temp . " " . substr ($startdate, 8, 2);
+$l_log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int)(substr ($startdate, 5, 2) );
+$date1 = $$l_log_months_short_temp . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . (int) (substr ($startdate, 5, 2));
-$date2 = $$l_log_months_short_temp . " " . substr ($yesterday, 8, 2);
+$l_log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int)(substr ($startdate, 5, 2));
+$date2 = $$l_log_months_short_temp . " " . date ("d", $start_time);//substr ($startdate, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . (int) (substr ($startdate, 5, 2));
-$date3 = $$l_log_months_short_temp . " " . substr ($yesterday2, 8, 2);
+$l_log_months_short_temp = "l_log_months_short_" . date ("n", $tm);// (int)(substr ($startdate, 5, 2));
+$date3 = $$l_log_months_short_temp . " " . date ("d", $tm);//substr ($tomorrow, 8, 2);
 
 $month = substr ($startdate, 5, 2);
 $day = substr ($startdate, 8, 2) - 3;
@@ -297,18 +304,17 @@ $backlink = date ("Y-m-d", $backlink);
 $day = substr ($startdate, 8, 2) + 3;
 
 $nextlink = mktime (0,0,0,$month,$day,$year);
-if ($nextlink > time ())
-{
-    $nextlink = time ();
-}
-
 $nextlink = date ("Y-m-d", $nextlink);
 
 $nonext = 0;
-if ($startdate == date ("Y-m-d"))
-{
-    $nonext = 1;
-}
+#if ($startdate == date ("Y-m-d"))
+#{
+#    $nonext = 1;
+#}
+#else
+#{
+#    $nonext = 0;
+#}
 
 if ($swordfish == ADMIN_PW) // Fix for admin log view
 {
@@ -345,11 +351,11 @@ else
 {
     echo "<tr><td><td align=right>" .
          "<a href=log.php?startdate={$backlink}$postlink><font color=white size =3><strong><<</strong></font></a>&nbsp;&nbsp;&nbsp;" .
-         "<a href=log.php?startdate={$yesterday2}$postlink><font color=white size=3><strong>$date3</strong></font></a>" .
+         "<a href=log.php?startdate={$yesterday}$postlink><font color=white size=3><strong>$date1</strong></font></a>" .
          "&nbsp;|&nbsp;" .
-         "<a href=log.php?startdate={$yesterday}$postlink><font color=white size=3><strong>$date2</strong></font></a>" .
+         "<a href=log.php?startdate={$startdate}$postlink><font color=white size=3><strong>$date2</strong></font></a>" .
          " | " .
-         "<a href=log.php?startdate={$startdate}$postlink><font color=white size=3><strong>$date1</strong></font></a>";
+         "<a href=log.php?startdate={$tomorrow}$postlink><font color=white size=3><strong>$date3</strong></font></a>";
 
     if ($nonext != 1)
     {
@@ -738,4 +744,5 @@ function get_log_info ($id = null, &$title = null, &$text = null)
         }
     }
 }
+
 ?>

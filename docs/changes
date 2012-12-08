@@ -1,3 +1,7 @@
+TheMightyDude (08 December 2012)
+--------------------------------------
+Updated log.php by request so that current selected date is the middle date allowing to move to the previous and next day and also jump back and forth 3 days.
+
 TheMightyDude (02 December 2012)
 --------------------------------------
 Fixed error in German language file, category was [ibank] should be set to [igb] like the other language files.
