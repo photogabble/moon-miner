@@ -225,7 +225,7 @@ function calc_ownership ($db, $sector)
 
     if ($owners[$winner]['type'] == 'C')
     {
-        $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' && owner=?", array ($owners[$winner]['id']));
+        $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' AND owner=?", array ($owners[$winner]['id']));
         db_op_result ($db, $res, __LINE__, __FILE__);
         $zone = $res->fields;
 
@@ -260,7 +260,7 @@ function calc_ownership ($db, $sector)
         }
         else
         {
-            $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' && owner=?", array ($owners[$winner]['id']));
+            $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array ($owners[$winner]['id']));
             db_op_result ($db, $res, __LINE__, __FILE__);
             $zone = $res->fields;
 

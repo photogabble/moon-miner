@@ -1,3 +1,7 @@
+TheMightyDude (17 December 2012)
+--------------------------------------
+Fixed a 10+ year old bug with checking ownership of a sector when building a base.
+
 TheMightyDude (08 December 2012)
 --------------------------------------
 Updated log.php by request so that current selected date is the middle date allowing to move to the previous and next day and also jump back and forth 3 days.
