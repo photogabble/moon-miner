@@ -1,6 +1,7 @@
 TheMightyDude (24 December 2012)
 --------------------------------------
 Sanitized ZoneName so that we no longer have loads of \\ in the ZoneName.
+Combined Planet amount and Max amount of Colonists along with the planet owner name into a single query, resulting in a performance boost.
 
 TheMightyDude (17 December 2012)
 --------------------------------------

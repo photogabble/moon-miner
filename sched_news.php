@@ -30,16 +30,22 @@ global $default_lang;
 // New database driven language entries
 load_languages ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-echo "<strong>Posting News</strong><br><br>";
+echo "<strong>Posting News</strong><br>\n";
 
-// Generation of planet amount
-$sql = $db->Execute ("SELECT COUNT(owner) AS amount, owner FROM {$db->prefix}planets WHERE owner != '0' GROUP BY owner ORDER BY amount ASC");
+$sql = $db->Execute ("SELECT IF(COUNT(*)>0, SUM(colonists), 0) AS total_colonists, COUNT(owner) AS total_planets,  owner, character_name FROM {$db->prefix}planets, {$db->prefix}ships WHERE owner != '0' AND owner=ship_id GROUP BY owner ORDER BY owner ASC;");
 db_op_result ($db, $sql, __LINE__, __FILE__);
 
 while (!$sql->EOF)
 {
     $row = $sql->fields;
-    if ($row['amount'] >= 1000)
+
+    // Get the owner name.
+    $name = $row['character_name'];
+
+    echo "&nbsp;&bull;&nbsp;Processing Planet(s) owned by {$name}({$row['owner']}) - Planets: ". number_format($row['total_planets']) .", Colonists: ". number_format($row['total_colonists']) ."<br>\n";
+
+    // Generation of planet amount
+    if ($row['total_planets'] >= 1000)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet1000';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -47,7 +53,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 1000;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text1002 = str_replace ("[name]", $name, $l_news_p_text1000);
@@ -55,7 +60,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 500)
+    elseif ($row['total_planets'] >= 500)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet500';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -63,7 +68,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 500;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text502 = str_replace ("[name]", $name, $l_news_p_text500);
@@ -71,7 +75,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 250)
+    elseif ($row['total_planets'] >= 250)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet250';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -79,7 +83,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 250;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text2502 = str_replace ("[name]", $name, $l_news_p_text250);
@@ -87,7 +90,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 100)
+    elseif ($row['total_planets'] >= 100)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet100';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -95,7 +98,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 100;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text102 = str_replace ("[name]", $name, $l_news_p_text100);
@@ -103,7 +105,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 50)
+    elseif ($row['total_planets'] >= 50)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet50';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -111,7 +113,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 50;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text502 = str_replace ("[name]", $name, $l_news_p_text50);
@@ -119,7 +120,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 25)
+    elseif ($row['total_planets'] >= 25)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet25';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -127,7 +128,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 25;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text252 = str_replace ("[name]", $name, $l_news_p_text25);
@@ -135,7 +135,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 10)
+    elseif ($row['total_planets'] >= 10)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet10'", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -143,7 +143,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 10;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text102 = str_replace ("[name]", $name, $l_news_p_text10);
@@ -151,7 +150,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 5)
+    elseif ($row['total_planets'] >= 5)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'planet5';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -159,7 +158,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 5;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name,$l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $planetcount ." ". $l_news_planets;
             $l_news_p_text52 = str_replace ("[name]", $name,$l_news_p_text5);
@@ -167,19 +165,10 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    $sql->MoveNext();
-} // while
-// end generation of planet amount
+    // end generation of planet amount
 
-
-// generation of colonist amount
-$sql = $db->Execute ("SELECT SUM(colonists) AS amount, owner FROM {$db->prefix}planets WHERE owner !='0' GROUP BY owner ORDER BY amount ASC");
-db_op_result ($db, $sql, __LINE__, __FILE__);
-
-while (!$sql->EOF)
-{
-    $row = $sql->fields;
-    if ($row['amount'] >= 1000000000)
+    // generation of colonist amount
+    if ($row['total_colonists'] >= 1000000000)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col1000';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -187,7 +176,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $colcount = 1000;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $colcount ." ". $l_news_cols;
             $l_news_c_text10002 = str_replace ("[name]", $name, $l_news_c_text1000);
@@ -195,7 +183,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 500000000)
+    elseif ($row['total_colonists'] >= 500000000)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col500';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -203,7 +191,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $colcount = 500;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $colcount ." ". $l_news_cols;
             $l_news_c_text5002 = str_replace ("[name]", $name, $l_news_c_text500);
@@ -211,7 +198,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 100000000)
+    elseif ($row['total_colonists'] >= 100000000)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col100';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -219,7 +206,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $colcount = 100;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $colcount ." ". $l_news_cols;
             $l_news_c_text1002 = str_replace ("[name]", $name, $l_news_c_text100);
@@ -227,7 +213,7 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
-    elseif ($row['amount'] >= 25000000)
+    elseif ($row['total_colonists'] >= 25000000)
     {
         $sql2 = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE user_id = ? AND news_type = 'col25';", array ($row['owner']));
         db_op_result ($db, $sql2, __LINE__, __FILE__);
@@ -235,7 +221,6 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $colcount = 25;
-            $name = get_player_name ($db, $row['owner']);
             $l_news_p_headline2 = str_replace ("[player]", $name, $l_news_p_headline);
             $headline = $l_news_p_headline2 ." ". $colcount ." ". $l_news_cols;
             $l_news_c_text252 = str_replace ("[name]", $name, $l_news_c_text25);
@@ -243,19 +228,13 @@ while (!$sql->EOF)
             db_op_result ($db, $news, __LINE__, __FILE__);
         }
     }
+    // end generation of colonist amount
+
     $sql->MoveNext();
 } // while
-// end generation of colonist amount
+
+echo "--- <strong>End of News</strong> ---<br><br>\n";
 
 $multiplier = 0; // No need to run this again
 
-// This function is only being used in this file.
-function get_player_name ($db, $userid)
-{
-    $query = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($userid));
-    db_op_result ($db, $query, __LINE__, __FILE__);
-    $name = $query->fields;
-
-    return $name['character_name'];
-}
 ?>
