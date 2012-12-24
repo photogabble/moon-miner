@@ -96,6 +96,9 @@ if ($res->EOF)
 }
 $curzone = $res->fields;
 
+// Sanitize ZoneName.
+$curzone['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $curzone['zone_name']);
+
 if ($curzone['corp_zone'] == 'N')
 {
     $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -121,6 +124,9 @@ if ($command == 'change')
 {
     global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
     global $l_clickme, $l_ze_saved, $l_ze_return;
+
+    // Sanitize ZoneName.
+    $name = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $name);
 
     if (!get_magic_quotes_gpc())
     {

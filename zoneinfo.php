@@ -72,6 +72,9 @@ else
     }
     else
     {
+        // Sanitize ZoneName.
+        $row['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $row['zone_name']);
+
         if ($row['corp_zone'] == 'N')
         {
             $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['owner']));

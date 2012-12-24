@@ -1,3 +1,7 @@
+TheMightyDude (24 December 2012)
+--------------------------------------
+Sanitized ZoneName so that we no longer have loads of \\ in the ZoneName.
+
 TheMightyDude (17 December 2012)
 --------------------------------------
 Fixed a 10+ year old bug with checking ownership of a sector when building a base.

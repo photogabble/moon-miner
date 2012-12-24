@@ -188,6 +188,9 @@ if ($zoneinfo['zone_id'] < 5)
     $zoneinfo['zone_name'] = $$zonevar;
 }
 
+// Sanitize ZoneName.
+$zoneinfo['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $zoneinfo['zone_name']);
+
 echo "    <td style='text-align:right; color:#ccc; font-size:12px; font-weight:bold;'><a class='new_link' href='zoneinfo.php?zone={$zoneinfo['zone_id']}'>{$zoneinfo['zone_name']}</a>&nbsp;</td>\n";
 echo "  </tr>\n";
 echo "</table>\n";
