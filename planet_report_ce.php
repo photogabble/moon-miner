@@ -298,7 +298,7 @@ function change_planet_production ($db, $prodpercentarray)
                         $planet_hack = true;
                         $hack_id = 0x18531;
                         $hack_count[1]++;
-                        admin_log ($db, LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray[team_id]} not {$team_id}");
+                        admin_log ($db, LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray['team_id']} not {$team_id}");
                     }
                 }
                 else
