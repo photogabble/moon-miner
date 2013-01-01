@@ -3,6 +3,7 @@ TheMightyDude (01 January 2013)
 Added a feature to erase old out of date Session Data.
 Fixed PHP Notice: Undefined index: team_id in planet_report_ce.php on line 301
 First part of the Plugin and Event Systems (this may break stuff)
+Second part of the Plugin and Event System, Cleanup and [test plugin] (THIS WILL BREAK)
 Oh and Happy New Year.
 
 TheMightyDude (24 December 2012)
