@@ -310,6 +310,45 @@ if ($detected == false)
     echo "<hr style='width:300px; height:1px; padding:0px; margin:0px; text-align:left;' />\n";
 }
 
+echo "<br>\n";
+echo "Checking for Old Session Data...<br>\n";
+
+$old_sessions = 0;
+
+$resl = $db->Execute("SELECT COUNT(*) as old FROM {$db->prefix}sessions WHERE expiry < NOW();");
+db_op_result ($db, $resl, __LINE__, __FILE__);
+if ($resl instanceof ADORecordSet)
+{
+    $old_sessions = (integer) $resl->fields['old'];
+    if ($old_sessions >0)
+    {
+        echo "Found {$old_sessions} Old Sessions that needs to be removed.<br>\n";
+
+        $resm = $db->Execute("DELETE FROM {$db->prefix}sessions WHERE expiry < NOW();");
+        db_op_result ($db, $resm, __LINE__, __FILE__);
+        if ($db->ErrorNo() >0)
+        {
+            echo "error: ". $db->ErrorMsg() . "<br>\n";
+        }
+        echo "<br>\n";
+
+        // Not too sure if this is just a MySQL Query or if its usable on other Databases.
+        echo "Optimizing Session Table.<br>\n";
+        $resn = $db->Execute("OPTIMIZE TABLE {$db->prefix}sessions;");
+        db_op_result ($db, $resn, __LINE__, __FILE__);
+        if ($db->ErrorNo() >0)
+        {
+            echo "error: ". $db->ErrorMsg() . "<br>\n";
+        }
+        echo "<br>\n";
+    }
+    else
+    {
+        echo "Not found any old Session data - Skipping...<br>\n";
+        echo "<br>\n";
+    }
+}
+
 echo "The Governor has completed.<br>\n";
 echo "<br>\n";
 
