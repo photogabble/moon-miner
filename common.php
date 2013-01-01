@@ -220,7 +220,18 @@ if (empty ($link_forums))
 }
 
 $ip = $_SERVER['REMOTE_ADDR'];
-$plugin_config = array ();
+
+// Initialize the Event System.
+EventSystem::Initialize();
+
+//$plugin_config = array ();
+
+// Initialize the Plugin System.
+PluginSystem::Initialize($db);
+
+// Load all Plugins.
+PluginSystem::LoadPlugins();
+
 $admin_list = array ();
 date_default_timezone_set ('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 

@@ -45,6 +45,12 @@ include_once $ADOdbpath . "/session/adodb-session2.php";
 include_once $ADOdbpath . "/session/adodb-encrypt-mcrypt.php";
 include_once $ADOdbpath . "/session/adodb-compress-gzip.php";
 
+// Needed for the Event System used by the Plugins.
+require_once "./classes/eventsystem/event_system.php";
+
+// Needed for the Plugin System/Handler
+require_once "./classes/pluginsystem/plugin_system.php";
+
 require_once './classes/bnt/spl_class_loader.php';
 require_once './common.php';
 ?>
