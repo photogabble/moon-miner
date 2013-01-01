@@ -126,6 +126,7 @@ echo "</table>\n";
 echo "<br>\n";
 echo "<br>\n";
 */
+
 $title="Game Administrators";
 echo "<h1>" . $title . "</h1>\n";
 $found_blues = 0;
@@ -150,79 +151,97 @@ if ($found_blues === 0)
 }
 echo "<br>\n";
 
-$title="Loaded Plugins";
+$pluginInfo = PluginSystem::GetPluginInfo();
+
+$title="Loaded ". count($pluginInfo) ." Plugin(s)";
 echo "<h1>" . $title . "</h1>\n";
 
-if (count($plugin_config) <=0)
+if (count($pluginInfo) <=0)
 {
     echo "<div style='width:798px; font-size:14px; color:#fff; background-color:#500050; padding-top:2px; padding-bottom:2px; border:#fff 1px solid;'>&nbsp;No Plugins enabled.</div>\n";
     echo "<br>\n";
 }
 else
 {
-   $plugin_id = 0;
-   foreach ($plugin_config as $plugin_name => $plugin_switches)
-   {
-       if ($plugin_config[$plugin_name]['enabled'] == true && (isset($plugin_config[$plugin_name]['has_settings']) && $plugin_config[$plugin_name]['has_settings'] == true))
-       {
-           if (is_callable (array ($$plugin_name, 'getPluginInfo')))
-           {
-               $plugin_id ++;
-               $pluginInfo = call_user_func( array ($$plugin_name, 'getPluginInfo') );
-#              $pluginInfo = $$plugin_name->getPluginInfo();
-               $pluginCount = count ($pluginInfo['modules']);
+    $plugin_id = 0;
+    foreach ($pluginInfo as $plugin_name => $plugin_object)
+    {
+        $plugin_info = $plugin_object->getPluginInfo(true);
+        if ($plugin_info['switches']['enabled'] == true && (isset($plugin_info['switches']['has_settings']) && $plugin_info['switches']['has_settings'] == true))
+        {
+            $plugin_id ++;
 
-               $plugin['id']            = "0x". str_pad ($plugin_id, 4, "0", STR_PAD_LEFT);
-               $plugin['type']            = $plugin_config[$plugin_name]['plugin_type'];
+            $plugin['id']               = "0x". str_pad ($plugin_id, 4, "0", STR_PAD_LEFT);
+            $plugin['type']             = $plugin_info['switches']['plugin_type'];
+            $plugin['name']             = $plugin_info['AppName'];
+            $plugin['version']          = $plugin_info['Version'];
+            $plugin['author']           = $plugin_info['Author'];
 
-               $plugin['name']            = $pluginInfo['name'];
-               $plugin['version']        = $pluginInfo['version'];
-               $plugin['author']        = $pluginInfo['author'];
+            $plugin['coreversion']    = "Version {$plugin_info['pluginVer']}";
 
-               if (isset($pluginInfo['isDisabled']) && $pluginInfo['isDisabled'] == true)
-               {
-                   $plugin['name'] .= " (<span style='color:#f00;'>Diasbled</span>)";
-               }
+            $plugin['uses_events']            = (boolean) false;
+            if (isset($plugin_info['usesEvents']))
+            {
+                $plugin['uses_events']        = (boolean) $plugin_info['usesEvents'];
+            }                
 
-               echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
-               $line_color = "#500050";
-#              title("Plugin Type: {$plugin['title']}");
-               line("ID:","<span style='color:#ff0; font-size:14px;'>{$plugin['id']}</span>", "right");
-               line("Name:","<span style='color:#ff0; font-size:14px;'>{$plugin['name']}</span>", "right");
-               line("Version:","<span style='color:#ff0; font-size:14px;'>v{$plugin['version']}</span>", "right");
-               line("Author:", "<span style='color:#0f0; font-size:14px;'>{$plugin['author']}</span>", "right");
-               line("Type:","<span style='color:#fff; font-size:14px;'>{$plugin['type']}</span>", "right");
+            if (isset($plugin_info['isDisabled']) && $plugin_info['isDisabled'] == true)
+            {
+                $plugin['name'] .= " (<span style='color:#f00;'>Diasbled</span>)";
+            }
 
-               if ($pluginCount >0)
-               {
-                   line_spacer();$line_color = "#C0C0C0";
-                   line_a("<span style='color:#000; font-size:10px; height:10px; padding:0px;'>Loaded {$pluginCount} Modules</span>", "center");
-                   foreach ($pluginInfo['modules'] as $module_name => $module)
-                   {
-                       if (class_exists($module_name))
-                       {
-                           $module_disabled = null;
-                           if (isset($module['isDisabled']) && $module['isDisabled'] == true)
-                           {
-                               $module_disabled = " (<span style='color:#f00;'>Diasbled</span>)";
-                           }
+            $plugin['description'] = null;
+            if (isset($plugin_info['description']))
+            {
+                $plugin['description']        = (string) $plugin_info['description'];
+            }                
 
-                           $module_stage = null;
-                           if (isset($module['stage']))
-                           {
-                               $module_stage = " [<span style='color:#ff0;'>{$module['stage']}</span>]";
-                           }
+            echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
+            $line_color = "#500050";
+            line("ID:","<span style='color:#ff0; font-size:14px;'>{$plugin['id']}</span>", "right");
+            line("Name:","<span style='color:#ff0; font-size:14px;'>{$plugin['name']}</span>", "right");
+            line("Version:","<span style='color:#ff0; font-size:14px;'>v{$plugin['version']}</span>", "right");
+            line("Author:", "<span style='color:#0f0; font-size:14px;'>{$plugin['author']}</span>", "right");
+            if (!is_null($plugin['description'])) line("Description:","<span style='color:#fff; font-size:14px;'>{$plugin['description']}</span>", "right");
+            line("Type:","<span style='color:#fff; font-size:14px;'>{$plugin['type']}</span>", "right");
+            line("[DEBUG] Plugin Core Version:","<span style='color:#00FF00; font-size:14px;'>{$plugin['coreversion']}</span>", "right");
+            line("[DEBUG] Uses Events:","<span style='color:#00FF00; font-size:14px;'>". ($plugin['uses_events']?"Yes":"No")."</span>", "right");
+            echo "</table>\n";
 
-                           line2("<span style='font-size:12px;'>{$module['AppName']}{$module_disabled}{$module_stage}</span>","<span style='color:#ff0; font-size:12px;'>v{$module['Version']} <span style='color:#fff;'>[<span style='color:#0f0;'>{$module['Author']}</span>]</span></span>", "right");
-                       }
-                   }
-                   echo "<tr><td colspan=\"2\" style='height:1px; padding:0px; background-color:#FFCC00;'></td></tr>\n";
-               }
-           }
-           echo "</table>\n";
-           echo "<br>\n";
-       }
-   }
+            $pluginCount = count ($plugin_info['modules']);
+            if ($pluginCount >0)
+            {
+                echo "<table style='width:800px; font-size:14px; color:#FFFFFF;' border='0' cellspacing='0' cellpadding='2'>";
+                line_spacer();$line_color = "#C0C0C0";
+                line_a("<span style='color:#000; font-size:10px; height:10px; padding:0px;'>Loaded {$pluginCount} Modules</span>", "center");
+                foreach ($plugin_info['modules'] as $module_name => $module)
+                {
+                    if (class_exists($module_name))
+                    {
+                        $module_disabled = null;
+                        if (isset($module['isDisabled']) && $module['isDisabled'] == true)
+                        {
+                            $module_disabled = " (<span style='color:#f00;'>Diasbled</span>)";
+                        }
+
+                        $module_stage = null;
+                        if (isset($module['stage']))
+                        {
+                            $module_stage = " [<span style='color:#ff0;'>{$module['stage']}</span>]";
+                        }
+
+                        line2("<span style='font-size:12px;'>{$module['AppName']}{$module_disabled}{$module_stage}</span>","<span style='color:#ff0; font-size:12px;'>v{$module['Version']} <span style='color:#fff;'>[<span style='color:#0f0;'>{$module['Author']}</span>]</span></span>", "right");
+                    }
+                }
+                echo "<tr><td colspan=\"2\" style='height:1px; padding:0px; background-color:#FFCC00;'></td></tr>\n";
+                echo "</table>\n";
+            }
+            else
+            {
+            }
+            echo "<br>\n";
+        }
+    }
 }
 
 $title="Game Settings";

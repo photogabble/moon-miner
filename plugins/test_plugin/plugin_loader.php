@@ -34,6 +34,7 @@ if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled']
         static $usesEvents                      = true;
         static $moduleSupport                   = true;
         static $pluginVer                       = "3a";
+        static $description                     = "displays hello world after every 5 seconds.";
 
         private $switches                       = NULL;
 
@@ -54,13 +55,13 @@ if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled']
         public function Initialize($db = null)
         {
             // Need to put all Initialization stuff here along with all the Event Hooks.
-            // PluginSystem::AddEventHook(EVENT_PLAYER_JOIN, $this);
+            PluginSystem::AddEventHook(EVENT_TICK, $this);
         }
 
         function getPluginInfo($needModuleList = false)
         {
             $info = NULL;
-            $info = get_class_vars("FriendsList");
+            $info = get_class_vars("PluginTest");
 
             $info['switches'] = $this->switches;
 
@@ -71,8 +72,20 @@ if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled']
 
         function OnEvent()
         {
-            // echo "Hello World ('". implode("', '", func_get_args()) ."')<br />\n";
-            // This is called along with arguments.
+            // This is called along with arguments only on the settings page.
+            if (substr(strrchr($_SERVER['PHP_SELF'], DIRECTORY_SEPARATOR), 1) === "settings.php")
+            {
+                if (!isset($_SESSION['plugin_data']['PluginTest']['last_run']))
+                {
+                    $_SESSION['plugin_data']['PluginTest']['last_run'] = time();
+                }
+
+                if (isset($_SESSION['plugin_data']['PluginTest']['last_run']) && time() >= ($_SESSION['plugin_data']['PluginTest']['last_run'] + 5) )
+                {
+                    echo "Hello World ('". date(DATE_RFC822, implode("', '", func_get_args())) ."')<br />\n";
+                    $_SESSION['plugin_data']['PluginTest']['last_run'] = time();
+                }
+            }
         }
     }
 }
