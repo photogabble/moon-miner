@@ -1,3 +1,8 @@
+TheMightyDude (13 January 2013)
+--------------------------------------
+Fixed PHP Notice: Undefined variable: tempd1 in planet_report_ce.php on line 467
+Fixed PHP Notice: Undefined variable: tempd2 in planet_report_ce.php on line 468
+
 TheMightyDude (01 January 2013)
 --------------------------------------
 Added a feature to erase old out of date Session Data.

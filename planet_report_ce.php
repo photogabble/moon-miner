@@ -464,8 +464,8 @@ function take_credits ($db, $sector_id, $planet_id)
         else
         {
             $tempc1 = str_replace ("[planet_name]", $planetinfo['name'], $langvars['l_pr_not_enough_turns']);
-            $tempc2 = str_replace ("[sector_id]", $planetinfo['sector_id'], $tempd1);
-            echo "<br><br>" . $tempd2 . "<br><br>";
+            $tempc2 = str_replace ("[sector_id]", $planetinfo['sector_id'], $tempc1);
+            echo "<br><br>" . $tempc2 . "<br><br>";
             $retval = "BREAK-TURNS";
         }
     }
