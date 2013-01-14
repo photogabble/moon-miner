@@ -1,3 +1,7 @@
+TheMightyDude (14 January 2013)
+--------------------------------------
+Fixed the no space between the players name and the news when they are killed.
+
 TheMightyDude (13 January 2013)
 --------------------------------------
 Fixed PHP Notice: Undefined variable: tempd1 in planet_report_ce.php on line 467

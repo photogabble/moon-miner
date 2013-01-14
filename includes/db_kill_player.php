@@ -84,7 +84,7 @@ function db_kill_player ($db, $ship_id, $remove_planets = false)
     db_op_result ($db, $query, __LINE__, __FILE__);
     $name = $query->fields;
 
-    $headline = $name['character_name'] . $langvars['l_killheadline'];
+    $headline = $name['character_name'] ." ". $langvars['l_killheadline'];
 
     $newstext = str_replace("[name]", $name['character_name'], $langvars['l_news_killed']);
 
