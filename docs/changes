@@ -1,3 +1,7 @@
+TheMightyDude (16 January 2013)
+--------------------------------------
+Fixed bug in the languages where it would display $base_credits etc.
+
 TheMightyDude (14 January 2013)
 --------------------------------------
 Fixed the no space between the players name and the news when they are killed.
