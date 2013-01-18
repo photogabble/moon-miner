@@ -1,3 +1,7 @@
+TheMightyDude (18 January 2013)
+--------------------------------------
+Forgot to add in the Event caller for EVENT_TICK, my bad.
+
 TheMightyDude (16 January 2013)
 --------------------------------------
 Fixed bug in the languages where it would display $base_credits etc.
