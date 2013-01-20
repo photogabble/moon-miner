@@ -1347,6 +1347,3 @@ Fixed a bug in combat.php3 that would result in
 negative fighters being left after a planetary attack,
 even if you only lost 1 fighters and had a ton of
 fighters left.
-
-
-test
