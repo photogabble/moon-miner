@@ -1,3 +1,7 @@
+TheKabal (20 January 2013)
+--------------------------------------
+Replaced variables in language files with [placeholder] text that is replaced with variables.
+
 TheMightyDude (18 January 2013)
 --------------------------------------
 Forgot to add in the Event caller for EVENT_TICK, my bad.

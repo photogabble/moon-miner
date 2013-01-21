@@ -582,7 +582,7 @@ l_ibank_errunknownplanet                  = "Erreur de donnée! Planète inconnue!
 l_ibank_errnotyourplanet                  = "Vous ne pouvez transférer de l'argent de/vers une planète qui ne vous appartient pas.";
 l_ibank_srcplanet                         = "Src -> Planète";
 l_ibank_destplanet                        = "Dst -> Planète";
-l_ibank_transferrate2                     = "$l_ibank_transferrate";
+l_ibank_transferrate2                     = "Taux actuel pour les transferts est [ibank_num_percent]% du montant total Il sera automatiquement déduite du montant que vous transférez.";
 l_ibank_errsendyourself                   = "l_ibank_sendyourself";
 l_ibank_min_turns3                        = "l_ibank_min_turns";
 l_ibank_min_turns4                        = "l_ibank_min_turns2";
@@ -827,7 +827,7 @@ l_logout_text                           = "[name] est maintenant déconnecté.  Cl
 [lrscan]
 l_lrs_title                             = "Sonde longue distance";
 l_lrs_nofull                            = "Vos sondeurs ne possèdent aucune fonction longue distance.";
-l_lrs_noturns                           = "Vous avez besoin d'au moins $fullscan_cost tour(s) pour performer un sondage complet.";
+l_lrs_noturns                           = "Vous avez besoin d'au moins [fullscan_cost] tour(s) pour performer un sondage complet.";
 l_lrs_used                              = "Vous avez utilisé";
 l_lrs_turns                             = "tour(s)";
 l_lrs_left                              = "restant";
@@ -1102,7 +1102,7 @@ l_planet2_baseexceeded                  = "Planets without a base can not hold t
 l_planet3_title                         = "Commerce de planète";
 
 [planet_report]
-l_pr_cannot_move_defenses               = "Vous ne pouvez pas passer au secteur $ destination à travers les défenses ennemies";
+l_pr_cannot_move_defenses               = "Vous ne pouvez pas passer au secteur [destination] à travers les défenses ennemies";
 l_pr_checking_values                    = "Vérification des valeurs de plus de 100% et les valeurs négatives de production";
 l_pr_click_return                       = "Cliquez [here] pour revenir au menu du rapport";
 l_pr_click_return_planet                = "Cliquez [here] pour revenir au menu planète";
@@ -1495,7 +1495,7 @@ l_warp_destquery                        = "Vers quel secteur voudriez-vous détru
 l_warp_bothway                          = "Deux sens";
 l_warp_nosector                         = "Ce secteur n'existe pas.";
 l_warp_twoerror                         = "L'utilisation d'un éditeur de lien pour créer un lien vers [target_sector] n'est pas permis.";
-l_warp_sectex                           = "Vous ne pouvez créer un lien à partir du secteur courant - vous dépasseriez la limited de $link_max par secteur.";
+l_warp_sectex                           = "Vous ne pouvez créer un lien à partir du secteur courant - vous dépasseriez la limited de [link_max] par secteur.";
 l_warp_linked                           = "Le secteur cible ([target_sector]) à déjà un lien à partir de ce secteur.";
 l_warp_unlinked                         = "Le secteur cible ([target_sector]) n'a pas de lien à partir de ce secteur.";
 l_warp_coneway                          = "Lien a sens unique créé vers";

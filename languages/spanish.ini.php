@@ -827,7 +827,7 @@ l_logout_text                           = "[name] está ahora desconectado. Pulsa
 [lrscan]
 l_lrs_title                             = "Escaneo de Largo Alcance";
 l_lrs_nofull                            = "Tus escáners no poseen la capacidad de realizar escaneos de largo alcance.";
-l_lrs_noturns                           = "Necesitas al menos $fullscan_cost turno(s) para realizar un escaneo de largo alcance.";
+l_lrs_noturns                           = "Necesitas al menos [fullscan_cost] turno(s) para realizar un escaneo de largo alcance.";
 l_lrs_used                              = "Usado";
 l_lrs_turns                             = "turno(s)";
 l_lrs_left                              = "restantes";
@@ -1495,7 +1495,7 @@ l_warp_destquery                        = "¿Hacia qué sector quieres quitar el e
 l_warp_bothway                          = "Ambas direcciones";
 l_warp_nosector                         = "El sector no existe.";
 l_warp_twoerror                         = "No está permitido usar un Editor de Saltos para crear un enlace de ambas direcciones en el sector [target_sector].";
-l_warp_sectex                           = "No se puede crear un enlace de salto desde el sector actual - habrás excedido el máximo de $link_max por sector.";
+l_warp_sectex                           = "No se puede crear un enlace de salto desde el sector actual - habrás excedido el máximo de [link_max] por sector.";
 l_warp_linked                           = "El sector de destino ([target_sector]) ya tiene un enlace desde este sector.";
 l_warp_unlinked                         = "El enlace de destino ([target_sector]) no tiene un enlace desde este sector.";
 l_warp_coneway                          = "Se ha creado un enlace de una dirección hacia";

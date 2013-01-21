@@ -827,7 +827,7 @@ l_logout_text                           = "[name] ist nun ausgeloggt. Klicke [he
 [lrscan]
 l_lrs_title                             = "Long Range Scan";
 l_lrs_nofull                            = "Deine Scanner haben keine Long Range Scan F&auml;higkeiten.";
-l_lrs_noturns                           = "Du brauchst $fullscan_cost Z&uuml;ge f&uuml;r einen Long Range Scan.";
+l_lrs_noturns                           = "Du brauchst [fullscan_cost] Z&uuml;ge f&uuml;r einen Long Range Scan.";
 l_lrs_used                              = "Brauchte";
 l_lrs_turns                             = "Z&uuml;ge";
 l_lrs_left                              = "&uuml;brig";
@@ -1102,7 +1102,7 @@ l_planet2_baseexceeded                  = "Planeten ohne Basis k&ouml;nnen nicht
 l_planet3_title                         = "Planet verkaufen";
 
 [planet_report]
-l_pr_cannot_move_defenses               = "Sie können nicht zu Sektors $ destination durch feindliche Verteidigung zu bewegen";
+l_pr_cannot_move_defenses               = "Sie können nicht zu Sektors [destination] durch feindliche Verteidigung zu bewegen";
 l_pr_checking_values                    = "Überprüfen Werte für mehr als 100% und negative Produktion Werte";
 l_pr_click_return                       = "Klicken Sie [here], um den Bericht zurückzukehren";
 l_pr_click_return_planet                = "Klicken Sie [here], um den Planeten zurückzukehren";
@@ -1495,7 +1495,7 @@ l_warp_destquery                        = "Zu welchem Sektor m&ouml;chtest Du ei
 l_warp_bothway                          = "Zweiweg(Hin und Zur&uuml;ck)";
 l_warp_nosector                         = "Sektor existiert nicht.";
 l_warp_twoerror                         = "Benutzung des Warp Editor zur Erzeugung eines Zweiweg Links zu Sektor [target_sector] ist nicht erlaubt.";
-l_warp_sectex                           = "Warp Link von diesem Sektor nicht m&ouml;glich - maximal $link_max per sector m&ouml;glich.";
+l_warp_sectex                           = "Warp Link von diesem Sektor nicht m&ouml;glich - maximal [link_max] per sector m&ouml;glich.";
 l_warp_linked                           = "Zielsektor ([target_sector]) hat bereits einen Link von diesem Sektor.";
 l_warp_unlinked                         = "Zielsektor ([target_sector]) hat keinen Link von diesem Sektor.";
 l_warp_coneway                          = "Einweg Link erstellt zu";
