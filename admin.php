@@ -45,7 +45,7 @@ $button_main = false;
 // Clear variables array before use, and set array with all used variables in page
 $variables = null;
 
-$variables['is_admin'] == false;
+$variables['is_admin'] = false;
 if ($swordfish == ADMIN_PW)
 {
     $i = 0;
