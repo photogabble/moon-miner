@@ -37,6 +37,9 @@ class template
         $this->initialized              = (boolean) false;
         $this->api                      = array();
 
+// Temp disabled code due to exploit, do not remove, 
+// will be reverting back once exploit is fixed.
+/*
         // Here we check if it's an External Client, else it's a Browser Client.
         request_var("SERVER", "HTTP_ACCEPT", $accept);
 
@@ -64,6 +67,8 @@ class template
                 }
             }
         }
+*/
+        $this->Initialize(TEMPLATE_USE_SMARTY);
     }
 
     function __destruct()
