@@ -42,9 +42,13 @@ $filename = null;
 $menu_location = null;
 $button_main = false;
 
+// Clear variables array before use, and set array with all used variables in page
+$variables = null;
+
 if ($swordfish == ADMIN_PW)
 {
     $i = 0;
+    $variables['is_admin'] == true;
     $option_title = array ();
     $admin_dir = new DirectoryIterator ('admin/');
     foreach ($admin_dir as $file_info) // Get a list of the files in the admin directory
@@ -81,12 +85,9 @@ if ($swordfish == ADMIN_PW)
     }
 }
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
 $variables['body_class'] = 'admin';
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
-$variables['admin_pw'] = ADMIN_PW;
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 $variables['menu'] = $menu;
 $variables['filename'] = $filename;

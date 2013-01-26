@@ -23,7 +23,7 @@
 {block name=body_title}<h1>{$langvars['l_admin_title']}</h1>{/block}
 
 {block name=body}
-{if $variables['swordfish'] != $variables['admin_pw']}
+{if $variables['is_admin'] != true}
     <form action="admin.php" method="post">
     {$langvars['l_admin_password']}: <input type="password" name="swordfish" size="20" maxlength="20">&nbsp;&nbsp;
     <input type="submit" value="{$langvars['l_submit']}"><input type="reset" value="{$langvars['l_reset']}">
