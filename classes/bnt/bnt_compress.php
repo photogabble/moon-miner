@@ -36,7 +36,7 @@ class bnt_compress
     {
     }
 
-    public function compress($output)
+    public static function compress($output)
     {
 
         // Check to see if we have data, if not, then return null
@@ -52,6 +52,8 @@ class bnt_compress
             $supported_enc = explode (",", $_SERVER['HTTP_ACCEPT_ENCODING']);
         }
 
+return $output;
+/*
         if (in_array ("gzip", $supported_enc) === true)
         {
             header ('Vary: Accept-Encoding');
@@ -70,7 +72,7 @@ class bnt_compress
         {
             header ("DEBUG: None found");
             return $output;
-        }
+        }*/
     }
 }
 ?>

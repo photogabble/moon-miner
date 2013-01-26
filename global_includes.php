@@ -52,5 +52,6 @@ require_once "./classes/eventsystem/event_system.php";
 require_once "./classes/pluginsystem/plugin_system.php";
 
 require_once './classes/bnt/spl_class_loader.php';
+require './vendor/autoload.php';
 require_once './common.php';
 ?>
