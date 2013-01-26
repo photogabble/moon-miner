@@ -1,5 +1,6 @@
 TheKabal (26 January 2013)
 --------------------------------------
+Added composer to BNT, which gives the ability to add third-party libraries that are PSR0 compatible. It will also (soon) serve as our auto-loader.
 Change the way admin checks the admin password
 
 TheMightyDude (26 January 2013)
