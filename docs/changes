@@ -4,6 +4,7 @@ Fixed typo bug in admin.php
 
 TheKabal (26 January 2013)
 --------------------------------------
+Create universe cannot create a schema with a key that is varchar 512 because of a limitation in mysql. As a result, we cannot use session compression and encryption.
 Added composer to BNT, which gives the ability to add third-party libraries that are PSR0 compatible. It will also (soon) serve as our auto-loader.
 Change the way admin checks the admin password
 

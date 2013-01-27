@@ -400,7 +400,7 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 table_row ($db, "Creating session Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sessions (" .
-             "sesskey VARCHAR(512) NOT NULL DEFAULT ''," .
+             "sesskey VARCHAR(64) NOT NULL DEFAULT ''," .
              "expiry DATETIME NOT NULL," .
              "expireref VARCHAR(250) DEFAULT ''," .
              "created DATETIME NOT NULL," .
