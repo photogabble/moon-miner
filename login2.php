@@ -82,7 +82,6 @@ if ($playerfound)
 {
     // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
     require_once './config/pw_hash.php';
-    require_once './classes/phpass/PasswordHash.php';
     $hasher = new PasswordHash(HASH_STRENGTH, false);
 
     if ($hasher->CheckPassword ($_POST['pass'], $playerinfo['password']))

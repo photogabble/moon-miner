@@ -50,7 +50,6 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
 
             // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
             require_once './config/pw_hash.php';
-            require_once './classes/phpass/PasswordHash.php';
             $hasher = new PasswordHash(HASH_STRENGTH, false);
 
             // Check the password against the stored hashed password

@@ -28,19 +28,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
 ini_set ("include_path", "."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
-// Set a directory for bnt-namespaced classes
-$bnt_loader = new SplClassLoader ('bnt', 'classes');
-$bnt_loader->register();
-
-// Handle including the namespaced version of phpass
-$phpass_loader = new SplClassLoader ('phpass', 'classes');
-$phpass_loader->register();
-
-// Benchmarking - start before anything else.
-$BenchmarkTimer = new \bnt\timer;
-$BenchmarkTimer->start (); // Start benchmarking immediately
-
-ob_start (array('\bnt\bnt_compress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bnt_compress" (in includes/) to properly handle detection of compression.
+ob_start (array('\bnt\bntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
 ini_set ('session.use_only_cookies', 1); // Ensure that sessions will only be stored in a cookie
 ini_set ('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie

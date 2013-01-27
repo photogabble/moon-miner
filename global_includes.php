@@ -37,21 +37,12 @@ include_once './includes/request_var.php';
 include_once './includes/text_gotomain.php'; // This will be eliminated while migrating to templates
 include_once './includes/number.php';        // This will be eliminated while migrating to templates
 
-// Adodb handles database abstraction. We also use clob sessions, so that pgsql can be
-// supported in the future, and cryptsessions, so the session data itself is encrypted.
-require_once $ADOdbpath . "/adodb.inc.php";
-include_once $ADOdbpath . "/adodb-perf.inc.php";
-include_once $ADOdbpath . "/session/adodb-session2.php";
-include_once $ADOdbpath . "/session/adodb-encrypt-mcrypt.php";
-include_once $ADOdbpath . "/session/adodb-compress-gzip.php";
-
 // Needed for the Event System used by the Plugins.
 require_once "./classes/eventsystem/event_system.php";
 
 // Needed for the Plugin System/Handler
 require_once "./classes/pluginsystem/plugin_system.php";
 
-require_once './classes/bnt/spl_class_loader.php';
 require './vendor/autoload.php';
 require_once './common.php';
 ?>

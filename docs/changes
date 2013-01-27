@@ -1,3 +1,7 @@
+TheKabal (27 January 2013)
+--------------------------------------
+Moved almost everything from classes to vendor, almost everything using composer autoloader now
+
 TheMightyDude (26 January 2013)
 --------------------------------------
 Fixed typo bug in admin.php

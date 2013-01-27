@@ -140,7 +140,6 @@ if ($flag == 0)
 
     // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
     require_once './config/pw_hash.php';
-    require_once './classes/phpass/PasswordHash.php';
     $hasher = new PasswordHash(HASH_STRENGTH, false);
 
     // Hash the password.  $hashedPassword will be a 60-character string.

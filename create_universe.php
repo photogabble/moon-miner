@@ -944,7 +944,6 @@ table_footer ("Completed successfully.");
       // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
       // Ideally, I'd like this to use the auto-loader, but I didn't find a workable method for that.
       require_once './config/pw_hash.php';
-      require_once './classes/phpass/PasswordHash.php';
       $hasher = new PasswordHash(HASH_STRENGTH, false);
 
       // Hash the password.  $hashedPassword will be a 60-character string.

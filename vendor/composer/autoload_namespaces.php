@@ -6,4 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'bnt' => $baseDir . '/vendor/',
+    'adodb' => $baseDir . '/vendor/adodb',
+    'HTMLPurifier' => $vendorDir . '/ezyang/htmlpurifier/library/',
 );

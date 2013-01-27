@@ -6,6 +6,16 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ADODB_Compress_Bzip2' => $baseDir . '/vendor/adodb/session/adodb-compress-bzip2.php',
+    'ADODB_Compress_Gzip' => $baseDir . '/vendor/adodb/session/adodb-compress-gzip.php',
+    'ADODB_Encrypt_MCrypt' => $baseDir . '/vendor/adodb/session/adodb-encrypt-mcrypt.php',
+    'ADODB_Encrypt_MD5' => $baseDir . '/vendor/adodb/session/adodb-encrypt-md5.php',
+    'ADODB_Encrypt_SHA1' => $baseDir . '/vendor/adodb/session/adodb-encrypt-sha1.php',
+    'ADODB_Encrypt_Secret' => $baseDir . '/vendor/adodb/session/adodb-encrypt-secret.php',
+    'ADODB_Session' => $baseDir . '/vendor/adodb/session/adodb-session2.php',
+    'MD5Crypt' => $baseDir . '/vendor/adodb/session/old/crypt.inc.php',
+    'PasswordHash' => $baseDir . '/vendor/phpass/PasswordHash.php',
+    'SHA1Crypt' => $baseDir . '/vendor/adodb/session/crypt.inc.php',
     'Smarty' => $baseDir . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php',
     'SmartyBC' => $baseDir . '/vendor/smarty/smarty/distribution/libs/SmartyBC.class.php',
     'SmartyCompilerException' => $baseDir . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php',
