@@ -76,7 +76,7 @@ function ibank_transfer3 ($db)
         {
             $curtime = time ();
             $curtime -= $ibank_trate * 60;
-            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
+            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
             db_op_result ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {
@@ -140,7 +140,7 @@ function ibank_transfer3 ($db)
         $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance = balance + ? WHERE ship_id = ?", array ($transfer, $target['ship_id']));
         db_op_result ($db, $resx, __LINE__, __FILE__);
 
-        $resx = $db->Execute("INSERT INTO {$db->prefix}IGB_transfers VALUES (NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
+        $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_transfers VALUES (NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
         db_op_result ($db, $resx, __LINE__, __FILE__);
     }
     else

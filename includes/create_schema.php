@@ -246,7 +246,7 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating ibank_accounts Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}IGB_transfers (" .
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ibank_transfers (" .
              "transfer_id int NOT NULL auto_increment," .
              "source_id int DEFAULT '0' NOT NULL," .
              "dest_id int DEFAULT '0' NOT NULL," .
@@ -257,7 +257,7 @@ $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}IGB_transfers (" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-table_row ($db, "Creating IGB_transfers Table","Failed","Passed");
+table_row ($db, "Creating ibank_transfers Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}teams (" .
              "id int DEFAULT '0' NOT NULL," .

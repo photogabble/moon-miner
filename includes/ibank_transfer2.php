@@ -69,7 +69,7 @@ function ibank_transfer2 ($db)
         {
             $curtime = time();
             $curtime -= $ibank_trate * 60;
-            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}IGB_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
+            $res = $db->Execute("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
             db_op_result ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {

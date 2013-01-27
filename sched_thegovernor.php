@@ -279,7 +279,7 @@ while (!$tdres->EOF)
 }
 
 echo "Validating IGB Transfer Amount Credits...<br>\n";
-$tdres = $db->Execute("SELECT transfer_id, source_id, dest_id, amount FROM {$db->prefix}IGB_transfers");
+$tdres = $db->Execute("SELECT transfer_id, source_id, dest_id, amount FROM {$db->prefix}ibank_transfers");
 db_op_result ($db, $tdres, __LINE__, __FILE__);
 
 /*
@@ -291,7 +291,7 @@ while (!$tdres->EOF)
     if ($transferinfo['amount'] < 0)
     {
         echo "'-> <span style='color:#f00;'>Detected Transfer Amount Credits Flip on IGB Transfer: {$transferinfo['ship_id']}.</span> <span style='color:#0f0;'>*** FIXED ***</span><br>\n";
-        $db->Execute("UPDATE {$db->prefix}IGB_transfers SET amount = ? WHERE transfer_id = ? LIMIT 1;", array (0, $transferinfo['transfer_id']));
+        $db->Execute("UPDATE {$db->prefix}ibank_transfers SET amount = ? WHERE transfer_id = ? LIMIT 1;", array (0, $transferinfo['transfer_id']));
         if ($db->ErrorNo() >0)
         {
             echo "error: ". $db->ErrorMsg() . "<br>\n";
