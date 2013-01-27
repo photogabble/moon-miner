@@ -58,8 +58,8 @@ $ADODB_SESSION_TBL = $db_prefix . "sessions";
 ADODB_Session::dataFieldName ('SESSDATA');
 
 // Add MD5 encryption for sessions, and then compress it before storing it in the database
-ADODB_Session::filter (new ADODB_Encrypt_Mcrypt ());
-ADODB_Session::filter (new ADODB_Compress_Gzip ());
+//ADODB_Session::filter (new ADODB_Encrypt_Mcrypt ());
+//ADODB_Session::filter (new ADODB_Compress_Gzip ());
 
 // If there is a $dbport variable set, use it in the connection method
 if (!empty ($dbport))
