@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/eventsystem/event_list.php
+// File: classes/pluginsystem/event_list.php
 
 // Used to hook into the ranking page, Event is called for every account.
 define("EVENT_RANKING_PLAYERINFO",  0x00000001,         true);

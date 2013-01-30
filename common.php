@@ -209,11 +209,6 @@ if (empty ($link_forums))
 
 $ip = $_SERVER['REMOTE_ADDR'];
 
-// Initialize the Event System.
-EventSystem::Initialize();
-
-//$plugin_config = array ();
-
 // Initialize the Plugin System.
 PluginSystem::Initialize($db);
 

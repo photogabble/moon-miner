@@ -1,14 +1,36 @@
 <?php
+// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Copyright (C) 2001-2012 Ron Harwood and the BNT development team
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Affero General Public License as
+//  published by the Free Software Foundation, either version 3 of the
+//  License, or (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Affero General Public License for more details.
+//
+//  You should have received a copy of the GNU Affero General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+// File: classes/pluginsystem/plugin_system.php
 
 define("PLUGIN_PATH",                    "./plugins",            true);
 
+// Load up the list of supported Events.
+require_once 'event_list.php';
+
 class PluginSystem
 {
-    static $version                         = "0.0.0 (0000) Alpha";
+    static $version                         = "0.0.5 (0010) Alpha";
     static $author                          = "Blacknova Development";
 
     static private $callbackfunc            = "OnEvent";
     static private $db                      = null;
+
+    static private $events                  = null;
 
     static private $pluginlist              = null;
 
@@ -17,7 +39,7 @@ class PluginSystem
 
     static function Initialize($db = null)
     {
-        $GLOBALS['events'] = array();
+        self::$events = array();
         self::$db = $db;
         self::$pluginlist = array();
     }
@@ -101,32 +123,32 @@ class PluginSystem
             return (boolean) false;
         }
 
-        if (!isset($GLOBALS['events'][$event]))
+        if (!isset(self::$events[$event]))
         {
-            $GLOBALS['events'][$event] = array();
+            self::$events[$event] = array();
         }
-        array_push($GLOBALS['events'][$event], $callback);
+        array_push(self::$events[$event], $callback);
 
         return (boolean) true;
     }
 
     static function RemoveEventHook($event = null, Plugin $callback = null)
     {
-        if (!array_key_exists('events', $GLOBALS) || !array_key_exists($event, $GLOBALS['events']) || !in_array($callback, $GLOBALS['events'][$event]))
+        if (!array_key_exists($event, self::$events) || !in_array($callback, self::$events[$event]))
         {
             admin_log(self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Cannot find supplied Event.");
             return (boolean) false;
         }
 
-        $index = array_search($callback, $GLOBALS['events'][$event]);
-        array_splice($GLOBALS['events'][$event], $index, 1);
+        $index = array_search($callback, self::$events[$event]);
+        array_splice(self::$events[$event], $index, 1);
     }
 
     static function ListEventHooks($event = null)
     {
         if (is_null($event))
         {
-            return (array) $GLOBALS['events'];
+            return (array) self::$events;
         }
         else
         {
@@ -134,7 +156,7 @@ class PluginSystem
             {
                 $event = constant($event);
             }
-            return (array) $GLOBALS['events'][$event];
+            return (array) self::$events[$event];
         }
     }
 
@@ -151,7 +173,7 @@ class PluginSystem
             return (boolean) false;
         }
 
-        foreach ($GLOBALS['events'][$event] as $hook)
+        foreach (self::$events[$event] as $hook)
         {
             if(method_exists($hook, self::$callbackfunc))
             {

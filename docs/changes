@@ -1,3 +1,8 @@
+TheMightyDude (30 January 2013)
+--------------------------------------
+PluginSystem: Moved $GLOBALS over to an Internal Static Variable.
+Removed the EventSystem class etc due to it was using the one built into the PluginSystem.
+
 TheKabal (27 January 2013)
 --------------------------------------
 Moved almost everything from classes to vendor, almost everything using composer autoloader now

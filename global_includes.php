@@ -37,9 +37,6 @@ include_once './includes/request_var.php';
 include_once './includes/text_gotomain.php'; // This will be eliminated while migrating to templates
 include_once './includes/number.php';        // This will be eliminated while migrating to templates
 
-// Needed for the Event System used by the Plugins.
-require_once "./classes/eventsystem/event_system.php";
-
 // Needed for the Plugin System/Handler
 require_once "./classes/pluginsystem/plugin_system.php";
 
