@@ -52,8 +52,6 @@ class bntCompress
             $supported_enc = explode (",", $_SERVER['HTTP_ACCEPT_ENCODING']);
         }
 
-return $output;
-/*
         if (in_array ("gzip", $supported_enc) === true)
         {
             header ('Vary: Accept-Encoding');
@@ -72,7 +70,7 @@ return $output;
         {
             header ("DEBUG: None found");
             return $output;
-        }*/
+        }
     }
 }
 ?>
