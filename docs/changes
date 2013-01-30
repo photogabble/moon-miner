@@ -1,3 +1,7 @@
+TheKabal (27 January 2013)
+--------------------------------------
+Cleaned up and re-implemented the timer class as an autoloaded class in our vendor directory
+
 TheMightyDude (30 January 2013)
 --------------------------------------
 PluginSystem: Moved $GLOBALS over to an Internal Static Variable.

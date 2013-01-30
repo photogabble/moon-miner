@@ -30,6 +30,9 @@ ini_set ("include_path", "."); // This seems to be a problem on a few platforms,
 
 ob_start (array('\bnt\bntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
+$BenchmarkTimer = new bnt\Timer;
+$BenchmarkTimer->start(); // Start benchmarking immediately
+
 ini_set ('session.use_only_cookies', 1); // Ensure that sessions will only be stored in a cookie
 ini_set ('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 ini_set ('session.entropy_file', '/dev/urandom'); // Use urandom as entropy source, to help the random number generator
