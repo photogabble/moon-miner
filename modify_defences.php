@@ -148,7 +148,7 @@ switch ($response)
          $l_md_msgdownerb=str_replace ("[sector]", $sector, $l_md_msgdownerb);
          $l_md_msgdownerb=str_replace ("[mines]", $playerbeams, $l_md_msgdownerb);
          $l_md_msgdownerb=str_replace ("[name]", $char_name, $l_md_msgdownerb);
-         \bnt\sector_defense::message_defense_owner ($db, $sector,"$l_md_msgdownerb");
+         \bnt\sectorDefense::message_defense_owner ($db, $sector,"$l_md_msgdownerb");
          TEXT_GOTOMAIN ();
          die ();
       }

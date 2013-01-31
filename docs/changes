@@ -1,5 +1,6 @@
 TheKabal (27 January 2013)
 --------------------------------------
+Fixed psr-0 compliance for vendor/bnt/sectorDefense.php
 Fixed typo in variable assignment in admin preventing access to admin panel
 Replaced global status for benchmark timer for now
 Ran php coding standards fixer ( http://cs.sensiolabs.org/ ) to get us closer to consistent/compliant with most of PSR. 

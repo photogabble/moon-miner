@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/bnt/sector_defense.php
+// File: vendor/bnt/sectorDefense.php
 namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'sector_defense.php')) // Prevent direct access to this file
@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sector_defense.php')) // Prevent direct acces
     include 'error.php';
 }
 
-class sector_defense
+class sectorDefense
 {
     static function message_defense_owner ($db, $sector, $message)
     {

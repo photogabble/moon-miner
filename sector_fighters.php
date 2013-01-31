@@ -153,7 +153,7 @@ $l_sf_sendlog = str_replace ("[player]", $playerinfo['character_name'], $l_sf_se
 $l_sf_sendlog = str_replace ("[lost]", $fighterslost, $l_sf_sendlog);
 $l_sf_sendlog = str_replace ("[sector]", $sector, $l_sf_sendlog);
 
-\bnt\sector_defense::message_defense_owner ($db, $sector, $l_sf_sendlog);
+\bnt\sectorDefense::message_defense_owner ($db, $sector, $l_sf_sendlog);
 player_log ($db, $playerinfo['ship_id'], LOG_DEFS_DESTROYED_F, "$fighterslost|$sector");
 $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
 $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
@@ -170,7 +170,7 @@ if ($playerarmor < 1)
     player_log ($db, $playerinfo['ship_id'], LOG_DEFS_KABOOM, "$sector|$playerinfo[dev_escapepod]");
     $l_sf_sendlog2 = str_replace("[player]", $playerinfo['character_name'], $l_sf_sendlog2);
     $l_sf_sendlog2 = str_replace("[sector]", $sector, $l_sf_sendlog2);
-    \bnt\sector_defense::message_defense_owner ($db, $sector, $l_sf_sendlog2);
+    \bnt\sectorDefense::message_defense_owner ($db, $sector, $l_sf_sendlog2);
     if ($playerinfo['dev_escapepod'] == 'Y')
     {
         $rating = round ($playerinfo['rating'] / 2);
