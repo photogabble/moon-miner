@@ -1,5 +1,6 @@
 TheKabal (27 January 2013)
 --------------------------------------
+Moved plugins from classes/ to vendor/, all classes now belong under vendor!
 Fixed psr-0 compliance for vendor/bnt/sectorDefense.php
 Fixed typo in variable assignment in admin preventing access to admin panel
 Replaced global status for benchmark timer for now
