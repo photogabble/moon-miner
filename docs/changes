@@ -1,5 +1,7 @@
 TheKabal (27 January 2013)
 --------------------------------------
+Ran php coding standards fixer ( http://cs.sensiolabs.org/ ) to get us closer to consistent/compliant with most of PSR. 
+php-cs-fixer fix . --fixers=linefeed,short_tag,indentation,trailing_spaces,unused_use,short_tag,return,extra_empty_lines,include,controls_spaces,elseif
 Cleaned up and re-implemented the timer class as an autoloaded class in our vendor directory
 
 TheMightyDude (30 January 2013)

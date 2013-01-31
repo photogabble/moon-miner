@@ -26,7 +26,6 @@ define("EVENT_PLAYER_JOIN",         0x00000002,         true);
 // Triggered on every page load.
 define("EVENT_TICK",                0x00000003,         true);
 
-
 // Triggered on every time the Scheduler is run.
 define("SCHEDULER_RUN",             0x00000004,         true);
 

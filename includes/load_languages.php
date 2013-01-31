@@ -47,6 +47,7 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
                 $langvars[$config_key] = $config_value;
             }
         }
+
         return true; // Results were added into array, signal that we were successful.
     }
     else
@@ -82,6 +83,7 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
                 $result->MoveNext();
             }
         }
+
         return true; // Results were added into array, signal that we were successful.
     }
 }

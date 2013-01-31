@@ -67,6 +67,7 @@ if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled']
 
             if(isset(self::$isDisabled)) $info['isDisabled'] = self::$isDisabled;
             $info['modules'] = NULL;
+
             return $info;
         }
 

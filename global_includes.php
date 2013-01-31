@@ -38,7 +38,7 @@ include_once './includes/text_gotomain.php'; // This will be eliminated while mi
 include_once './includes/number.php';        // This will be eliminated while migrating to templates
 
 // Needed for the Plugin System/Handler
-require_once "./classes/pluginsystem/plugin_system.php";
+require_once './classes/pluginsystem/plugin_system.php';
 
 require './vendor/autoload.php';
 require_once './common.php';

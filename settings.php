@@ -183,7 +183,7 @@ else
             if (isset($plugin_info['usesEvents']))
             {
                 $plugin['uses_events']        = (boolean) $plugin_info['usesEvents'];
-            }                
+            }
 
             if (isset($plugin_info['isDisabled']) && $plugin_info['isDisabled'] == true)
             {
@@ -194,7 +194,7 @@ else
             if (isset($plugin_info['description']))
             {
                 $plugin['description']        = (string) $plugin_info['description'];
-            }                
+            }
 
             echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
             $line_color = "#500050";

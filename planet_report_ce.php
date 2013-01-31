@@ -78,6 +78,7 @@ function go_build_base ($db, $planet_id, $sector_id)
     {
         echo "<div style='color:#f00; font-size:16px;'>" . $langvars['l_pr_make_base_failed'] . "</div>\n";
         echo "<div style='color:#f00; font-size:16px;'>" . $langvars['l_pr_invalid_info'] . "</div>\n";
+
         return (boolean) false;
     }
 
@@ -87,6 +88,7 @@ function go_build_base ($db, $planet_id, $sector_id)
         $hack_id = 0x1337;
         admin_log ($db, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$sector_id}|{$playerinfo['ship_id']}");
         echo "<div style='color:#f00; font-size:16px;'>" . $langvars['l_pr_make_base_failed'] . "</div>\n";
+
         return (boolean) false;
     }  // Build a base
 
@@ -614,6 +616,7 @@ function real_space_move ($db, $destination)
             $retval = "GO";
         }
     }
+
     return ($retval);
 }
 

@@ -55,6 +55,7 @@ function xenobe_to_ship ($db, $ship_id)
     {
         $resb = $db->Execute("UNLOCK TABLES");
         db_op_result ($db, $resb, __LINE__, __FILE__);
+
         return;
     }
 

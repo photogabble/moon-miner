@@ -285,13 +285,13 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$l_log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int)(substr ($startdate, 5, 2) );
+$l_log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2) );
 $date1 = $$l_log_months_short_temp . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int)(substr ($startdate, 5, 2));
+$l_log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
 $date2 = $$l_log_months_short_temp . " " . date ("d", $start_time);//substr ($startdate, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . date ("n", $tm);// (int)(substr ($startdate, 5, 2));
+$l_log_months_short_temp = "l_log_months_short_" . date ("n", $tm);// (int) (substr ($startdate, 5, 2));
 $date3 = $$l_log_months_short_temp . " " . date ("d", $tm);//substr ($tomorrow, 8, 2);
 
 $month = substr ($startdate, 5, 2);

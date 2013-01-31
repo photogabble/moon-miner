@@ -40,6 +40,7 @@ if ($playerinfo['team'] == 0)
     echo "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
+
     return;
 }
 

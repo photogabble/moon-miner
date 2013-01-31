@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_ban.php')) // Prevent direct access to 
 
 // All defines _may_ need to be put into the global_defines.php file.
 define ('ID_WATCH',     0x00, true);    // Player flagged as being watched.
-define ('ID_LOCKED',    0x01, true);    // Player flagged as being Locked. 
+define ('ID_LOCKED',    0x01, true);    // Player flagged as being Locked.
 define ('24HR_BAN',     0x02, true);    // Player flagged with a 24 Hour Ban.
 define ('ID_BAN',       0x03, true);    // Player flagged as banned by ShipID.
 define ('IP_BAN',       0x04, true);    // Player flagged as banned by IP Address.
@@ -68,6 +68,7 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
             }
             $rs->MoveNext();
         }
+
         return (array) $ban_type;
     }
 
