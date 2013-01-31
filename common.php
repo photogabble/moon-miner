@@ -28,7 +28,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
 ini_set ("include_path", "."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
-ob_start (array('\bnt\bntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
+ob_start (array('\bnt\BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
 $BenchmarkTimer = new bnt\Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately

@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/bnt/bntSmarty.php
+// File: vendor/bnt/BntSmarty.php
 namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'bntSmarty.php')) // Prevent direct access to this file
@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'bntSmarty.php')) // Prevent direct access to 
     die ('Please do not access this file directly');
 }
 
-class bntSmarty
+class BntSmarty
 {
     private $smarty                            = NULL;
     private $parent                            = NULL;

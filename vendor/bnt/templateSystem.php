@@ -11,7 +11,7 @@
 // XML Format by using a DTD file, we also use a style sheet that uses
 // the XML Data and then outputs as XHTML using a XSLT style sheet file.
 //
-// File: classes/bnt/templateSystem.php
+// File: vendor/bnt/TemplateSystem.php
 namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'templateSystem.php')) // Prevent direct access to this file
@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'templateSystem.php')) // Prevent direct acces
     define ("XMLDOM_UNPROCESSED",           0x0002,            true);
     define ("XMLDOM_XML",                   0x0003,            true);
 
-    class templateSystem
+    class TemplateSystem
     {
         static $version                     = "0.0.9 (0032) [DEV]";
         static $author                      = "TheMightyDude";

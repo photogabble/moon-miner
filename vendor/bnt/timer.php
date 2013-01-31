@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/timer.php
+// File: vendor/bnt/Timer.php
 namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'timer.php')) // Prevent direct access to this file
@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'timer.php')) // Prevent direct access to this
     die ('Please do not access this file directly');
 }
 
-class timer
+class Timer
 {
     public $t_start = 0;
     public $t_stop = 0;

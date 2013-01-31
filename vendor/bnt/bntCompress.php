@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/bnt/bntCompress.php
+// File: vendor/bnt/BntCompress.php
 //
 namespace bnt;
 
@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'bntCompress.php')) // Prevent direct access t
     include 'error.php';
 }
 
-class bntCompress
+class BntCompress
 {
 
     function __construct($parent)
