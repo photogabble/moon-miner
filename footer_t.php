@@ -35,6 +35,7 @@ if (!$no_db)
     }
 }
 
+global $BenchmarkTimer;
 if (is_object ($BenchmarkTimer) )
 {
     $stoptime = $BenchmarkTimer->stop();
