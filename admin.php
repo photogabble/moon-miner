@@ -49,7 +49,7 @@ $variables['is_admin'] = false;
 if ($swordfish == ADMIN_PW)
 {
     $i = 0;
-    $variables['is_admin'] == true;
+    $variables['is_admin'] = true;
     $option_title = array ();
     $admin_dir = new DirectoryIterator ('admin/');
     foreach ($admin_dir as $file_info) // Get a list of the files in the admin directory
