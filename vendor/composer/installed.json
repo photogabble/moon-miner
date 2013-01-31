@@ -1,50 +1,5 @@
 [
     {
-        "name": "smarty/smarty",
-        "version": "v3.1.13",
-        "version_normalized": "3.1.13.0",
-        "source": {
-            "type": "svn",
-            "url": "http://smarty-php.googlecode.com/svn",
-            "reference": "/tags/v3.1.13/@4699"
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "time": "2013-01-26 12:03:52",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "distribution/libs/Smarty.class.php",
-                "distribution/libs/SmartyBC.class.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Monte Ohrt",
-                "email": "monte@ohrt.com"
-            },
-            {
-                "name": "Uwe Tews",
-                "email": "uwe.tews@googlemail.com"
-            },
-            {
-                "name": "Rodney Rehm",
-                "email": "rodney.rehm@medialize.de"
-            }
-        ],
-        "description": "Smarty - the compiling PHP template engine",
-        "homepage": "http://www.smarty.net",
-        "keywords": [
-            "templating"
-        ]
-    },
-    {
         "name": "ezyang/htmlpurifier",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -91,49 +46,48 @@
         ]
     },
     {
-        "name": "hautelook/phpass",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "smarty/smarty",
+        "version": "v3.1.13",
+        "version_normalized": "3.1.13.0",
         "source": {
-            "type": "git",
-            "url": "https://github.com/hautelook/phpass",
-            "reference": "da4c2c693aa4e1c616a350015c90af0da82a0fd8"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://github.com/hautelook/phpass/archive/da4c2c693aa4e1c616a350015c90af0da82a0fd8.zip",
-            "reference": "da4c2c693aa4e1c616a350015c90af0da82a0fd8",
-            "shasum": ""
+            "type": "svn",
+            "url": "http://smarty-php.googlecode.com/svn",
+            "reference": "/tags/v3.1.13/@4699"
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": ">=5.2"
         },
-        "time": "2012-08-31 00:00:00",
+        "time": "2013-01-26 12:03:52",
         "type": "library",
         "installation-source": "source",
         "autoload": {
-            "psr-0": {
-                "Hautelook": "src/"
-            }
+            "classmap": [
+                "distribution/libs/Smarty.class.php",
+                "distribution/libs/SmartyBC.class.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "Public Domain"
+            "LGPL-3.0"
         ],
         "authors": [
             {
-                "name": "Solar Designer",
-                "email": "solar@openwall.com",
-                "homepage": "http://openwall.com/phpass/"
+                "name": "Monte Ohrt",
+                "email": "monte@ohrt.com"
+            },
+            {
+                "name": "Uwe Tews",
+                "email": "uwe.tews@googlemail.com"
+            },
+            {
+                "name": "Rodney Rehm",
+                "email": "rodney.rehm@medialize.de"
             }
         ],
-        "description": "Portable PHP password hashing framework",
-        "homepage": "http://github.com/hautelook/phpass/",
+        "description": "Smarty - the compiling PHP template engine",
+        "homepage": "http://www.smarty.net",
         "keywords": [
-            "security",
-            "password",
-            "crypt",
-            "blowfish"
+            "templating"
         ]
     }
 ]

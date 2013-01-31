@@ -5,7 +5,7 @@
     },
 
     "autoload": {
-	"classmap": ["vendor/adodb/session/", "includes/", "vendor/phpass/PasswordHash.php"],
+	"classmap": ["vendor/adodb/session/", "includes/", "vendor/phpass/PasswordHash.php", "vendor/adodb"],
         "psr-0": {
 			"bnt": "vendor/",
 			"adodb": "vendor/adodb"}
