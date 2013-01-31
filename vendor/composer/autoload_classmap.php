@@ -164,6 +164,8 @@ return array(
     'MD5Crypt' => $baseDir . '/vendor/adodb/session/old/crypt.inc.php',
     'PasswordHash' => $baseDir . '/vendor/phpass/PasswordHash.php',
     'Person' => $baseDir . '/vendor/adodb/tests/test-active-relationsx.php',
+    'Plugin' => $baseDir . '/vendor/bnt/pluginsystem/plugin_system.php',
+    'PluginSystem' => $baseDir . '/vendor/bnt/pluginsystem/plugin_system.php',
     'Rugrat' => $baseDir . '/vendor/adodb/tests/test-active-relationsx.php',
     'SHA1Crypt' => $baseDir . '/vendor/adodb/session/crypt.inc.php',
     'Smarty' => $baseDir . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php',
