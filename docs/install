@@ -11,13 +11,16 @@ INSTALLATION
 1. Untar the distribution (be sure to untar the subdirectories):
    tar xvf bnt-x.x.x.tar
 
-2. Open the file <www.your-host>/<install-dir>/setup_info.php in your browser. This
+2. chmod 777 the directories templates/_cache and templates/_compile . This allows the Smarty
+   template system to write its cached and compiled versions of templates.
+
+3. Open the file <www.your-host>/<install-dir>/setup_info.php in your browser. This
    file will help you understand what settings you should use in your db_config.php file.
 
-3. Edit the db_config.php file to your own settings 
+4. Edit the config/db_config.php and config/admin_pw.php files to your own settings 
    and manually update your cron file.
 
-   PLEASE make sure to edit your game_name to be something unique!
+   PLEASE make sure to edit your game_name (in config/configset_classic.ini.php) to be something unique!
 
    You need to set up a background task thats called every X minutes.
    You can set this to any interval you want, but 5 or 6 minutes are good
@@ -28,49 +31,49 @@ INSTALLATION
    http://localhost/blacknova/scheduler.php?swordfish=password
    
    On UNIX and Linux, you can achieve this by using cron to call lynx to access 
-   the pages at specified times.
-
+   the pages at specified times. Lynx is just one of many programs you can use to access the page. It
+   may not be available on your server, and you will need to substitute a different program. Please check
+   your hosting provider documentation to determine which program is available.
 
    A sample crontab follows:
 
 */6 * * * * /usr/bin/lynx --dump http://localhost/blacknova/scheduler.php?swordfish=password > /dev/null
 
+A few alternatives:
+
+*/6 * * * * /usr/bin/GET http://localhost/blacknova/scheduler.php?swordfish=password > /dev/null
+
+*/6 * * * * /usr/bin/wget "http://localhost/blacknova/scheduler.php?swordfish=password" > /dev/null
+
+   Please note that your hosting provider may have these programs at a different location than /usr/bin, requiring
+   you to change the location to match their documentation.
+
    You may need to alter the URL to point to your exact domain name 
-   and path. You will also need to change the password to your admin password
+   and path. You will also need to change the password to your admin password. 
 
    To specify how fast-paced you want the game to be, you will need to
    edit the file config.php and select how many minutes you want between
    different events, eg turns or port regeneration.
 
-   ****NOTE**** this version now can do internal scheduling. It should be considered experimental.
-   To enable internal scheduling, set $sched_type = 1 in config.php
-   If you have access to cron, use the default cron scheduling as described above instead.
-
-4. Create the database:
+5. Create the database:
    mysqladmin -uuser -ppass create dbname
 
-5. Open the file <www.your-host>/<install-dir>/create_universe.php in
+6. Open the file <www.your-host>/<install-dir>/create_universe.php in
    your browser.  You'll need to enter your admin password to access this
    page.  Change the settings to suit the universe you'd like to create -
    and go for it.
 
-6. Open the file <www.your-host>/<install-dir>/index.php in your browser
+7. Open the file <www.your-host>/<install-dir>/index.php in your browser
    - you should now be able to log-in.
 
-7. chmod 000 setup_info.php - it contains information that might be a security risk.
+8. chmod 000 setup_info.php - it contains information that might be a security risk.
 
-8. If you'd like additional security, we have included .htaccess files for some protection.
+9. If you'd like additional security, we have included .htaccess files for some protection.
    Some systems do not ship with .htaccess enabled. You'll need to edit your Apache config 
    (either httpd.conf or the correct file for your host/directory), and set it to AllowOverrides Limits
    (it is often set to AllowOverrides None). Don't forget to reload Apache's config if you make this change.
 
-9. Hopefully - it works now. :)
-
-
-Trouble Shooting:
-If, when you log in, you are presented with another screen telling you to log in,
-chances are that you have incorrectly set up the $gamedomain and $gamepath variables in
-db_config.php. Test using setup_info.php to find the correct values.
+10. Hopefully - it works now. :)
 
 Join the blacknova forums to stay informed of updates, patches 
 and new releases. 

@@ -1,6 +1,7 @@
 TheKabal (31 January 2013)
 --------------------------------------
 Adodb now auto-configures its path, so we do not need admins to set it.
+Expanded and updated the documentation in docs/
 
 TheKabal (30 January 2013)
 --------------------------------------
