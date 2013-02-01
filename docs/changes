@@ -1,4 +1,8 @@
-TheKabal (27 January 2013)
+TheKabal (31 January 2013)
+--------------------------------------
+Adodb now auto-configures its path, so we do not need admins to set it.
+
+TheKabal (30 January 2013)
 --------------------------------------
 Moved plugins from classes/ to vendor/, all classes now belong under vendor!
 Fixed psr-0 compliance for vendor/bnt/sectorDefense.php

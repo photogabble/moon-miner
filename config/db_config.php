@@ -22,10 +22,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'db_config.php')) // Prevent direct access to 
     die ('Please do not access this file directly');
 }
 
-// The ADOdb db module is required to run BNT. You can find it at http://php.weblogs.com/ADODB. Enter the
-// path where it is installed here. We suggest putting
-// ADOdb into a subdirectory (adodb) under a subdirectory of BNT called classes.
-$ADOdbpath = "./classes/adodb";
+// The ADOdb db module is required to run BNT. You can find it at http://php.weblogs.com/ADODB. 
+// Adodb is now automatically configured to be run from vendor/adodb.
 
 // Port to connect to database on. Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
 $dbport = "";
@@ -42,9 +40,7 @@ $ADODB_SESSION_PWD = "bnt";
 $ADODB_SESSION_DB = "bnt";
 
 // Type of the SQL database. This can be anything supported by ADOdb. Here are a few:
-// "mysql" for MySQL - please don't use this one, it doesn't support transactions, which we now use
 // "mysqlt" for MySQLi - needed for transaction support
-// "postgres8" for PostgreSQL ver 8 and up
 // "postgres9" for PostgreSQL ver 9 and up
 // NOTE: only mysqlt works as of this release.
 $ADODB_SESSION_DRIVER = "mysqlt";
