@@ -16,6 +16,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: vendor/bnt/PlayerLog.php
+namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'PlayerLog.php')) // Prevent direct access to this file
 {
