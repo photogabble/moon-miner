@@ -1,3 +1,7 @@
+TheMightyDude (02 February 2013)
+--------------------------------------
+Add Smarty v3.1.13 into the code base.
+
 TheKabal (2 February 2013)
 --------------------------------------
 num_shields has been replaced by \bnt\CalcLevels::Shields, which is auto-loaded from the vendor/bnt directory.
