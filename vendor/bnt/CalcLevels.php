@@ -30,5 +30,10 @@ class CalcLevels
     {
         return round (pow ($level_factor, $level_hull) * 100);
     }
+
+    static function Shields ($level_shields, $level_factor)
+    {
+        return round (pow ($level_factor, $level_shields) * 100);
+    }
 }
 ?>

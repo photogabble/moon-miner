@@ -51,7 +51,7 @@ function xenobe_to_planet ($db, $planet_id)
     $planetinfo['energy'] -= $targetbeams;
 
     // Planet shields
-    $targetshields = NUM_SHIELDS ($ownerinfo['shields'] + $base_factor);
+    $targetshields = \bnt\CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
     if ($targetshields > $planetinfo['energy'])
     {
         $targetshields = $planetinfo['energy'];
@@ -82,7 +82,7 @@ function xenobe_to_planet ($db, $planet_id)
     $playerinfo['ship_energy'] -= $attackerbeams;
 
     // Attacker shields
-    $attackershields = NUM_SHIELDS ($playerinfo['shields']);
+    $attackershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
     if ($attackershields > $playerinfo['ship_energy'])
     {
         $attackershields = $playerinfo['ship_energy'];

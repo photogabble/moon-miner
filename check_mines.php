@@ -122,7 +122,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
 
             // Shields up
             $mines_left = $roll - $playerinfo['dev_minedeflector'];
-            $playershields = NUM_SHIELDS($playerinfo['shields']);
+            $playershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];

@@ -43,7 +43,7 @@ if ($playerbeams > $playerinfo['ship_energy'])
 }
 
 $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
-$playershields = NUM_SHIELDS($playerinfo['shields']);
+$playershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
 
 if ($playershields > $playerinfo['ship_energy'])
 {

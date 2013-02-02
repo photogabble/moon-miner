@@ -219,14 +219,14 @@ else
             }
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
 
-            $playershields = NUM_SHIELDS ($playerinfo['shields']);
+            $playershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];
             }
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playershields;
 
-            $targetshields = NUM_SHIELDS ($targetinfo['shields']);
+            $targetshields = \bnt\CalcLevels::Shields ($targetinfo['shields'], $level_factor);
             if ($targetshields > $targetinfo['ship_energy'])
             {
                 $targetshields = $targetinfo['ship_energy'];

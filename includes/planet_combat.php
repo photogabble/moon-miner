@@ -73,7 +73,7 @@ function planet_combat ($db)
 
     $attackerbeams      = NUM_BEAMS ($playerinfo['beams']);
     $attackerfighters   = $playerinfo['ship_fighters'];
-    $attackershields    = NUM_SHIELDS ($playerinfo['shields']);
+    $attackershields    = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
     $attackertorps      = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
     $attackerarmor      = $playerinfo['armor_pts'];
 

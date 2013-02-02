@@ -67,7 +67,7 @@ function ship_to_ship ($db, $ship_id)
         $targetbeams = $targetinfo['ship_energy'];
     }
     $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
-    $targetshields = NUM_SHIELDS ($targetinfo['shields']);
+    $targetshields = \bnt\CalcLevels::Shields ($targetinfo['shields'], $level_factor);
     if ($targetshields > $targetinfo['ship_energy'])
     {
         $targetshields = $targetinfo['ship_energy'];

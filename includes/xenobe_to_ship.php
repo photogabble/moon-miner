@@ -88,7 +88,7 @@ function xenobe_to_ship ($db, $ship_id)
   $attackerbeams = NUM_BEAMS ($playerinfo['beams']);
   if ($attackerbeams > $playerinfo['ship_energy']) $attackerbeams = $playerinfo['ship_energy'];
   $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $attackerbeams;
-  $attackershields = NUM_SHIELDS ($playerinfo['shields']);
+  $attackershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
   if ($attackershields > $playerinfo['ship_energy']) $attackershields = $playerinfo['ship_energy'];
   $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $attackershields;
   $attackertorps = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
@@ -103,7 +103,7 @@ function xenobe_to_ship ($db, $ship_id)
   $targetbeams = NUM_BEAMS ($targetinfo['beams']);
   if ($targetbeams > $targetinfo['ship_energy']) $targetbeams = $targetinfo['ship_energy'];
   $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
-  $targetshields = NUM_SHIELDS ($targetinfo['shields']);
+  $targetshields = \bnt\CalcLevels::Shields ($targetinfo['shields'], $level_factor);
   if ($targetshields>$targetinfo[ship_energy]) $targetshields = $targetinfo[ship_energy];
   $targetinfo[ship_energy] = $targetinfo[ship_energy] - $targetshields;
   $targettorpnum = round (pow ($level_factor, $targetinfo['torp_launchers']))*2;

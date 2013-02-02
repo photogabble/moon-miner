@@ -29,7 +29,7 @@ function calc_planet_shields ($db)
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-    $planetshields = NUM_SHIELDS ($ownerinfo['shields'] + $base_factor);
+    $planetshields = \bnt\CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
     $energy_available = $planetinfo['energy'];
 
     $res = $db->Execute("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -38,7 +38,7 @@ function calc_planet_shields ($db)
     {
         while (!$res->EOF)
         {
-            $planetshields += NUM_SHIELDS ($res->fields['shields']);
+            $planetshields += \bnt\CalcLevels::Shields ($res->fields['shields'], $level_factor);
             $res->MoveNext ();
         }
     }
