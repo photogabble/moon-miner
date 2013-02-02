@@ -15,17 +15,21 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/log_move.php
+// File: vendor/bnt/LogMove.php
+namespace bnt;
 
-if (strpos ($_SERVER['PHP_SELF'], 'log_move.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'logMove.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function log_move ($db, $ship_id, $sector_id)
+class LogMove
 {
-    $res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+	static function writeLog ($db, $ship_id, $sector_id)
+	{
+    	$res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
+	    db_op_result ($db, $res, __LINE__, __FILE__);
+	}
 }
 ?>

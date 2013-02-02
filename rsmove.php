@@ -169,7 +169,7 @@ elseif ($destination < $sector_max && $engage > 0)
             $stamp = date ("Y-m-d H-i-s");
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
             db_op_result ($db, $update, __LINE__, __FILE__);
-            log_move ($db, $playerinfo['ship_id'], $destination);
+            \bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
             $l_rs_ready = str_replace ("[sector]", $destination, $l_rs_ready);
             $l_rs_ready = str_replace ("[triptime]", NUMBER ($triptime), $l_rs_ready);
             $l_rs_ready = str_replace ("[energy]", NUMBER ($energyscooped), $l_rs_ready);

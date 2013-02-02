@@ -161,7 +161,7 @@ else
                                          "dev_emerwarp = dev_emerwarp - 1, cleared_defences = ' ' " .
                                          "WHERE ship_id = ?;", array ($targetinfo['ship_id']));
             db_op_result ($db, $result_warp, __LINE__, __FILE__);
-            log_move ($db, $targetinfo['ship_id'], $dest_sector);
+            \bnt\LogMove::writeLog ($db, $targetinfo['ship_id'], $dest_sector);
             echo $l_att_ewd . "<br><br>";
         }
         else

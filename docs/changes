@@ -1,5 +1,6 @@
 TheKabal (2 February 2013)
 --------------------------------------
+log_move has been replaced by \bnt\LogMove::writeLog, which is auto-loaded from the vendor/bnt directory.
 admin_log has been replaced by \bnt\adminLog::writeLog, which is auto-loaded from the vendor/bnt directory.
 
 TheKabal (31 January 2013)
