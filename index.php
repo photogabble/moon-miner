@@ -41,6 +41,8 @@ if (!$result)
     die ();
 }
 
+\bnt\adminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{'haha'}|'Testing'|{'Test again'}");
+
 // New database driven language entries
 $langvars = null;
 load_languages ($db, $lang, array ('main', 'login', 'logout', 'index', 'common'), $langvars);

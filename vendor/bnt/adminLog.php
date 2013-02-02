@@ -15,32 +15,29 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/admin_log.php
+// File: vendor/bnt/adminLog.php
+namespace bnt;
 
-if (strpos ($_SERVER['PHP_SELF'], 'admin_log.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'adminLog.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function admin_log ($db, $log_type, $data = "")
+class adminLog
 {
-    // Write log_entry to the admin log
-    $ret = (boolean) false;
-    $data = addslashes ($data);
-    if (is_int($log_type))
-    {
-        $ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-        db_op_result ($db, $ret, __LINE__, __FILE__);
-    }
+	static function writeLog ($db, $log_type, $data = "")
+	{
+    	// Write log_entry to the admin log
+    	$ret = false;
+    	$data = addslashes ($data);
+    	if (is_int ($log_type))
+    	{
+        	$ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
+        	db_op_result ($db, $ret, __LINE__, __FILE__);
+    	}
 
-    if (!$ret)
-    {
-        return (boolean) false;
-    }
-    else
-    {
-        return (boolean) true;
-    }
+    	return $ret;
+	}
 }
 ?>

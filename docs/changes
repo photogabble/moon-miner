@@ -1,3 +1,7 @@
+TheKabal (2 February 2013)
+--------------------------------------
+admin_log has been replaced by \bnt\adminLog::writeLog, which is auto-loaded from the vendor/bnt directory.
+
 TheKabal (31 January 2013)
 --------------------------------------
 Adodb now auto-configures its path, so we do not need admins to set it.

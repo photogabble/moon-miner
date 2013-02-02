@@ -19,7 +19,6 @@
 
 require_once './config/db_config.php';          // Database variables
 include_once './global_defines.php';            // Defines used in a few places
-include_once './includes/admin_log.php';
 include_once './includes/check_login.php';
 include_once './includes/db_kill_player.php';
 include_once './includes/db_op_result.php';

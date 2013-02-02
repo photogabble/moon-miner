@@ -39,7 +39,7 @@ function db_op_result ($db, $query, $served_line, $served_page)
         $dberror = str_replace ("'", "&#39;", $dberror); // Allows the use of apostrophes.
         if ($db->logging)
         {
-            admin_log($db, LOG_RAW, $dberror);
+            \bnt\adminLog::writeLog ($db, LOG_RAW, $dberror);
         }
 
         return $db->ErrorMsg();
