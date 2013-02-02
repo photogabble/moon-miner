@@ -15,18 +15,20 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/num_holds.php
+// File: vendor/bnt/CalcLevels.php
+namespace bnt;
 
-if (strpos ($_SERVER['PHP_SELF'], 'num_holds.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'CalcLevels.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function NUM_HOLDS ($level_hull)
+class CalcLevels
 {
-    global $level_factor;
-
-    return round (pow ($level_factor, $level_hull) * 100);
+    static function Holds ($level_hull, $level_factor)
+    {
+        return round (pow ($level_factor, $level_hull) * 100);
+    }
 }
 ?>
