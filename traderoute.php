@@ -59,8 +59,8 @@ while (!$result->EOF)
     $result->MoveNext ();
 }
 
-$freeholds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-$maxholds = NUM_HOLDS ($playerinfo['hull']);
+$freeholds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor);
 $maxenergy = NUM_ENERGY ($playerinfo['power']);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {

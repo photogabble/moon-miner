@@ -1,5 +1,6 @@
 TheKabal (2 February 2013)
 --------------------------------------
+num_holds has been replaced by \bnt\CalcLevels::Holds, which is auto-loaded from the vendor/bnt directory.
 player_log has been replaced by \bnt\PlayerLog::writeLog, which is auto-loaded from the vendor/bnt directory.
 log_move has been replaced by \bnt\LogMove::writeLog, which is auto-loaded from the vendor/bnt directory.
 admin_log has been replaced by \bnt\adminLog::writeLog, which is auto-loaded from the vendor/bnt directory.

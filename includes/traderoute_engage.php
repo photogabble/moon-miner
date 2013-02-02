@@ -413,7 +413,7 @@ function traderoute_engage ($db, $j)
 
             if ($playerinfo['trade_colonists'] == 'Y')
             {
-                $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+                $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                 $colonists_buy = $free_holds;
 
                 if ($playerinfo['credits'] < $colonist_price * $colonists_buy)
@@ -614,7 +614,7 @@ function traderoute_engage ($db, $j)
                 $playerinfo['ship_energy'] -= $energy_buy;
             }
 
-            $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
             // Time to buy
             if ($source['port_type'] == 'ore')
@@ -758,7 +758,7 @@ function traderoute_engage ($db, $j)
     // Source is planet
     elseif (($traderoute['source_type'] == 'L') || ($traderoute['source_type'] == 'C'))
     {
-        $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
         if ($traderoute['dest_type'] == 'P')
         {
             // Pick stuff up to sell at port
@@ -1064,7 +1064,7 @@ function traderoute_engage ($db, $j)
                 $energy_buy = 0;
             }
 
-            $free_holds = NUM_HOLDS($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
             // Time to buy
             if ($dest['port_type'] == 'ore')

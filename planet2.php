@@ -194,7 +194,7 @@ if ($playerinfo['turns'] < 1)
 }
 else
 {
-    $free_holds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+    $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
     $free_power = NUM_ENERGY ($playerinfo['power']) - $playerinfo['ship_energy'];
     $fighter_max = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
     $torpedo_max = NUM_TORPEDOES ($playerinfo['torp_launchers']) - $playerinfo['torps'];

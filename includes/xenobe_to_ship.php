@@ -316,7 +316,7 @@ function xenobe_to_ship ($db, $ship_id)
       $free_ore = round ($targetinfo['ship_ore'] / 2);
       $free_organics = round ($targetinfo['ship_organics'] / 2);
       $free_goods = round ($targetinfo['ship_goods'] / 2);
-      $free_holds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+      $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
       if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT WE CAN CARRY
         $salv_goods = $free_goods;
@@ -399,7 +399,7 @@ function xenobe_to_ship ($db, $ship_id)
       $free_ore = round ($playerinfo['ship_ore'] / 2);
       $free_organics = round ($playerinfo['ship_organics'] / 2);
       $free_goods = round ($playerinfo['ship_goods'] / 2);
-      $free_holds = NUM_HOLDS ($targetinfo['hull']) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
+      $free_holds = \bnt\CalcLevels::Holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
       if ($free_holds > $free_goods)
       {                                                        // FIGURE OUT WHAT TARGET CAN CARRY
         $salv_goods = $free_goods;

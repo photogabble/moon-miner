@@ -425,7 +425,7 @@ function ship_to_ship ($db, $ship_id)
             $free_ore = round ($targetinfo['ship_ore'] / 2);
             $free_organics = round ($targetinfo['ship_organics'] / 2);
             $free_goods = round ($targetinfo['ship_goods'] / 2);
-            $free_holds = NUM_HOLDS ($playerinfo['hull']) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
             if ($free_holds > $free_goods)
             {
                 $salv_goods = $free_goods;
