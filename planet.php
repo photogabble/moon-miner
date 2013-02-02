@@ -672,13 +672,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 // If scan fails - inform both player and target.
                 echo "$l_planet_noscan<br><br>";
                 TEXT_GOTOMAIN ();
-                player_log ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 include './footer.php';
                 die ();
             }
             else
             {
-                player_log ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
                 $sc_error = scan_error ($playerinfo['sensors'], $ownerinfo['cloak']);
                 if (empty ($planetinfo['name']))
@@ -892,7 +892,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $planetowner = "$l_planet_noone";
             }
 
-            player_log ($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
+            \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
         }
         elseif ($command == "capture" &&  ($planetinfo['owner'] == 0 || $planetinfo['defeated'] == 'Y'))
         {

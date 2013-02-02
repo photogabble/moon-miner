@@ -95,7 +95,7 @@ if ($playerfound)
             if ($playerinfo['ship_destroyed'] == "N")
             {
                 // player's ship has not been destroyed
-                player_log ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
+                \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
                 $stamp = date("Y-m-d H-i-s");
                 $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
                 db_op_result ($db, $update, __LINE__, __FILE__);
@@ -181,7 +181,7 @@ if ($playerfound)
     {
         // password is incorrect
         echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='index.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
-        player_log ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
+        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
         \bnt\adminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{$ip}|{$_POST['email']}|{$_POST['pass']}");
     }
 }

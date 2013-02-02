@@ -67,7 +67,7 @@ function xenobe_to_sec_def ($db)
 
         if ($total_sector_fighters > 0 || $total_sector_mines > 0 || ($total_sector_fighters > 0 && $total_sector_mines > 0)) // Dest link has defenses so lets attack them
         {
-            player_log ($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
+            \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
             $targetfighters = $total_sector_fighters;
             $playerbeams = NUM_BEAMS ($playerinfo['beams']);
             if ($playerbeams > $playerinfo['ship_energy'])

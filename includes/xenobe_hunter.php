@@ -58,7 +58,7 @@ function xenobe_hunter ($db)
     // Make sure we have a target
     if (!$targetinfo)
     {
-        player_log ($db, $playerinfo[ship_id], LOG_RAW, "Hunt Failed: No Target ");
+        \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Hunt Failed: No Target ");
 
         return;
     }
@@ -78,11 +78,11 @@ function xenobe_hunter ($db)
         $stamp = date("Y-m-d H-i-s");
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetinfo['sector'], $playerinfo['ship_id']));
         db_op_result ($db, $move_result, __LINE__, __FILE__);
-        player_log ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
+        \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
         if (!$move_result)
         {
             $error = $db->ErrorMsg();
-            player_log ($db, $playerinfo[ship_id], LOG_RAW, "Move failed with error: $error ");
+            \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Move failed with error: $error ");
 
             return;
         }
@@ -130,7 +130,7 @@ function xenobe_hunter ($db)
             return; // Sector defenses killed the Xenobe
         }
 
-        player_log ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe launching an attack on $targetinfo[character_name]."); // Attack the target
+        \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe launching an attack on $targetinfo[character_name]."); // Attack the target
 
         if ($targetinfo['planet_id'] > 0) // Is player target on a planet?
         {
@@ -143,7 +143,7 @@ function xenobe_hunter ($db)
     }
     else
     {
-        player_log ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
+        \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
     }
 }
 ?>

@@ -15,23 +15,26 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/player_log.php
+// File: vendor/bnt/PlayerLog.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'player_log.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'PlayerLog.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include 'error.php';
 }
 
-function player_log ($db, $sid, $log_type, $data = "")
+class PlayerLog
 {
-    $data = addslashes ($data);
+    static function writeLog ($db, $sid, $log_type, $data = "")
+	{
+    	$data = addslashes ($data);
 
-    // Write log_entry to the player's log - identified by player's ship_id - sid.
-    if ($sid != "" && !empty ($log_type))
-    {
-        $resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
-        db_op_result ($db, $resa, __LINE__, __FILE__);
-    }
+	    // Write log_entry to the player's log - identified by player's ship_id - sid.
+    	if ($sid != "" && !empty ($log_type))
+	    {
+        	$resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
+	        db_op_result ($db, $resa, __LINE__, __FILE__);
+    	}
+	}
 }
 ?>

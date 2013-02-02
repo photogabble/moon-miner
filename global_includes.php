@@ -31,7 +31,6 @@ include_once './includes/num_fighters.php';		// Remove globals, change function 
 include_once './includes/num_holds.php';		// Remove globals, change function name to PSR compliance
 include_once './includes/num_shields.php';		// Remove globals, change function name to PSR compliance
 include_once './includes/num_torpedoes.php';	// Remove globals, change function name to PSR compliance
-include_once './includes/player_log.php';		// Perfect - ready for conversion
 include_once './includes/request_var.php';		// This injects register globals -- eliminate
 include_once './includes/text_gotomain.php'; 	// This will be eliminated while migrating to templates
 include_once './includes/number.php';        	// This will be eliminated while migrating to templates

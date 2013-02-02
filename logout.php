@@ -33,7 +33,7 @@ if (isset ($_SESSION['username']))
     $playerinfo = $result->fields;
     include_once './includes/calc_score.php';
     $current_score = calc_score ($db, $playerinfo['ship_id']);
-    player_log ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
+    \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
     $l_logout_text = str_replace ("[name]", $_SESSION['username'], $l_logout_text);
     $l_logout_text = str_replace ("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
     // Convert language entries to include session information while it still exists

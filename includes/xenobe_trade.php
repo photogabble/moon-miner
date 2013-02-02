@@ -111,7 +111,7 @@ function xenobe_trade ($db)
     db_op_result ($db, $trade_result, __LINE__, __FILE__);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics + ?, port_goods = port_goods + ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
     db_op_result ($db, $trade_result2, __LINE__, __FILE__);
-    player_log ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
+    \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
   }
   if ($sectorinfo[port_type]=="organics")
   //
@@ -145,7 +145,7 @@ function xenobe_trade ($db)
     db_op_result ($db, $trade_result, __LINE__, __FILE__);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore + ?, port_organics = port_organics - ?, port_goods = port_goods + ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
     db_op_result ($db, $trade_result2, __LINE__, __FILE__);
-    player_log ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
+    \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
   }
   if ($sectorinfo[port_type]=="goods")
   //
@@ -181,7 +181,7 @@ function xenobe_trade ($db)
     db_op_result ($db, $trade_result, __LINE__, __FILE__);
     $trade_result2 = $db->Execute("UPDATE {$db->prefix}universe SET port_ore=port_ore + ?, port_organics = port_organics + ?, port_goods = port_goods - ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
     db_op_result ($db, $trade_result2, __LINE__, __FILE__);
-    player_log ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
+    \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
   }
 
 }
