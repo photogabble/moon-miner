@@ -84,7 +84,7 @@ class Template
             if($type === TEMPLATE_USE_SMARTY)
             {
                 // Create the module.
-                $api = new \bnt\bntSmarty($this);
+                $api = new \bnt\BntSmarty($this);
             }
             else if($type === TEMPLATE_USE_XML)
             {
