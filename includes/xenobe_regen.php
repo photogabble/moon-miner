@@ -36,7 +36,7 @@ function xenobe_regen ($db)
         $gene = "regenerated Energy to $playerinfo[ship_energy] units,";
     }
 
-    $maxarmor = NUM_ARMOR ($playerinfo['armor']); // Regenerate armor
+    $maxarmor = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor); // Regenerate armor
     if ($playerinfo['armor_pts'] <= ($maxarmor - 50))  // Stop regen when within 50 of max
     {
         $playerinfo['armor_pts'] = $playerinfo['armor_pts'] + round (($maxarmor - $playerinfo['armor_pts']) / 2); // Regen half of remaining armor

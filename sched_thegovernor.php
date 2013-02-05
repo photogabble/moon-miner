@@ -36,7 +36,7 @@ while (!$tdres->EOF)
     $playerinfo = $tdres->fields;
     $ship_fighters_max = NUM_FIGHTERS ($playerinfo['computer']);
     $torps_max = NUM_TORPEDOES ($playerinfo['torp_launchers']);
-    $armor_pts_max = NUM_ARMOR ($playerinfo['armor']);
+    $armor_pts_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor);
 
     // Checking Fighters
     if ($playerinfo['ship_fighters'] > $ship_fighters_max)

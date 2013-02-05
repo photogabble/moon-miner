@@ -297,7 +297,7 @@ else
         }
 
         $armor_number = round (abs ($armor_number));
-        $armor_max = NUM_ARMOR ($playerinfo['armor']) - $playerinfo['armor_pts'];
+        $armor_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor) - $playerinfo['armor_pts'];
         if ($armor_max < 0)
         {
             $armor_max = 0;

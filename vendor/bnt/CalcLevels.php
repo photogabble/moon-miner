@@ -26,6 +26,11 @@ if (strpos ($_SERVER['PHP_SELF'], 'CalcLevels.php')) // Prevent direct access to
 
 class CalcLevels
 {
+    static function Armor ($level_armor, $level_factor)
+    {
+        return round (pow ($level_factor, $level_armor) * 100);
+    }
+
     static function Holds ($level_hull, $level_factor)
     {
         return round (pow ($level_factor, $level_hull) * 100);
