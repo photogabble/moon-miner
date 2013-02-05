@@ -1,13 +1,13 @@
 {
     "require": {
         "smarty/smarty": "v3.1.13",
-	"ezyang/htmlpurifier": "dev-master"
+        "ezyang/htmlpurifier": "dev-master",
+        "adodb/adodb-php": "dev-master"
     },
 
     "autoload": {
-	"classmap": ["vendor/adodb/session/", "includes/", "vendor/phpass/PasswordHash.php", "vendor/adodb", "vendor/bnt/pluginsystem"],
+	"classmap": ["vendor/adodb/adodb-php/session/", "includes/", "vendor/phpass/PasswordHash.php", "vendor/adodb/adodb-php", "vendor/bnt/pluginsystem"],
         "psr-0": {
-			"bnt": "vendor/",
-			"adodb": "vendor/adodb"}
+			"bnt": "vendor/"}
     }
 }

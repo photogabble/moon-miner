@@ -1,6 +1,42 @@
 {
-    "hash": "d268c46e7b8def8d9392b4b55d4ad74f",
+    "hash": "50e53bc0c6e447f7adfb9739a37e940c",
     "packages": [
+        {
+            "name": "adodb/adodb-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cvele/adodb",
+                "reference": "66f3740cf7718a4cd88bb1a2a05cceaccc98b882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cvele/adodb/zipball/66f3740cf7718a4cd88bb1a2a05cceaccc98b882",
+                "reference": "66f3740cf7718a4cd88bb1a2a05cceaccc98b882",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "2013-01-04 11:54:13",
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "adodb.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1",
+                " BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "John Lim",
+                    "homepage": "http://adodb.sourceforge.net/#docs"
+                }
+            ]
+        },
         {
             "name": "ezyang/htmlpurifier",
             "version": "dev-master",
@@ -95,6 +131,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ezyang/htmlpurifier": 20
+        "ezyang/htmlpurifier": 20,
+        "adodb/adodb-php": 20
     }
 }
