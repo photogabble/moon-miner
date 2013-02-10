@@ -1,3 +1,11 @@
+TheMightyDude (10 February 2013)
+--------------------------------------
+Fixed a bug where a player was on their planet when it was attacked, resulting in their planets not being set to unowned.
+A Database error occurred in includes/db_kill_player.php on line 42 (called from: planet.php: Table 'bnt_planets' was not locked with LOCK TABLES
+A Database error occurred in includes/db_kill_player.php on line 60 (called from: planet.php: Table 'bnt_planets' was not locked with LOCK TABLES
+A Database error occurred in includes/db_kill_player.php on line 73 (called from: planet.php: Table 'bnt_sector_defence' was not locked with LOCK TABLES
+A Database error occurred in includes/db_kill_player.php on line 91 (called from: planet.php: Table 'bnt_news' was not locked with LOCK TABLES
+
 TheKabal (10 February 2013)
 --------------------------------------
 Re-ordered the database tables in schema (up until planets) to be closer to alphabetical order
