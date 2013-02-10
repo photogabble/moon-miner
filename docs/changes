@@ -1,3 +1,7 @@
+TheKabal (10 February 2013)
+--------------------------------------
+Re-ordered the database tables in schema (up until planets) to be closer to alphabetical order
+
 TheKabal (5 February 2013)
 --------------------------------------
 num_armor has been replaced by \bnt\CalcLevels::Armor, which is auto-loaded from the vendor/bnt directory.
