@@ -54,6 +54,20 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating adodb_logsql Table","Failed","Passed");
 
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}bans (" .
+             "ban_id int(10) unsigned NOT NULL AUTO_INCREMENT," .
+             "ban_type tinyint(3) unsigned NOT NULL DEFAULT '0'," .
+             "ban_mask varchar(16) DEFAULT NULL," .
+             "ban_ship int(10) unsigned DEFAULT NULL," .
+             "ban_date datetime DEFAULT NULL," .
+             "public_info text," .
+             "admin_info text," .
+             "PRIMARY KEY (`ban_id`)" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating bans Table","Failed","Passed");
+
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}bounty (" .
              "bounty_id int unsigned NOT NULL auto_increment," .
              "amount bigint(20) unsigned DEFAULT '0' NOT NULL," .
@@ -221,21 +235,50 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating planets Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}traderoutes (" .
-             "traderoute_id int unsigned NOT NULL auto_increment," .
-             "source_id int unsigned DEFAULT '0' NOT NULL," .
-             "dest_id int unsigned DEFAULT '0' NOT NULL," .
-             "source_type enum('P','L','C','D') DEFAULT 'P' NOT NULL," .
-             "dest_type enum('P','L','C','D') DEFAULT 'P' NOT NULL," .
-             "move_type enum('R','W') DEFAULT 'W' NOT NULL," .
-             "owner int unsigned DEFAULT '0' NOT NULL," .
-             "circuit enum('1','2') DEFAULT '2' NOT NULL," .
-             "PRIMARY KEY (traderoute_id)," .
-             "KEY owner (owner)" .
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}scheduler (" .
+             "sched_id int unsigned NOT NULL auto_increment," .
+             "repeate enum('Y','N') DEFAULT 'N' NOT NULL," .
+             "ticks_left int unsigned DEFAULT '0' NOT NULL," .
+             "ticks_full int unsigned DEFAULT '0' NOT NULL," .
+             "spawn int unsigned DEFAULT '0' NOT NULL," .
+             "sched_file varchar(30) NOT NULL," .
+             "extra_info varchar(50)," .
+             "last_run BIGINT(20)," .
+             "PRIMARY KEY (sched_id)" .
              ")");
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
-table_row ($db, "Creating traderoutes Table","Failed","Passed");
+table_row ($db, "Creating scheduler Table","Failed","Passed");
+
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sector_defence (" .
+             "defence_id int unsigned NOT NULL auto_increment," .
+             "ship_id int DEFAULT '0' NOT NULL," .
+             "sector_id int unsigned DEFAULT '0' NOT NULL," .
+             "defence_type enum('M','F') DEFAULT 'M' NOT NULL," .
+             "quantity bigint(20) DEFAULT '0' NOT NULL," .
+             "fm_setting enum('attack','toll') DEFAULT 'toll' NOT NULL," .
+             "PRIMARY KEY (defence_id)," .
+             "KEY sector_id (sector_id)," .
+             "KEY ship_id (ship_id)" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating sector_defence Table","Failed","Passed");
+
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sessions (" .
+             "sesskey VARCHAR(64) NOT NULL DEFAULT ''," .
+             "expiry DATETIME NOT NULL," .
+             "expireref VARCHAR(250) DEFAULT ''," .
+             "created DATETIME NOT NULL," .
+             "modified DATETIME NOT NULL," .
+             "sessdata LONGTEXT," .
+             "PRIMARY KEY (sesskey)," .
+             "INDEX sess2_expiry( expiry )," .
+             "INDEX sess2_expireref( expireref )" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating sessions Table","Failed","Passed");
 
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}ships (" .
              "ship_id int unsigned NOT NULL auto_increment," .
@@ -304,6 +347,36 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating ships Table","Failed","Passed");
 
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}teams (" .
+             "id int DEFAULT '0' NOT NULL," .
+             "creator int DEFAULT '0'," .
+             "team_name tinytext," .
+             "description tinytext," .
+             "number_of_members tinyint(3) DEFAULT '0' NOT NULL," .
+             "admin enum('Y','N') NOT NULL default 'N'," .
+             "PRIMARY KEY(id)," .
+             "KEY admin (admin)" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating teams Table","Failed","Passed");
+
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}traderoutes (" .
+             "traderoute_id int unsigned NOT NULL auto_increment," .
+             "source_id int unsigned DEFAULT '0' NOT NULL," .
+             "dest_id int unsigned DEFAULT '0' NOT NULL," .
+             "source_type enum('P','L','C','D') DEFAULT 'P' NOT NULL," .
+             "dest_type enum('P','L','C','D') DEFAULT 'P' NOT NULL," .
+             "move_type enum('R','W') DEFAULT 'W' NOT NULL," .
+             "owner int unsigned DEFAULT '0' NOT NULL," .
+             "circuit enum('1','2') DEFAULT '2' NOT NULL," .
+             "PRIMARY KEY (traderoute_id)," .
+             "KEY owner (owner)" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating traderoutes Table","Failed","Passed");
+
 $db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}universe (" .
              "sector_id int unsigned NOT NULL auto_increment," .
              "sector_name tinytext," .
@@ -326,6 +399,18 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating universe Table","Failed","Passed");
 
+$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}xenobe (" .
+             "xenobe_id char(40) NOT NULL," .
+             "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
+             "aggression smallint(5) DEFAULT '0' NOT NULL," .
+             "orders smallint(5) DEFAULT '0' NOT NULL," .
+             "PRIMARY KEY (xenobe_id)," .
+             "KEY xenobe_id (xenobe_id)" .
+             ")");
+$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+table_row ($db, "Creating xenobe Table","Failed","Passed");
+
 $db->execute("CREATE TABLE IF NOT EXISTS {$db->prefix}zones (" .
              "zone_id int unsigned NOT NULL auto_increment," .
              "zone_name tinytext," .
@@ -346,20 +431,6 @@ $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": 
 
 table_row ($db, "Creating zones Table","Failed","Passed");
 
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}teams (" .
-             "id int DEFAULT '0' NOT NULL," .
-             "creator int DEFAULT '0'," .
-             "team_name tinytext," .
-             "description tinytext," .
-             "number_of_members tinyint(3) DEFAULT '0' NOT NULL," .
-             "admin enum('Y','N') NOT NULL default 'N'," .
-             "PRIMARY KEY(id)," .
-             "KEY admin (admin)" .
-             ")");
-$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-table_row ($db, "Creating teams Table","Failed","Passed");
-
 // This adds a news item into the newly created news table
 $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type) " .
              "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
@@ -367,79 +438,6 @@ $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type
 $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
 
 table_row ($db, "Inserting first news item","Failed","Inserted");
-
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sector_defence (" .
-             "defence_id int unsigned NOT NULL auto_increment," .
-             "ship_id int DEFAULT '0' NOT NULL," .
-             "sector_id int unsigned DEFAULT '0' NOT NULL," .
-             "defence_type enum('M','F') DEFAULT 'M' NOT NULL," .
-             "quantity bigint(20) DEFAULT '0' NOT NULL," .
-             "fm_setting enum('attack','toll') DEFAULT 'toll' NOT NULL," .
-             "PRIMARY KEY (defence_id)," .
-             "KEY sector_id (sector_id)," .
-             "KEY ship_id (ship_id)" .
-             ")");
-$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-table_row ($db, "Creating sector_defence Table","Failed","Passed");
-
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}scheduler (" .
-             "sched_id int unsigned NOT NULL auto_increment," .
-             "repeate enum('Y','N') DEFAULT 'N' NOT NULL," .
-             "ticks_left int unsigned DEFAULT '0' NOT NULL," .
-             "ticks_full int unsigned DEFAULT '0' NOT NULL," .
-             "spawn int unsigned DEFAULT '0' NOT NULL," .
-             "sched_file varchar(30) NOT NULL," .
-             "extra_info varchar(50)," .
-             "last_run BIGINT(20)," .
-             "PRIMARY KEY (sched_id)" .
-             ")");
-$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-echo $db->ErrorMsg();
-
-table_row ($db, "Creating scheduler Table","Failed","Passed");
-
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}bans (" .
-             "ban_id int(10) unsigned NOT NULL AUTO_INCREMENT," .
-             "ban_type tinyint(3) unsigned NOT NULL DEFAULT '0'," .
-             "ban_mask varchar(16) DEFAULT NULL," .
-             "ban_ship int(10) unsigned DEFAULT NULL," .
-             "ban_date datetime DEFAULT NULL," .
-             "public_info text," .
-             "admin_info text," .
-             "PRIMARY KEY (`ban_id`)" .
-             ")");
-$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-table_row ($db, "Creating bans Table","Failed","Passed");
-
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}sessions (" .
-             "sesskey VARCHAR(64) NOT NULL DEFAULT ''," .
-             "expiry DATETIME NOT NULL," .
-             "expireref VARCHAR(250) DEFAULT ''," .
-             "created DATETIME NOT NULL," .
-             "modified DATETIME NOT NULL," .
-             "sessdata LONGTEXT," .
-             "PRIMARY KEY (sesskey)," .
-             "INDEX sess2_expiry( expiry )," .
-             "INDEX sess2_expireref( expireref )" .
-             ")");
-$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-table_row ($db, "Creating bounty Table","Failed","Passed");
-
-$db->Execute("CREATE TABLE IF NOT EXISTS {$db->prefix}xenobe (" .
-             "xenobe_id char(40) NOT NULL," .
-             "active enum('Y','N') DEFAULT 'Y' NOT NULL," .
-             "aggression smallint(5) DEFAULT '0' NOT NULL," .
-             "orders smallint(5) DEFAULT '0' NOT NULL," .
-             "PRIMARY KEY (xenobe_id)," .
-             "KEY xenobe_id (xenobe_id)" .
-             ")");
-$err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-table_row ($db, "Creating xenobe Table","Failed","Passed");
-
 
 table_footer("Hover over the failed row to see the error.");
 
