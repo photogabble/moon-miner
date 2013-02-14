@@ -1,3 +1,7 @@
+TheMightyDude (14 February 2013)
+--------------------------------------
+Fixed Exploit in IGB Loan System.
+
 TheMightyDude (10 February 2013)
 --------------------------------------
 Fixed a bug where a player was on their planet when it was attacked, resulting in their planets not being set to unowned.
