@@ -1,5 +1,6 @@
 TheKabal (23 February 2013)
 --------------------------------------
+Add a Registry class to BNT, which will hold variables we previously used in the global space (timer, lang, etc)
 All instances of include 'error.php', should reference the path
 
 TheMightyDude (14 February 2013)

@@ -35,11 +35,11 @@ if (!$no_db)
     }
 }
 
-global $BenchmarkTimer;
-if (is_object ($BenchmarkTimer) )
+if (is_object ($bntreg->get("bnttimer")))
 {
-    $stoptime = $BenchmarkTimer->stop();
-    $elapsed = $BenchmarkTimer->elapsed();
+    $bnttimer = $bntreg->get("bnttimer");
+    $stoptime = $bnttimer->stop();
+    $elapsed = $bnttimer->elapsed();
     $elapsed = substr ($elapsed, 0, 5);
 }
 else

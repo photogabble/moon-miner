@@ -30,8 +30,11 @@ ini_set ("include_path", "."); // This seems to be a problem on a few platforms,
 
 ob_start (array('\bnt\BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
-$BenchmarkTimer = new bnt\Timer;
+$bntreg = new \bnt\bntRegistry();
+
+$BenchmarkTimer = new \bnt\Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
+$bntreg->set("bnttimer", $BenchmarkTimer);
 
 ini_set ('session.use_only_cookies', 1); // Ensure that sessions will only be stored in a cookie
 ini_set ('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
@@ -82,6 +85,8 @@ catch (exception $e)
     $err_msg = "Unable to connect to the Database.<br>\n Database Error: ". $db->ErrorNo () .": ". $db->ErrorMsg () ."<br>\n";
     die ($err_msg);
 }
+
+$bntreg->set("db", $db);
 
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
