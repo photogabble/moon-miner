@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'calc_ownership.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function calc_ownership ($db, $sector)

@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'kick_off_planet.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function kick_off_planet ($db, $ship_id, $whichteam)

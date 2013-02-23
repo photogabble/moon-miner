@@ -1,3 +1,7 @@
+TheKabal (23 February 2013)
+--------------------------------------
+All instances of include 'error.php', should reference the path
+
 TheMightyDude (14 February 2013)
 --------------------------------------
 Fixed Exploit in IGB Loan System.

@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'traderoute_new.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function traderoute_new ($db, $traderoute_id)

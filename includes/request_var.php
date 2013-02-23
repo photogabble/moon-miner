@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'request_var.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function request_var ($type = null, $name = null, &$value = null)

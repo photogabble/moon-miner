@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'sched_turns.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 echo "<strong>TURNS</strong><br><br>";

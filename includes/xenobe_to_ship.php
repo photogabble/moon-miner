@@ -22,7 +22,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_ship.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function xenobe_to_ship ($db, $ship_id)

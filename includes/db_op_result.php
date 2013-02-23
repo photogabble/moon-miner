@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'db_op_result.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function db_op_result ($db, $query, $served_line, $served_page)

@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'db_kill_player.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function db_kill_player ($db, $ship_id, $remove_planets = false)

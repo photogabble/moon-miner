@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'num_energy.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function NUM_ENERGY ($level_power)

@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'server_notice.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 ?>
 <div style="width:900px; margin:auto; border:1px solid #fff; background-color:#000011; background:URL(images/bg2_alpha.png) repeat; padding:8px;">

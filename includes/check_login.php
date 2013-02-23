@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'check_login.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function check_login ($db, $lang, $langvars, $stop_die = true)

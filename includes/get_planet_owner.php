@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'get_planet_owner.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function get_planet_owner ($db = null, $planet_id = null, &$owner_info = null)

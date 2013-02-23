@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'check_ban.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 // All defines _may_ need to be put into the global_defines.php file.

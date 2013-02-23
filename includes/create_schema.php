@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'create_schema.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include 'error.php';
+    include './error.php';
 }
 
 function create_schema ($db, $ADODB_SESSION_DB)
