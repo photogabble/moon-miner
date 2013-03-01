@@ -21,7 +21,7 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -139,7 +139,7 @@ else
             {
                 echo $l_mines_nodeploy . "<br>";
                 TEXT_GOTOMAIN();
-                die();
+                die ();
             }
         }
     }
@@ -157,7 +157,7 @@ else
             {
                 echo "$l_mines_nopermit<br><br>";
                 TEXT_GOTOMAIN();
-                die();
+                die ();
             }
         }
     }

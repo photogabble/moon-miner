@@ -42,6 +42,6 @@ function ibank_error ($errmsg, $backlink, $title = "Error!")
          "</center>";
 
     include './footer.php';
-    die();
+    die ();
 }
 ?>

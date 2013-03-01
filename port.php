@@ -109,7 +109,7 @@ if ($zoneinfo['zone_id'] == 4)
     echo $l_war_info . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 elseif ($zoneinfo['allow_trade'] == 'N')
 {
@@ -119,7 +119,7 @@ elseif ($zoneinfo['allow_trade'] == 'N')
     echo $l_no_trade_info . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 elseif ($zoneinfo['allow_trade'] == 'L')
 {
@@ -137,7 +137,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             echo "Trading at this port is not allowed for outsiders<p>";
             TEXT_GOTOMAIN();
             include './footer.php';
-            die();
+            die ();
         }
     }
     else
@@ -149,7 +149,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             echo $l_no_trade_out . "<p>";
             TEXT_GOTOMAIN();
             include './footer.php';
-            die();
+            die ();
         }
     }
 }
@@ -300,7 +300,7 @@ elseif ($sectorinfo['port_type'] == "special")
         echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
         TEXT_GOTOMAIN();
         include './footer.php';
-        die();
+        die ();
     }
 
     if ($bounty_all_special == true)
@@ -330,7 +330,7 @@ elseif ($sectorinfo['port_type'] == "special")
                     $l_port_btynotenough = str_replace ("[amount]", NUMBER ($bty['total_bounty']), $l_port_btynotenough);
                     echo $l_port_btynotenough . "<br>";
                     TEXT_GOTOMAIN();
-                    die();
+                    die ();
                 }
                 else
                 {
@@ -340,7 +340,7 @@ elseif ($sectorinfo['port_type'] == "special")
                     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                     $l_port_bountypaid = str_replace ("[here]","<a href='port.php'>" . $l_here . "</a>",$l_port_bountypaid);
                     echo $l_port_bountypaid . "<br>";
-                    die();
+                    die ();
                 }
             }
             elseif (isset($pay) && $pay == 2)
@@ -370,7 +370,7 @@ elseif ($sectorinfo['port_type'] == "special")
                         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
                         echo $l_port_bountypaid . "<br>";
-                        die();
+                        die ();
                     }
                     else
                     {
@@ -389,7 +389,7 @@ elseif ($sectorinfo['port_type'] == "special")
                         echo "<br>\n";
 
                         TEXT_GOTOMAIN();
-                        die();
+                        die ();
                     }
                 }
                 else
@@ -400,12 +400,12 @@ elseif ($sectorinfo['port_type'] == "special")
                     echo "<br>\n";
 
                     TEXT_GOTOMAIN();
-                    die();
+                    die ();
                 }
 
                 $bounty_left    = $bty['total_bounty'] - $bounty_payment;
                 TEXT_GOTOMAIN();
-                die();
+                die ();
             }
             else
             {
@@ -426,7 +426,7 @@ elseif ($sectorinfo['port_type'] == "special")
 
                 echo "<a href=\"bounty.php\">" . $l_by_placebounty . "</a><br><br>";
                 TEXT_GOTOMAIN();
-                die();
+                die ();
             }
         }
     }

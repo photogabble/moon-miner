@@ -28,7 +28,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if (check_login ($db, $lang, $langvars))
 {
-    die();
+    die ();
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

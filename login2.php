@@ -57,7 +57,7 @@ if ($server_closed)
     echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 
     include './footer.php';
-    die();
+    die ();
 }
 
 $title = $l_login_title2;

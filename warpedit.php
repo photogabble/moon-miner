@@ -21,7 +21,7 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -44,7 +44,7 @@ if ($playerinfo['turns'] < 1)
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 if ($playerinfo['dev_warpedit'] < 1)
@@ -52,7 +52,7 @@ if ($playerinfo['dev_warpedit'] < 1)
     echo $l_warp_none. "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 $res = $db->Execute("SELECT allow_warpedit FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
@@ -63,7 +63,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 if ($zoneinfo['allow_warpedit'] == 'L')
@@ -83,7 +83,7 @@ if ($zoneinfo['allow_warpedit'] == 'L')
             echo $l_warp_forbid . "<br><br>";
             TEXT_GOTOMAIN();
             include './footer.php';
-            die();
+            die ();
         }
     }
 }

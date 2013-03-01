@@ -103,7 +103,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 echo "<h1>" . $title . "</h1>\n";
                 echo "$l_chf_youretreatback<br>";
                 TEXT_GOTOMAIN();
-                die();
+                die ();
                 break;
 
             case "pay":
@@ -196,7 +196,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 echo "<input type='hidden' name='engage' value='1'>";
                 echo "<input type='hidden' name='destination' value='{$destination}'>";
                 echo "</form>";
-                die();
+                die ();
                 break;
 
         }

@@ -23,7 +23,7 @@ include './includes/scan_success.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -55,7 +55,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
     echo "You need to Click on the ship first.<BR><BR>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 unset($_SESSION['ship_selected']);
 

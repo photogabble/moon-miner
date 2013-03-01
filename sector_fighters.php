@@ -180,7 +180,7 @@ if ($playerarmor < 1)
         cancel_bounty ($db, $playerinfo['ship_id']);
         $ok = 0;
         TEXT_GOTOMAIN();
-        die();
+        die ();
     }
     else
     {
@@ -188,7 +188,7 @@ if ($playerarmor < 1)
         db_kill_player ($db, $playerinfo['ship_id']);
         $ok = 0;
         TEXT_GOTOMAIN();
-        die();
+        die ();
     }
 }
 

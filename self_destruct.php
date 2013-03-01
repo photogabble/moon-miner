@@ -22,7 +22,7 @@ include_once './includes/cancel_bounty.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries

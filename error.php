@@ -91,5 +91,5 @@ include_once './footer_t.php';
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
 $template->Display("error.tpl");
-die();
+die ();
 ?>

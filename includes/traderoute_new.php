@@ -402,6 +402,6 @@ function traderoute_new ($db, $traderoute_id)
     echo "</div>\n";
 
     include './footer.php';
-    die();
+    die ();
 }
 ?>

@@ -73,7 +73,7 @@ if (isset ($_POST['stop_sector']))
 
         TEXT_GOTOMAIN();
         include './footer.php';
-        die();
+        die ();
     }
 
     $stop_sector = (int) $stop_sector;

@@ -22,7 +22,7 @@ include_once './includes/calc_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // Database driven language entries

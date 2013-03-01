@@ -23,7 +23,7 @@ include './includes/scan_success.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -73,7 +73,7 @@ if ($sector == "*")
         echo $l_lrs_nofull . "<br><br>";
         TEXT_GOTOMAIN ();
         include './footer.php';
-        die();
+        die ();
     }
 
     if ($playerinfo['turns'] < $fullscan_cost)
@@ -82,7 +82,7 @@ if ($sector == "*")
         echo $l_lrs_noturns . "<br><br>";
         TEXT_GOTOMAIN ();
         include './footer.php';
-        die();
+        die ();
     }
 
     echo "$l_lrs_used " . NUMBER ($fullscan_cost) . " $l_lrs_turns. " . NUMBER ($playerinfo['turns'] - $fullscan_cost) . " $l_lrs_left.<br><br>";
@@ -250,7 +250,7 @@ else
     {
         echo "$l_lrs_cantscan<br><br>";
         TEXT_GOTOMAIN();
-        die();
+        die ();
     }
 
     echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";

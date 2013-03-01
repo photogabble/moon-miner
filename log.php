@@ -22,7 +22,7 @@ include './config/admin_pw.php';
 
 if (check_login ($db, $lang, $langvars, false)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // Hack for log bug issue - this really needs to be fixed

@@ -21,7 +21,7 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -42,7 +42,7 @@ if ($playerinfo['turns'] < 1)
     echo $l_dump_turn  . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 if ($playerinfo['ship_colonists'] == 0)

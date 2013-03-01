@@ -21,7 +21,7 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -52,7 +52,7 @@ if ($playerinfo['turns'] < 1)
     echo $l_warp_turn . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 if ($playerinfo['dev_warpedit'] < 1)
@@ -60,7 +60,7 @@ if ($playerinfo['dev_warpedit'] < 1)
     echo $l_warp_none . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 if (is_null($target_sector))
@@ -68,7 +68,7 @@ if (is_null($target_sector))
     // This is the best that I can do without adding a new language variable.
     echo $l_warp_nosector ."<br><br>";
     TEXT_GOTOMAIN();
-    die();
+    die ();
 }
 
 $res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones,{$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id={$db->prefix}zones.zone_id;", array ($playerinfo['sector']));
@@ -79,7 +79,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
     echo $l_warp_forbid . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 $target_sector = round($target_sector);
@@ -96,7 +96,7 @@ if ($zoneinfo['allow_warpedit'] == 'N' && $bothway)
     echo $l_warp_forbidtwo . "<br><br>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 $result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($target_sector));
@@ -106,7 +106,7 @@ if (!$row)
 {
     echo $l_warp_nosector . "<br><br>";
     TEXT_GOTOMAIN();
-    die();
+    die ();
 }
 
 $result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));

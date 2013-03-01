@@ -159,7 +159,7 @@ switch ($response)
          echo "$l_md_notyours<br><br>";
          TEXT_GOTOMAIN ();
          include './footer.php';
-         die();
+         die ();
       }
       $quantity = preg_replace('/[^0-9]/', '', $quantity);
       if ($quantity < 0) $quantity = 0;

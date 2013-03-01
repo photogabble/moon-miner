@@ -21,7 +21,7 @@ include './global_includes.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -92,7 +92,7 @@ if ($res->EOF)
     echo "<p>" . $l_zi_nexist . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 $curzone = $res->fields;
 
@@ -117,7 +117,7 @@ if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id'])
     echo "<p>" . $l_ze_notowner . "<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 if ($command == 'change')
@@ -139,7 +139,7 @@ if ($command == 'change')
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();
     include './footer.php';
-    die();
+    die ();
 }
 
 $ybeacon = null;

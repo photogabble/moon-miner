@@ -23,7 +23,7 @@ include './includes/traderoute_new.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -405,7 +405,7 @@ function traderoute_die ($error_msg)
     TEXT_GOTOMAIN();
     echo "</div>\n";
     include './footer.php';
-    die();
+    die ();
 }
 
 function traderoute_check_compatible ($db, $type1, $type2, $move, $circuit, $src, $dest)

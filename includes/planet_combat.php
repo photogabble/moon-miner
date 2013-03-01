@@ -53,7 +53,7 @@ function planet_combat ($db)
         echo $l_cmb_atleastoneturn . "<br><br>";
         TEXT_GOTOMAIN();
         include './footer.php';
-        die();
+        die ();
     }
 
     // Planetary defense system calculation

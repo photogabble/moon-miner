@@ -23,7 +23,7 @@ include './global_includes.php';
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
     // No they are not.
-    die();
+    die ();
 }
 
 // Set old language to the current;

@@ -26,7 +26,7 @@ include './includes/calc_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
-    die();
+    die ();
 }
 
 // New database driven language entries
@@ -56,7 +56,7 @@ if ($playerinfo['cleared_defences'] > ' ')
 {
     echo $langvars['l_incompletemove'] . " <br>";
     echo "<a href=$playerinfo[cleared_defences]>" . $langvars['l_clicktocontinue'] . "</a>";
-    die();
+    die ();
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
@@ -71,7 +71,7 @@ if ($playerinfo['on_planet'] == "Y")
     {
         echo "<a href=planet.php?planet_id=$playerinfo[planet_id]>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "    <br>";
         header("Location: planet.php?planet_id=" . $playerinfo['planet_id'] . "&id=" . $playerinfo['ship_id']);
-        die();
+        die ();
     }
     else
     {
