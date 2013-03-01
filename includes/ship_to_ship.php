@@ -507,7 +507,7 @@ function ship_to_ship ($db, $ship_id)
         $target_armor_lost = $targetinfo['armor_pts'] - $targetarmor;
         $target_fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
         $target_energy = $targetinfo['ship_energy'];
-        \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name] $armor_lost $fighters_lost");
+        \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
         $update4 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, armor_pts=armor_pts-?, torps=torps-? WHERE ship_id=?", array ($target_energy, $target_fighters_lost, $target_armor_lost, $targettorpnum, $targetinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $update4, __LINE__, __FILE__);
     }
