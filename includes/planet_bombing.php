@@ -40,8 +40,8 @@ function planet_bombing ($db)
     echo $l_bombsaway . "<br><br>\n";
     $attackerfighterslost = 0;
     $planetfighterslost = 0;
-    $attackerfightercapacity = NUM_FIGHTERS ($playerinfo['computer']);
-    $ownerfightercapacity = NUM_FIGHTERS ($ownerinfo['computer']);
+    $attackerfightercapacity = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
+    $ownerfightercapacity = \bnt\CalcLevels::Fighters ($ownerinfo['computer'], $level_factor);
     $beamsused = 0;
 
     $res = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");

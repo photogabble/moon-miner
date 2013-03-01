@@ -50,5 +50,10 @@ class CalcLevels
     {
         return round (pow ($level_factor, $level_beams) * 100);
     }
+
+    static function Fighters ($level_computer, $level_factor)
+    {
+        return round (pow ($level_factor, $level_computer) * 100);
+    }
 }
 ?>

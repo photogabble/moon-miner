@@ -196,7 +196,7 @@ else
 {
     $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
     $free_power = NUM_ENERGY ($playerinfo['power']) - $playerinfo['ship_energy'];
-    $fighter_max = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
+    $fighter_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
     $torpedo_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
 
     // First setup the tp flags

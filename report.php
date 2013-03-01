@@ -65,7 +65,7 @@ else
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
 $holds_max = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor);
 $armor_pts_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor);
-$ship_fighters_max = NUM_FIGHTERS ($playerinfo['computer']);
+$ship_fighters_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
 $torps_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
 $energy_max = NUM_ENERGY($playerinfo['power']);
 $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no;

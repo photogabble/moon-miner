@@ -169,7 +169,7 @@ switch ($response)
       }
 
       $torpedo_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
-      $fighter_max = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
+      $fighter_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
       if ($defenceinfo['defence_type'] == 'F')
       {
          if ($quantity > $fighter_max)

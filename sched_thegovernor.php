@@ -34,7 +34,7 @@ $detected = (boolean) false;
 while (!$tdres->EOF)
 {
     $playerinfo = $tdres->fields;
-    $ship_fighters_max = NUM_FIGHTERS ($playerinfo['computer']);
+    $ship_fighters_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
     $torps_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
     $armor_pts_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor);
 

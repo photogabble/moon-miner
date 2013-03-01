@@ -435,7 +435,7 @@ elseif ($sectorinfo['port_type'] == "special")
     $beacon_free = $max_beacons - $playerinfo['dev_beacon'];
     $emerwarp_free = $max_emerwarp - $playerinfo['dev_emerwarp'];
     $warpedit_free = $max_warpedit - $playerinfo['dev_warpedit'];
-    $fighter_max = NUM_FIGHTERS ($playerinfo['computer']);
+    $fighter_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
     $fighter_free = $fighter_max - $playerinfo['ship_fighters'];
     $torpedo_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
     $torpedo_free = $torpedo_max - $playerinfo['torps'];

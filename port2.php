@@ -261,7 +261,7 @@ else
         }
 
         $fighter_number = round (abs ($fighter_number));
-        $fighter_max = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
+        $fighter_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
         if ($fighter_max < 0)
         {
             $fighter_max = 0;

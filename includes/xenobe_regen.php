@@ -44,7 +44,7 @@ function xenobe_regen ($db)
     }
 
     // Buy fighters & torpedos at 6 credits per fighter
-    $available_fighters = NUM_FIGHTERS ($playerinfo['computer']) - $playerinfo['ship_fighters'];
+    $available_fighters = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
     if (($playerinfo['credits'] > 5) && ($available_fighters > 0))
     {
         if (round ($playerinfo['credits'] / 6) > $available_fighters)

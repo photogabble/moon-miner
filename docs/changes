@@ -2,6 +2,7 @@ TheKabal (1 March 2013)
 --------------------------------------
 num_torps has been replaced by \bnt\CalcLevels::Torpedoes, which is auto-loaded from the vendor/bnt directory.
 num_beams has been replaced by \bnt\CalcLevels::Beams, which is auto-loaded from the vendor/bnt directory.
+num_fighters has been replaced by \bnt\CalcLevels::Fighters, which is auto-loaded from the vendor/bnt directory.
 
 TheKabal (24 February 2013)
 --------------------------------------

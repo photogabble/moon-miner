@@ -511,7 +511,7 @@ else
           if ($xenlevel=='') $xenlevel=0;
           $maxenergy = NUM_ENERGY($xenlevel);
           $maxarmor = \bnt\CalcLevels::Armor ($xenlevel, $level_factor);
-          $maxfighters = NUM_FIGHTERS($xenlevel);
+          $maxfighters = \bnt\CalcLevels::Fighters ($xenlevel, $level_factor);
           $maxtorps = \bnt\CalcLevels::Torpedoes ($xenlevel, $level_factor);
           $stamp=date("Y-m-d H:i:s");
           // ADD Xenobe RECORD TO ships table ... MODIFY IF ships SCHEMA CHANGES

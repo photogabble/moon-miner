@@ -436,7 +436,7 @@ function traderoute_engage ($db, $j)
 
             if ($playerinfo['trade_fighters'] == 'Y')
             {
-                $free_fighters = NUM_FIGHTERS($playerinfo['computer']) - $playerinfo['ship_fighters'];
+                $free_fighters = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
                 $fighters_buy = $free_fighters;
 
                 if ($total_credits < $fighters_buy * $fighter_price)
@@ -459,7 +459,7 @@ function traderoute_engage ($db, $j)
 
             if ($playerinfo['trade_torps'] == 'Y')
             {
-                $free_torps = NUM_FIGHTERS($playerinfo['torp_launchers']) - $playerinfo['torps'];
+                $free_torps = \bnt\CalcLevels::Fighters ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
                 $torps_buy = $free_torps;
 
                 if ($total_credits < $torps_buy * $torpedo_price)
@@ -886,7 +886,7 @@ function traderoute_engage ($db, $j)
                 $torps_buy = 0;
             }
 
-            $free_fighters = NUM_FIGHTERS($playerinfo['computer']) - $playerinfo['ship_fighters'];
+            $free_fighters = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
             if ($source['fighters'] > 0 && $free_fighters > 0 && $playerinfo['trade_fighters'] == 'Y')
             {
                 if ($source['fighters'] > $free_fighters)
