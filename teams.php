@@ -188,7 +188,7 @@ switch ($teamwhat)
                 {
                     foreach ($sectors as $sector)
                     {
-                        calc_ownership ($db, $sector);
+                        calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
                     }
                 }
                 defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
@@ -246,7 +246,7 @@ switch ($teamwhat)
                     {
                         foreach ($sectors as $sector)
                         {
-                            calc_ownership ($db, $sector);
+                            calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
                         }
                     }
 
@@ -291,7 +291,7 @@ switch ($teamwhat)
             {
                 foreach ($sectors as $sector)
                 {
-                    calc_ownership ($db, $sector);
+                    calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
                 }
             }
 

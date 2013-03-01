@@ -117,7 +117,7 @@ function go_build_base ($db, $planet_id, $sector_id)
         include './includes/calc_ownership.php';
 
         // Calc Ownership and Notify User Of Results
-        $ownership = calc_ownership ($db, $playerinfo['sector']);
+        $ownership = calc_ownership ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
         if (!empty ($ownership))
         {
             echo $ownership . "<p>";

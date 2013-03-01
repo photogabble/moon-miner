@@ -527,7 +527,7 @@ function planet_combat ($db)
         }
 
         include_once './includes/calc_ownership.php';
-        calc_ownership ($db, $planetinfo['sector_id']);
+        calc_ownership ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
     }
     else
     {

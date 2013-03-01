@@ -23,10 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_ownership.php')) // Prevent direct acces
     include './error.php';
 }
 
-function calc_ownership ($db, $sector)
+function calc_ownership ($db, $sector, $min_bases_to_own, $langvars)
 {
-    global $min_bases_to_own, $langvars;
-
     $res = $db->Execute ("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array ($sector));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $num_bases = $res->RecordCount();

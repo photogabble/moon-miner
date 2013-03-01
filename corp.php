@@ -52,7 +52,8 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
         echo $l_corpm_tocorp . "<br>";
         $result = $db->Execute ("UPDATE {$db->prefix}planets SET corp=?, owner=? WHERE planet_id = ?;", array ($playerinfo['team'], $playerinfo['ship_id'], $planet_id));
         \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
-        $ownership = calc_ownership ($db, $playerinfo['sector']);
+        $ownership = calc_ownership ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
+
         if (!empty ($ownership))
         {
             echo "<p>$ownership<p>";
@@ -64,7 +65,7 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
         echo $l_corpm_topersonal . "<br>";
         $result = $db->Execute ("UPDATE {$db->prefix}planets SET corp='0', owner = ? WHERE planet_id = ?;", array ($playerinfo['ship_id'], $planet_id));
         \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
-        $ownership = calc_ownership ($db, $playerinfo['sector']);
+        $ownership = calc_ownership ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
 
         // Kick other players off the planet
         $result = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE on_planet='Y' AND planet_id = ? AND ship_id <> ?;", array ($planet_id, $playerinfo['ship_id']));

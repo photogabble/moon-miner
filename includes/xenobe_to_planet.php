@@ -338,7 +338,7 @@ function xenobe_to_planet ($db, $planet_id)
             \bnt\dbop::dbresult ($db, $resl, __LINE__, __FILE__);
 
             include './calc_ownership.php';
-            calc_ownership ($db, $planetinfo['sector_id']);
+            calc_ownership ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
         }
         else
         {
