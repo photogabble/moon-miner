@@ -6,6 +6,8 @@ Fixed PHP Notice: Object of class ADORecordSet_mysqlt could not be converted to 
 Fixed PHP Notice: Undefined offset: 1 in log.php on line 438
 Fixed PHP Notice: Undefined offset: 2 in log.php on line 438
 Fixed PHP Notice: Undefined variable: l_ibank_notenturns in planet.php on line 428
+Fixed PHP Notice: Undefined index: team_id in planet_report_ce.php on line 293
+Fixed PHP Notice: Undefined index: team_id in planet_report_ce.php on line 301
 
 TheKabal (1 March 2013)
 --------------------------------------
