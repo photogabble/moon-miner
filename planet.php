@@ -30,7 +30,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // New database driven language entries
-load_languages ($db, $lang, array ('bounty', 'port', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars);
+load_languages ($db, $lang, array ('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'), $langvars);
 
 $title = $l_planet_title;
 include './header.php';

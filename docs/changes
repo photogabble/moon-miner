@@ -5,6 +5,7 @@ Fixed PHP Notice: Trying to get property of non-object in includes/db_kill_playe
 Fixed PHP Notice: Object of class ADORecordSet_mysqlt could not be converted to int in includes/distribute_toll.php on line 32
 Fixed PHP Notice: Undefined offset: 1 in log.php on line 438
 Fixed PHP Notice: Undefined offset: 2 in log.php on line 438
+Fixed PHP Notice: Undefined variable: l_ibank_notenturns in planet.php on line 428
 
 TheKabal (1 March 2013)
 --------------------------------------
