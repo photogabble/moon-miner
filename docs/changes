@@ -1,5 +1,6 @@
 TheKabal (1 March 2013)
 --------------------------------------
+Updated composer to latest version
 db_op_result has been replaced by \bnt\dbop::dbresult, which is auto-loaded from the vendor/bnt directory.
 num_torps has been replaced by \bnt\CalcLevels::Torpedoes, which is auto-loaded from the vendor/bnt directory.
 num_beams has been replaced by \bnt\CalcLevels::Beams, which is auto-loaded from the vendor/bnt directory.
