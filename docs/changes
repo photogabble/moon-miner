@@ -8,6 +8,14 @@ Fixed PHP Notice: Undefined offset: 2 in log.php on line 438
 Fixed PHP Notice: Undefined variable: l_ibank_notenturns in planet.php on line 428
 Fixed PHP Notice: Undefined index: team_id in planet_report_ce.php on line 293
 Fixed PHP Notice: Undefined index: team_id in planet_report_ce.php on line 301
+Fixed PHP Notice: Undefined variable: l_totalcost in planet3.php on line 159
+Fixed PHP Notice: Undefined variable: l_traded_ore in planet3.php on line 159
+Fixed PHP Notice: Undefined variable: l_traded_organics in planet3.php on line 159
+Fixed PHP Notice: Undefined variable: l_traded_goods in planet3.php on line 159
+Fixed PHP Notice: Undefined variable: l_traded_energy in planet3.php on line 159
+Fixed PHP Notice: Undefined variable: l_trade_complete in planet3.php on line 167
+Fixed PHP Notice: Undefined variable: l_notenough_power in planet3.php on line 131
+Fixed PHP Notice: Undefined variable: l_toplanetmenu in planet3.php on line 131
 
 TheKabal (1 March 2013)
 --------------------------------------
