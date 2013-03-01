@@ -1,3 +1,7 @@
+TheMightyDude (14 February 2013)
+--------------------------------------
+Fixed PHP Notice: Use of undefined constant credits - assumed 'credits' in check_fighters.php on line 113
+
 TheKabal (1 March 2013)
 --------------------------------------
 Redo calc_ownership so that it does not use global variables, in preparation for migrating it to be autoloaded

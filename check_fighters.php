@@ -110,7 +110,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
-                if ($playerinfo[credits] < $fighterstoll)
+                if ($playerinfo['credits'] < $fighterstoll)
                 {
                     echo "$l_chf_notenoughcreditstoll<br>";
                     echo "$l_chf_movefailed<br>";
