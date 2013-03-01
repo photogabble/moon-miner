@@ -61,7 +61,7 @@ while (!$result->EOF)
 
 $freeholds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 $maxholds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor);
-$maxenergy = NUM_ENERGY ($playerinfo['power']);
+$maxenergy = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
@@ -545,7 +545,7 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
         $energyscooped = 100;
     }
 
-    $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
+    $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
     if ($free_power < $energyscooped)
     {
@@ -564,7 +564,7 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
         if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
         {
             $energyscooped = $distance * 100;
-            $free_power = NUM_ENERGY($playerinfo['power']);
+            $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
 
             if ($free_power < $energyscooped)
             {
@@ -576,7 +576,7 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
         elseif ($playerinfo['dev_fuelscoop'] == 'Y')
         {
             $energyscooped = $distance * 100;
-            $free_power = NUM_ENERGY($playerinfo['power']) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
+            $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
 
             if ($free_power < $energyscooped)
             {

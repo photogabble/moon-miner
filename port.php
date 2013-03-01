@@ -237,7 +237,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     }
     else
     {
-        $amount_energy = NUM_ENERGY ($playerinfo['power']) - $playerinfo['ship_energy'];
+        $amount_energy = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     }
 
     // Limit amounts to port quantities
@@ -279,7 +279,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     echo "</form>";
 
     $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-    $free_power = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'];
+    $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
     $l_trade_st_info = str_replace ("[free_holds]", NUMBER ($free_holds), $l_trade_st_info);
     $l_trade_st_info = str_replace ("[free_power]", NUMBER ($free_power), $l_trade_st_info);

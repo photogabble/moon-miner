@@ -55,5 +55,10 @@ class CalcLevels
     {
         return round (pow ($level_factor, $level_computer) * 100);
     }
+
+    static function Energy ($level_power, $level_factor)
+    {
+        return round (pow ($level_factor, $level_power) * 500);
+    }
 }
 ?>

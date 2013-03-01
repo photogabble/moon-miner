@@ -29,7 +29,7 @@ function xenobe_regen ($db)
 
     // Xenobe Unempoyment Check
     $playerinfo['credits'] = $playerinfo['credits'] + $xen_unemployment;
-    $maxenergy = NUM_ENERGY ($playerinfo['power']); // Regenerate energy
+    $maxenergy = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor); // Regenerate energy
     if ($playerinfo['ship_energy'] <= ($maxenergy - 50))  // Stop regen when within 50 of max
     {
         $playerinfo['ship_energy'] = $playerinfo['ship_energy'] + round (($maxenergy - $playerinfo['ship_energy']) / 2); // Regen half of remaining energy

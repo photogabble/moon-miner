@@ -24,7 +24,6 @@ include_once './includes/check_login.php';		// Needs to be refactored and split 
 include_once './includes/db_kill_player.php';   // Remove global variables, redo calc_ownership so that it autoloads
 include_once './includes/db_op_result.php';		// Check whether we can translate the hard-coded text
 include_once './includes/load_languages.php';   // Global variables are a mess in this file
-include_once './includes/num_energy.php';		// Remove globals, change function name to PSR compliance
 include_once './includes/request_var.php';		// This injects register globals -- eliminate
 include_once './includes/text_gotomain.php'; 	// This will be eliminated while migrating to templates
 include_once './includes/number.php';        	// This will be eliminated while migrating to templates

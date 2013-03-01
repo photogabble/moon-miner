@@ -708,7 +708,7 @@ function traderoute_engage ($db, $j)
             if ($source['port_type'] == 'energy')
             {
                 $energy_price1 = $energy_price - $energy_delta * $source['port_energy'] / $energy_limit * $inventory_factor;
-                $energy_buy = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'] - $dist['scooped1'];
+                $energy_buy = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'] - $dist['scooped1'];
 
                 if ($playerinfo['credits'] + $sourcecost < $energy_buy * $energy_price1)
                 {
@@ -737,9 +737,9 @@ function traderoute_engage ($db, $j)
             if ($dist['scooped1'] > 0)
             {
                 $playerinfo['ship_energy']+= $dist['scooped1'];
-                if ($playerinfo['ship_energy'] > NUM_ENERGY($playerinfo['power']))
+                if ($playerinfo['ship_energy'] > \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor))
                 {
-                    $playerinfo['ship_energy'] = NUM_ENERGY($playerinfo['power']);
+                    $playerinfo['ship_energy'] = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
                 }
             }
 
@@ -1184,7 +1184,7 @@ function traderoute_engage ($db, $j)
                 }
                 else
                 {
-                    $energy_buy = NUM_ENERGY($playerinfo['power']) - $playerinfo['ship_energy'] - $dist['scooped1'];
+                    $energy_buy = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'] - $dist['scooped1'];
                     if ($playerinfo['credits'] + $destcost < $energy_buy * $energy_price1)
                     {
                         $energy_buy = ($playerinfo['credits'] + $destcost) / $energy_price1;
@@ -1221,9 +1221,9 @@ function traderoute_engage ($db, $j)
             {
                 $playerinfo['ship_energy']+= $dist['scooped2'];
 
-                if ($playerinfo['ship_energy'] > NUM_ENERGY($playerinfo['power']))
+                if ($playerinfo['ship_energy'] > \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor))
                 {
-                    $playerinfo['ship_energy'] = NUM_ENERGY($playerinfo['power']);
+                    $playerinfo['ship_energy'] = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
                 }
             }
             $reso = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=?, ship_energy=? WHERE ship_id=?", array ($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_energy'], $playerinfo['ship_id']));

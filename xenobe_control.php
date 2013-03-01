@@ -509,7 +509,7 @@ else
             }
           }
           if ($xenlevel=='') $xenlevel=0;
-          $maxenergy = NUM_ENERGY($xenlevel);
+          $maxenergy = \bnt\CalcLevels::Energy ($xenlevel, $level_factor);
           $maxarmor = \bnt\CalcLevels::Armor ($xenlevel, $level_factor);
           $maxfighters = \bnt\CalcLevels::Fighters ($xenlevel, $level_factor);
           $maxtorps = \bnt\CalcLevels::Torpedoes ($xenlevel, $level_factor);

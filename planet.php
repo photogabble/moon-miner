@@ -382,7 +382,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Transfer menu
             global $l_planet;
             $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-            $free_power = NUM_ENERGY ($playerinfo['power']) - $playerinfo['ship_energy'];
+            $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
             $l_planet_cinfo = str_replace ("[cargo]", NUMBER ($free_holds), $l_planet_cinfo);
             $l_planet_cinfo = str_replace ("[energy]", NUMBER ($free_power), $l_planet_cinfo);
             echo "$l_planet_cinfo<br><br>";
