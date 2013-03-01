@@ -1,7 +1,8 @@
-TheMightyDude (14 February 2013)
+TheMightyDude (1 March 2013)
 --------------------------------------
 Fixed PHP Notice: Use of undefined constant credits - assumed 'credits' in check_fighters.php on line 113
 Fixed PHP Notice: Trying to get property of non-object in includes/db_kill_player.php on line 46
+Fixed PHP Notice: Object of class ADORecordSet_mysqlt could not be converted to int in includes/distribute_toll.php on line 32
 
 TheKabal (1 March 2013)
 --------------------------------------

@@ -29,7 +29,7 @@ function distribute_toll ($db, $sector, $toll, $total_fighters)
     \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
 
     // Put the defence information into the array "defenceinfo"
-    if ($result3 > 0)
+    if ($result3 instanceof ADORecordSet)
     {
         while (!$result3->EOF)
         {
