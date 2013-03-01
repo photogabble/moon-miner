@@ -512,7 +512,7 @@ else
           $maxenergy = NUM_ENERGY($xenlevel);
           $maxarmor = \bnt\CalcLevels::Armor ($xenlevel, $level_factor);
           $maxfighters = NUM_FIGHTERS($xenlevel);
-          $maxtorps = NUM_TORPEDOES($xenlevel);
+          $maxtorps = \bnt\CalcLevels::Torpedoes ($xenlevel, $level_factor);
           $stamp=date("Y-m-d H:i:s");
           // ADD Xenobe RECORD TO ships table ... MODIFY IF ships SCHEMA CHANGES
           $thesql = "INSERT INTO {$db->prefix}ships ( `ship_id` , `ship_name` , `ship_destroyed` , `character_name` , `password` , `email` , `hull` , `engines` , `power` , `computer` , `sensors` , `beams` , `torp_launchers` , `torps` , `shields` , `armor` , `armor_pts` , `cloak` , `credits` , `sector` , `ship_ore` , `ship_organics` , `ship_goods` , `ship_energy` , `ship_colonists` , `ship_fighters` , `ship_damage` , `turns` , `on_planet` , `dev_warpedit` , `dev_genesis` , `dev_beacon` , `dev_emerwarp` , `dev_escapepod` , `dev_fuelscoop` , `dev_minedeflector` , `turns_used` , `last_login` , `rating` , `score` , `team` , `team_invite` , `interface` , `ip_address` , `planet_id` , `preset1` , `preset2` , `preset3` , `trade_colonists` , `trade_fighters` , `trade_torps` , `trade_energy` , `cleared_defences` , `lang` , `dev_lssd` )

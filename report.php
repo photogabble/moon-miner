@@ -66,7 +66,7 @@ $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerin
 $holds_max = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor);
 $armor_pts_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor);
 $ship_fighters_max = NUM_FIGHTERS ($playerinfo['computer']);
-$torps_max = NUM_TORPEDOES ($playerinfo['torp_launchers']);
+$torps_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
 $energy_max = NUM_ENERGY($playerinfo['power']);
 $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no;
 $fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $l_yes : $l_no;

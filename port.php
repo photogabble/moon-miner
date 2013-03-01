@@ -437,7 +437,7 @@ elseif ($sectorinfo['port_type'] == "special")
     $warpedit_free = $max_warpedit - $playerinfo['dev_warpedit'];
     $fighter_max = NUM_FIGHTERS ($playerinfo['computer']);
     $fighter_free = $fighter_max - $playerinfo['ship_fighters'];
-    $torpedo_max = NUM_TORPEDOES ($playerinfo['torp_launchers']);
+    $torpedo_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
     $torpedo_free = $torpedo_max - $playerinfo['torps'];
     $armor_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor);
     $armor_free = $armor_max - $playerinfo['armor_pts'];

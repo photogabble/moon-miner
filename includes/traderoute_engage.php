@@ -865,7 +865,7 @@ function traderoute_engage ($db, $j)
                 $colonists_buy = 0;
             }
 
-            $free_torps = NUM_TORPEDOES($playerinfo['torp_launchers']) - $playerinfo['torps'];
+            $free_torps = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
             if ($source['torps'] > 0 && $free_torps > 0 && $playerinfo['trade_torps'] == 'Y')
             {
                 if ($source['torps'] > $free_torps)

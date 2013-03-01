@@ -65,7 +65,7 @@ function xenobe_regen ($db)
     }
 
     // Xenobe pay 3 credits per torpedo
-    $available_torpedoes = NUM_TORPEDOES ($playerinfo['torp_launchers']) - $playerinfo['torps'];
+    $available_torpedoes = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
     if (($playerinfo['credits'] > 2) && ($available_torpedoes > 0))
     {
         if (round ($playerinfo['credits'] / 3) > $available_torpedoes)

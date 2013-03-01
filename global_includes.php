@@ -27,7 +27,6 @@ include_once './includes/load_languages.php';   // Global variables are a mess i
 include_once './includes/num_beams.php';		// Remove globals, change function name to PSR compliance
 include_once './includes/num_energy.php';		// Remove globals, change function name to PSR compliance
 include_once './includes/num_fighters.php';		// Remove globals, change function name to PSR compliance
-include_once './includes/num_torpedoes.php';	// Remove globals, change function name to PSR compliance
 include_once './includes/request_var.php';		// This injects register globals -- eliminate
 include_once './includes/text_gotomain.php'; 	// This will be eliminated while migrating to templates
 include_once './includes/number.php';        	// This will be eliminated while migrating to templates

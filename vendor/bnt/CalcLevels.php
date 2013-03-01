@@ -40,5 +40,10 @@ class CalcLevels
     {
         return round (pow ($level_factor, $level_shields) * 100);
     }
+
+    static function Torpedoes ($level_torp_launchers, $level_factor)
+    {
+        return round (pow ($level_factor, $level_torp_launchers) * 100);
+    }
 }
 ?>
