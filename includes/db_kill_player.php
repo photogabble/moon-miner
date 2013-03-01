@@ -43,11 +43,16 @@ function db_kill_player ($db, $ship_id, $remove_planets = false)
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $i = 0;
 
-    while (!$res->EOF && $res)
+    $sectors = null;
+
+    if ($res instanceof ADORecordSet)
     {
-        $sectors[$i] = $res->fields['sector_id'];
-        $i++;
-        $res->MoveNext();
+        while (!$res->EOF && $res)
+        {
+            $sectors[$i] = $res->fields['sector_id'];
+            $i++;
+            $res->MoveNext();
+        }
     }
 
     if ($remove_planets == true && $ship_id > 0)
