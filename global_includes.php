@@ -22,7 +22,6 @@ include_once './global_defines.php';            // Defines used in a few places
 
 include_once './includes/check_login.php';		// Needs to be refactored and split into several functions
 include_once './includes/db_kill_player.php';   // Remove global variables, redo calc_ownership so that it autoloads
-include_once './includes/db_op_result.php';		// Check whether we can translate the hard-coded text
 include_once './includes/load_languages.php';   // Global variables are a mess in this file
 include_once './includes/request_var.php';		// This injects register globals -- eliminate
 include_once './includes/text_gotomain.php'; 	// This will be eliminated while migrating to templates

@@ -31,7 +31,7 @@ $title = $l_teamplanet_title;
 include './header.php';
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
@@ -68,7 +68,7 @@ if (!empty($sort))
 }
 
 $res = $db->Execute($query);
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
@@ -147,7 +147,7 @@ else
 
         $owner = $planet[$i]['owner'];
         $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
-        db_op_result ($db, $res, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";

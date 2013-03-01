@@ -29,7 +29,7 @@ if (isset ($_SESSION['username']))
 {
     $current_score = 0;
     $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-    db_op_result ($db, $result, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     include_once './includes/calc_score.php';
     $current_score = calc_score ($db, $playerinfo['ship_id']);

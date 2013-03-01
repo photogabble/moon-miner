@@ -30,7 +30,7 @@ function ibank_transfer ($db)
     global $l_ibank_unnamed, $l_ibank_in, $l_ibank_none, $l_ibank_planettransfer, $l_ibank_back, $l_ibank_logout, $l_ibank_destination, $l_ibank_conspl;
 
     $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $ships[] = $res->fields;
@@ -38,7 +38,7 @@ function ibank_transfer ($db)
     }
 
     $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $planets[] = $res->fields;

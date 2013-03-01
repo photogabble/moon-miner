@@ -76,7 +76,7 @@ else
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
     $rs = $db->Execute("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array ($_SESSION['username']));
-    db_op_result ($db, $rs, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
     if ($rs instanceof ADORecordSet)
@@ -102,7 +102,7 @@ else
 
             // Now update the players password.
             $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
-            db_op_result ($db, $rs, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
             if ((is_bool($rs) && $rs == false) || $db->Affected_Rows() != 1)
@@ -130,7 +130,7 @@ if ($oldlang != $lang)
 {
     // Yes, so update to the new requited language.
     $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array ($lang, $_SESSION['username']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     // Now cycle through the supported language list unto we get a match to the new language.
     foreach ($avail_lang as $curlang)

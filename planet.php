@@ -57,7 +57,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 // Get the Player Info
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 // Empty out Planet and Ship vars
@@ -73,11 +73,11 @@ if ($planet_id <= 0 )
 }
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-db_op_result ($db, $result2, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-db_op_result ($db, $result3, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
 $planetinfo = $result3->fields;
 
 // Check to see if it returned valid planet info.
@@ -96,7 +96,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         if ($playerinfo['on_planet'] == 'Y')
         {
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            db_op_result ($db, $resx, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         }
 
         echo "$l_planet_none <p>";
@@ -123,7 +123,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
     if ($planetinfo['owner'] != 0)
     {
         $result3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planetinfo['owner']));
-        db_op_result ($db, $result3, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
         $ownerinfo = $result3->fields;
     }
 
@@ -157,11 +157,11 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 if ($playerinfo['dev_genesis'] > 0)
                 {
                     $update = $db->Execute ("DELETE FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-                    db_op_result ($db, $update, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
                     $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id = ?", array ($playerinfo['ship_id']));
-                    db_op_result ($db, $update2, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update2, __LINE__, __FILE__);
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE planet_id = ?;", array ($planet_id));
-                    db_op_result ($db, $update3, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update3, __LINE__, __FILE__);
                     calc_ownership ($db, $playerinfo['sector']);
                     header("Location: main.php");
                 }
@@ -337,13 +337,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 // Set planet to not sell
                 echo "$l_planet_nownosell<br>";
                 $result4 = $db->Execute ("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id = ?;", array ($planet_id));
-                db_op_result ($db, $result4, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $result4, __LINE__, __FILE__);
             }
             else
             {
                 echo "$l_planet_nowsell<br>";
                 $result4b = $db->Execute ("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id = ?;", array ($planet_id));
-                db_op_result ($db, $result4b, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $result4b, __LINE__, __FILE__);
             }
         }
         elseif ($command == "name")
@@ -360,7 +360,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Name2 menu
             $new_name = trim (htmlentities ($_POST['new_name']) );
             $result5 = $db->Execute ("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array ($new_name, $planet_id));
-            db_op_result ($db, $result5, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $result5, __LINE__, __FILE__);
             echo "$l_planet_cname $new_name.";
         }
         elseif ($command == "land")
@@ -368,14 +368,14 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Land menu
             echo "$l_planet_landed<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='Y', planet_id = ? WHERE ship_id = ?;", array ($planet_id, $playerinfo['ship_id']));
-            db_op_result ($db, $update, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "leave")
         {
             // Leave menu
             echo "$l_planet_left<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            db_op_result ($db, $update, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "transfer")
         {
@@ -431,15 +431,15 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     // Create The Base
                     $update1 = $db->Execute ("UPDATE {$db->prefix}planets SET base='Y', ore = ? - ?, organics = ? - ?, goods = ? - ?, credits = ? - ? WHERE planet_id = ?;", array ($planetinfo['ore'], $base_ore, $planetinfo['organics'], $base_organics, $planetinfo['goods'], $base_goods, $planetinfo['credits'], $base_credits, $planet_id));
-                    db_op_result ($db, $update1, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update1, __LINE__, __FILE__);
 
                     // Update User Turns
                     $update1b = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                    db_op_result ($db, $update1b, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update1b, __LINE__, __FILE__);
 
                     // Refresh Plant Info
                     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet_id));
-                    db_op_result ($db, $result3, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
                     $planetinfo = $result3->fields;
 
                     // Notify User Of Base Results
@@ -483,7 +483,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             else
             {
                 $resx = $db->Execute ("UPDATE {$db->prefix}planets SET prod_ore= ? , prod_organics = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?;", array ($pore, $porganics, $pgoods, $penergy, $pfighters, $ptorp, $planet_id));
-                db_op_result ($db, $resx, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                 echo "$l_planet_p_changed<br><br>";
             }
         }
@@ -499,7 +499,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Leave menu
             echo "$l_planet_left<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            db_op_result ($db, $update, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
             $l_global_mmenu = str_replace ("[here]","<a href='main.php'>" . $l_here . "</a>", $l_global_mmenu);
             echo $l_global_mmenu . "<br>\n";
             header("Location: main.php");
@@ -835,7 +835,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 //            }
 
                 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' and planet_id = ?;", array ($planet_id));
-                db_op_result ($db, $res, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
                 while (!$res->EOF)
                 {
@@ -860,13 +860,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
             }
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-            db_op_result ($db, $update, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "capture" &&  $planetinfo['owner'] == 0)
         {
             echo "$l_planet_captured<br>";
             $update = $db->Execute ("UPDATE {$db->prefix}planets SET corp = 0, owner = ?, base = 'N', defeated = 'N' WHERE planet_id = ?;", array ($playerinfo['ship_id'], $planet_id));
-            db_op_result ($db, $update, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
             $ownership = calc_ownership ($db, $playerinfo['sector']);
 
             if (!empty($ownership))
@@ -883,7 +883,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             if ($planetinfo['owner'] != 0)
             {
                 $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planetinfo['owner']));
-                db_op_result ($db, $res, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
                 $query = $res->fields;
                 $planetowner = $query['character_name'];
             }
@@ -898,7 +898,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         {
             echo "$l_planet_notdef<br>";
             $resx = $db->Execute ("UPDATE {$db->prefix}planets SET defeated='N' WHERE planet_id = ?;", array ($planetinfo['planet_id']));
-            db_op_result ($db, $resx, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         }
         else
         {

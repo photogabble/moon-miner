@@ -34,7 +34,7 @@ class AdminLog
     	if (is_int ($log_type))
     	{
         	$ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-        	db_op_result ($db, $ret, __LINE__, __FILE__);
+        	\bnt\dbop::dbresult ($db, $ret, __LINE__, __FILE__);
     	}
 
     	return $ret;

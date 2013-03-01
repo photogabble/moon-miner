@@ -30,7 +30,7 @@ $langvars = null;
 load_languages ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $shiptypes[0] = "tinyship.png";

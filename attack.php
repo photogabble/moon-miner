@@ -49,16 +49,16 @@ $result = $db->Execute("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefi
                        "{$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, " .
                        "{$db->prefix}zones READ, {$db->prefix}planets WRITE, " .
                        "{$db->prefix}news WRITE, {$db->prefix}movement_log WRITE, {$db->prefix}logs WRITE;");
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $ship_id = preg_replace('/[^0-9]/', '', $ship_id);
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
-db_op_result ($db, $result2, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
 include_once './includes/calc_score.php';
@@ -108,7 +108,7 @@ else
     $res = $db->Execute("SELECT allow_attack, {$db->prefix}universe.zone_id FROM {$db->prefix}zones, " .
                         "{$db->prefix}universe WHERE sector_id = ? AND {$db->prefix}zones.zone_id = " .
                         "{$db->prefix}universe.zone_id;", array ($targetinfo['sector']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $zoneinfo = $res->fields;
 
     if ($zoneinfo['allow_attack'] == 'N')
@@ -120,7 +120,7 @@ else
         echo $l_att_flee . "<br><br>";
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
                              "ship_id = ?;", array ($playerinfo['ship_id']));
-        db_op_result ($db, $resx, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_OUTMAN, "$playerinfo[character_name]");
     }
     elseif ($roll > $success)
@@ -129,7 +129,7 @@ else
         echo $l_planet_noscan . "<br><br>";
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
                              "ship_id = ?;", array ($playerinfo['ship_id']));
-        db_op_result ($db, $resx, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
     }
     else
@@ -155,12 +155,12 @@ else
             $dest_sector = mt_rand (1, $sector_max - 1);
             $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
                                  "WHERE ship_id = ?;", array ($rating_change, $playerinfo['ship_id']));
-            db_op_result ($db, $resx, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
             \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
             $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = $dest_sector, " .
                                          "dev_emerwarp = dev_emerwarp - 1, cleared_defences = ' ' " .
                                          "WHERE ship_id = ?;", array ($targetinfo['ship_id']));
-            db_op_result ($db, $result_warp, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $result_warp, __LINE__, __FILE__);
             \bnt\LogMove::writeLog ($db, $targetinfo['ship_id'], $dest_sector);
             echo $l_att_ewd . "<br><br>";
         }
@@ -176,7 +176,7 @@ else
                 $btyamount = 0;
                 $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE " .
                                           "bounty_on = ? AND placed_by = 0;", array ($targetinfo['ship_id']));
-                db_op_result ($db, $hasbounty, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $hasbounty, __LINE__, __FILE__);
                 if ($hasbounty)
                 {
                     $resx = $hasbounty->fields;
@@ -188,7 +188,7 @@ else
                     $bounty = ROUND ($playerscore * $bounty_maxvalue);
                     $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values " .
                                            "(?,?,?);", array ($playerinfo['ship_id'], 0 ,$bounty));
-                    db_op_result ($db, $insert, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
                     \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BOUNTY_FEDBOUNTY, "$bounty");
                     echo "<div style='color:#f00;'>" . $l_by_fedbounty2 . "</div>\n";
                     echo "<br>\n";
@@ -586,7 +586,7 @@ else
                                          "ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, " .
                                          "dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, cleared_defences = ' ', " .
                                          "dev_lssd = 'N' WHERE ship_id = ?;", array ($start_energy, $rating, $targetinfo['ship_id']));
-                    db_op_result ($db, $resx, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                     \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
                     collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     \bnt\adminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
@@ -609,7 +609,7 @@ else
                     if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 ) // He is a Xenobe
                     {
                         $resx = $db->Execute("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
-                        db_op_result ($db, $resx, __LINE__, __FILE__);
+                        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
                         \bnt\adminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
 
@@ -686,14 +686,14 @@ else
                     echo $l_att_ysalv . "<br>" . $l_att_ysalv2 . "<br>\n";
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, " .
                                              "credits = credits + ? WHERE ship_id = ?;", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
-                    db_op_result ($db, $update3, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update3, __LINE__, __FILE__);
                     $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
                     $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
                     $energy = $playerinfo['ship_energy'];
                     $update3b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts = armor_pts - ?, torps = torps - ?, " .
                                               "turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
                                               "WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $rating_change, $playerinfo['ship_id']));
-                    db_op_result ($db, $update3b, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update3b, __LINE__, __FILE__);
                     echo "$l_att_ylost $armor_lost $l_armorpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<br>";
                 }
             }
@@ -710,7 +710,7 @@ else
                 \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$armor_lost|$fighters_lost");
                 $update4 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts = armor_pts - ?, " .
                                          "torps = torps - ? WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $targettorpnum, $targetinfo['ship_id']));
-                db_op_result ($db, $update4, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $update4, __LINE__, __FILE__);
 
                 $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
                 $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
@@ -719,7 +719,7 @@ else
                 $update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts = armor_pts - ?, torps = torps - ?, " .
                                           "turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
                                           "WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $rating_change, $playerinfo['ship_id']));
-                db_op_result ($db, $update4b, __LINE__, __FILE__);
+                \bnt\dbop::dbresult ($db, $update4b, __LINE__, __FILE__);
                 echo "$l_att_ylost $armor_lost $l_armorpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<br><br>";
             }
 
@@ -735,7 +735,7 @@ else
                                          "ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', " .
                                          "dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, dev_lssd = 'N' " .
                                          "WHERE ship_id = ?", array ($start_energy, $rating, $playerinfo['ship_id']));
-                    db_op_result ($db, $resx, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                     collect_bounty ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
                 else
@@ -811,13 +811,13 @@ else
                     echo $l_att_salv. "<br>";
                     $update6 = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, " .
                                              "ship_goods = ship_goods + ? WHERE ship_id = ?;", array ($ship_salvage, $salv_ore, $salv_organics, $salv_goods, $targetinfo['ship_id']));
-                    db_op_result ($db, $update6, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update6, __LINE__, __FILE__);
                     $armor_lost = $targetinfo['armor_pts'] - $targetarmor;
                     $fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
                     $energy = $targetinfo['ship_energy'];
                     $update6b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ?, ship_fighters = ship_fighters - ?, armor_pts = armor_pts - ?, torps = torps - ? " .
                                               "WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $targettorpnum, $targetinfo['ship_id']));
-                    db_op_result ($db, $update6b, __LINE__, __FILE__);
+                    \bnt\dbop::dbresult ($db, $update6b, __LINE__, __FILE__);
                 }
             }
 
@@ -829,7 +829,7 @@ else
     }
 }
 $resx = $db->Execute("UNLOCK TABLES");
-db_op_result ($db, $resx, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
 $_SESSION['in_combat'] = (boolean) false;
 

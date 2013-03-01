@@ -80,9 +80,9 @@ function ibank_borrow ($db)
          "</tr>";
 
     $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));
-    db_op_result ($db, $resx, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
     $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
-    db_op_result ($db, $resx, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 }
 ?>

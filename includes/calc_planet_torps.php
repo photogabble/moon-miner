@@ -33,7 +33,7 @@ function calc_planet_torps ($db)
     $torps = $planetinfo['torps'];
 
     $res = $db->Execute("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
        while (!$res->EOF)

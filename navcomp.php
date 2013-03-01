@@ -49,14 +49,14 @@ $state = $_REQUEST['state'];
 unset ($stop_sector);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
-db_op_result ($db, $result2, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 // Gets the stop_sector POST Variable.
@@ -162,7 +162,7 @@ elseif ($state == 1)
         $db->SetFetchMode (ADODB_FETCH_NUM);
 
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");
-        db_op_result ($db, $search_result, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $search_result, __LINE__, __FILE__);
         $found = $search_result->RecordCount();
         if ($found > 0)
         {

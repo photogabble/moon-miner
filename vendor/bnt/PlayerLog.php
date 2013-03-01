@@ -34,7 +34,7 @@ class PlayerLog
     	if ($sid != "" && !empty ($log_type))
 	    {
         	$resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
-	        db_op_result ($db, $resa, __LINE__, __FILE__);
+	        \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
     	}
 	}
 }

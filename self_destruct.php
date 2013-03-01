@@ -33,7 +33,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (isset ($_GET['sure']))

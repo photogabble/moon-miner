@@ -72,7 +72,7 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
                 $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
             }
 
-            db_op_result ($db, $result, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 
             while ($result && !$result->EOF)
             {

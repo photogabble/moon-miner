@@ -72,7 +72,7 @@ echo "  </tr>\n";
 
 //Select news for date range
 $res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
 //Check to see if there was any news to be shown
 if ($res->RecordCount() > 0 )

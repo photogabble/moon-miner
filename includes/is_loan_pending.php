@@ -28,7 +28,7 @@ function is_loan_pending ($db, $ship_id)
     global $ibank_lrate;
 
     $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
         $account = $res->fields;

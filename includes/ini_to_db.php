@@ -34,7 +34,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
     $status = true; // This variable allows us to track the inserts into the databse. If one fails, the whole process is considered failed.
 
     $resa = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
-    db_op_result ($db, $resa, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
 
     foreach ($ini_keys as $config_category => $config_line)
     {
@@ -43,7 +43,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
             // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
             $config_value = utf8_encode ($config_value);
             $debug_query = $db->Execute("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));
-            db_op_result ($db, $debug_query, __LINE__, __FILE__);
+            \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
             if (!$debug_query)
             {
                 $status = false;
@@ -52,7 +52,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
     }
 
     $trans_status = $db->CompleteTrans(); // Complete the transaction
-    db_op_result ($db, $trans_status, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $trans_status, __LINE__, __FILE__);
 
     if ($trans_status && $status)
     {

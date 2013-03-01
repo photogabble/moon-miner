@@ -32,7 +32,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (!isset($change))
@@ -71,7 +71,7 @@ else
     else
     {
         $update = $db->Execute("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset1, $preset2, $preset3, $playerinfo['ship_id']));
-        db_op_result ($db, $update, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
         $l_pre_set = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $l_pre_set);
         $l_pre_set = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $l_pre_set);
         $l_pre_set = str_replace ("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset3>$preset3</a>", $l_pre_set);

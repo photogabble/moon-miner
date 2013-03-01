@@ -29,7 +29,7 @@ function player_insignia_name ($db, $a_username, $langvars)
 
     // Lookup players score.
     $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
 
     for ($i = 0; $i < 20; $i++)

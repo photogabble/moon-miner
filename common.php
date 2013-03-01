@@ -29,7 +29,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 ini_set ("include_path", "."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
 ob_start (array('\bnt\BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
-
 $bntreg = new \bnt\bntRegistry();
 
 $BenchmarkTimer = new \bnt\Timer;
@@ -117,7 +116,7 @@ $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
 if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
 {
-    db_op_result ($db, $debug_query, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
     $no_db = false; // We have a database connection!
 }
 else
@@ -191,7 +190,7 @@ if ($no_db != true) // Before DB is installed, don't try to setup userinfo
     else // The user has logged in, so use his preference from the database
     {
         $res = $db->Execute ("SELECT lang FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-        db_op_result ($db, $res, __LINE__, __FILE__);
+        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
             $playerinfo['lang'] = $res->fields['lang'];

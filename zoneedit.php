@@ -86,7 +86,7 @@ if (array_key_exists('trades', $_POST) == true)
 }
 
 $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
     echo "<p>" . $l_zi_nexist . "<p>";
@@ -102,13 +102,13 @@ $curzone['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $curzone[
 if ($curzone['corp_zone'] == 'N')
 {
     $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-    db_op_result ($db, $result, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 else
 {
     $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator = ?;", array ($curzone['owner']));
-    db_op_result ($db, $result, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 
@@ -134,7 +134,7 @@ if ($command == 'change')
     }
 
     $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
-    db_op_result ($db, $resx, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
     TEXT_GOTOMAIN();

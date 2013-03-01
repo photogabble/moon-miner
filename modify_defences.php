@@ -46,11 +46,11 @@ if (array_key_exists ('response', $_REQUEST) == true)
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['turns'] < 1)
@@ -62,7 +62,7 @@ if ($playerinfo['turns'] < 1)
 }
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defence_id = ?;", array ($defence_id));
-db_op_result ($db, $result3, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
 // Put the defence information into the array "defenceinfo"
 
 if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.

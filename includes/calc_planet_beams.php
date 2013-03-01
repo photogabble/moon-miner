@@ -33,7 +33,7 @@ function calc_planet_beams ($db)
     $energy_available = $planetinfo['energy'];
 
     $res = $db->Execute("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         while (!$res->EOF)

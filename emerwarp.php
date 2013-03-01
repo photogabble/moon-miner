@@ -32,14 +32,14 @@ $variables = null;
 load_languages ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if ($playerinfo['dev_emerwarp'] > 0)
 {
     $dest_sector = mt_rand (0, $sector_max - 1);
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $playerinfo['ship_id']));
-    db_op_result ($db, $result_warp, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $result_warp, __LINE__, __FILE__);
     \bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $dest_sector);
     $l_ewd_used = str_replace("[sector]", $dest_sector, $l_ewd_used);
 

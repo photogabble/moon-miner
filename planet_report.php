@@ -38,7 +38,7 @@ if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))
 
 // Get data about planets
 $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-db_op_result ($db, $res, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
@@ -139,7 +139,7 @@ function standard_report ($db)
     }
 
     $res = $db->Execute($query);
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     $i = 0;
     if ($res)
@@ -339,7 +339,7 @@ function planet_production_change ($db)
     }
 
     $res = $db->Execute ($query, array ($playerinfo['ship_id']));
-    db_op_result ($db, $res, __LINE__, __FILE__);
+    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     $i = 0;
     if ($res)

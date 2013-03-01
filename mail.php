@@ -27,7 +27,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email = ? LIMIT 1;", array ($mail));
-db_op_result ($db, $result, __LINE__, __FILE__);
+\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF)
 {
