@@ -132,7 +132,7 @@ switch ($response)
          $countres = $db->Execute ("SELECT SUM(quantity) AS totalmines FROM {$db->prefix}sector_defence WHERE sector_id = ? AND defence_type = 'M';", array ($sector));
          $ttl = $countres->fields;
          $total_sector_mines = $ttl['totalmines'];
-         $playerbeams = NUM_BEAMS ($playerinfo['beams']);
+         $playerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
          if ($playerbeams > $playerinfo['ship_energy'])
          {
              $playerbeams = $playerinfo['ship_energy'];

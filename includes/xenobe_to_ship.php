@@ -85,7 +85,7 @@ function xenobe_to_ship ($db, $ship_id)
   }
 
   // SETUP ATTACKER VARIABLES
-  $attackerbeams = NUM_BEAMS ($playerinfo['beams']);
+  $attackerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
   if ($attackerbeams > $playerinfo['ship_energy']) $attackerbeams = $playerinfo['ship_energy'];
   $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $attackerbeams;
   $attackershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
@@ -100,7 +100,7 @@ function xenobe_to_ship ($db, $ship_id)
   $playerdestroyed = 0;
 
   // SETUP TARGET VARIABLES
-  $targetbeams = NUM_BEAMS ($targetinfo['beams']);
+  $targetbeams = \bnt\CalcLevels::Beams ($targetinfo['beams'], $level_factor);
   if ($targetbeams > $targetinfo['ship_energy']) $targetbeams = $targetinfo['ship_energy'];
   $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
   $targetshields = \bnt\CalcLevels::Shields ($targetinfo['shields'], $level_factor);

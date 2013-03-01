@@ -204,7 +204,7 @@ else
             // I added these two so we can have a value for debugging and reporting totals
             // If we use the variables in calcs below, change the display of stats too
 
-            $targetbeams = NUM_BEAMS($targetinfo['beams']);
+            $targetbeams = \bnt\CalcLevels::Beams ($targetinfo['beams'], $level_factor);
             if ($targetbeams > $targetinfo['ship_energy'])
             {
                 $targetbeams = $targetinfo['ship_energy'];
@@ -212,7 +212,7 @@ else
             $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
             // Why dont we set targetinfo[ship_energy] to a variable instead?
 
-            $playerbeams = NUM_BEAMS ($playerinfo['beams']);
+            $playerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
             if ($playerbeams > $playerinfo['ship_energy'])
             {
                 $playerbeams = $playerinfo['ship_energy'];

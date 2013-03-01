@@ -61,7 +61,7 @@ function ship_to_ship ($db, $ship_id)
     $l_cmb_statattackerarmor: $attackerarmor<br>
     $l_cmb_statattackertorpdamage: $attackertorpdamage<br>";
 
-    $targetbeams = NUM_BEAMS ($targetinfo['beams']);
+    $targetbeams = \bnt\CalcLevels::Beams ($targetinfo['beams'], $level_factor);
     if ($targetbeams > $targetinfo['ship_energy'])
     {
         $targetbeams = $targetinfo['ship_energy'];

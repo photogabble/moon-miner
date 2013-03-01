@@ -43,7 +43,7 @@ function xenobe_to_planet ($db, $planet_id)
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     // Planet beams
-    $targetbeams = NUM_BEAMS ($ownerinfo['beams'] + $base_factor);
+    $targetbeams = \bnt\CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
     if ($targetbeams > $planetinfo['energy'])
     {
         $targetbeams = $planetinfo['energy'];
@@ -74,7 +74,7 @@ function xenobe_to_planet ($db, $planet_id)
     $targetfighters = $planetinfo['fighters'];
 
     // Attacker beams
-    $attackerbeams = NUM_BEAMS ($playerinfo['beams']);
+    $attackerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
     if ($attackerbeams > $playerinfo['ship_energy'])
     {
         $attackerbeams = $playerinfo['ship_energy'];

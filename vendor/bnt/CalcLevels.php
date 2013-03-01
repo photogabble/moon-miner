@@ -45,5 +45,10 @@ class CalcLevels
     {
         return round (pow ($level_factor, $level_torp_launchers) * 100);
     }
+
+    static function Beams ($level_beams, $level_factor)
+    {
+        return round (pow ($level_factor, $level_beams) * 100);
+    }
 }
 ?>

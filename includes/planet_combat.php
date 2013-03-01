@@ -71,7 +71,7 @@ function planet_combat ($db)
 
     // Attacking ship calculations
 
-    $attackerbeams      = NUM_BEAMS ($playerinfo['beams']);
+    $attackerbeams      = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
     $attackerfighters   = $playerinfo['ship_fighters'];
     $attackershields    = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
     $attackertorps      = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;

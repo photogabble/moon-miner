@@ -31,7 +31,7 @@ include_once './includes/cancel_bounty.php';
 
 echo $l_sf_attacking . "<br>";
 $targetfighters = $total_sector_fighters;
-$playerbeams = NUM_BEAMS($playerinfo['beams']);
+$playerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
 if ($calledfrom == 'rsmove.php')
 {
     $playerinfo['ship_energy'] += $energyscooped;

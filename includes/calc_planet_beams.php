@@ -29,7 +29,7 @@ function calc_planet_beams ($db)
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-    $planetbeams = NUM_BEAMS ($ownerinfo['beams'] + $base_factor);
+    $planetbeams = \bnt\CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
     $energy_available = $planetinfo['energy'];
 
     $res = $db->Execute("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -38,7 +38,7 @@ function calc_planet_beams ($db)
     {
         while (!$res->EOF)
         {
-            $planetbeams = $planetbeams + NUM_BEAMS ($res->fields['beams']);
+            $planetbeams = $planetbeams + \bnt\CalcLevels::Beams ($res->fields['beams'], $level_factor);
             $res->MoveNext();
         }
     }
