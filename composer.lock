@@ -1,5 +1,5 @@
 {
-    "hash": "50e53bc0c6e447f7adfb9739a37e940c",
+    "hash": "2fd67b2f3f767af24d77ad336c2e0e33",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -129,7 +129,7 @@
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "alpha",
     "stability-flags": {
         "ezyang/htmlpurifier": 20,
         "adodb/adodb-php": 20

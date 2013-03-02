@@ -1,4 +1,30 @@
 {
+    "name": "blacknova/traders",
+    "description": "BlackNova Traders is a web-based, multi-player space exploration game inspired by the popular BBS game of TradeWars.",
+    "authors": [
+        {
+            "name": "Ron Harwood",
+            "email": "harwoodr@gmail.com"
+        },
+        {
+            "name": "Blacknova Development",
+            "email": "blacknova@net-code.co.uk"
+        },
+        {
+            "name": "TheMightyDude",
+            "email": "TheMightyDude@gmail.com"
+        },
+        {
+            "name": "TheKabal",
+            "email": "TheKabal@gmail.com"
+        },
+        {
+            "name": "Blacknova Development",
+            "email": "blacknova@net-code.co.uk"
+        }
+    ],
+    "license": "AGPL-3.0",
+    "minimum-stability": "alpha",
     "require": {
         "smarty/smarty": "v3.1.13",
         "ezyang/htmlpurifier": "dev-master",
@@ -6,8 +32,15 @@
     },
 
     "autoload": {
-	"classmap": ["vendor/adodb/adodb-php/session/", "includes/", "vendor/phpass/PasswordHash.php", "vendor/adodb/adodb-php", "vendor/bnt/pluginsystem"],
+        "classmap": [
+            "vendor/adodb/adodb-php/session/", 
+            "includes/", 
+            "vendor/phpass/PasswordHash.php", 
+            "vendor/adodb/adodb-php", 
+            "vendor/bnt/pluginsystem"
+        ],
         "psr-0": {
-			"bnt": "vendor/"}
+            "bnt": "vendor/"
+        }
     }
 }
