@@ -179,7 +179,7 @@ if ($playerarmor < 1)
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         cancel_bounty ($db, $playerinfo['ship_id']);
         $ok = 0;
-        TEXT_GOTOMAIN();
+        \bnt\bnttext::gotomain ($langvars);
         die ();
     }
     else
@@ -187,7 +187,7 @@ if ($playerarmor < 1)
         cancel_bounty ($db, $playerinfo['ship_id']);
         db_kill_player ($db, $playerinfo['ship_id']);
         $ok = 0;
-        TEXT_GOTOMAIN();
+        \bnt\bnttext::gotomain ($langvars);
         die ();
     }
 }

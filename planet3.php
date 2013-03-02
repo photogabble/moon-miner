@@ -60,7 +60,7 @@ echo "<h1>" . $title . "</h1>\n";
 if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -77,14 +77,14 @@ $planetinfo = $result2->fields;
 if ($planetinfo == false)
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     die ();
 }
 
 if ($playerinfo['turns'] < 1)
 {
     echo $l_trade_turnneed . '<br><br>';
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -92,7 +92,7 @@ if ($playerinfo['turns'] < 1)
 if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $l_planet2_sector . '<br><br>';
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -100,7 +100,7 @@ if ($planetinfo['sector_id'] != $playerinfo['sector'])
 if (empty ($planetinfo))
 {
     echo "$l_planet_none<br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -170,6 +170,6 @@ if ($planetinfo['sells'] == 'Y')
 
 include './includes/calc_score.php';
 calc_score ($db, $planetinfo['owner']);
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

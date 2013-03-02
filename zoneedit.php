@@ -90,7 +90,7 @@ $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($
 if ($res->EOF)
 {
     echo "<p>" . $l_zi_nexist . "<p>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -115,7 +115,7 @@ else
 if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id']) || ($curzone['corp_zone'] == 'Y' && $curzone['owner'] != $ownerinfo['id'] && $row['owner'] == $ownerinfo['creator']))
 {
     echo "<p>" . $l_ze_notowner . "<p>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -137,7 +137,7 @@ if ($command == 'change')
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -261,7 +261,7 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "</form>";
 
 echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 
 include './footer.php';
 ?>

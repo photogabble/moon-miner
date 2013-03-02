@@ -49,7 +49,7 @@ if ($zoneinfo['allow_trade'] == 'N')
     $title = $l_no_trade;
     echo "<h1>" . $title . "</h1>\n";
     echo $l_no_trade_info . "<p>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -66,7 +66,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             $title = $l_no_trade;
             echo "<h1>" . $title . "</h1>\n";
             echo $l_no_trade_out . "<p>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -78,7 +78,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             $title = $l_no_trade;
             echo "<h1>" . $title . "</h1>\n";
             echo $l_no_trade_out . "<p>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -154,7 +154,7 @@ else
             echo "<div style='color:#fff; font-size:12px;'>Auto redirecting in 2 seconds.</div>\n";
             echo "<br>\n";
 
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -164,7 +164,7 @@ else
         {
             echo $l_port_loannotrade . "<p>";
             echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -749,7 +749,7 @@ else
 }
 
 echo "<br><br>";
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 
 if ($sectorinfo['port_type'] == "special")
 {

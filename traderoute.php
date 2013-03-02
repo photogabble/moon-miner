@@ -391,7 +391,7 @@ else
 }
 
 echo "<div style='text-align:left;'>\n";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 echo "</div>\n";
 
 include './footer.php';
@@ -402,7 +402,7 @@ function traderoute_die ($error_msg)
     global $sched_ticks, $color_line1, $color_line2, $color_header, $servertimezone;
     echo "<p>$error_msg<p>";
     echo "<div style='text-align:left;'>\n";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     echo "</div>\n";
     include './footer.php';
     die ();

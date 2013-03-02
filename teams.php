@@ -628,7 +628,7 @@ switch ($teamwhat)
 } // End of switch.
 
 echo "<br><br>";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 
 function is_team_member ($team, $playerinfo)
 {

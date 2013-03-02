@@ -398,7 +398,7 @@ function traderoute_new ($db, $traderoute_id)
         ";
 
     echo "<div style='text-align:left;'>\n";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     echo "</div>\n";
 
     include './footer.php';

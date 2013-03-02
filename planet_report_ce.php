@@ -49,7 +49,7 @@ else
 }
 
 echo "<br><br>";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 
 function go_build_base ($db, $planet_id, $sector_id)
 {

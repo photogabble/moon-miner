@@ -112,6 +112,6 @@ echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l
 echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$tile['unknown']}'> &lt;- " . $l_unexplored . "</div>\n";
 
 echo "<br><br>";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

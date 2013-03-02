@@ -67,7 +67,7 @@ $planetinfo = null;
 if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -84,7 +84,7 @@ $planetinfo = $result3->fields;
 if (!$result3 instanceof ADORecordSet || (is_bool($planetinfo) && $planetinfo == false))
 {
   echo "Invalid Planet<br><br>";
-  TEXT_GOTOMAIN ();
+  \bnt\bnttext::gotomain ($langvars);
   die ();
 }
 
@@ -100,7 +100,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         }
 
         echo "$l_planet_none <p>";
-        TEXT_GOTOMAIN ();
+        \bnt\bnttext::gotomain ($langvars);
         include './footer.php';
         die ();
     }
@@ -115,7 +115,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         $l_planet_capture2 = str_replace ("[capture]", $capture_link, $l_planet_capture2);
         echo "$l_planet_capture2.<br><br>";
         echo "<br>";
-        TEXT_GOTOMAIN ();
+        \bnt\bnttext::gotomain ($langvars);
         include './footer.php';
         die ();
     }
@@ -413,7 +413,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 \bnt\adminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to create a base without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
                 die ();
             }
@@ -538,7 +538,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 \bnt\adminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
                 die ();
             }
@@ -585,7 +585,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 \bnt\adminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
                 die ();
             }
@@ -640,7 +640,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 \bnt\adminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
                 die ();
             }
@@ -650,7 +650,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             if ($playerinfo['turns'] < 1)
             {
                 echo "$l_plant_scn_turn<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
                 die ();
             }
@@ -671,7 +671,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 // If scan fails - inform both player and target.
                 echo "$l_planet_noscan<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 include './footer.php';
                 die ();
@@ -922,6 +922,6 @@ if ($allow_ibank)
 }
 echo "<a href =\"bounty.php\">$l_by_placebounty</A><p>";
 
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

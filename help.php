@@ -185,6 +185,6 @@ echo "maximum allowed level for that specific zone. Attacking other players and 
 echo "be disallowed in some zones.";
 echo "<br><br>";
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

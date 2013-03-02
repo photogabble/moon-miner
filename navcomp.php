@@ -34,7 +34,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (!$allow_navcomp)
 {
     echo $l_nav_nocomp . '<br><br>';
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -71,7 +71,7 @@ if (isset ($_POST['stop_sector']))
         \bnt\adminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
-        TEXT_GOTOMAIN();
+        \bnt\bnttext::gotomain ($langvars);
         include './footer.php';
         die ();
     }
@@ -193,6 +193,6 @@ elseif ($state == 1)
 
 $db->SetFetchMode (ADODB_FETCH_ASSOC);
 
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

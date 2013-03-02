@@ -245,6 +245,8 @@ PluginSystem::RaiseEvent(EVENT_TICK, array(time()));
 // We need language variables in every page, and a language setting for them.
 global $lang, $langvars;
 
+//$bntreg->set("langvars", $langvars);
+
 $template = new bnt\Template(); // Template API.
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>

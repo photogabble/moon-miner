@@ -213,7 +213,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 <?php
  //}
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 
 include './footer.php';
 ?>

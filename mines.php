@@ -111,7 +111,7 @@ echo "<h1>" . $title . "</h1>\n";
 if ($playerinfo['turns'] < 1 )
 {
     echo $l_mines_noturn . "<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -138,7 +138,7 @@ else
             if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo $l_mines_nodeploy . "<br>";
-                TEXT_GOTOMAIN();
+                \bnt\bnttext::gotomain ($langvars);
                 die ();
             }
         }
@@ -156,7 +156,7 @@ else
             if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo "$l_mines_nopermit<br><br>";
-                TEXT_GOTOMAIN();
+                \bnt\bnttext::gotomain ($langvars);
                 die ();
             }
         }
@@ -250,6 +250,6 @@ else
     }
 }
 
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

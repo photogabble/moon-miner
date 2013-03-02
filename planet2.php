@@ -156,7 +156,7 @@ $playerinfo         = null;
 if ($planet_id <= 0 )
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -175,7 +175,7 @@ $planetinfo = $result2->fields;
 if ($planetinfo == false)
 {
     echo "Invalid Planet<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     die ();
 }
 
@@ -183,7 +183,7 @@ if ($planetinfo == false)
 if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo "$l_planet2_sector<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     die ();
 }
 
@@ -639,6 +639,6 @@ else
     }
 }
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

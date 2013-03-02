@@ -185,6 +185,6 @@ else
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 }
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

@@ -37,7 +37,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
 {
     echo "You need to click on the ship first.<br><br>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -833,6 +833,6 @@ $resx = $db->Execute("UNLOCK TABLES");
 
 $_SESSION['in_combat'] = (boolean) false;
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

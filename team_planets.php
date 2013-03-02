@@ -38,7 +38,7 @@ if ($playerinfo['team'] == 0)
 {
     echo "<br>$l_teamplanet_notally";
     echo "<br><br>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
 
     return;
@@ -195,6 +195,6 @@ else
 }
 
 echo "<br><br>";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

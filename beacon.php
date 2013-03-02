@@ -124,6 +124,6 @@ else
     echo $l_beacon_donthave . "<br><br>";
 }
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

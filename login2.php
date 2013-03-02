@@ -106,7 +106,7 @@ if ($playerfound)
                 $_SESSION['logged_in'] = true;
                 $_SESSION['password'] = $_POST['pass'];
                 $_SESSION['username'] = $playerinfo['email'];
-                TEXT_GOTOMAIN();
+                TEXT_GOTOMAIN($bntreg);
                 header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
             }
             else

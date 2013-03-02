@@ -120,7 +120,7 @@ switch ($response) {
         if ($playerinfo['turns'] < 1)
         {
             echo $l_by_noturn . "<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -130,7 +130,7 @@ switch ($response) {
         if (!$res || $res->RowCount() ==0)
         {
             echo $l_by_nobounty . "<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -139,7 +139,7 @@ switch ($response) {
         if ($bty['placed_by'] != $playerinfo['ship_id'])
         {
             echo $l_by_notyours . "<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -151,7 +151,7 @@ switch ($response) {
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         echo $l_by_canceled . "<br>";
-        TEXT_GOTOMAIN ();
+        \bnt\bnttext::gotomain ($langvars);
         die ();
         break;
     case "place":
@@ -162,7 +162,7 @@ switch ($response) {
         if (!$ex)
         {
             echo $l_by_notexists . "<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -171,7 +171,7 @@ switch ($response) {
         if ($bty['ship_destroyed'] == "Y")
         {
             echo $l_by_destroyed . "<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -179,7 +179,7 @@ switch ($response) {
         if ($playerinfo['turns'] < 1 )
         {
             echo $l_by_noturn . "<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -188,7 +188,7 @@ switch ($response) {
         if ($amount <= 0)
         {
             echo "$l_by_zeroamount<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -196,7 +196,7 @@ switch ($response) {
         if ($bounty_on == $playerinfo['ship_id'])
         {
             echo "$l_by_yourself<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -204,7 +204,7 @@ switch ($response) {
         if ($amount > $playerinfo['credits'])
         {
             echo "$l_by_notenough<br><br>";
-            TEXT_GOTOMAIN ();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -229,7 +229,7 @@ switch ($response) {
             {
                 $l_by_toomuch = str_replace("[percent]", $percent, $l_by_toomuch);
                 echo "$l_by_toomuch<br><br>";
-                TEXT_GOTOMAIN ();
+                \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
                 die ();
             }
@@ -241,7 +241,7 @@ switch ($response) {
         $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         echo "$l_by_placed<br>";
-        TEXT_GOTOMAIN ();
+        \bnt\bnttext::gotomain ($langvars);
         die ();
         break;
     default:
@@ -328,6 +328,6 @@ switch ($response) {
         break;
 }
 
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

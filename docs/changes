@@ -1,3 +1,7 @@
+TheKabal (1 March 2013)
+--------------------------------------
+TEXT_GOTOMAIN has been replaced by \bnt\bnttext::gotomain, which is auto-loaded from the vendor/bnt directory.
+
 TheMightyDude (1 March 2013)
 --------------------------------------
 Fixed PHP Notice: Use of undefined constant credits - assumed 'credits' in check_fighters.php on line 113

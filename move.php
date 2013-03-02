@@ -42,7 +42,7 @@ $playerinfo = $result->fields;
 if ($playerinfo['turns'] < 1)
 {
     echo $l_move_turn . '<br><br>';
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -105,7 +105,7 @@ if ($flag == 1)
     }
     else
     {
-        TEXT_GOTOMAIN ();
+        \bnt\bnttext::gotomain ($langvars);
     }
 }
 else
@@ -113,7 +113,7 @@ else
     echo $l_move_failed . '<br><br>';
     $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
 }
 
 echo "</body></html>";

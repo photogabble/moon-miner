@@ -34,7 +34,7 @@ include './header.php';
 if (!isset ($defence_id))
 {
     echo $l_md_invalid . "<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -56,7 +56,7 @@ $sectorinfo = $res->fields;
 if ($playerinfo['turns'] < 1)
 {
     echo $l_md_noturn . "<br><br>";
-    TEXT_GOTOMAIN ();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -68,7 +68,7 @@ $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defenc
 if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.
 {
    echo $l_md_nolonger . "<br>";
-   TEXT_GOTOMAIN ();
+   \bnt\bnttext::gotomain ($langvars);
    die ();
 }
 
@@ -76,7 +76,7 @@ $defenceinfo = $result3->fields;
 if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
    echo $l_md_nothere . "<br><br>";
-   TEXT_GOTOMAIN ();
+   \bnt\bnttext::gotomain ($langvars);
    include './footer.php';
    die ();
 }
@@ -113,7 +113,7 @@ switch ($response)
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
          echo "$l_md_yours<br><br>";
-         TEXT_GOTOMAIN ();
+         \bnt\bnttext::gotomain ($langvars);
          include './footer.php';
          die ();
       }
@@ -149,7 +149,7 @@ switch ($response)
          $l_md_msgdownerb=str_replace ("[mines]", $playerbeams, $l_md_msgdownerb);
          $l_md_msgdownerb=str_replace ("[name]", $char_name, $l_md_msgdownerb);
          \bnt\sectorDefense::message_defense_owner ($db, $sector,"$l_md_msgdownerb");
-         TEXT_GOTOMAIN ();
+         \bnt\bnttext::gotomain ($langvars);
          die ();
       }
       break;
@@ -157,7 +157,7 @@ switch ($response)
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
-         TEXT_GOTOMAIN ();
+         \bnt\bnttext::gotomain ($langvars);
          include './footer.php';
          die ();
       }
@@ -202,7 +202,7 @@ switch ($response)
       $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       echo "<h1>" . $title . "</h1>\n";
       echo "$l_md_retr $quantity $defence_type.<br>";
-      TEXT_GOTOMAIN ();
+      \bnt\bnttext::gotomain ($langvars);
       die ();
       break;
    case "change":
@@ -210,7 +210,7 @@ switch ($response)
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
-         TEXT_GOTOMAIN ();
+         \bnt\bnttext::gotomain ($langvars);
          include './footer.php';
          die ();
       }
@@ -228,7 +228,7 @@ switch ($response)
 
       $l_md_mode=str_replace ("[mode]",$mode,$l_md_mode);
       echo "$l_md_mode<br>";
-      TEXT_GOTOMAIN ();
+      \bnt\bnttext::gotomain ($langvars);
       die ();
       break;
    default:
@@ -274,11 +274,11 @@ switch ($response)
             echo "</form>";
          }
       }
-      TEXT_GOTOMAIN ();
+      \bnt\bnttext::gotomain ($langvars);
       die ();
       break;
 }
 
-TEXT_GOTOMAIN ();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

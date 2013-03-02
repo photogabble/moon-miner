@@ -64,7 +64,7 @@ if (empty($_SESSION['username']))
 }
 else
 {
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
 }
 
 include './footer.php';

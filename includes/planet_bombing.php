@@ -32,7 +32,7 @@ function planet_bombing ($db)
     if ($playerinfo['turns'] < 1)
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
-        TEXT_GOTOMAIN ();
+        \bnt\bnttext::gotomain ($langvars);
         include './footer.php';
         die ();
     }

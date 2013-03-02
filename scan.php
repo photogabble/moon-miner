@@ -53,7 +53,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
 {
     echo "You need to Click on the ship first.<BR><BR>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -456,6 +456,6 @@ else
 }
 
 echo "<br><br>";
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>

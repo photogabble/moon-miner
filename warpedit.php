@@ -42,7 +42,7 @@ $sectorinfo = $result4->fields;
 if ($playerinfo['turns'] < 1)
 {
     echo $l_warp_turn . "<br><br>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -50,7 +50,7 @@ if ($playerinfo['turns'] < 1)
 if ($playerinfo['dev_warpedit'] < 1)
 {
     echo $l_warp_none. "<br><br>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -61,7 +61,7 @@ $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
     echo $l_warp_forbid . "<br><br>";
-    TEXT_GOTOMAIN();
+    \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
@@ -81,7 +81,7 @@ if ($zoneinfo['allow_warpedit'] == 'L')
         if (($zoneteam['team'] != $playerinfo['team']) || ($playerinfo['team'] == 0))
         {
             echo $l_warp_forbid . "<br><br>";
-            TEXT_GOTOMAIN();
+            \bnt\bnttext::gotomain ($langvars);
             include './footer.php';
             die ();
         }
@@ -121,6 +121,6 @@ echo "</table>";
 echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\">";
 echo "</form>";
 
-TEXT_GOTOMAIN();
+\bnt\bnttext::gotomain ($langvars);
 include './footer.php';
 ?>
