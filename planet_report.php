@@ -230,15 +230,15 @@ function standard_report ($db)
             echo "<tr bgcolor=\"$color\">";
             echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i]['sector_id'] . ">". $planet[$i]['sector_id'] ."</a></td>";
             echo "<td>" . $planet[$i]['name'] . "</td>";
-            echo "<td>" . NUMBER($planet[$i]['ore']) . "</td>";
-            echo "<td>" . NUMBER($planet[$i]['organics']) . "</td>";
-            echo "<td>" . NUMBER($planet[$i]['goods']) . "</td>";
-            echo "<td>" . NUMBER($planet[$i]['energy']) . "</td>";
-            echo "<td align=right>" . NUMBER($planet[$i]['colonists']) . "</td>";
-            echo "<td align=right>" . NUMBER($planet[$i]['credits']) . "</td>";
+            echo "<td>" . NUMBER ($planet[$i]['ore']) . "</td>";
+            echo "<td>" . NUMBER ($planet[$i]['organics']) . "</td>";
+            echo "<td>" . NUMBER ($planet[$i]['goods']) . "</td>";
+            echo "<td>" . NUMBER ($planet[$i]['energy']) . "</td>";
+            echo "<td align=right>" . NUMBER ($planet[$i]['colonists']) . "</td>";
+            echo "<td align=right>" . NUMBER ($planet[$i]['credits']) . "</td>";
             echo "<td align=center>" . "<input type=checkbox name=TPCreds[] value=\"" . $planet[$i]['planet_id'] . "\">" . "</td>";
-            echo "<td align=right>"  . NUMBER($planet[$i]['fighters']) . "</td>";
-            echo "<td align=right>"  . NUMBER($planet[$i]['torps']) . "</td>";
+            echo "<td align=right>"  . NUMBER ($planet[$i]['fighters']) . "</td>";
+            echo "<td align=right>"  . NUMBER ($planet[$i]['torps']) . "</td>";
             echo "<td align=center>" . base_build_check ($planet, $i) . "</td>";
             if ($playerinfo['team'] > 0)
             {
@@ -261,22 +261,22 @@ function standard_report ($db)
         // the next block displays the totals
         echo "<tr bgcolor=$color>";
         echo "<td COLSPAN=2 align=center>$l_pr_totals</td>";
-        echo "<td>" . NUMBER($total_ore) . "</td>";
-        echo "<td>" . NUMBER($total_organics) . "</td>";
-        echo "<td>" . NUMBER($total_goods) . "</td>";
-        echo "<td>" . NUMBER($total_energy) . "</td>";
-        echo "<td align=right>" . NUMBER($total_colonists) . "</td>";
-        echo "<td align=right>" . NUMBER($total_credits) . "</td>";
+        echo "<td>" . NUMBER ($total_ore) . "</td>";
+        echo "<td>" . NUMBER ($total_organics) . "</td>";
+        echo "<td>" . NUMBER ($total_goods) . "</td>";
+        echo "<td>" . NUMBER ($total_energy) . "</td>";
+        echo "<td align=right>" . NUMBER ($total_colonists) . "</td>";
+        echo "<td align=right>" . NUMBER ($total_credits) . "</td>";
         echo "<td></td>";
-        echo "<td align=right>"  . NUMBER($total_fighters) . "</td>";
-        echo "<td align=right>"  . NUMBER($total_torp) . "</td>";
-        echo "<td align=center>" . NUMBER($total_base) . "</td>";
+        echo "<td align=right>"  . NUMBER ($total_fighters) . "</td>";
+        echo "<td align=right>"  . NUMBER ($total_torp) . "</td>";
+        echo "<td align=center>" . NUMBER ($total_base) . "</td>";
         if ($playerinfo['team'] > 0)
         {
-            echo "<td align=center>" . NUMBER($total_corp) . "</td>";
+            echo "<td align=center>" . NUMBER ($total_corp) . "</td>";
         }
 
-        echo "<td align=center>" . NUMBER($total_selling) . "</td>";
+        echo "<td align=center>" . NUMBER ($total_selling) . "</td>";
         echo "</tr>";
         echo "</table>";
         echo "<br>";
@@ -407,8 +407,8 @@ function planet_production_change ($db)
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_organics[" . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_organics'] . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_goods["    . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_goods']    . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_energy["   . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_energy']   . "\">" . "</td>\n";
-            echo "<td align=right>"  . NUMBER($planet[$i]['colonists'])              . "</td>\n";
-            echo "<td align=right>"  . NUMBER($planet[$i]['credits'])        . "</td>\n";
+            echo "<td align=right>"  . NUMBER ($planet[$i]['colonists'])              . "</td>\n";
+            echo "<td align=right>"  . NUMBER ($planet[$i]['credits'])        . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_fighters[" . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_fighters'] . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_torp["     . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_torp']     . "\">" . "</td>\n";
             if ($playerinfo['team'] > 0)
@@ -435,8 +435,8 @@ function planet_production_change ($db)
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
-        echo "<td align=right>" . NUMBER($total_colonists) . "</td>\n";
-        echo "<td align=right>" . NUMBER($total_credits)   . "</td>\n";
+        echo "<td align=right>" . NUMBER ($total_colonists) . "</td>\n";
+        echo "<td align=right>" . NUMBER ($total_credits)   . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         if ($playerinfo['team'] > 0)

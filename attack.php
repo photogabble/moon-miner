@@ -681,7 +681,7 @@ else
                     $l_att_ysalv = str_replace("[salv_goods]", $salv_goods, $l_att_ysalv);
                     $l_att_ysalv = str_replace("[ship_salvage_rate]", $ship_salvage_rate, $l_att_ysalv);
                     $l_att_ysalv = str_replace("[ship_salvage]", $ship_salvage, $l_att_ysalv);
-                    $l_att_ysalv2 = str_replace("[rating_change]", NUMBER(abs($rating_change)), $l_att_ysalv2);
+                    $l_att_ysalv2 = str_replace("[rating_change]", number_format (abs ($rating_change), 0, $local_number_dec_point, $local_number_thousands_sep), $l_att_ysalv2);
 
                     echo $l_att_ysalv . "<br>" . $l_att_ysalv2 . "<br>\n";
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, " .

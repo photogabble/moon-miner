@@ -121,7 +121,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 }
                 else
                 {
-                    $tollstring = NUMBER($fighterstoll);
+                    $tollstring = NUMBER ($fighterstoll);
                     $l_chf_youpaidsometoll = str_replace("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
                     echo "$l_chf_youpaidsometoll<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
@@ -171,7 +171,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 echo "$l_chf_therearetotalfightersindest<br>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $l_chf_creditsdemanded = str_replace("[chf_number_fighterstoll]", NUMBER($fighterstoll), $l_chf_creditsdemanded);
+                    $l_chf_creditsdemanded = str_replace("[chf_number_fighterstoll]", NUMBER ($fighterstoll), $l_chf_creditsdemanded);
                     echo "$l_chf_creditsdemanded<br>";
                 }
 

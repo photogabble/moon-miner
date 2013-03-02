@@ -252,7 +252,7 @@ line("Game name:",$game_name, "right");
 line("Average tech level needed to hit mines",$mine_hullsize, "right");
 line("Averaged Tech level When Emergency Warp Degrades",$ewd_maxhullsize, "right");
 
-$num = NUMBER($sector_max);
+$num = NUMBER ($sector_max);
 line("Number of Sectors",$num, "right");
 line("Maximum Links per sector",$link_max, "right");
 line("Maximum average tech level for Federation Sectors",$fed_max_hull, "right");
@@ -270,10 +270,10 @@ if ($allow_ibank)
 }
 line("Tech Level upgrade for Bases",$base_defense, "right");
 
-$num = NUMBER($colonist_limit);
+$num = NUMBER ($colonist_limit);
 line("Colonists Limit",$num, "right");
 
-$num = NUMBER($max_turns);
+$num = NUMBER ($max_turns);
 line("Maximum number of accumulated turns",$num, "right");
 line("Maximum number of planets per sector",$max_planets_sector, "right");
 line("Maximum number of traderoutes per player",$max_traderoutes_player, "right");
@@ -284,30 +284,30 @@ $rate = $defence_degrade_rate * 100;
 line("Sector fighter degradation percentage rate",$rate, "right");
 line("Number of planets with bases need for sector ownership&nbsp;",$min_bases_to_own, "right");
 
-$rate = NUMBER(($interest_rate - 1) * 100 , 3);
+$rate = NUMBER (($interest_rate - 1) * 100 , 3);
 line("Planet interest rate",$rate, "right");
 
 $rate = 1 / $colonist_production_rate;
 
-$num = NUMBER($rate/$fighter_prate);
+$num = NUMBER ($rate/$fighter_prate);
 line("Colonists needed to produce 1 Fighter each turn",$num, "right");
 
-$num = NUMBER($rate/$torpedo_prate);
+$num = NUMBER ($rate/$torpedo_prate);
 line("Colonists needed to produce 1 Torpedo each turn",$num, "right");
 
-$num = NUMBER($rate/$ore_prate);
+$num = NUMBER ($rate/$ore_prate);
 line("Colonists needed to produce 1 Ore each turn",$num, "right");
 
-$num = NUMBER($rate/$organics_prate);
+$num = NUMBER ($rate/$organics_prate);
 line("Colonists needed to produce 1 Organics each turn",$num, "right");
 
-$num = NUMBER($rate/$goods_prate);
+$num = NUMBER ($rate/$goods_prate);
 line("Colonists needed to produce 1 Goods each turn",$num, "right");
 
-$num = NUMBER($rate/$energy_prate);
+$num = NUMBER ($rate/$energy_prate);
 line("Colonists needed to produce 1 Energy each turn",$num, "right");
 
-$num = NUMBER($rate/$credits_prate);
+$num = NUMBER ($rate/$credits_prate);
 line("Colonists needed to produce 1 Credits each turn",$num, "right");
 echo "</table>\n";
 echo "<br>\n";
@@ -333,7 +333,7 @@ line("News will be generated every","{$sched_news} minutes", "right");
 line("Planets will generate production every","{$sched_planets} minutes", "right");
 $use_new_sched_planet = true; // We merged this change in, so all new versions use this
 line(" -> Using new Planet Update Code",($use_new_sched_planet?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
-line(" -> Limit captured planets Max Credits to ". NUMBER($max_credits_without_base),($sched_planet_valid_credits?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
+line(" -> Limit captured planets Max Credits to ". NUMBER ($max_credits_without_base),($sched_planet_valid_credits?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
 line("Ports will regenerate x {$port_regenrate} every","{$sched_ports} minutes", "right");
 line("Ships will be towed from fed sectors every","{$sched_turns} minutes", "right");
 line("Rankings will be generated every","{$sched_ranking} minutes", "right");

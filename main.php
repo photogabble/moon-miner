@@ -159,10 +159,10 @@ if ($result->RecordCount() > 0)
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 }
 
-$ply_turns        = NUMBER($playerinfo['turns']);
-$ply_turnsused    = NUMBER($playerinfo['turns_used']);
-$ply_score        = NUMBER($playerinfo['score']);
-$ply_credits    = NUMBER($playerinfo['credits']);
+$ply_turns     = number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep);
+$ply_turnsused = number_format ($playerinfo['turns_used'], 0, $local_number_dec_point, $local_number_thousands_sep);
+$ply_score     = number_format ($playerinfo['score'], 0, $local_number_dec_point, $local_number_thousands_sep);
+$ply_credits   = number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep);
 
 echo "<table style='width:90%; margin:auto; text-align:center; border:0px;'>\n";
 echo "  <tr>\n";
@@ -756,31 +756,31 @@ echo "</table>\n";
           <td style='vertical-align:middle; white-space:nowrap; text-align:left;' >&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_ore']; ?>" src="images/ore.png">&nbsp;<?php echo $langvars['l_ore']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='vertical-align:middle; white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_ore']); ?>&nbsp;</span></td>
+          <td style='vertical-align:middle; white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_ore'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_organics']; ?>" src="images/organics.png">&nbsp;<?php echo $langvars['l_organics']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_organics']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_organics'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_goods']; ?>" src="images/goods.png">&nbsp;<?php echo $langvars['l_goods']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_goods']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER ($playerinfo['ship_goods']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_energy']; ?>" src="images/energy.png">&nbsp;<?php echo $langvars['l_energy']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_energy']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER ($playerinfo['ship_energy']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_colonists']; ?>" src="images/colonists.png">&nbsp;<?php echo $langvars['l_colonists']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER($playerinfo['ship_colonists']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER ($playerinfo['ship_colonists']); ?>&nbsp;</span></td>
         </tr>
       </table>
     </td>
