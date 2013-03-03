@@ -26,7 +26,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'sector_fighters.php')) // Prevent direct acce
 // New database driven language entries
 load_languages ($db, $lang, array ('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once './includes/destroy_fighters.php';
 include_once './includes/cancel_bounty.php';
 
 echo $l_sf_attacking . "<br>";
@@ -147,7 +146,7 @@ if ($targetfighters > 0)
 }
 
 $fighterslost = $total_sector_fighters - $targetfighters;
-destroy_fighters ($db, $sector, $fighterslost);
+\bnt\bntfighters::destroy ($db, $sector, $fighterslost);
 
 $l_sf_sendlog = str_replace ("[player]", $playerinfo['character_name'], $l_sf_sendlog);
 $l_sf_sendlog = str_replace ("[lost]", $fighterslost, $l_sf_sendlog);
