@@ -86,7 +86,7 @@ if ($playerfound)
 
     if ($hasher->CheckPassword ($_POST['pass'], $playerinfo['password']))
     {
-        include './includes/check_ban.php';
+        include_once './includes/check_ban.php';
 
         $ban_result = check_ban($db, $lang, null, $playerinfo);
         if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))

@@ -19,7 +19,6 @@
 
 include './global_includes.php';
 include './includes/player_insignia_name.php';
-
 include './includes/check_ban.php';
 
 // Always make sure we are using empty vars before use.

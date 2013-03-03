@@ -293,7 +293,7 @@ echo"</table>";
       break;
    case "3":
       create_schema ($db, $ADODB_SESSION_DB);
-      include './includes/ini_to_db.php';
+      include_once './includes/ini_to_db.php';
 
       $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
       if ($gameconfig_result)
@@ -929,7 +929,7 @@ table_footer ("Completed successfully.");
 //        table_row ($db, "The public list updater will occur every 60 minutes","Failed","Inserted");
 
             $creating=1;
-//            include './bnt_ls_client.php';
+//            include_once './bnt_ls_client.php';
       }
       table_footer ("Completed successfully");
 

@@ -52,7 +52,7 @@ function planet_combat ($db)
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
         \bnt\bnttext::gotomain ($langvars);
-        include './footer.php';
+        include_once './footer.php';
         die ();
     }
 
@@ -63,10 +63,10 @@ function planet_combat ($db)
 
     $planetfighters     = $planetinfo['fighters'];
 
-    include './includes/calc_planet_shields.php';
+    include_once './includes/calc_planet_shields.php';
     $planetshields      = calc_planet_shields ($db);
 
-    include './includes/calc_planet_torps.php';
+    include_once './includes/calc_planet_torps.php';
     $planettorps        = calc_planet_torps ($db);
 
     // Attacking ship calculations

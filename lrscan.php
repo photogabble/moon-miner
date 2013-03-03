@@ -72,7 +72,7 @@ if ($sector == "*")
     {
         echo $l_lrs_nofull . "<br><br>";
         \bnt\bnttext::gotomain ($langvars);
-        include './footer.php';
+        include_once './footer.php';
         die ();
     }
 
@@ -81,7 +81,7 @@ if ($sector == "*")
         $l_lrs_noturns=str_replace("[turns]", $fullscan_cost, $l_lrs_noturns);
         echo $l_lrs_noturns . "<br><br>";
         \bnt\bnttext::gotomain ($langvars);
-        include './footer.php';
+        include_once './footer.php';
         die ();
     }
 

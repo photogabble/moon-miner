@@ -404,7 +404,7 @@ function traderoute_die ($error_msg)
     echo "<div style='text-align:left;'>\n";
     \bnt\bnttext::gotomain ($langvars);
     echo "</div>\n";
-    include './footer.php';
+    include_once './footer.php';
     die ();
 }
 

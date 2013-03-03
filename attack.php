@@ -38,7 +38,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 {
     echo "You need to click on the ship first.<br><br>";
     \bnt\bnttext::gotomain ($langvars);
-    include './footer.php';
+    include_once './footer.php';
     die ();
 }
 unset($_SESSION['ship_selected']);

@@ -79,7 +79,7 @@ if ($swordfish == ADMIN_PW)
                 {
                     $button_main = true;
                     $module_name = substr ($filename[$i]['file'], 0, -4);
-                    include './admin/'. $filename[$i]['file']; // Include that filename
+                    include_once './admin/'. $filename[$i]['file']; // Include that filename
                 }
             }
         }

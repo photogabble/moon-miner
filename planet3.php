@@ -61,7 +61,7 @@ if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
     \bnt\bnttext::gotomain ($langvars);
-    include './footer.php';
+    include_once './footer.php';
     die ();
 }
 
@@ -85,7 +85,7 @@ if ($playerinfo['turns'] < 1)
 {
     echo $l_trade_turnneed . '<br><br>';
     \bnt\bnttext::gotomain ($langvars);
-    include './footer.php';
+    include_once './footer.php';
     die ();
 }
 
@@ -93,7 +93,7 @@ if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $l_planet2_sector . '<br><br>';
     \bnt\bnttext::gotomain ($langvars);
-    include './footer.php';
+    include_once './footer.php';
     die ();
 }
 
@@ -101,7 +101,7 @@ if (empty ($planetinfo))
 {
     echo "$l_planet_none<br>";
     \bnt\bnttext::gotomain ($langvars);
-    include './footer.php';
+    include_once './footer.php';
     die ();
 }
 

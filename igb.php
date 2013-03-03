@@ -67,72 +67,72 @@ else
 
 if ($command == 'login') //main menu
 {
-    include './includes/ibank_login.php';
+    include_once './includes/ibank_login.php';
     ibank_login ();
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
-    include './includes/ibank_withdraw.php';
+    include_once './includes/ibank_withdraw.php';
     ibank_withdraw ();
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
-    include './includes/ibank_withdraw2.php';
+    include_once './includes/ibank_withdraw2.php';
     ibank_withdraw2 ($db);
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    include './includes/ibank_deposit.php';
+    include_once './includes/ibank_deposit.php';
     ibank_deposit ();
 }
 elseif ($command == 'deposit2') //deposit operation
 {
-    include './includes/ibank_deposit2.php';
+    include_once './includes/ibank_deposit2.php';
     ibank_deposit2 ($db);
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    include './includes/ibank_transfer.php';
+    include_once './includes/ibank_transfer.php';
     ibank_transfer ($db);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
-    include './includes/ibank_transfer2.php';
+    include_once './includes/ibank_transfer2.php';
     ibank_transfer2 ($db);
 }
 elseif ($command == 'transfer3') //transfer operation
 {
-    include './includes/ibank_transfer3.php';
+    include_once './includes/ibank_transfer3.php';
     ibank_transfer3 ($db);
 }
 elseif ($command == 'loans') //loans menu
 {
-    include './includes/ibank_loans.php';
+    include_once './includes/ibank_loans.php';
     ibank_loans ($db);
 }
 elseif ($command == 'borrow') //borrow operation
 {
-    include './includes/ibank_borrow.php';
+    include_once './includes/ibank_borrow.php';
     ibank_borrow ($db);
 }
 elseif ($command == 'repay') //repay operation
 {
-    include './includes/ibank_repay.php';
+    include_once './includes/ibank_repay.php';
     ibank_repay ($db);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {
-    include './includes/ibank_consolidate.php';
+    include_once './includes/ibank_consolidate.php';
     ibank_consolidate ();
 }
 elseif ($command == 'consolidate2') //consolidate compute
 {
-    include './includes/ibank_consolidate2.php';
+    include_once './includes/ibank_consolidate2.php';
     ibank_consolidate2 ($db);
 }
 elseif ($command == 'consolidate3') //consolidate operation
 {
-    include './includes/ibank_consolidate3.php';
+    include_once './includes/ibank_consolidate3.php';
     ibank_consolidate3 ($db);
 }
 else

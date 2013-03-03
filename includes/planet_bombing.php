@@ -33,7 +33,7 @@ function planet_bombing ($db)
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
         \bnt\bnttext::gotomain ($langvars);
-        include './footer.php';
+        include_once './footer.php';
         die ();
     }
 
@@ -47,10 +47,10 @@ function planet_bombing ($db)
     $res = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
-    include './includes/calc_planet_torps.php';
+    include_once './includes/calc_planet_torps.php';
     $planettorps = calc_planet_torps ($db);
 
-    include './includes/calc_planet_beams.php';
+    include_once './includes/calc_planet_beams.php';
     $planetbeams = calc_planet_beams ($db);
 
     $planetfighters = $planetinfo['fighters'];
