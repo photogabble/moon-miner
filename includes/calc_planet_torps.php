@@ -25,8 +25,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_torps.php')) // Prevent direct ac
 
 function calc_planet_torps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
 {
-    global $ownerinfo, $planetinfo, $base_defense, $level_factor;
-
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
