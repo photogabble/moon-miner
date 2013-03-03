@@ -85,7 +85,7 @@ if ($sector == "*")
         die ();
     }
 
-    echo "$l_lrs_used " . NUMBER ($fullscan_cost) . " $l_lrs_turns. " . NUMBER ($playerinfo['turns'] - $fullscan_cost) . " $l_lrs_left.<br><br>";
+    echo "$l_lrs_used " . number_format ($fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_lrs_turns. " . number_format ($playerinfo['turns'] - $fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_lrs_left.<br><br>";
 
     // Deduct the appropriate number of turns
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($fullscan_cost, $fullscan_cost, $playerinfo['ship_id']));
@@ -146,8 +146,8 @@ if ($sector == "*")
         $defF = $resultSDb->fields;
         $port_type = $sectorinfo['port_type'];
         $has_planet = $result3->RecordCount();
-        $has_mines = NUMBER ($defM['mines']);
-        $has_fighters = NUMBER ($defF['fighters']);
+        $has_mines = number_format ($defM['mines'], 0, $local_number_dec_point, $local_number_thousands_sep);
+        $has_fighters = number_format ($defF['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
 
         if ($port_type != "none")
         {
@@ -395,11 +395,11 @@ else
 
     echo "</td></tr>";
     echo "<tr bgcolor=\"$color_line1\"><td><strong>$l_mines</strong></td></tr>";
-    $has_mines =  NUMBER ($defM['mines']);
+    $has_mines =  number_format ($defM['mines'], 0, $local_number_dec_point, $local_number_thousands_sep);
     echo "<tr><td>" . $has_mines;
     echo "</td></tr>";
     echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_fighters</strong></td></tr>";
-    $has_fighters =  NUMBER ($defF['fighters']);
+    $has_fighters =  number_format ($defF['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
     echo "<tr><td>" . $has_fighters;
     echo "</td></tr>";
     if ($playerinfo['dev_lssd'] == 'Y')

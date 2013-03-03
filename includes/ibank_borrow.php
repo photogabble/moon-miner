@@ -68,11 +68,11 @@ function ibank_borrow ($db)
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_takenaloan . "<br>---------------------------------</td></tr>" .
          "<tr valign=top><td colspan=2 align=center>" . $l_ibank_loancongrats . "<br><br></tr>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_loantransferred . " :</td><td nowrap align=right>" . NUMBER ($amount) . " C<br>" .
+         "<td>" . $l_ibank_loantransferred . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_loanfee . " :</td><td nowrap align=right>" . NUMBER ($amount2) . " C<br>" .
+         "<td>" . $l_ibank_loanfee . " :</td><td nowrap align=right>" . number_format ($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_amountowned . " :</td><td nowrap align=right>" . NUMBER ($amount3) . " C<br>" .
+         "<td>" . $l_ibank_amountowned . " :</td><td nowrap align=right>" . number_format ($amount3, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
          "<td colspan=2 align=center>---------------------------------<br><br>" . $l_ibank_loanreminder . "<br><br>\"" . $l_ibank_loanreminder2 ."\"</td>" .
          "<tr valign=top>" .

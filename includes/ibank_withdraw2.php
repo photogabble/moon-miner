@@ -50,11 +50,11 @@ function ibank_withdraw2 ($db)
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_operationsuccessful . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . NUMBER ($amount) ." " . $l_ibank_creditstoyourship . "</td>" .
+         "<td colspan=2 align=center>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) ." " . $l_ibank_creditstoyourship . "</td>" .
          "<tr><td colspan=2 align=center>" . $l_ibank_accounts . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td>Ship Account :<br>" . $l_ibank_ibankaccount . " :</td>" .
-         "<td align=right>" . NUMBER ($playerinfo['credits']) . " C<br>" . NUMBER ($account['balance']) . " C</tr>" .
+         "<td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</tr>" .
          "<tr valign=bottom>" .
          "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";

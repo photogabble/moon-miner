@@ -104,7 +104,7 @@ else
                 $resx = $hasbounty->fields;
                 if ($resx['btytotal'] > 0)
                 {
-                    $btyamount = NUMBER ($resx['btytotal']);
+                    $btyamount = number_format ($resx['btytotal'], 0, $local_number_dec_point, $local_number_thousands_sep);
                     $l_scan_bounty = str_replace("[amount]", $btyamount, $l_scan_bounty);
                     echo $l_scan_bounty . "<br>";
                     $btyamount = 0;

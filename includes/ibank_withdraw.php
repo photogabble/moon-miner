@@ -32,7 +32,7 @@ function ibank_withdraw ()
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_withdrawfunds . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td>" . $l_ibank_fundsavailable . ":</td>" .
-         "<td align=right>" . NUMBER ($account['balance']) ." C<br></td>" .
+         "<td align=right>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) ." C<br></td>" .
          "</tr><tr valign=top>" .
          "<td>" . $l_ibank_selwithdrawamount . ":</td><td align=right>" .
          "<form action='igb.php?command=withdraw2' method=post>" .

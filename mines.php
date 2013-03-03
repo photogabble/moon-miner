@@ -164,12 +164,12 @@ else
 
     if (!isset($nummines) || !isset($numfighters) || !isset($mode))
     {
-        $availmines = NUMBER ($playerinfo['torps']);
-        $availfighters = NUMBER ($playerinfo['ship_fighters']);
+        $availmines = number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep);
+        $availfighters = number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
         echo "<form action=mines.php method=post>";
         $l_mines_info1 = str_replace ("[sector]", $playerinfo['sector'], $l_mines_info1);
-        $l_mines_info1 = str_replace ("[mines]", NUMBER ($total_sector_mines), $l_mines_info1);
-        $l_mines_info1 = str_replace ("[fighters]", NUMBER ($total_sector_fighters), $l_mines_info1);
+        $l_mines_info1 = str_replace ("[mines]", number_format ($total_sector_mines, 0, $local_number_dec_point, $local_number_thousands_sep), $l_mines_info1);
+        $l_mines_info1 = str_replace ("[fighters]", number_format ($total_sector_fighters, 0, $local_number_dec_point, $local_number_thousands_sep), $l_mines_info1);
         echo "$l_mines_info1<br><br>";
         $l_mines_info2 = str_replace ("[mines]", $availmines, $l_mines_info2);
         $l_mines_info2 = str_replace ("[fighters]", $availfighters, $l_mines_info2);

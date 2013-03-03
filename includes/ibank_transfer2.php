@@ -76,14 +76,14 @@ function ibank_transfer2 ($db)
                 $time = $res->fields;
                 $difftime = ($time['time'] - $curtime) / 60;
                 $l_ibank_mustwait = str_replace ("[ibank_target_char_name]", $target['character_name'], $l_ibank_mustwait);
-                $l_ibank_mustwait = str_replace ("[ibank_trate]", NUMBER ($ibank_trate), $l_ibank_mustwait);
-                $l_ibank_mustwait = str_replace ("[ibank_difftime]", NUMBER ($difftime), $l_ibank_mustwait);
+                $l_ibank_mustwait = str_replace ("[ibank_trate]", number_format ($ibank_trate, 0, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_mustwait);
+                $l_ibank_mustwait = str_replace ("[ibank_difftime]", number_format ($difftime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_mustwait);
                 ibank_error ($l_ibank_mustwait, "igb.php?command=transfer");
             }
         }
 
         echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_shiptransfer . "<br>---------------------------------</td></tr>" .
-             "<tr valign=top><td>" . $l_ibank_ibankaccount . " :</td><td align=right>" . NUMBER ($account['balance']) . " C</td></tr>";
+             "<tr valign=top><td>" . $l_ibank_ibankaccount . " :</td><td align=right>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
 
         if ($ibank_svalue == 0)
         {
@@ -97,12 +97,12 @@ function ibank_transfer2 ($db)
             $maxtrans = $score * $score * $ibank_svalue;
 
             $l_ibank_maxtransferpercent = str_replace("[ibank_percent]", $percent, $l_ibank_maxtransferpercent);
-            echo "<tr valign=top><td nowrap>" . $l_ibank_maxtransferpercent . " :</td><td align=right>" . NUMBER ($maxtrans) . " C</td></tr>";
+            echo "<tr valign=top><td nowrap>" . $l_ibank_maxtransferpercent . " :</td><td align=right>" . number_format ($maxtrans, 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
         }
 
         $percent = $ibank_paymentfee * 100;
 
-        $l_ibank_transferrate = str_replace("[ibank_num_percent]", NUMBER ($percent, 1), $l_ibank_transferrate);
+        $l_ibank_transferrate = str_replace("[ibank_num_percent]", number_format ($percent, 1, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_transferrate);
         echo "<tr valign=top><td>" . $l_ibank_recipient . " :</td><td align=right>" . $target['character_name'] . "&nbsp;&nbsp;</td></tr>" .
              "<form action='igb.php?command=transfer3' method=post>" .
              "<tr valign=top>" .
@@ -163,14 +163,14 @@ function ibank_transfer2 ($db)
 
         $percent = $ibank_paymentfee * 100;
 
-        $l_ibank_transferrate2 = str_replace ("[ibank_num_percent]", NUMBER ($percent, 1), $l_ibank_transferrate2);
+        $l_ibank_transferrate2 = str_replace ("[ibank_num_percent]", number_format ($percent, 0, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_transferrate2);
         echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_planettransfer . "<br>---------------------------------</td></tr>" .
              "<tr valign=top>" .
              "<td>" . $l_ibank_srcplanet . " " . $source['name'] . " " . $l_ibank_in . " " . $source['sector_id'] . " :" .
-             "<td align=right>" . NUMBER ($source['credits']) . " C" .
+             "<td align=right>" . number_format ($source['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C" .
              "<tr valign=top>" .
              "<td>" . $l_ibank_destplanet . " " . $dest['name'] . " " . $l_ibank_in . " " . $dest['sector_id'] . " :" .
-             "<td align=right>" . NUMBER ($dest['credits']) . " C" .
+             "<td align=right>" . number_format ($dest['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C" .
              "<form action='igb.php?command=transfer3' method=post>" .
              "<tr valign=top>" .
              "<td><br>" . $l_ibank_seltransferamount . " :</td>" .

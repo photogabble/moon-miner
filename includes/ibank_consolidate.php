@@ -31,7 +31,7 @@ function ibank_consolidate ()
 
     $percent = $ibank_paymentfee * 100;
 
-    $l_ibank_transferrate3 = str_replace ("[ibank_num_percent]", NUMBER ($percent, 1), $l_ibank_transferrate3);
+    $l_ibank_transferrate3 = str_replace ("[ibank_num_percent]", number_format ($percent, 1, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_transferrate3);
     $l_ibank_transferrate3 = str_replace ("[nbplanets]", $ibank_tconsolidate, $l_ibank_transferrate3);
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_planetconsolidate . "<br>---------------------------------</td></tr>" .

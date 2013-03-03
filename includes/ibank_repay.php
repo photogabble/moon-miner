@@ -66,11 +66,11 @@ function ibank_repay ($db)
          "<tr valign=top>" .
          "<td colspan=2 align=center>---------------------------------</td>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_shipaccount . " :</td><td nowrap align=right>" . NUMBER ($playerinfo['credits']) . " C<br>" .
+         "<td>" . $l_ibank_shipaccount . " :</td><td nowrap align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_payloan . " :</td><td nowrap align=right>" . NUMBER ($amount) . " C<br>" .
+         "<td>" . $l_ibank_payloan . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_currentloan . " :</td><td nowrap align=right>" . NUMBER ($account['loan']) . " C<br>" .
+         "<td>" . $l_ibank_currentloan . " :</td><td nowrap align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
          "<td colspan=2 align=center>---------------------------------</td>" .
          "<tr valign=top>" .

@@ -768,19 +768,19 @@ echo "</table>\n";
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_goods']; ?>" src="images/goods.png">&nbsp;<?php echo $langvars['l_goods']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo NUMBER ($playerinfo['ship_goods']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_goods'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_energy']; ?>" src="images/energy.png">&nbsp;<?php echo $langvars['l_energy']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER ($playerinfo['ship_energy']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_energy'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_colonists']; ?>" src="images/colonists.png">&nbsp;<?php echo $langvars['l_colonists']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo NUMBER ($playerinfo['ship_colonists']); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_colonists'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
         </tr>
       </table>
     </td>

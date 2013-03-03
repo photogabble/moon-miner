@@ -107,8 +107,8 @@ elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sect
         $energyscooped = 0;
     }
 
-    $l_rs_movetime = str_replace ("[triptime]", NUMBER ($triptime), $l_rs_movetime);
-    $l_rs_energy = str_replace ("[energy]", NUMBER ($energyscooped), $l_rs_energy);
+    $l_rs_movetime = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_movetime);
+    $l_rs_energy = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_energy);
     echo "$l_rs_movetime $l_rs_energy<br><br>";
 
     if ($triptime > $playerinfo['turns'])
@@ -118,7 +118,7 @@ elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sect
     else
     {
         $l_rs_engage_link = "<a href=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
-        $l_rs_engage = str_replace("[turns]", NUMBER ($playerinfo['turns']), $l_rs_engage);
+        $l_rs_engage = str_replace("[turns]", number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_engage);
         $l_rs_engage = str_replace("[engage]", $l_rs_engage_link, $l_rs_engage);
         echo "$l_rs_engage<br><br>";
     }
@@ -152,7 +152,7 @@ elseif ($destination < $sector_max && $engage > 0)
 
     if ($triptime > $playerinfo['turns'])
     {
-        $l_rs_movetime = str_replace ("[triptime]", NUMBER ($triptime), $l_rs_movetime);
+        $l_rs_movetime = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_movetime);
         echo $l_rs_movetime . "<br><br>";
         echo $l_rs_noturns . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
@@ -171,8 +171,8 @@ elseif ($destination < $sector_max && $engage > 0)
             \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
             \bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
             $l_rs_ready = str_replace ("[sector]", $destination, $l_rs_ready);
-            $l_rs_ready = str_replace ("[triptime]", NUMBER ($triptime), $l_rs_ready);
-            $l_rs_ready = str_replace ("[energy]", NUMBER ($energyscooped), $l_rs_ready);
+            $l_rs_ready = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready);
+            $l_rs_ready = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready);
             echo $l_rs_ready . "<br><br>";
             include_once './check_mines.php';
         }

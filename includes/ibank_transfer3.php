@@ -83,8 +83,8 @@ function ibank_transfer3 ($db)
                 $time = $res->fields;
                 $difftime = ($time['time'] - $curtime) / 60;
                 $l_ibank_mustwait2 = str_replace("[ibank_target_char_name]", $target['character_name'], $l_ibank_mustwait2);
-                $l_ibank_mustwait2 = str_replace("[ibank_trate]", NUMBER ($ibank_trate), $l_ibank_mustwait2);
-                $l_ibank_mustwait2 = str_replace("[ibank_difftime]", NUMBER ($difftime), $l_ibank_mustwait2);
+                $l_ibank_mustwait2 = str_replace("[ibank_trate]", number_format ($ibank_trate, 0, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_mustwait2);
+                $l_ibank_mustwait2 = str_replace("[ibank_difftime]", number_format ($difftime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_ibank_mustwait2);
                 ibank_error ($l_ibank_mustwait2, "igb.php?command=transfer");
             }
         }
@@ -122,15 +122,15 @@ function ibank_transfer3 ($db)
         $transfer = $amount - $amount2;
 
         echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_transfersuccessful . "<br>---------------------------------</td></tr>" .
-             "<tr valign=top><td colspan=2 align=center>" . NUMBER ($transfer) . " " . $l_ibank_creditsto . " " . $target['character_name'] . " .</tr>" .
+             "<tr valign=top><td colspan=2 align=center>" . number_format ($transfer, 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $l_ibank_creditsto . " " . $target['character_name'] . " .</tr>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_transferamount . " :</td><td align=right>" . NUMBER ($amount) . " C<br>" .
+             "<td>" . $l_ibank_transferamount . " :</td><td align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_transferfee . " :</td><td align=right>" . NUMBER ($amount2) . " C<br>" .
+             "<td>" . $l_ibank_transferfee . " :</td><td align=right>" . number_format ($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_amounttransferred . " :</td><td align=right>" . NUMBER ($transfer) . " C<br>" .
+             "<td>" . $l_ibank_amounttransferred . " :</td><td align=right>" . number_format ($transfer, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_ibankaccount . " :</td><td align=right>" . NUMBER ($account['balance']) . " C<br>" .
+             "<td>" . $l_ibank_ibankaccount . " :</td><td align=right>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=bottom>" .
              "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
              "</tr>";
@@ -196,17 +196,17 @@ function ibank_transfer3 ($db)
         $dest['credits'] += $transfer;
 
         echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_transfersuccessful . "<br>---------------------------------</td></tr>" .
-             "<tr valign=top><td colspan=2 align=center>" . NUMBER ($transfer) . " " . $l_ibank_ctransferredfrom . " " . $source['name'] . " " . $l_ibank_to . " " . $dest['name'] . ".</tr>" .
+             "<tr valign=top><td colspan=2 align=center>" . number_format ($transfer, 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $l_ibank_ctransferredfrom . " " . $source['name'] . " " . $l_ibank_to . " " . $dest['name'] . ".</tr>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_transferamount . " :</td><td align=right>" . NUMBER ($amount) . " C<br>" .
+             "<td>" . $l_ibank_transferamount . " :</td><td align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_transferfee . " :</td><td align=right>" . NUMBER ($amount2) . " C<br>" .
+             "<td>" . $l_ibank_transferfee . " :</td><td align=right>" . number_format ($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_amounttransferred . " :</td><td align=right>" . NUMBER ($transfer) . " C<br>" .
+             "<td>" . $l_ibank_amounttransferred . " :</td><td align=right>" . number_format ($transfer, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_srcplanet . " " . $source['name'] . " " . $l_ibank_in . " " . $source['sector_id'] . " :</td><td align=right>" . NUMBER ($source['credits']) . " C<br>" .
+             "<td>" . $l_ibank_srcplanet . " " . $source['name'] . " " . $l_ibank_in . " " . $source['sector_id'] . " :</td><td align=right>" . number_format ($source['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=top>" .
-             "<td>" . $l_ibank_destplanet . " " . $dest['name'] . " " . $l_ibank_in . " " . $dest['sector_id'] . " :</td><td align=right>" . NUMBER ($dest['credits']) . " C<br>" .
+             "<td>" . $l_ibank_destplanet . " " . $dest['name'] . " " . $l_ibank_in . " " . $dest['sector_id'] . " :</td><td align=right>" . number_format ($dest['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
              "<tr valign=bottom>" .
              "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
              "</tr>";

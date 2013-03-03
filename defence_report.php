@@ -91,7 +91,7 @@ else
     {
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $sector[$i]['sector_id'] . ">". $sector[$i]['sector_id'] ."</a></td>";
-        echo "<td>" . NUMBER ($sector[$i]['quantity']) . "</td>";
+        echo "<td>" . number_format ($sector[$i]['quantity'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
         $defence_type = $sector[$i]['defence_type'] == 'F' ? $l_fighters : $l_mines;
         echo "<td> $defence_type </td>";
         $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $l_n_a;

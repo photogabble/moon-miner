@@ -1031,11 +1031,11 @@ function traderoute_results_display_totals ($total_profit)
     global $l_tdr_totalprofit, $l_tdr_totalcost;
     if ($total_profit > 0)
     {
-        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalprofit : <font style='color:#0f0;'><strong>" . NUMBER (abs($total_profit)) . "</strong></font><br>\n";
+        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalprofit : <font style='color:#0f0;'><strong>" . number_format (abs($total_profit), 0, $local_number_dec_point, $local_number_thousands_sep) . "</strong></font><br>\n";
     }
     else
     {
-        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalcost : <font style='color:#f00;'><strong>" . NUMBER (abs($total_profit)) . "</strong></font><br>\n";
+        echo "<p><center><font size=3 color=white><strong>$l_tdr_totalcost : <font style='color:#f00;'><strong>" . number_format (abs($total_profit), 0, $local_number_dec_point, $local_number_thousands_sep) . "</strong></font><br>\n";
     }
 }
 

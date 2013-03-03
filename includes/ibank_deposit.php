@@ -45,7 +45,7 @@ function ibank_deposit ()
     echo "<tr><td height=53 colspan=2 align=center valign=top>" . $l_ibank_depositfunds . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td height=30>" . $l_ibank_fundsavailable . " :</td>" .
-         "<td align=right>" . NUMBER ($playerinfo['credits']) ." C<br></td>" .
+         "<td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) ." C<br></td>" .
          "</tr><tr valign=top>" .
          "<td height=90>" . $l_ibank_seldepositamount . " :</td><td align=right>" .
          "<form action='igb.php?command=deposit2' method=post>" .
@@ -55,7 +55,7 @@ function ibank_deposit ()
          "</td></tr>" .
          "<tr>" .
          "  <td height=30  colspan=2 align=left>" .
-         "    <span style='color:\"#00ff00\";'>You can deposit only ". NUMBER ($credit_space)." credits.</span><br>" .
+         "    <span style='color:\"#00ff00\";'>You can deposit only ". number_format ($credit_space, 0, $local_number_dec_point, $local_number_thousands_sep)." credits.</span><br>" .
          "  </td>" .
          "</tr>" .
          "<tr valign=bottom>" .

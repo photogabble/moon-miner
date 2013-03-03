@@ -34,7 +34,7 @@ function ibank_login ()
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_welcometoibank . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td width=150 align=right>" . $l_ibank_accountholder . " :<br><br>" . $l_ibank_shipaccount . " :<br>" . $l_ibank_ibankaccount . "&nbsp;&nbsp;:</td>" .
-         "<td style='max-width:550px; padding-right:4px;' align=right>" . $playerinfo['character_name'] . "&nbsp;&nbsp;<br><br>" . NUMBER ($playerinfo['credits']) . " " . $l_ibank_credit_symbol . "<br>" . NUMBER ($account['balance']) . " " . $l_ibank_credit_symbol . "<br></td>" .
+         "<td style='max-width:550px; padding-right:4px;' align=right>" . $playerinfo['character_name'] . "&nbsp;&nbsp;<br><br>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $l_ibank_credit_symbol . "<br>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $l_ibank_credit_symbol . "<br></td>" .
          "</tr>" .
          "<tr><td colspan=2 align=center>" . $l_ibank_operations . "<br>---------------------------------<br><br><a href=\"igb.php?command=withdraw\">" . $l_ibank_withdraw . "</a><br><a href=\"igb.php?command=deposit\">" . $l_ibank_deposit . "</a><br><a href=\"igb.php?command=transfer\">" . $l_ibank_transfer . "</a><br><a href=\"igb.php?command=loans\">" . $l_ibank_loans . "</a><br>&nbsp;</td></tr>" .
          "<tr valign=bottom>" .

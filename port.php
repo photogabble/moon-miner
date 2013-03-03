@@ -270,10 +270,10 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     echo "<form action=port2.php method=post>";
     echo "<table>";
     echo "<tr><td><strong>$l_commodity</strong></td><td><strong>$l_buying/$l_selling</strong></td><td><strong>$l_amount</strong></td><td><strong>$l_price</strong></td><td><strong>$l_buy/$l_sell</strong></td><td><strong>$l_cargo</strong></td></tr>";
-    echo "<tr><td>$l_ore</td><td>$sb_ore</td><td>" . NUMBER ($sectorinfo['port_ore']) . "</td><td>$ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . NUMBER ($playerinfo['ship_ore']) . "</td></tr>";
-    echo "<tr><td>$l_organics</td><td>$sb_organics</td><td>" . NUMBER ($sectorinfo['port_organics']) . "</td><td>$organics_price</td><td><input type=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 value=$amount_organics></td><td>" . NUMBER ($playerinfo['ship_organics']) . "</td></tr>";
-    echo "<tr><td>$l_goods</td><td>$sb_goods</td><td>" . NUMBER ($sectorinfo['port_goods']) . "</td><td>$goods_price</td><td><input type=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 value=$amount_goods></td><td>" . NUMBER ($playerinfo['ship_goods']) . "</td></tr>";
-    echo "<tr><td>$l_energy</td><td>$sb_energy</td><td>" . NUMBER ($sectorinfo['port_energy']) . "</td><td>$energy_price</td><td><input type=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 value=$amount_energy></td><td>" . NUMBER ($playerinfo['ship_energy']) . "</td></tr>";
+    echo "<tr><td>$l_ore</td><td>$sb_ore</td><td>" . number_format ($sectorinfo['port_ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>$ore_price</td><td><input type=TEXT NAME=trade_ore SIZE=10 MAXLENGTH=20 value=$amount_ore></td><td>" . number_format ($playerinfo['ship_ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td></tr>";
+    echo "<tr><td>$l_organics</td><td>$sb_organics</td><td>" . number_format ($sectorinfo['port_organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>$organics_price</td><td><input type=TEXT NAME=trade_organics SIZE=10 MAXLENGTH=20 value=$amount_organics></td><td>" . number_format ($playerinfo['ship_organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td></tr>";
+    echo "<tr><td>$l_goods</td><td>$sb_goods</td><td>" . number_format ($sectorinfo['port_goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>$goods_price</td><td><input type=TEXT NAME=trade_goods SIZE=10 MAXLENGTH=20 value=$amount_goods></td><td>" . number_format ($playerinfo['ship_goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td></tr>";
+    echo "<tr><td>$l_energy</td><td>$sb_energy</td><td>" . number_format ($sectorinfo['port_energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>$energy_price</td><td><input type=TEXT NAME=trade_energy SIZE=10 MAXLENGTH=20 value=$amount_energy></td><td>" . number_format ($playerinfo['ship_energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td></tr>";
     echo "</table><br>";
     echo "<input type=submit value=$l_trade>";
     echo "</form>";
@@ -281,9 +281,9 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
     $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
-    $l_trade_st_info = str_replace ("[free_holds]", NUMBER ($free_holds), $l_trade_st_info);
-    $l_trade_st_info = str_replace ("[free_power]", NUMBER ($free_power), $l_trade_st_info);
-    $l_trade_st_info = str_replace ("[credits]", NUMBER ($playerinfo['credits']), $l_trade_st_info);
+    $l_trade_st_info = str_replace ("[free_holds]", number_format ($free_holds, 0, $local_number_dec_point, $local_number_thousands_sep), $l_trade_st_info);
+    $l_trade_st_info = str_replace ("[free_power]", number_format ($free_power, 0, $local_number_dec_point, $local_number_thousands_sep), $l_trade_st_info);
+    $l_trade_st_info = str_replace ("[credits]", number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_trade_st_info);
     echo $l_trade_st_info;
 }
 elseif ($sectorinfo['port_type'] == "special")
@@ -327,7 +327,7 @@ elseif ($sectorinfo['port_type'] == "special")
             {
                 if ($playerinfo['credits'] < $bty['total_bounty'])
                 {
-                    $l_port_btynotenough = str_replace ("[amount]", NUMBER ($bty['total_bounty']), $l_port_btynotenough);
+                    $l_port_btynotenough = str_replace ("[amount]", number_format ($bty['total_bounty'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_port_btynotenough);
                     echo $l_port_btynotenough . "<br>";
                     \bnt\bnttext::gotomain ($langvars);
                     die ();
@@ -378,7 +378,7 @@ elseif ($sectorinfo['port_type'] == "special")
                         echo "Partial Payment Mode<br>\n";
                         echo "You don't have enough Credits within your Intergalactic Bank Account to pay your entire bounty.<br>\n";
                         echo "However you can pay your bounty off in instalments.<br>\n";
-                        echo "And your first instalment will be " . NUMBER ($bounty_payment)." credits.<br>\n";
+                        echo "And your first instalment will be " . number_format ($bounty_payment, 0, $local_number_dec_point, $local_number_thousands_sep)." credits.<br>\n";
                         echo "<br>\n";
 
                         $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance = balance - ? WHERE ship_id = ?;", array ($bounty_payment, $playerinfo['ship_id']));
@@ -413,14 +413,14 @@ elseif ($sectorinfo['port_type'] == "special")
                 echo "<br>\n";
 
                 echo "Option Plan 1: Payment from Ship<br>\n";
-                $l_port_bounty2 = str_replace ("[amount]", NUMBER ($bty['total_bounty']), $l_port_bounty2);
+                $l_port_bounty2 = str_replace ("[amount]", number_format ($bty['total_bounty'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_port_bounty2);
                 $l_port_bounty2 = str_replace ("[here]","<a href='port.php?pay=1'>" . $l_here . "</a>", $l_port_bounty2);
                 echo $l_port_bounty2 . "<br>";
                 echo "<br>\n";
 
                 echo "Option Plan 2: Payment from Intergalactic Bank [Full/Partial Payments]<br>\n";
                 $l_port_bounty3 = "Click <a href='port.php?pay=2'>here</a> to pay the bounty of [amount] Credits from your Intergalactic Bank Account.";
-                $l_port_bounty3 = str_replace ("[amount]", NUMBER ($bty['total_bounty']), $l_port_bounty3);
+                $l_port_bounty3 = str_replace ("[amount]", number_format ($bty['total_bounty'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_port_bounty3);
                 echo $l_port_bounty3 . "<br>\n";
                 echo "<br>\n";
 
@@ -669,7 +669,7 @@ elseif ($sectorinfo['port_type'] == "special")
     }
 
     echo "<P>\n";
-    $l_creds_to_spend = str_replace ("[credits]", NUMBER ($playerinfo['credits']), $l_creds_to_spend);
+    $l_creds_to_spend = str_replace ("[credits]", number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_creds_to_spend);
     echo $l_creds_to_spend . "<br>\n";
     if ($allow_ibank)
     {
@@ -695,19 +695,19 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "   </tr>\n";
     echo "   <tr>\n";
 #   echo "    <td>$l_genesis</td>\n";
-#   echo "    <td>" . NUMBER ($dev_genesis_price) . "</td>\n";
-#   echo "    <td>" . NUMBER ($playerinfo[dev_genesis]) . "</td>\n";
+#   echo "    <td>" . number_format ($dev_genesis_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+#   echo "    <td>" . number_format ($playerinfo['dev_genesis'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
 #   echo "    <td>$l_unlimited</td>\n";
 #   echo "    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>\n";
 
     echo "    <td>$l_genesis</td>\n";
-    echo "    <td>" . NUMBER ($dev_genesis_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['dev_genesis']) . "</td>\n";
+    echo "    <td>" . number_format ($dev_genesis_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['dev_genesis'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['dev_genesis'] != $max_genesis)
     {
         echo"<a href='#' onClick=\"make_max('dev_genesis_number', $genesis_free);count_total();return false;\">";
-        echo NUMBER ($genesis_free) . "</a></td>\n";
+        echo number_format ($genesis_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
@@ -719,26 +719,26 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "</td>\n";
     echo "    <td>$l_hull</td>\n";
     echo "    <td><input type=text readonly class='portcosts1' name=hull_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['hull']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['hull'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("hull_upgrade",$playerinfo['hull']);
     echo "    </td>\n";
     echo "   </tr>\n";
     echo "   <tr>\n";
 #   echo "    <td>$l_beacons</td>\n";
-#   echo "    <td>" . NUMBER ($dev_beacon_price) . "</td>\n";
-#   echo "    <td>" . NUMBER ($playerinfo['dev_beacon']) . "</td>\n";
+#   echo "    <td>" . number_format ($dev_beacon_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+#   echo "    <td>" . number_format ($playerinfo['dev_beacon'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
 #   echo "    <td>$l_unlimited</td>\n";
 #   echo "    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>\n";
 
     echo "    <td>$l_beacons</td>\n";
-    echo "    <td>" . NUMBER ($dev_beacon_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['dev_beacon']) . "</td>\n";
+    echo "    <td>" . number_format ($dev_beacon_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['dev_beacon'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['dev_beacon'] != $max_beacons)
     {
         echo"<a href='#' onClick=\"make_max('dev_beacon_number', $beacon_free);count_total();return false;\">";
-        echo NUMBER ($beacon_free) . "</a></td>\n";
+        echo number_format ($beacon_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
@@ -749,20 +749,20 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "</td>\n";
     echo "    <td>$l_engines</td>\n";
     echo "    <td><input type=text readonly class='portcosts2' size=10 name=engine_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['engines']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['engines'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("engine_upgrade",$playerinfo['engines']);
     echo "    </td>\n";
     echo "   </tr>\n";
     echo "   <tr>\n";
     echo "    <td>$l_ewd</td>\n";
-    echo "    <td>" . NUMBER ($dev_emerwarp_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['dev_emerwarp']) . "</td>\n";
+    echo "    <td>" . number_format ($dev_emerwarp_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['dev_emerwarp'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['dev_emerwarp'] != $max_emerwarp)
     {
         echo"<a href='#' onClick=\"make_max('dev_emerwarp_number', $emerwarp_free);count_total();return false;\">";
-        echo NUMBER ($emerwarp_free) . "</a></td>\n";
+        echo number_format ($emerwarp_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
@@ -774,24 +774,24 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "</td>\n";
     echo "    <td>$l_power</td>\n";
     echo "    <td><input type=text readonly class='portcosts1' name=power_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['power']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['power'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("power_upgrade",$playerinfo['power']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
 #   echo "    <td>$l_warpedit</td>\n";
-#   echo "    <td>" . NUMBER ($dev_warpedit_price) . "</td>\n";
-#   echo "    <td>" . NUMBER ($playerinfo['dev_warpedit']) . "</td><td>$l_unlimited</td><td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>";
+#   echo "    <td>" . number_format ($dev_warpedit_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+#   echo "    <td>" . number_format ($playerinfo['dev_warpedit'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>$l_unlimited</td><td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur></td>";
 
     echo "    <td>$l_warpedit</td>\n";
-    echo "    <td>" . NUMBER ($dev_warpedit_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['dev_warpedit']) . "</td>\n";
+    echo "    <td>" . number_format ($dev_warpedit_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['dev_warpedit'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['dev_warpedit'] != $max_warpedit)
     {
         echo"<a href='#' onClick=\"make_max('dev_warpedit_number', $warpedit_free);count_total();return false;\">";
-        echo NUMBER ($warpedit_free) . "</a></td>\n";
+        echo number_format ($warpedit_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo"    <td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
@@ -804,7 +804,7 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "    <td>$l_computer</td>\n";
     echo "    <td><input type=text readonly class='portcosts2' name=computer_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['computer']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['computer'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("computer_upgrade",$playerinfo['computer']);
     echo "    </td>\n";
@@ -817,27 +817,27 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>&nbsp;</td>\n";
     echo "    <td>$l_sensors</td>\n";
     echo "    <td><input type=text readonly class='portcosts1' name=sensors_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['sensors']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['sensors'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("sensors_upgrade",$playerinfo['sensors']);
     echo "    </td>\n";
     echo "  </tr>";
     echo "  <tr>\n";
     echo "    <td>$l_deflect</td>\n";
-    echo "    <td>" . NUMBER ($dev_minedeflector_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['dev_minedeflector']) . "</td>\n";
+    echo "    <td>" . number_format ($dev_minedeflector_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['dev_minedeflector'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>$l_unlimited</td>\n";
     echo "    <td><input type=TEXT NAME=dev_minedeflector_number SIZE=4 MAXLENGTH=10 value=0 $onblur></td>\n";
     echo "    <td>$l_beams</td>\n";
     echo "    <td><input type=text readonly class='portcosts2' name=beams_costper value='0' tabindex='0' $onblur></td>";
-    echo "    <td>" . NUMBER ($playerinfo['beams']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['beams'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("beams_upgrade",$playerinfo['beams']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
     echo "    <td>$l_escape_pod</td>\n";
-    echo "    <td>" . NUMBER ($dev_escapepod_price) . "</td>\n";
+    echo "    <td>" . number_format ($dev_escapepod_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     if ($playerinfo['dev_escapepod'] == "N")
     {
         echo "    <td>$l_none</td>\n";
@@ -853,14 +853,14 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "    <td>$l_armor</td>\n";
     echo "    <td><input type=text readonly class='portcosts1' name=armor_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['armor']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['armor'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("armor_upgrade",$playerinfo['armor']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
     echo "    <td>$l_fuel_scoop</td>\n";
-    echo "    <td>" . NUMBER ($dev_fuelscoop_price) . "</td>\n";
+    echo "    <td>" . number_format ($dev_fuelscoop_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     if ($playerinfo['dev_fuelscoop'] == "N")
     {
         echo "    <td>$l_none</td>\n";
@@ -876,14 +876,14 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "    <td>$l_cloak</td>\n";
     echo "    <td><input type=text readonly class='portcosts2' name=cloak_costper value='0' tabindex='0' $onblur $onfocus></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['cloak']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['cloak'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("cloak_upgrade",$playerinfo['cloak']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
     echo "    <td>$l_lssd</td>\n";
-    echo "    <td>" . NUMBER ($dev_lssd_price) . "</td>\n";
+    echo "    <td>" . number_format ($dev_lssd_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     if ($playerinfo['dev_lssd'] == "N")
     {
         echo "    <td>$l_none</td>\n";
@@ -899,7 +899,7 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "    <td>$l_torp_launch</td>\n";
     echo "    <td><input type=text readonly class='portcosts1' name=torp_launchers_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['torp_launchers']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['torp_launchers'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("torp_launchers_upgrade",$playerinfo['torp_launchers']);
     echo "    </td>\n";
@@ -912,7 +912,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>&nbsp;</td>\n";
     echo "    <td>$l_shields</td>\n";
     echo "    <td><input type=text readonly class='portcosts2' name=shields_costper value='0' tabindex='0' $onblur></td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['shields']) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['shields'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
     echo dropdown("shields_upgrade",$playerinfo['shields']);
     echo "    </td>\n";
@@ -934,12 +934,12 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  </tr>\n";
     echo "  <tr>\n";
     echo "    <td>$l_fighters</td>\n";
-    echo "    <td>" . NUMBER ($fighter_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['ship_fighters']) . " / " . NUMBER ($fighter_max) . "</td>\n";
+    echo "    <td>" . number_format ($fighter_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . " / " . number_format ($fighter_max, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['ship_fighters'] != $fighter_max)
     {
-        echo "<a href='#' onClick=\"make_max('fighter_number', $fighter_free);count_total();return false;\" $onblur>" . NUMBER ($fighter_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('fighter_number', $fighter_free);count_total();return false;\" $onblur>" . number_format ($fighter_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=fighter_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
@@ -949,12 +949,12 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "    </td>\n";
     echo "    <td>$l_torps</td>\n";
-    echo "    <td>" . NUMBER ($torpedo_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['torps']) . " / " . NUMBER ($torpedo_max) . "</td>\n";
+    echo "    <td>" . number_format ($torpedo_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . " / " . number_format ($torpedo_max, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['torps'] != $torpedo_max)
     {
-        echo "<a href='#' onClick=\"make_max('torpedo_number', $torpedo_free);count_total();return false;\" $onblur>" . NUMBER ($torpedo_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('torpedo_number', $torpedo_free);count_total();return false;\" $onblur>" . number_format ($torpedo_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=torpedo_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
@@ -966,12 +966,12 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  </tr>\n";
     echo "  <tr>\n";
     echo "    <td>$l_armorpts</td>\n";
-    echo "    <td>" . NUMBER ($armor_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['armor_pts']) . " / " . NUMBER ($armor_max) . "</td>\n";
+    echo "    <td>" . number_format ($armor_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['armor_pts'], 0, $local_number_dec_point, $local_number_thousands_sep) . " / " . number_format ($armor_max, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>";
     if ($playerinfo['armor_pts'] != $armor_max)
     {
-        echo "<a href='#' onClick=\"make_max('armor_number', $armor_free);count_total();return false;\" $onblur>" . NUMBER ($armor_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('armor_number', $armor_free);count_total();return false;\" $onblur>" . number_format ($armor_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=armor_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else
@@ -981,12 +981,12 @@ elseif ($sectorinfo['port_type'] == "special")
 
     echo "</td>\n";
     echo "    <td>$l_colonists</td>\n";
-    echo "    <td>" . NUMBER ($colonist_price) . "</td>\n";
-    echo "    <td>" . NUMBER ($playerinfo['ship_colonists']) . " / ". NUMBER ($colonist_max). "</td>\n";
+    echo "    <td>" . number_format ($colonist_price, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
+    echo "    <td>" . number_format ($playerinfo['ship_colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . " / ". number_format ($colonist_max, 0, $local_number_dec_point, $local_number_thousands_sep). "</td>\n";
     echo "    <td>";
     if ($playerinfo['ship_colonists'] != $colonist_max)
     {
-        echo "<a href='#' onClick=\"make_max('colonist_number', $colonist_free);count_total();return false;\" $onblur>" . NUMBER ($colonist_free) . "</a></td>\n";
+        echo "<a href='#' onClick=\"make_max('colonist_number', $colonist_free);count_total();return false;\" $onblur>" . number_format ($colonist_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
         echo "    <td><input type=TEXT NAME=colonist_number SIZE=6 MAXLENGTH=10 value=0 $onblur>";
     }
     else

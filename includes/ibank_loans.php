@@ -32,8 +32,8 @@ function ibank_loans ($db)
     global $l_ibank_back, $l_ibank_logout, $ibank_lrate, $l_ibank_loantimeleft, $l_ibank_loanlate, $l_ibank_repayamount;
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_loanstatus . "<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td>" . $l_ibank_shipaccount . " :</td><td align=right>" . NUMBER ($playerinfo['credits']) . " C</td></tr>" .
-         "<tr valign=top><td>" . $l_ibank_currentloan . " :</td><td align=right>" . NUMBER ($account['loan']) . " C</td></tr>";
+         "<tr valign=top><td>" . $l_ibank_shipaccount . " :</td><td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>" .
+         "<tr valign=top><td>" . $l_ibank_currentloan . " :</td><td align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
 
     if ($account['loan'] != 0)
     {
@@ -84,7 +84,7 @@ function ibank_loans ($db)
         $maxloan = $score * $score * $ibank_loanlimit;
 
         $l_ibank_maxloanpercent = str_replace ("[ibank_percent]", $percent, $l_ibank_maxloanpercent);
-        echo "<tr valign=top><td nowrap>" . $l_ibank_maxloanpercent . " :</td><td align=right>" . NUMBER ($maxloan) . " C</td></tr>";
+        echo "<tr valign=top><td nowrap>" . $l_ibank_maxloanpercent . " :</td><td align=right>" . number_format ($maxloan, 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
 
         $factor = $ibank_loanfactor *= 100;
         $interest = $ibank_loaninterest *= 100;

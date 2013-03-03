@@ -88,8 +88,8 @@ function ibank_consolidate3 ($db)
          "<tr valign=top>" .
          "<td>" . $l_ibank_currentpl . " " . $dest['name'] . " " . $l_ibank_in . " " . $dest['sector_id'] . " :<br><br>" .
          $l_ibank_turncost . " :</td>" .
-         "<td align=right>" . NUMBER ($cplanet) . " C<br><br>" .
-         NUMBER ($tcost) . "</td>" .
+         "<td align=right>" . number_format ($cplanet, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br><br>" .
+         number_format ($tcost, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>" .
          "<tr valign=bottom>" .
          "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";

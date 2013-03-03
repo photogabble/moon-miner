@@ -423,7 +423,7 @@ function traderoute_engage ($db, $j)
 
                 if ($colonists_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($colonists_buy) . " $l_tdr_colonists<br>";
+                    echo "$l_tdr_bought " . number_format ($colonists_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_colonists<br>";
                 }
 
                 $sourcecost-= $colonists_buy * $colonist_price;
@@ -446,7 +446,7 @@ function traderoute_engage ($db, $j)
 
                 if ($fighters_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($fighters_buy) . " $l_tdr_fighters<br>";
+                    echo "$l_tdr_bought " . number_format ($fighters_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_fighters<br>";
                 }
 
                 $sourcecost-= $fighters_buy * $fighter_price;
@@ -469,7 +469,7 @@ function traderoute_engage ($db, $j)
 
                 if ($torps_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($torps_buy) . " $l_tdr_torps<br>";
+                    echo "$l_tdr_bought " . number_format ($torps_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_torps<br>";
                 }
 
                 $sourcecost-= $torps_buy * $torpedo_price;
@@ -518,11 +518,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($ore_buy) . " $l_tdr_ore ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($ore_buy) . " $l_tdr_ore<br>";
+                        echo "$l_tdr_sold " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore<br>";
                     }
                 }
                 $playerinfo['ship_ore'] -= $ore_buy;
@@ -547,11 +547,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($goods_buy) . " $l_tdr_goods ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($goods_buy) . " $l_tdr_goods<br>";
+                        echo "$l_tdr_sold " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods<br>";
                     }
                 }
                 $playerinfo['ship_goods'] -= $goods_buy;
@@ -576,11 +576,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($organics_buy) . " $l_tdr_organics ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($organics_buy) . " $l_tdr_organics<br>";
+                        echo "$l_tdr_sold " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics<br>";
                     }
                 }
                 $playerinfo['ship_organics'] -= $organics_buy;
@@ -604,11 +604,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($energy_buy) . " $l_tdr_energy ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($energy_buy) . " $l_tdr_energy<br>";
+                        echo "$l_tdr_sold " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy<br>";
                     }
                 }
                 $playerinfo['ship_energy'] -= $energy_buy;
@@ -631,13 +631,13 @@ function traderoute_engage ($db, $j)
                     $ore_buy = $source['port_ore'];
                     if ($source['port_ore'] == 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($ore_buy) . " $l_tdr_ore ($l_tdr_portisempty)<br>";
+                        echo "$l_tdr_bought " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore ($l_tdr_portisempty)<br>";
                     }
                 }
 
                 if ($ore_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($ore_buy) . " $l_tdr_ore<br>";
+                    echo "$l_tdr_bought " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore<br>";
                 }
                 $playerinfo['ship_ore'] += $ore_buy;
                 $sourcecost -= $ore_buy * $ore_price1;
@@ -659,13 +659,13 @@ function traderoute_engage ($db, $j)
                     $goods_buy = $source['port_goods'];
                     if ($source['port_goods'] == 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($goods_buy) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
+                        echo "$l_tdr_bought " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
                     }
                 }
 
                 if ($goods_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($goods_buy) . " $l_tdr_goods<br>";
+                    echo "$l_tdr_bought " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods<br>";
                 }
 
                 $playerinfo['ship_goods'] += $goods_buy;
@@ -690,13 +690,13 @@ function traderoute_engage ($db, $j)
                     $organics_buy = $source['port_organics'];
                     if ($source['port_organics'] == 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($organics_buy) . " $l_tdr_organics ($l_tdr_portisempty)<br>";
+                        echo "$l_tdr_bought " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics ($l_tdr_portisempty)<br>";
                     }
                 }
 
                 if ($organics_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($organics_buy) . " $l_tdr_organics<br>";
+                    echo "$l_tdr_bought " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics<br>";
                 }
 
                 $playerinfo['ship_organics'] += $organics_buy;
@@ -720,13 +720,13 @@ function traderoute_engage ($db, $j)
                     $energy_buy = $source['port_energy'];
                     if ($source['port_energy'] == 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($energy_buy) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
+                        echo "$l_tdr_bought " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
                     }
                 }
 
                 if ($energy_buy != 0)
                 {
-                    echo "$l_tdr_bought " . NUMBER ($energy_buy) . " $l_tdr_energy<br>";
+                    echo "$l_tdr_bought " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy<br>";
                 }
                 $playerinfo['ship_energy'] += $energy_buy;
                 $sourcecost -= $energy_buy * $energy_price1;
@@ -777,7 +777,7 @@ function traderoute_engage ($db, $j)
 
                     $free_holds -= $goods_buy;
                     $playerinfo['ship_goods'] += $goods_buy;
-                    echo "$l_tdr_loaded " . NUMBER ($goods_buy) . " $l_tdr_goods<br>";
+                    echo "$l_tdr_loaded " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods<br>";
                 }
                 else
                 {
@@ -797,7 +797,7 @@ function traderoute_engage ($db, $j)
 
                     $free_holds -= $ore_buy;
                     $playerinfo['ship_ore'] += $ore_buy;
-                    echo "$l_tdr_loaded " . NUMBER ($ore_buy) . " $l_tdr_ore<br>";
+                    echo "$l_tdr_loaded " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore<br>";
                 }
                 else
                 {
@@ -817,7 +817,7 @@ function traderoute_engage ($db, $j)
 
                     $free_holds -= $organics_buy;
                     $playerinfo['ship_organics'] += $organics_buy;
-                    echo "$l_tdr_loaded " . NUMBER ($organics_buy) . " $l_tdr_organics<br>";
+                    echo "$l_tdr_loaded " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics<br>";
                 }
                 else
                 {
@@ -858,7 +858,7 @@ function traderoute_engage ($db, $j)
 
                 $free_holds -= $colonists_buy;
                 $playerinfo['ship_colonists'] += $colonists_buy;
-                echo "$l_tdr_loaded " . NUMBER ($colonists_buy) . " $l_tdr_colonists<br>";
+                echo "$l_tdr_loaded " . number_format ($colonists_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_colonists<br>";
             }
             else
             {
@@ -879,7 +879,7 @@ function traderoute_engage ($db, $j)
 
                 $free_torps -= $torps_buy;
                 $playerinfo['torps'] += $torps_buy;
-                echo "$l_tdr_loaded " . NUMBER ($torps_buy) . " $l_tdr_torps<br>";
+                echo "$l_tdr_loaded " . number_format ($torps_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_torps<br>";
             }
             else
             {
@@ -900,7 +900,7 @@ function traderoute_engage ($db, $j)
 
                 $free_fighters -= $fighters_buy;
                 $playerinfo['ship_fighters'] += $fighters_buy;
-                echo "$l_tdr_loaded " . NUMBER ($fighters_buy) . " $l_tdr_fighters<br>";
+                echo "$l_tdr_loaded " . number_format ($fighters_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_fighters<br>";
             }
             else
             {
@@ -925,7 +925,7 @@ function traderoute_engage ($db, $j)
 
     if ($dist['scooped1'] != 0)
     {
-        echo "$l_tdr_scooped " . NUMBER ($dist['scooped1']) . " $l_tdr_energy<br>";
+        echo "$l_tdr_scooped " . number_format ($dist['scooped1'], 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy<br>";
     }
 
     traderoute_results_close_cell();
@@ -963,11 +963,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($ore_buy) . " $l_tdr_ore ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($ore_buy) . " $l_tdr_ore<br>";
+                        echo "$l_tdr_sold " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore<br>";
                     }
                 }
                 $playerinfo['ship_ore'] -= $ore_buy;
@@ -992,11 +992,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($goods_buy) . " $l_tdr_goods ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($goods_buy) . " $l_tdr_goods<br>";
+                        echo "$l_tdr_sold " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods<br>";
                     }
                 }
                 $playerinfo['ship_goods'] -= $goods_buy;
@@ -1021,11 +1021,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($organics_buy) . " $l_tdr_organics ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($organics_buy) . " $l_tdr_organics<br>";
+                        echo "$l_tdr_sold " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics<br>";
                     }
                 }
                 $playerinfo['ship_organics'] -= $organics_buy;
@@ -1050,11 +1050,11 @@ function traderoute_engage ($db, $j)
                 {
                     if ($portfull == 1)
                     {
-                        echo "$l_tdr_sold " . NUMBER ($energy_buy) . " $l_tdr_energy ($l_tdr_portisfull)<br>";
+                        echo "$l_tdr_sold " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy ($l_tdr_portisfull)<br>";
                     }
                     else
                     {
-                        echo "$l_tdr_sold " . NUMBER ($energy_buy) . " $l_tdr_energy<br>";
+                        echo "$l_tdr_sold " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy<br>";
                     }
                 }
                 $playerinfo['ship_energy'] -= $energy_buy;
@@ -1087,13 +1087,13 @@ function traderoute_engage ($db, $j)
                         $ore_buy = $dest['port_ore'];
                         if ($dest['port_ore'] == 0)
                         {
-                            echo "$l_tdr_bought " . NUMBER ($ore_buy) . " $l_tdr_ore ($l_tdr_portisempty)<br>";
+                            echo "$l_tdr_bought " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore ($l_tdr_portisempty)<br>";
                         }
                     }
 
                     if ($ore_buy != 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($ore_buy) . " $l_tdr_ore<br>";
+                        echo "$l_tdr_bought " . number_format ($ore_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_ore<br>";
                     }
 
                     $playerinfo['ship_ore'] += $ore_buy;
@@ -1123,13 +1123,13 @@ function traderoute_engage ($db, $j)
                         $goods_buy = $dest['port_goods'];
                         if ($dest['port_goods'] == 0)
                         {
-                            echo "$l_tdr_bought " . NUMBER ($goods_buy) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
+                            echo "$l_tdr_bought " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods ($l_tdr_portisempty)<br>";
                         }
                     }
 
                     if ($goods_buy != 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($goods_buy) . " $l_tdr_goods<br>";
+                        echo "$l_tdr_bought " . number_format ($goods_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_goods<br>";
                     }
 
                     $playerinfo['ship_goods'] += $goods_buy;
@@ -1159,13 +1159,13 @@ function traderoute_engage ($db, $j)
 
                         if ($dest['port_organics'] == 0)
                         {
-                            echo "$l_tdr_bought " . NUMBER ($organics_buy) . " $l_tdr_organics ($l_tdr_portisempty)<br>";
+                            echo "$l_tdr_bought " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics ($l_tdr_portisempty)<br>";
                         }
                     }
 
                     if ($organics_buy != 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($organics_buy) . " $l_tdr_organics<br>";
+                        echo "$l_tdr_bought " . number_format ($organics_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_organics<br>";
                     }
 
                     $playerinfo['ship_organics'] += $organics_buy;
@@ -1195,13 +1195,13 @@ function traderoute_engage ($db, $j)
                         $energy_buy = $dest['port_energy'];
                         if ($dest['port_energy'] == 0)
                         {
-                            echo "$l_tdr_bought " . NUMBER ($energy_buy) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
+                            echo "$l_tdr_bought " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy ($l_tdr_portisempty)<br>";
                         }
                     }
 
                     if ($energy_buy != 0)
                     {
-                        echo "$l_tdr_bought " . NUMBER ($energy_buy) . " $l_tdr_energy<br>";
+                        echo "$l_tdr_bought " . number_format ($energy_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy<br>";
                     }
 
                     $playerinfo['ship_energy'] += $energy_buy;
@@ -1265,11 +1265,11 @@ function traderoute_engage ($db, $j)
             {
                 if ($setcol == 1)
                 {
-                    echo "$l_tdr_dumped " . NUMBER ($colonists_buy) . " $l_tdr_colonists ($l_tdr_planetisovercrowded)<br>";
+                    echo "$l_tdr_dumped " . number_format ($colonists_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_colonists ($l_tdr_planetisovercrowded)<br>";
                 }
                 else
                 {
-                    echo "$l_tdr_dumped " . NUMBER ($colonists_buy) . " $l_tdr_colonists<br>";
+                    echo "$l_tdr_dumped " . number_format ($colonists_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_colonists<br>";
                 }
             }
 
@@ -1285,7 +1285,7 @@ function traderoute_engage ($db, $j)
 
             if ($fighters_buy != 0)
             {
-                echo "$l_tdr_dumped " . NUMBER ($fighters_buy) . " $l_tdr_fighters<br>";
+                echo "$l_tdr_dumped " . number_format ($fighters_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_fighters<br>";
             }
 
             if ($playerinfo['trade_torps'] == 'Y')
@@ -1300,7 +1300,7 @@ function traderoute_engage ($db, $j)
 
             if ($torps_buy != 0)
             {
-                echo "$l_tdr_dumped " . NUMBER ($torps_buy) . " $l_tdr_torps<br>";
+                echo "$l_tdr_dumped " . number_format ($torps_buy, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_torps<br>";
             }
 
             if ($torps_buy == 0 && $fighters_buy == 0 && $colonists_buy == 0)
@@ -1365,7 +1365,7 @@ function traderoute_engage ($db, $j)
         }
         if ($dist['scooped2'] != 0)
         {
-            echo "$l_tdr_scooped " . NUMBER ($dist['scooped1']) . " $l_tdr_energy<br>";
+            echo "$l_tdr_scooped " . number_format ($dist['scooped1'], 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_tdr_energy<br>";
         }
     }
     else
@@ -1377,21 +1377,21 @@ function traderoute_engage ($db, $j)
 
     if ($sourcecost > 0)
     {
-        echo "$l_tdr_profit : " . NUMBER (abs($sourcecost));
+        echo "$l_tdr_profit : " . number_format (abs($sourcecost), 0, $local_number_dec_point, $local_number_thousands_sep);
     }
     else
     {
-        echo "$l_tdr_cost : " . NUMBER (abs($sourcecost));
+        echo "$l_tdr_cost : " . number_format (abs($sourcecost), 0, $local_number_dec_point, $local_number_thousands_sep);
     }
     traderoute_results_close_cost();
 
     if ($destcost > 0)
     {
-        echo "$l_tdr_profit : " . NUMBER (abs($destcost));
+        echo "$l_tdr_profit : " . number_format (abs($destcost), 0, $local_number_dec_point, $local_number_thousands_sep);
     }
     else
     {
-        echo "$l_tdr_cost : " . NUMBER (abs($destcost));
+        echo "$l_tdr_cost : " . number_format (abs($destcost), 0, $local_number_dec_point, $local_number_thousands_sep);
     }
 
     traderoute_results_close_table();
@@ -1412,7 +1412,7 @@ function traderoute_engage ($db, $j)
     $playerinfo['credits']+= $total_profit - $sourcecost;
     $playerinfo['turns']-= $dist['triptime'];
 
-    $tdr_display_creds =   NUMBER ($playerinfo['credits']);
+    $tdr_display_creds =   number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep);
     traderoute_results_display_summary($tdr_display_creds);
     // echo $j." -- ";
     if ($traderoute['circuit'] == 2)
