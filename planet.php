@@ -679,7 +679,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
-                $sc_error = scan_error ($playerinfo['sensors'], $ownerinfo['cloak']);
+                $sc_error = scan_error ($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
                 if (empty ($planetinfo['name']))
                 {
                     $planetinfo['name'] = $l_unnamed;

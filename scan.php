@@ -135,7 +135,7 @@ else
                 echo $l_by_nofedbounty . "<br><br>";
             }
 
-            $sc_error = scan_error ($playerinfo['sensors'], $targetinfo['cloak']);
+            $sc_error = scan_error ($playerinfo['sensors'], $targetinfo['cloak'], $scan_error_factor);
             echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<br><br>";
             echo "<strong>$l_ship_levels:</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";

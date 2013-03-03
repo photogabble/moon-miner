@@ -23,10 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'scan_error.php')) // Prevent direct access to
     include_once './error.php';
 }
 
-function scan_error ($level_scan, $level_cloak)
+function scan_error ($level_scan, $level_cloak, $scan_error_factor)
 {
-    global $scan_error_factor;
-
     $sc_error = (4 + $level_scan / 2 - $level_cloak / 2) * $scan_error_factor;
 
     if ($sc_error < 1)
