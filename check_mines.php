@@ -26,8 +26,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_mines.php')) // Prevent direct access t
 // New database driven language entries
 load_languages ($db, $lang, array ('check_mines', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
 
-include './includes/explode_mines.php';
-
 // Put the sector information into the array "sectorinfo"
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($sector));
 \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
@@ -182,7 +180,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 }
             }
         }
-        explode_mines($db, $sector, $roll);
+        \bnt\bntmines::explode ($db, $sector, $roll);
     }
 }
 ?>

@@ -25,7 +25,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_sec_def.php')) // Prevent direct ac
 
 function xenobe_to_sec_def ($db)
 {
-    include_once './explode_mines.php';
     // Xenobe to sector defense
 
     global $playerinfo, $targetlink, $xenobeisdead;
@@ -246,13 +245,13 @@ function xenobe_to_sec_def ($db)
                         db_kill_player ($db, $playerinfo['ship_id']);
                         $xenobeisdead = 1;
                         // Lets get rid of the mines now and return out of this function
-                        explode_mines ($db, $targetlink, $roll);
+                        \bnt\bntmines::explode ($db, $targetlink, $roll);
 
                         return;
                     }
                 }
             }
-            explode_mines ($db, $targetlink, $roll); // Dispose of the mines now
+            \bnt\bntmines::explode ($db, $targetlink, $roll); // Dispose of the mines now
         }
         else
         {

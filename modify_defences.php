@@ -18,7 +18,6 @@
 // File: modify_defences.php
 
 include './global_includes.php';
-include_once './includes/explode_mines.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -143,7 +142,7 @@ switch ($response)
          }
          echo "$l_md_bmines $playerbeams $l_mines<br>";
          $update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ship_energy - ? WHERE ship_id = ?;", array ($playerbeams, $playerinfo['ship_id']));
-         explode_mines ($db, $sector, $playerbeams);
+         \bnt\bntmines::explode ($db, $sector, $playerbeams);
          $char_name = $playerinfo['character_name'];
          $l_md_msgdownerb=str_replace ("[sector]", $sector, $l_md_msgdownerb);
          $l_md_msgdownerb=str_replace ("[mines]", $playerbeams, $l_md_msgdownerb);
