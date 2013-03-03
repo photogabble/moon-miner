@@ -121,10 +121,6 @@ if (!function_exists('table_footer'))
 
 set_time_limit(0);
 
-// Include config files and db scheme.
-
-include './includes/create_schema.php';
-
 // This is needed here until the language database is installed
 $title = 'Create universe';
 include './header.php';
@@ -292,7 +288,12 @@ echo"</table>";
 
       break;
    case "3":
-      create_schema ($db, $ADODB_SESSION_DB);
+      include_once './includes/destroy_schema.php';
+      destroy_schema ($db, $ADODB_SESSION_DB, $db_prefix);
+
+      include_once './includes/create_schema.php';
+      create_schema ($db, $ADODB_SESSION_DB, $db_prefix);
+
       include_once './includes/ini_to_db.php';
 
       $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");

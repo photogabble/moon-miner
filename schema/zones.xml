@@ -6,7 +6,7 @@
       <AUTOINCREMENT/>
       <UNSIGNED/>
     </field>
-    <field name="zone_name" type="C"/>
+    <field name="zone_name" type="C" size="40"/>
     <field name="owner" type="I" size="10">
       <NOTNULL/>
       <DEFAULT value="0"/>

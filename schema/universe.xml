@@ -6,7 +6,7 @@
       <AUTOINCREMENT/>
       <UNSIGNED/>
     </field>
-    <field name="sector_name" type="C"/>
+    <field name="sector_name" type="C" size="30"/>
     <field name="zone_id" type="I" size="11">
       <NOTNULL/>
       <DEFAULT value="0"/>
@@ -31,7 +31,7 @@
       <NOTNULL/>
       <DEFAULT value="0"/>
     </field>
-    <field name="beacon" type="C"/>
+    <field name="beacon" type="C" size="50"/>
     <field name="angle1" type="N" size="10">
       <NOTNULL/>
       <DEFAULT value="0.00"/>

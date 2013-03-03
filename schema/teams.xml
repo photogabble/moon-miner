@@ -8,8 +8,8 @@
     <field name="creator" type="I" size="11">
       <DEFAULT value="0"/>
     </field>
-    <field name="team_name" type="C"/>
-    <field name="description" type="C"/>
+    <field name="team_name" type="C" size="20"/>
+    <field name="description" type="C" size="20"/>
     <field name="number_of_members" type="I" size="3">
       <NOTNULL/>
       <DEFAULT value="0"/>

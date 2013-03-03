@@ -4,28 +4,21 @@
     <field name="bounty_id" type="I" size="10">
       <KEY/>
       <AUTOINCREMENT/>
-      <UNSIGNED/>
     </field>
     <field name="amount" type="I" size="20">
       <NOTNULL/>
       <DEFAULT value="0"/>
-      <UNSIGNED/>
     </field>
     <field name="bounty_on" type="I" size="10">
       <NOTNULL/>
       <DEFAULT value="0"/>
-      <UNSIGNED/>
     </field>
     <field name="placed_by" type="I" size="10">
       <NOTNULL/>
       <DEFAULT value="0"/>
-      <UNSIGNED/>
     </field>
     <index name="bounty_on">
       <col>bounty_on</col>
-    </index>
-    <index name="placed_by">
-      <col>placed_by</col>
     </index>
   </table>
 </schema>

@@ -11,7 +11,7 @@
       <DEFAULT value="0"/>
       <UNSIGNED/>
     </field>
-    <field name="name" type="C"/>
+    <field name="name" type="C" size="15"/>
     <field name="organics" type="I" size="20">
       <NOTNULL/>
       <DEFAULT value="0"/>

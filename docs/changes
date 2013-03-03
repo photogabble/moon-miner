@@ -1,5 +1,7 @@
 TheKabal (3 March 2013)
 --------------------------------------
+Split create_schema into the more accurate destroy_schema and create_schema
+Switched create_schema to use XML schema files in the schema directory
 Added schema directory, which contains the XML schema files for building the database
 
 TheKabal (2 March 2013)

@@ -2,6 +2,7 @@
 <schema version="0.3">
   <table name="ships">
     <field name="ship_id" type="I" size="10">
+      <KEY/>
       <NOTNULL/>
       <AUTOINCREMENT/>
       <UNSIGNED/>
@@ -18,7 +19,6 @@
       <NOTNULL/>
     </field>
     <field name="email" type="C" size="60">
-      <KEY/>
     </field>
     <field name="hull" type="I" size="3">
       <NOTNULL/>
@@ -172,7 +172,7 @@
       <NOTNULL/>
       <DEFAULT value="0"/>
     </field>
-    <field name="ip_address" type="C">
+    <field name="ip_address" type="C" size="16">
       <NOTNULL/>
     </field>
     <field name="planet_id" type="I" size="10">
@@ -208,10 +208,10 @@
       <NOTNULL/>
       <DEFAULT value="Y"/>
     </field>
-    <field name="cleared_defences" type="C"/>
+    <field name="cleared_defences" type="C" size="99"/>
     <field name="lang" type="C" size="30">
-      <NOTNULL/>
       <DEFAULT value="english.inc"/>
+      <NOTNULL/>
     </field>
     <field name="dev_lssd" type="C" size="1">
       <NOTNULL/>
