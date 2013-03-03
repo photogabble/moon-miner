@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'bntfighters.php')) // Prevent direct access t
 
 class bntfighters
 {
-    function destroy ($db, $sector, $num_fighters)
+    static function destroy ($db, $sector, $num_fighters)
     {
         $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity ASC", array ($sector));
         \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
