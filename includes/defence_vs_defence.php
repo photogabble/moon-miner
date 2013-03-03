@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'defence_vs_defence.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function defence_vs_defence ($db, $ship_id, $langvars)

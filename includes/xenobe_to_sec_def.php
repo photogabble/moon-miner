@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_sec_def.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function xenobe_to_sec_def ($db)

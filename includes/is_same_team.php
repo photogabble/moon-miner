@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'is_same_team.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function is_same_team ($attacker_team = null, $attackie_team = null)

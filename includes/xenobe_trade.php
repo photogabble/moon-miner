@@ -21,7 +21,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'xenobe_trade.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function xenobe_trade ($db)

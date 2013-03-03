@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'load_languages.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function load_languages ($db = null, $language = null, $categories = null, &$langvars = null)

@@ -21,7 +21,7 @@ namespace bnt;
 if (strpos ($_SERVER['PHP_SELF'], 'sector_defense.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 class SectorDefense

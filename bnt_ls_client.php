@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'bnt_ls_client.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 include_once './global_includes.php';

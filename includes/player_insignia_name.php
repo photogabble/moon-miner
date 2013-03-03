@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'player_insignia_name.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function player_insignia_name ($db, $a_username, $langvars)

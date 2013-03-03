@@ -22,7 +22,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'ini_to_db.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function ini_to_db ($db, $ini_file, $ini_table, $section)

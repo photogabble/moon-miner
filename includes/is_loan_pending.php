@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'is_loan_pending.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 function is_loan_pending ($db, $ship_id)

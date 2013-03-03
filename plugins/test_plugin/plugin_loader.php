@@ -20,7 +20,7 @@
 if (strpos ($_SERVER['PHP_SELF'], 'plugin_loader.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
-    include './error.php';
+    include_once './error.php';
 }
 
 if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'] == true)
