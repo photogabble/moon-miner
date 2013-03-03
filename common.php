@@ -225,11 +225,6 @@ PluginSystem::LoadPlugins();
 $admin_list = array ();
 date_default_timezone_set ('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
 
-// Used to define what devices are used to calculate the average tech level.
-$calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-$calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-$calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-
 // Auto detect and set the game path & game domain (uses the logic from setup_info)
 // If it does not work, please comment this out and set it in db_config.php instead.
 // But PLEASE also report that it did not work for you at the main BNT forums (forums.blacknova.net)

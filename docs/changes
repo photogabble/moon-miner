@@ -11,6 +11,7 @@ calc_ownership has been replaced with bntownership::calc, which is auto-loaded f
 db_kill_player has been replaced with bntplayer::kill, which is auto-loaded from the vendor/bnt directory.
 Eliminated the use of request_var, reducing the number of global includes
 Coding standards suggest using include_once instead of include for conditional includes
+Moved calc_tech arrays from common to calc_avg_tech function (the only place they are used)
 
 TheMightyDude (1 March 2013)
 --------------------------------------

@@ -25,27 +25,29 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_avg_tech.php')) // Prevent direct access
 
 function calc_avg_tech ($ship_info = null, $type = "ship")
 {
-        // Defined in config
-        global $calc_ship_tech, $calc_planet_tech;
+    // Used to define what devices are used to calculate the average tech level.
+    $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+    $calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+    $calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 
-        if ($type == "ship")
-        {
-                $calc_tech = $calc_ship_tech;
-        }
-        else
-        {
-                $calc_tech = $calc_planet_tech;
-        }
+    if ($type == "ship")
+    {
+        $calc_tech = $calc_ship_tech;
+    }
+    else
+    {
+        $calc_tech = $calc_planet_tech;
+    }
 
-        $count = count ($calc_tech);
+    $count = count ($calc_tech);
 
-        $shipavg  = 0;
-        for ($i = 0; $i < $count; $i++)
-        {
-                $shipavg += $ship_info[$calc_tech[$i]];
-        }
-        $shipavg /= $count;
+    $shipavg  = 0;
+    for ($i = 0; $i < $count; $i++)
+    {
+        $shipavg += $ship_info[$calc_tech[$i]];
+    }
+    $shipavg /= $count;
 
-        return $shipavg;
+    return $shipavg;
 }
 ?>
