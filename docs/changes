@@ -1,3 +1,7 @@
+TheKabal (3 March 2013)
+--------------------------------------
+Added schema directory, which contains the XML schema files for building the database
+
 TheKabal (2 March 2013)
 --------------------------------------
 TEXT_GOTOMAIN has been replaced by \bnt\bnttext::gotomain, which is auto-loaded from the vendor/bnt directory.

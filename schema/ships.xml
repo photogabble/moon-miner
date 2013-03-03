@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+  <table name="ships">
+    <field name="ship_id" type="I" size="10">
+      <NOTNULL/>
+      <AUTOINCREMENT/>
+      <UNSIGNED/>
+    </field>
+    <field name="ship_name" type="C" size="20"/>
+    <field name="ship_destroyed" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="N"/>
+    </field>
+    <field name="character_name" type="C" size="20">
+      <NOTNULL/>
+    </field>
+    <field name="password" type="C" size="60">
+      <NOTNULL/>
+    </field>
+    <field name="email" type="C" size="60">
+      <KEY/>
+    </field>
+    <field name="hull" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="engines" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="power" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="computer" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="sensors" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="beams" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="torp_launchers" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="torps" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="shields" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="armor" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="armor_pts" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="cloak" type="I" size="3">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="credits" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="sector" type="I" size="10">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="ship_ore" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ship_organics" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ship_goods" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ship_energy" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ship_colonists" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ship_fighters" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ship_damage" type="I" size="5">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="turns" type="I" size="4">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="on_planet" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="N"/>
+    </field>
+    <field name="dev_warpedit" type="I" size="5">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="dev_genesis" type="I" size="5">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="dev_beacon" type="I" size="5">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="dev_emerwarp" type="I" size="5">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="dev_escapepod" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="N"/>
+    </field>
+    <field name="dev_fuelscoop" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="N"/>
+    </field>
+    <field name="dev_minedeflector" type="I" size="20">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="turns_used" type="I" size="10">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="last_login" type="T"/>
+    <field name="rating" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="score" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="team" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="team_invite" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="ip_address" type="C">
+      <NOTNULL/>
+    </field>
+    <field name="planet_id" type="I" size="10">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+      <UNSIGNED/>
+    </field>
+    <field name="preset1" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="preset2" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="preset3" type="I" size="11">
+      <NOTNULL/>
+      <DEFAULT value="0"/>
+    </field>
+    <field name="trade_colonists" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="Y"/>
+    </field>
+    <field name="trade_fighters" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="N"/>
+    </field>
+    <field name="trade_torps" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="N"/>
+    </field>
+    <field name="trade_energy" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="Y"/>
+    </field>
+    <field name="cleared_defences" type="C"/>
+    <field name="lang" type="C" size="30">
+      <NOTNULL/>
+      <DEFAULT value="english.inc"/>
+    </field>
+    <field name="dev_lssd" type="C" size="1">
+      <NOTNULL/>
+      <DEFAULT value="Y"/>
+    </field>
+    <index name="email">
+      <col>email</col>
+    </index>
+    <index name="sector">
+      <col>sector</col>
+    </index>
+    <index name="ship_destroyed">
+      <col>ship_destroyed</col>
+    </index>
+    <index name="on_planet">
+      <col>on_planet</col>
+    </index>
+    <index name="team">
+      <col>team</col>
+    </index>
+    <index name="ship_id">
+      <col>ship_id</col>
+    </index>
+  </table>
+</schema>
