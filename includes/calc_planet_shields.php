@@ -23,10 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_shields.php')) // Prevent direct 
     include_once './error.php';
 }
 
-function calc_planet_shields ($db)
+function calc_planet_shields ($db, $ownerinfo, $base_defense, $planetinfo)
 {
-    global $ownerinfo, $base_defense, $planetinfo;
-
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     $planetshields = \bnt\CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);

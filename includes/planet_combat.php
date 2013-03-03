@@ -64,10 +64,10 @@ function planet_combat ($db)
     $planetfighters     = $planetinfo['fighters'];
 
     include_once './includes/calc_planet_shields.php';
-    $planetshields      = calc_planet_shields ($db);
+    $planetshields      = calc_planet_shields ($db, $ownerinfo, $base_defense, $planetinfo);
 
     include_once './includes/calc_planet_torps.php';
-    $planettorps        = calc_planet_torps ($db);
+    $planettorps        = calc_planet_torps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
 
     // Attacking ship calculations
 

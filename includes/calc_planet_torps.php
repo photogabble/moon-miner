@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_torps.php')) // Prevent direct ac
     include_once './error.php';
 }
 
-function calc_planet_torps ($db)
+function calc_planet_torps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
 {
     global $ownerinfo, $planetinfo, $base_defense, $level_factor;
 

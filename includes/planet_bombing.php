@@ -48,7 +48,7 @@ function planet_bombing ($db)
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     include_once './includes/calc_planet_torps.php';
-    $planettorps = calc_planet_torps ($db);
+    $planettorps = calc_planet_torps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
 
     include_once './includes/calc_planet_beams.php';
     $planetbeams = calc_planet_beams ($db, $ownerinfo, $base_defense, $planetinfo);
