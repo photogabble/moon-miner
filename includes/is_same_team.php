@@ -25,13 +25,13 @@ if (strpos ($_SERVER['PHP_SELF'], 'is_same_team.php')) // Prevent direct access 
 
 function is_same_team ($attacker_team = null, $attackie_team = null)
 {
-        if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
-        {
-                return (boolean) false;
-        }
-        else
-        {
-                return (boolean) true;
-        }
+    if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
+    {
+        return (boolean) false;
+    }
+    else
+    {
+        return (boolean) true;
+    }
 }
 ?>
