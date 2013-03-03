@@ -196,7 +196,7 @@ function xenobe_to_sec_def ($db)
                 $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
                 bnt_sectorDefense::message_defense_owner ($db, $targetlink, $l_sf_sendlog2);
                 \bnt\bounty::cancel ($db, $playerinfo['ship_id']);
-                db_kill_player ($db, $playerinfo['ship_id']);
+                \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
                 $xenobeisdead = 1;
 
                 return;
@@ -242,7 +242,7 @@ function xenobe_to_sec_def ($db)
 
                         // Actually kill the Xenobe now
                         \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
-                        db_kill_player ($db, $playerinfo['ship_id']);
+                        \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
                         $xenobeisdead = 1;
                         // Lets get rid of the mines now and return out of this function
                         \bnt\bntmines::explode ($db, $targetlink, $roll);

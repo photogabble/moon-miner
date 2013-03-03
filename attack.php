@@ -594,7 +594,7 @@ else
                 else
                 {
                     \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-                    db_kill_player ($db, $targetinfo['ship_id']);
+                    \bnt\bntplayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
                     collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     \bnt\adminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
@@ -618,7 +618,7 @@ else
                             $rating_change = 0 - $rating_change;
                             \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
-                            db_kill_player ($db, $targetinfo['ship_id']);
+                            \bnt\bntplayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
 
                             \bnt\adminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
 
@@ -741,7 +741,7 @@ else
                 else
                 {
                     echo "Didnt have pod?! $playerinfo[dev_escapepod]<br>";
-                    db_kill_player ($db, $playerinfo['ship_id'] );
+                    \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
                     collect_bounty ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
 

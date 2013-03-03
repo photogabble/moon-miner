@@ -425,7 +425,7 @@ function planet_combat ($db)
         }
         else
         {
-            db_kill_player ($db, $playerinfo['ship_id']);
+            \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
             collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
     }

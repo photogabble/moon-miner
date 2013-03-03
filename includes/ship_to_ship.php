@@ -495,7 +495,7 @@ function ship_to_ship ($db, $ship_id)
         else
         {
             \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-            db_kill_player ($db, $targetinfo['ship_id']);
+            \bnt\bntplayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
     }
