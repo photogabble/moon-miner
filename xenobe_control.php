@@ -480,7 +480,7 @@ else
         $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array ($emailname, $character, $shipname));
         \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
-        if ($result>0)
+        if ($result instanceof ADORecordSet)
         {
           while (!$result->EOF)
           {

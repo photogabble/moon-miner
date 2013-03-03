@@ -92,7 +92,7 @@ function xenobe_hunter ($db)
         \bnt\dbop::dbresult ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
-        if ($resultf > 0)
+        if ($resultf instanceof ADORecordSet)
         {
             while (!$resultf->EOF)
             {
@@ -107,7 +107,7 @@ function xenobe_hunter ($db)
         \bnt\dbop::dbresult ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
-        if ($resultm > 0)
+        if ($resultm instanceof ADORecordSet)
         {
             while (!$resultm->EOF)
             {

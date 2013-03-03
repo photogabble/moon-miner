@@ -2,6 +2,7 @@ TheKabal (2 March 2013)
 --------------------------------------
 TEXT_GOTOMAIN has been replaced by \bnt\bnttext::gotomain, which is auto-loaded from the vendor/bnt directory.
 Making numbers () calls more consistent, replacing with number_format to move towards removing number() from global_includes
+Fixed PHP Notice: Object of class ADORecordSet_mysqlt could not be converted to int
 
 TheMightyDude (1 March 2013)
 --------------------------------------
