@@ -70,8 +70,7 @@ function db_kill_player ($db, $ship_id, $remove_planets = false)
     {
         foreach ($sectors as $sector)
         {
-            include_once './includes/calc_ownership.php';
-            calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
+            \bnt\bntownership::calc ($db, $sector, $min_bases_to_own, $langvars);
         }
     }
 

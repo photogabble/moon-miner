@@ -21,7 +21,6 @@
 // This file needs to be completely recoded from scratch :(
 
 include './global_includes.php';
-include './includes/calc_ownership.php';
 include './includes/kick_off_planet.php';
 include './includes/defence_vs_defence.php';
 
@@ -188,7 +187,7 @@ switch ($teamwhat)
                 {
                     foreach ($sectors as $sector)
                     {
-                        calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
+                        \bnt\bntownership::calc ($db, $sector, $min_bases_to_own, $langvars);
                     }
                 }
                 defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
@@ -246,7 +245,7 @@ switch ($teamwhat)
                     {
                         foreach ($sectors as $sector)
                         {
-                            calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
+                            \bnt\bntownership::calc ($db, $sector, $min_bases_to_own, $langvars);
                         }
                     }
 
@@ -291,7 +290,7 @@ switch ($teamwhat)
             {
                 foreach ($sectors as $sector)
                 {
-                    calc_ownership ($db, $sector, $min_bases_to_own, $langvars);
+                    \bnt\bntownership::calc ($db, $sector, $min_bases_to_own, $langvars);
                 }
             }
 

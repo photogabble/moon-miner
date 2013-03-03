@@ -337,8 +337,7 @@ function xenobe_to_planet ($db, $planet_id)
             $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
             \bnt\dbop::dbresult ($db, $resl, __LINE__, __FILE__);
 
-            include './calc_ownership.php';
-            calc_ownership ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
+            \bnt\bntownership::cancel ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
         }
         else
         {

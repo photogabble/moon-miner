@@ -526,8 +526,7 @@ function planet_combat ($db)
             \bnt\dbop::dbresult ($db, $update7a, __LINE__, __FILE__);
         }
 
-        include_once './includes/calc_ownership.php';
-        calc_ownership ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
+        \bnt\bntownership::calc ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
     }
     else
     {
