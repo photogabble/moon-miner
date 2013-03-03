@@ -25,7 +25,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_sec_def.php')) // Prevent direct ac
 
 function xenobe_to_sec_def ($db)
 {
-    include_once './destroy_fighters.php';
     include_once './explode_mines.php';
     include_once './cancel_bounty.php';
     // Xenobe to sector defense
@@ -177,7 +176,7 @@ function xenobe_to_sec_def ($db)
 
             // Get rid of the sector fighters that died
             $fighterslost = $total_sector_fighters - $targetfighters;
-            destroy_fighters ($db, $targetlink, $fighterslost);
+            \bnt\bntfighters::destroy ($db, $targetlink, $fighterslost);
 
             // Message the defence owner with what happened
             $l_sf_sendlog = str_replace("[player]", "Xenobe $playerinfo[character_name]", $langvars['l_sf_sendlog']);
