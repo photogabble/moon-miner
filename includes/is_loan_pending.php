@@ -23,10 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'is_loan_pending.php')) // Prevent direct acce
     include_once './error.php';
 }
 
-function is_loan_pending ($db, $ship_id)
+function is_loan_pending ($db, $ship_id, $ibank_lrate)
 {
-    global $ibank_lrate;
-
     $res = $db->Execute("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res)

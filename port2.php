@@ -160,7 +160,7 @@ else
         }
         unset ($_SESSION['port_shopping']);
 
-        if (is_loan_pending ($db, $playerinfo['ship_id']))
+        if (is_loan_pending ($db, $playerinfo['ship_id'], $ibank_lrate))
         {
             echo $l_port_loannotrade . "<p>";
             echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
