@@ -26,7 +26,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_sec_def.php')) // Prevent direct ac
 function xenobe_to_sec_def ($db)
 {
     include_once './explode_mines.php';
-    include_once './cancel_bounty.php';
     // Xenobe to sector defense
 
     global $playerinfo, $targetlink, $xenobeisdead;
@@ -197,7 +196,7 @@ function xenobe_to_sec_def ($db)
                 $l_sf_sendlog2 = str_replace("[player]", "Xenobe " . $playerinfo['character_name'], $langvars['l_sf_sendlog2']);
                 $l_sf_sendlog2 = str_replace("[sector]", $targetlink, $l_sf_sendlog2);
                 bnt_sectorDefense::message_defense_owner ($db, $targetlink, $l_sf_sendlog2);
-                cancel_bounty ($db, $playerinfo['ship_id']);
+                \bnt\bounty::cancel ($db, $playerinfo['ship_id']);
                 db_kill_player ($db, $playerinfo['ship_id']);
                 $xenobeisdead = 1;
 
@@ -243,7 +242,7 @@ function xenobe_to_sec_def ($db)
                         bnt_sectorDefense::message_defense_owner ($db, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
 
                         // Actually kill the Xenobe now
-                        cancel_bounty ($db, $playerinfo['ship_id']);
+                        \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
                         db_kill_player ($db, $playerinfo['ship_id']);
                         $xenobeisdead = 1;
                         // Lets get rid of the mines now and return out of this function

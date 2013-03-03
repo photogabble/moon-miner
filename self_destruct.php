@@ -18,7 +18,6 @@
 // File: self_destruct.php
 
 include './global_includes.php';
-include_once './includes/cancel_bounty.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -62,7 +61,7 @@ elseif ($sure == 2)
     $l_die_please = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
     echo $l_die_please. "<br>";
     db_kill_player ($db, $playerinfo['ship_id'], true);
-    cancel_bounty ($db, $playerinfo['ship_id']);
+    \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
     \bnt\adminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
     \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";

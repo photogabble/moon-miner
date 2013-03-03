@@ -5,6 +5,7 @@ Making numbers () calls more consistent, replacing with number_format to move to
 Fixed PHP Notice: Object of class ADORecordSet_mysqlt could not be converted to int
 Replace NUMBER() with number_format(), eliminating the need for the NUMBER() function, reducing the number of global includes
 destroy_fighters has been replaced with bntfighters::destroy, which is auto-loaded from the vendor/bnt directory.
+cancel_bounty has been replaced with bntbounty::cancel, which is auto-loaded from the vendor/bnt directory.
 
 TheMightyDude (1 March 2013)
 --------------------------------------

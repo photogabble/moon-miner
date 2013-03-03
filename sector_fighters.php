@@ -26,8 +26,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'sector_fighters.php')) // Prevent direct acce
 // New database driven language entries
 load_languages ($db, $lang, array ('sector_fighters', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once './includes/cancel_bounty.php';
-
 echo $l_sf_attacking . "<br>";
 $targetfighters = $total_sector_fighters;
 $playerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
@@ -176,14 +174,14 @@ if ($playerarmor < 1)
         echo $l_sf_escape . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, cleared_defences=' ', dev_lssd = 'N' WHERE ship_id = ?;", array ($start_energy, $rating, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-        cancel_bounty ($db, $playerinfo['ship_id']);
+        \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
         $ok = 0;
         \bnt\bnttext::gotomain ($langvars);
         die ();
     }
     else
     {
-        cancel_bounty ($db, $playerinfo['ship_id']);
+        \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
         db_kill_player ($db, $playerinfo['ship_id']);
         $ok = 0;
         \bnt\bnttext::gotomain ($langvars);
