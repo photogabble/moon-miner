@@ -59,7 +59,7 @@ function planet_combat ($db)
     // Planetary defense system calculation
 
     include_once './includes/calc_planet_beams.php';
-    $planetbeams        = calc_planet_beams ($db);
+    $planetbeams        = calc_planet_beams ($db, $ownerinfo, $base_defense, $planetinfo);
 
     $planetfighters     = $planetinfo['fighters'];
 

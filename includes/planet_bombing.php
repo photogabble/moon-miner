@@ -51,7 +51,7 @@ function planet_bombing ($db)
     $planettorps = calc_planet_torps ($db);
 
     include_once './includes/calc_planet_beams.php';
-    $planetbeams = calc_planet_beams ($db);
+    $planetbeams = calc_planet_beams ($db, $ownerinfo, $base_defense, $planetinfo);
 
     $planetfighters = $planetinfo['fighters'];
     $attackerfighters = $playerinfo['ship_fighters'];

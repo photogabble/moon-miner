@@ -23,10 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'calc_planet_beams.php')) // Prevent direct ac
     include_once './error.php';
 }
 
-function calc_planet_beams ($db)
+function calc_planet_beams ($db, $ownerinfo, $base_defense, $planetinfo)
 {
-    global $ownerinfo, $base_defense, $planetinfo;
-
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     $planetbeams = \bnt\CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
