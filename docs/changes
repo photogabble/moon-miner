@@ -9,6 +9,7 @@ cancel_bounty has been replaced with bntbounty::cancel, which is auto-loaded fro
 explode_mines has been replaced with bntmines::explode, which is auto-loaded from the vendor/bnt directory.
 calc_ownership has been replaced with bntownership::calc, which is auto-loaded from the vendor/bnt directory.
 db_kill_player has been replaced with bntplayer::kill, which is auto-loaded from the vendor/bnt directory.
+Eliminated the use of request_var, reducing the number of global includes
 
 TheMightyDude (1 March 2013)
 --------------------------------------

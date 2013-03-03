@@ -30,13 +30,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 $oldlang = $lang;
 
 // Get POST['newlang'] returns null is not found.
-if (request_var('POST', 'newlang', $newlang) === true)
+if (array_key_exists('newlang', $_POST) == true)
 {
     // Cycle through the supported language list.
     foreach ($avail_lang as $supported)
     {
         // Trim and compare the new langauge with the supported.
-        if (trim($newlang) == $supported['file'])
+        if (trim($_POST['newlang']) == $supported['file'])
         {
             // We have a match so set lang to the required supported language, then break out of loop.
             $lang = $supported['file'];
@@ -125,7 +125,7 @@ else
     }
 }
 
-// Is the current language ($lang) different from the requested new language (newlang)
+// Is the current language ($lang) different from the requested new language ($_POST['newlang'])
 if ($oldlang != $lang)
 {
     // Yes, so update to the new requited language.

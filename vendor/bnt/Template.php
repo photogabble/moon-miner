@@ -37,11 +37,14 @@ class Template
         $this->initialized              = (boolean) false;
         $this->api                      = array();
 
-// Temp disabled code due to exploit, do not remove, 
+// Temp disabled code due to exploit, do not remove,
 // will be reverting back once exploit is fixed.
 /*
         // Here we check if it's an External Client, else it's a Browser Client.
-        request_var("SERVER", "HTTP_ACCEPT", $accept);
+        if (isset ($_SERVER['HTTP_ACCEPT']) && strlen ($_SERVER['HTTP_ACCEPT']) > 0)
+        {
+            $accept = $_SERVER['HTTP_ACCEPT'];
+        }
 
         // Seperate the accepted output type.
         $accepts = explode(",", $accept);
