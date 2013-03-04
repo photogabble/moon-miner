@@ -1,4 +1,5 @@
 <?php
+require_once '../../../vendor/bnt/BntCompress.php';
 ob_start (array('\bnt\BntCompress', 'compress'));
 
 $etag = md5_file (__FILE__); // Generate an md5sum and use it as the etag for the file, ensuring that caches will revalidate if the code itself changes
