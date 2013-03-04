@@ -44,15 +44,26 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
         {
             $tablename = substr($schema_filename, 0, -4);
 
-            // Call ParseSchema() to build SQL from the XML schema file. Then call ExecuteSchema() to apply the resulting SQL to the database.
-            $parsed_xml = '';
-            $parsed_xml = $schema->ParseSchema("schema/" . $schema_filename);
+            $message = \bnt\testxml::parse("schema/" . $schema_filename); // Test the xml file for validity before processing
 
-            $res = $db->Execute($parsed_xml[0]);
-            \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
-            $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-            table_row ($db, "Creating " . $tablename . " table","Failed","Passed");
-            $i++;
+            if ($message !== true)
+            {
+                $err = true_or_false (true, false, "No errors found in table " . $tablename, "XML Schema " . $schema_filename . " could not be parsed because of error:" . $message);
+                table_row_xml ($db, "Creating " . $tablename . " table","Failed","Passed", $err);
+                $i++;
+            }
+            else
+            {
+                // Call ParseSchema() to build SQL from the XML schema file. Then call ExecuteSchema() to apply the resulting SQL to the database.
+                $parsed_xml = '';
+                $parsed_xml = $schema->ParseSchema("schema/" . $schema_filename);
+
+                $res = $db->Execute($parsed_xml[0]);
+                \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+                $err = true_or_false (true, $db->ErrorMsg(),"No errors found in table " . $tablename, $db->ErrorNo() . ": " . $db->ErrorMsg());
+                table_row ($db, "Creating " . $tablename . " table","Failed","Passed");
+                $i++;
+            }
         }
     }
 

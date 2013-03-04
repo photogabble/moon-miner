@@ -38,7 +38,7 @@ if (!function_exists('true_or_false'))
 {
     function true_or_false ($true_or_false, $stat, $true, $false)
     {
-        return (($true_or_false == $stat) ? $true : $false);
+        return (($true_or_false === $stat) ? $true : $false);
     }
 }
 
@@ -63,6 +63,20 @@ if (!function_exists('table_row'))
         print_flush ( "    <tr title=\"$err\">\n");
         print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
         if ($db->ErrorNo()!=0)
+            {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
+        else
+            {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
+        echo "    </tr>\n";
+    }
+}
+
+if (!function_exists('table_row_xml'))
+{
+    function table_row_xml ($db, $data, $failed="Failed", $passed="Passed", $err)
+    {
+        print_flush ( "    <tr title=\"$err\">\n");
+        print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
+        if ($err !== true)
             {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
         else
             {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
@@ -967,7 +981,7 @@ table_footer ("Completed successfully.");
       break;
    default:
       echo "<form action=create_universe.php method=post>";
-      echo "Password: <input type=password name=swordfish size=20 maxlength=20>&nbsp;&nbsp;";
+      echo "Password: <input type=password name=swordfish size=20>&nbsp;&nbsp;";
       echo "<input type=submit value=Submit><input type=hidden name=step value=1>";
       echo "<input type=reset value=Reset>";
       echo "</form>";
