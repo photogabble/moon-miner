@@ -147,7 +147,7 @@ else
         // Kami multi-browser window upgrade fix
         if (array_key_exists('port_shopping', $_SESSION) == false || $_SESSION['port_shopping'] != true)
         {
-            \bnt\adminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
+            \bnt\AdminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
             echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
             echo "<div style='color:#f00; font-size:18px;'>Your last Sales Transaction has already been delivered, Please enter the Special Port and select your order.</div>\n";
             echo "<br>\n";
@@ -545,7 +545,7 @@ else
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
                 $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id = ? LIMIT 1;", array ($playerinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-                \bnt\adminLog::writeLog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
+                \bnt\AdminLog::writeLog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
             }
             else
             {

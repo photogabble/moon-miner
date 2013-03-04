@@ -182,7 +182,7 @@ if ($playerfound)
         // password is incorrect
         echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='index.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
         \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
-        \bnt\adminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{$ip}|{$_POST['email']}|{$_POST['pass']}");
+        \bnt\AdminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{$ip}|{$_POST['email']}|{$_POST['pass']}");
     }
 }
 else

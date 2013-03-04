@@ -68,7 +68,7 @@ if (isset ($_POST['stop_sector']))
     $stop_sector = $_POST['stop_sector'];
     if (!is_numeric ($stop_sector))
     {
-        \bnt\adminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
+        \bnt\AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
         \bnt\bnttext::gotomain ($langvars);
