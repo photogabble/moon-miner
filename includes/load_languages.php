@@ -31,7 +31,7 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
         return false;
     }
 
-    if ($db->inactive)
+    if (!$db->IsConnected())
     {
         // Slurp in language variables from the ini file directly
         $ini_file = './languages/' . $language . '.ini.php';

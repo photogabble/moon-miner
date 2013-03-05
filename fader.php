@@ -31,7 +31,7 @@ if (result == true)
     load_languages ($db, $lang, array ('news'), $langvars);
 
     $startdate = date("Y/m/d");
-    if ($db->inactive)
+    if (!$db->IsConnected())
     {
         echo "    url = null;\n";
         echo "    text = \"{$langvars['l_news_down']}\";\n";

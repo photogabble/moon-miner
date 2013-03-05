@@ -117,12 +117,9 @@ $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
 {
     \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
-    $db->inactive = false; // The database is active!
 }
 else
 {
-    $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
-
     // Slurp in config variables from the ini file directly
     $ini_file = 'config/configset_classic.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
     $ini_keys = parse_ini_file ($ini_file, true);

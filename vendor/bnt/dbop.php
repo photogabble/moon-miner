@@ -42,7 +42,7 @@ class dbop
             $dberror = str_replace ("'", "&#39;", $dberror); // Allows the use of apostrophes.
             if ($db->logging)
             {
-                if (!$db->inactive)
+                if ($db->IsConnected())
                 {
                     \bnt\AdminLog::writeLog ($db, LOG_RAW, $dberror);
                 }
