@@ -938,6 +938,14 @@ table_footer ("Completed successfully.");
       \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
 
+      // This adds a news item into the newly created news table
+      $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type) " .
+                   "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
+
+      $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
+
+      table_row ($db, "Inserting first news item","Failed","Inserted");
+
       if ($bnt_ls === true)
       {
 //            $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, 60, 0, 'bnt_ls_client.php', NULL,unix_timestamp(now()))");

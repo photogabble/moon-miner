@@ -80,14 +80,6 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
         }
     }
 
-    // This adds a news item into the newly created news table
-    $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, date, news_type) " .
-                 "VALUES ('Big Bang!','Scientists have just discovered the Universe exists!',NOW(), 'col25')");
-
-    $err = true_or_false (0, $db->ErrorMsg(),"No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
-
-    table_row ($db, "Inserting first news item","Failed","Inserted");
-
     table_footer("Hover over the failed row to see the error.");
 
     // Finished
