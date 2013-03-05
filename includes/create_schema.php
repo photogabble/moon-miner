@@ -34,7 +34,7 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
     foreach ($schema_files as $schema_filename)
     {
         // New XML Schema table creation
-        $schema = new adoSchema( $db );
+        $schema = new adoSchema3 ($db);
         $schema->setPrefix($db_prefix);
 
         // This is to get around the issue of not having DirectoryIterator::getExtension.
