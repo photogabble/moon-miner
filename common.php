@@ -175,7 +175,7 @@ foreach ($_GET as $k=>$v)
 
 $lang = $default_lang;
 
-if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
+if ($db->IsConnected()) // Before DB is installed, don't try to setup userinfo
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
     {
