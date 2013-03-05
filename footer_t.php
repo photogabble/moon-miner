@@ -24,7 +24,7 @@ load_languages ($db, $lang, array ('regional', 'footer','global_includes'), $lan
 
 $online = 0;
 
-if ($db->IsConnected())
+if (!$db->inactive)
 {
     $res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
@@ -54,7 +54,7 @@ $news_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match
 $seconds_left = (integer) 0;
 $display_update_ticker = false;
 
-if ($db->IsConnected())
+if (!$db->inactive)
 {
     $rs = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
     \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
@@ -89,7 +89,7 @@ if ($news_ticker == true)
 
     $news_ticker = array ();
 
-    if (!$db->IsConnected())
+    if ($db->inactive)
     {
         // Needs to be put into the language table.
         array_push ($news_ticker, array ('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
