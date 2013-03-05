@@ -38,6 +38,8 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
     foreach ($schema_files as $schema_filename)
     {
         $schema->clearSQL();
+        $table_timer = new \bnt\Timer;
+        $table_timer->start(); // Start benchmarking immediately
 
         // This is to get around the issue of not having DirectoryIterator::getExtension.
         $file_ext = pathinfo ($schema_filename->getFilename(), PATHINFO_EXTENSION);
@@ -51,7 +53,10 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
             if ($message !== true)
             {
                 $err = true_or_false (true, false, "No errors found in table " . $tablename, "XML Schema " . $schema_filename . " could not be parsed because of error:" . $message);
-                table_row_xml ($db, "Creating " . $tablename . " table","Failed","Passed", $err);
+                $stoptime = $table_timer->stop();
+                $elapsed = $table_timer->elapsed();
+                $elapsed = substr ($elapsed, 0, 5);
+                table_row_xml ($db, "Creating " . $tablename . " table took " . $elapsed . " seconds. ","Failed","Passed", $err);
                 $i++;
             }
             else
@@ -66,7 +71,10 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
                     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
                 }
                 $err = true_or_false (true, $db->ErrorMsg(),"No errors found in table " . $tablename, $db->ErrorNo() . ": " . $db->ErrorMsg());
-                table_row ($db, "Creating " . $tablename . " table","Failed","Passed");
+                $stoptime = $table_timer->stop();
+                $elapsed = $table_timer->elapsed();
+                $elapsed = substr ($elapsed, 0, 5);
+                table_row ($db, "Creating " . $tablename . " table took " . $elapsed . " seconds. ","Failed","Passed");
                 $i++;
             }
         }
