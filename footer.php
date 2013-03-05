@@ -38,7 +38,7 @@ if (!$db->inactive)
 if (is_object ($bntreg->get("bnttimer")))
 {
     $bnttimer = $bntreg->get("bnttimer");
-    $stoptime = $bnttimer->stop();
+    $bnttimer->stop();
     $elapsed = $bnttimer->elapsed();
     $elapsed = substr ($elapsed, 0, 5);
 }
