@@ -16,6 +16,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: vendor/bnt/AdminLog.php
+// Todo: Recode adminlog to be smart about whether there is a db, and if not, log to a file that will be slurped into the db when there is.
 namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'AdminLog.php')) // Prevent direct access to this file
