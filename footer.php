@@ -17,14 +17,14 @@
 //
 // File: footer.php
 
-global $sched_ticks, $footer_show_time, $footer_show_debug, $no_db, $db, $lang;
+global $sched_ticks, $footer_show_time, $footer_show_debug, $db, $lang;
 
 // New database driven language entries
 load_languages ($db, $lang, array ('footer','global_includes'), $langvars);
 
 $online = (integer) 0;
 
-if (!$no_db)
+if (!$db->inactive)
 {
     $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
@@ -65,7 +65,7 @@ if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i
 // Update counter
 $mySEC = (integer) 0;
 
-if (!$no_db)
+if (!$db->inactive)
 {
     $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);

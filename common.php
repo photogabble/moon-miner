@@ -117,11 +117,11 @@ $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
 {
     \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
-    $no_db = false; // We have a database connection!
+    $db->inactive = false; // The database is active!
 }
 else
 {
-    $no_db = true; // Set a variable so we know not to do DB activities.
+    $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
 
     // Slurp in config variables from the ini file directly
     $ini_file = 'config/configset_classic.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
@@ -178,7 +178,7 @@ foreach ($_GET as $k=>$v)
 
 $lang = $default_lang;
 
-if ($no_db != true) // Before DB is installed, don't try to setup userinfo
+if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
     {

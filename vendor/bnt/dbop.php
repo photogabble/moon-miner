@@ -16,7 +16,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: vendor/bnt/dbop.php
-// Todo: Remove the need for no_db to be a global, maybe set it as a property on $db?
 namespace bnt;
 
 if (strpos ($_SERVER['PHP_SELF'], 'dbop.php')) // Prevent direct access to this file
@@ -29,7 +28,6 @@ class dbop
 {
     static function dbresult ($db, $query, $served_line, $served_page)
     {
-        global $no_db;
         if ($db->ErrorMsg() == '')
         {
             return true;
@@ -44,7 +42,7 @@ class dbop
             $dberror = str_replace ("'", "&#39;", $dberror); // Allows the use of apostrophes.
             if ($db->logging)
             {
-                if (!$no_db)
+                if (!$db->inactive)
                 {
                     \bnt\AdminLog::writeLog ($db, LOG_RAW, $dberror);
                 }

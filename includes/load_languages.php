@@ -31,9 +31,7 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
         return false;
     }
 
-    global $no_db;
-
-    if ($no_db)
+    if ($db->inactive)
     {
         // Slurp in language variables from the ini file directly
         $ini_file = './languages/' . $language . '.ini.php';
