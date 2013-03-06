@@ -32,7 +32,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
     $ini_keys = parse_ini_file ($ini_file, true);
 
     $status = true; // This variable allows us to track the inserts into the databse. If one fails, the whole process is considered failed.
-
+    $i = 0;
     $resa = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
     \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
 
@@ -46,7 +46,8 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
             \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
             if (!$debug_query)
             {
-                $status = false;
+                $status[$i] = $debug_query;
+                $i++;
             }
         }
     }
@@ -54,13 +55,12 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
     $trans_status = $db->CompleteTrans(); // Complete the transaction
     \bnt\dbop::dbresult ($db, $trans_status, __LINE__, __FILE__);
 
-    if ($trans_status && $status)
+    if ($trans_status !== true)
     {
-        return true;
+        $status[$i] = $debug_query;
+        $i++;
     }
-    else
-    {
-        return false;
-    }
+
+    return $status;
 }
 ?>

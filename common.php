@@ -176,7 +176,10 @@ foreach ($_GET as $k=>$v)
     }
 }
 
-$lang = $default_lang;
+if (isset($default_lang))
+{
+    $lang = $default_lang;
+}
 
 if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
 {

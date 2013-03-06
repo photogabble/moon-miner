@@ -16,7 +16,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: create_universe.php
-
+// Todo: Import languages needs to have an iterator that detects language files automatically
 // This is required by Setup Info, So DO NOT REMOVE
 // create_universe_port_fix,0.2.0,25-02-2004,TheMightyDude
 
@@ -74,12 +74,19 @@ if (!function_exists('table_row_xml'))
 {
     function table_row_xml ($db, $data, $failed="Failed", $passed="Passed", $err)
     {
-        print_flush ( "    <tr title=\"$err\">\n");
-        print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
         if ($err !== true)
-            {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");}
+        {
+            print_flush ( "    <tr title=\"$err\">\n");
+            print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
+            print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");
+        }
         else
-            {print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");}
+        {
+            $err = 'No errors found.';
+            print_flush ( "    <tr title=\"$err\">\n");
+            print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
+            print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"Blue\">$passed</font></td>\n");
+        }
         echo "    </tr>\n";
     }
 }
@@ -135,23 +142,6 @@ if (!function_exists('table_footer'))
 
 set_time_limit(0);
 
-// This is needed here until the language database is installed
-$title = 'Create universe';
-include './header.php';
-echo "<h1>" . $title . "</h1>\n";
-
-// Manually set step var if info isn't correct.
-
-if (!isset($_POST['swordfish']))
-{
-    $_POST['swordfish'] = '';
-}
-
-if (!isset($engage))
-{
-    $engage = '';
-}
-
 if (ADMIN_PW!= $_POST['swordfish'])
 {
     $step="0";
@@ -165,6 +155,23 @@ if ($engage == "" && ADMIN_PW == $_POST['swordfish'] )
 if ($engage == "1" && ADMIN_PW == $_POST['swordfish'] )
 {
     $step="2";
+}
+
+// This is needed here until the language database is installed
+$title = 'Create universe - Step ' . $step;
+include './header.php';
+echo "<h1>" . $title . "</h1>\n";
+
+// Manually set step var if info isn't correct.
+
+if (!isset($_POST['swordfish']))
+{
+    $_POST['swordfish'] = '';
+}
+
+if (!isset($engage))
+{
+    $engage = '';
 }
 
 // Main switch statement.
@@ -209,7 +216,7 @@ if ($bnt_ls)
 echo"</table>";
 // Domain Check End
 
-    table_header ("Create Universe [Base/Planet Setup]");
+    table_header ("Create Universe [Base/Planet Setup] --- Step 1");
     table_2col ("Percent Special","<input type=text name=special size=10 maxlength=10 value=1>");
     table_2col ("Percent Ore","<input type=text name=ore size=10 maxlength=10 value=15>");
     table_2col ("Percent Organics","<input type=text name=organics size=10 maxlength=10 value=10>");
@@ -222,7 +229,7 @@ echo"</table>";
     table_2col ("Initial Commodities to Buy [% of max]","<input type=text name=initbcommod size=10 maxlength=10 value=100.00>");
     table_footer (" ");
 
-    table_header ("Create Universe [Sector/Link Setup] --- Stage 1");
+    table_header ("Create Universe [Sector/Link Setup]");
 
     $fedsecs = intval($sector_max / 200);
     $loops = intval($sector_max / 500);
@@ -245,7 +252,7 @@ echo"</table>";
       break;
    case "2":
 
-    table_header ("Create Universe Confirmation [So you would like your $sector_max sector universe to have:] --- Stage2");
+    table_header ("Create Universe Confirmation --- Step 2<br>[So you would like your $sector_max sector universe to have:]");
 
       $sector_max = round ($sektors);
       if ($fedsecs > $sector_max)
@@ -305,61 +312,6 @@ echo"</table>";
       include_once './includes/destroy_schema.php';
       destroy_schema ($db, $ADODB_SESSION_DB, $db_prefix);
 
-      include_once './includes/create_schema.php';
-      create_schema ($db, $ADODB_SESSION_DB, $db_prefix);
-
-      include_once './includes/ini_to_db.php';
-
-      $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
-      if ($gameconfig_result)
-      {
-          echo "Config variables imported into database successfully.\n<br>";
-      }
-      else
-      {
-          echo "Config variables NOT imported into the database successfully.\n<br>";
-      }
-
-      $result = ini_to_db($db, "languages/english.ini.php", "languages", "english");
-      if ($result)
-      {
-          echo "English language imported into database successfully.\n<br>";
-      }
-      else
-      {
-          echo "English language NOT imported into database successfully.\n<br>";
-      }
-
-      $result = ini_to_db($db, "languages/french.ini.php", "languages", "french");
-      if ($result)
-      {
-          echo "French language imported into database successfully.\n<br>";
-      }
-      else
-      {
-          echo "French language NOT imported into database successfully.\n<br>";
-      }
-
-      $result = ini_to_db($db, "languages/german.ini.php", "languages", "german");
-      if ($result)
-      {
-          echo "German language imported into database successfully.\n<br>";
-      }
-      else
-      {
-          echo "German language NOT imported into database successfully.\n<br>";
-      }
-
-      $result = ini_to_db($db, "languages/spanish.ini.php", "languages", "spanish");
-      if ($result)
-      {
-          echo "Spanish language imported into database successfully.\n<br>";
-      }
-      else
-      {
-          echo "Spanish language NOT imported into database successfully.\n<br>";
-      }
-
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=4>";
       echo "<input type=hidden name=spp value=$spp>";
@@ -377,11 +329,111 @@ echo"</table>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
       break;
-   case "4":
+
+    case "4":
+      include_once './includes/create_schema.php';
+      create_schema ($db, $ADODB_SESSION_DB, $db_prefix);
+
+      echo "<form action=create_universe.php method=post>";
+      echo "<input type=hidden name=step value=5>";
+      echo "<input type=hidden name=spp value=$spp>";
+      echo "<input type=hidden name=oep value=$oep>";
+      echo "<input type=hidden name=ogp value=$ogp>";
+      echo "<input type=hidden name=gop value=$gop>";
+      echo "<input type=hidden name=enp value=$enp>";
+      echo "<input type=hidden name=initscommod value=$initscommod>";
+      echo "<input type=hidden name=initbcommod value=$initbcommod>";
+      echo "<input type=hidden name=nump value=$nump>";
+      echo "<input type=hidden name=fedsecs value=$fedsecs>";
+      echo "<input type=hidden name=loops value=$loops>";
+      echo "<input type=hidden name=engage value=2>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "<p align='center'><input type=submit value=Confirm></p>";
+      echo "</form>";
+      break;
+
+    case "5":
+      include_once './includes/ini_to_db.php';
+      table_header("Import Configurations & Languages --- Step 5");
+
+      $table_timer = new \bnt\Timer;
+      $table_timer->start(); // Start benchmarking
+      $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
+      $table_timer->stop();
+      $elapsed = $table_timer->elapsed();
+      $elapsed = substr ($elapsed, 0, 5);
+      if ($gameconfig_result === true)
+      {
+            $table_results = true;
+      }
+      else
+      {
+//            $table_results = print_r($gameconfig_result);
+            $table_results = "Boogey! " . $gameconfig_result;
+      }
+
+      table_row_xml ($db, "Importing config variables into the database took " . $elapsed . " seconds. ","Failed","Passed", $table_results);
+
+      // Import English
+      $table_timer->start(); // Start benchmarking
+      $english_result = ini_to_db($db, "languages/english.ini.php", "languages", "english");
+      $table_timer->stop();
+      $elapsed = $table_timer->elapsed();
+      $elapsed = substr ($elapsed, 0, 5);
+      if ($english_result !== true)
+      {
+//            $table_results = print_r($gameconfig_result);
+            $english_result = "Boogey! " . $english_result;
+      }
+      table_row_xml ($db, "Importing the English language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $english_result);
+
+      // Import French
+      $table_timer->start(); // Start benchmarking
+      $result = ini_to_db($db, "languages/french.ini.php", "languages", "french");
+      $table_timer->stop();
+      $elapsed = $table_timer->elapsed();
+      $elapsed = substr ($elapsed, 0, 5);
+      table_row_xml ($db, "Importing the French language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
+
+      // Import German
+      $table_timer->start(); // Start benchmarking
+      $result = ini_to_db($db, "languages/german.ini.php", "languages", "german");
+      $table_timer->stop();
+      $elapsed = $table_timer->elapsed();
+      $elapsed = substr ($elapsed, 0, 5);
+      table_row_xml ($db, "Importing the German language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
+
+      // Import Spanish
+      $table_timer->start(); // Start benchmarking
+      $result = ini_to_db($db, "languages/spanish.ini.php", "languages", "spanish");
+      $table_timer->stop();
+      $elapsed = $table_timer->elapsed();
+      $elapsed = substr ($elapsed, 0, 5);
+      table_row_xml ($db, "Importing the Spanish language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
+
+      table_footer("Hover over the failed row to see the error.");
+      echo "<form action=create_universe.php method=post>";
+      echo "<input type=hidden name=step value=6>";
+      echo "<input type=hidden name=spp value=$spp>";
+      echo "<input type=hidden name=oep value=$oep>";
+      echo "<input type=hidden name=ogp value=$ogp>";
+      echo "<input type=hidden name=gop value=$gop>";
+      echo "<input type=hidden name=enp value=$enp>";
+      echo "<input type=hidden name=initscommod value=$initscommod>";
+      echo "<input type=hidden name=initbcommod value=$initbcommod>";
+      echo "<input type=hidden name=nump value=$nump>";
+      echo "<input type=hidden name=fedsecs value=$fedsecs>";
+      echo "<input type=hidden name=loops value=$loops>";
+      echo "<input type=hidden name=engage value=2>";
+      echo "<input type=hidden name=swordfish value=$swordfish>";
+      echo "<p align='center'><input type=submit value=Confirm></p>";
+      echo "</form>";
+      break;
+   case "6":
 
       // New database driven language entries
       load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-      table_header ("Setting up Sectors --- STAGE 4");
+      table_header ("Setting up Sectors --- Step 6");
 
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
@@ -698,7 +750,7 @@ echo"</table>";
     table_footer ("Completed successfully");
 
       echo "<form action=create_universe.php method=post>";
-      echo "<input type=hidden name=step value=5>";
+      echo "<input type=hidden name=step value=7>";
       echo "<input type=hidden name=spp value=$spp>";
       echo "<input type=hidden name=oep value=$oep>";
       echo "<input type=hidden name=ogp value=$ogp>";
@@ -714,17 +766,17 @@ echo"</table>";
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
       break;
-   case "5":
+   case "7":
 
-      // New database driven language entries
-      load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+        // New database driven language entries
+        load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
         $p_add=0;$p_skip=0;$i=0;
 
-table_header ("Setting up Universe Sectors --- Stage 5");
+        table_header ("Setting up Universe Sectors --- Step 7");
 
         do
         {
-            $num = mt_rand(2, ($sector_max-1));
+            $num = mt_rand (2, ($sector_max-1));
             $select = $db->Execute("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'") or die("DB error");
             \bnt\dbop::dbresult ($db, $select, __LINE__, __FILE__);
             if ($select->RecordCount() == 0)
@@ -870,7 +922,7 @@ table_row ($db, "Removing links to and from the end of the Universe","Failed","D
 table_footer ("Completed successfully.");
 
       echo "<form action=create_universe.php method=post>";
-      echo "<input type=hidden name=step value=6>";
+      echo "<input type=hidden name=step value=8>";
       echo "<input type=hidden name=spp value=$spp>";
       echo "<input type=hidden name=oep value=$oep>";
       echo "<input type=hidden name=ogp value=$ogp>";
@@ -886,11 +938,11 @@ table_footer ("Completed successfully.");
       echo "<p align='center'><input type=submit value=Confirm></p>";
       echo "</form>";
       break;
-   case "6":
+   case "8":
 
       // New database driven language entries
       load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-      table_header ("Configuring game scheduler --- Stage 6");
+      table_header ("Configuring game scheduler --- Step 8");
 
       table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 

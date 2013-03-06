@@ -33,13 +33,13 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
     $schema->setPrefix($db_prefix);
 
     $create_table_results = Array();
-    table_header("Creating Tables");
+    table_header("Creating Tables --- Step 4");
 
     foreach ($schema_files as $schema_filename)
     {
         $schema->clearSQL();
         $table_timer = new \bnt\Timer;
-        $table_timer->start(); // Start benchmarking immediately
+        $table_timer->start(); // Start benchmarking
 
         // This is to get around the issue of not having DirectoryIterator::getExtension.
         $file_ext = pathinfo ($schema_filename->getFilename(), PATHINFO_EXTENSION);
