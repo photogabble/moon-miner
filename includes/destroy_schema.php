@@ -25,6 +25,10 @@ if (strpos ($_SERVER['PHP_SELF'], 'destroy_schema.php')) // Prevent direct acces
 
 function destroy_schema ($db, $ADODB_SESSION_DB, $db_prefix)
 {
+
+    // Need to set this or all hell breaks loose.
+    $db->inactive = true;
+
     // Delete all tables in the database
     table_header("Dropping Tables --- Step 3");
 

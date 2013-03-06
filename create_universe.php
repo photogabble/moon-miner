@@ -142,17 +142,26 @@ if (!function_exists('table_footer'))
 
 set_time_limit(0);
 
-if (ADMIN_PW!= $_POST['swordfish'])
+// Get POST Variable "swordfish" and URL Sanitize it. (returns NULL if not found)
+$swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+
+// Get POST Variable "engame" and INT Sanitize it. (returns NULL if not found)
+$engage  = filter_input (INPUT_POST, 'engage', FILTER_SANITIZE_NUMBER_INT);
+
+// Get POST Variable "step" and INT Sanitize it. (returns NULL if not found)
+$step = filter_input (INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
+
+if (ADMIN_PW != $swordfish)
 {
     $step="0";
 }
 
-if ($engage == "" && ADMIN_PW == $_POST['swordfish'] )
+if (is_null($engage) && ADMIN_PW == $swordfish )
 {
     $step="1";
 }
 
-if ($engage == "1" && ADMIN_PW == $_POST['swordfish'] )
+if ($engage == "1" && ADMIN_PW == $swordfish )
 {
     $step="2";
 }
@@ -161,18 +170,6 @@ if ($engage == "1" && ADMIN_PW == $_POST['swordfish'] )
 $title = 'Create universe - Step ' . $step;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
-
-// Manually set step var if info isn't correct.
-
-if (!isset($_POST['swordfish']))
-{
-    $_POST['swordfish'] = '';
-}
-
-if (!isset($engage))
-{
-    $engage = '';
-}
 
 // Main switch statement.
 
