@@ -33,10 +33,10 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 $res2 = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
-\bnt\dbop::dbresult ($db, $res2, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res2, __LINE__, __FILE__);
 $othership = $res2->fields;
 
 if ($othership['sector'] != $playerinfo['sector'])
@@ -59,6 +59,6 @@ else
 }
 
 echo "<br>";
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

@@ -33,7 +33,7 @@ function xenobe_to_sec_def ($db)
     if ($targetlink > 0)
     {
         $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array ($targetlink));
-        \bnt\dbop::dbresult ($db, $resultf, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
         if ($resultf instanceof ADORecordSet)
@@ -48,7 +48,7 @@ function xenobe_to_sec_def ($db)
         }
 
         $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($targetlink));
-        \bnt\dbop::dbresult ($db, $resultm, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
         if ($resultm instanceof ADORecordSet)
@@ -64,16 +64,16 @@ function xenobe_to_sec_def ($db)
 
         if ($total_sector_fighters > 0 || $total_sector_mines > 0 || ($total_sector_fighters > 0 && $total_sector_mines > 0)) // Dest link has defenses so lets attack them
         {
-            \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
+            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
             $targetfighters = $total_sector_fighters;
-            $playerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+            $playerbeams = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
             if ($playerbeams > $playerinfo['ship_energy'])
             {
                 $playerbeams = $playerinfo['ship_energy'];
             }
 
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
-            $playershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+            $playershields = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];
@@ -174,29 +174,29 @@ function xenobe_to_sec_def ($db)
 
             // Get rid of the sector fighters that died
             $fighterslost = $total_sector_fighters - $targetfighters;
-            \bnt\bntfighters::destroy ($db, $targetlink, $fighterslost);
+            BntFighters::destroy ($db, $targetlink, $fighterslost);
 
             // Message the defence owner with what happened
             $l_sf_sendlog = str_replace ("[player]", "Xenobe $playerinfo[character_name]", $langvars['l_sf_sendlog']);
             $l_sf_sendlog = str_replace ("[lost]", $fighterslost, $l_sf_sendlog);
             $l_sf_sendlog = str_replace ("[sector]", $targetlink, $l_sf_sendlog);
-            bnt_sectorDefense::message_defense_owner ($db, $targetlink, $l_sf_sendlog);
+            SectorDefense::message_defense_owner ($db, $targetlink, $l_sf_sendlog);
 
             // Update Xenobe after comnbat
             $armor_lost = $playerinfo['armor_pts'] - $playerarmor;
             $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
             $energy = $playerinfo['ship_energy'];
             $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, armor_pts=armor_pts-?,torps=torps-? WHERE ship_id=?", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $playerinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $update1, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
 
             // Check to see if Xenobe is dead
             if ($playerarmor < 1)
             {
                 $l_sf_sendlog2 = str_replace ("[player]", "Xenobe " . $playerinfo['character_name'], $langvars['l_sf_sendlog2']);
                 $l_sf_sendlog2 = str_replace ("[sector]", $targetlink, $l_sf_sendlog2);
-                bnt_sectorDefense::message_defense_owner ($db, $targetlink, $l_sf_sendlog2);
-                \bnt\bounty::cancel ($db, $playerinfo['ship_id']);
-                \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
+                SectorDefense::message_defense_owner ($db, $targetlink, $l_sf_sendlog2);
+                BntBounty::cancel ($db, $playerinfo['ship_id']);
+                BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
                 $xenobeisdead = 1;
 
                 return;
@@ -206,7 +206,7 @@ function xenobe_to_sec_def ($db)
             $l_chm_hehitminesinsector = str_replace ("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
             $l_chm_hehitminesinsector = str_replace ("[chm_roll]", $roll, $l_chm_hehitminesinsector);
             $l_chm_hehitminesinsector = str_replace ("[chm_sector]", $targetlink, $l_chm_hehitminesinsector);
-            bnt_sectorDefense::message_defense_owner ($db, $targetlink, "$l_chm_hehitminesinsector");
+            SectorDefense::message_defense_owner ($db, $targetlink, "$l_chm_hehitminesinsector");
 
             // Deflectors v. mines
             if ($playerminedeflect >= $roll)
@@ -221,7 +221,7 @@ function xenobe_to_sec_def ($db)
                 if ($playershields >= $mines_left)
                 {
                     $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-? WHERE ship_id=?", array ($mines_left, $playerinfo['ship_id']));
-                    \bnt\dbop::dbresult ($db, $update2, __LINE__, __FILE__);
+                    DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
                 }
                 else
                 {
@@ -231,27 +231,27 @@ function xenobe_to_sec_def ($db)
                     if ($playerarmor >= $mines_left)
                     {
                         $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET armor_pts=armor_pts-?, ship_energy=0 WHERE ship_id=?", array ($mines_left, $playerinfo['ship_id']));
-                        \bnt\dbop::dbresult ($db, $update2, __LINE__, __FILE__);
+                        DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
                     }
                     else
                     {
                         // Xenobe dies, logs the fact that he died
                         $l_chm_hewasdestroyedbyyourmines = str_replace ("[chm_playerinfo_character_name]", "Xenobe " . $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
                         $l_chm_hewasdestroyedbyyourmines = str_replace ("[chm_sector]", $targetlink, $l_chm_hewasdestroyedbyyourmines);
-                        bnt_sectorDefense::message_defense_owner ($db, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
+                        SectorDefense::message_defense_owner ($db, $targetlink, "$l_chm_hewasdestroyedbyyourmines");
 
                         // Actually kill the Xenobe now
-                        \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
-                        \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
+                        BntBounty::cancel ($db, $playerinfo['ship_id']);
+                        BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
                         $xenobeisdead = 1;
                         // Lets get rid of the mines now and return out of this function
-                        \bnt\bntmines::explode ($db, $targetlink, $roll);
+                        BntMines::explode ($db, $targetlink, $roll);
 
                         return;
                     }
                 }
             }
-            \bnt\bntmines::explode ($db, $targetlink, $roll); // Dispose of the mines now
+            BntMines::explode ($db, $targetlink, $roll); // Dispose of the mines now
         }
         else
         {

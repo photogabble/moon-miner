@@ -359,7 +359,7 @@ if (empty ($_SESSION['username']))
 }
 else
 {
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
 }
 
 include './footer.php';

@@ -40,7 +40,7 @@ echo "<h1>" . $title . "</h1>\n";
 if ($playerinfo['turns'] < 1)
 {
     echo $l_dump_turn  . "<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
 }
@@ -59,6 +59,6 @@ else
     echo $l_dump_nono . "<br><br>";
 }
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

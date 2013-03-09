@@ -33,7 +33,7 @@ include './header.php';
 if (!isset ($defence_id))
 {
     echo $l_md_invalid . "<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
 }
@@ -45,29 +45,29 @@ if (array_key_exists ('response', $_REQUEST) == true)
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 if ($playerinfo['turns'] < 1)
 {
     echo $l_md_noturn . "<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
 }
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defence_id = ?;", array ($defence_id));
-\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 // Put the defence information into the array "defenceinfo"
 
 if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.
 {
    echo $l_md_nolonger . "<br>";
-   \bnt\bnttext::gotomain ($langvars);
+   BntText::gotoMain ($langvars);
    die ();
 }
 
@@ -75,7 +75,7 @@ $defenceinfo = $result3->fields;
 if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
    echo $l_md_nothere . "<br><br>";
-   \bnt\bnttext::gotomain ($langvars);
+   BntText::gotoMain ($langvars);
    include './footer.php';
    die ();
 }
@@ -112,7 +112,7 @@ switch ($response)
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
          echo "$l_md_yours<br><br>";
-         \bnt\bnttext::gotomain ($langvars);
+         BntText::gotoMain ($langvars);
          include './footer.php';
          die ();
       }
@@ -131,7 +131,7 @@ switch ($response)
          $countres = $db->Execute ("SELECT SUM(quantity) AS totalmines FROM {$db->prefix}sector_defence WHERE sector_id = ? AND defence_type = 'M';", array ($sector));
          $ttl = $countres->fields;
          $total_sector_mines = $ttl['totalmines'];
-         $playerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+         $playerbeams = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
          if ($playerbeams > $playerinfo['ship_energy'])
          {
              $playerbeams = $playerinfo['ship_energy'];
@@ -142,13 +142,13 @@ switch ($response)
          }
          echo "$l_md_bmines $playerbeams $l_mines<br>";
          $update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ship_energy - ? WHERE ship_id = ?;", array ($playerbeams, $playerinfo['ship_id']));
-         \bnt\bntmines::explode ($db, $sector, $playerbeams);
+         BntMines::explode ($db, $sector, $playerbeams);
          $char_name = $playerinfo['character_name'];
          $l_md_msgdownerb=str_replace ("[sector]", $sector, $l_md_msgdownerb);
          $l_md_msgdownerb=str_replace ("[mines]", $playerbeams, $l_md_msgdownerb);
          $l_md_msgdownerb=str_replace ("[name]", $char_name, $l_md_msgdownerb);
-         \bnt\sectorDefense::message_defense_owner ($db, $sector,"$l_md_msgdownerb");
-         \bnt\bnttext::gotomain ($langvars);
+         SectorDefense::message_defense_owner ($db, $sector,"$l_md_msgdownerb");
+         BntText::gotoMain ($langvars);
          die ();
       }
       break;
@@ -156,7 +156,7 @@ switch ($response)
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
-         \bnt\bnttext::gotomain ($langvars);
+         BntText::gotoMain ($langvars);
          include './footer.php';
          die ();
       }
@@ -167,8 +167,8 @@ switch ($response)
          $quantity = $defenceinfo['quantity'];
       }
 
-      $torpedo_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
-      $fighter_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+      $torpedo_max = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+      $fighter_max = CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
       if ($defenceinfo['defence_type'] == 'F')
       {
          if ($quantity > $fighter_max)
@@ -201,7 +201,7 @@ switch ($response)
       $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       echo "<h1>" . $title . "</h1>\n";
       echo "$l_md_retr $quantity $defence_type.<br>";
-      \bnt\bnttext::gotomain ($langvars);
+      BntText::gotoMain ($langvars);
       die ();
       break;
    case "change":
@@ -209,7 +209,7 @@ switch ($response)
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
          echo "$l_md_notyours<br><br>";
-         \bnt\bnttext::gotomain ($langvars);
+         BntText::gotoMain ($langvars);
          include './footer.php';
          die ();
       }
@@ -227,7 +227,7 @@ switch ($response)
 
       $l_md_mode=str_replace ("[mode]",$mode,$l_md_mode);
       echo "$l_md_mode<br>";
-      \bnt\bnttext::gotomain ($langvars);
+      BntText::gotoMain ($langvars);
       die ();
       break;
    default:
@@ -273,11 +273,11 @@ switch ($response)
             echo "</form>";
          }
       }
-      \bnt\bnttext::gotomain ($langvars);
+      BntText::gotoMain ($langvars);
       die ();
       break;
 }
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

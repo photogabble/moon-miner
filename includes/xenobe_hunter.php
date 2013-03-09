@@ -29,7 +29,7 @@ function xenobe_hunter ($db)
     global $playerinfo, $targetlink, $xenobeisdead;
 
     $rescount = $db->Execute ("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1");
-    \bnt\dbop::dbresult ($db, $rescount, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $rescount, __LINE__, __FILE__);
     $rowcount = $rescount->fields;
     $topnum = min (10, $rowcount['num_players']);
 
@@ -40,7 +40,7 @@ function xenobe_hunter ($db)
     }
 
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT ?", array ($topnum));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 
     // Choose a target from the top player list
     $i = 1;
@@ -58,18 +58,18 @@ function xenobe_hunter ($db)
     // Make sure we have a target
     if (!$targetinfo)
     {
-        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Hunt Failed: No Target ");
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Hunt Failed: No Target ");
 
         return;
     }
 
     // Jump to target sector
     $sectres = $db->Execute ("SELECT sector_id, zone_id FROM {$db->prefix}universe WHERE sector_id=?", array ($targetinfo['sector']));
-    \bnt\dbop::dbresult ($db, $sectres, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $sectres, __LINE__, __FILE__);
     $sectrow = $sectres->fields;
 
     $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
-    \bnt\dbop::dbresult ($db, $zoneres, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $zoneres, __LINE__, __FILE__);
     $zonerow = $zoneres->fields;
 
     // Only travel there if we can attack in the target sector
@@ -77,19 +77,19 @@ function xenobe_hunter ($db)
     {
         $stamp = date ("Y-m-d H-i-s");
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetinfo['sector'], $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $move_result, __LINE__, __FILE__);
-        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
+        DbOp::dbResult ($db, $move_result, __LINE__, __FILE__);
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");
         if (!$move_result)
         {
             $error = $db->ErrorMsg();
-            \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
+            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Move failed with error: $error ");
 
             return;
         }
 
         // Check for sector defences
         $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity DESC", array ($targetinfo['sector']));
-        \bnt\dbop::dbresult ($db, $resultf, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
         if ($resultf instanceof ADORecordSet)
@@ -104,7 +104,7 @@ function xenobe_hunter ($db)
         }
 
         $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='M'", array ($targetinfo['sector']));
-        \bnt\dbop::dbresult ($db, $resultm, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
         if ($resultm instanceof ADORecordSet)
@@ -130,7 +130,7 @@ function xenobe_hunter ($db)
             return; // Sector defenses killed the Xenobe
         }
 
-        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe launching an attack on $targetinfo[character_name]."); // Attack the target
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe launching an attack on $targetinfo[character_name]."); // Attack the target
 
         if ($targetinfo['planet_id'] > 0) // Is player target on a planet?
         {
@@ -143,7 +143,7 @@ function xenobe_hunter ($db)
     }
     else
     {
-        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe hunt failed, target $targetinfo[character_name] was in a no attack zone (sector $targetinfo[sector]).");
     }
 }
 ?>

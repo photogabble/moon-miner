@@ -11,10 +11,9 @@
 // XML Format by using a DTD file, we also use a style sheet that uses
 // the XML Data and then outputs as XHTML using a XSLT style sheet file.
 //
-// File: vendor/bnt/TemplateSystem.php
-namespace bnt;
+// File: classes/TemplateSystem.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'templateSystem.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'TemplateSystem.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }

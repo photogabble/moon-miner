@@ -39,7 +39,7 @@ function traderoute_new ($db, $traderoute_id)
     if (!empty ($traderoute_id))
     {
         $result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?", array ($traderoute_id));
-        \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
         {
@@ -75,7 +75,7 @@ function traderoute_new ($db, $traderoute_id)
     // Get Planet info Corp and Personal
 
     $result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 
     $num_planets = $result->RecordCount();
     $i=0;
@@ -93,7 +93,7 @@ function traderoute_new ($db, $traderoute_id)
     }
 
     $result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE corp=? AND corp!=0 AND owner<>? ORDER BY sector_id", array ($playerinfo['team'], $playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result, __LINE__, __FILE__);
     $num_corp_planets = $result->RecordCount();
     $i=0;
     while (!$result->EOF)
@@ -398,7 +398,7 @@ function traderoute_new ($db, $traderoute_id)
         ";
 
     echo "<div style='text-align:left;'>\n";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     echo "</div>\n";
 
     include './footer.php';

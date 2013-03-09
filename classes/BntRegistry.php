@@ -15,27 +15,26 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/PlayerLog.php
-namespace bnt;
+// File: classes/BntRegistry.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'PlayerLog.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntRegistry.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class PlayerLog
+class BntRegistry
 {
-    static function writeLog ($db, $sid, $log_type, $data = "")
-	{
-    	$data = addslashes ($data);
+    protected $objects = array();
 
-	    // Write log_entry to the player's log - identified by player's ship_id - sid.
-    	if ($sid != "" && !empty ($log_type))
-	    {
-        	$resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
-	        \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
-    	}
-	}
+    public function set($key, $value)
+    {
+        $this->objects[$key] = $value;
+    }
+
+    public function get($key)
+    {
+        return $this->objects[$key];
+    }
 }
 ?>

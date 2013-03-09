@@ -15,8 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/CalcLevels.php
-namespace bnt;
+// File: classes/CalcLevels.php
 
 if (strpos ($_SERVER['PHP_SELF'], 'CalcLevels.php')) // Prevent direct access to this file
 {

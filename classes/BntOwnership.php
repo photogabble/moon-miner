@@ -15,20 +15,20 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor\bnt\bntownership.php
+// File: classes\BntOwnership.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'bntownership.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntOwnership.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class bntownership
+class BntOwnership
 {
     static function calc ($db, $sector, $min_bases_to_own, $langvars)
     {
         $res = $db->Execute ("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array ($sector));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         $num_bases = $res->RecordCount();
 
         $i = 0;
@@ -117,7 +117,7 @@ class bntownership
             else
             {
                 $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$loop]['id']));
-                \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 if ($res && $res->RecordCount() != 0)
                 {
                     $curship = $res->fields;
@@ -133,7 +133,7 @@ class bntownership
         if ($nbcorps > 1)
         {
             $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-            \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
             return $langvars['l_global_warzone'];
         }
@@ -151,7 +151,7 @@ class bntownership
         if ($numunallied > 1)
         {
             $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-            \bnt\dbop::dbresult ($db, $resb, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resb, __LINE__, __FILE__);
 
             return $langvars['l_global_warzone'];
         }
@@ -160,7 +160,7 @@ class bntownership
         if ($numunallied > 0 && $nbcorps > 0)
         {
             $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-            \bnt\dbop::dbresult ($db, $resc, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resc, __LINE__, __FILE__);
 
             return $langvars['l_global_warzone'];
         }
@@ -186,11 +186,11 @@ class bntownership
 
             $query = $query . " AND team!=0";
             $resd = $db->Execute($query);
-            \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
             if ($resd->RecordCount() != 0)
             {
                 $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-                \bnt\dbop::dbresult ($db, $resd, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resd, __LINE__, __FILE__);
 
                 return $langvars['l_global_warzone'];
             }
@@ -218,7 +218,7 @@ class bntownership
         if ($owners[$winner]['num'] < $min_bases_to_own)
         {
             $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array ($sector));
-            \bnt\dbop::dbresult ($db, $rese, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $rese, __LINE__, __FILE__);
 
             return $langvars['l_global_nzone'];
         }
@@ -226,15 +226,15 @@ class bntownership
         if ($owners[$winner]['type'] == 'C')
         {
             $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' AND owner=?", array ($owners[$winner]['id']));
-            \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
             $zone = $res->fields;
 
             $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=?", array ($owners[$winner]['id']));
-            \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
             $corp = $res->fields;
 
             $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
-            \bnt\dbop::dbresult ($db, $resf, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resf, __LINE__, __FILE__);
 
             return $langvars['l_global_team'] . " " . $corp['team_name'] . "!";
         }
@@ -254,22 +254,22 @@ class bntownership
             if ($onpar == 1)
             {
                 $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array ($sector));
-                \bnt\dbop::dbresult ($db, $resg, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
 
                 return $langvars['l_global_nzone'];
             }
             else
             {
                 $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array ($owners[$winner]['id']));
-                \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 $zone = $res->fields;
 
                 $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$winner]['id']));
-                \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 $ship = $res->fields;
 
                 $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
-                \bnt\dbop::dbresult ($db, $resg, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
 
                 return $langvars['l_global_player'] . " " . $ship['character_name'] . "!";
             }

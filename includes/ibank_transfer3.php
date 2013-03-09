@@ -45,7 +45,7 @@ function ibank_transfer3 ($db)
         // Need to check again to prevent cheating by manual posts
 
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ? AND ship_destroyed ='N' AND turns_used > ?", array ($ship_id, $ibank_min_turns));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 
         if ($playerinfo['ship_id'] == $ship_id)
         {
@@ -77,7 +77,7 @@ function ibank_transfer3 ($db)
             $curtime = time ();
             $curtime -= $ibank_trate * 60;
             $res = $db->Execute ("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
-            \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {
                 $time = $res->fields;
@@ -136,12 +136,12 @@ function ibank_transfer3 ($db)
              "</tr>";
 
         $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance = balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance = balance + ? WHERE ship_id = ?", array ($transfer, $target['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
         $resx = $db->Execute ("INSERT INTO {$db->prefix}ibank_transfers VALUES (NULL, ?, ?, NOW(), ?)", array ($playerinfo['ship_id'], $target['ship_id'], $transfer));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
     else
     {
@@ -151,7 +151,7 @@ function ibank_transfer3 ($db)
         }
 
         $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
             ibank_error ($l_ibank_errunknownplanet, "igb.php?command=transfer");
@@ -165,7 +165,7 @@ function ibank_transfer3 ($db)
         }
 
         $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
             ibank_error ($l_ibank_errunknownplanet, "igb.php?command=transfer");
@@ -212,9 +212,9 @@ function ibank_transfer3 ($db)
              "</tr>";
 
         $resx = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits - ? WHERE planet_id = ?", array ($amount, $splanet_id));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         $resx = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id = ?", array ($transfer, $dplanet_id));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
 }
 ?>

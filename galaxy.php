@@ -33,10 +33,10 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 $result3 = $db->Execute ("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = ? AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC", array ($playerinfo['ship_id']));
-\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 $row = $result3->fields;
 
 $tile['special'] = "port-special.png";
@@ -112,6 +112,6 @@ echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l
 echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$tile['unknown']}'> &lt;- " . $l_unexplored . "</div>\n";
 
 echo "<br><br>";
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

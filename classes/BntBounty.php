@@ -15,20 +15,20 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/bntbounty.php
+// File: classes/BntBounty.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'bntbounty.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntBounty.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class bntbounty
+class BntBounty
 {
     static function cancel ($db, $bounty_on)
     {
         $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id", array ($bounty_on));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
             while (!$res->EOF)
@@ -37,12 +37,12 @@ class bntbounty
                 if ($bountydetails['placed_by'] != 0)
                 {
                     $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $bountydetails['placed_by']));
-                    \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
-                    \bnt\PlayerLog::writeLog ($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
+                    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+                    PlayerLog::writeLog ($db, $bountydetails['placed_by'], LOG_BOUNTY_CANCELLED, "$bountydetails[amount]|$bountydetails[character_name]");
                  }
 
                  $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
-                 \bnt\dbop::dbresult ($db, $delete, __LINE__, __FILE__);
+                 DbOp::dbResult ($db, $delete, __LINE__, __FILE__);
                  $res->MoveNext();
             }
         }

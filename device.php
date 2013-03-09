@@ -71,6 +71,6 @@ echo "</tr>";
 echo "</table>";
 echo "<br>";
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

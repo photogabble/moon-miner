@@ -30,13 +30,13 @@ include './includes/distribute_toll.php';
 include './includes/scan_success.php';
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($sector));
-\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 
 // Put the sector information into the array "sectorinfo"
 $sectorinfo = $result2->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC;", array ($sector));
-\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
 // Put the defence information into the array "defences"
 $i = 0;
@@ -81,7 +81,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
     // All sector defences must be owned by members of the same team
     $fm_owner = $defences[0]['ship_id'];
     $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array ($fm_owner));
-    \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
     $fighters_owner = $result2->fields;
     if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
     {
@@ -89,26 +89,26 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
         {
             case "fight":
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 echo "<h1>" . $title . "</h1>\n";
                 include_once './sector_fighters.php';
                 break;
 
             case "retreat":
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 $stamp = date ("Y-m-d H-i-s");
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=? WHERE ship_id=?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 echo "<h1>" . $title . "</h1>\n";
                 echo "$l_chf_youretreatback<br>";
-                \bnt\bnttext::gotomain ($langvars);
+                BntText::gotoMain ($langvars);
                 die ();
                 break;
 
             case "pay":
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 if ($playerinfo['credits'] < $fighterstoll)
                 {
@@ -116,7 +116,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     echo "$l_chf_movefailed<br>";
                     // Undo the move
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET sector=? WHERE ship_id=?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
-                    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     $ok = 0;
                 }
                 else
@@ -125,16 +125,16 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     $l_chf_youpaidsometoll = str_replace ("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
                     echo "$l_chf_youpaidsometoll<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     distribute_toll ($db, $sector, $fighterstoll, $total_sector_fighters);
-                    \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
+                    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
                     $ok = 1;
                 }
                 break;
 
             case "sneak":
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 $success = scan_success ($fighters_owner['sensors'], $playerinfo['cloak']);
                 if ($success < 5)
                 {
@@ -163,7 +163,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             default:
                 $interface_string = $calledfrom . '?sector='.$sector.'&destination='.$destination.'&engage='.$engage;
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ? WHERE ship_id = ?;", array ($interface_string, $playerinfo['ship_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 echo "<h1>" . $title . "</h1>\n";
                 echo "<form action='{$calledfrom}' method='post'>";
@@ -202,7 +202,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
         }
         // Clean up any sectors that have used up all mines or fighters
         $resx = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0 ");
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
 }
 ?>

@@ -15,10 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/bntXml.php
-namespace bnt;
+// File: classes/BntXml.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'bntXml.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntXml.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
@@ -34,7 +33,7 @@ class BntXml
     function __construct($parent)
     {
         $this->parent = $parent;
-        $this->xmldom = new \bnt\templateSystem();
+        $this->xmldom = new TemplateSystem();
     }
 
     function __destruct()

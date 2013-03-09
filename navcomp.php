@@ -34,7 +34,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (!$allow_navcomp)
 {
     echo $l_nav_nocomp . '<br><br>';
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
 }
@@ -49,14 +49,14 @@ $state = $_REQUEST['state'];
 unset ($stop_sector);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
-\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 // Gets the stop_sector POST Variable.
@@ -68,10 +68,10 @@ if (isset ($_POST['stop_sector']))
     $stop_sector = $_POST['stop_sector'];
     if (!is_numeric ($stop_sector))
     {
-        \bnt\AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
+        AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
         echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
 
-        \bnt\bnttext::gotomain ($langvars);
+        BntText::gotoMain ($langvars);
         include './footer.php';
         die ();
     }
@@ -162,7 +162,7 @@ elseif ($state == 1)
         $db->SetFetchMode (ADODB_FETCH_NUM);
 
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");
-        \bnt\dbop::dbresult ($db, $search_result, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $search_result, __LINE__, __FILE__);
         $found = $search_result->RecordCount();
         if ($found > 0)
         {
@@ -193,6 +193,6 @@ elseif ($state == 1)
 
 $db->SetFetchMode (ADODB_FETCH_ASSOC);
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

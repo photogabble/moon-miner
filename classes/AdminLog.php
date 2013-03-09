@@ -15,22 +15,29 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/eventsystem/event_list.php
+// File: classes/AdminLog.php
+// Todo: Recode adminlog to be smart about whether there is a db, and if not, log to a file that will be slurped into the db when there is.
 
-// Used to hook into the ranking page, Event is called for every account.
-define("EVENT_RANKING_PLAYERINFO",  0x00000001,         true);
+if (strpos ($_SERVER['PHP_SELF'], 'AdminLog.php')) // Prevent direct access to this file
+{
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include_once './error.php';
+}
 
-// Used to hook into when the player joins the game.
-define("EVENT_PLAYER_JOIN",         0x00000002,         true);
+class AdminLog
+{
+	static function writeLog ($db, $log_type, $data = "")
+	{
+    	// Write log_entry to the admin log
+    	$ret = false;
+    	$data = addslashes ($data);
+    	if (is_int ($log_type))
+    	{
+        	$ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
+        	DbOp::dbResult ($db, $ret, __LINE__, __FILE__);
+    	}
 
-// Triggered on every page load.
-define("EVENT_TICK",                0x00000003,         true);
-
-
-// Triggered on every time the Scheduler is run.
-define("SCHEDULER_RUN",             0x00000004,         true);
-
-// Triggered on every create_universe.php page load.
-define("EVENT_CREATE_UNIVERSE",     0x00000005,         true);
-
+    	return $ret;
+	}
+}
 ?>

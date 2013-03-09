@@ -15,42 +15,41 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/bntfighters.php
-namespace bnt;
+// File: classes/BntMines.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'bntfighters.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntMines.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class bntfighters
+class BntMines
 {
-    static function destroy ($db, $sector, $num_fighters)
+    static function explode ($db, $sector, $num_mines)
     {
-        $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity ASC", array ($sector));
-        \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+        $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND defence_type ='M' ORDER BY QUANTITY ASC", array ($sector));
+        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
         // Put the defence information into the array "defenceinfo"
         if ($result3 instanceof ADORecordSet)
         {
-            while (!$result3->EOF && $num_fighters > 0)
+            while (!$result3->EOF && $num_mines > 0)
             {
                 $row = $result3->fields;
-                if ($row['quantity'] > $num_fighters)
+                if ($row['quantity'] > $num_mines)
                 {
-                    $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($num_fighters, $row['defence_id']));
-                    \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
-                    $num_fighters = 0;
+                    $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity = quantity - ? WHERE defence_id = ?", array ($num_mines, $row['defence_id']));
+                    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+                    $num_mines = 0;
                 }
                 else
                 {
                     $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
-                    \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
-                    $num_fighters -= $row['quantity'];
+                    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+                    $num_mines -= $row['quantity'];
                 }
                 $result3->MoveNext();
-            }
+             }
         }
     }
 }

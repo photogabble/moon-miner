@@ -32,7 +32,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $query = "SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?";
@@ -58,7 +58,7 @@ if (!empty ($sort))
 }
 
 $res = $db->Execute ($query, array ($playerinfo['ship_id']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res)
@@ -120,6 +120,6 @@ else
 }
 
 echo "<br><br>";
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

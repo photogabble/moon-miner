@@ -15,39 +15,19 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/Timer.php
-namespace bnt;
+// File: classes/BntText.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'timer.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntText.php')) // Prevent direct access to this file
 {
-    die ('Please do not access this file directly');
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include_once './error.php';
 }
 
-class Timer
+class BntText
 {
-    public $t_start = 0;
-    public $t_stop = 0;
-    public $t_elapsed = 0;
-
-    public function start ()
+    static function gotoMain ($langvars)
     {
-        $this->t_start = microtime ();
-    }
-
-    public function stop ()
-    {
-        $this->t_stop  = microtime ();
-    }
-
-    public function elapsed ()
-    {
-        $start_u = substr($this->t_start, 0, 10); $start_s = substr($this->t_start, 11, 10);
-        $stop_u  = substr($this->t_stop, 0, 10);  $stop_s  = substr($this->t_stop, 11, 10);
-        $start_total = floatval ($start_u) + $start_s;
-        $stop_total  = floatval ($stop_u) + $stop_s;
-        $this->t_elapsed = $stop_total - $start_total;
-
-        return $this->t_elapsed;
+        echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
     }
 }
 ?>

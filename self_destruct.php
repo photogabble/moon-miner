@@ -32,7 +32,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (isset ($_GET['sure']))
@@ -60,10 +60,10 @@ elseif ($sure == 2)
     echo "$l_die_vapor<br><br>";
     $l_die_please = str_replace ("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
     echo $l_die_please. "<br>";
-    \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], true, $langvars);
-    \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);
-    \bnt\AdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
-    \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
+    BntPlayer::kill ($db, $playerinfo['ship_id'], true, $langvars);
+    BntBounty::cancel ($db, $playerinfo['ship_id']);
+    AdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
+    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else
@@ -71,6 +71,6 @@ else
     echo $l_die_exploit . "<br><br>";
 }
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

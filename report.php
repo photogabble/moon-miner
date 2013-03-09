@@ -30,7 +30,7 @@ $langvars = null;
 load_languages ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $shiptypes[0] = "tinyship.png";
@@ -63,11 +63,11 @@ else
 }
 
 $holds_used = $playerinfo['ship_ore'] + $playerinfo['ship_organics'] + $playerinfo['ship_goods'] + $playerinfo['ship_colonists'];
-$holds_max = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor);
-$armor_pts_max = \bnt\CalcLevels::Armor ($playerinfo['armor'], $level_factor);
-$ship_fighters_max = \bnt\CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
-$torps_max = \bnt\CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
-$energy_max = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
+$holds_max = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
+$armor_pts_max = CalcLevels::Armor ($playerinfo['armor'], $level_factor);
+$ship_fighters_max = CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
+$torps_max = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
+$energy_max = CalcLevels::Energy ($playerinfo['power'], $level_factor);
 $escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no;
 $fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $l_yes : $l_no;
 $lssd = ($playerinfo['dev_lssd'] == 'Y') ? $l_yes : $l_no;

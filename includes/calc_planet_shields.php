@@ -27,16 +27,16 @@ function calc_planet_shields ($db, $ownerinfo, $base_defense, $planetinfo)
 {
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-    $planetshields = \bnt\CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+    $planetshields = CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
     $energy_available = $planetinfo['energy'];
 
     $res = $db->Execute ("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         while (!$res->EOF)
         {
-            $planetshields += \bnt\CalcLevels::Shields ($res->fields['shields'], $level_factor);
+            $planetshields += CalcLevels::Shields ($res->fields['shields'], $level_factor);
             $res->MoveNext ();
         }
     }

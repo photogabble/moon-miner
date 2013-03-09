@@ -35,10 +35,10 @@
         "classmap": [
             "vendor/adodb/adodb-php/session/", 
             "includes/", 
+            "classes/",
             "vendor/phpass/PasswordHash.php", 
             "vendor/adodb/adodb-php", 
-            "vendor/adoSchema3",
-            "vendor/bnt/pluginsystem"
+            "vendor/adoSchema3"
         ],
         "psr-0": {
             "bnt": "vendor/"

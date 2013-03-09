@@ -31,7 +31,7 @@ $title = $l_rs_title;
 include './header.php';
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 echo "<h1>" . $title . "</h1>\n";
@@ -42,10 +42,10 @@ if (isset ($destination))
 {
     $destination = round (abs ($destination));
     $result2 = $db->Execute ("SELECT angle1, angle2, distance FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-    \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
     $start = $result2->fields;
     $result3 = $db->Execute ("SELECT angle1, angle2, distance FROM {$db->prefix}universe WHERE sector_id = ?;", array ($destination));
-    \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
     $finish = $result3->fields;
     $sa1 = $start['angle1'] * $deg;
     $sa2 = $start['angle2'] * $deg;
@@ -96,7 +96,7 @@ elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sect
         $energyscooped = 100;
     }
 
-    $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     if ($free_power < $energyscooped)
     {
         $energyscooped = $free_power;
@@ -139,7 +139,7 @@ elseif ($destination < $sector_max && $engage > 0)
         $energyscooped = 100;
     }
 
-    $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     if ($free_power < $energyscooped)
     {
         $energyscooped = $free_power;
@@ -156,7 +156,7 @@ elseif ($destination < $sector_max && $engage > 0)
         echo $l_rs_movetime . "<br><br>";
         echo $l_rs_noturns . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
     else
     {
@@ -168,8 +168,8 @@ elseif ($destination < $sector_max && $engage > 0)
         {
             $stamp = date ("Y-m-d H-i-s");
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
-            \bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
+            DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+            LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
             $l_rs_ready = str_replace ("[sector]", $destination, $l_rs_ready);
             $l_rs_ready = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready);
             $l_rs_ready = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready);
@@ -182,9 +182,9 @@ else
 {
     echo $l_rs_invalid . ".<br><br>";
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 }
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

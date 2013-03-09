@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_apocalypse.php')) // Prevent direct acc
 echo "<strong>PLANETARY APOCALYPSE</strong><br><br>";
 echo "The four horsemen of the apocalypse set forth...<br>";
 $doomsday = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE colonists > ?;", array ($doomsday_value));
-\bnt\dbop::dbresult ($db, $doomsday, __LINE__, __FILE__);
+DbOp::dbResult ($db, $doomsday, __LINE__, __FILE__);
 $chance = 9;
 $reccount = $doomsday->RecordCount();
 if ($reccount > 200)
@@ -53,16 +53,16 @@ if ($doomsday && $affliction < 3 && $reccount > 0)
     {
         echo "The horsmen release the Space Plague!<br>.";
         $resx = $db->Execute ("UPDATE {$db->prefix}planets SET colonists = ROUND (colonists - colonists * ?) WHERE planet_id = ?;", array ($space_plague_kills, $targetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         $logpercent = ROUND ($space_plague_kills * 100);
-        \bnt\PlayerLog::writeLog ($db, $targetinfo['owner'], LOG_SPACE_PLAGUE, "$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
+        PlayerLog::writeLog ($db, $targetinfo['owner'], LOG_SPACE_PLAGUE, "$targetinfo[name]|$targetinfo[sector_id]|$logpercent");
     }
     else
     {
         echo "The horsemen release a Plasma Storm!<br>.";
         $resy = $db->Execute ("UPDATE {$db->prefix}planets SET energy = 0 WHERE planet_id = ?;", array ($targetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $resy, __LINE__, __FILE__);
-        \bnt\PlayerLog::writeLog ($db, $targetinfo['owner'], LOG_PLASMA_STORM, "$targetinfo[name]|$targetinfo[sector_id]");
+        DbOp::dbResult ($db, $resy, __LINE__, __FILE__);
+        PlayerLog::writeLog ($db, $targetinfo['owner'], LOG_PLASMA_STORM, "$targetinfo[name]|$targetinfo[sector_id]");
     }
 }
 echo "<br>";

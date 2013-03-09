@@ -15,18 +15,17 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/dbop.php
-namespace bnt;
+// File: classes/DbOp.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'dbop.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'DbOp.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class dbop
+class DbOp
 {
-    static function dbresult ($db, $query, $served_line, $served_page)
+    static function dbResult ($db, $query, $served_line, $served_page)
     {
         if ($db->ErrorMsg() == '')
         {
@@ -44,7 +43,7 @@ class dbop
             {
                 if (!$db->inactive)
                 {
-                    \bnt\AdminLog::writeLog ($db, LOG_RAW, $dberror);
+                    AdminLog::writeLog ($db, LOG_RAW, $dberror);
                 }
             }
 

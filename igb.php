@@ -33,11 +33,11 @@ $body_class = 'igb';
 include './header.php';
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
 ?>

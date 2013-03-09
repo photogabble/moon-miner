@@ -51,7 +51,7 @@ function planet_combat ($db)
     if ($playerinfo['turns'] < 1 )
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
-        \bnt\bnttext::gotomain ($langvars);
+        BntText::gotoMain ($langvars);
         include_once './footer.php';
         die ();
     }
@@ -71,9 +71,9 @@ function planet_combat ($db)
 
     // Attacking ship calculations
 
-    $attackerbeams      = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+    $attackerbeams      = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
     $attackerfighters   = $playerinfo['ship_fighters'];
-    $attackershields    = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+    $attackershields    = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
     $attackertorps      = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
     $attackerarmor      = $playerinfo['armor_pts'];
 
@@ -363,7 +363,7 @@ function planet_combat ($db)
     echo "</table></center>\n";
     // Send each docked ship in sequence to attack agressor
     $result4 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
-    \bnt\dbop::dbresult ($db, $result4, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result4, __LINE__, __FILE__);
     $shipsonplanet = $result4->RecordCount();
 
     if ($shipsonplanet > 0)
@@ -420,12 +420,12 @@ function planet_combat ($db)
         {
             echo "<center><font color='white'>$l_cmb_escapepod</font></center><br><br>";
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($start_energy, $playerinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
         else
         {
-            \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
+            BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
             collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
     }
@@ -461,11 +461,11 @@ function planet_combat ($db)
         $l_cmb_energyused = str_replace ("[cmb_playerinfo_ship_energy]", $start_energy, $l_cmb_energyused);
         echo "$l_cmb_energyused<br></center>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, torps=torps-?,armor_pts=armor_pts-?, rating=rating-? WHERE ship_id=?", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
 
     $result4 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
-    \bnt\dbop::dbresult ($db, $result4, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result4, __LINE__, __FILE__);
     $shipsonplanet = $result4->RecordCount();
 
     if ($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
@@ -485,7 +485,7 @@ function planet_combat ($db)
             $sql .= "SET organics = '0', ore = '0', goods = '0', energy = '0', colonists = '2', credits = '0', fighters = '0', torps = '0', corp = '0', base = 'N', sells = 'N', prod_organics = '20', prod_ore = '20', prod_goods = '20', prod_energy = '20', prod_fighters = '10', prod_torp = '10' ";
             $sql .= "WHERE planet_id = ? LIMIT 1;";
             $resx = $db->Execute ($sql, array ($planetinfo['planet_id']));
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             echo "<div style='text-align:center; font-size:18px; color:#f00;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
         }
 
@@ -501,32 +501,32 @@ function planet_combat ($db)
             {
                 echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
                 $resx = $db->Execute ("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-                \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                \bnt\AdminLog::writeLog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+                PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                AdminLog::writeLog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
                 calc_score ($db, $ownerinfo['ship_id']);
             }
             else
             {
                 $l_cmb_youmaycapture = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
                 echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
-                \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+                PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 calc_score ($db, $ownerinfo['ship_id']);
                 $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
-                \bnt\dbop::dbresult ($db, $update7a, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $update7a, __LINE__, __FILE__);
             }
         }
         else
         {
             $l_cmb_youmaycapture = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
             echo "<center>$l_cmb_youmaycapture</center><br><br>";
-            \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+            PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             calc_score ($db, $ownerinfo['ship_id']);
             $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
-            \bnt\dbop::dbresult ($db, $update7a, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $update7a, __LINE__, __FILE__);
         }
 
-        \bnt\bntownership::calc ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
+        BntOwnership::calc ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
     }
     else
     {
@@ -536,12 +536,12 @@ function planet_combat ($db)
         $l_cmb_fighterloststat = str_replace ("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $l_cmb_fighterloststat);
         $l_cmb_fighterloststat = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_fighterloststat);
         $energy = $planetinfo['energy'];
-        \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+        PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         calc_score ($db, $ownerinfo['ship_id']);
         $update7b = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?,fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($energy, $fighters_lost, $planettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $update7b, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $update7b, __LINE__, __FILE__);
     }
     $update = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
 }
 ?>

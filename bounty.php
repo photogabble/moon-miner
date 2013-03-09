@@ -41,14 +41,14 @@ elseif (array_key_exists ('response', $_GET) == true)
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 switch ($response) {
     case "display":
         echo "<h1>" . $title . "</h1>\n";
         $res5 = $db->Execute ("SELECT * FROM {$db->prefix}ships, {$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = ?;", array ($bounty_on));
-        \bnt\dbop::dbresult ($db, $res5, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res5, __LINE__, __FILE__);
         $j = 0;
         if ($res5)
         {
@@ -78,7 +78,7 @@ switch ($response) {
             for ($j = 0; $j < $num_details; $j++)
             {
                 $someres = $db->execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($bounty_details[$j]['placed_by']));
-                \bnt\dbop::dbresult ($db, $someres, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $someres, __LINE__, __FILE__);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
                 echo "<td>" . $bounty_details[$j]['amount'] . "</td>";
@@ -120,17 +120,17 @@ switch ($response) {
         if ($playerinfo['turns'] < 1)
         {
             echo $l_by_noturn . "<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
 
         $res = $db->Execute ("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->RowCount() ==0)
         {
             echo $l_by_nobounty . "<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -139,30 +139,30 @@ switch ($response) {
         if ($bty['placed_by'] != $playerinfo['ship_id'])
         {
             echo $l_by_notyours . "<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
 
         $del = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
-        \bnt\dbop::dbresult ($db, $del, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $del, __LINE__, __FILE__);
         $stamp = date ("Y-m-d H-i-s");
         $refund = $bty['amount'];
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         echo $l_by_canceled . "<br>";
-        \bnt\bnttext::gotomain ($langvars);
+        BntText::gotoMain ($langvars);
         die ();
         break;
     case "place":
         echo "<h1>" . $title . "</h1>\n";
         $bounty_on = preg_replace ('/[^0-9]/', '', $bounty_on);
         $ex = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($bounty_on));
-        \bnt\dbop::dbresult ($db, $ex, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $ex, __LINE__, __FILE__);
         if (!$ex)
         {
             echo $l_by_notexists . "<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -171,7 +171,7 @@ switch ($response) {
         if ($bty['ship_destroyed'] == "Y")
         {
             echo $l_by_destroyed . "<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -179,7 +179,7 @@ switch ($response) {
         if ($playerinfo['turns'] < 1 )
         {
             echo $l_by_noturn . "<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -188,7 +188,7 @@ switch ($response) {
         if ($amount <= 0)
         {
             echo "$l_by_zeroamount<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -196,7 +196,7 @@ switch ($response) {
         if ($bounty_on == $playerinfo['ship_id'])
         {
             echo "$l_by_yourself<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -204,7 +204,7 @@ switch ($response) {
         if ($amount > $playerinfo['credits'])
         {
             echo "$l_by_notenough<br><br>";
-            \bnt\bnttext::gotomain ($langvars);
+            BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
         }
@@ -218,7 +218,7 @@ switch ($response) {
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
             $pb = $db->Execute ("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = ?;", array ($bounty_on, $playerinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $pb, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $pb, __LINE__, __FILE__);
             if ($pb)
             {
                 $prev = $pb->fields;
@@ -229,25 +229,25 @@ switch ($response) {
             {
                 $l_by_toomuch = str_replace ("[percent]", $percent, $l_by_toomuch);
                 echo "$l_by_toomuch<br><br>";
-                \bnt\bnttext::gotomain ($langvars);
+                BntText::gotoMain ($langvars);
                 include './footer.php';
                 die ();
             }
         }
 
         $insert = $db->Execute ("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?);", array ($bounty_on, $playerinfo['ship_id'] ,$amount));
-        \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
         $stamp = date ("Y-m-d H-i-s");
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         echo "$l_by_placed<br>";
-        \bnt\bnttext::gotomain ($langvars);
+        BntText::gotoMain ($langvars);
         die ();
         break;
     default:
         echo "<h1>" . $title . "</h1>\n";
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         echo "<form action=bounty.php method=post>";
         echo "<table>";
         echo "<tr><td>$l_by_bountyon</td><td><select name=bounty_on>";
@@ -276,7 +276,7 @@ switch ($response) {
         echo "</form>";
 
         $result3 = $db->Execute ("SELECT bounty_on, SUM(amount) as total_bounty FROM {$db->prefix}bounty GROUP BY bounty_on;");
-        \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
         $i = 0;
         if ($result3)
@@ -306,7 +306,7 @@ switch ($response) {
             for ($i = 0; $i < $num_bounties; $i++)
             {
                 $someres = $db->execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($bounties[$i]['bounty_on']));
-                \bnt\dbop::dbresult ($db, $someres, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $someres, __LINE__, __FILE__);
                 $details = $someres->fields;
                 echo "<tr bgcolor=\"$color\">";
                 echo "<td><a href=bounty.php?bounty_on=" . $bounties[$i]['bounty_on'] . "&response=display>". $details['character_name'] ."</A></td>";
@@ -328,6 +328,6 @@ switch ($response) {
         break;
 }
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

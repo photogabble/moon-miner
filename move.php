@@ -32,7 +32,7 @@ include './header.php';
 
 // Retrieve the user and ship information
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 
 // Put the player information into the array: "playerinfo"
 $playerinfo = $result->fields;
@@ -42,14 +42,14 @@ $playerinfo = $result->fields;
 if ($playerinfo['turns'] < 1)
 {
     echo $l_move_turn . '<br><br>';
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
 }
 
 // Retrieve all the sector information about the current sector
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 
 // Put the sector information into the array "sectorinfo"
 $sectorinfo = $result2->fields;
@@ -62,7 +62,7 @@ if (array_key_exists ('sector', $_REQUEST) == true)
 
 // Retrive all the warp links out of the current sector
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
-\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 $i = 0;
 $flag = 0;
 
@@ -87,9 +87,9 @@ if ($flag == 1)
     if ($ok > 0)
     {
         $stamp = date ("Y-m-d H-i-s");
-        \bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $sector);
+        LogMove::writeLog ($db, $playerinfo['ship_id'], $sector);
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $sector, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $move_result, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $move_result, __LINE__, __FILE__);
         if (!$move_result)
         {
             // is this really STILL needed?
@@ -105,15 +105,15 @@ if ($flag == 1)
     }
     else
     {
-        \bnt\bnttext::gotomain ($langvars);
+        BntText::gotoMain ($langvars);
     }
 }
 else
 {
     echo $l_move_failed . '<br><br>';
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-    \bnt\bnttext::gotomain ($langvars);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    BntText::gotoMain ($langvars);
 }
 
 echo "</body></html>";

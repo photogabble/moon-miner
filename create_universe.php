@@ -353,7 +353,7 @@ echo"</table>";
       include_once './includes/ini_to_db.php';
       table_header("Import Configurations & Languages --- Step 5");
 
-      $table_timer = new \bnt\Timer;
+      $table_timer = new Timer;
       $table_timer->start(); // Start benchmarking
       $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
       $table_timer->stop();
@@ -442,15 +442,15 @@ echo"</table>";
       $initbenergy = $energy_limit * $initbcommod / 100.0;
 
       $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
-      \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
       table_row ($db, "Creating Sol sector","Failed","Created");
 
       $update = $db->Execute("UPDATE {$db->prefix}universe SET sector_id=0 WHERE sector_id=1");
-      \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $update, __LINE__, __FILE__);
       table_row ($db, "Converting Sol Sector Id to 0","False","True");
 
       $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
-      \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
       table_row ($db, "Creating Alpha Centauri in sector 1","Failed","Created");
 
       table_spacer ();
@@ -493,23 +493,23 @@ echo"</table>";
     table_spacer ();
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones (zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('1', 'Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
-      \bnt\dbop::dbresult ($db, $replace, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (Unchartered space)","Failed","Set");
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('2', 'Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
-      \bnt\dbop::dbresult ($db, $replace, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (Federation space)","Failed","Set");
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('3', 'Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
-      \bnt\dbop::dbresult ($db, $replace, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (Free-Trade space)","Failed","Set");
 
       $replace = $db->Execute("REPLACE INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('4', 'War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
-      \bnt\dbop::dbresult ($db, $replace, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (War Zone)","Failed","Set");
 
       $update = $db->Execute("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
-      \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $update, __LINE__, __FILE__);
       table_row ($db, "Setting up the $fedsecs Federation Sectors","Failed","Set");
 
       ### Finding random sectors where port=none and getting their sector ids in one sql query
@@ -530,7 +530,7 @@ echo"</table>";
     table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $spp");
-        \bnt\dbop::dbresult ($db, $sql_query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -544,7 +544,7 @@ echo"</table>";
                 $sql_query->Movenext();
             }
             $resx = $db->Execute($update);
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     table_row ($db, "Loop $i of $loops (Setting up Special Ports) Port [".($start+1)." - $finish]","Failed","Selected");
 
@@ -577,7 +577,7 @@ echo"</table>";
     table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $oep");
-        \bnt\dbop::dbresult ($db, $sql_query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -591,7 +591,7 @@ echo"</table>";
                 $sql_query->Movenext();
             }
             $resx = $db->Execute($update);
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     table_row ($db, "Loop $i of $loops (Setting up Ore Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
@@ -624,7 +624,7 @@ echo"</table>";
     table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $ogp");
-        \bnt\dbop::dbresult ($db, $sql_query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -638,7 +638,7 @@ echo"</table>";
                 $sql_query->Movenext();
             }
             $resx = $db->Execute($update);
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     table_row ($db, "Loop $i of $loops (Setting up Organics Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
@@ -671,7 +671,7 @@ echo"</table>";
     table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $gop");
-        \bnt\dbop::dbresult ($db, $sql_query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -685,7 +685,7 @@ echo"</table>";
                 $sql_query->Movenext();
             }
             $resx = $db->Execute($update);
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     table_row ($db, "Loop $i of $loops (Setting up Goods Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
@@ -720,7 +720,7 @@ echo"</table>";
     table_spacer ();
 
         $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT $enp");
-        \bnt\dbop::dbresult ($db, $sql_query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
         for ($i = 1; $i <= $loops; $i++)
@@ -734,7 +734,7 @@ echo"</table>";
                 $sql_query->Movenext();
             }
             $resx = $db->Execute($update);
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     table_row ($db, "Loop $i of $loops (Setting up Energy Ports) Block [".($start+1)." - $finish]","Failed","Selected");
 
@@ -775,11 +775,11 @@ echo"</table>";
         {
             $num = mt_rand (2, ($sector_max-1));
             $select = $db->Execute("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'") or die("DB error");
-            \bnt\dbop::dbresult ($db, $select, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $select, __LINE__, __FILE__);
             if ($select->RecordCount() == 0)
             {
                 $insert = $db->Execute("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2,0,0,$default_prod_ore,$default_prod_organics,$default_prod_goods,$default_prod_energy, $default_prod_fighters, $default_prod_torp,$num)");
-                \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
                 $p_add++;
             }
         }
@@ -813,7 +813,7 @@ table_spacer ();
             if ($start<$sector_max && $finish<=$sector_max)
             {
                 $resx = $db->Execute($update);
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             }
 
             table_row ($db, "Creating loop $i of $loops sectors (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
@@ -858,7 +858,7 @@ table_spacer ();
             if ($start<$sector_max && $finish<=$sector_max)
             {
                 $resx = $db->Execute($insert);
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             }
 
 table_row ($db, "Creating loop $i of $loops Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
@@ -902,7 +902,7 @@ table_spacer ();
             if ($start<$sector_max && $finish<=$sector_max)
             {
                 $resx = $db->Execute($insert);
-                \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             }
 
 table_row ($db, "Creating loop $i of $loops Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
@@ -913,7 +913,7 @@ table_row ($db, "Creating loop $i of $loops Random Two-way Links (from sector ".
         }
 
 $resx = $db->Execute("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
-\bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 table_row ($db, "Removing links to and from the end of the Universe","Failed","Deleted");
 
 table_footer ("Completed successfully.");
@@ -944,47 +944,47 @@ table_footer ("Completed successfully.");
       table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_turns.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Turns will occur every $sched_turns minutes","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_xenobe.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Xenobes will play every $sched_turns minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_igb, 0, 'sched_igb.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Interests on IGB accounts will be accumulated every $sched_igb minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_news, 0, 'sched_news.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "News will be generated every $sched_news minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_planets, 0, 'sched_planets.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Planets will generate production every $sched_planets minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_ports, 0, 'sched_ports.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Ports will regenerate every $sched_ports minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_turns, 0, 'sched_tow.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Ships will be towed from fed sectors every $sched_turns minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_ranking, 0, 'sched_ranking.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Rankings will be generated every $sched_ranking minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_degrade, 0, 'sched_degrade.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Sector Defences will degrade every $sched_degrade minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_apocalypse, 0, 'sched_apocalypse.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "The planetary apocalypse will occur every $sched_apocalypse minutes.","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, $sched_thegovernor, 0, 'sched_thegovernor.php', NULL,unix_timestamp(now()))");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
 
       // This adds a news item into the newly created news table
@@ -1008,7 +1008,7 @@ table_footer ("Completed successfully.");
       table_header ("Inserting Admins Acount Information");
 
       $update = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
-      \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $update, __LINE__, __FILE__);
       table_row ($db, "Inserting Admins ibank Information","Failed","Inserted");
 
       $stamp = date("Y-m-d H:i:s");
@@ -1022,13 +1022,13 @@ table_footer ("Completed successfully.");
       $hashed_pass = $hasher->HashPassword (ADMIN_PW);
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 
       table_1col ("Admins login Information:<br>Username: " . $admin_mail . "<br>Password: " . ADMIN_PW);
       table_row ($db, "Inserting Admins Ship Information","Failed","Inserted");
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(NULL,'Game Admin\'s Territory', 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
-      \bnt\dbop::dbresult ($db, $resxx, __LINE__, __FILE__);
+      DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Inserting Admins Zone Information","Failed","Inserted");
       table_footer ("Completed successfully.");
 

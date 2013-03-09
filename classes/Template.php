@@ -15,10 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/Template.php
-namespace bnt;
+// File: classes/Template.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'template.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'Template.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
@@ -87,12 +86,12 @@ class Template
             if($type === TEMPLATE_USE_SMARTY)
             {
                 // Create the module.
-                $api = new \bnt\BntSmarty($this);
+                $api = new BntSmarty($this);
             }
             else if($type === TEMPLATE_USE_XML)
             {
                 // Create the module.
-                $api = new \bnt\bntXml($this);
+                $api = new BntXml($this);
             }
             else
             {

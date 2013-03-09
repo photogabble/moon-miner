@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'distribute_toll.php')) // Prevent direct acce
 function distribute_toll ($db, $sector, $toll, $total_fighters)
 {
     $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
-    \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
     // Put the defence information into the array "defenceinfo"
     if ($result3 instanceof ADORecordSet)
@@ -36,8 +36,8 @@ function distribute_toll ($db, $sector, $toll, $total_fighters)
             $row = $result3->fields;
             $toll_amount = ROUND (($row['quantity'] / $total_fighters) * $toll);
             $resa = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
-            \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
-            \bnt\PlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
+            DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+            PlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
             $result3->MoveNext();
         }
     }

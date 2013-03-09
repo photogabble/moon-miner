@@ -32,7 +32,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset ($_GET['action']))
@@ -43,19 +43,19 @@ if (!isset ($_GET['action']))
 if ($_GET['action'] == "delete")
 {
     $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE ID=? AND recp_id = ?;", array ($ID, $playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 }
 else if ($_GET['action'] == "delete_all")
 {
     $resx = $db->Execute ("DELETE FROM {$db->prefix}messages WHERE recp_id = ?;", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 }
 
 $cur_D = date ("Y-m-d");
 $cur_T = date ("H:i:s");
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDER BY sent DESC;", array ($playerinfo['ship_id']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 ?>
 <div align="center">
   <table border="0" cellspacing="0" width="70%" bgcolor="silver" cellpadding="0">
@@ -104,7 +104,7 @@ $res = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDE
    $msg = $res->fields;
 
    $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($msg['sender_id']));
-   \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+   DbOp::dbResult ($db, $result, __LINE__, __FILE__);
    $sender = $result->fields;
 
 //   $isAdmin = isAdmin($sender);
@@ -213,7 +213,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 <?php
  //}
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 
 include './footer.php';
 ?>

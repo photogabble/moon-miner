@@ -31,12 +31,12 @@ $radius  = filter_input (INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT);
 if ($action == "doexpand")
 {
     $result = $db->Execute ("SELECT sector_id FROM {$db->prefix}universe ORDER BY sector_id ASC");
-    \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 
     if (!$result->EOF)
     {
         $resa = $db->StartTrans (); // We enclose the updates in a transaction as it is faster
-        \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
         // Begin transaction
         while (!$result->EOF)
@@ -44,7 +44,7 @@ if ($action == "doexpand")
             $row = $result->fields;
             $distance = mt_rand (1, $radius);
             $resx = $db->Execute ("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
-            \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
             $changed_sectors[$i] = str_replace ("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
             $changed_sectors[$i] = str_replace ("[distance]", $distance, $changed_sectors[$i]);
@@ -54,7 +54,7 @@ if ($action == "doexpand")
 
         // End transaction
         $trans_status = $db->CompleteTrans(); // Complete the transaction
-        \bnt\dbop::dbresult ($db, $trans_status, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $trans_status, __LINE__, __FILE__);
     }
 }
 

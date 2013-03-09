@@ -46,10 +46,10 @@ $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $
 
 // Lock the tables
 $resa = $db->Execute ("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE");
-\bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
+DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $xenobeisdead = 0;
@@ -68,7 +68,7 @@ while (!$res->EOF)
         // Find a target in my sector, not myself, not on a planet
 
         $reso0 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
-        \bnt\dbop::dbresult ($db, $res0, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res0, __LINE__, __FILE__);
         if (!$reso0->EOF)
         {
           $rowo0 = $reso0->fields;
@@ -82,7 +82,7 @@ while (!$res->EOF)
             if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
             {
               $furcount0a++;
-              \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
+              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
               xenobe_to_ship ($db, $rowo0[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
@@ -93,7 +93,7 @@ while (!$res->EOF)
           elseif ($playerinfo[aggression] == 2)        // O = 0 & Aggression = 2 attack always
           {
             $furcount0a++;
-            \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
+            PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
             xenobe_to_ship ($db, $rowo0[ship_id]);
             if ($xenobeisdead>0) {
               $res->MoveNext();
@@ -115,7 +115,7 @@ while (!$res->EOF)
         }
         // Find a target in my sector, not myself
         $reso1 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
-        \bnt\dbop::dbresult ($db, $reso1, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $reso1, __LINE__, __FILE__);
         if (!$reso1->EOF)
         {
           $rowo1= $reso1->fields;
@@ -129,7 +129,7 @@ while (!$res->EOF)
             if ($playerinfo[ship_fighters] > $rowo1[ship_fighters] && $rowo1[planet_id] == 0)
             {
               $furcount1a++;
-              \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
+              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
               xenobe_to_ship ($db, $rowo1[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
@@ -140,7 +140,7 @@ while (!$res->EOF)
           elseif ($playerinfo[aggression] == 2)        //  O = 1 & AGRESSION = 2 ATTACK ALLWAYS
           {
             $furcount1a++;
-            \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
+            PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
             if (!$rowo1[planet_id] == 0) {              // IS ON PLANET
               xenobe_to_planet ($db, $rowo1[planet_id]);
             } else {
@@ -169,7 +169,7 @@ while (!$res->EOF)
         // FIND A TARGET
         // IN MY SECTOR, NOT MYSELF
         $reso2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
-        \bnt\dbop::dbresult ($db, $reso2, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $reso2, __LINE__, __FILE__);
         if (!$reso2->EOF)
         {
           $rowo2 = $reso2->fields;
@@ -183,7 +183,7 @@ while (!$res->EOF)
             if ($playerinfo[ship_fighters] > $rowo2[ship_fighters] && $rowo2[planet_id] == 0)
             {
               $furcount2a++;
-              \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
+              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
               xenobe_to_ship ($db, $rowo2[ship_id]);
               if ($xenobeisdead>0) {
                 $res->MoveNext();
@@ -194,7 +194,7 @@ while (!$res->EOF)
           elseif ($playerinfo[aggression] == 2)        // O = 2 & AGRESSION = 2 ATTACK ALLWAYS
           {
             $furcount2a++;
-            \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
+            PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
             if (!$rowo2[planet_id] == 0) {              // IS ON PLANET
               xenobe_to_planet ($db, $rowo2[planet_id]);
             } else {
@@ -234,7 +234,7 @@ while (!$res->EOF)
           // FIND A TARGET
           // IN MY SECTOR, NOT MYSELF
           $reso3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
-          \bnt\dbop::dbresult ($db, $reso3, __LINE__, __FILE__);
+          DbOp::dbResult ($db, $reso3, __LINE__, __FILE__);
           if (!$reso3->EOF)
           {
             $rowo3 = $reso3->fields;
@@ -248,7 +248,7 @@ while (!$res->EOF)
               if ($playerinfo[ship_fighters] > $rowo3[ship_fighters] && $rowo3[planet_id] == 0)
               {
                 $furcount3a++;
-                \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
+                PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
                 xenobe_to_ship ($db, $rowo3[ship_id]);
                 if ($xenobeisdead>0) {
                   $res->MoveNext();
@@ -259,7 +259,7 @@ while (!$res->EOF)
             elseif ($playerinfo[aggression] == 2)        // O = 3 & AGRESSION = 2 ATTACK ALLWAYS
             {
               $furcount3a++;
-              \bnt\PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
+              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
               if (!$rowo3[planet_id] == 0) {              // IS ON PLANET
                 xenobe_to_planet ($db, $rowo3[planet_id]);
               } else {
@@ -291,5 +291,5 @@ while (!$res->EOF)
 
 // Unlock the tables.
 $result = $db->Execute ("UNLOCK TABLES");
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 ?>

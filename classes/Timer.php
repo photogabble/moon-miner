@@ -15,30 +15,38 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/SectorDefense.php
-namespace bnt;
+// File: classes/Timer.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'sector_defense.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'Timer.php')) // Prevent direct access to this file
 {
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
+    die ('Please do not access this file directly');
 }
 
-class SectorDefense
+class Timer
 {
-    static function message_defense_owner ($db, $sector, $message)
-    {
-        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
-        \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+    public $t_start = 0;
+    public $t_stop = 0;
+    public $t_elapsed = 0;
 
-        if ($result3 instanceof ADORecordSet)
-        {
-            while (!$result3->EOF)
-            {
-                player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
-                $result3->MoveNext();
-            }
-        }
+    public function start ()
+    {
+        $this->t_start = microtime ();
+    }
+
+    public function stop ()
+    {
+        $this->t_stop  = microtime ();
+    }
+
+    public function elapsed ()
+    {
+        $start_u = substr($this->t_start, 0, 10); $start_s = substr($this->t_start, 11, 10);
+        $stop_u  = substr($this->t_stop, 0, 10);  $stop_s  = substr($this->t_stop, 11, 10);
+        $start_total = floatval ($start_u) + $start_s;
+        $stop_total  = floatval ($stop_u) + $stop_s;
+        $this->t_elapsed = $stop_total - $start_total;
+
+        return $this->t_elapsed;
     }
 }
 ?>

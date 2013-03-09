@@ -60,31 +60,31 @@ echo "<h1>" . $title . "</h1>\n";
 if ($planet_id <= 0)
 {
     echo "Invalid Planet<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include_once './footer.php';
     die ();
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $planetinfo = $result2->fields;
 
 // Check to see if it returned valid planet info.
 if ($planetinfo == false)
 {
     echo "Invalid Planet<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     die ();
 }
 
 if ($playerinfo['turns'] < 1)
 {
     echo $l_trade_turnneed . '<br><br>';
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include_once './footer.php';
     die ();
 }
@@ -92,7 +92,7 @@ if ($playerinfo['turns'] < 1)
 if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
     echo $l_planet2_sector . '<br><br>';
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include_once './footer.php';
     die ();
 }
@@ -100,7 +100,7 @@ if ($planetinfo['sector_id'] != $playerinfo['sector'])
 if (empty ($planetinfo))
 {
     echo "$l_planet_none<br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include_once './footer.php';
     die ();
 }
@@ -118,8 +118,8 @@ if ($planetinfo['sells'] == 'Y')
 {
     $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
 
-    $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-    $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     $total_cost = ($trade_ore * $ore_price) + ($trade_organics * $organics_price) + ($trade_goods * $goods_price) + ($trade_energy * $energy_price);
 
     if ($free_holds < $cargo_exchanged)
@@ -160,16 +160,16 @@ if ($planetinfo['sells'] == 'Y')
 
         // Update ship cargo, credits and turns
         $trade_result = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $trade_result, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $trade_result, __LINE__, __FILE__);
 
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, credits = credits + ? WHERE planet_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $total_cost, $planet_id));
-        \bnt\dbop::dbresult ($db, $trade_result2, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
         echo "$l_trade_complete<br><br>";
     }
 }
 
 include './includes/calc_score.php';
 calc_score ($db, $planetinfo['owner']);
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

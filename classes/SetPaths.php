@@ -15,20 +15,19 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/setPaths.php
+// File: classes/SetPaths.php
 //
 // Auto detect and set the game path (uses the logic from setup_info)
 // If it does not work, please comment this out and set it in db_config.php instead.
 // But PLEASE also report that it did not work for you at the main BNT forums (forums.blacknova.net)
-namespace bnt;
 
-if (strpos ($_SERVER['PHP_SELF'], 'setPaths.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'SetPaths.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class setPaths
+class SetPaths
 {
     static function setGamepath ()
     {

@@ -87,7 +87,7 @@ function calc_score ($db, $sid)
     $calc_planet_credits    = "SUM({$db->prefix}planets.credits)";
 
     $res = $db->Execute ("SELECT IF(COUNT(*)>0, $calc_planet_goods + $calc_planet_colonists + $calc_planet_defence + $calc_planet_credits, 0) AS planet_score FROM {$db->prefix}planets WHERE owner=?", array ($sid));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $planet_score = $res->fields['planet_score'];
@@ -98,7 +98,7 @@ function calc_score ($db, $sid)
     }
 
     $res = $db->Execute ("SELECT IF(COUNT(*)>0, $calc_levels + $calc_equip + $calc_dev + {$db->prefix}ships.credits, 0) AS ship_score FROM {$db->prefix}ships LEFT JOIN {$db->prefix}planets ON {$db->prefix}planets.owner=ship_id WHERE ship_id=? AND ship_destroyed='N'", array ($sid));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $ship_score = $res->fields['ship_score'];
@@ -109,7 +109,7 @@ function calc_score ($db, $sid)
     }
 
     $res = $db->Execute ("SELECT (balance - loan) AS bank_score FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($sid));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $bank_score = $res->fields['bank_score'];
@@ -127,7 +127,7 @@ function calc_score ($db, $sid)
 
     $score = (integer) ROUND (SQRT ($score));
     $resa = $db->Execute ("UPDATE {$db->prefix}ships SET score=? WHERE ship_id=?", array ($score, $sid));
-    \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
     return $score;
 }

@@ -27,7 +27,7 @@ $online = (integer) 0;
 if (!$db->inactive)
 {
     $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $row = $res->fields;
@@ -68,7 +68,7 @@ $mySEC = (integer) 0;
 if (!$db->inactive)
 {
     $res = $db->Execute ("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $result = $res->fields;

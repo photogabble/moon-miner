@@ -15,27 +15,20 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/bntRegistry.php
-namespace bnt;
+// File: classes/eventsystem/event_list.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'bntRegistry.php')) // Prevent direct access to this file
-{
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
-}
+// Used to hook into the ranking page, Event is called for every account.
+define("EVENT_RANKING_PLAYERINFO",  0x00000001,         true);
 
-class bntRegistry
-{
-    protected $objects = array();
+// Used to hook into when the player joins the game.
+define("EVENT_PLAYER_JOIN",         0x00000002,         true);
 
-    public function set($key, $value)
-    {
-        $this->objects[$key] = $value;
-    }
+// Triggered on every page load.
+define("EVENT_TICK",                0x00000003,         true);
 
-    public function get($key)
-    {
-        return $this->objects[$key];
-    }
-}
+// Triggered on every time the Scheduler is run.
+define("SCHEDULER_RUN",             0x00000004,         true);
+
+// Triggered on every create_universe.php page load.
+define("EVENT_CREATE_UNIVERSE",     0x00000005,         true);
 ?>

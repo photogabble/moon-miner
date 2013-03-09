@@ -15,30 +15,29 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/AdminLog.php
-// Todo: Recode adminlog to be smart about whether there is a db, and if not, log to a file that will be slurped into the db when there is.
-namespace bnt;
+// File: classes/SectorDefense.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'AdminLog.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'SectorDefense.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class AdminLog
+class SectorDefense
 {
-	static function writeLog ($db, $log_type, $data = "")
-	{
-    	// Write log_entry to the admin log
-    	$ret = false;
-    	$data = addslashes ($data);
-    	if (is_int ($log_type))
-    	{
-        	$ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-        	\bnt\dbop::dbresult ($db, $ret, __LINE__, __FILE__);
-    	}
+    static function message_defense_owner ($db, $sector, $message)
+    {
+        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
+        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
-    	return $ret;
-	}
+        if ($result3 instanceof ADORecordSet)
+        {
+            while (!$result3->EOF)
+            {
+                player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
+                $result3->MoveNext();
+            }
+        }
+    }
 }
 ?>

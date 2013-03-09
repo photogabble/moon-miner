@@ -89,7 +89,7 @@ switch ($sort)
 $variables['num_players'] = (integer) 0;
 
 $rs = $db->Execute ("SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.email, {$db->prefix}ships.ip_address, {$db->prefix}ships.score, {$db->prefix}ships.character_name, {$db->prefix}ships.turns_used, {$db->prefix}ships.last_login,UNIX_TIMESTAMP({$db->prefix}ships.last_login) as online, {$db->prefix}ships.rating, {$db->prefix}teams.team_name, {$db->prefix}teams.admin AS team_admin, if ({$db->prefix}ships.turns_used<150,0,ROUND({$db->prefix}ships.score/{$db->prefix}ships.turns_used)) AS efficiency FROM {$db->prefix}ships LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0 ORDER BY $by LIMIT $max_ranks");
-\bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
+DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
 if ($rs instanceof ADORecordSet)
 {
     $variables['num_players'] = (integer) $rs->RecordCount();

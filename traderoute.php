@@ -36,16 +36,16 @@ echo "<h1>" . $title . "</h1>\n";
 $portfull = null; // This fixes an error of undefined variables on 1518
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE owner = ?;", array ($playerinfo['ship_id']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $num_traderoutes = $result->RecordCount();
 
 if (isset ($traderoutes))
 {
-    \bnt\AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
+    AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded TradeRoute.");
     traderoute_die ("<div style='color:#fff; font-size: 12px;'>[<span style='color:#ff0;'>The Governor</span>] <span style='color:#f00;'>Detected Traderoute Hack!</span></div>\n");
 }
 
@@ -59,34 +59,34 @@ while (!$result->EOF)
     $result->MoveNext ();
 }
 
-$freeholds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-$maxholds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor);
-$maxenergy = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
+$freeholds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
+$maxenergy = CalcLevels::Energy ($playerinfo['power'], $level_factor);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
     {
-        \bnt\AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
+        AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_colonists]|colonists|$maxholds");
         $playerinfo['ship_colonists'] = 0;
     }
     if ($playerinfo['ship_ore'] < 0 || $playerinfo['ship_ore'] > $maxholds)
     {
-        \bnt\AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
+        AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_ore]|ore|$maxholds");
         $playerinfo['ship_ore'] = 0;
     }
     if ($playerinfo['ship_organics'] < 0 || $playerinfo['ship_organics'] > $maxholds)
     {
-        \bnt\AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
+        AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_organics]|organics|$maxholds");
         $playerinfo['ship_organics'] = 0;
     }
     if ($playerinfo['ship_goods'] < 0 || $playerinfo['ship_goods'] > $maxholds)
     {
-        \bnt\AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");
+        AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_goods]|goods|$maxholds");
         $playerinfo['ship_goods'] = 0;
     }
     if ($playerinfo['ship_energy'] < 0 || $playerinfo['ship_energy'] > $maxenergy)
     {
-        \bnt\AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
+        AdminLog::writeLog ($db, LOG_ADMIN_ILLEGVALUE, "$playerinfo[ship_name]|$playerinfo[ship_energy]|energy|$maxenergy");
         $playerinfo['ship_energy'] = 0;
     }
     if ($freeholds < 0)
@@ -95,7 +95,7 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
     }
 
     $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=? WHERE ship_id=?;", array ($playerinfo['ship_ore'], $playerinfo['ship_organics'], $playerinfo['ship_goods'], $playerinfo['ship_energy'], $playerinfo['ship_colonists'], $playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $update1, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
 }
 
 // Default to 1 run if we don't get a valid repeat value.
@@ -150,7 +150,7 @@ elseif (isset ($engage) )
     while ($i > 0)
     {
         $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-        \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
         include_once './includes/traderoute_engage.php';
         traderoute_engage ($db, $i);
@@ -224,7 +224,7 @@ else
         else
         {
             $result = $db->Execute ("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array ($traderoutes[$i]['source_id']));
-            \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
             if ($result)
             {
                 $planet1 = $result->fields;
@@ -240,7 +240,7 @@ else
         if ($traderoutes[$i]['source_type'] == 'P')
         {
             $result = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['source_id']));
-            \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
             $port1 = $result->fields;
             echo "&nbsp;" . t_port ($port1['port_type'], $langvars) . "</font></td>";
         }
@@ -264,7 +264,7 @@ else
         else
         {
             $result = $db->Execute ("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array ($traderoutes[$i]['dest_id']));
-            \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
             if ($result)
             {
                 $planet2 = $result->fields;
@@ -280,7 +280,7 @@ else
         if ($traderoutes[$i]['dest_type'] == 'P')
         {
             $result = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['dest_id']));
-            \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
             $port2 = $result->fields;
             echo "&nbsp;" . t_port ($port2['port_type'], $langvars) . "</font></td>";
         }
@@ -391,7 +391,7 @@ else
 }
 
 echo "<div style='text-align:left;'>\n";
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 echo "</div>\n";
 
 include './footer.php';
@@ -402,7 +402,7 @@ function traderoute_die ($error_msg)
     global $sched_ticks, $color_line1, $color_line2, $color_header, $servertimezone;
     echo "<p>$error_msg<p>";
     echo "<div style='text-align:left;'>\n";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     echo "</div>\n";
     include_once './footer.php';
     die ();
@@ -418,7 +418,7 @@ function traderoute_check_compatible ($db, $type1, $type2, $move, $circuit, $src
     if ($move == 'warp')
     {
         $query = $db->Execute ("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array ($src['sector_id'], $dest['sector_id']));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         if ($query->EOF)
         {
             $l_tdr_nowlink1 = str_replace ("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink1);
@@ -429,7 +429,7 @@ function traderoute_check_compatible ($db, $type1, $type2, $move, $circuit, $src
         if ($circuit == '2')
         {
             $query = $db->Execute ("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array ($dest['sector_id'], $src['sector_id']));
-            \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $query, __LINE__, __FILE__);
             if ($query->EOF)
             {
                 $l_tdr_nowlink2 = str_replace ("[tdr_src_sector_id]", $src['sector_id'], $l_tdr_nowlink2);
@@ -488,14 +488,14 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
     if ($type1 == 'L')
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($start));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         $start = $query->fields;
     }
 
     if ($type2 == 'L')
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($dest));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         $dest = $query->fields;
     }
 
@@ -545,7 +545,7 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
         $energyscooped = 100;
     }
 
-    $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
     if ($free_power < $energyscooped)
     {
@@ -564,7 +564,7 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
         if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
         {
             $energyscooped = $distance * 100;
-            $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor);
+            $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor);
 
             if ($free_power < $energyscooped)
             {
@@ -576,7 +576,7 @@ function traderoute_distance ($db, $type1, $type2, $start, $dest, $circuit, $sel
         elseif ($playerinfo['dev_fuelscoop'] == 'Y')
         {
             $energyscooped = $distance * 100;
-            $free_power = \bnt\CalcLevels::Energy ($playerinfo['power'], $level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
+            $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
 
             if ($free_power < $energyscooped)
             {
@@ -640,7 +640,7 @@ function traderoute_create ($db)
         }
 
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($port_id1));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         if (!$query || $query->EOF)
         {
             $l_tdr_errnotvalidport = str_replace ("[tdr_port_id]", $port_id1, $l_tdr_errnotvalidport);
@@ -658,7 +658,7 @@ function traderoute_create ($db)
     else
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array ($planet_id1));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         $source = $query->fields;
         if (!$query || $query->EOF)
         {
@@ -678,7 +678,7 @@ function traderoute_create ($db)
                 // traderoute_die ($l_tdr_errnotownnotsell);
 
                 // Check for valid Owned Source Planet
-                \bnt\AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id1} as source.");
+                AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id1} as source.");
                 traderoute_die ($l_tdr_invalidsrc);
             }
         }
@@ -687,7 +687,7 @@ function traderoute_create ($db)
     // Attempting to fix the map the universe via traderoute bug
 
     $pl1query = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE sector_id=? AND ship_id = ?;", array ($source['sector_id'], $playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $pl1query, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $pl1query, __LINE__, __FILE__);
     $num_res1 = $pl1query->numRows();
     if ($num_res1 == 0)
     {
@@ -705,7 +705,7 @@ function traderoute_create ($db)
         }
 
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($port_id2));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         if (!$query || $query->EOF)
         {
             $l_tdr_errnotvaliddestport = str_replace ("[tdr_port_id]", $port_id2, $l_tdr_errnotvaliddestport);
@@ -723,7 +723,7 @@ function traderoute_create ($db)
     else
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array ($planet_id2));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         $destination = $query->fields;
         if (!$query || $query->EOF)
         {
@@ -743,14 +743,14 @@ function traderoute_create ($db)
             // traderoute_die ($l_tdr_errnotownnotsell2);
 
             // Check for valid Owned Source Planet
-            \bnt\AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id2} as dest.");
+            AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to find someones planet: {$planet_id2} as dest.");
             traderoute_die ($l_tdr_invaliddplanet);
         }
     }
 
     // OK now we have $destination lets see if we've been there.
     $pl2query = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE sector_id=? AND ship_id = ?;", array ($destination['sector_id'], $playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $pl2query, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $pl2query, __LINE__, __FILE__);
     $num_res2 = $pl2query->numRows();
     if ($num_res2 == 0)
     {
@@ -829,13 +829,13 @@ function traderoute_create ($db)
     if (empty ($editing))
     {
         $query = $db->Execute ("INSERT INTO {$db->prefix}traderoutes VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);", array ($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         echo "<p>$l_tdr_newtdrcreated";
     }
     else
     {
         $query = $db->Execute ("UPDATE {$db->prefix}traderoutes SET source_id=?, dest_id=?, source_type=?, dest_type=?, move_type=?, owner=?, circuit=? WHERE traderoute_id=?;", array ($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type, $editing));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         echo "<p>$l_tdr_modified";
     }
 
@@ -854,7 +854,7 @@ function traderoute_delete ($db)
     global $l_tdr_returnmenu, $l_tdr_doesntexist, $l_tdr_notowntdr, $l_tdr_deleted, $l_here;
 
     $query = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
-    \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $query, __LINE__, __FILE__);
 
     if (!$query || $query->EOF)
     {
@@ -877,7 +877,7 @@ function traderoute_delete ($db)
     else
     {
         $query = $db->Execute ("DELETE FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
-        \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
         $l_tdr_returnmenu = str_replace ("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
         echo "$l_tdr_deleted $l_tdr_returnmenu";
         traderoute_die ("");
@@ -964,7 +964,7 @@ function traderoute_setsettings ($db)
     empty ($torps) ? $torps = 'N' : $torps = 'Y';
 
     $resa = $db->Execute ("UPDATE {$db->prefix}ships SET trade_colonists=?, trade_fighters=?, trade_torps=?, trade_energy=? WHERE ship_id=?;", array ($colonists, $fighters, $torps, $energy, $playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
     $l_tdr_returnmenu = str_replace ("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
     echo "$l_tdr_globalsetsaved $l_tdr_returnmenu";

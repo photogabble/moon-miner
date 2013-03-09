@@ -45,10 +45,10 @@ function ship_to_ship ($db, $ship_id)
     include_once './includes/collect_bounty.php';
 
     $resx = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}sector_defence WRITE, {$db->prefix}universe WRITE, {$db->prefix}adodb_logsql WRITE, {$db->prefix}logs WRITE, {$db->prefix}bounty WRITE, {$db->prefix}news WRITE, {$db->prefix}zones READ");
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($ship_id));
-    \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
     $targetinfo = $result2->fields;
 
     echo "<br><br>-=-=-=-=-=-=-=--<br>
@@ -61,13 +61,13 @@ function ship_to_ship ($db, $ship_id)
     $l_cmb_statattackerarmor: $attackerarmor<br>
     $l_cmb_statattackertorpdamage: $attackertorpdamage<br>";
 
-    $targetbeams = \bnt\CalcLevels::Beams ($targetinfo['beams'], $level_factor);
+    $targetbeams = CalcLevels::Beams ($targetinfo['beams'], $level_factor);
     if ($targetbeams > $targetinfo['ship_energy'])
     {
         $targetbeams = $targetinfo['ship_energy'];
     }
     $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
-    $targetshields = \bnt\CalcLevels::Shields ($targetinfo['shields'], $level_factor);
+    $targetshields = CalcLevels::Shields ($targetinfo['shields'], $level_factor);
     if ($targetshields > $targetinfo['ship_energy'])
     {
         $targetshields = $targetinfo['ship_energy'];
@@ -425,7 +425,7 @@ function ship_to_ship ($db, $ship_id)
             $free_ore = round ($targetinfo['ship_ore'] / 2);
             $free_organics = round ($targetinfo['ship_organics'] / 2);
             $free_goods = round ($targetinfo['ship_goods'] / 2);
-            $free_holds = \bnt\CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
             if ($free_holds > $free_goods)
             {
                 $salv_goods = $free_goods;
@@ -479,7 +479,7 @@ function ship_to_ship ($db, $ship_id)
             $l_cmb_yousalvaged2 = str_replace ("[cmb_number_rating_change]", number_format (abs($rating_change), 0, $local_number_dec_point, $local_number_thousands_sep), $l_cmb_yousalvaged2);
             echo $l_cmb_yousalvaged . "<br>" . $l_cmb_yousalvaged2;
             $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=ship_ore+?, ship_organics=ship_organics+?, ship_goods=ship_goods+?, credits=credits+? WHERE ship_id=?", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $update3, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $update3, __LINE__, __FILE__);
         }
 
         if ($targetinfo['dev_escapepod'] == "Y")
@@ -488,14 +488,14 @@ function ship_to_ship ($db, $ship_id)
             echo "$l_cmb_escapepodlaunched<br><br>";
             echo "<br><br>ship_id = $targetinfo[ship_id]<br><br>";
             $test = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,dev_lssd='N' WHERE ship_id=?", array ($start_energy, $rating, $targetinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $test, __LINE__, __FILE__);
-            \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
+            DbOp::dbResult ($db, $test, __LINE__, __FILE__);
+            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
         else
         {
-            \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-            \bnt\bntplayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
+            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
+            BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
             collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
     }
@@ -507,9 +507,9 @@ function ship_to_ship ($db, $ship_id)
         $target_armor_lost = $targetinfo['armor_pts'] - $targetarmor;
         $target_fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
         $target_energy = $targetinfo['ship_energy'];
-        \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
+        PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
         $update4 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, armor_pts=armor_pts-?, torps=torps-? WHERE ship_id=?", array ($target_energy, $target_fighters_lost, $target_armor_lost, $targettorpnum, $targetinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $update4, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $update4, __LINE__, __FILE__);
     }
     echo "<br>_+_+_+_+_+_+_<br>";
     echo "$l_cmb_shiptoshipcombatstats<br>";
@@ -521,6 +521,6 @@ function ship_to_ship ($db, $ship_id)
     echo "$l_cmb_statattackertorpdamage: $attackertorpdamage<br>";
     echo "_+_+_+_+_+_+<br>";
     $resx = $db->Execute ("UNLOCK TABLES");
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 }
 ?>

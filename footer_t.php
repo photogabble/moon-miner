@@ -27,7 +27,7 @@ $online = 0;
 if (!$db->inactive)
 {
     $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $row = $res->fields;
@@ -57,7 +57,7 @@ $display_update_ticker = false;
 if (!$db->inactive)
 {
     $rs = $db->Execute ("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
-    \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
     if ($rs instanceof ADORecordSet)
     {
         $last_run = $rs->fields['last_run'];
@@ -97,7 +97,7 @@ if ($news_ticker == true)
     else
     {
         $rs = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {
             if ($rs->RecordCount() == 0)

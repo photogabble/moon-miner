@@ -30,20 +30,20 @@ function xenobe_to_planet ($db, $planet_id)
     global $rating_combat_factor, $upgrade_cost, $upgrade_factor, $sector_max, $xenobeisdead;
 
     $resh = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
-    \bnt\dbop::dbresult ($db, $resh, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resh, __LINE__, __FILE__);
 
     $resultp = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?", array ($planet_id)); // Get target planet information
-    \bnt\dbop::dbresult ($db, $resultp, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resultp, __LINE__, __FILE__);
     $planetinfo = $resultp->fields;
 
     $resulto = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($planetinfo['owner'])); // Get target player information
-    \bnt\dbop::dbresult ($db, $resulto, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resulto, __LINE__, __FILE__);
     $ownerinfo = $resulto->fields;
 
     $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
     // Planet beams
-    $targetbeams = \bnt\CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
+    $targetbeams = CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
     if ($targetbeams > $planetinfo['energy'])
     {
         $targetbeams = $planetinfo['energy'];
@@ -51,7 +51,7 @@ function xenobe_to_planet ($db, $planet_id)
     $planetinfo['energy'] -= $targetbeams;
 
     // Planet shields
-    $targetshields = \bnt\CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+    $targetshields = CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
     if ($targetshields > $planetinfo['energy'])
     {
         $targetshields = $planetinfo['energy'];
@@ -74,7 +74,7 @@ function xenobe_to_planet ($db, $planet_id)
     $targetfighters = $planetinfo['fighters'];
 
     // Attacker beams
-    $attackerbeams = \bnt\CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+    $attackerbeams = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
     if ($attackerbeams > $playerinfo['ship_energy'])
     {
         $attackerbeams = $playerinfo['ship_energy'];
@@ -82,7 +82,7 @@ function xenobe_to_planet ($db, $planet_id)
     $playerinfo['ship_energy'] -= $attackerbeams;
 
     // Attacker shields
-    $attackershields = \bnt\CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+    $attackershields = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
     if ($attackershields > $playerinfo['ship_energy'])
     {
         $attackershields = $playerinfo['ship_energy'];
@@ -304,8 +304,8 @@ function xenobe_to_planet ($db, $planet_id)
 
     if (!$attackerarmor > 0) // Check if attackers ship destroyed
     {
-        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
-        \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
+        BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
         $xenobeisdead = 1;
 
         $free_ore = round ($playerinfo['ship_ore'] / 2);
@@ -317,35 +317,35 @@ function xenobe_to_planet ($db, $planet_id)
         $fighters_lost = $planetinfo['fighters'] - $targetfighters;
 
         // Log attack to planet owner
-        \bnt\PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+        PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
 
         // Update planet
         $resi = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $resi, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resi, __LINE__, __FILE__);
     }
     else  // Must have made it past planet defences
     {
         $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
         $fighters_lost = $playerinfo['ship_fighters'] - $attackerfighters;
         $target_fighters_lost = $planetinfo['ship_fighters'] - $targetfighters;
-        \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
 
         // Update attackers
         $resj = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, torps=torps-?, armor_pts=armor_pts-? WHERE ship_id=?", array ($playerinfo['ship_energy'], $fighters_lost, $attackertorps, $armor_lost, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resj, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resj, __LINE__, __FILE__);
         $playerinfo['ship_fighters'] = $attackerfighters;
         $playerinfo['torps'] = $attackertorps;
         $playerinfo['armor_pts'] = $attackerarmor;
 
         // Update planet
         $resk = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?, fighters=?, torps=torps-? WHERE planet_id=?", array ($planetinfo['energy'], $targetfighters, $targettorps, $planetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $resk, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resk, __LINE__, __FILE__);
         $planetinfo['fighters'] = $targetfighters;
         $planetinfo['torps'] = $targettorps;
 
         // Now we must attack all ships on the planet one by one
         $resultps = $db->Execute ("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $resultps, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resultps, __LINE__, __FILE__);
         $shipsonplanet = $resultps->RecordCount();
         if ($shipsonplanet > 0)
         {
@@ -358,33 +358,33 @@ function xenobe_to_planet ($db, $planet_id)
         }
 
         $resultps = $db->Execute ("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
-        \bnt\dbop::dbresult ($db, $resultps, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resultps, __LINE__, __FILE__);
         $shipsonplanet = $resultps->RecordCount();
         if ($shipsonplanet == 0 && $xenobeisdead < 1)
         {
             // Must have killed all ships on the planet
-            \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
+            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
 
             // Log attack to planet owner
-            \bnt\PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+            PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
             // Update planet
             $resl = $db->Execute ("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
-            \bnt\dbop::dbresult ($db, $resl, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $resl, __LINE__, __FILE__);
 
-            \bnt\bntownership::cancel ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
+            BntOwnership::cancel ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
         }
         else
         {
             // Must have died trying
-            \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
+            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
             // Log attack to planet owner
-            \bnt\PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|0|0|0|0|0");
+            PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|0|0|0|0|0");
             // No salvage for planet because it went to the ship that won
         }
     }
 
     $resx = $db->Execute ("UNLOCK TABLES");
-    \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 }
 ?>

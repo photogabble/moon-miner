@@ -41,15 +41,15 @@ elseif (array_key_exists ('op', $_POST) == true)
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $sectorinfo = $res->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($playerinfo['sector']));
-\bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
 // Put the defence information into the array "defenceinfo"
 $i = 0;
@@ -111,13 +111,13 @@ echo "<h1>" . $title . "</h1>\n";
 if ($playerinfo['turns'] < 1 )
 {
     echo $l_mines_noturn . "<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
 }
 
 $res = $db->Execute ("SELECT allow_defenses, {$db->prefix}universe.zone_id, owner FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id = ? AND {$db->prefix}zones.zone_id = {$db->prefix}universe.zone_id", array ($playerinfo['sector']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_defenses'] == 'N')
@@ -132,13 +132,13 @@ else
         {
             $defence_owner = $defences[0]['ship_id'];
             $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($defence_owner));
-            \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
             $fighters_owner = $result2->fields;
 
             if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo $l_mines_nodeploy . "<br>";
-                \bnt\bnttext::gotomain ($langvars);
+                BntText::gotoMain ($langvars);
                 die ();
             }
         }
@@ -148,7 +148,7 @@ else
     {
         $zone_owner = $zoneinfo['owner'];
         $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zone_owner));
-        \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
         $zoneowner_info = $result2->fields;
 
         if ($zone_owner != $playerinfo['ship_id'])
@@ -156,7 +156,7 @@ else
             if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
                 echo "$l_mines_nopermit<br><br>";
-                \bnt\bnttext::gotomain ($langvars);
+                BntText::gotoMain ($langvars);
                 die ();
             }
         }
@@ -221,12 +221,12 @@ else
             if ($fighter_id != 0)
             {
                 $update = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity + ? ,fm_setting = ? WHERE defence_id = ?;", array ($numfighters, $mode, $fighter_id));
-                \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             }
             else
             {
                 $update = $db->Execute ("INSERT INTO {$db->prefix}sector_defence (ship_id, sector_id, defence_type, quantity, fm_setting) values (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $playerinfo['sector'], 'F', $numfighters, $mode));
-                \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $update, __LINE__, __FILE__);
                 echo $db->ErrorMsg();
             }
         }
@@ -236,20 +236,20 @@ else
             if ($mine_id != 0)
             {
                 $update = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity + ?, fm_setting = ? WHERE defence_id = ?;", array ($nummines, $mode, $mine_id));
-                \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             }
             else
             {
                 $update = $db->Execute ("INSERT INTO {$db->prefix}sector_defence (ship_id, sector_id, defence_type, quantity, fm_setting) values (?, ?, ?, ?, ?);", array ($playerinfo['ship_id'], $playerinfo['sector'], 'M', $nummines, $mode));
-                \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+                DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             }
         }
 
         $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, ship_fighters = ship_fighters - ?, torps = torps - ? WHERE ship_id = ?;", array ($stamp, $numfighters, $nummines, $playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $update, __LINE__, __FILE__);
     }
 }
 
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

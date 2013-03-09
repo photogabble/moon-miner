@@ -33,11 +33,11 @@ $title = $l_scan_title;
 include './header.php';
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($_GET['ship_id']));
-\bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
 include './includes/calc_score.php';
@@ -53,7 +53,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
 {
     echo "You need to Click on the ship first.<br><br>";
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
     include_once './footer.php';
     die ();
 }
@@ -88,7 +88,7 @@ else
         {
             // If scan fails - inform both player and target.
             echo $l_planet_noscan;
-            \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN_FAIL, $playerinfo['character_name']);
+            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN_FAIL, $playerinfo['character_name']);
         }
         else
         {
@@ -97,7 +97,7 @@ else
             // Get total bounty on this player, if any
             $btyamount = 0;
             $hasbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($targetinfo['ship_id']));
-            \bnt\dbop::dbresult ($db, $hasbounty, __LINE__, __FILE__);
+            DbOp::dbResult ($db, $hasbounty, __LINE__, __FILE__);
 
             if ($hasbounty)
             {
@@ -111,7 +111,7 @@ else
 
                     // Check for Federation bounty
                     $hasfedbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0", array ($targetinfo['ship_id']));
-                    \bnt\dbop::dbresult ($db, $hasfedbounty, __LINE__, __FILE__);
+                    DbOp::dbResult ($db, $hasfedbounty, __LINE__, __FILE__);
                     if ($hasfedbounty)
                     {
                         $resy = $hasfedbounty->fields;
@@ -447,15 +447,15 @@ else
             }
 
             echo "</table><br>";
-            \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
+            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
         }
 
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
-        \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
 }
 
 echo "<br><br>";
-\bnt\bnttext::gotomain ($langvars);
+BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

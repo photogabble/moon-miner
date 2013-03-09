@@ -44,7 +44,7 @@ $body_class = 'log';
 include './header.php';
 
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if (!isset ($_REQUEST['swordfish']))
@@ -64,7 +64,7 @@ if ($swordfish == ADMIN_PW) // Check if called by admin script
     else
     {
         $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($player));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         $targetname = $res->fields;
         $playerinfo['character_name'] = $targetname['character_name'];
     }
@@ -114,7 +114,7 @@ if (empty ($startdate))
 }
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
-\bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $logs[] = $res->fields;
@@ -192,7 +192,7 @@ if ($mode != 'compat')
 
     unset ($logs);
     $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;
@@ -237,7 +237,7 @@ if ($mode != 'compat')
 
     unset ($logs);
     $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
-    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $logs[] = $res->fields;

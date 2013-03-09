@@ -38,7 +38,7 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
     foreach ($schema_files as $schema_filename)
     {
         $schema->clearSQL();
-        $table_timer = new \bnt\Timer;
+        $table_timer = new Timer;
         $table_timer->start(); // Start benchmarking
 
         // This is to get around the issue of not having DirectoryIterator::getExtension.
@@ -48,7 +48,7 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
         {
             $tablename = substr($schema_filename, 0, -4);
 
-            $message = \bnt\testxml::parse("schema/" . $schema_filename); // Test the xml file for validity before processing
+            $message = TestXml::parse("schema/" . $schema_filename); // Test the xml file for validity before processing
 
             if ($message !== true)
             {
@@ -68,7 +68,7 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
                 foreach ($parsed_xml as $execute_sql)
                 {
                     $res = $db->Execute ($execute_sql);
-                    \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+                    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 }
                 $err = true_or_false (true, $db->ErrorMsg(),"No errors found in table " . $tablename, $db->ErrorNo() . ": " . $db->ErrorMsg());
                 $table_timer->stop();

@@ -15,43 +15,20 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/testxml.php
-namespace bnt;
+// File: classes/LogMove.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'testxml.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'LogMove.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class testxml
+class LogMove
 {
-    static function parse ($filename)
-    {
-        if (file_exists($filename))
-        {
-            libxml_use_internal_errors(true);
-            $xml = simplexml_load_file($filename);
-            if (!$xml)
-            {
-                $message = "Failed to open text.xml. ";
-                $errors = libxml_get_errors();
-                foreach ($errors as $error)
-                {
-                    $message .= "\t" . $error->message . " ";
-                }
-            }
-            else
-            {
-                $message = true;
-            }
-            libxml_use_internal_errors(false);
-        }
-        else
-        {
-            $message = 'File not found';
-        }
-        return $message;
-    }
+	static function writeLog ($db, $ship_id, $sector_id)
+	{
+    	$res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
+	    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+	}
 }
 ?>

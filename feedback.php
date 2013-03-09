@@ -32,7 +32,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-\bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
+DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (array_key_exists ('content', $_POST) === false)
@@ -64,7 +64,7 @@ if (empty ($_SESSION['username']))
 }
 else
 {
-    \bnt\bnttext::gotomain ($langvars);
+    BntText::gotoMain ($langvars);
 }
 
 include './footer.php';

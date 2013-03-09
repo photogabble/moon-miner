@@ -15,20 +15,42 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: vendor/bnt/bnttext.php
-namespace bnt;
+// File: classes/TestXml.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'bnttext.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'TestXml.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class bnttext
+class TestXml
 {
-    static function gotomain ($langvars)
+    static function parse ($filename)
     {
-        echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+        if (file_exists ($filename))
+        {
+            libxml_use_internal_errors (true);
+            $xml = simplexml_load_file ($filename);
+            if (!$xml)
+            {
+                $message = "Failed to open text.xml. ";
+                $errors = libxml_get_errors();
+                foreach ($errors as $error)
+                {
+                    $message .= "\t" . $error->message . " ";
+                }
+            }
+            else
+            {
+                $message = true;
+            }
+            libxml_use_internal_errors (false);
+        }
+        else
+        {
+            $message = 'File not found';
+        }
+        return $message;
     }
 }
 ?>

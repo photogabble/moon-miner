@@ -28,10 +28,11 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
 ini_set ("include_path", "."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
-ob_start (array('\bnt\BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
-$bntreg = new \bnt\bntRegistry();
+//ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
+ob_start();
+$bntreg = new BntRegistry();
 
-$BenchmarkTimer = new \bnt\Timer;
+$BenchmarkTimer = new Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 $bntreg->set("bnttimer", $BenchmarkTimer);
 
@@ -116,7 +117,7 @@ $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
 if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
 {
-    \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
+    DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
 }
 else
@@ -193,7 +194,7 @@ if ($db->inactive != true) // Before DB is installed, don't try to setup userinf
     else // The user has logged in, so use his preference from the database
     {
         $res = $db->Execute ("SELECT lang FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-        \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
             $playerinfo['lang'] = $res->fields['lang'];
@@ -232,8 +233,8 @@ date_default_timezone_set ('UTC'); // Set to your server's local time zone - PHP
 // If it does not work, please comment this out and set it in db_config.php instead.
 // But PLEASE also report that it did not work for you at the main BNT forums (forums.blacknova.net)
 
-$gamepath = \bnt\setPaths::setGamepath();
-$gamedomain = \bnt\setPaths::setGamedomain();
+$gamepath = SetPaths::setGamepath();
+$gamedomain = SetPaths::setGamedomain();
 
 // Ok, here we raise EVENT_TICK which is called every page load, this saves us from having to add new lines to support new features.
 // This is used for ingame stuff and Plug-ins that need to be called on every page load.
@@ -245,6 +246,6 @@ global $lang, $langvars;
 
 //$bntreg->set("langvars", $langvars);
 
-$template = new bnt\Template(); // Template API.
+$template = new Template(); // Template API.
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>

@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+Removed "bnt" namespace, moving all files from vendor/bnt to classes/
 Fixed formatting, variable assignment, comment type, and so forth in the Xenobe include files
 Lots of various coding style changes
 
