@@ -38,7 +38,7 @@ function ibank_loans ($db)
     if ($account['loan'] != 0)
     {
         $curtime = time();
-        $res = $db->Execute("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($playerinfo['ship_id']));
+        $res = $db->Execute ("SELECT UNIX_TIMESTAMP(loantime) as time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         if (!$res->EOF)
         {

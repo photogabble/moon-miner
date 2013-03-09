@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $default_lang;
@@ -726,12 +726,12 @@ include './header.php';
       <p> <br><br></p></td>
     <td style="width:5%">&nbsp;</td></tr></tbody></table>
 <?php
-if (empty($_SESSION['username']))
+if (empty ($_SESSION['username']))
 {
-    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace ("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 include './footer.php'; ?>

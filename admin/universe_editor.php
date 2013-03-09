@@ -43,11 +43,11 @@ if ($action == "doexpand")
         {
             $row = $result->fields;
             $distance = mt_rand (1, $radius);
-            $resx = $db->Execute("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
+            $resx = $db->Execute ("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
             \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
-            $changed_sectors[$i] = str_replace("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
-            $changed_sectors[$i] = str_replace("[distance]", $distance, $changed_sectors[$i]);
+            $changed_sectors[$i] = str_replace ("[sector]", $row['sector_id'], $langvars['l_admin_updated_distance']);
+            $changed_sectors[$i] = str_replace ("[distance]", $distance, $changed_sectors[$i]);
             $i++;
             $result->MoveNext();
         }

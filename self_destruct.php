@@ -31,7 +31,7 @@ $title = $l_die_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -58,7 +58,7 @@ elseif ($sure == 2)
 {
     echo "$l_die_count<br>";
     echo "$l_die_vapor<br><br>";
-    $l_die_please = str_replace("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
+    $l_die_please = str_replace ("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
     echo $l_die_please. "<br>";
     \bnt\bntplayer::kill ($db, $playerinfo['ship_id'], true, $langvars);
     \bnt\bntbounty::cancel ($db, $playerinfo['ship_id']);

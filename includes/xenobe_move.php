@@ -46,7 +46,7 @@ function xenobe_move ($db)
             \bnt\dbop::dbresult ($db, $sectres, __LINE__, __FILE__);
             $sectrow = $sectres->fields;
 
-            $zoneres = $db->Execute("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
+            $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
             \bnt\dbop::dbresult ($db, $zoneres, __LINE__, __FILE__);
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y") // Dest link must allow attacking

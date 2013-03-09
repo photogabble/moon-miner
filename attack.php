@@ -34,7 +34,7 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 // Kami Multi Browser Window Attack Fix
-if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
+if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
 {
     echo "You need to click on the ship first.<br><br>";
     \bnt\bnttext::gotomain ($langvars);
@@ -44,7 +44,7 @@ if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_sel
 unset($_SESSION['ship_selected']);
 
 // Need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE or it will fail to log the sql.
-$result = $db->Execute("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}languages READ, " .
+$result = $db->Execute ("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}languages READ, " .
                        "{$db->prefix}ibank_accounts READ, {$db->prefix}sector_defence WRITE, " .
                        "{$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, " .
                        "{$db->prefix}zones READ, {$db->prefix}planets WRITE, " .
@@ -80,7 +80,7 @@ else if ( is_same_team($playerinfo['team'], $targetinfo['team']) )
 {
     echo "<div style='color:#ff0;'>" . $l_team_noattack_members . "</div>\n";
 }
-elseif (isset($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
+elseif (isset ($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
 {
     echo "<div style='color:#ff0;'>" . $l_team_already_combat . "</div>\n";
     \bnt\AdminLog::writeLog ($db, 13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
@@ -105,7 +105,7 @@ else
     $roll = mt_rand (1, 100);
     $roll2 = mt_rand (1, 100);
 
-    $res = $db->Execute("SELECT allow_attack, {$db->prefix}universe.zone_id FROM {$db->prefix}zones, " .
+    $res = $db->Execute ("SELECT allow_attack, {$db->prefix}universe.zone_id FROM {$db->prefix}zones, " .
                         "{$db->prefix}universe WHERE sector_id = ? AND {$db->prefix}zones.zone_id = " .
                         "{$db->prefix}universe.zone_id;", array ($targetinfo['sector']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
@@ -118,7 +118,7 @@ else
     elseif ($flee < $roll2)
     {
         echo $l_att_flee . "<br><br>";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
                              "ship_id = ?;", array ($playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_OUTMAN, "$playerinfo[character_name]");
@@ -127,7 +127,7 @@ else
     {
         // If scan fails - inform both player and target.
         echo $l_planet_noscan . "<br><br>";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
                              "ship_id = ?;", array ($playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_OUTSCAN, "$playerinfo[character_name]");
@@ -153,7 +153,7 @@ else
             // Need to change warp destination to random sector in universe
             $rating_change = round ($targetinfo['rating'] * .1);
             $dest_sector = mt_rand (1, $sector_max - 1);
-            $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
+            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
                                  "WHERE ship_id = ?;", array ($rating_change, $playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
             \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
@@ -174,7 +174,7 @@ else
                 // Our custom @xenobe names will match, nothing else will
                 // Check to see if there is Federation bounty on the player. If there is, people can attack regardless.
                 $btyamount = 0;
-                $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE " .
+                $hasbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE " .
                                           "bounty_on = ? AND placed_by = 0;", array ($targetinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $hasbounty, __LINE__, __FILE__);
                 if ($hasbounty)
@@ -186,7 +186,7 @@ else
                 if ($btyamount <= 0)
                 {
                     $bounty = ROUND ($playerscore * $bounty_maxvalue);
-                    $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values " .
+                    $insert = $db->Execute ("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values " .
                                            "(?,?,?);", array ($playerinfo['ship_id'], 0 ,$bounty));
                     \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
                     \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BOUNTY_FEDBOUNTY, "$bounty");
@@ -581,7 +581,7 @@ else
                 {
                     $rating = round ($targetinfo['rating'] / 2 );
                     echo "$l_att_espod (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br>";
-                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, " .
+                    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, " .
                                          "torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, " .
                                          "ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, " .
                                          "dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, cleared_defences = ' ', " .
@@ -608,7 +608,7 @@ else
                     // Double Death Attack Bug Fix - Returns 0 for real players, 1 for Xenobe players
                     if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 ) // He is a Xenobe
                     {
-                        $resx = $db->Execute("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
+                        $resx = $db->Execute ("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
                         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
                         \bnt\AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
@@ -676,12 +676,12 @@ else
                     $ship_salvage_rate = mt_rand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
-                    $l_att_ysalv = str_replace("[salv_ore]", $salv_ore, $l_att_ysalv);
-                    $l_att_ysalv = str_replace("[salv_organics]", $salv_organics, $l_att_ysalv);
-                    $l_att_ysalv = str_replace("[salv_goods]", $salv_goods, $l_att_ysalv);
-                    $l_att_ysalv = str_replace("[ship_salvage_rate]", $ship_salvage_rate, $l_att_ysalv);
-                    $l_att_ysalv = str_replace("[ship_salvage]", $ship_salvage, $l_att_ysalv);
-                    $l_att_ysalv2 = str_replace("[rating_change]", number_format (abs ($rating_change), 0, $local_number_dec_point, $local_number_thousands_sep), $l_att_ysalv2);
+                    $l_att_ysalv = str_replace ("[salv_ore]", $salv_ore, $l_att_ysalv);
+                    $l_att_ysalv = str_replace ("[salv_organics]", $salv_organics, $l_att_ysalv);
+                    $l_att_ysalv = str_replace ("[salv_goods]", $salv_goods, $l_att_ysalv);
+                    $l_att_ysalv = str_replace ("[ship_salvage_rate]", $ship_salvage_rate, $l_att_ysalv);
+                    $l_att_ysalv = str_replace ("[ship_salvage]", $ship_salvage, $l_att_ysalv);
+                    $l_att_ysalv2 = str_replace ("[rating_change]", number_format (abs ($rating_change), 0, $local_number_dec_point, $local_number_thousands_sep), $l_att_ysalv2);
 
                     echo $l_att_ysalv . "<br>" . $l_att_ysalv2 . "<br>\n";
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, " .
@@ -699,7 +699,7 @@ else
             }
             else
             {
-                $l_att_stilship = str_replace("[name]", $targetinfo['character_name'], $l_att_stilship);
+                $l_att_stilship = str_replace ("[name]", $targetinfo['character_name'], $l_att_stilship);
                 echo $l_att_stilship. "<br>";
 
                 $rating_change = round ($targetinfo['rating'] * .1 );
@@ -730,7 +730,7 @@ else
                 {
                     $rating = round ($playerinfo['rating'] / 2 );
                     echo $l_att_loosepod. "<br><br>";
-                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, torps = 0, " .
+                    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, torps = 0, " .
                                          "armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, ship_energy = ?, " .
                                          "ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', " .
                                          "dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, dev_lssd = 'N' " .
@@ -801,12 +801,12 @@ else
                     $ship_salvage_rate = mt_rand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
-                    $l_att_salv = str_replace("[salv_ore]", $salv_ore, $l_att_salv);
-                    $l_att_salv = str_replace("[salv_organics]", $salv_organics, $l_att_salv);
-                    $l_att_salv = str_replace("[salv_goods]", $salv_goods, $l_att_salv);
-                    $l_att_salv = str_replace("[ship_salvage_rate]", $ship_salvage_rate, $l_att_salv);
-                    $l_att_salv = str_replace("[ship_salvage]", $ship_salvage, $l_att_salv);
-                    $l_att_salv = str_replace("[name]", $targetinfo['character_name'], $l_att_salv);
+                    $l_att_salv = str_replace ("[salv_ore]", $salv_ore, $l_att_salv);
+                    $l_att_salv = str_replace ("[salv_organics]", $salv_organics, $l_att_salv);
+                    $l_att_salv = str_replace ("[salv_goods]", $salv_goods, $l_att_salv);
+                    $l_att_salv = str_replace ("[ship_salvage_rate]", $ship_salvage_rate, $l_att_salv);
+                    $l_att_salv = str_replace ("[ship_salvage]", $ship_salvage, $l_att_salv);
+                    $l_att_salv = str_replace ("[name]", $targetinfo['character_name'], $l_att_salv);
 
                     echo $l_att_salv. "<br>";
                     $update6 = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, " .
@@ -828,7 +828,7 @@ else
         }
     }
 }
-$resx = $db->Execute("UNLOCK TABLES");
+$resx = $db->Execute ("UNLOCK TABLES");
 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
 $_SESSION['in_combat'] = (boolean) false;

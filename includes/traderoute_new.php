@@ -36,9 +36,9 @@ function traderoute_new ($db, $traderoute_id)
 
     $editroute = null;
 
-    if (!empty($traderoute_id))
+    if (!empty ($traderoute_id))
     {
-        $result = $db->Execute("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?", array ($traderoute_id));
+        $result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?", array ($traderoute_id));
         \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
@@ -74,7 +74,7 @@ function traderoute_new ($db, $traderoute_id)
 
     // Get Planet info Corp and Personal
 
-    $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id", array ($playerinfo['ship_id']));
+    $result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id", array ($playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 
     $num_planets = $result->RecordCount();
@@ -92,7 +92,7 @@ function traderoute_new ($db, $traderoute_id)
         $result->MoveNext();
     }
 
-    $result = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE corp=? AND corp!=0 AND owner<>? ORDER BY sector_id", array ($playerinfo['team'], $playerinfo['ship_id']));
+    $result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE corp=? AND corp!=0 AND owner<>? ORDER BY sector_id", array ($playerinfo['team'], $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $num_corp_planets = $result->RecordCount();
     $i=0;
@@ -357,7 +357,7 @@ function traderoute_new ($db, $traderoute_id)
         <td colspan=2 valign=top><font size=2><input type=radio name=\"circuit_type\" value=\"1\"
         ";
 
-    if (is_null ($editroute) || (!empty($editroute) && $editroute['circuit'] == '1'))
+    if (is_null ($editroute) || (!empty ($editroute) && $editroute['circuit'] == '1'))
     {
         echo " checked";
     }
@@ -389,7 +389,7 @@ function traderoute_new ($db, $traderoute_id)
         echo "<input type=submit value=\"$l_tdr_modify\">";
     }
 
-    $l_tdr_returnmenu = str_replace("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
+    $l_tdr_returnmenu = str_replace ("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
 
     echo "
         </table>

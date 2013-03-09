@@ -33,7 +33,7 @@ $title = $l_lrs_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-if (isset($_GET['sector']))
+if (isset ($_GET['sector']))
 {
     $sector = $_GET['sector'];
 }
@@ -78,7 +78,7 @@ if ($sector == "*")
 
     if ($playerinfo['turns'] < $fullscan_cost)
     {
-        $l_lrs_noturns=str_replace("[turns]", $fullscan_cost, $l_lrs_noturns);
+        $l_lrs_noturns=str_replace ("[turns]", $fullscan_cost, $l_lrs_noturns);
         echo $l_lrs_noturns . "<br><br>";
         \bnt\bnttext::gotomain ($langvars);
         include_once './footer.php';
@@ -92,7 +92,7 @@ if ($sector == "*")
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
     // User requested a full long range scan
-    $l_lrs_reach=str_replace("[sector]", $playerinfo['sector'], $l_lrs_reach);
+    $l_lrs_reach=str_replace ("[sector]", $playerinfo['sector'], $l_lrs_reach);
     echo $l_lrs_reach . "<br><br>";
 
     // Get sectors which can be reached from the player's current sector
@@ -363,7 +363,7 @@ else
     while (!$query->EOF)
     {
         $planet = $query->fields;
-        if (empty($planet['name']))
+        if (empty ($planet['name']))
         {
             echo "$l_unnamed";
         }

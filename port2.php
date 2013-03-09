@@ -32,15 +32,15 @@ include_once './includes/is_loan_pending.php';
 $title = $l_title_port;
 include './header.php';
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
 \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
@@ -57,7 +57,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
 {
     if ($zoneinfo['corp_zone'] == 'N')
     {
-        $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneinfo['owner']));
+        $res = $db->Execute ("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneinfo['owner']));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         $ownerinfo = $res->fields;
 
@@ -145,7 +145,7 @@ else
     if ($sectorinfo['port_type'] == "special")
     {
         // Kami multi-browser window upgrade fix
-        if (array_key_exists('port_shopping', $_SESSION) == false || $_SESSION['port_shopping'] != true)
+        if (array_key_exists ('port_shopping', $_SESSION) == false || $_SESSION['port_shopping'] != true)
         {
             \bnt\AdminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to re-upgrade their ship without requesting new items.");
             echo "<META HTTP-EQUIV='Refresh' CONTENT='2; URL=main.php'>";
@@ -530,7 +530,7 @@ else
             }
 
             $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
-            $purchase = $db->Execute("$query");
+            $purchase = $db->Execute ("$query");
             \bnt\dbop::dbresult ($db, $purchase, __LINE__, __FILE__);
 
             $hull_upgrade = 0;
@@ -543,7 +543,7 @@ else
             {
                 // build_two_col ("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
-                $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id = ? LIMIT 1;", array ($playerinfo['ship_id']));
+                $resx = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=0, ship_organics=0, ship_goods=0, ship_energy=0, ship_colonists =0 WHERE ship_id = ? LIMIT 1;", array ($playerinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                 \bnt\AdminLog::writeLog ($db, 5001, "Detected illegal cargo on shipID: {$playerinfo['ship_id']}");
             }
@@ -562,7 +562,7 @@ else
 
 
         // Clear variables that are not selected in the form
-        if (!isset($_POST['trade_ore']))
+        if (!isset ($_POST['trade_ore']))
         {
             $trade_ore = null;
         }
@@ -571,7 +571,7 @@ else
             $trade_ore = $_POST['trade_ore'];
         }
 
-        if (!isset($_POST['trade_organics']))
+        if (!isset ($_POST['trade_organics']))
         {
             $trade_organics = null;
         }
@@ -580,7 +580,7 @@ else
             $trade_organics = $_POST['trade_organics'];
         }
 
-        if (!isset($_POST['trade_goods']))
+        if (!isset ($_POST['trade_goods']))
         {
             $trade_goods = null;
         }
@@ -589,7 +589,7 @@ else
             $trade_goods = $_POST['trade_goods'];
         }
 
-        if (!isset($_POST['trade_energy']))
+        if (!isset ($_POST['trade_energy']))
         {
             $trade_energy = null;
         }
@@ -730,7 +730,7 @@ else
                     </table>";
 
             // Update ship cargo, credits and turns
-            $trade_result     = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
+            $trade_result     = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $trade_result, __LINE__, __FILE__);
 
             // Make all trades positive to change port values
@@ -740,7 +740,7 @@ else
             $trade_energy     = round (abs ($trade_energy));
 
             // Decrease supply and demand on port
-            $trade_result2    = $db->Execute("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics - ?, port_goods = port_goods - ?, port_energy = port_energy - ? WHERE sector_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $sectorinfo['sector_id']));
+            $trade_result2    = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics - ?, port_goods = port_goods - ?, port_energy = port_energy - ? WHERE sector_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $sectorinfo['sector_id']));
             \bnt\dbop::dbresult ($db, $trade_result2, __LINE__, __FILE__);
 
             echo $l_trade_complete . ".<br><br>";

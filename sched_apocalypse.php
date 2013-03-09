@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_apocalypse.php')) // Prevent direct acc
 
 echo "<strong>PLANETARY APOCALYPSE</strong><br><br>";
 echo "The four horsemen of the apocalypse set forth...<br>";
-$doomsday = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE colonists > ?;", array ($doomsday_value));
+$doomsday = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE colonists > ?;", array ($doomsday_value));
 \bnt\dbop::dbresult ($db, $doomsday, __LINE__, __FILE__);
 $chance = 9;
 $reccount = $doomsday->RecordCount();

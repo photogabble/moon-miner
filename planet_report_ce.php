@@ -291,7 +291,7 @@ function change_planet_production ($db, $prodpercentarray)
 
                     $resx = $db->Execute ("UPDATE {$db->prefix}planets SET corp = ? WHERE planet_id = ? AND owner = ?;", array ($team_id, $prodpercent, $ship_id));
                     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-                    if (array_key_exists("team_id", $prodpercentarray) == true && $prodpercentarray['team_id'] != $team_id)
+                    if (array_key_exists ("team_id", $prodpercentarray) == true && $prodpercentarray['team_id'] != $team_id)
                     {
                         // They are different so send admin a log
                         $ip = $_SERVER['REMOTE_ADDR'];

@@ -32,18 +32,18 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $oneway = null;
-if (array_key_exists('oneway', $_POST)== true)
+if (array_key_exists ('oneway', $_POST)== true)
 {
     $oneway = $_POST['oneway'];
 }
 
 $target_sector = null;
-if (array_key_exists('target_sector', $_POST)== true)
+if (array_key_exists ('target_sector', $_POST)== true)
 {
     $target_sector = $_POST['target_sector'];
 }
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -63,16 +63,16 @@ if ($playerinfo['dev_warpedit'] < 1)
     die ();
 }
 
-if (is_null($target_sector))
+if (is_null ($target_sector))
 {
     // This is the best that I can do without adding a new language variable.
-    $l_warp_twoerror = str_replace('[target_sector]', $l_unknown, $l_warp_twoerror);
+    $l_warp_twoerror = str_replace ('[target_sector]', $l_unknown, $l_warp_twoerror);
     echo $l_warp_twoerror ."<br><br>";
     \bnt\bnttext::gotomain ($langvars);
     die ();
 }
 
-$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array ($playerinfo['sector']));
+$res = $db->Execute ("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array ($playerinfo['sector']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
@@ -84,7 +84,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
 }
 
 $target_sector = round($target_sector);
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
@@ -98,33 +98,33 @@ if (!$row)
     die ();
 }
 
-$res = $db->Execute("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array ($target_sector));
+$res = $db->Execute ("SELECT allow_warpedit,{$db->prefix}universe.zone_id FROM {$db->prefix}zones, {$db->prefix}universe WHERE sector_id=? AND {$db->prefix}universe.zone_id = {$db->prefix}zones.zone_id;", array ($target_sector));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
 {
-    $l_warp_twoerror = str_replace("[target_sector]", $target_sector, $l_warp_twoerror);
+    $l_warp_twoerror = str_replace ("[target_sector]", $target_sector, $l_warp_twoerror);
     echo $l_warp_twoerror . "<br><br>";
     \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
 
-$res = $db->Execute("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
+$res = $db->Execute ("SELECT COUNT(*) as count FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $row = $res->fields;
 $numlink_start = $row['count'];
 
 if ($numlink_start >= $link_max)
 {
-    $l_warp_sectex = str_replace("[link_max]", $link_max, $l_warp_sectex);
+    $l_warp_sectex = str_replace ("[link_max]", $link_max, $l_warp_sectex);
     echo $l_warp_sectex . "<br><br>";
     \bnt\bnttext::gotomain ($langvars);
     include './footer.php';
     die ();
 }
 
-$result3 = $db->Execute("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
+$result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
 \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
 if ($result3 instanceof ADORecordSet)
 {
@@ -141,7 +141,7 @@ if ($result3 instanceof ADORecordSet)
 
     if ($flag == 1)
     {
-        $l_warp_linked = str_replace("[target_sector]", $target_sector, $l_warp_linked);
+        $l_warp_linked = str_replace ("[target_sector]", $target_sector, $l_warp_linked);
         echo $l_warp_linked . "<br><br>";
     }
     elseif ($playerinfo['sector'] == $target_sector)
@@ -156,7 +156,7 @@ if ($result3 instanceof ADORecordSet)
         $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET dev_warpedit = dev_warpedit - 1, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $update1, __LINE__, __FILE__);
 
-        if (!is_null($oneway))
+        if (!is_null ($oneway))
         {
             echo "$l_warp_coneway $target_sector.<br><br>";
         }

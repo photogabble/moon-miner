@@ -33,13 +33,13 @@ $variables['error_img'] = 'images/error.jpg';
 $variables['body_class'] = 'error';
 $variables['no_ticker'] = 0;
 
-if (isset($error_line)) // An error thrown in a regular BNT file
+if (isset ($error_line)) // An error thrown in a regular BNT file
 {
     $variables['error_page'] = $error_file;
     $variables['error_line'] = $error_line;
     $variables['error_type'] = 'standard';
 }
-elseif (isset($error_file)) // Directly accessing a page like check_fighters
+elseif (isset ($error_file)) // Directly accessing a page like check_fighters
 {
     $variables['error_page'] = $error_file;
     // There is no error line in a direct access
@@ -51,7 +51,7 @@ else // All other errors, probably an error handler error like a 404
     // There is no error page or line in a server error
 }
 
-if (empty($_POST))
+if (empty ($_POST))
 {
     $variables['post'] = $langvars['l_error_empty'];
 }
@@ -60,7 +60,7 @@ else
     $variables['post'] = var_export($_POST, true);
 }
 
-if (empty($_GET))
+if (empty ($_GET))
 {
     $variables['get'] = $langvars['l_error_empty'];
 }
@@ -69,7 +69,7 @@ else
     $variables['get'] = var_export($_GET, true);
 }
 
-if (empty($_SESSION))
+if (empty ($_SESSION))
 {
     $variables['session'] = $langvars['l_error_empty'];
 }

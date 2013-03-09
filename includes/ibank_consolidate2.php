@@ -35,7 +35,7 @@ function ibank_consolidate2 ($db)
     global $l_ibank_transferfee, $l_ibank_turncost, $l_ibank_amounttransferred;
     global $l_ibank_consolidate;
 
-    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
+    $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     if (!$res || $res->EOF)
@@ -44,7 +44,7 @@ function ibank_consolidate2 ($db)
     }
     $dest = $res->fields;
 
-    if (empty($dest['name']))
+    if (empty ($dest['name']))
     {
         $dest['name'] = $l_ibank_unnamed;
     }
@@ -69,7 +69,7 @@ function ibank_consolidate2 ($db)
         $query .= " AND credits <= $maximum";
     }
 
-    $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
+    $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 

@@ -30,7 +30,7 @@ function calc_planet_beams ($db, $ownerinfo, $base_defense, $planetinfo)
     $planetbeams = \bnt\CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
     $energy_available = $planetinfo['energy'];
 
-    $res = $db->Execute("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+    $res = $db->Execute ("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {

@@ -45,7 +45,7 @@ function destroy_schema ($db, $ADODB_SESSION_DB, $db_prefix)
         if ($schema_filename->isFile() && $file_ext == 'xml')
         {
             $tablename = substr($schema_filename, 0, -4);
-            $res = $db->Execute('DROP TABLE ' . $db_prefix . $tablename);
+            $res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
             \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
             $err = true_or_false (0, $db->ErrorMsg(), "No errors found", $db->ErrorNo() . ": " . $db->ErrorMsg());
             table_row ($db, "Dropping table " . $tablename, "Failed", "Passed");

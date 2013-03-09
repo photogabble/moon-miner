@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_degrade.php')) // Prevent direct access
 }
 
 echo "<strong>Degrading Sector Fighters with no friendly base</strong><br><br>";
-$res = $db->Execute("SELECT * FROM {$db->prefix}sector_defence WHERE defence_type = 'F'");
+$res = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE defence_type = 'F'");
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
 while (!$res->EOF)
@@ -70,6 +70,6 @@ while (!$res->EOF)
     }
     $res->MoveNext();
 }
-$resx = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
+$resx = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 ?>

@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'plugin_loader.php')) // Prevent direct access
     include_once './error.php';
 }
 
-if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'] == true)
+if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'] == true)
 {
     class PluginTest extends Plugin
     {
@@ -65,7 +65,7 @@ if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled']
 
             $info['switches'] = $this->switches;
 
-            if(isset(self::$isDisabled)) $info['isDisabled'] = self::$isDisabled;
+            if(isset (self::$isDisabled)) $info['isDisabled'] = self::$isDisabled;
             $info['modules'] = NULL;
 
             return $info;
@@ -76,12 +76,12 @@ if (isset($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled']
             // This is called along with arguments only on the settings page.
             if (substr(strrchr($_SERVER['PHP_SELF'], DIRECTORY_SEPARATOR), 1) === "settings.php")
             {
-                if (!isset($_SESSION['plugin_data']['PluginTest']['last_run']))
+                if (!isset ($_SESSION['plugin_data']['PluginTest']['last_run']))
                 {
                     $_SESSION['plugin_data']['PluginTest']['last_run'] = time();
                 }
 
-                if (isset($_SESSION['plugin_data']['PluginTest']['last_run']) && time() >= ($_SESSION['plugin_data']['PluginTest']['last_run'] + 5) )
+                if (isset ($_SESSION['plugin_data']['PluginTest']['last_run']) && time() >= ($_SESSION['plugin_data']['PluginTest']['last_run'] + 5) )
                 {
                     echo "Hello World ('". date(DATE_RFC822, implode("', '", func_get_args())) ."')<br />\n";
                     $_SESSION['plugin_data']['PluginTest']['last_run'] = time();

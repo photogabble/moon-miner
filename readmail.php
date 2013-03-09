@@ -35,7 +35,7 @@ $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-if (!isset($_GET['action']))
+if (!isset ($_GET['action']))
 {
     $_GET['action'] = '';
 }

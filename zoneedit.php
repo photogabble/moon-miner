@@ -32,60 +32,60 @@ include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
 $command = null;
-if (array_key_exists('command', $_GET) == true)
+if (array_key_exists ('command', $_GET) == true)
 {
     $command = $_GET['command'];
 }
 
 $zone = null;
-if (array_key_exists('zone', $_GET) == true)
+if (array_key_exists ('zone', $_GET) == true)
 {
     $zone = $_GET['zone'];
 }
 
 $name = null;
-if (array_key_exists('name', $_POST) == true)
+if (array_key_exists ('name', $_POST) == true)
 {
     $name = $_POST['name'];
 }
 
 $beacons = null;
-if (array_key_exists('beacons', $_POST) == true)
+if (array_key_exists ('beacons', $_POST) == true)
 {
     $beacons = $_POST['beacons'];
 }
 
 $attacks = null;
-if (array_key_exists('attacks', $_POST) == true)
+if (array_key_exists ('attacks', $_POST) == true)
 {
     $attacks = $_POST['attacks'];
 }
 
 $warpedits = null;
-if (array_key_exists('warpedits', $_POST) == true)
+if (array_key_exists ('warpedits', $_POST) == true)
 {
     $warpedits = $_POST['warpedits'];
 }
 
 $defenses = null;
-if (array_key_exists('defenses', $_POST) == true)
+if (array_key_exists ('defenses', $_POST) == true)
 {
     $defenses = $_POST['defenses'];
 }
 
 $planets = null;
-if (array_key_exists('planets', $_POST) == true)
+if (array_key_exists ('planets', $_POST) == true)
 {
     $planets = $_POST['planets'];
 }
 
 $trades = null;
-if (array_key_exists('trades', $_POST) == true)
+if (array_key_exists ('trades', $_POST) == true)
 {
     $trades = $_POST['trades'];
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array ($zone));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
@@ -101,13 +101,13 @@ $curzone['zone_name'] = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $curzone[
 
 if ($curzone['corp_zone'] == 'N')
 {
-    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+    $result = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
 else
 {
-    $result = $db->Execute("SELECT creator, id FROM {$db->prefix}teams WHERE creator = ?;", array ($curzone['owner']));
+    $result = $db->Execute ("SELECT creator, id FROM {$db->prefix}teams WHERE creator = ?;", array ($curzone['owner']));
     \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $ownerinfo = $result->fields;
 }
@@ -133,7 +133,7 @@ if ($command == 'change')
         $name = addslashes($name);
     }
 
-    $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
+    $resx = $db->Execute ("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
     echo $l_ze_saved . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";

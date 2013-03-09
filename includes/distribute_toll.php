@@ -35,7 +35,7 @@ function distribute_toll ($db, $sector, $toll, $total_fighters)
         {
             $row = $result3->fields;
             $toll_amount = ROUND (($row['quantity'] / $total_fighters) * $toll);
-            $resa = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
+            $resa = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
             \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
             \bnt\PlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
             $result3->MoveNext();

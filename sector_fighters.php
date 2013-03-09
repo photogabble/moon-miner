@@ -62,7 +62,7 @@ if ($targetfighters > 0 && $playerbeams > 0)
     {
         $temp = round ($targetfighters / 2);
         $lost = $targetfighters - $temp;
-        $l_sf_destfight = str_replace("[lost]", $lost, $l_sf_destfight);
+        $l_sf_destfight = str_replace ("[lost]", $lost, $l_sf_destfight);
         echo $l_sf_destfight . "<br>";
         $targetfighters = $temp;
         $playerbeams = $playerbeams - $lost;
@@ -70,7 +70,7 @@ if ($targetfighters > 0 && $playerbeams > 0)
     else
     {
         $targetfighters = $targetfighters - $playerbeams;
-        $l_sf_destfightb = str_replace("[lost]", $playerbeams, $l_sf_destfightb);
+        $l_sf_destfightb = str_replace ("[lost]", $playerbeams, $l_sf_destfightb);
         echo $l_sf_destfightb . "<br>";
         $playerbeams = 0;
     }
@@ -83,7 +83,7 @@ if ($targetfighters > 0 && $playertorpdmg > 0)
     {
         $temp = round ($targetfighters / 2);
         $lost = $targetfighters - $temp;
-        $l_sf_destfightt = str_replace("[lost]", $lost, $l_sf_destfightt);
+        $l_sf_destfightt = str_replace ("[lost]", $lost, $l_sf_destfightt);
         echo $l_sf_destfightt . "<br>";
         $targetfighters = $temp;
         $playertorpdmg = $playertorpdmg - $lost;
@@ -91,7 +91,7 @@ if ($targetfighters > 0 && $playertorpdmg > 0)
     else
     {
         $targetfighters = $targetfighters - $playertorpdmg;
-        $l_sf_destfightt = str_replace("[lost]", $playertorpdmg, $l_sf_destfightt);
+        $l_sf_destfightt = str_replace ("[lost]", $playertorpdmg, $l_sf_destfightt);
         echo $l_sf_destfightt;
         $playertorpdmg = 0;
     }
@@ -107,7 +107,7 @@ if ($playerfighters > 0 && $targetfighters > 0)
     }
     else
     {
-        $l_sf_destfightt2 = str_replace("[lost]", $playerfighters, $l_sf_destfightt2);
+        $l_sf_destfightt2 = str_replace ("[lost]", $playerfighters, $l_sf_destfightt2);
         echo $l_sf_destfightt2 . "<br>";
         $temptargfighters = $targetfighters - $playerfighters;
     }
@@ -119,7 +119,7 @@ if ($playerfighters > 0 && $targetfighters > 0)
     }
     else
     {
-         $l_sf_lostfight2 = str_replace("[lost]", $targetfighters, $l_sf_lostfight2);
+         $l_sf_lostfight2 = str_replace ("[lost]", $targetfighters, $l_sf_lostfight2);
          echo $l_sf_lostfight2 . "<br>";
          $tempplayfighters = $playerfighters - $targetfighters;
     }
@@ -138,7 +138,7 @@ if ($targetfighters > 0)
     else
     {
         $playerarmor = $playerarmor - $targetfighters;
-        $l_sf_armorbreach2 = str_replace("[lost]", $targetfighters, $l_sf_armorbreach2);
+        $l_sf_armorbreach2 = str_replace ("[lost]", $targetfighters, $l_sf_armorbreach2);
         echo $l_sf_armorbreach2 . "<br>";
     }
 }
@@ -165,8 +165,8 @@ if ($playerarmor < 1)
 {
     echo $l_sf_shipdestroyed . "<br><br>";
     \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_DEFS_KABOOM, "$sector|$playerinfo[dev_escapepod]");
-    $l_sf_sendlog2 = str_replace("[player]", $playerinfo['character_name'], $l_sf_sendlog2);
-    $l_sf_sendlog2 = str_replace("[sector]", $sector, $l_sf_sendlog2);
+    $l_sf_sendlog2 = str_replace ("[player]", $playerinfo['character_name'], $l_sf_sendlog2);
+    $l_sf_sendlog2 = str_replace ("[sector]", $sector, $l_sf_sendlog2);
     \bnt\sectorDefense::message_defense_owner ($db, $sector, $l_sf_sendlog2);
     if ($playerinfo['dev_escapepod'] == 'Y')
     {

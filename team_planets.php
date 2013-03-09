@@ -30,7 +30,7 @@ load_languages ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'm
 $title = $l_teamplanet_title;
 include './header.php';
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
@@ -45,7 +45,7 @@ if ($playerinfo['team'] == 0)
 }
 
 $query = "SELECT * FROM {$db->prefix}planets WHERE corp=$playerinfo[team]";
-if (!empty($sort))
+if (!empty ($sort))
 {
     $query .= " ORDER BY";
     if ($sort == "name")
@@ -67,7 +67,7 @@ if (!empty($sort))
     }
 }
 
-$res = $db->Execute($query);
+$res = $db->Execute ($query);
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 echo "<h1>" . $title . "</h1>\n";
 
@@ -140,13 +140,13 @@ else
         {
             $total_selling += 1;
         }
-        if (empty($planet[$i]['name']))
+        if (empty ($planet[$i]['name']))
         {
             $planet[$i]['name'] = "$l_unnamed";
         }
 
         $owner = $planet[$i]['owner'];
-        $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
+        $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         $player = $res->fields['character_name'];
 

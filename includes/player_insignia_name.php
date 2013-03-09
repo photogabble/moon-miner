@@ -28,7 +28,7 @@ function player_insignia_name ($db, $a_username, $langvars)
     unset ($player_insignia);
 
     // Lookup players score.
-    $res = $db->Execute("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
+    $res = $db->Execute ("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $playerinfo = $res->fields;
 
@@ -52,7 +52,7 @@ function player_insignia_name ($db, $a_username, $langvars)
         }
     }
 
-    if (!isset($player_insignia))
+    if (!isset ($player_insignia))
     {
         // Hmm, player has out ranked out highest rank, so just return that.
         $player_insignia = $langvars['l_insignia_19'];

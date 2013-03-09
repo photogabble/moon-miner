@@ -44,19 +44,19 @@ $total_sector_fighters = 0;
 $owner = true;
 
 $response = null;
-if (array_key_exists('response', $_POST) == true)
+if (array_key_exists ('response', $_POST) == true)
 {
     $response = $_POST['response'];
 }
 
 $destination = null;
-if (array_key_exists('destination', $_REQUEST) == true)
+if (array_key_exists ('destination', $_REQUEST) == true)
 {
     $destination = $_REQUEST['destination'];
 }
 
 $engage = null;
-if (array_key_exists('engage', $_REQUEST) == true)
+if (array_key_exists ('engage', $_REQUEST) == true)
 {
     $engage = $_REQUEST['engage'];
 }
@@ -122,7 +122,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 else
                 {
                     $tollstring = number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep);
-                    $l_chf_youpaidsometoll = str_replace("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
+                    $l_chf_youpaidsometoll = str_replace ("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
                     echo "$l_chf_youpaidsometoll<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
@@ -167,28 +167,28 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 echo "<h1>" . $title . "</h1>\n";
                 echo "<form action='{$calledfrom}' method='post'>";
-                $l_chf_therearetotalfightersindest = str_replace("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
+                $l_chf_therearetotalfightersindest = str_replace ("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
                 echo "$l_chf_therearetotalfightersindest<br>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $l_chf_creditsdemanded = str_replace("[chf_number_fighterstoll]", number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep), $l_chf_creditsdemanded);
+                    $l_chf_creditsdemanded = str_replace ("[chf_number_fighterstoll]", number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep), $l_chf_creditsdemanded);
                     echo "$l_chf_creditsdemanded<br>";
                 }
 
-                $l_chf_youcanretreat = str_replace("[retreat]", "<strong>Retreat</strong>", $l_chf_youcanretreat);
+                $l_chf_youcanretreat = str_replace ("[retreat]", "<strong>Retreat</strong>", $l_chf_youcanretreat);
                 echo $l_chf_youcan . " <br><input type='radio' name='response' value='retreat'>" . $l_chf_youcanretreat . "<br></input>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $l_chf_inputpay = str_replace("[pay]", "<strong>Pay</strong>", $l_chf_inputpay);
+                    $l_chf_inputpay = str_replace ("[pay]", "<strong>Pay</strong>", $l_chf_inputpay);
                     echo "<input type='radio' name='response' checked value='pay'>" . $l_chf_inputpay . "<br></input>";
                 }
 
                 echo "<input type='radio' name='response' checked value='fight'>";
-                $l_chf_inputfight = str_replace("[fight]", "<strong>Fight</strong>", $l_chf_inputfight);
+                $l_chf_inputfight = str_replace ("[fight]", "<strong>Fight</strong>", $l_chf_inputfight);
                 echo $l_chf_inputfight . "<br></input>";
 
                 echo "<input type=radio name=response checked value=sneak>";
-                $l_chf_inputcloak = str_replace("[cloak]", "<strong>Cloak</strong>", $l_chf_inputcloak);
+                $l_chf_inputcloak = str_replace ("[cloak]", "<strong>Cloak</strong>", $l_chf_inputcloak);
                 echo $l_chf_inputcloak . "<br></input><br>";
 
                 echo "<input type='submit' value='{$l_chf_go}'><br><br>";

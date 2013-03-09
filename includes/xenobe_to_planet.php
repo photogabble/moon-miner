@@ -29,7 +29,7 @@ function xenobe_to_planet ($db, $planet_id)
     global $playerinfo, $planetinfo, $torp_dmg_rate, $level_factor;
     global $rating_combat_factor, $upgrade_cost, $upgrade_factor, $sector_max, $xenobeisdead;
 
-    $resh = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+    $resh = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}planets WRITE, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
     \bnt\dbop::dbresult ($db, $resh, __LINE__, __FILE__);
 
     $resultp = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?", array ($planet_id)); // Get target planet information
@@ -320,7 +320,7 @@ function xenobe_to_planet ($db, $planet_id)
         \bnt\PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
 
         // Update planet
-        $resi = $db->Execute("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
+        $resi = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
         \bnt\dbop::dbresult ($db, $resi, __LINE__, __FILE__);
     }
     else  // Must have made it past planet defences
@@ -344,7 +344,7 @@ function xenobe_to_planet ($db, $planet_id)
         $planetinfo['torps'] = $targettorps;
 
         // Now we must attack all ships on the planet one by one
-        $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+        $resultps = $db->Execute ("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
         \bnt\dbop::dbresult ($db, $resultps, __LINE__, __FILE__);
         $shipsonplanet = $resultps->RecordCount();
         if ($shipsonplanet > 0)
@@ -357,7 +357,7 @@ function xenobe_to_planet ($db, $planet_id)
             }
         }
 
-        $resultps = $db->Execute("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+        $resultps = $db->Execute ("SELECT ship_id,ship_name FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
         \bnt\dbop::dbresult ($db, $resultps, __LINE__, __FILE__);
         $shipsonplanet = $resultps->RecordCount();
         if ($shipsonplanet == 0 && $xenobeisdead < 1)
@@ -369,7 +369,7 @@ function xenobe_to_planet ($db, $planet_id)
             \bnt\PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
             // Update planet
-            $resl = $db->Execute("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
+            $resl = $db->Execute ("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
             \bnt\dbop::dbresult ($db, $resl, __LINE__, __FILE__);
 
             \bnt\bntownership::cancel ($db, $planetinfo['sector_id'], $min_bases_to_own, $langvars);
@@ -384,7 +384,7 @@ function xenobe_to_planet ($db, $planet_id)
         }
     }
 
-    $resx = $db->Execute("UNLOCK TABLES");
+    $resx = $db->Execute ("UNLOCK TABLES");
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 }
 ?>

@@ -28,7 +28,7 @@ echo "<form action='admin.php' method='post'>";
 if (empty ($planet))
 {
     echo "<select size='15' name='planet'>";
-    $res = $db->Execute("SELECT planet_id, name, sector_id FROM {$db->prefix}planets ORDER BY sector_id");
+    $res = $db->Execute ("SELECT planet_id, name, sector_id FROM {$db->prefix}planets ORDER BY sector_id");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -49,7 +49,7 @@ else
 {
     if (empty ($operation))
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet));
+        $res = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
 
@@ -66,7 +66,7 @@ else
         echo "<table border='0' cellspacing='2' cellpadding='2'>";
         echo "<tr><td><tt>" . $langvars['l_admin_planet_owner'] . "</tt></td><td>";
         echo "<select size='1' name='owner'>";
-        $ressuba = $db->Execute("SELECT ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
+        $ressuba = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships ORDER BY character_name");
         \bnt\dbop::dbresult ($db, $ressuba, __LINE__, __FILE__);
         echo "<option value='0'>" . $langvars['l_admin_no_one'] . "</option>";
         while (!$ressuba->EOF)
@@ -115,7 +115,7 @@ else
         $_defeated = empty ($defeated) ? "N" : "Y";
         $_base = empty ($base) ? "N" : "Y";
         $_sells = empty ($sells) ? "N" : "Y";
-        $planupdate = $db->Execute("UPDATE {$db->prefix}planets SET sector_id = ?, defeated = ?, name = ?, base = ?, sells = ?, owner = ?, organics = ?, ore = ?, goods = ?, energy = ?, corp = ?, colonists = ?,credits = ? ,fighters = ?, torps = ?, prod_organics= ? , prod_ore = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?", array ($sector_id, $_defeated, $name, $_base, $_sells, $owner, $organics, $ore, $goods, $energy, $corp, $colonists, $credits, $fighters, $torps, $prod_organics, $prod_ore, $prod_goods, $prod_energy, $prod_fighters, $prod_torp, $planet));
+        $planupdate = $db->Execute ("UPDATE {$db->prefix}planets SET sector_id = ?, defeated = ?, name = ?, base = ?, sells = ?, owner = ?, organics = ?, ore = ?, goods = ?, energy = ?, corp = ?, colonists = ?,credits = ? ,fighters = ?, torps = ?, prod_organics= ? , prod_ore = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?", array ($sector_id, $_defeated, $name, $_base, $_sells, $owner, $organics, $ore, $goods, $energy, $corp, $colonists, $credits, $fighters, $torps, $prod_organics, $prod_ore, $prod_goods, $prod_energy, $prod_fighters, $prod_torp, $planet));
         \bnt\dbop::dbresult ($db, $planupdate, __LINE__, __FILE__);
         if (!$planupdate)
         {

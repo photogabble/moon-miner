@@ -45,10 +45,10 @@ global $xenobeisdead;
 $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $furcount2a = $furcount3 = $furcount3a = $furcount3h = 0;
 
 // Lock the tables
-$resa = $db->Execute("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE");
+$resa = $db->Execute ("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE");
 \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
@@ -67,7 +67,7 @@ while (!$res->EOF)
         $furcount0++;
         // Find a target in my sector, not myself, not on a planet
 
-        $reso0 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
+        $reso0 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
         \bnt\dbop::dbresult ($db, $res0, __LINE__, __FILE__);
         if (!$reso0->EOF)
         {
@@ -114,7 +114,7 @@ while (!$res->EOF)
           continue;
         }
         // Find a target in my sector, not myself
-        $reso1 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
+        $reso1 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
         \bnt\dbop::dbresult ($db, $reso1, __LINE__, __FILE__);
         if (!$reso1->EOF)
         {
@@ -168,7 +168,7 @@ while (!$res->EOF)
         xenobe_trade ($db);
         // FIND A TARGET
         // IN MY SECTOR, NOT MYSELF
-        $reso2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
+        $reso2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
         \bnt\dbop::dbresult ($db, $reso2, __LINE__, __FILE__);
         if (!$reso2->EOF)
         {
@@ -233,7 +233,7 @@ while (!$res->EOF)
           }
           // FIND A TARGET
           // IN MY SECTOR, NOT MYSELF
-          $reso3 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
+          $reso3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
           \bnt\dbop::dbresult ($db, $reso3, __LINE__, __FILE__);
           if (!$reso3->EOF)
           {
@@ -290,6 +290,6 @@ while (!$res->EOF)
   // END OF Xenobe TURNS
 
 // Unlock the tables.
-$result = $db->Execute("UNLOCK TABLES");
+$result = $db->Execute ("UNLOCK TABLES");
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 ?>

@@ -31,7 +31,7 @@ function get_planet_owner ($db = null, $planet_id = null, &$owner_info = null)
         $sql  = "SELECT ship_id, character_name, team FROM {$db->prefix}planets ";
         $sql .= "LEFT JOIN {$db->prefix}ships ON {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ";
         $sql .= "WHERE {$db->prefix}planets.planet_id=?;";
-        $res = $db->Execute($sql, array ($planet_id));
+        $res = $db->Execute ($sql, array ($planet_id));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         if ($res->RecordCount() > 0 )
         {

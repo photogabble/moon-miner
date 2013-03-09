@@ -28,7 +28,7 @@ load_languages ($db, $lang, array ('logout', 'common', 'global_includes', 'globa
 if (isset ($_SESSION['username']))
 {
     $current_score = 0;
-    $result = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+    $result = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     include_once './includes/calc_score.php';

@@ -146,7 +146,7 @@ if ($rs instanceof ADORecordSet)
 
             // Check for banned players.
             $ban_result = check_ban($db, $lang, null, $row);
-            if ($ban_result === false || (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
+            if ($ban_result === false || (array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
             {
                 $row['banned'] = (boolean) false;
                 $row['ban_info'] = null;

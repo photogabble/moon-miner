@@ -35,7 +35,7 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arr
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (array_key_exists('content', $_POST) === false)
+if (array_key_exists ('content', $_POST) === false)
 {
     echo "<form action=feedback.php method=post>\n";
     echo "<table>\n";
@@ -51,16 +51,16 @@ if (array_key_exists('content', $_POST) === false)
 else
 {
     $link_to_game = "http://";
-    $link_to_game .= ltrim($gamedomain,".");// Trim off the leading . if any
+    $link_to_game .= ltrim ($gamedomain,".");// Trim off the leading . if any
     $link_to_game .= $gamepath;
-    mail("$admin_mail", $l_feedback_subj, "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}","From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
+    mail ("$admin_mail", $l_feedback_subj, "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}","From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
     echo "$l_feedback_messent<BR><BR>";
 }
 
 echo "<br>\n";
-if (empty($_SESSION['username']))
+if (empty ($_SESSION['username']))
 {
-    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {

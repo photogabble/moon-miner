@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $default_lang;
@@ -47,22 +47,22 @@ if ($account_creation_closed)
 $username  = null;
 $shipname  = null;
 $character = null;
-if (array_key_exists('character', $_POST))
+if (array_key_exists ('character', $_POST))
 {
     $character  = $_POST['character'];
 }
 
-if (array_key_exists('shipname', $_POST))
+if (array_key_exists ('shipname', $_POST))
 {
     $shipname   = $_POST['shipname'];
 }
 
-if (array_key_exists('username', $_POST))
+if (array_key_exists ('username', $_POST))
 {
     $username   = $_POST['username'];
 }
 
-if (array_key_exists('lang', $_POST))
+if (array_key_exists ('lang', $_POST))
 {
     $lang   = $_POST['lang'];
 }
@@ -96,7 +96,7 @@ while (!$result->EOF)
     }
     if (mb_strtolower ($row['character_name']) == mb_strtolower($character))
     {
-        $l_new_inusechar=str_replace("[character]", $character, $l_new_inusechar);
+        $l_new_inusechar=str_replace ("[character]", $character, $l_new_inusechar);
         echo $l_new_inusechar . '<br>';
         $flag = 1;
     }
@@ -127,7 +127,7 @@ if ($flag == 0)
         }
     }
     $stamp=date("Y-m-d H:i:s");
-    $query = $db->Execute("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships;");
+    $query = $db->Execute ("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships;");
     \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
     $res = $query->fields;
 
@@ -145,7 +145,7 @@ if ($flag == 0)
     // Hash the password.  $hashedPassword will be a 60-character string.
     $hashed_pass = $hasher->HashPassword($makepass);
 
-    $result2 = $db->Execute("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
+    $result2 = $db->Execute ("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
                              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $start_escape_pod, $start_scoop, $start_minedeflectors, $stamp, $ip, 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
     \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 
@@ -155,36 +155,36 @@ if ($flag == 0)
     }
     else
     {
-        $result2 = $db->Execute("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($username));
+        $result2 = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($username));
         \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 
         $shipid = $result2->fields;
 
         // To do: build a bit better "new player" message
-        $l_new_message = str_replace("[pass]", $makepass, $l_new_message);
-        $l_new_message = str_replace("[ip]", $ip, $l_new_message);
+        $l_new_message = str_replace ("[pass]", $makepass, $l_new_message);
+        $l_new_message = str_replace ("[ip]", $ip, $l_new_message);
 
         // Some reason \r\n is broken, so replace them now.
-        $l_new_message = str_replace('\r\n', "\r\n", $l_new_message);
+        $l_new_message = str_replace ('\r\n', "\r\n", $l_new_message);
 
         $link_to_game = "http://";
-        $link_to_game .= ltrim($gamedomain,".");// Trim off the leading . if any
-        //$link_to_game .= str_replace($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
+        $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
+        //$link_to_game .= str_replace ($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
         $link_to_game .= $gamepath;
         mail("$username", "$l_new_topic", "$l_new_message\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
 
         \bnt\LogMove::writeLog ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
-        $resx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array ($character ."\'s Territory", $shipid['ship_id']));
+        $resx = $db->Execute ("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array ($character ."\'s Territory", $shipid['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
-        $resx = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (?,0,0);", array ($shipid['ship_id']));
+        $resx = $db->Execute ("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (?,0,0);", array ($shipid['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
         if ($display_password == true)
         {
             echo $langvars['l_new_pwis'] . " " . $makepass . "<br><br>";
         }
-        $langvars['l_new_pwsent'] = str_replace("[username]", $_POST['username'], $langvars['l_new_pwsent']);
+        $langvars['l_new_pwsent'] = str_replace ("[username]", $_POST['username'], $langvars['l_new_pwsent']);
         echo $langvars['l_new_pwsent'] . '<br><br>';
         echo "<a href=index.php" . $link . ">$l_clickme</A> $l_new_login";
     }

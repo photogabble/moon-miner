@@ -34,7 +34,7 @@ if (!isset ($_POST['zone']))
 
 if ($_POST['zone'] == '')
 {
-    $res = $db->Execute("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
+    $res = $db->Execute ("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -49,7 +49,7 @@ else
     $variables['zone'] = '';
     if ($_POST['operation'] == "edit")
     {
-        $res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
+        $res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
         $variables['operation'] = "edit";
@@ -94,7 +94,7 @@ else
         $_zone_attack = empty ($zone_attack) ? "N" : "Y";
         $_zone_warpedit = empty ($zone_warpedit) ? "N" : "Y";
         $_zone_planet = empty ($zone_planet) ? "N" : "Y";
-        $resx = $db->Execute("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?;", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $_POST['zone']));
+        $resx = $db->Execute ("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?;", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $_POST['zone']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         $button_main = false;
     }

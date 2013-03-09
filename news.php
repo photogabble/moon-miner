@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $default_lang;
@@ -71,7 +71,7 @@ echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a
 echo "  </tr>\n";
 
 //Select news for date range
-$res = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id DESC", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
 //Check to see if there was any news to be shown
@@ -99,13 +99,13 @@ else
 echo "</table>\n";
 echo "<div style=\"height:16px;\"></div>\n";
 
-if (empty($_SESSION['username']))
+if (empty ($_SESSION['username']))
 {
-    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace ("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
 include './footer.php';

@@ -22,9 +22,9 @@ include './global_includes.php';
 // Test to see if server is closed to logins
 $playerfound = false;
 
-if (array_key_exists('email', $_POST) && $_POST['email'] != null)
+if (array_key_exists ('email', $_POST) && $_POST['email'] != null)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_POST['email']));
+    $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_POST['email']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res)
     {
@@ -34,7 +34,7 @@ if (array_key_exists('email', $_POST) && $_POST['email'] != null)
     $lang = $playerinfo['lang'];
 }
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $default_lang;
@@ -54,7 +54,7 @@ if ($server_closed)
     $title = $l_login_sclosed;
     include './header.php';
     echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
-    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 
     include './footer.php';
     die ();
@@ -65,9 +65,9 @@ $title = $l_login_title2;
 // Check Banned
 $banned = 0;
 
-if (isset($playerinfo) && $playerfound != false)
+if (isset ($playerinfo) && $playerfound != false)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array ($ip, $playerinfo['ip_address']));
+    $res = $db->Execute ("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array ($ip, $playerinfo['ip_address']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res->RecordCount() != 0)
     {
@@ -89,7 +89,7 @@ if ($playerfound)
         include_once './includes/check_ban.php';
 
         $ban_result = check_ban($db, $lang, null, $playerinfo);
-        if ($ban_result === false ||  (array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
+        if ($ban_result === false ||  (array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
         {
 
             if ($playerinfo['ship_destroyed'] == "N")
@@ -97,7 +97,7 @@ if ($playerfound)
                 // player's ship has not been destroyed
                 \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
                 $stamp = date("Y-m-d H-i-s");
-                $update = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
+                $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
 
                 // They have logged in successfully, so update their session ID as well
@@ -114,9 +114,9 @@ if ($playerfound)
                 // player's ship has been destroyed
                 if ($playerinfo['dev_escapepod'] == "Y")
                 {
-                    $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
+                    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
                     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-                    $l_login_died = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
+                    $l_login_died = str_replace ("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
                     echo $l_login_died;
                 }
                 else
@@ -126,17 +126,17 @@ if ($playerfound)
                     // Check if $newbie_nice is set, if so, verify ship limits
                     if ($newbie_nice == "YES")
                     {
-                        $newbie_info = $db->Execute("SELECT hull, engines, power, computer, sensors, armor, shields, beams, torp_launchers, cloak FROM {$db->prefix}ships WHERE ship_id = ? AND hull <= ? AND engines <= ? AND power <= ? AND computer <= ? AND sensors <= ? AND armor <= ? AND shields <= ? AND beams <= ? AND torp_launchers <= ? AND cloak <= ?;", array ($playerinfo['ship_id'], $newbie_hull, $newbie_engines, $newbie_power, $newbie_computer, $newbie_sensors, $newbie_armor, $newbie_shields, $newbie_beams, $newbie_torp_launchers, $newbie_cloak));
+                        $newbie_info = $db->Execute ("SELECT hull, engines, power, computer, sensors, armor, shields, beams, torp_launchers, cloak FROM {$db->prefix}ships WHERE ship_id = ? AND hull <= ? AND engines <= ? AND power <= ? AND computer <= ? AND sensors <= ? AND armor <= ? AND shields <= ? AND beams <= ? AND torp_launchers <= ? AND cloak <= ?;", array ($playerinfo['ship_id'], $newbie_hull, $newbie_engines, $newbie_power, $newbie_computer, $newbie_sensors, $newbie_armor, $newbie_shields, $newbie_beams, $newbie_torp_launchers, $newbie_cloak));
                         \bnt\dbop::dbresult ($db, $newbie_info, __LINE__, __FILE__);
                         $num_rows = $newbie_info->RecordCount();
 
                         if ($num_rows)
                         {
                             echo "<br><br>" . $l_login_newbie . "<br><br>";
-                            $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, credits=1000, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
+                            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, credits=1000, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
                             \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
-                            $l_login_newlife = str_replace("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
+                            $l_login_newlife = str_replace ("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
                             echo $l_login_newlife;
                         }
                         else
@@ -155,7 +155,7 @@ if ($playerfound)
         else
         {
             echo "<div style='font-size:18px; color:#FF0000;'>\n";
-            if ( array_key_exists('ban_type', $ban_result) && $ban_result['ban_type'] == ID_LOCKED )
+            if ( array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] == ID_LOCKED )
             {
                 echo "Your account has been Locked";
             }
@@ -164,7 +164,7 @@ if ($playerfound)
                 echo "Your account has been Banned";
             }
 
-            if ( array_key_exists('public_info', $ban_result) && strlen(trim($ban_result['public_info'])) >0 )
+            if ( array_key_exists ('public_info', $ban_result) && strlen(trim ($ban_result['public_info'])) >0 )
             {
                 echo " for the following:<br>\n";
                 echo "<br>\n";
@@ -174,7 +174,7 @@ if ($playerfound)
             echo "<br>\n";
             echo "<div style='color:#FF0000;'>Maybe you will behave yourself next time.</div>\n";
             echo "<br />\n";
-            echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+            echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
         }
     }
     else
@@ -187,7 +187,7 @@ if ($playerfound)
 }
 else
 {
-    $l_login_noone = str_replace("[here]", "<a href='new.php" . $link . "'>" . $l_here . "</a>", $l_login_noone);
+    $l_login_noone = str_replace ("[here]", "<a href='new.php" . $link . "'>" . $l_here . "</a>", $l_login_noone);
     echo "<strong>" . $l_login_noone . "</strong><br>";
 }
 

@@ -62,8 +62,8 @@ function ibank_borrow ($db)
     $hours = $ibank_lrate / 60;
     $mins = $ibank_lrate % 60;
 
-    $l_ibank_loanreminder = str_replace("[hours]", $hours, $l_ibank_loanreminder);
-    $l_ibank_loanreminder = str_replace("[mins]", $mins, $l_ibank_loanreminder);
+    $l_ibank_loanreminder = str_replace ("[hours]", $hours, $l_ibank_loanreminder);
+    $l_ibank_loanreminder = str_replace ("[mins]", $mins, $l_ibank_loanreminder);
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_takenaloan . "<br>---------------------------------</td></tr>" .
          "<tr valign=top><td colspan=2 align=center>" . $l_ibank_loancongrats . "<br><br></tr>" .
@@ -79,10 +79,10 @@ function ibank_borrow ($db)
          "<td nowrap><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));
+    $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 }
 ?>

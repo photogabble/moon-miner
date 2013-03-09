@@ -44,7 +44,7 @@ if (!$result->EOF)
     $l_mail_topic = str_replace ("[game_name]", $game_name, $l_mail_topic);
 
     $link_to_game = "http://";
-    $link_to_game .= ltrim($gamedomain,".");// Trim off the leading . if any
+    $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
     $link_to_game .= $gamepath;
 
     mail ($playerinfo['email'], $l_mail_topic, "$l_mail_message\r\n\r\n{$link_to_game}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
@@ -58,7 +58,7 @@ else
     echo "<div style='color:#FFF; width:400px; text-align:left; font-size:12px; padding:6px;'>{$l_mail_noplayer}</div>\n";
 
     echo "<br>\n";
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
+    if (isset ($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
         echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
     }

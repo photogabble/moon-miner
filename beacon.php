@@ -41,7 +41,7 @@ $sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
 
-if (!isset($_POST['beacon_text']))
+if (!isset ($_POST['beacon_text']))
 {
     $beacon_text = null;
 }
@@ -52,7 +52,7 @@ else
 
 if ($playerinfo['dev_beacon'] > 0)
 {
-    $res = $db->Execute("SELECT allow_beacon FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
+    $res = $db->Execute ("SELECT allow_beacon FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_beacon'] == 'N')
@@ -61,10 +61,10 @@ if ($playerinfo['dev_beacon'] > 0)
     }
     elseif ($zoneinfo['allow_beacon'] == 'L')
     {
-        $result3 = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
+        $result3 = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
         \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
         $zoneowner_info = $result3->fields;
-        $result5 = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneowner_info['owner']));
+        $result5 = $db->Execute ("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneowner_info['owner']));
         \bnt\dbop::dbresult ($db, $result5, __LINE__, __FILE__);
         $zoneteam = $result5->fields;
 
@@ -112,9 +112,9 @@ if ($playerinfo['dev_beacon'] > 0)
         {
             $beacon_text = trim (htmlentities ($beacon_text));
             echo $l_beacon_nowreads . ": " . $beacon_text . ".<br><br>";
-            $update = $db->Execute("UPDATE {$db->prefix}universe SET beacon = ? WHERE sector_id = ?;", array ($beacon_text, $sectorinfo['sector_id']));
+            $update = $db->Execute ("UPDATE {$db->prefix}universe SET beacon = ? WHERE sector_id = ?;", array ($beacon_text, $sectorinfo['sector_id']));
             \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET dev_beacon=dev_beacon-1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+            $update = $db->Execute ("UPDATE {$db->prefix}ships SET dev_beacon=dev_beacon-1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
         }
     }

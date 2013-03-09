@@ -50,7 +50,7 @@ $targetscore = $targetscore * $targetscore;
 echo "<h1>" . $title . "</h1>\n";
 
 // Kami Multi Browser Window Attack Fix
-if (array_key_exists('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
+if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
 {
     echo "You need to Click on the ship first.<BR><BR>";
     \bnt\bnttext::gotomain ($langvars);
@@ -96,7 +96,7 @@ else
 
             // Get total bounty on this player, if any
             $btyamount = 0;
-            $hasbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($targetinfo['ship_id']));
+            $hasbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($targetinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $hasbounty, __LINE__, __FILE__);
 
             if ($hasbounty)
@@ -105,12 +105,12 @@ else
                 if ($resx['btytotal'] > 0)
                 {
                     $btyamount = number_format ($resx['btytotal'], 0, $local_number_dec_point, $local_number_thousands_sep);
-                    $l_scan_bounty = str_replace("[amount]", $btyamount, $l_scan_bounty);
+                    $l_scan_bounty = str_replace ("[amount]", $btyamount, $l_scan_bounty);
                     echo $l_scan_bounty . "<br>";
                     $btyamount = 0;
 
                     // Check for Federation bounty
-                    $hasfedbounty = $db->Execute("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0", array ($targetinfo['ship_id']));
+                    $hasfedbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0", array ($targetinfo['ship_id']));
                     \bnt\dbop::dbresult ($db, $hasfedbounty, __LINE__, __FILE__);
                     if ($hasfedbounty)
                     {
@@ -450,7 +450,7 @@ else
             \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN, "$playerinfo[character_name]");
         }
 
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
     }
 }

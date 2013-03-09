@@ -31,11 +31,11 @@ $title = $l_pre_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (!isset($change))
+if (!isset ($change))
 {
     echo "<form action='preset.php' method='post'>";
     echo "<div style='padding:2px;'>Preset 1: <input type='text' name='preset1' size='6' maxlength='6' value='{$playerinfo['preset1']}'></div>";
@@ -70,7 +70,7 @@ else
     }
     else
     {
-        $update = $db->Execute("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset1, $preset2, $preset3, $playerinfo['ship_id']));
+        $update = $db->Execute ("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset1, $preset2, $preset3, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
         $l_pre_set = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $l_pre_set);
         $l_pre_set = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $l_pre_set);

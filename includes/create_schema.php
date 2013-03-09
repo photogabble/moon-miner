@@ -67,7 +67,7 @@ function create_schema ($db, $ADODB_SESSION_DB, $db_prefix)
 
                 foreach ($parsed_xml as $execute_sql)
                 {
-                    $res = $db->Execute($execute_sql);
+                    $res = $db->Execute ($execute_sql);
                     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
                 }
                 $err = true_or_false (true, $db->ErrorMsg(),"No errors found in table " . $tablename, $db->ErrorNo() . ": " . $db->ErrorMsg());

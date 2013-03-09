@@ -353,9 +353,9 @@ $setup_info->DisplayFlush("</div>\n");
 $setup_info->DisplayFlush("<div style='width:100%; margin:auto; height:1px; background-color:#808080;'></div>\n");
 $setup_info->DisplayFlush("<br>\n");
 
-if (empty($_SESSION['username']))
+if (empty ($_SESSION['username']))
 {
-    echo str_replace("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {

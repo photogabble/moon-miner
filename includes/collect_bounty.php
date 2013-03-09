@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'collect_bounty.php')) // Prevent direct acces
 
 function collect_bounty ($db, $attacker, $bounty_on)
 {
-    $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
+    $res = $db->Execute ("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
     if ($res)
     {
         while (!$res->EOF)
@@ -37,14 +37,14 @@ function collect_bounty ($db, $attacker, $bounty_on)
             }
             else
             {
-                $res2 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array ($bountydetails['placed_by']));
+                $res2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array ($bountydetails['placed_by']));
                 \bnt\dbop::dbresult ($db, $res2, __LINE__, __FILE__);
                 $placed = $res2->fields['character_name'];
             }
 
-            $update = $db->Execute("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $attacker));
+            $update = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $attacker));
             \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
-            $delete = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
+            $delete = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
             \bnt\dbop::dbresult ($db, $delete, __LINE__, __FILE__);
 
             \bnt\PlayerLog::writeLog ($db, $attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
@@ -52,7 +52,7 @@ function collect_bounty ($db, $attacker, $bounty_on)
             $res->MoveNext();
         }
    }
-   $resa = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($bounty_on));
+   $resa = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($bounty_on));
    \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
 }
 ?>

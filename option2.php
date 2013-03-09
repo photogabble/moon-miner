@@ -30,13 +30,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 $oldlang = $lang;
 
 // Get POST['newlang'] returns null is not found.
-if (array_key_exists('newlang', $_POST) == true)
+if (array_key_exists ('newlang', $_POST) == true)
 {
     // Cycle through the supported language list.
     foreach ($avail_lang as $supported)
     {
         // Trim and compare the new langauge with the supported.
-        if (trim($_POST['newlang']) == $supported['file'])
+        if (trim ($_POST['newlang']) == $supported['file'])
         {
             // We have a match so set lang to the required supported language, then break out of loop.
             $lang = $supported['file'];
@@ -59,7 +59,7 @@ $newpass1  = filter_input (INPUT_POST, 'newpass1', FILTER_SANITIZE_STRING);
 $newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
 
 // Check to see if newpass1 and newpass2 is empty.
-if (empty($newpass1) && empty($newpass2))
+if (empty ($newpass1) && empty ($newpass2))
 {
     // yes both newpass1 and newpass2 are empty.
     echo $langvars['l_opt2_passunchanged'] . "<br><br>";
@@ -75,7 +75,7 @@ else
 {
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
-    $rs = $db->Execute("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array ($_SESSION['username']));
+    $rs = $db->Execute ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array ($_SESSION['username']));
     \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
@@ -101,7 +101,7 @@ else
             adodb_session_regenerate_id();
 
             // Now update the players password.
-            $rs = $db->Execute("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
+            $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
@@ -129,7 +129,7 @@ else
 if ($oldlang != $lang)
 {
     // Yes, so update to the new requited language.
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array ($lang, $_SESSION['username']));
+    $res = $db->Execute ("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array ($lang, $_SESSION['username']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     // Now cycle through the supported language list unto we get a match to the new language.
@@ -137,7 +137,7 @@ if ($oldlang != $lang)
     {
         if ($lang == $curlang['file'])
         {
-            $langvars['l_opt2_chlang'] = str_replace("[lang]", "$curlang[name]", $langvars['l_opt2_chlang']);
+            $langvars['l_opt2_chlang'] = str_replace ("[lang]", "$curlang[name]", $langvars['l_opt2_chlang']);
             echo $langvars['l_opt2_chlang'] . "<p>";
             break;
         }

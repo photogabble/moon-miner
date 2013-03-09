@@ -32,11 +32,11 @@ $title = $l_ibank_title;
 $body_class = 'igb';
 include './header.php';
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
@@ -55,7 +55,7 @@ if (!$allow_ibank)
     ibank_error($l_ibank_malfunction, "main.php");
 }
 
-if (!isset($_REQUEST['command']))
+if (!isset ($_REQUEST['command']))
 {
     $_REQUEST['command'] = '';
     $command = '';

@@ -26,7 +26,7 @@ $online = 0;
 
 if (!$db->inactive)
 {
-    $res = $db->Execute("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
+    $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
@@ -56,7 +56,7 @@ $display_update_ticker = false;
 
 if (!$db->inactive)
 {
-    $rs = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
+    $rs = $db->Execute ("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
     \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
     if ($rs instanceof ADORecordSet)
     {
@@ -96,7 +96,7 @@ if ($news_ticker == true)
     }
     else
     {
-        $rs = $db->Execute("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+        $rs = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
         \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {
@@ -125,7 +125,7 @@ else
     $sf_logo_type++; // Make the SF logo darker for all pages except login. No need to change the sizes as 12 is the same size as 11 and 15 is the same size as 14.
 }
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $sf_logo_link = '';
 }

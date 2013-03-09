@@ -111,7 +111,7 @@ if ($flag == 1)
 else
 {
     echo $l_move_failed . '<br><br>';
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
+    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
     \bnt\bnttext::gotomain ($langvars);
 }

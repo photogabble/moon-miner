@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
     $lang = $default_lang;
@@ -167,7 +167,7 @@ else
     foreach ($pluginInfo as $plugin_name => $plugin_object)
     {
         $plugin_info = $plugin_object->getPluginInfo(true);
-        if ($plugin_info['switches']['enabled'] == true && (isset($plugin_info['switches']['has_settings']) && $plugin_info['switches']['has_settings'] == true))
+        if ($plugin_info['switches']['enabled'] == true && (isset ($plugin_info['switches']['has_settings']) && $plugin_info['switches']['has_settings'] == true))
         {
             $plugin_id ++;
 
@@ -180,18 +180,18 @@ else
             $plugin['coreversion']    = "Version {$plugin_info['pluginVer']}";
 
             $plugin['uses_events']            = (boolean) false;
-            if (isset($plugin_info['usesEvents']))
+            if (isset ($plugin_info['usesEvents']))
             {
                 $plugin['uses_events']        = (boolean) $plugin_info['usesEvents'];
             }
 
-            if (isset($plugin_info['isDisabled']) && $plugin_info['isDisabled'] == true)
+            if (isset ($plugin_info['isDisabled']) && $plugin_info['isDisabled'] == true)
             {
                 $plugin['name'] .= " (<span style='color:#f00;'>Diasbled</span>)";
             }
 
             $plugin['description'] = null;
-            if (isset($plugin_info['description']))
+            if (isset ($plugin_info['description']))
             {
                 $plugin['description']        = (string) $plugin_info['description'];
             }
@@ -202,7 +202,7 @@ else
             line("Name:","<span style='color:#ff0; font-size:14px;'>{$plugin['name']}</span>", "right");
             line("Version:","<span style='color:#ff0; font-size:14px;'>v{$plugin['version']}</span>", "right");
             line("Author:", "<span style='color:#0f0; font-size:14px;'>{$plugin['author']}</span>", "right");
-            if (!is_null($plugin['description'])) line("Description:","<span style='color:#fff; font-size:14px;'>{$plugin['description']}</span>", "right");
+            if (!is_null ($plugin['description'])) line("Description:","<span style='color:#fff; font-size:14px;'>{$plugin['description']}</span>", "right");
             line("Type:","<span style='color:#fff; font-size:14px;'>{$plugin['type']}</span>", "right");
             line("[DEBUG] Plugin Core Version:","<span style='color:#00FF00; font-size:14px;'>{$plugin['coreversion']}</span>", "right");
             line("[DEBUG] Uses Events:","<span style='color:#00FF00; font-size:14px;'>". ($plugin['uses_events']?"Yes":"No")."</span>", "right");
@@ -219,13 +219,13 @@ else
                     if (class_exists($module_name))
                     {
                         $module_disabled = null;
-                        if (isset($module['isDisabled']) && $module['isDisabled'] == true)
+                        if (isset ($module['isDisabled']) && $module['isDisabled'] == true)
                         {
                             $module_disabled = " (<span style='color:#f00;'>Diasbled</span>)";
                         }
 
                         $module_stage = null;
-                        if (isset($module['stage']))
+                        if (isset ($module['stage']))
                         {
                             $module_stage = " [<span style='color:#ff0;'>{$module['stage']}</span>]";
                         }
@@ -344,13 +344,13 @@ echo "</table>";
 echo "<br>\n";
 echo "<br>\n";
 
-if (empty($_SESSION['username']))
+if (empty ($_SESSION['username']))
 {
-    echo str_replace("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+    echo str_replace ("[here]", "<a href='index.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 }
 else
 {
-    echo str_replace("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+    echo str_replace ("[here]", "<a href='main.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 }
 
 include './footer.php';

@@ -44,7 +44,7 @@ function planet_bombing ($db)
     $ownerfightercapacity = \bnt\CalcLevels::Fighters ($ownerinfo['computer'], $level_factor);
     $beamsused = 0;
 
-    $res = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
+    $res = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     include_once './includes/calc_planet_torps.php';
@@ -105,11 +105,11 @@ function planet_bombing ($db)
 
     echo "<br><br>\n";
     \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_BOMBED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$beamsused|$planettorps|$planetfighterslost");
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, ship_fighters = ship_fighters - ? WHERE ship_id = ?", array ($attackerfighters, $playerinfo['ship_id']));
+    $res = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, ship_fighters = ship_fighters - ? WHERE ship_id = ?", array ($attackerfighters, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}planets SET energy=energy - ?, fighters=fighters - ?, torps=torps - ? WHERE planet_id = ?", array ($beamsused, $planetfighterslost, $planettorps, $planetinfo['planet_id']));
+    $res = $db->Execute ("UPDATE {$db->prefix}planets SET energy=energy - ?, fighters=fighters - ?, torps=torps - ? WHERE planet_id = ?", array ($beamsused, $planetfighterslost, $planettorps, $planetinfo['planet_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UNLOCK TABLES");
+    $res = $db->Execute ("UNLOCK TABLES");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 }
 ?>

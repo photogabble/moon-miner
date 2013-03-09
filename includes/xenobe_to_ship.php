@@ -43,7 +43,7 @@ function xenobe_to_ship ($db, $ship_id)
     global $xenobeisdead;
 
     // Lookup target details
-    $resa = $db->Execute("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ, {$db->prefix}planets READ, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
+    $resa = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}zones READ, {$db->prefix}planets READ, {$db->prefix}news WRITE, {$db->prefix}logs WRITE");
     \bnt\dbop::dbresult ($db, $resa, __LINE__, __FILE__);
     $resultt = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
     \bnt\dbop::dbresult ($db, $resultt, __LINE__, __FILE__);
@@ -53,7 +53,7 @@ function xenobe_to_ship ($db, $ship_id)
     // Added because the xenobe were killing each other off
     if (strstr ($targetinfo['email'], '@xenobe'))                       // He's a xenobe
     {
-        $resb = $db->Execute("UNLOCK TABLES");
+        $resb = $db->Execute ("UNLOCK TABLES");
         \bnt\dbop::dbresult ($db, $resb, __LINE__, __FILE__);
         return;
     }
@@ -380,7 +380,7 @@ function xenobe_to_ship ($db, $ship_id)
         // Target had no escape pod
         {
             $rating=round ($targetinfo['rating'] / 2);
-            $resc = $db->Execute("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, computer = 0, sensors = 0, beams = 0, torp_launchers = 0, torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_ore = 0, ship_organics = 0, ship_energy = 1000, ship_colonists = 0, ship_goods = 0, ship_fighters = 100, ship_damage = 0, on_planet='N', planet_id = 0, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, ship_destroyed = 'N', rating = ?, dev_lssd='N' WHERE ship_id = ?;", array ($rating, $targetinfo['ship_id']));
+            $resc = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, computer = 0, sensors = 0, beams = 0, torp_launchers = 0, torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_ore = 0, ship_organics = 0, ship_energy = 1000, ship_colonists = 0, ship_goods = 0, ship_fighters = 100, ship_damage = 0, on_planet='N', planet_id = 0, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, ship_destroyed = 'N', rating = ?, dev_lssd='N' WHERE ship_id = ?;", array ($rating, $targetinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $resc, __LINE__, __FILE__);
             \bnt\PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|Y");
         }
@@ -550,7 +550,7 @@ function xenobe_to_ship ($db, $ship_id)
             \bnt\dbop::dbresult ($db, $resi, __LINE__, __FILE__);
         }
     }
-    $resj = $db->Execute("UNLOCK TABLES");
+    $resj = $db->Execute ("UNLOCK TABLES");
     \bnt\dbop::dbresult ($db, $resj, __LINE__, __FILE__);
 }
 ?>

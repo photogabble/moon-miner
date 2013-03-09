@@ -31,23 +31,23 @@ $title = $l_by_title;
 include './header.php';
 
 $response = null;
-if (array_key_exists('response', $_POST) == true)
+if (array_key_exists ('response', $_POST) == true)
 {
     $response = $_POST['response'];
 }
-elseif (array_key_exists('response', $_GET) == true)
+elseif (array_key_exists ('response', $_GET) == true)
 {
     $response = $_GET['response'];
 }
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 switch ($response) {
     case "display":
         echo "<h1>" . $title . "</h1>\n";
-        $res5 = $db->Execute("SELECT * FROM {$db->prefix}ships, {$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = ?;", array ($bounty_on));
+        $res5 = $db->Execute ("SELECT * FROM {$db->prefix}ships, {$db->prefix}bounty WHERE bounty_on = ship_id AND bounty_on = ?;", array ($bounty_on));
         \bnt\dbop::dbresult ($db, $res5, __LINE__, __FILE__);
         $j = 0;
         if ($res5)
@@ -125,7 +125,7 @@ switch ($response) {
             die ();
         }
 
-        $res = $db->Execute("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
+        $res = $db->Execute ("SELECT * FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->RowCount() ==0)
         {
@@ -144,11 +144,11 @@ switch ($response) {
             die ();
         }
 
-        $del = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
+        $del = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
         \bnt\dbop::dbresult ($db, $del, __LINE__, __FILE__);
         $stamp = date("Y-m-d H-i-s");
         $refund = $bty['amount'];
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         echo $l_by_canceled . "<br>";
         \bnt\bnttext::gotomain ($langvars);
@@ -157,7 +157,7 @@ switch ($response) {
     case "place":
         echo "<h1>" . $title . "</h1>\n";
         $bounty_on = preg_replace ('/[^0-9]/', '', $bounty_on);
-        $ex = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($bounty_on));
+        $ex = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($bounty_on));
         \bnt\dbop::dbresult ($db, $ex, __LINE__, __FILE__);
         if (!$ex)
         {
@@ -217,7 +217,7 @@ switch ($response) {
             $score = calc_score ($db, $playerinfo['ship_id']);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
-            $pb = $db->Execute("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = ?;", array ($bounty_on, $playerinfo['ship_id']));
+            $pb = $db->Execute ("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = ?;", array ($bounty_on, $playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $pb, __LINE__, __FILE__);
             if ($pb)
             {
@@ -227,7 +227,7 @@ switch ($response) {
 
             if ($amount + $previous_bounty > $maxtrans)
             {
-                $l_by_toomuch = str_replace("[percent]", $percent, $l_by_toomuch);
+                $l_by_toomuch = str_replace ("[percent]", $percent, $l_by_toomuch);
                 echo "$l_by_toomuch<br><br>";
                 \bnt\bnttext::gotomain ($langvars);
                 include './footer.php';
@@ -235,10 +235,10 @@ switch ($response) {
             }
         }
 
-        $insert = $db->Execute("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?);", array ($bounty_on, $playerinfo['ship_id'] ,$amount));
+        $insert = $db->Execute ("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?);", array ($bounty_on, $playerinfo['ship_id'] ,$amount));
         \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
         $stamp = date("Y-m-d H-i-s");
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         echo "$l_by_placed<br>";
         \bnt\bnttext::gotomain ($langvars);
@@ -246,14 +246,14 @@ switch ($response) {
         break;
     default:
         echo "<h1>" . $title . "</h1>\n";
-        $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
+        $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed = 'N' AND ship_id <> ? ORDER BY character_name ASC;", array ($playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         echo "<form action=bounty.php method=post>";
         echo "<table>";
         echo "<tr><td>$l_by_bountyon</td><td><select name=bounty_on>";
         while (!$res->EOF)
         {
-            if (isset($bounty_on) && $bounty_on == $res->fields['ship_id'])
+            if (isset ($bounty_on) && $bounty_on == $res->fields['ship_id'])
             {
                 $selected = "selected";
             }

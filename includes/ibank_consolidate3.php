@@ -31,7 +31,7 @@ function ibank_consolidate3 ($db)
     global $l_ibank_notenturns, $l_ibank_back, $l_ibank_logout, $l_ibank_transfersuccessful;
     global $l_ibank_currentpl, $l_ibank_in, $l_ibank_turncost, $l_ibank_unnamed;
 
-    $res = $db->Execute("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
+    $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
@@ -67,7 +67,7 @@ function ibank_consolidate3 ($db)
         $query .= " AND credits <= $maximum";
     }
 
-    $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
+    $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 
@@ -106,11 +106,11 @@ function ibank_consolidate3 ($db)
         $query .= " AND credits <= $maximum";
     }
 
-    $res = $db->Execute($query, array ($playerinfo['ship_id'], $dplanet_id));
+    $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array ($transfer, $dplanet_id));
+    $res = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array ($transfer, $dplanet_id));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
-    $res = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array ($tcost, $playerinfo['ship_id']));
+    $res = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array ($tcost, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 }
 ?>

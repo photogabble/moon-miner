@@ -59,9 +59,9 @@ function ibank_withdraw2 ($db)
          "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
          "</tr>";
 
-    $resx = $db->Execute("UPDATE {$db->prefix}ibank_accounts SET balance=balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+    $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance=balance - ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-    $resx = $db->Execute("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
+    $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($amount, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 }
 ?>

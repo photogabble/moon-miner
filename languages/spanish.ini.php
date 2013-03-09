@@ -1,4 +1,4 @@
-; <?php die( 'Please do not access this page directly.' ); ?>
+; <?php die ( 'Please do not access this page directly.' ); ?>
 ; This is the languages page, do not modify the above line.
 
 ; Language File created by BNT Lang Checker.

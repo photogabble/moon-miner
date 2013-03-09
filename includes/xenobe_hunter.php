@@ -28,7 +28,7 @@ function xenobe_hunter ($db)
     // Setup general Variables
     global $playerinfo, $targetlink, $xenobeisdead;
 
-    $rescount = $db->Execute("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1");
+    $rescount = $db->Execute ("SELECT COUNT(*) AS num_players FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1");
     \bnt\dbop::dbresult ($db, $rescount, __LINE__, __FILE__);
     $rowcount = $rescount->fields;
     $topnum = min (10, $rowcount['num_players']);
@@ -39,7 +39,7 @@ function xenobe_hunter ($db)
         return;
     }
 
-    $res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT ?", array ($topnum));
+    $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT ?", array ($topnum));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     // Choose a target from the top player list

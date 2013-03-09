@@ -42,7 +42,7 @@ function ini_to_db ($db, $ini_file, $ini_table, $section)
         {
             // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
             $config_value = utf8_encode ($config_value);
-            $debug_query = $db->Execute("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));
+            $debug_query = $db->Execute ("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));
             \bnt\dbop::dbresult ($db, $debug_query, __LINE__, __FILE__);
             if (!$debug_query)
             {

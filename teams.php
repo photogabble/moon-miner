@@ -40,49 +40,49 @@ $testing = false; // set to false to get rid of password when creating new team
 
 // Typecast into integers (this also removes all non numbers)
 $whichteam = null;
-if (array_key_exists('whichteam', $_REQUEST) == true)
+if (array_key_exists ('whichteam', $_REQUEST) == true)
 {
     $whichteam = (int) $_REQUEST['whichteam'];
 }
 
 $teamwhat = null;
-if (array_key_exists('teamwhat', $_REQUEST) == true)
+if (array_key_exists ('teamwhat', $_REQUEST) == true)
 {
     $teamwhat  = (int) $_REQUEST['teamwhat'];
 }
 
 $confirmleave = null;
-if (array_key_exists('confirmleave', $_REQUEST) == true)
+if (array_key_exists ('confirmleave', $_REQUEST) == true)
 {
     $confirmleave = preg_replace('/[^0-9]/', '', $_REQUEST['confirmleave']);
 }
 
 $invited = null;
-if (array_key_exists('invited', $_REQUEST) == true)
+if (array_key_exists ('invited', $_REQUEST) == true)
 {
     $invited = preg_replace('/[^0-9]/', '', $_REQUEST['invited']);
 }
 
 $teamname = null;
-if (array_key_exists('teamname', $_POST) == true)
+if (array_key_exists ('teamname', $_POST) == true)
 {
     $teamname = $_POST['teamname'];
 }
 
 $confirmed = null;
-if (array_key_exists('confirmed', $_REQUEST) == true)
+if (array_key_exists ('confirmed', $_REQUEST) == true)
 {
     $confirmed = preg_replace('/[^0-9]/', '', $_REQUEST['confirmed']);
 }
 
 $update = null;
-if (array_key_exists('update', $_POST) == true)
+if (array_key_exists ('update', $_POST) == true)
 {
     $update = $_POST['update'];
 }
 
 $who = null;
-if (array_key_exists('who', $_REQUEST) == true)
+if (array_key_exists ('who', $_REQUEST) == true)
 {
     $who  = (int) $_REQUEST['who'];
 }
@@ -94,7 +94,7 @@ if (array_key_exists('who', $_REQUEST) == true)
 $result = $db->Execute ("SELECT {$db->prefix}ships.*, {$db->prefix}teams.team_name, {$db->prefix}teams.description, {$db->prefix}teams.creator, {$db->prefix}teams.id
             FROM {$db->prefix}ships
             LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id
-            WHERE {$db->prefix}ships.email = ?;", array ($_SESSION['username'])) or die($db->ErrorMsg());
+            WHERE {$db->prefix}ships.email = ?;", array ($_SESSION['username'])) or die ($db->ErrorMsg());
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo    = $result->fields;
 
@@ -105,7 +105,7 @@ if ($playerinfo['team_invite'] != 0)
     $invite = $db->Execute (" SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.team_invite, {$db->prefix}teams.team_name,{$db->prefix}teams.id
             FROM {$db->prefix}ships
             LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team_invite = {$db->prefix}teams.id
-            WHERE {$db->prefix}ships.email = ?;", array ($_SESSION['username'])) or die($db->ErrorMsg());
+            WHERE {$db->prefix}ships.email = ?;", array ($_SESSION['username'])) or die ($db->ErrorMsg());
     \bnt\dbop::dbresult ($db, $invite, __LINE__, __FILE__);
     $invite_info  = $invite->fields;
 }
@@ -113,13 +113,13 @@ if ($playerinfo['team_invite'] != 0)
 // Get Team Info
 if (!is_null ($whichteam))
 {
-    $result_team = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($whichteam)) or die($db->ErrorMsg());
+    $result_team = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($whichteam)) or die ($db->ErrorMsg());
     \bnt\dbop::dbresult ($db, $result_team, __LINE__, __FILE__);
     $team = $result_team->fields;
 }
 else
 {
-    $result_team = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($playerinfo['team'])) or die($db->ErrorMsg());
+    $result_team = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($playerinfo['team'])) or die ($db->ErrorMsg());
     \bnt\dbop::dbresult ($db, $result_team, __LINE__, __FILE__);
     $team = $result_team->fields;
 }
@@ -154,7 +154,7 @@ switch ($teamwhat)
             {
                 if (!is_team_owner($team, $playerinfo))
                 {
-                    $l_team_error = str_replace("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
+                    $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
                     echo $l_team_error;
                     global $l_clickme, $l_team_menu;
                     echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
@@ -183,7 +183,7 @@ switch ($teamwhat)
 
                 $resx = $db->Execute ("UPDATE {$db->prefix}planets SET corp = 0 WHERE owner = ?;", array ($playerinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-                if (!empty($sectors))
+                if (!empty ($sectors))
                 {
                     foreach ($sectors as $sector)
                     {
@@ -193,7 +193,7 @@ switch ($teamwhat)
                 defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
                 kick_off_planet($db, $playerinfo['ship_id'], $whichteam);
 
-                $l_team_onlymember = str_replace("[team_name]", "<strong>$team[team_name]</strong>", $l_team_onlymember);
+                $l_team_onlymember = str_replace ("[team_name]", "<strong>$team[team_name]</strong>", $l_team_onlymember);
                 echo $l_team_onlymember . "<br><br>";
                 \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
             }
@@ -241,7 +241,7 @@ switch ($teamwhat)
 
                     $resx = $db->Execute ("UPDATE {$db->prefix}planets SET corp = 0 WHERE owner = ?;", array ($playerinfo['ship_id']));
                     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-                    if (!empty($sectors))
+                    if (!empty ($sectors))
                     {
                         foreach ($sectors as $sector)
                         {
@@ -250,7 +250,7 @@ switch ($teamwhat)
                     }
 
                     echo "$l_team_youveleft <strong>$team[team_name]</strong>.<br><br>";
-                    defence_vs_defence($db, $playerinfo['ship_id'], $langvars);
+                    defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
                     kick_off_planet ($db, $playerinfo['ship_id'], $whichteam);
                     \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
                     \bnt\PlayerLog::writeLog ($db, $team['creator'], LOG_TEAM_NOT_LEAVE, $playerinfo['character_name']);
@@ -286,7 +286,7 @@ switch ($teamwhat)
 
             $resx = $db->Execute ("UPDATE {$db->prefix}planets SET corp = 0 WHERE owner = ?;", array ($playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
-            if (!empty($sectors))
+            if (!empty ($sectors))
             {
                 foreach ($sectors as $sector)
                 {
@@ -347,9 +347,9 @@ switch ($teamwhat)
         // If not display "An error occured, You are not the leader of this Team." message.
         // Then show link back and break;
 
-        if (is_team_owner($team, $playerinfo) == false)
+        if (is_team_owner ($team, $playerinfo) == false)
         {
-            $l_team_error = str_replace("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
+            $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
             echo $l_team_error;
             global $l_clickme, $l_team_menu;
             echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
@@ -357,7 +357,7 @@ switch ($teamwhat)
         }
         else
         {
-            $who = preg_replace('/[^0-9]/', '', $who);
+            $who = preg_replace ('/[^0-9]/', '', $who);
             $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($who));
             \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
             $whotoexpel = $result->fields;
@@ -413,8 +413,8 @@ switch ($teamwhat)
         }
         else
         {
-            $teamname = trim(htmlspecialchars($teamname));
-            $teamdesc = trim(htmlspecialchars($teamdesc));
+            $teamname = trim (htmlspecialchars($teamname));
+            $teamdesc = trim (htmlspecialchars($teamdesc));
 
             if (!validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
@@ -459,7 +459,7 @@ switch ($teamwhat)
             while (!$res->EOF)
             {
                 $row = $res->fields;
-                if (is_team_owner($team, $row) == false)
+                if (is_team_owner ($team, $row) == false)
                 {
                     echo "<option value='{$row['ship_id']}'>{$row['character_name']}";
                 }
@@ -486,7 +486,7 @@ switch ($teamwhat)
                 $newpl = $res->fields;
                 if ($newpl['team_invite'])
                 {
-                    $l_team_isorry = str_replace("[name]", $newpl['character_name'], $l_team_isorry);
+                    $l_team_isorry = str_replace ("[name]", $newpl['character_name'], $l_team_isorry);
                     echo $l_team_isorry . "<br><br>";
                 }
                 else
@@ -524,7 +524,7 @@ switch ($teamwhat)
 
         if (is_team_owner($team, $playerinfo) == false)
         {
-            $l_team_error = str_replace("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
+            $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
             echo $l_team_error;
             global $l_clickme, $l_team_menu;
             echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
@@ -547,8 +547,8 @@ switch ($teamwhat)
         }
         else
         {
-            $teamname = trim(htmlspecialchars($teamname));
-            $teamdesc = trim(htmlspecialchars($teamdesc));
+            $teamname = trim (htmlspecialchars ($teamname));
+            $teamdesc = trim (htmlspecialchars ($teamdesc));
 
             if (validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
             {
@@ -558,12 +558,12 @@ switch ($teamwhat)
                 break;
             }
 
-            $res = $db->Execute ("UPDATE {$db->prefix}teams SET team_name = ?, description = ? WHERE id = ?;", array ($teamname, $teamdesc, $whichteam)) or die("<font color=red>error: " . $db->ErrorMSG() . "</font>");
+            $res = $db->Execute ("UPDATE {$db->prefix}teams SET team_name = ?, description = ? WHERE id = ?;", array ($teamname, $teamdesc, $whichteam)) or die ("<font color=red>error: " . $db->ErrorMSG() . "</font>");
             \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
             echo "$l_team_team <strong>$teamname</strong> $l_team_hasbeenr<br><br>";
 
             // Adding a log entry to all members of the renamed team
-            $result_team_name = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE team = ? AND ship_id <> ?;", array ($whichteam, $playerinfo['ship_id'])) or die("<font color=red>error: " . $db->ErrorMsg() . "</font>");
+            $result_team_name = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE team = ? AND ship_id <> ?;", array ($whichteam, $playerinfo['ship_id'])) or die ("<font color=red>error: " . $db->ErrorMsg() . "</font>");
             \bnt\dbop::dbresult ($db, $result_team_name, __LINE__, __FILE__);
             \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_RENAME, $teamname);
             while (!$result_team_name->EOF)
@@ -711,7 +711,7 @@ function display_all_teams ($db)
     }
     $sql_query .= ";";
 
-    $res = $db->Execute ($sql_query) or die($db->ErrorMsg());
+    $res = $db->Execute ($sql_query) or die ($db->ErrorMsg());
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     $color = $color_line1;
 
@@ -723,7 +723,7 @@ function display_all_teams ($db)
         echo "<td>{$row['number_of_members']}</td>";
 
         // This fixes it so that it actually displays the coordinator, and not the first member of the team.
-        $res2 = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['creator'])) or die($db->ErrorMsg());
+        $res2 = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['creator'])) or die ($db->ErrorMsg());
         \bnt\dbop::dbresult ($db, $res2, __LINE__, __FILE__);
         while (!$res2->EOF)
         {
@@ -848,11 +848,11 @@ function show_info ($db, $whichteam, $isowner)
 
 function validate_team ($db, $name = null, $desc = null, $creator = null)
 {
-    $name = trim($name);
-    $desc = trim($desc);
+    $name = trim ($name);
+    $desc = trim ($desc);
     $creator = (int) $creator;
 
-    if ( (is_null ($name) || empty($name)) || (is_null ($desc) || empty($desc)) || (is_null ($creator) || empty($creator)) )
+    if ( (is_null ($name) || empty ($name)) || (is_null ($desc) || empty ($desc)) || (is_null ($creator) || empty ($creator)) )
     {
         return false;
     }

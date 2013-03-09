@@ -176,7 +176,7 @@ echo "  </tr>\n";
 
 echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_sector']} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
-if (empty($sectorinfo['beacon']) || strlen(trim($sectorinfo['beacon'])) <=0)
+if (empty ($sectorinfo['beacon']) || strlen(trim ($sectorinfo['beacon'])) <=0)
 {
     $sectorinfo['beacon'] = null;
 }
@@ -275,7 +275,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='rules.php' title='These are our Rules that you have agreed to.'><span style='font-size:8px; color:#ff0; font-style:normal;'>NEW</span> Our Rules</a></div>\n";
 #echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='mail.php?mail={$_SESSION['username']}' title='Request your login information to be emailed to you.'><span style='font-size:8px; color:#ff0; font-style:normal;'>TMP</span> REQ Password</a></div>\n";
 
-if (!empty($link_forums))
+if (!empty ($link_forums))
 {
     echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='{$link_forums}'>{$langvars['l_forums']}</a></div>\n";
 }
@@ -519,7 +519,7 @@ if ($num_planets > 0)
         echo "<a href='planet.php?planet_id={$planets[$i]['planet_id']}'>";
         echo "<img class='mnu' title='Interact with Planet' src=\"images/$planettypes[$planetlevel]\" style='width:79px; height:90px; border:0' alt=\"planet\"></a><br><span style='font-size:10px; color:#fff;'>";
 
-        if (empty($planets[$i]['name']))
+        if (empty ($planets[$i]['name']))
         {
             echo $langvars['l_unnamed'];
         }

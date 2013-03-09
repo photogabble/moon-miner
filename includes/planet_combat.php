@@ -154,14 +154,14 @@ function planet_combat ($db)
     {
         if ($attackerbeams > $planetfighters)
         {
-            $l_cmb_defenselost = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_defenselost);
+            $l_cmb_defenselost = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_defenselost);
             echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $l_cmb_defenselost . "</strong></font>";
             $attackerbeams = $attackerbeams - $planetfighters;
             $planetfighters = 0;
         }
         else
         {
-            $l_cmb_defenselost2 = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_defenselost2);
+            $l_cmb_defenselost2 = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_defenselost2);
             $planetfighters = $planetfighters - $attackerbeams;
             echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $l_cmb_defenselost2 . "</strong></font>";
             $attackerbeams = 0;
@@ -181,12 +181,12 @@ function planet_combat ($db)
             $attackerfighters = $temp;
             // Subtract half the attacker fighters from available planetary beams
             $planetbeams = $planetbeams - $lost;
-            $l_cmb_planetarybeams = str_replace("[cmb_temp]", $temp, $l_cmb_planetarybeams);
+            $l_cmb_planetarybeams = str_replace ("[cmb_temp]", $temp, $l_cmb_planetarybeams);
             echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_planetarybeams  . "</strong></font><td></td>";
         }
         else
         {
-            $l_cmb_planetarybeams2 = str_replace("[cmb_planetbeams]", $planetbeams, $l_cmb_planetarybeams2);
+            $l_cmb_planetarybeams2 = str_replace ("[cmb_planetbeams]", $planetbeams, $l_cmb_planetarybeams2);
             $attackerfighters = $attackerfighters - $planetbeams;
             echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_planetarybeams2 . "</strong></font><td></td>";
             $planetbeams = 0;
@@ -202,7 +202,7 @@ function planet_combat ($db)
         }
         else
         {
-            $l_cmb_beamsexhausted = str_replace("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsexhausted);
+            $l_cmb_beamsexhausted = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsexhausted);
             echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_beamsexhausted . "</font></strong><td></td>";
             $planetshields = $planetshields - $attackerbeams;
             $attackerbeams = 0;
@@ -219,7 +219,7 @@ function planet_combat ($db)
         else
         {
             $attackershields = $attackershields - $planetbeams;
-            $l_cmb_destroyedyourshields = str_replace("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourshields);
+            $l_cmb_destroyedyourshields = str_replace ("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourshields);
             echo "<tr align='center'><td></td><font color='#6098F8'><strong>$l_cmb_destroyedyourshields</font></strong></td>";
             $planetbeams = 0;
         }
@@ -234,7 +234,7 @@ function planet_combat ($db)
         else
         {
             $attackerarmor = $attackerarmor - $planetbeams;
-            $l_cmb_destroyedyourarmor = str_replace("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourarmor);
+            $l_cmb_destroyedyourarmor = str_replace ("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourarmor);
             echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_destroyedyourarmor</font></strong></td>";
         }
     }
@@ -243,7 +243,7 @@ function planet_combat ($db)
     {
         if ($attackertorpdamage > $planetfighters)
         {
-            $l_cmb_nofightersleft = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_nofightersleft);
+            $l_cmb_nofightersleft = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_nofightersleft);
             echo "<tr align='center'><td><font color='red'><strong>$l_cmb_nofightersleft</font></strong></td><td></td>";
             $attackertorpdamage = $attackertorpdamage - $planetfighters;
             $planetfighters = 0;
@@ -251,7 +251,7 @@ function planet_combat ($db)
         else
         {
             $planetfighters = $planetfighters - $attackertorpdamage;
-            $l_cmb_youdestroyfighters = str_replace("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_youdestroyfighters);
+            $l_cmb_youdestroyfighters = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_youdestroyfighters);
             echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyfighters</font></strong></td><td></td>";
             $attackertorpdamage = 0;
         }
@@ -264,13 +264,13 @@ function planet_combat ($db)
             $lost = $attackerfighters - $temp;
             $attackerfighters = $temp;
             $planettorpdamage = $planettorpdamage - $lost;
-            $l_cmb_planettorpsdestroy = str_replace("[cmb_temp]", $temp, $l_cmb_planettorpsdestroy);
+            $l_cmb_planettorpsdestroy = str_replace ("[cmb_temp]", $temp, $l_cmb_planettorpsdestroy);
             echo "<tr align='center'><td></td><td><font color='red'><strong>$l_cmb_planettorpsdestroy</strong></font></td>";
         }
         else
         {
             $attackerfighters = $attackerfighters - $planettorpdamage;
-            $l_cmb_planettorpsdestroy2 = str_replace("[cmb_planettorpdamage]", $planettorpdamage, $l_cmb_planettorpsdestroy2);
+            $l_cmb_planettorpsdestroy2 = str_replace ("[cmb_planettorpdamage]", $planettorpdamage, $l_cmb_planettorpsdestroy2);
             echo "<tr align='center'><td></td><td><font color='red'><strong>$l_cmb_planettorpsdestroy2</strong></font></td>";
             $planettorpdamage = 0;
         }
@@ -285,7 +285,7 @@ function planet_combat ($db)
         else
         {
             $attackerarmor = $attackerarmor - $planettorpdamage;
-            $l_cmb_planettorpsdestroy3 = str_replace("[cmb_planettorpdamage]", $planettorpdamage, $l_cmb_planettorpsdestroy3);
+            $l_cmb_planettorpsdestroy3 = str_replace ("[cmb_planettorpdamage]", $planettorpdamage, $l_cmb_planettorpsdestroy3);
             echo "<tr align='center'><td><font color='red'><strong>$l_cmb_planettorpsdestroy3</strong></font></td><td></td>";
         }
     }
@@ -299,7 +299,7 @@ function planet_combat ($db)
         }
         else
         {
-            $l_cmb_youdestroyplanetfighters = str_replace("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_youdestroyplanetfighters);
+            $l_cmb_youdestroyplanetfighters = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_youdestroyplanetfighters);
             echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyplanetfighters</strong></font></td><td></td>";
         }
     }
@@ -313,7 +313,7 @@ function planet_combat ($db)
         }
         else
         {
-            $l_cmb_youdestroyplanetfighters2 = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_youdestroyplanetfighters2);
+            $l_cmb_youdestroyplanetfighters2 = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_youdestroyplanetfighters2);
             echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyplanetfighters2</strong></font></td><td></td>";
             $tempplanetfighters = $planetfighters - $attackerfighters;
         }
@@ -325,7 +325,7 @@ function planet_combat ($db)
         else
         {
             $tempplayfighters = $attackerfighters - $planetfighters;
-            $l_cmb_fightertofighterlost = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_fightertofighterlost);
+            $l_cmb_fightertofighterlost = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_fightertofighterlost);
             echo "<tr align='center'><td><font color='red'><strong>$l_cmb_fightertofighterlost</strong></font></td><td></td>";
         }
         $attackerfighters = $tempplayfighters;
@@ -341,7 +341,7 @@ function planet_combat ($db)
         }
         else
         {
-            $l_cmb_shieldsremainup = str_replace("[cmb_attackerfighters]", $attackerfighters, $l_cmb_shieldsremainup);
+            $l_cmb_shieldsremainup = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_shieldsremainup);
             echo "<tr align='center'><td></td><font color='#6098F8'><strong>$l_cmb_shieldsremainup</strong></font></td>";
             $planetshields = $planetshields - $attackerfighters;
         }
@@ -362,13 +362,13 @@ function planet_combat ($db)
 
     echo "</table></center>\n";
     // Send each docked ship in sequence to attack agressor
-    $result4 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+    $result4 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
     \bnt\dbop::dbresult ($db, $result4, __LINE__, __FILE__);
     $shipsonplanet = $result4->RecordCount();
 
     if ($shipsonplanet > 0)
     {
-        $l_cmb_shipdock = str_replace("[cmb_shipsonplanet]", $shipsonplanet, $l_cmb_shipdock);
+        $l_cmb_shipdock = str_replace ("[cmb_shipsonplanet]", $shipsonplanet, $l_cmb_shipdock);
         echo "<br><br><center>$l_cmb_shipdock<br>$l_cmb_engshiptoshipcombat</center><br><br>\n";
         while (!$result4->EOF)
         {
@@ -419,7 +419,7 @@ function planet_combat ($db)
         if ($playerinfo['dev_escapepod'] == "Y")
         {
             echo "<center><font color='white'>$l_cmb_escapepod</font></center><br><br>";
-            $resx = $db->Execute("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($start_energy, $playerinfo['ship_id']));
+            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($start_energy, $playerinfo['ship_id']));
             \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
             collect_bounty ($db, $planetinfo['owner'], $playerinfo['ship_id']);
         }
@@ -447,24 +447,24 @@ function planet_combat ($db)
         }
         echo "<center><br><strong><font size='+2'>$l_cmb_finalcombatstats</font></strong><br><br>";
         $fighters_lost = $playerinfo['ship_fighters'] - $attackerfighters;
-        $l_cmb_youlostfighters = str_replace("[cmb_fighters_lost]", $fighters_lost, $l_cmb_youlostfighters);
-        $l_cmb_youlostfighters = str_replace("[cmb_playerinfo_ship_fighters]", $playerinfo['ship_fighters'], $l_cmb_youlostfighters);
+        $l_cmb_youlostfighters = str_replace ("[cmb_fighters_lost]", $fighters_lost, $l_cmb_youlostfighters);
+        $l_cmb_youlostfighters = str_replace ("[cmb_playerinfo_ship_fighters]", $playerinfo['ship_fighters'], $l_cmb_youlostfighters);
         echo "$l_cmb_youlostfighters<br>";
         $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
-        $l_cmb_youlostarmorpoints = str_replace("[cmb_armor_lost]", $armor_lost, $l_cmb_youlostarmorpoints);
-        $l_cmb_youlostarmorpoints = str_replace("[cmb_playerinfo_armor_pts]", $playerinfo['armor_pts'], $l_cmb_youlostarmorpoints);
-        $l_cmb_youlostarmorpoints = str_replace("[cmb_attackerarmor]", $attackerarmor, $l_cmb_youlostarmorpoints);
+        $l_cmb_youlostarmorpoints = str_replace ("[cmb_armor_lost]", $armor_lost, $l_cmb_youlostarmorpoints);
+        $l_cmb_youlostarmorpoints = str_replace ("[cmb_playerinfo_armor_pts]", $playerinfo['armor_pts'], $l_cmb_youlostarmorpoints);
+        $l_cmb_youlostarmorpoints = str_replace ("[cmb_attackerarmor]", $attackerarmor, $l_cmb_youlostarmorpoints);
         echo "$l_cmb_youlostarmorpoints<br>";
         $energy = $playerinfo['ship_energy'];
         $energy_lost = $start_energy - $playerinfo['ship_energy'];
-        $l_cmb_energyused = str_replace("[cmb_energy_lost]", $energy_lost, $l_cmb_energyused);
-        $l_cmb_energyused = str_replace("[cmb_playerinfo_ship_energy]", $start_energy, $l_cmb_energyused);
+        $l_cmb_energyused = str_replace ("[cmb_energy_lost]", $energy_lost, $l_cmb_energyused);
+        $l_cmb_energyused = str_replace ("[cmb_playerinfo_ship_energy]", $start_energy, $l_cmb_energyused);
         echo "$l_cmb_energyused<br></center>";
-        $resx = $db->Execute("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, torps=torps-?,armor_pts=armor_pts-?, rating=rating-? WHERE ship_id=?", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, torps=torps-?,armor_pts=armor_pts-?, rating=rating-? WHERE ship_id=?", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
     }
 
-    $result4 = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
+    $result4 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE planet_id=? AND on_planet='Y'", array ($planetinfo['planet_id']));
     \bnt\dbop::dbresult ($db, $result4, __LINE__, __FILE__);
     $shipsonplanet = $result4->RecordCount();
 
@@ -484,7 +484,7 @@ function planet_combat ($db)
             $sql  = "UPDATE {$db->prefix}planets ";
             $sql .= "SET organics = '0', ore = '0', goods = '0', energy = '0', colonists = '2', credits = '0', fighters = '0', torps = '0', corp = '0', base = 'N', sells = 'N', prod_organics = '20', prod_ore = '20', prod_goods = '20', prod_energy = '20', prod_fighters = '10', prod_torp = '10' ";
             $sql .= "WHERE planet_id = ? LIMIT 1;";
-            $resx = $db->Execute($sql, array ($planetinfo['planet_id']));
+            $resx = $db->Execute ($sql, array ($planetinfo['planet_id']));
             \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
             echo "<div style='text-align:center; font-size:18px; color:#f00;'>The planet become unstable due to not being looked after, and all life and assets have been destroyed.</div>\n";
         }
@@ -500,7 +500,7 @@ function planet_combat ($db)
             if ($playerscore < $planetscore)
             {
                 echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
-                $resx = $db->Execute("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
+                $resx = $db->Execute ("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
                 \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                 \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 \bnt\AdminLog::writeLog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
@@ -508,21 +508,21 @@ function planet_combat ($db)
             }
             else
             {
-                $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
+                $l_cmb_youmaycapture = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
                 echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
                 \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 calc_score ($db, $ownerinfo['ship_id']);
-                $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
+                $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
                 \bnt\dbop::dbresult ($db, $update7a, __LINE__, __FILE__);
             }
         }
         else
         {
-            $l_cmb_youmaycapture = str_replace("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
+            $l_cmb_youmaycapture = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
             echo "<center>$l_cmb_youmaycapture</center><br><br>";
             \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             calc_score ($db, $ownerinfo['ship_id']);
-            $update7a = $db->Execute("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
+            $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
             \bnt\dbop::dbresult ($db, $update7a, __LINE__, __FILE__);
         }
 
@@ -532,16 +532,16 @@ function planet_combat ($db)
     {
         echo "<br><br><center><font color='#6098F8'><strong>$l_cmb_planetnotdefeated</strong></font></center><br><br>";
         $fighters_lost = $planetinfo['fighters'] - $planetfighters;
-        $l_cmb_fighterloststat = str_replace("[cmb_fighters_lost]", $fighters_lost, $l_cmb_fighterloststat);
-        $l_cmb_fighterloststat = str_replace("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $l_cmb_fighterloststat);
-        $l_cmb_fighterloststat = str_replace("[cmb_planetfighters]", $planetfighters, $l_cmb_fighterloststat);
+        $l_cmb_fighterloststat = str_replace ("[cmb_fighters_lost]", $fighters_lost, $l_cmb_fighterloststat);
+        $l_cmb_fighterloststat = str_replace ("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $l_cmb_fighterloststat);
+        $l_cmb_fighterloststat = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_fighterloststat);
         $energy = $planetinfo['energy'];
         \bnt\PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         calc_score ($db, $ownerinfo['ship_id']);
-        $update7b = $db->Execute("UPDATE {$db->prefix}planets SET energy=?,fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($energy, $fighters_lost, $planettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
+        $update7b = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?,fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($energy, $fighters_lost, $planettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
         \bnt\dbop::dbresult ($db, $update7b, __LINE__, __FILE__);
     }
-    $update = $db->Execute("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
+    $update = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1, turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
 }
 ?>

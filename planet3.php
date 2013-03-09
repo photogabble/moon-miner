@@ -65,11 +65,11 @@ if ($planet_id <= 0)
     die ();
 }
 
-$result = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
 \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);
 $planetinfo = $result2->fields;
 

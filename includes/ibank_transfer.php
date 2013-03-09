@@ -29,7 +29,7 @@ function ibank_transfer ($db)
     global $l_ibank_transfertype, $l_ibank_toanothership, $l_ibank_shiptransfer, $l_ibank_fromplanet, $l_ibank_source, $l_ibank_consolidate;
     global $l_ibank_unnamed, $l_ibank_in, $l_ibank_none, $l_ibank_planettransfer, $l_ibank_back, $l_ibank_logout, $l_ibank_destination, $l_ibank_conspl;
 
-    $res = $db->Execute("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
+    $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
@@ -37,7 +37,7 @@ function ibank_transfer ($db)
         $res->MoveNext();
     }
 
-    $res = $db->Execute("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
+    $res = $db->Execute ("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {

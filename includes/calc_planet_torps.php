@@ -30,7 +30,7 @@ function calc_planet_torps ($db, $ownerinfo, $planetinfo, $base_defense, $level_
     $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
     $torps = $planetinfo['torps'];
 
-    $res = $db->Execute("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+    $res = $db->Execute ("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {

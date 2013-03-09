@@ -45,7 +45,7 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
     }
 
     // Check for IP Ban
-    $rs = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE (ban_type = ? AND ban_mask = ?) OR (ban_mask = ? AND ? != NULL);", array(IP_BAN, $_SERVER['REMOTE_ADDR'], $player_acc['ip_address'], $player_acc['ip_address']));
+    $rs = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE (ban_type = ? AND ban_mask = ?) OR (ban_mask = ? AND ? != NULL);", array(IP_BAN, $_SERVER['REMOTE_ADDR'], $player_acc['ip_address'], $player_acc['ip_address']));
     \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
     if($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
     {
@@ -54,7 +54,7 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
     }
 
     // Check for ID Watch, Ban, Lock, 24H Ban etc linked to the platyers ShipID.
-    $rs = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE ban_ship = ?;", array($player_acc['ship_id']));
+    $rs = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE ban_ship = ?;", array($player_acc['ship_id']));
     \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
     if($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
     {
@@ -73,7 +73,7 @@ function check_ban ($db, $lang, $langvars, $player_acc = false)
     }
 
     // Check for Multi Ban (IP, ID)
-    $rs = $db->Execute("SELECT * FROM {$db->prefix}bans WHERE ban_type = ? AND (ban_mask = ? OR ban_mask = ? OR ban_ship = ?)", array(MULTI_BAN, $player_acc['ip_address'], $_SERVER['REMOTE_ADDR'], $player_acc['ship_id']));
+    $rs = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE ban_type = ? AND (ban_mask = ? OR ban_mask = ? OR ban_ship = ?)", array(MULTI_BAN, $player_acc['ip_address'], $_SERVER['REMOTE_ADDR'], $player_acc['ship_id']));
     \bnt\dbop::dbresult ($db, $rs, __LINE__, __FILE__);
     if($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
     {

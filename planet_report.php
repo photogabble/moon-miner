@@ -37,12 +37,12 @@ if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))
 }
 
 // Get data about planets
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 // Determine what type of report is displayed and display it's title
-if ($preptype == 1 || !isset($preptype)) // Display the commodities on the planets
+if ($preptype == 1 || !isset ($preptype)) // Display the commodities on the planets
 {
     $title = $title .": Status";
     echo "<h1>" . $title . "</h1>\n";
@@ -113,7 +113,7 @@ function standard_report ($db)
 
     $query = "SELECT * FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id]";
 
-    if (!empty($sort))
+    if (!empty ($sort))
     {
         $query .= " ORDER BY";
         if ($sort == "name")
@@ -138,7 +138,7 @@ function standard_report ($db)
         $query .= " ORDER BY sector_id ASC";
     }
 
-    $res = $db->Execute($query);
+    $res = $db->Execute ($query);
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 
     $i = 0;
@@ -222,7 +222,7 @@ function standard_report ($db)
             {
                 $total_selling += 1;
             }
-            if (empty($planet[$i]['name']))
+            if (empty ($planet[$i]['name']))
             {
                 $planet[$i]['name'] = $l_unnamed;
             }
@@ -309,7 +309,7 @@ function planet_production_change ($db)
         echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> <br>";
     }
 
-    if (!empty($sort))
+    if (!empty ($sort))
     {
         $query .= " ORDER BY";
         if ($sort == "name")
@@ -395,7 +395,7 @@ function planet_production_change ($db)
         {
             $total_colonists += $planet[$i]['colonists'];
             $total_credits += $planet[$i]['credits'];
-            if (empty($planet[$i]['name']))
+            if (empty ($planet[$i]['name']))
             {
                 $planet[$i]['name'] = $l_unnamed;
             }

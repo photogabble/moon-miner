@@ -36,7 +36,7 @@ $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array 
 $playerinfo = $res->fields;
 
 $query = "SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?";
-if (!empty($sort))
+if (!empty ($sort))
 {
     $query .= " ORDER BY";
     if ($sort == "quantity")

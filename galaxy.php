@@ -32,10 +32,10 @@ $title = $l_map_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
-$result3 = $db->Execute("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = ? AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC", array ($playerinfo['ship_id']));
+$result3 = $db->Execute ("SELECT distinct {$db->prefix}movement_log.sector_id, port_type, beacon FROM {$db->prefix}movement_log,{$db->prefix}universe WHERE ship_id = ? AND {$db->prefix}movement_log.sector_id={$db->prefix}universe.sector_id order by sector_id ASC", array ($playerinfo['ship_id']));
 \bnt\dbop::dbresult ($db, $result3, __LINE__, __FILE__);
 $row = $result3->fields;
 
@@ -69,7 +69,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
             // Build the alt text for each image
             $alt  = $l_sector . ": {$row['sector_id']} Port: {$row['port_type']} ";
 
-            if (!is_null($row['beacon']))
+            if (!is_null ($row['beacon']))
             {
                 $alt .= "{$row['beacon']}";
             }

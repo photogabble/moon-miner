@@ -67,7 +67,7 @@ $mySEC = (integer) 0;
 
 if (!$db->inactive)
 {
-    $res = $db->Execute("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
+    $res = $db->Execute ("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
@@ -120,7 +120,7 @@ if (preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i",
     $sf_logo_type++; // Make the SF logo darker for all pages except login. No need to change the sizes as 12 is the same size as 11 and 15 is the same size as 14.
 }
 
-if (!isset($_GET['lang']))
+if (!isset ($_GET['lang']))
 {
     $link = '';
 }

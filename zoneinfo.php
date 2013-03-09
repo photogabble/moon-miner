@@ -32,11 +32,11 @@ $title = $l_zi_title;
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
-$res = $db->Execute("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($zone));
+$res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?;", array ($zone));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 
@@ -77,14 +77,14 @@ else
 
         if ($row['corp_zone'] == 'N')
         {
-            $result = $db->Execute("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['owner']));
+            $result = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($row['owner']));
             \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['character_name'];
         }
         else
         {
-            $result = $db->Execute("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id = ?;", array ($row['owner']));
+            $result = $db->Execute ("SELECT team_name, creator, id FROM {$db->prefix}teams WHERE id = ?;", array ($row['owner']));
             \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
             $ownerinfo = $result->fields;
             $ownername = $ownerinfo['team_name'];

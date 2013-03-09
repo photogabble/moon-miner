@@ -41,7 +41,7 @@ if ($playerinfo['dev_emerwarp'] > 0)
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $playerinfo['ship_id']));
     \bnt\dbop::dbresult ($db, $result_warp, __LINE__, __FILE__);
     \bnt\LogMove::writeLog ($db, $playerinfo['ship_id'], $dest_sector);
-    $l_ewd_used = str_replace("[sector]", $dest_sector, $l_ewd_used);
+    $l_ewd_used = str_replace ("[sector]", $dest_sector, $l_ewd_used);
 
     $variables['dest_sector'] = $dest_sector;
 }

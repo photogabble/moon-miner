@@ -76,7 +76,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 require_once './sched_funcs.php';
 
-if (isset($_REQUEST['swordfish']))
+if (isset ($_REQUEST['swordfish']))
 {
     $swordfish = $_REQUEST['swordfish'];
 }
@@ -98,7 +98,7 @@ else
     $lastRun = 0;
     $schedCount = 0;
     $lastrunList = null;
-    $sched_res = $db->Execute("SELECT * FROM {$db->prefix}scheduler");
+    $sched_res = $db->Execute ("SELECT * FROM {$db->prefix}scheduler");
     \bnt\dbop::dbresult ($db, $sched_res, __LINE__, __FILE__);
     if ($sched_res)
     {
@@ -123,18 +123,18 @@ else
 
                 if ($event[spawn] - $multiplier == 0)
                 {
-                    $resx = $db->Execute("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array ($event['sched_id']));
+                    $resx = $db->Execute ("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array ($event['sched_id']));
                     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
                 }
                 else
                 {
-                    $resy = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ?, spawn = spawn - ? WHERE sched_id = ?", array ($ticks_left, $multiplier, $event['sched_id']));
+                    $resy = $db->Execute ("UPDATE {$db->prefix}scheduler SET ticks_left = ?, spawn = spawn - ? WHERE sched_id = ?", array ($ticks_left, $multiplier, $event['sched_id']));
                     \bnt\dbop::dbresult ($db, $resy, __LINE__, __FILE__);
                 }
             }
             else
             {
-                $resz = $db->Execute("UPDATE {$db->prefix}scheduler SET ticks_left = ? WHERE sched_id = ?", array ($ticks_left, $event['sched_id']));
+                $resz = $db->Execute ("UPDATE {$db->prefix}scheduler SET ticks_left = ? WHERE sched_id = ?", array ($ticks_left, $event['sched_id']));
                 \bnt\dbop::dbresult ($db, $resz, __LINE__, __FILE__);
             }
 
@@ -163,7 +163,7 @@ else
     $runtime = time() - $starttime;
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
-    $res = $db->Execute("UPDATE {$db->prefix}scheduler SET last_run = ". TIME());
+    $res = $db->Execute ("UPDATE {$db->prefix}scheduler SET last_run = ". TIME());
     \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
 }
 

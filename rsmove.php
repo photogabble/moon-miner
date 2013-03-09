@@ -118,8 +118,8 @@ elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sect
     else
     {
         $l_rs_engage_link = "<a href=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
-        $l_rs_engage = str_replace("[turns]", number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_engage);
-        $l_rs_engage = str_replace("[engage]", $l_rs_engage_link, $l_rs_engage);
+        $l_rs_engage = str_replace ("[turns]", number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_engage);
+        $l_rs_engage = str_replace ("[engage]", $l_rs_engage_link, $l_rs_engage);
         echo "$l_rs_engage<br><br>";
     }
 }
@@ -145,7 +145,7 @@ elseif ($destination < $sector_max && $engage > 0)
         $energyscooped = $free_power;
     }
 
-    if (!isset($energyscooped) || $energyscooped < 1)
+    if (!isset ($energyscooped) || $energyscooped < 1)
     {
         $energyscooped = 0;
     }

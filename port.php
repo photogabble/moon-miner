@@ -323,7 +323,7 @@ elseif ($sectorinfo['port_type'] == "special")
             \bnt\dbop::dbresult ($db, $bank_res, __LINE__, __FILE__);
             $bank_row = $bank_res->fields;
 
-            if (isset($pay) && $pay == 1)
+            if (isset ($pay) && $pay == 1)
             {
                 if ($playerinfo['credits'] < $bty['total_bounty'])
                 {
@@ -343,7 +343,7 @@ elseif ($sectorinfo['port_type'] == "special")
                     die ();
                 }
             }
-            elseif (isset($pay) && $pay == 2)
+            elseif (isset ($pay) && $pay == 2)
             {
                 $bank_res = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                 \bnt\dbop::dbresult ($db, $bank_res, __LINE__, __FILE__);

@@ -62,12 +62,12 @@ function load_languages ($db = null, $language = null, $categories = null, &$lan
             if ($disable_cache)
             {
                 // Select from the database and return the value of the language variables requested, but do not use caching
-                $result = $db->Execute("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
+                $result = $db->Execute ("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
             }
             else
             {
                 // Do a cached select from the database and return the value of the language variables requested
-                $result = $db->CacheExecute(7200, "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
+                $result = $db->CacheExecute (7200, "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
             }
 
             \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);

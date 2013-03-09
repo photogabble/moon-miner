@@ -36,13 +36,13 @@ function destroy_fighters ($db, $sector, $num_fighters)
             $row = $result3->fields;
             if ($row['quantity'] > $num_fighters)
             {
-                $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($num_fighters, $row['defence_id']));
+                $update = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($num_fighters, $row['defence_id']));
                 \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
                 $num_fighters = 0;
             }
             else
             {
-                $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
+                $update = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
                 \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
                 $num_fighters -= $row['quantity'];
             }

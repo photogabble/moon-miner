@@ -162,7 +162,7 @@ if (!defined('reg_global_fix')) define('reg_global_fix', True, TRUE);
 // Add logging in these two functions to identify where we are using post and get, and start migrating away from them both needing to be globals.
 foreach ($_POST as $k=>$v)
 {
-    if (!isset($GLOBALS[$k]))
+    if (!isset ($GLOBALS[$k]))
     {
         ${$k} = $v;
     }
@@ -170,13 +170,13 @@ foreach ($_POST as $k=>$v)
 
 foreach ($_GET as $k=>$v)
 {
-    if (!isset($GLOBALS[$k]))
+    if (!isset ($GLOBALS[$k]))
     {
         ${$k} = $v;
     }
 }
 
-if (isset($default_lang))
+if (isset ($default_lang))
 {
     $lang = $default_lang;
 }

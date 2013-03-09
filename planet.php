@@ -126,7 +126,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         $ownerinfo = $result3->fields;
     }
 
-    if (empty($command))
+    if (empty ($command))
     {
         // Kami Multi Browser Window Attack Fix
         $_SESSION['planet_selected'] = $planet_id;
@@ -304,7 +304,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             $retOwnerInfo = NULL;
 
             $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
-            if ($owner_found == true && !is_null($retOwnerInfo))
+            if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
                 {
@@ -402,7 +402,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         }
         elseif ($command == "base")
         {
-            if (array_key_exists('planet_selected', $_SESSION) == false )
+            if (array_key_exists ('planet_selected', $_SESSION) == false )
             {
                 $_SESSION['planet_selected'] = '';
             }
@@ -446,7 +446,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
                     // Calc Ownership and Notify User Of Results
                     $ownership = \bnt\bntownership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
-                    if (!empty($ownership))
+                    if (!empty ($ownership))
                     {
                         echo "$ownership<p>";
                     }
@@ -464,12 +464,12 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         elseif ($command == "productions")
         {
             // Change production percentages
-            $pore       = (int) array_key_exists('pore', $_POST)?$_POST['pore']:0;
-            $porganics  = (int) array_key_exists('porganics', $_POST)?$_POST['porganics']:0;
-            $pgoods     = (int) array_key_exists('pgoods', $_POST)?$_POST['pgoods']:0;
-            $penergy    = (int) array_key_exists('penergy', $_POST)?$_POST['penergy']:0;
-            $pfighters  = (int) array_key_exists('pfighters', $_POST)?$_POST['pfighters']:0;
-            $ptorp      = (int) array_key_exists('ptorp', $_POST)?$_POST['ptorp']:0;
+            $pore       = (int) array_key_exists ('pore', $_POST)?$_POST['pore']:0;
+            $porganics  = (int) array_key_exists ('porganics', $_POST)?$_POST['porganics']:0;
+            $pgoods     = (int) array_key_exists ('pgoods', $_POST)?$_POST['pgoods']:0;
+            $penergy    = (int) array_key_exists ('penergy', $_POST)?$_POST['penergy']:0;
+            $pfighters  = (int) array_key_exists ('pfighters', $_POST)?$_POST['pfighters']:0;
+            $ptorp      = (int) array_key_exists ('ptorp', $_POST)?$_POST['ptorp']:0;
 
             if ($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
             {
@@ -533,7 +533,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         elseif ($command == "attac")
         {
             // Kami Multi Browser Window Attack Fix
-            if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
+            if (array_key_exists ('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
                 \bnt\AdminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to start an attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -556,7 +556,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             $retOwnerInfo = NULL;
             $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
-            if ($owner_found == true && !is_null($retOwnerInfo))
+            if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
                 {
@@ -580,7 +580,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         elseif ($command == "attack")
         {
             // Kami Multi Browser Window Attack Fix
-            if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
+            if (array_key_exists ('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
                 \bnt\AdminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Attack without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -592,7 +592,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             $retOwnerInfo = NULL;
             $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
-            if ($owner_found == true && !is_null($retOwnerInfo))
+            if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
                 {
@@ -635,7 +635,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         elseif ($command == "scan")
         {
             // Kami Multi Browser Window Attack Fix
-            if (array_key_exists('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
+            if (array_key_exists ('planet_selected', $_SESSION) == false || $_SESSION['planet_selected'] != $planet_id)
             {
                 \bnt\AdminLog::writeLog ($db, 57, "{$ip}|{$playerinfo['ship_id']}|Tried to Scan without clicking on the Planet.");
                 echo "You need to Click on the planet first.<br><br>";
@@ -868,7 +868,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             \bnt\dbop::dbresult ($db, $update, __LINE__, __FILE__);
             $ownership = \bnt\bntownership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
 
-            if (!empty($ownership))
+            if (!empty ($ownership))
             {
                 echo "$ownership<p>";
             }

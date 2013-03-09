@@ -41,7 +41,7 @@ if (result == true)
     }
     else
     {
-        $res = $db->Execute("SELECT headline, news_type FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
+        $res = $db->Execute ("SELECT headline, news_type FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         if (!$res instanceof ADORecordSet || $res->RecordCount() == 0)
         {
