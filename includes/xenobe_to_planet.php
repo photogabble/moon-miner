@@ -107,20 +107,20 @@ function xenobe_to_planet ($db, $planet_id)
     // Begin combat
     if ($attackerbeams > 0 && $targetfighters > 0)              // Attacker has beams - Target has fighters - Beams v. fighters
     {
-        if ($attackerbeams > $targetfighters)                   // Attacker beams beat Target fighters
+        if ($attackerbeams > $targetfighters)                   // Attacker beams beat target fighters
         {
             $lost = $targetfighters;
             $targetfighters = 0;                                // Target loses all fighters
-            $attackerbeams = $attackerbeams - $lost;            // Attacker loses beams equal to Target fighters
+            $attackerbeams = $attackerbeams - $lost;            // Attacker loses beams equal to target fighters
         }
-        else                                                    // Attacker beams less than or equal to Target fighters
+        else                                                    // Attacker beams less than or equal to target fighters
         {
             $targetfighters = $targetfighters - $attackerbeams; // Target loses fighters equal to attacker beams
             $attackerbeams = 0;                                 // Attacker loses all beams
         }
     }
 
-    if ($attackerfighters > 0 && $targetbeams > 0)                          // Target has beams - Attacker has fighters - Beams v. fighters
+    if ($attackerfighters > 0 && $targetbeams > 0)                          // Target has beams - attacker has fighters - Beams v. fighters
     {
         if ($targetbeams > round ($attackerfighters / 2))                   // Target beams greater than half attacker fighters
         {
@@ -149,7 +149,7 @@ function xenobe_to_planet ($db, $planet_id)
         }
     }
 
-    if ($targetbeams > 0)                                                // Target has beams left - Continue combat - Beams v. shields
+    if ($targetbeams > 0)                                                // Target has beams left - continue combat - Beams v. shields
     {
         if ($targetbeams > $attackershields)                             // Target beams greater than attacker shields
         {
@@ -257,15 +257,50 @@ function xenobe_to_planet ($db, $planet_id)
     }
 
     // Fix negative values
-    if ($attackerfighters < 0) $attackerfighters = 0;
-    if ($attackertorps    < 0) $attackertorps = 0;
-    if ($attackershields  < 0) $attackershields = 0;
-    if ($attackerbeams    < 0) $attackerbeams = 0;
-    if ($attackerarmor    < 0) $attackerarmor = 0;
-    if ($targetfighters   < 0) $targetfighters = 0;
-    if ($targettorps      < 0) $targettorps = 0;
-    if ($targetshields    < 0) $targetshields = 0;
-    if ($targetbeams      < 0) $targetbeams = 0;
+    if ($attackerfighters < 0)
+    {
+        $attackerfighters = 0;
+    }
+
+    if ($attackertorps    < 0)
+    {
+        $attackertorps = 0;
+    }
+
+    if ($attackershields  < 0)
+    {
+        $attackershields = 0;
+    }
+
+    if ($attackerbeams    < 0)
+    {
+        $attackerbeams = 0;
+    }
+
+    if ($attackerarmor    < 0)
+    {
+        $attackerarmor = 0;
+    }
+
+    if ($targetfighters   < 0)
+    {
+        $targetfighters = 0;
+    }
+
+    if ($targettorps      < 0)
+    {
+        $targettorps = 0;
+    }
+
+    if ($targetshields    < 0)
+    {
+        $targetshields = 0;
+    }
+
+    if ($targetbeams      < 0)
+    {
+        $targetbeams = 0;
+    }
 
     if (!$attackerarmor > 0) // Check if attackers ship destroyed
     {
