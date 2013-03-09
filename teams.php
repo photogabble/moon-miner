@@ -413,8 +413,8 @@ switch ($teamwhat)
         }
         else
         {
-            $teamname = trim (htmlspecialchars($teamname));
-            $teamdesc = trim (htmlspecialchars($teamdesc));
+            $teamname = trim (htmlspecialchars ($teamname));
+            $teamdesc = trim (htmlspecialchars ($teamdesc));
 
             if (!validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
@@ -772,7 +772,7 @@ function show_info ($db, $whichteam, $isowner)
     global $l_team_eject, $color_line2;
 
     // Heading
-    echo"<div align=center>";
+    echo "<div align=center>";
     echo "<h3><font color=white><strong>$team[team_name]</strong>";
     echo "<br><font size=2>\"<i>$team[description]</i>\"</font></h3>";
     if ($playerinfo['team'] == $team['id'])

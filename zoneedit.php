@@ -128,7 +128,7 @@ if ($command == 'change')
     // Sanitize ZoneName.
     $name = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $name);
 
-    if (!get_magic_quotes_gpc())
+    if (!get_magic_quotes_gpc ())
     {
         $name = addslashes($name);
     }

@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'get_planet_owner.php')) // Prevent direct acc
 function get_planet_owner ($db = null, $planet_id = null, &$owner_info = null)
 {
     $owner_info = null;
-    if(!is_null ($planet_id) && is_numeric ($planet_id) && $planet_id > 0)
+    if (!is_null ($planet_id) && is_numeric ($planet_id) && $planet_id > 0)
     {
         $sql  = "SELECT ship_id, character_name, team FROM {$db->prefix}planets ";
         $sql .= "LEFT JOIN {$db->prefix}ships ON {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ";

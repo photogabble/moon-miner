@@ -57,7 +57,7 @@ if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_se
     include_once './footer.php';
     die ();
 }
-unset($_SESSION['ship_selected']);
+unset ($_SESSION['ship_selected']);
 
 // Check to ensure target is in the same sector as player
 if ($targetinfo['sector'] != $playerinfo['sector'])
@@ -148,7 +148,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_engines:</td>";
@@ -160,7 +160,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_power:</td>";
@@ -172,7 +172,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_computer:</td>";
@@ -184,7 +184,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_sensors:</td>";
@@ -196,7 +196,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_beams:</td>";
@@ -208,7 +208,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_torp_launch:</td>";
@@ -220,7 +220,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_armor:</td>";
@@ -232,7 +232,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_shields:</td>";
@@ -244,7 +244,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_cloak:</td>";
@@ -256,7 +256,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "</table><br>";
@@ -271,7 +271,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_fighters:</td>";
@@ -283,7 +283,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_torps:</td>";
@@ -295,7 +295,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "</table><br>";
@@ -310,7 +310,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_colonists:</td>";
@@ -322,7 +322,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_energy:</td>";
@@ -334,7 +334,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_ore:</td>";
@@ -346,7 +346,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_organics:</td>";
@@ -358,7 +358,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_goods:</td>";
@@ -370,7 +370,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "</table><br>";
@@ -385,7 +385,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_genesis:</td>";
@@ -397,7 +397,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_deflect:</td>";
@@ -409,7 +409,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_ewd:</td>";
@@ -421,7 +421,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_escape_pod:</td>";
@@ -432,7 +432,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "<tr><td>$l_fuel_scoop:</td>";
@@ -443,7 +443,7 @@ else
             }
             else
             {
-                echo"<td>???</td></tr>";
+                echo "<td>???</td></tr>";
             }
 
             echo "</table><br>";

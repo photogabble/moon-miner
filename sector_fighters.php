@@ -46,7 +46,7 @@ if ($playershields > $playerinfo['ship_energy'])
 {
     $playershields = $playerinfo['ship_energy'];
 }
-$playertorpnum = round(pow ($level_factor,$playerinfo['torp_launchers']))*2;
+$playertorpnum = round (pow ($level_factor,$playerinfo['torp_launchers']))*2;
 
 if ($playertorpnum > $playerinfo['torps'])
 {
@@ -58,7 +58,7 @@ $playerarmor = $playerinfo['armor_pts'];
 $playerfighters = $playerinfo['ship_fighters'];
 if ($targetfighters > 0 && $playerbeams > 0)
 {
-    if ($playerbeams > round($targetfighters / 2))
+    if ($playerbeams > round ($targetfighters / 2))
     {
         $temp = round ($targetfighters / 2);
         $lost = $targetfighters - $temp;
@@ -79,7 +79,7 @@ if ($targetfighters > 0 && $playerbeams > 0)
 echo "<br>$l_sf_torphit<br>";
 if ($targetfighters > 0 && $playertorpdmg > 0)
 {
-    if ($playertorpdmg > round($targetfighters / 2))
+    if ($playertorpdmg > round ($targetfighters / 2))
     {
         $temp = round ($targetfighters / 2);
         $lost = $targetfighters - $temp;

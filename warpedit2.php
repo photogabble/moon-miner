@@ -83,7 +83,7 @@ if ($zoneinfo['allow_warpedit'] == 'N')
     die ();
 }
 
-$target_sector = round($target_sector);
+$target_sector = round ($target_sector);
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;

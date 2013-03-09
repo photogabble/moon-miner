@@ -563,11 +563,11 @@ else
                     {
                         if (mt_rand () %10 == 1)
                         {
-                            $makepass .= sprintf("%0.0f",(mt_rand () %50)+1);
+                            $makepass .= sprintf ("%0.0f",(mt_rand () %50)+1);
                         }
                         else
                         {
-                            $makepass .= sprintf("%s",$syllable_array[mt_rand () %62]);
+                            $makepass .= sprintf ("%s",$syllable_array[mt_rand () %62]);
                         }
                     }
                     if ($xenlevel=='')

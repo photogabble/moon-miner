@@ -706,9 +706,9 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_genesis'] != $max_genesis)
     {
-        echo"<a href='#' onClick=\"make_max('dev_genesis_number', $genesis_free);count_total();return false;\">";
+        echo "<a href='#' onClick=\"make_max('dev_genesis_number', $genesis_free);count_total();return false;\">";
         echo number_format ($genesis_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
-        echo"    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
+        echo "    <td><input type=TEXT NAME=dev_genesis_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
     {
@@ -737,9 +737,9 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_beacon'] != $max_beacons)
     {
-        echo"<a href='#' onClick=\"make_max('dev_beacon_number', $beacon_free);count_total();return false;\">";
+        echo "<a href='#' onClick=\"make_max('dev_beacon_number', $beacon_free);count_total();return false;\">";
         echo number_format ($beacon_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
-        echo"    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
+        echo "    <td><input type=TEXT NAME=dev_beacon_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
     {
@@ -761,9 +761,9 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_emerwarp'] != $max_emerwarp)
     {
-        echo"<a href='#' onClick=\"make_max('dev_emerwarp_number', $emerwarp_free);count_total();return false;\">";
+        echo "<a href='#' onClick=\"make_max('dev_emerwarp_number', $emerwarp_free);count_total();return false;\">";
         echo number_format ($emerwarp_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
-        echo"    <td><input type=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
+        echo "    <td><input type=TEXT NAME=dev_emerwarp_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
     {
@@ -790,9 +790,9 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td>";
     if ($playerinfo['dev_warpedit'] != $max_warpedit)
     {
-        echo"<a href='#' onClick=\"make_max('dev_warpedit_number', $warpedit_free);count_total();return false;\">";
+        echo "<a href='#' onClick=\"make_max('dev_warpedit_number', $warpedit_free);count_total();return false;\">";
         echo number_format ($warpedit_free, 0, $local_number_dec_point, $local_number_thousands_sep) . "</a></td>\n";
-        echo"    <td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
+        echo "    <td><input type=TEXT NAME=dev_warpedit_number SIZE=4 MAXLENGTH=4 value=0 $onblur>";
     }
     else
     {

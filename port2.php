@@ -94,7 +94,7 @@ $trade_benefit = "$l_profit : ";
 
 function build_one_col ( $text = "&nbsp;", $align = "left" )
 {
-    echo"
+    echo "
     <tr>
       <td colspan=99 align=".$align.">".$text.".</td>
     </tr>
@@ -103,7 +103,7 @@ function build_one_col ( $text = "&nbsp;", $align = "left" )
 
 function build_two_col ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left" )
 {
-    echo"
+    echo "
     <tr>
       <td align=".$align_col1.">".$text_col1."</td>
       <td align=".$align_col2.">".$text_col2."</td>

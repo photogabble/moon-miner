@@ -64,7 +64,7 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
                 $timestamp['last'] = (int) strtotime ($playerinfo['last_login']);
 
                 // Update the players last_login ever 60 seconds to cut back SQL Queries.
-                if($timestamp['now'] >= ($timestamp['last'] +60))
+                if ($timestamp['now'] >= ($timestamp['last'] +60))
                 {
                     $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
                     $_SESSION['last_activity'] = $timestamp['now']; // Reset the last activity time on the session so that the session renews - this is the replacement for the (now removed) update_cookie function.
@@ -73,7 +73,7 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
                 $banned = 0;
 
                 // Check to see if the player is banned every 60 seconds (may need to ajust this).
-                if($timestamp['now'] >= ($timestamp['last'] +60))
+                if ($timestamp['now'] >= ($timestamp['last'] +60))
                 {
                     include_once './includes/check_ban.php';
 

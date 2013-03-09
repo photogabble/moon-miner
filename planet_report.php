@@ -163,7 +163,7 @@ function standard_report ($db)
         echo "<br>";
         echo "<form action=planet_report_ce.php method=post>";
 
-        // Next block of echo's creates the header of the table
+        // Next block of echo 's creates the header of the table
         echo $l_pr_clicktosort . "<br><br>";
         echo "<strong>WARNING:</strong> \"Build\" and \"Take Credits\" will cause your ship to move. <br><br>";
         echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
@@ -186,7 +186,7 @@ function standard_report ($db)
         }
         echo "<td align=right><strong>$l_selling?</strong></td>";
 
-        // Next block of echo's fils the table and calculates the totals of all the commoditites as well as counting the bases and selling planets
+        // Next block of echo 's fils the table and calculates the totals of all the commoditites as well as counting the bases and selling planets
         echo "</tr>";
         $total_organics = 0;
         $total_ore = 0;
@@ -361,7 +361,7 @@ function planet_production_change ($db)
     {
         echo "<form action='planet_report_ce.php' method='post'>\n";
 
-        // Next block of echo's creates the header of the table
+        // Next block of echo 's creates the header of the table
         echo "$l_pr_clicktosort<br><br>\n";
         echo "<table width='100%' border='0' cellspacing='0' cellpadding='2'>\n";
         echo "<tr bgcolor='{$color_header}' valign='bottom'>\n";
@@ -462,11 +462,11 @@ function corp_planet_checkboxes ($planet, $i)
 {
     if ($planet[$i]['corp'] <= 0)
     {
-        return("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' />");
+        return ("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' />");
     }
     elseif ($planet[$i]['corp'] > 0)
     {
-        return("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' checked />");
+        return ("<input type='checkbox' name='corp[{$i}]' value='{$planet[$i]['planet_id']}' checked />");
     }
 }
 
@@ -474,11 +474,11 @@ function selling_checkboxes ($planet, $i)
 {
     if ($planet[$i]['sells'] != 'Y')
     {
-        return("<input type='checkbox' name='sells[{$i}]' value='{$planet[$i]['planet_id']}' />");
+        return ("<input type='checkbox' name='sells[{$i}]' value='{$planet[$i]['planet_id']}' />");
     }
     elseif ($planet[$i]['sells'] == 'Y')
     {
-        return("<input type='checkbox' name='sells[{$i}]' value='{$planet[$i]['planet_id']}' checked />");
+        return ("<input type='checkbox' name='sells[{$i}]' value='{$planet[$i]['planet_id']}' checked />");
     }
 }
 
@@ -489,15 +489,15 @@ function base_build_check ($planet, $i)
 
     if ($planet[$i]['base'] == 'Y')
     {
-        return("$l_yes");
+        return ("$l_yes");
     }
     elseif ($planet[$i]['ore'] >= $base_ore && $planet[$i]['organics'] >= $base_organics && $planet[$i]['goods'] >= $base_goods && $planet[$i]['credits'] >= $base_credits)
     {
-        return("<a href=\"planet_report_ce.php?buildp=" . $planet[$i]['planet_id'] . "&amp;builds=" . $planet[$i]['sector_id'] . "\">Build</a>");
+        return ("<a href=\"planet_report_ce.php?buildp=" . $planet[$i]['planet_id'] . "&amp;builds=" . $planet[$i]['sector_id'] . "\">Build</a>");
     }
     else
     {
-        return("$l_no");
+        return ("$l_no");
     }
 }
 

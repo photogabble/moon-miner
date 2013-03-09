@@ -80,7 +80,7 @@ $result3 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?
 $planetinfo = $result3->fields;
 
 // Check to see if it returned valid planet info.
-if (!$result3 instanceof ADORecordSet || (is_bool($planetinfo) && $planetinfo == false))
+if (!$result3 instanceof ADORecordSet || (is_bool ($planetinfo) && $planetinfo == false))
 {
   echo "Invalid Planet<br><br>";
   \bnt\bnttext::gotomain ($langvars);
@@ -416,7 +416,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 include './footer.php';
                 die ();
             }
-            unset($_SESSION['planet_selected']);
+            unset ($_SESSION['planet_selected']);
 
             // Build a base
             if ($planetinfo['ore'] >= $base_ore && $planetinfo['organics'] >= $base_organics && $planetinfo['goods'] >= $base_goods && $planetinfo['credits'] >= $base_credits)
@@ -643,7 +643,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 include './footer.php';
                 die ();
             }
-            unset($_SESSION['planet_selected']);
+            unset ($_SESSION['planet_selected']);
 
             // Scan menu
             if ($playerinfo['turns'] < 1)

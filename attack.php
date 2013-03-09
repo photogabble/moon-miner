@@ -41,7 +41,7 @@ if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_se
     include_once './footer.php';
     die ();
 }
-unset($_SESSION['ship_selected']);
+unset ($_SESSION['ship_selected']);
 
 // Need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE or it will fail to log the sql.
 $result = $db->Execute ("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}languages READ, " .
@@ -312,7 +312,7 @@ else
             if ($targetfighters > 0 && $playerbeams > 0)
             {
                 $bcs_stats_info = true;
-                if ($playerbeams > round($targetfighters / 2))
+                if ($playerbeams > round ($targetfighters / 2))
                 {
                     $temp = round ($targetfighters / 2);
                     $lost = $targetfighters - $temp;
@@ -428,7 +428,7 @@ else
             if ($targetfighters > 0 && $playertorpdmg > 0)
             {
                 $bcs_stats_info = true;
-                if ($playertorpdmg > round($targetfighters / 2))
+                if ($playertorpdmg > round ($targetfighters / 2))
                 {
                     $temp = round ($targetfighters / 2);
                     $lost = $targetfighters - $temp;
@@ -447,9 +447,9 @@ else
             if ($playerfighters > 0 && $targettorpdmg > 0)
             {
                 $bcs_stats_info = true;
-                if ($targettorpdmg > round($playerfighters / 2))
+                if ($targettorpdmg > round ($playerfighters / 2))
                 {
-                    $temp = round($playerfighters / 2);
+                    $temp = round ($playerfighters / 2);
                     $lost = $playerfighters - $temp;
                     echo "$l_att_ylost $lost $l_fighters<br>";
                     echo "$temp - $playerfighters - $targettorpdmg";
