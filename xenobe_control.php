@@ -81,7 +81,7 @@ else
         // Start of instructions sub
         if ($module == "instruct")
         {
-            echo "<H2>Xenobe Instructions</H2>";
+            echo "<h2>Xenobe Instructions</h2>";
             echo "<p>&nbsp;&nbsp;&nbsp; Welcome to the Xenobe Control module.  This is the module that will control the Xenobe players in the game. ";
             echo "It is very simple right now, but will be expanded in future versions. ";
             echo "The ultimate goal of the Xenobe players is to create some interactivity for those games without a large user base. ";
@@ -362,13 +362,13 @@ else
         }
         elseif ($module == "dropxenobe")
         {
-            echo "<H1>Drop and Re-Install Xenobe Database</H1>";
+            echo "<h1>Drop and Re-Install Xenobe Database</h1>";
             echo "<h3>This will DELETE All Xenobe records from the <i>ships</i> table then DROP and reset the <i>xenobe</i> table</h3>";
             echo "<form action=xenobe_control.php method=post>";
             if (empty ($operation))
             {
                 echo "<br>";
-                echo "<H2><font COLOR=Red>Are You Sure?</font></H2><br>";
+                echo "<h2><font COLOR=Red>Are You Sure?</font></h2><br>";
                 echo "<input type=hidden name=operation value=dropxen>";
                 echo "<input type=submit value=Drop>";
             }
@@ -408,13 +408,13 @@ else
         }
         elseif ($module == "clearlog")
         {
-            echo "<H1>Clear All Xenobe Logs</H1>";
+            echo "<h1>Clear All Xenobe Logs</h1>";
             echo "<h3>This will DELETE All Xenobe log files</h3>";
             echo "<form action=xenobe_control.php method=post>";
             if (empty ($operation))
             {
                 echo "<br>";
-                echo "<H2><font COLOR=Red>Are You Sure?</font></H2><br>";
+                echo "<h2><font COLOR=Red>Are You Sure?</font></h2><br>";
                 echo "<input type=hidden name=operation value=clearxenlog>";
                 echo "<input type=submit value=Clear>";
             }

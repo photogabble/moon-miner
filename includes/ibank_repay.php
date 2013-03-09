@@ -31,7 +31,7 @@ function ibank_repay ($db)
     global $l_ibank_invalidamount;
     global $l_ibank_back, $l_ibank_logout;
 
-    $amount = preg_replace("/[^0-9]/", "", $amount);
+    $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
         ibank_error ($l_ibank_invalidamount, "igb.php?command=loans");

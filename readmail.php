@@ -51,8 +51,8 @@ else if ($_GET['action'] == "delete_all")
     \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
 }
 
-$cur_D = date("Y-m-d");
-$cur_T = date("H:i:s");
+$cur_D = date ("Y-m-d");
+$cur_T = date ("H:i:s");
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}messages WHERE recp_id = ? ORDER BY sent DESC;", array ($playerinfo['ship_id']));
 \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);

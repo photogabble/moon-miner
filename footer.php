@@ -84,7 +84,7 @@ echo "var nextInterval = new Date().getTime();";
 echo "var maxTicks = '" . ($sched_ticks * 60) . "';";
 echo "var l_running_update = '" . $langvars['l_running_update'] . "';";
 echo "var l_footer_until_update = '" . $langvars['l_footer_until_update'] . "';";
-echo 'setTimeout("NextUpdate();", 100);';
+echo 'setTimeout("NextUpdate ();", 100);';
 echo "</script>";
 echo '<div style="width:600px; margin:auto; text-align:center;"><span id=update_ticker>' . $langvars['l_please_wait'] . '</span></div>';
 // End update counter
@@ -145,7 +145,7 @@ else
 }
 
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $langvars['l_local_news'] . "</a></div>";
-echo "<div style='font-size:smaller; text-align:right'>&copy;2000-" . date('Y') ." Ron Harwood &amp; the BNT Dev team</div>";
+echo "<div style='font-size:smaller; text-align:right'>&copy;2000-" . date ('Y') ." Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
 {
     echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";

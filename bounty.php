@@ -146,7 +146,7 @@ switch ($response) {
 
         $del = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?;", array ($bid));
         \bnt\dbop::dbresult ($db, $del, __LINE__, __FILE__);
-        $stamp = date("Y-m-d H-i-s");
+        $stamp = date ("Y-m-d H-i-s");
         $refund = $bty['amount'];
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
@@ -184,7 +184,7 @@ switch ($response) {
             die ();
         }
 
-        $amount = preg_replace('/[^0-9]/', '', $amount);
+        $amount = preg_replace ('/[^0-9]/', '', $amount);
         if ($amount <= 0)
         {
             echo "$l_by_zeroamount<br><br>";
@@ -237,7 +237,7 @@ switch ($response) {
 
         $insert = $db->Execute ("INSERT INTO {$db->prefix}bounty (bounty_on,placed_by,amount) values (?,?,?);", array ($bounty_on, $playerinfo['ship_id'] ,$amount));
         \bnt\dbop::dbresult ($db, $insert, __LINE__, __FILE__);
-        $stamp = date("Y-m-d H-i-s");
+        $stamp = date ("Y-m-d H-i-s");
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $resx, __LINE__, __FILE__);
         echo "$l_by_placed<br>";

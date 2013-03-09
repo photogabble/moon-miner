@@ -54,13 +54,13 @@ if (array_key_exists ('teamwhat', $_REQUEST) == true)
 $confirmleave = null;
 if (array_key_exists ('confirmleave', $_REQUEST) == true)
 {
-    $confirmleave = preg_replace('/[^0-9]/', '', $_REQUEST['confirmleave']);
+    $confirmleave = preg_replace ('/[^0-9]/', '', $_REQUEST['confirmleave']);
 }
 
 $invited = null;
 if (array_key_exists ('invited', $_REQUEST) == true)
 {
-    $invited = preg_replace('/[^0-9]/', '', $_REQUEST['invited']);
+    $invited = preg_replace ('/[^0-9]/', '', $_REQUEST['invited']);
 }
 
 $teamname = null;
@@ -72,7 +72,7 @@ if (array_key_exists ('teamname', $_POST) == true)
 $confirmed = null;
 if (array_key_exists ('confirmed', $_REQUEST) == true)
 {
-    $confirmed = preg_replace('/[^0-9]/', '', $_REQUEST['confirmed']);
+    $confirmed = preg_replace ('/[^0-9]/', '', $_REQUEST['confirmed']);
 }
 
 $update = null;
@@ -152,7 +152,7 @@ switch ($teamwhat)
         {
             if ($team['number_of_members'] == 1)
             {
-                if (!is_team_owner($team, $playerinfo))
+                if (!is_team_owner ($team, $playerinfo))
                 {
                     $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
                     echo $l_team_error;
@@ -199,7 +199,7 @@ switch ($teamwhat)
             }
             else
             {
-                if (is_team_owner($team, $playerinfo))
+                if (is_team_owner ($team, $playerinfo))
                 {
                     echo "$l_team_youarecoord <strong>$team[team_name]</strong>. $l_team_relinq<br><br>";
                     echo "<form action='teams.php' method=post>";
@@ -211,7 +211,7 @@ switch ($teamwhat)
                     while (!$res->EOF)
                     {
                         $row = $res->fields;
-                        if (!is_team_owner($team, $row))
+                        if (!is_team_owner ($team, $row))
                         {
                             echo "<option value='{$row['ship_id']}'>{$row['character_name']}";
                         }
@@ -522,7 +522,7 @@ switch ($teamwhat)
         // If not display "An error occured, You are not the leader of this Team." message.
         // Then show link back and break;
 
-        if (is_team_owner($team, $playerinfo) == false)
+        if (is_team_owner ($team, $playerinfo) == false)
         {
             $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
             echo $l_team_error;
@@ -607,7 +607,7 @@ switch ($teamwhat)
                 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
                 $whichinvitingteam = $result->fields;
             }
-            $isowner = is_team_owner($whichteam, $playerinfo);
+            $isowner = is_team_owner ($whichteam, $playerinfo);
             show_info ($db, $playerinfo['team'], $isowner);
         }
         $res= $db->Execute ("SELECT COUNT(*) as TOTAL FROM {$db->prefix}teams WHERE admin='N'");
@@ -787,7 +787,7 @@ function show_info ($db, $whichteam, $isowner)
             echo "$l_team_member ";
         }
         echo "$l_options<br><font size=2>";
-        if ( is_team_owner($team, $playerinfo) == true)
+        if ( is_team_owner ($team, $playerinfo) == true)
         {
             echo "[<a href=teams.php?teamwhat=9&whichteam=$playerinfo[team]>$l_edit</a>] - ";
         }

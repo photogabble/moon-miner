@@ -54,8 +54,8 @@ function ibank_consolidate2 ($db)
         ibank_error ($l_ibank_errnotyourplanet, "igb.php?command=transfer");
     }
 
-    $minimum = preg_replace("/[^0-9]/", "", $minimum);
-    $maximum = preg_replace("/[^0-9]/", "", $maximum);
+    $minimum = preg_replace ("/[^0-9]/", "", $minimum);
+    $maximum = preg_replace ("/[^0-9]/", "", $maximum);
 
     $query = "SELECT SUM(credits) AS total, COUNT(*) AS count FROM {$db->prefix}planets WHERE owner=? AND credits != 0 AND planet_id != ?";
 

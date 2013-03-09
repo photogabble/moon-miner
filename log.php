@@ -165,19 +165,19 @@ echo "<center>" .
 $start_time = strtotime($startdate);
 
 // Calculate timestamp for midnight 1 day ago.
-$yd1 = $start_time - (mktime(0,0,0,0,1,0) - 943920000);
+$yd1 = $start_time - (mktime (0,0,0,0,1,0) - 943920000);
 
 // Calculate timestamp for midnight tomorrow.
-$tm = $start_time + (mktime(0,0,0,0,1,0) - 943920000);
+$tm = $start_time + (mktime (0,0,0,0,1,0) - 943920000);
 
 $month = substr ($startdate, 5, 2);
 $day = substr ($startdate, 8, 2);
 $year = substr ($startdate, 0, 4);
 
-$yesterday = mktime (0, 0, 0, $month, (date("j")-1), $year);
+$yesterday = mktime (0, 0, 0, $month, (date ("j")-1), $year);
 $yesterday = date ("Y-m-d", $yd1);
 
-$tomorrow = mktime (0, 0, 0, $month, (date("j")+1), $year);
+$tomorrow = mktime (0, 0, 0, $month, (date ("j")+1), $year);
 $tomorrow = date ("Y-m-d", $tm);
 
 if ($mode == 'compat')

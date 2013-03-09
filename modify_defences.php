@@ -160,7 +160,7 @@ switch ($response)
          include './footer.php';
          die ();
       }
-      $quantity = preg_replace('/[^0-9]/', '', $quantity);
+      $quantity = preg_replace ('/[^0-9]/', '', $quantity);
       if ($quantity < 0) $quantity = 0;
       if ($quantity > $defenceinfo['quantity'])
       {

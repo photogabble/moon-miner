@@ -186,8 +186,8 @@ else
     }
     else
     {
-        $nummines = preg_replace('/[^0-9]/', '', $nummines);
-        $numfighters = preg_replace('/[^0-9]/', '', $numfighters);
+        $nummines = preg_replace ('/[^0-9]/', '', $nummines);
+        $numfighters = preg_replace ('/[^0-9]/', '', $numfighters);
         if (empty ($nummines)) $nummines = 0;
         if (empty ($numfighters)) $numfighters = 0;
         if ($nummines < 0) $nummines = 0;
@@ -215,7 +215,7 @@ else
             echo "$l_mines_dfighter<br>";
         }
 
-        $stamp = date("Y-m-d H-i-s");
+        $stamp = date ("Y-m-d H-i-s");
         if ($numfighters > 0)
         {
             if ($fighter_id != 0)

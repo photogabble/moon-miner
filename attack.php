@@ -55,7 +55,7 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arr
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$ship_id = preg_replace('/[^0-9]/', '', $ship_id);
+$ship_id = preg_replace ('/[^0-9]/', '', $ship_id);
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
 \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);

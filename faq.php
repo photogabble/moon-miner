@@ -237,8 +237,8 @@ include './header.php';
       hull, energy, and engines. Everything else is good for combat or
       colonizing. Your military techs can be zero as the EWDs are your primary
       means of survival.
-      <p><B>PROS:</B> Quick rise in score. Good to play catch up if you enter
-      the game late. <br><B>CONS:</B> Lack of planetary empire means that you'll
+      <p><b>PROS:</B> Quick rise in score. Good to play catch up if you enter
+      the game late. <br><b>CONS:</B> Lack of planetary empire means that you'll
       lose out in the long run. I find that the Trader is only effective up to
       about a hull level of 18 or so. That's just my gut reaction. It might be
       wrong. It's probably a lower tech level in reality. <br><br></p></td>
@@ -272,7 +272,7 @@ include './header.php';
       <p>Colonize constantly. Use the money made by your planets to buy the
       stuff to supply your planets. You don't really need to trade much in this
       strategy.
-      <p><B>PROS:</B> You make lots of cash in the long run. <br><B>CONS:</B>
+      <p><b>PROS:</B> You make lots of cash in the long run. <br><b>CONS:</B>
       Kind of slow to start. Conquerors can sometimes take your planets.
       <br><br></p></td>
     <td style="width:5%">&nbsp;</td></tr>
@@ -299,8 +299,8 @@ include './header.php';
       <p>This strategy works fairly well if you combine it with a Builder, i.e..
       Build a bunch of planets, but Bank on one of them. Harder to defend your
       empire this way.
-      <p><B>PROS:</B> You can make a metric buttload of cash if you're patient.
-      <br><B>CONS:</B> You can only play every couple of days and you don't have
+      <p><b>PROS:</B> You can make a metric buttload of cash if you're patient.
+      <br><b>CONS:</B> You can only play every couple of days and you don't have
       many planets to produce for you. <br><br></p></td>
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
@@ -319,8 +319,8 @@ include './header.php';
       <p>Be sure to stock every new planet acquired with plenty of fighters and
       torps to be sure that the former owner won't come and try to take the
       planet back. Trust me, that sucks.
-      <p><B>PROS:</B> You can get a whole lot of colonists using a small number
-      of turns. <br><B>CONS:</B> Everyone will hate you and it's sometimes hard
+      <p><b>PROS:</B> You can get a whole lot of colonists using a small number
+      of turns. <br><b>CONS:</B> Everyone will hate you and it's sometimes hard
       to defend new "acquisitions". <br><br></p></td>
     <td style="width:5%">&nbsp;</td></tr>
   <tr>
@@ -534,13 +534,13 @@ include './header.php';
       use 100% of your fighters. You only use 2% of your torps. This is because
       the torpedo launchers mounted on your ship can only launch a salvo equal
       to 2% of the maximum torps you can carry. Make sense? I hope so.
-      <p><B>VERY IMPORTANT ADDITION TO VERSION 0.1.14 COMBAT:</B><br>Combat now
+      <p><b>VERY IMPORTANT ADDITION TO VERSION 0.1.14 COMBAT:</B><br>Combat now
       requires energy for beams and shields. If you have 20k energy on your ship
       and your beams can support 25k beams and your shields are at 25k shields,
       you'll actually get 20k beams and 0 shields. The reason is that beams use
       energy before shields do. In this example, you'd have to have 50k energy
       on hand for beams and shields to both be at max power.
-      <p><B>Ship to Ship Combat</B>
+      <p><b>Ship to Ship Combat</B>
       <p>Ship to ship combat happens in a very straightforward manner. Here we
       go. I'll be using the following method to determine who is the attacker
       and who is the defender. a_shields is attacker shields. d_shields is
@@ -626,7 +626,7 @@ include './header.php';
         sucks. You learned a hard lesson. If your opponent dies and you live,
         you get some money based on salvaging his ship. If you want to know how
         much, look in the code. I'm tired. </li></ol>
-      <p><B>Ship to Planet Combat</B>
+      <p><b>Ship to Planet Combat</B>
       <p>This works almost exactly the same as above. If the defender's ship is
       not on the planet, then the planet is considered defeated if its shields
       and fighters are reduced to 0. The planet has no armor, so skip the part

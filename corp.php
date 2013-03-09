@@ -34,7 +34,7 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arr
 \bnt\dbop::dbresult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$planet_id = preg_replace('/[^0-9]/', '', $planet_id);
+$planet_id = preg_replace ('/[^0-9]/', '', $planet_id);
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?", array ($planet_id));
 \bnt\dbop::dbresult ($db, $result2, __LINE__, __FILE__);

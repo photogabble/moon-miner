@@ -54,7 +54,7 @@ else
     $link_to_game .= ltrim ($gamedomain,".");// Trim off the leading . if any
     $link_to_game .= $gamepath;
     mail ("$admin_mail", $l_feedback_subj, "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}","From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
-    echo "$l_feedback_messent<BR><BR>";
+    echo "$l_feedback_messent<br><br>";
 }
 
 echo "<br>\n";

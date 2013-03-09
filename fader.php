@@ -30,7 +30,7 @@ if (result == true)
     // New database driven language entries
     load_languages ($db, $lang, array ('news'), $langvars);
 
-    $startdate = date("Y/m/d");
+    $startdate = date ("Y/m/d");
     if ($db->inactive)
     {
         echo "    url = null;\n";

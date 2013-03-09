@@ -153,7 +153,7 @@ else
 {
     if (mb_strpos ($to, $l_sendm_ally) === false)
     {
-        $timestamp = date("Y\-m\-d H\:i\:s");
+        $timestamp = date ("Y\-m\-d H\:i\:s");
         $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE character_name = ?;", array ($to));
         \bnt\dbop::dbresult ($db, $res, __LINE__, __FILE__);
         $target_info = $res->fields;
@@ -170,7 +170,7 @@ else
     }
     else
     {
-        $timestamp = date("Y\-m\-d H\:i\:s");
+        $timestamp = date ("Y\-m\-d H\:i\:s");
         $to = str_replace ($l_sendm_ally, "", $to);
         $to = trim ($to);
         $to = addslashes($to);

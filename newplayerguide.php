@@ -171,18 +171,18 @@ include './header.php';
     <td>
       <P>
       <OL>
-        <LI><B>creds</B>- short for credits.
-        <LI><B>EWD</B>- this is short for emergency warp device.
-        <LI><B>EWB burn</B>- when a player attacks another player specifically
+        <LI><b>creds</B>- short for credits.
+        <LI><b>EWD</B>- this is short for emergency warp device.
+        <LI><b>EWB burn</B>- when a player attacks another player specifically
         to activate and EWD he is doing a "burn".
-        <LI><B>fits/torps</B>- short for fighters and torpedos. You see this
+        <LI><b>fits/torps</B>- short for fighters and torpedos. You see this
         abbreviation in the forums all the time.
-        <LI><B>M or B or G</B>- M(mega) stands for a million. B(billion) and
+        <LI><b>M or B or G</B>- M(mega) stands for a million. B(billion) and
         G(giga, means billion) both mean a billion. In other words 4G creds
         means you have 4 billion credits.
-        <LI><B>rs move</B>- this is just short for realspace move. It means
+        <LI><b>rs move</B>- this is just short for realspace move. It means
         using your engines to move.
-        <LI><B>sol bump</B>- when you're above a certain level you automatically
+        <LI><b>sol bump</B>- when you're above a certain level you automatically
         get kicked out of federation space. People call this a sol bump.
     </LI></OL></td></tr></tbody></table>
 

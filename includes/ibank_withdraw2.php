@@ -29,7 +29,7 @@ function ibank_withdraw2 ($db)
     global $l_ibank_invalidwithdrawinput, $l_ibank_nozeroamount3, $l_ibank_notenoughcredits, $l_ibank_accounts;
     global $l_ibank_operationsuccessful, $l_ibank_creditstoyourship, $l_ibank_ibankaccount, $l_ibank_back, $l_ibank_logout;
 
-    $amount = preg_replace("/[^0-9]/", "", $amount);
+    $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
         ibank_error ($l_ibank_invalidwithdrawinput, "igb.php?command=withdraw");

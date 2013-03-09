@@ -85,7 +85,7 @@ if ($news_ticker == true)
     // New database driven language entries
     load_languages ($db, $lang, array ('news'), $langvars);
 
-    $startdate = date("Y/m/d");
+    $startdate = date ("Y/m/d");
 
     $news_ticker = array ();
 
@@ -162,5 +162,5 @@ $variables['sf_logo_link'] = $sf_logo_link;
 $variables['elapsed'] = $elapsed;
 $variables['mem_peak_usage'] = $mem_peak_usage;
 $variables['footer_show_debug'] = $footer_show_debug;
-$variables['cur_year'] = date('Y');
+$variables['cur_year'] = date ('Y');
 ?>

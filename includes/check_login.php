@@ -59,7 +59,7 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
             if ($password_match == true)
             {
                 $ip = $_SERVER['REMOTE_ADDR'];
-                $stamp = date("Y-m-d H:i:s");
+                $stamp = date ("Y-m-d H:i:s");
                 $timestamp['now']  = (int) strtotime ($stamp);
                 $timestamp['last'] = (int) strtotime ($playerinfo['last_login']);
 

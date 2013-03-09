@@ -75,7 +75,7 @@ function xenobe_hunter ($db)
     // Only travel there if we can attack in the target sector
     if ($zonerow['allow_attack'] == "Y")
     {
-        $stamp = date("Y-m-d H-i-s");
+        $stamp = date ("Y-m-d H-i-s");
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetinfo['sector'], $playerinfo['ship_id']));
         \bnt\dbop::dbresult ($db, $move_result, __LINE__, __FILE__);
         \bnt\PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe used a wormhole to warp to sector $targetinfo[sector] where he is hunting player $targetinfo[character_name].");

@@ -126,7 +126,7 @@ if ($flag == 0)
             $makepass .= sprintf ("%s", $syllable_array[mt_rand ()%62]);
         }
     }
-    $stamp=date("Y-m-d H:i:s");
+    $stamp=date ("Y-m-d H:i:s");
     $query = $db->Execute ("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships;");
     \bnt\dbop::dbresult ($db, $query, __LINE__, __FILE__);
     $res = $query->fields;

@@ -83,7 +83,7 @@ if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'
 
                 if (isset ($_SESSION['plugin_data']['PluginTest']['last_run']) && time() >= ($_SESSION['plugin_data']['PluginTest']['last_run'] + 5) )
                 {
-                    echo "Hello World ('". date(DATE_RFC822, implode("', '", func_get_args())) ."')<br />\n";
+                    echo "Hello World ('". date (DATE_RFC822, implode("', '", func_get_args())) ."')<br />\n";
                     $_SESSION['plugin_data']['PluginTest']['last_run'] = time();
                 }
             }
