@@ -42,8 +42,6 @@ function ship_to_ship ($db, $ship_id)
     global $l_cmb_hasbreachedarmorfighters, $l_cmb_yourarmorishitfordmgby, $l_cmb_nofightersleftheforyourarmor, $l_cmb_hehasbeendestroyed;
     global $l_cmb_escapepodlaunched, $l_cmb_yousalvaged, $l_cmb_yousalvaged2, $l_cmb_youdidntdestroyhim, $l_cmb_shiptoshipcombatstats;
 
-    include_once './includes/collect_bounty.php';
-
     $resx = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}sector_defence WRITE, {$db->prefix}universe WRITE, {$db->prefix}adodb_logsql WRITE, {$db->prefix}logs WRITE, {$db->prefix}bounty WRITE, {$db->prefix}news WRITE, {$db->prefix}zones READ");
     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
@@ -490,13 +488,13 @@ function ship_to_ship ($db, $ship_id)
             $test = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,dev_lssd='N' WHERE ship_id=?", array ($start_energy, $rating, $targetinfo['ship_id']));
             DbOp::dbResult ($db, $test, __LINE__, __FILE__);
             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
-            collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
+            BntBounty::collect ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
         else
         {
             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
             BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
-            collect_bounty ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
+            BntBounty::collect ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
     }
     else
