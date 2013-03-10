@@ -55,9 +55,7 @@ while (!$result3->EOF)
 }
 
 // Compute the ship average...if its too low then the ship will not hit mines...
-
-include_once './includes/calc_avg_tech.php';
-$shipavg = calc_avg_tech ($targetship, "ship");
+$shipavg = CalcLevels::avgTech ($targetship, "ship");
 
 // The mines will attack if 4 conditions are met
 //    1) There is at least 1 group of mines in the sector

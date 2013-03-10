@@ -142,5 +142,32 @@ class CalcLevels
     	$planetinfo['torps'] -= $planettorps;
     	return $planettorps;
 	}
+
+	static function avgTech ($ship_info = null, $type = "ship")
+	{
+    	// Used to define what devices are used to calculate the average tech level.
+	    $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+    	$calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+    	$calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+
+	    if ($type == "ship")
+    	{
+        	$calc_tech = $calc_ship_tech;
+	    }
+    	else
+	    {
+    	    $calc_tech = $calc_planet_tech;
+    	}
+
+    	$count = count ($calc_tech);
+
+    	$shipavg  = 0;
+    	for ($i = 0; $i < $count; $i++)
+    	{
+        	$shipavg += $ship_info[$calc_tech[$i]];
+    	}
+    	$shipavg /= $count;
+    	return $shipavg;
+	}
 }
 ?>
