@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+player_insignia_name has been replaced with BntPlayer::getInsignia
 t_port has been replaced with BntPorts::getType
 is_same_team has been replaced with BntTeam::sameTeam
 check_ban has been replaced with CheckBan::isBanned

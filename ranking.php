@@ -18,7 +18,6 @@
 // File: ranking.php
 
 include './global_includes.php';
-include './includes/player_insignia_name.php';
 include './includes/check_ban.php';
 
 // Always make sure we are using empty vars before use.
@@ -131,7 +130,7 @@ if ($rs instanceof ADORecordSet)
             }
 
             // Set the players Insignia.
-            $row['insignia'] = player_insignia_name ($db, $row['email'], $langvars);
+            $row['insignia'] = BntPlayer::getInsignia ($db, $row['email'], $langvars);
 
             // This is just to show that we can set the type of player.
             // like: banned, admin, player, npc etc.
