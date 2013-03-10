@@ -18,7 +18,6 @@
 // File: traderoute.php
 
 include './global_includes.php';
-include './includes/t_port.php';
 include './includes/traderoute_new.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
@@ -242,7 +241,7 @@ else
             $result = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['source_id']));
             DbOp::dbResult ($db, $result, __LINE__, __FILE__);
             $port1 = $result->fields;
-            echo "&nbsp;" . t_port ($port1['port_type'], $langvars) . "</font></td>";
+            echo "&nbsp;" . BntPorts::getType ($port1['port_type'], $langvars) . "</font></td>";
         }
         else
         {
@@ -282,7 +281,7 @@ else
             $result = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['dest_id']));
             DbOp::dbResult ($db, $result, __LINE__, __FILE__);
             $port2 = $result->fields;
-            echo "&nbsp;" . t_port ($port2['port_type'], $langvars) . "</font></td>";
+            echo "&nbsp;" . BntPorts::getType ($port2['port_type'], $langvars) . "</font></td>";
         }
         else
         {

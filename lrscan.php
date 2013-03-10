@@ -18,7 +18,6 @@
 // File: lrscan.php
 
 include './global_includes.php';
-include './includes/t_port.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -150,7 +149,7 @@ if ($sector == "*")
 
         if ($port_type != "none")
         {
-            $icon_alt_text = ucfirst (t_port ($port_type, $langvars));
+            $icon_alt_text = ucfirst (BntPorts::getType ($port_type, $langvars));
             $icon_port_type_name = $port_type . ".png";
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">&nbsp;";
         }
@@ -159,7 +158,7 @@ if ($sector == "*")
             $image_string = "&nbsp;";
         }
 
-        echo "<tr bgcolor=\"$color\"><td><a href=move.php?sector=$row[link_dest]>$row[link_dest]</a></td><td><a href=lrscan.php?sector=$row[link_dest]>Scan</a></td><td>$num_links</td><td>$num_ships</td><td width=12>$image_string</td><td>" . t_port ($port_type, $langvars) . "</td><td>$has_planet</td><td>$has_mines</td><td>$has_fighters</td>";
+        echo "<tr bgcolor=\"$color\"><td><a href=move.php?sector=$row[link_dest]>$row[link_dest]</a></td><td><a href=lrscan.php?sector=$row[link_dest]>Scan</a></td><td>$num_links</td><td>$num_ships</td><td width=12>$image_string</td><td>" . BntPorts::getType ($port_type, $langvars) . "</td><td>$has_planet</td><td>$has_mines</td><td>$has_fighters</td>";
         if ($playerinfo['dev_lssd'] == 'Y')
         {
             $resx = $db->Execute ("SELECT * from {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC LIMIT 1;", array ($playerinfo['ship_id'], $row['link_dest']));
@@ -342,11 +341,11 @@ else
         if ($sectorinfo['port_type'] != "none")
         {
             $port_type = $sectorinfo['port_type'];
-            $icon_alt_text = ucfirst (t_port ($port_type, $langvars));
+            $icon_alt_text = ucfirst (BntPorts::getType ($port_type, $langvars));
             $icon_port_type_name = $port_type . ".png";
             $image_string = "<img align=absmiddle height=12 width=12 alt=\"$icon_alt_text\" src=\"images/$icon_port_type_name\">";
         }
-        echo "$image_string " . t_port ($sectorinfo['port_type'], $langvars);
+        echo "$image_string " . BntPorts::getType ($sectorinfo['port_type'], $langvars);
     }
     echo "</td></tr>";
     echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_planets</strong></td></tr>";
