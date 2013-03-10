@@ -15,23 +15,26 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/is_same_team.php
+// File: classes/BntTeam.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'is_same_team.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntTeam.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-function is_same_team ($attacker_team = null, $attackie_team = null)
+class BntTeam
 {
-    if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
-    {
-        return (boolean) false;
-    }
-    else
-    {
-        return (boolean) true;
-    }
+	static function sameTeam ($attacker_team = null, $attackie_team = null)
+	{
+    	if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
+	    {
+    	    return (boolean) false;
+    	}
+    	else
+    	{
+        	return (boolean) true;
+    	}
+	}
 }
 ?>

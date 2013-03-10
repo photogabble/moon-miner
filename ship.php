@@ -18,7 +18,6 @@
 // File: ship.php
 
 include './global_includes.php';
-include_once './includes/is_same_team.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -50,7 +49,7 @@ else
     echo "$l_ship_perform<br><br>";
     echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";
 
-    if ( !is_same_team($playerinfo['team'], $othership['team']) )
+    if ( !BntTeam::sameTeam ($playerinfo['team'], $othership['team']) )
     {
         echo "<a href=attack.php?ship_id=$ship_id>$l_planet_att_link</a><br>";
     }

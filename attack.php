@@ -18,7 +18,6 @@
 // File: attack.php
 
 include './global_includes.php';
-include './includes/is_same_team.php';
 include './includes/collect_bounty.php';
 
 if (check_login ($db, $lang, $langvars))
@@ -76,7 +75,7 @@ elseif ($playerinfo['turns'] < 1)
 {
     echo $l_att_noturn . "<br><br>";
 }
-else if ( is_same_team($playerinfo['team'], $targetinfo['team']) )
+else if ( BntTeam::sameTeam ($playerinfo['team'], $targetinfo['team']) )
 {
     echo "<div style='color:#ff0;'>" . $l_team_noattack_members . "</div>\n";
 }
