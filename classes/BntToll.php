@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntToll.php')) // Prevent direct access to th
 
 class BntToll
 {
-	function distribute ($db, $sector, $toll, $total_fighters)
+	static function distribute ($db, $sector, $toll, $total_fighters)
 	{
     	$result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
     	DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
