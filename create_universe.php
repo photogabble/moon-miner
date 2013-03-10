@@ -306,8 +306,12 @@ echo"</table>";
 
       break;
    case "3":
-      include_once './includes/destroy_schema.php';
-      destroy_schema ($db, $ADODB_SESSION_DB, $db_prefix);
+      // Delete all tables in the database
+      table_header ("Dropping Tables --- Step 3");
+
+      BntSchema::destroy ($db, $ADODB_SESSION_DB, $db_prefix);
+      table_footer ("Hover over the failed line to see the error.");
+      echo "<strong>Dropping stage complete.</strong><p>";
 
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=4>";

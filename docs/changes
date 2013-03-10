@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+destroy_schema has been replaced with BntSchema::destroy
 calc_avg_tech has been replaced with CalcLevels::avgTech
 get_planet_owner has been replaced with BntPlanets::getOwner
 get_previous_day & get_next_day has been replaced with BntNews::previousDay & BntNews::nextDay
