@@ -31,8 +31,6 @@ else
     $link = "?lang=" . $lang;
 }
 
-include './includes/newsservices.php';
-
 // New database driven language entries
 load_languages ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
@@ -54,8 +52,8 @@ if ($validformat !=1 || checkdate ($regs[2], $regs[3], $regs[1]) == false)
     $startdate = date ("Y/m/d");
 }
 
-$previousday = get_previous_day ($startdate);
-$nextday = get_next_day ($startdate);
+$previousday = BntNews::previousDay ($startdate);
+$nextday = BntNews::nextDay ($startdate);
 
 echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";

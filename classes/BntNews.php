@@ -15,37 +15,39 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/newsservices.php
+// File: classes/BntNews.php
 
 // Todo: Add validity checking for the format of $day
-if (strpos ($_SERVER['PHP_SELF'], 'newsservices.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntNews.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-function get_previous_day ($day)
+class BntNews
 {
-    //convert the formatted date into a timestamp
-    $day = strtotime ($day);
+	static function previousDay ($day)
+	{
+    	// Convert the formatted date into a timestamp
+	    $day = strtotime ($day);
 
-    //subtract one day in seconds from the timestamp
-    $day = $day - 86400;
+    	// Subtract one day in seconds from the timestamp
+	    $day = $day - 86400;
 
-    //return the final amount formatted as YYYY/MM/DD
-    return date ("Y/m/d", $day);
+    	// Return the final amount formatted as YYYY/MM/DD
+	    return date ("Y/m/d", $day);
+	}
+
+	static function nextDay ($day)
+	{
+    	// Convert the formatted date into a timestamp
+	    $day = strtotime ($day);
+
+    	// Add one day in seconds to the timestamp
+	    $day = $day + 86400;
+
+    	// Return the final amount formatted as YYYY/MM/DD
+	    return date ("Y/m/d", $day);
+	}
 }
-
-function get_next_day ($day)
-{
-    //convert the formatted date into a timestamp
-    $day = strtotime ($day);
-
-    //add one day in seconds to the timestamp
-    $day = $day + 86400;
-
-    //return the final amount formatted as YYYY/MM/DD
-    return date ("Y/m/d", $day);
-}
-
 ?>
