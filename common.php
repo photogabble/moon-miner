@@ -130,7 +130,8 @@ if (!isset ($index_page))
 {
     $index_page = false;
 }
-else
+
+if (!$index_page)
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
     if (!isset ($_SESSION))
