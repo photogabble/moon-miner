@@ -26,28 +26,28 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntNews.php')) // Prevent direct access to th
 
 class BntNews
 {
-	static function previousDay ($day)
-	{
-    	// Convert the formatted date into a timestamp
-	    $day = strtotime ($day);
+    static function previousDay ($day)
+    {
+        // Convert the formatted date into a timestamp
+        $day = strtotime ($day);
 
-    	// Subtract one day in seconds from the timestamp
-	    $day = $day - 86400;
+        // Subtract one day in seconds from the timestamp
+        $day = $day - 86400;
 
-    	// Return the final amount formatted as YYYY/MM/DD
-	    return date ("Y/m/d", $day);
-	}
+        // Return the final amount formatted as YYYY/MM/DD
+        return date ("Y/m/d", $day);
+    }
 
-	static function nextDay ($day)
-	{
-    	// Convert the formatted date into a timestamp
-	    $day = strtotime ($day);
+    static function nextDay ($day)
+    {
+        // Convert the formatted date into a timestamp
+        $day = strtotime ($day);
 
-    	// Add one day in seconds to the timestamp
-	    $day = $day + 86400;
+        // Add one day in seconds to the timestamp
+        $day = $day + 86400;
 
-    	// Return the final amount formatted as YYYY/MM/DD
-	    return date ("Y/m/d", $day);
-	}
+        // Return the final amount formatted as YYYY/MM/DD
+        return date ("Y/m/d", $day);
+    }
 }
 ?>

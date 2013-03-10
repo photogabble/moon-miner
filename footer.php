@@ -35,16 +35,19 @@ if (!$db->inactive)
     }
 }
 
-if (is_object ($bntreg->get("bnttimer")))
+if (isset ($bntreg))
 {
-    $bnttimer = $bntreg->get("bnttimer");
-    $bnttimer->stop();
-    $elapsed = $bnttimer->elapsed();
-    $elapsed = substr ($elapsed, 0, 5);
-}
-else
-{
-    $elapsed = 999;
+    if (is_object ($bntreg->get("bnttimer")))
+    {
+        $bnttimer = $bntreg->get("bnttimer");
+        $bnttimer->stop();
+        $elapsed = $bnttimer->elapsed();
+        $elapsed = substr ($elapsed, 0, 5);
+    }
+    else
+    {
+        $elapsed = 999;
+    }
 }
 echo '<div class="push"></div></div>';
 echo '<div class="footer">';

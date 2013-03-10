@@ -25,26 +25,26 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntScan.php')) // Prevent direct access to th
 
 class BntScan
 {
-	static function success ($level_scan, $level_cloak)
-	{
-    	return (5 + $level_scan - $level_cloak) * 5;
-	}
+    static function success ($level_scan, $level_cloak)
+    {
+        return (5 + $level_scan - $level_cloak) * 5;
+    }
 
-	static function error ($level_scan, $level_cloak, $scan_error_factor)
-	{
-    	$sc_error = (4 + $level_scan / 2 - $level_cloak / 2) * $scan_error_factor;
+    static function error ($level_scan, $level_cloak, $scan_error_factor)
+    {
+        $sc_error = (4 + $level_scan / 2 - $level_cloak / 2) * $scan_error_factor;
 
-    	if ($sc_error < 1)
-    	{
-        	$sc_error = 1;
-    	}
+        if ($sc_error < 1)
+        {
+            $sc_error = 1;
+        }
 
-    	if ($sc_error > 99)
-    	{
-        	$sc_error = 99;
-    	}
+        if ($sc_error > 99)
+        {
+            $sc_error = 99;
+        }
 
-    	return $sc_error;
-	}
+        return $sc_error;
+    }
 }
 ?>

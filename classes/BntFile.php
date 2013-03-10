@@ -27,42 +27,42 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntFile.php')) // Prevent direct access to th
 
 class BntFile
 {
-	static function iniToDb ($db, $ini_file, $ini_table, $section)
-	{
-    	// This is a loop, that reads a ini file, of the type variable = value.
-	    // It will loop thru the list of the ini variables, and push them into the db.
-    	$ini_keys = parse_ini_file ($ini_file, true);
+    static function iniToDb ($db, $ini_file, $ini_table, $section)
+    {
+        // This is a loop, that reads a ini file, of the type variable = value.
+        // It will loop thru the list of the ini variables, and push them into the db.
+        $ini_keys = parse_ini_file ($ini_file, true);
 
-	    $status = true; // This variable allows us to track the inserts into the databse. If one fails, the whole process is considered failed.
-    	$i = 0;
-	    $resa = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
-    	DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+        $status = true; // This variable allows us to track the inserts into the databse. If one fails, the whole process is considered failed.
+        $i = 0;
+        $resa = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
+        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
-	    foreach ($ini_keys as $config_category => $config_line)
-    	{
-        	foreach ($config_line as $config_key => $config_value)
-	        {
-    	        // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
-        	    $config_value = utf8_encode ($config_value);
-            	$debug_query = $db->Execute ("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));
-	            DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
-        	    if (!$debug_query)
-    	        {
-            	    $status[$i] = $debug_query;
-                	$i++;
-	            }
-    	    }
-    	}
+        foreach ($ini_keys as $config_category => $config_line)
+        {
+            foreach ($config_line as $config_key => $config_value)
+            {
+                // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
+                $config_value = utf8_encode ($config_value);
+                $debug_query = $db->Execute ("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));
+                DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
+                if (!$debug_query)
+                {
+                    $status[$i] = $debug_query;
+                    $i++;
+                }
+            }
+        }
 
-    	$trans_status = $db->CompleteTrans(); // Complete the transaction
-	    DbOp::dbResult ($db, $trans_status, __LINE__, __FILE__);
+        $trans_status = $db->CompleteTrans(); // Complete the transaction
+        DbOp::dbResult ($db, $trans_status, __LINE__, __FILE__);
 
-    	if ($trans_status !== true)
-	    {
-    	    $status[$i] = $debug_query;
-        	$i++;
-	    }
-    	return $status;
-	}
+        if ($trans_status !== true)
+        {
+            $status[$i] = $debug_query;
+            $i++;
+        }
+        return $status;
+    }
 }
 ?>

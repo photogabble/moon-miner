@@ -25,23 +25,23 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPlanet.php')) // Prevent direct access to 
 
 class BntPlanet
 {
-	function getOwner ($db = null, $planet_id = null, &$owner_info = null)
-	{
-    	$owner_info = null;
-    	if (!is_null ($planet_id) && is_numeric ($planet_id) && $planet_id > 0)
-    	{
-        	$sql  = "SELECT ship_id, character_name, team FROM {$db->prefix}planets ";
-    	    $sql .= "LEFT JOIN {$db->prefix}ships ON {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ";
-	        $sql .= "WHERE {$db->prefix}planets.planet_id=?;";
-        	$res = $db->Execute ($sql, array ($planet_id));
-	        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-    	    if ($res->RecordCount() > 0 )
-        	{
-            	$owner_info = (array) $res->fields;
-	            return true;
-    	    }
-    	}
-    	return false;
-	}
+    function getOwner ($db = null, $planet_id = null, &$owner_info = null)
+    {
+        $owner_info = null;
+        if (!is_null ($planet_id) && is_numeric ($planet_id) && $planet_id > 0)
+        {
+            $sql  = "SELECT ship_id, character_name, team FROM {$db->prefix}planets ";
+            $sql .= "LEFT JOIN {$db->prefix}ships ON {$db->prefix}ships.ship_id = {$db->prefix}planets.owner ";
+            $sql .= "WHERE {$db->prefix}planets.planet_id=?;";
+            $res = $db->Execute ($sql, array ($planet_id));
+            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+            if ($res->RecordCount() > 0 )
+            {
+                $owner_info = (array) $res->fields;
+                return true;
+            }
+        }
+        return false;
+    }
 }
 ?>

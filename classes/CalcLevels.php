@@ -60,114 +60,114 @@ class CalcLevels
         return round (pow ($level_factor, $level_power) * 500);
     }
 
-	static function planetBeams ($db, $ownerinfo, $base_defense, $planetinfo)
-	{
-    	$base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
+    static function planetBeams ($db, $ownerinfo, $base_defense, $planetinfo)
+    {
+        $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-	    $planetbeams = CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
-    	$energy_available = $planetinfo['energy'];
+        $planetbeams = CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
+        $energy_available = $planetinfo['energy'];
 
-	    $res = $db->Execute ("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
-    	DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-	    if ($res instanceof ADORecordSet)
-    	{
-        	while (!$res->EOF)
-	        {
-    	        $planetbeams = $planetbeams + CalcLevels::Beams ($res->fields['beams'], $level_factor);
-        	    $res->MoveNext();
-	        }
-    	}
+        $res = $db->Execute ("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        if ($res instanceof ADORecordSet)
+        {
+            while (!$res->EOF)
+            {
+                $planetbeams = $planetbeams + CalcLevels::Beams ($res->fields['beams'], $level_factor);
+                $res->MoveNext();
+            }
+        }
 
-    	if ($planetbeams > $energy_available)
-	    {
-    	    $planetbeams = $energy_available;
-    	}
-	    $planetinfo['energy'] -= $planetbeams;
-	    return $planetbeams;
-	}
+        if ($planetbeams > $energy_available)
+        {
+            $planetbeams = $energy_available;
+        }
+        $planetinfo['energy'] -= $planetbeams;
+        return $planetbeams;
+    }
 
-	static function planetShields ($db, $ownerinfo, $base_defense, $planetinfo)
-	{
-    	$base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
-    	$planetshields = CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
-    	$energy_available = $planetinfo['energy'];
+    static function planetShields ($db, $ownerinfo, $base_defense, $planetinfo)
+    {
+        $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
+        $planetshields = CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+        $energy_available = $planetinfo['energy'];
 
-    	$res = $db->Execute ("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
-	    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-    	if ($res instanceof ADORecordSet)
-	    {
-    	    while (!$res->EOF)
-        	{
-            	$planetshields += CalcLevels::Shields ($res->fields['shields'], $level_factor);
-	            $res->MoveNext ();
-    	    }
-    	}
+        $res = $db->Execute ("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        if ($res instanceof ADORecordSet)
+        {
+            while (!$res->EOF)
+            {
+                $planetshields += CalcLevels::Shields ($res->fields['shields'], $level_factor);
+                $res->MoveNext ();
+            }
+        }
 
-    	if ($planetshields > $energy_available)
-    	{
-        	$planetshields = $energy_available;
-	    }
-    	$planetinfo['energy'] -= $planetshields;
+        if ($planetshields > $energy_available)
+        {
+            $planetshields = $energy_available;
+        }
+        $planetinfo['energy'] -= $planetshields;
 
-	    return $planetshields;
-	}
+        return $planetshields;
+    }
 
-	static function planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
-	{
-    	$base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
-	    $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
-    	$torps = $planetinfo['torps'];
+    static function planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
+    {
+        $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
+        $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
+        $torps = $planetinfo['torps'];
 
-	    $res = $db->Execute ("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
-    	DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-	    if ($res instanceof ADORecordSet)
-    	{
-       		while (!$res->EOF)
-	        {
-           		$ship_torps =  round (pow ($level_factor, $res->fields['torp_launchers'])) * 10;
-	            $torp_launchers = $torp_launchers + $ship_torps;
-     	        $res->MoveNext ();
-       		}
-    	}
+        $res = $db->Execute ("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        if ($res instanceof ADORecordSet)
+        {
+            while (!$res->EOF)
+            {
+                $ship_torps =  round (pow ($level_factor, $res->fields['torp_launchers'])) * 10;
+                $torp_launchers = $torp_launchers + $ship_torps;
+                $res->MoveNext ();
+            }
+        }
 
-    	if ($torp_launchers > $torps)
-	    {
-    	    $planettorps = $torps;
-    	}
-    	else
-    	{
-        	$planettorps = $torp_launchers;
-    	}
+        if ($torp_launchers > $torps)
+        {
+            $planettorps = $torps;
+        }
+        else
+        {
+            $planettorps = $torp_launchers;
+        }
 
-    	$planetinfo['torps'] -= $planettorps;
-    	return $planettorps;
-	}
+        $planetinfo['torps'] -= $planettorps;
+        return $planettorps;
+    }
 
-	static function avgTech ($ship_info = null, $type = "ship")
-	{
-    	// Used to define what devices are used to calculate the average tech level.
-	    $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-    	$calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
-    	$calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+    static function avgTech ($ship_info = null, $type = "ship")
+    {
+        // Used to define what devices are used to calculate the average tech level.
+        $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+        $calc_ship_tech    = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
+        $calc_planet_tech  = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");
 
-	    if ($type == "ship")
-    	{
-        	$calc_tech = $calc_ship_tech;
-	    }
-    	else
-	    {
-    	    $calc_tech = $calc_planet_tech;
-    	}
+        if ($type == "ship")
+        {
+            $calc_tech = $calc_ship_tech;
+        }
+        else
+        {
+            $calc_tech = $calc_planet_tech;
+        }
 
-    	$count = count ($calc_tech);
+        $count = count ($calc_tech);
 
-    	$shipavg  = 0;
-    	for ($i = 0; $i < $count; $i++)
-    	{
-        	$shipavg += $ship_info[$calc_tech[$i]];
-    	}
-    	$shipavg /= $count;
-    	return $shipavg;
-	}
+        $shipavg  = 0;
+        for ($i = 0; $i < $count; $i++)
+        {
+            $shipavg += $ship_info[$calc_tech[$i]];
+        }
+        $shipavg /= $count;
+        return $shipavg;
+    }
 }
 ?>

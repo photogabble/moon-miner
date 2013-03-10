@@ -25,24 +25,24 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntToll.php')) // Prevent direct access to th
 
 class BntToll
 {
-	static function distribute ($db, $sector, $toll, $total_fighters)
-	{
-    	$result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
-    	DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+    static function distribute ($db, $sector, $toll, $total_fighters)
+    {
+        $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
+        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
-	    // Put the defence information into the array "defenceinfo"
-    	if ($result3 instanceof ADORecordSet)
-	    {
-    	    while (!$result3->EOF)
-        	{
-            	$row = $result3->fields;
-	            $toll_amount = round (($row['quantity'] / $total_fighters) * $toll);
-    	        $resa = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
-        	    DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
-            	PlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
-	            $result3->MoveNext ();
-    	    }
-	    }
-	}
+        // Put the defence information into the array "defenceinfo"
+        if ($result3 instanceof ADORecordSet)
+        {
+            while (!$result3->EOF)
+            {
+                $row = $result3->fields;
+                $toll_amount = round (($row['quantity'] / $total_fighters) * $toll);
+                $resa = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
+                DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+                PlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
+                $result3->MoveNext ();
+            }
+        }
+    }
 }
 ?>

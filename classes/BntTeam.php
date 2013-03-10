@@ -25,16 +25,16 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntTeam.php')) // Prevent direct access to th
 
 class BntTeam
 {
-	static function sameTeam ($attacker_team = null, $attackie_team = null)
-	{
-    	if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
-	    {
-    	    return (boolean) false;
-    	}
-    	else
-    	{
-        	return (boolean) true;
-    	}
-	}
+    static function sameTeam ($attacker_team = null, $attackie_team = null)
+    {
+        if ( ($attacker_team != $attackie_team) || ($attacker_team == 0 || $attackie_team == 0) )
+        {
+            return (boolean) false;
+        }
+        else
+        {
+            return (boolean) true;
+        }
+    }
 }
 ?>

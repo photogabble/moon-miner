@@ -89,41 +89,41 @@ class BntPlayer
         DbOp::dbResult ($db, $news, __LINE__, __FILE__);
     }
 
-	static function getInsignia ($db, $a_username, $langvars)
-	{
-    	unset ($player_insignia);
+    static function getInsignia ($db, $a_username, $langvars)
+    {
+        unset ($player_insignia);
 
-	    // Lookup players score.
-    	$res = $db->Execute ("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
-    	DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-	    $playerinfo = $res->fields;
+        // Lookup players score.
+        $res = $db->Execute ("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        $playerinfo = $res->fields;
 
-	    for ($i = 0; $i < 20; $i++)
-    	{
-        	$value = pow (2, $i*2 );
-	        if (!$value)
-    	    {
-        	    // Pow returned false so we need to return an error.
-            	$player_insignia = "<span style='color:#f00;'>ERR</span> [<span style='color:#09f; font-size:12px; cursor:help;' title='Error looking up insignia, please report this error.'>?</span>]";
-	            break;
-    	    }
+        for ($i = 0; $i < 20; $i++)
+        {
+            $value = pow (2, $i*2 );
+            if (!$value)
+            {
+                // Pow returned false so we need to return an error.
+                $player_insignia = "<span style='color:#f00;'>ERR</span> [<span style='color:#09f; font-size:12px; cursor:help;' title='Error looking up insignia, please report this error.'>?</span>]";
+                break;
+            }
 
-        	$value *= (500 * 2);
-	        if ($playerinfo['score'] <= $value)
-    	    {
-        	    // Ok we have found our Insignia, now set and break out of the for loop.
-            	$temp_insignia = "l_insignia_" . $i;
-	            $player_insignia = $langvars[$temp_insignia];
-    	        break;
-        	}
-    	}
+            $value *= (500 * 2);
+            if ($playerinfo['score'] <= $value)
+            {
+                // Ok we have found our Insignia, now set and break out of the for loop.
+                $temp_insignia = "l_insignia_" . $i;
+                $player_insignia = $langvars[$temp_insignia];
+                break;
+            }
+        }
 
-    	if (!isset ($player_insignia))
-    	{
-        	// Hmm, player has out ranked out highest rank, so just return that.
-	        $player_insignia = $langvars['l_insignia_19'];
-    	}
-	    return $player_insignia;
-	}
+        if (!isset ($player_insignia))
+        {
+            // Hmm, player has out ranked out highest rank, so just return that.
+            $player_insignia = $langvars['l_insignia_19'];
+        }
+        return $player_insignia;
+    }
 }
 ?>

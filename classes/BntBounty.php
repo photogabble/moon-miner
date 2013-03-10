@@ -48,37 +48,37 @@ class BntBounty
         }
     }
 
-	static function collect ($db, $attacker, $bounty_on)
-	{
-    	$res = $db->Execute ("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
-    	if ($res)
-    	{
-        	while (!$res->EOF)
-        	{
-            	$bountydetails = $res->fields;
-            	if ($res->fields['placed_by'] == 0)
-            	{
-                	$placed = $langvars['l_by_thefeds'];
-            	}
-            	else
-            	{
-                	$res2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array ($bountydetails['placed_by']));
-                	DbOp::dbResult ($db, $res2, __LINE__, __FILE__);
-                	$placed = $res2->fields['character_name'];
-            	}
+    static function collect ($db, $attacker, $bounty_on)
+    {
+        $res = $db->Execute ("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
+        if ($res)
+        {
+            while (!$res->EOF)
+            {
+                $bountydetails = $res->fields;
+                if ($res->fields['placed_by'] == 0)
+                {
+                    $placed = $langvars['l_by_thefeds'];
+                }
+                else
+                {
+                    $res2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?", array ($bountydetails['placed_by']));
+                    DbOp::dbResult ($db, $res2, __LINE__, __FILE__);
+                    $placed = $res2->fields['character_name'];
+                }
 
-            	$update = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $attacker));
-            	DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-            	$delete = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
-            	DbOp::dbResult ($db, $delete, __LINE__, __FILE__);
+                $update = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ? WHERE ship_id = ?", array ($bountydetails['amount'], $attacker));
+                DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+                $delete = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_id = ?", array ($bountydetails['bounty_id']));
+                DbOp::dbResult ($db, $delete, __LINE__, __FILE__);
 
-            	PlayerLog::writeLog ($db, $attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
-            	PlayerLog::writeLog ($db, $bountydetails['placed_by'], LOG_BOUNTY_PAID, "$bountydetails[amount]|$bountydetails[character_name]");
-            	$res->MoveNext();
-        	}
-   		}
-   		$resa = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($bounty_on));
-   		DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
-	}
+                PlayerLog::writeLog ($db, $attacker, LOG_BOUNTY_CLAIMED, "$bountydetails[amount]|$bountydetails[character_name]|$placed");
+                PlayerLog::writeLog ($db, $bountydetails['placed_by'], LOG_BOUNTY_PAID, "$bountydetails[amount]|$bountydetails[character_name]");
+                $res->MoveNext();
+            }
+        }
+        $resa = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($bounty_on));
+        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+    }
 }
 ?>

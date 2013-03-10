@@ -25,30 +25,30 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPorts.php')) // Prevent direct access to t
 
 class BntPorts
 {
-	static function getType ($ptype, $langvars)
-	{
-    	switch ($ptype)
-    	{
-    	case "ore":
-        	$ret = $langvars['l_ore'];
-	        break;
-    	case "none":
-        	$ret = $langvars['l_none'];
-	        break;
-    	case "energy":
-        	$ret = $langvars['l_energy'];
-	        break;
-    	case "organics":
-        	$ret = $langvars['l_organics'];
-	        break;
-    	case "goods":
-        	$ret = $langvars['l_goods'];
-	        break;
-    	case "special":
-        	$ret = $langvars['l_special'];
-	        break;
-    	}
-    	return $ret;
-	}
+    static function getType ($ptype, $langvars)
+    {
+        switch ($ptype)
+        {
+        case "ore":
+            $ret = $langvars['l_ore'];
+            break;
+        case "none":
+            $ret = $langvars['l_none'];
+            break;
+        case "energy":
+            $ret = $langvars['l_energy'];
+            break;
+        case "organics":
+            $ret = $langvars['l_organics'];
+            break;
+        case "goods":
+            $ret = $langvars['l_goods'];
+            break;
+        case "special":
+            $ret = $langvars['l_special'];
+            break;
+        }
+        return $ret;
+    }
 }
 ?>
