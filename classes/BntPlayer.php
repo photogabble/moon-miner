@@ -89,7 +89,7 @@ class BntPlayer
         DbOp::dbResult ($db, $news, __LINE__, __FILE__);
     }
 
-	function getInsignia ($db, $a_username, $langvars)
+	static function getInsignia ($db, $a_username, $langvars)
 	{
     	unset ($player_insignia);
 

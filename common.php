@@ -84,16 +84,16 @@ else
     ini_set ('display_errors', '0'); // Don't show them
 }
 
-ini_set ("include_path", "."); 					  // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
-ini_set ('session.use_only_cookies', 1); 		  // Ensure that sessions will only be stored in a cookie
-ini_set ('session.cookie_httponly', 1); 		  // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+ini_set ("include_path", ".");                    // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
+ini_set ('session.use_only_cookies', 1);          // Ensure that sessions will only be stored in a cookie
+ini_set ('session.cookie_httponly', 1);           // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 ini_set ('session.entropy_file', '/dev/urandom'); // Use urandom as entropy source, to help the random number generator
-ini_set ('session.entropy_length', '32'); 		  // Increase the length of entropy gathered
-ini_set ('session.hash_function', 'sha1'); 		  // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
-ini_set ('url_rewriter.tags', ''); 				  // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
-date_default_timezone_set ('UTC'); 				  // Set to your server's local time zone - PHP throws a notice if this is not set.
-mb_http_output ("UTF-8"); 						  // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
-mb_internal_encoding ("UTF-8"); 				  // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
+ini_set ('session.entropy_length', '32');         // Increase the length of entropy gathered
+ini_set ('session.hash_function', 'sha1');        // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
+ini_set ('url_rewriter.tags', '');                // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+date_default_timezone_set ('UTC');                // Set to your server's local time zone - PHP throws a notice if this is not set.
+mb_http_output ("UTF-8");                         // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
+mb_internal_encoding ("UTF-8");                   // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");

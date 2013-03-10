@@ -82,10 +82,10 @@ define ('LOG_ADMIN_ILLEGVALUE', 54);         // sent to admin on planet destruct
 define ('LOG_ADMIN_PLANETCHEAT', 55);        // sent to admin when planet hack was triggered (hack_id, ip, planet_id, ship_id)
 
 // Ban system defines
-define ('ID_WATCH',     0x00, true);    	 // Player flagged as being watched.
-define ('ID_LOCKED',    0x01, true);    	 // Player flagged as being Locked.
-define ('24HR_BAN',     0x02, true);    	 // Player flagged with a 24 Hour Ban.
-define ('ID_BAN',       0x03, true);    	 // Player flagged as banned by ShipID.
-define ('IP_BAN',       0x04, true);    	 // Player flagged as banned by IP Address.
-define ('MULTI_BAN',    0x05, true);    	 // Player flagged as banned by either IP or ShipID.
+define ('ID_WATCH',     0x00, true);         // Player flagged as being watched.
+define ('ID_LOCKED',    0x01, true);         // Player flagged as being Locked.
+define ('24HR_BAN',     0x02, true);         // Player flagged with a 24 Hour Ban.
+define ('ID_BAN',       0x03, true);         // Player flagged as banned by ShipID.
+define ('IP_BAN',       0x04, true);         // Player flagged as banned by IP Address.
+define ('MULTI_BAN',    0x05, true);         // Player flagged as banned by either IP or ShipID.
 ?>
