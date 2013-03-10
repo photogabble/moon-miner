@@ -19,7 +19,6 @@
 
 include './global_includes.php';
 include './includes/calc_score.php';
-include './includes/calc_avg_tech.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -484,7 +483,7 @@ if ($num_planets > 0)
             $result5 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planets[$i]['owner']));
             DbOp::dbResult ($db, $result5, __LINE__, __FILE__);
             $planet_owner = $result5->fields;
-            $planetavg = calc_avg_tech($planet_owner, "planet");
+            $planetavg = CalcLevels::avgTech($planet_owner, "planet");
 
             if ($planetavg < 8)
             {
@@ -592,7 +591,7 @@ if ($playerinfo['sector'] != 0)
 
             if ($roll < $success)
             {
-                $shipavg = calc_avg_tech($row, "ship");
+                $shipavg = CalcLevels::avgTech($row, "ship");
 
                 if ($shipavg < 8)
                 {
