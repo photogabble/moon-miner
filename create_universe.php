@@ -358,12 +358,11 @@ echo"</table>";
       break;
 
     case "5":
-      include_once './includes/ini_to_db.php';
       table_header("Import Configurations & Languages --- Step 5");
 
       $table_timer = new Timer;
       $table_timer->start(); // Start benchmarking
-      $gameconfig_result = ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
+      $gameconfig_result = BntFile::ini_to_db ($db, "config/configset_classic.ini.php", "gameconfig", "game");
       $table_timer->stop();
       $elapsed = $table_timer->elapsed();
       $elapsed = substr ($elapsed, 0, 5);
@@ -381,7 +380,7 @@ echo"</table>";
 
       // Import English
       $table_timer->start(); // Start benchmarking
-      $english_result = ini_to_db($db, "languages/english.ini.php", "languages", "english");
+      $english_result = BntFile::ini_to_db($db, "languages/english.ini.php", "languages", "english");
       $table_timer->stop();
       $elapsed = $table_timer->elapsed();
       $elapsed = substr ($elapsed, 0, 5);
@@ -394,7 +393,7 @@ echo"</table>";
 
       // Import French
       $table_timer->start(); // Start benchmarking
-      $result = ini_to_db($db, "languages/french.ini.php", "languages", "french");
+      $result = BntFile::ini_to_db($db, "languages/french.ini.php", "languages", "french");
       $table_timer->stop();
       $elapsed = $table_timer->elapsed();
       $elapsed = substr ($elapsed, 0, 5);
@@ -402,7 +401,7 @@ echo"</table>";
 
       // Import German
       $table_timer->start(); // Start benchmarking
-      $result = ini_to_db($db, "languages/german.ini.php", "languages", "german");
+      $result = BntFile::ini_to_db($db, "languages/german.ini.php", "languages", "german");
       $table_timer->stop();
       $elapsed = $table_timer->elapsed();
       $elapsed = substr ($elapsed, 0, 5);
@@ -410,7 +409,7 @@ echo"</table>";
 
       // Import Spanish
       $table_timer->start(); // Start benchmarking
-      $result = ini_to_db($db, "languages/spanish.ini.php", "languages", "spanish");
+      $result = BntFile::ini_to_db($db, "languages/spanish.ini.php", "languages", "spanish");
       $table_timer->stop();
       $elapsed = $table_timer->elapsed();
       $elapsed = substr ($elapsed, 0, 5);

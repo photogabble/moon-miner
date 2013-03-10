@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+ini_to_db has been replaced with BntFile::ini_to_db
 create_schema has been replaced with BntSchema::create
 destroy_schema has been replaced with BntSchema::destroy
 calc_avg_tech has been replaced with CalcLevels::avgTech
