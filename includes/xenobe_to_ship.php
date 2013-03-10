@@ -390,7 +390,7 @@ function xenobe_to_ship ($db, $ship_id)
             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "Xenobe $playerinfo[character_name]|N");
             BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
         }
-        
+
         if ($attackerarmor>0)
         {
             // Attacker still alive to salvage target
@@ -413,7 +413,7 @@ function xenobe_to_ship ($db, $ship_id)
             {
                 $salv_goods = 0;
             }
-            
+
             if ($free_holds > $free_ore)
             {
                 $salv_ore = $free_ore;
