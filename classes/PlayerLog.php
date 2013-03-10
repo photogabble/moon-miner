@@ -26,15 +26,15 @@ if (strpos ($_SERVER['PHP_SELF'], 'PlayerLog.php')) // Prevent direct access to 
 class PlayerLog
 {
     static function writeLog ($db, $sid, $log_type, $data = "")
-	{
-    	$data = addslashes ($data);
+    {
+        $data = addslashes ($data);
 
-	    // Write log_entry to the player's log - identified by player's ship_id - sid.
-    	if ($sid != "" && !empty ($log_type))
-	    {
-        	$resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
-	        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
-    	}
-	}
+        // Write log_entry to the player's log - identified by player's ship_id - sid.
+        if ($sid != "" && !empty ($log_type))
+        {
+            $resa = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, ?, ?, NOW(), ?)", array ($sid, $log_type, $data));
+            DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+        }
+    }
 }
 ?>

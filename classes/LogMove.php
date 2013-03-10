@@ -25,10 +25,10 @@ if (strpos ($_SERVER['PHP_SELF'], 'LogMove.php')) // Prevent direct access to th
 
 class LogMove
 {
-	static function writeLog ($db, $ship_id, $sector_id)
-	{
-    	$res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
-	    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-	}
+    static function writeLog ($db, $ship_id, $sector_id)
+    {
+        $res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
+        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    }
 }
 ?>

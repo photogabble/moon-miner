@@ -26,18 +26,18 @@ if (strpos ($_SERVER['PHP_SELF'], 'AdminLog.php')) // Prevent direct access to t
 
 class AdminLog
 {
-	static function writeLog ($db, $log_type, $data = "")
-	{
-    	// Write log_entry to the admin log
-    	$ret = false;
-    	$data = addslashes ($data);
-    	if (is_int ($log_type))
-    	{
-        	$ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-        	DbOp::dbResult ($db, $ret, __LINE__, __FILE__);
-    	}
+    static function writeLog ($db, $log_type, $data = "")
+    {
+        // Write log_entry to the admin log
+        $ret = false;
+        $data = addslashes ($data);
+        if (is_int ($log_type))
+        {
+            $ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
+            DbOp::dbResult ($db, $ret, __LINE__, __FILE__);
+        }
 
-    	return $ret;
-	}
+        return $ret;
+    }
 }
 ?>
