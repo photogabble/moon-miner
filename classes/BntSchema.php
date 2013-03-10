@@ -16,7 +16,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: classes/BntSchema.php
-// Todo: create universe should iterate the results from the $destroy_table_results, there should be no output in this file.
+// Todo: create universe should iterate the results from the $(destroy/create)_table_results, there should be no output in this file.
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntSchema.php')) // Prevent direct access to this file
 {
