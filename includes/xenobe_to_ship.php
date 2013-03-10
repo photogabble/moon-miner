@@ -539,7 +539,7 @@ function xenobe_to_ship ($db, $ship_id)
             $ship_value = $upgrade_cost*(round (pow ($upgrade_factor, $playerinfo['hull']))+round (pow ($upgrade_factor, $playerinfo['engines']))+round (pow ($upgrade_factor, $playerinfo['power']))+round (pow ($upgrade_factor, $playerinfo['computer']))+round (pow ($upgrade_factor, $playerinfo['sensors']))+round (pow ($upgrade_factor, $playerinfo['beams']))+round (pow ($upgrade_factor, $playerinfo['torp_launchers']))+round (pow ($upgrade_factor, $playerinfo['shields']))+round (pow ($upgrade_factor, $playerinfo['armor']))+round (pow ($upgrade_factor, $playerinfo['cloak'])));
             $ship_salvage_rate = mt_rand (10, 20);
             $ship_salvage = $ship_value * $ship_salvage_rate / 100;
-            PlayerLog::writeLog ($db, $targetinfo['ship_id]', LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
+            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");
             $resh = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, credits = credits + ? WHERE ship_id = ?;", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $targetinfo['ship_id']));
             DbOp::dbResult ($db, $resh, __LINE__, __FILE__);
