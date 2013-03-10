@@ -28,14 +28,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'CheckBan.php')) // Prevent direct access to t
 // Calling code needs to act on the returned information (boolean false or array of ban info).
 class CheckBan
 {
-	// All defines _may_ need to be put into the global_defines.php file.
-	define ('ID_WATCH',     0x00, true);    // Player flagged as being watched.
-	define ('ID_LOCKED',    0x01, true);    // Player flagged as being Locked.
-	define ('24HR_BAN',     0x02, true);    // Player flagged with a 24 Hour Ban.
-	define ('ID_BAN',       0x03, true);    // Player flagged as banned by ShipID.
-	define ('IP_BAN',       0x04, true);    // Player flagged as banned by IP Address.
-	define ('MULTI_BAN',    0x05, true);    // Player flagged as banned by either IP or ShipID.
-
 	function isBanned ($db, $lang, $langvars, $player_acc = false)
 	{
     	// Check to see if we have valid player info.
