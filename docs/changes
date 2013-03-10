@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+get_planet_owner has been replaced with BntPlanets::getOwner
 get_previous_day & get_next_day has been replaced with BntNews::previousDay & BntNews::nextDay
 scan_error has been replaced with BntScan::error
 calc_planet_torps has been replaced with CalcLevels::planetTorps

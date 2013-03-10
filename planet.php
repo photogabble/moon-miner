@@ -18,7 +18,6 @@
 // File: planet.php
 
 include './global_includes.php';
-include_once './includes/get_planet_owner.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -300,7 +299,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             $retOwnerInfo = NULL;
 
-            $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -552,7 +551,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             }
 
             $retOwnerInfo = NULL;
-            $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
@@ -588,7 +587,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             unset ($_SESSION['planet_selected']);
 
             $retOwnerInfo = NULL;
-            $owner_found = get_planet_owner ($db, $planetinfo['planet_id'], $retOwnerInfo);
+            $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
                 if ($retOwnerInfo['team'] == $playerinfo['team'] && ($playerinfo['team'] != 0 || $retOwnerInfo['team'] != 0))
