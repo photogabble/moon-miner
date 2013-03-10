@@ -52,5 +52,60 @@ class BntSchema
     	}
 		return $destroy_table_results
 	}
+
+	static function create ($db, $ADODB_SESSION_DB, $db_prefix)
+	{
+    	$i = 0;
+	    $schema_files = new DirectoryIterator("schema/");
+
+    	// New XML Schema table creation
+	    $schema = new adoSchema3 ($db);
+    	$schema->setPrefix ($db_prefix);
+	    $create_table_results = Array ();
+
+    	foreach ($schema_files as $schema_filename)
+	    {
+    	    $schema->clearSQL ();
+        	$table_timer = new Timer;
+	        $table_timer->start (); // Start benchmarking
+
+    	    // This is to get around the issue of not having DirectoryIterator::getExtension.
+        	$file_ext = pathinfo ($schema_filename->getFilename (), PATHINFO_EXTENSION);
+
+	        if ($schema_filename->isFile () && $file_ext == 'xml')
+    	    {
+        	    $tablename = substr ($schema_filename, 0, -4);
+	            $message = TestXml::parse ("schema/" . $schema_filename); // Test the xml file for validity before processing
+
+    	        if ($message !== true)
+        	    {
+            	    $err = true_or_false (true, false, "No errors found in table " . $tablename, "XML Schema " . $schema_filename . " could not be parsed because of error:" . $message);
+                	$table_timer->stop ();
+	                $elapsed = $table_timer->elapsed ();
+    	            $elapsed = substr ($elapsed, 0, 5);
+        	        table_row_xml ($db, "Creating " . $tablename . " table took " . $elapsed . " seconds. ","Failed","Passed", $err);
+            	    $i++;
+            	}
+            	else
+            	{
+                	// Call ParseSchema () to build SQL from the XML schema file. Then call ExecuteSchema () to apply the resulting SQL to the database.
+	                $parsed_xml = '';
+    	            $parsed_xml = $schema->ParseSchema ("schema/" . $schema_filename);
+
+        	        foreach ($parsed_xml as $execute_sql)
+            	    {
+                	    $res = $db->Execute ($execute_sql);
+                    	DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+	                }
+    	            $err = true_or_false (true, $db->ErrorMsg (),"No errors found in table " . $tablename, $db->ErrorNo () . ": " . $db->ErrorMsg ());
+        	        $table_timer->stop ();
+            	    $elapsed = $table_timer->elapsed ();
+                	$elapsed = substr ($elapsed, 0, 5);
+	                table_row ($db, "Creating " . $tablename . " table took " . $elapsed . " seconds. ","Failed","Passed");
+    	            $i++;
+        	    }
+        	}
+    	}
+	}
 }
 ?>

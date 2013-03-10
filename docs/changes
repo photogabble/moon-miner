@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+create_schema has been replaced with BntSchema::create
 destroy_schema has been replaced with BntSchema::destroy
 calc_avg_tech has been replaced with CalcLevels::avgTech
 get_planet_owner has been replaced with BntPlanets::getOwner

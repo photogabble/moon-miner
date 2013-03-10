@@ -332,8 +332,12 @@ echo"</table>";
       break;
 
     case "4":
-      include_once './includes/create_schema.php';
-      create_schema ($db, $ADODB_SESSION_DB, $db_prefix);
+      table_header("Creating Tables --- Step 4");
+      BntSchema::create ($db, $ADODB_SESSION_DB, $db_prefix);
+	  table_footer("Hover over the failed row to see the error.");
+
+	  // This should be conditional based on the results of create_schema
+      echo "<strong>Database schema creation completed successfully.</strong><br>";
 
       echo "<form action=create_universe.php method=post>";
       echo "<input type=hidden name=step value=5>";
