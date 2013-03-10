@@ -44,10 +44,10 @@ if (isset ($bntreg))
         $elapsed = $bnttimer->elapsed();
         $elapsed = substr ($elapsed, 0, 5);
     }
-    else
-    {
-        $elapsed = 999;
-    }
+}
+else
+{
+    $elapsed = 999;
 }
 echo '<div class="push"></div></div>';
 echo '<div class="footer">';
@@ -61,10 +61,8 @@ if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i
     include './fader.php';
 }
 
-?>
-<br>
- <div style='clear:both'></div><div style="text-align:center">
-<?php
+echo "<br><div style='clear:both'></div><div style='text-align:center'>";
+
 // Update counter
 $mySEC = (integer) 0;
 
@@ -101,9 +99,8 @@ else
 {
     echo "  " . $langvars['l_footer_players_on_1'] . " " . $online . " " . $langvars['l_footer_players_on_2'];
 }
-?>
-</div><br>
-<?php
+
+echo "</div><br>";
 
 if ($footer_show_time == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
 {
@@ -151,9 +148,7 @@ echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href=
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-" . date ('Y') ." Ron Harwood &amp; the BNT Dev team</div>";
 if ($footer_show_debug == true)
 {
-    echo "<div style='font-size:smaller; text-align:right'>" . number_format($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";
+    echo "<div style='font-size:smaller; text-align:right'>" . number_format ($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";
 }
+echo "<div></body></html>";
 ?>
-</div>
-</body>
-</html>

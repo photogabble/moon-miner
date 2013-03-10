@@ -22,13 +22,14 @@ include_once './global_includes.php';
 $langvars = null;
 
 // New database driven language entries
-load_languages ($db, $lang, array ('footer', 'error', 'main'), $langvars);
+load_languages ($db, $lang, array ('footer', 'common', 'error', 'main'), $langvars);
 
 // Always make sure we are using empty vars before use.
 $variables = null;
 
 // Set array with all used variables in page
 $variables['lang'] = $lang;
+$variables['l_lang_attribute'] = $langvars['l_lang_attribute'];
 $variables['error_img'] = 'images/error.jpg';
 $variables['body_class'] = 'error';
 $variables['no_ticker'] = 0;
