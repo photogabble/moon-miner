@@ -85,5 +85,31 @@ class CalcLevels
 	    $planetinfo['energy'] -= $planetbeams;
 	    return $planetbeams;
 	}
+
+	static function planetShields ($db, $ownerinfo, $base_defense, $planetinfo)
+	{
+    	$base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
+    	$planetshields = CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+    	$energy_available = $planetinfo['energy'];
+
+    	$res = $db->Execute ("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+	    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    	if ($res instanceof ADORecordSet)
+	    {
+    	    while (!$res->EOF)
+        	{
+            	$planetshields += CalcLevels::Shields ($res->fields['shields'], $level_factor);
+	            $res->MoveNext ();
+    	    }
+    	}
+
+    	if ($planetshields > $energy_available)
+    	{
+        	$planetshields = $energy_available;
+	    }
+    	$planetinfo['energy'] -= $planetshields;
+
+	    return $planetshields;
+	}
 }
 ?>
