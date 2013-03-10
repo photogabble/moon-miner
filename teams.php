@@ -21,7 +21,6 @@
 // This file needs to be completely recoded from scratch :(
 
 include './global_includes.php';
-include './includes/defence_vs_defence.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -189,7 +188,7 @@ switch ($teamwhat)
                         BntOwnership::calc ($db, $sector, $min_bases_to_own, $langvars);
                     }
                 }
-                defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
+                BntDefense::defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
                 BntShip::leavePlanet ($db, $playerinfo['ship_id'], $whichteam);
 
                 $l_team_onlymember = str_replace ("[team_name]", "<strong>$team[team_name]</strong>", $l_team_onlymember);
@@ -249,8 +248,8 @@ switch ($teamwhat)
                     }
 
                     echo "$l_team_youveleft <strong>$team[team_name]</strong>.<br><br>";
-                    defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
-                    kick_off_planet ($db, $playerinfo['ship_id'], $whichteam);
+                    BntDefense::defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
+                    BntShip::leavePlanet ($db, $playerinfo['ship_id'], $whichteam);
                     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
                     PlayerLog::writeLog ($db, $team['creator'], LOG_TEAM_NOT_LEAVE, $playerinfo['character_name']);
                 }
