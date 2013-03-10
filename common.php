@@ -26,19 +26,10 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
 }
 
 // This is a minor optimization, as it reduces the search path/time for Apache & PHP
-ini_set ("include_path", "."); // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 
-//ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
-ob_start();
-$bntreg = new BntRegistry();
-
+ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 $BenchmarkTimer = new Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
-$bntreg->set("bnttimer", $BenchmarkTimer);
-
-mb_http_output ("UTF-8"); // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
-mb_internal_encoding ("UTF-8"); // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
-
 $ADODB_SESS_CONN = null;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";
 
@@ -80,28 +71,30 @@ catch (exception $e)
     die ($err_msg);
 }
 
-$bntreg->set("db", $db);
-
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
 {
     ini_set ('error_reporting', -1); // During development, output all errors, even notices
     ini_set ('display_errors', '1'); // During development, *display* all errors
-    $db->logging = true; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+    $db->logging = true; 			 // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 else
 {
-    ini_set ('error_reporting', 0); // No errors
+    ini_set ('error_reporting', 0);  // No errors
     ini_set ('display_errors', '0'); // Don't show them
-    $db->logging = false; // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+    $db->logging = false; 			 // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 
-ini_set ('session.use_only_cookies', 1); // Ensure that sessions will only be stored in a cookie
-ini_set ('session.cookie_httponly', 1); // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+ini_set ("include_path", "."); 					  // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
+ini_set ('session.use_only_cookies', 1); 		  // Ensure that sessions will only be stored in a cookie
+ini_set ('session.cookie_httponly', 1); 		  // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 ini_set ('session.entropy_file', '/dev/urandom'); // Use urandom as entropy source, to help the random number generator
-ini_set ('session.entropy_length', '32'); // Increase the length of entropy gathered
-ini_set ('session.hash_function', 'sha1'); // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
-ini_set ('url_rewriter.tags', ''); // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+ini_set ('session.entropy_length', '32'); 		  // Increase the length of entropy gathered
+ini_set ('session.hash_function', 'sha1'); 		  // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
+ini_set ('url_rewriter.tags', ''); 				  // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+date_default_timezone_set ('UTC'); 				  // Set to your server's local time zone - PHP throws a notice if this is not set.
+mb_http_output ("UTF-8"); 						  // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
+mb_internal_encoding ("UTF-8"); 				  // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 
 $db->prefix = $db_prefix;
 
@@ -157,7 +150,7 @@ if (!$index_page)
 }
 
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
-if (!defined('reg_global_fix')) define('reg_global_fix', True, TRUE);
+if (!defined ('reg_global_fix')) define ('reg_global_fix', True, TRUE);
 
 // Add logging in these two functions to identify where we are using post and get, and start migrating away from them both needing to be globals.
 foreach ($_POST as $k=>$v)
@@ -199,7 +192,6 @@ if ($db->inactive != true) // Before DB is installed, don't try to setup userinf
             $playerinfo['lang'] = $res->fields['lang'];
             $lang = $playerinfo['lang'];
         }
-
     }
 }
 
@@ -217,34 +209,30 @@ if (empty ($link_forums))
     $link_forums = "http://forums.blacknova.net";
 }
 
-$ip = $_SERVER['REMOTE_ADDR'];
-
 // Initialize the Plugin System.
-PluginSystem::Initialize($db);
+PluginSystem::Initialize ($db);
 
 // Load all Plugins.
-PluginSystem::LoadPlugins();
-
-$admin_list = array ();
-date_default_timezone_set ('UTC'); // Set to your server's local time zone - PHP throws a notice if this is not set.
-
-// Auto detect and set the game path & game domain (uses the logic from setup_info)
-// If it does not work, please comment this out and set it in db_config.php instead.
-// But PLEASE also report that it did not work for you at the main BNT forums (forums.blacknova.net)
-
-$gamepath = SetPaths::setGamepath();
-$gamedomain = SetPaths::setGamedomain();
+PluginSystem::LoadPlugins ();
 
 // Ok, here we raise EVENT_TICK which is called every page load, this saves us from having to add new lines to support new features.
 // This is used for ingame stuff and Plug-ins that need to be called on every page load.
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
-PluginSystem::RaiseEvent(EVENT_TICK, array(time()));
+PluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
+
+$admin_list = array ();
+$ip = $_SERVER['REMOTE_ADDR'];
+$gamepath = SetPaths::setGamepath ();
+$gamedomain = SetPaths::setGamedomain ();
 
 // We need language variables in every page, and a language setting for them.
 global $lang, $langvars;
 
-//$bntreg->set("langvars", $langvars);
+$bntreg = new BntRegistry ();
+$bntreg->set ("bnttimer", $BenchmarkTimer);
+$bntreg->set ("db", $db);
+$bntreg->set ("langvars", $langvars);
 
-$template = new Template(); // Template API.
+$template = new Template (); // Template API.
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>
