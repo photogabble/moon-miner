@@ -22,5 +22,5 @@ if (strpos ($_SERVER['PHP_SELF'], 'admin_pw.php')) // Prevent direct access to t
 }
 
 // Define the admin password, used for accessing create_universe, scheduler, and the admin control panel
-define('ADMIN_PW', 'secret');
+define ('ADMIN_PW', 'secret');
 ?>
