@@ -111,5 +111,36 @@ class CalcLevels
 
 	    return $planetshields;
 	}
+
+	function planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
+	{
+    	$base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
+	    $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
+    	$torps = $planetinfo['torps'];
+
+	    $res = $db->Execute ("SELECT torp_launchers FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+    	DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+	    if ($res instanceof ADORecordSet)
+    	{
+       		while (!$res->EOF)
+	        {
+           		$ship_torps =  round (pow ($level_factor, $res->fields['torp_launchers'])) * 10;
+	            $torp_launchers = $torp_launchers + $ship_torps;
+     	        $res->MoveNext ();
+       		}
+    	}
+
+    	if ($torp_launchers > $torps)
+	    {
+    	    $planettorps = $torps;
+    	}
+    	else
+    	{
+        	$planettorps = $torp_launchers;
+    	}
+
+    	$planetinfo['torps'] -= $planettorps;
+    	return $planettorps;
+	}
 }
 ?>

@@ -47,8 +47,7 @@ function planet_bombing ($db)
     $res = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 
-    include_once './includes/calc_planet_torps.php';
-    $planettorps = calc_planet_torps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
+    $planettorps = CalcLevels::planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
     $planetbeams = CalcLevels::planetBeams ($db, $ownerinfo, $base_defense, $planetinfo);
 
     $planetfighters = $planetinfo['fighters'];
