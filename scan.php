@@ -19,7 +19,6 @@
 
 include './global_includes.php';
 include './includes/scan_error.php';
-include './includes/scan_success.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -73,7 +72,7 @@ else
     else
     {
         // Determine per cent chance of success in scanning target ship - based on player's sensors and opponent's cloak
-        $success = scan_success ($playerinfo['sensors'], $targetinfo['cloak']);
+        $success = BntScan::success ($playerinfo['sensors'], $targetinfo['cloak']);
         if ($success < 5)
         {
             $success = 5;

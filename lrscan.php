@@ -19,7 +19,6 @@
 
 include './global_includes.php';
 include './includes/t_port.php';
-include './includes/scan_success.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -300,7 +299,7 @@ else
             {
                 $row = $result4->fields;
                 // Display other ships in sector - unless they are successfully cloaked
-                $success = scan_success ($playerinfo['sensors'], $row['cloak']);
+                $success = BntScan::success ($playerinfo['sensors'], $row['cloak']);
                 if ($success < 5)
                 {
                     $success = 5;

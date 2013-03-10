@@ -19,7 +19,6 @@
 
 include './global_includes.php';
 include './includes/t_port.php';
-include './includes/scan_success.php';
 include './includes/player_insignia_name.php';
 include './includes/calc_score.php';
 include './includes/calc_avg_tech.php';
@@ -582,7 +581,7 @@ if ($playerinfo['sector'] != 0)
         while (!$result4->EOF)
         {
             $row=$result4->fields;
-            $success = scan_success ($playerinfo['sensors'], $row['cloak']);
+            $success = BntScan::success ($playerinfo['sensors'], $row['cloak']);
             if ($success < 5)
             {
                 $success = 5;

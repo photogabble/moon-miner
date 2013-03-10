@@ -15,16 +15,19 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/scan_success.php
+// File: classes/BntScan.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'scan_success.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntScan.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-function scan_success ($level_scan, $level_cloak)
+class BntScan
 {
-    return (5 + $level_scan - $level_cloak) * 5;
+	static function success ($level_scan, $level_cloak)
+	{
+    	return (5 + $level_scan - $level_cloak) * 5;
+	}
 }
 ?>

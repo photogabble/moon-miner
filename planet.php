@@ -20,7 +20,6 @@
 include './global_includes.php';
 
 include_once './includes/scan_error.php';
-include_once './includes/scan_success.php';
 include_once './includes/get_planet_owner.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
@@ -839,7 +838,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 while (!$res->EOF)
                 {
                     $row = $res->fields;
-                    $success = scan_success ($playerinfo['sensors'], $row['cloak']);
+                    $success = BntScan::success ($playerinfo['sensors'], $row['cloak']);
                     if ($success < 5)
                     {
                         $success = 5;

@@ -26,8 +26,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_fighters.php')) // Prevent direct acces
 // New database driven language entries
 load_languages ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
-include './includes/scan_success.php';
-
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($sector));
 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 
@@ -134,7 +132,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
             case "sneak":
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences = ' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                $success = scan_success ($fighters_owner['sensors'], $playerinfo['cloak']);
+                $success = BntScan::success ($fighters_owner['sensors'], $playerinfo['cloak']);
                 if ($success < 5)
                 {
                     $success = 5;
