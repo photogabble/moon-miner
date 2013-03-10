@@ -25,13 +25,11 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
     include_once './error.php';
 }
 
-// This is a minor optimization, as it reduces the search path/time for Apache & PHP
-
-ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 $BenchmarkTimer = new Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 $ADODB_SESS_CONN = null;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";
+ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
 // The data field name "data" violates SQL reserved words - switch it to SESSDATA
 ADODB_Session::dataFieldName ('SESSDATA');
@@ -71,18 +69,19 @@ catch (exception $e)
     die ($err_msg);
 }
 
+$db->prefix = $db_prefix;
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
 {
     ini_set ('error_reporting', -1); // During development, output all errors, even notices
     ini_set ('display_errors', '1'); // During development, *display* all errors
-    $db->logging = true; 			 // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
+    adodb_perf::table ("{$db->prefix}adodb_logsql");
+    $db->LogSQL (); // Turn on adodb performance logging
 }
 else
 {
     ini_set ('error_reporting', 0);  // No errors
     ini_set ('display_errors', '0'); // Don't show them
-    $db->logging = false; 			 // True gives an admin log entry for any SQL calls that update/insert/delete, and turns on adodb's sql logging. Only for use during development!This makes a huge amount of logs! You have been warned!!
 }
 
 ini_set ("include_path", "."); 					  // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
@@ -95,14 +94,6 @@ ini_set ('url_rewriter.tags', ''); 				  // Ensure that the session id is *not* 
 date_default_timezone_set ('UTC'); 				  // Set to your server's local time zone - PHP throws a notice if this is not set.
 mb_http_output ("UTF-8"); 						  // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
 mb_internal_encoding ("UTF-8"); 				  // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
-
-$db->prefix = $db_prefix;
-
-if ($db->logging)
-{
-    adodb_perf::table ("{$db->prefix}adodb_logsql");
-    $db->LogSQL (); // Turn on adodb performance logging
-}
 
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
@@ -139,8 +130,7 @@ if (!isset ($index_page))
 {
     $index_page = false;
 }
-
-if (!$index_page)
+else
 {
     // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
     if (!isset ($_SESSION))
@@ -220,19 +210,17 @@ PluginSystem::LoadPlugins ();
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
 PluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 
+// We need language variables in every page, and a language setting for them.
+global $lang, $langvars;
+
 $admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
 $gamepath = SetPaths::setGamepath ();
 $gamedomain = SetPaths::setGamedomain ();
-
-// We need language variables in every page, and a language setting for them.
-global $lang, $langvars;
-
 $bntreg = new BntRegistry ();
+$template = new Template (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
 $bntreg->set ("langvars", $langvars);
-
-$template = new Template (); // Template API.
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>
