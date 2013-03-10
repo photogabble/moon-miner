@@ -26,7 +26,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_fighters.php')) // Prevent direct acces
 // New database driven language entries
 load_languages ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
 
-include './includes/distribute_toll.php';
 include './includes/scan_success.php';
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($sector));
@@ -126,7 +125,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     echo "$l_chf_youpaidsometoll<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                    distribute_toll ($db, $sector, $fighterstoll, $total_sector_fighters);
+                    BntToll::distribute ($db, $sector, $fighterstoll, $total_sector_fighters);
                     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
                     $ok = 1;
                 }
