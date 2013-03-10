@@ -59,5 +59,31 @@ class CalcLevels
     {
         return round (pow ($level_factor, $level_power) * 500);
     }
+
+	static function planetBeams ($db, $ownerinfo, $base_defense, $planetinfo)
+	{
+    	$base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
+
+	    $planetbeams = CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
+    	$energy_available = $planetinfo['energy'];
+
+	    $res = $db->Execute ("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
+    	DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+	    if ($res instanceof ADORecordSet)
+    	{
+        	while (!$res->EOF)
+	        {
+    	        $planetbeams = $planetbeams + CalcLevels::Beams ($res->fields['beams'], $level_factor);
+        	    $res->MoveNext();
+	        }
+    	}
+
+    	if ($planetbeams > $energy_available)
+	    {
+    	    $planetbeams = $energy_available;
+    	}
+	    $planetinfo['energy'] -= $planetbeams;
+	    return $planetbeams;
+	}
 }
 ?>

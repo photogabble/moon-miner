@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+calc_planet_beams has been replaced with CalcLevels::planetBeams
 collect_bounty has been replaced with BntBounty::collect
 kick_off_planet has been replaced with BntShip::leavePlanet
 player_insignia_name has been replaced with BntPlayer::getInsignia
