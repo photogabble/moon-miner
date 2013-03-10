@@ -18,8 +18,6 @@
 // File: planet.php
 
 include './global_includes.php';
-
-include_once './includes/scan_error.php';
 include_once './includes/get_planet_owner.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
@@ -678,7 +676,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             {
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 // Scramble results by scan error factor.
-                $sc_error = scan_error ($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
+                $sc_error = BntScan::error ($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
                 if (empty ($planetinfo['name']))
                 {
                     $planetinfo['name'] = $l_unnamed;

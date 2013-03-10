@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+scan_error has been replaced with BntScan::error
 calc_planet_torps has been replaced with CalcLevels::planetTorps
 calc_planet_shields has been replaced with CalcLevels::planetShields
 calc_planet_beams has been replaced with CalcLevels::planetBeams

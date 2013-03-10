@@ -18,7 +18,6 @@
 // File: scan.php
 
 include './global_includes.php';
-include './includes/scan_error.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 {
@@ -134,7 +133,7 @@ else
                 echo $l_by_nofedbounty . "<br><br>";
             }
 
-            $sc_error = scan_error ($playerinfo['sensors'], $targetinfo['cloak'], $scan_error_factor);
+            $sc_error = BntScan::error ($playerinfo['sensors'], $targetinfo['cloak'], $scan_error_factor);
             echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<br><br>";
             echo "<strong>$l_ship_levels:</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
