@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+check_ban has been replaced with CheckBan::isBanned
 scan_success has been replaced with BntScan::success
 distribute_toll has been replaced with BntToll::distribute
 Removed "bnt" namespace, moving all files from vendor/bnt to classes/

@@ -75,9 +75,7 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
                 // Check to see if the player is banned every 60 seconds (may need to ajust this).
                 if ($timestamp['now'] >= ($timestamp['last'] +60))
                 {
-                    include_once './includes/check_ban.php';
-
-                    $ban_result = check_ban($db, $lang, null, $playerinfo);
+                    $ban_result = CheckBan::isBanned ($db, $lang, null, $playerinfo);
                     if ($ban_result === false ||  (array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
                     {
                         // do nothing
