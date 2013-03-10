@@ -48,11 +48,8 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
         {
             $playerinfo = $rs->fields;
 
-            // Initialize the hasher, with 8 (a base-2 log iteration count) for password stretching and without less-secure portable hashes for older systems
-            require_once './config/pw_hash.php';
-            $hasher = new PasswordHash(HASH_STRENGTH, false);
-
             // Check the password against the stored hashed password
+            $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
             $password_match = $hasher->CheckPassword ($_SESSION['password'], $playerinfo['password']);
 
             // Check the cookie to see if username/password are empty - check password against database

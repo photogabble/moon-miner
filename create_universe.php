@@ -1020,12 +1020,8 @@ table_footer ("Completed successfully.");
 
       $stamp = date("Y-m-d H:i:s");
 
-      // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
-      // Ideally, I'd like this to use the auto-loader, but I didn't find a workable method for that.
-      require_once './config/pw_hash.php';
-      $hasher = new PasswordHash(HASH_STRENGTH, false);
-
       // Hash the password.  $hashedPassword will be a 60-character string.
+      $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
       $hashed_pass = $hasher->HashPassword (ADMIN_PW);
 
       $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");

@@ -80,9 +80,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($playerfound)
 {
-    // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
-    require_once './config/pw_hash.php';
-    $hasher = new PasswordHash(HASH_STRENGTH, false);
+    $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
 
     if ($hasher->CheckPassword ($_POST['pass'], $playerinfo['password']))
     {

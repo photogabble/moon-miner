@@ -84,11 +84,8 @@ else
         // We have a valid RecorSet, so now set $playerinfo.
         $playerinfo = $rs->fields;
 
-        // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
-        require_once './config/pw_hash.php';
-        $hasher = new PasswordHash(HASH_STRENGTH, false);
-
         // Check the password against the stored hashed password
+        $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
         $password_match = $hasher->CheckPassword ($oldpass, $playerinfo['password']);
 
         // Does the oldpass and the players password match?

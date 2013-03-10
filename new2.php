@@ -138,11 +138,8 @@ if ($flag == 0)
         $mturns = $max_turns;
     }
 
-    // Initialize the hasher, with the hash strength for password stretching set from the admin define file and without less-secure portable hashes for older systems
-    require_once './config/pw_hash.php';
-    $hasher = new PasswordHash(HASH_STRENGTH, false);
-
     // Hash the password.  $hashedPassword will be a 60-character string.
+    $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
     $hashed_pass = $hasher->HashPassword($makepass);
 
     $result2 = $db->Execute ("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
