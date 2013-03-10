@@ -27,8 +27,6 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 // New database driven language entries
 load_languages ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
 
-include_once './includes/is_loan_pending.php';
-
 $title = $l_title_port;
 include './header.php';
 
@@ -160,7 +158,7 @@ else
         }
         unset ($_SESSION['port_shopping']);
 
-        if (is_loan_pending ($db, $playerinfo['ship_id'], $ibank_lrate))
+        if (BntIbank::is_loan_pending ($db, $playerinfo['ship_id'], $ibank_lrate))
         {
             echo $l_port_loannotrade . "<p>";
             echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";

@@ -1,5 +1,6 @@
 TheKabal (9 March 2013)
 --------------------------------------
+is_loan_pending has been replaced with BntIbank::is_loan_pending
 ini_to_db has been replaced with BntFile::ini_to_db
 create_schema has been replaced with BntSchema::create
 destroy_schema has been replaced with BntSchema::destroy
