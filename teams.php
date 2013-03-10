@@ -21,7 +21,6 @@
 // This file needs to be completely recoded from scratch :(
 
 include './global_includes.php';
-include './includes/kick_off_planet.php';
 include './includes/defence_vs_defence.php';
 
 if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
@@ -191,7 +190,7 @@ switch ($teamwhat)
                     }
                 }
                 defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
-                kick_off_planet($db, $playerinfo['ship_id'], $whichteam);
+                BntShip::leavePlanet ($db, $playerinfo['ship_id'], $whichteam);
 
                 $l_team_onlymember = str_replace ("[team_name]", "<strong>$team[team_name]</strong>", $l_team_onlymember);
                 echo $l_team_onlymember . "<br><br>";
