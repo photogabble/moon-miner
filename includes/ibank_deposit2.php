@@ -28,6 +28,7 @@ function ibank_deposit2 ($db)
     global $playerinfo, $amount, $account;
     global $l_ibank_invaliddepositinput, $l_ibank_nozeroamount2, $l_ibank_notenoughcredits, $l_ibank_accounts, $l_ibank_logout;
     global $l_ibank_operationsuccessful, $l_ibank_creditstoyou, $l_ibank_ibankaccount, $l_ibank_shipaccount, $l_ibank_back;
+	global $local_number_thousands_sep, $local_number_dec_point;
 
     $max_credits_allowed = 18446744073709000000;
 

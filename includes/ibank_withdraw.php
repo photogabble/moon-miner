@@ -28,6 +28,7 @@ function ibank_withdraw ()
     global $playerinfo, $account;
     global $l_ibank_withdrawfunds, $l_ibank_fundsavailable, $l_ibank_selwithdrawamount;
     global $l_ibank_withdraw, $l_ibank_back, $l_ibank_logout;
+	global $local_number_thousands_sep, $local_number_dec_point;
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_withdrawfunds . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .

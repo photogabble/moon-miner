@@ -50,7 +50,7 @@ class BntSchema
                 $i++;
             }
         }
-        return $destroy_table_results
+        return $destroy_table_results;
     }
 
     static function create ($db, $ADODB_SESSION_DB, $db_prefix)

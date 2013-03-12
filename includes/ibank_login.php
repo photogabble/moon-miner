@@ -30,6 +30,7 @@ function ibank_login ()
     global $l_ibank_ibankaccount, $l_ibank_withdraw, $l_ibank_credit_symbol, $l_ibank_operations;
     global $l_ibank_deposit, $l_ibank_transfer, $l_ibank_loans;
     global $l_ibank_back, $l_ibank_logout;
+	global $local_number_thousands_sep, $local_number_dec_point;
 
     echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_welcometoibank . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
