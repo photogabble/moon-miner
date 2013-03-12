@@ -82,8 +82,7 @@ elseif ($command == 'withdraw2') //withdraw operation
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    include_once './includes/ibank_deposit.php';
-    ibank_deposit ();
+    BntIbank::deposit ($db, $lang, $account, $playerinfo, $langvars);
 }
 elseif ($command == 'deposit2') //deposit operation
 {

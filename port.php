@@ -293,7 +293,7 @@ elseif ($sectorinfo['port_type'] == "special")
     // Kami Multi-browser window upgrade fix
     $_SESSION['port_shopping'] = true;
 
-    if (BntIbank::is_loan_pending ($db, $playerinfo['ship_id'], $ibank_lrate))
+    if (BntIbank::isLoanPending ($db, $playerinfo['ship_id'], $ibank_lrate))
     {
         echo $l_port_loannotrade . "<p>";
         echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
