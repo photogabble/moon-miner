@@ -16,6 +16,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: classes/BntIbank.php
+// Todo: Deposit doesn't really belong in here. Since it doesn't really perform an action
+// it should just be part of a templated IGB. TLDR: Remove the deposit function entirely.
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntIbank.php')) // Prevent direct access to this file
 {

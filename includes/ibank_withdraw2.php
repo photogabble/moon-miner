@@ -28,6 +28,7 @@ function ibank_withdraw2 ($db)
     global $playerinfo, $amount, $account;
     global $l_ibank_invalidwithdrawinput, $l_ibank_nozeroamount3, $l_ibank_notenoughcredits, $l_ibank_accounts;
     global $l_ibank_operationsuccessful, $l_ibank_creditstoyourship, $l_ibank_ibankaccount, $l_ibank_back, $l_ibank_logout;
+	global $local_number_thousands_sep, $local_number_dec_point;
 
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)

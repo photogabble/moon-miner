@@ -25,11 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_borrow.php')) // Prevent direct access 
 
 function ibank_borrow ($db)
 {
-    global $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor;
-    global $l_ibank_invalidamount,$l_ibank_notwoloans, $l_ibank_loantoobig;
-    global $l_ibank_takenaloan, $l_ibank_loancongrats, $l_ibank_loantransferred;
-    global $l_ibank_loanfee, $l_ibank_amountowned, $ibank_lrate, $l_ibank_loanreminder, $l_ibank_loanreminder2;
-    global $l_ibank_back, $l_ibank_logout;
+    global $playerinfo, $account, $amount, $ibank_loanlimit, $ibank_loanfactor, $ibank_lrate, $langvars;
 
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
@@ -39,12 +35,12 @@ function ibank_borrow ($db)
 
     if ($amount <= 0)
     {
-        ibank_error ($l_ibank_invalidamount, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($account['loan'] != 0)
     {
-        ibank_error($l_ibank_notwoloans, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_notwoloans'], "igb.php?command=loans");
     }
 
     include_once './includes/calc_score.php';
@@ -53,7 +49,7 @@ function ibank_borrow ($db)
 
     if ($amount > $maxtrans)
     {
-        ibank_error($l_ibank_loantoobig, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_loantoobig'], "igb.php?command=loans");
     }
 
     $amount2 = $amount * $ibank_loanfactor;
@@ -62,21 +58,21 @@ function ibank_borrow ($db)
     $hours = $ibank_lrate / 60;
     $mins = $ibank_lrate % 60;
 
-    $l_ibank_loanreminder = str_replace ("[hours]", $hours, $l_ibank_loanreminder);
-    $l_ibank_loanreminder = str_replace ("[mins]", $mins, $l_ibank_loanreminder);
+    $langvars['l_ibank_loanreminder'] = str_replace ("[hours]", $hours, $langvars['l_ibank_loanreminder']);
+    $langvars['l_ibank_loanreminder'] = str_replace ("[mins]", $mins, $langvars['l_ibank_loanreminder']);
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_takenaloan . "<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td colspan=2 align=center>" . $l_ibank_loancongrats . "<br><br></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_takenaloan'] . "<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td colspan=2 align=center>" . $langvars['l_ibank_loancongrats'] . "<br><br></tr>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_loantransferred . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<td>" . $langvars['l_ibank_loantransferred'] . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_loanfee . " :</td><td nowrap align=right>" . number_format ($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<td>" . $langvars['l_ibank_loanfee'] . " :</td><td nowrap align=right>" . number_format ($amount2, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_amountowned . " :</td><td nowrap align=right>" . number_format ($amount3, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<td>" . $langvars['l_ibank_amountowned'] . " :</td><td nowrap align=right>" . number_format ($amount3, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>---------------------------------<br><br>" . $l_ibank_loanreminder . "<br><br>\"" . $l_ibank_loanreminder2 ."\"</td>" .
+         "<td colspan=2 align=center>---------------------------------<br><br>" . $langvars['l_ibank_loanreminder'] . "<br><br>\"" . $langvars['l_ibank_loanreminder2'] ."\"</td>" .
          "<tr valign=top>" .
-         "<td nowrap><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td nowrap><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";
 
     $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET loan = ?, loantime = NOW() WHERE ship_id = ?", array ($amount3, $playerinfo['ship_id']));

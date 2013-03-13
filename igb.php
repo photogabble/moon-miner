@@ -52,7 +52,7 @@ $account = $result->fields;
 
 if (!$allow_ibank)
 {
-    ibank_error($l_ibank_malfunction, "main.php");
+    ibank_error ($l_ibank_malfunction, "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -82,7 +82,7 @@ elseif ($command == 'withdraw2') //withdraw operation
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    BntIbank::deposit ($db, $lang, $account, $playerinfo, $langvars);
+    BntIbank::deposit ($db, $lang, $account, $playerinfo, $langvars, $local_number_thousands_sep, $local_number_dec_point);
 }
 elseif ($command == 'deposit2') //deposit operation
 {
