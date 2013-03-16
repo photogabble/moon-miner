@@ -26,10 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate3.php')) // Prevent direct a
 
 function ibank_consolidate3 ($db)
 {
-    global $playerinfo;
-    global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
-    global $l_ibank_notenturns, $l_ibank_back, $l_ibank_logout, $l_ibank_transfersuccessful;
-    global $l_ibank_currentpl, $l_ibank_in, $l_ibank_turncost, $l_ibank_unnamed;
+    global $playerinfo, $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee, $langvars;
 
     $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -43,7 +40,7 @@ function ibank_consolidate3 ($db)
 
     if (empty ($dest['name']))
     {
-        $dest['name'] = $l_ibank_unnamed;
+        $dest['name'] = $langvars['l_ibank_unnamed'];
     }
 
     if ($dest['owner'] != $playerinfo['ship_id'])
@@ -81,17 +78,17 @@ function ibank_consolidate3 ($db)
     if ($tcost > $playerinfo['turns'])
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($l_ibank_notenturns, "igb.php?command=transfer");
+        ibank_error ($langvars['l_ibank_notenturns'], "igb.php?command=transfer");
     }
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_transfersuccessful . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_transfersuccessful'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_currentpl . " " . $dest['name'] . " " . $l_ibank_in . " " . $dest['sector_id'] . " :<br><br>" .
-         $l_ibank_turncost . " :</td>" .
+         "<td>" . $langvars['l_ibank_currentpl'] . " " . $dest['name'] . " " . $langvars['l_ibank_in'] . " " . $dest['sector_id'] . " :<br><br>" .
+         $langvars['l_ibank_turncost'] . " :</td>" .
          "<td align=right>" . number_format ($cplanet, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br><br>" .
          number_format ($tcost, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>" .
          "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout ']. "</a></td>" .
          "</tr>";
 
     $query = "UPDATE {$db->prefix}planets SET credits=0 WHERE owner=? AND credits != 0 AND planet_id != ?";

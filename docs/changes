@@ -1,5 +1,6 @@
-TheKabal (9 March 2013)
+TheKabal (16 March 2013)
 --------------------------------------
+Replace old $l_whatever language variables with new $langvars variables instead.
 
 TheKabal (9 March 2013)
 --------------------------------------
