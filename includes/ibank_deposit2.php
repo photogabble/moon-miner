@@ -25,9 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_deposit2.php')) // Prevent direct acces
 
 function ibank_deposit2 ($db)
 {
-    global $playerinfo, $amount, $account;
-    global $l_ibank_invaliddepositinput, $l_ibank_nozeroamount2, $l_ibank_notenoughcredits, $l_ibank_accounts, $l_ibank_logout;
-    global $l_ibank_operationsuccessful, $l_ibank_creditstoyou, $l_ibank_ibankaccount, $l_ibank_shipaccount, $l_ibank_back;
+    global $playerinfo, $amount, $account, $langvars;
 	global $local_number_thousands_sep, $local_number_dec_point;
 
     $max_credits_allowed = 18446744073709000000;
@@ -36,17 +34,17 @@ function ibank_deposit2 ($db)
 
     if (($amount * 1) != $amount)
     {
-        ibank_error ($l_ibank_invaliddepositinput, "igb.php?command=deposit");
+        ibank_error ($langvars['l_ibank_invaliddepositinput'], "igb.php?command=deposit");
     }
 
     if ($amount == 0)
     {
-        ibank_error ($l_ibank_nozeroamount2, "igb.php?command=deposit");
+        ibank_error ($langvars['l_ibank_nozeroamount2'], "igb.php?command=deposit");
     }
 
     if ($amount > $playerinfo['credits'])
     {
-        ibank_error ($l_ibank_notenoughcredits, "igb.php?command=deposit");
+        ibank_error ($langvars['l_ibank_notenoughcredits'], "igb.php?command=deposit");
     }
 
     $tmpcredits = $max_credits_allowed - $account['balance'];
@@ -63,15 +61,15 @@ function ibank_deposit2 ($db)
     $account['balance'] += $amount;
     $playerinfo['credits'] -= $amount;
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_operationsuccessful . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_operationsuccessful'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) ." " . $l_ibank_creditstoyou . "</td>" .
-         "<tr><td colspan=2 align=center>" . $l_ibank_accounts . "<br>---------------------------------</td></tr>" .
+         "<td colspan=2 align=center>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) ." " . $langvars['l_ibank_creditstoyou'] . "</td>" .
+         "<tr><td colspan=2 align=center>" . $langvars['l_ibank_accounts'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_shipaccount . " :<br>" . $l_ibank_ibankaccount . " :</td>" .
+         "<td>" . $langvars['l_ibank_shipaccount'] . " :<br>" . $langvars['l_ibank_ibankaccount'] . " :</td>" .
          "<td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</tr>" .
          "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";
 
     $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
