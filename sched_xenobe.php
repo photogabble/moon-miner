@@ -59,235 +59,261 @@ while (!$res->EOF)
 
     // Run through orders
     $furcount++;
-    if (mt_rand(1,5) > 1)                                 // 20% Chance of not moving at all
+    if (mt_rand (1, 5) > 1)                                 // 20% Chance of not moving at all
     {
-      // Orders = 0 Sentinel
-      if ($playerinfo[orders] == 0)
-      {
-        $furcount0++;
-        // Find a target in my sector, not myself, not on a planet
+        // Orders = 0 Sentinel
+        if ($playerinfo['orders'] == 0)
+        {
+            $furcount0++;
+            // Find a target in my sector, not myself, not on a planet
 
-        $reso0 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
-        DbOp::dbResult ($db, $res0, __LINE__, __FILE__);
-        if (!$reso0->EOF)
-        {
-          $rowo0 = $reso0->fields;
-          if ($playerinfo[aggression] == 0)            // O = 0 & Aggression = 0 Peaceful
-          {
-            // This Guy Does Nothing But Sit As A Target Himself
-          }
-          elseif ($playerinfo[aggression] == 1)        // O = 0 & Aggression = 1 Attack sometimes O = 0
-          {
-            // Xenobe's only compare number of fighters when determining if they have an attack advantage
-            if ($playerinfo[ship_fighters] > $rowo0[ship_fighters])
+            $reso0 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
+            DbOp::dbResult ($db, $res0, __LINE__, __FILE__);
+            if (!$reso0->EOF)
             {
-              $furcount0a++;
-              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
-              xenobe_to_ship ($db, $rowo0[ship_id]);
-              if ($xenobeisdead>0) {
-                $res->MoveNext();
-                continue;
-              }
-            }
-          }
-          elseif ($playerinfo[aggression] == 2)        // O = 0 & Aggression = 2 attack always
-          {
-            $furcount0a++;
-            PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
-            xenobe_to_ship ($db, $rowo0[ship_id]);
-            if ($xenobeisdead>0) {
-              $res->MoveNext();
-              continue;
-            }
-          }
-        }
-      }
-      // Orders = 1 roam
-      elseif ($playerinfo[orders] == 1)
-      {
-        $furcount1++;
-        // Roam to a new sector before doing anything else
-        $targetlink = $playerinfo[sector];
-        xenobe_move ($db);
-        if ($xenobeisdead>0) {
-          $res->MoveNext();
-          continue;
-        }
-        // Find a target in my sector, not myself
-        $reso1 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
-        DbOp::dbResult ($db, $reso1, __LINE__, __FILE__);
-        if (!$reso1->EOF)
-        {
-          $rowo1= $reso1->fields;
-          if ($playerinfo[aggression] == 0)            // O = 1 & Aggression = 0 Peaceful O = 1
-          {
-            // This Guy Does Nothing But Roam Around As A Target Himself
-          }
-          elseif ($playerinfo[aggression] == 1)        // O = 1 & AGRESSION = 1 ATTACK SOMETIMES
-          {
-            // Xenobe's only compare number of fighters when determining if they have an attack advantage
-            if ($playerinfo[ship_fighters] > $rowo1[ship_fighters] && $rowo1[planet_id] == 0)
-            {
-              $furcount1a++;
-              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
-              xenobe_to_ship ($db, $rowo1[ship_id]);
-              if ($xenobeisdead>0) {
-                $res->MoveNext();
-                continue;
-              }
-            }
-          }
-          elseif ($playerinfo[aggression] == 2)        //  O = 1 & AGRESSION = 2 ATTACK ALLWAYS
-          {
-            $furcount1a++;
-            PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
-            if (!$rowo1[planet_id] == 0) {              // IS ON PLANET
-              xenobe_to_planet ($db, $rowo1[planet_id]);
-            } else {
-              xenobe_to_ship ($db, $rowo1[ship_id]);
-            }
-            if ($xenobeisdead>0) {
-              $res->MoveNext();
-              continue;
-            }
-          }
-        }
-      }
-      // ORDERS = 2 ROAM AND TRADE
-      elseif ($playerinfo[orders] == 2)
-      {
-        $furcount2++;
-        // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
-        $targetlink = $playerinfo[sector];
-        xenobe_move ($db);
-        if ($xenobeisdead>0) {
-          $res->MoveNext();
-          continue;
-        }
-        // NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS
-        xenobe_trade ($db);
-        // FIND A TARGET
-        // IN MY SECTOR, NOT MYSELF
-        $reso2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
-        DbOp::dbResult ($db, $reso2, __LINE__, __FILE__);
-        if (!$reso2->EOF)
-        {
-          $rowo2 = $reso2->fields;
-          if ($playerinfo[aggression] == 0)            // O = 2 & AGRESSION = 0 PEACEFUL
-          {
-            // This Guy Does Nothing But Roam And Trade
-          }
-          elseif ($playerinfo[aggression] == 1)        // O = 2 & AGRESSION = 1 ATTACK SOMETIMES
-          {
-            // Xenobe's only compare number of fighters when determining if they have an attack advantage
-            if ($playerinfo[ship_fighters] > $rowo2[ship_fighters] && $rowo2[planet_id] == 0)
-            {
-              $furcount2a++;
-              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
-              xenobe_to_ship ($db, $rowo2[ship_id]);
-              if ($xenobeisdead>0) {
-                $res->MoveNext();
-                continue;
-              }
-            }
-          }
-          elseif ($playerinfo[aggression] == 2)        // O = 2 & AGRESSION = 2 ATTACK ALLWAYS
-          {
-            $furcount2a++;
-            PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
-            if (!$rowo2[planet_id] == 0) {              // IS ON PLANET
-              xenobe_to_planet ($db, $rowo2[planet_id]);
-            } else {
-              xenobe_to_ship ($db, $rowo2[ship_id]);
-            }
-            if ($xenobeisdead>0) {
-              $res->MoveNext();
-              continue;
-            }
-          }
-        }
-      }
-      // ORDERS = 3 ROAM AND HUNT
-      elseif ($playerinfo[orders] == 3)
-      {
-        $furcount3++;
-        // LET SEE IF WE GO HUNTING THIS ROUND BEFORE WE DO ANYTHING ELSE
-        $hunt=mt_rand(0,3);                               // 25% CHANCE OF HUNTING
-        // Uncomment below for Debugging
-        //$hunt=0;
-        if ($hunt==0)
-        {
-        $furcount3h++;
-        xenobe_hunter ($db);
-        if ($xenobeisdead>0) {
-          $res->MoveNext();
-          continue;
-        }
-        } else
-        {
-          // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
-          xenobe_move ($db);
-          if ($xenobeisdead>0) {
-            $res->MoveNext();
-            continue;
-          }
-          // FIND A TARGET
-          // IN MY SECTOR, NOT MYSELF
-          $reso3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
-          DbOp::dbResult ($db, $reso3, __LINE__, __FILE__);
-          if (!$reso3->EOF)
-          {
-            $rowo3 = $reso3->fields;
-            if ($playerinfo[aggression] == 0)            // O = 3 & AGRESSION = 0 PEACEFUL
-            {
-              // This Guy Does Nothing But Roam Around As A Target Himself
-            }
-            elseif ($playerinfo[aggression] == 1)        // O = 3 & AGRESSION = 1 ATTACK SOMETIMES
-            {
-              // Xenobe's only compare number of fighters when determining if they have an attack advantage
-              if ($playerinfo[ship_fighters] > $rowo3[ship_fighters] && $rowo3[planet_id] == 0)
-              {
-                $furcount3a++;
-                PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
-                xenobe_to_ship ($db, $rowo3[ship_id]);
-                if ($xenobeisdead>0) {
-                  $res->MoveNext();
-                  continue;
+                $rowo0 = $reso0->fields;
+                if ($playerinfo['aggression'] == 0)            // O = 0 & Aggression = 0 Peaceful
+                {
+                    // This Guy Does Nothing But Sit As A Target Himself
                 }
-              }
+                elseif ($playerinfo['aggression'] == 1)        // O = 0 & Aggression = 1 Attack sometimes O = 0
+                {
+                    // Xenobe's only compare number of fighters when determining if they have an attack advantage
+                    if ($playerinfo['ship_fighters'] > $rowo0['ship_fighters'])
+                    {
+                        $furcount0a++;
+                        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
+                        xenobe_to_ship ($db, $rowo0['ship_id']);
+                        if ($xenobeisdead > 0)
+                        {
+                            $res->MoveNext();
+                            continue;
+                        }
+                    }
+                }
+                elseif ($playerinfo['aggression'] == 2)        // O = 0 & Aggression = 2 attack always
+                {
+                    $furcount0a++;
+                    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo0[character_name]");
+                    xenobe_to_ship ($db, $rowo0['ship_id']);
+                    if ($xenobeisdead > 0)
+                    {
+                        $res->MoveNext();
+                        continue;
+                    }
+                }
             }
-            elseif ($playerinfo[aggression] == 2)        // O = 3 & AGRESSION = 2 ATTACK ALLWAYS
+        }
+        elseif ($playerinfo['orders'] == 1) // Orders = 1 roam
+        {
+            $furcount1++;
+            // Roam to a new sector before doing anything else
+            $targetlink = $playerinfo['sector'];
+            xenobe_move ($db);
+            if ($xenobeisdead > 0)
             {
-              $furcount3a++;
-              PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
-              if (!$rowo3[planet_id] == 0) {              // IS ON PLANET
-                xenobe_to_planet ($db, $rowo3[planet_id]);
-              } else {
-                xenobe_to_ship ($db, $rowo3[ship_id]);
-              }
-              if ($xenobeisdead>0) {
                 $res->MoveNext();
                 continue;
-              }
             }
-          }
+            // Find a target in my sector, not myself
+            $reso1 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
+            DbOp::dbResult ($db, $reso1, __LINE__, __FILE__);
+            if (!$reso1->EOF)
+            {
+                $rowo1 = $reso1->fields;
+                if ($playerinfo['aggression'] == 0)            // O = 1 & Aggression = 0 Peaceful O = 1
+                {
+                    // This Guy Does Nothing But Roam Around As A Target Himself
+                }
+                elseif ($playerinfo['aggression'] == 1)        // O = 1 & AGRESSION = 1 ATTACK SOMETIMES
+                {
+                    // Xenobe's only compare number of fighters when determining if they have an attack advantage
+                    if ($playerinfo['ship_fighters'] > $rowo1['ship_fighters'] && $rowo1['planet_id'] == 0)
+                    {
+                        $furcount1a++;
+                        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
+                        xenobe_to_ship ($db, $rowo1['ship_id']);
+                        if ($xenobeisdead > 0)
+                        {
+                            $res->MoveNext();
+                            continue;
+                        }
+                    }
+                }
+                elseif ($playerinfo['aggression'] == 2)        //  O = 1 & AGRESSION = 2 ATTACK ALLWAYS
+                {
+                    $furcount1a++;
+                    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo1[character_name]");
+                    if (!$rowo1['planet_id'] == 0)
+                    {              // Is on planet
+                        xenobe_to_planet ($db, $rowo1['planet_id']);
+                    }
+                    else
+                    {
+                        xenobe_to_ship ($db, $rowo1['ship_id']);
+                    }
+
+                    if ($xenobeisdead > 0)
+                    {
+                        $res->MoveNext();
+                        continue;
+                    }
+                }
+            }
         }
-      }
+        // Orders = 2 roam and trade
+        elseif ($playerinfo['orders'] == 2)
+        {
+            $furcount2++;
+            // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
+            $targetlink = $playerinfo['sector'];
+            xenobe_move ($db);
+            if ($xenobeisdead > 0)
+            {
+                $res->MoveNext();
+                continue;
+            }
+
+            // NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS
+            xenobe_trade ($db);
+            // FIND A TARGET
+            // IN MY SECTOR, NOT MYSELF
+            $reso2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
+            DbOp::dbResult ($db, $reso2, __LINE__, __FILE__);
+            if (!$reso2->EOF)
+            {
+                $rowo2 = $reso2->fields;
+                if ($playerinfo['aggression'] == 0)            // O = 2 & AGRESSION = 0 PEACEFUL
+                {
+                    // This Guy Does Nothing But Roam And Trade
+                }
+                elseif ($playerinfo['aggression'] == 1)        // O = 2 & AGRESSION = 1 ATTACK SOMETIMES
+                {
+                    // Xenobe's only compare number of fighters when determining if they have an attack advantage
+                    if ($playerinfo['ship_fighters'] > $rowo2['ship_fighters'] && $rowo2['planet_id'] == 0)
+                    {
+                        $furcount2a++;
+                        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
+                        xenobe_to_ship ($db, $rowo2['ship_id']);
+                        if ($xenobeisdead > 0)
+                        {
+                            $res->MoveNext();
+                            continue;
+                        }
+                    }
+                }
+                elseif ($playerinfo['aggression'] == 2)        // O = 2 & AGRESSION = 2 ATTACK ALLWAYS
+                {
+                    $furcount2a++;
+                    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo2[character_name]");
+                    if (!$rowo2['planet_id'] == 0)
+                    {              // IS ON PLANET
+                        xenobe_to_planet ($db, $rowo2['planet_id']);
+                    }
+                    else
+                    {
+                        xenobe_to_ship ($db, $rowo2['ship_id']);
+                    }
+
+                    if ($xenobeisdead > 0)
+                    {
+                        $res->MoveNext();
+                        continue;
+                    }
+                }
+            }
+        }
+        // ORDERS = 3 ROAM AND HUNT
+        elseif ($playerinfo['orders'] == 3)
+        {
+            $furcount3++;
+            // LET SEE IF WE GO HUNTING THIS ROUND BEFORE WE DO ANYTHING ELSE
+            $hunt = mt_rand (0, 3);                               // 25% CHANCE OF HUNTING
+            // Uncomment below for Debugging
+            // $hunt = 0;
+            if ($hunt == 0)
+            {
+                $furcount3h++;
+                xenobe_hunter ($db);
+                if ($xenobeisdead > 0)
+                {
+                    $res->MoveNext();
+                    continue;
+                }
+            }
+            else
+            {
+                // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
+                xenobe_move ($db);
+                if ($xenobeisdead > 0)
+                {
+                    $res->MoveNext();
+                    continue;
+                }
+
+                // FIND A TARGET
+                // IN MY SECTOR, NOT MYSELF
+                $reso3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
+                DbOp::dbResult ($db, $reso3, __LINE__, __FILE__);
+                if (!$reso3->EOF)
+                {
+                    $rowo3 = $reso3->fields;
+                    if ($playerinfo['aggression'] == 0)            // O = 3 & AGRESSION = 0 PEACEFUL
+                    {
+                        // This Guy Does Nothing But Roam Around As A Target Himself
+                    }
+                    elseif ($playerinfo['aggression'] == 1)        // O = 3 & AGRESSION = 1 ATTACK SOMETIMES
+                    {
+                        // Xenobe's only compare number of fighters when determining if they have an attack advantage
+                        if ($playerinfo['ship_fighters'] > $rowo3['ship_fighters'] && $rowo3['planet_id'] == 0)
+                        {
+                            $furcount3a++;
+                            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
+                            xenobe_to_ship ($db, $rowo3['ship_id']);
+                            if ($xenobeisdead > 0)
+                            {
+                                $res->MoveNext();
+                                continue;
+                            }
+                        }
+                    }
+                  elseif ($playerinfo['aggression'] == 2)        // O = 3 & AGRESSION = 2 ATTACK ALLWAYS
+                    {
+                        $furcount3a++;
+                        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_Xenobe_ATTACK, "$rowo3[character_name]");
+                        if (!$rowo3['planet_id'] == 0)
+                        {              // IS ON PLANET
+                            xenobe_to_planet ($db, $rowo3['planet_id']);
+                        }
+                        else
+                        {
+                            xenobe_to_ship ($db, $rowo3['ship_id']);
+                        }
+
+                        if ($xenobeisdead > 0)
+                        {
+                            $res->MoveNext();
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
     }
     $res->MoveNext();
   }
   $res->_close();
 
-  $furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2 + $furcount3);
-  echo "Counted $furcount Xenobe players that are ACTIVE with working ships.<br>";
-  echo "$furnonmove Xenobe players did not do anything this round. <br>";
-  echo "$furcount0 Xenobe players had SENTINEL orders of which $furcount0a launched attacks. <br>";
-  echo "$furcount1 Xenobe players had ROAM orders of which $furcount1a launched attacks. <br>";
-  echo "$furcount2 Xenobe players had ROAM AND TRADE orders of which $furcount2a launched attacks. <br>";
-  echo "$furcount3 Xenobe players had ROAM AND HUNT orders of which $furcount3a launched attacks and $furcount3h went hunting. <br>";
-  echo "Xenobe TURNS COMPLETE. <br>";
-  echo "<br>";
-  // END OF Xenobe TURNS
+$furnonmove = $furcount - ($furcount0 + $furcount1 + $furcount2 + $furcount3);
+echo "Counted $furcount Xenobe players that are ACTIVE with working ships.<br>";
+echo "$furnonmove Xenobe players did not do anything this round. <br>";
+echo "$furcount0 Xenobe players had SENTINEL orders of which $furcount0a launched attacks. <br>";
+echo "$furcount1 Xenobe players had ROAM orders of which $furcount1a launched attacks. <br>";
+echo "$furcount2 Xenobe players had ROAM AND TRADE orders of which $furcount2a launched attacks. <br>";
+echo "$furcount3 Xenobe players had ROAM AND HUNT orders of which $furcount3a launched attacks and $furcount3h went hunting. <br>";
+echo "Xenobe TURNS COMPLETE. <br>";
+echo "<br>";
+// END OF Xenobe TURNS
 
 // Unlock the tables.
 $result = $db->Execute ("UNLOCK TABLES");
