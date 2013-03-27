@@ -451,9 +451,9 @@ else
                 $Sylable1 = array ("Ak","Al","Ar","B","Br","D","F","Fr","G","Gr","K","Kr","N","Ol","Om","P","Qu","R","S","Z");
                 $Sylable2 = array ("a","ar","aka","aza","e","el","i","in","int","ili","ish","ido","ir","o","oi","or","os","ov","u","un");
                 $Sylable3 = array ("ag","al","ak","ba","dar","g","ga","k","ka","kar","kil","l","n","nt","ol","r","s","ta","til","x");
-                $sy1roll = mt_rand (0,19);
-                $sy2roll = mt_rand (0,19);
-                $sy3roll = mt_rand (0,19);
+                $sy1roll = mt_rand (0, 19);
+                $sy2roll = mt_rand (0, 19);
+                $sy3roll = mt_rand (0, 19);
                 $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
                 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
                 $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));
@@ -464,9 +464,9 @@ else
                 // If Name Exists Try Again - Up To Nine Times
                 while (($namecheck[0]) and ($nametry <= 9))
                 {
-                    $sy1roll = mt_rand (0,19);
-                    $sy2roll = mt_rand (0,19);
-                    $sy3roll = mt_rand (0,19);
+                    $sy1roll = mt_rand (0, 19);
+                    $sy2roll = mt_rand (0, 19);
+                    $sy3roll = mt_rand (0, 19);
                     $character = $Sylable1[$sy1roll] . $Sylable2[$sy2roll] . $Sylable3[$sy3roll];
                     $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
                     $resultnm = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE character_name = ?;", array ($character));

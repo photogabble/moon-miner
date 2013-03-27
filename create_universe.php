@@ -480,11 +480,11 @@ echo"</table>";
             $insert="INSERT INTO {$db->prefix}universe (sector_id,zone_id,angle1,angle2,distance) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $distance=intval(mt_rand(1,$universe_size));
-                $angle1=mt_rand(0,180);
-                $angle2=mt_rand(0,90);
+                $distance = intval (mt_rand (1, $universe_size));
+                $angle1 = mt_rand (0, 180);
+                $angle2 = mt_rand (0, 90);
                 $insert.="(NULL,'1',$angle1,$angle2,$distance)";
-                if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
+                if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
             }
             ### Now lets post the information to the mysql database.
 //          $db->Execute("$insert");
@@ -780,7 +780,7 @@ echo"</table>";
 
         do
         {
-            $num = mt_rand (2, ($sector_max-1));
+            $num = mt_rand (2, ($sector_max - 1));
             $select = $db->Execute("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'") or die("DB error");
             DbOp::dbResult ($db, $select, __LINE__, __FILE__);
             if ($select->RecordCount() == 0)
@@ -855,10 +855,10 @@ table_spacer ();
             $insert="INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $link1=intval(mt_rand(1,$sector_max-1));
-                $link2=intval(mt_rand(1,$sector_max-1));
+                $link1 = intval (mt_rand (1, $sector_max - 1));
+                $link2 = intval (mt_rand (1, $sector_max - 1));
                 $insert.="($link1,$link2)";
-                if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
+                if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
             }
 #           print_flush ("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 
@@ -900,10 +900,10 @@ table_spacer ();
             $insert="INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $link1=intval(mt_rand(1,$sector_max-1));
-                $link2=intval(mt_rand(1,$sector_max-1));
+                $link1 = intval (mt_rand (1, $sector_max - 1));
+                $link2 = intval (mt_rand (1, $sector_max - 1));
                 $insert.="($link1,$link2), ($link2,$link1)";
-                if ($j<($finish-1)) $insert .= ", "; else $insert .= ";";
+                if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
             }
 //          print_flush ("<font color='#ff0'>Creating loop $i of $loopsize Random Two-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
             if ($start<$sector_max && $finish<=$sector_max)
