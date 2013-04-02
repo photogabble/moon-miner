@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
-$title = $l_ze_title;
+$title = $langvars['l_ze_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('zoneedit', 'report', 'port', 'main', 'zoneinfo', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $command = null;
@@ -89,7 +89,7 @@ $res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id=?", array (
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
-    echo "<p>" . $l_zi_nexist . "<p>";
+    echo "<p>" . $langvars['l_zi_nexist'] . "<p>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -114,7 +114,7 @@ else
 
 if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id']) || ($curzone['corp_zone'] == 'Y' && $curzone['owner'] != $ownerinfo['id'] && $row['owner'] == $ownerinfo['creator']))
 {
-    echo "<p>" . $l_ze_notowner . "<p>";
+    echo "<p>" . $langvars['l_ze_notowner'] . "<p>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -123,7 +123,7 @@ if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id'])
 if ($command == 'change')
 {
     global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
-    global $l_clickme, $l_ze_saved, $l_ze_return;
+    global $langvars['l_clickme'], $langvars['l_ze_saved'], $langvars['l_ze_return'];
 
     // Sanitize ZoneName.
     $name = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $name);
@@ -135,8 +135,8 @@ if ($command == 'change')
 
     $resx = $db->Execute ("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ?, allow_attack = ?, allow_warpedit = ?, allow_planet = ?, allow_trade = ?, allow_defenses = ? WHERE zone_id = ?;", array ($name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses, $zone));
     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-    echo $l_ze_saved . "<p>";
-    echo "<a href=zoneinfo.php?zone=$zone>" . $l_clickme . "</a> " . $l_ze_return . ".<p>";
+    echo $langvars['l_ze_saved'] . "<p>";
+    echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -235,32 +235,32 @@ else
 
 echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "<table border=0><tr>" .
-     "<td align=right><font size=2><strong>$l_ze_name : &nbsp;</strong></font></td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_ze_name'] . " : &nbsp;</strong></font></td>" .
      "<td><input type=text name=name size=30 maxlength=30 value=\"$curzone[zone_name]\"></td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_ze_allow $l_beacons : &nbsp;</strong></font></td>" .
-     "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=L $lbeacon>&nbsp;$l_zi_limit</td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_ze_allow'] . " " . $langvars['l_beacons'] . " : &nbsp;</strong></font></td>" .
+     "<td><input type=radio name=beacons value=Y $ybeacon>&nbsp;" . $langvars['l_yes'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=N $nbeacon>&nbsp;" . $langvars['l_no'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=beacons value=L $lbeacon>&nbsp;" . $langvars['l_zi_limit'] . "</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_ze_attacks : &nbsp;</strong></font></td>" .
-     "<td><input type=radio name=attacks value=Y $yattack>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=attacks value=N $nattack>&nbsp;$l_no</td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_ze_attacks'] . " : &nbsp;</strong></font></td>" .
+     "<td><input type=radio name=attacks value=Y $yattack>&nbsp;" . $langvars['l_yes'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=attacks value=N $nattack>&nbsp;" . $langvars['l_no'] . "</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_ze_allow $l_warpedit : &nbsp;</strong></font></td>" .
-     "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=L $lwarpedit>&nbsp;$l_zi_limit</td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_ze_allow'] . " " . $langvars['l_warpedit'] . " : &nbsp;</strong></font></td>" .
+     "<td><input type=radio name=warpedits value=Y $ywarpedit>&nbsp;" . $langvars['l_yes'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=N $nwarpedit>&nbsp;" . $langvars['l_no'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=warpedits value=L $lwarpedit>&nbsp;" . $langvars['l_zi_limit'] . "</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_zi_allow $l_sector_def : &nbsp;</strong></font></td>" .
-     "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;$l_zi_limit</td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_zi_allow'] . " " . $langvars['l_sector_def'] . " : &nbsp;</strong></font></td>" .
+     "<td><input type=radio name=defenses value=Y $ydefense>&nbsp;" . $langvars['l_yes'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=N $ndefense>&nbsp;" . $langvars['l_no'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=defenses value=L $ldefense>&nbsp;" . $langvars['l_zi_limit'] . "</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_ze_genesis : &nbsp;</strong></font></td>" .
-     "<td><input type=radio name=planets value=Y $yplanet>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=N $nplanet>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=L $lplanet>&nbsp;$l_zi_limit</td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_ze_genesis'] . " : &nbsp;</strong></font></td>" .
+     "<td><input type=radio name=planets value=Y $yplanet>&nbsp;" . $langvars['l_yes'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=N $nplanet>&nbsp;" . $langvars['l_no'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=planets value=L $lplanet>&nbsp;" . $langvars['l_zi_limit'] . "</td>" .
      "</tr><tr>" .
-     "<td align=right><font size=2><strong>$l_zi_allow $l_title_port : &nbsp;</strong></font></td>" .
-     "<td><input type=radio name=trades value=Y $ytrade>&nbsp;$l_yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=N $ntrade>&nbsp;$l_no&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=L $ltrade>&nbsp;$l_zi_limit</td>" .
+     "<td align=right><font size=2><strong>" . $langvars['l_zi_allow'] . " " . $langvars['l_title_port'] . " : &nbsp;</strong></font></td>" .
+     "<td><input type=radio name=trades value=Y $ytrade>&nbsp;" . $langvars['l_yes'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=N $ntrade>&nbsp;" . $langvars['l_no'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=trades value=L $ltrade>&nbsp;" . $langvars['l_zi_limit'] . "</td>" .
      "</tr><tr>" .
-     "<td colspan=2 align=center><br><input type=submit value=$l_submit></td></tr>" .
+     "<td colspan=2 align=center><br><input type=submit value=" . $langvars['l_submit'] . "></td></tr>" .
      "</table>" .
      "</form>";
 
-echo "<a href=zoneinfo.php?zone=$zone>$l_clickme</a> $l_ze_return.<p>";
+echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
 BntText::gotoMain ($langvars);
 
 include './footer.php';

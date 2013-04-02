@@ -27,8 +27,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_news.php')) // Prevent direct access to
 
 global $default_lang;
 
-// New database driven language entries
-load_languages ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 echo "<strong>Posting News</strong><br>\n";
 
