@@ -17,8 +17,8 @@
 //
 // File: header.php
 
-// New database driven language entries
-load_languages ($db, $lang, array ('common'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('common'));
 
 header ("Content-type: text/html; charset=utf-8");
 header ("X-UA-Compatible: IE=Edge, chrome=1");
