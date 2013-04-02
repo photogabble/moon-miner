@@ -24,13 +24,15 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'), $langvars);
-
 $body_class = 'zoneinfo';
-$title = $l_zi_title;
+$title = $langvars['l_zi_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
+
 echo "<h1>" . $title . "</h1>\n";
+$zone = filter_input (INPUT_GET, 'zone', FILTER_SANITIZE_NUMBER_INT);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -42,7 +44,7 @@ $zoneinfo = $res->fields;
 
 if ($res->EOF)
 {
-    echo $l_zi_nexist;
+    echo $langvars['l_zi_nexist'];
 }
 else
 {
@@ -51,24 +53,24 @@ else
     if ($zoneinfo['zone_id'] < 5)
     {
         $zonevar = "l_zname_" . $zoneinfo['zone_id'];
-        $zoneinfo['zone_name'] = $$zonevar;
+        $zoneinfo['zone_name'] = $langvars[$zonevar];
     }
 
     if ($row['zone_id'] == '2')
     {
-        $ownername = $l_zi_feds;
+        $ownername = $langvars['l_zi_feds'];
     }
     elseif ($row['zone_id'] == '3')
     {
-        $ownername = $l_zi_traders;
+        $ownername = $langvars['l_zi_traders'];
     }
     elseif ($row['zone_id'] == '1')
     {
-        $ownername = $l_zi_nobody;
+        $ownername = $langvars['l_zi_nobody'];
     }
     elseif ($row['zone_id'] == '4')
     {
-        $ownername = $l_zi_war;
+        $ownername = $langvars['l_zi_war'];
     }
     else
     {
@@ -93,81 +95,81 @@ else
 
     if ($row['allow_beacon'] == 'Y')
     {
-        $beacon = $l_zi_allow;
+        $beacon = $langvars['l_zi_allow'];
     }
     elseif ($row['allow_beacon'] == 'N')
     {
-        $beacon = $l_zi_notallow;
+        $beacon = $langvars['l_zi_notallow'];
     }
     else
     {
-        $beacon = $l_zi_limit;
+        $beacon = $langvars['l_zi_limit'];
     }
 
     if ($row['allow_attack'] == 'Y')
     {
-        $attack = $l_zi_allow;
+        $attack = $langvars['l_zi_allow'];
     }
     else
     {
-        $attack = $l_zi_notallow;
+        $attack = $langvars['l_zi_notallow'];
     }
 
     if ($row['allow_defenses'] == 'Y')
     {
-        $defense = $l_zi_allow;
+        $defense = $langvars['l_zi_allow'];
     }
     elseif ($row['allow_defenses'] == 'N')
     {
-        $defense = $l_zi_notallow;
+        $defense = $langvars['l_zi_notallow'];
     }
     else
     {
-        $defense = $l_zi_limit;
+        $defense = $langvars['l_zi_limit'];
     }
 
     if ($row['allow_warpedit'] == 'Y')
     {
-        $warpedit = $l_zi_allow;
+        $warpedit = $langvars['l_zi_allow'];
     }
     elseif ($row['allow_warpedit'] == 'N')
     {
-        $warpedit = $l_zi_notallow;
+        $warpedit = $langvars['l_zi_notallow'];
     }
     else
     {
-        $warpedit = $l_zi_limit;
+        $warpedit = $langvars['l_zi_limit'];
     }
 
     if ($row['allow_planet'] == 'Y')
     {
-        $planet = $l_zi_allow;
+        $planet = $langvars['l_zi_allow'];
     }
     elseif ($row['allow_planet'] == 'N')
     {
-        $planet = $l_zi_notallow;
+        $planet = $langvars['l_zi_notallow'];
     }
     else
     {
-        $planet = $l_zi_limit;
+        $planet = $langvars['l_zi_limit'];
     }
 
     if ($row['allow_trade'] == 'Y')
     {
-        $trade = $l_zi_allow;
+        $trade = $langvars['l_zi_allow'];
     }
     elseif ($row['allow_trade'] == 'N')
     {
-        $trade = $l_zi_notallow;
+        $trade = $langvars['l_zi_notallow'];
     }
     else
     {
-        $trade = $l_zi_limit;
+        $trade = $langvars['l_zi_limit'];
     }
 
     if ($row['max_hull'] == 0)
     {
-        $hull = $l_zi_ul;
+        $hull = $langvars['l_zi_ul'];
     }
     else
     {
@@ -176,20 +178,20 @@ else
 
     if (($row['corp_zone'] == 'N' && $row['owner'] == $playerinfo['ship_id']) || ($row['corp_zone'] == 'Y' && $row['owner'] == $playerinfo['team'] && $playerinfo['ship_id'] == $ownerinfo['creator']))
     {
-        echo "<center>$l_zi_control. <a href=zoneedit.php?zone=$zone>$l_clickme</a> $l_zi_tochange</center><p>";
+        echo "<center>" . $langvars['l_zi_control'] . ". <a href=zoneedit.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_zi_tochange'] . "</center><p>";
     }
 
     echo "<table class=\"top\">\n" .
          "<tr><td class=\"zonename\"><strong>$row[zone_name]</strong></td></tr></table>\n" .
          "<table class=\"bottom\">\n" .
-         "<tr><td class=\"name\">&nbsp;$l_zi_owner</td><td class=\"value\">$ownername&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_beacons</td><td>$beacon&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_att_att</td><td>$attack&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_md_title</td><td>$defense&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_warpedit</td><td>$warpedit&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_planets</td><td>$planet&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_title_port</td><td>$trade&nbsp;</td></tr>\n" .
-         "<tr><td>&nbsp;$l_zi_maxhull</td><td>$hull&nbsp;</td></tr>\n" .
+         "<tr><td class=\"name\">&nbsp;" . $langvars['l_zi_owner'] . "</td><td class=\"value\">$ownername&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_beacons'] . "</td><td>$beacon&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_att_att'] . "</td><td>$attack&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_md_title'] . "</td><td>$defense&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_warpedit'] . "</td><td>$warpedit&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_planets'] . "</td><td>$planet&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_title_port'] . "</td><td>$trade&nbsp;</td></tr>\n" .
+         "<tr><td>&nbsp;" . $langvars['l_zi_maxhull'] . "</td><td>$hull&nbsp;</td></tr>\n" .
          "</table>\n";
 }
 echo "<br><br>";

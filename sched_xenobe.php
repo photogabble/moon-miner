@@ -35,8 +35,8 @@ include_once './includes/xenobe_to_ship.php';
 include_once './includes/xenobe_trade.php';
 include_once './includes/xenobe_to_planet.php';
 
-// New database driven language entries
-load_languages ($db, $lang, array ('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'));
 
 global $targetlink;
 global $xenobeisdead;

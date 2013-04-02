@@ -20,11 +20,11 @@
 include './global_includes.php';
 include './config/admin_pw.php';
 
-// New database driven language entries
-load_languages ($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
-$title = $l_ai_control;
+$title = $langvars['l_ai_control'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 function checked ($yesno)

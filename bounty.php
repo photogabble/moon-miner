@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
 $title = $l_by_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 $response = null;
 if (array_key_exists ('response', $_POST) == true)

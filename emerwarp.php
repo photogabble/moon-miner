@@ -28,8 +28,8 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 $langvars = null;
 $variables = null;
 
-// New database driven language entries
-load_languages ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
@@ -41,8 +41,7 @@ if ($playerinfo['dev_emerwarp'] > 0)
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $playerinfo['ship_id']));
     DbOp::dbResult ($db, $result_warp, __LINE__, __FILE__);
     LogMove::writeLog ($db, $playerinfo['ship_id'], $dest_sector);
-    $l_ewd_used = str_replace ("[sector]", $dest_sector, $l_ewd_used);
-
+    $langvars['l_ewd_used'] = str_replace ("[sector]", $dest_sector, $langvars['l_ewd_used']);
     $variables['dest_sector'] = $dest_sector;
 }
 
@@ -56,6 +55,8 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 $template->AddVariables ('langvars', $langvars);
 $template->AddVariables ('variables', $variables);
 $template->Display ("emerwarp.tpl");
