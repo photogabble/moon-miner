@@ -187,6 +187,6 @@ else
 }
 
 $langvars = BntTranslate::load ($db, $lang, array ('global_funcs'));
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

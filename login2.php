@@ -102,7 +102,7 @@ if ($playerfound)
                 $_SESSION['logged_in'] = true;
                 $_SESSION['password'] = $_POST['pass'];
                 $_SESSION['username'] = $playerinfo['email'];
-                BntText::gotoMain ($langvars);
+                BntText::gotoMain ($db, $lang, $langvars);
                 header("Location: main.php"); // This redirect avoids any rendering for the user of login2. Its a direct transition, visually
             }
             else

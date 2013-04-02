@@ -78,6 +78,6 @@ echo "<br>";
 echo "<input type=submit value=$l_opt_save>";
 echo "</form><br>";
 
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

@@ -393,7 +393,7 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
         ";
 
     echo "<div style='text-align:left;'>\n";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     echo "</div>\n";
 
     include './footer.php';

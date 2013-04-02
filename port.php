@@ -106,7 +106,7 @@ if ($zoneinfo['zone_id'] == 4)
     $title = $l_sector_war;
     echo "<h1>" . $title . "</h1>\n";
     echo $l_war_info . "<p>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
 }
@@ -116,7 +116,7 @@ elseif ($zoneinfo['allow_trade'] == 'N')
     $title = "Trade forbidden";
     echo "<h1>" . $title . "</h1>\n";
     echo $l_no_trade_info . "<p>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
 }
@@ -134,7 +134,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             $title = "Trade forbidden";
             echo "<h1>" . $title . "</h1>\n";
             echo "Trading at this port is not allowed for outsiders<p>";
-            BntText::gotoMain ($langvars);
+            BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
         }
@@ -146,7 +146,7 @@ elseif ($zoneinfo['allow_trade'] == 'L')
             $title = $l_no_trade;
             echo "<h1>" . $title . "</h1>\n";
             echo $l_no_trade_out . "<p>";
-            BntText::gotoMain ($langvars);
+            BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
         }
@@ -297,7 +297,7 @@ elseif ($sectorinfo['port_type'] == "special")
     {
         echo $l_port_loannotrade . "<p>";
         echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
-        BntText::gotoMain ($langvars);
+        BntText::gotoMain ($db, $lang, $langvars);
         include './footer.php';
         die ();
     }
@@ -328,7 +328,7 @@ elseif ($sectorinfo['port_type'] == "special")
                 {
                     $l_port_btynotenough = str_replace ("[amount]", number_format ($bty['total_bounty'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_port_btynotenough);
                     echo $l_port_btynotenough . "<br>";
-                    BntText::gotoMain ($langvars);
+                    BntText::gotoMain ($db, $lang, $langvars);
                     die ();
                 }
                 else
@@ -387,7 +387,7 @@ elseif ($sectorinfo['port_type'] == "special")
                         echo "You have paid part of the bounty.<br>\n";
                         echo "<br>\n";
 
-                        BntText::gotoMain ($langvars);
+                        BntText::gotoMain ($db, $lang, $langvars);
                         die ();
                     }
                 }
@@ -398,12 +398,12 @@ elseif ($sectorinfo['port_type'] == "special")
                     echo "Try doing some trading then transfer your funds over to the <a href='igb.php'>Intergalactic Bank</a><br>\n";
                     echo "<br>\n";
 
-                    BntText::gotoMain ($langvars);
+                    BntText::gotoMain ($db, $lang, $langvars);
                     die ();
                 }
 
                 $bounty_left    = $bty['total_bounty'] - $bounty_payment;
-                BntText::gotoMain ($langvars);
+                BntText::gotoMain ($db, $lang, $langvars);
                 die ();
             }
             else
@@ -424,7 +424,7 @@ elseif ($sectorinfo['port_type'] == "special")
                 echo "<br>\n";
 
                 echo "<a href=\"bounty.php\">" . $l_by_placebounty . "</a><br><br>";
-                BntText::gotoMain ($langvars);
+                BntText::gotoMain ($db, $lang, $langvars);
                 die ();
             }
         }
@@ -1011,7 +1011,7 @@ else
 
 echo "\n";
 echo "<br><br>\n";
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 echo "\n";
 
 include './footer.php';

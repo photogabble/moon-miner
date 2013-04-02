@@ -50,7 +50,7 @@ function planet_combat ($db)
     if ($playerinfo['turns'] < 1 )
     {
         echo $l_cmb_atleastoneturn . "<br><br>";
-        BntText::gotoMain ($langvars);
+        BntText::gotoMain ($db, $lang, $langvars);
         include_once './footer.php';
         die ();
     }

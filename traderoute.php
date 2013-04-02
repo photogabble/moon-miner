@@ -390,7 +390,7 @@ else
 }
 
 echo "<div style='text-align:left;'>\n";
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 echo "</div>\n";
 
 include './footer.php';
@@ -402,7 +402,7 @@ function traderoute_die ($db, $lang, $langvars, $error_msg)
 
     echo "<p>" . $error_msg . "<p>";
     echo "<div style='text-align:left;'>\n";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     echo "</div>\n";
     include_once './footer.php';
     die ();

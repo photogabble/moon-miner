@@ -146,6 +146,6 @@ $resx = $db->Execute ("UNLOCK TABLES");
 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 echo "<br><br>";
 
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

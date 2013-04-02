@@ -90,7 +90,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 if ($res->EOF)
 {
     echo "<p>" . $langvars['l_zi_nexist'] . "<p>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
 }
@@ -115,7 +115,7 @@ else
 if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id']) || ($curzone['corp_zone'] == 'Y' && $curzone['owner'] != $ownerinfo['id'] && $row['owner'] == $ownerinfo['creator']))
 {
     echo "<p>" . $langvars['l_ze_notowner'] . "<p>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
 }
@@ -137,7 +137,7 @@ if ($command == 'change')
     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     echo $langvars['l_ze_saved'] . "<p>";
     echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
 }
@@ -261,7 +261,7 @@ echo "<form action=zoneedit.php?command=change&zone=$zone method=post>" .
      "</form>";
 
 echo "<a href=zoneinfo.php?zone=$zone>" . $langvars['l_clickme'] . "</a> " . $langvars['l_ze_return'] . ".<p>";
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 
 include './footer.php';
 ?>

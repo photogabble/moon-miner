@@ -69,7 +69,7 @@ if ($sector == "*")
     if (!$allow_fullscan)
     {
         echo $langvars['l_lrs_nofull'] . "<br><br>";
-        BntText::gotoMain ($langvars);
+        BntText::gotoMain ($db, $lang, $langvars);
         include_once './footer.php';
         die ();
     }
@@ -78,7 +78,7 @@ if ($sector == "*")
     {
         $langvars['l_lrs_noturns'] = str_replace ("[turns]", $fullscan_cost, $langvars['l_lrs_noturns']);
         echo $langvars['l_lrs_noturns'] . "<br><br>";
-        BntText::gotoMain ($langvars);
+        BntText::gotoMain ($db, $lang, $langvars);
         include_once './footer.php';
         die ();
     }
@@ -247,7 +247,7 @@ else
     if ($flag == 0)
     {
         echo $langvars['l_lrs_cantscan'] . "<br><br>";
-        BntText::gotoMain ($langvars);
+        BntText::gotoMain ($db, $lang, $langvars);
         die ();
     }
 
@@ -438,7 +438,7 @@ else
 }
 
 echo "<br><br>";
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 
 include './footer.php';
 ?>

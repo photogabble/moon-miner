@@ -492,6 +492,6 @@ function base_build_check ($langvars, $planet, $i)
 }
 
 echo "<br><br>";
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

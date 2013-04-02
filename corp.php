@@ -74,12 +74,12 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
             echo "<p>" . $ownership . "<p>";
         }
     }
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
 }
 else
 {
     echo "<br>" . $l_corpm_exploit . "<br>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
 }
 
 include './footer.php';

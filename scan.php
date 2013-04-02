@@ -51,7 +51,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $_GET['ship_id'])
 {
     echo "You need to Click on the ship first.<br><br>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include_once './footer.php';
     die ();
 }
@@ -454,6 +454,6 @@ else
 }
 
 echo "<br><br>";
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

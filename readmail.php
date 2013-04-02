@@ -213,7 +213,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 <?php
  //}
 
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 
 include './footer.php';
 ?>

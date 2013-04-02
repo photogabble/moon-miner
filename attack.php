@@ -35,7 +35,7 @@ echo "<h1>" . $title . "</h1>\n";
 if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
 {
     echo "You need to click on the ship first.<br><br>";
-    BntText::gotoMain ($langvars);
+    BntText::gotoMain ($db, $lang, $langvars);
     include_once './footer.php';
     die ();
 }
@@ -830,6 +830,6 @@ DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
 $_SESSION['in_combat'] = (boolean) false;
 
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

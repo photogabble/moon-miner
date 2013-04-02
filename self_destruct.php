@@ -71,6 +71,6 @@ else
     echo $l_die_exploit . "<br><br>";
 }
 
-BntText::gotoMain ($langvars);
+BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

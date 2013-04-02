@@ -99,7 +99,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 echo "<h1>" . $title . "</h1>\n";
                 echo "$l_chf_youretreatback<br>";
-                BntText::gotoMain ($langvars);
+                BntText::gotoMain ($db, $lang, $langvars);
                 die ();
                 break;
 

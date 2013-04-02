@@ -25,8 +25,9 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntText.php')) // Prevent direct access to th
 
 class BntText
 {
-    static function gotoMain ($langvars)
+    static function gotoMain ($db, $lang, $langvars)
     {
+        $langvars = BntTranslate::load ($db, $lang, array ('global_funcs', 'common'));
         echo str_replace("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
     }
 }
