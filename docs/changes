@@ -1,3 +1,7 @@
+TheKabal (1 April 2013)
+--------------------------------------
+load_languages has been replaced with the new class & method BntTranslate::load, which returns the $langvars array. No joke.
+
 TheKabal (16 March 2013)
 --------------------------------------
 Replace old $l_whatever language variables with new $langvars variables instead.
