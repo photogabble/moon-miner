@@ -17,11 +17,10 @@
 //
 // File: footer.php
 
-global $sched_ticks, $footer_show_time, $footer_show_debug, $db, $lang;
+global $sched_ticks, $footer_show_time, $footer_show_debug, $db, $lang, $langvars;
 
-// New database driven language entries
-load_languages ($db, $lang, array ('footer','global_includes'), $langvars);
-
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('footer','global_includes'));
 $online = (integer) 0;
 
 if (!$db->inactive)
@@ -59,6 +58,9 @@ if (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i
     echo "<script src='templates/classic/javascript/newsticker.js.php'></script>\n";
     echo "<div id='news_ticker' class='faderlines'></div>\n";
     include './fader.php';
+
+    // Reload languages because fader cleared them
+    $langvars = BntTranslate::load ($db, $lang, array ('footer','global_includes'));
 }
 
 echo "<br><div style='clear:both'></div><div style='text-align:center'>";

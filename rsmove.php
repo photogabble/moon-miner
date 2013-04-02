@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'), $langvars);
-
-$title = $l_rs_title;
+$title = $langvars['l_rs_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -73,11 +73,11 @@ if (isset ($destination))
 if (!isset ($destination))
 {
     echo "<form action=rsmove.php method=post>";
-    $l_rs_insector = str_replace ("[sector]", $playerinfo['sector'], $l_rs_insector);
-    $l_rs_insector = str_replace ("[sector_max]", $sector_max - 1, $l_rs_insector);
-    echo $l_rs_insector . "<br><br>";
-    echo $l_rs_whichsector . ":  <input type=text name=destination size=10 maxlength=10><br><br>";
-    echo "<input type=submit value='" . $l_rs_submit . "'><br><br>";
+    $langvars['l_rs_insector'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_rs_insector']);
+    $langvars['l_rs_insector'] = str_replace ("[sector_max]", $sector_max - 1, $langvars['l_rs_insector']);
+    echo $langvars['l_rs_insector'] . "<br><br>";
+    echo $langvars['l_rs_whichsector'] . ":  <input type=text name=destination size=10 maxlength=10><br><br>";
+    echo "<input type=submit value='" . $langvars['l_rs_submit'] . "'><br><br>";
     echo "</form>";
 }
 elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sector_max && $triptime > 100 && $engage == 1))
@@ -107,20 +107,20 @@ elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sect
         $energyscooped = 0;
     }
 
-    $l_rs_movetime = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_movetime);
-    $l_rs_energy = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_energy);
-    echo "$l_rs_movetime $l_rs_energy<br><br>";
+    $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_movetime']);
+    $langvars['l_rs_energy'] = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_energy']);
+    echo $langvars['l_rs_movetime'] . " " . $langvars['l_rs_energy'] . "<br><br>";
 
     if ($triptime > $playerinfo['turns'])
     {
-        echo $l_rs_noturns;
+        echo $langvars['l_rs_noturns'];
     }
     else
     {
-        $l_rs_engage_link = "<a href=rsmove.php?engage=2&destination=$destination>" . $l_rs_engage_link . "</A>";
-        $l_rs_engage = str_replace ("[turns]", number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_engage);
-        $l_rs_engage = str_replace ("[engage]", $l_rs_engage_link, $l_rs_engage);
-        echo "$l_rs_engage<br><br>";
+        $langvars['l_rs_engage_link'] = "<a href=rsmove.php?engage=2&destination=$destination>" . $langvars['l_rs_engage_link'] . "</a>";
+        $langvars['l_rs_engage'] = str_replace ("[turns]", number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_engage']);
+        $langvars['l_rs_engage'] = str_replace ("[engage]", $langvars['l_rs_engage_link'], $langvars['l_rs_engage']);
+        echo $langvars['l_rs_engage'] . "<br><br>";
     }
 }
 elseif ($destination < $sector_max && $engage > 0)
@@ -152,9 +152,9 @@ elseif ($destination < $sector_max && $engage > 0)
 
     if ($triptime > $playerinfo['turns'])
     {
-        $l_rs_movetime = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_movetime);
-        echo $l_rs_movetime . "<br><br>";
-        echo $l_rs_noturns . "<br><br>";
+        $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_movetime']);
+        echo $langvars['l_rs_movetime'] . "<br><br>";
+        echo $langvars['l_rs_noturns'] . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
@@ -166,25 +166,27 @@ elseif ($destination < $sector_max && $engage > 0)
         include_once './check_fighters.php';
         if ($ok > 0)
         {
+            $langvars = BntTranslate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
             $stamp = date ("Y-m-d H-i-s");
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
-            $l_rs_ready = str_replace ("[sector]", $destination, $l_rs_ready);
-            $l_rs_ready = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready);
-            $l_rs_ready = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready);
-            echo $l_rs_ready . "<br><br>";
+            $langvars['l_rs_ready'] = str_replace ("[sector]", $destination, $langvars['l_rs_ready']);
+            $langvars['l_rs_ready'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready']);
+            $langvars['l_rs_ready'] = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready']);
+            echo $langvars['l_rs_ready'] . "<br><br>";
             include_once './check_mines.php';
         }
     }
 }
 else
 {
-    echo $l_rs_invalid . ".<br><br>";
+    echo $langvars['l_rs_invalid'] . ".<br><br>";
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 }
 
+$langvars = BntTranslate::load ($db, $lang, array ('global_funcs'));
 BntText::gotoMain ($langvars);
 include './footer.php';
 ?>

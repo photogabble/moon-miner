@@ -46,8 +46,8 @@ if (result == true)
     // 2: Supply the information from a Database and convert it into XML (for formatting) and have the XSLT Stylesheet extract the information and insert it.
 
 <?php
-    // New database driven language entries
-    load_languages ($db, $lang, array ('news'), $langvars);
+    // Database driven language entries
+    $langvars = BntTranslate::load ($db, $lang, array ('news'));
 
     $startdate = date ("Y/m/d");
     if ($db->inactive)
