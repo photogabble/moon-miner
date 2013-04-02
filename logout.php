@@ -21,9 +21,9 @@ include './global_includes.php';
 
 $variables = null;
 
-// New database driven language entries
+// Database driven language entries
 $langvars = null;
-load_languages ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+$langvars = BntTranslate::load ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 if (isset ($_SESSION['username']))
 {
@@ -34,8 +34,8 @@ if (isset ($_SESSION['username']))
     include_once './includes/calc_score.php';
     $current_score = calc_score ($db, $playerinfo['ship_id']);
     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
-    $l_logout_text = str_replace ("[name]", $_SESSION['username'], $l_logout_text);
-    $l_logout_text = str_replace ("[here]", "<a href='index.php'>" . $l_here . "</a>", $l_logout_text);
+    $langvars['l_logout_text'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
+    $langvars['l_logout_text'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text']);
     // Convert language entries to include session information while it still exists
     $langvars['l_logout_text_replaced'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
     $langvars['l_logout_text_replaced'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text_replaced']);

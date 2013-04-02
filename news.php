@@ -31,11 +31,11 @@ else
     $link = "?lang=" . $lang;
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
 $title = $l_news_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 $startdate = date ("Y/m/d");
 if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))

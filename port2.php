@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
 $title = $l_title_port;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);

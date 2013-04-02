@@ -24,10 +24,10 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
-$title = $l_mines_title;
+$title = $langvars['l_mines_title'];
 include './header.php';
 
 $op = null;
@@ -110,7 +110,7 @@ $num_defences = $i;
 echo "<h1>" . $title . "</h1>\n";
 if ($playerinfo['turns'] < 1 )
 {
-    echo $l_mines_noturn . "<br><br>";
+    echo $langvars['l_mines_noturn'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -122,7 +122,7 @@ $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_defenses'] == 'N')
 {
-    echo $l_mines_nopermit . "<br><br>";
+    echo $langvars['l_mines_nopermit'] . "<br><br>";
 }
 else
 {
@@ -137,7 +137,7 @@ else
 
             if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
-                echo $l_mines_nodeploy . "<br>";
+                echo $langvars['l_mines_nodeploy'] . "<br>";
                 BntText::gotoMain ($langvars);
                 die ();
             }
@@ -155,7 +155,7 @@ else
         {
             if ($zoneowner_info['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
             {
-                echo "$l_mines_nopermit<br><br>";
+                echo $langvars['l_mines_nopermit'] . "<br><br>";
                 BntText::gotoMain ($langvars);
                 die ();
             }
@@ -167,20 +167,20 @@ else
         $availmines = number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep);
         $availfighters = number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
         echo "<form action=mines.php method=post>";
-        $l_mines_info1 = str_replace ("[sector]", $playerinfo['sector'], $l_mines_info1);
-        $l_mines_info1 = str_replace ("[mines]", number_format ($total_sector_mines, 0, $local_number_dec_point, $local_number_thousands_sep), $l_mines_info1);
-        $l_mines_info1 = str_replace ("[fighters]", number_format ($total_sector_fighters, 0, $local_number_dec_point, $local_number_thousands_sep), $l_mines_info1);
-        echo "$l_mines_info1<br><br>";
-        $l_mines_info2 = str_replace ("[mines]", $availmines, $l_mines_info2);
-        $l_mines_info2 = str_replace ("[fighters]", $availfighters, $l_mines_info2);
+        $langvars['l_mines_info1'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace ("[mines]", number_format ($total_sector_mines, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace ("[fighters]", number_format ($total_sector_fighters, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_mines_info1']);
+        echo $langvars['l_mines_info1'] . "<br><br>";
+        $langvars['l_mines_info2'] = str_replace ("[mines]", $availmines, $langvars['l_mines_info2']);
+        $langvars['l_mines_info2'] = str_replace ("[fighters]", $availfighters, $langvars['l_mines_info2']);
         echo "You have $availmines mines and $availfighters fighters available to deploy.<br>\n";
         echo "<br>\n";
-        echo "$l_mines_deploy <input type=text name=nummines size=10 maxlength=10 value=$playerinfo[torps]> $l_mines.<br>";
-        echo "$l_mines_deploy <input type=text name=numfighters size=10 maxlength=10 value=$playerinfo[ship_fighters]> $l_fighters.<br>";
-        echo "Fighter mode <input type=radio name=mode $set_attack value=attack>$l_mines_att</input>";
-        echo "<input type=radio name=mode $set_toll value=toll>$l_mines_toll</input><br>";
+        echo $langvars['l_mines_deploy'] . " <input type=text name=nummines size=10 maxlength=10 value=$playerinfo[torps]> " . $langvars['l_mines'] . ".<br>";
+        echo $langvars['l_mines_deploy'] . " <input type=text name=numfighters size=10 maxlength=10 value=$playerinfo[ship_fighters]> " . $langvars['l_fighters'] . ".<br>";
+        echo "Fighter mode <input type=radio name=mode $set_attack value=attack>" . $langvars['l_mines_att'] . "</input>";
+        echo "<input type=radio name=mode $set_toll value=toll>" . $langvars['l_mines_toll'] . "</input><br>";
          echo "<br>\n";
-        echo "<input type=submit value=$l_submit><input type=reset value=$l_reset><br><br>";
+        echo "<input type=submit value=" . $langvars['l_submit'] . "><input type=reset value=" . $langvars['l_reset'] . "><br><br>";
         echo "<input type=hidden name=op value=$op>";
         echo "</form>";
     }
@@ -194,25 +194,25 @@ else
         if ($numfighters < 0) $numfighters = 0;
         if ($nummines > $playerinfo['torps'])
         {
-            echo $l_mines_notorps . "<br>";
+            echo $langvars['l_mines_notorps'] . "<br>";
             $nummines = 0;
         }
         else
         {
-            $l_mines_dmines=str_replace ("[mines]", $nummines, $l_mines_dmines);
-            echo $l_mines_dmines . "<br>";
+            $langvars['l_mines_dmines'] = str_replace ("[mines]", $nummines, $langvars['l_mines_dmines']);
+            echo $langvars['l_mines_dmines'] . "<br>";
         }
 
         if ($numfighters > $playerinfo['ship_fighters'])
         {
-            echo $l_mines_nofighters . ".<br>";
+            echo $langvars['l_mines_nofighters'] . ".<br>";
             $numfighters = 0;
         }
         else
         {
-            $l_mines_dfighter = str_replace ("[fighters]", $numfighters, $l_mines_dfighter);
-            $l_mines_dfighter = str_replace ("[mode]", $mode, $l_mines_dfighter);
-            echo "$l_mines_dfighter<br>";
+            $langvars['l_mines_dfighter'] = str_replace ("[fighters]", $numfighters, $langvars['l_mines_dfighter']);
+            $langvars['l_mines_dfighter'] = str_replace ("[mode]", $mode, $langvars['l_mines_dfighter']);
+            echo $langvars['l_mines_dfighter'] . "<br>";
         }
 
         $stamp = date ("Y-m-d H-i-s");
