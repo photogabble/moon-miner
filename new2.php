@@ -31,11 +31,11 @@ else
     $link = "?lang=" . $lang;
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'), $langvars);
-
 $title = $l_new_title2;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 if ($account_creation_closed)

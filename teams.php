@@ -27,11 +27,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
-
 $title = $l_team_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'footer'));
 echo "<h1>" . $title . "</h1>\n";
 
 $testing = false; // set to false to get rid of password when creating new team

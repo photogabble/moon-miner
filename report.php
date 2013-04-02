@@ -26,7 +26,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 
 // Database driven language entries
 $langvars = null;
-load_languages ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'), $langvars);
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
@@ -67,9 +67,9 @@ $armor_pts_max = CalcLevels::Armor ($playerinfo['armor'], $level_factor);
 $ship_fighters_max = CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
 $torps_max = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
 $energy_max = CalcLevels::Energy ($playerinfo['power'], $level_factor);
-$escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $l_yes : $l_no;
-$fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $l_yes : $l_no;
-$lssd = ($playerinfo['dev_lssd'] == 'Y') ? $l_yes : $l_no;
+$escape_pod = ($playerinfo['dev_escapepod'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
+$fuel_scoop = ($playerinfo['dev_fuelscoop'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
+$lssd = ($playerinfo['dev_lssd'] == 'Y') ? $langvars['l_yes'] : $langvars['l_no'];
 
 // Clear variables array before use, and set array with all used variables in page
 $variables = null;

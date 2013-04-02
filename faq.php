@@ -31,12 +31,12 @@ else
     $link = "?lang=" . $lang;
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('common', 'global_funcs'), $langvars);
-
 $title = "Blacknova Traders FAQ";
 $body_class = 'faq';
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'global_funcs'));
 ?>
 <table>
   <tbody>

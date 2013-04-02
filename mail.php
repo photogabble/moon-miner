@@ -19,11 +19,11 @@
 
 include './global_includes.php';
 
-// New database driven language entries
-load_languages ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
-$title = $l_mail_title;
+$title = $langvars['l_mail_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email = ? LIMIT 1;", array ($mail));
@@ -54,7 +54,7 @@ if (!$result->EOF)
 }
 else
 {
-    $l_mail_noplayer = str_replace ("[here]", "<a href='new.php'>" . $l_here . "</a>", $l_mail_noplayer);
+    $l_mail_noplayer = str_replace ("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>", $langvars['l_mail_noplayer']);
     echo "<div style='color:#FFF; width:400px; text-align:left; font-size:12px; padding:6px;'>{$l_mail_noplayer}</div>\n";
 
     echo "<br>\n";
