@@ -19,11 +19,12 @@
 
 include './global_includes.php';
 
-// New database driven language entries
-load_languages ($db, $lang, array ('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
-$title = $l_beacon_title;
+$title = $langvars['l_beacon_title'];
 include './header.php';
+
 echo "<h1>" . $title . "</h1>\n";
 
 if (check_login ($db, $lang, $langvars))
@@ -57,7 +58,7 @@ if ($playerinfo['dev_beacon'] > 0)
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_beacon'] == 'N')
     {
-        echo $l_beacon_notpermitted . "<br><br>";
+        echo $langvars['l_beacon_notpermitted'] . "<br><br>";
     }
     elseif ($zoneinfo['allow_beacon'] == 'L')
     {
@@ -72,7 +73,7 @@ if ($playerinfo['dev_beacon'] > 0)
         {
             if (($zoneteam['team'] != $playerinfo['team']) || ($playerinfo['team'] == 0))
             {
-                echo $l_beacon_notpermitted . "<br><br>";
+                echo $langvars['l_beacon_notpermitted'] . "<br><br>";
             }
             else
             {
@@ -95,23 +96,23 @@ if ($playerinfo['dev_beacon'] > 0)
         {
             if ($sectorinfo['beacon'] != "")
             {
-                echo $l_beacon_reads . ": " . $sectorinfo['beacon'] . "<br><br>";
+                echo $langvars['l_beacon_reads'] . ": " . $sectorinfo['beacon'] . "<br><br>";
             }
             else
             {
-                echo $l_beacon_none . "<br><br>";
+                echo $langvars['l_beacon_none'] . "<br><br>";
             }
             echo "<form action=beacon.php method=post>";
             echo "<table>";
-            echo "<tr><td>" . $l_beacon_enter . ":</td><td><input type=text name=beacon_text size=40 maxlength=80></td></tr>";
+            echo "<tr><td>" . $langvars['l_beacon_enter'] . ":</td><td><input type=text name=beacon_text size=40 maxlength=80></td></tr>";
             echo "</table>";
-            echo "<input type=submit value=" . $l_submit . "><input type=reset value=" . $l_reset . ">";
+            echo "<input type=submit value=" . $langvars['l_submit'] . "><input type=reset value=" . $langvars['l_reset'] . ">";
             echo "</form>";
         }
         else
         {
             $beacon_text = trim (htmlentities ($beacon_text));
-            echo $l_beacon_nowreads . ": " . $beacon_text . ".<br><br>";
+            echo $langvars['l_beacon_nowreads'] . ": " . $beacon_text . ".<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}universe SET beacon = ? WHERE sector_id = ?;", array ($beacon_text, $sectorinfo['sector_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET dev_beacon=dev_beacon-1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
@@ -121,7 +122,7 @@ if ($playerinfo['dev_beacon'] > 0)
 }
 else
 {
-    echo $l_beacon_donthave . "<br><br>";
+    echo $langvars['l_beacon_donthave'] . "<br><br>";
 }
 
 BntText::gotoMain ($langvars);

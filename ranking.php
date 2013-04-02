@@ -33,7 +33,7 @@ $variables['color_line1'] = $color_line1;
 $variables['color_line2'] = $color_line2;
 
 // Load required language variables for the ranking page.
-load_languages ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'), $langvars);
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
 
 // Modify the requires language variables here.
 $langvars['l_ranks_title'] = str_replace ("[max_ranks]", $max_ranks, $langvars['l_ranks_title']);
