@@ -25,10 +25,11 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_login.php')) // Prevent direct access t
 
 function check_login ($db, $lang, $langvars, $stop_die = true)
 {
-    // New database driven language entries
-    load_languages ($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'), $langvars);
+    // Database driven language entries
+    $langvars = BntTranslate::load ($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
 
     $flag = 0;
+    $error_status = '';
 
     if (array_key_exists ('username', $_SESSION) === false)
     {
@@ -87,30 +88,28 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
                         // Destroy the session entirely
                         session_destroy ();
 
-                        include_once './header.php';
-                        echo "<div style='font-size:18px; color:#FF0000;'>\n";
+                        $error_status = "<div style='font-size:18px; color:#FF0000;'>\n";
                         if ( array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] == ID_LOCKED )
                         {
-                            echo "Your account has been Locked";
+                            $error_status .= "Your account has been Locked";
                         }
                         else
                         {
-                            echo "Your account has been Banned";
+                            $error_status .= "Your account has been Banned";
                         }
 
                         if ( array_key_exists ('public_info', $ban_result) && strlen(trim ($ban_result['public_info'])) >0 )
                         {
-                            echo " for the following:<br>\n";
-                            echo "<br>\n";
-                            echo "<div style='font-size:16px; color:#FFFF00;'>{$ban_result['public_info']}</div>\n";
+                            $error_status .=" for the following:<br>\n";
+                            $error_status .="<br>\n";
+                            $error_status .="<div style='font-size:16px; color:#FFFF00;'>{$ban_result['public_info']}</div>\n";
                         }
-                        echo "</div>\n";
-                        echo "<br>\n";
-                        echo "<div style='color:#FF0000;'>Maybe you will behave yourself next time.</div>\n";
-                        echo "<br />\n";
-                        echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+                        $error_status .= "</div>\n";
+                        $error_status .= "<br>\n";
+                        $error_status .= "<div style='color:#FF0000;'>Maybe you will behave yourself next time.</div>\n";
+                        $error_status .= "<br />\n";
+                        $error_status .= str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
                         $flag = 1;
-                        include_once './footer.php';
                         $banned = 1;
                     }
 
@@ -122,24 +121,20 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
                     // if the player has an escapepod, set the player up with a new ship
                     if ($playerinfo['dev_escapepod'] == "Y")
                     {
-                        include_once './header.php';
                         $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' WHERE email=?", array ($_SESSION['username']));
                         DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
-                        echo str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_died']);
+                        $error_status .= str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_died']);
                         $flag = 1;
-                        include_once './footer.php';
                     }
                     else
                     {
                         if ($stop_die == true)
                         {
-                            include_once './header.php';
                             // if the player doesn't have an escapepod - they're dead, delete them. But we can't delete them yet.
                             // (This prevents the self-distruct inherit bug)
-                            echo str_replace ("[here]", "<a href='log.php'>" . ucfirst($langvars['l_here']) . "</a>", $langvars['l_global_died']) . "<br><br>" . $langvars['l_global_died2'];
-                            echo str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
+                            $error_status .= str_replace ("[here]", "<a href='log.php'>" . ucfirst($langvars['l_here']) . "</a>", $langvars['l_global_died']) . "<br><br>" . $langvars['l_global_died2'];
+                            $error_status .= str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
                             $flag = 1;
-                            include_once './footer.php';
                         }
                     }
                 }
@@ -148,18 +143,14 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
             else
             {
                 $title = $langvars['l_error'];
-                include_once './header.php';
-                echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
-                include_once './footer.php';
+                $error_status .= str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
                 $flag = 1;
             }
         }
         else
         {
             $title = $langvars['l_error'];
-            include_once './header.php';
-            echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
-            include_once './footer.php';
+            $error_status .= str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
             $flag = 1;
         }
 
@@ -167,9 +158,7 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
     else
     {
         $title = $langvars['l_error'];
-        include_once './header.php';
-        echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
-        include_once './footer.php';
+        $error_status .= str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_needlogin']);
         $flag = 1;
     }
 
@@ -177,13 +166,18 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
     if ($server_closed && $flag == 0)
     {
         $title = $langvars['l_login_closed_message'];
-        include_once './header.php';
-        echo $langvars['l_login_closed_message'];
-        include_once './footer.php';
+        $error_status .= $langvars['l_login_closed_message'];
         $flag = 1;
+    }
+
+    // This isn't the prettiest way to do this, and I'd like this split up and templated and so forth, but for now, it works.
+    if ($flag == 1)
+    {
+        include_once './header.php';
+        echo $error_status;
+        include_once './footer.php';
     }
 
     return $flag;
 }
-
 ?>
