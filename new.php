@@ -31,11 +31,11 @@ else
     $link = "?lang=" . $lang;
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
 $title = $l_new_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<form action='new2.php" . $link . "' method='post'>\n";

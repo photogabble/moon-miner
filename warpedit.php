@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
-$title = $l_warp_title;
+$title = $langvars['l_warp_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -41,7 +41,7 @@ $sectorinfo = $result4->fields;
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_warp_turn . "<br><br>";
+    echo $langvars['l_warp_turn'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -49,7 +49,7 @@ if ($playerinfo['turns'] < 1)
 
 if ($playerinfo['dev_warpedit'] < 1)
 {
-    echo $l_warp_none. "<br><br>";
+    echo $langvars['l_warp_none'] . ".<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -60,7 +60,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
-    echo $l_warp_forbid . "<br><br>";
+    echo $langvars['l_warp_forbid'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -80,7 +80,7 @@ if ($zoneinfo['allow_warpedit'] == 'L')
     {
         if (($zoneteam['team'] != $playerinfo['team']) || ($playerinfo['team'] == 0))
         {
-            echo $l_warp_forbid . "<br><br>";
+            echo $langvars['l_warp_forbid'] . "<br><br>";
             BntText::gotoMain ($langvars);
             include './footer.php';
             die ();
@@ -92,11 +92,11 @@ $result2 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ? 
 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 if (!$result2 instanceof ADORecordSet)
 {
-    echo $l_warp_nolink . "<br><br>";
+    echo $langvars['l_warp_nolink'] . "<br><br>";
 }
 else
 {
-    echo $l_warp_linkto ." ";
+    echo $langvars['l_warp_linkto'] ." ";
     while (!$result2->EOF)
     {
         echo $result2->fields['link_dest'] . " ";
@@ -107,18 +107,18 @@ else
 
 echo "<form action=\"warpedit2.php\" method=\"post\">";
 echo "<table>";
-echo "<tr><td>$l_warp_query</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
-echo "<tr><td>$l_warp_oneway?</td><td><input type=\"checkbox\" name=\"oneway\" value=\"oneway\"></td></tr>";
+echo "<tr><td>" . $langvars['l_warp_query'] . "</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
+echo "<tr><td>" . $langvars['l_warp_oneway'] . "?</td><td><input type=\"checkbox\" name=\"oneway\" value=\"oneway\"></td></tr>";
 echo "</table>";
-echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\">";
+echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type=\"reset\" value=\"" . $langvars['l_reset'] . "\">";
 echo "</form>";
-echo "<br><br>$l_warp_dest<br><br>";
+echo "<br><br>" . $langvars['l_warp_dest'] . "<br><br>";
 echo "<form action=\"warpedit3.php\" method=\"post\">";
 echo "<table>";
-echo "<tr><td>$l_warp_destquery</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
-echo "<tr><td>$l_warp_bothway?</td><td><input type=\"checkbox\" name=\"bothway\" value=\"bothway\"></td></tr>";
+echo "<tr><td>" . $langvars['l_warp_destquery'] . "</td><td><input type=\"text\" name=\"target_sector\" size=\"6\" maxlength=\"6\" value=\"\"></td></tr>";
+echo "<tr><td>" . $langvars['l_warp_bothway'] . "?</td><td><input type=\"checkbox\" name=\"bothway\" value=\"bothway\"></td></tr>";
 echo "</table>";
-echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\">";
+echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type=\"reset\" value=\"" . $langvars['l_reset'] . "\">";
 echo "</form>";
 
 BntText::gotoMain ($langvars);

@@ -59,8 +59,8 @@ class BntIbank
 
 	static function deposit ($db, $lang, $account, $playerinfo, $langvars, $local_number_thousands_sep, $local_number_dec_point)
 	{
-	    // New database driven language entries
-    	load_languages ($db, $lang, array ('igb'), $langvars);
+	    // Database driven language entries
+    	$langvars = BntTranslate::load ($db, $lang, array ('igb'));
 
 	    $max_credits_allowed = 18446744073709000000;
     	$credit_space = ($max_credits_allowed - $account['balance']);

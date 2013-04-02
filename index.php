@@ -41,9 +41,9 @@ if (!$result)
     die ();
 }
 
-// New database driven language entries
+// Database driven language entries
 $langvars = null;
-load_languages ($db, $lang, array ('main', 'login', 'logout', 'index', 'common'), $langvars);
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'login', 'logout', 'index', 'common','regional', 'footer','global_includes'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -54,7 +54,7 @@ $variables['body_class'] = 'index';
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
-$langvars['container'] = "langvar";
+$langvars['container'] = "langvars";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';

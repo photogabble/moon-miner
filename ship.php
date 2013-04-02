@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
-$title = $l_ship_title;
+$title = $langvars['l_ship_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -40,21 +40,21 @@ $othership = $res2->fields;
 
 if ($othership['sector'] != $playerinfo['sector'])
 {
-    echo "$l_ship_the <font color=white>" . $othership['ship_name'] . "</font> $l_ship_nolonger " . $playerinfo['sector'] . "<br>";
+    echo $langvars['l_ship_the'] . " <font color=white>" . $othership['ship_name'] . "</font> " . $langvars['l_ship_nolonger'] . " " . $playerinfo['sector'] . "<br>";
 }
 else
 {
     $_SESSION['ship_selected'] = $ship_id;
-    echo "$l_ship_youc <font color=white>" . $othership['ship_name'] . "</font>, $l_ship_owned <font color=white>" . $othership['character_name'] . "</font>.<br><br>";
-    echo "$l_ship_perform<br><br>";
-    echo "<a href=scan.php?ship_id=$ship_id>$l_planet_scn_link</a><br>";
+    echo $langvars['l_ship_youc'] . " <font color=white>" . $othership['ship_name'] . "</font>, " . $langvars['l_ship_owned'] . " <font color=white>" . $othership['character_name'] . "</font>.<br><br>";
+    echo $langvars['l_ship_perform'] . "<br><br>";
+    echo "<a href=scan.php?ship_id=$ship_id>" . $langvars['l_planet_scn_link'] . "</a><br>";
 
     if ( !BntTeam::sameTeam ($playerinfo['team'], $othership['team']) )
     {
-        echo "<a href=attack.php?ship_id=$ship_id>$l_planet_att_link</a><br>";
+        echo "<a href=attack.php?ship_id=$ship_id>" . $langvars['l_planet_att_link'] . "</a><br>";
     }
 
-    echo "<a href=mailto.php?to=$ship_id>$l_send_msg</a><br>";
+    echo "<a href=mailto.php?to=$ship_id>" . $langvars['l_send_msg'] . "</a><br>";
 }
 
 echo "<br>";

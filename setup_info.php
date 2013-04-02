@@ -35,11 +35,11 @@ $setup_info->switches['Display_Errors']['enabled']  = false;
 $setup_info->testcookies();
 $setup_info->initDB();
 
-// New database driven language entries
-load_languages ($db, $lang, array ('common', 'global_includes', 'footer', 'news'), $langvars);
-
 $title = $setup_info->appinfo['title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 'footer', 'news'));
 
 $setup_info->DisplayFlush("<div align=\"center\">\n");
 $setup_info->DisplayFlush("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n");

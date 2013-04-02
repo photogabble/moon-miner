@@ -24,10 +24,10 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
-$title = $l_pr_title;
+$title = $langvars['l_pr_title'];
 include './header.php';
 
 $preptype = null;
@@ -46,13 +46,13 @@ if ($preptype == 1 || !isset ($preptype)) // Display the commodities on the plan
 {
     $title = $title .": Status";
     echo "<h1>" . $title . "</h1>\n";
-    standard_report ($db);
+    standard_report ($db, $langvars);
 }
 elseif ($preptype == 2)                  // Display the production values of your planets and allow changing
 {
     $title = $title .": Production";
     echo "<h1>" . $title . "</h1>\n";
-    planet_production_change ($db);
+    planet_production_change ($db, $langvars);
 }
 elseif ($preptype == 0)                  // For typing in manually to get a report menu
 {
@@ -71,7 +71,6 @@ else                                  // Display the menu if no valid options ar
 function planet_report_menu ()
 {
     global $playerinfo;
-    global $l_pr_teamlink;
 
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 
@@ -84,22 +83,19 @@ function planet_report_menu ()
 
     if ($playerinfo['team'] > 0)
     {
-        echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> " .
+        echo "<br><strong><a href=team_planets.php>" . $langvars['l_pr_teamlink'] . "</a></strong><br> " .
              "Commondity Report (like Planet Status) for planets marked Corporate by you and/or your fellow team member<br><br>";
     }
     echo "</div>\n";
 }
 
-function standard_report ($db)
+function standard_report ($db, $langvars)
 {
     global $res;
     global $playerinfo;
     global $sort;
     global $query;
     global $color_header, $color, $color_line1, $color_line2;
-    global $l_pr_teamlink, $l_pr_clicktosort;
-    global $l_sector, $l_name, $l_unnamed, $l_ore, $l_organics, $l_goods, $l_energy, $l_colonists, $l_credits, $l_fighters, $l_torps, $l_base;
-    global $l_selling, $l_pr_totals, $l_yes, $l_no;
 
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
 
@@ -108,7 +104,7 @@ function standard_report ($db)
 
     if ($playerinfo['team'] > 0)
     {
-        echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> <br>";
+        echo "<br><strong><a href=team_planets.php>" . $langvars['l_pr_teamlink'] . "</a></strong><br> <br>";
     }
 
     $query = "SELECT * FROM {$db->prefix}planets WHERE owner=$playerinfo[ship_id]";
@@ -152,11 +148,10 @@ function standard_report ($db)
         }
     }
 
-    global $l_pr_noplanet;
     $num_planets = $i;
     if ($num_planets < 1)
     {
-        echo "<br>" . $l_pr_noplanet;
+        echo "<br>" . $langvars['l_pr_noplanet'];
     }
     else
     {
@@ -164,27 +159,27 @@ function standard_report ($db)
         echo "<form action=planet_report_ce.php method=post>";
 
         // Next block of echo 's creates the header of the table
-        echo $l_pr_clicktosort . "<br><br>";
+        echo $langvars['l_pr_clicktosort'] . "<br><br>";
         echo "<strong>WARNING:</strong> \"Build\" and \"Take Credits\" will cause your ship to move. <br><br>";
         echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
         echo "<tr bgcolor=\"$color_header\" valign=bottom>";
-        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=sector_id\">" . $l_sector . "</a></strong></td>";
-        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=name\">" . $l_name . "</a></strong></td>";
-        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=ore\">" . $l_ore . "</a></strong></td>";
-        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=organics\">" . $l_organics ."</a></strong></td>";
-        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=goods\">" . $l_goods . "</a></strong></td>";
-        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=energy\">" . $l_energy . "</a></strong></td>";
-        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=colonists\">" . $l_colonists . "</a></strong></td>";
-        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=credits\">" . $l_credits . "</a></strong></td>";
+        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=sector_id\">" . $langvars['l_sector'] . "</a></strong></td>";
+        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=name\">" . $langvars['l_name'] . "</a></strong></td>";
+        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=ore\">" . $langvars['l_ore'] . "</a></strong></td>";
+        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=organics\">" . $langvars['l_organics'] ."</a></strong></td>";
+        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=goods\">" . $langvars['l_goods'] . "</a></strong></td>";
+        echo "<td><strong><a href=\"planet_report.php?preptype=1&amp;sort=energy\">" . $langvars['l_energy'] . "</a></strong></td>";
+        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=colonists\">" . $langvars['l_colonists'] . "</a></strong></td>";
+        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=credits\">" . $langvars['l_credits'] . "</a></strong></td>";
         echo "<td align=center><strong>Take<br>Credits</strong></td>";
-        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=fighters\">" . $l_fighters . "</a></strong></td>";
-        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=torp\">" . $l_torps . "</a></strong></td>";
-        echo "<td align=right><strong>" . $l_base . "?</strong></td>";
+        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=fighters\">" . $langvars['l_fighters'] . "</a></strong></td>";
+        echo "<td align=center><strong><a href=\"planet_report.php?preptype=1&amp;sort=torp\">" . $langvars['l_torps'] . "</a></strong></td>";
+        echo "<td align=right><strong>" . $langvars['l_base'] . "?</strong></td>";
         if ($playerinfo['team'] > 0)
         {
             echo "<td align=right><strong>Corp?</strong></td>";
         }
-        echo "<td align=right><strong>$l_selling?</strong></td>";
+        echo "<td align=right><strong>" . $langvars['l_selling'] . "?</strong></td>";
 
         // Next block of echo 's fils the table and calculates the totals of all the commoditites as well as counting the bases and selling planets
         echo "</tr>";
@@ -224,7 +219,7 @@ function standard_report ($db)
             }
             if (empty ($planet[$i]['name']))
             {
-                $planet[$i]['name'] = $l_unnamed;
+                $planet[$i]['name'] = $langvars['l_unnamed'];
             }
 
             echo "<tr bgcolor=\"$color\">";
@@ -239,13 +234,13 @@ function standard_report ($db)
             echo "<td align=center>" . "<input type=checkbox name=TPCreds[] value=\"" . $planet[$i]['planet_id'] . "\">" . "</td>";
             echo "<td align=right>"  . number_format ($planet[$i]['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
             echo "<td align=right>"  . number_format ($planet[$i]['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td align=center>" . base_build_check ($planet, $i) . "</td>";
+            echo "<td align=center>" . base_build_check ($langvars, $planet, $i) . "</td>";
             if ($playerinfo['team'] > 0)
             {
-                echo "<td align=center>" . ($planet[$i]['corp'] > 0  ? "$l_yes" : "$l_no") . "</td>";
+                echo "<td align=center>" . ($planet[$i]['corp'] > 0  ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
             }
 
-            echo "<td align=center>" . ($planet[$i]['sells'] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
+            echo "<td align=center>" . ($planet[$i]['sells'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
             echo "</tr>";
 
             if ($color == $color_line1)
@@ -260,7 +255,7 @@ function standard_report ($db)
 
         // the next block displays the totals
         echo "<tr bgcolor=$color>";
-        echo "<td COLSPAN=2 align=center>$l_pr_totals</td>";
+        echo "<td COLSPAN=2 align=center>" . $langvars['l_pr_totals'] . "</td>";
         echo "<td>" . number_format ($total_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
         echo "<td>" . number_format ($total_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
         echo "<td>" . number_format ($total_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
@@ -287,16 +282,12 @@ function standard_report ($db)
     echo "</div>\n";
 }
 
-function planet_production_change ($db)
+function planet_production_change ($db, $langvars)
 {
     global $playerinfo;
     global $sort;
     global $query;
     global $color_header, $color, $color_line1, $color_line2;
-    global $l_pr_teamlink, $l_pr_clicktosort;
-    global $l_pr_noplanet;
-    global $l_sector, $l_name, $l_unnamed, $l_ore, $l_organics, $l_goods, $l_energy, $l_colonists, $l_credits, $l_fighters;
-    global $l_torps, $l_base, $l_selling, $l_pr_totals, $l_yes, $l_no;
 
     $query = "SELECT * FROM {$db->prefix}planets WHERE owner=? AND base='Y'";
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
@@ -306,7 +297,7 @@ function planet_production_change ($db)
 
     if ($playerinfo['team'] > 0)
     {
-        echo "<br><strong><a href=team_planets.php>$l_pr_teamlink</a></strong><br> <br>";
+        echo "<br><strong><a href=team_planets.php>" . $langvars['l_pr_teamlink'] . "</a></strong><br> <br>";
     }
 
     if (!empty ($sort))
@@ -355,32 +346,32 @@ function planet_production_change ($db)
     $num_planets = $i;
     if ($num_planets < 1)
     {
-        echo "<br>$l_pr_noplanet";
+        echo "<br>" . $langvars['l_pr_noplanet'];
     }
     else
     {
         echo "<form action='planet_report_ce.php' method='post'>\n";
 
         // Next block of echo 's creates the header of the table
-        echo "$l_pr_clicktosort<br><br>\n";
+        echo $langvars['l_pr_clicktosort'] . "<br><br>\n";
         echo "<table width='100%' border='0' cellspacing='0' cellpadding='2'>\n";
         echo "<tr bgcolor='{$color_header}' valign='bottom'>\n";
-        echo "<td align='left'>  <strong><a href='planet_report.php?preptype=2&amp;sort=sector_id'>$l_sector</a></strong></td>\n";
-        echo "<td align='left'>  <strong><a href='planet_report.php?preptype=2&amp;sort=name'>$l_name</a></strong></td>\n";
-        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=ore'>$l_ore</a></strong></td>\n";
-        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=organics'>$l_organics</a></strong></td>\n";
-        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=goods'>$l_goods</a></strong></td>\n";
-        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=energy'>$l_energy</a></strong></td>\n";
-        echo "<td align='right'> <strong><a href='planet_report.php?preptype=2&amp;sort=colonists'>$l_colonists</a></strong></td>\n";
-        echo "<td align='right'> <strong><a href='planet_report.php?preptype=2&amp;sort=credits'>$l_credits</a></strong></td>\n";
-        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=fighters'>$l_fighters</a></strong></td>\n";
-        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=torp'>$l_torps</a></strong></td>\n";
-        //    echo "<td align='center'><strong>$l_base?</strong></td>\n";
+        echo "<td align='left'>  <strong><a href='planet_report.php?preptype=2&amp;sort=sector_id'>" . $langvars['l_sector'] . "</a></strong></td>\n";
+        echo "<td align='left'>  <strong><a href='planet_report.php?preptype=2&amp;sort=name'>" . $langvars['l_name'] . "</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=ore'>" . $langvars['l_ore'] . "</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=organics'>" . $langvars['l_organics'] . "</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=goods'>" . $langvars['l_goods'] . "</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=energy'>" . $langvars['l_energy'] . "</a></strong></td>\n";
+        echo "<td align='right'> <strong><a href='planet_report.php?preptype=2&amp;sort=colonists'>" . $langvars['l_colonists'] . "</a></strong></td>\n";
+        echo "<td align='right'> <strong><a href='planet_report.php?preptype=2&amp;sort=credits'>" . $langvars['l_credits'] . "</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=fighters'>" . $langvars['l_fighters'] . "</a></strong></td>\n";
+        echo "<td align='center'><strong><a href='planet_report.php?preptype=2&amp;sort=torp'>" . $langvars['l_torps'] . "</a></strong></td>\n";
+        //    echo "<td align='center'><strong>" . $langvars['l_base'] . "?</strong></td>\n";
         if ($playerinfo['team'] > 0)
         {
             echo "<td align='center'><strong>Corp?</strong></td>\n";
         }
-        echo "<td align='center'><strong>$l_selling?</strong></td>\n";
+        echo "<td align='center'><strong>" . $langvars['l_selling'] . "?</strong></td>\n";
         echo "</tr>\n";
 
         $total_colonists = 0;
@@ -397,7 +388,7 @@ function planet_production_change ($db)
             $total_credits += $planet[$i]['credits'];
             if (empty ($planet[$i]['name']))
             {
-                $planet[$i]['name'] = $l_unnamed;
+                $planet[$i]['name'] = $langvars['l_unnamed'];
             }
 
             echo "<tr bgcolor=\"$color\">\n";
@@ -430,7 +421,7 @@ function planet_production_change ($db)
         }
 
         echo "<tr bgcolor=$color>\n";
-        echo "<td COLSPAN=2 align=center>$l_pr_totals</td>\n";
+        echo "<td colspan=2 align=center>" . $langvars['l_pr_totals'] . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
@@ -482,14 +473,13 @@ function selling_checkboxes ($planet, $i)
     }
 }
 
-function base_build_check ($planet, $i)
+function base_build_check ($langvars, $planet, $i)
 {
-    global $l_yes, $l_no;
     global $base_ore, $base_organics, $base_goods, $base_credits;
 
     if ($planet[$i]['base'] == 'Y')
     {
-        return ("$l_yes");
+        return ($langvars['l_yes']);
     }
     elseif ($planet[$i]['ore'] >= $base_ore && $planet[$i]['organics'] >= $base_organics && $planet[$i]['goods'] >= $base_goods && $planet[$i]['credits'] >= $base_credits)
     {
@@ -497,7 +487,7 @@ function base_build_check ($planet, $i)
     }
     else
     {
-        return ("$l_no");
+        return ($langvars['l_no']);
     }
 }
 
