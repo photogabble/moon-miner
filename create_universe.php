@@ -435,8 +435,8 @@ echo"</table>";
       break;
    case "6":
 
-      // New database driven language entries
-      load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+      // Database driven language entries
+      $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
       table_header ("Setting up Sectors --- Step 6");
 
       $initsore = $ore_limit * $initscommod / 100.0;
@@ -772,8 +772,8 @@ echo"</table>";
       break;
    case "7":
 
-        // New database driven language entries
-        load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+        // Database driven language entries
+        $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
         $p_add=0;$p_skip=0;$i=0;
 
         table_header ("Setting up Universe Sectors --- Step 7");
@@ -944,8 +944,8 @@ table_footer ("Completed successfully.");
       break;
    case "8":
 
-      // New database driven language entries
-      load_languages ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+      // Database driven language entries
+      $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
       table_header ("Configuring game scheduler --- Step 8");
 
       table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");

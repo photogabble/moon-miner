@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
-$title = $l_lrs_title;
+$title = $langvars['l_lrs_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 if (isset ($_GET['sector']))
@@ -68,7 +68,7 @@ if ($sector == "*")
 
     if (!$allow_fullscan)
     {
-        echo $l_lrs_nofull . "<br><br>";
+        echo $langvars['l_lrs_nofull'] . "<br><br>";
         BntText::gotoMain ($langvars);
         include_once './footer.php';
         die ();
@@ -76,40 +76,40 @@ if ($sector == "*")
 
     if ($playerinfo['turns'] < $fullscan_cost)
     {
-        $l_lrs_noturns=str_replace ("[turns]", $fullscan_cost, $l_lrs_noturns);
-        echo $l_lrs_noturns . "<br><br>";
+        $langvars['l_lrs_noturns'] = str_replace ("[turns]", $fullscan_cost, $langvars['l_lrs_noturns']);
+        echo $langvars['l_lrs_noturns'] . "<br><br>";
         BntText::gotoMain ($langvars);
         include_once './footer.php';
         die ();
     }
 
-    echo "$l_lrs_used " . number_format ($fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_lrs_turns. " . number_format ($playerinfo['turns'] - $fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_lrs_left.<br><br>";
+    echo $langvars['l_lrs_used'] . " " . number_format ($fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_lrs_turns'] . " " . number_format ($playerinfo['turns'] - $fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_lrs_left'] . ".<br><br>";
 
     // Deduct the appropriate number of turns
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($fullscan_cost, $fullscan_cost, $playerinfo['ship_id']));
     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
     // User requested a full long range scan
-    $l_lrs_reach=str_replace ("[sector]", $playerinfo['sector'], $l_lrs_reach);
-    echo $l_lrs_reach . "<br><br>";
+    $langvars['l_lrs_reach'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_lrs_reach']);
+    echo $langvars['l_lrs_reach'] . "<br><br>";
 
     // Get sectors which can be reached from the player's current sector
     $result = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ? ORDER BY link_dest;", array ($playerinfo['sector']));
     DbOp::dbResult ($db, $result, __LINE__, __FILE__);
     echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
     echo "  <tr bgcolor=\"$color_header\">\n";
-    echo "    <td><strong>$l_sector</strong></td>\n";
+    echo "    <td><strong>" . $langvars['l_sector'] . "</strong></td>\n";
     echo "    <td></td>\n";
-    echo "    <td><strong>$l_lrs_links</strong></td>\n";
-    echo "    <td><strong>$l_lrs_ships</strong></td>\n";
-    echo "    <td colspan=2><strong>$l_port</strong></td>\n";
-    echo "    <td><strong>$l_planets</strong></td>\n";
-    echo "    <td><strong>$l_mines</strong></td>\n";
-    echo "    <td><strong>$l_fighters</strong></td>";
+    echo "    <td><strong>" . $langvars['l_lrs_links'] . "</strong></td>\n";
+    echo "    <td><strong>" . $langvars['l_lrs_ships'] . "</strong></td>\n";
+    echo "    <td colspan=2><strong>" . $langvars['l_port'] . "</strong></td>\n";
+    echo "    <td><strong>" . $langvars['l_planets'] . "</strong></td>\n";
+    echo "    <td><strong>" . $langvars['l_mines'] . "</strong></td>\n";
+    echo "    <td><strong>" . $langvars['l_fighters'] . "</strong></td>";
 
     if ($playerinfo['dev_lssd'] == 'Y')
     {
-        echo "    <td><strong>" . $l_lss . "</strong></td>";
+        echo "    <td><strong>" . $langvars['l_lss'] . "</strong></td>";
     }
 
     echo "  </tr>";
@@ -200,11 +200,11 @@ if ($sector == "*")
 
     if ($num_links == 0)
     {
-        echo "$l_none.";
+        echo $langvars['l_none'];
     }
     else
     {
-        echo "<br>$l_lrs_click";
+        echo "<br>" . $langvars['l_lrs_click'];
     }
 }
 else
@@ -246,13 +246,13 @@ else
 
     if ($flag == 0)
     {
-        echo "$l_lrs_cantscan<br><br>";
+        echo $langvars['l_lrs_cantscan'] . "<br><br>";
         BntText::gotoMain ($langvars);
         die ();
     }
 
     echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
-    echo "<tr bgcolor=\"$color_header\"><td><strong>$l_sector $sector";
+    echo "<tr bgcolor=\"$color_header\"><td><strong>" . $langvars['l_sector'] . " " . $sector;
     if ($sectorinfo['sector_name'] != "")
     {
         echo " ($sectorinfo[sector_name])";
@@ -261,11 +261,11 @@ else
     echo "</table><br>";
 
     echo "<table border=0 cellspacing=0 cellpadding=0 width=\"100%\">";
-    echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_links</strong></td></tr>";
+    echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_links'] . "</strong></td></tr>";
     echo "<tr><td>";
     if ($num_links == 0)
     {
-        echo "$l_none";
+        echo $langvars['l_none'];
     }
     else
     {
@@ -280,7 +280,7 @@ else
     }
 
     echo "</td></tr>";
-    echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_ships</strong></td></tr>";
+    echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_ships'] . "</strong></td></tr>";
     echo "<tr><td>";
     if ($sector != 0)
     {
@@ -289,7 +289,7 @@ else
         DbOp::dbResult ($db, $result4, __LINE__, __FILE__);
         if ($result4->EOF)
         {
-            echo "$l_none";
+            echo $langvars['l_none'];
         }
         else
         {
@@ -320,21 +320,21 @@ else
 
             if (!$num_detected)
             {
-                echo "$l_none";
+                echo $langvars['l_none'];
             }
         }
     }
     else
     {
-        echo "$l_lrs_zero";
+        echo $langvars['l_lrs_zero'];
     }
 
     echo "</td></tr>";
-    echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_port</strong></td></tr>";
+    echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_port'] . "</strong></td></tr>";
     echo "<tr><td>";
     if ($sectorinfo['port_type'] == "none")
     {
-        echo "$l_none";
+        echo $langvars['l_none'];
     }
     else
     {
@@ -348,14 +348,14 @@ else
         echo "$image_string " . BntPorts::getType ($sectorinfo['port_type'], $langvars);
     }
     echo "</td></tr>";
-    echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_planets</strong></td></tr>";
+    echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_planets'] . "</strong></td></tr>";
     echo "<tr><td>";
     $query = $db->Execute ("SELECT name, owner FROM {$db->prefix}planets WHERE sector_id = ?;", array ($sectorinfo['sector_id']));
     DbOp::dbResult ($db, $query, __LINE__, __FILE__);
 
     if ($query->EOF)
     {
-        echo "$l_none";
+        echo $langvars['l_none'];
     }
 
     while (!$query->EOF)
@@ -363,7 +363,7 @@ else
         $planet = $query->fields;
         if (empty ($planet['name']))
         {
-            echo "$l_unnamed";
+            echo $langvars['l_unnamed'];
         }
         else
         {
@@ -372,7 +372,7 @@ else
 
         if ($planet['owner'] == 0)
         {
-            echo " ($l_unowned)";
+            echo " (" . $langvars['l_unowned'] . ")";
         }
         else
         {
@@ -392,17 +392,17 @@ else
     $defF = $resultSDb->fields;
 
     echo "</td></tr>";
-    echo "<tr bgcolor=\"$color_line1\"><td><strong>$l_mines</strong></td></tr>";
+    echo "<tr bgcolor=\"$color_line1\"><td><strong>" . $langvars['l_mines'] . "</strong></td></tr>";
     $has_mines =  number_format ($defM['mines'], 0, $local_number_dec_point, $local_number_thousands_sep);
     echo "<tr><td>" . $has_mines;
     echo "</td></tr>";
-    echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_fighters</strong></td></tr>";
+    echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_fighters'] . "</strong></td></tr>";
     $has_fighters =  number_format ($defF['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
     echo "<tr><td>" . $has_fighters;
     echo "</td></tr>";
     if ($playerinfo['dev_lssd'] == 'Y')
     {
-        echo "<tr bgcolor=\"$color_line2\"><td><strong>$l_lss</strong></td></tr>";
+        echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_lss'] . "</strong></td></tr>";
         echo "<tr><td>";
         $resx = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC LIMIT 1;", array ($playerinfo['ship_id'], $sector));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
@@ -434,7 +434,7 @@ else
     }
     echo "</td></tr>";
     echo "</table><br>";
-    echo "<a href=move.php?sector=$sector>$l_clickme</a> $l_lrs_moveto $sector.";
+    echo "<a href=move.php?sector=$sector>" . $langvars['l_clickme'] . "</a> " . $langvars['l_lrs_moveto'] . " " . $sector;
 }
 
 echo "<br><br>";

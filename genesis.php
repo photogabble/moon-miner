@@ -29,10 +29,10 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
-$title = $l_gns_title;
+$title = $langvars['l_gns_title'];
 include './header.php';
 
 // Adding db lock to prevent more than 5 planets in a sector
@@ -65,15 +65,15 @@ if (array_key_exists ('destroy', $_GET) == true) //isset ($_GET['destroy']))
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_gns_turn;
+    echo $langvars['l_gns_turn'];
 }
 elseif ($playerinfo['on_planet'] == 'Y')
 {
-    echo $l_gns_onplanet;
+    echo $langvars['l_gns_onplanet'];
 }
 elseif ($num_planets >= $max_planets_sector)
 {
-    echo $l_gns_full;
+    echo $langvars['l_gns_full'];
 }
 elseif ($sectorinfo['sector_id'] >= $sector_max )
 {
@@ -81,7 +81,7 @@ elseif ($sectorinfo['sector_id'] >= $sector_max )
 }
 elseif ($playerinfo['dev_genesis'] < 1)
 {
-  echo $l_gns_nogenesis;
+  echo $langvars['l_gns_nogenesis'];
 }
 else
 {
@@ -90,7 +90,7 @@ else
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_planet'] == 'N')
     {
-        echo $l_gns_forbid;
+        echo $langvars['l_gns_forbid'];
     }
     elseif ($zoneinfo['allow_planet'] == 'L')
     {
@@ -98,7 +98,7 @@ else
         {
             if ($playerinfo['team'] == 0 && $zoneinfo['owner'] != $playerinfo['ship_id'])
             {
-                echo $l_gns_bforbid;
+                echo $langvars['l_gns_bforbid'];
             }
             else
             {
@@ -107,7 +107,7 @@ else
                 $ownerinfo = $res->fields;
                 if ($ownerinfo['team'] != $playerinfo['team'])
                 {
-                    echo $l_gns_bforbid;
+                    echo $langvars['l_gns_bforbid'];
                 }
                 else
                 {
@@ -115,13 +115,13 @@ else
                     DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
                     $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                     DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
-                    echo $l_gns_pcreate;
+                    echo $langvars['l_gns_pcreate'];
                 }
             }
         }
         elseif ($playerinfo['team'] != $zoneinfo['owner'])
         {
-            echo $l_gns_bforbid;
+            echo $langvars['l_gns_bforbid'];
         }
         else
         {
@@ -129,7 +129,7 @@ else
             DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
             $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id=?;", array ($playerinfo['ship_id']));
             DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
-            echo $l_gns_pcreate;
+            echo $langvars['l_gns_pcreate'];
         }
     }
     else
@@ -138,7 +138,7 @@ else
         DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
         $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id=?;", array ($playerinfo['ship_id']));
         DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
-        echo $l_gns_pcreate;
+        echo $langvars['l_gns_pcreate'];
     }
 }
 

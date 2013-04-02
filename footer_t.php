@@ -19,9 +19,6 @@
 
 global $sched_ticks, $footer_show_time, $footer_show_debug;
 
-// New database driven language entries
-load_languages ($db, $lang, array ('regional', 'footer','global_includes'), $langvars);
-
 $online = 0;
 
 if (!$db->inactive)
@@ -82,8 +79,8 @@ else
 
 if ($news_ticker == true)
 {
-    // New database driven language entries
-    load_languages ($db, $lang, array ('news'), $langvars);
+    // Database driven language entries
+    $langvars = BntTranslate::load ($db, $lang, array ('news'));
 
     $startdate = date ("Y/m/d");
 
