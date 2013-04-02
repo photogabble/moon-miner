@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('main', 'report', 'planet', 'bounty', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
 $title = $l_planet2_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'planet', 'bounty', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 // Needs to be validated and type cast into their correct types.
 // [GET]

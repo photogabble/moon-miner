@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
 $title = $l_planet3_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 // Fixed The Phantom Planet Transfer Bug
 // Needs to be validated and type cast into their correct types.

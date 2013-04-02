@@ -178,6 +178,7 @@ return array(
     'BntTeam' => $baseDir . '/classes/BntTeam.php',
     'BntText' => $baseDir . '/classes/BntText.php',
     'BntToll' => $baseDir . '/classes/BntToll.php',
+    'BntTranslate' => $baseDir . '/classes/BntTranslate.php',
     'BntXml' => $baseDir . '/classes/BntXml.php',
     'CalcLevels' => $baseDir . '/classes/CalcLevels.php',
     'CheckBan' => $baseDir . '/classes/CheckBan.php',

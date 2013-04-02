@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
-$title = $l_warp_title;
+$title = $langvars['l_warp_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $bothway = null;
@@ -49,7 +49,7 @@ $playerinfo = $result->fields;
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_warp_turn . "<br><br>";
+    echo $langvars['l_warp_turn'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -57,7 +57,7 @@ if ($playerinfo['turns'] < 1)
 
 if ($playerinfo['dev_warpedit'] < 1)
 {
-    echo $l_warp_none . "<br><br>";
+    echo $langvars['l_warp_none'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -66,7 +66,7 @@ if ($playerinfo['dev_warpedit'] < 1)
 if (is_null ($target_sector))
 {
     // This is the best that I can do without adding a new language variable.
-    echo $l_warp_nosector ."<br><br>";
+    echo $langvars['l_warp_nosector'] ."<br><br>";
     BntText::gotoMain ($langvars);
     die ();
 }
@@ -76,7 +76,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
-    echo $l_warp_forbid . "<br><br>";
+    echo $langvars['l_warp_forbid'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -92,8 +92,8 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N' && $bothway)
 {
-    $l_warp_forbidtwo = str_replace ("[target_sector]", $target_sector, $l_warp_forbidtwo);
-    echo $l_warp_forbidtwo . "<br><br>";
+    $langvars['l_warp_forbidtwo'] = str_replace ("[target_sector]", $target_sector, $langvars['l_warp_forbidtwo']);
+    echo $langvars['l_warp_forbidtwo'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -104,7 +104,7 @@ DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $row = $result2->fields;
 if (!$row)
 {
-    echo $l_warp_nosector . "<br><br>";
+    echo $langvars['l_warp_nosector'] . "<br><br>";
     BntText::gotoMain ($langvars);
     die ();
 }
@@ -125,8 +125,8 @@ if ($result3 instanceof ADORecordSet)
     }
     if ($flag != 1)
     {
-        $l_warp_unlinked = str_replace ("[target_sector]", $target_sector, $l_warp_unlinked);
-        echo $l_warp_unlinked . "<br><br>";
+        $langvars['l_warp_unlinked'] = str_replace ("[target_sector]", $target_sector, $langvars['l_warp_unlinked']);
+        echo $langvars['l_warp_unlinked'] . "<br><br>";
     }
     else
     {
@@ -137,13 +137,13 @@ if ($result3 instanceof ADORecordSet)
         DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
         if (is_null ($bothway))
         {
-            echo "$l_warp_removed $target_sector.<br><br>";
+            echo $langvars['l_warp_removed'] . " " . $target_sector . ".<br><br>";
         }
         else
         {
             $delete2 = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = ? AND link_dest = ?;", array ($target_sector, $playerinfo['sector']));
             DbOp::dbResult ($db, $delete2, __LINE__, __FILE__);
-            echo "$l_warp_removedtwo $target_sector.<br><br>";
+            echo $langvars['l_warp_removedtwo'] . " " . $target_sector . ".<br><br>";
         }
     }
 }

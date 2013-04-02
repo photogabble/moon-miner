@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'), $langvars);
-
-$title = $l_warp_title;
+$title = $langvars['l_warp_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('warpedit', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $oneway = null;
@@ -49,7 +49,7 @@ $playerinfo = $result->fields;
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_warp_turn . "<br><br>";
+    echo $langvars['l_warp_turn'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -57,7 +57,7 @@ if ($playerinfo['turns'] < 1)
 
 if ($playerinfo['dev_warpedit'] < 1)
 {
-    echo $l_warp_none . "<br><br>";
+    echo $langvars['l_warp_none'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -66,8 +66,8 @@ if ($playerinfo['dev_warpedit'] < 1)
 if (is_null ($target_sector))
 {
     // This is the best that I can do without adding a new language variable.
-    $l_warp_twoerror = str_replace ('[target_sector]', $l_unknown, $l_warp_twoerror);
-    echo $l_warp_twoerror ."<br><br>";
+    $langvars['l_warp_twoerror'] = str_replace ('[target_sector]', $langvars['l_unknown'], $langvars['l_warp_twoerror']);
+    echo $langvars['l_warp_twoerror'] ."<br><br>";
     BntText::gotoMain ($langvars);
     die ();
 }
@@ -77,7 +77,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N')
 {
-    echo $l_warp_forbid . "<br><br>";
+    echo $langvars['l_warp_forbid'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -93,7 +93,7 @@ DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $row = $result2->fields;
 if (!$row)
 {
-    echo $l_warp_nosector . "<br><br>";
+    echo $langvars['l_warp_nosector'] . "<br><br>";
     BntText::gotoMain ($langvars);
     die ();
 }
@@ -103,8 +103,8 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 $zoneinfo = $res->fields;
 if ($zoneinfo['allow_warpedit'] == 'N' && !$oneway)
 {
-    $l_warp_twoerror = str_replace ("[target_sector]", $target_sector, $l_warp_twoerror);
-    echo $l_warp_twoerror . "<br><br>";
+    $langvars['l_warp_twoerror'] = str_replace ("[target_sector]", $target_sector, $langvars['l_warp_twoerror']);
+    echo $langvars['l_warp_twoerror'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -117,8 +117,8 @@ $numlink_start = $row['count'];
 
 if ($numlink_start >= $link_max)
 {
-    $l_warp_sectex = str_replace ("[link_max]", $link_max, $l_warp_sectex);
-    echo $l_warp_sectex . "<br><br>";
+    $langvars['l_warp_sectex'] = str_replace ("[link_max]", $link_max, $langvars['l_warp_sectex']);
+    echo $langvars['l_warp_sectex'] . "<br><br>";
     BntText::gotoMain ($langvars);
     include './footer.php';
     die ();
@@ -141,12 +141,12 @@ if ($result3 instanceof ADORecordSet)
 
     if ($flag == 1)
     {
-        $l_warp_linked = str_replace ("[target_sector]", $target_sector, $l_warp_linked);
-        echo $l_warp_linked . "<br><br>";
+        $langvars['l_warp_linked'] = str_replace ("[target_sector]", $target_sector, $langvars['l_warp_linked']);
+        echo $langvars['l_warp_linked'] . "<br><br>";
     }
     elseif ($playerinfo['sector'] == $target_sector)
     {
-        echo $l_warp_cantsame;
+        echo $langvars['l_warp_cantsame'];
     }
     else
     {
@@ -158,7 +158,7 @@ if ($result3 instanceof ADORecordSet)
 
         if (!is_null ($oneway))
         {
-            echo "$l_warp_coneway $target_sector.<br><br>";
+            echo $langvars['l_warp_coneway'] . " " . $target_sector . " ".<br><br>";
         }
         else
         {
@@ -182,7 +182,7 @@ if ($result3 instanceof ADORecordSet)
                 $insert2 = $db->Execute ("INSERT INTO {$db->prefix}links SET link_start = ?, link_dest = ?;", array ($target_sector, $playerinfo['sector']));
                 DbOp::dbResult ($db, $insert2, __LINE__, __FILE__);
             }
-            echo $l_warp_ctwoway . " " . $target_sector . ".<br><br>";
+            echo $langvars['l_warp_ctwoway'] . " " . $target_sector . ".<br><br>";
         }
     }
 }

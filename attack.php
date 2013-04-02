@@ -24,11 +24,11 @@ if (check_login ($db, $lang, $langvars))
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
-
 $title = $l_att_title;
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 // Kami Multi Browser Window Attack Fix
