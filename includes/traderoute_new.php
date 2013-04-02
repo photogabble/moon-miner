@@ -23,17 +23,12 @@ if (strpos ($_SERVER['PHP_SELF'], 'traderoute_new.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function traderoute_new ($db, $traderoute_id)
+function traderoute_new ($db, $lang, $langvars, $traderoute_id)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
     global $num_traderoutes, $servertimezone;
     global $max_traderoutes_player;
-    global $l_tdr_editerr, $l_tdr_maxtdr, $l_tdr_createnew, $l_tdr_editinga, $l_tdr_traderoute, $l_tdr_unnamed;
-    global $l_tdr_cursector, $l_tdr_selspoint, $l_tdr_port, $l_tdr_planet, $l_tdr_none, $l_tdr_insector, $l_tdr_selendpoint;
-    global $l_tdr_selmovetype, $l_tdr_realspace, $l_tdr_warp, $l_tdr_selcircuit, $l_tdr_oneway, $l_tdr_bothways, $l_tdr_create;
-    global $l_tdr_modify, $l_tdr_returnmenu, $l_tdr_none;
-    global $l_footer_until_update, $l_footer_players_on_1, $l_footer_players_on_2, $l_footer_one_player_on, $sched_ticks, $l_here;
-
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
     $editroute = null;
 
     if (!empty ($traderoute_id))
@@ -43,34 +38,34 @@ function traderoute_new ($db, $traderoute_id)
 
         if (!$result || $result->EOF)
         {
-            traderoute_die ($l_tdr_editerr);
+            traderoute_die ($langvars['l_tdr_editerr']);
         }
 
         $editroute = $result->fields;
 
         if ($editroute['owner'] != $playerinfo['ship_id'])
         {
-            traderoute_die ($l_tdr_notowner);
+            traderoute_die ($langvars['l_tdr_notowner']);
         }
     }
 
     if ($num_traderoutes >= $max_traderoutes_player && is_null ($editroute))
     {
-        traderoute_die ("<p>$l_tdr_maxtdr<p>");
+        traderoute_die ("<p>" . $langvars['l_tdr_maxtdr'] . "<p>");
     }
 
     echo "<p><font size=3 color=blue><strong>";
 
     if (is_null ($editroute))
     {
-        echo $l_tdr_createnew;
+        echo $langvars['l_tdr_createnew'];
     }
     else
     {
-        echo "$l_tdr_editinga ";
+        echo $langvars['l_tdr_editinga'] . " ";
     }
 
-    echo "$l_tdr_traderoute</strong></font><p>";
+    echo $langvars['l_tdr_traderoute'] . "</strong></font><p>";
 
     // Get Planet info Corp and Personal
 
@@ -85,7 +80,7 @@ function traderoute_new ($db, $traderoute_id)
 
         if ($planets[$i]['name'] == "")
         {
-            $planets[$i]['name'] = $l_tdr_unnamed;
+            $planets[$i]['name'] = $langvars['l_tdr_unnamed'];
         }
 
         $i++;
@@ -102,7 +97,7 @@ function traderoute_new ($db, $traderoute_id)
 
         if ($planets_corp[$i]['name'] == "")
         {
-            $planets_corp[$i]['name'] = $l_tdr_unnamed;
+            $planets_corp[$i]['name'] = $langvars['l_tdr_unnamed'];
         }
 
         $i++;
@@ -110,15 +105,15 @@ function traderoute_new ($db, $traderoute_id)
     }
 
     // Display Current Sector
-    echo "$l_tdr_cursector $playerinfo[sector]<br>";
+    echo $langvars['l_tdr_cursector'] . " " . $playerinfo['sector'] . "<br>";
 
     // Start of form for starting location
     echo "
         <form action=traderoute.php?command=create method=post>
         <table border=0><tr>
-        <td align=right><font size=2><strong>$l_tdr_selspoint <br>&nbsp;</strong></font></td>
+        <td align=right><font size=2><strong>" . $langvars['l_tdr_selspoint'] . " <br>&nbsp;</strong></font></td>
         <tr>
-        <td align=right><font size=2>$l_tdr_port : </font></td>
+        <td align=right><font size=2>" . $langvars['l_tdr_port'] . " : </font></td>
         <td><input type=radio name=\"ptype1\" value=\"port\"
         ";
 
@@ -144,7 +139,7 @@ function traderoute_new ($db, $traderoute_id)
 
     // Personal Planet
     echo "
-        <td align=right><font size=2>Personal $l_tdr_planet : </font></td>
+        <td align=right><font size=2>Personal " . $langvars['l_tdr_planet'] . " : </font></td>
         <td><input type=radio name=\"ptype1\" value=\"planet\"
         ";
 
@@ -160,7 +155,7 @@ function traderoute_new ($db, $traderoute_id)
 
     if ($num_planets == 0)
     {
-        echo "<option value=none>$l_tdr_none</option>";
+        echo "<option value=none>" . $langvars['l_tdr_none'] . "</option>";
     }
     else
     {
@@ -174,7 +169,7 @@ function traderoute_new ($db, $traderoute_id)
                 echo "selected ";
             }
 
-            echo "value=" . $planets[$i]['planet_id'] . ">" . $planets[$i]['name'] . " $l_tdr_insector " . $planets[$i]['sector_id'] . "</option>";
+            echo "value=" . $planets[$i]['planet_id'] . ">" . $planets[$i]['name'] . " " . $langvars['l_tdr_insector'] . " " . $planets[$i]['sector_id'] . "</option>";
             $i++;
         }
     }
@@ -182,7 +177,7 @@ function traderoute_new ($db, $traderoute_id)
     // Corp Planet
     echo "
         </tr><tr>
-        <td align=right><font size=2>Corporate $l_tdr_planet : </font></td>
+        <td align=right><font size=2>Corporate " . $langvars['l_tdr_planet'] . " : </font></td>
         <td><input type=radio name=\"ptype1\" value=\"corp_planet\"
         ";
 
@@ -196,7 +191,7 @@ function traderoute_new ($db, $traderoute_id)
 
     if ($num_corp_planets == 0)
     {
-        echo "<option value=none>$l_tdr_none</option>";
+        echo "<option value=none>" . $langvars['l_tdr_none'] . "</option>";
     }
     else
     {
@@ -210,7 +205,7 @@ function traderoute_new ($db, $traderoute_id)
                 echo "selected ";
             }
 
-            echo "value=" . $planets_corp[$i]['planet_id'] . ">" . $planets_corp[$i]['name'] . " $l_tdr_insector " . $planets_corp[$i]['sector_id'] . "</option>";
+            echo "value=" . $planets_corp[$i]['planet_id'] . ">" . $planets_corp[$i]['name'] . " " . $langvars['l_tdr_insector'] . " " . $planets_corp[$i]['sector_id'] . "</option>";
             $i++;
         }
     }
@@ -223,9 +218,9 @@ function traderoute_new ($db, $traderoute_id)
     echo "
         <tr><td>&nbsp;
         </tr><tr>
-        <td align=right><font size=2><strong>$l_tdr_selendpoint : <br>&nbsp;</strong></font></td>
+        <td align=right><font size=2><strong>" . $langvars['l_tdr_selendpoint'] . " : <br>&nbsp;</strong></font></td>
         <tr>
-        <td align=right><font size=2>$l_tdr_port : </font></td>
+        <td align=right><font size=2>" . $langvars['l_tdr_port'] . " : </font></td>
         <td><input type=radio name=\"ptype2\" value=\"port\"
         ";
 
@@ -251,7 +246,7 @@ function traderoute_new ($db, $traderoute_id)
     // Personal Planet
     echo "
         <tr>
-        <td align=right><font size=2>Personal $l_tdr_planet : </font></td>
+        <td align=right><font size=2>Personal " . $langvars['l_tdr_planet'] . " : </font></td>
         <td><input type=radio name=\"ptype2\" value=\"planet\"
         ";
 
@@ -267,7 +262,7 @@ function traderoute_new ($db, $traderoute_id)
 
     if ($num_planets == 0)
     {
-        echo "<option value=none>$l_tdr_none</option>";
+        echo "<option value=none>" . $langvars['l_tdr_none'] . "</option>";
     }
     else
     {
@@ -281,7 +276,7 @@ function traderoute_new ($db, $traderoute_id)
                 echo "selected ";
             }
 
-            echo "value=" . $planets[$i]['planet_id'] . ">" . $planets[$i]['name'] . " $l_tdr_insector " . $planets[$i]['sector_id'] . "</option>";
+            echo "value=" . $planets[$i]['planet_id'] . ">" . $planets[$i]['name'] . " " . $langvars['l_tdr_insector'] . " " . $planets[$i]['sector_id'] . "</option>";
             $i++;
         }
     }
@@ -289,7 +284,7 @@ function traderoute_new ($db, $traderoute_id)
     // Corp Planet
     echo "
         </tr><tr>
-        <td align=right><font size=2>Corporate $l_tdr_planet : </font></td>
+        <td align=right><font size=2>Corporate " . $langvars['l_tdr_planet'] . " : </font></td>
         <td><input type=radio name=\"ptype2\" value=\"corp_planet\"
         ";
 
@@ -305,7 +300,7 @@ function traderoute_new ($db, $traderoute_id)
 
     if ($num_corp_planets == 0)
     {
-        echo "<option value=none>$l_tdr_none</option>";
+        echo "<option value=none>" . $langvars['l_tdr_none'] . "</option>";
     }
     else
     {
@@ -319,7 +314,7 @@ function traderoute_new ($db, $traderoute_id)
                 echo "selected ";
             }
 
-            echo "value=" . $planets_corp[$i]['planet_id'] . ">" . $planets_corp[$i]['name'] . " $l_tdr_insector " . $planets_corp[$i]['sector_id'] . "</option>";
+            echo "value=" . $planets_corp[$i]['planet_id'] . ">" . $planets_corp[$i]['name'] . " " . $langvars['l_tdr_insector'] . " " . $planets_corp[$i]['sector_id'] . "</option>";
             $i++;
         }
     }
@@ -332,7 +327,7 @@ function traderoute_new ($db, $traderoute_id)
         </tr><tr>
         <td>&nbsp;
         </tr><tr>
-        <td align=right><font size=2><strong>$l_tdr_selmovetype : </strong></font></td>
+        <td align=right><font size=2><strong>" . $langvars['l_tdr_selmovetype'] . " : </strong></font></td>
         <td colspan=2 valign=top><font size=2><input type=radio name=\"move_type\" value=\"realspace\"
         ";
 
@@ -342,7 +337,7 @@ function traderoute_new ($db, $traderoute_id)
     }
 
     echo "
-        >&nbsp;$l_tdr_realspace&nbsp;&nbsp<font size=2><input type=radio name=\"move_type\" value=\"warp\"
+        >&nbsp;" . $langvars['l_tdr_realspace'] . "&nbsp;&nbsp<font size=2><input type=radio name=\"move_type\" value=\"warp\"
         ";
 
     if (!is_null ($editroute) && $editroute['move_type'] == 'W')
@@ -351,9 +346,9 @@ function traderoute_new ($db, $traderoute_id)
     }
 
     echo "
-        >&nbsp;$l_tdr_warp</font></td>
+        >&nbsp;" . $langvars['l_tdr_warp'] . "</font></td>
         </tr><tr>
-        <td align=right><font size=2><strong>$l_tdr_selcircuit : </strong></font></td>
+        <td align=right><font size=2><strong>" . $langvars['l_tdr_selcircuit'] . " : </strong></font></td>
         <td colspan=2 valign=top><font size=2><input type=radio name=\"circuit_type\" value=\"1\"
         ";
 
@@ -363,7 +358,7 @@ function traderoute_new ($db, $traderoute_id)
     }
 
     echo "
-        >&nbsp;$l_tdr_oneway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=\"circuit_type\" value=\"2\"
+        >&nbsp;" . $langvars['l_tdr_oneway'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=radio name=\"circuit_type\" value=\"2\"
         ";
 
     if (!is_null ($editroute) && $editroute['circuit'] == '2')
@@ -372,7 +367,7 @@ function traderoute_new ($db, $traderoute_id)
     }
 
     echo "
-        >&nbsp;$l_tdr_bothways</font></td>
+        >&nbsp;" . $langvars['l_tdr_bothways'] . "</font></td>
         </tr><tr>
         <td>&nbsp;
         </tr><tr>
@@ -381,19 +376,19 @@ function traderoute_new ($db, $traderoute_id)
 
     if (is_null ($editroute))
     {
-        echo "<input type=submit value=\"$l_tdr_create\">";
+        echo "<input type=submit value=\"" . $langvars['l_tdr_create'] . "\">";
     }
     else
     {
         echo "<input type=hidden name=editing value=$editroute[traderoute_id]>";
-        echo "<input type=submit value=\"$l_tdr_modify\">";
+        echo "<input type=submit value=\"" . $langvars['l_tdr_modify'] . "\">";
     }
 
-    $l_tdr_returnmenu = str_replace ("[here]", "<a href='traderoute.php'>" . $l_here . "</a>", $l_tdr_returnmenu);
+    $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
 
     echo "
         </table>
-        $l_tdr_returnmenu<br>
+        " . $langvars['l_tdr_returnmenu'] . "<br>
         </form>
         ";
 
