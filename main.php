@@ -25,9 +25,8 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('combat', 'common', 'global_includes', 'main', 'modify_defences', 'admin'), $langvars);
-
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes'));
 $title = $langvars['l_main_title'];
 include './header.php';
 
@@ -172,7 +171,7 @@ echo "  </tr>\n";
 
 echo "  <tr>\n";
 echo "    <td style='text-align:left; color:#ccc; font-size:12px;'>&nbsp;{$langvars['l_sector']} <span style='color:#fff; font-weight:bold;'>{$playerinfo['sector']}</span></td>\n";
-if (empty ($sectorinfo['beacon']) || strlen(trim ($sectorinfo['beacon'])) <=0)
+if (empty ($sectorinfo['beacon']) || strlen (trim ($sectorinfo['beacon'])) <=0)
 {
     $sectorinfo['beacon'] = null;
 }
@@ -181,7 +180,7 @@ echo "    <td style='text-align:center; color:#fff; font-size:12px; font-weight:
 if ($zoneinfo['zone_id'] < 5)
 {
     $zonevar = "l_zname_" . $zoneinfo['zone_id'];
-    $zoneinfo['zone_name'] = $$zonevar;
+    $zoneinfo['zone_name'] = $langvars[$zonevar];
 }
 
 // Sanitize ZoneName.

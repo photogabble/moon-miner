@@ -23,8 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_fighters.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-// New database driven language entries
-load_languages ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($sector));
 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
