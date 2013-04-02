@@ -35,8 +35,8 @@ $log_list = array (null,
         'LOG_PLASMA_STORM', 'LOG_BOUNTY_FEDBOUNTY', 'LOG_PLANET_BOMBED', 'LOG_ADMIN_ILLEGVALUE'
                 );
 
-// New database driven language entries
-load_languages ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'), $langvars);
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $title = $l_log_titlet;
 $body_class = 'log';
