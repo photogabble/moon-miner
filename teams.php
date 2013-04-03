@@ -27,7 +27,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_team_title;
+$title = $langvars['l_team_title'];
 include './header.php';
 
 // Database driven language entries
@@ -127,8 +127,7 @@ switch ($teamwhat)
     case 1: // INFO on single team
     {
         show_info ($db, $whichteam, 0);
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
@@ -137,14 +136,13 @@ switch ($teamwhat)
         if (!is_team_member($team, $playerinfo))
         {
             echo "<strong><font color=red>An error occured</font></strong><br>You are not a member of this Team.";
-            global $l_clickme, $l_team_menu;
-            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
             break;
         }
 
         if (is_null ($confirmleave))
         {
-            echo "$l_team_confirmleave <strong>$team[team_name]</strong> ? <a href=\"teams.php?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">$l_yes</a> - <a href=\"teams.php\">$l_no</a><br><br>";
+            echo $langvars['l_team_confirmleave'] . " <strong>" . $team['team_name'] . "</strong> ? <a href=\"teams.php?teamwhat=$teamwhat&confirmleave=1&whichteam=$whichteam\">" . $langvars['l_yes'] . "</a> - <a href=\"teams.php\">" . $langvars['l_no'] . "</a><br><br>";
         }
         elseif ($confirmleave == 1)
         {
@@ -152,10 +150,9 @@ switch ($teamwhat)
             {
                 if (!is_team_owner ($team, $playerinfo))
                 {
-                    $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
-                    echo $l_team_error;
-                    global $l_clickme, $l_team_menu;
-                    echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+                    $langvars['l_team_error'] = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $langvars['l_team_error']);
+                    echo $langvars['l_team_error'];
+                    echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
                     continue;
                 }
 
@@ -191,18 +188,18 @@ switch ($teamwhat)
                 BntDefense::defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
                 BntShip::leavePlanet ($db, $playerinfo['ship_id'], $whichteam);
 
-                $l_team_onlymember = str_replace ("[team_name]", "<strong>$team[team_name]</strong>", $l_team_onlymember);
-                echo $l_team_onlymember . "<br><br>";
+                $langvars['l_team_onlymember'] = str_replace ("[team_name]", "<strong>$team[team_name]</strong>", $langvars['l_team_onlymember']);
+                echo $langvars['l_team_onlymember'] . "<br><br>";
                 PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
             }
             else
             {
                 if (is_team_owner ($team, $playerinfo))
                 {
-                    echo "$l_team_youarecoord <strong>$team[team_name]</strong>. $l_team_relinq<br><br>";
+                    echo $langvars['l_team_youarecoord'] . " <strong>$team[team_name]</strong>. " . $langvars['l_team_relinq'] . "<br><br>";
                     echo "<form action='teams.php' method=post>";
                     echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=confirmleave value=2><input type=hidden name=whichteam value=$whichteam>";
-                    echo "<tr><td>$l_team_newc</td><td><select name=newcreator>";
+                    echo "<tr><td>" . $langvars['l_team_newc'] . "</td><td><select name=newcreator>";
 
                     $res = $db->Execute ("SELECT character_name, ship_id, team FROM {$db->prefix}ships WHERE team = ? ORDER BY character_name ASC;", array ($whichteam));
                     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -216,7 +213,7 @@ switch ($teamwhat)
                         $res->MoveNext();
                     }
                     echo "</select></td></tr>";
-                    echo "<tr><td><input type=submit value=$l_submit></td></tr>";
+                    echo "<tr><td><input type=submit value=" . $langvars['l_submit'] . "></td></tr>";
                     echo "</table>";
                     echo "</form>";
                 }
@@ -247,7 +244,7 @@ switch ($teamwhat)
                         }
                     }
 
-                    echo "$l_team_youveleft <strong>$team[team_name]</strong>.<br><br>";
+                    echo $langvars['l_team_youveleft'] . " <strong>" . $team['team_name'] . "</strong>.<br><br>";
                     BntDefense::defence_vs_defence ($db, $playerinfo['ship_id'], $langvars);
                     BntShip::leavePlanet ($db, $playerinfo['ship_id'], $whichteam);
                     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_LEAVE, $team['team_name']);
@@ -261,7 +258,7 @@ switch ($teamwhat)
             $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($newcreator));
             DbOp::dbResult ($db, $res, __LINE__, __FILE__);
             $newcreatorname = $res->fields;
-            echo "$l_team_youveleft <strong>$team[team_name]</strong> $l_team_relto $newcreatorname[character_name].<br><br>";
+            echo $langvars['l_team_youveleft'] . " <strong>" . $team['team_name'] . "</strong> " . $langvars['l_team_relto'] . " " . $newcreatorname['character_name'] . ".<br><br>";
 
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET team = '0' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
@@ -296,8 +293,7 @@ switch ($teamwhat)
             PlayerLog::writeLog ($db, $newcreator, LOG_TEAM_LEAD, $team['team_name']);
         }
 
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
@@ -305,7 +301,7 @@ switch ($teamwhat)
     {
         if ($playerinfo['team'] != 0)
         {
-            echo $l_team_leavefirst . "<br>";
+            echo $langvars['l_team_leavefirst'] . "<br>";
         }
         else
         {
@@ -317,25 +313,23 @@ switch ($teamwhat)
                 $resy = $db->Execute ("UPDATE {$db->prefix}teams SET number_of_members = number_of_members + 1 WHERE id = ?;", array ($whichteam));
                 DbOp::dbResult ($db, $resy, __LINE__, __FILE__);
 
-                echo "$l_team_welcome <strong>$team[team_name]</strong>.<br><br>";
+                echo $langvars['l_team_welcome'] . " <strong>" . $team['team_name'] . "</strong>.<br><br>";
                 PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_JOIN, $team['team_name']);
                 PlayerLog::writeLog ($db, $team['creator'], LOG_TEAM_NEWMEMBER, $team['team_name'] ."|". $playerinfo['character_name']);
             }
             else
             {
-                echo "$l_team_noinviteto<br>";
+                echo $langvars['l_team_noinviteto'] . "<br>";
             }
         }
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
     case 4:
     {
         echo "Not implemented yet. Sorry! :)<br><br>";
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
@@ -347,10 +341,9 @@ switch ($teamwhat)
 
         if (is_team_owner ($team, $playerinfo) == false)
         {
-            $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
-            echo $l_team_error;
-            global $l_clickme, $l_team_menu;
-            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+            $langvars['l_team_error'] = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $langvars['l_team_error']);
+            echo $langvars['l_team_error'];
+            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
             continue;
         }
         else
@@ -362,7 +355,7 @@ switch ($teamwhat)
 
             if (is_null ($confirmed))
             {
-                echo "$l_team_ejectsure $whotoexpel[character_name]? <a href=\"teams.php?teamwhat=$teamwhat&confirmed=1&who=$who\">$l_yes</a> - <a href=\"teams.php\">$l_no</a><br>";
+                echo $langvars['l_team_ejectsure'] . " " . $whotoexpel['character_name'] . "? <a href=\"teams.php?teamwhat=$teamwhat&confirmed=1&who=$who\">" . $langvars['l_yes'] . "</a> - <a href=\"teams.php\">" . $langvars['l_no'] . "</a><br>";
             }
             else
             {
@@ -379,10 +372,9 @@ switch ($teamwhat)
                 $db->Execute ("UPDATE {$db->prefix}teams SET number_of_members = number_of_members - 1 WHERE id = ?;", array ($whotoexpel['team']));
 
                 PlayerLog::writeLog ($db, $who, LOG_TEAM_KICK, $team['team_name']);
-                echo "$whotoexpel[character_name] $l_team_ejected<br>";
+                echo $whotoexpel['character_name'] . " " . $langvars['l_team_ejected'] . "<br>";
             }
-            global $l_clickme, $l_team_menu;
-            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         }
         break;
     }
@@ -391,21 +383,20 @@ switch ($teamwhat)
     {
         if ($playerinfo['team'] != 0)
         {
-            echo $l_team_leavefirst . "<br>";
-            global $l_clickme, $l_team_menu;
-            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+            echo $langvars['l_team_leavefirst'] . "<br>";
+            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
             continue;
         }
 
         if (is_null ($teamname))
         {
             echo "<form action='teams.php' method='post'>\n";
-            echo $l_team_entername . ": ";
+            echo $langvars['l_team_entername'] . ": ";
             echo "<input type='hidden' name='teamwhat' value='{$teamwhat}'>\n";
             echo "<input type='text' name='teamname' size='40' maxlength='40'><br>\n";
-            echo $l_team_enterdesc . ": ";
+            echo $langvars['l_team_enterdesc'] . ": ";
             echo "<input type='text' name='teamdesc' size='40' maxlength='254'><br>\n";
-            echo "<input type='submit' value='{$l_submit}'><input type='reset' value='{$l_reset}'>\n";
+            echo "<input type='submit' value='" . $langvars['l_submit'] . "'><input type='reset' value='" . $langvars['l_reset'] . "'>\n";
             echo "</form>\n";
             echo "<br><br>\n";
         }
@@ -417,8 +408,7 @@ switch ($teamwhat)
             if (!validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
                 echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
-                global $l_clickme, $l_team_menu;
-                echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+                echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
                 break;
             }
 
@@ -428,11 +418,10 @@ switch ($teamwhat)
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             $resy = $db->Execute ("UPDATE {$db->prefix}ships SET team=? WHERE ship_id = ?;", array ($playerinfo['ship_id'], $playerinfo['ship_id']));
             DbOp::dbResult ($db, $resy, __LINE__, __FILE__);
-            echo "$l_team_team <strong>$teamname</strong> $l_team_hcreated.<br><br>";
+            echo $langvars['l_team_team'] . " <strong>" . $teamname . "</strong> " . $langvars['l_team_hcreated'] . ".<br><br>";
             PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TEAM_CREATE, $teamname);
         }
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
@@ -441,8 +430,7 @@ switch ($teamwhat)
         if (is_team_member($team, $playerinfo) == false)
         {
             echo "<br>You are not in this team!<br>";
-            global $l_clickme, $l_team_menu;
-            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
             break;
         }
 
@@ -450,7 +438,7 @@ switch ($teamwhat)
         {
             echo "<form action='teams.php' method=post>";
             echo "<table><input type=hidden name=teamwhat value=$teamwhat><input type=hidden name=invited value=1><input type=hidden name=whichteam value=$whichteam>";
-            echo "<tr><td>$l_team_selectp:</td><td><select name=who style='width:200px;'>";
+            echo "<tr><td>" . $langvars['l_team_selectp'] . ":</td><td><select name=who style='width:200px;'>";
 
             $res = $db->Execute ("SELECT character_name, ship_id, team FROM {$db->prefix}ships WHERE team <> ? AND ship_destroyed ='N' AND turns_used > 0 ORDER BY character_name ASC;", array ($whichteam));
             DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -465,7 +453,7 @@ switch ($teamwhat)
             }
 
             echo "</select></td></tr>";
-            echo "<tr><td><input type='submit' value='{$l_submit}'></td></tr>";
+            echo "<tr><td><input type='submit' value='" . $langvars['l_submit'] . "'></td></tr>";
             echo "</table>";
             echo "</form>";
         }
@@ -476,7 +464,7 @@ switch ($teamwhat)
                 if (is_null ($who))
                 {
                     echo "No player was selected.<br>\n";
-                            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu<br><br>";
+                            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . "<br><br>";
                             break;
                 }
                 $res = $db->Execute ("SELECT character_name,team_invite FROM {$db->prefix}ships WHERE ship_id = ?;", array ($who));
@@ -484,33 +472,32 @@ switch ($teamwhat)
                 $newpl = $res->fields;
                 if ($newpl['team_invite'])
                 {
-                    $l_team_isorry = str_replace ("[name]", $newpl['character_name'], $l_team_isorry);
-                    echo $l_team_isorry . "<br><br>";
+                    $langvars['l_team_isorry'] = str_replace ("[name]", $newpl['character_name'], $langvars['l_team_isorry']);
+                    echo $langvars['l_team_isorry'] . "<br><br>";
                 }
                 else
                 {
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET team_invite = ? WHERE ship_id = ?;", array ($whichteam, $who));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                    echo $l_team_plinvted . "<br>" . $l_team_plinvted2 . "<br>";
+                    echo $langvars['l_team_plinvted'] . "<br>" . $langvars['l_team_plinvted2'] . "<br>";
                     PlayerLog::writeLog ($db, $who, LOG_TEAM_INVITE, $team['team_name']);
                 }
             }
             else
             {
-                echo $l_team_notyours . "<br>";
+                echo $langvars['l_team_notyours'] . "<br>";
             }
         }
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . "<br><br>";
         break;
     }
     case 8: // REFUSE invitation
     {
-        echo "$l_team_refuse <strong>$invite_info[team_name]</strong>.<br><br>";
+        echo $langvars['l_team_refuse'] . " <strong>" . $invite_info['team_name'] . "</strong>.<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET team_invite = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         PlayerLog::writeLog ($db, $team['creator'], LOG_TEAM_REJECT, $playerinfo['character_name'] ."|". $invite_info['team_name']);
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
@@ -522,24 +509,23 @@ switch ($teamwhat)
 
         if (is_team_owner ($team, $playerinfo) == false)
         {
-            $l_team_error = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $l_team_error);
-            echo $l_team_error;
-            global $l_clickme, $l_team_menu;
-            echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+            $langvars['l_team_error'] = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $langvars['l_team_error']);
+            echo $langvars['l_team_error'];
+            echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
             break;
         }
 
         if (is_null ($update))
         {
             echo "<form action='teams.php' method='post'>";
-            echo $l_team_edname . ": <br>";
+            echo $langvars['l_team_edname'] . " . : <br>";
             echo "<input type='hidden' name='teamwhat' value='{$teamwhat}'>";
             echo "<input type='hidden' name='whichteam' value='{$whichteam}'>";
             echo "<input type='hidden' name='update' value='true'>";
             echo "<input type='text' name='teamname' size='40' maxlength='40' value='{$team['team_name']}'><br>";
-            echo $l_team_eddesc . ": <br>";
+            echo $langvars['l_team_eddesc'] . " . : <br>";
             echo "<input type='text' name='teamdesc' size='40' maxlength='254' value='{$team['description']}'><br>";
-            echo "<input type='submit' value='{$l_submit}'><input type='reset' value='{$l_reset}'>";
+            echo "<input type='submit' value='" . $langvars['l_submit'] . "'><input type='reset' value='{" . $langvars['l_reset'] . "'>";
             echo "</form>";
             echo "<br><br>";
         }
@@ -551,14 +537,13 @@ switch ($teamwhat)
             if (validate_team ($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
             {
                 echo "<span style='color:#f00;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
-                global $l_clickme, $l_team_menu;
-                echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+                echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
                 break;
             }
 
             $res = $db->Execute ("UPDATE {$db->prefix}teams SET team_name = ?, description = ? WHERE id = ?;", array ($teamname, $teamdesc, $whichteam)) or die ("<font color=red>error: " . $db->ErrorMSG() . "</font>");
             DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-            echo "$l_team_team <strong>$teamname</strong> $l_team_hasbeenr<br><br>";
+            echo $langvars['l_team_team'] . " <strong>" . $teamname . "</strong> " . $langvars['l_team_hasbeenr'] . "<br><br>";
 
             // Adding a log entry to all members of the renamed team
             $result_team_name = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE team = ? AND ship_id <> ?;", array ($whichteam, $playerinfo['ship_id'])) or die ("<font color=red>error: " . $db->ErrorMsg() . "</font>");
@@ -571,8 +556,7 @@ switch ($teamwhat)
                 $result_team_name->MoveNext();
             }
         }
-        global $l_clickme, $l_team_menu;
-        echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+        echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
@@ -580,7 +564,7 @@ switch ($teamwhat)
     {
         if ($playerinfo['team'] == 0)
         {
-            echo $l_team_notmember;
+            echo $langvars['l_team_notmember'];
             display_invite_info ();
         }
         else
@@ -591,9 +575,8 @@ switch ($teamwhat)
                 $result = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($playerinfo['team']));
                 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
                 $whichteam = $result->fields;
-                echo "$l_team_urejected <strong>$whichteam[team_name]</strong><br><br>";
-                global $l_clickme, $l_team_menu;
-                echo "<br><br><a href=\"teams.php\">$l_clickme</a> $l_team_menu.<br><br>";
+                echo $langvars['l_team_urejected'] . " <strong>" . $whichteam['team_name'] . "</strong><br><br>";
+                echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
                 break;
             }
             $result = $db->Execute ("SELECT * FROM {$db->prefix}teams WHERE id = ?;", array ($playerinfo['team']));
@@ -618,7 +601,7 @@ switch ($teamwhat)
         }
         else
         {
-            echo $l_team_noteams . "<br><br>";
+            echo $langvars['l_team_noteams'] . "<br><br>";
         }
         break;
     }
@@ -669,9 +652,9 @@ function is_team_owner ($team, $playerinfo)
 // Rewritten display of teams list
 function display_all_teams ($db)
 {
-    global $color, $color_line1, $color_line2, $color_header, $order, $type, $l_team_galax, $l_team_members, $l_team_member, $l_team_coord, $l_score, $l_name;
+    global $color, $color_line1, $color_line2, $color_header, $order, $type;
 
-    echo "<br><br>$l_team_galax<br>";
+    echo "<br><br>" . $langvars['l_team_galax'] . "<br>";
     echo "<table style='width:100%; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
     echo "<tr bgcolor=\"$color_header\">";
 
@@ -685,10 +668,10 @@ function display_all_teams ($db)
         $type = "d";
         $by = "DESC";
     }
-    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=team_name&type=$type>$l_name</a></strong></td>";
-    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=number_of_members&type=$type>$l_team_members</a></strong></td>";
-    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=character_name&type=$type>$l_team_coord</a></strong></td>";
-    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=total_score&type=$type>$l_score</a></strong></td>";
+    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=team_name&type=$type>" . $langvars['l_name'] . "</a></strong></td>";
+    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=number_of_members&type=$type>" . $langvars['l_team_members'] . "</a></strong></td>";
+    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=character_name&type=$type>" . $langvars['l_team_coord'] . "</a></strong></td>";
+    echo "<td><strong><a class='new_link' style='font-size:14px;' href=teams.php?order=total_score&type=$type>" . $langvars['l_score'] . "</a></strong></td>";
     echo "</tr>";
     $sql_query = "SELECT {$db->prefix}ships.character_name,
                 COUNT(*) as number_of_members,
@@ -749,25 +732,26 @@ function display_all_teams ($db)
 
 function display_invite_info ()
 {
-    global $playerinfo, $invite_info, $l_team_noinvite, $l_team_ifyouwant, $l_team_tocreate, $l_clickme, $l_team_injoin, $l_team_tojoin, $l_team_reject, $l_team_or;
+    global $playerinfo, $invite_info, $langvars;
+
     if (!$playerinfo['team_invite'])
     {
-        echo "<br><br><font color=blue size=2><strong>$l_team_noinvite</strong></font><br>";
-        echo $l_team_ifyouwant . "<br>";
-        echo "<a href=\"teams.php?teamwhat=6\">$l_clickme</a> $l_team_tocreate<br><br>";
+        echo "<br><br><font color=blue size=2><strong>" . $langvars['l_team_noinvite'] . "</strong></font><br>";
+        echo $langvars['l_team_ifyouwant'] . "<br>";
+        echo "<a href=\"teams.php?teamwhat=6\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_tocreate'] . "<br><br>";
     }
     else
     {
-        echo "<br><br><font color=blue size=2><strong>$l_team_injoin ";
+        echo "<br><br><font color=blue size=2><strong>" . $langvars['l_team_injoin'] . " ";
         echo "<a href=teams.php?teamwhat=1&whichteam=$playerinfo[team_invite]>$invite_info[team_name]</a>.</strong></font><br>";
-        echo "<a href=teams.php?teamwhat=3&whichteam=$playerinfo[team_invite]>$l_clickme</a> $l_team_tojoin <strong>$invite_info[team_name]</strong> $l_team_or <a href=teams.php?teamwhat=8&whichteam=$playerinfo[team_invite]>$l_clickme</a> $l_team_reject<br><br>";
+        echo "<a href=teams.php?teamwhat=3&whichteam=$playerinfo[team_invite]>" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_tojoin'] . " <strong>" . $invite_info['team_name'] . "</strong> " . $langvars['l_team_or'] . " <a href=teams.php?teamwhat=8&whichteam=$playerinfo[team_invite]>" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_reject'] . "<br><br>";
     }
 }
 
 function show_info ($db, $whichteam, $isowner)
 {
-    global $playerinfo, $invite_info, $team, $l_team_coord, $l_team_member, $l_options, $l_edit, $l_team_inv, $l_team_leave, $l_team_members, $l_score, $l_team_noinvites, $l_team_pending;
-    global $l_team_eject, $color_line2;
+    global $playerinfo, $invite_info, $team;
+    global $langvars, $color_line2;
 
     // Heading
     echo "<div align=center>";
@@ -778,18 +762,18 @@ function show_info ($db, $whichteam, $isowner)
         echo "<font color=white>";
         if ($playerinfo['ship_id'] == $team['creator'])
         {
-            echo "$l_team_coord ";
+            echo $langvars['l_team_coord'] . " ";
         }
         else
         {
-            echo "$l_team_member ";
+            echo $langvars['l_team_member'] . " ";
         }
-        echo "$l_options<br><font size=2>";
+        echo $langvars['l_options'] . " <br><font size=2>";
         if ( is_team_owner ($team, $playerinfo) == true)
         {
-            echo "[<a href=teams.php?teamwhat=9&whichteam=$playerinfo[team]>$l_edit</a>] - ";
+            echo "[<a href=teams.php?teamwhat=9&whichteam=$playerinfo[team]>" . $langvars['l_edit'] . "</a>] - ";
         }
-        echo "[<a href=teams.php?teamwhat=7&whichteam=$playerinfo[team]>$l_team_inv</a>] - [<a href=teams.php?teamwhat=2&whichteam=$playerinfo[team]>$l_team_leave</a>]</font></font>";
+        echo "[<a href=teams.php?teamwhat=7&whichteam=$playerinfo[team]>" . $langvars['l_team_inv'] . "</a>] - [<a href=teams.php?teamwhat=2&whichteam=$playerinfo[team]>" . $langvars['l_team_leave'] . "</a>]</font></font>";
     }
     display_invite_info ();
     echo "</div>";
@@ -797,23 +781,23 @@ function show_info ($db, $whichteam, $isowner)
     // Main table
     echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=\"#400040\" width=\"75%\" align=center>";
     echo "<tr>";
-    echo "<td><font color=white>$l_team_members</font></td>";
+    echo "<td><font color=white>" . $langvars['l_team_members'] . "</font></td>";
     echo "</tr><tr bgcolor=$color_line2>";
     $result  = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE team = ?;", array ($whichteam));
     DbOp::dbResult ($db, $result, __LINE__, __FILE__);
     while (!$result->EOF)
     {
         $member = $result->fields;
-        echo "<td> - $member[character_name] ($l_score $member[score])";
+        echo "<td> - " . $member['character_name'] . " (" . $langvars['l_score'] . " " . $member['score'] . ")";
         if ($isowner && ($member['ship_id'] != $playerinfo['ship_id']))
         {
-            echo " - <font size=2>[<a href=\"teams.php?teamwhat=5&who=$member[ship_id]\">$l_team_eject</a>]</font></td>";
+            echo " - <font size=2>[<a href=\"teams.php?teamwhat=5&who=$member[ship_id]\">" . $langvars['l_team_eject'] . "</a>]</font></td>";
         }
         else
         {
             if ($member['ship_id'] == $team['creator'])
             {
-                echo " - $l_team_coord </td>";
+                echo " - " . $langvars['l_team_coord'] . " </td>";
             }
         }
         echo "</tr><tr bgcolor=$color_line2>";
@@ -823,7 +807,7 @@ function show_info ($db, $whichteam, $isowner)
     // Displays for members name
     $res = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships WHERE team_invite = ?;", array ($whichteam));
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-    echo "<td bgcolor=$color_line2><font color=white>$l_team_pending <strong>$team[team_name]</strong></font></td>";
+    echo "<td bgcolor=$color_line2><font color=white>" . $langvars['l_team_pending'] . " <strong>" . $team['team_name'] . "</strong></font></td>";
     echo "</tr><tr>";
     if ($res->RecordCount() > 0)
     {
@@ -838,7 +822,7 @@ function show_info ($db, $whichteam, $isowner)
     }
     else
     {
-        echo "<td>$l_team_noinvites <strong>$team[team_name]</strong>.</td>";
+        echo "<td>" . $langvars['l_team_noinvites'] . " <strong>" . $team['team_name'] . "</strong>.</td>";
         echo "</tr><tr>";
     }
     echo "</tr></table>";
