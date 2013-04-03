@@ -25,11 +25,12 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'));
+$langvars = BntTranslate::load ($db, $lang, array ('device'));
 
 $title = $langvars['l_device_title'];
 $body_class = 'device';
 include './header.php';
+$langvars = BntTranslate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'));
 
 echo "<h1>" . $title . "</h1>\n";
 

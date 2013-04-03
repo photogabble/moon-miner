@@ -26,9 +26,11 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes'));
+$langvars = BntTranslate::load ($db, $lang, array ('main'));
 $title = $langvars['l_main_title'];
 include './header.php';
+
+$langvars = BntTranslate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes'));
 
 $stylefontsize = "12pt";
 $picsperrow = 7;
