@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_teamplanet_title;
+$title = $langvars['l_teamplanet_title'];
 include './header.php';
 
 // Database driven language entries
@@ -36,7 +36,7 @@ $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
 {
-    echo "<br>$l_teamplanet_notally";
+    echo "<br>" . $langvars['l_teamplanet_notally'];
     echo "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
@@ -72,7 +72,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
-echo "<strong><a href=planet_report.php>$l_teamplanet_personal</a></strong>";
+echo "<strong><a href=planet_report.php>" . $langvars['l_teamplanet_personal'] . "</a></strong>";
 echo "<br>";
 echo "<br>";
 
@@ -90,24 +90,24 @@ if ($res)
 $num_planets = $i;
 if ($num_planets < 1)
 {
-    echo "<br>$l_teamplanet_noplanet";
+    echo "<br>" . $langvars['l_teamplanet_noplanet'];
 }
 else
 {
-    echo "$l_pr_clicktosort<br><br>";
+    echo $langvars['l_pr_clicktosort'] . "<br><br>";
     echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
     echo "<tr bgcolor=\"$color_header\">";
-    echo "<td><strong><a href=team_planets.php?sort=sector>$l_sector</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=name>$l_name</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=ore>$l_ore</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=organics>$l_organics</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=goods>$l_goods</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=energy>$l_energy</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=colonists>$l_colonists</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=credits>$l_credits</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=fighters>$l_fighters</a></strong></td>";
-    echo "<td><strong><a href=team_planets.php?sort=torp>$l_torps</a></strong></td>";
-    echo "<td><strong>$l_base?</strong></td><td><strong>$l_selling?</strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=sector>" . $langvars['l_sector'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=name>" . $langvars['l_name'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=ore>" . $langvars['l_ore'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=organics>" . $langvars['l_organics'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=goods>" . $langvars['l_goods'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=energy>" . $langvars['l_energy'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=colonists>" . $langvars['l_colonists'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=credits>" . $langvars['l_credits'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=fighters>" . $langvars['l_fighters'] . "</a></strong></td>";
+    echo "<td><strong><a href=team_planets.php?sort=torp>" . $langvars['l_torps'] . "</a></strong></td>";
+    echo "<td><strong>" . $langvars['l_base'] . "?</strong></td><td><strong>" . $langvars['l_selling'] . "?</strong></td>";
     echo "<td><strong>Player</strong></td>";
     echo "</tr>";
     $total_organics = 0;
@@ -142,7 +142,7 @@ else
         }
         if (empty ($planet[$i]['name']))
         {
-            $planet[$i]['name'] = "$l_unnamed";
+            $planet[$i]['name'] = $langvars['l_unnamed'];
         }
 
         $owner = $planet[$i]['owner'];
@@ -161,8 +161,8 @@ else
         echo "<td>" . number_format ($planet[$i]['credits'], 0, $local_number_dec_point, $local_number_thousands_sep)   . "</td>";
         echo "<td>" . number_format ($planet[$i]['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep)  . "</td>";
         echo "<td>" . number_format ($planet[$i]['torps'], 0, $local_number_dec_point, $local_number_thousands_sep)     . "</td>";
-        echo "<td>" . ($planet[$i]['base'] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
-        echo "<td>" . ($planet[$i]['sells'] == 'Y' ? "$l_yes" : "$l_no") . "</td>";
+        echo "<td>" . ($planet[$i]['base'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
+        echo "<td>" . ($planet[$i]['sells'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
         echo "<td>" . $player                        . "</td>";
         echo "</tr>";
 
@@ -178,7 +178,7 @@ else
 
     echo "<tr bgcolor=\"$color\">";
     echo "<td></td>";
-    echo "<td>$l_pr_totals</td>";
+    echo "<td>" . $langvars['l_pr_totals'] . "</td>";
     echo "<td>" . number_format ($total_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
     echo "<td>" . number_format ($total_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
     echo "<td>" . number_format ($total_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
