@@ -1,0 +1,12 @@
+This file is used to keep track of things that we intend on doing, and all accepted feature requests.
+
+TODO denotes an item that we intend to work on. FREQ indicates a feature request.
+
+TODO: Finish language conversion (switch from $l_whatever to $langvars)
+TODO: Finish include -> class conversion (All files in includes/ need to be converted to class/methods and moved to classes/)
+TODO: Convert main to be template driven
+TODO: Move Sol from sector 0 to sector 1
+TODO: Cleanup create_universe (templating, functions with defined returns, etc)
+TODO: Implement Post->Redirect->Get pattern for the 60 post calls in the game
+TODO: Eliminate all reg_globals equivalent hacks
+FREQ: Migrate all files to use templates
