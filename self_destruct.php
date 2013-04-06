@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_die_title;
+$title = $langvars['l_die_title'];
 include './header.php';
 
 // Database driven language entries
@@ -42,24 +42,24 @@ if (isset ($_GET['sure']))
 
 if (!isset ($sure))
 {
-    echo "<font color=red><strong>$l_die_rusure</strong></font><br><br>";
+    echo "<font color=red><strong>" . $langvars['l_die_rusure'] . "</strong></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
-    echo "<a href='main.php'>$l_die_nonono</a> $l_die_what<br><br>";
-    echo "<a href=self_destruct.php?sure=1>$l_yes!</a> $l_die_goodbye<br><br>";
+    echo "<a href='main.php'>" . $langvars['l_die_nonono'] . "</a> " . $langvars['l_die_what'] . "<br><br>";
+    echo "<a href=self_destruct.php?sure=1>" . $langvars['l_yes'] . "!</a> " . $langvars['l_die_goodbye'] . "<br><br>";
 }
 elseif ($sure == 1)
 {
-    echo "<font color=red><strong>$l_die_check</strong></font><br><br>";
+    echo "<font color=red><strong>" . $langvars['l_die_check'] . "</strong></font><br><br>";
     echo "Please Note: You will loose all your Planets if you Self-Destruct!.<br>\n";
-    echo "<a href='main.php'>$l_die_nonono</a> $l_die_what<br><br>";
-    echo "<a href=self_destruct.php?sure=2>$l_yes!</a> $l_die_goodbye<br><br>";
+    echo "<a href='main.php'>" . $langvars['l_die_nonono'] . "</a> " . $langvars['l_die_what'] . "<br><br>";
+    echo "<a href=self_destruct.php?sure=2>" . $langvars['l_yes'] . "!</a> " . $langvars['l_die_goodbye'] . "<br><br>";
 }
 elseif ($sure == 2)
 {
-    echo "$l_die_count<br>";
-    echo "$l_die_vapor<br><br>";
-    $l_die_please = str_replace ("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_die_please);
-    echo $l_die_please. "<br>";
+    echo $langvars['l_die_count'] . "<br>";
+    echo $langvars['l_die_vapor'] . "<br><br>";
+    $langvars['l_die_please'] = str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
+    echo $langvars['l_die_please'] . "<br>";
     BntPlayer::kill ($db, $playerinfo['ship_id'], true, $langvars);
     BntBounty::cancel ($db, $playerinfo['ship_id']);
     AdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
@@ -68,7 +68,7 @@ elseif ($sure == 2)
 }
 else
 {
-    echo $l_die_exploit . "<br><br>";
+    echo $langvars['l_die_exploit'] . "<br><br>";
 }
 
 BntText::gotoMain ($db, $lang, $langvars);
