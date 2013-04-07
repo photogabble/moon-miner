@@ -31,6 +31,8 @@ else
     $link = "?lang=" . $lang;
 }
 
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('news'));
 $title = $langvars['l_news_title'];
 include './header.php';
 

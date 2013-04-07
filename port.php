@@ -25,6 +25,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 $body_class = 'port';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('port'));
 $title = $langvars['l_title_port'];
 include './header.php';
 

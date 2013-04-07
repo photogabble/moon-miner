@@ -26,7 +26,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 
 // Database driven language entries
 $langvars = null;
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer'));
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
@@ -123,6 +123,7 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
 $template->Display("report.tpl");

@@ -36,12 +36,14 @@ $log_list = array (null,
                 );
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = BntTranslate::load ($db, $lang, array ('log'));
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';
-
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -122,7 +124,7 @@ while (!$res->EOF)
 }
 
 $langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr ($startdate, 5, 2) );
-$entry = $$l_log_months_temp . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
+$entry = $langvars['l_log_months_temp'] . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
      "\n<div id=\"dynPage0\" class=\"dynPage\">" .
@@ -137,9 +139,9 @@ if (!empty ($logs) )
 {
     foreach ($logs as $log)
     {
-        $event = log_parse ($log);
+        $event = log_parse ($langvars, $log);
         $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
-        $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
+        $time = $langvars[$log_months_temp] . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
         echo "<table border=0 cellspacing=5 width=100%>\n" .
              "  <tr>\n" .
@@ -188,7 +190,7 @@ if ($mode == 'compat')
 if ($mode != 'compat')
 {
     $log_months_temp = "l_log_months_" . (int) (substr ($yesterday, 5, 2));
-    $entry = $$l_log_months_temp . " " . substr ($yesterday, 8, 2) . " " . substr ($yesterday, 0, 4);
+    $entry = $$log_months_temp . " " . substr ($yesterday, 8, 2) . " " . substr ($yesterday, 0, 4);
 
     unset ($logs);
     $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$yesterday%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
@@ -213,7 +215,7 @@ if ($mode != 'compat')
         {
             $event = log_parse ($log);
             $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
-            $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
+            $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
                  "  <tr>\n" .
@@ -233,7 +235,7 @@ if ($mode != 'compat')
          "</div>\n";
 
     $log_months_temp = "l_log_months_" . (int) (substr ($tomorrow, 5, 2));
-    $entry = $$l_log_months_temp . " " . substr ($tomorrow, 8, 2) . " " . substr ($tomorrow, 0, 4);
+    $entry = $$log_months_temp . " " . substr ($tomorrow, 8, 2) . " " . substr ($tomorrow, 0, 4);
 
     unset ($logs);
     $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$tomorrow%' ORDER BY time DESC, type DESC", array ($playerinfo['ship_id']));
@@ -258,7 +260,7 @@ if ($mode != 'compat')
         {
             $event = log_parse ($log);
             $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
-            $time = $$l_log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
+            $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
             echo "<table border=0 cellspacing=5 width=100%>\n" .
                  "<tr>\n" .
@@ -285,14 +287,14 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$langvars['l_log_months_short_temp'] = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2) );
-$date1 = $$l_log_months_short_temp . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
+$log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2) );
+$date1 = $langvars[$log_months_short_temp] . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
 
-$langvars['l_log_months_short_temp'] = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
-$date2 = $$l_log_months_short_temp . " " . date ("d", $start_time);//substr ($startdate, 8, 2);
+$log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
+$date2 = $langvars[$log_months_short_temp] . " " . date ("d", $start_time);//substr ($startdate, 8, 2);
 
-$langvars['l_log_months_short_temp'] = "l_log_months_short_" . date ("n", $tm);// (int) (substr ($startdate, 5, 2));
-$date3 = $$l_log_months_short_temp . " " . date ("d", $tm);//substr ($tomorrow, 8, 2);
+$log_months_short_temp = "l_log_months_short_" . date ("n", $tm);// (int) (substr ($startdate, 5, 2));
+$date3 = $langvars[$log_months_short_temp] . " " . date ("d", $tm);//substr ($tomorrow, 8, 2);
 
 $month = substr ($startdate, 5, 2);
 $day = substr ($startdate, 8, 2) - 3;
@@ -388,7 +390,7 @@ if ($mode != 'compat')
 echo "</table></center>";
 include './footer.php';
 
-function log_parse ($entry)
+function log_parse ($langvars, $entry)
 {
     $langvars['l_log_nopod'] = "<font color=yellow><strong>" . $langvars['l_log_nopod'] . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
 
@@ -461,7 +463,7 @@ function log_parse ($entry)
     $retvalue['title'] = $titletemp;
     $retvalue['title'] = "<font color=red>" . $retvalue['title'] . "</font>";
     if ($pod == 'Y')
-      $retvalue['text'] = $retvalue['text'] . $langvars['$l_log_pod'];
+      $retvalue['text'] = $retvalue['text'] . $langvars['l_log_pod'];
     else
       $retvalue['text'] = $retvalue['text'] . $langvars['l_log_nopod'];
     break;

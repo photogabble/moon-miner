@@ -25,6 +25,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 include './header.php';
@@ -68,17 +71,17 @@ else
 if ($command == 'login') //main menu
 {
     include_once './includes/ibank_login.php';
-    ibank_login ();
+    ibank_login ($langvars);
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
     include_once './includes/ibank_withdraw.php';
-    ibank_withdraw ();
+    ibank_withdraw ($langvars);
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
     include_once './includes/ibank_withdraw2.php';
-    ibank_withdraw2 ($db);
+    ibank_withdraw2 ($db, $langvars);
 }
 elseif ($command == 'deposit') //deposit menu
 {
@@ -92,7 +95,7 @@ elseif ($command == 'deposit2') //deposit operation
 elseif ($command == 'transfer') //main transfer menu
 {
     include_once './includes/ibank_transfer.php';
-    ibank_transfer ($db);
+    ibank_transfer ($db, $langvars);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
@@ -117,7 +120,7 @@ elseif ($command == 'borrow') //borrow operation
 elseif ($command == 'repay') //repay operation
 {
     include_once './includes/ibank_repay.php';
-    ibank_repay ($db);
+    ibank_repay ($db, $langvars);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {

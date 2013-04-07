@@ -27,6 +27,8 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('teams'));
 $title = $langvars['l_team_title'];
 include './header.php';
 

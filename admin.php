@@ -23,7 +23,6 @@ include './config/admin_pw.php';
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'));
-
 $title = $langvars['l_admin_title'];
 
 function checked ($yesno)
@@ -101,6 +100,7 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
+$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'));
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
 $template->Display("admin.tpl");

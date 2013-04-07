@@ -23,11 +23,9 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_transfer.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_transfer ($db)
+function ibank_transfer ($db, $langvars)
 {
     global $playerinfo, $ibank_min_turns;
-    global $l_ibank_transfertype, $l_ibank_toanothership, $l_ibank_shiptransfer, $l_ibank_fromplanet, $l_ibank_source, $l_ibank_consolidate;
-    global $l_ibank_unnamed, $l_ibank_in, $l_ibank_none, $l_ibank_planettransfer, $l_ibank_back, $l_ibank_logout, $l_ibank_destination, $l_ibank_conspl;
 
     $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -45,10 +43,10 @@ function ibank_transfer ($db)
         $res->MoveNext();
     }
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_transfertype . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_transfertype'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<form action='igb.php?command=transfer2' method=post>" .
-         "<td>" . $l_ibank_toanothership . " :<br><br>" .
+         "<td>" . $langvars['l_ibank_toanothership'] . " :<br><br>" .
          "<select class=term name=ship_id style='width:200px;'>";
 
     foreach ($ships as $ship)
@@ -57,13 +55,13 @@ function ibank_transfer ($db)
     }
 
     echo "</select></td><td valign=center align=right>" .
-         "<input class=term type=submit name=shipt value='" . $l_ibank_shiptransfer . "'>" .
+         "<input class=term type=submit name=shipt value='" . $langvars['l_ibank_shiptransfer'] . "'>" .
          "</form>" .
          "</td></tr>" .
          "<tr valign=top>" .
-         "<td><br>" . $l_ibank_fromplanet . " :<br><br>" .
+         "<td><br>" . $langvars['l_ibank_fromplanet'] . " :<br><br>" .
          "<form action='igb.php?command=transfer2' method=post>" .
-         $l_ibank_source . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class=term name=splanet_id>";
+         $langvars['l_ibank_source'] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class=term name=splanet_id>";
 
     if (isset ($planets))
     {
@@ -71,17 +69,17 @@ function ibank_transfer ($db)
         {
             if (empty ($planet['name']))
             {
-                $planet['name'] = $l_ibank_unnamed;
+                $planet['name'] = $langvars['l_ibank_unnamed'];
             }
-            echo "<option value=" . $planet['planet_id'] . ">" . $planet['name'] . " " . $l_ibank_in . " " . $planet['sector_id'] . "</option>";
+            echo "<option value=" . $planet['planet_id'] . ">" . $planet['name'] . " " . $langvars['l_ibank_in'] . " " . $planet['sector_id'] . "</option>";
         }
     }
     else
     {
-        echo "<option value=none>" . $l_ibank_none . "</option>";
+        echo "<option value=none>" . $langvars['l_ibank_none'] . "</option>";
     }
 
-    echo "</select><br>" . $l_ibank_destination . "<select class=term name=dplanet_id>";
+    echo "</select><br>" . $langvars['l_ibank_destination'] . "<select class=term name=dplanet_id>";
 
     if (isset ($planets))
     {
@@ -89,26 +87,26 @@ function ibank_transfer ($db)
         {
             if (empty ($planet['name']))
             {
-                $planet['name'] = $l_ibank_unnamed;
+                $planet['name'] = $langvars['l_ibank_unnamed'];
             }
-            echo "<option value=" . $planet['planet_id'] . ">" . $planet['name'] . " " . $l_ibank_in . " " . $planet['sector_id'] . "</option>";
+            echo "<option value=" . $planet['planet_id'] . ">" . $planet['name'] . " " . $langvars['l_ibank_in'] . " " . $planet['sector_id'] . "</option>";
         }
     }
     else
     {
-        echo "<option value=none>" . $l_ibank_none . "</option>";
+        echo "<option value=none>" . $langvars['l_ibank_none'] . "</option>";
     }
 
     echo "</select></td><td valign=center align=right>" .
-         "<br><input class=term type=submit name=planett value='" . $l_ibank_planettransfer . "'>" .
+         "<br><input class=term type=submit name=planett value='" . $langvars['l_ibank_planettransfer'] . "'>" .
          "</td></tr>" .
          "</form>";
 
 // ---- begin Consol Credits form    // ---- added by Torr
     echo "<tr valign=top>" .
-         "<td><br>" . $l_ibank_conspl . " :<br><br>" .
+         "<td><br>" . $langvars['l_ibank_conspl'] . " :<br><br>" .
          "<form action='igb.php?command=consolidate' method=post>" .
-         $l_ibank_destination . " <select class=term name=dplanet_id>";
+         $langvars['l_ibank_destination'] . " <select class=term name=dplanet_id>";
 
     if (isset ($planets))
     {
@@ -116,24 +114,24 @@ function ibank_transfer ($db)
         {
             if (empty ($planet['name']))
             {
-                $planet['name'] = $l_ibank_unnamed;
+                $planet['name'] = $langvars['l_ibank_unnamed'];
             }
-            echo "<option value=" . $planet['planet_id'] . ">" . $planet['name'] . " " . $l_ibank_in . " " . $planet['sector_id'] . "</option>";
+            echo "<option value=" . $planet['planet_id'] . ">" . $planet['name'] . " " . $langvars['l_ibank_in'] . " " . $planet['sector_id'] . "</option>";
         }
     }
     else
     {
-        echo "<option value=none>" . $l_ibank_none . "</option>";
+        echo "<option value=none>" . $langvars['l_ibank_none'] . "</option>";
     }
 
     echo "</select></td><td valign=top align=right>" .
-         "<br><input class=term type=submit name=planetc value='" . $l_ibank_consolidate . "'>" .
+         "<br><input class=term type=submit name=planetc value='" . $langvars['l_ibank_consolidate'] . "'>" .
          "</td></tr>" .
          "</form>";
 // ---- End Consol Credits form ---
 
     echo "</form><tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";
 }
 ?>

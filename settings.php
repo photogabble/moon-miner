@@ -31,6 +31,9 @@ else
     $link = "?lang=" . $lang;
 }
 
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('main'));
+$title = $langvars['l_settings'];
 include './header.php';
 
 // Database driven language entries

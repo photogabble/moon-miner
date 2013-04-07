@@ -122,7 +122,7 @@ function xenobe_hunter ($db)
         {
             // Attack sector defences
             $targetlink = $targetinfo['sector'];
-            xenobe_to_sec_def ($db);
+            xenobe_to_sec_def ($db, $langvars);
         }
 
         if ($xenobeisdead > 0)

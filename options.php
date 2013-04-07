@@ -25,6 +25,9 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 $body_class = 'options';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('options'));
 $title = $langvars['l_opt_title'];
 include './header.php';
 

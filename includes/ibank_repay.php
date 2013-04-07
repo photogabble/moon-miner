@@ -23,28 +23,24 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_repay.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_repay ($db)
+function ibank_repay ($db, $langvars)
 {
-    global $playerinfo, $account, $amount;
-    global $l_ibank_notrepay, $l_ibank_notenoughrepay, $l_ibank_payloan;
-    global $l_ibank_shipaccount, $l_ibank_currentloan, $l_ibank_loanthanks;
-    global $l_ibank_invalidamount;
-    global $l_ibank_back, $l_ibank_logout;
+    global $playerinfo, $account, $amount, $langvars;
 
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
-        ibank_error ($l_ibank_invalidamount, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($amount <= 0)
     {
-        ibank_error ($l_ibank_invalidamount, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($account['loan'] == 0)
     {
-        ibank_error ($l_ibank_notrepay, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_notrepay'], "igb.php?command=loans");
     }
 
     if ($amount > $account['loan'])
@@ -54,27 +50,27 @@ function ibank_repay ($db)
 
     if ($amount > $playerinfo['credits'])
     {
-        ibank_error ($l_ibank_notenoughrepay, "igb.php?command=loans");
+        ibank_error ($langvars['l_ibank_notenoughrepay'], "igb.php?command=loans");
     }
 
     $playerinfo['credits'] -= $amount;
     $account['loan'] -= $amount;
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_payloan . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_payloan'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . $l_ibank_loanthanks . "</td>" .
-         "<tr valign=top>" .
-         "<td colspan=2 align=center>---------------------------------</td>" .
-         "<tr valign=top>" .
-         "<td>" . $l_ibank_shipaccount . " :</td><td nowrap align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
-         "<tr valign=top>" .
-         "<td>" . $l_ibank_payloan . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
-         "<tr valign=top>" .
-         "<td>" . $l_ibank_currentloan . " :</td><td nowrap align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<td colspan=2 align=center>" . $langvars['l_ibank_loanthanks'] . "</td>" .
          "<tr valign=top>" .
          "<td colspan=2 align=center>---------------------------------</td>" .
          "<tr valign=top>" .
-         "<td nowrap><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td>" . $langvars['l_ibank_shipaccount'] . " :</td><td nowrap align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<tr valign=top>" .
+         "<td>" . $langvars['l_ibank_payloan'] . " :</td><td nowrap align=right>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<tr valign=top>" .
+         "<td>" . $langvars['l_ibank_currentloan'] . " :</td><td nowrap align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" .
+         "<tr valign=top>" .
+         "<td colspan=2 align=center>---------------------------------</td>" .
+         "<tr valign=top>" .
+         "<td nowrap><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td nowrap align=right>&nbsp;<a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";
 
     $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET loan=loan - ?, loantime=? WHERE ship_id = ?", array ($amount, $account['loantime'], $playerinfo['ship_id']));

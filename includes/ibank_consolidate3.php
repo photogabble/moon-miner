@@ -33,7 +33,7 @@ function ibank_consolidate3 ($db)
     if (!$res || $res->EOF)
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($l_ibank_errunknownplanet, "igb.php?command=transfer");
+        ibank_error ($langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
     }
 
     $dest = $res->fields;
@@ -46,7 +46,7 @@ function ibank_consolidate3 ($db)
     if ($dest['owner'] != $playerinfo['ship_id'])
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($l_ibank_errnotyourplanet, "igb.php?command=transfer");
+        ibank_error ($langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
     }
 
     $minimum = preg_replace ("/[^0-9]/", "", $minimum);

@@ -24,6 +24,8 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('defence_report'));
 $title = $langvars['l_sdf_title'];
 include './header.php';
 

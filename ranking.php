@@ -35,9 +35,6 @@ $variables['color_line2'] = $color_line2;
 // Load required language variables for the ranking page.
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
 
-// Modify the requires language variables here.
-$langvars['l_ranks_title'] = str_replace ("[max_ranks]", $max_ranks, $langvars['l_ranks_title']);
-
 // Get requested ranking order.
 $sort = '';
 if (isset ($_GET['sort']))
@@ -144,6 +141,7 @@ if ($rs instanceof ADORecordSet)
 
             // Check for banned players.
             $ban_result = CheckBan::isBanned ($db, $lang, null, $row);
+
             if ($ban_result === false || (array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
             {
                 $row['banned'] = (boolean) false;
@@ -180,6 +178,12 @@ include_once './footer_t.php';
 
 $variables['container'] = "variable";
 $template->AddVariables ('variables', $variables);
+
+// Load required language variables for the ranking page.
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
+
+// Modify the requires language variables here.
+$langvars['l_ranks_title'] = str_replace ("[max_ranks]", $max_ranks, $langvars['l_ranks_title']);
 
 // Now add the loaded language variables into the Template API.
 $langvars['container'] = "langvar";

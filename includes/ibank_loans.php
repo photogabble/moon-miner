@@ -25,15 +25,12 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_loans.php')) // Prevent direct access t
 
 function ibank_loans ($db)
 {
-    global $playerinfo, $account;
-    global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest;
-    global $l_ibank_loanstatus,$l_ibank_shipaccount, $l_ibank_currentloan, $l_ibank_repay;
-    global $l_ibank_maxloanpercent, $l_ibank_loanamount, $l_ibank_borrow, $l_ibank_loanrates;
-    global $l_ibank_back, $l_ibank_logout, $ibank_lrate, $l_ibank_loantimeleft, $l_ibank_loanlate, $l_ibank_repayamount;
+    global $playerinfo, $account, $langvars;
+    global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest, $local_number_dec_point, $local_number_thousands_sep;
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_loanstatus . "<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td>" . $l_ibank_shipaccount . " :</td><td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>" .
-         "<tr valign=top><td>" . $l_ibank_currentloan . " :</td><td align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_loanstatus'] . "<br>---------------------------------</td></tr>" .
+         "<tr valign=top><td>" . $langvars['l_ibank_shipaccount'] . " :</td><td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>" .
+         "<tr valign=top><td>" . $langvars['l_ibank_currentloan'] . " :</td><td align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
 
     if ($account['loan'] != 0)
     {
@@ -47,11 +44,11 @@ function ibank_loans ($db)
 
         $difftime = ($curtime - $time['time']) / 60;
 
-        echo "<tr valign=top><td nowrap>" . $l_ibank_loantimeleft . " :</td>";
+        echo "<tr valign=top><td nowrap>" . $langvars['l_ibank_loantimeleft'] . " :</td>";
 
         if ($difftime > $ibank_lrate)
         {
-            echo "<td align=right>" . $l_ibank_loanlate . "</td></tr>";
+            echo "<td align=right>" . $langvars['l_ibank_loanlate'] . "</td></tr>";
         }
         else
         {
@@ -65,16 +62,16 @@ function ibank_loans ($db)
         $factor = $ibank_loanfactor *= 100;
         $interest = $ibank_loaninterest *= 100;
 
-        $l_ibank_loanrates = str_replace ("[factor]", $factor, $l_ibank_loanrates);
-        $l_ibank_loanrates = str_replace ("[interest]", $interest, $l_ibank_loanrates);
+        $langvars['l_ibank_loanrates'] = str_replace ("[factor]", $factor, $langvars['l_ibank_loanrates']);
+        $langvars['l_ibank_loanrates'] = str_replace ("[interest]", $interest, $langvars['l_ibank_loanrates']);
 
         echo "<form action='igb.php?command=repay' method=post>" .
              "<tr valign=top>" .
-             "<td><br>" . $l_ibank_repayamount . " :</td>" .
+             "<td><br>" . $langvars['l_ibank_repayamount'] . " :</td>" .
              "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
-             "<br><input class=term type=submit value='" . $l_ibank_repay . "'></td>" .
+             "<br><input class=term type=submit value='" . $langvars['l_ibank_repay'] . "'></td>" .
              "</form>" .
-             "<tr><td colspan=2 align=center>" . $l_ibank_loanrates;
+             "<tr><td colspan=2 align=center>" . $langvars['l_ibank_loanrates'];
     }
     else
     {
@@ -83,26 +80,26 @@ function ibank_loans ($db)
         $score = calc_score ($db, $playerinfo['ship_id']);
         $maxloan = $score * $score * $ibank_loanlimit;
 
-        $l_ibank_maxloanpercent = str_replace ("[ibank_percent]", $percent, $l_ibank_maxloanpercent);
-        echo "<tr valign=top><td nowrap>" . $l_ibank_maxloanpercent . " :</td><td align=right>" . number_format ($maxloan, 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
+        $langvars['l_ibank_maxloanpercent'] = str_replace ("[ibank_percent]", $percent, $langvars['l_ibank_maxloanpercent']);
+        echo "<tr valign=top><td nowrap>" . $langvars['l_ibank_maxloanpercent'] . " :</td><td align=right>" . number_format ($maxloan, 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
 
         $factor = $ibank_loanfactor *= 100;
         $interest = $ibank_loaninterest *= 100;
 
-        $l_ibank_loanrates = str_replace ("[factor]", $factor, $l_ibank_loanrates);
-        $l_ibank_loanrates = str_replace ("[interest]", $interest, $l_ibank_loanrates);
+        $langvars['l_ibank_loanrates'] = str_replace ("[factor]", $factor, $langvars['l_ibank_loanrates']);
+        $langvars['l_ibank_loanrates'] = str_replace ("[interest]", $interest, $langvars['l_ibank_loanrates']);
 
         echo "<form action='igb.php?command=borrow' method=post>" .
              "<tr valign=top>" .
-             "<td><br>" . $l_ibank_loanamount . " :</td>" .
+             "<td><br>" . $langvars['l_ibank_loanamount'] . " :</td>" .
              "<td align=right><br><input class=term type=text size=15 maxlength=20 name=amount value=0><br>" .
-             "<br><input class=term type=submit value='" . $l_ibank_borrow . "'></td>" .
+             "<br><input class=term type=submit value='" . $langvars['l_ibank_borrow'] . "'></td>" .
              "</form>" .
-             "<tr><td colspan=2 align=center>" . $l_ibank_loanrates;
+             "<tr><td colspan=2 align=center>" . $langvars['l_ibank_loanrates'];
     }
 
     echo "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";
 }
 ?>

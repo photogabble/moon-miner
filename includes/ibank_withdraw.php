@@ -23,25 +23,23 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_withdraw ()
+function ibank_withdraw ($langvars)
 {
     global $playerinfo, $account;
-    global $l_ibank_withdrawfunds, $l_ibank_fundsavailable, $l_ibank_selwithdrawamount;
-    global $l_ibank_withdraw, $l_ibank_back, $l_ibank_logout;
 	global $local_number_thousands_sep, $local_number_dec_point;
 
-    echo "<tr><td colspan=2 align=center valign=top>" . $l_ibank_withdrawfunds . "<br>---------------------------------</td></tr>" .
+    echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_withdrawfunds'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td>" . $l_ibank_fundsavailable . ":</td>" .
+         "<td>" . $langvars['l_ibank_fundsavailable'] . ":</td>" .
          "<td align=right>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) ." C<br></td>" .
          "</tr><tr valign=top>" .
-         "<td>" . $l_ibank_selwithdrawamount . ":</td><td align=right>" .
+         "<td>" . $langvars['l_ibank_selwithdrawamount'] . ":</td><td align=right>" .
          "<form action='igb.php?command=withdraw2' method=post>" .
          "<input class=term type=text size=15 maxlength=20 name=amount value=0>" .
-         "<br><br><input class=term type=submit value='" . $l_ibank_withdraw . "'>" .
+         "<br><br><input class=term type=submit value='" . $langvars['l_ibank_withdraw'] . "'>" .
          "</form></td></tr>" .
          "<tr valign=bottom>" .
-         "<td><a href='igb.php?command=login'>" . $l_ibank_back . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $l_ibank_logout . "</a></td>" .
+         "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";
 }
 ?>

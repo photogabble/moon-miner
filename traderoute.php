@@ -25,6 +25,8 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('traderoutes'));
 $title = $langvars['l_tdr_title'];
 include './header.php';
 
