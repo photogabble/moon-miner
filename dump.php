@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_dump_title;
+$title = $langvars['l_dump_title'];
 include './header.php';
 
 // Database driven language entries
@@ -39,7 +39,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_dump_turn  . "<br><br>";
+    echo $langvars['l_dump_turn']  . "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
@@ -47,16 +47,16 @@ if ($playerinfo['turns'] < 1)
 
 if ($playerinfo['ship_colonists'] == 0)
 {
-    echo $l_dump_nocol . "<br><br>";
+    echo $langvars['l_dump_nocol'] . "<br><br>";
 }
 elseif ($sectorinfo['port_type'] == "special")
 {
     $update = $db->Execute ("UPDATE {$db->prefix}ships SET ship_colonists = 0, turns = turns - 1, turns_used = turns_used + 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-    echo $l_dump_dumped . "<br><br>";
+    echo $langvars['l_dump_dumped'] . "<br><br>";
 }
 else
 {
-    echo $l_dump_nono . "<br><br>";
+    echo $langvars['l_dump_nono'] . "<br><br>";
 }
 
 BntText::gotoMain ($db, $lang, $langvars);

@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_move_title;
+$title = $langvars['l_move_title'];
 include './header.php';
 
 // Database driven language entries
@@ -41,7 +41,7 @@ $playerinfo = $result->fields;
 // and if so return to the main menu
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_move_turn . '<br><br>';
+    echo $langvars['l_move_turn'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
@@ -110,7 +110,7 @@ if ($flag == 1)
 }
 else
 {
-    echo $l_move_failed . '<br><br>';
+    echo $langvars['l_move_failed'] . '<br><br>';
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     BntText::gotoMain ($db, $lang, $langvars);

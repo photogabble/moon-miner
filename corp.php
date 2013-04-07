@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_corpm_title;
+$title = $langvars['l_corpm_title'];
 include './header.php';
 
 // Database driven language entries
@@ -48,7 +48,7 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
     echo "<h1>" . $title . "</h1>\n";
     if ($action == "planetcorp")
     {
-        echo $l_corpm_tocorp . "<br>";
+        echo $langvars['l_corpm_tocorp'] . "<br>";
         $result = $db->Execute ("UPDATE {$db->prefix}planets SET corp=?, owner=? WHERE planet_id = ?;", array ($playerinfo['team'], $playerinfo['ship_id'], $planet_id));
         DbOp::dbResult ($db, $result, __LINE__, __FILE__);
         $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
@@ -61,7 +61,7 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
 
     if ($action == "planetpersonal")
     {
-        echo $l_corpm_topersonal . "<br>";
+        echo $langvars['l_corpm_topersonal'] . "<br>";
         $result = $db->Execute ("UPDATE {$db->prefix}planets SET corp='0', owner = ? WHERE planet_id = ?;", array ($playerinfo['ship_id'], $planet_id));
         DbOp::dbResult ($db, $result, __LINE__, __FILE__);
         $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
@@ -78,7 +78,7 @@ if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $p
 }
 else
 {
-    echo "<br>" . $l_corpm_exploit . "<br>";
+    echo "<br>" . $langvars['l_corpm_exploit'] . "<br>";
     BntText::gotoMain ($db, $lang, $langvars);
 }
 

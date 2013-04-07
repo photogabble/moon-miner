@@ -38,7 +38,7 @@ $log_list = array (null,
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
-$title = $l_log_titlet;
+$title = $langvars['l_log_titlet'];
 $body_class = 'log';
 
 include './header.php';
@@ -85,7 +85,7 @@ elseif ($mode == 'moz')
 echo '<center>';
 echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
 
-$logline = str_replace ("[player]", "$playerinfo[character_name]", $l_log_log);
+$logline = str_replace ("[player]", "$playerinfo[character_name]", $langvars['l_log_log']);
 ?>
 
 <tr><td><td width=100%><td></tr>
@@ -121,14 +121,14 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 
-$l_log_months_temp = "l_log_months_" . (int) (substr ($startdate, 5, 2) );
+$langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr ($startdate, 5, 2) );
 $entry = $$l_log_months_temp . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
      "\n<div id=\"dynPage0\" class=\"dynPage\">" .
      "<center>" .
      "<br>" .
-     "<font size=2 color=#DEDEEF><strong>$l_log_start $entry<strong></font>" .
+     "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_start'] . " " . $entry . "<strong></font>" .
      "<p>" .
      "<hr width=80% size=1 NOSHADE style=\"color: #040658\">" .
      "</center>\n";
@@ -156,7 +156,7 @@ if (!empty ($logs) )
 
 echo "<center>" .
      "<br>" .
-     "<font size=2 color=#DEDEEF><strong>$l_log_end $entry<strong></font>" .
+     "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_end'] . " " . $entry . "<strong></font>" .
      "<p>" .
      "</center>" .
      "</div>\n";
@@ -202,7 +202,7 @@ if ($mode != 'compat')
     echo "<div id=\"dynPage1\" class=\"dynPage\">" .
          "<center>" .
          "<br>" .
-         "<font size=2 color=#DEDEEF><strong>$l_log_start $entry<strong></font>" .
+         "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_start'] . " " . $entry . "<strong></font>" .
          "<p>" .
          "</center>" .
          "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
@@ -227,7 +227,7 @@ if ($mode != 'compat')
 
     echo "<center>" .
          "<br>" .
-         "<font size=2 color=#DEDEEF><strong>$l_log_end $entry<strong></font>" .
+         "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_end'] . " " . $entry . "<strong></font>" .
          "<p>" .
          "</center>" .
          "</div>\n";
@@ -247,7 +247,7 @@ if ($mode != 'compat')
     echo "<div id=\"dynPage2\" class=\"dynPage\">" .
          "<center>" .
          "<br>" .
-         "<font size=2 color=#DEDEEF><strong>$l_log_start $entry<strong></font>" .
+         "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_start'] . " " . $entry . "<strong></font>" .
          "<p>" .
          "</center>" .
          "<hr width=80% size=1 NOSHADE style=\"color: #040658\">";
@@ -276,7 +276,7 @@ if ($mode != 'compat')
 
     echo "<center>" .
          "<br>" .
-         "<font size=2 color=#DEDEEF><strong>$l_log_end $entry<strong></font>" .
+         "<font size=2 color=#DEDEEF><strong>" . $langvars['l_log_end'] . " " . $entry . "<strong></font>" .
          "<p>" .
          "</center>" .
          "</div>";
@@ -285,13 +285,13 @@ if ($mode != 'compat')
 
 echo "</div>";
 
-$l_log_months_short_temp = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2) );
+$langvars['l_log_months_short_temp'] = "l_log_months_short_" . date ("n", $yd1);// (int) (substr ($startdate, 5, 2) );
 $date1 = $$l_log_months_short_temp . " " . date ("d", $yd1);//substr ($yesterday1, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
+$langvars['l_log_months_short_temp'] = "l_log_months_short_" . date ("n", $start_time);//(int) (substr ($startdate, 5, 2));
 $date2 = $$l_log_months_short_temp . " " . date ("d", $start_time);//substr ($startdate, 8, 2);
 
-$l_log_months_short_temp = "l_log_months_short_" . date ("n", $tm);// (int) (substr ($startdate, 5, 2));
+$langvars['l_log_months_short_temp'] = "l_log_months_short_" . date ("n", $tm);// (int) (substr ($startdate, 5, 2));
 $date3 = $$l_log_months_short_temp . " " . date ("d", $tm);//substr ($tomorrow, 8, 2);
 
 $month = substr ($startdate, 5, 2);
@@ -375,14 +375,14 @@ if ($swordfish == ADMIN_PW)
 }
 else
 {
-    $l_log_click = str_replace ("[here]", "<a href=main.php><font color=#00ff00>" . $l_here . "</font></a>", $l_log_click);
-    echo "<tr><td><td style='text-align:left;'><p style='font-size:2;'>$l_log_click</p></td></tr>";
+    $langvars['l_log_click'] = str_replace ("[here]", "<a href=main.php><font color=#00ff00>" . $langvars['l_here'] . "</font></a>", $langvars['l_log_click']);
+    echo "<tr><td><td style='text-align:left;'><p style='font-size:2;'>" . $langvars['l_log_click'] . "</p></td></tr>";
 }
 
 if ($mode != 'compat')
 {
-    $l_log_note = str_replace ("[disable them]", "<a href=options.php><font color=#00FF00>" . $l_log_note_disable . "</font></a>", $l_log_note);
-    echo "<tr><td><td align=center><br><font size=2 color=white>$l_log_note</td></tr>";
+    $langvars['l_log_note'] = str_replace ("[disable them]", "<a href=options.php><font color=#00FF00>" . $langvars['l_log_note_disable'] . "</font></a>", $langvars['l_log_note']);
+    echo "<tr><td><td align=center><br><font size=2 color=white>" . $langvars['l_log_note'] . "</td></tr>";
 }
 
 echo "</table></center>";
@@ -390,11 +390,7 @@ include './footer.php';
 
 function log_parse ($entry)
 {
-    global $l_log_title;
-    global $l_log_text;
-    global $l_log_pod;
-    global $l_log_nopod;
-    $l_log_nopod = "<font color=yellow><strong>" . $l_log_nopod . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
+    $langvars['l_log_nopod'] = "<font color=yellow><strong>" . $langvars['l_log_nopod'] . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
 
     get_log_info ($entry['type'], $titletemp, $texttemp);
 
@@ -429,9 +425,9 @@ function log_parse ($entry)
     $retvalue['title'] = $titletemp;
     $retvalue['title'] = "<font color=red>" . $retvalue['title'] . "</font>";
     if ($pod == 'Y')
-      $retvalue['text'] = $retvalue['text'] . $l_log_pod;
+      $retvalue['text'] = $retvalue['text'] . $langvars['l_log_pod'];
     else
-      $retvalue['text'] = $retvalue['text'] . $l_log_nopod;
+      $retvalue['text'] = $retvalue['text'] . $langvars['l_log_nopod'];
     break;
 
     case LOG_ATTACKED_WIN: //data args for text are : [player] [armor] [fighters]
@@ -465,9 +461,9 @@ function log_parse ($entry)
     $retvalue['title'] = $titletemp;
     $retvalue['title'] = "<font color=red>" . $retvalue['title'] . "</font>";
     if ($pod == 'Y')
-      $retvalue['text'] = $retvalue['text'] . $l_log_pod;
+      $retvalue['text'] = $retvalue['text'] . $langvars['$l_log_pod'];
     else
-      $retvalue['text'] = $retvalue['text'] . $l_log_nopod;
+      $retvalue['text'] = $retvalue['text'] . $langvars['l_log_nopod'];
     break;
 
     case LOG_DEFS_KABOOM: //data args are : [sector] [pod]
@@ -476,9 +472,9 @@ function log_parse ($entry)
     $retvalue['title'] = $titletemp;
     $retvalue['title'] = "<font color=red>" . $retvalue['title'] . "</font>";
     if ($pod == 'Y')
-      $retvalue['text'] = $retvalue['text'] . $l_log_pod;
+      $retvalue['text'] = $retvalue['text'] . $langvars['l_log_pod'];
     else
-      $retvalue['text'] = $retvalue['text'] . $l_log_nopod;
+      $retvalue['text'] = $retvalue['text'] . $langvars['l_log_nopod'];
     break;
 
     case LOG_PLANET_DEFEATED_D: //data args are :[planet_name] [sector] [name]

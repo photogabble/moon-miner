@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_md_title;
+$title = $langvars['l_md_title'];
 include './header.php';
 
 // Database driven language entries
@@ -32,7 +32,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('modify_defences', 'common', 
 
 if (!isset ($defence_id))
 {
-    echo $l_md_invalid . "<br><br>";
+    echo $langvars['l_md_invalid'] . "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
@@ -54,7 +54,7 @@ $sectorinfo = $res->fields;
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_md_noturn . "<br><br>";
+    echo $langvars['l_md_noturn'] . "<br><br>";
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
@@ -66,7 +66,7 @@ DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
 
 if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on this.
 {
-   echo $l_md_nolonger . "<br>";
+   echo $langvars['l_md_nolonger'] . "<br>";
    BntText::gotoMain ($db, $lang, $langvars);
    die ();
 }
@@ -74,7 +74,7 @@ if (!$result3 instanceof ADORecordSet) // Not too sure, may need more checks on 
 $defenceinfo = $result3->fields;
 if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 {
-   echo $l_md_nothere . "<br><br>";
+   echo $langvars['l_md_nothere'] . "<br><br>";
    BntText::gotoMain ($db, $lang, $langvars);
    include './footer.php';
    die ();
@@ -82,7 +82,7 @@ if ($defenceinfo['sector_id'] != $playerinfo['sector'])
 
 if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
 {
-    $defence_owner = $l_md_you;
+    $defence_owner = $langvars['l_md_you'];
 }
 else
 {
@@ -92,7 +92,7 @@ else
     $defence_owner = $ownerinfo['character_name'];
 }
 
-$defence_type = $defenceinfo['defence_type'] == 'F' ? $l_fighters : $l_mines;
+$defence_type = $defenceinfo['defence_type'] == 'F' ? $langvars['l_fighters'] : $langvars['l_mines'];
 $qty = $defenceinfo['quantity'];
 if ($defenceinfo['fm_setting'] == 'attack')
 {
@@ -111,7 +111,7 @@ switch ($response)
       echo "<h1>" . $title . "</h1>\n";
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
-         echo "$l_md_yours<br><br>";
+         echo $langvars['l_md_yours'] . "<br><br>";
          BntText::gotoMain ($db, $lang, $langvars);
          include './footer.php';
          die ();
@@ -140,14 +140,14 @@ switch ($response)
          {
              $playerbeams = $total_sector_mines;
          }
-         echo "$l_md_bmines $playerbeams $l_mines<br>";
+         echo $langvars['l_md_bmines'] . " " . $playerbeams . " " . $langvars['l_mines'] . "<br>";
          $update4b = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ship_energy - ? WHERE ship_id = ?;", array ($playerbeams, $playerinfo['ship_id']));
          BntMines::explode ($db, $sector, $playerbeams);
          $char_name = $playerinfo['character_name'];
-         $l_md_msgdownerb=str_replace ("[sector]", $sector, $l_md_msgdownerb);
-         $l_md_msgdownerb=str_replace ("[mines]", $playerbeams, $l_md_msgdownerb);
-         $l_md_msgdownerb=str_replace ("[name]", $char_name, $l_md_msgdownerb);
-         SectorDefense::message_defense_owner ($db, $sector,"$l_md_msgdownerb");
+         $langvars['l_md_msgdownerb'] = str_replace ("[sector]", $sector, $langvars['l_md_msgdownerb']);
+         $langvars['l_md_msgdownerb'] = str_replace ("[mines]", $playerbeams, $langvars['l_md_msgdownerb']);
+         $langvars['l_md_msgdownerb'] = str_replace ("[name]", $char_name, $langvars['l_md_msgdownerb']);
+         SectorDefense::message_defense_owner ($db, $sector, $langvars['l_md_msgdownerb']);
          BntText::gotoMain ($db, $lang, $langvars);
          die ();
       }
@@ -155,7 +155,7 @@ switch ($response)
    case "retrieve":
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
-         echo "$l_md_notyours<br><br>";
+         echo $langvars['l_md_notyours'] . "<br><br>";
          BntText::gotoMain ($db, $lang, $langvars);
          include './footer.php';
          die ();
@@ -200,7 +200,7 @@ switch ($response)
 
       $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       echo "<h1>" . $title . "</h1>\n";
-      echo "$l_md_retr $quantity $defence_type.<br>";
+      echo $langvars['l_md_retr'] . " " . $quantity . " " . $defence_type . ".<br>";
       BntText::gotoMain ($db, $lang, $langvars);
       die ();
       break;
@@ -208,7 +208,7 @@ switch ($response)
       echo "<h1>" . $title . "</h1>\n";
       if ($defenceinfo['ship_id'] != $playerinfo['ship_id'])
       {
-         echo "$l_md_notyours<br><br>";
+         echo $langvars['l_md_notyours'] . "<br><br>";
          BntText::gotoMain ($db, $lang, $langvars);
          include './footer.php';
          die ();
@@ -218,41 +218,41 @@ switch ($response)
       $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       if ($mode == 'attack')
       {
-        $mode = $l_md_attack;
+        $mode = $langvars['l_md_attack'];
       }
       else
       {
-        $mode = $l_md_toll;
+        $mode = $langvars['l_md_toll'];
       }
 
-      $l_md_mode=str_replace ("[mode]",$mode,$l_md_mode);
-      echo "$l_md_mode<br>";
+      $langvars['l_md_mode'] = str_replace ("[mode]", $mode, $langvars['l_md_mode']);
+      echo $langvars['l_md_mode'] . "<br>";
       BntText::gotoMain ($db, $lang, $langvars);
       die ();
       break;
    default:
       echo "<h1>" . $title . "</h1>\n";
-      $l_md_consist = str_replace ("[qty]", $qty, $l_md_consist);
-      $l_md_consist = str_replace ("[type]", $defence_type, $l_md_consist);
-      $l_md_consist = str_replace ("[owner]", $defence_owner, $l_md_consist);
-      echo "$l_md_consist<br>";
+      $langvars['l_md_consist'] = str_replace ("[qty]", $qty, $langvars['l_md_consist']);
+      $langvars['l_md_consist'] = str_replace ("[type]", $defence_type, $langvars['l_md_consist']);
+      $langvars['l_md_consist'] = str_replace ("[owner]", $defence_owner, $langvars['l_md_consist']);
+      echo $langvars['l_md_consist'] . "<br>";
 
       if ($defenceinfo['ship_id'] == $playerinfo['ship_id'])
       {
-         echo "$l_md_youcan:<br>";
+         echo $langvars['l_md_youcan'] . ":<br>";
          echo "<form action=modify_defences.php method=post>";
-         echo "$l_md_retrieve <input type=test name=quantity size=10 maxlength=10 value=0></input> $defence_type<br>";
+         echo $langvars['l_md_retrieve'] . " <input type=test name=quantity size=10 maxlength=10 value=0></input> $defence_type<br>";
          echo "<input type=hidden name=response value=retrieve>";
          echo "<input type=hidden name=defence_id value=$defence_id>";
-         echo "<input type=submit value=$l_submit><br><br>";
+         echo "<input type=submit value=" . $langvars['l_submit'] . "><br><br>";
          echo "</form>";
          if ($defenceinfo['defence_type'] == 'F')
          {
-            echo "$l_md_change:<br>";
+            echo $langvars['l_md_change'] . ":<br>";
             echo "<form action=modify_defences.php method=post>";
-            echo "$l_md_cmode <input type=radio name=mode $set_attack value=attack>$l_md_attack</input>";
-            echo "<input type=radio name=mode $set_toll value=toll>$l_md_toll</input><br>";
-            echo "<input type=submit value=$l_submit><br><br>";
+            echo $langvars['l_md_cmode'] . " <input type=radio name=mode $set_attack value=attack>" . $langvars['l_md_attack'] . "</input>";
+            echo "<input type=radio name=mode $set_toll value=toll>" . $langvars['l_md_toll'] . "</input><br>";
+            echo "<input type=submit value=" . $langvars['l_submit'] . "><br><br>";
             echo "<input type=hidden name=response value=change>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
             echo "</form>";
@@ -265,9 +265,9 @@ switch ($response)
 
          if ($fighters_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0)
          {
-            echo "$l_md_youcan:<br>";
+            echo $langvars['l_md_youcan'] . ":<br>";
             echo "<form action=modify_defences.php method=post>";
-            echo "$l_md_attdef<br><input type=submit value=$l_md_attack></input><br>";
+            echo $langvars['l_md_attdef'] . "<br><input type=submit value=" . $langvars['l_md_attack'] . "></input><br>";
             echo "<input type=hidden name=response value=fight>";
             echo "<input type=hidden name=defence_id value=$defence_id>";
             echo "</form>";

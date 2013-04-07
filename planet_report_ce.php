@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_pr_title;
+$title = $langvars['l_pr_title'];
 include './header.php';
 
 // Database driven language entries
@@ -54,7 +54,7 @@ BntText::gotoMain ($db, $lang, $langvars);
 function go_build_base ($db, $planet_id, $sector_id)
 {
     global $base_ore, $base_organics, $base_goods, $base_credits;
-    global $l_planet_bbuild, $langvars;
+    global $langvars;
 
     echo "<br>";
     echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_status']);
@@ -113,7 +113,7 @@ function go_build_base ($db, $planet_id, $sector_id)
         $planetinfo = $result3->fields;
 
         // Notify User Of Base Results
-        echo $l_planet_bbuild . "<br><br>";
+        echo $langvars['l_planet_bbuild'] . "<br><br>";
 
         // Calc Ownership and Notify User Of Results
         $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
@@ -227,7 +227,7 @@ function change_planet_production ($db, $prodpercentarray)
 //  This should patch the game from being hacked with planet Hack.
 
     global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
-    global $l_unnamed, $langvars;
+    global $langvars;
 
     $result = $db->Execute ("SELECT ship_id, team FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     DbOp::dbResult ($db, $result, __LINE__, __FILE__);
@@ -342,7 +342,7 @@ function change_planet_production ($db, $prodpercentarray)
         {
             if (empty ($planet['name']))
             {
-                $planet['name'] = $l_unnamed;
+                $planet['name'] = $langvars['l_unnamed'];
             }
 
             if ($planet['prod_ore'] < 0)
@@ -405,7 +405,7 @@ function change_planet_production ($db, $prodpercentarray)
 
 function take_credits ($db, $sector_id, $planet_id)
 {
-    global $l_unnamed, $langvars;
+    global $langvars;
 
     // Get basic Database information (ship and planet)
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -419,7 +419,7 @@ function take_credits ($db, $sector_id, $planet_id)
     // Set the name for unamed planets to be "unnamed"
     if (empty ($planetinfo['name']))
     {
-        $planet['name'] = $l_unnamed;
+        $planet['name'] = $langvars['l_unnamed'];
     }
 
     // Verify player is still in same sector as the planet
@@ -482,7 +482,7 @@ function take_credits ($db, $sector_id, $planet_id)
 function real_space_move ($db, $destination)
 {
     global $level_factor, $mine_hullsize;
-    global $l_rs_ready, $l_rs_movetime, $l_rs_noturns, $langvars;
+    global $langvars;
 
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -556,9 +556,9 @@ function real_space_move ($db, $destination)
 
     if ($triptime > $playerinfo['turns'])
     {
-        $l_rs_movetime = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_movetime);
-        echo $l_rs_movetime . "<br><br>";
-        echo $l_rs_noturns;
+        $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_movetime']);
+        echo $langvars['l_rs_movetime'] . "<br><br>";
+        echo $langvars['l_rs_noturns'];
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
@@ -607,11 +607,11 @@ function real_space_move ($db, $destination)
             $stamp = date ("Y-m-d H-i-s");
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-            $l_rs_ready_result = '';
-            $l_rs_ready_result = str_replace ("[sector]", $destination, $l_rs_ready);
-            $l_rs_ready_result = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready_result);
-            $l_rs_ready_result = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $l_rs_ready_result);
-            echo $l_rs_ready_result . "<br>";
+            $langvars['l_rs_ready_result'] = '';
+            $langvars['l_rs_ready_result'] = str_replace ("[sector]", $destination, $langvars['l_rs_ready']);
+            $langvars['l_rs_ready_result'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready_result']);
+            $langvars['l_rs_ready_result'] = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready_result']);
+            echo $langvars['l_rs_ready_result'] . "<br>";
             $retval = "GO";
         }
     }

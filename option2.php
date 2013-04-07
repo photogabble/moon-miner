@@ -117,7 +117,7 @@ else
         else
         {
             // The oldpass did not match the players password.
-            echo $l_opt2_srcpassfalse . "<br><br>";
+            echo $langvars['l_opt2_srcpassfalse'] . "<br><br>";
         }
     }
 }

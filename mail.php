@@ -32,30 +32,30 @@ DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 if (!$result->EOF)
 {
     $playerinfo = $result->fields;
-    $l_mail_message = str_replace ("[pass]", $playerinfo['password'], $l_mail_message);
-    $l_mail_message = str_replace ("[name]", $playerinfo['character_name'], $l_mail_message);
-    $l_mail_message = str_replace ("[ip]", $ip, $l_mail_message);
-    $l_mail_message = str_replace ("[game_name]", $game_name, $l_mail_message);
+    $langvars['l_mail_message'] = str_replace ("[pass]", $playerinfo['password'], $langvars['l_mail_message']);
+    $langvars['l_mail_message'] = str_replace ("[name]", $playerinfo['character_name'], $langvars['l_mail_message']);
+    $langvars['l_mail_message'] = str_replace ("[ip]", $ip, $langvars['l_mail_message']);
+    $langvars['l_mail_message'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_message']);
 
     # Some reason \r\n is broken, so replace them now.
-    $l_mail_message = str_replace ('\r\n', "\r\n", $l_mail_message);
+    $langvars['l_mail_message'] = str_replace ('\r\n', "\r\n", $langvars['l_mail_message']);
 
     # Need to set the topic with the game name.
-    $l_mail_topic = str_replace ("[game_name]", $game_name, $l_mail_topic);
+    $langvars['l_mail_topic'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_topic']);
 
     $link_to_game = "http://";
     $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
     $link_to_game .= $gamepath;
 
-    mail ($playerinfo['email'], $l_mail_topic, "$l_mail_message\r\n\r\n{$link_to_game}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
-    echo "<div style='color:#fff; width:400px; text-align:left; padding:6px;'>{$l_mail_sent} <span style='color:#0f0;'>{$mail}</span></div>\n";
+    mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'] . "\r\n\r\n{$link_to_game}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
+    echo "<div style='color:#fff; width:400px; text-align:left; padding:6px;'>" . $langvars['l_mail_sent'] . " <span style='color:#0f0;'>{$mail}</span></div>\n";
     echo "<br>\n";
     echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 }
 else
 {
-    $l_mail_noplayer = str_replace ("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>", $langvars['l_mail_noplayer']);
-    echo "<div style='color:#FFF; width:400px; text-align:left; font-size:12px; padding:6px;'>{$l_mail_noplayer}</div>\n";
+    $langvars['l_mail_noplayer'] = str_replace ("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>", $langvars['l_mail_noplayer']);
+    echo "<div style='color:#FFF; width:400px; text-align:left; font-size:12px; padding:6px;'>" . $langvars['l_mail_noplayer'] . "</div>\n";
 
     echo "<br>\n";
     if (isset ($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)

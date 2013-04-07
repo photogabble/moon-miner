@@ -25,7 +25,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 $body_class = 'options';
-$title = $l_opt_title;
+$title = $langvars['l_opt_title'];
 include './header.php';
 
 // Database driven language entries
@@ -38,25 +38,25 @@ $playerinfo = $res->fields;
 echo "<form action=option2.php method=post>";
 echo "<table>";
 echo "<tr>";
-echo "<th colspan=2><strong>$l_opt_chpass</strong></th>";
+echo "<th colspan=2><strong>" . $langvars['l_opt_chpass'] . "</strong></th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>$l_opt_curpass</td>";
+echo "<td>" . $langvars['l_opt_curpass'] . "</td>";
 echo "<td><input type=password name=oldpass size=20 maxlength=20 value=\"\"></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>$l_opt_newpass</td>";
+echo "<td>" . $langvars['l_opt_newpass'] . "</td>";
 echo "<td><input type=password name=newpass1 size=20 maxlength=20 value=\"\"></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>$l_opt_newpagain</td>";
+echo "<td>" . $langvars['l_opt_newpagain'] . "</td>";
 echo "<td><input type=password name=newpass2 size=20 maxlength=20 value=\"\"></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<th colspan=2><strong>$l_opt_lang</strong></th>";
+echo "<th colspan=2><strong>" . $langvars['l_opt_lang'] . "</strong></th>";
 echo "</tr>";
 echo "<tr>";
-echo "<td>$l_opt_select</td><td><select name=newlang>";
+echo "<td>" . $langvars['l_opt_select'] . "</td><td><select name=newlang>";
 
 foreach ($avail_lang as $curlang)
 {
@@ -75,7 +75,7 @@ echo "</select></td>";
 echo "</tr>";
 echo "</table>";
 echo "<br>";
-echo "<input type=submit value=$l_opt_save>";
+echo "<input type=submit value=" . $langvars['l_opt_save'] . ">";
 echo "</form><br>";
 
 BntText::gotoMain ($db, $lang, $langvars);

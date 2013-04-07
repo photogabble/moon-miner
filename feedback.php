@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_feedback_title;
+$title = $langvars['l_feedback_title'];
 include './header.php';
 
 // Database driven language entries
@@ -39,22 +39,22 @@ if (array_key_exists ('content', $_POST) === false)
 {
     echo "<form action=feedback.php method=post>\n";
     echo "<table>\n";
-    echo "<tr><td>$l_feedback_to</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=GameAdmin></td></tr>\n";
-    echo "<tr><td>$l_feedback_from</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=\"$playerinfo[character_name] - $playerinfo[email]\"></td></tr>\n";
-    echo "<tr><td>$l_feedback_topi</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=$l_feedback_feedback></td></tr>\n";
-    echo "<tr><td>$l_feedback_message</td><td><textarea name=content rows=5 cols=40></textarea></td></tr>\n";
-    echo "<tr><td></td><td><input type=submit value=$l_submit><input type=reset value=$l_reset></td>\n";
+    echo "<tr><td>" . $langvars['l_feedback_to'] . "</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=GameAdmin></td></tr>\n";
+    echo "<tr><td>" . $langvars['l_feedback_from'] . "</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=\"$playerinfo[character_name] - $playerinfo[email]\"></td></tr>\n";
+    echo "<tr><td>" . $langvars['l_feedback_topi'] . "</td><td><input disabled type=text name=dummy size=40 maxlength=40 value=" . $langvars['l_feedback_feedback'] . "></td></tr>\n";
+    echo "<tr><td>" . $langvars['l_feedback_message'] . "</td><td><textarea name=content rows=5 cols=40></textarea></td></tr>\n";
+    echo "<tr><td></td><td><input type=submit value=" . $langvars['l_submit'] . "><input type=reset value=" . $langvars['l_reset'] . "></td>\n";
     echo "</table>\n";
     echo "</form>\n";
-    echo "<br>$l_feedback_info<br>\n";
+    echo "<br>" . $langvars['l_feedback_info'] . "<br>\n";
 }
 else
 {
     $link_to_game = "http://";
     $link_to_game .= ltrim ($gamedomain,".");// Trim off the leading . if any
     $link_to_game .= $gamepath;
-    mail ("$admin_mail", $l_feedback_subj, "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}","From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
-    echo "$l_feedback_messent<br><br>";
+    mail ("$admin_mail", $langvars['l_feedback_subj'], "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}","From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
+    echo $langvars['l_feedback_messent'] . "<br><br>";
 }
 
 echo "<br>\n";

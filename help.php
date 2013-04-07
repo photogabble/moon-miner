@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_help;
+$title = $langvars['l_help'];
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 

@@ -24,8 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-global $l_map_title;
-$title = $l_map_title;
+$title = $langvars['l_map_title'];
 include './header.php';
 
 // Database driven language entries
@@ -67,7 +66,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
         {
             $p = $row['port_type'];
             // Build the alt text for each image
-            $alt  = $l_sector . ": {$row['sector_id']} Port: {$row['port_type']} ";
+            $alt  = $langvars['l_sector'] . ": {$row['sector_id']} Port: {$row['port_type']} ";
 
             if (!is_null ($row['beacon']))
             {
@@ -86,7 +85,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
         {
             $p = 'unknown';
             // Build the alt text for each image
-            $alt  = ($c + ($div_xmax * $r)) . " - " . $l_unknown . " ";
+            $alt  = ($c + ($div_xmax * $r)) . " - " . $langvars['l_unknown'] . " ";
 
             // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
             echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c + ($div_xmax * $r)) ."\">";
@@ -103,13 +102,13 @@ for ($a = 1; $a < ($sector_max/50 +1); $a++)
 }
 
 echo "</div><div style='clear:both'></div><br>";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_special_port . "' src='images/{$tile['special']}'> &lt;- " . $l_special_port . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_ore_port . "' src='images/{$tile['ore']}'> &lt;- " . $l_ore_port . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_organics_port . "' src='images/{$tile['organics']}'> &lt;- " . $l_organics_port . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_energy_port . "' src='images/{$tile['energy']}'> &lt;- " . $l_energy_port . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_goods_port . "' src='images/{$tile['goods']}'> &lt;- " . $l_goods_port . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_no_port . "' src='images/{$tile['none']}'> &lt;- " . $l_no_port . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $l_port . ": " . $l_unexplored . "' src='images/{$tile['unknown']}'> &lt;- " . $l_unexplored . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_special_port'] . "' src='images/{$tile['special']}'> &lt;- " . $langvars['l_special_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_ore_port'] . "' src='images/{$tile['ore']}'> &lt;- " . $langvars['l_ore_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_organics_port'] . "' src='images/{$tile['organics']}'> &lt;- " . $langvars['l_organics_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_energy_port'] . "' src='images/{$tile['energy']}'> &lt;- " . $langvars['l_energy_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_goods_port'] . "' src='images/{$tile['goods']}'> &lt;- " . $langvars['l_goods_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_no_port'] . "' src='images/{$tile['none']}'> &lt;- " . $langvars['l_no_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_unexplored'] . "' src='images/{$tile['unknown']}'> &lt;- " . $langvars['l_unexplored'] . "</div>\n";
 
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);

@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_planet_title;
+$title = $langvars['l_planet_title'];
 include './header.php';
 
 // Database driven language entries
@@ -94,7 +94,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         }
 
-        echo "$l_planet_none <p>";
+        echo $langvars['l_planet_none'] . " <p>";
         BntText::gotoMain ($db, $lang, $langvars);
         include './footer.php';
         die ();
@@ -104,11 +104,11 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
     {
         if ($planetinfo['owner'] == 0)
         {
-            echo "$l_planet_unowned.<br><br>";
+            echo $langvars['l_planet_unowned'] . ".<br><br>";
         }
-        $capture_link = "<a href=planet.php?planet_id=$planet_id&command=capture>$l_planet_capture1</a>";
-        $l_planet_capture2 = str_replace ("[capture]", $capture_link, $l_planet_capture2);
-        echo "$l_planet_capture2.<br><br>";
+        $capture_link = "<a href=planet.php?planet_id=$planet_id&command=capture>" . $langvars['l_planet_capture1'] . "</a>";
+        $langvars['l_planet_capture2'] = str_replace ("[capture]", $capture_link, $langvars['l_planet_capture2']);
+        echo $langvars['l_planet_capture2'] . ".<br><br>";
         echo "<br>";
         BntText::gotoMain ($db, $lang, $langvars);
         include './footer.php';
@@ -130,21 +130,21 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         // If there is no planet command already
         if (empty ($planetinfo['name']) )
         {
-            $l_planet_unnamed = str_replace ("[name]", $ownerinfo['character_name'], $l_planet_unnamed);
-            echo "$l_planet_unnamed<br><br>";
+            $langvars['l_planet_unnamed'] = str_replace ("[name]", $ownerinfo['character_name'], $langvars['l_planet_unnamed']);
+            echo $langvars['l_planet_unnamed'] . "<br><br>";
         }
         else
         {
-            $l_planet_named = str_replace ("[name]", $ownerinfo['character_name'], $l_planet_named);
-            $l_planet_named = str_replace ("[planetname]", $planetinfo['name'], $l_planet_named);
-            echo "$l_planet_named<br><br>";
+            $langvars['l_planet_named'] = str_replace ("[name]", $ownerinfo['character_name'], $langvars['l_planet_named']);
+            $langvars['l_planet_named'] = str_replace ("[planetname]", $planetinfo['name'], $langvars['l_planet_named']);
+            echo $langvars['l_planet_named'] . "<br><br>";
         }
 
         if ($playerinfo['ship_id'] == $planetinfo['owner'])
         {
             if ($destroy == 1 && $allow_genesis_destroy)
             {
-                echo "<font color=red>$l_planet_confirm</font><br><a href=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
+                echo "<font color=red>" . $langvars['l_planet_confirm'] . "</font><br><a href=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
                 echo "<a href=planet.php?planet_id=$planet_id>no!</A><br><br>";
             }
             elseif ($destroy == 2 && $allow_genesis_destroy)
@@ -162,73 +162,73 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
                 else
                 {
-                    echo "$l_gns_nogenesis<br>";
+                    echo $langvars['l_gns_nogenesis'] . "<br>";
                 }
             }
             elseif ($allow_genesis_destroy)
             {
-                echo "<A onclick=\"javascript: alert ('alert:$l_planet_warning');\" href=planet.php?planet_id=$planet_id&destroy=1>$l_planet_destroyplanet</a><br>";
+                echo "<A onclick=\"javascript: alert ('alert:" . $langvars['l_planet_warning'] . "');\" href=planet.php?planet_id=$planet_id&destroy=1>" . $langvars['l_planet_destroyplanet'] . "</a><br>";
             }
         }
 
         if ($planetinfo['owner'] == $playerinfo['ship_id'] || ($planetinfo['corp'] == $playerinfo['team'] && $playerinfo['team'] > 0))
         {
             // Owner menu
-            echo "$l_turns_have $playerinfo[turns]<p>";
+            echo $langvars['l_turns_have'] . " " . $playerinfo['turns'] . "<p>";
 
-            $l_planet_name_link = "<a href=planet.php?planet_id=$planet_id&command=name>" . $l_planet_name_link . "</a>";
-            $l_planet_name = str_replace ("[name]", $l_planet_name_link, $l_planet_name2);
+            $langvars['l_planet_name_link'] = "<a href=planet.php?planet_id=$planet_id&command=name>" . $langvars['l_planet_name_link'] . "</a>";
+            $langvars['l_planet_name'] = str_replace ("[name]", $langvars['l_planet_name_link'], $langvars['l_planet_name2']);
 
-            echo "$l_planet_name<br>";
+            echo $langvars['l_planet_name'] . "<br>";
 
-            $l_planet_leave_link = "<a href=planet.php?planet_id=$planet_id&command=leave>" . $l_planet_leave_link . "</a>";
-            $l_planet_leave= str_replace ("[leave]", $l_planet_leave_link, $l_planet_leave);
+            $langvars['l_planet_leave_link'] = "<a href=planet.php?planet_id=$planet_id&command=leave>" . $langvars['l_planet_leave_link'] . "</a>";
+            $langvars['l_planet_leave'] = str_replace ("[leave]", $langvars['l_planet_leave_link'], $langvars['l_planet_leave']);
 
-            $l_planet_land_link = "<a href=planet.php?planet_id=$planet_id&command=land>" . $l_planet_land_link . "</a>";
-            $l_planet_land= str_replace ("[land]", $l_planet_land_link, $l_planet_land);
+            $langvars['l_planet_land_link'] = "<a href=planet.php?planet_id=$planet_id&command=land>" . $langvars['l_planet_land_link'] . "</a>";
+            $langvars['l_planet_land'] = str_replace ("[land]", $langvars['l_planet_land_link'], $langvars['l_planet_land']);
 
             if ($playerinfo['on_planet'] == 'Y' && $playerinfo['planet_id'] == $planet_id)
             {
-                echo "$l_planet_onsurface<br>";
-                echo "$l_planet_leave<br>";
-                $l_planet_logout = str_replace ("[logout]", "<a href='logout.php'>" . $l_logout . "</a>", $l_planet_logout);
-                echo "$l_planet_logout<br>";
+                echo $langvars['l_planet_onsurface'] . "<br>";
+                echo $langvars['l_planet_leave'] . "<br>";
+                $langvars['l_planet_logout'] = str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_planet_logout']);
+                echo $langvars['l_planet_logout'] . "<br>";
             }
             else
             {
-                echo "$l_planet_orbit<br>";
-                echo "$l_planet_land<br>";
+                echo $langvars['l_planet_orbit'] . "<br>";
+                echo $langvars['l_planet_land'] . "<br>";
             }
 
-            $l_planet_transfer_link = "<a href=planet.php?planet_id=$planet_id&command=transfer>" . $l_planet_transfer_link . "</a>";
-            $l_planet_transfer = str_replace ("[transfer]", $l_planet_transfer_link, $l_planet_transfer);
-            echo "$l_planet_transfer<br>";
+            $langvars['l_planet_transfer_link'] = "<a href=planet.php?planet_id=$planet_id&command=transfer>" . $langvars['l_planet_transfer_link'] . "</a>";
+            $langvars['l_planet_transfer'] = str_replace ("[transfer]", $langvars['l_planet_transfer_link'], $langvars['l_planet_transfer']);
+            echo $langvars['l_planet_transfer'] . "<br>";
             if ($planetinfo['sells'] == "Y")
             {
-                echo $l_planet_selling;
+                echo $langvars['l_planet_selling'];
             }
             else
             {
-                echo $l_planet_not_selling;
+                echo $langvars['l_planet_not_selling'];
             }
 
-            $l_planet_tsell_link = "<a href=planet.php?planet_id=$planet_id&command=sell>" . $l_planet_tsell_link ."</a>";
-            $l_planet_tsell = str_replace ("[selling]", $l_planet_tsell_link, $l_planet_tsell);
-            echo "$l_planet_tsell<br>";
+            $langvars['l_planet_tsell_link'] = "<a href=planet.php?planet_id=$planet_id&command=sell>" . $langvars['l_planet_tsell_link'] ."</a>";
+            $langvars['l_planet_tsell'] = str_replace ("[selling]", $langvars['l_planet_tsell_link'], $langvars['l_planet_tsell']);
+            echo $langvars['l_planet_tsell'] . "<br>";
             if ($planetinfo['base'] == "N")
             {
-                $l_planet_bbase_link = "<a href=planet.php?planet_id=$planet_id&command=base>" . $l_planet_bbase_link . "</a>";
-                $l_planet_bbase = str_replace ("[build]", $l_planet_bbase_link, $l_planet_bbase);
-                echo "$l_planet_bbase<br>";
+                $langvars['l_planet_bbase_link'] = "<a href=planet.php?planet_id=$planet_id&command=base>" . $langvars['l_planet_bbase_link'] . "</a>";
+                $langvars['l_planet_bbase'] = str_replace ("[build]", $langvars['l_planet_bbase_link'], $langvars['l_planet_bbase']);
+                echo $langvars['l_planet_bbase'] . "<br>";
             }
             else
             {
-                echo "$l_planet_hasbase<br>";
+                echo $langvars['l_planet_hasbase'] . "<br>";
             }
 
-            $l_planet_readlog_link = "<a href=log.php>" . $l_planet_readlog_link ."</a>";
-            $l_planet_readlog = str_replace ("[View]", $l_planet_readlog_link, $l_planet_readlog);
-            echo "<br>$l_planet_readlog<br>";
+            $langvars['l_planet_readlog_link'] = "<a href=log.php>" . $langvars['l_planet_readlog_link'] ."</a>";
+            $langvars['l_planet_readlog'] = str_replace ("[View]", $langvars['l_planet_readlog_link'], $langvars['l_planet_readlog']);
+            echo "<br>" . $langvars['l_planet_readlog'] . "<br>";
 
             if ($playerinfo['ship_id'] == $planetinfo['owner'])
             {
@@ -236,15 +236,15 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     if ($planetinfo['corp'] == 0)
                     {
-                        $l_planet_mcorp_linkC = "<a href=corp.php?planet_id=$planet_id&action=planetcorp>" . $l_planet_mcorp_linkC . "</a>";
-                        $l_planet_mcorp = str_replace ("[planet]", $l_planet_mcorp_linkC, $l_planet_mcorp);
-                        echo "$l_planet_mcorp<br>";
+                        $langvars['l_planet_mcorp_linkC'] = "<a href=corp.php?planet_id=$planet_id&action=planetcorp>" . $langvars['l_planet_mcorp_linkC'] . "</a>";
+                        $langvars['l_planet_mcorp'] = str_replace ("[planet]", $langvars['l_planet_mcorp_linkC'], $langvars['l_planet_mcorp']);
+                        echo $langvars['l_planet_mcorp'] . "<br>";
                     }
                     else
                     {
-                        $l_planet_mcorp_linkP = "<a href=corp.php?planet_id=$planet_id&action=planetpersonal>" . $l_planet_mcorp_linkP . "</a>";
-                        $l_planet_mcorp = str_replace ("[planet]", $l_planet_mcorp_linkP, $l_planet_mcorp);
-                        echo "$l_planet_mcorp<br>";
+                        $langvars['l_planet_mcorp_linkP'] = "<a href=corp.php?planet_id=$planet_id&action=planetpersonal>" . $langvars['l_planet_mcorp_linkP'] . "</a>";
+                        $langvars['l_planet_mcorp'] = str_replace ("[planet]", $langvars['l_planet_mcorp_linkP'], $langvars['l_planet_mcorp']);
+                        echo $langvars['l_planet_mcorp'] . "<br>";
                     }
                 }
             }
@@ -252,9 +252,9 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Change production rates
             echo "<form action=planet.php?planet_id=$planet_id&command=productions method=post>";
             echo "<table border=0 cellspacing=0 cellpadding=2>";
-            echo "<tr bgcolor=\"$color_header\"><td></td><td><strong>$l_ore</strong></td><td><strong>$l_organics</strong></td><td><strong>$l_goods</strong></td><td><strong>$l_energy</strong></td><td><strong>$l_colonists</strong></td><td><strong>$l_credits</strong></td><td><strong>$l_fighters</strong></td><td><strong>$l_torps</td></tr>";
+            echo "<tr bgcolor=\"$color_header\"><td></td><td><strong>" . $langvars['l_ore'] . "</strong></td><td><strong>" . $langvars['l_organics'] . "</strong></td><td><strong>" . $langvars['l_goods'] . "</strong></td><td><strong>" . $langvars['l_energy'] . "</strong></td><td><strong>" . $langvars['l_colonists'] . "</strong></td><td><strong>" . $langvars['l_credits'] . "</strong></td><td><strong>" . $langvars['l_fighters'] . "</strong></td><td><strong>" . $langvars['l_torps'] . "</td></tr>";
             echo "<tr bgcolor=\"$color_line1\">";
-            echo "<td>$l_current_qty</td>";
+            echo "<td>" . $langvars['l_current_qty'] . "</td>";
             echo "<td>" . number_format ($planetinfo['ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
             echo "<td>" . number_format ($planetinfo['organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
             echo "<td>" . number_format ($planetinfo['goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
@@ -264,7 +264,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             echo "<td>" . number_format ($planetinfo['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
             echo "<td>" . number_format ($planetinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
             echo "</tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>$l_planet_perc</td>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_planet_perc'] . "</td>";
             echo "<td><input type=text name=pore value=\"$planetinfo[prod_ore]\" size=6 maxlength=6></td>";
             echo "<td><input type=text name=porganics value=\"$planetinfo[prod_organics]\" size=6 maxlength=6></td>";
             echo "<td><input type=text name=pgoods value=\"" .round ($planetinfo['prod_goods'])."\" size=6 maxlength=6></td>";
@@ -272,8 +272,8 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             echo "<td>n/a</td><td>*</td>";
             echo "<td><input type=text name=pfighters value=\"$planetinfo[prod_fighters]\" size=6 maxlength=6></td>";
             echo "<td><input type=text name=ptorp value=\"$planetinfo[prod_torp]\" size=6 maxlength=6></td>";
-            echo "</table>$l_planet_interest<br><br>";
-            echo "<input type=submit value=$l_planet_update>";
+            echo "</table>" . $langvars['l_planet_interest'] . "<br><br>";
+            echo "<input type=submit value=" . $langvars['l_planet_update'] . ">";
             echo "</form>";
         }
         else
@@ -281,20 +281,20 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Visitor menu
             if ($planetinfo['sells'] == "Y")
             {
-                $l_planet_buy_link = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
-                $l_planet_buy = str_replace ("[buy]", $l_planet_buy_link, $l_planet_buy);
-                echo "$l_planet_buy<br>";
+                $langvars['l_planet_buy_link'] = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $langvars['l_planet_buy_link'] ."</a>";
+                $langvars['l_planet_buy'] = str_replace ("[buy]", $langvars['l_planet_buy_link'], $langvars['l_planet_buy']);
+                echo $langvars['l_planet_buy'] . "<br>";
             }
             else
             {
-                echo "$l_planet_not_selling.<br>";
+                echo $langvars['l_planet_not_selling'] . ".<br>";
             }
 
             // Fix for corp member leaving a non corp planet
             if (($planetinfo['planet_id'] == $playerinfo['planet_id'] && $playerinfo['on_planet'] == "Y") && $planetinfo['corp'] == 0)
             {
-                $l_planet_leave_link = "<a href=planet.php?planet_id=$planet_id&command=leave>Leave Friendly Planet</a>";
-                echo "<p>$l_planet_leave_link</p>\n";
+                $langvars['l_planet_leave_link'] = "<a href=planet.php?planet_id=$planet_id&command=leave>Leave Friendly Planet</a>";
+                echo "<p>" . $langvars['l_planet_leave_link'] . "</p>\n";
             }
 
             $retOwnerInfo = NULL;
@@ -308,15 +308,15 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
                 else
                 {
-                    $l_planet_att_link = "<a href=planet.php?planet_id=$planet_id&command=attac>" . $l_planet_att_link ."</a>";
-                    $l_planet_att = str_replace ("[attack]", $l_planet_att_link, $l_planet_att);
-                    $l_planet_scn_link = "<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
-                    $l_planet_scn = str_replace ("[scan]", $l_planet_scn_link, $l_planet_scn);
-                    echo "$l_planet_att<br>";
-                    echo "$l_planet_scn<br>";
+                    $langvars['l_planet_att_link'] = "<a href=planet.php?planet_id=$planet_id&command=attac>" . $langvars['l_planet_att_link'] ."</a>";
+                    $langvars['l_planet_att'] = str_replace ("[attack]", $langvars['l_planet_att_link'], $langvars['l_planet_att']);
+                    $langvars['l_planet_scn_link'] = "<a href=planet.php?planet_id=$planet_id&command=scan>" . $langvars['l_planet_scn_link'] ."</a>";
+                    $langvars['l_planet_scn'] = str_replace ("[scan]", $langvars['l_planet_scn_link'], $langvars['l_planet_scn']);
+                    echo $langvars['l_planet_att'] . "<br>";
+                    echo $langvars['l_planet_scn'] . "<br>";
                     if ($allow_sofa)
                     {
-                        echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
+                        echo "<a href=planet.php?planet_id=$planet_id&command=bom>" . $langvars['l_sofa'] . "</a><br>";
                     }
                 }
             }
@@ -330,13 +330,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             if ($planetinfo['sells'] == "Y")
             {
                 // Set planet to not sell
-                echo "$l_planet_nownosell<br>";
+                echo $langvars['l_planet_nownosell'] . "<br>";
                 $result4 = $db->Execute ("UPDATE {$db->prefix}planets SET sells='N' WHERE planet_id = ?;", array ($planet_id));
                 DbOp::dbResult ($db, $result4, __LINE__, __FILE__);
             }
             else
             {
-                echo "$l_planet_nowsell<br>";
+                echo $langvars['l_planet_nowsell'] . "<br>";
                 $result4b = $db->Execute ("UPDATE {$db->prefix}planets SET sells='Y' WHERE planet_id = ?;", array ($planet_id));
                 DbOp::dbResult ($db, $result4b, __LINE__, __FILE__);
             }
@@ -345,9 +345,9 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         {
             // Name menu
             echo "<form action=\"planet.php?planet_id=$planet_id&command=cname\" method=\"post\">";
-            echo "$l_planet_iname:  ";
+            echo $langvars['l_planet_iname'] . ":  ";
             echo "<input type=\"text\" name=\"new_name\" size=\"20\" maxlength=\"20\" value=\"$planetinfo[name]\"><br><br>";
-            echo "<input type=\"submit\" value=\"$l_submit\"><input type=\"reset\" value=\"$l_reset\"><br><br>";
+            echo "<input type=\"submit\" value=\"" . $langvars['l_submit'] . "\"><input type=\"reset\" value=\"" . $langvars['l_reset'] . "\"><br><br>";
             echo "</form>";
         }
         elseif ($command == "cname")
@@ -356,44 +356,43 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             $new_name = trim (htmlentities ($_POST['new_name']) );
             $result5 = $db->Execute ("UPDATE {$db->prefix}planets SET name = ? WHERE planet_id = ?;", array ($new_name, $planet_id));
             DbOp::dbResult ($db, $result5, __LINE__, __FILE__);
-            echo "$l_planet_cname $new_name.";
+            echo $langvars['l_planet_cname'] . " " . $new_name . ".";
         }
         elseif ($command == "land")
         {
             // Land menu
-            echo "$l_planet_landed<br><br>";
+            echo $langvars['l_planet_landed'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='Y', planet_id = ? WHERE ship_id = ?;", array ($planet_id, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "leave")
         {
             // Leave menu
-            echo "$l_planet_left<br><br>";
+            echo $langvars['l_planet_left'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet='N' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
         }
         elseif ($command == "transfer")
         {
             // Transfer menu
-            global $l_planet;
             $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
             $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
-            $l_planet_cinfo = str_replace ("[cargo]", number_format ($free_holds, 0, $local_number_dec_point, $local_number_thousands_sep), $l_planet_cinfo);
-            $l_planet_cinfo = str_replace ("[energy]", number_format ($free_power, 0, $local_number_dec_point, $local_number_thousands_sep), $l_planet_cinfo);
-            echo "$l_planet_cinfo<br><br>";
+            $langvars['l_planet_cinfo'] = str_replace ("[cargo]", number_format ($free_holds, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_planet_cinfo']);
+            $langvars['l_planet_cinfo'] = str_replace ("[energy]", number_format ($free_power, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_planet_cinfo']);
+            echo $langvars['l_planet_cinfo'] . "<br><br>";
             echo "<form action=planet2.php?planet_id=$planet_id method=post>";
             echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=0>";
-            echo "<tr bgcolor=\"$color_header\"><td><strong>$l_commodity</strong></td><td><strong>$l_planet</strong></td><td><strong>$l_ship</strong></td><td><strong>$l_planet_transfer_link</strong></td><td><strong>$l_planet_toplanet</strong></td><td><strong>$l_all?</strong></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>$l_ore</td><td>" . number_format ($planetinfo['ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>$l_organics</td><td>" . number_format ($planetinfo['organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=CHECKBOX name=tporganics value=-1></td><td><input type=CHECKBOX name=allorganics value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>$l_goods</td><td>" . number_format ($planetinfo['goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=CHECKBOX name=tpgoods value=-1></td><td><input type=CHECKBOX name=allgoods value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>$l_energy</td><td>" . number_format ($planetinfo['energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_energy size=10 maxlength=20></td><td><input type=CHECKBOX name=tpenergy value=-1></td><td><input type=CHECKBOX name=allenergy value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>$l_colonists</td><td>" . number_format ($planetinfo['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_colonists size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcolonists value=-1></td><td><input type=CHECKBOX name=allcolonists value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>$l_fighters</td><td>" . number_format ($planetinfo['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_fighters size=10 maxlength=20></td><td><input type=CHECKBOX name=tpfighters value=-1></td><td><input type=CHECKBOX name=allfighters value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>$l_torps</td><td>" . number_format ($planetinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=CHECKBOX name=tptorps value=-1></td><td><input type=CHECKBOX name=alltorps value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>$l_credits</td><td>" . number_format ($planetinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcredits value=-1></td><td><input type=CHECKBOX name=allcredits value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_header\"><td><strong>" . $langvars['l_commodity'] . "</strong></td><td><strong>" . $langvars['l_planet'] . "</strong></td><td><strong>" . $langvars['l_ship'] . "</strong></td><td><strong>" . $langvars['l_planet_transfer_link'] . "</strong></td><td><strong>" . $langvars['l_planet_toplanet'] . "</strong></td><td><strong>" . $langvars['l_all'] . "?</strong></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_ore'] . "</td><td>" . number_format ($planetinfo['ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_organics'] . "</td><td>" . number_format ($planetinfo['organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=CHECKBOX name=tporganics value=-1></td><td><input type=CHECKBOX name=allorganics value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_goods'] . "</td><td>" . number_format ($planetinfo['goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=CHECKBOX name=tpgoods value=-1></td><td><input type=CHECKBOX name=allgoods value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_energy'] . "</td><td>" . number_format ($planetinfo['energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_energy size=10 maxlength=20></td><td><input type=CHECKBOX name=tpenergy value=-1></td><td><input type=CHECKBOX name=allenergy value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_colonists'] . "</td><td>" . number_format ($planetinfo['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_colonists size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcolonists value=-1></td><td><input type=CHECKBOX name=allcolonists value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_fighters'] . "</td><td>" . number_format ($planetinfo['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_fighters size=10 maxlength=20></td><td><input type=CHECKBOX name=tpfighters value=-1></td><td><input type=CHECKBOX name=allfighters value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_torps'] . "</td><td>" . number_format ($planetinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=CHECKBOX name=tptorps value=-1></td><td><input type=CHECKBOX name=alltorps value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_credits'] . "</td><td>" . number_format ($planetinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcredits value=-1></td><td><input type=CHECKBOX name=allcredits value=-1></td></tr>";
             echo "</table><br>";
-            echo "<input type=submit value=$l_planet_transfer_link>&nbsp;<input type=reset value=Reset>";
+            echo "<input type=submit value=" . $langvars['l_planet_transfer_link'] . ">&nbsp;<input type=reset value=Reset>";
             echo "</form>";
         }
         elseif ($command == "base")
@@ -420,7 +419,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 // Check if the player has enough turns to create the base.
                 if ($playerinfo['turns'] <= 0)
                 {
-                    echo "$l_ibank_notenturns";
+                    echo $langvars['l_ibank_notenturns'];
                 }
                 else
                 {
@@ -438,7 +437,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     $planetinfo = $result3->fields;
 
                     // Notify User Of Base Results
-                    echo "$l_planet_bbuild<br><br>";
+                    echo $langvars['l_planet_bbuild'] . "<br><br>";
 
                     // Calc Ownership and Notify User Of Results
                     $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
@@ -450,11 +449,11 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             }
             else
             {
-                $l_planet_baseinfo = str_replace ("[base_credits]", $base_credits, $l_planet_baseinfo);
-                $l_planet_baseinfo = str_replace ("[base_ore]", $base_ore, $l_planet_baseinfo);
-                $l_planet_baseinfo = str_replace ("[base_organics]", $base_organics, $l_planet_baseinfo);
-                $l_planet_baseinfo = str_replace ("[base_goods]", $base_goods, $l_planet_baseinfo);
-                echo "$l_planet_baseinfo<br><br>";
+                $langvars['l_planet_baseinfo'] = str_replace ("[base_credits]", $base_credits, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace ("[base_ore]", $base_ore, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace ("[base_organics]", $base_organics, $langvars['l_planet_baseinfo']);
+                $langvars['l_planet_baseinfo'] = str_replace ("[base_goods]", $base_goods, $langvars['l_planet_baseinfo']);
+                echo $langvars['l_planet_baseinfo'] . "<br><br>";
             }
         }
         elseif ($command == "productions")
@@ -469,22 +468,22 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             if ($porganics < 0.0 || $pore < 0.0 || $pgoods < 0.0 || $penergy < 0.0 || $pfighters < 0.0 || $ptorp < 0.0)
             {
-                echo "$l_planet_p_under<br><br>";
+                echo $langvars['l_planet_p_under'] . "<br><br>";
             }
             elseif (($porganics + $pore + $pgoods + $penergy + $pfighters + $ptorp) > 100.0)
             {
-                echo "$l_planet_p_over<br><br>";
+                echo $langvars['l_planet_p_over'] . "<br><br>";
             }
             else
             {
                 $resx = $db->Execute ("UPDATE {$db->prefix}planets SET prod_ore= ? , prod_organics = ?, prod_goods = ?, prod_energy = ?, prod_fighters = ?, prod_torp = ? WHERE planet_id = ?;", array ($pore, $porganics, $pgoods, $penergy, $pfighters, $ptorp, $planet_id));
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                echo "$l_planet_p_changed<br><br>";
+                echo $langvars['l_planet_p_changed'] . "<br><br>";
             }
         }
         else
         {
-            echo "$l_command_no<br>";
+            echo $langvars['l_command_no'] . "<br>";
         }
     }
     elseif (($planetinfo['planet_id'] == $playerinfo['planet_id'] && $playerinfo['on_planet'] == "Y") && $planetinfo['corp'] == 0) // Fix for corp member leaving a non corp planet
@@ -492,11 +491,11 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         if ($command == "leave")
         {
             // Leave menu
-            echo "$l_planet_left<br><br>";
+            echo $langvars['l_planet_left'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-            $l_global_mmenu = str_replace ("[here]","<a href='main.php'>" . $l_here . "</a>", $l_global_mmenu);
-            echo $l_global_mmenu . "<br>\n";
+            $langvars['l_global_mmenu'] = str_replace ("[here]","<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+            echo $langvars['l_global_mmenu'] . "<br>\n";
             header("Location: main.php");
         }
     }
@@ -513,17 +512,17 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $energy_price = ($energy_price + $energy_delta / 4);
                 echo "<form action=planet3.php?planet_id=$planet_id method=post>";
                 echo "<table>";
-                echo "<tr><td>$l_commodity</td><td>$l_avail</td><td>$l_price</td><td>$l_buy</td><td>$l_cargo</td></tr>";
-                echo "<tr><td>$l_ore</td><td>$planetinfo[ore]</td><td>$ore_price</td><td><input type=text name=trade_ore size=10 maxlength=20 value=0></td><td>$playerinfo[ship_ore]</td></tr>";
-                echo "<tr><td>$l_organics</td><td>$planetinfo[organics]</td><td>$organics_price</td><td><input type=text name=trade_organics size=10 maxlength=20 value=0></td><td>$playerinfo[ship_organics]</td></tr>";
-                echo "<tr><td>$l_goods</td><td>$planetinfo[goods]</td><td>$goods_price</td><td><input type=text name=trade_goods size=10 maxlength=20 value=0></td><td>$playerinfo[ship_goods]</td></tr>";
-                echo "<tr><td>$l_energy</td><td>$planetinfo[energy]</td><td>$energy_price</td><td><input type=text name=trade_energy size=10 maxlength=20 value=0></td><td>$playerinfo[ship_energy]</td></tr>";
+                echo "<tr><td>" . $langvars['l_commodity'] . "</td><td>" . $langvars['l_avail'] . "</td><td>" . $langvars['l_price'] . "</td><td>" . $langvars['l_buy'] . "</td><td>" . $langvars['l_cargo'] . "</td></tr>";
+                echo "<tr><td>" . $langvars['l_ore'] . "</td><td>$planetinfo[ore]</td><td>$ore_price</td><td><input type=text name=trade_ore size=10 maxlength=20 value=0></td><td>$playerinfo[ship_ore]</td></tr>";
+                echo "<tr><td>" . $langvars['l_organics'] . "</td><td>$planetinfo[organics]</td><td>$organics_price</td><td><input type=text name=trade_organics size=10 maxlength=20 value=0></td><td>$playerinfo[ship_organics]</td></tr>";
+                echo "<tr><td>" . $langvars['l_goods'] . "</td><td>$planetinfo[goods]</td><td>$goods_price</td><td><input type=text name=trade_goods size=10 maxlength=20 value=0></td><td>$playerinfo[ship_goods]</td></tr>";
+                echo "<tr><td>" . $langvars['l_energy'] . "</td><td>$planetinfo[energy]</td><td>$energy_price</td><td><input type=text name=trade_energy size=10 maxlength=20 value=0></td><td>$playerinfo[ship_energy]</td></tr>";
                 echo "</table>";
-                echo "<input type=submit value=$l_submit><input type=reset value=$l_reset><br></form>";
+                echo "<input type=submit value=" . $langvars['l_submit'] . "><input type=reset value=" . $langvars['l_reset'] . "><br></form>";
             }
             else
             {
-                echo "$l_planet_not_selling<br>";
+                echo $langvars['l_planet_not_selling'] . "<br>";
             }
         }
         elseif ($command == "attac")
@@ -541,13 +540,13 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Check to see if sure
             if ($planetinfo['sells'] == "Y")
             {
-                $l_planet_buy_link = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
-                $l_planet_buy = str_replace ("[buy]", $l_planet_buy_link, $l_planet_buy);
-                echo "$l_planet_buy<br>";
+                $langvars['l_planet_buy_link'] = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $langvars['l_planet_buy_link'] ."</a>";
+                $langvars['l_planet_buy'] = str_replace ("[buy]", $langvars['l_planet_buy_link'], $langvars['l_planet_buy']);
+                echo $langvars['l_planet_buy'] . "<br>";
             }
             else
             {
-                echo "$l_planet_not_selling<br>";
+                echo $langvars['l_planet_not_selling'] . "<br>";
             }
 
             $retOwnerInfo = NULL;
@@ -560,15 +559,15 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
                 else
                 {
-                    $l_planet_att_link = "<a href=planet.php?planet_id=$planet_id&command=attack>" . $l_planet_att_link ."</a>";
-                    $l_planet_att = str_replace ("[attack]", $l_planet_att_link, $l_planet_att);
-                    $l_planet_scn_link = "<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
-                    $l_planet_scn = str_replace ("[scan]", $l_planet_scn_link, $l_planet_scn);
-                    echo "$l_planet_att <strong>$l_planet_att_sure</strong><br>";
-                    echo "$l_planet_scn<br>";
+                    $langvars['l_planet_att_link'] = "<a href=planet.php?planet_id=$planet_id&command=attack>" . $langvars['l_planet_att_link'] . " .</a>";
+                    $langvars['l_planet_att'] = str_replace ("[attack]", $langvars['l_planet_att_link'], $langvars['l_planet_att']);
+                    $langvars['l_planet_scn_link'] = "<a href=planet.php?planet_id=$planet_id&command=scan>" . $langvars['l_planet_scn_link'] ."</a>";
+                    $langvars['l_planet_scn'] = str_replace ("[scan]", $langvars['l_planet_scn_link'], $langvars['l_planet_scn']);
+                    echo $langvars['l_planet_att'] . " <strong>" . $langvars['l_planet_att_sure'] . "</strong><br>";
+                    echo $langvars['l_planet_scn'] . "<br>";
                     if ($allow_sofa)
                     {
-                        echo "<a href=planet.php?planet_id=$planet_id&command=bom>$l_sofa</a><br>";
+                        echo "<a href=planet.php?planet_id=$planet_id&command=bom>" . $langvars['l_sofa'] . "</a><br>";
                     }
                 }
             }
@@ -606,22 +605,22 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Check to see if sure...
             if ($planetinfo['sells'] == "Y" && $allow_sofa)
             {
-                $l_planet_buy_link = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $l_planet_buy_link ."</a>";
-                $l_planet_buy = str_replace ("[buy]", $l_planet_buy_link, $l_planet_buy);
-                echo "$l_planet_buy<br>";
+                $langvars['l_planet_buy_link'] = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $langvars['l_planet_buy_link'] ."</a>";
+                $langvars['l_planet_buy'] = str_replace ("[buy]", $langvars['l_planet_buy_link'], $langvars['l_planet_buy']);
+                echo $langvars['l_planet_buy'] . "<br>";
             }
             else
             {
-                echo "$l_planet_not_selling<br>";
+                echo $langvars['l_planet_not_selling'] . "<br>";
             }
 
-            $l_planet_att_link = "<a href=planet.php?planet_id=$planet_id&command=attac>" . $l_planet_att_link ."</a>";
-            $l_planet_att = str_replace ("[attack]", $l_planet_att_link, $l_planet_att);
-            $l_planet_scn_link="<a href=planet.php?planet_id=$planet_id&command=scan>" . $l_planet_scn_link ."</a>";
-            $l_planet_scn = str_replace ("[scan]", $l_planet_scn_link, $l_planet_scn);
-            echo "$l_planet_att<br>";
-            echo "$l_planet_scn<br>";
-            echo "<a href=planet.php?planet_id=$planet_id&command=bomb>$l_sofa</a><strong>$l_planet_att_sure</strong><br>";
+            $langvars['l_planet_att_link'] = "<a href=planet.php?planet_id=$planet_id&command=attac>" . $langvars['l_planet_att_link'] ."</a>";
+            $langvars['l_planet_att'] = str_replace ("[attack]", $langvars['l_planet_att_link'], $langvars['l_planet_att']);
+            $langvars['l_planet_scn_link'] ="<a href=planet.php?planet_id=$planet_id&command=scan>" . $langvars['l_planet_scn_link'] ."</a>";
+            $langvars['l_planet_scn'] = str_replace ("[scan]", $langvars['l_planet_scn_link'], $langvars['l_planet_scn']);
+            echo $langvars['l_planet_att'] . "<br>";
+            echo $langvars['l_planet_scn'] . "<br>";
+            echo "<a href=planet.php?planet_id=$planet_id&command=bomb>" . $langvars['l_sofa'] . "</a><strong>" . $langvars['l_planet_att_sure'] . "</strong><br>";
         }
         elseif ($command == "bomb" && $allow_sofa)
         {
@@ -644,7 +643,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Scan menu
             if ($playerinfo['turns'] < 1)
             {
-                echo "$l_plant_scn_turn<br><br>";
+                echo $langvars['l_plant_scn_turn'] . "<br><br>";
                 BntText::gotoMain ($db, $lang, $langvars);
                 include './footer.php';
                 die ();
@@ -665,7 +664,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             if ($roll > $success)
             {
                 // If scan fails - inform both player and target.
-                echo "$l_planet_noscan<br><br>";
+                echo $langvars['l_planet_noscan'] . "<br><br>";
                 BntText::gotoMain ($db, $lang, $langvars);
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_SCAN_FAIL, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 include './footer.php';
@@ -678,15 +677,15 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $sc_error = BntScan::error ($playerinfo['sensors'], $ownerinfo['cloak'], $scan_error_factor);
                 if (empty ($planetinfo['name']))
                 {
-                    $planetinfo['name'] = $l_unnamed;
+                    $planetinfo['name'] = $langvars['l_unnamed'];
                 }
 
-                $l_planet_scn_report = str_replace ("[name]", $planetinfo['name'], $l_planet_scn_report);
-                $l_planet_scn_report = str_replace ("[owner]", $ownerinfo['character_name'], $l_planet_scn_report);
-                echo "$l_planet_scn_report<br><br>";
+                $langvars['l_planet_scn_report'] = str_replace ("[name]", $planetinfo['name'], $langvars['l_planet_scn_report']);
+                $langvars['l_planet_scn_report'] = str_replace ("[owner]", $ownerinfo['character_name'], $langvars['l_planet_scn_report']);
+                echo $langvars['l_planet_scn_report'] . "<br><br>";
                 echo "<table>";
-                echo "<tr><td>$l_commodities:</td><td></td>";
-                echo "<tr><td>$l_organics:</td>";
+                echo "<tr><td>" . $langvars['l_commodities'] . ":</td><td></td>";
+                echo "<tr><td>" . $langvars['l_organics'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -698,7 +697,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
 
-                echo "<tr><td>$l_ore:</td>";
+                echo "<tr><td>" . $langvars['l_ore'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -710,7 +709,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
 
-                echo "<tr><td>$l_goods:</td>";
+                echo "<tr><td>" . $langvars['l_goods'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -721,7 +720,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_energy:</td>";
+                echo "<tr><td>" . $langvars['l_energy'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -732,7 +731,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_colonists:</td>";
+                echo "<tr><td>" . $langvars['l_colonists'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -743,7 +742,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_credits:</td>";
+                echo "<tr><td>". $langvars['l_credits'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -755,8 +754,8 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
 
-                echo "<tr><td>$l_defense:</td><td></td>";
-                echo "<tr><td>$l_base:</td>";
+                echo "<tr><td>" . $langvars['l_defense'] . ":</td><td></td>";
+                echo "<tr><td>" . $langvars['l_base'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -767,7 +766,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
 
-                echo "<tr><td>$l_base $l_torps:</td>";
+                echo "<tr><td>" . $langvars['l_base'] . " " .  $langvars['l_torps'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -778,7 +777,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_fighters:</td>";
+                echo "<tr><td>" . $langvars['l_fighters'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -789,7 +788,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_beams:</td>";
+                echo "<tr><td>" . $langvars['l_beams'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -800,7 +799,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_torp_launch:</td>";
+                echo "<tr><td>" . $langvars['l_torp_launch'] . ":</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -811,7 +810,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 {
                     echo "<td>???</td></tr>";
                 }
-                echo "<tr><td>$l_shields</td>";
+                echo "<tr><td>" . $langvars['l_shields'] . "</td>";
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
@@ -826,7 +825,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 //            $roll=mt_rand (1, 100);
 //            if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //            {
-//               echo "<strong>$ownerinfo[character_name] $l_planet_ison</strong><br>";
+//               echo "<strong>" . $ownerinfo['character_name'] . " " . $langvars['l_planet_ison'] . "</strong><br>";
 //            }
 
                 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' and planet_id = ?;", array ($planet_id));
@@ -849,7 +848,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
                     if ($roll < $success)
                     {
-                        echo "<strong>$row[character_name] $l_planet_ison</strong><br>";
+                        echo "<strong>" . $row['character_name'] . " " . $langvars['l_planet_ison'] . "</strong><br>";
                     }
                     $res->MoveNext();
                 }
@@ -859,7 +858,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         }
         elseif ($command == "capture" &&  $planetinfo['owner'] == 0)
         {
-            echo "$l_planet_captured<br>";
+            echo $langvars['l_planet_captured'] . "<br>";
             $update = $db->Execute ("UPDATE {$db->prefix}planets SET corp = 0, owner = ?, base = 'N', defeated = 'N' WHERE planet_id = ?;", array ($playerinfo['ship_id'], $planet_id));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             $ownership = BntOwnership::calc ($db, $playerinfo['sector'], $min_bases_to_own, $langvars);
@@ -884,38 +883,38 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             }
             else
             {
-                $planetowner = "$l_planet_noone";
+                $planetowner = $langvars['l_planet_noone'];
             }
 
             PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_PLANET_CAPTURED, "$planetinfo[colonists]|$planetinfo[credits]|$planetowner");
         }
         elseif ($command == "capture" &&  ($planetinfo['owner'] == 0 || $planetinfo['defeated'] == 'Y'))
         {
-            echo "$l_planet_notdef<br>";
+            echo $langvars['l_planet_notdef'] . "<br>";
             $resx = $db->Execute ("UPDATE {$db->prefix}planets SET defeated='N' WHERE planet_id = ?;", array ($planetinfo['planet_id']));
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         }
         else
         {
-            echo "$l_command_no<br>";
+            echo $langvars['l_command_no'] . "<br>";
         }
     }
 }
 else
 {
-    echo "$l_planet_none<p>";
+    echo $langvars['l_planet_none'] . "<p>";
 }
 
 if ($command != "")
 {
-    echo "<br><a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<br><br>";
+    echo "<br><a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
 }
 
 if ($allow_ibank)
 {
-  echo "$l_ifyouneedplan <a href=\"igb.php?planet_id=$planet_id\">$l_ibank_term</A>.<br><br>";
+  echo $langvars['l_ifyouneedplan'] . " <a href=\"igb.php?planet_id=$planet_id\">" . $langvars['l_ibank_term'] . "</a>.<br><br>";
 }
-echo "<a href =\"bounty.php\">$l_by_placebounty</A><p>";
+echo "<a href =\"bounty.php\">" . $langvars['l_by_placebounty'] . "</a><p>";
 
 BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';

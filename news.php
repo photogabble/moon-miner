@@ -31,7 +31,7 @@ else
     $link = "?lang=" . $lang;
 }
 
-$title = $l_news_title;
+$title = $langvars['l_news_title'];
 include './header.php';
 
 // Database driven language entries
@@ -59,13 +59,13 @@ echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";
 echo "    <td height=\"73\" width=\"27%\"><img src=\"images/bnnhead.png\" width=\"312\" height=\"123\" alt=\"The Blacknova Network\"></td>\n";
 echo "    <td height=\"73\" width=\"73%\" bgcolor=\"#000\" valign=\"bottom\" align=\"right\">\n";
-echo "      <p><font size=\"-1\">{$l_news_info_1}<br>{$l_news_info_2}<br>{$l_news_info_3}<br>{$l_news_info_4}<br>{$l_news_info_5}<br></font></p>\n";
-echo "      <p>{$l_news_for} {$startdate}</p>\n";
+echo "      <p><font size=\"-1\">" . $langvars['l_news_info_1'] . "<br>" . $langvars['l_news_info_2'] . "<br>" . $langvars['l_news_info_3'] . "<br>" . $langvars['l_news_info_4'] . "<br>" . $langvars['l_news_info_5'] . "<br></font></p>\n";
+echo "      <p>" . $langvars['l_news_for'] . " " . $startdate . "</p>\n";
 echo "    </td>\n";
 echo "  </tr>\n";
 echo "  <tr>\n";
 echo "    <td height=\"22\" width=\"27%\" bgcolor=\"#00001A\">&nbsp;</td>\n";
-echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a href=\"news.php?startdate={$previousday}\">{$l_news_prev}</a> - <a href=\"news.php?startdate={$nextday}\">{$l_news_next}</a></td>\n";
+echo "    <td height=\"22\" width=\"73%\" bgcolor=\"#00001A\" align=\"right\"><a href=\"news.php?startdate={$previousday}\">" . $langvars['l_news_prev'] . "</a> - <a href=\"news.php?startdate={$nextday}\">" . $langvars['l_news_next'] . "</a></td>\n";
 echo "  </tr>\n";
 
 //Select news for date range
@@ -90,8 +90,8 @@ else
 {
     // Nope none found.
     echo "  <tr>\n";
-    echo "    <td bgcolor=\"#00001A\" align=\"center\">$l_news_flash</td>\n";
-    echo "    <td bgcolor=\"#00001A\" align=\"right\">$l_news_none</td>\n";
+    echo "    <td bgcolor=\"#00001A\" align=\"center\">" . $langvars['l_news_flash'] . "</td>\n";
+    echo "    <td bgcolor=\"#00001A\" align=\"right\">" . $langvars['l_news_none'] . "</td>\n";
     echo "  </tr>\n";
 }
 echo "</table>\n";

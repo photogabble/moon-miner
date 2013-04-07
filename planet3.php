@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_planet3_title;
+$title = $langvars['l_planet3_title'];
 include './header.php';
 
 // Database driven language entries
@@ -83,7 +83,7 @@ if ($planetinfo == false)
 
 if ($playerinfo['turns'] < 1)
 {
-    echo $l_trade_turnneed . '<br><br>';
+    echo $langvars['l_trade_turnneed'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
     include_once './footer.php';
     die ();
@@ -91,7 +91,7 @@ if ($playerinfo['turns'] < 1)
 
 if ($planetinfo['sector_id'] != $playerinfo['sector'])
 {
-    echo $l_planet2_sector . '<br><br>';
+    echo $langvars['l_planet2_sector'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
     include_once './footer.php';
     die ();
@@ -99,7 +99,7 @@ if ($planetinfo['sector_id'] != $playerinfo['sector'])
 
 if (empty ($planetinfo))
 {
-    echo "$l_planet_none<br>";
+    echo $langvars['l_planet_none'] . "<br>";
     BntText::gotoMain ($db, $lang, $langvars);
     include_once './footer.php';
     die ();
@@ -124,39 +124,39 @@ if ($planetinfo['sells'] == 'Y')
 
     if ($free_holds < $cargo_exchanged)
     {
-        echo "$l_notenough_cargo  <a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<br><br>";
+        echo $langvars['l_notenough_cargo'] . "  <a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
     }
     elseif ($trade_energy > $free_power)
     {
-        echo "$l_notenough_power <a href=planet.php?planet_id=$planet_id>$l_clickme</a> $l_toplanetmenu<br><br>";
+        echo $langvars['l_notenough_power'] . " <a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
     }
     elseif ($playerinfo['turns'] < 1 )
     {
-        echo "$l_notenough_turns<br><br>";
+        echo $langvars['l_notenough_turns'] . "<br><br>";
     }
     elseif ($playerinfo['credits'] < $total_cost)
     {
-        echo "$l_notenough_credits<br><br>";
+        echo $langvars['l_notenough_credits'] . "<br><br>";
     }
     elseif ($trade_organics > $planetinfo['organics'])
     {
-        echo "$l_exceed_organics  ";
+        echo $langvars['l_exceed_organics'] . "  ";
     }
     elseif ($trade_ore > $planetinfo['ore'])
     {
-        echo "$l_exceed_ore  ";
+        echo $langvars['l_exceed_ore'] . "  ";
     }
     elseif ($trade_goods > $planetinfo['goods'])
     {
-        echo "$l_exceed_goods  ";
+        echo $langvars['l_exceed_goods'] . "  ";
     }
     elseif ($trade_energy > $planetinfo['energy'])
     {
-        echo "$l_exceed_energy  ";
+        echo $langvars['l_exceed_energy'] . "  ";
     }
     else
     {
-        echo "$l_totalcost: $total_cost<br>$l_traded_ore: $trade_ore<br>$l_traded_organics: $trade_organics<br>$l_traded_goods: $trade_goods<br>$l_traded_energy: $trade_energy<br><br>";
+        echo $langvars['l_totalcost'] . ": $total_cost<br>" . $langvars['l_traded_ore'] . ": $trade_ore<br>" . $langvars['l_traded_organics'] . ": $trade_organics<br>" . $langvars['l_traded_goods'] . ": $trade_goods<br>" . $langvars['l_traded_energy'] . ": $trade_energy<br><br>";
 
         // Update ship cargo, credits and turns
         $trade_result = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
@@ -164,7 +164,7 @@ if ($planetinfo['sells'] == 'Y')
 
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, credits = credits + ? WHERE planet_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $total_cost, $planet_id));
         DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
-        echo "$l_trade_complete<br><br>";
+        echo $langvars['l_trade_complete'] . "<br><br>";
     }
 }
 

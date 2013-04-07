@@ -51,16 +51,16 @@ $langvars = BntTranslate::load ($db, $lang, array ('login2', 'login', 'common', 
 
 if ($server_closed)
 {
-    $title = $l_login_sclosed;
+    $title = $langvars['l_login_sclosed'];
     include './header.php';
-    echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>$l_login_closed_message</div><br>\n";
+    echo "<div style='text-align:center; color:#ff0; font-size:20px;'><br>" . $langvars['l_login_closed_message'] . "</div><br>\n";
     echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
 
     include './footer.php';
     die ();
 }
 
-$title = $l_login_title2;
+$title = $langvars['l_login_title2'];
 
 // Check Banned
 $banned = 0;
@@ -112,8 +112,8 @@ if ($playerfound)
                 {
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                    $l_login_died = str_replace ("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_died);
-                    echo $l_login_died;
+                    $langvars['l_login_died'] = str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_died']);
+                    echo $langvars['l_login_died'];
                 }
                 else
                 {
@@ -128,22 +128,22 @@ if ($playerfound)
 
                         if ($num_rows)
                         {
-                            echo "<br><br>" . $l_login_newbie . "<br><br>";
+                            echo "<br><br>" . $langvars['l_login_newbie'] . "<br><br>";
                             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0, sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, credits=1000, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N', dev_lssd='N' WHERE ship_id = ?", array ($playerinfo['ship_id']));
                             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-                            $l_login_newlife = str_replace ("[here]", "<a href='main.php'>" . $l_here . "</a>", $l_login_newlife);
-                            echo $l_login_newlife;
+                            $langvars['l_login_newlife'] = str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_newlife']);
+                            echo $langvars['l_login_newlife'];
                         }
                         else
                         {
-                            echo "<br><br>" . $l_login_looser . "<br><br>" . $l_login_looser2;
+                            echo "<br><br>" . $langvars['l_login_looser'] . "<br><br>" . $langvars['l_login_looser2'];
                         }
 
                     } // End if $newbie_nice
                     else
                     {
-                        echo "<br><br>" . $l_login_looser . "<br><br>" . $l_login_looser2;
+                        echo "<br><br>" . $langvars['l_login_looser'] . "<br><br>" . $langvars['l_login_looser2'];
                     }
                 }
             }
@@ -176,15 +176,15 @@ if ($playerfound)
     else
     {
         // password is incorrect
-        echo $l_login_4gotpw1a . "<br><br>" . $l_login_4gotpw1b . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $l_clickme . "</a> " . $l_login_4gotpw2a . "<br><br>" . $l_login_4gotpw2b . " <a href='index.php'>" . $l_clickme . "</a> " . $l_login_4gotpw3 . " " . $ip . "...";
+        echo $langvars['l_login_4gotpw1a'] . "<br><br>" . $langvars['l_login_4gotpw1b'] . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw2a'] . "<br><br>" . $langvars['l_login_4gotpw2b'] . " <a href='index.php'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw3'] . " " . $ip . "...";
         PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
         AdminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{$ip}|{$_POST['email']}|{$_POST['pass']}");
     }
 }
 else
 {
-    $l_login_noone = str_replace ("[here]", "<a href='new.php" . $link . "'>" . $l_here . "</a>", $l_login_noone);
-    echo "<strong>" . $l_login_noone . "</strong><br>";
+    $langvars['l_login_noone'] = str_replace ("[here]", "<a href='new.php" . $link . "'>" . $langvars['l_here'] . "</a>", $langvars['l_login_noone']);
+    echo "<strong>" . $langvars['l_login_noone'] . "</strong><br>";
 }
 
 include './footer.php';

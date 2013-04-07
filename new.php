@@ -31,7 +31,7 @@ else
     $link = "?lang=" . $lang;
 }
 
-$title = $l_new_title;
+$title = $langvars['l_new_title'];
 include './header.php';
 
 // Database driven language entries
@@ -40,16 +40,16 @@ echo "<h1>" . $title . "</h1>\n";
 
 echo "<form action='new2.php" . $link . "' method='post'>\n";
 echo "    <dl class='twocolumn-form'>\n";
-echo "        <dt style='padding:3px'><label for='username'>{$l_login_email}:</label></dt>\n";
+echo "        <dt style='padding:3px'><label for='username'>" . $langvars['l_login_email'] . ":</label></dt>\n";
 echo "        <dd style='padding:3px'><input type='email' id='username' name='username' size='20' maxlength='40' value='' placeholder='someone@example.com' style='width:200px'></dd>\n";
-echo "        <dt style='padding:3px'><label for='shipname'>{$l_new_shipname}:</label></dt>\n";
+echo "        <dt style='padding:3px'><label for='shipname'>" . $langvars['l_new_shipname'] . ":</label></dt>\n";
 echo "        <dd style='padding:3px'><input type='text' id='shipname' name='shipname' size='20' maxlength='20' value='' style='width:200px'></dd>\n";
-echo "        <dt style='padding:3px'><label for='character'>{$l_new_pname}:</label></dt>\n";
+echo "        <dt style='padding:3px'><label for='character'>" . $langvars['l_new_pname'] . ":</label></dt>\n";
 echo "        <dd style='padding:3px'><input type='text' id='character' name='character' size='20' maxlength='20' value='' style='width:200px'></dd>\n";
 echo "    </dl>\n";
 echo "    <br style='clear:both;'><br>";
-echo "    <div style='text-align:center'><input type='submit' value='" . $l_submit . "'>&nbsp;<input type='reset' value='" . $l_reset . "'><br><br>\n";
-echo "        " . $l_new_info . "<br></div>\n";
+echo "    <div style='text-align:center'><input type='submit' value='" . $langvars['l_submit'] . "'>&nbsp;<input type='reset' value='" . $langvars['l_reset'] . "'><br><br>\n";
+echo "        " . $langvars['l_new_info'] . "<br></div>\n";
 echo "</form>";
 
 include './footer.php';

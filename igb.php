@@ -25,7 +25,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_ibank_title;
+$title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 include './header.php';
 
@@ -52,7 +52,7 @@ $account = $result->fields;
 
 if (!$allow_ibank)
 {
-    ibank_error ($l_ibank_malfunction, "main.php");
+    ibank_error ($langvars['l_ibank_malfunction'], "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -138,7 +138,7 @@ else
 {
   echo "
   <tr>
-    <td width='25%' valign='bottom' align='left'><a href=\"main.php\">$l_ibank_quit</a></td>
+    <td width='25%' valign='bottom' align='left'><a href=\"main.php\">" . $langvars['l_ibank_quit'] . "</a></td>
     <td width='50%' style='text-align:left;'>
   <pre style='text-align:left;' class='term'>
   IIIIIIIIII          GGGGGGGGGGGGG    BBBBBBBBBBBBBBBBB
@@ -160,13 +160,13 @@ else
   </pre>
   <center class='term'>
   ";
-  echo $l_ibank_title;
+  echo $langvars['l_ibank_title'];
   echo "(tm)<br>";
-  echo $l_ibank_humor;
+  echo $langvars['l_ibank_humor'];
   echo "<br>&nbsp;
   </center>
   </td>
-  <td width='25%' valign='bottom' align='right'><a href=\"igb.php?command=login\">$l_ibank_login</a></td>
+  <td width='25%' valign='bottom' align='right'><a href=\"igb.php?command=login\">" . $langvars['l_ibank_login'] . "</a></td>
   ";
 }
 

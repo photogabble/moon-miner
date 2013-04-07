@@ -31,7 +31,7 @@ else
     $link = "?lang=" . $lang;
 }
 
-$title = $l_new_title2;
+$title = $langvars['l_new_title2'];
 include './header.php';
 
 // Database driven language entries
@@ -40,7 +40,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($account_creation_closed)
 {
-    die ($l_new_closed_message);
+    die ($langvars['l_new_closed_message']);
 }
 
 // Get the user supplied post vars.
@@ -82,7 +82,7 @@ $flag = 0;
 
 if ($username === null || $character === null || $shipname === null )
 {
-    echo $l_new_blank . '<br>';
+    echo $langvars['l_new_blank'] . '<br>';
     $flag = 1;
 }
 
@@ -91,19 +91,19 @@ while (!$result->EOF)
     $row = $result->fields;
     if (mb_strtolower ($row['email']) == mb_strtolower ($username))
     {
-        echo "$l_new_inuse  $l_new_4gotpw1 <a href=mail.php?mail=$username>$l_clickme</a> $l_new_4gotpw2<br>";
+        echo $langvars['l_new_inuse'] . " " .  $langvars['l_new_4gotpw1'] . " <a href=mail.php?mail=$username>" . $langvars['l_clickme'] . "</a> " . $langvars['l_new_4gotpw2'] . "<br>";
         $flag = 1;
     }
     if (mb_strtolower ($row['character_name']) == mb_strtolower($character))
     {
-        $l_new_inusechar=str_replace ("[character]", $character, $l_new_inusechar);
-        echo $l_new_inusechar . '<br>';
+        $langvars['l_new_inusechar'] = str_replace ("[character]", $character, $langvars['l_new_inusechar']);
+        echo $langvars['l_new_inusechar'] . '<br>';
         $flag = 1;
     }
     if (mb_strtolower ($row['ship_name']) == mb_strtolower ($shipname))
     {
-        $l_new_inuseship = str_replace ("[shipname]", $shipname, $l_new_inuseship);
-        echo $l_new_inuseship . '<br>';
+        $langvars['l_new_inuseship'] = str_replace ("[shipname]", $shipname, $langvars['l_new_inuseship']);
+        echo $langvars['l_new_inuseship'] . '<br>';
         $flag = 1;
     }
     $result->MoveNext();
@@ -158,17 +158,17 @@ if ($flag == 0)
         $shipid = $result2->fields;
 
         // To do: build a bit better "new player" message
-        $l_new_message = str_replace ("[pass]", $makepass, $l_new_message);
-        $l_new_message = str_replace ("[ip]", $ip, $l_new_message);
+        $langvars['l_new_message'] = str_replace ("[pass]", $makepass, $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace ("[ip]", $ip, $langvars['l_new_message']);
 
         // Some reason \r\n is broken, so replace them now.
-        $l_new_message = str_replace ('\r\n', "\r\n", $l_new_message);
+        $langvars['l_new_message'] = str_replace ('\r\n', "\r\n", $langvars['l_new_message']);
 
         $link_to_game = "http://";
         $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
         //$link_to_game .= str_replace ($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
         $link_to_game .= $gamepath;
-        mail ("$username", "$l_new_topic", "$l_new_message\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
+        mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
 
         LogMove::writeLog ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $resx = $db->Execute ("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array ($character ."\'s Territory", $shipid['ship_id']));
@@ -183,13 +183,13 @@ if ($flag == 0)
         }
         $langvars['l_new_pwsent'] = str_replace ("[username]", $_POST['username'], $langvars['l_new_pwsent']);
         echo $langvars['l_new_pwsent'] . '<br><br>';
-        echo "<a href=index.php" . $link . ">$l_clickme</A> $l_new_login";
+        echo "<a href=index.php" . $link . ">" . $langvars['l_clickme'] . "</a> " . $langvars['l_new_login'];
     }
 }
 else
 {
-    $l_new_err = str_replace ("[here]", "<a href='new.php'>" . $l_here . "</a>",$l_new_err);
-    echo $l_new_err;
+    $langvars['l_new_err'] = str_replace ("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>",$langvars['l_new_err']);
+    echo $langvars['l_new_err'];
 }
 
 include './footer.php';

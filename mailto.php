@@ -23,7 +23,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_sendm_title;
+$title = $langvars['l_sendm_title'];
 include './header.php';
 
 // Database driven language entries
@@ -96,11 +96,11 @@ if (empty ($content))
     echo "<form action=mailto.php method=post>\n";
     echo "  <table>\n";
     echo "    <tr>\n";
-    echo "      <td>$l_sendm_from:</td>\n";
+    echo "      <td>" . $langvars['l_sendm_from'] . ":</td>\n";
     echo "      <td><input disabled type='text' name='dummy' size='40' maxlength='40' value=\"$playerinfo[character_name]\"></td>\n";
     echo "    </tr>\n";
     echo "    <tr>\n";
-    echo "      <td>$l_sendm_to:</td>\n";
+    echo "      <td>" . $langvars['l_sendm_to'] . ":</td>\n";
     echo "      <td>\n";
     echo "        <select name='to' style='width:200px;'>\n";
 
@@ -117,7 +117,7 @@ if (empty ($content))
     while (!$res2->EOF && $res2->fields != null)
     {
         $row2 = $res2->fields;
-        echo "          <option>$l_sendm_ally $row2[team_name]</option>\n";
+        echo "          <option>" . $langvars['l_sendm_ally'] . " " . $row2['team_name'] . "</option>\n";
         $res2->MoveNext();
     }
 
@@ -134,16 +134,16 @@ if (empty ($content))
     }
 
     echo "    <tr>\n";
-    echo "      <td>$l_sendm_subj:</td>\n";
+    echo "      <td>" . $langvars['l_sendm_subj'] . ":</td>\n";
     echo "      <td><input type=text name=subject size=40 maxlength=40 value=\"$subject\"></td>\n";
     echo "    </tr>\n";
     echo "    <tr>\n";
-    echo "      <td>$l_sendm_mess:</td>\n";
+    echo "      <td>" . $langvars['l_sendm_mess'] . ":</td>\n";
     echo "      <td><textarea id=richeditor name=content rows=6 cols=80></textarea></td>\n";
     echo "    </tr>";
     echo "    <tr>\n";
     echo "      <td></td>\n";
-    echo "      <td><input type=submit value=$l_sendm_send><input type=reset value=$l_reset></td>\n";
+    echo "      <td><input type=submit value=" . $langvars['l_sendm_send'] . "><input type=reset value=" . $langvars['l_reset'] . "></td>\n";
     echo "    </tr>\n";
     echo "  </table>\n";
     echo "<script>CKEDITOR.replace('richeditor');</script>";
@@ -151,7 +151,7 @@ if (empty ($content))
 }
 else
 {
-    if (mb_strpos ($to, $l_sendm_ally) === false)
+    if (mb_strpos ($to, $langvars['l_sendm_ally']) === false)
     {
         $timestamp = date ("Y\-m\-d H\:i\:s");
         $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE character_name = ?;", array ($to));
@@ -165,13 +165,13 @@ else
         }
         else
         {
-            echo $l_sendm_sent . "<br><br>";
+            echo $langvars['l_sendm_sent'] . "<br><br>";
         }
     }
     else
     {
         $timestamp = date ("Y\-m\-d H\:i\:s");
-        $to = str_replace ($l_sendm_ally, "", $to);
+        $to = str_replace ($langvars['l_sendm_ally'], "", $to);
         $to = trim ($to);
         $to = addslashes($to);
         $res = $db->Execute ("SELECT id FROM {$db->prefix}teams WHERE team_name = ?;", array ($to));

@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_nav_title;
+$title = $langvars['l_nav_title'];
 include './header.php';
 
 // Database driven language entries
@@ -33,7 +33,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if (!$allow_navcomp)
 {
-    echo $l_nav_nocomp . '<br><br>';
+    echo $langvars['l_nav_nocomp'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
@@ -86,7 +86,7 @@ else
 if ($state == 0)
 {
     echo "<form action=\"navcomp.php\" method=post>";
-    echo "$l_nav_query <input name=\"stop_sector\">&nbsp;<input type=submit value=$l_submit><br>\n";
+    echo $langvars['l_nav_query'] . " <input name=\"stop_sector\">&nbsp;<input type=submit value=" . $langvars['l_submit'] . "><br>\n";
     echo "<input name=\"state\" value=1 TYPE=HIDDEN>";
     echo "</form>\n";
 }
@@ -172,7 +172,7 @@ elseif ($state == 1)
 
     if ($found > 0)
     {
-        echo "<h3>$l_nav_pathfnd</h3>\n";
+        echo "<h3>" . $langvars['l_nav_pathfnd'] . "</h3>\n";
         $links = $search_result->fields;
         echo $links[0];
         for ($i = 1; $i < $search_depth + 1; $i++)
@@ -183,11 +183,11 @@ elseif ($state == 1)
         $db->SetFetchMode (ADODB_FETCH_ASSOC);
 
         echo "<br><br>";
-        echo "$l_nav_answ1 $search_depth $l_nav_answ2<br><br>";
+        echo $langvars['l_nav_answ1'] . " " . $search_depth . " " . $langvars['l_nav_answ2'] . "<br><br>";
     }
     else
     {
-        echo $l_nav_proper . "<br><br>";
+        echo $langvars['l_nav_proper'] . "<br><br>";
     }
 }
 
