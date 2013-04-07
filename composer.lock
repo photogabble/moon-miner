@@ -125,7 +125,9 @@
             "time": "2013-01-26 12:03:52"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
@@ -133,5 +135,11 @@
     "stability-flags": {
         "ezyang/htmlpurifier": 20,
         "adodb/adodb-php": 20
-    }
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }
