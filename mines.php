@@ -25,10 +25,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('mines'));
 
 $title = $langvars['l_mines_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 $op = null;
 if (array_key_exists ('op', $_GET) == true)

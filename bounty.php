@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_by_title;
+$title = $langvars['l_by_title'];
 include './header.php';
 
 // Database driven language entries
@@ -63,16 +63,16 @@ switch ($response) {
         $num_details = $j;
         if ($num_details < 1)
         {
-            echo $l_by_nobounties . "<br>";
+            echo $langvars['l_by_nobounties'] . "<br>";
         }
         else
         {
-            echo $l_by_bountyon. " " . $bounty_details[0]['character_name'];
+            echo $langvars['l_by_bountyon'] . " " . $bounty_details[0]['character_name'];
             echo '<table border=1 cellspacing=1 cellpadding=2 width="50%" align=center>';
             echo "<tr bgcolor=\"$color_header\">";
-            echo "<td><strong>" . $l_amount . "</td>";
-            echo "<td><strong>" . $l_by_placedby . "</td>";
-            echo "<td><strong>" . $l_by_action . "</td>";
+            echo "<td><strong>" . $langvars['l_amount'] . "</td>";
+            echo "<td><strong>" . $langvars['l_by_placedby'] . "</td>";
+            echo "<td><strong>" . $langvars['l_by_action'] . "</td>";
             echo "</tr>";
             $color = $color_line1;
             for ($j = 0; $j < $num_details; $j++)
@@ -84,7 +84,7 @@ switch ($response) {
                 echo "<td>" . $bounty_details[$j]['amount'] . "</td>";
                 if ($bounty_details[$j]['placed_by'] == 0)
                 {
-                    echo "<td>" . $l_by_thefeds . "</td>";
+                    echo "<td>" . $langvars['l_by_thefeds'] . "</td>";
                 }
                 else
                 {
@@ -92,7 +92,7 @@ switch ($response) {
                 }
                 if ($bounty_details[$j]['placed_by'] == $playerinfo['ship_id'])
                 {
-                    echo "<td><a href=bounty.php?bid=" . $bounty_details[$j]['bounty_id'] . "&response=cancel>$l_by_cancel</A></td>";
+                    echo "<td><a href=bounty.php?bid=" . $bounty_details[$j]['bounty_id'] . "&response=cancel>" . $langvars['l_by_cancel'] . "</a></td>";
                 }
                 else
                 {
@@ -119,7 +119,7 @@ switch ($response) {
         echo "<h1>" . $title . "</h1>\n";
         if ($playerinfo['turns'] < 1)
         {
-            echo $l_by_noturn . "<br><br>";
+            echo $langvars['l_by_noturn'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -129,7 +129,7 @@ switch ($response) {
         DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->RowCount() ==0)
         {
-            echo $l_by_nobounty . "<br><br>";
+            echo $langvars['l_by_nobounty'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -138,7 +138,7 @@ switch ($response) {
         $bty = $res->fields;
         if ($bty['placed_by'] != $playerinfo['ship_id'])
         {
-            echo $l_by_notyours . "<br><br>";
+            echo $langvars['l_by_notyours'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -150,7 +150,7 @@ switch ($response) {
         $refund = $bty['amount'];
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns-1, turns_used = turns_used + 1, credits = credits + ? WHERE ship_id = ?;", array ($stamp, $refund, $playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-        echo $l_by_canceled . "<br>";
+        echo $langvars['l_by_canceled'] . "<br>";
         BntText::gotoMain ($db, $lang, $langvars);
         die ();
         break;
@@ -161,7 +161,7 @@ switch ($response) {
         DbOp::dbResult ($db, $ex, __LINE__, __FILE__);
         if (!$ex)
         {
-            echo $l_by_notexists . "<br><br>";
+            echo $langvars['l_by_notexists'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -170,7 +170,7 @@ switch ($response) {
         $bty = $ex->fields;
         if ($bty['ship_destroyed'] == "Y")
         {
-            echo $l_by_destroyed . "<br><br>";
+            echo $langvars['l_by_destroyed'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -178,7 +178,7 @@ switch ($response) {
 
         if ($playerinfo['turns'] < 1 )
         {
-            echo $l_by_noturn . "<br><br>";
+            echo $langvars['l_by_noturn'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -187,7 +187,7 @@ switch ($response) {
         $amount = preg_replace ('/[^0-9]/', '', $amount);
         if ($amount <= 0)
         {
-            echo "$l_by_zeroamount<br><br>";
+            echo $langvars['l_by_zeroamount'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -195,7 +195,7 @@ switch ($response) {
 
         if ($bounty_on == $playerinfo['ship_id'])
         {
-            echo "$l_by_yourself<br><br>";
+            echo $langvars['l_by_yourself'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -203,7 +203,7 @@ switch ($response) {
 
         if ($amount > $playerinfo['credits'])
         {
-            echo "$l_by_notenough<br><br>";
+            echo $langvars['l_by_notenough'] . "<br><br>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -227,8 +227,8 @@ switch ($response) {
 
             if ($amount + $previous_bounty > $maxtrans)
             {
-                $l_by_toomuch = str_replace ("[percent]", $percent, $l_by_toomuch);
-                echo "$l_by_toomuch<br><br>";
+                $langvars['l_by_toomuch'] = str_replace ("[percent]", $percent, $langvars['l_by_toomuch']);
+                echo $langvars['l_by_toomuch'] . "<br><br>";
                 BntText::gotoMain ($db, $lang, $langvars);
                 include './footer.php';
                 die ();
@@ -240,7 +240,7 @@ switch ($response) {
         $stamp = date ("Y-m-d H-i-s");
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, credits = credits - ? WHERE ship_id = ?;", array ($stamp, $amount, $playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-        echo "$l_by_placed<br>";
+        echo $langvars['l_by_placed'] . "<br>";
         BntText::gotoMain ($db, $lang, $langvars);
         die ();
         break;
@@ -250,7 +250,7 @@ switch ($response) {
         DbOp::dbResult ($db, $res, __LINE__, __FILE__);
         echo "<form action=bounty.php method=post>";
         echo "<table>";
-        echo "<tr><td>$l_by_bountyon</td><td><select name=bounty_on>";
+        echo "<tr><td>" . $langvars['l_by_bountyon'] . "</td><td><select name=bounty_on>";
         while (!$res->EOF)
         {
             if (isset ($bounty_on) && $bounty_on == $res->fields['ship_id'])
@@ -269,8 +269,8 @@ switch ($response) {
         }
 
         echo "</select></td></tr>";
-        echo "<tr><td>$l_by_amount:</td><td><input type=text name=amount size=20 maxlength=20></td></tr>";
-        echo "<tr><td></td><td><input type=submit value=$l_by_place><input type=reset value=Clear></td>";
+        echo "<tr><td>" . $langvars['l_by_amount'] . ":</td><td><input type=text name=amount size=20 maxlength=20></td></tr>";
+        echo "<tr><td></td><td><input type=submit value=" . $langvars['l_by_place'] . "><input type=reset value=Clear></td>";
         echo "</table>";
         echo "<input type=hidden name=response value=place>";
         echo "</form>";
@@ -292,15 +292,15 @@ switch ($response) {
         $num_bounties = $i;
         if ($num_bounties < 1)
         {
-            echo "$l_by_nobounties<br>";
+            echo $langvars['l_by_nobounties'] . "<br>";
         }
         else
         {
-            echo $l_by_moredetails . "<br><br>";
+            echo $langvars['l_by_moredetails'] . "<br><br>";
             echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
             echo "<tr bgcolor=\"$color_header\">";
-            echo "<td><strong>$l_by_bountyon</strong></td>";
-            echo "<td><strong>$l_amount</td>";
+            echo "<td><strong>" . $langvars['l_by_bountyon'] . "</strong></td>";
+            echo "<td><strong>" . $langvars['l_amount'] . "</td>";
             echo "</tr>";
             $color = $color_line1;
             for ($i = 0; $i < $num_bounties; $i++)

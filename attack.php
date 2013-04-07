@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars))
     die ();
 }
 
-$title = $l_att_title;
+$title = $langvars['l_att_title'];
 include './header.php';
 
 // Database driven language entries
@@ -68,19 +68,19 @@ $targetscore = $targetscore * $targetscore;
 // Check to ensure target is in the same sector as player
 if ($targetinfo['sector'] != $playerinfo['sector'] || $targetinfo['on_planet'] == "Y")
 {
-    echo $l_att_notarg . "<br><br>";
+    echo $langvars['l_att_notarg'] . "<br><br>";
 }
 elseif ($playerinfo['turns'] < 1)
 {
-    echo $l_att_noturn . "<br><br>";
+    echo $langvars['l_att_noturn'] . "<br><br>";
 }
 else if ( BntTeam::sameTeam ($playerinfo['team'], $targetinfo['team']) )
 {
-    echo "<div style='color:#ff0;'>" . $l_team_noattack_members . "</div>\n";
+    echo "<div style='color:#ff0;'>" . $langvars['l_team_noattack_members'] . "</div>\n";
 }
 elseif (isset ($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
 {
-    echo "<div style='color:#ff0;'>" . $l_team_already_combat . "</div>\n";
+    echo "<div style='color:#ff0;'>" . $langvars['l_team_already_combat'] . "</div>\n";
     AdminLog::writeLog ($db, 13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
 }
 else
@@ -111,11 +111,11 @@ else
 
     if ($zoneinfo['allow_attack'] == 'N')
     {
-        echo $l_att_noatt . "<br><br>";
+        echo $langvars['l_att_noatt'] . "<br><br>";
     }
     elseif ($flee < $roll2)
     {
-        echo $l_att_flee . "<br><br>";
+        echo $langvars['l_att_flee'] . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
                              "ship_id = ?;", array ($playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
@@ -124,7 +124,7 @@ else
     elseif ($roll > $success)
     {
         // If scan fails - inform both player and target.
-        echo $l_planet_noscan . "<br><br>";
+        echo $langvars['l_planet_noscan'] . "<br><br>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1 WHERE " .
                              "ship_id = ?;", array ($playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
@@ -159,7 +159,7 @@ else
                                          "WHERE ship_id = ?;", array ($targetinfo['ship_id']));
             DbOp::dbResult ($db, $result_warp, __LINE__, __FILE__);
             LogMove::writeLog ($db, $targetinfo['ship_id'], $dest_sector);
-            echo $l_att_ewd . "<br><br>";
+            echo $langvars['l_att_ewd'] . "<br><br>";
         }
         else
         {
@@ -187,7 +187,7 @@ else
                                            "(?,?,?);", array ($playerinfo['ship_id'], 0 ,$bounty));
                     DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
                     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BOUNTY_FEDBOUNTY, "$bounty");
-                    echo "<div style='color:#f00;'>" . $l_by_fedbounty2 . "</div>\n";
+                    echo "<div style='color:#f00;'>" . $langvars['l_by_fedbounty2'] . "</div>\n";
                     echo "<br>\n";
                 }
             }
@@ -250,7 +250,7 @@ else
             $targetdestroyed = 0;
             $playerdestroyed = 0;
 
-            echo "$l_att_att $targetinfo[character_name] $l_aboard $targetinfo[ship_name]:<br><br>";
+            echo $langvars['l_att_att'] . " " . $targetinfo['character_name'] . " " . $langvars['l_aboard'] . " " . $targetinfo['ship_name'] . ":<br><br>";
 
             $bcs_info = null;
             $bcs_info[] = array ("Beams(lvl)", "{$playerbeams}({$playerinfo['beams']})", "{$targetbeams}({$targetinfo['beams']})" );
@@ -315,14 +315,14 @@ else
                     $lost = $targetfighters - $temp;
 
                     // Maybe we should report on how many beams fired , etc for comparision/bugtracking
-                    echo "$targetinfo[character_name] $l_att_lost $lost $l_fighters<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_lost'] . " " . $lost . " " . $langvars['l_fighters'] . "<br>";
                     $targetfighters = $temp;
                     $playerbeams = $playerbeams - $lost;
                 }
                 else
                 {
                     $targetfighters = $targetfighters - $playerbeams;
-                    echo "$targetinfo[character_name] $l_att_lost $playerbeams $l_fighters<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_lost'] . " " . $playerbeams . " " . $langvars['l_fighters'] . "<br>";
                     $playerbeams = 0;
                 }
             }
@@ -334,14 +334,14 @@ else
                 {
                     $temp = round ($playerfighters / 2);
                     $lost = $playerfighters - $temp;
-                    echo "$l_att_ylost $lost $l_fighters<br>";
+                    echo $langvars['l_att_ylost'] . " " . $lost . " " . $langvars['l_fighters'] . "<br>";
                     $playerfighters = $temp;
                     $targetbeams = $targetbeams - $lost;
                 }
                 else
                 {
                     $playerfighters = $playerfighters - $targetbeams;
-                    echo "$l_att_ylost $targetbeams $l_fighters<br>";
+                    echo $langvars['l_att_ylost'] . " " . $targetbeams . " " . $langvars['l_fighters'] . "<br>";
                     $targetbeams = 0;
                 }
             }
@@ -353,11 +353,11 @@ else
                 {
                     $playerbeams = $playerbeams - $targetshields;
                     $targetshields = 0;
-                    echo "$targetinfo[character_name]". $l_att_sdown ."<br>";
+                    echo "$targetinfo[character_name]" . $langvars['l_att_sdown'] . "<br>";
                 }
                 else
                 {
-                    echo "$targetinfo[character_name]" . $l_att_shits ." $playerbeams $l_att_dmg.<br>";
+                    echo "$targetinfo[character_name]" . $langvars['l_att_shits'] . " " . $playerbeams . " " . $langvars['l_att_dmg'] . ".<br>";
                     $targetshields = $targetshields - $playerbeams;
                     $playerbeams = 0;
                 }
@@ -370,11 +370,11 @@ else
                 {
                     $targetbeams = $targetbeams - $playershields;
                     $playershields = 0;
-                    echo $l_att_ydown . "<br><br>";
+                    echo $langvars['l_att_ydown'] . "<br><br>";
                 }
                 else
                 {
-                    echo "$l_att_yhits $targetbeams $l_att_dmg.<br>";
+                    echo $langvars['l_att_yhits'] . " " . $targetbeams . " " . $langvars['l_att_dmg'] . ".<br>";
                     $playershields = $playershields - $targetbeams;
                     $targetbeams = 0;
                 }
@@ -386,12 +386,12 @@ else
                 if ($playerbeams > $targetarmor)
                 {
                     $targetarmor = 0;
-                    echo $targetinfo['character_name'] . $l_att_sarm ."<br>";
+                    echo $targetinfo['character_name'] . $langvars['l_att_sarm']  . "<br>";
                 }
                 else
                 {
                     $targetarmor = $targetarmor - $playerbeams;
-                    echo $targetinfo['character_name'] . $l_att_ashit ." $playerbeams $l_att_dmg.<br>";
+                    echo $targetinfo['character_name'] . $langvars['l_att_ashit'] ." " . $playerbeams . " " . $langvars['l_att_dmg'] . ".<br>";
                 }
             }
 
@@ -401,12 +401,12 @@ else
                 if ($targetbeams > $playerarmor)
                 {
                     $playerarmor = 0;
-                    echo $l_att_yarm . "<br>";
+                    echo $langvars['l_att_yarm'] . "<br>";
                 }
                 else
                 {
                     $playerarmor = $playerarmor - $targetbeams;
-                    echo "$l_att_ayhit $targetbeams $l_att_dmg.<br>";
+                    echo $langvars['l_att_ayhit'] . " " . $targetbeams . " " . $langvars['l_att_dmg'] . ".<br>";
                 }
             }
 
@@ -429,14 +429,14 @@ else
                 {
                     $temp = round ($targetfighters / 2);
                     $lost = $targetfighters - $temp;
-                    echo "$targetinfo[character_name] $l_att_lost $lost $l_fighters<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_lost'] . " " . $lost . " " . $langvars['l_fighters'] . "<br>";
                     $targetfighters = $temp;
                     $playertorpdmg = $playertorpdmg - $lost;
                 }
                 else
                 {
                     $targetfighters = $targetfighters - $playertorpdmg;
-                    echo "$targetinfo[character_name] $l_att_lost $playertorpdmg $l_fighters<br>";
+                    echo $targetinfo['character_name'] . " " .  $langvars['l_att_lost'] . " " . $playertorpdmg . " " . $langvars['l_fighters'] . "<br>";
                     $playertorpdmg = 0;
                 }
             }
@@ -448,7 +448,7 @@ else
                 {
                     $temp = round ($playerfighters / 2);
                     $lost = $playerfighters - $temp;
-                    echo "$l_att_ylost $lost $l_fighters<br>";
+                    echo $langvars['l_att_ylost'] . " " . $lost . " " . $langvars['l_fighters'] . "<br>";
                     echo "$temp - $playerfighters - $targettorpdmg";
                     $playerfighters = $temp;
                     $targettorpdmg = $targettorpdmg - $lost;
@@ -456,7 +456,7 @@ else
                 else
                 {
                     $playerfighters = $playerfighters - $targettorpdmg;
-                    echo "$l_att_ylost $targettorpdmg $l_fighters<br>";
+                    echo $langvars['l_att_ylost'] . " " . $targettorpdmg . " " . $langvars['l_fighters'] . "<br>";
                     $targettorpdmg = 0;
                 }
             }
@@ -467,12 +467,12 @@ else
                 if ($playertorpdmg > $targetarmor)
                 {
                     $targetarmor=0;
-                    echo "$targetinfo[character_name]" . $l_att_sarm ."<br>";
+                    echo "$targetinfo[character_name]" . $langvars['l_att_sarm'] . "<br>";
                 }
                 else
                 {
                     $targetarmor = $targetarmor - $playertorpdmg;
-                    echo "$targetinfo[character_name]" . $l_att_ashit . " $playertorpdmg $l_att_dmg.<br>";
+                    echo "$targetinfo[character_name]" . $langvars['l_att_ashit'] . " " . $playertorpdmg . " " . $langvars['l_att_dmg'] . ".<br>";
                 }
             }
 
@@ -482,12 +482,12 @@ else
                 if ($targettorpdmg > $playerarmor)
                 {
                     $playerarmor = 0;
-                    echo $l_att_yarm . "<br>";
+                    echo $langvars['l_att_yarm'] . "<br>";
                 }
                 else
                 {
                     $playerarmor = $playerarmor - $targettorpdmg;
-                    echo "$l_att_ayhit $targettorpdmg $l_att_dmg.<br>";
+                    echo $langvars['l_att_ayhit'] . " " . $targettorpdmg . " " . $langvars['l_att_dmg'] . ".<br>";
                 }
             }
 
@@ -508,23 +508,23 @@ else
                 $bcs_stats_info = true;
                 if ($playerfighters > $targetfighters)
                 {
-                    echo "$targetinfo[character_name] $l_att_lostf<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_lostf'] . "<br>";
                     $temptargfighters = 0;
                 }
                 else
                 {
-                    echo "$targetinfo[character_name] $l_att_lost $playerfighters $l_fighters.<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_lost'] . " " . $playerfighters . " " . $langvars['l_fighters'] . ".<br>";
                     $temptargfighters = $targetfighters - $playerfighters;
                 }
 
                 if ($targetfighters > $playerfighters)
                 {
-                    echo $l_att_ylostf ."<br>";
+                    echo $langvars['l_att_ylostf'] ."<br>";
                     $tempplayfighters = 0;
                 }
                 else
                 {
-                    echo "$l_att_ylost $targetfighters $l_fighters.<br>";
+                    echo $langvars['l_att_ylost'] . " " . $targetfighters . " " . $langvars['l_fighters'] . ".<br>";
                     $tempplayfighters = $playerfighters - $targetfighters;
                 }
                 $playerfighters = $tempplayfighters;
@@ -537,12 +537,12 @@ else
                 if ($playerfighters > $targetarmor)
                 {
                     $targetarmor = 0;
-                    echo "$targetinfo[character_name]". $l_att_sarm . "<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_sarm'] . "<br>";
                 }
                 else
                 {
                     $targetarmor = $targetarmor - $playerfighters;
-                    echo "$targetinfo[character_name]" . $l_att_ashit ." $playerfighters $l_att_dmg.<br>";
+                    echo $targetinfo['character_name'] . " " . $langvars['l_att_ashit'] ." " . $playerfighters . " " . $langvars['l_att_dmg'] . ".<br>";
                 }
             }
 
@@ -552,12 +552,12 @@ else
                 if ($targetfighters > $playerarmor)
                 {
                     $playerarmor = 0;
-                    echo $l_att_yarm . "<br>";
+                    echo $langvars['l_att_yarm'] . "<br>";
                 }
                 else
                 {
                     $playerarmor = $playerarmor - $targetfighters;
-                    echo "$l_att_ayhit $targetfighters $l_att_dmg.<br>";
+                    echo $langvars['l_att_ayhit'] . " " . $targetfighters . " " . $langvars['l_att_dmg'] . ".<br>";
                 }
             }
 
@@ -573,11 +573,11 @@ else
 
             if ($targetarmor < 1)
             {
-                echo "$targetinfo[character_name]". $l_att_sdest ."<br>";
+                echo $targetinfo['character_name'] . " " . $langvars['l_att_sdest'] . "<br>";
                 if ($targetinfo['dev_escapepod'] == "Y")
                 {
                     $rating = round ($targetinfo['rating'] / 2 );
-                    echo "$l_att_espod (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br>";
+                    echo $langvars['l_att_espod'] . " (<span style='color:#ff0;'>You destroyed their ship but they got away in their Escape Pod</span>)<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, " .
                                          "torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, " .
                                          "ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, " .
@@ -673,14 +673,14 @@ else
                     $ship_salvage_rate = mt_rand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
-                    $l_att_ysalv = str_replace ("[salv_ore]", $salv_ore, $l_att_ysalv);
-                    $l_att_ysalv = str_replace ("[salv_organics]", $salv_organics, $l_att_ysalv);
-                    $l_att_ysalv = str_replace ("[salv_goods]", $salv_goods, $l_att_ysalv);
-                    $l_att_ysalv = str_replace ("[ship_salvage_rate]", $ship_salvage_rate, $l_att_ysalv);
-                    $l_att_ysalv = str_replace ("[ship_salvage]", $ship_salvage, $l_att_ysalv);
-                    $l_att_ysalv2 = str_replace ("[rating_change]", number_format (abs ($rating_change), 0, $local_number_dec_point, $local_number_thousands_sep), $l_att_ysalv2);
+                    $langvars['l_att_ysalv'] = str_replace ("[salv_ore]", $salv_ore, $langvars['l_att_ysalv']);
+                    $langvars['l_att_ysalv'] = str_replace ("[salv_organics]", $salv_organics, $langvars['l_att_ysalv']);
+                    $langvars['l_att_ysalv'] = str_replace ("[salv_goods]", $salv_goods, $langvars['l_att_ysalv']);
+                    $langvars['l_att_ysalv'] = str_replace ("[ship_salvage_rate]", $ship_salvage_rate, $langvars['l_att_ysalv']);
+                    $langvars['l_att_ysalv'] = str_replace ("[ship_salvage]", $ship_salvage, $langvars['l_att_ysalv']);
+                    $langvars['l_att_ysalv2'] = str_replace ("[rating_change]", number_format (abs ($rating_change), 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_att_ysalv2']);
 
-                    echo $l_att_ysalv . "<br>" . $l_att_ysalv2 . "<br>\n";
+                    echo $langvars['l_att_ysalv'] . "<br>" . $langvars['l_att_ysalv2'] . "<br>\n";
                     $update3 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, " .
                                              "credits = credits + ? WHERE ship_id = ?;", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
                     DbOp::dbResult ($db, $update3, __LINE__, __FILE__);
@@ -691,13 +691,13 @@ else
                                               "turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
                                               "WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $rating_change, $playerinfo['ship_id']));
                     DbOp::dbResult ($db, $update3b, __LINE__, __FILE__);
-                    echo "$l_att_ylost $armor_lost $l_armorpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<br>";
+                    echo $langvars['l_att_ylost'] . " " . $armor_lost . " " . $langvars['l_armorpts'], $fighters_lost . " " . $langvars['l_fighters'], $langvars['l_att_andused'] . " " . $playertorpnum . " " . $langvars['l_torps'] . ".<br>";
                 }
             }
             else
             {
-                $l_att_stilship = str_replace ("[name]", $targetinfo['character_name'], $l_att_stilship);
-                echo $l_att_stilship. "<br>";
+                $langvars['l_att_stilship'] = str_replace ("[name]", $targetinfo['character_name'], $langvars['l_att_stilship']);
+                echo $langvars['l_att_stilship'] . "<br>";
 
                 $rating_change = round ($targetinfo['rating'] * .1 );
                 $armor_lost = $targetinfo['armor_pts'] - $targetarmor;
@@ -717,16 +717,16 @@ else
                                           "turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
                                           "WHERE ship_id = ?;", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $rating_change, $playerinfo['ship_id']));
                 DbOp::dbResult ($db, $update4b, __LINE__, __FILE__);
-                echo "$l_att_ylost $armor_lost $l_armorpts, $fighters_lost $l_fighters, $l_att_andused $playertorpnum $l_torps.<br><br>";
+                echo $langvars['l_att_ylost'] . " " . $armor_lost . " " . $langvars['l_armorpts'], $fighters_lost . " " . $langvars['l_fighters'], $langvars['l_att_andused'] . " " . $playertorpnum . " " . $langvars['l_torps'] . ".<br><br>";
             }
 
             if ($playerarmor < 1)
             {
-                echo $l_att_yshiplost . "<br><br>";
+                echo $langvars['l_att_yshiplost'] . "<br><br>";
                 if ($playerinfo['dev_escapepod'] == "Y")
                 {
                     $rating = round ($playerinfo['rating'] / 2 );
-                    echo $l_att_loosepod. "<br><br>";
+                    echo $langvars['l_att_loosepod'] . "<br><br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull = 0, engines = 0, power = 0, sensors = 0, computer = 0, beams = 0, torp_launchers = 0, torps = 0, " .
                                          "armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, ship_energy = ?, " .
                                          "ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', " .
@@ -798,14 +798,14 @@ else
                     $ship_salvage_rate = mt_rand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
-                    $l_att_salv = str_replace ("[salv_ore]", $salv_ore, $l_att_salv);
-                    $l_att_salv = str_replace ("[salv_organics]", $salv_organics, $l_att_salv);
-                    $l_att_salv = str_replace ("[salv_goods]", $salv_goods, $l_att_salv);
-                    $l_att_salv = str_replace ("[ship_salvage_rate]", $ship_salvage_rate, $l_att_salv);
-                    $l_att_salv = str_replace ("[ship_salvage]", $ship_salvage, $l_att_salv);
-                    $l_att_salv = str_replace ("[name]", $targetinfo['character_name'], $l_att_salv);
+                    $langvars['l_att_salv'] = str_replace ("[salv_ore]", $salv_ore, $langvars['l_att_salv']);
+                    $langvars['l_att_salv'] = str_replace ("[salv_organics]", $salv_organics, $langvars['l_att_salv']);
+                    $langvars['l_att_salv'] = str_replace ("[salv_goods]", $salv_goods, $langvars['l_att_salv']);
+                    $langvars['l_att_salv'] = str_replace ("[ship_salvage_rate]", $ship_salvage_rate, $langvars['l_att_salv']);
+                    $langvars['l_att_salv'] = str_replace ("[ship_salvage]", $ship_salvage, $langvars['l_att_salv']);
+                    $langvars['l_att_salv'] = str_replace ("[name]", $targetinfo['character_name'], $langvars['l_att_salv']);
 
-                    echo $l_att_salv. "<br>";
+                    echo $langvars['l_att_salv'] . "<br>";
                     $update6 = $db->Execute ("UPDATE {$db->prefix}ships SET credits = credits + ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, " .
                                              "ship_goods = ship_goods + ? WHERE ship_id = ?;", array ($ship_salvage, $salv_ore, $salv_organics, $salv_goods, $targetinfo['ship_id']));
                     DbOp::dbResult ($db, $update6, __LINE__, __FILE__);

@@ -30,10 +30,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('genesis'));
 
 $title = $langvars['l_gns_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 // Adding db lock to prevent more than 5 planets in a sector
 $resx = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE");

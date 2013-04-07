@@ -98,7 +98,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET last_login='$stamp',turns=turns-2, turns_used=turns_used+2, sector=? WHERE ship_id=?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 echo "<h1>" . $title . "</h1>\n";
-                echo "$l_chf_youretreatback<br>";
+                echo $langvars['l_chf_youretreatback'] . "<br>";
                 BntText::gotoMain ($db, $lang, $langvars);
                 die ();
                 break;
@@ -109,8 +109,8 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 if ($playerinfo['credits'] < $fighterstoll)
                 {
-                    echo "$l_chf_notenoughcreditstoll<br>";
-                    echo "$l_chf_movefailed<br>";
+                    echo $langvars['l_chf_notenoughcreditstoll'] . "<br>";
+                    echo $langvars['l_chf_movefailed'] . "<br>";
                     // Undo the move
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET sector=? WHERE ship_id=?;", array ($playerinfo['sector'], $playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
@@ -119,8 +119,8 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 else
                 {
                     $tollstring = number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep);
-                    $l_chf_youpaidsometoll = str_replace ("[chf_tollstring]", $tollstring, $l_chf_youpaidsometoll);
-                    echo "$l_chf_youpaidsometoll<br>";
+                    $langvars['l_chf_youpaidsometoll'] = str_replace ("[chf_tollstring]", $tollstring, $langvars['l_chf_youpaidsometoll']);
+                    echo $langvars['l_chf_youpaidsometoll'] . "<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     BntToll::distribute ($db, $sector, $fighterstoll, $total_sector_fighters);
@@ -146,7 +146,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 {
                     // Sector defences detect incoming ship
                     echo "<h1>" . $title . "</h1>\n";
-                    echo "$l_chf_thefightersdetectyou<br>";
+                    echo $langvars['l_chf_thefightersdetectyou'] . "<br>";
                     include_once './sector_fighters.php';
                     break;
                 }
@@ -164,31 +164,31 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 $fighterstoll = $total_sector_fighters * $fighter_price * 0.6;
                 echo "<h1>" . $title . "</h1>\n";
                 echo "<form action='{$calledfrom}' method='post'>";
-                $l_chf_therearetotalfightersindest = str_replace ("[chf_total_sector_fighters]", $total_sector_fighters, $l_chf_therearetotalfightersindest);
-                echo "$l_chf_therearetotalfightersindest<br>";
+                $langvars['l_chf_therearetotalfightersindest'] = str_replace ("[chf_total_sector_fighters]", $total_sector_fighters, $langvars['l_chf_therearetotalfightersindest']);
+                echo $langvars['l_chf_therearetotalfightersindest'] . "<br>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $l_chf_creditsdemanded = str_replace ("[chf_number_fighterstoll]", number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep), $l_chf_creditsdemanded);
-                    echo "$l_chf_creditsdemanded<br>";
+                    $langvars['l_chf_creditsdemanded'] = str_replace ("[chf_number_fighterstoll]", number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_chf_creditsdemanded']);
+                    echo $langvars['l_chf_creditsdemanded'] . "<br>";
                 }
 
-                $l_chf_youcanretreat = str_replace ("[retreat]", "<strong>Retreat</strong>", $l_chf_youcanretreat);
-                echo $l_chf_youcan . " <br><input type='radio' name='response' value='retreat'>" . $l_chf_youcanretreat . "<br></input>";
+                $langvars['l_chf_youcanretreat'] = str_replace ("[retreat]", "<strong>Retreat</strong>", $langvars['l_chf_youcanretreat']);
+                echo $langvars['l_chf_youcan'] . " <br><input type='radio' name='response' value='retreat'>" . $langvars['l_chf_youcanretreat'] . "<br></input>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $l_chf_inputpay = str_replace ("[pay]", "<strong>Pay</strong>", $l_chf_inputpay);
-                    echo "<input type='radio' name='response' checked value='pay'>" . $l_chf_inputpay . "<br></input>";
+                    $langvars['l_chf_inputpay'] = str_replace ("[pay]", "<strong>Pay</strong>", $langvars['l_chf_inputpay']);
+                    echo "<input type='radio' name='response' checked value='pay'>" . $langvars['l_chf_inputpay'] . "<br></input>";
                 }
 
                 echo "<input type='radio' name='response' checked value='fight'>";
-                $l_chf_inputfight = str_replace ("[fight]", "<strong>Fight</strong>", $l_chf_inputfight);
-                echo $l_chf_inputfight . "<br></input>";
+                $langvars['l_chf_inputfight'] = str_replace ("[fight]", "<strong>Fight</strong>", $langvars['l_chf_inputfight']);
+                echo $langvars['l_chf_inputfight'] . "<br></input>";
 
                 echo "<input type=radio name=response checked value=sneak>";
-                $l_chf_inputcloak = str_replace ("[cloak]", "<strong>Cloak</strong>", $l_chf_inputcloak);
-                echo $l_chf_inputcloak . "<br></input><br>";
+                $langvars['l_chf_inputcloak'] = str_replace ("[cloak]", "<strong>Cloak</strong>", $langvars['l_chf_inputcloak']);
+                echo $langvars['l_chf_inputcloak'] . "<br></input><br>";
 
-                echo "<input type='submit' value='{$l_chf_go}'><br><br>";
+                echo "<input type='submit' value='" . $langvars['l_chf_go'] . "'><br><br>";
                 echo "<input type='hidden' name='sector' value='{$sector}'>";
                 echo "<input type='hidden' name='engage' value='1'>";
                 echo "<input type='hidden' name='destination' value='{$destination}'>";

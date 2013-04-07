@@ -25,10 +25,13 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$langvars = BntTranslate::load ($db, $lang, array ('planet_report'));
 
 $title = $langvars['l_pr_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $preptype = null;
 if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))

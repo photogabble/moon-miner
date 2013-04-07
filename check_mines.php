@@ -86,21 +86,21 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         $totalmines = $totalmines - $roll;
 
         // You are hit. Tell the player and put it in the log
-        $l_chm_youhitsomemines = str_replace ("[chm_roll]", $roll, $l_chm_youhitsomemines);
-        echo $l_chm_youhitsomemines . "<br>";
+        $langvars['l_chm_youhitsomemines'] = str_replace ("[chm_roll]", $roll, $langvars['l_chm_youhitsomemines']);
+        echo $langvars['l_chm_youhitsomemines'] . "<br>";
         PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HIT_MINES, "$roll|$sector");
 
         // Tell the owner that his mines where hit
-        $l_chm_hehitminesinsector = str_replace ("[chm_playerinfo_character_name]", $playerinfo['character_name'], $l_chm_hehitminesinsector);
-        $l_chm_hehitminesinsector = str_replace ("[chm_roll]", "$roll", $l_chm_hehitminesinsector);
-        $l_chm_hehitminesinsector = str_replace ("[chm_sector]", $sector, $l_chm_hehitminesinsector);
-        SectorDefense::message_defense_owner ($db, $sector, $l_chm_hehitminesinsector);
+        $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_playerinfo_character_name]", $playerinfo['character_name'], $langvars['l_chm_hehitminesinsector']);
+        $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_roll]", "$roll", $langvars['l_chm_hehitminesinsector']);
+        $langvars['l_chm_hehitminesinsector'] = str_replace ("[chm_sector]", $sector, $langvars['l_chm_hehitminesinsector']);
+        SectorDefense::message_defense_owner ($db, $sector, $langvars['l_chm_hehitminesinsector']);
 
         // If the player has enough mine deflectors then subtract the ammount and continue
         if ($playerinfo['dev_minedeflector'] >= $roll)
         {
-            $l_chm_youlostminedeflectors = str_replace ("[chm_roll]", $roll, $l_chm_youlostminedeflectors);
-            echo $l_chm_youlostminedeflectors . "<br>";
+            $langvars['l_chm_youlostminedeflectors'] = str_replace ("[chm_roll]", $roll, $langvars['l_chm_youlostminedeflectors']);
+            echo $langvars['l_chm_youlostminedeflectors'] . "<br>";
             $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET dev_minedeflector = dev_minedeflector - ? WHERE ship_id = ?", array ($roll, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
         }
@@ -108,11 +108,11 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
         {
             if ($playerinfo['dev_minedeflector'] > 0 )
             {
-                echo $l_chm_youlostallminedeflectors . "<br>";
+                echo $langvars['l_chm_youlostallminedeflectors'] . "<br>";
             }
             else
             {
-                echo $l_chm_youhadnominedeflectors . "<br>";
+                echo $langvars['l_chm_youhadnominedeflectors'] . "<br>";
             }
 
             // Shields up
@@ -124,30 +124,30 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
             }
             if ($playershields >= $mines_left)
             {
-                $l_chm_yourshieldshitforminesdmg = str_replace ("[chm_mines_left]", $mines_left, $l_chm_yourshieldshitforminesdmg);
-                echo $l_chm_yourshieldshitforminesdmg . "<br>";
+                $langvars['l_chm_yourshieldshitforminesdmg'] = str_replace ("[chm_mines_left]", $mines_left, $langvars['l_chm_yourshieldshitforminesdmg']);
+                echo $langvars['l_chm_yourshieldshitforminesdmg'] . "<br>";
 
                 $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ship_energy - ?, dev_minedeflector = 0 WHERE ship_id = ?", array ($mines_left, $playerinfo['ship_id']));
                 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
                 if ($playershields == $mines_left)
                 {
-                    echo $l_chm_yourshieldsaredown . "<br>";
+                    echo $langvars['l_chm_yourshieldsaredown'] . "<br>";
                 }
             }
             else
             {
                 // Direct hit
-                echo $l_chm_youlostallyourshields . "<br>";
+                echo $langvars['l_chm_youlostallyourshields'] . "<br>";
                 $mines_left = $mines_left - $playershields;
                 if ($playerinfo['armor_pts'] >= $mines_left)
                 {
-                    $l_chm_yourarmorhitforminesdmg = str_replace ("[chm_mines_left]", $mines_left, $l_chm_yourarmorhitforminesdmg);
-                    echo $l_chm_yourarmorhitforminesdmg . "<br>";
+                    $langvars['l_chm_yourarmorhitforminesdmg'] = str_replace ("[chm_mines_left]", $mines_left, $langvars['l_chm_yourarmorhitforminesdmg']);
+                    echo $langvars['l_chm_yourarmorhitforminesdmg'] . "<br>";
                     $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET armor_pts = armor_pts - ?, ship_energy = 0, dev_minedeflector = 0 WHERE ship_id = ?", array ($mines_left, $playerinfo['ship_id']));
                     DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
                     if ($playerinfo['armor_pts'] == $mines_left)
                     {
-                        echo $l_chm_yourhullisbreached . "<br>";
+                        echo $langvars['l_chm_yourhullisbreached'] . "<br>";
                     }
                 }
                 else
@@ -155,16 +155,16 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     // BOOM
                     $pod = $playerinfo['dev_escapepod'];
                     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_SHIP_DESTROYED_MINES, "$sector|$pod");
-                    $l_chm_hewasdestroyedbyyourmines = str_replace ("[chm_playerinfo_character_name]", $playerinfo['character_name'], $l_chm_hewasdestroyedbyyourmines);
-                    $l_chm_hewasdestroyedbyyourmines = str_replace ("[chm_sector]", $sector, $l_chm_hewasdestroyedbyyourmines);
-                    SectorDefense::message_defense_owner ($db, $sector, $l_chm_hewasdestroyedbyyourmines);
-                    echo $l_chm_yourshiphasbeendestroyed . "<br><br>";
+                    $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace ("[chm_playerinfo_character_name]", $playerinfo['character_name'], $langvars['l_chm_hewasdestroyedbyyourmines']);
+                    $langvars['l_chm_hewasdestroyedbyyourmines'] = str_replace ("[chm_sector]", $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
+                    SectorDefense::message_defense_owner ($db, $sector, $langvars['l_chm_hewasdestroyedbyyourmines']);
+                    echo $langvars['l_chm_yourshiphasbeendestroyed'] . "<br><br>";
 
                     // Survival
                     if ($playerinfo['dev_escapepod'] == "Y")
                     {
                         $rating = round ($playerinfo['rating'] / 2);
-                        echo $l_chm_luckescapepod . "<br><br>";
+                        echo $langvars['l_chm_luckescapepod'] . "<br><br>";
                         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, sensors=0, computer=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=?, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, on_planet='N', rating=?, cleared_defences=' ', dev_lssd='N' WHERE ship_id=?", array ($start_energy, $rating, $playerinfo['ship_id']));
                         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                         BntBounty::cancel ($db, $playerinfo['ship_id']);

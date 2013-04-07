@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_sdf_title;
+$title = $langvars['l_sdf_title'];
 include './header.php';
 
 // Database driven language entries
@@ -74,17 +74,17 @@ if ($res)
 $num_sectors = $i;
 if ($num_sectors < 1)
 {
-    echo "<br>" . $l_sdf_none;
+    echo "<br>" . $langvars['l_sdf_none'];
 }
 else
 {
-    echo $l_pr_clicktosort . "<br><br>";
+    echo $langvars['l_pr_clicktosort'] . "<br><br>";
     echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=2>";
     echo "<tr bgcolor=\"$color_header\">";
-    echo "<td><strong><a href=defence_report.php?sort=sector>$l_sector</a></strong></td>";
-    echo "<td><strong><a href=defence_report.php?sort=quantity>$l_qty</a></strong></td>";
-    echo "<td><strong><a href=defence_report.php?sort=type>$l_sdf_type</a></strong></td>";
-    echo "<td><strong><a href=defence_report.php?sort=mode>$l_sdf_mode</a></strong></td>";
+    echo "<td><strong><a href=defence_report.php?sort=sector>" . $langvars['l_sector'] . "</a></strong></td>";
+    echo "<td><strong><a href=defence_report.php?sort=quantity>" . $langvars['l_qty'] . "</a></strong></td>";
+    echo "<td><strong><a href=defence_report.php?sort=type>" . $langvars['l_sdf_type'] . "</a></strong></td>";
+    echo "<td><strong><a href=defence_report.php?sort=mode>" . $langvars['l_sdf_mode'] . "</a></strong></td>";
     echo "</tr>";
     $color = $color_line1;
     for ($i = 0; $i < $num_sectors; $i++)
@@ -92,16 +92,16 @@ else
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $sector[$i]['sector_id'] . ">". $sector[$i]['sector_id'] ."</a></td>";
         echo "<td>" . number_format ($sector[$i]['quantity'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        $defence_type = $sector[$i]['defence_type'] == 'F' ? $l_fighters : $l_mines;
+        $defence_type = $sector[$i]['defence_type'] == 'F' ? $langvars['l_fighters'] : $langvars['l_mines'];
         echo "<td> $defence_type </td>";
-        $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $l_n_a;
+        $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $langvars['l_n_a'];
         if ($mode == 'attack')
         {
-            $mode = $l_md_attack;
+            $mode = $langvars['l_md_attack'];
         }
         else
         {
-            $mode = $l_md_toll;
+            $mode = $langvars['l_md_toll'];
         }
 
         echo "<td> " . $mode . " </td>";

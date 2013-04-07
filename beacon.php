@@ -20,10 +20,13 @@
 include './global_includes.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('beacon'));
 
 $title = $langvars['l_beacon_title'];
 include './header.php';
+
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 echo "<h1>" . $title . "</h1>\n";
 
