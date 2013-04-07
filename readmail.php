@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_readm_title;
+$title = $langvars['l_readm_title'];
 include './header.php';
 
 // Database driven language entries
@@ -69,7 +69,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="75%" align="left"><font color="white" size="2"><strong><?php echo $l_readm_center; ?> (<span style='color:#00C0C0;'>Subspace</span>)</strong></font></td>
+                      <td width="75%" align="left"><font color="white" size="2"><strong><?php echo $langvars['l_readm_center']; ?> (<span style='color:#00C0C0;'>Subspace</span>)</strong></font></td>
                       <td width="21%" align="center" nowrap><font color="white" size="2"><?php echo "$cur_D"; ?>&nbsp;<?php echo "$cur_T"; ?></font></td>
                       <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
@@ -81,14 +81,14 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 <?php
  if ($res->EOF)
  {
-//  echo "$l_readm_nomessage";
+//  echo $langvars['l_readm_nomessage'];
 ?>
             <tr>
               <td width="100%" bgcolor="black" bordercolorlight="black" bordercolordark="silver">
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="white" bordercolorlight="black" bordercolordark="silver">
                     <tr>
-                      <td width="100%" align="center" bgcolor="white"><font color="red"><?php echo $l_readm_nomessage; ?></font></td>
+                      <td width="100%" align="center" bgcolor="white"><font color="red"><?php echo $langvars['l_readm_nomessage']; ?></font></td>
                     </tr>
                   </table>
                 </div>
@@ -117,7 +117,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><?php echo $l_readm_sender; ?></strong></td>
+                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><?php echo $langvars['l_readm_sender']; ?></strong></td>
                       <td width="55%" style="text-align:left;"><font color="yellow" size="2">
 <?php
 echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
@@ -139,7 +139,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
                 <div align="center">
                   <table border="0" cellspacing="1" width="100%" bgcolor="gray" cellpadding="0">
                     <tr>
-                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><?php echo $l_readm_captn; ?></strong></font></td>
+                      <td width="20%" style="text-align:left;"><font color="white" size="2"><strong><?php echo $langvars['l_readm_captn']; ?></strong></font></td>
                       <td width="80%" style="text-align:left;"><font color="yellow" size="2"><?php echo $sender['ship_name']; ?></font></td>
                     </tr>
                   </table>
@@ -174,8 +174,8 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
                 <div align="center">
                   <table border="1" cellspacing="1" width="100%" bgcolor="gray" bordercolorlight="black" bordercolordark="silver" cellpadding="0">
                     <tr>
-                      <td width="100%" align="center" valign="middle"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><?php echo $l_readm_del; ?></A> |
-        <a class="but" href="mailto.php?to=<?php echo $sender['character_name']; ?>&subject=<?php echo $msg['subject']; ?>"><?php echo $l_readm_repl; ?></A>
+                      <td width="100%" align="center" valign="middle"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><?php echo $langvars['l_readm_del']; ?></A> |
+        <a class="but" href="mailto.php?to=<?php echo $sender['character_name']; ?>&subject=<?php echo $msg['subject']; ?>"><?php echo $langvars['l_readm_repl']; ?></A>
                       </td>
                     </tr>
                   </table>

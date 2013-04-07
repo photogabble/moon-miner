@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_scan_title;
+$title = $langvars['l_scan_title'];
 include './header.php';
 
 // Database driven language entries
@@ -60,13 +60,13 @@ unset ($_SESSION['ship_selected']);
 // Check to ensure target is in the same sector as player
 if ($targetinfo['sector'] != $playerinfo['sector'])
 {
-    echo $l_planet_noscan;
+    echo $langvars['l_planet_noscan'];
 }
 else
 {
     if ($playerinfo['turns'] < 1)
     {
-        echo $l_scan_turn;
+        echo $langvars['l_scan_turn'];
     }
     else
     {
@@ -85,7 +85,7 @@ else
         if ($roll > $success)
         {
             // If scan fails - inform both player and target.
-            echo $l_planet_noscan;
+            echo $langvars['l_planet_noscan'];
             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_SHIP_SCAN_FAIL, $playerinfo['character_name']);
         }
         else
@@ -103,8 +103,8 @@ else
                 if ($resx['btytotal'] > 0)
                 {
                     $btyamount = number_format ($resx['btytotal'], 0, $local_number_dec_point, $local_number_thousands_sep);
-                    $l_scan_bounty = str_replace ("[amount]", $btyamount, $l_scan_bounty);
-                    echo $l_scan_bounty . "<br>";
+                    $langvars['l_scan_bounty'] = str_replace ("[amount]", $btyamount, $langvars['l_scan_bounty']);
+                    echo $langvars['l_scan_bounty'] . "<br>";
                     $btyamount = 0;
 
                     // Check for Federation bounty
@@ -116,7 +116,7 @@ else
                         if ($resy['btytotal'] > 0)
                         {
                             $btyamount = $resy['btytotal'];
-                            echo $l_scan_fedbounty . "<br>";
+                            echo $langvars['l_scan_fedbounty'] . "<br>";
                         }
                     }
                 }
@@ -126,18 +126,18 @@ else
             // themselves. If the target has a Federation Bounty, they can attack without attracting a bounty on themselves.
             if ($btyamount == 0 && ((($targetscore / $playerscore) < $bounty_ratio) || $targetinfo['turns_used'] < $bounty_minturns))
             {
-                echo $l_by_fedbounty . "<br><br>";
+                echo $langvars['l_by_fedbounty'] . "<br><br>";
             }
             else
             {
-                echo $l_by_nofedbounty . "<br><br>";
+                echo $langvars['l_by_nofedbounty'] . "<br><br>";
             }
 
             $sc_error = BntScan::error ($playerinfo['sensors'], $targetinfo['cloak'], $scan_error_factor);
-            echo "$l_scan_ron $targetinfo[ship_name], $l_scan_capt  $targetinfo[character_name]<br><br>";
-            echo "<strong>$l_ship_levels:</strong><br><br>";
+            echo $langvars['l_scan_ron'] ." " . $targetinfo['ship_name'] . ", " . $langvars['l_scan_capt'] . " " . $targetinfo['character_name'] . "<br><br>";
+            echo "<strong>" . $langvars['l_ship_levels'] . ":</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
-            echo "<tr><td>$l_hull:</td>";
+            echo "<tr><td>" . $langvars['l_hull'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -149,7 +149,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_engines:</td>";
+            echo "<tr><td>" . $langvars['l_engines'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -161,7 +161,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_power:</td>";
+            echo "<tr><td>" . $langvars['l_power'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -173,7 +173,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_computer:</td>";
+            echo "<tr><td>" . $langvars['l_computer'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -185,7 +185,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_sensors:</td>";
+            echo "<tr><td>" . $langvars['l_sensors'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -197,7 +197,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_beams:</td>";
+            echo "<tr><td>" . $langvars['l_beams'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -209,7 +209,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_torp_launch:</td>";
+            echo "<tr><td>" . $langvars['l_torp_launch'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -221,7 +221,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_armor:</td>";
+            echo "<tr><td>" . $langvars['l_armor'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -233,7 +233,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_shields:</td>";
+            echo "<tr><td>" . $langvars['l_shields'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -245,7 +245,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_cloak:</td>";
+            echo "<tr><td>" . $langvars['l_cloak'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -258,9 +258,9 @@ else
             }
 
             echo "</table><br>";
-            echo "<strong>" . $l_scan_arma . "</strong><br><br>";
+            echo "<strong>" . $langvars['l_scan_arma'] . "</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
-            echo "<tr><td>" . $l_armorpts . ":</td>";
+            echo "<tr><td>" . $langvars['l_armorpts'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -272,7 +272,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_fighters:</td>";
+            echo "<tr><td>" . $langvars['l_fighters'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -284,7 +284,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_torps:</td>";
+            echo "<tr><td>" . $langvars['l_torps'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -297,7 +297,7 @@ else
             }
 
             echo "</table><br>";
-            echo "<strong>$l_scan_carry</strong><br><br>";
+            echo "<strong>" . $langvars['l_scan_carry'] . "</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
             echo "<tr><td>Credits:</td>";
             $roll = mt_rand (1,100);
@@ -311,7 +311,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_colonists:</td>";
+            echo "<tr><td>" . $langvars['l_colonists'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -323,7 +323,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_energy:</td>";
+            echo "<tr><td>" . $langvars['l_energy'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -335,7 +335,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_ore:</td>";
+            echo "<tr><td>" . $langvars['l_ore'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -347,7 +347,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_organics:</td>";
+            echo "<tr><td>" . $langvars['l_organics'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -359,7 +359,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_goods:</td>";
+            echo "<tr><td>" . $langvars['l_goods'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -372,9 +372,9 @@ else
             }
 
             echo "</table><br>";
-            echo "<strong>$l_devices:</strong><br><br>";
+            echo "<strong>" . $langvars['l_devices'] . ":</strong><br><br>";
             echo "<table  width=\"\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">";
-            echo "<tr><td>$l_warpedit:</td>";
+            echo "<tr><td>" . $langvars['l_warpedit'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -386,7 +386,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_genesis:</td>";
+            echo "<tr><td>" . $langvars['l_genesis'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -398,7 +398,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_deflect:</td>";
+            echo "<tr><td>" . $langvars['l_deflect'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -410,7 +410,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_ewd:</td>";
+            echo "<tr><td>" . $langvars['l_ewd'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -422,7 +422,7 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_escape_pod:</td>";
+            echo "<tr><td>" . $langvars['l_escape_pod'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
@@ -433,11 +433,11 @@ else
                 echo "<td>???</td></tr>";
             }
 
-            echo "<tr><td>$l_fuel_scoop:</td>";
+            echo "<tr><td>" . $langvars['l_fuel_scoop'] . ":</td>";
             $roll = mt_rand (1,100);
             if ($roll < $success)
             {
-                echo "<td>$targetinfo[dev_fuelscoop]</td></tr>";
+                echo "<td>" . $targetinfo['dev_fuelscoop'] . "</td></tr>";
             }
             else
             {

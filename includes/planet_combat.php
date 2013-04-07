@@ -58,7 +58,7 @@ function planet_combat ($db)
     // Planetary defense system calculation
     $planetbeams        = CalcLevels::planetBeams ($db, $ownerinfo, $base_defense, $planetinfo);
     $planetfighters     = $planetinfo['fighters'];
-    $planetshields      = CalcLevels::planetShields ( ($db, $ownerinfo, $base_defense, $planetinfo);
+    $planetshields      = CalcLevels::planetShields ($db, $ownerinfo, $base_defense, $planetinfo);
     $planettorps        = CalcLevels::planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
 
     // Attacking ship calculations

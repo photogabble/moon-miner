@@ -65,8 +65,7 @@
 include './global_includes.php';
 include './config/admin_pw.php';
 
-global $l_sys_update;
-$title = $l_sys_update;
+$title = $langvars['l_sys_update'];
 include './header.php';
 
 // Database driven language entries

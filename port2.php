@@ -24,7 +24,7 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-$title = $l_title_port;
+$title = $langvars['l_title_port'];
 include './header.php';
 
 // Database driven language entries
@@ -44,9 +44,9 @@ $zoneinfo = $res->fields;
 
 if ($zoneinfo['allow_trade'] == 'N')
 {
-    $title = $l_no_trade;
+    $title = $langvars['l_no_trade'];
     echo "<h1>" . $title . "</h1>\n";
-    echo $l_no_trade_info . "<p>";
+    echo $langvars['l_no_trade_info'] . "<p>";
     BntText::gotoMain ($db, $lang, $langvars);
     include './footer.php';
     die ();
@@ -61,9 +61,9 @@ elseif ($zoneinfo['allow_trade'] == 'L')
 
         if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
         {
-            $title = $l_no_trade;
+            $title = $langvars['l_no_trade'];
             echo "<h1>" . $title . "</h1>\n";
-            echo $l_no_trade_out . "<p>";
+            echo $langvars['l_no_trade_out'] . "<p>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -73,9 +73,9 @@ elseif ($zoneinfo['allow_trade'] == 'L')
     {
         if ($playerinfo['team'] != $zoneinfo['owner'])
         {
-            $title = $l_no_trade;
+            $title = $langvars['l_no_trade'];
             echo "<h1>" . $title . "</h1>\n";
-            echo $l_no_trade_out . "<p>";
+            echo $langvars['l_no_trade_out'] . "<p>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -87,8 +87,8 @@ echo "<h1>" . $title . "</h1>\n";
 
 $color_red = "red";
 $color_green = "#0f0"; // Light green
-$trade_deficit = "$l_cost : ";
-$trade_benefit = "$l_profit : ";
+$trade_deficit = $langvars['l_cost'] . " : ";
+$trade_benefit = $langvars['l_profit'] . " : ";
 
 function build_one_col ( $text = "&nbsp;", $align = "left" )
 {
@@ -136,7 +136,7 @@ function php_change_delta ($desired_value, $current_value)
 
 if ($playerinfo['turns'] < 1 )
 {
-    echo $l_trade_turnneed . "<br><br>";
+    echo $langvars['l_trade_turnneed'] . "<br><br>";
 }
 else
 {
@@ -160,8 +160,8 @@ else
 
         if (BntIbank::isLoanPending ($db, $playerinfo['ship_id'], $ibank_lrate))
         {
-            echo $l_port_loannotrade . "<p>";
-            echo "<a href=igb.php>" . $l_ibank_term . "</a><p>";
+            echo $langvars['l_port_loannotrade'] . "<p>";
+            echo "<a href=igb.php>" . $langvars['l_ibank_term'] . "</a><p>";
             BntText::gotoMain ($db, $lang, $langvars);
             include './footer.php';
             die ();
@@ -375,10 +375,10 @@ else
             $trade_credits = number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep);
             echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
                     <tr>
-                        <td colspan=99 align=center bgcolor=#300030><font size=3 color=white><strong>$l_trade_result</strong></font></td>
+                        <td colspan=99 align=center bgcolor=#300030><font size=3 color=white><strong>" . $langvars['l_trade_result'] . "</strong></font></td>
                     </tr>
                     <tr>
-                        <td colspan=99 align=center><strong><font color=red>$l_cost : " . $trade_credits . " $l_credits</font></strong></td>
+                        <td colspan=99 align=center><strong><font color=red>" . $langvars['l_cost'] . " : " . $trade_credits . " " . $langvars['l_credits'] . "</font></strong></td>
                     </tr>";
 
             //  Total cost is " . number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep) . " credits.<br><br>";
@@ -388,7 +388,7 @@ else
                 $tempvar = 0;
                 $tempvar = php_true_delta ($hull_upgrade, $playerinfo['hull']);
                 $query = $query . ", hull=hull + $tempvar";
-                build_one_col ("$l_hull $l_trade_upgraded $hull_upgrade");
+                build_one_col ($langvars['l_hull'] . " " . $langvars['l_trade_upgraded'] . " " . $hull_upgrade);
             }
 
             if ($engine_upgrade > $playerinfo['engines'])
@@ -396,135 +396,135 @@ else
                 $tempvar = 0;
                 $tempvar = php_true_delta ($engine_upgrade, $playerinfo['engines']);
                 $query = $query . ", engines=engines + $tempvar";
-                build_one_col ("$l_engines $l_trade_upgraded $engine_upgrade");
+                build_one_col ($langvars['l_engines'] . " " . $langvars['l_trade_upgraded'] . " " . $engine_upgrade);
             }
 
             if ($power_upgrade > $playerinfo['power'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($power_upgrade, $playerinfo['power']);
                 $query = $query . ", power=power + $tempvar";
-                build_one_col ("$l_power $l_trade_upgraded $power_upgrade");
+                build_one_col ($langvars['l_power'] . " " . $langvars['l_trade_upgraded'] . " " . $power_upgrade);
             }
 
             if ($computer_upgrade > $playerinfo['computer'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($computer_upgrade, $playerinfo['computer']);
                 $query = $query . ", computer=computer + $tempvar";
-                build_one_col ("$l_computer $l_trade_upgraded $computer_upgrade");
+                build_one_col ($langvars['l_computer'] . " " . $langvars['l_trade_upgraded'] . " " . $computer_upgrade);
             }
 
             if ($sensors_upgrade > $playerinfo['sensors'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($sensors_upgrade, $playerinfo['sensors']);
                 $query = $query . ", sensors=sensors + $tempvar";
-                build_one_col ("$l_sensors $l_trade_upgraded $sensors_upgrade");
+                build_one_col ($langvars['l_sensors'] . " " . $langvars['l_trade_upgraded'] . " " . $sensors_upgrade);
             }
 
             if ($beams_upgrade > $playerinfo['beams'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($beams_upgrade, $playerinfo['beams']);
                 $query = $query . ", beams=beams + $tempvar";
-                build_one_col ("$l_beams $l_trade_upgraded $beams_upgrade");
+                build_one_col ($langvars['l_beams'] . " " . $langvars['l_trade_upgraded'] . " " . $beams_upgrade);
             }
 
             if ($armor_upgrade > $playerinfo['armor'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($armor_upgrade, $playerinfo['armor']);
                 $query = $query . ", armor=armor + $tempvar";
-                build_one_col ("$l_armor $l_trade_upgraded $armor_upgrade");
+                build_one_col ($langvars['l_armor'] . " " .  $langvars['l_trade_upgraded'] . " " . $armor_upgrade);
             }
 
             if ($cloak_upgrade > $playerinfo['cloak'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($cloak_upgrade, $playerinfo['cloak']);
                 $query = $query . ", cloak=cloak + $tempvar";
-                build_one_col ("$l_cloak $l_trade_upgraded $cloak_upgrade");
+                build_one_col ($langvars['l_cloak'] . " " . $langvars['l_trade_upgraded'] . " " . $cloak_upgrade);
             }
 
             if ($torp_launchers_upgrade > $playerinfo['torp_launchers'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($torp_launchers_upgrade, $playerinfo['torp_launchers']);
                 $query = $query . ", torp_launchers=torp_launchers + $tempvar";
-                build_one_col ("$l_torp_launch $l_trade_upgraded $torp_launchers_upgrade");
+                build_one_col ($langvars['l_torp_launch'] . " " . $langvars['l_trade_upgraded'] . " " . $torp_launchers_upgrade);
             }
 
             if ($shields_upgrade > $playerinfo['shields'])
             {
                 $tempvar = 0; $tempvar=php_true_delta ($shields_upgrade, $playerinfo['shields']);
                 $query = $query . ", shields=shields + $tempvar";
-                build_one_col ("$l_shields $l_trade_upgraded $shields_upgrade");
+                build_one_col ($langvars['l_shields'] . " " . $langvars['l_trade_upgraded'] . " " . $shields_upgrade);
             }
 
             if ($fighter_number)
             {
                 $query = $query . ", ship_fighters = ship_fighters + $fighter_number";
-                build_two_col ("$l_fighters $l_trade_added:", $fighter_number, "left", "right" );
+                build_two_col ($langvars['l_fighters'] . " " .  $langvars['l_trade_added'] . ":", $fighter_number, "left", "right" );
             }
 
             if ($torpedo_number)
             {
                 $query = $query . ", torps=torps + $torpedo_number";
-                build_two_col ("$l_torps $l_trade_added:", $torpedo_number, "left", "right" );
+                build_two_col ($langvars['l_torps'] . " " . $langvars['l_trade_added'] . ":", $torpedo_number, "left", "right" );
             }
 
             if ($armor_number)
             {
                 $query = $query . ", armor_pts=armor_pts + $armor_number";
-                build_two_col ("$l_armorpts $l_trade_added:", $armor_number, "left", "right" );
+                build_two_col ($langvars['l_armorpts'] . " " . $langvars['l_trade_added'] . ":", $armor_number, "left", "right" );
             }
 
             if ($colonist_number)
             {
                 $query = $query . ", ship_colonists = ship_colonists + $colonist_number";
-                build_two_col ("$l_colonists $l_trade_added:", $colonist_number, "left", "right" );
+                build_two_col ($langvars['l_colonists'] . " " .  $langvars['l_trade_added'] . ":", $colonist_number, "left", "right" );
             }
 
             if ($dev_genesis_number)
             {
                 $query = $query . ", dev_genesis = dev_genesis + $dev_genesis_number";
-                build_two_col ("$l_genesis $l_trade_added:", $dev_genesis_number, "left", "right" );
+                build_two_col ($langvars['l_genesis'] . " " . $langvars['l_trade_added'] . ":", $dev_genesis_number, "left", "right" );
             }
 
             if ($dev_beacon_number)
             {
                 $query = $query . ", dev_beacon = dev_beacon + $dev_beacon_number";
-                build_two_col ("$l_beacons $l_trade_added:", $dev_beacon_number , "left", "right" );
+                build_two_col ($langvars['l_beacons'] . " " . $langvars['l_trade_added'] . ":", $dev_beacon_number , "left", "right" );
             }
 
             if ($dev_emerwarp_number)
             {
                 $query = $query . ", dev_emerwarp = dev_emerwarp + $dev_emerwarp_number";
-                build_two_col ("$l_ewd $l_trade_added:", $dev_emerwarp_number , "left", "right" );
+                build_two_col ($langvars['l_ewd'] . " " .  $langvars['l_trade_added'] . ":", $dev_emerwarp_number , "left", "right" );
             }
 
             if ($dev_warpedit_number)
             {
                 $query = $query . ", dev_warpedit = dev_warpedit + $dev_warpedit_number";
-                build_two_col ("$l_warpedit $l_trade_added:", $dev_warpedit_number , "left", "right" );
+                build_two_col ($langvars['l_warpedit'] . " " . $langvars['l_trade_added'] . ":", $dev_warpedit_number , "left", "right" );
             }
 
             if ($dev_minedeflector_number)
             {
                 $query = $query . ", dev_minedeflector = dev_minedeflector + $dev_minedeflector_number";
-                build_two_col ("$l_deflect $l_trade_added:", $dev_minedeflector_number , "left", "right" );
+                build_two_col ($langvars['l_deflect'] . " " . $langvars['l_trade_added'] . ":", $dev_minedeflector_number , "left", "right" );
             }
 
             if (($escapepod_purchase) && ($playerinfo['dev_escapepod'] != 'Y'))
             {
                 $query = $query . ", dev_escapepod='Y'";
-                build_one_col ("$l_escape_pod $l_trade_installed");
+                build_one_col ($langvars['l_escape_pod'] . " " .  $langvars['l_trade_installed']);
             }
 
             if (($fuelscoop_purchase) && ($playerinfo['dev_fuelscoop'] != 'Y'))
             {
                 $query = $query . ", dev_fuelscoop='Y'";
-                build_one_col ("$l_fuel_scoop $l_trade_installed");
+                build_one_col ($langvars['l_fuel_scoop'] . " " . $langvars['l_trade_installed']);
             }
 
             if (($lssd_purchase) && ($playerinfo['dev_lssd'] != 'Y'))
             {
                 $query = $query . ", dev_lssd='Y'";
-                build_one_col ("$l_lssd $l_trade_installed");
+                build_one_col ($langvars['l_lssd'] . " " .  $langvars['l_trade_installed']);
             }
 
             $query = $query . ", turns=turns-1, turns_used=turns_used+1 WHERE ship_id=$playerinfo[ship_id]";
@@ -642,58 +642,58 @@ else
 
         if ($free_holds < $cargo_exchanged)
         {
-            echo $l_notenough_cargo . " <br><br>";
+            echo $langvars['l_notenough_cargo'] . " <br><br>";
         }
         elseif ($trade_energy > $free_power)
         {
-            echo $l_notenough_power . " <br><br>";
+            echo $langvars['l_notenough_power'] . " <br><br>";
         }
         elseif ($playerinfo['turns'] < 1)
         {
-            echo $l_notenough_turns . ".<br><br>";
+            echo $langvars['l_notenough_turns'] . ".<br><br>";
         }
         elseif ($playerinfo['credits'] < $total_cost)
         {
-           echo $l_notenough_credits . " <br><br>";
+           echo $langvars['l_notenough_credits'] . " <br><br>";
         }
         elseif ($trade_ore < 0 && abs ($playerinfo['ship_ore']) < abs ($trade_ore))
         {
-            echo "$l_notenough_ore ";
+            echo $langvars['l_notenough_ore'] . " ";
         }
         elseif ($trade_organics < 0 && abs ($playerinfo['ship_organics']) < abs ($trade_organics))
         {
-            echo "$l_notenough_organics ";
+            echo $langvars['l_notenough_organics'] . " ";
         }
         elseif ($trade_goods < 0 && abs ($playerinfo['ship_goods']) < abs ($trade_goods))
         {
-            echo "$l_notenough_goods ";
+            echo $langvars['l_notenough_goods'] . " ";
         }
         elseif ($trade_energy < 0 && abs ($playerinfo['ship_energy']) < abs ($trade_energy))
         {
-            echo "$l_notenough_energy ";
+            echo $langvars['l_notenough_energy'] . " ";
         }
         elseif (abs ($trade_organics) > $sectorinfo['port_organics'])
         {
-            echo $l_exceed_organics;
+            echo $langvars['l_exceed_organics'];
         }
         elseif (abs ($trade_ore) > $sectorinfo['port_ore'])
         {
-            echo $l_exceed_ore;
+            echo $langvars['l_exceed_ore'];
         }
         elseif (abs ($trade_goods) > $sectorinfo['port_goods'])
         {
-            echo $l_exceed_goods;
+            echo $langvars['l_exceed_goods'];
         }
         elseif (abs ($trade_energy) > $sectorinfo['port_energy'])
         {
-            echo $l_exceed_energy;
+            echo $langvars['l_exceed_energy'];
         }
         else
         {
             if ($total_cost == 0 )
             {
                 $trade_color   = "#fff";
-                $trade_result  = "$l_cost : ";
+                $trade_result  = $langvars['l_cost'] . " : ";
             }
             elseif ($total_cost < 0 )
             {
@@ -708,22 +708,22 @@ else
 
             echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
                     <tr>
-                        <td colspan=99 align=center><font size=3 color=white><strong>$l_trade_result</strong></font></td>
+                        <td colspan=99 align=center><font size=3 color=white><strong>" . $langvars['l_trade_result'] . "</strong></font></td>
                     </tr>
                     <tr>
-                        <td colspan=99 align=center><strong><font style='color:{$trade_color};'>". $trade_result ." " . number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep) . " $l_credits</font></strong></td>
+                        <td colspan=99 align=center><strong><font style='color:{$trade_color};'>". $trade_result ." " . number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_credits'] . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
-                        <td><strong><font size=2 color=white>$l_traded_ore: </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_ore'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
                     </tr>
                    <tr bgcolor=$color_line2>
-                        <td><strong><font size=2 color=white>$l_traded_organics: </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_organics'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
-                        <td><strong><font size=2 color=white>$l_traded_goods: </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_goods'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line2>
-                        <td><strong><font size=2 color=white>$l_traded_energy: </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_energy, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_energy'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_energy, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
                     </tr>
                     </table>";
 
@@ -741,7 +741,7 @@ else
             $trade_result2    = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics - ?, port_goods = port_goods - ?, port_energy = port_energy - ? WHERE sector_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $sectorinfo['sector_id']));
             DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
 
-            echo $l_trade_complete . ".<br><br>";
+            echo $langvars['l_trade_complete'] . ".<br><br>";
         }
     }
 }
