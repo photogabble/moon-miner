@@ -24,32 +24,18 @@ if (strpos ($_SERVER['PHP_SELF'], 'planet_combat.php')) // Prevent direct access
     include_once './error.php';
 }
 
-function planet_combat ($db)
+function planet_combat ($db, $langvars)
 {
     global $playerinfo, $ownerinfo, $planetinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
-    global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture, $l_cmb_atleastoneturn;
-    global $l_cmb_atleastoneturn, $l_cmb_shipenergybb, $l_cmb_shipenergyab, $l_cmb_shipenergyas, $l_cmb_shiptorpsbtl, $l_cmb_shiptorpsatl;
-    global $l_cmb_planettorpdamage, $l_cmb_beams, $l_cmb_fighters, $l_cmb_shields, $l_cmb_torps;
-    global $l_cmb_torpdamage, $l_cmb_armor, $l_cmb_you, $l_cmb_planet, $l_cmb_combatflow, $l_cmb_defender, $l_cmb_attackingplanet;
-    global $l_cmb_youfireyourbeams, $l_cmb_defenselost, $l_cmb_defenselost2, $l_cmb_planetarybeams, $l_cmb_planetarybeams2;
-    global $l_cmb_youdestroyedplanetshields, $l_cmb_beamsexhausted, $l_cmb_breachedyourshields, $l_cmb_destroyedyourshields;
-    global $l_cmb_breachedyourarmor, $l_cmb_destroyedyourarmor, $l_cmb_torpedoexchangephase, $l_cmb_nofightersleft;
-    global $l_cmb_youdestroyfighters, $l_cmb_planettorpsdestroy, $l_cmb_planettorpsdestroy2, $l_cmb_torpsbreachedyourarmor;
-    global $l_cmb_planettorpsdestroy3, $l_cmb_youdestroyedallfighters, $l_cmb_youdestroyplanetfighters, $l_cmb_fightercombatphase;
-    global $l_cmb_youdestroyedallfighters2, $l_cmb_youdestroyplanetfighters2, $l_cmb_allyourfightersdestroyed, $l_cmb_fightertofighterlost;
-    global $l_cmb_youbreachedplanetshields, $l_cmb_shieldsremainup, $l_cmb_fighterswarm, $l_cmb_swarmandrepel, $l_cmb_engshiptoshipcombat;
-    global $l_cmb_shipdock, $l_cmb_approachattackvector, $l_cmb_noshipsdocked, $l_cmb_yourshipdestroyed, $l_cmb_escapepod;
-    global $l_cmb_finalcombatstats, $l_cmb_youlostfighters, $l_cmb_youlostarmorpoints, $l_cmb_energyused, $l_cmb_planetdefeated;
-    global $l_cmb_citizenswanttodie, $l_cmb_youmaycapture, $l_cmb_planetnotdefeated, $l_cmb_planetstatistics;
-    global $l_cmb_fighterloststat, $l_cmb_energyleft, $l_planet_capture1;
+    global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture;
 
     include_once './includes/calc_score.php';
     include_once './includes/ship_to_ship.php';
 
     if ($playerinfo['turns'] < 1 )
     {
-        echo $l_cmb_atleastoneturn . "<br><br>";
+        echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
         BntText::gotoMain ($db, $lang, $langvars);
         include_once './footer.php';
         die ();
@@ -103,15 +89,15 @@ function planet_combat ($db)
     <table width='75%' border='0'>
     <tr align='center'>
     <td width='9%' height='27'></td>
-    <td width='12%' height='27'><font color='white'>" . $l_cmb_beams . "</font></td>
-    <td width='17%' height='27'><font color='white'>" . $l_cmb_fighters . "</font></td>
-    <td width='18%' height='27'><font color='white'>" . $l_cmb_shields . "</font></td>
-    <td width='11%' height='27'><font color='white'>" . $l_cmb_torps . "</font></td>
-    <td width='22%' height='27'><font color='white'>" . $l_cmb_torpdamage . "</font></td>
-    <td width='11%' height='27'><font color='white'>" . $l_cmb_armor . "</font></td>
+    <td width='12%' height='27'><font color='white'>" . $langvars['l_cmb_beams'] . "</font></td>
+    <td width='17%' height='27'><font color='white'>" . $langvars['l_cmb_fighters'] . "</font></td>
+    <td width='18%' height='27'><font color='white'>" . $langvars['l_cmb_shields'] . "</font></td>
+    <td width='11%' height='27'><font color='white'>" . $langvars['l_cmb_torps'] . "</font></td>
+    <td width='22%' height='27'><font color='white'>" . $langvars['l_cmb_torpdamage'] . "</font></td>
+    <td width='11%' height='27'><font color='white'>" . $langvars['l_cmb_armor'] . "</font></td>
     </tr>
     <tr align='center'>
-    <td width='9%'> <font color='red'>" . $l_cmb_you . "</td>
+    <td width='9%'> <font color='red'>" . $langvars['l_cmb_you'] . "</td>
     <td width='12%'><font color='red'><strong>" . $attackerbeams . "</strong></font></td>
     <td width='17%'><font color='red'><strong>" . $attackerfighters . "</strong></font></td>
     <td width='18%'><font color='red'><strong>" . $attackershields . "</strong></font></td>
@@ -120,7 +106,7 @@ function planet_combat ($db)
     <td width='11%'><font color='red'><strong>" . $attackerarmor . "</strong></font></td>
     </tr>
     <tr align='center'>
-    <td width='9%'> <font color='#6098F8'>$l_cmb_planet</font></td>
+    <td width='9%'> <font color='#6098F8'>" . $langvars['l_cmb_planet'] . "</font></td>
     <td width='12%'><font color='#6098F8'><strong>" . $planetbeams . "</strong></font></td>
     <td width='17%'><font color='#6098F8'><strong>" . $planetfighters . "</strong></font></td>
     <td width='18%'><font color='#6098F8'><strong>" . $planetshields . "</strong></font></td>
@@ -138,24 +124,24 @@ function planet_combat ($db)
     $planetdestroyed   = 0;
     $attackerdestroyed = 0;
 
-    echo "<br><center><strong><font size='+2'>" . $l_cmb_combatflow . "</font></strong><br><br>\n";
-    echo "<table width='75%' border='0'><tr align='center'><td><font color='red'>" . $l_cmb_you . "</font></td><td><font color='#6098F8'>" . $l_cmb_defender . "</font></td>\n";
-    echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_attackingplanet . " " . $playerinfo['sector'] . "</strong></font></td><td></td>";
-    echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_youfireyourbeams . "</strong></font></td><td></td>\n";
+    echo "<br><center><strong><font size='+2'>" . $langvars['l_cmb_combatflow'] . "</font></strong><br><br>\n";
+    echo "<table width='75%' border='0'><tr align='center'><td><font color='red'>" . $langvars['l_cmb_you'] . "</font></td><td><font color='#6098F8'>" . $langvars['l_cmb_defender'] . "</font></td>\n";
+    echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_attackingplanet'] . " " . $playerinfo['sector'] . "</strong></font></td><td></td>";
+    echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youfireyourbeams'] . "</strong></font></td><td></td>\n";
     if ($planetfighters > 0 && $attackerbeams > 0)
     {
         if ($attackerbeams > $planetfighters)
         {
-            $l_cmb_defenselost = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_defenselost);
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $l_cmb_defenselost . "</strong></font>";
+            $langvars['l_cmb_defenselost'] = str_replace ("[cmb_planetfighters]", $planetfighters, $langvars['l_cmb_defenselost']);
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $langvars['l_cmb_defenselost'] . "</strong></font>";
             $attackerbeams = $attackerbeams - $planetfighters;
             $planetfighters = 0;
         }
         else
         {
-            $l_cmb_defenselost2 = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_defenselost2);
+            $langvars['l_cmb_defenselost2'] = str_replace ("[cmb_attackerbeams]", $attackerbeams, $langvars['l_cmb_defenselost2']);
             $planetfighters = $planetfighters - $attackerbeams;
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $l_cmb_defenselost2 . "</strong></font>";
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $langvars['l_cmb_defenselost2'] . "</strong></font>";
             $attackerbeams = 0;
         }
     }
@@ -173,14 +159,14 @@ function planet_combat ($db)
             $attackerfighters = $temp;
             // Subtract half the attacker fighters from available planetary beams
             $planetbeams = $planetbeams - $lost;
-            $l_cmb_planetarybeams = str_replace ("[cmb_temp]", $temp, $l_cmb_planetarybeams);
-            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_planetarybeams  . "</strong></font><td></td>";
+            $langvars['l_cmb_planetarybeams'] = str_replace ("[cmb_temp]", $temp, $langvars['l_cmb_planetarybeams']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_planetarybeams']  . "</strong></font><td></td>";
         }
         else
         {
-            $l_cmb_planetarybeams2 = str_replace ("[cmb_planetbeams]", $planetbeams, $l_cmb_planetarybeams2);
+            $langvars['l_cmb_planetarybeams2'] = str_replace ("[cmb_planetbeams]", $planetbeams, $langvars['l_cmb_planetarybeams2']);
             $attackerfighters = $attackerfighters - $planetbeams;
-            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_planetarybeams2 . "</strong></font><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_planetarybeams2'] . "</strong></font><td></td>";
             $planetbeams = 0;
         }
     }
@@ -190,12 +176,12 @@ function planet_combat ($db)
         {
             $attackerbeams = $attackerbeams - $planetshields;
             $planetshields = 0;
-            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_youdestroyedplanetshields . "</font></strong><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youdestroyedplanetshields'] . "</font></strong><td></td>";
         }
         else
         {
-            $l_cmb_beamsexhausted = str_replace ("[cmb_attackerbeams]", $attackerbeams, $l_cmb_beamsexhausted);
-            echo "<tr align='center'><td><font color='red'><strong>" . $l_cmb_beamsexhausted . "</font></strong><td></td>";
+            $langvars['l_cmb_beamsexhausted'] = str_replace ("[cmb_attackerbeams]", $attackerbeams, $langvars['l_cmb_beamsexhausted']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_beamsexhausted'] . "</font></strong><td></td>";
             $planetshields = $planetshields - $attackerbeams;
             $attackerbeams = 0;
         }
@@ -206,13 +192,13 @@ function planet_combat ($db)
         {
             $planetbeams = $planetbeams - $attackershields;
             $attackershields = 0;
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_breachedyourshields</font></strong></td>";
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $langvars['l_cmb_breachedyourshields'] . "</font></strong></td>";
         }
         else
         {
             $attackershields = $attackershields - $planetbeams;
-            $l_cmb_destroyedyourshields = str_replace ("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourshields);
-            echo "<tr align='center'><td></td><font color='#6098F8'><strong>$l_cmb_destroyedyourshields</font></strong></td>";
+            $langvars['l_cmb_destroyedyourshields'] = str_replace ("[cmb_planetbeams]", $planetbeams, $langvars['l_cmb_destroyedyourshields']);
+            echo "<tr align='center'><td></td><font color='#6098F8'><strong>" . $langvars['l_cmb_destroyedyourshields'] . "</font></strong></td>";
             $planetbeams = 0;
         }
     }
@@ -221,30 +207,30 @@ function planet_combat ($db)
         if ($planetbeams > $attackerarmor)
         {
             $attackerarmor = 0;
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_breachedyourarmor</strong></font></td>";
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $langvars['l_cmb_breachedyourarmor'] . "</strong></font></td>";
         }
         else
         {
             $attackerarmor = $attackerarmor - $planetbeams;
-            $l_cmb_destroyedyourarmor = str_replace ("[cmb_planetbeams]", $planetbeams, $l_cmb_destroyedyourarmor);
-            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>$l_cmb_destroyedyourarmor</font></strong></td>";
+            $langvars['l_cmb_destroyedyourarmor'] = str_replace ("[cmb_planetbeams]", $planetbeams, $langvars['l_cmb_destroyedyourarmor']);
+            echo "<tr align='center'><td></td><td><font color='#6098F8'><strong>" . $langvars['l_cmb_destroyedyourarmor'] . "</font></strong></td>";
         }
     }
-    echo "<tr align='center'><td><font color='YELLOW'><strong>$l_cmb_torpedoexchangephase</strong></font></td><td><strong><font color='YELLOW'>$l_cmb_torpedoexchangephase</strong></font></td><br>";
+    echo "<tr align='center'><td><font color='YELLOW'><strong>" . $langvars['l_cmb_torpedoexchangephase'] . "</strong></font></td><td><strong><font color='YELLOW'>" . $langvars['l_cmb_torpedoexchangephase'] . "</strong></font></td><br>";
     if ($planetfighters > 0 && $attackertorpdamage > 0)
     {
         if ($attackertorpdamage > $planetfighters)
         {
-            $l_cmb_nofightersleft = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_nofightersleft);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_nofightersleft</font></strong></td><td></td>";
+            $langvars['l_cmb_nofightersleft'] = str_replace ("[cmb_planetfighters]", $planetfighters, $langvars['l_cmb_nofightersleft']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_nofightersleft'] . "</font></strong></td><td></td>";
             $attackertorpdamage = $attackertorpdamage - $planetfighters;
             $planetfighters = 0;
         }
         else
         {
             $planetfighters = $planetfighters - $attackertorpdamage;
-            $l_cmb_youdestroyfighters = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_youdestroyfighters);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyfighters</font></strong></td><td></td>";
+            $langvars['l_cmb_youdestroyfighters'] = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $langvars['l_cmb_youdestroyfighters']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youdestroyfighters'] . "</font></strong></td><td></td>";
             $attackertorpdamage = 0;
         }
     }
@@ -256,14 +242,14 @@ function planet_combat ($db)
             $lost = $attackerfighters - $temp;
             $attackerfighters = $temp;
             $planettorpdamage = $planettorpdamage - $lost;
-            $l_cmb_planettorpsdestroy = str_replace ("[cmb_temp]", $temp, $l_cmb_planettorpsdestroy);
-            echo "<tr align='center'><td></td><td><font color='red'><strong>$l_cmb_planettorpsdestroy</strong></font></td>";
+            $langvars['l_cmb_planettorpsdestroy'] = str_replace ("[cmb_temp]", $temp, $langvars['l_cmb_planettorpsdestroy']);
+            echo "<tr align='center'><td></td><td><font color='red'><strong>" . $langvars['l_cmb_planettorpsdestroy'] . "</strong></font></td>";
         }
         else
         {
             $attackerfighters = $attackerfighters - $planettorpdamage;
-            $l_cmb_planettorpsdestroy2 = str_replace ("[cmb_planettorpdamage]", $planettorpdamage, $l_cmb_planettorpsdestroy2);
-            echo "<tr align='center'><td></td><td><font color='red'><strong>$l_cmb_planettorpsdestroy2</strong></font></td>";
+            $langvars['l_cmb_planettorpsdestroy2'] = str_replace ("[cmb_planettorpdamage]", $planettorpdamage, $langvars['l_cmb_planettorpsdestroy2']);
+            echo "<tr align='center'><td></td><td><font color='red'><strong>" . $langvars['l_cmb_planettorpsdestroy2'] . "</strong></font></td>";
             $planettorpdamage = 0;
         }
     }
@@ -272,13 +258,13 @@ function planet_combat ($db)
         if ($planettorpdamage > $attackerarmor)
         {
             $attackerarmor = 0;
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_torpsbreachedyourarmor</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_torpsbreachedyourarmor'] . "</strong></font></td><td></td>";
         }
         else
         {
             $attackerarmor = $attackerarmor - $planettorpdamage;
-            $l_cmb_planettorpsdestroy3 = str_replace ("[cmb_planettorpdamage]", $planettorpdamage, $l_cmb_planettorpsdestroy3);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_planettorpsdestroy3</strong></font></td><td></td>";
+            $langvars['l_cmb_planettorpsdestroy3'] = str_replace ("[cmb_planettorpdamage]", $planettorpdamage, $langvars['l_cmb_planettorpsdestroy3']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_planettorpsdestroy3'] . "</strong></font></td><td></td>";
         }
     }
     if ($attackertorpdamage > 0 && $planetfighters > 0)
@@ -287,38 +273,38 @@ function planet_combat ($db)
         if ($planetfighters < 0)
         {
             $planetfighters = 0;
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyedallfighters</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youdestroyedallfighters'] . "</strong></font></td><td></td>";
         }
         else
         {
-            $l_cmb_youdestroyplanetfighters = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $l_cmb_youdestroyplanetfighters);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyplanetfighters</strong></font></td><td></td>";
+            $langvars['l_cmb_youdestroyplanetfighters'] = str_replace ("[cmb_attackertorpdamage]", $attackertorpdamage, $langvars['l_cmb_youdestroyplanetfighters']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youdestroyplanetfighters'] . "</strong></font></td><td></td>";
         }
     }
-    echo "<tr align='center'><td><font color='YELLOW'><strong>$l_cmb_fightercombatphase</strong></font></td><td><strong><font color='YELLOW'>$l_cmb_fightercombatphase</strong></font></td><br>";
+    echo "<tr align='center'><td><font color='YELLOW'><strong>" . $langvars['l_cmb_fightercombatphase'] . "</strong></font></td><td><strong><font color='YELLOW'>" . $langvars['l_cmb_fightercombatphase'] . "</strong></font></td><br>";
     if ($attackerfighters > 0 && $planetfighters > 0)
     {
         if ($attackerfighters > $planetfighters)
         {
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyedallfighters2</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youdestroyedallfighters2'] . "</strong></font></td><td></td>";
             $tempplanetfighters = 0;
         }
         else
         {
-            $l_cmb_youdestroyplanetfighters2 = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_youdestroyplanetfighters2);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youdestroyplanetfighters2</strong></font></td><td></td>";
+            $langvars['l_cmb_youdestroyplanetfighters2'] = str_replace ("[cmb_attackerfighters]", $attackerfighters, $langvars['l_cmb_youdestroyplanetfighters2']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youdestroyplanetfighters2'] . "</strong></font></td><td></td>";
             $tempplanetfighters = $planetfighters - $attackerfighters;
         }
         if ($planetfighters > $attackerfighters)
         {
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_allyourfightersdestroyed</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_allyourfightersdestroyed'] . "</strong></font></td><td></td>";
             $tempplayfighters = 0;
         }
         else
         {
             $tempplayfighters = $attackerfighters - $planetfighters;
-            $l_cmb_fightertofighterlost = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_fightertofighterlost);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_fightertofighterlost</strong></font></td><td></td>";
+            $langvars['l_cmb_fightertofighterlost'] = str_replace ("[cmb_planetfighters]", $planetfighters, $langvars['l_cmb_fightertofighterlost']);
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_fightertofighterlost'] . "</strong></font></td><td></td>";
         }
         $attackerfighters = $tempplayfighters;
         $planetfighters = $tempplanetfighters;
@@ -328,13 +314,13 @@ function planet_combat ($db)
         if ($attackerfighters > $planetshields)
         {
             $attackerfighters = $attackerfighters - round ($planetshields / 2);
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_youbreachedplanetshields</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_youbreachedplanetshields'] . "</strong></font></td><td></td>";
             $planetshields = 0;
         }
         else
         {
-            $l_cmb_shieldsremainup = str_replace ("[cmb_attackerfighters]", $attackerfighters, $l_cmb_shieldsremainup);
-            echo "<tr align='center'><td></td><font color='#6098F8'><strong>$l_cmb_shieldsremainup</strong></font></td>";
+            $langvars['l_cmb_shieldsremainup'] = str_replace ("[cmb_attackerfighters]", $attackerfighters, $langvars['l_cmb_shieldsremainup']);
+            echo "<tr align='center'><td></td><font color='#6098F8'><strong>" . $langvars['l_cmb_shieldsremainup'] . "</strong></font></td>";
             $planetshields = $planetshields - $attackerfighters;
         }
     }
@@ -343,12 +329,12 @@ function planet_combat ($db)
         if ($planetfighters > $attackerarmor)
         {
             $attackerarmor = 0;
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_fighterswarm</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_fighterswarm'] . "</strong></font></td><td></td>";
         }
         else
         {
             $attackerarmor = $attackerarmor - $planetfighters;
-            echo "<tr align='center'><td><font color='red'><strong>$l_cmb_swarmandrepel</strong></font></td><td></td>";
+            echo "<tr align='center'><td><font color='red'><strong>" . $langvars['l_cmb_swarmandrepel'] . "</strong></font></td><td></td>";
         }
     }
 
@@ -360,8 +346,8 @@ function planet_combat ($db)
 
     if ($shipsonplanet > 0)
     {
-        $l_cmb_shipdock = str_replace ("[cmb_shipsonplanet]", $shipsonplanet, $l_cmb_shipdock);
-        echo "<br><br><center>$l_cmb_shipdock<br>$l_cmb_engshiptoshipcombat</center><br><br>\n";
+        $langvars['l_cmb_shipdock'] = str_replace ("[cmb_shipsonplanet]", $shipsonplanet, $langvars['l_cmb_shipdock']);
+        echo "<br><br><center>" . $langvars['l_cmb_shipdock'] . "<br>" . $langvars['l_cmb_engshiptoshipcombat'] . "</center><br><br>\n";
         while (!$result4->EOF)
         {
             $onplanet = $result4->fields;
@@ -391,13 +377,13 @@ function planet_combat ($db)
                 break;
             }
 
-            echo "<br>-$onplanet[ship_name] $l_cmb_approachattackvector-<br>";
+            echo "<br>-" . $onplanet['ship_name'] . " " . $langvars['l_cmb_approachattackvector'] . "-<br>";
             ship_to_ship ($db, $onplanet['ship_id']);
             $result4->MoveNext();
         }
     }
     else
-        echo "<br><br><center>$l_cmb_noshipsdocked</center><br><br>\n";
+        echo "<br><br><center>" . $langvars['l_cmb_noshipsdocked'] . "</center><br><br>\n";
 
     if ($attackerarmor < 1)
     {
@@ -407,10 +393,10 @@ function planet_combat ($db)
         $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $playerinfo['hull'])) + round (pow ($upgrade_factor, $playerinfo['engines'])) + round (pow ($upgrade_factor, $playerinfo['power'])) + round (pow ($upgrade_factor, $playerinfo['computer'])) + round (pow ($upgrade_factor, $playerinfo['sensors'])) + round (pow ($upgrade_factor, $playerinfo['beams'])) + round (pow ($upgrade_factor, $playerinfo['torp_launchers'])) + round (pow ($upgrade_factor, $playerinfo['shields'])) + round (pow ($upgrade_factor, $playerinfo['armor'])) + round (pow ($upgrade_factor, $playerinfo['cloak'])));
         $ship_salvage_rate = mt_rand (0,10);
         $ship_salvage = $ship_value * $ship_salvage_rate / 100;
-        echo "<br><center><font size='+2' COLOR='red'><strong>$l_cmb_yourshipdestroyed</font></strong></center><br>";
+        echo "<br><center><font size='+2' COLOR='red'><strong>" . $langvars['l_cmb_yourshipdestroyed'] . "</font></strong></center><br>";
         if ($playerinfo['dev_escapepod'] == "Y")
         {
-            echo "<center><font color='white'>$l_cmb_escapepod</font></center><br><br>";
+            echo "<center><font color='white'>" . $langvars['l_cmb_escapepod'] . "</font></center><br><br>";
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($start_energy, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             BntBounty::collect ($db, $planetinfo['owner'], $playerinfo['ship_id']);
@@ -437,21 +423,21 @@ function planet_combat ($db)
         {
             $rating_change=-100;
         }
-        echo "<center><br><strong><font size='+2'>$l_cmb_finalcombatstats</font></strong><br><br>";
+        echo "<center><br><strong><font size='+2'>" . $langvars['l_cmb_finalcombatstats'] . "</font></strong><br><br>";
         $fighters_lost = $playerinfo['ship_fighters'] - $attackerfighters;
-        $l_cmb_youlostfighters = str_replace ("[cmb_fighters_lost]", $fighters_lost, $l_cmb_youlostfighters);
-        $l_cmb_youlostfighters = str_replace ("[cmb_playerinfo_ship_fighters]", $playerinfo['ship_fighters'], $l_cmb_youlostfighters);
-        echo "$l_cmb_youlostfighters<br>";
+        $langvars['l_cmb_youlostfighters'] = str_replace ("[cmb_fighters_lost]", $fighters_lost, $langvars['l_cmb_youlostfighters']);
+        $langvars['l_cmb_youlostfighters'] = str_replace ("[cmb_playerinfo_ship_fighters]", $playerinfo['ship_fighters'], $langvars['l_cmb_youlostfighters']);
+        echo $langvars['l_cmb_youlostfighters'] . "<br>";
         $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
-        $l_cmb_youlostarmorpoints = str_replace ("[cmb_armor_lost]", $armor_lost, $l_cmb_youlostarmorpoints);
-        $l_cmb_youlostarmorpoints = str_replace ("[cmb_playerinfo_armor_pts]", $playerinfo['armor_pts'], $l_cmb_youlostarmorpoints);
-        $l_cmb_youlostarmorpoints = str_replace ("[cmb_attackerarmor]", $attackerarmor, $l_cmb_youlostarmorpoints);
-        echo "$l_cmb_youlostarmorpoints<br>";
+        $langvars['l_cmb_youlostarmorpoints'] = str_replace ("[cmb_armor_lost]", $armor_lost, $langvars['l_cmb_youlostarmorpoints']);
+        $langvars['l_cmb_youlostarmorpoints'] = str_replace ("[cmb_playerinfo_armor_pts]", $playerinfo['armor_pts'], $langvars['l_cmb_youlostarmorpoints']);
+        $langvars['l_cmb_youlostarmorpoints'] = str_replace ("[cmb_attackerarmor]", $attackerarmor, $langvars['l_cmb_youlostarmorpoints']);
+        echo $langvars['l_cmb_youlostarmorpoints'] . "<br>";
         $energy = $playerinfo['ship_energy'];
         $energy_lost = $start_energy - $playerinfo['ship_energy'];
-        $l_cmb_energyused = str_replace ("[cmb_energy_lost]", $energy_lost, $l_cmb_energyused);
-        $l_cmb_energyused = str_replace ("[cmb_playerinfo_ship_energy]", $start_energy, $l_cmb_energyused);
-        echo "$l_cmb_energyused<br></center>";
+        $langvars['l_cmb_energyused'] = str_replace ("[cmb_energy_lost]", $energy_lost, $langvars['l_cmb_energyused']);
+        $langvars['l_cmb_energyused'] = str_replace ("[cmb_playerinfo_ship_energy]", $start_energy, $langvars['l_cmb_energyused']);
+        echo $langvars['l_cmb_energyused'] . "<br></center>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, torps=torps-?,armor_pts=armor_pts-?, rating=rating-? WHERE ship_id=?", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     }
@@ -462,7 +448,7 @@ function planet_combat ($db)
 
     if ($planetshields < 1 && $planetfighters < 1 && $attackerarmor > 0 && $shipsonplanet == 0)
     {
-        echo "<br><br><center><font color='GREEN'><strong>$l_cmb_planetdefeated</strong></font></center><br><br>";
+        echo "<br><br><center><font color='GREEN'><strong>" . $langvars['l_cmb_planetdefeated'] . "</strong></font></center><br><br>";
 
         // Patch to stop players dumping credits for other players.
         $self_tech = CalcLevels::avgTech ($playerinfo);
@@ -490,7 +476,7 @@ function planet_combat ($db)
 
             if ($playerscore < $planetscore)
             {
-                echo "<center>$l_cmb_citizenswanttodie</center><br><br>";
+                echo "<center>" . $langvars['l_cmb_citizenswanttodie'] . "</center><br><br>";
                 $resx = $db->Execute ("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
@@ -499,8 +485,8 @@ function planet_combat ($db)
             }
             else
             {
-                $l_cmb_youmaycapture = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
-                echo "<center><font color=red>$l_cmb_youmaycapture</font></center><br><br>";
+                $langvars['l_cmb_youmaycapture'] = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>" . $langvars['l_planet_capture1'] . "</a>", $langvars['l_cmb_youmaycapture']);
+                echo "<center><font color=red>" . $langvars['l_cmb_youmaycapture'] . "</font></center><br><br>";
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 calc_score ($db, $ownerinfo['ship_id']);
                 $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
@@ -509,8 +495,8 @@ function planet_combat ($db)
         }
         else
         {
-            $l_cmb_youmaycapture = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>{$l_planet_capture1}</a>", $l_cmb_youmaycapture);
-            echo "<center>$l_cmb_youmaycapture</center><br><br>";
+            $langvars['l_cmb_youmaycapture'] = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>" . $langvars['l_planet_capture1'] . "</a>", $langvars['l_cmb_youmaycapture']);
+            echo "<center>" . $langvars['l_cmb_youmaycapture'] . "</center><br><br>";
             PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
             calc_score ($db, $ownerinfo['ship_id']);
             $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
@@ -521,11 +507,11 @@ function planet_combat ($db)
     }
     else
     {
-        echo "<br><br><center><font color='#6098F8'><strong>$l_cmb_planetnotdefeated</strong></font></center><br><br>";
+        echo "<br><br><center><font color='#6098F8'><strong>" . $langvars['l_cmb_planetnotdefeated'] . "</strong></font></center><br><br>";
         $fighters_lost = $planetinfo['fighters'] - $planetfighters;
-        $l_cmb_fighterloststat = str_replace ("[cmb_fighters_lost]", $fighters_lost, $l_cmb_fighterloststat);
-        $l_cmb_fighterloststat = str_replace ("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $l_cmb_fighterloststat);
-        $l_cmb_fighterloststat = str_replace ("[cmb_planetfighters]", $planetfighters, $l_cmb_fighterloststat);
+        $langvars['l_cmb_fighterloststat'] = str_replace ("[cmb_fighters_lost]", $fighters_lost, $langvars['l_cmb_fighterloststat']);
+        $langvars['l_cmb_fighterloststat'] = str_replace ("[cmb_planetinfo_fighters]", $planetinfo['fighters'], $langvars['l_cmb_fighterloststat']);
+        $langvars['l_cmb_fighterloststat'] = str_replace ("[cmb_planetfighters]", $planetfighters, $langvars['l_cmb_fighterloststat']);
         $energy = $planetinfo['energy'];
         PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
         calc_score ($db, $ownerinfo['ship_id']);

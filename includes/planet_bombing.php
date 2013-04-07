@@ -23,21 +23,20 @@ if (strpos ($_SERVER['PHP_SELF'], 'planet_bombing.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function planet_bombing ($db)
+function planet_bombing ($db, $langvars)
 {
     global $playerinfo, $ownerinfo, $planetinfo, $planetbeams, $planetfighters, $attackerfighters;
-    global $planettorps, $torp_dmg_rate, $l_cmb_atleastoneturn;
-    global $l_bombsaway, $l_bigfigs, $l_bigbeams, $l_bigtorps, $l_strafesuccess;
+    global $planettorps, $torp_dmg_rate;
 
     if ($playerinfo['turns'] < 1)
     {
-        echo $l_cmb_atleastoneturn . "<br><br>";
+        echo $langvars['l_cmb_atleastoneturn'] . "<br><br>";
         BntText::gotoMain ($db, $lang, $langvars);
         include_once './footer.php';
         die ();
     }
 
-    echo $l_bombsaway . "<br><br>\n";
+    echo $langvars['l_bombsaway'] . "<br><br>\n";
     $attackerfighterslost = 0;
     $planetfighterslost = 0;
     $attackerfightercapacity = CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
@@ -55,7 +54,7 @@ function planet_bombing ($db)
 
     if ($ownerfightercapacity / $attackerfightercapacity < 1)
     {
-        echo $l_bigfigs . "<br><br>\n";
+        echo $langvars['l_bigfigs'] . "<br><br>\n";
     }
 
     if ($planetbeams <= $attackerfighters)
@@ -71,7 +70,7 @@ function planet_bombing ($db)
 
     if ($attackerfighters <= $attackerfighterslost)
     {
-        echo $l_bigbeams . "<br>\n";
+        echo $langvars['l_bigbeams'] . "<br>\n";
     }
     else
     {
@@ -79,11 +78,11 @@ function planet_bombing ($db)
 
         if ($attackerfighters <= $attackerfighterslost)
         {
-            echo $l_bigtorps . "<br>\n";
+            echo $langvars['l_bigtorps'] . "<br>\n";
         }
         else
         {
-            echo $l_strafesuccess . "<br>\n";
+            echo $langvars['l_strafesuccess'] . "<br>\n";
             if ($ownerfightercapacity / $attackerfightercapacity > 1)
             {
                 $planetfighterslost = $attackerfighters - $attackerfighterslost;
