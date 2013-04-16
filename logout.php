@@ -36,6 +36,7 @@ if (isset ($_SESSION['username']))
     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
     $langvars['l_logout_text'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
     $langvars['l_logout_text'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text']);
+
     // Convert language entries to include session information while it still exists
     $langvars['l_logout_text_replaced'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
     $langvars['l_logout_text_replaced'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text_replaced']);

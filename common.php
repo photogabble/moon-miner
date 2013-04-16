@@ -25,6 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
     include_once './error.php';
 }
 
+$bntreg = new BntRegistry ();
 $BenchmarkTimer = new Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 $ADODB_SESS_CONN = null;
@@ -70,19 +71,6 @@ catch (exception $e)
 }
 
 $db->prefix = $db_prefix;
-// Create/touch a file named dev in the main game directory to activate development mode
-if (file_exists ("dev"))
-{
-    ini_set ('error_reporting', -1); // During development, output all errors, even notices
-    ini_set ('display_errors', '1'); // During development, *display* all errors
-    adodb_perf::table ("{$db->prefix}adodb_logsql");
-    $db->LogSQL (); // Turn on adodb performance logging
-}
-else
-{
-    ini_set ('error_reporting', 0);  // No errors
-    ini_set ('display_errors', '0'); // Don't show them
-}
 
 ini_set ("include_path", ".");                    // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
 ini_set ('session.use_only_cookies', 1);          // Ensure that sessions will only be stored in a cookie
@@ -98,7 +86,7 @@ mb_internal_encoding ("UTF-8");                   // On many systems, this defau
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
-if ($debug_query != false) // Before DB is installed, this will give false, so don't try to log.
+if ((!$debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
 {
     DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
@@ -115,8 +103,26 @@ else
         foreach ($config_line as $config_key=>$config_value)
         {
             $$config_key = $config_value;
+            $bntreg->set ($config_key, $config_value);
         }
     }
+}
+
+// Create/touch a file named dev in the main game directory to activate development mode
+if (file_exists ("dev"))
+{
+    ini_set ('error_reporting', -1); // During development, output all errors, even notices
+    ini_set ('display_errors', '1'); // During development, *display* all errors
+    adodb_perf::table ("{$db->prefix}adodb_logsql");
+    if (!$db->inactive)
+    {
+        $db->LogSQL (); // Turn on adodb performance logging
+    }
+}
+else
+{
+    ini_set ('error_reporting', 0);  // No errors
+    ini_set ('display_errors', '0'); // Don't show them
 }
 
 while ($debug_query && !$debug_query->EOF)
@@ -218,10 +224,10 @@ $admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
 $gamepath = SetPaths::setGamepath ();
 $gamedomain = SetPaths::setGamedomain ();
-$bntreg = new BntRegistry ();
 $template = new Template (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
 $bntreg->set ("langvars", $langvars);
+//echo "Version is " . $bntreg->get ("release_version");
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>

@@ -17,8 +17,6 @@
 //
 // File: footer.php
 
-global $sched_ticks, $footer_show_time, $footer_show_debug, $db, $lang, $langvars;
-
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('footer','global_includes'));
 $online = (integer) 0;
@@ -75,7 +73,7 @@ if (!$db->inactive)
     if ($res instanceof ADORecordSet)
     {
         $result = $res->fields;
-        $mySEC = ($sched_ticks * 60) - (TIME () - $result['last_run']);
+        $mySEC = ($bntreg->get("sched_ticks") * 60) - (TIME () - $result['last_run']);
     }
 }
 
@@ -84,7 +82,7 @@ echo "<script src='templates/classic/javascript/updateticker.js.php'></script>";
 echo "<script>";
 echo "var seconds = '" . $mySEC . "';";
 echo "var nextInterval = new Date().getTime();";
-echo "var maxTicks = '" . ($sched_ticks * 60) . "';";
+echo "var maxTicks = '" . ($bntreg->get("sched_ticks") * 60) . "';";
 echo "var l_running_update = '" . $langvars['l_running_update'] . "';";
 echo "var l_footer_until_update = '" . $langvars['l_footer_until_update'] . "';";
 echo 'setTimeout("NextUpdate ();", 100);';
@@ -104,7 +102,7 @@ else
 
 echo "</div><br>";
 
-if ($footer_show_time == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
+if ($bntreg->get("footer_show_debug") == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
 {
     $sf_logo_type = '14';
     $sf_logo_width = "150";
@@ -148,7 +146,7 @@ else
 
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $langvars['l_local_news'] . "</a></div>";
 echo "<div style='font-size:smaller; text-align:right'>&copy;2000-" . date ('Y') ." Ron Harwood &amp; the BNT Dev team</div>";
-if ($footer_show_debug == true)
+if ($bntreg->get("footer_show_debug") == true)
 {
     echo "<div style='font-size:smaller; text-align:right'>" . number_format ($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";
 }

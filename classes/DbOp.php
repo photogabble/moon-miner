@@ -39,9 +39,9 @@ class DbOp
                        " on line " . ($served_line-1) .
                        " (called from: " . $safe_script_name . ": " . $db->ErrorMsg();
             $dberror = str_replace ("'", "&#39;", $dberror); // Allows the use of apostrophes.
-            if ($db->LogSQL)
+            if (!$db->inactive)
             {
-                if (!$db->inactive)
+                if ($db->LogSQL)
                 {
                     AdminLog::writeLog ($db, LOG_RAW, $dberror);
                 }

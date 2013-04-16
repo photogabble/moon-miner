@@ -15,9 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: footer.php
-
-global $sched_ticks, $footer_show_time, $footer_show_debug;
+// File: footer_t.php
 
 $online = 0;
 
@@ -32,12 +30,15 @@ if (!$db->inactive)
     }
 }
 
-global $BenchmarkTimer;
-if (is_object ($BenchmarkTimer) )
+if (isset ($bntreg))
 {
-    $stoptime = $BenchmarkTimer->stop();
-    $elapsed = $BenchmarkTimer->elapsed();
-    $elapsed = substr ($elapsed, 0, 5);
+    if (is_object ($bntreg->get("bnttimer")))
+    {
+        $bnttimer = $bntreg->get("bnttimer");
+        $bnttimer->stop();
+        $elapsed = $bnttimer->elapsed();
+        $elapsed = substr ($elapsed, 0, 5);
+    }
 }
 else
 {
@@ -58,13 +59,13 @@ if (!$db->inactive)
     if ($rs instanceof ADORecordSet)
     {
         $last_run = $rs->fields['last_run'];
-        $seconds_left = ($sched_ticks * 60) - (time() - $last_run);
+        $seconds_left = ($bntreg->get("sched_ticks") * 60) - (time() - $last_run);
         $display_update_ticker = true;
     }
 }
 // End update counter
 
-if ($footer_show_time == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
+if ($bntreg->get("footer_show_debug") == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
 {
     $sf_logo_type = '14';
     $sf_logo_width = "150";
@@ -149,8 +150,7 @@ else
 }
 
 // Set array with all used variables in page
-$variables['update_ticker'] = array ("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$sched_ticks);
-
+$variables['update_ticker'] = array ("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$bntreg->get("sched_ticks"));
 $variables['players_online'] = $online;
 $variables['sf_logo_type'] = $sf_logo_type;
 $variables['sf_logo_height'] = $sf_logo_height;
@@ -158,6 +158,6 @@ $variables['sf_logo_width'] = $sf_logo_width;
 $variables['sf_logo_link'] = $sf_logo_link;
 $variables['elapsed'] = $elapsed;
 $variables['mem_peak_usage'] = $mem_peak_usage;
-$variables['footer_show_debug'] = $footer_show_debug;
+$variables['footer_show_debug'] = $bntreg->get("footer_show_debug");
 $variables['cur_year'] = date ('Y');
 ?>
