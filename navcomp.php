@@ -41,14 +41,17 @@ if (!$allow_navcomp)
     die ();
 }
 
-if (!isset ($_REQUEST['state']))
+$state = null;
+if (isset($_POST['state']))
 {
-    $_REQUEST['state'] = '';
+    $state = filter_input (INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
 }
 
-$state = $_REQUEST['state'];
-
-unset ($stop_sector);
+$stop_sector = null;
+if (isset($_POST['stop_sector']))
+{
+    $stop_sector = filter_input (INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
+}
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
@@ -60,30 +63,6 @@ $computer_tech  = $playerinfo['computer'];
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
-
-// Gets the stop_sector POST Variable.
-// Validats the post variable as a number.
-// Typecast variable into an integer.
-
-if (isset ($_POST['stop_sector']))
-{
-    $stop_sector = $_POST['stop_sector'];
-    if (!is_numeric ($stop_sector))
-    {
-        AdminLog::writeLog ($db, 902, "{$playerinfo['ship_id']}|Tried to insert a hardcoded NavComp Info, to show planets|{$stop_sector}.");
-        echo "<div style='color:#fff; font-size: 12px;'><span style='color:#fff;'>Detected Invalid NavComputer Information (<span style='color:#f00;'>Possible Hack!</span>)</span></div>\n<br>\n";
-
-        BntText::gotoMain ($db, $lang, $langvars);
-        include './footer.php';
-        die ();
-    }
-
-    $stop_sector = (int) $stop_sector;
-}
-else
-{
-    $stop_sector = '';
-}
 
 if ($state == 0)
 {
