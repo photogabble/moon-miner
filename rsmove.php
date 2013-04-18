@@ -40,6 +40,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 $deg = pi () / 180;
 
+$destination = null;
 if (isset($_GET['destination']))
 {
     $destination  = filter_input (INPUT_GET, 'destination', FILTER_SANITIZE_NUMBER_INT);

@@ -55,9 +55,9 @@ DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $sector = null;
-if (array_key_exists ('sector', $_REQUEST) == true)
+if (isset($_GET['sector']))
 {
-    $sector = $_REQUEST['sector'];
+    $sector  = filter_input (INPUT_GET, 'sector', FILTER_SANITIZE_NUMBER_INT);
 }
 
 // Retrive all the warp links out of the current sector
