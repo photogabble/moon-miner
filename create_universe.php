@@ -448,17 +448,13 @@ echo"</table>";
       $initbgoods = $goods_limit * $initbcommod / 100.0;
       $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-      $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('0', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
+      $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
       DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
-      table_row ($db, "Creating Sol sector","Failed","Created");
-
-      $update = $db->Execute("UPDATE {$db->prefix}universe SET sector_id=0 WHERE sector_id=1");
-      DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-      table_row ($db, "Converting Sol Sector Id to 0","False","True");
+      table_row ($db, "Creating Sol in sector 0","Failed","Created");
 
       $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
       DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
-      table_row ($db, "Creating Alpha Centauri in sector 1","Failed","Created");
+      table_row ($db, "Creating Alpha Centauri in sector 2","Failed","Created");
 
       table_spacer ();
 
@@ -1024,7 +1020,7 @@ table_footer ("Completed successfully.");
       $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
       $hashed_pass = $hasher->HashPassword (ADMIN_PW);
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,0,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(NULL,'Game Admin\'s ship','N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,1,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 
       table_1col ("Admins login Information:<br>Username: " . $admin_mail . "<br>Password: " . ADMIN_PW);
