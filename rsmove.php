@@ -40,10 +40,20 @@ echo "<h1>" . $title . "</h1>\n";
 
 $deg = pi () / 180;
 
-$destination  = filter_input (INPUT_GET, 'destination', FILTER_SANITIZE_NUMBER_INT);
-$destination  = filter_input (INPUT_POST, 'destination', FILTER_SANITIZE_NUMBER_INT);
-$engage  = filter_input (INPUT_GET, 'engage', FILTER_SANITIZE_NUMBER_INT);
+if (isset ($_GET['destination']))
+{
+    $destination  = (int) filter_input (INPUT_GET, 'destination', FILTER_SANITIZE_NUMBER_INT);
+}
 
+if (isset ($_POST['destination']))
+{
+    $destination  = (int) filter_input (INPUT_POST, 'destination', FILTER_SANITIZE_NUMBER_INT);
+}
+
+$engage  = (int) filter_input (INPUT_GET, 'engage', FILTER_SANITIZE_NUMBER_INT);
+
+var_dump($engage);
+var_dump($destination);
 if (isset ($destination))
 {
     $destination = round (abs ($destination));
