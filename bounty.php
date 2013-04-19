@@ -32,15 +32,17 @@ include './header.php';
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
-$response = null;
-if (array_key_exists ('response', $_POST) == true)
+if (isset ($_POST['response']))
 {
-    $response = $_POST['response'];
+    $response  = filter_input (INPUT_POST, 'response', FILTER_SANITIZE_STRING);
 }
-elseif (array_key_exists ('response', $_GET) == true)
+
+if (isset ($_GET['response']))
 {
-    $response = $_GET['response'];
+    $response  = filter_input (INPUT_GET, 'response', FILTER_SANITIZE_STRING);
 }
+
+$bid = (int) filter_input (INPUT_GET, 'bid', FILTER_SANITIZE_NUMBER_INT);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -116,8 +118,6 @@ switch ($response) {
         }
         break;
     case "cancel":
-        $bid = (int) $_GET['bid'];
-
         echo "<h1>" . $title . "</h1>\n";
         if ($playerinfo['turns'] < 1)
         {
