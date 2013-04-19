@@ -35,7 +35,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 
 echo "<h1>" . $title . "</h1>\n";
-$zone = filter_input (INPUT_GET, 'zone', FILTER_SANITIZE_NUMBER_INT);
+$zone = (int) filter_input (INPUT_GET, 'zone', FILTER_SANITIZE_NUMBER_INT);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);

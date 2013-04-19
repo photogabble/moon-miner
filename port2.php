@@ -168,16 +168,16 @@ else
         }
 
         // Clear variables that are not selected in the form, and filter them to be only the correct variable type (Int, float, and boolean)
-        $hull_upgrade               = filter_input (INPUT_POST, 'hull_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $engine_upgrade             = filter_input (INPUT_POST, 'engine_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $power_upgrade              = filter_input (INPUT_POST, 'power_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $computer_upgrade           = filter_input (INPUT_POST, 'computer_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $sensors_upgrade            = filter_input (INPUT_POST, 'sensors_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $beams_upgrade              = filter_input (INPUT_POST, 'beams_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $armor_upgrade              = filter_input (INPUT_POST, 'armor_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $cloak_upgrade              = filter_input (INPUT_POST, 'cloak_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $torp_launchers_upgrade     = filter_input (INPUT_POST, 'torp_launchers_upgrade', FILTER_SANITIZE_NUMBER_INT);
-        $shields_upgrade            = filter_input (INPUT_POST, 'shields_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $hull_upgrade               = (int) filter_input (INPUT_POST, 'hull_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $engine_upgrade             = (int) filter_input (INPUT_POST, 'engine_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $power_upgrade              = (int) filter_input (INPUT_POST, 'power_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $computer_upgrade           = (int) filter_input (INPUT_POST, 'computer_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $sensors_upgrade            = (int) filter_input (INPUT_POST, 'sensors_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $beams_upgrade              = (int) filter_input (INPUT_POST, 'beams_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $armor_upgrade              = (int) filter_input (INPUT_POST, 'armor_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $cloak_upgrade              = (int) filter_input (INPUT_POST, 'cloak_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $torp_launchers_upgrade     = (int) filter_input (INPUT_POST, 'torp_launchers_upgrade', FILTER_SANITIZE_NUMBER_INT);
+        $shields_upgrade            = (int) filter_input (INPUT_POST, 'shields_upgrade', FILTER_SANITIZE_NUMBER_INT);
 
         $fighter_number             = filter_input (INPUT_POST, 'fighter_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
         $torpedo_number             = filter_input (INPUT_POST, 'torpedo_number', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);

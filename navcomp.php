@@ -41,8 +41,8 @@ if (!$allow_navcomp)
     die ();
 }
 
-$state = filter_input (INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
-$stop_sector = filter_input (INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
+$state = (int) filter_input (INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
+$stop_sector = (int) filter_input (INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);

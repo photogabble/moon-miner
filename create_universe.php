@@ -146,10 +146,10 @@ set_time_limit(0);
 $swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 
 // Get POST Variable "engame" and INT Sanitize it. (returns NULL if not found)
-$engage  = filter_input (INPUT_POST, 'engage', FILTER_SANITIZE_NUMBER_INT);
+$engage  = (int) filter_input (INPUT_POST, 'engage', FILTER_SANITIZE_NUMBER_INT);
 
 // Get POST Variable "step" and INT Sanitize it. (returns NULL if not found)
-$step = filter_input (INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
+$step = (int) filter_input (INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
 
 if (ADMIN_PW != $swordfish)
 {
