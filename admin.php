@@ -30,12 +30,7 @@ function checked ($yesno)
     return (($yesno == "Y") ? "checked" : "");
 }
 
-$menu = null;
-if (isset ($_POST['menu']))
-{
-    $menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
-}
-
+$menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
 $swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $filename = null;
 $menu_location = null;
