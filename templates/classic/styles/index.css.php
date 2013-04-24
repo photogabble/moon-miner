@@ -61,12 +61,10 @@ ul.navigation { list-style:none}
 
     -webkit-border-radius: 4px;
      -khtml-border-radius: 4px;
-       -moz-border-radius: 4px;
          -o-border-radius: 4px;
             border-radius: 4px;
     -webkit-box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
      -khtml-box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
-       -moz-box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
          -o-box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
             box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
     -webkit-transition: all 0.1s linear;
@@ -78,14 +76,12 @@ ul.navigation { list-style:none}
 .button:hover {
     -webkit-box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
      -khtml-box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
-       -moz-box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
          -o-box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
             box-shadow: rgba(0,0,0,0.5) 0 2px 5px, inset rgba(255,255,255,0.25) 0 1px 0, inset rgba(0,0,0,0.25) 0 0 0, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
 }
 .button:active {
     -webkit-box-shadow: rgba(255,255,255,0.25) 0 1px 0,inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
      -khtml-box-shadow: rgba(255,255,255,0.25) 0 1px 0,inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
-       -moz-box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
          -o-box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
             box-shadow: rgba(255,255,255,0.25) 0 1px 0, inset rgba(255,255,255,0) 0 1px 0, inset rgba(0,0,0,0.5) 0 0 5px, inset rgba(255,255,255,0.03) 0 20px 0, inset rgba(0,0,0,0.15) 0 -20px 20px, inset rgba(255,255,255,0.05) 0 20px 20px;
 }
@@ -98,7 +94,6 @@ ul.navigation { list-style:none}
     top: -12px;
     -webkit-box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
      -khtml-box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
-       -moz-box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
          -o-box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
             box-shadow: rgba(255,255,255,0.2) 0 1px 5px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -106,9 +101,7 @@ ul.navigation { list-style:none}
        -moz-transition: all 0.3s ease-in-out;
          -o-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
-    background: -moz-linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
     background: -webkit-linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
-    background: -o-linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
     background: -ms-linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
     background: linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
