@@ -450,9 +450,9 @@ echo"</table>";
 
       $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
       DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
-      table_row ($db, "Creating Sol in sector 0","Failed","Created");
+      table_row ($db, "Creating Sol in sector 1","Failed","Created");
 
-      $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
+      $insert = $db->Execute("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('2', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
       DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
       table_row ($db, "Creating Alpha Centauri in sector 2","Failed","Created");
 
@@ -776,7 +776,7 @@ echo"</table>";
 
         do
         {
-            $num = mt_rand (2, ($sector_max - 1));
+            $num = mt_rand (3, ($sector_max - 1));
             $select = $db->Execute("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'") or die("DB error");
             DbOp::dbResult ($db, $select, __LINE__, __FILE__);
             if ($select->RecordCount() == 0)
@@ -802,7 +802,7 @@ table_spacer ();
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
-        $start=0;
+        $start=1;
 
         for ($i = 1; $i <= $loops; $i++)
         {
@@ -844,7 +844,7 @@ table_spacer ();
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
-        $start=0;
+        $start=1;
 
         for ($i = 1; $i <= $loops; $i++)
         {
@@ -889,7 +889,7 @@ table_spacer ();
         if ($loops <= 0) $loops = 1;
         $finish = $loopsize;
         if ($finish>$sector_max) $finish=($sector_max);
-        $start=0;
+        $start=1;
 
         for ($i = 1; $i <= $loops; $i++)
         {
