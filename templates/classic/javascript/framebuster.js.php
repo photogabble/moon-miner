@@ -10,6 +10,4 @@ header ("Connection: Keep-Alive");
 header ("Cache-Control: public");
 header ('ETag: "' . $etag . '"');
 ?>
-<!--
 if (self != top) { top.location = location; }
--->

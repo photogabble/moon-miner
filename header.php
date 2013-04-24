@@ -44,6 +44,7 @@ if (!isset ($body_class))
 <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Ubuntu'>
 <title><?php global $title; echo $title; ?></title>
 <script src="templates/classic/javascript/ckeditor/ckeditor.js"></script>
+<script src="templates/classic/javascript/framebuster.js.php"></script>
 </head>
 <body class="<?php echo $body_class; ?>">
 <div class="wrapper">
