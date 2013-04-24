@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
     <title>{block name=title}Default Page Title{/block}</title>
     <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>
+    <script src="{$template_dir}/javascript/framebuster.js.php"></script>
   </head>
 <!-- END OF HEADER -->
 
