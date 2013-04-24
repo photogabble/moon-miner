@@ -16,6 +16,8 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: rsmove.php
+// External variables: $destination (from get or post), int, range 1-$sector_max)
+// $engage (from get), int, range 0-2)
 
 include './global_includes.php';
 
@@ -40,6 +42,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 $deg = pi () / 180;
 
+$destination = null;
 if (isset ($_GET['destination']))
 {
     $destination  = (int) filter_input (INPUT_GET, 'destination', FILTER_SANITIZE_NUMBER_INT);
@@ -48,6 +51,11 @@ if (isset ($_GET['destination']))
 if (isset ($_POST['destination']))
 {
     $destination  = (int) filter_input (INPUT_POST, 'destination', FILTER_SANITIZE_NUMBER_INT);
+}
+
+if ($destination < 1 || $destination > $sector_max)
+{
+    $destination = null;
 }
 
 $engage  = (int) filter_input (INPUT_GET, 'engage', FILTER_SANITIZE_NUMBER_INT);
