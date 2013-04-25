@@ -147,6 +147,7 @@ if (!$index_page)
 }
 
 
+/*
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 if (!defined ('reg_global_fix')) define ('reg_global_fix', True, TRUE);
 
@@ -166,7 +167,7 @@ foreach ($_GET as $k=>$v)
         ${$k} = $v;
     }
 }
-
+*/
 if (isset ($default_lang))
 {
     $lang = $default_lang;
