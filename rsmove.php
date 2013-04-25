@@ -42,6 +42,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 $deg = pi () / 180;
 
+/* TK version
 $destination = null;
 if (isset ($_GET['destination']))
 {
@@ -57,6 +58,21 @@ if ($destination < 1 || $destination > $sector_max)
 {
     $destination = null;
 }
+*/
+
+/* TMD version */
+$destination  = filter_input (INPUT_GET, 'destination', FILTER_SANITIZE_NUMBER_INT);
+if ( is_null($destination) )
+{
+    $destination  = filter_input (INPUT_POST, 'destination', FILTER_SANITIZE_NUMBER_INT);
+}
+
+if ( !is_null($destination) && strlen(trim($destination)) <=0)
+{
+    $destination = null;
+}
+
+settype($destination, "integer");
 
 $engage  = (int) filter_input (INPUT_GET, 'engage', FILTER_SANITIZE_NUMBER_INT);
 
