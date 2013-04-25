@@ -72,7 +72,10 @@ if ( !is_null($destination) && strlen(trim($destination)) <=0)
     $destination = null;
 }
 
-settype($destination, "integer");
+if ( !is_null($destination) )
+{
+    settype($destination, "integer");
+}
 
 $engage  = (int) filter_input (INPUT_GET, 'engage', FILTER_SANITIZE_NUMBER_INT);
 
