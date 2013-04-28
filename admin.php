@@ -1,5 +1,6 @@
 <?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Blacknova Traders - A web-based massively multiplayer space
+// combat and trading game
 // Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -22,7 +23,10 @@ include './config/admin_pw.php';
 
 // Database driven language entries
 $langvars = null;
-$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'));
+$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',
+                                'global_includes', 'global_funcs', 'combat',
+                                'footer', 'news', 'report', 'main', 'zoneedit',
+                                'planet'));
 $title = $langvars['l_admin_title'];
 
 function checked ($yesno)
@@ -30,13 +34,14 @@ function checked ($yesno)
     return (($yesno == "Y") ? "checked" : "");
 }
 
-$menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING); // We only want menu values that come from $_POST, and only want string values.
+// We only want menu values that come from $_POST, and only want string values.
+$menu = filter_input (INPUT_POST, 'menu', FILTER_SANITIZE_STRING);
 $swordfish  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $filename = null;
 $menu_location = null;
 $button_main = false;
 
-// Clear variables array before use, and set array with all used variables in page
+// Clear variables array before use, and set array with all variables in page
 $variables = null;
 
 $variables['is_admin'] = false;
@@ -46,25 +51,31 @@ if ($swordfish == ADMIN_PW)
     $variables['is_admin'] = true;
     $option_title = array ();
     $admin_dir = new DirectoryIterator ('admin/');
-    foreach ($admin_dir as $file_info) // Get a list of the files in the admin directory
+    // Get a list of the files in the admin directory
+    foreach ($admin_dir as $file_info)
     {
-        // This is to get around the issue of not having DirectoryIterator::getExtension.
+        // This is to get around not having DirectoryIterator::getExtension.
         $file_ext = pathinfo ($file_info->getFilename(), PATHINFO_EXTENSION);
 
         // If it is a PHP file, add it to the list of accepted admin files
-        if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted admin files
+        if ($file_info->isFile () && $file_ext == 'php')
         {
-            $i++; // Increment a counter, so we know how many files there are to choose from
-            $filename[$i]['file'] = $file_info->getFilename (); // The actual file name
-            $option_title = "l_admin_" . substr ($filename[$i]['file'], 0, -4); // Set the option title to a language string of the form l_admin + file name
+            $i++; // Increment counter so we know how many files there are
+            // Actual file name
+            $filename[$i]['file'] = $file_info->getFilename ();
+
+            // Set option title to lang string of the form l_admin + file name
+            $option_title = "l_admin_" . substr ($filename[$i]['file'], 0, -4);
 
             if (isset ($langvars[$option_title]))
             {
-                $filename[$i]['option_title'] = $langvars[$option_title]; // The language translated title for option
+                // The language translated title for option
+                $filename[$i]['option_title'] = $langvars[$option_title];
             }
             else
             {
-                $filename[$i]['option_title'] = $langvars['l_admin_new_module'] . $filename[$i]['file']; // The placeholder text for a not translated module
+                // The placeholder text for a not translated module
+                $filename[$i]['option_title'] = $langvars['l_admin_new_module'] . $filename[$i]['file'];
             }
 
             if (!empty ($menu))
@@ -73,7 +84,7 @@ if ($swordfish == ADMIN_PW)
                 {
                     $button_main = true;
                     $module_name = substr ($filename[$i]['file'], 0, -4);
-                    include_once './admin/'. $filename[$i]['file']; // Include that filename
+                    include_once './admin/'. $filename[$i]['file'];
                 }
             }
         }
@@ -89,13 +100,16 @@ $variables['filename'] = $filename;
 $variables['menu_location'] = $menu_location;
 $variables['button_main'] = $button_main;
 
-// Now set a container for the variables and langvars and send them off to the template system
+// Set a container for variables & langvars & send them to the template system
 $variables['container'] = "variable";
 $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'report', 'main', 'zoneedit', 'planet'));
+$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',
+                                'global_includes', 'global_funcs', 'combat',
+                                'footer', 'news', 'report', 'main', 'zoneedit',
+                                'planet'));
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
 $template->Display("admin.tpl");
