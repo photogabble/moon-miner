@@ -158,7 +158,7 @@ if ($result3 instanceof ADORecordSet)
 
         if (!is_null ($oneway))
         {
-            echo $langvars['l_warp_coneway'] . " " . $target_sector . " ".<br><br>";
+            echo $langvars['l_warp_coneway'] . " " . $target_sector . " " . "<br><br>";
         }
         else
         {
