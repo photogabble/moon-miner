@@ -1,5 +1,6 @@
 <?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Blacknova Traders - A web-based massively multiplayer space combat
+// and trading game
 // Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -28,8 +29,16 @@ $title = $langvars['l_att_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('attack', 'bounty', 'main', 'planet', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('attack', 'bounty', 'main',
+                                'planet', 'common', 'global_includes',
+                                'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
+
+$ship_id = null;
+if (isset ($_GET['ship_id']))
+{
+    $ship_id  = (int) filter_input (INPUT_GET, 'ship_id', FILTER_SANITIZE_NUMBER_INT);
+}
 
 // Kami Multi Browser Window Attack Fix
 if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_selected'] != $ship_id)
@@ -41,7 +50,8 @@ if (array_key_exists ('ship_selected', $_SESSION) == false || $_SESSION['ship_se
 }
 unset ($_SESSION['ship_selected']);
 
-// Need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE or it will fail to log the sql.
+// Need to also set a WRITE LOCK on {$db->prefix}adodb_logsql WRITE
+// or it will fail to log the sql.
 $result = $db->Execute ("LOCK TABLES {$db->prefix}adodb_logsql WRITE, {$db->prefix}languages READ, " .
                        "{$db->prefix}ibank_accounts READ, {$db->prefix}sector_defence WRITE, " .
                        "{$db->prefix}ships WRITE, {$db->prefix}universe WRITE, {$db->prefix}bounty WRITE, " .
@@ -52,8 +62,6 @@ DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
-
-$ship_id = preg_replace ('/[^0-9]/', '', $ship_id);
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
@@ -150,7 +158,8 @@ else
             // Need to change warp destination to random sector in universe
             $rating_change = round ($targetinfo['rating'] * .1);
             $dest_sector = mt_rand (1, $sector_max - 1);
-            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, rating = rating - ? " .
+            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, " .
+                                  "rating = rating - ? " .
                                  "WHERE ship_id = ?;", array ($rating_change, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "$playerinfo[character_name]");
@@ -166,10 +175,13 @@ else
             // Bounty-free Xenobe attacking allowed.
             if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/", $targetinfo['email']) === 0 ))
             {
-                // Changed xenobe check to a regexp cause a player could put @xen or whatever in his email address
-                // so (\@xenobe) is an exact match and the $ symbol means "this is the *end* of the string
+                // Changed xenobe check to a regexp cause a player could put
+                // @xen or whatever in his email address
+                // so (\@xenobe) is an exact match and the $ symbol means
+                // "this is the *end* of the string
                 // Our custom @xenobe names will match, nothing else will
-                // Check to see if there is Federation bounty on the player. If there is, people can attack regardless.
+                // Check to see if there is Federation bounty on the player.
+                // If there is, people can attack regardless.
                 $btyamount = 0;
                 $hasbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE " .
                                           "bounty_on = ? AND placed_by = 0;", array ($targetinfo['ship_id']));
@@ -198,8 +210,9 @@ else
             }
             $targetenergy = $targetinfo['ship_energy'];
             $playerenergy = $playerinfo['ship_energy'];
-            // I added these two so we can have a value for debugging and reporting totals
-            // If we use the variables in calcs below, change the display of stats too
+            // I added these two so we can have a value for debugging and
+            // reporting totals. If we use the variables in calcs below,
+            // change the display of stats too
 
             $targetbeams = CalcLevels::Beams ($targetinfo['beams'], $level_factor);
             if ($targetbeams > $targetinfo['ship_energy'])
@@ -314,7 +327,8 @@ else
                     $temp = round ($targetfighters / 2);
                     $lost = $targetfighters - $temp;
 
-                    // Maybe we should report on how many beams fired , etc for comparision/bugtracking
+                    // Maybe we should report on how many beams fired , etc for
+                    // comparision/bugtracking
                     echo $targetinfo['character_name'] . " " . $langvars['l_att_lost'] . " " . $lost . " " . $langvars['l_fighters'] . "<br>";
                     $targetfighters = $temp;
                     $playerbeams = $playerbeams - $lost;
@@ -599,11 +613,14 @@ else
                 if ($playerarmor > 0)
                 {
                     $rating_change = round ($targetinfo['rating'] * $rating_combat_factor);
-                    // Updating to always get a positive rating increase for xenobe and the credits they are carrying
+                    // Updating to always get a positive rating increase for
+                    // xenobe and the credits they are carrying
                     $salv_credits = 0;
 
-                    // Double Death Attack Bug Fix - Returns 0 for real players, 1 for Xenobe players
-                    if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 ) // He is a Xenobe
+                    // Double Death Attack Bug Fix - Returns 0 for real
+                    // players, 1 for Xenobe players
+                    // He is a Xenobe
+                    if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 )
                     {
                         $resx = $db->Execute ("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
                         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
