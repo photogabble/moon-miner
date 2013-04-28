@@ -41,9 +41,9 @@ $total_sector_fighters = 0;
 $owner = true;
 
 $response = null;
-if (array_key_exists ('response', $_POST) == true)
+if (isset ($_POST['response']))
 {
-    $response = $_POST['response'];
+    $response  = (int) filter_input (INPUT_POST, 'response', FILTER_SANITIZE_NUMBER_INT);
 }
 
 $destination = null;
