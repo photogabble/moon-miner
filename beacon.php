@@ -26,7 +26,9 @@ $title = $langvars['l_beacon_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common',
+                                'global_includes', 'global_funcs', 'combat',
+                                'footer', 'news'));
 
 echo "<h1>" . $title . "</h1>\n";
 
@@ -45,13 +47,9 @@ $sectorinfo = $result2->fields;
 
 $allowed_rsw = "N";
 
-if (!isset ($_POST['beacon_text']))
+if (isset ($_POST['beacon_text']))
 {
-    $beacon_text = null;
-}
-else
-{
-    $beacon_text = $_POST['beacon_text'];
+    $destination  = (int) filter_input (INPUT_GET, 'beacon_text', FILTER_SANITIZE_NUMBER_INT);
 }
 
 if ($playerinfo['dev_beacon'] > 0)
