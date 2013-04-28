@@ -1,5 +1,6 @@
 <?php
-// Blacknova Traders - A web-based massively multiplayer space combat and trading game
+// Blacknova Traders - A web-based massively multiplayer space combat
+// and trading game
 // Copyright (C) 2001-2012 Ron Harwood and the BNT development team
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -19,7 +20,7 @@
 
 include './global_includes.php';
 
-if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+if (check_login ($db, $lang, $langvars)) // Check player login, set playerinfo
 {
     die ();
 }
@@ -30,8 +31,11 @@ $title = $langvars['l_by_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'common',
+                                'global_includes', 'global_funcs', 'combat',
+                                'footer', 'news'));
 
+$response = null;
 if (isset ($_POST['response']))
 {
     $response  = filter_input (INPUT_POST, 'response', FILTER_SANITIZE_STRING);
@@ -42,7 +46,19 @@ if (isset ($_GET['response']))
     $response  = filter_input (INPUT_GET, 'response', FILTER_SANITIZE_STRING);
 }
 
+$bounty_on = null;
+if (isset ($_POST['bounty_on']))
+{
+    $bounty_on  = filter_input (INPUT_POST, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
+}
+
+if (isset ($_GET['bounty_on']))
+{
+    $bounty_on  = filter_input (INPUT_GET, 'bounty_on', FILTER_SANITIZE_NUMBER_INT);
+}
+
 $bid = (int) filter_input (INPUT_GET, 'bid', FILTER_SANITIZE_NUMBER_INT);
+$amount  = (int) filter_input (INPUT_POST, 'amount', FILTER_SANITIZE_NUMBER_INT);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
@@ -158,7 +174,6 @@ switch ($response) {
         break;
     case "place":
         echo "<h1>" . $title . "</h1>\n";
-        $bounty_on = preg_replace ('/[^0-9]/', '', $bounty_on);
         $ex = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($bounty_on));
         DbOp::dbResult ($db, $ex, __LINE__, __FILE__);
         if (!$ex)
@@ -186,7 +201,6 @@ switch ($response) {
             die ();
         }
 
-        $amount = preg_replace ('/[^0-9]/', '', $amount);
         if ($amount <= 0)
         {
             echo $langvars['l_by_zeroamount'] . "<br><br>";
