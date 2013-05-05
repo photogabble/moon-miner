@@ -119,7 +119,7 @@ else
                     $multiplier = $event['spawn'];
                 }
 
-                if ($event[spawn] - $multiplier == 0)
+                if ($event['spawn'] - $multiplier == 0)
                 {
                     $resx = $db->Execute ("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array ($event['sched_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
