@@ -49,7 +49,7 @@ define ('LOG_PLANET_SCAN_FAIL', 21);         // sent when a planet scan failed
 define ('LOG_PLANET_CAPTURE', 22);           // sent when a planet is captured
 define ('LOG_SHIP_SCAN', 23);                // sent when a ship is scanned
 define ('LOG_SHIP_SCAN_FAIL', 24);           // sent when a ship scan fails
-define ('LOG_Xenobe_ATTACK', 25);            // xenobes send this to themselves
+define ('LOG_XENOBE_ATTACK', 25);            // xenobes send this to themselves
 define ('LOG_STARVATION', 26);               // sent when colonists are starving... Is this actually used in the game?
 define ('LOG_TOW', 27);                      // sent when a player is towed
 define ('LOG_DEFS_DESTROYED_F', 28);         // sent when a player destroys fighters
