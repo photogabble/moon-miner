@@ -42,23 +42,6 @@ else
     $sector = null;
 }
 
-function get_player ($db, $ship_id)
-{
-    $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-    if ($res)
-    {
-        $row = $res->fields;
-        $character_name = $row['character_name'];
-
-        return $character_name;
-    }
-    else
-    {
-        return "Unknown";
-    }
-}
-
 // Get user info
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
