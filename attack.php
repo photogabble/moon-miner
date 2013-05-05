@@ -599,14 +599,14 @@ else
                                          "dev_lssd = 'N' WHERE ship_id = ?;", array ($start_energy, $rating, $targetinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
-                    BntBounty::collect ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
+                    BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
                 }
                 else
                 {
                     PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                     BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
-                    BntBounty::collect ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
+                    BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                     AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
 
@@ -631,7 +631,7 @@ else
                         {
                             $rating_change = 0 - $rating_change;
                             PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
-                            BntBounty::collect ($db, $playerinfo['ship_id'], $targetinfo['ship_id']);
+                            BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                             BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
 
                             AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
@@ -750,13 +750,13 @@ else
                                          "dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, dev_lssd = 'N' " .
                                          "WHERE ship_id = ?", array ($start_energy, $rating, $playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                    BntBounty::collect ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
+                    BntBounty::collect ($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
                 else
                 {
                     echo "Didnt have pod?! $playerinfo[dev_escapepod]<br>";
                     BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
-                    BntBounty::collect ($db, $targetinfo['ship_id'], $playerinfo['ship_id']);
+                    BntBounty::collect ($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }
 
                 if ($targetarmor > 0)

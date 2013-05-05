@@ -48,7 +48,7 @@ class BntBounty
         }
     }
 
-    static function collect ($db, $attacker, $bounty_on)
+    static function collect ($db, $langvars, $attacker, $bounty_on)
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
         if ($res)
