@@ -26,8 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntCompress.php')) // Prevent direct access t
 
 class BntCompress
 {
-
-    function __construct($parent)
+    function __construct()
     {
     }
 
