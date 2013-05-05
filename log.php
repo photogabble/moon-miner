@@ -139,7 +139,7 @@ if (!empty ($logs) )
 {
     foreach ($logs as $log)
     {
-        $event = log_parse ($langvars, $log);
+        $event = logParse ($langvars, $log);
         $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
         $time = $langvars[$log_months_temp] . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
@@ -213,7 +213,7 @@ if ($mode != 'compat')
     {
         foreach ($logs as $log)
         {
-            $event = log_parse ($log);
+            $event = logParse ($log);
             $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
             $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
@@ -258,7 +258,7 @@ if ($mode != 'compat')
     {
         foreach ($logs as $log)
         {
-            $event = log_parse ($log);
+            $event = logParse ($log);
             $log_months_temp = "l_log_months_" . (int) (substr ($log['time'], 5, 2) );
             $time = $$log_months_temp . " " . substr ($log['time'], 8, 2) . " " . substr ($log['time'], 0, 4) . " " . substr ($log['time'], 11);
 
@@ -390,11 +390,11 @@ if ($mode != 'compat')
 echo "</table></center>";
 include './footer.php';
 
-function log_parse ($langvars, $entry)
+function logParse ($langvars, $entry)
 {
     $langvars['l_log_nopod'] = "<font color=yellow><strong>" . $langvars['l_log_nopod'] . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
 
-    get_log_info ($entry['type'], $titletemp, $texttemp);
+    getLogInfo ($entry['type'], $titletemp, $texttemp);
 
   switch ($entry['type'])
   {
@@ -723,7 +723,7 @@ case LOG_BOUNTY_FEDBOUNTY:
   return $retvalue;
 }
 
-function get_log_info ($id = null, &$title = null, &$text = null)
+function getLogInfo ($id = null, &$title = null, &$text = null)
 {
     global $log_list;
     $title = null;
