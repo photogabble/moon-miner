@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPlayer.php')) // Prevent direct access to 
 
 class BntPlayer
 {
-    static function kill ($db, $ship_id, $remove_planets = false, $langvars)
+    static function kill ($db, $ship_id, $remove_planets = false, $langvars, $bntreg)
     {
         $resa = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=?", array ($ship_id));
         DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
@@ -63,7 +63,7 @@ class BntPlayer
         {
             foreach ($sectors as $sector)
             {
-                BntOwnership::calc ($db, $sector, $min_bases_to_own, $langvars);
+                BntOwnership::calc ($db, $sector, $bntreg->get("min_bases_to_own"), $langvars);
             }
         }
 
