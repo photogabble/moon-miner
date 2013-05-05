@@ -175,7 +175,7 @@ else
                         $destroylist = "Destroyed O&nbsp;&nbsp;";
                     }
 
-                    printf ("<option value=%s>%s %s %s %s</option>", $row[email], $activelist, $destroylist, $sectorlist, $charnamelist);
+                    printf ("<option value=%s>%s %s %s %s</option>", $row['email'], $activelist, $destroylist, $sectorlist, $charnamelist);
                     $res->MoveNext();
                 }
 
@@ -280,8 +280,8 @@ else
                     echo "<td>Genesis Torpedoes</td><td><input type=text size=5 name=dev_genesis value=\"$row[dev_genesis]\"></td></tr>";
                     echo "<tr><td>Mine Deflectors</td><td><input type=text size=5 name=dev_minedeflector value=\"$row[dev_minedeflector]\"></td>";
                     echo "<td>Emergency Warp</td><td><input type=text size=5 name=dev_emerwarp value=\"$row[dev_emerwarp]\"></td></tr>";
-                    echo "<tr><td>Escape Pod</td><td><input type=checkbox name=dev_escapepod value=ON " . checked ($row[dev_escapepod]) . "></td>";
-                    echo "<td>FuelScoop</td><td><input type=checkbox name=dev_fuelscoop value=ON " . checked ($row[dev_fuelscoop]) . "></td></tr>";
+                    echo "<tr><td>Escape Pod</td><td><input type=checkbox name=dev_escapepod value=ON " . checked ($row['dev_escapepod']) . "></td>";
+                    echo "<td>FuelScoop</td><td><input type=checkbox name=dev_fuelscoop value=ON " . checked ($row['dev_fuelscoop']) . "></td></tr>";
                     echo "</table></td></tr>";
                     echo "<tr><td>Credits</td><td><input type=text name=credits value=\"$row[credits]\"></td></tr>";
                     echo "<tr><td>Turns</td><td><input type=text name=turns value=\"$row[turns]\"></td></tr>";
