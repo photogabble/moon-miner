@@ -309,7 +309,7 @@ echo"</table>";
       // Delete all tables in the database
       table_header ("Dropping Tables --- Step 3");
 
-      BntSchema::destroy ($db, $ADODB_SESSION_DB, $db_prefix);
+      BntSchema::destroy ($db, $db_prefix);
       table_footer ("Hover over the failed line to see the error.");
       echo "<strong>Dropping stage complete.</strong><p>";
 
@@ -333,7 +333,7 @@ echo"</table>";
 
     case "4":
       table_header("Creating Tables --- Step 4");
-      BntSchema::create ($db, $ADODB_SESSION_DB, $db_prefix);
+      BntSchema::create ($db, $db_prefix);
       table_footer("Hover over the failed row to see the error.");
 
       // This should be conditional based on the results of create_schema

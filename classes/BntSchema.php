@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntSchema.php')) // Prevent direct access to 
 
 class BntSchema
 {
-    static function destroy ($db, $ADODB_SESSION_DB, $db_prefix)
+    static function destroy ($db, $db_prefix)
     {
         // Need to set this or all hell breaks loose.
         $db->inactive = true;
@@ -53,7 +53,7 @@ class BntSchema
         return $destroy_table_results;
     }
 
-    static function create ($db, $ADODB_SESSION_DB, $db_prefix)
+    static function create ($db, $db_prefix)
     {
         $i = 0;
         $schema_files = new DirectoryIterator("schema/");
