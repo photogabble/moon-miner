@@ -37,7 +37,7 @@
       <NOTNULL/>
       <DEFAULT value="2"/>
     </field>
-    <index name="owner">
+    <index name="owner_key">
       <col>owner</col>
     </index>
   </table>

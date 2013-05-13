@@ -232,8 +232,5 @@
     <index name="team">
       <col>team</col>
     </index>
-    <index name="ship_id">
-      <col>ship_id</col>
-    </index>
   </table>
 </schema>

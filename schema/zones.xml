@@ -48,8 +48,5 @@
       <NOTNULL/>
       <DEFAULT value="0"/>
     </field>
-    <index name="zone_id">
-      <col>zone_id</col>
-    </index>
   </table>
 </schema>

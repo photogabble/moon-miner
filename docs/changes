@@ -1,3 +1,7 @@
+TheKabal (12 May 2013)
+--------------------------------------
+Recoded create_universe and the schemas to support running on postgresql, which brings some benefits of correctness in code to mysql as well.
+
 TheKabal (1 April 2013)
 --------------------------------------
 BntText::gotoMain needs $db and $lang to pass to BntTranslate::load

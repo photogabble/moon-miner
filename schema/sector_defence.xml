@@ -27,10 +27,10 @@
       <NOTNULL/>
       <DEFAULT value="toll"/>
     </field>
-    <index name="sector_id">
+    <index name="sector_id_key">
       <col>sector_id</col>
     </index>
-    <index name="ship_id">
+    <index name="ship_id_key">
       <col>ship_id</col>
     </index>
   </table>
