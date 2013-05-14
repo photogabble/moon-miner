@@ -1,3 +1,7 @@
+TheKabal (13 May 2013)
+--------------------------------------
+BntFile was incorrectly reporting its error status, and the config file had booleans, which BntFile was not importing correctly. Switched them to 0/1 for false/true, which now work correctly.
+
 TheKabal (12 May 2013)
 --------------------------------------
 Recoded create_universe and the schemas to support running on postgresql, which brings some benefits of correctness in code to mysql as well.
