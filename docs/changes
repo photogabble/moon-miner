@@ -1,6 +1,7 @@
 TheKabal (13 May 2013)
 --------------------------------------
 BntFile was incorrectly reporting its error status, and the config file had booleans, which BntFile was not importing correctly. Switched them to 0/1 for false/true, which now work correctly.
+Game config's schema had a column for description, but it was not used, and was set to not null, which caused errors
 
 TheKabal (12 May 2013)
 --------------------------------------

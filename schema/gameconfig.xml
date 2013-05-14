@@ -18,8 +18,5 @@
     <field name="value" type="C" size="128">
       <NOTNULL/>
     </field>
-    <field name="description" type="C" size="255">
-      <NOTNULL/>
-    </field>
   </table>
 </schema>
