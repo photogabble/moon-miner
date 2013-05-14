@@ -372,8 +372,7 @@ echo"</table>";
       }
       else
       {
-//            $table_results = print_r($gameconfig_result);
-            $table_results = "Boogey! " . $gameconfig_result;
+            $table_results = $gameconfig_result;
       }
 
       table_row_xml ($db, "Importing config variables into the database took " . $elapsed . " seconds. ","Failed","Passed", $table_results);
@@ -439,16 +438,6 @@ echo"</table>";
       $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
       table_header ("Setting up Sectors --- Step 6");
 
-     // In step 6, we use the SQL call "Rand", which is "Random" for postgresql. Thus, we need to translate between them.
-     if ($ADODB_SESSION_DRIVER == 'mysqli')
-     {
-        $sql_rand = 'rand()';
-     }
-     else
-     {
-        $sql_rand = 'random()';
-     }
-
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
       $initsgoods = $goods_limit * $initscommod / 100.0;
@@ -480,24 +469,22 @@ echo"</table>";
         $finish = $loopsize;
         if ($finish>($sector_max)) $finish=($sector_max);
 //        $finish = $finish - 1; // Now that SOL is in sector 1 (not 0), we have to remove one.
-        $start=2;
+        $start=3; // We added sol (1), and alpha centauri (2), so start at 3.
 
         for ($i = 1; $i <= $loops; $i++)
         {
-            $insert="INSERT INTO {$db->prefix}universe (sector_id,zone_id,angle1,angle2,distance) VALUES ";
+            $insert="INSERT INTO {$db->prefix}universe " .
+                    "(sector_id, zone_id, angle1, angle2, distance) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
-                $sector_id = $i+$j;
+                $sector_id = $i + $j;
                 $distance = intval (mt_rand (1, $universe_size));
                 $angle1 = mt_rand (0, 180);
                 $angle2 = mt_rand (0, 90);
-                $insert.="($sector_id,'1',$angle1,$angle2,$distance)";
-//                $insert.="(NULL,'1',$angle1,$angle2,$distance)";
+                $insert.="($sector_id, '1', $angle1, $angle2, $distance)";
                 if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
             }
-            ### Now lets post the information to the mysql database.
-//PS            echo "<br><br>Insert is now " . $insert;
-//          $db->Execute("$insert");
+            // Now lets post the information to the mysql database.
             if ($start<$sector_max && $finish<=$sector_max) $db->Execute($insert);
 
         table_row ($db, "Inserting loop $i of $loops Sector Block [".($start)." - ".($finish-1)."] into the Universe.","Failed","Inserted");
@@ -509,19 +496,19 @@ echo"</table>";
 
     table_spacer ();
 
-      $replace = $db->Execute("INSERT INTO {$db->prefix}zones (zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('1', 'Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
+      $replace = $db->Execute("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
       DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (Unchartered space)","Failed","Set");
 
-      $replace = $db->Execute("INSERT INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('2', 'Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
+      $replace = $db->Execute("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
       DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (Federation space)","Failed","Set");
 
-      $replace = $db->Execute("INSERT INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('3', 'Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
+      $replace = $db->Execute("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
       DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (Free-Trade space)","Failed","Set");
 
-      $replace = $db->Execute("INSERT INTO {$db->prefix}zones(zone_id, zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('4', 'War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
+      $replace = $db->Execute("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
       DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
       table_row ($db, "Setting up Zone (War Zone)","Failed","Set");
 
@@ -529,24 +516,24 @@ echo"</table>";
       DbOp::dbResult ($db, $update, __LINE__, __FILE__);
       table_row ($db, "Setting up the $fedsecs Federation Sectors","Failed","Set");
 
-      ### Finding random sectors where port=none and getting their sector ids in one sql query
-      ### For Special Ports
+      // Finding random sectors where port=none and getting their sector ids in one sql query
+      // For Special Ports
 
-# !!!!! DO NOT ALTER LOOPSIZE !!!!!
-# This should be balanced 50%/50% PHP/MySQL load :)
+      // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+      // This should be balanced 50%/50% PHP/MySQL load :)
 
-        $loopsize = 500;
-        $loops = round ($spp / $loopsize);
-        if ($loops <= 0) $loops = 1;
-        $finish = $loopsize;
-        if ($finish>$spp) $finish=($spp);
+      $loopsize = 500;
+      $loops = round ($spp / $loopsize);
+      if ($loops <= 0) $loops = 1;
+      $finish = $loopsize;
+      if ($finish>$spp) $finish=($spp);
 
-    # Well since we hard coded a special port already, we start from 1.
-        $start=1;
+      // Well since we hard coded a special port already, we start from 1.
+      $start = 1;
 
-    table_spacer ();
+      table_spacer ();
 
-        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY $sql_rand DESC LIMIT $spp");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $spp");
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
 
@@ -560,6 +547,7 @@ echo"</table>";
                 if ($j<($finish-1)) $update .= " or "; else $update .= ";";
                 $sql_query->Movenext();
             }
+            // echo "Update is " . $update;
             $resx = $db->Execute($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
@@ -570,8 +558,8 @@ echo"</table>";
             if ($finish>$spp) $finish=($spp);
         }
 
-      ### Finding random sectors where port=none and getting their sector ids in one sql query
-      ### For Ore Ports
+      // Finding random sectors where port=none and getting their sector ids in one sql query
+      // For Ore Ports
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
       $initsgoods = $goods_limit * $initscommod / 100.0;
@@ -581,8 +569,8 @@ echo"</table>";
       $initbgoods = $goods_limit * $initbcommod / 100.0;
       $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+      // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+      // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($oep / $loopsize);
@@ -593,7 +581,7 @@ echo"</table>";
 
     table_spacer ();
 
-        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY $sql_rand DESC LIMIT $oep");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $oep");
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
@@ -617,8 +605,8 @@ echo"</table>";
             if ($finish>$oep) $finish=($oep);
         }
 
-      ### Finding random sectors where port=none and getting their sector ids in one sql query
-      ### For Organic Ports
+      // Finding random sectors where port=none and getting their sector ids in one sql query
+      // For Organic Ports
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
       $initsgoods = $goods_limit * $initscommod / 100.0;
@@ -628,8 +616,8 @@ echo"</table>";
       $initbgoods = $goods_limit * $initbcommod / 100.0;
       $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+      // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+      // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($ogp / $loopsize);
@@ -640,7 +628,7 @@ echo"</table>";
 
     table_spacer ();
 
-        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY $sql_rand DESC LIMIT $ogp");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $ogp");
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
@@ -664,8 +652,8 @@ echo"</table>";
             if ($finish>$ogp) $finish=($ogp);
         }
 
-      ### Finding random sectors where port=none and getting their sector ids in one sql query
-      ### For Goods Ports
+      // Finding random sectors where port=none and getting their sector ids in one sql query
+      // For Goods Ports
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
       $initsgoods = $goods_limit * $initscommod / 100.0;
@@ -675,8 +663,8 @@ echo"</table>";
       $initbgoods = $goods_limit * $initbcommod / 100.0;
       $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($gop / $loopsize);
@@ -687,7 +675,7 @@ echo"</table>";
 
     table_spacer ();
 
-        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY $sql_rand DESC LIMIT $gop");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $gop");
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
@@ -711,8 +699,8 @@ echo"</table>";
             if ($finish>$gop) $finish=($gop);
         }
 
-      ### Finding random sectors where port=none and getting their sector ids in one sql query
-      ### For Energy Ports
+      // Finding random sectors where port=none and getting their sector ids in one sql query
+      // For Energy Ports
       $initsore = $ore_limit * $initscommod / 100.0;
       $initsorganics = $organics_limit * $initscommod / 100.0;
       $initsgoods = $goods_limit * $initscommod / 100.0;
@@ -722,8 +710,8 @@ echo"</table>";
       $initbgoods = $goods_limit * $initbcommod / 100.0;
       $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($enp / $loopsize);
@@ -731,12 +719,12 @@ echo"</table>";
         $finish = $loopsize;
         if ($finish>$enp) $finish=($enp);
 
-    # Well since we hard coded an energy port already, we start from 1.
-        $start=1;
+        // Well since we hard coded an energy port already, we start from 1.
+        $start = 1;
 
     table_spacer ();
 
-        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY $sql_rand DESC LIMIT $enp");
+        $sql_query=$db->Execute("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $enp");
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update="UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
@@ -795,7 +783,7 @@ echo"</table>";
             DbOp::dbResult ($db, $select, __LINE__, __FILE__);
             if ($select->RecordCount() == 0)
             {
-                $insert = $db->Execute("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2,0,0,$default_prod_ore,$default_prod_organics,$default_prod_goods,$default_prod_energy, $default_prod_fighters, $default_prod_torp,$num)");
+                $insert = $db->Execute("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $num)");
                 DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
                 $p_add++;
             }
@@ -806,10 +794,10 @@ table_row ($db, "Selecting $nump sectors to place unowned planets in.","Failed",
 
 table_spacer ();
 
-## Adds Sector Size *2 amount of links to the links table ##
+        // Adds Sector Size *2 amount of links to the links table ##
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($sector_max / $loopsize)+1;
@@ -848,10 +836,10 @@ table_spacer ();
 
 //      print_flush ("<br>Randomly One-way Linking $i Sectors (out of $sector_max sectors)<br>\n");
 
-## Adds Sector Size amount of links to the links table ##
+        // Adds Sector Size amount of links to the links table ##
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($sector_max / $loopsize)+1;
@@ -870,7 +858,7 @@ table_spacer ();
                 $insert.="($link1,$link2)";
                 if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
             }
-#           print_flush ("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
+//           print_flush ("<font color='#ff0'>Creating loop $i of $loopsize Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i</font><br>\n");
 
             if ($start<$sector_max && $finish<=$sector_max)
             {
@@ -878,7 +866,7 @@ table_spacer ();
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             }
 
-table_row ($db, "Creating loop $i of $loops Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
+            table_row ($db, "Creating loop $i of $loops Random One-way Links (from sector ".($start)." to ".($finish-1).") - loop $i","Failed","Created");
 
             $start=$finish;
             $finish += $loopsize;
@@ -887,16 +875,14 @@ table_row ($db, "Creating loop $i of $loops Random One-way Links (from sector ".
 
 //      print_flush ("Completed successfully.<br>\n");
 
-######################
-
 table_spacer ();
 
 //      print_flush ("<br>Randomly Two-way Linking Sectors<br>\n");
 
-## Adds Sector Size*2 amount of links to the links table ##
+        // Adds Sector Size*2 amount of links to the links table ##
 
-    # !!!!! DO NOT ALTER LOOPSIZE !!!!!
-    # This should be balanced 50%/50% PHP/MySQL load :)
+        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
         $loops = round ($sector_max / $loopsize)+1;
@@ -957,62 +943,51 @@ table_footer ("Completed successfully.");
       // Database driven language entries
       $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
       table_header ("Configuring game scheduler --- Step 8");
-
-     // In step 8, we use the SQL call "unix_timestamp", which is "date_part..." for postgresql. Thus, we need to translate between them.
-     if ($ADODB_SESSION_DRIVER == 'mysqli')
-     {
-        $sql_timestamp = "unix_timestamp(now())";
-     }
-     else
-     {
-        $sql_timestamp = "date_part('epoch', now())";
-     }
-
       table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 
-     // We've also defined scheduler to have a not-null for the sched_id, yet we (used to) rely upon the incorrect mysql behavior of auto assigning one.
-    // Since in this specific area, we know what exists (nothing), and the order we want, we manually assign them instead.
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(1, 'Y', 0, $sched_turns, 0, 'sched_turns.php', NULL, $sql_timestamp)");
+      // We've also defined scheduler to have a not-null for the sched_id, yet we (used to) rely upon the incorrect mysql behavior of auto assigning one.
+      // Since in this specific area, we know what exists (nothing), and the order we want, we manually assign them instead.
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_turns.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Turns will occur every $sched_turns minutes","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(2, 'Y', 0, $sched_turns, 0, 'sched_xenobe.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_xenobe.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Xenobes will play every $sched_turns minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(3, 'Y', 0, $sched_igb, 0, 'sched_igb.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_igb, 'sched_igb.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Interests on IGB accounts will be accumulated every $sched_igb minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(4, 'Y', 0, $sched_news, 0, 'sched_news.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_news, 'sched_news.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "News will be generated every $sched_news minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(5, 'Y', 0, $sched_planets, 0, 'sched_planets.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_planets, 'sched_planets.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Planets will generate production every $sched_planets minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(6, 'Y', 0, $sched_ports, 0, 'sched_ports.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ports, 'sched_ports.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Ports will regenerate every $sched_ports minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(7, 'Y', 0, $sched_turns, 0, 'sched_tow.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_tow.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Ships will be towed from fed sectors every $sched_turns minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(8, 'Y', 0, $sched_ranking, 0, 'sched_ranking.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ranking, 'sched_ranking.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Rankings will be generated every $sched_ranking minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(9, 'Y', 0, $sched_degrade, 0, 'sched_degrade.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_degrade, 'sched_degrade.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "Sector Defences will degrade every $sched_degrade minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(10, 'Y', 0, $sched_apocalypse, 0, 'sched_apocalypse.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_apocalypse, 'sched_apocalypse.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "The planetary apocalypse will occur every $sched_apocalypse minutes.","Failed","Inserted");
 
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(11, 'Y', 0, $sched_thegovernor, 0, 'sched_thegovernor.php', NULL, $sql_timestamp)");
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_thegovernor, 'sched_thegovernor.php', ?)", array (time()));
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
       table_row ($db, "The Governor will run every $sched_thegovernor minutes.","Failed","Inserted");
 
@@ -1026,7 +1001,7 @@ table_footer ("Completed successfully.");
 
       if ($bnt_ls === true)
       {
-//            $db->Execute("INSERT INTO {$db->prefix}scheduler VALUES(NULL, 'Y', 0, 60, 0, 'bnt_ls_client.php', NULL,unix_timestamp(now()))");
+//            $db->Execute("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', 60, 'bnt_ls_client.php', ?)", array (time()));
 //        table_row ($db, "The public list updater will occur every 60 minutes","Failed","Inserted");
 
             $creating=1;
@@ -1034,11 +1009,11 @@ table_footer ("Completed successfully.");
       }
       table_footer ("Completed successfully");
 
-      table_header ("Inserting Admins Acount Information");
+      table_header ("Inserting Acount Information for " . $admin_name);
 
       $update = $db->Execute("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (1,0,0)");
       DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-      table_row ($db, "Inserting Admins ibank Information","Failed","Inserted");
+      table_row ($db, "Inserting ibank Information for " . $admin_name, "Failed", "Inserted");
 
       $stamp = date("Y-m-d H:i:s");
 
@@ -1046,17 +1021,27 @@ table_footer ("Completed successfully.");
       $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
       $hashed_pass = $hasher->HashPassword (ADMIN_PW);
 
-      $adm_ship = $db->qstr("Game Admin's ship");
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}ships VALUES(1, $adm_ship,'N','Game Admin','$hashed_pass','$admin_mail',0,0,0,0,0,0,0,0,0,0,$start_armor,0,$start_credits,1,0,0,0,$start_energy,0,$start_fighters,0,$start_turns,'N',0,1,0,0,'N','N',0,0, '$stamp',0,0,0,0,'1.1.1.1',0,0,0,0,'Y','N','N','Y',' ','$default_lang', 'N')");
+      $adm_ship = $db->qstr($admin_ship_name);
+      $adm_name = $db->qstr($admin_name);
+      $adm_ship_sql = "INSERT INTO {$db->prefix}ships " .
+                            "(ship_name, ship_destroyed, character_name, password, " .
+                            "email, turns, armor_pts, credits, sector, ship_energy, " .
+                            "ship_fighters, last_login, " .
+                            "ip_address, lang) VALUES " .
+                            "($adm_ship, 'N', $adm_name, '$hashed_pass', " .
+                            "'$admin_mail', $start_turns, $start_armor, $start_credits, 1, $start_energy, " .
+                            "$start_fighters, '$stamp', " .
+                            "'1.1.1.1', '$default_lang')";
+      $resxx = $db->Execute($adm_ship_sql);
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 
       table_1col ("Admins login Information:<br>Username: " . $admin_mail . "<br>Password: " . ADMIN_PW);
-      table_row ($db, "Inserting Admins Ship Information","Failed","Inserted");
+      table_row ($db, "Inserting Ship Information for " . $admin_name, "Failed","Inserted");
 
-      $adm_terri = $db->qstr("Game Admin's Territory");
-      $resxx = $db->Execute("INSERT INTO {$db->prefix}zones VALUES(5,$adm_terri, 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
+      $adm_terri = $db->qstr($admin_zone_name);
+      $resxx = $db->Execute("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ($adm_terri, 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
       DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
-      table_row ($db, "Inserting Admins Zone Information","Failed","Inserted");
+      table_row ($db, "Inserting Zone Information for " . $admin_name, "Failed","Inserted");
       table_footer ("Completed successfully.");
 
       print_flush ("<br><br><center><br><strong>Congratulations! Universe created successfully.</strong><br>");

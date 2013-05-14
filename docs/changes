@@ -3,6 +3,11 @@ TheKabal (13 May 2013)
 BntFile was incorrectly reporting its error status, and the config file had booleans, which BntFile was not importing correctly. Switched them to 0/1 for false/true, which now work correctly.
 Game config's schema had a column for description, but it was not used, and was set to not null, which caused errors
 Scheduler "repeate" changed to "repeat" for clarity
+Create universe cleanup including removing some debug code, making comment style consistent, fixing some indention levels, etc.
+Create universe - switch random to use adodb's $db->random, which is more portal than our temporary fix
+Create universe - switch timestamp code to use now() from php instead, which offloads work to php and is more portable
+Create universe - improve SQL calls to use column names in more places, omit un-needed/default settings in sql calls, and make debugging slightly easier
+Create universe - Add new variables for Game Admin name, ship name, and zone name (and use them during CU)
 
 TheKabal (12 May 2013)
 --------------------------------------
