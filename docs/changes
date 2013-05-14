@@ -8,6 +8,7 @@ Create universe - switch random to use adodb's $db->random, which is more portal
 Create universe - switch timestamp code to use now() from php instead, which offloads work to php and is more portable
 Create universe - improve SQL calls to use column names in more places, omit un-needed/default settings in sql calls, and make debugging slightly easier
 Create universe - Add new variables for Game Admin name, ship name, and zone name (and use them during CU)
+Create universe - Massive cleanup of formatting / indention / etc. Slight appearance improvements for consistency
 
 TheKabal (12 May 2013)
 --------------------------------------

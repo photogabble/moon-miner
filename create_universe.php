@@ -447,7 +447,7 @@ switch ($step)
         $remaining = $sector_max - 2;
         // Cycle through remaining sectors
 
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -506,7 +506,7 @@ switch ($step)
         // Finding random sectors where port=none and getting their sector ids in one sql query
         // For Special Ports
 
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -556,7 +556,7 @@ switch ($step)
         $initbgoods = $goods_limit * $initbcommod / 100.0;
         $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -603,7 +603,7 @@ switch ($step)
         $initbgoods = $goods_limit * $initbcommod / 100.0;
         $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -650,7 +650,7 @@ switch ($step)
         $initbgoods = $goods_limit * $initbcommod / 100.0;
         $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -697,7 +697,7 @@ switch ($step)
         $initbgoods = $goods_limit * $initbcommod / 100.0;
         $initbenergy = $energy_limit * $initbcommod / 100.0;
 
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -778,7 +778,7 @@ switch ($step)
         table_spacer ();
 
         // Adds Sector Size *2 amount of links to the links table ##
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -814,7 +814,7 @@ switch ($step)
         // print_flush ("<br>Randomly One-way Linking $i Sectors (out of $sector_max sectors)<br>\n");
 
         // Adds Sector Size amount of links to the links table ##
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
@@ -855,7 +855,7 @@ switch ($step)
         // print_flush ("<br>Randomly Two-way Linking Sectors<br>\n");
 
         // Adds Sector Size*2 amount of links to the links table ##
-        // !!!!! DO NOT ALTER LOOPSIZE !!!!!
+        // DO NOT ALTER LOOPSIZE
         // This should be balanced 50%/50% PHP/MySQL load :)
 
         $loopsize = 500;
