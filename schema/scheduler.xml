@@ -6,7 +6,7 @@
       <AUTOINCREMENT/>
       <UNSIGNED/>
     </field>
-    <field name="repeate" type="C" size="1">
+    <field name="repeat" type="C" size="1">
       <NOTNULL/>
       <DEFAULT value="N"/>
     </field>
