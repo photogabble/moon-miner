@@ -86,10 +86,18 @@ mb_internal_encoding ("UTF-8");                   // On many systems, this defau
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
-if ((!$debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
+if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
 {
     DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
+
+    while (!$debug_query->EOF)
+    {
+        $row = $debug_query->fields;
+        $bntreg->set ($row['name'], $row['value']);
+        $$row['name'] = $row['value'];
+        $debug_query->MoveNext();
+    }
 }
 else
 {
@@ -147,7 +155,6 @@ if (!$index_page)
 }
 
 
-/*
 // reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
 if (!defined ('reg_global_fix')) define ('reg_global_fix', True, TRUE);
 
@@ -167,7 +174,7 @@ foreach ($_GET as $k=>$v)
         ${$k} = $v;
     }
 }
-*/
+
 if (isset ($default_lang))
 {
     $lang = $default_lang;

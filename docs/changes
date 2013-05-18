@@ -1,3 +1,7 @@
+TheKabal (18 May 2013)
+--------------------------------------
+When the database was active, the registry ($config_values, generally) was not being populated (fixed).
+
 TheKabal (13 May 2013)
 --------------------------------------
 BntFile was incorrectly reporting its error status, and the config file had booleans, which BntFile was not importing correctly. Switched them to 0/1 for false/true, which now work correctly.
