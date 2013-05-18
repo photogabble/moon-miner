@@ -131,7 +131,7 @@ function collect_credits ($db, $planetarray)
     $CS = "GO"; // Current State
 
     // Look up the info for the player that wants to collect the credits.
-    $result1 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ? LIMIT 1;", array ($_SESSION['username']));
+    $result1 = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ('email' => $_SESSION['username']));
     DbOp::dbResult ($db, $result1, __LINE__, __FILE__);
     $playerinfo = $result1->fields;
 

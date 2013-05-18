@@ -43,7 +43,7 @@ function check_login ($db, $lang, $langvars, $stop_die = true)
 
     if (is_null ($_SESSION['username']) == false && is_null ($_SESSION['password']) == false)
     {
-        $rs = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array ($_SESSION['username']));
+        $rs = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
         DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet && $rs->RecordCount() >0)
         {

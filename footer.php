@@ -68,7 +68,7 @@ $mySEC = (integer) 0;
 
 if (!$db->inactive)
 {
-    $res = $db->Execute ("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
+    $res = $db->SelectLimit ("SELECT last_run FROM {$db->prefix}scheduler", 1);
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {

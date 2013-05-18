@@ -75,7 +75,7 @@ else
 {
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
-    $rs = $db->Execute ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=? LIMIT 1;", array ($_SESSION['username']));
+    $rs = $db->SelectLimit ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", array (1, -1, 'email' => $_SESSION['username']));
     DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?

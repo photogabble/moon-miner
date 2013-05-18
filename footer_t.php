@@ -54,7 +54,7 @@ $display_update_ticker = false;
 
 if (!$db->inactive)
 {
-    $rs = $db->Execute ("SELECT last_run FROM {$db->prefix}scheduler LIMIT 1");
+    $rs = $db->SelectLimit ("SELECT last_run FROM {$db->prefix}scheduler", 1);
     DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
     if ($rs instanceof ADORecordSet)
     {

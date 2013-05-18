@@ -1,5 +1,6 @@
 TheKabal (18 May 2013)
 --------------------------------------
+Switch all instances of Select with a limit clause to use adodb's SelectLimit
 PostgreSQL's adodb driver doesn't support logging (yet), so disable logging (even in dev mode) if the property doesn't exist.
 When the database was active, the registry ($config_values, generally) was not being populated (fixed).
 

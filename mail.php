@@ -26,7 +26,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('mail', 'common', 'global_funcs', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
-$result = $db->Execute ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email = ? LIMIT 1;", array ($mail));
+$result = $db->SelectLimit ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ('email' => $mail));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF)

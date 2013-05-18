@@ -39,7 +39,7 @@ function xenobe_hunter ($db)
         return;
     }
 
-    $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC LIMIT ?", array ($topnum));
+    $res = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE ship_destroyed='N' AND email NOT LIKE '%@xenobe' AND ship_id > 1 ORDER BY score DESC", $topnum);
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 
     // Choose a target from the top player list
