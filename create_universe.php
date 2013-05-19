@@ -59,7 +59,7 @@ if (!function_exists ('table_row'))
     function table_row ($db, $data, $failed = "Failed", $passed = "Passed")
     {
         $err = true_or_false (0, $db->ErrorNo (), "No errors found", $db->ErrorNo () . ": " . $db->ErrorMsg ());
-        print_flush ( "    <tr title=\"$err\">\n");
+        print_flush ( "    <tr title='" . $err . "'>\n");
         print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
         if ($db->ErrorNo ()!=0)
         {
@@ -79,7 +79,7 @@ if (!function_exists ('table_row_xml'))
     {
         if ($err !== true)
         {
-            print_flush ( "    <tr title=\"$err\">\n");
+            print_flush ( "    <tr title=\'" . $err . "'>\n");
             print_flush ( "      <td width=\"600\" bgcolor=\"#ccccff\"><font size=\"1\" color=\"#000000\">$data</font></td>\n");
             print_flush ( "      <td width=\"100\" align=\"center\" bgcolor=\"#C0C0C0\"><font size=\"1\" color=\"red\">$failed</font></td>\n");
         }
@@ -186,7 +186,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common'))
 
 switch ($step)
 {
-    case "1":
+    case '1':
 
         echo "<form action='create_universe.php' method='post'>";
         table_header ($langvars['l_cu_base_n_planets'], "h1");
@@ -217,7 +217,8 @@ switch ($step)
         echo "</form>";
         break;
 
-    case "2":
+    case '2':
+
         $langvars['l_cu_confirm_settings'] = str_replace ('[sector_max]', $sector_max, $langvars['l_cu_confirm_settings']);
         table_header ($langvars['l_cu_confirm_settings'], "h1");
 
@@ -270,12 +271,20 @@ switch ($step)
         echo "</form>";
         break;
 
-    case "3":
+    case '3':
+
         // Delete all tables in the database
-        table_header ("Step 3 : Create Universe - Dropping Tables", "h1");
-        BntSchema::destroy ($db, $db_prefix);
-        table_footer ("Hover over the failed line to see the error.");
-        echo "<strong>Dropping stage complete.</strong><p>";
+        table_header ($langvars['l_cu_drop_tables'], "h1");
+        $destroy_schema_results = BntSchema::destroy ($db, $db_prefix);
+        $table_count = count ($destroy_schema_results) - 1;
+
+        for ($i = 0; $i <= $table_count; $i++)
+        {
+            table_row ($db, $langvars['l_cu_dropping_tables'] . " " . $destroy_schema_results[$i]['name'], $langvars['l_cu_failed'], $langvars['l_cu_passed']);
+        }
+
+        table_footer ($langvars['l_cu_hover_for_more']);
+        echo "<strong>" . $langvars['l_cu_drop_done'] . "</strong><p>";
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=4>";
         echo "<input type=hidden name=spp value=$spp>";
@@ -290,16 +299,24 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value=Confirm></p>";
+        echo "<p align='center'><input type=submit value='" . $langvars['l_confirm'] . "'></p>";
         echo "</form>";
         break;
 
-    case "4":
-        table_header ("Step 4 : Create Universe - Creating Tables", "h1");
-        BntSchema::create ($db, $db_prefix);
-        table_footer ("Hover over the failed row to see the error.");
-        // This should be conditional based on the results of create_schema
-        echo "<strong>Database schema creation completed successfully.</strong><br>";
+    case '4':
+
+        table_header ($langvars['l_cu_create_tables'], "h1");
+        $create_schema_results = BntSchema::create ($db, $db_prefix);
+        $table_count = count ($create_schema_results) - 1;
+        for ($i = 0; $i <= $table_count; $i++)
+        {
+            table_row_xml ($db, $langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
+        }
+
+        table_footer ($langvars['l_cu_hover_for_more']);
+
+        // TODO - This should be conditional based on the results of create_schema
+        echo "<strong>" . $langvars['l_cu_create_success'] . "</strong><br>";
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=5>";
         echo "<input type=hidden name=spp value=$spp>";
@@ -314,11 +331,12 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value=Confirm></p>";
+        echo "<p align='center'><input type=submit value='" . $langvars['l_confirm'] . "'></p>";
         echo "</form>";
         break;
 
-    case "5":
+    case '5':
+
         table_header ("Step 5 : Create Universe - Import Configurations & Languages", "h1");
         $table_timer = new Timer;
         $table_timer->start (); // Start benchmarking
@@ -395,7 +413,7 @@ switch ($step)
         echo "</form>";
         break;
 
-    case "6":
+    case '6':
 
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
@@ -730,7 +748,8 @@ switch ($step)
         echo "</form>";
         break;
 
-   case "7":
+   case '7':
+
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
         $p_add = 0; $p_skip = 0; $i = 0;
@@ -885,14 +904,13 @@ switch ($step)
         echo "</form>";
         break;
 
-   case "8":
+   case '8':
+
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
         table_header ("Step 8 : Create Universe - Configuring game scheduler", "h1");
         table_2col ("Update ticks will occur every $sched_ticks minutes.","<p align='center'><font size=\"1\" color=\"Blue\">Already Set</font></p>");
 
-        // We've also defined scheduler to have a not-null for the sched_id, yet we (used to) rely upon the incorrect mysql behavior of auto assigning one.
-        // Since in this specific area, we know what exists (nothing), and the order we want, we manually assign them instead.
         $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_turns.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         table_row ($db, "Turns will occur every $sched_turns minutes","Failed","Inserted");

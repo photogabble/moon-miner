@@ -44,9 +44,8 @@ class BntSchema
             {
                 $tablename = substr ($schema_filename, 0, -4);
                 $res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-                $destroy_table_results[$i] = true_or_false (0, $db->ErrorMsg (), "No errors found", $db->ErrorNo () . ": " . $db->ErrorMsg ());
-                table_row ($db, "Dropping table " . $tablename, "Failed", "Passed");
+                $destroy_table_results[$i]['result'] = true_or_false (0, $db->ErrorMsg (), "No errors found", $db->ErrorNo () . ": " . $db->ErrorMsg ());
+                $destroy_table_results[$i]['name'] = $db_prefix . $tablename;
                 $i++;
             }
         }
@@ -79,11 +78,12 @@ class BntSchema
 
                 if ($message !== true)
                 {
-                    $err = true_or_false (true, false, "No errors found in table " . $tablename, "XML Schema " . $schema_filename . " could not be parsed because of error:" . $message);
                     $table_timer->stop ();
                     $elapsed = $table_timer->elapsed ();
                     $elapsed = substr ($elapsed, 0, 5);
-                    table_row_xml ($db, "Creating " . $tablename . " table took " . $elapsed . " seconds. ","Failed","Passed", $err);
+                    $create_table_results[$i]['result'] = true_or_false (true, false, "No errors found in table " . $tablename, "XML Schema " . $schema_filename . " could not be parsed because of error:" . $message);
+                    $create_table_results[$i]['name'] = $db_prefix . $tablename;
+                    $create_table_results[$i]['time'] = $elapsed;
                     $i++;
                 }
                 else
@@ -95,17 +95,19 @@ class BntSchema
                     foreach ($parsed_xml as $execute_sql)
                     {
                         $res = $db->Execute ($execute_sql);
+                        $create_table_results[$i]['result'] = true_or_false (0, $db->ErrorNo (), true, $db->ErrorNo () . ": " . $db->ErrorMsg ());
                         DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+                        $create_table_results[$i]['name'] = $db_prefix . $tablename;
+                        $table_timer->stop ();
+                        $elapsed = $table_timer->elapsed ();
+                        $elapsed = substr ($elapsed, 0, 5);
+                        $create_table_results[$i]['time'] = $elapsed;
                     }
-                    $err = true_or_false (true, $db->ErrorMsg (),"No errors found in table " . $tablename, $db->ErrorNo () . ": " . $db->ErrorMsg ());
-                    $table_timer->stop ();
-                    $elapsed = $table_timer->elapsed ();
-                    $elapsed = substr ($elapsed, 0, 5);
-                    table_row ($db, "Creating " . $tablename . " table took " . $elapsed . " seconds. ","Failed","Passed");
                     $i++;
                 }
             }
         }
+        return $create_table_results;
     }
 }
 ?>
