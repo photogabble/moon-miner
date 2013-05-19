@@ -133,13 +133,6 @@ else
     ini_set ('display_errors', '0'); // Don't show them
 }
 
-while ($debug_query && !$debug_query->EOF)
-{
-    $row = $debug_query->fields;
-    $$row['name'] = $row['value'];
-    $debug_query->MoveNext ();
-}
-
 if (!isset ($index_page))
 {
     $index_page = false;
@@ -237,6 +230,5 @@ $template = new Template (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
 $bntreg->set ("langvars", $langvars);
-//echo "Version is " . $bntreg->get ("release_version");
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>
