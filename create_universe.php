@@ -350,13 +350,14 @@ switch ($step)
         table_header ("Step 5 : Create Universe - Import Configurations & Languages", "h1");
         $table_timer = new Timer;
         $table_timer->start (); // Start benchmarking
-        $gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game");
+        $gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game", $bntreg);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         if ($gameconfig_result === true)
         {
             $table_results = true;
+            $db->inactive = false;
         }
         else
         {
@@ -367,7 +368,7 @@ switch ($step)
 
         // Import English
         $table_timer->start (); // Start benchmarking
-        $english_result = BntFile::iniToDb ($db, "languages/english.ini.php", "languages", "english");
+        $english_result = BntFile::iniToDb ($db, "languages/english.ini.php", "languages", "english", $bntreg);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
@@ -380,7 +381,7 @@ switch ($step)
 
         // Import French
         $table_timer->start (); // Start benchmarking
-        $result = BntFile::iniToDb ($db, "languages/french.ini.php", "languages", "french");
+        $result = BntFile::iniToDb ($db, "languages/french.ini.php", "languages", "french", $bntreg);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
@@ -388,7 +389,7 @@ switch ($step)
 
         // Import German
         $table_timer->start (); // Start benchmarking
-        $result = BntFile::iniToDb ($db, "languages/german.ini.php", "languages", "german");
+        $result = BntFile::iniToDb ($db, "languages/german.ini.php", "languages", "german", $bntreg);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
@@ -396,12 +397,13 @@ switch ($step)
 
         // Import Spanish
         $table_timer->start (); // Start benchmarking
-        $result = BntFile::iniToDb ($db, "languages/spanish.ini.php", "languages", "spanish");
+        $result = BntFile::iniToDb ($db, "languages/spanish.ini.php", "languages", "spanish", $bntreg);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         table_row_xml ($db, "Importing the Spanish language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
 
+        $lang = $bntreg->get('default_lang');
         table_footer("Hover over the failed row to see the error.");
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=6>";
@@ -420,6 +422,7 @@ switch ($step)
         echo "<p align='center'><input type=submit value=Confirm></p>";
         echo "</form>";
         break;
+
     case "6":
 
         // Database driven language entries
@@ -520,7 +523,7 @@ switch ($step)
 
         table_spacer ();
 
-        $sql_query=$db->Execute ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $spp");
+        $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $spp);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
 
@@ -568,7 +571,7 @@ switch ($step)
 
         table_spacer ();
 
-        $sql_query=$db->Execute ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $oep");
+        $sql_query=$db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $oep);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
@@ -615,7 +618,7 @@ switch ($step)
 
         table_spacer ();
 
-        $sql_query=$db->Execute ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $ogp");
+        $sql_query=$db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $ogp);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
@@ -662,7 +665,7 @@ switch ($step)
 
         table_spacer ();
 
-        $sql_query=$db->Execute ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $gop");
+        $sql_query=$db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $gop);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
@@ -711,7 +714,7 @@ switch ($step)
 
         table_spacer ();
 
-        $sql_query=$db->Execute ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC LIMIT $enp");
+        $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $enp);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
