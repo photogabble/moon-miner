@@ -362,6 +362,7 @@ l_no                                    = "No";
 l_here                                  = "here";
 l_submit                                = "Submit";
 l_reset                                 = "Reset";
+l_confirm                               = "Confirm";
 l_all                                   = "All";
 l_ore                                   = "Ore";
 l_commodities                           = "Commodities";
@@ -410,6 +411,36 @@ l_corpm_exploit                         = "You intercept a garbled borg message 
 
 [create_universe]
 l_cu_title                              = "Create universe";
+l_cu_step                               = "Step";
+l_cu_welcome                            = "Welcome to the Blacknova Traders Create Universe tool!";
+l_cu_allow_create                       = "This tool will allow you to create a functional BNT game universe.";
+l_cu_pw_to_continue                     = "Please enter the admin password to continue:";
+l_cu_base_n_planets                     = "Step 1 : Create Universe - Base & Planet Setup";
+l_cu_percent_special                    = "Percent of ports that should be Special ports";
+l_cu_percent_ore                        = "Percent of ports that should be Ore ports";
+l_cu_percent_organics                   = "Percent of ports that should be Organics ports";
+l_cu_percent_goods                      = "Percent of ports that should be Goods ports";
+l_cu_percent_energy                     = "Percent of ports that should be Energy ports";
+l_cu_percent_empty                      = "Percent Empty: Equal to 100 - total of above.";
+l_cu_init_comm_sell                     = "Initial Commodities to sell [% of max]";
+l_cu_init_comm_buy                      = "Initial Commodities to buy [% of max]";
+l_cu_sector_n_link                      = "Step 1B : Create Universe - Sector & Link Setup";
+l_cu_sector_total                       = "Number of sectors total ([overrides config])";
+l_cu_fed_sectors                        = "Number of Federation sectors";
+l_cu_num_loops                          = "Number of loops";
+l_cu_percent_unowned                    = "Percent of sectors with unowned planets";
+l_cu_submit_settings                    = "Submit settings";
+l_cu_confirm_settings                   = "Step 2 : Create Universe - Confirmation. So you would like your [sector_max] sector universe to have the following?";
+l_cu_fedsec_smaller                     = "The number of Federation sectors must be smaller than the size of the universe!";
+l_cu_special_ports                      = "Special ports";
+l_cu_ore_ports                          = "Ore ports";
+l_cu_organics_ports                     = "Organics ports";
+l_cu_goods_ports                        = "Goods ports";
+l_cu_energy_ports                       = "Energy ports";
+l_cu_empty_sectors                      = "Empty sectors";
+l_cu_loops                              = "Loops";
+l_cu_unowned_planets                    = "Unowned planets";
+l_cu_table_drop_warn                    = "WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";

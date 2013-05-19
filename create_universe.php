@@ -169,90 +169,62 @@ if ($engage == "1" && ADMIN_PW == $swordfish )
     $step = "2";
 }
 
-// This is needed here until the language database is installed
-$title = "Step " . $step . " : Create universe";
+// Database driven language entries
+$langvars = null;
+$langvars = BntTranslate::load ($db, $lang, array ('create_universe'));
+
+// TODO - Step 5 still has issues where the translated title does not show up correctly
+// Suspect the correct answer is going to involve (yet again) redoing db->inactive
+$title = $langvars['l_cu_step'] . " " . $step . " : " . $langvars['l_cu_title'];
 include './header.php';
-//echo "<h1>" . $title . "</h1>\n";
+
+// Database driven language entries
+$langvars = null;
+$langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common'));
 
 // Main switch statement.
 
 switch ($step)
 {
     case "1":
-        echo "<form action=create_universe.php method=post>";
-        echo "<table>";
 
-        // Domain Check
-        if ($bnt_ls)
-        {
-            echo "<tr><td colspan=2 aling=center>";
-            echo "<table border=1 cellspacing=0 cellpadding=2 width=100%>";
-            echo "<tr><td>";
-
-            echo "<font color=red><strong>Domain Check!</strong></font><br>";
-            echo "Make sure you call the <strong>create_universe.php</strong> from the same URL as:<br>";
-            echo "- your cronjob calls <strong>scheduler.php</strong><br>";
-
-            echo "<br>This URL will be used on the Public list: ";
-            $gm_url = $SERVER_NAME;
-            if ( ($gm_url == "localhost") || ($gm_url == "127.0.0.1") || ($gm_url == "") )
-            {
-                $gm_url = $gamedomain . $gamepath;
-                $gm_url = (substr ($gm_url, 0, 1) == ".") ? substr ($gm_url, 1) : $gm_url;
-                echo "<font color=red><strong>http://$gm_url</strong></font><br>";
-                echo "It is better if you run the create_universe.php from the correct URL!<br>";
-                echo "Or correct the gamedomain and gamepath in your <strong>config_local.php</strong><br>";
-                echo "This URL is trasmited if your cronjob calls scheduler.php with localhost!";
-            }
-            else
-            {
-                $gm_url = $gm_url . strrev (strstr (strrev ($_SERVER['PHP_SELF']), "/"));
-                echo "<font color=green><strong>http://$gm_url</strong></font><br>";
-                echo "YES, if this URL is correct ... continue !<br>";
-                echo "Remember: if your cronjob calls scheduler.php with localhost than run create_universe with localhost to check the correctnes of the transmitted URL!";
-            }
-
-            echo "</td></tr>";
-            echo "</table></td></tr>";
-        }
-
-        echo"</table>";
-        // Domain Check End
-
-        table_header ("Step 1 : Create Universe - Base & Planet Setup", "h1");
-        table_2col ("Percent Special","<input type=text name=special size=10 maxlength=10 value=1>");
-        table_2col ("Percent Ore","<input type=text name=ore size=10 maxlength=10 value=15>");
-        table_2col ("Percent Organics","<input type=text name=organics size=10 maxlength=10 value=10>");
-        table_2col ("Percent Goods","<input type=text name=goods size=10 maxlength=10 value=15>");
-        table_2col ("Percent Energy","<input type=text name=energy size=10 maxlength=10 value=10>");
-        table_1col ("Percent Empty: Equal to 100 - total of above.");
-        table_2col ("Initial Commodities to Sell [% of max]","<input type=text name=initscommod size=10 maxlength=10 value=100.00>");
-        table_2col ("Initial Commodities to Buy [% of max]","<input type=text name=initbcommod size=10 maxlength=10 value=100.00>");
+        echo "<form action='create_universe.php' method='post'>";
+        table_header ($langvars['l_cu_base_n_planets'], "h1");
+        table_2col ($langvars['l_cu_percent_special'], "<input type=text name=special size=10 maxlength=10 value=1>");
+        table_2col ($langvars['l_cu_percent_ore'], "<input type=text name=ore size=10 maxlength=10 value=15>");
+        table_2col ($langvars['l_cu_percent_organics'], "<input type=text name=organics size=10 maxlength=10 value=10>");
+        table_2col ($langvars['l_cu_percent_goods'], "<input type=text name=goods size=10 maxlength=10 value=15>");
+        table_2col ($langvars['l_cu_percent_energy'], "<input type=text name=energy size=10 maxlength=10 value=10>");
+        table_1col ($langvars['l_cu_percent_empty']);
+        table_2col ($langvars['l_cu_init_comm_sell'], "<input type=text name=initscommod size=10 maxlength=10 value=100.00>");
+        table_2col ($langvars['l_cu_init_comm_buy'], "<input type=text name=initbcommod size=10 maxlength=10 value=100.00>");
         table_footer (" ");
-        table_header ("Step 1B : Create Universe - Sector & Link Setup", "h2");
+        table_header ($langvars['l_cu_sector_n_link'], "h2");
         $fedsecs = intval ($sector_max / 200);
         $loops = intval ($sector_max / 500);
-        table_2col ("Number of sectors total (<strong>overrides config</strong>)","<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
-        table_2col ("Number of Federation sectors","<input type=text name=fedsecs size=10 maxlength=10 value=$fedsecs>");
-        table_2col ("Number of loops","<input type=text name=loops size=10 maxlength=10 value=$loops>");
-        table_2col ("Percent of sectors with unowned planets","<input type=text name=planets size=10 maxlength=10 value=10>");
+        $langvars['l_cu_sector_total'] = str_replace ('[overrides config]','<strong>[overrides config]</strong>', $langvars['l_cu_sector_total']);
+        table_2col ($langvars['l_cu_sector_total'], "<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
+        table_2col ($langvars['l_cu_fed_sectors'], "<input type=text name=fedsecs size=10 maxlength=10 value=$fedsecs>");
+        table_2col ($langvars['l_cu_num_loops'], "<input type=text name=loops size=10 maxlength=10 value=$loops>");
+        table_2col ($langvars['l_cu_percent_unowned'], "<input type=text name=planets size=10 maxlength=10 value=10>");
         table_footer (" ");
         echo "<input type=hidden name=engage value=1>\n";
         echo "<input type=hidden name=step value=2>\n";
         echo "<input type=hidden name=swordfish value=$swordfish>\n";
-        table_header ("Submit Settings", "h3");
-        table_1col ("<p align='center'><input type=submit value=Submit><input type=reset value=Reset></p>");
+        table_header ($langvars['l_cu_submit_settings'], "h3");
+        table_1col ("<p align='center'><input type=submit value=" . $langvars['l_submit'] ."><input type=reset value=" . $langvars['l_reset'] . "></p>");
         table_footer (" ");
         echo "</form>";
         break;
 
     case "2":
-        table_header ("Step 2 : Create Universe - Confirmation. So you would like your $sector_max sector universe to have the following?", "h1");
+        $langvars['l_cu_confirm_settings'] = str_replace ('[sector_max]', $sector_max, $langvars['l_cu_confirm_settings']);
+        table_header ($langvars['l_cu_confirm_settings'], "h1");
 
         $sector_max = round ($sektors);
         if ($fedsecs > $sector_max)
         {
-            table_1col ("<font color=red>The number of Federation sectors must be smaller than the size of the universe!</font>");
+            table_1col ("<font color=red>" . $langvars['l_cu_fedsec_smaller'] . "</font>");
             table_footer (" ");
             break;
         }
@@ -277,23 +249,23 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>\n";
         echo "<input type=hidden name=engage value=2>\n";
         echo "<input type=hidden name=swordfish value=$swordfish>\n";
-        table_2col ("Special ports",$spp);
-        table_2col ("Ore ports",$oep);
-        table_2col ("Organics ports",$ogp);
-        table_2col ("Goods ports",$gop);
-        table_2col ("Energy ports",$enp);
+        table_2col ($langvars['l_cu_special_ports'], $spp);
+        table_2col ($langvars['l_cu_ore_ports'], $oep);
+        table_2col ($langvars['l_cu_organics_ports'], $ogp);
+        table_2col ($langvars['l_cu_goods_ports'], $gop);
+        table_2col ($langvars['l_cu_energy_ports'], $enp);
         table_spacer ();
-        table_2col ("Initial commodities to sell",$initscommod."%");
-        table_2col ("Initial commodities to buy",$initbcommod."%");
+        table_2col ($langvars['l_cu_init_comm_sell'], $initscommod . " %");
+        table_2col ($langvars['l_cu_init_comm_buy'], $initbcommod . " %");
         table_spacer ();
-        table_2col ("Empty sectors",$empty);
-        table_2col ("Federation sectors",$fedsecs);
-        table_2col ("Loops",$loops);
-        table_2col ("Unowned planets",$nump);
+        table_2col ($langvars['l_cu_empty_sectors'], $empty);
+        table_2col ($langvars['l_cu_fed_sectors'], $fedsecs);
+        table_2col ($langvars['l_cu_loops'], $loops);
+        table_2col ($langvars['l_cu_unowned_planets'], $nump);
         table_spacer ();
-        table_1col ("<p align='center'><input type=submit value=Confirm></p>");
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_confirm'] ."'></p>");
         table_spacer ();
-        table_1col ("<font color=red>WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!</font>");
+        table_1col ("<font color=red>" . $langvars['l_cu_table_drop_warn'] . "</font>");
         table_footer (" ");
         echo "</form>";
         break;
@@ -1021,10 +993,13 @@ switch ($step)
         break;
 
     default:
+
+        echo $langvars['l_cu_welcome'] . "<br><br>";
+        echo $langvars['l_cu_allow_create'] . "<br><br>";
         echo "<form action=create_universe.php method=post>";
-        echo "Password: <input type=password name=swordfish size=20>&nbsp;&nbsp;";
-        echo "<input type=submit value=Submit><input type=hidden name=step value=1>";
-        echo "<input type=reset value=Reset>";
+        echo $langvars['l_cu_pw_to_continue'] . " <input type=password name=swordfish size=20>&nbsp;&nbsp;";
+        echo "<input type=submit value=" . $langvars['l_submit'] . "><input type=hidden name=step value=1>";
+        echo "<input type=reset value=" . $langvars['l_reset'] . ">";
         echo "</form>";
         break;
 }
