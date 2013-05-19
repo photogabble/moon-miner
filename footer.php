@@ -73,7 +73,7 @@ if (!$db->inactive)
     if ($res instanceof ADORecordSet)
     {
         $result = $res->fields;
-        $mySEC = ($bntreg->get("sched_ticks") * 60) - (TIME () - $result['last_run']);
+        $mySEC = ($bntreg->get('sched_ticks') * 60) - (TIME () - $result['last_run']);
     }
 }
 
