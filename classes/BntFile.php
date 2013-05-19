@@ -27,7 +27,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntFile.php')) // Prevent direct access to th
 
 class BntFile
 {
-    static function iniToDb ($db, $ini_file, $ini_table, $section)
+    static function iniToDb ($db, $ini_file, $ini_table, $section, $bntreg)
     {
         // This is a loop, that reads a ini file, of the type variable = value.
         // It will loop thru the list of the ini variables, and push them into the db.
@@ -42,6 +42,12 @@ class BntFile
         {
             foreach ($config_line as $config_key => $config_value)
             {
+                if (strpos ($ini_file, 'configset') !== false)
+                {
+                    // Import all the variables into the registry
+                    $bntreg->set ($config_key, $config_value);
+                }
+
                 // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
                 $config_value = utf8_encode ($config_value);
                 $debug_query = $db->Execute ("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));

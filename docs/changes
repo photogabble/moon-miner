@@ -1,3 +1,7 @@
+TheKabal (19 May 2013)
+--------------------------------------
+Fix BntFile so that in Create Universe on step 5, it imports the registry correctly. The DB is set to active (but empty) at that point.
+
 TheKabal (18 May 2013)
 --------------------------------------
 Switch all instances of Select with a limit clause to use adodb's SelectLimit
