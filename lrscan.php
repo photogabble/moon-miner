@@ -146,7 +146,7 @@ if ($sector == "*")
         echo "<tr bgcolor=\"$color\"><td><a href=move.php?sector=$row[link_dest]>$row[link_dest]</a></td><td><a href=lrscan.php?sector=$row[link_dest]>Scan</a></td><td>$num_links</td><td>$num_ships</td><td width=12>$image_string</td><td>" . BntPorts::getType ($port_type, $langvars) . "</td><td>$has_planet</td><td>$has_mines</td><td>$has_fighters</td>";
         if ($playerinfo['dev_lssd'] == 'Y')
         {
-            $resx = $db->Execute ("SELECT * from {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC LIMIT 1;", array ($playerinfo['ship_id'], $row['link_dest']));
+            $resx = $db->SelectLimit ("SELECT * from {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC", 1, -1, array ('ship_id' => $playerinfo['ship_id'], 'sector_id' => $row['link_dest']));
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             if (!$resx)
             {
@@ -389,7 +389,7 @@ else
     {
         echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_lss'] . "</strong></td></tr>";
         echo "<tr><td>";
-        $resx = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC LIMIT 1;", array ($playerinfo['ship_id'], $sector));
+        $resx = $db->SelectLimit ("SELECT * FROM {$db->prefix}movement_log WHERE ship_id <> ? AND sector_id = ? ORDER BY time DESC", 1, -1, array ('ship_id' => $playerinfo['ship_id'], 'sector_id' => $sector));
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
         if (!$resx)
         {
