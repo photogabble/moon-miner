@@ -280,11 +280,12 @@ switch ($step)
 
         for ($i = 0; $i <= $table_count; $i++)
         {
-            table_row ($db, $langvars['l_cu_dropping_tables'] . " " . $destroy_schema_results[$i]['name'], $langvars['l_cu_failed'], $langvars['l_cu_passed']);
+            $langvars['l_cu_completed_in_substituted'] = str_replace ('[time]', $destroy_schema_results[$i]['time'], $langvars['l_cu_completed_in']);
+            table_row ($db, $langvars['l_cu_dropping_tables'] . " " . $destroy_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed']);
         }
 
-        table_footer ($langvars['l_cu_hover_for_more']);
-        echo "<strong>" . $langvars['l_cu_drop_done'] . "</strong><p>";
+//        table_footer ($langvars['l_cu_hover_for_more']);
+//        echo "<strong>" . $langvars['l_cu_drop_done'] . "</strong><p>";
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=4>";
         echo "<input type=hidden name=spp value=$spp>";
@@ -299,7 +300,9 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value='" . $langvars['l_confirm'] . "'></p>";
+        table_header ($langvars['l_cu_hover_for_more'], "h2");
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_cu_continue'] ."'></p>");
+        table_footer (" ");
         echo "</form>";
         break;
 
@@ -310,13 +313,12 @@ switch ($step)
         $table_count = count ($create_schema_results) - 1;
         for ($i = 0; $i <= $table_count; $i++)
         {
-            table_row_xml ($db, $langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
+            $langvars['l_cu_completed_in_substituted'] = str_replace ('[time]', $create_schema_results[$i]['time'], $langvars['l_cu_completed_in']);
+            table_row_xml ($db, $langvars['l_cu_dropping_tables'] . " " . $create_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
         }
 
-        table_footer ($langvars['l_cu_hover_for_more']);
-
-        // TODO - This should be conditional based on the results of create_schema
-        echo "<strong>" . $langvars['l_cu_create_success'] . "</strong><br>";
+        //table_footer ($langvars['l_cu_hover_for_more']);
+        //echo "<strong>" . $langvars['l_cu_create_complete'] . "</strong><br>";
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=5>";
         echo "<input type=hidden name=spp value=$spp>";
@@ -331,13 +333,15 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value='" . $langvars['l_confirm'] . "'></p>";
+        table_header ($langvars['l_cu_hover_for_more'], "h2");
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_cu_continue'] ."'></p>");
+        table_footer (" ");
         echo "</form>";
         break;
 
     case '5':
 
-        table_header ("Step 5 : Create Universe - Import Configurations & Languages", "h1");
+        table_header ($langvars['l_cu_import_configs'], "h1");
         $table_timer = new Timer;
         $table_timer->start (); // Start benchmarking
         $gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game", $bntreg);
@@ -394,7 +398,6 @@ switch ($step)
         table_row_xml ($db, "Importing the Spanish language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
 
         $lang = $bntreg->get('default_lang');
-        table_footer("Hover over the failed row to see the error.");
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=6>";
         echo "<input type=hidden name=spp value=$spp>";
@@ -409,7 +412,9 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value=Confirm></p>";
+        table_header ($langvars['l_cu_hover_for_more'], "h2");
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_cu_continue'] ."'></p>");
+        table_footer (" ");
         echo "</form>";
         break;
 
@@ -744,7 +749,8 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value=Confirm></p>";
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_cu_continue'] ."'></p>");
+        table_footer (" ");
         echo "</form>";
         break;
 
@@ -900,7 +906,8 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        echo "<p align='center'><input type=submit value=Confirm></p>";
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_cu_continue'] ."'></p>");
+        table_footer (" ");
         echo "</form>";
         break;
 

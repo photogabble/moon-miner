@@ -91,15 +91,28 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
     DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
 
+    if ($debug_query->EOF)
+    {
+        $no_langs_yet = true;
+    }
+
     while (!$debug_query->EOF)
     {
         $row = $debug_query->fields;
-        $bntreg->set ($row['name'], $row['value']);
-        $$row['name'] = $row['value'];
-        $debug_query->MoveNext();
+        if ($row !== null)
+        {
+            $bntreg->set ($row['name'], $row['value']);
+            $$row['name'] = $row['value'];
+            $debug_query->MoveNext();
+        }
     }
 }
 else
+{
+    $no_langs_yet = true;
+}
+
+if ($no_langs_yet)
 {
     $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
 

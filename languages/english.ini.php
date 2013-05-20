@@ -441,6 +441,18 @@ l_cu_empty_sectors                      = "Empty sectors";
 l_cu_loops                              = "Loops";
 l_cu_unowned_planets                    = "Unowned planets";
 l_cu_table_drop_warn                    = "WARNING: ALL TABLES WILL BE DROPPED AND THE GAME WILL BE RESET WHEN YOU CLICK 'CONFIRM'!";
+l_cu_drop_tables                        = "Step 3 : Create Universe - Dropping Tables";
+l_cu_dropping_tables                    = "Dropping table";
+l_cu_failed                             = "Failed";
+l_cu_passed                             = "Passed";
+l_cu_hover_for_more                     = "Hover over the failed line to see the error.";
+l_cu_drop_done                          = "Dropping stage complete.";
+l_cu_create_tables                      = "Step 4 : Create Universe - Creating Tables";
+l_cu_create_complete                    = "Database schema creation completed.";
+l_cu_creating_tables                    = "Creating table";
+l_cu_completed_in                       = "- Completed in [time] seconds";
+l_cu_continue                           = "Continue";
+l_cu_import_configs                     = "Step 5 : Create Universe - Import Configurations & Languages";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";
