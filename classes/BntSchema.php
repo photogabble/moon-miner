@@ -16,7 +16,6 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: classes/BntSchema.php
-// Todo: create universe should iterate the results from the $(destroy/create)_table_results, there should be no output in this file.
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntSchema.php')) // Prevent direct access to this file
 {
@@ -37,6 +36,9 @@ class BntSchema
 
         foreach ($schema_files as $schema_filename)
         {
+            $table_timer = new Timer;
+            $table_timer->start (); // Start benchmarking
+
             // This is to get around the issue of not having DirectoryIterator::getExtension.
             $file_ext = pathinfo ($schema_filename->getFilename (), PATHINFO_EXTENSION);
 
@@ -46,6 +48,10 @@ class BntSchema
                 $res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
                 $destroy_table_results[$i]['result'] = true_or_false (0, $db->ErrorMsg (), "No errors found", $db->ErrorNo () . ": " . $db->ErrorMsg ());
                 $destroy_table_results[$i]['name'] = $db_prefix . $tablename;
+                $table_timer->stop ();
+                $elapsed = $table_timer->elapsed ();
+                $elapsed = substr ($elapsed, 0, 5);
+                $destroy_table_results[$i]['time'] = $elapsed;
                 $i++;
             }
         }
