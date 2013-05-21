@@ -341,9 +341,36 @@ switch ($step)
 
     case '5':
 
+        $i = 0;
         table_header ($langvars['l_cu_import_configs'], "h1");
         $table_timer = new Timer;
         $table_timer->start (); // Start benchmarking
+
+        $language_files = new DirectoryIterator ("languages/");
+        $lang_file_import_results = Array ();
+
+        foreach ($language_files as $language_filename)
+        {
+            $table_timer = new Timer;
+            $table_timer->start (); // Start benchmarking
+
+            // This is to get around the issue of not having DirectoryIterator::getExtension.
+            $file_ext = pathinfo ($language_filename->getFilename (), PATHINFO_EXTENSION);
+
+            if ($language_filename->isFile () && $file_ext == 'php')
+            {
+                $lang_name = ucwords (substr ($language_filename->getFilename(), 0, -8));
+                // Import Languages
+                $table_timer->start (); // Start benchmarking
+                $lang_result = BntFile::iniToDb ($db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
+                $table_timer->stop ();
+                $elapsed = $table_timer->elapsed ();
+                $elapsed = substr ($elapsed, 0, 5);
+                table_row_xml ($db, "Importing the " . $lang_name . " language file into the database took " . $elapsed . " seconds. ", "Failed", "Passed", $lang_result);
+                $i++;
+            }
+        }
+
         $gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game", $bntreg);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();
@@ -359,43 +386,6 @@ switch ($step)
         }
 
         table_row_xml ($db, "Importing config variables into the database took " . $elapsed . " seconds. ","Failed","Passed", $table_results);
-
-        // Import English
-        $table_timer->start (); // Start benchmarking
-        $english_result = BntFile::iniToDb ($db, "languages/english.ini.php", "languages", "english", $bntreg);
-        $table_timer->stop ();
-        $elapsed = $table_timer->elapsed ();
-        $elapsed = substr ($elapsed, 0, 5);
-        if ($english_result !== true)
-        {
-            // $table_results = print_r($gameconfig_result);
-            $english_result = "Boogey! " . $english_result;
-        }
-        table_row_xml ($db, "Importing the English language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $english_result);
-
-        // Import French
-        $table_timer->start (); // Start benchmarking
-        $result = BntFile::iniToDb ($db, "languages/french.ini.php", "languages", "french", $bntreg);
-        $table_timer->stop ();
-        $elapsed = $table_timer->elapsed ();
-        $elapsed = substr ($elapsed, 0, 5);
-        table_row_xml ($db, "Importing the French language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
-
-        // Import German
-        $table_timer->start (); // Start benchmarking
-        $result = BntFile::iniToDb ($db, "languages/german.ini.php", "languages", "german", $bntreg);
-        $table_timer->stop ();
-        $elapsed = $table_timer->elapsed ();
-        $elapsed = substr ($elapsed, 0, 5);
-        table_row_xml ($db, "Importing the German language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
-
-        // Import Spanish
-        $table_timer->start (); // Start benchmarking
-        $result = BntFile::iniToDb ($db, "languages/spanish.ini.php", "languages", "spanish", $bntreg);
-        $table_timer->stop ();
-        $elapsed = $table_timer->elapsed ();
-        $elapsed = substr ($elapsed, 0, 5);
-        table_row_xml ($db, "Importing the Spanish language file into the database took " . $elapsed . " seconds. ","Failed","Passed", $result);
 
         $lang = $bntreg->get('default_lang');
         echo "<form action=create_universe.php method=post>";
