@@ -452,7 +452,23 @@ l_cu_create_complete                    = "Database schema creation completed.";
 l_cu_creating_tables                    = "Creating table";
 l_cu_completed_in                       = "- Completed in [time] seconds";
 l_cu_continue                           = "Continue";
-l_cu_import_configs                     = "Step 5 : Create Universe - Import Configurations & Languages";
+l_cu_import_configs_step                = "Step 5 : Create Universe - Import Configurations & Languages";
+l_cu_import_langs                       = "Importing the [language] language file into the database took [elapsed] seconds.";
+l_cu_import_configs                     = "Importing configuration variables into the database took [elapsed] seconds.";
+l_cu_setup_sectors_step                 = "Step 6 : Create Universe - Setting up Sectors";
+l_cu_create_sol                         = "Creating Sol in sector 1";
+l_cu_create_ac                          = "Creating Alpha Centauri in sector 2";
+l_cu_insert_loop_sector_block           = "Inserting loop [loop] of [loops] Sector Block [[start] - [finish]] into the Universe.";
+l_cu_setup_unchartered                  = "Setting up Zone (Unchartered space)";
+l_cu_setup_fedspace                     = "Setting up Zone (Federation space)";
+l_cu_setup_free                         = "Setting up Zone (Free-Trade space)";
+l_cu_setup_warzone                      = "Setting up Zone (War Zone)";
+l_cu_setup_fed_sectors                  = "Setting up the $fedsecs Federation Sectors";
+l_cu_setup_special_ports                = "Loop [loop] of [loops] (Setting up Special Ports) Port [[start] - [finish]]";
+l_cu_setup_ore_ports                    = "Loop [loop] of [loops] (Setting up Ore Ports) Port [[start] - [finish]]";
+l_cu_setup_organics_ports               = "Loop [loop] of [loops] (Setting up Organics Ports) Port [[start] - [finish]]";
+l_cu_setup_goods_ports                  = "Loop [loop] of [loops] (Setting up Goods Ports) Port [[start] - [finish]]";
+l_cu_setup_energy_ports                 = "Loop [loop] of [loops] (Setting up Energy Ports) Port [[start] - [finish]]";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";

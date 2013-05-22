@@ -314,7 +314,7 @@ switch ($step)
         for ($i = 0; $i <= $table_count; $i++)
         {
             $langvars['l_cu_completed_in_substituted'] = str_replace ('[time]', $create_schema_results[$i]['time'], $langvars['l_cu_completed_in']);
-            table_row_xml ($db, $langvars['l_cu_dropping_tables'] . " " . $create_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
+            table_row_xml ($db, $langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
         }
 
         //table_footer ($langvars['l_cu_hover_for_more']);
@@ -342,7 +342,7 @@ switch ($step)
     case '5':
 
         $i = 0;
-        table_header ($langvars['l_cu_import_configs'], "h1");
+        table_header ($langvars['l_cu_import_configs_step'], "h1");
         $table_timer = new Timer;
         $table_timer->start (); // Start benchmarking
 
@@ -366,7 +366,10 @@ switch ($step)
                 $table_timer->stop ();
                 $elapsed = $table_timer->elapsed ();
                 $elapsed = substr ($elapsed, 0, 5);
-                table_row_xml ($db, "Importing the " . $lang_name . " language file into the database took " . $elapsed . " seconds. ", "Failed", "Passed", $lang_result);
+
+                $langvars['l_cu_import_langs_substituted'] = str_replace ('[language]', $lang_name, $langvars['l_cu_import_langs']);
+                $langvars['l_cu_import_langs_substituted'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_import_langs_substituted']);
+                table_row_xml ($db, $langvars['l_cu_import_langs_substituted'], "Failed", "Passed", $lang_result);
                 $i++;
             }
         }
@@ -385,7 +388,8 @@ switch ($step)
             $table_results = $gameconfig_result;
         }
 
-        table_row_xml ($db, "Importing config variables into the database took " . $elapsed . " seconds. ","Failed","Passed", $table_results);
+        $langvars['l_cu_import_configs'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_import_configs']);
+        table_row_xml ($db, $langvars['l_cu_import_configs'], "Failed", "Passed", $table_results);
 
         $lang = $bntreg->get('default_lang');
         echo "<form action=create_universe.php method=post>";
