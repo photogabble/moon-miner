@@ -416,7 +416,7 @@ switch ($step)
 
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
-        table_header ("Step 6 : Create Universe - Setting up Sectors", "h1");
+        table_header ($langvars['l_cu_setup_sectors_step'], "h1");
 
         $initsore = $ore_limit * $initscommod / 100.0;
         $initsorganics = $organics_limit * $initscommod / 100.0;
@@ -429,11 +429,11 @@ switch ($step)
 
         $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
         DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
-        table_row ($db, "Creating Sol in sector 1","Failed","Created");
+        table_row ($db, $langvars['l_cu_create_sol'],"Failed","Created");
 
         $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('2', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
         DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
-        table_row ($db, "Creating Alpha Centauri in sector 2","Failed","Created");
+        table_row ($db, $langvars['l_cu_create_ac'],"Failed","Created");
 
         table_spacer ();
         $remaining = $sector_max - 2;
@@ -466,7 +466,11 @@ switch ($step)
             // Now lets post the information to the mysql database.
             if ($start < $sector_max && $finish <= $sector_max) $db->Execute ($insert);
 
-            table_row ($db, "Inserting loop $i of $loops Sector Block [".($start)." - ".($finish-1)."] into the Universe.","Failed","Inserted");
+            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[loop]', $i, $langvars['l_cu_insert_loop_sector_block']);
+            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[loops]', $loops, $langvars['l_cu_insert_loop_sector_block_swapped']);
+            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[start]', $start, $langvars['l_cu_insert_loop_sector_block_swapped']);
+            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[finish]', ($finish -1), $langvars['l_cu_insert_loop_sector_block_swapped']);
+            table_row ($db, $langvars['l_cu_insert_loop_sector_block_swapped'],"Failed","Inserted");
 
             $start = $finish;
             $finish += $loopsize;
@@ -477,23 +481,24 @@ switch ($step)
 
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
-        table_row ($db, "Setting up Zone (Unchartered space)","Failed","Set");
+        table_row ($db, $langvars['l_cu_setup_unchartered'],"Failed","Set");
 
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
-        table_row ($db, "Setting up Zone (Federation space)","Failed","Set");
+        table_row ($db, $langvars['l_cu_setup_fedspace'],"Failed","Set");
 
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
-        table_row ($db, "Setting up Zone (Free-Trade space)","Failed","Set");
+        table_row ($db, $langvars['l_cu_setup_free'],"Failed","Set");
 
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
-        table_row ($db, "Setting up Zone (War Zone)","Failed","Set");
+        table_row ($db, $langvars['l_cu_setup_warzone'],"Failed","Set");
 
+        $langvars['l_cu_setup_fed_sectors'] = str_replace ('[fedsecs]', $fedsecs, $langvars['l_cu_setup_fed_sectors']);
         $update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
         DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-        table_row ($db, "Setting up the $fedsecs Federation Sectors","Failed","Set");
+        table_row ($db, $langvars['l_cu_setup_fed_sectors'],"Failed","Set");
 
         // Finding random sectors where port=none and getting their sector ids in one sql query
         // For Special Ports
@@ -530,7 +535,11 @@ switch ($step)
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-            table_row ($db, "Loop $i of $loops (Setting up Special Ports) Port [".($start+1)." - $finish]","Failed","Selected");
+            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_special_ports']);
+            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_special_ports_changed']);
+            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_special_ports_changed']);
+            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_special_ports_changed']);
+            table_row ($db, $langvars['l_cu_setup_special_ports_changed'],"Failed","Selected");
 
             $start = $finish;
             $finish += $loopsize;
@@ -577,7 +586,11 @@ switch ($step)
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-            table_row ($db, "Loop $i of $loops (Setting up Ore Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_ore_ports']);
+            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_ore_ports_changed']);
+            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_ore_ports_changed']);
+            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_ore_ports_changed']);
+            table_row ($db, $langvars['l_cu_setup_ore_ports_changed'],"Failed","Selected");
 
             $start = $finish;
             $finish += $loopsize;
@@ -624,7 +637,11 @@ switch ($step)
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-            table_row ($db, "Loop $i of $loops (Setting up Organics Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_organics_ports']);
+            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_organics_ports_changed']);
+            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_organics_ports_changed']);
+            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_organics_ports_changed']);
+            table_row ($db, $langvars['l_cu_setup_organics_ports_changed'],"Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
@@ -671,7 +688,11 @@ switch ($step)
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-            table_row ($db, "Loop $i of $loops (Setting up Goods Ports) Block [".($start+1)." - $finish]","Failed","Selected");
+            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_goods_ports']);
+            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_goods_ports_changed']);
+            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_goods_ports_changed']);
+            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_goods_ports_changed']);
+            table_row ($db, $langvars['l_cu_setup_goods_ports_changed'],"Failed","Selected");
 
             $start=$finish;
             $finish += $loopsize;
@@ -720,7 +741,11 @@ switch ($step)
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-            table_row ($db, "Loop $i of $loops (Setting up Energy Ports) Block [".($start + 1)." - $finish]","Failed","Selected");
+            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_energy_ports']);
+            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_energy_ports_changed']);
+            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_energy_ports_changed']);
+            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_energy_ports_changed']);
+            table_row ($db, $langvars['l_cu_setup_energy_ports_changed'],"Failed","Selected");
 
             $start = $finish;
             $finish += $loopsize;
