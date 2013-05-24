@@ -469,6 +469,13 @@ l_cu_setup_ore_ports                    = "Loop [loop] of [loops] (Setting up Or
 l_cu_setup_organics_ports               = "Loop [loop] of [loops] (Setting up Organics Ports) Port [[start] - [finish]]";
 l_cu_setup_goods_ports                  = "Loop [loop] of [loops] (Setting up Goods Ports) Port [[start] - [finish]]";
 l_cu_setup_energy_ports                 = "Loop [loop] of [loops] (Setting up Energy Ports) Port [[start] - [finish]]";
+l_cu_setup_step_seven                   = "Step 7 : Create Universe - Setting up Universe Sectors";
+l_cu_setup_unowned_planets              = "Selecting [nump] sectors to place unowned planets in.";
+l_cu_loop_sectors                       = "Creating loop [loop] of [loops] sectors (from sector [start] to [finish])";
+l_cu_loop_random_oneway                 = "Creating loop [loop] of [loops] Random One-way Links (from sector [start] to [finish])";
+l_cu_loop_random_twoway                 = "Creating loop [loop] of [loops] Random Two-way Links (from sector [start] to [finish])";
+l_cu_remove_links                       = "Removing links to and from the end of the Universe";
+l_cu_inserted                           = "Inserted";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";
