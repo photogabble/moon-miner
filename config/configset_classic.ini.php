@@ -27,7 +27,7 @@
 game_name                  = 'Default Game Name';              // Please set this to a unique name for your game
 server_closed              = 0;                                // True / 1 = block logins but not new account creation
 account_creation_closed    = 0;                                // True / 1 = block new account creation
-release_version            = '0.663';                          // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
+release_version            = '0.7';                            // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
 
 [MAIL SYSTEM SETTINGS]
 admin_mail                 = 'admin@example.com';              // The administrator email address
@@ -205,7 +205,7 @@ starvation_death_rate      = '0.01';                           // If there is in
 max_planets_sector         = 5;                                // The maximum number of planets allowed in a sector
 max_traderoutes_player     = 40;                               // The maximum number of saved traderoutes a player can have
 min_bases_to_own           = 3;                                // The minimum number of planets with bases in a sector that a player needs to have to take ownership of the zone
-default_lang               = 'english';                        // The default language the game displays in until a player chooses a language
+default_lang               = 'English';                        // The default language the game displays in until a player chooses a language
 corp_planet_transfers      = 0;                                // If transferring credits to/from corp planets is allowed. 1=enable
 min_value_capture          = 0;                                // Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
 defence_degrade_rate       = '0.05';                           // The percentage rate at which defenses fits, mines degrade during scheduler runs
