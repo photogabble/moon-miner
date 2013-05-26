@@ -1,5 +1,6 @@
 TheKabal (25 May 2013)
 --------------------------------------
+Error management - Throw (and catch) exception in BntSmarty if the template _cache or _compile directories are not writable (or the system won't work for some other reason).
 Create universe - Initial (step 0) gives feedback if you enter the wrong password
 Create universe - Steps after 0 includes the submit button in the table
 Create universe - Warning message should be above (not below) the confirm in step 2

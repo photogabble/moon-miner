@@ -108,7 +108,15 @@ class BntSmarty
     {
         // Process template and return the output in a
         // varable so that we can compress it or not.
-        $output = $this->smarty->fetch ($template_file);
+        try
+        {
+            $output = $this->smarty->fetch ($template_file);
+        }
+        catch (exception $e)
+        {
+            $output = "The smarty template system is not working. Please check the permissions on your _cache and _compile directories and make sure they are set to 777 (rwxrwxrwx).";
+        }
+
         echo $output;
         exit;
     }
