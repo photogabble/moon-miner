@@ -154,9 +154,13 @@ $engage  = (int) filter_input (INPUT_POST, 'engage', FILTER_SANITIZE_NUMBER_INT)
 // Get POST Variable "step" and INT Sanitize it. (returns NULL if not found)
 $step = (int) filter_input (INPUT_POST, 'step', FILTER_SANITIZE_NUMBER_INT);
 
-if (ADMIN_PW != $swordfish)
+if ($swordfish === null)
 {
     $step = "0";
+}
+elseif (ADMIN_PW != $swordfish)
+{
+    $step = "99";
 }
 
 if (is_null ($engage) && ADMIN_PW == $swordfish )
@@ -173,7 +177,19 @@ if ($engage == "1" && ADMIN_PW == $swordfish )
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('create_universe'));
 
-$title = $langvars['l_cu_step'] . " " . $step . " : " . $langvars['l_cu_title'];
+if ($step == '0')
+{
+    $title = $langvars['l_cu_welcome'];
+}
+elseif ($step == '99')
+{
+    $title = $langvars['l_cu_welcome'] . " - " . $langvars['l_cu_badpass_title'];
+}
+else
+{
+    $title = $langvars['l_cu_step'] . " " . $step . " : " . $langvars['l_cu_title'];
+}
+
 include './header.php';
 
 // Database driven language entries
@@ -262,9 +278,9 @@ switch ($step)
         table_2col ($langvars['l_cu_loops'], $loops);
         table_2col ($langvars['l_cu_unowned_planets'], $nump);
         table_spacer ();
-        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_confirm'] ."'></p>");
-        table_spacer ();
         table_1col ("<font color=red>" . $langvars['l_cu_table_drop_warn'] . "</font>");
+        table_spacer ();
+        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_confirm'] ."'></p>");
         table_footer (" ");
         echo "</form>";
         break;
@@ -421,12 +437,24 @@ switch ($step)
         $initbgoods = $goods_limit * $initbcommod / 100.0;
         $initbenergy = $energy_limit * $initbcommod / 100.0;
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
         DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_create_sol'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_create_sol']);
         table_row ($db, $langvars['l_cu_create_sol'], $langvars['l_cu_failed'], $langvars['l_cu_created']);
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('2', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
         DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_create_ac'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_create_ac']);
         table_row ($db, $langvars['l_cu_create_ac'], $langvars['l_cu_failed'], $langvars['l_cu_created']);
 
         table_spacer ();
@@ -446,6 +474,8 @@ switch ($step)
 
         for ($i = 1; $i <= $loops; $i++)
         {
+            $table_timer = new Timer;
+            $table_timer->start (); // Start benchmarking
             $insert = "INSERT INTO {$db->prefix}universe " .
                      "(sector_id, zone_id, angle1, angle2, distance) VALUES ";
             for ($j = $start; $j < $finish; $j++)
@@ -457,10 +487,18 @@ switch ($step)
                 $insert .= "($sector_id, '1', $angle1, $angle2, $distance)";
                 if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
             }
-            // Now lets post the information to the mysql database.
-            if ($start < $sector_max && $finish <= $sector_max) $db->Execute ($insert);
 
-            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[loop]', $i, $langvars['l_cu_insert_loop_sector_block']);
+            // Now lets post the information to the mysql database.
+            if ($start < $sector_max && $finish <= $sector_max)
+            {
+                $db->Execute ($insert);
+            }
+
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_insert_loop_sector_block']);
+            $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[loop]', $i, $langvars['l_cu_insert_loop_sector_block_swapped']);
             $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[loops]', $loops, $langvars['l_cu_insert_loop_sector_block_swapped']);
             $langvars['l_cu_insert_loop_sector_block_swapped'] = str_replace ('[start]', $start, $langvars['l_cu_insert_loop_sector_block_swapped']);
             if ($start == $finish)
@@ -479,25 +517,55 @@ switch ($step)
 
         table_spacer ();
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_setup_unchartered'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_unchartered']);
         table_row ($db, $langvars['l_cu_setup_unchartered'], $langvars['l_cu_failed'], $langvars['l_cu_set']);
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_setup_fedspace'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_fedspace']);
         table_row ($db, $langvars['l_cu_setup_fedspace'], $langvars['l_cu_failed'], $langvars['l_cu_set']);
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_setup_free'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_free']);
         table_row ($db, $langvars['l_cu_setup_free'], $langvars['l_cu_failed'], $langvars['l_cu_set']);
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
         DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_setup_warzone'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_warzone']);
         table_row ($db, $langvars['l_cu_setup_warzone'], $langvars['l_cu_failed'], $langvars['l_cu_set']);
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $langvars['l_cu_setup_fed_sectors'] = str_replace ('[fedsecs]', $fedsecs, $langvars['l_cu_setup_fed_sectors']);
         $update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
         DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_setup_fed_sectors'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_fed_sectors']);
         table_row ($db, $langvars['l_cu_setup_fed_sectors'], $langvars['l_cu_failed'], $langvars['l_cu_set']);
 
         // Finding random sectors where port=none and getting their sector ids in one sql query
@@ -517,6 +585,8 @@ switch ($step)
 
         table_spacer ();
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $spp);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
@@ -534,8 +604,11 @@ switch ($step)
             // echo "Update is " . $update;
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-
-            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_special_ports']);
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_special_ports']);
+            $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_special_ports_changed']);
             $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_special_ports_changed']);
             $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_special_ports_changed']);
             $langvars['l_cu_setup_special_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_special_ports_changed']);
@@ -569,6 +642,8 @@ switch ($step)
 
         table_spacer ();
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $sql_query=$db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $oep);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
@@ -585,8 +660,11 @@ switch ($step)
             }
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-
-            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_ore_ports']);
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_ore_ports']);
+            $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_ore_ports_changed']);
             $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_ore_ports_changed']);
             $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_ore_ports_changed']);
             $langvars['l_cu_setup_ore_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_ore_ports_changed']);
@@ -620,6 +698,8 @@ switch ($step)
 
         table_spacer ();
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $sql_query=$db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $ogp);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
@@ -636,8 +716,11 @@ switch ($step)
             }
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-
-            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_organics_ports']);
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_organics_ports']);
+            $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_organics_ports_changed']);
             $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_organics_ports_changed']);
             $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_organics_ports_changed']);
             $langvars['l_cu_setup_organics_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_organics_ports_changed']);
@@ -671,6 +754,8 @@ switch ($step)
 
         table_spacer ();
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $sql_query=$db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $gop);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
@@ -687,8 +772,11 @@ switch ($step)
             }
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-
-            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_goods_ports']);
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_goods_ports']);
+            $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_goods_ports_changed']);
             $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_goods_ports_changed']);
             $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_goods_ports_changed']);
             $langvars['l_cu_setup_goods_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_goods_ports_changed']);
@@ -724,6 +812,8 @@ switch ($step)
 
         table_spacer ();
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $enp);
         DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
         $update = "UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
@@ -740,8 +830,11 @@ switch ($step)
             }
             $resx = $db->Execute ($update);
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-
-            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_energy_ports']);
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_energy_ports']);
+            $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_setup_energy_ports_changed']);
             $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_setup_energy_ports_changed']);
             $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[start]', ($start + 1), $langvars['l_cu_setup_energy_ports_changed']);
             $langvars['l_cu_setup_energy_ports_changed'] = str_replace ('[finish]', $finish, $langvars['l_cu_setup_energy_ports_changed']);
@@ -778,6 +871,9 @@ switch ($step)
         $langvars = BntTranslate::load ($db, $lang, array ('create_universe', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
         $p_add = 0; $p_skip = 0; $i = 0;
         table_header ($langvars['l_cu_setup_step_seven'], "h1");
+
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         do
         {
             $num = mt_rand (3, ($sector_max - 1));
@@ -792,7 +888,11 @@ switch ($step)
         }
         while ($p_add < $nump);
 
-        $langvars['l_cu_setup_unowned_planets_changed'] = str_replace (['nump'], $nump, $langvars['l_cu_setup_unowned_planets']);
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_setup_unowned_planets_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_unowned_planets']);
+        $langvars['l_cu_setup_unowned_planets_changed'] = str_replace (['nump'], $nump, $langvars['l_cu_setup_unowned_planets_changed']);
         table_row ($db, $langvars['l_cu_setup_unowned_planets_changed'], $langvars['l_cu_failed'], "Selected");
         table_spacer ();
 
@@ -809,6 +909,8 @@ switch ($step)
 
         for ($i = 1; $i <= $loops; $i++)
         {
+            $table_timer = new Timer;
+            $table_timer->start (); // Start benchmarking
             $update = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
@@ -822,7 +924,11 @@ switch ($step)
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
             }
 
-            $langvars['l_cu_loop_sectors_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_loop_sectors']);
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_loop_sectors_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_loop_sectors']);
+            $langvars['l_cu_loop_sectors_changed'] = str_replace ('[loop]', $i, $langvars['l_cu_loop_sectors_changed']);
             $langvars['l_cu_loop_sectors_changed'] = str_replace ('[loops]', $loops, $langvars['l_cu_loop_sectors_changed']);
             $langvars['l_cu_loop_sectors_changed'] = str_replace ('[start]', $start, $langvars['l_cu_loop_sectors_changed']);
             if ($start == $finish)
@@ -854,6 +960,8 @@ switch ($step)
 
         for ($i = 1; $i <= $loops; $i++)
         {
+            $table_timer = new Timer;
+            $table_timer->start (); // Start benchmarking
             $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
@@ -880,6 +988,11 @@ switch ($step)
             {
                 $langvars['l_cu_loop_random_oneway_changed'] = str_replace ('[finish]', ($finish - 1), $langvars['l_cu_loop_random_oneway_changed']);
             }
+
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_loop_random_oneway_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_loop_random_oneway_changed']);
             table_row ($db, $langvars['l_cu_loop_random_oneway_changed'], $langvars['l_cu_failed'], $langvars['l_cu_created']);
 
             $start = $finish;
@@ -902,6 +1015,8 @@ switch ($step)
 
         for ($i = 1; $i <= $loops; $i++)
         {
+            $table_timer = new Timer;
+            $table_timer->start (); // Start benchmarking
             $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
             for ($j = $start; $j < $finish; $j++)
             {
@@ -928,16 +1043,28 @@ switch ($step)
             {
                 $langvars['l_cu_loop_random_twoway_changed'] = str_replace ('[finish]', ($finish - 1), $langvars['l_cu_loop_random_twoway_changed']);
             }
+
+            $table_timer->stop ();
+            $elapsed = $table_timer->elapsed ();
+            $elapsed = substr ($elapsed, 0, 5);
+            $langvars['l_cu_loop_random_twoway_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_loop_random_twoway_changed']);
             table_row ($db, $langvars['l_cu_loop_random_twoway_changed'], $langvars['l_cu_failed'], $langvars['l_cu_created']);
             $start = $finish;
             $finish += $loopsize;
             if ($finish > $sector_max) $finish = ($sector_max);
         }
 
+        $table_timer = new Timer;
+        $table_timer->start (); // Start benchmarking
         $resx = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
+        $table_timer->stop ();
+        $elapsed = $table_timer->elapsed ();
+        $elapsed = substr ($elapsed, 0, 5);
+        $langvars['l_cu_remove_links'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_remove_links']);
         table_row ($db, $langvars['l_cu_remove_links'], $langvars['l_cu_failed'], "Deleted");
+
         table_footer ($langvars['l_cu_completed']);
         echo "<form action=create_universe.php method=post>";
         echo "<input type=hidden name=step value=8>";
@@ -953,7 +1080,8 @@ switch ($step)
         echo "<input type=hidden name=loops value=$loops>";
         echo "<input type=hidden name=engage value=2>";
         echo "<input type=hidden name=swordfish value=$swordfish>";
-        table_1col ("<p align='center'><input type=submit value='" . $langvars['l_cu_continue'] ."'></p>");
+        table_header ($langvars['l_cu_submit_settings'], "h3");
+        table_1col ("<p align='center'><input type=submit value=" . $langvars['l_cu_continue'] ."></p>");
         table_footer (" ");
         echo "</form>";
         break;
@@ -1077,14 +1205,29 @@ switch ($step)
         print_flush ("<strong>" . $langvars['l_cu_return_to_login'] . "</strong></center>");
         break;
 
+   case '99':
+
+        echo "<form action='create_universe.php' method='post'>";
+        table_header ($langvars['l_cu_welcome'], "h1");
+        table_1col ($langvars['l_cu_allow_create']);
+        table_2col ($langvars['l_cu_pw_to_continue'], "<input type=password name=swordfish size=20>");
+        table_footer ("<font color=darkred>" . $langvars['l_cu_bad_password'] . "</font>");
+        table_header ($langvars['l_cu_submit_settings'], "h3");
+        table_1col ("<p align='center'><input type=submit value=" . $langvars['l_submit'] ."><input type=reset value=" . $langvars['l_reset'] . "><input type=hidden name=step value=1></p>");
+        table_footer (" ");
+        echo "</form>";
+        break;
+
     default:
 
-        echo $langvars['l_cu_welcome'] . "<br><br>";
-        echo $langvars['l_cu_allow_create'] . "<br><br>";
-        echo "<form action=create_universe.php method=post>";
-        echo $langvars['l_cu_pw_to_continue'] . " <input type=password name=swordfish size=20>&nbsp;&nbsp;";
-        echo "<input type=submit value=" . $langvars['l_submit'] . "><input type=hidden name=step value=1>";
-        echo "<input type=reset value=" . $langvars['l_reset'] . ">";
+        echo "<form action='create_universe.php' method='post'>";
+        table_header ($langvars['l_cu_welcome'], "h1");
+        table_1col ($langvars['l_cu_allow_create']);
+        table_2col ($langvars['l_cu_pw_to_continue'], "<input type=password name=swordfish size=20>");
+        table_footer (" ");
+        table_header ($langvars['l_cu_submit_settings'], "h3");
+        table_1col ("<p align='center'><input type=submit value=" . $langvars['l_submit'] ."><input type=reset value=" . $langvars['l_reset'] . "><input type=hidden name=step value=1></p>");
+        table_footer (" ");
         echo "</form>";
         break;
 }

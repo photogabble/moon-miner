@@ -1,3 +1,12 @@
+TheKabal (25 May 2013)
+--------------------------------------
+Create universe - Initial (step 0) gives feedback if you enter the wrong password
+Create universe - Steps after 0 includes the submit button in the table
+Create universe - Warning message should be above (not below) the confirm in step 2
+Create universe - All output is now language file driven (translatable)
+Create universe - Steps 6 and 7 have benchmark timings for all items
+Create universe - Initial (step 0) should show same table based design
+
 TheKabal (19 May 2013)
 --------------------------------------
 Create Universe step 5 & 6 translation
