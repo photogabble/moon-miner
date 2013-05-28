@@ -23,9 +23,9 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_regen.php')) // Prevent direct access 
     include_once './error.php';
 }
 
-function xenobe_regen ($db)
+function xenobe_regen ($db, $playerinfo)
 {
-    global $playerinfo, $xen_unemployment, $xenobeisdead;
+    global $xen_unemployment, $xenobeisdead;
 
     // Xenobe Unempoyment Check
     $playerinfo['credits'] = $playerinfo['credits'] + $xen_unemployment;
@@ -90,7 +90,7 @@ function xenobe_regen ($db)
     DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
     if (!$gene=='' || !$gena=='' || !$genf=='' || !$gent=='')
     {
-        PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
+        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
     }
 }
 ?>
