@@ -75,7 +75,7 @@ if (!function_exists ('table_row'))
 
 if (!function_exists ('table_row_xml'))
 {
-    function table_row_xml ($db, $data, $failed = "Failed", $passed = "Passed", $err)
+    function table_row_xml ($data, $failed = "Failed", $passed = "Passed", $err)
     {
         if ($err !== true)
         {
@@ -326,7 +326,7 @@ switch ($step)
         for ($i = 0; $i <= $table_count; $i++)
         {
             $langvars['l_cu_completed_in_substituted'] = str_replace ('[time]', $create_schema_results[$i]['time'], $langvars['l_cu_completed_in']);
-            table_row_xml ($db, $langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
+            table_row_xml ($langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
         }
 
         echo "<form action=create_universe.php method=post>";
@@ -379,7 +379,7 @@ switch ($step)
 
                 $langvars['l_cu_import_langs_substituted'] = str_replace ('[language]', $lang_name, $langvars['l_cu_import_langs']);
                 $langvars['l_cu_import_langs_substituted'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_import_langs_substituted']);
-                table_row_xml ($db, $langvars['l_cu_import_langs_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $lang_result);
+                table_row_xml ($langvars['l_cu_import_langs_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $lang_result);
                 $i++;
             }
         }
@@ -399,7 +399,7 @@ switch ($step)
         }
 
         $langvars['l_cu_import_configs'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_import_configs']);
-        table_row_xml ($db, $langvars['l_cu_import_configs'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $table_results);
+        table_row_xml ($langvars['l_cu_import_configs'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $table_results);
 
         $lang = $bntreg->get('default_lang');
         echo "<form action=create_universe.php method=post>";
