@@ -37,7 +37,8 @@ class DbOp
             $safe_script_name = htmlentities ($_SERVER['PHP_SELF']);
             $dberror = "A Database error occurred in " . $served_page .
                        " on line " . ($served_line-1) .
-                       " (called from: " . $safe_script_name . ": " . $db->ErrorMsg();
+                       " (called from: " . $safe_script_name . " the error message was: " . $db->ErrorMsg() .
+                       "and the query was " . $query;
             $dberror = str_replace ("'", "&#39;", $dberror); // Allows the use of apostrophes.
             if (!$db->inactive)
             {
