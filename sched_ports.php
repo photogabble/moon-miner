@@ -26,75 +26,92 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_ports.php')) // Prevent direct access t
 // Update Ore in Ports
 echo "<strong>PORTS</strong><br><br>";
 echo "Adding ore to all commodities ports...";
-$resa = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + (? * ? * ? ) WHERE port_type='ore' AND port_ore < ?", array ($ore_rate, $multiplier, $port_regenrate, $ore_limit));
-is_query_ok ($resa);
+
+$resa = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ($ore_rate * $multiplier * $port_regenrate ) WHERE port_type='ore' AND port_ore < $ore_limit");
+$debug = DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Adding ore to all ore ports...";
-$resb = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_ore < ?",  array ($ore_rate, $multiplier, $port_regenrate, $ore_limit));
-is_query_ok ($resb);
+$resb = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ($ore_rate * $multiplier * $port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_ore < $ore_limit");
+$debug = DbOp::dbResult ($db, $resb, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Ensuring minimum ore levels are 0...";
 $resc = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = 0 WHERE port_ore < 0");
-is_query_ok ($resc);
+$debug = DbOp::dbResult ($db, $resc, __LINE__, __FILE__);
+is_query_ok ($debug);
 echo "<br>";
 
 // Update Organics in Ports
 echo "Adding organics to all commodities ports...";
 $resd = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = port_organics + (? * ? * ?) WHERE port_type='organics' AND port_organics < ?", array ($organics_rate, $multiplier, $port_regenrate, $organics_limit));
-is_query_ok ($resd);
+$debug = DbOp::dbResult ($db, $resd, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Adding organics to all organics ports...";
 $rese = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = port_organics + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_organics < ?", array ($organics_rate, $multiplier, $port_regenrate, $organics_limit));
-is_query_ok ($rese);
+$debug = DbOp::dbResult ($db, $rese, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Ensuring minimum organics levels are 0...";
 $resf = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = 0 WHERE port_organics < 0");
-is_query_ok ($resf);
+$debug = DbOp::dbResult ($db, $resf, __LINE__, __FILE__);
+is_query_ok ($debug);
 echo "<br>";
 
 // Update Goods in Ports
 echo "Adding goods to all commodities ports...";
 $resg = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = port_goods + (? * ? * ?) WHERE port_type='goods' AND port_goods < ?", array ($goods_rate, $multiplier, $port_regenrate, $goods_limit));
-is_query_ok ($resg);
+$debug = DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Adding goods to all goods ports...";
 $resh = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = port_goods + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_goods < ?", array ($goods_rate, $multiplier, $port_regenrate, $goods_limit));
-is_query_ok ($resh);
+$debug = DbOp::dbResult ($db, $resh, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Ensuring minimum goods levels are 0...";
 $resi = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = 0 WHERE port_goods < 0");
-is_query_ok ($resi);
+$debug = DbOp::dbResult ($db, $resi, __LINE__, __FILE__);
+is_query_ok ($debug);
 echo "<br>";
 
 // Update Energy in Ports
 echo "Adding energy to all commodities ports...";
 $resj = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = port_energy + (? * ? * ?) WHERE port_type='energy' AND port_energy < ?", array ($energy_rate, $multiplier, $port_regenrate, $energy_limit));
-is_query_ok ($resj);
+$debug = DbOp::dbResult ($db, $resj, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Adding energy to all energy ports...";
 $resk = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = port_energy + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_energy < ?", array ($energy_rate, $multiplier, $port_regenrate, $energy_limit));
-is_query_ok ($resk);
+$debug = DbOp::dbResult ($db, $resk, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Ensuring minimum energy levels are 0...";
 $resl = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = 0 WHERE port_energy < 0");
-is_query_ok ($resl);
+$debug = DbOp::dbResult ($db, $resl, __LINE__, __FILE__);
+is_query_ok ($debug);
 echo "<br>";
 
 // Now check to see if any ports are over max, if so rectify.
 echo "Checking Energy Port Cap...";
 $resm = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = ? WHERE port_energy > ?", array ($energy_limit, $energy_limit));
-is_query_ok ($resm);
+$debug = DbOp::dbResult ($db, $resm, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Checking Goods Port Cap...";
 $resn = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = ? WHERE port_goods > ?", array ($goods_limit, $goods_limit));
-is_query_ok ($resn);
+$debug = DbOp::dbResult ($db, $resn, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Checking Organics Port Cap...";
 $reso = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = ? WHERE port_organics > ?", array ($organics_limit, $organics_limit));
-is_query_ok ($reso);
+$debug = DbOp::dbResult ($db, $reso, __LINE__, __FILE__);
+is_query_ok ($debug);
 
 echo "Checking Ore Port Cap...";
 $resp = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = ? WHERE port_ore > ?", array ($ore_limit, $ore_limit));
-is_query_ok ($resp);
+$debug = DbOp::dbResult ($db, $resp, __LINE__, __FILE__);
+is_query_ok ($debug);
 $multiplier = 0;
 ?>

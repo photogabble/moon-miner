@@ -1,3 +1,7 @@
+TheKabal (27 May 2013)
+--------------------------------------
+Fixes to scheduler to make them run correctly (even in PGSQL). Not the ideal solution, but works for now.
+
 TheKabal (25 May 2013)
 --------------------------------------
 Error management - Throw (and catch) exception in BntSmarty if the template _cache or _compile directories are not writable (or the system won't work for some other reason).

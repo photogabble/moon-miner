@@ -1099,11 +1099,12 @@ switch ($step)
         $langvars['l_cu_turns_occur'] = str_replace ('[sched]', $sched_turns, $langvars['l_cu_turns_occur']);
         table_row ($db, $langvars['l_cu_turns_occur'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
+/*      This is causing errors at the moment, disabling until we get clean solutions for it.
         $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_xenobe.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_xenobes_minutes'] = str_replace ('[sched]', $sched_turns, $langvars['l_cu_xenobes_minutes']);
         table_row ($db, $langvars['l_cu_xenobes_minutes'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
-
+*/
         $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_igb, 'sched_igb.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_igb_interest'] = str_replace ('[sched]', $sched_igb, $langvars['l_cu_igb_interest']);
