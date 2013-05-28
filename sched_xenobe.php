@@ -50,12 +50,13 @@ DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-while (!$res->EOF)
+while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
+//while (!$res->EOF)
 {
     $xenobeisdead = 0;
     $playerinfo = $res->fields;
     // Regenerate / Buy stats
-    xenobe_regen ($db);
+    xenobe_regen ($db, $playerinfo);
 
     // Run through orders
     $furcount++;
