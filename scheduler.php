@@ -92,7 +92,7 @@ if ($swordfish != ADMIN_PW)
 }
 else
 {
-    $starttime = time();
+    $starttime = time ();
     $lastRun = 0;
     $schedCount = 0;
     $lastrunList = null;
@@ -145,23 +145,23 @@ else
                 include_once './'. $event['sched_file'];
                 $sched_i++;
             }
-            $sched_res->MoveNext();
+            $sched_res->MoveNext ();
         }
         $lastRun /= $schedCount;
     }
 
     // Calculate the difference in time when the last good update happened.
-    $schedDiff = ($lastRun - ( time() - ($sched_ticks * 60) ));
-    if ( abs($schedDiff) > ($sched_ticks * 60) )
+    $schedDiff = ($lastRun - (time () - ($sched_ticks * 60)));
+    if (abs ($schedDiff) > ($sched_ticks * 60) )
     {
         // Hmmm, seems that we have missed at least 1 update, so log it to the admin.
-        AdminLog::writeLog ($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time() ."|". (time() - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize($lastrunList));
+        AdminLog::writeLog ($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time () ."|". (time () - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize ($lastrunList));
     }
 
-    $runtime = time() - $starttime;
+    $runtime = time () - $starttime;
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
-    $res = $db->Execute ("UPDATE {$db->prefix}scheduler SET last_run = ". TIME());
+    $res = $db->Execute ("UPDATE {$db->prefix}scheduler SET last_run = ". time ());
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 }
 
