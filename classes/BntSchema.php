@@ -46,6 +46,7 @@ class BntSchema
             {
                 $tablename = substr ($schema_filename, 0, -4);
                 $res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
+                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                 $destroy_table_results[$i]['result'] = true_or_false (0, $db->ErrorMsg (), "No errors found", $db->ErrorNo () . ": " . $db->ErrorMsg ());
                 $destroy_table_results[$i]['name'] = $db_prefix . $tablename;
                 $table_timer->stop ();
