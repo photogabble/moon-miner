@@ -182,15 +182,15 @@
     </field>
     <field name="preset1" type="I" size="11">
       <NOTNULL/>
-      <DEFAULT value="0"/>
+      <DEFAULT value="1"/>
     </field>
     <field name="preset2" type="I" size="11">
       <NOTNULL/>
-      <DEFAULT value="0"/>
+      <DEFAULT value="1"/>
     </field>
     <field name="preset3" type="I" size="11">
       <NOTNULL/>
-      <DEFAULT value="0"/>
+      <DEFAULT value="1"/>
     </field>
     <field name="trade_colonists" type="C" size="1">
       <NOTNULL/>
