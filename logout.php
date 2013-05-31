@@ -33,6 +33,8 @@ if (isset ($_SESSION['username']))
     $playerinfo = $result->fields;
     include_once './includes/calc_score.php';
     $current_score = calc_score ($db, $playerinfo['ship_id']);
+
+    $langvars = BntTranslate::load ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
     $langvars['l_logout_text'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
     $langvars['l_logout_text'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text']);
