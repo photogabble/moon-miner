@@ -26,8 +26,8 @@
 <h1>{$langvars['l_logout']}</h1>
 
 {if ($variables['session_username'] != '')}
-    {$langvars['l_logout_score']} {$variables['current_score']}.<br>
-    {$langvars['l_logout_text_replaced']}
+    {$langvars['l_logout_score']} {$variables['current_score']}.<br><br>
+    {$variables['l_logout_text_replaced']}
 {else}
     {$variables['linkback']['fulltext']|replace:"[here]":"<a href='{$variables['linkback']['link']}'>{$langvars['l_here']}</a>"}
 {/if}

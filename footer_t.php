@@ -81,7 +81,7 @@ else
 if ($news_ticker == true)
 {
     // Database driven language entries
-    $langvars = BntTranslate::load ($db, $lang, array ('news', 'common'));
+    $langvars = BntTranslate::load ($db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
 
     $startdate = date ("Y/m/d");
 
@@ -137,7 +137,7 @@ $mem_peak_usage = floor (memory_get_peak_usage() / 1024);
 
 $public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');
 $slash_position = strrpos ($_SERVER['PHP_SELF'], '/') + 1;
-$current_page = substr($_SERVER['PHP_SELF'], $slash_position);
+$current_page = substr ($_SERVER['PHP_SELF'], $slash_position);
 if (in_array ($current_page, $public_pages))
 {
     // If it is a non-login required page, such as ranking, new, faq, settings, news, and index use the public SF logo, which increases project stats.
