@@ -67,7 +67,7 @@ if ( is_null($destination) )
     $destination  = filter_input (INPUT_POST, 'destination', FILTER_SANITIZE_NUMBER_INT);
 }
 
-if ( !is_null($destination) && strlen(trim($destination)) <=0)
+if ( !is_null($destination) && strlen(trim($destination)) <=1)
 {
     $destination = null;
 }

@@ -1240,7 +1240,7 @@ l_fuel_scoop                            = "Generador de Fuel";
 [rsmove]
 l_rs_title                              = "Movimiento EspacioReal";
 l_rs_whichsector                        = "¿Qué sector quieres alcanzar a través de EspacioReal?";
-l_rs_insector                           = "Actualmente estás en el sector [sector] - y hay sectores disponibles de 0 a [sector_max].";
+l_rs_insector                           = "Actualmente estás en el sector [sector] - y hay sectores disponibles de 1 a [sector_max].";
 l_rs_submit                             = "Computar";
 l_rs_movetime                           = "Con tus motores te llevará [triptime] turnos completar el viaje.";
 l_rs_energy                             = "Conseguirás [energy] unidades de energía";

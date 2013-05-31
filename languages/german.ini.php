@@ -1240,7 +1240,7 @@ l_fuel_scoop                            = "Treibstoffsammler";
 [rsmove]
 l_rs_title                              = "Realraum Reise";
 l_rs_whichsector                        = "Welchen Sektor m&ouml;chtest Du via RealSpace erreichen?";
-l_rs_insector                           = "Du bist in Sektor [sector] - dort gibt es Sektoren von 0 bis [sector_max].";
+l_rs_insector                           = "Du bist in Sektor [sector] - dort gibt es Sektoren von 1 bis [sector_max].";
 l_rs_submit                             = "Berechne";
 l_rs_movetime                           = "Mit Deinen Maschinen braucht es [triptime] Z&uuml;ge um die Reise zu beenden.";
 l_rs_energy                             = "Du w&uuml;rdest [energy] Energieeinheiten sammeln";
