@@ -1,3 +1,7 @@
+TheKabal (30 May 2013)
+--------------------------------------
+Fixes to move Sol from 0 to 1, including languages and rsmove.
+
 TheKabal (27 May 2013)
 --------------------------------------
 Fixes to scheduler to make them run correctly (even in PGSQL). Not the ideal solution, but works for now.
