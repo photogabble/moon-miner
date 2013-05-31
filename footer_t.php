@@ -81,7 +81,7 @@ else
 if ($news_ticker == true)
 {
     // Database driven language entries
-    $langvars = BntTranslate::load ($db, $lang, array ('news'));
+    $langvars = BntTranslate::load ($db, $lang, array ('news', 'common'));
 
     $startdate = date ("Y/m/d");
 
