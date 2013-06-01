@@ -29,6 +29,8 @@ function ibank_transfer ($db, $langvars)
 
     $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+
+    $ships = array();
     while (!$res->EOF)
     {
         $ships[] = $res->fields;

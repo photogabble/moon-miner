@@ -1,3 +1,8 @@
+TheMightyDude (01 June 2013)
+--------------------------------------
+Fixed PHP Notice: Undefined variable: ships in includes/ibank_transfer.php on line 54
+Fixed PHP Warning: Invalid argument supplied for foreach() in includes/ibank_transfer.php on line 54
+
 TheKabal (30 May 2013)
 --------------------------------------
 Fixes to move Sol from 0 to 1, including languages and rsmove.
