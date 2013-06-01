@@ -160,7 +160,7 @@
       <NOTNULL/>
       <DEFAULT value="0"/>
     </field>
-    <field name="score" type="I" size="11">
+    <field name="score" type="I" size="20">
       <NOTNULL/>
       <DEFAULT value="0"/>
     </field>
