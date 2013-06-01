@@ -2,6 +2,7 @@ TheMightyDude (01 June 2013)
 --------------------------------------
 Fixed PHP Notice: Undefined variable: ships in includes/ibank_transfer.php on line 54
 Fixed PHP Warning: Invalid argument supplied for foreach() in includes/ibank_transfer.php on line 54
+Fixed PHP Notice: Undefined variable: creator in teams.php on line 268
 
 TheKabal (30 May 2013)
 --------------------------------------

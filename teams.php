@@ -265,7 +265,7 @@ switch ($teamwhat)
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET team = '0' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
             DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-            $resy = $db->Execute ("UPDATE {$db->prefix}ships SET team = ? WHERE team = ?;", array ($newcreator, $creator));
+            $resy = $db->Execute ("UPDATE {$db->prefix}ships SET team = ? WHERE team = ?;", array ($newcreator, $whichteam));
             DbOp::dbResult ($db, $resy, __LINE__, __FILE__);
 
             $resz = $db->Execute ("UPDATE {$db->prefix}teams SET number_of_members = number_of_members - 1, creator = ? WHERE id = ?;", array ($newcreator, $whichteam));
