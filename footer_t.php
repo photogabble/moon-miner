@@ -21,7 +21,10 @@ $online = 0;
 
 if (!$db->inactive)
 {
-    $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP({$db->prefix}ships.last_login)) / 60 <= 5 AND email NOT LIKE '%@xenobe'");
+    $stamp = date ("Y-m-d H:i:s", time()); // Now (as seen by PHP)
+    $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
+    $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE {$db->prefix}ships.last_login " .
+                         "BETWEEN timestamp '$since_stamp' AND timestamp '$stamp' AND email NOT LIKE '%@xenobe'");
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
