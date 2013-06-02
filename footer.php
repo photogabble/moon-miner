@@ -150,5 +150,5 @@ if ($bntreg->get("footer_show_debug") == true)
 {
     echo "<div style='font-size:smaller; text-align:right'>" . number_format ($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";
 }
-echo "<div></body></html>";
+echo "</div></body></html>";
 ?>
