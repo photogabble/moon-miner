@@ -1,5 +1,6 @@
 TheKabal (2 June 2013)
 --------------------------------------
+Add a new BntRand class, which includes improved (but still could be improved further!) functions for generating random numbers. BntRand::betterRand is the best choice.
 Fix the footer display that shows the count of players online to work on both pgsql & mysql - portable SQL!
 
 TheMightyDude (01 June 2013)
