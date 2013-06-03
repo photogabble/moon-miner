@@ -170,6 +170,7 @@ return array(
     'BntPlanet' => $baseDir . '/classes/BntPlanet.php',
     'BntPlayer' => $baseDir . '/classes/BntPlayer.php',
     'BntPorts' => $baseDir . '/classes/BntPorts.php',
+    'BntRand' => $baseDir . '/classes/BntRand.php',
     'BntRegistry' => $baseDir . '/classes/BntRegistry.php',
     'BntScan' => $baseDir . '/classes/BntScan.php',
     'BntSchema' => $baseDir . '/classes/BntSchema.php',
