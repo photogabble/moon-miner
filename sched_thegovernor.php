@@ -332,9 +332,19 @@ if ($resl instanceof ADORecordSet)
         }
         echo "<br>\n";
 
-        // Not too sure if this is just a MySQL Query or if its usable on other Databases.
         echo "Optimizing Session Table.<br>\n";
-        $resn = $db->Execute ("OPTIMIZE TABLE {$db->prefix}sessions;");
+
+        if ($ADODB_SESSION_DRIVER == 'postgres9')
+        {
+            // Postgresql and SQLite (but SQLite its more like rebuild the whole database!)
+            $resn = $db->Execute ("VACUUM {$db->prefix}sessions;");
+        }
+        else
+        {
+            // Oracle, and mysql
+            $resn = $db->Execute ("OPTIMIZE TABLE {$db->prefix}sessions;");
+        }
+
         DbOp::dbResult ($db, $resn, __LINE__, __FILE__);
         if ($db->ErrorNo() >0)
         {
