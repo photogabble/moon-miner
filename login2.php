@@ -92,7 +92,7 @@ if ($playerfound)
             {
                 // player's ship has not been destroyed
                 PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
-                $stamp = date ("Y-m-d H-i-s");
+                $stamp = date ("Y-m-d H:i:s");
                 $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
                 DbOp::dbResult ($db, $update, __LINE__, __FILE__);
 

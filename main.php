@@ -568,7 +568,7 @@ if ($playerinfo['sector'] != 0)
     $sql .= "SELECT {$db->prefix}ships.*, {$db->prefix}teams.team_name, {$db->prefix}teams.id ";
     $sql .= "FROM {$db->prefix}ships LEFT OUTER JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id ";
     $sql .= "WHERE {$db->prefix}ships.ship_id <> ? AND {$db->prefix}ships.sector = ? AND {$db->prefix}ships.on_planet='N' ";
-    $sql .= "ORDER BY RAND();";
+    $sql .= "ORDER BY " . $db->random;
     $result4 = $db->Execute ($sql, array ($playerinfo['ship_id'], $playerinfo['sector']));
     DbOp::dbResult ($db, $result4, __LINE__, __FILE__);
 
