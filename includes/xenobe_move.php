@@ -137,7 +137,7 @@ function xenobe_move ($db)
 
     if ($targetlink > 0) // Move to target link
     {
-        $stamp = date ("Y-m-d H-i-s");
+        $stamp = date ("Y-m-d H:i:s");
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetlink, $playerinfo['ship_id']));
         DbOp::dbResult ($db, $move_result, __LINE__, __FILE__);
         if (!$move_result)
