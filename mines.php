@@ -218,7 +218,7 @@ else
             echo $langvars['l_mines_dfighter'] . "<br>";
         }
 
-        $stamp = date ("Y-m-d H-i-s");
+        $stamp = date ("Y-m-d H:i:s");
         if ($numfighters > 0)
         {
             if ($fighter_id != 0)

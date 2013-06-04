@@ -196,7 +196,7 @@ switch ($response)
          }
          $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
       }
-      $stamp = date ("Y-m-d H-i-s");
+      $stamp = date ("Y-m-d H:i:s");
 
       $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       echo "<h1>" . $title . "</h1>\n";
@@ -214,7 +214,7 @@ switch ($response)
          die ();
       }
       $db->Execute ("UPDATE {$db->prefix}sector_defence SET fm_setting = ? WHERE defence_id = ?", array ($mode, $defence_id));
-      $stamp = date ("Y-m-d H-i-s");
+      $stamp = date ("Y-m-d H:i:s");
       $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $playerinfo['sector'], $playerinfo['ship_id']));
       if ($mode == 'attack')
       {

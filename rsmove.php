@@ -208,7 +208,7 @@ elseif ($destination < $sector_max && $engage > 0)
         if ($ok > 0)
         {
             $langvars = BntTranslate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
-            $stamp = date ("Y-m-d H-i-s");
+            $stamp = date ("Y-m-d H:i:s");
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             LogMove::writeLog ($db, $playerinfo['ship_id'], $destination);

@@ -604,7 +604,7 @@ function real_space_move ($db, $destination)
         }
         else
         {
-            $stamp = date ("Y-m-d H-i-s");
+            $stamp = date ("Y-m-d H:i:s");
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, sector = ?, ship_energy = ship_energy + ?, turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($stamp, $destination, $energyscooped, $triptime, $triptime, $playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
             $langvars['l_rs_ready_result'] = '';

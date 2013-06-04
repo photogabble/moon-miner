@@ -1,3 +1,7 @@
+TheKabal (3 June 2013)
+--------------------------------------
+Switch timestamps to use h:i:s instead of h-i-s. Helps with portability to postgresql, and doesn't cause errors on mysql.
+
 TheKabal (2 June 2013)
 --------------------------------------
 Add a new BntRand class, which includes improved (but still could be improved further!) functions for generating random numbers. BntRand::betterRand is the best choice.
