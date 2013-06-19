@@ -80,13 +80,13 @@ do
         $p_add++;
     }
 }
-while ($p_add < $nump);
+while ($p_add < $variables['nump']);
 
 $table_timer->stop ();
 $elapsed = $table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['setup_unowned_results']['elapsed'] = $elapsed;
-$variables['setup_unowned_results']['nump'] = $nump;
+$variables['setup_unowned_results']['nump'] = $variables['nump'];
 
 // Adds Sector Size * 2 amount of links to the links table
 // Warning: Do no alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)

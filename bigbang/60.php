@@ -51,14 +51,14 @@ $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILT
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
 
-$initsore = $ore_limit * $initscommod / 100.0;
-$initsorganics = $organics_limit * $initscommod / 100.0;
-$initsgoods = $goods_limit * $initscommod / 100.0;
-$initsenergy = $energy_limit * $initscommod / 100.0;
-$initbore = $ore_limit * $initbcommod / 100.0;
-$initborganics = $organics_limit * $initbcommod / 100.0;
-$initbgoods = $goods_limit * $initbcommod / 100.0;
-$initbenergy = $energy_limit * $initbcommod / 100.0;
+$initsore = $ore_limit * $variables['initscommod'] / 100.0;
+$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
+$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
+$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
+$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
+$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
+$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
+$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
 $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
@@ -181,7 +181,7 @@ $variables['create_warzone_results']['time'] = $elapsed;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
+$update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<" . $variables['fedsecs']);
 $variables['create_fed_sectors_results']['result'] = DbOp::dbResult ($db, $update, __LINE__, __FILE__);
 $table_timer->stop ();
 $elapsed = $table_timer->elapsed ();
@@ -194,19 +194,19 @@ $variables['create_fed_sectors_results']['time'] = $elapsed;
 // Warning: Do not alter loopsize - this should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($spp / $loopsize);
+$loops = round ($variables['spp'] / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_special_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $spp) $finish = ($spp);
+if ($finish > $variables['spp']) $finish = ($variables['spp']);
 
 // Since we hard coded a special port already, we start from 1.
 $start = 1;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $spp);
+$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['spp']);
 // TODO: This select should have an error check that is reflected in the template
 DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
 
@@ -235,35 +235,35 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish;
     $finish += $loopsize;
-    if ($finish > $spp) $finish = ($spp);
+    if ($finish > $variables['spp']) $finish = ($variables['spp']);
 }
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Ore Ports
-$initsore = $ore_limit * $initscommod / 100.0;
-$initsorganics = $organics_limit * $initscommod / 100.0;
-$initsgoods = $goods_limit * $initscommod / 100.0;
-$initsenergy = $energy_limit * $initscommod / 100.0;
-$initbore = $ore_limit * $initbcommod / 100.0;
-$initborganics = $organics_limit * $initbcommod / 100.0;
-$initbgoods = $goods_limit * $initbcommod / 100.0;
-$initbenergy = $energy_limit * $initbcommod / 100.0;
+$initsore = $ore_limit * $variables['initscommod'] / 100.0;
+$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
+$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
+$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
+$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
+$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
+$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
+$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert ore ports
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($oep / $loopsize);
+$loops = round ($variables['oep'] / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_ore_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $oep) $finish = ($oep);
+if ($finish > $variables['oep']) $finish = ($variables['oep']);
 $start = 0;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $oep);
+$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['oep']);
 // TODO: This select should have an error check that is reflected in the template
 DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
 $update = "UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
@@ -291,35 +291,35 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish;
     $finish += $loopsize;
-    if ($finish > $oep) $finish = ($oep);
+    if ($finish > $variables['oep']) $finish = ($variables['oep']);
 }
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Organic Ports
-$initsore = $ore_limit * $initscommod / 100.0;
-$initsorganics = $organics_limit * $initscommod / 100.0;
-$initsgoods = $goods_limit * $initscommod / 100.0;
-$initsenergy = $energy_limit * $initscommod / 100.0;
-$initbore = $ore_limit * $initbcommod / 100.0;
-$initborganics = $organics_limit * $initbcommod / 100.0;
-$initbgoods = $goods_limit * $initbcommod / 100.0;
-$initbenergy = $energy_limit * $initbcommod / 100.0;
+$initsore = $ore_limit * $variables['initscommod'] / 100.0;
+$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
+$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
+$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
+$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
+$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
+$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
+$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert organics ports
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($ogp / $loopsize);
+$loops = round ($variables['ogp'] / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_organics_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $ogp) $finish = ($ogp);
+if ($finish > $variables['ogp']) $finish = ($variables['ogp']);
 $start = 0;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $ogp);
+$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['ogp']);
 // TODO: This select should have an error check that is reflected in the template
 DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
 $update = "UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
@@ -347,35 +347,35 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish;
     $finish += $loopsize;
-    if ($finish > $ogp) $finish = ($ogp);
+    if ($finish > $variables['ogp']) $finish = ($variables['ogp']);
 }
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Goods Ports
-$initsore = $ore_limit * $initscommod / 100.0;
-$initsorganics = $organics_limit * $initscommod / 100.0;
-$initsgoods = $goods_limit * $initscommod / 100.0;
-$initsenergy = $energy_limit * $initscommod / 100.0;
-$initbore = $ore_limit * $initbcommod / 100.0;
-$initborganics = $organics_limit * $initbcommod / 100.0;
-$initbgoods = $goods_limit * $initbcommod / 100.0;
-$initbenergy = $energy_limit * $initbcommod / 100.0;
+$initsore = $ore_limit * $variables['initscommod'] / 100.0;
+$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
+$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
+$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
+$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
+$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
+$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
+$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert goods ports
 // Warning: Do not alter loop size - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($gop / $loopsize);
+$loops = round ($variables['gop'] / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_goods_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $gop) $finish = ($gop);
+if ($finish > $variables['gop']) $finish = ($variables['gop']);
 $start = 0;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $gop);
+$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['gop']);
 // TODO: This select should have an error check that is reflected in the template
 DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
 $update = "UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
@@ -403,37 +403,37 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish;
     $finish += $loopsize;
-    if ($finish > $gop) $finish = ($gop);
+    if ($finish > $variables['gop']) $finish = ($variables['gop']);
 }
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Energy Ports
-$initsore = $ore_limit * $initscommod / 100.0;
-$initsorganics = $organics_limit * $initscommod / 100.0;
-$initsgoods = $goods_limit * $initscommod / 100.0;
-$initsenergy = $energy_limit * $initscommod / 100.0;
-$initbore = $ore_limit * $initbcommod / 100.0;
-$initborganics = $organics_limit * $initbcommod / 100.0;
-$initbgoods = $goods_limit * $initbcommod / 100.0;
-$initbenergy = $energy_limit * $initbcommod / 100.0;
+$initsore = $ore_limit * $variables['initscommod'] / 100.0;
+$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
+$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
+$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
+$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
+$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
+$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
+$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert energy ports
 // Warning: Do not alter loop size - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($enp / $loopsize);
+$loops = round ($variables['enp'] / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_energy_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $enp) $finish = ($enp);
+if ($finish > $variables['enp']) $finish = ($variables['enp']);
 
 // Well since we hard coded an energy port already, we start from 1.
 $start = 1;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $enp);
+$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['enp']);
 // TODO: This select should have an error check that is reflected in the template
 DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
 $update = "UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
@@ -463,7 +463,7 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish;
     $finish += $loopsize;
-    if ($finish > $enp) $finish = ($enp);
+    if ($finish > $variables['enp']) $finish = ($variables['enp']);
 }
 
 $template->AddVariables ('langvars', $langvars);
