@@ -122,7 +122,7 @@ if (news.initTicker("news_ticker") == true)
     <div style='font-size:smaller; text-align:right'>&copy; 2000-{$variables['cur_year']} Ron Harwood &amp; the BNT Dev team</div>
 
 {if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
-    <div style="font-size:smaller; text-align:right">{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']} {$langvars['l_peak_mem']}</div>
+    <div style="font-size:smaller; text-align:right">{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']}{$langvars['l_peak_mem']}</div>
 {/if}
 </div>
 <!-- END OF FOOTER -->

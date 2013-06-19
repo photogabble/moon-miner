@@ -148,7 +148,7 @@ else
 }
 
 echo "<div style='font-size:smaller; text-align:right'><a class='new_link' href='news.php" . $link . "'>" . $langvars['l_local_news'] . "</a></div>";
-echo "<div style='font-size:smaller; text-align:right'>&copy;2000-" . date ('Y') ." Ron Harwood &amp; the BNT Dev team</div>";
+echo "<div style='font-size:smaller; text-align:right'>&copy; 2000-" . date ('Y') ." Ron Harwood &amp; the BNT Dev team</div>";
 if ($bntreg->get("footer_show_debug") == true)
 {
     echo "<div style='font-size:smaller; text-align:right'>" . number_format ($elapsed,2) . " " . $langvars['l_seconds'] . " " . $langvars['l_time_gen_page'] ." / " . floor(memory_get_peak_usage() / 1024) . $langvars['l_peak_mem'] . "</div>";

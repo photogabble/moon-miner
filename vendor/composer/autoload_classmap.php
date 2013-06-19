@@ -158,6 +158,7 @@ return array(
     'AdminLog' => $baseDir . '/classes/AdminLog.php',
     'Artist' => $vendorDir . '/adodb/adodb-php/tests/test-active-relationsx.php',
     'Auth_Container_ADOdb' => $vendorDir . '/adodb/adodb-php/pear/Auth/Container/ADOdb.php',
+    'BntBigBang' => $baseDir . '/classes/BntBigBang.php',
     'BntBounty' => $baseDir . '/classes/BntBounty.php',
     'BntCompress' => $baseDir . '/classes/BntCompress.php',
     'BntDefense' => $baseDir . '/classes/BntDefense.php',

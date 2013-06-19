@@ -47,7 +47,15 @@ class BntSchema
                 $tablename = substr ($schema_filename, 0, -4);
                 $res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
                 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-                $destroy_table_results[$i]['result'] = true_or_false (0, $db->ErrorMsg (), "No errors found", $db->ErrorNo () . ": " . $db->ErrorMsg ());
+                if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == '') // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
+                {
+                    $destroy_table_results[$i]['result'] = true;
+                }
+                else
+                {
+                    $destroy_table_results[$i]['result'] = $db->ErrorNo () . ": " . $db->ErrorMsg ();
+                }
+
                 $destroy_table_results[$i]['name'] = $db_prefix . $tablename;
                 $table_timer->stop ();
                 $elapsed = $table_timer->elapsed ();
@@ -88,7 +96,9 @@ class BntSchema
                     $table_timer->stop ();
                     $elapsed = $table_timer->elapsed ();
                     $elapsed = substr ($elapsed, 0, 5);
-                    $create_table_results[$i]['result'] = true_or_false (true, false, "No errors found in table " . $tablename, "XML Schema " . $schema_filename . " could not be parsed because of error:" . $message);
+
+                    // TODO: This needs to be translated text
+                    $create_table_results[$i]['result'] = "XML Schema " . $schema_filename . " could not be parsed because of error: " . $message;
                     $create_table_results[$i]['name'] = $db_prefix . $tablename;
                     $create_table_results[$i]['time'] = $elapsed;
                     $i++;
@@ -102,7 +112,16 @@ class BntSchema
                     foreach ($parsed_xml as $execute_sql)
                     {
                         $res = $db->Execute ($execute_sql);
-                        $create_table_results[$i]['result'] = true_or_false (0, $db->ErrorNo (), true, $db->ErrorNo () . ": " . $db->ErrorMsg ());
+                        if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == '') // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
+                        {
+                            // TODO: This needs to be translated text
+                            $create_table_results[$i]['result'] = true;
+                        }
+                        else
+                        {
+                            $create_table_results[$i]['result'] = $db->ErrorNo () . ": " . $db->ErrorMsg ();
+                        }
+
                         DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                         $create_table_results[$i]['name'] = $db_prefix . $tablename;
                         $table_timer->stop ();

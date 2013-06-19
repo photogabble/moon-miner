@@ -1,3 +1,7 @@
+TheKabal (18 June 2013)
+--------------------------------------
+Added "bigbang", which is the proposed template driven replacement for create universe
+
 TheKabal (3 June 2013)
 --------------------------------------
 Switch timestamps to use h:i:s instead of h-i-s. Helps with portability to postgresql, and doesn't cause errors on mysql.

@@ -25,7 +25,7 @@
 //   this value, so the called file can modify the triggering
 //   scheduler entry if it needs to.
 //
-// - repeat : Set this to 'Y' if you want the event to be
+// - run_once : Set this to 'Y' if you want the event to be
 //   repeated endlessly. If this value is set to 'Y', the 'spawn'
 //   field is not used.
 //
@@ -112,7 +112,7 @@ else
             // Store the last time the individual schedule was last run.
             $lastrunList[$event['sched_file']] = $event['last_run'];
 
-            if ($event['repeat'] == 'N')
+            if ($event['run_once'] == 'N')
             {
                 if ($multiplier > $event['spawn'])
                 {

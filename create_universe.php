@@ -177,9 +177,10 @@ if ($engage == "1" && ADMIN_PW == $swordfish )
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('create_universe'));
 
+$steps = 9; // This is hard-coded in original Create Universe
 if ($step == '0')
 {
-    $title = $langvars['l_cu_welcome'];
+    $title = $langvars['l_cu_step'] . " " . ($step + 1) . " " . $langvars['l_cu_the_word_of'] . " " . $steps . " - " . $langvars['l_cu_welcome'];
 }
 elseif ($step == '99')
 {
@@ -187,7 +188,7 @@ elseif ($step == '99')
 }
 else
 {
-    $title = $langvars['l_cu_step'] . " " . $step . " : " . $langvars['l_cu_title'];
+    $title = $langvars['l_cu_step'] . " " . ($step + 1) . " " . $langvars['l_cu_the_word_of'] . " " . $steps . " - " . $langvars['l_cu_title'];
 }
 
 include './header.php';
@@ -216,8 +217,7 @@ switch ($step)
         table_header ($langvars['l_cu_sector_n_link'], "h2");
         $fedsecs = intval ($sector_max / 200);
         $loops = intval ($sector_max / 500);
-        $langvars['l_cu_sector_total'] = str_replace ('[overrides config]','<strong>[overrides config]</strong>', $langvars['l_cu_sector_total']);
-        table_2col ($langvars['l_cu_sector_total'], "<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
+        table_2col ($langvars['l_cu_sector_total'] . " (<strong>[" . $langvars['l_cu_override_config'] . "]</strong>)", "<input type=text name=sektors size=10 maxlength=10 value=$sector_max>");
         table_2col ($langvars['l_cu_fed_sectors'], "<input type=text name=fedsecs size=10 maxlength=10 value=$fedsecs>");
         table_2col ($langvars['l_cu_num_loops'], "<input type=text name=loops size=10 maxlength=10 value=$loops>");
         table_2col ($langvars['l_cu_percent_unowned'], "<input type=text name=planets size=10 maxlength=10 value=10>");
@@ -295,7 +295,7 @@ switch ($step)
         for ($i = 0; $i <= $table_count; $i++)
         {
             $langvars['l_cu_completed_in_substituted'] = str_replace ('[time]', $destroy_schema_results[$i]['time'], $langvars['l_cu_completed_in']);
-            table_row ($db, $langvars['l_cu_dropping_tables'] . " " . $destroy_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed']);
+            table_row ($db, $langvars['l_cu_dropping_tables'] . " " . $destroy_schema_results[$i]['name'] . " - " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed']);
         }
 
         echo "<form action=create_universe.php method=post>";
@@ -326,7 +326,7 @@ switch ($step)
         for ($i = 0; $i <= $table_count; $i++)
         {
             $langvars['l_cu_completed_in_substituted'] = str_replace ('[time]', $create_schema_results[$i]['time'], $langvars['l_cu_completed_in']);
-            table_row_xml ($langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'] . " " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
+            table_row_xml ($langvars['l_cu_creating_tables'] . " " . $create_schema_results[$i]['name'] . " - " . $langvars['l_cu_completed_in_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $create_schema_results[$i]['result']);
         }
 
         echo "<form action=create_universe.php method=post>";
@@ -892,7 +892,7 @@ switch ($step)
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         $langvars['l_cu_setup_unowned_planets_changed'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_setup_unowned_planets']);
-        $langvars['l_cu_setup_unowned_planets_changed'] = str_replace (['nump'], $nump, $langvars['l_cu_setup_unowned_planets_changed']);
+        $langvars['l_cu_setup_unowned_planets_changed'] = str_replace ('[nump]', $nump, $langvars['l_cu_setup_unowned_planets_changed']);
         table_row ($db, $langvars['l_cu_setup_unowned_planets_changed'], $langvars['l_cu_failed'], "Selected");
         table_spacer ();
 
@@ -1063,7 +1063,7 @@ switch ($step)
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         $langvars['l_cu_remove_links'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_remove_links']);
-        table_row ($db, $langvars['l_cu_remove_links'], $langvars['l_cu_failed'], "Deleted");
+        table_row ($db, $langvars['l_cu_remove_links'], $langvars['l_cu_failed'], $langvars['l_cu_deleted']);
 
         table_footer ($langvars['l_cu_completed']);
         echo "<form action=create_universe.php method=post>";
@@ -1094,58 +1094,58 @@ switch ($step)
         $langvars['l_cu_update_ticks'] = str_replace ('[sched]', $sched_ticks, $langvars['l_cu_update_ticks']);
         table_2col ($langvars['l_cu_update_ticks'], "<p align='center'><font size=\"1\" color=\"Blue\">" . $langvars['l_cu_already_set'] . "</font></p>");
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_turns.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_turns.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_turns_occur'] = str_replace ('[sched]', $sched_turns, $langvars['l_cu_turns_occur']);
         table_row ($db, $langvars['l_cu_turns_occur'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
 /*      This is causing errors at the moment, disabling until we get clean solutions for it.
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_xenobe.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_xenobe.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_xenobes_minutes'] = str_replace ('[sched]', $sched_turns, $langvars['l_cu_xenobes_minutes']);
         table_row ($db, $langvars['l_cu_xenobes_minutes'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 */
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_igb, 'sched_igb.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_igb, 'sched_igb.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_igb_interest'] = str_replace ('[sched]', $sched_igb, $langvars['l_cu_igb_interest']);
         table_row ($db, $langvars['l_cu_igb_interest'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_news, 'sched_news.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_news, 'sched_news.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_news_gen'] = str_replace ('[sched]', $sched_news, $langvars['l_cu_news_gen']);
         table_row ($db, $langvars['l_cu_news_gen'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_planets, 'sched_planets.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_planets, 'sched_planets.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_planets_minutes'] = str_replace ('[sched]', $sched_planets, $langvars['l_cu_planets_minutes']);
         table_row ($db, $langvars['l_cu_planets_minutes'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ports, 'sched_ports.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ports, 'sched_ports.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_port_regen'] = str_replace ('[sched]', $sched_ports, $langvars['l_cu_port_regen']);
         table_row ($db, $langvars['l_cu_port_regen'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_tow.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_tow.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_tow_sched'] = str_replace ('[sched]', $sched_turns, $langvars['l_cu_tow_sched']);
         table_row ($db, $langvars['l_cu_tow_sched'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ranking, 'sched_ranking.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ranking, 'sched_ranking.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_ranking_sched'] = str_replace ('[sched]', $sched_ranking, $langvars['l_cu_ranking_sched']);
         table_row ($db, $langvars['l_cu_ranking_sched'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_degrade, 'sched_degrade.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_degrade, 'sched_degrade.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_sector_degrade'] = str_replace ('[sched]', $sched_degrade, $langvars['l_cu_sector_degrade']);
         table_row ($db, $langvars['l_cu_sector_degrade'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_apocalypse, 'sched_apocalypse.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_apocalypse, 'sched_apocalypse.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_apoc_sched'] = str_replace ('[sched]', $sched_apocalypse, $langvars['l_cu_apoc_sched']);
         table_row ($db, $langvars['l_cu_apoc_sched'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
-        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', $sched_thegovernor, 'sched_thegovernor.php', ?)", array (time ()));
+        $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_thegovernor, 'sched_thegovernor.php', ?)", array (time ()));
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
         $langvars['l_cu_governor_sched'] = str_replace ('[sched]', $sched_thegovernor, $langvars['l_cu_governor_sched']);
         table_row ($db, $langvars['l_cu_governor_sched'], $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
@@ -1160,7 +1160,7 @@ switch ($step)
 
         if ($bnt_ls === true)
         {
-            // $db->Execute ("INSERT INTO {$db->prefix}scheduler (repeat, ticks_full, sched_file, last_run) VALUES ('Y', 60, 'bnt_ls_client.php', ?)", array (time ()));
+            // $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', 60, 'bnt_ls_client.php', ?)", array (time ()));
             // table_row ($db, "The public list updater will occur every 60 minutes", $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
             $creating = 1;
@@ -1192,7 +1192,7 @@ switch ($step)
         $resxx = $db->Execute ($adm_ship_sql);
         DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 
-        table_1col ($langvars['l_cu_admin_login'] . "<br>" . $langvars['l_cu_admin_username'] . $admin_mail . "<br>" . $langvars['l_cu_admin_password'] . " " . ADMIN_PW);
+        table_1col ($langvars['l_cu_admin_login'] . "<br>" . $langvars['l_cu_admin_username'] . " " . $admin_mail . "<br>" . $langvars['l_cu_admin_password'] . " " . ADMIN_PW);
         table_row ($db, $langvars['l_cu_insert_shipinfo_admin'] . " " . $admin_name,  $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
 
         $adm_terri = $db->qstr($admin_zone_name);
