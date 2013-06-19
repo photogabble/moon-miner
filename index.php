@@ -34,7 +34,11 @@ else
 
 // Check to see if the language database has been installed yet.
 $result = $db->Execute ("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?", array ('common', $lang));
-if (!$result)
+
+if (($result instanceof ADORecordSet) && ($result != false)) // Before DB is installed, result will give false.
+{
+}
+else
 {
     // If not, redirect to create_universe.
     header ("Location: create_universe.php");
