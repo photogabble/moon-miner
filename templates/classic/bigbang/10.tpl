@@ -21,7 +21,7 @@
 {extends file="layout.tpl"}
 {block name=title}{$langvars['l_cu_step_title']|replace:'[current]':$variables['current_step']|replace:'[total]':$variables['steps']} - {$langvars['l_cu_title']}{/block}
 {block name=body}
-<form action='bigbang.php' method='post'><div align="center">
+<form name='create_universe' action='bigbang.php' method='post'><div align="center">
 <center>
 <table border="0" cellpadding="1" width="700" cellspacing="1" bgcolor="#000000">
     <tr>
@@ -80,6 +80,12 @@
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_percent_unowned']}</font></td>
       <td width="100" bgcolor="#C0C0C0"><font size="1" color="#000000"><input type=text name=planets size=10 maxlength=10 value=10></font></td>
     </tr>
+
+    <tr>
+      <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_autorun']}</font></td>
+      <td width="100" bgcolor="#C0C0C0"><font size="1" color="#000000"><input type="checkbox" name="autorun" value="off"></font></td>
+    </tr>
+
     <tr>
       <td width="100%" colspan="2" bgcolor="#9999cc" align="left"><font color="#000000" size="1"> </font></td>
     </tr>
@@ -89,7 +95,6 @@
     <tr>
       <td width="100%" colspan="2" bgcolor="#9999cc" align="left"><font color="#000000" size="1"> </font></td>
     </tr>
-    <input type=hidden name=engage value=1>
     <input type=hidden name=step value={$variables['next_step']}>
     <input type=hidden name=swordfish value={$variables['swordfish']}>
   </table>

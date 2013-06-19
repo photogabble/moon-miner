@@ -47,6 +47,7 @@ $variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER
 $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $variables['create_schema_results']  = BntSchema::create ($db, $db_prefix); // Delete all tables in the database
 $variables['table_count']            = count ($variables['create_schema_results']) - 1;
+$variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
 // Database driven language entries
 $langvars = null;

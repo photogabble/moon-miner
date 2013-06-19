@@ -21,7 +21,7 @@
 {extends file="layout.tpl"}
 {block name=title}{$langvars['l_cu_step_title']|replace:'[current]':$variables['current_step']|replace:'[total]':$variables['steps']} - {$langvars['l_cu_title']}{/block}
 {block name=body}
-<form action='bigbang.php' method='post'><div align="center">
+<form name='create_universe' action='bigbang.php' method='post'><div align="center">
 <center>
 <table border="0" cellpadding="1" width="700" cellspacing="1" bgcolor="#000000">
     <tr>
@@ -76,10 +76,14 @@
     <input type=hidden name=nump value={$variables['nump']}>
     <input type=hidden name=fedsecs value={$variables['fedsecs']}>
     <input type=hidden name=loops value={$variables['loops']}>
-    <input type=hidden name=engage value=2>
     <input type=hidden name=swordfish value={$variables['swordfish']}>
+    <input type="hidden" name="autorun" value="{$variables['autorun']}">
   </table>
   </center>
 </div><p>
 </form>
+
+{if $variables['autorun']}
+<script type="text/javascript" defer="defer" src="templates/classic/javascript/autorun.js.php"></script>
+{/if}
 {/block}

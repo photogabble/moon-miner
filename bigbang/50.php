@@ -45,6 +45,7 @@ $variables['initbcommod']            = filter_input (INPUT_POST, 'initbcommod', 
 $variables['fedsecs']                = filter_input (INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
 $variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
 $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
+$variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
 // Database driven language entries
 $langvars = null;
@@ -74,7 +75,7 @@ foreach ($language_files as $language_filename)
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         $variables['import_lang_results'][$i]['time'] = $elapsed;
-        $variables['import_lang_results'][$i]['name'] = ucwords (substr ($language_filename->getFilename(), 0, -8));
+        $variables['import_lang_results'][$i]['name'] = ucwords ($lang_name);
         $variables['import_lang_results'][$i]['result'] = $lang_result;
         $i++;
     }

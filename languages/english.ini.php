@@ -515,6 +515,7 @@ l_cu_selected                           = "Selected";
 l_cu_no_errors_found                    = "No errors found";
 l_cu_step_title                         = "Step [current] of [total]";
 l_cu_deleted                            = "Deleted";
+l_cu_autorun                            = "NEW!! Check this box to have create universe run automatically - TESTING";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";

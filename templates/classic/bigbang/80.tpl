@@ -21,7 +21,6 @@
 {extends file="layout.tpl"}
 {block name=title}{$langvars['l_cu_step_title']|replace:'[current]':$variables['current_step']|replace:'[total]':$variables['steps']} - {$langvars['l_cu_title']}{/block}
 {block name=body}
-<!--<form action='bigbang.php' method='post'><div align="center">-->
 <center>
 <table border="0" cellpadding="1" width="700" cellspacing="1" bgcolor="#000000">
     <tr>
@@ -218,6 +217,4 @@
   </table>
   </center>
 </div><p>
-<!--<br><br><center><br><strong>{$langvars['l_cu_congrats_success']}</strong><br><strong>{$langvars['l_cu_return_to_login']|replace:'[here]':'<a href=index.php>here</a>'}</strong></center>
-</form>-->
 {/block}
