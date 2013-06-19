@@ -205,7 +205,7 @@ starvation_death_rate      = '0.01';                           // If there is in
 max_planets_sector         = 5;                                // The maximum number of planets allowed in a sector
 max_traderoutes_player     = 40;                               // The maximum number of saved traderoutes a player can have
 min_bases_to_own           = 3;                                // The minimum number of planets with bases in a sector that a player needs to have to take ownership of the zone
-default_lang               = 'English';                        // The default language the game displays in until a player chooses a language
+default_lang               = 'english';                        // The default language the game displays in until a player chooses a language
 corp_planet_transfers      = 0;                                // If transferring credits to/from corp planets is allowed. 1=enable
 min_value_capture          = 0;                                // Percantage of planet's value a ship must be worth to be able to capture it. 0=disable
 defence_degrade_rate       = '0.05';                           // The percentage rate at which defenses fits, mines degrade during scheduler runs
@@ -225,7 +225,6 @@ bounty_all_special         = 1;                                // Stop access on
 bnt_ls                     = 0;                                // Should the game register with the list server? currently not functional
 local_number_dec_point     = '.';                              // Localization regional settings - soon to be moved into languages
 local_number_thousands_sep = ',';                              // Localization regional settings - soon to be moved into languages
-language                   = 'english';                        // Localization regional settings - soon to be moved into languages
 link_forums                = 'http://forums.blacknova.net';    // Address for the forum link
 admin_name                 = 'Game Admin';                     // The title for the administrator
 admin_ship_name            = "Game Admin's ship";              // The title for the administrators ship

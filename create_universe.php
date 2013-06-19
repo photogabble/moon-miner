@@ -369,7 +369,7 @@ switch ($step)
 
             if ($language_filename->isFile () && $file_ext == 'php')
             {
-                $lang_name = ucwords (substr ($language_filename->getFilename(), 0, -8));
+                $lang_name = substr ($language_filename->getFilename(), 0, -8);
                 // Import Languages
                 $table_timer->start (); // Start benchmarking
                 $lang_result = BntFile::iniToDb ($db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
@@ -377,6 +377,7 @@ switch ($step)
                 $elapsed = $table_timer->elapsed ();
                 $elapsed = substr ($elapsed, 0, 5);
 
+                $lang_name = ucwords ($lang_name);
                 $langvars['l_cu_import_langs_substituted'] = str_replace ('[language]', $lang_name, $langvars['l_cu_import_langs']);
                 $langvars['l_cu_import_langs_substituted'] = str_replace ('[elapsed]', $elapsed, $langvars['l_cu_import_langs_substituted']);
                 table_row_xml ($langvars['l_cu_import_langs_substituted'], $langvars['l_cu_failed'], $langvars['l_cu_passed'], $lang_result);

@@ -65,7 +65,7 @@ foreach ($language_files as $language_filename)
     $file_ext = pathinfo ($language_filename->getFilename (), PATHINFO_EXTENSION);
     if ($language_filename->isFile () && $file_ext == 'php')
     {
-        $lang_name = ucwords (substr ($language_filename->getFilename(), 0, -8));
+        $lang_name = substr ($language_filename->getFilename(), 0, -8);
 
         // Import Languages
         $table_timer->start (); // Start benchmarking
@@ -74,7 +74,7 @@ foreach ($language_files as $language_filename)
         $elapsed = $table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         $variables['import_lang_results'][$i]['time'] = $elapsed;
-        $variables['import_lang_results'][$i]['name'] = $lang_name;
+        $variables['import_lang_results'][$i]['name'] = ucwords (substr ($language_filename->getFilename(), 0, -8));
         $variables['import_lang_results'][$i]['result'] = $lang_result;
         $i++;
     }

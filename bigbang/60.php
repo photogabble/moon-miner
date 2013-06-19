@@ -180,7 +180,6 @@ $variables['create_warzone_results']['time'] = $elapsed;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-//$langvars['l_cu_setup_fed_sectors'] = str_replace ('[fedsecs]', $fedsecs, $langvars['l_cu_setup_fed_sectors']);
 $update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
 $variables['create_fed_sectors_results']['result'] = DbOp::dbResult ($db, $update, __LINE__, __FILE__);
 $table_timer->stop ();
