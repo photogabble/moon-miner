@@ -880,7 +880,7 @@ switch ($step)
             $num = mt_rand (3, ($sector_max - 1));
             $select = $db->Execute ("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='Y'") or die("DB error");
             DbOp::dbResult ($db, $select, __LINE__, __FILE__);
-            if ($select->RecordCount() == 0)
+            if ($select->RecordCount() == 1)
             {
                 $insert = $db->Execute ("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $num)");
                 DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
