@@ -878,7 +878,7 @@ switch ($step)
         do
         {
             $num = mt_rand (3, ($sector_max - 1));
-            $select = $db->Execute ("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'") or die("DB error");
+            $select = $db->Execute ("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='Y'") or die("DB error");
             DbOp::dbResult ($db, $select, __LINE__, __FILE__);
             if ($select->RecordCount() == 0)
             {
