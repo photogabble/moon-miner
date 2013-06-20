@@ -1,5 +1,8 @@
 TheKabal (18 June 2013)
 --------------------------------------
+Fix fed space not being created in enough sectors
+Fix value of "max sectors" not being honored and set if you set it in the form for bigbang
+Fix planet select & insert to be 2 sql calls for infinite sectors, vs. 2 per sector (!)
 Add feature that allows big bang to run automatically if checkbox is set
 Fix weird language not being set bug where on clean install english would be English, triggering languages to be missing
 Added "bigbang", which is the proposed template driven replacement for create universe

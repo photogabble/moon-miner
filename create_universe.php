@@ -471,7 +471,7 @@ switch ($step)
         $finish = $loopsize;
         if ($finish > ($sector_max)) $finish = ($sector_max);
         //  $finish = $finish - 1; // Now that SOL is in sector 1 (not 0), we have to remove one.
-        $start = 3; // We added sol (1), and alpha centauri (2), so start at 3.
+        $start = 2; // We added sol (1), and alpha centauri (2), so start at 3 (2 plus one from the loop).
 
         for ($i = 1; $i <= $loops; $i++)
         {
@@ -561,7 +561,7 @@ switch ($step)
         $table_timer = new Timer;
         $table_timer->start (); // Start benchmarking
         $langvars['l_cu_setup_fed_sectors'] = str_replace ('[fedsecs]', $fedsecs, $langvars['l_cu_setup_fed_sectors']);
-        $update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<$fedsecs");
+        $update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<=$fedsecs");
         DbOp::dbResult ($db, $update, __LINE__, __FILE__);
         $table_timer->stop ();
         $elapsed = $table_timer->elapsed ();

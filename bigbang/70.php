@@ -53,39 +53,47 @@ $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer
 
 $p_add = 0;
 $p_skip = 0;
-$i = 0;
 $z = 0;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
 
+// Get the sector id for any sector that allows planets
+$sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='Y'";
+
+// Place those id's into an array. Adodb gives them to us as a 2d array, bummer.
+$open_sectors_result = $db->GetAll ($sql);
+$catch_results[$z] = DbOp::dbResult ($db, $open_sectors_result, __LINE__, __FILE__);
+$z++;
+
+$i = 0;
+foreach ($open_sectors_result as $element)
+{
+    $open_sectors_array[$i] = $element['sector_id']; // Lets trim that 2d array down to a single array
+    $i++;
+}
+unset ($open_sectors_result); // Clear that 2d array
+
+shuffle ($open_sectors_array); // Internally, shuffle uses rand() so it isn't ideally random, but good enough for now
+
+// Prep the beginning of the insert SQL call
+$planet_insert_sql = "INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
 do
 {
-    $num = mt_rand (3, ($sector_max - 1));
-    $sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='Y'";
-    $select = $db->Execute ($sql) or die ("DB error");
-
-    // TODO: This select should have a line reflecting status in the template
-    $catch_results[$z] = DbOp::dbResult ($db, $select, __LINE__, __FILE__);
-    $z++;
-    if ($select->RecordCount() == 1)
+    if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
     {
-        $insert = $db->Execute ("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $num)");
-        $insert_result = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
-        $catch_results[$z] = $insert_result;
-        $z++;
-        if ($insert_result === true)
-        {
-            $variables['setup_unowned_results']['result'] = true;
-        }
-        else
-        {
-            $variables['setup_unowned_results']['result'] = $insert_result; // Unfortunately, this means we only display the last error, as it overwrites others
-        }
-        $p_add++;
+        // Add a line of values for every iteration
+        $planet_insert_sql .= ", (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
     }
+    $p_add++;
 }
-while ($p_add < $variables['nump']);
+while ($p_add < $variables['nump']); // Only add as many planets as requested
+
+// Insert all of the planets in one mega sql shot
+$insert = $db->Execute ($planet_insert_sql);
+$variables['setup_unowned_results']['result'] = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
+$catch_results[$z] = $variables['setup_unowned_results']['result'];
+$z++;
 
 $table_timer->stop ();
 $elapsed = $table_timer->elapsed ();

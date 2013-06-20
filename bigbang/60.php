@@ -95,8 +95,7 @@ $variables['insert_sector_loops'] = $loops;
 
 $finish = $loopsize;
 if ($finish > ($sector_max)) $finish = ($sector_max);
-//  $finish = $finish - 1; // Now that SOL is in sector 1 (not 0), we have to remove one.
-$start = 3; // We added sol (1), and alpha centauri (2), so start at 3.
+$start = 2; // We added sol (1), and alpha centauri (2), so start at 3 (2 plus one from the loop).
 
 for ($i = 1; $i <= $loops; $i++)
 {
@@ -196,7 +195,7 @@ $variables['create_warzone_results']['time'] = $elapsed;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
-$update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<" . $variables['fedsecs']);
+$update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<=" . $variables['fedsecs']);
 $variables['create_fed_sectors_results']['result'] = DbOp::dbResult ($db, $update, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_fed_sectors_results']['result'];
 $z++;
@@ -260,14 +259,6 @@ for ($i = 1; $i <= $loops; $i++)
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Ore Ports
-$initsore = $ore_limit * $variables['initscommod'] / 100.0;
-$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
-$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
-$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
-$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
-$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
-$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
-$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert ore ports
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
@@ -319,14 +310,6 @@ for ($i = 1; $i <= $loops; $i++)
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Organic Ports
-$initsore = $ore_limit * $variables['initscommod'] / 100.0;
-$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
-$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
-$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
-$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
-$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
-$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
-$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert organics ports
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
@@ -378,14 +361,6 @@ for ($i = 1; $i <= $loops; $i++)
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Goods Ports
-$initsore = $ore_limit * $variables['initscommod'] / 100.0;
-$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
-$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
-$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
-$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
-$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
-$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
-$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert goods ports
 // Warning: Do not alter loop size - This should be balanced 50%/50% PHP/MySQL load :)
@@ -437,14 +412,6 @@ for ($i = 1; $i <= $loops; $i++)
 
 // Finding random sectors where port=none and getting their sector ids in one sql query
 // For Energy Ports
-$initsore = $ore_limit * $variables['initscommod'] / 100.0;
-$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
-$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
-$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
-$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
-$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
-$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
-$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
 
 /// Insert energy ports
 // Warning: Do not alter loop size - This should be balanced 50%/50% PHP/MySQL load :)

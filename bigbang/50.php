@@ -32,7 +32,7 @@ $variables['body_class']             = 'bigbang';
 $variables['steps']                  = $bigbang_info['steps'];
 $variables['current_step']           = $bigbang_info['current_step'];
 $variables['next_step']              = $bigbang_info['next_step'];
-$variables['sector_max']             = (int) filter_input (INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
+$variables['sector_max']             = filter_input (INPUT_POST, 'sector_max', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
 $variables['spp']                    = filter_input (INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
 $variables['oep']                    = filter_input (INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
 $variables['ogp']                    = filter_input (INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
@@ -109,6 +109,12 @@ for ($t = 0; $t < $z; $t++)
         $variables['autorun'] = false; // We disable autorun if any errors occur in processing
     }
 }
+
+// Write the number of sectors chosen during CU to the database
+$resxx = $db->Execute ("UPDATE {$db->prefix}gameconfig SET value = ? WHERE name='sector_max'", array ($variables['sector_max']));
+
+$variables['update_config_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
+// TODO: Add this to the template to be displayed
 
 $lang = $bntreg->get ('default_lang');
 $template->AddVariables ('langvars', $langvars);

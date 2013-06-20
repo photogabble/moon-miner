@@ -26,6 +26,17 @@ if ($pos !== false)
 // Determine current step, next step, and number of steps
 $bigbang_info = BntBigBang::findStep (__FILE__);
 
+// Pull in the configset variables so we can get the correct sector max
+$ini_keys = parse_ini_file ("config/configset_classic.ini.php", true);
+
+foreach ($ini_keys as $config_category => $config_line)
+{
+    foreach ($config_line as $config_key => $config_value)
+    {
+        $bntreg->set ($config_key, $config_value);
+    }
+}
+
 // Set variables
 $variables['templateset'] = $bntreg->get ("default_template");
 $variables['body_class'] = 'bigbang';
@@ -33,6 +44,7 @@ $variables['swordfish']  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZ
 $variables['steps'] = $bigbang_info['steps'];
 $variables['current_step'] = $bigbang_info['current_step'];
 $variables['next_step'] = $bigbang_info['next_step'];
+$variables['sector_max'] = $bntreg->get ("sector_max");
 
 // Database driven language entries
 $langvars = null;
