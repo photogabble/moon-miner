@@ -54,6 +54,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer
 $p_add = 0;
 $p_skip = 0;
 $i = 0;
+$z = 0;
 
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
@@ -61,21 +62,27 @@ $table_timer->start (); // Start benchmarking
 do
 {
     $num = mt_rand (3, ($sector_max - 1));
-    $select = $db->Execute ("SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'") or die ("DB error");
+    $sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'";
+    echo "<br>SQL is " . $sql;
+    $select = $db->Execute ($sql) or die ("DB error");
 
     // TODO: This select should have a line reflecting status in the template
-    DbOp::dbResult ($db, $select, __LINE__, __FILE__);
-    if ($select->RecordCount() == 0)
+    $catch_results[$z] = DbOp::dbResult ($db, $select, __LINE__, __FILE__);
+    $z++;
+    var_dump($select->RecordCount());
+    if ($select->RecordCount() == 1)
     {
         $insert = $db->Execute ("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $num)");
         $insert_result = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
+        $catch_results[$z] = $insert_result;
+        $z++;
         if ($insert_result === true)
         {
             $variables['setup_unowned_results']['result'] = true;
         }
         else
         {
-            $variables['setup_unowned_results']['result'] = DbOp::dbResult ($db, $insert, __LINE__, __FILE__); // Unfortunately, this means we only display the last error, as it overwrites others
+            $variables['setup_unowned_results']['result'] = $insert_result; // Unfortunately, this means we only display the last error, as it overwrites others
         }
         $p_add++;
     }
@@ -116,6 +123,8 @@ for ($i = 1; $i <= $loops; $i++)
     {
         $resx = $db->Execute ($update);
         $variables['insert_loop_sectors_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
+        $z++;
     }
     else
     {
@@ -173,6 +182,8 @@ for ($i = 1; $i <= $loops; $i++)
     {
         $resx = $db->Execute ($insert);
         $variables['insert_random_oneway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
+        $z++;
     }
     else
     {
@@ -230,6 +241,8 @@ for ($i = 1; $i <= $loops; $i++)
     {
         $resx = $db->Execute ($insert);
         $variables['insert_random_twoway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
+        $z++;
     }
     else
     {
@@ -262,10 +275,22 @@ $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
 $resx = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
 $variables['remove_links_results']['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+$catch_results[$z] = $variables['remove_links_results']['result'];
+$z++;
+
 $table_timer->stop ();
 $elapsed = $table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['remove_links_results']['elapsed'] = $elapsed;
+
+for ($t = 0; $t < $z; $t++)
+{
+    if ($catch_results[$t] !== true)
+    {
+        $variables['autorun'] = false; // We disable autorun if any errors occur in processing
+    }
+}
+
 $template->AddVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php

@@ -83,7 +83,7 @@
 
     <tr>
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_autorun']}</font></td>
-      <td width="100" bgcolor="#C0C0C0"><font size="1" color="#000000"><input type="checkbox" name="autorun" value="off"></font></td>
+      <td width="100" bgcolor="#C0C0C0"><font size="1" color="#000000"><input type="checkbox" name="autorun" value="on"></font></td>
     </tr>
 
     <tr>

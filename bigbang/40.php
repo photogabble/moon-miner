@@ -49,6 +49,15 @@ $variables['create_schema_results']  = BntSchema::create ($db, $db_prefix); // D
 $variables['table_count']            = count ($variables['create_schema_results']) - 1;
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
+$create_array_size = count ($variables['create_schema_results']);
+for ($i = 0; $i < $create_array_size; $i++)
+{
+    if ($variables['create_schema_results'][$i]['result'] !== true)
+    {
+        $variables['autorun'] = false; // We disable autorun if any errors occur in processing
+    }
+}
+
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));

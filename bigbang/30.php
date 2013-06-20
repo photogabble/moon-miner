@@ -49,6 +49,15 @@ $variables['destroy_schema_results'] = BntSchema::destroy ($db, $db_prefix); // 
 $variables['table_count']            = count ($variables['destroy_schema_results']) - 1;
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
+$destroy_array_size = count ($variables['destroy_schema_results']);
+for ($i = 0; $i < $destroy_array_size; $i++)
+{
+    if ($variables['destroy_schema_results'][$i]['result'] !== true)
+    {
+        $variables['autorun'] = false; // We disable autorun if any errors occur in processing
+    }
+}
+
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));

@@ -51,6 +51,7 @@ $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILT
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
 
+$z = 0;
 $i = 0;
 $table_timer = new Timer;
 $table_timer->start (); // Start benchmarking
@@ -77,6 +78,8 @@ foreach ($language_files as $language_filename)
         $variables['import_lang_results'][$i]['time'] = $elapsed;
         $variables['import_lang_results'][$i]['name'] = ucwords ($lang_name);
         $variables['import_lang_results'][$i]['result'] = $lang_result;
+        $catch_results[$z] = $lang_result;
+        $z++;
         $i++;
     }
 }
@@ -95,6 +98,16 @@ else
 {
     $variables['import_config_results']['result'] = $gameconfig_result;
     $variables['import_config_results']['time'] = $elapsed;
+}
+$catch_results[$z] = $gameconfig_result;
+$z++;
+
+for ($t = 0; $t < $z; $t++)
+{
+    if ($catch_results[$t] !== true)
+    {
+        $variables['autorun'] = false; // We disable autorun if any errors occur in processing
+    }
 }
 
 $lang = $bntreg->get ('default_lang');

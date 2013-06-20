@@ -28,13 +28,11 @@
       <th width="700" colspan="2" bgcolor="#9999cc" align="left"><h1 style="color:#000; height: 0.8em; font-size: 0.8em;font-weight: normal;">{$langvars['l_cu_drop_tables']}</h1></th>
     </tr>
     {for $i=0 to $variables['table_count']}
-
     {if $variables['destroy_schema_results'][$i]['result'] === true}
     <tr title='{$langvars['l_cu_no_errors_found']}'>
     {else}
     <tr title='{$variables['destroy_schema_results'][$i]['result']}'>
     {/if}
-
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_dropping_tables']} {$variables['destroy_schema_results'][$i]['name']} - {$langvars['l_cu_completed_in']|replace:'[time]':$variables['destroy_schema_results'].$i.time} </font></td>
       {if $variables['destroy_schema_results'][$i]['result'] === true}
           <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="blue">{$langvars['l_cu_passed']}</font></td>
