@@ -33,12 +33,12 @@ $variables['steps']                  = $bigbang_info['steps'];
 $variables['current_step']           = $bigbang_info['current_step'];
 $variables['next_step']              = $bigbang_info['next_step'];
 $variables['sector_max']             = (int) filter_input (INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
-$variables['spp']                    = filter_input (INPUT_POST, 'special', FILTER_SANITIZE_NUMBER_INT);
-$variables['oep']                    = filter_input (INPUT_POST, 'ore', FILTER_SANITIZE_NUMBER_INT);
-$variables['ogp']                    = filter_input (INPUT_POST, 'organics', FILTER_SANITIZE_NUMBER_INT);
-$variables['gop']                    = filter_input (INPUT_POST, 'goods', FILTER_SANITIZE_NUMBER_INT);
-$variables['enp']                    = filter_input (INPUT_POST, 'energy', FILTER_SANITIZE_NUMBER_INT);
-$variables['nump']                   = filter_input (INPUT_POST, 'planets', FILTER_SANITIZE_NUMBER_INT);
+$variables['spp']                    = filter_input (INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
+$variables['oep']                    = filter_input (INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
+$variables['ogp']                    = filter_input (INPUT_POST, 'ogp', FILTER_SANITIZE_NUMBER_INT);
+$variables['gop']                    = filter_input (INPUT_POST, 'gop', FILTER_SANITIZE_NUMBER_INT);
+$variables['enp']                    = filter_input (INPUT_POST, 'enp', FILTER_SANITIZE_NUMBER_INT);
+$variables['nump']                   = filter_input (INPUT_POST, 'nump', FILTER_SANITIZE_NUMBER_INT);
 $variables['empty']                  = $variables['sector_max'] - $variables['spp'] - $variables['oep'] - $variables['ogp'] - $variables['gop'] - $variables['enp'];
 $variables['initscommod']            = filter_input (INPUT_POST, 'initscommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 $variables['initbcommod']            = filter_input (INPUT_POST, 'initbcommod', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -62,14 +62,12 @@ $table_timer->start (); // Start benchmarking
 do
 {
     $num = mt_rand (3, ($sector_max - 1));
-    $sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='N'";
-    echo "<br>SQL is " . $sql;
+    $sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}universe.sector_id=$num AND {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='Y'";
     $select = $db->Execute ($sql) or die ("DB error");
 
     // TODO: This select should have a line reflecting status in the template
     $catch_results[$z] = DbOp::dbResult ($db, $select, __LINE__, __FILE__);
     $z++;
-    var_dump($select->RecordCount());
     if ($select->RecordCount() == 1)
     {
         $insert = $db->Execute ("INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $num)");
