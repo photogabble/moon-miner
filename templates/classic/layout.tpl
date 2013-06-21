@@ -47,12 +47,11 @@
 <!-- END OF BODY -->
 
 <!-- START OF FOOTER -->
-<div class="push"></div></div>
 <div class="footer">
 {if isset($news)}
 <br>
 <script type="text/javascript" src="{$template_dir}/javascript/newsticker.js.php"></script>
-<div id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center;">News Ticker should be here unless you have broken it!</div>
+<p id="news_ticker" class="faderlines" style="width:602px; margin:auto; text-align:center; float:center;">News Ticker should be here unless you have broken it!</p>
 <script>
 // News Ticker Constructor.
 news = new newsTicker();
@@ -85,6 +84,21 @@ if (news.initTicker("news_ticker") == true)
 
 {/if}
 <br>
+
+{* Items to the left (SF logo) and to the right (mem, copyright, news) *}
+{if $variables['suppress_logo'] == false}
+    <p style='float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></p>
+{/if}
+    <p style="font-size:smaller; float:right; text-align:right"><a class="new_link" href="news.php{$variables['sf_logo_link']}">{$langvars['l_local_news']}</a>
+    <br>&copy; 2000-{$variables['cur_year']} Ron Harwood &amp; the BNT Dev team
+
+{if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
+    <br>{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']}{$langvars['l_peak_mem']}
+{/if}
+</p>
+
+<p style="text-align:center;">
+
 {* Handle the Servers Update Ticker here *}
 {if isset($variables['update_ticker']['display']) && $variables['update_ticker']['display'] == true}
     <script type='text/javascript' src='{$template_dir}/javascript/updateticker.js.php'></script>
@@ -97,34 +111,22 @@ if (news.initTicker("news_ticker") == true)
 
         setTimeout("NextUpdate();", 100);
     </script>
-    <div style="width:600px; margin:auto; text-align:center;"><span id=update_ticker>{$langvars['l_please_wait']}</span></div>
+    <span id=update_ticker>{$langvars['l_please_wait']}</span>
 {/if}
+
 {* End of Servers Update Ticker *}
 
-    <div style='clear:both'></div>
-    <div style="text-align:center">
-      <div style="width:600px; margin:auto; text-align:center;">
+<br>
 {* Handle the Online Players Counter *}
 {if isset($variables['players_online']) && $variables['players_online'] == 1}
 {$langvars['l_footer_one_player_on']}
 {else}
 {$langvars['l_footer_players_on_1']} {$variables['players_online']} {$langvars['l_footer_players_on_2']}
 {/if}
+</p>
 {* End of Online Players Counter *}
-      </div>
-<br>
-    </div>
 
-{if $variables['suppress_logo'] == false}
-    <div style='position:absolute; float:left; text-align:left'><a href='http://www.sourceforge.net/projects/blacknova'><img style="border:none;" width="{$variables['sf_logo_width']}" height="{$variables['sf_logo_height']}" src="http://sflogo.sourceforge.net/sflogo.php?group_id=14248&amp;type={$variables['sf_logo_type']}" alt="Blacknova Traders at SourceForge.net"></a></div>
-{/if}
-    <div style="font-size:smaller; text-align:right"><a class="new_link" href="news.php{$variables['sf_logo_link']}">{$langvars['l_local_news']}</a></div>
-    <div style='font-size:smaller; text-align:right'>&copy; 2000-{$variables['cur_year']} Ron Harwood &amp; the BNT Dev team</div>
-
-{if isset($variables['footer_show_debug']) && $variables['footer_show_debug'] == true}
-    <div style="font-size:smaller; text-align:right">{$variables['elapsed']} {$langvars['l_seconds']} {$langvars['l_time_gen_page']} / {$variables['mem_peak_usage']}{$langvars['l_peak_mem']}</div>
-{/if}
-</div>
+</div></div>
 <!-- END OF FOOTER -->
 
   </body>
