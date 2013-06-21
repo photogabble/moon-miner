@@ -51,7 +51,6 @@ $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILT
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
 
-$p_add = 0;
 $p_skip = 0;
 $z = 0;
 
@@ -77,15 +76,35 @@ unset ($open_sectors_result); // Clear that 2d array
 shuffle ($open_sectors_array); // Internally, shuffle uses rand() so it isn't ideally random, but good enough for now
 
 // Prep the beginning of the insert SQL call
+$p_add = 0;
 $planet_insert_sql = "INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+$p_add++;
 do
 {
     if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
     {
-        // Add a line of values for every iteration
-        $planet_insert_sql .= ", (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+        $add_more = mt_rand (1, $max_planets_sector); // Add one to a random number of planets in each sector
+        if (($add_more + $p_add) > $variables['nump']) // Ensure that we don't add more than the total amount needed
+        {
+            $add_more = $variables['nump'] - $p_add; // Lower the number to add to the amount that is left
+        }
+
+        for ($q=1; $q<=$add_more; $q++)
+        {
+            // Add a line of values for every iteration
+            $planet_insert_sql .= ", (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+            $p_add++;
+        }
     }
-    $p_add++;
+    else
+    {
+        if ($p_add < $variables['nump'])
+        {
+            // Add a line of values for every iteration - but only one, not random amounts
+            $planet_insert_sql .= ", (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+            $p_add++;
+        }
+    }
 }
 while ($p_add < $variables['nump']); // Only add as many planets as requested
 

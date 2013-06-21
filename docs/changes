@@ -1,5 +1,6 @@
 TheKabal (18 June 2013)
 --------------------------------------
+Fix big bang to add a 1-max_planets_sector random number of planets per sector it selects for placement, but no more than the total number of planets
 Fix fed space not being created in enough sectors
 Fix value of "max sectors" not being honored and set if you set it in the form for bigbang
 Fix planet select & insert to be 2 sql calls for infinite sectors, vs. 2 per sector (!)
