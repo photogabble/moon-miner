@@ -104,7 +104,7 @@
       <td width="100%" colspan="2" bgcolor="#9999cc" align="left"><font color="#000000" size="1"></font></td>
     </tr>
     <tr>
-      <td width="700" colspan="2" bgcolor="#C0C0C0" align="left"><font color="#000000" size="1"><p align='center'><input type=submit value='{$langvars['l_cu_continue']}'></p></font></td>
+      <td width="700" colspan="2" bgcolor="#C0C0C0" align="left"><font color="#000000" size="1"><p align='center'><input autofocus="autofocus" type=submit value='{$langvars['l_cu_continue']}'></p></font></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" bgcolor="#9999cc" align="left"><font color="#000000" size="1"> </font></td>

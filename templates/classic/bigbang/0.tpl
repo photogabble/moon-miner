@@ -37,7 +37,7 @@
     </tr>
     <tr>
         <td style="text-align:left; background-color:#ccccff; width:600px; font-size: 0.8em; color:#000">{$langvars['l_cu_pw_to_continue']}</td>
-        <td style="background-color:#C0C0C0; width:100px; font-size: 0.8em; color:#000"><input type=password name=swordfish size=20></td>
+        <td style="background-color:#C0C0C0; width:100px; font-size: 0.8em; color:#000"><input autofocus type=password name=swordfish size=20></td>
     </tr>
     <tr>
     {if $variables['goodpass'] === true}
