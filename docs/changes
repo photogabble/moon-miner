@@ -1,5 +1,6 @@
 TheKabal (22 June 2013)
 --------------------------------------
+Add benchmarking for DB calls in final step (step 9 / 80.php) of big bang
 Cleanup timer / elapsed calls to simplify them (substr is now not needed, as the class returns a nicely formatted version)
 Change all timer elapsed output to be two significant digits - We don't need to worry about things that take less than 1/100th of a second.
 In the Timer class, extremely small values (E-6 seconds small) were being reported as whole seconds
