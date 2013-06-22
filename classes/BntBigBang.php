@@ -63,6 +63,7 @@ class BntBigBang
 
         $bigbang_info['next_step'] = array_search ($bigbang_files[$j], $bigbang_files);
         $bigbang_info['files'] = $bigbang_files;
+        natsort ($bigbang_info['files']);
         return $bigbang_info;
     }
 }

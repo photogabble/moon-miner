@@ -46,6 +46,7 @@ else // If swordfish is set and matches (good pass)
     if (isset ($step) && $step != '') // We've got a good pass, and its not step 1
     {
             $bigbang_info = BntBigBang::findStep (false);
+            natsort ($bigbang_info['files']);
             $loader_file = $bigbang_info['files'][$step];
             $filename = 'bigbang/' . $loader_file;
             if (file_exists ($filename))
