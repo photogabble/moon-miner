@@ -122,10 +122,10 @@ $variables['setup_unowned_results']['nump'] = $variables['nump'];
 // Warning: Do no alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize) + 1;
+$loops = round ($sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
-
 $variables['insert_link_loops'] = $loops;
+
 $finish = $loopsize;
 if ($finish > $sector_max) $finish = ($sector_max);
 $start = 1;
@@ -134,41 +134,26 @@ for ($i = 1; $i <= $loops; $i++)
 {
     $local_table_timer->start (); // Start benchmarking
     $update = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
-    for ($j = $start; $j < $finish; $j++)
+    for ($j = $start; $j <= $finish; $j++)
     {
         $k = $j + 1;
         $update .= "($j,$k), ($k,$j)";
-        if ($j < ($finish - 1)) $update .= ", "; else $update .= ";";
+        if ($j <= ($finish - 1)) $update .= ", "; else $update .= ";";
     }
 
-    if ($start < $sector_max && $finish <= $sector_max)
-    {
-        $resx = $db->Execute ($update);
-        $variables['insert_loop_sectors_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-        $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
-        $z++;
-    }
-    else
-    {
-        $variables['insert_loop_sectors_results'][$i]['result'] = true; // Hard coded true, not sure what else to do.
-    }
+    $resx = $db->Execute ($update);
+    $variables['insert_loop_sectors_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
+    $z++;
 
     $local_table_timer->stop ();
     $variables['insert_loop_sectors_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
     $variables['insert_loop_sectors_result'][$i]['loop'] = $i;
     $variables['insert_loop_sectors_result'][$i]['loops'] = $loops;
     $variables['insert_loop_sectors_result'][$i]['start'] = $start;
+    $variables['insert_loop_sectors_result'][$i]['finish'] = $finish;
 
-    if ($start == $finish)
-    {
-        $variables['insert_loop_sectors_result'][$i]['finish'] = $finish;
-    }
-    else
-    {
-        $variables['insert_loop_sectors_result'][$i]['finish'] = ($finish - 1);
-    }
-
-    $start = $finish;
+    $start = $finish + 1;
     $finish += $loopsize;
     if ($finish > $sector_max) $finish = $sector_max;
 }
@@ -177,7 +162,7 @@ for ($i = 1; $i <= $loops; $i++)
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize)+1;
+$loops = round ($sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 
 $variables['insert_oneway_loops'] = $loops;
@@ -189,25 +174,18 @@ for ($i = 1; $i <= $loops; $i++)
 {
     $local_table_timer->start (); // Start benchmarking
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
-    for ($j = $start; $j < $finish; $j++)
+    for ($j = $start; $j <= $finish; $j++)
     {
         $link1 = intval (mt_rand (1, $sector_max - 1));
         $link2 = intval (mt_rand (1, $sector_max - 1));
         $insert .= "($link1, $link2)";
-        if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
+        if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
 
-    if ($start < $sector_max && $finish <= $sector_max)
-    {
-        $resx = $db->Execute ($insert);
-        $variables['insert_random_oneway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-        $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
-        $z++;
-    }
-    else
-    {
-        $variables['insert_random_oneway_results'][$i]['result'] = true; // Hard-coded, not sure what else to do.
-    }
+    $resx = $db->Execute ($insert);
+    $variables['insert_random_oneway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
+    $z++;
 
     $local_table_timer->stop ();
 
@@ -215,16 +193,9 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_random_oneway_result'][$i]['loop'] = $i;
     $variables['insert_random_oneway_result'][$i]['loops'] = $loops;
     $variables['insert_random_oneway_result'][$i]['start'] = $start;
-    if ($start == $finish)
-    {
-        $variables['insert_random_oneway_result'][$i]['finish'] = $finish;
-    }
-    else
-    {
-        $variables['insert_random_oneway_result'][$i]['finish'] = ($finish - 1);
-    }
+    $variables['insert_random_oneway_result'][$i]['finish'] = $finish;
 
-    $start = $finish;
+    $start = $finish + 1;
     $finish += $loopsize;
     if ($finish > $sector_max) $finish = ($sector_max);
 }
@@ -233,7 +204,7 @@ for ($i = 1; $i <= $loops; $i++)
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize) + 1;
+$loops = round ($sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 
 $variables['insert_twoway_loops'] = $loops;
@@ -245,41 +216,27 @@ for ($i = 1; $i <= $loops; $i++)
 {
     $local_table_timer->start (); // Start benchmarking
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
-    for ($j = $start; $j < $finish; $j++)
+    for ($j = $start; $j <= $finish; $j++)
     {
         $link1 = intval (mt_rand (1, $sector_max - 1));
         $link2 = intval (mt_rand (1, $sector_max - 1));
         $insert .= "($link1, $link2), ($link2, $link1)";
-        if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
+        if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
 
-    if ($start < $sector_max && $finish <= $sector_max)
-    {
-        $resx = $db->Execute ($insert);
-        $variables['insert_random_twoway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-        $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
-        $z++;
-    }
-    else
-    {
-        $variables['insert_random_twoway_results'][$i]['result'] = true; // Hard-coded, not sure what else to do.
-    }
+    $resx = $db->Execute ($insert);
+    $variables['insert_random_twoway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
+    $z++;
 
     $local_table_timer->stop ();
     $variables['insert_random_twoway_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
     $variables['insert_random_twoway_result'][$i]['loop'] = $i;
     $variables['insert_random_twoway_result'][$i]['loops'] = $loops;
     $variables['insert_random_twoway_result'][$i]['start'] = $start;
-    if ($start == $finish)
-    {
-        $variables['insert_random_twoway_result'][$i]['finish'] = $finish;
-    }
-    else
-    {
-        $variables['insert_random_twoway_result'][$i]['finish'] = ($finish - 1);
-    }
-
-    $start = $finish;
+    $variables['insert_random_twoway_result'][$i]['finish'] = $finish;
+ 
+    $start = $finish + 1;
     $finish += $loopsize;
     if ($finish > $sector_max) $finish = ($sector_max);
 }

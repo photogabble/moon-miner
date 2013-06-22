@@ -115,7 +115,7 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_sector_results'][$i]['start'] = $start;
     $variables['insert_sector_results'][$i]['finish'] = $finish;
 
-    $start = $finish+1;
+    $start = $finish + 1;
     $finish += $loopsize;
     if ($finish > ($sector_max)) $finish = ($sector_max);
 }

@@ -41,6 +41,7 @@
       {/if}
     </tr>
     {/for}
+
     {if $variables['import_config_results']['result'] === true}
     <tr title='{$langvars['l_cu_no_errors_found']}'>
     {else}
@@ -53,6 +54,20 @@
           <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_cu_failed']}</font></td>
       {/if}
     </tr>
+
+    {if $variables['update_config_results']['result'] === true}
+    <tr title='{$langvars['l_cu_no_errors_found']}'>
+    {else}
+    <tr title='{$variables['update_config_results']['result']}'>
+    {/if}
+      <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_update_maxsector']} - {$langvars['l_cu_completed_in']|replace:'[time]':$variables['update_config_results'].time}</font></td>
+      {if $variables['update_config_results']['result'] === true}
+          <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="blue">{$langvars['l_cu_passed']}</font></td>
+      {else}
+          <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_cu_failed']}</font></td>
+      {/if}
+    </tr>
+
     <tr>
       <th width="700" colspan="2" bgcolor="#9999cc" align="left"><h2 style="color:#000; height: 0.8em; font-size: 0.8em;font-weight: normal;">{$langvars['l_cu_hover_for_more']}</h2></th>
     </tr>

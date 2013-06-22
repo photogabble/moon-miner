@@ -105,10 +105,11 @@ for ($t = 0; $t < $z; $t++)
 }
 
 // Write the number of sectors chosen during CU to the database
+$local_table_timer->start (); // Start benchmarking
 $resxx = $db->Execute ("UPDATE {$db->prefix}gameconfig SET value = ? WHERE name='sector_max'", array ($variables['sector_max']));
-
+$local_table_timer->stop ();
 $variables['update_config_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
-// TODO: Add this to the template to be displayed
+$variables['update_config_results']['time'] = $local_table_timer->elapsed ();
 
 $lang = $bntreg->get ('default_lang');
 $template->AddVariables ('langvars', $langvars);
