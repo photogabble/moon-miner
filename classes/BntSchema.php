@@ -58,9 +58,7 @@ class BntSchema
 
                 $destroy_table_results[$i]['name'] = $db_prefix . $tablename;
                 $table_timer->stop ();
-                $elapsed = $table_timer->elapsed ();
-                $elapsed = substr ($elapsed, 0, 5);
-                $destroy_table_results[$i]['time'] = $elapsed;
+                $destroy_table_results[$i]['time'] = $table_timer->elapsed ();
                 $i++;
             }
         }
@@ -94,13 +92,11 @@ class BntSchema
                 if ($message !== true)
                 {
                     $table_timer->stop ();
-                    $elapsed = $table_timer->elapsed ();
-                    $elapsed = substr ($elapsed, 0, 5);
 
                     // TODO: This needs to be translated text
                     $create_table_results[$i]['result'] = "XML Schema " . $schema_filename . " could not be parsed because of error: " . $message;
                     $create_table_results[$i]['name'] = $db_prefix . $tablename;
-                    $create_table_results[$i]['time'] = $elapsed;
+                    $create_table_results[$i]['time'] = $table_timer->elapsed ();
                     $i++;
                 }
                 else
@@ -125,9 +121,7 @@ class BntSchema
                         DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                         $create_table_results[$i]['name'] = $db_prefix . $tablename;
                         $table_timer->stop ();
-                        $elapsed = $table_timer->elapsed ();
-                        $elapsed = substr ($elapsed, 0, 5);
-                        $create_table_results[$i]['time'] = $elapsed;
+                        $create_table_results[$i]['time'] = $table_timer->elapsed ();
                     }
                     $i++;
                 }
