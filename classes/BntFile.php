@@ -38,6 +38,7 @@ class BntFile
         $resa = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
         DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
 
+        $insert_sql = "INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES ";
         foreach ($ini_keys as $config_category => $config_line)
         {
             foreach ($config_line as $config_key => $config_value)
@@ -50,14 +51,19 @@ class BntFile
 
                 // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
                 $config_value = utf8_encode ($config_value);
-                $debug_query = $db->Execute ("INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (?,?,?,?)", array ($config_key, $config_category, $config_value, $section));
-                DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
-                if ($debug_query === false)
-                {
-                    $status_array[$i] = $debug_query;
-                    $i++;
-                }
+                $insert_sql .= "(" . $db->qstr($config_key) . ", ";
+                $insert_sql .= $db->qstr($config_category) . ", ";
+                $insert_sql .= $db->qstr($config_value) . ", ";
+                $insert_sql .= $db->qstr($section) . "), ";
             }
+        }
+        $insert_sql = substr($insert_sql, 0, -2); // Trim off the comma and space for the end of the call
+        $debug_query = $db->Execute ($insert_sql);
+        DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
+        if ($debug_query === false)
+        {
+            $status_array[$i] = $debug_query;
+            $i++;
         }
 
         $status_array[$i] = $db->CompleteTrans(); // Complete the transaction

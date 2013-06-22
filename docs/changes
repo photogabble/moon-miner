@@ -1,6 +1,7 @@
 TheKabal (22 June 2013)
 --------------------------------------
-Fix big bang sector placement, it varied between putting 501 in the wrong place to putting a sector 1001, and a couple of other variations. Now actually places what you ask for!
+In big bang, streamline the language and config storage into DB down to one SQL insert for each - shaving 5 seconds off the processing time of step 6.
+Fix big bang sector placement, it varied between putting 501 in the wrong place to putting a sector 1001, and a couple of other variations. Now actually places what you ask for.
 
 TheKabal (21 June 2013)
 --------------------------------------
