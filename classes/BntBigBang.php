@@ -28,6 +28,15 @@ class BntBigBang
     static function findStep ($current_file)
     {
         $i = 0;
+
+
+        // Setup $bigbang_files as an array type.
+        // We add a null value as index 0 due to we need to start from index 1.
+        $bigbang_files = array(null);
+
+        // Setup $filelist as an array.
+        $filelist = array();
+
         $bigbang_dir = new DirectoryIterator ('bigbang/');
         foreach ($bigbang_dir as $file_info) // Get a list of the files in the bigbang directory
         {
@@ -38,9 +47,21 @@ class BntBigBang
             if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
             {
                 $i++; // Increment a counter, so we know how many files there are to choose from
-                $bigbang_files[$i] = $file_info->getFilename (); // The actual file name
+                $filelist[$i] = $file_info->getFilename (); // The actual file name
              }
         }
+
+        // Now order the files in the correct order.
+        natsort ($filelist);
+
+        // Now move files over to the $bigbang_files array creating the correct index key order.
+        foreach ($filelist as $ofile)
+        {
+            array_push($bigbang_files, $ofile);
+        }
+        // Now remove the unwanted array.
+        unset ($filelist);
+
 
         $bigbang_info['steps'] = $i;
         if ($current_file === false)
@@ -63,7 +84,7 @@ class BntBigBang
 
         $bigbang_info['next_step'] = array_search ($bigbang_files[$j], $bigbang_files);
         $bigbang_info['files'] = $bigbang_files;
-        natsort ($bigbang_info['files']);
+#        natsort ($bigbang_info['files']);
         return $bigbang_info;
     }
 }
