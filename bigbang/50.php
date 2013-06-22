@@ -51,18 +51,14 @@ $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILT
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
 
+$local_table_timer = new Timer;
 $z = 0;
 $i = 0;
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
 $language_files = new DirectoryIterator ("languages/");
 $lang_file_import_results = Array ();
 
 foreach ($language_files as $language_filename)
 {
-    $table_timer = new Timer;
-    $table_timer->start (); // Start benchmarking
-
     // This is to get around the issue of not having DirectoryIterator::getExtension.
     $file_ext = pathinfo ($language_filename->getFilename (), PATHINFO_EXTENSION);
     if ($language_filename->isFile () && $file_ext == 'php')
@@ -70,10 +66,10 @@ foreach ($language_files as $language_filename)
         $lang_name = substr ($language_filename->getFilename(), 0, -8);
 
         // Import Languages
-        $table_timer->start (); // Start benchmarking
+        $local_table_timer->start (); // Start benchmarking
         $lang_result = BntFile::iniToDb ($db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
-        $table_timer->stop ();
-        $elapsed = $table_timer->elapsed ();
+        $local_table_timer->stop ();
+        $elapsed = $local_table_timer->elapsed ();
         $elapsed = substr ($elapsed, 0, 5);
         $variables['import_lang_results'][$i]['time'] = $elapsed;
         $variables['import_lang_results'][$i]['name'] = ucwords ($lang_name);
@@ -84,9 +80,11 @@ foreach ($language_files as $language_filename)
     }
 }
 $variables['language_count'] = ($i - 1);
+
+$local_table_timer->start (); // Start benchmarking
 $gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game", $bntreg);
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 if ($gameconfig_result === true)
 {

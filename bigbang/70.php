@@ -54,8 +54,8 @@ $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer
 $p_skip = 0;
 $z = 0;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer = new Timer;
+$local_table_timer->start (); // Start benchmarking
 
 // Get the sector id for any sector that allows planets
 $sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db->prefix}zones WHERE {$db->prefix}zones.zone_id={$db->prefix}universe.zone_id AND {$db->prefix}zones.allow_planet='Y'";
@@ -114,8 +114,8 @@ $variables['setup_unowned_results']['result'] = DbOp::dbResult ($db, $insert, __
 $catch_results[$z] = $variables['setup_unowned_results']['result'];
 $z++;
 
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['setup_unowned_results']['elapsed'] = $elapsed;
 $variables['setup_unowned_results']['nump'] = $variables['nump'];
@@ -134,8 +134,7 @@ $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $table_timer = new Timer;
-    $table_timer->start (); // Start benchmarking
+    $local_table_timer->start (); // Start benchmarking
     $update = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j < $finish; $j++)
     {
@@ -156,10 +155,11 @@ for ($i = 1; $i <= $loops; $i++)
         $variables['insert_loop_sectors_results'][$i]['result'] = true; // Hard coded true, not sure what else to do.
     }
 
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_loop_sectors_result'][$i]['elapsed'] = $elapsed;
+    $elapsed = 0;
     $variables['insert_loop_sectors_result'][$i]['loop'] = $i;
     $variables['insert_loop_sectors_result'][$i]['loops'] = $loops;
     $variables['insert_loop_sectors_result'][$i]['start'] = $start;
@@ -192,8 +192,7 @@ $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $table_timer = new Timer;
-    $table_timer->start (); // Start benchmarking
+    $local_table_timer->start (); // Start benchmarking
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j < $finish; $j++)
     {
@@ -215,11 +214,13 @@ for ($i = 1; $i <= $loops; $i++)
         $variables['insert_random_oneway_results'][$i]['result'] = true; // Hard-coded, not sure what else to do.
     }
 
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
 
     $variables['insert_random_oneway_result'][$i]['elapsed'] = $elapsed;
+    $elapsed = 0;
+
     $variables['insert_random_oneway_result'][$i]['loop'] = $i;
     $variables['insert_random_oneway_result'][$i]['loops'] = $loops;
     $variables['insert_random_oneway_result'][$i]['start'] = $start;
@@ -251,8 +252,7 @@ $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $table_timer = new Timer;
-    $table_timer->start (); // Start benchmarking
+    $local_table_timer->start (); // Start benchmarking
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j < $finish; $j++)
     {
@@ -274,11 +274,12 @@ for ($i = 1; $i <= $loops; $i++)
         $variables['insert_random_twoway_results'][$i]['result'] = true; // Hard-coded, not sure what else to do.
     }
 
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
 
     $variables['insert_random_twoway_result'][$i]['elapsed'] = $elapsed;
+    $elapsed = 0;
     $variables['insert_random_twoway_result'][$i]['loop'] = $i;
     $variables['insert_random_twoway_result'][$i]['loops'] = $loops;
     $variables['insert_random_twoway_result'][$i]['start'] = $start;
@@ -296,15 +297,14 @@ for ($i = 1; $i <= $loops; $i++)
     if ($finish > $sector_max) $finish = ($sector_max);
 }
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $resx = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
 $variables['remove_links_results']['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;
 
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['remove_links_results']['elapsed'] = $elapsed;
 

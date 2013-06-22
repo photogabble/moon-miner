@@ -1,5 +1,7 @@
 TheKabal (22 June 2013)
 --------------------------------------
+In the Timer class, extremely small values (E-6 seconds small) were being reported as whole seconds
+In big bang, cleanup how benchmarking is done so that the local timer is only created once
 In big bang, streamline the language and config storage into DB down to one SQL insert for each - shaving 5 seconds off the processing time of step 6.
 Fix big bang sector placement, it varied between putting 501 in the wrong place to putting a sector 1001, and a couple of other variations. Now actually places what you ask for.
 

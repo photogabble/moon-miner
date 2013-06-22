@@ -60,25 +60,24 @@ $initbore = $ore_limit * $variables['initbcommod'] / 100.0;
 $initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
 $initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
 $initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer = new Timer;
+$local_table_timer->start (); // Start benchmarking
 $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
 $variables['create_sol_results']['result'] = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_sol_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_sol_results']['time'] = $elapsed;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('2', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
 $variables['create_ac_results']['result'] = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_ac_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_ac_results']['time'] = $elapsed;
 
@@ -95,8 +94,7 @@ $start = 3; // We added sol (1), and alpha centauri (2), so start at 3.
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $table_timer = new Timer;
-    $table_timer->start (); // Start benchmarking
+    $local_table_timer->start (); // Start benchmarking
     $insert = "INSERT INTO {$db->prefix}universe " .
               "(sector_id, zone_id, angle1, angle2, distance) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
@@ -114,8 +112,8 @@ for ($i = 1; $i <= $loops; $i++)
     $catch_results[$z] = $variables['insert_sector_results'][$i]['result'];
     $z++;
 
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_sector_results'][$i]['elapsed'] = $elapsed;
     $variables['insert_sector_results'][$i]['loop'] = $i;
@@ -130,58 +128,53 @@ for ($i = 1; $i <= $loops; $i++)
 
 /// Insert zones - Unchartered, fed, free trade, war & Fed space
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
 $variables['create_unchartered_results']['result'] = DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_unchartered_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_unchartered_results']['time'] = $elapsed;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
 $variables['create_fedspace_results']['result'] = DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_fedspace_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_fedspace_results']['time'] = $elapsed;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
 $variables['create_free_results']['result'] = DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_free_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_free_results']['time'] = $elapsed;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
 $variables['create_warzone_results']['result'] = DbOp::dbResult ($db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_warzone_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_warzone_results']['time'] = $elapsed;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<=" . $variables['fedsecs']);
 $variables['create_fed_sectors_results']['result'] = DbOp::dbResult ($db, $update, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_fed_sectors_results']['result'];
 $z++;
-$table_timer->stop ();
-$elapsed = $table_timer->elapsed ();
+$local_table_timer->stop ();
+$elapsed = $local_table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_fed_sectors_results']['time'] = $elapsed;
 
@@ -201,8 +194,7 @@ if ($finish > $variables['spp']) $finish = ($variables['spp']);
 // Since we hard coded a special port already, we start from 1.
 $start = 1;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['spp']);
 // TODO: This select should have an error check that is reflected in the template
 $catch_results[$z] = DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
@@ -224,8 +216,8 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_special_ports'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_special_ports'][$i]['result'];
     $z++;
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_special_ports'][$i]['elapsed'] = $elapsed;
     $variables['insert_special_ports'][$i]['loop'] = $i;
@@ -253,8 +245,7 @@ $finish = $loopsize;
 if ($finish > $variables['oep']) $finish = ($variables['oep']);
 $start = 0;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['oep']);
 // TODO: This select should have an error check that is reflected in the template
 $catch_results[$z] = DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
@@ -275,8 +266,8 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_ore_ports'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_ore_ports'][$i]['result'];
     $z++;
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_ore_ports'][$i]['elapsed'] = $elapsed;
     $variables['insert_ore_ports'][$i]['loop'] = $i;
@@ -304,8 +295,7 @@ $finish = $loopsize;
 if ($finish > $variables['ogp']) $finish = ($variables['ogp']);
 $start = 0;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['ogp']);
 // TODO: This select should have an error check that is reflected in the template
 $catch_results[$z] = DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
@@ -326,8 +316,8 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_organics_ports'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_organics_ports'][$i]['result'];
     $z++;
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_organics_ports'][$i]['elapsed'] = $elapsed;
     $variables['insert_organics_ports'][$i]['loop'] = $i;
@@ -355,8 +345,7 @@ $finish = $loopsize;
 if ($finish > $variables['gop']) $finish = ($variables['gop']);
 $start = 0;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['gop']);
 // TODO: This select should have an error check that is reflected in the template
 $catch_results[$z] = DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
@@ -377,8 +366,8 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_goods_ports'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_goods_ports'][$i]['result'];
     $z++;
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_goods_ports'][$i]['elapsed'] = $elapsed;
     $variables['insert_goods_ports'][$i]['loop'] = $i;
@@ -408,8 +397,7 @@ if ($finish > $variables['enp']) $finish = ($variables['enp']);
 // Well since we hard coded an energy port already, we start from 1.
 $start = 1;
 
-$table_timer = new Timer;
-$table_timer->start (); // Start benchmarking
+$local_table_timer->start (); // Start benchmarking
 $sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['enp']);
 // TODO: This select should have an error check that is reflected in the template
 $catch_results[$z] = DbOp::dbResult ($db, $sql_query, __LINE__, __FILE__);
@@ -431,8 +419,8 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_energy_ports'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_energy_ports'][$i]['result'];
     $z++;
-    $table_timer->stop ();
-    $elapsed = $table_timer->elapsed ();
+    $local_table_timer->stop ();
+    $elapsed = $local_table_timer->elapsed ();
     $elapsed = substr ($elapsed, 0, 5);
     $variables['insert_energy_ports'][$i]['elapsed'] = $elapsed;
     $variables['insert_energy_ports'][$i]['loop'] = $i;
