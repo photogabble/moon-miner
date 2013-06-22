@@ -1,6 +1,14 @@
+TheKabal (22 June 2013)
+--------------------------------------
+Fix big bang sector placement, it varied between putting 501 in the wrong place to putting a sector 1001, and a couple of other variations. Now actually places what you ask for!
+
+TheKabal (21 June 2013)
+--------------------------------------
+Changed footer to be more correct, using three-column footer (float with align)
+Added new feature, automatically auto-focuses on the submit/continue.etc button. Now you can space bar through all of BB!
+
 TheKabal (18 June 2013)
 --------------------------------------
-Added new feature, automatically auto-focuses on the submit/continue.etc button. Now you cna space bar through all of BB!
 Fix big bang to add a 1-max_planets_sector random number of planets per sector it selects for placement, but no more than the total number of planets
 Fix fed space not being created in enough sectors
 Fix value of "max sectors" not being honored and set if you set it in the form for bigbang

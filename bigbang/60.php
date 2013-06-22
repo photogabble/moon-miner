@@ -82,20 +82,16 @@ $elapsed = $table_timer->elapsed ();
 $elapsed = substr ($elapsed, 0, 5);
 $variables['create_ac_results']['time'] = $elapsed;
 
-/// Insert sector loops
-$remaining = $sector_max - 2;
-
-// Cycle through remaining sectors
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize) + 1;
+$loops = round ($sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_sector_loops'] = $loops;
 
 $finish = $loopsize;
 if ($finish > ($sector_max)) $finish = ($sector_max);
-$start = 2; // We added sol (1), and alpha centauri (2), so start at 3 (2 plus one from the loop).
+$start = 3; // We added sol (1), and alpha centauri (2), so start at 3.
 
 for ($i = 1; $i <= $loops; $i++)
 {
@@ -103,28 +99,20 @@ for ($i = 1; $i <= $loops; $i++)
     $table_timer->start (); // Start benchmarking
     $insert = "INSERT INTO {$db->prefix}universe " .
               "(sector_id, zone_id, angle1, angle2, distance) VALUES ";
-    for ($j = $start; $j < $finish; $j++)
+    for ($j = $start; $j <= $finish; $j++)
     {
-        $sector_id = $i + $j;
+        $sector_id = $j;
         $distance = intval (mt_rand (1, $universe_size));
         $angle1 = mt_rand (0, 180);
         $angle2 = mt_rand (0, 90);
         $insert .= "($sector_id, '1', $angle1, $angle2, $distance)";
-        if ($j < ($finish - 1)) $insert .= ", "; else $insert .= ";";
+        if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
 
-    // Now lets post the information to the mysql database.
-    if ($start < $sector_max && $finish <= $sector_max)
-    {
-        $result = $db->Execute ($insert);
-        $variables['insert_sector_results'][$i]['result'] = DbOp::dbResult ($db, $result, __LINE__, __FILE__);
-        $catch_results[$z] = $variables['insert_sector_results'][$i]['result'];
-        $z++;
-    }
-    else // TODO: This probably shouldn't hard-code to true, but I'm guessing we just dump the SQL in the else situation
-    {
-        $variables['insert_sector_results'][$i]['result'] = true;
-    }
+    $result = $db->Execute ($insert);
+    $variables['insert_sector_results'][$i]['result'] = DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+    $catch_results[$z] = $variables['insert_sector_results'][$i]['result'];
+    $z++;
 
     $table_timer->stop ();
     $elapsed = $table_timer->elapsed ();
@@ -133,16 +121,9 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_sector_results'][$i]['loop'] = $i;
     $variables['insert_sector_results'][$i]['loops'] = $loops;
     $variables['insert_sector_results'][$i]['start'] = $start;
-    if ($start == $finish)
-    {
-        $variables['insert_sector_results'][$i]['finish'] = $finish;
-    }
-    else
-    {
-        $variables['insert_sector_results'][$i]['finish'] = ($finish - 1);
-    }
+    $variables['insert_sector_results'][$i]['finish'] = $finish;
 
-    $start = $finish;
+    $start = $finish+1;
     $finish += $loopsize;
     if ($finish > ($sector_max)) $finish = ($sector_max);
 }
@@ -445,8 +426,7 @@ for ($i = 1; $i <= $loops; $i++)
         if ($j < ($finish - 1)) $update .= " or "; else $update .= ";";
         $sql_query->Movenext ();
     }
-// TODO: There seems to be an error in the SQL here when repeating the step, which is expected, but its a syntax error, so probably needs fixing
-//   var_dump ($update);
+
     $resx = $db->Execute ($update);
     $variables['insert_energy_ports'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_energy_ports'][$i]['result'];
