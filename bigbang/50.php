@@ -69,9 +69,7 @@ foreach ($language_files as $language_filename)
         $local_table_timer->start (); // Start benchmarking
         $lang_result = BntFile::iniToDb ($db, "languages/" . $language_filename->getFilename(), "languages", $lang_name, $bntreg);
         $local_table_timer->stop ();
-        $elapsed = $local_table_timer->elapsed ();
-        $elapsed = substr ($elapsed, 0, 5);
-        $variables['import_lang_results'][$i]['time'] = $elapsed;
+        $variables['import_lang_results'][$i]['time'] = $local_table_timer->elapsed ();
         $variables['import_lang_results'][$i]['name'] = ucwords ($lang_name);
         $variables['import_lang_results'][$i]['result'] = $lang_result;
         $catch_results[$z] = $lang_result;
@@ -84,18 +82,16 @@ $variables['language_count'] = ($i - 1);
 $local_table_timer->start (); // Start benchmarking
 $gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game", $bntreg);
 $local_table_timer->stop ();
-$elapsed = $local_table_timer->elapsed ();
-$elapsed = substr ($elapsed, 0, 5);
 if ($gameconfig_result === true)
 {
     $variables['import_config_results']['result'] = true;
-    $variables['import_config_results']['time'] = $elapsed;
+    $variables['import_config_results']['time'] = $local_table_timer->elapsed ();
     $db->inactive = false;
 }
 else
 {
     $variables['import_config_results']['result'] = $gameconfig_result;
-    $variables['import_config_results']['time'] = $elapsed;
+    $variables['import_config_results']['time'] = $local_table_timer->elapsed ();
 }
 $catch_results[$z] = $gameconfig_result;
 $z++;

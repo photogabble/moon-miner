@@ -1,5 +1,7 @@
 TheKabal (22 June 2013)
 --------------------------------------
+Cleanup timer / elapsed calls to simplify them (substr is now not needed, as the class returns a nicely formatted version)
+Change all timer elapsed output to be two significant digits - We don't need to worry about things that take less than 1/100th of a second.
 In the Timer class, extremely small values (E-6 seconds small) were being reported as whole seconds
 In big bang, cleanup how benchmarking is done so that the local timer is only created once
 In big bang, streamline the language and config storage into DB down to one SQL insert for each - shaving 5 seconds off the processing time of step 6.

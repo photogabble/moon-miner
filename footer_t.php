@@ -40,7 +40,6 @@ if (isset ($bntreg))
         $bnttimer = $bntreg->get("bnttimer");
         $bnttimer->stop();
         $elapsed = $bnttimer->elapsed();
-        $elapsed = substr ($elapsed, 0, 5);
     }
 }
 else
@@ -135,7 +134,7 @@ else
     $sf_logo_link = "?lang=" . $_GET['lang'];
 }
 
-$elapsed = number_format ($elapsed, 2);
+//$elapsed = number_format ($elapsed, 2);
 $mem_peak_usage = floor (memory_get_peak_usage() / 1024);
 
 $public_pages = array ( 'ranking.php', 'new.php', 'faq.php', 'settings.php', 'news.php', 'index.php');

@@ -115,9 +115,7 @@ $catch_results[$z] = $variables['setup_unowned_results']['result'];
 $z++;
 
 $local_table_timer->stop ();
-$elapsed = $local_table_timer->elapsed ();
-$elapsed = substr ($elapsed, 0, 5);
-$variables['setup_unowned_results']['elapsed'] = $elapsed;
+$variables['setup_unowned_results']['elapsed'] = $local_table_timer->elapsed ();
 $variables['setup_unowned_results']['nump'] = $variables['nump'];
 
 // Adds Sector Size * 2 amount of links to the links table
@@ -156,10 +154,7 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $local_table_timer->stop ();
-    $elapsed = $local_table_timer->elapsed ();
-    $elapsed = substr ($elapsed, 0, 5);
-    $variables['insert_loop_sectors_result'][$i]['elapsed'] = $elapsed;
-    $elapsed = 0;
+    $variables['insert_loop_sectors_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
     $variables['insert_loop_sectors_result'][$i]['loop'] = $i;
     $variables['insert_loop_sectors_result'][$i]['loops'] = $loops;
     $variables['insert_loop_sectors_result'][$i]['start'] = $start;
@@ -215,12 +210,8 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $local_table_timer->stop ();
-    $elapsed = $local_table_timer->elapsed ();
-    $elapsed = substr ($elapsed, 0, 5);
 
-    $variables['insert_random_oneway_result'][$i]['elapsed'] = $elapsed;
-    $elapsed = 0;
-
+    $variables['insert_random_oneway_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
     $variables['insert_random_oneway_result'][$i]['loop'] = $i;
     $variables['insert_random_oneway_result'][$i]['loops'] = $loops;
     $variables['insert_random_oneway_result'][$i]['start'] = $start;
@@ -275,11 +266,7 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $local_table_timer->stop ();
-    $elapsed = $local_table_timer->elapsed ();
-    $elapsed = substr ($elapsed, 0, 5);
-
-    $variables['insert_random_twoway_result'][$i]['elapsed'] = $elapsed;
-    $elapsed = 0;
+    $variables['insert_random_twoway_result'][$i]['elapsed'] = $local_table_timer->elapsed ();
     $variables['insert_random_twoway_result'][$i]['loop'] = $i;
     $variables['insert_random_twoway_result'][$i]['loops'] = $loops;
     $variables['insert_random_twoway_result'][$i]['start'] = $start;
@@ -304,9 +291,7 @@ $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;
 
 $local_table_timer->stop ();
-$elapsed = $local_table_timer->elapsed ();
-$elapsed = substr ($elapsed, 0, 5);
-$variables['remove_links_results']['elapsed'] = $elapsed;
+$variables['remove_links_results']['elapsed'] = $local_table_timer->elapsed ();
 
 for ($t = 0; $t < $z; $t++)
 {
