@@ -32,7 +32,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common',
 
 echo "<h1>" . $title . "</h1>\n";
 
-if (check_login ($db, $lang, $langvars))
+if (check_login ($db, $lang, $langvars, $bntreg))
 {
     die ();
 }

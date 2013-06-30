@@ -18,8 +18,7 @@
 // File: options.php
 
 include './global_includes.php';
-
-if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+if (check_login ($db, $lang, $langvars, $bntreg))
 {
     die ();
 }

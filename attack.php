@@ -20,7 +20,7 @@
 
 include './global_includes.php';
 
-if (check_login ($db, $lang, $langvars))
+if (check_login ($db, $lang, $langvars, $bntreg))
 {
     die ();
 }

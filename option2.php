@@ -19,10 +19,8 @@
 
 include './global_includes.php';
 
-// Check if the user is logged in.
-if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
+if (check_login ($db, $lang, $langvars, $bntreg))
 {
-    // No they are not.
     die ();
 }
 

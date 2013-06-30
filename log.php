@@ -20,7 +20,7 @@
 include './global_includes.php';
 include './config/admin_pw.php';
 
-if (check_login ($db, $lang, $langvars, false)) // Checks player login, sets playerinfo
+if (check_login ($db, $lang, $langvars, $bntreg, false))
 {
     die ();
 }

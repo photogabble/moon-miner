@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_login.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function check_login ($db, $lang, $langvars, $stop_die = true)
+function check_login ($db, $lang, $langvars, $bntreg, $stop_die = true)
 {
     // Database driven language entries
     $langvars = BntTranslate::load ($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
