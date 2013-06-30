@@ -1,3 +1,7 @@
+TheKabal (30 June 2013)
+--------------------------------------
+Perform extension loaded check for mbstring, so that we fail silently in its absence
+
 TheKabal (29 June 2013)
 --------------------------------------
 Add note in docs/install that common.php uses the mbstring PHP extension, so BNT requires it
