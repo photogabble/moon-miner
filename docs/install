@@ -3,6 +3,7 @@ BlackNova Traders
 REQUIREMENTS
 
 - PHP version 5.3 minimum is required. (For Smarty, crypt for login, and many other features)
+- PHP's mbstring extension must be installed (used in common.php)
 - MySQL version 5.5 is supported, we have not determined a required minimum.
 - Apache version 2.2.20+ is supported, we have not determined a required minimum.
 

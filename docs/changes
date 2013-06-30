@@ -1,5 +1,6 @@
 TheKabal (29 June 2013)
 --------------------------------------
+Add note in docs/install that common.php uses the mbstring PHP extension, so BNT requires it
 Add option to big bang/create universe to allow admins to choose a different language for the BB/CU process
 Add footer broken text to language files
 Fix check_login to no longer give errors when you access a page after you've logged out
