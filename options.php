@@ -61,17 +61,36 @@ echo "</tr>";
 echo "<tr>";
 echo "<td>" . $langvars['l_opt_select'] . "</td><td><select name=newlang>";
 
-foreach ($avail_lang as $curlang)
+$lang_dir = new DirectoryIterator ('languages/');
+foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
 {
-    if ($curlang['file'] == $playerinfo['lang'])
+    // This is to get around the issue of not having DirectoryIterator::getExtension.
+    $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
+
+    // If it is a PHP file, add it to the list of accepted language files
+    if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
     {
-        $selected = "selected";
+        $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+
+        // Select from the database and return the localized name of the language
+        $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
+        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+        while ($result && !$result->EOF)
+        {
+            $row = $result->fields;
+
+            if ($lang_file == $playerinfo['lang'])
+            {
+                $selected = " selected";
+            }
+            else
+            {
+                $selected = '';
+            }
+            echo "<option value='" . $lang_file . "'" . $selected . ">" . $row['value'] . "</option>";
+            $result->MoveNext();
+        }
     }
-    else
-    {
-        $selected = "";
-    }
-    echo "<option value=" . $curlang['file'] . " " . $selected . ">" . $curlang['name'] . "</option>";
 }
 
 echo "</select></td>";

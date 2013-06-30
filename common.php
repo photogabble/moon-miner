@@ -208,15 +208,6 @@ if ($db->inactive != true) // Before DB is installed, don't try to setup userinf
     }
 }
 
-$avail_lang[0]['file'] = 'english';
-$avail_lang[0]['name'] = 'English';
-$avail_lang[1]['file'] = 'french';
-$avail_lang[1]['name'] = 'Francais';
-$avail_lang[2]['file'] = 'german';
-$avail_lang[2]['name'] = 'German';
-$avail_lang[3]['file'] = 'spanish';
-$avail_lang[3]['name'] = 'Spanish';
-
 if (empty ($link_forums))
 {
     $link_forums = "http://forums.blacknova.net";

@@ -26,21 +26,37 @@ if (check_login ($db, $lang, $langvars)) // Checks player login, sets playerinfo
     die ();
 }
 
-// Set old language to the current;
-$oldlang = $lang;
+// Set a flag that we have not changed the language
+$changed_language = false;
 
-// Get POST['newlang'] returns null is not found.
+// Get POST['newlang'] returns null if not found.
 if (array_key_exists ('newlang', $_POST) == true)
 {
-    // Cycle through the supported language list.
-    foreach ($avail_lang as $supported)
+    $lang_dir = new DirectoryIterator ('languages/');
+    foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
     {
-        // Trim and compare the new langauge with the supported.
-        if (trim ($_POST['newlang']) == $supported['file'])
+        // This is to get around the issue of not having DirectoryIterator::getExtension.
+        $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
+
+        // If it is a PHP file, add it to the list of accepted language files
+        if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
         {
-            // We have a match so set lang to the required supported language, then break out of loop.
-            $lang = $supported['file'];
-            break;
+            $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+
+            // Trim and compare the new langauge with the supported.
+            if (trim ($_POST['newlang']) == $lang_file)
+            {
+                // We have a match so set lang to the required supported language, then break out of loop.
+                $lang = $lang_file;
+
+                // Update the ship record to the requested language
+                $res = $db->Execute ("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ?", array ($lang, $_SESSION['username']));
+                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+
+                // Set a flag that we changed the language
+                $changed_language = true;
+                break;
+            }
         }
     }
 }
@@ -122,23 +138,11 @@ else
     }
 }
 
-// Is the current language ($lang) different from the requested new language ($_POST['newlang'])
-if ($oldlang != $lang)
+if ($changed_language)
 {
-    // Yes, so update to the new requited language.
-    $res = $db->Execute ("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ? LIMIT 1;", array ($lang, $_SESSION['username']));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-
-    // Now cycle through the supported language list unto we get a match to the new language.
-    foreach ($avail_lang as $curlang)
-    {
-        if ($lang == $curlang['file'])
-        {
-            $langvars['l_opt2_chlang'] = str_replace ("[lang]", "$curlang[name]", $langvars['l_opt2_chlang']);
-            echo $langvars['l_opt2_chlang'] . "<p>";
-            break;
-        }
-    }
+    // Tell the player that we successfully changed the language choice
+    $langvars['l_opt2_chlang'] = str_replace ("[lang]", "$lang", $langvars['l_opt2_chlang']);
+    echo $langvars['l_opt2_chlang'] . "<p>";
 }
 
 echo "<br>";
