@@ -518,6 +518,7 @@ l_cu_step_title                         = "Step [current] of [total]";
 l_cu_deleted                            = "Deleted";
 l_cu_autorun                            = "NEW!! Check this box to have create universe run automatically until/unless errors are encountered";
 l_cu_update_maxsector                   = "Saving max sector setting to the database";
+l_cu_choose_lang                        = "Choose the language to use during create universe";
 
 [defence_report]
 l_sdf_title                             = "Sector Defence Report";
@@ -1113,6 +1114,7 @@ l_news_c_text25                         = "The rising empire of [name] now has 2
 l_news_c_text100                        = "The aspiring empire of [name] now has 100 million colonists, after an explosion of birth rates, [name] colonies seemed to be a good place for families to settle!";
 l_news_c_text500                        = "The large empire of [name] now has 500 million colonists, [name] said in an interview that colonization of the galaxy has just yet begun";
 l_news_c_text1000                       = "The humongous empire of [name] now has one billion colonists, BNN reporters found out that [name] is in possesion of some weird cloning mechanism allowing him to breed new colonists in huge amounts. With this amount of colonists, the econmic strength of this empire is enormous, BNN hopes that [name] does not spend his money on warfare";
+l_news_broken                           = "News Ticker should be here unless you have broken it!";
 
 [option2]
 l_opt2_title                            = "Save Options";

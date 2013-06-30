@@ -48,6 +48,8 @@ $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FI
 $variables['destroy_schema_results'] = BntSchema::destroy ($db, $db_prefix); // Delete all tables in the database
 $variables['table_count']            = count ($variables['destroy_schema_results']) - 1;
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+$variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
+$lang = $newlang; // Set the language to the language chosen during create universe
 
 $destroy_array_size = count ($variables['destroy_schema_results']);
 for ($i = 0; $i < $destroy_array_size; $i++)

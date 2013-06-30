@@ -46,6 +46,8 @@ $variables['fedsecs']      = filter_input (INPUT_POST, 'fedsecs', FILTER_SANITIZ
 $variables['loops']        = filter_input (INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
 $variables['swordfish']    = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $variables['autorun']      = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+$variables['newlang']      = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
+$lang = $newlang; // Set the language to the language chosen during create universe
 
 // Database driven language entries
 $langvars = null;

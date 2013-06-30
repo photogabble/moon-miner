@@ -46,6 +46,32 @@ $variables['current_step'] = $bigbang_info['current_step'];
 $variables['next_step'] = $bigbang_info['next_step'];
 $variables['sector_max'] = $bntreg->get ("sector_max");
 
+// Get POST['newlang'] returns null if not found.
+if (array_key_exists ('newlang', $_POST) == true)
+{
+    $lang_dir = new DirectoryIterator ('languages/');
+    foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
+    {
+        // This is to get around the issue of not having DirectoryIterator::getExtension.
+        $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
+
+        // If it is a PHP file, add it to the list of accepted language files
+        if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+        {
+            $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+
+            // Trim and compare the new langauge with the supported.
+            if (trim ($_POST['newlang']) == $lang_file)
+            {
+                // We have a match so set lang to the required supported language
+                $lang = $lang_file;
+                $variables['newlang'] = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
+            }
+        }
+    }
+}
+
+
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
