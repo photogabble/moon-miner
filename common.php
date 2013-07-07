@@ -86,6 +86,7 @@ catch (exception $e)
 
 $db->prefix = $db_prefix;
 
+$no_langs_yet = false;
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
