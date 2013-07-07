@@ -51,7 +51,7 @@ $lang = $newlang; // Set the language to the language chosen during create unive
 
 // Database driven language entries
 $langvars = null;
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 $variables['update_ticks_results']['sched'] = $sched_ticks;
 $local_table_timer = new Timer;
 
@@ -167,10 +167,11 @@ $adm_ship = $db->qstr ($admin_ship_name);
 $adm_name = $db->qstr ($admin_name);
 $adm_ship_sql = "INSERT INTO {$db->prefix}ships " .
                 "(ship_name, ship_destroyed, character_name, password, " .
+                "recovery_time, " .
                 "email, turns, armor_pts, credits, sector, ship_energy, " .
                 "ship_fighters, last_login, " .
                 "ip_address, lang) VALUES " .
-                "($adm_ship, 'N', $adm_name, '$hashed_pass', " .
+                "($adm_ship, 'N', $adm_name, '$hashed_pass', NULL, " .
                 "'$admin_mail', $start_turns, $start_armor, $start_credits, 1, $start_energy, " .
                 "$start_fighters, '$stamp', " .
                 "'1.1.1.1', '$default_lang')";

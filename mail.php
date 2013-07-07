@@ -32,23 +32,30 @@ DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 if (!$result->EOF)
 {
     $playerinfo = $result->fields;
-    $langvars['l_mail_message'] = str_replace ("[pass]", $playerinfo['password'], $langvars['l_mail_message']);
+    $langvars['l_mail_message'] = str_replace ("[link]", sha1 ($playerinfo['password']), $langvars['l_mail_message']);
     $langvars['l_mail_message'] = str_replace ("[name]", $playerinfo['character_name'], $langvars['l_mail_message']);
     $langvars['l_mail_message'] = str_replace ("[ip]", $ip, $langvars['l_mail_message']);
     $langvars['l_mail_message'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_message']);
 
-    # Some reason \r\n is broken, so replace them now.
+    // Some reason \r\n is broken, so replace them now.
     $langvars['l_mail_message'] = str_replace ('\r\n', "\r\n", $langvars['l_mail_message']);
 
-    # Need to set the topic with the game name.
+    // Need to set the topic with the game name.
     $langvars['l_mail_topic'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_topic']);
 
-    $link_to_game = "http://";
-    $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
-    $link_to_game .= $gamepath;
+    $link_to_reset = "http://";
+    $link_to_reset .= ltrim ($gamedomain, ".");// Trim off the leading . if any
+    $link_to_reset .= $gamepath;
+    $link_to_reset .= "pwreset.php?code=" . substr (md5 ($playerinfo['password']), 5, 8);
 
-    mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'] . "\r\n\r\n{$link_to_game}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
-    echo "<div style='color:#fff; width:400px; text-align:left; padding:6px;'>" . $langvars['l_mail_sent'] . " <span style='color:#0f0;'>{$mail}</span></div>\n";
+    // Recovery time is a timestamp at the time of recovery attempt, which is valid for 30 minutes
+    // After 30 minutes, it will be cleared to null by scheduler. If it is used, it will also be cleared.
+
+    $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=? WHERE email = ?;", array (time(), $playerinfo['email']));
+    DbOp::dbResult ($db, $recovery_update_result, __LINE__, __FILE__);
+
+    mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'] . "\r\n\r\n{$link_to_reset}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
+    echo "<div style='color:#fff; text-align:left;'>" . $langvars['l_mail_sent'] . " <span style='color:#0f0;'>{$mail}</span></div>\n";
     echo "<br>\n";
     echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
 }

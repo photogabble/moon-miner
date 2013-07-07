@@ -78,6 +78,10 @@ if (isset ($playerinfo) && $playerfound != false)
 include './header.php';
 echo "<h1>" . $title . "</h1>\n";
 
+// Header clears the languages variable, re-fill them.
+// Database driven language entries
+$langvars = BntTranslate::load ($db, $lang, array ('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+
 if ($playerfound)
 {
     $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.

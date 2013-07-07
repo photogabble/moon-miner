@@ -18,6 +18,8 @@
     <field name="password" type="C" size="60">
       <NOTNULL/>
     </field>
+    <field name="recovery_time" type="I" size="20">
+    </field>
     <field name="email" type="C" size="60">
     </field>
     <field name="hull" type="I" size="3">

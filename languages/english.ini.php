@@ -919,7 +919,7 @@ l_login_looser                          = "You had no escape pod, and due to you
 l_login_looser2                         = "Better luck next game...";
 l_login_4gotpw1a                        = "The password you entered is incorrect.";
 l_login_4gotpw1b                        = "If you have forgotten your password,";
-l_login_4gotpw2a                        = "to have it e-mailed to you.";
+l_login_4gotpw2a                        = "to have instructions on how to reset it e-mailed to you.";
 l_login_4gotpw2b                        = "Otherwise,";
 l_login_4gotpw3                         = "to try again.  Attempt logged with IP address of";
 l_login_noone                           = "No Such Player! - Create a new player [here].";
@@ -951,9 +951,10 @@ l_lrs_moveto                            = "to move to sector";
 [mail]
 l_mail_title                            = "Mail Password";
 l_mail_noplayer                         = "No Such Player! - Create a new player [here].";
-l_mail_sent                             = "Password has been sent to";
+l_mail_sent                             = "A link to reset your password has been sent to your email address on file:";
 l_mail_topic                            = "[game_name] Password";
-l_mail_message                          = "Greetings,\r\n\r\nSomeone from the IP address [ip] requested that your password for [game_name] be sent to you.\r\n\r\nYour password is: [pass]\r\n\r\nThank you\r\n\r\nThe [game_name] web team.";
+l_mail_message                          = "Greetings,\r\n\r\nSomeone from the IP address [ip] requested that your password for [game_name] be reset.\r\n\r\nThe link to reset your password is: [link]\r\n\r\nThank you\r\n\r\nThe [game_name] web team.";
+l_mail_reset_message                    = "Greetings,\r\n\r\nSomeone from the IP address [ip] reset your password for [game_name].Thank you\r\n\r\nThe [game_name] web team.";
 
 [mailto]
 l_sendm_title                           = "Send Message";
@@ -1301,6 +1302,12 @@ l_pre_title                             = "Change Realspace Presets";
 l_pre_exceed                            = "Preset [preset] exceeds universe max of [sector_max]. No presets saved.";
 l_pre_set                               = "Preset 1 set to [preset1], preset 2 set to [preset2] and preset 3 set to [preset3].";
 l_pre_save                              = "Save";
+
+[pwreset]
+l_pwr_title                             = "Password Reset";
+l_pwr_timeout                           = "Sorry! The password reset period of 30 minutes has expired for this code. Please request a new password reset.";
+l_pwr_invalid                           = "Sorry! This code is not recognized as valid";
+l_pwr_success                           = "Password has been changed successfully";
 
 [ranking]
 l_ranks_title                           = "Top [max_ranks] Players";

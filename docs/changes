@@ -1,5 +1,6 @@
 TheKabal (7 July 2013)
 --------------------------------------
+Add password reset function that sends an email with a reset code, based on a hash of the existing password
 Fix missing lang string for l_news_broke in big bang and report
 
 TheKabal (30 June 2013)
