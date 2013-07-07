@@ -123,7 +123,7 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional', 'news'));
 $template->AddVariables('langvars', $langvars);
 $template->AddVariables('variables', $variables);
 $template->Display("report.tpl");

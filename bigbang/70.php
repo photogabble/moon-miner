@@ -51,7 +51,7 @@ $lang = $newlang; // Set the language to the language chosen during create unive
 
 // Database driven language entries
 $langvars = null;
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $p_skip = 0;
 $z = 0;
@@ -237,7 +237,7 @@ for ($i = 1; $i <= $loops; $i++)
     $variables['insert_random_twoway_result'][$i]['loops'] = $loops;
     $variables['insert_random_twoway_result'][$i]['start'] = $start;
     $variables['insert_random_twoway_result'][$i]['finish'] = $finish;
- 
+
     $start = $finish + 1;
     $finish += $loopsize;
     if ($finish > $sector_max) $finish = ($sector_max);

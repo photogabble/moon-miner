@@ -51,7 +51,7 @@ $lang = $newlang; // Set the language to the language chosen during create unive
 
 // Database driven language entries
 $langvars = null;
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe'));
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $local_table_timer = new Timer;
 $z = 0;
