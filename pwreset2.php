@@ -45,7 +45,7 @@ if (!$result->EOF && $result != false)
 {
     $playerinfo = $result->fields;
     $recovery_time = $result->fields['recovery_time'];
-    $expiration = $recovery_time + (30 * 60); // 30 minutes expiration for e-mailed password resets
+    $expiration = $recovery_time + (90 * 60); // 90 minutes expiration for e-mailed password resets
 
     // If time is within reset passowrd period (less than expiration), prompt user for new password
     if (time() > $expiration)
