@@ -85,7 +85,7 @@
     </field>
     <field name="sector" type="I" size="10">
       <NOTNULL/>
-      <DEFAULT value="0"/>
+      <DEFAULT value="1"/>
       <UNSIGNED/>
     </field>
     <field name="ship_ore" type="I" size="20">
