@@ -56,7 +56,7 @@ $variables['update_ticks_results']['sched'] = $sched_ticks;
 $local_table_timer = new Timer;
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_turns.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_turns.php', ?)", array (time ()));
 $variables['update_turns_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_turns_results']['sched'] = $sched_turns;
 $local_table_timer->stop ();
@@ -64,7 +64,7 @@ $variables['update_turns_results']['elapsed'] = $local_table_timer->elapsed ();
 
 // This is causing errors at the moment, disabling until we get clean solutions for it.
 //$local_table_timer->start (); // Start benchmarking
-//$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_xenobe.php', ?)", array (time ()));
+//$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_xenobe.php', ?)", array (time ()));
 //$variables['update_xenobe_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_xenobe_results']['result'] = "DISABLED!";
 $variables['update_xenobe_results']['sched'] = $sched_turns;
@@ -72,63 +72,63 @@ $variables['update_xenobe_results']['sched'] = $sched_turns;
 //$variables['update_xenobe_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_igb, 'sched_igb.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_igb, 'sched_igb.php', ?)", array (time ()));
 $variables['update_igb_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_igb_results']['sched'] = $sched_igb;
 $local_table_timer->stop ();
 $variables['update_igb_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_news, 'sched_news.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_news, 'sched_news.php', ?)", array (time ()));
 $variables['update_news_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_news_results']['sched'] = $sched_news;
 $local_table_timer->stop ();
 $variables['update_news_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_planets, 'sched_planets.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_planets, 'sched_planets.php', ?)", array (time ()));
 $variables['update_planets_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_planets_results']['sched'] = $sched_planets;
 $local_table_timer->stop ();
 $variables['update_planets_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ports, 'sched_ports.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_ports, 'sched_ports.php', ?)", array (time ()));
 $variables['update_ports_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_ports_results']['sched'] = $sched_ports;
 $local_table_timer->stop ();
 $variables['update_ports_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_turns, 'sched_tow.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_tow.php', ?)", array (time ()));
 $variables['update_tow_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_tow_results']['sched'] = $sched_turns; // Towing occurs at the same time as turns
 $local_table_timer->stop ();
 $variables['update_tow_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_ranking, 'sched_ranking.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_ranking, 'sched_ranking.php', ?)", array (time ()));
 $variables['update_ranking_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_ranking_results']['sched'] = $sched_ranking;
 $local_table_timer->stop ();
 $variables['update_ranking_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_degrade, 'sched_degrade.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_degrade, 'sched_degrade.php', ?)", array (time ()));
 $variables['update_degrade_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_degrade_results']['sched'] = $sched_degrade;
 $local_table_timer->stop ();
 $variables['update_degrade_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_apocalypse, 'sched_apocalypse.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_apocalypse, 'sched_apocalypse.php', ?)", array (time ()));
 $variables['update_apoc_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_apoc_results']['sched'] = $sched_apocalypse;
 $local_table_timer->stop ();
 $variables['update_apoc_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', $sched_thegovernor, 'sched_thegovernor.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_thegovernor, 'sched_thegovernor.php', ?)", array (time ()));
 $variables['update_gov_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $variables['update_gov_results']['sched'] = $sched_thegovernor;
 $local_table_timer->stop ();
@@ -144,7 +144,7 @@ $variables['first_news_results']['elapsed'] = $local_table_timer->elapsed ();
 
 if ($bnt_ls === true)
 {
-// $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('Y', 60, 'bnt_ls_client.php', ?)", array (time ()));
+// $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', 60, 'bnt_ls_client.php', ?)", array (time ()));
 // FIX table_row ($db, "The public list updater will occur every 60 minutes", $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
     $creating = 1;
 // include_once './bnt_ls_client.php';
