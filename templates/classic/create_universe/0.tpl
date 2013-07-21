@@ -15,7 +15,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    File: bigbang/0.tpl
+    File: create_universe/0.tpl
 *}
 
 {extends file="layout.tpl"}
@@ -27,7 +27,7 @@
 {/if}
 {/block}
 {block name=body}
-<form name='create_universe' action='bigbang.php' method='post'><div style="text-align:center">
+<form name='create_universe' action='create_universe.php' method='post'><div style="text-align:center">
 <table style="border-spacing:1px; width:700px; background-color:#000; border:0px; margin-left:auto; margin-right:auto">
     <tr>
       <th colspan="2" style="text-align:left; width:700px; background-color:#9999cc; color:#000; font-size:0.8em; font-weight:normal">{$langvars['l_cu_welcome']}</th>

@@ -37,7 +37,7 @@ class BntBigBang
         // Setup $filelist as an array.
         $filelist = array();
 
-        $bigbang_dir = new DirectoryIterator ('bigbang/');
+        $bigbang_dir = new DirectoryIterator ('create_universe/');
         foreach ($bigbang_dir as $file_info) // Get a list of the files in the bigbang directory
         {
             // This is to get around the issue of not having DirectoryIterator::getExtension.

@@ -14,7 +14,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
-// File: bigbang/10.php
+// File: create_universe/10.php
 
 $pos = strpos ($_SERVER['PHP_SELF'], "/10.php");
 if ($pos !== false)
@@ -24,7 +24,7 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$bigbang_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = BntBigBang::findStep (__FILE__);
 
 // Pull in the configset variables so we can get the correct sector max
 $ini_keys = parse_ini_file ("config/configset_classic.ini.php", true);
@@ -39,11 +39,11 @@ foreach ($ini_keys as $config_category => $config_line)
 
 // Set variables
 $variables['templateset'] = $bntreg->get ("default_template");
-$variables['body_class'] = 'bigbang';
+$variables['body_class'] = 'create_universe';
 $variables['swordfish']  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
-$variables['steps'] = $bigbang_info['steps'];
-$variables['current_step'] = $bigbang_info['current_step'];
-$variables['next_step'] = $bigbang_info['next_step'];
+$variables['steps'] = $create_universe_info['steps'];
+$variables['current_step'] = $create_universe_info['current_step'];
+$variables['next_step'] = $create_universe_info['next_step'];
 $variables['sector_max'] = $bntreg->get ("sector_max");
 
 // Get POST['newlang'] returns null if not found.
@@ -80,5 +80,5 @@ $template->AddVariables ('langvars', $langvars);
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
 $template->AddVariables ('variables', $variables);
-$template->display ("templates/classic/bigbang/10.tpl");
+$template->display ("templates/classic/create_universe/10.tpl");
 ?>

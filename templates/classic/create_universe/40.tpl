@@ -15,26 +15,26 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    File: bigbang/30.tpl
+    File: create_universe/40.tpl
 *}
 
 {extends file="layout.tpl"}
 {block name=title}{$langvars['l_cu_step_title']|replace:'[current]':$variables['current_step']|replace:'[total]':$variables['steps']} - {$langvars['l_cu_title']}{/block}
 {block name=body}
-<form name='create_universe' action='bigbang.php' method='post'><div align="center">
+<form name='create_universe' action='create_universe.php' method='post'><div align="center">
 <center>
 <table border="0" cellpadding="1" width="700" cellspacing="1" bgcolor="#000000">
     <tr>
-      <th width="700" colspan="2" bgcolor="#9999cc" align="left"><h1 style="color:#000; height: 0.8em; font-size: 0.8em;font-weight: normal;">{$langvars['l_cu_drop_tables']}</h1></th>
+      <th width="700" colspan="2" bgcolor="#9999cc" align="left"><h1 style="color:#000; height: 0.8em; font-size: 0.8em;font-weight: normal;">{$langvars['l_cu_create_tables']}</h1></th>
     </tr>
     {for $i=0 to $variables['table_count']}
-    {if $variables['destroy_schema_results'][$i]['result'] === true}
+    {if $variables['create_schema_results'][$i]['result'] === true}
     <tr title='{$langvars['l_cu_no_errors_found']}'>
     {else}
-    <tr title='{$variables['destroy_schema_results'][$i]['result']}'>
+    <tr title='{$variables['create_schema_results'][$i]['result']}'>
     {/if}
-      <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_dropping_tables']} {$variables['destroy_schema_results'][$i]['name']} - {$langvars['l_cu_completed_in']|replace:'[time]':$variables['destroy_schema_results'].$i.time} </font></td>
-      {if $variables['destroy_schema_results'][$i]['result'] === true}
+      <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_creating_tables']} {$variables['create_schema_results'][$i]['name']} - {$langvars['l_cu_completed_in']|replace:'[time]':$variables['create_schema_results'].$i.time} </font></td>
+      {if $variables['create_schema_results'][$i]['result'] === true}
           <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="blue">{$langvars['l_cu_passed']}</font></td>
       {else}
           <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_cu_failed']}</font></td>

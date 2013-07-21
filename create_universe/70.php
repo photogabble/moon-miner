@@ -14,7 +14,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
-// File: bigbang/70.php
+// File: create_universe/70.php
 
 $pos = strpos ($_SERVER['PHP_SELF'], "/70.php");
 if ($pos !== false)
@@ -24,14 +24,14 @@ if ($pos !== false)
 }
 
 // Determine current step, next step, and number of steps
-$bigbang_info = BntBigBang::findStep (__FILE__);
+$create_universe_info = BntBigBang::findStep (__FILE__);
 
 // Set variables
 $variables['templateset']            = $bntreg->get ("default_template");
-$variables['body_class']             = 'bigbang';
-$variables['steps']                  = $bigbang_info['steps'];
-$variables['current_step']           = $bigbang_info['current_step'];
-$variables['next_step']              = $bigbang_info['next_step'];
+$variables['body_class']             = 'create_universe';
+$variables['steps']                  = $create_universe_info['steps'];
+$variables['current_step']           = $create_universe_info['current_step'];
+$variables['next_step']              = $create_universe_info['next_step'];
 $variables['sector_max']             = (int) filter_input (INPUT_POST, 'sektors', FILTER_SANITIZE_NUMBER_INT); // Sanitize the input and typecast it to an int
 $variables['spp']                    = filter_input (INPUT_POST, 'spp', FILTER_SANITIZE_NUMBER_INT);
 $variables['oep']                    = filter_input (INPUT_POST, 'oep', FILTER_SANITIZE_NUMBER_INT);
@@ -265,5 +265,5 @@ $template->AddVariables ('langvars', $langvars);
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
 $template->AddVariables ('variables', $variables);
-$template->display ("templates/classic/bigbang/70.tpl");
+$template->display ("templates/classic/create_universe/70.tpl");
 ?>

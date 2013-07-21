@@ -1,5 +1,8 @@
 TheKabal (8 July 2013)
 --------------------------------------
+Replace create universe with Big Bang. (No more big bang, all CU once again).
+Fix scheduler repeat / run once to reflect the behavior of its new name
+Fix default ships placed in sector 0 (should be 1, Sol was moved there)
 Set password reset to 90 minutes, not 30.
 
 TheKabal (7 July 2013)
