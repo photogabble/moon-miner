@@ -49,15 +49,23 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
         // Select from the database and return the localized name of the language
         $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
         DbOp::dbResult ($db, $result, __LINE__, __FILE__);
-        while ($result && !$result->EOF)
+
+        if (($result instanceof ADORecordset) && !$result->EOF)
         {
             $row = $result->fields;
-            $variables['lang_list'][$i]['file'] = $lang_file;
             $variables['lang_list'][$i]['value'] = $row['value'];
-            $variables['lang_list'][$i]['selected'] = $bntreg->get("default_lang");
-            $i++;
-            $result->MoveNext();
         }
+        else
+        {
+            // Load language ini file to get regional local_lang_name value
+            $ini_file = './languages/' . $lang_file . '.ini.php';
+            $parsed_lang_file = parse_ini_file ($ini_file, true);
+            $variables['lang_list'][$i]['value'] = $parsed_lang_file['regional']['local_lang_name'];
+        }
+
+        $variables['lang_list'][$i]['file'] = $lang_file;
+        $variables['lang_list'][$i]['selected'] = $bntreg->get("default_lang");
+        $i++;
     }
 }
 $variables['lang_list']['size'] = $i -1;

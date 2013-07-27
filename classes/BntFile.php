@@ -49,8 +49,6 @@ class BntFile
                     $bntreg->set ($config_key, $config_value);
                 }
 
-                // We have to ensure that the language string (config_value) is utf8 encoded before sending to the database
-                $config_value = utf8_encode ($config_value);
                 $insert_sql .= "(" . $db->qstr($config_key) . ", ";
                 $insert_sql .= $db->qstr($config_category) . ", ";
                 $insert_sql .= $db->qstr($config_value) . ", ";
