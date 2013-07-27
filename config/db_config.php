@@ -41,9 +41,9 @@ $ADODB_SESSION_DB = 'bnt';
 // Type of the SQL database.
 // "mysqli" for MySQLi - needed for transaction support
 // "postgres9" for PostgreSQL ver 9 and up
-// NOTE: only mysqlt works as of this release.
-$ADODB_SESSION_DRIVER = 'postgres9';
-//$ADODB_SESSION_DRIVER = 'mysqli';
+// NOTE: only mysqli works as of this release.
+//$ADODB_SESSION_DRIVER = 'postgres9';
+$ADODB_SESSION_DRIVER = 'mysqli';
 
 // Table prefix for the database. If you want to run more than
 // one game of BNT on the same database, or if the current table
