@@ -177,6 +177,7 @@ return array(
     'BntRegistry' => $baseDir . '/classes/BntRegistry.php',
     'BntScan' => $baseDir . '/classes/BntScan.php',
     'BntSchema' => $baseDir . '/classes/BntSchema.php',
+    'BntScore' => $baseDir . '/classes/BntScore.php',
     'BntShip' => $baseDir . '/classes/BntShip.php',
     'BntSmarty' => $baseDir . '/classes/BntSmarty.php',
     'BntTeam' => $baseDir . '/classes/BntTeam.php',

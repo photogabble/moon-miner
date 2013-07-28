@@ -31,8 +31,7 @@ if (isset ($_SESSION['username']))
     $result = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     DbOp::dbResult ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
-    include_once './includes/calc_score.php';
-    $current_score = calc_score ($db, $playerinfo['ship_id']);
+    $current_score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
 
     $langvars = BntTranslate::load ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
     PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);

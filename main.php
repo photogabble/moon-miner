@@ -18,7 +18,6 @@
 // File: main.php
 
 include './global_includes.php';
-include './includes/calc_score.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
@@ -43,7 +42,7 @@ if (!isset ($_GET['command']))
 
 if ($_GET['command'] == "score")
 {
-    $playerinfo['score'] = calc_score ($db, $playerinfo['ship_id']);
+    $playerinfo['score'] = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
 }
 
 if ($playerinfo['cleared_defences'] > ' ')

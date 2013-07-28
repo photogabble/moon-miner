@@ -102,8 +102,7 @@ function ibank_transfer3 ($db, $langvars)
         if ($ibank_svalue != 0)
         {
             $percent = $ibank_svalue * 100;
-            include_once './includes/calc_score.php';
-            $score = calc_score ($db, $playerinfo['ship_id']);
+            $score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
             $maxtrans = $score * $score * $ibank_svalue;
 
             if ($amount > $maxtrans)

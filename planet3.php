@@ -165,8 +165,7 @@ if ($planetinfo['sells'] == 'Y')
     }
 }
 
-include './includes/calc_score.php';
-calc_score ($db, $planetinfo['owner']);
+BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
 BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 ?>

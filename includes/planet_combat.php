@@ -30,7 +30,6 @@ function planet_combat ($db, $langvars)
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
     global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture;
 
-    include_once './includes/calc_score.php';
     include_once './includes/ship_to_ship.php';
 
     if ($playerinfo['turns'] < 1 )
@@ -468,7 +467,7 @@ function planet_combat ($db, $langvars)
 
         if ($min_value_capture != 0)
         {
-            $playerscore = calc_score ($db, $playerinfo['ship_id']);
+            $playerscore = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
             $playerscore *= $playerscore;
 
             $planetscore = $planetinfo['organics'] * $organics_price + $planetinfo['ore'] * $ore_price + $planetinfo['goods'] * $goods_price + $planetinfo['energy'] * $energy_price + $planetinfo['fighters'] * $fighter_price + $planetinfo['torps'] * $torpedo_price + $planetinfo['colonists'] * $colonist_price + $planetinfo['credits'];
@@ -481,14 +480,14 @@ function planet_combat ($db, $langvars)
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
                 AdminLog::writeLog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
-                calc_score ($db, $ownerinfo['ship_id']);
+                BntScore::updateScore ($db, $ownerinfo['ship_id'], $bntreg);
             }
             else
             {
                 $langvars['l_cmb_youmaycapture'] = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>" . $langvars['l_planet_capture1'] . "</a>", $langvars['l_cmb_youmaycapture']);
                 echo "<center><font color=red>" . $langvars['l_cmb_youmaycapture'] . "</font></center><br><br>";
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                calc_score ($db, $ownerinfo['ship_id']);
+                BntScore::updateScore ($db, $ownerinfo['ship_id'], $bntreg);
                 $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0, fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
                 DbOp::dbResult ($db, $update7a, __LINE__, __FILE__);
             }
@@ -498,7 +497,7 @@ function planet_combat ($db, $langvars)
             $langvars['l_cmb_youmaycapture'] = str_replace ("[capture]", "<a href='planet.php?planet_id=". $planetinfo['planet_id'] ."&amp;command=capture'>" . $langvars['l_planet_capture1'] . "</a>", $langvars['l_cmb_youmaycapture']);
             echo "<center>" . $langvars['l_cmb_youmaycapture'] . "</center><br><br>";
             PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-            calc_score ($db, $ownerinfo['ship_id']);
+            BntScore::updateScore ($db, $ownerinfo['ship_id'], $bntreg);
             $update7a = $db->Execute ("UPDATE {$db->prefix}planets SET owner=0,fighters=0, torps=torps-?, base='N', defeated='Y' WHERE planet_id=?", array ($planettorps, $planetinfo['planet_id']));
             DbOp::dbResult ($db, $update7a, __LINE__, __FILE__);
         }
@@ -514,7 +513,7 @@ function planet_combat ($db, $langvars)
         $langvars['l_cmb_fighterloststat'] = str_replace ("[cmb_planetfighters]", $planetfighters, $langvars['l_cmb_fighterloststat']);
         $energy = $planetinfo['energy'];
         PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
-        calc_score ($db, $ownerinfo['ship_id']);
+        BntScore::updateScore ($db, $ownerinfo['ship_id'], $bntreg);
         $update7b = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?,fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($energy, $fighters_lost, $planettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
         DbOp::dbResult ($db, $update7b, __LINE__, __FILE__);
     }

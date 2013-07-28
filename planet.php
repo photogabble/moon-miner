@@ -867,8 +867,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
             if ($planetinfo['owner'] != 0)
             {
-                include_once './includes/calc_score.php';
-                calc_score ($db, $planetinfo['owner'] );
+                BntScore::updateScore ($db, $planetinfo['owner'], $bntreg);
             }
 
             if ($planetinfo['owner'] != 0)

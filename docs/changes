@@ -1,5 +1,6 @@
 TheKabal (28 July 2013)
 --------------------------------------
+includes/calc_score has been moved to classes/BntScore::updateScore
 includes/check_login has been moved to classes/BntLogin::checkLogin
 
 TheKabal (27 July 2013)

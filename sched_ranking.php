@@ -28,8 +28,7 @@ $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE ship_destroye
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 while (!$res->EOF)
 {
-    include_once './includes/calc_score.php';
-    calc_score ($db, $res->fields['ship_id']);
+    BntScore::updateScore ($db, $res->fields['ship_id'], $bntreg)
     $res->MoveNext();
 }
 echo "<br>";

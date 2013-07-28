@@ -43,8 +43,7 @@ function ibank_borrow ($db)
         ibank_error ($langvars['l_ibank_notwoloans'], "igb.php?command=loans");
     }
 
-    include_once './includes/calc_score.php';
-    $score = calc_score ($db, $playerinfo['ship_id']);
+    $score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
     $maxtrans = $score * $score * $ibank_loanlimit;
 
     if ($amount > $maxtrans)

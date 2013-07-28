@@ -76,8 +76,7 @@ function ibank_loans ($db)
     else
     {
         $percent = $ibank_loanlimit * 100;
-        include_once './includes/calc_score.php';
-        $score = calc_score ($db, $playerinfo['ship_id']);
+        $score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
         $maxloan = $score * $score * $ibank_loanlimit;
 
         $langvars['l_ibank_maxloanpercent'] = str_replace ("[ibank_percent]", $percent, $langvars['l_ibank_maxloanpercent']);

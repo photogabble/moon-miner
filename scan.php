@@ -35,9 +35,8 @@ $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", arr
 DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
-include './includes/calc_score.php';
-$playerscore = calc_score ($db, $playerinfo['ship_id']);
-$targetscore = calc_score ($db, $targetinfo['ship_id']);
+$playerscore = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
+$targetscore = BntScore::updateScore ($db, $targetinfo['ship_id'], $bntreg);
 
 $playerscore = $playerscore * $playerscore;
 $targetscore = $targetscore * $targetscore;

@@ -226,8 +226,7 @@ switch ($response) {
         {
             $percent = $bounty_maxvalue * 100;
 
-            include_once './includes/calc_score.php';
-            $score = calc_score ($db, $playerinfo['ship_id']);
+            $score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
             $maxtrans = $score * $score * $bounty_maxvalue;
             $previous_bounty = 0;
             $pb = $db->Execute ("SELECT SUM(amount) AS totalbounty FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = ?;", array ($bounty_on, $playerinfo['ship_id']));
