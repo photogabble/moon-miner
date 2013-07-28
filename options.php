@@ -18,10 +18,8 @@
 // File: options.php
 
 include './global_includes.php';
-if (check_login ($db, $lang, $langvars, $bntreg))
-{
-    die ();
-}
+
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 $body_class = 'options';
 

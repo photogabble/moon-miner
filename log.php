@@ -20,10 +20,7 @@
 include './global_includes.php';
 include './config/admin_pw.php';
 
-if (check_login ($db, $lang, $langvars, $bntreg, false))
-{
-    die ();
-}
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 // Hack for log bug issue - this really needs to be fixed
 $log_list = array (null,

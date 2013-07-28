@@ -19,10 +19,7 @@
 
 include './global_includes.php';
 
-if (check_login ($db, $lang, $langvars, $bntreg))
-{
-    die ();
-}
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 // Set a flag that we have not changed the language
 $changed_language = false;

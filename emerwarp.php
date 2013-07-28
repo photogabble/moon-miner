@@ -19,10 +19,7 @@
 
 include './global_includes.php';
 
-if (check_login ($db, $lang, $langvars, $bntreg))
-{
-    die ();
-}
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 // Always make sure we are using empty vars before use.
 $langvars = null;

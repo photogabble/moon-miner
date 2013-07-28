@@ -20,10 +20,7 @@
 
 include './global_includes.php';
 
-if (check_login ($db, $lang, $langvars, $bntreg))
-{
-    die ();
-}
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 $title = $langvars['l_att_title'];
 include './header.php';

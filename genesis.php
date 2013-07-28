@@ -24,10 +24,7 @@
 
 include './global_includes.php';
 
-if (check_login ($db, $lang, $langvars, $bntreg))
-{
-    die ();
-}
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('genesis'));

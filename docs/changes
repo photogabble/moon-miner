@@ -1,3 +1,7 @@
+TheKabal (28 July 2013)
+--------------------------------------
+includes/check_login has been moved to classes/BntLogin::checkLogin
+
 TheKabal (27 July 2013)
 --------------------------------------
 TheMightyDude discovered that the language files were not stored in utf-8, and as a result were not giving correct utf-8 results in CU and elsewhere. Fixed!

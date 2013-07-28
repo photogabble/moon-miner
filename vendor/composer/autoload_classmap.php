@@ -166,6 +166,7 @@ return array(
     'BntFile' => $baseDir . '/classes/BntFile.php',
     'BntIbank' => $baseDir . '/classes/BntIbank.php',
     'BntLinks' => $baseDir . '/classes/BntLinks.php',
+    'BntLogin' => $baseDir . '/classes/BntLogin.php',
     'BntMines' => $baseDir . '/classes/BntMines.php',
     'BntNews' => $baseDir . '/classes/BntNews.php',
     'BntOwnership' => $baseDir . '/classes/BntOwnership.php',
