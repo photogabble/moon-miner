@@ -181,6 +181,7 @@ $resxx = $db->Execute ($adm_ship_sql);
 $variables['admin_account_results']['result'] = DbOp::dbResult ($db, $resxx, __LINE__, __FILE__);
 $local_table_timer->stop ();
 $variables['admin_account_results']['elapsed'] = $local_table_timer->elapsed ();
+$variables['admin_mail'] = $admin_mail;
 $variables['admin_name'] = $admin_name;
 
 $local_table_timer->start (); // Start benchmarking
