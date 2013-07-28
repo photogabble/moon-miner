@@ -22,6 +22,8 @@ require_once './config/db_config.php';          // Database variables
 require_once './global_defines.php';            // Defines used in a few places
 require_once './includes/check_login.php';      // Needs to be refactored and split into several functions
 
+require_once './vendor/adodb/adodb-php/session/adodb-session2.php'; // The latest version of composer now chooses session instead of session2 which breaks everything
+
 require_once './vendor/autoload.php';           // Load the auto-loader
 require_once './common.php';                    // Loads the boot-strap messy code for each page
 ?>
