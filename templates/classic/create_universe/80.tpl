@@ -180,7 +180,7 @@
     </tr>
     {/if}
     <tr>
-      <td width="700" colspan="2" bgcolor="#C0C0C0" align="left"><font color="#000000" size="1">{$langvars['l_cu_admin_login']}<br>{$langvars['l_cu_admin_username']} admin@example.com<br>{$langvars['l_cu_admin_password']} secret</font></td>
+      <td width="700" colspan="2" bgcolor="#C0C0C0" align="left"><font color="#000000" size="1">{$langvars['l_cu_admin_login']}<br>{$langvars['l_cu_admin_username']} {$variables['admin_name']}<br>{$langvars['l_cu_admin_password']} {$variables['admin_pass']}</font></td>
     </tr>
     {if $variables['admin_account_results']['result'] === true}
     <tr title='{$langvars['l_cu_no_errors_found']}'>

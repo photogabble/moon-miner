@@ -162,6 +162,7 @@ $stamp = date ("Y-m-d H:i:s");
 // Hash the password.  $hashed_pass will be a 60-character string.
 $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
 $hashed_pass = $hasher->HashPassword (ADMIN_PW);
+$variables['admin_pass'] = ADMIN_PW;
 
 $adm_ship = $db->qstr ($admin_ship_name);
 $adm_name = $db->qstr ($admin_name);
