@@ -18,7 +18,7 @@
 // File: header.php
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common'));
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'mailto'));
 
 header ("Content-type: text/html; charset=utf-8");
 header ("X-UA-Compatible: IE=Edge, chrome=1");
@@ -43,7 +43,7 @@ if (!isset ($body_class))
 <link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css.php'>
 <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Ubuntu'>
 <title><?php global $title; echo $title; ?></title>
-<script src="templates/classic/javascript/ckeditor/ckeditor.js"></script>
+<?php if ($title == $langvars['l_sendm_title']) { echo '<script src="templates/classic/javascript/ckeditor/ckeditor.js"></script>'; } ?>
 <script src="templates/classic/javascript/framebuster.js.php"></script>
 </head>
 <body class="<?php echo $body_class; ?>">

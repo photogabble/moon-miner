@@ -1,3 +1,7 @@
+TheKabal (10 August 2013)
+--------------------------------------
+Make the call for ckeditor conditional, so it is only loaded for mailto for now
+
 TheKabal (28 July 2013)
 --------------------------------------
 includes/calc_score has been moved to classes/BntScore::updateScore

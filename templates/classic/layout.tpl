@@ -30,7 +30,8 @@
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/{$variables['body_class']}.css.php">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
     <title>{block name=title}Default Page Title{/block}</title>
-    <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>
+<!-- This is currently only being used on mailto.php. When it is migrated to be template driven, we will need to set a variable on that page and if it is true, then do this include.
+   <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>-->
     <script src="{$template_dir}/javascript/framebuster.js.php"></script>
   </head>
 <!-- END OF HEADER -->
