@@ -412,6 +412,14 @@ function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $mo
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
 
+
+    // Check circuit compatibility (we only use types 1 and 2 so block anything else)
+    if ($circuit != "1" && $circuit != "2")
+    {
+        AdminLog::writeLog ($db, LOG_RAW, "{$playerinfo['ship_id']}|Tried to use an invalid circuit_type of '{$circuit}', This is normally a result from using an external page and should be banned.");
+        traderoute_die ("Invalid Circuit type!<br>*** Possible Exploit has been reported to the admin. ***");
+    }
+
     // Check warp links compatibility
     if ($move == 'warp')
     {

@@ -1,3 +1,7 @@
+TheMightyDude (28 August 2013)
+--------------------------------------
+Fixed "Five Finger Discount" Traderoute bug that allows free trade.
+
 TheKabal (10 August 2013)
 --------------------------------------
 Make the call for ckeditor conditional, so it is only loaded for mailto for now
