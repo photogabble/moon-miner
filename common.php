@@ -80,7 +80,7 @@ try
 catch (exception $e)
 {
     // We need to display the error message onto the screen.
-    $err_msg = "Unable to connect to the Database.<br>\n Database Error: ". $db->ErrorNo () .": ". $db->ErrorMsg () ."<br>\n";
+    $err_msg = "Unable to connect to the " . $ADODB_SESSION_DRIVER . " Database.<br>\n Database Error: ". $db->ErrorNo () .": ". $db->ErrorMsg () ."<br>\n";
     die ($err_msg);
 }
 
@@ -210,11 +210,6 @@ if ($db->inactive != true) // Before DB is installed, don't try to setup userinf
             $lang = $playerinfo['lang'];
         }
     }
-}
-
-if (empty ($link_forums))
-{
-    $link_forums = "http://forums.blacknova.net";
 }
 
 // Initialize the Plugin System.

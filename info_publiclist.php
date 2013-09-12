@@ -148,7 +148,7 @@ $info['MAX_TEAM_MEMBERS'] = $max_team_members;
 $info['SERVERTIMEZONE'] = $servertimezone;
 
 $info['ADMIN_MAIL'] = $admin_mail;
-$info['LINK_FORUMS'] = $link_forums;
+$info['LINK_FORUMS'] = $bntreg->get("link_forums");
 
 foreach ($info as $key => $value)
 {

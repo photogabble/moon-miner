@@ -80,7 +80,7 @@ else
 }
 
 $variables['request_uri'] = print_r($_SERVER['REQUEST_URI'], true);
-$variables['linkforums']['link'] = $link_forums;
+$variables['linkforums']['link'] = $bntreg->get("link_forums");
 $variables['linkback']['link'] = 'index.php';
 
 // Now set a container for the variables and langvars and send them off to the template system
