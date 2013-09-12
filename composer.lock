@@ -47,12 +47,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "19eee1489965d9bc6eded80f847ced2382127261"
+                "reference": "fac747bdbdba6aeaba4bed91ef49b2378c1798e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/19eee1489965d9bc6eded80f847ced2382127261",
-                "reference": "19eee1489965d9bc6eded80f847ced2382127261",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/fac747bdbdba6aeaba4bed91ef49b2378c1798e4",
+                "reference": "fac747bdbdba6aeaba4bed91ef49b2378c1798e4",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2013-07-27 04:54:53"
+            "time": "2013-08-18 02:27:26"
         },
         {
             "name": "smarty/smarty",

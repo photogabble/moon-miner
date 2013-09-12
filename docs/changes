@@ -1,3 +1,8 @@
+TheKabal (11 August 2013)
+--------------------------------------
+Split the database initialization out into a class (BntDb)
+Update composer
+
 TheKabal (10 August 2013)
 --------------------------------------
 Migrate the $link_forums variable to use the $bntreg.

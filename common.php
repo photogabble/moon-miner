@@ -42,49 +42,10 @@ if (extension_loaded ('mbstring'))                // Ensure that we don't trigge
 $bntreg = new BntRegistry ();
 $BenchmarkTimer = new Timer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
-$ADODB_SESS_CONN = null;
-$ADODB_SESSION_TBL = $db_prefix . "sessions";
 ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
-// The data field name "data" violates SQL reserved words - switch it to SESSDATA
-ADODB_Session::dataFieldName ('SESSDATA');
-
-// Add MD5 encryption for sessions, and then compress it before storing it in the database
-//ADODB_Session::filter (new ADODB_Encrypt_Mcrypt ());
-//ADODB_Session::filter (new ADODB_Compress_Gzip ());
-
-// If there is a $dbport variable set, use it in the connection method
-if (!empty ($dbport))
-{
-    $ADODB_SESSION_CONNECT.= ":$dbport";
-}
-
-// Attempt to connect to the database
-try
-{
-    $db = NewADOConnection($ADODB_SESSION_DRIVER);
-    $db_init_result = @$db->Connect ("$ADODB_SESSION_CONNECT", "$ADODB_SESSION_USER", "$ADODB_SESSION_PWD", "$ADODB_SESSION_DB");
-    if ($db_init_result === false)
-    {
-        throw new Exception;
-    }
-    else
-    {
-        // We have connected successfully. Now set our character set to utf-8
-        $db->Execute ("SET NAMES 'utf8'");
-
-        // Set the fetch mode for database calls to be associative by default
-        $db->SetFetchMode (ADODB_FETCH_ASSOC);
-    }
-}
-catch (exception $e)
-{
-    // We need to display the error message onto the screen.
-    $err_msg = "Unable to connect to the " . $ADODB_SESSION_DRIVER . " Database.<br>\n Database Error: ". $db->ErrorNo () .": ". $db->ErrorMsg () ."<br>\n";
-    die ($err_msg);
-}
-
-$db->prefix = $db_prefix;
+$db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
+$ADODB_SESSION_TBL = $db_prefix . "sessions"; // Not sure why this has to be here instead of in the init class, but it does
 
 $no_langs_yet = false;
 // Get the config_values from the DB
