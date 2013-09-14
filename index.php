@@ -56,6 +56,47 @@ $variables['link_forums'] = $bntreg->get("link_forums");
 $variables['admin_mail'] = $admin_mail;
 $variables['body_class'] = 'index';
 
+// Build list of languages from the languages directory
+$lang_dir = new DirectoryIterator ('languages/');
+$i = 0;
+
+// Grab a drop-in supported list of the languages, their localized name, and their flag
+foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
+{
+    // This is to get around the issue of not having DirectoryIterator::getExtension.
+    $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
+
+    // If it is a PHP file, add it to the list of accepted language files
+    if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+    {
+        $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+
+        // Select from the database and return the localized name of the language
+        $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
+        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+        while ($result && !$result->EOF)
+        {
+            $row = $result->fields;
+
+            $variables['list_of_langs'][$i]['lang_file'] = $lang_file;
+            $variables['list_of_langs'][$i]['lang_name'] = $row['value'];
+
+            // Now grab the flag name from the language table
+            $result_flag = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_flag';", array ($lang_file));
+            DbOp::dbResult ($db, $result_flag, __LINE__, __FILE__);
+            while ($result_flag && !$result_flag->EOF)
+            {
+                $row_flag = $result_flag->fields;
+                $variables['list_of_langs'][$i]['flag'] = $row_flag['value'];
+                $result_flag->MoveNext();
+            }
+
+            $i++;
+            $result->MoveNext();
+        }
+    }
+}
+
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
 $langvars['container'] = "langvars";

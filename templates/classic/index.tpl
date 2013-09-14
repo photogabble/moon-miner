@@ -22,15 +22,17 @@
 {block name=title}{$langvars['l_welcome_bnt']}{/block}
 
 {block name=body}
-<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="Blacknova Traders"></div>
+<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="{$langvars['l_bnt']}"></div>
+
 <div class="index-flags">
-<a href="index.php?lang=french"><img width="24" height="16" src="images/flags/France.png" alt="French"></a>
-<a href="index.php?lang=german"><img width="24" height="16" src="images/flags/Germany.png" alt="German"></a>
-<a href="index.php?lang=spanish"><img width="24" height="16" src="images/flags/Mexico.png" alt="Spanish"></a>
-<a href="index.php?lang=english"><img width="24" height="16" src="images/flags/United_States_of_America.png" alt="American English"></a></div>
-<div class="index-header-text">Blacknova Traders</div>
+{foreach $variables['list_of_langs'] as $language}
+<a href="index.php?lang={$language['lang_file']}"><img width="24" height="16" src="images/flags/{$language['flag']}.png" alt="{$language['lang_name']}"></a>
+{/foreach}
+</div>
+
+<div class="index-header-text">{$langvars['l_bnt']}</div>
 <br>
-<h2 style="display:none">Navigation</h2>
+<h2 style="display:none">{$langvars['l_navigation']}</h2>
 <div class="navigation" role="navigation">
 <ul class="navigation">
 <li class="navigation"><a href="new.php{$variables['link']}"><span class="button blue"><span class="shine"></span>{$langvars['l_new_player']}</span></a></li>

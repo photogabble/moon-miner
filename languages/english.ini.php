@@ -12,7 +12,8 @@ local_logdate_med_format                = "F d Y";
 local_logdate_short_format              = "M d";
 local_number_dec_point                  = ".";
 local_number_thousands_sep              = ",";
-local_lang_name                         = "English";
+local_lang_name                         = "American English";
+local_lang_flag                         = "USA";
 
 [admin]
 l_admin_active_bans                     = "Active IP bans";
@@ -757,6 +758,8 @@ l_ibank_conspl                            = "Consolidate Credits to a single pla
 l_ibank_notenturns                        = "You do not have enough turns to perform this operation";
 
 [index]
+l_bnt                                   = "Blacknova Traders";
+l_navigation                            = "Navigation";
 l_welcome_bnt                           = "Welcome to Blacknova Traders (BNT)!";
 l_bnt_description                       = "BNT is a web-based massively multiplayer space combat and trading game inspired by the popular BBS games of TradeWars and Ultimate Universe.";
 l_cookie_warning                        = "Blacknova Traders requires cookies for logins to work. By signing up or logging in you agree to let us set cookies.";

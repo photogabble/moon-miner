@@ -1,5 +1,8 @@
 TheKabal (14 September 2013)
 --------------------------------------
+Move hardcoded text out of index into language files
+Make index load language flags & links based on drop-in supported language directory
+Localize flag for languages into language file & table
 Switch new.php to use template, fix minor bug in new2 preventing new user signups
 
 TheKabal (11 August 2013)

@@ -13,6 +13,7 @@ local_logdate_short_format              = "M d";
 local_number_dec_point                  = ".";
 local_number_thousands_sep              = ",";
 local_lang_name                         = "Deutsch";
+local_lang_flag                         = "Germany";
 
 [admin]
 l_admin_active_bans                     = "Active IP Banns";
