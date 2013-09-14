@@ -31,9 +31,30 @@ else
     $link = "?lang=" . $lang;
 }
 
-$title = $langvars['l_new_title'];
-include './header.php';
+// Database driven language entries
+$langvars = null;
+$langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index'));
 
+$variables = null;
+$variables['lang'] = $lang;
+$variables['link'] = $link;
+$variables['link_forums'] = $bntreg->get("link_forums");
+$variables['admin_mail'] = $admin_mail;
+$variables['body_class'] = 'new';
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvars";
+
+// Pull in footer variables from footer_t.php
+include './footer_t.php';
+$template->AddVariables ('langvars', $langvars);
+$template->AddVariables ('variables', $variables);
+$template->Display ("new.tpl");
+
+
+/*
+include './header.php';
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
@@ -53,4 +74,5 @@ echo "        " . $langvars['l_new_info'] . "<br></div>\n";
 echo "</form>";
 
 include './footer.php';
+*/
 ?>

@@ -1,3 +1,7 @@
+TheKabal (14 September 2013)
+--------------------------------------
+Switch new.php to use template, fix minor bug in new2 preventing new user signups
+
 TheKabal (11 August 2013)
 --------------------------------------
 Split the database initialization out into a class (BntDb)

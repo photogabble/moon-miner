@@ -114,6 +114,7 @@ class BntSmarty
         }
         catch (exception $e)
         {
+            // $output = $this->smarty->fetch ($template_file);
             $output = "The smarty template system is not working. Please check the permissions on your _cache and _compile directories and make sure they are set to 777 (rwxrwxrwx).";
         }
 
