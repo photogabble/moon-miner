@@ -570,6 +570,9 @@ l_error_type                            = "Of type:";
 l_error_direct                          = "Direct access of include file.";
 l_error_server                          = "Server error!";
 
+[faq]
+l_faq_title                             = "Blacknova Traders FAQ";
+
 [feedback]
 l_feedback_title                        = "Send Feedback";
 l_feedback_to                           = "TO:";

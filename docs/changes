@@ -1,5 +1,6 @@
 TheKabal (14 September 2013)
 --------------------------------------
+Switch faq.php to use template, move hardcoded title out to language file
 Move hardcoded text out of index into language files
 Make index load language flags & links based on drop-in supported language directory
 Localize flag for languages into language file & table
