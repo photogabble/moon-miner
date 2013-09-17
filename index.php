@@ -56,46 +56,50 @@ $variables['link_forums'] = $bntreg->get("link_forums");
 $variables['admin_mail'] = $admin_mail;
 $variables['body_class'] = 'index';
 
-// Build list of languages from the languages directory
-$lang_dir = new DirectoryIterator ('languages/');
-$i = 0;
 
-// Grab a drop-in supported list of the languages, their localized name, and their flag
-foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
+
+
+// Now Get a list of supported languages etc.
+$lang_rs = $db->GetAll ("SELECT section, name, value FROM {$db->prefix}languages WHERE category = 'regional' AND (name = 'local_lang_name' OR name = 'local_lang_flag') ORDER BY section, name;");
+$list_of_langs = array();
+
+if (is_array ($lang_rs) === true && count ($lang_rs) >= 2)
 {
-    // This is to get around the issue of not having DirectoryIterator::getExtension.
-    $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
-
-    // If it is a PHP file, add it to the list of accepted language files
-    if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+    foreach ($lang_rs as $id=>$langinfo)
     {
-        $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
-
-        // Select from the database and return the localized name of the language
-        $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
-        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
-        while ($result && !$result->EOF)
+        if (array_key_exists($langinfo['section'], $list_of_langs) === false)
         {
-            $row = $result->fields;
+            $list_of_langs[$langinfo['section']] = array();
+        }
 
-            $variables['list_of_langs'][$i]['lang_file'] = $lang_file;
-            $variables['list_of_langs'][$i]['lang_name'] = $row['value'];
-
-            // Now grab the flag name from the language table
-            $result_flag = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_flag';", array ($lang_file));
-            DbOp::dbResult ($db, $result_flag, __LINE__, __FILE__);
-            while ($result_flag && !$result_flag->EOF)
+        switch ($langinfo['name'])
+        {
+            case 'local_lang_flag':
             {
-                $row_flag = $result_flag->fields;
-                $variables['list_of_langs'][$i]['flag'] = $row_flag['value'];
-                $result_flag->MoveNext();
+                $list_of_langs[$langinfo['section']] = array_merge ($list_of_langs[$langinfo['section']], array('flag'=>$langinfo['value']));
+                break;
             }
 
-            $i++;
-            $result->MoveNext();
+            case 'local_lang_name':
+            {
+                $list_of_langs[$langinfo['section']] = array_merge ($list_of_langs[$langinfo['section']], array('lang_name'=>$langinfo['value']));
+                break;
+            }
         }
     }
+
+    // Extract our default language, and remove it from the list of supported languages.
+    $our_lang = $list_of_langs[$language];
+    unset ($list_of_langs[$language]);
+
+    // Add our default language back in, this should be put at the end of the list.
+    $list_of_langs[$language] = $our_lang;
+    unset ($our_lang);
 }
+
+// Add the games supported languages and unset no longer required variables.
+$variables['list_of_langs'] = $list_of_langs;
+unset ($list_of_langs, $lang_rs);
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";

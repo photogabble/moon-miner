@@ -25,8 +25,8 @@
 <div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="{$langvars['l_bnt']}"></div>
 
 <div class="index-flags">
-{foreach $variables['list_of_langs'] as $language}
-<a href="index.php?lang={$language['lang_file']}"><img width="24" height="16" src="images/flags/{$language['flag']}.png" alt="{$language['lang_name']}"></a>
+{foreach from=$variables['list_of_langs'] key=lang_file item=language}
+<a href="index2.php?lang={$lang_file}"><img width="24" height="16" src="images/flags/{$language['flag']}.png" alt="{$language['lang_name']}"></a>
 {/foreach}
 </div>
 

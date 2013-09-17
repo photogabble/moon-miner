@@ -1,3 +1,7 @@
+TheMightyDude (17 September 2013)
+--------------------------------------
+Optimized flag and supported languages code in index.php and index.tpl files.
+
 TheKabal (14 September 2013)
 --------------------------------------
 Switch faq.php to use template, move hardcoded title out to language file
