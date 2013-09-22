@@ -1,5 +1,7 @@
 TheKabal (22 September 2013)
 --------------------------------------
+Move TestXml to BntTestXml
+Move Template to BntTemplate
 Move TemplateSystem to BntXmlTemplateSystem
 Move PluginSystem to BntPluginSystem
 Move CalcLevels to BntCalcLevels

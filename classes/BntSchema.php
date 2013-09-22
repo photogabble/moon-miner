@@ -87,7 +87,7 @@ class BntSchema
             if ($schema_filename->isFile () && $file_ext == 'xml')
             {
                 $tablename = substr ($schema_filename, 0, -4);
-                $message = TestXml::parse ("schema/" . $schema_filename); // Test the xml file for validity before processing
+                $message = BntTestXml::parse ("schema/" . $schema_filename); // Test the xml file for validity before processing
 
                 if ($message !== true)
                 {
