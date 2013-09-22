@@ -15,29 +15,34 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/SectorDefense.php
+// File: classes/BntTimer.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'SectorDefense.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntTimer.php')) // Prevent direct access to this file
 {
-    $error_file = $_SERVER['SCRIPT_NAME'];
-    include_once './error.php';
+    die ('Please do not access this file directly');
 }
 
-class SectorDefense
+class BntTimer
 {
-    static function message_defense_owner ($db, $sector, $message)
-    {
-        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
-        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+    public $t_start = 0;
+    public $t_stop = 0;
+    public $t_elapsed = 0;
 
-        if ($result3 instanceof ADORecordSet)
-        {
-            while (!$result3->EOF)
-            {
-                player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
-                $result3->MoveNext();
-            }
-        }
+    public function start ()
+    {
+        $this->t_start = microtime (true);
+    }
+
+    public function stop ()
+    {
+        $this->t_stop  = microtime (true);
+    }
+
+    public function elapsed ()
+    {
+
+        $this->t_elapsed = $this->t_stop - $this->t_start;
+        return round ($this->t_elapsed, 2); // Round it down to two significant digits
     }
 }
 ?>

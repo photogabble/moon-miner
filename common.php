@@ -40,7 +40,7 @@ if (extension_loaded ('mbstring'))                // Ensure that we don't trigge
 }
 
 $bntreg = new BntRegistry ();
-$BenchmarkTimer = new Timer;
+$BenchmarkTimer = new BntTimer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 

@@ -144,7 +144,7 @@ switch ($response)
          $langvars['l_md_msgdownerb'] = str_replace ("[sector]", $sector, $langvars['l_md_msgdownerb']);
          $langvars['l_md_msgdownerb'] = str_replace ("[mines]", $playerbeams, $langvars['l_md_msgdownerb']);
          $langvars['l_md_msgdownerb'] = str_replace ("[name]", $char_name, $langvars['l_md_msgdownerb']);
-         SectorDefense::message_defense_owner ($db, $sector, $langvars['l_md_msgdownerb']);
+         BntSectorDefense::message_defense_owner ($db, $sector, $langvars['l_md_msgdownerb']);
          BntText::gotoMain ($db, $lang, $langvars);
          die ();
       }

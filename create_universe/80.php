@@ -53,7 +53,7 @@ $lang = $newlang; // Set the language to the language chosen during create unive
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 $variables['update_ticks_results']['sched'] = $sched_ticks;
-$local_table_timer = new Timer;
+$local_table_timer = new BntTimer;
 
 $local_table_timer->start (); // Start benchmarking
 $resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_turns.php', ?)", array (time ()));

@@ -1,3 +1,8 @@
+TheKabal (22 September 2013)
+--------------------------------------
+Move Timer to BntTimer (classes should be prefixed with Bnt where possible)
+Move SectorDefense to BntSectorDefense (classes should be prefixed with Bnt where possible)
+
 TheKabal (21 September 2013)
 --------------------------------------
 Change the install documentation to specifically call out that people need to ask their hosting provider for the location of the program to call from cron.

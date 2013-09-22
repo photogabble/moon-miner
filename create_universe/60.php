@@ -62,7 +62,7 @@ $initbore = $ore_limit * $variables['initbcommod'] / 100.0;
 $initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
 $initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
 $initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
-$local_table_timer = new Timer;
+$local_table_timer = new BntTimer;
 $local_table_timer->start (); // Start benchmarking
 $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
 $variables['create_sol_results']['result'] = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);

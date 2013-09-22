@@ -36,7 +36,7 @@ class BntSchema
 
         foreach ($schema_files as $schema_filename)
         {
-            $table_timer = new Timer;
+            $table_timer = new BntTimer;
             $table_timer->start (); // Start benchmarking
 
             // This is to get around the issue of not having DirectoryIterator::getExtension.
@@ -78,7 +78,7 @@ class BntSchema
         foreach ($schema_files as $schema_filename)
         {
             $schema->clearSQL ();
-            $table_timer = new Timer;
+            $table_timer = new BntTimer;
             $table_timer->start (); // Start benchmarking
 
             // This is to get around the issue of not having DirectoryIterator::getExtension.

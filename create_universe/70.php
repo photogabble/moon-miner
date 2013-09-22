@@ -56,7 +56,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer
 $p_skip = 0;
 $z = 0;
 
-$local_table_timer = new Timer;
+$local_table_timer = new BntTimer;
 $local_table_timer->start (); // Start benchmarking
 
 // Get the sector id for any sector that allows planets
