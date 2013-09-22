@@ -191,7 +191,7 @@ $admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
 $gamepath = BntSetPaths::setGamepath ();
 $gamedomain = BntSetPaths::setGamedomain ();
-$template = new Template (); // Template API.
+$template = new BntTemplate (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
 $bntreg->set ("langvars", $langvars);
