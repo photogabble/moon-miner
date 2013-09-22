@@ -160,7 +160,7 @@ return array(
     'BntAdminLog' => $baseDir . '/classes/BntAdminLog.php',
     'BntBigBang' => $baseDir . '/classes/BntBigBang.php',
     'BntBounty' => $baseDir . '/classes/BntBounty.php',
-    'BntCalcLevels' => $baseDir . '/classes/CalcLevels.php',
+    'BntCalcLevels' => $baseDir . '/classes/BntCalcLevels.php',
     'BntCheckBan' => $baseDir . '/classes/BntCheckBan.php',
     'BntCompress' => $baseDir . '/classes/BntCompress.php',
     'BntDb' => $baseDir . '/classes/BntDb.php',
