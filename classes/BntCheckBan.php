@@ -15,9 +15,9 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/CheckBan.php
+// File: classes/BntCheckBan.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'CheckBan.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntCheckBan.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'CheckBan.php')) // Prevent direct access to t
 // Returns a Boolean False when no account info or no ban found.
 // Returns an array which contains the ban information when it has found something.
 // Calling code needs to act on the returned information (boolean false or array of ban info).
-class CheckBan
+class BntCheckBan
 {
     static function isBanned ($db, $lang, $langvars, $player_acc = false)
     {
