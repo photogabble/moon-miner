@@ -209,7 +209,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     }
     else
     {
-        $amount_ore = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_colonists'];
+        $amount_ore = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_colonists'];
     }
 
     if ($sb_organics == $langvars['l_buying'])
@@ -218,7 +218,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     }
     else
     {
-        $amount_organics = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_organics'] - $playerinfo['ship_colonists'];
+        $amount_organics = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_organics'] - $playerinfo['ship_colonists'];
     }
 
     if ($sb_goods == $langvars['l_buying'])
@@ -227,7 +227,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     }
     else
     {
-        $amount_goods = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $amount_goods = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
     }
 
     if ($sb_energy == $langvars['l_buying'])
@@ -236,7 +236,7 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     }
     else
     {
-        $amount_energy = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+        $amount_energy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     }
 
     // Limit amounts to port quantities
@@ -277,8 +277,8 @@ if ($sectorinfo['port_type'] != "none" && $sectorinfo['port_type'] != "special")
     echo "<input type=submit value=" . $langvars['l_trade'] . ">";
     echo "</form>";
 
-    $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
     $langvars['l_trade_st_info'] = str_replace ("[free_holds]", number_format ($free_holds, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_trade_st_info']);
     $langvars['l_trade_st_info'] = str_replace ("[free_power]", number_format ($free_power, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_trade_st_info']);
@@ -434,13 +434,13 @@ elseif ($sectorinfo['port_type'] == "special")
     $beacon_free = $max_beacons - $playerinfo['dev_beacon'];
     $emerwarp_free = $max_emerwarp - $playerinfo['dev_emerwarp'];
     $warpedit_free = $max_warpedit - $playerinfo['dev_warpedit'];
-    $fighter_max = CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
+    $fighter_max = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor);
     $fighter_free = $fighter_max - $playerinfo['ship_fighters'];
-    $torpedo_max = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
+    $torpedo_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
     $torpedo_free = $torpedo_max - $playerinfo['torps'];
-    $armor_max = CalcLevels::Armor ($playerinfo['armor'], $level_factor);
+    $armor_max = BntCalcLevels::Armor ($playerinfo['armor'], $level_factor);
     $armor_free = $armor_max - $playerinfo['armor_pts'];
-    $colonist_max = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'];
+    $colonist_max = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'];
 
     if ($colonist_max < 0 )
     {

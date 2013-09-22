@@ -575,10 +575,10 @@ else
                         $xenlevel = 0;
                     }
 
-                    $maxenergy = CalcLevels::Energy ($xenlevel, $level_factor);
-                    $maxarmor = CalcLevels::Armor ($xenlevel, $level_factor);
-                    $maxfighters = CalcLevels::Fighters ($xenlevel, $level_factor);
-                    $maxtorps = CalcLevels::Torpedoes ($xenlevel, $level_factor);
+                    $maxenergy = BntCalcLevels::Energy ($xenlevel, $level_factor);
+                    $maxarmor = BntCalcLevels::Armor ($xenlevel, $level_factor);
+                    $maxfighters = BntCalcLevels::Fighters ($xenlevel, $level_factor);
+                    $maxtorps = BntCalcLevels::Torpedoes ($xenlevel, $level_factor);
                     $stamp = date ("Y-m-d H:i:s");
 
                     // Add Xenobe record to ships table ... modify if the ships schema changes

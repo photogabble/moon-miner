@@ -134,7 +134,7 @@ elseif (($destination < $sector_max && empty ($engage)) || ($destination < $sect
         $energyscooped = 100;
     }
 
-    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     if ($free_power < $energyscooped)
     {
         $energyscooped = $free_power;
@@ -177,7 +177,7 @@ elseif ($destination < $sector_max && $engage > 0)
         $energyscooped = 100;
     }
 
-    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
     if ($free_power < $energyscooped)
     {
         $energyscooped = $free_power;

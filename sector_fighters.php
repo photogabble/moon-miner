@@ -28,7 +28,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('sector_fighters', 'common', 
 
 echo $langvars['l_sf_attacking'] . "<br>";
 $targetfighters = $total_sector_fighters;
-$playerbeams = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+$playerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
 if ($calledfrom == 'rsmove.php')
 {
     $playerinfo['ship_energy'] += $energyscooped;
@@ -40,7 +40,7 @@ if ($playerbeams > $playerinfo['ship_energy'])
 }
 
 $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
-$playershields = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+$playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
 
 if ($playershields > $playerinfo['ship_energy'])
 {

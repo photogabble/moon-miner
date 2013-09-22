@@ -82,14 +82,14 @@ function xenobe_to_ship ($db, $ship_id)
     }
 
     // Setup attacker variables
-    $attackerbeams = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+    $attackerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
     if ($attackerbeams > $playerinfo['ship_energy'])
     {
         $attackerbeams = $playerinfo['ship_energy'];
     }
 
     $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $attackerbeams;
-    $attackershields = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+    $attackershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
     if ($attackershields > $playerinfo['ship_energy'])
     {
         $attackershields = $playerinfo['ship_energy'];
@@ -109,14 +109,14 @@ function xenobe_to_ship ($db, $ship_id)
     $playerdestroyed = 0;
 
     // Setup target variables
-    $targetbeams = CalcLevels::Beams ($targetinfo['beams'], $level_factor);
+    $targetbeams = BntCalcLevels::Beams ($targetinfo['beams'], $level_factor);
     if ($targetbeams > $targetinfo['ship_energy'])
     {
         $targetbeams = $targetinfo['ship_energy'];
     }
 
     $targetinfo['ship_energy'] = $targetinfo['ship_energy'] - $targetbeams;
-    $targetshields = CalcLevels::Shields ($targetinfo['shields'], $level_factor);
+    $targetshields = BntCalcLevels::Shields ($targetinfo['shields'], $level_factor);
     if ($targetshields>$targetinfo['ship_energy'])
     {
         $targetshields = $targetinfo['ship_energy'];
@@ -398,7 +398,7 @@ function xenobe_to_ship ($db, $ship_id)
             $free_ore = round ($targetinfo['ship_ore'] / 2);
             $free_organics = round ($targetinfo['ship_organics'] / 2);
             $free_goods = round ($targetinfo['ship_goods'] / 2);
-            $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
             if ($free_holds > $free_goods)
             {                                                        // Figure out what we can carry
                 $salv_goods = $free_goods;
@@ -490,7 +490,7 @@ function xenobe_to_ship ($db, $ship_id)
             $free_ore = round ($playerinfo['ship_ore'] / 2);
             $free_organics = round ($playerinfo['ship_organics'] / 2);
             $free_goods = round ($playerinfo['ship_goods'] / 2);
-            $free_holds = CalcLevels::Holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
+            $free_holds = BntCalcLevels::Holds ($targetinfo['hull'], $level_factor) - $targetinfo['ship_ore'] - $targetinfo['ship_organics'] - $targetinfo['ship_goods'] - $targetinfo['ship_colonists'];
             if ($free_holds > $free_goods)
             {                                                        // Figure out what target can carry
                 $salv_goods = $free_goods;

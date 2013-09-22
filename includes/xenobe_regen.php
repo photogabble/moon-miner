@@ -29,14 +29,14 @@ function xenobe_regen ($db, $playerinfo)
 
     // Xenobe Unempoyment Check
     $playerinfo['credits'] = $playerinfo['credits'] + $xen_unemployment;
-    $maxenergy = CalcLevels::Energy ($playerinfo['power'], $level_factor); // Regenerate energy
+    $maxenergy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor); // Regenerate energy
     if ($playerinfo['ship_energy'] <= ($maxenergy - 50))  // Stop regen when within 50 of max
     {
         $playerinfo['ship_energy'] = $playerinfo['ship_energy'] + round (($maxenergy - $playerinfo['ship_energy']) / 2); // Regen half of remaining energy
         $gene = "regenerated Energy to $playerinfo[ship_energy] units,";
     }
 
-    $maxarmor = CalcLevels::Armor ($playerinfo['armor'], $level_factor); // Regenerate armor
+    $maxarmor = BntCalcLevels::Armor ($playerinfo['armor'], $level_factor); // Regenerate armor
     if ($playerinfo['armor_pts'] <= ($maxarmor - 50))  // Stop regen when within 50 of max
     {
         $playerinfo['armor_pts'] = $playerinfo['armor_pts'] + round (($maxarmor - $playerinfo['armor_pts']) / 2); // Regen half of remaining armor
@@ -44,7 +44,7 @@ function xenobe_regen ($db, $playerinfo)
     }
 
     // Buy fighters & torpedos at 6 credits per fighter
-    $available_fighters = CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+    $available_fighters = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
     if (($playerinfo['credits'] > 5) && ($available_fighters > 0))
     {
         if (round ($playerinfo['credits'] / 6) > $available_fighters)
@@ -65,7 +65,7 @@ function xenobe_regen ($db, $playerinfo)
     }
 
     // Xenobe pay 3 credits per torpedo
-    $available_torpedoes = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+    $available_torpedoes = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
     if (($playerinfo['credits'] > 2) && ($available_torpedoes > 0))
     {
         if (round ($playerinfo['credits'] / 3) > $available_torpedoes)

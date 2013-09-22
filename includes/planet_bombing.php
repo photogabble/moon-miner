@@ -39,15 +39,15 @@ function planet_bombing ($db, $langvars)
     echo $langvars['l_bombsaway'] . "<br><br>\n";
     $attackerfighterslost = 0;
     $planetfighterslost = 0;
-    $attackerfightercapacity = CalcLevels::Fighters ($playerinfo['computer'], $level_factor);
-    $ownerfightercapacity = CalcLevels::Fighters ($ownerinfo['computer'], $level_factor);
+    $attackerfightercapacity = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor);
+    $ownerfightercapacity = BntCalcLevels::Fighters ($ownerinfo['computer'], $level_factor);
     $beamsused = 0;
 
     $res = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE");
     DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 
-    $planettorps = CalcLevels::planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
-    $planetbeams = CalcLevels::planetBeams ($db, $ownerinfo, $base_defense, $planetinfo);
+    $planettorps = BntCalcLevels::planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
+    $planetbeams = BntCalcLevels::planetBeams ($db, $ownerinfo, $base_defense, $planetinfo);
 
     $planetfighters = $planetinfo['fighters'];
     $attackerfighters = $playerinfo['ship_fighters'];

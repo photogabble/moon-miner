@@ -41,16 +41,16 @@ function planet_combat ($db, $langvars)
     }
 
     // Planetary defense system calculation
-    $planetbeams        = CalcLevels::planetBeams ($db, $ownerinfo, $base_defense, $planetinfo);
+    $planetbeams        = BntCalcLevels::planetBeams ($db, $ownerinfo, $base_defense, $planetinfo);
     $planetfighters     = $planetinfo['fighters'];
-    $planetshields      = CalcLevels::planetShields ($db, $ownerinfo, $base_defense, $planetinfo);
-    $planettorps        = CalcLevels::planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
+    $planetshields      = BntCalcLevels::planetShields ($db, $ownerinfo, $base_defense, $planetinfo);
+    $planettorps        = BntCalcLevels::planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor);
 
     // Attacking ship calculations
 
-    $attackerbeams      = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+    $attackerbeams      = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
     $attackerfighters   = $playerinfo['ship_fighters'];
-    $attackershields    = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+    $attackershields    = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
     $attackertorps      = round (pow ($level_factor, $playerinfo['torp_launchers'])) * 2;
     $attackerarmor      = $playerinfo['armor_pts'];
 
@@ -450,8 +450,8 @@ function planet_combat ($db, $langvars)
         echo "<br><br><center><font color='GREEN'><strong>" . $langvars['l_cmb_planetdefeated'] . "</strong></font></center><br><br>";
 
         // Patch to stop players dumping credits for other players.
-        $self_tech = CalcLevels::avgTech ($playerinfo);
-        $target_tech = round (CalcLevels::avgTech ($ownerinfo));
+        $self_tech = BntCalcLevels::avgTech ($playerinfo);
+        $target_tech = round (BntCalcLevels::avgTech ($ownerinfo));
 
         $roll = mt_rand (0, (integer) $target_tech);
         if ($roll > $self_tech)

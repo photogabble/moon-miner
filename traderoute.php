@@ -57,9 +57,9 @@ while (!$result->EOF)
     $result->MoveNext ();
 }
 
-$freeholds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-$maxholds = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
-$maxenergy = CalcLevels::Energy ($playerinfo['power'], $level_factor);
+$freeholds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
+$maxenergy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
@@ -552,7 +552,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
         $energyscooped = 100;
     }
 
-    $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
 
     if ($free_power < $energyscooped)
     {
@@ -571,7 +571,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
         if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
         {
             $energyscooped = $distance * 100;
-            $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor);
+            $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor);
 
             if ($free_power < $energyscooped)
             {
@@ -583,7 +583,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
         elseif ($playerinfo['dev_fuelscoop'] == 'Y')
         {
             $energyscooped = $distance * 100;
-            $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
+            $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
 
             if ($free_power < $energyscooped)
             {

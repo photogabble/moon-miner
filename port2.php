@@ -256,7 +256,7 @@ else
         }
 
         $fighter_number = round (abs ($fighter_number));
-        $fighter_max = CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+        $fighter_max = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
         if ($fighter_max < 0)
         {
             $fighter_max = 0;
@@ -274,7 +274,7 @@ else
         }
 
         $torpedo_number = round (abs ($torpedo_number));
-        $torpedo_max = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+        $torpedo_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
         if ($torpedo_max < 0)
         {
             $torpedo_max = 0;
@@ -292,7 +292,7 @@ else
         }
 
         $armor_number = round (abs ($armor_number));
-        $armor_max = CalcLevels::Armor ($playerinfo['armor'], $level_factor) - $playerinfo['armor_pts'];
+        $armor_max = BntCalcLevels::Armor ($playerinfo['armor'], $level_factor) - $playerinfo['armor_pts'];
         if ($armor_max < 0)
         {
             $armor_max = 0;
@@ -310,7 +310,7 @@ else
         }
 
         $colonist_number = round (abs ($colonist_number));
-        $colonist_max    = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $colonist_max    = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
         if ($colonist_max < 0)
         {
@@ -534,7 +534,7 @@ else
             echo "<div style='font-size:16px; color:#fff;'><br>[<span style='color:#0f0;'>Border Patrol</span>]<br>\n";
             echo "Halt, while we scan your cargo...<br>\n";
 
-            if (( CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0 )
+            if (( BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists']) < 0 )
             {
                 // build_two_col ("<span style='color:#f00;'>Detected Illegal Cargo</span>", "<span style='color:#0f0;'>Fixed</span>", "left", "right");
                 echo "<span style='color:#f00; font-weight:bold;'>Detected illegal cargo, as a penalty, we are confiscating all of your cargo, you may now continue.</span>\n";
@@ -630,8 +630,8 @@ else
 
         $cargo_exchanged = $trade_ore + $trade_organics + $trade_goods;
 
-        $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-        $free_power = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+        $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
         $total_cost = $trade_ore * $ore_price + $trade_organics * $organics_price + $trade_goods * $goods_price + $trade_energy * $energy_price;
 
         // Debug info

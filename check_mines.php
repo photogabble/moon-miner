@@ -55,7 +55,7 @@ while (!$result3->EOF)
 }
 
 // Compute the ship average...if its too low then the ship will not hit mines...
-$shipavg = CalcLevels::avgTech ($targetship, "ship");
+$shipavg = BntCalcLevels::avgTech ($targetship, "ship");
 
 // The mines will attack if 4 conditions are met
 //    1) There is at least 1 group of mines in the sector
@@ -117,7 +117,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
 
             // Shields up
             $mines_left = $roll - $playerinfo['dev_minedeflector'];
-            $playershields = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+            $playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];

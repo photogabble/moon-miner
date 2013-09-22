@@ -404,7 +404,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
             if ($playerinfo['trade_colonists'] == 'Y')
             {
-                $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+                $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
                 $colonists_buy = $free_holds;
 
                 if ($playerinfo['credits'] < $colonist_price * $colonists_buy)
@@ -427,7 +427,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
             if ($playerinfo['trade_fighters'] == 'Y')
             {
-                $free_fighters = CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+                $free_fighters = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
                 $fighters_buy = $free_fighters;
 
                 if ($total_credits < $fighters_buy * $fighter_price)
@@ -450,7 +450,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
             if ($playerinfo['trade_torps'] == 'Y')
             {
-                $free_torps = CalcLevels::Fighters ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+                $free_torps = BntCalcLevels::Fighters ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
                 $torps_buy = $free_torps;
 
                 if ($total_credits < $torps_buy * $torpedo_price)
@@ -605,7 +605,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 $playerinfo['ship_energy'] -= $energy_buy;
             }
 
-            $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
             // Time to buy
             if ($source['port_type'] == 'ore')
@@ -699,7 +699,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
             if ($source['port_type'] == 'energy')
             {
                 $energy_price1 = $energy_price - $energy_delta * $source['port_energy'] / $energy_limit * $inventory_factor;
-                $energy_buy = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'] - $dist['scooped1'];
+                $energy_buy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'] - $dist['scooped1'];
 
                 if ($playerinfo['credits'] + $sourcecost < $energy_buy * $energy_price1)
                 {
@@ -728,9 +728,9 @@ function traderoute_engage ($db, $lang, $j, $langvars)
             if ($dist['scooped1'] > 0)
             {
                 $playerinfo['ship_energy']+= $dist['scooped1'];
-                if ($playerinfo['ship_energy'] > CalcLevels::Energy ($playerinfo['power'], $level_factor))
+                if ($playerinfo['ship_energy'] > BntCalcLevels::Energy ($playerinfo['power'], $level_factor))
                 {
-                    $playerinfo['ship_energy'] = CalcLevels::Energy ($playerinfo['power'], $level_factor);
+                    $playerinfo['ship_energy'] = BntCalcLevels::Energy ($playerinfo['power'], $level_factor);
                 }
             }
 
@@ -749,7 +749,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
     // Source is planet
     elseif (($traderoute['source_type'] == 'L') || ($traderoute['source_type'] == 'C'))
     {
-        $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+        $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
         if ($traderoute['dest_type'] == 'P')
         {
             // Pick stuff up to sell at port
@@ -856,7 +856,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 $colonists_buy = 0;
             }
 
-            $free_torps = CalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
+            $free_torps = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor) - $playerinfo['torps'];
             if ($source['torps'] > 0 && $free_torps > 0 && $playerinfo['trade_torps'] == 'Y')
             {
                 if ($source['torps'] > $free_torps)
@@ -877,7 +877,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 $torps_buy = 0;
             }
 
-            $free_fighters = CalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
+            $free_fighters = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor) - $playerinfo['ship_fighters'];
             if ($source['fighters'] > 0 && $free_fighters > 0 && $playerinfo['trade_fighters'] == 'Y')
             {
                 if ($source['fighters'] > $free_fighters)
@@ -1055,7 +1055,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 $energy_buy = 0;
             }
 
-            $free_holds = CalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+            $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
 
             // Time to buy
             if ($dest['port_type'] == 'ore')
@@ -1175,7 +1175,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 }
                 else
                 {
-                    $energy_buy = CalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'] - $dist['scooped1'];
+                    $energy_buy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'] - $dist['scooped1'];
                     if ($playerinfo['credits'] + $destcost < $energy_buy * $energy_price1)
                     {
                         $energy_buy = ($playerinfo['credits'] + $destcost) / $energy_price1;
@@ -1212,9 +1212,9 @@ function traderoute_engage ($db, $lang, $j, $langvars)
             {
                 $playerinfo['ship_energy']+= $dist['scooped2'];
 
-                if ($playerinfo['ship_energy'] > CalcLevels::Energy ($playerinfo['power'], $level_factor))
+                if ($playerinfo['ship_energy'] > BntCalcLevels::Energy ($playerinfo['power'], $level_factor))
                 {
-                    $playerinfo['ship_energy'] = CalcLevels::Energy ($playerinfo['power'], $level_factor);
+                    $playerinfo['ship_energy'] = BntCalcLevels::Energy ($playerinfo['power'], $level_factor);
                 }
             }
             $reso = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=?, ship_goods=?, ship_organics=?, ship_energy=? WHERE ship_id=?", array ($playerinfo['ship_ore'], $playerinfo['ship_goods'], $playerinfo['ship_organics'], $playerinfo['ship_energy'], $playerinfo['ship_id']));

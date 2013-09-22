@@ -66,14 +66,14 @@ function xenobe_to_sec_def ($db, $langvars)
         {
             BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "ATTACKING SECTOR DEFENCES $total_sector_fighters fighters and $total_sector_mines mines.");
             $targetfighters = $total_sector_fighters;
-            $playerbeams = CalcLevels::Beams ($playerinfo['beams'], $level_factor);
+            $playerbeams = BntCalcLevels::Beams ($playerinfo['beams'], $level_factor);
             if ($playerbeams > $playerinfo['ship_energy'])
             {
                 $playerbeams = $playerinfo['ship_energy'];
             }
 
             $playerinfo['ship_energy'] = $playerinfo['ship_energy'] - $playerbeams;
-            $playershields = CalcLevels::Shields ($playerinfo['shields'], $level_factor);
+            $playershields = BntCalcLevels::Shields ($playerinfo['shields'], $level_factor);
             if ($playershields > $playerinfo['ship_energy'])
             {
                 $playershields = $playerinfo['ship_energy'];

@@ -475,7 +475,7 @@ if ($num_planets > 0)
             $result5 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($planets[$i]['owner']));
             DbOp::dbResult ($db, $result5, __LINE__, __FILE__);
             $planet_owner = $result5->fields;
-            $planetavg = CalcLevels::avgTech($planet_owner, "planet");
+            $planetavg = BntCalcLevels::avgTech($planet_owner, "planet");
 
             if ($planetavg < 8)
             {
@@ -583,7 +583,7 @@ if ($playerinfo['sector'] != 0)
 
             if ($roll < $success)
             {
-                $shipavg = CalcLevels::avgTech($row, "ship");
+                $shipavg = BntCalcLevels::avgTech($row, "ship");
 
                 if ($shipavg < 8)
                 {

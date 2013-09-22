@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/CalcLevels.php
+// File: classes/BntCalcLevels.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'CalcLevels.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntCalcLevels.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class CalcLevels
+class BntCalcLevels
 {
     static function Armor ($level_armor, $level_factor)
     {
@@ -64,7 +64,7 @@ class CalcLevels
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
-        $planetbeams = CalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
+        $planetbeams = BntCalcLevels::Beams ($ownerinfo['beams'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
         $res = $db->Execute ("SELECT beams FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -73,7 +73,7 @@ class CalcLevels
         {
             while (!$res->EOF)
             {
-                $planetbeams = $planetbeams + CalcLevels::Beams ($res->fields['beams'], $level_factor);
+                $planetbeams = $planetbeams + BntCalcLevels::Beams ($res->fields['beams'], $level_factor);
                 $res->MoveNext();
             }
         }
@@ -89,7 +89,7 @@ class CalcLevels
     static function planetShields ($db, $ownerinfo, $base_defense, $planetinfo)
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
-        $planetshields = CalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
+        $planetshields = BntCalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
         $energy_available = $planetinfo['energy'];
 
         $res = $db->Execute ("SELECT shields FROM {$db->prefix}ships WHERE planet_id = ? AND on_planet = 'Y';", array ($planetinfo['planet_id']));
@@ -98,7 +98,7 @@ class CalcLevels
         {
             while (!$res->EOF)
             {
-                $planetshields += CalcLevels::Shields ($res->fields['shields'], $level_factor);
+                $planetshields += BntCalcLevels::Shields ($res->fields['shields'], $level_factor);
                 $res->MoveNext ();
             }
         }

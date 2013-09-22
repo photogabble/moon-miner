@@ -153,7 +153,7 @@ function xenobe_trade ($db)
         $amount_goods = $playerinfo['ship_goods'];
 
         // Since we sell all other holds we set amount to be our total hold limit
-        $amount_ore = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
+        $amount_ore = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
 
         // We adjust this to make sure it does not exceed what the port has to sell
         $amount_ore = min ($amount_ore, $sectorinfo['port_ore']);
@@ -185,7 +185,7 @@ function xenobe_trade ($db)
         $amount_goods = $playerinfo['ship_goods'];
 
         // SINCE WE SELL ALL OTHER HOLDS WE SET AMOUNT TO BE OUR TOTAL HOLD LIMIT
-        $amount_organics = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
+        $amount_organics = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
 
         // WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEED WHAT THE PORT HAS TO SELL
         $amount_organics = min ($amount_organics, $sectorinfo['port_organics']);
@@ -218,7 +218,7 @@ function xenobe_trade ($db)
         $amount_organics = $playerinfo['ship_organics'];
 
         // Since we sell all other holds we set amount to be our total hold limit
-        $amount_goods = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
+        $amount_goods = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
 
         // We adjust this to make sure it does not exceed what the port has to sell
         $amount_goods = min ($amount_goods, $sectorinfo['port_goods']);
