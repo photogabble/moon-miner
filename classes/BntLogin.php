@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntLogin.php')) // Prevent direct access to t
 
 class BntLogin
 {
-    static function checkLogin ($db, $lang, $langvars, $bntreg, $stop_die = true)
+    public static function checkLogin ($db, $lang, $langvars, $bntreg, $stop_die = true)
     {
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'));
@@ -52,7 +52,8 @@ class BntLogin
                 $playerinfo = $rs->fields;
 
                 // Check the password against the stored hashed password
-                $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
+                // The first number is the hash strength, or number of iterations of bcrypt to run.
+                $hasher = new PasswordHash (10, false);
                 $password_match = $hasher->CheckPassword ($_SESSION['password'], $playerinfo['password']);
 
                 // Check the cookie to see if username/password are empty - check password against database
@@ -67,7 +68,10 @@ class BntLogin
                     if ($timestamp['now'] >= ($timestamp['last'] +60))
                     {
                         $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
-                        $_SESSION['last_activity'] = $timestamp['now']; // Reset the last activity time on the session so that the session renews - this is the replacement for the (now removed) update_cookie function.
+
+                        // Reset the last activity time on the session so that the session renews - this is the
+                        // replacement for the (now removed) update_cookie function.
+                        $_SESSION['last_activity'] = $timestamp['now'];
                     }
 
                     $banned = 0;
@@ -82,7 +86,7 @@ class BntLogin
                         }
                         else
                         {
-                            // Set login status to false, then clear the session array, and finally clear the session cookie
+                            // Set login status to false, then clear the session array, and clear the session cookie
                             $_SESSION['logged_in'] = false;
                             $_SESSION = array ();
                             setcookie ("PHPSESSID", "", 0, "/");
@@ -129,10 +133,11 @@ class BntLogin
                         }
                         else
                         {
-                            if ($stop_die) // On log.php, this will be set to false, so that you can view the log telling you that you died.
+                            // On log.php, this will be set to false, so that you can view the log telling you that you died.
+                            if ($stop_die)
                             {
-                                // if the player doesn't have an escapepod - they're dead, delete them. But we can't delete them yet.
-                                // (This prevents the self-distruct inherit bug)
+                                // if the player doesn't have an escapepod - they're dead, delete them.
+                                // But we can't delete them yet. (This prevents the self-distruct inherit bug)
                                 $error_status .= str_replace ("[here]", "<a href='log.php'>" . ucfirst ($langvars['l_here']) . "</a>", $langvars['l_global_died']) . "<br><br>" . $langvars['l_global_died2'];
                                 $error_status .= str_replace ("[logout]", "<a href='logout.php'>" . $langvars['l_logout'] . "</a>", $langvars['l_die_please']);
                                 $flag = 1;
@@ -168,7 +173,8 @@ class BntLogin
             $flag = 1;
         }
 
-        // This isn't the prettiest way to do this, and I'd like this split up and templated and so forth, but for now, it works.
+        // This isn't the prettiest way to do this, and I'd like this split up and templated and so
+        // forth, but for now, it works.
         if ($flag == 1)
         {
             include_once './header.php';
