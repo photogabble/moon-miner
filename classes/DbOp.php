@@ -46,7 +46,7 @@ class DbOp
                 {
                     if ($db->LogSQL)
                     {
-                        AdminLog::writeLog ($db, LOG_RAW, $dberror);
+                        BntAdminLog::writeLog ($db, LOG_RAW, $dberror);
                     }
                 }
             }

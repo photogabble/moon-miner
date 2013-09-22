@@ -85,7 +85,7 @@ elseif ( BntTeam::sameTeam ($playerinfo['team'], $targetinfo['team']) )
 elseif (isset ($_SESSION['in_combat']) && $_SESSION['in_combat'] === true)
 {
     echo "<div style='color:#ff0;'>" . $langvars['l_team_already_combat'] . "</div>\n";
-    AdminLog::writeLog ($db, 13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
+    BntAdminLog::writeLog ($db, 13371337, "{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected multi attack.");
 }
 else
 {
@@ -596,14 +596,14 @@ else
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
                     BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
-                    AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
+                    BntAdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Just lost the Escape Pod.");
                 }
                 else
                 {
                     PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
                     BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars, $bntreg);
                     BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
-                    AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
+                    BntAdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Didn't have the Escape Pod.");
                 }
 
                 if ($playerarmor > 0)
@@ -621,7 +621,7 @@ else
                         $resx = $db->Execute ("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
                         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
 
-                        AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
+                        BntAdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Detected as AI.");
 
                         if ($rating_change > 0)
                         {
@@ -630,7 +630,7 @@ else
                             BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
                             BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars, $bntreg);
 
-                            AdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
+                            BntAdminLog::writeLog ($db, 950, "*|{$playerinfo['ship_id']}|{$targetinfo['ship_id']}|Hope fully we only killed off the AI.");
 
                         }
                         $salv_credits = $targetinfo['credits'];

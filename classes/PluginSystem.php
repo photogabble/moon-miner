@@ -106,20 +106,20 @@ class PluginSystem
 
         if (is_null ($event) || !is_numeric ($event))
         {
-            AdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
+            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
             return (boolean) false;
         }
 
         if (is_null ($callback) || !is_object ($callback))
         {
-            AdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid callback.");
+            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid callback.");
             return (boolean) false;
         }
 
         // Check if the callback class::function exists and is callable.
         if (!method_exists ($callback, self::$callbackfunc) || !is_callable (array ($callback, self::$callbackfunc), false, $callable_name))
         {
-            AdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): " . get_class ($callback) ."::". self::$callbackfunc ." function doesn't exits or isn't callable.");
+            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): " . get_class ($callback) ."::". self::$callbackfunc ." function doesn't exits or isn't callable.");
             return (boolean) false;
         }
 
@@ -136,7 +136,7 @@ class PluginSystem
     {
         if (!array_key_exists ($event, self::$events) || !in_array ($callback, self::$events[$event]))
         {
-            AdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Cannot find supplied Event.");
+            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Cannot find supplied Event.");
             return (boolean) false;
         }
 
@@ -169,7 +169,7 @@ class PluginSystem
 
         if (is_null ($event) || !is_integer ($event))
         {
-            AdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
+            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
             return (boolean) false;
         }
 
@@ -181,7 +181,7 @@ class PluginSystem
             }
             else
             {
-                AdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Invalid Hook.");
+                BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Invalid Hook.");
             }
         }
     }

@@ -479,7 +479,7 @@ function planet_combat ($db, $langvars)
                 $resx = $db->Execute ("DELETE FROM {$db->prefix}planets WHERE planet_id=?", array ($planetinfo['planet_id']));
                 DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                 PlayerLog::writeLog ($db, $ownerinfo['ship_id'], LOG_PLANET_DEFEATED_D, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
-                AdminLog::writeLog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
+                BntAdminLog::writeLog ($db, LOG_ADMIN_PLANETDEL, "$playerinfo[character_name]|$ownerinfo[character_name]|$playerinfo[sector]");
                 BntScore::updateScore ($db, $ownerinfo['ship_id'], $bntreg);
             }
             else

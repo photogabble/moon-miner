@@ -15,16 +15,16 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/AdminLog.php
+// File: classes/BntAdminLog.php
 // Todo: Recode adminlog to be smart about whether there is a db, and if not, log to a file that will be slurped into the db when there is.
 
-if (strpos ($_SERVER['PHP_SELF'], 'AdminLog.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntAdminLog.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class AdminLog
+class BntAdminLog
 {
     static function writeLog ($db, $log_type, $data = "")
     {
