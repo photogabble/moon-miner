@@ -15,14 +15,14 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/PluginSystem.php
+// File: classes/BntPluginSystem.php
 
 define ("PLUGIN_PATH",                    "./plugins",            true);
 
 // Load up the list of supported Events.
 require_once 'eventsystem/event_list.php';
 
-class PluginSystem
+class BntPluginSystem
 {
     static $version                         = "0.0.5 (0010) Alpha";
     static $author                          = "Blacknova Development";

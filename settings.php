@@ -154,7 +154,7 @@ if ($found_blues === 0)
 }
 echo "<br>\n";
 
-$pluginInfo = PluginSystem::GetPluginInfo();
+$pluginInfo = BntPluginSystem::GetPluginInfo();
 
 $title="Loaded ". count($pluginInfo) ." Plugin(s)";
 echo "<h1>" . $title . "</h1>\n";

@@ -55,7 +55,7 @@ if (isset ($plugin_config[$pluginname]) && $plugin_config[$pluginname]['enabled'
         public function Initialize($db = null)
         {
             // Need to put all Initialization stuff here along with all the Event Hooks.
-            PluginSystem::AddEventHook(EVENT_TICK, $this);
+            BntPluginSystem::AddEventHook(EVENT_TICK, $this);
         }
 
         function getPluginInfo($needModuleList = false)
