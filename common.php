@@ -126,8 +126,8 @@ if (!$index_page)
 }
 
 
-// reg_global_fix,0.1.1,22-09-2004,BNT DevTeam
-if (!defined ('reg_global_fix')) define ('reg_global_fix', True, TRUE);
+// REG_GLOBAL_FIX,0.1.1,22-09-2004,BNT DevTeam
+if (!defined ('REG_GLOBAL_FIX')) define ('REG_GLOBAL_FIX', True, TRUE);
 
 // Add logging in these two functions to identify where we are using post and get, and start migrating away from them both needing to be globals.
 
