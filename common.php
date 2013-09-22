@@ -189,8 +189,8 @@ global $lang, $langvars;
 
 $admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
-$gamepath = SetPaths::setGamepath ();
-$gamedomain = SetPaths::setGamedomain ();
+$gamepath = BntSetPaths::setGamepath ();
+$gamedomain = BntSetPaths::setGamedomain ();
 $template = new Template (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
