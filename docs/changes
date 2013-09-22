@@ -4,6 +4,7 @@ Move Timer to BntTimer (classes should be prefixed with Bnt where possible)
 Move SectorDefense to BntSectorDefense (classes should be prefixed with Bnt where possible)
 Move AdminLog to BntAdminLog (classes should be prefixed with Bnt where possible)
 Move SetPaths to BntSetPaths (classes should be prefixed with Bnt where possible)
+Move MoveLog to BntMoveLog (classes should be prefixed with Bnt where possible)
 
 TheKabal (21 September 2013)
 --------------------------------------

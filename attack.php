@@ -163,7 +163,7 @@ else
                                          "dev_emerwarp = dev_emerwarp - 1, cleared_defences = ' ' " .
                                          "WHERE ship_id = ?;", array ($targetinfo['ship_id']));
             DbOp::dbResult ($db, $result_warp, __LINE__, __FILE__);
-            LogMove::writeLog ($db, $targetinfo['ship_id'], $dest_sector);
+            BntLogMove::writeLog ($db, $targetinfo['ship_id'], $dest_sector);
             echo $langvars['l_att_ewd'] . "<br><br>";
         }
         else

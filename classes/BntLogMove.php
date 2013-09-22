@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/LogMove.php
+// File: classes/BntLogMove.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'LogMove.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntLogMove.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class LogMove
+class BntLogMove
 {
     static function writeLog ($db, $ship_id, $sector_id)
     {
