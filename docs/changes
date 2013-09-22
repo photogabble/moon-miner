@@ -1,3 +1,7 @@
+TheKabal (21 September 2013)
+--------------------------------------
+Change the install documentation to specifically call out that people need to ask their hosting provider for the location of the program to call from cron.
+
 TheMightyDude (17 September 2013)
 --------------------------------------
 Optimized flag and supported languages code in index.php and index.tpl files.
