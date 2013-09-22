@@ -114,14 +114,18 @@ if (empty ($startdate))
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}logs WHERE ship_id = ? AND time LIKE '$startdate%' ORDER BY time DESC, type DESC;", array ($playerinfo['ship_id']));
 DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-while (!$res->EOF)
+
+if ($res instanceof ADORecordSet)
 {
-    $logs[] = $res->fields;
-    $res->MoveNext();
+    while (!$res->EOF)
+    {
+        $logs[] = $res->fields;
+        $res->MoveNext();
+    }
 }
 
 $langvars['l_log_months_temp'] = "l_log_months_" . (int) (substr ($startdate, 5, 2) );
-$entry = $langvars['l_log_months_temp'] . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
+$entry = $langvars[$langvars['l_log_months_temp']] . " " . substr ($startdate, 8, 2) . " " . substr ($startdate, 0, 4);
 
 echo "<div id=\"divScroller1\">" .
      "\n<div id=\"dynPage0\" class=\"dynPage\">" .
