@@ -39,7 +39,7 @@ class BntToll
                 $toll_amount = round (($row['quantity'] / $total_fighters) * $toll);
                 $resa = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
                 DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
-                PlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
+                BntPlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
                 $result3->MoveNext ();
             }
         }

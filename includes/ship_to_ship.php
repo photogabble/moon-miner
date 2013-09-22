@@ -473,12 +473,12 @@ function ship_to_ship ($db, $langvars, $ship_id)
             echo "<br><br>ship_id = $targetinfo[ship_id]<br><br>";
             $test = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',rating=?,dev_lssd='N' WHERE ship_id=?", array ($start_energy, $rating, $targetinfo['ship_id']));
             DbOp::dbResult ($db, $test, __LINE__, __FILE__);
-            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
+            BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
             BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
         else
         {
-            PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
+            BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|N");
             BntPlayer::kill ($db, $targetinfo['ship_id'], false, $langvars);
             BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
         }
@@ -491,7 +491,7 @@ function ship_to_ship ($db, $langvars, $ship_id)
         $target_armor_lost = $targetinfo['armor_pts'] - $targetarmor;
         $target_fighters_lost = $targetinfo['ship_fighters'] - $targetfighters;
         $target_energy = $targetinfo['ship_energy'];
-        PlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
+        BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACKED_WIN, "$playerinfo[character_name]|$target_armor_lost|$target_fighters_lost");
         $update4 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, armor_pts=armor_pts-?, torps=torps-? WHERE ship_id=?", array ($target_energy, $target_fighters_lost, $target_armor_lost, $targettorpnum, $targetinfo['ship_id']));
         DbOp::dbResult ($db, $update4, __LINE__, __FILE__);
     }

@@ -40,7 +40,7 @@ while (!$res->EOF)
         $resa = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity - GREATEST(ROUND(quantity * ?),1) WHERE defence_id = ? AND quantity > 0;", array ($defence_degrade_rate, $row['defence_id']));
         DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
         $degrade_rate = $defence_degrade_rate * 100;
-        PlayerLog::writeLog ($db, $row['ship_id'], LOG_DEFENCE_DEGRADE, $row['sector_id'] ."|". $degrade_rate);
+        BntPlayerLog::writeLog ($db, $row['ship_id'], LOG_DEFENCE_DEGRADE, $row['sector_id'] ."|". $degrade_rate);
     }
     else
     {
@@ -65,7 +65,7 @@ while (!$res->EOF)
             $resc = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = quantity - GREATEST(ROUND(quantity * ?),1) WHERE defence_id = ?;", array ($defence_degrade_rate, $row['defence_id']));
             DbOp::dbResult ($db, $resc, __LINE__, __FILE__);
             $degrade_rate = $defence_degrade_rate * 100;
-            PlayerLog::writeLog ($db, $row['ship_id'], LOG_DEFENCE_DEGRADE, $row['sector_id'] ."|". $degrade_rate);
+            BntPlayerLog::writeLog ($db, $row['ship_id'], LOG_DEFENCE_DEGRADE, $row['sector_id'] ."|". $degrade_rate);
         }
     }
     $res->MoveNext();

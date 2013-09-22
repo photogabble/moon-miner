@@ -124,7 +124,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     BntToll::distribute ($db, $sector, $fighterstoll, $total_sector_fighters);
-                    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
+                    BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_TOLL_PAID, "$tollstring|$sector");
                     $ok = 1;
                 }
                 break;

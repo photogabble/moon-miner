@@ -1,5 +1,6 @@
 TheKabal (22 September 2013)
 --------------------------------------
+Move PlayerLog to BntPlayerLog
 Move CheckBan to BntCheckBan
 Move Timer to BntTimer (classes should be prefixed with Bnt where possible)
 Move SectorDefense to BntSectorDefense (classes should be prefixed with Bnt where possible)

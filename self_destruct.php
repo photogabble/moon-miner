@@ -62,7 +62,7 @@ elseif ($sure == 2)
     BntPlayer::kill ($db, $playerinfo['ship_id'], true, $langvars, $bntreg);
     BntBounty::cancel ($db, $playerinfo['ship_id']);
     BntAdminLog::writeLog ($db, LOG_ADMIN_HARAKIRI, "$playerinfo[character_name]|$ip");
-    PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
+    BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_HARAKIRI, "$ip");
     echo "Due to nobody looking after your Planets, all your Planets have reduced into dust and ruble. Your Planets are no more.<br>\n";
 }
 else

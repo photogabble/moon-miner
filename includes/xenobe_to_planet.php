@@ -304,7 +304,7 @@ function xenobe_to_planet ($db, $planet_id)
 
     if (!$attackerarmor > 0) // Check if attackers ship destroyed
     {
-        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
+        BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Ship destroyed by planetary defenses on planet $planetinfo[name]");
         BntPlayer::kill ($db, $playerinfo['ship_id'], false, $langvars);
         $xenobeisdead = 1;
 
@@ -317,7 +317,7 @@ function xenobe_to_planet ($db, $planet_id)
         $fighters_lost = $planetinfo['fighters'] - $targetfighters;
 
         // Log attack to planet owner
-        PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
+        BntPlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|$free_ore|$free_organics|$free_goods|$ship_salvage_rate|$ship_salvage");
 
         // Update planet
         $resi = $db->Execute ("UPDATE {$db->prefix}planets SET energy=?, fighters=fighters-?, torps=torps-?, ore=ore+?, goods=goods+?, organics=organics+?, credits=credits+? WHERE planet_id=?", array ($planetinfo['energy'], $fighters_lost, $targettorps, $free_ore, $free_goods, $free_organics, $ship_salvage, $planetinfo['planet_id']));
@@ -328,7 +328,7 @@ function xenobe_to_planet ($db, $planet_id)
         $armor_lost = $playerinfo['armor_pts'] - $attackerarmor;
         $fighters_lost = $playerinfo['ship_fighters'] - $attackerfighters;
         $target_fighters_lost = $planetinfo['ship_fighters'] - $targetfighters;
-        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
+        BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Made it past defenses on planet $planetinfo[name]");
 
         // Update attackers
         $resj = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, torps=torps-?, armor_pts=armor_pts-? WHERE ship_id=?", array ($playerinfo['ship_energy'], $fighters_lost, $attackertorps, $armor_lost, $playerinfo['ship_id']));
@@ -363,10 +363,10 @@ function xenobe_to_planet ($db, $planet_id)
         if ($shipsonplanet == 0 && $xenobeisdead < 1)
         {
             // Must have killed all ships on the planet
-            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
+            BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Defeated all ships on planet $planetinfo[name]");
 
             // Log attack to planet owner
-            PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
+            BntPlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|$playerinfo[character_name]");
 
             // Update planet
             $resl = $db->Execute ("UPDATE {$db->prefix}planets SET fighters=0, torps=0, base='N', owner=0, corp=0 WHERE planet_id=?", array ($planetinfo['planet_id']));
@@ -377,9 +377,9 @@ function xenobe_to_planet ($db, $planet_id)
         else
         {
             // Must have died trying
-            PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
+            BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "We were KILLED by ships defending planet $planetinfo[name]");
             // Log attack to planet owner
-            PlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|0|0|0|0|0");
+            BntPlayerLog::writeLog ($db, $planetinfo['owner'], LOG_PLANET_NOT_DEFEATED, "$planetinfo[name]|$playerinfo[sector]|Xenobe $playerinfo[character_name]|0|0|0|0|0");
             // No salvage for planet because it went to the ship that won
         }
     }

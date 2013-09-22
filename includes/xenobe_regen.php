@@ -90,7 +90,7 @@ function xenobe_regen ($db, $playerinfo)
     DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
     if (!$gene=='' || !$gena=='' || !$genf=='' || !$gent=='')
     {
-        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
+        BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");
     }
 }
 ?>

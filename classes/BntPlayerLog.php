@@ -15,15 +15,15 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/PlayerLog.php
+// File: classes/BntPlayerLog.php
 
-if (strpos ($_SERVER['PHP_SELF'], 'PlayerLog.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntPlayerLog.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class PlayerLog
+class BntPlayerLog
 {
     static function writeLog ($db, $sid, $log_type, $data = "")
     {

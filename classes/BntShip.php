@@ -44,7 +44,7 @@ class BntShip
                         $cur = $result2->fields;
                         $resa = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array ($cur['ship_id']));
                         DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
-                        PlayerLog::writeLog ($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
+                        BntPlayerLog::writeLog ($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
                         $result2->MoveNext();
                     }
                 }

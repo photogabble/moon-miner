@@ -68,7 +68,7 @@ function xenobe_trade ($db)
     {
         $playerinfo['ship_ore'] = $shipore = 0;
     }
-    
+
     if ($playerinfo['ship_organics'] < 0)
     {
         $playerinfo['ship_organics'] = $shiporganics = 0;
@@ -78,12 +78,12 @@ function xenobe_trade ($db)
     {
         $playerinfo['ship_goods'] = $shipgoods = 0;
     }
-    
+
     if ($playerinfo['credits'] < 0)
     {
         $playerinfo['credits'] = $shipcredits = 0;
     }
-    
+
     if ($sectorinfo['port_ore'] <= 0)
     {
         return;
@@ -117,7 +117,7 @@ function xenobe_trade ($db)
     {
         $shipcredits = $playerinfo['credits'];
     }
-  
+
     // Make sure we have cargo or credits
     if (!$playerinfo['credits'] > 0 && !$playerinfo['ship_ore'] > 0 && !$playerinfo['ship_goods'] > 0 && !$playerinfo['ship_organics'] > 0)
     {
@@ -134,7 +134,7 @@ function xenobe_trade ($db)
     {
         return;
     }
-  
+
     if ($sectorinfo['port_type'] == "goods" && $shipgoods > 0)
     {
         return;
@@ -147,14 +147,14 @@ function xenobe_trade ($db)
         $ore_price = $ore_price - $ore_delta * $sectorinfo['port_ore'] / $ore_limit * $inventory_factor;
         $organics_price = $organics_price + $organics_delta * $sectorinfo['port_organics'] / $organics_limit * $inventory_factor;
         $goods_price = $goods_price + $goods_delta * $sectorinfo['port_goods'] / $goods_limit * $inventory_factor;
-        
+
         //  Set cargo buy/sell
         $amount_organics = $playerinfo['ship_organics'];
         $amount_goods = $playerinfo['ship_goods'];
-    
+
         // Since we sell all other holds we set amount to be our total hold limit
         $amount_ore = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
-    
+
         // We adjust this to make sure it does not exceed what the port has to sell
         $amount_ore = min ($amount_ore, $sectorinfo['port_ore']);
 
@@ -171,7 +171,7 @@ function xenobe_trade ($db)
         DbOp::dbResult ($db, $trade_result, __LINE__, __FILE__);
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore - ?, port_organics = port_organics + ?, port_goods = port_goods + ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
         DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
-        PlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
+        BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe Trade Results: Sold $amount_organics Organics Sold $amount_goods Goods Bought $amount_ore Ore Cost $total_cost");
     }
     if ($sectorinfo['port_type'] == "organics") // Port organics
     {
@@ -193,7 +193,7 @@ function xenobe_trade ($db)
         // WE ADJUST THIS TO MAKE SURE IT DOES NOT EXCEES WHAT WE CAN AFFORD TO BUY
         $amount_organics = min ($amount_organics, floor (($playerinfo['credits'] + $amount_ore * $ore_price + $amount_goods * $goods_price) / $organics_price));
 
-        // Buy / sell cargo 
+        // Buy / sell cargo
         $total_cost = round (($amount_organics * $organics_price) - ($amount_ore * $ore_price + $amount_goods * $goods_price));
         $newcredits = max (0, $playerinfo['credits'] - $total_cost);
         $newore = max (0, $playerinfo['ship_ore'] - $amount_ore);
@@ -203,7 +203,7 @@ function xenobe_trade ($db)
         DbOp::dbResult ($db, $trade_result, __LINE__, __FILE__);
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ?, port_organics = port_organics - ?, port_goods = port_goods + ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
         DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
-        PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
+        BntPlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_goods Goods Sold $amount_ore Ore Bought $amount_organics Organics Cost $total_cost");
     }
 
     if ($sectorinfo['port_type']=="goods") // Port goods
@@ -212,21 +212,21 @@ function xenobe_trade ($db)
         $goods_price = $goods_price - $goods_delta * $sectorinfo['port_goods'] / $goods_limit * $inventory_factor;
         $ore_price = $ore_price + $ore_delta * $sectorinfo['port_ore'] / $ore_limit * $inventory_factor;
         $organics_price = $organics_price + $organics_delta * $sectorinfo['port_organics'] / $organics_limit * $inventory_factor;
-        
+
         // Set cargo buy / sell
         $amount_ore = $playerinfo['ship_ore'];
         $amount_organics = $playerinfo['ship_organics'];
 
         // Since we sell all other holds we set amount to be our total hold limit
         $amount_goods = CalcLevels::Holds ($playerinfo['hull'], $level_factor);
-    
+
         // We adjust this to make sure it does not exceed what the port has to sell
         $amount_goods = min ($amount_goods, $sectorinfo['port_goods']);
 
         // We adjust this to make sure it does not exceed what we can afford to buy
         $amount_goods = min ($amount_goods, floor (($playerinfo['credits'] + $amount_ore * $ore_price + $amount_organics * $organics_price) / $goods_price));
 
-        // Buy / sell cargo 
+        // Buy / sell cargo
         $total_cost = round (($amount_goods * $goods_price) - ($amount_organics * $organics_price + $amount_ore * $ore_price));
         $newcredits = max (0, $playerinfo['credits'] - $total_cost);
         $newore = max (0, $playerinfo['ship_ore'] - $amount_ore);
@@ -236,7 +236,7 @@ function xenobe_trade ($db)
         DbOp::dbResult ($db, $trade_result, __LINE__, __FILE__);
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore=port_ore + ?, port_organics = port_organics + ?, port_goods = port_goods - ? WHERE sector_id = ?;", array ($amount_ore, $amount_organics, $amount_goods, $sectorinfo['sector_id']));
         DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
-        PlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
+        BntPlayerLog::writeLog ($db, $playerinfo[ship_id], LOG_RAW, "Xenobe Trade Results: Sold $amount_ore Ore Sold $amount_organics Organics Bought $amount_goods Goods Cost $total_cost");
   }
 
 }
