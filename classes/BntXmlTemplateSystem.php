@@ -15,20 +15,20 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: classes/TemplateSystem.php
+// File: classes/BntXmlTemplateSystem.php
 //
 // Name: XML DOM Template System
 // Author: TheMightyDude (Paul Kirby)
 // Version: 0.0.9 (0032) Development version.
 // Created: March 15 2012
 // Updated: August 12 2012
-// Copyright: © 2012 Paul Kirby
+// Copyright: Â© 2012 Paul Kirby
 //
 // This file handles all the XML formatting and allows to validate the
 // XML Format by using a DTD file, we also use a style sheet that uses
 // the XML Data and then outputs as XHTML using a XSLT style sheet file.
 
-if (strpos ($_SERVER['PHP_SELF'], 'TemplateSystem.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BntXmlTemplateSystem.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }
@@ -37,7 +37,7 @@ define ("XMLDOM_PROCESSED",             0x0001,            true);
 define ("XMLDOM_UNPROCESSED",           0x0002,            true);
 define ("XMLDOM_XML",                   0x0003,            true);
 
-class TemplateSystem
+class BntXmlTemplateSystem
 {
     static $version                     = "0.0.9 (0032) [DEV]";
     static $author                      = "TheMightyDude";

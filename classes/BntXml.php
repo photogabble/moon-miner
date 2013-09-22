@@ -33,7 +33,7 @@ class BntXml
     function __construct($parent)
     {
         $this->parent = $parent;
-        $this->xmldom = new TemplateSystem();
+        $this->xmldom = new BntXmlTemplateSystem();
     }
 
     function __destruct()

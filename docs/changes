@@ -1,5 +1,6 @@
 TheKabal (22 September 2013)
 --------------------------------------
+Move TemplateSystem to BntXmlTemplateSystem
 Move PluginSystem to BntPluginSystem
 Move CalcLevels to BntCalcLevels
 Move PlayerLog to BntPlayerLog
