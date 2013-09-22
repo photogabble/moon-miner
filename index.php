@@ -56,9 +56,6 @@ $variables['link_forums'] = $bntreg->get("link_forums");
 $variables['admin_mail'] = $admin_mail;
 $variables['body_class'] = 'index';
 
-
-
-
 // Now Get a list of supported languages etc.
 $lang_rs = $db->GetAll ("SELECT section, name, value FROM {$db->prefix}languages WHERE category = 'regional' AND (name = 'local_lang_name' OR name = 'local_lang_flag') ORDER BY section, name;");
 $list_of_langs = array();
@@ -89,11 +86,11 @@ if (is_array ($lang_rs) === true && count ($lang_rs) >= 2)
     }
 
     // Extract our default language, and remove it from the list of supported languages.
-    $our_lang = $list_of_langs[$language];
-    unset ($list_of_langs[$language]);
+    $our_lang = $list_of_langs[$lang];
+    unset ($list_of_langs[$lang]);
 
     // Add our default language back in, this should be put at the end of the list.
-    $list_of_langs[$language] = $our_lang;
+    $list_of_langs[$lang] = $our_lang;
     unset ($our_lang);
 }
 
