@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntDefense.php')) // Prevent direct access to
 
 class BntDefense
 {
-    function defence_vs_defence ($db, $ship_id, $langvars)
+    static function defence_vs_defence ($db, $ship_id, $langvars)
     {
         $result1 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array ($ship_id));
         DbOp::dbResult ($db, $result1, __LINE__, __FILE__);

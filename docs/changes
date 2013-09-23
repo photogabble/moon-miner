@@ -9,7 +9,8 @@ Fixed PHP Notice: Undefined variable: langvars in teams.php on line 657
 Fixed PHP Notice: Undefined variable: langvars in teams.php on line 671
 Fixed PHP Notice: Undefined variable: langvars in teams.php on line 672
 Fixed PHP Notice: Undefined variable: langvars in teams.php on line 673
-Fixed PHP Notice: Undefined variable: langvars in teams.php on line 674 
+Fixed PHP Notice: Undefined variable: langvars in teams.php on line 674
+Fixed PHP Strict Standards: Non-static method BntDefense::defence_vs_defence() should not be called statically in teams.php on line 187
 
 TheKabal (22 September 2013)
 --------------------------------------
