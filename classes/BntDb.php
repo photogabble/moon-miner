@@ -27,7 +27,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntDb.php')) // Prevent direct access to this
 
 class BntDb
 {
-    static function initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DRIVER, $db_prefix, $dbport)
+    static function initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $ADODB_SESSION_DRIVER, $db_prefix, $dbport)
     {
         // The data field name "data" violates SQL reserved words - switch it to SESSDATA
         ADODB_Session::dataFieldName ('SESSDATA');

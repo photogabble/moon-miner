@@ -44,7 +44,7 @@ $BenchmarkTimer = new BntTimer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
-$db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
+$db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
 $ADODB_SESSION_TBL = $db_prefix . "sessions"; // Not sure why this has to be here instead of in the init class, but it does
 
 $no_langs_yet = false;
