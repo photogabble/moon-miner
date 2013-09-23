@@ -1,6 +1,7 @@
 TheMightyDude (23 September 2013)
 --------------------------------------
 Fixed bug in BntDb::initDb(...) where it had the database name argument missing.
+Fixed issue in BntDb::initDb(...) when using ADOdb's postgres driver when postgres isn't installed.
 
 TheKabal (22 September 2013)
 --------------------------------------

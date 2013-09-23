@@ -47,7 +47,9 @@ class BntDb
         {
             $db = NewADOConnection($ADODB_SESSION_DRIVER);
             $db_init_result = @$db->Connect ("$ADODB_SESSION_CONNECT", "$ADODB_SESSION_USER", "$ADODB_SESSION_PWD", "$ADODB_SESSION_DB");
-            if ($db_init_result === false)
+            // Returns Boolean True or False.
+            // However ADOdb's postgres driver returns null if postgres insn't installed.
+            if ($db_init_result === false || $db_init_result === 0)
             {
                 throw new Exception;
             }
