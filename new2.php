@@ -86,7 +86,7 @@ if ($username === null || $character === null || $shipname === null )
     $flag = 1;
 }
 
-while (($result instanceof ADORecordSet) && ($result != false))
+while (($result instanceof ADORecordSet) && !$result->EOF)
 {
     $row = $result->fields;
     if (mb_strtolower ($row['email']) == mb_strtolower ($username))
