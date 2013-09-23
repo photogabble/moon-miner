@@ -30,7 +30,7 @@ $title = $langvars['l_team_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'footer'));
+$langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'main', 'footer'));
 echo "<h1>" . $title . "</h1>\n";
 
 $testing = false; // set to false to get rid of password when creating new team
@@ -652,7 +652,7 @@ function is_team_owner ($team, $playerinfo)
 // Rewritten display of teams list
 function display_all_teams ($db)
 {
-    global $color, $color_line1, $color_line2, $color_header, $order, $type;
+    global $color, $color_line1, $color_line2, $color_header, $order, $type, $langvars;
 
     echo "<br><br>" . $langvars['l_team_galax'] . "<br>";
     echo "<table style='width:100%; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
