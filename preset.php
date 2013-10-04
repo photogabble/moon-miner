@@ -21,6 +21,8 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
+
+$langvars = BntTranslate::load ($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 include './header.php';
 
@@ -32,7 +34,28 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arr
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-if (!isset ($change))
+$preset_list = array();
+
+// Returns null if it doesn't have it set, boolean false if its set but fails to validate and the actual value if it all passes.
+$preset_list[1]  = filter_input (INPUT_POST, 'preset1', FILTER_VALIDATE_INT, array('options'=>array('min_range'=>1, 'max_range'=>$sector_max)));
+$preset_list[2]  = filter_input (INPUT_POST, 'preset2', FILTER_VALIDATE_INT, array('options'=>array('min_range'=>1, 'max_range'=>$sector_max)));
+$preset_list[3]  = filter_input (INPUT_POST, 'preset3', FILTER_VALIDATE_INT, array('options'=>array('min_range'=>1, 'max_range'=>$sector_max)));
+
+$change = filter_input (INPUT_POST, 'change', FILTER_VALIDATE_INT, array('options'=>array('min_range'=>0, 'max_range'=>1)));
+
+foreach ($preset_list as $index=>$preset)
+{
+    if ($preset === false)
+    {
+        $change = 0;
+        $_langvars['l_pre_invalid'] = str_replace ("[preset]", $index, $langvars['l_pre_invalid']);
+        $_langvars['l_pre_invalid'] = str_replace ("[sector_max]", $sector_max, $_langvars['l_pre_invalid']);
+        echo $_langvars['l_pre_invalid'] . "<br>\n";
+    }
+}
+echo "<br>\n";
+
+if ($change !== 1)
 {
     echo "<form action='preset.php' method='post'>";
     echo "<div style='padding:2px;'>Preset 1: <input type='text' name='preset1' size='6' maxlength='6' value='{$playerinfo['preset1']}'></div>";
@@ -41,41 +64,19 @@ if (!isset ($change))
     echo "<input type='hidden' name='change' value='1'>";
     echo "<div style='padding:2px;'><input type='submit' value=" . $langvars['l_pre_save'] . "></div>";
     echo "</form>";
+    echo "<br>\n";
 }
 else
 {
-    $preset1 = round (abs ($preset1));
-    $preset2 = round (abs ($preset2));
-    $preset3 = round (abs ($preset3));
-    if ($preset1 >= $sector_max)
-    {
-        $langvars['l_pre_exceed'] = str_replace ("[preset]", "1", $langvars['l_pre_exceed']);
-        $langvars['l_pre_exceed'] = str_replace ("[sector_max]", ($sector_max-1), $langvars['l_pre_exceed']);
-        echo $langvars['l_pre_exceed'] . "<br><br>";
-    }
-    elseif ($preset2 >= $sector_max)
-    {
-        $langvars['l_pre_exceed'] = str_replace ("[preset]", "2", $langvars['l_pre_exceed']);
-        $langvars['l_pre_exceed'] = str_replace ("[sector_max]", ($sector_max-1), $langvars['l_pre_exceed']);
-        echo $langvars['l_pre_exceed'] . "<br><br>";
-    }
-    elseif ($preset3 >= $sector_max)
-    {
-        $langvars['l_pre_exceed'] = str_replace ("[preset]", "3", $langvars['l_pre_exceed']);
-        $langvars['l_pre_exceed'] = str_replace ("[sector_max]", ($sector_max-1), $langvars['l_pre_exceed']);
-        echo $langvars['l_pre_exceed'] . "<br><br>";
-    }
-    else
-    {
-        $update = $db->Execute ("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset1, $preset2, $preset3, $playerinfo['ship_id']));
-        DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-        $langvars['l_pre_set'] = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset1>$preset1</a>", $langvars['l_pre_set']);
-        $langvars['l_pre_set'] = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset2>$preset2</a>", $langvars['l_pre_set']);
-        $langvars['l_pre_set'] = str_replace ("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset3>$preset3</a>", $langvars['l_pre_set']);
-        echo $langvars['l_pre_set'] . "<br><br>";
-    }
+    $update = $db->Execute ("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset_list[1], $preset_list[2], $preset_list[3], $playerinfo['ship_id']));
+    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+    $langvars['l_pre_set'] = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset_list[1]>$preset_list[1]</a>", $langvars['l_pre_set']);
+    $langvars['l_pre_set'] = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset_list[2]>$preset_list[2]</a>", $langvars['l_pre_set']);
+    $langvars['l_pre_set'] = str_replace ("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset_list[3]>$preset_list[3]</a>", $langvars['l_pre_set']);
+    echo $langvars['l_pre_set'] . "<br><br>";
 }
 
 BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
+
 ?>
