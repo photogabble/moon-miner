@@ -2,6 +2,7 @@ TheMightyDude (05 October 2013)
 --------------------------------------
 Fixed issue in rsmove.php due to change in revision 3018, we validate this more correctly now.
 Fixed bug in preset.php where it accept the last sector, we also validate this more correctly now as well, however room for improvement.
+Got fed up with BntTranslate::load(...) replacing/overriding language variables when called in other functions or files.
 
 TheMightyDude (23 September 2013)
 --------------------------------------

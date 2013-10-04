@@ -25,6 +25,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntTranslate.php')) // Prevent direct access 
 
 class BntTranslate
 {
+    private static $langvars    = array();
+
     static function load ($db = null, $language = null, $categories = null)
     {
         // Check if all supplied args are valid, if not return false.
@@ -42,11 +44,11 @@ class BntTranslate
             {
                 foreach ($config_line as $config_key => $config_value)
                 {
-                    $langvars[$config_key] = $config_value;
+                    self::$langvars[$config_key] = $config_value;
                 }
             }
 
-            return $langvars;
+            return self::$langvars;
         }
         else
         {
@@ -74,12 +76,12 @@ class BntTranslate
                 while ($result && !$result->EOF)
                 {
                     $row = $result->fields;
-                    $langvars[$row['name']] = $row['value'];
+                    self::$langvars[$row['name']] = $row['value'];
                     $result->MoveNext();
                 }
             }
 
-            return $langvars;
+            return self::$langvars;
         }
     }
 }
