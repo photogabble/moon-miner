@@ -70,7 +70,7 @@ $title = $langvars['l_sys_update'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
 echo "<h1>" . $title . "</h1>\n";
 
 require_once './sched_funcs.php';

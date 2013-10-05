@@ -35,14 +35,14 @@ DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 while (!$res->EOF)
 {
     $row = $res->fields;
-    $production = floor(min($row['colonists'], $colonist_limit) * $colonist_production_rate);
-    $organics_production = floor($production * $organics_prate * $row['prod_organics'] / 100.0);// - ($production * $organics_consumption);
-    $organics_production -= floor($production * $organics_consumption);
+    $production = floor (min ($row['colonists'], $colonist_limit) * $colonist_production_rate);
+    $organics_production = floor ($production * $organics_prate * $row['prod_organics'] / 100.0);// - ($production * $organics_consumption);
+    $organics_production -= floor ($production * $organics_consumption);
 
     if ($row['organics'] + $organics_production < 0)
     {
         $organics_production = -$row['organics'];
-        $starvation = floor($row['colonists'] * $starvation_death_rate);
+        $starvation = floor ($row['colonists'] * $starvation_death_rate);
         if ($row['owner'] && $starvation >= 1)
         {
             BntPlayerLog::writeLog ($db, $row['owner'], LOG_STARVATION, "$row[sector_id]|$starvation");
@@ -53,10 +53,10 @@ while (!$res->EOF)
         $starvation = 0;
     }
 
-    $ore_production = floor($production * $ore_prate * $row['prod_ore'] / 100.0);
-    $goods_production = floor($production * $goods_prate * $row['prod_goods'] / 100.0);
-    $energy_production = floor($production * $energy_prate * $row['prod_energy'] / 100.0);
-    $reproduction = floor(($row['colonists'] - $starvation) * $colonist_reproduction_rate);
+    $ore_production = floor ($production * $ore_prate * $row['prod_ore'] / 100.0);
+    $goods_production = floor ($production * $goods_prate * $row['prod_goods'] / 100.0);
+    $energy_production = floor ($production * $energy_prate * $row['prod_energy'] / 100.0);
+    $reproduction = floor (($row['colonists'] - $starvation) * $colonist_reproduction_rate);
 
     if (($row['colonists'] + $reproduction - $starvation) > $colonist_limit)
     {
@@ -67,8 +67,8 @@ while (!$res->EOF)
 
     if ($row['owner'])
     {
-        $fighter_production = floor($production * $fighter_prate * $row['prod_fighters'] / 100.0);
-        $torp_production = floor($production * $torpedo_prate * $row['prod_torp'] / 100.0);
+        $fighter_production = floor ($production * $fighter_prate * $row['prod_fighters'] / 100.0);
+        $torp_production = floor ($production * $torpedo_prate * $row['prod_torp'] / 100.0);
         $total_percent += $row['prod_fighters'] + $row['prod_torp'];
     }
     else
@@ -77,7 +77,7 @@ while (!$res->EOF)
         $torp_production = 0;
     }
 
-    $credits_production = floor($production * $credits_prate * (100.0 - $total_percent) / 100.0);
+    $credits_production = floor ($production * $credits_prate * (100.0 - $total_percent) / 100.0);
     $ret = $db->Execute ("UPDATE {$db->prefix}planets SET organics = organics + ?, ore = ore + ?, goods = goods + ?, energy = energy + ?, colonists = colonists + ? - ?, torps = torps + ?, fighters = fighters + ?, credits = credits * ? + ? WHERE planet_id = ? LIMIT 1; ", array ($organics_production, $ore_production, $goods_production, $energy_production, $reproduction, $starvation, $torp_production, $fighter_production, $interest_rate, $credits_production, $row['planet_id']));
     DbOp::dbResult ($db, $ret, __LINE__, __FILE__);
     $res->MoveNext();
@@ -93,6 +93,4 @@ if ($sched_planet_valid_credits == true)
 }
 
 echo "Planets updated.<br><br>";
-echo "<br>";
-
 ?>
