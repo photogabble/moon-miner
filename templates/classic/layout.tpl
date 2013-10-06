@@ -27,11 +27,14 @@
     <meta name="Rating" content="General">
     <link rel="shortcut icon" href="images/bntfavicon.ico">
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css.php">
+{if $variables['body_class'] != 'bnt'}
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/{$variables['body_class']}.css.php">
+{/if}
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
-    <title>{block name=title}Default Page Title{/block}</title>
-<!-- This is currently only being used on mailto.php. When it is migrated to be template driven, we will need to set a variable on that page and if it is true, then do this include.
-   <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>-->
+<title>{block name=title}Default Page Title{/block}</title>
+{if isset($variables['include_ckeditor'])}
+   <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>
+{/if}
     <script src="{$template_dir}/javascript/framebuster.js.php"></script>
   </head>
 <!-- END OF HEADER -->
