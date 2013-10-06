@@ -21,15 +21,16 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
-
+$body_class = 'preset';
 $langvars = BntTranslate::load ($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 include './header.php';
 
+
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
-
+echo "<body class ='" . $body_class . "'>";
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;

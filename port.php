@@ -21,12 +21,14 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
-//$body_class = 'port'; // CSS port-specific page doesn't exist yet
+$body_class = 'port'; // CSS port-specific page doesn't exist yet
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('port'));
 $title = $langvars['l_title_port'];
 include './header.php';
+
+echo "<body class=" . $body_class . "><br>";
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('port', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'bounty'));

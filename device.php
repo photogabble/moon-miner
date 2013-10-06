@@ -25,7 +25,7 @@ BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 $langvars = BntTranslate::load ($db, $lang, array ('device'));
 
 $title = $langvars['l_device_title'];
-//$body_class = 'device';
+$body_class = 'device';
 include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'));
 
@@ -34,6 +34,7 @@ echo "<h1>" . $title . "</h1>\n";
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
+echo "<body class=" . $body_class . "><br>";
 echo $langvars['l_device_expl'] . "<br><br>";
 echo "<table style=\"width:33%\">";
 echo "<tr><th style=\"text-align:left;\">" . $langvars['l_device'] . "</th><th>" . $langvars['l_qty'] . "</th><th>" . $langvars['l_usage'] . "</th></tr>";

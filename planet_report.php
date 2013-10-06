@@ -29,6 +29,8 @@ include './header.php';
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
+$body_class = 'planet';
+echo "<body class=" . $body_class . "><br>";
 
 $preptype = null;
 if (array_key_exists ('preptype', $_GET) == true) // !isset ($_GET['preptype']))

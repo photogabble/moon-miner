@@ -32,6 +32,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('options', 'common', 'global_includes', 'global_funcs', 'footer'));
 echo "<h1>" . $title . "</h1>\n";
 
+echo "<body class = " . $body_class . ">";
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 $playerinfo = $res->fields;
 
