@@ -23,6 +23,7 @@ BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('mailto'));
+$include_ckeditor = true;
 $title = $langvars['l_sendm_title'];
 include './header.php';
 

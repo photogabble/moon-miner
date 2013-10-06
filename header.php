@@ -17,34 +17,48 @@
 //
 // File: header.php
 
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'mailto'));
-
 header ("Content-type: text/html; charset=utf-8");
 header ("X-UA-Compatible: IE=Edge, chrome=1");
 header ("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
 header ("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");
+
+// Database driven language entries
+$langvars = null;
+$langvars = BntTranslate::load ($db, $lang, array ('common', 'mailto'));
+
+$variables = null;
+$variables['lang'] = $lang;
+
+// Body class defines a css file for a specific page, if one isn't defined, it defaults to bnt, which is
+// nulled by the template.
 if (!isset ($body_class))
 {
     $body_class = "bnt";
 }
+$variables['body_class'] = $body_class;
 
+if (isset ($title))
+{
+    $variables['title'] = $title;
+}
+
+// Some pages (like mailto) include ckeditor js, check if this is one of those.
+if (isset ($include_ckeditor))
+{
+    $variables['include_ckeditor'] = true;
+}
+else
+{
+    $variables['include_ckeditor'] = false;
+}
+
+// Now set a container for the variables and langvars and send them off to the template system
+$variables['container'] = "variable";
+$langvars['container'] = "langvars";
+
+$template->AddVariables ('langvars', $langvars);
+$template->AddVariables ('variables', $variables);
+$template->Display ("header.tpl");
 ?>
-<!DOCTYPE html>
-<html lang="<?php echo $langvars['l_lang_attribute']; ?>">
-<head>
-<meta charset="utf-8">
-<meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
-<meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
-<meta name="Rating" content="General">
-<link rel='shortcut icon' href='images/bntfavicon.ico'>
-<link rel='stylesheet' type='text/css' href='templates/classic/styles/main.css.php'>
-<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Ubuntu'>
-<title><?php global $title; echo $title; ?></title>
-<?php if ($title == $langvars['l_sendm_title']) { echo '<script src="templates/classic/javascript/ckeditor/ckeditor.js"></script>'; } ?>
-<script src="templates/classic/javascript/framebuster.js.php"></script>
-</head>
-<body class="<?php echo $body_class; ?>">
-<div class="wrapper">

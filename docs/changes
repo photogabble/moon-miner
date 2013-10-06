@@ -1,3 +1,7 @@
+TheKabal (6 October 2013)
+--------------------------------------
+Redo "header.php" to also be template driven, to be used until a file is switched to use layout.tpl
+
 TheMightyDude (05 October 2013)
 --------------------------------------
 Fixed issue in rsmove.php due to change in revision 3018, we validate this more correctly now.

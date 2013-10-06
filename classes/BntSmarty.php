@@ -119,7 +119,6 @@ class BntSmarty
         }
 
         echo $output;
-        exit;
     }
 }
 
