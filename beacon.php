@@ -32,7 +32,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('beacon', 'common',
 
 echo "<h1>" . $title . "</h1>\n";
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 DbOp::dbResult ($db, $result, __LINE__, __FILE__);

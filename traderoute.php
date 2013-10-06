@@ -20,7 +20,7 @@
 include './global_includes.php';
 include './includes/traderoute_new.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('traderoutes'));

@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 $body_class = 'zoneinfo';
 
@@ -32,6 +32,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 
 echo "<h1>" . $title . "</h1>\n";
+echo "<body class=" . $body_class . ">";
 $zone = (int) filter_input (INPUT_GET, 'zone', FILTER_SANITIZE_NUMBER_INT);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

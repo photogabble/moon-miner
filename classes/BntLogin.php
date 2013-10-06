@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntLogin.php')) // Prevent direct access to t
 
 class BntLogin
 {
-    public static function checkLogin ($db, $lang, $langvars, $bntreg, $stop_die = true)
+    public static function checkLogin ($db, $lang, $langvars, $bntreg, $template, $stop_die = true)
     {
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('login', 'global_funcs', 'common', 'footer', 'self_destruct'));

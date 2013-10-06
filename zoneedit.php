@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 $title = $langvars['l_ze_title'];
 include './header.php';

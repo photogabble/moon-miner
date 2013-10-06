@@ -20,7 +20,7 @@
 include './global_includes.php';
 include './includes/ibank_error.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));

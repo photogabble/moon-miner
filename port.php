@@ -19,7 +19,7 @@
 
 include './global_includes.php';
 
-BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
+BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 $body_class = 'port'; // CSS port-specific page doesn't exist yet
 

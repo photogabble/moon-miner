@@ -1,5 +1,6 @@
 TheKabal (6 October 2013)
 --------------------------------------
+All check login calls need the template to be passed to it, or else "you need to login" display is broken
 Redo "header.php" to also be template driven, to be used until a file is switched to use layout.tpl
 Redo "footer.php" to also be template driven, to be used until a file is switched to use template with layout.tpl
 
