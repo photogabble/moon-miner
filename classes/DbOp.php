@@ -42,7 +42,7 @@ class DbOp
             $dberror = str_replace ("'", "&#39;", $dberror); // Allows the use of apostrophes.
             if (!$db->inactive)
             {
-                if (property_exists($db, 'LogSQL')) // Only certain db drivers support logging right now
+                if (property_exists ($db, 'LogSQL')) // Only certain db drivers support logging right now
                 {
                     if ($db->LogSQL)
                     {
