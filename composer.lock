@@ -3,14 +3,14 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "047bb89e5761f97bb9b9b99212a7f4f5",
+    "hash": "cc9ab140ca4796851ffca8e21b80f777",
     "packages": [
         {
             "name": "adodb/adodb-php",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cvele/adodb",
+                "url": "https://github.com/cvele/adodb.git",
                 "reference": "66f3740cf7718a4cd88bb1a2a05cceaccc98b882"
             },
             "dist": {
@@ -75,7 +75,8 @@
                 {
                     "name": "Edward Z. Yang",
                     "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com"
+                    "homepage": "http://ezyang.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Standards compliant HTML filter written in PHP",
@@ -87,11 +88,11 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.13",
+            "version": "v3.1.15",
             "source": {
                 "type": "svn",
                 "url": "http://smarty-php.googlecode.com/svn",
-                "reference": "/tags/v3.1.13/@4699"
+                "reference": "/tags/v3.1.15/@4782"
             },
             "require": {
                 "php": ">=5.2"
@@ -100,7 +101,8 @@
             "autoload": {
                 "classmap": [
                     "distribution/libs/Smarty.class.php",
-                    "distribution/libs/SmartyBC.class.php"
+                    "distribution/libs/SmartyBC.class.php",
+                    "distribution/libs/sysplugins/smarty_security.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -126,7 +128,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-01-26 12:03:52"
+            "time": "2013-10-01 21:08:54"
         }
     ],
     "packages-dev": [

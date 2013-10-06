@@ -26,7 +26,7 @@
     "license": "AGPL-3.0",
     "minimum-stability": "alpha",
     "require": {
-        "smarty/smarty": "v3.1.13",
+        "smarty/smarty": "v3.1.15",
         "ezyang/htmlpurifier": "dev-master",
         "adodb/adodb-php": "dev-master"
     },
