@@ -21,7 +21,7 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 
-$body_class = 'port';
+//$body_class = 'port'; // CSS port-specific page doesn't exist yet
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('port'));

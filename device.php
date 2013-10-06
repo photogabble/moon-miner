@@ -25,7 +25,7 @@ BntLogin::checkLogin ($db, $lang, $langvars, $bntreg);
 $langvars = BntTranslate::load ($db, $lang, array ('device'));
 
 $title = $langvars['l_device_title'];
-$body_class = 'device';
+//$body_class = 'device';
 include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('device', 'common', 'global_includes', 'global_funcs', 'report', 'footer'));
 
