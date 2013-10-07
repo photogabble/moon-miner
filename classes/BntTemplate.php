@@ -164,7 +164,6 @@ class BntTemplate
             exit;
         }
 
-/*
         // Handle the supported compressions.
         $supported_enc = array ();
         if (isset ($_SERVER['HTTP_ACCEPT_ENCODING']))
@@ -190,10 +189,9 @@ class BntTemplate
         {
             header ("DEBUG: None found");
             return $output;
-        }*/
-        return $output;
-        // may need to call exit;
-        # exit;
+        }
+
+//        return $output; // Leaving this here because during debugging removing compression can be very helpful
     }
 }
 ?>
