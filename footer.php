@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: newfooter.php
+// File: footer.php
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
