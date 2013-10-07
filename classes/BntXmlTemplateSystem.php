@@ -30,7 +30,8 @@
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntXmlTemplateSystem.php')) // Prevent direct access to this file
 {
-    die ('Please do not access this file directly');
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include_once './error.php';
 }
 
 define ("XMLDOM_PROCESSED",             0x0001,            true);

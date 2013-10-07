@@ -19,7 +19,8 @@
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntXml.php')) // Prevent direct access to this file
 {
-    die ('Please do not access this file directly');
+    $error_file = $_SERVER['SCRIPT_NAME'];
+    include_once './error.php';
 }
 
 class BntXml
