@@ -73,7 +73,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
 echo "<h1>" . $title . "</h1>\n";
 
-require_once './sched_funcs.php';
+require_once './includes/sched_funcs.php';
 
 if (isset ($_REQUEST['swordfish']))
 {
