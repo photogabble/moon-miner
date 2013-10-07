@@ -68,10 +68,9 @@ elseif (!empty ($_GET['subject']))
 $dirtycontent = filter_input (INPUT_POST, 'content', FILTER_UNSAFE_RAW);
 
 // Include HTML purifier, set its config, use the 4.01 doctype (since they don't do HTML5 yet)
-//require_once 'classes/htmlpurifier/library/HTMLPurifier.auto.php';
 $html_purifier_config = HTMLPurifier_Config::createDefault();
 $html_purifier_config->set('HTML.Doctype', 'HTML 4.01 Transitional');
-$purifier = new HTMLPurifier($html_purifier_config);
+$purifier = new HTMLPurifier ($html_purifier_config);
 
 // Filter the submitted content to ensure that it doesn't have exploits
 $content = $purifier->purify($dirtycontent);
