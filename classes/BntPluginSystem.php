@@ -119,7 +119,7 @@ class BntPluginSystem
         // Check if the callback class::function exists and is callable.
         if (!method_exists ($callback, self::$callbackfunc) || !is_callable (array ($callback, self::$callbackfunc), false, $callable_name))
         {
-            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): " . get_class ($callback) ."::". self::$callbackfunc ." function doesn't exits or isn't callable.");
+            BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): " . get_class ($callback) ."::". self::$callbackfunc ." function doesn't exist or it isn't callable.");
             return (boolean) false;
         }
 
@@ -167,7 +167,7 @@ class BntPluginSystem
             $event = constant ($event);
         }
 
-        if (is_null ($event) || !is_integer ($event))
+        if (is_null ($event) || !is_int ($event))
         {
             BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
             return (boolean) false;

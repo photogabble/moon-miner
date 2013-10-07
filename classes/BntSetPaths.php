@@ -69,13 +69,13 @@ class BntSetPaths
         if (isset ($gamedomain) && strlen ($gamedomain) >0)
         {
             $pos = strpos ($gamedomain, "http://");
-            if (is_integer ($pos))
+            if (is_int ($pos))
             {
                 $gamedomain = substr ($gamedomain, $pos+7);
             }
 
             $pos = strpos ($gamedomain, "www.");
-            if (is_integer ($pos))
+            if (is_int ($pos))
             {
                 $gamedomain = substr ($gamedomain, $pos+4);
             }
@@ -85,7 +85,7 @@ class BntSetPaths
                 $pos = strpos ($gamedomain, ":");
             }
 
-            if (is_integer ($pos))
+            if (is_int ($pos))
             {
                 $gamedomain = substr ($gamedomain, 0, $pos);
             }

@@ -129,7 +129,7 @@ class BntXml
     {
         $output = $this->xmldom->Display();
         echo $output;
-        exit;
+        die();
     }
 }
 ?>
