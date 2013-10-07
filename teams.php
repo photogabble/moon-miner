@@ -839,12 +839,12 @@ function validate_team ($db, $name = null, $desc = null, $creator = null)
         return false;
     }
 
-    if (($res = preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', $name, $matches)) !=0)
+    if (($res = preg_match ('/[^A-Za-z0-9\_\s\-\.\']+/', $name, $matches)) !=0)
     {
         return false;
     }
 
-    if (($res = preg_match('/[^A-Za-z0-9\_\s\-\.\']+/', $desc, $matches)) !=0)
+    if (($res = preg_match ('/[^A-Za-z0-9\_\s\-\.\']+/', $desc, $matches)) !=0)
     {
         return false;
     }

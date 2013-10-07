@@ -21,7 +21,7 @@ $online = (integer) 0;
 
 if (!$db->inactive)
 {
-    $stamp = date ("Y-m-d H:i:s", time()); // Now (as seen by PHP)
+    $stamp = date ("Y-m-d H:i:s", time ()); // Now (as seen by PHP)
     $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
     $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE {$db->prefix}ships.last_login " .
                          "BETWEEN timestamp '$since_stamp' AND timestamp '$stamp' AND email NOT LIKE '%@xenobe'");
@@ -48,7 +48,7 @@ else
 }
 
 // Suppress the news ticker on the IGB and index pages
-$news_ticker = (!(preg_match("/index.php/i", $_SERVER['PHP_SELF']) || preg_match("/igb.php/i", $_SERVER['PHP_SELF'])));
+$news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_match ("/igb.php/i", $_SERVER['PHP_SELF'])));
 
 // Update counter
 $seconds_left = (integer) 0;
@@ -114,7 +114,7 @@ if ($news_ticker == true)
                 while (!$rs->EOF)
                 {
                     $row = $rs->fields;
-                    $headline = addslashes($row['headline']);
+                    $headline = addslashes ($row['headline']);
                     array_push ($news_ticker, array ('url'=>"news.php", 'text'=>$headline, 'type'=>$row['news_type'], 'delay'=>5));
                     $rs->MoveNext();
                 }

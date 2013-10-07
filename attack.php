@@ -169,7 +169,7 @@ else
         else
         {
             // Bounty-free Xenobe attacking allowed.
-            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match("/(\@xenobe)$/", $targetinfo['email']) === 0 ))
+            if (($targetscore / $playerscore < $bounty_ratio || $targetinfo['turns_used'] < $bounty_minturns) && ( preg_match ("/(\@xenobe)$/", $targetinfo['email']) === 0 ))
             {
                 // Changed xenobe check to a regexp cause a player could put
                 // @xen or whatever in his email address
@@ -616,7 +616,7 @@ else
                     // Double Death Attack Bug Fix - Returns 0 for real
                     // players, 1 for Xenobe players
                     // He is a Xenobe
-                    if ( preg_match("/(\@xenobe)$/", $targetinfo['email']) !== 0 )
+                    if ( preg_match ("/(\@xenobe)$/", $targetinfo['email']) !== 0 )
                     {
                         $resx = $db->Execute ("UPDATE {$db->prefix}xenobe SET active= N WHERE xenobe_id = ?;", array ($targetinfo['email']));
                         DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
