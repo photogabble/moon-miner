@@ -160,8 +160,7 @@ class BntTemplate
         // Check to see if we have data, if not error out.
         if (is_null ($output))
         {
-            die ("SYSTEM HALT: NOTHING TO OUTPUT.");
-            exit;
+            return $output;
         }
 
         // Handle the supported compressions.
