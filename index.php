@@ -64,7 +64,7 @@ if (is_array ($lang_rs) === true && count ($lang_rs) >= 2)
 {
     foreach ($lang_rs as $id=>$langinfo)
     {
-        if (array_key_exists($langinfo['section'], $list_of_langs) === false)
+        if (array_key_exists ($langinfo['section'], $list_of_langs) === false)
         {
             $list_of_langs[$langinfo['section']] = array();
         }

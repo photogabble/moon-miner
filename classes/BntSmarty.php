@@ -25,8 +25,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntSmarty.php')) // Prevent direct access to 
 
 class BntSmarty
 {
-    private $smarty                            = NULL;
-    private $parent                            = NULL;
+    private $smarty                            = null;
+    private $parent                            = null;
 
     function __construct ($parent)
     {
@@ -47,15 +47,15 @@ class BntSmarty
 
         // Add a Modifier Wrapper for PHP Function: number_format.
         // Usage in the tpl file {$number|number_format:decimals:"dec_point":"thousands_sep"}
-        $this->smarty->registerPlugin ("modifier","number_format", "number_format");
+        $this->smarty->registerPlugin ("modifier", "number_format", "number_format");
 
         // Add a Modifier Wrapper for PHP Function: strlen.
         // Usage in the tpl file {$string|strlen}
-        $this->smarty->registerPlugin ("modifier","strlen", "strlen");
+        $this->smarty->registerPlugin ("modifier", "strlen", "strlen");
 
         // Add a Modifier Wrapper for PHP Function: gettype.
         // Usage in the tpl file {$variable|gettype}
-        $this->smarty->registerPlugin ("modifier","gettype", "gettype");
+        $this->smarty->registerPlugin ("modifier", "gettype", "gettype");
 
         $this->smarty->enableSecurity ();
 
@@ -63,7 +63,7 @@ class BntSmarty
         $this->smarty->caching = false;
     }
 
-    public function SetTheme ($themeName = NULL)
+    public function SetTheme ($themeName = null)
     {
         $this->smarty->setTemplateDir ("templates/{$themeName}");
         $this->AddVariables ("template_dir", "templates/{$themeName}");

@@ -51,7 +51,7 @@ function xenobe_move ($db)
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y") // Dest link must allow attacking
             {
-                $setlink = mt_rand (0,2);                        // 33% Chance of replacing destination link with this one
+                $setlink = mt_rand (0, 2);                        // 33% Chance of replacing destination link with this one
                 if ($setlink == 0 || !$targetlink > 0)           // Unless there is no dest link, choose this one
                 {
                     $targetlink = $row['link_dest'];

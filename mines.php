@@ -188,10 +188,22 @@ else
     {
         $nummines = preg_replace ('/[^0-9]/', '', $nummines);
         $numfighters = preg_replace ('/[^0-9]/', '', $numfighters);
-        if (empty ($nummines)) $nummines = 0;
-        if (empty ($numfighters)) $numfighters = 0;
-        if ($nummines < 0) $nummines = 0;
-        if ($numfighters < 0) $numfighters = 0;
+        if (empty ($nummines))
+        {
+            $nummines = 0;
+        }
+        if (empty ($numfighters))
+        {
+            $numfighters = 0;
+        }
+        if ($nummines < 0)
+        {
+            $nummines = 0;
+        }
+        if ($numfighters < 0)
+        {
+            $numfighters = 0;
+        }
         if ($nummines > $playerinfo['torps'])
         {
             echo $langvars['l_mines_notorps'] . "<br>";

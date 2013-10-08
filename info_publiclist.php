@@ -87,7 +87,7 @@ $info['G-COLONIST-LIMIT'] = $colonist_limit;
 $info['G-DOOMSDAY-VALUE'] = $doomsday_value;
 
 $info['G-MONEY-IGB'] = $ibank_interest;
-$info['G-MONEY-PLANET'] = round ($interest_rate - 1,4);
+$info['G-MONEY-PLANET'] = round ($interest_rate - 1, 4);
 
 $info['G-PORT-LIMIT-ORE'] = $ore_limit;
 $info['G-PORT-RATE-ORE'] = $ore_delta;

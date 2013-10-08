@@ -182,7 +182,9 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
         ";
 
     if (!is_null ($editroute) && $editroute['source_type'] == 'C')
+    {
         echo " checked";
+    }
 
     echo '
         ></td>

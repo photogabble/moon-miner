@@ -296,7 +296,7 @@ function change_planet_production ($db, $prodpercentarray)
                         $planet_hack = true;
                         $hack_id = 0x18531;
                         $hack_count[1]++;
-                        BntAdminLog::writeLog ($db, LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray['team_id']} not {$team_id}");
+                        BntAdminLog::writeLog ($db, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$prodpercent}|{$ship_id}|{$prodpercentarray['team_id']} not {$team_id}");
                     }
                 }
                 else
@@ -306,7 +306,7 @@ function change_planet_production ($db, $prodpercentarray)
                     $planet_hack = true;
                     $hack_id = 0x18598;
                     $hack_count[2]++;
-                    BntAdminLog::writeLog ($db, LOG_ADMIN_PLANETCHEAT,"{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
+                    BntAdminLog::writeLog ($db, LOG_ADMIN_PLANETCHEAT, "{$hack_id}|{$ip}|{$planet_id}|{$ship_id}|commod_type={$commod_type}");
                 }
             }
         }

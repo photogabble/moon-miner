@@ -339,7 +339,7 @@ elseif ($sectorinfo['port_type'] == "special")
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
                     $resx = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0;", array ($playerinfo['ship_id']));
                     DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
-                    $langvars['l_port_bountypaid'] = str_replace ("[here]","<a href='port.php'>" . $langvars['l_here'] . "</a>", $langvars['l_port_bountypaid']);
+                    $langvars['l_port_bountypaid'] = str_replace ("[here]", "<a href='port.php'>" . $langvars['l_here'] . "</a>", $langvars['l_port_bountypaid']);
                     echo $langvars['l_port_bountypaid'] . "<br>";
                     die ();
                 }
@@ -415,7 +415,7 @@ elseif ($sectorinfo['port_type'] == "special")
 
                 echo "Option Plan 1: Payment from Ship<br>\n";
                 $langvars['l_port_bounty2'] = str_replace ("[amount]", number_format ($bty['total_bounty'], 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_port_bounty2']);
-                $langvars['l_port_bounty2'] = str_replace ("[here]","<a href='port.php?pay=1'>" . $langvars['l_here'] . "</a>", $langvars['l_port_bounty2']);
+                $langvars['l_port_bounty2'] = str_replace ("[here]", "<a href='port.php?pay=1'>" . $langvars['l_here'] . "</a>", $langvars['l_port_bounty2']);
                 echo $langvars['l_port_bounty2'] . "<br>";
                 echo "<br>\n";
 
@@ -586,16 +586,16 @@ elseif ($sectorinfo['port_type'] == "special")
         echo "+ (form.lssd_purchase.checked ?  $dev_lssd_price : 0)\n";
     }
 
-    echo "+ change_delta(form.hull_upgrade.value,$playerinfo[hull])\n";
-    echo "+ change_delta(form.engine_upgrade.value,$playerinfo[engines])\n";
-    echo "+ change_delta(form.power_upgrade.value,$playerinfo[power])\n";
-    echo "+ change_delta(form.computer_upgrade.value,$playerinfo[computer])\n";
-    echo "+ change_delta(form.sensors_upgrade.value,$playerinfo[sensors])\n";
-    echo "+ change_delta(form.beams_upgrade.value,$playerinfo[beams])\n";
-    echo "+ change_delta(form.armor_upgrade.value,$playerinfo[armor])\n";
-    echo "+ change_delta(form.cloak_upgrade.value,$playerinfo[cloak])\n";
-    echo "+ change_delta(form.torp_launchers_upgrade.value,$playerinfo[torp_launchers])\n";
-    echo "+ change_delta(form.shields_upgrade.value,$playerinfo[shields])\n";
+    echo "+ change_delta(form.hull_upgrade.value, $playerinfo[hull])\n";
+    echo "+ change_delta(form.engine_upgrade.value, $playerinfo[engines])\n";
+    echo "+ change_delta(form.power_upgrade.value, $playerinfo[power])\n";
+    echo "+ change_delta(form.computer_upgrade.value, $playerinfo[computer])\n";
+    echo "+ change_delta(form.sensors_upgrade.value, $playerinfo[sensors])\n";
+    echo "+ change_delta(form.beams_upgrade.value, $playerinfo[beams])\n";
+    echo "+ change_delta(form.armor_upgrade.value, $playerinfo[armor])\n";
+    echo "+ change_delta(form.cloak_upgrade.value, $playerinfo[cloak])\n";
+    echo "+ change_delta(form.torp_launchers_upgrade.value, $playerinfo[torp_launchers])\n";
+    echo "+ change_delta(form.shields_upgrade.value, $playerinfo[shields])\n";
 
     if ($playerinfo['ship_fighters'] != $fighter_max)
     {
@@ -625,16 +625,16 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "  }\n";
     echo "  form.total_cost.length = form.total_cost.value.length;\n";
     echo "\n";
-    echo "form.engine_costper.value=change_delta(form.engine_upgrade.value,$playerinfo[engines]);\n";
-    echo "form.power_costper.value=change_delta(form.power_upgrade.value,$playerinfo[power]);\n";
-    echo "form.computer_costper.value=change_delta(form.computer_upgrade.value,$playerinfo[computer]);\n";
-    echo "form.sensors_costper.value=change_delta(form.sensors_upgrade.value,$playerinfo[sensors]);\n";
-    echo "form.beams_costper.value=change_delta(form.beams_upgrade.value,$playerinfo[beams]);\n";
-    echo "form.armor_costper.value=change_delta(form.armor_upgrade.value,$playerinfo[armor]);\n";
-    echo "form.cloak_costper.value=change_delta(form.cloak_upgrade.value,$playerinfo[cloak]);\n";
-    echo "form.torp_launchers_costper.value=change_delta(form.torp_launchers_upgrade.value,$playerinfo[torp_launchers]);\n";
-    echo "form.hull_costper.value=change_delta(form.hull_upgrade.value,$playerinfo[hull]);\n";
-    echo "form.shields_costper.value=change_delta(form.shields_upgrade.value,$playerinfo[shields]);\n";
+    echo "form.engine_costper.value=change_delta(form.engine_upgrade.value, $playerinfo[engines]);\n";
+    echo "form.power_costper.value=change_delta(form.power_upgrade.value, $playerinfo[power]);\n";
+    echo "form.computer_costper.value=change_delta(form.computer_upgrade.value, $playerinfo[computer]);\n";
+    echo "form.sensors_costper.value=change_delta(form.sensors_upgrade.value, $playerinfo[sensors]);\n";
+    echo "form.beams_costper.value=change_delta(form.beams_upgrade.value, $playerinfo[beams]);\n";
+    echo "form.armor_costper.value=change_delta(form.armor_upgrade.value, $playerinfo[armor]);\n";
+    echo "form.cloak_costper.value=change_delta(form.cloak_upgrade.value, $playerinfo[cloak]);\n";
+    echo "form.torp_launchers_costper.value=change_delta(form.torp_launchers_upgrade.value, $playerinfo[torp_launchers]);\n";
+    echo "form.hull_costper.value=change_delta(form.hull_upgrade.value, $playerinfo[hull]);\n";
+    echo "form.shields_costper.value=change_delta(form.shields_upgrade.value, $playerinfo[shields]);\n";
     echo "}";
     echo "\n// -->\n</script>\n";
 
@@ -722,7 +722,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts1' name=hull_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['hull'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("hull_upgrade",$playerinfo['hull']);
+    echo dropdown ("hull_upgrade", $playerinfo['hull']);
     echo "    </td>\n";
     echo "   </tr>\n";
     echo "   <tr>\n";
@@ -752,7 +752,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts2' size=10 name=engine_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['engines'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("engine_upgrade",$playerinfo['engines']);
+    echo dropdown ("engine_upgrade", $playerinfo['engines']);
     echo "    </td>\n";
     echo "   </tr>\n";
     echo "   <tr>\n";
@@ -777,7 +777,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts1' name=power_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['power'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("power_upgrade",$playerinfo['power']);
+    echo dropdown ("power_upgrade", $playerinfo['power']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
@@ -807,7 +807,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts2' name=computer_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['computer'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("computer_upgrade",$playerinfo['computer']);
+    echo dropdown ("computer_upgrade", $playerinfo['computer']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
@@ -820,7 +820,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts1' name=sensors_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['sensors'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("sensors_upgrade",$playerinfo['sensors']);
+    echo dropdown ("sensors_upgrade", $playerinfo['sensors']);
     echo "    </td>\n";
     echo "  </tr>";
     echo "  <tr>\n";
@@ -833,7 +833,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts2' name=beams_costper value='0' tabindex='0' $onblur></td>";
     echo "    <td>" . number_format ($playerinfo['beams'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("beams_upgrade",$playerinfo['beams']);
+    echo dropdown ("beams_upgrade", $playerinfo['beams']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
@@ -856,7 +856,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts1' name=armor_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['armor'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("armor_upgrade",$playerinfo['armor']);
+    echo dropdown ("armor_upgrade", $playerinfo['armor']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
@@ -879,7 +879,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts2' name=cloak_costper value='0' tabindex='0' $onblur $onfocus></td>\n";
     echo "    <td>" . number_format ($playerinfo['cloak'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("cloak_upgrade",$playerinfo['cloak']);
+    echo dropdown ("cloak_upgrade", $playerinfo['cloak']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
@@ -902,7 +902,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts1' name=torp_launchers_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['torp_launchers'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("torp_launchers_upgrade",$playerinfo['torp_launchers']);
+    echo dropdown ("torp_launchers_upgrade", $playerinfo['torp_launchers']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo "  <tr>\n";
@@ -915,7 +915,7 @@ elseif ($sectorinfo['port_type'] == "special")
     echo "    <td><input type=text readonly class='portcosts2' name=shields_costper value='0' tabindex='0' $onblur></td>\n";
     echo "    <td>" . number_format ($playerinfo['shields'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
     echo "    <td>\n       ";
-    echo dropdown("shields_upgrade",$playerinfo['shields']);
+    echo dropdown ("shields_upgrade", $playerinfo['shields']);
     echo "    </td>\n";
     echo "  </tr>\n";
     echo " </table>\n";

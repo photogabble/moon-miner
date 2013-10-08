@@ -90,9 +90,13 @@ function ship_to_ship ($db, $langvars, $ship_id)
         }
     }
     elseif ($targetfighters > 0 && $attackerbeams < 1)
-    echo $langvars['l_cmb_nobeamsareleft'] . "<br>";
+    {
+        echo $langvars['l_cmb_nobeamsareleft'] . "<br>";
+    }
     else
+    {
         echo $langvars['l_cmb_beamshavenotarget'] . "<br>";
+    }
     if ($attackerfighters > 0 && $targetbeams > 0)
     {
         if ($targetbeams > round ($attackerfighters / 2))
@@ -453,7 +457,7 @@ function ship_to_ship ($db, $langvars, $ship_id)
                 $salv_organics = 0;
             }
             $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $targetinfo['hull']))+round (pow ($upgrade_factor, $targetinfo['engines']))+round (pow ($upgrade_factor, $targetinfo['power']))+round (pow ($upgrade_factor, $targetinfo['computer']))+round (pow ($upgrade_factor, $targetinfo['sensors']))+round (pow ($upgrade_factor, $targetinfo['beams']))+round (pow ($upgrade_factor, $targetinfo['torp_launchers']))+round (pow ($upgrade_factor, $targetinfo['shields']))+round (pow ($upgrade_factor, $targetinfo['armor']))+round (pow ($upgrade_factor, $targetinfo['cloak'])));
-            $ship_salvage_rate = mt_rand (10,20);
+            $ship_salvage_rate = mt_rand (10, 20);
             $ship_salvage = $ship_value * $ship_salvage_rate / 100;
             $langvars['l_cmb_yousalvaged'] = str_replace ("[cmb_salv_ore]", $salv_ore, $langvars['l_cmb_yousalvaged']);
             $langvars['l_cmb_yousalvaged'] = str_replace ("[cmb_salv_organics]", $salv_organics, $langvars['l_cmb_yousalvaged']);

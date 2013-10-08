@@ -671,7 +671,9 @@ function traderoute_create ($db, $lang, $langvars)
 
         // Check for valid Source Planet
         if ($source['sector_id'] >= $sector_max)
+        {
             traderoute_die ($db, $lang, $langvars, $langvars['l_tdr_invalidsrc']);
+        }
 
         if ($source['owner'] != $playerinfo['ship_id'])
         {

@@ -72,11 +72,11 @@ $setup_info->DisplayFlush("<br>\n");
 
 $Cols = 3;
 $switch_info = $setup_info->get_switches();
-$setup_info->do_Table_Title("Setup Info Switch Configuration",$Cols);
+$setup_info->do_Table_Title ("Setup Info Switch Configuration", $Cols);
 for ($n = 0; $n < count($switch_info); $n++)
 {
-    list($switch_name, $switch_array) = each($switch_info);
-    $setup_info->do_Table_Row($switch_array['caption'],"<font color='maroon'>".$switch_array['info']."</font>",(($switch_array['value']) ? "<font color='#0000ff'>Enabled</font>" : "<font color='#ff0000'>Disabled</font>"));
+    list ($switch_name, $switch_array) = each ($switch_info);
+    $setup_info->do_Table_Row ($switch_array['caption'], "<font color='maroon'>".$switch_array['info']."</font>", (($switch_array['value']) ? "<font color='#0000ff'>Enabled</font>" : "<font color='#ff0000'>Disabled</font>"));
 }
 $setup_info->do_Table_Footer("<br>");
 
@@ -89,54 +89,54 @@ $setup_info->DisplayFlush("<font size=\"2\">// And to find out what other softwa
 $setup_info->DisplayFlush("<br>\n");
 
 $Cols = 3; $Wrap = true;
-$setup_info->do_Table_Title("Server Software/Operating System",$Cols);
+$setup_info->do_Table_Title ("Server Software/Operating System", $Cols);
 
 $software_info = $setup_info->get_server_software();
 
 for ($n = 0; $n < count($software_info); $n++)
 {
-    list($software_name, $software_array) = each($software_info);
-    list($software_key, $software_value) = each($software_array);
-    $setup_info->do_Table_Row($software_key,$software_value);
+    list ($software_name, $software_array) = each ($software_info);
+    list ($software_key, $software_value) = each ($software_array);
+    $setup_info->do_Table_Row($software_key, $software_value);
 }
 
 if ($setup_info->testdb_connection())
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#0000ff'><strong>".$setup_info->db_status['status']."</strong></font>");
+    $setup_info->do_Table_Row ("DB CONNECTION", "<font color='#0000ff'><strong>".$setup_info->db_status['status']."</strong></font>");
 }
 else
 {
-    $setup_info->do_Table_Row("DB CONNECTION","<font color='#ff0000'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
+    $setup_info->do_Table_Row ("DB CONNECTION", "<font color='#ff0000'><strong>".$setup_info->db_status['status']."<br>".$setup_info->db_status['error']."</strong></font>");
 }
 
 if ($setup_info->cookie_test['enabled'])
 {
     if ($setup_info->cookie_test['result'])
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#0000ff'><strong>Passed</strong></font>");
+        $setup_info->do_Table_Row("Cookie Test", "<font color='#0000ff'><strong>Passed</strong></font>");
     }
     else
     {
-        $setup_info->do_Table_Row("Cookie Test","<font color='#ff0000'><strong>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</strong></font>");
+        $setup_info->do_Table_Row("Cookie Test", "<font color='#ff0000'><strong>Failed testing Cookies!<br>{$setup_info->cookie_test['status']}</strong></font>");
     }
 }
 else
 {
-    $setup_info->do_Table_Row("Cookie Test","<font color='#ff0000'><strong>{$setup_info->cookie_test['status']}</strong></font>");
+    $setup_info->do_Table_Row("Cookie Test", "<font color='#ff0000'><strong>{$setup_info->cookie_test['status']}</strong></font>");
 }
 
 $setup_info->do_Table_Footer("");
 $setup_info->DisplayFlush("<br>\n");
 
 $Cols = 3; $Wrap = true;
-$setup_info->do_Table_Title("Software Versions",$Cols);
+$setup_info->do_Table_Title("Software Versions", $Cols);
 
 $software_versions = $setup_info->get_software_versions();
 for ($n = 0; $n < count($software_versions); $n++)
 {
-    list($software_name, $software_array) = each($software_versions);
-    list($software_key, $software_value) = each($software_array);
-    $setup_info->do_Table_Row($software_key,$software_value);
+    list ($software_name, $software_array) = each ($software_versions);
+    list ($software_key, $software_value) = each ($software_array);
+    $setup_info->do_Table_Row($software_key, $software_value);
 }
 
 $setup_info->do_Table_Blank_Row();
@@ -159,11 +159,11 @@ $setup_info->DisplayFlush("  <li><font size=\"2\" color=#ffff00>And if using Win
 $setup_info->DisplayFlush("</ul>\n");
 $setup_info->DisplayFlush("<p><font size=\"2\">// With this information it will help me to help you much faster and also get my Script to display more reliable information.</font></p>\n");
 
-$setup_info->do_Table_Title("DB Config Settings",$Cols);
+$setup_info->do_Table_Title("DB Config Settings", $Cols);
 
 $setup_info->do_Table_Blank_Row();
 $game_path = $setup_info->get_gamepath();
-$setup_info->do_Table_Row("gamepath","<strong>".(!$game_path['status'] ? "<font color='#ff0000'>{$game_path['info']}</font>" : $game_path['result'] )."</strong>");
+$setup_info->do_Table_Row("gamepath", "<strong>".(!$game_path['status'] ? "<font color='#ff0000'>{$game_path['info']}</font>" : $game_path['result'] )."</strong>");
 if (!$game_path['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -171,7 +171,7 @@ if (!$game_path['status'])
 
 $setup_info->do_Table_Blank_Row();
 $game_domain = $setup_info->get_gamedomain();
-$setup_info->do_Table_Row("gamedomain","<strong>".(!$game_domain['status'] ? "<font color='#ff0000'>{$game_domain['info']}</font>" : $game_domain['result'] )."</strong>");
+$setup_info->do_Table_Row("gamedomain", "<strong>".(!$game_domain['status'] ? "<font color='#ff0000'>{$game_domain['info']}</font>" : $game_domain['result'] )."</strong>");
 if (!$game_domain['status'])
 {
     $setup_info->do_Table_Single_Row("Please set \$setup_info->switches['Show_Env_Var']['enabled'] = true; and email the page result to me.");
@@ -190,16 +190,16 @@ $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; backg
 
 $setup_info->DisplayFlush("<p><font size=\"2\">// This displays status on the BNT Database.</font></p>\n");
 $Cols = 3;
-$setup_info->do_Table_Title("Blacknova Traders Database Status",$Cols);
+$setup_info->do_Table_Title("Blacknova Traders Database Status", $Cols);
 
 $DB_STATUS = $setup_info->validate_database();
-$setup_info->do_Table_Row("TableCount",$DB_STATUS['status']);
+$setup_info->do_Table_Row("TableCount", $DB_STATUS['status']);
 $setup_info->do_Table_Blank_Row();
 foreach ($DB_STATUS as $n => $s)
 {
     if ($n!="status")
     {
-        $setup_info->do_Table_Row($DB_STATUS[$n]['name'],$DB_STATUS[$n]['info'],$DB_STATUS[$n]['status']);
+        $setup_info->do_Table_Row($DB_STATUS[$n]['name'], $DB_STATUS[$n]['info'], $DB_STATUS[$n]['status']);
     }
 }
 $setup_info->do_Table_Blank_Row();
@@ -216,14 +216,14 @@ $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; backg
 $setup_info->DisplayFlush("<p><font size=\"2\">// This displays Installed Patch information on the BNT Server.</font></p>\n");
 
 $Cols = 3;
-$setup_info->do_Table_Title("Testing for installed patches",$Cols);
+$setup_info->do_Table_Title("Testing for installed patches", $Cols);
 
 foreach ($patch_info as $n => $s)
 {
-    $setup_info->do_Table_Row($patch_info[$n][0]['name'],$patch_info[$n][0]['info'],$patch_info[$n][0]['patched']);
+    $setup_info->do_Table_Row($patch_info[$n][0]['name'], $patch_info[$n][0]['info'], $patch_info[$n][0]['patched']);
     if ($patch_info[$n][0]['patched']!="Not Found")
     {
-        $setup_info->do_Table_Row("Patch Information","<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
+        $setup_info->do_Table_Row("Patch Information", "<font color=\"maroon\">Author: </font><font color=\"purple\">".$patch_info[$n][1]['author']."</font><br>\n<font color=\"maroon\">Created: </font><font color=\"purple\">".$patch_info[$n][1]['created']."</font>");
     }
     $setup_info->do_Table_Blank_Row();
 }
@@ -238,12 +238,12 @@ $setup_info->DisplayFlush("<p><font size=\"2\">// This is used to help the admin
 
 $Cols = 2;
 $Wrap = true;
-$setup_info->do_Table_Title("Environment Variables",$Cols);
+$setup_info->do_Table_Title("Environment Variables", $Cols);
 if ($setup_info->get_env_variables($env_info))
 {
     for ($n=0; $n <count($env_info); $n++)
     {
-        $setup_info->do_Table_Row($env_info[$n]['name'],$env_info[$n]['value']);
+        $setup_info->do_Table_Row($env_info[$n]['name'], $env_info[$n]['value']);
     }
 }
 else
@@ -270,7 +270,7 @@ $setup_info->DisplayFlush("<p><font size=\"2\">// This is what you already have 
 $setup_info->DisplayFlush("<font size=\"2\">// This will also tell you if what you have set in db_config.php is the same as what Setup Info has Auto Detected.</font></p>\n");
 
 $Cols = 3;
-$setup_info->do_Table_Title("Current DB Config Information",$Cols);
+$setup_info->do_Table_Title("Current DB Config Information", $Cols);
 $cur_cfg_loc = $setup_info->get_current_db_config_info();
 
 if (is_array ($cur_cfg_loc))
@@ -304,13 +304,13 @@ $setup_info->DisplayFlush("<div style='width:80%; margin:auto; height:1px; backg
 $setup_info->DisplayFlush("<p><font size=\"2\">// This displays the Scheduler information.</font></p>\n");
 
 $Cols = 3;
-$setup_info->do_Table_Title("Scheduler Information",$Cols);
+$setup_info->do_Table_Title("Scheduler Information", $Cols);
 
 $scheduler_info = $setup_info->get_scheduler_info();
 
 for ($n=0; $n <count($scheduler_info); $n++)
 {
-    $setup_info->do_Table_Row($scheduler_info[$n]['name'],$scheduler_info[$n]['caption'], $scheduler_info[$n]['value']);
+    $setup_info->do_Table_Row($scheduler_info[$n]['name'], $scheduler_info[$n]['caption'], $scheduler_info[$n]['value']);
 }
 $setup_info->do_Table_Footer("<br>");
 

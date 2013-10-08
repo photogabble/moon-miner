@@ -23,19 +23,19 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntTemplate.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-define ("TEMPLATE_USE_SMARTY",           0x00000000,             true);
-define ("TEMPLATE_USE_XML",              0x00000001,             true);
+define ("TEMPLATE_USE_SMARTY", 0x00000000, true);
+define ("TEMPLATE_USE_XML", 0x00000001, true);
 
 class BntTemplate
 {
-    private $type                       = NULL;
-    private $initialiszd                = NULL;
-    private $api                        = NULL;
+    private $type = null;
+    private $initialiszd = null;
+    private $api = null;
 
     function __construct()
     {
-        $this->initialized              = (boolean) false;
-        $this->api                      = array ();
+        $this->initialized = (boolean) false;
+        $this->api = array ();
 
 // Temp disabled code due to exploit, do not remove,
 // will be reverting back once exploit is fixed.

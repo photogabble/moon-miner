@@ -119,7 +119,7 @@ if ($flag == 0)
     {
         if (mt_rand ()%10 == 1)
         {
-            $makepass .= sprintf ("%0.0f",(mt_rand ()%50)+1);
+            $makepass .= sprintf ("%0.0f", (mt_rand ()%50)+1);
         }
         else
         {
@@ -168,7 +168,7 @@ if ($flag == 0)
         $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
         //$link_to_game .= str_replace ($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
         $link_to_game .= $gamepath;
-        mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game","From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
+        mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game", "From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
 
         BntLogMove::writeLog ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $resx = $db->Execute ("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array ($character ."\'s Territory", $shipid['ship_id']));
@@ -188,7 +188,7 @@ if ($flag == 0)
 }
 else
 {
-    $langvars['l_new_err'] = str_replace ("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>",$langvars['l_new_err']);
+    $langvars['l_new_err'] = str_replace ("[here]", "<a href='new.php'>" . $langvars['l_here'] . "</a>", $langvars['l_new_err']);
     echo $langvars['l_new_err'];
 }
 

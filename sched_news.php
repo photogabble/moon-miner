@@ -158,7 +158,7 @@ while (!$sql->EOF)
         if ($sql2->EOF)
         {
             $planetcount = 5;
-            $langvars['l_news_p_headline2'] = str_replace ("[player]", $name,$langvars['l_news_p_headline']);
+            $langvars['l_news_p_headline2'] = str_replace ("[player]", $name, $langvars['l_news_p_headline']);
             $headline = $langvars['l_news_p_headline2'] ." ". $planetcount ." ". $langvars['l_news_planets'];
             $langvars['l_news_p_text52'] = str_replace ("[name]", $name, $langvars['l_news_p_text5']);
             $news = $db->Execute ("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?, ?, ?, NOW(), 'planet5');", array ($headline, $langvars['l_news_p_text52'], $row['owner']));

@@ -491,7 +491,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             echo $langvars['l_planet_left'] . "<br><br>";
             $update = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N', planet_id = 0 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
             DbOp::dbResult ($db, $update, __LINE__, __FILE__);
-            $langvars['l_global_mmenu'] = str_replace ("[here]","<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+            $langvars['l_global_mmenu'] = str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
             echo $langvars['l_global_mmenu'] . "<br>\n";
             header("Location: main.php");
         }

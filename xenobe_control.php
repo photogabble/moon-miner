@@ -155,7 +155,7 @@ else
                 {
                     $row = $res->fields;
                     $charnamelist = sprintf ("%-20s", $row['character_name']);
-                    $charnamelist = str_replace ("  ", "&nbsp;&nbsp;",$charnamelist);
+                    $charnamelist = str_replace ("  ", "&nbsp;&nbsp;", $charnamelist);
                     $sectorlist = sprintf ("Sector %'04d&nbsp;&nbsp;", $row['sector']);
                     if ($row['active'] == "Y")
                     {
@@ -519,10 +519,10 @@ else
                 }
 
                 // Change Spaces to Underscores in shipname
-                $shipname = str_replace (" ","_",$shipname);
+                $shipname = str_replace (" ", "_", $shipname);
 
                 // Create emailname from character
-                $emailname = str_replace (" ","_",$character) . "@xenobe";
+                $emailname = str_replace (" ", "_", $character) . "@xenobe";
                 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
                 $result = $db->Execute ("SELECT email, character_name, ship_name FROM {$db->prefix}ships WHERE email = ? OR character_name = ? OR ship_name = ?;", array ($emailname, $character, $shipname));
                 DbOp::dbResult ($db, $result, __LINE__, __FILE__);
@@ -563,11 +563,11 @@ else
                     {
                         if (mt_rand () %10 == 1)
                         {
-                            $makepass .= sprintf ("%0.0f",(mt_rand () %50)+1);
+                            $makepass .= sprintf ("%0.0f", (mt_rand () %50)+1);
                         }
                         else
                         {
-                            $makepass .= sprintf ("%s",$syllable_array[mt_rand () %62]);
+                            $makepass .= sprintf ("%s", $syllable_array[mt_rand () %62]);
                         }
                     }
                     if ($xenlevel=='')
