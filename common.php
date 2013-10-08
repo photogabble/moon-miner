@@ -125,7 +125,6 @@ if (!$index_page)
     }
 }
 
-
 // REG_GLOBAL_FIX,0.1.1,22-09-2004,BNT DevTeam
 if (!defined ('REG_GLOBAL_FIX')) define ('REG_GLOBAL_FIX', True, TRUE);
 

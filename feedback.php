@@ -51,9 +51,9 @@ if (array_key_exists ('content', $_POST) === false)
 else
 {
     $link_to_game = "http://";
-    $link_to_game .= ltrim ($gamedomain,".");// Trim off the leading . if any
+    $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
     $link_to_game .= $gamepath;
-    mail ("$admin_mail", $langvars['l_feedback_subj'], "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}","From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
+    mail ("$admin_mail", $langvars['l_feedback_subj'], "IP address - $ip\r\nGame Name - {$playerinfo['character_name']}\r\nServer URL - {$link_to_game}\r\n\r\n{$_POST['content']}", "From: {$playerinfo['email']}\r\nX-Mailer: PHP/" . phpversion());
     echo $langvars['l_feedback_messent'] . "<br><br>";
 }
 
