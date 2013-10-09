@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw2.php')) // Prevent direct acce
 function ibank_withdraw2 ($db, $langvars)
 {
     global $playerinfo, $amount, $account, $langvars;
-	global $local_number_thousands_sep, $local_number_dec_point;
+    global $local_number_thousands_sep, $local_number_dec_point;
 
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)

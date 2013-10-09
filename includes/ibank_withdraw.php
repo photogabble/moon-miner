@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw.php')) // Prevent direct acces
 function ibank_withdraw ($langvars)
 {
     global $playerinfo, $account;
-	global $local_number_thousands_sep, $local_number_dec_point;
+    global $local_number_thousands_sep, $local_number_dec_point;
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_withdrawfunds'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .

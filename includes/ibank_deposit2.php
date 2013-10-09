@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_deposit2.php')) // Prevent direct acces
 function ibank_deposit2 ($db)
 {
     global $playerinfo, $amount, $account, $langvars;
-	global $local_number_thousands_sep, $local_number_dec_point;
+    global $local_number_thousands_sep, $local_number_dec_point;
 
     $max_credits_allowed = 18446744073709000000;
 

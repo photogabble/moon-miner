@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_login.php')) // Prevent direct access t
 function ibank_login ($langvars)
 {
     global $playerinfo, $account;
-	global $local_number_thousands_sep, $local_number_dec_point;
+    global $local_number_thousands_sep, $local_number_dec_point;
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_welcometoibank'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
