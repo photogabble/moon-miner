@@ -80,7 +80,7 @@ class BntTemplate
     }
 
     // Needs to be updated to suit Smarty and XML Template Systems.
-    public function Initialize ($type = NULL, $themeName = "classic")
+    public function Initialize ($type = null, $themeName = "classic")
     {
         if ($this->initialized != true)
         {
@@ -89,7 +89,7 @@ class BntTemplate
                 // Create the module.
                 $api = new BntSmarty ($this);
             }
-            else if ($type === TEMPLATE_USE_XML)
+            elseif ($type === TEMPLATE_USE_XML)
             {
                 // Create the module.
                 $api = new BntXml ($this);
@@ -133,7 +133,7 @@ class BntTemplate
         return (boolean) false;
     }
 
-    public function Display ($template_file = NULL)
+    public function Display ($template_file = null)
     {
         $this->api[$this->api_class]->Display ($template_file);
     }
@@ -148,7 +148,7 @@ class BntTemplate
         return $this->api;
     }
 
-    public function SetTheme ($theme = NULL)
+    public function SetTheme ($theme = null)
     {
         if (method_exists ($this->api[$this->api_class], 'SetTheme') === true)
         {
@@ -156,7 +156,7 @@ class BntTemplate
         }
     }
 
-    public function HandleCompression ($output = NULL)
+    public function HandleCompression ($output = null)
     {
         // Check to see if we have data, if not error out.
         if (is_null ($output))

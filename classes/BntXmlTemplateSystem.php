@@ -43,15 +43,15 @@ class BntXmlTemplateSystem
     static $version                     = "0.0.9 (0032) [DEV]";
     static $author                      = "TheMightyDude";
     private $qualifiedName              = "root";
-    private $document                   = NULL;
-    private $root                       = NULL;
+    private $document                   = null;
+    private $root                       = null;
     private $validation                 = false;
     private $initialized                = false;
     private $mode                       = XMLDOM_XML;
 
-    private $stylesheet                 = NULL;
+    private $stylesheet                 = null;
 
-    function __construct ($publicId = NULL, $systemId  = NULL)
+    function __construct ($publicId = null, $systemId  = null)
     {
         $this->chkLibraries (array("xsl", "dom"));
 
@@ -75,7 +75,7 @@ class BntXmlTemplateSystem
         $this->RleaseTemplate();
     }
 
-    private function chkLibraries ($libraries = NULL)
+    private function chkLibraries ($libraries = null)
     {
         if (is_null ($libraries) || !is_array ($libraries) )
         {
@@ -89,7 +89,7 @@ class BntXmlTemplateSystem
         }
     }
 
-    public function Initialize ($encoding = "iso-8859-1", $stylesheet = NULL, $comment = NULL)
+    public function Initialize ($encoding = "iso-8859-1", $stylesheet = null, $comment = null)
     {
         $this->Encoding ($encoding);
         $this->StyleSheet ($stylesheet);
@@ -151,7 +151,7 @@ class BntXmlTemplateSystem
         }
     }
 
-    public function StyleSheet ($stylesheet = NULL)
+    public function StyleSheet ($stylesheet = null)
     {
         if (!is_null ($stylesheet))
         {
@@ -162,7 +162,7 @@ class BntXmlTemplateSystem
 
             if ($this->mode == XMLDOM_UNPROCESSED)
             {
-                $this->document->appendChild($this->document->createProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\" href=\"$stylesheet\"")); 
+                $this->document->appendChild($this->document->createProcessingInstruction ("xml-stylesheet", "type=\"text/xsl\" href=\"$stylesheet\""));
 
             }
             else
@@ -179,7 +179,7 @@ class BntXmlTemplateSystem
         }
     }
 
-    public function AddNode ($parent = NULL, $nodeName = NULL)
+    public function AddNode ($parent = null, $nodeName = null)
     {
         if (is_null ($nodeName))
         {
@@ -198,9 +198,9 @@ class BntXmlTemplateSystem
         return $parent->appendChild(new \DOMElement ($nodeName));
     }
 
-    public function GetNode ($parent = NULL, $nodeName = NULL, &$node = NULL)
+    public function GetNode ($parent = null, $nodeName = null, &$node = null)
     {
-        $node = NULL;
+        $node = null;
         if (is_null ($nodeName))
         {
             return (boolean) false;
@@ -236,7 +236,7 @@ class BntXmlTemplateSystem
         }
     }
 
-    public function AddNodeArray ($parent = NULL, $nodeName = NULL, $nodeData = NULL)
+    public function AddNodeArray ($parent = null, $nodeName = null, $nodeData = null)
     {
         if (is_null ($nodeName))
         {
@@ -265,7 +265,7 @@ class BntXmlTemplateSystem
         return (boolean) true;
     }
 
-    public function AddAttribute ($node = NULL, $name = NULL, $value = NULL)
+    public function AddAttribute ($node = null, $name = null, $value = null)
     {
         $return = (boolean) false;
         if ( !is_null ($node) && !is_null ($name) )
@@ -276,7 +276,7 @@ class BntXmlTemplateSystem
         return $return;
     }
 
-    public function AddAttributes ($node = NULL, $array = NULL)
+    public function AddAttributes ($node = null, $array = null)
     {
         $return = (boolean) false;
         if ( !is_null ($node) && !is_null ($array) && is_array ($array) )
@@ -290,7 +290,7 @@ class BntXmlTemplateSystem
         return $return;
     }
 
-    public function AddComment ($node = NULL, $comment = NULL)
+    public function AddComment ($node = null, $comment = null)
     {
         if (is_null ($comment))
         {
@@ -311,7 +311,7 @@ class BntXmlTemplateSystem
         return (boolean) true;
     }
 
-    public function AddCDATASection ($node = NULL, $cdata = NULL)
+    public function AddCDATASection ($node = null, $cdata = null)
     {
         if (is_null ($cdata))
         {
@@ -332,7 +332,7 @@ class BntXmlTemplateSystem
         return (boolean) true;
     }
 
-    public function AddTextNode ($node = NULL, $text = NULL)
+    public function AddTextNode ($node = null, $text = null)
     {
         if (is_null ($text))
         {

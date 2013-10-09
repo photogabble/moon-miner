@@ -25,8 +25,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntXml.php')) // Prevent direct access to thi
 
 class BntXml
 {
-    private $xmldom                         = NULL;
-    private $parent                         = NULL;
+    private $xmldom                         = null;
+    private $parent                         = null;
 
     // List of all names to ignore.
     private $ignore_list                    = array("language_vars");
@@ -42,7 +42,7 @@ class BntXml
         unset($this->xmldom);
     }
 
-    public function Initialize($comment = NULL)
+    public function Initialize($comment = null)
     {
         // We can have the Template system support comments at the top of the page using the
         // <!-- COMMENT -->
@@ -51,17 +51,17 @@ class BntXml
         $this->xmldom->OutputMode(XMLDOM_XML);
 
         // Initialize.
-        $this->xmldom->Initialize('utf-8', NULL, $comment);
+        $this->xmldom->Initialize('utf-8', null, $comment);
     }
 
-    public function AddVariables($nodeName = NULL, $attributes = NULL)
+    public function AddVariables($nodeName = null, $attributes = null)
     {
         if (in_array($nodeName, $this->ignore_list) === true)
         {
             return (boolean) false;
         }
 
-        $container = NULL;
+        $container = null;
         if ( isset( $attributes['container'] )=== true && empty( $attributes['container'] ) === false )
         {
             $container = (string) $attributes['container'];
@@ -75,9 +75,9 @@ class BntXml
                 reset($value);
                 ksort($value, SORT_STRING);
 
-                if ($this->xmldom->GetNode(NULL, $nodeName, $node) === false)
+                if ($this->xmldom->GetNode(null, $nodeName, $node) === false)
                 {
-                    $node = $this->xmldom->AddNode(NULL, $nodeName);
+                    $node = $this->xmldom->AddNode(null, $nodeName);
                 }
 
                 // Add length attribute to parent.
@@ -92,13 +92,13 @@ class BntXml
             else
             {
                 // AddTextNode
-                if ($this->xmldom->GetNode(NULL, $nodeName, $node) === false)
+                if ($this->xmldom->GetNode(null, $nodeName, $node) === false)
                 {
-                    $node = $this->xmldom->AddNode(NULL, $nodeName);
+                    $node = $this->xmldom->AddNode(null, $nodeName);
                 }
 
                 $skipNode = false;
-                if ($this->xmldom->GetNode(NULL, $node->nodeName, $tmpnode) === true)
+                if ($this->xmldom->GetNode(null, $node->nodeName, $tmpnode) === true)
                 {
                     for($i=0; $i<$tmpnode->childNodes->length; $i++)
                     {
