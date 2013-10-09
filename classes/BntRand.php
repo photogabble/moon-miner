@@ -104,7 +104,7 @@ class BntRand
         $range = $max - $min;
         $bytes = ceil ($range / 256);
         $fp = @fopen ('/dev/urandom', 'rb');
-        if ($fp !== FALSE)
+        if ($fp !== false)
         {
             $bits .= @fread ($fp, $bytes);
             @fclose ($fp);
