@@ -26,7 +26,7 @@
 
 <div class="index-flags">
 {foreach from=$variables['list_of_langs'] key=lang_file item=language}
-<a href="index.php?lang={$lang_file}"><img width="24" height="16" src="images/flags/{$language['flag']}.png" alt="{$language['lang_name']}"></a>
+<a href="index.php?lang={$lang_file}"><img width="24" height="16" src="templates/{$variables['template']}/images/flags/{$language['flag']}.png" alt="{$language['lang_name']}"></a>
 {/foreach}
 </div>
 
