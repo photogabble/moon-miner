@@ -22,7 +22,7 @@
 {block name=title}{$langvars['l_welcome_bnt']}{/block}
 
 {block name=body}
-<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="images/header1.png" alt="{$langvars['l_bnt']}"></div>
+<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="templates/{$variables['template']}/images/header1.png" alt="{$langvars['l_bnt']}"></div>
 
 <div class="index-flags">
 {foreach from=$variables['list_of_langs'] key=lang_file item=language}
