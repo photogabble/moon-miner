@@ -1,3 +1,7 @@
+TheKabal (10 October 2013)
+--------------------------------------
+Moving images into templates
+
 TheKabal (6 October 2013)
 --------------------------------------
 All check login calls need the template to be passed to it, or else "you need to login" display is broken
