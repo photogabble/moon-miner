@@ -26,6 +26,8 @@ $langvars = BntTranslate::load ($db, $lang, array ('readmail'));
 $title = $langvars['l_readm_title'];
 include './header.php';
 
+$active_template = "templates/" . $bntreg->get("template") . "/";
+
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 echo "<h1>" . $title . "</h1>\n";
@@ -70,7 +72,7 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
                     <tr>
                       <td width="75%" align="left"><font color="white" size="2"><strong><?php echo $langvars['l_readm_center']; ?> (<span style='color:#00C0C0;'>Subspace</span>)</strong></font></td>
                       <td width="21%" align="center" nowrap><font color="white" size="2"><?php echo "$cur_D"; ?>&nbsp;<?php echo "$cur_T"; ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a href="main.php"><img alt="Click here to return to the main menu" src="<?php echo $active_template; ?>images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
@@ -122,12 +124,12 @@ DbOp::dbResult ($db, $res, __LINE__, __FILE__);
 echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 //if ($isAdmin === true)
 //{
-//    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='images/validated_administrator2.gif' alt='Validated as Admin' />";
+//    echo "&nbsp;<img style='width:64px; height:16px; border:none; padding:0px; vertical-align:text-bottom;' src='<?php echo $active_template; ?>images/validated_administrator2.gif' alt='Validated as Admin' />";
 //}
 ?>
 </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><?php echo $msg['sent']; ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="<?php echo $active_templates; ?>images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>

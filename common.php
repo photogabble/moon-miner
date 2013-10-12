@@ -197,6 +197,6 @@ $template = new BntTemplate (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
 $bntreg->set ("langvars", $langvars);
-$bntreg->set ("template", $default_template);
+$bntreg->set ("template", $default_template); // Temporary until we have a template picker
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>
