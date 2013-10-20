@@ -1,5 +1,9 @@
 TheKabal (10 October 2013)
 --------------------------------------
+BntDb::logDbErrors replaces DbOp::dbResult
+
+TheKabal (10 October 2013)
+--------------------------------------
 Moving images into templates
 
 TheKabal (6 October 2013)
