@@ -45,8 +45,9 @@ class BntSchema
             if ($schema_filename->isFile () && $file_ext == 'xml')
             {
                 $tablename = substr ($schema_filename, 0, -4);
-                $res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+                $drop_res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
+                BntDb::logDbErrors ($db, $drop_res, __LINE__, __FILE__);
+
                 if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == '') // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
                 {
                     $destroy_table_results[$i]['result'] = true;
@@ -107,7 +108,7 @@ class BntSchema
 
                     foreach ($parsed_xml as $execute_sql)
                     {
-                        $res = $db->Execute ($execute_sql);
+                        $execute_res = $db->Execute ($execute_sql);
                         if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == '') // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
                         {
                             // TODO: This needs to be translated text
@@ -118,7 +119,7 @@ class BntSchema
                             $create_table_results[$i]['result'] = $db->ErrorNo () . ": " . $db->ErrorMsg ();
                         }
 
-                        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+                        BntDb::logDbErrors ($db, $execute_res, __LINE__, __FILE__);
                         $create_table_results[$i]['name'] = $db_prefix . $tablename;
                         $table_timer->stop ();
                         $create_table_results[$i]['time'] = $table_timer->elapsed ();

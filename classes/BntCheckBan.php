@@ -39,40 +39,40 @@ class BntCheckBan
         }
 
         // Check for IP Ban
-        $rs = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE (ban_type = ? AND ban_mask = ?) OR (ban_mask = ? AND ? != NULL);", array(IP_BAN, $_SERVER['REMOTE_ADDR'], $player_acc['ip_address'], $player_acc['ip_address']));
-        DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
-        if ($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
+        $ipbans_res = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE (ban_type = ? AND ban_mask = ?) OR (ban_mask = ? AND ? != NULL);", array(IP_BAN, $_SERVER['REMOTE_ADDR'], $player_acc['ip_address'], $player_acc['ip_address']));
+        BntDb::logDbErrors ($db, $ipbans_res, __LINE__, __FILE__);
+        if ($ipbans_res instanceof ADORecordSet && $ipbans_res->RecordCount() > 0)
         {
             // Ok, we have a ban record matching the players current IP Address, so return the BanType.
-            return (array) $rs->fields;
+            return (array) $ipbans_res->fields;
         }
 
         // Check for ID Watch, Ban, Lock, 24H Ban etc linked to the platyers ShipID.
-        $rs = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE ban_ship = ?;", array($player_acc['ship_id']));
-        DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
-        if ($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
+        $idbans_res = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE ban_ship = ?;", array($player_acc['ship_id']));
+        BntDb::logDbErrors ($db, $idbans_res, __LINE__, __FILE__);
+        if ($idbans_res instanceof ADORecordSet && $idbans_res->RecordCount() > 0)
         {
             // Now return the highest ban type (i.e. worst type of ban)
             $ban_type = array("ban_type"=>0);
-            while (!$rs->EOF)
+            while (!$idbans_res->EOF)
             {
-                if ($rs->fields['ban_type'] > $ban_type['ban_type'])
+                if ($idbans_res->fields['ban_type'] > $ban_type['ban_type'])
                 {
-                    $ban_type = $rs->fields;
+                    $ban_type = $idbans_res->fields;
                 }
-                $rs->MoveNext();
+                $idbans_res->MoveNext();
             }
 
             return (array) $ban_type;
         }
 
         // Check for Multi Ban (IP, ID)
-        $rs = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE ban_type = ? AND (ban_mask = ? OR ban_mask = ? OR ban_ship = ?)", array(MULTI_BAN, $player_acc['ip_address'], $_SERVER['REMOTE_ADDR'], $player_acc['ship_id']));
-        DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
-        if ($rs instanceof ADORecordSet && $rs->RecordCount() > 0)
+        $multiban_res = $db->Execute ("SELECT * FROM {$db->prefix}bans WHERE ban_type = ? AND (ban_mask = ? OR ban_mask = ? OR ban_ship = ?)", array(MULTI_BAN, $player_acc['ip_address'], $_SERVER['REMOTE_ADDR'], $player_acc['ship_id']));
+        BntDb::logDbErrors ($db, $multiban_res, __LINE__, __FILE__);
+        if ($multiban_res instanceof ADORecordSet && $multiban_res->RecordCount() > 0)
         {
             // Ok, we have a ban record matching the players current IP Address or their ShipID, so return the BanType.
-            return (array) $rs->fields;
+            return (array) $multiban_res->fields;
         }
 
         // Well we got here, so we haven't found anything, so we return a Boolean false.

@@ -45,11 +45,11 @@ class BntLogin
 
         if (is_null ($_SESSION['username']) == false && is_null ($_SESSION['password']) == false)
         {
-            $rs = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
-            DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
-            if ($rs instanceof ADORecordSet && $rs->RecordCount() >0)
+            $res = $db->SelectLimit ("SELECT * FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
+            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+            if ($res instanceof ADORecordSet && $res->RecordCount() >0)
             {
-                $playerinfo = $rs->fields;
+                $playerinfo = $res->fields;
 
                 // Check the password against the stored hashed password
                 // The first number is the hash strength, or number of iterations of bcrypt to run.
@@ -67,7 +67,8 @@ class BntLogin
                     // Update the players last_login every 60 seconds to cut back SQL Queries.
                     if ($timestamp['now'] >= ($timestamp['last'] +60))
                     {
-                        $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
+                        $update_llogin = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
+                        BntDb::logDbErrors ($db, $update_llogin, __LINE__, __FILE__);
 
                         // Reset the last activity time on the session so that the session renews - this is the
                         // replacement for the (now removed) update_cookie function.
@@ -126,8 +127,9 @@ class BntLogin
                         // if the player has an escapepod, set the player up with a new ship
                         if ($playerinfo['dev_escapepod'] == "Y")
                         {
-                            $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' WHERE email=?", array ($_SESSION['username']));
-                            DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+                            $newship_res = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, computer=0,sensors=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_ore=0, ship_organics=0, ship_energy=1000, ship_colonists=0, ship_goods=0, ship_fighters=100, ship_damage=0, on_planet='N', dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, ship_destroyed='N',dev_lssd='N' WHERE email=?", array ($_SESSION['username']));
+                            BntDb::logDbErrors ($db, $newship_res, __LINE__, __FILE__);
+
                             $error_status .= str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_login_died']);
                             $flag = 1;
                         }

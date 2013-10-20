@@ -27,28 +27,28 @@ class BntFighters
 {
     static function destroy ($db, $sector, $num_fighters)
     {
-        $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity ASC", array ($sector));
-        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+        $secdef_res = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F' ORDER BY quantity ASC", array ($sector));
+        BntDb::logDbErrors ($db, $secdef_res, __LINE__, __FILE__);
 
         // Put the defence information into the array "defenceinfo"
-        if ($result3 instanceof ADORecordSet)
+        if ($secdef_res instanceof ADORecordSet)
         {
-            while (!$result3->EOF && $num_fighters > 0)
+            while (!$secdef_res->EOF && $num_fighters > 0)
             {
-                $row = $result3->fields;
+                $row = $secdef_res->fields;
                 if ($row['quantity'] > $num_fighters)
                 {
-                    $update = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($num_fighters, $row['defence_id']));
-                    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+                    $update_res = $db->Execute("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($num_fighters, $row['defence_id']));
+                    BntDb::logDbErrors ($db, $update_res, __LINE__, __FILE__);
                     $num_fighters = 0;
                 }
                 else
                 {
-                    $update = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
-                    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+                    $update_res = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
+                    BntDb::logDbErrors ($db, $update_res, __LINE__, __FILE__);
                     $num_fighters -= $row['quantity'];
                 }
-                $result3->MoveNext();
+                $secdef_res->MoveNext();
             }
         }
     }

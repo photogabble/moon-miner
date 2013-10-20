@@ -72,7 +72,7 @@ class BntTranslate
                     $result = $db->CacheExecute (7200, "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
                 }
 
-                DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+                BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
                 while ($result && !$result->EOF)
                 {
                     $row = $result->fields;

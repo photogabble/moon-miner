@@ -27,28 +27,28 @@ class BntShip
 {
     static function leavePlanet ($db, $ship_id)
     {
-        $result1 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
-        DbOp::dbResult ($db, $result1, __LINE__, __FILE__);
+        $own_pl_result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
+        BntDb::logDbErrors ($db, $own_pl_result, __LINE__, __FILE__);
 
-        if ($result1 instanceof ADORecordSet)
+        if ($own_pl_result instanceof ADORecordSet)
         {
-            while (!$result1->EOF)
+            while (!$own_pl_result->EOF)
             {
-                $row = $result1->fields;
-                $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' AND planet_id = ? AND ship_id <> ?", array ($row['planet_id'], $ship_id));
-                DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
-                if ($result2 instanceof ADORecordSet)
+                $row = $own_pl_result->fields;
+                $on_pl_result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE on_planet = 'Y' AND planet_id = ? AND ship_id <> ?", array ($row['planet_id'], $ship_id));
+                BntDb::logDbErrors ($db, $on_pl_result, __LINE__, __FILE__);
+                if ($on_pl_result instanceof ADORecordSet)
                 {
-                    while (!$result2->EOF )
+                    while (!$on_pl_result->EOF )
                     {
-                        $cur = $result2->fields;
-                        $resa = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array ($cur['ship_id']));
-                        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+                        $cur = $on_pl_result->fields;
+                        $uppl_res = $db->Execute ("UPDATE {$db->prefix}ships SET on_planet = 'N',planet_id = '0' WHERE ship_id = ?", array ($cur['ship_id']));
+                        BntDb::logDbErrors ($db, $uppl_res, __LINE__, __FILE__);
                         BntPlayerLog::writeLog ($db, $cur['ship_id'], LOG_PLANET_EJECT, $cur['sector'] ."|". $row['character_name']);
-                        $result2->MoveNext();
+                        $on_pl_result->MoveNext();
                     }
                 }
-                $result1->MoveNext();
+                $own_pl_result->MoveNext();
             }
         }
     }

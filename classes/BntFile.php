@@ -35,8 +35,8 @@ class BntFile
 
         $status_array = array();
         $i = 0;
-        $resa = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
-        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+        $start_tran_res = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
+        BntDb::logDbErrors ($db, $start_tran_res, __LINE__, __FILE__);
 
         $insert_sql = "INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES ";
         foreach ($ini_keys as $config_category => $config_line)
@@ -49,23 +49,24 @@ class BntFile
                     $bntreg->set ($config_key, $config_value);
                 }
 
-                $insert_sql .= "(" . $db->qstr($config_key) . ", ";
-                $insert_sql .= $db->qstr($config_category) . ", ";
-                $insert_sql .= $db->qstr($config_value) . ", ";
-                $insert_sql .= $db->qstr($section) . "), ";
+                $insert_sql .= "(" . $db->qstr ($config_key) . ", ";
+                $insert_sql .= $db->qstr ($config_category) . ", ";
+                $insert_sql .= $db->qstr ($config_value) . ", ";
+                $insert_sql .= $db->qstr ($section) . "), ";
             }
         }
-        $insert_sql = substr($insert_sql, 0, -2); // Trim off the comma and space for the end of the call
-        $debug_query = $db->Execute ($insert_sql);
-        DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
-        if ($debug_query === false)
+        $insert_sql = substr ($insert_sql, 0, -2); // Trim off the comma and space for the end of the call
+        $insert_sql_res = $db->Execute ($insert_sql);
+        BntDb::logDbErrors ($db, $insert_sql_res, __LINE__, __FILE__);
+
+        if ($insert_sql_res === false)
         {
-            $status_array[$i] = $debug_query;
+            $status_array[$i] = $insert_sql_res;
             $i++;
         }
 
         $status_array[$i] = $db->CompleteTrans(); // Complete the transaction
-        DbOp::dbResult ($db, $status_array[$i], __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $status_array[$i], __LINE__, __FILE__);
 
         if ($status_array[$i] === false)
         {

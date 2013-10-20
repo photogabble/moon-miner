@@ -27,20 +27,20 @@ class BntToll
 {
     static function distribute ($db, $sector, $toll, $total_fighters)
     {
-        $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
-        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+        $select_def_res = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? AND defence_type ='F'", array ($sector));
+        BntDb::logDbErrors ($db, $select_def_res, __LINE__, __FILE__);
 
         // Put the defence information into the array "defenceinfo"
-        if ($result3 instanceof ADORecordSet)
+        if ($select_def_res instanceof ADORecordSet)
         {
-            while (!$result3->EOF)
+            while (!$select_def_res->EOF)
             {
-                $row = $result3->fields;
+                $row = $select_def_res->fields;
                 $toll_amount = round (($row['quantity'] / $total_fighters) * $toll);
-                $resa = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
-                DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+                $res = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits + ? WHERE ship_id = ?", array ($toll_amount, $row['ship_id']));
+                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
                 BntPlayerLog::writeLog ($db, $row['ship_id'], LOG_TOLL_RECV, "$toll_amount|$sector");
-                $result3->MoveNext ();
+                $select_def_res->MoveNext ();
             }
         }
     }

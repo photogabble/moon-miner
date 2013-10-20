@@ -27,18 +27,18 @@ class BntOwnership
 {
     static function calc ($db, $sector, $min_bases_to_own, $langvars)
     {
-        $res = $db->Execute ("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array ($sector));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-        $num_bases = $res->RecordCount();
+        $bases_res = $db->Execute ("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array ($sector));
+        BntDb::logDbErrors ($db, $bases_res, __LINE__, __FILE__);
+        $num_bases = $bases_res->RecordCount();
 
         $i = 0;
         if ($num_bases > 0)
         {
-            while (!$res->EOF)
+            while (!$bases_res->EOF)
             {
-                $bases[$i] = $res->fields;
+                $bases[$i] = $bases_res->fields;
                 $i++;
-                $res->MoveNext();
+                $bases_res->MoveNext();
             }
         }
         else
@@ -116,11 +116,11 @@ class BntOwnership
             }
             else
             {
-                $res = $db->Execute("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$loop]['id']));
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-                if ($res && $res->RecordCount() != 0)
+                $team_res = $db->Execute ("SELECT team FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$loop]['id']));
+                BntDb::logDbErrors ($db, $team_res, __LINE__, __FILE__);
+                if ($team_res && $team_res->RecordCount() != 0)
                 {
-                    $curship = $res->fields;
+                    $curship = $team_res->fields;
                     $ships[$nbships] = $owners[$loop]['id'];
                     $scorps[$nbships] = $curship['team'];
                     $nbships++;
@@ -132,8 +132,8 @@ class BntOwnership
         // More than one corp, war
         if ($nbcorps > 1)
         {
-            $resa = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-            DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+            $setzone_res = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
+            BntDb::logDbErrors ($db, $setzone_res, __LINE__, __FILE__);
 
             return $langvars['l_global_warzone'];
         }
@@ -150,8 +150,8 @@ class BntOwnership
 
         if ($numunallied > 1)
         {
-            $resb = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-            DbOp::dbResult ($db, $resb, __LINE__, __FILE__);
+            $setzone_resb = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
+            BntDb::logDbErrors ($db, $setzone_resb, __LINE__, __FILE__);
 
             return $langvars['l_global_warzone'];
         }
@@ -159,8 +159,8 @@ class BntOwnership
         // Unallied ship, another corp present, war
         if ($numunallied > 0 && $nbcorps > 0)
         {
-            $resc = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-            DbOp::dbResult ($db, $resc, __LINE__, __FILE__);
+            $setzone_resc = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
+            BntDb::logDbErrors ($db, $setzone_resc, __LINE__, __FILE__);
 
             return $langvars['l_global_warzone'];
         }
@@ -185,12 +185,13 @@ class BntOwnership
             }
 
             $query = $query . " AND team!=0";
-            $resd = $db->Execute($query);
-            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-            if ($resd->RecordCount() != 0)
+            $select_team_res = $db->Execute ($query);
+            BntDb::logDbErrors ($db, $select_team_res, __LINE__, __FILE__);
+
+            if ($select_team_res->RecordCount() != 0)
             {
-                $resd = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
-                DbOp::dbResult ($db, $resd, __LINE__, __FILE__);
+                $setzone_resd = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=4 WHERE sector_id=?", array ($sector));
+                BntDb::logDbErrors ($db, $setzone_resd, __LINE__, __FILE__);
 
                 return $langvars['l_global_warzone'];
             }
@@ -217,24 +218,24 @@ class BntOwnership
 
         if ($owners[$winner]['num'] < $min_bases_to_own)
         {
-            $rese = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array ($sector));
-            DbOp::dbResult ($db, $rese, __LINE__, __FILE__);
+            $setzone_rese = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array ($sector));
+            BntDb::logDbErrors ($db, $setzone_rese, __LINE__, __FILE__);
 
             return $langvars['l_global_nzone'];
         }
 
         if ($owners[$winner]['type'] == 'C')
         {
-            $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' AND owner=?", array ($owners[$winner]['id']));
-            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-            $zone = $res->fields;
+            $setzone_resf = $db->Execute ("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='Y' AND owner=?", array ($owners[$winner]['id']));
+            BntDb::logDbErrors ($db, $setzone_resf, __LINE__, __FILE__);
+            $zone = $setzone_resf->fields;
 
-            $res = $db->Execute("SELECT team_name FROM {$db->prefix}teams WHERE id=?", array ($owners[$winner]['id']));
-            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-            $corp = $res->fields;
+            $setzone_resg = $db->Execute ("SELECT team_name FROM {$db->prefix}teams WHERE id=?", array ($owners[$winner]['id']));
+            BntDb::logDbErrors ($db, $setzone_resg, __LINE__, __FILE__);
+            $corp = $setzone_resg->fields;
 
-            $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
-            DbOp::dbResult ($db, $resf, __LINE__, __FILE__);
+            $update_res = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
+            BntDb::logDbErrors ($db, $update_res, __LINE__, __FILE__);
 
             return $langvars['l_global_team'] . " " . $corp['team_name'] . "!";
         }
@@ -253,23 +254,23 @@ class BntOwnership
             // Two allies have the same number of bases
             if ($onpar == 1)
             {
-                $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array ($sector));
-                DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
+                $setzone_resh = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=1 WHERE sector_id=?", array ($sector));
+                BntDb::logDbErrors ($db, $setzone_resh, __LINE__, __FILE__);
 
                 return $langvars['l_global_nzone'];
             }
             else
             {
-                $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array ($owners[$winner]['id']));
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-                $zone = $res->fields;
+                $setzone_resi = $db->Execute ("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array ($owners[$winner]['id']));
+                BntDb::logDbErrors ($db, $setzone_resi, __LINE__, __FILE__);
+                $zone = $setzone_resi->fields;
 
-                $res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$winner]['id']));
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-                $ship = $res->fields;
+                $setzone_resj = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($owners[$winner]['id']));
+                BntDb::logDbErrors ($db, $setzone_resj, __LINE__, __FILE__);
+                $ship = $setzone_resj->fields;
 
-                $resg = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
-                DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
+                $update_res2 = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id=$zone[zone_id] WHERE sector_id=?", array ($sector));
+                BntDb::logDbErrors ($db, $update_res2, __LINE__, __FILE__);
 
                 return $langvars['l_global_player'] . " " . $ship['character_name'] . "!";
             }

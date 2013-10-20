@@ -27,15 +27,15 @@ class BntSectorDefense
 {
     static function message_defense_owner ($db, $sector, $message)
     {
-        $result3 = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
-        DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+        $res = $db->Execute ("SELECT ship_id FROM {$db->prefix}sector_defence WHERE sector_id = ?;", array ($sector));
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
-        if ($result3 instanceof ADORecordSet)
+        if ($res instanceof ADORecordSet)
         {
-            while (!$result3->EOF)
+            while (!$res->EOF)
             {
-                player_log ($db, $result3->fields['ship_id'], LOG_RAW, $message);
-                $result3->MoveNext();
+                player_log ($db, $res->fields['ship_id'], LOG_RAW, $message);
+                $res->MoveNext();
             }
         }
     }

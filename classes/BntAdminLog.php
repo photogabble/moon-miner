@@ -29,15 +29,15 @@ class BntAdminLog
     static function writeLog ($db, $log_type, $data = "")
     {
         // Write log_entry to the admin log
-        $ret = false;
+        $res = false;
         $data = addslashes ($data);
         if (is_int ($log_type))
         {
-            $ret = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-            DbOp::dbResult ($db, $ret, __LINE__, __FILE__);
+            $res = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
+            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         }
 
-        return $ret;
+        return $res;
     }
 }
 ?>

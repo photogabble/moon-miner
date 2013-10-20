@@ -30,7 +30,7 @@ class BntIbank
     static function isLoanPending ($db, $ship_id, $ibank_lrate)
     {
         $res = $db->Execute ("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
             $account = $res->fields;

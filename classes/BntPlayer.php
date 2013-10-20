@@ -27,36 +27,37 @@ class BntPlayer
 {
     static function kill ($db, $ship_id, $remove_planets = false, $langvars, $bntreg)
     {
-        $resa = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=?", array ($ship_id));
-        DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
-        $resb = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE placed_by = ?", array ($ship_id));
-        DbOp::dbResult ($db, $resb, __LINE__, __FILE__);
+        $update_ships_res = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=?", array ($ship_id));
+        BntDb::logDbErrors ($db, $update_ships_res, __LINE__, __FILE__);
 
-        $res = $db->Execute("SELECT DISTINCT sector_id FROM {$db->prefix}planets WHERE owner=? AND base='Y'", array ($ship_id));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        $delete_bounty_res = $db->Execute("DELETE FROM {$db->prefix}bounty WHERE placed_by = ?", array ($ship_id));
+        BntDb::logDbErrors ($db, $delete_bounty_res, __LINE__, __FILE__);
+
+        $sec_pl_res = $db->Execute("SELECT DISTINCT sector_id FROM {$db->prefix}planets WHERE owner=? AND base='Y'", array ($ship_id));
+        BntDb::logDbErrors ($db, $sec_pl_res, __LINE__, __FILE__);
         $i = 0;
 
         $sectors = null;
 
-        if ($res instanceof ADORecordSet)
+        if ($sec_pl_res instanceof ADORecordSet)
         {
-            while (!$res->EOF && $res)
+            while (!$sec_pl_res->EOF && $sec_pl_res)
             {
-                $sectors[$i] = $res->fields['sector_id'];
+                $sectors[$i] = $sec_pl_res->fields['sector_id'];
                 $i++;
-                $res->MoveNext();
+                $sec_pl_res->MoveNext();
             }
         }
 
         if ($remove_planets == true && $ship_id > 0)
         {
-            $resc = $db->Execute("DELETE FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
-            DbOp::dbResult ($db, $resc, __LINE__, __FILE__);
+            $rm_pl_res = $db->Execute("DELETE FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
+            BntDb::logDbErrors ($db, $rm_pl_res, __LINE__, __FILE__);
         }
         else
         {
-            $resd = $db->Execute("UPDATE {$db->prefix}planets SET owner=0, corp=0, fighters=0, base='N' WHERE owner=?", array ($ship_id));
-            DbOp::dbResult ($db, $resd, __LINE__, __FILE__);
+            $up_pl_res = $db->Execute("UPDATE {$db->prefix}planets SET owner=0, corp=0, fighters=0, base='N' WHERE owner=?", array ($ship_id));
+            BntDb::logDbErrors ($db, $up_pl_res, __LINE__, __FILE__);
         }
 
         if (!empty($sectors))
@@ -67,26 +68,26 @@ class BntPlayer
             }
         }
 
-        $rese = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE ship_id=?", array ($ship_id));
-        DbOp::dbResult ($db, $rese, __LINE__, __FILE__);
+        $rm_def_res = $db->Execute("DELETE FROM {$db->prefix}sector_defence WHERE ship_id=?", array ($ship_id));
+        BntDb::logDbErrors ($db, $rm_def_res, __LINE__, __FILE__);
 
-        $res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array ($ship_id));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-        $zone = $res->fields;
+        $zone_res = $db->Execute("SELECT zone_id FROM {$db->prefix}zones WHERE corp_zone='N' AND owner=?", array ($ship_id));
+        BntDb::logDbErrors ($db, $zone_res, __LINE__, __FILE__);
+        $zone = $zone_res->fields;
 
-        $resf = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE zone_id=?", array ($zone['zone_id']));
-        DbOp::dbResult ($db, $resf, __LINE__, __FILE__);
+        $up_zone_res = $db->Execute("UPDATE {$db->prefix}universe SET zone_id=1 WHERE zone_id=?", array ($zone['zone_id']));
+        BntDb::logDbErrors ($db, $up_zone_res, __LINE__, __FILE__);
 
-        $query = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($ship_id));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
-        $name = $query->fields;
+        $char_res = $db->Execute("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=?", array ($ship_id));
+        BntDb::logDbErrors ($db, $char_res, __LINE__, __FILE__);
+        $name = $char_res->fields;
 
         $headline = $name['character_name'] ." ". $langvars['l_killheadline'];
 
         $newstext = str_replace("[name]", $name['character_name'], $langvars['l_news_killed']);
 
-        $news = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?,?,?,NOW(), 'killed')", array ($headline, $newstext, $ship_id));
-        DbOp::dbResult ($db, $news, __LINE__, __FILE__);
+        $news_ins_res = $db->Execute("INSERT INTO {$db->prefix}news (headline, newstext, user_id, date, news_type) VALUES (?,?,?,NOW(), 'killed')", array ($headline, $newstext, $ship_id));
+        BntDb::logDbErrors ($db, $news_ins_res, __LINE__, __FILE__);
     }
 
     static function getInsignia ($db, $a_username, $langvars)
@@ -94,9 +95,9 @@ class BntPlayer
         unset ($player_insignia);
 
         // Lookup players score.
-        $res = $db->Execute ("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
-        $playerinfo = $res->fields;
+        $pl_score_res = $db->Execute ("SELECT score FROM {$db->prefix}ships WHERE email=?", array ($a_username));
+        BntDb::logDbErrors ($db, $pl_score_res, __LINE__, __FILE__);
+        $playerinfo = $pl_score_res->fields;
 
         for ($i = 0; $i < 20; $i++)
         {

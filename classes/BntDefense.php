@@ -27,51 +27,52 @@ class BntDefense
 {
     static function defence_vs_defence ($db, $ship_id, $langvars)
     {
-        $result1 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array ($ship_id));
-        DbOp::dbResult ($db, $result1, __LINE__, __FILE__);
+        $secdef_result = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?;", array ($ship_id));
+        BntDb::logDbErrors ($db, $secdef_result, __LINE__, __FILE__);
 
-        if ($result1 instanceof ADORecordSet)
+        if ($secdef_result instanceof ADORecordSet)
         {
-            while (!$result1->EOF)
+            while (!$secdef_result->EOF)
             {
-                $row = $result1->fields;
+                $row = $secdef_result->fields;
                 $deftype = $row['defence_type'] == 'F' ? 'Fighters' : 'Mines';
                 $qty = $row['quantity'];
-                $result2 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ? ORDER BY quantity DESC", array ($row['sector_id'], $ship_id));
-                DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
-                if ($result2 instanceof ADORecordSet)
+                $other_secdef_res = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND ship_id <> ? ORDER BY quantity DESC", array ($row['sector_id'], $ship_id));
+                BntDb::logDbErrors ($db, $other_secdef_res, __LINE__, __FILE__);
+                if ($other_secdef_res instanceof ADORecordSet)
                 {
-                    while (!$result2->EOF && $qty > 0)
+                    while (!$other_secdef_res->EOF && $qty > 0)
                     {
-                        $cur = $result2->fields;
+                        $cur = $other_secdef_res->fields;
                         $targetdeftype = $cur['defence_type'] == 'F' ? $langvars['l_fighters'] : $langvars['l_mines'];
                         if ($qty > $cur['quantity'])
                         {
-                            $resa = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($cur['defence_id']));
-                            DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+                            $del_secdef_res = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($cur['defence_id']));
+                            BntDb::logDbErrors ($db, $del_secdef_res, __LINE__, __FILE__);
                             $qty -= $cur['quantity'];
-                            $resb = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = ? WHERE defence_id = ?", array ($qty, $row['defence_id']));
-                            DbOp::dbResult ($db, $resb, __LINE__, __FILE__);
+                            $up_secdef_res = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity = ? WHERE defence_id = ?", array ($qty, $row['defence_id']));
+                            BntDb::logDbErrors ($db, $up_secdef_res, __LINE__, __FILE__);
                             BntPlayerLog::writeLog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $targetdeftype ."|". $row['sector_id']);
                             BntPlayerLog::writeLog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $cur['quantity'] ."|". $deftype ."|". $row['sector_id']);
                         }
                         else
                         {
-                            $resc = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
-                            DbOp::dbResult ($db, $resc, __LINE__, __FILE__);
-                            $resd = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($qty, $cur['defence_id']));
-                            DbOp::dbResult ($db, $resd, __LINE__, __FILE__);
+                            $del_secdef_res2 = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE defence_id = ?", array ($row['defence_id']));
+                            BntDb::logDbErrors ($db, $del_secdef_res2, __LINE__, __FILE__);
+
+                            $up_secdef_res2 = $db->Execute ("UPDATE {$db->prefix}sector_defence SET quantity=quantity - ? WHERE defence_id = ?", array ($qty, $cur['defence_id']));
+                            BntDb::logDbErrors ($db, $up_secdef_res2, __LINE__, __FILE__);
                             BntPlayerLog::writeLog ($db, $cur['ship_id'], LOG_DEFS_DESTROYED, $qty ."|". $targetdeftype ."|". $row['sector_id']);
                             BntPlayerLog::writeLog ($db, $row['ship_id'], LOG_DEFS_DESTROYED, $qty ."|". $deftype ."|". $row['sector_id']);
                             $qty = 0;
                         }
-                        $result2->MoveNext();
+                        $other_secdef_res->MoveNext();
                     }
                 }
-                $result1->MoveNext();
+                $secdef_result->MoveNext();
             }
-            $rese = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
-            DbOp::dbResult ($db, $rese, __LINE__, __FILE__);
+            $del_secdef_res3 = $db->Execute ("DELETE FROM {$db->prefix}sector_defence WHERE quantity <= 0");
+            BntDb::logDbErrors ($db, $del_secdef_res3, __LINE__, __FILE__);
         }
     }
 }

@@ -29,11 +29,12 @@ class BntPlayerLog
     {
         $data = addslashes ($data);
         $stamp = date ("Y-m-d H:i:s"); // Now (as seen by PHP)
+
         // Write log_entry to the player's log - identified by player's ship_id - sid.
         if ($sid != "" && !empty ($log_type))
         {
-            $resa = $db->Execute ("INSERT INTO {$db->prefix}logs (ship_id, type, time, data) VALUES (?, ?, ?, ?)", array ($sid, $log_type, $stamp, $data));
-            DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+            $res = $db->Execute ("INSERT INTO {$db->prefix}logs (ship_id, type, time, data) VALUES (?, ?, ?, ?)", array ($sid, $log_type, $stamp, $data));
+            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         }
     }
 }
