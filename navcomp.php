@@ -42,14 +42,14 @@ $state = (int) filter_input (INPUT_POST, 'state', FILTER_SANITIZE_NUMBER_INT);
 $stop_sector = (int) filter_input (INPUT_POST, 'stop_sector', FILTER_SANITIZE_NUMBER_INT);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $current_sector = $playerinfo['sector'];
 $computer_tech  = $playerinfo['computer'];
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($current_sector));
-DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 if ($state == 0)
@@ -131,7 +131,7 @@ elseif ($state == 1)
         $db->SetFetchMode (ADODB_FETCH_NUM);
 
         $search_result = $db->Execute ($search_query) or die ("Invalid Query");
-        DbOp::dbResult ($db, $search_result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $search_result, __LINE__, __FILE__);
         $found = $search_result->RecordCount();
         if ($found > 0)
         {

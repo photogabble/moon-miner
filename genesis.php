@@ -37,18 +37,18 @@ $langvars = BntTranslate::load ($db, $lang, array ('genesis', 'common', 'global_
 
 // Adding db lock to prevent more than 5 planets in a sector
 $resx = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE");
-DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($playerinfo['sector']));
-DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE sector_id=?;", array ($playerinfo['sector']));
-DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
 $planetinfo = $result3->fields;
 $num_planets = $result3->RecordCount();
 
@@ -86,7 +86,7 @@ elseif ($playerinfo['dev_genesis'] < 1)
 else
 {
     $res = $db->Execute ("SELECT allow_planet, corp_zone, owner FROM {$db->prefix}zones WHERE zone_id = ?;", array ($sectorinfo['zone_id']));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     $zoneinfo = $res->fields;
     if ($zoneinfo['allow_planet'] == 'N')
     {
@@ -103,7 +103,7 @@ else
             else
             {
                 $res = $db->Execute ("SELECT team FROM {$db->prefix}ships WHERE ship_id = ?;", array ($zoneinfo['owner']));
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
                 $ownerinfo = $res->fields;
                 if ($ownerinfo['team'] != $playerinfo['team'])
                 {
@@ -112,9 +112,9 @@ else
                 else
                 {
                     $update1 = $db->Execute ("INSERT INTO {$db->prefix}planets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array (NULL, $playerinfo['sector'], $planetname, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo['ship_id'], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N'));
-                    DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
                     $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-                    DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $update2, __LINE__, __FILE__);
                     echo $langvars['l_gns_pcreate'];
                 }
             }
@@ -126,24 +126,24 @@ else
         else
         {
             $update1 = $db->Execute ("INSERT INTO {$db->prefix}planets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array (NULL, $playerinfo['sector'], '$planetname', 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo['ship_id'], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N'));
-            DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
             $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id=?;", array ($playerinfo['ship_id']));
-            DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $update2, __LINE__, __FILE__);
             echo $langvars['l_gns_pcreate'];
         }
     }
     else
     {
         $update1 = $db->Execute ("INSERT INTO {$db->prefix}planets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array (NULL, $playerinfo['sector'], $planetname, 0, 0, 0, 0, 0, 0, 0, 0, $playerinfo['ship_id'], 0, 'N', 'N', $default_prod_organics, $default_prod_ore, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, 'N'));
-        DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
         $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET turns_used = turns_used + 1, turns = turns - 1, dev_genesis = dev_genesis - 1 WHERE ship_id=?;", array ($playerinfo['ship_id']));
-        DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $update2, __LINE__, __FILE__);
         echo $langvars['l_gns_pcreate'];
     }
 }
 
 $resx = $db->Execute ("UNLOCK TABLES");
-DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 echo "<br><br>";
 
 BntText::gotoMain ($db, $lang, $langvars);

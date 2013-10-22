@@ -32,7 +32,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('feedback', 'galaxy', 'common
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (array_key_exists ('content', $_POST) === false)

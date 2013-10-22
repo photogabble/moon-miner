@@ -29,7 +29,7 @@ if (isset ($_SESSION['username']))
 {
     $current_score = 0;
     $result = $db->Execute ("SELECT ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-    DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
     $playerinfo = $result->fields;
     $current_score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
 

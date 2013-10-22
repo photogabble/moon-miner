@@ -53,7 +53,7 @@ $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
 if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
 {
-    DbOp::dbResult ($db, $debug_query, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
 
     if ($debug_query->EOF)
@@ -166,7 +166,7 @@ if ($db->inactive != true) // Before DB is installed, don't try to setup userinf
     else // The user has logged in, so use his preference from the database
     {
         $res = $db->Execute ("SELECT lang FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if ($res)
         {
             $playerinfo['lang'] = $res->fields['lang'];

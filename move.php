@@ -31,7 +31,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('move', 'common', 'global_inc
 
 // Retrieve the user and ship information
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
 // Put the player information into the array: "playerinfo"
 $playerinfo = $result->fields;
@@ -48,14 +48,14 @@ if ($playerinfo['turns'] < 1)
 
 // Retrieve all the sector information about the current sector
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id = ?;", array ($playerinfo['sector']));
-DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 
 // Put the sector information into the array "sectorinfo"
 $sectorinfo = $result2->fields;
 
 // Retrive all the warp links out of the current sector
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start = ?;", array ($playerinfo['sector']));
-DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
 $i = 0;
 $flag = 0;
 
@@ -82,7 +82,7 @@ if ($flag == 1)
         $stamp = date ("Y-m-d H:i:s");
         BntLogMove::writeLog ($db, $playerinfo['ship_id'], $sector);
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?,turns = turns - 1, turns_used = turns_used + 1, sector = ? WHERE ship_id = ?;", array ($stamp, $sector, $playerinfo['ship_id']));
-        DbOp::dbResult ($db, $move_result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $move_result, __LINE__, __FILE__);
         if (!$move_result)
         {
             // is this really STILL needed?
@@ -105,7 +105,7 @@ else
 {
     echo $langvars['l_move_failed'] . '<br><br>';
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
-    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     BntText::gotoMain ($db, $lang, $langvars);
 }
 
