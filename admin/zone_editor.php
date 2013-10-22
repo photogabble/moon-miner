@@ -35,7 +35,7 @@ if (!isset ($_POST['zone']))
 if ($_POST['zone'] == '')
 {
     $res = $db->Execute ("SELECT zone_id, zone_name FROM {$db->prefix}zones ORDER BY zone_name");
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $zones[] = $res->fields;
@@ -50,7 +50,7 @@ else
     if ($_POST['operation'] == "edit")
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}zones WHERE zone_id = ?", array ($_POST['zone']));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
         $variables['operation'] = "edit";
         $variables['zone_id'] = $row['zone_id'];
@@ -95,7 +95,7 @@ else
         $_zone_warpedit = empty ($zone_warpedit) ? "N" : "Y";
         $_zone_planet = empty ($zone_planet) ? "N" : "Y";
         $resx = $db->Execute ("UPDATE {$db->prefix}zones SET zone_name = ?, allow_beacon = ? , allow_attack= ?  , allow_warpedit = ? , allow_planet = ?, max_hull = ? WHERE zone_id = ?;", array($zone_name, $_zone_beacon , $_zone_attack, $_zone_warpedit, $_zone_planet, $zone_hull, $_POST['zone']));
-        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
         $button_main = false;
     }
 }

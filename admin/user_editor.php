@@ -35,7 +35,7 @@ if (!isset ($_POST['operation']))
 if (empty ($_POST['user']))
 {
     $res = $db->Execute ("SELECT ship_id, character_name FROM {$db->prefix}ships ORDER BY character_name");
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $players[]=$res->fields;
@@ -49,7 +49,7 @@ else
     if ($_POST['operation'] == '')
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array ($_POST['user']));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
         $variables['operation'] = $_POST['operation'];
         $variables['user'] = $_POST['user'];
@@ -116,7 +116,7 @@ else
         $_dev_fuelscoop = empty ($_POST['dev_fuelscoop']) ? "N" : "Y";
         $variables['debug'] = $_dev_escapepod;
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET character_name=?, password=?, email=?, ship_name=?, ship_destroyed=?, hull=?, engines=?, power=?, computer=?, sensors=?, armor=?, shields=?, beams=?, torp_launchers=?, cloak=?, credits=?, turns=?, dev_warpedit=?, dev_genesis=?, dev_beacon=?, dev_emerwarp=?, dev_escapepod=?, dev_fuelscoop=?, dev_minedeflector=?, sector=?, ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=?, ship_fighters=?, torps=?, armor_pts=? WHERE ship_id=?", array ($character_name, $password2, $email, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $_POST['user']));
-        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
         $button_main = false;
         $variables['user'] = $_POST['user'];
     }

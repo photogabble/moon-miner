@@ -34,7 +34,7 @@ if (empty ($command))
     echo "</form>";
 
     $res = $db->Execute ("SELECT ban_mask FROM {$db->prefix}ip_bans");
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $bans[] = $res->fields['ban_mask'];
@@ -78,7 +78,7 @@ if (empty ($command))
                  "<td align=center><font size=2 color=white>";
 
             $res = $db->Execute ("SELECT character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address LIKE ?;", array ($ban));
-            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             unset ($players);
             while (!$res->EOF)
             {
@@ -128,7 +128,7 @@ if (empty ($command))
 elseif ($command == 'showips')
 {
     $res = $db->Execute ("SELECT DISTINCT ip_address FROM {$db->prefix}ships");
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $ips[] = $res->fields['ip_address'];
@@ -165,7 +165,7 @@ elseif ($command == 'showips')
              "<td align=center><font size=2 color=white>";
 
         $res = $db->Execute ("SELECT character_name, ship_id, email FROM {$db->prefix}ships WHERE ip_address=?;", array ($ip));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         unset ($players);
         while (!$res->EOF)
         {
@@ -264,9 +264,9 @@ elseif ($command == 'banip2')
     echo "<font size=2 color=white><strong>" . $langvars['l_admin_ban_success'] . " " . $printban . "</strong>.<p>";
 
     $resx = $db->Execute ("INSERT INTO {$db->prefix}ip_bans values (NULL, ?);", array ($banmask));
-    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     $res = $db->Execute ("SELECT DISTINCT character_name FROM {$db->prefix}ships, {$db->prefix}ip_bans WHERE ip_address LIKE ban_mask");
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     echo $langvars['l_admin_affected_players'] . " :<p>";
     while (!$res->EOF)
     {
@@ -286,12 +286,12 @@ elseif ($command == 'unbanip')
     if (!empty ($ban))
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ip_bans WHERE ban_mask=?;", array ($ban));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     }
     else
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask;", array ($ip));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     }
 
     $nbbans = $res->RecordCount();
@@ -305,12 +305,12 @@ elseif ($command == 'unbanip')
     if (!empty ($ban))
     {
         $resx = $db->Execute ("DELETE FROM {$db->prefix}ip_bans WHERE ban_mask=?;", array ($ban));
-        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     }
     else
     {
         $resx = $db->Execute ("DELETE FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask;", array ($ip));
-        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     }
 
     $query_string = "ip_address LIKE '" . $bans[0]['ban_mask'] ."'";
@@ -320,7 +320,7 @@ elseif ($command == 'unbanip')
     }
 
     $res = $db->Execute ("SELECT DISTINCT character_name FROM {$db->prefix}ships WHERE ?;", array ($query_string));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     $nbplayers = $res->RecordCount();
     while (!$res->EOF)
     {
