@@ -10,3 +10,7 @@ TODO: Cleanup create_universe (templating, functions with defined returns, etc)
 TODO: Implement Post->Redirect->Get pattern for the 60 post calls in the game
 TODO: Eliminate all reg_globals equivalent hacks
 FREQ: Migrate all files to use templates
+TODO: Finish migration of DbOp to BntDb::logDbErrors
+TODO: Postgresql compatibility
+TODO: Split ships table from players table
+TODO: Review schema for improvements (BIGINT, more indexes, reduce unstructured data, etc)
