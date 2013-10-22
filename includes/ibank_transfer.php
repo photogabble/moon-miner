@@ -28,7 +28,7 @@ function ibank_transfer ($db, $langvars)
     global $playerinfo, $ibank_min_turns;
 
     $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email not like '%@xenobe' AND ship_destroyed ='N' AND turns_used > ? ORDER BY character_name ASC", array ($ibank_min_turns));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
     $ships = array();
     while (!$res->EOF)
@@ -38,7 +38,7 @@ function ibank_transfer ($db, $langvars)
     }
 
     $res = $db->Execute ("SELECT name, planet_id, sector_id FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id ASC", array ($playerinfo['ship_id']));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     while (!$res->EOF)
     {
         $planets[] = $res->fields;

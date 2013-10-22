@@ -31,7 +31,7 @@ function ibank_consolidate2 ($db)
     global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
 
     $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
     if (!$res || $res->EOF)
     {
@@ -65,7 +65,7 @@ function ibank_consolidate2 ($db)
     }
 
     $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 
     $fee = $ibank_paymentfee * $amount['total'];

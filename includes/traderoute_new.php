@@ -34,7 +34,7 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     if (!empty ($traderoute_id))
     {
         $result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?", array ($traderoute_id));
-        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
         if (!$result || $result->EOF)
         {
@@ -70,10 +70,10 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     // Get Planet info Corp and Personal
 
     $result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE owner=? ORDER BY sector_id", array ($playerinfo['ship_id']));
-    DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
     $num_planets = $result->RecordCount();
-    $i=0;
+    $i = 0;
     while (!$result->EOF)
     {
         $planets[$i] = $result->fields;
@@ -88,9 +88,10 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     }
 
     $result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE corp=? AND corp!=0 AND owner<>? ORDER BY sector_id", array ($playerinfo['team'], $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+
     $num_corp_planets = $result->RecordCount();
-    $i=0;
+    $i = 0;
     while (!$result->EOF)
     {
         $planets_corp[$i] = $result->fields;
@@ -159,7 +160,7 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     }
     else
     {
-        $i=0;
+        $i = 0;
         while ($i < $num_planets)
         {
             echo "<option ";
@@ -197,7 +198,7 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     }
     else
     {
-        $i=0;
+        $i = 0;
         while ($i < $num_corp_planets)
         {
             echo "<option ";
@@ -268,7 +269,7 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     }
     else
     {
-        $i=0;
+        $i = 0;
         while ($i < $num_planets)
         {
             echo "<option ";
@@ -306,7 +307,7 @@ function traderoute_new ($db, $lang, $langvars, $traderoute_id)
     }
     else
     {
-        $i=0;
+        $i = 0;
         while ($i < $num_corp_planets)
         {
             echo "<option ";

@@ -34,7 +34,7 @@ function xenobe_move ($db)
     }
 
     $linkres = $db->Execute ("SELECT * FROM {$db->prefix}links WHERE link_start=?", array ($playerinfo['sector']));
-    DbOp::dbResult ($db, $linkres, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $linkres, __LINE__, __FILE__);
     if ($linkres instanceof ADORecordSet)
     {
         while (!$linkres->EOF)
@@ -43,11 +43,11 @@ function xenobe_move ($db)
 
             // Obtain sector information
             $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id=?", array ($row['link_dest']));
-            DbOp::dbResult ($db, $sectres, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $sectres, __LINE__, __FILE__);
             $sectrow = $sectres->fields;
 
             $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
-            DbOp::dbResult ($db, $zoneres, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $zoneres, __LINE__, __FILE__);
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y") // Dest link must allow attacking
             {
@@ -69,11 +69,11 @@ function xenobe_move ($db)
         {
             // Obtain sector information
             $sectres = $db->Execute ("SELECT sector_id,zone_id FROM {$db->prefix}universe WHERE sector_id=?", array ($wormto));
-            DbOp::dbResult ($db, $sectres, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $sectres, __LINE__, __FILE__);
             $sectrow = $sectres->fields;
 
             $zoneres = $db->Execute ("SELECT zone_id,allow_attack FROM {$db->prefix}zones WHERE zone_id=?", array ($sectrow['zone_id']));
-            DbOp::dbResult ($db, $zoneres, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $zoneres, __LINE__, __FILE__);
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y")
             {
@@ -89,7 +89,7 @@ function xenobe_move ($db)
     if ($targetlink > 0) // Check for sector defenses
     {
         $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array ($targetlink));
-        DbOp::dbResult ($db, $resultf, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
         if ($resultf instanceof ADORecordSet)
@@ -104,7 +104,7 @@ function xenobe_move ($db)
         }
 
         $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($targetlink));
-        DbOp::dbResult ($db, $resultm, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
         if ($resultm instanceof ADORecordSet)
@@ -139,7 +139,7 @@ function xenobe_move ($db)
     {
         $stamp = date ("Y-m-d H:i:s");
         $move_result = $db->Execute ("UPDATE {$db->prefix}ships SET last_login=?, turns_used=turns_used+1, sector=? WHERE ship_id=?", array ($stamp, $targetlink, $playerinfo['ship_id']));
-        DbOp::dbResult ($db, $move_result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $move_result, __LINE__, __FILE__);
         if (!$move_result)
         {
             $error = $db->ErrorMsg();

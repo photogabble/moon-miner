@@ -29,7 +29,7 @@ function ibank_consolidate3 ($db)
     global $playerinfo, $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee, $langvars;
 
     $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
         include_once './includes/ibank_error.php';
@@ -65,7 +65,7 @@ function ibank_consolidate3 ($db)
     }
 
     $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     $amount = $res->fields;
 
     $fee = $ibank_paymentfee * $amount['total'];
@@ -104,10 +104,10 @@ function ibank_consolidate3 ($db)
     }
 
     $res = $db->Execute ($query, array ($playerinfo['ship_id'], $dplanet_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     $res = $db->Execute ("UPDATE {$db->prefix}planets SET credits=credits + ? WHERE planet_id=?", array ($transfer, $dplanet_id));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     $res = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns - ? WHERE ship_id=?", array ($tcost, $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 }
 ?>

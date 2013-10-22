@@ -33,7 +33,7 @@ function xenobe_to_sec_def ($db, $langvars)
     if ($targetlink > 0)
     {
         $resultf = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='F' ORDER BY quantity DESC", array ($targetlink));
-        DbOp::dbResult ($db, $resultf, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resultf, __LINE__, __FILE__);
         $i = 0;
         $total_sector_fighters = 0;
         if ($resultf instanceof ADORecordSet)
@@ -48,7 +48,7 @@ function xenobe_to_sec_def ($db, $langvars)
         }
 
         $resultm = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($targetlink));
-        DbOp::dbResult ($db, $resultm, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resultm, __LINE__, __FILE__);
         $i = 0;
         $total_sector_mines = 0;
         if ($resultm instanceof ADORecordSet)
@@ -187,7 +187,7 @@ function xenobe_to_sec_def ($db, $langvars)
             $fighters_lost = $playerinfo['ship_fighters'] - $playerfighters;
             $energy = $playerinfo['ship_energy'];
             $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, ship_fighters=ship_fighters-?, armor_pts=armor_pts-?,torps=torps-? WHERE ship_id=?", array ($energy, $fighters_lost, $armor_lost, $playertorpnum, $playerinfo['ship_id']));
-            DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
 
             // Check to see if Xenobe is dead
             if ($playerarmor < 1)
@@ -221,7 +221,7 @@ function xenobe_to_sec_def ($db, $langvars)
                 if ($playershields >= $mines_left)
                 {
                     $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=ship_energy-? WHERE ship_id=?", array ($mines_left, $playerinfo['ship_id']));
-                    DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $update2, __LINE__, __FILE__);
                 }
                 else
                 {
@@ -231,7 +231,7 @@ function xenobe_to_sec_def ($db, $langvars)
                     if ($playerarmor >= $mines_left)
                     {
                         $update2 = $db->Execute ("UPDATE {$db->prefix}ships SET armor_pts=armor_pts-?, ship_energy=0 WHERE ship_id=?", array ($mines_left, $playerinfo['ship_id']));
-                        DbOp::dbResult ($db, $update2, __LINE__, __FILE__);
+                        BntDb::logDbErrors ($db, $update2, __LINE__, __FILE__);
                     }
                     else
                     {

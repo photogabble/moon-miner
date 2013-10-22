@@ -31,7 +31,7 @@ function ibank_transfer2 ($db, $langvars)
     if (isset ($ship_id)) // Ship transfer
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=? AND ship_destroyed ='N' AND turns_used > ?;", array ($ship_id, $ibank_min_turns));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
         if ($playerinfo['ship_id'] == $ship_id)
         {
@@ -63,7 +63,7 @@ function ibank_transfer2 ($db, $langvars)
             $curtime = time();
             $curtime -= $ibank_trate * 60;
             $res = $db->Execute ("SELECT UNIX_TIMESTAMP(time) as time FROM {$db->prefix}ibank_transfers WHERE UNIX_TIMESTAMP(time) > ? AND source_id = ? AND dest_id = ?", array ($curtime, $playerinfo['ship_id'], $target['ship_id']));
-            DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
             if (!$res->EOF)
             {
                 $time = $res->fields;
@@ -116,7 +116,7 @@ function ibank_transfer2 ($db, $langvars)
         }
 
         $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
             ibank_error ($langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
@@ -130,7 +130,7 @@ function ibank_transfer2 ($db, $langvars)
         }
 
         $res = $db->Execute ("SELECT name, credits, owner, sector_id, base FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
             ibank_error ($langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");

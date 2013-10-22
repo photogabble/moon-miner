@@ -87,7 +87,7 @@ function xenobe_regen ($db, $playerinfo)
 
     // Update Xenobe record
     $resg = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?, armor_pts=?, ship_fighters=?, torps=?, credits=? WHERE ship_id=?", array ($playerinfo['ship_energy'], $playerinfo['armor_pts'], $playerinfo['ship_fighters'], $playerinfo['torps'], $playerinfo['credits'], $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $resg, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $resg, __LINE__, __FILE__);
     if (!$gene=='' || !$gena=='' || !$genf=='' || !$gent=='')
     {
         BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Xenobe $gene $gena $genf $gent and has been updated.");

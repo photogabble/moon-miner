@@ -73,8 +73,8 @@ function ibank_deposit2 ($db)
          "</tr>";
 
     $resx = $db->Execute ("UPDATE {$db->prefix}ibank_accounts SET balance=balance+? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits-? WHERE ship_id=?", array ($amount, $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 }
 ?>
