@@ -48,7 +48,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 
         // Select from the database and return the localized name of the language
         $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
-        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
         if (($result instanceof ADORecordset) && !$result->EOF)
         {

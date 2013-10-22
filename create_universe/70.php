@@ -64,7 +64,7 @@ $sql = "SELECT {$db->prefix}universe.sector_id FROM {$db->prefix}universe, {$db-
 
 // Place those id's into an array. Adodb gives them to us as a 2d array, bummer.
 $open_sectors_result = $db->GetAll ($sql);
-$catch_results[$z] = DbOp::dbResult ($db, $open_sectors_result, __LINE__, __FILE__);
+$catch_results[$z] = BntDb::logDbErrors ($db, $open_sectors_result, __LINE__, __FILE__);
 $z++;
 
 $i = 0;
@@ -112,7 +112,7 @@ while ($p_add < $variables['nump']); // Only add as many planets as requested
 
 // Insert all of the planets in one mega sql shot
 $insert = $db->Execute ($planet_insert_sql);
-$variables['setup_unowned_results']['result'] = DbOp::dbResult ($db, $insert, __LINE__, __FILE__);
+$variables['setup_unowned_results']['result'] = BntDb::logDbErrors ($db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['setup_unowned_results']['result'];
 $z++;
 
@@ -144,7 +144,7 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $resx = $db->Execute ($update);
-    $variables['insert_loop_sectors_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    $variables['insert_loop_sectors_results'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_loop_sectors_results'][$i]['result'];
     $z++;
 
@@ -185,7 +185,7 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $resx = $db->Execute ($insert);
-    $variables['insert_random_oneway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    $variables['insert_random_oneway_results'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_random_oneway_results'][$i]['result'];
     $z++;
 
@@ -227,7 +227,7 @@ for ($i = 1; $i <= $loops; $i++)
     }
 
     $resx = $db->Execute ($insert);
-    $variables['insert_random_twoway_results'][$i]['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+    $variables['insert_random_twoway_results'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_random_twoway_results'][$i]['result'];
     $z++;
 
@@ -245,7 +245,7 @@ for ($i = 1; $i <= $loops; $i++)
 
 $local_table_timer->start (); // Start benchmarking
 $resx = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
-$variables['remove_links_results']['result'] = DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+$variables['remove_links_results']['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;
 
