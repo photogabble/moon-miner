@@ -32,7 +32,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('presets', 'common', 'global_
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class ='" . $body_class . "'>";
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $preset_list = array();
@@ -70,7 +70,7 @@ if ($change !== 1)
 else
 {
     $update = $db->Execute ("UPDATE {$db->prefix}ships SET preset1 = ?, preset2 = ?, preset3 = ? WHERE ship_id = ?;", array ($preset_list[1], $preset_list[2], $preset_list[3], $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $update, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
     $langvars['l_pre_set'] = str_replace ("[preset1]", "<a href=rsmove.php?engage=1&destination=$preset_list[1]>$preset_list[1]</a>", $langvars['l_pre_set']);
     $langvars['l_pre_set'] = str_replace ("[preset2]", "<a href=rsmove.php?engage=1&destination=$preset_list[2]>$preset_list[2]</a>", $langvars['l_pre_set']);
     $langvars['l_pre_set'] = str_replace ("[preset3]", "<a href=rsmove.php?engage=1&destination=$preset_list[3]>$preset_list[3]</a>", $langvars['l_pre_set']);

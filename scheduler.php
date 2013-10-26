@@ -98,7 +98,7 @@ else
     $schedCount = 0;
     $lastrunList = null;
     $sched_res = $db->Execute ("SELECT * FROM {$db->prefix}scheduler");
-    DbOp::dbResult ($db, $sched_res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $sched_res, __LINE__, __FILE__);
     if ($sched_res)
     {
         while (!$sched_res->EOF)
@@ -123,18 +123,18 @@ else
                 if ($event['spawn'] - $multiplier == 0)
                 {
                     $resx = $db->Execute ("DELETE FROM {$db->prefix}scheduler WHERE sched_id = ?", array ($event['sched_id']));
-                    DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
                 }
                 else
                 {
                     $resy = $db->Execute ("UPDATE {$db->prefix}scheduler SET ticks_left = ?, spawn = spawn - ? WHERE sched_id = ?", array ($ticks_left, $multiplier, $event['sched_id']));
-                    DbOp::dbResult ($db, $resy, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $resy, __LINE__, __FILE__);
                 }
             }
             else
             {
                 $resz = $db->Execute ("UPDATE {$db->prefix}scheduler SET ticks_left = ? WHERE sched_id = ?", array ($ticks_left, $event['sched_id']));
-                DbOp::dbResult ($db, $resz, __LINE__, __FILE__);
+                BntDb::logDbErrors ($db, $resz, __LINE__, __FILE__);
             }
 
             $sched_var_id = $event['sched_id'];
@@ -163,7 +163,7 @@ else
     echo "<p>The scheduler took $runtime seconds to execute.<p>";
 
     $res = $db->Execute ("UPDATE {$db->prefix}scheduler SET last_run = ". time ());
-    DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 }
 
 echo "<br>";

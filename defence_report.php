@@ -31,7 +31,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('defence_report', 'planet_rep
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 $query = "SELECT * FROM {$db->prefix}sector_defence WHERE ship_id = ?";
@@ -57,7 +57,7 @@ if (!empty ($sort))
 }
 
 $res = $db->Execute ($query, array ($playerinfo['ship_id']));
-DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
 $i = 0;
 if ($res)

@@ -28,7 +28,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 
 if ($playerinfo['team'] == 0)
@@ -65,7 +65,7 @@ if (!empty ($sort))
 }
 
 $res = $db->Execute ($query);
-DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
@@ -144,7 +144,7 @@ else
 
         $owner = $planet[$i]['owner'];
         $res = $db->Execute ("SELECT character_name FROM {$db->prefix}ships WHERE ship_id=$owner");
-        DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $player = $res->fields['character_name'];
 
         echo "<tr bgcolor=\"$color\">";

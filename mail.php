@@ -27,7 +27,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('mail', 'common', 'global_fun
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->SelectLimit ("SELECT character_name, email, password FROM {$db->prefix}ships WHERE email = ?", 1, -1, array ('email' => $mail));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF)
 {
@@ -52,7 +52,7 @@ if (!$result->EOF)
     // After 30 minutes, it will be cleared to null by scheduler. If it is used, it will also be cleared.
 
     $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=? WHERE email = ?;", array (time(), $playerinfo['email']));
-    DbOp::dbResult ($db, $recovery_update_result, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__);
 
     mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'] . "\r\n\r\n{$link_to_reset}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
     echo "<div style='color:#fff; text-align:left;'>" . $langvars['l_mail_sent'] . " <span style='color:#0f0;'>{$mail}</span></div>\n";

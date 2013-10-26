@@ -31,7 +31,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('self_destruct', 'ranking', '
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 if (isset ($_GET['sure']))

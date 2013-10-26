@@ -41,7 +41,7 @@ $reset_code  = filter_input (INPUT_GET, 'code', FILTER_SANITIZE_STRING);
 // because 8 characters is 4,294,967,296 combinations, and that should be sufficiently secure
 
 $result = $db->SelectLimit ("SELECT character_name, email, recovery_time FROM {$db->prefix}ships WHERE substr(MD5(password),6,8) = ?", 1, -1, array ('password' => $reset_code));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF && $result != false)
 {
@@ -101,7 +101,7 @@ mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message
 
 // Reset recovery_time to zero
 $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
-var_dump (DbOp::dbResult ($db, $recovery_update_result, __LINE__, __FILE__));
+var_dump (BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__));
 
 // Log user in (like login does)
 

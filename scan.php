@@ -28,11 +28,11 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($_GET['ship_id']));
-DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
 $playerscore = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
@@ -91,7 +91,7 @@ else
             // Get total bounty on this player, if any
             $btyamount = 0;
             $hasbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ?", array ($targetinfo['ship_id']));
-            DbOp::dbResult ($db, $hasbounty, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $hasbounty, __LINE__, __FILE__);
 
             if ($hasbounty)
             {
@@ -105,7 +105,7 @@ else
 
                     // Check for Federation bounty
                     $hasfedbounty = $db->Execute ("SELECT SUM(amount) AS btytotal FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0", array ($targetinfo['ship_id']));
-                    DbOp::dbResult ($db, $hasfedbounty, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $hasfedbounty, __LINE__, __FILE__);
                     if ($hasfedbounty)
                     {
                         $resy = $hasfedbounty->fields;
@@ -445,7 +445,7 @@ else
         }
 
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns=turns-1,turns_used=turns_used+1 WHERE ship_id=?", array ($playerinfo['ship_id']));
-        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
     }
 }
 

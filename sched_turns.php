@@ -27,7 +27,7 @@ echo "<strong>TURNS</strong><br><br>";
 echo "Adding turns...";
 $resa = $db->Execute ("UPDATE {$db->prefix}ships SET turns = LEAST (turns + ($turns_per_tick * $multiplier), $max_turns) WHERE turns < $max_turns");
 //$resa = $db->Execute ("UPDATE {$db->prefix}ships SET turns = LEAST (turns + (? * ?), ?) WHERE turns < ?", array ($turns_per_tick, $multiplier, $max_turns, $max_turns));
-$debug = DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+$debug = BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 echo "<br>";
 $multiplier = 0;

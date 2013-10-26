@@ -46,10 +46,10 @@ $furcount = $furcount0 = $furcount0a = $furcount1 = $furcount1a = $furcount2 = $
 
 // Lock the tables
 $resa = $db->Execute ("LOCK TABLES {$db->prefix}xenobe WRITE, {$db->prefix}ships WRITE");
-DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships JOIN {$db->prefix}xenobe WHERE email=xenobe_id and active='Y' and ship_destroyed='N' ORDER BY ship_id");
-DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
 //while (!$res->EOF)
 {
@@ -69,7 +69,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             // Find a target in my sector, not myself, not on a planet
 
             $reso0 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? AND email! = ? AND email NOT LIKE '%@xenobe' AND planet_id = 0 AND ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
-            DbOp::dbResult ($db, $res0, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $res0, __LINE__, __FILE__);
             if (!$reso0->EOF)
             {
                 $rowo0 = $reso0->fields;
@@ -118,7 +118,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             }
             // Find a target in my sector, not myself
             $reso1 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
-            DbOp::dbResult ($db, $reso1, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $reso1, __LINE__, __FILE__);
             if (!$reso1->EOF)
             {
                 $rowo1 = $reso1->fields;
@@ -180,7 +180,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             // FIND A TARGET
             // IN MY SECTOR, NOT MYSELF
             $reso2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
-            DbOp::dbResult ($db, $reso2, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $reso2, __LINE__, __FILE__);
             if (!$reso2->EOF)
             {
                 $rowo2 = $reso2->fields;
@@ -255,7 +255,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                 // FIND A TARGET
                 // IN MY SECTOR, NOT MYSELF
                 $reso3 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($playerinfo['sector'], $playerinfo['email']));
-                DbOp::dbResult ($db, $reso3, __LINE__, __FILE__);
+                BntDb::logDbErrors ($db, $reso3, __LINE__, __FILE__);
                 if (!$reso3->EOF)
                 {
                     $rowo3 = $reso3->fields;
@@ -318,5 +318,5 @@ echo "<br>";
 
 // Unlock the tables.
 $result = $db->Execute ("UNLOCK TABLES");
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 ?>

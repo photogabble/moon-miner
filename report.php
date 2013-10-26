@@ -26,7 +26,7 @@ $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'report', 'device', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $shiptypes[0] = "tinyship.png";

@@ -28,12 +28,12 @@ $langvars = BntTranslate::load ($db, $lang, array ('check_mines', 'common', 'glo
 
 // Put the sector information into the array "sectorinfo"
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?", array ($sector));
-DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $sectorinfo = $result2->fields;
 
 // Put the defence information into the array "defenceinfo"
 $result3 = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id=? and defence_type ='M'", array ($sector));
-DbOp::dbResult ($db, $result3, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result3, __LINE__, __FILE__);
 
 // Correct the targetship bug to reflect the player info
 $targetship = $playerinfo;
@@ -68,7 +68,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
     // Find out if the mine owner and player are on the same team
     $fm_owner = $defences[0]['ship_id'];
     $result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id = ?;", array ($fm_owner));
-    DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 
     $mine_owner = $result2->fields;
     if ($mine_owner['team'] != $playerinfo['team'] || $playerinfo['team'] == 0 )
@@ -102,7 +102,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
             $langvars['l_chm_youlostminedeflectors'] = str_replace ("[chm_roll]", $roll, $langvars['l_chm_youlostminedeflectors']);
             echo $langvars['l_chm_youlostminedeflectors'] . "<br>";
             $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET dev_minedeflector = dev_minedeflector - ? WHERE ship_id = ?", array ($roll, $playerinfo['ship_id']));
-            DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
         }
         else
         {
@@ -128,7 +128,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                 echo $langvars['l_chm_yourshieldshitforminesdmg'] . "<br>";
 
                 $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy = ship_energy - ?, dev_minedeflector = 0 WHERE ship_id = ?", array ($mines_left, $playerinfo['ship_id']));
-                DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+                BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
                 if ($playershields == $mines_left)
                 {
                     echo $langvars['l_chm_yourshieldsaredown'] . "<br>";
@@ -144,7 +144,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                     $langvars['l_chm_yourarmorhitforminesdmg'] = str_replace ("[chm_mines_left]", $mines_left, $langvars['l_chm_yourarmorhitforminesdmg']);
                     echo $langvars['l_chm_yourarmorhitforminesdmg'] . "<br>";
                     $result2 = $db->Execute ("UPDATE {$db->prefix}ships SET armor_pts = armor_pts - ?, ship_energy = 0, dev_minedeflector = 0 WHERE ship_id = ?", array ($mines_left, $playerinfo['ship_id']));
-                    DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
                     if ($playerinfo['armor_pts'] == $mines_left)
                     {
                         echo $langvars['l_chm_yourhullisbreached'] . "<br>";
@@ -166,7 +166,7 @@ if ($num_defences > 0 && $total_sector_mines > 0 && !$owner && $shipavg > $mine_
                         $rating = round ($playerinfo['rating'] / 2);
                         echo $langvars['l_chm_luckescapepod'] . "<br><br>";
                         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0, engines=0, power=0, sensors=0, computer=0, beams=0, torp_launchers=0, torps=0, armor=0, armor_pts=100, cloak=0, shields=0, sector=0, ship_organics=0, ship_ore=0, ship_goods=0, ship_energy=?, ship_colonists=0, ship_fighters=100, dev_warpedit=0, dev_genesis=0, dev_beacon=0, dev_emerwarp=0, dev_escapepod='N', dev_fuelscoop='N', dev_minedeflector=0, on_planet='N', rating=?, cleared_defences=' ', dev_lssd='N' WHERE ship_id=?", array ($start_energy, $rating, $playerinfo['ship_id']));
-                        DbOp::dbResult ($db, $resx, __LINE__, __FILE__);
+                        BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
                         BntBounty::cancel ($db, $playerinfo['ship_id']);
                     }
                     else

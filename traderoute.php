@@ -34,11 +34,11 @@ echo "<h1>" . $title . "</h1>\n";
 $portfull = null; // This fixes an error of undefined variables on 1518
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE owner = ?;", array ($playerinfo['ship_id']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $num_traderoutes = $result->RecordCount();
 
 if (isset ($traderoutes))
@@ -93,7 +93,7 @@ if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playeri
     }
 
     $update1 = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=? WHERE ship_id=?;", array ($playerinfo['ship_ore'], $playerinfo['ship_organics'], $playerinfo['ship_goods'], $playerinfo['ship_energy'], $playerinfo['ship_colonists'], $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $update1, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $update1, __LINE__, __FILE__);
 }
 
 // Default to 1 run if we don't get a valid repeat value.
@@ -148,7 +148,7 @@ elseif (isset ($engage) )
     while ($i > 0)
     {
         $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
-        DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
         include_once './includes/traderoute_engage.php';
         traderoute_engage ($db, $lang, $i, $langvars);
@@ -222,7 +222,7 @@ else
         else
         {
             $result = $db->Execute ("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array ($traderoutes[$i]['source_id']));
-            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             if ($result)
             {
                 $planet1 = $result->fields;
@@ -238,7 +238,7 @@ else
         if ($traderoutes[$i]['source_type'] == 'P')
         {
             $result = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['source_id']));
-            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             $port1 = $result->fields;
             echo "&nbsp;" . BntPorts::getType ($port1['port_type'], $langvars) . "</font></td>";
         }
@@ -262,7 +262,7 @@ else
         else
         {
             $result = $db->Execute ("SELECT name, sector_id FROM {$db->prefix}planets WHERE planet_id=?;", array ($traderoutes[$i]['dest_id']));
-            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             if ($result)
             {
                 $planet2 = $result->fields;
@@ -278,7 +278,7 @@ else
         if ($traderoutes[$i]['dest_type'] == 'P')
         {
             $result = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($traderoutes[$i]['dest_id']));
-            DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             $port2 = $result->fields;
             echo "&nbsp;" . BntPorts::getType ($port2['port_type'], $langvars) . "</font></td>";
         }
@@ -424,7 +424,7 @@ function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $mo
     if ($move == 'warp')
     {
         $query = $db->Execute ("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array ($src['sector_id'], $dest['sector_id']));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         if ($query->EOF)
         {
             $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_src_sector_id]", $src['sector_id'], $langvars['l_tdr_nowlink1']);
@@ -435,7 +435,7 @@ function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $mo
         if ($circuit == '2')
         {
             $query = $db->Execute ("SELECT link_id FROM {$db->prefix}links WHERE link_start=? AND link_dest=?;", array ($dest['sector_id'], $src['sector_id']));
-            DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
             if ($query->EOF)
             {
                 $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_src_sector_id]", $src['sector_id'], $langvars['l_tdr_nowlink2']);
@@ -495,14 +495,14 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
     if ($type1 == 'L')
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($start));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         $start = $query->fields;
     }
 
     if ($type2 == 'L')
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($dest));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         $dest = $query->fields;
     }
 
@@ -644,7 +644,7 @@ function traderoute_create ($db, $lang, $langvars)
         }
 
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($port_id1));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         if (!$query || $query->EOF)
         {
             $langvars['l_tdr_errnotvalidport'] = str_replace ("[tdr_port_id]", $port_id1, $langvars['l_tdr_errnotvalidport']);
@@ -662,7 +662,7 @@ function traderoute_create ($db, $lang, $langvars)
     else
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array ($planet_id1));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         $source = $query->fields;
         if (!$query || $query->EOF)
         {
@@ -693,7 +693,7 @@ function traderoute_create ($db, $lang, $langvars)
     // Attempting to fix the map the universe via traderoute bug
 
     $pl1query = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE sector_id=? AND ship_id = ?;", array ($source['sector_id'], $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $pl1query, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $pl1query, __LINE__, __FILE__);
     $num_res1 = $pl1query->numRows();
     if ($num_res1 == 0)
     {
@@ -711,7 +711,7 @@ function traderoute_create ($db, $lang, $langvars)
         }
 
         $query = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($port_id2));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         if (!$query || $query->EOF)
         {
             $langvars['l_tdr_errnotvaliddestport'] = str_replace ("[tdr_port_id]", $port_id2, $langvars['l_tdr_errnotvaliddestport']);
@@ -729,7 +729,7 @@ function traderoute_create ($db, $lang, $langvars)
     else
     {
         $query = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id=?;", array ($planet_id2));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         $destination = $query->fields;
         if (!$query || $query->EOF)
         {
@@ -756,7 +756,7 @@ function traderoute_create ($db, $lang, $langvars)
 
     // OK now we have $destination lets see if we've been there.
     $pl2query = $db->Execute ("SELECT * FROM {$db->prefix}movement_log WHERE sector_id=? AND ship_id = ?;", array ($destination['sector_id'], $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $pl2query, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $pl2query, __LINE__, __FILE__);
     $num_res2 = $pl2query->numRows();
     if ($num_res2 == 0)
     {
@@ -835,13 +835,13 @@ function traderoute_create ($db, $lang, $langvars)
     if (empty ($editing))
     {
         $query = $db->Execute ("INSERT INTO {$db->prefix}traderoutes VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);", array ($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         echo "<p>" . $langvars['l_tdr_newtdrcreated'];
     }
     else
     {
         $query = $db->Execute ("UPDATE {$db->prefix}traderoutes SET source_id=?, dest_id=?, source_type=?, dest_type=?, move_type=?, owner=?, circuit=? WHERE traderoute_id=?;", array ($src_id, $dest_id, $src_type, $dest_type, $mtype, $playerinfo['ship_id'], $circuit_type, $editing));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         echo "<p>" . $langvars['l_tdr_modified'];
     }
 
@@ -860,7 +860,7 @@ function traderoute_delete ($db, $langvars)
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
 
     $query = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
-    DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
 
     if (!$query || $query->EOF)
     {
@@ -883,7 +883,7 @@ function traderoute_delete ($db, $langvars)
     else
     {
         $query = $db->Execute ("DELETE FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
-        DbOp::dbResult ($db, $query, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
         $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
         echo $langvars['l_tdr_deleted'] . " " . $langvars['l_tdr_returnmenu'];
         traderoute_die ($db, $lang, $langvars, "");
@@ -968,7 +968,7 @@ function traderoute_setsettings ($db, $langvars)
     empty ($torps) ? $torps = 'N' : $torps = 'Y';
 
     $resa = $db->Execute ("UPDATE {$db->prefix}ships SET trade_colonists=?, trade_fighters=?, trade_torps=?, trade_energy=? WHERE ship_id=?;", array ($colonists, $fighters, $torps, $energy, $playerinfo['ship_id']));
-    DbOp::dbResult ($db, $resa, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
 
     $langvars['l_tdr_returnmenu'] = str_replace ("[here]", "<a href='traderoute.php'>" . $langvars['l_here'] . "</a>", $langvars['l_tdr_returnmenu']);
     echo $langvars['l_tdr_globalsetsaved'] . " " . $langvars['l_tdr_returnmenu'];

@@ -46,7 +46,7 @@ if (array_key_exists ('newlang', $_POST) == true)
 
                 // Update the ship record to the requested language
                 $res = $db->Execute ("UPDATE {$db->prefix}ships SET lang = ? WHERE email = ?", array ($lang, $_SESSION['username']));
-                DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+                BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
                 // Set a flag that we changed the language
                 $changed_language = true;
@@ -87,7 +87,7 @@ else
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
     $rs = $db->SelectLimit ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", array (1, -1, 'email' => $_SESSION['username']));
-    DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
+    BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
     if ($rs instanceof ADORecordSet)
@@ -110,7 +110,7 @@ else
 
             // Now update the players password.
             $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
-            DbOp::dbResult ($db, $rs, __LINE__, __FILE__);
+            BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
             if ((is_bool ($rs) && $rs == false) || $db->Affected_Rows() != 1)

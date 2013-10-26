@@ -29,10 +29,10 @@ $langvars = BntTranslate::load ($db, $lang, array ('ship', 'planet', 'main', 'co
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $res, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
 $res2 = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE ship_id = ?;", array ($ship_id));
-DbOp::dbResult ($db, $res2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $res2, __LINE__, __FILE__);
 $othership = $res2->fields;
 
 if ($othership['sector'] != $playerinfo['sector'])

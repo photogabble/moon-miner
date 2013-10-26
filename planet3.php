@@ -63,11 +63,11 @@ if ($planet_id <= 0)
 }
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-DbOp::dbResult ($db, $result, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE planet_id = ?;", array ($planet_id));
-DbOp::dbResult ($db, $result2, __LINE__, __FILE__);
+BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $planetinfo = $result2->fields;
 
 // Check to see if it returned valid planet info.
@@ -157,10 +157,10 @@ if ($planetinfo['sells'] == 'Y')
 
         // Update ship cargo, credits and turns
         $trade_result = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, credits = credits - ?, ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, ship_energy = ship_energy + ? WHERE ship_id = ?;", array ($total_cost, $trade_ore, $trade_organics, $trade_goods, $trade_energy, $playerinfo['ship_id']));
-        DbOp::dbResult ($db, $trade_result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $trade_result, __LINE__, __FILE__);
 
         $trade_result2 = $db->Execute ("UPDATE {$db->prefix}planets SET ore = ore - ?, organics = organics - ?, goods = goods - ?, energy = energy - ?, credits = credits + ? WHERE planet_id = ?;", array ($trade_ore, $trade_organics, $trade_goods, $trade_energy, $total_cost, $planet_id));
-        DbOp::dbResult ($db, $trade_result2, __LINE__, __FILE__);
+        BntDb::logDbErrors ($db, $trade_result2, __LINE__, __FILE__);
         echo $langvars['l_trade_complete'] . "<br><br>";
     }
 }
