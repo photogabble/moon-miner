@@ -1010,6 +1010,7 @@ l_news_c_text25                         = "Das aufsteigende Reich des [name] hat
 l_news_c_text100                        = "Das aufstrebende Reich des [name] hat nun 100 Millionen Siedler, nach der Explosion der Geburtsraten, [name] Kolonien scheinen ein guter Ort f&uuml;r Familien zu sein!";
 l_news_c_text500                        = "Das gro&szlig;e Reich des [name] hat nun 500 Millionen Siedler, [name] sagte in einem Interview, dass die Kolonisation jetzt erst begonnen h&auml;tte";
 l_news_c_text1000                       = "Das m&auml;chtige Reich des [name] hat nun eine Milliarde Siedler, BNN Reporter fanden heraus das [name] im Besitz eines unheimlichen Klon-Mechanismuses ist, welcher ihm erlaubt, Siedler in dieser riesiegen Anzahl zu erstellen. Mit dieser Anzahl von Siedler. Mit dieser Menge an Siedler ist die &ouml;konomische Kraft dieses Reiches enorm. BNN hofft, da&szlig; [name] sein Geld nicht f&uuml;r einen Krieg benutzt.";
+l_news_broken                           = "News Ticker sollte hier sein, wenn Sie es gebrochen haben!";
 
 [option2]
 l_opt2_title                            = "Speichere Optionen";
