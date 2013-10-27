@@ -25,8 +25,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_news.php')) // Prevent direct access to
     include_once './error.php';
 }
 
-global $default_lang;
-
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
