@@ -22,7 +22,6 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Always make sure we are using empty vars before use.
-$langvars = null;
 $variables = null;
 
 // Database driven language entries

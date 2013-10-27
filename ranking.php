@@ -20,7 +20,6 @@
 include './global_includes.php';
 
 // Always make sure we are using empty vars before use.
-$langvars = null;
 $variables = null;
 
 $variables['body_class'] = 'ranking';

@@ -19,16 +19,10 @@
 
 include './global_includes.php';
 
-if (!isset ($_GET['lang']))
+$link = '';
+if (isset ($_GET['lang']))
 {
-    $_GET['lang'] = null;
-    $lang = $default_lang;
-    $link = '';
-}
-else
-{
-    $lang = $_GET['lang'];
-    $link = "?lang=" . $lang;
+    $link = "?lang=" . $_GET['lang'];
 }
 
 // Database driven language entries

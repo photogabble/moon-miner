@@ -32,7 +32,6 @@ else
 }
 
 // Database driven language entries
-$langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'faq', 'global_funcs'));
 
 $variables = null;

@@ -22,7 +22,6 @@ include './global_includes.php';
 include './config/admin_pw.php';
 
 // Database driven language entries
-$langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',
                                 'global_includes', 'global_funcs', 'combat',
                                 'footer', 'news', 'report', 'main', 'zoneedit',

@@ -19,8 +19,6 @@
 
 include_once './global_includes.php';
 
-$langvars = null;
-
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('footer', 'common', 'error', 'main'));
 

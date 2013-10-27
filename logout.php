@@ -22,7 +22,6 @@ include './global_includes.php';
 $variables = null;
 
 // Database driven language entries
-$langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 if (isset ($_SESSION['username']))

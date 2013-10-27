@@ -186,8 +186,8 @@ BntPluginSystem::LoadPlugins ();
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
 BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 
-// We need language variables in every page.
-global $langvars;
+// We need language variables in every page, set them to a null value first.
+$langvars = null;
 
 $admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
