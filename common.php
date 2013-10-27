@@ -186,8 +186,8 @@ BntPluginSystem::LoadPlugins ();
 // May need to change array(time()) to have extra info, but the current suits us fine for now.
 BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 
-// We need language variables in every page, and a language setting for them.
-global $lang, $langvars;
+// We need language variables in every page.
+global $langvars;
 
 $admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
@@ -196,6 +196,7 @@ $gamedomain = BntSetPaths::setGamedomain ();
 $template = new BntTemplate (); // Template API.
 $bntreg->set ("bnttimer", $BenchmarkTimer);
 $bntreg->set ("db", $db);
+$bntreg->set ("lang", $lang);
 $bntreg->set ("langvars", $langvars);
 $bntreg->set ("template", $default_template); // Temporary until we have a template picker
 $template->SetTheme ("classic"); // We set the name of the theme.
