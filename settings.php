@@ -127,6 +127,7 @@ echo "<br>\n";
 $title="Game Administrators";
 echo "<h1>" . $title . "</h1>\n";
 $found_blues = 0;
+$admin_list = array (); // Define admins here for now, but this needs to be a setting from the admin panel
 foreach ($admin_list as $key => $admin)
 {
     if ($admin['role'] === "developer" || $admin['role'] === "admin")

@@ -189,7 +189,6 @@ BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 // We need language variables in every page, set them to a null value first.
 $langvars = null;
 
-$admin_list = array ();
 $ip = $_SERVER['REMOTE_ADDR'];
 $gamepath = BntSetPaths::setGamepath ();
 $gamedomain = BntSetPaths::setGamedomain ();
