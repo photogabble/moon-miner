@@ -120,7 +120,6 @@ if (($curzone['corp_zone'] == 'N' && $curzone['owner'] != $ownerinfo['ship_id'])
 if ($command == 'change')
 {
     global $zone, $name, $beacons, $attacks, $warpedits, $planets, $trades, $defenses;
-    global $langvars;
 
     // Sanitize zone name.
     $name = preg_replace ('/[^A-Za-z0-9\_\s\-\.\']+/', '', $name);
