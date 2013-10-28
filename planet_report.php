@@ -22,13 +22,12 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('planet_report'));
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report', 'regional'));
 
 $title = $langvars['l_pr_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 $body_class = 'planet';
 echo "<body class=" . $body_class . "><br>";
 
@@ -48,19 +47,19 @@ if ($preptype == 1 || !isset ($preptype)) // Display the commodities on the plan
 {
     $title = $title .": Status";
     echo "<h1>" . $title . "</h1>\n";
-    standard_report ($db, $langvars);
+    standard_report ($db, $langvars, $playerinfo);
 }
 elseif ($preptype == 2)                  // Display the production values of your planets and allow changing
 {
     $title = $title .": Production";
     echo "<h1>" . $title . "</h1>\n";
-    planet_production_change ($db, $langvars);
+    planet_production_change ($db, $langvars, $playerinfo);
 }
 elseif ($preptype == 0)                  // For typing in manually to get a report menu
 {
     $title = $title . ": Menu";
     echo "<h1>" . $title . "</h1>\n";
-    planet_report_menu ();
+    planet_report_menu ($playerinfo);
 }
 else                                  // Display the menu if no valid options are passed in
 {
@@ -70,12 +69,9 @@ else                                  // Display the menu if no valid options ar
 }
 
 // Begin functions
-function planet_report_menu ()
+function planet_report_menu ($playerinfo)
 {
-    global $playerinfo;
-
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
-
     echo "<strong><a href=\"planet_report.php?preptype=1\" name=\"Planet Status\">Planet Status</a></strong><br>" .
          "Displays the number of each Commodity on the planet (Ore, Organics, Goods, Energy, Colonists, Credits, Fighters, and Torpedoes)<br>" .
          "<br>" .
@@ -91,12 +87,9 @@ function planet_report_menu ()
     echo "</div>\n";
 }
 
-function standard_report ($db, $langvars)
+function standard_report ($db, $langvars, $playerinfo)
 {
-    global $res;
-    global $playerinfo;
     global $sort;
-    global $query;
     global $color_header, $color, $color_line1, $color_line2;
 
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
@@ -227,15 +220,15 @@ function standard_report ($db, $langvars)
             echo "<tr bgcolor=\"$color\">";
             echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i]['sector_id'] . ">". $planet[$i]['sector_id'] ."</a></td>";
             echo "<td>" . $planet[$i]['name'] . "</td>";
-            echo "<td>" . number_format ($planet[$i]['ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planet[$i]['organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planet[$i]['goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planet[$i]['energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td align=right>" . number_format ($planet[$i]['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td align=right>" . number_format ($planet[$i]['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+            echo "<td>" . number_format ($planet[$i]['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planet[$i]['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planet[$i]['goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planet[$i]['energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td align=right>" . number_format ($planet[$i]['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td align=right>" . number_format ($planet[$i]['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
             echo "<td align=center>" . "<input type=checkbox name=TPCreds[] value=\"" . $planet[$i]['planet_id'] . "\">" . "</td>";
-            echo "<td align=right>"  . number_format ($planet[$i]['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td align=right>"  . number_format ($planet[$i]['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+            echo "<td align=right>"  . number_format ($planet[$i]['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td align=right>"  . number_format ($planet[$i]['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
             echo "<td align=center>" . base_build_check ($langvars, $planet, $i) . "</td>";
             if ($playerinfo['team'] > 0)
             {
@@ -258,22 +251,22 @@ function standard_report ($db, $langvars)
         // the next block displays the totals
         echo "<tr bgcolor=$color>";
         echo "<td COLSPAN=2 align=center>" . $langvars['l_pr_totals'] . "</td>";
-        echo "<td>" . number_format ($total_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td>" . number_format ($total_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td>" . number_format ($total_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td>" . number_format ($total_energy, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td align=right>" . number_format ($total_colonists, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td align=right>" . number_format ($total_credits, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+        echo "<td>" . number_format ($total_ore, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td>" . number_format ($total_organics, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td>" . number_format ($total_goods, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td>" . number_format ($total_energy, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td align=right>" . number_format ($total_colonists, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td align=right>" . number_format ($total_credits, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
         echo "<td></td>";
-        echo "<td align=right>"  . number_format ($total_fighters, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td align=right>"  . number_format ($total_torp, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td align=center>" . number_format ($total_base, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+        echo "<td align=right>"  . number_format ($total_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td align=right>"  . number_format ($total_torp, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td align=center>" . number_format ($total_base, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
         if ($playerinfo['team'] > 0)
         {
-            echo "<td align=center>" . number_format ($total_corp, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+            echo "<td align=center>" . number_format ($total_corp, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
         }
 
-        echo "<td align=center>" . number_format ($total_selling, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+        echo "<td align=center>" . number_format ($total_selling, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
         echo "</tr>";
         echo "</table>";
         echo "<br>";
@@ -284,11 +277,9 @@ function standard_report ($db, $langvars)
     echo "</div>\n";
 }
 
-function planet_production_change ($db, $langvars)
+function planet_production_change ($db, $langvars, $playerinfo)
 {
-    global $playerinfo;
     global $sort;
-    global $query;
     global $color_header, $color, $color_line1, $color_line2;
 
     $query = "SELECT * FROM {$db->prefix}planets WHERE owner=? AND base='Y'";
@@ -400,8 +391,8 @@ function planet_production_change ($db, $langvars)
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_organics[" . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_organics'] . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_goods["    . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_goods']    . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_energy["   . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_energy']   . "\">" . "</td>\n";
-            echo "<td align=right>"  . number_format ($planet[$i]['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep)              . "</td>\n";
-            echo "<td align=right>"  . number_format ($planet[$i]['credits'], 0, $local_number_dec_point, $local_number_thousands_sep)        . "</td>\n";
+            echo "<td align=right>"  . number_format ($planet[$i]['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])              . "</td>\n";
+            echo "<td align=right>"  . number_format ($planet[$i]['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])        . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_fighters[" . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_fighters'] . "\">" . "</td>\n";
             echo "<td align=center>" . "<input size=6 type=text name=\"prod_torp["     . $planet[$i]['planet_id'] . "]\" value=\"" . $planet[$i]['prod_torp']     . "\">" . "</td>\n";
             if ($playerinfo['team'] > 0)
@@ -428,8 +419,8 @@ function planet_production_change ($db, $langvars)
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
-        echo "<td align=right>" . number_format ($total_colonists, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>\n";
-        echo "<td align=right>" . number_format ($total_credits, 0, $local_number_dec_point, $local_number_thousands_sep)   . "</td>\n";
+        echo "<td align=right>" . number_format ($total_colonists, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>\n";
+        echo "<td align=right>" . number_format ($total_credits, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])   . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         echo "<td>" . "" . "</td>\n";
         if ($playerinfo['team'] > 0)
