@@ -21,11 +21,9 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main'));
+$langvars = BntTranslate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes', 'regional'));
 $title = $langvars['l_main_title'];
 include './header.php';
-
-$langvars = BntTranslate::load ($db, $lang, array ('combat', 'common', 'main', 'modify_defences', 'admin','footer','global_includes'));
 
 $active_template = "templates/" . $bntreg->get("template") . "/";
 $stylefontsize = "12pt";
@@ -153,10 +151,10 @@ if ($result->RecordCount() > 0)
     BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 }
 
-$ply_turns     = number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep);
-$ply_turnsused = number_format ($playerinfo['turns_used'], 0, $local_number_dec_point, $local_number_thousands_sep);
-$ply_score     = number_format ($playerinfo['score'], 0, $local_number_dec_point, $local_number_thousands_sep);
-$ply_credits   = number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep);
+$ply_turns     = number_format ($playerinfo['turns'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_turnsused = number_format ($playerinfo['turns_used'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_score     = number_format ($playerinfo['score'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$ply_credits   = number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 
 echo "<table style='width:90%; margin:auto; text-align:center; border:0px;'>\n";
 echo "  <tr>\n";
@@ -745,31 +743,31 @@ echo "</table>\n";
           <td style='vertical-align:middle; white-space:nowrap; text-align:left;' >&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_ore']; ?>" src="<?php echo $active_template; ?>images/ore.png">&nbsp;<?php echo $langvars['l_ore']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='vertical-align:middle; white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_ore'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
+          <td style='vertical-align:middle; white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format($playerinfo['ship_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_organics']; ?>" src="<?php echo $active_template; ?>images/organics.png">&nbsp;<?php echo $langvars['l_organics']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_organics'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_goods']; ?>" src="<?php echo $active_template; ?>images/goods.png">&nbsp;<?php echo $langvars['l_goods']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_goods'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_energy']; ?>" src="<?php echo $active_template; ?>images/energy.png">&nbsp;<?php echo $langvars['l_energy']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_energy'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
         <tr>
           <td style='white-space:nowrap; text-align:left;'>&nbsp;<img style='height:12px; width:12px;' alt="<?php echo $langvars['l_colonists']; ?>" src="<?php echo $active_template; ?>images/colonists.png">&nbsp;<?php echo $langvars['l_colonists']; ?>&nbsp;</td>
         </tr>
         <tr>
-          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_colonists'], 0, $local_number_dec_point, $local_number_thousands_sep); ?>&nbsp;</span></td>
+          <td style='white-space:nowrap; text-align:right;'><span class=mnu>&nbsp;<?php echo number_format ($playerinfo['ship_colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']); ?>&nbsp;</span></td>
         </tr>
       </table>
     </td>

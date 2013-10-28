@@ -22,12 +22,10 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('defence_report'));
+$langvars = BntTranslate::load ($db, $lang, array ('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 $title = $langvars['l_sdf_title'];
 include './header.php';
 
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('defence_report', 'planet_report', 'main', 'device', 'port', 'modify_defences', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -90,7 +88,7 @@ else
     {
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $sector[$i]['sector_id'] . ">". $sector[$i]['sector_id'] ."</a></td>";
-        echo "<td>" . number_format ($sector[$i]['quantity'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+        echo "<td>" . number_format ($sector[$i]['quantity'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
         $defence_type = $sector[$i]['defence_type'] == 'F' ? $langvars['l_fighters'] : $langvars['l_mines'];
         echo "<td> $defence_type </td>";
         $mode = $sector[$i]['defence_type'] == 'F' ? $sector[$i]['fm_setting'] : $langvars['l_n_a'];

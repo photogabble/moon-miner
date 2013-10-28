@@ -26,12 +26,11 @@ if (isset ($_GET['lang']))
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main'));
+$langvars = BntTranslate::load ($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'main', 'regional'));
 $title = $langvars['l_settings'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('settings', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 $line_color = $color_line1;
 
@@ -253,7 +252,7 @@ line ("Game name:", $game_name, "right");
 line ("Average tech level needed to hit mines", $mine_hullsize, "right");
 line ("Averaged Tech level When Emergency Warp Degrades", $ewd_maxhullsize, "right");
 
-$num = number_format ($sector_max, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($sector_max, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Number of Sectors", $num, "right");
 line ("Maximum Links per sector", $link_max, "right");
 line ("Maximum average tech level for Federation Sectors", $fed_max_hull, "right");
@@ -271,10 +270,10 @@ if ($allow_ibank)
 }
 line ("Tech Level upgrade for Bases", $base_defense, "right");
 
-$num = number_format ($colonist_limit, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($colonist_limit, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists Limit", $num, "right");
 
-$num = number_format ($max_turns, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($max_turns, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Maximum number of accumulated turns", $num, "right");
 line ("Maximum number of planets per sector", $max_planets_sector, "right");
 line ("Maximum number of traderoutes per player", $max_traderoutes_player, "right");
@@ -285,30 +284,30 @@ $rate = $defence_degrade_rate * 100;
 line ("Sector fighter degradation percentage rate", $rate, "right");
 line ("Number of planets with bases need for sector ownership&nbsp;", $min_bases_to_own, "right");
 
-$rate = number_format (($interest_rate - 1) * 100 , 3, $local_number_dec_point, $local_number_thousands_sep);
+$rate = number_format (($interest_rate - 1) * 100 , 3, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Planet interest rate", $rate, "right");
 
 $rate = 1 / $colonist_production_rate;
 
-$num = number_format ($rate / $fighter_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate / $fighter_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Fighter each turn", $num, "right");
 
-$num = number_format ($rate/$torpedo_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate/$torpedo_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Torpedo each turn", $num, "right");
 
-$num = number_format ($rate/$ore_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate/$ore_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Ore each turn", $num, "right");
 
-$num = number_format ($rate/$organics_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate/$organics_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Organics each turn", $num, "right");
 
-$num = number_format ($rate/$goods_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate/$goods_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Goods each turn", $num, "right");
 
-$num = number_format ($rate/$energy_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate/$energy_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Energy each turn", $num, "right");
 
-$num = number_format ($rate/$credits_prate, 0, $local_number_dec_point, $local_number_thousands_sep);
+$num = number_format ($rate/$credits_prate, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists needed to produce 1 Credits each turn", $num, "right");
 echo "</table>\n";
 echo "<br>\n";
@@ -334,7 +333,7 @@ line ("News will be generated every", "{$sched_news} minutes", "right");
 line ("Planets will generate production every", "{$sched_planets} minutes", "right");
 $use_new_sched_planet = true; // We merged this change in, so all new versions use this
 line (" -> Using new Planet Update Code", ($use_new_sched_planet?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
-line (" -> Limit captured planets Max Credits to ". number_format ($max_credits_without_base, 0, $local_number_dec_point, $local_number_thousands_sep), ($sched_planet_valid_credits?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
+line (" -> Limit captured planets Max Credits to ". number_format ($max_credits_without_base, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), ($sched_planet_valid_credits?"<span style='color:#0f0;'>Yes</span>":"<span style='color:#ff0;'>No</span>"), "right");
 line ("Ports will regenerate x {$port_regenrate} every", "{$sched_ports} minutes", "right");
 line ("Ships will be towed from fed sectors every", "{$sched_turns} minutes", "right");
 line ("Rankings will be generated every", "{$sched_ranking} minutes", "right");

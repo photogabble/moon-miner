@@ -25,7 +25,7 @@ $title = $langvars['l_scan_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet'));
+$langvars = BntTranslate::load ($db, $lang, array ('scan', 'common', 'bounty', 'report', 'main', 'global_includes', 'global_funcs', 'footer', 'news', 'planet', 'regional'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
@@ -98,7 +98,7 @@ else
                 $resx = $hasbounty->fields;
                 if ($resx['btytotal'] > 0)
                 {
-                    $btyamount = number_format ($resx['btytotal'], 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $btyamount = number_format ($resx['btytotal'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     $langvars['l_scan_bounty'] = str_replace ("[amount]", $btyamount, $langvars['l_scan_bounty']);
                     echo $langvars['l_scan_bounty'] . "<br>";
                     $btyamount = 0;

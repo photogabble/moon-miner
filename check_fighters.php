@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'check_fighters.php')) // Prevent direct acces
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('check_fighters', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 
 $result2 = $db->Execute ("SELECT * FROM {$db->prefix}universe WHERE sector_id=?;", array ($sector));
 BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
@@ -118,7 +118,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 }
                 else
                 {
-                    $tollstring = number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $tollstring = number_format ($fighterstoll, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     $langvars['l_chf_youpaidsometoll'] = str_replace ("[chf_tollstring]", $tollstring, $langvars['l_chf_youpaidsometoll']);
                     echo $langvars['l_chf_youpaidsometoll'] . "<br>";
                     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET credits=credits - $fighterstoll WHERE ship_id = ?;", array ($playerinfo['ship_id']));
@@ -168,7 +168,7 @@ if ($num_defences > 0 && $total_sector_fighters > 0 && !$owner)
                 echo $langvars['l_chf_therearetotalfightersindest'] . "<br>";
                 if ($defences[0]['fm_setting'] == "toll")
                 {
-                    $langvars['l_chf_creditsdemanded'] = str_replace ("[chf_number_fighterstoll]", number_format ($fighterstoll, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_chf_creditsdemanded']);
+                    $langvars['l_chf_creditsdemanded'] = str_replace ("[chf_number_fighterstoll]", number_format ($fighterstoll, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_chf_creditsdemanded']);
                     echo $langvars['l_chf_creditsdemanded'] . "<br>";
                 }
 

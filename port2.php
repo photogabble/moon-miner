@@ -25,7 +25,7 @@ $title = $langvars['l_title_port'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('port', 'device', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
@@ -365,11 +365,11 @@ else
                       $dev_escapepod_cost + $dev_fuelscoop_cost + $dev_lssd_cost + $shields_upgrade_cost;
         if ($total_cost > $playerinfo['credits'])
         {
-            echo "You do not have enough credits for this transaction.  The total cost is " . number_format ($total_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " credits and you only have " . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " credits.<br><br>Click <a href=port.php>here</A> to return to the supply depot.<br><br>";
+            echo "You do not have enough credits for this transaction.  The total cost is " . number_format ($total_cost, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " credits and you only have " . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " credits.<br><br>Click <a href=port.php>here</A> to return to the supply depot.<br><br>";
         }
         else
         {
-            $trade_credits = number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep);
+            $trade_credits = number_format (abs ($total_cost), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
             echo "<table border=2 cellspacing=2 cellpadding=2 bgcolor=#400040 width=600 align=center>
                     <tr>
                         <td colspan=99 align=center bgcolor=#300030><font size=3 color=white><strong>" . $langvars['l_trade_result'] . "</strong></font></td>
@@ -378,7 +378,7 @@ else
                         <td colspan=99 align=center><strong><font color=red>" . $langvars['l_cost'] . " : " . $trade_credits . " " . $langvars['l_credits'] . "</font></strong></td>
                     </tr>";
 
-            //  Total cost is " . number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep) . " credits.<br><br>";
+            //  Total cost is " . number_format (abs ($total_cost), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " credits.<br><br>";
             $query = "UPDATE {$db->prefix}ships SET credits=credits-$total_cost";
             if ($hull_upgrade > $playerinfo['hull'])
             {
@@ -708,19 +708,19 @@ else
                         <td colspan=99 align=center><font size=3 color=white><strong>" . $langvars['l_trade_result'] . "</strong></font></td>
                     </tr>
                     <tr>
-                        <td colspan=99 align=center><strong><font style='color:{$trade_color};'>". $trade_result ." " . number_format (abs ($total_cost), 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_credits'] . "</font></strong></td>
+                        <td colspan=99 align=center><strong><font style='color:{$trade_color};'>". $trade_result ." " . number_format (abs ($total_cost), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_credits'] . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
-                        <td><strong><font size=2 color=white>" . $langvars['l_traded_ore'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_ore'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_ore, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
                    <tr bgcolor=$color_line2>
-                        <td><strong><font size=2 color=white>" . $langvars['l_traded_organics'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_organics'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_organics, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line1>
-                        <td><strong><font size=2 color=white>" . $langvars['l_traded_goods'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_goods'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_goods, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
                     <tr bgcolor=$color_line2>
-                        <td><strong><font size=2 color=white>" . $langvars['l_traded_energy'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_energy, 0, $local_number_dec_point, $local_number_thousands_sep) . "</font></strong></td>
+                        <td><strong><font size=2 color=white>" . $langvars['l_traded_energy'] . ": </font><strong></td><td align=right><strong><font size=2 color=white>" . number_format ($trade_energy, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</font></strong></td>
                     </tr>
                     </table>";
 

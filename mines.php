@@ -22,13 +22,10 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('mines'));
+$langvars = BntTranslate::load ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_mines_title'];
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('mines', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 
 $op = null;
 if (array_key_exists ('op', $_GET) == true)
@@ -164,12 +161,12 @@ else
 
     if (!isset ($nummines) || !isset ($numfighters) || !isset ($mode))
     {
-        $availmines = number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep);
-        $availfighters = number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
+        $availmines = number_format ($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+        $availfighters = number_format ($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
         echo "<form action=mines.php method=post>";
         $langvars['l_mines_info1'] = str_replace ("[sector]", $playerinfo['sector'], $langvars['l_mines_info1']);
-        $langvars['l_mines_info1'] = str_replace ("[mines]", number_format ($total_sector_mines, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_mines_info1']);
-        $langvars['l_mines_info1'] = str_replace ("[fighters]", number_format ($total_sector_fighters, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace ("[mines]", number_format ($total_sector_mines, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
+        $langvars['l_mines_info1'] = str_replace ("[fighters]", number_format ($total_sector_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_mines_info1']);
         echo $langvars['l_mines_info1'] . "<br><br>";
         $langvars['l_mines_info2'] = str_replace ("[mines]", $availmines, $langvars['l_mines_info2']);
         $langvars['l_mines_info2'] = str_replace ("[fighters]", $availfighters, $langvars['l_mines_info2']);

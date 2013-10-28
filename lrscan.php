@@ -22,12 +22,9 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('lrscan'));
+$langvars = BntTranslate::load ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news', 'regional'));
 $title = $langvars['l_lrs_title'];
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('main', 'lrscan', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
 if (isset ($_GET['sector']))
@@ -65,7 +62,7 @@ if ($sector == "*")
         die ();
     }
 
-    echo $langvars['l_lrs_used'] . " " . number_format ($fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_lrs_turns'] . " " . number_format ($playerinfo['turns'] - $fullscan_cost, 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_lrs_left'] . ".<br><br>";
+    echo $langvars['l_lrs_used'] . " " . number_format ($fullscan_cost, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_lrs_turns'] . " " . number_format ($playerinfo['turns'] - $fullscan_cost, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_lrs_left'] . ".<br><br>";
 
     // Deduct the appropriate number of turns
     $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - ?, turns_used = turns_used + ? WHERE ship_id = ?;", array ($fullscan_cost, $fullscan_cost, $playerinfo['ship_id']));
@@ -126,8 +123,8 @@ if ($sector == "*")
         $defF = $resultSDb->fields;
         $port_type = $sectorinfo['port_type'];
         $has_planet = $result3->RecordCount();
-        $has_mines = number_format ($defM['mines'], 0, $local_number_dec_point, $local_number_thousands_sep);
-        $has_fighters = number_format ($defF['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
+        $has_mines = number_format ($defM['mines'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+        $has_fighters = number_format ($defF['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 
         if ($port_type != "none")
         {
@@ -375,11 +372,11 @@ else
 
     echo "</td></tr>";
     echo "<tr bgcolor=\"$color_line1\"><td><strong>" . $langvars['l_mines'] . "</strong></td></tr>";
-    $has_mines =  number_format ($defM['mines'], 0, $local_number_dec_point, $local_number_thousands_sep);
+    $has_mines =  number_format ($defM['mines'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
     echo "<tr><td>" . $has_mines;
     echo "</td></tr>";
     echo "<tr bgcolor=\"$color_line2\"><td><strong>" . $langvars['l_fighters'] . "</strong></td></tr>";
-    $has_fighters =  number_format ($defF['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep);
+    $has_fighters =  number_format ($defF['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
     echo "<tr><td>" . $has_fighters;
     echo "</td></tr>";
     if ($playerinfo['dev_lssd'] == 'Y')

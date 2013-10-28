@@ -23,12 +23,10 @@ include './includes/traderoute_new.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('traderoutes'));
+$langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'bounty', 'regional'));
 $title = $langvars['l_tdr_title'];
 include './header.php';
 
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'bounty'));
 echo "<h1>" . $title . "</h1>\n";
 
 $portfull = null; // This fixes an error of undefined variables on 1518
@@ -397,7 +395,7 @@ include './footer.php';
 function traderoute_die ($db, $lang, $langvars, $error_msg)
 {
     global $sched_ticks, $color_line1, $color_line2, $color_header, $servertimezone;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<p>" . $error_msg . "<p>";
     echo "<div style='text-align:left;'>\n";
@@ -410,7 +408,7 @@ function traderoute_die ($db, $lang, $langvars, $error_msg)
 function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
 
     // Check circuit compatibility (we only use types 1 and 2 so block anything else)
@@ -485,7 +483,7 @@ function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $mo
 function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone, $level_factor;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     $retvalue['triptime'] = 0;
     $retvalue['scooped1'] = 0;
@@ -627,7 +625,7 @@ function traderoute_create ($db, $lang, $langvars)
     global $move_type;
     global $circuit_type;
     global $editing;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     if ($num_traderoutes >= $max_traderoutes_player && empty ($editing))
     { // Dont let them exceed max traderoutes
@@ -857,7 +855,7 @@ function traderoute_delete ($db, $langvars)
     global $num_traderoutes;
     global $traderoute_id;
     global $traderoutes;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     $query = $db->Execute ("SELECT * FROM {$db->prefix}traderoutes WHERE traderoute_id=?;", array ($traderoute_id));
     BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
@@ -893,7 +891,7 @@ function traderoute_delete ($db, $langvars)
 function traderoute_settings ($db, $lang, $langvars)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<p><font size=3 color=blue><strong>" . $langvars['l_tdr_globalset'] . "</strong></font><p>";
     echo "<font color=white size=2><strong>" . $langvars['l_tdr_sportsrc'] . " :</strong></font><p>".
@@ -961,7 +959,7 @@ function traderoute_setsettings ($db, $langvars)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
     global $colonists, $servertimezone, $fighters, $torps, $energy;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     empty ($colonists) ? $colonists = 'N' : $colonists = 'Y';
     empty ($fighters) ? $fighters = 'N' : $fighters = 'Y';
@@ -978,7 +976,7 @@ function traderoute_setsettings ($db, $langvars)
 function traderoute_results_table_top ($db, $lang, $langvars)
 {
     global $color_line2;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
     echo "  <tr bgcolor='".$color_line2."'>\n";
@@ -1034,23 +1032,22 @@ function traderoute_results_close_table ()
 
 function traderoute_results_display_totals ($db, $lang, $langvars, $total_profit)
 {
-    global $local_number_dec_point, $local_number_thousands_sep;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     if ($total_profit > 0)
     {
-        echo "<p><center><font size=3 color=white><strong>" . $langvars['l_tdr_totalprofit'] . " : <font style='color:#0f0;'><strong>" . number_format (abs($total_profit), 0, $local_number_dec_point, $local_number_thousands_sep) . "</strong></font><br>\n";
+        echo "<p><center><font size=3 color=white><strong>" . $langvars['l_tdr_totalprofit'] . " : <font style='color:#0f0;'><strong>" . number_format (abs($total_profit), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</strong></font><br>\n";
     }
     else
     {
-        echo "<p><center><font size=3 color=white><strong>" . $langvars['l_tdr_totalcost'] . " : <font style='color:#f00;'><strong>" . number_format (abs($total_profit), 0, $local_number_dec_point, $local_number_thousands_sep) . "</strong></font><br>\n";
+        echo "<p><center><font size=3 color=white><strong>" . $langvars['l_tdr_totalcost'] . " : <font style='color:#f00;'><strong>" . number_format (abs($total_profit), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</strong></font><br>\n";
     }
 }
 
 function traderoute_results_display_summary ($db, $lang, $langvars, $tdr_display_creds)
 {
     global $dist, $playerinfo;
-    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
+    $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "\n<font size='3' color='white'><strong>" . $langvars['l_tdr_turnsused'] . " : <font style='color:#f00;'>$dist[triptime]</font></strong></font><br>";
     echo "\n<font size='3' color='white'><strong>" . $langvars['l_tdr_turnsleft'] . " : <font style='color:#0f0;'>$playerinfo[turns]</font></strong></font><br>";

@@ -25,7 +25,7 @@ $title = $langvars['l_teamplanet_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('team_planets', 'planet_report', 'planet', 'main', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
@@ -150,14 +150,14 @@ else
         echo "<tr bgcolor=\"$color\">";
         echo "<td><a href=rsmove.php?engage=1&destination=". $planet[$i]['sector_id'] . ">". $planet[$i]['sector_id'] ."</a></td>";
         echo "<td>" . $planet[$i]['name']              . "</td>";
-        echo "<td>" . number_format ($planet[$i]['ore'], 0, $local_number_dec_point, $local_number_thousands_sep)       . "</td>";
-        echo "<td>" . number_format ($planet[$i]['organics'], 0, $local_number_dec_point, $local_number_thousands_sep)  . "</td>";
-        echo "<td>" . number_format ($planet[$i]['goods'], 0, $local_number_dec_point, $local_number_thousands_sep)     . "</td>";
-        echo "<td>" . number_format ($planet[$i]['energy'], 0, $local_number_dec_point, $local_number_thousands_sep)    . "</td>";
-        echo "<td>" . number_format ($planet[$i]['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-        echo "<td>" . number_format ($planet[$i]['credits'], 0, $local_number_dec_point, $local_number_thousands_sep)   . "</td>";
-        echo "<td>" . number_format ($planet[$i]['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep)  . "</td>";
-        echo "<td>" . number_format ($planet[$i]['torps'], 0, $local_number_dec_point, $local_number_thousands_sep)     . "</td>";
+        echo "<td>" . number_format ($planet[$i]['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])       . "</td>";
+        echo "<td>" . number_format ($planet[$i]['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])  . "</td>";
+        echo "<td>" . number_format ($planet[$i]['goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])     . "</td>";
+        echo "<td>" . number_format ($planet[$i]['energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])    . "</td>";
+        echo "<td>" . number_format ($planet[$i]['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+        echo "<td>" . number_format ($planet[$i]['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])   . "</td>";
+        echo "<td>" . number_format ($planet[$i]['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])  . "</td>";
+        echo "<td>" . number_format ($planet[$i]['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])     . "</td>";
         echo "<td>" . ($planet[$i]['base'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
         echo "<td>" . ($planet[$i]['sells'] == 'Y' ? $langvars['l_yes'] : $langvars['l_no']) . "</td>";
         echo "<td>" . $player                        . "</td>";
@@ -176,16 +176,16 @@ else
     echo "<tr bgcolor=\"$color\">";
     echo "<td></td>";
     echo "<td>" . $langvars['l_pr_totals'] . "</td>";
-    echo "<td>" . number_format ($total_ore, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_organics, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_goods, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_energy, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_colonists, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_credits, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_fighters, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_torp, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_base, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-    echo "<td>" . number_format ($total_selling, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+    echo "<td>" . number_format ($total_ore, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_organics, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_goods, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_energy, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_colonists, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_credits, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_fighters, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_torp, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_base, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+    echo "<td>" . number_format ($total_selling, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
     echo "<td></td>";
     echo "</tr>";
     echo "</table>";

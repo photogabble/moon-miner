@@ -25,7 +25,7 @@ $title = $langvars['l_planet_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat'));
+$langvars = BntTranslate::load ($db, $lang, array ('bounty', 'port', 'igb', 'main', 'planet', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'combat', 'regional'));
 
 $destroy = null;
 if (array_key_exists ('destroy', $_GET) == true)
@@ -252,14 +252,14 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             echo "<tr bgcolor=\"$color_header\"><td></td><td><strong>" . $langvars['l_ore'] . "</strong></td><td><strong>" . $langvars['l_organics'] . "</strong></td><td><strong>" . $langvars['l_goods'] . "</strong></td><td><strong>" . $langvars['l_energy'] . "</strong></td><td><strong>" . $langvars['l_colonists'] . "</strong></td><td><strong>" . $langvars['l_credits'] . "</strong></td><td><strong>" . $langvars['l_fighters'] . "</strong></td><td><strong>" . $langvars['l_torps'] . "</td></tr>";
             echo "<tr bgcolor=\"$color_line1\">";
             echo "<td>" . $langvars['l_current_qty'] . "</td>";
-            echo "<td>" . number_format ($planetinfo['ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
-            echo "<td>" . number_format ($planetinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>";
+            echo "<td>" . number_format ($planetinfo['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
+            echo "<td>" . number_format ($planetinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>";
             echo "</tr>";
             echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_planet_perc'] . "</td>";
             echo "<td><input type=text name=pore value=\"$planetinfo[prod_ore]\" size=6 maxlength=6></td>";
@@ -374,20 +374,20 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             // Transfer menu
             $free_holds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
             $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
-            $langvars['l_planet_cinfo'] = str_replace ("[cargo]", number_format ($free_holds, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_planet_cinfo']);
-            $langvars['l_planet_cinfo'] = str_replace ("[energy]", number_format ($free_power, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_planet_cinfo']);
+            $langvars['l_planet_cinfo'] = str_replace ("[cargo]", number_format ($free_holds, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_planet_cinfo']);
+            $langvars['l_planet_cinfo'] = str_replace ("[energy]", number_format ($free_power, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_planet_cinfo']);
             echo $langvars['l_planet_cinfo'] . "<br><br>";
             echo "<form action=planet2.php?planet_id=$planet_id method=post>";
             echo "<table width=\"100%\" border=0 cellspacing=0 cellpadding=0>";
             echo "<tr bgcolor=\"$color_header\"><td><strong>" . $langvars['l_commodity'] . "</strong></td><td><strong>" . $langvars['l_planet'] . "</strong></td><td><strong>" . $langvars['l_ship'] . "</strong></td><td><strong>" . $langvars['l_planet_transfer_link'] . "</strong></td><td><strong>" . $langvars['l_planet_toplanet'] . "</strong></td><td><strong>" . $langvars['l_all'] . "?</strong></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_ore'] . "</td><td>" . number_format ($planetinfo['ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_ore'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_organics'] . "</td><td>" . number_format ($planetinfo['organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_organics'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=CHECKBOX name=tporganics value=-1></td><td><input type=CHECKBOX name=allorganics value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_goods'] . "</td><td>" . number_format ($planetinfo['goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_goods'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=CHECKBOX name=tpgoods value=-1></td><td><input type=CHECKBOX name=allgoods value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_energy'] . "</td><td>" . number_format ($planetinfo['energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_energy'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_energy size=10 maxlength=20></td><td><input type=CHECKBOX name=tpenergy value=-1></td><td><input type=CHECKBOX name=allenergy value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_colonists'] . "</td><td>" . number_format ($planetinfo['colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_colonists'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_colonists size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcolonists value=-1></td><td><input type=CHECKBOX name=allcolonists value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_fighters'] . "</td><td>" . number_format ($planetinfo['fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['ship_fighters'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_fighters size=10 maxlength=20></td><td><input type=CHECKBOX name=tpfighters value=-1></td><td><input type=CHECKBOX name=allfighters value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_torps'] . "</td><td>" . number_format ($planetinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['torps'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=CHECKBOX name=tptorps value=-1></td><td><input type=CHECKBOX name=alltorps value=-1></td></tr>";
-            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_credits'] . "</td><td>" . number_format ($planetinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcredits value=-1></td><td><input type=CHECKBOX name=allcredits value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_ore'] . "</td><td>" . number_format ($planetinfo['ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['ship_ore'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_ore size=10 maxlength=20></td><td><input type=CHECKBOX name=tpore value=-1></td><td><input type=CHECKBOX name=allore value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_organics'] . "</td><td>" . number_format ($planetinfo['organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['ship_organics'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_organics size=10 maxlength=20></td><td><input type=CHECKBOX name=tporganics value=-1></td><td><input type=CHECKBOX name=allorganics value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_goods'] . "</td><td>" . number_format ($planetinfo['goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['ship_goods'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_goods size=10 maxlength=20></td><td><input type=CHECKBOX name=tpgoods value=-1></td><td><input type=CHECKBOX name=allgoods value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_energy'] . "</td><td>" . number_format ($planetinfo['energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['ship_energy'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_energy size=10 maxlength=20></td><td><input type=CHECKBOX name=tpenergy value=-1></td><td><input type=CHECKBOX name=allenergy value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_colonists'] . "</td><td>" . number_format ($planetinfo['colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['ship_colonists'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_colonists size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcolonists value=-1></td><td><input type=CHECKBOX name=allcolonists value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_fighters'] . "</td><td>" . number_format ($planetinfo['fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['ship_fighters'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_fighters size=10 maxlength=20></td><td><input type=CHECKBOX name=tpfighters value=-1></td><td><input type=CHECKBOX name=allfighters value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line1\"><td>" . $langvars['l_torps'] . "</td><td>" . number_format ($planetinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['torps'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_torps size=10 maxlength=20></td><td><input type=CHECKBOX name=tptorps value=-1></td><td><input type=CHECKBOX name=alltorps value=-1></td></tr>";
+            echo "<tr bgcolor=\"$color_line2\"><td>" . $langvars['l_credits'] . "</td><td>" . number_format ($planetinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td><td><input type=text name=transfer_credits size=10 maxlength=20></td><td><input type=CHECKBOX name=tpcredits value=-1></td><td><input type=CHECKBOX name=allcredits value=-1></td></tr>";
             echo "</table><br>";
             echo "<input type=submit value=" . $langvars['l_planet_transfer_link'] . ">&nbsp;<input type=reset value=Reset>";
             echo "</form>";
@@ -686,7 +686,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_organics = number_format (round ($planetinfo['organics'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_organics = number_format (round ($planetinfo['organics'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_organics</td></tr>";
                 }
                 else
@@ -698,7 +698,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_ore = number_format (round ($planetinfo['ore'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_ore = number_format (round ($planetinfo['ore'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_ore</td></tr>";
                 }
                 else
@@ -710,7 +710,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_goods = number_format (round ($planetinfo['goods'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_goods = number_format (round ($planetinfo['goods'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_goods</td></tr>";
                 }
                 else
@@ -721,7 +721,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_energy = number_format (round ($planetinfo['energy'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_energy = number_format (round ($planetinfo['energy'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_energy</td></tr>";
                 }
                 else
@@ -732,7 +732,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_colonists = number_format (round ($planetinfo['colonists'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_colonists = number_format (round ($planetinfo['colonists'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_colonists</td></tr>";
                 }
                 else
@@ -743,7 +743,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_credits = number_format (round ($planetinfo['credits'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_credits = number_format (round ($planetinfo['credits'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_credits</td></tr>";
                 }
                 else
@@ -767,7 +767,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_base_torp = number_format (round ($planetinfo['torps'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_base_torp = number_format (round ($planetinfo['torps'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_base_torp</td></tr>";
                 }
                 else
@@ -778,7 +778,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_planet_fighters = number_format (round ($planetinfo['fighters'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_planet_fighters = number_format (round ($planetinfo['fighters'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_planet_fighters</td></tr>";
                 }
                 else
@@ -789,7 +789,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_beams = number_format (round ($ownerinfo['beams'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_beams = number_format (round ($ownerinfo['beams'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_beams</td></tr>";
                 }
                 else
@@ -800,7 +800,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_torp_launchers = number_format (round ($ownerinfo['torp_launchers'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_torp_launchers = number_format (round ($ownerinfo['torp_launchers'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_torp_launchers</td></tr>";
                 }
                 else
@@ -811,7 +811,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $roll = mt_rand (1, 100);
                 if ($roll < $success)
                 {
-                    $sc_shields = number_format (round ($ownerinfo['shields'] * $sc_error / 100), 0, $local_number_dec_point, $local_number_thousands_sep);
+                    $sc_shields = number_format (round ($ownerinfo['shields'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
                     echo "<td>$sc_shields</td></tr>";
                 }
                 else
