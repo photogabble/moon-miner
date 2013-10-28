@@ -2,7 +2,8 @@ This file is used to keep track of things that we intend on doing, and all accep
 
 TODO denotes an item that we intend to work on. FREQ indicates a feature request.
 
-TODO: Finish moving images from images/ to templates
+TODO: Eliminate $color_line variables
+TODO: Finish splitting CSS files to be per-file instead of one global CSS
 TODO: Finish include -> class conversion (All files in includes/ need to be converted to class/methods and moved to classes/)
 TODO: Convert main to be template driven
 TODO: Finish moving Sol from sector 0 to sector 1
