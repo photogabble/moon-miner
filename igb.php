@@ -79,7 +79,7 @@ elseif ($command == 'withdraw2') //withdraw operation
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    BntIbank::deposit ($db, $lang, $account, $playerinfo, $langvars, $local_number_thousands_sep, $local_number_dec_point);
+    BntIbank::deposit ($db, $lang, $account, $playerinfo, $langvars);
 }
 elseif ($command == 'deposit2') //deposit operation
 {

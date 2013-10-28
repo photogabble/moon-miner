@@ -57,7 +57,7 @@ class BntIbank
         }
     }
 
-    static function deposit ($db, $lang, $account, $playerinfo, $langvars, $local_number_thousands_sep, $local_number_dec_point)
+    static function deposit ($db, $lang, $account, $playerinfo, $langvars)
     {
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('igb'));
@@ -78,7 +78,7 @@ class BntIbank
         echo "<tr><td height=53 colspan=2 align=center valign=top>" . $langvars['l_ibank_depositfunds'] . "<br>---------------------------------</td></tr>" .
              "<tr valign=top>" .
              "<td height=30>" . $langvars['l_ibank_fundsavailable'] . " :</td>" .
-             "<td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) ." C<br></td>" .
+             "<td align=right>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." C<br></td>" .
              "</tr><tr valign=top>" .
              "<td height=90>" . $langvars['l_ibank_seldepositamount'] . " :</td><td align=right>" .
              "<form action='igb.php?command=deposit2' method=post>" .
@@ -88,7 +88,7 @@ class BntIbank
              "</td></tr>" .
              "<tr>" .
              "  <td height=30  colspan=2 align=left>" .
-             "    <span style='color:\"#00ff00\";'>You can deposit only ". number_format ($credit_space, 0, $local_number_dec_point, $local_number_thousands_sep)." credits.</span><br>" .
+             "    <span style='color:\"#00ff00\";'>You can deposit only ". number_format ($credit_space, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep'])." credits.</span><br>" .
              "  </td>" .
              "</tr>" .
              "<tr valign=bottom>" .
