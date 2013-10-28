@@ -34,24 +34,23 @@ echo "<br>";
 
 if (isset ($_POST["TPCreds"]))
 {
-    collect_credits ($db, $_POST["TPCreds"]);
+    collect_credits ($db, $langvars, $_POST["TPCreds"], $sector_max);
 }
 elseif (isset ($buildp) && isset ($builds))
 {
-    go_build_base ($db, $buildp, $builds);
+    go_build_base ($db, $langvars, $buildp, $builds);
 }
 else
 {
-    change_planet_production ($db, $_POST);
+    change_planet_production ($db, $langvars, $_POST);
 }
 
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);
 
-function go_build_base ($db, $planet_id, $sector_id)
+function go_build_base ($db, $langvars, $planet_id, $sector_id)
 {
     global $base_ore, $base_organics, $base_goods, $base_credits;
-    global $langvars;
 
     echo "<br>";
     echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_status']);
@@ -89,7 +88,7 @@ function go_build_base ($db, $planet_id, $sector_id)
         return (boolean) false;
     }  // Build a base
 
-    real_space_move ($db, $sector_id);
+    real_space_move ($db, $langvars, $sector_id);
     echo "<br>";
     echo str_replace ("[here]", "<a href='planet.php?planet_id=$planet_id'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_planet']);
     echo "<br><br>";
@@ -121,10 +120,8 @@ function go_build_base ($db, $planet_id, $sector_id)
     }
 }
 
-function collect_credits ($db, $planetarray)
+function collect_credits ($db, $langvars, $planetarray, $sector_max)
 {
-    global $sector_max, $langvars;
-
     $CS = "GO"; // Current State
 
     // Look up the info for the player that wants to collect the credits.
@@ -169,7 +166,7 @@ function collect_credits ($db, $planetarray)
     for ($i = 0; $i < $temp_count2 && $CS == "GO"; $i++)
     {
         echo "<br>";
-        $CS = real_space_move ($db, $s_p_pair[$i][0]);
+        $CS = real_space_move ($db, $langvars, $s_p_pair[$i][0]);
 
         if ($CS == "HOSTILE")
         {
@@ -177,7 +174,7 @@ function collect_credits ($db, $planetarray)
         }
         elseif ($CS == "GO")
         {
-            $CS = take_credits ($db, $s_p_pair[$i][0], $s_p_pair[$i][1]);
+            $CS = take_credits ($db, $langvars, $s_p_pair[$i][0], $s_p_pair[$i][1]);
         }
         else
         {
@@ -196,7 +193,7 @@ function collect_credits ($db, $planetarray)
     echo "<br><br>";
 }
 
-function change_planet_production ($db, $prodpercentarray)
+function change_planet_production ($db, $langvars, $prodpercentarray)
 {
 //  Declare default production values from the config.php file
 //
@@ -224,7 +221,6 @@ function change_planet_production ($db, $prodpercentarray)
 //  This should patch the game from being hacked with planet Hack.
 
     global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
-    global $langvars;
 
     $result = $db->Execute ("SELECT ship_id, team FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
@@ -400,10 +396,8 @@ function change_planet_production ($db, $prodpercentarray)
     }
 }
 
-function take_credits ($db, $sector_id, $planet_id)
+function take_credits ($db, $langvars, $sector_id, $planet_id)
 {
-    global $langvars;
-
     // Get basic Database information (ship and planet)
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
@@ -476,10 +470,9 @@ function take_credits ($db, $sector_id, $planet_id)
     return ($retval);
 }
 
-function real_space_move ($db, $destination)
+function real_space_move ($db, $langvars, $destination)
 {
     global $level_factor, $mine_hullsize;
-    global $langvars;
 
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
