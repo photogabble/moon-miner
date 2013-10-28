@@ -48,7 +48,7 @@ class BntSchema
                 $drop_res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
                 BntDb::logDbErrors ($db, $drop_res, __LINE__, __FILE__);
 
-                if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == '') // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
+                if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == null) // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
                 {
                     $destroy_table_results[$i]['result'] = true;
                 }
@@ -103,13 +103,13 @@ class BntSchema
                 else
                 {
                     // Call ParseSchema () to build SQL from the XML schema file. Then call ExecuteSchema () to apply the resulting SQL to the database.
-                    $parsed_xml = '';
+                    $parsed_xml = null;
                     $parsed_xml = $schema->ParseSchema ("schema/" . $schema_filename);
 
                     foreach ($parsed_xml as $execute_sql)
                     {
                         $execute_res = $db->Execute ($execute_sql);
-                        if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == '') // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
+                        if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == null) // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
                         {
                             // TODO: This needs to be translated text
                             $create_table_results[$i]['result'] = true;
