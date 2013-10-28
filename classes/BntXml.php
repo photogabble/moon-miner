@@ -68,39 +68,39 @@ class BntXml
             unset($attributes['container']);
         }
 
-        foreach($attributes as $key => $value)
+        foreach ($attributes as $key => $value)
         {
-            if (is_array($value) === true)
+            if (is_array ($value) === true)
             {
-                reset($value);
-                ksort($value, SORT_STRING);
+                reset ($value);
+                ksort ($value, SORT_STRING);
 
-                if ($this->xmldom->GetNode(null, $nodeName, $node) === false)
+                if ($this->xmldom->GetNode (null, $nodeName, $node) === false)
                 {
-                    $node = $this->xmldom->AddNode(null, $nodeName);
+                    $node = $this->xmldom->AddNode (null, $nodeName);
                 }
 
                 // Add length attribute to parent.
-                $childNode = $this->xmldom->AddNode($node, $container);
-                $this->xmldom->AddAttributes($childNode, $value);
+                $childNode = $this->xmldom->AddNode ($node, $container);
+                $this->xmldom->AddAttributes ($childNode, $value);
 
-                if (is_numeric($key) == false)
+                if (is_numeric ($key) == false)
                 {
-                    $this->xmldom->AddAttributes($childNode, array("name"=>$key));
+                    $this->xmldom->AddAttributes ($childNode, array ("name"=>$key));
                 }
             }
             else
             {
                 // AddTextNode
-                if ($this->xmldom->GetNode(null, $nodeName, $node) === false)
+                if ($this->xmldom->GetNode (null, $nodeName, $node) === false)
                 {
-                    $node = $this->xmldom->AddNode(null, $nodeName);
+                    $node = $this->xmldom->AddNode (null, $nodeName);
                 }
 
                 $skipNode = false;
-                if ($this->xmldom->GetNode(null, $node->nodeName, $tmpnode) === true)
+                if ($this->xmldom->GetNode (null, $node->nodeName, $tmpnode) === true)
                 {
-                    for($i=0; $i<$tmpnode->childNodes->length; $i++)
+                    for ($i = 0; $i < $tmpnode->childNodes->length; $i++)
                     {
                         if ($tmpnode->childNodes->item($i)->getAttribute("name") == $key && $tmpnode->childNodes->item($i)->nodeValue == $value)
                         {
@@ -113,23 +113,23 @@ class BntXml
                 // We do not want dupe arrays.
                 if($skipNode == false)
                 {
-                    $childNode = $this->xmldom->AddNode($node, $container);
-                    $this->xmldom->AddTextNode($childNode, $value);
+                    $childNode = $this->xmldom->AddNode ($node, $container);
+                    $this->xmldom->AddTextNode ($childNode, $value);
 
-                    if (is_numeric($key) == false)
+                    if (is_numeric ($key) == false)
                     {
-                        $this->xmldom->AddAttributes($childNode, array("name"=>$key));
+                        $this->xmldom->AddAttributes ($childNode, array ("name"=>$key));
                     }
                 }
             }
         }
     }
 
-    public function Display()
+    public function Display ()
     {
-        $output = $this->xmldom->Display();
+        $output = $this->xmldom->Display ();
         echo $output;
-        die();
+        die ();
     }
 }
 ?>

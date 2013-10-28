@@ -208,7 +208,7 @@ class BntXmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT Initialized", E_USER_ERROR);
+            trigger_error ("Template System NOT Initialized", E_USER_ERROR);
         }
 
         if (is_null ($parent))
@@ -228,7 +228,7 @@ class BntXmlTemplateSystem
 
         if (is_null ($node) === true)
         {
-            return (boolean)false;
+            return (boolean) false;
         }
         else
         {
@@ -254,7 +254,7 @@ class BntXmlTemplateSystem
         }
 
         $count = (integer) count ($nodeData);
-        for($i = 0; $i < $count; $i++)
+        for ($i = 0; $i < $count; $i++)
         {
             $node = $parent->appendChild (new \DOMElement($nodeName));
             foreach ($nodeData[$i] as $name => $value)
@@ -268,9 +268,9 @@ class BntXmlTemplateSystem
     public function AddAttribute ($node = null, $name = null, $value = null)
     {
         $return = (boolean) false;
-        if ( !is_null ($node) && !is_null ($name) )
+        if ( !is_null ($node) && !is_null ($name))
         {
-            $node->setAttributeNode (new \DOMAttr($name, $value));
+            $node->setAttributeNode (new \DOMAttr ($name, $value));
             $return = (boolean) true;
         }
         return $return;
@@ -307,7 +307,7 @@ class BntXmlTemplateSystem
             $node = $this->root;
         }
 
-        $node->appendChild(new \DOMComment ($comment));
+        $node->appendChild (new \DOMComment ($comment));
         return (boolean) true;
     }
 
@@ -341,7 +341,7 @@ class BntXmlTemplateSystem
 
         if ($this->initialized === false)
         {
-            trigger_error("Template System NOT Initialized", E_USER_ERROR);
+            trigger_error ("Template System NOT Initialized", E_USER_ERROR);
         }
 
         if (is_null ($node))
