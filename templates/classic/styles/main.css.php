@@ -31,7 +31,7 @@ a:link { color: #0f0}
 a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
 a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
 a:visited { color: #0f0}
-body { background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+body { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
 body.device table { border:0; border-spacing:0px}
 body.device td { color:white; font-size:1.1em; padding:3px}
 body.device th { background-color:#500050; text-align:left}
@@ -56,7 +56,7 @@ body.index img { border:0}
 body.log.a:active { color: #040658}
 body.log.a:link { color: #040658}
 body.log.a:visited { color: #040658}
-body.log { background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0}
+body.log { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0}
 body.options table { border:0; border-spacing:0px; color:#fff; padding:2px}
 body.options th { background-color:#500050; text-align:left}
 body.options tr:nth-child(even) { background-color:#300030}

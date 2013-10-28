@@ -33,7 +33,7 @@ function ibank_consolidate3 ($db, $langvars, $playerinfo)
     if (!$res || $res->EOF)
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($langvars, $langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
+        ibank_error ($active_template, $active_template, $langvars, $langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
     }
 
     $dest = $res->fields;
@@ -46,7 +46,7 @@ function ibank_consolidate3 ($db, $langvars, $playerinfo)
     if ($dest['owner'] != $playerinfo['ship_id'])
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($langvars, $langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
+        ibank_error ($active_template, $active_template, $langvars, $langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
     }
 
     $minimum = preg_replace ("/[^0-9]/", "", $minimum);
@@ -78,7 +78,7 @@ function ibank_consolidate3 ($db, $langvars, $playerinfo)
     if ($tcost > $playerinfo['turns'])
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($langvars, $langvars['l_ibank_notenturns'], "igb.php?command=transfer");
+        ibank_error ($active_template, $active_template, $langvars, $langvars['l_ibank_notenturns'], "igb.php?command=transfer");
     }
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_transfersuccessful'] . "<br>---------------------------------</td></tr>" .

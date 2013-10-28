@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_error.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_error ($langvars, $errmsg, $backlink, $title = "Error!")
+function ibank_error ($active_template, $langvars, $errmsg, $backlink, $title = "Error!")
 {
     $title = $langvars['l_ibank_ibankerrreport'];
     echo "<tr><td colspan=2 align=center valign=top>" . $title . "<br>---------------------------------</td></tr>" .
@@ -36,7 +36,7 @@ function ibank_error ($langvars, $errmsg, $backlink, $title = "Error!")
          "</table>" .
          "</td></tr>" .
          "</table>" .
-         "<img width=600 height=21 src=images/div2.png>" .
+         "<img width=600 height=21 src=" . $active_template . "images/div2.png>" .
          "</center>";
 
     include './footer.php';

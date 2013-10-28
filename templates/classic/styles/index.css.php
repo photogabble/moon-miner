@@ -34,7 +34,7 @@ a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
 a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
 a { outline:none; text-decoration:none}
 a:visited { color: #0f0}
-body { background-color:#000; background-image: url('../../../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+body { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
 body.index { background-color:#929292; background-image:none; color:#000; font-family: 'Ubuntu', Verdana, "DejaVu Sans", sans-serif; font-size:75%; text-align:center}
 dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
 div.navigation { display:table; margin: 0 auto}

@@ -30,17 +30,17 @@ function ibank_withdraw2 ($db, $langvars, $playerinfo)
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
-        ibank_error ($langvars, $langvars['l_ibank_invalidwithdrawinput'], "igb.php?command=withdraw");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_invalidwithdrawinput'], "igb.php?command=withdraw");
     }
 
     if ($amount == 0)
     {
-        ibank_error ($langvars, $langvars['l_ibank_nozeroamount3'], "igb.php?command=withdraw");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_nozeroamount3'], "igb.php?command=withdraw");
     }
 
     if ($amount > $account['balance'])
     {
-        ibank_error ($langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=withdraw");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=withdraw");
     }
 
     $account['balance'] -= $amount;

@@ -33,17 +33,17 @@ function ibank_deposit2 ($db, $langvars, $playerinfo)
 
     if (($amount * 1) != $amount)
     {
-        ibank_error ($langvars, $langvars['l_ibank_invaliddepositinput'], "igb.php?command=deposit");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_invaliddepositinput'], "igb.php?command=deposit");
     }
 
     if ($amount == 0)
     {
-        ibank_error ($langvars, $langvars['l_ibank_nozeroamount2'], "igb.php?command=deposit");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_nozeroamount2'], "igb.php?command=deposit");
     }
 
     if ($amount > $playerinfo['credits'])
     {
-        ibank_error ($langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=deposit");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=deposit");
     }
 
     $tmpcredits = $max_credits_allowed - $account['balance'];
@@ -54,7 +54,7 @@ function ibank_deposit2 ($db, $langvars, $playerinfo)
 
     if ($amount > $tmpcredits)
     {
-        ibank_error ($langvars, "<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
+        ibank_error ($active_template, $langvars, "<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
     }
 
     $account['balance'] += $amount;

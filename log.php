@@ -39,6 +39,8 @@ $title = $langvars['l_log_titlet'];
 $body_class = 'log';
 include './header.php';
 
+$active_template = "templates/" . $bntreg->get("template") . "/";
+
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
@@ -82,10 +84,10 @@ echo '<center>';
 echo "<table width=80% border=0 cellspacing=0 cellpadding=0>";
 
 $logline = str_replace ("[player]", "$playerinfo[character_name]", $langvars['l_log_log']);
-?>
 
-<tr><td><td width=100%><td></tr>
-<tr><td><td align='left' height=20 style="background-image: url(images/top_panel.png); background-repeat:no-repeat">
+echo "<tr><td><td width=100%><td></tr>";
+echo "<tr><td><td align='left' height=20 style='background-image: url(" . $active_template . "images/top_panel.png); background-repeat:no-repeat'>";
+?>
 <font size=2 color=#040658><strong>&nbsp;&nbsp;&nbsp;<?php echo $logline; ?></strong></font>
 </td><td><td></tr>
 <tr><td valign=bottom>
@@ -329,7 +331,7 @@ if ($mode != 'compat')
 {
     echo "<td valign=bottom>" .
          "<tr><td><td align=right>" .
-         "<img alt=\"\" style=\"height:296px; width:20px\" src=\"images/bottom_panel.png\">" .
+         "<img alt=\"\" style=\"height:296px; width:20px\" src=\"" . $active_template . "images/bottom_panel.png\">" .
          "<br>" .
          "<div style=\"position:relative; top:-23px;\">" .
          "<font size=2><strong>" .

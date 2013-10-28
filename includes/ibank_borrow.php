@@ -30,17 +30,17 @@ function ibank_borrow ($db, $langvars, $playerinfo)
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
-        ibank_error ($langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($amount <= 0)
     {
-        ibank_error ($langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($account['loan'] != 0)
     {
-        ibank_error ($langvars, $langvars['l_ibank_notwoloans'], "igb.php?command=loans");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_notwoloans'], "igb.php?command=loans");
     }
 
     $score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
@@ -48,7 +48,7 @@ function ibank_borrow ($db, $langvars, $playerinfo)
 
     if ($amount > $maxtrans)
     {
-        ibank_error ($langvars, $langvars['l_ibank_loantoobig'], "igb.php?command=loans");
+        ibank_error ($active_template, $langvars, $langvars['l_ibank_loantoobig'], "igb.php?command=loans");
     }
 
     $amount2 = $amount * $ibank_loanfactor;
