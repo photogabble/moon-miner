@@ -25,12 +25,11 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('teams'));
+$langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'main', 'footer'));
 $title = $langvars['l_team_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_includes', 'global_funcs', 'main', 'footer'));
 echo "<h1>" . $title . "</h1>\n";
 
 $testing = false; // set to false to get rid of password when creating new team
@@ -125,7 +124,7 @@ switch ($teamwhat)
 {
     case 1: // INFO on single team
     {
-        show_info ($db, $whichteam, 0);
+        show_info ($db, $langvars, $whichteam, 0, $playerinfo)
         echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
@@ -564,7 +563,7 @@ switch ($teamwhat)
         if ($playerinfo['team'] == 0)
         {
             echo $langvars['l_team_notmember'];
-            display_invite_info ();
+            display_invite_info ($langvars, $playerinfo);
         }
         else
         {
@@ -588,7 +587,7 @@ switch ($teamwhat)
                 $whichinvitingteam = $result->fields;
             }
             $isowner = is_team_owner ($whichteam, $playerinfo);
-            show_info ($db, $playerinfo['team'], $isowner);
+            show_info ($db, $langvars, $playerinfo['team'], $isowner, $playerinfo)
         }
 
         $res= $db->Execute ("SELECT COUNT(*) as total FROM {$db->prefix}teams WHERE admin='N'");
@@ -597,7 +596,7 @@ switch ($teamwhat)
 
         if ($num_res['total'] > 0)
         {
-            display_all_teams ($db);
+            display_all_teams ($db, $langvars);
         }
         else
         {
@@ -650,9 +649,9 @@ function is_team_owner ($team, $playerinfo)
 }
 
 // Rewritten display of teams list
-function display_all_teams ($db)
+function display_all_teams ($db, $langvars)
 {
-    global $color, $color_line1, $color_line2, $color_header, $order, $type, $langvars;
+    global $color, $color_line1, $color_line2, $color_header, $order, $type;
 
     echo "<br><br>" . $langvars['l_team_galax'] . "<br>";
     echo "<table style='width:100%; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
@@ -730,9 +729,9 @@ function display_all_teams ($db)
     echo "</table><br>";
 }
 
-function display_invite_info ()
+function display_invite_info ($langvars, $playerinfo)
 {
-    global $playerinfo, $invite_info, $langvars;
+    global $invite_info;
 
     if (!$playerinfo['team_invite'])
     {
@@ -748,10 +747,10 @@ function display_invite_info ()
     }
 }
 
-function show_info ($db, $whichteam, $isowner)
+function show_info ($db, $langvars, $whichteam, $isowner, $playerinfo)
 {
-    global $playerinfo, $invite_info, $team;
-    global $langvars, $color_line2;
+    global $invite_info, $team;
+    global $color_line2;
 
     // Heading
     echo "<div align=center>";
@@ -775,7 +774,7 @@ function show_info ($db, $whichteam, $isowner)
         }
         echo "[<a href=teams.php?teamwhat=7&whichteam=$playerinfo[team]>" . $langvars['l_team_inv'] . "</a>] - [<a href=teams.php?teamwhat=2&whichteam=$playerinfo[team]>" . $langvars['l_team_leave'] . "</a>]</font></font>";
     }
-    display_invite_info ();
+    display_invite_info ($langvars, $playerinfo);
     echo "</div>";
 
     // Main table
