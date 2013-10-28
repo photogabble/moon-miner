@@ -25,7 +25,7 @@ $title = $langvars['l_pr_title'];
 include './header.php';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('planet_report', 'rsmove', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 echo "<h1>" . $title . "</h1>\n";
 
 echo "<br>";
@@ -444,12 +444,12 @@ function take_credits ($db, $sector_id, $planet_id)
                 $res = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1 WHERE email = ?;", array ($_SESSION['username']));
                 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 
-                $tempa1 = str_replace ("[credits_taken]", number_format ($CreditsTaken, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_pr_took_credits']);
+                $tempa1 = str_replace ("[credits_taken]", number_format ($CreditsTaken, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_pr_took_credits']);
                 $tempa2 = str_replace ("[planet_name]", $planetinfo['name'], $tempa1);
                 echo $tempa2 . "<br>";
 
                 $tempb1 = str_replace ("[ship_name]", $playerinfo['ship_name'], $langvars['l_pr_have_credits_onboard']);
-                $tempb2 = str_replace ("[new_ship_credits]" , number_format ($NewShipCredits, 0, $local_number_dec_point, $local_number_thousands_sep), $tempb1);
+                $tempb2 = str_replace ("[new_ship_credits]" , number_format ($NewShipCredits, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $tempb1);
                 echo $tempb2 . "<br>";
                 $retval = "GO";
             }
@@ -553,7 +553,7 @@ function real_space_move ($db, $destination)
 
     if ($triptime > $playerinfo['turns'])
     {
-        $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_movetime']);
+        $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
         echo $langvars['l_rs_movetime'] . "<br><br>";
         echo $langvars['l_rs_noturns'];
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
@@ -606,8 +606,8 @@ function real_space_move ($db, $destination)
             BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
             $langvars['l_rs_ready_result'] = '';
             $langvars['l_rs_ready_result'] = str_replace ("[sector]", $destination, $langvars['l_rs_ready']);
-            $langvars['l_rs_ready_result'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready_result']);
-            $langvars['l_rs_ready_result'] = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready_result']);
+            $langvars['l_rs_ready_result'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready_result']);
+            $langvars['l_rs_ready_result'] = str_replace ("[energy]", number_format ($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready_result']);
             echo $langvars['l_rs_ready_result'] . "<br>";
             $retval = "GO";
         }
