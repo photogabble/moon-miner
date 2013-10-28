@@ -1,3 +1,10 @@
+TheKabal (27 October 2013)
+--------------------------------------
+Removed dozens of global variables that were not needed any more
+Moved all instances of $local_number_dec_point and $local_number_thousands_sep to be pulled from $langvars, regional
+Removed local_number_dec_point and local_number_thousands_sep from config - less variables, yay!
+Cleaned up assorted PHP warnings and glitches
+
 TheKabal (10 October 2013)
 --------------------------------------
 BntDb::logDbErrors replaces DbOp::dbResult
