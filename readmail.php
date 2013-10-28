@@ -22,14 +22,12 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('readmail'));
+$langvars = BntTranslate::load ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 $title = $langvars['l_readm_title'];
 include './header.php';
 
 $active_template = "templates/" . $bntreg->get("template") . "/";
 
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('readmail', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));

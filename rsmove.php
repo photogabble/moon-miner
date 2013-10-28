@@ -24,12 +24,9 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('rsmove'));
+$langvars = BntTranslate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
 $title = $langvars['l_rs_title'];
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('rsmove', 'common', 'global_funcs', 'global_includes', 'combat', 'footer', 'news'));
 
 // Get the players information.
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

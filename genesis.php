@@ -27,13 +27,9 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('genesis'));
-
+$langvars = BntTranslate::load ($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 $title = $langvars['l_gns_title'];
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('genesis', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 // Adding db lock to prevent more than 5 planets in a sector
 $resx = $db->Execute ("LOCK TABLES {$db->prefix}ships WRITE, {$db->prefix}planets WRITE, {$db->prefix}universe READ, {$db->prefix}zones READ, {$db->prefix}adodb_logsql WRITE");

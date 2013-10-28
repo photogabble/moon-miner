@@ -51,8 +51,7 @@ $langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('emerwarp', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+
 $template->AddVariables ('langvars', $langvars);
 $template->AddVariables ('variables', $variables);
 $template->Display ("emerwarp.tpl");

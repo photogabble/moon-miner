@@ -24,12 +24,9 @@ BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 $body_class = 'zoneinfo';
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('zoneinfo'));
+$langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 $title = $langvars['l_zi_title'];
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('port', 'main', 'attack', 'zoneinfo', 'report', 'common', 'global_includes', 'global_funcs', 'footer', 'modify_defences'));
 
 echo "<h1>" . $title . "</h1>\n";
 echo "<body class=" . $body_class . ">";

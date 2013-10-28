@@ -22,12 +22,10 @@ include './global_includes.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('self_destruct'));
+$langvars = BntTranslate::load ($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
 $title = $langvars['l_die_title'];
 include './header.php';
 
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('self_destruct', 'ranking', 'common', 'global_includes', 'global_funcs', 'news', 'footer'));
 echo "<h1>" . $title . "</h1>\n";
 
 $result = $db->Execute ("SELECT ship_id,character_name FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));

@@ -29,7 +29,6 @@ $langvars = BntTranslate::load ($db, $lang, array ('teams', 'common', 'global_in
 $title = $langvars['l_team_title'];
 include './header.php';
 
-// Database driven language entries
 echo "<h1>" . $title . "</h1>\n";
 
 $testing = false; // set to false to get rid of password when creating new team

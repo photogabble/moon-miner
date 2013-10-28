@@ -33,14 +33,11 @@ $log_list = array (null,
                 );
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('log'));
+$langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $title = $langvars['l_log_titlet'];
 $body_class = 'log';
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('log', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report'));
 
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);

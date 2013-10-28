@@ -30,8 +30,6 @@ $langvars = BntTranslate::load ($db, $lang, array ('settings', 'common', 'global
 $title = $langvars['l_settings'];
 include './header.php';
 
-// Database driven language entries
-
 $line_color = $color_line1;
 
 function title ($value, $align = "center")

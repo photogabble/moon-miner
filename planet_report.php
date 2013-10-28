@@ -23,11 +23,9 @@ BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'common', 'global_includes', 'global_funcs', 'footer', 'planet_report', 'regional'));
-
 $title = $langvars['l_pr_title'];
 include './header.php';
 
-// Database driven language entries
 $body_class = 'planet';
 echo "<body class=" . $body_class . "><br>";
 
