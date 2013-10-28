@@ -2,6 +2,9 @@ This file is used to keep track of things that we intend on doing, and all accep
 
 TODO denotes an item that we intend to work on. FREQ indicates a feature request.
 
+TODO: Redo scheduler to be a subdirectory (like admin) with activated scheduler events
+TODO: Language translations for all elements in scheduler
+TODO: Cleanup functions and calls in scheduler
 TODO: Eliminate $color_line variables
 TODO: Finish splitting CSS files to be per-file instead of one global CSS
 TODO: Finish include -> class conversion (All files in includes/ need to be converted to class/methods and moved to classes/)
