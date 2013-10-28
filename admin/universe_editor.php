@@ -60,8 +60,7 @@ if ($action == "doexpand")
 
 $title = $langvars['l_change_uni_title'];
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
+// Set array with all used variables in page
 $variables['lang'] = $lang;
 $variables['changed_sectors'] = $changed_sectors;
 $variables['swordfish'] = $swordfish;

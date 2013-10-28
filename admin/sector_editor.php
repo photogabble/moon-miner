@@ -23,8 +23,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'sector_editor.php')) // Prevent direct access
     include_once './error.php';
 }
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
 $variables['operation'] = '';
 
 if (!isset ($_POST['sector']))

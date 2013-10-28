@@ -25,8 +25,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'user_editor.php')) // Prevent direct access t
 
 $button_main = true;
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
 if (!isset ($_POST['operation']))
 {
     $_POST['operation'] = '';

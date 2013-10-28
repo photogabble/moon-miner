@@ -44,6 +44,7 @@ $button_main = false;
 $variables = null;
 
 $variables['is_admin'] = false;
+
 if ($swordfish == ADMIN_PW)
 {
     $i = 0;
@@ -100,8 +101,8 @@ $variables['menu_location'] = $menu_location;
 $variables['button_main'] = $button_main;
 
 // Set a container for variables & langvars & send them to the template system
-$variables['container'] = "variable";
-$langvars['container'] = "langvar";
+//$variables['container'] = "variable";
+//$langvars['container'] = "langvar";
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';

@@ -23,8 +23,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'link_editor.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
 

@@ -23,8 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'zone_editor.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
+// Set array with all used variables in page
 $variables['operation'] = '';
 
 if (!isset ($_POST['zone']))

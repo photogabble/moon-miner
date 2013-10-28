@@ -31,8 +31,6 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 
-// Clear variables array before use, and set array with all used variables in page
-$variables = null;
 $variables['lang'] = $lang;
 $variables['swordfish'] = $swordfish;
 $variables['players'] = $players;
