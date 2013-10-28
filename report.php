@@ -28,6 +28,8 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arr
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
+$active_template = "templates/" . $bntreg->get("template") . "/";
+
 $shiptypes[0] = "tinyship.png";
 $shiptypes[1] = "smallship.png";
 $shiptypes[2] = "mediumship.png";
@@ -110,7 +112,7 @@ $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
 $variables['escape_pod'] = $escape_pod;
 $variables['fuel_scoop'] = $fuel_scoop;
 $variables['lssd'] = $lssd;
-$variables['ship_img'] = "images/" . $shiptypes[$shiplevel];
+$variables['ship_img'] = $active_template . "images/" . $shiptypes[$shiplevel];
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
 // Now set a container for the variables and langvars and send them off to the template system

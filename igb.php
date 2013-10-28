@@ -28,6 +28,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_incl
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 include './header.php';
+$active_template = "templates/" . $bntreg->get("template") . "/";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
@@ -37,15 +38,12 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
-?>
-<center>
-<img src="images/div1.png" alt="" style="width: 600px; height:21px">
-<div style="width:600px; max-width:600px;" class="igb">
-<table style="width:600px; height:350px;" border="0px">
-<tr><td style="background-image:URL(images/igbscreen.png); background-repeat:no-repeat;" align="center">
-<table style="width:550px; height:300px;" border="0px">
-
-<?php
+echo "<center>";
+echo '<img src="images/div1.png" alt="" style="width: 600px; height:21px">';
+echo '<div style="width:600px; max-width:600px;" class="igb">';
+echo '<table style="width:600px; height:350px;" border="0px">';
+echo '<tr><td style="background-image:URL(' . $active_template . 'images/igbscreen.png); background-repeat:no-repeat;" align="center">';
+echo '<table style="width:550px; height:300px;" border="0px">';
 
 if (!$allow_ibank)
 {

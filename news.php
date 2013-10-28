@@ -36,6 +36,8 @@ $langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 
 $title = $langvars['l_news_title'];
 include './header.php';
 
+$active_template = "templates/" . $bntreg->get("template") . "/";
+
 $startdate = date ("Y/m/d");
 if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))
 {
@@ -56,7 +58,7 @@ $nextday = BntNews::nextDay ($startdate);
 
 echo "<table width=\"73%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\">\n";
 echo "  <tr>\n";
-echo "    <td height=\"73\" width=\"27%\"><img src=\"images/bnnhead.png\" width=\"312\" height=\"123\" alt=\"The Blacknova Network\"></td>\n";
+echo "    <td height=\"73\" width=\"27%\"><img src=\"" . $active_template . "images/bnnhead.png\" width=\"312\" height=\"123\" alt=\"The Blacknova Network\"></td>\n";
 echo "    <td height=\"73\" width=\"73%\" bgcolor=\"#000\" valign=\"bottom\" align=\"right\">\n";
 echo "      <p><font size=\"-1\">" . $langvars['l_news_info_1'] . "<br>" . $langvars['l_news_info_2'] . "<br>" . $langvars['l_news_info_3'] . "<br>" . $langvars['l_news_info_4'] . "<br>" . $langvars['l_news_info_5'] . "<br></font></p>\n";
 echo "      <p>" . $langvars['l_news_for'] . " " . $startdate . "</p>\n";
