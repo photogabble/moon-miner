@@ -200,7 +200,6 @@ return array(
     'Child' => $vendorDir . '/adodb/adodb-php/tests/test-active-record.php',
     'City' => $vendorDir . '/adodb/adodb-php/tests/test-php5.php',
     'DB' => $vendorDir . '/adodb/adodb-php/adodb-pear.inc.php',
-    'DbOp' => $baseDir . '/classes/DbOp.php',
     'Kid' => $vendorDir . '/adodb/adodb-php/tests/test-active-relationsx.php',
     'MD5Crypt' => $vendorDir . '/adodb/adodb-php/session/crypt.inc.php',
     'PasswordHash' => $vendorDir . '/phpass/PasswordHash.php',
