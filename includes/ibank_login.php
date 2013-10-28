@@ -23,15 +23,12 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_login.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_login ($langvars)
+function ibank_login ($langvars, $playerinfo, $account)
 {
-    global $playerinfo, $account;
-    global $local_number_thousands_sep, $local_number_dec_point;
-
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_welcometoibank'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td width=150 align=right>" . $langvars['l_ibank_accountholder'] . " :<br><br>" . $langvars['l_ibank_shipaccount'] . " :<br>" . $langvars['l_ibank_ibankaccount'] . "&nbsp;&nbsp;:</td>" .
-         "<td style='max-width:550px; padding-right:4px;' align=right>" . $playerinfo['character_name'] . "&nbsp;&nbsp;<br><br>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_ibank_credit_symbol'] . "<br>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " " . $langvars['l_ibank_credit_symbol'] . "<br></td>" .
+         "<td style='max-width:550px; padding-right:4px;' align=right>" . $playerinfo['character_name'] . "&nbsp;&nbsp;<br><br>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_ibank_credit_symbol'] . "<br>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " " . $langvars['l_ibank_credit_symbol'] . "<br></td>" .
          "</tr>" .
          "<tr><td colspan=2 align=center>" . $langvars['l_ibank_operations'] . "<br>---------------------------------<br><br><a href=\"igb.php?command=withdraw\">" . $langvars['l_ibank_withdraw'] . "</a><br><a href=\"igb.php?command=deposit\">" . $langvars['l_ibank_deposit'] . "</a><br><a href=\"igb.php?command=transfer\">" . $langvars['l_ibank_transfer'] . "</a><br><a href=\"igb.php?command=loans\">" . $langvars['l_ibank_loans'] . "</a><br>&nbsp;</td></tr>" .
          "<tr valign=bottom>" .

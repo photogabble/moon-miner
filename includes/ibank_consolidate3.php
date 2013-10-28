@@ -85,8 +85,8 @@ function ibank_consolidate3 ($db, $langvars, $playerinfo)
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_currentpl'] . " " . $dest['name'] . " " . $langvars['l_ibank_in'] . " " . $dest['sector_id'] . " :<br><br>" .
          $langvars['l_ibank_turncost'] . " :</td>" .
-         "<td align=right>" . number_format ($cplanet, 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br><br>" .
-         number_format ($tcost, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>" .
+         "<td align=right>" . number_format ($cplanet, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C<br><br>" .
+         number_format ($tcost, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>" .
          "<tr valign=bottom>" .
          "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout ']. "</a></td>" .
          "</tr>";

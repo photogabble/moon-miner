@@ -76,22 +76,22 @@ function ibank_consolidate2 ($db, $langvars, $playerinfo)
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_planetconsolidate'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_currentpl'] . " " . $dest['name'] . " " . $langvars['l_ibank_in'] . " " . $dest['sector_id'] . " :</td>" .
-         "<td align=right>" . number_format ($dest['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td>" .
+         "<td align=right>" . number_format ($dest['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_transferamount'] . " :</td>" .
-         "<td align=right>" . number_format ($amount['total'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td>" .
+         "<td align=right>" . number_format ($amount['total'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_transferfee'] . " :</td>" .
-         "<td align=right>" . number_format ($fee, 0, $local_number_dec_point, $local_number_thousands_sep) . " C </td>" .
+         "<td align=right>" . number_format ($fee, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C </td>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_plaffected'] . " :</td>" .
-         "<td align=right>" . number_format ($amount['count'], 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>" .
+         "<td align=right>" . number_format ($amount['count'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_turncost'] . " :</td>" .
-         "<td align=right>" . number_format ($tcost, 0, $local_number_dec_point, $local_number_thousands_sep) . "</td>" .
+         "<td align=right>" . number_format ($tcost, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . "</td>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_amounttransferred'] . ":</td>" .
-         "<td align=right>" . number_format ($transfer, 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td>" .
+         "<td align=right>" . number_format ($transfer, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td>" .
          "<tr valign=top><td colspan=2 align=right>" .
          "<form action='igb.php?command=consolidate3' method=post>" .
          "<input type=hidden name=minimum value=" . $minimum . "><br>" .

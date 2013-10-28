@@ -23,15 +23,12 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_withdraw ($langvars)
+function ibank_withdraw ($langvars, $playerinfo, $account)
 {
-    global $playerinfo, $account;
-    global $local_number_thousands_sep, $local_number_dec_point;
-
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_withdrawfunds'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_fundsavailable'] . ":</td>" .
-         "<td align=right>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) ." C<br></td>" .
+         "<td align=right>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." C<br></td>" .
          "</tr><tr valign=top>" .
          "<td>" . $langvars['l_ibank_selwithdrawamount'] . ":</td><td align=right>" .
          "<form action='igb.php?command=withdraw2' method=post>" .

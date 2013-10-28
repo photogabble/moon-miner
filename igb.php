@@ -65,12 +65,12 @@ else
 if ($command == 'login') //main menu
 {
     include_once './includes/ibank_login.php';
-    ibank_login ($langvars);
+    ibank_login ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
     include_once './includes/ibank_withdraw.php';
-    ibank_withdraw ($langvars);
+    ibank_withdraw ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
