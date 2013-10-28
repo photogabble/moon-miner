@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'user_editor.php')) // Prevent direct access t
 
 define('ADODB_PERF_NO_RUN_SQL',1);
 adodb_perf::table("{$db->prefix}adodb_logsql");
-$perf =& NewPerfMonitor ($db);
+$perf = NewPerfMonitor ($db);
 
 echo '<style type="text/css"><!--  table { background-color: transparent; border:1px solid white}; --></style>';
 
