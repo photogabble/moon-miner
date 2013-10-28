@@ -24,16 +24,16 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate3.php')) // Prevent direct a
     include_once './error.php';
 }
 
-function ibank_consolidate3 ($db)
+function ibank_consolidate3 ($db, $langvars, $playerinfo)
 {
-    global $playerinfo, $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee, $langvars;
+    global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;
 
     $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($dplanet_id));
     BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     if (!$res || $res->EOF)
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
+        ibank_error ($langvars, $langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
     }
 
     $dest = $res->fields;
@@ -46,7 +46,7 @@ function ibank_consolidate3 ($db)
     if ($dest['owner'] != $playerinfo['ship_id'])
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
+        ibank_error ($langvars, $langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
     }
 
     $minimum = preg_replace ("/[^0-9]/", "", $minimum);
@@ -78,7 +78,7 @@ function ibank_consolidate3 ($db)
     if ($tcost > $playerinfo['turns'])
     {
         include_once './includes/ibank_error.php';
-        ibank_error ($langvars['l_ibank_notenturns'], "igb.php?command=transfer");
+        ibank_error ($langvars, $langvars['l_ibank_notenturns'], "igb.php?command=transfer");
     }
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_transfersuccessful'] . "<br>---------------------------------</td></tr>" .

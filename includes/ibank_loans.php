@@ -23,14 +23,13 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_loans.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_loans ($db)
+function ibank_loans ($db, $langvars, $playerinfo)
 {
-    global $playerinfo, $account, $langvars;
-    global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest, $local_number_dec_point, $local_number_thousands_sep;
+    global $ibank_loanlimit, $ibank_loanfactor, $ibank_loaninterest, $account;
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_loanstatus'] . "<br>---------------------------------</td></tr>" .
-         "<tr valign=top><td>" . $langvars['l_ibank_shipaccount'] . " :</td><td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>" .
-         "<tr valign=top><td>" . $langvars['l_ibank_currentloan'] . " :</td><td align=right>" . number_format ($account['loan'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
+         "<tr valign=top><td>" . $langvars['l_ibank_shipaccount'] . " :</td><td align=right>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td></tr>" .
+         "<tr valign=top><td>" . $langvars['l_ibank_currentloan'] . " :</td><td align=right>" . number_format ($account['loan'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td></tr>";
 
     if ($account['loan'] != 0)
     {
@@ -80,7 +79,7 @@ function ibank_loans ($db)
         $maxloan = $score * $score * $ibank_loanlimit;
 
         $langvars['l_ibank_maxloanpercent'] = str_replace ("[ibank_percent]", $percent, $langvars['l_ibank_maxloanpercent']);
-        echo "<tr valign=top><td nowrap>" . $langvars['l_ibank_maxloanpercent'] . " :</td><td align=right>" . number_format ($maxloan, 0, $local_number_dec_point, $local_number_thousands_sep) . " C</td></tr>";
+        echo "<tr valign=top><td nowrap>" . $langvars['l_ibank_maxloanpercent'] . " :</td><td align=right>" . number_format ($maxloan, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</td></tr>";
 
         $factor = $ibank_loanfactor *= 100;
         $interest = $ibank_loaninterest *= 100;

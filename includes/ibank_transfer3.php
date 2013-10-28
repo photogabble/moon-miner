@@ -44,12 +44,12 @@ function ibank_transfer3 ($db, $langvars)
 
         if ($playerinfo['ship_id'] == $ship_id)
         {
-            ibank_error ($langvars['l_ibank_errsendyourself'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_errsendyourself'], "igb.php?command=transfer");
         }
 
         if (!$res || $res->EOF)
         {
-            ibank_error ($langvars['l_ibank_unknowntargetship'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_unknowntargetship'], "igb.php?command=transfer");
         }
 
         $target = $res->fields;
@@ -58,13 +58,13 @@ function ibank_transfer3 ($db, $langvars)
         {
             $langvars['l_ibank_min_turns3'] = str_replace ("[ibank_min_turns]", $ibank_min_turns, $langvars['l_ibank_min_turns3']);
             $langvars['l_ibank_min_turns3'] = str_replace ("[ibank_target_char_name]", $target['character_name'], $langvars['l_ibank_min_turns3']);
-            ibank_error ($langvars['l_ibank_min_turns3'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_min_turns3'], "igb.php?command=transfer");
         }
 
         if ($playerinfo['turns_used'] < $ibank_min_turns)
         {
             $langvars['l_ibank_min_turns4'] = str_replace ("[ibank_min_turns]", $ibank_min_turns, $langvars['l_ibank_min_turns4']);
-            ibank_error ($langvars['l_ibank_min_turns4'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_min_turns4'], "igb.php?command=transfer");
         }
 
         if ($ibank_trate > 0)
@@ -80,23 +80,23 @@ function ibank_transfer3 ($db, $langvars)
                 $langvars['l_ibank_mustwait2'] = str_replace ("[ibank_target_char_name]", $target['character_name'], $langvars['l_ibank_mustwait2']);
                 $langvars['l_ibank_mustwait2'] = str_replace ("[ibank_trate]", number_format ($ibank_trate, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_ibank_mustwait2']);
                 $langvars['l_ibank_mustwait2'] = str_replace ("[ibank_difftime]", number_format ($difftime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_ibank_mustwait2']);
-                ibank_error ($langvars['l_ibank_mustwait2'], "igb.php?command=transfer");
+                ibank_error ($langvars, $langvars['l_ibank_mustwait2'], "igb.php?command=transfer");
             }
         }
 
         if (($amount * 1) != $amount)
         {
-            ibank_error ($langvars['l_ibank_invalidtransferinput'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_invalidtransferinput'], "igb.php?command=transfer");
         }
 
         if ($amount == 0)
         {
-            ibank_error ($langvars['l_ibank_nozeroamount'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_nozeroamount'], "igb.php?command=transfer");
         }
 
         if ($amount > $account['balance'])
         {
-            ibank_error ($langvars['l_ibank_notenoughcredits'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=transfer");
         }
 
         if ($ibank_svalue != 0)
@@ -107,7 +107,7 @@ function ibank_transfer3 ($db, $langvars)
 
             if ($amount > $maxtrans)
             {
-                ibank_error ($langvars['l_ibank_amounttoogreat'], "igb.php?command=transfer");
+                ibank_error ($langvars, $langvars['l_ibank_amounttoogreat'], "igb.php?command=transfer");
             }
         }
 
@@ -141,14 +141,14 @@ function ibank_transfer3 ($db, $langvars)
     {
         if ($splanet_id == $dplanet_id)
         {
-            ibank_error ($langvars['l_ibank_errplanetsrcanddest'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_errplanetsrcanddest'], "igb.php?command=transfer");
         }
 
         $res = $db->Execute ("SELECT name, credits, owner, sector_id FROM {$db->prefix}planets WHERE planet_id = ?", array ($splanet_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
-            ibank_error ($langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
         }
 
         $source = $res->fields;
@@ -162,7 +162,7 @@ function ibank_transfer3 ($db, $langvars)
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         if (!$res || $res->EOF)
         {
-            ibank_error ($langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_errunknownplanet'], "igb.php?command=transfer");
         }
 
         $dest = $res->fields;
@@ -174,12 +174,12 @@ function ibank_transfer3 ($db, $langvars)
 
         if ($source['owner'] != $playerinfo['ship_id'] || $dest['owner'] != $playerinfo['ship_id'])
         {
-            ibank_error ($langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_errnotyourplanet'], "igb.php?command=transfer");
         }
 
         if ($amount > $source['credits'])
         {
-            ibank_error ($langvars['l_ibank_notenoughcredits2'], "igb.php?command=transfer");
+            ibank_error ($langvars, $langvars['l_ibank_notenoughcredits2'], "igb.php?command=transfer");
         }
 
         $percent = $ibank_paymentfee * 100;

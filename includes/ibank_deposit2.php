@@ -23,10 +23,9 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_deposit2.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_deposit2 ($db)
+function ibank_deposit2 ($db, $langvars, $playerinfo)
 {
-    global $playerinfo, $amount, $account, $langvars;
-    global $local_number_thousands_sep, $local_number_dec_point;
+    global $amount, $account;
 
     $max_credits_allowed = 18446744073709000000;
 
@@ -34,17 +33,17 @@ function ibank_deposit2 ($db)
 
     if (($amount * 1) != $amount)
     {
-        ibank_error ($langvars['l_ibank_invaliddepositinput'], "igb.php?command=deposit");
+        ibank_error ($langvars, $langvars['l_ibank_invaliddepositinput'], "igb.php?command=deposit");
     }
 
     if ($amount == 0)
     {
-        ibank_error ($langvars['l_ibank_nozeroamount2'], "igb.php?command=deposit");
+        ibank_error ($langvars, $langvars['l_ibank_nozeroamount2'], "igb.php?command=deposit");
     }
 
     if ($amount > $playerinfo['credits'])
     {
-        ibank_error ($langvars['l_ibank_notenoughcredits'], "igb.php?command=deposit");
+        ibank_error ($langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=deposit");
     }
 
     $tmpcredits = $max_credits_allowed - $account['balance'];
@@ -55,7 +54,7 @@ function ibank_deposit2 ($db)
 
     if ($amount > $tmpcredits)
     {
-        ibank_error ("<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
+        ibank_error ($langvars, "<center>Error You cannot deposit that much into your bank,<br> (Max Credits Reached)</center>", "igb.php?command=deposit");
     }
 
     $account['balance'] += $amount;
@@ -63,11 +62,11 @@ function ibank_deposit2 ($db)
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_operationsuccessful'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) ." " . $langvars['l_ibank_creditstoyou'] . "</td>" .
+         "<td colspan=2 align=center>" . number_format ($amount, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." " . $langvars['l_ibank_creditstoyou'] . "</td>" .
          "<tr><td colspan=2 align=center>" . $langvars['l_ibank_accounts'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td>" . $langvars['l_ibank_shipaccount'] . " :<br>" . $langvars['l_ibank_ibankaccount'] . " :</td>" .
-         "<td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</tr>" .
+         "<td align=right>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C<br>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</tr>" .
          "<tr valign=bottom>" .
          "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";

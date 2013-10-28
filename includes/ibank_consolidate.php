@@ -23,9 +23,9 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate.php')) // Prevent direct ac
     include_once './error.php';
 }
 
-function ibank_consolidate ()
+function ibank_consolidate ($langvars)
 {
-    global $dplanet_id, $ibank_tconsolidate, $ibank_paymentfee, $langvars;
+    global $dplanet_id, $ibank_tconsolidate, $ibank_paymentfee;
 
     $percent = $ibank_paymentfee * 100;
 

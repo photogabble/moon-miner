@@ -23,25 +23,24 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw2.php')) // Prevent direct acce
     include_once './error.php';
 }
 
-function ibank_withdraw2 ($db, $langvars)
+function ibank_withdraw2 ($db, $langvars, $playerinfo)
 {
-    global $playerinfo, $amount, $account, $langvars;
-    global $local_number_thousands_sep, $local_number_dec_point;
+    global $amount, $account;
 
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
-        ibank_error ($langvars['l_ibank_invalidwithdrawinput'], "igb.php?command=withdraw");
+        ibank_error ($langvars, $langvars['l_ibank_invalidwithdrawinput'], "igb.php?command=withdraw");
     }
 
     if ($amount == 0)
     {
-        ibank_error ($langvars['l_ibank_nozeroamount3'], "igb.php?command=withdraw");
+        ibank_error ($langvars, $langvars['l_ibank_nozeroamount3'], "igb.php?command=withdraw");
     }
 
     if ($amount > $account['balance'])
     {
-        ibank_error ($langvars['l_ibank_notenoughcredits'], "igb.php?command=withdraw");
+        ibank_error ($langvars, $langvars['l_ibank_notenoughcredits'], "igb.php?command=withdraw");
     }
 
     $account['balance'] -= $amount;
@@ -49,11 +48,11 @@ function ibank_withdraw2 ($db, $langvars)
 
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_operationsuccessful'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
-         "<td colspan=2 align=center>" . number_format ($amount, 0, $local_number_dec_point, $local_number_thousands_sep) ." " . $langvars['l_ibank_creditstoyourship'] . "</td>" .
+         "<td colspan=2 align=center>" . number_format ($amount, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) ." " . $langvars['l_ibank_creditstoyourship'] . "</td>" .
          "<tr><td colspan=2 align=center>" . $langvars['l_ibank_accounts'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .
          "<td>Ship Account :<br>" . $langvars['l_ibank_ibankaccount'] . " :</td>" .
-         "<td align=right>" . number_format ($playerinfo['credits'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C<br>" . number_format ($account['balance'], 0, $local_number_dec_point, $local_number_thousands_sep) . " C</tr>" .
+         "<td align=right>" . number_format ($playerinfo['credits'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C<br>" . number_format ($account['balance'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']) . " C</tr>" .
          "<tr valign=bottom>" .
          "<td><a href='igb.php?command=login'>" . $langvars['l_ibank_back'] . "</a></td><td align=right>&nbsp;<br><a href=\"main.php\">" . $langvars['l_ibank_logout'] . "</a></td>" .
          "</tr>";

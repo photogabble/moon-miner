@@ -23,24 +23,24 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_repay.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_repay ($db, $langvars)
+function ibank_repay ($db, $langvars, $playerinfo)
 {
-    global $playerinfo, $account, $amount, $langvars;
+    global $account, $amount;
 
     $amount = preg_replace ("/[^0-9]/", "", $amount);
     if (($amount * 1) != $amount)
     {
-        ibank_error ($langvars['l_ibank_invalidamount'], "igb.php?command=loans");
+        ibank_error ($langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($amount <= 0)
     {
-        ibank_error ($langvars['l_ibank_invalidamount'], "igb.php?command=loans");
+        ibank_error ($langvars, $langvars['l_ibank_invalidamount'], "igb.php?command=loans");
     }
 
     if ($account['loan'] == 0)
     {
-        ibank_error ($langvars['l_ibank_notrepay'], "igb.php?command=loans");
+        ibank_error ($langvars, $langvars['l_ibank_notrepay'], "igb.php?command=loans");
     }
 
     if ($amount > $account['loan'])
@@ -50,7 +50,7 @@ function ibank_repay ($db, $langvars)
 
     if ($amount > $playerinfo['credits'])
     {
-        ibank_error ($langvars['l_ibank_notenoughrepay'], "igb.php?command=loans");
+        ibank_error ($langvars, $langvars['l_ibank_notenoughrepay'], "igb.php?command=loans");
     }
 
     $playerinfo['credits'] -= $amount;

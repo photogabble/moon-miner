@@ -23,14 +23,11 @@ include './includes/ibank_error.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
+$langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'regional'));
 
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 include './header.php';
-
-// Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
@@ -52,7 +49,7 @@ $account = $result->fields;
 
 if (!$allow_ibank)
 {
-    ibank_error ($langvars['l_ibank_malfunction'], "main.php");
+    ibank_error ($langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -78,7 +75,7 @@ elseif ($command == 'withdraw') //withdraw menu
 elseif ($command == 'withdraw2') //withdraw operation
 {
     include_once './includes/ibank_withdraw2.php';
-    ibank_withdraw2 ($db, $langvars);
+    ibank_withdraw2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'deposit') //deposit menu
 {
@@ -87,7 +84,7 @@ elseif ($command == 'deposit') //deposit menu
 elseif ($command == 'deposit2') //deposit operation
 {
     include_once './includes/ibank_deposit2.php';
-    ibank_deposit2 ($db);
+    ibank_deposit2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'transfer') //main transfer menu
 {
@@ -107,32 +104,32 @@ elseif ($command == 'transfer3') //transfer operation
 elseif ($command == 'loans') //loans menu
 {
     include_once './includes/ibank_loans.php';
-    ibank_loans ($db);
+    ibank_loans ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'borrow') //borrow operation
 {
     include_once './includes/ibank_borrow.php';
-    ibank_borrow ($db);
+    ibank_borrow ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'repay') //repay operation
 {
     include_once './includes/ibank_repay.php';
-    ibank_repay ($db, $langvars);
+    ibank_repay ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {
     include_once './includes/ibank_consolidate.php';
-    ibank_consolidate ();
+    ibank_consolidate ($langvars);
 }
 elseif ($command == 'consolidate2') //consolidate compute
 {
     include_once './includes/ibank_consolidate2.php';
-    ibank_consolidate2 ($db);
+    ibank_consolidate2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'consolidate3') //consolidate operation
 {
     include_once './includes/ibank_consolidate3.php';
-    ibank_consolidate3 ($db);
+    ibank_consolidate3 ($db, $langvars, $playerinfo);
 }
 else
 {
