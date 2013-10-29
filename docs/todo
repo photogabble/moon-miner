@@ -6,7 +6,6 @@ TODO: Redo scheduler to be a subdirectory (like admin) with activated scheduler 
 TODO: Language translations for all elements in scheduler
 TODO: Cleanup functions and calls in scheduler
 TODO: Eliminate $color_line variables
-TODO: Finish splitting CSS files to be per-file instead of one global CSS
 TODO: Finish include -> class conversion (All files in includes/ need to be converted to class/methods and moved to classes/)
 TODO: Convert main to be template driven
 TODO: Finish moving Sol from sector 0 to sector 1

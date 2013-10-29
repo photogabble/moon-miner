@@ -58,7 +58,7 @@ setcookie ("PHPSESSID", "", 0, "/");
 // Destroy the session entirely
 session_destroy ();
 
-$variables['body_class'] = 'admin';
+$variables['body_class'] = 'logout';
 $variables['lang'] = $lang;
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mlogin'], "link"=>"index.php");
 
