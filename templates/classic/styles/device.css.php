@@ -1,0 +1,26 @@
+<?php
+require_once '../../../vendor/autoload.php';           // Load the auto-loader
+ob_start (array('BntCompress', 'compress'));
+
+$etag = md5_file (__FILE__); // Generate an md5sum and use it as the etag for the file, ensuring that caches will revalidate if the code itself changes
+//header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
+header ("Vary: Accept-Encoding");
+header ("Content-type: text/css");
+header ("Connection: Keep-Alive");
+header ("Cache-Control: public");
+header ('ETag: "' . $etag . '"');
+?>
+.faderlines { margin-left:auto; margin-right:auto; border:#fff solid 1px; text-align:center; background-color:#400040; color:#fff; padding:0px; border-spacing:0px; width:600px}
+.footer { clear: both, height: 4em}
+a:active { color: #f00}
+a:link { color: #0f0}
+a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
+a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
+a:visited { color: #0f0}
+body { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+body.device table { border:0; border-spacing:0px}
+body.device td { color:white; font-size:1.1em; padding:3px}
+body.device th { background-color:#500050; text-align:left}
+body.device tr:nth-child(even) { background-color:#300030}
+body.device tr:nth-child(odd) { background-color:#400040}
+html { height: 85%}
