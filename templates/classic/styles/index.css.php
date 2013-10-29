@@ -20,7 +20,7 @@ header ('ETag: "' . $etag . '"');
 .button.red { background: #723131}
 .button:hover .shine { left: 24px}
 .cookie-warning { font-size:0.7em}
-.footer, .push { height: 4em; clear:both}
+.footer { height: 4em; clear:both}
 .index-flags { height:auto; left:80%; position:absolute; top:3%; width:auto}
 .index-flags img { height:16px}
 .index-h1 { font-size:1em; font-weight: normal; margin: 0; padding: 0}
