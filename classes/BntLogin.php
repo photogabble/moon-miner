@@ -168,7 +168,7 @@ class BntLogin
             $flag = 1;
         }
 
-        if ($bntreg->get("server_closed") && $flag == 0)
+        if ($bntreg->server_closed && $flag == 0)
         {
             $title = $langvars['l_login_closed_message'];
             $error_status .= $langvars['l_login_closed_message'];

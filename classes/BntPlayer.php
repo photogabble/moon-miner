@@ -64,7 +64,7 @@ class BntPlayer
         {
             foreach ($sectors as $sector)
             {
-                BntOwnership::calc ($db, $sector, $bntreg->get("min_bases_to_own"), $langvars);
+                BntOwnership::calc ($db, $sector, $bntreg->min_bases_to_own, $langvars);
             }
         }
 

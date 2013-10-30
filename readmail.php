@@ -26,7 +26,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('readmail', 'common', 'global
 $title = $langvars['l_readm_title'];
 include './header.php';
 
-$active_template = "templates/" . $bntreg->get("template") . "/";
+$active_template = "templates/" . $bntreg->template . "/";
 
 echo "<h1>" . $title . "</h1>\n";
 

@@ -27,7 +27,7 @@ if ($pos !== false)
 $create_universe_info = BntBigBang::findStep (__FILE__);
 
 // Set variables
-$variables['templateset'] = $bntreg->get ("default_template");
+$variables['templateset'] = $bntreg->default_template;
 $variables['body_class'] = 'create_universe';
 $variables['steps'] = $create_universe_info['steps'];
 $variables['current_step'] = $create_universe_info['current_step'];
@@ -64,7 +64,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
         }
 
         $variables['lang_list'][$i]['file'] = $lang_file;
-        $variables['lang_list'][$i]['selected'] = $bntreg->get("default_lang");
+        $variables['lang_list'][$i]['selected'] = $bntreg->default_lang;
         $i++;
     }
 }

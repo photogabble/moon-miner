@@ -221,7 +221,7 @@ function HandleFuelScoop ($playerinfo, $distance, $triptime, $bntreg)
     }
 
     // Calculate the free power for the ship.
-    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->get('level_factor') ) - $playerinfo['ship_energy'];
+    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor) - $playerinfo['ship_energy'];
     if ($free_power < $energyscooped)
     {
         // Limit the energy scooped to the maximum free power available.

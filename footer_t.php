@@ -35,9 +35,9 @@ if (!$db->inactive)
 
 if (isset ($bntreg))
 {
-    if (is_object ($bntreg->get("bnttimer")))
+    if (property_exists ($bntreg, 'bnttimer'))
     {
-        $bnttimer = $bntreg->get("bnttimer");
+        $bnttimer = $bntreg->bnttimer;
         $bnttimer->stop();
         $elapsed = $bnttimer->elapsed();
     }
@@ -61,13 +61,13 @@ if (!$db->inactive)
     if ($rs instanceof ADORecordSet)
     {
         $last_run = $rs->fields['last_run'];
-        $seconds_left = ($bntreg->get("sched_ticks") * 60) - (time() - $last_run);
+        $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
         $display_update_ticker = true;
     }
 }
 // End update counter
 
-if ($bntreg->get("footer_show_debug") == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
+if ($bntreg->footer_show_debug == true) // Make the SF logo a little bit larger to balance the extra line from the benchmark for page generation
 {
     $sf_logo_type = '14';
     $sf_logo_width = "150";
@@ -156,7 +156,7 @@ else
 }
 
 // Set array with all used variables in page
-$variables['update_ticker'] = array ("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$bntreg->get("sched_ticks"));
+$variables['update_ticker'] = array ("display"=>$display_update_ticker, "seconds_left"=>$seconds_left, "sched_ticks"=>$bntreg->sched_ticks);
 $variables['players_online'] = $online;
 $variables['sf_logo_type'] = $sf_logo_type;
 $variables['sf_logo_height'] = $sf_logo_height;
@@ -164,6 +164,6 @@ $variables['sf_logo_width'] = $sf_logo_width;
 $variables['sf_logo_link'] = $sf_logo_link;
 $variables['elapsed'] = $elapsed;
 $variables['mem_peak_usage'] = $mem_peak_usage;
-$variables['footer_show_debug'] = $bntreg->get("footer_show_debug");
+$variables['footer_show_debug'] = $bntreg->footer_show_debug;
 $variables['cur_year'] = date ('Y');
 ?>

@@ -39,7 +39,7 @@ if (extension_loaded ('mbstring'))                // Ensure that we don't trigge
     mb_internal_encoding ("UTF-8");               // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 }
 
-$bntreg = new BntRegistry ();
+$bntreg = new stdClass();
 $BenchmarkTimer = new BntTimer;
 $BenchmarkTimer->start(); // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
@@ -66,7 +66,7 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
         $row = $debug_query->fields;
         if ($row !== null)
         {
-            $bntreg->set ($row['name'], $row['value']);
+            $bntreg->$row['name'] = $row['value'];
             $$row['name'] = $row['value'];
             $debug_query->MoveNext();
         }
@@ -89,7 +89,7 @@ if ($no_langs_yet)
         foreach ($config_line as $config_key=>$config_value)
         {
             $$config_key = $config_value;
-            $bntreg->set ($config_key, $config_value);
+            $bntreg->$config_key = $config_value;
         }
     }
 }
@@ -193,10 +193,10 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $gamepath = BntSetPaths::setGamepath ();
 $gamedomain = BntSetPaths::setGamedomain ();
 $template = new BntTemplate (); // Template API.
-$bntreg->set ("bnttimer", $BenchmarkTimer);
-$bntreg->set ("db", $db);
-$bntreg->set ("lang", $lang);
-$bntreg->set ("langvars", $langvars);
-$bntreg->set ("template", $default_template); // Temporary until we have a template picker
+$bntreg->bnttimer = $BenchmarkTimer;
+$bntreg->db = $db;
+$bntreg->lang = $lang;
+$bntreg->langvars = $langvars;
+$bntreg->template = $default_template; // Temporary until we have a template picker
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>

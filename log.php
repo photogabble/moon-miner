@@ -39,7 +39,7 @@ $title = $langvars['l_log_titlet'];
 $body_class = 'log';
 include './header.php';
 
-$active_template = "templates/" . $bntreg->get("template") . "/";
+$active_template = "templates/" . $bntreg->template . "/";
 
 $res = $db->Execute ("SELECT character_name, ship_id FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);

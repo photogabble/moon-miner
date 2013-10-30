@@ -28,7 +28,7 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", arr
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$active_template = "templates/" . $bntreg->get("template") . "/";
+$active_template = "templates/" . $bntreg->template . "/";
 
 $shiptypes[0] = "tinyship.png";
 $shiptypes[1] = "smallship.png";

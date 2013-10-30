@@ -37,7 +37,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'gl
 $variables = null;
 $variables['lang'] = $lang;
 $variables['link'] = $link;
-$variables['link_forums'] = $bntreg->get("link_forums");
+$variables['link_forums'] = $bntreg->link_forums;
 $variables['admin_mail'] = $admin_mail;
 $variables['body_class'] = 'new';
 

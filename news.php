@@ -36,7 +36,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('common', 'global_includes', 
 $title = $langvars['l_news_title'];
 include './header.php';
 
-$active_template = "templates/" . $bntreg->get("template") . "/";
+$active_template = "templates/" . $bntreg->template . "/";
 
 $startdate = date ("Y/m/d");
 if (array_key_exists ('startdate', $_GET) && ($_GET['startdate'] != ''))

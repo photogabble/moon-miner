@@ -27,7 +27,7 @@ if ($pos !== false)
 $create_universe_info = BntBigBang::findStep (__FILE__);
 
 // Set variables
-$variables['templateset']            = $bntreg->get ("default_template");
+$variables['templateset']            = $bntreg->default_template;
 $variables['body_class']             = 'create_universe';
 $variables['steps']                  = $create_universe_info['steps'];
 $variables['current_step']           = $create_universe_info['current_step'];
@@ -113,7 +113,7 @@ $local_table_timer->stop ();
 $variables['update_config_results']['result'] = BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $variables['update_config_results']['time'] = $local_table_timer->elapsed ();
 
-$lang = $bntreg->get ('default_lang');
+$lang = $bntreg->default_lang;
 $template->AddVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php

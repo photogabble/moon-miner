@@ -27,7 +27,7 @@ if ($pos !== false)
 $create_universe_info = BntBigBang::findStep (__FILE__);
 
 // Set variables
-$variables['templateset']  = $bntreg->get ("default_template");
+$variables['templateset']  = $bntreg->default_template;
 $variables['body_class']   = 'create_universe';
 $variables['steps']        = $create_universe_info['steps'];
 $variables['current_step'] = $create_universe_info['current_step'];

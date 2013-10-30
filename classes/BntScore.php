@@ -27,28 +27,28 @@ class BntScore
 {
     static function updateScore ($db, $ship_id, $bntreg)
     {
-        $upgrade_factor = $bntreg->get("upgrade_factor");
-        $upgrade_cost = $bntreg->get("upgrade_cost");
-        $torpedo_price = $bntreg->get("torpedo_price");
-        $armor_price = $bntreg->get("armor_price");
-        $fighter_price = $bntreg->get("fighter_price");
-        $ore_price = $bntreg->get("ore_price");
-        $organics_price = $bntreg->get("organics_price");
-        $goods_price = $bntreg->get("goods_price");
-        $energy_price = $bntreg->get("energy_price");
-        $colonist_price = $bntreg->get("colonist_price");
-        $dev_genesis_price = $bntreg->get("dev_genesis_price");
-        $dev_beacon_price = $bntreg->get("dev_beacon_price");
-        $dev_emerwarp_price = $bntreg->get("dev_emerwarp_price");
-        $dev_warpedit_price = $bntreg->get("dev_warpedit_price");
-        $dev_minedeflector_price = $bntreg->get("dev_minedeflector_price");
-        $dev_escapepod_price = $bntreg->get("dev_escapepod_price");
-        $dev_fuelscoop_price = $bntreg->get("dev_fuelscoop_price");
-        $dev_lssd_price = $bntreg->get("dev_lssd_price");
-        $base_ore = $bntreg->get("base_ore");
-        $base_goods = $bntreg->get("base_goods");
-        $base_organics = $bntreg->get("base_organics");
-        $base_credits = $bntreg->get("base_credits");
+        $upgrade_factor = $bntreg->upgrade_factor;
+        $upgrade_cost = $bntreg->upgrade_cost;
+        $torpedo_price = $bntreg->torpedo_price;
+        $armor_price = $bntreg->armor_price;
+        $fighter_price = $bntreg->fighter_price;
+        $ore_price = $bntreg->ore_price;
+        $organics_price = $bntreg->organics_price;
+        $goods_price = $bntreg->goods_price;
+        $energy_price = $bntreg->energy_price;
+        $colonist_price = $bntreg->colonist_price;
+        $dev_genesis_price = $bntreg->dev_genesis_price;
+        $dev_beacon_price = $bntreg->dev_beacon_price;
+        $dev_emerwarp_price = $bntreg->dev_emerwarp_price;
+        $dev_warpedit_price = $bntreg->dev_warpedit_price;
+        $dev_minedeflector_price = $bntreg->dev_minedeflector_price;
+        $dev_escapepod_price = $bntreg->dev_escapepod_price;
+        $dev_fuelscoop_price = $bntreg->dev_fuelscoop_price;
+        $dev_lssd_price = $bntreg->dev_lssd_price;
+        $base_ore = $bntreg->base_ore;
+        $base_goods = $bntreg->base_goods;
+        $base_organics = $bntreg->base_organics;
+        $base_credits = $bntreg->base_credits;
 
         // These are all SQL Queries, so treat them like them.
         $calc_hull              = "ROUND(POW($upgrade_factor, hull))";

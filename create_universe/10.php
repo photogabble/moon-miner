@@ -38,13 +38,13 @@ foreach ($ini_keys as $config_category => $config_line)
 }
 
 // Set variables
-$variables['templateset'] = $bntreg->get ("default_template");
+$variables['templateset'] = $bntreg->default_template;
 $variables['body_class'] = 'create_universe';
 $variables['swordfish']  = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $variables['steps'] = $create_universe_info['steps'];
 $variables['current_step'] = $create_universe_info['current_step'];
 $variables['next_step'] = $create_universe_info['next_step'];
-$variables['sector_max'] = $bntreg->get ("sector_max");
+$variables['sector_max'] = $bntreg->sector_max;
 
 // Get POST['newlang'] returns null if not found.
 if (array_key_exists ('newlang', $_POST) == true)
