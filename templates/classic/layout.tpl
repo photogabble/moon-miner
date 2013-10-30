@@ -26,6 +26,7 @@
     <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
     <meta name="Rating" content="General">
     <link rel="shortcut icon" href="{$template_dir}/images/bntfavicon.ico">
+    <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/bnt-prime.css.php">
 {if $variables['body_class'] != 'bnt'}
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/{$variables['body_class']}.css.php">
 {else}

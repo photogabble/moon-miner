@@ -88,7 +88,9 @@ if ($news_ticker == true)
     $langvars = array_merge ($langvars, BntTranslate::load ($db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout')));
 
     // Use Array unique so that we don't end up with duplicate lang array entries
-    $langvars = array_unique ($langvars);
+    // This is resulting in an array with blank values for specific keys, so array_unique isn't entirely what we want
+//    $langvars = array_unique ($langvars);
+//    var_dump($langvars);
 
     $startdate = date ("Y/m/d");
 
