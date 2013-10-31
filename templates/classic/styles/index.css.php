@@ -27,7 +27,6 @@ header ('ETag: "' . $etag . '"');
 .index-header { border:2px solid white; box-shadow: 3px 3px 6px #000; height: 150px; left:0; margin:2px; top: 0; width:99%}
 .index-header-text { color:white; font-size:4em; height:auto; left:30%; line-height:4em; position:absolute; text-shadow: black 2px 2px 0.1em; top:1%; width:auto}
 .index-welcome { font-size:1.2em; text-align:center}
-.wrapper { min-height: 100%; height: auto; height: 100%; margin: 0 auto -4em}
 a:active { color: #f00}
 a:link { color: #0f0}
 a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}

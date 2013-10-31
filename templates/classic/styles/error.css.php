@@ -10,7 +10,6 @@ header ("Connection: Keep-Alive");
 header ("Cache-Control: public");
 header ('ETag: "' . $etag . '"');
 ?>
-.wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -4em}
 body.error { background: url(../images/error.jpg) no-repeat center center fixed; -webkit-background-size: cover; -o-background-size: cover; background-size: cover}
 div.error_content { float:right; text-align:left; width: 80%}
 div.error_location { float:left; width: 20%}
