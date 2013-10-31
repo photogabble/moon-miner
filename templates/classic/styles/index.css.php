@@ -20,25 +20,18 @@ header ('ETag: "' . $etag . '"');
 .button.red { background: #723131}
 .button:hover .shine { left: 24px}
 .cookie-warning { font-size:0.7em}
-.footer { height: 4em; clear:both}
 .index-flags { height:auto; left:80%; position:absolute; top:3%; width:auto}
 .index-flags img { height:16px}
 .index-h1 { font-size:1em; font-weight: normal; margin: 0; padding: 0}
 .index-header { border:2px solid white; box-shadow: 3px 3px 6px #000; height: 150px; left:0; margin:2px; top: 0; width:99%}
 .index-header-text { color:white; font-size:4em; height:auto; left:30%; line-height:4em; position:absolute; text-shadow: black 2px 2px 0.1em; top:1%; width:auto}
 .index-welcome { font-size:1.2em; text-align:center}
-a:active { color: #f00}
-a:link { color: #0f0}
-a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
-a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
 a { outline:none; text-decoration:none}
-a:visited { color: #0f0}
-body { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
+a.nocolor { color:inherit }
 body.index { background-color:#929292; background-image:none; color:#000; font-family: 'Ubuntu', Verdana, "DejaVu Sans", sans-serif; font-size:75%; text-align:center}
 dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
 div.navigation { display:table; margin: 0 auto}
 dt { float:left; height:2em; text-align:right; width:45%; padding:3px}
-html { height: 85%}
 img { border:0}
 img.index { border:0; display:block; height:150px; margin-left:auto; margin-right:auto; width:100%}
 li { display:inline}

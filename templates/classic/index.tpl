@@ -56,7 +56,8 @@
 <br style="clear:both">
 <div style="text-align:center">{$langvars['l_login_forgotpw']}</div><br>
 <div style="text-align:center">
-<input class="button green" type="submit" value="{$langvars['l_login_title']}">
+<span class="button green"><a class="nocolor" href="#" onclick="document.forms[0].submit();return false;"><span class="shine"></span>{$langvars['l_login_title']}</a></span>
+<!--<input type="submit" value="{$langvars['l_login_title']}">-->
 </div>
 </form>
 <br>
