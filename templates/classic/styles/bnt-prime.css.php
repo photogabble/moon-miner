@@ -11,7 +11,7 @@ header ("Cache-Control: public");
 header ('ETag: "' . $etag . '"');
 ?>
 .faderlines { margin-left:auto; margin-right:auto; border:#fff solid 1px; text-align:center; background-color:#400040; color:#fff; padding:0px; border-spacing:0px; width:600px}
-.footer { clear: both, height: 4em}
+.footer { clear: both; height: 4em}
 a:active { color: #f00}
 a:link { color: #0f0}
 a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
