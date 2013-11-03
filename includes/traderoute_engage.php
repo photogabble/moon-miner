@@ -61,12 +61,12 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
     if (!isset ($traderoute))
     {
-        traderoute_die ($langvars['l_tdr_engagenonexist']);
+        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_engagenonexist']);
     }
 
     if ($traderoute['owner'] != $playerinfo['ship_id'])
     {
-        traderoute_die ($langvars['l_tdr_notowntdr']);
+        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowntdr']);
     }
 
     // Source Check
@@ -78,7 +78,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
         if (!$result || $result->EOF)
         {
-            traderoute_die ($langvars['l_tdr_invalidspoint']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidspoint']);
         }
 
         $source = $result->fields;
@@ -86,7 +86,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         if ($traderoute['source_id'] != $playerinfo['sector'])
         {
             $langvars['l_tdr_inittdr'] = str_replace ("[tdr_source_id]", $traderoute['source_id'], $langvars['l_tdr_inittdr']);
-            traderoute_die ($langvars['l_tdr_inittdr']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_inittdr']);
         }
     }
     elseif ($traderoute['source_type'] == 'L' || $traderoute['source_type'] == 'C')  // Get data from planet table
@@ -95,7 +95,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
         if (!$result || $result->EOF)
         {
-            traderoute_die ($langvars['l_tdr_invalidsrc']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc']);
         }
 
         $source = $result->fields;
@@ -104,8 +104,8 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         {
             // Check for valid Owned Source Planet
             // $langvars['l_tdr_inittdrsector'] = str_replace ("[tdr_source_sector_id]", $source['sector_id'], $langvars['l_tdr_inittdrsector']);
-            // traderoute_die ($langvars['l_tdr_inittdrsector']);
-            traderoute_die ("You must be in starting sector before you initiate a trade route!");
+            // traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_inittdrsector']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, 'You must be in starting sector before you initiate a trade route!');
         }
 
         if ($traderoute['source_type'] == 'L')
@@ -115,7 +115,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $source[name], $langvars['l_tdr_notyourplanet']);
                 // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $source[sector_id], $langvars['l_tdr_notyourplanet']);
                 // traderoute_die ($langvars['l_tdr_notyourplanet']);
-                traderoute_die ($langvars['l_tdr_invalidsrc']);
+                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc']);
             }
         }
         elseif ($traderoute['source_type'] == 'C')   // Check to make sure player and planet are in the same corp.
@@ -126,7 +126,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
                 // $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $source[sector_id], $langvars['l_tdr_notyourplanet']);
                 // $not_corp_planet = "$source[name] in $source[sector_id] not a Copporate Planet";
                 // traderoute_die ($not_corp_planet);
-                traderoute_die ($langvars['l_tdr_invalidsrc']);
+                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc']);
             }
         }
 
@@ -136,7 +136,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
         if (!$result || $result->EOF)
         {
-            traderoute_die ($langvars['l_tdr_invalidssector']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidssector']);
         }
 
         $sourceport = $result->fields;
@@ -150,7 +150,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
         if (!$result || $result->EOF)
         {
-            traderoute_die ($langvars['l_tdr_invaliddport']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddport']);
         }
 
         $dest = $result->fields;
@@ -164,7 +164,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
         if (!$result || $result->EOF)
         {
-            traderoute_die ($langvars['l_tdr_invaliddplanet']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddplanet']);
         }
 
         $dest = $result->fields;
@@ -175,7 +175,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
             {
                 $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $dest['name'], $langvars['l_tdr_notyourplanet']);
                 $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $dest['sector_id'], $langvars['l_tdr_notyourplanet']);
-                traderoute_die ($langvars['l_tdr_notyourplanet']);
+                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet']);
             }
         }
         elseif ($traderoute['dest_type'] == 'C')   // Check to make sure player and planet are in the same corp.
@@ -184,7 +184,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
             {
                 $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_name]", $dest['name'], $langvars['l_tdr_notyourplanet']);
                 $langvars['l_tdr_notyourplanet'] = str_replace ("[tdr_source_sector_id]", $dest['sector_id'], $langvars['l_tdr_notyourplanet']);
-                traderoute_die ($langvars['l_tdr_notyourplanet']);
+                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notyourplanet']);
             }
         }
 
@@ -192,7 +192,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
         if (!$result || $result->EOF)
         {
-            traderoute_die ($langvars['l_tdr_invaliddsector']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddsector']);
         }
 
         $destport = $result->fields;
@@ -217,7 +217,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         {
             $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_src_sector_id]", $source['sector_id'], $langvars['l_tdr_nowlink1']);
             $langvars['l_tdr_nowlink1'] = str_replace ("[tdr_dest_sector_id]", $dest['sector_id'], $langvars['l_tdr_nowlink1']);
-            traderoute_die ($langvars['l_tdr_nowlink1']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink1']);
         }
 
         if ($traderoute['circuit'] == '2')
@@ -228,7 +228,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
             {
                 $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_src_sector_id]", $source['sector_id'], $langvars['l_tdr_nowlink2']);
                 $langvars['l_tdr_nowlink2'] = str_replace ("[tdr_dest_sector_id]", $dest['sector_id'], $langvars['l_tdr_nowlink2']);
-                traderoute_die ($langvars['l_tdr_nowlink2']);
+                traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nowlink2']);
             }
             $dist['triptime'] = 4;
         }
@@ -251,7 +251,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
     {
         $langvars['l_tdr_moreturnsneeded'] = str_replace ("[tdr_dist_triptime]", $dist['triptime'], $langvars['l_tdr_moreturnsneeded']);
         $langvars['l_tdr_moreturnsneeded'] = str_replace ("[tdr_playerinfo_turns]", $playerinfo['turns'], $langvars['l_tdr_moreturnsneeded']);
-        traderoute_die ($langvars['l_tdr_moreturnsneeded']);
+        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_moreturnsneeded']);
     }
 
     // Sector Defense Check
@@ -289,13 +289,13 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
     if ($hostile > 0 && $playerinfo['hull'] > $mine_hullsize)
     {
-        traderoute_die ($langvars['l_tdr_hostdef']);
+        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_hostdef']);
     }
 
     // Special Port Nothing to do
     if ($traderoute['source_type'] == 'P' && $source['port_type'] == 'special' && $playerinfo['trade_colonists'] == 'N' && $playerinfo['trade_fighters'] == 'N' && $playerinfo['trade_torps'] == 'N')
     {
-        traderoute_die ($langvars['l_tdr_globalsetbuynothing']);
+        traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_globalsetbuynothing']);
     }
 
     // Check if zone allows trading  SRC
@@ -306,7 +306,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         $zoneinfo = $res->fields;
         if ($zoneinfo['allow_trade'] == 'N')
         {
-            traderoute_die ($langvars['l_tdr_nosrcporttrade']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nosrcporttrade']);
         }
         elseif ($zoneinfo['allow_trade'] == 'L')
         {
@@ -318,14 +318,14 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
                 if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
                 {
-                    traderoute_die ($langvars['l_tdr_tradesrcportoutsider']);
+                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradesrcportoutsider']);
                 }
             }
             else
             {
                 if ($playerinfo['team'] != $zoneinfo['owner'])
                 {
-                    traderoute_die ($langvars['l_tdr_tradesrcportoutsider']);
+                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradesrcportoutsider']);
                 }
             }
         }
@@ -339,7 +339,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         $zoneinfo = $res->fields;
         if ($zoneinfo['allow_trade'] == 'N')
         {
-            traderoute_die ($langvars['l_tdr_nodestporttrade']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_nodestporttrade']);
         }
         elseif ($zoneinfo['allow_trade'] == 'L')
         {
@@ -351,14 +351,14 @@ function traderoute_engage ($db, $lang, $j, $langvars)
 
                 if ($playerinfo['ship_id'] != $zoneinfo['owner'] && $playerinfo['team'] == 0 || $playerinfo['team'] != $ownerinfo['team'])
                 {
-                    traderoute_die ($langvars['l_tdr_tradedestportoutsider']);
+                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradedestportoutsider']);
                 }
             }
             else
             {
                 if ($playerinfo['team'] != $zoneinfo['owner'])
                 {
-                    traderoute_die ($langvars['l_tdr_tradedestportoutsider']);
+                    traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_tradedestportoutsider']);
                 }
             }
         }
@@ -1421,7 +1421,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
     }
     if ($j == 1)
     {
-        traderoute_die ($db, $lang, $langvars, "");
+        traderoute_die ($db, $lang, $langvars, $bntreg, null);
     }
 }
 ?>
