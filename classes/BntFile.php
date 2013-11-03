@@ -46,7 +46,7 @@ class BntFile
                 if (strpos ($ini_file, 'configset') !== false)
                 {
                     // Import all the variables into the registry
-                    $bntreg->set ($config_key, $config_value);
+                    $bntreg->$config_key = $config_value;
                 }
 
                 $insert_sql .= "(" . $db->qstr ($config_key) . ", ";
