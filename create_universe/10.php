@@ -33,7 +33,7 @@ foreach ($ini_keys as $config_category => $config_line)
 {
     foreach ($config_line as $config_key => $config_value)
     {
-        $bntreg->set ($config_key, $config_value);
+        $bntreg->$config_key = $config_value;
     }
 }
 
