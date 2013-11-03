@@ -123,7 +123,7 @@ switch ($teamwhat)
 {
     case 1: // INFO on single team
     {
-        show_info ($db, $langvars, $whichteam, 0, $playerinfo)
+        show_info ($db, $langvars, $whichteam, 0, $playerinfo);
         echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
@@ -586,7 +586,7 @@ switch ($teamwhat)
                 $whichinvitingteam = $result->fields;
             }
             $isowner = is_team_owner ($whichteam, $playerinfo);
-            show_info ($db, $langvars, $playerinfo['team'], $isowner, $playerinfo)
+            show_info ($db, $langvars, $playerinfo['team'], $isowner, $playerinfo);
         }
 
         $res= $db->Execute ("SELECT COUNT(*) as total FROM {$db->prefix}teams WHERE admin='N'");
