@@ -127,8 +127,8 @@ else
             // With your engines, it will take X turns to complete the journey.
             // You would gather Y units of energy.
 
-            $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_movetime']);
-            $langvars['l_rs_energy'] = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_energy']);
+            $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
+            $langvars['l_rs_energy'] = str_replace ("[energy]", number_format ($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_energy']);
             echo $langvars['l_rs_movetime'] . "<br>" . $langvars['l_rs_energy'] . "<br><br>";
 
             if ($triptime > $playerinfo['turns'])
@@ -144,7 +144,7 @@ else
                 // You have X turns. <a href=rsmove.php?engage=2&destination=$destination>Engage</a> engines?
 
                 $langvars['l_rs_engage_link'] = "<a href=rsmove.php?engage=2&destination=$destination>" . $langvars['l_rs_engage_link'] . "</a>";
-                $langvars['l_rs_engage'] = str_replace ("[turns]", number_format ($playerinfo['turns'], 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_engage']);
+                $langvars['l_rs_engage'] = str_replace ("[turns]", number_format ($playerinfo['turns'], 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_engage']);
                 $langvars['l_rs_engage'] = str_replace ("[engage]", $langvars['l_rs_engage_link'], $langvars['l_rs_engage']);
                 echo $langvars['l_rs_engage'] . "<br><br>";
             }
@@ -161,7 +161,7 @@ else
                 // With your engines, it will take X turns to complete the journey.
                 // You do not have enough turns left, and cannot embark on this journey.
 
-                $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_movetime']);
+                $langvars['l_rs_movetime'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_movetime']);
                 echo $langvars['l_rs_movetime'] . "<br><br>";
                 echo $langvars['l_rs_noturns'] . "<br><br>";
                 $resx = $db->Execute ("UPDATE {$db->prefix}ships SET cleared_defences=' ' WHERE ship_id = ?;", array ($playerinfo['ship_id']));
@@ -184,8 +184,8 @@ else
                     BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
                     BntLogMove::writeLog ($db, $playerinfo['ship_id'], $destination);
                     $langvars['l_rs_ready'] = str_replace ("[sector]", $destination, $langvars['l_rs_ready']);
-                    $langvars['l_rs_ready'] = str_replace ("[triptime]", number_format ($triptime, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready']);
-                    $langvars['l_rs_ready'] = str_replace ("[energy]", number_format ($energyscooped, 0, $local_number_dec_point, $local_number_thousands_sep), $langvars['l_rs_ready']);
+                    $langvars['l_rs_ready'] = str_replace ("[triptime]", number_format ($triptime, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready']);
+                    $langvars['l_rs_ready'] = str_replace ("[energy]", number_format ($energyscooped, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']), $langvars['l_rs_ready']);
                     echo $langvars['l_rs_ready'] . "<br><br>";
                     include_once './check_mines.php';
                 }
