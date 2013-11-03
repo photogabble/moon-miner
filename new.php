@@ -39,7 +39,7 @@ $variables['lang'] = $lang;
 $variables['link'] = $link;
 $variables['link_forums'] = $bntreg->link_forums;
 $variables['admin_mail'] = $admin_mail;
-$variables['body_class'] = 'new';
+$variables['body_class'] = 'bnt';
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
