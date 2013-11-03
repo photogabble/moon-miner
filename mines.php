@@ -60,7 +60,7 @@ $set_toll = '';
 
 // Do we have a valid recordset?
 if ($result3 instanceof ADORecordSet)
-{.
+{
     while (!$result3->EOF)
     {
         $defences[$i] = $result3->fields;
