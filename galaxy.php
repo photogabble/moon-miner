@@ -61,7 +61,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
 {
     for ($c = 0; $c < $div_xmax; $c++) // Loop the columns
     {
-        if (isset ($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false )
+        if (isset ($row['sector_id']) && ($row['sector_id'] == $cur_sector) && $row != false)
         {
             $p = $row['port_type'];
             // Build the alt text for each image
@@ -82,13 +82,20 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
         }
         else
         {
-            $p = 'unknown';
-            // Build the alt text for each image
-            $alt  = ($c + ($div_xmax * $r)) . " - " . $langvars['l_unknown'] . " ";
+            if (($c + ($div_xmax * $r)) == 0) // We skip sector 0 because nothing is there.
+            {
+            }
+            else
+            {
+                $p = 'unknown';
+                // Build the alt text for each image
+                $alt  = ($c + ($div_xmax * $r)) . " - " . $langvars['l_unknown'] . " ";
 
-            // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
-            echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c + ($div_xmax * $r)) ."\">";
-            echo "<img class='map un' src='" . $active_template . "images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
+                // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
+                echo "<!-- current sector is " . ($c + ($div_xmax * $r)) . " -->";
+                echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c + ($div_xmax * $r)) ."\">";
+                echo "<img class='map un' src='" . $active_template . "images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
+            }
             $cur_sector = $cur_sector + 1;
         }
     }
