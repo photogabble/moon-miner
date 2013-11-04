@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'traderoute_new.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id)
+function traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id, $template)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
     global $num_traderoutes, $servertimezone;
@@ -38,20 +38,20 @@ function traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id)
 
         if (!$result || $result->EOF)
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_editerr']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_editerr'], $template);
         }
 
         $editroute = $result->fields;
 
         if ($editroute['owner'] != $playerinfo['ship_id'])
         {
-            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowner']);
+            traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_notowner'], $template);
         }
     }
 
     if ($num_traderoutes >= $max_traderoutes_player && is_null ($editroute))
     {
-        traderoute_die ($db, $lang, $langvars, $bntreg, '<p>' . $langvars['l_tdr_maxtdr'] . '<p>');
+        traderoute_die ($db, $lang, $langvars, $bntreg, '<p>' . $langvars['l_tdr_maxtdr'] . '<p>', $template);
     }
 
     echo "<p><font size=3 color=blue><strong>";
