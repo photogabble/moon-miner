@@ -41,7 +41,7 @@ if ($playerinfo['dev_emerwarp'] > 0)
     $variables['dest_sector'] = $dest_sector;
 }
 
-// $variables['body_class'] = 'emerwarp'; // No special css used for this page yet
+$variables['body_class'] = 'bnt'; // No special css used for this page yet
 $variables['playerinfo_dev_emerwarp'] = $playerinfo['dev_emerwarp'];
 $variables['linkback'] = array ("fulltext"=>$langvars['l_global_mmenu'], "link"=>"main.php");
 
