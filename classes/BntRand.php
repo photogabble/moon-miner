@@ -30,7 +30,7 @@ class BntRand
 {
     static function sslRand ($min = 0, $max = 0x7FFFFFFF)
     {
-        if (!function_exists ('opensslRandom_pseudo_bytes'))
+        if (!function_exists ('openssl_random_pseudo_bytes'))
         {
             return false; // Open ssl is not available
         }
@@ -47,7 +47,7 @@ class BntRand
             $filter = (int) (1 << $bits) - 1; // Set all lower bits to 1
             do
             {
-                $feed = opensslRandom_pseudo_bytes ($bytes);
+                $feed = openssl_random_pseudo_bytes ($bytes);
                 if ($feed === false || strlen ($feed) != $bytes)
                 {
                     return false; // Unable to generate sufficient bytes
