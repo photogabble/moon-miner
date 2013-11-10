@@ -1,3 +1,7 @@
+TheKabal (10 November 2013)
+--------------------------------------
+Fixes for standalone CSS throughout the game - All pages now pull the correct CSS for their page
+
 TheKabal (27 October 2013)
 --------------------------------------
 Removed dozens of global variables that were not needed any more

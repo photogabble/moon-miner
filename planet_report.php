@@ -26,7 +26,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('main', 'planet', 'port', 'co
 $title = $langvars['l_pr_title'];
 include './header.php';
 
-$body_class = 'planet';
+$body_class = 'bnt';
 echo "<body class=" . $body_class . "><br>";
 
 $preptype = null;

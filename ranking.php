@@ -22,7 +22,7 @@ include './global_includes.php';
 // Always make sure we are using empty vars before use.
 $variables = null;
 
-$variables['body_class'] = 'ranking';
+$variables['body_class'] = 'bnt';
 $variables['lang'] = $lang;
 $variables['link'] = "ranking.php";
 

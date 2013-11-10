@@ -38,6 +38,7 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ibank_accounts WHERE ship_id
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $account = $result->fields;
 
+echo "<body class='" . $body_class . "'>";
 echo "<center>";
 echo '<img src="' . $active_template . 'images/div1.png" alt="" style="width: 600px; height:21px">';
 echo '<div style="width:600px; max-width:600px;" class="igb">';

@@ -1,4 +1,5 @@
 <?php
+// This file is used for styling *both* the faq and the new player guide.
 require_once '../../../vendor/autoload.php';           // Load the auto-loader
 ob_start (array('BntCompress', 'compress'));
 

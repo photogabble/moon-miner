@@ -37,6 +37,8 @@ include './header.php';
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('global_funcs'));
+echo "<body class='" . $body_class . "'";
+
 ?>
 <table>
   <tbody>

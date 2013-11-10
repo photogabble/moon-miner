@@ -21,7 +21,7 @@ include './global_includes.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
-$body_class = 'preset';
+$body_class = 'bnt';
 $langvars = BntTranslate::load ($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 include './header.php';

@@ -444,7 +444,7 @@ if ($sectorinfo['port_type'] != "none" && strlen($sectorinfo['port_type']) >0)
 {
     echo "<div style='color:#fff; text-align:center; font-size:14px;'>\n";
     echo "{$langvars['l_tradingport']}:&nbsp;<span style='color:#0f0;'>". ucfirst (BntPorts::getType ($sectorinfo['port_type'], $langvars)) ."</span>\n";
-    echo "<br>\n";
+    echo "<br><br>\n";
     echo "<a class='new_link' style='font-size:14px;' href='port.php' title='Dock with Space Port'><img style='width:100px; height:70px;' class='mnu' src='" . $active_template . "images/space_station_port.png' alt='Space Station Port'></a>\n";
     echo "</div>\n";
 }
