@@ -37,7 +37,7 @@ body.device td { color:white; font-size:1.1em; padding:3px}
 body.device th { background-color:#500050; text-align:left}
 body.device tr:nth-child(even) { background-color:#300030}
 body.device tr:nth-child(odd) { background-color:#400040}
-body.error { background: url(../images/error.jpg) no-repeat center center fixed; -webkit-background-size: cover; -o-background-size: cover; background-size: cover}
+body.error { background: url(../images/error.jpg) no-repeat center center fixed; background-size: cover}
 body.faq a { color:#ffffff; text-decoration: none}
 body.faq { color:#c0c0c0; font-size:14px; height:14px}
 body.faq table { border:0px; width:100%; border-spacing:0px}
