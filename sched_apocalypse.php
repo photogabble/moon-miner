@@ -34,11 +34,11 @@ if ($reccount > 200)
     $chance = 7; // Increase the chance it will happen if we have lots of planets meeting the criteria
 }
 
-$affliction = mt_rand (1, $chance); // The chance something bad will happen
+$affliction = BntRand::betterRand (1, $chance); // The chance something bad will happen
 if ($doomsday && $affliction < 3 && $reccount > 0)
 {
     $i = 1;
-    $targetnum = mt_rand (1, $reccount);
+    $targetnum = BntRand::betterRand (1, $reccount);
     while (!$doomsday->EOF)
     {
         if ($i == $targetnum)

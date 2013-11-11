@@ -98,9 +98,9 @@ for ($i = 1; $i <= $loops; $i++)
     for ($j = $start; $j <= $finish; $j++)
     {
         $sector_id = $j;
-        $distance = intval (mt_rand (1, $universe_size));
-        $angle1 = mt_rand (0, 180);
-        $angle2 = mt_rand (0, 90);
+        $distance = intval (BntRand::betterRand (1, $universe_size));
+        $angle1 = BntRand::betterRand (0, 180);
+        $angle2 = BntRand::betterRand (0, 90);
         $insert .= "($sector_id, '1', $angle1, $angle2, $distance)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }

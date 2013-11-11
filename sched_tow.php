@@ -38,7 +38,7 @@ do
         {
             $row = $res->fields;
             echo "...towing $row[character_name] out of $row[sector] ...";
-            $newsector = mt_rand (0, $sector_max - 1);
+            $newsector = BntRand::betterRand (0, $sector_max - 1);
             echo " to sector $newsector.<br>";
             $query = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, cleared_defences=' ' WHERE ship_id=?", array ($newsector, $row['ship_id']));
             BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);

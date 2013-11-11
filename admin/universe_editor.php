@@ -42,7 +42,7 @@ if ($action == "doexpand")
         while (!$result->EOF)
         {
             $row = $result->fields;
-            $distance = mt_rand (1, $radius);
+            $distance = BntRand::betterRand (1, $radius);
             $resx = $db->Execute ("UPDATE {$db->prefix}universe SET distance = ? WHERE sector_id = ?", array ($distance, $row['sector_id']));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 

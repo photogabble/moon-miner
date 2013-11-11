@@ -60,7 +60,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
 
     // Run through orders
     $furcount++;
-    if (mt_rand (1, 5) > 1)                                 // 20% Chance of not moving at all
+    if (BntRand::betterRand (1, 5) > 1)                                 // 20% Chance of not moving at all
     {
         // Orders = 0 Sentinel
         if ($playerinfo['orders'] == 0)
@@ -229,7 +229,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
         {
             $furcount3++;
             // LET SEE IF WE GO HUNTING THIS ROUND BEFORE WE DO ANYTHING ELSE
-            $hunt = mt_rand (0, 3);                               // 25% CHANCE OF HUNTING
+            $hunt = BntRand::betterRand (0, 3);                               // 25% CHANCE OF HUNTING
             // Uncomment below for Debugging
             // $hunt = 0;
             if ($hunt == 0)

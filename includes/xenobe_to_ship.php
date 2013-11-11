@@ -75,7 +75,7 @@ function xenobe_to_ship ($db, $ship_id)
     if ($targetinfo['dev_emerwarp'] > 0)
     {
         BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_EWD, "Xenobe $playerinfo[character_name]");
-        $dest_sector = mt_rand (0, $sector_max);
+        $dest_sector = BntRand::betterRand (0, $sector_max);
         $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $targetinfo['ship_id']));
         BntDb::logDbErrors ($db, $result_warp, __LINE__, __FILE__);
         return;
@@ -445,7 +445,7 @@ function xenobe_to_ship ($db, $ship_id)
             }
 
             $ship_value = $upgrade_cost*(round (pow ($upgrade_factor, $targetinfo['hull']))+round (pow ($upgrade_factor, $targetinfo['engines']))+round (pow ($upgrade_factor, $targetinfo['power']))+round (pow ($upgrade_factor, $targetinfo['computer']))+round (pow ($upgrade_factor, $targetinfo['sensors']))+round (pow ($upgrade_factor, $targetinfo['beams']))+round (pow ($upgrade_factor, $targetinfo['torp_launchers']))+round (pow ($upgrade_factor, $targetinfo['shields']))+round (pow ($upgrade_factor, $targetinfo['armor']))+round (pow ($upgrade_factor, $targetinfo['cloak'])));
-            $ship_salvage_rate = mt_rand (10, 20);
+            $ship_salvage_rate = BntRand::betterRand (10, 20);
             $ship_salvage = $ship_value * $ship_salvage_rate / 100;
             BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Attack successful, $targetinfo[character_name] was defeated and salvaged for $ship_salvage credits.");
             $resd = $db->Execute ("UPDATE {$db->prefix}ships SET ship_ore = ship_ore + ?, ship_organics = ship_organics + ?, ship_goods = ship_goods + ?, credits = credits + ? WHERE ship_id = ?;", array ($salv_ore, $salv_organics, $salv_goods, $ship_salvage, $playerinfo['ship_id']));
@@ -537,7 +537,7 @@ function xenobe_to_ship ($db, $ship_id)
             }
 
             $ship_value = $upgrade_cost*(round (pow ($upgrade_factor, $playerinfo['hull']))+round (pow ($upgrade_factor, $playerinfo['engines']))+round (pow ($upgrade_factor, $playerinfo['power']))+round (pow ($upgrade_factor, $playerinfo['computer']))+round (pow ($upgrade_factor, $playerinfo['sensors']))+round (pow ($upgrade_factor, $playerinfo['beams']))+round (pow ($upgrade_factor, $playerinfo['torp_launchers']))+round (pow ($upgrade_factor, $playerinfo['shields']))+round (pow ($upgrade_factor, $playerinfo['armor']))+round (pow ($upgrade_factor, $playerinfo['cloak'])));
-            $ship_salvage_rate = mt_rand (10, 20);
+            $ship_salvage_rate = BntRand::betterRand (10, 20);
             $ship_salvage = $ship_value * $ship_salvage_rate / 100;
             BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_WIN, "Xenobe $playerinfo[character_name]|$armor_lost|$fighters_lost");
             BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_RAW, "You destroyed the Xenobe ship and salvaged $salv_ore units of ore, $salv_organics units of organics, $salv_goods units of goods, and salvaged $ship_salvage_rate% of the ship for $ship_salvage credits.");

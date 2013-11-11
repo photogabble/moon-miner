@@ -44,7 +44,7 @@ function xenobe_hunter ($db)
 
     // Choose a target from the top player list
     $i = 1;
-    $targetnum = mt_rand (1, $topnum);
+    $targetnum = BntRand::betterRand (1, $topnum);
     while (!$res->EOF)
     {
         if ($i == $targetnum)

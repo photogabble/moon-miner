@@ -392,7 +392,7 @@ function planet_combat ($db, $langvars)
         $free_organics = round ($playerinfo['ship_organics'] / 2 );
         $free_goods = round ($playerinfo['ship_goods'] / 2 );
         $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $playerinfo['hull'])) + round (pow ($upgrade_factor, $playerinfo['engines'])) + round (pow ($upgrade_factor, $playerinfo['power'])) + round (pow ($upgrade_factor, $playerinfo['computer'])) + round (pow ($upgrade_factor, $playerinfo['sensors'])) + round (pow ($upgrade_factor, $playerinfo['beams'])) + round (pow ($upgrade_factor, $playerinfo['torp_launchers'])) + round (pow ($upgrade_factor, $playerinfo['shields'])) + round (pow ($upgrade_factor, $playerinfo['armor'])) + round (pow ($upgrade_factor, $playerinfo['cloak'])));
-        $ship_salvage_rate = mt_rand (0, 10);
+        $ship_salvage_rate = BntRand::betterRand (0, 10);
         $ship_salvage = $ship_value * $ship_salvage_rate / 100;
         echo "<br><center><font size='+2' COLOR='red'><strong>" . $langvars['l_cmb_yourshipdestroyed'] . "</font></strong></center><br>";
         if ($playerinfo['dev_escapepod'] == "Y")
@@ -455,7 +455,7 @@ function planet_combat ($db, $langvars)
         $self_tech = BntCalcLevels::avgTech ($playerinfo);
         $target_tech = round (BntCalcLevels::avgTech ($ownerinfo));
 
-        $roll = mt_rand (0, (integer) $target_tech);
+        $roll = BntRand::betterRand (0, (integer) $target_tech);
         if ($roll > $self_tech)
         {
             // Reset Planet Assets.

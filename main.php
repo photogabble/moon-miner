@@ -578,7 +578,7 @@ if ($playerinfo['sector'] != 0)
             {
                 $success = 95;
             }
-            $roll = mt_rand (1, 100);
+            $roll = BntRand::betterRand (1, 100);
 
             if ($roll < $success)
             {

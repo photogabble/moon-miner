@@ -657,7 +657,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 $success = 95;
             }
 
-            $roll = mt_rand (1, 100);
+            $roll = BntRand::betterRand (1, 100);
             if ($roll > $success)
             {
                 // If scan fails - inform both player and target.
@@ -683,7 +683,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 echo "<table>";
                 echo "<tr><td>" . $langvars['l_commodities'] . ":</td><td></td>";
                 echo "<tr><td>" . $langvars['l_organics'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_organics = number_format (round ($planetinfo['organics'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -695,7 +695,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
 
                 echo "<tr><td>" . $langvars['l_ore'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_ore = number_format (round ($planetinfo['ore'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -707,7 +707,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
 
                 echo "<tr><td>" . $langvars['l_goods'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_goods = number_format (round ($planetinfo['goods'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -718,7 +718,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_energy'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_energy = number_format (round ($planetinfo['energy'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -729,7 +729,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_colonists'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_colonists = number_format (round ($planetinfo['colonists'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -740,7 +740,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>". $langvars['l_credits'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_credits = number_format (round ($planetinfo['credits'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -753,7 +753,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
                 echo "<tr><td>" . $langvars['l_defense'] . ":</td><td></td>";
                 echo "<tr><td>" . $langvars['l_base'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     echo "<td>$planetinfo[base]</td></tr>";
@@ -764,7 +764,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
 
                 echo "<tr><td>" . $langvars['l_base'] . " " .  $langvars['l_torps'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_base_torp = number_format (round ($planetinfo['torps'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -775,7 +775,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_fighters'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_planet_fighters = number_format (round ($planetinfo['fighters'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -786,7 +786,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_beams'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_beams = number_format (round ($ownerinfo['beams'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -797,7 +797,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_torp_launch'] . ":</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_torp_launchers = number_format (round ($ownerinfo['torp_launchers'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -808,7 +808,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "<tr><td>" . $langvars['l_shields'] . "</td>";
-                $roll = mt_rand (1, 100);
+                $roll = BntRand::betterRand (1, 100);
                 if ($roll < $success)
                 {
                     $sc_shields = number_format (round ($ownerinfo['shields'] * $sc_error / 100), 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
@@ -819,7 +819,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo "<td>???</td></tr>";
                 }
                 echo "</table><br>";
-//            $roll=mt_rand (1, 100);
+//            $roll=BntRand::betterRand (1, 100);
 //            if ($ownerinfo[sector] == $playerinfo[sector] && $ownerinfo[on_planet] == 'Y' && $roll < $success)
 //            {
 //               echo "<strong>" . $ownerinfo['character_name'] . " " . $langvars['l_planet_ison'] . "</strong><br>";
@@ -841,7 +841,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                         $success = 95;
                     }
 
-                    $roll = mt_rand (1, 100);
+                    $roll = BntRand::betterRand (1, 100);
 
                     if ($roll < $success)
                     {

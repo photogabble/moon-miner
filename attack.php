@@ -104,8 +104,8 @@ else
         $success = 95;
     }
     $flee = (10 - $targetinfo['engines'] + $playerinfo['engines']) * 5;
-    $roll = mt_rand (1, 100);
-    $roll2 = mt_rand (1, 100);
+    $roll = BntRand::betterRand (1, 100);
+    $roll2 = BntRand::betterRand (1, 100);
 
     $res = $db->Execute ("SELECT allow_attack, {$db->prefix}universe.zone_id FROM {$db->prefix}zones, " .
                         "{$db->prefix}universe WHERE sector_id = ? AND {$db->prefix}zones.zone_id = " .
@@ -147,13 +147,13 @@ else
         {
             $chance = 0;
         }
-        $random_value = mt_rand (1, 100);
+        $random_value = BntRand::betterRand (1, 100);
 
         if ($targetinfo['dev_emerwarp'] > 0 && $random_value > $chance)
         {
             // Need to change warp destination to random sector in universe
             $rating_change = round ($targetinfo['rating'] * .1);
-            $dest_sector = mt_rand (1, $sector_max - 1);
+            $dest_sector = BntRand::betterRand (1, $sector_max - 1);
             $resx = $db->Execute ("UPDATE {$db->prefix}ships SET turns = turns - 1, turns_used = turns_used + 1, " .
                                   "rating = rating - ? " .
                                  "WHERE ship_id = ?;", array ($rating_change, $playerinfo['ship_id']));
@@ -683,7 +683,7 @@ else
                         $salv_organics = 0;
                     }
                     $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $targetinfo['hull'])) + round (pow ($upgrade_factor, $targetinfo['engines'])) + round (pow ($upgrade_factor, $targetinfo['power'])) + round (pow ($upgrade_factor, $targetinfo['computer'])) + round (pow ($upgrade_factor, $targetinfo['sensors'])) + round (pow ($upgrade_factor, $targetinfo['beams'])) + round (pow ($upgrade_factor, $targetinfo['torp_launchers'])) + round (pow ($upgrade_factor, $targetinfo['shields'])) + round (pow ($upgrade_factor, $targetinfo['armor'])) + round (pow ($upgrade_factor, $targetinfo['cloak'])));
-                    $ship_salvage_rate = mt_rand (10, 20);
+                    $ship_salvage_rate = BntRand::betterRand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
                     $langvars['l_att_ysalv'] = str_replace ("[salv_ore]", $salv_ore, $langvars['l_att_ysalv']);
@@ -808,7 +808,7 @@ else
                         $salv_organics = 0;
                     }
                     $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $playerinfo['hull'])) + round (pow ($upgrade_factor, $playerinfo['engines'])) + round (pow ($upgrade_factor, $playerinfo['power'])) + round (pow ($upgrade_factor, $playerinfo['computer'])) + round (pow ($upgrade_factor, $playerinfo['sensors'])) + round (pow ($upgrade_factor, $playerinfo['beams'])) + round (pow ($upgrade_factor, $playerinfo['torp_launchers'])) + round (pow ($upgrade_factor, $playerinfo['shields'])) + round (pow ($upgrade_factor, $playerinfo['armor'])) + round (pow ($upgrade_factor, $playerinfo['cloak'])));
-                    $ship_salvage_rate = mt_rand (10, 20);
+                    $ship_salvage_rate = BntRand::betterRand (10, 20);
                     $ship_salvage = $ship_value * $ship_salvage_rate / 100 + $salv_credits;  // Added credits for xenobe - 0 if normal player
 
                     $langvars['l_att_salv'] = str_replace ("[salv_ore]", $salv_ore, $langvars['l_att_salv']);

@@ -312,7 +312,7 @@ function xenobe_to_planet ($db, $planet_id)
         $free_organics = round ($playerinfo['ship_organics'] / 2);
         $free_goods = round ($playerinfo['ship_goods'] / 2);
         $ship_value = $upgrade_cost * (round (pow ($upgrade_factor, $playerinfo['hull'])) + round (pow ($upgrade_factor, $playerinfo['engines']))+round (pow ($upgrade_factor, $playerinfo['power'])) + round (pow ($upgrade_factor, $playerinfo['computer'])) + round (pow ($upgrade_factor, $playerinfo['sensors']))+round (pow ($upgrade_factor, $playerinfo['beams'])) + round (pow ($upgrade_factor, $playerinfo['torp_launchers'])) + round (pow ($upgrade_factor, $playerinfo['shields'])) + round (pow ($upgrade_factor, $playerinfo['armor'])) + round (pow ($upgrade_factor, $playerinfo['cloak'])));
-        $ship_salvage_rate = mt_rand (10, 20);
+        $ship_salvage_rate = BntRand::betterRand (10, 20);
         $ship_salvage = $ship_value * $ship_salvage_rate / 100;
         $fighters_lost = $planetinfo['fighters'] - $targetfighters;
 

@@ -51,7 +51,7 @@ function xenobe_move ($db)
             $zonerow = $zoneres->fields;
             if ($zonerow['allow_attack'] == "Y") // Dest link must allow attacking
             {
-                $setlink = mt_rand (0, 2);                        // 33% Chance of replacing destination link with this one
+                $setlink = BntRand::betterRand (0, 2);                        // 33% Chance of replacing destination link with this one
                 if ($setlink == 0 || !$targetlink > 0)           // Unless there is no dest link, choose this one
                 {
                     $targetlink = $row['link_dest'];
@@ -63,7 +63,7 @@ function xenobe_move ($db)
 
     if (!$targetlink > 0) // If there is no acceptable link, use a worm hole.
     {
-        $wormto = mt_rand (1, ($sector_max - 15));  // Generate a random sector number
+        $wormto = BntRand::betterRand (1, ($sector_max - 15));  // Generate a random sector number
         $limitloop = 1;                             // Limit the number of loops
         while (!$targetlink > 0 && $limitloop < 15)
         {

@@ -117,8 +117,13 @@ class BntRand
         return $int;
     }
 
-    static function betterRand ($min = 0, $max = 0x7FFFFFFF)
+    static function betterRand ($min = 0, $max = null)
     {
+        if ($max === null)
+        {
+            $max = mt_getrandmax();
+        }
+
         $output = BntRand::sslRand ($min, $max);
         if ($output !== false)
         {

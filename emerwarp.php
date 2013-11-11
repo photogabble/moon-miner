@@ -33,7 +33,7 @@ $playerinfo = $result->fields;
 
 if ($playerinfo['dev_emerwarp'] > 0)
 {
-    $dest_sector = mt_rand (0, $sector_max - 1);
+    $dest_sector = BntRand::betterRand (0, $sector_max - 1);
     $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $playerinfo['ship_id']));
     BntDb::logDbErrors ($db, $result_warp, __LINE__, __FILE__);
     BntLogMove::writeLog ($db, $playerinfo['ship_id'], $dest_sector);

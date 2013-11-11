@@ -85,7 +85,7 @@ do
 {
     if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
     {
-        $add_more = mt_rand (1, $max_planets_sector); // Add one to a random number of planets in each sector
+        $add_more = BntRand::betterRand (1, $max_planets_sector); // Add one to a random number of planets in each sector
         if (($add_more + $p_add) > $variables['nump']) // Ensure that we don't add more than the total amount needed
         {
             $add_more = $variables['nump'] - $p_add; // Lower the number to add to the amount that is left
@@ -178,8 +178,8 @@ for ($i = 1; $i <= $loops; $i++)
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (mt_rand (1, $sector_max - 1));
-        $link2 = intval (mt_rand (1, $sector_max - 1));
+        $link1 = intval (BntRand::betterRand (1, $sector_max - 1));
+        $link2 = intval (BntRand::betterRand (1, $sector_max - 1));
         $insert .= "($link1, $link2)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
@@ -220,8 +220,8 @@ for ($i = 1; $i <= $loops; $i++)
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (mt_rand (1, $sector_max - 1));
-        $link2 = intval (mt_rand (1, $sector_max - 1));
+        $link1 = intval (BntRand::betterRand (1, $sector_max - 1));
+        $link2 = intval (BntRand::betterRand (1, $sector_max - 1));
         $insert .= "($link1, $link2), ($link2, $link1)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }

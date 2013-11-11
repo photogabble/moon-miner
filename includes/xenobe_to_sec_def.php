@@ -91,7 +91,7 @@ function xenobe_to_sec_def ($db, $langvars)
             $totalmines = $total_sector_mines;
             if ($totalmines > 1)
             {
-                $roll = mt_rand (1 , $totalmines);
+                $roll = BntRand::betterRand (1 , $totalmines);
             }
             else
             {
