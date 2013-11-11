@@ -2,6 +2,7 @@ This file is used to keep track of things that we intend on doing, and all accep
 
 TODO denotes an item that we intend to work on. FREQ indicates a feature request.
 
+TODO: Add encryption on submission for admin panel and login
 TODO: Redo scheduler to be a subdirectory (like admin) with activated scheduler events
 TODO: Language translations for all elements in scheduler
 TODO: Language translations for all elements in mail.php
