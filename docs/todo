@@ -4,6 +4,8 @@ TODO denotes an item that we intend to work on. FREQ indicates a feature request
 
 TODO: Redo scheduler to be a subdirectory (like admin) with activated scheduler events
 TODO: Language translations for all elements in scheduler
+TODO: Language translations for all elements in mail.php
+TODO: Merge mail.php and mailto.php
 TODO: Cleanup functions and calls in scheduler
 TODO: Eliminate $color_line variables
 TODO: Finish include -> class conversion (All files in includes/ need to be converted to class/methods and moved to classes/)
