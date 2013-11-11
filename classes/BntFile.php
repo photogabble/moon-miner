@@ -17,7 +17,8 @@
 //
 // File: classes/BntFile.php
 //
-// Function for importing values from an INI file into the database.
+// This class handles direct file functions for BNT. Included is iniToDb, a function
+// for importing values from an INI file into the database.
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntFile.php')) // Prevent direct access to this file
 {

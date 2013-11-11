@@ -17,7 +17,9 @@
 //
 // File: classes/BntRand.php
 //
-// Function for importing values from an INI file into the database.
+// mt_rand is often not the best source for random bytes, especially for secure uses like passwords
+// This class is a drop-in replacement for mt_rand that uses openssl_random_psuedo_bytes or
+// mcrypt_create_iv if they are available (in that order), or if not, it falls back to mt_rand
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntRand.php')) // Prevent direct access to this file
 {
