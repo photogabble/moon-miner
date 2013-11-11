@@ -961,6 +961,7 @@ l_mail_sent                             = "A link to reset your password has bee
 l_mail_topic                            = "[game_name] Password";
 l_mail_message                          = "Greetings,\r\n\r\nSomeone from the IP address [ip] requested that your password for [game_name] be reset.\r\n\r\nThe link to reset your password is: [link]\r\n\r\nThank you\r\n\r\nThe [game_name] web team.";
 l_mail_reset_message                    = "Greetings,\r\n\r\nSomeone from the IP address [ip] reset your password for [game_name].Thank you\r\n\r\nThe [game_name] web team.";
+l_mail_admin_denied                     = "Admin passwords cannot be reset through the game. Please change your configuration instead.";
 
 [mailto]
 l_sendm_title                           = "Send Message";

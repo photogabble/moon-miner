@@ -850,6 +850,7 @@ l_mail_noplayer                         = "¡No existe ese jugador! - Crea un nu
 l_mail_sent                             = "La contraseña ha sido enviada a";
 l_mail_topic                            = "Contraseña de [game_name]";
 l_mail_message                          = "Saludos,\r\n\r\nAlguien desde la dirección IP [ip] ha solicitado que tu contraseña para [game_name] te sea enviada.\r\n\r\nTu contraseña es: [pass]\r\n\r\nGracias\r\n\r\nEl equipo web de [game_name].";
+l_mail_admin_denied                     = "Contraseñas de administrador no se pueden restablecer a través del juego. Por favor cambia la configuración en su lugar.";
 
 [mailto]
 l_sendm_title                           = "Enviar Mensaje";

@@ -1,5 +1,6 @@
 TheKabal (10 November 2013)
 --------------------------------------
+Admin password should not be able to be set to reset within the game
 mt_rand is not the best source for strong random numbers. Where available, we now use either openssl or mcrypt as rand sources. If they aren't we fall back to mt_rand.
 Fixes for standalone CSS throughout the game - All pages now pull the correct CSS for their page
 

@@ -850,6 +850,7 @@ l_mail_noplayer                         = "Kein solcher Spieler! - Erstelle eine
 l_mail_sent                             = "Das Passwort wurde gesendet an";
 l_mail_topic                            = "[game_name] Passwort";
 l_mail_message                          = "Hallo,\r\n\r\nJemand mit der IP [ip] hat ein Passwort f&uuml;r [game_name] angefordert, es wurde dir zugesandt.\r\n\r\nDein Passwort lautet: [pass]\r\n\r\nThank you\r\n\r\nDas [game_name] -Team.";
+l_mail_admin_denied                     = "Admin Passwörter können nicht durch das Spiel zurückgesetzt werden. Bitte ändern Sie Ihre Konfiguration statt.";
 
 [mailto]
 l_sendm_title                           = "Nachricht senden";

@@ -31,33 +31,51 @@ BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 
 if (!$result->EOF)
 {
-    $playerinfo = $result->fields;
-    $langvars['l_mail_message'] = str_replace ("[link]", sha1 ($playerinfo['password']), $langvars['l_mail_message']);
-    $langvars['l_mail_message'] = str_replace ("[name]", $playerinfo['character_name'], $langvars['l_mail_message']);
-    $langvars['l_mail_message'] = str_replace ("[ip]", $ip, $langvars['l_mail_message']);
-    $langvars['l_mail_message'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_message']);
+    if ($mail == $admin_mail)
+    {
+        echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>";
+        echo $langvars['l_mail_admin_denied'];
+        echo "</div><br>\n";
 
-    // Some reason \r\n is broken, so replace them now.
-    $langvars['l_mail_message'] = str_replace ('\r\n', "\r\n", $langvars['l_mail_message']);
+        if (isset ($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
+        {
+            echo str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
+        }
+        else
+        {
+            echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+        }
+    }
+    else
+    {
+        $playerinfo = $result->fields;
+        $langvars['l_mail_message'] = str_replace ("[link]", sha1 ($playerinfo['password']), $langvars['l_mail_message']);
+        $langvars['l_mail_message'] = str_replace ("[name]", $playerinfo['character_name'], $langvars['l_mail_message']);
+        $langvars['l_mail_message'] = str_replace ("[ip]", $ip, $langvars['l_mail_message']);
+        $langvars['l_mail_message'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_message']);
 
-    // Need to set the topic with the game name.
-    $langvars['l_mail_topic'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_topic']);
+        // Some reason \r\n is broken, so replace them now.
+        $langvars['l_mail_message'] = str_replace ('\r\n', "\r\n", $langvars['l_mail_message']);
 
-    $link_to_reset = "http://";
-    $link_to_reset .= ltrim ($gamedomain, ".");// Trim off the leading . if any
-    $link_to_reset .= $gamepath;
-    $link_to_reset .= "pwreset.php?code=" . substr (md5 ($playerinfo['password']), 5, 8);
+        // Need to set the topic with the game name.
+        $langvars['l_mail_topic'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_topic']);
 
-    // Recovery time is a timestamp at the time of recovery attempt, which is valid for 30 minutes
-    // After 30 minutes, it will be cleared to null by scheduler. If it is used, it will also be cleared.
+        $link_to_reset = "http://";
+        $link_to_reset .= ltrim ($gamedomain, ".");// Trim off the leading . if any
+        $link_to_reset .= $gamepath;
+        $link_to_reset .= "pwreset.php?code=" . substr (md5 ($playerinfo['password']), 5, 8);
 
-    $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=? WHERE email = ?;", array (time(), $playerinfo['email']));
-    BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__);
+        // Recovery time is a timestamp at the time of recovery attempt, which is valid for 30 minutes
+        // After 30 minutes, it will be cleared to null by scheduler. If it is used, it will also be cleared.
 
-    mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'] . "\r\n\r\n{$link_to_reset}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
-    echo "<div style='color:#fff; text-align:left;'>" . $langvars['l_mail_sent'] . " <span style='color:#0f0;'>{$mail}</span></div>\n";
-    echo "<br>\n";
-    echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
+        $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=? WHERE email = ?;", array (time(), $playerinfo['email']));
+        BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__);
+
+        mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'] . "\r\n\r\n{$link_to_reset}\r\n", "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
+        echo "<div style='color:#fff; text-align:left;'>" . $langvars['l_mail_sent'] . " <span style='color:#0f0;'>{$mail}</span></div>\n";
+        echo "<br>\n";
+        echo "<div style='font-size:14px; font-weight:bold; color:#f00;'>Please Note: If you do not receive your emails within 5 to 10 mins of it being sent, please notify us as soon as possible either by email or on the forums.<br>DO NOT CREATE ANOTHER ACCOUNT, YOU MAY GET BANNED.</div>\n";
+    }
 }
 else
 {
@@ -67,7 +85,7 @@ else
     echo "<br>\n";
     if (isset ($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
-        echo str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mlogin']);
+        echo str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
     }
     else
     {

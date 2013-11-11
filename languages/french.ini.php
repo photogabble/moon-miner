@@ -851,6 +851,7 @@ l_mail_noplayer                         = "Ce joueur n'existe pas! - Créer un n
 l_mail_sent                             = "Le mot de passe a été envoyé à";
 l_mail_topic                            = "Mot de passe pour [game_name]";
 l_mail_message                          = "Salutations,\r\n\r\nQuelqu'un avec l'ip [ip] a demandé que votre mot de passe pour Blacknova Traders soit envoyé à cette adresse.\r\n\r\nVotre mot de passe est: [pass]\r\n\r\nMerci\r\n\r\nL'équipe de Blacknova Traders.";
+l_mail_admin_denied                     = "Mots de passe admin ne peuvent pas être réinitialisées par le match. S'il vous plaît changer votre configuration à la place.";
 
 [mailto]
 l_sendm_title                           = "Envoyer un message";
