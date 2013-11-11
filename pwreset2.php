@@ -118,10 +118,11 @@ if (!$result->EOF && $result != false)
             $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
             BntDb::logDbErrors ($db, $recovery_update_result, __LINE__, __FILE__);
 
-            echo $langvars['l_pwr_success'] . "<br>";
+            echo $langvars['l_pwr_success'] . "<br><br>";
+            echo str_replace ("[here]", "<a href='main.php'>" . $langvars['l_here'] . "</a>", $langvars['l_global_mmenu']);
 
             // Redirect to game
-            header('Refresh: 5;url=main.php');
+            header ('Refresh: 5;url=main.php');
         }
     }
 }
