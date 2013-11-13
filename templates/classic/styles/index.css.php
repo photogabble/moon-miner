@@ -28,6 +28,7 @@ header ('ETag: "' . $etag . '"');
 .index-welcome { font-size:1.2em; text-align:center}
 a { outline:none; text-decoration:none}
 a.nocolor { color:inherit }
+a.new_link { color:#000483;}
 body.index { background-color:#929292; background-image:none; color:#000; font-family: 'Ubuntu', Verdana, "DejaVu Sans", sans-serif; font-size:75%; text-align:center}
 dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
 div.navigation { display:table; margin: 0 auto}
