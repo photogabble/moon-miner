@@ -21,7 +21,6 @@
 <html lang="{$langvars['l_lang_attribute']}">
 <!-- START OF HEADER -->
   <head>
-    <meta charset="utf-8">
     <meta name="Description" content="A free online game - Open source, web game, with multiplayer space exploration">
     <meta name="Keywords" content="Free, online, game, Open source, web game, multiplayer, space, exploration, blacknova, traders">
     <meta name="Rating" content="General">
