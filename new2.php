@@ -165,9 +165,10 @@ if ($flag == 0)
         $langvars['l_new_message'] = str_replace ('\r\n', "\r\n", $langvars['l_new_message']);
 
         $link_to_game = "http://";
+        $gamedomain = BntSetPaths::setGamedomain ();
         $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
         //$link_to_game .= str_replace ($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
-        $link_to_game .= $gamepath;
+        $link_to_game .= BntSetPaths::setGamepath ();
         mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game", "From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
 
         BntLogMove::writeLog ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.

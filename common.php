@@ -198,8 +198,6 @@ BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 $langvars = null;
 
 $ip = $_SERVER['REMOTE_ADDR'];
-$gamepath = BntSetPaths::setGamepath ();
-$gamedomain = BntSetPaths::setGamedomain ();
 $template = new BntTemplate (); // Template API.
 $bntreg->bnttimer = $BenchmarkTimer;
 $bntreg->db = $db;
