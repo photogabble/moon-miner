@@ -1,3 +1,7 @@
+TheKabal (13 November 2013)
+--------------------------------------
+Update to move the loading of adodb's session2 out of global_includes, and into the classmap composer config. Also updating using php composer.phar update -o from now on.
+
 TheKabal (10 November 2013)
 --------------------------------------
 Admin password should not be able to be set to reset within the game
