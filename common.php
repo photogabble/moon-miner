@@ -197,7 +197,6 @@ BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 // We need language variables in every page, set them to a null value first.
 $langvars = null;
 
-$ip = $_SERVER['REMOTE_ADDR'];
 $template = new BntTemplate (); // Template API.
 $bntreg->bnttimer = $BenchmarkTimer;
 $bntreg->db = $db;

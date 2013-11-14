@@ -59,7 +59,6 @@ class BntLogin
                 // Check the cookie to see if username/password are empty - check password against database
                 if ($password_match == true)
                 {
-                    $ip = $_SERVER['REMOTE_ADDR'];
                     $stamp = date ("Y-m-d H:i:s");
                     $timestamp['now']  = (int) strtotime ($stamp);
                     $timestamp['last'] = (int) strtotime ($playerinfo['last_login']);
@@ -67,7 +66,7 @@ class BntLogin
                     // Update the players last_login every 60 seconds to cut back SQL Queries.
                     if ($timestamp['now'] >= ($timestamp['last'] +60))
                     {
-                        $update_llogin = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
+                        $update_llogin = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
                         BntDb::logDbErrors ($db, $update_llogin, __LINE__, __FILE__);
 
                         // Reset the last activity time on the session so that the session renews - this is the

@@ -143,7 +143,7 @@ if ($flag == 0)
     $hashed_pass = $hasher->HashPassword($makepass);
 
     $result2 = $db->Execute ("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
-                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $start_escape_pod, $start_scoop, $start_minedeflectors, $stamp, $ip, 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
+                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $start_escape_pod, $start_scoop, $start_minedeflectors, $stamp, $_SERVER['REMOTE_ADDR'], 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
     BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 
     if (!$result2)
@@ -159,7 +159,7 @@ if ($flag == 0)
 
         // To do: build a bit better "new player" message
         $langvars['l_new_message'] = str_replace ("[pass]", $makepass, $langvars['l_new_message']);
-        $langvars['l_new_message'] = str_replace ("[ip]", $ip, $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace ("[ip]", $_SERVER['REMOTE_ADDR'], $langvars['l_new_message']);
 
         // Some reason \r\n is broken, so replace them now.
         $langvars['l_new_message'] = str_replace ('\r\n', "\r\n", $langvars['l_new_message']);

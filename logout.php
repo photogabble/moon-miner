@@ -33,7 +33,7 @@ if (isset ($_SESSION['username']))
     $current_score = BntScore::updateScore ($db, $playerinfo['ship_id'], $bntreg);
 
     $langvars = BntTranslate::load ($db, $lang, array ('logout', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
-    BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $ip);
+    BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGOUT, $_SERVER['REMOTE_ADDR']);
     $langvars['l_logout_text'] = str_replace ("[name]", $_SESSION['username'], $langvars['l_logout_text']);
     $langvars['l_logout_text'] = str_replace ("[here]", "<a href='index.php'>" . $langvars['l_here'] . "</a>", $langvars['l_logout_text']);
 

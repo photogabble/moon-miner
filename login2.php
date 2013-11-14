@@ -67,7 +67,7 @@ $banned = 0;
 
 if (isset ($playerinfo) && $playerfound != false)
 {
-    $res = $db->Execute ("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array ($ip, $playerinfo['ip_address']));
+    $res = $db->Execute ("SELECT * FROM {$db->prefix}ip_bans WHERE ? LIKE ban_mask OR ? LIKE ban_mask;", array ($_SERVER['REMOTE_ADDR'], $playerinfo['ip_address']));
     BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     if ($res->RecordCount() != 0)
     {
@@ -91,9 +91,9 @@ if ($playerfound)
             if ($playerinfo['ship_destroyed'] == "N")
             {
                 // player's ship has not been destroyed
-                BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGIN, $ip);
+                BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_LOGIN, $_SERVER['REMOTE_ADDR']);
                 $stamp = date ("Y-m-d H:i:s");
-                $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $ip, $playerinfo['ship_id']));
+                $update = $db->Execute ("UPDATE {$db->prefix}ships SET last_login = ?, ip_address = ? WHERE ship_id = ?;", array ($stamp, $_SERVER['REMOTE_ADDR'], $playerinfo['ship_id']));
                 BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
 
                 // They have logged in successfully, so update their session ID as well
@@ -176,9 +176,9 @@ if ($playerfound)
     else
     {
         // password is incorrect
-        echo $langvars['l_login_4gotpw1a'] . "<br><br>" . $langvars['l_login_4gotpw1b'] . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw2a'] . "<br><br>" . $langvars['l_login_4gotpw2b'] . " <a href='index.php'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw3'] . " " . $ip . "...";
-        BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $ip);
-        BntAdminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{$ip}|{$_POST['email']}|{$_POST['pass']}");
+        echo $langvars['l_login_4gotpw1a'] . "<br><br>" . $langvars['l_login_4gotpw1b'] . " <a href='mail.php?mail=" . $_POST['email'] . "'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw2a'] . "<br><br>" . $langvars['l_login_4gotpw2b'] . " <a href='index.php'>" . $langvars['l_clickme'] . "</a> " . $langvars['l_login_4gotpw3'] . " " . $_SERVER['REMOTE_ADDR'] . "...";
+        BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_BADLOGIN, $_SERVER['REMOTE_ADDR']);
+        BntAdminLog::writeLog ($db, (1000 + LOG_BADLOGIN), "{$_SERVER['REMOTE_ADDR']}|{$_POST['email']}|{$_POST['pass']}");
     }
 }
 else
