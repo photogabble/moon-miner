@@ -48,7 +48,7 @@ else
 }
 
 // Suppress the news ticker on the IGB and index pages
-$news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_match ("/igb.php/i", $_SERVER['PHP_SELF'])));
+$news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_match ("/igb.php/i", $_SERVER['PHP_SELF']) || preg_match ("/new.php/i", $_SERVER['PHP_SELF'])));
 
 // Update counter
 $seconds_left = (integer) 0;

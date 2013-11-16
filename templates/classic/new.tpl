@@ -15,15 +15,20 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    File: new.tpl
+    File: index.tpl
 *}
 
 {extends file="layout.tpl"}
 {block name=title}{$langvars['l_welcome_bnt']}{/block}
 
 {block name=body}
+<div class="index-header"><img height="150" width="994" style="width:100%" class="index" src="templates/{$variables['template']}/images/header1.png" alt="{$langvars['l_bnt']}"></div>
+
+<div class="index-header-text">{$langvars['l_bnt']}</div>
+<br>
+<div class="index-welcome">
 <h1 style='text-align:center'>{$langvars['l_new_title']}</h1>
-<form action='new2.php{$variables['link']}' method='post'>
+<form action="login2.php{$variables['link']}" method="post">
     <dl class='twocolumn-form'>
         <dt style='padding:3px'><label for='username'>{$langvars['l_login_email']}:</label></dt>
         <dd style='padding:3px'><input type='email' id='username' name='username' size='20' maxlength='40' value='' placeholder='someone@example.com' style='width:200px'></dd>
@@ -32,8 +37,14 @@
         <dt style='padding:3px'><label for='character'>{$langvars['l_new_pname']}:</label></dt>
         <dd style='padding:3px'><input type='text' id='character' name='character' size='20' maxlength='20' value='' style='width:200px'></dd>
     </dl>
-    <br style='clear:both;'><br>
-    <div style='text-align:center'><input type='submit' value='{$langvars['l_submit']}'>&nbsp;<input type='reset' value='{$langvars['l_reset']}'><br><br>
-        {$langvars['l_new_info']}<br></div>
+<br style="clear:both">
+<div style="text-align:center">
+<span class="button green"><a class="nocolor" href="#" onclick="document.forms[0].submit();return false;"><span class="shine"></span>{$langvars['l_submit']}</a></span>
+<span class="button red"><a class="nocolor" href="#" onclick="document.forms[0].reset();return false;"><span class="shine"></span>{$langvars['l_reset']}</a></span>
+<div style="width: 0; height: 0; overflow: hidden;"><input type="submit" value="{$langvars['l_submit']}"></div> 
+</div>
 </form>
+<br>
+        {$langvars['l_new_info']}<br></div>
+<br>
 {/block}
