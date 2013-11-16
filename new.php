@@ -32,7 +32,7 @@ else
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index'));
+$langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'index', 'options'));
 
 $variables = null;
 $variables['lang'] = $lang;
@@ -45,6 +45,35 @@ $variables['template'] = $default_template; // Temporarily set the template to t
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";
 $langvars['container'] = "langvars";
+
+$variables['selected_lang'] = null;
+$lang_dir = new DirectoryIterator ('languages/');
+foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
+{
+    // This is to get around the issue of not having DirectoryIterator::getExtension.
+    $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
+
+    // If it is a PHP file, add it to the list of accepted language files
+    if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+    {
+        $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
+
+        // Select from the database and return the localized name of the language
+        $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
+        BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+        while ($result && !$result->EOF)
+        {
+            $row = $result->fields;
+            if ($lang_file == $_GET['lang'])
+            {
+                $variables['selected_lang'] = $lang_file; 
+            }
+            $variables['lang_name'][] = $row['value'];
+            $variables['lang_file'][] = $lang_file;
+            $result->MoveNext();
+        }
+    }
+}
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';

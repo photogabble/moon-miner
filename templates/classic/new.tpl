@@ -36,6 +36,16 @@
         <dd style='padding:3px'><input type='text' id='shipname' name='shipname' size='20' maxlength='20' value='' style='width:200px'></dd>
         <dt style='padding:3px'><label for='character'>{$langvars['l_new_pname']}:</label></dt>
         <dd style='padding:3px'><input type='text' id='character' name='character' size='20' maxlength='20' value='' style='width:200px'></dd>
+        <dt style='padding:3px'><label for='newlang'>{$langvars['l_opt_lang']}:</label></dt>
+        <dd style='padding:3px'><select name=newlang>
+        {for $i=0 to count($variables['lang_name']) -1}
+            {if $variables['lang_file'][$i] == $variables['selected_lang']}
+                <option value='{$variables['lang_file'][$i]}' selected>{$variables['lang_name'][$i]}</option>
+            {else}
+                <option value='{$variables['lang_file'][$i]}'>{$variables['lang_name'][$i]}</option>
+            {/if}
+        {/for}
+        </select></dd>
     </dl>
 <br style="clear:both">
 <div style="text-align:center">
