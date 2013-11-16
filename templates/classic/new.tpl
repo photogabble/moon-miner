@@ -28,7 +28,7 @@
 <br>
 <div class="index-welcome">
 <h1 style='text-align:center'>{$langvars['l_new_title']}</h1>
-<form action="login2.php{$variables['link']}" method="post">
+<form action="new2.php{$variables['link']}" method="post">
     <dl class='twocolumn-form'>
         <dt style='padding:3px'><label for='username'>{$langvars['l_login_email']}:</label></dt>
         <dd style='padding:3px'><input type='email' id='username' name='username' size='20' maxlength='40' value='' placeholder='someone@example.com' style='width:200px'></dd>
@@ -36,6 +36,8 @@
         <dd style='padding:3px'><input type='text' id='shipname' name='shipname' size='20' maxlength='20' value='' style='width:200px'></dd>
         <dt style='padding:3px'><label for='character'>{$langvars['l_new_pname']}:</label></dt>
         <dd style='padding:3px'><input type='text' id='character' name='character' size='20' maxlength='20' value='' style='width:200px'></dd>
+        <dt style='padding:3px'><label for='password'>{$langvars['l_login_pw']}:</label></dt>
+        <dd style='padding:3px'><input type='password' id='password' name='password' size='20' maxlength='20' value='' style='width:200px'></dd>
         <dt style='padding:3px'><label for='newlang'>{$langvars['l_opt_lang']}:</label></dt>
         <dd style='padding:3px'><select name=newlang>
         {for $i=0 to count($variables['lang_name']) -1}

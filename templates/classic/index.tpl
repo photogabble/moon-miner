@@ -50,7 +50,7 @@
 <dl class="twocolumn-form">
 <dt><label for="email">{$langvars['l_login_email']}</label></dt>
 <dd><input type="email" id="email" name="email" size="20" maxlength="40" placeholder="someone@example.com"></dd>
-<dt><label for="pass">{$langvars['l_login_pw']}</label></dt>
+<dt><label for="pass">{$langvars['l_login_pw']}:</label></dt>
 <dd><input type="password" id="pass" name="pass" size="20" maxlength="20"></dd>
 </dl>
 <br style="clear:both">

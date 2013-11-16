@@ -802,7 +802,7 @@ l_log_months_short_12                   = "Dez";
 [login]
 l_login_title                           = "Login";
 l_login_email                           = "E-mailadresse";
-l_login_pw                              = "Passwort:";
+l_login_pw                              = "Passwort";
 l_login_newp                            = "Wenn Du ein neuer Spieler bist, dann klicke [here].";
 l_login_prbs                            = "Probleme?";
 l_login_emailus                         = "Mail uns";

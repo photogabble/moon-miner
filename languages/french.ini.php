@@ -803,7 +803,7 @@ l_log_months_short_12                   = "Déc";
 [login]
 l_login_title                           = "Connection";
 l_login_email                           = "Adresse E-mail";
-l_login_pw                              = "Mot de passe:";
+l_login_pw                              = "Mot de passe";
 l_login_newp                            = "Si vous êtes un nouveau joueur, cliquez [here].";
 l_login_prbs                            = "Problèmes?";
 l_login_emailus                         = "Écrivez nous";

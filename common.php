@@ -32,6 +32,8 @@ ini_set ('session.entropy_file', '/dev/urandom'); // Use urandom as entropy sour
 ini_set ('session.entropy_length', '512');        // Increase the length of entropy gathered
 ini_set ('session.hash_function', 'sha512');      // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
 ini_set ('url_rewriter.tags', '');                // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+// ini_set ('mysqli.reconnect', '1');                // if using mysqli, and connection is lost, immediately attempt to reconnect.
+
 date_default_timezone_set ('UTC');                // Set to your server's local time zone - PHP throws a notice if this is not set.
 if (extension_loaded ('mbstring'))                // Ensure that we don't trigger an error if the mbstring extension is not loaded
 {

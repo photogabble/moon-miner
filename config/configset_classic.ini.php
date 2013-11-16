@@ -55,7 +55,6 @@ allow_ibank                = 1;                                // Allow players 
 allow_genesis_destroy      = 0;                                // Allow players to use genesis torps to destroy planets?
 allow_sofa                 = 0;                                // Is the sub-orbital fighter sofa attack allowed in this game?
 allow_ksm                  = 1;                                // Is the known space map allowed in this game?
-display_password           = 0;                                // True / 1 = Display password on signup screen.
 
 [STARTING_VALUES]
 start_fighters             = 10;                               // The amount of fighters on the ship the player starts with

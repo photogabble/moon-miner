@@ -911,7 +911,7 @@ l_log_months_short_12                   = "Dec";
 [login]
 l_login_title                           = "Login";
 l_login_email                           = "E-mail Address";
-l_login_pw                              = "Password:";
+l_login_pw                              = "Password";
 l_login_newp                            = "If you are a new player, click [here] to create a new account.";
 l_login_prbs                            = "Problems?";
 l_login_emailus                         = "E-mail us";
@@ -1086,12 +1086,12 @@ l_new_4gotpw1                           = "If you have forgotten your password,"
 l_new_4gotpw2                           = "to have it e-mailed to you.";
 l_new_inusechar                         = "Character name [character], is already in use.";
 l_new_inuseship                         = "Ship name [shipname], is already in use.";
-l_new_pwsent                            = "Password has been sent to [username].";
+l_new_welcome_sent                            = "Your welcome email has been sent to you. Logging you in, recruit!";
 l_new_pwis                              = "Your password is";
 l_new_login                             = "to go to the login screen.";
 l_new_err                               = "Please go back or click [here] and try again.";
-l_new_topic                             = "Traders Password";
-l_new_message                           = "Greetings,\r\n\r\nSomeone from the IP address [ip] requested that your password for Traders be sent to you.\r\n\r\nYour password is: [pass]\r\n\r\nThank you\r\n\r\nThe Traders web team.";
+l_new_topic                             = "Welcome to Blacknova Traders!";
+l_new_message                           = "Greetings,\r\n\r\nThank you for signing up to play Blacknova Traders at [website]\r\n\r\nIf this is your first time playing, we recommend checking out a few resources:\r\n\r\nFor a good summary of how to get started, check out the new player guide: \r\n[npg]\r\n\r\nThe FAQ covers most of the common questions beyond that: \r\n[faq]\r\n\r\nBlacknova Traders is community developed, using free and open source software. That means that your ideas, feedback, art, or code contributions can help us make the game better. Please visit the original Blacknova Traders forums, to let us know how we are doing, and how we can make the game better: \r\n[forums]\r\n\r\nIn the meantime, get trading, and keep your shields up - it is a rough universe out there!\r\n\r\nThank you,\r\nThe Blacknova Traders development team.";
 
 [news]
 l_news_title                            = "Blacknova Universe News";

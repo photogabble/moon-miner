@@ -19,18 +19,6 @@
 
 include './global_includes.php';
 
-if (!isset ($_GET['lang']))
-{
-    $_GET['lang'] = null;
-    $lang = $default_lang;
-    $link = '';
-}
-else
-{
-    $lang = $_GET['lang'];
-    $link = "?lang=" . $lang;
-}
-
 $title = $langvars['l_new_title2'];
 include './header.php';
 
@@ -40,13 +28,14 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($account_creation_closed)
 {
-    die ($langvars['l_new_closed_message']);
+    die ($langvars['l_new_closed_message']); // This should ideally use the error.php handler instead
 }
 
 // Get the user supplied post vars.
 $username  = null;
 $shipname  = null;
 $character = null;
+$password = null;
 if (array_key_exists ('character', $_POST))
 {
     $character  = $_POST['character'];
@@ -62,13 +51,18 @@ if (array_key_exists ('username', $_POST))
     $username   = $_POST['username'];
 }
 
-if (array_key_exists ('lang', $_POST))
+if (array_key_exists ('newlang', $_POST))
 {
-    $lang   = $_POST['lang'];
+    $lang   = $_POST['newlang'];
 }
 else
 {
     $lang = $default_lang;
+}
+
+if (array_key_exists ('password', $_POST))
+{
+    $password = $_POST['password'];
 }
 
 $character = htmlspecialchars ($character);
@@ -112,21 +106,7 @@ while (($result instanceof ADORecordSet) && !$result->EOF)
 if ($flag == 0)
 {
     // Insert code to add player to database
-    $makepass = "";
-    $syllables = "er,in,tia,wol,fe,pre,vet,jo,nes,al,len,son,cha,ir,ler,bo,ok,tio,nar,sim,ple,bla,ten,toe,cho,co,lat,spe,ak,er,po,co,lor,pen,cil,li,ght,wh,at,the,he,ck,is,mam,bo,no,fi,ve,any,way,pol,iti,cs,ra,dio,sou,rce,sea,rch,pa,per,com,bo,sp,eak,st,fi,rst,gr,oup,boy,ea,gle,tr,ail,bi,ble,brb,pri,dee,kay,en,be,se";
-    $syllable_array = explode (",", $syllables);
-    for ($count = 1; $count <= 4; $count++)
-    {
-        if (BntRand::betterRand ()%10 == 1)
-        {
-            $makepass .= sprintf ("%0.0f", (BntRand::betterRand ()%50)+1);
-        }
-        else
-        {
-            $makepass .= sprintf ("%s", $syllable_array[BntRand::betterRand ()%62]);
-        }
-    }
-    $stamp=date ("Y-m-d H:i:s");
+    $stamp = date ("Y-m-d H:i:s");
     $query = $db->Execute ("SELECT MAX(turns_used + turns) AS mturns FROM {$db->prefix}ships;");
     BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
     $res = $query->fields;
@@ -140,7 +120,7 @@ if ($flag == 0)
 
     // Hash the password.  $hashedPassword will be a 60-character string.
     $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
-    $hashed_pass = $hasher->HashPassword($makepass);
+    $hashed_pass = $hasher->HashPassword ($password);
 
     $result2 = $db->Execute ("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
                              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $start_escape_pod, $start_scoop, $start_minedeflectors, $stamp, $_SERVER['REMOTE_ADDR'], 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
@@ -158,7 +138,7 @@ if ($flag == 0)
         $shipid = $result2->fields;
 
         // To do: build a bit better "new player" message
-        $langvars['l_new_message'] = str_replace ("[pass]", $makepass, $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace ("[pass]", $password, $langvars['l_new_message']);
         $langvars['l_new_message'] = str_replace ("[ip]", $_SERVER['REMOTE_ADDR'], $langvars['l_new_message']);
 
         // Some reason \r\n is broken, so replace them now.
@@ -167,8 +147,12 @@ if ($flag == 0)
         $link_to_game = "http://";
         $gamedomain = BntSetPaths::setGamedomain ();
         $link_to_game .= ltrim ($gamedomain, ".");// Trim off the leading . if any
-        //$link_to_game .= str_replace ($_SERVER['DOCUMENT_ROOT'],"",dirname(__FILE__));
         $link_to_game .= BntSetPaths::setGamepath ();
+        $langvars['l_new_message'] = str_replace ("[website]", $link_to_game, $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace ("[npg]", $link_to_game . "newplayerguide.php", $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace ("[faq]", $link_to_game . "faq.php", $langvars['l_new_message']);
+        $langvars['l_new_message'] = str_replace ("[forums]", "http://forums.blacknova.net", $langvars['l_new_message']);
+
         mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game", "From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
 
         BntLogMove::writeLog ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
@@ -178,13 +162,16 @@ if ($flag == 0)
         $resx = $db->Execute ("INSERT INTO {$db->prefix}ibank_accounts (ship_id,balance,loan) VALUES (?,0,0);", array ($shipid['ship_id']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 
-        if ($display_password == true)
-        {
-            echo $langvars['l_new_pwis'] . " " . $makepass . "<br><br>";
-        }
-        $langvars['l_new_pwsent'] = str_replace ("[username]", $_POST['username'], $langvars['l_new_pwsent']);
-        echo $langvars['l_new_pwsent'] . '<br><br>';
-        echo "<a href=index.php" . $link . ">" . $langvars['l_clickme'] . "</a> " . $langvars['l_new_login'];
+        echo $langvars['l_new_welcome_sent'] . '<br><br>';
+
+        // They have logged in successfully, so update their session ID as well
+        adodb_session_regenerate_id();
+
+        $_SESSION['logged_in'] = true;
+        $_SESSION['password'] = $password;
+        $_SESSION['username'] = $username;
+        BntText::gotoMain ($db, $lang, $langvars);
+        header("Refresh: 2;url=main.php");
     }
 }
 else
