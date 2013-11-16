@@ -199,7 +199,7 @@ return array(
     'City' => $vendorDir . '/adodb/adodb-php/tests/test-php5.php',
     'DB' => $vendorDir . '/adodb/adodb-php/adodb-pear.inc.php',
     'Kid' => $vendorDir . '/adodb/adodb-php/tests/test-active-relationsx.php',
-    'MD5Crypt' => $vendorDir . '/adodb/adodb-php/session/crypt.inc.php',
+    'MD5Crypt' => $vendorDir . '/adodb/adodb-php/session/old/crypt.inc.php',
     'PasswordHash' => $vendorDir . '/phpass/PasswordHash.php',
     'Person' => $vendorDir . '/adodb/adodb-php/tests/test-active-relationsx.php',
     'Plugin' => $baseDir . '/classes/BntPluginSystem.php',
