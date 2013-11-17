@@ -43,6 +43,11 @@ class BntDb
             $ADODB_SESSION_CONNECT.= ":$dbport";
         }
 
+        if ($ADODB_SESSION_DRIVER == 'mysqli')
+        {
+            ini_set ('mysqli.reconnect', '1'); // if using mysqli, and connection is lost, immediately attempt to reconnect.
+        }
+
         // Attempt to connect to the database
         try
         {
