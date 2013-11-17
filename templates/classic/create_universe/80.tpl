@@ -216,5 +216,5 @@
     </tr>
   </table>
   </center>
-</div><p>
+</div><p><br>
 {/block}
