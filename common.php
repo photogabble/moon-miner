@@ -48,8 +48,9 @@ header ("Connection: Keep-Alive"); // Tell the client to keep going until it get
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");
 
-$bntreg = new stdClass();
-$BenchmarkTimer = new BntTimer;
+$bntreg = new stdClass(); // Create a registry, for passing the most common variables in game through classes
+
+$BenchmarkTimer = new BntTimer; // We want benchmarking data for all activities, so create a benchmark timer object
 $BenchmarkTimer->start(); // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
 
