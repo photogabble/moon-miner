@@ -28,7 +28,7 @@ include './header.php';
 
 echo "<h1>" . $title . "</h1>\n";
 
-if (!$allow_navcomp)
+if (!$bntreg->allow_navcomp)
 {
     echo $langvars['l_nav_nocomp'] . '<br><br>';
     BntText::gotoMain ($db, $lang, $langvars);

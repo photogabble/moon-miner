@@ -16,6 +16,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 // File: ranking.php
+// Todo: Remove color controls out to css
 
 include './global_includes.php';
 
@@ -26,10 +27,10 @@ $variables['body_class'] = 'bnt';
 $variables['lang'] = $lang;
 $variables['link'] = "ranking.php";
 
-// These should be set within the template config.
-$variables['color_header'] = $color_header;
-$variables['color_line1'] = $color_line1;
-$variables['color_line2'] = $color_line2;
+// These should be set within the template config, and be css driven using nth+1 selectors.
+$variables['color_header'] = $bntreg->color_header;
+$variables['color_line1'] = $bntreg->color_line1;
+$variables['color_line2'] = $bntreg->color_line2;
 
 // Load required language variables for the ranking page.
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams'));
@@ -82,7 +83,7 @@ switch ($sort)
 
 $variables['num_players'] = (integer) 0;
 
-$rs = $db->SelectLimit ("SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.email, {$db->prefix}ships.ip_address, {$db->prefix}ships.score, {$db->prefix}ships.character_name, {$db->prefix}ships.turns_used, {$db->prefix}ships.last_login,UNIX_TIMESTAMP({$db->prefix}ships.last_login) as online, {$db->prefix}ships.rating, {$db->prefix}teams.team_name, {$db->prefix}teams.admin AS team_admin, if ({$db->prefix}ships.turns_used<150,0,ROUND({$db->prefix}ships.score/{$db->prefix}ships.turns_used)) AS efficiency FROM {$db->prefix}ships LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0 ORDER BY $by", $max_ranks);
+$rs = $db->SelectLimit ("SELECT {$db->prefix}ships.ship_id, {$db->prefix}ships.email, {$db->prefix}ships.ip_address, {$db->prefix}ships.score, {$db->prefix}ships.character_name, {$db->prefix}ships.turns_used, {$db->prefix}ships.last_login,UNIX_TIMESTAMP({$db->prefix}ships.last_login) as online, {$db->prefix}ships.rating, {$db->prefix}teams.team_name, {$db->prefix}teams.admin AS team_admin, if ({$db->prefix}ships.turns_used<150,0,ROUND({$db->prefix}ships.score/{$db->prefix}ships.turns_used)) AS efficiency FROM {$db->prefix}ships LEFT JOIN {$db->prefix}teams ON {$db->prefix}ships.team = {$db->prefix}teams.id  WHERE ship_destroyed='N' and email NOT LIKE '%@xenobe' AND turns_used >0 ORDER BY $by", $bntreg->max_ranks);
 BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
 if ($rs instanceof ADORecordSet)
 {
@@ -182,7 +183,7 @@ $template->AddVariables ('variables', $variables);
 $langvars = BntTranslate::load ($db, $lang, array ('main', 'ranking', 'common', 'global_includes', 'global_funcs', 'footer', 'teams', 'news'));
 
 // Modify the requires language variables here.
-$langvars['l_ranks_title'] = str_replace ("[max_ranks]", $max_ranks, $langvars['l_ranks_title']);
+$langvars['l_ranks_title'] = str_replace ("[max_ranks]", $bntreg->max_ranks, $langvars['l_ranks_title']);
 
 // Now add the loaded language variables into the Template API.
 $langvars['container'] = "langvar";

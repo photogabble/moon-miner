@@ -84,8 +84,9 @@ if ($news_ticker == true)
 {
     // Database driven language entries
 
+    $langvars_temp = BntTranslate::load ($db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
     // Use Array merge so that we do not clobber the langvars array, and only add to it the items needed for footer
-    $langvars = array_merge ($langvars, BntTranslate::load ($db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout')));
+    $langvars = array_merge ($langvars, $langvars_temp);
 
     // Use Array unique so that we don't end up with duplicate lang array entries
     // This is resulting in an array with blank values for specific keys, so array_unique isn't entirely what we want

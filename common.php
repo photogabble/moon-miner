@@ -133,9 +133,9 @@ if (!$index_page)
     }
 }
 
-if (isset ($default_lang))
+if (isset ($bntreg->default_lang))
 {
-    $lang = $default_lang;
+    $lang = $bntreg->default_lang;
 }
 
 if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
