@@ -1,3 +1,4 @@
 This file can be used to track bugs that need to be addressed
 
 BUG: KB-0001: When resetting a password successfully, it sends a second email (it shouldn't) with a broken [link] replacement.
+BUG: KB-0002: The new player signup needs to have an activation step before you can play.
