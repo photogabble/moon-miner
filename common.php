@@ -178,6 +178,6 @@ $bntreg->bnttimer = $BenchmarkTimer;
 $bntreg->db = $db;
 $bntreg->lang = $lang;
 $bntreg->langvars = $langvars;
-$bntreg->template = $default_template; // Temporary until we have a template picker
+$bntreg->template = $bntreg->default_template; // Temporary until we have a template picker
 $template->SetTheme ("classic"); // We set the name of the theme.
 ?>

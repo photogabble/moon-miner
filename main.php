@@ -195,7 +195,7 @@ echo "  <tr>\n";
 // Left Side.
 echo "    <td style='width:200px; vertical-align:top; text-align:center;'>\n";
 
-if ($enable_gravatars)
+if ($bntreg->enable_gravatars)
 {
     $gravatar_id = md5($playerinfo['email']);
 
@@ -232,7 +232,7 @@ echo "<table style='width:150px; margin:auto; text-align:center; border:0px; pad
 echo "  <tr>\n";
 echo "    <td style='white-space:nowrap; border:#fff 1px solid; background-color:#500050;'>\n";
 
-if ($playerinfo['email'] == $admin_mail)
+if ($playerinfo['email'] == $bntreg->admin_mail)
 {
     echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='admin.php'>{$langvars['l_admin_menu']}</a></div>\n";
 }
@@ -249,7 +249,7 @@ echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href=
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='options.php'>{$langvars['l_options']}</a></div>\n";
 echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='navcomp.php'>{$langvars['l_navcomp']}</a></div>\n";
 
-if ($allow_ksm == true)
+if ($bntreg->allow_ksm == true)
 {
     echo "      <div style='padding-left:4px; text-align:left;'><a class='mnu' href='galaxy.php'>{$langvars['l_map']}</a></div>\n";
 }
