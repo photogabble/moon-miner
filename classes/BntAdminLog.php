@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntAdminLog.php')) // Prevent direct access t
 
 class BntAdminLog
 {
-    static function writeLog ($db, $log_type, $data = "")
+    static function writeLog ($db, $log_type, $data = null)
     {
         // Write log_entry to the admin log
         $res = false;
