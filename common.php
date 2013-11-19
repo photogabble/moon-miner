@@ -77,7 +77,6 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
         if ($row !== null)
         {
             $bntreg->$row['name'] = $row['value'];
-            $$row['name'] = $row['value'];
             $debug_query->MoveNext();
         }
     }
@@ -98,7 +97,6 @@ if ($no_langs_yet)
     {
         foreach ($config_line as $config_key=>$config_value)
         {
-            $$config_key = $config_value;
             $bntreg->$config_key = $config_value;
         }
     }
@@ -132,30 +130,6 @@ if (!$index_page)
     if (!isset ($_SESSION))
     {
         session_start ();
-    }
-}
-
-// REG_GLOBAL_FIX,0.1.1,22-09-2004,BNT DevTeam
-if (!defined ('REG_GLOBAL_FIX'))
-{
-    define ('REG_GLOBAL_FIX', True, TRUE);
-}
-
-// Add logging in these two functions to identify where we are using post and get, and start migrating away from them both needing to be globals.
-
-foreach ($_POST as $k=>$v)
-{
-    if (!isset ($GLOBALS[$k]))
-    {
-        ${$k} = $v;
-    }
-}
-
-foreach ($_GET as $k=>$v)
-{
-    if (!isset ($GLOBALS[$k]))
-    {
-        ${$k} = $v;
     }
 }
 

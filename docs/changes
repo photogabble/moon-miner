@@ -1,5 +1,9 @@
 TheKabal (16 November 2013)
 --------------------------------------
+Remove the global variables hacks for good.
+
+TheKabal (16 November 2013)
+--------------------------------------
 The new player signup process is substantially redone. New users choose their own password, we send a welcome letter with resources, we log the user in securely, and we transfer the user into the game directly.
 
 TheKabal (15 November 2013)
