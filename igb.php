@@ -46,7 +46,7 @@ echo '<table style="width:600px; height:350px;" border="0px">';
 echo '<tr><td style="background-image:URL(' . $active_template . 'images/igbscreen.png); background-repeat:no-repeat;" align="center">';
 echo '<table style="width:550px; height:300px;" border="0px">';
 
-if (!$allow_ibank)
+if (!$bntreg->allow_ibank)
 {
     ibank_error ($active_template, $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
@@ -103,7 +103,7 @@ elseif ($command == 'transfer3') //transfer operation
 elseif ($command == 'loans') //loans menu
 {
     include_once './includes/ibank_loans.php';
-    ibank_loans ($db, $langvars, $playerinfo);
+    ibank_loans ($db, $langvars, $bntreg, $playerinfo);
 }
 elseif ($command == 'borrow') //borrow operation
 {

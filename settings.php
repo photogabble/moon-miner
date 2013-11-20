@@ -30,80 +30,70 @@ $langvars = BntTranslate::load ($db, $lang, array ('settings', 'common', 'global
 $title = $langvars['l_settings'];
 include './header.php';
 
-$line_color = $color_line1;
+$line_color = $bntreg->color_line1;
 
 function title ($value, $align = "center")
 {
-    global $line_color, $color_line1, $color_line2;
-
     echo "<tr bgcolor=\"$line_color\"><td colspan=\"2\" style='text-align:{$align};'>{$value}</td></tr>\n";
-    if ($line_color == $color_line1)
+    if ($line_color == $bntreg->color_line1)
     {
-        $line_color = $color_line2;
+        $line_color = $bntreg->color_line2;
     }
     else
     {
-        $line_color = $color_line1;
+        $line_color = $bntreg->color_line1;
     }
 }
 
 function line ($item, $value, $align = "left")
 {
-    global $line_color, $color_line1, $color_line2;
-
     echo "<tr bgcolor=\"$line_color\"><td>&nbsp;{$item}</td><td style='text-align:{$align};'>{$value}&nbsp;</td></tr>\n";
-    if ($line_color == $color_line1)
+    if ($line_color == $bntreg->color_line1)
     {
-        $line_color = $color_line2;
+        $line_color = $bntreg->color_line2;
     }
     else
     {
-        $line_color = $color_line1;
+        $line_color = $bntreg->color_line1;
     }
 }
 
 function line2 ($item, $value, $align = "left")
 {
-    global $line_color, $color_line1, $color_line2;
-
     echo "<tr bgcolor=\"$line_color\"><td style='border-left:1px #FFCC00 solid;'>&nbsp;{$item}</td><td style='text-align:{$align}; border-right:1px #FFCC00 solid;'>{$value}&nbsp;</td></tr>\n";
-    if ($line_color == $color_line1)
+    if ($line_color == $bntreg->color_line1)
     {
-        $line_color = $color_line2;
+        $line_color = $bntreg->color_line2;
     }
     else
     {
-        $line_color = $color_line1;
+        $line_color = $bntreg->color_line1;
     }
 }
 
 function line_a ($value, $align = "left")
 {
-    global $line_color, $color_line1, $color_line2;
-
     echo "<tr bgcolor=\"#FFCC00\"><td colspan=\"2\" style='text-align:{$align};'>{$value}</td></tr>\n";
-    if ($line_color == $color_line1)
+    if ($line_color == $bntreg->color_line1)
     {
-        $line_color = $color_line2;
+        $line_color = $bntreg->color_line2;
     }
     else
     {
-        $line_color = $color_line1;
+        $line_color = $bntreg->color_line1;
     }
 }
 
 function line_spacer ()
 {
-    global $line_color, $color_line1, $color_line2;
-
     echo "<tr><td colspan='2' style='height:2px; padding:0px;'></td></tr>\n";
-    if ($line_color == $color_line1)
+    if ($line_color == $bntreg->color_line1)
     {
-        $line_color = $color_line2;
+        $line_color = $bntreg->color_line2;
     }
     else
     {
-        $line_color = $color_line1;
+        $line_color = $bntreg->color_line1;
     }
 }
 
@@ -314,7 +304,7 @@ echo "<br>\n";
 $title="Game Scheduler Settings";
 echo "<h1>" . $title . "</h1>\n";
 
-$line_color = $color_line1;
+$line_color = $bntreg->color_line1;
 
 echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line ("Ticks happen every", "{$sched_ticks} minutes", "right");

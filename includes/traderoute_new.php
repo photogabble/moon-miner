@@ -27,7 +27,6 @@ function traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id, $templa
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
     global $num_traderoutes, $servertimezone;
-    global $max_traderoutes_player;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer'));
     $editroute = null;
 
@@ -49,7 +48,7 @@ function traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id, $templa
         }
     }
 
-    if ($num_traderoutes >= $max_traderoutes_player && is_null ($editroute))
+    if ($num_traderoutes >= $bntreg->max_traderoutes_player && is_null ($editroute))
     {
         traderoute_die ($db, $lang, $langvars, $bntreg, '<p>' . $langvars['l_tdr_maxtdr'] . '<p>', $template);
     }

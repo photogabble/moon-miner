@@ -67,11 +67,11 @@ elseif ($playerinfo['on_planet'] == 'Y')
 {
     echo $langvars['l_gns_onplanet'];
 }
-elseif ($num_planets >= $max_planets_sector)
+elseif ($num_planets >= $bntreg->max_planets_sector)
 {
     echo $langvars['l_gns_full'];
 }
-elseif ($sectorinfo['sector_id'] >= $sector_max )
+elseif ($sectorinfo['sector_id'] >= $bntreg->sector_max )
 {
     echo "Invalid sector<br>\n";
 }

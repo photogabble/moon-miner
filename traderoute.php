@@ -54,9 +54,9 @@ while (!$result->EOF)
     $result->MoveNext ();
 }
 
-$freeholds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
-$maxholds = BntCalcLevels::Holds ($playerinfo['hull'], $level_factor);
-$maxenergy = BntCalcLevels::Energy ($playerinfo['power'], $level_factor);
+$freeholds = BntCalcLevels::Holds ($playerinfo['hull'], $bntreg->level_factor) - $playerinfo['ship_ore'] - $playerinfo['ship_organics'] - $playerinfo['ship_goods'] - $playerinfo['ship_colonists'];
+$maxholds = BntCalcLevels::Holds ($playerinfo['hull'], $bntreg->level_factor);
+$maxenergy = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor);
 if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_ore'] < 0 || $playerinfo['ship_organics'] < 0 || $playerinfo['ship_goods'] < 0 || $playerinfo['ship_energy'] < 0 || $freeholds < 0)
 {
     if ($playerinfo['ship_colonists'] < 0 || $playerinfo['ship_colonists'] > $maxholds)
@@ -173,7 +173,7 @@ if ($num_traderoutes == 0)
 else
 {
     echo '<table border=1 cellspacing=1 cellpadding=2 width="100%" align="center">' .
-         '<tr bgcolor=' . $color_line2 . '><td align="center" colspan=7><strong><font color=white>
+         '<tr bgcolor=' . $bntreg->color_line2 . '><td align="center" colspan=7><strong><font color=white>
          ';
 
     if ($command != 'delete')
@@ -187,7 +187,7 @@ else
 
     echo "</font></strong>" .
          "</td></tr>" .
-         "<tr align='center' bgcolor=$color_line2>" .
+         "<tr align='center' bgcolor=$bntreg->color_line2>" .
          "<td><font size=2 color=white><strong>" . $langvars['l_tdr_src'] . "</strong></font></td>" .
          "<td><font size=2 color=white><strong>" . $langvars['l_tdr_srctype'] . "</strong></font></td>" .
          "<td><font size=2 color=white><strong>" . $langvars['l_tdr_dest'] . "</strong></font></td>" .
@@ -198,17 +198,17 @@ else
          "</tr>";
 
     $i = 0;
-    $curcolor = $color_line1;
+    $curcolor = $bntreg->color_line1;
     while ($i < $num_traderoutes)
     {
         echo "<tr bgcolor=$curcolor>";
-        if ($curcolor == $color_line1)
+        if ($curcolor == $bntreg->color_line1)
         {
-            $curcolor = $color_line2;
+            $curcolor = $bntreg->color_line2;
         }
         else
         {
-            $curcolor = $color_line1;
+            $curcolor = $bntreg->color_line1;
         }
 
         echo "<td><font size=2 color=white>";
@@ -393,7 +393,7 @@ include './footer.php';
 
 function traderoute_die ($db, $lang, $langvars, $bntreg, $error_msg, $template)
 {
-    global $sched_ticks, $color_line1, $color_line2, $color_header, $servertimezone;
+    global $sched_ticks, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<p>" . $error_msg . "<p>";
@@ -406,7 +406,7 @@ function traderoute_die ($db, $lang, $langvars, $bntreg, $error_msg, $template)
 
 function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest)
 {
-    global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
+    global $playerinfo, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
 
@@ -481,7 +481,7 @@ function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $mo
 
 function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
 {
-    global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone, $level_factor;
+    global $playerinfo, $servertimezone;
 
     $retvalue['triptime'] = 0;
     $retvalue['scooped1'] = 0;
@@ -526,7 +526,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
     $y = $start['distance'] * sin($sa1) * sin($sa2) - $dest['distance'] * sin($fa1) * sin($fa2);
     $z = $start['distance'] * cos($sa1) - $dest['distance'] * cos($fa1);
     $distance = round (sqrt(pow($x, 2) + pow($y, 2) + pow($z, 2)));
-    $shipspeed = pow ($level_factor, $playerinfo['engines']);
+    $shipspeed = pow ($bntreg->level_factor, $playerinfo['engines']);
     $triptime = round ($distance / $shipspeed);
 
     if (!$triptime && $dest['sector_id'] != $playerinfo['sector'])
@@ -548,7 +548,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
         $energyscooped = 100;
     }
 
-    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $playerinfo['ship_energy'];
+    $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor) - $playerinfo['ship_energy'];
 
     if ($free_power < $energyscooped)
     {
@@ -567,7 +567,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
         if ($sells == 'Y' && $playerinfo['dev_fuelscoop'] == 'Y' && $type2 == 'P' && $dest['port_type'] != 'energy')
         {
             $energyscooped = $distance * 100;
-            $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor);
+            $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor);
 
             if ($free_power < $energyscooped)
             {
@@ -579,7 +579,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
         elseif ($playerinfo['dev_fuelscoop'] == 'Y')
         {
             $energyscooped = $distance * 100;
-            $free_power = BntCalcLevels::Energy ($playerinfo['power'], $level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
+            $free_power = BntCalcLevels::Energy ($playerinfo['power'], $bntreg->level_factor) - $retvalue['scooped1'] - $playerinfo['ship_energy'];
 
             if ($free_power < $energyscooped)
             {
@@ -608,10 +608,8 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
 
 function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
 {
-    global $playerinfo, $color_line1, $color_line2, $color_header;
+    global $playerinfo;
     global $num_traderoutes, $servertimezone;
-    global $max_traderoutes_player;
-    global $sector_max;
     global $ptype1;
     global $ptype2;
     global $port_id1;
@@ -625,7 +623,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
     global $editing;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
-    if ($num_traderoutes >= $max_traderoutes_player && empty ($editing))
+    if ($num_traderoutes >= $bntreg->max_traderoutes_player && empty ($editing))
     { // Dont let them exceed max traderoutes
         traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_maxtdr'], $template);
     }
@@ -634,7 +632,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
     if ($ptype1 == 'port')
     {
         // Check for valid Source Port
-        if ($port_id1 >= $sector_max)
+        if ($port_id1 >= $bntreg->sector_max)
         {
             traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidspoint'], $template);
         }
@@ -666,7 +664,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
         }
 
         // Check for valid Source Planet
-        if ($source['sector_id'] >= $sector_max)
+        if ($source['sector_id'] >= $bntreg->sector_max)
         {
             traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invalidsrc'], $template);
         }
@@ -701,7 +699,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
     if ($ptype2 == 'port')
     {
         // Check for valid Dest Port
-        if ($port_id2 >= $sector_max)
+        if ($port_id2 >= $bntreg->sector_max)
         {
             traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddport'], $template);
         }
@@ -733,7 +731,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
         }
 
         // Check for valid Dest Planet
-        if ($destination['sector_id'] >= $sector_max)
+        if ($destination['sector_id'] >= $bntreg->sector_max)
         {
             traderoute_die ($db, $lang, $langvars, $bntreg, $langvars['l_tdr_invaliddplanet'], $template);
         }
@@ -848,7 +846,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
 
 function traderoute_delete ($db, $lang, $langvars, $bntreg, $template)
 {
-    global $playerinfo, $color_line1, $color_line2, $color_header;
+    global $playerinfo;
     global $confirm, $servertimezone;
     global $num_traderoutes;
     global $traderoute_id;
@@ -887,7 +885,7 @@ function traderoute_delete ($db, $lang, $langvars, $bntreg, $template)
 
 function traderoute_settings ($db, $lang, $langvars, $bntreg, $template)
 {
-    global $playerinfo, $color_line1, $color_line2, $color_header, $servertimezone;
+    global $playerinfo, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<p><font size=3 color=blue><strong>" . $langvars['l_tdr_globalset'] . "</strong></font><p>";
@@ -954,7 +952,7 @@ function traderoute_settings ($db, $lang, $langvars, $bntreg, $template)
 
 function traderoute_setsettings ($db, $lang, $langvars, $bntreg, $template)
 {
-    global $playerinfo, $color_line1, $color_line2, $color_header;
+    global $playerinfo;
     global $colonists, $servertimezone, $fighters, $torps, $energy;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
@@ -972,14 +970,13 @@ function traderoute_setsettings ($db, $lang, $langvars, $bntreg, $template)
 
 function traderoute_results_table_top ($db, $lang, $langvars)
 {
-    global $color_line2;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<table border='1' cellspacing='1' cellpadding='2' width='65%' align='center'>\n";
-    echo "  <tr bgcolor='".$color_line2."'>\n";
+    echo "  <tr bgcolor='".$bntreg->color_line2."'>\n";
     echo "    <td align='center' colspan='7'><strong><font color='white'>" . $langvars['l_tdr_res'] . "</font></strong></td>\n";
     echo "  </tr>\n";
-    echo "  <tr align='center' bgcolor='".$color_line2."'>\n";
+    echo "  <tr align='center' bgcolor='".$bntreg->color_line2."'>\n";
     echo "    <td width='50%'><font size='2' color='white'><strong>";
 }
 
@@ -991,10 +988,9 @@ function traderoute_results_source ()
 
 function traderoute_results_destination ()
 {
-    global $color_line1;
     echo "</strong></font></td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor='".$color_line1."'>\n";
+    echo "  <tr bgcolor='".$bntreg->color_line1."'>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
 
@@ -1006,10 +1002,9 @@ function traderoute_results_close_cell ()
 
 function traderoute_results_show_cost ()
 {
-    global $color_line2;
     echo "</font></td>\n";
     echo "  </tr>\n";
-    echo "  <tr bgcolor='".$color_line2."'>\n";
+    echo "  <tr bgcolor='".$bntreg->color_line2."'>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
 
@@ -1053,7 +1048,7 @@ function traderoute_results_display_summary ($db, $lang, $langvars, $tdr_display
     //echo "<font size='2'>\n";
 }
 
-function traderoute_results_show_repeat ($engage, $level_factor)
+function traderoute_results_show_repeat ($engage)
 {
     echo "<form action='traderoute.php?engage=".$engage."' method='post'>\n";
     echo "<br>Enter times to repeat <input type='TEXT' name='tr_repeat' value='1' size='5'> <input type='SUBMIT' value='SUBMIT'>\n";

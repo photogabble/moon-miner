@@ -1416,7 +1416,7 @@ function traderoute_engage ($db, $lang, $j, $langvars)
         if ($j == 1)
         {
             echo $langvars['l_tdr_engageagain'] . "\n";
-            traderoute_results_show_repeat ($engage, $level_factor);
+            traderoute_results_show_repeat ($engage);
         }
     }
     if ($j == 1)

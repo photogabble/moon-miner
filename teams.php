@@ -64,6 +64,12 @@ if (array_key_exists ('teamname', $_POST) == true)
     $teamname = $_POST['teamname'];
 }
 
+$teamdesc = null;
+if (array_key_exists ('teamdesc', $_POST) == true)
+{
+    $teamname = $_POST['teamdesc'];
+}
+
 $confirmed = null;
 if (array_key_exists ('confirmed', $_REQUEST) == true)
 {

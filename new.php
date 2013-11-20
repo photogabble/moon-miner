@@ -22,7 +22,7 @@ include './global_includes.php';
 if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
-    $lang = $default_lang;
+    $lang = $bntreg->default_lang;
     $link = '';
 }
 else
@@ -38,9 +38,9 @@ $variables = null;
 $variables['lang'] = $lang;
 $variables['link'] = $link;
 $variables['link_forums'] = $bntreg->link_forums;
-$variables['admin_mail'] = $admin_mail;
+$variables['admin_mail'] = $bntreg->admin_mail;
 $variables['body_class'] = 'index';
-$variables['template'] = $default_template; // Temporarily set the template to the default template until we have a user option
+$variables['template'] = $bntreg->default_template; // Temporarily set the template to the default template until we have a user option
 
 // Now set a container for the variables and langvars and send them off to the template system
 $variables['container'] = "variable";

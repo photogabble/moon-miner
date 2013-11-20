@@ -43,7 +43,7 @@ if (extension_loaded ('mbstring'))                // Ensure that we don't trigge
 // Since header is now temlate driven, these weren't being passed along except on old crusty pages. Now everthing gets them!
 header ("Content-type: text/html; charset=utf-8");
 header ("X-UA-Compatible: IE=Edge, chrome=1");
-header ("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
+//header ("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
 header ("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");

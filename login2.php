@@ -37,7 +37,7 @@ if (array_key_exists ('email', $_POST) && $_POST['email'] != null)
 if (!isset ($_GET['lang']))
 {
     $_GET['lang'] = null;
-    $lang = $default_lang;
+    $lang = $bntreg->default_lang;
     $link = '';
 }
 else
@@ -49,7 +49,7 @@ else
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('login2', 'login', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 
-if ($server_closed)
+if ($bntreg->server_closed)
 {
     $title = $langvars['l_login_sclosed'];
     include './header.php';
