@@ -104,9 +104,9 @@ else
         while (!$sched_res->EOF)
         {
             $event = $sched_res->fields;
-            $multiplier = ($sched_ticks / $event['ticks_full']) + ($event['ticks_left'] / $event['ticks_full']);
+            $multiplier = ($bntreg->sched_ticks / $event['ticks_full']) + ($event['ticks_left'] / $event['ticks_full']);
             $multiplier = (int) $multiplier;
-            $ticks_left = ($sched_ticks + $event['ticks_left']) % $event['ticks_full'];
+            $ticks_left = ($bntreg->sched_ticks + $event['ticks_left']) % $event['ticks_full'];
             $lastRun += $event['last_run'];
             $schedCount += 1;
 
@@ -152,11 +152,11 @@ else
     }
 
     // Calculate the difference in time when the last good update happened.
-    $schedDiff = ($lastRun - (time () - ($sched_ticks * 60)));
-    if (abs ($schedDiff) > ($sched_ticks * 60) )
+    $schedDiff = ($lastRun - (time () - ($bntreg->sched_ticks * 60)));
+    if (abs ($schedDiff) > ($bntreg->sched_ticks * 60) )
     {
         // Hmmm, seems that we have missed at least 1 update, so log it to the admin.
-        BntAdminLog::writeLog ($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time () ."|". (time () - ($sched_ticks * 60)) ."|{$schedDiff}|". serialize ($lastrunList));
+        BntAdminLog::writeLog ($db, 2468, "Detected Scheduler Issue|{$lastRun}|". time () ."|". (time () - ($bntreg->sched_ticks * 60)) ."|{$schedDiff}|". serialize ($lastrunList));
     }
 
     $runtime = time () - $starttime;

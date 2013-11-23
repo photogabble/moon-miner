@@ -26,7 +26,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'global_includes', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
-if ($account_creation_closed)
+if ($bntreg->account_creation_closed)
 {
     die ($langvars['l_new_closed_message']); // This should ideally use the error.php handler instead
 }
@@ -153,7 +153,7 @@ if ($flag == 0)
         $langvars['l_new_message'] = str_replace ("[faq]", $link_to_game . "faq.php", $langvars['l_new_message']);
         $langvars['l_new_message'] = str_replace ("[forums]", "http://forums.blacknova.net", $langvars['l_new_message']);
 
-        mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game", "From: $admin_mail\r\nReply-To: $admin_mail\r\nX-Mailer: PHP/" . phpversion ());
+        mail ("$username", $langvars['l_new_topic'], $langvars['l_new_message'] . "\r\n\r\n$link_to_game", "From: $bntreg->admin_mail\r\nReply-To: $bntreg->admin_mail\r\nX-Mailer: PHP/" . phpversion ());
 
         BntLogMove::writeLog ($db, $shipid['ship_id'], 0); // A new player is placed into sector 0. Make sure his movement log shows it, so they see it on the galaxy map.
         $resx = $db->Execute ("INSERT INTO {$db->prefix}zones VALUES (NULL, ?, ?, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0);", array ($character ."\'s Territory", $shipid['ship_id']));

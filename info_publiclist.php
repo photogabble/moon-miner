@@ -21,8 +21,8 @@ include './global_includes.php';
 
 $info = array ();
 
-$info['GAMENAME'] = $game_name;
-$info['GAMEID'] = md5($game_name . $bnt_ls_key);
+$info['GAMENAME'] = $bntreg->game_name;
+$info['GAMEID'] = md5($bntreg->game_name . $bntreg->bnt_ls_key);
 
 $xsql = "SELECT UNIX_TIMESTAMP(time) as x FROM {$db->prefix}movement_log WHERE event_id = 1";
 $res = $db->Execute ($xsql);
@@ -67,87 +67,87 @@ while (!$res->EOF)
     $res->MoveNext();
 }
 
-$info['G-TURNS-START'] = $start_turns;
-$info['G-TURNS-MAX'] = $max_turns;
+$info['G-TURNS-START'] = $bntreg->start_turns;
+$info['G-TURNS-MAX'] = $bntreg->max_turns;
 
-$info['G-SCHED-TICKS'] = $sched_ticks;
-$info['G-SCHED-TYPE'] = $sched_type;
+$info['G-SCHED-TICKS'] = $bntreg->sched_ticks;
+$info['G-SCHED-TYPE'] = $bntreg->sched_type;
 
-$info['G-SPEED-TURNS'] = $sched_turns;
-$info['G-SPEED-PORTS'] = $sched_ports;
-$info['G-SPEED-PLANETS'] = $sched_planets;
-$info['G-SPEED-IGB'] = $sched_igb;
+$info['G-SPEED-TURNS'] = $bntreg->sched_turns;
+$info['G-SPEED-PORTS'] = $bntreg->sched_ports;
+$info['G-SPEED-PLANETS'] = $bntreg->sched_planets;
+$info['G-SPEED-IGB'] = $bntreg->sched_igb;
 
-$info['G-SIZE-SECTOR'] = $sector_max;
-$info['G-SIZE-UNIVERSE'] = $universe_size;
-$info['G-SIZE-PLANETS'] = $max_planets_sector;
-$info['G-SIZE-PLANETS-TO-OWN'] = $min_bases_to_own;
+$info['G-SIZE-SECTOR'] = $bntreg->sector_max;
+$info['G-SIZE-UNIVERSE'] = $bntreg->universe_size;
+$info['G-SIZE-PLANETS'] = $bntreg->max_planets_sector;
+$info['G-SIZE-PLANETS-TO-OWN'] = $bntreg->min_bases_to_own;
 
-$info['G-COLONIST-LIMIT'] = $colonist_limit;
-$info['G-DOOMSDAY-VALUE'] = $doomsday_value;
+$info['G-COLONIST-LIMIT'] = $bntreg->colonist_limit;
+$info['G-DOOMSDAY-VALUE'] = $bntreg->doomsday_value;
 
-$info['G-MONEY-IGB'] = $ibank_interest;
-$info['G-MONEY-PLANET'] = round ($interest_rate - 1, 4);
+$info['G-MONEY-IGB'] = $bntreg->ibank_interest;
+$info['G-MONEY-PLANET'] = round ($bntreg->interest_rate - 1, 4);
 
-$info['G-PORT-LIMIT-ORE'] = $ore_limit;
-$info['G-PORT-RATE-ORE'] = $ore_delta;
-$info['G-PORT-DELTA-ORE'] = $ore_delta;
+$info['G-PORT-LIMIT-ORE'] = $bntreg->ore_limit;
+$info['G-PORT-RATE-ORE'] = $bntreg->ore_delta;
+$info['G-PORT-DELTA-ORE'] = $bnteg->ore_delta;
 
-$info['G-PORT-LIMIT-ORGANICS'] = $organics_limit;
-$info['G-PORT-RATE-ORGANICS'] = $organics_rate;
-$info['G-PORT-DELTA-ORGANICS'] = $organics_delta;
+$info['G-PORT-LIMIT-ORGANICS'] = $bntreg->organics_limit;
+$info['G-PORT-RATE-ORGANICS'] = $bntreg->organics_rate;
+$info['G-PORT-DELTA-ORGANICS'] = $bntreg->organics_delta;
 
-$info['G-PORT-LIMIT-GOODS'] = $goods_limit;
-$info['G-PORT-RATE-GOODS'] = $goods_rate;
-$info['G-PORT-DELTA-GOODS'] = $goods_delta;
+$info['G-PORT-LIMIT-GOODS'] = $bntreg->goods_limit;
+$info['G-PORT-RATE-GOODS'] = $bntreg->goods_rate;
+$info['G-PORT-DELTA-GOODS'] = $bntreg->goods_delta;
 
-$info['G-PORT-LIMIT-ENERGY'] = $energy_limit;
-$info['G-PORT-RATE-ENERGY'] = $energy_rate;
-$info['G-PORT-DELTA-ENERGY'] = $energy_delta;
+$info['G-PORT-LIMIT-ENERGY'] = $bntreg->energy_limit;
+$info['G-PORT-RATE-ENERGY'] = $bntreg->energy_rate;
+$info['G-PORT-DELTA-ENERGY'] = $bntreg->energy_delta;
 
-$info['G-SOFA'] = ($allow_sofa===true ? "1" : "0");
-$info['G-KSM'] = ($allow_ksm ? "1" : "0");
+$info['G-SOFA'] = ($bntreg->allow_sofa===true ? "1" : "0");
+$info['G-KSM'] = ($bntreg->allow_ksm ? "1" : "0");
 
-$info['S-CLOSED'] = ($server_closed ? "1" : "0");
-$info['S-CLOSED-ACCOUNTS'] = ($account_creation_closed ? "1" : "0");
+$info['S-CLOSED'] = ($bntreg->server_closed ? "1" : "0");
+$info['S-CLOSED-ACCOUNTS'] = ($bntreg->account_creation_closed ? "1" : "0");
 
-$info['ALLOW_FULLSCAN'] = ($allow_fullscan ? "1" : "0");
-$info['ALLOW_NAVCOMP'] = ($allow_navcomp ? "1" : "0");
-$info['ALLOW_IBANK'] = ($allow_ibank ? "1" : "0");
-$info['ALLOW_GENESIS_DESTROY'] = ($allow_genesis_destroy ? "1" : "0");
+$info['ALLOW_FULLSCAN'] = ($bntreg->allow_fullscan ? "1" : "0");
+$info['ALLOW_NAVCOMP'] = ($bntreg->allow_navcomp ? "1" : "0");
+$info['ALLOW_IBANK'] = ($bntreg->allow_ibank ? "1" : "0");
+$info['ALLOW_GENESIS_DESTROY'] = ($bntreg->allow_genesis_destroy ? "1" : "0");
 
-$info['INVENTORY_FACTOR'] = $inventory_factor;
-$info['UPGRADE_COST'] = $upgrade_cost;
-$info['UPGRADE_FACTOR'] = $upgrade_factor;
-$info['LEVEL_FACTOR'] = $level_factor;
+$info['INVENTORY_FACTOR'] = $bntreg->inventory_factor;
+$info['UPGRADE_COST'] = $bntreg->upgrade_cost;
+$info['UPGRADE_FACTOR'] = $bntreg->upgrade_factor;
+$info['LEVEL_FACTOR'] = $bntreg->level_factor;
 
-$info['DEV_GENESIS_PRICE'] = $dev_genesis_price;
-$info['DEV_BEACON_PRICE'] = $dev_beacon_price;
-$info['DEV_EMERWARP_PRICE'] = $dev_emerwarp_price;
-$info['DEV_WARPEDIT_PRICE'] = $dev_warpedit_price;
-$info['DEV_MINEDEFLECTOR_PRICE'] = $dev_minedeflector_price;
-$info['DEV_ESCAPEPOD_PRICE'] = $dev_escapepod_price;
-$info['DEV_FUELSCOOP_PRICE'] = $dev_fuelscoop_price;
-$info['DEV_LSSD_PRICE'] = $dev_lssd_price;
+$info['DEV_GENESIS_PRICE'] = $bntreg->dev_genesis_price;
+$info['DEV_BEACON_PRICE'] = $bntreg->dev_beacon_price;
+$info['DEV_EMERWARP_PRICE'] = $bntreg->dev_emerwarp_price;
+$info['DEV_WARPEDIT_PRICE'] = $bntreg->dev_warpedit_price;
+$info['DEV_MINEDEFLECTOR_PRICE'] = $bntreg->dev_minedeflector_price;
+$info['DEV_ESCAPEPOD_PRICE'] = $bntreg->dev_escapepod_price;
+$info['DEV_FUELSCOOP_PRICE'] = $bntreg->dev_fuelscoop_price;
+$info['DEV_LSSD_PRICE'] = $bntreg->dev_lssd_price;
 
-$info['FIGHTER_PRICE'] = $fighter_price;
-$info['TORPEDO_PRICE'] = $torpedo_price;
-$info['ARMOR_PRICE'] = $armor_price;
-$info['COLONIST_PRICE'] = $colonist_price;
+$info['FIGHTER_PRICE'] = $bntreg->fighter_price;
+$info['TORPEDO_PRICE'] = $bntreg->torpedo_price;
+$info['ARMOR_PRICE'] = $bntreg->armor_price;
+$info['COLONIST_PRICE'] = $bntreg->colonist_price;
 
-$info['BASE_DEFENSE'] = $base_defense;
+$info['BASE_DEFENSE'] = $bntreg->base_defense;
 
-$info['COLONIST_PRODUCTION_RATE'] = $colonist_production_rate;
-$info['COLONIST_REPRODUCTION_RATE'] = $colonist_reproduction_rate;
-$info['ORGANICS_CONSUMPTION'] = $organics_consumption;
-$info['STARVATION_DEATH_RATE'] = $starvation_death_rate;
+$info['COLONIST_PRODUCTION_RATE'] = $bntreg->colonist_production_rate;
+$info['COLONIST_REPRODUCTION_RATE'] = $bntreg->colonist_reproduction_rate;
+$info['ORGANICS_CONSUMPTION'] = $bntreg->organics_consumption;
+$info['STARVATION_DEATH_RATE'] = $bntreg->starvation_death_rate;
 
-$info['CORP_PLANET_TRANSFERS'] = ($corp_planet_transfers ? "1" : "0");
-$info['MAX_TEAM_MEMBERS'] = $max_team_members;
+$info['CORP_PLANET_TRANSFERS'] = ($bntreg->corp_planet_transfers ? "1" : "0");
+$info['MAX_TEAM_MEMBERS'] = $bntreg->max_team_members;
 
-$info['SERVERTIMEZONE'] = $servertimezone;
+$info['SERVERTIMEZONE'] = $bntreg->servertimezone;
 
-$info['ADMIN_MAIL'] = $admin_mail;
+$info['ADMIN_MAIL'] = $bntreg->admin_mail;
 $info['LINK_FORUMS'] = $bntreg->link_forums;
 
 foreach ($info as $key => $value)

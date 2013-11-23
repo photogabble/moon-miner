@@ -393,7 +393,6 @@ include './footer.php';
 
 function traderoute_die ($db, $lang, $langvars, $bntreg, $error_msg, $template)
 {
-    global $sched_ticks, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
     echo "<p>" . $error_msg . "<p>";

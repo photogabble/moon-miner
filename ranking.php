@@ -130,7 +130,7 @@ if ($rs instanceof ADORecordSet)
 
             // This is just to show that we can set the type of player.
             // like: banned, admin, player, npc etc.
-            if ($row['email'] == $admin_mail || $row['team_admin'] === "Y")
+            if ($row['email'] == $bntreg->admin_mail || $row['team_admin'] === "Y")
             {
                 $row['type'] = "admin";
             }

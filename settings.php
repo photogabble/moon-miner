@@ -235,10 +235,10 @@ else
 $title="Game Settings";
 echo "<h1>" . $title . "</h1>\n";
 echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
-line ("Game version:", $release_version, "right");
-line ("Game name:", $game_name, "right");
-line ("Average tech level needed to hit mines", $mine_hullsize, "right");
-line ("Averaged Tech level When Emergency Warp Degrades", $ewd_maxhullsize, "right");
+line ("Game version:", $bntreg->release_version, "right");
+line ("Game name:", $bntreg->game_name, "right");
+line ("Average tech level needed to hit mines", $bntreg->mine_hullsize, "right");
+line ("Averaged Tech level When Emergency Warp Degrades", $bntreg->ewd_maxhullsize, "right");
 
 $num = number_format ($sector_max, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Number of Sectors", $num, "right");
@@ -308,7 +308,7 @@ $line_color = $bntreg->color_line1;
 
 echo "<table style='width:800px; font-size:14px; color:#fff; border:#fff 1px solid;' border='0' cellspacing='0' cellpadding='2'>";
 line ("Ticks happen every", "{$sched_ticks} minutes", "right");
-line ("{$turns_per_tick} Turns will happen every", "{$sched_turns} minutes", "right");
+line ("{$bntreg->turns_per_tick} Turns will happen every", "{$bntreg->sched_turns} minutes", "right");
 line ("Defenses will be checked every", "{$sched_turns} minutes", "right");
 line ("Xenobes will play every", "{$sched_turns} minutes", "right");
 

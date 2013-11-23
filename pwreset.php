@@ -85,15 +85,15 @@ else
 /*
 // Send email to user & admin notifying of password change
 $langvars['l_mail_message'] = str_replace ("[ip]", $_SERVER['REMOTE_ADDR'], $langvars['l_mail_message']);
-$langvars['l_mail_message'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_message']);
+$langvars['l_mail_message'] = str_replace ("[game_name]", $bntreg->game_name, $langvars['l_mail_message']);
 
 // Some reason \r\n is broken, so replace them now.
 $langvars['l_mail_message'] = str_replace ('\r\n', "\r\n", $langvars['l_mail_message']);
 
 // Need to set the topic with the game name.
-$langvars['l_mail_topic'] = str_replace ("[game_name]", $game_name, $langvars['l_mail_topic']);
+$langvars['l_mail_topic'] = str_replace ("[game_name]", $bntreg->game_name, $langvars['l_mail_topic']);
 
-mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'], "From: {$admin_mail}\r\nReply-To: {$admin_mail}\r\nX-Mailer: PHP/" . phpversion());
+mail ($playerinfo['email'], $langvars['l_mail_topic'], $langvars['l_mail_message'], "From: {$bntreg->admin_mail}\r\nReply-To: {$bntreg->admin_mail}\r\nX-Mailer: PHP/" . phpversion());
 
 // Reset recovery_time to zero
 $recovery_update_result = $db->Execute ("UPDATE {$db->prefix}ships SET recovery_time=null WHERE email = ?;", array ($playerinfo['email']));
