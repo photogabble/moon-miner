@@ -47,21 +47,21 @@ $variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER
 $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
-$lang = $newlang; // Set the language to the language chosen during create universe
+$lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $z = 0;
-$initsore = $ore_limit * $variables['initscommod'] / 100.0;
-$initsorganics = $organics_limit * $variables['initscommod'] / 100.0;
-$initsgoods = $goods_limit * $variables['initscommod'] / 100.0;
-$initsenergy = $energy_limit * $variables['initscommod'] / 100.0;
-$initbore = $ore_limit * $variables['initbcommod'] / 100.0;
-$initborganics = $organics_limit * $variables['initbcommod'] / 100.0;
-$initbgoods = $goods_limit * $variables['initbcommod'] / 100.0;
-$initbenergy = $energy_limit * $variables['initbcommod'] / 100.0;
+$initsore = $bntreg->ore_limit * $variables['initscommod'] / 100.0;
+$initsorganics = $bntreg->organics_limit * $variables['initscommod'] / 100.0;
+$initsgoods = $bntreg->goods_limit * $variables['initscommod'] / 100.0;
+$initsenergy = $bntreg->energy_limit * $variables['initscommod'] / 100.0;
+$initbore = $bntreg->ore_limit * $variables['initbcommod'] / 100.0;
+$initborganics = $bntreg->organics_limit * $variables['initbcommod'] / 100.0;
+$initbgoods = $bntreg->goods_limit * $variables['initbcommod'] / 100.0;
+$initbenergy = $bntreg->energy_limit * $variables['initbcommod'] / 100.0;
 $local_table_timer = new BntTimer;
 $local_table_timer->start (); // Start benchmarking
 $insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
@@ -82,12 +82,12 @@ $variables['create_ac_results']['time'] = $local_table_timer->elapsed ();
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize);
+$loops = round ($bntreg->sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_sector_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > ($sector_max)) $finish = ($sector_max);
+if ($finish > ($bntreg->sector_max)) $finish = ($bntreg->sector_max);
 $start = 3; // We added sol (1), and alpha centauri (2), so start at 3.
 
 for ($i = 1; $i <= $loops; $i++)
@@ -98,7 +98,7 @@ for ($i = 1; $i <= $loops; $i++)
     for ($j = $start; $j <= $finish; $j++)
     {
         $sector_id = $j;
-        $distance = intval (BntRand::betterRand (1, $universe_size));
+        $distance = intval (BntRand::betterRand (1, $bntreg->universe_size)); 
         $angle1 = BntRand::betterRand (0, 180);
         $angle2 = BntRand::betterRand (0, 90);
         $insert .= "($sector_id, '1', $angle1, $angle2, $distance)";
@@ -119,7 +119,7 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > ($sector_max)) $finish = ($sector_max);
+    if ($finish > ($bntreg->sector_max)) $finish = ($bntreg->sector_max);
 }
 
 /// Insert zones - Unchartered, fed, free trade, war & Fed space
@@ -133,7 +133,7 @@ $local_table_timer->stop ();
 $variables['create_unchartered_results']['time'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$fed_max_hull')");
+$replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$bntreg->fed_max_hull')");
 $variables['create_fedspace_results']['result'] = BntDb::logDbErrors ($db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_fedspace_results']['result'];
 $z++;

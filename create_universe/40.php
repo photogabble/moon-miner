@@ -49,7 +49,7 @@ $variables['create_schema_results']  = BntSchema::create ($db, $db_prefix); // D
 $variables['table_count']            = count ($variables['create_schema_results']) - 1;
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
-$lang = $newlang; // Set the language to the language chosen during create universe
+$lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 $create_array_size = count ($variables['create_schema_results']);
 for ($i = 0; $i < $create_array_size; $i++)

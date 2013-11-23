@@ -49,7 +49,7 @@ $variables['destroy_schema_results'] = BntSchema::destroy ($db, $db_prefix); // 
 $variables['table_count']            = count ($variables['destroy_schema_results']) - 1;
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
-$lang = $newlang; // Set the language to the language chosen during create universe
+$lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 $destroy_array_size = count ($variables['destroy_schema_results']);
 for ($i = 0; $i < $destroy_array_size; $i++)
@@ -63,10 +63,10 @@ for ($i = 0; $i < $destroy_array_size; $i++)
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
-$template->AddVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';
+$template->AddVariables ('langvars', $langvars);
 $template->AddVariables ('variables', $variables);
 $template->display ("templates/classic/create_universe/30.tpl");
 ?>

@@ -47,7 +47,7 @@ $variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER
 $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
-$lang = $newlang; // Set the language to the language chosen during create universe
+$lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
 $langvars = null;
@@ -79,13 +79,13 @@ shuffle ($open_sectors_array); // Internally, shuffle uses rand() so it isn't id
 
 // Prep the beginning of the insert SQL call
 $p_add = 0;
-$planet_insert_sql = "INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+$planet_insert_sql = "INSERT INTO {$db->prefix}planets (colonists, owner, corp, prod_ore, prod_organics, prod_goods, prod_energy, prod_fighters, prod_torp, sector_id) VALUES (2, 0, 0, $bntreg->default_prod_ore, $bntreg->default_prod_organics, $bntreg->default_prod_goods, $bntreg->default_prod_energy, $bntreg->default_prod_fighters, $bntreg->default_prod_torp, $open_sectors_array[$p_add])";
 $p_add++;
 do
 {
     if (($p_add > 1) && ($p_add < $variables['nump'])) // Skip the first one as we already did it during the prep of the insert call.
     {
-        $add_more = BntRand::betterRand (1, $max_planets_sector); // Add one to a random number of planets in each sector
+        $add_more = BntRand::betterRand (1, $bntreg->max_planets_sector); // Add one to a random number of planets in each sector
         if (($add_more + $p_add) > $variables['nump']) // Ensure that we don't add more than the total amount needed
         {
             $add_more = $variables['nump'] - $p_add; // Lower the number to add to the amount that is left
@@ -94,7 +94,7 @@ do
         for ($q=1; $q<=$add_more; $q++)
         {
             // Add a line of values for every iteration
-            $planet_insert_sql .= ", (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+            $planet_insert_sql .= ", (2, 0, 0, $bntreg->default_prod_ore, $bntreg->default_prod_organics, $bntreg->default_prod_goods, $bntreg->default_prod_energy, $bntreg->default_prod_fighters, $bntreg->default_prod_torp, $open_sectors_array[$p_add])";
             $p_add++;
         }
     }
@@ -103,7 +103,7 @@ do
         if ($p_add < $variables['nump'])
         {
             // Add a line of values for every iteration - but only one, not random amounts
-            $planet_insert_sql .= ", (2, 0, 0, $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp, $open_sectors_array[$p_add])";
+            $planet_insert_sql .= ", (2, 0, 0, $bntreg->default_prod_ore, $bntreg->default_prod_organics, $bntreg->default_prod_goods, $bntreg->default_prod_energy, $bntreg->default_prod_fighters, $bntreg->default_prod_torp, $open_sectors_array[$p_add])";
             $p_add++;
         }
     }
@@ -124,12 +124,12 @@ $variables['setup_unowned_results']['nump'] = $variables['nump'];
 // Warning: Do no alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize);
+$loops = round ($bntreg->sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 $variables['insert_link_loops'] = $loops;
 
 $finish = $loopsize;
-if ($finish > $sector_max) $finish = ($sector_max);
+if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
 $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
@@ -157,19 +157,19 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > $sector_max) $finish = $sector_max;
+    if ($finish > $bntreg->sector_max) $finish = $bntreg->sector_max;
 }
 
 // Adds Sector Size amount of links to the links table
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize);
+$loops = round ($bntreg->sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 
 $variables['insert_oneway_loops'] = $loops;
 $finish = $loopsize;
-if ($finish > $sector_max) $finish = ($sector_max);
+if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
 $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
@@ -178,8 +178,8 @@ for ($i = 1; $i <= $loops; $i++)
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (BntRand::betterRand (1, $sector_max - 1));
-        $link2 = intval (BntRand::betterRand (1, $sector_max - 1));
+        $link1 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
+        $link2 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
         $insert .= "($link1, $link2)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
@@ -199,19 +199,19 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > $sector_max) $finish = ($sector_max);
+    if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
 }
 
 // Adds (sector size * 2) amount of links to the links table ##
 // Warning: Do not alter loopsize - This should be balanced 50%/50% PHP/MySQL load :)
 
 $loopsize = 500;
-$loops = round ($sector_max / $loopsize);
+$loops = round ($bntreg->sector_max / $loopsize);
 if ($loops <= 0) $loops = 1;
 
 $variables['insert_twoway_loops'] = $loops;
 $finish = $loopsize;
-if ($finish > $sector_max) $finish = ($sector_max);
+if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
 $start = 1;
 
 for ($i = 1; $i <= $loops; $i++)
@@ -220,8 +220,8 @@ for ($i = 1; $i <= $loops; $i++)
     $insert = "INSERT INTO {$db->prefix}links (link_start,link_dest) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
-        $link1 = intval (BntRand::betterRand (1, $sector_max - 1));
-        $link2 = intval (BntRand::betterRand (1, $sector_max - 1));
+        $link1 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
+        $link2 = intval (BntRand::betterRand (1, $bntreg->sector_max - 1));
         $insert .= "($link1, $link2), ($link2, $link1)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
@@ -240,11 +240,11 @@ for ($i = 1; $i <= $loops; $i++)
 
     $start = $finish + 1;
     $finish += $loopsize;
-    if ($finish > $sector_max) $finish = ($sector_max);
+    if ($finish > $bntreg->sector_max) $finish = ($bntreg->sector_max);
 }
 
 $local_table_timer->start (); // Start benchmarking
-$resx = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = '{$sector_max}' OR link_dest ='{$sector_max}' ");
+$resx = $db->Execute ("DELETE FROM {$db->prefix}links WHERE link_start = '{$bntreg->sector_max}' OR link_dest ='{$bntreg->sector_max}' ");
 $variables['remove_links_results']['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;

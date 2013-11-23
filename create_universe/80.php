@@ -47,90 +47,90 @@ $variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER
 $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
-$lang = $newlang; // Set the language to the language chosen during create universe
+$lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
 $langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
-$variables['update_ticks_results']['sched'] = $sched_ticks;
+$variables['update_ticks_results']['sched'] = $bntreg->sched_ticks;
 $local_table_timer = new BntTimer;
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_turns.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_turns, 'sched_turns.php', ?)", array (time ()));
 $variables['update_turns_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_turns_results']['sched'] = $sched_turns;
+$variables['update_turns_results']['sched'] = $bntreg->sched_turns;
 $local_table_timer->stop ();
 $variables['update_turns_results']['elapsed'] = $local_table_timer->elapsed ();
 
 // This is causing errors at the moment, disabling until we get clean solutions for it.
 //$local_table_timer->start (); // Start benchmarking
-//$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_xenobe.php', ?)", array (time ()));
+//$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_turns, 'sched_xenobe.php', ?)", array (time ()));
 //$variables['update_xenobe_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
 $variables['update_xenobe_results']['result'] = "DISABLED!";
-$variables['update_xenobe_results']['sched'] = $sched_turns;
+$variables['update_xenobe_results']['sched'] = $bntreg->sched_turns;
 //$local_table_timer->stop ();
 //$variables['update_xenobe_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_igb, 'sched_igb.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_igb, 'sched_igb.php', ?)", array (time ()));
 $variables['update_igb_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_igb_results']['sched'] = $sched_igb;
+$variables['update_igb_results']['sched'] = $bntreg->sched_igb;
 $local_table_timer->stop ();
 $variables['update_igb_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_news, 'sched_news.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_news, 'sched_news.php', ?)", array (time ()));
 $variables['update_news_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_news_results']['sched'] = $sched_news;
+$variables['update_news_results']['sched'] = $bntreg->sched_news;
 $local_table_timer->stop ();
 $variables['update_news_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_planets, 'sched_planets.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_planets, 'sched_planets.php', ?)", array (time ()));
 $variables['update_planets_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_planets_results']['sched'] = $sched_planets;
+$variables['update_planets_results']['sched'] = $bntreg->sched_planets;
 $local_table_timer->stop ();
 $variables['update_planets_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_ports, 'sched_ports.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_ports, 'sched_ports.php', ?)", array (time ()));
 $variables['update_ports_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_ports_results']['sched'] = $sched_ports;
+$variables['update_ports_results']['sched'] = $bntreg->sched_ports;
 $local_table_timer->stop ();
 $variables['update_ports_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_turns, 'sched_tow.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_turns, 'sched_tow.php', ?)", array (time ()));
 $variables['update_tow_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_tow_results']['sched'] = $sched_turns; // Towing occurs at the same time as turns
+$variables['update_tow_results']['sched'] = $bntreg->sched_turns; // Towing occurs at the same time as turns
 $local_table_timer->stop ();
 $variables['update_tow_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_ranking, 'sched_ranking.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_ranking, 'sched_ranking.php', ?)", array (time ()));
 $variables['update_ranking_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_ranking_results']['sched'] = $sched_ranking;
+$variables['update_ranking_results']['sched'] = $bntreg->sched_ranking;
 $local_table_timer->stop ();
 $variables['update_ranking_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_degrade, 'sched_degrade.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_degrade, 'sched_degrade.php', ?)", array (time ()));
 $variables['update_degrade_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_degrade_results']['sched'] = $sched_degrade;
+$variables['update_degrade_results']['sched'] = $bntreg->sched_degrade;
 $local_table_timer->stop ();
 $variables['update_degrade_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_apocalypse, 'sched_apocalypse.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_apocalypse, 'sched_apocalypse.php', ?)", array (time ()));
 $variables['update_apoc_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_apoc_results']['sched'] = $sched_apocalypse;
+$variables['update_apoc_results']['sched'] = $bntreg->sched_apocalypse;
 $local_table_timer->stop ();
 $variables['update_apoc_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $sched_thegovernor, 'sched_thegovernor.php', ?)", array (time ()));
+$resxx = $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', $bntreg->sched_thegovernor, 'sched_thegovernor.php', ?)", array (time ()));
 $variables['update_gov_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
-$variables['update_gov_results']['sched'] = $sched_thegovernor;
+$variables['update_gov_results']['sched'] = $bntreg->sched_thegovernor;
 $local_table_timer->stop ();
 $variables['update_gov_results']['elapsed'] = $local_table_timer->elapsed ();
 
@@ -142,7 +142,7 @@ $variables['first_news_results']['result'] = BntDb::logDbErrors ($db, $resxx, __
 $local_table_timer->stop ();
 $variables['first_news_results']['elapsed'] = $local_table_timer->elapsed ();
 
-if ($bnt_ls === true)
+if ($bntreg->bnt_ls === true)
 {
 // $db->Execute ("INSERT INTO {$db->prefix}scheduler (run_once, ticks_full, sched_file, last_run) VALUES ('N', 60, 'bnt_ls_client.php', ?)", array (time ()));
 // FIX table_row ($db, "The public list updater will occur every 60 minutes", $langvars['l_cu_failed'], $langvars['l_cu_inserted']);
@@ -164,8 +164,8 @@ $hasher = new PasswordHash (10, false); // The first number is the hash strength
 $hashed_pass = $hasher->HashPassword (ADMIN_PW);
 $variables['admin_pass'] = ADMIN_PW;
 
-$adm_ship = $db->qstr ($admin_ship_name);
-$adm_name = $db->qstr ($admin_name);
+$adm_ship = $db->qstr ($bntreg->admin_ship_name);
+$adm_name = $db->qstr ($bntreg->admin_name);
 $adm_ship_sql = "INSERT INTO {$db->prefix}ships " .
                 "(ship_name, ship_destroyed, character_name, password, " .
                 "recovery_time, " .
@@ -173,19 +173,19 @@ $adm_ship_sql = "INSERT INTO {$db->prefix}ships " .
                 "ship_fighters, last_login, " .
                 "ip_address, lang) VALUES " .
                 "($adm_ship, 'N', $adm_name, '$hashed_pass', NULL, " .
-                "'$admin_mail', $start_turns, $start_armor, $start_credits, 1, $start_energy, " .
-                "$start_fighters, '$stamp', " .
-                "'1.1.1.1', '$default_lang')";
+                "'$bntreg->admin_mail', $bntreg->start_turns, $bntreg->start_armor, $bntreg->start_credits, 1, $bntreg->start_energy, " .
+                "$bntreg->start_fighters, '$stamp', " .
+                "'1.1.1.1', '$bntreg->default_lang')";
 $local_table_timer->start (); // Start benchmarking
 $resxx = $db->Execute ($adm_ship_sql);
 $variables['admin_account_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
 $local_table_timer->stop ();
 $variables['admin_account_results']['elapsed'] = $local_table_timer->elapsed ();
-$variables['admin_mail'] = $admin_mail;
-$variables['admin_name'] = $admin_name;
+$variables['admin_mail'] = $bntreg->admin_mail;
+$variables['admin_name'] = $bntreg->admin_name;
 
 $local_table_timer->start (); // Start benchmarking
-$adm_terri = $db->qstr ($admin_zone_name);
+$adm_terri = $db->qstr ($bntreg->admin_zone_name);
 $resxx = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ($adm_terri, 1, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 0)");
 $variables['admin_zone_results']['result'] = BntDb::logDbErrors ($db, $resxx, __LINE__, __FILE__);
 $local_table_timer->stop ();
