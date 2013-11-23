@@ -139,12 +139,12 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
 
         if ($playerinfo['ship_id'] == $planetinfo['owner'])
         {
-            if ($destroy == 1 && $allow_genesis_destroy)
+            if ($destroy == 1 && $bntreg->allow_genesis_destroy)
             {
                 echo "<font color=red>" . $langvars['l_planet_confirm'] . "</font><br><a href=planet.php?planet_id=$planet_id&destroy=2>yes</A><br>";
                 echo "<a href=planet.php?planet_id=$planet_id>no!</A><br><br>";
             }
-            elseif ($destroy == 2 && $allow_genesis_destroy)
+            elseif ($destroy == 2 && $bntreg->allow_genesis_destroy)
             {
                 if ($playerinfo['dev_genesis'] > 0)
                 {
@@ -162,7 +162,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     echo $langvars['l_gns_nogenesis'] . "<br>";
                 }
             }
-            elseif ($allow_genesis_destroy)
+            elseif ($bntreg->allow_genesis_destroy)
             {
                 echo "<A onclick=\"javascript: alert ('alert:" . $langvars['l_planet_warning'] . "');\" href=planet.php?planet_id=$planet_id&destroy=1>" . $langvars['l_planet_destroyplanet'] . "</a><br>";
             }
@@ -311,7 +311,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     $langvars['l_planet_scn'] = str_replace ("[scan]", $langvars['l_planet_scn_link'], $langvars['l_planet_scn']);
                     echo $langvars['l_planet_att'] . "<br>";
                     echo $langvars['l_planet_scn'] . "<br>";
-                    if ($allow_sofa)
+                    if ($bntreg->allow_sofa)
                     {
                         echo "<a href=planet.php?planet_id=$planet_id&command=bom>" . $langvars['l_sofa'] . "</a><br>";
                     }
@@ -562,7 +562,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                     $langvars['l_planet_scn'] = str_replace ("[scan]", $langvars['l_planet_scn_link'], $langvars['l_planet_scn']);
                     echo $langvars['l_planet_att'] . " <strong>" . $langvars['l_planet_att_sure'] . "</strong><br>";
                     echo $langvars['l_planet_scn'] . "<br>";
-                    if ($allow_sofa)
+                    if ($bntreg->allow_sofa)
                     {
                         echo "<a href=planet.php?planet_id=$planet_id&command=bom>" . $langvars['l_sofa'] . "</a><br>";
                     }
@@ -600,7 +600,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         elseif ($command == "bom")
         {
             // Check to see if sure...
-            if ($planetinfo['sells'] == "Y" && $allow_sofa)
+            if ($planetinfo['sells'] == "Y" && $bntreg->allow_sofa)
             {
                 $langvars['l_planet_buy_link'] = "<a href=planet.php?planet_id=$planet_id&command=buy>" . $langvars['l_planet_buy_link'] ."</a>";
                 $langvars['l_planet_buy'] = str_replace ("[buy]", $langvars['l_planet_buy_link'], $langvars['l_planet_buy']);
@@ -619,7 +619,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             echo $langvars['l_planet_scn'] . "<br>";
             echo "<a href=planet.php?planet_id=$planet_id&command=bomb>" . $langvars['l_sofa'] . "</a><strong>" . $langvars['l_planet_att_sure'] . "</strong><br>";
         }
-        elseif ($command == "bomb" && $allow_sofa)
+        elseif ($command == "bomb" && $bntreg->allow_sofa)
         {
             include_once './includes/planet_bombing.php';
             planet_bombing ($db);
@@ -906,7 +906,7 @@ if ($command != "")
     echo "<br><a href=planet.php?planet_id=$planet_id>" . $langvars['l_clickme'] . "</a> " . $langvars['l_toplanetmenu'] . "<br><br>";
 }
 
-if ($allow_ibank)
+if ($bntreg->allow_ibank)
 {
   echo $langvars['l_ifyouneedplan'] . " <a href=\"igb.php?planet_id=$planet_id\">" . $langvars['l_ibank_term'] . "</a>.<br><br>";
 }

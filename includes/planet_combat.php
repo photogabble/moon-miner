@@ -28,7 +28,7 @@ function planet_combat ($db, $langvars)
 {
     global $playerinfo, $ownerinfo, $planetinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;
-    global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $start_energy, $min_value_capture;
+    global $attackertorps, $attackerarmor, $torp_dmg_rate, $level_factor, $attackertorpdamage, $min_value_capture;
 
     include_once './includes/ship_to_ship.php';
 
@@ -55,7 +55,7 @@ function planet_combat ($db, $langvars)
     $attackerarmor      = $playerinfo['armor_pts'];
 
     // Now modify player beams, shields and torpedos on available materiel
-    $start_energy = $playerinfo['ship_energy'];
+    $bntreg->start_energy = $playerinfo['ship_energy'];
 
     // Beams
     if ($attackerbeams > $playerinfo['ship_energy'])
@@ -398,7 +398,7 @@ function planet_combat ($db, $langvars)
         if ($playerinfo['dev_escapepod'] == "Y")
         {
             echo "<center><font color='white'>" . $langvars['l_cmb_escapepod'] . "</font></center><br><br>";
-            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($start_energy, $playerinfo['ship_id']));
+            $resx = $db->Execute ("UPDATE {$db->prefix}ships SET hull=0,engines=0,power=0,sensors=0,computer=0,beams=0,torp_launchers=0,torps=0,armor=0,armor_pts=100,cloak=0,shields=0,sector=0,ship_organics=0,ship_ore=0,ship_goods=0,ship_energy=?,ship_colonists=0,ship_fighters=100,dev_warpedit=0,dev_genesis=0,dev_beacon=0,dev_emerwarp=0,dev_escapepod='N',dev_fuelscoop='N',dev_minedeflector=0,on_planet='N',dev_lssd='N' WHERE ship_id=?", array ($bntreg->start_energy, $playerinfo['ship_id']));
             BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
             BntBounty::collect ($db, $langvars, $planetinfo['owner'], $playerinfo['ship_id']);
         }
@@ -435,9 +435,9 @@ function planet_combat ($db, $langvars)
         $langvars['l_cmb_youlostarmorpoints'] = str_replace ("[cmb_attackerarmor]", $attackerarmor, $langvars['l_cmb_youlostarmorpoints']);
         echo $langvars['l_cmb_youlostarmorpoints'] . "<br>";
         $energy = $playerinfo['ship_energy'];
-        $energy_lost = $start_energy - $playerinfo['ship_energy'];
+        $energy_lost = $bntreg->start_energy - $playerinfo['ship_energy'];
         $langvars['l_cmb_energyused'] = str_replace ("[cmb_energy_lost]", $energy_lost, $langvars['l_cmb_energyused']);
-        $langvars['l_cmb_energyused'] = str_replace ("[cmb_playerinfo_ship_energy]", $start_energy, $langvars['l_cmb_energyused']);
+        $langvars['l_cmb_energyused'] = str_replace ("[cmb_playerinfo_ship_energy]", $bntreg->start_energy, $langvars['l_cmb_energyused']);
         echo $langvars['l_cmb_energyused'] . "<br></center>";
         $resx = $db->Execute ("UPDATE {$db->prefix}ships SET ship_energy=?,ship_fighters=ship_fighters-?, torps=torps-?,armor_pts=armor_pts-?, rating=rating-? WHERE ship_id=?", array ($energy, $fighters_lost, $attackertorps, $armor_lost, $rating_change, $playerinfo['ship_id']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);

@@ -261,7 +261,7 @@ line ("Tech Level upgrade for Bases", $base_defense, "right");
 $num = number_format ($colonist_limit, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Colonists Limit", $num, "right");
 
-$num = number_format ($max_turns, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
+$num = number_format ($bntreg->max_turns, 0, $langvars['local_number_dec_point'], $langvars['local_number_thousands_sep']);
 line ("Maximum number of accumulated turns", $num, "right");
 line ("Maximum number of planets per sector", $max_planets_sector, "right");
 line ("Maximum number of traderoutes per player", $max_traderoutes_player, "right");

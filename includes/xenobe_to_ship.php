@@ -34,7 +34,6 @@ function xenobe_to_ship ($db, $ship_id)
     global $attackertorps;
     global $attackerarmor;
     global $attackertorpdamage;
-    global $start_energy;
     global $playerinfo;
     global $rating_combat_factor;
     global $upgrade_cost;

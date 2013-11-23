@@ -44,7 +44,7 @@ echo "Move from one sector to another through warp links, by clicking on the sec
 echo "<br><br>";
 echo "<strong>Long-range scan:</strong><br>";
 echo "Scan a neighboring sector with your long range scanners without actually moving there.";
-if ($allow_fullscan)
+if ($bntreg->allow_fullscan)
 {
     echo " A full scan will give you an outlook on all the neighboring sectors in one wide sweep of your ";
     echo "sensors.";
@@ -60,7 +60,7 @@ echo "<br><br>";
 echo "<strong>Planets:</strong><br>";
 echo "Access the planet menu by clicking on a planet's name when you enter a sector where one is present.";
 echo "<br><br>";
-if ($allow_navcomp)
+if ($bntreg->allow_navcomp)
 {
     echo "<strong>Navigation computer:</strong><br>";
     echo "Use your computer to find a route to a specific sector. The navigation computer's power depends on ";

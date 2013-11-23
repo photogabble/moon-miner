@@ -592,7 +592,7 @@ else
                                          "torps = 0, armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, " .
                                          "ship_energy = ?, ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, " .
                                          "dev_escapepod = 'N', dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, cleared_defences = ' ', " .
-                                         "dev_lssd = 'N' WHERE ship_id = ?;", array ($start_energy, $rating, $targetinfo['ship_id']));
+                                         "dev_lssd = 'N' WHERE ship_id = ?;", array ($bntreg->start_energy, $rating, $targetinfo['ship_id']));
                     BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
                     BntPlayerLog::writeLog ($db, $targetinfo['ship_id'], LOG_ATTACK_LOSE, "$playerinfo[character_name]|Y");
                     BntBounty::collect ($db, $langvars, $playerinfo['ship_id'], $targetinfo['ship_id']);
@@ -744,7 +744,7 @@ else
                                          "armor = 0, armor_pts = 100, cloak = 0, shields = 0, sector = 0, ship_organics = 0, ship_ore = 0, ship_goods = 0, ship_energy = ?, " .
                                          "ship_colonists = 0, ship_fighters = 100, dev_warpedit = 0, dev_genesis = 0, dev_beacon = 0, dev_emerwarp = 0, dev_escapepod = 'N', " .
                                          "dev_fuelscoop = 'N', dev_minedeflector = 0, on_planet = 'N', rating = ?, dev_lssd = 'N' " .
-                                         "WHERE ship_id = ?", array ($start_energy, $rating, $playerinfo['ship_id']));
+                                         "WHERE ship_id = ?", array ($bntreg->start_energy, $rating, $playerinfo['ship_id']));
                     BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
                     BntBounty::collect ($db, $langvars, $targetinfo['ship_id'], $playerinfo['ship_id']);
                 }

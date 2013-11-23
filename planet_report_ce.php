@@ -220,8 +220,6 @@ function change_planet_production ($db, $langvars, $prodpercentarray)
 
 //  This should patch the game from being hacked with planet Hack.
 
-    global $default_prod_ore, $default_prod_organics, $default_prod_goods, $default_prod_energy, $default_prod_fighters, $default_prod_torp;
-
     $result = $db->Execute ("SELECT ship_id, team FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
     BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
     $ship_id = $result->fields['ship_id'];
@@ -374,22 +372,22 @@ function change_planet_production ($db, $langvars, $prodpercentarray)
                 $temp2 = str_replace ("[sector_id]", $planet['sector_id'], $temp1);
                 echo $temp2 . "<br>";
 
-                $resa = $db->Execute ("UPDATE {$db->prefix}planets SET prod_ore = ? WHERE planet_id = ?;", array ($default_prod_ore, $planet['planet_id']));
+                $resa = $db->Execute ("UPDATE {$db->prefix}planets SET prod_ore = ? WHERE planet_id = ?;", array ($bntreg->default_prod_ore, $planet['planet_id']));
                 BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
 
-                $resb = $db->Execute ("UPDATE {$db->prefix}planets SET prod_organics = ? WHERE planet_id = ?;", array ($default_prod_organics, $planet['planet_id']));
+                $resb = $db->Execute ("UPDATE {$db->prefix}planets SET prod_organics = ? WHERE planet_id = ?;", array ($bntreg->default_prod_organics, $planet['planet_id']));
                 BntDb::logDbErrors ($db, $resb, __LINE__, __FILE__);
 
-                $resc = $db->Execute ("UPDATE {$db->prefix}planets SET prod_goods = ? WHERE planet_id = ?;", array ($default_prod_goods, $planet['planet_id']));
+                $resc = $db->Execute ("UPDATE {$db->prefix}planets SET prod_goods = ? WHERE planet_id = ?;", array ($bntreg->default_prod_goods, $planet['planet_id']));
                 BntDb::logDbErrors ($db, $resc, __LINE__, __FILE__);
 
-                $resd = $db->Execute ("UPDATE {$db->prefix}planets SET prod_energy = ? WHERE planet_id = ?;", array ($default_prod_energy, $planet['planet_id']));
+                $resd = $db->Execute ("UPDATE {$db->prefix}planets SET prod_energy = ? WHERE planet_id = ?;", array ($bntreg->default_prod_energy, $planet['planet_id']));
                 BntDb::logDbErrors ($db, $resd, __LINE__, __FILE__);
 
-                $rese = $db->Execute ("UPDATE {$db->prefix}planets SET prod_fighters = ? WHERE planet_id = ?;", array ($default_prod_fighters, $planet['planet_id']));
+                $rese = $db->Execute ("UPDATE {$db->prefix}planets SET prod_fighters = ? WHERE planet_id = ?;", array ($bntreg->default_prod_fighters, $planet['planet_id']));
                 BntDb::logDbErrors ($db, $rese, __LINE__, __FILE__);
 
-                $resf = $db->Execute ("UPDATE {$db->prefix}planets SET prod_torp = ? WHERE planet_id = ?;", array ($default_prod_torp, $planet['planet_id']));
+                $resf = $db->Execute ("UPDATE {$db->prefix}planets SET prod_torp = ? WHERE planet_id = ?;", array ($bntreg->default_prod_torp, $planet['planet_id']));
                 BntDb::logDbErrors ($db, $resf, __LINE__, __FILE__);
             }
         }

@@ -113,9 +113,9 @@ if ($flag == 0)
 
     $mturns = $res['mturns'];
 
-    if ($mturns > $max_turns)
+    if ($mturns > $bntreg->max_turns)
     {
-        $mturns = $max_turns;
+        $mturns = $bntreg->max_turns;
     }
 
     // Hash the password.  $hashedPassword will be a 60-character string.
@@ -123,7 +123,7 @@ if ($flag == 0)
     $hashed_pass = $hasher->HashPassword ($password);
 
     $result2 = $db->Execute ("INSERT INTO {$db->prefix}ships (ship_name, ship_destroyed, character_name, password, email, armor_pts, credits, ship_energy, ship_fighters, turns, on_planet, dev_warpedit, dev_genesis, dev_beacon, dev_emerwarp, dev_escapepod, dev_fuelscoop, dev_minedeflector, last_login, ip_address, trade_colonists, trade_fighters, trade_torps, trade_energy, cleared_defences, lang, dev_lssd)
-                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $start_armor, $start_credits, $start_energy, $start_fighters, $mturns, 'N', $start_editors, $start_genesis, $start_beacon, $start_emerwarp, $start_escape_pod, $start_scoop, $start_minedeflectors, $stamp, $_SERVER['REMOTE_ADDR'], 'Y', 'N', 'N', 'Y', NULL, $lang, $start_lssd));
+                             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);", array ($shipname, 'N', $character, $hashed_pass, $username, $bntreg->start_armor, $bntreg->start_credits, $bntreg->start_energy, $bntreg->start_fighters, $mturns, 'N', $bntreg->start_editors, $bntreg->start_genesis, $bntreg->start_beacon, $bntreg->start_emerwarp, $bntreg->start_escape_pod, $bntreg->start_scoop, $bntreg->start_minedeflectors, $stamp, $_SERVER['REMOTE_ADDR'], 'Y', 'N', 'N', 'Y', NULL, $lang, $bntreg->start_lssd));
     BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 
     if (!$result2)
