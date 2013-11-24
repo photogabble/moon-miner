@@ -23,8 +23,8 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_igb.php')) // Prevent direct access to 
     include_once './error.php';
 }
 
-$exponinter = pow ($ibank_interest + 1, $multiplier);
-$expoloan = pow ($ibank_loaninterest + 1, $multiplier);
+$exponinter = pow ($bntreg->ibank_interest + 1, $multiplier);
+$expoloan = pow ($bntreg->ibank_loaninterest + 1, $multiplier);
 
 echo "<strong>IBANK</strong><p>";
 

@@ -27,12 +27,12 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_ports.php')) // Prevent direct access t
 echo "<strong>PORTS</strong><br><br>";
 echo "Adding ore to all commodities ports...";
 
-$resa = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ($ore_rate * $multiplier * $port_regenrate ) WHERE port_type='ore' AND port_ore < $ore_limit");
+$resa = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ($bntreg->ore_rate * $multiplier * $bntreg->port_regenrate ) WHERE port_type='ore' AND port_ore < $bntreg->ore_limit");
 $debug = BntDb::logDbErrors ($db, $resa, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Adding ore to all ore ports...";
-$resb = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ($ore_rate * $multiplier * $port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_ore < $ore_limit");
+$resb = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = port_ore + ($bntreg->ore_rate * $multiplier * $bntreg->port_regenrate) WHERE port_type!='special' AND port_type!='none' AND port_ore < $bntreg->ore_limit");
 $debug = BntDb::logDbErrors ($db, $resb, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
@@ -44,12 +44,12 @@ echo "<br>";
 
 // Update Organics in Ports
 echo "Adding organics to all commodities ports...";
-$resd = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = port_organics + (? * ? * ?) WHERE port_type='organics' AND port_organics < ?", array ($organics_rate, $multiplier, $port_regenrate, $organics_limit));
+$resd = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = port_organics + (? * ? * ?) WHERE port_type='organics' AND port_organics < ?", array ($bntreg->organics_rate, $multiplier, $bntreg->port_regenrate, $bntreg->organics_limit));
 $debug = BntDb::logDbErrors ($db, $resd, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Adding organics to all organics ports...";
-$rese = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = port_organics + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_organics < ?", array ($organics_rate, $multiplier, $port_regenrate, $organics_limit));
+$rese = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = port_organics + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_organics < ?", array ($bntreg->organics_rate, $multiplier, $bntreg->port_regenrate, $bntreg->organics_limit));
 $debug = BntDb::logDbErrors ($db, $rese, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
@@ -61,12 +61,12 @@ echo "<br>";
 
 // Update Goods in Ports
 echo "Adding goods to all commodities ports...";
-$resg = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = port_goods + (? * ? * ?) WHERE port_type='goods' AND port_goods < ?", array ($goods_rate, $multiplier, $port_regenrate, $goods_limit));
+$resg = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = port_goods + (? * ? * ?) WHERE port_type='goods' AND port_goods < ?", array ($bntreg->goods_rate, $multiplier, $bntreg->port_regenrate, $bntreg->goods_limit));
 $debug = BntDb::logDbErrors ($db, $resg, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Adding goods to all goods ports...";
-$resh = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = port_goods + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_goods < ?", array ($goods_rate, $multiplier, $port_regenrate, $goods_limit));
+$resh = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = port_goods + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_goods < ?", array ($bntreg->goods_rate, $multiplier, $bntreg->port_regenrate, $bntreg->goods_limit));
 $debug = BntDb::logDbErrors ($db, $resh, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
@@ -78,12 +78,12 @@ echo "<br>";
 
 // Update Energy in Ports
 echo "Adding energy to all commodities ports...";
-$resj = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = port_energy + (? * ? * ?) WHERE port_type='energy' AND port_energy < ?", array ($energy_rate, $multiplier, $port_regenrate, $energy_limit));
+$resj = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = port_energy + (? * ? * ?) WHERE port_type='energy' AND port_energy < ?", array ($bntreg->energy_rate, $multiplier, $bntreg->port_regenrate, $bntreg->energy_limit));
 $debug = BntDb::logDbErrors ($db, $resj, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Adding energy to all energy ports...";
-$resk = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = port_energy + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_energy < ?", array ($energy_rate, $multiplier, $port_regenrate, $energy_limit));
+$resk = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = port_energy + (? * ? * ?) WHERE port_type!='special' AND port_type!='none' AND port_energy < ?", array ($bntreg->energy_rate, $multiplier, $bntreg->port_regenrate, $bntreg->energy_limit));
 $debug = BntDb::logDbErrors ($db, $resk, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
@@ -95,22 +95,22 @@ echo "<br>";
 
 // Now check to see if any ports are over max, if so rectify.
 echo "Checking Energy Port Cap...";
-$resm = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = ? WHERE port_energy > ?", array ($energy_limit, $energy_limit));
+$resm = $db->Execute ("UPDATE {$db->prefix}universe SET port_energy = ? WHERE port_energy > ?", array ($bntreg->energy_limit, $bntreg->energy_limit));
 $debug = BntDb::logDbErrors ($db, $resm, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Checking Goods Port Cap...";
-$resn = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = ? WHERE port_goods > ?", array ($goods_limit, $goods_limit));
+$resn = $db->Execute ("UPDATE {$db->prefix}universe SET port_goods = ? WHERE port_goods > ?", array ($bntreg->goods_limit, $bntreg->goods_limit));
 $debug = BntDb::logDbErrors ($db, $resn, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Checking Organics Port Cap...";
-$reso = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = ? WHERE port_organics > ?", array ($organics_limit, $organics_limit));
+$reso = $db->Execute ("UPDATE {$db->prefix}universe SET port_organics = ? WHERE port_organics > ?", array ($bntreg->organics_limit, $bntreg->organics_limit));
 $debug = BntDb::logDbErrors ($db, $reso, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 
 echo "Checking Ore Port Cap...";
-$resp = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = ? WHERE port_ore > ?", array ($ore_limit, $ore_limit));
+$resp = $db->Execute ("UPDATE {$db->prefix}universe SET port_ore = ? WHERE port_ore > ?", array ($bntreg->ore_limit, $bntreg->ore_limit));
 $debug = BntDb::logDbErrors ($db, $resp, __LINE__, __FILE__);
 is_query_ok ($db, $debug);
 $multiplier = 0;

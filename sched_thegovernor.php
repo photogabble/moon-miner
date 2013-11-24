@@ -34,9 +34,9 @@ $detected = (boolean) false;
 while (!$tdres->EOF)
 {
     $playerinfo = $tdres->fields;
-    $ship_fighters_max = BntCalcLevels::Fighters ($playerinfo['computer'], $level_factor);
-    $torps_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $level_factor);
-    $armor_pts_max = BntCalcLevels::Armor ($playerinfo['armor'], $level_factor);
+    $ship_fighters_max = BntCalcLevels::Fighters ($playerinfo['computer'], $bntreg->level_factor);
+    $torps_max = BntCalcLevels::Torpedoes ($playerinfo['torp_launchers'], $bntreg->level_factor);
+    $armor_pts_max = BntCalcLevels::Armor ($playerinfo['armor'], $bntreg->level_factor);
 
     // Checking Fighters
     if ($playerinfo['ship_fighters'] > $ship_fighters_max)
