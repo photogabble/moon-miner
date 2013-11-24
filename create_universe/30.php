@@ -61,7 +61,6 @@ for ($i = 0; $i < $destroy_array_size; $i++)
 }
 
 // Database driven language entries
-$langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 // Pull in footer variables from footer_t.php

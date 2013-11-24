@@ -73,7 +73,6 @@ if (array_key_exists ('newlang', $_POST) == true)
 
 
 // Database driven language entries
-$langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 $template->AddVariables ('langvars', $langvars);
 

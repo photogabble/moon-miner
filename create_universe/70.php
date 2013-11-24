@@ -50,7 +50,6 @@ $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILT
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = null;
 $langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $p_skip = 0;
