@@ -26,8 +26,8 @@ if ($pos !== false)
 // Determine current step, next step, and number of steps
 $create_universe_info = BntBigBang::findStep (__FILE__);
 
-// Pull in the configset variables so we can get the correct sector max
-$ini_keys = parse_ini_file ("config/configset_classic.ini.php", true);
+// Pull in the set config variables so we can get the correct sector max
+$ini_keys = parse_ini_file ("config/classic_set_config.ini.php", true);
 
 foreach ($ini_keys as $config_category => $config_line)
 {

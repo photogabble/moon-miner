@@ -1,5 +1,5 @@
 ; <?php die ( 'Please do not access this page directly.' ); ?>
-; This is the configset page, do not modify the above line.
+; This is the set config page, do not modify the above line.
 // Blacknova Traders - A web-based massively multiplayer space combat and trading game
 // Copyright 2001-2012 Ron Harwood and the BNT development team
 //
@@ -16,7 +16,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: configset_classic.php
+// File: classic_set_config.ini.php
 
 // All sched_* vars are in minutes.
 // These are true minutes, no matter to what interval you're running the scheduler script

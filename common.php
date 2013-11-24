@@ -93,7 +93,7 @@ if ($no_langs_yet)
     $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
 
     // Slurp in config variables from the ini file directly
-    $ini_file = 'config/configset_classic.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
+    $ini_file = 'config/classic_set_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
     $ini_keys = parse_ini_file ($ini_file, true);
     foreach ($ini_keys as $config_category=>$config_line)
     {

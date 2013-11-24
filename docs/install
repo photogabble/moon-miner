@@ -21,7 +21,7 @@ INSTALLATION
 4. Edit the config/db_config.php and config/admin_config.php files to your own settings 
    and manually update your cron file.
 
-   PLEASE make sure to edit your game_name (in config/configset_classic.ini.php) to be something unique!
+   PLEASE make sure to edit your game_name (in config/classic_set_config.ini.php) to be something unique!
 
 5. Contact your hosting provider, and determine which command-line web fetching program they make
    available to you, and where it is located. This is to help set up a background task that will be called

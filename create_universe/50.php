@@ -81,7 +81,7 @@ foreach ($language_files as $language_filename)
 $variables['language_count'] = ($i - 1);
 
 $local_table_timer->start (); // Start benchmarking
-$gameconfig_result = BntFile::iniToDb ($db, "config/configset_classic.ini.php", "gameconfig", "game", $bntreg);
+$gameconfig_result = BntFile::iniToDb ($db, "config/classic_set_config.ini.php", "gameconfig", "game", $bntreg);
 $local_table_timer->stop ();
 if ($gameconfig_result === true)
 {
