@@ -42,7 +42,7 @@ if (extension_loaded ('mbstring'))                 // Ensure that we don't trigg
     mb_internal_encoding ("UTF-8");                // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 }
 
-                                                   // Since header is now temlate driven, these weren't being passed along except on old 
+                                                   // Since header is now temlate driven, these weren't being passed along except on old
                                                    // crusty pages. Now everthing gets them!
 header ("Content-type: text/html; charset=utf-8"); // Set character set to utf-8, and using HTML as our content type
 header ("X-UA-Compatible: IE=Edge, chrome=1");     // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
@@ -109,7 +109,7 @@ if (file_exists ("dev"))
 if (!isset ($index_page))
 {
     $index_page = false;
-    // Ensure that we do not start sessions on the index page (or pages likely to have no db), 
+    // Ensure that we do not start sessions on the index page (or pages likely to have no db),
     // until the player chooses to allow them or until the db exists.
     if (!isset ($_SESSION))
     {
