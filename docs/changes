@@ -1,5 +1,9 @@
 TheKabal (23 November 2013)
 --------------------------------------
+Improve SSL support by moving resources to use http/https independent resource references.
+
+TheKabal (23 November 2013)
+--------------------------------------
 configset_classic.ini.php is now classic_set_config.ini.php
 
 TheKabal (23 November 2013)

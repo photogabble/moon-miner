@@ -31,7 +31,7 @@
 {else}
     <link rel="stylesheet" type="text/css" href="{$template_dir}/styles/main.css.php">
 {/if}
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu">
 <title>{block name=title}Default Page Title{/block}</title>
 {if isset($variables['include_ckeditor'])}
    <script src="{$template_dir}/javascript/ckeditor/ckeditor.js"></script>
