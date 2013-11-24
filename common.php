@@ -32,6 +32,8 @@ ini_set ('session.entropy_file', '/dev/urandom'); // Use urandom as entropy sour
 ini_set ('session.entropy_length', '512');        // Increase the length of entropy gathered
 ini_set ('session.hash_function', 'sha512');      // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
 ini_set ('url_rewriter.tags', '');                // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+ini_set ('error_reporting', 0);                   // Do not report errors (dev mode overrides this, further down in this file..)
+ini_set ('display_errors', '0');                  // Do not display errors (dev mode overrides this, further down in this file..)
 
 date_default_timezone_set ('UTC');                // Set to your server's local time zone - PHP throws a notice if this is not set.
 if (extension_loaded ('mbstring'))                // Ensure that we don't trigger an error if the mbstring extension is not loaded
@@ -41,10 +43,10 @@ if (extension_loaded ('mbstring'))                // Ensure that we don't trigge
 }
 
 // Since header is now temlate driven, these weren't being passed along except on old crusty pages. Now everthing gets them!
-header ("Content-type: text/html; charset=utf-8");
-header ("X-UA-Compatible: IE=Edge, chrome=1");
-//header ("Cache-Control: public"); // Tell the client (and any caches) that this information can be stored in public caches.
-header ("Connection: Keep-Alive"); // Tell the client to keep going until it gets all data, please.
+header ("Content-type: text/html; charset=utf-8");// Set character set to utf-8, and using HTML as our content type
+header ("X-UA-Compatible: IE=Edge, chrome=1");    // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
+header ("Cache-Control: public");                 // Tell the browser (and any caches) that this information can be stored in public caches.
+header ("Connection: Keep-Alive");                // Tell the browser to keep going until it gets all data, please.
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");
 
@@ -113,20 +115,12 @@ if (file_exists ("dev"))
         $db->LogSQL (); // Turn on adodb performance logging
     }
 }
-else
-{
-    ini_set ('error_reporting', 0);  // No errors
-    ini_set ('display_errors', '0'); // Don't show them
-}
 
 if (!isset ($index_page))
 {
     $index_page = false;
-}
-
-if (!$index_page)
-{
-    // Ensure that we do not set cookies on the index page, until the player chooses to allow them.
+    // Ensure that we do not start sessions on the index page (or pages likely to have no db), 
+    // until the player chooses to allow them or until the db exists.
     if (!isset ($_SESSION))
     {
         session_start ();
