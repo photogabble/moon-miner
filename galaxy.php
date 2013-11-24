@@ -26,8 +26,6 @@ $langvars = BntTranslate::load ($db, $lang, array ('main', 'port', 'galaxy', 'co
 $title = $langvars['l_map_title'];
 include './header.php';
 
-$active_template = "templates/" . $bntreg->template . "/";
-
 echo "<h1>" . $title . "</h1>\n";
 
 $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -73,7 +71,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
             }
 
             echo "\n<a href=\"rsmove.php?engage=1&amp;destination=" . $row['sector_id'] . "\">";
-            echo "<img class='map ".$row['port_type']."' src='" . $active_template . "images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
+            echo "<img class='map ".$row['port_type']."' src='" . $template->GetVariables('template_dir') . "/images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
 
             // Move to next explored sector in database results
             $result3->Movenext ();
@@ -94,7 +92,7 @@ for ($r = 0; $r < $div_ymax; $r++) // Loop the rows
                 // I have not figured out why this formula works, but $row[sector_id] doesn't, so I'm not switching it.
                 echo "<!-- current sector is " . ($c + ($div_xmax * $r)) . " -->";
                 echo "<a href=\"rsmove.php?engage=1&amp;destination=". ($c + ($div_xmax * $r)) ."\">";
-                echo "<img class='map un' src='" . $active_template . "images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
+                echo "<img class='map un' src='" . $template->GetVariables('template_dir') . "/images/" . $tile[$p] . "' alt='" . $alt . "' style='width:20px; height:20px'></a> ";
             }
             $cur_sector = $cur_sector + 1;
         }
@@ -108,13 +106,13 @@ for ($a = 1; $a < ($bntreg->sector_max/50 +1); $a++)
 }
 
 echo "</div><div style='clear:both'></div><br>";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_special_port'] . "' src='" . $active_template . "images/{$tile['special']}'> &lt;- " . $langvars['l_special_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_ore_port'] . "' src='" . $active_template . "images/{$tile['ore']}'> &lt;- " . $langvars['l_ore_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_organics_port'] . "' src='" . $active_template . "images/{$tile['organics']}'> &lt;- " . $langvars['l_organics_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_energy_port'] . "' src='" . $active_template . "images/{$tile['energy']}'> &lt;- " . $langvars['l_energy_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_goods_port'] . "' src='" . $active_template . "images/{$tile['goods']}'> &lt;- " . $langvars['l_goods_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_no_port'] . "' src='" . $active_template . "images/{$tile['none']}'> &lt;- " . $langvars['l_no_port'] . "</div>\n";
-echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_unexplored'] . "' src='" . $active_template . "images/{$tile['unknown']}'> &lt;- " . $langvars['l_unexplored'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_special_port'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['special']}'> &lt;- " . $langvars['l_special_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_ore_port'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['ore']}'> &lt;- " . $langvars['l_ore_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_organics_port'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['organics']}'> &lt;- " . $langvars['l_organics_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_energy_port'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['energy']}'> &lt;- " . $langvars['l_energy_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_goods_port'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['goods']}'> &lt;- " . $langvars['l_goods_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_no_port'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['none']}'> &lt;- " . $langvars['l_no_port'] . "</div>\n";
+echo "    <div><img style='height:20px; width:20px' alt='" . $langvars['l_port'] . ": " . $langvars['l_unexplored'] . "' src='" . $template->GetVariables('template_dir') . "/images/{$tile['unknown']}'> &lt;- " . $langvars['l_unexplored'] . "</div>\n";
 
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);

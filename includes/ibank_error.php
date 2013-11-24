@@ -36,7 +36,7 @@ function ibank_error ($active_template, $langvars, $errmsg, $backlink, $title = 
          "</table>" .
          "</td></tr>" .
          "</table>" .
-         "<img width=600 height=21 src=" . $active_template . "images/div2.png>" .
+         "<img width=600 height=21 src=" . $active_template . "/images/div2.png>" .
          "</center>";
 
     include './footer.php';

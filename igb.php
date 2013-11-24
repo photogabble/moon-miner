@@ -28,7 +28,6 @@ $langvars = BntTranslate::load ($db, $lang, array ('igb', 'common', 'global_incl
 $title = $langvars['l_ibank_title'];
 $body_class = 'igb';
 include './header.php';
-$active_template = "templates/" . $bntreg->template . "/";
 
 $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
@@ -40,15 +39,15 @@ $account = $result->fields;
 
 echo "<body class='" . $body_class . "'>";
 echo "<center>";
-echo '<img src="' . $active_template . 'images/div1.png" alt="" style="width: 600px; height:21px">';
+echo '<img src="' . $template->GetVariables('template_dir') . '/images/div1.png" alt="" style="width: 600px; height:21px">';
 echo '<div style="width:600px; max-width:600px;" class="igb">';
 echo '<table style="width:600px; height:350px;" border="0px">';
-echo '<tr><td style="background-image:URL(' . $active_template . 'images/igbscreen.png); background-repeat:no-repeat;" align="center">';
+echo '<tr><td style="background-image:URL(' . $template->GetVariables('template_dir') . '/images/igbscreen.png); background-repeat:no-repeat;" align="center">';
 echo '<table style="width:550px; height:300px;" border="0px">';
 
 if (!$bntreg->allow_ibank)
 {
-    ibank_error ($active_template, $langvars, $langvars['l_ibank_malfunction'], "main.php");
+    ibank_error ($template->GetVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -173,7 +172,7 @@ else
 </table>
 </div>
 <?php
-echo '<img src="' . $active_template . 'images/div2.png" alt="" style="width: 600px; height:21px">';
+echo '<img src="' . $template->GetVariables('template_dir') . '/images/div2.png" alt="" style="width: 600px; height:21px">';
 echo '</center>';
 include './footer.php';
 ?>

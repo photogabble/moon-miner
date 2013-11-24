@@ -25,41 +25,40 @@ if (strpos ($_SERVER['PHP_SELF'], 'common.php')) // Prevent direct access to thi
     include_once './error.php';
 }
 
-ini_set ("include_path", ".");                    // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
-ini_set ('session.use_only_cookies', 1);          // Ensure that sessions will only be stored in a cookie
-ini_set ('session.cookie_httponly', 1);           // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
-ini_set ('session.entropy_file', '/dev/urandom'); // Use urandom as entropy source, to help the random number generator
-ini_set ('session.entropy_length', '512');        // Increase the length of entropy gathered
-ini_set ('session.hash_function', 'sha512');      // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
-ini_set ('url_rewriter.tags', '');                // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
-ini_set ('error_reporting', 0);                   // Do not report errors (dev mode overrides this, further down in this file..)
-ini_set ('display_errors', 0);                    // Do not display errors (dev mode overrides this, further down in this file..)
+ini_set ("include_path", ".");                     // This seems to be a problem on a few platforms, so we manually set it to avoid those problems.
+ini_set ('session.use_only_cookies', 1);           // Ensure that sessions will only be stored in a cookie
+ini_set ('session.cookie_httponly', 1);            // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
+ini_set ('session.entropy_file', '/dev/urandom');  // Use urandom as entropy source, to help the random number generator
+ini_set ('session.entropy_length', '512');         // Increase the length of entropy gathered
+ini_set ('session.hash_function', 'sha512');       // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
+ini_set ('url_rewriter.tags', '');                 // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
+ini_set ('error_reporting', 0);                    // Do not report errors (dev mode overrides this, further down in this file..)
+ini_set ('display_errors', 0);                     // Do not display errors (dev mode overrides this, further down in this file..)
 
-date_default_timezone_set ('UTC');                // Set to your server's local time zone - PHP throws a notice if this is not set.
-if (extension_loaded ('mbstring'))                // Ensure that we don't trigger an error if the mbstring extension is not loaded
+date_default_timezone_set ('UTC');                 // Set to your server's local time zone - PHP throws a notice if this is not set.
+if (extension_loaded ('mbstring'))                 // Ensure that we don't trigger an error if the mbstring extension is not loaded
 {
-    mb_http_output ("UTF-8");                     // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
-    mb_internal_encoding ("UTF-8");               // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
+    mb_http_output ("UTF-8");                      // Specify that our output should be served in UTF-8, even if the PHP file served from isn't correctly saved in UTF-8.
+    mb_internal_encoding ("UTF-8");                // On many systems, this defaults to ISO-8859-1. We are explicitly a UTF-8 code base, with Unicode language variables. So set it manually.
 }
 
-// Since header is now temlate driven, these weren't being passed along except on old crusty pages. Now everthing gets them!
-header ("Content-type: text/html; charset=utf-8");// Set character set to utf-8, and using HTML as our content type
-header ("X-UA-Compatible: IE=Edge, chrome=1");    // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
-header ("Cache-Control: public");                 // Tell the browser (and any caches) that this information can be stored in public caches.
-header ("Connection: Keep-Alive");                // Tell the browser to keep going until it gets all data, please.
+                                                   // Since header is now temlate driven, these weren't being passed along except on old 
+                                                   // crusty pages. Now everthing gets them!
+header ("Content-type: text/html; charset=utf-8"); // Set character set to utf-8, and using HTML as our content type
+header ("X-UA-Compatible: IE=Edge, chrome=1");     // Tell IE to use the latest version of the rendering engine, and to use chrome if it is available. This is not needed after IE11.
+header ("Cache-Control: public");                  // Tell the browser (and any caches) that this information can be stored in public caches.
+header ("Connection: Keep-Alive");                 // Tell the browser to keep going until it gets all data, please.
 header ("Vary: Accept-Encoding, Accept-Language");
 header ("Keep-Alive: timeout=15, max=100");
 
-$bntreg = new stdClass(); // Create a registry, for passing the most common variables in game through classes
-
-$BenchmarkTimer = new BntTimer; // We want benchmarking data for all activities, so create a benchmark timer object
-$BenchmarkTimer->start(); // Start benchmarking immediately
-ob_start (array('BntCompress', 'compress')); // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" (in includes/) to properly handle detection of compression.
+$bntreg = new stdClass();                          // Create a registry, for passing the most common variables in game through classes
+$bntreg->bnttimer = new BntTimer;                  // We want benchmarking data for all activities, so create a benchmark timer object
+$bntreg->bnttimer->start();                        // Start benchmarking immediately
+ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
 
 $db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
-$ADODB_SESSION_TBL = $db_prefix . "sessions"; // Not sure why this has to be here instead of in the init class, but it does
+$ADODB_SESSION_TBL = $db_prefix . "sessions";      // Not sure why this has to be here instead of in the init class, but it does
 
-$no_langs_yet = false;
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
@@ -70,7 +69,18 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
 
     if ($debug_query->EOF)
     {
-        $no_langs_yet = true;
+        $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
+
+        // Slurp in config variables from the ini file directly
+        $ini_file = 'config/classic_set_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
+        $ini_keys = parse_ini_file ($ini_file, true);
+        foreach ($ini_keys as $config_category=>$config_line)
+        {
+            foreach ($config_line as $config_key=>$config_value)
+            {
+                $bntreg->$config_key = $config_value;
+            }
+        }
     }
 
     while (!$debug_query->EOF)
@@ -80,26 +90,6 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
         {
             $bntreg->$row['name'] = $row['value'];
             $debug_query->MoveNext();
-        }
-    }
-}
-else
-{
-    $no_langs_yet = true;
-}
-
-if ($no_langs_yet)
-{
-    $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
-
-    // Slurp in config variables from the ini file directly
-    $ini_file = 'config/classic_set_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
-    $ini_keys = parse_ini_file ($ini_file, true);
-    foreach ($ini_keys as $config_category=>$config_line)
-    {
-        foreach ($config_line as $config_key=>$config_value)
-        {
-            $bntreg->$config_key = $config_value;
         }
     }
 }
@@ -168,10 +158,5 @@ BntPluginSystem::RaiseEvent (EVENT_TICK, array (time ()));
 $langvars = null;
 
 $template = new BntTemplate (); // Template API.
-$bntreg->bnttimer = $BenchmarkTimer;
-$bntreg->db = $db;
-$bntreg->lang = $lang;
-$bntreg->langvars = $langvars;
-$bntreg->template = $bntreg->default_template; // Temporary until we have a template picker
-$template->SetTheme ("classic"); // We set the name of the theme.
+$template->SetTheme ($bntreg->default_template); // We set the name of the theme, temporary until we have a theme picker
 ?>
