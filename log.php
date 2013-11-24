@@ -18,7 +18,7 @@
 // File: log.php
 
 include './global_includes.php';
-include './config/admin_pw.php';
+include './config/admin_config.php';
 
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 

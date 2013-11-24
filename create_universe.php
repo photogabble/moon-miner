@@ -19,7 +19,7 @@
 
 $index_page = true; // Ensure we do not attempt to create sessions on this page, as the sessions table might not exist.
 include './global_includes.php';
-include './config/admin_pw.php';
+include './config/admin_config.php';
 
 // Set timelimit to infinite
 set_time_limit (0);

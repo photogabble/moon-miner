@@ -19,7 +19,7 @@
 // File: admin.php
 
 include './global_includes.php';
-include './config/admin_pw.php';
+include './config/admin_config.php';
 
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',

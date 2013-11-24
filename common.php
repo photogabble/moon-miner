@@ -33,7 +33,7 @@ ini_set ('session.entropy_length', '512');        // Increase the length of entr
 ini_set ('session.hash_function', 'sha512');      // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
 ini_set ('url_rewriter.tags', '');                // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 ini_set ('error_reporting', 0);                   // Do not report errors (dev mode overrides this, further down in this file..)
-ini_set ('display_errors', '0');                  // Do not display errors (dev mode overrides this, further down in this file..)
+ini_set ('display_errors', 0);                    // Do not display errors (dev mode overrides this, further down in this file..)
 
 date_default_timezone_set ('UTC');                // Set to your server's local time zone - PHP throws a notice if this is not set.
 if (extension_loaded ('mbstring'))                // Ensure that we don't trigger an error if the mbstring extension is not loaded
@@ -108,7 +108,7 @@ if ($no_langs_yet)
 if (file_exists ("dev"))
 {
     ini_set ('error_reporting', -1); // During development, output all errors, even notices
-    ini_set ('display_errors', '1'); // During development, *display* all errors
+    ini_set ('display_errors', 1);   // During development, display all errors
     adodb_perf::table ("{$db->prefix}adodb_logsql");
     if (!$db->inactive)
     {

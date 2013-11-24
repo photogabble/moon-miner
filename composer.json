@@ -37,7 +37,7 @@
             "includes/", 
             "classes/",
             "vendor/phpass/PasswordHash.php", 
-            "vendor/adodb/adodb-php", 
+            "vendor/adodb/adodb-php",
             "vendor/adoSchema3"
         ],
         "psr-0": {

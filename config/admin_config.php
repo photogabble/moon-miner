@@ -15,8 +15,8 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: admin_pw.php
-if (strpos ($_SERVER['PHP_SELF'], 'admin_pw.php')) // Prevent direct access to this file
+// File: admin_config.php
+if (strpos ($_SERVER['PHP_SELF'], 'admin_config.php')) // Prevent direct access to this file
 {
     die ('Please do not access this file directly');
 }

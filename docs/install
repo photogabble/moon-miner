@@ -18,7 +18,7 @@ INSTALLATION
 3. Open the file <www.your-host>/<install-dir>/setup_info.php in your browser. This
    file will help you understand what settings you should use in your db_config.php file.
 
-4. Edit the config/db_config.php and config/admin_pw.php files to your own settings 
+4. Edit the config/db_config.php and config/admin_config.php files to your own settings 
    and manually update your cron file.
 
    PLEASE make sure to edit your game_name (in config/configset_classic.ini.php) to be something unique!
