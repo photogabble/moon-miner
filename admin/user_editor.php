@@ -46,6 +46,7 @@ else
 {
     if ($_POST['operation'] == '')
     {
+		var_dump($_POST['user']);
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array ($_POST['user']));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
@@ -74,6 +75,7 @@ else
         $variables['torps'] = $row['torps'];
         $variables['armor_pts'] = $row['armor_pts'];
         $variables['dev_beacon'] = $row['dev_beacon'];
+        $variables['dev_emerwarp'] = $row['dev_emerwarp'];
         $variables['dev_warpedit'] = $row['dev_warpedit'];
         $variables['dev_genesis'] = $row['dev_genesis'];
         $variables['dev_minedeflector'] = $row['dev_minedeflector'];
@@ -82,12 +84,6 @@ else
         $variables['sector'] = $row['sector'];
 
         // For checkboxes, switch out the database stored value of Y/N for the html checked="checked", so the checkbox actually is checked.
-        $variables['dev_emerwarp'] = '';
-        if ($row['dev_emerwarp'] == 'Y')
-        {
-            $variables['dev_emerwarp'] = 'checked="checked"';
-        }
-
         $variables['dev_escapepod'] = '';
         if ($row['dev_escapepod'] == 'Y')
         {
@@ -113,7 +109,7 @@ else
         $_dev_escapepod = empty ($_POST['dev_escapepod']) ? "N" : "Y";
         $_dev_fuelscoop = empty ($_POST['dev_fuelscoop']) ? "N" : "Y";
         $variables['debug'] = $_dev_escapepod;
-        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET character_name=?, password=?, email=?, ship_name=?, ship_destroyed=?, hull=?, engines=?, power=?, computer=?, sensors=?, armor=?, shields=?, beams=?, torp_launchers=?, cloak=?, credits=?, turns=?, dev_warpedit=?, dev_genesis=?, dev_beacon=?, dev_emerwarp=?, dev_escapepod=?, dev_fuelscoop=?, dev_minedeflector=?, sector=?, ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=?, ship_fighters=?, torps=?, armor_pts=? WHERE ship_id=?", array ($character_name, $password2, $email, $ship_name, $_ship_destroyed, $hull, $engines, $power, $computer, $sensors, $armor, $shields, $beams, $torp_launchers, $cloak, $credits, $turns, $dev_warpedit, $dev_genesis, $dev_beacon, $dev_emerwarp, $_dev_escapepod, $_dev_fuelscoop, $dev_minedeflector, $sector, $ship_ore, $ship_organics, $ship_goods, $ship_energy, $ship_colonists, $ship_fighters, $torps, $armor_pts, $_POST['user']));
+        $resx = $db->Execute ("UPDATE {$db->prefix}ships SET character_name=?, password=?, email=?, ship_name=?, ship_destroyed=?, hull=?, engines=?, power=?, computer=?, sensors=?, armor=?, shields=?, beams=?, torp_launchers=?, cloak=?, credits=?, turns=?, dev_warpedit=?, dev_genesis=?, dev_beacon=?, dev_emerwarp=?, dev_escapepod=?, dev_fuelscoop=?, dev_minedeflector=?, sector=?, ship_ore=?, ship_organics=?, ship_goods=?, ship_energy=?, ship_colonists=?, ship_fighters=?, torps=?, armor_pts=? WHERE ship_id=?", array ($_POST['character_name'], $_POST['password2'], $_POST['email'], $_POST['ship_name'], $_ship_destroyed, $_POST['hull'], $_POST['engines'], $_POST['power'], $_POST['computer'], $_POST['sensors'], $_POST['armor'], $_POST['shields'], $_POST['beams'], $_POST['torp_launchers'], $_POST['cloak'], $_POST['credits'], $_POST['turns'], $_POST['dev_warpedit'], $_POST['dev_genesis'], $_POST['dev_beacon'], $_POST['dev_emerwarp'], $_dev_escapepod, $_dev_fuelscoop, $_POST['dev_minedeflector'], $_POST['sector'], $_POST['ship_ore'], $_POST['ship_organics'], $_POST['ship_goods'], $_POST['ship_energy'], $_POST['ship_colonists'], $_POST['ship_fighters'], $_POST['torps'], $_POST['armor_pts'], $_POST['user']));
         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
         $button_main = false;
         $variables['user'] = $_POST['user'];
