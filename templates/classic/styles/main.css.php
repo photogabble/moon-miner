@@ -32,58 +32,8 @@ a.new_link { color:#0f0; font-size: 8pt; font-weight:bold}
 a.new_link:hover { color:#36f; font-size: 8pt; font-weight:bold}
 a:visited { color: #0f0}
 body { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0; font-family: Verdana, "DejaVu Sans", sans-serif; font-size: 85%; line-height:1.125em; height: 100%}
-body.device table { border:0; border-spacing:0px}
-body.device td { color:white; font-size:1.1em; padding:3px}
-body.device th { background-color:#500050; text-align:left}
-body.device tr:nth-child(even) { background-color:#300030}
-body.device tr:nth-child(odd) { background-color:#400040}
 body.error { background: url(../images/error.jpg) no-repeat center center fixed; background-size: cover}
-body.faq a { color:#ffffff; text-decoration: none}
-body.faq { color:#c0c0c0; font-size:14px; height:14px}
-body.faq table { border:0px; width:100%; border-spacing:0px}
-body.faq table.navbar { border-spacing:0px}
-body.faq td.firstbar { background-color:#500050; color:#eeeeee; font-size:36px; height:36px; text-align:center}
-body.faq td.header { background-color:#400040; color:#eeeeee; font-size:18px; font-weight:bold; height:18px; width:25%; text-align:center}
-body.faq td.lists { text-align:center; width:20%}
-body.faq td.secondbar { background-color:#400040; color:#eeeeee; font-size:14px; height:14px; text-align:center}
-body.faq td.spacer { background-color:#300030; width:5%}
-body.faq td.subheader { background-color:#400040; color:#eeeeee; font-size:16px; font-weight:bold; height:16px; width:90%}
-body.igb { background-color:#929292; background-image:none; color:#f0f0f0; font-family: Courier New, Courier, monospace; font-size:0.8em}
-body.index a { outline:none; text-decoration:none}
-body.index { background-color:#929292; background-image:none; color:#000; font-family: 'Ubuntu', Verdana, "DejaVu Sans", sans-serif}
-body.index { font-size: 75%; text-align: center}
-body.index img { border:0}
-body.log.a:active { color: #040658}
-body.log.a:link { color: #040658}
-body.log.a:visited { color: #040658}
-body.log { background-color:#000; background-image: url('../images/bgoutspace1.png'); color:#c0c0c0}
-body.options table { border:0; border-spacing:0px; color:#fff; padding:2px}
-body.options th { background-color:#500050; text-align:left}
-body.options tr:nth-child(even) { background-color:#300030}
-body.options tr:nth-child(odd) { background-color:#400040}
-body.port table { border:0; border-spacing:0px; color:#fff; width:100%}
-body.port td { font-size:1.1em; padding:0px}
-body.port th { background-color:#500050; text-align:left}
-body.port tr:nth-child(even) { background-color:#300030}
-body.port tr:nth-child(odd) { background-color:#400040}
-body.zoneinfo table { border:1px solid white; border-spacing:0px; color: #fff; margin-left:20%; margin-right: 20%; padding:0px; width:60%}
-body.zoneinfo td { font-size:1.1em}
-body.zoneinfo td.name { width: 50%}
-body.zoneinfo td.value { width: 50%}
-body.zoneinfo td.zonename { text-align:center}
-body.zoneinfo th { background-color:#500050; text-align:left}
-body.zoneinfo tr:nth-child(even) { background-color:#300030}
-body.zoneinfo tr:nth-child(odd) { background-color:#400040}
 center.term { background-color: #000; border-color:#0f0; color: #0f0; font-size:0.8em}
-div.error_content { float:right; text-align:left; width: 80%}
-div.error_location { float:left; width: 20%}
-div.error_text { background: rgb(0, 0, 0); background: rgba(0, 0, 0, 0.7); width:60%; margin: 0px auto; padding-left:1em}
-div.igb { color:#0f0}
-div.index-flags { height:auto; left:80%; position:absolute; top:3%; width:auto}
-div.index-flags img { height:16px}
-div.index-header { border:2px solid white; box-shadow: 3px 3px 6px #000; height: 150px; left:0px; margin:2px; top: 0px; width:99%}
-div.index-header-text { color:white; font-size:4em; height:auto; left:30%; line-height:4em; position:absolute; text-shadow: black 2px 2px 0.1em; top:1%; width:auto}
-div.index-welcome { font-size:1.2em; text-align:center}
 div.mnu { color:white; font-size: 8pt; font-weight:bold; text-decoration:none}
 div.navigation { display:table; margin: 0 auto}
 dl.twocolumn-form dd { float:left; height:2em; text-align:left; width:45%; padding:3px}
