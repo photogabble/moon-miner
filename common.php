@@ -59,6 +59,7 @@ ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when i
 $db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
 $ADODB_SESSION_TBL = $db_prefix . "sessions";      // Not sure why this has to be here instead of in the init class, but it does
 
+$no_langs_yet = false;
 // Get the config_values from the DB
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
@@ -69,18 +70,7 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
 
     if ($debug_query->EOF)
     {
-        $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
-
-        // Slurp in config variables from the ini file directly
-        $ini_file = 'config/classic_set_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
-        $ini_keys = parse_ini_file ($ini_file, true);
-        foreach ($ini_keys as $config_category=>$config_line)
-        {
-            foreach ($config_line as $config_key=>$config_value)
-            {
-                $bntreg->$config_key = $config_value;
-            }
-        }
+        $no_langs_yet = true;
     }
 
     while (!$debug_query->EOF)
@@ -90,6 +80,26 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
         {
             $bntreg->$row['name'] = $row['value'];
             $debug_query->MoveNext();
+        }
+    }
+}
+else
+{
+    $no_langs_yet = true;
+}
+
+if ($no_langs_yet)
+{
+    $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
+
+    // Slurp in config variables from the ini file directly
+    $ini_file = 'config/classic_set_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
+    $ini_keys = parse_ini_file ($ini_file, true);
+    foreach ($ini_keys as $config_category=>$config_line)
+    {
+        foreach ($config_line as $config_key=>$config_value)
+        {
+            $bntreg->$config_key = $config_value;
         }
     }
 }
