@@ -31,7 +31,8 @@ $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array 
 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $playerinfo = $result->fields;
 
-$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($_GET['ship_id']));
+$filtered_ship_id = filter_input (INPUT_GET, 'ship_id', FILTER_SANITIZE_NUMBER_INT);
+$result2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?", array ($filtered_ship_id));
 BntDb::logDbErrors ($db, $result2, __LINE__, __FILE__);
 $targetinfo = $result2->fields;
 
