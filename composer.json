@@ -40,8 +40,8 @@
             "vendor/adodb/adodb-php",
             "vendor/adoSchema3"
         ],
-        "psr-0": {
-            "bnt": "vendor/"
+        "psr-4": {
+            "bnt\\": "vendor/"
         }
     }
 }
