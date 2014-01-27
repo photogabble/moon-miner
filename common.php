@@ -56,8 +56,18 @@ $bntreg->bnttimer = new BntTimer;                  // We want benchmarking data 
 $bntreg->bnttimer->start();                        // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
 
+// Connect to db using adodb
 $db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
 $ADODB_SESSION_TBL = $db_prefix . "sessions";      // Not sure why this has to be here instead of in the init class, but it does
+
+/// Begin work on Doctrine DBAL
+// Use DBAL configuration
+$dbal_config = new \Doctrine\DBAL\Configuration ();
+
+// Connect to DB using DBAL
+use Doctrine\DBAL\DriverManager;
+$dbal_conn = DriverManager::getConnection ($connectionParams, $config);
+/// End work on Doctrine DBAL
 
 $no_langs_yet = false;
 // Get the config_values from the DB

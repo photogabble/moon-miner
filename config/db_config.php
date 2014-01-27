@@ -50,4 +50,8 @@ $ADODB_SESSION_DRIVER = 'mysqli';
 // names conflict with tables you already have in your db, you will
 // need to change this
 $db_prefix = 'bnt_';
+
+// This is the same set of configurations as above, but is used
+// by DBAL, the Symfony2 Database abstraction layer
+$connectionParams = array('dbname' => 'bnt', 'user' => 'bnt', 'password' => 'bnt', 'host' => '127.0.0.1', 'driver' => 'pdo_mysql');
 ?>

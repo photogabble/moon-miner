@@ -1,3 +1,8 @@
+TheKabal (26 January 2014)
+--------------------------------------
+Update composer, htmlpurifier, and switch to PSR-4 autoloading
+Add minimal connection support for DBAL to begin developing in that direction
+
 TheKabal (2 December 2013)
 --------------------------------------
 Security fix for ship_id not being filtered before presenting to DB layer

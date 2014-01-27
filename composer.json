@@ -28,6 +28,7 @@
     "require": {
         "smarty/smarty": "v3.1.15",
         "ezyang/htmlpurifier": "dev-master",
+		"doctrine/dbal": "2.3.4",
         "adodb/adodb-php": "dev-master"
     },
 
