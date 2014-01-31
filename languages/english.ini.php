@@ -995,6 +995,7 @@ l_commands                              = "Commands";
 l_command_no                            = "Command not available.";
 l_devices                               = "Devices";
 l_planets                               = "Planets";
+l_igb                                   = "IGB";
 l_log                                   = "Log";
 l_sector_def                            = "Sector Defences";
 l_defense                               = "Defenses";

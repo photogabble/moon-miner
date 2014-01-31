@@ -886,6 +886,7 @@ l_commands                              = "Commandes";
 l_command_no                            = "Commande non disponible.";
 l_devices                               = "Appareils";
 l_planets                               = "Planètes";
+l_igb                                   = "IGB";
 l_log                                   = "Journal";
 l_sector_def                            = "Défenses";
 l_defense                               = "Défenses";

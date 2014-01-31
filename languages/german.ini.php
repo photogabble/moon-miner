@@ -885,6 +885,7 @@ l_commands                              = "Kommandos";
 l_command_no                            = "Kommando nicht vorhanden.";
 l_devices                               = "Ger&auml;te";
 l_planets                               = "Planeten";
+l_igb                                   = "IGB";
 l_log                                   = "Log";
 l_sector_def                            = "Sektor Verteidigung";
 l_defense                               = "Verteidigungen";
