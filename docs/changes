@@ -1,5 +1,6 @@
 TheKabal (23 February 2014)
 --------------------------------------
+Remove Symfony/Doctrine DBAL, add support for PDO, including converting footer, common, and the first step in create universe
 Add note about old versions of PHP, and the security risk they bring
 
 TheMightyDude (31 January 2014)

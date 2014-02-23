@@ -25,7 +25,7 @@ if (!$db->inactive)
     $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
     $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE {$db->prefix}ships.last_login " .
                          "BETWEEN timestamp '$since_stamp' AND timestamp '$stamp' AND email NOT LIKE '%@xenobe'");
-    BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+    BntDb::logDbErrors ($pdo_db, $res, __LINE__, __FILE__);
     if ($res instanceof ADORecordSet)
     {
         $row = $res->fields;
@@ -57,7 +57,7 @@ $display_update_ticker = false;
 if (!$db->inactive)
 {
     $rs = $db->SelectLimit ("SELECT last_run FROM {$db->prefix}scheduler", 1);
-    BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
+    BntDb::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
     if ($rs instanceof ADORecordSet)
     {
         $last_run = $rs->fields['last_run'];
@@ -84,7 +84,7 @@ if ($news_ticker == true)
 {
     // Database driven language entries
 
-    $langvars_temp = BntTranslate::load ($db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
+    $langvars_temp = BntTranslate::load ($pdo_db, $lang, array ('news', 'common', 'footer', 'global_includes', 'logout'));
     // Use Array merge so that we do not clobber the langvars array, and only add to it the items needed for footer
     $langvars = array_merge ($langvars, $langvars_temp);
 
@@ -105,7 +105,7 @@ if ($news_ticker == true)
     else
     {
         $rs = $db->Execute ("SELECT * FROM {$db->prefix}news WHERE date > ? AND date < ? ORDER BY news_id", array ($startdate ." 00:00:00", $startdate ." 23:59:59"));
-        BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
+        BntDb::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
         if ($rs instanceof ADORecordSet)
         {
             if ($rs->RecordCount() == 0)

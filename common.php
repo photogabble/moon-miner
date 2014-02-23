@@ -57,26 +57,22 @@ $bntreg->bnttimer->start();                        // Start benchmarking immedia
 ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
 
 // Connect to db using adodb
-$db = BntDb::initDb ($ADODB_SESSION_CONNECT, $ADODB_SESSION_USER, $ADODB_SESSION_PWD, $ADODB_SESSION_DB, $ADODB_SESSION_DRIVER, $db_prefix, $dbport);
+$db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'adodb');
+
+// Connect to db using pdo also
+$pdo_db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'pdo');
+
 $ADODB_SESSION_TBL = $db_prefix . "sessions";      // Not sure why this has to be here instead of in the init class, but it does
-
-/// Begin work on Doctrine DBAL
-// Use DBAL configuration
-$dbal_config = new \Doctrine\DBAL\Configuration ();
-
-// Connect to DB using DBAL
-use Doctrine\DBAL\DriverManager;
-$dbal_conn = DriverManager::getConnection ($connectionParams, $config);
-/// End work on Doctrine DBAL
-
 $no_langs_yet = false;
-// Get the config_values from the DB
+
+// Get the config_values from the DB - Redo this to be db-layer-independent for both adodb and pdo
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
 if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
 {
-    BntDb::logDbErrors ($db, $debug_query, __LINE__, __FILE__);
+    BntDb::logDbErrors ($pdo_db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
+	$pdo_db->inactive = false;
 
     if ($debug_query->EOF)
     {

@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntTranslate.php')) // Prevent direct access 
 
 class BntTranslate
 {
-    private static $langvars    = array();
+    private static $langvars = array ();
 
     static function load ($db = null, $language = null, $categories = null)
     {
@@ -55,30 +55,35 @@ class BntTranslate
             // Populate the $langvars array
             foreach ($categories as $category)
             {
-                if (!isset ($disable_cache))
-                {
-                    // Disable caching until we have the config preferences in the database
-                    $disable_cache = true;
-                }
+				if ($db instanceof ADODB_mysqli)
+				{
+	                // Select from the database and return the value of the language variables requested, but do not use caching
+                    $final_result = $db->Execute ("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
+	                BntDb::logDbErrors ($db, $final_result, __LINE__, __FILE__);
+    	            while ($final_result && !$final_result->EOF)
+        	        {
+            	        $row = $final_result->fields;
+                	    self::$langvars[$row['name']] = $row['value'];
+                    	$final_result->MoveNext();
+	                }
+				}
+				else
+				{
+	                // Select from the database and return the value of the language variables requested, but do not use caching
+					$query = "SELECT name, value FROM {$db->prefix}languages WHERE category = :category AND section = :language;";
+					$result = $db->prepare ($query);
+	                BntDb::logDbErrors ($db, $query, $result, __LINE__, __FILE__);
 
-                if ($disable_cache)
-                {
-                    // Select from the database and return the value of the language variables requested, but do not use caching
-                    $result = $db->Execute ("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
-                }
-                else
-                {
-                    // Do a cached select from the database and return the value of the language variables requested
-                    $result = $db->CacheExecute (7200, "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
-                }
+					$result->bindParam (':category', $category, PDO::PARAM_STR);
+					$result->bindParam (':language', $language, PDO::PARAM_STR);
+					$final_result = $result->execute ();
+	                BntDb::logDbErrors ($db, $query, $final_result, __LINE__, __FILE__);
 
-                BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
-                while ($result && !$result->EOF)
-                {
-                    $row = $result->fields;
-                    self::$langvars[$row['name']] = $row['value'];
-                    $result->MoveNext();
-                }
+					while (($row = $result->fetch ()) !== false)
+                    {
+                	    self::$langvars[$row['name']] = $row['value'];
+	                }
+				}
             }
 
             return self::$langvars;

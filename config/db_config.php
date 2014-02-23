@@ -22,36 +22,32 @@ if (strpos ($_SERVER['PHP_SELF'], 'db_config.php')) // Prevent direct access to 
     die ('Please do not access this file directly');
 }
 
-// The ADOdb db module is required to run BNT. You can find it at http://php.weblogs.com/ADODB.
-// Adodb is now automatically configured to be run from vendor/adodb.
+// The ADOdb db module is currently required to run BNT. You can find it at http://php.weblogs.com/ADODB.
+// Adodb is automatically configured to be run from vendor/adodb.
+// We are migrating away from adodb, switching to pure PDO instead.
 
-// Port to connect to database on. Note : if you do not know the port, set this to "" for default. Ex, MySQL default is 3306
-$dbport = '';
+// Port to connect to database on. Note : if you do not know the port, set this to '' for default. Ex, MySQL default is 3306
+$db_port = '';
 
-// Hostname and port of the database server:
-$ADODB_SESSION_CONNECT = '127.0.0.1';
+// Hostname of the database server:
+$db_host = '127.0.0.1';
 
 // Username and password to connect to the database:
-$ADODB_SESSION_USER = 'bnt';
-$ADODB_SESSION_PWD = 'bnt';
+$db_user = 'bnt';
+$db_pwd = 'bnt';
 
 // Name of the SQL database:
-$ADODB_SESSION_DB = 'bnt';
+$db_name = 'bnt';
 
 // Type of the SQL database.
-// "mysqli" for MySQLi - needed for transaction support
-// "postgres9" for PostgreSQL ver 9 and up
+// "mysqli" for MySQLi - needed for transaction support or "postgres9" for PostgreSQL ver 9 and up
 // NOTE: only mysqli works as of this release.
-//$ADODB_SESSION_DRIVER = 'postgres9';
-$ADODB_SESSION_DRIVER = 'mysqli';
+// $db_type = 'postgres9';
+$db_type = 'mysqli';
 
 // Table prefix for the database. If you want to run more than
 // one game of BNT on the same database, or if the current table
 // names conflict with tables you already have in your db, you will
 // need to change this
 $db_prefix = 'bnt_';
-
-// This is the same set of configurations as above, but is used
-// by DBAL, the Symfony2 Database abstraction layer
-$connectionParams = array('dbname' => 'bnt', 'user' => 'bnt', 'password' => 'bnt', 'host' => '127.0.0.1', 'driver' => 'pdo_mysql');
 ?>

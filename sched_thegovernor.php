@@ -334,7 +334,7 @@ if ($resl instanceof ADORecordSet)
 
         echo "Optimizing Session Table.<br>\n";
 
-        if ($ADODB_SESSION_DRIVER == 'postgres9')
+        if ($db_type == 'postgres9')
         {
             // Postgresql and SQLite (but SQLite its more like rebuild the whole database!)
             $resn = $db->Execute ("VACUUM {$db->prefix}sessions;");

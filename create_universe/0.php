@@ -36,6 +36,7 @@ $variables['next_step'] = $create_universe_info['next_step'];
 $lang_dir = new DirectoryIterator ('languages/');
 $lang_list = array ();
 $i = 0;
+
 foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
 {
     // This is to get around the issue of not having DirectoryIterator::getExtension.
@@ -47,12 +48,16 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
         $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
 
         // Select from the database and return the localized name of the language
-        $result = $db->Execute ("SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = ? AND name = 'local_lang_name';", array ($lang_file));
-        BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+		$query = "SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = :section AND name = 'local_lang_name';";
+		$result = $pdo_db->prepare ($query);
+        BntDb::logDbErrors ($pdo_db, $query, $result, __LINE__, __FILE__);
 
-        if (($result instanceof ADORecordset) && !$result->EOF)
-        {
-            $row = $result->fields;
+		if ($result !== false)
+		{
+			$result->bindParam (':section', $lang_file);
+	        $final_result = $result->execute ();
+    	    BntDb::logDbErrors ($pdo_db, $query, $final_result, __LINE__, __FILE__);
+            $row = $result->fetch();
             $variables['lang_list'][$i]['value'] = $row['value'];
         }
         else
@@ -71,7 +76,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 $variables['lang_list']['size'] = $i -1;
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'options', 'news'));
+$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'options', 'news'));
 $template->AddVariables ('langvars', $langvars);
 
 // Pull in footer variables from footer_t.php

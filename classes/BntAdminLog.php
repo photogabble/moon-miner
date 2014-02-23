@@ -28,16 +28,28 @@ class BntAdminLog
 {
     static function writeLog ($db, $log_type, $data = null)
     {
-        // Write log_entry to the admin log
-        $res = false;
-        $data = addslashes ($data);
-        if (is_int ($log_type))
-        {
-            $res = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
-            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
-        }
+		if ($db instanceof ADODB_mysqli)
+		{
+        	// Write log_entry to the admin log
+	        $res = false;
+    	    $data = addslashes ($data);
+        	if (is_int ($log_type))
+        	{
+            	$res = $db->Execute ("INSERT INTO {$db->prefix}logs VALUES (NULL, 0, ?, NOW(), ?)", array ($log_type, $data));
+	            BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+    	    }
 
-        return $res;
+        	return $res;
+		}
+		else
+		{
+	        $query = "INSERT INTO {$db->prefix}logs VALUES (NULL, 0, :logtype, NOW(), :data)";
+            $result = $db->prepare ($query);
+            $result->bindParam (':logtype', $log_type, PDO::PARAM_STR);
+            $result->bindParam (':data', $data, PDO::PARAM_STR);
+			$result->execute ();
+			return $result;
+		}
     }
 }
 ?>

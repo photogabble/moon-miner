@@ -226,6 +226,5 @@ link_forums                = 'http://forums.blacknova.net';    // Address for th
 admin_name                 = 'Game Admin';                     // The title for the administrator
 admin_ship_name            = "Game Admin's ship";              // The title for the administrators ship
 admin_zone_name            = "Game Admin's zone";              // The title for the administrators zone
-disable_cache              = 0;                                // In case your server cannot run caching, or you'd prefer not to have it.
 enable_gravatars           = 0;                                // True / 1 if you'd like to enable gravatars for players
 default_template           = 'classic';                        // Used for players and the admin until/unless they choose another
