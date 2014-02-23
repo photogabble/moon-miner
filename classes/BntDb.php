@@ -108,14 +108,14 @@ class BntDb
         $db_log = false;
 		if ($db instanceof PDO)
 		{
-            echo "PDO<br>";
+//            echo "PDO<br>";
 			$error = $db->errorInfo()[1];
 			$db_error = $db->errorInfo()[2];
             $db_log = true; // We need to create a method for disabling db logging on PDO
 		}
 		else
 		{
-            echo "ADODB<br>";
+//            echo "ADODB<br>";
 			$error = $db->ErrorMsg();
 			$db_error = $db->ErrorMsg();
             if (property_exists ($db, 'LogSQL'))
