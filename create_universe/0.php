@@ -50,13 +50,13 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
         // Select from the database and return the localized name of the language
 		$query = "SELECT value FROM {$db->prefix}languages WHERE category = 'regional' AND section = :section AND name = 'local_lang_name';";
 		$result = $pdo_db->prepare ($query);
-        BntDb::logDbErrors ($pdo_db, $query, $result, __LINE__, __FILE__);
+        BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
 
 		if ($result !== false)
 		{
 			$result->bindParam (':section', $lang_file);
 	        $final_result = $result->execute ();
-    	    BntDb::logDbErrors ($pdo_db, $query, $final_result, __LINE__, __FILE__);
+    	    BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
             $row = $result->fetch();
             $variables['lang_list'][$i]['value'] = $row['value'];
         }

@@ -58,8 +58,9 @@ class BntTranslate
 				if ($db instanceof ADODB_mysqli)
 				{
 	                // Select from the database and return the value of the language variables requested, but do not use caching
-                    $final_result = $db->Execute ("SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;", array ($category, $language));
-	                BntDb::logDbErrors ($db, $final_result, __LINE__, __FILE__);
+                    $query = "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;";
+                    $final_result = $db->Execute ($query, array ($category, $language));
+	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
     	            while ($final_result && !$final_result->EOF)
         	        {
             	        $row = $final_result->fields;
@@ -72,12 +73,12 @@ class BntTranslate
 	                // Select from the database and return the value of the language variables requested, but do not use caching
 					$query = "SELECT name, value FROM {$db->prefix}languages WHERE category = :category AND section = :language;";
 					$result = $db->prepare ($query);
-	                BntDb::logDbErrors ($db, $query, $result, __LINE__, __FILE__);
+	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
 
 					$result->bindParam (':category', $category, PDO::PARAM_STR);
 					$result->bindParam (':language', $language, PDO::PARAM_STR);
 					$final_result = $result->execute ();
-	                BntDb::logDbErrors ($db, $query, $final_result, __LINE__, __FILE__);
+	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
 
 					while (($row = $result->fetch ()) !== false)
                     {
