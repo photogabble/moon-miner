@@ -84,7 +84,7 @@ class BntDb
 			try
 			{
 			    // Include the charset when connecting - only honored on php > 5.3.6
-			    $pdo_db = new PDO ("mysql:host=$db_host;port=$db_port;dbname=$db_name;charset=utf8", $db_user, $db_pwd);
+			    $pdo_db = new PDO ("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8", $db_user, $db_pwd);
 			}
 			catch (PDOException $e)
 			{
@@ -92,10 +92,15 @@ class BntDb
 			}
 
 			// Disable emulated prepares so that we get true prepared statements
+            // These are slightly slower, but also far safer in a number of cases that matter
 			$pdo_db->setAttribute (PDO::ATTR_EMULATE_PREPARES, false);
 
 			// Just in case we are on php < 5.3.6, try our best to set charset
-			$pdo_db->exec ("SET NAMES utf8");
+            if (version_compare(phpversion(), '5.3.6', '<'))
+            {
+		        $pdo_db->exec ("SET NAMES utf8");
+            }
+
 			$pdo_db->prefix = $db_prefix;
 			return $pdo_db;
 		}
