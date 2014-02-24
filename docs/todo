@@ -18,5 +18,3 @@ FREQ: Migrate all files to use templates
 TODO: Postgresql compatibility
 TODO: Split ships table from players table
 TODO: Review schema for improvements (BIGINT, more indexes, reduce unstructured data, etc)
-TODO: classes/BntTranslate can be improved to use a single SQL call instead of a loop for each language
-TODO: create_universe/0.php can be improve to use a single SQL call instead of a loop for each language file

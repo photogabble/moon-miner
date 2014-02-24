@@ -75,6 +75,7 @@ class BntTranslate
 					$result = $db->prepare ($query);
 	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
 
+                    // It is possible to use a single prepare, and multiple executes, but it makes the logic of this section much less clear.
 					$result->bindParam (':category', $category, PDO::PARAM_STR);
 					$result->bindParam (':language', $language, PDO::PARAM_STR);
 					$final_result = $result->execute ();
