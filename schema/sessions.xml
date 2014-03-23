@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <schema version="0.3">
   <table name="sessions">
-    <field name="sesskey" type="C" size="255">
+    <field name="sesskey" type="C" size="64">
       <KEY/>
     </field>
     <field name="expiry" type="T">

@@ -97,7 +97,7 @@ if ($playerfound)
                 BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
 
                 // They have logged in successfully, so update their session ID as well
-                adodb_session_regenerate_id();
+//                adodb_session_regenerate_id();
 
                 $_SESSION['logged_in'] = true;
                 $_SESSION['password'] = $_POST['pass'];

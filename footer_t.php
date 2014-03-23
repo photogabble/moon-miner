@@ -19,7 +19,7 @@
 
 $online = (integer) 0;
 
-if (!$db->inactive)
+if (BntDb::isActive ($db))
 {
     $stamp = date ("Y-m-d H:i:s", time ()); // Now (as seen by PHP)
     $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
@@ -54,7 +54,7 @@ $news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_matc
 $seconds_left = (integer) 0;
 $display_update_ticker = false;
 
-if (!$db->inactive)
+if (BntDb::isActive ($db))
 {
     $rs = $db->SelectLimit ("SELECT last_run FROM {$db->prefix}scheduler", 1);
     BntDb::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
@@ -91,13 +91,12 @@ if ($news_ticker == true)
     // Use Array unique so that we don't end up with duplicate lang array entries
     // This is resulting in an array with blank values for specific keys, so array_unique isn't entirely what we want
 //    $langvars = array_unique ($langvars);
-//    var_dump($langvars);
 
     $startdate = date ("Y/m/d");
 
     $news_ticker = array ();
 
-    if ($db->inactive)
+    if (BntDb::isActive ($db))
     {
         // Needs to be put into the language table.
         array_push ($news_ticker, array ('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
