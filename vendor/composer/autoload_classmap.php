@@ -179,6 +179,7 @@ return array(
     'BntPluginSystem' => $baseDir . '/classes/BntPluginSystem.php',
     'BntPorts' => $baseDir . '/classes/BntPorts.php',
     'BntRand' => $baseDir . '/classes/BntRand.php',
+    'BntReg' => $baseDir . '/classes/BntReg.php',
     'BntScan' => $baseDir . '/classes/BntScan.php',
     'BntSchema' => $baseDir . '/classes/BntSchema.php',
     'BntScore' => $baseDir . '/classes/BntScore.php',
