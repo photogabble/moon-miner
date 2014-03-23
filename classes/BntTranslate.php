@@ -35,7 +35,7 @@ class BntTranslate
             return false;
         }
 
-        if ($db->inactive)
+        if (!BntDb::isActive ($db))
         {
             // Slurp in language variables from the ini file directly
             $ini_file = './languages/' . $language . '.ini.php';

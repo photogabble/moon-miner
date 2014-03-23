@@ -45,16 +45,16 @@ class BntSchema
             if ($schema_filename->isFile () && $file_ext == 'xml')
             {
                 $tablename = substr ($schema_filename, 0, -4);
-                $drop_res = $db->Execute ('DROP TABLE ' . $db_prefix . $tablename);
+                $drop_res = $db->exec ('DROP TABLE ' . $db_prefix . $tablename);
                 BntDb::logDbErrors ($db, $drop_res, __LINE__, __FILE__);
 
-                if ($db->ErrorMsg() === 0 || $db->ErrorMsg() == null) // Adodb gives either a 0 OR a null string for success. Thanks, that is helpful (not)!
+                if ($drop_res !== false)
                 {
                     $destroy_table_results[$i]['result'] = true;
                 }
                 else
                 {
-                    $destroy_table_results[$i]['result'] = $db->ErrorNo () . ": " . $db->ErrorMsg ();
+                    $destroy_table_results[$i]['result'] = $db->errorInfo()[1] . ": " . $db->errorInfo()[2];
                 }
 
                 $destroy_table_results[$i]['name'] = $db_prefix . $tablename;
