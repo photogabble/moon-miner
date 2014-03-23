@@ -45,7 +45,7 @@ $variables['initbcommod']            = filter_input (INPUT_POST, 'initbcommod', 
 $variables['fedsecs']                = filter_input (INPUT_POST, 'fedsecs', FILTER_SANITIZE_NUMBER_INT);
 $variables['loops']                  = filter_input (INPUT_POST, 'loops', FILTER_SANITIZE_NUMBER_INT);
 $variables['swordfish']              = filter_input (INPUT_POST, 'swordfish', FILTER_SANITIZE_URL);
-$variables['destroy_schema_results'] = BntSchema::destroy ($db, $db_prefix); // Delete all tables in the database
+$variables['destroy_schema_results'] = BntSchema::destroy ($pdo_db, $db_prefix); // Delete all tables in the database
 $variables['table_count']            = count ($variables['destroy_schema_results']) - 1;
 $variables['autorun']                = filter_input (INPUT_POST, 'autorun', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILTER_SANITIZE_URL);
@@ -61,7 +61,7 @@ for ($i = 0; $i < $destroy_array_size; $i++)
 }
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 // Pull in footer variables from footer_t.php
 include './footer_t.php';

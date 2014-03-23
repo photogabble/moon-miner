@@ -52,20 +52,30 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
 		$result = $pdo_db->prepare ($query);
         BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
 
-		if ($result !== false)
-		{
-			$result->bindParam (':section', $lang_file);
-	        $final_result = $result->execute ();
-    	    BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
+        if ($result !== false)
+        {
+        	$result->bindParam (':section', $lang_file);
+            $final_result = $result->execute ();
+ 	        BntDb::logDbErrors ($pdo_db, $query, __LINE__, __FILE__);
             $row = $result->fetch();
-            $variables['lang_list'][$i]['value'] = $row['value'];
+            if ($row !== false)
+            {
+                $variables['lang_list'][$i]['value'] = $row['value'];
+            }
+            else
+            {
+                // Load language ini file to get regional local_lang_name value
+                $ini_file = './languages/' . $lang_file . '.ini.php';
+                $parsed_lang_file = parse_ini_file ($ini_file, true);
+                $variables['lang_list'][$i]['value'] = $parsed_lang_file['regional']['local_lang_name'];
+            }
         }
         else
         {
-            // Load language ini file to get regional local_lang_name value
-            $ini_file = './languages/' . $lang_file . '.ini.php';
-            $parsed_lang_file = parse_ini_file ($ini_file, true);
-            $variables['lang_list'][$i]['value'] = $parsed_lang_file['regional']['local_lang_name'];
+                // Load language ini file to get regional local_lang_name value
+                $ini_file = './languages/' . $lang_file . '.ini.php';
+                $parsed_lang_file = parse_ini_file ($ini_file, true);
+                $variables['lang_list'][$i]['value'] = $parsed_lang_file['regional']['local_lang_name'];
         }
 
         $variables['lang_list'][$i]['file'] = $lang_file;

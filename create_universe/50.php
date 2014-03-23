@@ -50,7 +50,7 @@ $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILT
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $local_table_timer = new BntTimer;
 $z = 0;
@@ -81,7 +81,7 @@ foreach ($language_files as $language_filename)
 $variables['language_count'] = ($i - 1);
 
 $local_table_timer->start (); // Start benchmarking
-$gameconfig_result = BntFile::iniToDb ($db, "config/classic_set_config.ini.php", "gameconfig", "game", $bntreg);
+$gameconfig_result = BntFile::iniToDb ($db, "config/classic_config.ini.php", "gameconfig", "game", $bntreg);
 $local_table_timer->stop ();
 if ($gameconfig_result === true)
 {
@@ -107,7 +107,11 @@ for ($t = 0; $t < $z; $t++)
 
 // Write the number of sectors chosen during CU to the database
 $local_table_timer->start (); // Start benchmarking
-$result = $db->Execute ("UPDATE {$db->prefix}gameconfig SET value = ? WHERE name='sector_max'", array ($variables['sector_max']));
+$stmt = $pdo_db->prepare ("UPDATE {$pdo_db->prefix}gameconfig SET value = ? WHERE name='sector_max'");
+$result = $stmt->execute (array($variables['sector_max']));
+
+//, array ($variables['sector_max']));
+//$result = $db->Execute ("UPDATE {$pdo_db->prefix}gameconfig SET value = ? WHERE name='sector_max'", array ($variables['sector_max']));
 $local_table_timer->stop ();
 $variables['update_config_results']['result'] = BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
 $variables['update_config_results']['time'] = $local_table_timer->elapsed ();

@@ -27,13 +27,43 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntDb.php')) // Prevent direct access to this
 
 class BntDb
 {
+    public static function isActive ($db)
+    {
+        if ($db instanceof PDO)
+        {
+            $results = $db->query ("SELECT * FROM {$db->prefix}gameconfig LIMIT 1");
+            if (!$results)
+            {
+                return false;
+            }
+            else
+            {
+                if ($results->rowCount()>0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            // Get the config_values from the DB - Redo this to be db-layer-independent for both adodb and pdo
+            $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
+
+            if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
+            {
+                return true;
+            }
+        }
+    }
+
     public static function initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, $db_layer)
     {
 		if ($db_layer == 'adodb')
 		{
-	        // The data field name "data" violates SQL reserved words - switch it to SESSDATA
-    	    ADODB_Session::dataFieldName ('SESSDATA');
-
         	// Add MD5 encryption for sessions, and then compress it before storing it in the database
 	        //ADODB_Session::filter (new ADODB_Encrypt_Mcrypt ());
     	    //ADODB_Session::filter (new ADODB_Compress_Gzip ());
@@ -47,7 +77,18 @@ class BntDb
     	    // Attempt to connect to the database
         	try
 	        {
-    	        $db = NewADOConnection ($db_type);
+//    	        $db = NewADOConnection ($db_type);
+    	        $db = ADONewConnection ('mysqli');
+//                $options['table'] = 'bnt_sessions';
+//                ADODB_Session::config ($db_type, $db_host, $db_user, $db_pwd, $db, $options);
+//adodb_sess_open (false,false,$connectMode=false);
+//            ADODB_Session::host($db_host);
+//            ADODB_Session::user($db_user);
+//            ADODB_Session::password($db_pwd);
+//            ADODB_Session::Persist($connectMode=false);
+	        // The data field name "data" violates SQL reserved words - switch it to SESSDATA
+//    	    ADODB_Session::dataFieldName ('SESSDATA');
+//            ADODB_Session::open();
         	    // Adodb should not throw a warning here if the DB is unavailable, but it does, so we @.
             	$db_init_result = @$db->Connect ($db_host, $db_user, $db_pwd, $db_name);
 	            // Returns Boolean True or False.
@@ -96,7 +137,7 @@ class BntDb
 			$pdo_db->setAttribute (PDO::ATTR_EMULATE_PREPARES, false);
 
 			// Just in case we are on php < 5.3.6, try our best to set charset
-            if (version_compare(phpversion(), '5.3.6', '<'))
+            if (version_compare (phpversion (), '5.3.6', '<'))
             {
 		        $pdo_db->exec ("SET NAMES utf8");
             }
@@ -113,14 +154,14 @@ class BntDb
         $db_log = false;
 		if ($db instanceof PDO)
 		{
-//            echo "PDO<br>";
+            echo "PDO<br>";
 			$error = $db->errorInfo()[1];
 			$db_error = $db->errorInfo()[2];
             $db_log = true; // We need to create a method for disabling db logging on PDO
 		}
 		else
 		{
-//            echo "ADODB<br>";
+            echo "ADODB<br>";
 			$error = $db->ErrorMsg();
 			$db_error = $db->ErrorMsg();
             if (property_exists ($db, 'LogSQL'))
@@ -132,7 +173,7 @@ class BntDb
             }
 		}
 
-        if ($error == 'null' || $error == '')
+        if ($error === 'null' || $error == '')
         {
    	        return true;
 		}
@@ -147,7 +188,8 @@ class BntDb
                           " on line " . $served_line .
                 	      " (called from: " . $safe_script_name . " the error message was: " . $db_error .
                     	  "and the query was " . $query;
-	        if (!$db->inactive)
+
+	        if (!BntDb::isActive ($db))
     	    {
                	if ($db_log)
                 {

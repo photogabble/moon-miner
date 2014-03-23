@@ -50,7 +50,7 @@ $variables['newlang']                = filter_input (INPUT_POST, 'newlang', FILT
 $lang = $_POST['newlang']; // Set the language to the language chosen during create universe
 
 // Database driven language entries
-$langvars = BntTranslate::load ($db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
+$langvars = BntTranslate::load ($pdo_db, $lang, array ('common', 'regional', 'footer', 'global_includes', 'create_universe', 'news'));
 
 $z = 0;
 $initsore = $bntreg->ore_limit * $variables['initscommod'] / 100.0;
@@ -63,16 +63,16 @@ $initbgoods = $bntreg->goods_limit * $variables['initbcommod'] / 100.0;
 $initbenergy = $bntreg->energy_limit * $variables['initbcommod'] / 100.0;
 $local_table_timer = new BntTimer;
 $local_table_timer->start (); // Start benchmarking
-$insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
-$variables['create_sol_results']['result'] = BntDb::logDbErrors ($db, $insert, __LINE__, __FILE__);
+$insert = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('1', 'Sol', '1', 'special', '0', '0', '0', '0', 'Sol: Hub of the Universe', '0', '0', '0')");
+$variables['create_sol_results']['result'] = BntDb::logDbErrors ($pdo_db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_sol_results']['result'];
 $z++;
 $local_table_timer->stop ();
 $variables['create_sol_results']['time'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$insert = $db->Execute ("INSERT INTO {$db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('2', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
-$variables['create_ac_results']['result'] = BntDb::logDbErrors ($db, $insert, __LINE__, __FILE__);
+$insert = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}universe (sector_id, sector_name, zone_id, port_type, port_organics, port_ore, port_goods, port_energy, beacon, angle1, angle2, distance) VALUES ('2', 'Alpha Centauri', '1', 'energy',  '0', '0', '0', '0', 'Alpha Centauri: Gateway to the Galaxy', '0', '0', '1')");
+$variables['create_ac_results']['result'] = BntDb::logDbErrors ($pdo_db, $insert, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_ac_results']['result'];
 $z++;
 $local_table_timer->stop ();
@@ -92,20 +92,20 @@ $start = 3; // We added sol (1), and alpha centauri (2), so start at 3.
 for ($i = 1; $i <= $loops; $i++)
 {
     $local_table_timer->start (); // Start benchmarking
-    $insert = "INSERT INTO {$db->prefix}universe " .
+    $insert = "INSERT INTO {$pdo_db->prefix}universe " .
               "(sector_id, zone_id, angle1, angle2, distance) VALUES ";
     for ($j = $start; $j <= $finish; $j++)
     {
         $sector_id = $j;
-        $distance = intval (BntRand::betterRand (1, $bntreg->universe_size)); 
+        $distance = intval (BntRand::betterRand (1, $bntreg->universe_size));
         $angle1 = BntRand::betterRand (0, 180);
         $angle2 = BntRand::betterRand (0, 90);
         $insert .= "($sector_id, '1', $angle1, $angle2, $distance)";
         if ($j <= ($finish - 1)) $insert .= ", "; else $insert .= ";";
     }
 
-    $result = $db->Execute ($insert);
-    $variables['insert_sector_results'][$i]['result'] = BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
+    $result = $pdo_db->exec ($insert);
+    $variables['insert_sector_results'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $result, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_sector_results'][$i]['result'];
     $z++;
 
@@ -124,40 +124,40 @@ for ($i = 1; $i <= $loops; $i++)
 /// Insert zones - Unchartered, fed, free trade, war & Fed space
 
 $local_table_timer->start (); // Start benchmarking
-$replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
-$variables['create_unchartered_results']['result'] = BntDb::logDbErrors ($db, $replace, __LINE__, __FILE__);
+$replace = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Unchartered space', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', '0' )");
+$variables['create_unchartered_results']['result'] = BntDb::logDbErrors ($pdo_db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_unchartered_results']['result'];
 $z++;
 $local_table_timer->stop ();
 $variables['create_unchartered_results']['time'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$bntreg->fed_max_hull')");
-$variables['create_fedspace_results']['result'] = BntDb::logDbErrors ($db, $replace, __LINE__, __FILE__);
+$replace = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Federation space', 0, 'N', 'N', 'N', 'N', 'N', 'N',  'Y', 'N', '$bntreg->fed_max_hull')");
+$variables['create_fedspace_results']['result'] = BntDb::logDbErrors ($pdo_db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_fedspace_results']['result'];
 $z++;
 $local_table_timer->stop ();
 $variables['create_fedspace_results']['time'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
-$variables['create_free_results']['result'] = BntDb::logDbErrors ($db, $replace, __LINE__, __FILE__);
+$replace = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('Free-Trade space', 0, 'N', 'N', 'Y', 'N', 'N', 'N','Y', 'N', '0')");
+$variables['create_free_results']['result'] = BntDb::logDbErrors ($pdo_db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_free_results']['result'];
 $z++;
 $local_table_timer->stop ();
 $variables['create_free_results']['time'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$replace = $db->Execute ("INSERT INTO {$db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
-$variables['create_warzone_results']['result'] = BntDb::logDbErrors ($db, $replace, __LINE__, __FILE__);
+$replace = $pdo_db->exec ("INSERT INTO {$pdo_db->prefix}zones (zone_name, owner, corp_zone, allow_beacon, allow_attack, allow_planetattack, allow_warpedit, allow_planet, allow_trade, allow_defenses, max_hull) VALUES ('War Zone', 0, 'N', 'Y', 'Y', 'Y', 'Y', 'Y','N', 'Y', '0')");
+$variables['create_warzone_results']['result'] = BntDb::logDbErrors ($pdo_db, $replace, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_warzone_results']['result'];
 $z++;
 $local_table_timer->stop ();
 $variables['create_warzone_results']['time'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking
-$update = $db->Execute ("UPDATE {$db->prefix}universe SET zone_id='2' WHERE sector_id<=" . $variables['fedsecs']);
-$variables['create_fed_sectors_results']['result'] = BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
+$update = $pdo_db->exec ("UPDATE {$pdo_db->prefix}universe SET zone_id='2' WHERE sector_id<=" . $variables['fedsecs']);
+$variables['create_fed_sectors_results']['result'] = BntDb::logDbErrors ($pdo_db, $update, __LINE__, __FILE__);
 $catch_results[$z] = $variables['create_fed_sectors_results']['result'];
 $z++;
 $local_table_timer->stop ();
@@ -180,25 +180,29 @@ if ($finish > $variables['spp']) $finish = ($variables['spp']);
 $start = 1;
 
 $local_table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['spp']);
-// TODO: This select should have an error check that is reflected in the template
-$catch_results[$z] = BntDb::logDbErrors ($db, $sql_query, __LINE__, __FILE__);
-$z++;
+//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['spp']);
 
-$update = "UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
+$sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
+$stmt = $pdo_db->prepare ($sql);
+$stmt->bindParam (':limit', $variables['spp']);
+$stmt->execute();
+$sql_query = $stmt->fetchAll ();
+
+// TODO: This select should have an error check that is reflected in the template
+$catch_results[$z] = BntDb::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
+$z++;
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $update = "UPDATE {$db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
+    $update = "UPDATE {$pdo_db->prefix}universe SET zone_id='3',port_type='special' WHERE ";
     for ($j = $start; $j < $finish; $j++)
     {
-        $result = $sql_query->fields;
+        $result = $sql_query[$j];
         $update .= "(port_type='none' and sector_id=$result[sector_id])";
         if ($j < ($finish - 1)) $update .= " or "; else $update .= ";";
-        $sql_query->Movenext ();
     }
-    $resx = $db->Execute ($update);
-    $variables['insert_special_ports'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec ($update);
+    $variables['insert_special_ports'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_special_ports'][$i]['result'];
     $z++;
     $local_table_timer->stop ();
@@ -229,24 +233,30 @@ if ($finish > $variables['oep']) $finish = ($variables['oep']);
 $start = 0;
 
 $local_table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['oep']);
+//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['oep']);
+
+$sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
+$stmt = $pdo_db->prepare ($sql);
+$stmt->bindParam (':limit', $variables['oep']);
+$stmt->execute();
+$sql_query = $stmt->fetchAll ();
+
 // TODO: This select should have an error check that is reflected in the template
-$catch_results[$z] = BntDb::logDbErrors ($db, $sql_query, __LINE__, __FILE__);
+$catch_results[$z] = BntDb::logDbErrors ($pdo_db, $sql_query, __LINE__, __FILE__);
 $z++;
-$update = "UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
+$update = "UPDATE {$pdo_db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $update = "UPDATE {$db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
+    $update = "UPDATE {$pdo_db->prefix}universe SET port_type='ore',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
     for ($j = $start; $j < $finish; $j++)
     {
-        $result = $sql_query->fields;
+        $result = $sql_query[$j];
         $update .= "(port_type='none' and sector_id=$result[sector_id])";
         if ($j < ($finish - 1)) $update .= " or "; else $update .= ";";
-        $sql_query->Movenext ();
     }
-    $resx = $db->Execute ($update);
-    $variables['insert_ore_ports'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec ($update);
+    $variables['insert_ore_ports'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_ore_ports'][$i]['result'];
     $z++;
     $local_table_timer->stop ();
@@ -277,24 +287,30 @@ if ($finish > $variables['ogp']) $finish = ($variables['ogp']);
 $start = 0;
 
 $local_table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['ogp']);
+//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['ogp']);
+
+$sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
+$stmt = $pdo_db->prepare ($sql);
+$stmt->bindParam (':limit', $variables['ogp']);
+$stmt->execute();
+$sql_query = $stmt->fetchAll ();
+
 // TODO: This select should have an error check that is reflected in the template
-$catch_results[$z] = BntDb::logDbErrors ($db, $sql_query, __LINE__, __FILE__);
+$catch_results[$z] = BntDb::logDbErrors ($pdo_db, $sql_query, __LINE__, __FILE__);
 $z++;
-$update = "UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
+$update = "UPDATE {$pdo_db->prefix}universe SET port_type='organics',port_ore=$initsore,port_organics=$initborganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $update = "UPDATE {$db->prefix}universe SET port_type='organics',port_ore=$initbore,port_organics=$initsorganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
+    $update = "UPDATE {$pdo_db->prefix}universe SET port_type='organics',port_ore=$initbore,port_organics=$initsorganics,port_goods=$initbgoods,port_energy=$initbenergy WHERE ";
     for ($j = $start; $j < $finish; $j++)
     {
-        $result = $sql_query->fields;
+        $result = $sql_query[$j];
         $update .= "(port_type='none' and sector_id=$result[sector_id])";
         if ($j < ($finish - 1)) $update .= " or "; else $update .= ";";
-        $sql_query->Movenext ();
     }
-    $resx = $db->Execute ($update);
-    $variables['insert_organics_ports'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec ($update);
+    $variables['insert_organics_ports'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_organics_ports'][$i]['result'];
     $z++;
     $local_table_timer->stop ();
@@ -325,24 +341,30 @@ if ($finish > $variables['gop']) $finish = ($variables['gop']);
 $start = 0;
 
 $local_table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['gop']);
+//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['gop']);
+
+$sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
+$stmt = $pdo_db->prepare ($sql);
+$stmt->bindParam (':limit', $variables['gop']);
+$stmt->execute();
+$sql_query = $stmt->fetchAll ();
+
 // TODO: This select should have an error check that is reflected in the template
-$catch_results[$z] = BntDb::logDbErrors ($db, $sql_query, __LINE__, __FILE__);
+$catch_results[$z] = BntDb::logDbErrors ($pdo_db, $sql_query, __LINE__, __FILE__);
 $z++;
-$update = "UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
+$update = "UPDATE {$pdo_db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $update = "UPDATE {$db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
+    $update = "UPDATE {$pdo_db->prefix}universe SET port_type='goods',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
     for ($j = $start; $j < $finish; $j++)
     {
-        $result = $sql_query->fields;
+        $result = $sql_query[$j];
         $update .= "(port_type='none' and sector_id=$result[sector_id])";
         if ($j < ($finish - 1)) $update .= " or "; else $update .= ";";
-        $sql_query->Movenext ();
     }
-    $resx = $db->Execute ($update);
-    $variables['insert_goods_ports'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec ($update);
+    $variables['insert_goods_ports'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_goods_ports'][$i]['result'];
     $z++;
     $local_table_timer->stop ();
@@ -375,25 +397,31 @@ if ($finish > $variables['enp']) $finish = ($variables['enp']);
 $start = 1;
 
 $local_table_timer->start (); // Start benchmarking
-$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['enp']);
+//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['enp']);
+
+$sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
+$stmt = $pdo_db->prepare ($sql);
+$stmt->bindParam (':limit', $variables['enp']);
+$stmt->execute();
+$sql_query = $stmt->fetchAll ();
+
 // TODO: This select should have an error check that is reflected in the template
-$catch_results[$z] = BntDb::logDbErrors ($db, $sql_query, __LINE__, __FILE__);
+$catch_results[$z] = BntDb::logDbErrors ($pdo_db, $sql_query, __LINE__, __FILE__);
 $z++;
-$update = "UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
+$update = "UPDATE {$pdo_db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
 
 for ($i = 1; $i <= $loops; $i++)
 {
-    $update = "UPDATE {$db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
+    $update = "UPDATE {$pdo_db->prefix}universe SET port_type='energy',port_ore=$initbore,port_organics=$initborganics,port_goods=$initsgoods,port_energy=$initbenergy WHERE ";
     for ($j = $start; $j < $finish; $j++)
     {
-        $result = $sql_query->fields;
+        $result = $sql_query[$j];
         $update .= "(port_type='none' and sector_id=$result[sector_id])";
         if ($j < ($finish - 1)) $update .= " or "; else $update .= ";";
-        $sql_query->Movenext ();
     }
 
-    $resx = $db->Execute ($update);
-    $variables['insert_energy_ports'][$i]['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
+    $resx = $pdo_db->exec ($update);
+    $variables['insert_energy_ports'][$i]['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
     $catch_results[$z] = $variables['insert_energy_ports'][$i]['result'];
     $z++;
     $local_table_timer->stop ();

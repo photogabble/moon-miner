@@ -29,8 +29,8 @@ ini_set ("include_path", ".");                     // This seems to be a problem
 ini_set ('session.use_only_cookies', 1);           // Ensure that sessions will only be stored in a cookie
 ini_set ('session.cookie_httponly', 1);            // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 ini_set ('session.entropy_file', '/dev/urandom');  // Use urandom as entropy source, to help the random number generator
-ini_set ('session.entropy_length', '512');         // Increase the length of entropy gathered
-ini_set ('session.hash_function', 'sha512');       // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
+ini_set ('session.entropy_length', '32');         // Increase the length of entropy gathered
+ini_set ('session.hash_function', 'sha1');       // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
 ini_set ('url_rewriter.tags', '');                 // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 ini_set ('error_reporting', 0);                    // Do not report errors (dev mode overrides this, further down in this file..)
 ini_set ('display_errors', 0);                     // Do not display errors (dev mode overrides this, further down in this file..)
@@ -62,9 +62,12 @@ $db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix
 // Connect to db using pdo also
 $pdo_db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'pdo');
 
+global $ADODB_SESSION_TBL;
 $ADODB_SESSION_TBL = $db_prefix . "sessions";      // Not sure why this has to be here instead of in the init class, but it does
 $no_langs_yet = false;
 
+$bntreg = BntReg::init ($pdo_db, $bntreg);
+/*
 // Get the config_values from the DB - Redo this to be db-layer-independent for both adodb and pdo
 $debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
 
@@ -93,13 +96,16 @@ else
 {
     $no_langs_yet = true;
 }
+*/
 
-if ($no_langs_yet)
+/*
+if (!BntDb::isActive ($pdo_db))
 {
     $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
+    $pdo_db->inactive = true;
 
     // Slurp in config variables from the ini file directly
-    $ini_file = 'config/classic_set_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
+    $ini_file = 'config/classic_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
     $ini_keys = parse_ini_file ($ini_file, true);
     foreach ($ini_keys as $config_category=>$config_line)
     {
@@ -108,7 +114,7 @@ if ($no_langs_yet)
             $bntreg->$config_key = $config_value;
         }
     }
-}
+}*/
 
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
@@ -116,9 +122,9 @@ if (file_exists ("dev"))
     ini_set ('error_reporting', -1); // During development, output all errors, even notices
     ini_set ('display_errors', 1);   // During development, display all errors
     adodb_perf::table ("{$db->prefix}adodb_logsql");
-    if (!$db->inactive)
+    if (BntDb::isActive ($pdo_db))
     {
-        $db->LogSQL (); // Turn on adodb performance logging
+//        $db->LogSQL (); // Turn on adodb performance logging
     }
 }
 
@@ -138,7 +144,8 @@ if (isset ($bntreg->default_lang))
     $lang = $bntreg->default_lang;
 }
 
-if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
+if (BntDb::isActive ($db))
+//if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
     {
