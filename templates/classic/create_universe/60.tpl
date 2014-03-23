@@ -33,7 +33,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_created']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_sol_results']['result']}'>
+    <tr title="{$variables['create_sol_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_create_sol']|replace:'[elapsed]':$variables['create_sol_results'].time} </font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -44,7 +44,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_created']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_ac_results']['result']}'>
+    <tr title="{$variables['create_ac_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_create_ac']|replace:'[elapsed]':$variables['create_ac_results'].time}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -59,7 +59,7 @@
             <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_inserted']}</font></td>
         </tr>
         {else}
-        <tr title='{$variables['insert_sector_results'][$i]['result']}'>
+        <tr title="{$variables['insert_sector_results'][$i]['result']}">
             <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_insert_loop_sector_block']|replace:'[loop]':$variables['insert_sector_results'][$i]['loop']|replace:'[loops]':$variables['insert_sector_results'][$i]['loops']|replace:'[start]':$variables['insert_sector_results'][$i]['start']|replace:'[finish]':$variables['insert_sector_results'][$i]['finish']|replace:'[elapsed]':$variables['insert_sector_results'][$i]['elapsed']}</font></td>
             <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
         </tr>
@@ -74,7 +74,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_set']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_unchartered_results']['result']}'>
+    <tr title="{$variables['create_unchartered_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_unchartered']|replace:'[elapsed]':$variables['create_unchartered_results'].time}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -85,7 +85,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_set']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_fedspace_results']['result']}'>
+    <tr title="{$variables['create_fedspace_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_fedspace']|replace:'[elapsed]':$variables['create_fedspace_results'].time}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -96,7 +96,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_set']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_free_results']['result']}'>
+    <tr title="{$variables['create_free_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_free']|replace:'[elapsed]':$variables['create_free_results'].time}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -107,7 +107,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_set']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_warzone_results']['result']}'>
+    <tr title="{$variables['create_warzone_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_warzone']|replace:'[elapsed]':$variables['create_warzone_results'].time}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -118,7 +118,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_set']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['create_fed_sectors_results']['result']}'>
+    <tr title="{$variables['create_fed_sectors_results']['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_fed_sectors']|replace:'[elapsed]':$variables['create_fed_sectors_results'].time|replace:'[fedsecs]':$variables['fedsecs']}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -133,7 +133,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_selected']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['insert_special_ports'][$j]['result']}'>
+    <tr title="{$variables['insert_special_ports'][$j]['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_special_ports']|replace:'[loop]':$variables['insert_special_ports'][$j]['loop']|replace:'[loops]':$variables['insert_special_ports'][$j]['loops']|replace:'[start]':$variables['insert_special_ports'][$j]['start']|replace:'[finish]':$variables['insert_special_ports'][$j]['finish']|replace:'[elapsed]':$variables['insert_special_ports'][$j]['elapsed']}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -149,7 +149,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_selected']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['insert_ore_ports'][$k]['result']}'>
+    <tr title="{$variables['insert_ore_ports'][$k]['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_ore_ports']|replace:'[loop]':$variables['insert_ore_ports'][$k]['loop']|replace:'[loops]':$variables['insert_ore_ports'][$k]['loops']|replace:'[start]':$variables['insert_ore_ports'][$k]['start']|replace:'[finish]':$variables['insert_ore_ports'][$k]['finish']|replace:'[elapsed]':$variables['insert_ore_ports'][$k]['elapsed']}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -165,7 +165,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_selected']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['insert_organics_ports'][$l]['result']}'>
+    <tr title="{$variables['insert_organics_ports'][$l]['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_organics_ports']|replace:'[loop]':$variables['insert_organics_ports'][$l]['loop']|replace:'[loops]':$variables['insert_organics_ports'][$l]['loops']|replace:'[start]':$variables['insert_organics_ports'][$l]['start']|replace:'[finish]':$variables['insert_organics_ports'][$l]['finish']|replace:'[elapsed]':$variables['insert_organics_ports'][$l]['elapsed']}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -181,7 +181,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_selected']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['insert_goods_ports'][$m]['result']}'>
+    <tr title="{$variables['insert_goods_ports'][$m]['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_goods_ports']|replace:'[loop]':$variables['insert_goods_ports'][$m]['loop']|replace:'[loops]':$variables['insert_goods_ports'][$m]['loops']|replace:'[start]':$variables['insert_goods_ports'][$m]['start']|replace:'[finish]':$variables['insert_goods_ports'][$m]['finish']|replace:'[elapsed]':$variables['insert_goods_ports'][$m]['elapsed']}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>
@@ -197,7 +197,7 @@
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="Blue">{$langvars['l_cu_selected']}</font></td>
     </tr>
     {else}
-    <tr title='{$variables['insert_energy_ports'][$n]['result']}'>
+    <tr title="{$variables['insert_energy_ports'][$n]['result']}">
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_setup_energy_ports']|replace:'[loop]':$variables['insert_energy_ports'][$n]['loop']|replace:'[loops]':$variables['insert_energy_ports'][$n]['loops']|replace:'[start]':$variables['insert_energy_ports'][$n]['start']|replace:'[finish]':$variables['insert_energy_ports'][$n]['finish']|replace:'[elapsed]':$variables['insert_energy_ports'][$n]['elapsed']}</font></td>
       <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_error']}</font></td>
     </tr>

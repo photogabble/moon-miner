@@ -31,7 +31,7 @@
     {if $variables['create_schema_results'][$i]['result'] === true}
     <tr title='{$langvars['l_cu_no_errors_found']}'>
     {else}
-    <tr title='{$variables['create_schema_results'][$i]['result']}'>
+    <tr title="{$variables['create_schema_results'][$i]['result']}">
     {/if}
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_creating_tables']} {$variables['create_schema_results'][$i]['name']} - {$langvars['l_cu_completed_in']|replace:'[time]':$variables['create_schema_results'].$i.time} </font></td>
       {if $variables['create_schema_results'][$i]['result'] === true}
