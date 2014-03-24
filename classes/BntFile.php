@@ -33,13 +33,15 @@ class BntFile
         // This is a loop, that reads a ini file, of the type variable = value.
         // It will loop thru the list of the ini variables, and push them into the db.
         $ini_keys = parse_ini_file ($ini_file, true);
+        // We need a way to deal with errors in parse_ini_file here #fixit #todo
 
         $status_array = array();
-        $i = 0;
-        $start_tran_res = $db->StartTrans (); // We enclose the inserts in a transaction as it is roughly 30 times faster
+        $j = 0;
+        $start_tran_res = $db->beginTransaction (); // We enclose the inserts in a transaction as it is roughly 30 times faster
         BntDb::logDbErrors ($db, $start_tran_res, __LINE__, __FILE__);
 
-        $insert_sql = "INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES ";
+        $insert_sql = "INSERT into {$db->prefix}$ini_table (name, category, value, section) VALUES (:config_key, :config_category, :config_value, :section)";
+        $stmt = $db->prepare ($insert_sql);
         foreach ($ini_keys as $config_category => $config_line)
         {
             foreach ($config_line as $config_key => $config_value)
@@ -50,31 +52,39 @@ class BntFile
                     $bntreg->$config_key = $config_value;
                 }
 
-                $insert_sql .= "(" . $db->qstr ($config_key) . ", ";
-                $insert_sql .= $db->qstr ($config_category) . ", ";
-                $insert_sql .= $db->qstr ($config_value) . ", ";
-                $insert_sql .= $db->qstr ($section) . "), ";
+                $j++;
+                $stmt->bindParam (':config_key', $config_key);
+                $stmt->bindParam (':config_category', $config_category);
+                $stmt->bindParam (':config_value', $config_value);
+                $stmt->bindParam (':section', $section);
+                $result = $stmt->execute ();
+                $status_array[$j] = BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
             }
         }
-        $insert_sql = substr ($insert_sql, 0, -2); // Trim off the comma and space for the end of the call
-        $insert_sql_res = $db->Execute ($insert_sql);
-        BntDb::logDbErrors ($db, $insert_sql_res, __LINE__, __FILE__);
 
-        if ($insert_sql_res === false)
+        for ($k = 1; $k < $j; $k++)
         {
-            $status_array[$i] = $insert_sql_res;
-            $i++;
+            // Status Array will continue the results of individual executes. It should be === true unless something went horribly wrong.
+            if ($status_array[$k] !== true)
+            {
+                $final_result = false;
+            }
+            else
+            {
+                $final_result = true;
+            }
         }
 
-        $status_array[$i] = $db->CompleteTrans(); // Complete the transaction
-        BntDb::logDbErrors ($db, $status_array[$i], __LINE__, __FILE__);
-
-        if ($status_array[$i] === false)
+        if ($final_result !== true) // If the final result is not true, rollback our transaction, and report "FALSE"
         {
-            return $status_array;
+            $rollback_status = $db->rollBack();
+            BntDb::logDbErrors ($db, "Rollback transaction on BntFile::initodb", __LINE__, __FILE__);
+            return false;
         }
-        else
+        else // Else we process the transaction, and report "TRUE"
         {
+            $trans_status = $db->commit(); // Complete the transaction
+            BntDb::logDbErrors ($db, "Complete transaction on BntFile::initodb", __LINE__, __FILE__);
             return true;
         }
     }
