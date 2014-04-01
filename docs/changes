@@ -1,3 +1,7 @@
+TheMightyDude (02 April 2014)
+--------------------------------------
+Fixed bug in port.php when paying bounty back from your IGB Bank which resulted in no url link back to port.php.
+
 TheKabal (23 February 2014)
 --------------------------------------
 Remove Symfony/Doctrine DBAL, add support for PDO, including converting footer, common, and the first step in create universe

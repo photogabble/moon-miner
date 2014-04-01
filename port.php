@@ -367,6 +367,7 @@ elseif ($sectorinfo['port_type'] == "special")
                         $resx = $db->Execute ("DELETE FROM {$db->prefix}bounty WHERE bounty_on = ? AND placed_by = 0;", array ($playerinfo['ship_id']));
                         BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 
+                        $langvars['l_port_bountypaid'] = str_replace ("[here]", "<a href='port.php'>" . $langvars['l_here'] . "</a>", $langvars['l_port_bountypaid']);
                         echo $langvars['l_port_bountypaid'] . "<br>";
                         die ();
                     }
