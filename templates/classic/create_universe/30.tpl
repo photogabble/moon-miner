@@ -36,6 +36,8 @@
       <td width="600" bgcolor="#ccccff"><font size="1" color="#000000">{$langvars['l_cu_dropping_tables']} {$variables['destroy_schema_results'][$i]['name']} - {$langvars['l_cu_completed_in']|replace:'[time]':$variables['destroy_schema_results'].$i.time} </font></td>
       {if $variables['destroy_schema_results'][$i]['result'] === true}
           <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="blue">{$langvars['l_cu_passed']}</font></td>
+      {elseif $variables['destroy_schema_results'][$i]['result'] === 'Skipped - Persistent table'}
+          <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="green">{$langvars['l_cu_skipped']}</font></td>
       {else}
           <td width="100" align="center" bgcolor="#C0C0C0"><font size="1" color="red">{$langvars['l_cu_failed']}</font></td>
       {/if}
