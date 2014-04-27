@@ -100,7 +100,7 @@ class BntDb
     	        else
         	    {
             	    // We have connected successfully. Now set our character set to utf-8
-                	$db->Execute ("SET NAMES 'utf8'");
+                	$db->Execute ("SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'");
 
 	                // Set the fetch mode for database calls to be associative by default
     	            $db->SetFetchMode (ADODB_FETCH_ASSOC);
@@ -125,7 +125,7 @@ class BntDb
 			try
 			{
 			    // Include the charset when connecting - only honored on php > 5.3.6
-			    $pdo_db = new PDO ("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8", $db_user, $db_pwd);
+			    $pdo_db = new PDO ("mysql:host=$db_host; port=$db_port; dbname=$db_name; charset=utf8mb4", $db_user, $db_pwd);
 			}
 			catch (PDOException $e)
 			{
@@ -139,7 +139,7 @@ class BntDb
 			// Just in case we are on php < 5.3.6, try our best to set charset
             if (version_compare (phpversion (), '5.3.6', '<'))
             {
-		        $pdo_db->exec ("SET NAMES utf8");
+		        $pdo_db->exec ("SET NAMES utf8mb4 COLLATE 'utf8mb4_unicode_ci'");
             }
 
 			$pdo_db->prefix = $db_prefix;
