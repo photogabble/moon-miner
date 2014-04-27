@@ -413,6 +413,7 @@ l_corpm_exploit                         = "Vous interceptez un message codé... 
 
 [create_universe]
 l_cu_title                              = "Créer l'univers";
+l_cu_skipped                            = "Sauté";
 
 [defence_report]
 l_sdf_title                             = "Rapport des défenses";

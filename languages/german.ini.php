@@ -412,6 +412,7 @@ l_corpm_exploit                         = "Du empf&auml;ngst eine verschl&uuml;s
 
 [create_universe]
 l_cu_title                              = "Erstellen Universum";
+l_cu_skipped                            = "übersprungen";
 
 [defence_report]
 l_sdf_title                             = "Bericht Sektor Verteidigung";

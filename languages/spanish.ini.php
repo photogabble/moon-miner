@@ -412,6 +412,7 @@ l_corpm_exploit                         = "Has interceptado un mensaje borg cort
 
 [create_universe]
 l_cu_title                              = "Crear universo";
+l_skipped                               = "Saltado";
 
 [defence_report]
 l_sdf_title                             = "Informe de la Defensa de Sector";

@@ -448,6 +448,7 @@ l_cu_drop_tables                        = "Create Universe - Dropping Tables"; /
 l_cu_dropping_tables                    = "Dropping table";
 l_cu_failed                             = "Failed";
 l_cu_passed                             = "Passed";
+l_cu_skipped                            = "Skipped";
 l_cu_hover_for_more                     = "Hover over the failed line to see the error.";
 l_cu_drop_done                          = "Dropping stage complete.";
 l_cu_create_tables                      = "Create Universe - Creating Tables"; // Step 4
