@@ -29,8 +29,8 @@ ini_set ("include_path", ".");                     // This seems to be a problem
 ini_set ('session.use_only_cookies', 1);           // Ensure that sessions will only be stored in a cookie
 ini_set ('session.cookie_httponly', 1);            // Make the session cookie HTTP only, a flag that helps ensure that javascript cannot tamper with the session cookie
 ini_set ('session.entropy_file', '/dev/urandom');  // Use urandom as entropy source, to help the random number generator
-ini_set ('session.entropy_length', '32');         // Increase the length of entropy gathered
-ini_set ('session.hash_function', 'sha1');       // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
+ini_set ('session.entropy_length', '512');         // Increase the length of entropy gathered
+ini_set ('session.hash_function', 'sha512');       // We are going to switch this to sha512 for release, it brings far improved reduction for session collision
 ini_set ('url_rewriter.tags', '');                 // Ensure that the session id is *not* passed on the url - this is a possible security hole for logins - including admin.
 ini_set ('error_reporting', 0);                    // Do not report errors (dev mode overrides this, further down in this file..)
 ini_set ('display_errors', 0);                     // Do not display errors (dev mode overrides this, further down in this file..)
