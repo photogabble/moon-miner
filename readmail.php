@@ -125,7 +125,7 @@ echo "<span style='vertical-align:middle;'>{$sender['character_name']}</span>";
 ?>
 </font></td>
                       <td width="21%" align="center"><font color="white" size="2"><?php echo $msg['sent']; ?></font></td>
-                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="<?php echo $template->GetVariables('template_dir')s; ?>/images/close.png" width="16" height="14" border="0"></a></td>
+                      <td width="4%" align="center" bordercolorlight="black" bordercolordark="gray"><a class="but" href="readmail.php?action=delete&ID=<?php echo $msg['ID']; ?>"><img src="<?php echo $template->GetVariables('template_dir'); ?>/images/close.png" width="16" height="14" border="0"></a></td>
                     </tr>
                   </table>
                 </div>
