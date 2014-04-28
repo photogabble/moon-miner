@@ -2,10 +2,10 @@ BlackNova Traders
 
 REQUIREMENTS
 
-- PHP version 5.3 minimum is required. (For Smarty, crypt for login, and many other features)
-- We strongly recommend a PHP version > 5.3.6, as several major security bugs were fixed that directly impacted BNT, including character set for mysql/pdo
+- MySQL version 5.5.3 minimum is required (needed for utf8mb4 schemas).
+- PHP version 5.3.7 minimum is required. (For Smarty, password_hash for login, and many other features)
 - PHP's mbstring extension must be installed (used in common.php)
-- MySQL version 5.5 is supported, we have not determined a required minimum.
+- PHP's pdo extension must be installed (used in create_universe, and soon the rest of the game)
 - Apache version 2.2.20+ is supported, we have not determined a required minimum.
 
 INSTALLATION
