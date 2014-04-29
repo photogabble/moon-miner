@@ -15,12 +15,13 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero Public License for more details.
 
 Requirements: 
-    PHP5.3+ (tested with 5.3.10, 5.3.14, 5.4.1-1)
-    MySQL 5.5 (tested with 5.5.23, 5.5.24)
-    Apache >= 2.2.20 (tested with 2.2.20, 2.2.22)
-    a web-browser (Internet Explorer 8 or above - we recommended at least version 9, or preferably recent versions of Firefox, Opera, Safari, or Chrome)
-
-    IIS is not supported, and BNT will not work correctly on it in future versions.
+- MySQL version 5.5.3 minimum is required (needed for utf8mb4 schemas).
+- PHP version 5.3.7 minimum is required. (For Smarty, password_hash for login, directoryIterator, and many other features)
+- PHP's mbstring extension must be installed (used in common.php)
+- PHP's pdo extension must be installed (used in create_universe, and soon the rest of the game)
+- Web browser - Internet Explorer 8 or above - we recommended at least version 9, or preferably recent versions of Firefox, Safari, or Chrome
+- Apache version 2.2.20+ is supported, we have not determined a required minimum.
+- IIS is not supported, and BNT will likely not work correctly on it in future versions.
 
 Download:
     You can get the newest version at http://blacknova.net
