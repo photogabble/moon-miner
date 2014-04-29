@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     $vendorDir . '/adodb/adodb-php/adodb.inc.php',
+    $vendorDir . '/ircmaxell/password-compat/lib/password.php',
 );

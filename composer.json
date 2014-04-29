@@ -28,7 +28,8 @@
     "require": {
         "smarty/smarty": "v3.1.15",
         "ezyang/htmlpurifier": "dev-master",
-        "adodb/adodb-php": "dev-master"
+        "adodb/adodb-php": "dev-master",
+        "ircmaxell/password-compat": "1.0.3"
     },
 
     "autoload": {
@@ -41,5 +42,31 @@
         "psr-4": {
             "bnt\\": "vendor/"
         }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "rm -rf vendor/ezyang/htmlpurifier/docs/",
+            "rm -rf vendor/ezyang/htmlpurifier/extras/",
+            "rm -rf vendor/ezyang/htmlpurifier/smoketests/",
+            "rm -rf vendor/ezyang/htmlpurifier/tests/",
+            "rm -rf vendor/ezyang/htmlpurifier/art/",
+            "rm -rf vendor/ezyang/htmlpurifier/benchmarks/",
+            "rm -rf vendor/ezyang/htmlpurifier/configdoc/",
+            "rm -rf vendor/ezyang/htmlpurifier/maintenance/",
+            "rm -rf vendor/ezyang/htmlpurifier/plugins/",
+            "rm -rf vendor/ezyang/htmlpurifier/.git/",
+            "rm -rf vendor/ezyang/htmlpurifier/INSTALL.fr.utf8",
+            "rm -rf vendor/ezyang/htmlpurifier/Doxyfile",
+            "rm -rf vendor/ezyang/htmlpurifier/*.php",
+            "rm -rf vendor/ezyang/htmlpurifier/phpdoc.ini",
+            "rm -rf vendor/adodb/adodb-php/contrib/",
+            "rm -rf vendor/adodb/adodb-php/cute_icons_for_site/",
+            "rm -rf vendor/adodb/adodb-php/lang/",
+            "rm -rf vendor/adodb/adodb-php/pear/",
+            "rm -rf vendor/adodb/adodb-php/replicate/",
+            "rm -rf vendor/adodb/adodb-php/scripts/",
+            "rm -rf vendor/adodb/adodb-php/tests/",
+            "rm -rf vendor/adodb/adodb-php/.git/"
+        ]
     }
 }
