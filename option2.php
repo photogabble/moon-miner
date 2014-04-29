@@ -30,11 +30,8 @@ if (array_key_exists ('newlang', $_POST) == true)
     $lang_dir = new DirectoryIterator ('languages/');
     foreach ($lang_dir as $file_info) // Get a list of the files in the languages directory
     {
-        // This is to get around the issue of not having DirectoryIterator::getExtension.
-        $file_ext = pathinfo ($file_info->getFilename (), PATHINFO_EXTENSION);
-
         // If it is a PHP file, add it to the list of accepted language files
-        if ($file_info->isFile () && $file_ext == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
+        if ($file_info->isFile () && $file_info->getExtension() == 'php') // If it is a PHP file, add it to the list of accepted make galaxy files
         {
             $lang_file = substr ($file_info->getFilename (), 0, -8); // The actual file name
 

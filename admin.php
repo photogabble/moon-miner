@@ -54,11 +54,8 @@ if ($swordfish == ADMIN_PW)
     // Get a list of the files in the admin directory
     foreach ($admin_dir as $file_info)
     {
-        // This is to get around not having DirectoryIterator::getExtension.
-        $file_ext = pathinfo ($file_info->getFilename(), PATHINFO_EXTENSION);
-
         // If it is a PHP file, add it to the list of accepted admin files
-        if ($file_info->isFile () && $file_ext == 'php')
+        if ($file_info->isFile () && $file_info->getExtension() == 'php')
         {
             $i++; // Increment counter so we know how many files there are
             // Actual file name
