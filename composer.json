@@ -36,8 +36,7 @@
             "includes/", 
             "classes/",
             "vendor/phpass/PasswordHash.php", 
-            "vendor/adodb/adodb-php",
-            "vendor/adoSchema3"
+            "vendor/adodb/adodb-php"
         ],
         "psr-4": {
             "bnt\\": "vendor/"

@@ -20,6 +20,5 @@
 require_once './config/db_config.php';          // Database variables
 require_once './global_defines.php';            // Defines used in a few places
 require_once './vendor/autoload.php';           // Load the auto-loader
-//require_once './vendor/adodb/adodb-php/session/adodb-session2.php';
 require_once './common.php';                    // Loads the boot-strap messy code for each page
 ?>
