@@ -60,7 +60,7 @@ $lang_file_import_results = Array ();
 
 foreach ($language_files as $language_filename)
 {
-    if ($language_filename->isFile () && $file_info->getExtension() == 'php')
+    if ($language_filename->isFile () && $language_filename->getExtension() == 'php')
     {
         $lang_name = substr ($language_filename->getFilename(), 0, -8);
 
