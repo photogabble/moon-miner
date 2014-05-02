@@ -63,7 +63,7 @@ foreach ($lang_dir as $file_info) // Get a list of the files in the languages di
             $row = $result->fields;
             if ($lang_file == $_GET['lang'])
             {
-                $variables['selected_lang'] = $lang_file; 
+                $variables['selected_lang'] = $lang_file;
             }
             $variables['lang_name'][] = $row['value'];
             $variables['lang_file'][] = $lang_file;

@@ -26,7 +26,6 @@ $langvars = BntTranslate::load ($db, $lang, array ('presets'));
 $title = $langvars['l_pre_title'];
 include './header.php';
 
-
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('presets', 'common', 'global_includes', 'global_funcs', 'combat', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";

@@ -421,7 +421,6 @@ class SETUPINFO_CLASS
             $current_info[] = array("caption" => '$gamepath', "value" => $game_path['info'], "status" => "Unknown" );
         }
 
-
         $game_domain = $this->get_gamedomain(true);
         if ($game_domain['status'] != false)
         {
@@ -487,7 +486,7 @@ class SETUPINFO_CLASS
         ########################
         $var = $_SERVER['SERVER_SOFTWARE'];
         $Spos = strpos($var, "(")+1;
-        $Epos = strpos($var, ")",(int)$Spos);
+        $Epos = strpos($var, ")",(int) $Spos);
 
         if (is_integer(strpos($var, "Apache")))
         {
@@ -608,7 +607,6 @@ class SETUPINFO_CLASS
 
  // This my not be needed, but I will leave it here just in case we need it :)
 //        $software_info[]['MySQL Client Version'] = $this->database_client_version;
-
         return $software_info;
     }
 
@@ -774,7 +772,7 @@ class SETUPINFO_CLASS
     ##############################
     Function DisplayFlush($Text)
     {
-        echo $Text; 
+        echo $Text;
         //flush();
     }
 
@@ -867,4 +865,3 @@ class SETUPINFO_CLASS
 }
 
 ?>
-

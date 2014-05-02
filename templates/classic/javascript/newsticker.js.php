@@ -42,6 +42,7 @@ function newsTicker(inst)
             errMSG        += "\n";
             errMSG        += "For more information, Please read the documentation.\n";
             window.alert (errMSG);
+
             return false;
         }
 
@@ -57,7 +58,6 @@ function newsTicker(inst)
         ticketArticle[instance]         = [];
         element[instance]               = null;
 
-
         element[instance]               = document.getElementById(container);
         element[instance].height        = parseInt(tickerHeight[instance]) +"px";
         element[instance].width         = parseInt(tickerWidth[instance]) +"px";
@@ -67,6 +67,7 @@ function newsTicker(inst)
         // Clear Articles.
         this.clearArticles();
         initialized[instance]            = true;
+
         return true;
     }
 
@@ -77,6 +78,7 @@ function newsTicker(inst)
         {
             this.output("<div style='color:#FF0000; font-weight:bold;'>Error: Ticker Not Initialized!</div>");
             started[instance] = false;
+
             return false;
         }
         else if (element[instance] && intervalId[instance] == null)
@@ -130,6 +132,7 @@ function newsTicker(inst)
             {
                 tickerWidth[instance] = parseInt(width) +"px";
                 element[instance].width = tickerWidth[instance];
+
                 return true;
             }
         }
@@ -151,6 +154,7 @@ function newsTicker(inst)
             if (typeof interval != "undefined")
             {
                 intervalSec[instance] = (interval);
+
                 return true;
             }
         }
@@ -178,6 +182,7 @@ function newsTicker(inst)
         {
             nextInterval[instance] = date.getTime() + 1000;
             this.output(welcome);
+
             return true;
         }
         else if (nextInterval[instance] <= date.getTime())
@@ -195,12 +200,14 @@ function newsTicker(inst)
             {
                 this.output(ticketArticle[instance].TEXT[article[instance]]);
                 this.nextArticle();
+
                 return true;
             }
             else
             {
                 this.output("<a class='headlines' href='" + ticketArticle[instance].URL[article[instance]] + "'>" + ticketArticle[instance].TEXT[article[instance]] + "</" + "a>");
                 this.nextArticle();
+
                 return true;
             }
         }
@@ -223,6 +230,7 @@ function newsTicker(inst)
         if (typeof data != "undefined")
         {
             element[instance].innerHTML        = data
+
             return true;
         }
         else
