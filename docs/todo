@@ -2,6 +2,8 @@ This file is used to keep track of things that we intend on doing, and all accep
 
 TODO denotes an item that we intend to work on. FREQ indicates a feature request.
 
+TODO: Convert all SQL calls from adodb to PDO
+TODO: Switch passwords to use password_hash
 TODO: Audit all SQL calls to ensure they use row & value style calls, and also use a debug call
 TODO: Add encryption on submission for admin panel and login
 TODO: Redo scheduler to be a subdirectory (like admin) with activated scheduler events
