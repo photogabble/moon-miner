@@ -28,13 +28,13 @@ class BntSmarty
     private $smarty                            = null;
     private $parent                            = null;
 
-    function __construct ($parent)
+    public function __construct ($parent)
     {
         $this->parent = $parent;
         $this->smarty = new \Smarty ();
     }
 
-    function __destruct ()
+    public function __destruct ()
     {
     }
 

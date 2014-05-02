@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntShip.php')) // Prevent direct access to th
 
 class BntShip
 {
-    static function leavePlanet ($db, $ship_id)
+    public static function leavePlanet ($db, $ship_id)
     {
         $own_pl_result = $db->Execute ("SELECT * FROM {$db->prefix}planets WHERE owner = ?", array ($ship_id));
         BntDb::logDbErrors ($db, $own_pl_result, __LINE__, __FILE__);

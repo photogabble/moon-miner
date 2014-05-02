@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntNews.php')) // Prevent direct access to th
 
 class BntNews
 {
-    static function previousDay ($day)
+    public static function previousDay ($day)
     {
         // Convert the formatted date into a timestamp
         $day = strtotime ($day);
@@ -38,7 +38,7 @@ class BntNews
         return date ("Y/m/d", $day);
     }
 
-    static function nextDay ($day)
+    public static function nextDay ($day)
     {
         // Convert the formatted date into a timestamp
         $day = strtotime ($day);

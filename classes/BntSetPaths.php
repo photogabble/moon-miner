@@ -29,7 +29,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntSetPaths.php')) // Prevent direct access t
 
 class BntSetPaths
 {
-    static function setGamepath ()
+    public static function setGamepath ()
     {
         $gamepath = dirname ($_SERVER['PHP_SELF']);
         if (isset ($gamepath) && strlen ($gamepath) > 0)
@@ -62,7 +62,7 @@ class BntSetPaths
         return $gamepath;
     }
 
-    static function setGamedomain()
+    public static function setGamedomain()
     {
         $remove_port = true;
         $gamedomain = $_SERVER['HTTP_HOST'];

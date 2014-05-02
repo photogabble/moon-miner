@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntReg.php')) // Prevent direct access to thi
 
 class BntReg
 {
-    static function init ($db, $bntreg)
+    public static function init ($db, $bntreg)
     {
         // Get the config_values from the DB - This is a pdo operation
         $stmt = "SELECT name,value FROM {$db->prefix}gameconfig";

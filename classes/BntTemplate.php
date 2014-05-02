@@ -32,7 +32,7 @@ class BntTemplate
     private $initialiszd = null;
     private $api = null;
 
-    function __construct()
+    public function __construct()
     {
         $this->initialized = (boolean) false;
         $this->api = array ();
@@ -74,7 +74,7 @@ class BntTemplate
         $this->Initialize (TEMPLATE_USE_SMARTY);
     }
 
-    function __destruct ()
+    public function __destruct ()
     {
         unset ($this->modules);
     }

@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntTestXml.php')) // Prevent direct access to
 
 class BntTestXml
 {
-    static function parse ($filename)
+    public static function parse ($filename)
     {
         if (file_exists ($filename))
         {

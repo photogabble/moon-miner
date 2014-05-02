@@ -27,24 +27,24 @@ class BntPluginSystem
     static $version                         = "0.0.5 (0010) Alpha";
     static $author                          = "Blacknova Development";
 
-    static private $callbackfunc            = "OnEvent";
-    static private $db                      = null;
+    private static $callbackfunc            = "OnEvent";
+    private static $db                      = null;
 
-    static private $events                  = null;
+    private static $events                  = null;
 
-    static private $pluginlist              = null;
+    private static $pluginlist              = null;
 
-    function __construct (){}
-    function __destruct (){}
+    public function __construct (){}
+    public function __destruct (){}
 
-    static function Initialize ($db = null)
+    public static function Initialize ($db = null)
     {
         self::$events = array ();
         self::$db = $db;
         self::$pluginlist = array ();
     }
 
-    static function LoadPlugins ()
+    public static function LoadPlugins ()
     {
         global $plugin_config;
         $d = dir (PLUGIN_PATH);
@@ -82,7 +82,7 @@ class BntPluginSystem
         $d->close ();
     }
 
-    static function GetPluginInfo ($plugin = null)
+    public static function GetPluginInfo ($plugin = null)
     {
         if (is_null ($plugin))
         {
@@ -97,7 +97,7 @@ class BntPluginSystem
         }
     }
 
-    static function AddEventHook ($event = null, Plugin $callback = null)
+    public static function AddEventHook ($event = null, Plugin $callback = null)
     {
         if (!is_numeric ($event) && !is_null ($event))
         {
@@ -135,7 +135,7 @@ class BntPluginSystem
         return (boolean) true;
     }
 
-    static function RemoveEventHook ($event = null, Plugin $callback = null)
+    public static function RemoveEventHook ($event = null, Plugin $callback = null)
     {
         if (!array_key_exists ($event, self::$events) || !in_array ($callback, self::$events[$event]))
         {
@@ -148,7 +148,7 @@ class BntPluginSystem
         array_splice (self::$events[$event], $index, 1);
     }
 
-    static function ListEventHooks ($event = null)
+    public static function ListEventHooks ($event = null)
     {
         if (is_null ($event))
         {
@@ -165,7 +165,7 @@ class BntPluginSystem
         }
     }
 
-    static function RaiseEvent ($event = null, $args = array ())
+    public static function RaiseEvent ($event = null, $args = array ())
     {
         if (!is_numeric ($event))
         {

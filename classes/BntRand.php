@@ -29,7 +29,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntRand.php')) // Prevent direct access to th
 
 class BntRand
 {
-    static function sslRand ($min = 0, $max = 0x7FFFFFFF)
+    public static function sslRand ($min = 0, $max = 0x7FFFFFFF)
     {
         if (!function_exists ('openssl_random_pseudo_bytes'))
         {
@@ -65,7 +65,7 @@ class BntRand
         }
     }
 
-    static function mcryptRand ($min = 0, $max = 0x7FFFFFFF)
+    public static function mcryptRand ($min = 0, $max = 0x7FFFFFFF)
     {
         if (!function_exists ('mcrypt_create_iv'))
         {
@@ -101,7 +101,7 @@ class BntRand
         }
     }
 
-    static function uRand ($min = 0, $max = 0x7FFFFFFF)
+    public static function uRand ($min = 0, $max = 0x7FFFFFFF)
     {
         $bits = '';
         $range = $max - $min;
@@ -121,7 +121,7 @@ class BntRand
         return $int;
     }
 
-    static function betterRand ($min = 0, $max = null)
+    public static function betterRand ($min = 0, $max = null)
     {
         if ($max === null)
         {

@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntOwnership.php')) // Prevent direct access 
 
 class BntOwnership
 {
-    static function calc ($db, $sector, $min_bases_to_own, $langvars)
+    public static function calc ($db, $sector, $min_bases_to_own, $langvars)
     {
         $bases_res = $db->Execute ("SELECT owner, corp FROM {$db->prefix}planets WHERE sector_id=? AND base='Y'", array ($sector));
         BntDb::logDbErrors ($db, $bases_res, __LINE__, __FILE__);

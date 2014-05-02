@@ -31,13 +31,13 @@ class BntXml
     // List of all names to ignore.
     private $ignore_list                    = array("language_vars");
 
-    function __construct($parent)
+    public function __construct($parent)
     {
         $this->parent = $parent;
         $this->xmldom = new BntXmlTemplateSystem();
     }
 
-    function __destruct()
+    public function __destruct()
     {
         unset($this->xmldom);
     }

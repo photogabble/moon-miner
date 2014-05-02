@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntSchema.php')) // Prevent direct access to 
 
 class BntSchema
 {
-    static function destroy ($db, $db_prefix)
+    public static function destroy ($db, $db_prefix)
     {
         // Need to set this or all hell breaks loose.
         $db->inactive = true;
@@ -81,7 +81,7 @@ class BntSchema
         return $destroy_table_results;
     }
 
-    static function create ($db, $db_prefix)
+    public static function create ($db, $db_prefix)
     {
         $i = 0;
         define ("PDO_SUCCESS", (string) "00000"); // PDO gives an error code of string 00000 if successful. Not extremely helpful.

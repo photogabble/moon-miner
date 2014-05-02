@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntBounty.php')) // Prevent direct access to 
 
 class BntBounty
 {
-    static function cancel ($db, $bounty_on)
+    public static function cancel ($db, $bounty_on)
     {
         $res = $db->Execute("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id", array ($bounty_on));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
@@ -48,7 +48,7 @@ class BntBounty
         }
     }
 
-    static function collect ($db, $langvars, $attacker, $bounty_on)
+    public static function collect ($db, $langvars, $attacker, $bounty_on)
     {
         $res = $db->Execute ("SELECT * FROM {$db->prefix}bounty,{$db->prefix}ships WHERE bounty_on = ? AND bounty_on = ship_id and placed_by <> 0", array ($bounty_on));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);

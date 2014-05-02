@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPlayer.php')) // Prevent direct access to 
 
 class BntPlayer
 {
-    static function kill ($db, $ship_id, $remove_planets = false, $langvars, $bntreg)
+    public static function kill ($db, $ship_id, $remove_planets = false, $langvars, $bntreg)
     {
         $update_ships_res = $db->Execute("UPDATE {$db->prefix}ships SET ship_destroyed='Y', on_planet='N', sector=0, cleared_defences=' ' WHERE ship_id=?", array ($ship_id));
         BntDb::logDbErrors ($db, $update_ships_res, __LINE__, __FILE__);
@@ -90,7 +90,7 @@ class BntPlayer
         BntDb::logDbErrors ($db, $news_ins_res, __LINE__, __FILE__);
     }
 
-    static function getInsignia ($db, $a_username, $langvars)
+    public static function getInsignia ($db, $a_username, $langvars)
     {
         unset ($player_insignia);
 

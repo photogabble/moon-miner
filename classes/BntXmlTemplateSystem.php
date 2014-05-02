@@ -51,7 +51,7 @@ class BntXmlTemplateSystem
 
     private $stylesheet                 = null;
 
-    function __construct ($publicId = null, $systemId  = null)
+    public function __construct ($publicId = null, $systemId  = null)
     {
         $this->chkLibraries (array("xsl", "dom"));
 
@@ -70,7 +70,7 @@ class BntXmlTemplateSystem
         $this->initialized = (boolean) false;
     }
 
-    function __destruct ()
+    public function __destruct ()
     {
         $this->RleaseTemplate();
     }

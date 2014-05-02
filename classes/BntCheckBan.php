@@ -28,7 +28,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntCheckBan.php')) // Prevent direct access t
 // Calling code needs to act on the returned information (boolean false or array of ban info).
 class BntCheckBan
 {
-    static function isBanned ($db, $lang, $langvars, $player_acc = false)
+    public static function isBanned ($db, $lang, $langvars, $player_acc = false)
     {
         // Check to see if we have valid player info.
         if (is_bool ($player_acc) && $player_acc == false)

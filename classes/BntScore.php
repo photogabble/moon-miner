@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntScore.php')) // Prevent direct access to t
 
 class BntScore
 {
-    static function updateScore ($db, $ship_id, $bntreg)
+    public static function updateScore ($db, $ship_id, $bntreg)
     {
         $upgrade_factor = $bntreg->upgrade_factor;
         $upgrade_cost = $bntreg->upgrade_cost;
