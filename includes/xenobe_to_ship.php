@@ -54,6 +54,7 @@ function xenobe_to_ship ($db, $ship_id)
     {
         $resb = $db->Execute ("UNLOCK TABLES");
         BntDb::logDbErrors ($db, $resb, __LINE__, __FILE__);
+
         return;
     }
 
@@ -67,6 +68,7 @@ function xenobe_to_ship ($db, $ship_id)
     if ($zonerow['allow_attack'] == "N")                        //  Dest link must allow attacking
     {
         BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_RAW, "Attack failed, you are in a sector that prohibits attacks.");
+
         return;
     }
 
@@ -77,6 +79,7 @@ function xenobe_to_ship ($db, $ship_id)
         $dest_sector = BntRand::betterRand (0, $sector_max);
         $result_warp = $db->Execute ("UPDATE {$db->prefix}ships SET sector = ?, dev_emerwarp = dev_emerwarp - 1 WHERE ship_id = ?;", array ($dest_sector, $targetinfo['ship_id']));
         BntDb::logDbErrors ($db, $result_warp, __LINE__, __FILE__);
+
         return;
     }
 
