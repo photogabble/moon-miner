@@ -17,7 +17,7 @@
 //
 // File: compare_langs.php
 
-require_once ("class_translate.php");
+require_once 'class_translate.php';
 
 function slurp ($language)
 {
@@ -124,7 +124,6 @@ while (list ($var, $val) = each ($diff))
         }
         echo '"<br><br>';
     }
-
 
 //    echo '= "' . $trans->get ($val) . '";<br>';
 }
