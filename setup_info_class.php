@@ -25,15 +25,15 @@ if (preg_match("/setup_info_class.php/i", $_SERVER['PHP_SELF']))
 
 class SETUPINFO_CLASS
 {
-    var $appinfo;
-    var $ADOdb_status;
-    var $database_server_version;
+    public $appinfo;
+    public $ADOdb_status;
+    public $database_server_version;
 
-    var $switches;
-    var $cookie_test;
+    public $switches;
+    public $cookie_test;
 
     // Constructor
-    function SETUPINFO_CLASS($in_Value = 0)
+    public function SETUPINFO_CLASS($in_Value = 0)
     {
         global $connectedtodb,$db;
 
@@ -86,7 +86,7 @@ class SETUPINFO_CLASS
     }
 
     // Destructor
-    function _SETUPINFO_CLASS()
+    public function _SETUPINFO_CLASS()
     {
         global $db;
 
@@ -97,7 +97,7 @@ class SETUPINFO_CLASS
         }
     }
 
-    function initDB()
+    public function initDB()
     {
         global $connectedtodb,$db;
         if ($this->switches['Enable_Database']['enabled']==true)
@@ -109,7 +109,7 @@ class SETUPINFO_CLASS
         }
     }
 
-    function error_switching()
+    public function error_switching()
     {
         if ($this->switches['Display_Errors']['enabled'])
         {
@@ -126,7 +126,7 @@ class SETUPINFO_CLASS
     ##############################
     #  This gets the Game Path.  #
     ##############################
-    function get_gamepath($compare = false)
+    public function get_gamepath($compare = false)
     {
         $game_path['result']  = null;
         $game_path['info']    = null;
@@ -166,7 +166,7 @@ class SETUPINFO_CLASS
         return $game_path;
     }
 
-    function get_gamedomain($compare = false)
+    public function get_gamedomain($compare = false)
     {
         $game_domain['result']  = null;
         $game_domain['info']    = null;
@@ -215,7 +215,7 @@ class SETUPINFO_CLASS
     # This is where we test the    #
     # connection to the database.  #
     ################################
-    function testdb_connection()
+    public function testdb_connection()
     {
         global $db_host, $db_port, $db_user, $db_pwd, $db_name, $db, $ADODB_FETCH_MODE;
         global $default_lang;
@@ -257,7 +257,7 @@ class SETUPINFO_CLASS
         return $return;
     }
 
-    function validate_database()
+    public function validate_database()
     {
         global $db;
         $db_info = null;
@@ -308,7 +308,7 @@ class SETUPINFO_CLASS
     ###################################
     #  This validates the ADOdb Path  #
     ###################################
-    function validate_ADOdb_path($do_status=true)
+    public function validate_ADOdb_path($do_status=true)
     {
         global $ADOdbpath,$ADODB_vers;
 
@@ -336,7 +336,7 @@ class SETUPINFO_CLASS
         return $return;
     }
 
-    function MySQL_Status()
+    public function MySQL_Status()
     {
         global $db;
 
@@ -355,7 +355,7 @@ class SETUPINFO_CLASS
     #########################################
     #  This gets the Environment Variables  #
     #########################################
-    function get_env_variables(&$env_info)
+    public function get_env_variables(&$env_info)
     {
         $env_info = null;
         if ($this->switches['Show_Env_Var']['enabled'])
@@ -386,7 +386,7 @@ class SETUPINFO_CLASS
     #########################################
     #   Current Config_Local Information.   #
     #########################################
-    function get_current_db_config_info()
+    public function get_current_db_config_info()
     {
         global $db_type;
         global $db_persistent;
@@ -440,7 +440,7 @@ class SETUPINFO_CLASS
     #########################################
     #         Scheduler Information         #
     #########################################
-    function get_scheduler_info()
+    public function get_scheduler_info()
     {
         global $sched_ticks, $sched_turns, $sched_ports, $sched_planets, $sched_igb;
         global $sched_ranking, $sched_news, $sched_degrade, $sched_apocalypse;
@@ -460,7 +460,7 @@ class SETUPINFO_CLASS
         return $scheduler_info;
     }
 
-    function get_switches()
+    public function get_switches()
     {
         for ($n = 0; $n < count($this->switches); $n++)
         {
@@ -471,7 +471,7 @@ class SETUPINFO_CLASS
         return $switch_info;
     }
 
-    function get_server_software()
+    public function get_server_software()
     {
         ##########################
         # Get System Information #
@@ -525,7 +525,7 @@ class SETUPINFO_CLASS
         return $software_info;
     }
 
-    function get_software_versions()
+    public function get_software_versions()
     {
         if (function_exists('zend_version'))
         {
@@ -610,7 +610,7 @@ class SETUPINFO_CLASS
         return $software_info;
     }
 
-    function findinfile($filename,$pattern)
+    public function findinfile($filename,$pattern)
     {
         $result=false;
         if (isset($filename) && function_exists('file'))
@@ -640,7 +640,7 @@ class SETUPINFO_CLASS
     #########################################
     #     TRUE or FALSE Function.     #
     #########################################
-    function SI_TRUEFALSE($truefalse,$Stat,$true,$false)
+    public function SI_TRUEFALSE($truefalse,$Stat,$true,$false)
     {
         return(($truefalse == $Stat) ? $true : $false);
     }
@@ -648,7 +648,7 @@ class SETUPINFO_CLASS
     #########################################
     #       Display BNT Patch Status.       #
     #########################################
-    function get_patch_info(&$patch_info)
+    public function get_patch_info(&$patch_info)
     {
         if ($this->switches['Display_Patches']['enabled'])
         {
@@ -702,7 +702,7 @@ class SETUPINFO_CLASS
     ################################
     #       Test the Cookies       #
     ################################
-    function testcookies()
+    public function testcookies()
     {
         global $gamepath, $gamedomain,$DoneRefresh,$_COOKIE,$_SESSION;
         $COOKIE_Info = null;
@@ -751,7 +751,7 @@ class SETUPINFO_CLASS
     ##############################
     #  Used for refreshing Page. #
     ##############################
-    function append_sid($url, $non_html_amp = false)
+    public function append_sid($url, $non_html_amp = false)
     {
         global $SID;
 
@@ -770,7 +770,7 @@ class SETUPINFO_CLASS
     ##############################
     #   Display Text Function.   #
     ##############################
-    Function DisplayFlush($Text)
+    public function DisplayFlush($Text)
     {
         echo $Text;
         //flush();
@@ -779,7 +779,7 @@ class SETUPINFO_CLASS
     ##############################
     #    HTML Table Functions.   #
     ##############################
-    Function do_Table_Title($title="Title",$Cols=2)
+    public function do_Table_Title($title="Title",$Cols=2)
     {
         $this->DisplayFlush("<div align=\"center\">\n");
         $this->DisplayFlush("  <center>\n");
@@ -793,7 +793,7 @@ class SETUPINFO_CLASS
     ##############################
     #     Display Blank Row.     #
     ##############################
-    Function do_Table_Blank_Row()
+    public function do_Table_Blank_Row()
     {
         global $Cols;
 
@@ -806,7 +806,7 @@ class SETUPINFO_CLASS
     ##############################
     #     Display Single Row.    #
     ##############################
-    Function do_Table_Single_Row($col1="Col1")
+    public function do_Table_Single_Row($col1="Col1")
     {
         global $Cols;
 
@@ -819,7 +819,7 @@ class SETUPINFO_CLASS
     ##############################
     #     Display Table Row.     #
     ##############################
-    Function do_Table_Row($col1="Col1",$col2="Col2",$status=false)
+    public function do_Table_Row($col1="Col1",$col2="Col2",$status=false)
     {
         global $Cols, $Wrap;
 
@@ -847,7 +847,7 @@ class SETUPINFO_CLASS
     ##############################
     #    Display Table Footer.   #
     ##############################
-    Function do_Table_Footer($endline="<br>")
+    public function do_Table_Footer($endline="<br>")
     {
         global $Cols;
 
