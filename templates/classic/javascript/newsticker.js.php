@@ -31,7 +31,7 @@ function newsTicker(inst)
 // Public Variables
 
 // Public Functions
-    this.initTicker = function(container)
+    this.initTicker = function (container)
     {
         if (document.getElementById(container) == null)
         {
@@ -71,7 +71,7 @@ function newsTicker(inst)
         return true;
     }
 
-    this.startTicker = function()
+    this.startTicker = function ()
     {
         var self = this;
         if (initialized[instance] == false)
@@ -86,13 +86,13 @@ function newsTicker(inst)
             started[instance] = true;
             article[instance] = 0;
             this.getArticle();
-//            intervalId[instance] = setInterval(function (){ self.getArticle();}, (ticketArticle[instance].DELAY[article[instance]] * 1000));
-//            intervalId[instance] = setInterval(function (){ self.getArticle();}, (intervalSec[instance] * 1000));
-            intervalId[instance] = setInterval(function (){ self.getArticle();}, (100));
+//            intervalId[instance] = setInterval(function () { self.getArticle();}, (ticketArticle[instance].DELAY[article[instance]] * 1000));
+//            intervalId[instance] = setInterval(function () { self.getArticle();}, (intervalSec[instance] * 1000));
+            intervalId[instance] = setInterval(function () { self.getArticle();}, (100));
         }
     }
 
-    this.stopTicker = function()
+    this.stopTicker = function ()
     {
         if (intervalId[instance] != null)
         {
@@ -102,7 +102,7 @@ function newsTicker(inst)
         }
     }
 
-    this.addArticle = function(url, text, type, delay)
+    this.addArticle = function (url, text, type, delay)
     {
         // Put back in < and > in the text.
         // we had to have output-escaping enabled to be XHTML 1.1 compliant.
@@ -119,7 +119,7 @@ function newsTicker(inst)
         ticketArticle[instance].NUM ++;
     }
 
-    this.Width = function(width)
+    this.Width = function (width)
     {
         if (typeof width == "undefined")
         {
@@ -142,7 +142,7 @@ function newsTicker(inst)
         }
     }
 
-    this.Interval = function(interval)
+    this.Interval = function (interval)
     {
         if (typeof interval == "undefined")
         {
@@ -164,7 +164,7 @@ function newsTicker(inst)
         }
     }
 
-    this.clearArticles = function()
+    this.clearArticles = function ()
     {
         ticketArticle[instance].URL        = [];
         ticketArticle[instance].TEXT    = [];
@@ -173,7 +173,7 @@ function newsTicker(inst)
         ticketArticle[instance].NUM        = 0;
     }
 
-    this.getArticle = function()
+    this.getArticle = function ()
     {
         var instant = this;
         var date = new Date();
@@ -213,7 +213,7 @@ function newsTicker(inst)
         }
     }
 
-    this.nextArticle = function()
+    this.nextArticle = function ()
     {
         if (article[instance] < (ticketArticle[instance].NUM-1))
         {
@@ -239,7 +239,7 @@ function newsTicker(inst)
         }
     }
 
-    this.DEBUGGER = function(msg)
+    this.DEBUGGER = function (msg)
     {
         document.write("<div style='font-size:12px; color:#FF0000;'>DEBUGGER: " + msg +"</div>\n");
     }
