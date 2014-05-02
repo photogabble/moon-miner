@@ -50,6 +50,7 @@ class BntTestXml
         {
             $message = 'File not found';
         }
+
         return $message;
     }
 }

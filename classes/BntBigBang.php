@@ -29,7 +29,6 @@ class BntBigBang
     {
         $i = 0;
 
-
         // Setup $bigbang_files as an array type.
         // We add a null value as index 0 due to we need to start from index 1.
         $bigbang_files = array(null);
@@ -59,7 +58,6 @@ class BntBigBang
         // Now remove the unwanted array.
         unset ($filelist);
 
-
         $bigbang_info['steps'] = $i;
         if ($current_file === false)
         {
@@ -81,6 +79,7 @@ class BntBigBang
 
         $bigbang_info['next_step'] = array_search ($bigbang_files[$j], $bigbang_files);
         $bigbang_info['files'] = $bigbang_files;
+
         return $bigbang_info;
     }
 }

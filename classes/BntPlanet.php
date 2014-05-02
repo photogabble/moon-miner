@@ -38,9 +38,11 @@ class BntPlanet
             if ($res->RecordCount() > 0 )
             {
                 $owner_info = (array) $res->fields;
+
                 return true;
             }
         }
+
         return false;
     }
 }

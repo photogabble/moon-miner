@@ -124,6 +124,7 @@ class BntPlayer
             // Hmm, player has out ranked out highest rank, so just return that.
             $player_insignia = $langvars['l_insignia_19'];
         }
+
         return $player_insignia;
     }
 }

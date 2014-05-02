@@ -27,7 +27,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntRand.php')) // Prevent direct access to th
     include_once './error.php';
 }
 
-
 class BntRand
 {
     static function sslRand ($min = 0, $max = 0x7FFFFFFF)
@@ -61,6 +60,7 @@ class BntRand
                 }
             }
             while ($rnd >= $range);
+
             return $min + $rnd;
         }
     }
@@ -96,6 +96,7 @@ class BntRand
                 }
             }
             while ($rnd >= $range);
+
             return $min + $rnd;
         }
     }
@@ -116,6 +117,7 @@ class BntRand
         {
             $int =  1 + (ord ($bits[$i]) % (($max - $min) + 1));
         }
+
         return $int;
     }
 

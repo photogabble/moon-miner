@@ -51,6 +51,7 @@ class BntAdminLog
                 $result->bindParam (':data', $data, PDO::PARAM_STR);
                 $result->execute ();
             }
+
             return $result;
         }
     }

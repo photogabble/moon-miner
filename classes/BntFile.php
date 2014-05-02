@@ -79,12 +79,14 @@ class BntFile
         {
             $rollback_status = $db->rollBack();
             BntDb::logDbErrors ($db, "Rollback transaction on BntFile::initodb", __LINE__, __FILE__);
+
             return false;
         }
         else // Else we process the transaction, and report "TRUE"
         {
             $trans_status = $db->commit(); // Complete the transaction
             BntDb::logDbErrors ($db, "Complete transaction on BntFile::initodb", __LINE__, __FILE__);
+
             return true;
         }
     }

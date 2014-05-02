@@ -48,6 +48,7 @@ class BntPorts
             $ret = $langvars['l_special'];
             break;
         }
+
         return $ret;
     }
 }

@@ -77,6 +77,7 @@ class BntSchema
                 $i++;
             }
         }
+
         return $destroy_table_results;
     }
 
@@ -135,6 +136,7 @@ class BntSchema
                 $i++;
             }
         }
+
         return $create_table_results;
     }
 }

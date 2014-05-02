@@ -83,6 +83,7 @@ class BntCalcLevels
             $planetbeams = $energy_available;
         }
         $planetinfo['energy'] -= $planetbeams;
+
         return $planetbeams;
     }
 
@@ -141,6 +142,7 @@ class BntCalcLevels
         }
 
         $planetinfo['torps'] -= $planettorps;
+
         return $planettorps;
     }
 
@@ -168,6 +170,7 @@ class BntCalcLevels
             $shipavg += $ship_info[$calc_tech[$i]];
         }
         $shipavg /= $count;
+
         return $shipavg;
     }
 }

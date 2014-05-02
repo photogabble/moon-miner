@@ -47,6 +47,7 @@ class BntReg
                 {
                     $bntreg->$row['name'] = $row['value'];
                 }
+
                 return $bntreg;
             }
             else
@@ -61,6 +62,7 @@ class BntReg
                         $bntreg->$config_key = $config_value;
                     }
                 }
+
                 return $bntreg;
             }
         }
@@ -76,6 +78,7 @@ class BntReg
                     $bntreg->$config_key = $config_value;
                 }
             }
+
             return $bntreg;
         }
     }

@@ -55,6 +55,7 @@ class BntCompress
             header ('Vary: Accept-Encoding');
             header ('Content-Encoding: gzip');
             header ("DEBUG: gzip found");
+
             return gzencode ($output, 9);
         }
         elseif (in_array ("deflate", $supported_enc) === true)
@@ -62,11 +63,13 @@ class BntCompress
             header ('Vary: Accept-Encoding');
             header ('Content-Encoding: deflate');
             header ("DEBUG: deflate found");
+
             return gzdeflate ($output, 9);
         }
         else
         {
             header ("DEBUG: None found");
+
             return $output;
         }
     }

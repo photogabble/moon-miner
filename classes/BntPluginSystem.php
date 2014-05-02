@@ -107,12 +107,14 @@ class BntPluginSystem
         if (is_null ($event) || !is_numeric ($event))
         {
             BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
+
             return (boolean) false;
         }
 
         if (is_null ($callback) || !is_object ($callback))
         {
             BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid callback.");
+
             return (boolean) false;
         }
 
@@ -120,6 +122,7 @@ class BntPluginSystem
         if (!method_exists ($callback, self::$callbackfunc) || !is_callable (array ($callback, self::$callbackfunc), false, $callable_name))
         {
             BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): " . get_class ($callback) ."::". self::$callbackfunc ." function doesn't exist or it isn't callable.");
+
             return (boolean) false;
         }
 
@@ -137,6 +140,7 @@ class BntPluginSystem
         if (!array_key_exists ($event, self::$events) || !in_array ($callback, self::$events[$event]))
         {
             BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): Cannot find supplied Event.");
+
             return (boolean) false;
         }
 
@@ -156,6 +160,7 @@ class BntPluginSystem
             {
                 $event = constant ($event);
             }
+
             return (array) self::$events[$event];
         }
     }
@@ -170,6 +175,7 @@ class BntPluginSystem
         if (is_null ($event) || !is_int ($event))
         {
             BntAdminLog::writeLog (self::$db, LOG_RAW, "Plugin Error on line (". __LINE__ ."): invalid event ID.");
+
             return (boolean) false;
         }
 

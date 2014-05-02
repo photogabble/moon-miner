@@ -58,6 +58,7 @@ class BntSetPaths
 
             $gamepath = str_replace ("\\", "/", stripcslashes ($gamepath));
         }
+
         return $gamepath;
     }
 
@@ -95,6 +96,7 @@ class BntSetPaths
                 $gamedomain = ".$gamedomain";
             }
         }
+
         return $gamedomain;
     }
 }

@@ -143,6 +143,7 @@ class BntDb
             }
 
             $pdo_db->prefix = $db_prefix;
+
             return $pdo_db;
         }
     }
@@ -196,6 +197,7 @@ class BntDb
                     BntAdminLog::writeLog ($db, LOG_RAW, $text_error);
                 }
             }
+
             return $db_error;
         }
     }

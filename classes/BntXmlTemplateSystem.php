@@ -195,6 +195,7 @@ class BntXmlTemplateSystem
         {
             $parent = $this->root;
         }
+
         return $parent->appendChild(new \DOMElement ($nodeName));
     }
 
@@ -262,6 +263,7 @@ class BntXmlTemplateSystem
                 $node->setAttributeNode (new \DOMAttr($name, $value));
             }
         }
+
         return (boolean) true;
     }
 
@@ -273,6 +275,7 @@ class BntXmlTemplateSystem
             $node->setAttributeNode (new \DOMAttr ($name, $value));
             $return = (boolean) true;
         }
+
         return $return;
     }
 
@@ -287,6 +290,7 @@ class BntXmlTemplateSystem
             }
             $return = (boolean) true;
         }
+
         return $return;
     }
 
@@ -308,6 +312,7 @@ class BntXmlTemplateSystem
         }
 
         $node->appendChild (new \DOMComment ($comment));
+
         return (boolean) true;
     }
 
@@ -329,6 +334,7 @@ class BntXmlTemplateSystem
         }
 
         $node->appendChild (new \DOMCdataSection($cdata));
+
         return (boolean) true;
     }
 
@@ -349,6 +355,7 @@ class BntXmlTemplateSystem
             $node = $this->root;
         }
         $node->appendChild (new \DOMText($text));
+
         return (boolean) true;
     }
 
