@@ -75,7 +75,7 @@ if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before
 {
     BntDb::logDbErrors ($pdo_db, $debug_query, __LINE__, __FILE__);
     $db->inactive = false; // The database is active!
-	$pdo_db->inactive = false;
+    $pdo_db->inactive = false;
 
     if ($debug_query->EOF)
     {
