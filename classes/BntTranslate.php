@@ -55,37 +55,37 @@ class BntTranslate
             // Populate the $langvars array
             foreach ($categories as $category)
             {
-				if ($db instanceof ADODB_mysqli)
-				{
-	                // Select from the database and return the value of the language variables requested, but do not use caching
+                if ($db instanceof ADODB_mysqli)
+                {
+                    // Select from the database and return the value of the language variables requested, but do not use caching
                     $query = "SELECT name, value FROM {$db->prefix}languages WHERE category = ? AND section = ?;";
                     $final_result = $db->Execute ($query, array ($category, $language));
-	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
-    	            while ($final_result && !$final_result->EOF)
-        	        {
-            	        $row = $final_result->fields;
-                	    self::$langvars[$row['name']] = $row['value'];
-                    	$final_result->MoveNext();
-	                }
-				}
-				else
-				{
-	                // Select from the database and return the value of the language variables requested, but do not use caching
-					$query = "SELECT name, value FROM {$db->prefix}languages WHERE category = :category AND section = :language;";
-					$result = $db->prepare ($query);
-	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+                    BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+                    while ($final_result && !$final_result->EOF)
+                    {
+                        $row = $final_result->fields;
+                        self::$langvars[$row['name']] = $row['value'];
+                        $final_result->MoveNext();
+                    }
+                }
+                else
+                {
+                    // Select from the database and return the value of the language variables requested, but do not use caching
+                    $query = "SELECT name, value FROM {$db->prefix}languages WHERE category = :category AND section = :language;";
+                    $result = $db->prepare ($query);
+                    BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
 
                     // It is possible to use a single prepare, and multiple executes, but it makes the logic of this section much less clear.
-					$result->bindParam (':category', $category, PDO::PARAM_STR);
-					$result->bindParam (':language', $language, PDO::PARAM_STR);
-					$final_result = $result->execute ();
-	                BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
+                    $result->bindParam (':category', $category, PDO::PARAM_STR);
+                    $result->bindParam (':language', $language, PDO::PARAM_STR);
+                    $final_result = $result->execute ();
+                    BntDb::logDbErrors ($db, $query, __LINE__, __FILE__);
 
-					while (($row = $result->fetch ()) !== false)
+                    while (($row = $result->fetch ()) !== false)
                     {
-                	    self::$langvars[$row['name']] = $row['value'];
-	                }
-				}
+                        self::$langvars[$row['name']] = $row['value'];
+                    }
+                }
             }
 
             return self::$langvars;
