@@ -26,7 +26,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntAdminLog.php')) // Prevent direct access t
 
 class BntAdminLog
 {
-    public static function writeLog ($db, $log_type, $data = null)
+    public static function writeLog($db, $log_type, $data = null)
     {
         if ($db instanceof ADODB_mysqli)
         {

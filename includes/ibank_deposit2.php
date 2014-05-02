@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_deposit2.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_deposit2 ($db, $langvars, $playerinfo)
+function ibank_deposit2($db, $langvars, $playerinfo)
 {
     global $amount, $account;
 

@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'traderoute_engage.php')) // Prevent direct ac
     include_once './error.php';
 }
 
-function traderoute_engage ($db, $lang, $j, $langvars)
+function traderoute_engage($db, $lang, $j, $langvars)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
     global $engage, $dist, $servertimezone;

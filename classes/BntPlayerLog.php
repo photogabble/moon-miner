@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPlayerLog.php')) // Prevent direct access 
 
 class BntPlayerLog
 {
-    public static function writeLog ($db, $sid, $log_type, $data = "")
+    public static function writeLog($db, $sid, $log_type, $data = "")
     {
         $data = addslashes ($data);
         $stamp = date ("Y-m-d H:i:s"); // Now (as seen by PHP)

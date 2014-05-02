@@ -27,7 +27,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntDb.php')) // Prevent direct access to this
 
 class BntDb
 {
-    public static function isActive ($db)
+    public static function isActive($db)
     {
         if ($db instanceof PDO)
         {
@@ -60,7 +60,7 @@ class BntDb
         }
     }
 
-    public static function initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, $db_layer)
+    public static function initDb($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, $db_layer)
     {
         if ($db_layer == 'adodb')
         {
@@ -148,7 +148,7 @@ class BntDb
         }
     }
 
-    public static function logDbErrors ($db, $query, $served_line, $served_page)
+    public static function logDbErrors($db, $query, $served_line, $served_page)
     {
         // Convert the content of PHP_SELF (in case it has been tainted) to the correct html entities
         $safe_script_name = htmlentities ($_SERVER['PHP_SELF']);

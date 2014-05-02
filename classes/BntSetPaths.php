@@ -29,7 +29,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntSetPaths.php')) // Prevent direct access t
 
 class BntSetPaths
 {
-    public static function setGamepath ()
+    public static function setGamepath()
     {
         $gamepath = dirname ($_SERVER['PHP_SELF']);
         if (isset ($gamepath) && strlen ($gamepath) > 0)

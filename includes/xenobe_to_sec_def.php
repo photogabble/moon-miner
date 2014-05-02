@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_sec_def.php')) // Prevent direct ac
     include_once './error.php';
 }
 
-function xenobe_to_sec_def ($db, $langvars)
+function xenobe_to_sec_def($db, $langvars)
 {
     // Xenobe to sector defense
 

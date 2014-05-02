@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'planet_bombing.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function planet_bombing ($db, $langvars)
+function planet_bombing($db, $langvars)
 {
     global $playerinfo, $ownerinfo, $planetinfo, $planetbeams, $planetfighters, $attackerfighters;
     global $planettorps, $torp_dmg_rate;

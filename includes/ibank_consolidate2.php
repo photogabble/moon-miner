@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_consolidate2.php')) // Prevent direct a
     include_once './error.php';
 }
 
-function ibank_consolidate2 ($db, $langvars, $playerinfo)
+function ibank_consolidate2($db, $langvars, $playerinfo)
 {
     global $account;
     global $dplanet_id, $minimum, $maximum, $ibank_tconsolidate, $ibank_paymentfee;

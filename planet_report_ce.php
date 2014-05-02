@@ -48,7 +48,7 @@ else
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);
 
-function go_build_base ($db, $langvars, $planet_id, $sector_id)
+function go_build_base($db, $langvars, $planet_id, $sector_id)
 {
     global $base_ore, $base_organics, $base_goods, $base_credits;
 
@@ -120,7 +120,7 @@ function go_build_base ($db, $langvars, $planet_id, $sector_id)
     }
 }
 
-function collect_credits ($db, $langvars, $planetarray, $sector_max)
+function collect_credits($db, $langvars, $planetarray, $sector_max)
 {
     $CS = "GO"; // Current State
 
@@ -193,7 +193,7 @@ function collect_credits ($db, $langvars, $planetarray, $sector_max)
     echo "<br><br>";
 }
 
-function change_planet_production ($db, $langvars, $prodpercentarray)
+function change_planet_production($db, $langvars, $prodpercentarray)
 {
 //  Declare default production values from the config.php file
 //
@@ -394,7 +394,7 @@ function change_planet_production ($db, $langvars, $prodpercentarray)
     }
 }
 
-function take_credits ($db, $langvars, $sector_id, $planet_id)
+function take_credits($db, $langvars, $sector_id, $planet_id)
 {
     // Get basic Database information (ship and planet)
     $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -468,7 +468,7 @@ function take_credits ($db, $langvars, $sector_id, $planet_id)
     return ($retval);
 }
 
-function real_space_move ($db, $langvars, $destination)
+function real_space_move($db, $langvars, $destination)
 {
     global $level_factor, $mine_hullsize;
 

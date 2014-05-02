@@ -29,17 +29,17 @@ class BntTimer
     public $t_stop = 0;
     public $t_elapsed = 0;
 
-    public function start ()
+    public function start()
     {
         $this->t_start = microtime (true);
     }
 
-    public function stop ()
+    public function stop()
     {
         $this->t_stop  = microtime (true);
     }
 
-    public function elapsed ()
+    public function elapsed()
     {
 
         $this->t_elapsed = $this->t_stop - $this->t_start;

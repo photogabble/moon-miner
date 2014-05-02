@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPlanet.php')) // Prevent direct access to 
 
 class BntPlanet
 {
-    public function getOwner ($db = null, $planet_id = null, &$owner_info = null)
+    public function getOwner($db = null, $planet_id = null, &$owner_info = null)
     {
         $owner_info = null;
         if (!is_null ($planet_id) && is_numeric ($planet_id) && $planet_id > 0)

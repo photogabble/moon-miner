@@ -27,7 +27,7 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('xenobe_control', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
-function checked ($yesno)
+function checked($yesno)
 {
     return (($yesno == "Y") ? "CHECKED" : "");
 }

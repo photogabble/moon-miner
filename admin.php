@@ -28,7 +28,7 @@ $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common',
                                 'planet'));
 $title = $langvars['l_admin_title'];
 
-function checked ($yesno)
+function checked($yesno)
 {
     return (($yesno == "Y") ? "checked" : "");
 }

@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_borrow.php')) // Prevent direct access 
     include_once './error.php';
 }
 
-function ibank_borrow ($db, $langvars, $playerinfo)
+function ibank_borrow($db, $langvars, $playerinfo)
 {
     global $account, $amount, $ibank_loanlimit, $ibank_loanfactor, $ibank_lrate;
 

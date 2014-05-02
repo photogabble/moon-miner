@@ -25,42 +25,42 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntCalcLevels.php')) // Prevent direct access
 
 class BntCalcLevels
 {
-    public static function Armor ($level_armor, $level_factor)
+    public static function Armor($level_armor, $level_factor)
     {
         return round (pow ($level_factor, $level_armor) * 100);
     }
 
-    public static function Holds ($level_hull, $level_factor)
+    public static function Holds($level_hull, $level_factor)
     {
         return round (pow ($level_factor, $level_hull) * 100);
     }
 
-    public static function Shields ($level_shields, $level_factor)
+    public static function Shields($level_shields, $level_factor)
     {
         return round (pow ($level_factor, $level_shields) * 100);
     }
 
-    public static function Torpedoes ($level_torp_launchers, $level_factor)
+    public static function Torpedoes($level_torp_launchers, $level_factor)
     {
         return round (pow ($level_factor, $level_torp_launchers) * 100);
     }
 
-    public static function Beams ($level_beams, $level_factor)
+    public static function Beams($level_beams, $level_factor)
     {
         return round (pow ($level_factor, $level_beams) * 100);
     }
 
-    public static function Fighters ($level_computer, $level_factor)
+    public static function Fighters($level_computer, $level_factor)
     {
         return round (pow ($level_factor, $level_computer) * 100);
     }
 
-    public static function Energy ($level_power, $level_factor)
+    public static function Energy($level_power, $level_factor)
     {
         return round (pow ($level_factor, $level_power) * 500);
     }
 
-    public static function planetBeams ($db, $ownerinfo, $base_defense, $planetinfo)
+    public static function planetBeams($db, $ownerinfo, $base_defense, $planetinfo)
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
 
@@ -87,7 +87,7 @@ class BntCalcLevels
         return $planetbeams;
     }
 
-    public static function planetShields ($db, $ownerinfo, $base_defense, $planetinfo)
+    public static function planetShields($db, $ownerinfo, $base_defense, $planetinfo)
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
         $planetshields = BntCalcLevels::Shields ($ownerinfo['shields'] + $base_factor, $level_factor);
@@ -114,7 +114,7 @@ class BntCalcLevels
         return $planetshields;
     }
 
-    public static function planetTorps ($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
+    public static function planetTorps($db, $ownerinfo, $planetinfo, $base_defense, $level_factor)
     {
         $base_factor = ($planetinfo['base'] == 'Y') ? $base_defense : 0;
         $torp_launchers = round (pow ($level_factor, ($ownerinfo['torp_launchers']) + $base_factor)) * 10;
@@ -146,7 +146,7 @@ class BntCalcLevels
         return $planettorps;
     }
 
-    public static function avgTech ($ship_info = null, $type = "ship")
+    public static function avgTech($ship_info = null, $type = "ship")
     {
         // Used to define what devices are used to calculate the average tech level.
         $calc_tech         = array ("hull", "engines", "computer", "armor", "shields", "beams", "torp_launchers");

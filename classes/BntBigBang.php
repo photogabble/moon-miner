@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntBigBang.php')) // Prevent direct access to
 
 class BntBigBang
 {
-    public static function findStep ($current_file)
+    public static function findStep($current_file)
     {
         $i = 0;
 

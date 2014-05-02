@@ -27,7 +27,7 @@ class BntTranslate
 {
     private static $langvars = array ();
 
-    public static function load ($db = null, $language = null, $categories = null)
+    public static function load($db = null, $language = null, $categories = null)
     {
         // Check if all supplied args are valid, if not return false.
         if (is_null ($db) || is_null ($language) || !is_array ($categories))

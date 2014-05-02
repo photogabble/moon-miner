@@ -22,7 +22,7 @@ class translate {
     ///debug the code
     public $debug;
 
-    public function __construct($from , $to){
+    public function __construct($from , $to) {
 
         /*
 
@@ -56,7 +56,7 @@ class translate {
 
     }
 
-    public function TranslateUrl($word){
+    public function TranslateUrl($word) {
 
         if (!$word) {
 
@@ -72,7 +72,7 @@ class translate {
 
     }
 
-    public function get($word){
+    public function get($word) {
 
         $dom  = new DOMDocument();
 
@@ -104,7 +104,7 @@ class translate {
         function for downloading the gooogle page content for translating
     */
 
-    public function curl_download($Url){
+    public function curl_download($Url) {
 
         // is cURL installed yet?
         if (!function_exists('curl_init')) {

@@ -67,7 +67,7 @@ else                                  // Display the menu if no valid options ar
 }
 
 // Begin functions
-function planet_report_menu ($playerinfo)
+function planet_report_menu($playerinfo)
 {
     echo "<div style='width:90%; margin:auto; font-size:14px;'>\n";
     echo "<strong><a href=\"planet_report.php?preptype=1\" name=\"Planet Status\">Planet Status</a></strong><br>" .
@@ -85,7 +85,7 @@ function planet_report_menu ($playerinfo)
     echo "</div>\n";
 }
 
-function standard_report ($db, $langvars, $playerinfo)
+function standard_report($db, $langvars, $playerinfo)
 {
     global $sort;
     global $color_header, $color, $color_line1, $color_line2;
@@ -275,7 +275,7 @@ function standard_report ($db, $langvars, $playerinfo)
     echo "</div>\n";
 }
 
-function planet_production_change ($db, $langvars, $playerinfo)
+function planet_production_change($db, $langvars, $playerinfo)
 {
     global $sort;
     global $color_header, $color, $color_line1, $color_line2;
@@ -440,7 +440,7 @@ function planet_production_change ($db, $langvars, $playerinfo)
     echo "</div>\n";
 }
 
-function corp_planet_checkboxes ($planet, $i)
+function corp_planet_checkboxes($planet, $i)
 {
     if ($planet[$i]['corp'] <= 0)
     {
@@ -452,7 +452,7 @@ function corp_planet_checkboxes ($planet, $i)
     }
 }
 
-function selling_checkboxes ($planet, $i)
+function selling_checkboxes($planet, $i)
 {
     if ($planet[$i]['sells'] != 'Y')
     {
@@ -464,7 +464,7 @@ function selling_checkboxes ($planet, $i)
     }
 }
 
-function base_build_check ($langvars, $planet, $i)
+function base_build_check($langvars, $planet, $i)
 {
     global $base_ore, $base_organics, $base_goods, $base_credits;
 

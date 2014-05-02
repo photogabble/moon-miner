@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ship_to_ship.php')) // Prevent direct access 
     include_once './error.php';
 }
 
-function ship_to_ship ($db, $langvars, $ship_id)
+function ship_to_ship($db, $langvars, $ship_id)
 {
     global $attackerbeams, $attackerfighters, $attackershields, $attackertorps, $attackerarmor, $attackertorpdamage, $level_factor;
     global $torp_dmg_rate, $rating_combat_factor, $upgrade_factor, $upgrade_cost, $armor_lost, $fighters_lost, $playerinfo;

@@ -74,13 +74,13 @@ class BntTemplate
         $this->Initialize (TEMPLATE_USE_SMARTY);
     }
 
-    public function __destruct ()
+    public function __destruct()
     {
         unset ($this->modules);
     }
 
     // Needs to be updated to suit Smarty and XML Template Systems.
-    public function Initialize ($type = null, $themeName = "classic")
+    public function Initialize($type = null, $themeName = "classic")
     {
         if ($this->initialized != true)
         {
@@ -119,12 +119,12 @@ class BntTemplate
         }
     }
 
-    public function AddVariables ($node, $variables)
+    public function AddVariables($node, $variables)
     {
         $this->api[$this->api_class]->AddVariables ($node, $variables);
     }
 
-    public function GetVariables ($node)
+    public function GetVariables($node)
     {
         if (method_exists ($this->api[$this->api_class], 'GetVariables') === true)
         {
@@ -134,22 +134,22 @@ class BntTemplate
         return (boolean) false;
     }
 
-    public function Display ($template_file = null)
+    public function Display($template_file = null)
     {
         $this->api[$this->api_class]->Display ($template_file);
     }
 
-    public function Test ()
+    public function Test()
     {
         $this->api[$this->api_class]->Test ();
     }
 
-    public function getAPI ()
+    public function getAPI()
     {
         return $this->api;
     }
 
-    public function SetTheme ($theme = null)
+    public function SetTheme($theme = null)
     {
         if (method_exists ($this->api[$this->api_class], 'SetTheme') === true)
         {
@@ -157,7 +157,7 @@ class BntTemplate
         }
     }
 
-    public function HandleCompression ($output = null)
+    public function HandleCompression($output = null)
     {
         // Check to see if we have data, if not error out.
         if (is_null ($output))

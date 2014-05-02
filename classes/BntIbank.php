@@ -27,7 +27,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntIbank.php')) // Prevent direct access to t
 
 class BntIbank
 {
-    public static function isLoanPending ($db, $ship_id, $ibank_lrate)
+    public static function isLoanPending($db, $ship_id, $ibank_lrate)
     {
         $res = $db->Execute ("SELECT loan, UNIX_TIMESTAMP(loantime) AS time FROM {$db->prefix}ibank_accounts WHERE ship_id = ?", array ($ship_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
@@ -57,7 +57,7 @@ class BntIbank
         }
     }
 
-    public static function deposit ($db, $lang, $account, $playerinfo, $langvars)
+    public static function deposit($db, $lang, $account, $playerinfo, $langvars)
     {
         // Database driven language entries
         $langvars = BntTranslate::load ($db, $lang, array ('igb'));

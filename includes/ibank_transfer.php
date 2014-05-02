@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_transfer.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_transfer ($db, $langvars)
+function ibank_transfer($db, $langvars)
 {
     global $playerinfo, $ibank_min_turns;
 

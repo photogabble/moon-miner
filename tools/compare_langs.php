@@ -19,7 +19,7 @@
 
 require_once 'class_translate.php';
 
-function slurp ($language)
+function slurp($language)
 {
     // Slurp in language variables from the ini file directly
     $ini_file = '../languages/' . $language . '.ini.php';

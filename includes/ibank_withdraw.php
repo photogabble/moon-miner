@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_withdraw.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function ibank_withdraw ($langvars, $playerinfo, $account)
+function ibank_withdraw($langvars, $playerinfo, $account)
 {
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_withdrawfunds'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .

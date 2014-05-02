@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_move.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function xenobe_move ($db)
+function xenobe_move($db)
 {
     global $playerinfo, $sector_max, $targetlink, $xenobeisdead;
 

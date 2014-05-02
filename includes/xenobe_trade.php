@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_trade.php')) // Prevent direct access 
     include_once './error.php';
 }
 
-function xenobe_trade ($db)
+function xenobe_trade($db)
 {
     // Setup general variables
     global $playerinfo, $inventory_factor, $ore_price, $ore_delta, $ore_limit, $goods_price;

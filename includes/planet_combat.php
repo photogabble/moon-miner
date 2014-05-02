@@ -24,7 +24,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'planet_combat.php')) // Prevent direct access
     include_once './error.php';
 }
 
-function planet_combat ($db, $langvars)
+function planet_combat($db, $langvars)
 {
     global $playerinfo, $ownerinfo, $planetinfo, $torpedo_price, $colonist_price, $ore_price, $organics_price, $goods_price, $energy_price;
     global $planetbeams, $planetfighters, $planetshields, $planettorps, $attackerbeams, $attackerfighters, $attackershields, $upgrade_factor, $upgrade_cost;

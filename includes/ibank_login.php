@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_login.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_login ($langvars, $playerinfo, $account)
+function ibank_login($langvars, $playerinfo, $account)
 {
     echo "<tr><td colspan=2 align=center valign=top>" . $langvars['l_ibank_welcometoibank'] . "<br>---------------------------------</td></tr>" .
          "<tr valign=top>" .

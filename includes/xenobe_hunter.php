@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_hunter.php')) // Prevent direct access
     include_once './error.php';
 }
 
-function xenobe_hunter ($db)
+function xenobe_hunter($db)
 {
     // Setup general Variables
     global $playerinfo, $targetlink, $xenobeisdead;

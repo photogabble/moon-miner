@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_planet.php')) // Prevent direct acc
     include_once './error.php';
 }
 
-function xenobe_to_planet ($db, $planet_id)
+function xenobe_to_planet($db, $planet_id)
 {
     // Xenobe planet attack code
     global $playerinfo, $planetinfo, $torp_dmg_rate, $level_factor;

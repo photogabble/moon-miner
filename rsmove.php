@@ -200,7 +200,7 @@ BntText::gotoMain ($db, $lang, $langvars);
 include './footer.php';
 
 // Now for our functions.
-function HandleFuelScoop ($playerinfo, $distance, $triptime, $bntreg)
+function HandleFuelScoop($playerinfo, $distance, $triptime, $bntreg)
 {
     // Check if we have a fuel scoop
     if ($playerinfo['dev_fuelscoop'] == "Y")

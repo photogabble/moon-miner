@@ -614,7 +614,7 @@ switch ($teamwhat)
 echo "<br><br>";
 BntText::gotoMain ($db, $lang, $langvars);
 
-function is_team_member ($team, $playerinfo)
+function is_team_member($team, $playerinfo)
 {
     // Check to see if the player is in a team?  if not return false right there, else carry on.
     if ($playerinfo['team'] == 0)
@@ -633,7 +633,7 @@ function is_team_member ($team, $playerinfo)
     }
 }
 
-function is_team_owner ($team, $playerinfo)
+function is_team_owner($team, $playerinfo)
 {
     // Check to see if the player is in a team?  if not return false right there, else carry on.
     if ($playerinfo['team'] == 0)
@@ -654,7 +654,7 @@ function is_team_owner ($team, $playerinfo)
 }
 
 // Rewritten display of teams list
-function display_all_teams ($db, $langvars)
+function display_all_teams($db, $langvars)
 {
     global $color, $color_line1, $color_line2, $color_header, $order, $type;
 
@@ -734,7 +734,7 @@ function display_all_teams ($db, $langvars)
     echo "</table><br>";
 }
 
-function display_invite_info ($langvars, $playerinfo)
+function display_invite_info($langvars, $playerinfo)
 {
     global $invite_info;
 
@@ -752,7 +752,7 @@ function display_invite_info ($langvars, $playerinfo)
     }
 }
 
-function show_info ($db, $langvars, $whichteam, $isowner, $playerinfo)
+function show_info($db, $langvars, $whichteam, $isowner, $playerinfo)
 {
     global $invite_info, $team;
     global $color_line2;
@@ -832,7 +832,7 @@ function show_info ($db, $langvars, $whichteam, $isowner, $playerinfo)
     echo "</tr></table>";
 }
 
-function validate_team ($db, $name = null, $desc = null, $creator = null)
+function validate_team($db, $name = null, $desc = null, $creator = null)
 {
     $name = trim ($name);
     $desc = trim ($desc);

@@ -28,17 +28,17 @@ class BntSmarty
     private $smarty                            = null;
     private $parent                            = null;
 
-    public function __construct ($parent)
+    public function __construct($parent)
     {
         $this->parent = $parent;
         $this->smarty = new \Smarty ();
     }
 
-    public function __destruct ()
+    public function __destruct()
     {
     }
 
-    public function Initialize ()
+    public function Initialize()
     {
         // Setup all Smarty's Path locations.
         $this->smarty->setCompileDir ('templates/_compile/');
@@ -63,13 +63,13 @@ class BntSmarty
         $this->smarty->caching = false;
     }
 
-    public function SetTheme ($themeName = null)
+    public function SetTheme($themeName = null)
     {
         $this->smarty->setTemplateDir ("templates/{$themeName}");
         $this->AddVariables ("template_dir", "templates/{$themeName}");
     }
 
-    public function AddVariables ($nodeName, $variables)
+    public function AddVariables($nodeName, $variables)
     {
         // We don't require the container so remove it.
         if (is_array ($variables) && isset ($variables['container']) == true)
@@ -95,17 +95,17 @@ class BntSmarty
         $this->smarty->assign ($nodeName, $variables);
     }
 
-    public function GetVariables ($nodeName)
+    public function GetVariables($nodeName)
     {
         return $this->smarty->getTemplateVars ($nodeName);
     }
 
-    public function Test ()
+    public function Test()
     {
         $this->smarty->testInstall ();
     }
 
-    public function Display ($template_file)
+    public function Display($template_file)
     {
         // Process template and return the output in a
         // varable so that we can compress it or not.

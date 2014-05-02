@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_funcs.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function is_query_ok ($db, $res)
+function is_query_ok($db, $res)
 {
     $test_result = BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
     if ($test_result)

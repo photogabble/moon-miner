@@ -388,7 +388,7 @@ if ($mode != 'compat')
 echo "</table></center>";
 include './footer.php';
 
-function logParse ($langvars, $entry)
+function logParse($langvars, $entry)
 {
     $langvars['l_log_nopod'] = "<font color=yellow><strong>" . $langvars['l_log_nopod'] . "</strong></font>"; // This should be done better, but I needed it moved out of the language file.
 
@@ -733,7 +733,7 @@ case LOG_BOUNTY_FEDBOUNTY:
   return $retvalue;
 }
 
-function getLogInfo ($id = null, &$title = null, &$text = null)
+function getLogInfo($id = null, &$title = null, &$text = null)
 {
     global $log_list;
     $title = null;

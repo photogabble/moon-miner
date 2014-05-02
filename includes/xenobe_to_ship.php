@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_to_ship.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function xenobe_to_ship ($db, $ship_id)
+function xenobe_to_ship($db, $ship_id)
 {
     // Setup general variables
     global $attackerbeams;

@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntMines.php')) // Prevent direct access to t
 
 class BntMines
 {
-    public static function explode ($db, $sector, $num_mines)
+    public static function explode($db, $sector, $num_mines)
     {
         $secdef_result = $db->Execute ("SELECT * FROM {$db->prefix}sector_defence WHERE sector_id = ? AND defence_type ='M' ORDER BY QUANTITY ASC", array ($sector));
         BntDb::logDbErrors ($db, $secdef_result, __LINE__, __FILE__);

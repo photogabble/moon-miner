@@ -125,7 +125,7 @@ class BntXml
         }
     }
 
-    public function Display ()
+    public function Display()
     {
         $output = $this->xmldom->Display ();
         echo $output;

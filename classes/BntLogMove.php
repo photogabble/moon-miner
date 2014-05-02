@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntLogMove.php')) // Prevent direct access to
 
 class BntLogMove
 {
-    public static function writeLog ($db, $ship_id, $sector_id)
+    public static function writeLog($db, $ship_id, $sector_id)
     {
         $res = $db->Execute("INSERT INTO {$db->prefix}movement_log (ship_id, sector_id, time) VALUES (?, ?, NOW())", array ($ship_id, $sector_id));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);

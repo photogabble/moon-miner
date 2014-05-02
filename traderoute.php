@@ -391,7 +391,7 @@ echo "</div>\n";
 
 include './footer.php';
 
-function traderoute_die ($db, $lang, $langvars, $bntreg, $error_msg, $template)
+function traderoute_die($db, $lang, $langvars, $bntreg, $error_msg, $template)
 {
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
@@ -403,7 +403,7 @@ function traderoute_die ($db, $lang, $langvars, $bntreg, $error_msg, $template)
     die ();
 }
 
-function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest)
+function traderoute_check_compatible($db, $lang, $langvars, $type1, $type2, $move, $circuit, $src, $dest)
 {
     global $playerinfo, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
@@ -478,7 +478,7 @@ function traderoute_check_compatible ($db, $lang, $langvars, $type1, $type2, $mo
     }
 }
 
-function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
+function traderoute_distance($db, $langvars, $type1, $type2, $start, $dest, $circuit, $sells = 'N')
 {
     global $playerinfo, $servertimezone;
 
@@ -605,7 +605,7 @@ function traderoute_distance ($db, $langvars, $type1, $type2, $start, $dest, $ci
     return $retvalue;
 }
 
-function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
+function traderoute_create($db, $lang, $langvars, $bntreg, $template)
 {
     global $playerinfo;
     global $num_traderoutes, $servertimezone;
@@ -843,7 +843,7 @@ function traderoute_create ($db, $lang, $langvars, $bntreg, $template)
     traderoute_die ($db, $lang, $langvars, $bntreg, null, $template);
 }
 
-function traderoute_delete ($db, $lang, $langvars, $bntreg, $template)
+function traderoute_delete($db, $lang, $langvars, $bntreg, $template)
 {
     global $playerinfo;
     global $confirm, $servertimezone;
@@ -882,7 +882,7 @@ function traderoute_delete ($db, $lang, $langvars, $bntreg, $template)
     }
 }
 
-function traderoute_settings ($db, $lang, $langvars, $bntreg, $template)
+function traderoute_settings($db, $lang, $langvars, $bntreg, $template)
 {
     global $playerinfo, $servertimezone;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
@@ -949,7 +949,7 @@ function traderoute_settings ($db, $lang, $langvars, $bntreg, $template)
     traderoute_die ($db, $lang, $langvars, $bntreg, null, $template);
 }
 
-function traderoute_setsettings ($db, $lang, $langvars, $bntreg, $template)
+function traderoute_setsettings($db, $lang, $langvars, $bntreg, $template)
 {
     global $playerinfo;
     global $colonists, $servertimezone, $fighters, $torps, $energy;
@@ -967,7 +967,7 @@ function traderoute_setsettings ($db, $lang, $langvars, $bntreg, $template)
     traderoute_die ($db, $lang, $langvars, $bntreg, null, $template);
 }
 
-function traderoute_results_table_top ($db, $lang, $langvars)
+function traderoute_results_table_top($db, $lang, $langvars)
 {
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
@@ -979,13 +979,13 @@ function traderoute_results_table_top ($db, $lang, $langvars)
     echo "    <td width='50%'><font size='2' color='white'><strong>";
 }
 
-function traderoute_results_source ()
+function traderoute_results_source()
 {
     echo "</strong></font></td>\n";
     echo "    <td width='50%'><font size='2' color='white'><strong>";
 }
 
-function traderoute_results_destination ()
+function traderoute_results_destination()
 {
     echo "</strong></font></td>\n";
     echo "  </tr>\n";
@@ -993,13 +993,13 @@ function traderoute_results_destination ()
     echo "    <td align='center'><font size='2' color='white'>";
 }
 
-function traderoute_results_close_cell ()
+function traderoute_results_close_cell()
 {
     echo "</font></td>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
 
-function traderoute_results_show_cost ()
+function traderoute_results_show_cost()
 {
     echo "</font></td>\n";
     echo "  </tr>\n";
@@ -1007,13 +1007,13 @@ function traderoute_results_show_cost ()
     echo "    <td align='center'><font size='2' color='white'>";
 }
 
-function traderoute_results_close_cost ()
+function traderoute_results_close_cost()
 {
     echo "</font></td>\n";
     echo "    <td align='center'><font size='2' color='white'>";
 }
 
-function traderoute_results_close_table ()
+function traderoute_results_close_table()
 {
     echo "</font></td>\n";
     echo "  </tr>\n";
@@ -1021,7 +1021,7 @@ function traderoute_results_close_table ()
     // echo "<p><center><font size=3 color=white><strong>\n";
 }
 
-function traderoute_results_display_totals ($db, $lang, $langvars, $total_profit)
+function traderoute_results_display_totals($db, $lang, $langvars, $total_profit)
 {
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
 
@@ -1035,7 +1035,7 @@ function traderoute_results_display_totals ($db, $lang, $langvars, $total_profit
     }
 }
 
-function traderoute_results_display_summary ($db, $lang, $langvars, $tdr_display_creds)
+function traderoute_results_display_summary($db, $lang, $langvars, $tdr_display_creds)
 {
     global $dist, $playerinfo;
     $langvars = BntTranslate::load ($db, $lang, array ('traderoutes', 'common', 'global_includes', 'global_funcs', 'footer', 'regional'));
@@ -1047,7 +1047,7 @@ function traderoute_results_display_summary ($db, $lang, $langvars, $tdr_display
     //echo "<font size='2'>\n";
 }
 
-function traderoute_results_show_repeat ($engage)
+function traderoute_results_show_repeat($engage)
 {
     echo "<form action='traderoute.php?engage=".$engage."' method='post'>\n";
     echo "<br>Enter times to repeat <input type='TEXT' name='tr_repeat' value='1' size='5'> <input type='SUBMIT' value='SUBMIT'>\n";

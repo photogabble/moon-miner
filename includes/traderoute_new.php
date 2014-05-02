@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'traderoute_new.php')) // Prevent direct acces
     include_once './error.php';
 }
 
-function traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id, $template)
+function traderoute_new($db, $lang, $langvars, $bntreg, $traderoute_id, $template)
 {
     global $playerinfo, $color_line1, $color_line2, $color_header;
     global $num_traderoutes, $servertimezone;

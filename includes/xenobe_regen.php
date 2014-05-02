@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'xenobe_regen.php')) // Prevent direct access 
     include_once './error.php';
 }
 
-function xenobe_regen ($db, $playerinfo)
+function xenobe_regen($db, $playerinfo)
 {
     global $xen_unemployment, $xenobeisdead;
 

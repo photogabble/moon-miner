@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'ibank_repay.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-function ibank_repay ($db, $langvars, $playerinfo)
+function ibank_repay($db, $langvars, $playerinfo)
 {
     global $account, $amount;
 

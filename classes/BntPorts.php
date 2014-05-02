@@ -25,7 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntPorts.php')) // Prevent direct access to t
 
 class BntPorts
 {
-    public static function getType ($ptype, $langvars)
+    public static function getType($ptype, $langvars)
     {
         switch ($ptype)
         {

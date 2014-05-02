@@ -32,7 +32,7 @@ include './header.php';
 
 $line_color = $bntreg->color_line1;
 
-function title ($value, $align = "center")
+function title($value, $align = "center")
 {
     echo "<tr bgcolor=\"$line_color\"><td colspan=\"2\" style='text-align:{$align};'>{$value}</td></tr>\n";
     if ($line_color == $bntreg->color_line1)
@@ -45,7 +45,7 @@ function title ($value, $align = "center")
     }
 }
 
-function line ($item, $value, $align = "left")
+function line($item, $value, $align = "left")
 {
     echo "<tr bgcolor=\"$line_color\"><td>&nbsp;{$item}</td><td style='text-align:{$align};'>{$value}&nbsp;</td></tr>\n";
     if ($line_color == $bntreg->color_line1)
@@ -58,7 +58,7 @@ function line ($item, $value, $align = "left")
     }
 }
 
-function line2 ($item, $value, $align = "left")
+function line2($item, $value, $align = "left")
 {
     echo "<tr bgcolor=\"$line_color\"><td style='border-left:1px #FFCC00 solid;'>&nbsp;{$item}</td><td style='text-align:{$align}; border-right:1px #FFCC00 solid;'>{$value}&nbsp;</td></tr>\n";
     if ($line_color == $bntreg->color_line1)
@@ -71,7 +71,7 @@ function line2 ($item, $value, $align = "left")
     }
 }
 
-function line_a ($value, $align = "left")
+function line_a($value, $align = "left")
 {
     echo "<tr bgcolor=\"#FFCC00\"><td colspan=\"2\" style='text-align:{$align};'>{$value}</td></tr>\n";
     if ($line_color == $bntreg->color_line1)
@@ -84,7 +84,7 @@ function line_a ($value, $align = "left")
     }
 }
 
-function line_spacer ()
+function line_spacer()
 {
     echo "<tr><td colspan='2' style='height:2px; padding:0px;'></td></tr>\n";
     if ($line_color == $bntreg->color_line1)

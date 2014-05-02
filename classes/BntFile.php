@@ -28,7 +28,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntFile.php')) // Prevent direct access to th
 
 class BntFile
 {
-    public static function iniToDb ($db, $ini_file, $ini_table, $section, $bntreg)
+    public static function iniToDb($db, $ini_file, $ini_table, $section, $bntreg)
     {
         // This is a loop, that reads a ini file, of the type variable = value.
         // It will loop thru the list of the ini variables, and push them into the db.

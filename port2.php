@@ -87,7 +87,7 @@ $color_green = "#0f0"; // Light green
 $trade_deficit = $langvars['l_cost'] . " : ";
 $trade_benefit = $langvars['l_profit'] . " : ";
 
-function build_one_col ( $text = "&nbsp;", $align = "left" )
+function build_one_col($text = "&nbsp;", $align = "left")
 {
     echo "
     <tr>
@@ -96,7 +96,7 @@ function build_one_col ( $text = "&nbsp;", $align = "left" )
     ";
 }
 
-function build_two_col ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left" )
+function build_two_col($text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_col1 = "left", $align_col2 = "left")
 {
     echo "
     <tr>
@@ -105,14 +105,14 @@ function build_two_col ( $text_col1 = "&nbsp;", $text_col2 = "&nbsp;", $align_co
     </tr>";
 }
 
-function php_true_delta ($futurevalue, $shipvalue)
+function php_true_delta($futurevalue, $shipvalue)
 {
     $tempval = $futurevalue - $shipvalue;
 
     return $tempval;
 }
 
-function php_change_delta ($desired_value, $current_value)
+function php_change_delta($desired_value, $current_value)
 {
     global $upgrade_cost;
 
@@ -593,7 +593,7 @@ else
             $trade_energy = $_POST['trade_energy'];
         }
 
-        function trade ($price, $delta, $max, $limit, $factor, $port_type, $origin)
+        function trade($price, $delta, $max, $limit, $factor, $port_type, $origin)
         {
             global $trade_color, $trade_deficit, $trade_result, $trade_benefit, $sectorinfo, $color_green, $color_red, $price_array;
 
