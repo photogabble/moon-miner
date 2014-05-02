@@ -46,7 +46,6 @@ else
 {
     if ($_POST['operation'] == '')
     {
-		var_dump($_POST['user']);
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE ship_id=?;", array ($_POST['user']));
         BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
         $row = $res->fields;
