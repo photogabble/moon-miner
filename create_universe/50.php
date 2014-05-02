@@ -60,9 +60,7 @@ $lang_file_import_results = Array ();
 
 foreach ($language_files as $language_filename)
 {
-    // This is to get around the issue of not having DirectoryIterator::getExtension.
-    $file_ext = pathinfo ($language_filename->getFilename (), PATHINFO_EXTENSION);
-    if ($language_filename->isFile () && $file_ext == 'php')
+    if ($language_filename->isFile () && $file_info->getExtension() == 'php')
     {
         $lang_name = substr ($language_filename->getFilename(), 0, -8);
 
