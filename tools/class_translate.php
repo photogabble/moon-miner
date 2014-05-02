@@ -14,15 +14,15 @@ author email bogdan.izdrail@gmail.com;
 class translate {
 
     ///language from what we translate
-    var $translate_from;
+    public $translate_from;
 
     ////language in what we whant to translate
-    var $translate_into;
+    public $translate_into;
 
     ///debug the code
-    var $debug;
+    public $debug;
 
-    function __construct($from , $to){
+    public function __construct($from , $to){
 
         /*
 
@@ -56,7 +56,7 @@ class translate {
 
     }
 
-    function TranslateUrl($word){
+    public function TranslateUrl($word){
 
         if (!$word) {
 
@@ -72,7 +72,7 @@ class translate {
 
     }
 
-    function get($word){
+    public function get($word){
 
         $dom  = new DOMDocument();
 
@@ -104,7 +104,7 @@ class translate {
         function for downloading the gooogle page content for translating
     */
 
-    function curl_download($Url){
+    public function curl_download($Url){
 
         // is cURL installed yet?
         if (!function_exists('curl_init')) {
