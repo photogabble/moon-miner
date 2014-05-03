@@ -1143,7 +1143,7 @@ class BadXenobe
         BntDb::logDbErrors ($db, $resj, __LINE__, __FILE__);
     }
 
-    function xenobeToSecDef($db, $langvars)
+    public static function xenobeToSecDef($db, $langvars)
     {
         // Xenobe to sector defense
 
