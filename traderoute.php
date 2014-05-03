@@ -18,7 +18,6 @@
 // File: traderoute.php
 
 include './global_includes.php';
-include './includes/traderoute_new.php';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
@@ -111,7 +110,7 @@ if (array_key_exists ('command', $_REQUEST) == true)
 if ($command == 'new')
 {
     // Displays new trade route form
-    traderoute_new ($db, $lang, $langvars, $bntreg, null, $template);
+    BadTraderoute::traderouteNew ($db, $lang, $langvars, $bntreg, null, $template);
 }
 elseif ($command == 'create')
 {
@@ -121,7 +120,7 @@ elseif ($command == 'create')
 elseif ($command == 'edit')
 {
     // Displays new trade route form, edit
-    traderoute_new ($db, $lang, $langvars, $bntreg, $traderoute_id, $template);
+    BadTraderoute::traderouteNew ($db, $lang, $langvars, $bntreg, $traderoute_id, $template);
 }
 elseif ($command == 'delete')
 {
@@ -147,8 +146,7 @@ elseif (isset ($engage) )
         $result = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email=?", array ($_SESSION['username']));
         BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
         $playerinfo = $result->fields;
-        include_once './includes/traderoute_engage.php';
-        traderoute_engage ($db, $lang, $i, $langvars);
+        BadTraderoute::traderouteEngage ($db, $lang, $i, $langvars);
         $i--;
     }
 }

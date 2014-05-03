@@ -592,8 +592,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 }
                 else
                 {
-                    include_once './includes/planet_combat.php';
-                    planet_combat ($db);
+                    BadPlanet::planetCombat ($db);
                 }
             }
         }
@@ -621,8 +620,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
         }
         elseif ($command == "bomb" && $bntreg->allow_sofa)
         {
-            include_once './includes/planet_bombing.php';
-            planet_bombing ($db);
+            BadPlanet::planetBombing ($db);
         }
         elseif ($command == "scan")
         {

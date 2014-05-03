@@ -54,8 +54,7 @@
 //  If you are including files in your trigger file, it is important*
 //  to use include_once instead of include, as your file might
 //  be called multiple times in a single execution. If you need to
-//  define functions, you can put them in the sched_funcs.php file
-//  that is included by the scheduler. Or put them in your own
+//  define functions, you can put them in your own
 //  include file, with an include statement. THEY CANNOT BE
 //  DEFINED IN YOUR MAIN FILE BODY. This would cause PHP to issue a
 //  multiple function declaration error.
@@ -73,7 +72,19 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('admin', 'common', 'global_includes', 'global_funcs', 'footer', 'news', 'scheduler'));
 echo "<h1>" . $title . "</h1>\n";
 
-require_once './includes/sched_funcs.php';
+// This isn't the right thing to do, but its better than creating an entire class for a 12 line function.
+function is_query_ok($db, $res)
+{
+    $test_result = BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
+    if ($test_result)
+    {
+        echo " ok.<br>";
+    }
+    else
+    {
+        die (" Failed.");
+    }
+}
 
 if (isset ($_REQUEST['swordfish']))
 {
