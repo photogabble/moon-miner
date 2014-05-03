@@ -65,7 +65,9 @@
             "rm -rf vendor/adodb/adodb-php/replicate/",
             "rm -rf vendor/adodb/adodb-php/scripts/",
             "rm -rf vendor/adodb/adodb-php/tests/",
-            "rm -rf vendor/adodb/adodb-php/.git/"
+            "rm -rf vendor/adodb/adodb-php/.git/",
+            "rm -rf vendor/smarty/smarty/development",
+            "rm -rf vendor/smarty/smarty/documentation"
         ]
     }
 }
