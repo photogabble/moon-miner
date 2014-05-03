@@ -1,3 +1,8 @@
+TheKabal (3 May 2014)
+--------------------------------------
+Create "Bad" ibank class, to note that it is not our intended style for classes, and needs to be fixed in the future.
+Migrate bad ibank functions from includes to the classes directory
+
 TheKabal (27 April 2014)
 --------------------------------------
 Goodbye adodb's xml schema, hello SQL schema, add support for persistent tables

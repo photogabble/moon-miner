@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5749f9e600f8be914bdad300e2efd8c8",
+    "hash": "6f4f539e50552d7421d6105fd63d5bd2",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "5e56942a985327ecdb1bca4af72d6816fa0018a7"
+                "reference": "fdb372b7f7ea4f2d6db4e3391f03f1bc49f55df5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/5e56942a985327ecdb1bca4af72d6816fa0018a7",
-                "reference": "5e56942a985327ecdb1bca4af72d6816fa0018a7",
+                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/fdb372b7f7ea4f2d6db4e3391f03f1bc49f55df5",
+                "reference": "fdb372b7f7ea4f2d6db4e3391f03f1bc49f55df5",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2014-04-22 16:45:36"
+            "time": "2014-04-30 12:33:10"
         },
         {
             "name": "ezyang/htmlpurifier",

@@ -162,6 +162,7 @@ return array(
     'ADORecordset_sqlite3' => $vendorDir . '/adodb/adodb-php/drivers/adodb-sqlite3.inc.php',
     'ADORecordset_sqlitepo' => $vendorDir . '/adodb/adodb-php/drivers/adodb-sqlitepo.inc.php',
     'ADORecordset_sybase' => $vendorDir . '/adodb/adodb-php/drivers/adodb-sybase.inc.php',
+    'BadIbank' => $baseDir . '/classes/BadIbank.php',
     'BntAdminLog' => $baseDir . '/classes/BntAdminLog.php',
     'BntBigBang' => $baseDir . '/classes/BntBigBang.php',
     'BntBounty' => $baseDir . '/classes/BntBounty.php',

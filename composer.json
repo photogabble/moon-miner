@@ -28,16 +28,16 @@
     "require": {
         "smarty/smarty": "v3.1.15",
         "ezyang/htmlpurifier": "dev-master",
-        "adodb/adodb-php": "dev-master",
-        "ircmaxell/password-compat": "1.0.3"
+        "ircmaxell/password-compat": "1.0.3",
+        "adodb/adodb-php": "dev-master"
     },
 
     "autoload": {
         "classmap": [
             "includes/", 
             "classes/",
-            "vendor/phpass/PasswordHash.php", 
-            "vendor/adodb/adodb-php"
+            "vendor/phpass/PasswordHash.php",
+            "vendor/adodb/adodb-php/"
         ],
         "psr-4": {
             "bnt\\": "vendor/"
