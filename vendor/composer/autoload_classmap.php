@@ -173,7 +173,6 @@ return array(
     'BntDefense' => $baseDir . '/classes/BntDefense.php',
     'BntFighters' => $baseDir . '/classes/BntFighters.php',
     'BntFile' => $baseDir . '/classes/BntFile.php',
-    'BntIbank' => $baseDir . '/classes/BntIbank.php',
     'BntLogMove' => $baseDir . '/classes/BntLogMove.php',
     'BntLogin' => $baseDir . '/classes/BntLogin.php',
     'BntMines' => $baseDir . '/classes/BntMines.php',

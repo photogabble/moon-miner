@@ -155,7 +155,7 @@ else
         }
         unset ($_SESSION['port_shopping']);
 
-        if (BntIbank::isLoanPending ($db, $playerinfo['ship_id'], $ibank_lrate))
+        if (BadIbank::isLoanPending ($db, $playerinfo['ship_id'], $ibank_lrate))
         {
             echo $langvars['l_port_loannotrade'] . "<p>";
             echo "<a href=igb.php>" . $langvars['l_ibank_term'] . "</a><p>";

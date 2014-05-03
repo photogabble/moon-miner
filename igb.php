@@ -18,7 +18,6 @@
 // File: igb.php
 
 include './global_includes.php';
-include './includes/ibank_error.php';
 
 // TODO: This should not be hard-coded, but for now, I need to be able to clear the errors
 $active_template = 'classic';
@@ -49,7 +48,7 @@ echo '<table style="width:550px; height:300px;" border="0px">';
 
 if (!$bntreg->allow_ibank)
 {
-    ibank_error ($template->GetVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
+    BadIbank::ibankError ($template->GetVariables('template_dir'), $langvars, $langvars['l_ibank_malfunction'], "main.php");
 }
 
 if (!isset ($_REQUEST['command']))
@@ -64,72 +63,59 @@ else
 
 if ($command == 'login') //main menu
 {
-//    include_once './includes/ibank_login.php';
     BadIbank::ibankLogin ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
-    include_once './includes/ibank_withdraw.php';
-    ibank_withdraw ($langvars, $playerinfo, $account);
+    BadIbank::ibankWithdraw ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw2') //withdraw operation
 {
-    include_once './includes/ibank_withdraw2.php';
-    ibank_withdraw2 ($db, $langvars, $playerinfo);
+    BadIbank::ibankWithdraw2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'deposit') //deposit menu
 {
-    BntIbank::deposit ($db, $lang, $account, $playerinfo, $langvars);
+    BadIbank::deposit ($db, $lang, $account, $playerinfo, $langvars);
 }
 elseif ($command == 'deposit2') //deposit operation
 {
-    include_once './includes/ibank_deposit2.php';
-    ibank_deposit2 ($db, $langvars, $playerinfo);
+    BadIbank::ibankDeposit2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'transfer') //main transfer menu
 {
-    include_once './includes/ibank_transfer.php';
-    ibank_transfer ($db, $langvars);
+    BadIbank::ibankTransfer ($db, $langvars);
 }
 elseif ($command == 'transfer2') //specific transfer menu (ship or planet)
 {
-    include_once './includes/ibank_transfer2.php';
-    ibank_transfer2 ($db);
+    BadIbank::ibankTransfer2 ($db);
 }
 elseif ($command == 'transfer3') //transfer operation
 {
-    include_once './includes/ibank_transfer3.php';
-    ibank_transfer3 ($db);
+    BadIbank::ibankTransfer3 ($db);
 }
 elseif ($command == 'loans') //loans menu
 {
-    include_once './includes/ibank_loans.php';
-    ibank_loans ($db, $langvars, $bntreg, $playerinfo);
+    BadIbank::ibankLoans ($db, $langvars, $bntreg, $playerinfo);
 }
 elseif ($command == 'borrow') //borrow operation
 {
-//    include_once './includes/ibank_borrow.php';
     BadIbank::ibankBorrow ($db, $langvars, $playerinfo, $active_template);
 }
 elseif ($command == 'repay') //repay operation
 {
-    include_once './includes/ibank_repay.php';
-    ibank_repay ($db, $langvars, $playerinfo);
+    BadIbank::ibankRepay ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'consolidate') //consolidate menu
 {
-    include_once './includes/ibank_consolidate.php';
-    ibank_consolidate ($langvars);
+    BadIbank::ibankConsolidate ($langvars);
 }
 elseif ($command == 'consolidate2') //consolidate compute
 {
-    include_once './includes/ibank_consolidate2.php';
-    ibank_consolidate2 ($db, $langvars, $playerinfo);
+    BadIbank::ibankConsolidate2 ($db, $langvars, $playerinfo);
 }
 elseif ($command == 'consolidate3') //consolidate operation
 {
-    include_once './includes/ibank_consolidate3.php';
-    ibank_consolidate3 ($db, $langvars, $playerinfo);
+    BadIbank::ibankConsolidate3 ($db, $langvars, $playerinfo);
 }
 else
 {
