@@ -15,7 +15,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-// File: includes/BntPorts.php
+// File: classes/BntPorts.php
 
 if (strpos ($_SERVER['PHP_SELF'], 'BntPorts.php')) // Prevent direct access to this file
 {
