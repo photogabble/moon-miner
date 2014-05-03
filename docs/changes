@@ -8,6 +8,7 @@ Create "Bad" planet class
 Migrate planet_ functions from includes to the classes directory
 Create "Bad" traderoute class
 Migrate traderoute functions from includes to the classes directory
+Update copyright notices
 
 TheKabal (27 April 2014)
 --------------------------------------
