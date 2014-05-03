@@ -27,14 +27,6 @@ if (strpos ($_SERVER['PHP_SELF'], 'sched_ranking.php')) // Prevent direct access
 // Xenobe turn updates
 echo "<br><strong>Xenobe TURNS</strong><br><br>";
 
-// Include functions
-include_once './includes/xenobe_hunter.php';
-include_once './includes/xenobe_move.php';
-include_once './includes/xenobe_regen.php';
-include_once './includes/xenobe_to_ship.php';
-include_once './includes/xenobe_trade.php';
-include_once './includes/xenobe_to_planet.php';
-
 // Database driven language entries
 $langvars = BntTranslate::load ($db, $lang, array ('sched_xenobe', 'common', 'global_includes', 'combat', 'footer', 'news'));
 
@@ -56,7 +48,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
     $xenobeisdead = 0;
     $playerinfo = $res->fields;
     // Regenerate / Buy stats
-    xenobe_regen ($db, $playerinfo);
+    BadXenobe::xenobeRegen ($db, $playerinfo);
 
     // Run through orders
     $furcount++;
@@ -84,7 +76,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                     {
                         $furcount0a++;
                         BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo0[character_name]");
-                        xenobe_to_ship ($db, $rowo0['ship_id']);
+                        BadXenobe::xenobeToShip ($db, $rowo0['ship_id']);
                         if ($xenobeisdead > 0)
                         {
                             $res->MoveNext();
@@ -96,7 +88,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                 {
                     $furcount0a++;
                     BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo0[character_name]");
-                    xenobe_to_ship ($db, $rowo0['ship_id']);
+                    BadXenobe::xenobeToShip ($db, $rowo0['ship_id']);
                     if ($xenobeisdead > 0)
                     {
                         $res->MoveNext();
@@ -110,7 +102,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             $furcount1++;
             // Roam to a new sector before doing anything else
             $targetlink = $playerinfo['sector'];
-            xenobe_move ($db);
+            BadXenobe::xenobeMove ($db);
             if ($xenobeisdead > 0)
             {
                 $res->MoveNext();
@@ -133,7 +125,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                     {
                         $furcount1a++;
                         BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo1[character_name]");
-                        xenobe_to_ship ($db, $rowo1['ship_id']);
+                        BadXenobe::xenobeToShip ($db, $rowo1['ship_id']);
                         if ($xenobeisdead > 0)
                         {
                             $res->MoveNext();
@@ -147,11 +139,11 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                     BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo1[character_name]");
                     if (!$rowo1['planet_id'] == 0)
                     {              // Is on planet
-                        xenobe_to_planet ($db, $rowo1['planet_id']);
+                        BadXenobe::xenobeToPlanet ($db, $rowo1['planet_id']);
                     }
                     else
                     {
-                        xenobe_to_ship ($db, $rowo1['ship_id']);
+                        BadXenobe::xenobeToShip ($db, $rowo1['ship_id']);
                     }
 
                     if ($xenobeisdead > 0)
@@ -168,7 +160,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             $furcount2++;
             // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
             $targetlink = $playerinfo['sector'];
-            xenobe_move ($db);
+            BadXenobe::xenobeMove ($db);
             if ($xenobeisdead > 0)
             {
                 $res->MoveNext();
@@ -176,7 +168,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             }
 
             // NOW TRADE BEFORE WE DO ANY AGGRESSION CHECKS
-            xenobe_trade ($db);
+            BadXenobe::xenobeTrade ($db);
             // FIND A TARGET
             // IN MY SECTOR, NOT MYSELF
             $reso2 = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE sector = ? and email! = ? and ship_id > 1", array ($targetlink, $playerinfo['email']));
@@ -195,7 +187,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                     {
                         $furcount2a++;
                         BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo2[character_name]");
-                        xenobe_to_ship ($db, $rowo2['ship_id']);
+                        BadXenobe::xenobeToShip ($db, $rowo2['ship_id']);
                         if ($xenobeisdead > 0)
                         {
                             $res->MoveNext();
@@ -209,11 +201,11 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                     BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo2[character_name]");
                     if (!$rowo2['planet_id'] == 0)
                     {              // IS ON PLANET
-                        xenobe_to_planet ($db, $rowo2['planet_id']);
+                        BadXenobe::xenobeToPlanet ($db, $rowo2['planet_id']);
                     }
                     else
                     {
-                        xenobe_to_ship ($db, $rowo2['ship_id']);
+                        BadXenobe::xenobeToShip ($db, $rowo2['ship_id']);
                     }
 
                     if ($xenobeisdead > 0)
@@ -235,7 +227,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             if ($hunt == 0)
             {
                 $furcount3h++;
-                xenobe_hunter ($db);
+                BadXenobe::xenobeHunter ($db);
                 if ($xenobeisdead > 0)
                 {
                     $res->MoveNext();
@@ -245,7 +237,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
             else
             {
                 // ROAM TO A NEW SECTOR BEFORE DOING ANYTHING ELSE
-                xenobe_move ($db);
+                BadXenobe::xenobeMove ($db);
                 if ($xenobeisdead > 0)
                 {
                     $res->MoveNext();
@@ -270,7 +262,7 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                         {
                             $furcount3a++;
                             BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo3[character_name]");
-                            xenobe_to_ship ($db, $rowo3['ship_id']);
+                            BadXenobe::xenobeToShip ($db, $rowo3['ship_id']);
                             if ($xenobeisdead > 0)
                             {
                                 $res->MoveNext();
@@ -284,11 +276,11 @@ while (($debug_query instanceof ADORecordSet) && ($debug_query != false))
                         BntPlayerLog::writeLog ($db, $playerinfo['ship_id'], LOG_XENOBE_ATTACK, "$rowo3[character_name]");
                         if (!$rowo3['planet_id'] == 0)
                         {              // IS ON PLANET
-                            xenobe_to_planet ($db, $rowo3['planet_id']);
+                            BadXenobe::xenobeToPlanet ($db, $rowo3['planet_id']);
                         }
                         else
                         {
-                            xenobe_to_ship ($db, $rowo3['ship_id']);
+                            BadXenobe::xenobeToShip ($db, $rowo3['ship_id']);
                         }
 
                         if ($xenobeisdead > 0)
