@@ -20,6 +20,8 @@
 include './global_includes.php';
 include './includes/ibank_error.php';
 
+// TODO: This should not be hard-coded, but for now, I need to be able to clear the errors
+$active_template = 'classic';
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries
@@ -62,8 +64,8 @@ else
 
 if ($command == 'login') //main menu
 {
-    include_once './includes/ibank_login.php';
-    ibank_login ($langvars, $playerinfo, $account);
+//    include_once './includes/ibank_login.php';
+    BadIbank::ibankLogin ($langvars, $playerinfo, $account);
 }
 elseif ($command == 'withdraw') //withdraw menu
 {
@@ -106,8 +108,8 @@ elseif ($command == 'loans') //loans menu
 }
 elseif ($command == 'borrow') //borrow operation
 {
-    include_once './includes/ibank_borrow.php';
-    ibank_borrow ($db, $langvars, $playerinfo);
+//    include_once './includes/ibank_borrow.php';
+    BadIbank::ibankBorrow ($db, $langvars, $playerinfo, $active_template);
 }
 elseif ($command == 'repay') //repay operation
 {
