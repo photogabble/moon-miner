@@ -250,8 +250,6 @@ $stmt->bindParam(':linkstart', $bntreg->sector_max);
 $stmt->bindParam(':linkdest', $bntreg->sector_max);
 $resx = $stmt->execute();
 
-//$resx = $db->exec ("DELETE FROM {$db->prefix}links WHERE link_start = '{$bntreg->sector_max}' OR link_dest ='{$bntreg->sector_max}' ");
-//$variables['remove_links_results']['result'] = BntDb::logDbErrors ($db, $resx, __LINE__, __FILE__);
 $variables['remove_links_results']['result'] = BntDb::logDbErrors ($pdo_db, $resx, __LINE__, __FILE__);
 $catch_results[$z] = $variables['remove_links_results']['result'];
 $z++;

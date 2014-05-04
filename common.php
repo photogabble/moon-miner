@@ -119,7 +119,7 @@ if (file_exists ("dev"))
 {
     ini_set ('error_reporting', -1); // During development, output all errors, even notices
     ini_set ('display_errors', 1);   // During development, display all errors
-    adodb_perf::table ("{$db->prefix}adodb_logsql");
+//    adodb_perf::table ("{$db->prefix}adodb_logsql");
     if (BntDb::isActive ($pdo_db))
     {
 //        $db->LogSQL (); // Turn on adodb performance logging
@@ -154,7 +154,7 @@ if (BntDb::isActive ($pdo_db))
     }
     else // The user has logged in, so use his preference from the database
     {
-        $sql = "SELECT lang FROM {$db->prefix}ships WHERE email =:email";
+        $sql = "SELECT lang FROM {$pdo_db->prefix}ships WHERE email =:email";
         $stmt = $pdo_db->prepare ($sql);
         $stmt->bindParam (':email', $_SESSION['username']);
         $res = $stmt->execute();

@@ -85,7 +85,7 @@ if ($gameconfig_result === true)
 {
     $variables['import_config_results']['result'] = true;
     $variables['import_config_results']['time'] = $local_table_timer->elapsed ();
-    $db->inactive = false;
+    $pdo_db->inactive = false;
 }
 else
 {

@@ -3,9 +3,8 @@ This file is used to keep track of things that we intend on doing, and all accep
 TODO denotes an item that we intend to work on. FREQ indicates a feature request.
 
 TODO: Switch create universe to not use $pdo as prefix everywhere, just use $db, but have create universe itself send it $pdo?
-TODO: Switch common, header and footer to use pdo only for all its calls
+TODO: Switch common and footer to use pdo only for all its calls
 TODO: Convert all SQL calls from adodb to PDO
-TODO: Switch passwords to use password_hash
 TODO: Audit all SQL calls to ensure they use row & value style calls, and also use a debug call
 TODO: Add encryption on submission for admin panel and login
 TODO: Redo scheduler to be a subdirectory (like admin) with activated scheduler events
@@ -13,7 +12,6 @@ TODO: Language translations for all elements in scheduler
 TODO: Merge mail.php and mailto.php
 TODO: Cleanup functions and calls in scheduler
 TODO: Eliminate $color_line variables
-TODO: Finish include -> class conversion (All files in includes/ need to be converted to class/methods and moved to classes/)
 TODO: Convert main to be template driven
 TODO: Finish moving Sol from sector 0 to sector 1
 TODO: Implement Post->Redirect->Get pattern for the 60 post calls in the game

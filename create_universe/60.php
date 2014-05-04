@@ -180,7 +180,6 @@ if ($finish > $variables['spp']) $finish = ($variables['spp']);
 $start = 1;
 
 $local_table_timer->start (); // Start benchmarking
-//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['spp']);
 
 $sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
 $stmt = $pdo_db->prepare ($sql);
@@ -233,7 +232,6 @@ if ($finish > $variables['oep']) $finish = ($variables['oep']);
 $start = 0;
 
 $local_table_timer->start (); // Start benchmarking
-//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['oep']);
 
 $sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
 $stmt = $pdo_db->prepare ($sql);
@@ -287,7 +285,6 @@ if ($finish > $variables['ogp']) $finish = ($variables['ogp']);
 $start = 0;
 
 $local_table_timer->start (); // Start benchmarking
-//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['ogp']);
 
 $sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
 $stmt = $pdo_db->prepare ($sql);
@@ -341,7 +338,6 @@ if ($finish > $variables['gop']) $finish = ($variables['gop']);
 $start = 0;
 
 $local_table_timer->start (); // Start benchmarking
-//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['gop']);
 
 $sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
 $stmt = $pdo_db->prepare ($sql);
@@ -397,7 +393,6 @@ if ($finish > $variables['enp']) $finish = ($variables['enp']);
 $start = 1;
 
 $local_table_timer->start (); // Start benchmarking
-//$sql_query = $db->SelectLimit ("SELECT sector_id FROM {$db->prefix}universe WHERE port_type='none' ORDER BY " . $db->random . " DESC", $variables['enp']);
 
 $sql = "SELECT sector_id FROM {$pdo_db->prefix}universe WHERE port_type='none' ORDER BY RAND() DESC LIMIT :limit";
 $stmt = $pdo_db->prepare ($sql);
