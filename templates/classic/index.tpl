@@ -40,7 +40,7 @@
 <li class="navigation"><a href="ranking.php{$variables['link']}"><span class="button purple"><span class="shine"></span>{$langvars['l_rankings']}</span></a></li>
 <li class="navigation"><a href="faq.php{$variables['link']}"><span class="button brown"><span class="shine"></span>{$langvars['l_faq']}</span></a></li>
 <li class="navigation"><a href="settings.php{$variables['link']}"><span class="button red"><span class="shine"></span>{$langvars['l_settings']}</span></a></li>
-<li class="navigation"><a href="{$variables['link_forums']}"><span class="button orange"><span class="shine"></span>{$langvars['l_forums']}</span></a></li>
+<li class="navigation"><a href="//{$variables['link_forums']}"><span class="button orange"><span class="shine"></span>{$langvars['l_forums']}</span></a></li>
 </ul></div><br style="clear:both">
 <div><p></p></div>
 <div class="index-welcome">

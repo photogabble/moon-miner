@@ -20,7 +20,7 @@
 // Enable Error Reporting for tests.
 ini_set ('error_reporting', E_ALL); // During development, output all errors, even notices
 ini_set ('display_errors', '1'); // During development, *display* all errors
-get_ini ("config/configset_classic.ini.php", $ini);
+get_ini ("../config/classic_config.ini.php", $ini);
 
 echo "<pre>[ini]\n". print_r($ini, true) ."</pre>\n";
 echo "END<br />\n";

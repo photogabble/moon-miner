@@ -37,7 +37,6 @@ $langvars = BntTranslate::load ($db, $lang, array ('new', 'login', 'common', 'gl
 $variables = null;
 $variables['lang'] = $lang;
 $variables['link'] = $link;
-$variables['link_forums'] = $bntreg->link_forums;
 $variables['admin_mail'] = $bntreg->admin_mail;
 $variables['body_class'] = 'index';
 $variables['template'] = $bntreg->default_template; // Temporarily set the template to the default template until we have a user option

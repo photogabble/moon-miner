@@ -25,7 +25,7 @@
 <div class="error_text">
 {block name=body_title}<h1>{$langvars['l_error_heading']}</h1>{/block}
 <p class="error_text">{$langvars['l_error_ohdear']}<br><br>
-{$langvars['l_error_explain1']|replace:"[forums]":"<a href='{$variables['linkforums']['link']}'>{$langvars['l_error_forums']}</a>"}<br><br>
+{$langvars['l_error_explain1']|replace:"[forums]":"<a href='//{$variables['linkforums']['link']}'>{$langvars['l_error_forums']}</a>"}<br><br>
 {$langvars['l_error_explain2']}<br>
 {$langvars['l_error_explain3']}<br><br>
 
