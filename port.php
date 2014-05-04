@@ -642,7 +642,7 @@ elseif ($sectorinfo['port_type'] == "special")
     $onclick =  "ONCLICK=\"count_total()\"";
 
     // Create dropdowns when called
-    public function dropdown($element_name, $current_value)
+    function dropdown($element_name, $current_value)
     {
         global $onchange;
         global $max_upgrades_devices;
