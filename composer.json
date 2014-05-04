@@ -26,10 +26,10 @@
     "license": "AGPL-3.0",
     "minimum-stability": "alpha",
     "require": {
-        "smarty/smarty": "v3.1.15",
-        "ezyang/htmlpurifier": "dev-master",
+        "smarty/smarty": "v3.1.17",
+        "ezyang/htmlpurifier": "v4.6.0",
         "ircmaxell/password-compat": "1.0.3",
-        "adodb/adodb-php": "dev-master"
+        "adodb/adodb-php": "v5.19"
     },
 
     "autoload": {

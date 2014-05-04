@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "09b2d14968c08c3f3e9176e13535df4e",
+    "hash": "4e504835f6eafc27a085cb7a75c646d5",
     "packages": [
         {
             "name": "adodb/adodb-php",
-            "version": "dev-master",
+            "version": "v5.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "fdb372b7f7ea4f2d6db4e3391f03f1bc49f55df5"
+                "reference": "773bb9b7ccd81b403bf75f7ef476c3f2d7ee04de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/fdb372b7f7ea4f2d6db4e3391f03f1bc49f55df5",
-                "reference": "fdb372b7f7ea4f2d6db4e3391f03f1bc49f55df5",
+                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/773bb9b7ccd81b403bf75f7ef476c3f2d7ee04de",
+                "reference": "773bb9b7ccd81b403bf75f7ef476c3f2d7ee04de",
                 "shasum": ""
             },
             "require": {
@@ -49,20 +49,20 @@
             "keywords": [
                 "database"
             ],
-            "time": "2014-04-30 12:33:10"
+            "time": "2014-04-23 14:37:03"
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "dev-master",
+            "version": "v4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "80ebd4322e3b98bc25c3ed3effe99a1653bc00fc"
+                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/80ebd4322e3b98bc25c3ed3effe99a1653bc00fc",
-                "reference": "80ebd4322e3b98bc25c3ed3effe99a1653bc00fc",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6f389f0f25b90d0b495308efcfa073981177f0fd",
+                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2014-02-04 20:17:24"
+            "time": "2013-11-30 08:25:19"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -137,11 +137,11 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.15",
+            "version": "v3.1.17",
             "source": {
                 "type": "svn",
                 "url": "http://smarty-php.googlecode.com/svn",
-                "reference": "/tags/v3.1.15/@4782"
+                "reference": "/tags/v3.1.17/@4818"
             },
             "require": {
                 "php": ">=5.2"
@@ -177,7 +177,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-01 21:08:54"
+            "time": "2014-03-12 20:51:46"
         }
     ],
     "packages-dev": [
@@ -187,10 +187,9 @@
 
     ],
     "minimum-stability": "alpha",
-    "stability-flags": {
-        "ezyang/htmlpurifier": 20,
-        "adodb/adodb-php": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": [
 
     ],
