@@ -18,6 +18,7 @@
 // File: main.php
 
 include './global_includes.php';
+
 BntLogin::checkLogin ($db, $lang, $langvars, $bntreg, $template);
 
 // Database driven language entries

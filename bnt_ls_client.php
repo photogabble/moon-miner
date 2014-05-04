@@ -17,13 +17,14 @@
 //
 // File: bnt_ls_client.php
 
+include './global_includes.php';
+
 if (strpos ($_SERVER['PHP_SELF'], 'bnt_ls_client.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-include_once './global_includes.php';
 $url = "http://www.blacnova.net/bnt_ls_server.php";
 
 $url .= "?url1=" . urlencode ($bnt_ls_gameurl);
