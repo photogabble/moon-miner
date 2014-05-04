@@ -34,8 +34,8 @@
 
     "autoload": {
         "classmap": [
-            "classes/",
-            "vendor/adodb/adodb-php/"
+            "vendor/adodb/adodb-php/adodb-perf.inc.php",
+            "classes/"
         ],
         "psr-4": {
             "bnt\\": "vendor/"
