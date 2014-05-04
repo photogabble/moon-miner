@@ -23,8 +23,9 @@ if (BntDb::isActive ($pdo_db))
 {
     $stamp = date ("Y-m-d H:i:s", time ()); // Now (as seen by PHP)
     $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
-    $stmt = $pdo_db->query("SELECT COUNT(*) AS loggedin FROM {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}ships.last_login BETWEEN timestamp '" . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'");
-    BntDb::logDbErrors ($pdo_db, $res, __LINE__, __FILE__);
+    $sql = "SELECT COUNT(*) AS loggedin FROM {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}ships.last_login BETWEEN timestamp '" . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'";
+    $stmt = $pdo_db->query($sql);
+    BntDb::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
     $row = $stmt->fetchObject();
     $online = $row->loggedin;
 }
@@ -56,9 +57,12 @@ if (BntDb::isActive ($pdo_db))
     $row = $stmt->fetchObject();
     BntDb::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
 
-    $last_run = $row->last_run;
-    $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
-    $display_update_ticker = true;
+    if (is_object($row))
+    {
+        $last_run = $row->last_run;
+        $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
+        $display_update_ticker = true;
+    }
 }
 // End update counter
 
