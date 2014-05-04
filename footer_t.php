@@ -19,18 +19,14 @@
 
 $online = (integer) 0;
 
-if (BntDb::isActive ($db))
+if (BntDb::isActive ($pdo_db))
 {
     $stamp = date ("Y-m-d H:i:s", time ()); // Now (as seen by PHP)
     $since_stamp = date ("Y-m-d H:i:s", time () - 5 * 60); // Five minutes ago
-    $res = $db->Execute ("SELECT COUNT(*) AS loggedin FROM {$db->prefix}ships WHERE {$db->prefix}ships.last_login " .
-                         "BETWEEN timestamp '$since_stamp' AND timestamp '$stamp' AND email NOT LIKE '%@xenobe'");
+    $stmt = $pdo_db->query("SELECT COUNT(*) AS loggedin FROM {$pdo_db->prefix}ships WHERE {$pdo_db->prefix}ships.last_login BETWEEN timestamp '" . $since_stamp . "' AND timestamp '" . $stamp . "' AND email NOT LIKE '%@xenobe'");
     BntDb::logDbErrors ($pdo_db, $res, __LINE__, __FILE__);
-    if ($res instanceof ADORecordSet)
-    {
-        $row = $res->fields;
-        $online = $row['loggedin'];
-    }
+    $row = $stmt->fetchObject();
+    $online = $row->loggedin;
 }
 
 if (isset ($bntreg))
@@ -53,17 +49,16 @@ $news_ticker = (!(preg_match ("/index.php/i", $_SERVER['PHP_SELF']) || preg_matc
 // Update counter
 $seconds_left = (integer) 0;
 $display_update_ticker = false;
-
-if (BntDb::isActive ($db))
+if (BntDb::isActive ($pdo_db))
 {
-    $rs = $db->SelectLimit ("SELECT last_run FROM {$db->prefix}scheduler", 1);
-    BntDb::logDbErrors ($pdo_db, $rs, __LINE__, __FILE__);
-    if ($rs instanceof ADORecordSet)
-    {
-        $last_run = $rs->fields['last_run'];
-        $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
-        $display_update_ticker = true;
-    }
+    $sql = "SELECT last_run FROM {$pdo_db->prefix}scheduler LIMIT 1";
+    $stmt = $pdo_db->query($sql);
+    $row = $stmt->fetchObject();
+    BntDb::logDbErrors ($pdo_db, $sql, __LINE__, __FILE__);
+
+    $last_run = $row->last_run;
+    $seconds_left = ($bntreg->sched_ticks * 60) - (time() - $last_run);
+    $display_update_ticker = true;
 }
 // End update counter
 
@@ -96,7 +91,7 @@ if ($news_ticker == true)
 
     $news_ticker = array ();
 
-    if (BntDb::isActive ($db))
+    if (BntDb::isActive ($pdo_db))
     {
         // Needs to be put into the language table.
         array_push ($news_ticker, array ('url'=>null, 'text'=>"News Network Down", 'type'=>"error", 'delay'=>5));
