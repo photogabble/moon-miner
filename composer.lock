@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4e504835f6eafc27a085cb7a75c646d5",
+    "hash": "b6a448856645028c77da909bfa840994",
     "packages": [
         {
             "name": "adodb/adodb-php",
