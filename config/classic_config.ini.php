@@ -29,7 +29,7 @@ server_closed              = 0;                                // True / 1 = blo
 account_creation_closed    = 0;                                // True / 1 = block new account creation
 release_version            = '0.7';                            // Please do not change this. Doing so will cause problems for the server lists, and setupinfo, and more.
 
-[MAIL SYSTEM SETTINGS]
+[MAIL_SYSTEM_SETTINGS]
 admin_mail                 = 'admin@example.com';              // The administrator email address
 email_server               = 'mail.example.com';               // What mail server an FQDN DNS name should emails be sent from?
 
