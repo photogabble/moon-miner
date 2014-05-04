@@ -226,8 +226,6 @@ $local_table_timer->stop ();
 $variables['ibank_results']['elapsed'] = $local_table_timer->elapsed ();
 
 $local_table_timer->start (); // Start benchmarking for add admin account
-// Hash the password.  $hashed_pass will be a 60-character string.
-$hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
 
 $sql = "INSERT INTO {$pdo_db->prefix}ships " .
        "(ship_name, ship_destroyed, character_name, password, " .
@@ -247,7 +245,7 @@ $admin_ip = '1.1.1.1';
 $admin_recovery_time = NULL;
 $admin_sector = 1;
 $admin_last_login = date ("Y-m-d H:i:s");
-$admin_hashed_password = $hasher->HashPassword (ADMIN_PW);
+$admin_hashed_password = password_hash (ADMIN_PW, PASSWORD_DEFAULT);
 
 $stmt->bindParam (':ship_name', $bntreg->admin_ship_name);
 $stmt->bindParam (':ship_destroyed', $admin_ship_destr);

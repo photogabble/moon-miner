@@ -35,7 +35,6 @@
     "autoload": {
         "classmap": [
             "classes/",
-            "vendor/phpass/PasswordHash.php",
             "vendor/adodb/adodb-php/"
         ],
         "psr-4": {

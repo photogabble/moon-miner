@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS bnt_ships (
   ship_name varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   ship_destroyed varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'N',
   character_name varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   recovery_time int(20) DEFAULT NULL,
   email varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   hull int(3) unsigned NOT NULL DEFAULT '0',

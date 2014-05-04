@@ -9,6 +9,8 @@ Migrate planet_ functions from includes to the classes directory
 Create "Bad" traderoute class
 Migrate traderoute functions from includes to the classes directory
 Update copyright notices
+Switch to using password_hash for password checks
+Expand players password field to accomodate potential future larger hashed size passwords
 
 TheKabal (27 April 2014)
 --------------------------------------

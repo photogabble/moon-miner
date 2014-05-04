@@ -62,8 +62,6 @@ $db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix
 // Connect to db using pdo also
 $pdo_db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'pdo');
 
-global $ADODB_SESSION_TBL;
-$ADODB_SESSION_TBL = $db_prefix . "sessions";      // Not sure why this has to be here instead of in the init class, but it does
 $no_langs_yet = false;
 
 $bntreg = BntReg::init ($pdo_db, $bntreg);

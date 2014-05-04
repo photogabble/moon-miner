@@ -77,18 +77,10 @@ class BntDb
             // Attempt to connect to the database
             try
             {
-//              $db = NewADOConnection ($db_type);
                 $db = ADONewConnection ('mysqli');
-//                $options['table'] = 'bnt_sessions';
-//                ADODB_Session::config ($db_type, $db_host, $db_user, $db_pwd, $db, $options);
-//adodb_sess_open (false,false,$connectMode=false);
-//            ADODB_Session::host($db_host);
-//            ADODB_Session::user($db_user);
-//            ADODB_Session::password($db_pwd);
-//            ADODB_Session::Persist($connectMode=false);
-            // The data field name "data" violates SQL reserved words - switch it to SESSDATA
-//          ADODB_Session::dataFieldName ('SESSDATA');
-//            ADODB_Session::open();
+
+                // The data field name "data" violates SQL reserved words - switch it to SESSDATA
+
                 // Adodb should not throw a warning here if the DB is unavailable, but it does, so we @.
                 $db_init_result = @$db->Connect ($db_host, $db_user, $db_pwd, $db_name);
                 // Returns Boolean True or False.

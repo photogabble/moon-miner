@@ -77,12 +77,11 @@ if (!$result->EOF && $result != false)
         // So newpass1 and newpass2 are not null and they do match.
         else
         {
-            $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
             // Hash the password.  $hashedPassword will be a 60-character string.
-            $hashed_pass = $hasher->HashPassword ($newpass1);
+            $hashed_pass = password_hash ($newpass1, PASSWORD_DEFAULT);
 
             // They have changed their password successfully, so update their session ID as well
-            adodb_session_regenerate_id();
+            session_regenerate_id();
 
             // Now update the players password.
             $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));

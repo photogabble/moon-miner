@@ -69,13 +69,13 @@ $newpass2  = filter_input (INPUT_POST, 'newpass2', FILTER_SANITIZE_STRING);
 // Check to see if newpass1 and newpass2 is empty.
 if (empty ($newpass1) && empty ($newpass2))
 {
-    // yes both newpass1 and newpass2 are empty.
+    // Both newpass1 and newpass2 are empty.
     echo $langvars['l_opt2_passunchanged'] . "<br><br>";
 }
 // Chack to see if newpass1 and newpass2 do not match.
 elseif ($newpass1 !== $newpass2)
 {
-    // Yes newpass1 and newpass2 do not match.
+    // Newpass1 and newpass2 do not match.
     echo $langvars['l_opt2_newpassnomatch'] . "<br><br>";
 }
 // So newpass1 and newpass2 are not null and they do match.
@@ -83,7 +83,7 @@ else
 {
     // Load Player information from their username (i.e. email)
     $playerinfo = false;
-    $rs = $db->SelectLimit ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", array (1, -1, 'email' => $_SESSION['username']));
+    $rs = $db->SelectLimit ("SELECT ship_id, password FROM {$db->prefix}ships WHERE email=?", 1, -1, array ('email' => $_SESSION['username']));
     BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
 
     // Do we have a valid RecordSet?
@@ -92,21 +92,14 @@ else
         // We have a valid RecorSet, so now set $playerinfo.
         $playerinfo = $rs->fields;
 
-        // Check the password against the stored hashed password
-        $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
-        $password_match = $hasher->CheckPassword ($oldpass, $playerinfo['password']);
-
         // Does the oldpass and the players password match?
-        if ($password_match)
+        if (password_verify($oldpass, $playerinfo['password']))
         {
             // Yes they match so hash the password.  $hashedPassword will be a 60-character string.
-            $hashed_pass = $hasher->HashPassword ($newpass1);
-
-            // They have changed their password successfully, so update their session ID as well
-            adodb_session_regenerate_id();
+            $new_hashed_pass = password_hash($newpass1, PASSWORD_DEFAULT);
 
             // Now update the players password.
-            $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($hashed_pass, $playerinfo['ship_id']));
+            $rs = $db->Execute ("UPDATE {$db->prefix}ships SET password = ? WHERE ship_id = ?;", array ($new_hashed_pass, $playerinfo['ship_id']));
             BntDb::logDbErrors ($db, $rs, __LINE__, __FILE__);
 
             // Now check to see if we have a valid update and have ONLY 1 changed record.
@@ -120,6 +113,9 @@ else
                 // Everything went well so update the password session to the new password.
                 echo $langvars['l_opt2_passchanged'] . "<br><br>";
                 $_SESSION['password'] = $newpass1;
+
+                // They have changed their password successfully, so update their session ID as well
+                session_regenerate_id();
             }
         }
         else

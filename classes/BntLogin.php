@@ -53,11 +53,10 @@ class BntLogin
 
                 // Check the password against the stored hashed password
                 // The first number is the hash strength, or number of iterations of bcrypt to run.
-                $hasher = new PasswordHash (10, false);
-                $password_match = $hasher->CheckPassword ($_SESSION['password'], $playerinfo['password']);
+//                $hashed_pass = password_hash($playerinfo['password'], PASSWORD_DEFAULT);
 
                 // Check the cookie to see if username/password are empty - check password against database
-                if ($password_match == true)
+                if (password_verify($_SESSION['password'], $playerinfo['password']))
                 {
                     $stamp = date ("Y-m-d H:i:s");
                     $timestamp['now']  = (int) strtotime ($stamp);

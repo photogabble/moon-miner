@@ -80,9 +80,7 @@ echo "<h1>" . $title . "</h1>\n";
 
 if ($playerfound)
 {
-    $hasher = new PasswordHash (10, false); // The first number is the hash strength, or number of iterations of bcrypt to run.
-
-    if ($hasher->CheckPassword ($_POST['pass'], $playerinfo['password']))
+    if (password_verify($_POST['pass'], $playerinfo['password']))
     {
         $ban_result = BntCheckBan::isBanned ($db, $lang, null, $playerinfo);
         if ($ban_result === false ||  (array_key_exists ('ban_type', $ban_result) && $ban_result['ban_type'] === ID_WATCH))
@@ -97,7 +95,7 @@ if ($playerfound)
                 BntDb::logDbErrors ($db, $update, __LINE__, __FILE__);
 
                 // They have logged in successfully, so update their session ID as well
-//                adodb_session_regenerate_id();
+                session_regenerate_id();
 
                 $_SESSION['logged_in'] = true;
                 $_SESSION['password'] = $_POST['pass'];

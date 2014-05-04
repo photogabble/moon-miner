@@ -206,7 +206,6 @@ return array(
     'BntXmlTemplateSystem' => $baseDir . '/classes/BntXmlTemplateSystem.php',
     'DB' => $vendorDir . '/adodb/adodb-php/adodb-pear.inc.php',
     'MD5Crypt' => $vendorDir . '/adodb/adodb-php/session/crypt.inc.php',
-    'PasswordHash' => $vendorDir . '/phpass/PasswordHash.php',
     'Plugin' => $baseDir . '/classes/BntPluginSystem.php',
     'SHA1Crypt' => $vendorDir . '/adodb/adodb-php/session/crypt.inc.php',
     'Smarty' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
