@@ -142,7 +142,7 @@ if (isset ($bntreg->default_lang))
     $lang = $bntreg->default_lang;
 }
 
-if (BntDb::isActive ($db))
+if (BntDb::isActive ($pdo_db))
 //if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
@@ -154,18 +154,19 @@ if (BntDb::isActive ($db))
     }
     else // The user has logged in, so use his preference from the database
     {
-        $res = $db->Execute ("SELECT lang FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
-        BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
-        if ($res)
-        {
-            $playerinfo['lang'] = $res->fields['lang'];
-            $lang = $playerinfo['lang'];
-        }
+        $sql = "SELECT lang FROM {$db->prefix}ships WHERE email =:email";
+        $stmt = $pdo_db->prepare ($sql);
+        $stmt->bindParam (':email', $_SESSION['username']);
+        $res = $stmt->execute();
+        BntDb::logDbErrors ($pdo_db, $res, __LINE__, __FILE__);
+        $res = $stmt->fetch();
+        $playerinfo['lang'] = $res['lang'];
+        $lang = $playerinfo['lang'];
     }
 }
 
 // Initialize the Plugin System.
-BntPluginSystem::Initialize ($db);
+BntPluginSystem::Initialize ($pdo_db);
 
 // Load all Plugins.
 BntPluginSystem::LoadPlugins ();
