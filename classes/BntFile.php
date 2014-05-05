@@ -52,6 +52,7 @@ class BntFile
                 if (strpos ($ini_file, '_config') !== false)
                 {
                     // Import all the variables into the registry
+                    settype ($type_n_value['value'], $type_n_value['type']);
                     $bntreg->$config_key = $type_n_value['value'];
                 }
 

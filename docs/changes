@@ -3,6 +3,7 @@ TheKabal (4 May 2014)
 May the fourth be with you!
 Extended the language and gameconfig schemas to allow types to be stored with variables
 Expanded BntFile to include a better ini parser, which pulls in the variable types along with the variables
+Change the handling of the registry (bntreg) to include variable types from the database
 
 TheKabal (3 May 2014)
 --------------------------------------

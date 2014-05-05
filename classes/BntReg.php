@@ -28,7 +28,7 @@ class BntReg
     public static function init($db, $bntreg)
     {
         // Get the config_values from the DB - This is a pdo operation
-        $stmt = "SELECT name,value FROM {$db->prefix}gameconfig";
+        $stmt = "SELECT name,value,type FROM {$db->prefix}gameconfig";
         $result = $db->query ($stmt);
 
         BntDb::logDbErrors ($db, $stmt, __LINE__, __FILE__);
@@ -45,6 +45,7 @@ class BntReg
             {
                 foreach ($big_array as $row)
                 {
+                    settype ($row['value'], $row['type']);
                     $bntreg->$row['name'] = $row['value'];
                 }
 

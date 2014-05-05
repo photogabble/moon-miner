@@ -56,74 +56,21 @@ $bntreg->bnttimer = new BntTimer;                  // We want benchmarking data 
 $bntreg->bnttimer->start();                        // Start benchmarking immediately
 ob_start (array('BntCompress', 'compress'));       // Start a buffer, and when it closes (at the end of a request), call the callback function "bntCompress" to properly handle detection of compression.
 
-// Connect to db using adodb
-$db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'adodb');
-
-// Connect to db using pdo also
+// Connect to db using pdo
 $pdo_db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'pdo');
+
+// Connect to db using adodb also - for now - to be eliminated!
+$db = BntDb::initDb ($db_host, $db_user, $db_pwd, $db_name, $db_type, $db_prefix, $db_port, 'adodb');
 
 $no_langs_yet = false;
 
 $bntreg = BntReg::init ($pdo_db, $bntreg);
-/*
-// Get the config_values from the DB - Redo this to be db-layer-independent for both adodb and pdo
-$debug_query = $db->Execute ("SELECT name,value FROM {$db->prefix}gameconfig");
-
-if (($debug_query instanceof ADORecordSet) && ($debug_query != false)) // Before DB is installed, debug_query will give false.
-{
-    BntDb::logDbErrors ($pdo_db, $debug_query, __LINE__, __FILE__);
-    $db->inactive = false; // The database is active!
-    $pdo_db->inactive = false;
-
-    if ($debug_query->EOF)
-    {
-        $no_langs_yet = true;
-    }
-
-    while (!$debug_query->EOF)
-    {
-        $row = $debug_query->fields;
-        if ($row !== null)
-        {
-            $bntreg->$row['name'] = $row['value'];
-            $debug_query->MoveNext();
-        }
-    }
-}
-else
-{
-    $no_langs_yet = true;
-}
-*/
-
-/*
-if (!BntDb::isActive ($pdo_db))
-{
-    $db->inactive = true; // The database does not exist yet, or is inactive, so set a property warning us not to do DB activities.
-    $pdo_db->inactive = true;
-
-    // Slurp in config variables from the ini file directly
-    $ini_file = 'config/classic_config.ini.php'; // This is hard-coded for now, but when we get multiple game support, we may need to change this.
-    $ini_keys = parse_ini_file ($ini_file, true);
-    foreach ($ini_keys as $config_category=>$config_line)
-    {
-        foreach ($config_line as $config_key=>$config_value)
-        {
-            $bntreg->$config_key = $config_value;
-        }
-    }
-}*/
 
 // Create/touch a file named dev in the main game directory to activate development mode
 if (file_exists ("dev"))
 {
     ini_set ('error_reporting', -1); // During development, output all errors, even notices
     ini_set ('display_errors', 1);   // During development, display all errors
-//    adodb_perf::table ("{$db->prefix}adodb_logsql");
-    if (BntDb::isActive ($pdo_db))
-    {
-//        $db->LogSQL (); // Turn on adodb performance logging
-    }
 }
 
 if (!isset ($index_page))
@@ -143,7 +90,6 @@ if (isset ($bntreg->default_lang))
 }
 
 if (BntDb::isActive ($pdo_db))
-//if ($db->inactive != true) // Before DB is installed, don't try to setup userinfo
 {
     if (empty ($_SESSION['username']))  // If the user has not logged in
     {
