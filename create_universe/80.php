@@ -242,7 +242,7 @@ $stmt = $pdo_db->prepare ($sql);
 
 $admin_ship_destr = 'N';
 $admin_ip = '1.1.1.1';
-$admin_recovery_time = NULL;
+$admin_recovery_time = null;
 $admin_sector = 1;
 $admin_last_login = date ("Y-m-d H:i:s");
 $admin_hashed_password = password_hash (ADMIN_PW, PASSWORD_DEFAULT);
