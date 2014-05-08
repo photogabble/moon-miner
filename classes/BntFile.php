@@ -86,7 +86,7 @@ class BntFile
 
             return false;
         }
-        else // Else we process the transaction, and report "TRUE"
+        else // Else we process the transaction, and return true
         {
             $db->commit(); // Complete the transaction
             BntDb::logDbErrors ($db, "Complete transaction on BntFile::initodb", __LINE__, __FILE__);
