@@ -79,7 +79,7 @@ class BntFile
             }
         }
 
-        if ($final_result !== true) // If the final result is not true, rollback our transaction, and report "FALSE"
+        if ($final_result !== true) // If the final result is not true, rollback our transaction, and return false.
         {
             $db->rollBack();
             BntDb::logDbErrors ($db, "Rollback transaction on BntFile::initodb", __LINE__, __FILE__);

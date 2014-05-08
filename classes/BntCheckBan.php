@@ -23,7 +23,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntCheckBan.php')) // Prevent direct access t
     include_once './error.php';
 }
 
-// Returns a Boolean False when no account info or no ban found.
+// Returns a Boolean false when no account info or no ban found.
 // Returns an array which contains the ban information when it has found something.
 // Calling code needs to act on the returned information (boolean false or array of ban info).
 class BntCheckBan
@@ -33,7 +33,7 @@ class BntCheckBan
         // Check to see if we have valid player info.
         if (is_bool ($player_acc) && $player_acc == false)
         {
-            // Nope we do not have valid player info so we return a Boolean False.
+            // Nope we do not have valid player info so we return a Boolean false.
             // This needs to be a Boolean false not just a false.
             return (boolean) false;
         }
