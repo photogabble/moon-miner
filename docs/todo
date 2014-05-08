@@ -2,7 +2,7 @@ This file is used to keep track of things that we intend on doing, and all accep
 
 TODO denotes an item that we intend to work on. FREQ indicates a feature request.
 
-TODO: Switch create universe to not use $pdo as prefix everywhere, just use $db, but have create universe itself send it $pdo?
+TODO: ship.php could have a better error message for handling when you navigate to it directly (instead of from main, when a ship has been detected)
 TODO: Switch common and footer to use pdo only for all its calls
 TODO: Convert all SQL calls from adodb to PDO
 TODO: Audit all SQL calls to ensure they use row & value style calls, and also use a debug call
