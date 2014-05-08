@@ -16,7 +16,7 @@ After common is complete, the file will continue its processing.
 The ideal state that we are moving towards is that all unique units of code are encapsulated in classes, which are auto loaded.
 For some files this is not done yet, but is planned. For those, we directly include a file instead, which has a single function defined.
 
-We try to stay close to psr 0,1, and 2, with the notable exceptions of our braces being on their own line always, and not using namespaces.
+We try to stay close to psr 1, 2 and 4, with the notable exceptions of our braces being on their own line always, and not using namespaces.
 
 In a templated file, header-t loads the needed HTML headers. Similarly, footer-t loads the needed HTML closing statements, 
 copyright notices, and so on.
