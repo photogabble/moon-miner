@@ -294,7 +294,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 echo "<p>" . $langvars['l_planet_leave_link'] . "</p>\n";
             }
 
-            $retOwnerInfo = NULL;
+            $retOwnerInfo = null;
 
             $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
@@ -546,7 +546,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
                 echo $langvars['l_planet_not_selling'] . "<br>";
             }
 
-            $retOwnerInfo = NULL;
+            $retOwnerInfo = null;
             $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
@@ -582,7 +582,7 @@ if (!is_bool ($planetinfo) && $planetinfo != false )
             }
             unset ($_SESSION['planet_selected']);
 
-            $retOwnerInfo = NULL;
+            $retOwnerInfo = null;
             $owner_found = BntPlanet::getOwner ($db, $planetinfo['planet_id'], $retOwnerInfo);
             if ($owner_found == true && !is_null ($retOwnerInfo))
             {
