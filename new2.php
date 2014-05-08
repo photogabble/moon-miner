@@ -48,7 +48,7 @@ if (array_key_exists ('shipname', $_POST))
 
 if (array_key_exists ('username', $_POST))
 {
-    $username   = $_POST['username'];
+    $username   = filter_input (INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
 }
 
 if (array_key_exists ('newlang', $_POST))
