@@ -30,12 +30,8 @@ class BntReg
         // Get the config_values from the DB - This is a pdo operation
         $stmt = "SELECT name,value,type FROM {$db->prefix}gameconfig";
         $result = $db->query ($stmt);
-
         BntDb::logDbErrors ($db, $stmt, __LINE__, __FILE__);
-/*            $db->inactive = false; // The database is active!
-            $pdo_db->inactive = false;
-                $no_langs_yet = true;
-*/
+//        $no_langs_yet = true;
 
         if ($result !== false) // If the database is not live, this will give false, and db calls will fail silently
         {
