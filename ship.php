@@ -28,6 +28,11 @@ include './header.php';
 $langvars = BntTranslate::load ($db, $lang, array ('ship', 'planet', 'main', 'common', 'global_includes', 'global_funcs', 'footer', 'news'));
 echo "<h1>" . $title . "</h1>\n";
 
+if (!isset ($ship_id))
+{
+    $ship_id = null;
+}
+
 $res = $db->Execute ("SELECT team, ship_name, character_name, sector FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
 BntDb::logDbErrors ($db, $res, __LINE__, __FILE__);
 $playerinfo = $res->fields;
