@@ -51,7 +51,7 @@ else
     echo $langvars['l_ship_perform'] . "<br><br>";
     echo "<a href=scan.php?ship_id=$ship_id>" . $langvars['l_planet_scn_link'] . "</a><br>";
 
-    if ( !BntTeam::sameTeam ($playerinfo['team'], $othership['team']) )
+    if ( !BadTeam::sameTeam ($playerinfo['team'], $othership['team']) )
     {
         echo "<a href=attack.php?ship_id=$ship_id>" . $langvars['l_planet_att_link'] . "</a><br>";
     }

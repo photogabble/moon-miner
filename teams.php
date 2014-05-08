@@ -129,14 +129,14 @@ switch ($teamwhat)
 {
     case 1: // INFO on single team
     {
-        BntTeam::showInfo ($db, $langvars, $whichteam, 0, $playerinfo);
+        BadTeam::showInfo ($db, $langvars, $whichteam, 0, $playerinfo);
         echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
         break;
     }
 
     case 2: // LEAVE
     {
-        if (!BntTeam::isTeamMember($team, $playerinfo))
+        if (!BadTeam::isTeamMember($team, $playerinfo))
         {
             echo "<strong><font color=red>An error occured</font></strong><br>You are not a member of this Team.";
             echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
@@ -151,7 +151,7 @@ switch ($teamwhat)
         {
             if ($team['number_of_members'] == 1)
             {
-                if (!BntTeam::isTeamOwner ($team, $playerinfo))
+                if (!BadTeam::isTeamOwner ($team, $playerinfo))
                 {
                     $langvars['l_team_error'] = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $langvars['l_team_error']);
                     echo $langvars['l_team_error'];
@@ -197,7 +197,7 @@ switch ($teamwhat)
             }
             else
             {
-                if (BntTeam::isTeamOwner ($team, $playerinfo))
+                if (BadTeam::isTeamOwner ($team, $playerinfo))
                 {
                     echo $langvars['l_team_youarecoord'] . " <strong>$team[team_name]</strong>. " . $langvars['l_team_relinq'] . "<br><br>";
                     echo "<form action='teams.php' method=post>";
@@ -209,7 +209,7 @@ switch ($teamwhat)
                     while (!$res->EOF)
                     {
                         $row = $res->fields;
-                        if (!BntTeam::isTeamOwner ($team, $row))
+                        if (!BadTeam::isTeamOwner ($team, $row))
                         {
                             echo "<option value='{$row['ship_id']}'>{$row['character_name']}";
                         }
@@ -342,7 +342,7 @@ switch ($teamwhat)
         // If not display "An error occured, You are not the leader of this Team." message.
         // Then show link back and break;
 
-        if (BntTeam::isTeamOwner ($team, $playerinfo) == false)
+        if (BadTeam::isTeamOwner ($team, $playerinfo) == false)
         {
             $langvars['l_team_error'] = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $langvars['l_team_error']);
             echo $langvars['l_team_error'];
@@ -408,7 +408,7 @@ switch ($teamwhat)
             $teamname = trim (htmlspecialchars ($teamname));
             $teamdesc = trim (htmlspecialchars ($teamdesc));
 
-            if (!BntTeam::validateTeam ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
+            if (!BadTeam::validateTeam ($db, $teamname, $teamdesc, $playerinfo['ship_id']))
             {
                 echo "<span style='color:#f00;'>Team Creation Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
@@ -430,7 +430,7 @@ switch ($teamwhat)
 
     case 7: // INVITE player
     {
-        if (BntTeam::isTeamMember($team, $playerinfo) == false)
+        if (BadTeam::isTeamMember($team, $playerinfo) == false)
         {
             echo "<br>You are not in this team!<br>";
             echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
@@ -448,7 +448,7 @@ switch ($teamwhat)
             while (!$res->EOF)
             {
                 $row = $res->fields;
-                if (BntTeam::isTeamOwner ($team, $row) == false)
+                if (BadTeam::isTeamOwner ($team, $row) == false)
                 {
                     echo "<option value='{$row['ship_id']}'>{$row['character_name']}";
                 }
@@ -510,7 +510,7 @@ switch ($teamwhat)
         // If not display "An error occured, You are not the leader of this Team." message.
         // Then show link back and break;
 
-        if (BntTeam::isTeamOwner ($team, $playerinfo) == false)
+        if (BadTeam::isTeamOwner ($team, $playerinfo) == false)
         {
             $langvars['l_team_error'] = str_replace ("[error]", "<strong><font color=red>An error occured</font></strong><br>", $langvars['l_team_error']);
             echo $langvars['l_team_error'];
@@ -537,7 +537,7 @@ switch ($teamwhat)
             $teamname = trim (htmlspecialchars ($teamname));
             $teamdesc = trim (htmlspecialchars ($teamdesc));
 
-            if (BntTeam::validateTeam ($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
+            if (BadTeam::validateTeam ($db, $teamname, $teamdesc, $playerinfo['ship_id']) == false)
             {
                 echo "<span style='color:#f00;'>Team Edit Failed</span><br>Sorry you have either entered an invalid Team name or Team Description.<br>\n";
                 echo "<br><br><a href=\"teams.php\">" . $langvars['l_clickme'] . "</a> " . $langvars['l_team_menu'] . ".<br><br>";
@@ -568,7 +568,7 @@ switch ($teamwhat)
         if ($playerinfo['team'] == 0)
         {
             echo $langvars['l_team_notmember'];
-            BntTeam::displayInviteInfo ($langvars, $playerinfo);
+            BadTeam::displayInviteInfo ($langvars, $playerinfo);
         }
         else
         {
@@ -591,8 +591,8 @@ switch ($teamwhat)
                 BntDb::logDbErrors ($db, $result, __LINE__, __FILE__);
                 $whichinvitingteam = $result->fields;
             }
-            $isowner = BntTeam::isTeamOwner ($whichteam, $playerinfo);
-            BntTeam::showInfo ($db, $langvars, $playerinfo['team'], $isowner, $playerinfo);
+            $isowner = BadTeam::isTeamOwner ($whichteam, $playerinfo);
+            BadTeam::showInfo ($db, $langvars, $playerinfo['team'], $isowner, $playerinfo);
         }
 
         $res= $db->Execute ("SELECT COUNT(*) as total FROM {$db->prefix}teams WHERE admin='N'");
@@ -601,7 +601,7 @@ switch ($teamwhat)
 
         if ($num_res['total'] > 0)
         {
-            BntTeam::displayAllTeams ($db, $langvars);
+            BadTeam::displayAllTeams ($db, $langvars);
         }
         else
         {

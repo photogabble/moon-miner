@@ -78,7 +78,7 @@ elseif ($playerinfo['turns'] < 1)
 {
     echo $langvars['l_att_noturn'] . "<br><br>";
 }
-elseif ( BntTeam::sameTeam ($playerinfo['team'], $targetinfo['team']) )
+elseif ( BadTeam::sameTeam ($playerinfo['team'], $targetinfo['team']) )
 {
     echo "<div style='color:#ff0;'>" . $langvars['l_team_noattack_members'] . "</div>\n";
 }
