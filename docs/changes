@@ -1,5 +1,6 @@
 TheKabal (11 May 2014)
 --------------------------------------
+Change "HandleFuelScoop" to BntMove::calcFuelScooped, in classes directory
 Move database configuration include from global includes to inside the database class & init method itself. And then there were three (global_includes left)..
 
 TheKabal (7 May 2014)
