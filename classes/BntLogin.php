@@ -25,6 +25,7 @@ if (strpos ($_SERVER['PHP_SELF'], 'BntLogin.php')) // Prevent direct access to t
 
 class BntLogin
 {
+    // TODO: Template variable is not needed
     public static function checkLogin($db, $lang, $langvars, $bntreg, $template, $stop_die = true)
     {
         // Database driven language entries
