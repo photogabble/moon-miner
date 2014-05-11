@@ -21,15 +21,15 @@
 // behaviors. But in the interest of saying goodbye to the includes directory, and raw functions, this
 // will at least allow us to auto-load and use classes instead. Plenty to do in the future, though!
 
-if (strpos ($_SERVER['PHP_SELF'], 'BadPlanet.php')) // Prevent direct access to this file
+if (strpos ($_SERVER['PHP_SELF'], 'BadPlanetReportCE.php')) // Prevent direct access to this file
 {
     $error_file = $_SERVER['SCRIPT_NAME'];
     include_once './error.php';
 }
 
-class BadPlanet
+class BadPlanetReportCE
 {
-    function buildBase($db, $langvars, $planet_id, $sector_id)
+    public static function buildBase($db, $langvars, $planet_id, $sector_id)
     {
         global $base_ore, $base_organics, $base_goods, $base_credits;
 
@@ -101,7 +101,7 @@ class BadPlanet
         }
     }
 
-    function collectCredits($db, $langvars, $planetarray, $sector_max)
+    public static function collectCredits($db, $langvars, $planetarray, $sector_max)
     {
         $CS = "GO"; // Current State
 
@@ -173,7 +173,8 @@ class BadPlanet
         echo str_replace ("[here]", "<a href='planet_report.php?preptype=1'>" . $langvars['l_here'] . "</a>", $langvars['l_pr_click_return_status']);
         echo "<br><br>";
     }
-    function changePlanetProduction($db, $langvars, $prodpercentarray)
+
+    public static function changePlanetProduction($db, $langvars, $prodpercentarray)
     {
     //  Declare default production values from the config.php file
     //
@@ -374,7 +375,7 @@ class BadPlanet
         }
     }
 
-    function takeCredits($db, $langvars, $sector_id, $planet_id)
+    public static function takeCredits($db, $langvars, $sector_id, $planet_id)
     {
         // Get basic Database information (ship and planet)
         $res = $db->Execute ("SELECT * FROM {$db->prefix}ships WHERE email = ?;", array ($_SESSION['username']));
@@ -448,7 +449,7 @@ class BadPlanet
         return ($retval);
     }
 
-    function realSpaceMove($db, $langvars, $destination)
+    public static function realSpaceMove($db, $langvars, $destination)
     {
         global $level_factor, $mine_hullsize;
 
