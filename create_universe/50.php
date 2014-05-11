@@ -56,7 +56,7 @@ $local_table_timer = new BntTimer;
 $z = 0;
 $i = 0;
 $language_files = new DirectoryIterator ("languages/");
-$lang_file_import_results = Array ();
+$lang_file_import_results = array ();
 
 foreach ($language_files as $language_filename)
 {
